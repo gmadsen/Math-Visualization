@@ -155,7 +155,7 @@
           "type": "numeric",
           "q": "Compute $j(E)$ for $E: y^2=x^3-x$ (i.e. $a=-1, b=0$).",
           "answer": 1728,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "With $b=0$, $j=1728\\cdot 4a^3/(4a^3)=1728$. This is the CM-by-$\\mathbb{Z}[i]$ curve."
         },
         {
@@ -189,7 +189,7 @@
           "type": "numeric",
           "q": "Compute $j(E)$ for $E: y^2=x^3+1$ (i.e. $a=0, b=1$). Recall $j=1728\\cdot 4a^3/(4a^3+27b^2)$.",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$4a^3=0$, so $j=1728\\cdot 0/(0+27)=0$. This is the CM-by-$\\mathbb{Z}[\\omega]$ curve."
         },
         {
@@ -276,11 +276,11 @@
       ]
     },
     "mordell-weil-ec": {
-      "title": "Mordell\u2013Weil",
+      "title": "Mordell–Weil",
       "questions": [
         {
           "type": "mcq",
-          "q": "Mordell\u2013Weil states $E(\\mathbb{Q})$ is:",
+          "q": "Mordell–Weil states $E(\\mathbb{Q})$ is:",
           "choices": [
             "Always finite",
             "Finitely generated abelian",
@@ -298,7 +298,7 @@
         },
         {
           "type": "mcq",
-          "q": "The torsion subgroup in Mordell\u2013Weil is:",
+          "q": "The torsion subgroup in Mordell–Weil is:",
           "choices": [
             "Always trivial",
             "Finite",
@@ -326,21 +326,21 @@
           "q": "The BSD conjecture predicts $\\operatorname{ord}_{s=1}L(E,s)=r$. For which ranks is this unconditionally known?",
           "choices": [
             "All ranks, by work of Wiles",
-            "Ranks $0$ and $1$, by Kolyvagin and Gross\u2013Zagier",
+            "Ranks $0$ and $1$, by Kolyvagin and Gross–Zagier",
             "Only rank $0$, by Euler system methods",
             "No ranks; BSD is entirely open"
           ],
           "answer": 1,
-          "explain": "Gross\u2013Zagier (1986) links the derivative $L'(E,1)$ to the height of a Heegner point, and Kolyvagin's Euler system bounds the Selmer group. Together these prove BSD for analytic rank $\\le 1$."
+          "explain": "Gross–Zagier (1986) links the derivative $L'(E,1)$ to the height of a Heegner point, and Kolyvagin's Euler system bounds the Selmer group. Together these prove BSD for analytic rank $\\le 1$."
         },
         {
           "type": "mcq",
-          "q": "In the proof of the weak Mordell\u2013Weil theorem, which exact sequence is central?",
+          "q": "In the proof of the weak Mordell–Weil theorem, which exact sequence is central?",
           "choices": [
             "The long exact sequence in singular homology for the pair $(E,\\mathcal O)$",
             "The Kummer sequence $0\\to E[n]\\to E\\xrightarrow{[n]} E\\to 0$ of group schemes, giving $0\\to E(K)/nE(K)\\to H^1(G_K,E[n])\\to\\ldots$ in Galois cohomology",
             "The short exact sequence $0\\to\\mathbb{Z}\\to\\mathbb{R}\\to S^1\\to 0$ in topology",
-            "The Mayer\u2013Vietoris sequence for $E$ decomposed into two affine patches"
+            "The Mayer–Vietoris sequence for $E$ decomposed into two affine patches"
           ],
           "answer": 1,
           "hint": "You need a sequence that turns $E(K)/nE(K)$ into something cohomological.",

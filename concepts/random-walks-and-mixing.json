@@ -1,0 +1,51 @@
+{
+  "topic": "random-walks-and-mixing",
+  "title": "Random walks and mixing",
+  "page": "random-walks-and-mixing.html",
+  "concepts": [
+    {
+      "id": "rw-markov-chains",
+      "title": "Markov chains and transition matrices",
+      "anchor": "markov",
+      "prereqs": ["markov-chains"],
+      "blurb": "A discrete-time Markov chain on a finite or countable state space is encoded by a row-stochastic transition matrix $P$; the $n$-step law is $P^n$, and stationary distributions satisfy $\\pi P=\\pi$.",
+      "tags": ["foundation"]
+    },
+    {
+      "id": "rw-stationary-distribution",
+      "title": "Stationary distributions",
+      "anchor": "stationary",
+      "prereqs": ["rw-markov-chains", "algebraic-structures"],
+      "blurb": "Every finite irreducible aperiodic chain has a unique stationary $\\pi$ that is the left Perron eigenvector of $P$; detailed balance $\\pi_iP_{ij}=\\pi_jP_{ji}$ identifies it for reversible chains.",
+      "tags": ["classification"]
+    },
+    {
+      "id": "rw-mixing-time",
+      "title": "Mixing time",
+      "anchor": "mixing",
+      "prereqs": ["rw-stationary-distribution"],
+      "blurb": "$d(t)=\\max_x \\|P^t(x,\\cdot)-\\pi\\|_{\\mathrm{TV}}$ measures distance to stationarity; the mixing time $t_{\\mathrm{mix}}(\\varepsilon)=\\min\\{t:d(t)\\le\\varepsilon\\}$ is the standard quantitative cost of forgetting the start."
+    },
+    {
+      "id": "rw-spectral-gap",
+      "title": "Spectral gap and rapid mixing",
+      "anchor": "spectral",
+      "prereqs": ["rw-mixing-time", "adjacency-and-laplacian"],
+      "blurb": "For reversible chains the second eigenvalue $\\lambda_2$ of $P$ controls mixing: $t_{\\mathrm{mix}}(\\varepsilon)\\le \\frac{1}{1-\\lambda_2}\\log\\frac{1}{\\pi_{\\min}\\varepsilon}$ (and a matching lower bound up to constants)."
+    },
+    {
+      "id": "rw-coupling-method",
+      "title": "Coupling for upper bounds on mixing",
+      "anchor": "coupling",
+      "prereqs": ["rw-mixing-time"],
+      "blurb": "The coupling lemma bounds total-variation distance by the meeting probability of two chains driven on a common probability space; lazy walks on the hypercube and card-shuffles fall out cleanly."
+    },
+    {
+      "id": "rw-applications-mcmc",
+      "title": "Markov-chain Monte Carlo",
+      "anchor": "mcmc",
+      "prereqs": ["rw-spectral-gap", "expectation-moments"],
+      "blurb": "Metropolis–Hastings designs a chain with a prescribed stationary distribution $\\pi$ via an acceptance ratio; mixing time is the cost of one effectively-independent sample, so spectral-gap bounds become statistical bounds."
+    }
+  ]
+}

@@ -19,7 +19,7 @@
           "type": "numeric",
           "q": "If $\\#E(\\mathbb{F}_5)=9$, then $a_5=$ ?",
           "answer": -3,
-          "tol": 1e-09,
+          "tol": 1e-9,
           "explain": "$a_5=5+1-9=-3$."
         },
         {
@@ -52,7 +52,7 @@
           "type": "numeric",
           "q": "For the curve $E:y^2=x^3-x$ over $\\mathbb{F}_3$, the points are $(0,0),(1,0),(2,0)$ plus the point at infinity. Compute $a_3$.",
           "answer": -1,
-          "tol": 1e-09,
+          "tol": 1e-9,
           "hint": "Count affine points and apply $a_p = p + 1 - |E(\\mathbb{F}_p)|$.",
           "explain": "$\\#E(\\mathbb{F}_3)=4$ (three affine points plus $\\infty$). $a_3=3+1-4=0$. Wait — re-check: only the points satisfying $y^2=x^3-x$ mod $3$ count. $x=0$: $y^2=0$, so $(0,0)$; $x=1$: $y^2=0$, so $(1,0)$; $x=2$: $y^2=8-2=6\\equiv0$, so $(2,0)$. That gives $\\#E(\\mathbb{F}_3)=4$, so $a_3=3+1-4=0$."
         },
@@ -100,7 +100,7 @@
           "type": "numeric",
           "q": "If $a_1=1$ for a normalized eigenform, what is $a_1$?",
           "answer": 1,
-          "tol": 1e-09,
+          "tol": 1e-9,
           "explain": "Normalization sets the first coefficient to 1."
         }
       ],
@@ -135,7 +135,7 @@
           "type": "numeric",
           "q": "Let $f$ be a normalized eigenform of weight $12$ for $\\mathrm{SL}_2(\\mathbb{Z})$ (the Ramanujan $\\Delta$ function). If $a_2=\\tau(2)=-24$, use the Hecke relation $a_{p^2}=a_p^2-p^{k-1}$ with $p=2, k=12$ to compute $\\tau(4)$.",
           "answer": -1472,
-          "tol": 1e-09,
+          "tol": 1e-9,
           "hint": "Tau of $4$ comes from the Hecke recursion at $p=2$.",
           "explain": "$\\tau(4)=a_2^2-2^{11}=(-24)^2-2048=576-2048=-1472$."
         }
@@ -170,7 +170,7 @@
           "type": "numeric",
           "q": "The central point of $s\\leftrightarrow 2-s$ symmetry is $s=$ ?",
           "answer": 1,
-          "tol": 1e-09,
+          "tol": 1e-9,
           "explain": "$s=1$ is fixed by $s\\mapsto 2-s$, so it is the center of symmetry."
         }
       ],
@@ -205,7 +205,7 @@
           "type": "numeric",
           "q": "Suppose $w=-1$ for an elliptic curve $E$. At the center $s=1$, the functional equation forces $\\Lambda(E,1)=w\\Lambda(E,1)=-\\Lambda(E,1)$. What value must $\\Lambda(E,1)$ take?",
           "answer": 0,
-          "tol": 1e-09,
+          "tol": 1e-9,
           "hint": "When $w = -1$, forced vanishing gives odd-order behavior at the center.",
           "explain": "$\\Lambda(E,1)=-\\Lambda(E,1)$ implies $2\\Lambda(E,1)=0$, so $\\Lambda(E,1)=0$. Root number $w=-1$ forces an odd-order zero at the center, predicting an odd Mordell–Weil rank by BSD."
         }
@@ -242,7 +242,7 @@
           "type": "numeric",
           "q": "How many poles does the completed $\\Lambda(f,s)$ of a weight-$k$ cusp form have in $\\mathbb{C}$?",
           "answer": 0,
-          "tol": 1e-09,
+          "tol": 1e-9,
           "explain": "For a genuine cusp form $f$, the decay at both cusps makes the Mellin transform entire: $\\Lambda(f,s)$ is holomorphic on all of $\\mathbb{C}$."
         }
       ],
@@ -277,7 +277,7 @@
           "type": "numeric",
           "q": "The Dirichlet series $\\sum_{n=1}^\\infty a_n n^{-s}$ for an elliptic curve $L$-function converges absolutely for $\\mathrm{Re}\\,s>3/2$. If $|a_p|\\le 2\\sqrt{p}$ (Hasse) and $|a_{p^r}|\\le (r+1)p^{r/2}$, which minimal half-integer $\\sigma_0=k/2$ (integer $k$) gives absolute convergence of the product $\\prod_p|\\text{local factor}|$ on $\\mathrm{Re}\\,s>\\sigma_0$?",
           "answer": 1.5,
-          "tol": 1e-09,
+          "tol": 1e-9,
           "hint": "Deligne bounds $|a_p| \\le 2\\sqrt{p}$, pushing convergence past $\\mathrm{Re}\\,s > 3/2$.",
           "explain": "The dominant term in the local factor expansion is $|a_pp^{-s}|\\le 2p^{1/2-\\sigma}$. Summing $\\sum_p 2p^{1/2-\\sigma}$ over primes converges when $1/2-\\sigma<-1$, i.e., $\\sigma>3/2$. So $\\sigma_0=3/2$."
         }
@@ -290,7 +290,7 @@
           "type": "numeric",
           "q": "Euler's evaluation gives $\\zeta(2)=\\pi^2/k$ for which integer $k$?",
           "answer": 6,
-          "tol": 1e-09,
+          "tol": 1e-9,
           "explain": "$\\zeta(2)=\\pi^2/6$ — a prototype special value linking $L$ at an integer to a transcendental constant."
         },
         {
@@ -349,7 +349,7 @@
           "type": "numeric",
           "q": "The leading Taylor coefficient of $L(E,s)$ near $s=1$ when $\\mathrm{rank}\\,E(\\mathbb{Q})=1$ is $L'(E,1)$. If BSD holds and the Shafarevich–Tate group is trivial, $L'(E,1)=\\frac{\\Omega\\cdot R}{\\#E(\\mathbb{Q})_{\\mathrm{tors}}^2}$ (schematically). How many rational points of infinite order appear in this formula directly?",
           "answer": 1,
-          "tol": 1e-09,
+          "tol": 1e-9,
           "hint": "The leading term mixes regulator, Sha, torsion, and Tamagawa numbers.",
           "explain": "When the rank is $1$, the Mordell–Weil group modulo torsion is generated by a single point $P$ of infinite order. The regulator $R=\\hat{h}(P)$ is the canonical height of that generator — one generator, one point of infinite order."
         }

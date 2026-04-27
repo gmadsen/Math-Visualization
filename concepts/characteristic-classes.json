@@ -1,0 +1,71 @@
+{
+  "topic": "characteristic-classes",
+  "title": "Characteristic classes",
+  "page": "characteristic-classes.html",
+  "concepts": [
+    {
+      "id": "cc-vector-bundles",
+      "title": "Vector bundles",
+      "anchor": "vector-bundles",
+      "prereqs": [
+        "tangent-bundle"
+      ],
+      "blurb": "A rank-$n$ vector bundle $E \\to X$ is locally trivial of fibre $\\mathbb{R}^n$ (or $\\mathbb{C}^n$); transition functions $g_{\\alpha\\beta}\\colon U_\\alpha \\cap U_\\beta \\to GL_n$ on a cover $\\{U_\\alpha\\}$ recover the bundle up to isomorphism. The tangent bundle $TM$, normal bundles, and line bundles like the Möbius bundle are the running examples.",
+      "tags": ["foundation", "fibration"]
+    },
+    {
+      "id": "cc-stiefel-whitney",
+      "title": "Stiefel–Whitney classes",
+      "anchor": "stiefel-whitney",
+      "prereqs": [
+        "cc-vector-bundles",
+        "singular-homology"
+      ],
+      "blurb": "A real rank-$n$ bundle $E \\to X$ has Stiefel–Whitney classes $w_i(E) \\in H^i(X; \\mathbb{Z}/2)$, $i=0,\\ldots,n$, satisfying naturality $w_i(f^*E) = f^*w_i(E)$, the Whitney sum formula $w(E\\oplus F) = w(E)\\smile w(F)$, and the normalisation $w_1(\\gamma_1) \\ne 0$ for the tautological line bundle on $\\mathbb{RP}^\\infty$. Vanishing of $w_1$ is orientability; vanishing of $w_2$ is the obstruction to a spin structure.",
+      "tags": ["cohomology", "classification"]
+    },
+    {
+      "id": "cc-chern-classes",
+      "title": "Chern classes",
+      "anchor": "chern",
+      "prereqs": [
+        "cc-vector-bundles",
+        "singular-homology"
+      ],
+      "blurb": "A complex rank-$n$ bundle $E \\to X$ has Chern classes $c_i(E) \\in H^{2i}(X; \\mathbb{Z})$, characterised by naturality, the Whitney sum $c(E\\oplus F) = c(E)\\smile c(F)$, and $c_1(\\mathcal{O}(1)) = $ generator of $H^2(\\mathbb{CP}^\\infty;\\mathbb{Z})$. The splitting principle reduces every computation to formal sums of line bundles, and the top Chern class $c_n(E)$ equals the Euler class of the underlying oriented real bundle.",
+      "tags": ["cohomology", "classification"]
+    },
+    {
+      "id": "cc-pontryagin",
+      "title": "Pontryagin classes",
+      "anchor": "pontryagin",
+      "prereqs": [
+        "cc-chern-classes"
+      ],
+      "blurb": "For a real bundle $E \\to X$, complexify to $E\\otimes\\mathbb{C}$ and define $p_i(E) = (-1)^i c_{2i}(E\\otimes\\mathbb{C}) \\in H^{4i}(X;\\mathbb{Z})$. Odd Chern classes of a complexification are 2-torsion, so the surviving information sits in degrees divisible by $4$ — these classes are the building blocks of the signature theorem and the Hirzebruch $L$-genus.",
+      "tags": ["cohomology"]
+    },
+    {
+      "id": "cc-euler-class",
+      "title": "Euler class",
+      "anchor": "euler",
+      "prereqs": [
+        "cc-vector-bundles",
+        "singular-homology"
+      ],
+      "blurb": "An oriented real rank-$n$ bundle $E \\to X$ has an Euler class $e(E) \\in H^n(X;\\mathbb{Z})$, the obstruction to a nowhere-vanishing section. For $E = TM$ on a closed oriented manifold, $\\langle e(TM), [M] \\rangle = \\chi(M)$ — the Poincaré–Hopf theorem expresses the Euler characteristic as the signed sum of zeros of any vector field.",
+      "tags": ["cohomology", "duality"]
+    },
+    {
+      "id": "cc-chern-weil",
+      "title": "Chern–Weil theory",
+      "anchor": "chern-weil",
+      "prereqs": [
+        "cc-chern-classes",
+        "stokes-derham"
+      ],
+      "blurb": "Pick a connection $\\nabla$ on a complex bundle $E \\to M$, take its curvature $F_\\nabla \\in \\Omega^2(M;\\mathrm{End}\\,E)$, and feed it into an $\\mathrm{Ad}$-invariant polynomial $P$. The form $P(F_\\nabla)$ is closed and its de Rham class is independent of $\\nabla$; the polynomials $\\det(I + \\tfrac{i}{2\\pi}F_\\nabla)$ recover the total Chern class. Gauss–Bonnet $\\int_\\Sigma K\\,dA = 2\\pi\\chi(\\Sigma)$ is the rank-$1$ Chern–Weil identity for $T\\Sigma$.",
+      "tags": ["cohomology", "functoriality"]
+    }
+  ]
+}

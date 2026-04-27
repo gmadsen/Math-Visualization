@@ -2,16 +2,23 @@
   "_description": "Canonical topic -> subject mapping. Every registered topic in concepts/index.json must appear in exactly one section's topics array. Section ids match the filenames under sections/<id>.html. Each section also carries a `color` letter from the six accent palette (b=blue, y=yellow, p=pink, v=violet, g=green, c=cyan) — single source of truth used by index.html section headers + section-jump pills, tags.html detail-panel section-group accents, and any future viewer. Loaded via scripts/lib/content-model.mjs; exposed as model.sectionOf(topicId).",
   "sections": [
     {
-      "id": "foundations",
-      "title": "Foundations",
+      "id": "logic-and-foundations",
+      "title": "Logic & Foundations",
       "topics": [
-        "naive-set-theory"
+        "naive-set-theory",
+        "first-order-logic-and-completeness",
+        "zfc-and-ordinals",
+        "model-theory-basics",
+        "computability-and-decidability",
+        "complexity-theory",
+        "type-theory-and-hott",
+        "forcing-and-independence"
       ],
       "color": "b"
     },
     {
       "id": "algebra",
-      "title": "Algebra",
+      "title": "Algebra & homological",
       "topics": [
         "algebra",
         "category-theory",
@@ -20,6 +27,15 @@
         "homological",
         "derived-categories",
         "group-cohomology",
+        "lie-algebras",
+        "galois-cohomology-and-brauer"
+      ],
+      "color": "y"
+    },
+    {
+      "id": "higher-categories-and-toposes",
+      "title": "Higher categories & toposes",
+      "topics": [
         "elementary-topos-theory",
         "heyting-algebras-toposes",
         "grothendieck-topologies-sites",
@@ -28,7 +44,7 @@
         "cocartesian-fibrations",
         "infinity-topoi"
       ],
-      "color": "y"
+      "color": "c"
     },
     {
       "id": "analysis",
@@ -40,11 +56,26 @@
         "functional-analysis",
         "operator-algebras",
         "dynamical-systems",
-        "probability-theory",
         "harmonic-analysis-fourier",
-        "sobolev-spaces-distributions"
+        "sobolev-spaces-distributions",
+        "partial-differential-equations",
+        "harmonic-functions",
+        "spectral-theory"
       ],
       "color": "p"
+    },
+    {
+      "id": "probability-and-statistics",
+      "title": "Probability & statistics",
+      "topics": [
+        "probability-theory",
+        "stochastic-processes-and-martingales",
+        "stochastic-calculus",
+        "random-walks-and-mixing",
+        "information-theory",
+        "large-deviations"
+      ],
+      "color": "g"
     },
     {
       "id": "geometry-and-topology",
@@ -57,7 +88,9 @@
         "differential-geometry",
         "riemannian-geometry",
         "lie-groups",
-        "riemann-surfaces"
+        "riemann-surfaces",
+        "characteristic-classes",
+        "morse-theory"
       ],
       "color": "v"
     },
@@ -67,16 +100,16 @@
       "topics": [
         "galois",
         "quadratic-reciprocity",
-        "sums-of-squares",
-        "power-sums-bernoulli",
-        "waring",
+        "additive-number-theory",
         "quadratic-forms-genus-theory",
         "algebraic-number-theory",
         "p-adic-numbers",
         "adeles-and-ideles",
         "frobenius-and-reciprocity",
         "class-field-theory",
-        "heights-arithmetic-geometry"
+        "galois-representations",
+        "heights-arithmetic-geometry",
+        "analytic-number-theory"
       ],
       "color": "y"
     },
@@ -93,12 +126,12 @@
         "analytic-continuation",
         "zeta-values",
         "L-functions",
-        "galois-representations",
         "automorphic-forms-adelic",
         "moonshine",
         "sato-tate",
         "bsd",
-        "modularity-and-flt"
+        "modularity-and-flt",
+        "modular-curves"
       ],
       "color": "c"
     },
@@ -114,17 +147,17 @@
         "functor-of-points",
         "elliptic-curves",
         "singular-cubics-reduction",
-        "moduli-spaces",
-        "sheaf-cohomology",
-        "stacks",
-        "etale-cohomology",
-        "algebraic-spaces",
-        "intersection-theory-chow",
-        "etale-fundamental-group",
         "algebraic-curves-higher-genus",
+        "sheaf-cohomology",
+        "algebraic-de-rham-cohomology",
+        "moduli-spaces",
+        "algebraic-spaces",
+        "stacks",
+        "intersection-theory-chow",
         "group-schemes",
+        "etale-fundamental-group",
         "deformation-theory",
-        "algebraic-de-rham-cohomology"
+        "etale-cohomology"
       ],
       "color": "g"
     },
@@ -136,9 +169,10 @@
         "matroid-theory",
         "probabilistic-method",
         "extremal-combinatorics",
-        "simplicial-complexes-combinatorial"
+        "simplicial-complexes-combinatorial",
+        "enumerative-combinatorics"
       ],
-      "color": "g"
+      "color": "v"
     }
   ]
 }

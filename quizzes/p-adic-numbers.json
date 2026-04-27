@@ -20,7 +20,7 @@
           "type": "numeric",
           "q": "Compute $|98/3|_7$.",
           "answer": 0.02040816326530612,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$98 = 2 \\cdot 7^2$ so $v_7(98)=2$ and $v_7(3)=0$. Thus $v_7(98/3)=2$ and $|98/3|_7 = 7^{-2} = 1/49 \\approx 0.020408$."
         },
         {
@@ -104,7 +104,7 @@
           "type": "numeric",
           "q": "How many connected components does $\\mathbb{Q}_p$ have as a topological space? (Answer with the cardinality of singletons per point, i.e. $1$ per point means totally disconnected — here give the size of the connected component of any fixed point.)",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\mathbb{Q}_p$ is totally disconnected: the only connected subsets are singletons. So each point is its own connected component, of size $1$."
         }
       ],
@@ -139,7 +139,7 @@
           "type": "numeric",
           "q": "In $\\mathbb{Z}_5$, the open ball $B(0,1)=\\{x\\in\\mathbb{Z}_5:|x|_5<1\\}$ equals $5\\mathbb{Z}_5$. As an additive group, $\\mathbb{Z}_5/5\\mathbb{Z}_5\\cong\\mathbb{Z}/5\\mathbb{Z}$. How many cosets does $5\\mathbb{Z}_5$ have in $\\mathbb{Z}_5$?",
           "answer": 5,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "The quotient is $\\mathbb{Z}/5$.",
           "explain": "$\\mathbb{Z}_5/5\\mathbb{Z}_5\\cong\\mathbb{Z}/5\\mathbb{Z}$ has order $5$, so there are exactly $5$ cosets. These correspond to the $5$ possible first digits $\\{0,1,2,3,4\\}$ of a $5$-adic integer."
         }
@@ -164,7 +164,7 @@
           "type": "numeric",
           "q": "What is the first digit $a_0$ in the $3$-adic expansion of $7$ (i.e. $7 \\bmod 3$)?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$7 = 1 + 2\\cdot 3 + 0\\cdot 3^2 + \\cdots$, so $a_0 = 7 \\bmod 3 = 1$."
         },
         {
@@ -185,7 +185,7 @@
           "type": "numeric",
           "q": "Find the $5$-adic expansion digit $a_1$ of $-7$ in $\\mathbb{Z}_5$, i.e. the coefficient of $5^1$ in the expansion $-7 = a_0 + a_1\\cdot 5 + a_2\\cdot 5^2 + \\cdots$ with each $a_i\\in\\{0,1,2,3,4\\}$.",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Peel off $a_0$, divide by 5, read the new mod-5 residue.",
           "explain": "$-7\\bmod 5 = -7+10 = 3$, so $a_0=3$. Then $(-7-3)/5 = -10/5 = -2$. Now $-2\\bmod 5 = 3$, so $a_1=3$. Check: $3 + 3\\cdot 5 = 18$, and $-7\\equiv 18\\pmod{25}$ since $18+7=25$. Confirmed $a_1=3$."
         },
@@ -236,7 +236,7 @@
           "type": "numeric",
           "q": "Seeding Hensel for $f(x) = x^2 - 2$ over $\\mathbb{Z}_7$ with $x_0 = 3$, the next iterate $x_1 = x_0 + a_1\\cdot 7$ uses digit $a_1 = -(x_0^2-2)/7 \\cdot (2x_0)^{-1} \\bmod 7$. Compute $a_1$.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$(3^2-2)/7 = 1$. Also $2\\cdot 3 = 6$, and $6^{-1} \\equiv 6 \\pmod 7$. So $a_1 \\equiv -1\\cdot 6 \\equiv -6 \\equiv 1 \\pmod 7$. Hence $x_1 = 3 + 1\\cdot 7 = 10$, and indeed $10^2 = 100 \\equiv 2 \\pmod{49}$."
         },
         {
@@ -270,7 +270,7 @@
           "type": "numeric",
           "q": "Apply one Hensel step to $f(x)=x^2-2$ over $\\mathbb{Z}_{17}$ starting from $x_0=6$ (since $6^2=36=2+2\\cdot 17\\equiv 2\\pmod{17}$). Compute $x_1\\bmod{17^2}=x_0 - f(x_0)/f'(x_0)\\bmod{289}$.",
           "answer": 110,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Compute the Hensel digit $a_1=-(f(x_0)/p)\\cdot f'(x_0)^{-1}\\bmod p$.",
           "explain": "Starting from $x_0=6$ with $6^2\\equiv 2\\pmod{17}$: $f(6)=34=2\\cdot 17$. Digit $a_1 = -(f(x_0)/p)\\cdot(f'(x_0))^{-1}\\bmod p = -2\\cdot(12^{-1}\\bmod 17)\\bmod 17$. Since $12\\cdot 10=120\\equiv 1\\pmod{17}$, $a_1=-2\\cdot 10\\bmod 17=(-20)\\bmod 17=14$. So $x_1=6+14\\cdot 17=244$. Verify: $244^2=59536$ and $59536-2=59534=206\\cdot 289$, confirming $244^2\\equiv 2\\pmod{289}$."
         },

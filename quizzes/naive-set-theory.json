@@ -65,7 +65,6 @@
         }
       ]
     },
-
     "cartesian-product-powerset": {
       "title": "Cartesian products and power sets",
       "questions": [
@@ -125,7 +124,6 @@
         }
       ]
     },
-
     "equivalence-relations": {
       "title": "Equivalence relations and quotients",
       "questions": [
@@ -195,7 +193,6 @@
         }
       ]
     },
-
     "countability": {
       "title": "Countability",
       "questions": [
@@ -214,7 +211,12 @@
         {
           "type": "mcq",
           "q": "Let $s_0, s_1, s_2, \\dots$ be an enumeration of binary sequences with $s_0 = 0110\\dots$, $s_1 = 1001\\dots$, $s_2 = 0011\\dots$, $s_3 = 1111\\dots$. What are the first four bits of the Cantor diagonal sequence $d$ defined by $d_n = 1 - s_n(n)$?",
-          "choices": ["$0110$", "$1100$", "$1001$", "$0011$"],
+          "choices": [
+            "$0110$",
+            "$1100$",
+            "$1001$",
+            "$0011$"
+          ],
           "answer": 1,
           "explain": "The diagonal entries are $s_0(0) = 0$, $s_1(1) = 0$, $s_2(2) = 1$, $s_3(3) = 1$. Flipping each bit gives $d = 1100\\dots$, which differs from each $s_n$ in position $n$."
         },
@@ -261,7 +263,6 @@
         }
       ]
     },
-
     "axiom-of-choice-intuition": {
       "title": "Axiom of choice",
       "questions": [

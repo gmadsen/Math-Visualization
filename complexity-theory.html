@@ -1,0 +1,1149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Complexity theory</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\Spec',
+        '\\Gal':'\\Gal',
+        '\\Hom':'\\Hom',
+        '\\tr':'\\tr',
+        '\\ad':'\\ad',
+        '\\ind':'\\ind'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"automorphic-forms-adelic","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"additive-number-theory":{"next":"quadratic-forms-genus-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"moduli-spaces","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":null,"prev":"heights-arithmetic-geometry","section":"Number theory","title":"Analytic number theory"},"automorphic-forms-adelic":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-topoi","prev":"infinity-categories","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"deformation-theory":{"next":"etale-cohomology","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"group-cohomology","prev":"homological","section":"Algebra & homological","title":"Derived categories"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"harmonic-analysis-fourier","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":null,"section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":null,"prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":null,"prev":"deformation-theory","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"deformation-theory","prev":"group-schemes","section":"Algebraic geometry","title":"Étale fundamental group"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"naive-set-theory","section":"Logic & Foundations","title":"First order logic and completeness"},"forcing-and-independence":{"next":null,"prev":"type-theory-and-hott","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":null,"prev":"lie-algebras","section":"Algebra & homological","title":"Galois cohomology and brauer"},"galois-representations":{"next":"heights-arithmetic-geometry","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"lie-algebras","prev":"derived-categories","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"etale-fundamental-group","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"harmonic-analysis-fourier":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"spectral-theory","prev":"partial-differential-equations","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"analytic-number-theory","prev":"galois-representations","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"homological":{"next":"derived-categories","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"cocartesian-fibrations","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-topoi (Lurie)"},"information-theory":{"next":"large-deviations","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"stacks","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"large-deviations":{"next":null,"prev":"information-theory","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"galois-cohomology-and-brauer","prev":"group-cohomology","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"model-theory-basics":{"next":"computability-and-decidability","prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":null,"prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"modular-curves","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"algebraic-spaces","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":null,"prev":"characteristic-classes","section":"Geometry & topology","title":"Morse theory"},"naive-set-theory":{"next":"first-order-logic-and-completeness","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"harmonic-functions","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"stochastic-processes-and-martingales","prev":null,"section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"additive-number-theory","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"additive-number-theory","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"random-walks-and-mixing":{"next":"information-theory","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra & homological","title":"Representation theory"},"riemann-surfaces":{"next":"characteristic-classes","prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"sheaf-cohomology":{"next":"algebraic-de-rham-cohomology","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"algebraic-curves-higher-genus","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Sobolev spaces & distributions"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":null,"prev":"harmonic-functions","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"intersection-theory-chow","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":"probability-theory","section":"Probability & statistics","title":"Stochastic processes and martingales"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"type-theory-and-hott":{"next":"forcing-and-independence","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and hott"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"model-theory-basics","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"Zfc and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="Logic & Foundations" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+  <a href="#time">1&nbsp;Time&nbsp;&amp;&nbsp;big-O</a>
+  <a href="#p-np">2&nbsp;P&nbsp;and&nbsp;NP</a>
+  <a href="#np-complete">3&nbsp;NP-completeness</a>
+  <a href="#reductions">4&nbsp;Reductions</a>
+  <a href="#space">5&nbsp;PSPACE</a>
+  <a href="#hierarchy">6&nbsp;Hierarchy</a>
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Complexity theory</h1>
+  <p class="sub">Once we know what is computable, the next question is what is computable <em>cheaply</em>. Time and space, big-O and big-Omega, P and NP, polynomial-time reductions, the Cook–Levin tableau, Savitch's recursive simulation, and the diagonal hierarchy theorems — six concepts that carve the feasible from the infeasible.</p>
+</section>
+
+<p>Computability fixed the boundary between solvable and unsolvable. Complexity refines the solvable side: how do resource costs (time, memory, randomness, advice) scale with input size? The headline class is $\mathsf{P}$ — problems decidable by a deterministic Turing machine in polynomial time — paired with $\mathsf{NP}$, problems with a polynomial-time <em>verifier</em>. Whether $\mathsf{P}=\mathsf{NP}$ is the deepest open problem in the field. Around this central drama sit the rest of the cast: polynomial-time reductions, NP-completeness, PSPACE, the hierarchy theorems, and the few separations we can actually prove.</p>
+
+<div class="note"><strong>Plan.</strong> Section 1 fixes asymptotic notation and the time class $\mathrm{DTIME}$. Section 2 introduces $\mathsf{P}$ and $\mathsf{NP}$ via the verifier definition. Section 3 establishes Cook–Levin and the notion of NP-completeness. Section 4 walks the Karp web — how 3-SAT propagates hardness to clique, vertex-cover, Hamiltonian cycle, subset-sum. Section 5 does the same for space: $\mathsf{PSPACE}$, Savitch, TQBF. Section 6 turns the diagonal back on time and space themselves to prove the only strict separations we know.</div>
+
+<section id="time">
+<h2>1. Time complexity and big-O</h2>
+
+<p>Fix a multitape Turing-machine model. The running time $t_M(x)$ of $M$ on input $x$ is the number of transitions before $M$ halts. The <strong>time class</strong> is</p>
+
+\[ \mathrm{DTIME}(f(n)) \;=\; \{\,L : \exists\,M\text{ deciding }L\text{ with }t_M(x)\le f(|x|)\text{ for all }x\,\}. \]
+
+<p>Constants and lower-order terms are absorbed by <em>asymptotic notation</em>:</p>
+<ul>
+  <li><strong>Big-O.</strong> $f=O(g)$ iff $\exists c>0,\,n_0$ with $f(n)\le c\,g(n)$ for $n\ge n_0$.</li>
+  <li><strong>Big-Omega.</strong> $f=\Omega(g)$ iff $g=O(f)$.</li>
+  <li><strong>Big-Theta.</strong> $f=\Theta(g)$ iff $f=O(g)$ and $f=\Omega(g)$.</li>
+  <li><strong>Little-o.</strong> $f=o(g)$ iff $f(n)/g(n)\to 0$.</li>
+</ul>
+
+<div class="ok"><strong>Polynomial vs exponential.</strong> $\mathsf{P}=\bigcup_{k\ge 1}\mathrm{DTIME}(n^k)$ is the working notion of feasible. $\mathsf{EXP}=\bigcup_{k\ge 1}\mathrm{DTIME}(2^{n^k})$. The gap between $n^{100}$ and $2^n$ is enormous in practice but feels small on a log-log plot — the widget makes this concrete.</div>
+
+<p>The widget plots five canonical growth rates on log-log axes. On a linear scale, $2^n$ swallows $n^{100}$ instantly; on log-log, polynomials are <em>straight lines</em> (slope $=$ degree) and exponentials are <em>upward-curving</em> (slope $\to\infty$). Drag the slider to see where each curve sits at $n=2^k$.</p>
+
+<div class="widget" id="w-bigo">
+  <div class="hd"><div class="ttl">Growth rates on log-log axes</div><div class="hint">drag $n$ to read off each function's value</div></div>
+  <div class="row">
+    <label>$\log_2 n$</label>
+    <input type="range" id="bigo-k" min="1" max="20" value="8" step="1">
+    <span class="readout" id="bigo-k-val" style="min-width:5em">k=8 → n=256</span>
+  </div>
+  <svg id="bigo-svg" viewBox="0 0 620 320" width="620" height="320"><title>Growth rate comparison</title></svg>
+  <div class="readout" id="bigo-out"></div>
+</div>
+
+<div class="quiz" data-concept="cx-time-complexity"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./complexity-theory.html#p-np">Complexity theory</a> · P and NP</div>
+    <div><a href="./complexity-theory.html#space">Complexity theory</a> · Space complexity and PSPACE</div>
+    <div><a href="./complexity-theory.html#hierarchy">Complexity theory</a> · Time and space hierarchy theorems</div>
+</aside>
+<!-- backlinks-auto-end --><script>
+/* =========================== Big-O log-log widget =========================== */
+(function(){
+  const svg=$('#bigo-svg'), out=$('#bigo-out'), kIn=$('#bigo-k'), kVal=$('#bigo-k-val');
+  const W=620, H=320, padL=60, padR=30, padT=30, padB=40;
+  const KMIN=1, KMAX=20;
+  // y axis: log2(value), capped at 80 to keep 2^20 = 2^20 visible
+  const YMAX = 80;
+  // functions: name, color, log2-value at exponent k where n=2^k
+  const funcs = [
+    {id:'logn', name:'log n',    color:'var(--cyan)',   log2: k => Math.log2(Math.max(1, k))},
+    {id:'n',    name:'n',        color:'var(--blue)',   log2: k => k},
+    {id:'nlogn',name:'n log n',  color:'var(--green)',  log2: k => k + Math.log2(Math.max(1,k))},
+    {id:'n2',   name:'n²',       color:'var(--violet)', log2: k => 2*k},
+    {id:'2n',   name:'2^n',      color:'var(--pink)',   log2: k => Math.pow(2, k)}
+  ];
+
+  function xPx(k){ return padL + (k - KMIN) / (KMAX - KMIN) * (W - padL - padR); }
+  function yPx(v){ return H - padB - Math.min(v, YMAX) / YMAX * (H - padT - padB); }
+
+  function render(){
+    svg.innerHTML='';
+    // axes
+    svg.appendChild(SVG('line',{x1:padL, y1:H-padB, x2:W-padR, y2:H-padB,
+      stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:padL, y1:padT, x2:padL, y2:H-padB,
+      stroke:'var(--line)','stroke-width':1}));
+    // x ticks (every 4)
+    for(let k=KMIN;k<=KMAX;k+=4){
+      const x=xPx(k);
+      svg.appendChild(SVG('line',{x1:x, y1:H-padB, x2:x, y2:H-padB+4,
+        stroke:'var(--mute)','stroke-width':1}));
+      const t=SVG('text',{x, y:H-padB+18,'text-anchor':'middle','font-size':11, fill:'var(--mute)'});
+      t.textContent = `2^${k}`;
+      svg.appendChild(t);
+    }
+    // y ticks
+    [1,4,16,64].forEach(v => {
+      const y=yPx(v);
+      svg.appendChild(SVG('line',{x1:padL-4, y1:y, x2:padL, y2:y,
+        stroke:'var(--mute)','stroke-width':1}));
+      const t=SVG('text',{x:padL-8, y:y+4,'text-anchor':'end','font-size':11, fill:'var(--mute)'});
+      t.textContent = `2^${v}`;
+      svg.appendChild(t);
+    });
+    // axis labels
+    const xl=SVG('text',{x:(padL+W-padR)/2, y:H-6,'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+    xl.textContent = 'input size n  (log scale)';
+    svg.appendChild(xl);
+    const yl=SVG('text',{x:14, y:(padT+H-padB)/2,'text-anchor':'middle','font-size':12,
+      fill:'var(--mute)', transform:`rotate(-90, 14, ${(padT+H-padB)/2})`});
+    yl.textContent = 'value f(n)  (log scale)';
+    svg.appendChild(yl);
+
+    // plot each function
+    funcs.forEach(f => {
+      let d = '';
+      for(let k=KMIN;k<=KMAX;k++){
+        const v = f.log2(k);
+        const x = xPx(k), y = yPx(v);
+        d += (k===KMIN ? `M${x} ${y}` : ` L${x} ${y}`);
+      }
+      svg.appendChild(SVG('path',{d, fill:'none', stroke:f.color,'stroke-width':2}));
+    });
+
+    // marker for current k
+    const k = parseInt(kIn.value, 10);
+    const cx = xPx(k);
+    svg.appendChild(SVG('line',{x1:cx, y1:padT, x2:cx, y2:H-padB,
+      stroke:'var(--yellow)','stroke-width':1, 'stroke-dasharray':'3 3'}));
+    funcs.forEach(f => {
+      const v = f.log2(k);
+      const cy = yPx(v);
+      svg.appendChild(SVG('circle',{cx, cy, r:4, fill:f.color,
+        stroke:'var(--bg)','stroke-width':1.5}));
+    });
+
+    // legend (viewport coords)
+    funcs.forEach((f,i) => {
+      const ly = padT + 14 + i*18;
+      svg.appendChild(SVG('rect',{x:W-padR-110, y:ly-9, width:14, height:3,
+        fill:f.color}));
+      const t = SVG('text',{x:W-padR-92, y:ly-3,'font-size':12, fill:f.color});
+      t.textContent = f.name;
+      svg.appendChild(t);
+    });
+  }
+
+  function update(){
+    const k = parseInt(kIn.value, 10);
+    const n = Math.pow(2, k);
+    kVal.textContent = `k=${k} → n=${n.toLocaleString()}`;
+    const lines = funcs.map(f => {
+      const v = f.log2(k);
+      const approx = v >= 60 ? `2^${v.toFixed(0)} (≈ ${v.toFixed(1)} bits)`
+                              : Math.round(Math.pow(2, v)).toLocaleString();
+      return `${f.name.padEnd(8)} = ${approx}`;
+    });
+    out.textContent =
+      `at n = 2^${k} = ${n.toLocaleString()}:\n\n` +
+      lines.join('\n') +
+      `\n\nA polynomial $n^d$ on log-log is a line of slope $d$.\n` +
+      `An exponential $2^n$ rises off-chart almost immediately.`;
+    render();
+  }
+
+  kIn.addEventListener('input', update);
+  update();
+})();
+</script>
+
+
+</section>
+<section id="p-np">
+<h2>2. P and NP</h2>
+
+<p>A decision problem is a language $L\subseteq\{0,1\}^*$. We ask: given $x$, is $x\in L$?</p>
+
+<p>$\mathsf{P}=\bigcup_k\mathrm{DTIME}(n^k)$ is the class of languages with a polynomial-time decider. $\mathsf{NP}$ is the class with a polynomial-time <em>verifier</em>:</p>
+
+\[ L\in\mathsf{NP} \iff \exists\,V\in\mathsf{P},\,p\in\mathbb{Z}[x]\text{ with } x\in L \iff \exists w,|w|\le p(|x|),\,V(x,w)=1. \]
+
+<p>The witness $w$ is a short certificate that $x$ is a yes-instance, and $V$ checks it in polynomial time.</p>
+
+<table class="plain">
+  <thead><tr><th>problem</th><th>witness $w$</th><th>verifier $V(x,w)$</th></tr></thead>
+  <tbody>
+    <tr><td>SAT</td><td>satisfying assignment</td><td>plug in, evaluate clauses</td></tr>
+    <tr><td>CIRCUIT-SAT</td><td>input setting</td><td>simulate gates</td></tr>
+    <tr><td>HAMILTONIAN-CYCLE</td><td>cyclic ordering of vertices</td><td>check edges + visit each vertex once</td></tr>
+    <tr><td>CLIQUE</td><td>$k$-vertex subset</td><td>check all $\binom{k}{2}$ edges present</td></tr>
+    <tr><td>SUBSET-SUM</td><td>chosen subset</td><td>add and compare</td></tr>
+  </tbody>
+</table>
+
+<p>Trivially $\mathsf{P}\subseteq\mathsf{NP}$ — a decider is a verifier that ignores the witness. The reverse inclusion is the <strong>$\mathsf{P}$ vs $\mathsf{NP}$</strong> question: does every short certificate translate into an efficient algorithm? Almost everyone believes no, but no proof exists.</p>
+
+<div class="bad"><strong>Equivalent formulation.</strong> $\mathsf{NP}=\bigcup_k\mathrm{NTIME}(n^k)$, where $\mathrm{NTIME}(f)$ uses a nondeterministic TM that on each step may branch and accepts iff <em>some</em> branch reaches $q_{\text{acc}}$ within $f(n)$ steps. The branch leading to acceptance is exactly the witness.</div>
+
+<p>The widget shows a verifier in action on a small SAT instance. Pick a witness (a $\{0,1\}$-assignment), and watch the verifier check each clause — green if satisfied, pink if not. The instance is satisfiable iff some witness lights up all clauses.</p>
+
+<div class="widget" id="w-verify">
+  <div class="hd"><div class="ttl">Polynomial-time verifier for 3-SAT</div><div class="hint">click each variable to toggle, watch clauses light up</div></div>
+  <div class="row">
+    <label>witness</label>
+    <span id="vf-bits"></span>
+    <button id="vf-sat">try a satisfying witness</button>
+    <button id="vf-bad">try a bad witness</button>
+  </div>
+  <svg id="vf-svg" viewBox="0 0 620 240" width="620" height="240"><title>3-SAT verifier</title></svg>
+  <div class="readout" id="vf-out"></div>
+</div>
+
+<div class="quiz" data-concept="cx-p-and-np"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./complexity-theory.html#np-complete">Complexity theory</a> · NP-completeness and Cook–Levin</div>
+</aside>
+<!-- backlinks-auto-end --><script>
+/* =========================== SAT verifier widget =========================== */
+(function(){
+  const svg=$('#vf-svg'), out=$('#vf-out'), bitsRow=$('#vf-bits');
+  const satBtn=$('#vf-sat'), badBtn=$('#vf-bad');
+  // formula: (x1 ∨ x2 ∨ ¬x3) ∧ (¬x1 ∨ x2 ∨ x4) ∧ (x1 ∨ ¬x2 ∨ x3) ∧ (¬x2 ∨ ¬x3 ∨ ¬x4)
+  // each clause: array of [varIndex, negated]
+  const clauses = [
+    [[0,false],[1,false],[2,true]],
+    [[0,true], [1,false],[3,false]],
+    [[0,false],[1,true], [2,false]],
+    [[1,true], [2,true], [3,true]]
+  ];
+  const N = 4;
+  let w = [false,false,false,false]; // current witness
+
+  function evalClause(c){
+    return c.some(([i, neg]) => neg ? !w[i] : w[i]);
+  }
+  function clauseStr(c){
+    return c.map(([i,neg]) => (neg?'¬':'') + 'x' + (i+1)).join(' ∨ ');
+  }
+
+  function buildBits(){
+    bitsRow.innerHTML = '';
+    for(let i=0;i<N;i++){
+      const b = document.createElement('button');
+      b.textContent = `x${i+1}=${w[i]?1:0}`;
+      b.addEventListener('click', () => { w[i] = !w[i]; render(); });
+      bitsRow.appendChild(b);
+    }
+  }
+
+  function render(){
+    // refresh bit buttons text
+    [...bitsRow.children].forEach((b,i) => {
+      b.textContent = `x${i+1}=${w[i]?1:0}`;
+      b.classList.toggle('active', w[i]);
+    });
+    svg.innerHTML='';
+    const W=620, H=240, padL=30, padT=20;
+    const cellH = 42;
+    // header
+    const h = SVG('text',{x:padL, y:padT,'font-size':12, fill:'var(--mute)'});
+    h.textContent = 'φ(x) = (x1 ∨ x2 ∨ ¬x3) ∧ (¬x1 ∨ x2 ∨ x4) ∧ (x1 ∨ ¬x2 ∨ x3) ∧ (¬x2 ∨ ¬x3 ∨ ¬x4)';
+    svg.appendChild(h);
+
+    // clauses
+    let allTrue = true;
+    clauses.forEach((c, i) => {
+      const y = padT + 30 + i*cellH;
+      const ok = evalClause(c);
+      if(!ok) allTrue = false;
+      svg.appendChild(SVG('rect',{x:padL, y, width:W-2*padL, height:cellH-8, rx:6,
+        fill: ok ? 'rgba(131,193,103,0.10)' : 'rgba(224,122,95,0.10)',
+        stroke: ok ? 'var(--green)' : 'var(--pink)','stroke-width':1.5}));
+      // clause text
+      const t = SVG('text',{x:padL+14, y:y+cellH/2 - 1,'font-size':14,
+        'font-family':'ui-monospace,monospace', fill:'var(--ink)'});
+      t.textContent = `C${i+1}: (${clauseStr(c)})`;
+      svg.appendChild(t);
+      // literal evals
+      let lx = padL + 250;
+      c.forEach(([vi, neg]) => {
+        const lv = neg ? !w[vi] : w[vi];
+        const fill = lv ? 'var(--green)' : 'var(--mute)';
+        const t2 = SVG('text',{x:lx, y:y+cellH/2 - 1,'font-size':12,
+          'font-family':'ui-monospace,monospace', fill});
+        t2.textContent = `${neg?'¬':''}x${vi+1}=${lv?1:0}`;
+        svg.appendChild(t2);
+        lx += 70;
+      });
+      // verdict
+      const verd = SVG('text',{x:W-padL-14, y:y+cellH/2-1,'text-anchor':'end',
+        'font-size':14,'font-weight':700, fill: ok?'var(--green)':'var(--pink)'});
+      verd.textContent = ok ? '✓ satisfied' : '✗ unsatisfied';
+      svg.appendChild(verd);
+    });
+
+    // overall verdict bar
+    const vy = padT + 30 + clauses.length*cellH + 4;
+    svg.appendChild(SVG('rect',{x:padL, y:vy, width:W-2*padL, height:24, rx:6,
+      fill:'var(--panel2)', stroke: allTrue?'var(--green)':'var(--pink)','stroke-width':2}));
+    const v = SVG('text',{x:W/2, y:vy+16,'text-anchor':'middle','font-size':13,
+      'font-weight':700, fill: allTrue?'var(--green)':'var(--pink)'});
+    v.textContent = allTrue ? `V(φ, w) = 1  → witness accepted` : `V(φ, w) = 0  → some clause unsatisfied`;
+    svg.appendChild(v);
+
+    // readout
+    const wstr = w.map(b => b?1:0).join('');
+    const checks = clauses.map((c,i) => `C${i+1}: ${evalClause(c)?'✓':'✗'}`).join('  ');
+    out.textContent =
+      `witness w = ${wstr}\n` +
+      `clauses   : ${checks}\n` +
+      `verdict   : ${allTrue?'φ is satisfied — w is a valid certificate':'rejected — try another assignment'}\n\n` +
+      `The verifier ran in O(|φ|) time. NP = problems with such a verifier.`;
+  }
+
+  satBtn.addEventListener('click', ()=>{ w=[true,true,true,true]; render(); });
+  badBtn.addEventListener('click', ()=>{ w=[false,false,true,true]; render(); });
+
+  buildBits();
+  render();
+})();
+</script>
+
+
+</section>
+<section id="np-complete">
+<h2>3. NP-completeness and Cook–Levin</h2>
+
+<p>A language $L$ is <strong>NP-hard</strong> (under polynomial-time many-one reductions) if every $A\in\mathsf{NP}$ admits a polynomial-time computable $f$ with $x\in A \iff f(x)\in L$. It is <strong>NP-complete</strong> if additionally $L\in\mathsf{NP}$. NP-complete problems are the hardest in $\mathsf{NP}$: a polynomial-time algorithm for any one would collapse $\mathsf{P}=\mathsf{NP}$.</p>
+
+<div class="bad"><strong>Cook (1971), Levin (1973).</strong> <code>SAT</code> — boolean satisfiability — is NP-complete.</div>
+
+<p>The proof builds, from any nondeterministic polynomial-time machine $M$ and input $x$, a polynomial-size CNF $\varphi_{M,x}$ such that $\varphi_{M,x}$ is satisfiable iff $M$ accepts $x$. The construction lays out a <em>tableau</em>: rows are time steps $0,1,\ldots,T(n)$, columns are tape cells $1,\ldots,T(n)$, each cell holds a symbol or a (state, symbol) pair when the head is there. Variables $z_{i,j,s}$ encode "cell $j$ at time $i$ holds $s$". Clauses force:</p>
+
+<ul>
+  <li>each cell holds exactly one symbol (uniqueness);</li>
+  <li>row $0$ matches the input $x$ (initialisation);</li>
+  <li>each $2\times 3$ <em>window</em> in adjacent rows respects $\delta$ (transition);</li>
+  <li>some row reaches $q_{\text{acc}}$ (acceptance).</li>
+</ul>
+
+<p>Each constraint is a constant-size clause; total size is $\mathrm{poly}(T(n))=\mathrm{poly}(n)$. A satisfying assignment is exactly an accepting computation history.</p>
+
+<p>The widget below shows a small tableau for a 2-step nondeterministic computation. Each row is a configuration; each $2\times 3$ window highlighted in yellow is one transition constraint. Toggle "show variables" to see the encoding $z_{i,j,s}$.</p>
+
+<div class="widget" id="w-tableau">
+  <div class="hd"><div class="ttl">Cook–Levin tableau</div><div class="hint">click a window to highlight its transition clause</div></div>
+  <svg id="tab-svg" viewBox="0 0 620 320" width="620" height="320"><title>Cook–Levin tableau</title></svg>
+  <div class="readout" id="tab-out"></div>
+</div>
+
+<div class="quiz" data-concept="cx-np-completeness"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./complexity-theory.html#reductions">Complexity theory</a> · Karp reductions and complete problems</div>
+</aside>
+<!-- backlinks-auto-end --><script>
+/* =========================== Cook-Levin tableau widget =========================== */
+(function(){
+  const svg=$('#tab-svg'), out=$('#tab-out');
+  // 4 time steps, 6 cells. show a tiny computation: input "11", step right, halt.
+  const ROWS=4, COLS=6;
+  // each cell: symbol or (state,symbol) pair, displayed
+  const tableau = [
+    ['(q0,1)','1',  '_',  '_',  '_', '_'],
+    ['1',     '(q1,1)','_','_', '_', '_'],
+    ['1',     '1',  '(q1,_)','_','_','_'],
+    ['1',     '1',  '_',  '(qA,_)','_','_']
+  ];
+  let highlight = null;  // {row, col} of top-left of 2x3 window
+
+  function render(){
+    svg.innerHTML='';
+    const W=620, H=320;
+    const padL=30, padT=30, cellW=80, cellH=46;
+    // row labels
+    for(let i=0;i<ROWS;i++){
+      const y = padT + i*cellH + cellH*0.6;
+      const t = SVG('text',{x:padL-10, y, 'text-anchor':'end','font-size':12, fill:'var(--mute)'});
+      t.textContent = `t=${i}`;
+      svg.appendChild(t);
+    }
+    // col headers
+    for(let j=0;j<COLS;j++){
+      const x = padL + j*cellW + cellW/2;
+      const t = SVG('text',{x, y:padT-8, 'text-anchor':'middle','font-size':11, fill:'var(--mute)'});
+      t.textContent = `j=${j+1}`;
+      svg.appendChild(t);
+    }
+    // cells
+    for(let i=0;i<ROWS;i++){
+      for(let j=0;j<COLS;j++){
+        const x = padL + j*cellW;
+        const y = padT + i*cellH;
+        const sym = tableau[i][j];
+        const isState = sym.startsWith('(');
+        svg.appendChild(SVG('rect',{x, y, width:cellW-4, height:cellH-4, rx:4,
+          fill: isState ? 'rgba(255,216,102,0.10)' : 'var(--panel2)',
+          stroke: isState ? 'var(--yellow)' : 'var(--line)','stroke-width':1,
+          style:'cursor:pointer','data-i':i,'data-j':j}));
+        const t = SVG('text',{x:x+(cellW-4)/2, y:y+(cellH-4)*0.62,'text-anchor':'middle',
+          'font-size':12,'font-family':'ui-monospace,monospace',
+          fill: isState ? 'var(--yellow)' : 'var(--ink)','pointer-events':'none'});
+        t.textContent = sym;
+        svg.appendChild(t);
+      }
+    }
+
+    // highlight 2x3 window if set
+    if(highlight){
+      const {i, j} = highlight;
+      svg.appendChild(SVG('rect',{
+        x:padL + j*cellW - 3, y:padT + i*cellH - 3,
+        width: 3*cellW - 4 + 6, height: 2*cellH - 4 + 6, rx:6,
+        fill:'none', stroke:'var(--cyan)','stroke-width':3, 'stroke-dasharray':'5 4',
+        'pointer-events':'none'}));
+    }
+
+    // legend
+    const lY = H - 10;
+    const it1 = SVG('text',{x:padL, y:lY,'font-size':11, fill:'var(--mute)'});
+    it1.textContent = 'yellow cells = (state, head-symbol)   ·   click a cell to set the 2×3 transition window';
+    svg.appendChild(it1);
+
+    // readout
+    let detail;
+    if(highlight){
+      const {i, j} = highlight;
+      const top = tableau[i].slice(j, j+3).join(' ');
+      const bot = tableau[i+1] ? tableau[i+1].slice(j, j+3).join(' ') : '(off table)';
+      detail =
+        `2×3 window at rows t=${i},${i+1}, cols j=${j+1}..${j+3}:\n\n` +
+        `  ${top}\n  ${bot}\n\n` +
+        `Cook–Levin clause: this window respects δ.\n` +
+        `Encoded as a constant-size CNF over the variables\n` +
+        `z_{${i},${j+1},·}, z_{${i},${j+2},·}, z_{${i},${j+3},·},\n` +
+        `z_{${i+1},${j+1},·}, z_{${i+1},${j+2},·}, z_{${i+1},${j+3},·}.`;
+    } else {
+      detail =
+        `Tableau for a tiny nondeterministic TM run.\n\n` +
+        `Variables z_{i,j,s} = "cell j at time i holds symbol s".\n` +
+        `Clauses force: row 0 = input  ·  each cell has one symbol  ·  every 2×3 window respects δ  ·  some row contains qA.\n\n` +
+        `Total CNF size = poly(T(n)).  Satisfiable iff M accepts x.\n` +
+        `Click any cell to inspect a window.`;
+    }
+    out.textContent = detail;
+  }
+
+  svg.addEventListener('click', e => {
+    const ti = e.target.getAttribute && e.target.getAttribute('data-i');
+    const tj = e.target.getAttribute && e.target.getAttribute('data-j');
+    if(ti===null || ti===undefined || ti==='') return;
+    const i = parseInt(ti, 10), j = parseInt(tj, 10);
+    if(i >= ROWS-1) { highlight = null; render(); return; }
+    if(j > COLS-3) { highlight = null; render(); return; }
+    highlight = (highlight && highlight.i===i && highlight.j===j) ? null : {i, j};
+    render();
+  });
+  render();
+})();
+</script>
+
+
+</section>
+<section id="reductions">
+<h2>4. Karp reductions and complete problems</h2>
+
+<p>Once SAT is NP-complete, the cheapest way to show another problem $L$ is NP-complete is to find <em>any</em> known NP-complete $A$ with $A\le_p L$. Karp's 1972 paper kicked off the bestiary by reducing SAT to 21 natural combinatorial problems; today the catalogue runs to thousands.</p>
+
+<p>Two illustrative reductions:</p>
+
+<ul>
+  <li><strong>3-SAT $\le_p$ CLIQUE.</strong> Given a 3-CNF $\varphi$ with $m$ clauses, build a graph $G$: one vertex per literal in each clause, edges between literals from <em>different</em> clauses unless they are negations of each other. A satisfying assignment picks one literal per clause, all mutually consistent — exactly an $m$-clique.</li>
+  <li><strong>CLIQUE $\le_p$ INDEPENDENT-SET.</strong> Take the complement graph $\overline G$. A clique in $G$ is an independent set in $\overline G$ of the same size. (Trivially also $\le_p$ in the other direction.)</li>
+</ul>
+
+<div class="ok"><strong>Transitivity.</strong> $\le_p$ is closed under composition: if $f$ and $g$ are polynomial-time, so is $g\circ f$. So the Karp web propagates hardness wherever an arrow lands.</div>
+
+<p>The widget shows the standard "Karp tree" rooted at SAT. Click any arrow to read the reduction; nodes light up in pink as they inherit hardness from SAT.</p>
+
+<div class="widget" id="w-karp">
+  <div class="hd"><div class="ttl">Karp reduction graph</div><div class="hint">click an arrow to read the reduction</div></div>
+  <svg id="karp-svg" viewBox="0 0 620 360" width="620" height="360"><title>Karp reduction graph</title></svg>
+  <div class="readout" id="karp-out"></div>
+</div>
+
+<div class="quiz" data-concept="cx-reductions"></div><script>
+/* =========================== Karp graph widget =========================== */
+(function(){
+  const svg=$('#karp-svg'), out=$('#karp-out');
+  const nodes = {
+    SAT:    {x:310, y:50,  label:'SAT',         color:'var(--pink)',   long:'boolean satisfiability'},
+    TSAT:   {x:310, y:130, label:'3-SAT',       color:'var(--pink)',   long:'each clause has 3 literals'},
+    CLI:    {x:140, y:220, label:'CLIQUE',      color:'var(--violet)', long:'does G have a k-clique?'},
+    IS:     {x:300, y:220, label:'IND-SET',     color:'var(--violet)', long:'k-vertex independent set'},
+    VC:     {x:460, y:220, label:'VERT-COVER',  color:'var(--violet)', long:'k-vertex cover'},
+    HAM:    {x:120, y:310, label:'HAM-CYC',     color:'var(--cyan)',   long:'Hamiltonian cycle'},
+    SS:     {x:300, y:310, label:'SUBSET-SUM',  color:'var(--yellow)', long:'subset summing to t'},
+    COL:    {x:480, y:310, label:'3-COLOR',     color:'var(--blue)',   long:'proper 3-coloring'}
+  };
+  // edges: A -> B means A ≤_p B; arrow points from easier-known-NP-hard to harder.
+  // For Karp tree rooted at SAT, all flow downward.
+  const edges = [
+    {from:'SAT',  to:'TSAT', text:'Replace each long clause by gadget clauses + auxiliary variables, e.g. $(\\ell_1 \\lor \\ell_2 \\lor \\ell_3 \\lor \\ell_4) \\equiv (\\ell_1 \\lor \\ell_2 \\lor y) \\land (\\bar y \\lor \\ell_3 \\lor \\ell_4)$. Polynomial blow-up; same satisfiability.'},
+    {from:'TSAT', to:'CLI',  text:'For each 3-clause make a triangle of three vertices labelled by the literals. Edges: between literals in different clauses, but only when they are not negations. A k-clique = one literal per clause, mutually consistent = satisfying assignment.'},
+    {from:'TSAT', to:'COL',  text:'Build a graph with a "palette" triangle T,F,B and gadgets per clause forcing some literal to be coloured T. A 3-colouring exists iff φ is satisfiable.'},
+    {from:'CLI',  to:'IS',   text:'A k-clique in G = a k-independent-set in the complement $\\bar G$. Compute $\\bar G$ in polynomial time.'},
+    {from:'IS',   to:'VC',   text:'$S$ is independent iff $V\\setminus S$ is a vertex cover. So IND-SET($G$, $k$) = VERT-COVER($G$, $|V|-k$).'},
+    {from:'TSAT', to:'HAM',  text:'Standard "exclusive-or" gadgets: one variable-component per $x_i$, one clause-component per $C_j$. A Hamiltonian cycle traverses each variable component left-to-right (true) or right-to-left (false), visiting each clause node iff that literal satisfies the clause.'},
+    {from:'TSAT', to:'SS',   text:'Encode each variable and clause as a digit-position; weights are large numbers whose digit-sum at each position counts truth/clause-satisfaction. The target sum is hit iff the assignment satisfies every clause.'}
+  ];
+  let highlight = null;
+
+  function render(){
+    svg.innerHTML='';
+    // edges
+    edges.forEach((e,i) => {
+      const a = nodes[e.from], b = nodes[e.to];
+      const isHL = (highlight === i);
+      drawArrow(svg, [a.x, a.y], [b.x, b.y], {
+        color: isHL ? 'var(--cyan)' : 'var(--mute)',
+        markerId: 'k-'+i,
+        width: isHL ? 2.4 : 1.4
+      });
+      // invisible thick path for click
+      const dx=b.x-a.x, dy=b.y-a.y, L=Math.hypot(dx,dy)||1;
+      const ux=dx/L, uy=dy/L;
+      const ax=a.x+ux*22, ay=a.y+uy*22;
+      const bx=b.x-ux*22, by=b.y-uy*22;
+      svg.appendChild(SVG('path',{
+        d:`M${ax} ${ay} L ${bx} ${by}`,
+        stroke:'transparent','stroke-width':16,
+        style:'cursor:pointer','data-edge':String(i)
+      }));
+    });
+    // nodes
+    Object.values(nodes).forEach(n => {
+      svg.appendChild(SVG('circle',{cx:n.x, cy:n.y, r:30, fill:'var(--panel2)',
+        stroke:n.color,'stroke-width':2}));
+      const t = SVG('text',{x:n.x, y:n.y+5,'text-anchor':'middle','font-size':11,
+        'font-weight':700, fill:n.color,'pointer-events':'none'});
+      t.textContent = n.label;
+      svg.appendChild(t);
+      const t2 = SVG('text',{x:n.x, y:n.y+50,'text-anchor':'middle','font-size':10,
+        fill:'var(--mute)','pointer-events':'none'});
+      t2.textContent = n.long;
+      svg.appendChild(t2);
+    });
+    // legend
+    const t = SVG('text',{x:30, y:340,'font-size':11, fill:'var(--mute)','font-style':'italic'});
+    t.textContent = 'A → B  means  A ≤_p B  (B is at least as hard as A).  All nodes inherit NP-hardness from SAT.';
+    svg.appendChild(t);
+
+    // readout
+    if(highlight !== null){
+      const e = edges[highlight];
+      out.textContent = `${e.from} ≤_p ${e.to}\n\n${e.text.replace(/\\\\/g,'\\').replace(/\$/g,'')}`;
+    } else {
+      out.textContent =
+        `click an arrow to read the reduction.\n\n` +
+        `Karp's web rooted at SAT: SAT ≤_p 3-SAT, then 3-SAT branches to clique, colouring, ` +
+        `Hamiltonian cycle, subset-sum.  Each ≤_p arrow is polynomial-time-computable.\n\n` +
+        `Once any one of these admits a polynomial-time algorithm, all of NP collapses into P.`;
+    }
+  }
+
+  svg.addEventListener('click', e => {
+    const idx = e.target.getAttribute && e.target.getAttribute('data-edge');
+    if(idx === null || idx === undefined || idx === '') return;
+    const k = parseInt(idx, 10);
+    highlight = (highlight === k) ? null : k;
+    render();
+  });
+  render();
+})();
+</script>
+
+
+</section>
+<section id="space">
+<h2>5. Space complexity and PSPACE</h2>
+
+<p>Define $\mathrm{DSPACE}(f)$ and $\mathrm{NSPACE}(f)$ analogously to time, but counting the number of distinct tape cells touched (excluding the read-only input tape — so sub-linear space classes are meaningful). The standard hierarchy is</p>
+
+\[ \mathsf{L} = \mathrm{DSPACE}(\log n) \subseteq \mathsf{NL} = \mathrm{NSPACE}(\log n) \subseteq \mathsf{P} \subseteq \mathsf{NP} \subseteq \mathsf{PSPACE} = \bigcup_k\mathrm{DSPACE}(n^k) \subseteq \mathsf{EXP}. \]
+
+<p>The simulation $\mathsf{P}\subseteq\mathsf{PSPACE}$ is trivial; $\mathsf{NP}\subseteq\mathsf{PSPACE}$ comes from enumerating all witnesses one at a time. The space side has a striking equality:</p>
+
+<div class="bad"><strong>Savitch (1970).</strong> For $f(n)\ge\log n$, $\;\mathrm{NSPACE}(f)\subseteq\mathrm{DSPACE}(f^2)$. Hence $\mathsf{PSPACE}=\mathsf{NPSPACE}$.</div>
+
+<p><em>Idea.</em> A nondeterministic $f$-space machine has at most $2^{O(f)}$ configurations. To test whether $C_{\text{start}}$ reaches $C_{\text{acc}}$ in $\le 2^k$ steps, recursively ask whether some midpoint $C'$ is reachable in $\le 2^{k-1}$ steps from $C_{\text{start}}$ and from $C'$ to $C_{\text{acc}}$. Each level of recursion uses $O(f)$ space; depth is $O(f)$; total $O(f^2)$.</p>
+
+<p>The canonical PSPACE-complete problem is <strong>TQBF</strong> — given a fully quantified boolean formula $\forall x_1\exists x_2\cdots Q_n x_n\,\varphi$, is it true? The alternating quantifiers correspond to alternating polynomial-space computation. Two-player games with polynomial-length play (geography, Reversi, generalised hex) reduce to TQBF.</p>
+
+<p>The widget visualises Savitch: a configuration graph with $2^k$ nodes, and the recursive midpoint search that decides reachability in $O(k^2)$ space.</p>
+
+<div class="widget" id="w-savitch">
+  <div class="hd"><div class="ttl">Savitch's recursive midpoint</div><div class="hint">drag $k$ to grow the search depth</div></div>
+  <div class="row">
+    <label>recursion depth $k$</label>
+    <input type="range" id="sv-k" min="1" max="6" value="3" step="1">
+    <span class="readout" id="sv-k-val" style="min-width:9em">k=3 → up to 2³ steps</span>
+  </div>
+  <svg id="sv-svg" viewBox="0 0 620 280" width="620" height="280"><title>Savitch midpoint search</title></svg>
+  <div class="readout" id="sv-out"></div>
+</div>
+
+<div class="quiz" data-concept="cx-space-complexity"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./complexity-theory.html#hierarchy">Complexity theory</a> · Time and space hierarchy theorems</div>
+</aside>
+<!-- backlinks-auto-end --><script>
+/* =========================== Savitch widget =========================== */
+(function(){
+  const svg=$('#sv-svg'), out=$('#sv-out'), kIn=$('#sv-k'), kVal=$('#sv-k-val');
+
+  function render(){
+    const k = parseInt(kIn.value, 10);
+    kVal.textContent = `k=${k} → up to 2^${k} = ${1<<k} steps`;
+    svg.innerHTML='';
+    const W=620, H=280;
+    const padL=30, padT=20;
+    const usableH = H - padT - 40;
+    const levels = k + 1;  // recursion levels 0..k
+    const levelH = usableH / levels;
+
+    // Each level shows the segments at that depth.
+    // depth d has 2^d segments dividing [0, 2^k].
+    for(let d=0; d<=k; d++){
+      const numSegs = 1 << d;
+      const segLen = (W - 2*padL) / numSegs;
+      const y = padT + d*levelH + levelH*0.5;
+      // draw segments
+      for(let s=0; s<numSegs; s++){
+        const x1 = padL + s*segLen;
+        const x2 = x1 + segLen;
+        // segment line
+        svg.appendChild(SVG('line',{x1, y1:y, x2, y2:y,
+          stroke: d===0 ? 'var(--cyan)' : 'var(--violet)',
+          'stroke-width': d===0 ? 3 : 2, opacity: 0.4 + 0.5*d/k}));
+        // endpoint dots
+        svg.appendChild(SVG('circle',{cx:x1, cy:y, r:3, fill:'var(--ink)'}));
+        if(s===numSegs-1) svg.appendChild(SVG('circle',{cx:x2, cy:y, r:3, fill:'var(--ink)'}));
+        // midpoint dot for splitting
+        if(d < k){
+          const mx = (x1+x2)/2;
+          svg.appendChild(SVG('circle',{cx:mx, cy:y, r:4, fill:'var(--yellow)',
+            stroke:'var(--bg)','stroke-width':1.5}));
+        }
+      }
+      // depth label
+      const lbl = SVG('text',{x:padL-8, y:y+4,'text-anchor':'end','font-size':11, fill:'var(--mute)'});
+      lbl.textContent = `d=${d}`;
+      svg.appendChild(lbl);
+    }
+    // bracket the start/accept at level 0
+    const sLbl = SVG('text',{x:padL, y:padT+8,'font-size':11, fill:'var(--cyan)','font-weight':600});
+    sLbl.textContent = 'C_start';
+    svg.appendChild(sLbl);
+    const aLbl = SVG('text',{x:W-padL, y:padT+8,'text-anchor':'end','font-size':11,
+      fill:'var(--cyan)','font-weight':600});
+    aLbl.textContent = 'C_accept';
+    svg.appendChild(aLbl);
+
+    // bottom legend
+    const lg1 = SVG('text',{x:padL, y:H-22,'font-size':11, fill:'var(--mute)'});
+    lg1.textContent = `each yellow dot is a guessed midpoint;  recursion depth = ${k};  per-level space = O(f)`;
+    svg.appendChild(lg1);
+    const lg2 = SVG('text',{x:padL, y:H-8,'font-size':11, fill:'var(--mute)'});
+    lg2.textContent = `total space  = depth × per-level  = O(f) × O(f) = O(f²)`;
+    svg.appendChild(lg2);
+
+    out.textContent =
+      `Reach(C_start, C_accept, 2^${k}):\n` +
+      `  for each guess C_mid:\n` +
+      `    Reach(C_start, C_mid, 2^${k-1}) and Reach(C_mid, C_accept, 2^${k-1})\n\n` +
+      `Each level reuses the same O(f) workspace.\n` +
+      `Recursion stack has depth ${k+1}, so total space = O(f²).\n\n` +
+      `Corollary: NPSPACE = PSPACE.`;
+  }
+
+  kIn.addEventListener('input', render);
+  render();
+})();
+</script>
+
+
+</section>
+<section id="hierarchy">
+<h2>6. Time and space hierarchy theorems</h2>
+
+<p>Most separations between complexity classes are open ($\mathsf{P}$ vs $\mathsf{NP}$, $\mathsf{NL}$ vs $\mathsf{P}$, $\mathsf{NP}$ vs $\mathsf{PSPACE}$). The hierarchy theorems are the few separations we can prove — and they all come from diagonalisation.</p>
+
+<div class="ok"><strong>Time hierarchy (Hartmanis–Stearns 1965).</strong> If $f, g$ are time-constructible and $f(n)\log f(n) = o(g(n))$, then $\mathrm{DTIME}(f)\subsetneq\mathrm{DTIME}(g)$.</div>
+
+<p><em>Sketch.</em> Build $D$ that on input $\langle M\rangle$ simulates $M$ on $\langle M\rangle$ for at most $g(n)$ steps; if $M$ accepts within budget, $D$ rejects, and vice versa. The simulation overhead is the $\log f$ factor (universal-TM bookkeeping). $D$ runs in time $g$, so $L(D)\in\mathrm{DTIME}(g)$. If $L(D)\in\mathrm{DTIME}(f)$, some $M_0$ deciding it has time $\le f(n)$, hence $D$ disagrees with $M_0$ on $\langle M_0\rangle$ — contradiction.</p>
+
+<div class="ok"><strong>Space hierarchy.</strong> If $f, g$ space-constructible with $f=o(g)$, $\;\mathrm{DSPACE}(f)\subsetneq\mathrm{DSPACE}(g)$ (no $\log$ factor — universal simulation in space is constant overhead).</div>
+
+<p>Concrete separations:</p>
+
+<ul>
+  <li>$\mathsf{P}=\bigcup_k\mathrm{DTIME}(n^k)\;\subsetneq\;\mathrm{DTIME}(2^n)\subseteq\mathsf{EXP}$ — because $n^k\log n^k = o(2^n)$ for every $k$.</li>
+  <li>$\mathsf{L}=\mathrm{DSPACE}(\log n)\;\subsetneq\;\mathsf{PSPACE}$ — by space hierarchy with $f=\log n$, $g=n$.</li>
+  <li>$\mathsf{NL}\subsetneq\mathsf{NPSPACE}=\mathsf{PSPACE}$ — combining space hierarchy and Savitch.</li>
+</ul>
+
+<p>What the hierarchy theorems do <em>not</em> give us is any separation across the determinism/nondeterminism boundary, or any "natural" separation: a polynomial-time language can be hard for $\mathrm{DTIME}(n^{100})$ but easy for $\mathrm{DTIME}(n^{200})$ — but no such language is known to be useful.</p>
+
+<p>The widget below visualises the diagonal: rows are machines $M_0, M_1, \ldots$ in $\mathrm{DTIME}(f)$, columns are inputs, and the cell shows what $M_i$ outputs on $\langle M_i\rangle$ within budget $g$. $D$ flips the diagonal — disagreeing with each $M_i$ at one point.</p>
+
+<div class="widget" id="w-diag">
+  <div class="hd"><div class="ttl">Hierarchy diagonal</div><div class="hint">drag the budget gap to widen the separation</div></div>
+  <div class="row">
+    <label>budget gap (g/f)</label>
+    <input type="range" id="dg-gap" min="2" max="10" value="4" step="1">
+    <span class="readout" id="dg-gap-val" style="min-width:5em">×4</span>
+  </div>
+  <svg id="dg-svg" viewBox="0 0 620 320" width="620" height="320"><title>Hierarchy diagonal</title></svg>
+  <div class="readout" id="dg-out"></div>
+</div>
+
+<div class="quiz" data-concept="cx-hierarchy-theorems"></div><script>
+/* =========================== Hierarchy diagonal widget =========================== */
+(function(){
+  const svg=$('#dg-svg'), out=$('#dg-out'), gapIn=$('#dg-gap'), gapVal=$('#dg-gap-val');
+  const N = 6;
+  // Each M_i has its own time budget f_i; D has budget g.
+  // We pick deterministic answers M_i(j) so the table is reproducible.
+  function answer(i, j){ return ((i*7 + j*3 + 5) % 5) < 3; }
+
+  function render(){
+    const gap = parseInt(gapIn.value, 10);
+    gapVal.textContent = `×${gap}`;
+    svg.innerHTML='';
+    const W=620, H=320, padL=120, padT=40, cell=44;
+    // column headers (input length n_j)
+    for(let j=0;j<N;j++){
+      const t = SVG('text',{x:padL + cell/2 + j*cell, y:padT-12,'text-anchor':'middle',
+        'font-size':11, fill:'var(--mute)'});
+      t.textContent = `〈M${j}〉`;
+      svg.appendChild(t);
+    }
+    // row labels
+    for(let i=0;i<N;i++){
+      const ty = padT + cell/2 + i*cell + 5;
+      const lbl = SVG('text',{x:padL-12, y:ty,'text-anchor':'end','font-size':12,
+        fill:'var(--violet)','font-weight':600});
+      lbl.textContent = `M${i}  (f budget)`;
+      svg.appendChild(lbl);
+      for(let j=0;j<N;j++){
+        const x = padL + j*cell, y = padT + i*cell;
+        const onDiag = (i === j);
+        const v = answer(i, j);
+        svg.appendChild(SVG('rect',{x, y, width:cell, height:cell, rx:4,
+          fill: onDiag ? 'rgba(255,216,102,0.18)' : 'var(--panel2)',
+          stroke: onDiag ? 'var(--yellow)' : 'var(--line)','stroke-width': onDiag ? 2 : 1}));
+        const m = SVG('text',{x:x+cell/2, y:y+cell*0.62,'text-anchor':'middle',
+          'font-size':14,'font-weight':700,
+          fill: v ? 'var(--green)' : 'var(--pink)','pointer-events':'none'});
+        m.textContent = v ? '1' : '0';
+        svg.appendChild(m);
+      }
+    }
+    // D row
+    const dy = padT + N*cell + 12;
+    const lbl = SVG('text',{x:padL-12, y:dy+cell/2+5,'text-anchor':'end','font-size':12,
+      fill:'var(--cyan)','font-weight':700});
+    lbl.textContent = `D  (g = ${gap}·f budget)`;
+    svg.appendChild(lbl);
+    for(let j=0;j<N;j++){
+      const x = padL + j*cell, y = dy;
+      svg.appendChild(SVG('rect',{x, y, width:cell, height:cell, rx:4,
+        fill:'var(--panel2)', stroke:'var(--cyan)','stroke-width':1.5}));
+      const dv = !answer(j, j);  // D flips the diagonal
+      const m = SVG('text',{x:x+cell/2, y:y+cell*0.62,'text-anchor':'middle',
+        'font-size':14,'font-weight':700, fill: dv ? 'var(--green)' : 'var(--pink)'});
+      m.textContent = dv ? '1' : '0';
+      svg.appendChild(m);
+    }
+    // dropped-budget annotation
+    const a = SVG('text',{x:padL + N*cell + 16, y:dy+cell/2+5,'font-size':11,
+      fill:'var(--mute)','font-style':'italic'});
+    a.textContent = `D needs ≥ ${gap}× the f budget to simulate M_i + flip`;
+    svg.appendChild(a);
+
+    // legend (viewport coords)
+    const lY = H - 12;
+    const items = [
+      ['var(--green)', '1 = accept'],
+      ['var(--pink)',  '0 = reject'],
+      ['var(--yellow)','M_i on 〈M_i〉'],
+      ['var(--cyan)',  'D = ¬diagonal']
+    ];
+    items.forEach((p,k) => {
+      svg.appendChild(SVG('rect',{x:30+k*150, y:lY-12, width:14, height:14, rx:3,
+        fill:'transparent', stroke:p[0], 'stroke-width':1.5}));
+      const t = SVG('text',{x:48+k*150, y:lY-1,'font-size':11, fill:'var(--mute)'});
+      t.textContent = p[1];
+      svg.appendChild(t);
+    });
+
+    // readout
+    const diag = Array.from({length:N}, (_,i) => answer(i,i) ? 1 : 0).join(' ');
+    const drow = Array.from({length:N}, (_,i) => answer(i,i) ? 0 : 1).join(' ');
+    out.textContent =
+      `diagonal M_i on 〈M_i〉 : ${diag}\n` +
+      `D's row (¬diagonal)   : ${drow}\n\n` +
+      `D disagrees with every M_i within budget f, so L(D) ∉ DTIME(f).\n` +
+      `D itself runs in g = ${gap}·f time (one extra simulation factor + flip).\n\n` +
+      `Hierarchy theorem: when f log f = o(g), DTIME(f) ⊊ DTIME(g).`;
+  }
+
+  gapIn.addEventListener('input', render);
+  render();
+})();
+</script>
+
+
+
+</section>
+<section id="outro">
+<h2>7. Connections</h2>
+
+<p>Complexity theory is computability theory after the resource bound becomes the protagonist. The theorems below say where this resource bound shows up elsewhere in mathematics.</p>
+
+<h3>Computability theory</h3>
+
+<p><a href="./computability-and-decidability.html">Computability</a> is the limit theory: $\mathrm{TIME}(\infty) = $ recursive. Hierarchy theorems are the resource-bounded analog of the halting-problem argument.</p>
+
+<h3>Cryptography and number theory</h3>
+
+<p>One-way functions, hardness of factoring/discrete log, and lattice-based cryptography all rest on complexity assumptions. <a href="./algebraic-number-theory.html">Number theory</a> provides the candidate hard problems.</p>
+
+<h3>Probabilistic / approximation algorithms</h3>
+
+<p>Randomization gives BPP, ZPP, RP; the probabilistic method (consumed by extremal combinatorics) is constructive iff one can derandomise. <a href="./probabilistic-method.html">Probabilistic method</a> is one source of polynomial-time algorithms.</p>
+
+<h3>Interactive proofs and PCP</h3>
+
+<p>PCP and the IP=PSPACE theorem give a structural theory of proofs as resources. Hardness of approximation (Khot, Dinur) is the modern frontier.</p>
+
+<p class="small" style="margin-top:2.5rem">Open frontiers: P vs NP itself, of course — but also fine-grained complexity (SETH, $k$-SUM, 3-SUM hardness), quantum complexity classes (BQP, QMA), and the geometric complexity-theory program (Mulmuley, Sohoni) attacking permanent-vs-determinant via representation theory.</p>
+</section>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/ /g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('complexity-theory'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-26</td><td>initial version: 6 concepts, 6 widgets (big-O log-log, SAT verifier, Cook–Levin tableau, Karp graph, Savitch midpoint, hierarchy diagonal)</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

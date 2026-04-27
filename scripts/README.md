@@ -73,6 +73,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 | [`test-json-block-writer.mjs`](./test-json-block-writer.mjs) | Unit tests for `lib/json-block-writer.mjs` (the JSON-source-of-truth equivalent of `lib/html-injector.mjs`). Round-trip neutrality, fence upsert/strip idempotency, position resolution (`before-quiz`/`after-quiz`/`before-section-end`/`after-fence:<other>`), `ensureCss` no-op behavior. |
 | [`audit-starter-concepts.mjs`](./audit-starter-concepts.mjs) | Advisory audit: lists concepts with empty `prereqs` outside the foundation/prereq topic set (`naive-set-theory`, `algebra`, `real-analysis`, `complex-analysis`, `point-set-topology`, `algebraic-topology`, `projective-plane`) plus new-arc concepts whose prereqs all stay intra-topic. Both signal incomplete cross-topic upstream wiring. Always exits 0. |
 | [`audit-callbacks.mjs`](./audit-callbacks.mjs) | Cross-topic prereqs surface as `<aside class="callback">`. |
+| [`audit-slug-flavored-titles.mjs`](./audit-slug-flavored-titles.mjs) | Detects `<title>` / `<h1>` that look slug-derived (e.g. "Algebraic de rham cohomology"). Heuristic + curated whitelist; exits 1 on any hit. |
 
 ## Advisory audits (exit 0; write to `audits/`)
 

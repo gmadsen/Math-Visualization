@@ -6,27 +6,31 @@
       "questions": [
         {
           "type": "multi-select",
-          "q": "Which of the following are first-order deformations of $X_0 = \\mathrm{Spec}\\,k[x,y]/(xy)$ (a node) over $D = k[\\epsilon]/(\\epsilon^2)$? (Pick all flat lifts whose special fibre is $X_0$.)",
+          "q": "Which of the following are first-order deformations of $X_0 = \\Spec\\,k[x,y]/(xy)$ (a node) over $D = k[\\epsilon]/(\\epsilon^2)$? (Pick all flat lifts whose special fibre is $X_0$.)",
           "choices": [
-            "$\\mathrm{Spec}\\,k[x,y,\\epsilon]/(xy,\\,\\epsilon^2)$ — the trivial deformation",
-            "$\\mathrm{Spec}\\,k[x,y,\\epsilon]/(xy - \\epsilon,\\,\\epsilon^2)$ — equation $xy = \\epsilon$",
-            "$\\mathrm{Spec}\\,k[x,y,\\epsilon]/(xy + \\epsilon^2,\\,\\epsilon^2) = \\mathrm{Spec}\\,k[x,y,\\epsilon]/(xy,\\,\\epsilon^2)$",
-            "$\\mathrm{Spec}\\,k[x,y,\\epsilon]/(x^2 - \\epsilon,\\,\\epsilon^2)$ — does NOT have $X_0$ as special fibre"
+            "$\\Spec\\,k[x,y,\\epsilon]/(xy,\\,\\epsilon^2)$ — the trivial deformation",
+            "$\\Spec\\,k[x,y,\\epsilon]/(xy - \\epsilon,\\,\\epsilon^2)$ — equation $xy = \\epsilon$",
+            "$\\Spec\\,k[x,y,\\epsilon]/(xy + \\epsilon^2,\\,\\epsilon^2) = \\Spec\\,k[x,y,\\epsilon]/(xy,\\,\\epsilon^2)$",
+            "$\\Spec\\,k[x,y,\\epsilon]/(x^2 - \\epsilon,\\,\\epsilon^2)$ — does NOT have $X_0$ as special fibre"
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            0,
+            1,
+            2
+          ],
           "explain": "A first-order deformation must (i) be flat over $D$, (ii) restrict to $X_0$ modulo $\\epsilon$. Choices 0 and 1 both restrict to $xy = 0$ and are flat (the second is the smoothing direction). Choice 2 collapses to the trivial deformation since $\\epsilon^2 = 0$. Choice 3 restricts to $x^2 = 0$, not $xy = 0$, so its special fibre is wrong."
         },
         {
           "type": "mcq",
-          "q": "What is the trivial first-order deformation of $X_0 = \\mathrm{Spec}\\,k$ (a single $k$-point)?",
+          "q": "What is the trivial first-order deformation of $X_0 = \\Spec\\,k$ (a single $k$-point)?",
           "choices": [
-            "$\\mathrm{Spec}\\,k[\\epsilon]/(\\epsilon^2) = \\mathrm{Spec}\\,D$ itself",
-            "$\\mathrm{Spec}\\,k$",
-            "$\\mathrm{Spec}\\,k \\sqcup \\mathrm{Spec}\\,k$ (two disjoint points)",
+            "$\\Spec\\,k[\\epsilon]/(\\epsilon^2) = \\Spec\\,D$ itself",
+            "$\\Spec\\,k$",
+            "$\\Spec\\,k \\sqcup \\Spec\\,k$ (two disjoint points)",
             "$\\mathbb{A}^1_k$ (the affine line over $k$)"
           ],
           "answer": 0,
-          "explain": "$X_0 \\times_k \\mathrm{Spec}\\,D = \\mathrm{Spec}\\,(k \\otimes_k D) = \\mathrm{Spec}\\,D$ — the dual numbers themselves form the unique first-order deformation of a single point. (And indeed $\\mathrm{Def}_{X_0}(D) = H^1(\\mathrm{pt}, T) = 0$ — only the trivial class.)"
+          "explain": "$X_0 \\times_k \\Spec\\,D = \\Spec\\,(k \\otimes_k D) = \\Spec\\,D$ — the dual numbers themselves form the unique first-order deformation of a single point. (And indeed $\\mathrm{Def}_{X_0}(D) = H^1(\\mathrm{pt}, T) = 0$ — only the trivial class.)"
         },
         {
           "type": "mcq",
@@ -38,7 +42,7 @@
             "There is any $k$-isomorphism $X \\to X'$"
           ],
           "answer": 0,
-          "explain": "Equivalence is $D$-isomorphism fixing the special fibre — the right notion to detect non-trivial deformation classes. An abstract isomorphism is too lax: two non-equivalent deformations of the node are abstractly isomorphic schemes (both are $\\mathrm{Spec}$ of a 4-dimensional $k$-vector space)."
+          "explain": "Equivalence is $D$-isomorphism fixing the special fibre — the right notion to detect non-trivial deformation classes. An abstract isomorphism is too lax: two non-equivalent deformations of the node are abstractly isomorphic schemes (both are $\\Spec$ of a 4-dimensional $k$-vector space)."
         }
       ]
     },
@@ -122,7 +126,10 @@
             "A smooth quadric hypersurface $\\mathbb{P}^1 \\times \\mathbb{P}^1 \\subset \\mathbb{P}^3$",
             "A smooth projective curve of genus $g = 4$"
           ],
-          "answer": [0, 2],
+          "answer": [
+            0,
+            2
+          ],
           "explain": "$\\mathbb{P}^n$ has $H^1(T) = 0$ via the Euler sequence. The smooth quadric $\\mathbb{P}^1 \\times \\mathbb{P}^1$ also has $H^1(T) = 0$ (both factors are rigid and the product preserves this). Elliptic curves have $\\dim H^1(T_E) = 1$ (the $j$-line). A genus-$4$ curve has $\\dim H^1(T_C) = 3(4) - 3 = 9$, very much non-rigid."
         },
         {
@@ -179,7 +186,11 @@
             "(H3) $F$ takes values in finite sets for every $A \\in \\mathrm{Art}_k$",
             "$\\dim_k F(D) < \\infty$ where $D = k[\\epsilon]/(\\epsilon^2)$ — the tangent space is finite-dimensional"
           ],
-          "answer": [0, 1, 3],
+          "answer": [
+            0,
+            1,
+            3
+          ],
           "explain": "(H1) is the surjectivity condition; (H2) the bijectivity in the special-extension case; the finite-dimensional-tangent condition in choice 3 is (H3). Choice 2 is wrong: $F$ does not need to take values in finite sets — only the tangent-space condition is required."
         },
         {
@@ -221,6 +232,7 @@
             "Always zero"
           ],
           "answer": 0,
+          "hint": "Smoothness is exactly the condition under which the polynomial-algebra resolution $P_\\bullet \\to \\mathcal{O}_X$ becomes a quasi-isomorphism in degree $0$, with $\\Omega^1$ already locally free, so…",
           "explain": "Smoothness is exactly the condition under which the polynomial-algebra resolution $P_\\bullet \\to \\mathcal{O}_X$ becomes a quasi-isomorphism in degree $0$, with $\\Omega^1$ already locally free, so $L_{X/Y} = \\Omega^1_{X/Y}[0]$ — no higher derived corrections needed."
         },
         {
@@ -245,6 +257,7 @@
             "Degrees $0, -1, \\ldots, -r$"
           ],
           "answer": 1,
+          "hint": "A regular embedding has the conormal sequence as the only correction: $L_{X/Y}$ is two-term, with $\\mathcal{H}^0 = \\Omega^1_{X/Y}$ and $\\mathcal{H}^{-1} = \\mathcal{I}/\\mathcal{I}^2 = N^\\vee_{X/Y}$…",
           "explain": "A regular embedding has the conormal sequence as the only correction: $L_{X/Y}$ is two-term, with $\\mathcal{H}^0 = \\Omega^1_{X/Y}$ and $\\mathcal{H}^{-1} = \\mathcal{I}/\\mathcal{I}^2 = N^\\vee_{X/Y}$ (the conormal sheaf). For higher singularities one gets cohomology in deeper negative degrees."
         }
       ],
@@ -264,7 +277,7 @@
         },
         {
           "type": "mcq",
-          "q": "On a fat point $X_0 = \\mathrm{Spec}\\,k[x]/(x^2)$, what is $\\dim_k \\mathrm{Ext}^1_{\\mathcal{O}_{X_0}}(L_{X_0/k}, \\mathcal{O}_{X_0})$?",
+          "q": "On a fat point $X_0 = \\Spec\\,k[x]/(x^2)$, what is $\\dim_k \\mathrm{Ext}^1_{\\mathcal{O}_{X_0}}(L_{X_0/k}, \\mathcal{O}_{X_0})$?",
           "choices": [
             "$0$ — fat points are rigid",
             "$1$ — one direction of smoothing $x^2 = t$",

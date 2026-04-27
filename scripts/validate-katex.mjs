@@ -301,7 +301,11 @@ function checkTypoHeuristics(body) {
 // (https://katex.org/docs/supported), de-duplicated and normalized.
 
 const USER_MACROS = new Set([
-  // If `category-theory.html` grows a `macros:` block, mirror its keys here.
+  // Mirror of the KaTeX loader's `macros:` block in every topic page's rawHead.
+  // Defined via `\X = \operatorname{X}` so each renders the operator name in
+  // upright Roman with proper spacing. Adding more here propagates the
+  // recognition to this validator.
+  'Spec', 'Gal', 'Hom', 'tr', 'ad', 'ind',
 ]);
 
 const KATEX_MACROS = new Set([

@@ -29,20 +29,23 @@ Each concept carries two quiz tiers — v1 (required) and hard (unlocked after v
 
 ## Contents
 
-### Foundations
+### Logic & Foundations
 - [Naive set theory](./naive-set-theory.html) — sets, functions, equivalence relations, quotients, countability, Cantor's diagonal
 
-### Algebra
+### Algebra & homological
 - [Abstract algebra](./algebra.html) — groups, rings, fields
 - [Category theory](./category-theory.html) — objects, arrows, functors, Yoneda, adjunctions
 - [Representation theory](./representation-theory.html) — characters, orthogonality, $\mathfrak{sl}_2$
 - [Commutative algebra](./commutative-algebra.html) — ideals, localization, tensor, flatness
 - [Homological algebra](./homological.html) — chain complexes, Ext, Tor, spectral sequences
 - [Derived categories](./derived-categories.html) — $K(\mathcal{A}) \to D(\mathcal{A})$, triangulated structure, derived functors, $t$-structures
+- [Group cohomology](./group-cohomology.html) — bar resolution, $H^0=M^G$ → $H^1$ crossed homs (Hilbert 90) → $H^2$ extensions; Galois cohomology + Brauer
+
+### Higher categories & toposes
 - [Elementary topos theory](./elementary-topos-theory.html) — finitely complete cartesian closed + subobject classifier $\Omega$
-- [Heyting algebras & intuitionist logic in toposes](./heyting-algebras-toposes.html) — internal language, Kripke–Joyal forcing, double-negation
-- [Grothendieck topologies & sites](./grothendieck-topologies-sites.html) — sieves, sheafification, Giraud
-- [Simplicial sets & the nerve](./simplicial-sets-and-nerve.html) — $\Delta$, geometric realization, nerve $N(C)$, Kan complexes, inner-horn filling
+- [Heyting algebras and toposes](./heyting-algebras-toposes.html) — internal language, Kripke–Joyal forcing, double-negation
+- [Grothendieck topologies and sites](./grothendieck-topologies-sites.html) — sieves, sheafification, Giraud
+- [Simplicial sets and the nerve](./simplicial-sets-and-nerve.html) — $\Delta$, geometric realization, nerve $N(C)$, Kan complexes, inner-horn filling
 - [∞-categories (quasi-categories)](./infinity-categories.html) — Joyal's model, $h(\mathcal{C})$, ∞-functors / limits / adjunctions / Kan extensions
 - [Cocartesian fibrations & the Grothendieck construction](./cocartesian-fibrations.html) — left/right/cocartesian fibrations, straightening ↔ functors $\mathcal{B} \to \mathrm{Cat}_\infty$
 - [∞-topoi (Lurie)](./infinity-topoi.html) — accessible left-exact localization, ∞-Giraud, hypercompletion, internal HoTT — capstone
@@ -53,6 +56,12 @@ Each concept carries two quiz tiers — v1 (required) and hard (unlocked after v
 - [Complex analysis](./complex-analysis.html) — Needham-style: amplitwist, residues, Möbius
 - [Functional analysis](./functional-analysis.html) — Banach/Hilbert, four pillars, spectrum
 - [Operator algebras](./operator-algebras.html) — C*-algebras, Gelfand duality, noncommutative geometry
+- [Dynamical systems](./dynamical-systems.html) — flows, invariant sets, ergodicity teasers
+- [Harmonic analysis & Fourier theory](./harmonic-analysis-fourier.html) — Fourier series + transform, Plancherel, convolution, Schwartz space, uncertainty, Poisson summation, Pontryagin duality
+- [Sobolev spaces & distributions](./sobolev-spaces-distributions.html) — test functions, $\mathcal{D}'$, weak derivatives, $W^{k,p}$ embeddings, traces, fundamental solutions, variational $-\Delta u = f$
+
+### Probability & statistics
+- [Probability theory](./probability-theory.html) — measure-theoretic foundations, expectation, independence, limit theorems, characteristic functions
 
 ### Geometry & topology
 - [Point-set topology](./point-set-topology.html) — metric spaces, open sets, continuity, compactness, connectedness, separation axioms

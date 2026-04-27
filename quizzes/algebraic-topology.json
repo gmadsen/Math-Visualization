@@ -20,14 +20,17 @@
           "type": "numeric",
           "q": "How many boundary points does the interval $[0,1]$ have?",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "As a manifold with boundary, $[0,1]$ has boundary $\\{0,1\\}$, so there are $2$ boundary points."
         },
         {
           "type": "complex",
           "q": "On the loop $\\gamma(t)=e^{2\\pi i t}$, compute $\\gamma(1/4)$ as $a+bi$.",
-          "answer": [0, 1],
-          "tol": 1e-6,
+          "answer": [
+            0,
+            1
+          ],
+          "tol": 0.000001,
           "explain": "$\\gamma(1/4)=e^{i\\pi/2}=\\cos(\\pi/2)+i\\sin(\\pi/2)=i$."
         }
       ],
@@ -48,7 +51,7 @@
           "type": "numeric",
           "q": "Let $\\gamma:[0,1]\\to\\mathbb{C}^*$ be a loop with $\\gamma(t)=e^{4\\pi i t}$. The homotopy class of $\\gamma$ in $\\pi_1(\\mathbb{C}^*,1)\\cong\\mathbb{Z}$ equals what integer?",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\gamma$ winds around the origin $4\\pi/2\\pi=2$ full times, so its winding number is $2$."
         },
         {
@@ -69,24 +72,39 @@
       "title": "Simply connected domains",
       "questions": [
         {
-          "type": "mcq",
-          "q": "Which space is simply connected?",
-          "choices": ["$S^1$", "$\\mathbb{R}^2\\setminus\\{0\\}$", "$\\mathbb{R}^2$", "the torus $T^2$"],
-          "answer": 2,
-          "explain": "$\\mathbb{R}^2$ has trivial fundamental group. The other listed spaces have nontrivial loops that cannot be contracted."
+          "type": "multi-select",
+          "q": "Select every space that is simply connected.",
+          "choices": [
+            "$\\mathbb{R}^2$",
+            "$S^1$ (circle)",
+            "$S^2$ (sphere)",
+            "$\\mathbb{R}^2\\setminus\\{0\\}$ (punctured plane)",
+            "$\\mathbb{R}^n$ for any $n\\ge 1$",
+            "the torus $T^2 = S^1\\times S^1$"
+          ],
+          "answer": [
+            0,
+            2,
+            4
+          ],
+          "hint": "Simply connected means path-connected with $\\pi_1=0$. Convex/contractible Euclidean spaces are simply connected; spheres $S^n$ are simply connected for $n\\ge 2$; circles, punctured planes, and tori carry non-contractible loops.",
+          "explain": "$\\mathbb R^n$ is contractible, hence simply connected. $S^2$ has $\\pi_1=0$ (every loop contracts; $S^n$ is simply connected for $n\\ge 2$). $S^1$ has $\\pi_1\\cong\\mathbb Z$ (winding number). $\\mathbb R^2\\setminus\\{0\\}$ deformation-retracts onto $S^1$, so $\\pi_1\\cong\\mathbb Z$. $T^2$ has $\\pi_1\\cong\\mathbb Z^2$."
         },
         {
           "type": "numeric",
           "q": "What is the rank of $\\pi_1(\\mathbb{R}^2)$ as an abelian group?",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\pi_1(\\mathbb{R}^2)=0$, the trivial group, so its rank is $0$."
         },
         {
           "type": "complex",
           "q": "Compute $e^{2\\pi i}$.",
-          "answer": [1, 0],
-          "tol": 1e-6,
+          "answer": [
+            1,
+            0
+          ],
+          "tol": 0.000001,
           "explain": "A full turn on the unit circle lands back at $1$: $e^{2\\pi i}=1+0i$."
         }
       ],
@@ -120,7 +138,7 @@
           "type": "numeric",
           "q": "The van Kampen theorem applied to $S^2 = U \\cup V$ (each a contractible open hemisphere with $U\\cap V\\simeq S^1$) gives $\\pi_1(S^2)\\cong$ the trivial group. How many generators does $\\pi_1(U)*_{\\pi_1(U\\cap V)}\\pi_1(V)$ have after the amalgamation kills all generators?",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\pi_1(U)=\\pi_1(V)=0$, so the amalgamated free product $0*_{\\mathbb{Z}}0$ forces the single generator of $\\pi_1(U\\cap V)\\cong\\mathbb{Z}$ to map to $0$ in both factors, yielding the trivial group with $0$ generators."
         }
       ]
@@ -144,14 +162,17 @@
           "type": "numeric",
           "q": "If a loop winds $-3$ times around $S^1$, what integer does it represent in $\\pi_1(S^1)\\cong\\mathbb{Z}$?",
           "answer": -3,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "The winding number itself is the class in $\\mathbb{Z}$."
         },
         {
           "type": "complex",
           "q": "Compute $(e^{i\\pi/3})^3$ as $a+bi$.",
-          "answer": [-1, 0],
-          "tol": 1e-6,
+          "answer": [
+            -1,
+            0
+          ],
+          "tol": 0.000001,
           "explain": "$(e^{i\\pi/3})^3=e^{i\\pi}=-1$."
         }
       ],
@@ -184,7 +205,7 @@
           "type": "numeric",
           "q": "Let $X=\\mathbb{R}^2\\setminus\\{p_1,p_2\\}$ (the plane with two punctures). The rank of $\\pi_1(X)$ as a free group equals how many?",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\mathbb{R}^2$ minus $n$ points deformation-retracts onto a wedge of $n$ circles, so $\\pi_1\\cong F_n$. For $n=2$ the free group $F_2$ has rank $2$."
         }
       ]
@@ -208,7 +229,7 @@
           "type": "numeric",
           "q": "Lift the loop $\\gamma(t)=e^{4\\pi i t}$ to a path in $\\mathbb{R}$ starting at $0$. What integer winding number $\\tilde\\gamma(1)$ do you get?",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "The unique lift through $0$ is $\\tilde\\gamma(t)=2t$, since $p(2t)=e^{2\\pi i (2t)}=e^{4\\pi i t}=\\gamma(t)$. Its endpoint is $\\tilde\\gamma(1)=2$, so the loop winds twice."
         },
         {
@@ -230,24 +251,41 @@
       "title": "Covering spaces",
       "questions": [
         {
-          "type": "mcq",
-          "q": "For the covering map $p:\\mathbb{R}\\to S^1$, $p(t)=e^{2\\pi i t}$, the fiber over $1\\in S^1$ is:",
-          "choices": ["$\\{0\\}$", "$\\mathbb{Z}$", "$\\mathbb{R}$", "empty"],
-          "answer": 1,
-          "explain": "$e^{2\\pi i t}=1$ exactly when $t\\in\\mathbb{Z}$, so $p^{-1}(1)=\\mathbb{Z}$."
+          "type": "matching",
+          "q": "By the Galois correspondence for covering spaces, connected covers of a (suitable) base $X$ biject with conjugacy classes of subgroups of $\\pi_1(X)$. For $X=S^1$ with $\\pi_1(X)\\cong\\mathbb Z$, match each cover with the subgroup $H\\le\\mathbb Z$ to which it corresponds.",
+          "left": [
+            "$\\{0\\}\\le\\mathbb Z$ (trivial subgroup)",
+            "$n\\mathbb Z\\le\\mathbb Z$ for some $n\\ge 2$",
+            "$1\\cdot\\mathbb Z=\\mathbb Z$ (full group)"
+          ],
+          "right": [
+            "$p_n\\colon S^1\\to S^1$, $p_n(z)=z^n$ ($n$-sheeted cover)",
+            "$\\mathrm{id}\\colon S^1\\to S^1$ (trivial cover)",
+            "$p\\colon\\mathbb R\\to S^1$, $p(t)=e^{2\\pi it}$ (universal cover, infinite-sheeted)"
+          ],
+          "answer": [
+            2,
+            0,
+            1
+          ],
+          "hint": "Cover sheets equal $[\\pi_1(X):H]$. Universal cover ↔ trivial subgroup, $n$-sheeted ↔ index-$n$ subgroup, trivial cover ↔ full group.",
+          "explain": "Galois theory of covering spaces: covers of $X$ correspond to subgroups of $\\pi_1(X)$, with sheet count equal to index. For $X=S^1$, $\\pi_1=\\mathbb Z$. The universal cover $\\mathbb R\\to S^1$ has fiber $\\mathbb Z$ over each point — corresponds to trivial subgroup $\\{0\\}$. The $n$-sheeted cover $z\\mapsto z^n$ corresponds to $n\\mathbb Z$ (index $n$). The identity is the cover for $\\mathbb Z$ itself (index 1)."
         },
         {
           "type": "numeric",
           "q": "For $p_n:S^1\\to S^1$, $p_n(z)=z^n$, how many points lie over a generic point of the target circle when $n=5$?",
           "answer": 5,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "The map $z\\mapsto z^n$ is an $n$-sheeted cover, so generic fibers have $n$ points."
         },
         {
           "type": "complex",
           "q": "Under $p_2(z)=z^2$, one preimage of $-1$ is $i$. Give the other preimage as $a+bi$.",
-          "answer": [0, -1],
-          "tol": 1e-6,
+          "answer": [
+            0,
+            -1
+          ],
+          "tol": 0.000001,
           "explain": "Solutions to $z^2=-1$ are $\\pm i$. If one is $i$, the other is $-i$."
         }
       ],
@@ -268,7 +306,7 @@
           "type": "numeric",
           "q": "The universal cover of $T^2=S^1\\times S^1$ is $\\mathbb{R}^2$. The deck transformation group acts by integer translations. How many deck transformations map the origin $(0,0)$ to the point $(2,3)$?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Deck transformations of a regular cover act freely and transitively on each fiber. There is exactly $1$ deck transformation sending any chosen fiber point to any other given fiber point."
         },
         {
@@ -289,24 +327,38 @@
       "title": "Singular homology",
       "questions": [
         {
-          "type": "mcq",
-          "q": "Which equality encodes the chain-complex condition?",
-          "choices": ["$\\partial_n\\partial_n=0$", "$\\partial_{n-1}\\circ\\partial_n=0$", "$\\partial_n=\\mathrm{id}$", "$\\partial_n$ is invertible"],
-          "answer": 1,
-          "explain": "Boundaries have no boundary: $\\partial_{n-1}\\circ\\partial_n=0$. This ensures $\\operatorname{im}\\partial_n\\subseteq\\ker\\partial_{n-1}$."
+          "type": "ordering",
+          "q": "Arrange the steps to set up the Mayer–Vietoris long exact sequence for a space $X = A\\cup B$ with $A,B$ open.",
+          "items": [
+            "Form the short exact sequence of chain complexes $0\\to C_*(A\\cap B)\\xrightarrow{\\alpha}C_*(A)\\oplus C_*(B)\\xrightarrow{\\beta}C_*(A)+C_*(B)\\to 0$, where $\\alpha(c)=(c,-c)$ and $\\beta(a,b)=a+b$.",
+            "Apply the snake lemma / zig-zag lemma to extract the long exact sequence in homology: $\\cdots\\to H_n(A\\cap B)\\to H_n(A)\\oplus H_n(B)\\to H_n(X)\\to H_{n-1}(A\\cap B)\\to\\cdots$",
+            "Verify the sequence of chain complexes is exact: $\\beta\\alpha=0$, $\\ker\\beta=\\operatorname{im}\\alpha$, and $\\beta$ is surjective onto $C_*(A)+C_*(B)$.",
+            "Use the small-simplices theorem (barycentric subdivision) to identify $H_n(C_*(A)+C_*(B))$ with $H_n(X)$."
+          ],
+          "answer": [
+            0,
+            2,
+            3,
+            1
+          ],
+          "hint": "Build the SES of chain complexes, verify exactness, identify the third term with $C_*(X)$ via subdivision, then take homology.",
+          "explain": "Mayer–Vietoris flow: (a) build the SES of chain complexes from the inclusion data, (b) check exactness, (c) replace the third term $C_*(A)+C_*(B)$ by $C_*(X)$ in homology — content of the small-simplices theorem (every chain in $X$ is homologous to one supported in $A$ or $B$), (d) the snake lemma converts the SES of chain complexes into the LES in homology with connecting morphism $\\partial_*\\colon H_n(X)\\to H_{n-1}(A\\cap B)$."
         },
         {
           "type": "numeric",
           "q": "Using reduced homology ranks for a torus $T^2$ ($\\beta_0,\\beta_1,\\beta_2)=(1,2,1)$, compute $\\chi(T^2)=\\beta_0-\\beta_1+\\beta_2$.",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\chi(T^2)=1-2+1=0$."
         },
         {
           "type": "complex",
           "q": "Compute $\\dfrac{1+i}{1-i}$ as $a+bi$.",
-          "answer": [0, 1],
-          "tol": 1e-6,
+          "answer": [
+            0,
+            1
+          ],
+          "tol": 0.000001,
           "explain": "Multiply numerator/denominator by $1+i$: $\\frac{(1+i)^2}{1+1}=\\frac{1+2i-1}{2}=i$."
         }
       ],
@@ -327,7 +379,7 @@
           "type": "numeric",
           "q": "Use Mayer–Vietoris on $S^2=U\\cup V$ with $U,V$ contractible open sets and $U\\cap V\\simeq S^1$ to compute $\\chi(S^2)$ from $\\chi(U)+\\chi(V)-\\chi(U\\cap V)$. Recall $\\chi(\\mathrm{pt})=1$ and $\\chi(S^1)=0$.",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Inclusion–exclusion for Euler characteristic: $\\chi(S^2)=\\chi(U)+\\chi(V)-\\chi(U\\cap V)=1+1-0=2$, matching $\\beta_0-\\beta_1+\\beta_2=1-0+1$."
         }
       ]

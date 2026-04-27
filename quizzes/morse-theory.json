@@ -1,0 +1,269 @@
+{
+  "topic": "morse-theory",
+  "quizzes": {
+    "mt-morse-functions": {
+      "title": "Morse functions",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A smooth function $f\\colon M\\to\\mathbb{R}$ is called Morse when every critical point...",
+          "choices": [
+            "is isolated, regardless of the Hessian",
+            "has invertible Hessian (non-degenerate)",
+            "is a local minimum",
+            "has rational coordinates"
+          ],
+          "answer": 1,
+          "hint": "Non-degenerate means $\\det \\mathrm{Hess}(f) \\ne 0$ at the critical point.",
+          "explain": "Morse = every critical point is non-degenerate, i.e. the Hessian is an invertible symmetric matrix. Non-degeneracy automatically implies isolated, but the converse fails (think $f(x)=x^4$)."
+        },
+        {
+          "type": "mcq",
+          "q": "On a chart around a non-degenerate critical point, the Morse lemma writes $f$ as $-x_1^2-\\cdots-x_k^2 + x_{k+1}^2+\\cdots+x_n^2 + c$. The integer $k$ is called the...",
+          "choices": [
+            "degree of $f$",
+            "Morse index",
+            "Hessian determinant",
+            "codimension"
+          ],
+          "answer": 1,
+          "hint": "It counts the negative eigenvalues of the Hessian.",
+          "explain": "The Morse index $k$ is the number of negative eigenvalues of the Hessian — equivalently, the dimension of the maximal subspace on which the Hessian is negative definite."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is it harmless to assume the function we study is Morse?",
+          "choices": [
+            "Every smooth function is automatically Morse.",
+            "Morse functions are dense in $C^\\infty(M,\\mathbb{R})$, so we may perturb any $f$ to one.",
+            "Only Morse functions admit a gradient.",
+            "Sard's theorem produces them for free."
+          ],
+          "answer": 1,
+          "hint": "Density in the smooth topology lets us perturb generic statements.",
+          "explain": "Morse functions form an open dense subset of $C^\\infty(M,\\mathbb{R})$: an arbitrary smooth $f$ can be perturbed by an arbitrarily small amount to a Morse function. So results about Morse functions transfer to generic smooth ones."
+        }
+      ]
+    },
+    "mt-handle-decomposition": {
+      "title": "Handle decomposition",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "If $f$ has no critical values in $[a,b]$, how does the sublevel set $M^a=\\{f\\le a\\}$ relate to $M^b=\\{f\\le b\\}$?",
+          "choices": [
+            "$M^b$ has strictly more components.",
+            "$M^a$ is a deformation retract of $M^b$ — they are diffeomorphic.",
+            "$M^b$ has strictly larger Euler characteristic.",
+            "There is no relation."
+          ],
+          "answer": 1,
+          "hint": "Use the gradient flow downward to push $M^b$ onto $M^a$.",
+          "explain": "Without a critical value in between, the (rescaled) negative gradient flow gives a smooth deformation retraction of $M^b$ onto $M^a$. Topology only changes when $c$ crosses a critical value."
+        },
+        {
+          "type": "mcq",
+          "q": "When $c$ crosses a critical value of a Morse function with a single index-$k$ critical point, $M^{c+\\epsilon}$ is obtained from $M^{c-\\epsilon}$ by attaching...",
+          "choices": [
+            "an $n$-cell",
+            "a $k$-handle $D^k\\times D^{n-k}$",
+            "a single point",
+            "the cone on $\\partial M^{c-\\epsilon}$"
+          ],
+          "answer": 1,
+          "hint": "The stable manifold of the critical point has dimension equal to the Morse index $k$.",
+          "explain": "The thickened version of the index-$k$ cell is a $k$-handle: $D^k\\times D^{n-k}$ glued along $\\partial D^k\\times D^{n-k}$. The descending disk has dimension $k$; the ascending disk has dimension $n-k$."
+        },
+        {
+          "type": "mcq",
+          "q": "On the standard height function on $S^2$ (north and south poles), the handle decomposition consists of:",
+          "choices": [
+            "two 1-handles",
+            "a 0-handle (disk) and a 2-handle (disk) glued along $S^1$",
+            "an infinite chain of cells",
+            "a single 2-handle"
+          ],
+          "answer": 1,
+          "hint": "South pole = index 0, north pole = index 2.",
+          "explain": "South pole is a minimum (index 0): a 0-handle = $D^0\\times D^2$, a 2-disk. North pole is a maximum (index 2): a 2-handle = $D^2\\times D^0$, another 2-disk. Glued along their boundary circle they make $S^2$."
+        }
+      ]
+    },
+    "mt-cw-structure": {
+      "title": "CW structure",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The CW structure produced from a Morse function on $M$ has one cell of dimension $k$ for every...",
+          "choices": [
+            "smooth chart of $M$",
+            "critical point of $f$ of Morse index $k$",
+            "connected component of $M$",
+            "homology class of $M$"
+          ],
+          "answer": 1,
+          "hint": "Index $k$ critical point gives a $k$-cell.",
+          "explain": "Up to homotopy the $k$-handle attached at an index-$k$ critical point is a $k$-cell. So there is exactly one $k$-cell per index-$k$ critical point — that is the CW structure."
+        },
+        {
+          "type": "mcq",
+          "q": "A height-function Morse decomposition of the torus $T^2$ (standard embedding in $\\mathbb{R}^3$) has critical points at indices $0,1,1,2$. The resulting CW structure has:",
+          "choices": [
+            "one 0-cell, two 1-cells, one 2-cell",
+            "four 2-cells",
+            "one cell of each dimension $0,1,2,3$",
+            "two 0-cells and two 1-cells"
+          ],
+          "answer": 0,
+          "hint": "Read off cell counts directly from the index list.",
+          "explain": "Each index $k$ contributes one $k$-cell: indices $0,1,1,2$ give one 0-cell, two 1-cells, one 2-cell — exactly the standard CW structure on $T^2$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Euler characteristic of $M$ in terms of critical-point counts $c_k$ is:",
+          "choices": [
+            "$\\sum_k c_k$",
+            "$\\sum_k (-1)^k c_k$",
+            "$c_0 \\cdot c_n$",
+            "$\\prod_k c_k$"
+          ],
+          "answer": 1,
+          "hint": "Cellular Euler characteristic: alternating sum of cell counts.",
+          "explain": "The CW Euler characteristic is $\\sum_k (-1)^k (\\text{number of } k\\text{-cells})$, which from a Morse function reads $\\sum_k (-1)^k c_k(f)$. This is independent of the Morse function chosen."
+        }
+      ]
+    },
+    "mt-morse-inequalities": {
+      "title": "Morse inequalities",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The weak Morse inequality states that for any Morse $f$ and any $k$,",
+          "choices": [
+            "$b_k(M) = c_k(f)$",
+            "$b_k(M) \\le c_k(f)$",
+            "$b_k(M) \\ge c_k(f)$",
+            "$b_k(M) \\cdot c_k(f) = \\chi(M)$"
+          ],
+          "answer": 1,
+          "hint": "Betti numbers are bounded above by index counts.",
+          "explain": "Each index-$k$ critical point contributes a $k$-cell, and Betti numbers cannot exceed the number of $k$-cells in any CW structure. Hence $b_k(M)\\le c_k(f)$."
+        },
+        {
+          "type": "mcq",
+          "q": "A Morse function is called perfect when",
+          "choices": [
+            "$b_k(M) = c_k(f)$ for every $k$",
+            "the Hessian is the identity at each critical point",
+            "it has a unique critical point",
+            "all critical points have index 0"
+          ],
+          "answer": 0,
+          "hint": "The chain complex differential vanishes — index counts equal Betti numbers.",
+          "explain": "A perfect Morse function realises the equality case of the weak inequality: the differential in the Morse complex is zero, so the count of index-$k$ critical points equals $b_k(M)$. They exist on $\\mathbb{C}P^n$, on flag varieties, and on compact Lie groups (Bott)."
+        },
+        {
+          "type": "mcq",
+          "q": "Any Morse function on the closed orientable genus-2 surface $\\Sigma_2$ must have at least how many critical points?",
+          "choices": [
+            "2",
+            "4",
+            "6",
+            "8"
+          ],
+          "answer": 2,
+          "hint": "Sum the Betti numbers: $b_0 + b_1 + b_2 = 1 + 4 + 1$.",
+          "explain": "By the weak Morse inequality, $\\sum_k c_k \\ge \\sum_k b_k = 1+4+1 = 6$. Six critical points (one min, four saddles, one max) is achieved by the standard height function."
+        }
+      ]
+    },
+    "mt-morse-homology": {
+      "title": "Morse homology",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In the Morse chain complex, the generators of $C_k$ are",
+          "choices": [
+            "all points of $M$",
+            "critical points of $f$ of Morse index $k$",
+            "smooth $k$-simplices in $M$",
+            "$k$-forms on $M$"
+          ],
+          "answer": 1,
+          "hint": "One generator per index-$k$ critical point.",
+          "explain": "$C_k$ is the free abelian group (or $\\mathbb{Z}/2$-vector space) on the index-$k$ critical points of a Morse–Smale pair $(f,g)$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Morse boundary $\\partial\\colon C_k \\to C_{k-1}$ counts...",
+          "choices": [
+            "all flow lines from each generator",
+            "signed gradient flow lines between critical points whose indices differ by 1",
+            "the sum of Hessian eigenvalues",
+            "the chart transitions between critical points"
+          ],
+          "answer": 1,
+          "hint": "Index drops by 1 along each rigid trajectory.",
+          "explain": "For a Morse–Smale gradient, the moduli space of unparameterised flow lines from index-$k$ to index-$(k-1)$ critical points is 0-dimensional and oriented; $\\partial$ counts these signed."
+        },
+        {
+          "type": "mcq",
+          "q": "What does Morse homology compute?",
+          "choices": [
+            "Nothing intrinsic — it depends on $f$.",
+            "It is canonically isomorphic to the singular homology $H_*(M)$.",
+            "Only the Euler characteristic.",
+            "The fundamental group."
+          ],
+          "answer": 1,
+          "hint": "Different Morse functions give chain-homotopy-equivalent complexes.",
+          "explain": "Morse homology $HM_*(M)$ is independent of the Morse–Smale pair (continuation maps give chain homotopy equivalences) and is canonically isomorphic to singular $H_*(M;\\mathbb{Z})$."
+        }
+      ]
+    },
+    "mt-applications": {
+      "title": "Applications",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Reeb's theorem says that a closed manifold $M$ admitting a Morse function with exactly two critical points is...",
+          "choices": [
+            "a torus",
+            "homeomorphic to a sphere",
+            "non-orientable",
+            "always smoothly the standard $S^n$"
+          ],
+          "answer": 1,
+          "hint": "Two critical points = two handles, gluing two disks.",
+          "explain": "Two critical points must be a min (index 0) and max (index $n$). The two disks glued along their common boundary is homeomorphic to $S^n$ — but the smooth structure may be exotic (Milnor's exotic 7-spheres)."
+        },
+        {
+          "type": "mcq",
+          "q": "$\\mathbb{R}P^2$ admits a Morse function with critical-point indices $0,1,2$. The corresponding Morse counts $(c_0,c_1,c_2)=(1,1,1)$ give Euler characteristic:",
+          "choices": [
+            "$0$",
+            "$1$",
+            "$2$",
+            "$3$"
+          ],
+          "answer": 1,
+          "hint": "$\\chi = c_0 - c_1 + c_2$.",
+          "explain": "$\\chi(\\mathbb{R}P^2) = 1 - 1 + 1 = 1$. Compare with $\\chi(S^2)=1-0+1=2$ from $(c_0,c_1,c_2)=(1,0,1)$ — the index-1 critical point is what distinguishes them topologically."
+        },
+        {
+          "type": "mcq",
+          "q": "Floer homology generalises Morse homology by replacing the finite-dimensional manifold $M$ with an infinite-dimensional space, e.g.",
+          "choices": [
+            "the loop space $\\Lambda M$ or path space $\\mathcal{P}M$",
+            "the tangent bundle $TM$",
+            "the cotangent bundle $T^*M$",
+            "the universal cover $\\widetilde{M}$"
+          ],
+          "answer": 0,
+          "hint": "Critical points of the action functional on loops are periodic orbits.",
+          "explain": "Floer's insight: the symplectic action functional on the free loop space (or path space with Lagrangian boundary) has critical points = periodic orbits (or Lagrangian intersections), and gradient flow lines = pseudo-holomorphic strips. The Morse complex generalises term-by-term."
+        }
+      ]
+    }
+  }
+}

@@ -26,7 +26,10 @@
             "$[f] = [g]$ as morphisms in $K(\\mathcal{A})$.",
             "$f$ and $g$ differ by an isomorphism of $X^\\bullet$."
           ],
-          "answer": [0, 2],
+          "answer": [
+            0,
+            2
+          ],
           "explain": "Chain-homotopic maps induce equal maps on cohomology (so (1) holds) and become equal in $K(\\mathcal{A})$ by definition (so (3) holds). They generally differ as set maps (a chain homotopy is a witness, not a triviality), and there is no reason for them to differ by an iso of $X$."
         },
         {
@@ -70,7 +73,12 @@
             "Pass to the homotopy category $K(\\mathcal{A}) = \\mathrm{Ch}(\\mathcal{A})/\\simeq$, identifying chain-homotopic maps.",
             "Conclude $D(\\mathcal{A})$ is the universal target of a functor inverting quasi-isos."
           ],
-          "answer": [2, 0, 1, 3],
+          "answer": [
+            2,
+            0,
+            1,
+            3
+          ],
           "explain": "First descend to $K$ (item index 2), then check Ore conditions there (index 0), then build $D$ via the roof calculus (index 1), then state the universal property (index 3)."
         },
         {
@@ -121,15 +129,15 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "For $R$ a ring and $M, N \\in \\mathrm{Mod}\\,R$, which classical group is recovered as $\\mathrm{Hom}_{D(\\mathrm{Mod}\\,R)}(M[0], N[i])$?",
+          "q": "For $R$ a ring and $M, N \\in \\mathrm{Mod}\\,R$, which classical group is recovered as $\\Hom_{D(\\mathrm{Mod}\\,R)}(M[0], N[i])$?",
           "choices": [
-            "$\\mathrm{Hom}_R(M, N)$ (independent of $i$)",
+            "$\\Hom_R(M, N)$ (independent of $i$)",
             "$\\mathrm{Tor}_i^R(M, N)$",
             "$\\mathrm{Ext}_R^i(M, N)$",
             "$0$ unless $i = 0$"
           ],
           "answer": 2,
-          "explain": "This is one of the foundational identifications: $\\mathrm{Ext}_R^i(M, N) = \\mathrm{Hom}_{D(\\mathrm{Mod}\\,R)}(M[0], N[i])$. Tor would appear via $\\otimes^L$, not Hom. For $i = 0$ this gives ordinary Hom; for $i > 0$ we get the higher Ext groups."
+          "explain": "This is one of the foundational identifications: $\\mathrm{Ext}_R^i(M, N) = \\Hom_{D(\\mathrm{Mod}\\,R)}(M[0], N[i])$. Tor would appear via $\\otimes^L$, not Hom. For $i = 0$ this gives ordinary Hom; for $i > 0$ we get the higher Ext groups."
         },
         {
           "type": "mcq",
@@ -153,19 +161,24 @@
             "Heart of the standard $t$-structure"
           ],
           "right": [
-            "$D^+(\\mathcal{A})$",
             "$D^-(\\mathcal{A})$",
             "$D^b(\\mathcal{A})$",
-            "$\\mathcal{A}$ embedded as $M \\mapsto M[0]$"
+            "$\\mathcal{A}$ embedded as $M \\mapsto M[0]$",
+            "$D^+(\\mathcal{A})$"
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            3,
+            0,
+            1,
+            2
+          ],
           "explain": "$RF$ requires injective resolutions, which exist for bounded-below complexes ($D^+$). $LF$ dually wants projective resolutions, hence $D^-$. Bounded cohomology is the data of $D^b$. The heart of the standard $t$-structure is $\\mathcal{A}$ shifted to degree $0$."
         }
       ],
       "hard": [
         {
           "type": "mcq",
-          "q": "Let $R = k[x]/(x^2)$ for a field $k$. Compute $\\mathrm{Hom}_{D(\\mathrm{Mod}\\,R)}(k[0], k[i])$ as a $k$-vector space, where $k = R/(x)$.",
+          "q": "Let $R = k[x]/(x^2)$ for a field $k$. Compute $\\Hom_{D(\\mathrm{Mod}\\,R)}(k[0], k[i])$ as a $k$-vector space, where $k = R/(x)$.",
           "choices": [
             "$k$ for $i = 0$ only; $0$ otherwise.",
             "$k$ for every $i \\ge 0$; $0$ for $i < 0$.",
@@ -173,7 +186,7 @@
             "$k$ for $i \\in \\{0\\}$ and $k^2$ otherwise."
           ],
           "answer": 1,
-          "explain": "$\\mathrm{Hom}_{D}(k, k[i]) = \\mathrm{Ext}^i_R(k, k)$. A free resolution of $k$ is $\\dots \\to R \\xrightarrow{x} R \\xrightarrow{x} R \\to k \\to 0$ — periodic. Applying $\\mathrm{Hom}_R(-, k)$ gives $k \\xrightarrow{0} k \\xrightarrow{0} k \\to \\dots$ (since $x$ acts as $0$ on $k$). So $\\mathrm{Ext}^i_R(k, k) = k$ for every $i \\ge 0$. This is the prototypical \"Koszul-dual\" computation: a 0-dimensional non-reduced ring has nontrivial Ext in every degree.",
+          "explain": "$\\Hom_{D}(k, k[i]) = \\mathrm{Ext}^i_R(k, k)$. A free resolution of $k$ is $\\dots \\to R \\xrightarrow{x} R \\xrightarrow{x} R \\to k \\to 0$ — periodic. Applying $\\Hom_R(-, k)$ gives $k \\xrightarrow{0} k \\xrightarrow{0} k \\to \\dots$ (since $x$ acts as $0$ on $k$). So $\\mathrm{Ext}^i_R(k, k) = k$ for every $i \\ge 0$. This is the prototypical \"Koszul-dual\" computation: a 0-dimensional non-reduced ring has nontrivial Ext in every degree.",
           "hint": "Resolve $k$ over $R = k[x]/(x^2)$ — the resolution is periodic."
         }
       ]
@@ -202,7 +215,11 @@
             "Rotating a distinguished triangle gives another distinguished triangle.",
             "Cohomology functors $\\mathcal{T} \\to \\mathcal{B}$ send triangles to long exact sequences."
           ],
-          "answer": [0, 2, 3],
+          "answer": [
+            0,
+            2,
+            3
+          ],
           "explain": "(a), (c), (d) are part of the standard package. (b) is FALSE — uniqueness of the cone is only up to non-canonical iso, and the failure of functoriality of the cone is what prevents triangulated categories from being abelian.",
           "hint": "Watch out for \"canonical\" — that's a strong word."
         },
@@ -216,7 +233,7 @@
             "Three triangles, one for each pair of consecutive maps."
           ],
           "answer": 1,
-          "explain": "The triangle has a nonzero connecting map $\\delta\\colon C \\to A[1]$ representing the class $[B]$ in $\\mathrm{Ext}^1_{\\mathcal{A}}(C, A) = \\mathrm{Hom}_D(C, A[1])$. The class is zero iff the SES splits — generically it does not.",
+          "explain": "The triangle has a nonzero connecting map $\\delta\\colon C \\to A[1]$ representing the class $[B]$ in $\\mathrm{Ext}^1_{\\mathcal{A}}(C, A) = \\Hom_D(C, A[1])$. The class is zero iff the SES splits — generically it does not.",
           "hint": "What if the SES does NOT split?"
         }
       ],
@@ -256,8 +273,8 @@
           "type": "numeric",
           "q": "Compute $\\mathrm{Ext}^1_{\\mathbb{Z}}(\\mathbb{Z}/6, \\mathbb{Z}/4)$ as an abelian group, then enter its order (number of elements).",
           "answer": 2,
-          "tol": 1e-6,
-          "explain": "Use the resolution $0 \\to \\mathbb{Z} \\xrightarrow{6} \\mathbb{Z} \\to \\mathbb{Z}/6 \\to 0$. Apply $\\mathrm{Hom}(-, \\mathbb{Z}/4)$: get $\\mathbb{Z}/4 \\xrightarrow{6} \\mathbb{Z}/4$. Multiplication by $6 \\equiv 2 \\pmod 4$ has kernel $\\{0, 2\\}$ and cokernel $\\{0, 1\\}/\\langle 2\\rangle = \\mathbb{Z}/2$. So $\\mathrm{Ext}^1 = \\mathbb{Z}/2$, order $2$. (General formula: $\\mathrm{Ext}^1_{\\mathbb{Z}}(\\mathbb{Z}/m, \\mathbb{Z}/n) = \\mathbb{Z}/\\gcd(m,n)$, and $\\gcd(6,4) = 2$.)",
+          "tol": 0.000001,
+          "explain": "Use the resolution $0 \\to \\mathbb{Z} \\xrightarrow{6} \\mathbb{Z} \\to \\mathbb{Z}/6 \\to 0$. Apply $\\Hom(-, \\mathbb{Z}/4)$: get $\\mathbb{Z}/4 \\xrightarrow{6} \\mathbb{Z}/4$. Multiplication by $6 \\equiv 2 \\pmod 4$ has kernel $\\{0, 2\\}$ and cokernel $\\{0, 1\\}/\\langle 2\\rangle = \\mathbb{Z}/2$. So $\\mathrm{Ext}^1 = \\mathbb{Z}/2$, order $2$. (General formula: $\\mathrm{Ext}^1_{\\mathbb{Z}}(\\mathbb{Z}/m, \\mathbb{Z}/n) = \\mathbb{Z}/\\gcd(m,n)$, and $\\gcd(6,4) = 2$.)",
           "hint": "$\\mathrm{Ext}^1_{\\mathbb{Z}}(\\mathbb{Z}/m, \\mathbb{Z}/n) = \\mathbb{Z}/\\gcd(m, n)$."
         },
         {
@@ -317,6 +334,7 @@
             "The trivial category $0$"
           ],
           "answer": 1,
+          "hint": "The heart of the standard $t$-structure recovers the abelian category $\\mathcal{A}$ exactly: a complex with cohomology only in degree $0$ is quasi-iso to $H^0(X)[0]$, an object of $\\mathcal{A}$…",
           "explain": "The heart of the standard $t$-structure recovers the abelian category $\\mathcal{A}$ exactly: a complex with cohomology only in degree $0$ is quasi-iso to $H^0(X)[0]$, an object of $\\mathcal{A}$ shifted to degree $0$. So $\\heartsuit \\simeq \\mathcal{A}$."
         },
         {
@@ -329,7 +347,7 @@
             "Distinguished only when $\\mathcal{A}$ has finite cohomological dimension."
           ],
           "answer": 1,
-          "explain": "This is the existence and uniqueness clause of the $t$-structure axiom: every $X$ has a unique (up to unique iso) such triangle. Splitting is the special case when $\\mathrm{Hom}(\\tau_{\\ge 1} X, \\tau_{\\le 0} X[1]) = 0$, which is RARE — the connecting map carries the gluing data."
+          "explain": "This is the existence and uniqueness clause of the $t$-structure axiom: every $X$ has a unique (up to unique iso) such triangle. Splitting is the special case when $\\Hom(\\tau_{\\ge 1} X, \\tau_{\\le 0} X[1]) = 0$, which is RARE — the connecting map carries the gluing data."
         },
         {
           "type": "multi-select",
@@ -340,7 +358,11 @@
             "Every triangulated category has a unique $t$-structure.",
             "Different $t$-structures on the same triangulated category can have non-equivalent hearts."
           ],
-          "answer": [0, 1, 3],
+          "answer": [
+            0,
+            1,
+            3
+          ],
           "explain": "(a), (b) are theorems. (d) is the whole point of perverse $t$-structures: $D^b_c(X)$ has both standard and perverse $t$-structures, with hearts $\\mathrm{Sh}_c(X)$ vs perverse sheaves — different abelian categories! (c) is FALSE — $t$-structures are extra data, not unique."
         }
       ]
@@ -367,7 +389,7 @@
           "choices": [
             "$R\\pi_{Y,*}(\\pi_X^* \\mathcal{E} \\otimes^L \\mathcal{P})$",
             "$\\pi_{X,*}(\\pi_Y^* \\mathcal{E} \\otimes \\mathcal{P})$",
-            "$R\\mathrm{Hom}(\\mathcal{P}, \\mathcal{E})$",
+            "$R\\Hom(\\mathcal{P}, \\mathcal{E})$",
             "$\\mathcal{E} \\otimes \\mathcal{P}$ (no projections)"
           ],
           "answer": 0,

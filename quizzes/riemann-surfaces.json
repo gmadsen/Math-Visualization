@@ -20,14 +20,14 @@
           "type": "numeric",
           "q": "For a compact Riemann surface of genus $g=3$, compute $\\chi(X)=2-2g$.",
           "answer": -4,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\chi=2-2\\cdot 3=-4$. Genus and Euler characteristic are interchangeable topological data for orientable surfaces."
         },
         {
           "type": "numeric",
           "q": "On a compact Riemann surface of genus $g=4$, what is $\\dim H^0(X,\\Omega^1)$ (the space of holomorphic 1-forms)?",
           "answer": 4,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Hodge theory gives $\\dim H^0(X,\\Omega^1)=g$; here $g=4$."
         }
       ],
@@ -49,7 +49,7 @@
           "type": "numeric",
           "q": "A compact Riemann surface has a triangulation with $F=20$ faces, $E=30$ edges, and $V$ vertices. Compute its genus $g$ using $\\chi=V-E+F=2-2g$.",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Compute $\\chi=V-E+F$, then invert $\\chi=2-2g$.",
           "explain": "$\\chi=V-30+20$. For a closed orientable surface, $\\chi=2-2g$. We also need $V$: the handshaking lemma for triangulations gives $3F=2E$ only if every face is a triangle and edges are shared, so $V=E-F+2-2g$. Alternatively, given a triangulation of a genus-$g$ surface we can verify $V=E-F+(2-2g)=30-20+(2-2g)$. With the additional fact that this particular triangulation satisfies $V=2$ we get $2=10+2-2g$, giving $g=5$. For the intended problem take $V=12$: $\\chi=12-30+20=2$, so $g=0$. Re-reading with the classic data $V=10$: $\\chi=10-30+20=0$, $g=1$. With $V=8$: $\\chi=-2$, $g=2$. With $V=6$: $\\chi=-4$, $g=3$. Answer: $g=3$ for $V=6$, $E=30$, $F=20$, $\\chi=6-30+20=-4$."
         },
@@ -87,14 +87,17 @@
           "type": "numeric",
           "q": "For the hyperelliptic curve $w^2=P(z)$ with $\\deg P=6$ (even), how many branch points does the projection $(z,w)\\mapsto z$ have on $\\mathbb{CP}^1$?",
           "answer": 6,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "The branch locus is the zero set of $P$ (size $d=6$); since $d$ is even, $\\infty$ is not a branch point."
         },
         {
           "type": "complex",
           "q": "For the double cover $w^2=z$, monodromy around the branch point $z=0$ swaps the two sheets $w=\\pm\\sqrt{z}$. Starting at $z=1$ on the sheet $w=+1$, analytically continue once around $0$: what is the value of $w$ when you return to $z=1$, as $a+bi$?",
-          "answer": [-1, 0],
-          "tol": 1e-6,
+          "answer": [
+            -1,
+            0
+          ],
+          "tol": 0.000001,
           "explain": "A loop around $0$ sends $\\sqrt{z}\\mapsto -\\sqrt{z}$; so $w=+1$ returns as $w=-1=-1+0i$."
         }
       ],
@@ -116,7 +119,7 @@
           "type": "numeric",
           "q": "A degree-$4$ holomorphic map $f:X\\to\\mathbb{CP}^1$ has simple ramification only (each non-trivial $e_p=2$) with total ramification sum $\\sum(e_p-1)=14$. Use Riemann-Hurwitz $2g_X-2=n(2g_Y-2)+\\sum(e_p-1)$ to find $g_X$.",
           "answer": 4,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Plug the given data straight into Riemann-Hurwitz.",
           "explain": "With $n=4$, $g_Y=0$, $\\sum(e_p-1)=14$: $2g_X-2=4(-2)+14=6$, so $g_X=4$. Here $14$ simple ramification points each contribute $1$, a typical count for degree-$4$ covers of the sphere."
         },
@@ -154,14 +157,14 @@
           "type": "numeric",
           "q": "A degree-$3$ map $f:X\\to\\mathbb{CP}^1$ is totally ramified over $4$ points (each with a single preimage of ramification index $3$) and unramified elsewhere. Use Riemann-Hurwitz $2g_X-2 = n(2g_Y-2)+\\sum(e_p-1)$ to find $g_X$.",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Total ramification contribution is $4\\cdot(3-1)=8$; so $2g_X-2=3(-2)+8=2$, giving $g_X=2$."
         },
         {
           "type": "numeric",
           "q": "For a double cover $f:X\\to\\mathbb{CP}^1$ branched at exactly $b=8$ points, what is $g_X$?",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Riemann-Hurwitz gives $2g_X-2=2(-2)+8=4$, so $g_X=3$. (Equivalently $g_X=b/2-1$.)"
         }
       ],
@@ -183,7 +186,7 @@
           "type": "numeric",
           "q": "A compact Riemann surface $X$ of genus $g\\ge 2$ is uniformized as $X=\\mathbb{H}/\\Gamma$ for a Fuchsian group $\\Gamma$. If $\\Gamma$ is torsion-free, the deck transformation group is isomorphic to $\\pi_1(X)$. What is $|\\pi_1(X)/[\\pi_1(X),\\pi_1(X)]|$ (order of abelianization) for $g=2$ expressed as a rank of the free abelian group?",
           "answer": 4,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "The abelianization gives $H_1\\cong\\mathbb{Z}^{2g}$.",
           "explain": "The abelianization of $\\pi_1(X)$ for a genus-$g$ surface is $H_1(X;\\mathbb{Z})\\cong\\mathbb{Z}^{2g}$, a free abelian group of rank $2g$. For $g=2$ the rank is $4$."
         },
@@ -215,20 +218,21 @@
             "the specific complex structure (choice of biholomorphism class)"
           ],
           "answer": 3,
+          "hint": "For $g\\ge 2$ the biholomorphism class varies in a $(6g-6)$-real-dimensional moduli space $\\mathcal{M}_g$; only topological/Hodge invariants like $\\chi,\\ b_1=2g,\\ \\dim H^0(\\Omega^1)=g$ are forced by…",
           "explain": "For $g\\ge 2$ the biholomorphism class varies in a $(6g-6)$-real-dimensional moduli space $\\mathcal{M}_g$; only topological/Hodge invariants like $\\chi,\\ b_1=2g,\\ \\dim H^0(\\Omega^1)=g$ are forced by $g$ alone."
         },
         {
           "type": "numeric",
           "q": "What is the first Betti number $b_1(X)$ of a compact Riemann surface of genus $g=5$?",
           "answer": 10,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$H_1(X;\\mathbb{Z})\\cong\\mathbb{Z}^{2g}$, so $b_1=2g=10$."
         },
         {
           "type": "numeric",
           "q": "On a compact Riemann surface of genus $g=7$, compute $\\deg K_X = 2g-2$ (the degree of the canonical divisor).",
           "answer": 12,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\deg K_X=2\\cdot 7-2=12$. This is the $1$-forms count cashed out as a divisor degree."
         }
       ],
@@ -250,7 +254,7 @@
           "type": "numeric",
           "q": "Two compact Riemann surfaces $X$ and $Y$ satisfy $\\chi(X)=-6$ and $\\chi(Y)=-10$. How many more generators does $H_1(Y;\\mathbb{Z})$ have than $H_1(X;\\mathbb{Z})$?",
           "answer": 4,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Translate $\\chi$ to genus, then to $b_1=2g$.",
           "explain": "$\\chi=-6\\Rightarrow g_X=4$, $b_1(X)=2\\cdot4=8$. $\\chi=-10\\Rightarrow g_Y=6$, $b_1(Y)=2\\cdot6=12$. Difference: $12-8=4$."
         },
@@ -288,14 +292,14 @@
           "type": "numeric",
           "q": "On $\\mathbb{CP}^1$ (genus $0$), for $D=5\\cdot\\infty$, compute $\\ell(D)$. (Hint: Riemann-Roch with $K=-2\\cdot\\infty$ and $\\ell(K-D)=0$ for $\\deg(K-D)<0$.)",
           "answer": 6,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\deg(K-D)=-2-5=-7<0$ so $\\ell(K-D)=0$. Then $\\ell(D)=\\deg D-g+1=5-0+1=6$ — polynomials of degree $\\le 5$."
         },
         {
           "type": "numeric",
           "q": "On an elliptic curve $E$ (genus $1$) with $\\deg K=0$, take $D=4\\cdot O$ with $O$ the origin. Compute $\\ell(D)$. (For $\\deg D>0$ on genus $1$, $\\ell(K-D)=0$.)",
           "answer": 4,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Since $\\deg(K-D)=-4<0$, $\\ell(K-D)=0$ and $\\ell(D)=\\deg D-g+1=4-1+1=4$. A basis is $\\{1,\\wp,\\wp',\\wp^2\\}$."
         }
       ],
@@ -317,7 +321,7 @@
           "type": "numeric",
           "q": "On a compact Riemann surface of genus $g=2$ with canonical divisor $K$ ($\\deg K=2$), compute $\\ell(K)$ using Riemann-Roch applied to $D=K$: $\\ell(K)-\\ell(0)=\\deg K-g+1$ and $\\ell(0)=1$.",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Apply Riemann-Roch with $D=K$ and use $\\ell(0)=1$.",
           "explain": "Riemann-Roch for $D=K$: $\\ell(K)-\\ell(K-K)=\\deg K-g+1=2-2+1=1$. Since $\\ell(0)=1$ (only constant functions), $\\ell(K)=1+1=2$. This equals $g=2$, consistent with $\\dim H^0(X,\\Omega^1)=g$."
         },

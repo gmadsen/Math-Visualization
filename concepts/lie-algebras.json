@@ -1,0 +1,72 @@
+{
+  "topic": "lie-algebras",
+  "title": "Lie algebras",
+  "page": "lie-algebras.html",
+  "concepts": [
+    {
+      "id": "la-axioms",
+      "title": "Axioms and matrix examples",
+      "anchor": "axioms",
+      "prereqs": [
+        "algebraic-structures",
+        "lie-group-definition"
+      ],
+      "blurb": "A Lie algebra is a vector space with a skew-symmetric bracket $[\\cdot,\\cdot]$ satisfying the Jacobi identity $[x,[y,z]]+[y,[z,x]]+[z,[x,y]]=0$. Standard families: $\\mathfrak{gl}_n$ (all matrices), $\\mathfrak{sl}_n$ (traceless), $\\mathfrak{so}_n$ (skew-symmetric), $\\mathfrak{sp}_{2n}$ (symplectic).",
+      "tags": ["foundation"]
+    },
+    {
+      "id": "la-derivations-and-adjoint",
+      "title": "Derivations and the adjoint representation",
+      "anchor": "derivations",
+      "prereqs": [
+        "la-axioms",
+        "lie-bracket-bch"
+      ],
+      "blurb": "The adjoint $\\ad(x)=[x,-]$ makes every $x\\in\\mathfrak g$ act as a derivation of the bracket; the Killing form $B(x,y)=\\tr(\\ad(x)\\ad(y))$ is the canonical $\\mathfrak g$-invariant symmetric bilinear form.",
+      "tags": ["group-action", "duality"]
+    },
+    {
+      "id": "la-solvable-and-nilpotent",
+      "title": "Solvable and nilpotent Lie algebras",
+      "anchor": "solvable-nilpotent",
+      "prereqs": [
+        "la-derivations-and-adjoint",
+        "quotients-homomorphisms"
+      ],
+      "blurb": "The derived series $\\mathfrak g\\supseteq[\\mathfrak g,\\mathfrak g]\\supseteq\\cdots$ measures solvability; the lower-central series measures nilpotence. Engel: $\\ad\\,x$ nilpotent for every $x$ iff $\\mathfrak g$ is nilpotent. Lie: every solvable rep over $\\mathbb C$ is upper-triangularizable.",
+      "tags": ["classification"]
+    },
+    {
+      "id": "la-cartan-killing-classification",
+      "title": "Cartan, Killing, and semisimplicity",
+      "anchor": "cartan-killing",
+      "prereqs": [
+        "la-derivations-and-adjoint",
+        "la-solvable-and-nilpotent"
+      ],
+      "blurb": "Cartan's criterion: $\\mathfrak g$ is semisimple iff its Killing form is nondegenerate. A Cartan subalgebra $\\mathfrak h$ diagonalizes $\\ad$ and yields a root system $\\Phi\\subset\\mathfrak h^*$, encoded combinatorially by a Dynkin diagram.",
+      "tags": ["classification", "duality"]
+    },
+    {
+      "id": "la-sl2-and-roots",
+      "title": "$\\mathfrak{sl}_2$-triples, root spaces, weights",
+      "anchor": "sl2-roots",
+      "prereqs": [
+        "la-cartan-killing-classification",
+        "highest-weight-theorem"
+      ],
+      "blurb": "Each root $\\alpha\\in\\Phi$ gives an $\\mathfrak{sl}_2$-triple $(e_\\alpha,h_\\alpha,f_\\alpha)$; finite-dimensional irreps of $\\mathfrak{sl}_2$ are weight diagrams $V_n$ with weights $n,n-2,\\dots,-n$, and every semisimple representation decomposes into such weight strings.",
+      "tags": ["classification"]
+    },
+    {
+      "id": "la-classification-simple",
+      "title": "Classification of simple Lie algebras",
+      "anchor": "classification",
+      "prereqs": [
+        "la-sl2-and-roots"
+      ],
+      "blurb": "Over $\\mathbb C$ the simple Lie algebras are exactly the four classical series $A_n=\\mathfrak{sl}_{n+1}$, $B_n=\\mathfrak{so}_{2n+1}$, $C_n=\\mathfrak{sp}_{2n}$, $D_n=\\mathfrak{so}_{2n}$ together with five exceptions $E_6,E_7,E_8,F_4,G_2$ — read off from connected Dynkin diagrams.",
+      "tags": ["classification"]
+    }
+  ]
+}

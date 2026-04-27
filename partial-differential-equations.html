@@ -1,0 +1,1262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Partial differential equations</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\Spec',
+        '\\Gal':'\\Gal',
+        '\\Hom':'\\Hom',
+        '\\tr':'\\tr',
+        '\\ad':'\\ad',
+        '\\ind':'\\ind'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"automorphic-forms-adelic","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"additive-number-theory":{"next":"quadratic-forms-genus-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"moduli-spaces","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":null,"prev":"heights-arithmetic-geometry","section":"Number theory","title":"Analytic number theory"},"automorphic-forms-adelic":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-topoi","prev":"infinity-categories","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"deformation-theory":{"next":"etale-cohomology","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"group-cohomology","prev":"homological","section":"Algebra & homological","title":"Derived categories"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"harmonic-analysis-fourier","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":null,"section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":null,"prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":null,"prev":"deformation-theory","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"deformation-theory","prev":"group-schemes","section":"Algebraic geometry","title":"Étale fundamental group"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"naive-set-theory","section":"Logic & Foundations","title":"First order logic and completeness"},"forcing-and-independence":{"next":null,"prev":"type-theory-and-hott","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":null,"prev":"lie-algebras","section":"Algebra & homological","title":"Galois cohomology and brauer"},"galois-representations":{"next":"heights-arithmetic-geometry","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"lie-algebras","prev":"derived-categories","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"etale-fundamental-group","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"harmonic-analysis-fourier":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"spectral-theory","prev":"partial-differential-equations","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"analytic-number-theory","prev":"galois-representations","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"homological":{"next":"derived-categories","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"cocartesian-fibrations","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-topoi (Lurie)"},"information-theory":{"next":"large-deviations","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"stacks","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"large-deviations":{"next":null,"prev":"information-theory","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"galois-cohomology-and-brauer","prev":"group-cohomology","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"model-theory-basics":{"next":"computability-and-decidability","prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":null,"prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"modular-curves","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"algebraic-spaces","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":null,"prev":"characteristic-classes","section":"Geometry & topology","title":"Morse theory"},"naive-set-theory":{"next":"first-order-logic-and-completeness","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"harmonic-functions","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"stochastic-processes-and-martingales","prev":null,"section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"additive-number-theory","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"additive-number-theory","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"random-walks-and-mixing":{"next":"information-theory","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra & homological","title":"Representation theory"},"riemann-surfaces":{"next":"characteristic-classes","prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"sheaf-cohomology":{"next":"algebraic-de-rham-cohomology","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"algebraic-curves-higher-genus","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Sobolev spaces & distributions"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":null,"prev":"harmonic-functions","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"intersection-theory-chow","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":"probability-theory","section":"Probability & statistics","title":"Stochastic processes and martingales"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"type-theory-and-hott":{"next":"forcing-and-independence","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and hott"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"model-theory-basics","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"Zfc and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="Analysis" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+  <a href="#classification">1&nbsp;Classification</a>
+  <a href="#heat">2&nbsp;Heat&nbsp;equation</a>
+  <a href="#wave">3&nbsp;Wave&nbsp;equation</a>
+  <a href="#laplace">4&nbsp;Laplace&nbsp;equation</a>
+  <a href="#weak-solutions">5&nbsp;Weak&nbsp;solutions</a>
+  <a href="#regularity">6&nbsp;Regularity</a>
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Partial differential equations</h1>
+  <p class="sub">Three model equations — Laplace, heat, wave — set the type signature for everything else: their discriminant says whether information sits still, smooths out, or travels along characteristics. Weak solutions and Lax–Milgram turn each into a Hilbert-space problem; elliptic regularity and Sobolev embedding hand the smoothness back.</p>
+</section>
+
+<section id="classification">
+<h2>1. Classification: elliptic / parabolic / hyperbolic</h2>
+
+<p>A second-order linear PDE in two variables, written symmetrically as</p>
+$$a(x,y)\,u_{xx} + 2b(x,y)\,u_{xy} + c(x,y)\,u_{yy} + (\text{lower order}) = 0,$$
+<p>has a single number — the <strong>discriminant</strong> $\Delta = b^2 - ac$ — that controls almost every qualitative feature of its solutions. The sign of $\Delta$ partitions linear PDE into three universes:</p>
+
+<table class="plain">
+<thead><tr><th>$\Delta$</th><th>type</th><th>model</th><th>characteristics</th><th>well-posed data</th></tr></thead>
+<tbody>
+<tr><td>$<0$</td><td>elliptic</td><td>$\Delta u = 0$</td><td>none real</td><td>boundary values on $\partial\Omega$</td></tr>
+<tr><td>$=0$</td><td>parabolic</td><td>$u_t = \Delta u$</td><td>one family</td><td>initial $+$ lateral data</td></tr>
+<tr><td>$>0$</td><td>hyperbolic</td><td>$u_{tt} = c^2\Delta u$</td><td>two families</td><td>Cauchy data on a non-characteristic curve</td></tr>
+</tbody>
+</table>
+
+<p>The characteristic curves are the integral curves of $a\,dy^2 - 2b\,dx\,dy + c\,dx^2 = 0$. Real roots exist exactly when $\Delta\ge 0$; the wave equation has two of them (the light-cone slopes $\pm 1/c$), the heat equation has the degenerate single family $t=\text{const}$, and Laplace has none — which is why elliptic problems take all-around boundary data instead of evolving in any direction.</p>
+
+<div class="widget" id="w-classify">
+  <div class="hd"><div class="ttl">Discriminant calculator</div><div class="hint">pick coefficients; classify the PDE; trace its characteristics</div></div>
+  <svg id="cl-svg" viewBox="0 0 580 320" width="580" height="320"><title>PDE classification visualizer</title></svg>
+  <div class="row">
+    <label for="cl-preset">preset</label>
+    <select id="cl-preset">
+      <option value="laplace" selected>Laplace: $u_{xx}+u_{yy}=0$</option>
+      <option value="wave">Wave: $u_{tt}-u_{xx}=0$</option>
+      <option value="heat">Heat: $u_{xx}-u_{t}=0$ (parabolic)</option>
+      <option value="tricomi">Tricomi: $y\,u_{xx}+u_{yy}=0$</option>
+    </select>
+  </div>
+  <div class="row">
+    <label for="cl-a">$a$</label>
+    <input type="range" id="cl-a" min="-2" max="2" step="0.1" value="1">
+    <span class="readout" id="cl-a-out" style="min-width:60px;flex:0 0 auto">a = 1.0</span>
+  </div>
+  <div class="row">
+    <label for="cl-b">$b$</label>
+    <input type="range" id="cl-b" min="-2" max="2" step="0.1" value="0">
+    <span class="readout" id="cl-b-out" style="min-width:60px;flex:0 0 auto">b = 0.0</span>
+  </div>
+  <div class="row">
+    <label for="cl-c">$c$</label>
+    <input type="range" id="cl-c" min="-2" max="2" step="0.1" value="1">
+    <span class="readout" id="cl-c-out" style="min-width:60px;flex:0 0 auto">c = 1.0</span>
+  </div>
+  <div class="readout" id="cl-out"></div>
+</div>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./real-analysis.html#multivariable-differentiation">Multivariable differentiation</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./partial-differential-equations.html#heat">Partial differential equations</a> · Heat equation and the heat kernel</div>
+    <div><a href="./partial-differential-equations.html#laplace">Partial differential equations</a> · Laplace equation and the Dirichlet problem</div>
+    <div><a href="./partial-differential-equations.html#wave">Partial differential equations</a> · Wave equation and d'Alembert</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="pde-classification"></div><script>
+/* ============================ §1 classification widget ============================ */
+(function(){
+  const svg = $('#cl-svg'), aS=$('#cl-a'), bS=$('#cl-b'), cS=$('#cl-c'),
+        aO=$('#cl-a-out'), bO=$('#cl-b-out'), cO=$('#cl-c-out'),
+        out=$('#cl-out'), pre=$('#cl-preset');
+  const W=580, H=320, padL=46, padR=20, padT=20, padB=30;
+  const xmin=-3, xmax=3, ymin=-3, ymax=3;
+  const sx = x => padL + (x-xmin)/(xmax-xmin)*(W-padL-padR);
+  const sy = y => padT + (ymax-y)/(ymax-ymin)*(H-padT-padB);
+
+  const presets = {
+    laplace:  {a:1, b:0, c:1},
+    wave:     {a:1, b:0, c:-1},
+    heat:     {a:1, b:0, c:0},
+    tricomi:  {a:0.5, b:0, c:1}
+  };
+
+  function render(){
+    svg.innerHTML="";
+    const a = parseFloat(aS.value), b = parseFloat(bS.value), c = parseFloat(cS.value);
+    aO.textContent = `a = ${a.toFixed(1)}`;
+    bO.textContent = `b = ${b.toFixed(1)}`;
+    cO.textContent = `c = ${c.toFixed(1)}`;
+
+    const disc = b*b - a*c;
+    let label, color;
+    if(disc < -1e-9){ label = "elliptic"; color = "var(--cyan)"; }
+    else if(disc > 1e-9){ label = "hyperbolic"; color = "var(--pink)"; }
+    else { label = "parabolic"; color = "var(--yellow)"; }
+
+    // axes
+    svg.appendChild(SVG('line',{x1:padL,y1:sy(0),x2:W-padR,y2:sy(0),stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:sx(0),y1:padT,x2:sx(0),y2:H-padB,stroke:'var(--line)'}));
+    for(const xv of [-2,-1,1,2]){
+      svg.appendChild(SVG('line',{x1:sx(xv),y1:sy(0)-3,x2:sx(xv),y2:sy(0)+3,stroke:'var(--mute)'}));
+      svg.appendChild(SVG('line',{x1:sx(0)-3,y1:sy(xv),x2:sx(0)+3,y2:sy(xv),stroke:'var(--mute)'}));
+    }
+    // characteristic directions: a λ² - 2b λ + c = 0  (with λ = dy/dx)
+    // Real characteristics need disc ≥ 0; draw lines through origin at slopes λ.
+    if(disc >= -1e-9){
+      const sqrtD = Math.sqrt(Math.max(0, disc));
+      const lambdas = [];
+      if(Math.abs(a) > 1e-9){
+        lambdas.push((b + sqrtD)/a);
+        if(disc > 1e-9) lambdas.push((b - sqrtD)/a);
+      } else if(Math.abs(b) > 1e-9){
+        // 2bλ = c → λ = c/(2b); plus the degenerate vertical line
+        lambdas.push(c/(2*b));
+      } else if(Math.abs(c) > 1e-9){
+        // a=b=0; characteristic equation reduces to c·dx² = 0 → vertical lines (y free)
+        // draw vertical "characteristic"
+      }
+      for(const lam of lambdas){
+        if(!isFinite(lam)) continue;
+        const x1=xmin, x2=xmax;
+        const y1=lam*x1, y2=lam*x2;
+        svg.appendChild(SVG('line',{x1:sx(x1),y1:sy(y1),x2:sx(x2),y2:sy(y2),
+          stroke:color,'stroke-width':2,'stroke-opacity':0.85}));
+      }
+      if(Math.abs(a) < 1e-9 && Math.abs(b) < 1e-9 && Math.abs(c) > 1e-9){
+        // vertical characteristic family
+        for(const xv of [-2,-1,0,1,2]){
+          svg.appendChild(SVG('line',{x1:sx(xv),y1:sy(ymin),x2:sx(xv),y2:sy(ymax),
+            stroke:color,'stroke-width':1.4,'stroke-opacity':0.55}));
+        }
+      }
+      // extra parallel lines for parabolic/heat to show the single family
+      if(Math.abs(disc) <= 1e-9 && lambdas.length===1){
+        const lam = lambdas[0];
+        for(const off of [-2,-1,1,2]){
+          const x1=xmin, x2=xmax;
+          const y1=lam*x1+off, y2=lam*x2+off;
+          svg.appendChild(SVG('line',{x1:sx(x1),y1:sy(y1),x2:sx(x2),y2:sy(y2),
+            stroke:color,'stroke-width':1.2,'stroke-opacity':0.45}));
+        }
+      } else if(disc > 1e-9){
+        // hyperbolic: light-cone style fan
+        for(const lam of lambdas){
+          for(const off of [-1.5,-0.7,0.7,1.5]){
+            const x1=xmin, x2=xmax;
+            const y1=lam*x1+off, y2=lam*x2+off;
+            svg.appendChild(SVG('line',{x1:sx(x1),y1:sy(y1),x2:sx(x2),y2:sy(y2),
+              stroke:color,'stroke-width':1.0,'stroke-opacity':0.32}));
+          }
+        }
+      }
+    } else {
+      // elliptic: no real characteristics — draw a few level circles for flavor
+      for(const r of [0.6,1.2,1.8,2.4]){
+        svg.appendChild(SVG('circle',{cx:sx(0),cy:sy(0),r:(W-padL-padR)/(xmax-xmin)*r,
+          fill:'none',stroke:color,'stroke-width':1.2,'stroke-opacity':0.45}));
+      }
+    }
+
+    // header label
+    const hd = SVG('text',{x:W-padR-10,y:padT+18,'text-anchor':'end','font-size':14,
+      fill:color,'font-weight':600});
+    hd.textContent = label.toUpperCase();
+    svg.appendChild(hd);
+    const sub = SVG('text',{x:W-padR-10,y:padT+34,'text-anchor':'end','font-size':12,fill:'var(--mute)'});
+    sub.textContent = `b² − ac = ${disc.toFixed(2)}`;
+    svg.appendChild(sub);
+
+    out.textContent =
+      `${a.toFixed(1)}·u_xx + ${(2*b).toFixed(1)}·u_xy + ${c.toFixed(1)}·u_yy = 0`
+      + `\nDiscriminant b² − ac = ${disc.toFixed(2)} → ${label}.`
+      + (disc < -1e-9
+          ? "\nNo real characteristics — Dirichlet data on ∂Ω is the natural problem."
+          : disc > 1e-9
+            ? "\nTwo real characteristic families — information travels along them at finite speed."
+            : "\nOne degenerate family — diffusive smoothing in the time direction.");
+  }
+  pre.addEventListener('change', () => {
+    const p = presets[pre.value];
+    if(!p) return;
+    aS.value = p.a; bS.value = p.b; cS.value = p.c;
+    render();
+  });
+  for(const el of [aS,bS,cS]) el.addEventListener('input', render);
+  render();
+})();
+</script>
+
+
+</section>
+<section id="heat">
+<h2>2. Heat equation and the heat kernel</h2>
+
+<p>The <strong>heat equation</strong></p>
+$$u_t = \Delta u, \qquad u(x,0) = u_0(x)$$
+<p>describes how a temperature distribution $u_0$ on $\mathbb{R}^n$ relaxes toward equilibrium. Plugging in the Gaussian ansatz $u(x,t) = (4\pi t)^{-n/2} e^{-|x|^2/4t}$ and computing both sides shows it solves $u_t=\Delta u$ for $t>0$, and as $t\to 0^+$ it concentrates at the origin: this is the <strong>heat kernel</strong></p>
+$$K_t(x) \;=\; \frac{1}{(4\pi t)^{n/2}}\,e^{-|x|^2/4t}, \qquad K_0 = \delta_0.$$
+<p>Convolution gives the general solution: $u(x,t) = (K_t * u_0)(x)$. Three properties are immediate.</p>
+
+<div class="note">
+<p><strong>Smoothing.</strong> Even if $u_0$ is merely $L^1$ or a distribution, $u(\cdot,t)\in C^\infty(\mathbb{R}^n)$ for every $t>0$. Heat kills singularities; rough data becomes analytic instantly.</p>
+</div>
+<div class="note">
+<p><strong>Infinite propagation speed.</strong> $K_t(x)>0$ for every $x\in\mathbb{R}^n$ and every $t>0$. A point of heat at the origin is felt — however faintly — everywhere, immediately. This is the qualitative opposite of the wave equation.</p>
+</div>
+<div class="note">
+<p><strong>Maximum principle.</strong> On a bounded cylinder $\Omega\times[0,T]$, $\max u$ is taken on the parabolic boundary $\{t=0\}\cup(\partial\Omega\times[0,T])$ — never strictly inside, unless $u$ is constant. Heat dampens; it cannot create new hot spots.</p>
+</div>
+
+<div class="widget" id="w-heat">
+  <div class="hd"><div class="ttl">Heat-kernel evolution from initial data</div><div class="hint">slide $t$ to watch the Gaussian widen; switch to a sum of two deltas</div></div>
+  <svg id="ht-svg" viewBox="0 0 580 320" width="580" height="320"><title>Heat equation evolution visualizer</title></svg>
+  <div class="row">
+    <label for="ht-init">initial data $u_0$</label>
+    <select id="ht-init">
+      <option value="delta" selected>$\delta_0$ (single spike)</option>
+      <option value="two">$\delta_{-1} + \delta_{1}$ (two spikes)</option>
+      <option value="step">step: $H(x)$</option>
+    </select>
+  </div>
+  <div class="row">
+    <label for="ht-t">time $t$</label>
+    <input type="range" id="ht-t" min="0.01" max="1.5" step="0.01" value="0.05">
+    <span class="readout" id="ht-t-out" style="min-width:90px;flex:0 0 auto">t = 0.05</span>
+  </div>
+  <div class="readout" id="ht-out"></div>
+</div>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./measure-theory.html#convergence-theorems">Convergence theorems</a></li>
+    <li><a href="./measure-theory.html#convergence">Monotone and dominated convergence</a></li>
+    <li><a href="./harmonic-functions.html#maximum">Maximum principle</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./stochastic-calculus.html#feynman-kac">Stochastic calculus</a> · Feynman–Kac formula</div>
+</aside>
+<!-- backlinks-auto-end -->
+<div class="quiz" data-concept="pde-heat-equation"></div><script>
+/* ============================ §2 heat-kernel widget ============================ */
+(function(){
+  const svg=$('#ht-svg'), sel=$('#ht-init'), tS=$('#ht-t'), tO=$('#ht-t-out'), out=$('#ht-out');
+  const W=580, H=320, padL=46, padR=20, padT=20, padB=30;
+  const xmin=-4, xmax=4, ymin=0, ymax=2.2;
+  const sx = x => padL + (x-xmin)/(xmax-xmin)*(W-padL-padR);
+  const sy = y => padT + (ymax-y)/(ymax-ymin)*(H-padT-padB);
+
+  function K(t,x){ return Math.exp(-x*x/(4*t))/Math.sqrt(4*Math.PI*t); }
+
+  function eval0(kind, x, t){
+    if(kind==="delta") return K(t, x);
+    if(kind==="two")   return K(t, x+1) + K(t, x-1);
+    if(kind==="step"){
+      // u = ∫_0^∞ K_t(x-y) dy = (1/2)(1 + erf(x/(2 sqrt t)))
+      return 0.5 * (1 + erf(x/(2*Math.sqrt(t))));
+    }
+    return 0;
+  }
+  // small erf approximation (Abramowitz & Stegun 7.1.26)
+  function erf(x){
+    const sign = x<0 ? -1 : 1;
+    x = Math.abs(x);
+    const a1=0.254829592,a2=-0.284496736,a3=1.421413741,a4=-1.453152027,a5=1.061405429,p=0.3275911;
+    const tt = 1/(1+p*x);
+    const y = 1 - (((((a5*tt + a4)*tt) + a3)*tt + a2)*tt + a1)*tt*Math.exp(-x*x);
+    return sign*y;
+  }
+
+  function render(){
+    svg.innerHTML="";
+    const t = parseFloat(tS.value);
+    tO.textContent = `t = ${t.toFixed(2)}`;
+    const kind = sel.value;
+
+    // axes
+    svg.appendChild(SVG('line',{x1:padL,y1:sy(0),x2:W-padR,y2:sy(0),stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:sx(0),y1:padT,x2:sx(0),y2:H-padB,stroke:'var(--line)'}));
+    for(const xv of [-3,-2,-1,1,2,3]){
+      svg.appendChild(SVG('line',{x1:sx(xv),y1:sy(0)-3,x2:sx(xv),y2:sy(0)+3,stroke:'var(--mute)'}));
+      const tx=SVG('text',{x:sx(xv),y:sy(0)+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      tx.textContent=String(xv); svg.appendChild(tx);
+    }
+
+    // initial-data marker(s) (cyan)
+    if(kind==="delta" || kind==="two"){
+      const sites = kind==="delta" ? [0] : [-1,1];
+      for(const s of sites){
+        svg.appendChild(SVG('line',{x1:sx(s),y1:sy(0),x2:sx(s),y2:sy(2),
+          stroke:'var(--cyan)','stroke-width':2.4}));
+        svg.appendChild(SVG('polygon',{
+          points:`${sx(s)-6},${sy(2)} ${sx(s)+6},${sy(2)} ${sx(s)},${sy(2.18)}`,
+          fill:'var(--cyan)'}));
+      }
+    } else if(kind==="step"){
+      svg.appendChild(SVG('line',{x1:sx(0),y1:sy(0),x2:sx(xmax),y2:sy(0),
+        stroke:'var(--cyan)','stroke-width':2,'stroke-dasharray':'4 3'}));
+      svg.appendChild(SVG('line',{x1:sx(0),y1:sy(0),x2:sx(0),y2:sy(1),
+        stroke:'var(--cyan)','stroke-width':2,'stroke-dasharray':'4 3'}));
+      svg.appendChild(SVG('line',{x1:sx(0),y1:sy(1),x2:sx(xmax),y2:sy(1),
+        stroke:'var(--cyan)','stroke-width':2,'stroke-dasharray':'4 3'}));
+    }
+
+    // u(·, t) trace (yellow)
+    const M=600;
+    const pts=[];
+    let peak=0;
+    for(let i=0;i<=M;i++){
+      const x = xmin + i*(xmax-xmin)/M;
+      const y = eval0(kind, x, t);
+      if(y>peak) peak=y;
+      pts.push([sx(x), sy(Math.min(ymax-0.05, y))]);
+    }
+    const d = pts.map((p,i)=>`${i===0?'M':'L'}${p[0]} ${p[1]}`).join(' ');
+    svg.appendChild(SVG('path',{d, fill:'var(--yellow)','fill-opacity':0.16,
+      stroke:'var(--yellow)','stroke-width':2}));
+
+    // legend
+    const lg1 = SVG('text',{x:W-padR-10,y:padT+14,'text-anchor':'end','font-size':12,fill:'var(--cyan)'});
+    lg1.textContent = "u₀ (initial)"; svg.appendChild(lg1);
+    const lg2 = SVG('text',{x:W-padR-10,y:padT+30,'text-anchor':'end','font-size':12,fill:'var(--yellow)'});
+    lg2.textContent = "u(·, t)"; svg.appendChild(lg2);
+
+    const sigma = Math.sqrt(2*t);
+    out.textContent =
+        `K_t(x) = (4π t)^(−1/2) exp(−x²/4t)`
+      + `\nGaussian width σ = √(2t) ≈ ${sigma.toFixed(3)};   peak ≈ ${peak.toFixed(3)}`
+      + (kind==="delta"
+          ? "\nThe initial δ₀ has spread to a Gaussian: smoothing is instantaneous."
+          : kind==="two"
+            ? "\nTwo Gaussians, one per spike — they merge as σ grows past their separation."
+            : "\nThe step is smoothed by erf — discontinuity becomes analytic for any t > 0.");
+  }
+  sel.addEventListener('change', render);
+  tS.addEventListener('input', render);
+  render();
+})();
+</script>
+
+
+</section>
+<section id="wave">
+<h2>3. Wave equation and d'Alembert</h2>
+
+<p>The <strong>wave equation</strong> $u_{tt} = c^2\Delta u$ is the prototype hyperbolic equation. In one space dimension it factors:</p>
+$$\partial_t^2 - c^2\partial_x^2 \;=\; (\partial_t - c\partial_x)(\partial_t + c\partial_x),$$
+<p>which says the operator annihilates anything constant along $x \pm ct$. The general solution is therefore $u(x,t) = F(x-ct) + G(x+ct)$ — a right-mover plus a left-mover. Matching the initial data $u(x,0)=f$, $u_t(x,0)=g$ produces <strong>d'Alembert's formula</strong>:</p>
+$$u(x,t) \;=\; \tfrac{1}{2}\bigl[f(x-ct) + f(x+ct)\bigr] \;+\; \frac{1}{2c}\!\int_{x-ct}^{x+ct}\!g(s)\,ds.$$
+<p>Two halves of the position datum travel in opposite directions; the velocity datum spreads as an integrated pulse between the two characteristics.</p>
+
+<p><strong>Finite speed of propagation.</strong> $u(x_0,t_0)$ depends only on data inside the segment $[x_0-ct_0, x_0+ct_0]$ — its <em>backward light cone</em>. A signal cannot outrun $c$.</p>
+
+<p><strong>Huygens' principle.</strong> In odd $n\ge 3$ the dependence shrinks further — to the <em>boundary</em> of the cone. A pulse on $\mathbb{R}^3$ has a sharp leading and trailing edge: that is why we hear discrete claps rather than infinite reverberation. In even dimensions there is a residual tail and Huygens fails.</p>
+
+<div class="widget" id="w-wave">
+  <div class="hd"><div class="ttl">d'Alembert: traveling-wave decomposition</div><div class="hint">scrub $t$; the yellow profile is the sum of a left and right copy</div></div>
+  <svg id="wv-svg" viewBox="0 0 580 320" width="580" height="320"><title>d'Alembert wave decomposition</title></svg>
+  <div class="row">
+    <label for="wv-init">initial profile $f(x)$</label>
+    <select id="wv-init">
+      <option value="bump" selected>Gaussian bump</option>
+      <option value="rect">rectangle pulse</option>
+      <option value="sin">half sine pulse</option>
+    </select>
+  </div>
+  <div class="row">
+    <label for="wv-t">time $t$</label>
+    <input type="range" id="wv-t" min="0" max="3" step="0.02" value="0">
+    <span class="readout" id="wv-t-out" style="min-width:90px;flex:0 0 auto">t = 0.00</span>
+  </div>
+  <div class="readout" id="wv-out"></div>
+</div>
+<div class="quiz" data-concept="pde-wave-equation"></div><script>
+/* ============================ §3 d'Alembert wave widget ============================ */
+(function(){
+  const svg=$('#wv-svg'), sel=$('#wv-init'), tS=$('#wv-t'), tO=$('#wv-t-out'), out=$('#wv-out');
+  const W=580, H=320, padL=46, padR=20, padT=20, padB=30;
+  const xmin=-4, xmax=4, ymin=-0.6, ymax=1.4;
+  const sx = x => padL + (x-xmin)/(xmax-xmin)*(W-padL-padR);
+  const sy = y => padT + (ymax-y)/(ymax-ymin)*(H-padT-padB);
+  const c = 1;
+
+  function f(x, kind){
+    if(kind==="bump") return Math.exp(-4*x*x);
+    if(kind==="rect") return Math.abs(x)<0.5 ? 1 : 0;
+    if(kind==="sin")  return Math.abs(x)<0.7 ? Math.cos(Math.PI*x/(2*0.7)) : 0;
+    return 0;
+  }
+
+  function render(){
+    svg.innerHTML="";
+    const t = parseFloat(tS.value);
+    tO.textContent = `t = ${t.toFixed(2)}`;
+    const kind = sel.value;
+
+    // axes
+    svg.appendChild(SVG('line',{x1:padL,y1:sy(0),x2:W-padR,y2:sy(0),stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:sx(0),y1:padT,x2:sx(0),y2:H-padB,stroke:'var(--line)'}));
+    for(const xv of [-3,-2,-1,1,2,3]){
+      svg.appendChild(SVG('line',{x1:sx(xv),y1:sy(0)-3,x2:sx(xv),y2:sy(0)+3,stroke:'var(--mute)'}));
+      const tx=SVG('text',{x:sx(xv),y:sy(0)+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      tx.textContent=String(xv); svg.appendChild(tx);
+    }
+
+    const M=600;
+    const ptsR=[], ptsL=[], ptsSum=[];
+    for(let i=0;i<=M;i++){
+      const x = xmin + i*(xmax-xmin)/M;
+      const fr = 0.5*f(x - c*t, kind);
+      const fl = 0.5*f(x + c*t, kind);
+      ptsR.push([sx(x), sy(fr)]);
+      ptsL.push([sx(x), sy(fl)]);
+      ptsSum.push([sx(x), sy(fr+fl)]);
+    }
+    function poly(pts){ return pts.map((p,i)=>`${i===0?'M':'L'}${p[0]} ${p[1]}`).join(' '); }
+
+    // right-mover (cyan, dashed)
+    svg.appendChild(SVG('path',{d:poly(ptsR), fill:'none',
+      stroke:'var(--cyan)','stroke-width':1.6,'stroke-dasharray':'4 3','stroke-opacity':0.85}));
+    // left-mover (pink, dashed)
+    svg.appendChild(SVG('path',{d:poly(ptsL), fill:'none',
+      stroke:'var(--pink)','stroke-width':1.6,'stroke-dasharray':'4 3','stroke-opacity':0.85}));
+    // sum (yellow, solid)
+    svg.appendChild(SVG('path',{d:poly(ptsSum), fill:'var(--yellow)','fill-opacity':0.12,
+      stroke:'var(--yellow)','stroke-width':2.2}));
+
+    // legend
+    const lg1 = SVG('text',{x:W-padR-10,y:padT+14,'text-anchor':'end','font-size':12,fill:'var(--cyan)'});
+    lg1.textContent = "½ f(x − ct)"; svg.appendChild(lg1);
+    const lg2 = SVG('text',{x:W-padR-10,y:padT+30,'text-anchor':'end','font-size':12,fill:'var(--pink)'});
+    lg2.textContent = "½ f(x + ct)"; svg.appendChild(lg2);
+    const lg3 = SVG('text',{x:W-padR-10,y:padT+46,'text-anchor':'end','font-size':12,fill:'var(--yellow)'});
+    lg3.textContent = "u(x, t) = sum"; svg.appendChild(lg3);
+
+    out.textContent =
+        `c = 1.   u(x, t) = ½[f(x − t) + f(x + t)]`
+      + `\nLight-cone for the spectator at x = 0:  data inside [−${t.toFixed(2)}, ${t.toFixed(2)}]`
+      + (t===0
+          ? "\nAt t = 0 the two halves coincide: u = f."
+          : "\nLeft and right copies have separated; once they no longer overlap the bump has cleanly split.");
+  }
+  sel.addEventListener('change', render);
+  tS.addEventListener('input', render);
+  render();
+})();
+</script>
+
+
+</section>
+<section id="laplace">
+<h2>4. Laplace equation and the Dirichlet problem</h2>
+
+<p>$\Delta u = 0$ is the steady-state limit of $u_t = \Delta u$: solutions are <strong>harmonic</strong>. They satisfy the <strong>mean-value property</strong></p>
+$$u(x_0) \;=\; \frac{1}{|\partial B_r(x_0)|}\!\int_{\partial B_r(x_0)}\! u\,dS \;=\; \frac{1}{|B_r(x_0)|}\!\int_{B_r(x_0)}\! u\,dx$$
+<p>for every ball $B_r(x_0)\subset\Omega$, which forces the <strong>strong maximum principle</strong>: a non-constant harmonic function attains its extrema only on $\partial\Omega$. Consequence: the <strong>Dirichlet problem</strong></p>
+$$\Delta u = 0 \text{ in } \Omega, \qquad u|_{\partial\Omega} = g$$
+<p>has a <em>unique</em> solution (subtract any two solutions; the difference is harmonic with zero boundary data, hence zero by maximum principle).</p>
+
+<h3>Poisson kernel on the disk</h3>
+<p>On the unit disk $\mathbb{D}\subset\mathbb{R}^2$, the unique harmonic extension of a continuous boundary value $g(\theta)$ is given by the <strong>Poisson integral</strong></p>
+$$u(r,\theta) \;=\; \frac{1}{2\pi}\!\int_{-\pi}^{\pi}\! P_r(\theta-\phi)\, g(\phi)\,d\phi, \qquad
+P_r(\alpha) \;=\; \frac{1-r^2}{1-2r\cos\alpha + r^2}.$$
+<p>The kernel is non-negative, integrates to $2\pi$, and concentrates on $\alpha=0$ as $r\to 1^-$ — so $u(r,\theta)\to g(\theta)$ at every point of continuity. The <strong>Neumann problem</strong> $\partial_\nu u = g$ on $\partial\Omega$ is solvable only when $\int_{\partial\Omega} g\,dS = 0$ (a divergence-theorem compatibility condition), and is then unique up to a constant.</p>
+
+<div class="widget" id="w-laplace">
+  <div class="hd"><div class="ttl">Dirichlet problem on the disk via the Poisson kernel</div><div class="hint">edit the boundary; watch the harmonic interior fill in</div></div>
+  <svg id="lp-svg" viewBox="0 0 580 360" width="580" height="360"><title>Poisson kernel solution on the unit disk</title></svg>
+  <div class="row">
+    <label for="lp-bdy">boundary $g(\theta)$</label>
+    <select id="lp-bdy">
+      <option value="cos" selected>$\cos\theta$</option>
+      <option value="cos2">$\cos 2\theta$</option>
+      <option value="step">step: $+1$ on top, $-1$ on bottom</option>
+      <option value="hot">hot spot near $\theta = 0$</option>
+    </select>
+  </div>
+  <div class="readout" id="lp-out"></div>
+</div>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./harmonic-functions.html#hf-laplace-equation">The Laplace equation</a></li>
+    <li><a href="./harmonic-functions.html#laplace-equation">Laplace's equation</a></li>
+    <li><a href="./harmonic-functions.html#poisson">Poisson kernel</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./partial-differential-equations.html#weak-solutions">Partial differential equations</a> · Weak solutions and Galerkin approximation</div>
+</aside>
+<!-- backlinks-auto-end -->
+<div class="quiz" data-concept="pde-laplace-equation"></div><script>
+/* ============================ §4 Poisson-kernel widget ============================ */
+(function(){
+  const svg=$('#lp-svg'), sel=$('#lp-bdy'), out=$('#lp-out');
+  const W=580, H=360;
+  const cx=W/2, cy=H/2;
+  const Rpix = Math.min(W,H)/2 - 28;
+
+  function g(theta, kind){
+    if(kind==="cos")  return Math.cos(theta);
+    if(kind==="cos2") return Math.cos(2*theta);
+    if(kind==="step") return Math.sin(theta) > 0 ? 1 : -1;
+    if(kind==="hot")  return Math.exp(-6*(1 - Math.cos(theta)));
+    return 0;
+  }
+
+  // numerically integrate Poisson kernel against g
+  function poisson(r, theta, kind){
+    const N=256;
+    let s=0;
+    for(let k=0;k<N;k++){
+      const phi = -Math.PI + (k+0.5)*(2*Math.PI/N);
+      const denom = 1 - 2*r*Math.cos(theta - phi) + r*r;
+      const P = (1 - r*r)/Math.max(1e-9, denom);
+      s += P * g(phi, kind);
+    }
+    return s/N;
+  }
+
+  // map v ∈ [-1,1] to a theme-aware heatmap: cool side blends --blue, warm side blends --pink, midpoint is --panel.
+  // Uses color-mix at the SVG fill site so the palette swaps with the theme.
+  function heat(v){
+    v = Math.max(-1, Math.min(1, v));
+    const pct = Math.round(Math.abs(v) * 100);
+    const accent = v >= 0 ? 'var(--pink)' : 'var(--blue)';
+    return `color-mix(in srgb, ${accent} ${pct}%, var(--panel))`;
+  }
+
+  function render(){
+    svg.innerHTML="";
+    const kind = sel.value;
+
+    // sample the disk on a polar grid; draw small annular wedges
+    const Nr=18, Nt=64;
+    let vmax = 0;
+    // first pass to find scale (the boundary already lives in a known range so this stabilizes the heat map)
+    for(let i=0;i<Nt;i++){
+      const theta = -Math.PI + (i+0.5)*(2*Math.PI/Nt);
+      const v = Math.abs(g(theta,kind));
+      if(v>vmax) vmax = v;
+    }
+    if(vmax < 1e-6) vmax = 1;
+
+    for(let j=0;j<Nr;j++){
+      const r1 = j/Nr, r2 = (j+1)/Nr;
+      const R1 = r1*Rpix, R2 = r2*Rpix;
+      for(let i=0;i<Nt;i++){
+        const t1 = -Math.PI + i*(2*Math.PI/Nt);
+        const t2 = -Math.PI + (i+1)*(2*Math.PI/Nt);
+        const tm = (t1+t2)/2;
+        const rm = (r1+r2)/2;
+        const v = poisson(rm, tm, kind)/vmax;
+        const x1 = cx + R1*Math.cos(t1), y1 = cy + R1*Math.sin(t1);
+        const x2 = cx + R2*Math.cos(t1), y2 = cy + R2*Math.sin(t1);
+        const x3 = cx + R2*Math.cos(t2), y3 = cy + R2*Math.sin(t2);
+        const x4 = cx + R1*Math.cos(t2), y4 = cy + R1*Math.sin(t2);
+        // approximate annular wedge as a quad (small steps so it's fine)
+        svg.appendChild(SVG('polygon',{
+          points:`${x1},${y1} ${x2},${y2} ${x3},${y3} ${x4},${y4}`,
+          fill:heat(v), stroke:'none'}));
+      }
+    }
+
+    // draw the boundary trace as a colored ring
+    const Nbnd=180;
+    for(let i=0;i<Nbnd;i++){
+      const t1 = -Math.PI + i*(2*Math.PI/Nbnd);
+      const t2 = -Math.PI + (i+1)*(2*Math.PI/Nbnd);
+      const tm = (t1+t2)/2;
+      const v = g(tm,kind)/vmax;
+      const R1 = Rpix, R2 = Rpix+10;
+      const x1 = cx + R1*Math.cos(t1), y1 = cy + R1*Math.sin(t1);
+      const x2 = cx + R2*Math.cos(t1), y2 = cy + R2*Math.sin(t1);
+      const x3 = cx + R2*Math.cos(t2), y3 = cy + R2*Math.sin(t2);
+      const x4 = cx + R1*Math.cos(t2), y4 = cy + R1*Math.sin(t2);
+      svg.appendChild(SVG('polygon',{
+        points:`${x1},${y1} ${x2},${y2} ${x3},${y3} ${x4},${y4}`,
+        fill:heat(v), stroke:'none'}));
+    }
+
+    // outer outline + center dot
+    svg.appendChild(SVG('circle',{cx,cy,r:Rpix,fill:'none',stroke:'var(--ink)','stroke-width':1.4}));
+    svg.appendChild(SVG('circle',{cx,cy,r:2.5,fill:'var(--yellow)'}));
+    const lab = SVG('text',{x:cx, y:cy-8, 'text-anchor':'middle','font-size':11, fill:'var(--mute)'});
+    lab.textContent = "u(0)"; svg.appendChild(lab);
+
+    // mean-value readout: u(0) equals boundary average
+    let meanG = 0;
+    const M = 720;
+    for(let k=0;k<M;k++){
+      const phi = -Math.PI + (k+0.5)*(2*Math.PI/M);
+      meanG += g(phi, kind);
+    }
+    meanG /= M;
+    out.textContent =
+        "Mean-value property:  u(0) = (1/2π) ∫ g(φ) dφ"
+      + `\nBoundary average ≈ ${meanG.toFixed(4)}     →  predicted u(0) at center.`
+      + "\nPink = positive, blue = negative.  Heat-map shows the harmonic extension.";
+  }
+  sel.addEventListener('change', render);
+  render();
+})();
+</script>
+
+
+</section>
+<section id="weak-solutions">
+<h2>5. Weak solutions and Galerkin approximation</h2>
+
+<p>For irregular data — or simply for the natural Hilbert-space framework — we relax "$-\Delta u = f$" to its <strong>weak</strong> formulation. Multiply by a test function $v\in C_c^\infty(\Omega)$ and integrate by parts:</p>
+$$\int_\Omega \nabla u\cdot\nabla v\,dx \;=\; \int_\Omega f\,v\,dx \qquad\text{for every } v\in C_c^\infty(\Omega).$$
+<p>This is well-defined whenever $u,v\in H^1(\Omega)$ and $f\in L^2(\Omega)$. Closing $C_c^\infty$ in the $H^1$ norm gives <strong>$H^1_0(\Omega)$</strong> — Sobolev functions with zero boundary trace, the natural home for Dirichlet conditions.</p>
+
+<p><strong>Definition (weak solution).</strong> $u\in H^1_0(\Omega)$ is a weak solution of $-\Delta u = f$ with zero Dirichlet data if</p>
+$$a(u,v) := \int_\Omega \nabla u\cdot\nabla v\,dx \;=\; \langle f, v\rangle \qquad\forall\, v\in H^1_0(\Omega).$$
+<p>The bilinear form $a$ is bounded ($|a(u,v)|\le \|u\|_{H^1}\|v\|_{H^1}$) and coercive ($a(u,u) = \|\nabla u\|_{L^2}^2 \ge C\|u\|_{H^1}^2$ by Poincaré). So existence and uniqueness will follow from Lax–Milgram in §6.</p>
+
+<h3>Galerkin's method</h3>
+<p>Choose a finite-dimensional subspace $V_n = \mathrm{span}(\phi_1,\ldots,\phi_n)\subset H^1_0$. Look for $u_n=\sum_j c_j\phi_j$ with</p>
+$$a(u_n,\phi_i) = \langle f,\phi_i\rangle, \qquad i=1,\ldots,n.$$
+<p>This is a linear system $A c = b$ with $A_{ij}=a(\phi_j,\phi_i)$ and $b_i=\langle f,\phi_i\rangle$. Coercivity makes $A$ positive definite, so $c$ exists uniquely. As $\bigcup V_n$ becomes dense in $H^1_0$, the discrete solutions converge: $u_n\to u$ in $H^1_0$. Picking $\phi_i$ to be hat functions on a triangulation gives the <strong>finite element method</strong>.</p>
+
+<div class="widget" id="w-weak">
+  <div class="hd"><div class="ttl">Test against $\phi$: classical vs. weak</div><div class="hint">a kink fails to be $C^2$ but still satisfies $a(u,\phi)=\langle f,\phi\rangle$</div></div>
+  <svg id="wk-svg" viewBox="0 0 580 320" width="580" height="320"><title>Weak vs classical solution test</title></svg>
+  <div class="row">
+    <label for="wk-fn">candidate $u$</label>
+    <select id="wk-fn">
+      <option value="smooth" selected>$u(x) = x(1-x)$ (smooth)</option>
+      <option value="tent">tent: peak at $x=\tfrac12$</option>
+      <option value="kinky">two-piece kinked $u$</option>
+    </select>
+  </div>
+  <div class="readout" id="wk-out"></div>
+</div>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./measure-theory.html#lp">Lᵖ spaces</a></li>
+    <li><a href="./measure-theory.html#lebesgue">Lebesgue measure</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./partial-differential-equations.html#regularity">Partial differential equations</a> · Lax–Milgram, elliptic regularity, embedding</div>
+</aside>
+<!-- backlinks-auto-end -->
+<div class="quiz" data-concept="pde-weak-solutions"></div><script>
+/* ============================ §5 weak vs classical widget ============================ */
+(function(){
+  const svg=$('#wk-svg'), sel=$('#wk-fn'), out=$('#wk-out');
+  const W=580, H=320, padL=46, padR=20, padT=20, padB=30;
+  const xmin=0, xmax=1, ymin=-0.4, ymax=0.55;
+  const sx = x => padL + (x-xmin)/(xmax-xmin)*(W-padL-padR);
+  const sy = y => padT + (ymax-y)/(ymax-ymin)*(H-padT-padB);
+
+  function u(x, kind){
+    if(kind==="smooth") return x*(1-x);
+    if(kind==="tent")   return 0.5 - Math.abs(x - 0.5);
+    if(kind==="kinky"){
+      // piecewise linear: rises to 0.4 at 0.4, falls to 0.2 at 0.7, back to 0 at 1
+      if(x < 0.4) return x;
+      if(x < 0.7) return 0.4 - (0.4 - 0.2)*(x - 0.4)/(0.7 - 0.4);
+      return 0.2*(1 - x)/(1 - 0.7);
+    }
+    return 0;
+  }
+  function uPrime(x, kind, h=1e-4){
+    return (u(x+h,kind) - u(x-h,kind))/(2*h);
+  }
+
+  function describe(kind){
+    if(kind==="smooth")
+      return {label:"u = x(1−x)", note:"C∞ on (0,1) — both classical and weak forms agree. Classical −u″ = 2 means u solves −u″ = 2 with u(0)=u(1)=0."};
+    if(kind==="tent")
+      return {label:"tent: 0.5 − |x − ½|", note:"Continuous with one kink — not C¹. Distributional derivative jumps at x=½, so −u″ = 2δ_{½}. Still weakly solves a δ-source problem."};
+    if(kind==="kinky")
+      return {label:"piecewise-linear kinky u", note:"Not C¹: classical second derivative is undefined at each break. But ∫ u′ φ′ is finite for every φ ∈ H¹₀, so u sits in H¹₀ and pairs against test functions just fine."};
+  }
+
+  function render(){
+    svg.innerHTML="";
+    const kind = sel.value;
+    const info = describe(kind);
+
+    // axes
+    svg.appendChild(SVG('line',{x1:padL,y1:sy(0),x2:W-padR,y2:sy(0),stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:sx(0),y1:padT,x2:sx(0),y2:H-padB,stroke:'var(--line)'}));
+    for(const xv of [0.25, 0.5, 0.75, 1]){
+      svg.appendChild(SVG('line',{x1:sx(xv),y1:sy(0)-3,x2:sx(xv),y2:sy(0)+3,stroke:'var(--mute)'}));
+      const t=SVG('text',{x:sx(xv),y:sy(0)+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent=String(xv); svg.appendChild(t);
+    }
+
+    // u trace (yellow)
+    const M=400;
+    const ptsU=[], ptsUp=[];
+    for(let i=0;i<=M;i++){
+      const x = xmin + i*(xmax-xmin)/M;
+      ptsU.push([sx(x), sy(u(x,kind))]);
+      ptsUp.push([sx(x), sy(0.18*uPrime(x,kind))]);
+    }
+    function poly(p){ return p.map((q,i)=>`${i===0?'M':'L'}${q[0]} ${q[1]}`).join(' '); }
+    svg.appendChild(SVG('path',{d:poly(ptsU), fill:'none', stroke:'var(--yellow)','stroke-width':2.2}));
+
+    // test function φ (cyan): a single bump centered at 0.5
+    const ptsPhi=[];
+    for(let i=0;i<=M;i++){
+      const x = xmin + i*(xmax-xmin)/M;
+      const phi = Math.sin(Math.PI*x);
+      ptsPhi.push([sx(x), sy(0.3*phi)]);
+    }
+    svg.appendChild(SVG('path',{d:poly(ptsPhi), fill:'none', stroke:'var(--cyan)','stroke-width':1.8,'stroke-dasharray':'5 3'}));
+
+    // u' trace (green, scaled 0.18×)
+    svg.appendChild(SVG('path',{d:poly(ptsUp), fill:'none', stroke:'var(--green)','stroke-width':1.5,'stroke-opacity':0.75}));
+
+    // numerically compute a(u,φ) = ∫ u' φ'
+    const G=2000;
+    const dx=(xmax-xmin)/G;
+    let Auv=0;
+    for(let i=0;i<G;i++){
+      const x = xmin + (i+0.5)*dx;
+      const up = uPrime(x,kind);
+      const pp = Math.PI*Math.cos(Math.PI*x);
+      Auv += up*pp*dx;
+    }
+    // and ⟨f,φ⟩ for the smooth case where f=2
+    let fphi=0;
+    for(let i=0;i<G;i++){
+      const x = xmin + (i+0.5)*dx;
+      fphi += 2*Math.sin(Math.PI*x)*dx;
+    }
+
+    // legend
+    const lg1 = SVG('text',{x:W-padR-10,y:padT+14,'text-anchor':'end','font-size':12,fill:'var(--yellow)'});
+    lg1.textContent = info.label; svg.appendChild(lg1);
+    const lg2 = SVG('text',{x:W-padR-10,y:padT+30,'text-anchor':'end','font-size':12,fill:'var(--cyan)'});
+    lg2.textContent = "φ(x) = sin πx"; svg.appendChild(lg2);
+    const lg3 = SVG('text',{x:W-padR-10,y:padT+46,'text-anchor':'end','font-size':12,fill:'var(--green)'});
+    lg3.textContent = "u′ (scaled)"; svg.appendChild(lg3);
+
+    out.textContent =
+        `a(u, φ) = ∫₀¹ u′(x) φ′(x) dx ≈ ${Auv.toFixed(4)}`
+      + `\nFor the smooth example, ⟨f, φ⟩ = ∫ 2 sin(πx) dx = 4/π ≈ ${fphi.toFixed(4)}.`
+      + `\n${info.note}`;
+  }
+  sel.addEventListener('change', render);
+  render();
+})();
+</script>
+
+
+</section>
+<section id="regularity">
+<h2>6. Lax–Milgram, elliptic regularity, embedding</h2>
+
+<p>Three theorems wrap up the existence-and-smoothness story for elliptic problems.</p>
+
+<h3>Lax–Milgram</h3>
+<p>Let $H$ be a Hilbert space and $a\colon H\times H\to\mathbb{R}$ a bilinear form satisfying</p>
+<ul>
+  <li><strong>boundedness:</strong> $|a(u,v)| \le M\|u\|\,\|v\|$,</li>
+  <li><strong>coercivity:</strong> $a(u,u)\ge \alpha \|u\|^2$ for some $\alpha>0$.</li>
+</ul>
+<p>Then for every $\ell\in H^*$ there exists a unique $u\in H$ with $a(u,v) = \ell(v)$ for all $v\in H$, and $\|u\|\le \alpha^{-1}\|\ell\|$. When $a$ is symmetric this reduces to the Riesz representation theorem; the asymmetric case is the new content.</p>
+
+<p>Applied to $H=H^1_0(\Omega)$ with $a(u,v)=\int\nabla u\cdot\nabla v$ and $\ell(v)=\int fv$: existence, uniqueness, and an a-priori estimate $\|u\|_{H^1}\le C\|f\|_{L^2}$ — all from coercivity.</p>
+
+<h3>Elliptic regularity</h3>
+<p>The weak solution from Lax–Milgram is in $H^1_0$; we want to know it is actually smooth when $f$ is. <strong>Interior regularity:</strong> if $-\Delta u = f$ weakly and $f\in H^k_{\mathrm{loc}}(\Omega)$, then $u\in H^{k+2}_{\mathrm{loc}}(\Omega)$. <strong>Boundary regularity:</strong> on a $C^{k+2}$ domain with appropriate boundary data, the gain extends up to $\partial\Omega$. Bootstrapping: $f\in C^\infty\Rightarrow u\in C^\infty$.</p>
+
+<h3>Sobolev embedding</h3>
+<p>To turn weak derivatives in $L^p$ back into pointwise smoothness, the Sobolev embedding theorem trades $kp$ orders against the dimension $n$:</p>
+
+<table class="plain">
+<thead><tr><th>regime</th><th>condition</th><th>conclusion</th></tr></thead>
+<tbody>
+<tr><td>subcritical</td><td>$kp < n$</td><td>$W^{k,p}\hookrightarrow L^{p^*}$, $\;p^* = \dfrac{np}{n-kp}$</td></tr>
+<tr><td>critical</td><td>$kp = n$</td><td>$W^{k,p}\hookrightarrow L^q$ for every $q<\infty$ (BMO at the edge)</td></tr>
+<tr><td>supercritical</td><td>$kp > n$</td><td>$W^{k,p}\hookrightarrow C^{0,\gamma}$, $\;\gamma = k - n/p \;(\bmod 1)$</td></tr>
+</tbody>
+</table>
+
+<p>So once enough weak derivatives lie in $L^p$, weak solutions become Hölder continuous, then $C^k$. Combine with elliptic regularity: a smooth right-hand side gives a smooth weak solution, classically.</p>
+
+<div class="widget" id="w-embed">
+  <div class="hd"><div class="ttl">Sobolev embedding chart: $W^{k,p}(\mathbb{R}^n)$</div><div class="hint">slide $n$, $k$, $p$; the highlighted cell shows the regime</div></div>
+  <svg id="em-svg" viewBox="0 0 580 320" width="580" height="320"><title>Sobolev embedding regime chart</title></svg>
+  <div class="row">
+    <label for="em-n">dimension $n$</label>
+    <input type="range" id="em-n" min="1" max="6" step="1" value="3">
+    <span class="readout" id="em-n-out" style="min-width:60px;flex:0 0 auto">n = 3</span>
+  </div>
+  <div class="row">
+    <label for="em-k">order $k$</label>
+    <input type="range" id="em-k" min="1" max="5" step="1" value="1">
+    <span class="readout" id="em-k-out" style="min-width:60px;flex:0 0 auto">k = 1</span>
+  </div>
+  <div class="row">
+    <label for="em-p">exponent $p$</label>
+    <input type="range" id="em-p" min="1" max="6" step="0.1" value="2">
+    <span class="readout" id="em-p-out" style="min-width:60px;flex:0 0 auto">p = 2.0</span>
+  </div>
+  <div class="readout" id="em-out"></div>
+</div>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./functional-analysis.html#riesz">Riesz representation theorem</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="pde-existence-and-regularity"></div><script>
+/* ============================ §6 Sobolev embedding chart ============================ */
+(function(){
+  const svg=$('#em-svg'), nS=$('#em-n'), kS=$('#em-k'), pS=$('#em-p'),
+        nO=$('#em-n-out'), kO=$('#em-k-out'), pO=$('#em-p-out'), out=$('#em-out');
+  const W=580, H=320, padL=60, padR=20, padT=30, padB=40;
+  const sx = x => padL + (x/8)*(W-padL-padR);  // p axis 0..8
+  const sy = y => padT + (1 - y/8)*(H-padT-padB);  // kp axis 0..8
+
+  function render(){
+    svg.innerHTML="";
+    const n = parseInt(nS.value);
+    const k = parseInt(kS.value);
+    const p = parseFloat(pS.value);
+    nO.textContent = `n = ${n}`;
+    kO.textContent = `k = ${k}`;
+    pO.textContent = `p = ${p.toFixed(1)}`;
+
+    // axes
+    svg.appendChild(SVG('line',{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:'var(--ink)','stroke-width':1.4}));
+    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:'var(--ink)','stroke-width':1.4}));
+    for(let pv=1; pv<=6; pv++){
+      svg.appendChild(SVG('line',{x1:sx(pv),y1:H-padB,x2:sx(pv),y2:H-padB+5,stroke:'var(--mute)'}));
+      const t=SVG('text',{x:sx(pv),y:H-padB+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent=String(pv); svg.appendChild(t);
+    }
+    for(let kpv=1; kpv<=7; kpv++){
+      svg.appendChild(SVG('line',{x1:padL-5,y1:sy(kpv),x2:padL,y2:sy(kpv),stroke:'var(--mute)'}));
+      const t=SVG('text',{x:padL-8,y:sy(kpv)+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      t.textContent=String(kpv); svg.appendChild(t);
+    }
+    const xlab = SVG('text',{x:W-padR,y:H-padB+34,'text-anchor':'end','font-size':12,fill:'var(--mute)'});
+    xlab.textContent="exponent p";
+    svg.appendChild(xlab);
+    const ylab = SVG('text',{x:padL-50,y:padT-6,'font-size':12,fill:'var(--mute)'});
+    ylab.textContent="kp";
+    svg.appendChild(ylab);
+
+    // critical horizontal line kp = n (bold cyan)
+    const yCrit = sy(n);
+    if(yCrit > padT && yCrit < H-padB){
+      svg.appendChild(SVG('line',{x1:padL,y1:yCrit,x2:W-padR,y2:yCrit,
+        stroke:'var(--cyan)','stroke-width':2,'stroke-dasharray':'6 4'}));
+      const t = SVG('text',{x:W-padR-10,y:yCrit-6,'text-anchor':'end','font-size':12,fill:'var(--cyan)'});
+      t.textContent = `kp = n (= ${n})`;
+      svg.appendChild(t);
+    }
+
+    // shade subcritical (below) and supercritical (above)
+    if(yCrit > padT){
+      svg.appendChild(SVG('rect',{
+        x:padL, y:yCrit, width:W-padR-padL, height:H-padB-yCrit,
+        fill:'var(--blue)','fill-opacity':0.07, stroke:'none'}));
+    }
+    if(yCrit < H-padB){
+      svg.appendChild(SVG('rect',{
+        x:padL, y:padT, width:W-padR-padL, height:yCrit-padT,
+        fill:'var(--green)','fill-opacity':0.07, stroke:'none'}));
+    }
+
+    // the chosen point (k, p)
+    const kp = k*p;
+    const px = sx(p), py = sy(Math.min(7.5, kp));
+    svg.appendChild(SVG('circle',{cx:px,cy:py,r:7,fill:'var(--yellow)',stroke:'#111','stroke-width':1.5}));
+
+    // labels for the regions
+    const tHigh = SVG('text',{x:W-padR-10,y:padT+18,'text-anchor':'end','font-size':12,fill:'var(--green)','font-weight':600});
+    tHigh.textContent = "supercritical: ↪ Hölder C^{0,γ}";
+    svg.appendChild(tHigh);
+    const tLow = SVG('text',{x:W-padR-10,y:H-padB-10,'text-anchor':'end','font-size':12,fill:'var(--blue)','font-weight':600});
+    tLow.textContent = "subcritical: ↪ L^{p*}";
+    svg.appendChild(tLow);
+
+    // verdict text
+    let regime, detail;
+    if(Math.abs(kp - n) < 1e-6){
+      regime = "critical";
+      detail = `kp = n = ${n}.  Embeds into every L^q (q < ∞), but fails to reach L^∞.`;
+    } else if(kp < n){
+      const pstar = (n*p)/(n - k*p);
+      regime = "subcritical";
+      detail = `kp = ${kp.toFixed(2)} < n = ${n}.  W^{k,p} ↪ L^{p*} with p* = np/(n−kp) = ${pstar.toFixed(2)}.`;
+    } else {
+      regime = "supercritical";
+      const gamma = k - n/p;
+      detail = `kp = ${kp.toFixed(2)} > n = ${n}.  W^{k,p} ↪ C^{0,γ} with γ = k − n/p = ${gamma.toFixed(2)} (mod 1).`;
+    }
+    out.textContent = `(n, k, p) = (${n}, ${k}, ${p.toFixed(1)}) → regime: ${regime}.\n${detail}`;
+  }
+  for(const el of [nS,kS,pS]) el.addEventListener('input', render);
+  render();
+})();
+</script>
+
+
+</section>
+<section id="outro">
+<h2>7. Connections</h2>
+
+<p>PDEs are the engine of modern analysis — every advance in regularity, weak solutions, or function spaces has fed back into the rest of mathematics.</p>
+
+<h3>Functional analysis and Sobolev spaces</h3>
+
+<p><a href="./functional-analysis.html">Functional analysis</a> + <a href="./sobolev-spaces-distributions.html">Sobolev spaces</a> supply the weak-solution machinery: Lax–Milgram, Riesz representation, compact embeddings. Galerkin approximation reduces existence to finite-dimensional linear algebra.</p>
+
+<h3>Harmonic functions and elliptic regularity</h3>
+
+<p><a href="./harmonic-functions.html">Harmonic-function theory</a> is the prototype; maximum principles and Harnack inequalities transfer (with technical work) to general elliptic operators in non-divergence form.</p>
+
+<h3>Stochastic calculus and Feynman–Kac</h3>
+
+<p><a href="./stochastic-calculus.html">Stochastic calculus</a> and Brownian motion give probabilistic representations of solutions to parabolic PDEs; conversely, PDE methods analyse SDEs.</p>
+
+<h3>Differential geometry</h3>
+
+<p>Curvature flows (Ricci, mean-curvature), heat-equation methods (Bochner, Bismut), and the analytic side of <a href="./riemannian-geometry.html">Riemannian geometry</a> all run through PDE theory.</p>
+
+<p class="small" style="margin-top:2.5rem">Open frontiers: regularity for nonlinear elliptic / parabolic systems (de Giorgi–Nash–Moser refinements); free-boundary problems; rough paths and stochastic PDEs; geometric analysis program (Cheeger–Colding, Perelman); gradient flows in metric spaces.</p>
+</section>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/ /g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('partial-differential-equations'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-27</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

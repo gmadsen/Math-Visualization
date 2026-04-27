@@ -73,7 +73,11 @@
             "It uses the fact that no $s$-subset has $\\ge t$ common neighbours, else $K_{s,t}$ appears",
             "It relies on Szemerédi regularity"
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            0,
+            1,
+            2
+          ],
           "explain": "The proof is a clean three-line counting argument: count cherries / common-neighbour patterns two ways and apply convexity. Regularity is overkill — KST predates it by 21 years."
         }
       ]

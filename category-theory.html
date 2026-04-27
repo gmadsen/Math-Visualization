@@ -18,7 +18,15 @@
         {left:'\\(',right:'\\)',display:false},
         {left:'\\[',right:'\\]',display:true}
       ],
-      throwOnError:false
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\Spec',
+        '\\Gal':'\\Gal',
+        '\\Hom':'\\Hom',
+        '\\tr':'\\tr',
+        '\\ad':'\\ad',
+        '\\ind':'\\ind'
+      }
     });
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
@@ -155,7 +163,7 @@
   /* display-prefs-css-auto-end */
 </style>
 <!-- breadcrumb-head-auto-begin -->
-<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"galois-representations","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"group-schemes","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":null,"prev":"deformation-theory","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"intersection-theory-chow","prev":"etale-cohomology","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"automorphic-forms-adelic":{"next":null,"prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra","title":"Category theory"},"class-field-theory":{"next":"heights-arithmetic-geometry","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"group-cohomology","prev":"derived-categories","section":"Algebra","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"deformation-theory":{"next":"algebraic-de-rham-cohomology","prev":"group-schemes","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"cocartesian-fibrations","prev":"infinity-topoi","section":"Algebra","title":"Derived categories"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"probability-theory","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":"homological","section":"Algebra","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"etale-cohomology":{"next":"algebraic-spaces","prev":"stacks","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"algebraic-curves-higher-genus","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Étale fundamental group"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-representations":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Galois representations"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Algebra","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":null,"prev":"cocartesian-fibrations","section":"Algebra","title":"Group cohomology"},"group-schemes":{"next":"deformation-theory","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Group schemes"},"harmonic-analysis-fourier":{"next":null,"prev":"sobolev-spaces-distributions","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":null,"prev":"class-field-theory","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Algebra","title":"Heyting algebras & intuitionist logic"},"homological":{"next":"elementary-topos-theory","prev":"commutative-algebra","section":"Algebra","title":"Homological algebra"},"infinity-categories":{"next":"infinity-topoi","prev":"simplicial-sets-and-nerve","section":"Algebra","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":"derived-categories","prev":"infinity-categories","section":"Algebra","title":"∞-topoi (Lurie)"},"intersection-theory-chow":{"next":"etale-fundamental-group","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"automorphic-forms-adelic","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"galois-representations","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"naive-set-theory":{"next":null,"prev":null,"section":"Foundations","title":"Naive set theory"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"power-sums-bernoulli":{"next":"waring","prev":"sums-of-squares","section":"Number theory","title":"Power sums & Bernoulli"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"waring","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"sums-of-squares","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra","title":"Representation theory"},"riemann-surfaces":{"next":null,"prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"sheaf-cohomology":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":null,"prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Algebra","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"moduli-spaces","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"harmonic-analysis-fourier","prev":"probability-theory","section":"Analysis","title":"Sobolev spaces & distributions"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"stacks":{"next":"etale-cohomology","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"sums-of-squares":{"next":"power-sums-bernoulli","prev":"quadratic-reciprocity","section":"Number theory","title":"Sums of squares"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"waring":{"next":"quadratic-forms-genus-theory","prev":"power-sums-bernoulli","section":"Number theory","title":"Waring's problem"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"}};</script>
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"automorphic-forms-adelic","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"additive-number-theory":{"next":"quadratic-forms-genus-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"moduli-spaces","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":null,"prev":"heights-arithmetic-geometry","section":"Number theory","title":"Analytic number theory"},"automorphic-forms-adelic":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-topoi","prev":"infinity-categories","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"deformation-theory":{"next":"etale-cohomology","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"group-cohomology","prev":"homological","section":"Algebra & homological","title":"Derived categories"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"harmonic-analysis-fourier","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":null,"section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":null,"prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":null,"prev":"deformation-theory","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"deformation-theory","prev":"group-schemes","section":"Algebraic geometry","title":"Étale fundamental group"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"naive-set-theory","section":"Logic & Foundations","title":"First order logic and completeness"},"forcing-and-independence":{"next":null,"prev":"type-theory-and-hott","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":null,"prev":"lie-algebras","section":"Algebra & homological","title":"Galois cohomology and brauer"},"galois-representations":{"next":"heights-arithmetic-geometry","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"lie-algebras","prev":"derived-categories","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"etale-fundamental-group","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"harmonic-analysis-fourier":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"spectral-theory","prev":"partial-differential-equations","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"analytic-number-theory","prev":"galois-representations","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"homological":{"next":"derived-categories","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"cocartesian-fibrations","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-topoi (Lurie)"},"information-theory":{"next":"large-deviations","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"stacks","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"large-deviations":{"next":null,"prev":"information-theory","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"galois-cohomology-and-brauer","prev":"group-cohomology","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"model-theory-basics":{"next":"computability-and-decidability","prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":null,"prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"modular-curves","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"algebraic-spaces","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":null,"prev":"characteristic-classes","section":"Geometry & topology","title":"Morse theory"},"naive-set-theory":{"next":"first-order-logic-and-completeness","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"harmonic-functions","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"stochastic-processes-and-martingales","prev":null,"section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"additive-number-theory","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"additive-number-theory","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"random-walks-and-mixing":{"next":"information-theory","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra & homological","title":"Representation theory"},"riemann-surfaces":{"next":"characteristic-classes","prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"sheaf-cohomology":{"next":"algebraic-de-rham-cohomology","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"algebraic-curves-higher-genus","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Sobolev spaces & distributions"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":null,"prev":"harmonic-functions","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"intersection-theory-chow","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":"probability-theory","section":"Probability & statistics","title":"Stochastic processes and martingales"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"type-theory-and-hott":{"next":"forcing-and-independence","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and hott"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"model-theory-basics","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"Zfc and ordinals"}};</script>
 <script src="./js/breadcrumb.js"></script>
 <script src="./js/glossary-popover.js" defer></script>
 <link rel="stylesheet" media="print" href="./css/print.css">
@@ -263,9 +271,9 @@ function drawNode(svg, x, y, label, opts={}){
 <p>A <strong>category</strong> $\mathcal{C}$ consists of:</p>
 <ul>
   <li>a class of <em>objects</em> $\operatorname{ob}\mathcal{C}$;</li>
-  <li>for every ordered pair $(A,B)$, a set $\operatorname{Hom}_{\mathcal{C}}(A,B)$ of <em>morphisms</em> (or arrows) $f\colon A\to B$;</li>
-  <li>a composition law $\operatorname{Hom}(B,C)\times\operatorname{Hom}(A,B)\to\operatorname{Hom}(A,C)$, $(g,f)\mapsto g\circ f$, that is associative;</li>
-  <li>for each $A$, an identity $\mathrm{id}_A\in\operatorname{Hom}(A,A)$ satisfying $f\circ\mathrm{id}_A=f$ and $\mathrm{id}_B\circ f=f$.</li>
+  <li>for every ordered pair $(A,B)$, a set $\Hom_{\mathcal{C}}(A,B)$ of <em>morphisms</em> (or arrows) $f\colon A\to B$;</li>
+  <li>a composition law $\Hom(B,C)\times\Hom(A,B)\to\Hom(A,C)$, $(g,f)\mapsto g\circ f$, that is associative;</li>
+  <li>for each $A$, an identity $\mathrm{id}_A\in\Hom(A,A)$ satisfying $f\circ\mathrm{id}_A=f$ and $\mathrm{id}_B\circ f=f$.</li>
 </ul>
 <p>That is all. The data is so sparse that almost anything is a category, and the discipline is to see which statements about mathematical objects are <em>really</em> statements about the arrows between them.</p>
 
@@ -285,9 +293,9 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>More surprising are the cases where a category is a <em>single</em> structured object:</p>
 
-<div class="note"><strong>A poset is a category.</strong> Given a partially ordered set $(P,\le)$, take $\operatorname{ob}=P$ and $\operatorname{Hom}(x,y)$ is a singleton if $x\le y$, empty otherwise. Composition is forced by transitivity; identities by reflexivity.</div>
+<div class="note"><strong>A poset is a category.</strong> Given a partially ordered set $(P,\le)$, take $\operatorname{ob}=P$ and $\Hom(x,y)$ is a singleton if $x\le y$, empty otherwise. Composition is forced by transitivity; identities by reflexivity.</div>
 
-<div class="note"><strong>A group is a one-object category.</strong> Let $G$ be a group. Define $\mathcal{B}G$ with one object $*$ and $\operatorname{Hom}(*,*)=G$, composition = group multiplication. Associativity and identities come for free. A functor $\mathcal{B}G\to\mathsf{Set}$ is a $G$-set; a functor $\mathcal{B}G\to\mathsf{Vect}_k$ is a representation.</div>
+<div class="note"><strong>A group is a one-object category.</strong> Let $G$ be a group. Define $\mathcal{B}G$ with one object $*$ and $\Hom(*,*)=G$, composition = group multiplication. Associativity and identities come for free. A functor $\mathcal{B}G\to\mathsf{Set}$ is a $G$-set; a functor $\mathcal{B}G\to\mathsf{Vect}_k$ is a representation.</div>
 
 <div class="note"><strong>A monoid is a one-object category</strong> (same construction, drop "inverses"). A <strong>groupoid</strong> is a category in which every morphism is invertible.</div>
 
@@ -322,15 +330,7 @@ function drawNode(svg, x, y, label, opts={}){
     <div><a href="./simplicial-sets-and-nerve.html#nerve-of-category">Simplicial sets and the nerve</a> · The nerve $N(C)$ of a category</div>
     <div class="more">… and 1 more.</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 1 widget =============================== */
 (function(){
   const svg = $('#cat-svg'), out = $('#cat-out'), resetBtn = $('#cat-reset');
@@ -452,7 +452,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>An <strong>isomorphism</strong> is a morphism $f\colon A\to B$ with a two-sided inverse. In $\mathsf{Set}$: bijections. In $\mathsf{Top}$: homeomorphisms. In $\mathsf{Grp}$: group isomorphisms. The point is that "isomorphism" is a notion purely of the category — you never unpack it into elements.</p>
 
-<div class="note"><strong>Opposite category.</strong> $\mathcal{C}^{\mathrm{op}}$ has the same objects as $\mathcal{C}$ but $\operatorname{Hom}_{\mathcal{C}^{\mathrm{op}}}(A,B)=\operatorname{Hom}_{\mathcal{C}}(B,A)$; composition is reversed. Every definition about $\mathcal{C}$ has a <em>dual</em> got by flipping all arrows.</div>
+<div class="note"><strong>Opposite category.</strong> $\mathcal{C}^{\mathrm{op}}$ has the same objects as $\mathcal{C}$ but $\Hom_{\mathcal{C}^{\mathrm{op}}}(A,B)=\Hom_{\mathcal{C}}(B,A)$; composition is reversed. Every definition about $\mathcal{C}$ has a <em>dual</em> got by flipping all arrows.</div>
 
 <div class="quiz" data-concept="categories-morphisms"></div>
 </section>
@@ -465,12 +465,12 @@ function drawNode(svg, x, y, label, opts={}){
 
 <h3>Classic functors</h3>
 <ul>
-  <li><strong>Forgetful</strong>: $U\colon\mathsf{Grp}\to\mathsf{Set}$ sends a group to its underlying set. It drops structure; it is <em>faithful</em> (injective on $\operatorname{Hom}$s) but not full.</li>
+  <li><strong>Forgetful</strong>: $U\colon\mathsf{Grp}\to\mathsf{Set}$ sends a group to its underlying set. It drops structure; it is <em>faithful</em> (injective on $\Hom$s) but not full.</li>
   <li><strong>Free</strong>: $F\colon\mathsf{Set}\to\mathsf{Grp}$ sends a set $X$ to the free group on $X$. It is left-adjoint to $U$ (§6).</li>
   <li><strong>Fundamental group</strong>: $\pi_1\colon\mathsf{Top}_*\to\mathsf{Grp}$ is a functor from pointed topological spaces to groups. Continuous maps of pointed spaces induce group homomorphisms; composition is preserved. Functoriality is the <em>entire point</em> — it is what lets you prove $S^1$ is not contractible.</li>
-  <li><strong>Hom-functors</strong>: for fixed $A\in\mathcal{C}$, $\operatorname{Hom}(A,-)\colon\mathcal{C}\to\mathsf{Set}$ is covariant; $\operatorname{Hom}(-,A)\colon\mathcal{C}\to\mathsf{Set}$ is contravariant. The most important functors in the subject.</li>
+  <li><strong>Hom-functors</strong>: for fixed $A\in\mathcal{C}$, $\Hom(A,-)\colon\mathcal{C}\to\mathsf{Set}$ is covariant; $\Hom(-,A)\colon\mathcal{C}\to\mathsf{Set}$ is contravariant. The most important functors in the subject.</li>
   <li><strong>Abelianization</strong>: $G\mapsto G/[G,G]$ is a functor $\mathsf{Grp}\to\mathsf{Ab}$, left-adjoint to the inclusion $\mathsf{Ab}\hookrightarrow\mathsf{Grp}$.</li>
-  <li><strong>$\operatorname{Spec}$</strong>: a contravariant functor $\mathsf{CRing}\to\mathsf{Sch}$. You know this one.</li>
+  <li><strong>$\Spec$</strong>: a contravariant functor $\mathsf{CRing}\to\mathsf{Sch}$. You know this one.</li>
 </ul>
 
 <p>A functor from the <strong>walking arrow</strong> category $\mathbf{2}=(\bullet\to\bullet)$ to $\mathcal{D}$ is exactly a choice of morphism in $\mathcal{D}$: two objects $F(0), F(1)$ and an arrow $F(0\to 1)$. The widget below builds one into $\mathsf{Set}$.</p>
@@ -496,10 +496,7 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="row" id="fn-assign"></div>
   <svg id="fn-svg" viewBox="0 0 620 260" width="620" height="260"><title>Functor $\mathbf{2}\to\mathsf{Set}$</title></svg>
   <div class="readout" id="fn-out"></div>
-</div>
-</section>
-
-<script>
+</div><script>
 (function(){
   const srcSel=$('#fn-src'), tgtSel=$('#fn-tgt'), rand=$('#fn-rand');
   const assignRow=$('#fn-assign'), svg=$('#fn-svg'), out=$('#fn-out');
@@ -635,7 +632,7 @@ function drawNode(svg, x, y, label, opts={}){
 <p style="text-align:center">$\mathrm{ev}_W \circ f = f^{**} \circ \mathrm{ev}_V$</p>
 <p>commutes. So $\mathrm{ev}$ is a natural transformation $\mathrm{id}_{\mathsf{Vect}_k}\Rightarrow (-)^{**}$. By contrast, <em>there is no natural isomorphism</em> $\mathrm{id}\Rightarrow(-)^{*}$: any isomorphism $V\cong V^*$ requires choosing a basis, and the choice can't be made naturally (in the precise sense above).</p>
 
-<p>The widget below lets you vary a morphism $f\colon A\to B$ inside $\mathcal{C}$ and watch both naturality-square components get re-induced — specifically for $F=\operatorname{Hom}(X,-)$ and $G=\operatorname{Hom}(Y,-)$ with $\eta$ induced by precomposition with a fixed $u\colon Y\to X$.</p>
+<p>The widget below lets you vary a morphism $f\colon A\to B$ inside $\mathcal{C}$ and watch both naturality-square components get re-induced — specifically for $F=\Hom(X,-)$ and $G=\Hom(Y,-)$ with $\eta$ induced by precomposition with a fixed $u\colon Y\to X$.</p>
 
 <div class="widget" id="w-nat">
   <div class="hd"><div class="ttl">Naturality square — element trace</div><div class="hint">$F=\text{Hom}(X,-)$ · $G=\text{Hom}(Y,-)$ · $\eta=u^*$ with $u(y)=x_1$</div></div>
@@ -678,10 +675,7 @@ function drawNode(svg, x, y, label, opts={}){
     <div><a href="./elementary-topos-theory.html#presheaf-topos">Elementary topos theory</a> · Presheaf toposes $\hat{C} = [C^{\mathrm{op}}, \mathbf{Set}]$</div>
     <div class="more">… and 2 more.</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 (function(){
   // Set up the concrete example: X={x1,x2}, Y={y}, u:Y→X with u(y)=x1.
   // F = Hom(X,-) covariant; G = Hom(Y,-); η = u* (precompose with u).
@@ -857,8 +851,8 @@ function drawNode(svg, x, y, label, opts={}){
 <section id="yoneda">
 <h2>4. The Yoneda lemma</h2>
 <p>Fix a locally small category $\mathcal{C}$. For each $X\in\mathcal{C}$ we have the contravariant representable functor</p>
-<p style="text-align:center">$h_X = \operatorname{Hom}_{\mathcal{C}}(-,X)\;\colon\;\mathcal{C}^{\mathrm{op}}\to\mathsf{Set}.$</p>
-<p>On objects: $h_X(C)=\operatorname{Hom}(C,X)$. On a morphism $g\colon C'\to C$: $h_X(g)=g^*\colon \operatorname{Hom}(C,X)\to\operatorname{Hom}(C',X)$, $\varphi\mapsto\varphi\circ g$.</p>
+<p style="text-align:center">$h_X = \Hom_{\mathcal{C}}(-,X)\;\colon\;\mathcal{C}^{\mathrm{op}}\to\mathsf{Set}.$</p>
+<p>On objects: $h_X(C)=\Hom(C,X)$. On a morphism $g\colon C'\to C$: $h_X(g)=g^*\colon \Hom(C,X)\to\Hom(C',X)$, $\varphi\mapsto\varphi\circ g$.</p>
 
 <div class="note"><strong>Yoneda lemma.</strong> For any contravariant $F\colon\mathcal{C}^{\mathrm{op}}\to\mathsf{Set}$ and any $X\in\mathcal{C}$,
 $$\operatorname{Nat}(h_X, F) \;\;\xrightarrow{\;\;\cong\;\;}\;\; F(X),\qquad \eta\longmapsto \eta_X(\mathrm{id}_X).$$
@@ -866,12 +860,12 @@ The inverse sends $x\in F(X)$ to the natural transformation whose $C$-component 
 
 <p>Three immediate consequences:</p>
 <ol>
-  <li><strong>Yoneda embedding.</strong> $h_{(-)}\colon\mathcal{C}\hookrightarrow\mathsf{Fun}(\mathcal{C}^{\mathrm{op}},\mathsf{Set})$ is fully faithful. Taking $F=h_Y$ in the lemma gives $\operatorname{Nat}(h_X,h_Y)\cong\operatorname{Hom}(X,Y)$.</li>
+  <li><strong>Yoneda embedding.</strong> $h_{(-)}\colon\mathcal{C}\hookrightarrow\mathsf{Fun}(\mathcal{C}^{\mathrm{op}},\mathsf{Set})$ is fully faithful. Taking $F=h_Y$ in the lemma gives $\operatorname{Nat}(h_X,h_Y)\cong\Hom(X,Y)$.</li>
   <li><strong>Identifying objects.</strong> $X\cong Y$ in $\mathcal{C}$ iff $h_X\cong h_Y$ as functors. An object is determined up to iso by its functor of points.</li>
   <li><strong>Representability = universal property.</strong> A functor $F\colon\mathcal{C}^{\mathrm{op}}\to\mathsf{Set}$ is <em>representable</em> if $F\cong h_X$ for some $X$; this $X$ is unique. Most universal constructions (products, limits, free objects) are "find an object representing this functor."</li>
 </ol>
 
-<p>Consequence 2 is how algebraic geometers think about schemes: a scheme $X$ is determined by its functor of points $R\mapsto\operatorname{Hom}(\operatorname{Spec}R, X)$ on commutative rings. The <em>moduli interpretation</em> of a scheme is nothing but its $h_X$.</p>
+<p>Consequence 2 is how algebraic geometers think about schemes: a scheme $X$ is determined by its functor of points $R\mapsto\Hom(\Spec{}R, X)$ on commutative rings. The <em>moduli interpretation</em> of a scheme is nothing but its $h_X$.</p>
 
 <h3>Why the map $\eta\mapsto\eta_X(\mathrm{id}_X)$ is a bijection</h3>
 <p>Given $\eta\colon h_X\Rightarrow F$, and any $\varphi\colon C\to X$, naturality against $\varphi\colon C\to X$ in $\mathcal{C}^{\mathrm{op}}$ gives $\eta_C(\varphi)=\eta_C(\mathrm{id}_X\circ\varphi)=F(\varphi)(\eta_X(\mathrm{id}_X))$. So $\eta$ is determined by the single element $\eta_X(\mathrm{id}_X)\in F(X)$. Conversely any $x\in F(X)$ defines components by this formula; functoriality of $F$ checks naturality.</p>
@@ -889,10 +883,7 @@ The inverse sends $x\in F(X)$ to the natural transformation whose $C$-component 
   </div>
   <svg id="yo-svg" viewBox="0 0 620 300" width="620" height="300"><title>Yoneda tester</title></svg>
   <div class="readout" id="yo-out"></div>
-</div>
-</section>
-
-<script>
+</div><script>
 (function(){
   // Poset category: 0 < 1 < 2 (⊥, M, ⊤). Hom(i,j) = singleton if i<=j else empty.
   // Work in Set-valued CONTRAVARIANT functors. h_X(C) = Hom(C,X) — a singleton if C<=X else empty.
@@ -1056,10 +1047,7 @@ The inverse sends $x\in F(X)$ to the natural transformation whose $C$-component 
   <div class="row" id="pb-grow"></div>
   <svg id="pb-svg" viewBox="0 0 620 380" width="620" height="380"><title>Pullback in Set</title></svg>
   <div class="readout" id="pb-out"></div>
-</div>
-</section>
-
-<script>
+</div><script>
 (function(){
   const presetSel=$('#pb-preset'), nXIn=$('#pb-nX'), nYIn=$('#pb-nY'), nZIn=$('#pb-nZ');
   const apply=$('#pb-apply'), frow=$('#pb-frow'), grow=$('#pb-grow');
@@ -1250,13 +1238,13 @@ The inverse sends $x\in F(X)$ to the natural transformation whose $C$-component 
 })();
 </script>
 
-<div class="ok"><strong>Preview of $\mathsf{Sch}$.</strong> In algebraic geometry the fiber product $X\times_Z Y$ solves exactly the same universal problem, but in a category where "sets of elements" is replaced by "functors of points." Taking $Z=\operatorname{Spec}k$ and $X,Y$ both $k$-schemes, $X\times_k Y$ is the product. Taking $Y=\operatorname{Spec}k(z)$ the inclusion of a point, $X\times_Z Y$ is the scheme-theoretic fiber $X_z$. The four-blob picture you just played with is <em>literally</em> the diagram you draw when computing a base change.</div>
+<div class="ok"><strong>Preview of $\mathsf{Sch}$.</strong> In algebraic geometry the fiber product $X\times_Z Y$ solves exactly the same universal problem, but in a category where "sets of elements" is replaced by "functors of points." Taking $Z=\Spec{}k$ and $X,Y$ both $k$-schemes, $X\times_k Y$ is the product. Taking $Y=\Spec{}k(z)$ the inclusion of a point, $X\times_Z Y$ is the scheme-theoretic fiber $X_z$. The four-blob picture you just played with is <em>literally</em> the diagram you draw when computing a base change.</div>
 </section>
 
 <section id="adj">
 <h2>6. Adjoint functors</h2>
 <p>Two functors $F\colon\mathcal{C}\leftrightarrows\mathcal{D}:G$ are <strong>adjoint</strong> ($F$ is left-adjoint to $G$, written $F\dashv G$) when there is an isomorphism, natural in $A\in\mathcal{C}$ and $B\in\mathcal{D}$,</p>
-<p style="text-align:center">$\operatorname{Hom}_{\mathcal{D}}(F(A),B) \;\xrightarrow{\;\cong\;}\; \operatorname{Hom}_{\mathcal{C}}(A,G(B)).$</p>
+<p style="text-align:center">$\Hom_{\mathcal{D}}(F(A),B) \;\xrightarrow{\;\cong\;}\; \Hom_{\mathcal{C}}(A,G(B)).$</p>
 <p>An equivalent packaging: a <strong>unit</strong> $\eta\colon \mathrm{id}_{\mathcal{C}}\Rightarrow G\circ F$ and a <strong>counit</strong> $\varepsilon\colon F\circ G\Rightarrow\mathrm{id}_{\mathcal{D}}$ satisfying the triangle identities $(\varepsilon F)\circ(F\eta)=\mathrm{id}_F$ and $(G\varepsilon)\circ(\eta G)=\mathrm{id}_G$.</p>
 
 <div class="note"><strong>Slogan.</strong> $F\dashv G$ means $F$ is the "freest way" to build a $\mathcal{D}$-object out of a $\mathcal{C}$-object; equivalently $G$ is forgetful; equivalently $A\to G(B)$ is the same data as $F(A)\to B$.</div>
@@ -1265,12 +1253,12 @@ The inverse sends $x\in F(X)$ to the natural transformation whose $C$-component 
 <table class="plain">
 <thead><tr><th>$F$ (left)</th><th>$G$ (right)</th><th>$\mathsf{Hom}$-iso</th></tr></thead>
 <tbody>
-<tr><td>free group functor $\mathsf{Set}\to\mathsf{Grp}$</td><td>forgetful $\mathsf{Grp}\to\mathsf{Set}$</td><td>$\operatorname{Hom}_{\mathsf{Grp}}(F(X),G)\cong\operatorname{Hom}_{\mathsf{Set}}(X,UG)$</td></tr>
-<tr><td>abelianization $\mathsf{Grp}\to\mathsf{Ab}$</td><td>inclusion $\mathsf{Ab}\hookrightarrow\mathsf{Grp}$</td><td>$\operatorname{Hom}_{\mathsf{Ab}}(G^{\mathrm{ab}},A)\cong\operatorname{Hom}_{\mathsf{Grp}}(G,A)$</td></tr>
-<tr><td>$(-)\times A\colon\mathsf{Set}\to\mathsf{Set}$</td><td>$\operatorname{Hom}(A,-)\colon\mathsf{Set}\to\mathsf{Set}$</td><td>$\operatorname{Hom}(X\times A,Y)\cong\operatorname{Hom}(X,\operatorname{Hom}(A,Y))$ (currying)</td></tr>
-<tr><td>$(-)\otimes_R M$</td><td>$\operatorname{Hom}_R(M,-)$</td><td>tensor-hom</td></tr>
+<tr><td>free group functor $\mathsf{Set}\to\mathsf{Grp}$</td><td>forgetful $\mathsf{Grp}\to\mathsf{Set}$</td><td>$\Hom_{\mathsf{Grp}}(F(X),G)\cong\Hom_{\mathsf{Set}}(X,UG)$</td></tr>
+<tr><td>abelianization $\mathsf{Grp}\to\mathsf{Ab}$</td><td>inclusion $\mathsf{Ab}\hookrightarrow\mathsf{Grp}$</td><td>$\Hom_{\mathsf{Ab}}(G^{\mathrm{ab}},A)\cong\Hom_{\mathsf{Grp}}(G,A)$</td></tr>
+<tr><td>$(-)\times A\colon\mathsf{Set}\to\mathsf{Set}$</td><td>$\Hom(A,-)\colon\mathsf{Set}\to\mathsf{Set}$</td><td>$\Hom(X\times A,Y)\cong\Hom(X,\Hom(A,Y))$ (currying)</td></tr>
+<tr><td>$(-)\otimes_R M$</td><td>$\Hom_R(M,-)$</td><td>tensor-hom</td></tr>
 <tr><td>$\pi_0\colon\mathsf{Top}\to\mathsf{Set}$</td><td>discrete $\mathsf{Set}\to\mathsf{Top}$</td><td>continuous maps from $X$ to a discrete set = functions on $\pi_0 X$</td></tr>
-<tr><td>$F\colon\mathsf{Sch}\to\mathsf{Ring}^{\mathrm{op}}$, $X\mapsto\mathcal{O}(X)$</td><td>$\operatorname{Spec}$</td><td>$\operatorname{Hom}(X,\operatorname{Spec}R)\cong\operatorname{Hom}_{\mathsf{Ring}}(R,\mathcal{O}(X))$</td></tr>
+<tr><td>$F\colon\mathsf{Sch}\to\mathsf{Ring}^{\mathrm{op}}$, $X\mapsto\mathcal{O}(X)$</td><td>$\Spec$</td><td>$\Hom(X,\Spec{}R)\cong\Hom_{\mathsf{Ring}}(R,\mathcal{O}(X))$</td></tr>
 </tbody>
 </table>
 
@@ -1279,7 +1267,7 @@ The inverse sends $x\in F(X)$ to the natural transformation whose $C$-component 
 <h3>Free groups, concretely</h3>
 <p>Given a set $X=\{x_1,\dots,x_n\}$, the free group $F(X)$ consists of all <em>reduced words</em> in the symbols $x_1,\dots,x_n,x_1^{-1},\dots,x_n^{-1}$ — formal products with no adjacent cancellation $x_i x_i^{-1}$ or $x_i^{-1}x_i$ — with concatenation as multiplication. The unit $\eta_X\colon X\to U(F(X))$ is the obvious inclusion $x_i\mapsto x_i$.</p>
 
-<p>The adjunction $\operatorname{Hom}_{\mathsf{Grp}}(F(X),G)\cong\operatorname{Hom}_{\mathsf{Set}}(X,U(G))$ says: a group map out of $F(X)$ is determined by a choice of <em>image for each generator</em>, and any such choice extends uniquely. The extension $\tilde f\colon F(X)\to G$ of $f\colon X\to U(G)$ sends a word $w=x_{i_1}^{\epsilon_1}\cdots x_{i_k}^{\epsilon_k}$ to $f(x_{i_1})^{\epsilon_1}\cdots f(x_{i_k})^{\epsilon_k}$.</p>
+<p>The adjunction $\Hom_{\mathsf{Grp}}(F(X),G)\cong\Hom_{\mathsf{Set}}(X,U(G))$ says: a group map out of $F(X)$ is determined by a choice of <em>image for each generator</em>, and any such choice extends uniquely. The extension $\tilde f\colon F(X)\to G$ of $f\colon X\to U(G)$ sends a word $w=x_{i_1}^{\epsilon_1}\cdots x_{i_k}^{\epsilon_k}$ to $f(x_{i_1})^{\epsilon_1}\cdots f(x_{i_k})^{\epsilon_k}$.</p>
 
 <div class="widget" id="w-adj">
   <div class="hd"><div class="ttl">Free group explorer</div><div class="hint">pick $|X|$, a target group $G$, a map $X\to G$ · see $\tilde f$ on short words</div></div>
@@ -1319,15 +1307,7 @@ The inverse sends $x\in F(X)$ to the natural transformation whose $C$-component 
     <div><a href="./category-theory.html#univ">Category theory</a> · Universal properties and representability</div>
     <div><a href="./functor-of-points.html#reframe">Functor of points</a> · Functor-of-points viewpoint</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 (function(){
   const nSel=$('#aj-n'), GSel=$('#aj-G'), assignRow=$('#aj-assign'), svg=$('#aj-svg'), out=$('#aj-out');
 
@@ -1511,9 +1491,9 @@ The inverse sends $x\in F(X)$ to the natural transformation whose $C$-component 
 <div class="ok"><strong>Why adjoints are everywhere.</strong> Any "structure-adding" construction worth its salt (freely generate, localize, sheafify, complete, Stone–Čech compactify, tensor, abelianize, $\ldots$) is a left adjoint to a forgetful functor. Left adjoints preserve colimits; right adjoints preserve limits. That single fact replaces a thousand ad-hoc verifications.</div>
 
 <h3>Universal properties = representability</h3>
-<p>Combining §4 and §6: an adjunction $F\dashv G$ is the same data as a natural iso $\operatorname{Hom}_{\mathcal{D}}(F(-), -)\cong\operatorname{Hom}_{\mathcal{C}}(-, G(-))$, which by Yoneda is equivalent to specifying, for each $A$, the object $F(A)$ <em>representing</em> the functor $B\mapsto\operatorname{Hom}_{\mathcal{C}}(A,G(B))$. So:</p>
+<p>Combining §4 and §6: an adjunction $F\dashv G$ is the same data as a natural iso $\Hom_{\mathcal{D}}(F(-), -)\cong\Hom_{\mathcal{C}}(-, G(-))$, which by Yoneda is equivalent to specifying, for each $A$, the object $F(A)$ <em>representing</em> the functor $B\mapsto\Hom_{\mathcal{C}}(A,G(B))$. So:</p>
 <p style="text-align:center;font-style:italic">left adjoint = initial object of a comma category = representation of a Hom functor.</p>
-<p>This is the machine behind "the free $X$ on a $Y$ is whatever represents $\operatorname{Hom}(Y, U(-))$." Any universal property you've seen — direct sum, completion, sheafification, localization of rings, fundamental group — is an instance.</p>
+<p>This is the machine behind "the free $X$ on a $Y$ is whatever represents $\Hom(Y, U(-))$." Any universal property you've seen — direct sum, completion, sheafification, localization of rings, fundamental group — is an instance.</p>
 
 <p class="small">Categories, functors, and natural transformations were invented by Eilenberg and Mac Lane in 1945 — originally as the language in which to state the naturality of the double-dual, and to separate honest "canonical" isomorphisms from artifacts of basis choice. The Yoneda lemma was first stated in a paper by Saunders Mac Lane attributing it to a private communication from Nobuo Yoneda; Yoneda himself never wrote it down. It took another fifteen years for it to be recognized as the beating heart of the subject.</p>
 
@@ -1544,10 +1524,7 @@ The inverse sends $x\in F(X)$ to the natural transformation whose $C$-component 
   <div class="readout" id="pf-log" style="margin-top:.4rem;min-height:1.6em"></div>
 </div>
 
-<p class="small">Notice the rhythm. <em>Hypothesis</em> arrows are given. <em>Derived</em> arrows (in green) arrive by universal property or composition. The <em>uniqueness</em> clause of a universal property isn't decorative — it's the punchline every time: "something exists and is unique" is a recipe for collapsing two parallel arrows into one, which is exactly what's happening when $vu = \operatorname{id}_P$ at the end of the product-uniqueness proof.</p>
-</section>
-
-<script>
+<p class="small">Notice the rhythm. <em>Hypothesis</em> arrows are given. <em>Derived</em> arrows (in green) arrive by universal property or composition. The <em>uniqueness</em> clause of a universal property isn't decorative — it's the punchline every time: "something exists and is unique" is a recipe for collapsing two parallel arrows into one, which is exactly what's happening when $vu = \operatorname{id}_P$ at the end of the product-uniqueness proof.</p><script>
 (function(){
   const PROOFS = {
     identity: {
@@ -1772,15 +1749,17 @@ The inverse sends $x\in F(X)$ to the natural transformation whose $C$-component 
 })();
 </script>
 
+
+</section>
 <section id="univ">
 <h2>8. Universal properties and representability</h2>
 <p>A recurring miracle of category theory is that almost every construction worth naming — products, coproducts, kernels, free groups, tensor products, localizations, completions, Stone–Čech compactifications — can be characterized by the same four-word formula: "initial (or terminal) object in an appropriate comma category." That characterization is called a <strong>universal property</strong>, and Yoneda turns it into a computational tool.</p>
 
-<p>Fix a functor $F\colon\mathcal{C}^{\mathrm{op}}\to\mathsf{Set}$. We say $F$ is <em>representable</em> if there exist $X\in\mathcal{C}$ and a natural iso $F\cong h_X=\operatorname{Hom}_{\mathcal{C}}(-,X)$. By Yoneda, the pair $(X,\,\text{iso})$ is unique up to unique isomorphism whenever it exists. So to say "$X$ satisfies the universal property defined by $F$" means exactly $F\cong h_X$, and the "uniqueness up to unique iso" everyone quotes is just Yoneda.</p>
+<p>Fix a functor $F\colon\mathcal{C}^{\mathrm{op}}\to\mathsf{Set}$. We say $F$ is <em>representable</em> if there exist $X\in\mathcal{C}$ and a natural iso $F\cong h_X=\Hom_{\mathcal{C}}(-,X)$. By Yoneda, the pair $(X,\,\text{iso})$ is unique up to unique isomorphism whenever it exists. So to say "$X$ satisfies the universal property defined by $F$" means exactly $F\cong h_X$, and the "uniqueness up to unique iso" everyone quotes is just Yoneda.</p>
 
-<div class="note"><strong>Universal elements.</strong> A representation $F\cong h_X$ corresponds, by Yoneda, to a single element $u\in F(X)$ — the <em>universal element</em> — such that every $y\in F(C)$ is of the form $F(\varphi)(u)$ for a unique $\varphi\colon C\to X$. For the product $A\times B$, $u$ is the pair of projections $(\pi_A,\pi_B)\in\operatorname{Hom}(A\times B,A)\times\operatorname{Hom}(A\times B,B)$, and "every pair factors uniquely through $(\pi_A,\pi_B)$" is the usual universal property of the product.</div>
+<div class="note"><strong>Universal elements.</strong> A representation $F\cong h_X$ corresponds, by Yoneda, to a single element $u\in F(X)$ — the <em>universal element</em> — such that every $y\in F(C)$ is of the form $F(\varphi)(u)$ for a unique $\varphi\colon C\to X$. For the product $A\times B$, $u$ is the pair of projections $(\pi_A,\pi_B)\in\Hom(A\times B,A)\times\Hom(A\times B,B)$, and "every pair factors uniquely through $(\pi_A,\pi_B)$" is the usual universal property of the product.</div>
 
-<p>Three concrete instances to pin down the pattern. The <strong>free group</strong> $F(S)$ on a set $S$ represents $\operatorname{Hom}_{\mathsf{Grp}}(-,\,-)\circ(\text{underlying set})$ restricted along $S$: precisely, $\operatorname{Hom}_{\mathsf{Set}}(S, U(G))\cong\operatorname{Hom}_{\mathsf{Grp}}(F(S), G)$, which is the $F\dashv U$ adjunction of §6. The <strong>tensor product</strong> $M\otimes_R N$ represents the functor $P\mapsto\operatorname{Bilin}_R(M\times N, P)$. The <strong>sheafification</strong> $a(\mathcal{F})$ of a presheaf $\mathcal{F}$ represents $\mathcal{G}\mapsto\operatorname{Hom}_{\mathsf{PSh}}(\mathcal{F},\iota\mathcal{G})$ on sheaves $\mathcal{G}$. In each case, the construction's defining property is "we represent this Hom-set-valued functor."</p>
+<p>Three concrete instances to pin down the pattern. The <strong>free group</strong> $F(S)$ on a set $S$ represents $\Hom_{\mathsf{Grp}}(-,\,-)\circ(\text{underlying set})$ restricted along $S$: precisely, $\Hom_{\mathsf{Set}}(S, U(G))\cong\Hom_{\mathsf{Grp}}(F(S), G)$, which is the $F\dashv U$ adjunction of §6. The <strong>tensor product</strong> $M\otimes_R N$ represents the functor $P\mapsto\operatorname{Bilin}_R(M\times N, P)$. The <strong>sheafification</strong> $a(\mathcal{F})$ of a presheaf $\mathcal{F}$ represents $\mathcal{G}\mapsto\Hom_{\mathsf{PSh}}(\mathcal{F},\iota\mathcal{G})$ on sheaves $\mathcal{G}$. In each case, the construction's defining property is "we represent this Hom-set-valued functor."</p>
 
 <div class="widget" id="w-univ">
   <div class="hd"><div class="ttl">Universal property explorer</div><div class="hint">pick a construction · read off its representing functor</div></div>
@@ -1812,15 +1791,7 @@ The inverse sends $x\in F(X)$ to the natural transformation whose $C$-component 
     <div><a href="./elementary-topos-theory.html#subobject-classifier">Elementary topos theory</a> · The subobject classifier $\Omega$</div>
     <div><a href="./functor-of-points.html#yoneda-embedding">Functor of points</a> · The Yoneda embedding for schemes</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 (function(){
   const pick = $('#univ-pick'), out = $('#univ-out');
   if(!pick || !out) return;
@@ -1936,6 +1907,8 @@ The inverse sends $x\in F(X)$ to the natural transformation whose $C$-component 
 })();
 </script>
 
+
+</section>
 <section id="mon">
 <h2>9. Monoidal categories</h2>
 <p>A <strong>monoidal category</strong> $(\mathcal{C}, \otimes, I, \alpha, \lambda, \rho)$ has a bifunctor $\otimes\colon\mathcal{C}\times\mathcal{C}\to\mathcal{C}$, a unit object $I\in\mathcal{C}$, and natural isomorphisms
@@ -1970,12 +1943,7 @@ satisfying two coherence diagrams — Mac&nbsp;Lane's <em>pentagon</em> for $\al
   <div class="ttl">Used in</div>
     <div><a href="./category-theory.html#enr">Category theory</a> · Enriched categories preview</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 (function(){
   const pick = $('#mon-pick'), out = $('#mon-out');
   if(!pick || !out) return;
@@ -1999,13 +1967,15 @@ satisfying two coherence diagrams — Mac&nbsp;Lane's <em>pentagon</em> for $\al
 })();
 </script>
 
+
+</section>
 <section id="yoneda-deep">
 <h2>10. The Yoneda lemma — formal statement and proof sketch</h2>
-<p>The Yoneda lemma is the single most-used identity in category theory. It lets you replace any object by its $\operatorname{Hom}$-functor of points and recover all categorical information. We give a self-contained statement and an element-level proof.</p>
+<p>The Yoneda lemma is the single most-used identity in category theory. It lets you replace any object by its $\Hom$-functor of points and recover all categorical information. We give a self-contained statement and an element-level proof.</p>
 
 <div class="note"><strong>Yoneda lemma (contravariant form).</strong> Let $\mathcal{C}$ be locally small, $F\colon\mathcal{C}^{\mathrm{op}}\to\mathsf{Set}$ any functor, and $A\in\mathcal{C}$. Then the evaluation map
 $$\Phi\colon\operatorname{Nat}(h_A,\,F)\longrightarrow F(A),\qquad \eta\longmapsto\eta_A(\mathrm{id}_A)$$
-is a bijection, natural in $A$ and $F$. Its inverse sends $x\in F(A)$ to the natural transformation with components $\eta^x_C\colon\operatorname{Hom}(C,A)\to F(C)$, $\varphi\mapsto F(\varphi)(x)$.</div>
+is a bijection, natural in $A$ and $F$. Its inverse sends $x\in F(A)$ to the natural transformation with components $\eta^x_C\colon\Hom(C,A)\to F(C)$, $\varphi\mapsto F(\varphi)(x)$.</div>
 
 <p>The two halves of the proof are almost embarrassingly short:</p>
 <ul>
@@ -2036,12 +2006,10 @@ is a bijection, natural in $A$ and $F$. Its inverse sends $x\in F(A)$ to the nat
   <div class="ttl">Used in</div>
     <div><a href="./category-theory.html#adj-deep">Category theory</a> · Adjunctions: unit, counit, triangle</div>
     <div><a href="./cocartesian-fibrations.html#left-fibrations-as-presheaves">Cocartesian fibrations &amp; the Grothendieck construction</a> · Left fibrations ↔ presheaves of spaces</div>
+    <div><a href="./functor-of-points.html#reframe">Functor of points</a> · Functor-of-points viewpoint</div>
+    <div><a href="./functor-of-points.html#yoneda-embedding">Functor of points</a> · The Yoneda embedding for schemes</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== Section 10 widget =============================== */
 (function(){
   const selA=$('#yo2-A'), svg=$('#yo2-svg'), out=$('#yo2-out'), reroll=$('#yo2-reroll');
@@ -2160,6 +2128,8 @@ is a bijection, natural in $A$ and $F$. Its inverse sends $x\in F(A)$ to the nat
 })();
 </script>
 
+
+</section>
 <section id="lim-deep">
 <h2>11. Limits and colimits as universal (co)cones</h2>
 <p>Every limit and every colimit in every category is the same construction in different shapes. A <strong>diagram</strong> of shape $\mathcal{J}$ in $\mathcal{C}$ is a functor $D\colon\mathcal{J}\to\mathcal{C}$. A <strong>cone</strong> on $D$ with apex $L$ is a natural transformation $\Delta L\Rightarrow D$, where $\Delta L\colon\mathcal{J}\to\mathcal{C}$ is the constant functor at $L$. The <strong>limit</strong> $\varprojlim D$ is the terminal cone — any other cone factors through it uniquely. Dually, a <strong>cocone</strong> is a natural transformation $D\Rightarrow\Delta L$, and the <strong>colimit</strong> is the initial cocone.</p>
@@ -2197,11 +2167,7 @@ is a bijection, natural in $A$ and $F$. Its inverse sends $x\in F(A)$ to the nat
     <div><a href="./elementary-topos-theory.html#definition">Elementary topos theory</a> · What is a topos?</div>
     <div><a href="./infinity-categories.html#infty-limits">$\infty$-categories (quasi-categories)</a> · $\infty$-categorical (co)limits</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== Section 11 widget =============================== */
 (function(){
   const nAIn=$('#po-nA'), nBIn=$('#po-nB'), nCIn=$('#po-nC');
@@ -2361,13 +2327,15 @@ is a bijection, natural in $A$ and $F$. Its inverse sends $x\in F(A)$ to the nat
 })();
 </script>
 
+
+</section>
 <section id="adj-deep">
 <h2>12. Adjunctions: unit, counit, and the triangle equations</h2>
-<p>An adjunction $F\dashv G$ packages a natural $\operatorname{Hom}$-isomorphism in three equivalent ways. Knowing each perspective is the difference between using adjunctions and stumbling into them.</p>
+<p>An adjunction $F\dashv G$ packages a natural $\Hom$-isomorphism in three equivalent ways. Knowing each perspective is the difference between using adjunctions and stumbling into them.</p>
 
 <div class="note"><strong>Three equivalent definitions of $F\dashv G$</strong> for $F\colon\mathcal{C}\to\mathcal{D}$, $G\colon\mathcal{D}\to\mathcal{C}$:
 <ol style="margin:.4rem 0">
-<li>A natural iso $\theta_{A,B}\colon\operatorname{Hom}_{\mathcal{D}}(F(A),B)\xrightarrow{\sim}\operatorname{Hom}_{\mathcal{C}}(A,G(B))$.</li>
+<li>A natural iso $\theta_{A,B}\colon\Hom_{\mathcal{D}}(F(A),B)\xrightarrow{\sim}\Hom_{\mathcal{C}}(A,G(B))$.</li>
 <li>Natural transformations $\eta\colon\mathrm{id}_{\mathcal{C}}\Rightarrow G F$ (<em>unit</em>) and $\varepsilon\colon F G\Rightarrow\mathrm{id}_{\mathcal{D}}$ (<em>counit</em>) satisfying the <strong>triangle equations</strong>
 $$(\varepsilon F)\circ(F\eta)=\mathrm{id}_F,\qquad (G\varepsilon)\circ(\eta G)=\mathrm{id}_G.$$</li>
 <li>For every $A\in\mathcal{C}$, the arrow $\eta_A\colon A\to GF(A)$ is <em>universal from $A$ to $G$</em>: every $f\colon A\to G(B)$ factors uniquely as $f=G(g)\circ\eta_A$ for some $g\colon F(A)\to B$.</li>
@@ -2378,8 +2346,8 @@ $$(\varepsilon F)\circ(F\eta)=\mathrm{id}_F,\qquad (G\varepsilon)\circ(\eta G)=\
 <thead><tr><th>left adjoint</th><th>right adjoint</th><th>comment</th></tr></thead>
 <tbody>
 <tr><td>free group $F\colon\mathsf{Set}\to\mathsf{Grp}$</td><td>forget $U\colon\mathsf{Grp}\to\mathsf{Set}$</td><td>$\eta_X$ = insertion of generators; $\varepsilon_G$ = evaluation of words</td></tr>
-<tr><td>$(-)\times A$</td><td>$\operatorname{Hom}(A,-)$ (in $\mathsf{Set}$)</td><td>currying</td></tr>
-<tr><td>diagonal $\Delta\colon\mathcal{C}\to\mathcal{C}\times\mathcal{C}$</td><td>product functor</td><td>$\operatorname{Hom}((C,C),(A,B))\cong\operatorname{Hom}(C,A\times B)$</td></tr>
+<tr><td>$(-)\times A$</td><td>$\Hom(A,-)$ (in $\mathsf{Set}$)</td><td>currying</td></tr>
+<tr><td>diagonal $\Delta\colon\mathcal{C}\to\mathcal{C}\times\mathcal{C}$</td><td>product functor</td><td>$\Hom((C,C),(A,B))\cong\Hom(C,A\times B)$</td></tr>
 <tr><td>coproduct functor</td><td>diagonal</td><td>dually</td></tr>
 </tbody>
 </table>
@@ -2412,11 +2380,7 @@ $$(\varepsilon F)\circ(F\eta)=\mathrm{id}_F,\qquad (G\varepsilon)\circ(\eta G)=\
     <div><a href="./elementary-topos-theory.html#geometric-morphisms">Elementary topos theory</a> · Geometric morphisms</div>
     <div><a href="./infinity-categories.html#infty-adjunctions">$\infty$-categories (quasi-categories)</a> · Adjunctions $\infty$-categorically</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== Section 12 widget =============================== */
 (function(){
   const nSl=$('#uc-nA'), nLbl=$('#uc-nA-lbl'), GSel=$('#uc-G'), svg=$('#uc-svg'), out=$('#uc-out');
@@ -2547,6 +2511,8 @@ $$(\varepsilon F)\circ(F\eta)=\mathrm{id}_F,\qquad (G\varepsilon)\circ(\eta G)=\
 })();
 </script>
 
+
+</section>
 <section id="mon-ad">
 <h2>13. Monads and their algebras</h2>
 <p>A <strong>monad</strong> on $\mathcal{C}$ is a monoid object in the monoidal category of endofunctors $(\operatorname{End}(\mathcal{C}),\circ,\mathrm{id})$. Concretely, $(T,\mu,\eta)$ with $T\colon\mathcal{C}\to\mathcal{C}$, $\mu\colon T^2\Rightarrow T$, $\eta\colon\mathrm{id}\Rightarrow T$ satisfying $\mu\circ T\mu=\mu\circ\mu T$ (associativity) and $\mu\circ T\eta=\mu\circ\eta T=\mathrm{id}_T$ (unit). Every adjunction $F\dashv U$ gives rise to a monad $T=UF$ with $\eta$ the unit and $\mu=U\varepsilon F$.</p>
@@ -2555,7 +2521,7 @@ $$(\varepsilon F)\circ(F\eta)=\mathrm{id}_F,\qquad (G\varepsilon)\circ(\eta G)=\
 <p>A <strong>$T$-algebra</strong> is a pair $(A,\alpha)$ where $\alpha\colon T(A)\to A$ satisfies $\alpha\circ\eta_A=\mathrm{id}_A$ and $\alpha\circ T\alpha=\alpha\circ\mu_A$. These assemble into the <em>Eilenberg–Moore category</em> $\mathcal{C}^T$, and the canonical $U^T\colon\mathcal{C}^T\to\mathcal{C}$ has a left adjoint $F^T$ with $U^T F^T=T$. For the free-monoid monad on $\mathsf{Set}$, $T$-algebras are monoids. For the free-group monad, $T$-algebras are groups. The pattern continues for every <em>monadic</em> forgetful functor.</p>
 
 <h3>The Kleisli category</h3>
-<p>A dual construction: $\mathcal{C}_T$ has the same objects as $\mathcal{C}$ but $\operatorname{Hom}_{\mathcal{C}_T}(A,B)=\operatorname{Hom}_{\mathcal{C}}(A,T(B))$, with composition $g\circ_K f=\mu_C\circ T(g)\circ f$. Kleisli morphisms are the <em>bind</em>-able functions beloved of Haskell programmers: $f\colon A\to T(B)$ is a "function with side-effects described by $T$".</p>
+<p>A dual construction: $\mathcal{C}_T$ has the same objects as $\mathcal{C}$ but $\Hom_{\mathcal{C}_T}(A,B)=\Hom_{\mathcal{C}}(A,T(B))$, with composition $g\circ_K f=\mu_C\circ T(g)\circ f$. Kleisli morphisms are the <em>bind</em>-able functions beloved of Haskell programmers: $f\colon A\to T(B)$ is a "function with side-effects described by $T$".</p>
 
 <div class="widget" id="w-mon-kleisli">
   <div class="hd"><div class="ttl">Kleisli composition demo</div><div class="hint">pick a monad and two Kleisli morphisms · watch $g\circ_K f$</div></div>
@@ -2572,10 +2538,7 @@ $$(\varepsilon F)\circ(F\eta)=\mathrm{id}_F,\qquad (G\varepsilon)\circ(\eta G)=\
   <div class="readout" id="kl-out"></div>
 </div>
 
-<div class="quiz" data-concept="monads-algebras"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="monads-algebras"></div><script>
 /* =============================== Section 13 widget =============================== */
 (function(){
   const tSel=$('#kl-T'), frow=$('#kl-frow'), grow=$('#kl-grow'), svg=$('#kl-svg'), out=$('#kl-out');
@@ -2740,6 +2703,8 @@ $$(\varepsilon F)\circ(F\eta)=\mathrm{id}_F,\qquad (G\varepsilon)\circ(\eta G)=\
 })();
 </script>
 
+
+</section>
 <section id="kan">
 <h2>14. Kan extensions</h2>
 <p>Given functors $F\colon\mathcal{A}\to\mathcal{C}$ and $K\colon\mathcal{A}\to\mathcal{B}$, we ask: can $F$ be <em>extended</em> along $K$ to a functor $\mathcal{B}\to\mathcal{C}$? In general no single canonical extension exists, but there is a best approximation from each side: the <strong>left Kan extension</strong> $\operatorname{Lan}_K F$ (the most free extension) and the <strong>right Kan extension</strong> $\operatorname{Ran}_K F$ (the most cofree one).</p>
@@ -2768,10 +2733,7 @@ Limits and colimits themselves are Kan extensions along $\mathcal{J}\to\mathbf{1
   <div class="ttl">Used in</div>
     <div><a href="./infinity-categories.html#kan-extension">$\infty$-categories (quasi-categories)</a> · $\infty$-categorical Kan extensions</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== Section 14 widget =============================== */
 (function(){
   const modeSel=$('#kan-mode'), svg=$('#kan-svg'), out=$('#kan-out');
@@ -2882,6 +2844,8 @@ Limits and colimits themselves are Kan extensions along $\mathcal{J}\to\mathbf{1
 })();
 </script>
 
+
+</section>
 <section id="twocat">
 <h2>15. 2-categories preview</h2>
 <p>A <strong>2-category</strong> has not just objects and 1-morphisms but also <em>2-morphisms</em> between parallel 1-morphisms. The archetype is $\mathsf{Cat}$ itself: objects are categories, 1-cells are functors, 2-cells are natural transformations. 2-cells compose two ways — <em>vertically</em> (stacking natural transformations $\alpha\colon f\Rightarrow g$ and $\beta\colon g\Rightarrow h$) and <em>horizontally</em> (whiskering with adjacent functors). The crucial coherence is the <strong>interchange law</strong>, which says the two ways of reducing a grid of 2-cells agree.</p>
@@ -2899,10 +2863,7 @@ Limits and colimits themselves are Kan extensions along $\mathcal{J}\to\mathbf{1
   </div>
 </div>
 
-<div class="quiz" data-concept="two-categories"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="two-categories"></div><script>
 /* =============================== Section 15 widget =============================== */
 (function(){
   const svg=$('#tc-svg'), out=$('#tc-out');
@@ -2971,9 +2932,11 @@ Limits and colimits themselves are Kan extensions along $\mathcal{J}\to\mathbf{1
 })();
 </script>
 
+
+</section>
 <section id="enr">
 <h2>16. Enriched categories preview</h2>
-<p>An ordinary category has $\operatorname{Hom}$-SETS. An <strong>enriched category</strong> replaces them with $\operatorname{Hom}$-OBJECTS in a monoidal $(\mathcal{V},\otimes,I)$. Concretely:</p>
+<p>An ordinary category has $\Hom$-SETS. An <strong>enriched category</strong> replaces them with $\Hom$-OBJECTS in a monoidal $(\mathcal{V},\otimes,I)$. Concretely:</p>
 <ul>
   <li>a class of objects;</li>
   <li>for every pair $(A,B)$, an object $\mathcal{C}(A,B)\in\mathcal{V}$;</li>
@@ -3009,10 +2972,7 @@ Symmetry ($d(x,y)=d(y,x)$) is <em>not</em> part of the definition — it corresp
   <div class="readout" id="enr-out"></div>
 </div>
 
-<div class="quiz" data-concept="enriched-categories"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="enriched-categories"></div><script>
 /* =============================== Section 16 widget =============================== */
 (function(){
   const svg=$('#enr-svg'), out=$('#enr-out');
@@ -3091,6 +3051,8 @@ Symmetry ($d(x,y)=d(y,x)$) is <em>not</em> part of the definition — it corresp
 </script>
 
 <footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+
+</section>
 </main>
 
 <script>

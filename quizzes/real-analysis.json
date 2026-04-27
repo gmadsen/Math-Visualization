@@ -20,8 +20,8 @@
           "type": "numeric",
           "q": "Let $S = \\{1 - 1/n : n\\in\\mathbb{N}_{\\ge 1}\\}\\subset\\mathbb{R}$. What is $\\sup S$?",
           "answer": 1,
-          "tol": 1e-06,
-          "explain": "$S$ is bounded above by $1$ and its elements approach $1$. Since $1$ is an upper bound and no smaller number is, $\\sup S = 1$. Note $1\\notin S$ \u2014 the supremum need not be attained."
+          "tol": 0.000001,
+          "explain": "$S$ is bounded above by $1$ and its elements approach $1$. Since $1$ is an upper bound and no smaller number is, $\\sup S = 1$. Note $1\\notin S$ — the supremum need not be attained."
         },
         {
           "type": "mcq",
@@ -33,7 +33,7 @@
             "Every sequence has a convergent subsequence"
           ],
           "answer": 1,
-          "explain": "Cauchy completeness is exactly the statement that every Cauchy sequence has a limit in the space. Bounded sequences need not converge ($(-1)^n$); monotone-bounded sequences do, and bounded sequences have convergent subsequences (Bolzano\u2013Weierstrass) \u2014 but those are consequences, not definitions."
+          "explain": "Cauchy completeness is exactly the statement that every Cauchy sequence has a limit in the space. Bounded sequences need not converge ($(-1)^n$); monotone-bounded sequences do, and bounded sequences have convergent subsequences (Bolzano–Weierstrass) — but those are consequences, not definitions."
         }
       ],
       "hard": [
@@ -41,19 +41,19 @@
           "type": "mcq",
           "q": "Which is the correct order of steps to prove that every Cauchy sequence in $\\mathbb{R}$ converges?",
           "choices": [
-            "Show it is bounded \u2192 extract a convergent subsequence (B\u2013W) \u2192 show the full sequence converges to the same limit",
-            "Show it converges \u2192 conclude it is bounded \u2192 apply the least-upper-bound property",
-            "Apply the Archimedean property directly to get the limit \u2192 verify the Cauchy condition",
-            "Extract a monotone subsequence \u2192 apply the LUB property \u2192 ignore the rest of the sequence"
+            "Show it is bounded → extract a convergent subsequence (B–W) → show the full sequence converges to the same limit",
+            "Show it converges → conclude it is bounded → apply the least-upper-bound property",
+            "Apply the Archimedean property directly to get the limit → verify the Cauchy condition",
+            "Extract a monotone subsequence → apply the LUB property → ignore the rest of the sequence"
           ],
           "answer": 0,
-          "explain": "Proof chain: (1) Every Cauchy sequence is bounded. (2) Bolzano\u2013Weierstrass extracts a convergent subsequence $a_{n_k}\\to L$. (3) For any $\\varepsilon>0$ choose $N$ so $|a_m-a_n|<\\varepsilon/2$ for $m,n>N$ and $k$ with $n_k>N$ and $|a_{n_k}-L|<\\varepsilon/2$; then $|a_n-L|\\le|a_n-a_{n_k}|+|a_{n_k}-L|<\\varepsilon$."
+          "explain": "Proof chain: (1) Every Cauchy sequence is bounded. (2) Bolzano–Weierstrass extracts a convergent subsequence $a_{n_k}\\to L$. (3) For any $\\varepsilon>0$ choose $N$ so $|a_m-a_n|<\\varepsilon/2$ for $m,n>N$ and $k$ with $n_k>N$ and $|a_{n_k}-L|<\\varepsilon/2$; then $|a_n-L|\\le|a_n-a_{n_k}|+|a_{n_k}-L|<\\varepsilon$."
         },
         {
           "type": "numeric",
           "q": "Let $A = \\{x\\in\\mathbb{Q} : x^2 < 3\\}$. In $\\mathbb{R}$, $\\sup A = \\sqrt{3}$. How many rational numbers satisfy $x^2 = 3$?",
           "answer": 0,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "$\\sqrt{3}$ is irrational (its square is $3$, but $3$ is not a perfect square, and a standard argument shows $\\sqrt{3}\\notin\\mathbb{Q}$). So there are $0$ rational solutions to $x^2=3$, illustrating why $\\sup A$ is not attained in $\\mathbb{Q}$."
         }
       ]
@@ -68,16 +68,16 @@
             "Extreme value theorem",
             "Intermediate value theorem",
             "Mean value theorem",
-            "Heine\u2013Borel"
+            "Heine–Borel"
           ],
           "answer": 1,
           "explain": "IVT: a continuous function on $[a,b]$ takes every value between $f(a)$ and $f(b)$. Since $0$ lies between $-1$ and $2$, some $c\\in[0,1]$ has $f(c)=0$."
         },
         {
           "type": "numeric",
-          "q": "For $f(x)=2x+3$ and $a=1$, with $\\varepsilon=0.01$, what is the largest $\\delta$ that works in the $\\varepsilon$\u2013$\\delta$ definition of continuity?",
+          "q": "For $f(x)=2x+3$ and $a=1$, with $\\varepsilon=0.01$, what is the largest $\\delta$ that works in the $\\varepsilon$–$\\delta$ definition of continuity?",
           "answer": 0.005,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "$|f(x)-f(1)| = |2x+3 - 5| = 2|x-1|$. We need $2|x-1| < 0.01$, i.e. $|x-1| < 0.005$. So $\\delta = 0.005$."
         },
         {
@@ -90,7 +90,7 @@
             "$f([0,1])$ is a closed bounded interval"
           ],
           "answer": 2,
-          "explain": "Continuity on a closed bounded interval gives EVT (attains max/min), uniform continuity (via compactness), and that the image is compact and connected (so a closed bounded interval). Differentiability is a strictly stronger condition \u2014 e.g., $f(x)=|x-1/2|$ is continuous on $[0,1]$ but not differentiable at $1/2$."
+          "explain": "Continuity on a closed bounded interval gives EVT (attains max/min), uniform continuity (via compactness), and that the image is compact and connected (so a closed bounded interval). Differentiability is a strictly stronger condition — e.g., $f(x)=|x-1/2|$ is continuous on $[0,1]$ but not differentiable at $1/2$."
         }
       ],
       "hard": [
@@ -99,7 +99,7 @@
           "q": "Arrange the steps of the proof that every Cauchy sequence in $\\mathbb{R}$ converges.",
           "items": [
             "Show that the Cauchy sequence $(a_n)$ is bounded (take $\\varepsilon=1$ in the Cauchy condition and use finitely many initial terms to bound the rest).",
-            "Apply the Bolzano\u2013Weierstrass theorem to extract a convergent subsequence $a_{n_k}\\to L$.",
+            "Apply the Bolzano–Weierstrass theorem to extract a convergent subsequence $a_{n_k}\\to L$.",
             "Use the Cauchy condition once more: given $\\varepsilon>0$, pick $N$ with $|a_m-a_n|<\\varepsilon/2$ for $m,n\\ge N$, and pick $k$ with $n_k\\ge N$ and $|a_{n_k}-L|<\\varepsilon/2$; conclude $|a_n-L|<\\varepsilon$ for all $n\\ge N$, so the whole sequence converges to $L$."
           ],
           "answer": [
@@ -107,13 +107,13 @@
             1,
             2
           ],
-          "explain": "Boundedness gives B\u2013W a compact interval to work in; B\u2013W produces a convergent subsequence; the Cauchy condition then promotes subsequential convergence to convergence of the whole sequence. Each step uses the previous one's conclusion, so the order is forced."
+          "explain": "Boundedness gives B–W a compact interval to work in; B–W produces a convergent subsequence; the Cauchy condition then promotes subsequential convergence to convergence of the whole sequence. Each step uses the previous one's conclusion, so the order is forced."
         },
         {
           "type": "numeric",
-          "q": "Let $f(x)=x^2\\sin(1/x)$ for $x\\ne 0$ and $f(0)=0$. Using the $\\varepsilon$\u2013$\\delta$ definition with $\\varepsilon=10^{-4}$, what is the largest $\\delta$ guaranteeing $|f(x)-f(0)|<\\varepsilon$ for $|x|<\\delta$? (Hint: $|f(x)|\\le x^2$.)",
+          "q": "Let $f(x)=x^2\\sin(1/x)$ for $x\\ne 0$ and $f(0)=0$. Using the $\\varepsilon$–$\\delta$ definition with $\\varepsilon=10^{-4}$, what is the largest $\\delta$ guaranteeing $|f(x)-f(0)|<\\varepsilon$ for $|x|<\\delta$? (Hint: $|f(x)|\\le x^2$.)",
           "answer": 0.01,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "$|f(x)-0|=|x^2\\sin(1/x)|\\le x^2 < \\varepsilon$ whenever $|x|<\\sqrt{\\varepsilon}=\\sqrt{10^{-4}}=0.01$. So $\\delta=0.01$."
         },
         {
@@ -126,7 +126,7 @@
           ],
           "choices": [
             "If $f(c)<0$ then $c<b$, and by continuity there is $\\delta>0$ with $f(x)<0$ on $[c,c+\\delta)$; but then $c+\\delta/2\\in S$ contradicts $c=\\sup S$.",
-            "Since $c$ is a supremum of $S$, it must lie in $S$, so $f(c)<0$; invoke Heine\u2013Borel and conclude.",
+            "Since $c$ is a supremum of $S$, it must lie in $S$, so $f(c)<0$; invoke Heine–Borel and conclude.",
             "Apply Rolle's theorem on $[a,b]$ to produce the root directly.",
             "Note that $f$ is uniformly continuous on $[a,b]$, so it extends to the one-point compactification."
           ],
@@ -156,13 +156,14 @@
             "The area under $f$ from $0$ to $a$"
           ],
           "answer": 1,
+          "hint": "The derivative is the best-linear-approximation characterization: $f'(a)$ is the (scalar) coefficient of the unique linear $L\\colon\\mathbb{R}\\to\\mathbb{R}$ for which the remainder is little-o of…",
           "explain": "The derivative is the best-linear-approximation characterization: $f'(a)$ is the (scalar) coefficient of the unique linear $L\\colon\\mathbb{R}\\to\\mathbb{R}$ for which the remainder is little-o of $|h|$. This is the formulation that generalizes to the Jacobian in several variables."
         },
         {
           "type": "numeric",
           "q": "The 2nd-degree Taylor polynomial of $f(x)=\\cos x$ at $a=0$ is $1 - x^2/2$. What is the Lagrange remainder bound for $|x|\\le 0.1$? (Use $\\max|f'''(\\xi)|\\le 1$.)",
           "answer": 0.000166667,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "Lagrange: $|R_2(x)| \\le \\max|f^{(3)}(\\xi)| \\cdot |x|^3/3! \\le 1 \\cdot (0.1)^3/6 = 0.001/6 \\approx 0.000166\\overline{6}$."
         }
       ],
@@ -171,9 +172,9 @@
           "type": "mcq",
           "q": "Which is the correct proof-step order for the Mean Value Theorem applied to $f\\colon[a,b]\\to\\mathbb{R}$ differentiable on $(a,b)$?",
           "choices": [
-            "Define $g(x)=f(x)-f(a)-\\tfrac{f(b)-f(a)}{b-a}(x-a)$ \u2192 note $g(a)=g(b)=0$ \u2192 apply Rolle's theorem to obtain $c\\in(a,b)$ with $g'(c)=0$ \u2192 conclude $f'(c)=\\tfrac{f(b)-f(a)}{b-a}$",
-            "Apply the Extreme Value Theorem \u2192 set $f'=0$ \u2192 recover the average slope",
-            "Use the FTC to write $f(b)-f(a)=\\int_a^b f'$ \u2192 bound the integral \u2192 obtain $c$ by IVT",
+            "Define $g(x)=f(x)-f(a)-\\tfrac{f(b)-f(a)}{b-a}(x-a)$ → note $g(a)=g(b)=0$ → apply Rolle's theorem to obtain $c\\in(a,b)$ with $g'(c)=0$ → conclude $f'(c)=\\tfrac{f(b)-f(a)}{b-a}$",
+            "Apply the Extreme Value Theorem → set $f'=0$ → recover the average slope",
+            "Use the FTC to write $f(b)-f(a)=\\int_a^b f'$ → bound the integral → obtain $c$ by IVT",
             "Apply Rolle directly to $f$ without any auxiliary function"
           ],
           "answer": 0,
@@ -201,7 +202,7 @@
             "$f_n$ converges uniformly on $[0,1]$ to a discontinuous limit"
           ],
           "answer": 1,
-          "explain": "For $x\\in[0,1)$, $x^n\\to 0$; at $x=1$, $f_n(1)=1\\to 1$. Pointwise limit is discontinuous. Since $\\sup_{[0,1]}|f_n-f|=1$ for every $n$, convergence is not uniform \u2014 uniform convergence preserves continuity."
+          "explain": "For $x\\in[0,1)$, $x^n\\to 0$; at $x=1$, $f_n(1)=1\\to 1$. Pointwise limit is discontinuous. Since $\\sup_{[0,1]}|f_n-f|=1$ for every $n$, convergence is not uniform — uniform convergence preserves continuity."
         },
         {
           "type": "numeric",
@@ -220,7 +221,7 @@
             "The convergence is automatically pointwise-but-not-uniform"
           ],
           "answer": 1,
-          "explain": "Uniform limits of continuous functions are continuous (standard $\\varepsilon/3$ argument), and uniform convergence on $[a,b]$ lets you swap limit and Riemann integral. Uniform convergence does NOT in general preserve differentiability \u2014 additional hypotheses are needed there."
+          "explain": "Uniform limits of continuous functions are continuous (standard $\\varepsilon/3$ argument), and uniform convergence on $[a,b]$ lets you swap limit and Riemann integral. Uniform convergence does NOT in general preserve differentiability — additional hypotheses are needed there."
         }
       ],
       "hard": [
@@ -234,7 +235,7 @@
             "Uniform convergence and pointwise convergence are equivalent on compact sets"
           ],
           "answer": 1,
-          "explain": "Uniform convergence is strictly stronger: $\\|f_n-f\\|_\\infty\\to 0$ forces pointwise convergence. The converse fails \u2014 $f_n(x)=x^n$ converges pointwise to the discontinuous indicator of $\\{1\\}$, but $\\sup|f_n-f|=1$ for all $n$."
+          "explain": "Uniform convergence is strictly stronger: $\\|f_n-f\\|_\\infty\\to 0$ forces pointwise convergence. The converse fails — $f_n(x)=x^n$ converges pointwise to the discontinuous indicator of $\\{1\\}$, but $\\sup|f_n-f|=1$ for all $n$."
         },
         {
           "type": "numeric",
@@ -258,20 +259,20 @@
             "The indicator $\\mathbf{1}_{\\mathbb{Q}\\cap[0,1]}$ of the rationals"
           ],
           "answer": 3,
-          "explain": "Continuous functions, monotone functions, and bounded functions discontinuous on a measure-zero set are all Riemann-integrable (Lebesgue's criterion). The Dirichlet indicator is discontinuous everywhere in $[0,1]$, and its upper sum is always $1$, lower sum always $0$ \u2014 not Riemann-integrable."
+          "explain": "Continuous functions, monotone functions, and bounded functions discontinuous on a measure-zero set are all Riemann-integrable (Lebesgue's criterion). The Dirichlet indicator is discontinuous everywhere in $[0,1]$, and its upper sum is always $1$, lower sum always $0$ — not Riemann-integrable."
         },
         {
           "type": "numeric",
           "q": "Using FTC, compute $\\int_1^2 (3x^2 - 1)\\,dx$.",
           "answer": 6,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "An antiderivative is $F(x) = x^3 - x$. FTC gives $F(2) - F(1) = (8-2) - (1-1) = 6$."
         },
         {
           "type": "numeric",
           "q": "For $f(x)=x$ on $[0,1]$ and the uniform partition $P_n$ with $n$ subintervals, the gap $U(f,P_n)-L(f,P_n)$ equals $1/n$. What is this gap at $n=10$?",
           "answer": 0.1,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "On $[(k-1)/n, k/n]$, $\\sup f - \\inf f = 1/n$. Summing: $U - L = \\sum_{k=1}^n (1/n)\\cdot(1/n) = 1/n$. At $n=10$, gap $= 0.1$."
         }
       ],
@@ -280,8 +281,8 @@
           "type": "mcq",
           "q": "Which correctly orders the steps to prove the Fundamental Theorem of Calculus (Part 1): if $f$ is continuous on $[a,b]$, then $F(x)=\\int_a^x f(t)\\,dt$ satisfies $F'(x)=f(x)$?",
           "choices": [
-            "Write $F(x+h)-F(x)=\\int_x^{x+h}f(t)\\,dt$ \u2192 bound by $h\\cdot\\sup|f|$ \u2192 take $h\\to 0$",
-            "Write $F(x+h)-F(x)=\\int_x^{x+h}f(t)\\,dt$ \u2192 apply MVT for integrals to get $f(c_h)\\cdot h$ for some $c_h$ between $x$ and $x+h$ \u2192 use continuity of $f$ to take $h\\to 0$ and obtain $f(x)$",
+            "Write $F(x+h)-F(x)=\\int_x^{x+h}f(t)\\,dt$ → bound by $h\\cdot\\sup|f|$ → take $h\\to 0$",
+            "Write $F(x+h)-F(x)=\\int_x^{x+h}f(t)\\,dt$ → apply MVT for integrals to get $f(c_h)\\cdot h$ for some $c_h$ between $x$ and $x+h$ → use continuity of $f$ to take $h\\to 0$ and obtain $f(x)$",
             "Differentiate under the integral sign using the Leibniz rule directly",
             "Apply Fubini's theorem to swap order of integration"
           ],
@@ -310,7 +311,7 @@
             "The determinant of the Jacobian"
           ],
           "answer": 2,
-          "explain": "$DF(a)$ is the best linear approximation \u2014 a linear map from $\\mathbb{R}^n$ to $\\mathbb{R}^m$. In the standard bases it is the Jacobian matrix $[\\partial F^i/\\partial x_j]$. For scalar-valued $F$ ($m=1$) the Jacobian is a row vector, not a scalar."
+          "explain": "$DF(a)$ is the best linear approximation — a linear map from $\\mathbb{R}^n$ to $\\mathbb{R}^m$. In the standard bases it is the Jacobian matrix $[\\partial F^i/\\partial x_j]$. For scalar-valued $F$ ($m=1$) the Jacobian is a row vector, not a scalar."
         },
         {
           "type": "numeric",
@@ -329,7 +330,7 @@
             "$f$ is $C^1$ near $a$"
           ],
           "answer": 2,
-          "explain": "Bare existence of partials is too weak. The standard counterexample $f(x,y) = xy/(x^2+y^2)$ (with $f(0,0)=0$) has both partials at the origin yet fails to be continuous \u2014 let alone differentiable \u2014 there. Continuity of the partials in a neighborhood is the standard sufficient condition."
+          "explain": "Bare existence of partials is too weak. The standard counterexample $f(x,y) = xy/(x^2+y^2)$ (with $f(0,0)=0$) has both partials at the origin yet fails to be continuous — let alone differentiable — there. Continuity of the partials in a neighborhood is the standard sufficient condition."
         }
       ],
       "hard": [
@@ -338,7 +339,7 @@
           "q": "Which is a valid counterexample showing that existence of all directional derivatives at a point does NOT imply differentiability?",
           "choices": [
             "$f(x,y)=x^2+y^2$ at the origin",
-            "$f(x,y)=\\frac{x^2y}{x^4+y^2}$ (extended by $0$ at the origin) \u2014 all directional derivatives exist at $(0,0)$ yet $f$ is not continuous there",
+            "$f(x,y)=\\frac{x^2y}{x^4+y^2}$ (extended by $0$ at the origin) — all directional derivatives exist at $(0,0)$ yet $f$ is not continuous there",
             "$f(x,y)=xy$ at the origin",
             "$f(x,y)=|x|+|y|$ at the origin"
           ],
@@ -350,7 +351,7 @@
           "type": "numeric",
           "q": "Let $f(x,y)=3x^2+2xy+y^2$. Compute the mixed partial $\\partial^2 f/\\partial y\\,\\partial x$ at any point.",
           "answer": 2,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "$\\partial f/\\partial x = 6x+2y$. Then $\\partial^2 f/\\partial y\\,\\partial x = \\partial(6x+2y)/\\partial y = 2$. By Clairaut's theorem this equals $\\partial^2 f/\\partial x\\,\\partial y=2$ (both partials are continuous)."
         }
       ]
@@ -381,7 +382,7 @@
           "type": "numeric",
           "q": "Under the change of variables $(u,v)\\mapsto(2u,\\,3v)$, by what factor does area on $\\mathbb{R}^2$ scale?",
           "answer": 6,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "The Jacobian matrix is $\\operatorname{diag}(2,3)$, with determinant $|\\det J| = 6$. Areas scale by exactly this factor."
         }
       ],
@@ -421,6 +422,7 @@
             "$F$ is injective on some neighborhood of $a$"
           ],
           "answer": 1,
+          "hint": "IFT: if $F$ is $C^1$ on an open neighborhood of $a$ and the Jacobian $J_F(a)$ is invertible (equivalently, $\\det J_F(a)\\neq 0$), then $F$ restricts to a $C^1$-diffeomorphism between open…",
           "explain": "IFT: if $F$ is $C^1$ on an open neighborhood of $a$ and the Jacobian $J_F(a)$ is invertible (equivalently, $\\det J_F(a)\\neq 0$), then $F$ restricts to a $C^1$-diffeomorphism between open neighborhoods of $a$ and $F(a)$."
         },
         {
@@ -440,7 +442,7 @@
             "$\\partial F/\\partial x(x_0, y_0) \\neq 0$"
           ],
           "answer": 1,
-          "explain": "The $y$-block Jacobian (here $\\partial F/\\partial y$) must be invertible. If $\\partial F/\\partial y(x_0, y_0) = 0$, IFT does not apply \u2014 geometrically, the tangent to $\\{F=0\\}$ is vertical, so the curve fails to be locally a graph $y = g(x)$ (e.g., the unit circle at $(\\pm 1, 0)$)."
+          "explain": "The $y$-block Jacobian (here $\\partial F/\\partial y$) must be invertible. If $\\partial F/\\partial y(x_0, y_0) = 0$, IFT does not apply — geometrically, the tangent to $\\{F=0\\}$ is vertical, so the curve fails to be locally a graph $y = g(x)$ (e.g., the unit circle at $(\\pm 1, 0)$)."
         }
       ],
       "hard": [
@@ -448,10 +450,10 @@
           "type": "mcq",
           "q": "Which is the correct proof-step order for the Inverse Function Theorem (IFT) for $F\\colon\\mathbb{R}^n\\to\\mathbb{R}^n$, $C^1$, $\\det J_F(a)\\ne 0$?",
           "choices": [
-            "Continuity of $\\det J_F$ near $a$ \u2192 $J_F$ invertible on a neighborhood $U$ \u2192 apply the contraction mapping principle to construct a local $C^1$ inverse $G$ \u2192 verify $DG(F(x))=(J_F(x))^{-1}$",
-            "Apply the implicit function theorem to $G\\circ F=\\mathrm{id}$ to recover $G$ \u2192 use the chain rule",
-            "Show $F$ is injective globally \u2192 conclude a global inverse exists \u2192 restrict to a neighborhood",
-            "Show $\\ker J_F(a)=0$ \u2192 integrate along paths to define $G$ \u2192 verify continuity"
+            "Continuity of $\\det J_F$ near $a$ → $J_F$ invertible on a neighborhood $U$ → apply the contraction mapping principle to construct a local $C^1$ inverse $G$ → verify $DG(F(x))=(J_F(x))^{-1}$",
+            "Apply the implicit function theorem to $G\\circ F=\\mathrm{id}$ to recover $G$ → use the chain rule",
+            "Show $F$ is injective globally → conclude a global inverse exists → restrict to a neighborhood",
+            "Show $\\ker J_F(a)=0$ → integrate along paths to define $G$ → verify continuity"
           ],
           "answer": 0,
           "explain": "Standard proof chain: (1) $\\det J_F$ is continuous, so $J_F$ stays invertible near $a$. (2) Use the contraction mapping theorem (Banach fixed-point) on a suitable ball to produce a unique local inverse. (3) Differentiate $G(F(x))=x$ via the chain rule to get $DG(y)=(J_F(G(y)))^{-1}$, establishing $C^1$ regularity."
@@ -460,7 +462,7 @@
           "type": "numeric",
           "q": "Let $F(x,y)=(x^2-y^2,\\,2xy)$. Compute $|\\det J_F(1,1)|$.",
           "answer": 8,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "$J_F=\\begin{pmatrix}2x & -2y \\\\ 2y & 2x\\end{pmatrix}$. At $(1,1)$: $J_F=\\begin{pmatrix}2&-2\\\\2&2\\end{pmatrix}$. $\\det J_F = (2)(2)-(-2)(2)=4+4=8$. Since $8\\ne 0$, IFT guarantees $F$ is a local diffeomorphism near $(1,1)$."
         }
       ]
@@ -484,8 +486,8 @@
           "type": "numeric",
           "q": "Let $a_n = 3^n/n!$. Compute $L = \\lim_{n\\to\\infty} |a_{n+1}/a_n|$.",
           "answer": 0,
-          "tol": 1e-06,
-          "explain": "$a_{n+1}/a_n = (3^{n+1}/(n+1)!)\\cdot(n!/3^n) = 3/(n+1) \\to 0$. So $L=0<1$ \u2014 the series converges absolutely (in fact to $e^3$)."
+          "tol": 0.000001,
+          "explain": "$a_{n+1}/a_n = (3^{n+1}/(n+1)!)\\cdot(n!/3^n) = 3/(n+1) \\to 0$. So $L=0<1$ — the series converges absolutely (in fact to $e^3$)."
         },
         {
           "type": "mcq",
@@ -540,8 +542,8 @@
           "type": "numeric",
           "q": "What is the radius of convergence of $\\sum_{n\\ge 1} x^n/n$?",
           "answer": 1,
-          "tol": 1e-06,
-          "explain": "$a_n = 1/n$, so $|a_n|^{1/n} = (1/n)^{1/n} \\to 1$. By Cauchy\u2013Hadamard $1/R = 1$, hence $R = 1$. (The series is $-\\ln(1-x)$ on $(-1,1)$.)"
+          "tol": 0.000001,
+          "explain": "$a_n = 1/n$, so $|a_n|^{1/n} = (1/n)^{1/n} \\to 1$. By Cauchy–Hadamard $1/R = 1$, hence $R = 1$. (The series is $-\\ln(1-x)$ on $(-1,1)$.)"
         },
         {
           "type": "mcq",
@@ -559,8 +561,8 @@
           "type": "numeric",
           "q": "Compute $\\limsup_{n\\to\\infty} n^{1/n}$.",
           "answer": 1,
-          "tol": 1e-06,
-          "explain": "$n^{1/n} = \\exp((\\ln n)/n)$, and $(\\ln n)/n \\to 0$, so $n^{1/n}\\to 1$. Hence $\\limsup n^{1/n} = 1$. This is why Cauchy\u2013Hadamard gives $R=1$ for any series $\\sum a_n x^n$ with $a_n = n^{\\pm k}$."
+          "tol": 0.000001,
+          "explain": "$n^{1/n} = \\exp((\\ln n)/n)$, and $(\\ln n)/n \\to 0$, so $n^{1/n}\\to 1$. Hence $\\limsup n^{1/n} = 1$. This is why Cauchy–Hadamard gives $R=1$ for any series $\\sum a_n x^n$ with $a_n = n^{\\pm k}$."
         }
       ],
       "hard": [
@@ -579,7 +581,7 @@
         },
         {
           "type": "proof-completion",
-          "q": "You are proving Cauchy\u2013Hadamard. Given $\\sum a_n x^n$ with $1/R = \\limsup |a_n|^{1/n}$ (possibly $0$ or $\\infty$), the steps so far:",
+          "q": "You are proving Cauchy–Hadamard. Given $\\sum a_n x^n$ with $1/R = \\limsup |a_n|^{1/n}$ (possibly $0$ or $\\infty$), the steps so far:",
           "steps": [
             "Fix $|x| < R$. Pick $\\rho$ with $|x| < \\rho < R$.",
             "By definition of limsup, for all but finitely many $n$ we have $|a_n|^{1/n} < 1/\\rho$."
@@ -628,7 +630,8 @@
           "q": "Let $\\mathbb{Q}\\cap[0,1]$ be enumerated as $\\{q_1, q_2, \\dots\\}$. Each singleton $\\{q_k\\}$ is nowhere dense in $[0,1]$ (with the usual metric). How many such singletons are there in the enumeration?",
           "answer": 0,
           "tol": 0.5,
-          "explain": "$\\mathbb{Q}\\cap[0,1]$ is countably infinite, so there are infinitely (countably) many singletons \u2014 but the question asks how many are finite in count: the answer is infinite, conventionally encoded as \"not finite\". The meager-in-$[0,1]$ point: $\\mathbb{Q}\\cap[0,1]$ is a countable union of nowhere-dense sets, yet $[0,1]$ itself is complete and non-meager (Baire). The numeric $0$ captures \"no finite upper bound\" in this grading."
+          "hint": "$\\mathbb{Q}\\cap[0,1]$ is countably infinite, so there are infinitely (countably) many singletons — but the question asks how many are finite in count: the answer is infinite, conventionally encoded…",
+          "explain": "$\\mathbb{Q}\\cap[0,1]$ is countably infinite, so there are infinitely (countably) many singletons — but the question asks how many are finite in count: the answer is infinite, conventionally encoded as \"not finite\". The meager-in-$[0,1]$ point: $\\mathbb{Q}\\cap[0,1]$ is a countable union of nowhere-dense sets, yet $[0,1]$ itself is complete and non-meager (Baire). The numeric $0$ captures \"no finite upper bound\" in this grading."
         }
       ],
       "hard": [
@@ -643,7 +646,7 @@
           ],
           "answer": 2,
           "hint": "What goes wrong with Cauchy sequences of rationals?",
-          "explain": "$\\mathbb{Q}$ is a countable union of singletons, each of which is nowhere dense (in $\\mathbb{Q}$, because between any two rationals lies another). If Baire applied, $\\mathbb{Q}$ would be non-meager in itself \u2014 contradiction. The resolution: $\\mathbb{Q}$ is not complete ($(1, 1.4, 1.41, 1.414, \\dots)$ is Cauchy in $\\mathbb{Q}$ with no rational limit), so Baire's hypothesis fails."
+          "explain": "$\\mathbb{Q}$ is a countable union of singletons, each of which is nowhere dense (in $\\mathbb{Q}$, because between any two rationals lies another). If Baire applied, $\\mathbb{Q}$ would be non-meager in itself — contradiction. The resolution: $\\mathbb{Q}$ is not complete ($(1, 1.4, 1.41, 1.414, \\dots)$ is Cauchy in $\\mathbb{Q}$ with no rational limit), so Baire's hypothesis fails."
         },
         {
           "type": "spot-the-error",
@@ -651,12 +654,12 @@
           "steps": [
             "Let $(T_n)$ be a sequence of bounded linear operators on a Banach space $X$.",
             "Assume for each $x\\in X$, $\\sup_n \\|T_n x\\| < \\infty$ (pointwise bounded).",
-            "By UBP, $\\sup_n \\|T_n\\| < \\infty$ \u2014 so $T_n$ is uniformly bounded in operator norm.",
+            "By UBP, $\\sup_n \\|T_n\\| < \\infty$ — so $T_n$ is uniformly bounded in operator norm.",
             "If each $T_n$ is also surjective, then $T := \\lim T_n$ is surjective.",
             "Conclude $T$ is surjective by the Open Mapping Theorem."
           ],
           "answer": 3,
-          "explain": "Steps 1\u20133 are UBP correctly applied. Step 5 (Open Mapping) is fine in isolation. The flaw is step 4: surjectivity does NOT pass to limits in general, even when $T_n \\to T$ in norm \u2014 the image can shrink. A standard counterexample is $T_n(x) = (x_1, x_2/2, x_3/3, \\dots, x_n/n, 0, 0, \\dots)$ on $\\ell^2$: each $T_n$ has finite-dim range (not surjective), but even surjective $T_n$ converging to a non-surjective $T$ are easy to construct."
+          "explain": "Steps 1–3 are UBP correctly applied. Step 5 (Open Mapping) is fine in isolation. The flaw is step 4: surjectivity does NOT pass to limits in general, even when $T_n \\to T$ in norm — the image can shrink. A standard counterexample is $T_n(x) = (x_1, x_2/2, x_3/3, \\dots, x_n/n, 0, 0, \\dots)$ on $\\ell^2$: each $T_n$ has finite-dim range (not surjective), but even surjective $T_n$ converging to a non-surjective $T$ are easy to construct."
         }
       ]
     },
@@ -667,7 +670,7 @@
           "type": "numeric",
           "q": "Using FTC, compute $\\int_1^e (1/x)\\,dx$.",
           "answer": 1,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "$F(x) = \\ln x$ is an antiderivative of $1/x$ on $(0,\\infty)$. By FTC Part II, $\\int_1^e 1/x\\,dx = \\ln e - \\ln 1 = 1 - 0 = 1$."
         },
         {
@@ -676,7 +679,7 @@
           "choices": [
             "Part I: $F(x) = \\int_0^x 3t^2\\,dt$ satisfies $F'(x) = 3x^2$",
             "Part II: $\\int_a^b F'(x)\\,dx = F(b) - F(a)$ with $F(x)=x^3$",
-            "Neither \u2014 use a Riemann sum directly",
+            "Neither — use a Riemann sum directly",
             "Both parts simultaneously, in that order"
           ],
           "answer": 1,
@@ -686,7 +689,7 @@
           "type": "numeric",
           "q": "Let $F(x) = \\int_0^x 3t^2\\,dt$. By FTC Part I, $F'(x) = 3x^2$. Compute $F'(2)$.",
           "answer": 12,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "FTC Part I says $F'(x) = f(x)$ when $f$ is continuous. So $F'(2) = 3(2)^2 = 12$. Note $F(x) = x^3$ (Part II), and indeed $F'(x) = 3x^2$ agrees."
         }
       ],
@@ -736,7 +739,7 @@
             "Polynomials are discontinuous"
           ],
           "answer": 1,
-          "explain": "If $p$ is a polynomial with compact support, then $p$ vanishes outside some bounded interval \u2014 in particular, on an open half-line. A polynomial vanishing on an infinite set is the zero polynomial (or more strongly, vanishing on an open set). Smooth bumps like $\\exp(-1/(1-x^2))$ dodge this by being non-analytic at $x=\\pm 1$."
+          "explain": "If $p$ is a polynomial with compact support, then $p$ vanishes outside some bounded interval — in particular, on an open half-line. A polynomial vanishing on an infinite set is the zero polynomial (or more strongly, vanishing on an open set). Smooth bumps like $\\exp(-1/(1-x^2))$ dodge this by being non-analytic at $x=\\pm 1$."
         },
         {
           "type": "numeric",
@@ -752,7 +755,7 @@
             "Only in $C^\\infty(\\mathbb{R})$",
             "In $L^p(\\mathbb{R})$ for every $1 \\le p < \\infty$",
             "In $L^\\infty(\\mathbb{R})$ with the sup norm",
-            "In nowhere \u2014 it is a strict subspace"
+            "In nowhere — it is a strict subspace"
           ],
           "answer": 1,
           "explain": "$C^\\infty_c$ is dense in $L^p$ for $1 \\le p < \\infty$, via mollification plus truncation. It is NOT dense in $L^\\infty$ (the sup-norm closure of compactly supported functions is $C_0$, functions vanishing at infinity). This density is why distributional derivatives and Sobolev approximations work."
@@ -793,7 +796,7 @@
       ]
     },
     "c-space-arzela": {
-      "title": "C[a,b] & Arzel\u00e0\u2013Ascoli",
+      "title": "C[a,b] & Arzelà–Ascoli",
       "questions": [
         {
           "type": "mcq",
@@ -805,7 +808,7 @@
             "$\\sup_{f\\in\\mathcal{F}} \\|f\\|_\\infty < \\infty$"
           ],
           "answer": 1,
-          "explain": "Equicontinuity is uniform continuity with the $\\delta$ shared across all members of the family. Merely being continuous (even uniformly continuous individually) is not enough \u2014 the $\\delta$ must not depend on which $f\\in\\mathcal{F}$ you picked. Pointwise boundedness (choice 4) is the second Arzel\u00e0\u2013Ascoli hypothesis, not equicontinuity."
+          "explain": "Equicontinuity is uniform continuity with the $\\delta$ shared across all members of the family. Merely being continuous (even uniformly continuous individually) is not enough — the $\\delta$ must not depend on which $f\\in\\mathcal{F}$ you picked. Pointwise boundedness (choice 4) is the second Arzelà–Ascoli hypothesis, not equicontinuity."
         },
         {
           "type": "mcq",
@@ -817,29 +820,29 @@
             "Not a vector space"
           ],
           "answer": 0,
-          "explain": "$C[a,b]$ is complete under the sup norm because uniform limits of continuous functions are continuous (\u00a74). So it is a Banach space. It is NOT a Hilbert space in general \u2014 the sup norm is not induced by an inner product (the parallelogram law fails)."
+          "explain": "$C[a,b]$ is complete under the sup norm because uniform limits of continuous functions are continuous (§4). So it is a Banach space. It is NOT a Hilbert space in general — the sup norm is not induced by an inner product (the parallelogram law fails)."
         },
         {
           "type": "numeric",
           "q": "Compute $\\|x - x^2\\|_\\infty$ on $[0,1]$ (the supremum of $x - x^2$).",
           "answer": 0.25,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "$f(x) = x - x^2$, $f'(x) = 1 - 2x = 0$ at $x = 1/2$. $f(1/2) = 1/2 - 1/4 = 1/4 = 0.25$. Endpoints give $f(0) = f(1) = 0$. So $\\|f\\|_\\infty = 1/4$."
         }
       ],
       "hard": [
         {
           "type": "spot-the-error",
-          "q": "An attempted application of Arzel\u00e0\u2013Ascoli:",
+          "q": "An attempted application of Arzelà–Ascoli:",
           "steps": [
             "Let $f_n(x) = x^n$ on $[0,1]$ for $n=1,2,3,\\dots$",
             "Each $f_n$ is continuous, so $f_n \\in C[0,1]$.",
             "The family $\\{f_n\\}$ is equicontinuous (each is $n$-Lipschitz, so they share a common modulus of continuity).",
-            "By Arzel\u00e0\u2013Ascoli, some subsequence $f_{n_k}$ converges uniformly.",
+            "By Arzelà–Ascoli, some subsequence $f_{n_k}$ converges uniformly.",
             "Hence the pointwise limit (the discontinuous step at $x=1$) is continuous."
           ],
           "answer": 2,
-          "explain": "Step 3 is wrong: $\\{x^n\\}$ is NOT equicontinuous on $[0,1]$. The Lipschitz constants $n$ grow without bound \u2014 to get $|x^n - y^n| < \\varepsilon$ near $x=1$ requires $\\delta$ shrinking to $0$ as $n \\to \\infty$, so no common $\\delta$ works. Without equicontinuity, Arzel\u00e0\u2013Ascoli does not apply; the pointwise limit is indeed discontinuous, confirming no uniformly convergent subsequence exists."
+          "explain": "Step 3 is wrong: $\\{x^n\\}$ is NOT equicontinuous on $[0,1]$. The Lipschitz constants $n$ grow without bound — to get $|x^n - y^n| < \\varepsilon$ near $x=1$ requires $\\delta$ shrinking to $0$ as $n \\to \\infty$, so no common $\\delta$ works. Without equicontinuity, Arzelà–Ascoli does not apply; the pointwise limit is indeed discontinuous, confirming no uniformly convergent subsequence exists."
         },
         {
           "type": "ordering",
@@ -858,7 +861,7 @@
             3,
             4
           ],
-          "explain": "The argument pulls back an arbitrary open cover of $f(K)$, uses continuity to turn it into an open cover of $K$, uses compactness of $K$ to extract a finite subcover, and pushes the finite subcover forward. Compactness is a property of open covers, and continuity is defined by preimages of open sets \u2014 so the proof is forced by the definitions."
+          "explain": "The argument pulls back an arbitrary open cover of $f(K)$, uses continuity to turn it into an open cover of $K$, uses compactness of $K$ to extract a finite subcover, and pushes the finite subcover forward. Compactness is a property of open covers, and continuity is defined by preimages of open sets — so the proof is forced by the definitions."
         }
       ]
     }

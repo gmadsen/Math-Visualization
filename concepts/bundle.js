@@ -5,29 +5,46 @@ window.__MVConcepts = {
   "index": {
     "topics": [
       "naive-set-theory",
+      "first-order-logic-and-completeness",
+      "zfc-and-ordinals",
+      "model-theory-basics",
+      "computability-and-decidability",
+      "complexity-theory",
+      "type-theory-and-hott",
+      "forcing-and-independence",
       "algebra",
       "category-theory",
       "representation-theory",
       "commutative-algebra",
       "homological",
+      "derived-categories",
+      "group-cohomology",
+      "lie-algebras",
+      "galois-cohomology-and-brauer",
       "elementary-topos-theory",
       "heyting-algebras-toposes",
       "grothendieck-topologies-sites",
       "simplicial-sets-and-nerve",
       "infinity-categories",
-      "infinity-topoi",
-      "derived-categories",
       "cocartesian-fibrations",
-      "group-cohomology",
+      "infinity-topoi",
       "real-analysis",
       "measure-theory",
       "complex-analysis",
       "functional-analysis",
       "operator-algebras",
       "dynamical-systems",
-      "probability-theory",
       "sobolev-spaces-distributions",
       "harmonic-analysis-fourier",
+      "partial-differential-equations",
+      "harmonic-functions",
+      "spectral-theory",
+      "probability-theory",
+      "stochastic-processes-and-martingales",
+      "stochastic-calculus",
+      "random-walks-and-mixing",
+      "information-theory",
+      "large-deviations",
       "point-set-topology",
       "algebraic-topology",
       "smooth-manifolds",
@@ -36,18 +53,19 @@ window.__MVConcepts = {
       "riemannian-geometry",
       "lie-groups",
       "riemann-surfaces",
+      "characteristic-classes",
+      "morse-theory",
       "galois",
       "quadratic-reciprocity",
       "quadratic-forms-genus-theory",
-      "sums-of-squares",
-      "power-sums-bernoulli",
-      "waring",
+      "additive-number-theory",
       "algebraic-number-theory",
       "p-adic-numbers",
       "adeles-and-ideles",
       "frobenius-and-reciprocity",
       "class-field-theory",
       "heights-arithmetic-geometry",
+      "analytic-number-theory",
       "upper-half-plane-hyperbolic",
       "modular-forms",
       "theta-functions",
@@ -60,6 +78,7 @@ window.__MVConcepts = {
       "galois-representations",
       "moonshine",
       "automorphic-forms-adelic",
+      "modular-curves",
       "projective-plane",
       "bezout",
       "schemes",
@@ -68,21 +87,22 @@ window.__MVConcepts = {
       "functor-of-points",
       "elliptic-curves",
       "singular-cubics-reduction",
-      "moduli-spaces",
-      "sheaf-cohomology",
-      "stacks",
-      "algebraic-spaces",
-      "intersection-theory-chow",
-      "etale-fundamental-group",
       "algebraic-curves-higher-genus",
-      "group-schemes",
-      "deformation-theory",
+      "sheaf-cohomology",
       "algebraic-de-rham-cohomology",
+      "moduli-spaces",
+      "algebraic-spaces",
+      "stacks",
+      "intersection-theory-chow",
+      "group-schemes",
+      "etale-fundamental-group",
+      "deformation-theory",
       "spectral-graph-theory",
       "matroid-theory",
       "probabilistic-method",
       "extremal-combinatorics",
       "simplicial-complexes-combinatorial",
+      "enumerative-combinatorics",
       "sato-tate",
       "bsd",
       "modularity-and-flt",
@@ -143,14 +163,12 @@ window.__MVConcepts = {
       "galois": "standard",
       "quadratic-reciprocity": "standard",
       "quadratic-forms-genus-theory": "standard",
-      "sums-of-squares": "standard",
-      "power-sums-bernoulli": "standard",
-      "waring": "standard",
       "algebraic-number-theory": "standard",
       "p-adic-numbers": "standard",
       "adeles-and-ideles": "standard",
       "frobenius-and-reciprocity": "standard",
       "class-field-theory": "advanced",
+      "galois-representations": "advanced",
       "heights-arithmetic-geometry": "standard",
       "upper-half-plane-hyperbolic": "standard",
       "modular-forms": "standard",
@@ -161,7 +179,6 @@ window.__MVConcepts = {
       "analytic-continuation": "standard",
       "zeta-values": "standard",
       "L-functions": "standard",
-      "galois-representations": "capstone",
       "automorphic-forms-adelic": "advanced",
       "moonshine": "advanced",
       "projective-plane": "prereq",
@@ -190,7 +207,30 @@ window.__MVConcepts = {
       "sato-tate": "capstone",
       "bsd": "capstone",
       "modularity-and-flt": "capstone",
-      "etale-cohomology": "capstone"
+      "etale-cohomology": "capstone",
+      "first-order-logic-and-completeness": "standard",
+      "zfc-and-ordinals": "standard",
+      "model-theory-basics": "standard",
+      "computability-and-decidability": "standard",
+      "complexity-theory": "standard",
+      "type-theory-and-hott": "advanced",
+      "forcing-and-independence": "advanced",
+      "lie-algebras": "standard",
+      "galois-cohomology-and-brauer": "advanced",
+      "partial-differential-equations": "standard",
+      "harmonic-functions": "standard",
+      "spectral-theory": "advanced",
+      "stochastic-processes-and-martingales": "standard",
+      "stochastic-calculus": "advanced",
+      "random-walks-and-mixing": "standard",
+      "information-theory": "standard",
+      "large-deviations": "advanced",
+      "characteristic-classes": "advanced",
+      "morse-theory": "standard",
+      "analytic-number-theory": "standard",
+      "modular-curves": "advanced",
+      "enumerative-combinatorics": "standard",
+      "additive-number-theory": "standard"
     }
   },
   "topics": {
@@ -251,6 +291,585 @@ window.__MVConcepts = {
             "countability"
           ],
           "blurb": "A choice function exists for every family of non-empty sets. Equivalent to Zorn's lemma and the well-ordering theorem; behind every basis, maximal ideal, and Tychonoff product."
+        }
+      ]
+    },
+    "first-order-logic-and-completeness": {
+      "topic": "first-order-logic-and-completeness",
+      "title": "First-order logic and completeness",
+      "page": "first-order-logic-and-completeness.html",
+      "concepts": [
+        {
+          "id": "fol-syntax",
+          "title": "Syntax: languages, terms, formulas",
+          "anchor": "syntax",
+          "prereqs": [
+            "naive-set-theory:sets-functions"
+          ],
+          "blurb": "A first-order language $\\mathcal{L}$ is a triple of constant, function, and relation symbols (with arities). Terms are built from variables, constants, and function applications; formulas from atomic predicates by Boolean connectives and quantifiers $\\forall, \\exists$. Free vs bound variables; sentences are formulas with no free variables.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "fol-semantics",
+          "title": "Tarski semantics and structures",
+          "anchor": "semantics",
+          "prereqs": [
+            "fol-syntax"
+          ],
+          "blurb": "An $\\mathcal{L}$-structure $\\mathfrak{A}$ interprets each symbol on a non-empty domain. With a variable assignment $s$, terms denote elements and formulas denote truth values; $\\mathfrak{A}\\models\\varphi[s]$ is defined by recursion. A theory $T$ is satisfiable iff some $\\mathfrak{A}\\models T$, and $T\\models\\varphi$ iff every model of $T$ satisfies $\\varphi$.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "fol-deduction",
+          "title": "Deduction: proof systems and soundness",
+          "anchor": "deduction",
+          "prereqs": [
+            "fol-syntax"
+          ],
+          "blurb": "A Hilbert-style or natural-deduction calculus assigns formal proofs $\\Gamma\\vdash\\varphi$. Soundness: $\\Gamma\\vdash\\varphi \\Rightarrow \\Gamma\\models\\varphi$, proved by induction on proofs. The hard direction — completeness — is the converse and is Gödel's theorem.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "fol-completeness",
+          "title": "Gödel's completeness theorem",
+          "anchor": "completeness",
+          "prereqs": [
+            "fol-semantics",
+            "fol-deduction"
+          ],
+          "blurb": "$\\Gamma\\vdash\\varphi \\iff \\Gamma\\models\\varphi$. Equivalently, every consistent theory has a model. Henkin's proof: add witness constants for every $\\exists x\\,\\psi(x)$, extend to a maximal consistent Henkin theory, then take the term model — closed terms modulo provable equality — as the canonical structure."
+        },
+        {
+          "id": "fol-compactness",
+          "title": "Compactness and non-standard models",
+          "anchor": "compactness",
+          "prereqs": [
+            "fol-completeness",
+            "compactness"
+          ],
+          "blurb": "Compactness theorem: a set of sentences is satisfiable iff every finite subset is. An immediate corollary of completeness, since proofs are finite. Adding a constant $c$ with $c>0, c>1, c>2,\\ldots$ to Peano arithmetic gives a consistent extension, hence a non-standard model of $\\mathbb{N}$ containing infinite elements."
+        },
+        {
+          "id": "fol-lowenheim-skolem",
+          "title": "Löwenheim–Skolem and Skolem's paradox",
+          "anchor": "lowenheim-skolem",
+          "prereqs": [
+            "fol-completeness",
+            "countability",
+            "compactness"
+          ],
+          "blurb": "Downward Löwenheim–Skolem: any satisfiable theory in a countable language has a countable model. Applied to ZFC, this yields a countable model of set theory — even though ZFC proves $\\mathbb{R}$ is uncountable. The 'paradox' is resolved: 'uncountable' is internal; the bijection witnessing countability lives outside the model."
+        },
+        {
+          "id": "fol-decidable-theories",
+          "title": "Decidable theories and quantifier elimination",
+          "anchor": "decidable",
+          "prereqs": [
+            "fol-completeness"
+          ],
+          "blurb": "A theory $T$ is decidable if there's an algorithm to test $T\\vdash\\varphi$. Complete + recursively axiomatised $\\Rightarrow$ decidable. Quantifier elimination (e.g. for dense linear orders without endpoints, real closed fields, algebraically closed fields) reduces every formula to a quantifier-free one, giving decidability and a clean structure theory of definable sets."
+        }
+      ]
+    },
+    "zfc-and-ordinals": {
+      "topic": "zfc-and-ordinals",
+      "title": "ZFC and ordinals",
+      "page": "zfc-and-ordinals.html",
+      "concepts": [
+        {
+          "id": "zfc-axioms",
+          "title": "The ZFC axioms",
+          "anchor": "axioms",
+          "prereqs": [
+            "sets-functions",
+            "cartesian-product-powerset"
+          ],
+          "blurb": "Extensionality, pairing, union, power-set, infinity, separation, replacement, regularity, choice — the nine axioms that pin down which collections are sets and rule out Russell's paradox.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "von-neumann-ordinals",
+          "title": "Von Neumann ordinals",
+          "anchor": "ordinals",
+          "prereqs": [
+            "zfc-axioms"
+          ],
+          "blurb": "Each ordinal $\\alpha$ is the set of strictly smaller ordinals: $0=\\emptyset$, $1=\\{0\\}$, $2=\\{0,1\\}$, $\\omega=\\{0,1,2,\\dots\\}$. Transfinite induction and recursion run along the well-order $\\in$."
+        },
+        {
+          "id": "ordinal-arithmetic",
+          "title": "Ordinal arithmetic",
+          "anchor": "ordinal-arith",
+          "prereqs": [
+            "von-neumann-ordinals"
+          ],
+          "blurb": "Sum, product, and exponentiation of ordinals defined by transfinite recursion. Non-commutative ($1+\\omega=\\omega\\ne\\omega+1$), and the tower $\\omega,\\omega^\\omega,\\omega^{\\omega^\\omega},\\dots$ converges to $\\varepsilon_0$."
+        },
+        {
+          "id": "cardinals-cofinality",
+          "title": "Cardinals and cofinality",
+          "anchor": "cardinals",
+          "prereqs": [
+            "von-neumann-ordinals",
+            "countability"
+          ],
+          "blurb": "$|X|$ as the least ordinal in bijection with $X$; the $\\aleph$-hierarchy $\\aleph_0,\\aleph_1,\\aleph_2,\\dots$; cofinality $\\operatorname{cf}(\\kappa)$ classifying regular vs singular cardinals; $|\\mathbb R|=2^{\\aleph_0}$.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "axiom-of-choice",
+          "title": "The axiom of choice",
+          "anchor": "choice",
+          "prereqs": [
+            "zfc-axioms",
+            "axiom-of-choice-intuition"
+          ],
+          "blurb": "AC, Zorn's lemma, and the well-ordering theorem are equivalent over ZF. Tychonoff's product theorem, existence of a Hamel basis for $\\mathbb R/\\mathbb Q$, and a non-measurable set all need it."
+        },
+        {
+          "id": "continuum-hypothesis",
+          "title": "The continuum hypothesis",
+          "anchor": "ch",
+          "prereqs": [
+            "cardinals-cofinality"
+          ],
+          "blurb": "CH: $2^{\\aleph_0}=\\aleph_1$. Gödel (1940) showed CH is consistent with ZFC; Cohen (1963) showed $\\neg$CH is too — so CH is independent. Forcing is the technique behind Cohen's half."
+        },
+        {
+          "id": "inaccessible-cardinals",
+          "title": "Inaccessible cardinals",
+          "anchor": "inaccessibles",
+          "prereqs": [
+            "cardinals-cofinality",
+            "axiom-of-choice"
+          ],
+          "blurb": "An uncountable regular strong-limit cardinal $\\kappa$ — closed under power-set and unions of size $<\\kappa$. $V_\\kappa$ is then a model of ZFC, so existence of one is strictly stronger than ZFC. Grothendieck universes are exactly $V_\\kappa$ for $\\kappa$ inaccessible.",
+          "tags": [
+            "classification"
+          ]
+        }
+      ]
+    },
+    "model-theory-basics": {
+      "topic": "model-theory-basics",
+      "title": "Model theory",
+      "page": "model-theory-basics.html",
+      "concepts": [
+        {
+          "id": "mt-structures",
+          "title": "Structures and signatures",
+          "anchor": "structures",
+          "prereqs": [
+            "first-order-logic-and-completeness:fol-syntax",
+            "first-order-logic-and-completeness:fol-semantics"
+          ],
+          "blurb": "A signature $\\sigma$ is a list of constant, function, and relation symbols with arities. A $\\sigma$-structure $\\mathfrak{A}=(A;c^{\\mathfrak{A}},f^{\\mathfrak{A}},R^{\\mathfrak{A}},\\ldots)$ interprets each symbol on a non-empty domain. Groups, ordered sets, graphs, and fields are all structures over the appropriate signature; model theory is the study of what first-order sentences see in them.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "mt-elementary-equivalence",
+          "title": "Elementary equivalence",
+          "anchor": "elementary-equivalence",
+          "prereqs": [
+            "mt-structures",
+            "first-order-logic-and-completeness:fol-semantics"
+          ],
+          "blurb": "Two $\\sigma$-structures $\\mathfrak{A},\\mathfrak{B}$ are <em>elementarily equivalent</em>, written $\\mathfrak{A}\\equiv\\mathfrak{B}$, when they satisfy exactly the same first-order $\\sigma$-sentences. Elementary equivalence is much coarser than isomorphism: $(\\mathbb{Q},<)$ and $(\\mathbb{R},<)$ are elementarily equivalent but not isomorphic; $\\mathbb{N}$ and any non-standard model of arithmetic are elementarily equivalent by construction.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "mt-isomorphism-vs-equivalence",
+          "title": "Isomorphism vs elementary equivalence",
+          "anchor": "iso-vs-equivalence",
+          "prereqs": [
+            "mt-elementary-equivalence"
+          ],
+          "blurb": "For finite structures the two notions coincide: $\\mathfrak{A}\\equiv\\mathfrak{B}$ implies $\\mathfrak{A}\\cong\\mathfrak{B}$, since the size and complete diagram pin down the isomorphism class. For infinite structures they part ways — Cantor's back-and-forth shows any two countable dense linear orders without endpoints are isomorphic, but $(\\mathbb{Q},<)\\equiv(\\mathbb{R},<)$ are non-isomorphic. The example $(\\mathbb{N},<)$ vs $(\\mathbb{Z},<)$ shows even elementary equivalence can fail.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "mt-types-and-saturation",
+          "title": "Types and saturation",
+          "anchor": "types",
+          "prereqs": [
+            "mt-elementary-equivalence",
+            "first-order-logic-and-completeness:fol-compactness"
+          ],
+          "blurb": "An $n$-<em>type</em> over a parameter set $A$ is a maximal consistent set of formulas $p(x_1,\\ldots,x_n)$ with parameters from $A$ — a complete first-order description of an $n$-tuple. By compactness every type is realised in some elementary extension; a structure is $\\omega$-<em>saturated</em> if every type over a finite parameter set is already realised in it. Saturation is the model-theoretic analogue of compactness for spaces.",
+          "tags": [
+            "foundation",
+            "compactness"
+          ]
+        },
+        {
+          "id": "mt-ehrenfeucht-fraisse",
+          "title": "Ehrenfeucht–Fraïssé games",
+          "anchor": "ef-games",
+          "prereqs": [
+            "mt-elementary-equivalence"
+          ],
+          "blurb": "The $n$-round EF game on structures $\\mathfrak{A},\\mathfrak{B}$ pits Spoiler — who picks elements trying to expose a difference — against Duplicator, who copies them across to preserve a partial isomorphism. Duplicator has a winning strategy in the $n$-round game iff $\\mathfrak{A}$ and $\\mathfrak{B}$ agree on every sentence of quantifier rank $\\le n$. EF games are the standard tool for proving non-definability results, e.g. that connectivity is not first-order definable on graphs.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "mt-applications-to-algebra",
+          "title": "Applications to algebra",
+          "anchor": "applications",
+          "prereqs": [
+            "mt-types-and-saturation",
+            "mt-elementary-equivalence",
+            "field-extensions-basics"
+          ],
+          "blurb": "ACF (algebraically closed fields) is a model-complete theory: every embedding between models is elementary, so first-order truth transfers freely along extensions. Compactness + the Lefschetz principle yield Ax–Grothendieck — every injective polynomial map $\\mathbb{C}^n\\to\\mathbb{C}^n$ is surjective — by reduction to algebraic closures of finite fields. These transfer principles are the standard model-theoretic tools used in algebraic geometry.",
+          "tags": [
+            "classification"
+          ]
+        }
+      ]
+    },
+    "computability-and-decidability": {
+      "topic": "computability-and-decidability",
+      "title": "Computability theory",
+      "page": "computability-and-decidability.html",
+      "concepts": [
+        {
+          "id": "comp-turing-machines",
+          "title": "Turing machines",
+          "anchor": "turing",
+          "prereqs": [
+            "naive-set-theory:sets-functions"
+          ],
+          "blurb": "A Turing machine is a finite-state controller scanning a two-way infinite tape. A configuration is a triple (state, tape contents, head position); the transition function $\\delta\\colon Q\\times\\Sigma\\to Q\\times\\Sigma\\times\\{L,R\\}$ rewrites a cell, moves the head, and updates state. Acceptance is by halting in a designated accept state. Variants — multitape, nondeterministic, two-counter — all simulate one another with at most polynomial overhead, which is the empirical content of the Church–Turing thesis.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "comp-recursive-functions",
+          "title": "Recursive and partial-recursive functions",
+          "anchor": "recursive",
+          "prereqs": [
+            "comp-turing-machines"
+          ],
+          "blurb": "Build $\\mathbb{N}^k\\to\\mathbb{N}$ functions from three primitives — zero, successor, projection — closed under composition, primitive recursion (define $f(n+1)$ from $f(n)$), and the unbounded $\\mu$-operator (least $y$ with $g(\\vec x,y)=0$). Without $\\mu$ you get the primitive-recursive functions (every total, including Ackermann's exception); with $\\mu$ you get the partial-recursive functions, which Turing showed coincide exactly with Turing-computable. The Church–Turing thesis asserts this is the right notion of \"effectively computable\".",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "comp-halting-problem",
+          "title": "The halting problem",
+          "anchor": "halting",
+          "prereqs": [
+            "comp-turing-machines",
+            "naive-set-theory:countability"
+          ],
+          "blurb": "Let $H = \\{ \\langle M,w\\rangle : M \\text{ halts on } w\\}$. Suppose $h$ decides $H$. Build $D(\\langle M\\rangle)$ which runs $h$ on $\\langle M, \\langle M\\rangle\\rangle$ and loops if $h$ says \"halts\", halts otherwise. Then $D$ on its own code halts iff it doesn't — contradiction. The argument is Cantor's diagonal applied to the countable list of Turing machines. Halting is the prototype undecidable problem; everything else reduces to it.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "comp-rec-vs-re",
+          "title": "Recursive vs recursively enumerable",
+          "anchor": "rec-vs-re",
+          "prereqs": [
+            "comp-halting-problem"
+          ],
+          "blurb": "A set $A\\subseteq\\mathbb{N}$ is <em>recursive</em> (decidable) if its characteristic function is computable; <em>recursively enumerable</em> (semi-decidable, Σ⁰₁) if there is a TM that halts exactly on inputs in $A$. Theorem: $A$ is recursive iff both $A$ and $\\mathbb{N}\\setminus A$ are r.e. The halting set $H$ is r.e. but not recursive; its complement is not even r.e. The r.e. sets sit one level above the recursive sets in the arithmetical hierarchy.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "comp-undecidability",
+          "title": "Undecidability via reduction",
+          "anchor": "reductions",
+          "prereqs": [
+            "comp-halting-problem",
+            "comp-rec-vs-re"
+          ],
+          "blurb": "$A\\le_m B$ (many-one reducible) means there is a computable $f$ with $x\\in A \\iff f(x)\\in B$. If $A$ is undecidable and $A\\le_m B$ then $B$ is undecidable. <strong>Rice's theorem</strong>: every non-trivial property of the languages recognized by Turing machines is undecidable. Reductions from halting kill emptiness, equivalence, totality, regularity for TMs — and via further reductions, Hilbert's tenth problem, the word problem for groups, and the Post correspondence problem.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "comp-godel-incompleteness",
+          "title": "Gödel incompleteness — computability lens",
+          "anchor": "godel",
+          "prereqs": [
+            "comp-halting-problem",
+            "first-order-logic-and-completeness:fol-completeness"
+          ],
+          "blurb": "Any consistent, recursively axiomatised theory $T$ extending Robinson arithmetic can express \"$M$ halts on $w$\" as a $\\Sigma_1$ formula. If $T$ proved every true halting fact and refuted every false one, halting would be decidable — contradicting the halting theorem. So $T$ is incomplete: some true $\\Sigma_1$ sentence is unprovable. Strengthening from <em>ω-consistency</em> to plain consistency (Rosser's trick) gives Gödel's first theorem; the second theorem ($T\\not\\vdash\\mathrm{Con}(T)$) follows by formalising the proof inside $T$.",
+          "tags": [
+            "foundation"
+          ]
+        }
+      ]
+    },
+    "complexity-theory": {
+      "topic": "complexity-theory",
+      "title": "Complexity theory",
+      "page": "complexity-theory.html",
+      "concepts": [
+        {
+          "id": "cx-time-complexity",
+          "title": "Time complexity and big-O",
+          "anchor": "time",
+          "prereqs": [
+            "computability-and-decidability:comp-turing-machines"
+          ],
+          "blurb": "Fix a (multitape) Turing-machine model and let $t_M(x)$ be the number of steps $M$ runs on input $x$. The class $\\mathrm{DTIME}(f(n))$ is the languages decided by some $M$ with $t_M(x)\\le f(|x|)$ for all $x$. Asymptotic notation hides constants and lower-order terms: $f=O(g)$ if $\\exists c, n_0$ with $f(n)\\le c\\,g(n)$ for $n\\ge n_0$. The polynomial-time class $\\mathsf{P}=\\bigcup_k \\mathrm{DTIME}(n^k)$ is the working notion of \"feasible\". The exponential gap $n^k$ vs $2^n$ is the central drama.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "cx-p-and-np",
+          "title": "P and NP",
+          "anchor": "p-np",
+          "prereqs": [
+            "cx-time-complexity"
+          ],
+          "blurb": "$\\mathsf{P}$ is the class of decision problems solvable by a deterministic TM in polynomial time. $\\mathsf{NP}$ is the class of problems with a polynomial-time <em>verifier</em>: $L\\in\\mathsf{NP}$ iff there is a polynomial-time $V(x,w)$ and a polynomial $p$ with $x\\in L \\iff \\exists w,|w|\\le p(|x|),\\,V(x,w)=1$. Witnesses: a satisfying assignment for SAT, a Hamiltonian cycle for HAM-CYC, a clique for CLIQUE. Equivalently $\\mathsf{NP}=\\bigcup_k \\mathrm{NTIME}(n^k)$ — nondeterministic polynomial time. Whether $\\mathsf{P}=\\mathsf{NP}$ is the headline open problem.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "cx-np-completeness",
+          "title": "NP-completeness and Cook–Levin",
+          "anchor": "np-complete",
+          "prereqs": [
+            "cx-p-and-np",
+            "computability-and-decidability:comp-undecidability"
+          ],
+          "blurb": "A language $L$ is <strong>NP-hard</strong> if every $A\\in\\mathsf{NP}$ admits a polynomial-time many-one (Karp) reduction $A\\le_p L$. It is <strong>NP-complete</strong> if additionally $L\\in\\mathsf{NP}$. <strong>Cook–Levin (1971/73):</strong> SAT is NP-complete. The proof builds, from any NP machine $M$ and input $x$, a polynomial-size CNF whose satisfying assignments encode accepting computations of $M$ on $x$ — the tableau of cell values across configuration $\\times$ time, with consistency clauses for the transition function. Hardness then propagates: SAT $\\le_p$ 3-SAT $\\le_p$ everything else.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "cx-reductions",
+          "title": "Karp reductions and complete problems",
+          "anchor": "reductions",
+          "prereqs": [
+            "cx-np-completeness"
+          ],
+          "blurb": "$A\\le_p B$ (polynomial-time many-one) means $\\exists f$ computable in polynomial time with $x\\in A \\iff f(x)\\in B$. The relation is transitive, so to show $L$ is NP-hard it suffices to reduce <em>one</em> known NP-complete problem to $L$. The Karp 21 (1972) wired up the first wave: 3-SAT $\\le_p$ CLIQUE (clauses become groups in a graph), CLIQUE $\\le_p$ INDEPENDENT-SET (complement graph), VERTEX-COVER $\\equiv$ INDEPENDENT-SET, 3-SAT $\\le_p$ 3-COLORING, SUBSET-SUM, HAMILTONIAN-CYCLE, PARTITION, and so on. The whole web propagates one hardness fact across thousands of problems.",
+          "tags": [
+            "classification",
+            "functoriality"
+          ]
+        },
+        {
+          "id": "cx-space-complexity",
+          "title": "Space complexity and PSPACE",
+          "anchor": "space",
+          "prereqs": [
+            "cx-time-complexity"
+          ],
+          "blurb": "$\\mathrm{DSPACE}(f)$, $\\mathrm{NSPACE}(f)$ count tape cells used (excluding input). $\\mathsf{L}=\\mathrm{DSPACE}(\\log n)$, $\\mathsf{NL}=\\mathrm{NSPACE}(\\log n)$, $\\mathsf{PSPACE}=\\bigcup_k\\mathrm{DSPACE}(n^k)$. <strong>Savitch's theorem:</strong> $\\mathrm{NSPACE}(f)\\subseteq\\mathrm{DSPACE}(f^2)$ for $f\\ge\\log n$ — nondeterminism only costs a square in space. Hence $\\mathsf{PSPACE}=\\mathsf{NPSPACE}$. The chain $\\mathsf{L}\\subseteq\\mathsf{NL}\\subseteq\\mathsf{P}\\subseteq\\mathsf{NP}\\subseteq\\mathsf{PSPACE}\\subseteq\\mathsf{EXP}$ is one of the few we know strictly. TQBF (true quantified boolean formulas) is PSPACE-complete; geography, Reversi, and many two-player games join it.",
+          "tags": [
+            "classification",
+            "compactness"
+          ]
+        },
+        {
+          "id": "cx-hierarchy-theorems",
+          "title": "Time and space hierarchy theorems",
+          "anchor": "hierarchy",
+          "prereqs": [
+            "cx-time-complexity",
+            "cx-space-complexity"
+          ],
+          "blurb": "<strong>Time hierarchy (Hartmanis–Stearns):</strong> if $f,g$ are time-constructible and $f(n)\\log f(n) = o(g(n))$, then $\\mathrm{DTIME}(f)\\subsetneq\\mathrm{DTIME}(g)$. Proof by diagonalisation: build a TM that simulates the $i$-th machine on the $i$-th input within the $g$ budget and flips the answer. <strong>Space hierarchy:</strong> $f=o(g)$ space-constructible suffices, no $\\log$ factor. Consequences: $\\mathsf{P}\\subsetneq\\mathsf{EXP}$, $\\mathsf{L}\\subsetneq\\mathsf{PSPACE}$, $\\mathsf{NL}\\subsetneq\\mathsf{NPSPACE}=\\mathsf{PSPACE}$. The diagonal in time/space mirrors Cantor's, but with a stopwatch attached to the simulator.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
+        }
+      ]
+    },
+    "type-theory-and-hott": {
+      "topic": "type-theory-and-hott",
+      "title": "Type theory and HoTT",
+      "page": "type-theory-and-hott.html",
+      "concepts": [
+        {
+          "id": "tt-judgments",
+          "title": "Judgments and contexts",
+          "anchor": "judgments",
+          "prereqs": [
+            "naive-set-theory:sets-functions"
+          ],
+          "blurb": "A judgment is a primitive assertion of the theory: $\\Gamma\\vdash a:A$ ('in context $\\Gamma$, the term $a$ has type $A$'). The four basic forms — $A\\;\\mathsf{type}$, $a:A$, $A\\equiv B$, $a\\equiv b:A$ — replace 'membership' with a structured deduction system. Contexts $\\Gamma=(x_1:A_1,\\ldots,x_n:A_n)$ track free variables; well-formedness is itself a derivable judgment.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "tt-pi-sigma",
+          "title": "Π and Σ types",
+          "anchor": "pi-sigma",
+          "prereqs": [
+            "tt-judgments"
+          ],
+          "blurb": "The dependent function type $\\prod_{x:A} B(x)$ generalises $A\\to B$: its terms $\\lambda x.b(x)$ pick a $B(a)$ for each $a:A$. The dependent pair $\\sum_{x:A} B(x)$ generalises $A\\times B$: a term $(a,b)$ packages a base point with proof. Under propositions-as-types Curry–Howard $\\forall$ becomes $\\Pi$ and $\\exists$ becomes $\\Sigma$; computation is $\\beta$-reduction $(\\lambda x.b)(a)\\equiv b[a/x]$.",
+          "tags": [
+            "foundation",
+            "universal-property"
+          ]
+        },
+        {
+          "id": "tt-identity-types",
+          "title": "Identity types",
+          "anchor": "identity",
+          "prereqs": [
+            "tt-pi-sigma"
+          ],
+          "blurb": "For each $A$ and each $a,b:A$ there is a type $\\mathsf{Id}_A(a,b)$ of identifications. It has one constructor $\\mathsf{refl}_a:\\mathsf{Id}_A(a,a)$ and an eliminator (the J-rule) saying any property of identifications is determined by what it does on $\\mathsf{refl}$. The HoTT slogan is that elements of $\\mathsf{Id}_A(a,b)$ behave like paths in a space, with concatenation, inversion, and higher coherences.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "tt-univalence",
+          "title": "Univalence axiom",
+          "anchor": "univalence",
+          "prereqs": [
+            "tt-identity-types",
+            "category-theory:categories-morphisms"
+          ],
+          "blurb": "Univalence asserts that the canonical map $(A=B)\\to(A\\simeq B)$ from identifications of types to equivalences is itself an equivalence. Operationally: isomorphic structures are identifiable, and any property invariant under one is invariant under the other. Voevodsky's axiom turns 'equivalence' into 'equality' and forces the universe to be a higher groupoid rather than a discrete set of types.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "tt-higher-inductive-types",
+          "title": "Higher inductive types",
+          "anchor": "hits",
+          "prereqs": [
+            "tt-identity-types"
+          ],
+          "blurb": "An inductive type is specified by point constructors; a higher inductive type also takes path constructors and (recursively) higher-cell constructors. The circle $S^1$ is generated by a point $\\mathsf{base}$ and a loop $\\mathsf{loop}:\\mathsf{Id}(\\mathsf{base},\\mathsf{base})$; the interval, sphere, suspension, and pushout follow the same pattern. HITs synthesise homotopy theory inside type theory.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "tt-models",
+          "title": "Models of HoTT",
+          "anchor": "models",
+          "prereqs": [
+            "tt-univalence",
+            "tt-higher-inductive-types",
+            "kan-complex"
+          ],
+          "blurb": "A model interprets each type as an object and each judgment as a derivation in some semantic category. Voevodsky's simplicial-set model interprets types as Kan complexes ($\\infty$-groupoids), Π/Σ as fibred mapping spaces / total spaces, identity types as path objects, and univalence holds because equivalence of Kan complexes coincides with weak equivalence. This is what justifies HoTT as a foundation, not just a syntax.",
+          "tags": [
+            "foundation"
+          ]
+        }
+      ]
+    },
+    "forcing-and-independence": {
+      "topic": "forcing-and-independence",
+      "title": "Forcing and independence",
+      "page": "forcing-and-independence.html",
+      "concepts": [
+        {
+          "id": "forcing-posets",
+          "title": "Forcing posets and dense subsets",
+          "anchor": "posets",
+          "prereqs": [
+            "zfc-axioms"
+          ],
+          "blurb": "A forcing notion is a poset $(\\mathbb P,\\le)$ of conditions, where $p\\le q$ means $p$ is stronger (carries more information) than $q$. A subset $D\\subseteq\\mathbb P$ is dense if every condition has an extension in $D$ — every line of questioning can be answered.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "forcing-generic-extensions",
+          "title": "Generic filters and the model $M[G]$",
+          "anchor": "generic",
+          "prereqs": [
+            "forcing-posets",
+            "fol-lowenheim-skolem"
+          ],
+          "blurb": "Given a countable transitive model $M\\models$ ZFC and a poset $\\mathbb P\\in M$, a filter $G\\subseteq\\mathbb P$ is $M$-generic if it meets every dense set $D\\in M$. The extension $M[G]$ is the smallest transitive model of ZFC containing $M\\cup\\{G\\}$.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "forcing-truth-lemma",
+          "title": "The forcing relation and truth lemma",
+          "anchor": "truth-lemma",
+          "prereqs": [
+            "forcing-generic-extensions"
+          ],
+          "blurb": "The relation $p\\Vdash\\varphi$ ($p$ forces $\\varphi$) is definable inside $M$ by recursion on the formula. Truth lemma: $M[G]\\models\\varphi$ iff some $p\\in G$ forces $\\varphi$. So statements about the unknown $G$ are decided by the conditions $M$ already sees.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "forcing-cohen-reals",
+          "title": "Cohen forcing for adding reals",
+          "anchor": "cohen-reals",
+          "prereqs": [
+            "forcing-truth-lemma"
+          ],
+          "blurb": "The Cohen poset $2^{<\\omega}$ has finite binary strings ordered by extension. A generic filter $G$ collects to a single new real $r_G\\in 2^\\omega$ not in $M$. Forcing with the product $2^{<\\omega}\\times\\aleph_2$ injects $\\aleph_2^M$ many new reals at once."
+        },
+        {
+          "id": "forcing-not-ch",
+          "title": "Independence of the continuum hypothesis",
+          "anchor": "not-ch",
+          "prereqs": [
+            "forcing-cohen-reals",
+            "continuum-hypothesis"
+          ],
+          "blurb": "Cohen (1963): forcing with the side-by-side Cohen poset over a model of ZFC + CH gives an extension where $2^{\\aleph_0}\\ge\\aleph_2$, so $\\neg$CH holds. Combined with Gödel's $L$ (CH consistent), CH is independent of ZFC.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "forcing-applications",
+          "title": "Other independence results",
+          "anchor": "applications",
+          "prereqs": [
+            "forcing-not-ch"
+          ],
+          "blurb": "Forcing also settles the Suslin hypothesis (independent), Martin's axiom (consistent with $\\neg$CH and useful as a parameter), Whitehead's problem in algebra, and large-cardinal indestructibility — Laver-style preparations make supercompacts survive any further forcing."
         }
       ]
     },
@@ -650,7 +1269,7 @@ window.__MVConcepts = {
           "prereqs": [
             "characters-orthogonality"
           ],
-          "blurb": "Induction $\\mathbb{C}[G]\\otimes_{\\mathbb{C}[H]}(-)$ is left adjoint to restriction, so $\\mathrm{Hom}_G(\\mathrm{Ind}W,V) \\cong \\mathrm{Hom}_H(W,\\mathrm{Res}V)$ — the transfer principle between $H$- and $G$-representations.",
+          "blurb": "Induction $\\mathbb{C}[G]\\otimes_{\\mathbb{C}[H]}(-)$ is left adjoint to restriction, so $\\Hom_G(\\mathrm{Ind}W,V) \\cong \\Hom_H(W,\\mathrm{Res}V)$ — the transfer principle between $H$- and $G$-representations.",
           "tags": [
             "universal-property",
             "functoriality"
@@ -741,7 +1360,7 @@ window.__MVConcepts = {
             "primes-maximals-ca",
             "open-sets"
           ],
-          "blurb": "$\\mathrm{Spec}(A)$ equipped with closed sets $V(I)$ and open basis $D(f)$ turns a ring into a topological space whose points are primes; this is the bridge to schemes.",
+          "blurb": "$\\Spec(A)$ equipped with closed sets $V(I)$ and open basis $D(f)$ turns a ring into a topological space whose points are primes; this is the bridge to schemes.",
           "tags": [
             "duality"
           ]
@@ -789,7 +1408,7 @@ window.__MVConcepts = {
             "noetherian-hilbert-ca",
             "primes-maximals-ca"
           ],
-          "blurb": "An Artinian ring satisfies DCC on ideals — equivalently, has finite length as a module over itself. Local Artinian $k$-algebras (residue field $k$, finite length) are the standard test rings for deformation problems: they parameterize infinitesimal thickenings via $\\mathrm{Spec}$. Schlessinger's criteria are stated for the category $\\mathrm{Art}_k$ of these rings.",
+          "blurb": "An Artinian ring satisfies DCC on ideals — equivalently, has finite length as a module over itself. Local Artinian $k$-algebras (residue field $k$, finite length) are the standard test rings for deformation problems: they parameterize infinitesimal thickenings via $\\Spec$. Schlessinger's criteria are stated for the category $\\mathrm{Art}_k$ of these rings.",
           "tags": [
             "finiteness",
             "lifting"
@@ -815,7 +1434,7 @@ window.__MVConcepts = {
             "chain-complexes",
             "exact-sequences"
           ],
-          "blurb": "$M$ is flat when $-\\otimes_A M$ is exact (preserves injections); $\\mathrm{Tor}_1^A(M,-) = 0$ measures the failure. The local criterion and the geometric reading — flat $\\Leftrightarrow$ fibres of $\\mathrm{Spec}$ vary continuously — govern base change in families.",
+          "blurb": "$M$ is flat when $-\\otimes_A M$ is exact (preserves injections); $\\mathrm{Tor}_1^A(M,-) = 0$ measures the failure. The local criterion and the geometric reading — flat $\\Leftrightarrow$ fibres of $\\Spec$ vary continuously — govern base change in families.",
           "tags": [
             "functoriality"
           ]
@@ -1027,6 +1646,390 @@ window.__MVConcepts = {
         }
       ]
     },
+    "derived-categories": {
+      "topic": "derived-categories",
+      "title": "Derived categories",
+      "page": "derived-categories.html",
+      "concepts": [
+        {
+          "id": "homotopy-category-K",
+          "title": "The homotopy category $K(\\mathcal{A})$",
+          "anchor": "homotopy-category",
+          "prereqs": [
+            "chain-complexes"
+          ],
+          "blurb": "The homotopy category $K(\\mathcal{A})$ has chain complexes for objects and homotopy classes of chain maps for morphisms. It identifies maps that differ by a chain homotopy and is the first step toward inverting quasi-isomorphisms."
+        },
+        {
+          "id": "quasi-isomorphisms",
+          "title": "Quasi-isomorphisms and localization",
+          "anchor": "quasi-isomorphisms",
+          "prereqs": [
+            "homotopy-category-K"
+          ],
+          "blurb": "A quasi-isomorphism is a chain map inducing iso on cohomology. The derived category $D(\\mathcal{A})$ is the localization of $K(\\mathcal{A})$ at the class of quasi-isomorphisms — \"objects up to cohomology agreement.\""
+        },
+        {
+          "id": "derived-category",
+          "title": "The derived category $D(\\mathcal{A})$",
+          "anchor": "derived-category",
+          "prereqs": [
+            "quasi-isomorphisms"
+          ],
+          "blurb": "The derived category $D(\\mathcal{A})$ is the universal target of a functor out of $\\mathcal{A}$ that inverts quasi-isomorphisms. Its bounded variants $D^+, D^-, D^b$ restrict to complexes that are zero in low / high / both extremes.",
+          "tags": [
+            "universal-property",
+            "cohomology"
+          ]
+        },
+        {
+          "id": "triangulated-structure",
+          "title": "Triangulated structure and exact triangles",
+          "anchor": "triangulated-structure",
+          "prereqs": [
+            "derived-category",
+            "exact-sequences",
+            "abelian-categories"
+          ],
+          "blurb": "$D(\\mathcal{A})$ is a triangulated category: a shift functor $[1]$ and a class of distinguished \"exact\" triangles $X \\to Y \\to Z \\to X[1]$ replacing short exact sequences. The cohomology long exact sequence is a triangle's projection to $\\mathcal{A}$.",
+          "tags": [
+            "exact-sequence",
+            "cohomology"
+          ]
+        },
+        {
+          "id": "derived-functors-triangulated",
+          "title": "Derived functors $RF, LF$",
+          "anchor": "derived-functors-triangulated",
+          "prereqs": [
+            "derived-category",
+            "derived-functors",
+            "resolutions-ha"
+          ],
+          "blurb": "Right (resp. left) derived functors compute $F$ on injective (resp. projective) resolutions. They package the classical $R^iF, L_iF$ into a single triangulated functor $D(\\mathcal{A}) \\to D(\\mathcal{B})$ — Ext and Tor become $\\Hom_{D}$ and $\\otimes^L$.",
+          "tags": [
+            "cohomology",
+            "functoriality"
+          ]
+        },
+        {
+          "id": "t-structures",
+          "title": "$t$-structures and hearts",
+          "anchor": "t-structures",
+          "prereqs": [
+            "triangulated-structure",
+            "abelian-categories"
+          ],
+          "blurb": "A $t$-structure $(D^{\\le 0}, D^{\\ge 0})$ on a triangulated category gives a notion of \"objects concentrated in non-positive (resp. non-negative) degree\" and a heart $D^{\\le 0} \\cap D^{\\ge 0}$ that is abelian. Recovers $\\mathcal{A}$ from $D(\\mathcal{A})$ as the heart of the standard $t$-structure."
+        },
+        {
+          "id": "examples-D-Coh",
+          "title": "$D^b(\\mathrm{Coh}\\,X)$ and Fourier–Mukai",
+          "anchor": "d-coh",
+          "prereqs": [
+            "derived-category",
+            "derived-functors-triangulated",
+            "sheafification-and-qcoh"
+          ],
+          "blurb": "For a smooth projective variety $X$, the bounded derived category of coherent sheaves $D^b(\\mathrm{Coh}\\,X)$ is the modern home of intersection theory and a finer invariant than Picard or cohomology. Fourier–Mukai transforms are equivalences between $D^b(\\mathrm{Coh}\\,X)$ and $D^b(\\mathrm{Coh}\\,Y)$ given by integral kernels.",
+          "tags": [
+            "duality",
+            "cohomology"
+          ]
+        }
+      ]
+    },
+    "group-cohomology": {
+      "topic": "group-cohomology",
+      "title": "Group cohomology",
+      "page": "group-cohomology.html",
+      "concepts": [
+        {
+          "id": "bar-resolution",
+          "title": "The bar resolution and $H^n(G,M)$",
+          "anchor": "bar",
+          "prereqs": [
+            "derived-functors",
+            "group-actions-burnside"
+          ],
+          "blurb": "The bar resolution gives a free $\\mathbb{Z}[G]$-resolution of the trivial module $\\mathbb{Z}$; cohomology of the dual cochain complex defines $H^n(G,M)=\\mathrm{Ext}^n_{\\mathbb{Z}[G]}(\\mathbb{Z},M)$, the right derived functors of $M\\mapsto M^G$.",
+          "tags": [
+            "cohomology"
+          ]
+        },
+        {
+          "id": "h0-fixed-points",
+          "title": "$H^0$ as $G$-fixed points",
+          "anchor": "h0",
+          "prereqs": [
+            "bar-resolution"
+          ],
+          "blurb": "Degree zero recovers the input: $H^0(G,M)=M^G$. Failure of right-exactness of $(-)^G$ is exactly what the higher $H^n$ correct, generating the long exact sequence $0\\to A^G\\to B^G\\to C^G\\xrightarrow{\\delta} H^1(G,A)\\to\\cdots$.",
+          "tags": [
+            "cohomology",
+            "exact-sequence"
+          ]
+        },
+        {
+          "id": "h1-crossed-homs",
+          "title": "$H^1$, crossed homomorphisms, and Hilbert 90",
+          "anchor": "h1",
+          "prereqs": [
+            "h0-fixed-points",
+            "exact-sequences"
+          ],
+          "blurb": "$H^1(G,M)$ is crossed homomorphisms $\\varphi(gh)=\\varphi(g)+g\\varphi(h)$ modulo principal ones $g\\mapsto gm-m$. Hilbert's Theorem 90 says $H^1(\\Gal(L/K),L^\\times)=1$ for cyclic $L/K$: every norm-one element is of the form $\\sigma(\\alpha)/\\alpha$.",
+          "tags": [
+            "cohomology",
+            "duality"
+          ]
+        },
+        {
+          "id": "h2-extensions",
+          "title": "$H^2$ classifies group extensions",
+          "anchor": "h2",
+          "prereqs": [
+            "h1-crossed-homs",
+            "semidirect-products-ses"
+          ],
+          "blurb": "Equivalence classes of extensions $1\\to A\\to E\\to G\\to 1$ with prescribed $G$-action on abelian $A$ are in bijection with $H^2(G,A)$. Split extensions hit $0$; the nontrivial class assembles a section's failure-of-multiplicativity into the canonical 2-cocycle.",
+          "tags": [
+            "cohomology",
+            "classification",
+            "exact-sequence"
+          ]
+        },
+        {
+          "id": "cyclic-periodic-tate",
+          "title": "Cyclic groups, periodicity, and Tate cohomology",
+          "anchor": "cyclic",
+          "prereqs": [
+            "h1-crossed-homs",
+            "h2-extensions"
+          ],
+          "blurb": "For $G=C_n$ the alternating $\\sigma-1$/$N$-resolution gives a 2-periodic theory: $H^{2k}=M^G/N(M)$, $H^{2k+1}=\\ker N/(\\sigma-1)M$. Splicing in negative degrees defines Tate cohomology $\\hat H^*$; the Herbrand quotient is multiplicative and a workhorse in class field theory.",
+          "tags": [
+            "cohomology",
+            "finiteness",
+            "completion"
+          ]
+        },
+        {
+          "id": "inflation-restriction-lhs",
+          "title": "Inflation–restriction and Lyndon–Hochschild–Serre",
+          "anchor": "infres",
+          "prereqs": [
+            "h1-crossed-homs",
+            "h2-extensions",
+            "spectral-sequences-ha"
+          ],
+          "blurb": "For $H\\tr{}ianglelefteq G$ the five-term sequence $0\\to H^1(G/H,M^H)\\to H^1(G,M)\\to H^1(H,M)^{G/H}\\to H^2(G/H,M^H)\\to H^2(G,M)$ is the low-degree edge of the LHS spectral sequence $E_2^{p,q}=H^p(G/H,H^q(H,M))\\Rightarrow H^{p+q}(G,M)$.",
+          "tags": [
+            "cohomology",
+            "exact-sequence",
+            "functoriality"
+          ]
+        },
+        {
+          "id": "galois-cohomology-brauer",
+          "title": "Galois cohomology and the Brauer group",
+          "anchor": "galois-cohom",
+          "prereqs": [
+            "h1-crossed-homs",
+            "h2-extensions",
+            "field-extensions-galois"
+          ],
+          "blurb": "Continuous group cohomology of $G_k=\\Gal(\\bar k/k)$ acting on a Galois module $M$ is Galois cohomology $H^n(k,M)$. Hilbert 90 says $H^1(k,\\bar k^\\times)=0$; $H^2(k,\\bar k^\\times)=\\mathrm{Br}(k)$ is the Brauer group of central simple algebras, with the Kummer sequence giving $H^1(k,\\mu_n)=k^\\times/(k^\\times)^n$.",
+          "tags": [
+            "cohomology",
+            "duality",
+            "classification"
+          ]
+        }
+      ]
+    },
+    "lie-algebras": {
+      "topic": "lie-algebras",
+      "title": "Lie algebras",
+      "page": "lie-algebras.html",
+      "concepts": [
+        {
+          "id": "la-axioms",
+          "title": "Axioms and matrix examples",
+          "anchor": "axioms",
+          "prereqs": [
+            "algebraic-structures",
+            "lie-group-definition"
+          ],
+          "blurb": "A Lie algebra is a vector space with a skew-symmetric bracket $[\\cdot,\\cdot]$ satisfying the Jacobi identity $[x,[y,z]]+[y,[z,x]]+[z,[x,y]]=0$. Standard families: $\\mathfrak{gl}_n$ (all matrices), $\\mathfrak{sl}_n$ (traceless), $\\mathfrak{so}_n$ (skew-symmetric), $\\mathfrak{sp}_{2n}$ (symplectic).",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "la-derivations-and-adjoint",
+          "title": "Derivations and the adjoint representation",
+          "anchor": "derivations",
+          "prereqs": [
+            "la-axioms",
+            "lie-bracket-bch"
+          ],
+          "blurb": "The adjoint $\\ad(x)=[x,-]$ makes every $x\\in\\mathfrak g$ act as a derivation of the bracket; the Killing form $B(x,y)=\\tr(\\ad(x)\\ad(y))$ is the canonical $\\mathfrak g$-invariant symmetric bilinear form.",
+          "tags": [
+            "group-action",
+            "duality"
+          ]
+        },
+        {
+          "id": "la-solvable-and-nilpotent",
+          "title": "Solvable and nilpotent Lie algebras",
+          "anchor": "solvable-nilpotent",
+          "prereqs": [
+            "la-derivations-and-adjoint",
+            "quotients-homomorphisms"
+          ],
+          "blurb": "The derived series $\\mathfrak g\\supseteq[\\mathfrak g,\\mathfrak g]\\supseteq\\cdots$ measures solvability; the lower-central series measures nilpotence. Engel: $\\ad\\,x$ nilpotent for every $x$ iff $\\mathfrak g$ is nilpotent. Lie: every solvable rep over $\\mathbb C$ is upper-triangularizable.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "la-cartan-killing-classification",
+          "title": "Cartan, Killing, and semisimplicity",
+          "anchor": "cartan-killing",
+          "prereqs": [
+            "la-derivations-and-adjoint",
+            "la-solvable-and-nilpotent"
+          ],
+          "blurb": "Cartan's criterion: $\\mathfrak g$ is semisimple iff its Killing form is nondegenerate. A Cartan subalgebra $\\mathfrak h$ diagonalizes $\\ad$ and yields a root system $\\Phi\\subset\\mathfrak h^*$, encoded combinatorially by a Dynkin diagram.",
+          "tags": [
+            "classification",
+            "duality"
+          ]
+        },
+        {
+          "id": "la-sl2-and-roots",
+          "title": "$\\mathfrak{sl}_2$-triples, root spaces, weights",
+          "anchor": "sl2-roots",
+          "prereqs": [
+            "la-cartan-killing-classification",
+            "highest-weight-theorem"
+          ],
+          "blurb": "Each root $\\alpha\\in\\Phi$ gives an $\\mathfrak{sl}_2$-triple $(e_\\alpha,h_\\alpha,f_\\alpha)$; finite-dimensional irreps of $\\mathfrak{sl}_2$ are weight diagrams $V_n$ with weights $n,n-2,\\dots,-n$, and every semisimple representation decomposes into such weight strings.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "la-classification-simple",
+          "title": "Classification of simple Lie algebras",
+          "anchor": "classification",
+          "prereqs": [
+            "la-sl2-and-roots"
+          ],
+          "blurb": "Over $\\mathbb C$ the simple Lie algebras are exactly the four classical series $A_n=\\mathfrak{sl}_{n+1}$, $B_n=\\mathfrak{so}_{2n+1}$, $C_n=\\mathfrak{sp}_{2n}$, $D_n=\\mathfrak{so}_{2n}$ together with five exceptions $E_6,E_7,E_8,F_4,G_2$ — read off from connected Dynkin diagrams.",
+          "tags": [
+            "classification"
+          ]
+        }
+      ]
+    },
+    "galois-cohomology-and-brauer": {
+      "topic": "galois-cohomology-and-brauer",
+      "title": "Galois cohomology and Brauer groups",
+      "page": "galois-cohomology-and-brauer.html",
+      "concepts": [
+        {
+          "id": "gcb-cocycle-cohomology",
+          "title": "Galois cocycles and $H^i(G,M)$",
+          "anchor": "cocycles",
+          "prereqs": [
+            "h1-crossed-homs",
+            "field-extensions-galois",
+            "fundamental-theorem-galois"
+          ],
+          "blurb": "For a finite Galois extension $L/K$ with $G=\\Gal(L/K)$ acting on a $G$-module $M$, $H^i(G,M)$ is computed by inhomogeneous cochains $c:G^i\\to M$ modulo coboundaries. Examples: $H^0=M^G$, $H^1(G,L^\\times)=1$ (Hilbert 90), $H^1(G,\\mu_n)=K^\\times/(K^\\times)^n$ (Kummer).",
+          "tags": [
+            "cohomology",
+            "group-action",
+            "foundation"
+          ]
+        },
+        {
+          "id": "gcb-h1-torsors",
+          "title": "$H^1$ classifies torsors and twisted forms",
+          "anchor": "torsors",
+          "prereqs": [
+            "gcb-cocycle-cohomology"
+          ],
+          "blurb": "$H^1(G,A(L))$ parameterises isomorphism classes of $G$-torsors under an algebraic group $A$ — equivalently, $L/K$-twisted forms of an object with automorphism group $A$. For $A=\\mathrm{PGL}_n$ the torsors are central simple algebras of degree $n$; for $A=\\mathrm{O}_q$ they are quadratic forms in the same genus.",
+          "tags": [
+            "cohomology",
+            "classification",
+            "descent"
+          ]
+        },
+        {
+          "id": "gcb-h2-extensions",
+          "title": "$H^2$ and group extensions",
+          "anchor": "extensions",
+          "prereqs": [
+            "gcb-cocycle-cohomology",
+            "h2-extensions"
+          ],
+          "blurb": "$H^2(G,A)$ parameterises equivalence classes of central extensions $1\\to A\\to E\\to G\\to 1$. The Schur multiplier $M(G)=H^2(G,\\mathbb{C}^\\times)$ controls projective representations: every projective rep lifts to a linear rep of a central extension by $M(G)$.",
+          "tags": [
+            "cohomology",
+            "classification",
+            "exact-sequence"
+          ]
+        },
+        {
+          "id": "gcb-brauer-group",
+          "title": "Brauer group $\\mathrm{Br}(K) = H^2(K,\\bar K^\\times)$",
+          "anchor": "brauer",
+          "prereqs": [
+            "gcb-h2-extensions",
+            "gcb-h1-torsors"
+          ],
+          "blurb": "The Brauer group is $\\mathrm{Br}(K)=H^2(\\Gal(\\bar K/K),\\bar K^\\times)$, equivalently equivalence classes of central simple $K$-algebras under $A\\sim B$ iff $M_m(A)\\cong M_n(B)$. Each class has a unique division-algebra representative; cyclic algebras $(a,b)_n$ generate via the cup product $K^\\times/(K^\\times)^n \\otimes K^\\times/(K^\\times)^n \\to \\mathrm{Br}(K)[n]$.",
+          "tags": [
+            "cohomology",
+            "classification",
+            "duality"
+          ]
+        },
+        {
+          "id": "gcb-cup-product-cassels-tate",
+          "title": "Cup product and Tate local duality",
+          "anchor": "cup-product",
+          "prereqs": [
+            "gcb-cocycle-cohomology",
+            "gcb-brauer-group"
+          ],
+          "blurb": "The cup product $H^p(G,M)\\otimes H^q(G,N)\\to H^{p+q}(G,M\\otimes N)$ pairs cocycles. Over a non-archimedean local field $K$, Tate duality gives a perfect pairing $H^i(K,M)\\times H^{2-i}(K,M^*) \\to H^2(K,\\bar K^\\times) = \\mathbb{Q}/\\mathbb{Z}$ for finite $M$ — the cohomological avatar of local class field theory.",
+          "tags": [
+            "cohomology",
+            "duality"
+          ]
+        },
+        {
+          "id": "gcb-applications-arithmetic",
+          "title": "Applications: Hasse principle, Selmer, descent",
+          "anchor": "applications",
+          "prereqs": [
+            "gcb-brauer-group",
+            "gcb-cup-product-cassels-tate"
+          ],
+          "blurb": "Albert–Brauer–Hasse–Noether: a central simple algebra splits over $\\mathbb{Q}$ iff it splits over every $\\mathbb{Q}_v$. The Brauer–Manin obstruction explains why some smooth varieties have local points everywhere yet no global point. Selmer groups in BSD-style descent are kernels of restriction maps between Galois cohomology groups.",
+          "tags": [
+            "cohomology",
+            "duality",
+            "descent"
+          ]
+        }
+      ]
+    },
     "elementary-topos-theory": {
       "topic": "elementary-topos-theory",
       "title": "Elementary topos theory",
@@ -1051,7 +2054,8 @@ window.__MVConcepts = {
           "anchor": "subobject-classifier",
           "prereqs": [
             "topos-definition",
-            "universal-properties"
+            "universal-properties",
+            "sieves"
           ],
           "blurb": "The subobject classifier $\\Omega$ is an object equipped with a map $\\mathrm{true}\\colon 1 \\to \\Omega$ such that every monomorphism $S \\hookrightarrow X$ is the pullback of $\\mathrm{true}$ along a unique characteristic map $\\chi_S\\colon X \\to \\Omega$. In $\\mathbf{Set}$, $\\Omega = \\{\\bot, \\top\\}$ and $\\chi_S$ is the indicator function.",
           "tags": [
@@ -1126,7 +2130,7 @@ window.__MVConcepts = {
     },
     "heyting-algebras-toposes": {
       "topic": "heyting-algebras-toposes",
-      "title": "Heyting algebras and intuitionist logic in toposes",
+      "title": "Heyting algebras and toposes",
       "page": "heyting-algebras-toposes.html",
       "concepts": [
         {
@@ -1144,7 +2148,8 @@ window.__MVConcepts = {
           "anchor": "omega-heyting",
           "prereqs": [
             "subobject-classifier",
-            "heyting-algebra"
+            "heyting-algebra",
+            "sieves"
           ],
           "blurb": "In any topos, the subobject classifier $\\Omega$ carries an internal Heyting-algebra structure: maps $\\Omega \\times \\Omega \\to \\Omega$ implementing $\\wedge, \\vee, \\Rightarrow$. Subobject lattices $\\mathrm{Sub}(X)$ become external Heyting algebras with these operations applied pointwise."
         },
@@ -1444,194 +2449,6 @@ window.__MVConcepts = {
         }
       ]
     },
-    "infinity-topoi": {
-      "topic": "infinity-topoi",
-      "title": "$\\infty$-topoi (Lurie's higher topos theory)",
-      "page": "infinity-topoi.html",
-      "concepts": [
-        {
-          "id": "presheaf-infty-topos",
-          "title": "$\\mathcal{P}(C)$: presheaf $\\infty$-topoi",
-          "anchor": "presheaf-infty-topos",
-          "prereqs": [
-            "quasi-category",
-            "presheaf-topos"
-          ],
-          "blurb": "The $\\infty$-category $\\mathcal{P}(C) = \\mathrm{Fun}(C^{\\mathrm{op}}, \\mathcal{S})$ of $\\infty$-presheaves on a small $\\infty$-category $C$, valued in spaces $\\mathcal{S}$, is the universal cocomplete $\\infty$-category receiving $C$. It is the prototypical $\\infty$-topos.",
-          "tags": [
-            "universal-property"
-          ]
-        },
-        {
-          "id": "infty-topos-definition",
-          "title": "$\\infty$-topos via accessible left exact localization",
-          "anchor": "infty-topos-definition",
-          "prereqs": [
-            "presheaf-infty-topos",
-            "infty-limits"
-          ],
-          "blurb": "An $\\infty$-topos is an $\\infty$-category equivalent to an accessible left-exact localization of a presheaf $\\infty$-topos $\\mathcal{P}(C)$. The localization mimics sheafification — it forces a Grothendieck-type covering condition to be invertible up to higher homotopy.",
-          "tags": [
-            "foundation",
-            "descent"
-          ]
-        },
-        {
-          "id": "giraud-infty",
-          "title": "$\\infty$-Giraud axioms",
-          "anchor": "giraud-infty",
-          "prereqs": [
-            "infty-topos-definition",
-            "topos-of-sheaves"
-          ],
-          "blurb": "Lurie's $\\infty$-categorical version of Giraud's axioms characterizes $\\infty$-topoi intrinsically: presentability + descent for groupoid objects + universal disjoint coproducts. Generalizes the 1-Giraud axioms in homotopy-coherent form.",
-          "tags": [
-            "classification",
-            "descent"
-          ]
-        },
-        {
-          "id": "geometric-morphisms-infty",
-          "title": "Geometric morphisms of $\\infty$-topoi",
-          "anchor": "geometric-morphisms-infty",
-          "prereqs": [
-            "infty-topos-definition",
-            "infty-adjunctions",
-            "geometric-morphisms-intro"
-          ],
-          "blurb": "A geometric morphism $\\mathcal{F} \\to \\mathcal{E}$ of $\\infty$-topoi is an adjoint pair $f^* \\dashv f_*$ with $f^*$ left exact, exactly as in the 1-categorical case. Étale geometric morphisms model open inclusions; surjective ones model covers.",
-          "tags": [
-            "functoriality"
-          ]
-        },
-        {
-          "id": "hypercompletion",
-          "title": "Hypercompletion and Whitehead's theorem",
-          "anchor": "hypercompletion",
-          "prereqs": [
-            "infty-topos-definition"
-          ],
-          "blurb": "An $\\infty$-topos is hypercomplete if Whitehead's theorem holds internally: a map inducing iso on all homotopy sheaves is an equivalence. Most naturally occurring $\\infty$-topoi are hypercomplete; pathological non-hypercomplete examples come from infinite Krull dimension."
-        },
-        {
-          "id": "internal-logic-of-infty-topos",
-          "title": "Internal logic: homotopy type theory and ∞-toposes",
-          "anchor": "internal-logic",
-          "prereqs": [
-            "infty-topos-definition",
-            "internal-language"
-          ],
-          "blurb": "Every $\\infty$-topos has an internal type theory — Martin-Löf-style with univalent universes and higher inductive types — modeled by the $\\infty$-category itself. This is the connection between $\\infty$-topoi and homotopy type theory (HoTT)."
-        },
-        {
-          "id": "etale-infty-topos-of-scheme",
-          "title": "The étale $\\infty$-topos of a scheme",
-          "anchor": "etale-infty-topos",
-          "prereqs": [
-            "infty-topos-definition",
-            "geometric-morphisms-of-sites"
-          ],
-          "blurb": "The $\\infty$-categorical refinement of the étale topos $\\mathrm{Sh}_{\\mathrm{ét}}(X)$ keeps higher homotopical information — its hypercompletion is the natural home for $\\ell$-adic sheaves and derived étale cohomology. Bridges classical étale theory and derived algebraic geometry.",
-          "tags": [
-            "cohomology",
-            "descent"
-          ]
-        }
-      ]
-    },
-    "derived-categories": {
-      "topic": "derived-categories",
-      "title": "Derived categories",
-      "page": "derived-categories.html",
-      "concepts": [
-        {
-          "id": "homotopy-category-K",
-          "title": "The homotopy category $K(\\mathcal{A})$",
-          "anchor": "homotopy-category",
-          "prereqs": [
-            "chain-complexes"
-          ],
-          "blurb": "The homotopy category $K(\\mathcal{A})$ has chain complexes for objects and homotopy classes of chain maps for morphisms. It identifies maps that differ by a chain homotopy and is the first step toward inverting quasi-isomorphisms."
-        },
-        {
-          "id": "quasi-isomorphisms",
-          "title": "Quasi-isomorphisms and localization",
-          "anchor": "quasi-isomorphisms",
-          "prereqs": [
-            "homotopy-category-K"
-          ],
-          "blurb": "A quasi-isomorphism is a chain map inducing iso on cohomology. The derived category $D(\\mathcal{A})$ is the localization of $K(\\mathcal{A})$ at the class of quasi-isomorphisms — \"objects up to cohomology agreement.\""
-        },
-        {
-          "id": "derived-category",
-          "title": "The derived category $D(\\mathcal{A})$",
-          "anchor": "derived-category",
-          "prereqs": [
-            "quasi-isomorphisms"
-          ],
-          "blurb": "The derived category $D(\\mathcal{A})$ is the universal target of a functor out of $\\mathcal{A}$ that inverts quasi-isomorphisms. Its bounded variants $D^+, D^-, D^b$ restrict to complexes that are zero in low / high / both extremes.",
-          "tags": [
-            "universal-property",
-            "cohomology"
-          ]
-        },
-        {
-          "id": "triangulated-structure",
-          "title": "Triangulated structure and exact triangles",
-          "anchor": "triangulated-structure",
-          "prereqs": [
-            "derived-category",
-            "exact-sequences",
-            "abelian-categories"
-          ],
-          "blurb": "$D(\\mathcal{A})$ is a triangulated category: a shift functor $[1]$ and a class of distinguished \"exact\" triangles $X \\to Y \\to Z \\to X[1]$ replacing short exact sequences. The cohomology long exact sequence is a triangle's projection to $\\mathcal{A}$.",
-          "tags": [
-            "exact-sequence",
-            "cohomology"
-          ]
-        },
-        {
-          "id": "derived-functors-triangulated",
-          "title": "Derived functors $RF, LF$",
-          "anchor": "derived-functors-triangulated",
-          "prereqs": [
-            "derived-category",
-            "derived-functors",
-            "resolutions-ha"
-          ],
-          "blurb": "Right (resp. left) derived functors compute $F$ on injective (resp. projective) resolutions. They package the classical $R^iF, L_iF$ into a single triangulated functor $D(\\mathcal{A}) \\to D(\\mathcal{B})$ — Ext and Tor become $\\mathrm{Hom}_{D}$ and $\\otimes^L$.",
-          "tags": [
-            "cohomology",
-            "functoriality"
-          ]
-        },
-        {
-          "id": "t-structures",
-          "title": "$t$-structures and hearts",
-          "anchor": "t-structures",
-          "prereqs": [
-            "triangulated-structure",
-            "abelian-categories"
-          ],
-          "blurb": "A $t$-structure $(D^{\\le 0}, D^{\\ge 0})$ on a triangulated category gives a notion of \"objects concentrated in non-positive (resp. non-negative) degree\" and a heart $D^{\\le 0} \\cap D^{\\ge 0}$ that is abelian. Recovers $\\mathcal{A}$ from $D(\\mathcal{A})$ as the heart of the standard $t$-structure."
-        },
-        {
-          "id": "examples-D-Coh",
-          "title": "$D^b(\\mathrm{Coh}\\,X)$ and Fourier–Mukai",
-          "anchor": "d-coh",
-          "prereqs": [
-            "derived-category",
-            "derived-functors-triangulated",
-            "sheafification-and-qcoh"
-          ],
-          "blurb": "For a smooth projective variety $X$, the bounded derived category of coherent sheaves $D^b(\\mathrm{Coh}\\,X)$ is the modern home of intersection theory and a finer invariant than Picard or cohomology. Fourier–Mukai transforms are equivalences between $D^b(\\mathrm{Coh}\\,X)$ and $D^b(\\mathrm{Coh}\\,Y)$ given by integral kernels.",
-          "tags": [
-            "duality",
-            "cohomology"
-          ]
-        }
-      ]
-    },
     "cocartesian-fibrations": {
       "topic": "cocartesian-fibrations",
       "title": "Cocartesian fibrations & the Grothendieck construction",
@@ -1732,111 +2549,99 @@ window.__MVConcepts = {
         }
       ]
     },
-    "group-cohomology": {
-      "topic": "group-cohomology",
-      "title": "Group cohomology",
-      "page": "group-cohomology.html",
+    "infinity-topoi": {
+      "topic": "infinity-topoi",
+      "title": "$\\infty$-topoi (Lurie's higher topos theory)",
+      "page": "infinity-topoi.html",
       "concepts": [
         {
-          "id": "bar-resolution",
-          "title": "The bar resolution and $H^n(G,M)$",
-          "anchor": "bar",
+          "id": "presheaf-infty-topos",
+          "title": "$\\mathcal{P}(C)$: presheaf $\\infty$-topoi",
+          "anchor": "presheaf-infty-topos",
           "prereqs": [
-            "derived-functors",
-            "group-actions-burnside"
+            "quasi-category",
+            "presheaf-topos"
           ],
-          "blurb": "The bar resolution gives a free $\\mathbb{Z}[G]$-resolution of the trivial module $\\mathbb{Z}$; cohomology of the dual cochain complex defines $H^n(G,M)=\\mathrm{Ext}^n_{\\mathbb{Z}[G]}(\\mathbb{Z},M)$, the right derived functors of $M\\mapsto M^G$.",
+          "blurb": "The $\\infty$-category $\\mathcal{P}(C) = \\mathrm{Fun}(C^{\\mathrm{op}}, \\mathcal{S})$ of $\\infty$-presheaves on a small $\\infty$-category $C$, valued in spaces $\\mathcal{S}$, is the universal cocomplete $\\infty$-category receiving $C$. It is the prototypical $\\infty$-topos.",
           "tags": [
-            "cohomology"
+            "universal-property"
           ]
         },
         {
-          "id": "h0-fixed-points",
-          "title": "$H^0$ as $G$-fixed points",
-          "anchor": "h0",
+          "id": "infty-topos-definition",
+          "title": "$\\infty$-topos via accessible left exact localization",
+          "anchor": "infty-topos-definition",
           "prereqs": [
-            "bar-resolution"
+            "presheaf-infty-topos",
+            "infty-limits"
           ],
-          "blurb": "Degree zero recovers the input: $H^0(G,M)=M^G$. Failure of right-exactness of $(-)^G$ is exactly what the higher $H^n$ correct, generating the long exact sequence $0\\to A^G\\to B^G\\to C^G\\xrightarrow{\\delta} H^1(G,A)\\to\\cdots$.",
+          "blurb": "An $\\infty$-topos is an $\\infty$-category equivalent to an accessible left-exact localization of a presheaf $\\infty$-topos $\\mathcal{P}(C)$. The localization mimics sheafification — it forces a Grothendieck-type covering condition to be invertible up to higher homotopy.",
           "tags": [
-            "cohomology",
-            "exact-sequence"
+            "foundation",
+            "descent"
           ]
         },
         {
-          "id": "h1-crossed-homs",
-          "title": "$H^1$, crossed homomorphisms, and Hilbert 90",
-          "anchor": "h1",
+          "id": "giraud-infty",
+          "title": "$\\infty$-Giraud axioms",
+          "anchor": "giraud-infty",
           "prereqs": [
-            "h0-fixed-points",
-            "exact-sequences"
+            "infty-topos-definition",
+            "topos-of-sheaves"
           ],
-          "blurb": "$H^1(G,M)$ is crossed homomorphisms $\\varphi(gh)=\\varphi(g)+g\\varphi(h)$ modulo principal ones $g\\mapsto gm-m$. Hilbert's Theorem 90 says $H^1(\\mathrm{Gal}(L/K),L^\\times)=1$ for cyclic $L/K$: every norm-one element is of the form $\\sigma(\\alpha)/\\alpha$.",
+          "blurb": "Lurie's $\\infty$-categorical version of Giraud's axioms characterizes $\\infty$-topoi intrinsically: presentability + descent for groupoid objects + universal disjoint coproducts. Generalizes the 1-Giraud axioms in homotopy-coherent form.",
           "tags": [
-            "cohomology",
-            "duality"
-          ]
-        },
-        {
-          "id": "h2-extensions",
-          "title": "$H^2$ classifies group extensions",
-          "anchor": "h2",
-          "prereqs": [
-            "h1-crossed-homs",
-            "semidirect-products-ses"
-          ],
-          "blurb": "Equivalence classes of extensions $1\\to A\\to E\\to G\\to 1$ with prescribed $G$-action on abelian $A$ are in bijection with $H^2(G,A)$. Split extensions hit $0$; the nontrivial class assembles a section's failure-of-multiplicativity into the canonical 2-cocycle.",
-          "tags": [
-            "cohomology",
             "classification",
-            "exact-sequence"
+            "descent"
           ]
         },
         {
-          "id": "cyclic-periodic-tate",
-          "title": "Cyclic groups, periodicity, and Tate cohomology",
-          "anchor": "cyclic",
+          "id": "geometric-morphisms-infty",
+          "title": "Geometric morphisms of $\\infty$-topoi",
+          "anchor": "geometric-morphisms-infty",
           "prereqs": [
-            "h1-crossed-homs",
-            "h2-extensions"
+            "infty-topos-definition",
+            "infty-adjunctions",
+            "geometric-morphisms-intro"
           ],
-          "blurb": "For $G=C_n$ the alternating $\\sigma-1$/$N$-resolution gives a 2-periodic theory: $H^{2k}=M^G/N(M)$, $H^{2k+1}=\\ker N/(\\sigma-1)M$. Splicing in negative degrees defines Tate cohomology $\\hat H^*$; the Herbrand quotient is multiplicative and a workhorse in class field theory.",
+          "blurb": "A geometric morphism $\\mathcal{F} \\to \\mathcal{E}$ of $\\infty$-topoi is an adjoint pair $f^* \\dashv f_*$ with $f^*$ left exact, exactly as in the 1-categorical case. Étale geometric morphisms model open inclusions; surjective ones model covers.",
           "tags": [
-            "cohomology",
-            "finiteness",
-            "completion"
-          ]
-        },
-        {
-          "id": "inflation-restriction-lhs",
-          "title": "Inflation–restriction and Lyndon–Hochschild–Serre",
-          "anchor": "infres",
-          "prereqs": [
-            "h1-crossed-homs",
-            "h2-extensions",
-            "spectral-sequences-ha"
-          ],
-          "blurb": "For $H\\trianglelefteq G$ the five-term sequence $0\\to H^1(G/H,M^H)\\to H^1(G,M)\\to H^1(H,M)^{G/H}\\to H^2(G/H,M^H)\\to H^2(G,M)$ is the low-degree edge of the LHS spectral sequence $E_2^{p,q}=H^p(G/H,H^q(H,M))\\Rightarrow H^{p+q}(G,M)$.",
-          "tags": [
-            "cohomology",
-            "exact-sequence",
             "functoriality"
           ]
         },
         {
-          "id": "galois-cohomology-brauer",
-          "title": "Galois cohomology and the Brauer group",
-          "anchor": "galois-cohom",
+          "id": "hypercompletion",
+          "title": "Hypercompletion and Whitehead's theorem",
+          "anchor": "hypercompletion",
           "prereqs": [
-            "h1-crossed-homs",
-            "h2-extensions",
-            "field-extensions-galois"
+            "infty-topos-definition"
           ],
-          "blurb": "Continuous group cohomology of $G_k=\\mathrm{Gal}(\\bar k/k)$ acting on a Galois module $M$ is Galois cohomology $H^n(k,M)$. Hilbert 90 says $H^1(k,\\bar k^\\times)=0$; $H^2(k,\\bar k^\\times)=\\mathrm{Br}(k)$ is the Brauer group of central simple algebras, with the Kummer sequence giving $H^1(k,\\mu_n)=k^\\times/(k^\\times)^n$.",
+          "blurb": "An $\\infty$-topos is hypercomplete if Whitehead's theorem holds internally: a map inducing iso on all homotopy sheaves is an equivalence. Most naturally occurring $\\infty$-topoi are hypercomplete; pathological non-hypercomplete examples come from infinite Krull dimension."
+        },
+        {
+          "id": "internal-logic-of-infty-topos",
+          "title": "Internal logic: homotopy type theory and ∞-toposes",
+          "anchor": "internal-logic",
+          "prereqs": [
+            "infty-topos-definition",
+            "internal-language",
+            "tt-higher-inductive-types",
+            "tt-univalence"
+          ],
+          "blurb": "Every $\\infty$-topos has an internal type theory — Martin-Löf-style with univalent universes and higher inductive types — modeled by the $\\infty$-category itself. This is the connection between $\\infty$-topoi and homotopy type theory (HoTT)."
+        },
+        {
+          "id": "etale-infty-topos-of-scheme",
+          "title": "The étale $\\infty$-topos of a scheme",
+          "anchor": "etale-infty-topos",
+          "prereqs": [
+            "infty-topos-definition",
+            "geometric-morphisms-of-sites"
+          ],
+          "blurb": "The $\\infty$-categorical refinement of the étale topos $\\mathrm{Sh}_{\\mathrm{ét}}(X)$ keeps higher homotopical information — its hypercompletion is the natural home for $\\ell$-adic sheaves and derived étale cohomology. Bridges classical étale theory and derived algebraic geometry.",
           "tags": [
             "cohomology",
-            "duality",
-            "classification"
+            "descent"
           ]
         }
       ]
@@ -1894,7 +2699,8 @@ window.__MVConcepts = {
           "title": "Riemann integral",
           "anchor": "riemann-integral",
           "prereqs": [
-            "real-continuity"
+            "real-continuity",
+            "real-differentiation"
           ],
           "blurb": "Upper/lower sums, the fundamental theorem of calculus, and the failure modes that motivate measure theory."
         },
@@ -2058,7 +2864,9 @@ window.__MVConcepts = {
           "anchor": "convergence",
           "prereqs": [
             "lebesgue-integral",
-            "uniform-convergence"
+            "uniform-convergence",
+            "measurable-functions",
+            "lebesgue-measure"
           ],
           "blurb": "MCT and DCT let you swap limit and integral under mild hypotheses — the machine behind most measure-theoretic arguments."
         },
@@ -2067,7 +2875,8 @@ window.__MVConcepts = {
           "title": "Lᵖ spaces",
           "anchor": "lp",
           "prereqs": [
-            "convergence-theorems"
+            "convergence-theorems",
+            "algebraic-structures"
           ],
           "blurb": "Banach spaces of p-th-power integrable functions, Hölder and Minkowski, L² as the canonical Hilbert space of analysis.",
           "tags": [
@@ -2210,7 +3019,8 @@ window.__MVConcepts = {
           "anchor": "contour",
           "prereqs": [
             "holomorphic-function",
-            "paths"
+            "paths",
+            "cauchy-riemann"
           ],
           "blurb": "Integrate $f\\,dz$ along a piecewise smooth $\\gamma$; the real 1-forms $u\\,dx - v\\,dy$ and $v\\,dx + u\\,dy$ are closed exactly when $f$ is holomorphic."
         },
@@ -2241,7 +3051,10 @@ window.__MVConcepts = {
           "title": "Analyticity = holomorphy",
           "anchor": "cons",
           "prereqs": [
-            "cauchy-integral-formula"
+            "cauchy-integral-formula",
+            "liouville",
+            "fta",
+            "schwarz-lemma"
           ],
           "blurb": "Every holomorphic function is locally a convergent power series."
         },
@@ -2338,7 +3151,8 @@ window.__MVConcepts = {
           "title": "Conformal maps",
           "anchor": "conf",
           "prereqs": [
-            "amplitwist"
+            "amplitwist",
+            "mobius-transformations"
           ],
           "blurb": "Angle-preserving, orientation-preserving; locally holomorphic with f′ ≠ 0."
         },
@@ -2390,7 +3204,11 @@ window.__MVConcepts = {
           "anchor": "coda",
           "prereqs": [
             "cauchy-riemann",
-            "simply-connected"
+            "simply-connected",
+            "holomorphic-function",
+            "conformal-map",
+            "analytic-continuation",
+            "contour-integral"
           ],
           "blurb": "If $f = u + iv$ is holomorphic then $u$ and $v$ satisfy Laplace's equation $\\Delta u = 0$; on simply connected domains every harmonic $u$ has a harmonic conjugate recovering a holomorphic lift."
         },
@@ -2441,7 +3259,8 @@ window.__MVConcepts = {
           "anchor": "bounded",
           "prereqs": [
             "operator-norm",
-            "banach-hilbert-spaces"
+            "banach-hilbert-spaces",
+            "algebraic-structures"
           ],
           "blurb": "Linear operators on Hilbert spaces admit operator norms, adjoints, and projection geometry."
         },
@@ -2450,7 +3269,8 @@ window.__MVConcepts = {
           "title": "Adjoint operator on Hilbert space",
           "anchor": "adjoint",
           "prereqs": [
-            "bounded-operators-fa"
+            "bounded-operators-fa",
+            "riesz-representation"
           ],
           "blurb": "Self-adjoint, normal, and unitary operators are detected through identities between T and T*; Pauli matrices make the distinctions concrete in 2×2.",
           "tags": [
@@ -2744,7 +3564,7 @@ window.__MVConcepts = {
           "prereqs": [
             "dyn-fixed-linearization"
           ],
-          "blurb": "In the plane, $(\\operatorname{tr} A,\\det A)$ classifies a linear system into sink, source, saddle, center, or spiral; nullclines and fixed points then glue into a global portrait.",
+          "blurb": "In the plane, $(\\tr A,\\det A)$ classifies a linear system into sink, source, saddle, center, or spiral; nullclines and fixed points then glue into a global portrait.",
           "tags": [
             "classification"
           ]
@@ -2853,143 +3673,6 @@ window.__MVConcepts = {
             "dyn-poincare-section"
           ],
           "blurb": "A strange attractor is an invariant set that attracts a positive-volume basin, has sensitive dependence, and fractal (non-integer) dimension. The Lorenz attractor, with $(\\sigma,\\beta,\\rho)=(10,8/3,28)$, is the canonical example."
-        }
-      ]
-    },
-    "probability-theory": {
-      "topic": "probability-theory",
-      "title": "Probability theory",
-      "page": "probability-theory.html",
-      "concepts": [
-        {
-          "id": "sample-spaces-events",
-          "title": "Sample spaces, events, and probability measures",
-          "anchor": "sample",
-          "prereqs": [
-            "sigma-algebras",
-            "lebesgue-measure"
-          ],
-          "blurb": "A probability space $(\\Omega,\\mathcal{F},\\mathbb{P})$ is a measure space with $\\mathbb{P}(\\Omega)=1$; events are measurable subsets of $\\Omega$.",
-          "tags": [
-            "foundation"
-          ]
-        },
-        {
-          "id": "conditional-bayes",
-          "title": "Conditional probability and Bayes' rule",
-          "anchor": "bayes",
-          "prereqs": [
-            "sample-spaces-events"
-          ],
-          "blurb": "$\\mathbb{P}(A\\mid B)=\\mathbb{P}(A\\cap B)/\\mathbb{P}(B)$, independence as product-factorization, and Bayes' rule as the engine of statistical inference."
-        },
-        {
-          "id": "random-variables",
-          "title": "Random variables",
-          "anchor": "rv",
-          "prereqs": [
-            "sample-spaces-events",
-            "measurable-functions"
-          ],
-          "blurb": "A random variable is a measurable function $X:\\Omega\\to\\mathbb{R}$; its law $\\mathbb{P}_X$ is the push-forward measure on $(\\mathbb{R},\\mathcal{B})$."
-        },
-        {
-          "id": "supports-distributions",
-          "title": "Supports, distributions, and densities",
-          "anchor": "supports",
-          "prereqs": [
-            "random-variables"
-          ],
-          "blurb": "Discrete PMFs, absolutely continuous PDFs, and CDFs package the law of a random variable; the catalog of named distributions (Bernoulli, binomial, Poisson, exponential, Gaussian) organizes the zoo.",
-          "tags": [
-            "classification"
-          ]
-        },
-        {
-          "id": "expectation-moments",
-          "title": "Expectation, variance, and moments",
-          "anchor": "expectation",
-          "prereqs": [
-            "random-variables",
-            "lebesgue-integral",
-            "lp-spaces"
-          ],
-          "blurb": "$\\mathbb{E}[X]=\\int_\\Omega X\\,d\\mathbb{P}$ is the centre of mass of the law; variance, covariance, and higher moments live in $L^p$."
-        },
-        {
-          "id": "generating-functions",
-          "title": "Moment and characteristic functions",
-          "anchor": "gen-fun",
-          "prereqs": [
-            "expectation-moments"
-          ],
-          "blurb": "The MGF $M_X(t)=\\mathbb{E}[e^{tX}]$ and characteristic function $\\varphi_X(t)=\\mathbb{E}[e^{itX}]$ encode the law as a transform; they linearize sums of independents.",
-          "tags": [
-            "duality"
-          ]
-        },
-        {
-          "id": "convergence-rv",
-          "title": "Modes of convergence",
-          "anchor": "conv",
-          "prereqs": [
-            "random-variables",
-            "convergence-theorems"
-          ],
-          "blurb": "Almost-sure, in-probability, in $L^p$, and in distribution — four notions with strict implications a.s. $\\Rightarrow$ in prob. $\\Rightarrow$ in dist., and $L^p\\Rightarrow$ in prob.",
-          "tags": [
-            "classification"
-          ]
-        },
-        {
-          "id": "law-of-large-numbers",
-          "title": "Law of large numbers",
-          "anchor": "lln",
-          "prereqs": [
-            "convergence-rv",
-            "expectation-moments"
-          ],
-          "blurb": "For i.i.d.\\ integrable $X_n$ with mean $\\mu$, $\\bar X_N\\to\\mu$ — weakly by Chebyshev (WLLN), strongly by Kolmogorov (SLLN)."
-        },
-        {
-          "id": "central-limit-theorem",
-          "title": "Central limit theorem",
-          "anchor": "clt",
-          "prereqs": [
-            "convergence-rv",
-            "generating-functions"
-          ],
-          "blurb": "For i.i.d.\\ $X_n$ with variance $\\sigma^2<\\infty$, $\\sqrt N(\\bar X_N-\\mu)/\\sigma$ converges in distribution to $\\mathcal{N}(0,1)$."
-        },
-        {
-          "id": "markov-chains",
-          "title": "Markov chains",
-          "anchor": "markov",
-          "prereqs": [
-            "conditional-bayes",
-            "algebraic-structures"
-          ],
-          "blurb": "A memoryless stochastic process on a state space; transition matrices compose as a semigroup, and under irreducibility-plus-aperiodicity converge to a unique stationary distribution."
-        },
-        {
-          "id": "martingales",
-          "title": "Martingales",
-          "anchor": "martingales",
-          "prereqs": [
-            "conditional-bayes",
-            "convergence-rv"
-          ],
-          "blurb": "A process $(M_n)$ with $\\mathbb{E}[M_{n+1}\\mid\\mathcal{F}_n]=M_n$; Doob's optional-stopping and convergence theorems make martingales the backbone of modern probability."
-        },
-        {
-          "id": "brownian-motion",
-          "title": "Brownian motion",
-          "anchor": "brownian",
-          "prereqs": [
-            "central-limit-theorem",
-            "martingales"
-          ],
-          "blurb": "The continuous-time Gaussian process $(W_t)_{t\\ge 0}$ with independent stationary increments $W_t-W_s\\sim\\mathcal{N}(0,t-s)$ — the scaling limit of random walks and the fundamental stochastic process."
         }
       ]
     },
@@ -3166,7 +3849,8 @@ window.__MVConcepts = {
           "anchor": "poisson",
           "prereqs": [
             "fourier-transform-real-line",
-            "schwartz-space-distributions"
+            "schwartz-space-distributions",
+            "analytic-continuation"
           ],
           "tags": [
             "duality"
@@ -3196,6 +3880,738 @@ window.__MVConcepts = {
             "group-action"
           ],
           "blurb": "Every locally compact abelian group $G$ has a dual group $\\widehat G$ of continuous characters, and the Fourier transform is a unitary $L^2(G) \\to L^2(\\widehat G)$. The cases $G = \\mathbb{T}$ (dual $\\mathbb{Z}$), $G = \\mathbb{R}$ (self-dual), $G = \\mathbb{Z}/N$ (self-dual finite) are the same theorem in three keys."
+        }
+      ]
+    },
+    "partial-differential-equations": {
+      "topic": "partial-differential-equations",
+      "title": "Partial differential equations",
+      "page": "partial-differential-equations.html",
+      "concepts": [
+        {
+          "id": "pde-classification",
+          "title": "Classification: elliptic / parabolic / hyperbolic",
+          "anchor": "classification",
+          "prereqs": [
+            "multivariable-differentiation"
+          ],
+          "blurb": "Second-order linear PDEs $a u_{xx}+2b u_{xy}+c u_{yy}+\\cdots=0$ split by the discriminant $b^2-ac$: elliptic ($<0$, Laplace), parabolic ($=0$, heat), hyperbolic ($>0$, wave). The sign controls characteristic curves and the well-posed boundary data.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "pde-heat-equation",
+          "title": "Heat equation and the heat kernel",
+          "anchor": "heat",
+          "prereqs": [
+            "pde-classification",
+            "convergence-theorems",
+            "hf-maximum-principle"
+          ],
+          "blurb": "$u_t=\\Delta u$ smooths data instantly: the fundamental solution $K_t(x)=(4\\pi t)^{-n/2}e^{-|x|^2/4t}$ converts $\\delta_0$ initial data into a Gaussian whose width scales as $\\sqrt{t}$, and the maximum principle keeps solutions trapped between their initial and boundary extremes.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "pde-wave-equation",
+          "title": "Wave equation and d'Alembert",
+          "anchor": "wave",
+          "prereqs": [
+            "pde-classification"
+          ],
+          "blurb": "$u_{tt}=c^2\\Delta u$ has finite speed $c$: in 1D, d'Alembert writes $u(x,t)=\\tfrac12[f(x-ct)+f(x+ct)]+\\tfrac{1}{2c}\\!\\int_{x-ct}^{x+ct}\\!g$, two travelling waves carrying the data along characteristics; in odd $n\\ge3$ Huygens' principle gives sharp wavefronts.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "pde-laplace-equation",
+          "title": "Laplace equation and the Dirichlet problem",
+          "anchor": "laplace",
+          "prereqs": [
+            "pde-classification",
+            "hf-laplace-equation",
+            "hf-poisson-kernel"
+          ],
+          "blurb": "$\\Delta u=0$ is the equilibrium of $u_t=\\Delta u$: solutions enjoy the mean-value property, hit their extremes only on $\\partial\\Omega$, and the Dirichlet/Neumann problems prescribe boundary value or normal flux. On the disk, the Poisson kernel writes the unique solution as a boundary integral.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "pde-weak-solutions",
+          "title": "Weak solutions and Galerkin approximation",
+          "anchor": "weak-solutions",
+          "prereqs": [
+            "pde-laplace-equation",
+            "lp-spaces",
+            "lebesgue-measure"
+          ],
+          "blurb": "Multiply $-\\Delta u=f$ by a test function and integrate by parts: a weak solution lives in $H^1_0(\\Omega)$ and satisfies $\\int\\nabla u\\cdot\\nabla v=\\int fv$ for every test $v$. Galerkin's method picks finite-dimensional subspaces, solves the projected system, and passes to the limit.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "pde-existence-and-regularity",
+          "title": "Lax–Milgram, elliptic regularity, embedding",
+          "anchor": "regularity",
+          "prereqs": [
+            "pde-weak-solutions",
+            "riesz-representation"
+          ],
+          "blurb": "Coercivity + continuity of the bilinear form gives a unique weak solution by Lax–Milgram; elliptic regularity then trades smoothness of $f$ for smoothness of $u$ ($f\\in H^k\\Rightarrow u\\in H^{k+2}$), and Sobolev embedding turns enough weak derivatives into classical continuity.",
+          "tags": [
+            "compactness"
+          ]
+        }
+      ]
+    },
+    "harmonic-functions": {
+      "topic": "harmonic-functions",
+      "title": "Harmonic functions",
+      "page": "harmonic-functions.html",
+      "concepts": [
+        {
+          "id": "hf-laplace-equation",
+          "title": "Laplace's equation",
+          "anchor": "laplace-equation",
+          "prereqs": [
+            "real-differentiation",
+            "cauchy-riemann"
+          ],
+          "blurb": "A $C^2$ function $u\\colon\\Omega\\subseteq\\mathbb{R}^n\\to\\mathbb{R}$ is harmonic when $\\Delta u = \\sum \\partial_{x_i}^2 u = 0$. In two dimensions every real or imaginary part of a holomorphic function is harmonic, and every harmonic $u$ on a simply connected domain admits a harmonic conjugate.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "hf-mean-value-property",
+          "title": "Mean value property",
+          "anchor": "mvp",
+          "prereqs": [
+            "hf-laplace-equation",
+            "cauchy-theorem"
+          ],
+          "blurb": "A continuous $u$ is harmonic iff for every closed ball $\\overline{B(x,r)}\\subset\\Omega$ the value $u(x)$ equals the average over the sphere (and equivalently over the ball). The MVP characterises harmonicity and forces $u\\in C^\\infty$."
+        },
+        {
+          "id": "hf-maximum-principle",
+          "title": "Maximum principle",
+          "anchor": "maximum",
+          "prereqs": [
+            "hf-mean-value-property"
+          ],
+          "blurb": "Weak form: a harmonic $u$ on a bounded $\\Omega$ attains $\\sup u$ on $\\partial\\Omega$. Strong form: an interior maximum forces $u$ to be constant on the connected component. Together they yield uniqueness for the Dirichlet problem."
+        },
+        {
+          "id": "hf-poisson-kernel",
+          "title": "Poisson kernel",
+          "anchor": "poisson",
+          "prereqs": [
+            "hf-mean-value-property",
+            "lebesgue-measure"
+          ],
+          "blurb": "The disk's Dirichlet problem has the explicit solution $u(re^{i\\theta}) = \\tfrac{1}{2\\pi}\\int_0^{2\\pi} P_r(\\theta-\\varphi)\\,g(\\varphi)\\,d\\varphi$ with $P_r(\\theta) = \\tfrac{1-r^2}{1-2r\\cos\\theta+r^2}$. Boundary values are recovered $L^p$-a.e. by Fatou's theorem."
+        },
+        {
+          "id": "hf-harnack-inequality",
+          "title": "Harnack's inequality",
+          "anchor": "harnack",
+          "prereqs": [
+            "hf-poisson-kernel"
+          ],
+          "blurb": "For positive harmonic $u$ on $B(0,R)$ and $|x|=r<R$: $\\tfrac{R-r}{R+r}u(0) \\le u(x) \\le \\tfrac{R+r}{R-r}u(0)$. Consequence: a positive harmonic function on $\\mathbb{R}^n$ is constant (Liouville for harmonic functions)."
+        },
+        {
+          "id": "hf-subharmonic",
+          "title": "Subharmonic functions and Perron's method",
+          "anchor": "subharmonic",
+          "prereqs": [
+            "hf-maximum-principle",
+            "analyticity"
+          ],
+          "blurb": "An upper semicontinuous $v$ with $\\Delta v \\ge 0$ (or equivalently $v(x)\\le$ ball average) is subharmonic; max-principle still holds. Perron's method solves the Dirichlet problem on any regular domain by taking the supremum of the family of subharmonic functions bounded above by the boundary data."
+        }
+      ]
+    },
+    "spectral-theory": {
+      "topic": "spectral-theory",
+      "title": "Spectral theory",
+      "page": "spectral-theory.html",
+      "concepts": [
+        {
+          "id": "st-bounded-operators-spectrum",
+          "title": "Spectrum of a bounded operator",
+          "anchor": "spectrum",
+          "prereqs": [
+            "bounded-operators-fa",
+            "spectrum-classification"
+          ],
+          "blurb": "For $T\\in B(H)$, $\\sigma(T)=\\{\\lambda\\in\\mathbb{C} : T-\\lambda I \\text{ is not invertible}\\}$ is a non-empty compact subset of the closed disk of radius $\\|T\\|$, decomposing into point, continuous, and residual parts.",
+          "tags": [
+            "compactness",
+            "classification"
+          ]
+        },
+        {
+          "id": "st-self-adjoint-spectrum",
+          "title": "Spectrum of self-adjoint operators",
+          "anchor": "self-adjoint",
+          "prereqs": [
+            "st-bounded-operators-spectrum",
+            "adjoint-hilbert"
+          ],
+          "blurb": "Self-adjoint operators have $\\sigma(T)\\subset\\mathbb{R}$, and the spectral radius equals the operator norm: $r(T)=\\|T\\|$. Residual spectrum is empty.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "st-spectral-theorem-compact",
+          "title": "Spectral theorem (compact self-adjoint)",
+          "anchor": "spectral-compact",
+          "prereqs": [
+            "st-self-adjoint-spectrum",
+            "banach-hilbert-spaces"
+          ],
+          "blurb": "A compact self-adjoint operator $K$ on a separable Hilbert space admits an orthonormal eigenbasis $(\\varphi_n)$ with real eigenvalues $\\lambda_n\\to 0$, and $K=\\sum_n\\lambda_n\\langle\\varphi_n,\\cdot\\rangle\\varphi_n$.",
+          "tags": [
+            "compactness",
+            "classification"
+          ]
+        },
+        {
+          "id": "st-spectral-theorem-bounded",
+          "title": "Spectral theorem (bounded self-adjoint)",
+          "anchor": "spectral-bounded",
+          "prereqs": [
+            "st-spectral-theorem-compact",
+            "cstar-basics",
+            "lebesgue-measure"
+          ],
+          "blurb": "Every bounded self-adjoint operator $T$ admits a unique projection-valued measure $E$ on $\\sigma(T)$ such that $T=\\int_{\\sigma(T)}\\lambda\\,dE_\\lambda$, giving a continuous functional calculus $f\\mapsto f(T)$.",
+          "tags": [
+            "classification",
+            "duality"
+          ]
+        },
+        {
+          "id": "st-unbounded-operators",
+          "title": "Unbounded self-adjoint operators",
+          "anchor": "unbounded",
+          "prereqs": [
+            "st-spectral-theorem-bounded"
+          ],
+          "blurb": "Densely defined closed operators (Laplacian, momentum, position) admit a spectral resolution $T=\\int\\lambda\\,dE_\\lambda$ on their domain; Stone's theorem then identifies self-adjoint $T$ with strongly continuous unitary groups $e^{itT}$.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "st-applications",
+          "title": "Applications: quantum mechanics, PDE, harmonic analysis",
+          "anchor": "applications",
+          "prereqs": [
+            "st-unbounded-operators"
+          ],
+          "blurb": "Observables in QM are self-adjoint operators whose spectra are measurable energies; eigenvalue problems for elliptic PDE invoke the compact spectral theorem; Fourier transform diagonalizes translation-invariant operators."
+        }
+      ]
+    },
+    "probability-theory": {
+      "topic": "probability-theory",
+      "title": "Probability theory",
+      "page": "probability-theory.html",
+      "concepts": [
+        {
+          "id": "sample-spaces-events",
+          "title": "Sample spaces, events, and probability measures",
+          "anchor": "sample",
+          "prereqs": [
+            "sigma-algebras",
+            "lebesgue-measure"
+          ],
+          "blurb": "A probability space $(\\Omega,\\mathcal{F},\\mathbb{P})$ is a measure space with $\\mathbb{P}(\\Omega)=1$; events are measurable subsets of $\\Omega$.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "conditional-bayes",
+          "title": "Conditional probability and Bayes' rule",
+          "anchor": "bayes",
+          "prereqs": [
+            "sample-spaces-events"
+          ],
+          "blurb": "$\\mathbb{P}(A\\mid B)=\\mathbb{P}(A\\cap B)/\\mathbb{P}(B)$, independence as product-factorization, and Bayes' rule as the engine of statistical inference."
+        },
+        {
+          "id": "random-variables",
+          "title": "Random variables",
+          "anchor": "rv",
+          "prereqs": [
+            "sample-spaces-events",
+            "measurable-functions"
+          ],
+          "blurb": "A random variable is a measurable function $X:\\Omega\\to\\mathbb{R}$; its law $\\mathbb{P}_X$ is the push-forward measure on $(\\mathbb{R},\\mathcal{B})$."
+        },
+        {
+          "id": "supports-distributions",
+          "title": "Supports, distributions, and densities",
+          "anchor": "supports",
+          "prereqs": [
+            "random-variables"
+          ],
+          "blurb": "Discrete PMFs, absolutely continuous PDFs, and CDFs package the law of a random variable; the catalog of named distributions (Bernoulli, binomial, Poisson, exponential, Gaussian) organizes the zoo.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "expectation-moments",
+          "title": "Expectation, variance, and moments",
+          "anchor": "expectation",
+          "prereqs": [
+            "random-variables",
+            "lebesgue-integral",
+            "lp-spaces"
+          ],
+          "blurb": "$\\mathbb{E}[X]=\\int_\\Omega X\\,d\\mathbb{P}$ is the centre of mass of the law; variance, covariance, and higher moments live in $L^p$."
+        },
+        {
+          "id": "generating-functions",
+          "title": "Moment and characteristic functions",
+          "anchor": "gen-fun",
+          "prereqs": [
+            "expectation-moments"
+          ],
+          "blurb": "The MGF $M_X(t)=\\mathbb{E}[e^{tX}]$ and characteristic function $\\varphi_X(t)=\\mathbb{E}[e^{itX}]$ encode the law as a transform; they linearize sums of independents.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "convergence-rv",
+          "title": "Modes of convergence",
+          "anchor": "conv",
+          "prereqs": [
+            "random-variables",
+            "convergence-theorems"
+          ],
+          "blurb": "Almost-sure, in-probability, in $L^p$, and in distribution — four notions with strict implications a.s. $\\Rightarrow$ in prob. $\\Rightarrow$ in dist., and $L^p\\Rightarrow$ in prob.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "law-of-large-numbers",
+          "title": "Law of large numbers",
+          "anchor": "lln",
+          "prereqs": [
+            "convergence-rv",
+            "expectation-moments"
+          ],
+          "blurb": "For i.i.d.\\ integrable $X_n$ with mean $\\mu$, $\\bar X_N\\to\\mu$ — weakly by Chebyshev (WLLN), strongly by Kolmogorov (SLLN)."
+        },
+        {
+          "id": "central-limit-theorem",
+          "title": "Central limit theorem",
+          "anchor": "clt",
+          "prereqs": [
+            "convergence-rv",
+            "generating-functions"
+          ],
+          "blurb": "For i.i.d.\\ $X_n$ with variance $\\sigma^2<\\infty$, $\\sqrt N(\\bar X_N-\\mu)/\\sigma$ converges in distribution to $\\mathcal{N}(0,1)$."
+        },
+        {
+          "id": "markov-chains",
+          "title": "Markov chains",
+          "anchor": "markov",
+          "prereqs": [
+            "conditional-bayes",
+            "algebraic-structures"
+          ],
+          "blurb": "A memoryless stochastic process on a state space; transition matrices compose as a semigroup, and under irreducibility-plus-aperiodicity converge to a unique stationary distribution."
+        },
+        {
+          "id": "martingales",
+          "title": "Martingales",
+          "anchor": "martingales",
+          "prereqs": [
+            "conditional-bayes",
+            "convergence-rv"
+          ],
+          "blurb": "A process $(M_n)$ with $\\mathbb{E}[M_{n+1}\\mid\\mathcal{F}_n]=M_n$; Doob's optional-stopping and convergence theorems make martingales the backbone of modern probability."
+        },
+        {
+          "id": "brownian-motion",
+          "title": "Brownian motion",
+          "anchor": "brownian",
+          "prereqs": [
+            "central-limit-theorem",
+            "martingales"
+          ],
+          "blurb": "The continuous-time Gaussian process $(W_t)_{t\\ge 0}$ with independent stationary increments $W_t-W_s\\sim\\mathcal{N}(0,t-s)$ — the scaling limit of random walks and the fundamental stochastic process."
+        }
+      ]
+    },
+    "stochastic-processes-and-martingales": {
+      "topic": "stochastic-processes-and-martingales",
+      "title": "Stochastic processes and martingales",
+      "page": "stochastic-processes-and-martingales.html",
+      "concepts": [
+        {
+          "id": "sp-filtrations",
+          "title": "Filtrations and adapted processes",
+          "anchor": "filtrations",
+          "prereqs": [
+            "sigma-algebras",
+            "sample-spaces-events"
+          ],
+          "blurb": "A filtration $(\\mathcal{F}_n)$ is an increasing family of sub-$\\sigma$-algebras encoding the information available at time $n$; a process is adapted when each $X_n$ is $\\mathcal{F}_n$-measurable, and a stopping time $\\tau$ satisfies $\\{\\tau\\le n\\}\\in\\mathcal{F}_n$.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "sp-discrete-martingales",
+          "title": "Discrete-time martingales",
+          "anchor": "discrete-martingales",
+          "prereqs": [
+            "sp-filtrations",
+            "expectation-moments",
+            "martingales"
+          ],
+          "blurb": "An adapted $L^1$ process $(M_n)$ is a martingale when $\\mathbb{E}[M_{n+1}\\mid\\mathcal{F}_n]=M_n$; mean-zero random walk and Doob martingales $\\mathbb{E}[Z\\mid\\mathcal{F}_n]$ are the canonical examples."
+        },
+        {
+          "id": "sp-optional-stopping",
+          "title": "Optional stopping theorem",
+          "anchor": "optional-stopping",
+          "prereqs": [
+            "sp-discrete-martingales",
+            "martingales"
+          ],
+          "blurb": "If $\\tau$ is a stopping time and either (a) $\\tau$ is bounded, (b) $M$ is uniformly integrable, or (c) $\\tau<\\infty$ a.s. and $(M_{n\\wedge\\tau})$ is bounded, then $\\mathbb{E}[M_\\tau]=\\mathbb{E}[M_0]$; gambler's ruin and Wald's identity drop out as corollaries.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "sp-doob-decomposition",
+          "title": "Doob decomposition and quadratic variation",
+          "anchor": "doob-decomposition",
+          "prereqs": [
+            "sp-discrete-martingales",
+            "martingales"
+          ],
+          "blurb": "Every $L^1$ adapted process splits uniquely as $X_n=X_0+M_n+A_n$ with $M$ a martingale and $A$ predictable; for $X=S^2$ with $S$ a mean-zero random walk this recovers $\\langle S\\rangle_n=n$, the discrete quadratic variation.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "sp-martingale-convergence",
+          "title": "Martingale convergence theorem",
+          "anchor": "convergence",
+          "prereqs": [
+            "sp-discrete-martingales",
+            "convergence-rv",
+            "martingales"
+          ],
+          "blurb": "If $\\sup_n\\mathbb{E}|M_n|<\\infty$ then $M_n\\to M_\\infty$ a.s. for some $M_\\infty\\in L^1$ (Doob); uniform integrability upgrades the convergence to $L^1$, while $L^1$-bounded-without-UI examples like the doubling product $\\prod X_i$ collapse to $0$ even with $\\mathbb{E}[M_n]=1$."
+        },
+        {
+          "id": "sp-continuous-martingales",
+          "title": "Continuous-time martingales and Brownian motion",
+          "anchor": "continuous-martingales",
+          "prereqs": [
+            "sp-martingale-convergence",
+            "brownian-motion"
+          ],
+          "blurb": "Brownian motion $W_t$ is the canonical continuous martingale, with $W_t^2-t$ a martingale and quadratic variation $[W]_t=t$ a.s.; Burkholder–Davis–Gundy ties $L^p$ norms of $\\sup_{s\\le t}M_s$ to $[M]_t$, setting up Itô calculus."
+        }
+      ]
+    },
+    "stochastic-calculus": {
+      "topic": "stochastic-calculus",
+      "title": "Stochastic calculus",
+      "page": "stochastic-calculus.html",
+      "concepts": [
+        {
+          "id": "sc-ito-integral",
+          "title": "Itô integral",
+          "anchor": "ito-integral",
+          "prereqs": [
+            "sp-continuous-martingales",
+            "brownian-motion"
+          ],
+          "blurb": "For predictable $H$ with $\\mathbb{E}\\int_0^T H_s^2\\,ds<\\infty$, the Itô integral $\\int_0^t H_s\\,dB_s$ is built as the $L^2$ limit of left-endpoint Riemann sums on simple processes; the resulting process is a continuous $L^2$-martingale and the choice of evaluation point is what distinguishes Itô from Stratonovich.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "sc-ito-formula",
+          "title": "Itô's formula",
+          "anchor": "ito-formula",
+          "prereqs": [
+            "sc-ito-integral",
+            "sp-doob-decomposition"
+          ],
+          "blurb": "For $C^2$ functions and Itô process $X_t$, $df(X_t)=f'(X_t)\\,dX_t+\\tfrac{1}{2}f''(X_t)\\,(dX_t)^2$ — the chain rule corrected by the quadratic-variation term that classical calculus misses; equivalently $f(B_t)=f(0)+\\int_0^t f'(B_s)\\,dB_s+\\tfrac{1}{2}\\int_0^t f''(B_s)\\,ds$."
+        },
+        {
+          "id": "sc-sde-existence",
+          "title": "Stochastic differential equations",
+          "anchor": "sde",
+          "prereqs": [
+            "sc-ito-integral",
+            "sc-ito-formula"
+          ],
+          "blurb": "For Lipschitz coefficients $b,\\sigma$, the SDE $dX_t=b(X_t)\\,dt+\\sigma(X_t)\\,dB_t$ has a unique strong solution by Picard iteration; weak solutions match a target law without fixing the driving Brownian motion, and geometric Brownian motion $dX_t=\\mu X_t\\,dt+\\sigma X_t\\,dB_t$ is the canonical multiplicative example."
+        },
+        {
+          "id": "sc-girsanov",
+          "title": "Girsanov's theorem",
+          "anchor": "girsanov",
+          "prereqs": [
+            "sc-ito-formula",
+            "sc-sde-existence"
+          ],
+          "blurb": "The exponential martingale $Z_t=\\exp(\\int_0^t\\theta_s\\,dB_s-\\tfrac{1}{2}\\int_0^t\\theta_s^2\\,ds)$ defines a measure $\\mathbb{Q}=Z_T\\,d\\mathbb{P}$ under which $\\tilde B_t=B_t-\\int_0^t\\theta_s\\,ds$ is Brownian — drifts are absorbed into the measure, the workhorse behind risk-neutral pricing.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "sc-feynman-kac",
+          "title": "Feynman–Kac formula",
+          "anchor": "feynman-kac",
+          "prereqs": [
+            "sc-ito-formula",
+            "sc-sde-existence",
+            "pde-heat-equation"
+          ],
+          "blurb": "The solution of the heat-type PDE $\\partial_t u+\\tfrac{1}{2}\\sigma^2\\partial_{xx}u+b\\,\\partial_x u-ru=0$ with terminal data $u(T,x)=g(x)$ equals $\\mathbb{E}[e^{-r(T-t)}g(X_T)\\mid X_t=x]$ — Brownian expectations solve linear parabolic PDEs and conversely."
+        },
+        {
+          "id": "sc-applications",
+          "title": "Applications: Black–Scholes, Kalman, optimal stopping",
+          "anchor": "applications",
+          "prereqs": [
+            "sc-girsanov",
+            "sc-feynman-kac"
+          ],
+          "blurb": "Risk-neutral pricing turns Black–Scholes into a Feynman–Kac integral; the Kalman filter is the conditional-expectation projection for a linear-Gaussian state-space SDE; American option pricing is an optimal-stopping problem and free-boundary PDE."
+        }
+      ]
+    },
+    "random-walks-and-mixing": {
+      "topic": "random-walks-and-mixing",
+      "title": "Random walks and mixing",
+      "page": "random-walks-and-mixing.html",
+      "concepts": [
+        {
+          "id": "rw-markov-chains",
+          "title": "Markov chains and transition matrices",
+          "anchor": "markov",
+          "prereqs": [
+            "markov-chains"
+          ],
+          "blurb": "A discrete-time Markov chain on a finite or countable state space is encoded by a row-stochastic transition matrix $P$; the $n$-step law is $P^n$, and stationary distributions satisfy $\\pi P=\\pi$.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "rw-stationary-distribution",
+          "title": "Stationary distributions",
+          "anchor": "stationary",
+          "prereqs": [
+            "rw-markov-chains",
+            "algebraic-structures"
+          ],
+          "blurb": "Every finite irreducible aperiodic chain has a unique stationary $\\pi$ that is the left Perron eigenvector of $P$; detailed balance $\\pi_iP_{ij}=\\pi_jP_{ji}$ identifies it for reversible chains.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "rw-mixing-time",
+          "title": "Mixing time",
+          "anchor": "mixing",
+          "prereqs": [
+            "rw-stationary-distribution"
+          ],
+          "blurb": "$d(t)=\\max_x \\|P^t(x,\\cdot)-\\pi\\|_{\\mathrm{TV}}$ measures distance to stationarity; the mixing time $t_{\\mathrm{mix}}(\\varepsilon)=\\min\\{t:d(t)\\le\\varepsilon\\}$ is the standard quantitative cost of forgetting the start."
+        },
+        {
+          "id": "rw-spectral-gap",
+          "title": "Spectral gap and rapid mixing",
+          "anchor": "spectral",
+          "prereqs": [
+            "rw-mixing-time",
+            "adjacency-and-laplacian"
+          ],
+          "blurb": "For reversible chains the second eigenvalue $\\lambda_2$ of $P$ controls mixing: $t_{\\mathrm{mix}}(\\varepsilon)\\le \\frac{1}{1-\\lambda_2}\\log\\frac{1}{\\pi_{\\min}\\varepsilon}$ (and a matching lower bound up to constants)."
+        },
+        {
+          "id": "rw-coupling-method",
+          "title": "Coupling for upper bounds on mixing",
+          "anchor": "coupling",
+          "prereqs": [
+            "rw-mixing-time"
+          ],
+          "blurb": "The coupling lemma bounds total-variation distance by the meeting probability of two chains driven on a common probability space; lazy walks on the hypercube and card-shuffles fall out cleanly."
+        },
+        {
+          "id": "rw-applications-mcmc",
+          "title": "Markov-chain Monte Carlo",
+          "anchor": "mcmc",
+          "prereqs": [
+            "rw-spectral-gap",
+            "expectation-moments"
+          ],
+          "blurb": "Metropolis–Hastings designs a chain with a prescribed stationary distribution $\\pi$ via an acceptance ratio; mixing time is the cost of one effectively-independent sample, so spectral-gap bounds become statistical bounds."
+        }
+      ]
+    },
+    "information-theory": {
+      "topic": "information-theory",
+      "title": "Information theory",
+      "page": "information-theory.html",
+      "concepts": [
+        {
+          "id": "it-shannon-entropy",
+          "title": "Shannon entropy",
+          "anchor": "entropy",
+          "prereqs": [
+            "expectation-moments",
+            "random-variables"
+          ],
+          "blurb": "For a discrete random variable $X$ with pmf $p$, $H(X)=-\\sum_i p_i\\log p_i$ measures average uncertainty in bits (log base $2$) or nats (log base $e$); it is concave in $p$, vanishes on point masses, and is maximised at $\\log n$ by the uniform law on $n$ symbols.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "it-mutual-information",
+          "title": "Mutual information",
+          "anchor": "mutual-info",
+          "prereqs": [
+            "it-shannon-entropy",
+            "conditional-bayes"
+          ],
+          "blurb": "$I(X;Y)=H(X)-H(X\\mid Y)=H(X)+H(Y)-H(X,Y)$ measures the bits about $X$ revealed by observing $Y$; equivalently $I(X;Y)=D(p_{XY}\\,\\|\\,p_X p_Y)$, the KL distance from the joint to the product of marginals.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "it-kl-divergence",
+          "title": "Kullback–Leibler divergence",
+          "anchor": "kl-divergence",
+          "prereqs": [
+            "it-shannon-entropy",
+            "ld-sanov-theorem"
+          ],
+          "blurb": "$D(p\\,\\|\\,q)=\\sum_i p_i\\log(p_i/q_i)$ measures the inefficiency of coding $p$-distributed data with a $q$-tuned codebook; Gibbs' inequality gives $D(p\\,\\|\\,q)\\ge 0$ with equality iff $p=q$, and $D$ is the canonical rate function of Sanov's theorem."
+        },
+        {
+          "id": "it-source-coding",
+          "title": "Source coding",
+          "anchor": "source-coding",
+          "prereqs": [
+            "it-shannon-entropy"
+          ],
+          "blurb": "Shannon's source-coding theorem: $H(X)$ is the asymptotic minimum bits-per-symbol for lossless compression. Huffman coding achieves prefix-free codes with average length within one bit of $H(X)$; the asymptotic equipartition property (AEP) explains why typical sequences fill a set of size $\\approx 2^{nH(X)}$."
+        },
+        {
+          "id": "it-channel-coding",
+          "title": "Channel coding",
+          "anchor": "channel-coding",
+          "prereqs": [
+            "it-mutual-information"
+          ],
+          "blurb": "The capacity of a discrete memoryless channel is $C=\\max_{p_X}I(X;Y)$. Shannon's noisy-channel theorem: any rate $R<C$ admits codes with vanishing error as block length grows, and any $R>C$ has error bounded away from $0$ — capacity is the sharp threshold."
+        },
+        {
+          "id": "it-rate-distortion",
+          "title": "Rate–distortion",
+          "anchor": "rate-distortion",
+          "prereqs": [
+            "it-mutual-information",
+            "it-source-coding"
+          ],
+          "blurb": "For lossy compression with distortion measure $d$ and tolerance $D$, the rate–distortion function is $R(D)=\\min\\{I(X;\\hat X):\\mathbb{E}[d(X,\\hat X)]\\le D\\}$ — the minimum bits per symbol that still keep expected distortion under $D$. For a Gaussian source with squared-error distortion, $R(D)=\\tfrac{1}{2}\\log(\\sigma^2/D)$ on $[0,\\sigma^2]$.",
+          "tags": [
+            "duality"
+          ]
+        }
+      ]
+    },
+    "large-deviations": {
+      "topic": "large-deviations",
+      "title": "Large deviations",
+      "page": "large-deviations.html",
+      "concepts": [
+        {
+          "id": "ld-cramer-theorem",
+          "title": "Cramér's theorem",
+          "anchor": "cramer",
+          "prereqs": [
+            "expectation-moments",
+            "law-of-large-numbers"
+          ],
+          "blurb": "For i.i.d.\\ $X_i$ with finite log-MGF $\\Lambda(\\theta)=\\log\\mathbb{E}[e^{\\theta X}]$, the empirical mean $\\bar X_n$ satisfies $\\mathbb{P}(\\bar X_n\\ge x)\\asymp e^{-nI(x)}$, where $I(x)=\\sup_\\theta\\{\\theta x-\\Lambda(\\theta)\\}$ is the Legendre transform of $\\Lambda$.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "ld-rate-function",
+          "title": "Rate functions and convex duality",
+          "anchor": "rate-function",
+          "prereqs": [
+            "ld-cramer-theorem"
+          ],
+          "blurb": "A rate function $I:\\mathcal{X}\\to[0,\\infty]$ is lower semicontinuous, equals $0$ at the LLN limit, and is convex when produced by a Legendre transform; its level sets are the compacts that govern the LDP.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "ld-sanov-theorem",
+          "title": "Sanov's theorem",
+          "anchor": "sanov",
+          "prereqs": [
+            "ld-rate-function"
+          ],
+          "blurb": "The empirical distribution $L_n=\\tfrac{1}{n}\\sum\\delta_{X_i}$ of i.i.d.\\ samples from $\\mu$ satisfies an LDP on the space of probability measures with rate $H(\\nu\\,\\|\\,\\mu)=\\int\\log(d\\nu/d\\mu)\\,d\\nu$ — Kullback–Leibler divergence is the canonical rate function."
+        },
+        {
+          "id": "ld-gartner-ellis",
+          "title": "Gärtner–Ellis theorem",
+          "anchor": "gartner-ellis",
+          "prereqs": [
+            "ld-rate-function",
+            "convergence-rv"
+          ],
+          "blurb": "When $\\Lambda(\\theta)=\\lim_n\\tfrac{1}{n}\\log\\mathbb{E}[e^{n\\theta\\bar X_n}]$ exists, is finite, and is essentially smooth, the LDP holds with rate $I=\\Lambda^*$ — the Legendre transform extends Cramér beyond the i.i.d.\\ case to weakly dependent and Markov sums."
+        },
+        {
+          "id": "ld-applications",
+          "title": "Applications: Schilder, Freidlin–Wentzell, entropy",
+          "anchor": "applications",
+          "prereqs": [
+            "ld-sanov-theorem",
+            "ld-gartner-ellis"
+          ],
+          "blurb": "Schilder's LDP for scaled Brownian paths, Freidlin–Wentzell for small-noise SDEs (rare exits via the action functional), and Boltzmann's $S=k\\log W$ recovered as the rate function of an ideal gas — large deviations is the rigorous bridge between probability and statistical mechanics."
         }
       ]
     },
@@ -3233,7 +4649,8 @@ window.__MVConcepts = {
           "title": "Continuity & homeomorphism",
           "anchor": "continuity",
           "prereqs": [
-            "open-sets"
+            "open-sets",
+            "metric-spaces"
           ],
           "blurb": "A map is continuous iff preimages of open sets are open — the coordinate-free definition. Homeomorphisms as the isomorphisms of Top."
         },
@@ -3242,7 +4659,8 @@ window.__MVConcepts = {
           "title": "Compactness",
           "anchor": "compact",
           "prereqs": [
-            "open-sets"
+            "open-sets",
+            "metric-spaces"
           ],
           "blurb": "Every open cover has a finite subcover; preserved under continuous images; Heine–Borel, sequential compactness, and why compact Hausdorff is the right target category.",
           "tags": [
@@ -3278,7 +4696,7 @@ window.__MVConcepts = {
         {
           "id": "paths",
           "title": "Paths and homotopy",
-          "anchor": "paths",
+          "anchor": "pi1",
           "prereqs": [
             "continuity-topology"
           ],
@@ -3290,7 +4708,7 @@ window.__MVConcepts = {
         {
           "id": "simply-connected",
           "title": "Simply connected domains",
-          "anchor": "simply-connected",
+          "anchor": "pi1",
           "prereqs": [
             "paths"
           ],
@@ -3707,7 +5125,7 @@ window.__MVConcepts = {
             "lie-bracket-bch",
             "group-representations"
           ],
-          "blurb": "Conjugation $\\mathrm{Ad}_g(X)=gXg^{-1}$ gives the adjoint rep; its differential recovers the bracket, and the Killing form $B(X,Y)=\\mathrm{tr}(\\mathrm{ad}_X\\mathrm{ad}_Y)$ detects semisimplicity.",
+          "blurb": "Conjugation $\\mathrm{Ad}_g(X)=gXg^{-1}$ gives the adjoint rep; its differential recovers the bracket, and the Killing form $B(X,Y)=\\tr(\\ad_X\\ad_Y)$ detects semisimplicity.",
           "tags": [
             "group-action"
           ]
@@ -3800,6 +5218,181 @@ window.__MVConcepts = {
         }
       ]
     },
+    "characteristic-classes": {
+      "topic": "characteristic-classes",
+      "title": "Characteristic classes",
+      "page": "characteristic-classes.html",
+      "concepts": [
+        {
+          "id": "cc-vector-bundles",
+          "title": "Vector bundles",
+          "anchor": "vector-bundles",
+          "prereqs": [
+            "tangent-bundle"
+          ],
+          "blurb": "A rank-$n$ vector bundle $E \\to X$ is locally trivial of fibre $\\mathbb{R}^n$ (or $\\mathbb{C}^n$); transition functions $g_{\\alpha\\beta}\\colon U_\\alpha \\cap U_\\beta \\to GL_n$ on a cover $\\{U_\\alpha\\}$ recover the bundle up to isomorphism. The tangent bundle $TM$, normal bundles, and line bundles like the Möbius bundle are the running examples.",
+          "tags": [
+            "foundation",
+            "fibration"
+          ]
+        },
+        {
+          "id": "cc-stiefel-whitney",
+          "title": "Stiefel–Whitney classes",
+          "anchor": "stiefel-whitney",
+          "prereqs": [
+            "cc-vector-bundles",
+            "singular-homology"
+          ],
+          "blurb": "A real rank-$n$ bundle $E \\to X$ has Stiefel–Whitney classes $w_i(E) \\in H^i(X; \\mathbb{Z}/2)$, $i=0,\\ldots,n$, satisfying naturality $w_i(f^*E) = f^*w_i(E)$, the Whitney sum formula $w(E\\oplus F) = w(E)\\smile w(F)$, and the normalisation $w_1(\\gamma_1) \\ne 0$ for the tautological line bundle on $\\mathbb{RP}^\\infty$. Vanishing of $w_1$ is orientability; vanishing of $w_2$ is the obstruction to a spin structure.",
+          "tags": [
+            "cohomology",
+            "classification"
+          ]
+        },
+        {
+          "id": "cc-chern-classes",
+          "title": "Chern classes",
+          "anchor": "chern",
+          "prereqs": [
+            "cc-vector-bundles",
+            "singular-homology"
+          ],
+          "blurb": "A complex rank-$n$ bundle $E \\to X$ has Chern classes $c_i(E) \\in H^{2i}(X; \\mathbb{Z})$, characterised by naturality, the Whitney sum $c(E\\oplus F) = c(E)\\smile c(F)$, and $c_1(\\mathcal{O}(1)) = $ generator of $H^2(\\mathbb{CP}^\\infty;\\mathbb{Z})$. The splitting principle reduces every computation to formal sums of line bundles, and the top Chern class $c_n(E)$ equals the Euler class of the underlying oriented real bundle.",
+          "tags": [
+            "cohomology",
+            "classification"
+          ]
+        },
+        {
+          "id": "cc-pontryagin",
+          "title": "Pontryagin classes",
+          "anchor": "pontryagin",
+          "prereqs": [
+            "cc-chern-classes"
+          ],
+          "blurb": "For a real bundle $E \\to X$, complexify to $E\\otimes\\mathbb{C}$ and define $p_i(E) = (-1)^i c_{2i}(E\\otimes\\mathbb{C}) \\in H^{4i}(X;\\mathbb{Z})$. Odd Chern classes of a complexification are 2-torsion, so the surviving information sits in degrees divisible by $4$ — these classes are the building blocks of the signature theorem and the Hirzebruch $L$-genus.",
+          "tags": [
+            "cohomology"
+          ]
+        },
+        {
+          "id": "cc-euler-class",
+          "title": "Euler class",
+          "anchor": "euler",
+          "prereqs": [
+            "cc-vector-bundles",
+            "singular-homology"
+          ],
+          "blurb": "An oriented real rank-$n$ bundle $E \\to X$ has an Euler class $e(E) \\in H^n(X;\\mathbb{Z})$, the obstruction to a nowhere-vanishing section. For $E = TM$ on a closed oriented manifold, $\\langle e(TM), [M] \\rangle = \\chi(M)$ — the Poincaré–Hopf theorem expresses the Euler characteristic as the signed sum of zeros of any vector field.",
+          "tags": [
+            "cohomology",
+            "duality"
+          ]
+        },
+        {
+          "id": "cc-chern-weil",
+          "title": "Chern–Weil theory",
+          "anchor": "chern-weil",
+          "prereqs": [
+            "cc-chern-classes",
+            "stokes-derham"
+          ],
+          "blurb": "Pick a connection $\\nabla$ on a complex bundle $E \\to M$, take its curvature $F_\\nabla \\in \\Omega^2(M;\\mathrm{End}\\,E)$, and feed it into an $\\mathrm{Ad}$-invariant polynomial $P$. The form $P(F_\\nabla)$ is closed and its de Rham class is independent of $\\nabla$; the polynomials $\\det(I + \\tfrac{i}{2\\pi}F_\\nabla)$ recover the total Chern class. Gauss–Bonnet $\\int_\\Sigma K\\,dA = 2\\pi\\chi(\\Sigma)$ is the rank-$1$ Chern–Weil identity for $T\\Sigma$.",
+          "tags": [
+            "cohomology",
+            "functoriality"
+          ]
+        }
+      ]
+    },
+    "morse-theory": {
+      "topic": "morse-theory",
+      "title": "Morse theory",
+      "page": "morse-theory.html",
+      "concepts": [
+        {
+          "id": "mt-morse-functions",
+          "title": "Morse functions and non-degenerate critical points",
+          "anchor": "morse-functions",
+          "prereqs": [
+            "smooth-manifold-definition",
+            "tangent-space-manifolds"
+          ],
+          "blurb": "A smooth $f\\colon M\\to\\mathbb{R}$ is Morse when every critical point is non-degenerate (Hessian invertible). The Morse lemma gives a chart in which $f = -x_1^2-\\cdots-x_k^2 + x_{k+1}^2+\\cdots+x_n^2 + c$, where the index $k$ is the number of negative eigenvalues. Morse functions are dense in $C^\\infty(M)$.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "mt-handle-decomposition",
+          "title": "Handle decomposition via sublevel sets",
+          "anchor": "handle-decomp",
+          "prereqs": [
+            "mt-morse-functions",
+            "vector-field-flows"
+          ],
+          "blurb": "As $c$ increases, the sublevel set $M^c=\\{f\\le c\\}$ deforms by gradient flow except when $c$ crosses a critical value: there it gains a $k$-handle $D^k\\times D^{n-k}$, where $k$ is the Morse index. Cells, not points, are how the topology changes.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "mt-cw-structure",
+          "title": "CW structure from a Morse function",
+          "anchor": "cw-structure",
+          "prereqs": [
+            "mt-handle-decomposition",
+            "singular-homology"
+          ],
+          "blurb": "Up to homotopy each $k$-handle attached to $M^{c-\\epsilon}$ is a $k$-cell, so $M$ has the homotopy type of a CW complex with one cell of dimension $k$ for every critical point of index $k$. This is the bridge from differential topology to cellular homology.",
+          "tags": [
+            "functoriality"
+          ]
+        },
+        {
+          "id": "mt-morse-inequalities",
+          "title": "Morse inequalities",
+          "anchor": "inequalities",
+          "prereqs": [
+            "mt-cw-structure"
+          ],
+          "blurb": "If $c_k(f)$ counts index-$k$ critical points and $b_k(M)$ are Betti numbers, then $b_k(M)\\le c_k(f)$ (weak) and $\\sum_k(-1)^k c_k = \\chi(M)$ (Morse–Reeb). The strong inequalities $\\sum_{k\\le j}(-1)^{j-k}(c_k - b_k)\\ge 0$ refine the count via the chain complex.",
+          "tags": [
+            "cohomology",
+            "exact-sequence"
+          ]
+        },
+        {
+          "id": "mt-morse-homology",
+          "title": "Morse homology",
+          "anchor": "morse-homology",
+          "prereqs": [
+            "mt-cw-structure",
+            "exterior-derivative"
+          ],
+          "blurb": "Pick a Morse–Smale gradient: the chain complex has critical points as generators in degree equal to their index, and the boundary $\\partial$ counts signed gradient flow lines between consecutive-index critical points. The resulting homology is canonically isomorphic to singular homology — a hands-on model of $H_*(M)$.",
+          "tags": [
+            "cohomology",
+            "exact-sequence"
+          ]
+        },
+        {
+          "id": "mt-applications",
+          "title": "Applications and generalisations",
+          "anchor": "applications",
+          "prereqs": [
+            "mt-morse-inequalities",
+            "mt-morse-homology"
+          ],
+          "blurb": "Reeb's sphere theorem (a closed manifold with exactly two critical points is homeomorphic to a sphere), Bott's perfect Morse functions on Lie groups, and the infinite-dimensional analogue — Floer homology on path/loop spaces — all flow from this machinery.",
+          "tags": [
+            "classification"
+          ]
+        }
+      ]
+    },
     "galois": {
       "topic": "galois",
       "title": "Galois theory",
@@ -3819,11 +5412,27 @@ window.__MVConcepts = {
           ]
         },
         {
+          "id": "splitting-fields",
+          "title": "Splitting fields",
+          "anchor": "galois",
+          "prereqs": [
+            "field-extensions-galois",
+            "field-extensions-basics",
+            "polynomial-rings-irreducibility"
+          ],
+          "blurb": "The splitting field of $f \\in K[x]$ is the smallest extension of $K$ over which $f$ factors into linear factors. It is unique up to $K$-isomorphism and is the natural domain on which $\\Gal(L/K)$ acts.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
           "id": "fundamental-theorem-galois",
           "title": "Fundamental theorem of Galois theory",
           "anchor": "solvable",
           "prereqs": [
-            "field-extensions-galois"
+            "field-extensions-galois",
+            "splitting-fields"
           ],
           "blurb": "Intermediate fields correspond contravariantly to subgroups of the Galois group.",
           "tags": [
@@ -3833,16 +5442,46 @@ window.__MVConcepts = {
           ]
         },
         {
+          "id": "solvable-groups",
+          "title": "Solvable groups",
+          "anchor": "solvable",
+          "prereqs": [
+            "subgroups-cosets-lagrange",
+            "quotient-groups-iso-theorems"
+          ],
+          "blurb": "$G$ is solvable iff its derived series $G \\tr{}iangleright G' \\tr{}iangleright G'' \\tr{}iangleright \\cdots$ terminates at $\\{e\\}$. Equivalently, $G$ admits a normal series with abelian quotients. Examples: $S_3, S_4$ are solvable; $S_n$ for $n \\geq 5$ is not.",
+          "tags": [
+            "classification",
+            "group-action"
+          ]
+        },
+        {
+          "id": "radical-extensions",
+          "title": "Radical extensions",
+          "anchor": "quintic",
+          "prereqs": [
+            "splitting-fields",
+            "solvable-groups"
+          ],
+          "blurb": "A tower $K = F_0 \\subset F_1 \\subset \\cdots \\subset F_n$ with $F_{i+1} = F_i(\\sqrt[n_i]{a_i})$. A polynomial $f$ is solvable by radicals iff its splitting field embeds in such a tower; on the group side this becomes a normal series with cyclic quotients, hence solvability of $\\Gal$.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
           "id": "solvability-by-radicals",
           "title": "Solvability by radicals",
           "anchor": "quintic",
           "prereqs": [
             "fundamental-theorem-galois",
+            "splitting-fields",
+            "solvable-groups",
+            "radical-extensions",
             "algebraic-structures",
             "quotients-homomorphisms",
             "field-extensions-basics"
           ],
-          "blurb": "Group-theoretic solvability explains why general quintics resist radical formulas.",
+          "blurb": "$f \\in K[x]$ is solvable by radicals iff $\\Gal(L/K)$ is a solvable group, where $L$ is the splitting field. The general quintic has Galois group $S_5$, which is not solvable — so no general radical formula exists for degree $\\geq 5$.",
           "tags": [
             "classification"
           ]
@@ -3994,16 +5633,17 @@ window.__MVConcepts = {
           "anchor": "ideals-vs-forms",
           "prereqs": [
             "genus-theory",
-            "prime-ideals-factorization-ant"
+            "prime-ideals-factorization-ant",
+            "hilbert-class-field"
           ],
           "blurb": "There is a canonical isomorphism between the form class group of discriminant D and the ideal class group of ℚ(√D); this bridges classical and modern algebraic number theory."
         }
       ]
     },
-    "sums-of-squares": {
-      "topic": "sums-of-squares",
-      "title": "Sums of squares",
-      "page": "sums-of-squares.html",
+    "additive-number-theory": {
+      "topic": "additive-number-theory",
+      "title": "Additive number theory",
+      "page": "additive-number-theory.html",
       "concepts": [
         {
           "id": "two-squares-theorem",
@@ -4056,14 +5696,56 @@ window.__MVConcepts = {
           "tags": [
             "finiteness"
           ]
-        }
-      ]
-    },
-    "power-sums-bernoulli": {
-      "topic": "power-sums-bernoulli",
-      "title": "Power sums, Bernoulli numbers, and Euler-Maclaurin",
-      "page": "power-sums-bernoulli.html",
-      "concepts": [
+        },
+        {
+          "id": "waring-problem-statement",
+          "title": "Waring's problem: g(k)",
+          "anchor": "statement",
+          "prereqs": [
+            "four-squares-and-waring"
+          ],
+          "blurb": "For each k, g(k) is the least s such that every n is a sum of s k-th powers: g(2)=4 (Lagrange), g(3)=9 (Wieferich), g(4)=19."
+        },
+        {
+          "id": "g-k-vs-G-k",
+          "title": "g(k) versus G(k)",
+          "anchor": "gvsG",
+          "prereqs": [
+            "waring-problem-statement"
+          ],
+          "blurb": "G(k) is the asymptotic Waring constant (sufficiently large n); G(k) ≤ g(k), often strictly, and G(k) = O(k log k)."
+        },
+        {
+          "id": "hilbert-waring-theorem",
+          "title": "Hilbert–Waring theorem",
+          "anchor": "hilbert",
+          "prereqs": [
+            "waring-problem-statement"
+          ],
+          "blurb": "Hilbert (1909) proved g(k) is finite for every k — the first abstract proof, by a combinatorial identity, later superseded by the circle method.",
+          "tags": [
+            "finiteness"
+          ]
+        },
+        {
+          "id": "circle-method-intro",
+          "title": "Circle method setup",
+          "anchor": "circle",
+          "prereqs": [
+            "hilbert-waring-theorem",
+            "dirichlet-series-basics"
+          ],
+          "blurb": "Count representations as a Fourier integral: r_{s,k}(N) = ∫₀¹ f(α)^s e(−αN) dα with f(α)=Σ e(αn^k), then split the unit interval into major and minor arcs."
+        },
+        {
+          "id": "major-vs-minor-arcs",
+          "title": "Major arcs vs minor arcs",
+          "anchor": "arcs",
+          "prereqs": [
+            "circle-method-intro"
+          ],
+          "blurb": "Near rationals a/q with small q, f(α) is a Gauss-sum-weighted main term (major arcs); elsewhere Weyl bounds force cancellation (minor arcs) — the sum yields an asymptotic with singular series × singular integral."
+        },
         {
           "id": "faulhaber-formula",
           "title": "Faulhaber's formula for power sums",
@@ -4117,62 +5799,6 @@ window.__MVConcepts = {
           "tags": [
             "duality"
           ]
-        }
-      ]
-    },
-    "waring": {
-      "topic": "waring",
-      "title": "Waring's problem and the circle method",
-      "page": "waring.html",
-      "concepts": [
-        {
-          "id": "waring-problem-statement",
-          "title": "Waring's problem: g(k)",
-          "anchor": "statement",
-          "prereqs": [
-            "four-squares-and-waring"
-          ],
-          "blurb": "For each k, g(k) is the least s such that every n is a sum of s k-th powers: g(2)=4 (Lagrange), g(3)=9 (Wieferich), g(4)=19."
-        },
-        {
-          "id": "g-k-vs-G-k",
-          "title": "g(k) versus G(k)",
-          "anchor": "gvsG",
-          "prereqs": [
-            "waring-problem-statement"
-          ],
-          "blurb": "G(k) is the asymptotic Waring constant (sufficiently large n); G(k) ≤ g(k), often strictly, and G(k) = O(k log k)."
-        },
-        {
-          "id": "hilbert-waring-theorem",
-          "title": "Hilbert–Waring theorem",
-          "anchor": "hilbert",
-          "prereqs": [
-            "waring-problem-statement"
-          ],
-          "blurb": "Hilbert (1909) proved g(k) is finite for every k — the first abstract proof, by a combinatorial identity, later superseded by the circle method.",
-          "tags": [
-            "finiteness"
-          ]
-        },
-        {
-          "id": "circle-method-intro",
-          "title": "Circle method setup",
-          "anchor": "circle",
-          "prereqs": [
-            "hilbert-waring-theorem",
-            "dirichlet-series-basics"
-          ],
-          "blurb": "Count representations as a Fourier integral: r_{s,k}(N) = ∫₀¹ f(α)^s e(−αN) dα with f(α)=Σ e(αn^k), then split the unit interval into major and minor arcs."
-        },
-        {
-          "id": "major-vs-minor-arcs",
-          "title": "Major arcs vs minor arcs",
-          "anchor": "arcs",
-          "prereqs": [
-            "circle-method-intro"
-          ],
-          "blurb": "Near rationals a/q with small q, f(α) is a Gauss-sum-weighted main term (major arcs); elsewhere Weyl bounds force cancellation (minor arcs) — the sum yields an asymptotic with singular series × singular integral."
         }
       ]
     },
@@ -4370,7 +5996,8 @@ window.__MVConcepts = {
           "prereqs": [
             "idele-class-group",
             "dirichlet-series-basics",
-            "analytic-continuation"
+            "analytic-continuation",
+            "poisson-summation"
           ],
           "blurb": "Tate's 1950 thesis recovers the analytic continuation and functional equation of $\\zeta(s)$ by integrating a Schwartz–Bruhat function on $\\mathbb{A}_\\mathbb{Q}$ against a character of $C_\\mathbb{Q}$; Poisson summation on $\\mathbb{A}_\\mathbb{Q}/\\mathbb{Q}$ yields the symmetry.",
           "tags": [
@@ -4469,7 +6096,7 @@ window.__MVConcepts = {
             "idele-class-groups",
             "class-group-units-ant"
           ],
-          "blurb": "The Hilbert class field $H/K$ is the maximal unramified abelian extension; the Artin map identifies $\\operatorname{Gal}(H/K)$ with the ideal class group $\\operatorname{Cl}(K)$, so $[H:K]=h_K$.",
+          "blurb": "The Hilbert class field $H/K$ is the maximal unramified abelian extension; the Artin map identifies $\\Gal(H/K)$ with the ideal class group $\\operatorname{Cl}(K)$, so $[H:K]=h_K$.",
           "tags": [
             "duality"
           ]
@@ -4501,7 +6128,8 @@ window.__MVConcepts = {
           "anchor": "existence",
           "prereqs": [
             "local-global-cft",
-            "artin-reciprocity-preview"
+            "artin-reciprocity-preview",
+            "idele-class-group"
           ],
           "blurb": "Every finite-index open subgroup of an idèle class group (equivalently, every congruence subgroup of a ray class group) is the kernel of the Artin map for some finite abelian extension — the class-field correspondence is a bijection.",
           "tags": [
@@ -4611,11 +6239,81 @@ window.__MVConcepts = {
             "weil-height-line-bundle",
             "neron-tate-canonical-height"
           ],
-          "blurb": "Arakelov geometry compactifies $\\operatorname{Spec}\\mathbb{Z}$ by adjoining the archimedean place: Hermitian metrics on line bundles supply the missing data. Intersection numbers on $\\bar X=X\\cup X(\\mathbb{C})$ recover heights (e.g. $\\hat h(P)=\\widehat{\\deg}(P^*\\bar L)/[K:\\mathbb{Q}]$), unifying every height in this topic under one curvature-and-intersection formalism.",
+          "blurb": "Arakelov geometry compactifies $\\Spec\\mathbb{Z}$ by adjoining the archimedean place: Hermitian metrics on line bundles supply the missing data. Intersection numbers on $\\bar X=X\\cup X(\\mathbb{C})$ recover heights (e.g. $\\hat h(P)=\\widehat{\\deg}(P^*\\bar L)/[K:\\mathbb{Q}]$), unifying every height in this topic under one curvature-and-intersection formalism.",
           "tags": [
             "duality",
             "cohomology"
           ]
+        }
+      ]
+    },
+    "analytic-number-theory": {
+      "topic": "analytic-number-theory",
+      "title": "Analytic number theory",
+      "page": "analytic-number-theory.html",
+      "concepts": [
+        {
+          "id": "ant-prime-counting",
+          "title": "$\\pi(x)$ and the prime number theorem",
+          "anchor": "pnt",
+          "prereqs": [],
+          "blurb": "The counting function $\\pi(x) = \\#\\{p \\le x : p \\text{ prime}\\}$ satisfies $\\pi(x) \\sim x/\\log x$, equivalently $\\pi(x) \\sim \\mathrm{Li}(x) = \\int_2^x dt/\\log t$; the logarithmic integral is a substantially better numerical match.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "ant-riemann-zeta-from-pnt",
+          "title": "$\\zeta(s)$ and the explicit formula",
+          "anchor": "explicit",
+          "prereqs": [
+            "ant-prime-counting",
+            "residue-theorem",
+            "perron-formula"
+          ],
+          "blurb": "Riemann's $\\zeta(s) = \\sum n^{-s} = \\prod_p (1-p^{-s})^{-1}$ links primes to a meromorphic function on $\\mathbb{C}$. The von Mangoldt explicit formula $\\psi(x) = x - \\sum_\\rho x^\\rho/\\rho - \\log 2\\pi - \\tfrac12\\log(1-x^{-2})$ writes the prime-counting error as a sum over the non-trivial zeros $\\rho$ of $\\zeta$."
+        },
+        {
+          "id": "ant-zero-free-region",
+          "title": "Zero-free regions and PNT proofs",
+          "anchor": "zerofree",
+          "prereqs": [
+            "ant-riemann-zeta-from-pnt"
+          ],
+          "blurb": "Hadamard and de la Vallée Poussin (1896) showed $\\zeta(s) \\ne 0$ on $\\mathrm{Re}\\,s = 1$ via the trigonometric inequality $3 + 4\\cos\\theta + \\cos 2\\theta \\ge 0$, then extended this to a region $\\sigma > 1 - c/\\log|t|$. Pushing zeros away from the line $\\mathrm{Re}\\,s = 1$ controls the error in $\\psi(x) - x$ and yields PNT with effective remainder $O(x e^{-c\\sqrt{\\log x}})$.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "ant-dirichlet-theorem",
+          "title": "Dirichlet's theorem on primes in AP",
+          "anchor": "dirichlet",
+          "prereqs": [
+            "ant-prime-counting",
+            "dirichlet-characters-lseries"
+          ],
+          "blurb": "For $\\gcd(a,q) = 1$, the arithmetic progression $a, a+q, a+2q, \\ldots$ contains infinitely many primes. The proof factors $-\\log(1-p^{-s})$ over Dirichlet characters $\\chi$ mod $q$, and the non-vanishing $L(1,\\chi) \\ne 0$ for non-trivial $\\chi$ kills the would-be obstruction; PNT for APs gives $\\pi(x;q,a) \\sim \\frac{1}{\\varphi(q)} \\frac{x}{\\log x}$."
+        },
+        {
+          "id": "ant-sieve-methods",
+          "title": "Sieve methods",
+          "anchor": "sieves",
+          "prereqs": [
+            "ant-prime-counting",
+            "dirichlet-series-basics"
+          ],
+          "blurb": "Inclusion–exclusion ($\\sum_{d\\mid P} \\mu(d) \\lfloor x/d \\rfloor$) is too erratic for primes; truncating the Möbius weights at small divisors gives Brun and Selberg sieves. Brun proved $\\sum_{p\\text{ twin}} (1/p + 1/(p+2))$ converges (the twin-prime constant) and bounded gaps follow from Selberg-style upper bounds on $\\#\\{n \\le x : n,n+2 \\text{ both prime}\\}$."
+        },
+        {
+          "id": "ant-bombieri-vinogradov",
+          "title": "Bombieri–Vinogradov on average",
+          "anchor": "bombieri",
+          "prereqs": [
+            "ant-dirichlet-theorem",
+            "lfunction-prototype"
+          ],
+          "blurb": "On average over moduli $q \\le x^{1/2}/(\\log x)^A$, the Bombieri–Vinogradov theorem bounds $\\sum_q \\max_{\\gcd(a,q)=1} |\\pi(x;q,a) - \\mathrm{Li}(x)/\\varphi(q)|$ by $x/(\\log x)^B$ — a GRH-quality error in the $\\ell^1$ norm even though GRH itself remains open."
         }
       ]
     },
@@ -4781,7 +6479,8 @@ window.__MVConcepts = {
           "title": "Theta transformation law",
           "anchor": "trans",
           "prereqs": [
-            "theta-q-expansion"
+            "theta-q-expansion",
+            "poisson-summation"
           ],
           "blurb": "Poisson summation drives modular transformation formulas for theta functions.",
           "tags": [
@@ -4896,7 +6595,8 @@ window.__MVConcepts = {
           "title": "Commuting Hecke algebra",
           "anchor": "algebra",
           "prereqs": [
-            "hecke-q-expansion-action"
+            "hecke-q-expansion-action",
+            "characters-orthogonality"
           ],
           "blurb": "The operators T_n commute and generate a commutative algebra, enabling simultaneous diagonalization."
         },
@@ -4935,7 +6635,8 @@ window.__MVConcepts = {
           "anchor": "series",
           "prereqs": [
             "riemann-integral",
-            "analytic-continuation"
+            "analytic-continuation",
+            "real-numbers"
           ],
           "blurb": "Series Σ a_n n^{-s} have abscissas of convergence and analytic continuation questions.",
           "tags": [
@@ -4997,7 +6698,8 @@ window.__MVConcepts = {
           "title": "Germs and disks of convergence",
           "anchor": "germs",
           "prereqs": [
-            "analyticity"
+            "analyticity",
+            "analytic-continuation"
           ],
           "blurb": "A holomorphic germ at $a$ is a convergent power series $\\sum c_n(z-a)^n$; its disk of convergence has radius $1/\\limsup|c_n|^{1/n}$, and the identity theorem makes any two overlapping germs unique on their intersection."
         },
@@ -5402,6 +7104,96 @@ window.__MVConcepts = {
         }
       ]
     },
+    "modular-curves": {
+      "topic": "modular-curves",
+      "title": "Modular curves",
+      "page": "modular-curves.html",
+      "concepts": [
+        {
+          "id": "mc-y0-x0",
+          "title": "Y0(N), X0(N), and the cusps",
+          "anchor": "y0-x0",
+          "prereqs": [
+            "sl2z-on-H",
+            "riemann-surface-definition"
+          ],
+          "blurb": "The congruence subgroup $\\Gamma_0(N) \\subset \\mathrm{SL}_2(\\mathbb{Z})$ consists of matrices with $c \\equiv 0 \\pmod N$. The quotient $Y_0(N) = \\mathcal{H}/\\Gamma_0(N)$ is a non-compact Riemann surface whose missing points — the cusps — sit at rational numbers and $i\\infty$. Adding finitely many cusps yields the smooth compact modular curve $X_0(N)$, the central object of the Langlands–Eichler–Shimura story.",
+          "tags": [
+            "compactness",
+            "group-action"
+          ]
+        },
+        {
+          "id": "mc-moduli-of-elliptic-curves",
+          "title": "$Y_0(N)$ as a moduli space",
+          "anchor": "moduli",
+          "prereqs": [
+            "mc-y0-x0",
+            "lattices-in-C"
+          ],
+          "blurb": "Points of $Y_0(N)$ correspond bijectively to isomorphism classes of pairs $(E, C)$, where $E$ is an elliptic curve over $\\mathbb{C}$ and $C \\subset E$ is a cyclic subgroup of order $N$. The complex-analytic version says $\\tau \\in \\mathcal{H}/\\Gamma_0(N)$ encodes the lattice $\\Lambda_\\tau = \\mathbb{Z} + \\mathbb{Z}\\tau$ together with the distinguished cyclic subgroup $\\frac{1}{N}\\mathbb{Z}/\\mathbb{Z} \\subset \\mathbb{C}/\\Lambda_\\tau$.",
+          "tags": [
+            "moduli",
+            "universal-property"
+          ]
+        },
+        {
+          "id": "mc-hecke-correspondences-curves",
+          "title": "Hecke correspondences on $X_0(N)$",
+          "anchor": "hecke-corr",
+          "prereqs": [
+            "mc-moduli-of-elliptic-curves"
+          ],
+          "blurb": "For a prime $p \\nmid N$, the Hecke correspondence $T_p$ on $X_0(N)$ sends the moduli point $(E,C)$ to the formal sum over the $p+1$ subgroups $D \\subset E$ of order $p$ disjoint from $C$, mapping to $(E/D, (C+D)/D)$. As an algebraic correspondence — a curve inside $X_0(N) \\times X_0(N)$ — it induces both the classical Hecke operator on modular forms and an endomorphism of the Jacobian.",
+          "tags": [
+            "group-action",
+            "functoriality"
+          ]
+        },
+        {
+          "id": "mc-jacobian-J0",
+          "title": "The Jacobian $J_0(N)$ and Eichler–Shimura",
+          "anchor": "jacobian",
+          "prereqs": [
+            "mc-hecke-correspondences-curves",
+            "modular-form-definition",
+            "modularity-theorem"
+          ],
+          "blurb": "The Jacobian $J_0(N) = \\mathrm{Pic}^0(X_0(N))$ is an abelian variety of dimension equal to the genus of $X_0(N)$. Eichler–Shimura identifies its tangent space at the origin with the space of weight-$2$ cusp forms $S_2(\\Gamma_0(N))$, and the Hecke action on the curve matches the Hecke action on forms — the bridge that turns each newform into a modular abelian-variety quotient $A_f$ of $J_0(N)$.",
+          "tags": [
+            "moduli",
+            "duality"
+          ]
+        },
+        {
+          "id": "mc-genus-formula",
+          "title": "Genus formulas for $X_0(N)$, $X_1(N)$, $X(N)$",
+          "anchor": "genus",
+          "prereqs": [
+            "mc-y0-x0"
+          ],
+          "blurb": "Riemann–Hurwitz applied to $X_0(N) \\to X(1)$ gives $$g(X_0(N)) = 1 + \\frac{[\\mathrm{SL}_2(\\mathbb{Z}):\\Gamma_0(N)]}{12} - \\frac{\\nu_2}{4} - \\frac{\\nu_3}{3} - \\frac{\\nu_\\infty}{2},$$ where $\\nu_2,\\nu_3$ count elliptic points of orders $2,3$ and $\\nu_\\infty$ counts cusps. The first level with $g \\ge 1$ is $N=11$, and $X_0(N)$ has genus $0$ exactly for the fifteen levels $N \\in \\{1\\text{–}10, 12, 13, 16, 18, 25\\}$.",
+          "tags": [
+            "classification",
+            "compactness"
+          ]
+        },
+        {
+          "id": "mc-cusps-galois",
+          "title": "Cusps and rationality over $\\mathbb{Q}$",
+          "anchor": "cusps-galois",
+          "prereqs": [
+            "mc-y0-x0",
+            "mc-moduli-of-elliptic-curves"
+          ],
+          "blurb": "The cusps of $X_0(N)$ are in bijection with pairs $(d, a)$ where $d \\mid N$ and $a \\in (\\mathbb{Z}/\\gcd(d,N/d))^\\times/\\{\\pm 1\\}$. The model of $X_0(N)$ over $\\mathbb{Q}$ from its moduli interpretation makes the cusps $0$ and $\\infty$ rational, while the others can be permuted by $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ — the Atkin–Lehner involutions and the Galois action on cusps are the first arithmetic data the curve sees.",
+          "tags": [
+            "group-action",
+            "classification"
+          ]
+        }
+      ]
+    },
     "projective-plane": {
       "topic": "projective-plane",
       "title": "Projective plane",
@@ -5621,7 +7413,7 @@ window.__MVConcepts = {
             "structure-sheaf-schemes",
             "ideals-quotients-ca"
           ],
-          "blurb": "Closed subschemes of $\\operatorname{Spec} R$ are $\\operatorname{Spec}(R/I)$ for ideals $I$; passing to $\\sqrt I$ gives the reduced subscheme, and minimal primes carve the space into irreducible components."
+          "blurb": "Closed subschemes of $\\Spec R$ are $\\Spec(R/I)$ for ideals $I$; passing to $\\sqrt I$ gives the reduced subscheme, and minimal primes carve the space into irreducible components."
         },
         {
           "id": "dimension-scheme",
@@ -5641,7 +7433,7 @@ window.__MVConcepts = {
             "residue-field-at-prime",
             "gluing-affines"
           ],
-          "blurb": "The fiber of $f\\colon X\\to Y$ over $y\\in Y$ is the scheme $X_y = X\\times_Y \\operatorname{Spec}\\kappa(y)$; its residue field varies with the point, giving one scheme many arithmetic faces at once.",
+          "blurb": "The fiber of $f\\colon X\\to Y$ over $y\\in Y$ is the scheme $X_y = X\\times_Y \\Spec\\kappa(y)$; its residue field varies with the point, giving one scheme many arithmetic faces at once.",
           "tags": [
             "fibration"
           ]
@@ -5766,7 +7558,7 @@ window.__MVConcepts = {
           "prereqs": [
             "scheme-morphisms"
           ],
-          "blurb": "Immersions are the subobject inclusions of $\\mathsf{Sch}$: $\\operatorname{Spec}(A_f)\\hookrightarrow\\operatorname{Spec} A$ (open) and $\\operatorname{Spec}(A/I)\\hookrightarrow\\operatorname{Spec} A$ (closed)."
+          "blurb": "Immersions are the subobject inclusions of $\\mathsf{Sch}$: $\\Spec(A_f)\\hookrightarrow\\Spec A$ (open) and $\\Spec(A/I)\\hookrightarrow\\Spec A$ (closed)."
         },
         {
           "id": "fiber-products",
@@ -5816,7 +7608,8 @@ window.__MVConcepts = {
           "anchor": "reframe",
           "prereqs": [
             "yoneda-limits-adjunctions",
-            "scheme-morphisms"
+            "scheme-morphisms",
+            "yoneda-lemma"
           ],
           "blurb": "A space is studied through all maps into it, turning geometry into a representable functor problem.",
           "tags": [
@@ -5855,7 +7648,8 @@ window.__MVConcepts = {
           "anchor": "yoneda-embedding",
           "prereqs": [
             "yoneda-functor-points",
-            "universal-properties"
+            "universal-properties",
+            "yoneda-lemma"
           ],
           "blurb": "The assignment $X \\mapsto h_X$ is a fully faithful embedding of schemes into presheaves on rings, so a scheme is determined by — and can be constructed from — its functor of points.",
           "tags": [
@@ -5871,7 +7665,7 @@ window.__MVConcepts = {
             "yoneda-functor-points",
             "fiber-products"
           ],
-          "blurb": "Reading $X_S(T) = X(T) \\times_{\\mathrm{Spec}\\,\\mathbb{Z}(T)} S(T)$ turns base change into a pointwise fiber product of sets and makes Weil restriction transparent.",
+          "blurb": "Reading $X_S(T) = X(T) \\times_{\\Spec\\,\\mathbb{Z}(T)} S(T)$ turns base change into a pointwise fiber product of sets and makes Weil restriction transparent.",
           "tags": [
             "functoriality"
           ]
@@ -5909,7 +7703,8 @@ window.__MVConcepts = {
           "title": "The j-invariant and isomorphism classes",
           "anchor": "j",
           "prereqs": [
-            "elliptic-curve-definition"
+            "elliptic-curve-definition",
+            "hilbert-class-field"
           ],
           "blurb": "The j-invariant is a single number that classifies elliptic curves over an algebraically closed field up to isomorphism, and witnesses the coarse moduli space M_{1,1}.",
           "tags": [
@@ -5923,7 +7718,8 @@ window.__MVConcepts = {
           "anchor": "complex",
           "prereqs": [
             "elliptic-curve-definition",
-            "riemann-surface-definition"
+            "riemann-surface-definition",
+            "mobius-transformations"
           ],
           "blurb": "Over C every elliptic curve is a torus C/Λ; curves whose endomorphism ring is larger than Z have complex multiplication by an order in an imaginary quadratic field.",
           "tags": [
@@ -6001,466 +7797,6 @@ window.__MVConcepts = {
             "padic-norm-completion"
           ],
           "blurb": "A global minimal model has the smallest possible discriminant. Its bad primes, weighted by Ogg's formula, produce the conductor $N(E)$ — the number that appears in every $L$-function statement."
-        }
-      ]
-    },
-    "moduli-spaces": {
-      "topic": "moduli-spaces",
-      "title": "Moduli spaces",
-      "page": "moduli-spaces.html",
-      "concepts": [
-        {
-          "id": "moduli-problem",
-          "title": "Moduli problems and parameters",
-          "anchor": "what",
-          "prereqs": [
-            "representability-criteria"
-          ],
-          "blurb": "A moduli problem asks for a geometric space classifying objects in families.",
-          "tags": [
-            "moduli"
-          ]
-        },
-        {
-          "id": "fine-vs-coarse-moduli",
-          "title": "Fine versus coarse moduli",
-          "anchor": "finecoarse",
-          "prereqs": [
-            "moduli-problem"
-          ],
-          "blurb": "Universal families may fail; coarse moduli still classify isomorphism classes.",
-          "tags": [
-            "moduli",
-            "universal-property"
-          ]
-        },
-        {
-          "id": "automorphisms-obstruction",
-          "title": "Automorphisms obstruct fine moduli",
-          "anchor": "whyfail",
-          "prereqs": [
-            "fine-vs-coarse-moduli"
-          ],
-          "blurb": "Nontrivial automorphisms let trivial families be twisted into non-isomorphic families, killing representability of $\\mathcal{M}_{1,1}$.",
-          "tags": [
-            "moduli",
-            "group-action"
-          ]
-        },
-        {
-          "id": "level-structures-moduli",
-          "title": "Level structure and compactification ideas",
-          "anchor": "level",
-          "prereqs": [
-            "automorphisms-obstruction",
-            "modular-form-definition"
-          ],
-          "blurb": "Rigidifying data often repairs representability and leads to richer moduli stacks/spaces.",
-          "tags": [
-            "moduli"
-          ]
-        },
-        {
-          "id": "higher-genus-moduli",
-          "title": "Higher-genus moduli and stable curves",
-          "anchor": "higher",
-          "prereqs": [
-            "fine-vs-coarse-moduli",
-            "riemann-roch"
-          ],
-          "blurb": "For $g\\ge 2$ the coarse space $M_g$ has dimension $3g-3$; Deligne–Mumford compactify by adding stable nodal curves.",
-          "tags": [
-            "moduli",
-            "compactness"
-          ]
-        }
-      ]
-    },
-    "sheaf-cohomology": {
-      "topic": "sheaf-cohomology",
-      "title": "Sheaf cohomology",
-      "page": "sheaf-cohomology.html",
-      "concepts": [
-        {
-          "id": "cech-cohomology",
-          "title": "Čech cocycles and cohomology",
-          "anchor": "cech",
-          "prereqs": [
-            "presheaf-sheaf-axioms"
-          ],
-          "blurb": "Cover-based cocycles detect obstruction classes for global patching.",
-          "tags": [
-            "cohomology",
-            "descent"
-          ]
-        },
-        {
-          "id": "leray-acyclic-covers",
-          "title": "Leray acyclic covers and affine vanishing",
-          "anchor": "leray",
-          "prereqs": [
-            "cech-cohomology"
-          ],
-          "blurb": "When every finite intersection is $\\mathcal{F}$-acyclic, Čech cohomology on the cover equals the derived-functor cohomology. Affine covers of schemes are Leray for quasi-coherent sheaves by Serre's affine vanishing theorem.",
-          "tags": [
-            "cohomology"
-          ]
-        },
-        {
-          "id": "long-exact-sequence-cohomology",
-          "title": "Long exact sequence in cohomology",
-          "anchor": "les",
-          "prereqs": [
-            "cech-cohomology",
-            "long-exact-sequence"
-          ],
-          "blurb": "A short exact sequence of sheaves induces a long exact sequence of cohomology groups, with a connecting homomorphism $\\delta$ that measures obstructions to lifting sections.",
-          "tags": [
-            "exact-sequence",
-            "cohomology",
-            "lifting"
-          ]
-        },
-        {
-          "id": "derived-functor-cohomology",
-          "title": "Derived functor sheaf cohomology",
-          "anchor": "derived",
-          "prereqs": [
-            "cech-cohomology",
-            "derived-functors"
-          ],
-          "blurb": "Right derived functors of global sections define H^i(X,F) abstractly.",
-          "tags": [
-            "cohomology",
-            "functoriality"
-          ]
-        },
-        {
-          "id": "applications-picard-serre",
-          "title": "Picard groups and Serre duality signals",
-          "anchor": "serre",
-          "prereqs": [
-            "derived-functor-cohomology"
-          ],
-          "blurb": "Line bundles, extensions, and duality theorems are naturally cohomological.",
-          "tags": [
-            "cohomology",
-            "duality"
-          ]
-        }
-      ]
-    },
-    "stacks": {
-      "topic": "stacks",
-      "title": "Stacks",
-      "page": "stacks.html",
-      "concepts": [
-        {
-          "id": "groupoids-and-descent",
-          "title": "Groupoids, fibered categories, descent",
-          "anchor": "fib",
-          "prereqs": [
-            "stacky-obstructions",
-            "presheaf-sheaf-axioms"
-          ],
-          "blurb": "Stacks encode objects with automorphisms while preserving gluing across covers.",
-          "tags": [
-            "descent",
-            "moduli",
-            "fibration"
-          ]
-        },
-        {
-          "id": "classifying-stacks",
-          "title": "Classifying stacks BG",
-          "anchor": "bg",
-          "prereqs": [
-            "groupoids-and-descent"
-          ],
-          "blurb": "BG packages principal G-bundles functorially and acts as a universal quotient object.",
-          "tags": [
-            "moduli",
-            "group-action",
-            "fibration"
-          ]
-        },
-        {
-          "id": "quotient-stack",
-          "title": "Quotient stack [X/G]",
-          "anchor": "quotient",
-          "prereqs": [
-            "classifying-stacks"
-          ],
-          "blurb": "The stack [X/G] records a G-action on X while remembering stabilisers; BG is the case X = point.",
-          "tags": [
-            "group-action",
-            "moduli"
-          ]
-        },
-        {
-          "id": "deligne-mumford-vs-artin",
-          "title": "Deligne–Mumford vs. Artin stacks",
-          "anchor": "artin",
-          "prereqs": [
-            "quotient-stack"
-          ],
-          "blurb": "Dropping 'étale atlas' to 'smooth atlas' enlarges DM stacks to Artin stacks, accommodating positive-dimensional automorphisms.",
-          "tags": [
-            "classification"
-          ]
-        },
-        {
-          "id": "dm-stacks-coarse-space",
-          "title": "Deligne–Mumford stacks and coarse spaces",
-          "anchor": "coarse",
-          "prereqs": [
-            "deligne-mumford-vs-artin"
-          ],
-          "blurb": "DM stacks model orbifold-like moduli with étale atlases and coarse moduli maps.",
-          "tags": [
-            "moduli",
-            "group-action"
-          ]
-        }
-      ]
-    },
-    "algebraic-spaces": {
-      "topic": "algebraic-spaces",
-      "title": "Algebraic spaces",
-      "page": "algebraic-spaces.html",
-      "concepts": [
-        {
-          "id": "why-algebraic-spaces",
-          "title": "Why schemes aren't enough",
-          "anchor": "why-algebraic-spaces",
-          "prereqs": [
-            "spectrum-primes"
-          ],
-          "blurb": "Some natural quotients (e.g. $\\mathbb{A}^1 / \\mathbb{Z}$ over a field, or non-free group actions on schemes) are not schemes. Algebraic spaces are the smallest enlargement of schemes that closes the category under such étale quotients while keeping a representable definition."
-        },
-        {
-          "id": "etale-equivalence-relation",
-          "title": "Étale equivalence relations",
-          "anchor": "etale-equivalence-relation",
-          "prereqs": [
-            "why-algebraic-spaces",
-            "etale-morphism"
-          ],
-          "blurb": "An étale equivalence relation on a scheme $U$ is a monomorphism $R \\hookrightarrow U \\times U$ which is an equivalence relation in the categorical sense, with both projections étale. Quotients of these are exactly algebraic spaces.",
-          "tags": [
-            "descent"
-          ]
-        },
-        {
-          "id": "algebraic-space-definition",
-          "title": "Algebraic spaces as étale sheaves",
-          "anchor": "definition",
-          "prereqs": [
-            "etale-equivalence-relation",
-            "etale-morphism",
-            "sheaves-on-a-site"
-          ],
-          "blurb": "An algebraic space is a sheaf $X$ on the étale site of schemes whose diagonal $X \\to X \\times X$ is representable and which admits an étale surjection $U \\twoheadrightarrow X$ from a scheme. Equivalently, $X = U/R$ for an étale equivalence relation $R \\rightrightarrows U$.",
-          "tags": [
-            "descent",
-            "foundation"
-          ]
-        },
-        {
-          "id": "morphisms-of-algebraic-spaces",
-          "title": "Morphisms of algebraic spaces",
-          "anchor": "morphisms",
-          "prereqs": [
-            "algebraic-space-definition",
-            "scheme-morphisms"
-          ],
-          "blurb": "Morphisms of algebraic spaces are morphisms of étale sheaves; étale-locally on the source and target they reduce to scheme morphisms. Most scheme-morphism properties (étale, smooth, proper, finite type) extend verbatim."
-        },
-        {
-          "id": "examples-of-algebraic-spaces",
-          "title": "Examples: free quotients and a non-scheme",
-          "anchor": "examples",
-          "prereqs": [
-            "algebraic-space-definition"
-          ],
-          "blurb": "Any scheme is an algebraic space. The free $\\mathbb{Z}$-action on $\\mathbb{A}^1$ over a field has quotient an algebraic space that is not a scheme (no separated quasi-projective representative exists). Hironaka's example gives a smooth proper algebraic space over $\\mathbb{C}$ that isn't a scheme."
-        },
-        {
-          "id": "between-schemes-and-stacks",
-          "title": "Algebraic spaces sit between schemes and DM stacks",
-          "anchor": "between-schemes-and-stacks",
-          "prereqs": [
-            "algebraic-space-definition",
-            "dm-stacks-coarse-space"
-          ],
-          "blurb": "An algebraic space is a stack with trivial automorphism groups; a DM stack with trivial automorphism groups is an algebraic space. The hierarchy schemes ⊂ algebraic spaces ⊂ DM stacks ⊂ Artin stacks tracks how much non-trivial isotropy the geometric object can carry.",
-          "tags": [
-            "classification"
-          ]
-        }
-      ]
-    },
-    "intersection-theory-chow": {
-      "topic": "intersection-theory-chow",
-      "title": "Intersection theory and Chow groups",
-      "page": "intersection-theory-chow.html",
-      "concepts": [
-        {
-          "id": "cycles-and-equivalence",
-          "title": "Algebraic cycles and rational equivalence",
-          "anchor": "cycles-and-equivalence",
-          "prereqs": [
-            "closed-subscheme"
-          ],
-          "blurb": "An algebraic $k$-cycle on $X$ is a finite formal $\\mathbb{Z}$-linear combination of closed subvarieties of dimension $k$. Two cycles are rationally equivalent if their difference is the principal divisor of a rational function on a $(k+1)$-cycle — the right replacement for homotopy in the algebraic setting."
-        },
-        {
-          "id": "chow-groups",
-          "title": "Chow groups $A_*(X)$",
-          "anchor": "chow-groups",
-          "prereqs": [
-            "cycles-and-equivalence",
-            "singular-homology"
-          ],
-          "blurb": "The Chow group $A_k(X)$ is the free abelian group on $k$-cycles modulo rational equivalence. The total Chow group $A_*(X) = \\bigoplus_k A_k(X)$ is the algebraic analogue of singular homology — it sees algebraic but not transcendental cycles.",
-          "tags": [
-            "cohomology"
-          ]
-        },
-        {
-          "id": "intersection-product",
-          "title": "Intersection product on smooth $X$",
-          "anchor": "intersection-product",
-          "prereqs": [
-            "chow-groups",
-            "intersection-multiplicity"
-          ],
-          "blurb": "On a smooth variety $X$, two transverse subvarieties $Y, Z$ of complementary codimension intersect in finitely many points; the count gives the intersection number $Y \\cdot Z \\in A_0(X)$. The product extends to all of $A_*(X)$ via moving lemmas, making $A^*(X)$ a graded ring."
-        },
-        {
-          "id": "chow-ring-of-pn",
-          "title": "$A^*(\\mathbb{P}^n) = \\mathbb{Z}[h]/(h^{n+1})$",
-          "anchor": "chow-ring-of-pn",
-          "prereqs": [
-            "intersection-product",
-            "projective-points-lines"
-          ],
-          "blurb": "The Chow ring of projective space is generated by the hyperplane class $h$ with relation $h^{n+1} = 0$. Bezout's theorem $C \\cdot D = (\\deg C)(\\deg D)$ for plane curves is the case $n = 2$ — multiplication of degrees in $\\mathbb{Z}[h]/(h^3)$."
-        },
-        {
-          "id": "chern-classes",
-          "title": "Chern classes",
-          "anchor": "chern-classes",
-          "prereqs": [
-            "intersection-product",
-            "exact-sequences"
-          ],
-          "blurb": "A vector bundle $E$ of rank $r$ on a smooth $X$ has Chern classes $c_i(E) \\in A^i(X)$ for $i = 0, \\ldots, r$, encoding obstructions to $E$ trivializing. The total Chern class $c(E) = 1 + c_1 + \\cdots + c_r$ is multiplicative in short exact sequences.",
-          "tags": [
-            "cohomology",
-            "fibration"
-          ]
-        },
-        {
-          "id": "riemann-roch-preview",
-          "title": "Grothendieck–Riemann–Roch (preview)",
-          "anchor": "riemann-roch-preview",
-          "prereqs": [
-            "chern-classes",
-            "riemann-roch"
-          ],
-          "blurb": "GRR replaces the classical Riemann–Roch with an equality in $A^*(X) \\otimes \\mathbb{Q}$ involving the Chern character $\\mathrm{ch}(E)$ and the Todd class $\\mathrm{td}(T_X)$. It packages every Riemann–Roch in algebraic geometry — for curves, surfaces, and beyond — as instances of one functorial statement.",
-          "tags": [
-            "functoriality",
-            "cohomology"
-          ]
-        }
-      ]
-    },
-    "etale-fundamental-group": {
-      "topic": "etale-fundamental-group",
-      "title": "The étale fundamental group",
-      "page": "etale-fundamental-group.html",
-      "concepts": [
-        {
-          "id": "finite-etale-covers",
-          "title": "Finite étale covers",
-          "anchor": "finite-etale-covers",
-          "prereqs": [
-            "etale-morphism",
-            "covering-spaces"
-          ],
-          "blurb": "A finite étale cover $Y \\to X$ is a morphism that is finite, flat, and unramified — the algebro-geometric replacement for a topological covering space. The category $\\mathrm{F\\acute{E}t}/X$ of finite étale covers is the right combinatorial object on which to define a fundamental group.",
-          "tags": [
-            "fibration"
-          ]
-        },
-        {
-          "id": "fiber-functor",
-          "title": "The fiber functor at a geometric point",
-          "anchor": "fiber-functor",
-          "prereqs": [
-            "finite-etale-covers",
-            "fundamental-group"
-          ],
-          "blurb": "Choosing a geometric point $\\bar{x}: \\mathrm{Spec}\\,\\bar{k} \\to X$ gives a fiber functor $F_{\\bar{x}}: \\mathrm{F\\acute{E}t}/X \\to \\mathrm{FinSet}$ sending $Y \\to X$ to the underlying set of the fiber $Y_{\\bar{x}}$. The étale fundamental group is the automorphism group of this functor.",
-          "tags": [
-            "functoriality"
-          ]
-        },
-        {
-          "id": "etale-pi1",
-          "title": "$\\pi_1^{\\acute{e}t}(X, \\bar{x}) = \\mathrm{Aut}(F_{\\bar{x}})$",
-          "anchor": "etale-pi1",
-          "prereqs": [
-            "fiber-functor",
-            "fundamental-group"
-          ],
-          "blurb": "$\\pi_1^{\\acute{e}t}(X, \\bar{x})$ is the profinite group $\\mathrm{Aut}(F_{\\bar{x}})$, with topology induced by the pro-finite-set structure of fibers. It classifies finite étale covers via $\\mathrm{F\\acute{E}t}/X \\simeq \\pi_1^{\\acute{e}t}(X, \\bar{x})\\text{-FinSet}$ — Grothendieck's Galois theory.",
-          "tags": [
-            "classification",
-            "duality",
-            "completion"
-          ]
-        },
-        {
-          "id": "spec-field-galois",
-          "title": "$\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,k) = \\mathrm{Gal}(\\bar{k}/k)$",
-          "anchor": "spec-field-galois",
-          "prereqs": [
-            "etale-pi1",
-            "fundamental-theorem-galois"
-          ],
-          "blurb": "For a field $k$, the étale fundamental group of $\\mathrm{Spec}\\,k$ is the absolute Galois group $\\mathrm{Gal}(\\bar{k}/k)$. Finite étale covers $\\mathrm{Spec}\\,L \\to \\mathrm{Spec}\\,k$ are exactly finite separable extensions; the equivalence is classical Galois theory.",
-          "tags": [
-            "duality"
-          ]
-        },
-        {
-          "id": "frobenius-and-pi1",
-          "title": "Frobenius generates $\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,\\mathbb{F}_q)$",
-          "anchor": "frobenius-and-pi1",
-          "prereqs": [
-            "spec-field-galois",
-            "frobenius-element"
-          ],
-          "blurb": "$\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,\\mathbb{F}_q) = \\hat{\\mathbb{Z}}$, topologically generated by the Frobenius $\\mathrm{Frob}_q\\colon x \\mapsto x^q$. Every cover of $\\mathrm{Spec}\\,\\mathbb{F}_q$ is determined by the action of $\\mathrm{Frob}_q$ on a finite set.",
-          "tags": [
-            "completion",
-            "group-action"
-          ]
-        },
-        {
-          "id": "comparison-topological",
-          "title": "Comparison with topological $\\pi_1$",
-          "anchor": "comparison-topological",
-          "prereqs": [
-            "etale-pi1"
-          ],
-          "blurb": "For a smooth complex variety $X$, the étale fundamental group $\\pi_1^{\\acute{e}t}(X)$ is the profinite completion of the topological $\\pi_1(X(\\mathbb{C}))$ (Riemann existence). For varieties over fields of characteristic 0 this captures all finite-cover information.",
-          "tags": [
-            "completion"
-          ]
         }
       ]
     },
@@ -6545,172 +7881,78 @@ window.__MVConcepts = {
         }
       ]
     },
-    "group-schemes": {
-      "topic": "group-schemes",
-      "title": "Group schemes",
-      "page": "group-schemes.html",
+    "sheaf-cohomology": {
+      "topic": "sheaf-cohomology",
+      "title": "Sheaf cohomology",
+      "page": "sheaf-cohomology.html",
       "concepts": [
         {
-          "id": "group-scheme-definition",
-          "title": "What is a group scheme?",
-          "anchor": "group-scheme-definition",
+          "id": "cech-cohomology",
+          "title": "Čech cocycles and cohomology",
+          "anchor": "cech",
           "prereqs": [
-            "spectrum-primes"
+            "presheaf-sheaf-axioms",
+            "open-sets"
           ],
-          "blurb": "A group scheme over $S$ is an $S$-scheme $G$ equipped with multiplication $m: G \\times_S G \\to G$, inverse $\\iota: G \\to G$, and identity $e: S \\to G$ satisfying the group axioms diagrammatically. Equivalently, a group object in the category of $S$-schemes.",
-          "tags": [
-            "foundation"
-          ]
-        },
-        {
-          "id": "examples-Ga-Gm-mu-n",
-          "title": "Examples: $\\mathbb{G}_a, \\mathbb{G}_m, \\mu_n, \\alpha_p$",
-          "anchor": "examples-Ga-Gm",
-          "prereqs": [
-            "group-scheme-definition",
-            "spectrum-primes"
-          ],
-          "blurb": "$\\mathbb{G}_a = \\mathrm{Spec}\\,k[t]$ (additive), $\\mathbb{G}_m = \\mathrm{Spec}\\,k[t, t^{-1}]$ (multiplicative), $\\mu_n = \\mathrm{Spec}\\,k[t]/(t^n - 1)$ (roots of unity), and in characteristic $p$ the infinitesimal $\\alpha_p = \\mathrm{Spec}\\,k[t]/(t^p)$. The four basic affine group schemes."
-        },
-        {
-          "id": "hopf-algebra",
-          "title": "Affine group schemes ↔ commutative Hopf algebras",
-          "anchor": "hopf-algebra",
-          "prereqs": [
-            "group-scheme-definition",
-            "algebraic-structures"
-          ],
-          "blurb": "An affine group scheme $G = \\mathrm{Spec}\\,A$ is the same data as a commutative Hopf algebra $A$: comultiplication $\\Delta: A \\to A \\otimes A$, counit $\\epsilon: A \\to k$, and antipode $S: A \\to A$ from the multiplication, identity, and inverse maps.",
-          "tags": [
-            "duality"
-          ]
-        },
-        {
-          "id": "etale-vs-connected",
-          "title": "Étale, connected, and infinitesimal pieces",
-          "anchor": "etale-vs-connected",
-          "prereqs": [
-            "examples-Ga-Gm-mu-n",
-            "etale-morphism"
-          ],
-          "blurb": "Over a perfect field, every finite commutative group scheme decomposes canonically as $G$ as a semidirect product of a connected (infinitesimal) piece $G^\\circ$ and an étale piece $G^{\\acute{e}t}$, with $G^\\circ$ connected (infinitesimal) and $G^{\\acute{e}t}$ étale. In characteristic 0, $G^\\circ$ is trivial and group schemes reduce to ordinary discrete groups; in char $p$, $\\alpha_p, \\mu_p$ live in $G^\\circ$.",
-          "tags": [
-            "classification"
-          ]
-        },
-        {
-          "id": "lie-algebra-of-G",
-          "title": "Lie algebra $\\mathrm{Lie}(G)$",
-          "anchor": "lie-algebra",
-          "prereqs": [
-            "group-scheme-definition",
-            "lie-bracket-fields"
-          ],
-          "blurb": "$\\mathrm{Lie}(G) = \\ker(G(k[\\epsilon]/\\epsilon^2) \\to G(k))$ — the tangent space at the identity, with bracket from the adjoint action. Recovers the classical Lie algebra of a Lie group when $k = \\mathbb{R}$ or $\\mathbb{C}$ and $G$ is smooth."
-        },
-        {
-          "id": "torsors-and-cohomology",
-          "title": "$G$-torsors and $H^1(X, G)$",
-          "anchor": "torsors",
-          "prereqs": [
-            "group-scheme-definition",
-            "cech-cohomology"
-          ],
-          "blurb": "A $G$-torsor over $X$ is a scheme $P \\to X$ with a free transitive $G$-action that is étale-locally trivial. Isomorphism classes of $G$-torsors are classified by the étale cohomology $H^1_{\\acute{e}t}(X, G)$ — generalizes Galois cohomology and the Picard group ($G = \\mathbb{G}_m$).",
-          "tags": [
-            "fibration",
-            "cohomology",
-            "group-action"
-          ]
-        }
-      ]
-    },
-    "deformation-theory": {
-      "topic": "deformation-theory",
-      "title": "Deformation theory",
-      "page": "deformation-theory.html",
-      "concepts": [
-        {
-          "id": "first-order-deformation",
-          "title": "First-order deformations",
-          "anchor": "first-order-deformation",
-          "prereqs": [
-            "flat-modules",
-            "spectrum-primes"
-          ],
-          "blurb": "A first-order deformation of a scheme $X_0$ over a field $k$ is a flat $k[\\epsilon]/\\epsilon^2$-scheme $X$ with $X \\otimes k = X_0$. Geometrically: a map from the dual numbers — the tangent direction in moduli space at $X_0$.",
-          "tags": [
-            "lifting",
-            "moduli"
-          ]
-        },
-        {
-          "id": "tangent-space-of-moduli",
-          "title": "Tangent space of moduli is $H^1(X_0, T_{X_0})$",
-          "anchor": "tangent-space",
-          "prereqs": [
-            "first-order-deformation",
-            "cech-cohomology"
-          ],
-          "blurb": "Isomorphism classes of first-order deformations of a smooth $X_0$ form a $k$-vector space identified with $H^1(X_0, T_{X_0})$. This is the tangent space at $X_0$ to the moduli space — when smooth — and gives the dimension count via Riemann–Roch.",
+          "blurb": "Cover-based cocycles detect obstruction classes for global patching.",
           "tags": [
             "cohomology",
-            "moduli"
+            "descent"
           ]
         },
         {
-          "id": "obstructions-H2",
-          "title": "Obstructions live in $H^2(X_0, T_{X_0})$",
-          "anchor": "obstructions",
+          "id": "leray-acyclic-covers",
+          "title": "Leray acyclic covers and affine vanishing",
+          "anchor": "leray",
           "prereqs": [
-            "tangent-space-of-moduli",
             "cech-cohomology"
           ],
-          "blurb": "The obstruction to lifting a deformation from $\\mathrm{Spec}\\,k[\\epsilon]/\\epsilon^2$ to $\\mathrm{Spec}\\,k[t]/(t^3)$ (and beyond) is a class in $H^2(X_0, T_{X_0})$. Vanishing of $H^2$ implies the deformation functor is unobstructed and the moduli space is smooth at $X_0$.",
+          "blurb": "When every finite intersection is $\\mathcal{F}$-acyclic, Čech cohomology on the cover equals the derived-functor cohomology. Affine covers of schemes are Leray for quasi-coherent sheaves by Serre's affine vanishing theorem.",
           "tags": [
-            "lifting",
             "cohomology"
           ]
         },
         {
-          "id": "deformation-functor",
-          "title": "Deformation functors and Schlessinger's criteria",
-          "anchor": "deformation-functor",
+          "id": "long-exact-sequence-cohomology",
+          "title": "Long exact sequence in cohomology",
+          "anchor": "les",
           "prereqs": [
-            "first-order-deformation",
-            "artinian-local-ca"
+            "cech-cohomology",
+            "long-exact-sequence"
           ],
-          "blurb": "The deformation functor $\\mathrm{Def}_{X_0}: \\mathrm{Art}_k \\to \\mathrm{Set}$ assigns to each Artinian local $k$-algebra $A$ (a finite-length local ring with residue field $k$ — prime and maximal coincide there) the set of flat lifts of $X_0$ to $\\mathrm{Spec}\\,A$. Schlessinger's criteria characterize when $\\mathrm{Def}_{X_0}$ has a hull or is pro-representable.",
+          "blurb": "A short exact sequence of sheaves induces a long exact sequence of cohomology groups, with a connecting homomorphism $\\delta$ that measures obstructions to lifting sections.",
           "tags": [
-            "lifting",
-            "moduli",
-            "universal-property"
-          ]
-        },
-        {
-          "id": "cotangent-complex",
-          "title": "The cotangent complex $L_{X/Y}$",
-          "anchor": "cotangent-complex",
-          "prereqs": [
-            "tangent-space-of-moduli",
-            "kahler-differentials"
-          ],
-          "blurb": "Illusie's cotangent complex $L_{X/Y}$ generalizes the relative cotangent sheaf $\\Omega^1_{X/Y}$ to a complex in $D^{\\le 0}(X)$. Tangent and obstruction spaces of any deformation problem live in $\\mathrm{Ext}^i$ of $L_{X/Y}$ — the unifying object behind the previous concepts.",
-          "tags": [
+            "exact-sequence",
             "cohomology",
             "lifting"
           ]
         },
         {
-          "id": "deformation-of-a-curve",
-          "title": "Worked example: deformations of a smooth curve",
-          "anchor": "deformation-of-a-curve",
+          "id": "derived-functor-cohomology",
+          "title": "Derived functor sheaf cohomology",
+          "anchor": "derived",
           "prereqs": [
-            "tangent-space-of-moduli",
-            "obstructions-H2",
-            "riemann-roch-curves"
+            "cech-cohomology",
+            "derived-functors"
           ],
-          "blurb": "For a smooth projective curve $C$ of genus $g \\ge 2$: $H^1(C, T_C)$ has dimension $3g - 3$ (the dimension of $\\mathcal{M}_g$ at $C$), and $H^2(C, T_C) = 0$ (curves have no obstructions). The moduli space $\\mathcal{M}_g$ is smooth of dimension $3g - 3$."
+          "blurb": "Right derived functors of global sections define H^i(X,F) abstractly.",
+          "tags": [
+            "cohomology",
+            "functoriality"
+          ]
+        },
+        {
+          "id": "applications-picard-serre",
+          "title": "Picard groups and Serre duality signals",
+          "anchor": "serre",
+          "prereqs": [
+            "derived-functor-cohomology"
+          ],
+          "blurb": "Line bundles, extensions, and duality theorems are naturally cohomological.",
+          "tags": [
+            "cohomology",
+            "duality"
+          ]
         }
       ]
     },
@@ -6799,6 +8041,563 @@ window.__MVConcepts = {
         }
       ]
     },
+    "moduli-spaces": {
+      "topic": "moduli-spaces",
+      "title": "Moduli spaces",
+      "page": "moduli-spaces.html",
+      "concepts": [
+        {
+          "id": "moduli-problem",
+          "title": "Moduli problems and parameters",
+          "anchor": "what",
+          "prereqs": [
+            "representability-criteria"
+          ],
+          "blurb": "A moduli problem asks for a geometric space classifying objects in families.",
+          "tags": [
+            "moduli"
+          ]
+        },
+        {
+          "id": "fine-vs-coarse-moduli",
+          "title": "Fine versus coarse moduli",
+          "anchor": "finecoarse",
+          "prereqs": [
+            "moduli-problem"
+          ],
+          "blurb": "Universal families may fail; coarse moduli still classify isomorphism classes.",
+          "tags": [
+            "moduli",
+            "universal-property"
+          ]
+        },
+        {
+          "id": "automorphisms-obstruction",
+          "title": "Automorphisms obstruct fine moduli",
+          "anchor": "whyfail",
+          "prereqs": [
+            "fine-vs-coarse-moduli"
+          ],
+          "blurb": "Nontrivial automorphisms let trivial families be twisted into non-isomorphic families, killing representability of $\\mathcal{M}_{1,1}$.",
+          "tags": [
+            "moduli",
+            "group-action"
+          ]
+        },
+        {
+          "id": "level-structures-moduli",
+          "title": "Level structure and compactification ideas",
+          "anchor": "level",
+          "prereqs": [
+            "automorphisms-obstruction",
+            "modular-form-definition"
+          ],
+          "blurb": "Rigidifying data often repairs representability and leads to richer moduli stacks/spaces.",
+          "tags": [
+            "moduli"
+          ]
+        },
+        {
+          "id": "higher-genus-moduli",
+          "title": "Higher-genus moduli and stable curves",
+          "anchor": "higher",
+          "prereqs": [
+            "fine-vs-coarse-moduli",
+            "riemann-roch"
+          ],
+          "blurb": "For $g\\ge 2$ the coarse space $M_g$ has dimension $3g-3$; Deligne–Mumford compactify by adding stable nodal curves.",
+          "tags": [
+            "moduli",
+            "compactness"
+          ]
+        }
+      ]
+    },
+    "algebraic-spaces": {
+      "topic": "algebraic-spaces",
+      "title": "Algebraic spaces",
+      "page": "algebraic-spaces.html",
+      "concepts": [
+        {
+          "id": "why-algebraic-spaces",
+          "title": "Why schemes aren't enough",
+          "anchor": "why-algebraic-spaces",
+          "prereqs": [
+            "spectrum-primes",
+            "locally-ringed-space"
+          ],
+          "blurb": "Some natural quotients (e.g. $\\mathbb{A}^1 / \\mathbb{Z}$ over a field, or non-free group actions on schemes) are not schemes. Algebraic spaces are the smallest enlargement of schemes that closes the category under such étale quotients while keeping a representable definition."
+        },
+        {
+          "id": "etale-equivalence-relation",
+          "title": "Étale equivalence relations",
+          "anchor": "etale-equivalence-relation",
+          "prereqs": [
+            "why-algebraic-spaces",
+            "etale-morphism"
+          ],
+          "blurb": "An étale equivalence relation on a scheme $U$ is a monomorphism $R \\hookrightarrow U \\times U$ which is an equivalence relation in the categorical sense, with both projections étale. Quotients of these are exactly algebraic spaces.",
+          "tags": [
+            "descent"
+          ]
+        },
+        {
+          "id": "algebraic-space-definition",
+          "title": "Algebraic spaces as étale sheaves",
+          "anchor": "definition",
+          "prereqs": [
+            "etale-equivalence-relation",
+            "etale-morphism",
+            "sheaves-on-a-site"
+          ],
+          "blurb": "An algebraic space is a sheaf $X$ on the étale site of schemes whose diagonal $X \\to X \\times X$ is representable and which admits an étale surjection $U \\twoheadrightarrow X$ from a scheme. Equivalently, $X = U/R$ for an étale equivalence relation $R \\rightrightarrows U$.",
+          "tags": [
+            "descent",
+            "foundation"
+          ]
+        },
+        {
+          "id": "morphisms-of-algebraic-spaces",
+          "title": "Morphisms of algebraic spaces",
+          "anchor": "morphisms",
+          "prereqs": [
+            "algebraic-space-definition",
+            "scheme-morphisms"
+          ],
+          "blurb": "Morphisms of algebraic spaces are morphisms of étale sheaves; étale-locally on the source and target they reduce to scheme morphisms. Most scheme-morphism properties (étale, smooth, proper, finite type) extend verbatim."
+        },
+        {
+          "id": "examples-of-algebraic-spaces",
+          "title": "Examples: free quotients and a non-scheme",
+          "anchor": "examples",
+          "prereqs": [
+            "algebraic-space-definition"
+          ],
+          "blurb": "Any scheme is an algebraic space. The free $\\mathbb{Z}$-action on $\\mathbb{A}^1$ over a field has quotient an algebraic space that is not a scheme (no separated quasi-projective representative exists). Hironaka's example gives a smooth proper algebraic space over $\\mathbb{C}$ that isn't a scheme."
+        },
+        {
+          "id": "between-schemes-and-stacks",
+          "title": "Algebraic spaces sit between schemes and DM stacks",
+          "anchor": "between-schemes-and-stacks",
+          "prereqs": [
+            "algebraic-space-definition",
+            "dm-stacks-coarse-space"
+          ],
+          "blurb": "An algebraic space is a stack with trivial automorphism groups; a DM stack with trivial automorphism groups is an algebraic space. The hierarchy schemes ⊂ algebraic spaces ⊂ DM stacks ⊂ Artin stacks tracks how much non-trivial isotropy the geometric object can carry.",
+          "tags": [
+            "classification"
+          ]
+        }
+      ]
+    },
+    "stacks": {
+      "topic": "stacks",
+      "title": "Stacks",
+      "page": "stacks.html",
+      "concepts": [
+        {
+          "id": "groupoids-and-descent",
+          "title": "Groupoids, fibered categories, descent",
+          "anchor": "fib",
+          "prereqs": [
+            "stacky-obstructions",
+            "presheaf-sheaf-axioms"
+          ],
+          "blurb": "Stacks encode objects with automorphisms while preserving gluing across covers.",
+          "tags": [
+            "descent",
+            "moduli",
+            "fibration"
+          ]
+        },
+        {
+          "id": "classifying-stacks",
+          "title": "Classifying stacks BG",
+          "anchor": "bg",
+          "prereqs": [
+            "groupoids-and-descent"
+          ],
+          "blurb": "BG packages principal G-bundles functorially and acts as a universal quotient object.",
+          "tags": [
+            "moduli",
+            "group-action",
+            "fibration"
+          ]
+        },
+        {
+          "id": "quotient-stack",
+          "title": "Quotient stack [X/G]",
+          "anchor": "quotient",
+          "prereqs": [
+            "classifying-stacks"
+          ],
+          "blurb": "The stack [X/G] records a G-action on X while remembering stabilisers; BG is the case X = point.",
+          "tags": [
+            "group-action",
+            "moduli"
+          ]
+        },
+        {
+          "id": "deligne-mumford-vs-artin",
+          "title": "Deligne–Mumford vs. Artin stacks",
+          "anchor": "artin",
+          "prereqs": [
+            "quotient-stack"
+          ],
+          "blurb": "Dropping 'étale atlas' to 'smooth atlas' enlarges DM stacks to Artin stacks, accommodating positive-dimensional automorphisms.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "dm-stacks-coarse-space",
+          "title": "Deligne–Mumford stacks and coarse spaces",
+          "anchor": "coarse",
+          "prereqs": [
+            "deligne-mumford-vs-artin"
+          ],
+          "blurb": "DM stacks model orbifold-like moduli with étale atlases and coarse moduli maps.",
+          "tags": [
+            "moduli",
+            "group-action"
+          ]
+        }
+      ]
+    },
+    "intersection-theory-chow": {
+      "topic": "intersection-theory-chow",
+      "title": "Intersection theory and Chow groups",
+      "page": "intersection-theory-chow.html",
+      "concepts": [
+        {
+          "id": "cycles-and-equivalence",
+          "title": "Algebraic cycles and rational equivalence",
+          "anchor": "cycles-and-equivalence",
+          "prereqs": [
+            "closed-subscheme"
+          ],
+          "blurb": "An algebraic $k$-cycle on $X$ is a finite formal $\\mathbb{Z}$-linear combination of closed subvarieties of dimension $k$. Two cycles are rationally equivalent if their difference is the principal divisor of a rational function on a $(k+1)$-cycle — the right replacement for homotopy in the algebraic setting."
+        },
+        {
+          "id": "chow-groups",
+          "title": "Chow groups $A_*(X)$",
+          "anchor": "chow-groups",
+          "prereqs": [
+            "cycles-and-equivalence",
+            "singular-homology"
+          ],
+          "blurb": "The Chow group $A_k(X)$ is the free abelian group on $k$-cycles modulo rational equivalence. The total Chow group $A_*(X) = \\bigoplus_k A_k(X)$ is the algebraic analogue of singular homology — it sees algebraic but not transcendental cycles.",
+          "tags": [
+            "cohomology"
+          ]
+        },
+        {
+          "id": "intersection-product",
+          "title": "Intersection product on smooth $X$",
+          "anchor": "intersection-product",
+          "prereqs": [
+            "chow-groups",
+            "intersection-multiplicity"
+          ],
+          "blurb": "On a smooth variety $X$, two transverse subvarieties $Y, Z$ of complementary codimension intersect in finitely many points; the count gives the intersection number $Y \\cdot Z \\in A_0(X)$. The product extends to all of $A_*(X)$ via moving lemmas, making $A^*(X)$ a graded ring."
+        },
+        {
+          "id": "chow-ring-of-pn",
+          "title": "$A^*(\\mathbb{P}^n) = \\mathbb{Z}[h]/(h^{n+1})$",
+          "anchor": "chow-ring-of-pn",
+          "prereqs": [
+            "intersection-product",
+            "projective-points-lines"
+          ],
+          "blurb": "The Chow ring of projective space is generated by the hyperplane class $h$ with relation $h^{n+1} = 0$. Bezout's theorem $C \\cdot D = (\\deg C)(\\deg D)$ for plane curves is the case $n = 2$ — multiplication of degrees in $\\mathbb{Z}[h]/(h^3)$."
+        },
+        {
+          "id": "chern-classes",
+          "title": "Chern classes",
+          "anchor": "chern-classes",
+          "prereqs": [
+            "intersection-product",
+            "exact-sequences",
+            "cc-chern-classes"
+          ],
+          "blurb": "A vector bundle $E$ of rank $r$ on a smooth $X$ has Chern classes $c_i(E) \\in A^i(X)$ for $i = 0, \\ldots, r$, encoding obstructions to $E$ trivializing. The total Chern class $c(E) = 1 + c_1 + \\cdots + c_r$ is multiplicative in short exact sequences.",
+          "tags": [
+            "cohomology",
+            "fibration"
+          ]
+        },
+        {
+          "id": "riemann-roch-preview",
+          "title": "Grothendieck–Riemann–Roch (preview)",
+          "anchor": "riemann-roch-preview",
+          "prereqs": [
+            "chern-classes",
+            "riemann-roch"
+          ],
+          "blurb": "GRR replaces the classical Riemann–Roch with an equality in $A^*(X) \\otimes \\mathbb{Q}$ involving the Chern character $\\mathrm{ch}(E)$ and the Todd class $\\mathrm{td}(T_X)$. It packages every Riemann–Roch in algebraic geometry — for curves, surfaces, and beyond — as instances of one functorial statement.",
+          "tags": [
+            "functoriality",
+            "cohomology"
+          ]
+        }
+      ]
+    },
+    "group-schemes": {
+      "topic": "group-schemes",
+      "title": "Group schemes",
+      "page": "group-schemes.html",
+      "concepts": [
+        {
+          "id": "group-scheme-definition",
+          "title": "What is a group scheme?",
+          "anchor": "group-scheme-definition",
+          "prereqs": [
+            "spectrum-primes"
+          ],
+          "blurb": "A group scheme over $S$ is an $S$-scheme $G$ equipped with multiplication $m: G \\times_S G \\to G$, inverse $\\iota: G \\to G$, and identity $e: S \\to G$ satisfying the group axioms diagrammatically. Equivalently, a group object in the category of $S$-schemes.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "examples-Ga-Gm-mu-n",
+          "title": "Examples: $\\mathbb{G}_a, \\mathbb{G}_m, \\mu_n, \\alpha_p$",
+          "anchor": "examples-Ga-Gm",
+          "prereqs": [
+            "group-scheme-definition",
+            "spectrum-primes"
+          ],
+          "blurb": "$\\mathbb{G}_a = \\Spec\\,k[t]$ (additive), $\\mathbb{G}_m = \\Spec\\,k[t, t^{-1}]$ (multiplicative), $\\mu_n = \\Spec\\,k[t]/(t^n - 1)$ (roots of unity), and in characteristic $p$ the infinitesimal $\\alpha_p = \\Spec\\,k[t]/(t^p)$. The four basic affine group schemes."
+        },
+        {
+          "id": "hopf-algebra",
+          "title": "Affine group schemes ↔ commutative Hopf algebras",
+          "anchor": "hopf-algebra",
+          "prereqs": [
+            "group-scheme-definition",
+            "algebraic-structures"
+          ],
+          "blurb": "An affine group scheme $G = \\Spec\\,A$ is the same data as a commutative Hopf algebra $A$: comultiplication $\\Delta: A \\to A \\otimes A$, counit $\\epsilon: A \\to k$, and antipode $S: A \\to A$ from the multiplication, identity, and inverse maps.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "etale-vs-connected",
+          "title": "Étale, connected, and infinitesimal pieces",
+          "anchor": "etale-vs-connected",
+          "prereqs": [
+            "examples-Ga-Gm-mu-n",
+            "etale-morphism"
+          ],
+          "blurb": "Over a perfect field, every finite commutative group scheme decomposes canonically as $G$ as a semidirect product of a connected (infinitesimal) piece $G^\\circ$ and an étale piece $G^{\\acute{e}t}$, with $G^\\circ$ connected (infinitesimal) and $G^{\\acute{e}t}$ étale. In characteristic 0, $G^\\circ$ is trivial and group schemes reduce to ordinary discrete groups; in char $p$, $\\alpha_p, \\mu_p$ live in $G^\\circ$.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "lie-algebra-of-G",
+          "title": "Lie algebra $\\mathrm{Lie}(G)$",
+          "anchor": "lie-algebra",
+          "prereqs": [
+            "group-scheme-definition",
+            "lie-bracket-fields"
+          ],
+          "blurb": "$\\mathrm{Lie}(G) = \\ker(G(k[\\epsilon]/\\epsilon^2) \\to G(k))$ — the tangent space at the identity, with bracket from the adjoint action. Recovers the classical Lie algebra of a Lie group when $k = \\mathbb{R}$ or $\\mathbb{C}$ and $G$ is smooth."
+        },
+        {
+          "id": "torsors-and-cohomology",
+          "title": "$G$-torsors and $H^1(X, G)$",
+          "anchor": "torsors",
+          "prereqs": [
+            "group-scheme-definition",
+            "cech-cohomology"
+          ],
+          "blurb": "A $G$-torsor over $X$ is a scheme $P \\to X$ with a free transitive $G$-action that is étale-locally trivial. Isomorphism classes of $G$-torsors are classified by the étale cohomology $H^1_{\\acute{e}t}(X, G)$ — generalizes Galois cohomology and the Picard group ($G = \\mathbb{G}_m$).",
+          "tags": [
+            "fibration",
+            "cohomology",
+            "group-action"
+          ]
+        }
+      ]
+    },
+    "etale-fundamental-group": {
+      "topic": "etale-fundamental-group",
+      "title": "The étale fundamental group",
+      "page": "etale-fundamental-group.html",
+      "concepts": [
+        {
+          "id": "finite-etale-covers",
+          "title": "Finite étale covers",
+          "anchor": "finite-etale-covers",
+          "prereqs": [
+            "etale-morphism",
+            "covering-spaces"
+          ],
+          "blurb": "A finite étale cover $Y \\to X$ is a morphism that is finite, flat, and unramified — the algebro-geometric replacement for a topological covering space. The category $\\mathrm{F\\acute{E}t}/X$ of finite étale covers is the right combinatorial object on which to define a fundamental group.",
+          "tags": [
+            "fibration"
+          ]
+        },
+        {
+          "id": "fiber-functor",
+          "title": "The fiber functor at a geometric point",
+          "anchor": "fiber-functor",
+          "prereqs": [
+            "finite-etale-covers",
+            "fundamental-group"
+          ],
+          "blurb": "Choosing a geometric point $\\bar{x}: \\Spec\\,\\bar{k} \\to X$ gives a fiber functor $F_{\\bar{x}}: \\mathrm{F\\acute{E}t}/X \\to \\mathrm{FinSet}$ sending $Y \\to X$ to the underlying set of the fiber $Y_{\\bar{x}}$. The étale fundamental group is the automorphism group of this functor.",
+          "tags": [
+            "functoriality"
+          ]
+        },
+        {
+          "id": "etale-pi1",
+          "title": "$\\pi_1^{\\acute{e}t}(X, \\bar{x}) = \\mathrm{Aut}(F_{\\bar{x}})$",
+          "anchor": "etale-pi1",
+          "prereqs": [
+            "fiber-functor",
+            "fundamental-group"
+          ],
+          "blurb": "$\\pi_1^{\\acute{e}t}(X, \\bar{x})$ is the profinite group $\\mathrm{Aut}(F_{\\bar{x}})$, with topology induced by the pro-finite-set structure of fibers. It classifies finite étale covers via $\\mathrm{F\\acute{E}t}/X \\simeq \\pi_1^{\\acute{e}t}(X, \\bar{x})\\text{-FinSet}$ — Grothendieck's Galois theory.",
+          "tags": [
+            "classification",
+            "duality",
+            "completion"
+          ]
+        },
+        {
+          "id": "spec-field-galois",
+          "title": "$\\pi_1^{\\acute{e}t}(\\Spec\\,k) = \\Gal(\\bar{k}/k)$",
+          "anchor": "spec-field-galois",
+          "prereqs": [
+            "etale-pi1",
+            "fundamental-theorem-galois"
+          ],
+          "blurb": "For a field $k$, the étale fundamental group of $\\Spec\\,k$ is the absolute Galois group $\\Gal(\\bar{k}/k)$. Finite étale covers $\\Spec\\,L \\to \\Spec\\,k$ are exactly finite separable extensions; the equivalence is classical Galois theory.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "frobenius-and-pi1",
+          "title": "Frobenius generates $\\pi_1^{\\acute{e}t}(\\Spec\\,\\mathbb{F}_q)$",
+          "anchor": "frobenius-and-pi1",
+          "prereqs": [
+            "spec-field-galois",
+            "frobenius-element"
+          ],
+          "blurb": "$\\pi_1^{\\acute{e}t}(\\Spec\\,\\mathbb{F}_q) = \\hat{\\mathbb{Z}}$, topologically generated by the Frobenius $\\mathrm{Frob}_q\\colon x \\mapsto x^q$. Every cover of $\\Spec\\,\\mathbb{F}_q$ is determined by the action of $\\mathrm{Frob}_q$ on a finite set.",
+          "tags": [
+            "completion",
+            "group-action"
+          ]
+        },
+        {
+          "id": "comparison-topological",
+          "title": "Comparison with topological $\\pi_1$",
+          "anchor": "comparison-topological",
+          "prereqs": [
+            "etale-pi1"
+          ],
+          "blurb": "For a smooth complex variety $X$, the étale fundamental group $\\pi_1^{\\acute{e}t}(X)$ is the profinite completion of the topological $\\pi_1(X(\\mathbb{C}))$ (Riemann existence). For varieties over fields of characteristic 0 this captures all finite-cover information.",
+          "tags": [
+            "completion"
+          ]
+        }
+      ]
+    },
+    "deformation-theory": {
+      "topic": "deformation-theory",
+      "title": "Deformation theory",
+      "page": "deformation-theory.html",
+      "concepts": [
+        {
+          "id": "first-order-deformation",
+          "title": "First-order deformations",
+          "anchor": "first-order-deformation",
+          "prereqs": [
+            "flat-modules",
+            "spectrum-primes"
+          ],
+          "blurb": "A first-order deformation of a scheme $X_0$ over a field $k$ is a flat $k[\\epsilon]/\\epsilon^2$-scheme $X$ with $X \\otimes k = X_0$. Geometrically: a map from the dual numbers — the tangent direction in moduli space at $X_0$.",
+          "tags": [
+            "lifting",
+            "moduli"
+          ]
+        },
+        {
+          "id": "tangent-space-of-moduli",
+          "title": "Tangent space of moduli is $H^1(X_0, T_{X_0})$",
+          "anchor": "tangent-space",
+          "prereqs": [
+            "first-order-deformation",
+            "cech-cohomology"
+          ],
+          "blurb": "Isomorphism classes of first-order deformations of a smooth $X_0$ form a $k$-vector space identified with $H^1(X_0, T_{X_0})$. This is the tangent space at $X_0$ to the moduli space — when smooth — and gives the dimension count via Riemann–Roch.",
+          "tags": [
+            "cohomology",
+            "moduli"
+          ]
+        },
+        {
+          "id": "obstructions-H2",
+          "title": "Obstructions live in $H^2(X_0, T_{X_0})$",
+          "anchor": "obstructions",
+          "prereqs": [
+            "tangent-space-of-moduli",
+            "cech-cohomology"
+          ],
+          "blurb": "The obstruction to lifting a deformation from $\\Spec\\,k[\\epsilon]/\\epsilon^2$ to $\\Spec\\,k[t]/(t^3)$ (and beyond) is a class in $H^2(X_0, T_{X_0})$. Vanishing of $H^2$ implies the deformation functor is unobstructed and the moduli space is smooth at $X_0$.",
+          "tags": [
+            "lifting",
+            "cohomology"
+          ]
+        },
+        {
+          "id": "deformation-functor",
+          "title": "Deformation functors and Schlessinger's criteria",
+          "anchor": "deformation-functor",
+          "prereqs": [
+            "first-order-deformation",
+            "artinian-local-ca"
+          ],
+          "blurb": "The deformation functor $\\mathrm{Def}_{X_0}: \\mathrm{Art}_k \\to \\mathrm{Set}$ assigns to each Artinian local $k$-algebra $A$ (a finite-length local ring with residue field $k$ — prime and maximal coincide there) the set of flat lifts of $X_0$ to $\\Spec\\,A$. Schlessinger's criteria characterize when $\\mathrm{Def}_{X_0}$ has a hull or is pro-representable.",
+          "tags": [
+            "lifting",
+            "moduli",
+            "universal-property"
+          ]
+        },
+        {
+          "id": "cotangent-complex",
+          "title": "The cotangent complex $L_{X/Y}$",
+          "anchor": "cotangent-complex",
+          "prereqs": [
+            "tangent-space-of-moduli",
+            "kahler-differentials"
+          ],
+          "blurb": "Illusie's cotangent complex $L_{X/Y}$ generalizes the relative cotangent sheaf $\\Omega^1_{X/Y}$ to a complex in $D^{\\le 0}(X)$. Tangent and obstruction spaces of any deformation problem live in $\\mathrm{Ext}^i$ of $L_{X/Y}$ — the unifying object behind the previous concepts.",
+          "tags": [
+            "cohomology",
+            "lifting"
+          ]
+        },
+        {
+          "id": "deformation-of-a-curve",
+          "title": "Worked example: deformations of a smooth curve",
+          "anchor": "deformation-of-a-curve",
+          "prereqs": [
+            "tangent-space-of-moduli",
+            "obstructions-H2",
+            "riemann-roch-curves"
+          ],
+          "blurb": "For a smooth projective curve $C$ of genus $g \\ge 2$: $H^1(C, T_C)$ has dimension $3g - 3$ (the dimension of $\\mathcal{M}_g$ at $C$), and $H^2(C, T_C) = 0$ (curves have no obstructions). The moduli space $\\mathcal{M}_g$ is smooth of dimension $3g - 3$."
+        }
+      ]
+    },
     "spectral-graph-theory": {
       "topic": "spectral-graph-theory",
       "title": "Spectral graph theory",
@@ -6844,7 +8643,8 @@ window.__MVConcepts = {
           "anchor": "random-walks",
           "prereqs": [
             "adjacency-and-laplacian",
-            "markov-chains"
+            "markov-chains",
+            "rw-mixing-time"
           ],
           "blurb": "The walk's transition $P=D^{-1}A$ is similar to $I-\\mathcal{L}$ where $\\mathcal{L}=D^{-1/2}LD^{-1/2}$ is the normalised Laplacian. The spectral gap $\\gamma=\\min(\\nu_2,2-\\nu_n)$ controls mixing time: $t_{\\mathrm{mix}}\\le \\frac{1}{\\gamma}\\log\\frac{1}{\\pi_{\\min}\\varepsilon}$.",
           "tags": [
@@ -7050,7 +8850,9 @@ window.__MVConcepts = {
           "id": "turan-theorem",
           "title": "Turán's theorem and the Turán graph",
           "anchor": "turan",
-          "prereqs": [],
+          "prereqs": [
+            "sets-functions"
+          ],
           "blurb": "$\\mathrm{ex}(n, K_{r+1}) = (1 - 1/r)\\,n^2/2 - O(1)$, with the unique extremal graph the balanced complete $r$-partite Turán graph $T(n, r)$. Proof by Zykov symmetrization; the limiting Turán density $\\pi(K_{r+1}) = 1 - 1/r$.",
           "tags": [
             "classification"
@@ -7091,7 +8893,9 @@ window.__MVConcepts = {
           "id": "sperner-lym",
           "title": "Sperner's theorem and the LYM inequality",
           "anchor": "sperner",
-          "prereqs": [],
+          "prereqs": [
+            "sets-functions"
+          ],
           "blurb": "An antichain in the Boolean lattice $2^{[n]}$ has size at most $\\binom{n}{\\lfloor n/2\\rfloor}$, attained by the middle layer. Proof via the LYM inequality $\\sum_{F\\in\\mathcal{F}} 1/\\binom{n}{|F|}\\le 1$, by counting maximal chains."
         },
         {
@@ -7114,7 +8918,9 @@ window.__MVConcepts = {
           "id": "abstract-simplicial-complex",
           "title": "Abstract simplicial complexes",
           "anchor": "complex",
-          "prereqs": [],
+          "prereqs": [
+            "sets-functions"
+          ],
           "blurb": "A finite set system $K \\subseteq 2^V$ closed under taking subsets, with every singleton in $K$. Faces are members of $K$; dimension is one less than the largest face size; facets are inclusion-maximal faces. The face lattice $(K,\\subseteq)$ is a graded down-closed sub-poset of $2^V$.",
           "tags": [
             "foundation"
@@ -7171,6 +8977,71 @@ window.__MVConcepts = {
             "chain-complexes"
           ],
           "blurb": "Filter a point cloud by Vietoris–Rips complexes $\\mathrm{VR}_r(X) = \\{\\sigma : \\mathrm{diam}(\\sigma)\\le 2r\\}$. The induced sequence of homologies decomposes uniquely into bars $[b_i, d_i)$ — the barcode. Cohen-Steiner–Edelsbrunner–Harer stability bounds bottleneck distance by Hausdorff distance, making barcodes a robust statistic."
+        }
+      ]
+    },
+    "enumerative-combinatorics": {
+      "topic": "enumerative-combinatorics",
+      "title": "Enumerative combinatorics",
+      "page": "enumerative-combinatorics.html",
+      "concepts": [
+        {
+          "id": "ec-binomial-and-stars-bars",
+          "title": "Binomial coefficients, multinomials, and stars-and-bars",
+          "anchor": "basics",
+          "prereqs": [
+            "sets-functions"
+          ],
+          "blurb": "$\\binom{n}{k}$ counts $k$-subsets of $[n]$; the multinomial $\\binom{n}{k_1,\\ldots,k_r}$ counts ordered partitions into bins of sizes $k_i$. Stars-and-bars: weak compositions of $n$ into $r$ parts are counted by $\\binom{n+r-1}{r-1}$, the canonical bijection between non-negative integer solutions and binary strings."
+        },
+        {
+          "id": "ec-inclusion-exclusion",
+          "title": "Inclusion–exclusion and derangements",
+          "anchor": "inclusion-exclusion",
+          "prereqs": [
+            "ec-binomial-and-stars-bars"
+          ],
+          "blurb": "$|A_1\\cup\\cdots\\cup A_n| = \\sum |A_i| - \\sum |A_i\\cap A_j| + \\cdots + (-1)^{n+1}|A_1\\cap\\cdots\\cap A_n|$. Applied to permutations avoiding fixed points gives the derangement count $D_n = n!\\sum_{k=0}^n (-1)^k/k!$, with $D_n/n! \\to 1/e$."
+        },
+        {
+          "id": "ec-recurrences-and-gen-fun",
+          "title": "Recurrences and generating functions",
+          "anchor": "generating-functions",
+          "prereqs": [
+            "ec-binomial-and-stars-bars"
+          ],
+          "blurb": "Encode a sequence $a_n$ as either an ordinary generating function $A(x)=\\sum a_n x^n$ or an exponential one $\\hat A(x)=\\sum a_n x^n/n!$. Recurrences become functional equations; the Catalan recurrence $C_{n+1}=\\sum C_k C_{n-k}$ becomes $C(x)=1+xC(x)^2$, solved to $C(x)=(1-\\sqrt{1-4x})/(2x)$ giving $C_n=\\frac{1}{n+1}\\binom{2n}{n}$."
+        },
+        {
+          "id": "ec-permutation-statistics",
+          "title": "Permutation statistics",
+          "anchor": "permutation-stats",
+          "prereqs": [
+            "ec-binomial-and-stars-bars"
+          ],
+          "blurb": "Inversions, cycles, and descents partition $S_n$ into refined classes. Eulerian numbers $\\langle n \\atop k\\rangle$ count permutations with $k$ descents; (signless) Stirling numbers of the first kind $c(n,k)$ count those with $k$ cycles. Cycle index polynomials package $S_n$'s cycle structure for Pólya enumeration of colourings under group actions.",
+          "tags": [
+            "group-action"
+          ]
+        },
+        {
+          "id": "ec-partition-theory",
+          "title": "Integer partitions and Euler's product",
+          "anchor": "partitions",
+          "prereqs": [
+            "ec-recurrences-and-gen-fun"
+          ],
+          "blurb": "$p(n)$ counts ways to write $n=\\lambda_1+\\cdots+\\lambda_r$ with $\\lambda_1\\ge\\cdots\\ge\\lambda_r\\ge 1$. Euler's product $\\sum p(n) q^n = \\prod_{k\\ge 1}(1-q^k)^{-1}$ is the generating-function identity that bootstraps everything. Rogers–Ramanujan: partitions with parts differing by at least $2$ are equinumerous with partitions into parts $\\equiv \\pm 1\\pmod 5$."
+        },
+        {
+          "id": "ec-bijective-proofs",
+          "title": "Bijective proofs",
+          "anchor": "bijections",
+          "prereqs": [
+            "ec-partition-theory",
+            "ec-permutation-statistics"
+          ],
+          "blurb": "When two sequences agree, find a bijection. Catalan-counted families — Dyck paths, triangulations of an $(n{+}2)$-gon, binary trees, non-crossing partitions — all carry explicit bijections. Stirling's formula $n!\\sim \\sqrt{2\\pi n}(n/e)^n$ has a bijective shadow via lattice-path arguments. The RSK correspondence biject ions matrices with pairs of standard Young tableaux of the same shape, the bedrock of symmetric-function combinatorics."
         }
       ]
     },
@@ -7460,14 +9331,14 @@ window.__MVConcepts = {
     "capstones": [
       {
         "id": "capstone-solvability-by-radicals",
-        "section": "Algebra",
+        "section": "Algebra & homological",
         "title": "Galois solvability of polynomials",
         "goal": "solvability-by-radicals",
         "blurb": "A polynomial is solvable by radicals iff its Galois group is a solvable group — why the quintic resists closed-form roots and the cubic/quartic don't."
       },
       {
         "id": "capstone-yoneda",
-        "section": "Algebra",
+        "section": "Algebra & homological",
         "title": "Yoneda, limits, and adjunctions",
         "goal": "yoneda-limits-adjunctions",
         "blurb": "An object is what it does to every other object. Yoneda + limits + adjunctions is the categorical core that every downstream subject silently uses."
@@ -7614,7 +9485,7 @@ window.__MVConcepts = {
       },
       {
         "id": "capstone-infinity-topoi",
-        "section": "Algebra",
+        "section": "Higher categories & toposes",
         "title": "$\\infty$-topoi (Lurie's higher topos theory)",
         "goal": "infty-topos-definition",
         "blurb": "An $\\infty$-topos is an accessible left-exact localization of a presheaf $\\infty$-topos $\\mathcal{P}(C) = \\mathrm{Fun}(C^{\\mathrm{op}}, \\mathcal{S})$. The $\\infty$-Giraud axioms characterize them intrinsically; their internal logic is homotopy type theory; their geometric examples (étale, pro-étale) are the home of derived algebraic geometry."
@@ -7625,16 +9496,23 @@ window.__MVConcepts = {
     "_description": "Canonical topic -> subject mapping. Every registered topic in concepts/index.json must appear in exactly one section's topics array. Section ids match the filenames under sections/<id>.html. Each section also carries a `color` letter from the six accent palette (b=blue, y=yellow, p=pink, v=violet, g=green, c=cyan) — single source of truth used by index.html section headers + section-jump pills, tags.html detail-panel section-group accents, and any future viewer. Loaded via scripts/lib/content-model.mjs; exposed as model.sectionOf(topicId).",
     "sections": [
       {
-        "id": "foundations",
-        "title": "Foundations",
+        "id": "logic-and-foundations",
+        "title": "Logic & Foundations",
         "topics": [
-          "naive-set-theory"
+          "naive-set-theory",
+          "first-order-logic-and-completeness",
+          "zfc-and-ordinals",
+          "model-theory-basics",
+          "computability-and-decidability",
+          "complexity-theory",
+          "type-theory-and-hott",
+          "forcing-and-independence"
         ],
         "color": "b"
       },
       {
         "id": "algebra",
-        "title": "Algebra",
+        "title": "Algebra & homological",
         "topics": [
           "algebra",
           "category-theory",
@@ -7643,6 +9521,15 @@ window.__MVConcepts = {
           "homological",
           "derived-categories",
           "group-cohomology",
+          "lie-algebras",
+          "galois-cohomology-and-brauer"
+        ],
+        "color": "y"
+      },
+      {
+        "id": "higher-categories-and-toposes",
+        "title": "Higher categories & toposes",
+        "topics": [
           "elementary-topos-theory",
           "heyting-algebras-toposes",
           "grothendieck-topologies-sites",
@@ -7651,7 +9538,7 @@ window.__MVConcepts = {
           "cocartesian-fibrations",
           "infinity-topoi"
         ],
-        "color": "y"
+        "color": "c"
       },
       {
         "id": "analysis",
@@ -7663,11 +9550,26 @@ window.__MVConcepts = {
           "functional-analysis",
           "operator-algebras",
           "dynamical-systems",
-          "probability-theory",
           "harmonic-analysis-fourier",
-          "sobolev-spaces-distributions"
+          "sobolev-spaces-distributions",
+          "partial-differential-equations",
+          "harmonic-functions",
+          "spectral-theory"
         ],
         "color": "p"
+      },
+      {
+        "id": "probability-and-statistics",
+        "title": "Probability & statistics",
+        "topics": [
+          "probability-theory",
+          "stochastic-processes-and-martingales",
+          "stochastic-calculus",
+          "random-walks-and-mixing",
+          "information-theory",
+          "large-deviations"
+        ],
+        "color": "g"
       },
       {
         "id": "geometry-and-topology",
@@ -7680,7 +9582,9 @@ window.__MVConcepts = {
           "differential-geometry",
           "riemannian-geometry",
           "lie-groups",
-          "riemann-surfaces"
+          "riemann-surfaces",
+          "characteristic-classes",
+          "morse-theory"
         ],
         "color": "v"
       },
@@ -7690,16 +9594,16 @@ window.__MVConcepts = {
         "topics": [
           "galois",
           "quadratic-reciprocity",
-          "sums-of-squares",
-          "power-sums-bernoulli",
-          "waring",
+          "additive-number-theory",
           "quadratic-forms-genus-theory",
           "algebraic-number-theory",
           "p-adic-numbers",
           "adeles-and-ideles",
           "frobenius-and-reciprocity",
           "class-field-theory",
-          "heights-arithmetic-geometry"
+          "galois-representations",
+          "heights-arithmetic-geometry",
+          "analytic-number-theory"
         ],
         "color": "y"
       },
@@ -7716,12 +9620,12 @@ window.__MVConcepts = {
           "analytic-continuation",
           "zeta-values",
           "L-functions",
-          "galois-representations",
           "automorphic-forms-adelic",
           "moonshine",
           "sato-tate",
           "bsd",
-          "modularity-and-flt"
+          "modularity-and-flt",
+          "modular-curves"
         ],
         "color": "c"
       },
@@ -7737,17 +9641,17 @@ window.__MVConcepts = {
           "functor-of-points",
           "elliptic-curves",
           "singular-cubics-reduction",
-          "moduli-spaces",
-          "sheaf-cohomology",
-          "stacks",
-          "etale-cohomology",
-          "algebraic-spaces",
-          "intersection-theory-chow",
-          "etale-fundamental-group",
           "algebraic-curves-higher-genus",
+          "sheaf-cohomology",
+          "algebraic-de-rham-cohomology",
+          "moduli-spaces",
+          "algebraic-spaces",
+          "stacks",
+          "intersection-theory-chow",
           "group-schemes",
+          "etale-fundamental-group",
           "deformation-theory",
-          "algebraic-de-rham-cohomology"
+          "etale-cohomology"
         ],
         "color": "g"
       },
@@ -7759,9 +9663,10 @@ window.__MVConcepts = {
           "matroid-theory",
           "probabilistic-method",
           "extremal-combinatorics",
-          "simplicial-complexes-combinatorial"
+          "simplicial-complexes-combinatorial",
+          "enumerative-combinatorics"
         ],
-        "color": "g"
+        "color": "v"
       }
     ]
   },
@@ -7881,14 +9786,12 @@ window.__MVConcepts = {
     "galois": "standard",
     "quadratic-reciprocity": "standard",
     "quadratic-forms-genus-theory": "standard",
-    "sums-of-squares": "standard",
-    "power-sums-bernoulli": "standard",
-    "waring": "standard",
     "algebraic-number-theory": "standard",
     "p-adic-numbers": "standard",
     "adeles-and-ideles": "standard",
     "frobenius-and-reciprocity": "standard",
     "class-field-theory": "advanced",
+    "galois-representations": "advanced",
     "heights-arithmetic-geometry": "standard",
     "upper-half-plane-hyperbolic": "standard",
     "modular-forms": "standard",
@@ -7899,7 +9802,6 @@ window.__MVConcepts = {
     "analytic-continuation": "standard",
     "zeta-values": "standard",
     "L-functions": "standard",
-    "galois-representations": "capstone",
     "automorphic-forms-adelic": "advanced",
     "moonshine": "advanced",
     "projective-plane": "prereq",
@@ -7928,7 +9830,30 @@ window.__MVConcepts = {
     "sato-tate": "capstone",
     "bsd": "capstone",
     "modularity-and-flt": "capstone",
-    "etale-cohomology": "capstone"
+    "etale-cohomology": "capstone",
+    "first-order-logic-and-completeness": "standard",
+    "zfc-and-ordinals": "standard",
+    "model-theory-basics": "standard",
+    "computability-and-decidability": "standard",
+    "complexity-theory": "standard",
+    "type-theory-and-hott": "advanced",
+    "forcing-and-independence": "advanced",
+    "lie-algebras": "standard",
+    "galois-cohomology-and-brauer": "advanced",
+    "partial-differential-equations": "standard",
+    "harmonic-functions": "standard",
+    "spectral-theory": "advanced",
+    "stochastic-processes-and-martingales": "standard",
+    "stochastic-calculus": "advanced",
+    "random-walks-and-mixing": "standard",
+    "information-theory": "standard",
+    "large-deviations": "advanced",
+    "characteristic-classes": "advanced",
+    "morse-theory": "standard",
+    "analytic-number-theory": "standard",
+    "modular-curves": "advanced",
+    "enumerative-combinatorics": "standard",
+    "additive-number-theory": "standard"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -7948,61 +9873,75 @@ window.__MVConcepts = {
     "cocartesian-fibrations"
   ],
   "sectionStats": {
-    "Foundations": {
-      "concepts": 5,
-      "intra": 5,
-      "crossOut": 0,
-      "crossIn": 5,
-      "density": 0
+    "Logic & Foundations": {
+      "concepts": 49,
+      "intra": 56,
+      "crossOut": 4,
+      "crossIn": 11,
+      "density": 0.08163265306122448
     },
-    "Algebra": {
-      "concepts": 121,
-      "intra": 188,
-      "crossOut": 15,
-      "crossIn": 36,
-      "density": 0.12396694214876033
+    "Algebra & homological": {
+      "concepts": 88,
+      "intra": 126,
+      "crossOut": 13,
+      "crossIn": 61,
+      "density": 0.14772727272727273
+    },
+    "Higher categories & toposes": {
+      "concepts": 45,
+      "intra": 68,
+      "crossOut": 23,
+      "crossIn": 2,
+      "density": 0.5111111111111111
     },
     "Analysis": {
-      "concepts": 116,
-      "intra": 173,
-      "crossOut": 15,
-      "crossIn": 26,
-      "density": 0.12931034482758622
+      "concepts": 122,
+      "intra": 200,
+      "crossOut": 16,
+      "crossIn": 33,
+      "density": 0.13114754098360656
+    },
+    "Probability & statistics": {
+      "concepts": 41,
+      "intra": 65,
+      "crossOut": 11,
+      "crossIn": 8,
+      "density": 0.2682926829268293
     },
     "Geometry & topology": {
-      "concepts": 49,
-      "intra": 58,
+      "concepts": 61,
+      "intra": 81,
       "crossOut": 6,
-      "crossIn": 45,
-      "density": 0.12244897959183673
+      "crossIn": 52,
+      "density": 0.09836065573770492
     },
     "Number theory": {
-      "concepts": 64,
-      "intra": 80,
-      "crossOut": 17,
-      "crossIn": 19,
-      "density": 0.265625
+      "concepts": 78,
+      "intra": 101,
+      "crossOut": 30,
+      "crossIn": 24,
+      "density": 0.38461538461538464
     },
     "Modular forms & L-functions": {
-      "concepts": 78,
+      "concepts": 79,
       "intra": 104,
-      "crossOut": 43,
-      "crossIn": 5,
-      "density": 0.5512820512820513
+      "crossOut": 48,
+      "crossIn": 10,
+      "density": 0.6075949367088608
     },
     "Algebraic geometry": {
       "concepts": 109,
-      "intra": 137,
-      "crossOut": 42,
+      "intra": 138,
+      "crossOut": 48,
       "crossIn": 14,
-      "density": 0.3853211009174312
+      "density": 0.44036697247706424
     },
     "Combinatorics & graph theory": {
-      "concepts": 33,
-      "intra": 28,
-      "crossOut": 12,
-      "crossIn": 0,
-      "density": 0.36363636363636365
+      "concepts": 39,
+      "intra": 34,
+      "crossOut": 17,
+      "crossIn": 1,
+      "density": 0.4358974358974359
     }
   }
 };

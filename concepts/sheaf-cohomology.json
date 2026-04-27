@@ -8,10 +8,14 @@
       "title": "Čech cocycles and cohomology",
       "anchor": "cech",
       "prereqs": [
-        "presheaf-sheaf-axioms"
+        "presheaf-sheaf-axioms",
+        "open-sets"
       ],
       "blurb": "Cover-based cocycles detect obstruction classes for global patching.",
-      "tags": ["cohomology", "descent"]
+      "tags": [
+        "cohomology",
+        "descent"
+      ]
     },
     {
       "id": "leray-acyclic-covers",
@@ -21,7 +25,9 @@
         "cech-cohomology"
       ],
       "blurb": "When every finite intersection is $\\mathcal{F}$-acyclic, Čech cohomology on the cover equals the derived-functor cohomology. Affine covers of schemes are Leray for quasi-coherent sheaves by Serre's affine vanishing theorem.",
-      "tags": ["cohomology"]
+      "tags": [
+        "cohomology"
+      ]
     },
     {
       "id": "long-exact-sequence-cohomology",
@@ -32,7 +38,11 @@
         "long-exact-sequence"
       ],
       "blurb": "A short exact sequence of sheaves induces a long exact sequence of cohomology groups, with a connecting homomorphism $\\delta$ that measures obstructions to lifting sections.",
-      "tags": ["exact-sequence", "cohomology", "lifting"]
+      "tags": [
+        "exact-sequence",
+        "cohomology",
+        "lifting"
+      ]
     },
     {
       "id": "derived-functor-cohomology",
@@ -43,7 +53,10 @@
         "derived-functors"
       ],
       "blurb": "Right derived functors of global sections define H^i(X,F) abstractly.",
-      "tags": ["cohomology", "functoriality"]
+      "tags": [
+        "cohomology",
+        "functoriality"
+      ]
     },
     {
       "id": "applications-picard-serre",
@@ -53,7 +66,10 @@
         "derived-functor-cohomology"
       ],
       "blurb": "Line bundles, extensions, and duality theorems are naturally cohomological.",
-      "tags": ["cohomology", "duality"]
+      "tags": [
+        "cohomology",
+        "duality"
+      ]
     }
   ]
 }

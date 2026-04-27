@@ -9,16 +9,16 @@
           "q": "In the functor-of-points picture, a scheme $X$ is encoded by which assignment?",
           "choices": [
             "a single set $X(k)$ of $k$-rational points for a fixed field $k$",
-            "the functor $R \\mapsto X(R) := \\mathrm{Hom}_{\\mathsf{Sch}}(\\mathrm{Spec}\\,R, X)$ on $\\mathrm{CRing}$",
+            "the functor $R \\mapsto X(R) := \\Hom_{\\mathsf{Sch}}(\\Spec\\,R, X)$ on $\\mathrm{CRing}$",
             "the underlying topological space $|X|$ alone",
             "the global sections $\\Gamma(X,\\mathcal{O}_X)$"
           ],
           "answer": 1,
-          "explain": "Yoneda says $X$ is determined by $h_X$. Restricting along $\\mathrm{Spec}\\dashv\\Gamma$ gives the functor $R\\mapsto X(R)=\\mathrm{Hom}(\\mathrm{Spec}\\,R,X)$ on commutative rings, which captures $X$ up to unique isomorphism."
+          "explain": "Yoneda says $X$ is determined by $h_X$. Restricting along $\\Spec\\dashv\\Gamma$ gives the functor $R\\mapsto X(R)=\\Hom(\\Spec\\,R,X)$ on commutative rings, which captures $X$ up to unique isomorphism."
         },
         {
           "type": "mcq",
-          "q": "For $X = \\mathrm{Spec}\\,\\mathbb{Z}[x,y]/(y^2-x^3-1)$, what is $X(R)$?",
+          "q": "For $X = \\Spec\\,\\mathbb{Z}[x,y]/(y^2-x^3-1)$, what is $X(R)$?",
           "choices": [
             "$\\{(a,b)\\in R^2 : b^2 = a^3+1\\}$",
             "the set of maximal ideals of $R$",
@@ -26,13 +26,13 @@
             "always a group of order $|R|$"
           ],
           "answer": 0,
-          "explain": "For an affine $X=\\mathrm{Spec}\\,A$, $X(R)=\\mathrm{Hom}_{\\mathrm{CRing}}(A,R)$. A ring hom out of $\\mathbb{Z}[x,y]/(y^2-x^3-1)$ is exactly a choice of $(a,b)\\in R^2$ satisfying the relation."
+          "explain": "For an affine $X=\\Spec\\,A$, $X(R)=\\Hom_{\\mathrm{CRing}}(A,R)$. A ring hom out of $\\mathbb{Z}[x,y]/(y^2-x^3-1)$ is exactly a choice of $(a,b)\\in R^2$ satisfying the relation."
         },
         {
           "type": "numeric",
-          "q": "For $X = \\mathrm{Spec}\\,\\mathbb{Z}[x,y]/(y^2-x^3-1)$, count $|X(\\mathbb{F}_2)|$ by brute force over $a,b\\in\\{0,1\\}$.",
+          "q": "For $X = \\Spec\\,\\mathbb{Z}[x,y]/(y^2-x^3-1)$, count $|X(\\mathbb{F}_2)|$ by brute force over $a,b\\in\\{0,1\\}$.",
           "answer": 2,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "Over $\\mathbb{F}_2$, check all four pairs: $(0,0): 0\\ne 1$; $(0,1): 1=1$ ✓; $(1,0): 0 = 1^3+1 = 2 \\equiv 0$ ✓; $(1,1): 1 \\ne 0$. So $|X(\\mathbb{F}_2)|=2$."
         }
       ],
@@ -52,9 +52,9 @@
         },
         {
           "type": "numeric",
-          "q": "Count $|X(\\mathbb{F}_3)|$ for $X = \\mathrm{Spec}\\,\\mathbb{Z}[x,y]/(y^2 - x^3 - 1)$ by checking all pairs $(a,b) \\in \\mathbb{F}_3^2$.",
+          "q": "Count $|X(\\mathbb{F}_3)|$ for $X = \\Spec\\,\\mathbb{Z}[x,y]/(y^2 - x^3 - 1)$ by checking all pairs $(a,b) \\in \\mathbb{F}_3^2$.",
           "answer": 3,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Enumerate $(a, b)$ pairs with $b^2 = a^3 + 1$ over $\\mathbb{F}_3$.",
           "explain": "In $\\mathbb{F}_3$, cubes: $0^3=0,1^3=1,2^3=2$. Check $b^2 = a^3+1$: $(0,1): 1=1$✓; $(0,2): 4\\equiv1=1$✓; $(1,0): 0\\ne 2$; $(1,1): 1\\ne 2$; $(1,2): 1\\ne 2$; $(2,0): 0=0+1=0?$ No; $(2,1): 1=2+1=3\\equiv0$? No; $(2,2): 4\\equiv1 = 2+1=3\\equiv0$? No. Wait — recheck $(2,b)$: $a=2, a^3+1=2+1=3\\equiv 0$, so need $b^2=0$, i.e. $b=0$: $(2,0)$ works ✓. Total: $(0,1),(0,2),(2,0)$ — $|X(\\mathbb{F}_3)|=3$."
         },
@@ -63,13 +63,13 @@
           "q": "The correct order of reasoning that proves $h_X \\cong h_Y \\Rightarrow X \\cong Y$ (Yoneda uniqueness) is:",
           "choices": [
             "Choose a universal element in $h_X(Y)$, transport it to $h_Y(Y)$ via the natural isomorphism, then show the resulting maps $X\\to Y$ and $Y\\to X$ are inverses using naturality",
-            "Apply the Yoneda lemma with $F = h_Y$: $\\mathrm{Nat}(h_X, h_Y) \\cong h_Y(X) = \\mathrm{Hom}(X,Y)$, and symmetrically $\\mathrm{Nat}(h_Y,h_X)\\cong\\mathrm{Hom}(Y,X)$; composites of the two natural isomorphisms are identity natural transformations, hence the corresponding scheme maps compose to identities",
+            "Apply the Yoneda lemma with $F = h_Y$: $\\mathrm{Nat}(h_X, h_Y) \\cong h_Y(X) = \\Hom(X,Y)$, and symmetrically $\\mathrm{Nat}(h_Y,h_X)\\cong\\Hom(Y,X)$; composites of the two natural isomorphisms are identity natural transformations, hence the corresponding scheme maps compose to identities",
             "Use that $h_X$ and $h_Y$ agree on all fields, so they agree on all rings by Noetherian induction",
-            "Observe that $h_X(\\mathbb{Z}) = \\mathrm{Hom}(X,\\mathbb{Z})$ determines $X$ as a topological space"
+            "Observe that $h_X(\\mathbb{Z}) = \\Hom(X,\\mathbb{Z})$ determines $X$ as a topological space"
           ],
           "answer": 1,
           "hint": "Yoneda gives a map by evaluating at $h_X(X) = \\mathrm{id}_X$.",
-          "explain": "Yoneda gives $\\mathrm{Nat}(h_X,h_Y)\\cong\\mathrm{Hom}(X,Y)$ and vice versa. A natural isomorphism $\\eta:h_X\\xrightarrow{\\sim}h_Y$ corresponds to $f:X\\to Y$ and $\\eta^{-1}$ to $g:Y\\to X$; since $\\eta^{-1}\\circ\\eta=\\mathrm{id}_{h_X}$ and Yoneda is an isomorphism of sets, $g\\circ f=\\mathrm{id}_X$ and $f\\circ g=\\mathrm{id}_Y$."
+          "explain": "Yoneda gives $\\mathrm{Nat}(h_X,h_Y)\\cong\\Hom(X,Y)$ and vice versa. A natural isomorphism $\\eta:h_X\\xrightarrow{\\sim}h_Y$ corresponds to $f:X\\to Y$ and $\\eta^{-1}$ to $g:Y\\to X$; since $\\eta^{-1}\\circ\\eta=\\mathrm{id}_{h_X}$ and Yoneda is an isomorphism of sets, $g\\circ f=\\mathrm{id}_X$ and $f\\circ g=\\mathrm{id}_Y$."
         }
       ]
     },
@@ -78,15 +78,15 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "A functor $F:\\mathrm{CRing}\\to\\mathsf{Set}$ is representable by an affine scheme $\\mathrm{Spec}\\,A$ iff:",
+          "q": "A functor $F:\\mathrm{CRing}\\to\\mathsf{Set}$ is representable by an affine scheme $\\Spec\\,A$ iff:",
           "choices": [
             "$F(R)$ is finite for every $R$",
-            "there is a natural isomorphism $F(R)\\cong\\mathrm{Hom}_{\\mathrm{CRing}}(A,R)$",
+            "there is a natural isomorphism $F(R)\\cong\\Hom_{\\mathrm{CRing}}(A,R)$",
             "$F$ preserves all colimits",
             "$F$ sends fields to groups"
           ],
           "answer": 1,
-          "explain": "Representability by $\\mathrm{Spec}\\,A$ means exactly that $F\\cong h_{\\mathrm{Spec}\\,A}$, i.e. $F(R)\\cong\\mathrm{Hom}(A,R)$ naturally in $R$. The universal element is the image of $\\mathrm{id}_A$."
+          "explain": "Representability by $\\Spec\\,A$ means exactly that $F\\cong h_{\\Spec\\,A}$, i.e. $F(R)\\cong\\Hom(A,R)$ naturally in $R$. The universal element is the image of $\\mathrm{id}_A$."
         },
         {
           "type": "mcq",
@@ -98,13 +98,13 @@
             "$\\mathbb{Z}[[t]]$"
           ],
           "answer": 2,
-          "explain": "A ring hom $\\mathbb{Z}[t,t^{-1}]\\to R$ is exactly a choice of unit of $R$ (the image of $t$ must be invertible). So $\\mathbb{G}_m=\\mathrm{Spec}\\,\\mathbb{Z}[t,t^{-1}]$."
+          "explain": "A ring hom $\\mathbb{Z}[t,t^{-1}]\\to R$ is exactly a choice of unit of $R$ (the image of $t$ must be invertible). So $\\mathbb{G}_m=\\Spec\\,\\mathbb{Z}[t,t^{-1}]$."
         },
         {
           "type": "numeric",
-          "q": "The functor $\\mathrm{GL}_n$ is represented by $\\mathrm{Spec}\\,\\mathbb{Z}[x_{ij}, t]/(t\\det(X)-1)$. How many generators (counting $t$) does this ring have for $n=2$?",
+          "q": "The functor $\\mathrm{GL}_n$ is represented by $\\Spec\\,\\mathbb{Z}[x_{ij}, t]/(t\\det(X)-1)$. How many generators (counting $t$) does this ring have for $n=2$?",
           "answer": 5,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "There are $n^2$ matrix entries $x_{ij}$ and one extra variable $t$ forcing $\\det$ invertible. For $n=2$: $4+1=5$ generators."
         }
       ],
@@ -120,14 +120,14 @@
           ],
           "answer": 0,
           "hint": "Monic quadratics have two free coefficients: $A = \\mathbb{Z}[a_0, a_1]$.",
-          "explain": "A monic quadratic over $R$ is $x^2 + ax + b$ with $a,b \\in R$, determined by the pair $(a,b)$ freely. A ring map $\\mathbb{Z}[a,b] \\to R$ is exactly such a pair, so $F \\cong h_{\\mathrm{Spec}\\,\\mathbb{Z}[a,b]} = \\mathbb{A}^2$. No relation is needed since there is no constraint on $(a,b)$."
+          "explain": "A monic quadratic over $R$ is $x^2 + ax + b$ with $a,b \\in R$, determined by the pair $(a,b)$ freely. A ring map $\\mathbb{Z}[a,b] \\to R$ is exactly such a pair, so $F \\cong h_{\\Spec\\,\\mathbb{Z}[a,b]} = \\mathbb{A}^2$. No relation is needed since there is no constraint on $(a,b)$."
         },
         {
           "type": "mcq",
           "q": "Which of the following functors $\\mathrm{CRing} \\to \\mathsf{Set}$ is provably NOT representable by any scheme?",
           "choices": [
             "$R \\mapsto R$ (the forgetful functor)",
-            "$R \\mapsto \\mathrm{Hom}_{\\mathrm{CRing}}(\\mathbb{Z}[x], R)$",
+            "$R \\mapsto \\Hom_{\\mathrm{CRing}}(\\mathbb{Z}[x], R)$",
             "$R \\mapsto \\{\\text{idempotents of }R\\}/\\sim$, where $e\\sim e'$ iff $Re\\cong Re'$ as $R$-modules",
             "$R \\mapsto R^\\times$"
           ],
@@ -137,9 +137,9 @@
         },
         {
           "type": "numeric",
-          "q": "The additive group scheme $\\mathbb{G}_a$ represents $R \\mapsto (R,+)$ and is $\\mathrm{Spec}\\,\\mathbb{Z}[t]$. Compute $|\\mathbb{G}_a(\\mathbb{F}_p)|$ for $p = 7$.",
+          "q": "The additive group scheme $\\mathbb{G}_a$ represents $R \\mapsto (R,+)$ and is $\\Spec\\,\\mathbb{Z}[t]$. Compute $|\\mathbb{G}_a(\\mathbb{F}_p)|$ for $p = 7$.",
           "answer": 7,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Count $|\\mathbb{F}_4, +| = 4$.",
           "explain": "$\\mathbb{G}_a(\\mathbb{F}_p) = (\\mathbb{F}_p, +)$, which has $p$ elements. For $p=7$: $|\\mathbb{G}_a(\\mathbb{F}_7)| = 7$."
         }
@@ -176,7 +176,7 @@
           "type": "numeric",
           "q": "For an elliptic curve $E$ over a field of characteristic $0$ with generic $j$-invariant, what is $|\\mathrm{Aut}(E)|$?",
           "answer": 2,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "In characteristic $0$ a generic elliptic curve has automorphism group $\\{\\pm1\\}$, of order $2$ (only $j=0$ and $j=1728$ give larger automorphism groups)."
         }
       ],
@@ -185,20 +185,20 @@
           "type": "mcq",
           "q": "Let $S = \\{p_0, p_1\\}$ be a two-point base scheme and $E/k$ an elliptic curve. The product family $A = E \\times S$ and the twisted family $B$ (glued via $[-1]$ over one point) both have $\\mathcal{M}_{1,1}(\\{p_i\\}) = [E]$ for each $i$. Which statement correctly explains why this contradicts representability?",
           "choices": [
-            "If $\\mathcal{M}_{1,1} \\cong h_M$, then any $S$-point of $M$ is a morphism $S \\to M$ uniquely determined by the functor value on $S$; but $A$ and $B$ are non-isomorphic families giving the same $S$-point, contradicting the bijection $\\mathcal{M}_{1,1}(S) \\cong \\mathrm{Hom}(S,M)$",
+            "If $\\mathcal{M}_{1,1} \\cong h_M$, then any $S$-point of $M$ is a morphism $S \\to M$ uniquely determined by the functor value on $S$; but $A$ and $B$ are non-isomorphic families giving the same $S$-point, contradicting the bijection $\\mathcal{M}_{1,1}(S) \\cong \\Hom(S,M)$",
             "The two families disagree at the level of $j$-invariants, so they must come from different points of $M$",
             "A fine moduli space $M$ always has $|M(k)| = |\\mathcal{M}_{1,1}(k)|$, which fails for $k = \\mathbb{C}$",
             "Stacks do not exist over non-algebraically-closed fields, so the argument is vacuous"
           ],
           "answer": 0,
           "hint": "Twisting by $[-1] \\in \\mathrm{Aut}(E)$ gives a torsor that is not trivial globally.",
-          "explain": "A fine moduli space $M$ with $\\mathcal{M}_{1,1}\\cong h_M$ would give a bijection $\\mathcal{M}_{1,1}(S)\\cong\\mathrm{Hom}(S,M)$. Both $A$ and $B$ define the same element of $\\mathcal{M}_{1,1}(S)$ (same isomorphism class at each point), hence the same map $S\\to M$, hence $A\\cong B$ by the universal property — but $A \\not\\cong B$ as families. Contradiction."
+          "explain": "A fine moduli space $M$ with $\\mathcal{M}_{1,1}\\cong h_M$ would give a bijection $\\mathcal{M}_{1,1}(S)\\cong\\Hom(S,M)$. Both $A$ and $B$ define the same element of $\\mathcal{M}_{1,1}(S)$ (same isomorphism class at each point), hence the same map $S\\to M$, hence $A\\cong B$ by the universal property — but $A \\not\\cong B$ as families. Contradiction."
         },
         {
           "type": "mcq",
           "q": "Elliptic curves with full level-$N$ structure (a choice of basis for $E[N]$) are representable by the modular curve $Y(N)$ for $N\\ge 3$. What is the key reason adding level structure restores representability?",
           "choices": [
-            "Level structure makes the curves proper over $\\mathrm{Spec}\\,\\mathbb{Z}$",
+            "Level structure makes the curves proper over $\\Spec\\,\\mathbb{Z}$",
             "Level structure forces $\\mathrm{Aut}(E,\\alpha_N) = \\{\\mathrm{id}\\}$ (over a base where $N$ is invertible), eliminating the automorphism obstruction",
             "The modular curve $Y(N)$ is affine, unlike $\\mathcal{M}_{1,1}$",
             "Level structure turns the problem into a linear algebra problem, hence always representable"
@@ -211,7 +211,7 @@
           "type": "numeric",
           "q": "An elliptic curve with $j = 1728$ over $\\mathbb{Q}(i)$ has $\\mathrm{Aut}(E) \\cong \\mathbb{Z}/4\\mathbb{Z}$. What is $|\\mathrm{Aut}(E)|$?",
           "answer": 4,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Automorphisms of $E$ at $j = 1728$ form $\\mathbb{Z}/4$; base change to $\\mathbb{Q}(i)$ sees them all.",
           "explain": "The curve $y^2 = x^3 - x$ (j=1728) has the extra automorphism $(x,y)\\mapsto(-x,iy)$ of order 4 over a field containing $i$. So $|\\mathrm{Aut}(E)| = 4$."
         }
@@ -230,15 +230,16 @@
             "neither full nor faithful"
           ],
           "answer": 2,
-          "explain": "The Yoneda lemma gives $\\mathrm{Nat}(h_X, h_Y) \\cong \\mathrm{Hom}_{\\mathsf{Sch}}(X,Y)$ naturally, so $X \\mapsto h_X$ is fully faithful: every natural transformation between representables comes from a unique scheme map."
+          "hint": "The Yoneda lemma gives $\\mathrm{Nat}(h_X, h_Y) \\cong \\Hom_{\\mathsf{Sch}}(X,Y)$ naturally, so $X \\mapsto h_X$ is fully faithful: every natural transformation between representables comes from…",
+          "explain": "The Yoneda lemma gives $\\mathrm{Nat}(h_X, h_Y) \\cong \\Hom_{\\mathsf{Sch}}(X,Y)$ naturally, so $X \\mapsto h_X$ is fully faithful: every natural transformation between representables comes from a unique scheme map."
         },
         {
           "type": "mcq",
-          "q": "Under Yoneda, the universal element of $h_X(X) = \\mathrm{Hom}(X,X)$ that witnesses representability is:",
+          "q": "Under Yoneda, the universal element of $h_X(X) = \\Hom(X,X)$ that witnesses representability is:",
           "choices": [
             "the zero map",
             "the identity $\\mathrm{id}_X$",
-            "the structure map $X \\to \\mathrm{Spec}\\,\\mathbb{Z}$",
+            "the structure map $X \\to \\Spec\\,\\mathbb{Z}$",
             "any closed immersion"
           ],
           "answer": 1,
@@ -248,8 +249,8 @@
           "type": "numeric",
           "q": "Let $F(R) = R \\times R$ as a set-valued functor on $\\mathrm{CRing}$. Which scheme represents $F$? Enter the integer $n$ such that $F \\cong h_{\\mathbb{A}^n}$.",
           "answer": 2,
-          "tol": 1e-06,
-          "explain": "$\\mathbb{A}^n(R) = \\mathrm{Hom}(\\mathbb{Z}[x_1,\\dots,x_n], R) = R^n$. To get $R \\times R = R^2$ we take $n=2$, so $F$ is represented by the affine plane $\\mathbb{A}^2$."
+          "tol": 0.000001,
+          "explain": "$\\mathbb{A}^n(R) = \\Hom(\\mathbb{Z}[x_1,\\dots,x_n], R) = R^n$. To get $R \\times R = R^2$ we take $n=2$, so $F$ is represented by the affine plane $\\mathbb{A}^2$."
         }
       ],
       "hard": [
@@ -258,13 +259,13 @@
           "q": "Suppose $\\eta: h_X \\Rightarrow h_Y$ is a natural transformation. Unraveling full faithfulness, the correct chain of steps to produce a scheme map $f: X \\to Y$ from $\\eta$ is:",
           "choices": [
             "Evaluate $\\eta$ at an arbitrary field $k$, pick any element of $h_X(k)$, and define $f$ by what $\\eta_k$ does to it",
-            "Apply the Yoneda lemma: $\\eta$ corresponds to an element $\\eta_X(\\mathrm{id}_X) \\in h_Y(X) = \\mathrm{Hom}(X,Y)$; this element is $f$; naturality of $\\eta$ recovers $\\eta_R$ for all $R$ as $h_Y(-)$ applied to $f$",
+            "Apply the Yoneda lemma: $\\eta$ corresponds to an element $\\eta_X(\\mathrm{id}_X) \\in h_Y(X) = \\Hom(X,Y)$; this element is $f$; naturality of $\\eta$ recovers $\\eta_R$ for all $R$ as $h_Y(-)$ applied to $f$",
             "Take the colimit of $\\eta_R$ over all $R$ to assemble a global map",
             "Use that $h_X$ and $h_Y$ are sheaves for the Zariski topology, then apply the gluing axiom to local components of $\\eta$"
           ],
           "answer": 1,
           "hint": "Evaluate the natural transformation at the identity element.",
-          "explain": "Full faithfulness goes: $\\mathrm{Nat}(h_X,h_Y)\\xrightarrow{\\sim}h_Y(X)=\\mathrm{Hom}(X,Y)$ by $\\eta\\mapsto\\eta_X(\\mathrm{id}_X)$. The inverse sends $f$ to the natural transformation whose $R$-component is $h_Y(-)\\circ f_* = (-\\circ f)$. Naturality is exactly this formula; no choices or colimits are needed."
+          "explain": "Full faithfulness goes: $\\mathrm{Nat}(h_X,h_Y)\\xrightarrow{\\sim}h_Y(X)=\\Hom(X,Y)$ by $\\eta\\mapsto\\eta_X(\\mathrm{id}_X)$. The inverse sends $f$ to the natural transformation whose $R$-component is $h_Y(-)\\circ f_* = (-\\circ f)$. Naturality is exactly this formula; no choices or colimits are needed."
         },
         {
           "type": "mcq",
@@ -281,9 +282,9 @@
         },
         {
           "type": "numeric",
-          "q": "Via Yoneda, $\\mathrm{Nat}(h_{\\mathbb{A}^1}, h_{\\mathbb{A}^2}) \\cong \\mathrm{Hom}_{\\mathsf{Sch}}(\\mathbb{A}^1, \\mathbb{A}^2) \\cong \\mathrm{Hom}_{\\mathrm{CRing}}(\\mathbb{Z}[x,y], \\mathbb{Z}[t])$. A ring map is determined by images $x\\mapsto f(t),\\, y\\mapsto g(t)$. How many such natural transformations correspond to linear maps $x\\mapsto t,\\, y\\mapsto t^2 - 1$? Enter $1$ if this is a valid natural transformation, $0$ otherwise.",
+          "q": "Via Yoneda, $\\mathrm{Nat}(h_{\\mathbb{A}^1}, h_{\\mathbb{A}^2}) \\cong \\Hom_{\\mathsf{Sch}}(\\mathbb{A}^1, \\mathbb{A}^2) \\cong \\Hom_{\\mathrm{CRing}}(\\mathbb{Z}[x,y], \\mathbb{Z}[t])$. A ring map is determined by images $x\\mapsto f(t),\\, y\\mapsto g(t)$. How many such natural transformations correspond to linear maps $x\\mapsto t,\\, y\\mapsto t^2 - 1$? Enter $1$ if this is a valid natural transformation, $0$ otherwise.",
           "answer": 1,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Natural transformations correspond to elements of $h_Y(\\mathbb{A}^1)$.",
           "explain": "A ring map $\\mathbb{Z}[x,y]\\to\\mathbb{Z}[t]$ is determined freely by any images of $x$ and $y$ (no relations in $\\mathbb{Z}[x,y]$). So $x\\mapsto t,\\, y\\mapsto t^2-1$ is a valid ring map, hence a valid natural transformation via Yoneda. The answer is $1$."
         }
@@ -294,15 +295,15 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "If $X \\to \\mathrm{Spec}\\,\\mathbb{Z}$ is a scheme and $S = \\mathrm{Spec}\\,k$, then for a $k$-algebra $R$ the base-changed scheme $X_k$ satisfies:",
+          "q": "If $X \\to \\Spec\\,\\mathbb{Z}$ is a scheme and $S = \\Spec\\,k$, then for a $k$-algebra $R$ the base-changed scheme $X_k$ satisfies:",
           "choices": [
             "$X_k(R) = X(R)$ as a set",
             "$X_k(R) = X(R)$ viewed only via its $k$-algebra structure on $R$",
-            "$X_k(R) = \\mathrm{Hom}_k(R, k)$",
+            "$X_k(R) = \\Hom_k(R, k)$",
             "$X_k(R)$ is always empty when $k$ has characteristic $p$"
           ],
           "answer": 1,
-          "explain": "Base change to $k$ remembers the same functor $X$ but restricted to the slice category of $k$-algebras. Equivalently $X_k(R) = X(R)$ where $R$ is regarded with its given $k$-algebra structure — pulling back along $\\mathrm{Spec}\\,R \\to \\mathrm{Spec}\\,k \\to \\mathrm{Spec}\\,\\mathbb{Z}$."
+          "explain": "Base change to $k$ remembers the same functor $X$ but restricted to the slice category of $k$-algebras. Equivalently $X_k(R) = X(R)$ where $R$ is regarded with its given $k$-algebra structure — pulling back along $\\Spec\\,R \\to \\Spec\\,k \\to \\Spec\\,\\mathbb{Z}$."
         },
         {
           "type": "mcq",
@@ -310,7 +311,7 @@
           "choices": [
             "is computed by taking pointwise fiber products of sets",
             "requires a cofibrant replacement",
-            "only works when $S = \\mathrm{Spec}\\,\\mathbb{Z}$",
+            "only works when $S = \\Spec\\,\\mathbb{Z}$",
             "agrees with the disjoint union $X(T) \\sqcup Y(T)$"
           ],
           "answer": 0,
@@ -318,16 +319,16 @@
         },
         {
           "type": "numeric",
-          "q": "Let $X = \\mathrm{Spec}\\,\\mathbb{Z}[x]/(x^2+1)$. How many elements does $X(\\mathbb{F}_5) = X \\times_{\\mathrm{Spec}\\,\\mathbb{Z}} \\mathrm{Spec}\\,\\mathbb{F}_5$ have at the level of $\\mathbb{F}_5$-points?",
+          "q": "Let $X = \\Spec\\,\\mathbb{Z}[x]/(x^2+1)$. How many elements does $X(\\mathbb{F}_5) = X \\times_{\\Spec\\,\\mathbb{Z}} \\Spec\\,\\mathbb{F}_5$ have at the level of $\\mathbb{F}_5$-points?",
           "answer": 2,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "$X(\\mathbb{F}_5) = \\{a \\in \\mathbb{F}_5 : a^2 = -1\\}$. Since $2^2 = 4 \\equiv -1 \\pmod 5$ and $3^2 = 9 \\equiv -1 \\pmod 5$, there are exactly $2$ solutions."
         }
       ],
       "hard": [
         {
           "type": "mcq",
-          "q": "Let $X = \\mathrm{Spec}\\,\\mathbb{Z}[x]/(x^2 - p)$ for a prime $p$. At the special fiber $\\mathrm{Spec}\\,\\mathbb{F}_p$, the base-changed scheme $X_{\\mathbb{F}_p}$ is $\\mathrm{Spec}\\,\\mathbb{F}_p[x]/(x^2)$. What kind of scheme is this?",
+          "q": "Let $X = \\Spec\\,\\mathbb{Z}[x]/(x^2 - p)$ for a prime $p$. At the special fiber $\\Spec\\,\\mathbb{F}_p$, the base-changed scheme $X_{\\mathbb{F}_p}$ is $\\Spec\\,\\mathbb{F}_p[x]/(x^2)$. What kind of scheme is this?",
           "choices": [
             "A reduced scheme with two $\\mathbb{F}_p$-points",
             "A non-reduced fat point (double point): a single closed point with nilpotent in the structure ring",
@@ -344,7 +345,7 @@
           "choices": [
             "$\\mathbb{A}^1_{\\mathbb{R}}$, since $R$ and $R\\otimes_\\mathbb{R}\\mathbb{C}$ have the same underlying set",
             "$\\mathbb{A}^2_{\\mathbb{R}}$, since $R\\otimes_\\mathbb{R}\\mathbb{C}\\cong R\\times R$ as an $R$-module and the functor sends $R$ to $R^2$",
-            "$\\mathrm{Spec}\\,\\mathbb{R}[x,y]/(x^2+y^2-1)$, the real circle",
+            "$\\Spec\\,\\mathbb{R}[x,y]/(x^2+y^2-1)$, the real circle",
             "$\\mathbb{A}^1_{\\mathbb{C}}$ viewed as a real scheme by restriction of scalars to $\\mathbb{R}$"
           ],
           "answer": 1,
@@ -353,9 +354,9 @@
         },
         {
           "type": "numeric",
-          "q": "Let $X = \\mathrm{Spec}\\,\\mathbb{Z}[x]/(x^2+1)$ and $Y = \\mathrm{Spec}\\,\\mathbb{Z}[y]/(y^2+1)$. Using the fiber-product formula $(X\\times_{\\mathrm{Spec}\\,\\mathbb{Z}} Y)(\\mathbb{F}_5) = X(\\mathbb{F}_5) \\times Y(\\mathbb{F}_5)$, compute $|(X \\times Y)(\\mathbb{F}_5)|$.",
+          "q": "Let $X = \\Spec\\,\\mathbb{Z}[x]/(x^2+1)$ and $Y = \\Spec\\,\\mathbb{Z}[y]/(y^2+1)$. Using the fiber-product formula $(X\\times_{\\Spec\\,\\mathbb{Z}} Y)(\\mathbb{F}_5) = X(\\mathbb{F}_5) \\times Y(\\mathbb{F}_5)$, compute $|(X \\times Y)(\\mathbb{F}_5)|$.",
           "answer": 4,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Count ring maps to each of the factors.",
           "explain": "$X(\\mathbb{F}_5) = \\{2,3\\}$ (solutions to $a^2\\equiv -1\\pmod 5$), so $|X(\\mathbb{F}_5)|=2$. Similarly $|Y(\\mathbb{F}_5)|=2$. The fiber-product formula gives $|X(\\mathbb{F}_5)|\\times|Y(\\mathbb{F}_5)| = 2\\times 2 = 4$."
         }

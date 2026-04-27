@@ -20,7 +20,7 @@
       "prereqs": [
         "scheme-morphisms"
       ],
-      "blurb": "Immersions are the subobject inclusions of $\\mathsf{Sch}$: $\\operatorname{Spec}(A_f)\\hookrightarrow\\operatorname{Spec} A$ (open) and $\\operatorname{Spec}(A/I)\\hookrightarrow\\operatorname{Spec} A$ (closed)."
+      "blurb": "Immersions are the subobject inclusions of $\\mathsf{Sch}$: $\\Spec(A_f)\\hookrightarrow\\Spec A$ (open) and $\\Spec(A/I)\\hookrightarrow\\Spec A$ (closed)."
     },
     {
       "id": "fiber-products",

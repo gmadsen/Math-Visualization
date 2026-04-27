@@ -450,9 +450,9 @@
     <h1>Interactive Mathematics Notebook</h1>
     <p class="sub">Graduate-level concepts, each a single-page interactive explainer with live widgets and worked examples.</p>
     <div class="hero-tagline" aria-label="Notebook scope">
-      <span><span class="tg-num">83</span> topics</span>
+      <span><span class="tg-num">103</span> topics</span>
       <span class="dot">&middot;</span>
-      <span><span class="tg-num">575</span> concepts</span>
+      <span><span class="tg-num">711</span> concepts</span>
       <span class="dot">&middot;</span>
       <span>pathway-graph explorer</span>
     </div>
@@ -500,14 +500,16 @@
   <div class="sj-sentinel" aria-hidden="true"></div>
   <nav class="section-jump" role="navigation" aria-label="Jump to section">
     <span class="sj-label">Jump to</span>
-    <a class="sj-link s-b" href="#foundations"><span class="sj-dot"></span>Foundations</a>
-    <a class="sj-link s-y" href="#algebra"><span class="sj-dot"></span>Algebra</a>
+    <a class="sj-link s-b" href="#logic-and-foundations"><span class="sj-dot"></span>Logic &amp; Foundations</a>
+    <a class="sj-link s-y" href="#algebra"><span class="sj-dot"></span>Algebra &amp; homological</a>
+    <a class="sj-link s-c" href="#higher-categories-and-toposes"><span class="sj-dot"></span>Higher categories &amp; toposes</a>
     <a class="sj-link s-p" href="#analysis"><span class="sj-dot"></span>Analysis</a>
+    <a class="sj-link s-g" href="#probability-and-statistics"><span class="sj-dot"></span>Probability &amp; statistics</a>
     <a class="sj-link s-v" href="#geometry-and-topology"><span class="sj-dot"></span>Geometry &amp; topology</a>
     <a class="sj-link s-y" href="#number-theory"><span class="sj-dot"></span>Number theory</a>
     <a class="sj-link s-c" href="#modular-forms-and-l-functions"><span class="sj-dot"></span>Modular forms &amp; L-functions</a>
     <a class="sj-link s-g" href="#algebraic-geometry"><span class="sj-dot"></span>Algebraic geometry</a>
-    <a class="sj-link s-g" href="#combinatorics-and-graph-theory"><span class="sj-dot"></span>Combinatorics &amp; graph theory</a>
+    <a class="sj-link s-v" href="#combinatorics-and-graph-theory"><span class="sj-dot"></span>Combinatorics &amp; graph theory</a>
   </nav>
 
   <section id="recently-updated" aria-label="Recently updated topics">
@@ -515,10 +517,10 @@
     <div class="ru-strip"></div>
   </section>
 
-  <div class="sec">Foundations</div>
+    <div class="sec">Logic &amp; Foundations</div>
   <div class="grid">
 
-    <a class="card b" href="./naive-set-theory.html">
+  <a class="card b" href="./naive-set-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- two overlapping circles (Venn) with a diagonal hint for Cantor diagonal -->
         <circle cx="38" cy="42" r="20" fill="none" stroke="var(--blue)" stroke-width="1.4"/>
@@ -533,12 +535,169 @@
       </div>
     </a>
 
+
+    <a class="card b" href="./first-order-logic-and-completeness.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<g stroke="var(--blue)" stroke-width="1.2" fill="none">
+          <line x1="14" y1="32" x2="42" y2="32"/>
+          <line x1="58" y1="32" x2="86" y2="32"/>
+          <line x1="22" y1="50" x2="78" y2="50"/>
+        </g>
+        <g fill="var(--blue)" font-family="serif" font-size="10" font-style="italic">
+          <text x="28" y="27" text-anchor="middle">φ→ψ</text>
+          <text x="72" y="27" text-anchor="middle">φ</text>
+          <text x="50" y="64" text-anchor="middle">ψ</text>
+        </g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">First order logic and completeness</div>
+        <div class="desc">Syntax, semantics, deduction, the Gödel completeness theorem; compactness and Löwenheim–Skolem as consequences, Henkin construction by hand.</div>
+        <span class="tag">syntax · models · compactness · Henkin</span>
+      </div>
+    </a>
+
+
+    <a class="card b" href="./zfc-and-ordinals.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<g stroke="var(--blue)" stroke-width="1.3" fill="none">
+          <ellipse cx="50" cy="40" rx="40" ry="24"/>
+          <ellipse cx="50" cy="40" rx="30" ry="18"/>
+          <ellipse cx="50" cy="40" rx="20" ry="12"/>
+          <ellipse cx="50" cy="40" rx="10" ry="6"/>
+        </g>
+        <g fill="var(--blue)" font-family="serif" font-size="9" font-style="italic">
+          <text x="50" y="14" text-anchor="middle">V</text>
+          <text x="50" y="42" text-anchor="middle">α</text>
+        </g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Zfc and ordinals</div>
+        <div class="desc">Zermelo–Fraenkel, ordinals via ∈-well-ordering, cardinal arithmetic, the axiom of choice, the continuum hypothesis and where it stands.</div>
+        <span class="tag">axioms · ordinals · cardinals · choice</span>
+      </div>
+    </a>
+
+
+    <a class="card b" href="./model-theory-basics.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<g fill="var(--blue)">
+          <circle cx="22" cy="22" r="3"/><circle cx="50" cy="22" r="3"/><circle cx="78" cy="22" r="3"/>
+          <circle cx="22" cy="58" r="3"/><circle cx="50" cy="58" r="3"/><circle cx="78" cy="58" r="3"/>
+        </g>
+        <g stroke="var(--blue)" stroke-width="1.1" fill="none" stroke-dasharray="2 2">
+          <line x1="22" y1="26" x2="22" y2="54"/>
+          <line x1="50" y1="26" x2="50" y2="54"/>
+          <line x1="78" y1="26" x2="78" y2="54"/>
+        </g>
+        <g stroke="var(--blue)" stroke-width="1.1" fill="none">
+          <line x1="26" y1="22" x2="46" y2="22"/>
+          <line x1="54" y1="22" x2="74" y2="22"/>
+          <line x1="26" y1="58" x2="46" y2="58"/>
+          <line x1="54" y1="58" x2="74" y2="58"/>
+        </g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Model theory basics</div>
+        <div class="desc">Structures and elementary equivalence, types and saturation, Ehrenfeucht–Fraïssé back-and-forth, the Ax–Grothendieck transfer principle.</div>
+        <span class="tag">structures · types · EF games</span>
+      </div>
+    </a>
+
+
+    <a class="card b" href="./computability-and-decidability.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<g stroke="var(--blue)" stroke-width="1.2" fill="none">
+          <rect x="10" y="32" width="12" height="16"/><rect x="22" y="32" width="12" height="16"/>
+          <rect x="34" y="32" width="12" height="16"/><rect x="46" y="32" width="12" height="16"/>
+          <rect x="58" y="32" width="12" height="16"/><rect x="70" y="32" width="12" height="16"/>
+          <rect x="82" y="32" width="12" height="16"/>
+        </g>
+        <g fill="var(--blue)" font-family="monospace" font-size="9">
+          <text x="16" y="44" text-anchor="middle">0</text>
+          <text x="28" y="44" text-anchor="middle">1</text>
+          <text x="40" y="44" text-anchor="middle">1</text>
+          <text x="52" y="44" text-anchor="middle">0</text>
+          <text x="64" y="44" text-anchor="middle">1</text>
+        </g>
+        <path d="M 52 28 L 48 24 L 56 24 Z" fill="var(--blue)"/>
+        <text x="52" y="20" text-anchor="middle" font-family="serif" font-size="8" fill="var(--blue)">q</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Computability and decidability</div>
+        <div class="desc">Turing machines and recursive functions, the halting problem by diagonal, recursive vs r.e., Rice and Gödel via reduction.</div>
+        <span class="tag">Turing · halting · undecidable</span>
+      </div>
+    </a>
+
+
+    <a class="card b" href="./complexity-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<g stroke="var(--blue)" stroke-width="1.4" fill="none">
+          <ellipse cx="50" cy="40" rx="40" ry="22"/>
+          <ellipse cx="46" cy="42" rx="28" ry="15"/>
+          <ellipse cx="42" cy="44" rx="14" ry="8"/>
+        </g>
+        <g fill="var(--blue)" font-family="serif" font-size="8" font-style="italic">
+          <text x="42" y="46" text-anchor="middle">P</text>
+          <text x="64" y="46" text-anchor="middle">NP</text>
+          <text x="84" y="46" text-anchor="middle">EXP</text>
+        </g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Complexity theory</div>
+        <div class="desc">Time and space complexity, P vs NP, NP-completeness via Cook–Levin, Karp reductions, Savitch and the hierarchy theorems.</div>
+        <span class="tag">P · NP · reductions · hierarchy</span>
+      </div>
+    </a>
+
+
+    <a class="card b" href="./type-theory-and-hott.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<g fill="var(--blue)"><circle cx="20" cy="40" r="4"/><circle cx="80" cy="40" r="4"/></g>
+        <path d="M 24 40 Q 50 12 76 40" stroke="var(--blue)" stroke-width="1.5" fill="none"/>
+        <path d="M 24 40 Q 50 68 76 40" stroke="var(--blue)" stroke-width="1.5" fill="none" opacity="0.5"/>
+        <g fill="var(--blue)" font-family="serif" font-size="9" font-style="italic">
+          <text x="20" y="56" text-anchor="middle">a</text>
+          <text x="80" y="56" text-anchor="middle">b</text>
+          <text x="50" y="20" text-anchor="middle">p</text>
+        </g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Type theory and hott</div>
+        <div class="desc">Dependent types, Π/Σ types, identity types and J-rule, the univalence axiom, higher inductive types, ∞-groupoid models.</div>
+        <span class="tag">judgments · paths · univalence</span>
+      </div>
+    </a>
+
+
+    <a class="card b" href="./forcing-and-independence.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<g fill="var(--blue)">
+          <circle cx="50" cy="14" r="2.6"/>
+          <circle cx="30" cy="34" r="2.6"/><circle cx="70" cy="34" r="2.6"/>
+          <circle cx="20" cy="54" r="2.6"/><circle cx="40" cy="54" r="2.6"/>
+          <circle cx="60" cy="54" r="2.6"/><circle cx="80" cy="54" r="2.6"/>
+        </g>
+        <g stroke="var(--blue)" stroke-width="1.2" fill="none">
+          <line x1="50" y1="16" x2="30" y2="32"/><line x1="50" y1="16" x2="70" y2="32"/>
+          <line x1="30" y1="36" x2="20" y2="52"/><line x1="30" y1="36" x2="40" y2="52"/>
+          <line x1="70" y1="36" x2="60" y2="52"/><line x1="70" y1="36" x2="80" y2="52"/>
+        </g>
+        <text x="50" y="74" text-anchor="middle" font-family="serif" font-size="9" font-style="italic" fill="var(--blue)">G</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Forcing and independence</div>
+        <div class="desc">Cohen forcing for adjoining reals, generic filters and the truth lemma, the independence of CH, Suslin and Martin's axiom.</div>
+        <span class="tag">Cohen · genericity · CH</span>
+      </div>
+    </a>
+
   </div>
 
-  <div class="sec">Algebra</div>
+  <div class="sec">Algebra &amp; homological</div>
   <div class="grid">
 
-    <a class="card y" href="./algebra.html">
+  <a class="card y" href="./algebra.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <g fill="var(--yellow)"><circle cx="50" cy="15" r="4.2"/><circle cx="80" cy="40" r="4.2"/><circle cx="50" cy="65" r="4.2"/><circle cx="20" cy="40" r="4.2"/></g>
         <g stroke="var(--yellow)" stroke-width="1.3" fill="none">
@@ -556,7 +715,7 @@
     </a>
 
 
-    <a class="card b" href="./category-theory.html">
+  <a class="card b" href="./category-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <g fill="var(--blue)"><circle cx="28" cy="22" r="3.6"/><circle cx="72" cy="22" r="3.6"/><circle cx="28" cy="58" r="3.6"/><circle cx="72" cy="58" r="3.6"/></g>
         <g stroke="var(--blue)" stroke-width="1.3" fill="none">
@@ -575,7 +734,7 @@
     </a>
 
 
-    <a class="card p" href="./representation-theory.html">
+  <a class="card p" href="./representation-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- weight diagram: integer lattice points on a horizontal axis -->
         <line x1="10" y1="52" x2="90" y2="52" stroke="var(--pink)" stroke-width="1" opacity="0.5"/>
@@ -604,7 +763,7 @@
     </a>
 
 
-    <a class="card g" href="./commutative-algebra.html">
+  <a class="card g" href="./commutative-algebra.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <g fill="none" stroke="var(--green)" stroke-width="1.5">
           <rect x="10" y="30" width="24" height="22" rx="3"/>
@@ -623,7 +782,7 @@
     </a>
 
 
-    <a class="card p" href="./homological.html">
+  <a class="card p" href="./homological.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <g fill="var(--pink)"><circle cx="15" cy="45" r="3.3"/><circle cx="40" cy="45" r="3.3"/><circle cx="65" cy="45" r="3.3"/><circle cx="90" cy="45" r="3.3"/></g>
         <g stroke="var(--pink)" stroke-width="1.3" fill="none">
@@ -643,113 +802,7 @@
     </a>
 
 
-    <a class="card y" href="./elementary-topos-theory.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <rect x="22" y="22" width="56" height="36" rx="3" fill="none" stroke="var(--yellow)" stroke-width="1.4"/>
-        <text x="50" y="44" text-anchor="middle" font-size="14" fill="var(--yellow)" font-weight="600">Ω</text>
-        <line x1="34" y1="66" x2="42" y2="66" stroke="var(--yellow)" stroke-width="1.6"/>
-        <text x="38" y="76" text-anchor="middle" font-size="7" fill="var(--yellow)">true</text>
-        <line x1="58" y1="66" x2="66" y2="66" stroke="var(--mute)" stroke-width="1.6"/>
-        <text x="62" y="76" text-anchor="middle" font-size="7" fill="var(--mute)">false</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Elementary topos theory</div>
-        <div class="desc">Finitely complete cartesian closed categories with a subobject classifier $\Omega$ — the universe of generalized sets in which set-theoretic constructions and intuitionist logic make sense.</div>
-        <span class="tag">Ω · power objects · presheaf toposes · geometric morphisms</span>
-      </div>
-    </a>
-
-
-    <a class="card v" href="./heyting-algebras-toposes.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <circle cx="50" cy="18" r="3" fill="var(--violet)"/>
-        <text x="56" y="22" font-size="8" fill="var(--ink)">⊤</text>
-        <circle cx="32" cy="40" r="3" fill="var(--violet)"/>
-        <circle cx="68" cy="40" r="3" fill="var(--violet)"/>
-        <circle cx="50" cy="62" r="3" fill="var(--violet)"/>
-        <text x="56" y="66" font-size="8" fill="var(--ink)">⊥</text>
-        <line x1="50" y1="22" x2="32" y2="36" stroke="var(--violet)" stroke-width="1"/>
-        <line x1="50" y1="22" x2="68" y2="36" stroke="var(--violet)" stroke-width="1"/>
-        <line x1="32" y1="44" x2="50" y2="58" stroke="var(--violet)" stroke-width="1"/>
-        <line x1="68" y1="44" x2="50" y2="58" stroke="var(--violet)" stroke-width="1"/>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Heyting algebras & intuitionist logic</div>
-        <div class="desc">Intuitionist logic inside any topos: $\Omega$ as a Heyting algebra, the Mitchell–Bénabou internal language, Kripke–Joyal forcing, and why $p \vee \neg p$ generally fails.</div>
-        <span class="tag">Heyting · internal language · Kripke–Joyal · LEM failure</span>
-      </div>
-    </a>
-
-
-    <a class="card c" href="./grothendieck-topologies-sites.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <circle cx="50" cy="42" r="22" fill="none" stroke="var(--mute)" stroke-width="1"/>
-        <circle cx="38" cy="32" r="9" fill="none" stroke="var(--cyan)" stroke-width="1.2"/>
-        <circle cx="62" cy="32" r="9" fill="none" stroke="var(--cyan)" stroke-width="1.2"/>
-        <circle cx="50" cy="55" r="9" fill="none" stroke="var(--cyan)" stroke-width="1.2"/>
-        <text x="50" y="76" text-anchor="middle" font-size="7" fill="var(--mute)">covering family</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Grothendieck topologies & sites</div>
-        <div class="desc">Sieves, coverings, sheafification on a small category $(C, J)$. Sheaves on a site form a Grothendieck topos; geometric morphisms come from continuous functors of sites.</div>
-        <span class="tag">sieves · sheafification · sites · Giraud</span>
-      </div>
-    </a>
-
-
-    <a class="card v" href="./simplicial-sets-and-nerve.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <polygon points="50,16 22,62 78,62" fill="color-mix(in srgb, var(--violet) 16%, transparent)" stroke="var(--violet)" stroke-width="1.4"/>
-        <circle cx="50" cy="16" r="2.2" fill="var(--ink)"/>
-        <circle cx="22" cy="62" r="2.2" fill="var(--ink)"/>
-        <circle cx="78" cy="62" r="2.2" fill="var(--ink)"/>
-        <text x="50" y="44" text-anchor="middle" font-size="9" fill="var(--ink)">Δ²</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Simplicial sets & the nerve</div>
-        <div class="desc">Combinatorial models of spaces: the simplex category $\Delta$, simplicial sets as $\Delta^{\mathrm{op}} \to \mathbf{Set}$, geometric realization, the nerve $N(C)$ of a category, Kan complexes, inner-horn filling.</div>
-        <span class="tag">Δ · nerve · Kan complex · horn filling</span>
-      </div>
-    </a>
-
-
-    <a class="card c" href="./infinity-categories.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <circle cx="22" cy="58" r="2.6" fill="var(--ink)"/>
-        <circle cx="78" cy="58" r="2.6" fill="var(--ink)"/>
-        <circle cx="50" cy="20" r="2.6" fill="var(--ink)"/>
-        <path d="M 25 58 Q 50 70 75 58" fill="none" stroke="var(--cyan)" stroke-width="1.4"/>
-        <path d="M 25 56 Q 30 30 47 22" fill="none" stroke="var(--cyan)" stroke-width="1.4"/>
-        <path d="M 75 56 Q 70 30 53 22" fill="none" stroke="var(--cyan)" stroke-width="1.4"/>
-        <text x="50" y="48" text-anchor="middle" font-size="8" fill="var(--mute)">filler</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">∞-categories (quasi-categories)</div>
-        <div class="desc">Quasi-categories à la Joyal: composition is well-defined only up to coherent higher homotopy, encoded by inner-horn filling. The homotopy category $h(\mathcal{C})$, $\infty$-functors, $\infty$-(co)limits, $\infty$-adjunctions, Kan extensions.</div>
-        <span class="tag">quasi-cat · inner horns · ∞-limits · Kan extension</span>
-      </div>
-    </a>
-
-
-    <a class="card y" href="./infinity-topoi.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <rect x="14" y="22" width="32" height="36" rx="3" fill="none" stroke="var(--violet)" stroke-width="1.3"/>
-        <text x="30" y="46" text-anchor="middle" font-size="11" fill="var(--ink)">P(C)</text>
-        <rect x="54" y="22" width="32" height="36" rx="3" fill="color-mix(in srgb, var(--yellow) 12%, transparent)" stroke="var(--yellow)" stroke-width="1.3"/>
-        <text x="70" y="46" text-anchor="middle" font-size="11" fill="var(--ink)">𝓧</text>
-        <line x1="48" y1="40" x2="52" y2="40" stroke="var(--ink)" stroke-width="1.2" marker-end="url(#arr-card-it)"/>
-        <defs><marker id="arr-card-it" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L5,3 L0,6 z" fill="var(--ink)"/></marker></defs>
-        <text x="50" y="38" text-anchor="middle" font-size="6" fill="var(--mute)">L</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">∞-topoi (Lurie) <span class="level capstone">capstone</span></div>
-        <div class="desc">Lurie's higher topos theory: $\infty$-topoi as accessible left-exact localizations of presheaf $\infty$-topoi, the $\infty$-Giraud axioms, hypercompletion, and homotopy type theory as the internal logic.</div>
-        <span class="tag">capstone · ∞-Giraud · hypercompletion · HoTT</span>
-      </div>
-    </a>
-
-
-    <a class="card y" href="./derived-categories.html">
+  <a class="card y" href="./derived-categories.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <line x1="18" y1="50" x2="38" y2="50" stroke="var(--blue)" stroke-width="1.5" marker-end="url(#arr-dc1)"/>
         <line x1="42" y1="50" x2="62" y2="50" stroke="var(--green)" stroke-width="1.5" marker-end="url(#arr-dc1)"/>
@@ -768,26 +821,7 @@
     </a>
 
 
-    <a class="card c" href="./cocartesian-fibrations.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <line x1="20" y1="60" x2="80" y2="60" stroke="var(--mute)" stroke-width="1"/>
-        <circle cx="32" cy="60" r="2" fill="var(--ink)"/>
-        <circle cx="60" cy="60" r="2" fill="var(--ink)"/>
-        <line x1="32" y1="20" x2="32" y2="56" stroke="var(--cyan)" stroke-dasharray="2 2" stroke-width="1.2"/>
-        <line x1="60" y1="20" x2="60" y2="56" stroke="var(--cyan)" stroke-dasharray="2 2" stroke-width="1.2"/>
-        <line x1="34" y1="60" x2="58" y2="60" stroke="var(--ink)" stroke-width="1.2"/>
-        <line x1="32" y1="28" x2="58" y2="36" stroke="var(--cyan)" stroke-width="1.4"/>
-        <text x="50" y="76" text-anchor="middle" font-size="7" fill="var(--mute)">cocartesian lift</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Cocartesian fibrations</div>
-        <div class="desc">Lurie's straightening / unstraightening: cocartesian fibrations over $\mathcal{B}$ correspond to functors $\mathcal{B} \to \mathrm{Cat}_\infty$. The $\infty$-categorical Grothendieck construction, with left fibrations matching presheaves of spaces.</div>
-        <span class="tag">fibrations · transport · straightening · Grothendieck</span>
-      </div>
-    </a>
-
-
-    <a class="card y" href="./group-cohomology.html">
+  <a class="card y" href="./group-cohomology.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <line x1="20" y1="58" x2="80" y2="58" stroke="var(--mute)" stroke-width="0.7"/>
         <text x="22" y="34" font-size="9" fill="var(--yellow)" font-family="ui-monospace,monospace">H⁰</text>
@@ -809,12 +843,187 @@
       </div>
     </a>
 
+
+    <a class="card y" href="./lie-algebras.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<g fill="var(--yellow)"><circle cx="50" cy="40" r="2.8"/></g>
+        <g stroke="var(--yellow)" stroke-width="1.4" fill="none" marker-end="">
+          <line x1="50" y1="40" x2="74" y2="40"/>
+          <line x1="50" y1="40" x2="62" y2="20"/>
+          <line x1="50" y1="40" x2="38" y2="20"/>
+          <line x1="50" y1="40" x2="26" y2="40"/>
+          <line x1="50" y1="40" x2="38" y2="60"/>
+          <line x1="50" y1="40" x2="62" y2="60"/>
+        </g>
+        <g fill="var(--yellow)">
+          <circle cx="74" cy="40" r="2"/><circle cx="62" cy="20" r="2"/>
+          <circle cx="38" cy="20" r="2"/><circle cx="26" cy="40" r="2"/>
+          <circle cx="38" cy="60" r="2"/><circle cx="62" cy="60" r="2"/>
+        </g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Lie algebras</div>
+        <div class="desc">Bracket axioms and derivations, Killing form, solvable/nilpotent, Cartan–Killing classification, root systems, sl₂-triples, Dynkin.</div>
+        <span class="tag">brackets · roots · Dynkin</span>
+      </div>
+    </a>
+
+
+    <a class="card y" href="./galois-cohomology-and-brauer.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<g fill="var(--yellow)">
+          <circle cx="22" cy="60" r="3"/><circle cx="78" cy="60" r="3"/><circle cx="50" cy="18" r="3"/>
+        </g>
+        <g stroke="var(--yellow)" stroke-width="1.4" fill="none">
+          <line x1="22" y1="60" x2="78" y2="60"/>
+          <line x1="22" y1="60" x2="50" y2="18"/>
+          <line x1="78" y1="60" x2="50" y2="18"/>
+        </g>
+        <text x="50" y="48" text-anchor="middle" font-family="serif" font-size="11" font-style="italic" fill="var(--yellow)">σ·τ</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Galois cohomology and brauer</div>
+        <div class="desc">Hⁱ(G, M) cocycles, H¹ classifies torsors, H² classifies extensions, the Brauer group as H²(Gal, K̄ˣ), Tate duality, Hasse principle.</div>
+        <span class="tag">cocycles · Brauer · Hasse</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="sec">Higher categories &amp; toposes</div>
+  <div class="grid">
+
+  <a class="card y" href="./elementary-topos-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <rect x="22" y="22" width="56" height="36" rx="3" fill="none" stroke="var(--yellow)" stroke-width="1.4"/>
+        <text x="50" y="44" text-anchor="middle" font-size="14" fill="var(--yellow)" font-weight="600">Ω</text>
+        <line x1="34" y1="66" x2="42" y2="66" stroke="var(--yellow)" stroke-width="1.6"/>
+        <text x="38" y="76" text-anchor="middle" font-size="7" fill="var(--yellow)">true</text>
+        <line x1="58" y1="66" x2="66" y2="66" stroke="var(--mute)" stroke-width="1.6"/>
+        <text x="62" y="76" text-anchor="middle" font-size="7" fill="var(--mute)">false</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Elementary topos theory</div>
+        <div class="desc">Finitely complete cartesian closed categories with a subobject classifier $\Omega$ — the universe of generalized sets in which set-theoretic constructions and intuitionist logic make sense.</div>
+        <span class="tag">Ω · power objects · presheaf toposes · geometric morphisms</span>
+      </div>
+    </a>
+
+
+  <a class="card v" href="./heyting-algebras-toposes.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <circle cx="50" cy="18" r="3" fill="var(--violet)"/>
+        <text x="56" y="22" font-size="8" fill="var(--ink)">⊤</text>
+        <circle cx="32" cy="40" r="3" fill="var(--violet)"/>
+        <circle cx="68" cy="40" r="3" fill="var(--violet)"/>
+        <circle cx="50" cy="62" r="3" fill="var(--violet)"/>
+        <text x="56" y="66" font-size="8" fill="var(--ink)">⊥</text>
+        <line x1="50" y1="22" x2="32" y2="36" stroke="var(--violet)" stroke-width="1"/>
+        <line x1="50" y1="22" x2="68" y2="36" stroke="var(--violet)" stroke-width="1"/>
+        <line x1="32" y1="44" x2="50" y2="58" stroke="var(--violet)" stroke-width="1"/>
+        <line x1="68" y1="44" x2="50" y2="58" stroke="var(--violet)" stroke-width="1"/>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Heyting algebras & intuitionist logic</div>
+        <div class="desc">Intuitionist logic inside any topos: $\Omega$ as a Heyting algebra, the Mitchell–Bénabou internal language, Kripke–Joyal forcing, and why $p \vee \neg p$ generally fails.</div>
+        <span class="tag">Heyting · internal language · Kripke–Joyal · LEM failure</span>
+      </div>
+    </a>
+
+
+  <a class="card c" href="./grothendieck-topologies-sites.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <circle cx="50" cy="42" r="22" fill="none" stroke="var(--mute)" stroke-width="1"/>
+        <circle cx="38" cy="32" r="9" fill="none" stroke="var(--cyan)" stroke-width="1.2"/>
+        <circle cx="62" cy="32" r="9" fill="none" stroke="var(--cyan)" stroke-width="1.2"/>
+        <circle cx="50" cy="55" r="9" fill="none" stroke="var(--cyan)" stroke-width="1.2"/>
+        <text x="50" y="76" text-anchor="middle" font-size="7" fill="var(--mute)">covering family</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Grothendieck topologies & sites</div>
+        <div class="desc">Sieves, coverings, sheafification on a small category $(C, J)$. Sheaves on a site form a Grothendieck topos; geometric morphisms come from continuous functors of sites.</div>
+        <span class="tag">sieves · sheafification · sites · Giraud</span>
+      </div>
+    </a>
+
+
+  <a class="card v" href="./simplicial-sets-and-nerve.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <polygon points="50,16 22,62 78,62" fill="color-mix(in srgb, var(--violet) 16%, transparent)" stroke="var(--violet)" stroke-width="1.4"/>
+        <circle cx="50" cy="16" r="2.2" fill="var(--ink)"/>
+        <circle cx="22" cy="62" r="2.2" fill="var(--ink)"/>
+        <circle cx="78" cy="62" r="2.2" fill="var(--ink)"/>
+        <text x="50" y="44" text-anchor="middle" font-size="9" fill="var(--ink)">Δ²</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Simplicial sets & the nerve</div>
+        <div class="desc">Combinatorial models of spaces: the simplex category $\Delta$, simplicial sets as $\Delta^{\mathrm{op}} \to \mathbf{Set}$, geometric realization, the nerve $N(C)$ of a category, Kan complexes, inner-horn filling.</div>
+        <span class="tag">Δ · nerve · Kan complex · horn filling</span>
+      </div>
+    </a>
+
+
+  <a class="card c" href="./infinity-categories.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <circle cx="22" cy="58" r="2.6" fill="var(--ink)"/>
+        <circle cx="78" cy="58" r="2.6" fill="var(--ink)"/>
+        <circle cx="50" cy="20" r="2.6" fill="var(--ink)"/>
+        <path d="M 25 58 Q 50 70 75 58" fill="none" stroke="var(--cyan)" stroke-width="1.4"/>
+        <path d="M 25 56 Q 30 30 47 22" fill="none" stroke="var(--cyan)" stroke-width="1.4"/>
+        <path d="M 75 56 Q 70 30 53 22" fill="none" stroke="var(--cyan)" stroke-width="1.4"/>
+        <text x="50" y="48" text-anchor="middle" font-size="8" fill="var(--mute)">filler</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">∞-categories (quasi-categories)</div>
+        <div class="desc">Quasi-categories à la Joyal: composition is well-defined only up to coherent higher homotopy, encoded by inner-horn filling. The homotopy category $h(\mathcal{C})$, $\infty$-functors, $\infty$-(co)limits, $\infty$-adjunctions, Kan extensions.</div>
+        <span class="tag">quasi-cat · inner horns · ∞-limits · Kan extension</span>
+      </div>
+    </a>
+
+
+  <a class="card c" href="./cocartesian-fibrations.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <line x1="20" y1="60" x2="80" y2="60" stroke="var(--mute)" stroke-width="1"/>
+        <circle cx="32" cy="60" r="2" fill="var(--ink)"/>
+        <circle cx="60" cy="60" r="2" fill="var(--ink)"/>
+        <line x1="32" y1="20" x2="32" y2="56" stroke="var(--cyan)" stroke-dasharray="2 2" stroke-width="1.2"/>
+        <line x1="60" y1="20" x2="60" y2="56" stroke="var(--cyan)" stroke-dasharray="2 2" stroke-width="1.2"/>
+        <line x1="34" y1="60" x2="58" y2="60" stroke="var(--ink)" stroke-width="1.2"/>
+        <line x1="32" y1="28" x2="58" y2="36" stroke="var(--cyan)" stroke-width="1.4"/>
+        <text x="50" y="76" text-anchor="middle" font-size="7" fill="var(--mute)">cocartesian lift</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Cocartesian fibrations</div>
+        <div class="desc">Lurie's straightening / unstraightening: cocartesian fibrations over $\mathcal{B}$ correspond to functors $\mathcal{B} \to \mathrm{Cat}_\infty$. The $\infty$-categorical Grothendieck construction, with left fibrations matching presheaves of spaces.</div>
+        <span class="tag">fibrations · transport · straightening · Grothendieck</span>
+      </div>
+    </a>
+
+
+  <a class="card y" href="./infinity-topoi.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <rect x="14" y="22" width="32" height="36" rx="3" fill="none" stroke="var(--violet)" stroke-width="1.3"/>
+        <text x="30" y="46" text-anchor="middle" font-size="11" fill="var(--ink)">P(C)</text>
+        <rect x="54" y="22" width="32" height="36" rx="3" fill="color-mix(in srgb, var(--yellow) 12%, transparent)" stroke="var(--yellow)" stroke-width="1.3"/>
+        <text x="70" y="46" text-anchor="middle" font-size="11" fill="var(--ink)">𝓧</text>
+        <line x1="48" y1="40" x2="52" y2="40" stroke="var(--ink)" stroke-width="1.2" marker-end="url(#arr-card-it)"/>
+        <defs><marker id="arr-card-it" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L5,3 L0,6 z" fill="var(--ink)"/></marker></defs>
+        <text x="50" y="38" text-anchor="middle" font-size="6" fill="var(--mute)">L</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">∞-topoi (Lurie) <span class="level capstone">capstone</span></div>
+        <div class="desc">Lurie's higher topos theory: $\infty$-topoi as accessible left-exact localizations of presheaf $\infty$-topoi, the $\infty$-Giraud axioms, hypercompletion, and homotopy type theory as the internal logic.</div>
+        <span class="tag">capstone · ∞-Giraud · hypercompletion · HoTT</span>
+      </div>
+    </a>
+
+
   </div>
 
   <div class="sec">Analysis</div>
   <div class="grid">
 
-    <a class="card p" href="./real-analysis.html">
+  <a class="card p" href="./real-analysis.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- smooth curve with tangent at a point and a riemann-sum undercurtain -->
         <path d="M 10 58 Q 30 18 55 38 T 92 28" fill="none" stroke="var(--pink)" stroke-width="1.5"/>
@@ -840,7 +1049,7 @@
     </a>
 
 
-    <a class="card g" href="./measure-theory.html">
+  <a class="card g" href="./measure-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- Cantor-set construction: three horizontal bars -->
         <g stroke="var(--green)" stroke-width="3" stroke-linecap="square">
@@ -859,7 +1068,7 @@
     </a>
 
 
-    <a class="card y" href="./complex-analysis.html">
+  <a class="card y" href="./complex-analysis.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- unit circle and a small amplitwist arrow -->
         <circle cx="50" cy="40" r="24" fill="none" stroke="var(--yellow)" stroke-width="1.3"/>
@@ -883,7 +1092,7 @@
     </a>
 
 
-    <a class="card v" href="./functional-analysis.html">
+  <a class="card v" href="./functional-analysis.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- three unit balls: ℓ¹ (diamond), ℓ² (circle), ℓ∞ (square) -->
         <polygon points="18,40 30,28 42,40 30,52" fill="none" stroke="var(--violet)" stroke-width="1.3"/>
@@ -907,7 +1116,7 @@
     </a>
 
 
-    <a class="card c" href="./operator-algebras.html">
+  <a class="card c" href="./operator-algebras.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- C*-algebra: spectrum as a topological space -->
         <circle cx="35" cy="40" r="20" fill="none" stroke="var(--cyan)" stroke-width="1.4"/>
@@ -924,7 +1133,8 @@
       </div>
     </a>
 
-    <a class="card p" href="./dynamical-systems.html">
+
+  <a class="card p" href="./dynamical-systems.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- Lorenz-ish butterfly silhouette -->
         <path d="M 20 50 C 18 30, 38 22, 48 38 C 58 22, 82 30, 80 50 C 78 62, 56 60, 50 52 C 44 60, 22 62, 20 50 Z" fill="none" stroke="var(--pink)" stroke-width="1.4"/>
@@ -938,23 +1148,24 @@
       </div>
     </a>
 
-    <a class="card b" href="./probability-theory.html">
+
+  <a class="card p" href="./harmonic-analysis-fourier.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- bell curve over a base line -->
-        <path d="M 12 58 Q 30 58, 40 40 T 60 22 T 88 58" fill="none" stroke="var(--blue)" stroke-width="1.4"/>
-        <line x1="12" y1="58" x2="88" y2="58" stroke="var(--mute)" stroke-width="0.8"/>
-        <g fill="var(--blue)"><rect x="18" y="52" width="4" height="6"/><rect x="32" y="44" width="4" height="14"/><rect x="46" y="34" width="4" height="24"/><rect x="60" y="42" width="4" height="16"/><rect x="74" y="52" width="4" height="6"/></g>
-        <text x="50" y="72" text-anchor="middle" font-size="8" fill="var(--blue)" font-style="italic" font-family="serif">P(X)</text>
+        <line x1="20" y1="42" x2="80" y2="42" stroke="var(--mute)" stroke-width="0.5"/>
+        <path d="M 20 42 Q 30 18, 40 42 T 60 42 T 80 42" fill="none" stroke="var(--pink)" stroke-width="1.4"/>
+        <path d="M 20 42 Q 28 30, 36 42 Q 44 54, 52 42 Q 60 30, 68 42 Q 76 54, 80 42" fill="none" stroke="var(--cyan)" stroke-width="0.9" opacity="0.75"/>
+        <path d="M 20 42 Q 24 36, 28 42 Q 32 48, 36 42 Q 40 36, 44 42 Q 48 48, 52 42 Q 56 36, 60 42 Q 64 48, 68 42 Q 72 36, 76 42 Q 78 39, 80 42" fill="none" stroke="var(--violet)" stroke-width="0.7" opacity="0.6"/>
+        <text x="50" y="76" text-anchor="middle" font-size="6.5" fill="var(--mute)">harmonics: 1, 3, 5</text>
       </svg></div>
       <div class="body">
-        <div class="tt">Probability theory <span class="level advanced">advanced</span></div>
-        <div class="desc">Sample spaces, random variables, Bayes, expectation, convergence theorems, the law of large numbers and central limit theorem, Markov chains, martingales, and a glimpse of Brownian motion.</div>
-        <span class="tag">σ · E · CLT · martingale</span>
+        <div class="tt">Harmonic analysis &amp; Fourier theory</div>
+        <div class="desc">Fourier series and transforms, Plancherel, convolution theorem, Schwartz space and tempered distributions, uncertainty, Poisson summation, the heat kernel.</div>
+        <span class="tag">Plancherel &middot; convolution &middot; uncertainty &middot; Poisson</span>
       </div>
     </a>
 
 
-    <a class="card p" href="./sobolev-spaces-distributions.html">
+  <a class="card p" href="./sobolev-spaces-distributions.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <line x1="20" y1="58" x2="80" y2="58" stroke="var(--mute)" stroke-width="0.7"/>
         <line x1="50" y1="20" x2="50" y2="62" stroke="var(--line)" stroke-width="0.5" stroke-dasharray="2 2"/>
@@ -970,18 +1181,169 @@
     </a>
 
 
-    <a class="card p" href="./harmonic-analysis-fourier.html">
+    <a class="card p" href="./partial-differential-equations.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <line x1="20" y1="42" x2="80" y2="42" stroke="var(--mute)" stroke-width="0.5"/>
-        <path d="M 20 42 Q 30 18, 40 42 T 60 42 T 80 42" fill="none" stroke="var(--pink)" stroke-width="1.4"/>
-        <path d="M 20 42 Q 28 30, 36 42 Q 44 54, 52 42 Q 60 30, 68 42 Q 76 54, 80 42" fill="none" stroke="var(--cyan)" stroke-width="0.9" opacity="0.75"/>
-        <path d="M 20 42 Q 24 36, 28 42 Q 32 48, 36 42 Q 40 36, 44 42 Q 48 48, 52 42 Q 56 36, 60 42 Q 64 48, 68 42 Q 72 36, 76 42 Q 78 39, 80 42" fill="none" stroke="var(--violet)" stroke-width="0.7" opacity="0.6"/>
-        <text x="50" y="76" text-anchor="middle" font-size="6.5" fill="var(--mute)">harmonics: 1, 3, 5</text>
+<path d="M 10 64 Q 30 64 40 50 Q 50 30 60 50 Q 70 64 90 64"
+              stroke="var(--pink)" stroke-width="1.5" fill="none"/>
+        <path d="M 10 64 Q 24 64 32 60 Q 50 50 68 60 Q 76 64 90 64"
+              stroke="var(--pink)" stroke-width="1.2" fill="none" opacity="0.5"/>
+        <path d="M 10 64 Q 22 64 28 62 Q 50 58 72 62 Q 78 64 90 64"
+              stroke="var(--pink)" stroke-width="1.0" fill="none" opacity="0.3"/>
+        <text x="50" y="14" text-anchor="middle" font-family="serif" font-size="11" font-style="italic" fill="var(--pink)">u(t,x)</text>
       </svg></div>
       <div class="body">
-        <div class="tt">Harmonic analysis &amp; Fourier theory</div>
-        <div class="desc">Fourier series and transforms, Plancherel, convolution theorem, Schwartz space and tempered distributions, uncertainty, Poisson summation, the heat kernel.</div>
-        <span class="tag">Plancherel &middot; convolution &middot; uncertainty &middot; Poisson</span>
+        <div class="tt">Partial differential equations</div>
+        <div class="desc">Classification (elliptic / parabolic / hyperbolic), heat / wave / Laplace equations, weak solutions and Sobolev regularity.</div>
+        <span class="tag">heat · wave · weak</span>
+      </div>
+    </a>
+
+
+    <a class="card p" href="./harmonic-functions.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<circle cx="50" cy="40" r="26" stroke="var(--pink)" stroke-width="1.4" fill="none"/>
+        <g stroke="var(--pink)" stroke-width="0.9" fill="none" opacity="0.7">
+          <circle cx="50" cy="40" r="6"/>
+          <circle cx="50" cy="40" r="12"/>
+          <circle cx="50" cy="40" r="18"/>
+        </g>
+        <g stroke="var(--pink)" stroke-width="1.0">
+          <line x1="50" y1="40" x2="74" y2="40"/>
+          <line x1="50" y1="40" x2="32" y2="58"/>
+        </g>
+        <text x="74" y="38" font-family="serif" font-size="9" font-style="italic" fill="var(--pink)">∂Ω</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Harmonic functions</div>
+        <div class="desc">∆u = 0 and the mean-value property, maximum principles, Poisson kernels and the Dirichlet problem, Harnack and Perron.</div>
+        <span class="tag">Laplace · Poisson · Harnack</span>
+      </div>
+    </a>
+
+
+    <a class="card p" href="./spectral-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<line x1="10" y1="40" x2="90" y2="40" stroke="var(--mute)" stroke-width="1"/>
+        <g fill="var(--pink)">
+          <circle cx="20" cy="40" r="3"/><circle cx="32" cy="40" r="3"/>
+          <circle cx="44" cy="40" r="3"/><circle cx="58" cy="40" r="3"/>
+          <circle cx="70" cy="40" r="3"/>
+        </g>
+        <g stroke="var(--mute)" stroke-width="0.8" stroke-dasharray="2 1">
+          <line x1="20" y1="40" x2="20" y2="56"/><line x1="32" y1="40" x2="32" y2="56"/>
+          <line x1="44" y1="40" x2="44" y2="56"/><line x1="58" y1="40" x2="58" y2="56"/>
+          <line x1="70" y1="40" x2="70" y2="56"/>
+        </g>
+        <text x="84" y="38" font-family="serif" font-size="9" font-style="italic" fill="var(--pink)">σ(T)</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Spectral theory</div>
+        <div class="desc">Operator spectra, self-adjoint and compact operators, the spectral theorem in compact and bounded forms, unbounded operators.</div>
+        <span class="tag">spectrum · self-adjoint · PVM</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="sec">Probability &amp; statistics</div>
+  <div class="grid">
+
+  <a class="card b" href="./probability-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- bell curve over a base line -->
+        <path d="M 12 58 Q 30 58, 40 40 T 60 22 T 88 58" fill="none" stroke="var(--blue)" stroke-width="1.4"/>
+        <line x1="12" y1="58" x2="88" y2="58" stroke="var(--mute)" stroke-width="0.8"/>
+        <g fill="var(--blue)"><rect x="18" y="52" width="4" height="6"/><rect x="32" y="44" width="4" height="14"/><rect x="46" y="34" width="4" height="24"/><rect x="60" y="42" width="4" height="16"/><rect x="74" y="52" width="4" height="6"/></g>
+        <text x="50" y="72" text-anchor="middle" font-size="8" fill="var(--blue)" font-style="italic" font-family="serif">P(X)</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Probability theory <span class="level advanced">advanced</span></div>
+        <div class="desc">Sample spaces, random variables, Bayes, expectation, convergence theorems, the law of large numbers and central limit theorem, Markov chains, martingales, and a glimpse of Brownian motion.</div>
+        <span class="tag">σ · E · CLT · martingale</span>
+      </div>
+    </a>
+
+
+    <a class="card g" href="./stochastic-processes-and-martingales.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<polyline points="10,42 14,38 18,44 22,36 26,46 30,38 34,40 38,32 42,46 46,38 50,44 54,30 58,42 62,36 66,48 70,38 74,46 78,32 82,42 86,36 90,40"
+                  stroke="var(--green)" stroke-width="1.4" fill="none"/>
+        <line x1="8" y1="40" x2="92" y2="40" stroke="var(--mute)" stroke-width="0.6" stroke-dasharray="2 2"/>
+        <text x="92" y="38" text-anchor="end" font-family="serif" font-size="9" font-style="italic" fill="var(--green)">B</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Stochastic processes and martingales</div>
+        <div class="desc">Filtrations and adapted processes, discrete and continuous martingales, optional stopping, Doob decomposition, Brownian motion.</div>
+        <span class="tag">martingales · stopping · BM</span>
+      </div>
+    </a>
+
+
+    <a class="card g" href="./stochastic-calculus.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<text x="22" y="56" font-family="serif" font-size="40" font-style="italic" fill="var(--green)">∫</text>
+        <text x="48" y="50" font-family="serif" font-size="14" font-style="italic" fill="var(--green)">f dB</text>
+        <line x1="14" y1="62" x2="86" y2="62" stroke="var(--mute)" stroke-width="0.8"/>
+        <text x="14" y="74" font-family="serif" font-size="9" fill="var(--mute)">0</text>
+        <text x="86" y="74" text-anchor="end" font-family="serif" font-size="9" fill="var(--mute)">t</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Stochastic calculus</div>
+        <div class="desc">Itô integral, Itô's formula, stochastic differential equations, Girsanov's change of measure, Feynman–Kac, Black–Scholes.</div>
+        <span class="tag">Itô · SDE · Girsanov</span>
+      </div>
+    </a>
+
+
+    <a class="card g" href="./random-walks-and-mixing.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<polyline points="10,40 18,32 26,44 34,30 42,46 50,28 58,42 66,34 74,48 82,30 90,42"
+                  stroke="var(--green)" stroke-width="1.6" fill="none"/>
+        <g stroke="var(--mute)" stroke-width="0.8" stroke-dasharray="2 2"><line x1="10" y1="40" x2="90" y2="40"/></g>
+        <g fill="var(--green)"><circle cx="10" cy="40" r="2"/><circle cx="90" cy="42" r="2"/></g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Random walks and mixing</div>
+        <div class="desc">Markov chains and stationary distributions, total-variation mixing time, spectral gap, coupling arguments, MCMC and Metropolis–Hastings.</div>
+        <span class="tag">chains · spectral gap · MCMC</span>
+      </div>
+    </a>
+
+
+    <a class="card g" href="./information-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<g fill="var(--green)">
+          <rect x="14" y="46" width="8" height="20"/>
+          <rect x="26" y="38" width="8" height="28"/>
+          <rect x="38" y="22" width="8" height="44"/>
+          <rect x="50" y="38" width="8" height="28"/>
+          <rect x="62" y="46" width="8" height="20"/>
+          <rect x="74" y="54" width="8" height="12"/>
+        </g>
+        <line x1="10" y1="66" x2="86" y2="66" stroke="var(--mute)" stroke-width="0.8"/>
+        <text x="48" y="14" text-anchor="middle" font-family="serif" font-size="11" font-style="italic" fill="var(--green)">H(X)</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Information theory</div>
+        <div class="desc">Shannon entropy, mutual information, KL divergence, source coding (Huffman / AEP), channel capacity, rate-distortion.</div>
+        <span class="tag">entropy · mutual info · KL</span>
+      </div>
+    </a>
+
+
+    <a class="card g" href="./large-deviations.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<path d="M 10 60 Q 30 60 40 50 Q 50 14 60 50 Q 70 60 90 60 Z"
+              stroke="var(--green)" stroke-width="1.5" fill="none"/>
+        <path d="M 70 60 Q 76 60 78 56 Q 80 50 84 56 Q 88 60 90 60 Z"
+              fill="var(--green)" opacity="0.45"/>
+        <line x1="78" y1="60" x2="78" y2="64" stroke="var(--green)" stroke-width="1"/>
+        <text x="78" y="74" text-anchor="middle" font-family="serif" font-size="9" font-style="italic" fill="var(--green)">x</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Large deviations</div>
+        <div class="desc">Cramér's theorem for i.i.d. sums, rate functions via Legendre duality, Sanov's theorem with KL-divergence, Gärtner–Ellis.</div>
+        <span class="tag">Cramér · KL · Schilder</span>
       </div>
     </a>
 
@@ -990,7 +1352,7 @@
   <div class="sec">Geometry &amp; topology</div>
   <div class="grid">
 
-    <a class="card v" href="./point-set-topology.html">
+  <a class="card v" href="./point-set-topology.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- nested open balls with a compact cover -->
         <circle cx="35" cy="42" r="22" fill="none" stroke="var(--violet)" stroke-width="1.3" stroke-dasharray="3 3"/>
@@ -1014,7 +1376,7 @@
     </a>
 
 
-    <a class="card c" href="./algebraic-topology.html">
+  <a class="card c" href="./algebraic-topology.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <ellipse cx="50" cy="40" rx="34" ry="20" fill="none" stroke="var(--cyan)" stroke-width="1.5"/>
         <path d="M 30 37 Q 50 28 70 37" fill="none" stroke="var(--cyan)" stroke-width="1.3"/>
@@ -1029,7 +1391,7 @@
     </a>
 
 
-    <a class="card y" href="./smooth-manifolds.html">
+  <a class="card y" href="./smooth-manifolds.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- sphere with two chart patches overlapping -->
         <circle cx="50" cy="40" r="26" fill="none" stroke="var(--yellow)" stroke-width="1.3"/>
@@ -1050,7 +1412,7 @@
     </a>
 
 
-    <a class="card b" href="./differential-forms.html">
+  <a class="card b" href="./differential-forms.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- 1-form as a stack of parallel lines (level sets / "rulings") -->
         <g stroke="var(--blue)" stroke-width="1.2" opacity="0.75">
@@ -1077,7 +1439,7 @@
     </a>
 
 
-    <a class="card v" href="./differential-geometry.html">
+  <a class="card v" href="./differential-geometry.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- a curved surface patch with a normal vector -->
         <path d="M 12 58 Q 32 28 52 34 Q 72 40 88 22" fill="none" stroke="var(--violet)" stroke-width="1.4"/>
@@ -1101,7 +1463,7 @@
     </a>
 
 
-    <a class="card p" href="./riemannian-geometry.html">
+  <a class="card p" href="./riemannian-geometry.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- sphere with a geodesic triangle on it -->
         <circle cx="50" cy="40" r="26" fill="none" stroke="var(--pink)" stroke-width="1.3"/>
@@ -1124,7 +1486,7 @@
     </a>
 
 
-    <a class="card c" href="./lie-groups.html">
+  <a class="card c" href="./lie-groups.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- great circle on S^3 / matrix group with tangent at identity -->
         <ellipse cx="50" cy="40" rx="30" ry="26" fill="none" stroke="var(--cyan)" stroke-width="1.4"/>
@@ -1148,7 +1510,7 @@
     </a>
 
 
-    <a class="card c" href="./riemann-surfaces.html">
+  <a class="card c" href="./riemann-surfaces.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- fundamental parallelogram with side identifications -->
         <polygon points="20,60 55,60 80,20 45,20" fill="none" stroke="var(--cyan)" stroke-width="1.3"/>
@@ -1170,12 +1532,53 @@
       </div>
     </a>
 
+
+    <a class="card v" href="./characteristic-classes.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<g stroke="var(--violet)" stroke-width="1.4" fill="none">
+          <line x1="14" y1="56" x2="86" y2="56"/>
+          <line x1="14" y1="56" x2="14" y2="20"/>
+          <line x1="32" y1="56" x2="32" y2="20"/>
+          <line x1="50" y1="56" x2="50" y2="20"/>
+          <line x1="68" y1="56" x2="68" y2="20"/>
+          <line x1="86" y1="56" x2="86" y2="20"/>
+        </g>
+        <ellipse cx="50" cy="14" rx="38" ry="6" stroke="var(--violet)" stroke-width="1.4" fill="none"/>
+        <text x="50" y="72" text-anchor="middle" font-family="serif" font-size="9" font-style="italic" fill="var(--violet)">E → X</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Characteristic classes</div>
+        <div class="desc">Vector bundles, Stiefel–Whitney, Chern and Pontryagin classes, the Euler class via Poincaré–Hopf, Chern–Weil curvature.</div>
+        <span class="tag">Chern · Euler · Chern–Weil</span>
+      </div>
+    </a>
+
+
+    <a class="card v" href="./morse-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<ellipse cx="50" cy="40" rx="36" ry="20" stroke="var(--violet)" stroke-width="1.4" fill="none"/>
+        <ellipse cx="50" cy="40" rx="14" ry="8" stroke="var(--violet)" stroke-width="1.0" fill="none"/>
+        <g fill="var(--violet)">
+          <circle cx="50" cy="20" r="2.5"/>
+          <circle cx="50" cy="60" r="2.5"/>
+          <circle cx="36" cy="40" r="2.5"/>
+          <circle cx="64" cy="40" r="2.5"/>
+        </g>
+        <text x="50" y="76" text-anchor="middle" font-family="serif" font-size="9" font-style="italic" fill="var(--violet)">∇f = 0</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Morse theory</div>
+        <div class="desc">Morse functions and critical-point indices, handle decomposition, CW structure, Morse inequalities, Morse homology and gradient flow.</div>
+        <span class="tag">critical · CW · gradient</span>
+      </div>
+    </a>
+
   </div>
 
   <div class="sec">Number theory</div>
   <div class="grid">
 
-    <a class="card v" href="./galois.html">
+  <a class="card v" href="./galois.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <g fill="var(--violet)">
           <circle cx="50" cy="12" r="3.3"/>
@@ -1195,7 +1598,7 @@
     </a>
 
 
-    <a class="card y" href="./quadratic-reciprocity.html">
+  <a class="card y" href="./quadratic-reciprocity.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- two primes with a flipping arrow between Legendre symbols -->
         <g font-family="serif" font-style="italic" fill="var(--yellow)">
@@ -1216,77 +1619,44 @@
         <span class="tag">(a/p) · Gauss · ± 1</span>
       </div>
     </a>
-
-
-    <a class="card b" href="./sums-of-squares.html">
+  <a class="card y" href="./additive-number-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- Gaussian-integer lattice with a circle of radius √r counting r_2(n) -->
+        <!-- Composite: Gaussian-integer lattice (sums of squares) + unit circle (Waring/circle method) + Faulhaber bars (Bernoulli) -->
+        <!-- background lattice dots (additive representations) -->
+        <g fill="var(--yellow)" opacity="0.4">
+          <circle cx="14" cy="14" r="1.4"/><circle cx="28" cy="14" r="1.4"/><circle cx="42" cy="14" r="1.4"/><circle cx="56" cy="14" r="1.4"/><circle cx="70" cy="14" r="1.4"/><circle cx="84" cy="14" r="1.4"/>
+          <circle cx="14" cy="28" r="1.4"/><circle cx="28" cy="28" r="1.4"/><circle cx="42" cy="28" r="1.4"/><circle cx="56" cy="28" r="1.4"/><circle cx="70" cy="28" r="1.4"/><circle cx="84" cy="28" r="1.4"/>
+          <circle cx="14" cy="42" r="1.4"/><circle cx="28" cy="42" r="1.4"/><circle cx="42" cy="42" r="1.4"/><circle cx="56" cy="42" r="1.4"/><circle cx="70" cy="42" r="1.4"/><circle cx="84" cy="42" r="1.4"/>
+        </g>
+        <!-- unit circle (circle method / sums of squares) -->
+        <circle cx="50" cy="36" r="22" fill="none" stroke="var(--yellow)" stroke-width="1.4"/>
+        <!-- highlighted lattice points on the circle (representations of n as sum of squares) -->
+        <g fill="var(--pink)">
+          <circle cx="50" cy="14" r="2.2"/><circle cx="72" cy="36" r="2.2"/>
+          <circle cx="50" cy="58" r="2.2"/><circle cx="28" cy="36" r="2.2"/>
+        </g>
+        <!-- Faulhaber bar staircase along the bottom -->
         <g fill="var(--blue)" opacity="0.85">
-          <circle cx="20" cy="60" r="1.6"/><circle cx="35" cy="60" r="1.6"/><circle cx="50" cy="60" r="1.6"/><circle cx="65" cy="60" r="1.6"/><circle cx="80" cy="60" r="1.6"/>
-          <circle cx="20" cy="45" r="1.6"/><circle cx="35" cy="45" r="1.6"/><circle cx="50" cy="45" r="1.6"/><circle cx="65" cy="45" r="1.6"/><circle cx="80" cy="45" r="1.6"/>
-          <circle cx="20" cy="30" r="1.6"/><circle cx="35" cy="30" r="1.6"/><circle cx="50" cy="30" r="1.6"/><circle cx="65" cy="30" r="1.6"/><circle cx="80" cy="30" r="1.6"/>
-          <circle cx="20" cy="15" r="1.6"/><circle cx="35" cy="15" r="1.6"/><circle cx="50" cy="15" r="1.6"/><circle cx="65" cy="15" r="1.6"/><circle cx="80" cy="15" r="1.6"/>
-        </g>
-        <!-- circle x^2+y^2 = n -->
-        <circle cx="50" cy="45" r="22" fill="none" stroke="var(--yellow)" stroke-width="1.3"/>
-        <!-- highlighted lattice points on the circle: (0,±n), (±a,±b) -->
-        <g fill="var(--yellow)">
-          <circle cx="50" cy="23" r="2.4"/><circle cx="50" cy="67" r="2.4"/>
-          <circle cx="28" cy="45" r="2.4"/><circle cx="72" cy="45" r="2.4"/>
+          <rect x="14" y="74" width="6" height="3"/>
+          <rect x="22" y="71" width="6" height="6"/>
+          <rect x="30" y="68" width="6" height="9"/>
+          <rect x="38" y="64" width="6" height="13"/>
+          <rect x="46" y="60" width="6" height="17"/>
+          <rect x="54" y="55" width="6" height="22"/>
+          <rect x="62" y="50" width="6" height="27"/>
+          <rect x="70" y="44" width="6" height="33"/>
+          <rect x="78" y="38" width="6" height="39"/>
         </g>
       </svg></div>
       <div class="body">
-        <div class="tt">Sums of squares</div>
-        <div class="desc">Fermat's two-squares, Lagrange's four-squares, Gaussian integers $\mathbb{Z}[i]$ as a UFD, the primes that split in $\mathbb{Z}[i]$, and a hint at theta functions.</div>
-        <span class="tag">r₂(n) · ℤ[i] · Lagrange</span>
+        <div class="tt">Additive number theory</div>
+        <div class="desc">Sums of squares (Fermat / Lagrange), Waring's problem and the circle method, power sums and Bernoulli numbers, $\zeta$-special-values via Euler–Maclaurin.</div>
+        <span class="tag">sum-of-squares · Waring · Bernoulli · circle-method</span>
       </div>
     </a>
 
 
-    <a class="card y" href="./power-sums-bernoulli.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- discrete staircase sum S_k(n) and smooth integral x^{k+1}/(k+1) -->
-        <g fill="var(--yellow)" opacity="0.85">
-          <rect x="16" y="58" width="9" height="6"/>
-          <rect x="27" y="50" width="9" height="14"/>
-          <rect x="38" y="40" width="9" height="24"/>
-          <rect x="49" y="28" width="9" height="36"/>
-          <rect x="60" y="14" width="9" height="50"/>
-        </g>
-        <path d="M 16 64 Q 40 64 84 10" fill="none" stroke="var(--blue)" stroke-width="1.4"/>
-        <text x="50" y="74" text-anchor="middle" font-size="7" fill="var(--yellow)" font-style="italic" font-family="serif">Σ kᵖ vs ∫ xᵖ dx</text>
-        <text x="12" y="16" font-size="9" fill="var(--pink)" font-style="italic" font-family="serif">Bₙ</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Power sums &amp; Bernoulli</div>
-        <div class="desc">Faulhaber's formulas, Bernoulli numbers $B_n$, the Euler–Maclaurin expansion, and the bridge to $\zeta(-n) = -B_{n+1}/(n+1)$ that foreshadows analytic continuation.</div>
-        <span class="tag">Bₙ · Faulhaber · Euler–Maclaurin</span>
-      </div>
-    </a>
-
-
-    <a class="card b" href="./waring.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- unit circle with exponential sum samples -->
-        <circle cx="50" cy="40" r="26" fill="none" stroke="var(--blue)" stroke-width="1.2"/>
-        <g fill="var(--yellow)">
-          <circle cx="76" cy="40" r="2"/><circle cx="70" cy="24" r="2"/>
-          <circle cx="54" cy="14" r="2"/><circle cx="34" cy="20" r="2"/>
-          <circle cx="24" cy="40" r="2"/><circle cx="32" cy="60" r="2"/>
-          <circle cx="54" cy="66" r="2"/><circle cx="70" cy="56" r="2"/>
-        </g>
-        <text x="50" y="76" text-anchor="middle" font-size="7" fill="var(--blue)" font-style="italic" font-family="serif">∫₀¹ f(α)ᵏ e(-nα) dα</text>
-        <text x="12" y="16" font-size="8" fill="var(--pink)" font-style="italic" font-family="serif">g(k)</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Waring's problem</div>
-        <div class="desc">Every positive integer is a sum of at most $g(k)$ $k$-th powers. The Hardy–Littlewood circle method: major and minor arcs, singular series, and exponential sums.</div>
-        <span class="tag">g(k) · G(k) · circle method</span>
-      </div>
-    </a>
-
-
-    <a class="card y" href="./quadratic-forms-genus-theory.html">
+  <a class="card y" href="./quadratic-forms-genus-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- binary quadratic form level curves + reduced region -->
         <g fill="none" stroke="var(--yellow)" stroke-width="1" opacity="0.7">
@@ -1311,7 +1681,7 @@
     </a>
 
 
-    <a class="card g" href="./algebraic-number-theory.html">
+  <a class="card g" href="./algebraic-number-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- lattice with a highlighted non-principal ideal -->
         <g fill="var(--green)">
@@ -1335,7 +1705,7 @@
     </a>
 
 
-    <a class="card c" href="./p-adic-numbers.html">
+  <a class="card c" href="./p-adic-numbers.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- p-adic tree for p=3: root with 3 children, each with 3 children -->
         <g stroke="var(--cyan)" stroke-width="1" fill="none" opacity="0.85">
@@ -1363,7 +1733,7 @@
     </a>
 
 
-    <a class="card c" href="./adeles-and-ideles.html">
+  <a class="card c" href="./adeles-and-ideles.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- restricted direct product: R × ∏' Q_p represented as a comb of places -->
         <line x1="10" y1="40" x2="90" y2="40" stroke="var(--cyan)" stroke-width="0.8" opacity="0.5"/>
@@ -1393,7 +1763,7 @@
     </a>
 
 
-    <a class="card g" href="./frobenius-and-reciprocity.html">
+  <a class="card g" href="./frobenius-and-reciprocity.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- dictionary arrows between arithmetic (primes) and automorphic (cycle shapes) -->
         <g fill="var(--green)">
@@ -1428,7 +1798,7 @@
     </a>
 
 
-    <a class="card v" href="./class-field-theory.html">
+  <a class="card v" href="./class-field-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <g fill="none" stroke="var(--violet)" stroke-width="1.2">
           <circle cx="32" cy="26" r="12"/><circle cx="68" cy="26" r="12"/><circle cx="50" cy="54" r="14"/>
@@ -1444,7 +1814,23 @@
     </a>
 
 
-    <a class="card y" href="./heights-arithmetic-geometry.html">
+  <a class="card y" href="./galois-representations.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <g stroke="var(--yellow)" fill="none" stroke-width="1.2">
+          <rect x="16" y="16" width="26" height="20" rx="2"/><rect x="58" y="16" width="26" height="20" rx="2"/>
+          <rect x="37" y="46" width="26" height="20" rx="2"/>
+          <path d="M42 26 L58 26 M29 36 L45 46 M71 36 L55 46"/>
+        </g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Galois representations <span class="level advanced">advanced</span></div>
+        <div class="desc">Encode arithmetic symmetries as linear actions of Galois groups, linking field extensions to modular forms, Frobenius traces, and modern reciprocity.</div>
+        <span class="tag">Gal(ℚ̄/ℚ) · Frobenius · modularity</span>
+      </div>
+    </a>
+
+
+  <a class="card y" href="./heights-arithmetic-geometry.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <line x1="20" y1="64" x2="80" y2="64" stroke="var(--mute)" stroke-width="0.7"/>
         <line x1="20" y1="64" x2="20" y2="20" stroke="var(--mute)" stroke-width="0.7"/>
@@ -1464,12 +1850,30 @@
       </div>
     </a>
 
+
+    <a class="card y" href="./analytic-number-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<g stroke="var(--yellow)" stroke-width="1.4" fill="none">
+          <polyline points="10,62 22,62 22,52 36,52 36,42 50,42 50,32 70,32 70,22 90,22"/>
+          <path d="M 10 62 Q 30 56 50 40 Q 70 28 90 18" opacity="0.55"/>
+        </g>
+        <g fill="var(--mute)" font-size="8" font-family="serif" font-style="italic">
+          <text x="14" y="74">π(x)</text>
+        </g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Analytic number theory</div>
+        <div class="desc">π(x) and the prime number theorem, ζ(s) and the explicit formula, Dirichlet on primes in AP, sieve methods, Bombieri–Vinogradov.</div>
+        <span class="tag">PNT · ζ-zeros · sieves</span>
+      </div>
+    </a>
+
   </div>
 
   <div class="sec">Modular forms &amp; L-functions</div>
   <div class="grid">
 
-    <a class="card p" href="./upper-half-plane-hyperbolic.html">
+  <a class="card p" href="./upper-half-plane-hyperbolic.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- upper half-plane with fundamental domain of SL_2(Z) -->
         <line x1="6" y1="66" x2="94" y2="66" stroke="var(--pink)" stroke-width="1.3"/>
@@ -1491,7 +1895,7 @@
     </a>
 
 
-    <a class="card v" href="./modular-forms.html">
+  <a class="card v" href="./modular-forms.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- fundamental domain with T-tile neighbors -->
         <line x1="6" y1="66" x2="94" y2="66" stroke="var(--violet)" stroke-width="1.2"/>
@@ -1513,7 +1917,7 @@
     </a>
 
 
-    <a class="card b" href="./theta-functions.html">
+  <a class="card b" href="./theta-functions.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <path d="M12 50 Q26 24 40 50 T68 50 T92 50" fill="none" stroke="var(--blue)" stroke-width="1.5"/>
         <g fill="var(--blue)"><circle cx="20" cy="50" r="2.3"/><circle cx="48" cy="50" r="2.3"/><circle cx="76" cy="50" r="2.3"/></g>
@@ -1526,7 +1930,7 @@
     </a>
 
 
-    <a class="card v" href="./partitions-generating-functions.html">
+  <a class="card v" href="./partitions-generating-functions.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- pentagonal scaffolding + growth curve of p(n) -->
         <g stroke="var(--violet)" stroke-width="1.1" fill="none" opacity="0.85">
@@ -1544,7 +1948,7 @@
     </a>
 
 
-    <a class="card c" href="./hecke-operators.html">
+  <a class="card c" href="./hecke-operators.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <g fill="none" stroke="var(--cyan)" stroke-width="1.2">
           <rect x="16" y="18" width="24" height="16"/><rect x="44" y="18" width="24" height="16"/><rect x="30" y="46" width="24" height="16"/>
@@ -1559,7 +1963,7 @@
     </a>
 
 
-    <a class="card y" href="./dirichlet-series-euler-products.html">
+  <a class="card y" href="./dirichlet-series-euler-products.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- sigma notation and product -->
         <text x="22" y="42" text-anchor="middle" font-size="22" fill="var(--yellow)" font-family="serif">∑</text>
@@ -1579,7 +1983,7 @@
     </a>
 
 
-    <a class="card b" href="./analytic-continuation.html">
+  <a class="card b" href="./analytic-continuation.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- disks overlapping along an arc with germs glued -->
         <g fill="none" stroke="var(--blue)" stroke-width="1.2" opacity="0.9">
@@ -1601,7 +2005,7 @@
     </a>
 
 
-    <a class="card v" href="./zeta-values.html">
+  <a class="card v" href="./zeta-values.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- ζ values at integers as dots on a number line -->
         <line x1="10" y1="55" x2="90" y2="55" stroke="#b494ff" stroke-width="0.8"/>
@@ -1638,7 +2042,7 @@
     </a>
 
 
-    <a class="card y" href="./L-functions.html">
+  <a class="card y" href="./L-functions.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <path d="M10 56 C28 22, 42 66, 58 30 S86 24, 92 50" fill="none" stroke="var(--yellow)" stroke-width="1.6"/>
         <line x1="12" y1="60" x2="92" y2="60" stroke="var(--yellow)" stroke-opacity="0.45"/>
@@ -1652,23 +2056,31 @@
     </a>
 
 
-    <a class="card p" href="./galois-representations.html">
+  <a class="card c" href="./automorphic-forms-adelic.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <g stroke="var(--pink)" fill="none" stroke-width="1.2">
-          <rect x="16" y="16" width="26" height="20" rx="2"/><rect x="58" y="16" width="26" height="20" rx="2"/>
-          <rect x="37" y="46" width="26" height="20" rx="2"/>
-          <path d="M42 26 L58 26 M29 36 L45 46 M71 36 L55 46"/>
-        </g>
+        <text x="14" y="34" font-size="9" fill="var(--pink)" font-family="serif" font-style="italic">f</text>
+        <text x="22" y="34" font-size="9" fill="var(--mute)">∈</text>
+        <text x="32" y="34" font-size="9" fill="var(--mute)" font-family="serif">M_k(Γ)</text>
+        <path d="M 64 30 L 80 30" stroke="var(--cyan)" stroke-width="1" marker-end="url(#aforrowhead)"/>
+        <defs>
+          <marker id="aforrowhead" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="5" markerHeight="5" orient="auto">
+            <path d="M 0 0 L 6 3 L 0 6 z" fill="var(--cyan)"/>
+          </marker>
+        </defs>
+        <text x="14" y="60" font-size="9" fill="var(--cyan)" font-family="serif" font-style="italic">φ</text>
+        <text x="22" y="60" font-size="9" fill="var(--mute)">∈</text>
+        <text x="32" y="60" font-size="7.5" fill="var(--mute)" font-family="ui-monospace,monospace">L²(GL₂(ℚ)\GL₂(𝔸))</text>
+        <text x="50" y="74" text-anchor="middle" font-size="6.5" fill="var(--mute)">classical → adelic</text>
       </svg></div>
       <div class="body">
-        <div class="tt">Galois representations <span class="level capstone">capstone</span></div>
-        <div class="desc">Encode arithmetic symmetries as linear actions of Galois groups, linking field extensions to modular forms, Frobenius traces, and modern reciprocity.</div>
-        <span class="tag">Gal(ℚ̄/ℚ) · Frobenius · modularity</span>
+        <div class="tt">Automorphic forms (adelic) <span class="level advanced">advanced</span></div>
+        <div class="desc">From classical $f \in M_k(\Gamma)$ to adelic $\phi : \mathrm{GL}_2(\mathbb Q)\backslash\mathrm{GL}_2(\mathbb A) \to \mathbb C$. Strong approximation, Satake, Whittaker, $L$-functions as adelic Euler products.</div>
+        <span class="tag">strong approximation &middot; Satake &middot; Whittaker &middot; Euler product</span>
       </div>
     </a>
 
 
-    <a class="card v" href="./moonshine.html">
+  <a class="card v" href="./moonshine.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- Monster-group dot plus j(τ) Fourier bars -->
         <circle cx="24" cy="40" r="12" fill="none" stroke="var(--violet)" stroke-width="1.3"/>
@@ -1693,7 +2105,7 @@
     </a>
 
 
-    <a class="card p" href="./sato-tate.html">
+  <a class="card p" href="./sato-tate.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <path d="M 14 58 A 36 36 0 0 1 86 58" fill="none" stroke="var(--pink)" stroke-width="1.3"/>
         <g fill="var(--yellow)">
@@ -1712,7 +2124,7 @@
     </a>
 
 
-    <a class="card p" href="./bsd.html">
+  <a class="card p" href="./bsd.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <g stroke="var(--pink)" stroke-width="1.2" fill="none">
           <path d="M 20 60 Q 35 20 50 40 Q 65 60 80 20"/>
@@ -1733,7 +2145,7 @@
     </a>
 
 
-    <a class="card p" href="./modularity-and-flt.html">
+  <a class="card p" href="./modularity-and-flt.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <g stroke="var(--pink)" stroke-width="1.2" fill="none">
           <path d="M 14 62 Q 22 40 30 44 Q 38 48 46 36 Q 54 24 62 44 Q 70 60 86 54"/>
@@ -1754,26 +2166,21 @@
     </a>
 
 
-    <a class="card c" href="./automorphic-forms-adelic.html">
+    <a class="card c" href="./modular-curves.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <text x="14" y="34" font-size="9" fill="var(--pink)" font-family="serif" font-style="italic">f</text>
-        <text x="22" y="34" font-size="9" fill="var(--mute)">∈</text>
-        <text x="32" y="34" font-size="9" fill="var(--mute)" font-family="serif">M_k(Γ)</text>
-        <path d="M 64 30 L 80 30" stroke="var(--cyan)" stroke-width="1" marker-end="url(#aforrowhead)"/>
-        <defs>
-          <marker id="aforrowhead" viewBox="0 0 6 6" refX="5" refY="3" markerWidth="5" markerHeight="5" orient="auto">
-            <path d="M 0 0 L 6 3 L 0 6 z" fill="var(--cyan)"/>
-          </marker>
-        </defs>
-        <text x="14" y="60" font-size="9" fill="var(--cyan)" font-family="serif" font-style="italic">φ</text>
-        <text x="22" y="60" font-size="9" fill="var(--mute)">∈</text>
-        <text x="32" y="60" font-size="7.5" fill="var(--mute)" font-family="ui-monospace,monospace">L²(GL₂(ℚ)\GL₂(𝔸))</text>
-        <text x="50" y="74" text-anchor="middle" font-size="6.5" fill="var(--mute)">classical → adelic</text>
+<g stroke="var(--cyan)" stroke-width="1.4" fill="none">
+          <line x1="36" y1="14" x2="36" y2="64"/>
+          <line x1="64" y1="14" x2="64" y2="64"/>
+          <path d="M 36 64 Q 50 50 64 64"/>
+          <line x1="50" y1="14" x2="50" y2="50"/>
+        </g>
+        <g fill="var(--cyan)"><circle cx="50" cy="50" r="2"/><circle cx="36" cy="64" r="2"/><circle cx="64" cy="64" r="2"/></g>
+        <text x="50" y="76" text-anchor="middle" font-family="serif" font-size="9" font-style="italic" fill="var(--cyan)">𝓗/Γ</text>
       </svg></div>
       <div class="body">
-        <div class="tt">Automorphic forms (adelic) <span class="level advanced">advanced</span></div>
-        <div class="desc">From classical $f \in M_k(\Gamma)$ to adelic $\phi : \mathrm{GL}_2(\mathbb Q)\backslash\mathrm{GL}_2(\mathbb A) \to \mathbb C$. Strong approximation, Satake, Whittaker, $L$-functions as adelic Euler products.</div>
-        <span class="tag">strong approximation &middot; Satake &middot; Whittaker &middot; Euler product</span>
+        <div class="tt">Modular curves</div>
+        <div class="desc">The modular curves Y₀(N) and X₀(N) as moduli of (E, C), Hecke correspondences, the Jacobian J₀(N), genus formulas, cusps.</div>
+        <span class="tag">Y₀(N) · moduli · Hecke</span>
       </div>
     </a>
 
@@ -1782,7 +2189,7 @@
   <div class="sec">Algebraic geometry</div>
   <div class="grid">
 
-    <a class="card y" href="./projective-plane.html">
+  <a class="card y" href="./projective-plane.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- affine lines meeting at a point at infinity -->
         <g stroke="var(--yellow)" stroke-width="1.2" fill="none" opacity="0.85">
@@ -1804,7 +2211,7 @@
     </a>
 
 
-    <a class="card b" href="./bezout.html">
+  <a class="card b" href="./bezout.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- two conics intersecting at 4 points -->
         <ellipse cx="40" cy="40" rx="24" ry="18" fill="none" stroke="var(--blue)" stroke-width="1.3"/>
@@ -1826,7 +2233,7 @@
     </a>
 
 
-    <a class="card g" href="./schemes.html">
+  <a class="card g" href="./schemes.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <line x1="8" y1="55" x2="92" y2="55" stroke="var(--green)" opacity="0.4"/>
         <g fill="var(--green)">
@@ -1847,7 +2254,7 @@
     </a>
 
 
-    <a class="card b" href="./sheaves.html">
+  <a class="card b" href="./sheaves.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- base space as a horizontal bar -->
         <line x1="10" y1="58" x2="90" y2="58" stroke="var(--blue)" stroke-width="1.4"/>
@@ -1870,7 +2277,7 @@
     </a>
 
 
-    <a class="card p" href="./morphisms-fiber-products.html">
+  <a class="card p" href="./morphisms-fiber-products.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- pullback square -->
         <g fill="var(--pink)"><circle cx="26" cy="22" r="3"/><circle cx="74" cy="22" r="3"/><circle cx="26" cy="58" r="3"/><circle cx="74" cy="58" r="3"/></g>
@@ -1896,7 +2303,7 @@
     </a>
 
 
-    <a class="card c" href="./functor-of-points.html">
+  <a class="card c" href="./functor-of-points.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- a scheme X on the left, its functor h_X on the right: two arrows from rings to sets -->
         <g fill="var(--cyan)"><circle cx="20" cy="40" r="4"/></g>
@@ -1928,7 +2335,7 @@
     </a>
 
 
-    <a class="card y" href="./elliptic-curves.html">
+  <a class="card y" href="./elliptic-curves.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- elliptic curve y^2 = x^3 + 1 (single oval) -->
         <path d="M 50 12 C 85 12 85 68 50 68 C 20 68 20 45 45 45 C 20 45 20 35 45 35 C 20 35 20 12 50 12 Z"
@@ -1955,7 +2362,7 @@
     </a>
 
 
-    <a class="card p" href="./singular-cubics-reduction.html">
+  <a class="card p" href="./singular-cubics-reduction.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- nodal cubic on left, cuspidal cubic on right -->
         <g fill="none" stroke="var(--pink)" stroke-width="1.3">
@@ -1979,7 +2386,57 @@
     </a>
 
 
-    <a class="card v" href="./moduli-spaces.html">
+  <a class="card g" href="./algebraic-curves-higher-genus.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <path d="M 16 42 C 16 28 38 20 50 30 C 62 20 84 28 84 42 C 84 56 62 64 50 54 C 38 64 16 56 16 42 Z" fill="color-mix(in srgb, var(--green) 12%, transparent)" stroke="var(--green)" stroke-width="1.4"/>
+        <ellipse cx="32" cy="42" rx="6" ry="3" fill="none" stroke="var(--green)" stroke-width="0.9"/>
+        <ellipse cx="68" cy="42" rx="6" ry="3" fill="none" stroke="var(--green)" stroke-width="0.9"/>
+        <text x="50" y="76" text-anchor="middle" font-size="7" fill="var(--mute)">smooth proj. curve, g = 2</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Algebraic curves: higher genus</div>
+        <div class="desc">Genus $g \ge 2$: Riemann–Roch determines $h^0(D)$ from $\deg D$ and $g$, the canonical class embeds non-hyperelliptic curves, and $\mathcal{M}_g$ has dimension $3g-3$.</div>
+        <span class="tag">genus · Riemann–Roch · canonical · M_g</span>
+      </div>
+    </a>
+
+
+  <a class="card c" href="./sheaf-cohomology.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <circle cx="38" cy="42" r="18" fill="none" stroke="var(--cyan)" stroke-width="1.3" opacity="0.85"/>
+        <circle cx="62" cy="42" r="18" fill="none" stroke="var(--cyan)" stroke-width="1.3" opacity="0.85"/>
+        <path d="M 50 28 A 18 18 0 0 1 50 56 A 18 18 0 0 1 50 28 Z" fill="var(--cyan)" opacity="0.12"/>
+        <path d="M 50 24 A 24 12 0 0 1 50 60" fill="none" stroke="var(--yellow)" stroke-width="1.3" stroke-dasharray="3 2"/>
+        <text x="38" y="78" text-anchor="middle" font-size="8" fill="var(--cyan)" font-style="italic" font-family="serif">U</text>
+        <text x="62" y="78" text-anchor="middle" font-size="8" fill="var(--cyan)" font-style="italic" font-family="serif">V</text>
+        <text x="50" y="18" text-anchor="middle" font-size="8" fill="var(--yellow)" font-style="italic" font-family="serif">H¹</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Sheaf cohomology <span class="level advanced">advanced</span></div>
+        <div class="desc">Čech cohomology, the long exact sequence, $H^i(\mathbb{P}^n,\mathcal{O}(d))$ as a dimension table, $\mathrm{Pic}(\mathbb{P}^n)=\mathbb{Z}$ — with live cocycle widgets.</div>
+        <span class="tag">Čech · H^i · 𝒪(d)</span>
+      </div>
+    </a>
+
+
+  <a class="card p" href="./algebraic-de-rham-cohomology.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <polygon points="50,18 80,42 50,66 20,42" fill="none" stroke="var(--mute)" stroke-width="1"/>
+        <text x="50" y="22" text-anchor="middle" font-size="6" fill="var(--mute)">h⁰²</text>
+        <text x="80" y="46" text-anchor="middle" font-size="6" fill="var(--mute)">h¹¹</text>
+        <text x="50" y="74" text-anchor="middle" font-size="6" fill="var(--mute)">h²⁰</text>
+        <text x="20" y="46" text-anchor="middle" font-size="6" fill="var(--mute)">h⁰⁰</text>
+        <text x="50" y="46" text-anchor="middle" font-size="9" fill="var(--pink)" font-weight="600">Hodge</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Algebraic de Rham cohomology</div>
+        <div class="desc">Hypercohomology of the algebraic de Rham complex $\Omega^\bullet_{X/k}$, with the Hodge filtration $F^\bullet$ and Hodge numbers $h^{p,q}$ assembling into the Hodge diamond. Comparison with Betti cohomology over $\mathbb{C}$.</div>
+        <span class="tag">Ω¹ · Hodge filtration · Hodge diamond · comparison</span>
+      </div>
+    </a>
+
+
+  <a class="card v" href="./moduli-spaces.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <line x1="10" y1="58" x2="90" y2="58" stroke="var(--violet)" stroke-width="1.3"/>
         <circle cx="25" cy="58" r="3" fill="var(--yellow)"/>
@@ -2007,25 +2464,27 @@
     </a>
 
 
-    <a class="card c" href="./sheaf-cohomology.html">
+  <a class="card g" href="./algebraic-spaces.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <circle cx="38" cy="42" r="18" fill="none" stroke="var(--cyan)" stroke-width="1.3" opacity="0.85"/>
-        <circle cx="62" cy="42" r="18" fill="none" stroke="var(--cyan)" stroke-width="1.3" opacity="0.85"/>
-        <path d="M 50 28 A 18 18 0 0 1 50 56 A 18 18 0 0 1 50 28 Z" fill="var(--cyan)" opacity="0.12"/>
-        <path d="M 50 24 A 24 12 0 0 1 50 60" fill="none" stroke="var(--yellow)" stroke-width="1.3" stroke-dasharray="3 2"/>
-        <text x="38" y="78" text-anchor="middle" font-size="8" fill="var(--cyan)" font-style="italic" font-family="serif">U</text>
-        <text x="62" y="78" text-anchor="middle" font-size="8" fill="var(--cyan)" font-style="italic" font-family="serif">V</text>
-        <text x="50" y="18" text-anchor="middle" font-size="8" fill="var(--yellow)" font-style="italic" font-family="serif">H¹</text>
+        <rect x="14" y="22" width="30" height="20" fill="none" stroke="var(--green)" stroke-width="1.3"/>
+        <text x="29" y="35" text-anchor="middle" font-size="8" fill="var(--ink)">U</text>
+        <rect x="54" y="22" width="32" height="20" fill="none" stroke="var(--cyan)" stroke-width="1.3"/>
+        <text x="70" y="35" text-anchor="middle" font-size="8" fill="var(--ink)">R⊂U×U</text>
+        <line x1="44" y1="28" x2="54" y2="28" stroke="var(--mute)" stroke-width="1"/>
+        <line x1="44" y1="36" x2="54" y2="36" stroke="var(--mute)" stroke-width="1"/>
+        <text x="49" y="26" text-anchor="middle" font-size="6" fill="var(--mute)">s</text>
+        <text x="49" y="40" text-anchor="middle" font-size="6" fill="var(--mute)">t</text>
+        <text x="50" y="60" text-anchor="middle" font-size="8" fill="var(--violet)">X = U/R</text>
       </svg></div>
       <div class="body">
-        <div class="tt">Sheaf cohomology <span class="level advanced">advanced</span></div>
-        <div class="desc">Čech cohomology, the long exact sequence, $H^i(\mathbb{P}^n,\mathcal{O}(d))$ as a dimension table, $\mathrm{Pic}(\mathbb{P}^n)=\mathbb{Z}$ — with live cocycle widgets.</div>
-        <span class="tag">Čech · H^i · 𝒪(d)</span>
+        <div class="tt">Algebraic spaces</div>
+        <div class="desc">Étale equivalence relations on schemes — the smallest enlargement that closes under quotients, sitting between schemes and DM stacks.</div>
+        <span class="tag">étale equivalence · diagonal · Hironaka · quotients</span>
       </div>
     </a>
 
 
-    <a class="card g" href="./stacks.html">
+  <a class="card g" href="./stacks.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <g fill="var(--green)">
           <circle cx="25" cy="28" r="3.2"/>
@@ -2054,48 +2513,7 @@
     </a>
 
 
-    <a class="card c" href="./etale-cohomology.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <circle cx="50" cy="42" r="22" fill="none" stroke="var(--cyan)" stroke-width="1.3"/>
-        <g stroke="var(--yellow)" stroke-width="1" fill="none" opacity="0.9">
-          <path d="M 32 42 A 22 12 0 0 1 68 42"/>
-          <path d="M 32 42 A 22 12 0 0 0 68 42"/>
-        </g>
-        <g fill="var(--pink)">
-          <circle cx="32" cy="42" r="1.8"/><circle cx="68" cy="42" r="1.8"/>
-        </g>
-        <text x="50" y="18" text-anchor="middle" font-size="8" fill="var(--cyan)" font-style="italic" font-family="serif">X_ét</text>
-        <text x="50" y="74" text-anchor="middle" font-size="8" fill="var(--yellow)" font-style="italic" font-family="serif">H^i_ét(X, ℚ_ℓ)</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Étale cohomology <span class="level capstone">capstone</span></div>
-        <div class="desc">Étale morphisms, $\ell$-adic cohomology, and the Weil conjectures: point counts as an alternating sum of Frobenius traces with eigenvalues $|\alpha|=q^{i/2}$.</div>
-        <span class="tag">étale · ℚ_ℓ · Frobenius · Weil</span>
-      </div>
-    </a>
-
-
-    <a class="card g" href="./algebraic-spaces.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <rect x="14" y="22" width="30" height="20" fill="none" stroke="var(--green)" stroke-width="1.3"/>
-        <text x="29" y="35" text-anchor="middle" font-size="8" fill="var(--ink)">U</text>
-        <rect x="54" y="22" width="32" height="20" fill="none" stroke="var(--cyan)" stroke-width="1.3"/>
-        <text x="70" y="35" text-anchor="middle" font-size="8" fill="var(--ink)">R⊂U×U</text>
-        <line x1="44" y1="28" x2="54" y2="28" stroke="var(--mute)" stroke-width="1"/>
-        <line x1="44" y1="36" x2="54" y2="36" stroke="var(--mute)" stroke-width="1"/>
-        <text x="49" y="26" text-anchor="middle" font-size="6" fill="var(--mute)">s</text>
-        <text x="49" y="40" text-anchor="middle" font-size="6" fill="var(--mute)">t</text>
-        <text x="50" y="60" text-anchor="middle" font-size="8" fill="var(--violet)">X = U/R</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Algebraic spaces</div>
-        <div class="desc">Étale equivalence relations on schemes — the smallest enlargement that closes under quotients, sitting between schemes and DM stacks.</div>
-        <span class="tag">étale equivalence · diagonal · Hironaka · quotients</span>
-      </div>
-    </a>
-
-
-    <a class="card g" href="./intersection-theory-chow.html">
+  <a class="card g" href="./intersection-theory-chow.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <line x1="14" y1="40" x2="86" y2="40" stroke="var(--green)" stroke-width="1.4"/>
         <path d="M 14 60 Q 50 12 86 60" fill="none" stroke="var(--green)" stroke-width="1.4"/>
@@ -2111,7 +2529,22 @@
     </a>
 
 
-    <a class="card c" href="./etale-fundamental-group.html">
+  <a class="card y" href="./group-schemes.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <rect x="16" y="22" width="68" height="36" rx="3" fill="none" stroke="var(--mute)" stroke-width="1"/>
+        <text x="50" y="36" text-anchor="middle" font-size="9" fill="var(--ink)">Spec A</text>
+        <text x="50" y="52" text-anchor="middle" font-size="8" fill="var(--yellow)">G = 𝔾_m</text>
+        <text x="50" y="76" text-anchor="middle" font-size="7" fill="var(--mute)">Δ(t) = t ⊗ t,  S(t) = t⁻¹</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Group schemes</div>
+        <div class="desc">Group objects in schemes: $\mathbb{G}_a, \mathbb{G}_m, \mu_n, \alpha_p$, the Hopf-algebra correspondence for affine $G$, étale-vs-connected SES, $\mathrm{Lie}(G)$, torsors classified by $H^1_{\acute{e}t}$.</div>
+        <span class="tag">Hopf algebra · μ_n · Lie(G) · torsors</span>
+      </div>
+    </a>
+
+
+  <a class="card c" href="./etale-fundamental-group.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <circle cx="50" cy="40" r="6" fill="var(--cyan)"/>
         <text x="50" y="43" text-anchor="middle" font-size="7" fill="#111">x̄</text>
@@ -2132,37 +2565,7 @@
     </a>
 
 
-    <a class="card g" href="./algebraic-curves-higher-genus.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <path d="M 16 42 C 16 28 38 20 50 30 C 62 20 84 28 84 42 C 84 56 62 64 50 54 C 38 64 16 56 16 42 Z" fill="color-mix(in srgb, var(--green) 12%, transparent)" stroke="var(--green)" stroke-width="1.4"/>
-        <ellipse cx="32" cy="42" rx="6" ry="3" fill="none" stroke="var(--green)" stroke-width="0.9"/>
-        <ellipse cx="68" cy="42" rx="6" ry="3" fill="none" stroke="var(--green)" stroke-width="0.9"/>
-        <text x="50" y="76" text-anchor="middle" font-size="7" fill="var(--mute)">smooth proj. curve, g = 2</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Algebraic curves: higher genus</div>
-        <div class="desc">Genus $g \ge 2$: Riemann–Roch determines $h^0(D)$ from $\deg D$ and $g$, the canonical class embeds non-hyperelliptic curves, and $\mathcal{M}_g$ has dimension $3g-3$.</div>
-        <span class="tag">genus · Riemann–Roch · canonical · M_g</span>
-      </div>
-    </a>
-
-
-    <a class="card y" href="./group-schemes.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <rect x="16" y="22" width="68" height="36" rx="3" fill="none" stroke="var(--mute)" stroke-width="1"/>
-        <text x="50" y="36" text-anchor="middle" font-size="9" fill="var(--ink)">Spec A</text>
-        <text x="50" y="52" text-anchor="middle" font-size="8" fill="var(--yellow)">G = 𝔾_m</text>
-        <text x="50" y="76" text-anchor="middle" font-size="7" fill="var(--mute)">Δ(t) = t ⊗ t,  S(t) = t⁻¹</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Group schemes</div>
-        <div class="desc">Group objects in schemes: $\mathbb{G}_a, \mathbb{G}_m, \mu_n, \alpha_p$, the Hopf-algebra correspondence for affine $G$, étale-vs-connected SES, $\mathrm{Lie}(G)$, torsors classified by $H^1_{\acute{e}t}$.</div>
-        <span class="tag">Hopf algebra · μ_n · Lie(G) · torsors</span>
-      </div>
-    </a>
-
-
-    <a class="card p" href="./deformation-theory.html">
+  <a class="card p" href="./deformation-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <rect x="20" y="36" width="20" height="28" fill="color-mix(in srgb, var(--pink) 16%, transparent)" stroke="var(--pink)" stroke-width="1.3"/>
         <text x="30" y="54" text-anchor="middle" font-size="9" fill="var(--ink)">X₀</text>
@@ -2180,28 +2583,33 @@
     </a>
 
 
-    <a class="card p" href="./algebraic-de-rham-cohomology.html">
+  <a class="card c" href="./etale-cohomology.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <polygon points="50,18 80,42 50,66 20,42" fill="none" stroke="var(--mute)" stroke-width="1"/>
-        <text x="50" y="22" text-anchor="middle" font-size="6" fill="var(--mute)">h⁰²</text>
-        <text x="80" y="46" text-anchor="middle" font-size="6" fill="var(--mute)">h¹¹</text>
-        <text x="50" y="74" text-anchor="middle" font-size="6" fill="var(--mute)">h²⁰</text>
-        <text x="20" y="46" text-anchor="middle" font-size="6" fill="var(--mute)">h⁰⁰</text>
-        <text x="50" y="46" text-anchor="middle" font-size="9" fill="var(--pink)" font-weight="600">Hodge</text>
+        <circle cx="50" cy="42" r="22" fill="none" stroke="var(--cyan)" stroke-width="1.3"/>
+        <g stroke="var(--yellow)" stroke-width="1" fill="none" opacity="0.9">
+          <path d="M 32 42 A 22 12 0 0 1 68 42"/>
+          <path d="M 32 42 A 22 12 0 0 0 68 42"/>
+        </g>
+        <g fill="var(--pink)">
+          <circle cx="32" cy="42" r="1.8"/><circle cx="68" cy="42" r="1.8"/>
+        </g>
+        <text x="50" y="18" text-anchor="middle" font-size="8" fill="var(--cyan)" font-style="italic" font-family="serif">X_ét</text>
+        <text x="50" y="74" text-anchor="middle" font-size="8" fill="var(--yellow)" font-style="italic" font-family="serif">H^i_ét(X, ℚ_ℓ)</text>
       </svg></div>
       <div class="body">
-        <div class="tt">Algebraic de Rham cohomology</div>
-        <div class="desc">Hypercohomology of the algebraic de Rham complex $\Omega^\bullet_{X/k}$, with the Hodge filtration $F^\bullet$ and Hodge numbers $h^{p,q}$ assembling into the Hodge diamond. Comparison with Betti cohomology over $\mathbb{C}$.</div>
-        <span class="tag">Ω¹ · Hodge filtration · Hodge diamond · comparison</span>
+        <div class="tt">Étale cohomology <span class="level capstone">capstone</span></div>
+        <div class="desc">Étale morphisms, $\ell$-adic cohomology, and the Weil conjectures: point counts as an alternating sum of Frobenius traces with eigenvalues $|\alpha|=q^{i/2}$.</div>
+        <span class="tag">étale · ℚ_ℓ · Frobenius · Weil</span>
       </div>
     </a>
+
 
   </div>
 
   <div class="sec">Combinatorics &amp; graph theory</div>
   <div class="grid">
 
-    <a class="card g" href="./spectral-graph-theory.html">
+  <a class="card g" href="./spectral-graph-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <line x1="22" y1="22" x2="50" y2="14" stroke="var(--mute)" stroke-width="0.9"/>
         <line x1="50" y1="14" x2="78" y2="22" stroke="var(--mute)" stroke-width="0.9"/>
@@ -2225,7 +2633,7 @@
     </a>
 
 
-    <a class="card g" href="./matroid-theory.html">
+  <a class="card g" href="./matroid-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <line x1="22" y1="60" x2="78" y2="60" stroke="var(--mute)" stroke-width="0.7" stroke-dasharray="2 2"/>
         <line x1="22" y1="44" x2="78" y2="44" stroke="var(--mute)" stroke-width="0.7" stroke-dasharray="2 2"/>
@@ -2249,7 +2657,7 @@
     </a>
 
 
-    <a class="card g" href="./probabilistic-method.html">
+  <a class="card g" href="./probabilistic-method.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <rect x="18" y="14" width="64" height="48" rx="3" fill="none" stroke="var(--mute)" stroke-width="0.7"/>
         <line x1="18" y1="56" x2="82" y2="56" stroke="var(--line)" stroke-width="0.5" stroke-dasharray="2 2"/>
@@ -2265,7 +2673,7 @@
     </a>
 
 
-    <a class="card g" href="./extremal-combinatorics.html">
+  <a class="card g" href="./extremal-combinatorics.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <line x1="22" y1="22" x2="78" y2="22" stroke="var(--line)" stroke-width="0.7"/>
         <line x1="22" y1="58" x2="78" y2="58" stroke="var(--line)" stroke-width="0.7"/>
@@ -2287,7 +2695,7 @@
     </a>
 
 
-    <a class="card g" href="./simplicial-complexes-combinatorial.html">
+  <a class="card g" href="./simplicial-complexes-combinatorial.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <polygon points="32,18 68,18 50,46" fill="color-mix(in srgb, var(--green) 22%, transparent)" stroke="var(--green)" stroke-width="1.1"/>
         <polygon points="32,18 50,46 22,52" fill="color-mix(in srgb, var(--cyan) 18%, transparent)" stroke="var(--cyan)" stroke-width="1.1"/>
@@ -2307,8 +2715,26 @@
       </div>
     </a>
 
+
+    <a class="card v" href="./enumerative-combinatorics.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<g fill="var(--violet)" font-family="serif" font-size="9" text-anchor="middle">
+          <text x="50" y="22">1</text>
+          <text x="40" y="36">1</text><text x="60" y="36">1</text>
+          <text x="30" y="50">1</text><text x="50" y="50">2</text><text x="70" y="50">1</text>
+          <text x="20" y="64">1</text><text x="40" y="64">3</text><text x="60" y="64">3</text><text x="80" y="64">1</text>
+        </g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Enumerative combinatorics</div>
+        <div class="desc">Stars-and-bars, inclusion–exclusion, ordinary and exponential generating functions, permutation statistics, partitions, bijective proofs.</div>
+        <span class="tag">binomial · OGF/EGF · partitions</span>
+      </div>
+    </a>
+
   </div>
-  <!-- section-links-auto-begin -->
+
+<!-- section-links-auto-begin -->
   <div class="sec" style="margin-top:3rem">Sections</div>
   <p class="sub" style="text-align:left;font-size:0.92rem;margin:0 0 1rem">
     <a href="./sections/foundations.html">Foundations</a> · 
@@ -2355,14 +2781,16 @@
     } catch(_){}
     if (Object.keys(fromBundle).length > 0) return fromBundle;
     return {
-      'Foundations':                  { id: 'foundations',                    color: 'b' },
-      'Algebra':                      { id: 'algebra',                        color: 'y' },
-      'Analysis':                     { id: 'analysis',                       color: 'p' },
-      'Geometry & topology':          { id: 'geometry-and-topology',          color: 'v' },
-      'Number theory':                { id: 'number-theory',                  color: 'y' },
-      'Modular forms & L-functions':  { id: 'modular-forms-and-l-functions',  color: 'c' },
-      'Algebraic geometry':           { id: 'algebraic-geometry',             color: 'g' },
-      'Combinatorics & graph theory': { id: 'combinatorics-and-graph-theory', color: 'g' },
+      'Logic & Foundations':          { id: 'logic-and-foundations',           color: 'b' },
+      'Algebra & homological':        { id: 'algebra',                         color: 'y' },
+      'Higher categories & toposes':  { id: 'higher-categories-and-toposes',   color: 'c' },
+      'Analysis':                     { id: 'analysis',                        color: 'p' },
+      'Probability & statistics':     { id: 'probability-and-statistics',      color: 'g' },
+      'Geometry & topology':          { id: 'geometry-and-topology',           color: 'v' },
+      'Number theory':                { id: 'number-theory',                   color: 'y' },
+      'Modular forms & L-functions':  { id: 'modular-forms-and-l-functions',   color: 'c' },
+      'Algebraic geometry':           { id: 'algebraic-geometry',              color: 'g' },
+      'Combinatorics & graph theory': { id: 'combinatorics-and-graph-theory',  color: 'v' },
     };
   })();
   function init(){

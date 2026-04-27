@@ -56,7 +56,8 @@
       "anchor": "ideals-vs-forms",
       "prereqs": [
         "genus-theory",
-        "prime-ideals-factorization-ant"
+        "prime-ideals-factorization-ant",
+        "hilbert-class-field"
       ],
       "blurb": "There is a canonical isomorphism between the form class group of discriminant D and the ideal class group of ℚ(√D); this bridges classical and modern algebraic number theory."
     }

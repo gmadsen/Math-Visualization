@@ -1,0 +1,162 @@
+{
+  "topic": "additive-number-theory",
+  "title": "Additive number theory",
+  "page": "additive-number-theory.html",
+  "concepts": [
+    {
+      "id": "two-squares-theorem",
+      "title": "Sum of two squares",
+      "anchor": "twosq",
+      "prereqs": [
+        "quadratic-reciprocity-law"
+      ],
+      "blurb": "Prime splitting in Gaussian integers characterizes n=x^2+y^2."
+    },
+    {
+      "id": "gaussian-integer-splitting",
+      "title": "Gaussian integers and prime splitting",
+      "anchor": "gaussian",
+      "prereqs": [
+        "two-squares-theorem"
+      ],
+      "blurb": "Primes p≡1 mod 4 split in Z[i]; p≡3 mod 4 stay inert; p=2 ramifies — the structural reason behind Fermat's theorem.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "three-squares-theorem",
+      "title": "Legendre three-square theorem",
+      "anchor": "three",
+      "prereqs": [
+        "gaussian-integer-splitting",
+        "genus-theory"
+      ],
+      "blurb": "Integers not of form 4^a(8b+7) are sums of three squares."
+    },
+    {
+      "id": "four-squares-and-waring",
+      "title": "Four squares and Waring perspective",
+      "anchor": "four",
+      "prereqs": [
+        "three-squares-theorem"
+      ],
+      "blurb": "Lagrange and Waring-type refinements show universal additive quadratic behavior."
+    },
+    {
+      "id": "waring-problem",
+      "title": "Waring's problem: g(k) and G(k)",
+      "anchor": "waring",
+      "prereqs": [
+        "four-squares-and-waring"
+      ],
+      "blurb": "Hilbert's theorem guarantees finitely many k-th powers suffice; g(k) and G(k) sharpen the count asymptotically.",
+      "tags": [
+        "finiteness"
+      ]
+    },
+    {
+      "id": "waring-problem-statement",
+      "title": "Waring's problem: g(k)",
+      "anchor": "statement",
+      "prereqs": [
+        "four-squares-and-waring"
+      ],
+      "blurb": "For each k, g(k) is the least s such that every n is a sum of s k-th powers: g(2)=4 (Lagrange), g(3)=9 (Wieferich), g(4)=19."
+    },
+    {
+      "id": "g-k-vs-G-k",
+      "title": "g(k) versus G(k)",
+      "anchor": "gvsG",
+      "prereqs": [
+        "waring-problem-statement"
+      ],
+      "blurb": "G(k) is the asymptotic Waring constant (sufficiently large n); G(k) ≤ g(k), often strictly, and G(k) = O(k log k)."
+    },
+    {
+      "id": "hilbert-waring-theorem",
+      "title": "Hilbert–Waring theorem",
+      "anchor": "hilbert",
+      "prereqs": [
+        "waring-problem-statement"
+      ],
+      "blurb": "Hilbert (1909) proved g(k) is finite for every k — the first abstract proof, by a combinatorial identity, later superseded by the circle method.",
+      "tags": [
+        "finiteness"
+      ]
+    },
+    {
+      "id": "circle-method-intro",
+      "title": "Circle method setup",
+      "anchor": "circle",
+      "prereqs": [
+        "hilbert-waring-theorem",
+        "dirichlet-series-basics"
+      ],
+      "blurb": "Count representations as a Fourier integral: r_{s,k}(N) = ∫₀¹ f(α)^s e(−αN) dα with f(α)=Σ e(αn^k), then split the unit interval into major and minor arcs."
+    },
+    {
+      "id": "major-vs-minor-arcs",
+      "title": "Major arcs vs minor arcs",
+      "anchor": "arcs",
+      "prereqs": [
+        "circle-method-intro"
+      ],
+      "blurb": "Near rationals a/q with small q, f(α) is a Gauss-sum-weighted main term (major arcs); elsewhere Weyl bounds force cancellation (minor arcs) — the sum yields an asymptotic with singular series × singular integral."
+    },
+    {
+      "id": "faulhaber-formula",
+      "title": "Faulhaber's formula for power sums",
+      "anchor": "faulhaber",
+      "prereqs": [
+        "algebraic-structures"
+      ],
+      "blurb": "The sum $\\sum_{k=1}^{n} k^m$ is a polynomial in $n$ of degree $m{+}1$, with coefficients assembled from binomial numbers and Bernoulli numbers."
+    },
+    {
+      "id": "bernoulli-generating-function",
+      "title": "Bernoulli numbers and their generating function",
+      "anchor": "bernoulli",
+      "prereqs": [
+        "faulhaber-formula"
+      ],
+      "blurb": "The Bernoulli numbers $B_n$ arise from $t/(e^t-1)=\\sum B_n t^n/n!$; all odd $B_n$ beyond $B_1$ vanish and the even ones alternate in sign."
+    },
+    {
+      "id": "zeta-special-values",
+      "title": "Euler's formula for $\\zeta(2n)$",
+      "anchor": "zeta",
+      "prereqs": [
+        "bernoulli-generating-function",
+        "dirichlet-series-basics"
+      ],
+      "blurb": "Euler expressed $\\zeta(2n)$ in closed form using Bernoulli numbers; the negative-integer values $\\zeta(-n)=-B_{n+1}/(n+1)$ are the shadow seen through the functional equation.",
+      "tags": [
+        "duality"
+      ]
+    },
+    {
+      "id": "euler-maclaurin",
+      "title": "Euler-Maclaurin summation",
+      "anchor": "em",
+      "prereqs": [
+        "bernoulli-generating-function",
+        "riemann-integral"
+      ],
+      "blurb": "Euler-Maclaurin turns a finite sum into an integral plus endpoint corrections weighted by Bernoulli numbers, making asymptotic expansions of slowly-converging series accessible."
+    },
+    {
+      "id": "zeta-functional-equation-preview",
+      "title": "Functional equation preview via Mellin",
+      "anchor": "func-eq",
+      "prereqs": [
+        "zeta-special-values",
+        "mellin-transform-dirichlet"
+      ],
+      "blurb": "The completed zeta $\\xi(s)=\\pi^{-s/2}\\Gamma(s/2)\\zeta(s)$ satisfies $\\xi(s)=\\xi(1-s)$; the Bernoulli-number values on both sides are the first consistency check of the reflection.",
+      "tags": [
+        "duality"
+      ]
+    }
+  ]
+}

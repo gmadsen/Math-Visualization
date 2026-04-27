@@ -1,0 +1,1132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Forcing and independence</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\Spec',
+        '\\Gal':'\\Gal',
+        '\\Hom':'\\Hom',
+        '\\tr':'\\tr',
+        '\\ad':'\\ad',
+        '\\ind':'\\ind'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"automorphic-forms-adelic","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"additive-number-theory":{"next":"quadratic-forms-genus-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"moduli-spaces","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":null,"prev":"heights-arithmetic-geometry","section":"Number theory","title":"Analytic number theory"},"automorphic-forms-adelic":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-topoi","prev":"infinity-categories","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"deformation-theory":{"next":"etale-cohomology","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"group-cohomology","prev":"homological","section":"Algebra & homological","title":"Derived categories"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"harmonic-analysis-fourier","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":null,"section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":null,"prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":null,"prev":"deformation-theory","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"deformation-theory","prev":"group-schemes","section":"Algebraic geometry","title":"Étale fundamental group"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"naive-set-theory","section":"Logic & Foundations","title":"First order logic and completeness"},"forcing-and-independence":{"next":null,"prev":"type-theory-and-hott","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":null,"prev":"lie-algebras","section":"Algebra & homological","title":"Galois cohomology and brauer"},"galois-representations":{"next":"heights-arithmetic-geometry","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"lie-algebras","prev":"derived-categories","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"etale-fundamental-group","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"harmonic-analysis-fourier":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"spectral-theory","prev":"partial-differential-equations","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"analytic-number-theory","prev":"galois-representations","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"homological":{"next":"derived-categories","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"cocartesian-fibrations","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-topoi (Lurie)"},"information-theory":{"next":"large-deviations","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"stacks","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"large-deviations":{"next":null,"prev":"information-theory","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"galois-cohomology-and-brauer","prev":"group-cohomology","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"model-theory-basics":{"next":"computability-and-decidability","prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":null,"prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"modular-curves","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"algebraic-spaces","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":null,"prev":"characteristic-classes","section":"Geometry & topology","title":"Morse theory"},"naive-set-theory":{"next":"first-order-logic-and-completeness","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"harmonic-functions","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"stochastic-processes-and-martingales","prev":null,"section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"additive-number-theory","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"additive-number-theory","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"random-walks-and-mixing":{"next":"information-theory","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra & homological","title":"Representation theory"},"riemann-surfaces":{"next":"characteristic-classes","prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"sheaf-cohomology":{"next":"algebraic-de-rham-cohomology","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"algebraic-curves-higher-genus","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Sobolev spaces & distributions"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":null,"prev":"harmonic-functions","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"intersection-theory-chow","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":"probability-theory","section":"Probability & statistics","title":"Stochastic processes and martingales"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"type-theory-and-hott":{"next":"forcing-and-independence","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and hott"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"model-theory-basics","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"Zfc and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="Logic & Foundations" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+  <a href="#posets">1&nbsp;Forcing&nbsp;posets</a>
+  <a href="#generic">2&nbsp;Generic&nbsp;filters</a>
+  <a href="#truth-lemma">3&nbsp;Truth&nbsp;lemma</a>
+  <a href="#cohen-reals">4&nbsp;Cohen&nbsp;reals</a>
+  <a href="#not-ch">5&nbsp;¬CH</a>
+  <a href="#applications">6&nbsp;Applications</a>
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Forcing and independence</h1>
+  <p class="sub">Cohen's 1963 technique for building a model of ZFC where you decide what is true. Pile up partial conditions until a generic filter exists; the conditions force statements into the extension; choose the poset to make the continuum hypothesis fail. The same machine settles Suslin, Whitehead, and a long list of other questions ZFC alone refuses to answer.</p>
+</section>
+
+<p>Gödel had shown in 1940 that CH is <em>consistent</em> with ZFC, by building the constructible universe $L$. The other direction — is $\neg$CH also consistent? — sat open for two decades. Cohen's <strong>forcing</strong> answered yes, and along the way invented the most flexible tool in modern set theory: a way to construct, from a model $M$ of ZFC, a larger model $M[G]$ in which a designed list of new sets exists.</p>
+
+<p>The plot of this page: assemble a poset $\mathbb P$ of "partial information" called <em>conditions</em>; identify $\mathbb P$-generic filters $G$ over a countable model $M$; show that the extension $M[G]$ is again a model of ZFC and that statements about $G$ are decided by a syntactically defined <em>forcing relation</em> $p\Vdash\varphi$. Pick $\mathbb P=2^{<\omega}$ to add a new real, or its $\aleph_2$-fold product to add $\aleph_2$ reals at once and make CH fail. Then survey other independence theorems and Martin's axiom.</p>
+
+<section id="posets">
+<h2>1. Forcing posets and dense subsets</h2>
+<p>A <strong>forcing notion</strong> is a partially ordered set $(\mathbb P,\le)$ with a maximum element $\mathbb 1\in\mathbb P$. Read $p\le q$ as "$p$ is <em>stronger</em> than $q$" — $p$ commits to more about the unknown object you are building.</p>
+
+<div class="note"><strong>Sign conventions vary.</strong> Cohen and Kunen use $p\le q$ for "$p$ is stronger" (going down the order pins more bits). Some authors flip the order. We use Cohen/Kunen here. The maximum $\mathbb 1$ is the empty commitment — "I have decided nothing yet".</div>
+
+<p>The canonical example: <strong>Cohen forcing</strong> $\mathbb P=2^{<\omega}$, the set of finite binary strings, ordered by <em>extension</em>. The empty string $\langle\rangle=\mathbb 1$ is on top; $\langle 0\rangle$ and $\langle 1\rangle$ are stronger; each condition has exactly two immediate extensions. The poset is the infinite binary tree growing downward.</p>
+
+<p>A subset $D\subseteq\mathbb P$ is <strong>dense</strong> iff for every $p\in\mathbb P$ there exists $q\in D$ with $q\le p$. Density says: every condition can be extended into $D$. Each dense set is a question we want answered, and meeting it is an answer.</p>
+
+<div class="widget" id="w-poset">
+  <div class="hd"><div class="ttl">Dense subsets in the Cohen poset $2^{<\omega}$</div><div class="hint">click a "question" to highlight a dense set</div></div>
+  <div class="row">
+    <button data-q="bit2-equals-1" class="active">bit 2 = 1</button>
+    <button data-q="length-ge-3">length ≥ 3</button>
+    <button data-q="ends-in-01">ends in 01</button>
+    <button data-q="differs-from-zero">disagrees with 000…</button>
+  </div>
+  <svg id="poset-svg" viewBox="0 0 620 300" width="620" height="300"><title>Dense subsets of the Cohen poset</title></svg>
+  <div class="readout" id="poset-out"></div>
+</div>
+
+<p>Two conditions $p,q$ are <strong>compatible</strong> if some $r\le p,q$ exists; otherwise <strong>incompatible</strong> (notation $p\perp q$). In Cohen forcing, two strings are compatible iff one extends the other. An <strong>antichain</strong> is a set of pairwise incompatible conditions; the <strong>countable chain condition (ccc)</strong> says every antichain is countable. Cohen forcing satisfies ccc — it preserves all cardinals, a key technical fact for the $\neg$CH application below.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./zfc-and-ordinals.html#axioms">ZFC axioms</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./forcing-and-independence.html#generic">Forcing and independence</a> · Generic filters and the model $M[G]$</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="forcing-posets"></div><script>
+(function(){
+  const buttons = $$('#w-poset button[data-q]');
+  const svg = $('#poset-svg'), out = $('#poset-out');
+  let mode = 'bit2-equals-1';
+  // depth-3 binary tree drawn top-down. Nodes are strings.
+  const W=620, H=300;
+  const levels = [
+    [{s:'⟨⟩'}],
+    [{s:'0'},{s:'1'}],
+    [{s:'00'},{s:'01'},{s:'10'},{s:'11'}],
+    [{s:'000'},{s:'001'},{s:'010'},{s:'011'},{s:'100'},{s:'101'},{s:'110'},{s:'111'}],
+  ];
+  function inDense(s, q){
+    if(q==='bit2-equals-1') return s.length>=2 && s[1]==='1';
+    if(q==='length-ge-3')   return s.length>=3;
+    if(q==='ends-in-01')    return s.length>=2 && s.endsWith('01');
+    if(q==='differs-from-zero') return s.length>=1 && s.indexOf('1')>=0;
+    return false;
+  }
+  function describe(q){
+    if(q==='bit2-equals-1') return "D = {p : |p| ≥ 2 ∧ p[1] = 1}.\nDense? Yes — extend any p of length <2 by appending 1, then extend further as needed.\nMeeting D commits the second bit of the generic real to 1.";
+    if(q==='length-ge-3')   return "D = {p : |p| ≥ 3}.\nDense? Yes — every finite string can be padded to length 3.\nMeeting all such 'length ≥ n' sets forces |G| = ω, i.e. r_G ∈ 2^ω.";
+    if(q==='ends-in-01')    return "D = {p : p ends in 01}.\nDense? Yes — given any p, the extension p·01 is in D and below p.\nThis is the kind of density that pins specific finite patterns into r_G.";
+    if(q==='differs-from-zero') return "D_s = {p : p ≠ s↾|p|} for s = 000… (the all-zeros real).\nDense? Yes — given p, extend by the bit opposite to s at the next position.\nGenericity ⇒ r_G ≠ s. Doing this for each old real shows r_G is new.";
+    return '';
+  }
+  function pos(level, idx){
+    const margin = 30;
+    const y = 36 + level*70;
+    const n = levels[level].length;
+    const x = margin + (W - 2*margin) * (idx + 0.5)/n;
+    return [x, y];
+  }
+  function render(){
+    svg.innerHTML='';
+    // edges
+    for(let L=0; L<levels.length-1; L++){
+      const lower = levels[L+1];
+      for(let i=0;i<lower.length;i++){
+        const parentIdx = i>>1;
+        const [x1,y1] = pos(L, parentIdx);
+        const [x2,y2] = pos(L+1, i);
+        svg.appendChild(SVG('line',{x1,y1,x2,y2,
+          stroke:'var(--line)','stroke-width':1}));
+      }
+    }
+    // nodes
+    for(let L=0; L<levels.length; L++){
+      for(let i=0;i<levels[L].length;i++){
+        const node = levels[L][i];
+        const [x,y] = pos(L, i);
+        const isDense = inDense(node.s.replace('⟨⟩',''), mode);
+        const fill = isDense ? 'var(--yellow)' : 'var(--panel2)';
+        const stroke = isDense ? 'var(--yellow)' : 'var(--line)';
+        const ink = isDense ? '#0b0d10' : 'var(--ink)';
+        svg.appendChild(SVG('circle',{cx:x,cy:y,r:14,fill,stroke,'stroke-width':1.6}));
+        const t = SVG('text',{x, y:y+4,'text-anchor':'middle','font-size':10,
+          fill:ink,'font-weight':600,'pointer-events':'none'});
+        t.textContent = node.s;
+        svg.appendChild(t);
+      }
+    }
+    // legend (viewport coords, top-right)
+    const lg = SVG('g',{transform:'translate(440, 14)'});
+    lg.appendChild(SVG('circle',{cx:0,cy:0,r:7,fill:'var(--yellow)',stroke:'var(--yellow)'}));
+    const lt1 = SVG('text',{x:12,y:4,'font-size':11,fill:'var(--mute)'});
+    lt1.textContent = 'in dense set D';
+    lg.appendChild(lt1);
+    lg.appendChild(SVG('circle',{cx:0,cy:18,r:7,fill:'var(--panel2)',stroke:'var(--line)'}));
+    const lt2 = SVG('text',{x:12,y:22,'font-size':11,fill:'var(--mute)'});
+    lt2.textContent = 'not in D';
+    lg.appendChild(lt2);
+    svg.appendChild(lg);
+    out.textContent = describe(mode);
+  }
+  buttons.forEach(b => b.addEventListener('click', () => {
+    buttons.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    mode = b.dataset.q;
+    render();
+  }));
+  render();
+})();
+</script>
+
+
+</section>
+<section id="generic">
+<h2>2. Generic filters and the model $M[G]$</h2>
+<p>Fix a countable transitive model $M\models$ ZFC and a poset $\mathbb P\in M$. A subset $G\subseteq\mathbb P$ is a <strong>filter</strong> if it is upward-closed ($p\in G,\ q\ge p\Rightarrow q\in G$) and downward-directed ($p,q\in G\Rightarrow\exists r\in G,\ r\le p,q$). It is $M$-<strong>generic</strong> if additionally:</p>
+
+\[
+G\cap D \ne \emptyset \quad\text{for every dense } D\in M.
+\]
+
+<p>The countability of $M$ is essential: there are only countably many dense sets in $M$, so we can enumerate them $D_0,D_1,\dots$ and pick a descending chain $p_0\ge p_1\ge\dots$ with $p_n\in D_n$. The upward closure of this chain is the desired generic filter — and it lives <em>outside</em> $M$, since meeting every dense set is precisely what no $M$-element does.</p>
+
+<div class="widget" id="w-generic">
+  <div class="hd"><div class="ttl">Building a generic filter step by step</div><div class="hint">step ↑ to enumerate dense sets and pick a witness from each</div></div>
+  <div class="row">
+    <button id="gen-step">step</button>
+    <button id="gen-reset">reset</button>
+    <span class="readout" id="gen-counter" style="min-width:120px;flex:0"></span>
+  </div>
+  <svg id="gen-svg" viewBox="0 0 620 300" width="620" height="300"><title>Generic filter construction</title></svg>
+  <div class="readout" id="gen-out"></div>
+</div>
+
+<p>From a generic $G$ we construct $M[G]$ by interpreting <strong>$\mathbb P$-names</strong> from $M$. A name $\dot x\in M$ is a set of pairs $(\dot y, p)$; its evaluation is $\dot x_G = \{\,\dot y_G : (\dot y, p)\in\dot x \text{ for some } p\in G\,\}$. The model is $M[G] = \{\dot x_G : \dot x\in M\}$.</p>
+
+<div class="ok"><strong>Three theorems (Cohen).</strong> For any countable transitive $M\models$ ZFC, any $\mathbb P\in M$, and any $M$-generic $G\subseteq\mathbb P$:
+<ul>
+  <li><strong>Existence of $G$.</strong> $M$-generic filters always exist (in $V$, outside $M$).</li>
+  <li><strong>$M\subseteq M[G]$ and $G\in M[G]$.</strong> The extension keeps everything from the ground model and exhibits $G$ as a set.</li>
+  <li><strong>$M[G]\models$ ZFC.</strong> The new model satisfies all the same axioms.</li>
+</ul></div>
+
+<p>So $M[G]$ is a legitimate place to do mathematics. The question — what new statements hold there — is settled by the forcing relation in the next section.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./first-order-logic-and-completeness.html#lowenheim-skolem">Löwenheim–Skolem and Skolem's paradox</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./forcing-and-independence.html#truth-lemma">Forcing and independence</a> · The forcing relation and truth lemma</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="forcing-generic-extensions"></div><script>
+(function(){
+  const stepBtn = $('#gen-step'), resetBtn = $('#gen-reset');
+  const counter = $('#gen-counter'), svg = $('#gen-svg'), out = $('#gen-out');
+  // 8 enumerated dense sets D_0..D_7. Each one is a predicate on binary strings;
+  // the chosen condition at step n is the shortest extension of the previous chosen condition that lies in D_n.
+  const dense = [
+    {name:'D_0: bit 0 = 1',     test: s => s.length>=1 && s[0]==='1', label:'b0=1'},
+    {name:'D_1: length ≥ 2',    test: s => s.length>=2,                label:'len≥2'},
+    {name:'D_2: ends in 01',    test: s => s.length>=2 && s.endsWith('01'), label:'…01'},
+    {name:'D_3: length ≥ 5',    test: s => s.length>=5,                label:'len≥5'},
+    {name:'D_4: bit 5 = 0',     test: s => s.length>=6 && s[5]==='0', label:'b5=0'},
+    {name:'D_5: length ≥ 7',    test: s => s.length>=7,                label:'len≥7'},
+    {name:'D_6: contains 110',  test: s => s.indexOf('110')>=0,        label:'has 110'},
+    {name:'D_7: length ≥ 9',    test: s => s.length>=9,                label:'len≥9'},
+  ];
+  // greedy extension: search BFS for a shortest extension of `cur` satisfying test.
+  function extend(cur, test){
+    if(test(cur)) return cur;
+    let frontier = [cur];
+    for(let depth=0; depth<14; depth++){
+      const next = [];
+      for(const s of frontier){
+        for(const b of '01'){
+          const t = s + b;
+          if(test(t)) return t;
+          next.push(t);
+        }
+      }
+      frontier = next;
+    }
+    return cur; // fallback (should not happen for our dense sets)
+  }
+  let chain = ['']; // chosen conditions p_0, p_1, ...; chain[0] is the empty string
+  let stage = 0;    // how many dense sets we have met (0..dense.length)
+
+  function render(){
+    svg.innerHTML='';
+    counter.textContent = `step ${stage} / ${dense.length}`;
+    // top: ladder of dense sets (mark which have been met).
+    for(let i=0;i<dense.length;i++){
+      const x = 60 + i*70, y = 30;
+      const met = i < stage;
+      svg.appendChild(SVG('rect',{x:x-26,y:y-12,width:52,height:24,rx:6,
+        fill: met ? 'color-mix(in srgb, var(--green) 25%, transparent)' : 'var(--panel2)',
+        stroke: met ? 'var(--green)' : 'var(--line)','stroke-width':1.4}));
+      const t = SVG('text',{x, y:y+4,'text-anchor':'middle','font-size':10,
+        fill: met ? 'var(--green)' : 'var(--mute)'});
+      t.textContent = dense[i].label;
+      svg.appendChild(t);
+      const tn = SVG('text',{x, y:y-16,'text-anchor':'middle','font-size':9,fill:'var(--mute)'});
+      tn.textContent = `D_${i}`;
+      svg.appendChild(tn);
+    }
+    // middle: chain of chosen conditions.
+    const baseY = 130;
+    for(let i=0;i<chain.length;i++){
+      const x = 50 + i*60, y = baseY;
+      const s = chain[i] === '' ? '⟨⟩' : chain[i];
+      svg.appendChild(SVG('rect',{x:x-26,y:y-14,width:52,height:28,rx:6,
+        fill:'var(--panel2)', stroke:'var(--yellow)','stroke-width':1.6}));
+      const t = SVG('text',{x, y:y+4,'text-anchor':'middle','font-size':11,
+        fill:'var(--yellow)','font-weight':600});
+      t.textContent = s;
+      svg.appendChild(t);
+      const lbl = SVG('text',{x, y:y-19,'text-anchor':'middle','font-size':9, fill:'var(--mute)'});
+      lbl.textContent = `p_${i}`;
+      svg.appendChild(lbl);
+      // arrow from previous
+      if(i>0){
+        svg.appendChild(SVG('line',{x1:x-30,y1:y, x2:x-25,y2:y,
+          stroke:'var(--yellow)','stroke-width':1.4}));
+      }
+    }
+    // bottom: prefix of the generic real that has been pinned down.
+    const r = chain[chain.length-1];
+    const tr = SVG('text',{x:30, y:230, 'font-size':12, fill:'var(--mute)'});
+    tr.textContent = 'r_G ⊃';
+    svg.appendChild(tr);
+    for(let i=0;i<r.length;i++){
+      const x = 70 + i*22, y = 226;
+      svg.appendChild(SVG('rect',{x:x-9,y:y-12,width:18,height:24,rx:3,
+        fill:'var(--panel2)',stroke:'var(--cyan)','stroke-width':1.2}));
+      const tt = SVG('text',{x, y:y+5,'text-anchor':'middle','font-size':12,
+        fill:'var(--cyan)','font-weight':600});
+      tt.textContent = r[i];
+      svg.appendChild(tt);
+    }
+    // dots indicating "and so on"
+    if(stage>0){
+      const x = 70 + r.length*22 + 6, y = 226;
+      const dt = SVG('text',{x, y:y+4,'font-size':14,fill:'var(--mute)'});
+      dt.textContent = '…';
+      svg.appendChild(dt);
+    }
+    // commentary
+    if(stage===0){
+      out.textContent =
+`step 0: filter is empty.  start from p_0 = ⟨⟩ (the empty condition).
+press "step" to meet D_0, D_1, …, in order.
+
+genericity DEFINITION:  G meets every D ∈ M.
+since M is countable, only countably many D's exist; we enumerate them.`;
+    } else if(stage<dense.length){
+      out.textContent =
+`step ${stage}: just met ${dense[stage-1].name}.
+chain so far: p_0 ≥ p_1 ≥ … ≥ p_${stage} = "${chain[stage]}"
+the upward closure of this chain is a filter.
+meeting all ${dense.length} dense sets gives an M-generic filter G — and G ∉ M, since no element of M can meet every D ∈ M.`;
+    } else {
+      out.textContent =
+`done. all ${dense.length} dense sets met.
+G = upward closure of the chain p_0 ≥ … ≥ p_${dense.length}.
+the union r_G = ⋃G is a Cohen real over M, with prefix ${chain[stage]} and unbounded length.
+
+key fact: r_G ∉ M.  the dense sets D_s = {p : p disagrees with s} for s ∈ (2^ω)^M force r_G ≠ s for every old real.`;
+    }
+  }
+  stepBtn.addEventListener('click', () => {
+    if(stage>=dense.length) return;
+    const cur = chain[chain.length-1];
+    const nxt = extend(cur, dense[stage].test);
+    chain.push(nxt);
+    stage++;
+    render();
+  });
+  resetBtn.addEventListener('click', () => {
+    chain = ['']; stage = 0;
+    render();
+  });
+  render();
+})();
+</script>
+
+
+</section>
+<section id="truth-lemma">
+<h2>3. The forcing relation and truth lemma</h2>
+<p>So far the construction has been semantic: pick $G$, look at $M[G]$. The miracle is that <em>everything true in $M[G]$ is decided by data already in $M$</em>. The bookkeeping device is the <strong>forcing relation</strong> $p\Vdash\varphi$, defined inside $M$ by recursion on the formula $\varphi$ (which is built from $\mathbb P$-names). Read $p\Vdash\varphi$ as "every generic $G$ containing $p$ makes $\varphi$ true in $M[G]$".</p>
+
+<div class="ok"><strong>Forcing relation — three properties.</strong>
+<ul>
+  <li><strong>Definability.</strong> The relation $\Vdash$ is definable in $M$. So $M$ knows which conditions force which formulas.</li>
+  <li><strong>Monotonicity.</strong> If $p\Vdash\varphi$ and $q\le p$, then $q\Vdash\varphi$. Stronger conditions inherit forced statements.</li>
+  <li><strong>Density.</strong> For every $\varphi$, the set $\{p : p\Vdash\varphi \text{ or } p\Vdash\neg\varphi\}$ is dense in $\mathbb P$. So every generic decides every formula.</li>
+</ul></div>
+
+<div class="ok"><strong>Truth lemma.</strong> For every formula $\varphi(\dot x_1,\dots,\dot x_n)$ in the forcing language and every $M$-generic $G$:
+\[
+M[G]\models\varphi(\dot x_{1,G},\dots,\dot x_{n,G}) \iff \exists p\in G,\ p\Vdash\varphi(\dot x_1,\dots,\dot x_n).
+\]
+Equivalently: truth in $M[G]$ is decided by the conditions that ended up in $G$.</div>
+
+<p>The widget below shows a tiny forcing language with three names and four atomic formulas, and lets you flip a condition $p$ to see which atoms it forces:</p>
+
+<div class="widget" id="w-forces">
+  <div class="hd"><div class="ttl">Forcing relation table for a tiny example</div><div class="hint">click a condition $p$ to see what $p\Vdash$</div></div>
+  <div class="row">
+    <button data-p="" class="active">⟨⟩</button>
+    <button data-p="0">0</button>
+    <button data-p="1">1</button>
+    <button data-p="00">00</button>
+    <button data-p="01">01</button>
+    <button data-p="10">10</button>
+    <button data-p="11">11</button>
+  </div>
+  <svg id="forces-svg" viewBox="0 0 620 220" width="620" height="220"><title>Forcing relation table</title></svg>
+  <div class="readout" id="forces-out"></div>
+</div>
+
+<div class="note"><strong>Why "ZFC holds in $M[G]$".</strong> One proves <em>inside $M$</em> that for every ZFC axiom $\sigma$, the maximal condition $\mathbb 1$ forces $\sigma$. By the truth lemma (and $\mathbb 1\in G$ for every filter), $M[G]\models\sigma$. So $M[G]\models$ ZFC for every generic $G$, regardless of which $\mathbb P$ you used.</div>
+
+<div class="quiz" data-concept="forcing-truth-lemma"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./forcing-and-independence.html#cohen-reals">Forcing and independence</a> · Cohen forcing for adding reals</div>
+</aside>
+<!-- backlinks-auto-end --><script>
+(function(){
+  const buttons = $$('#w-forces button[data-p]');
+  const svg = $('#forces-svg'), out = $('#forces-out');
+  let cur = ''; // current condition
+
+  // Atoms: each refers to a feature of the generic real r_G ∈ 2^ω.
+  // p forces atom A iff every extension of p decides A in favor of A.
+  // Practically: p's bits already determine A.
+  const atoms = [
+    {label:'r(0) = 0',     test: p => p.length>=1 ? (p[0]==='0' ? 'T':'F') : '?'},
+    {label:'r(0) = 1',     test: p => p.length>=1 ? (p[0]==='1' ? 'T':'F') : '?'},
+    {label:'r(1) = 0',     test: p => p.length>=2 ? (p[1]==='0' ? 'T':'F') : '?'},
+    {label:'r starts 11',  test: p => {
+      if(p.length>=2) return (p.startsWith('11') ? 'T':'F');
+      if(p === '0')   return 'F'; // already disagrees
+      return '?';
+    }},
+  ];
+  function render(){
+    svg.innerHTML='';
+    // header
+    const h = SVG('text',{x:30,y:24,'font-size':12,fill:'var(--mute)'});
+    h.textContent = `condition  p = "${cur===''?'⟨⟩':cur}"   |   p ⊩ φ for each atomic φ:`;
+    svg.appendChild(h);
+    // rows
+    for(let i=0;i<atoms.length;i++){
+      const y = 60 + i*36;
+      const a = atoms[i];
+      const v = a.test(cur);
+      const color = v==='T' ? 'var(--green)' : v==='F' ? 'var(--pink)' : 'var(--mute)';
+      const verdict = v==='T' ? `p ⊩ φ` : v==='F' ? `p ⊩ ¬φ` : `p decides neither`;
+      svg.appendChild(SVG('rect',{x:30,y:y-16,width:560,height:30,rx:6,
+        fill:'rgba(255,255,255,0.02)',stroke:'var(--line)'}));
+      const lbl = SVG('text',{x:48,y:y+4,'font-size':13,fill:'var(--ink)','font-weight':500});
+      lbl.textContent = `φ${i+1}: ${a.label}`;
+      svg.appendChild(lbl);
+      const verd = SVG('text',{x:560,y:y+4,'text-anchor':'end','font-size':12,
+        fill:color,'font-weight':600});
+      verd.textContent = verdict;
+      svg.appendChild(verd);
+    }
+    // commentary
+    const cs = atoms.map((a,i)=>{
+      const v = a.test(cur);
+      return v==='?' ? null : `φ${i+1}: ${v==='T' ? 'forced TRUE' : 'forced FALSE'}`;
+    }).filter(Boolean);
+    out.textContent =
+`p = "${cur===''?'⟨⟩':cur}" decides:
+  ${cs.length ? cs.join('\n  ') : '(nothing — every formula is open below p)'}
+
+reading: p ⊩ φ iff every q ≤ p has the bits to make φ true.
+the empty condition ⟨⟩ decides almost nothing; longer conditions decide more.
+density: for every φ, some extension q ≤ p decides φ either way.`;
+  }
+  buttons.forEach(b => b.addEventListener('click', () => {
+    buttons.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    cur = b.dataset.p;
+    render();
+  }));
+  render();
+})();
+</script>
+
+
+</section>
+<section id="cohen-reals">
+<h2>4. Cohen forcing for adding reals</h2>
+<p>The poset $\mathbb P=2^{<\omega}$ — the binary tree of finite strings — is <strong>Cohen forcing</strong>. A generic filter $G$ is a chain of finite strings cofinal in length, and its <em>collapse</em> is a single new infinite binary sequence:</p>
+
+\[
+r_G \;=\; \bigcup_{p\in G} p \;\in\; 2^\omega.
+\]
+
+<p>The <strong>Cohen real</strong> $r_G$ is genuinely new: $r_G\notin M$. To see it, fix any $s\in (2^\omega)^M$. The set $D_s=\{\,p\in 2^{<\omega} : \exists n,\ p(n)\ne s(n)\,\}$ is in $M$ and is dense: given $p$, extend $p$ by appending the bit opposite to $s$ at the next index. Genericity of $G$ then forces $r_G\ne s$. Since this argument runs for every $s\in M$, the Cohen real avoids every old real.</p>
+
+<div class="widget" id="w-cohen">
+  <div class="hd"><div class="ttl">Building a Cohen real bit by bit</div><div class="hint">step ↑ to extend $p$ by a uniformly random bit</div></div>
+  <div class="row">
+    <button id="cohen-step">step</button>
+    <button id="cohen-jump">+10 bits</button>
+    <button id="cohen-reset">reset</button>
+    <span class="readout" id="cohen-len" style="min-width:120px;flex:0"></span>
+  </div>
+  <svg id="cohen-svg" viewBox="0 0 620 280" width="620" height="280"><title>Cohen real construction</title></svg>
+  <div class="readout" id="cohen-out"></div>
+</div>
+
+<h3>Side-by-side product: forcing $\neg$CH</h3>
+<p>To add many new reals at once, take instead</p>
+
+\[
+\mathbb P \;=\; \operatorname{Fn}(\aleph_2\times\omega,\, 2),
+\]
+
+<p>the set of <em>finite</em> partial functions from $\aleph_2\times\omega$ to $\{0,1\}$, ordered by extension. A condition is a finite list of commitments "at index $\alpha\in\aleph_2$ and bit position $n\in\omega$, the value is $b$". A generic $G$ defines $\aleph_2$ many distinct reals $r_\alpha\in 2^\omega$ in $M[G]$, indexed by $\alpha<\aleph_2^M$.</p>
+
+<div class="ok"><strong>Cardinal preservation.</strong> $\mathbb P$ has the <strong>countable chain condition (ccc)</strong>: every antichain is countable, by a $\Delta$-system argument on the finite supports. The <em>ccc preserves cardinals and cofinalities</em> — no $\aleph_\alpha^M$ collapses in $M[G]$. So $\aleph_2^{M[G]}=\aleph_2^M$, and the new reals stay distinct as elements of $2^\omega$ in $M[G]$.</div>
+
+<p>Conclusion: $|2^\omega|^{M[G]}\ge\aleph_2^{M[G]} > \aleph_1^{M[G]}$, so $M[G]\models\neg\mathrm{CH}$. We will draw the picture in the next section.</p>
+
+<div class="quiz" data-concept="forcing-cohen-reals"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./forcing-and-independence.html#not-ch">Forcing and independence</a> · Independence of the continuum hypothesis</div>
+</aside>
+<!-- backlinks-auto-end --><script>
+(function(){
+  const stepBtn = $('#cohen-step'), jumpBtn = $('#cohen-jump'), resetBtn = $('#cohen-reset');
+  const lenLab = $('#cohen-len'), svg = $('#cohen-svg'), out = $('#cohen-out');
+  let bits = '';
+  function render(){
+    svg.innerHTML='';
+    lenLab.textContent = `length |p| = ${bits.length}`;
+    // Tree path visualization: draw the path from root to the current condition.
+    const W = 620;
+    const startX = 30, endX = 590;
+    const margin = 30;
+    const baseY = 200;
+    // Draw path along the bottom
+        const ttl = SVG('text',{x:startX,y:30,'font-size':12,fill:'var(--mute)'});
+    ttl.textContent = bits.length ? `path through 2^<ω, decisions made so far:` : `start at root ⟨⟩.  press step to descend.`;
+    svg.appendChild(ttl);
+
+    // Draw root
+    let prevX = startX + 12;
+    svg.appendChild(SVG('circle',{cx:prevX, cy:60, r:10,
+      fill:'var(--panel2)',stroke:'var(--yellow)','stroke-width':1.6}));
+    const rootT = SVG('text',{x:prevX, y:64,'text-anchor':'middle','font-size':10,
+      fill:'var(--yellow)','font-weight':600});
+    rootT.textContent = '⟨⟩';
+    svg.appendChild(rootT);
+
+    // Draw a node per bit
+    const maxShown = 16;
+    const showBits = bits.slice(-maxShown);
+    const ellipsis = bits.length > showBits.length;
+    const span = endX - (prevX + 30);
+    const dx = showBits.length ? Math.min(34, span / Math.max(1, showBits.length)) : 0;
+    let curX = prevX;
+    for(let i=0;i<showBits.length;i++){
+      curX += dx;
+      const y = 60 + ((ellipsis ? i+1 : i+1) * (showBits.length<=10 ? 8 : 5));
+      // arrow from previous
+      svg.appendChild(SVG('line',{x1:prevX+10,y1:60,x2:curX-10,y2:y,
+        stroke:'var(--line)','stroke-width':1}));
+      const b = showBits[i];
+      const color = b==='1' ? 'var(--cyan)' : 'var(--blue)';
+      svg.appendChild(SVG('circle',{cx:curX, cy:y, r:9, fill:'var(--panel2)', stroke:color,'stroke-width':1.4}));
+      const tt = SVG('text',{x:curX, y:y+4,'text-anchor':'middle','font-size':10,
+        fill:color,'font-weight':600});
+      tt.textContent = b;
+      svg.appendChild(tt);
+      prevX = curX;
+    }
+    // The bit string at the bottom
+    const bs = SVG('text',{x:30, y:baseY+30,'font-size':14,fill:'var(--cyan)','font-family':'ui-monospace,monospace'});
+    bs.textContent = `r_G  =  ${bits.length ? bits : '(empty)'}${bits.length ? '…' : ''}`;
+    svg.appendChild(bs);
+    if(ellipsis){
+      const el = SVG('text',{x:30, y:baseY+50,'font-size':10,fill:'var(--mute)'});
+      el.textContent = `(showing last ${maxShown} of ${bits.length} bits)`;
+      svg.appendChild(el);
+    }
+    out.textContent =
+`current condition p_${bits.length} = "${bits || '⟨⟩'}"
+length = ${bits.length} bits.
+the chain p_0 ≥ p_1 ≥ … ≥ p_${bits.length} is a generic filter (in the limit).
+
+each step DECIDES one more bit of r_G.
+density at level n+1: D_n = {p : |p| ≥ n+1} is dense, and meeting D_n forces |r_G| > n.
+diagonalization against any old s ∈ M: the dense set D_s = {p : disagrees with s at some bit} is in M, so r_G ≠ s.`;
+  }
+  stepBtn.addEventListener('click', () => {
+    bits += Math.random()<0.5 ? '0' : '1';
+    render();
+  });
+  jumpBtn.addEventListener('click', () => {
+    for(let i=0;i<10;i++) bits += Math.random()<0.5 ? '0' : '1';
+    render();
+  });
+  resetBtn.addEventListener('click', () => { bits=''; render(); });
+  render();
+})();
+</script>
+
+
+</section>
+<section id="not-ch">
+<h2>5. Independence of the continuum hypothesis</h2>
+<p>Putting the pieces together. Let $M$ be a countable transitive model of ZFC + CH (Gödel's $L$ if you like). Let $\mathbb P=\operatorname{Fn}(\aleph_2^M\times\omega,2)$. Let $G$ be $M$-generic. Then:</p>
+
+<table class="plain">
+<thead><tr><th>step</th><th>fact</th><th>tool</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>$M[G]\models$ ZFC</td><td>generic extension theorem</td></tr>
+<tr><td>2</td><td>$\aleph_2^{M[G]}=\aleph_2^M$ (no collapse)</td><td>ccc + $\Delta$-system lemma</td></tr>
+<tr><td>3</td><td>$M[G]$ contains $\aleph_2^M$ pairwise distinct reals</td><td>density: for $\alpha\ne\beta$, $D_{\alpha\beta}=\{p:p$ distinguishes $r_\alpha,r_\beta\}$ is dense</td></tr>
+<tr><td>4</td><td>so $|2^\omega|^{M[G]}\ge\aleph_2^{M[G]} > \aleph_1^{M[G]}$</td><td>by 2 + 3</td></tr>
+<tr><td>5</td><td>$M[G]\models\neg\mathrm{CH}$</td><td>by 4</td></tr>
+</tbody>
+</table>
+
+<div class="ok"><strong>Independence of CH.</strong> Combined with Gödel's $L\models$ ZFC + CH:
+<ul>
+  <li>ZFC + CH is consistent (Gödel 1940, $L$).</li>
+  <li>ZFC + $\neg$CH is consistent (Cohen 1963, forcing).</li>
+</ul>
+So neither CH nor $\neg$CH is provable in ZFC: <strong>CH is independent of ZFC</strong>.</div>
+
+<p>The aleph ladder below shows where the various consistent values of $2^{\aleph_0}$ live, with the König barrier marking the only constraint ZFC actually imposes.</p>
+
+<div class="widget" id="w-aleph2">
+  <div class="hd"><div class="ttl">Where can $2^{\aleph_0}$ land?</div><div class="hint">consistent ZFC values, with the König exclusion zone</div></div>
+  <div class="row">
+    <label>set $2^{\aleph_0}$ to</label>
+    <select id="ch-target">
+      <option value="0">ℵ₁ (CH; Gödel's L)</option>
+      <option value="1" selected>ℵ₂ (Cohen's original ¬CH model)</option>
+      <option value="2">ℵ₃</option>
+      <option value="3">ℵ_ω+1</option>
+      <option value="4">ℵ_ω (NO — König)</option>
+    </select>
+  </div>
+  <svg id="aleph2-svg" viewBox="0 0 620 260" width="620" height="260"><title>Where can the continuum land?</title></svg>
+  <div class="readout" id="aleph2-out"></div>
+</div>
+
+<div class="note"><strong>What ZFC actually pins down.</strong> The only ZFC theorem about $2^{\aleph_0}$ is König's: $\operatorname{cf}(2^{\aleph_0}) > \omega$. So $2^{\aleph_0}\ne\aleph_\omega$, $\aleph_{\omega+\omega}$, etc. — but every cardinal of uncountable cofinality is consistent (Easton's theorem extends this to all regular cardinals, with the obvious monotonicity constraint).</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./zfc-and-ordinals.html#ch">The continuum hypothesis</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./forcing-and-independence.html#applications">Forcing and independence</a> · Other independence results</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="forcing-not-ch"></div><script>
+(function(){
+  const sel = $('#ch-target'), svg = $('#aleph2-svg'), out = $('#aleph2-out');
+  const cands = [
+    {label:'ℵ₁',     n:1,    ok:true,  why:'CH itself; consistent (Gödel: $L\\models$ GCH).'},
+    {label:'ℵ₂',     n:2,    ok:true,  why:"Cohen's original ¬CH model. Force with Fn(ℵ₂×ω,2)."},
+    {label:'ℵ₃',     n:3,    ok:true,  why:'Force with Fn(ℵ₃×ω,2). Same template, larger index set.'},
+    {label:'ℵ_{ω+1}',n:5,    ok:true,  why:'Successor cardinal — has uncountable cofinality, so allowed.'},
+    {label:'ℵ_ω',    n:4,    ok:false, why:'FORBIDDEN by König: cf(ℵ_ω)=ω, and cf(2^ℵ₀) > ω is a ZFC theorem.'},
+  ];
+  function render(){
+    svg.innerHTML='';
+    // baseline ladder of alephs
+    const W=620, H=260;
+    const baseY = 220;
+    const slots = [
+      {x: 80,  label:'ℵ₀', sub:'|ℕ|',   color:'var(--blue)',  forbidden:false},
+      {x: 160, label:'ℵ₁', sub:'CH says =', color:'var(--cyan)',forbidden:false},
+      {x: 240, label:'ℵ₂', sub:'',       color:'var(--green)',  forbidden:false},
+      {x: 320, label:'ℵ₃', sub:'',       color:'var(--green)',  forbidden:false},
+      {x: 400, label:'…',  sub:'',       color:'var(--mute)',   forbidden:false},
+      {x: 470, label:'ℵ_ω',sub:'cf=ω',   color:'var(--pink)',   forbidden:true},
+      {x: 550, label:'ℵ_{ω+1}',sub:'reg', color:'var(--yellow)',forbidden:false},
+    ];
+    svg.appendChild(SVG('line',{x1:30,y1:baseY,x2:600,y2:baseY,
+      stroke:'var(--line)','stroke-width':1}));
+    // forbidden zone: shade ℵ_ω column
+    const fz = slots.find(s=>s.forbidden);
+    if(fz){
+      svg.appendChild(SVG('rect',{x:fz.x-30, y:30, width:60, height:baseY-30,
+        fill:'rgba(224,122,95,0.10)', stroke:'var(--pink)','stroke-dasharray':'4 3'}));
+      const ftl = SVG('text',{x:fz.x, y:24,'text-anchor':'middle','font-size':10,fill:'var(--pink)'});
+      ftl.textContent = 'König: forbidden';
+      svg.appendChild(ftl);
+    }
+    // current target
+    const idx = parseInt(sel.value,10);
+    const tgt = cands[idx];
+    // draw rungs
+    for(const s of slots){
+      const h = 30 + 18*Math.max(0, slots.indexOf(s));
+      svg.appendChild(SVG('rect',{x:s.x-22, y:baseY-h, width:44, height:h,
+        fill:`color-mix(in srgb, ${s.color} 18%, transparent)`,
+        stroke:s.color,'stroke-width':1.4}));
+      const t = SVG('text',{x:s.x, y:baseY-h-6,'text-anchor':'middle','font-size':12,
+        fill:s.color,'font-weight':600});
+      t.textContent = s.label;
+      svg.appendChild(t);
+      if(s.sub){
+        const ss = SVG('text',{x:s.x, y:baseY+14,'text-anchor':'middle','font-size':9, fill:'var(--mute)'});
+        ss.textContent = s.sub;
+        svg.appendChild(ss);
+      }
+    }
+    // arrow pointing at the chosen target
+    const targetSlot = slots.find(s => s.label === tgt.label);
+    if(targetSlot){
+      const x = targetSlot.x;
+      svg.appendChild(SVG('line',{x1:x, y1:60, x2:x, y2:baseY-(30+18*slots.indexOf(targetSlot))-12,
+        stroke: tgt.ok ? 'var(--green)':'var(--pink)','stroke-width':2,
+        'stroke-dasharray':'5 3'}));
+      const a = SVG('text',{x, y:50,'text-anchor':'middle','font-size':12,
+        fill: tgt.ok ? 'var(--green)':'var(--pink)','font-weight':700});
+      a.textContent = `2^ℵ₀ = ${tgt.label}`;
+      svg.appendChild(a);
+    }
+    out.textContent =
+`target: 2^ℵ₀ = ${tgt.label}
+verdict: ${tgt.ok ? 'CONSISTENT with ZFC' : 'INCONSISTENT — ruled out by König'}
+why: ${tgt.why}
+
+ZFC's only constraint: cf(2^ℵ₀) > ω  (König).
+Easton (1970): every "reasonable" function α ↦ 2^ℵ_α is consistent.`;
+  }
+  sel.addEventListener('change', render);
+  render();
+})();
+</script>
+
+
+</section>
+<section id="applications">
+<h2>6. Other independence results and Martin's axiom</h2>
+<p>Forcing did not stop with CH. The same general machine — pick a poset, force, decode the truth in the extension via $\Vdash$ — settles a long list of questions ZFC cannot.</p>
+
+<table class="plain">
+<thead><tr><th>statement</th><th>status under ZFC</th><th>which forcing</th></tr></thead>
+<tbody>
+<tr><td><strong>CH</strong>: $2^{\aleph_0}=\aleph_1$</td><td>independent</td><td>Gödel's $L$ (CH); Cohen's product (¬CH)</td></tr>
+<tr><td><strong>SH</strong>: every Suslin tree is countable</td><td>independent</td><td>Solovay–Tennenbaum iterated forcing (SH); Jensen's $\diamondsuit$ in $L$ (¬SH)</td></tr>
+<tr><td><strong>MA</strong>: Martin's axiom</td><td>independent of ZFC + ¬CH</td><td>Solovay–Tennenbaum 1971: ccc iterated forcing of length $\aleph_2$</td></tr>
+<tr><td><strong>Whitehead problem</strong>: every Whitehead group is free</td><td>independent (Shelah, 1974)</td><td>under $\diamondsuit$: yes; under MA + ¬CH: no</td></tr>
+<tr><td><strong>Borel determinacy refinement</strong></td><td>requires more than ZFC for higher pointclasses</td><td>large cardinals + forcing (Martin, Steel, Woodin)</td></tr>
+<tr><td><strong>Indestructibility of supercompacts</strong></td><td>relative consistency theorem</td><td>Laver preparation (1978)</td></tr>
+</tbody>
+</table>
+
+<h3>Martin's axiom — a parametric weakening of CH</h3>
+<p><strong>Martin's axiom MA</strong> says: for every ccc poset $\mathbb P$ and every family $\mathcal D$ of $<2^{\aleph_0}$ dense sets, a filter $G\subseteq\mathbb P$ meeting every $D\in\mathcal D$ exists. Under CH, MA is automatic (only countable families). Under $\neg$CH, it is a substantive axiom that asserts <em>generic-like</em> filters exist for small problems even though no truly generic filter does.</p>
+
+<p>MA + $\neg$CH is consistent (Solovay–Tennenbaum). It implies the Suslin hypothesis, that $2^{\aleph_0}$ is regular, that every Aronszajn tree is special, and many combinatorial principles. Working set theorists routinely treat MA as an "extra dial" sitting alongside ZFC.</p>
+
+<div class="widget" id="w-deps">
+  <div class="hd"><div class="ttl">What depends on what</div><div class="hint">click a node to see consistency relationships</div></div>
+  <svg id="deps-svg" viewBox="0 0 620 320" width="620" height="320"><title>Independence dependency graph</title></svg>
+  <div class="readout" id="deps-out"></div>
+</div>
+
+<div class="note"><strong>The big picture.</strong> Independence is the rule, not the exception, once you leave the safe haven of arithmetic. The set-theoretic universe is not a single object — it is a multiverse, and forcing is the device that lets us hop between members. CH is the most famous member of the long list above, but everyday questions in algebraic topology (Whitehead), measure theory (cardinal invariants of the continuum), and analysis (the Suslin problem) all live there too.</div>
+
+<div class="quiz" data-concept="forcing-applications"></div><script>
+(function(){
+  const svg = $('#deps-svg'), out = $('#deps-out');
+  // Nodes positioned roughly left-to-right by consistency strength.
+  const nodes = [
+    {id:'zfc', x: 60,  y: 160, label:'ZFC',     color:'var(--blue)'},
+    {id:'ch',  x: 200, y: 80,  label:'CH',      color:'var(--cyan)'},
+    {id:'nch', x: 200, y: 240, label:'¬CH',     color:'var(--pink)'},
+    {id:'l',   x: 340, y: 40,  label:'V = L',   color:'var(--yellow)'},
+    {id:'gch', x: 340, y: 100, label:'GCH',     color:'var(--cyan)'},
+    {id:'ma',  x: 340, y: 220, label:'MA + ¬CH',color:'var(--green)'},
+    {id:'sh',  x: 480, y: 200, label:'SH',      color:'var(--violet)'},
+    {id:'wh',  x: 480, y: 280, label:'Whitehead indep.',color:'var(--violet)'},
+    {id:'lc',  x: 540, y: 60,  label:'large cardinals', color:'var(--yellow)'},
+  ];
+  // edges: a→b means "a implies (or settles) b", labeled with the technique.
+  const edges = [
+    {from:'zfc', to:'ch', label:'inner model L'},
+    {from:'zfc', to:'nch', label:'forcing (Cohen)'},
+    {from:'l',   to:'ch', label:''},
+    {from:'l',   to:'gch', label:''},
+    {from:'gch', to:'ch', label:''},
+    {from:'ma',  to:'sh', label:''},
+    {from:'ma',  to:'nch', label:''},
+    {from:'ma',  to:'wh', label:'Shelah'},
+    {from:'lc',  to:'l', label:'(incompatible with measurable)', dash:true},
+  ];
+  let active = null;
+  const explain = {
+    zfc:  'baseline. proves CH is independent (via L on one side, forcing on the other).',
+    ch:   'continuum hypothesis. holds in Gödel\'s L; consistent with ZFC.',
+    nch:  'negation of CH. forced by Cohen 1963; consistent with ZFC.',
+    l:    'Gödel\'s constructible universe. inner model where AC, GCH, ◇ all hold.',
+    gch:  'generalized continuum hypothesis: 2^ℵ_α = ℵ_{α+1} for all α. holds in L.',
+    ma:   'Martin\'s axiom + ¬CH. forced by Solovay–Tennenbaum. implies SH, settles many combinatorial questions.',
+    sh:   'Suslin hypothesis: no Suslin trees. follows from MA + ¬CH; fails in L (Jensen ◇ ⇒ Suslin tree).',
+    wh:   'Whitehead problem: Shelah showed it is independent — true under ◇, false under MA + ¬CH.',
+    lc:   'large cardinals (inaccessible, measurable, supercompact, …). climb the consistency tower; some incompatible with V=L.',
+  };
+  function find(id){ return nodes.find(n=>n.id===id); }
+  function render(){
+    svg.innerHTML='';
+    // edges
+    for(const e of edges){
+      const a = find(e.from), b = find(e.to);
+      const isHi = active && (e.from===active || e.to===active);
+      const color = isHi ? 'var(--yellow)' : 'var(--line)';
+      const w = isHi ? 1.8 : 1;
+      drawArrow(svg, [a.x,a.y], [b.x,b.y], {
+        color, width: w, markerId: isHi ? 'arr-hi' : 'arr-dim',
+        dash: e.dash ? '4 3' : null,
+        label: isHi ? e.label : null, labelSide:1, curve: 0,
+      });
+    }
+    // nodes
+    for(const n of nodes){
+      const isHi = active===n.id;
+      svg.appendChild(SVG('circle',{cx:n.x, cy:n.y, r: isHi? 22 : 18,
+        fill: isHi ? n.color : 'var(--panel2)', stroke:n.color,
+        'stroke-width': isHi? 2.4 : 1.6,
+        style:'cursor:pointer','data-id':n.id}));
+      const t = SVG('text',{x:n.x, y:n.y+4,'text-anchor':'middle','font-size':10,
+        fill: isHi ? '#0b0d10' : n.color,'font-weight':700,'pointer-events':'none'});
+      t.textContent = n.label;
+      svg.appendChild(t);
+    }
+    out.textContent = active
+      ? `${active}: ${explain[active]}`
+      : 'click a node. arrows mean "implies / settles"; dashed = relative-consistency reason.';
+  }
+  svg.addEventListener('click', e => {
+    const id = e.target.getAttribute && e.target.getAttribute('data-id');
+    if(!id) return;
+    active = (active===id) ? null : id;
+    render();
+  });
+  render();
+})();
+</script>
+
+
+</section>
+<section id="outro">
+<h2>7. Connections</h2>
+
+<p>Forcing is one of the few set-theoretic techniques that has reshaped how mathematicians think about provability — its consequences spill out of pure set theory into model theory, topology, and combinatorics.</p>
+
+<h3>Continuum hypothesis and beyond</h3>
+
+<p>Cohen's theorem closes the question Hilbert posed in 1900 — but only by saying both CH and $\neg$CH are unfalsifiable. <a href="./zfc-and-ordinals.html#ch">CH inside ZFC</a> develops the upside; <a href="./model-theory-basics.html#types">model theory</a> uses the same machinery to construct saturated structures of any cardinality.</p>
+
+<h3>Gödel's constructible universe $L$</h3>
+
+<p>Forcing extends downward via inner models: $L$ is a model of ZFC + GCH + V=L, and Cohen extensions are the orthogonal direction. <a href="./first-order-logic-and-completeness.html">First-order logic</a> supplies the syntactic backbone every inner-model argument runs on.</p>
+
+<h3>Topological forcing and Boolean-valued models</h3>
+
+<p>A forcing poset $\mathbb{P}$ is the same data as a complete Boolean algebra of regular open sets in a topology. <a href="./point-set-topology.html#open-sets">Topology</a> and <a href="./elementary-topos-theory.html">topos theory</a> are the natural conceptual frames; sheaf-theoretic forcing is the modern recasting.</p>
+
+<h3>Combinatorics of the continuum</h3>
+
+<p>Independence results for cardinal invariants of the continuum (Suslin's problem, Whitehead's problem, Borel-conjecture failures) read as a forcing-driven inventory of which combinatorial questions are decided by ZFC and which are not.</p>
+
+<p class="small" style="margin-top:2.5rem">Open frontiers: large-cardinal axioms (measurable, Woodin, supercompact) which provide a "natural" indestructibility theory for forcing extensions; iterated forcing and proper-forcing axioms (PFA, MM); inner-model program (Mitchell, Steel) attempting canonical models for very large cardinals.</p>
+</section>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('forcing-and-independence'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-27</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

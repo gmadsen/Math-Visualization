@@ -88,7 +88,7 @@
       "prereqs": [
         "characters-orthogonality"
       ],
-      "blurb": "Induction $\\mathbb{C}[G]\\otimes_{\\mathbb{C}[H]}(-)$ is left adjoint to restriction, so $\\mathrm{Hom}_G(\\mathrm{Ind}W,V) \\cong \\mathrm{Hom}_H(W,\\mathrm{Res}V)$ — the transfer principle between $H$- and $G$-representations.",
+      "blurb": "Induction $\\mathbb{C}[G]\\otimes_{\\mathbb{C}[H]}(-)$ is left adjoint to restriction, so $\\Hom_G(\\mathrm{Ind}W,V) \\cong \\Hom_H(W,\\mathrm{Res}V)$ — the transfer principle between $H$- and $G$-representations.",
       "tags": ["universal-property", "functoriality"]
     },
     {

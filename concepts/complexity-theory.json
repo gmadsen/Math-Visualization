@@ -1,0 +1,87 @@
+{
+  "topic": "complexity-theory",
+  "title": "Complexity theory",
+  "page": "complexity-theory.html",
+  "concepts": [
+    {
+      "id": "cx-time-complexity",
+      "title": "Time complexity and big-O",
+      "anchor": "time",
+      "prereqs": [
+        "computability-and-decidability:comp-turing-machines"
+      ],
+      "blurb": "Fix a (multitape) Turing-machine model and let $t_M(x)$ be the number of steps $M$ runs on input $x$. The class $\\mathrm{DTIME}(f(n))$ is the languages decided by some $M$ with $t_M(x)\\le f(|x|)$ for all $x$. Asymptotic notation hides constants and lower-order terms: $f=O(g)$ if $\\exists c, n_0$ with $f(n)\\le c\\,g(n)$ for $n\\ge n_0$. The polynomial-time class $\\mathsf{P}=\\bigcup_k \\mathrm{DTIME}(n^k)$ is the working notion of \"feasible\". The exponential gap $n^k$ vs $2^n$ is the central drama.",
+      "tags": [
+        "foundation",
+        "classification"
+      ]
+    },
+    {
+      "id": "cx-p-and-np",
+      "title": "P and NP",
+      "anchor": "p-np",
+      "prereqs": [
+        "cx-time-complexity"
+      ],
+      "blurb": "$\\mathsf{P}$ is the class of decision problems solvable by a deterministic TM in polynomial time. $\\mathsf{NP}$ is the class of problems with a polynomial-time <em>verifier</em>: $L\\in\\mathsf{NP}$ iff there is a polynomial-time $V(x,w)$ and a polynomial $p$ with $x\\in L \\iff \\exists w,|w|\\le p(|x|),\\,V(x,w)=1$. Witnesses: a satisfying assignment for SAT, a Hamiltonian cycle for HAM-CYC, a clique for CLIQUE. Equivalently $\\mathsf{NP}=\\bigcup_k \\mathrm{NTIME}(n^k)$ — nondeterministic polynomial time. Whether $\\mathsf{P}=\\mathsf{NP}$ is the headline open problem.",
+      "tags": [
+        "classification",
+        "foundation"
+      ]
+    },
+    {
+      "id": "cx-np-completeness",
+      "title": "NP-completeness and Cook–Levin",
+      "anchor": "np-complete",
+      "prereqs": [
+        "cx-p-and-np",
+        "computability-and-decidability:comp-undecidability"
+      ],
+      "blurb": "A language $L$ is <strong>NP-hard</strong> if every $A\\in\\mathsf{NP}$ admits a polynomial-time many-one (Karp) reduction $A\\le_p L$. It is <strong>NP-complete</strong> if additionally $L\\in\\mathsf{NP}$. <strong>Cook–Levin (1971/73):</strong> SAT is NP-complete. The proof builds, from any NP machine $M$ and input $x$, a polynomial-size CNF whose satisfying assignments encode accepting computations of $M$ on $x$ — the tableau of cell values across configuration $\\times$ time, with consistency clauses for the transition function. Hardness then propagates: SAT $\\le_p$ 3-SAT $\\le_p$ everything else.",
+      "tags": [
+        "classification",
+        "foundation"
+      ]
+    },
+    {
+      "id": "cx-reductions",
+      "title": "Karp reductions and complete problems",
+      "anchor": "reductions",
+      "prereqs": [
+        "cx-np-completeness"
+      ],
+      "blurb": "$A\\le_p B$ (polynomial-time many-one) means $\\exists f$ computable in polynomial time with $x\\in A \\iff f(x)\\in B$. The relation is transitive, so to show $L$ is NP-hard it suffices to reduce <em>one</em> known NP-complete problem to $L$. The Karp 21 (1972) wired up the first wave: 3-SAT $\\le_p$ CLIQUE (clauses become groups in a graph), CLIQUE $\\le_p$ INDEPENDENT-SET (complement graph), VERTEX-COVER $\\equiv$ INDEPENDENT-SET, 3-SAT $\\le_p$ 3-COLORING, SUBSET-SUM, HAMILTONIAN-CYCLE, PARTITION, and so on. The whole web propagates one hardness fact across thousands of problems.",
+      "tags": [
+        "classification",
+        "functoriality"
+      ]
+    },
+    {
+      "id": "cx-space-complexity",
+      "title": "Space complexity and PSPACE",
+      "anchor": "space",
+      "prereqs": [
+        "cx-time-complexity"
+      ],
+      "blurb": "$\\mathrm{DSPACE}(f)$, $\\mathrm{NSPACE}(f)$ count tape cells used (excluding input). $\\mathsf{L}=\\mathrm{DSPACE}(\\log n)$, $\\mathsf{NL}=\\mathrm{NSPACE}(\\log n)$, $\\mathsf{PSPACE}=\\bigcup_k\\mathrm{DSPACE}(n^k)$. <strong>Savitch's theorem:</strong> $\\mathrm{NSPACE}(f)\\subseteq\\mathrm{DSPACE}(f^2)$ for $f\\ge\\log n$ — nondeterminism only costs a square in space. Hence $\\mathsf{PSPACE}=\\mathsf{NPSPACE}$. The chain $\\mathsf{L}\\subseteq\\mathsf{NL}\\subseteq\\mathsf{P}\\subseteq\\mathsf{NP}\\subseteq\\mathsf{PSPACE}\\subseteq\\mathsf{EXP}$ is one of the few we know strictly. TQBF (true quantified boolean formulas) is PSPACE-complete; geography, Reversi, and many two-player games join it.",
+      "tags": [
+        "classification",
+        "compactness"
+      ]
+    },
+    {
+      "id": "cx-hierarchy-theorems",
+      "title": "Time and space hierarchy theorems",
+      "anchor": "hierarchy",
+      "prereqs": [
+        "cx-time-complexity",
+        "cx-space-complexity"
+      ],
+      "blurb": "<strong>Time hierarchy (Hartmanis–Stearns):</strong> if $f,g$ are time-constructible and $f(n)\\log f(n) = o(g(n))$, then $\\mathrm{DTIME}(f)\\subsetneq\\mathrm{DTIME}(g)$. Proof by diagonalisation: build a TM that simulates the $i$-th machine on the $i$-th input within the $g$ budget and flips the answer. <strong>Space hierarchy:</strong> $f=o(g)$ space-constructible suffices, no $\\log$ factor. Consequences: $\\mathsf{P}\\subsetneq\\mathsf{EXP}$, $\\mathsf{L}\\subsetneq\\mathsf{PSPACE}$, $\\mathsf{NL}\\subsetneq\\mathsf{NPSPACE}=\\mathsf{PSPACE}$. The diagonal in time/space mirrors Cantor's, but with a stopwatch attached to the simulator.",
+      "tags": [
+        "classification",
+        "foundation"
+      ]
+    }
+  ]
+}

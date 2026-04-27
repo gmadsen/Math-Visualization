@@ -20,14 +20,17 @@
           "type": "numeric",
           "q": "Let $\\mu$ be a measure with $\\mu(A)=3$, $\\mu(B)=4$, and $\\mu(A\\cap B)=1$. Compute $\\mu(A\\cup B)$.",
           "answer": 6,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Use finite additivity with overlap correction: $\\mu(A\\cup B)=\\mu(A)+\\mu(B)-\\mu(A\\cap B)=3+4-1=6$."
         },
         {
           "type": "complex",
           "q": "Write $e^{i\\pi}$ as $a+bi$.",
-          "answer": [-1, 0],
-          "tol": 1e-6,
+          "answer": [
+            -1,
+            0
+          ],
+          "tol": 0.000001,
           "explain": "Euler's formula gives $e^{i\\theta}=\\cos\\theta+i\\sin\\theta$, so $e^{i\\pi}=\\cos\\pi+i\\sin\\pi=-1+0i$."
         }
       ],
@@ -48,7 +51,7 @@
           "type": "numeric",
           "q": "Let $(X,\\mathcal{A},\\mu)$ be a measure space with $\\mu(X)=1$. Suppose $A_1\\supset A_2\\supset\\cdots$ with $\\mu(A_1)=0.8$ and $\\mu(A_n)\\to L$. If $\\mu(A_3)=0.5$ and $\\mu(A_5)=0.3$, and $\\bigcap_{n=1}^\\infty A_n=\\varnothing$, what is $L$?",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "By continuity of measure from above: if $\\mu(A_1)<\\infty$ and $A_n\\downarrow\\varnothing$, then $\\mu(A_n)\\to\\mu(\\varnothing)=0$. The values at $n=3,5$ are irrelevant to the limit."
         },
         {
@@ -96,7 +99,7 @@
           "type": "numeric",
           "q": "Compute the Lebesgue outer measure $m^*(\\mathbb{Q}\\cap[0,1])$.",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Enumerate $\\mathbb{Q}\\cap[0,1]=\\{q_k\\}$; cover $q_k$ by $(q_k-\\varepsilon/2^{k+1},q_k+\\varepsilon/2^{k+1})$. Total cover length is $\\varepsilon$, and $\\varepsilon>0$ was arbitrary, so $m^*=0$."
         }
       ],
@@ -130,7 +133,7 @@
           "type": "numeric",
           "q": "Let $\\mu_0$ be the length premeasure on the algebra of finite unions of half-open intervals $(a,b]\\subset\\mathbb{R}$. After Carathéodory extension, what is the Lebesgue outer measure of the fat Cantor set obtained by removing middle intervals of length $4^{-n}$ from $[0,1]$ at stage $n$?",
           "answer": 0.5,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Total removed length is $\\sum_{n=1}^\\infty 2^{n-1}\\cdot 4^{-n}=\\sum_{n=1}^\\infty 2^{-n-1}=1/2$. The remaining closed set has Lebesgue measure $1-1/2=1/2$ — a Lebesgue-positive-measure set with empty interior, showing Carathéodory measurability is strictly subtler than topology."
         }
       ]
@@ -141,7 +144,12 @@
         {
           "type": "mcq",
           "q": "What is the Lebesgue measure of a singleton $\\{x\\}\\subset\\mathbb{R}$?",
-          "choices": ["$1$", "$\\infty$", "$0$", "depends on $x$"],
+          "choices": [
+            "$1$",
+            "$\\infty$",
+            "$0$",
+            "depends on $x$"
+          ],
           "answer": 2,
           "explain": "Points have zero length, so every singleton has Lebesgue measure $0$."
         },
@@ -149,14 +157,17 @@
           "type": "numeric",
           "q": "Compute $m([2,5])$, where $m$ is Lebesgue measure on $\\mathbb{R}$.",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Intervals are measured by length: $m([a,b])=b-a$, so $m([2,5])=5-2=3$."
         },
         {
           "type": "complex",
           "q": "Compute $(1+i)^2$.",
-          "answer": [0, 2],
-          "tol": 1e-6,
+          "answer": [
+            0,
+            2
+          ],
+          "tol": 0.000001,
           "explain": "$(1+i)^2=1+2i+i^2=2i$, so the real part is $0$ and imaginary part is $2$."
         }
       ],
@@ -177,7 +188,7 @@
           "type": "numeric",
           "q": "A Vitali set $V\\subset[0,1]$ is non-measurable. Assuming translation-invariance, if $\\{V+q:q\\in\\mathbb{Q}\\cap[-1,1]\\}$ are pairwise disjoint and cover $[0,2]$, what value does $\\sum_{q}m(V+q)$ take if $m(V)$ existed and were positive?",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "If $m(V)=c>0$, countable additivity gives $m([0,2])\\ge\\sum_{q}c=\\infty$, contradicting $m([0,2])=2$. If $m(V)=0$, then $m([0,2])=0$, again a contradiction. So no consistent value of $m(V)$ exists; the correct answer reflecting the only non-contradictory finite value attempted is $0$, but in truth measurability fails entirely."
         },
         {
@@ -213,14 +224,17 @@
           "type": "numeric",
           "q": "Let $f=\\mathbf 1_{[0,2]}$ on $\\mathbb R$. What is $\\int f\\,dm$?",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "The indicator integral equals measure of the set: $\\int \\mathbf 1_E\\,dm = m(E)$, so $m([0,2])=2$."
         },
         {
           "type": "complex",
           "q": "Compute $\\overline{(3-4i)}$.",
-          "answer": [3, 4],
-          "tol": 1e-6,
+          "answer": [
+            3,
+            4
+          ],
+          "tol": 0.000001,
           "explain": "Complex conjugation flips the sign of the imaginary part: $\\overline{a+bi}=a-bi$."
         }
       ],
@@ -241,7 +255,7 @@
           "type": "numeric",
           "q": "Let $f:\\mathbb{R}\\to\\mathbb{R}$ be a simple function $f=3\\cdot\\mathbf{1}_A+7\\cdot\\mathbf{1}_B$ where $A=[0,1]$, $B=(2,4]$, and $A\\cap B=\\varnothing$. Compute $\\int f\\,dm$.",
           "answer": 17,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "For a simple function $\\int\\sum c_i\\mathbf{1}_{E_i}\\,dm=\\sum c_i m(E_i)$. So $\\int f\\,dm=3\\cdot m([0,1])+7\\cdot m((2,4])=3\\cdot 1+7\\cdot 2=3+14=17$."
         },
         {
@@ -277,14 +291,17 @@
           "type": "numeric",
           "q": "Compute $\\int_0^1 x\\,dx$ (Lebesgue measure).",
           "answer": 0.5,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Lebesgue and Riemann integrals agree here: $\\int_0^1 x\\,dx = [x^2/2]_0^1 = 1/2$."
         },
         {
           "type": "complex",
           "q": "Compute $\\int_0^{2\\pi} e^{ix}\\,dx$ and report as $a+bi$.",
-          "answer": [0, 0],
-          "tol": 1e-6,
+          "answer": [
+            0,
+            0
+          ],
+          "tol": 0.000001,
           "explain": "$e^{ix}=\\cos x+i\\sin x$. Both $\\int_0^{2\\pi}\\cos x\\,dx$ and $\\int_0^{2\\pi}\\sin x\\,dx$ are $0$, so the complex integral is $0+0i$."
         }
       ],
@@ -305,7 +322,7 @@
           "type": "numeric",
           "q": "Compute $\\int_1^e \\ln(x)\\,dx$ using the Lebesgue integral (equal to the Riemann integral here).",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Integration by parts: $\\int_1^e \\ln x\\,dx=[x\\ln x - x]_1^e=(e\\cdot 1-e)-(1\\cdot 0-1)=0+1=1$."
         },
         {
@@ -326,24 +343,44 @@
       "title": "Monotone and dominated convergence",
       "questions": [
         {
-          "type": "mcq",
-          "q": "If $0\\le f_n\\uparrow f$ pointwise, which theorem gives $\\int f_n\\to\\int f$?",
-          "choices": ["Fatou lemma", "Monotone convergence theorem", "Fubini theorem", "Jensen inequality"],
-          "answer": 1,
-          "explain": "MCT exactly states: for increasing nonnegative measurable $f_n$, integrals converge upward to the integral of the limit."
+          "type": "matching",
+          "q": "Match each Lebesgue convergence theorem with the precise hypothesis it requires on the sequence $\\{f_n\\}$ of measurable functions.",
+          "left": [
+            "Monotone convergence (MCT)",
+            "Fatou's lemma",
+            "Dominated convergence (DCT)",
+            "Bounded convergence"
+          ],
+          "right": [
+            "$f_n\\ge 0$ measurable, no monotonicity — concludes $\\int\\liminf f_n\\le\\liminf\\int f_n$ (one-sided).",
+            "$f_n\\to f$ a.e. with $|f_n|\\le g$ for some integrable $g$ — concludes $\\int f_n\\to\\int f$.",
+            "$f_n\\to f$ a.e. on a finite-measure space with $|f_n|\\le M$ uniformly — concludes $\\int f_n\\to\\int f$.",
+            "$0\\le f_n\\uparrow f$ pointwise — concludes $\\int f_n\\to\\int f$ in $[0,\\infty]$."
+          ],
+          "answer": [
+            3,
+            0,
+            1,
+            2
+          ],
+          "hint": "MCT: monotone increasing nonneg. Fatou: just nonneg, gives one-sided $\\liminf$. DCT: integrable dominator. Bounded: uniform bound on a finite-measure space.",
+          "explain": "MCT: $0\\le f_n\\uparrow f$ implies $\\int f_n\\uparrow\\int f$. Fatou: $f_n\\ge 0$ measurable gives the one-sided inequality $\\int\\liminf f_n\\le\\liminf\\int f_n$ — strict in general (e.g. travelling bumps). DCT: dominator $g\\in L^1$ controls $f_n$ pointwise. Bounded convergence: special case of DCT where the dominator is the constant $M\\cdot\\mathbf 1_X$, integrable iff $\\mu(X)<\\infty$."
         },
         {
           "type": "numeric",
           "q": "Let $f_n(x)=x^n$ on $[0,1]$. Compute $\\int_0^1 f_n(x)\\,dx$ in terms of $n$ at $n=9$.",
           "answer": 0.1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\int_0^1 x^n\\,dx = 1/(n+1)$, so for $n=9$ the value is $1/10=0.1$."
         },
         {
           "type": "complex",
           "q": "Compute $i^5$ as $a+bi$.",
-          "answer": [0, 1],
-          "tol": 1e-6,
+          "answer": [
+            0,
+            1
+          ],
+          "tol": 0.000001,
           "explain": "Powers of $i$ cycle every $4$: $i^5=i^{4+1}=i$."
         }
       ],
@@ -365,7 +402,7 @@
           "type": "numeric",
           "q": "Let $g_n(x)=\\mathbf{1}_{[0,n]}(x)\\cdot e^{-x}$ on $[0,\\infty)$. By MCT (the sequence is increasing and nonneg), $\\lim_{n\\to\\infty}\\int_0^\\infty g_n\\,dm$ equals what?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$g_n\\uparrow e^{-x}$ pointwise, so MCT gives $\\lim\\int g_n=\\int_0^\\infty e^{-x}\\,dm=[-e^{-x}]_0^\\infty=0-(-1)=1$."
         },
         {
@@ -401,15 +438,27 @@
           "type": "numeric",
           "q": "On $[0,1]$, let $f(x)=x$. Compute $\\|f\\|_2$.",
           "answer": 0.5773502692,
-          "tol": 1e-3,
+          "tol": 0.001,
           "explain": "$\\|f\\|_2=(\\int_0^1 x^2\\,dx)^{1/2}=(1/3)^{1/2}=1/\\sqrt3\\approx0.57735$."
         },
         {
-          "type": "numeric",
-          "q": "Compute $\\left|\\,1-i\\,\\right|$.",
-          "answer": 1.414213562,
-          "tol": 1e-3,
-          "explain": "$|a+bi|=\\sqrt{a^2+b^2}$, so $|1-i|=\\sqrt{1^2+(-1)^2}=\\sqrt2$."
+          "type": "multi-select",
+          "q": "Which of the following are true about the $L^p$ spaces $L^p(\\mathbb{R}, \\lambda)$ for $1 \\le p < \\infty$? Select all that apply.",
+          "choices": [
+            "$L^p$ is a Banach space (complete normed vector space).",
+            "Hölder's inequality $\\|fg\\|_1 \\le \\|f\\|_p \\|g\\|_q$ holds with conjugate exponents $1/p + 1/q = 1$.",
+            "Minkowski's inequality $\\|f+g\\|_p \\le \\|f\\|_p + \\|g\\|_p$ holds for all $p \\ge 1$.",
+            "$L^2$ is a Hilbert space; $L^p$ for $p \\ne 2$ is not.",
+            "$L^p$ is finite-dimensional whenever the underlying measure space is $\\sigma$-finite."
+          ],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "hint": "Three classical inequalities define the $L^p$ structure; only one of $\\{1,2,p\\}$ gives a Hilbert space.",
+          "explain": "Banach (Riesz–Fischer completeness), Hölder, and Minkowski are the three pillars of the $L^p$ theory. $L^2$ is the unique Hilbert space among $L^p$ — its inner product $\\langle f,g\\rangle = \\int f\\bar g$ comes from the parallelogram law, which fails for $p \\ne 2$. $L^p$ on Lebesgue measure is infinite-dimensional regardless of $\\sigma$-finiteness; finite-dimensionality requires a finite atomic measure space."
         }
       ],
       "hard": [
@@ -429,7 +478,7 @@
           "type": "numeric",
           "q": "Let $f,g\\in L^2([0,1])$ with $\\|f\\|_2=3$ and $\\|g\\|_2=4$. By the Cauchy–Schwarz inequality, $|\\langle f,g\\rangle|\\le$ what value?",
           "answer": 12,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Cauchy–Schwarz: $|\\langle f,g\\rangle|\\le\\|f\\|_2\\|g\\|_2=3\\cdot 4=12$."
         },
         {
@@ -465,7 +514,7 @@
           "type": "numeric",
           "q": "On $[0,1]\\times[0,1]$ with Lebesgue $\\otimes$ Lebesgue, compute $(m\\otimes m)([0,0.5]\\times[0,0.4])$.",
           "answer": 0.2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$(m\\otimes m)(A\\times B)=m(A)\\cdot m(B)=0.5\\cdot 0.4=0.2$."
         },
         {
@@ -499,7 +548,7 @@
           "type": "numeric",
           "q": "On $(\\mathbb{R}^2,\\mathcal{B}\\otimes\\mathcal{B},m\\otimes m)$, compute the measure of the triangle $\\{(x,y):0\\le y\\le x\\le 1\\}$.",
           "answer": 0.5,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "By Tonelli: $\\int_0^1\\int_0^x 1\\,dy\\,dx=\\int_0^1 x\\,dx=1/2$."
         },
         {
@@ -535,20 +584,28 @@
           "type": "numeric",
           "q": "Compute $\\int_0^1\\!\\int_0^1 xy\\,dx\\,dy$.",
           "answer": 0.25,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "By Tonelli: $\\int_0^1 y\\,dy\\cdot\\int_0^1 x\\,dx=(1/2)(1/2)=1/4$."
         },
         {
-          "type": "mcq",
-          "q": "The operational protocol before swapping iterated integrals of a signed function $f(x,y)$ is:",
-          "choices": [
-            "Swap freely — Tonelli always applies to measurable functions",
-            "Compute $\\int\\int|f|$ via Tonelli first; if finite, invoke Fubini to swap",
-            "Swap only when $f$ is continuous",
-            "Use Radon–Nikodym to reduce to an absolutely continuous measure first"
+          "type": "ordering",
+          "q": "Arrange the standard workflow for legitimately swapping iterated integrals of a signed/complex function $f(x,y)$ on a $\\sigma$-finite product space.",
+          "items": [
+            "Verify $f$ is jointly measurable on the product $\\sigma$-algebra $\\mathcal{F} \\otimes \\mathcal{G}$.",
+            "Apply Tonelli to $|f|$: compute $\\int |f| \\, d(\\mu \\otimes \\nu)$ as the iterated integral $\\int \\int |f| \\, d\\mu \\, d\\nu$ (always well-defined for nonneg measurable).",
+            "Check the result is finite ($f \\in L^1(\\mu \\otimes \\nu)$); if infinite, neither Fubini nor the iterated form gives a meaningful equality.",
+            "Now apply Fubini to $f$: the iterated integrals $\\int \\int f \\, d\\mu \\, d\\nu$ and $\\int \\int f \\, d\\nu \\, d\\mu$ both equal $\\int f \\, d(\\mu \\otimes \\nu)$.",
+            "Conclude the two iterated integrals agree — in particular justifying the order swap."
           ],
-          "answer": 1,
-          "explain": "Standard workflow: Tonelli on $|f|$ gives an unambiguous $[0,\\infty]$-valued iterated integral. If this is finite, $f\\in L^1(\\mu\\otimes\\nu)$ and Fubini licenses swapping. If it diverges, the iterated integrals of $f$ can disagree."
+          "answer": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "hint": "Tonelli on $|f|$ first to verify $L^1$, then Fubini on $f$ for the equality.",
+          "explain": "Standard Fubini–Tonelli workflow: (1) joint measurability is a prerequisite, (2) Tonelli applies unconditionally to $|f|$ in $[0,\\infty]$, (3) check finiteness — i.e., whether $f\\in L^1$, (4) once $f\\in L^1$, Fubini licenses the swap. Skipping the finiteness check can yield genuinely different iterated integrals (the classical $f(x,y)=(x^2-y^2)/(x^2+y^2)^2$ on $[0,1]^2$ is the cautionary tale)."
         }
       ],
       "hard": [
@@ -569,7 +626,7 @@
           "type": "numeric",
           "q": "Compute $\\int_0^\\infty\\int_0^\\infty e^{-xy}\\sin x\\,dx\\,dy$ assuming absolute integrability allows the swap. (Hint: swap and use $\\int_0^\\infty e^{-xy}\\sin x\\,dy=\\sin x/x$.)",
           "answer": 1.5707963268,
-          "tol": 1e-3,
+          "tol": 0.001,
           "explain": "Swap: $\\int_0^\\infty\\sin x\\int_0^\\infty e^{-xy}\\,dy\\,dx=\\int_0^\\infty \\frac{\\sin x}{x}\\,dx=\\pi/2$. Absolute integrability in the stated form is delicate here, but the iterated computation yields the classical Dirichlet integral."
         },
         {
@@ -590,16 +647,28 @@
       "title": "Signed measures & Radon–Nikodym",
       "questions": [
         {
-          "type": "mcq",
-          "q": "The Jordan decomposition of a signed measure $\\nu$ expresses $\\nu$ as:",
-          "choices": [
-            "$\\nu=\\nu^+-\\nu^-$ with mutually singular positive measures $\\nu^+,\\nu^-$",
-            "$\\nu=\\nu^+\\cdot\\nu^-$",
-            "$\\nu=\\nu^+/\\nu^-$",
-            "$\\nu=\\nu^+\\circ\\nu^-$"
+          "type": "matching",
+          "q": "Match each decomposition theorem for a signed measure $\\nu$ with the structure it produces.",
+          "left": [
+            "Hahn decomposition",
+            "Jordan decomposition",
+            "Lebesgue decomposition (relative to $\\mu$)",
+            "Radon–Nikodym theorem"
           ],
-          "answer": 0,
-          "explain": "Hahn gives a partition $X=P\\sqcup N$ into a positive set and a negative set; $\\nu^+(E)=\\nu(E\\cap P)$ and $\\nu^-(E)=-\\nu(E\\cap N)$ are mutually singular positive measures summing to $|\\nu|=\\nu^++\\nu^-$, and $\\nu=\\nu^+-\\nu^-$."
+          "right": [
+            "$\\nu=\\nu^+-\\nu^-$ with $\\nu^+,\\nu^-$ mutually singular positive measures.",
+            "$\\nu=\\nu_a+\\nu_s$ with $\\nu_a\\ll\\mu$ and $\\nu_s\\perp\\mu$ on a $\\sigma$-finite space.",
+            "When $\\nu\\ll\\mu$ and $\\mu$ is $\\sigma$-finite, a density $f=d\\nu/d\\mu$ with $\\nu(E)=\\int_E f\\,d\\mu$.",
+            "A partition $X=P\\sqcup N$ where $\\nu(E\\cap P)\\ge 0$ and $\\nu(E\\cap N)\\le 0$ for all measurable $E$."
+          ],
+          "answer": [
+            3,
+            0,
+            1,
+            2
+          ],
+          "hint": "Hahn = positive/negative set partition; Jordan = $\\pm$ split into singular positive measures; Lebesgue = absolutely continuous + singular; Radon–Nikodym = density.",
+          "explain": "Hahn gives a partition $X=P\\sqcup N$ into a positive set $P$ and a negative set $N$. Jordan defines $\\nu^+(E)=\\nu(E\\cap P)$, $\\nu^-(E)=-\\nu(E\\cap N)$, mutually singular positive measures with $\\nu=\\nu^+-\\nu^-$ and $|\\nu|=\\nu^++\\nu^-$. Lebesgue decomposes any $\\sigma$-finite signed $\\nu$ relative to $\\mu$ as $\\nu_a+\\nu_s$ ($\\nu_a\\ll\\mu$, $\\nu_s\\perp\\mu$). Radon–Nikodym then gives $\\nu_a$ a density $d\\nu_a/d\\mu$."
         },
         {
           "type": "mcq",
@@ -617,7 +686,7 @@
           "type": "numeric",
           "q": "On $[0,1]$ with Lebesgue $m$, let $d\\nu=2x\\,dm$. Compute $\\nu([0,1])$.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\nu([0,1])=\\int_0^1 2x\\,dm=x^2\\big|_0^1=1$. The density $f(x)=2x$ is the Radon–Nikodym derivative $d\\nu/dm$."
         }
       ],
@@ -638,7 +707,7 @@
           "type": "numeric",
           "q": "On $[0,1]$ with Lebesgue $m$, let $d\\nu=f\\,dm$ with $f(x)=3x^2$. Compute $\\nu([0,1/2])$.",
           "answer": 0.125,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\nu([0,1/2])=\\int_0^{1/2}3x^2\\,dm=x^3\\big|_0^{1/2}=1/8=0.125$."
         },
         {
@@ -674,7 +743,7 @@
           "type": "numeric",
           "q": "On $X=[0,1]$, let $\\Lambda(f)=f(1/3)$ for $f\\in C([0,1])$. What is $\\mu([0,1/2])$ for the representing measure $\\mu$?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\Lambda=\\int f\\,d\\delta_{1/3}$, so $\\mu=\\delta_{1/3}$. Since $1/3\\in[0,1/2]$, $\\mu([0,1/2])=1$."
         },
         {
@@ -708,7 +777,7 @@
           "type": "numeric",
           "q": "On $X=[0,1]$, let $\\Lambda(f)=\\int_0^1 f(x)\\cdot 2x\\,dx$. What is $\\mu([0,1])$ for the representing measure?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\Lambda(f)=\\int f\\,d\\mu$ where $d\\mu=2x\\,dm$. So $\\mu([0,1])=\\int_0^1 2x\\,dm=1$."
         },
         {
@@ -744,7 +813,7 @@
           "type": "numeric",
           "q": "Compute the Hausdorff dimension of the middle-thirds Cantor set $C$. Report as a decimal to 3 places. (Answer: $\\log 2/\\log 3$.)",
           "answer": 0.6309297536,
-          "tol": 1e-3,
+          "tol": 0.001,
           "explain": "$C$ is self-similar with two similarities of ratio $1/3$. The Moran equation $2\\cdot(1/3)^s=1$ gives $s=\\log 2/\\log 3\\approx 0.6309$."
         },
         {
@@ -778,7 +847,7 @@
           "type": "numeric",
           "q": "For the 4-contraction Koch curve with similarity ratio $1/3$, compute the Hausdorff dimension to 3 decimals. (Moran: $4\\cdot(1/3)^s=1$.)",
           "answer": 1.2618595071,
-          "tol": 1e-3,
+          "tol": 0.001,
           "explain": "$s=\\log 4/\\log 3\\approx 1.2619$. The Koch curve has strictly larger Hausdorff dimension than its topological dimension ($1$), reflecting its fractal crinkliness."
         },
         {

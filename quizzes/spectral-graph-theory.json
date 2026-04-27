@@ -20,7 +20,7 @@
           "type": "numeric",
           "q": "Let $K_5$ be the complete graph on $5$ vertices. What is the largest eigenvalue of the combinatorial Laplacian $L$ of $K_5$?",
           "answer": 5,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$L(K_n)$ has eigenvalues $0$ (multiplicity $1$) and $n$ (multiplicity $n-1$). For $n=5$ the largest eigenvalue is $5$."
         },
         {
@@ -32,7 +32,10 @@
             "$\\sum_{\\{i,j\\}\\in E}(f(i)-f(j))^2$",
             "$\\langle f, Df\\rangle - \\langle f, Af\\rangle$"
           ],
-          "answer": [0, 3],
+          "answer": [
+            0,
+            3
+          ],
           "explain": "Expanding $L=D-A$ gives $f^\\top L f = f^\\top D f - f^\\top A f$, and the standard manipulation rewrites this as $\\frac{1}{2}\\sum_{\\{i,j\\}\\in E}(f(i)-f(j))^2$. The unhalved sum (option 3) double-counts each edge."
         }
       ]
@@ -43,7 +46,12 @@
         {
           "type": "mcq",
           "q": "Let $G$ have $n=12$ vertices, and suppose $L_G$ has eigenvalues with $0$ appearing with multiplicity $3$. How many connected components does $G$ have?",
-          "choices": ["1", "2", "3", "12"],
+          "choices": [
+            "1",
+            "2",
+            "3",
+            "12"
+          ],
           "answer": 2,
           "explain": "The dimension of $\\ker L$ equals the number of connected components, so $G$ has exactly $3$ components."
         },
@@ -81,6 +89,7 @@
             "$\\lambda_2 = \\frac{1}{n}\\sum_i f(i)$ for the Fiedler vector $f$"
           ],
           "answer": 1,
+          "hint": "By the variational characterisation, $\\lambda_2$ is the minimum of $f^\\top L f$ over unit vectors orthogonal to the trivial eigenvector $\\mathbf{1}$ (which spans the eigenspace of $\\lambda_1=0$ for…",
           "explain": "By the variational characterisation, $\\lambda_2$ is the minimum of $f^\\top L f$ over unit vectors orthogonal to the trivial eigenvector $\\mathbf{1}$ (which spans the eigenspace of $\\lambda_1=0$ for connected $G$)."
         },
         {
@@ -99,7 +108,7 @@
           "type": "numeric",
           "q": "What is the algebraic connectivity $\\lambda_2$ of the complete graph $K_4$?",
           "answer": 4,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$L(K_n)$ has spectrum $0, n, n, \\ldots, n$ ($n-1$ copies of $n$). For $K_4$ the second-smallest eigenvalue is $4$."
         }
       ]
@@ -140,7 +149,11 @@
             "Small $\\lambda_2$ implies small $h(G)$",
             "$h(G)$ is always at least $\\sqrt{\\lambda_2}$"
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            0,
+            1,
+            2
+          ],
           "explain": "Both directions are equivalent characterisations of disconnection (item 1). Item 2 follows from the lower bound; item 3 from the upper bound. Item 4 is a wrong rearrangement: the lower bound is $\\lambda_2/2 \\le h(G)$, not $\\sqrt{\\lambda_2} \\le h(G)$."
         }
       ]
@@ -181,7 +194,10 @@
             "The graph has many triangles",
             "The graph has high maximum degree"
           ],
-          "answer": [0, 1],
+          "answer": [
+            0,
+            1
+          ],
           "explain": "Slow mixing comes from a small spectral gap, which in turn means either $\\nu_2 \\approx 0$ (Cheeger / near-disconnection) or $\\nu_n \\approx 2$ (near-bipartite, parity oscillation). Triangle counts and degree alone do not dictate mixing speed."
         }
       ]
@@ -222,7 +238,11 @@
             "Random walks mix in $O(\\log n)$ steps",
             "The graph is a complete graph"
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            0,
+            1,
+            2
+          ],
           "explain": "An expander is sparse ($dn/2$ edges) and has a uniform spectral gap, which (via Cheeger and the mixing-time bound) yields $O(\\log n)$ mixing time. Complete graphs $K_n$ have great mixing but are not sparse — they are not expanders in the asymptotic sense."
         }
       ]

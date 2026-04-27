@@ -31,7 +31,7 @@
       "prereqs": [
         "dyn-fixed-linearization"
       ],
-      "blurb": "In the plane, $(\\operatorname{tr} A,\\det A)$ classifies a linear system into sink, source, saddle, center, or spiral; nullclines and fixed points then glue into a global portrait.",
+      "blurb": "In the plane, $(\\tr A,\\det A)$ classifies a linear system into sink, source, saddle, center, or spiral; nullclines and fixed points then glue into a global portrait.",
       "tags": ["classification"]
     },
     {

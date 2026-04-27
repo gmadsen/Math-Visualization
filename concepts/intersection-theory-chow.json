@@ -51,7 +51,8 @@
       "anchor": "chern-classes",
       "prereqs": [
         "intersection-product",
-        "exact-sequences"
+        "exact-sequences",
+        "cc-chern-classes"
       ],
       "blurb": "A vector bundle $E$ of rank $r$ on a smooth $X$ has Chern classes $c_i(E) \\in A^i(X)$ for $i = 0, \\ldots, r$, encoding obstructions to $E$ trivializing. The total Chern class $c(E) = 1 + c_1 + \\cdots + c_r$ is multiplicative in short exact sequences.",
       "tags": [

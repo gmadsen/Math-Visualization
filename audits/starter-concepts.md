@@ -11,16 +11,18 @@ reach into upstream foundations or stay within their own cluster.
 
 | section | concepts | intra edges | cross out | cross in | density |
 |---|---:|---:|---:|---:|---:|
-| Foundations | 5 | 5 | 0 | 5 | 0.000 |
-| Algebra | 121 | 188 | 15 | 36 | 0.124 |
-| Analysis | 116 | 173 | 15 | 26 | 0.129 |
-| Geometry & topology | 49 | 58 | 6 | 45 | 0.122 |
-| Number theory | 64 | 80 | 17 | 19 | 0.266 |
-| Modular forms & L-functions | 78 | 104 | 43 | 5 | 0.551 |
-| Algebraic geometry | 109 | 137 | 42 | 14 | 0.385 |
-| Combinatorics & graph theory | 33 | 28 | 12 | 0 | 0.364 |
+| Logic & Foundations | 49 | 56 | 4 | 11 | 0.082 |
+| Algebra & homological | 88 | 126 | 13 | 61 | 0.148 |
+| Higher categories & toposes | 45 | 68 | 23 | 2 | 0.511 |
+| Analysis | 122 | 200 | 16 | 33 | 0.131 |
+| Probability & statistics | 41 | 65 | 11 | 8 | 0.268 |
+| Geometry & topology | 61 | 81 | 6 | 52 | 0.098 |
+| Number theory | 78 | 101 | 30 | 24 | 0.385 |
+| Modular forms & L-functions | 79 | 104 | 48 | 10 | 0.608 |
+| Algebraic geometry | 109 | 138 | 48 | 14 | 0.440 |
+| Combinatorics & graph theory | 39 | 34 | 17 | 1 | 0.436 |
 
-## EMPTY — concepts with no prereqs (4)
+## EMPTY — concepts with no prereqs (2)
 
 Concepts whose `prereqs` field is `[]` and whose owning topic is *not*
 a foundation/prereq topic. Almost always indicates a missing cross-
@@ -30,9 +32,7 @@ at brand-new progress alongside genuine entry points like
 
 | topic | concept | title |
 |---|---|---|
-| extremal-combinatorics | `sperner-lym` | Sperner's theorem and the LYM inequality |
-| extremal-combinatorics | `turan-theorem` | Turán's theorem and the Turán graph |
-| simplicial-complexes-combinatorial | `abstract-simplicial-complex` | Abstract simplicial complexes |
+| analytic-number-theory | `ant-prime-counting` | $\pi(x)$ and the prime number theorem |
 | spectral-graph-theory | `adjacency-and-laplacian` | Adjacency, degree, and the Laplacian |
 
 ## THIN-NEW — new-arc concepts with intra-topic-only prereqs (13)

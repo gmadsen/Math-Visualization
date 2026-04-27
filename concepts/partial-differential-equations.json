@@ -1,0 +1,86 @@
+{
+  "topic": "partial-differential-equations",
+  "title": "Partial differential equations",
+  "page": "partial-differential-equations.html",
+  "concepts": [
+    {
+      "id": "pde-classification",
+      "title": "Classification: elliptic / parabolic / hyperbolic",
+      "anchor": "classification",
+      "prereqs": [
+        "multivariable-differentiation"
+      ],
+      "blurb": "Second-order linear PDEs $a u_{xx}+2b u_{xy}+c u_{yy}+\\cdots=0$ split by the discriminant $b^2-ac$: elliptic ($<0$, Laplace), parabolic ($=0$, heat), hyperbolic ($>0$, wave). The sign controls characteristic curves and the well-posed boundary data.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "pde-heat-equation",
+      "title": "Heat equation and the heat kernel",
+      "anchor": "heat",
+      "prereqs": [
+        "pde-classification",
+        "convergence-theorems",
+        "hf-maximum-principle"
+      ],
+      "blurb": "$u_t=\\Delta u$ smooths data instantly: the fundamental solution $K_t(x)=(4\\pi t)^{-n/2}e^{-|x|^2/4t}$ converts $\\delta_0$ initial data into a Gaussian whose width scales as $\\sqrt{t}$, and the maximum principle keeps solutions trapped between their initial and boundary extremes.",
+      "tags": [
+        "duality"
+      ]
+    },
+    {
+      "id": "pde-wave-equation",
+      "title": "Wave equation and d'Alembert",
+      "anchor": "wave",
+      "prereqs": [
+        "pde-classification"
+      ],
+      "blurb": "$u_{tt}=c^2\\Delta u$ has finite speed $c$: in 1D, d'Alembert writes $u(x,t)=\\tfrac12[f(x-ct)+f(x+ct)]+\\tfrac{1}{2c}\\!\\int_{x-ct}^{x+ct}\\!g$, two travelling waves carrying the data along characteristics; in odd $n\\ge3$ Huygens' principle gives sharp wavefronts.",
+      "tags": [
+        "duality"
+      ]
+    },
+    {
+      "id": "pde-laplace-equation",
+      "title": "Laplace equation and the Dirichlet problem",
+      "anchor": "laplace",
+      "prereqs": [
+        "pde-classification",
+        "hf-laplace-equation",
+        "hf-poisson-kernel"
+      ],
+      "blurb": "$\\Delta u=0$ is the equilibrium of $u_t=\\Delta u$: solutions enjoy the mean-value property, hit their extremes only on $\\partial\\Omega$, and the Dirichlet/Neumann problems prescribe boundary value or normal flux. On the disk, the Poisson kernel writes the unique solution as a boundary integral.",
+      "tags": [
+        "duality"
+      ]
+    },
+    {
+      "id": "pde-weak-solutions",
+      "title": "Weak solutions and Galerkin approximation",
+      "anchor": "weak-solutions",
+      "prereqs": [
+        "pde-laplace-equation",
+        "lp-spaces",
+        "lebesgue-measure"
+      ],
+      "blurb": "Multiply $-\\Delta u=f$ by a test function and integrate by parts: a weak solution lives in $H^1_0(\\Omega)$ and satisfies $\\int\\nabla u\\cdot\\nabla v=\\int fv$ for every test $v$. Galerkin's method picks finite-dimensional subspaces, solves the projected system, and passes to the limit.",
+      "tags": [
+        "duality"
+      ]
+    },
+    {
+      "id": "pde-existence-and-regularity",
+      "title": "Lax–Milgram, elliptic regularity, embedding",
+      "anchor": "regularity",
+      "prereqs": [
+        "pde-weak-solutions",
+        "riesz-representation"
+      ],
+      "blurb": "Coercivity + continuity of the bilinear form gives a unique weak solution by Lax–Milgram; elliptic regularity then trades smoothness of $f$ for smoothness of $u$ ($f\\in H^k\\Rightarrow u\\in H^{k+2}$), and Sobolev embedding turns enough weak derivatives into classical continuity.",
+      "tags": [
+        "compactness"
+      ]
+    }
+  ]
+}

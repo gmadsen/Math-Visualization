@@ -1,0 +1,68 @@
+{
+  "topic": "harmonic-functions",
+  "title": "Harmonic functions",
+  "page": "harmonic-functions.html",
+  "concepts": [
+    {
+      "id": "hf-laplace-equation",
+      "title": "Laplace's equation",
+      "anchor": "laplace-equation",
+      "prereqs": [
+        "real-differentiation",
+        "cauchy-riemann"
+      ],
+      "blurb": "A $C^2$ function $u\\colon\\Omega\\subseteq\\mathbb{R}^n\\to\\mathbb{R}$ is harmonic when $\\Delta u = \\sum \\partial_{x_i}^2 u = 0$. In two dimensions every real or imaginary part of a holomorphic function is harmonic, and every harmonic $u$ on a simply connected domain admits a harmonic conjugate.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "hf-mean-value-property",
+      "title": "Mean value property",
+      "anchor": "mvp",
+      "prereqs": [
+        "hf-laplace-equation",
+        "cauchy-theorem"
+      ],
+      "blurb": "A continuous $u$ is harmonic iff for every closed ball $\\overline{B(x,r)}\\subset\\Omega$ the value $u(x)$ equals the average over the sphere (and equivalently over the ball). The MVP characterises harmonicity and forces $u\\in C^\\infty$."
+    },
+    {
+      "id": "hf-maximum-principle",
+      "title": "Maximum principle",
+      "anchor": "maximum",
+      "prereqs": [
+        "hf-mean-value-property"
+      ],
+      "blurb": "Weak form: a harmonic $u$ on a bounded $\\Omega$ attains $\\sup u$ on $\\partial\\Omega$. Strong form: an interior maximum forces $u$ to be constant on the connected component. Together they yield uniqueness for the Dirichlet problem."
+    },
+    {
+      "id": "hf-poisson-kernel",
+      "title": "Poisson kernel",
+      "anchor": "poisson",
+      "prereqs": [
+        "hf-mean-value-property",
+        "lebesgue-measure"
+      ],
+      "blurb": "The disk's Dirichlet problem has the explicit solution $u(re^{i\\theta}) = \\tfrac{1}{2\\pi}\\int_0^{2\\pi} P_r(\\theta-\\varphi)\\,g(\\varphi)\\,d\\varphi$ with $P_r(\\theta) = \\tfrac{1-r^2}{1-2r\\cos\\theta+r^2}$. Boundary values are recovered $L^p$-a.e. by Fatou's theorem."
+    },
+    {
+      "id": "hf-harnack-inequality",
+      "title": "Harnack's inequality",
+      "anchor": "harnack",
+      "prereqs": [
+        "hf-poisson-kernel"
+      ],
+      "blurb": "For positive harmonic $u$ on $B(0,R)$ and $|x|=r<R$: $\\tfrac{R-r}{R+r}u(0) \\le u(x) \\le \\tfrac{R+r}{R-r}u(0)$. Consequence: a positive harmonic function on $\\mathbb{R}^n$ is constant (Liouville for harmonic functions)."
+    },
+    {
+      "id": "hf-subharmonic",
+      "title": "Subharmonic functions and Perron's method",
+      "anchor": "subharmonic",
+      "prereqs": [
+        "hf-maximum-principle",
+        "analyticity"
+      ],
+      "blurb": "An upper semicontinuous $v$ with $\\Delta v \\ge 0$ (or equivalently $v(x)\\le$ ball average) is subharmonic; max-principle still holds. Perron's method solves the Dirichlet problem on any regular domain by taking the supremum of the family of subharmonic functions bounded above by the boundary data."
+    }
+  ]
+}

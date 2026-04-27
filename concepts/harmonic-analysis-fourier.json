@@ -73,7 +73,8 @@
       "anchor": "poisson",
       "prereqs": [
         "fourier-transform-real-line",
-        "schwartz-space-distributions"
+        "schwartz-space-distributions",
+        "analytic-continuation"
       ],
       "tags": [
         "duality"

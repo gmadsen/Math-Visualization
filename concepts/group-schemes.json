@@ -21,7 +21,7 @@
         "group-scheme-definition",
         "spectrum-primes"
       ],
-      "blurb": "$\\mathbb{G}_a = \\mathrm{Spec}\\,k[t]$ (additive), $\\mathbb{G}_m = \\mathrm{Spec}\\,k[t, t^{-1}]$ (multiplicative), $\\mu_n = \\mathrm{Spec}\\,k[t]/(t^n - 1)$ (roots of unity), and in characteristic $p$ the infinitesimal $\\alpha_p = \\mathrm{Spec}\\,k[t]/(t^p)$. The four basic affine group schemes."
+      "blurb": "$\\mathbb{G}_a = \\Spec\\,k[t]$ (additive), $\\mathbb{G}_m = \\Spec\\,k[t, t^{-1}]$ (multiplicative), $\\mu_n = \\Spec\\,k[t]/(t^n - 1)$ (roots of unity), and in characteristic $p$ the infinitesimal $\\alpha_p = \\Spec\\,k[t]/(t^p)$. The four basic affine group schemes."
     },
     {
       "id": "hopf-algebra",
@@ -31,7 +31,7 @@
         "group-scheme-definition",
         "algebraic-structures"
       ],
-      "blurb": "An affine group scheme $G = \\mathrm{Spec}\\,A$ is the same data as a commutative Hopf algebra $A$: comultiplication $\\Delta: A \\to A \\otimes A$, counit $\\epsilon: A \\to k$, and antipode $S: A \\to A$ from the multiplication, identity, and inverse maps.",
+      "blurb": "An affine group scheme $G = \\Spec\\,A$ is the same data as a commutative Hopf algebra $A$: comultiplication $\\Delta: A \\to A \\otimes A$, counit $\\epsilon: A \\to k$, and antipode $S: A \\to A$ from the multiplication, identity, and inverse maps.",
       "tags": ["duality"]
     },
     {

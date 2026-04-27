@@ -32,7 +32,7 @@
           "type": "numeric",
           "q": "How many morphisms does the category $\\mathbf{2}=(\\bullet\\xrightarrow{f}\\bullet)$ with two objects and one non-identity arrow have in total (including identities)?",
           "answer": 3,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "Two identities $\\mathrm{id}_0,\\mathrm{id}_1$ plus the single arrow $f$ gives $3$ morphisms."
         }
       ],
@@ -47,7 +47,7 @@
             "it is an isomorphism"
           ],
           "answer": 1,
-          "explain": "A monomorphism is left-cancellable: $f\\circ g=f\\circ h\\Rightarrow g=h$. This is the categorical generalisation of injectivity. Having a left inverse implies mono, but not conversely \u2014 e.g. inclusions in $\\mathsf{Top}$ can be mono without being split."
+          "explain": "A monomorphism is left-cancellable: $f\\circ g=f\\circ h\\Rightarrow g=h$. This is the categorical generalisation of injectivity. Having a left inverse implies mono, but not conversely — e.g. inclusions in $\\mathsf{Top}$ can be mono without being split."
         },
         {
           "type": "mcq",
@@ -65,7 +65,7 @@
           "type": "numeric",
           "q": "The category of a poset $(P,\\le)$ has a morphism $x\\to y$ iff $x\\le y$. In the poset $\\{0<1<2\\}$, how many morphisms (including identities) are there in total?",
           "answer": 6,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "Identities: $0\\to 0$, $1\\to 1$, $2\\to 2$ (3 morphisms). Non-identity morphisms: $0\\to 1$, $1\\to 2$, $0\\to 2$ (3 morphisms). Total: $6$."
         }
       ]
@@ -80,10 +80,10 @@
             "$F(g\\circ f) = F(f)\\circ F(g)$",
             "$F(g\\circ f) = F(g)\\circ F(f)$",
             "$F(g\\circ f) = F(g)+F(f)$",
-            "$F$ need not respect composition \u2014 only objects"
+            "$F$ need not respect composition — only objects"
           ],
           "answer": 1,
-          "explain": "Covariant functors preserve the order of composition: $F(g\\circ f)=F(g)\\circ F(f)$. Contravariant functors reverse it \u2014 those are functors out of $\\mathcal{C}^{\\mathrm{op}}$."
+          "explain": "Covariant functors preserve the order of composition: $F(g\\circ f)=F(g)\\circ F(f)$. Contravariant functors reverse it — those are functors out of $\\mathcal{C}^{\\mathrm{op}}$."
         },
         {
           "type": "mcq",
@@ -101,7 +101,7 @@
           "type": "numeric",
           "q": "How many functors are there from the terminal category $\\mathbf{1}$ (one object, only identity) to a category $\\mathcal{C}$ with exactly $5$ objects?",
           "answer": 5,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "A functor $\\mathbf{1}\\to\\mathcal{C}$ just picks an object of $\\mathcal{C}$, so the count is $|\\mathrm{Ob}(\\mathcal{C})|=5$."
         }
       ],
@@ -117,7 +117,7 @@
           ],
           "answer": 1,
           "hint": "What direction does $(-)^*$ send a linear map $f\\colon V\\to W$?",
-          "explain": "$(-)^*=\\operatorname{Hom}(-,k)$ is contravariant: it reverses the direction of linear maps. A natural transformation requires components in the same ambient functor category, which forces both functors to have the same variance. Since $\\mathrm{id}$ is covariant and $(-)^*$ is contravariant, no natural transformation \u2014 let alone isomorphism \u2014 between them can be written down."
+          "explain": "$(-)^*=\\Hom(-,k)$ is contravariant: it reverses the direction of linear maps. A natural transformation requires components in the same ambient functor category, which forces both functors to have the same variance. Since $\\mathrm{id}$ is covariant and $(-)^*$ is contravariant, no natural transformation — let alone isomorphism — between them can be written down."
         },
         {
           "type": "mcq",
@@ -129,13 +129,13 @@
             "Check $\\eta$ commutes with identities; (ii) conclude it commutes with all morphisms by induction"
           ],
           "answer": 1,
-          "explain": "One must first define all components $\\eta_A$, then verify the naturality square for each morphism $f$. Step (i) fixes an arbitrary morphism; steps (ii\u2013iii) spell out both paths around the square; step (iv) proves them equal using the definitions of $F$, $G$, and $\\eta$. Isomorphism is not required for a natural transformation."
+          "explain": "One must first define all components $\\eta_A$, then verify the naturality square for each morphism $f$. Step (i) fixes an arbitrary morphism; steps (ii–iii) spell out both paths around the square; step (iv) proves them equal using the definitions of $F$, $G$, and $\\eta$. Isomorphism is not required for a natural transformation."
         },
         {
           "type": "numeric",
           "q": "Let $\\mathcal{C}$ be the discrete category on $3$ objects (no non-identity morphisms). How many natural transformations are there from the identity functor $\\mathrm{id}_{\\mathcal{C}}$ to itself?",
           "answer": 1,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "A natural transformation $\\eta\\colon\\mathrm{id}\\Rightarrow\\mathrm{id}$ needs, for each object $A$, a morphism $\\eta_A\\colon A\\to A$. In a discrete category the only morphism $A\\to A$ is $\\mathrm{id}_A$. So there is exactly $1$ natural transformation (all components forced to be identities)."
         }
       ]
@@ -165,13 +165,13 @@
             "Neither preserves limits or colimits"
           ],
           "answer": 1,
-          "explain": "Left adjoints preserve colimits (LAPC); right adjoints preserve limits (RAPL). The adjunction $\\operatorname{Hom}(F(-),-)\\cong\\operatorname{Hom}(-,G(-))$ together with Yoneda makes this immediate."
+          "explain": "Left adjoints preserve colimits (LAPC); right adjoints preserve limits (RAPL). The adjunction $\\Hom(F(-),-)\\cong\\Hom(-,G(-))$ together with Yoneda makes this immediate."
         },
         {
           "type": "numeric",
           "q": "In $\\mathsf{Set}$, the product (= categorical limit of the discrete two-object diagram) of $\\{a,b,c\\}$ and $\\{0,1\\}$ has how many elements?",
           "answer": 6,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "The product in $\\mathsf{Set}$ is the Cartesian product, so $|A\\times B|=|A|\\cdot|B|=3\\cdot 2=6$."
         }
       ],
@@ -186,11 +186,11 @@
             "$\\operatorname{Nat}(h_X,h_Y)$ is always a singleton"
           ],
           "answer": 0,
-          "explain": "Full faithfulness gives $\\operatorname{Hom}_{\\mathcal{C}}(X,Y)\\cong\\operatorname{Nat}(h_X,h_Y)$ (by Yoneda with $F=h_Y$). In particular $X\\cong Y\\Leftrightarrow h_X\\cong h_Y$: objects are determined up to isomorphism by their functor of points. Not every presheaf need be representable (that would make the embedding an equivalence, which is usually false)."
+          "explain": "Full faithfulness gives $\\Hom_{\\mathcal{C}}(X,Y)\\cong\\operatorname{Nat}(h_X,h_Y)$ (by Yoneda with $F=h_Y$). In particular $X\\cong Y\\Leftrightarrow h_X\\cong h_Y$: objects are determined up to isomorphism by their functor of points. Not every presheaf need be representable (that would make the embedding an equivalence, which is usually false)."
         },
         {
           "type": "mcq",
-          "q": "For the free\u2013forgetful adjunction $F\\dashv U\\colon\\mathsf{Grp}\\to\\mathsf{Set}$, the unit $\\eta_X\\colon X\\to UF(X)$ is the insertion-of-generators map. What does the counit $\\varepsilon_G\\colon FU(G)\\to G$ do?",
+          "q": "For the free–forgetful adjunction $F\\dashv U\\colon\\mathsf{Grp}\\to\\mathsf{Set}$, the unit $\\eta_X\\colon X\\to UF(X)$ is the insertion-of-generators map. What does the counit $\\varepsilon_G\\colon FU(G)\\to G$ do?",
           "choices": [
             "It sends every element of $G$ to the identity",
             "It is the unique group homomorphism extending the identity $\\mathrm{id}_G\\colon G\\to G$ along the insertion $G\\hookrightarrow FU(G)$",
@@ -199,13 +199,13 @@
           ],
           "answer": 1,
           "hint": "Apply the universal property of the free group to the identity function on $U(G)$.",
-          "explain": "The counit $\\varepsilon_G$ is the evaluation map: $FU(G)$ is the free group on the underlying set of $G$, and $\\varepsilon_G$ is the unique homomorphism sending each generator $g\\in U(G)$ to $g\\in G$ \u2014 i.e. 'reduce words in elements of $G$ using $G$'s own multiplication.' This is the universal property of the free group applied to $\\mathrm{id}_{U(G)}$."
+          "explain": "The counit $\\varepsilon_G$ is the evaluation map: $FU(G)$ is the free group on the underlying set of $G$, and $\\varepsilon_G$ is the unique homomorphism sending each generator $g\\in U(G)$ to $g\\in G$ — i.e. 'reduce words in elements of $G$ using $G$'s own multiplication.' This is the universal property of the free group applied to $\\mathrm{id}_{U(G)}$."
         },
         {
           "type": "numeric",
           "q": "In $\\mathsf{Set}$, the coproduct (categorical colimit) of $\\{a,b\\}$ and $\\{0,1,2\\}$ has how many elements?",
           "answer": 5,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "The coproduct in $\\mathsf{Set}$ is the disjoint union, so $|A\\sqcup B|=|A|+|B|=2+3=5$."
         }
       ]
@@ -217,7 +217,7 @@
           "type": "mcq",
           "q": "A functor $F\\colon\\mathcal{C}^{\\mathrm{op}}\\to\\mathsf{Set}$ is called representable if:",
           "choices": [
-            "$F$ is naturally isomorphic to $\\operatorname{Hom}_{\\mathcal{C}}(-,X)$ for some $X\\in\\mathcal{C}$",
+            "$F$ is naturally isomorphic to $\\Hom_{\\mathcal{C}}(-,X)$ for some $X\\in\\mathcal{C}$",
             "$F$ is surjective on objects",
             "$F$ factors through the inclusion $\\mathsf{FinSet}\\hookrightarrow\\mathsf{Set}$",
             "$F$ has a left adjoint"
@@ -229,9 +229,9 @@
           "type": "mcq",
           "q": "The tensor product $M\\otimes_R N$ of two $R$-modules represents which functor (on $R$-modules $P$)?",
           "choices": [
-            "$P\\mapsto \\operatorname{Hom}_R(M,P)\\times\\operatorname{Hom}_R(N,P)$",
+            "$P\\mapsto \\Hom_R(M,P)\\times\\Hom_R(N,P)$",
             "$P\\mapsto \\operatorname{Bilin}_R(M\\times N, P)$",
-            "$P\\mapsto \\operatorname{Hom}_R(M\\oplus N, P)$",
+            "$P\\mapsto \\Hom_R(M\\oplus N, P)$",
             "$P\\mapsto M\\otimes_R P\\otimes_R N$"
           ],
           "answer": 1,
@@ -241,8 +241,8 @@
           "type": "numeric",
           "q": "By Yoneda, how many objects (up to isomorphism) satisfy the universal property of the product $A\\times B$ in a given category (assuming at least one exists)?",
           "answer": 1,
-          "tol": 1e-06,
-          "explain": "Representing objects are unique up to unique isomorphism \u2014 exactly $1$ isomorphism class."
+          "tol": 0.000001,
+          "explain": "Representing objects are unique up to unique isomorphism — exactly $1$ isomorphism class."
         }
       ],
       "hard": [
@@ -274,14 +274,14 @@
           ],
           "answer": 0,
           "hint": "Which direction (limits vs colimits) does a LEFT adjoint preserve?",
-          "explain": "Left adjoints preserve colimits but need not preserve \u2014 or reflect \u2014 limits. The free group functor $F\\colon\\mathsf{Set}\\to\\mathsf{Grp}$ sends a two-element product $X\\times Y$ to $F(X\\times Y)$, the free group on $X\\times Y$, which is generally not the product $F(X)\\times F(Y)$ in $\\mathsf{Grp}$. This is a concrete illustration that LAPC (left adjoints preserve colimits) has no analogue for limits."
+          "explain": "Left adjoints preserve colimits but need not preserve — or reflect — limits. The free group functor $F\\colon\\mathsf{Set}\\to\\mathsf{Grp}$ sends a two-element product $X\\times Y$ to $F(X\\times Y)$, the free group on $X\\times Y$, which is generally not the product $F(X)\\times F(Y)$ in $\\mathsf{Grp}$. This is a concrete illustration that LAPC (left adjoints preserve colimits) has no analogue for limits."
         },
         {
           "type": "numeric",
-          "q": "Let $\\mathcal{C}$ be a category with exactly one object $*$ and $\\operatorname{Hom}(*,*)=\\{\\mathrm{id}\\}$. How many distinct functors $F\\colon\\mathcal{C}\\to\\mathcal{C}$ are there?",
+          "q": "Let $\\mathcal{C}$ be a category with exactly one object $*$ and $\\Hom(*,*)=\\{\\mathrm{id}\\}$. How many distinct functors $F\\colon\\mathcal{C}\\to\\mathcal{C}$ are there?",
           "answer": 1,
-          "tol": 1e-06,
-          "explain": "There is only one object, so $F(*)=*$ is forced. The only morphism $\\mathrm{id}_*$ must map to a morphism $*\\to*$, i.e. to $\\mathrm{id}_*$ itself. So the only functor is the identity \u2014 exactly $1$."
+          "tol": 0.000001,
+          "explain": "There is only one object, so $F(*)=*$ is forced. The only morphism $\\mathrm{id}_*$ must map to a morphism $*\\to*$, i.e. to $\\mathrm{id}_*$ itself. So the only functor is the identity — exactly $1$."
         }
       ]
     },
@@ -306,7 +306,7 @@
           "choices": [
             "the naturality square of $\\sigma$",
             "Mac Lane's pentagon relating the two associators on a fourfold tensor",
-            "the Yang\u2013Baxter hexagon",
+            "the Yang–Baxter hexagon",
             "the pushout square"
           ],
           "answer": 1,
@@ -316,8 +316,8 @@
           "type": "numeric",
           "q": "How many distinct bracketings of a fourfold tensor product $A\\otimes B\\otimes C\\otimes D$ are there (Catalan number $C_3$)?",
           "answer": 5,
-          "tol": 1e-06,
-          "explain": "The Catalan number $C_3 = 5$ counts full binary trees with $4$ leaves \u2014 $((AB)C)D,\\ (A(BC))D,\\ (AB)(CD),\\ A((BC)D),\\ A(B(CD))$. Mac Lane's pentagon says all $5$ become equal under $\\alpha$."
+          "tol": 0.000001,
+          "explain": "The Catalan number $C_3 = 5$ counts full binary trees with $4$ leaves — $((AB)C)D,\\ (A(BC))D,\\ (AB)(CD),\\ A((BC)D),\\ A(B(CD))$. Mac Lane's pentagon says all $5$ become equal under $\\alpha$."
         }
       ],
       "hard": [
@@ -349,7 +349,7 @@
           "type": "numeric",
           "q": "The Catalan number $C_n$ counts the bracketings of an $(n{+}1)$-fold tensor. Using $C_n=\\binom{2n}{n}/(n+1)$, compute $C_4$ (the number of bracketings of a $5$-fold tensor $A\\otimes B\\otimes C\\otimes D\\otimes E$).",
           "answer": 14,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "$C_4=\\binom{8}{4}/5=70/5=14$. These $14$ bracketings all become equal under iterated application of the associator $\\alpha$, by Mac Lane's coherence theorem."
         }
       ]
@@ -367,7 +367,7 @@
             "the natural transformation itself, coerced to a set"
           ],
           "answer": 0,
-          "explain": "Evaluate $\\eta$'s $A$-component at the distinguished element $\\mathrm{id}_A\\in h_A(A)=\\mathrm{Hom}(A,A)$. That single value determines every other component via naturality."
+          "explain": "Evaluate $\\eta$'s $A$-component at the distinguished element $\\mathrm{id}_A\\in h_A(A)=\\Hom(A,A)$. That single value determines every other component via naturality."
         },
         {
           "type": "multi-select",
@@ -378,14 +378,18 @@
             "Every presheaf is representable.",
             "Representing objects are unique up to unique isomorphism."
           ],
-          "answer": [0, 1, 3],
-          "explain": "Taking $F=h_Y$ gives $\\mathrm{Nat}(h_X,h_Y)\\cong\\mathrm{Hom}(X,Y)$ — full faithfulness. Isomorphism of functors then pulls back to isomorphism of objects. Unique representability is the Yoneda-level uniqueness statement. Not every presheaf is representable (that would be an equivalence, which generally fails)."
+          "answer": [
+            0,
+            1,
+            3
+          ],
+          "explain": "Taking $F=h_Y$ gives $\\mathrm{Nat}(h_X,h_Y)\\cong\\Hom(X,Y)$ — full faithfulness. Isomorphism of functors then pulls back to isomorphism of objects. Unique representability is the Yoneda-level uniqueness statement. Not every presheaf is representable (that would be an equivalence, which generally fails)."
         },
         {
           "type": "numeric",
-          "q": "In the poset category on $\\{0<1<2\\}$ viewed as a category, the representable $h_1=\\mathrm{Hom}(-,1)$ satisfies $h_1(C)=\\{\\ast\\}$ iff $C\\le 1$, else $\\emptyset$. How many natural transformations $h_1\\Rightarrow F$ are there for the functor $F\\colon\\mathcal{C}^{\\mathrm{op}}\\to\\mathsf{Set}$ with $|F(1)|=4$?",
+          "q": "In the poset category on $\\{0<1<2\\}$ viewed as a category, the representable $h_1=\\Hom(-,1)$ satisfies $h_1(C)=\\{\\ast\\}$ iff $C\\le 1$, else $\\emptyset$. How many natural transformations $h_1\\Rightarrow F$ are there for the functor $F\\colon\\mathcal{C}^{\\mathrm{op}}\\to\\mathsf{Set}$ with $|F(1)|=4$?",
           "answer": 4,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "Yoneda: $\\mathrm{Nat}(h_1,F)\\cong F(1)$, so the count is $|F(1)|=4$."
         }
       ],
@@ -409,7 +413,7 @@
         },
         {
           "type": "mcq",
-          "q": "An object $X\\in\\mathcal{C}$ is called a $\\textit{projective generator}$ if $\\mathrm{Hom}(X,-)$ is faithful and preserves epimorphisms. By Yoneda, this is equivalent to saying:",
+          "q": "An object $X\\in\\mathcal{C}$ is called a $\\textit{projective generator}$ if $\\Hom(X,-)$ is faithful and preserves epimorphisms. By Yoneda, this is equivalent to saying:",
           "choices": [
             "$h_X$ is naturally isomorphic to the identity functor.",
             "$h_X\\colon\\mathcal{C}\\to\\mathsf{Set}$ reflects isomorphisms, and the class $\\{X\\}$ is 'enough projectives'.",
@@ -417,13 +421,13 @@
             "Every object is a quotient of $X$."
           ],
           "answer": 1,
-          "explain": "Faithfulness of $\\mathrm{Hom}(X,-)$ forces $h_X$ to separate morphisms, and preservation of epis under a representable makes $X$ projective. Together they are the standard 'enough projectives' condition."
+          "explain": "Faithfulness of $\\Hom(X,-)$ forces $h_X$ to separate morphisms, and preservation of epis under a representable makes $X$ projective. Together they are the standard 'enough projectives' condition."
         },
         {
           "type": "numeric",
           "q": "Let $G$ be a finite group and $\\mathcal{B}G$ its one-object category. A functor $F\\colon\\mathcal{B}G^{\\mathrm{op}}\\to\\mathsf{Set}$ is a right $G$-set. By Yoneda, $\\mathrm{Nat}(h_\\ast,F)\\cong F(\\ast)$; for $G=S_3$ and $F(\\ast)$ the regular right $S_3$-set, how many natural transformations are there?",
           "answer": 6,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "$|S_3|=6$, so the regular $S_3$-set has $6$ elements and Yoneda gives $|\\mathrm{Nat}(h_\\ast,F)|=|F(\\ast)|=6$."
         }
       ]
@@ -441,12 +445,17 @@
             "pullback $A\\times_C B$"
           ],
           "right": [
-            "empty diagram",
             "discrete two-object diagram",
             "parallel pair $\\bullet\\rightrightarrows\\bullet$",
-            "cospan $\\bullet\\to\\bullet\\leftarrow\\bullet$"
+            "cospan $\\bullet\\to\\bullet\\leftarrow\\bullet$",
+            "empty diagram"
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            3,
+            0,
+            1,
+            2
+          ],
           "explain": "Each limit is the universal cone on the corresponding shape: empty → terminal, two-point discrete → product, parallel pair → equalizer, cospan → pullback."
         },
         {
@@ -465,7 +474,7 @@
           "type": "numeric",
           "q": "Let $X=\\{1,2,3,4\\}$, $Y=\\{a,b\\}$, $Z=\\{0,1\\}$, with $f\\colon X\\to Z$ defined $f(1)=f(2)=0$, $f(3)=f(4)=1$, and $g\\colon Y\\to Z$ defined $g(a)=0$, $g(b)=1$. Compute $|X\\times_Z Y|$.",
           "answer": 4,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "Fiber over $0$: $\\{1,2\\}\\times\\{a\\}$ gives $2$ pairs; fiber over $1$: $\\{3,4\\}\\times\\{b\\}$ gives $2$ pairs. Total: $4$."
         }
       ],
@@ -492,14 +501,19 @@
             "Given any other cone $(h\\colon W\\to X, k\\colon W\\to Y)$ with $fh=gk$, define $u\\colon W\\to P$ by $u(w)=(h(w),k(w))$.",
             "Verify $\\pi_1 u=h$, $\\pi_2 u=k$, and that $u$ is the unique such map."
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
           "explain": "Construct the set, equip it with projections, produce the universal map, verify uniqueness."
         },
         {
           "type": "numeric",
           "q": "In $\\mathsf{Set}$, the coequalizer of $f,g\\colon A\\rightrightarrows B$ with $A=\\{1,2,3\\}$, $B=\\{x,y,z,w\\}$, $f(1)=x,f(2)=y,f(3)=z$ and $g(1)=y,g(2)=z,g(3)=w$ is $B/{\\sim}$ where $\\sim$ is generated by $f(a)\\sim g(a)$. How many elements does the coequalizer have?",
           "answer": 1,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "The relations $x\\sim y$, $y\\sim z$, $z\\sim w$ collapse all of $B$ to a single equivalence class."
         }
       ]
@@ -511,8 +525,8 @@
           "type": "mcq",
           "q": "$F\\dashv G$ means, by definition, that there is an isomorphism, natural in $A$ and $B$:",
           "choices": [
-            "$\\mathrm{Hom}_{\\mathcal{C}}(G(B),A)\\cong\\mathrm{Hom}_{\\mathcal{D}}(B,F(A))$",
-            "$\\mathrm{Hom}_{\\mathcal{D}}(F(A),B)\\cong\\mathrm{Hom}_{\\mathcal{C}}(A,G(B))$",
+            "$\\Hom_{\\mathcal{C}}(G(B),A)\\cong\\Hom_{\\mathcal{D}}(B,F(A))$",
+            "$\\Hom_{\\mathcal{D}}(F(A),B)\\cong\\Hom_{\\mathcal{C}}(A,G(B))$",
             "$F\\circ G\\cong\\mathrm{id}_{\\mathcal{D}}$",
             "$G\\circ F\\cong\\mathrm{id}_{\\mathcal{C}}$"
           ],
@@ -524,19 +538,23 @@
           "q": "Select every example of an adjunction.",
           "choices": [
             "Free group $\\dashv$ forgetful $\\mathsf{Grp}\\to\\mathsf{Set}$",
-            "$(-)\\times A\\dashv\\mathrm{Hom}(A,-)$ in $\\mathsf{Set}$ (currying)",
+            "$(-)\\times A\\dashv\\Hom(A,-)$ in $\\mathsf{Set}$ (currying)",
             "Abelianization $\\dashv$ inclusion $\\mathsf{Ab}\\hookrightarrow\\mathsf{Grp}$",
             "The identity functor $\\mathrm{id}\\colon\\mathsf{Grp}\\to\\mathsf{Grp}$ is left adjoint to the double-dual $(-)^{**}$"
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            0,
+            1,
+            2
+          ],
           "explain": "The first three are textbook adjunctions. $(-)^{**}$ on $\\mathsf{Grp}$ isn't even functorial in an obvious way — and there's certainly no natural Hom-isomorphism with the identity."
         },
         {
           "type": "numeric",
-          "q": "For the free–forgetful adjunction $F\\dashv U\\colon\\mathsf{Set}\\to\\mathsf{Grp}$, compute $|\\mathrm{Hom}_{\\mathsf{Grp}}(F(\\{a\\}),\\mathbb{Z}/5)|$.",
+          "q": "For the free–forgetful adjunction $F\\dashv U\\colon\\mathsf{Set}\\to\\mathsf{Grp}$, compute $|\\Hom_{\\mathsf{Grp}}(F(\\{a\\}),\\mathbb{Z}/5)|$.",
           "answer": 5,
-          "tol": 1e-06,
-          "explain": "By the Hom-iso, $|\\mathrm{Hom}_{\\mathsf{Grp}}(F(\\{a\\}),\\mathbb{Z}/5)|=|\\mathrm{Hom}_{\\mathsf{Set}}(\\{a\\},\\mathbb{Z}/5)|=|\\mathbb{Z}/5|=5$."
+          "tol": 0.000001,
+          "explain": "By the Hom-iso, $|\\Hom_{\\mathsf{Grp}}(F(\\{a\\}),\\mathbb{Z}/5)|=|\\Hom_{\\mathsf{Set}}(\\{a\\},\\mathbb{Z}/5)|=|\\mathbb{Z}/5|=5$."
         }
       ],
       "hard": [
@@ -562,15 +580,15 @@
             "Neither slogan has content: it depends on the category."
           ],
           "answer": 1,
-          "hint": "Left adjoint to $G$ means 'left side of a hom-iso' — which side of $\\mathrm{Hom}$ is covariant in its second argument and commutes with limits?",
-          "explain": "$\\mathrm{Hom}(-,X)$ turns colimits into limits, so $\\mathrm{Hom}(F-,-)\\cong\\mathrm{Hom}(-,G-)$ combined with Yoneda forces $F$ to preserve colimits and $G$ to preserve limits."
+          "hint": "Left adjoint to $G$ means 'left side of a hom-iso' — which side of $\\Hom$ is covariant in its second argument and commutes with limits?",
+          "explain": "$\\Hom(-,X)$ turns colimits into limits, so $\\Hom(F-,-)\\cong\\Hom(-,G-)$ combined with Yoneda forces $F$ to preserve colimits and $G$ to preserve limits."
         },
         {
           "type": "numeric",
-          "q": "Let $D\\dashv U$ where $D\\colon\\mathsf{Set}\\to\\mathsf{Top}$ gives the discrete topology and $U$ is underlying set. For $X=\\{0,1\\}$ and $Y$ a three-point space with the indiscrete topology, compute $|\\mathrm{Hom}_{\\mathsf{Top}}(D(X),Y)|$.",
+          "q": "Let $D\\dashv U$ where $D\\colon\\mathsf{Set}\\to\\mathsf{Top}$ gives the discrete topology and $U$ is underlying set. For $X=\\{0,1\\}$ and $Y$ a three-point space with the indiscrete topology, compute $|\\Hom_{\\mathsf{Top}}(D(X),Y)|$.",
           "answer": 9,
-          "tol": 1e-06,
-          "explain": "By the adjunction, $\\mathrm{Hom}_{\\mathsf{Top}}(D(X),Y)\\cong\\mathrm{Hom}_{\\mathsf{Set}}(X,U(Y))$ — every function $X\\to U(Y)$ is automatically continuous out of a discrete domain. So the count is $|U(Y)|^{|X|}=3^2=9$."
+          "tol": 0.000001,
+          "explain": "By the adjunction, $\\Hom_{\\mathsf{Top}}(D(X),Y)\\cong\\Hom_{\\mathsf{Set}}(X,U(Y))$ — every function $X\\to U(Y)$ is automatically continuous out of a discrete domain. So the count is $|U(Y)|^{|X|}=3^2=9$."
         }
       ]
     },
@@ -605,7 +623,7 @@
           "type": "numeric",
           "q": "Every adjunction $F\\dashv U$ induces a monad $T=UF$ on the source category. For $F\\dashv U\\colon\\mathsf{Set}\\to\\mathsf{Mon}$ (free monoid / underlying set), what is $|T(\\{a\\})|$ restricted to words of length $\\le 3$ (including the empty word)?",
           "answer": 4,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "Words in $\\{a\\}$ of length $0,1,2,3$ are $\\varepsilon, a, aa, aaa$ — exactly $4$ elements."
         }
       ],
@@ -625,7 +643,7 @@
         },
         {
           "type": "mcq",
-          "q": "The Kleisli category $\\mathcal{C}_T$ of a monad $T$ on $\\mathcal{C}$ has the same objects as $\\mathcal{C}$, but $\\mathrm{Hom}_{\\mathcal{C}_T}(X,Y)=\\mathrm{Hom}_{\\mathcal{C}}(X,T(Y))$. Which adjunction does $\\mathcal{C}_T$ realize?",
+          "q": "The Kleisli category $\\mathcal{C}_T$ of a monad $T$ on $\\mathcal{C}$ has the same objects as $\\mathcal{C}$, but $\\Hom_{\\mathcal{C}_T}(X,Y)=\\Hom_{\\mathcal{C}}(X,T(Y))$. Which adjunction does $\\mathcal{C}_T$ realize?",
           "choices": [
             "A right adjoint to the Eilenberg–Moore category with no left adjoint.",
             "The $\\textit{initial}$ adjunction generating $T$: $F_T\\dashv U_T$ where $F_T\\colon\\mathcal{C}\\to\\mathcal{C}_T$ sends $X\\mapsto X$ and $U_T X=T(X)$.",
@@ -639,7 +657,7 @@
           "type": "numeric",
           "q": "For the list (= free-monoid) monad on $\\mathsf{Set}$, Kleisli morphisms $X\\to Y$ are functions $X\\to\\mathrm{List}(Y)$. How many Kleisli morphisms from $\\{a\\}$ to $\\{b\\}$ using lists of length exactly $2$ are there?",
           "answer": 1,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "A function $\\{a\\}\\to\\mathrm{List}^{=2}(\\{b\\})$ picks one list of length $2$ from $\\{bb\\}$ — exactly $1$ choice."
         }
       ]
@@ -651,7 +669,7 @@
           "type": "mcq",
           "q": "Given functors $F\\colon\\mathcal{A}\\to\\mathcal{C}$ and $K\\colon\\mathcal{A}\\to\\mathcal{B}$, the $\\textit{left Kan extension}$ $\\mathrm{Lan}_K F$ is characterized by:",
           "choices": [
-            "a natural iso $\\mathrm{Hom}(\\mathrm{Lan}_K F, G)\\cong\\mathrm{Hom}(F, G\\circ K)$ for $G\\colon\\mathcal{B}\\to\\mathcal{C}$",
+            "a natural iso $\\Hom(\\mathrm{Lan}_K F, G)\\cong\\Hom(F, G\\circ K)$ for $G\\colon\\mathcal{B}\\to\\mathcal{C}$",
             "$\\mathrm{Lan}_K F=F\\circ K$",
             "$\\mathrm{Lan}_K F\\cong K\\circ F$",
             "any extension of $F$ to $\\mathcal{B}$"
@@ -676,7 +694,7 @@
           "type": "numeric",
           "q": "Let $K\\colon\\mathbf{1}\\to\\mathcal{J}$ be the inclusion of the one-object category into a diagram shape $\\mathcal{J}$ with $3$ objects and only identity arrows. For $F\\colon\\mathbf{1}\\to\\mathsf{Set}$ picking a $2$-element set, how many objects does $\\mathrm{Lan}_K F\\colon\\mathcal{J}\\to\\mathsf{Set}$ assign, counted as the sum $\\sum_{j\\in\\mathcal{J}}|\\mathrm{Lan}_K F(j)|$?",
           "answer": 2,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "$K$ hits one of the three objects; $\\mathrm{Lan}_K F$ at that object is $F(\\ast)$ (size $2$), and the initial (empty) colimit at the other two — so the total is $2+0+0=2$."
         }
       ],
@@ -710,7 +728,7 @@
           "type": "numeric",
           "q": "For $K\\colon\\mathcal{A}\\to\\mathcal{B}$ with $\\mathcal{A}$ discrete on $3$ objects, $\\mathcal{B}$ discrete on $5$ objects, and $K$ injective on objects with image of size $3$, and $F\\colon\\mathcal{A}\\to\\mathsf{Set}$ constantly the $2$-element set, compute $\\sum_{b\\in\\mathcal{B}}|\\mathrm{Lan}_K F(b)|$.",
           "answer": 6,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "At the $3$ objects of $\\mathcal{B}$ in the image of $K$, the extension is the $2$-element set; at the other $2$ objects, it's the empty colimit. Total: $3\\cdot 2+2\\cdot 0=6$."
         }
       ]
@@ -746,7 +764,7 @@
           "type": "numeric",
           "q": "In $\\mathsf{Cat}$ viewed as a 2-category, how many 2-cells are there from the identity functor $\\mathrm{id}_{\\mathcal{C}}$ to itself, when $\\mathcal{C}$ is a discrete category on $5$ objects?",
           "answer": 1,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "A natural transformation $\\mathrm{id}\\Rightarrow\\mathrm{id}$ is a family $\\eta_A\\colon A\\to A$; in a discrete category the only such choice is $\\mathrm{id}_A$ at every object. So exactly $1$ 2-cell."
         }
       ],
@@ -779,7 +797,7 @@
           "type": "numeric",
           "q": "The 2-category $\\mathsf{Cat}$ restricted to the full sub-2-category on one object $\\mathcal{C}=\\mathbf{1}$ (the terminal category) has one object and one 1-morphism (the identity functor). How many 2-cells $\\mathrm{id}_{\\mathbf{1}}\\Rightarrow\\mathrm{id}_{\\mathbf{1}}$?",
           "answer": 1,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "The only arrow in $\\mathbf{1}$ is $\\mathrm{id}_\\ast$; the only natural transformation is the one with component $\\mathrm{id}_\\ast$."
         }
       ]
@@ -789,11 +807,11 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "Enriched categories replace Hom-SETS by Hom-OBJECTS in a monoidal category $(\\mathcal{V},\\otimes,I)$. Composition becomes a morphism $\\mathrm{Hom}(B,C)\\otimes\\mathrm{Hom}(A,B)\\to\\mathrm{Hom}(A,C)$ in $\\mathcal{V}$. Identity becomes:",
+          "q": "Enriched categories replace Hom-SETS by Hom-OBJECTS in a monoidal category $(\\mathcal{V},\\otimes,I)$. Composition becomes a morphism $\\Hom(B,C)\\otimes\\Hom(A,B)\\to\\Hom(A,C)$ in $\\mathcal{V}$. Identity becomes:",
           "choices": [
-            "a morphism $I\\to\\mathrm{Hom}(A,A)$",
-            "a morphism $\\mathrm{Hom}(A,A)\\to I$",
-            "an isomorphism $\\mathrm{Hom}(A,A)\\cong I$",
+            "a morphism $I\\to\\Hom(A,A)$",
+            "a morphism $\\Hom(A,A)\\to I$",
+            "an isomorphism $\\Hom(A,A)\\cong I$",
             "not needed; enriched categories have no identities"
           ],
           "answer": 0,
@@ -809,26 +827,32 @@
             "Lawvere metric space"
           ],
           "right": [
-            "$\\mathcal{V}=\\mathsf{Set}$ with $\\times$",
             "$\\mathcal{V}=\\mathsf{Ab}$ with $\\otimes_{\\mathbb{Z}}$",
             "$\\mathcal{V}=\\mathsf{Cat}$ with $\\times$",
-            "$\\mathcal{V}=([0,\\infty],\\ge,+,0)$"
+            "$\\mathcal{V}=([0,\\infty],\\ge,+,0)$",
+            "$\\mathcal{V}=\\mathsf{Set}$ with $\\times$"
           ],
-          "answer": [0, 1, 2, 3],
-          "explain": "Lawvere (1973) observed that a metric space is precisely a category enriched over the monoidal poset $([0,\\infty],\\ge)$ with $+$ as tensor: $\\mathrm{Hom}(x,y)=d(x,y)$, composition = triangle inequality, identity = $d(x,x)=0$."
+          "answer": [
+            3,
+            0,
+            1,
+            2
+          ],
+          "hint": "Lawvere (1973) observed that a metric space is precisely a category enriched over the monoidal poset $([0,\\infty],\\ge)$ with $+$ as tensor: $\\Hom(x,y)=d(x,y)$, composition = triangle…",
+          "explain": "Lawvere (1973) observed that a metric space is precisely a category enriched over the monoidal poset $([0,\\infty],\\ge)$ with $+$ as tensor: $\\Hom(x,y)=d(x,y)$, composition = triangle inequality, identity = $d(x,x)=0$."
         },
         {
           "type": "numeric",
           "q": "In a Lawvere metric space (an enriched category over $[0,\\infty]$), the 'identity at $A$' is a morphism $0\\ge d(A,A)$, i.e. $d(A,A)\\le 0$. Combined with $d\\ge 0$ this forces $d(A,A)=$ which value?",
           "answer": 0,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "$0\\le d(A,A)\\le 0$, so $d(A,A)=0$ — the reflexivity axiom of a pseudo-metric."
         }
       ],
       "hard": [
         {
           "type": "mcq",
-          "q": "In Lawvere's enriched-category interpretation, composition $\\mathrm{Hom}(B,C)\\otimes\\mathrm{Hom}(A,B)\\to\\mathrm{Hom}(A,C)$ becomes the inequality:",
+          "q": "In Lawvere's enriched-category interpretation, composition $\\Hom(B,C)\\otimes\\Hom(A,B)\\to\\Hom(A,C)$ becomes the inequality:",
           "choices": [
             "$d(B,C)+d(A,B)\\ge d(A,C)$ (triangle inequality)",
             "$d(B,C)\\cdot d(A,B)\\ge d(A,C)$",
@@ -855,7 +879,7 @@
           "type": "numeric",
           "q": "A Lawvere metric space with $3$ points $\\{A,B,C\\}$ satisfies $d(A,B)=2$, $d(B,C)=3$. The enriched-category axiom (triangle inequality) gives the strongest upper bound on $d(A,C)$. What is this bound?",
           "answer": 5,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "The composition in the enriched category gives $d(A,C)\\le d(A,B)+d(B,C)=2+3=5$."
         }
       ]

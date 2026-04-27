@@ -29,7 +29,7 @@
           "type": "mcq",
           "q": "Which equivalent description of a sieve on $c$ best generalises to arbitrary categories?",
           "choices": [
-            "A subset of $\\operatorname{Hom}(C, c)$ closed under precomposition with arbitrary arrows.",
+            "A subset of $\\Hom(C, c)$ closed under precomposition with arbitrary arrows.",
             "An open subset of the topological space $|C|$.",
             "An ideal of the endomorphism ring $\\operatorname{End}(c)$.",
             "An equivalence class of arrows into $c$ under composition."
@@ -117,7 +117,7 @@
       "questions": [
         {
           "type": "multi-select",
-          "q": "On $\\operatorname{Spec} \\mathbb{F}_2$, which of the following structures are Zariski-locally trivial? Which are étale-locally trivial?",
+          "q": "On $\\Spec \\mathbb{F}_2$, which of the following structures are Zariski-locally trivial? Which are étale-locally trivial?",
           "choices": [
             "A line bundle $\\mathcal{L}$ — Zariski-locally trivial.",
             "$\\mu_2$, the sheaf of square roots of unity — Zariski-locally trivial.",
@@ -125,20 +125,20 @@
             "An fppf $\\mathbb{Z}/2$-torsor — étale-locally trivial."
           ],
           "answer": [0, 1, 2, 3],
-          "explain": "Over $\\mathbb{F}_2$, the polynomial $T^2 - 1 = (T-1)^2$ has only the root $1$, so $\\mu_2 \\cong \\operatorname{Spec} \\mathbb{F}_2[T]/(T-1)^2 \\cong \\mathbb{F}_2[\\epsilon]$ — but as a group scheme it's also isomorphic to the constant scheme $\\underline{\\mathbb{Z}/2}$ Zariski-locally because over $\\mathbb{F}_2$ the equation $T^2 = 1$ has a Zariski-trivial set of roots (just the constant $1$). So actually $\\mu_2 \\cong \\underline{\\mathbb{Z}/2}$ even Zariski-locally over $\\mathbb{F}_2$! Likewise line bundles are always Zariski-locally trivial by definition. Over a field of characteristic $\\neq 2$ where $\\mu_2 \\neq \\underline{\\mathbb{Z}/2}$, only étale-locally do they coincide.",
+          "explain": "Over $\\mathbb{F}_2$, the polynomial $T^2 - 1 = (T-1)^2$ has only the root $1$, so $\\mu_2 \\cong \\Spec \\mathbb{F}_2[T]/(T-1)^2 \\cong \\mathbb{F}_2[\\epsilon]$ — but as a group scheme it's also isomorphic to the constant scheme $\\underline{\\mathbb{Z}/2}$ Zariski-locally because over $\\mathbb{F}_2$ the equation $T^2 = 1$ has a Zariski-trivial set of roots (just the constant $1$). So actually $\\mu_2 \\cong \\underline{\\mathbb{Z}/2}$ even Zariski-locally over $\\mathbb{F}_2$! Likewise line bundles are always Zariski-locally trivial by definition. Over a field of characteristic $\\neq 2$ where $\\mu_2 \\neq \\underline{\\mathbb{Z}/2}$, only étale-locally do they coincide.",
           "hint": "A line bundle is Zariski-locally trivial by the very definition of locally free sheaf of rank 1; whether $\\mu_n$ is Zariski-locally trivial depends on whether $n$th roots of $1$ already live in the base ring."
         },
         {
           "type": "mcq",
-          "q": "Which of the following is a covering family on $\\operatorname{Spec} \\mathbb{Q}$ in the étale site that is NOT a Zariski cover?",
+          "q": "Which of the following is a covering family on $\\Spec \\mathbb{Q}$ in the étale site that is NOT a Zariski cover?",
           "choices": [
-            "$\\{\\operatorname{Spec} \\mathbb{Q}(\\sqrt{2}) \\to \\operatorname{Spec} \\mathbb{Q}\\}$.",
-            "$\\{\\operatorname{Spec} \\mathbb{Q} \\to \\operatorname{Spec} \\mathbb{Q}\\}$ (the identity).",
-            "$\\{D(2) \\to \\operatorname{Spec} \\mathbb{Q}\\}$ (localisation at $2$).",
-            "$\\{\\operatorname{Spec} \\mathbb{Q}[\\sqrt{2}, \\sqrt{3}] \\to \\operatorname{Spec} \\mathbb{Q}\\}$, regarded as Zariski."
+            "$\\{\\Spec \\mathbb{Q}(\\sqrt{2}) \\to \\Spec \\mathbb{Q}\\}$.",
+            "$\\{\\Spec \\mathbb{Q} \\to \\Spec \\mathbb{Q}\\}$ (the identity).",
+            "$\\{D(2) \\to \\Spec \\mathbb{Q}\\}$ (localisation at $2$).",
+            "$\\{\\Spec \\mathbb{Q}[\\sqrt{2}, \\sqrt{3}] \\to \\Spec \\mathbb{Q}\\}$, regarded as Zariski."
           ],
           "answer": 0,
-          "explain": "A finite separable field extension is a finite étale cover, and $\\{\\operatorname{Spec} L \\to \\operatorname{Spec} K\\}$ for $L/K$ finite étale is jointly surjective. But it is NOT a Zariski cover — Zariski opens of $\\operatorname{Spec} K$ for a field are just $\\operatorname{Spec} K$ and $\\varnothing$. The other options are either Zariski covers (the identity, $D(2) = \\operatorname{Spec} \\mathbb{Q}$ since $2$ is a unit in $\\mathbb{Q}$) or not even surjective.",
+          "explain": "A finite separable field extension is a finite étale cover, and $\\{\\Spec L \\to \\Spec K\\}$ for $L/K$ finite étale is jointly surjective. But it is NOT a Zariski cover — Zariski opens of $\\Spec K$ for a field are just $\\Spec K$ and $\\varnothing$. The other options are either Zariski covers (the identity, $D(2) = \\Spec \\mathbb{Q}$ since $2$ is a unit in $\\mathbb{Q}$) or not even surjective.",
           "hint": "Zariski opens of a field are very restricted — what's the spectrum of a field as a topological space?"
         },
         {
@@ -164,7 +164,7 @@
           "q": "On the small Zariski site of a connected scheme $X$, which of the following presheaves are sheaves?",
           "choices": [
             "$U \\mapsto \\Gamma(U, \\mathcal{O}_X)$ — global sections of the structure sheaf.",
-            "$U \\mapsto \\operatorname{Hom}_{\\mathrm{Sch}/X}(U, T)$ for a fixed $X$-scheme $T$ — the representable presheaf $h_T$.",
+            "$U \\mapsto \\Hom_{\\mathrm{Sch}/X}(U, T)$ for a fixed $X$-scheme $T$ — the representable presheaf $h_T$.",
             "$U \\mapsto A$ for a fixed abelian group $A$ — the constant presheaf.",
             "$U \\mapsto A^{\\pi_0(U)}$ — the locally constant sheaf."
           ],
@@ -246,15 +246,15 @@
         },
         {
           "type": "mcq",
-          "q": "What is $\\mathrm{Sh}(\\operatorname{Spec} k)$ for $k$ a separably closed field, on the étale site?",
+          "q": "What is $\\mathrm{Sh}(\\Spec k)$ for $k$ a separably closed field, on the étale site?",
           "choices": [
             "Equivalent to $\\mathsf{Set}$ — the étale site collapses to a point.",
-            "Equivalent to $\\operatorname{Gal}(k^{\\mathrm{sep}}/k)\\text{-}\\mathsf{Set}_{\\mathrm{cts}}$.",
+            "Equivalent to $\\Gal(k^{\\mathrm{sep}}/k)\\text{-}\\mathsf{Set}_{\\mathrm{cts}}$.",
             "Equivalent to $\\mathsf{Vect}_k$.",
-            "Equivalent to the topos of locally constant sheaves on $|\\operatorname{Spec} k|$."
+            "Equivalent to the topos of locally constant sheaves on $|\\Spec k|$."
           ],
           "answer": 0,
-          "explain": "When $k$ is separably closed, $\\operatorname{Gal}(k^{\\mathrm{sep}}/k)$ is trivial, so $\\operatorname{Gal}(k^{\\mathrm{sep}}/k)\\text{-}\\mathsf{Set}_{\\mathrm{cts}} \\cong \\mathsf{Set}$. The étale site of $\\operatorname{Spec} k$ has no nontrivial covers (every connected étale cover is a separable extension, and there are none), so sheaves on it are just sets. For a general field, $\\mathrm{Sh}_\\text{ét}(\\operatorname{Spec} k) \\simeq \\operatorname{Gal}(k^{\\mathrm{sep}}/k)\\text{-}\\mathsf{Set}_{\\mathrm{cts}}$ — option B is correct only for non-separably-closed $k$.",
+          "explain": "When $k$ is separably closed, $\\Gal(k^{\\mathrm{sep}}/k)$ is trivial, so $\\Gal(k^{\\mathrm{sep}}/k)\\text{-}\\mathsf{Set}_{\\mathrm{cts}} \\cong \\mathsf{Set}$. The étale site of $\\Spec k$ has no nontrivial covers (every connected étale cover is a separable extension, and there are none), so sheaves on it are just sets. For a general field, $\\mathrm{Sh}_\\text{ét}(\\Spec k) \\simeq \\Gal(k^{\\mathrm{sep}}/k)\\text{-}\\mathsf{Set}_{\\mathrm{cts}}$ — option B is correct only for non-separably-closed $k$.",
           "hint": "Galois theory: what is the absolute Galois group of a separably closed field?"
         },
         {
@@ -331,7 +331,7 @@
         },
         {
           "type": "mcq",
-          "q": "Which of the following gives a geometric morphism $\\mathrm{Sh}(\\operatorname{Spec} L) \\to \\mathrm{Sh}(\\operatorname{Spec} K)$ for a finite Galois extension $L/K$ of fields, on the étale site?",
+          "q": "Which of the following gives a geometric morphism $\\mathrm{Sh}(\\Spec L) \\to \\mathrm{Sh}(\\Spec K)$ for a finite Galois extension $L/K$ of fields, on the étale site?",
           "choices": [
             "The morphism induced by the restriction-of-scalars functor — corresponding to the $K$-algebra map $K \\hookrightarrow L$.",
             "The morphism induced by $L \\to K$ — but no such ring map generally exists.",
@@ -339,7 +339,7 @@
             "Only their identity geometric morphisms."
           ],
           "answer": 0,
-          "explain": "A continuous map of schemes $\\operatorname{Spec} L \\to \\operatorname{Spec} K$ is induced by the inclusion $K \\hookrightarrow L$ on rings. This is a continuous map of étale sites and gives a geometric morphism with $f^*$ = pullback of étale sheaves (restricting Galois actions to $\\operatorname{Gal}(L^{\\mathrm{sep}}/L)$) and $f_*$ = pushforward (induced representation along $\\operatorname{Gal}(L^{\\mathrm{sep}}/L) \\hookrightarrow \\operatorname{Gal}(K^{\\mathrm{sep}}/K)$).",
+          "explain": "A continuous map of schemes $\\Spec L \\to \\Spec K$ is induced by the inclusion $K \\hookrightarrow L$ on rings. This is a continuous map of étale sites and gives a geometric morphism with $f^*$ = pullback of étale sheaves (restricting Galois actions to $\\Gal(L^{\\mathrm{sep}}/L)$) and $f_*$ = pushforward (induced representation along $\\Gal(L^{\\mathrm{sep}}/L) \\hookrightarrow \\Gal(K^{\\mathrm{sep}}/K)$).",
           "hint": "A scheme map $X \\to Y$ always induces a geometric morphism $\\mathrm{Sh}(X) \\to \\mathrm{Sh}(Y)$ on étale toposes — and a ring map $K \\to L$ gives a scheme map in the opposite direction."
         }
       ]

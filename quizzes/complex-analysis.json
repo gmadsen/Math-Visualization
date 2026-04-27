@@ -78,19 +78,31 @@
       ]
     },
     "mobius-transformations": {
-      "title": "M\u00f6bius transformations",
+      "title": "Möbius transformations",
       "questions": [
         {
-          "type": "mcq",
-          "q": "How many fixed points does a non-identity M\u00f6bius transformation have on $\\hat{\\mathbb{C}}$?",
-          "choices": [
-            "always 0",
-            "always 1",
-            "always 2 (counted with multiplicity)",
-            "always infinitely many"
+          "type": "matching",
+          "q": "Match each non-identity Möbius transformation $T(z)=\\frac{az+b}{cz+d}$ with its fixed points on $\\hat{\\mathbb{C}}$.",
+          "left": [
+            "$\\{0,\\infty\\}$ (two fixed points)",
+            "$\\{\\infty\\}$ only (parabolic with double fixed point at $\\infty$)",
+            "$\\{1,-1\\}$ (two fixed points)",
+            "$\\{i,-i\\}$ (two fixed points)"
           ],
-          "answer": 2,
-          "explain": "Solving $T(z) = z$ gives a quadratic $cz^2 + (d-a)z - b = 0$ on $\\mathbb{C}$, with $\\infty$ a fixed point exactly when $c = 0$. Always exactly two roots in $\\hat{\\mathbb{C}}$ counted with multiplicity."
+          "right": [
+            "$T(z) = z + 1$",
+            "$T(z) = 1/z$",
+            "$T(z) = -1/z$",
+            "$T(z) = 2z$"
+          ],
+          "answer": [
+            3,
+            0,
+            1,
+            2
+          ],
+          "hint": "Solve $T(z)=z$ in each case; count $\\infty$ as a fixed point exactly when $c=0$ (and as a double fixed point when $a=d$ and $c=0$).",
+          "explain": "$T(z)=z$ becomes $cz^2+(d-a)z-b=0$ in $\\mathbb{C}$, with $\\infty$ as a fixed point iff $c=0$. $2z=z\\Rightarrow z=0$ and $\\infty$ (since $c=0$): fixed points $\\{0,\\infty\\}$. $z+1=z$ has no finite solution and $\\infty$ is a double fixed point (parabolic). $1/z=z\\Rightarrow z^2=1$: fixed points $\\{1,-1\\}$. $-1/z=z\\Rightarrow z^2=-1$: fixed points $\\{i,-i\\}$. A non-identity Möbius always has exactly two fixed points in $\\hat{\\mathbb{C}}$ (counted with multiplicity)."
         },
         {
           "type": "complex",
@@ -104,16 +116,16 @@
         },
         {
           "type": "numeric",
-          "q": "How many distinct points must you specify the image of in order to uniquely determine a M\u00f6bius transformation?",
+          "q": "How many distinct points must you specify the image of in order to uniquely determine a Möbius transformation?",
           "answer": 3,
           "tol": 0.0001,
-          "explain": "M\u00f6bius maps are 3-transitive on $\\hat{\\mathbb{C}}$: any triple of distinct points can be sent to any other triple by a unique transformation."
+          "explain": "Möbius maps are 3-transitive on $\\hat{\\mathbb{C}}$: any triple of distinct points can be sent to any other triple by a unique transformation."
         }
       ],
       "hard": [
         {
           "type": "mcq",
-          "q": "The cross-ratio $(z_1, z_2; z_3, z_4)$ is invariant under M\u00f6bius transformations. If $(0, 1; z, \\infty) = 2$, what is $z$?",
+          "q": "The cross-ratio $(z_1, z_2; z_3, z_4)$ is invariant under Möbius transformations. If $(0, 1; z, \\infty) = 2$, what is $z$?",
           "choices": [
             "$z = 1/2$",
             "$z = 2$",
@@ -125,19 +137,19 @@
         },
         {
           "type": "mcq",
-          "q": "A M\u00f6bius transformation $T$ has exactly one fixed point in $\\hat{\\mathbb{C}}$. Which type is $T$?",
+          "q": "A Möbius transformation $T$ has exactly one fixed point in $\\hat{\\mathbb{C}}$. Which type is $T$?",
           "choices": [
             "Elliptic (trace $\\in (-2,2) \\subset \\mathbb{R}$)",
-            "Hyperbolic (trace $\\in \\mathbb{R}$, $|\\mathrm{tr}|>2$)",
-            "Parabolic ($\\mathrm{tr}^2 = 4$)",
-            "Loxodromic ($\\mathrm{tr} \\notin \\mathbb{R}$)"
+            "Hyperbolic (trace $\\in \\mathbb{R}$, $|\\tr|>2$)",
+            "Parabolic ($\\tr^2 = 4$)",
+            "Loxodromic ($\\tr \\notin \\mathbb{R}$)"
           ],
           "answer": 2,
-          "explain": "A non-identity M\u00f6bius transformation has two fixed points counted with multiplicity. Exactly one (a double fixed point) occurs precisely when the transformation is parabolic, i.e., conjugate to $z \\mapsto z + 1$, and algebraically characterized by $\\mathrm{tr}^2 = 4$."
+          "explain": "A non-identity Möbius transformation has two fixed points counted with multiplicity. Exactly one (a double fixed point) occurs precisely when the transformation is parabolic, i.e., conjugate to $z \\mapsto z + 1$, and algebraically characterized by $\\tr^2 = 4$."
         },
         {
           "type": "matching",
-          "q": "Match each M\u00f6bius transformation with its geometric role on $\\hat{\\mathbb{C}}$.",
+          "q": "Match each Möbius transformation with its geometric role on $\\hat{\\mathbb{C}}$.",
           "left": [
             "rotation about the origin by angle $\\theta$",
             "translation by $1$",
@@ -180,7 +192,7 @@
           "q": "If $f$ is holomorphic at $z_0$ and $f'(z_0) = 0$, is $f$ conformal (angle-preserving) at $z_0$?",
           "choices": [
             "yes, always",
-            "no \u2014 angles get multiplied by the order of vanishing"
+            "no — angles get multiplied by the order of vanishing"
           ],
           "answer": 1,
           "explain": "Where $f'(z_0)=0$, $f$ is not a similarity at first order; if $f$ vanishes to order $n$ at $z_0$, angles between curves through $z_0$ get multiplied by $n$."
@@ -216,19 +228,26 @@
       ]
     },
     "cauchy-riemann": {
-      "title": "Cauchy\u2013Riemann equations",
+      "title": "Cauchy–Riemann equations",
       "questions": [
         {
-          "type": "mcq",
-          "q": "Which of these functions is holomorphic on all of $\\mathbb{C}$?",
+          "type": "multi-select",
+          "q": "Select every function that is holomorphic on all of $\\mathbb{C}$ (entire).",
           "choices": [
+            "$f(z) = z^2 + 1$",
+            "$f(z) = e^z$",
             "$f(z) = |z|^2$",
             "$f(z) = \\bar z$",
             "$f(z) = z^2 + \\bar z$",
-            "$f(z) = z^2 + 1$"
+            "$f(z) = \\sin z$"
           ],
-          "answer": 3,
-          "explain": "Anything involving $\\bar z$ explicitly fails the Cauchy\u2013Riemann equations. Polynomials in $z$ alone are entire."
+          "answer": [
+            0,
+            1,
+            5
+          ],
+          "hint": "Entire functions are precisely those that satisfy Cauchy–Riemann everywhere; any explicit dependence on $\\bar z$ kills holomorphy.",
+          "explain": "Holomorphy means $\\partial_{\\bar z}f=0$. Polynomials in $z$, $e^z$, and $\\sin z$ are entire. $|z|^2 = z\\bar z$ depends on $\\bar z$. $\\bar z$ itself fails CR everywhere. $z^2+\\bar z$ has the offending $\\bar z$ term. So only $z^2+1$, $e^z$, and $\\sin z$ are entire."
         },
         {
           "type": "numeric",
@@ -239,7 +258,7 @@
         },
         {
           "type": "mcq",
-          "q": "Which is the correct form of the Cauchy\u2013Riemann equations for $f = u + iv$?",
+          "q": "Which is the correct form of the Cauchy–Riemann equations for $f = u + iv$?",
           "choices": [
             "$u_x = v_y, \\quad u_y = -v_x$",
             "$u_x = -v_y, \\quad u_y = v_x$",
@@ -255,7 +274,7 @@
           "type": "multi-select",
           "q": "Let $f(z)=|z|^2$ on $\\mathbb{C}$. Which of the following statements are true?",
           "choices": [
-            "The Cauchy\u2013Riemann equations hold at $z=0$",
+            "The Cauchy–Riemann equations hold at $z=0$",
             "$f$ is complex-differentiable at $z=0$ (i.e. $\\lim_{h\\to 0}(f(h)-f(0))/h$ exists)",
             "$f$ is holomorphic on some open neighborhood of $0$",
             "$f$ is entire (holomorphic on all of $\\mathbb{C}$)"
@@ -290,11 +309,24 @@
           "explain": "$1/(z^2+1) = 1/((z-i)(z+i))$, simple pole at $i$ with residue $1/(2i) = -i/2$."
         },
         {
-          "type": "numeric",
-          "q": "Compute $\\displaystyle\\oint_{|z|=2}\\frac{dz}{z^2+1}$.",
-          "answer": 0,
-          "tol": 0.001,
-          "explain": "Both poles $\\pm i$ are inside the contour. $\\operatorname{Res}(\\cdot;i) = -i/2$, $\\operatorname{Res}(\\cdot;-i) = i/2$, sum $0$. So the integral is $2\\pi i \\cdot 0 = 0$."
+          "type": "ordering",
+          "q": "Arrange the steps to compute $\\displaystyle\\oint_{|z|=2}\\frac{dz}{z^2+1}$ via the residue theorem.",
+          "items": [
+            "Identify the contour $\\gamma$ and the region $D$ it encloses; verify $\\gamma$ avoids the singularities of $f$.",
+            "List the singularities $z_1, \\dots, z_n$ of $f$ inside $D$ (poles, removable, essential).",
+            "Compute the residue $\\mathrm{Res}_{z=z_k} f$ at each — by Laurent coefficient, the simple-pole limit, or the higher-order derivative formula.",
+            "Apply the residue theorem: $\\oint_\\gamma f \\, dz = 2\\pi i \\sum_k \\mathrm{Res}_{z=z_k} f$.",
+            "For real-integral problems with arc completion, pass to the limit on the arc piece via Jordan's lemma to extract the real integral."
+          ],
+          "answer": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
+          "hint": "Locate the contour and singularities first, compute residues, then sum and apply the theorem.",
+          "explain": "Standard contour-integration recipe: (1) find the singularities of $f$ and decide which lie inside $\\gamma$, (2) state the residue theorem, (3) compute each residue (here, simple poles via $\\operatorname{Res}(f;z_0)=\\lim_{z\\to z_0}(z-z_0)f(z)$), (4) sum and multiply by $2\\pi i$. The residues cancel here, so the integral is $0$."
         },
         {
           "type": "numeric",

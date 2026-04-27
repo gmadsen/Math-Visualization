@@ -1,0 +1,244 @@
+{
+  "topic": "harmonic-functions",
+  "quizzes": {
+    "hf-laplace-equation": {
+      "title": "Laplace's equation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which of the following functions on $\\mathbb{R}^2$ is harmonic?",
+          "choices": [
+            "$u(x,y) = x^2 + y^2$",
+            "$u(x,y) = x^2 - y^2$",
+            "$u(x,y) = x^2 y$",
+            "$u(x,y) = e^{x+y}$"
+          ],
+          "answer": 1,
+          "hint": "Compute $u_{xx} + u_{yy}$ and look for the one that vanishes.",
+          "explain": "$u = x^2 - y^2$ has $u_{xx}=2$, $u_{yy}=-2$, so $\\Delta u = 0$. It is the real part of $z^2$. The first option has $\\Delta u = 4$, the third $\\Delta u = 2y$, the fourth $\\Delta u = 2e^{x+y}$."
+        },
+        {
+          "type": "numeric",
+          "q": "If $u(x,y) = \\log(x^2 + y^2)$ on $\\mathbb{R}^2 \\setminus \\{0\\}$, compute $\\Delta u$ at the point $(1, 0)$.",
+          "answer": 0,
+          "tol": 1e-9,
+          "hint": "$\\log(x^2+y^2) = 2\\log r$ in polar coordinates, and $\\Delta(\\log r) = 0$ off the origin.",
+          "explain": "In polar form $u = 2\\log r$, and the radial Laplacian gives $\\Delta(2\\log r) = 2(r^{-1})' + 2(r^{-1})\\cdot r^{-1} = -2r^{-2} + 2r^{-2} = 0$. So $u$ is harmonic on the punctured plane (its singularity at the origin is the fundamental solution)."
+        },
+        {
+          "type": "mcq",
+          "q": "If $f = u + iv$ is holomorphic on a connected open $\\Omega \\subseteq \\mathbb{C}$, which statement is correct?",
+          "choices": [
+            "Only $u$ is harmonic; $v$ need not be.",
+            "Both $u$ and $v$ are harmonic, and they are harmonic conjugates of each other.",
+            "$u$ and $v$ are harmonic only if $f$ is bounded.",
+            "Neither $u$ nor $v$ is harmonic in general."
+          ],
+          "answer": 1,
+          "hint": "Differentiate the Cauchy–Riemann equations $u_x = v_y$, $u_y = -v_x$ once more.",
+          "explain": "From $u_x = v_y$ and $u_y = -v_x$, differentiating gives $u_{xx} = v_{yx}$ and $u_{yy} = -v_{xy}$, so $\\Delta u = 0$ (and similarly $\\Delta v = 0$). The pair $(u,v)$ are called harmonic conjugates."
+        }
+      ]
+    },
+    "hf-mean-value-property": {
+      "title": "Mean value property",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The mean value property says that if $u$ is harmonic on $\\Omega$ and $\\overline{B(x_0,r)} \\subset \\Omega$, then $u(x_0)$ equals…",
+          "choices": [
+            "the maximum of $u$ on the sphere $\\partial B(x_0,r)$.",
+            "the average of $u$ on the sphere $\\partial B(x_0,r)$.",
+            "zero, by the divergence theorem.",
+            "the integral $\\int_{B(x_0,r)} \\Delta u \\, dV$."
+          ],
+          "answer": 1,
+          "hint": "Harmonic = balanced — at the center $u$ takes the same value as the average of its neighbours.",
+          "explain": "The MVP states $u(x_0) = \\frac{1}{|\\partial B(x_0,r)|}\\int_{\\partial B(x_0,r)} u\\,dS$, and equivalently the volume average over the ball. This holds for every admissible ball and characterises harmonicity for continuous $u$."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $u(x,y) = x^2 - y^2$ (harmonic on $\\mathbb{R}^2$). What is the average value of $u$ on the circle of radius $2$ centered at the origin?",
+          "answer": 0,
+          "tol": 1e-6,
+          "hint": "Use the MVP: the circular average equals $u(0,0)$.",
+          "explain": "By the MVP the average of a harmonic function on any sphere centered at a point is the value at that point. Here $u(0,0)=0$, so the average is $0$. (Direct computation with $x = 2\\cos\\theta$, $y = 2\\sin\\theta$ gives $\\int_0^{2\\pi} 4\\cos 2\\theta \\, d\\theta / (2\\pi) = 0$, confirming.)"
+        },
+        {
+          "type": "mcq",
+          "q": "If a continuous $u$ on an open set satisfies the mean value property on every admissible ball, what can we conclude?",
+          "choices": [
+            "$u$ is bounded.",
+            "$u$ is harmonic and $C^\\infty$.",
+            "$u$ is monotone in each variable.",
+            "$u$ has compact support."
+          ],
+          "answer": 1,
+          "hint": "MVP characterises harmonicity, and harmonic functions enjoy elliptic regularity.",
+          "explain": "The mean value property is equivalent to harmonicity for continuous functions, and any harmonic $u$ is automatically $C^\\infty$ (in fact real-analytic) by the Poisson integral formula or elliptic regularity."
+        }
+      ]
+    },
+    "hf-maximum-principle": {
+      "title": "Maximum principle",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Suppose $u$ is harmonic on a bounded open $\\Omega \\subset \\mathbb{R}^n$ and continuous on $\\overline{\\Omega}$. Where can $u$ attain its maximum?",
+          "choices": [
+            "Only at an interior critical point.",
+            "Always on the boundary $\\partial\\Omega$ — and in the interior only if $u$ is constant.",
+            "At the centroid of $\\Omega$.",
+            "At the point where $\\nabla u = 0$."
+          ],
+          "answer": 1,
+          "hint": "Strong maximum principle: an interior max forces constancy on the connected component.",
+          "explain": "The weak max principle gives $\\sup_{\\overline\\Omega} u = \\sup_{\\partial\\Omega} u$. The strong form sharpens this: if $u$ attains its supremum at some interior point, then $u$ is constant on that component. Hence non-constant harmonic functions take their max only on the boundary."
+        },
+        {
+          "type": "mcq",
+          "q": "Two harmonic functions $u_1, u_2$ on a bounded $\\Omega$ are continuous on $\\overline{\\Omega}$ and agree on $\\partial\\Omega$. What follows?",
+          "choices": [
+            "$u_1 = u_2$ everywhere on $\\overline{\\Omega}$.",
+            "$u_1$ and $u_2$ may differ by a non-zero constant.",
+            "$u_1 = u_2$ only if both are bounded.",
+            "Nothing — boundary values do not determine harmonic functions."
+          ],
+          "answer": 0,
+          "hint": "Apply the maximum principle to $u_1 - u_2$, which is harmonic and zero on $\\partial\\Omega$.",
+          "explain": "The difference $w = u_1 - u_2$ is harmonic on $\\Omega$ and vanishes on $\\partial\\Omega$. By the weak max principle (applied to $\\pm w$), $\\sup |w| \\le \\sup_{\\partial\\Omega}|w| = 0$, so $w \\equiv 0$. This is uniqueness for the Dirichlet problem."
+        },
+        {
+          "type": "numeric",
+          "q": "$u$ is harmonic on the open unit disk and continuous on the closed disk, with boundary values $u(e^{i\\theta}) = 3 + 5\\cos\\theta$. Determine $u(0)$.",
+          "answer": 3,
+          "tol": 1e-6,
+          "hint": "Use the MVP at the center of the disk; integrate the boundary data over $[0, 2\\pi]$ and divide by $2\\pi$.",
+          "explain": "By the MVP, $u(0) = \\frac{1}{2\\pi}\\int_0^{2\\pi}(3 + 5\\cos\\theta)\\,d\\theta = 3$. Equivalently, $u(z) = 3 + 5\\,\\mathrm{Re}(z) = 3 + \\tfrac{5}{2}(z+\\bar z)$ is the harmonic extension and $u(0)=3$."
+        }
+      ]
+    },
+    "hf-poisson-kernel": {
+      "title": "Poisson kernel",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Poisson kernel on the unit disk is $P_r(\\theta) = \\dfrac{1-r^2}{1 - 2r\\cos\\theta + r^2}$ for $0\\le r<1$. Which property does it satisfy?",
+          "choices": [
+            "$P_r$ is positive and $\\frac{1}{2\\pi}\\int_0^{2\\pi} P_r(\\theta)\\,d\\theta = 1$ for every $r$.",
+            "$P_r$ vanishes identically on the boundary $r=1$.",
+            "$P_r$ has total mass $1-r$ on $[0,2\\pi]$.",
+            "$P_r$ is harmonic in $\\theta$ for fixed $r$."
+          ],
+          "answer": 0,
+          "hint": "It is an approximate identity: a positive kernel of total mass 1 concentrating at $\\theta = 0$ as $r \\to 1$.",
+          "explain": "Direct integration gives $\\frac{1}{2\\pi}\\int_0^{2\\pi} P_r\\,d\\theta = 1$, and $1 - 2r\\cos\\theta + r^2 = |1 - re^{i\\theta}|^2 > 0$ shows positivity. As $r\\to 1$, $P_r$ concentrates at $\\theta=0$, recovering the boundary data of a continuous $g$ pointwise."
+        },
+        {
+          "type": "numeric",
+          "q": "The Dirichlet problem on the unit disk has boundary data $g(\\theta) = \\cos(2\\theta)$. The Poisson integral solution evaluated at $z = re^{i\\theta}$ is $u(re^{i\\theta}) = r^2\\cos(2\\theta)$. Compute $u(\\tfrac{1}{2}, 0)$.",
+          "answer": 0.25,
+          "tol": 1e-6,
+          "hint": "$z = \\tfrac{1}{2}$ means $r = \\tfrac{1}{2}$, $\\theta = 0$.",
+          "explain": "Plug in $r=\\tfrac{1}{2}$, $\\theta=0$: $u = (\\tfrac{1}{2})^2 \\cdot \\cos 0 = \\tfrac{1}{4}$. More generally, the Poisson integral acts on $e^{in\\theta}$ as multiplication by $r^{|n|}$, so $\\cos(n\\theta) = \\tfrac{1}{2}(e^{in\\theta}+e^{-in\\theta})$ extends to $r^n\\cos(n\\theta)$."
+        },
+        {
+          "type": "mcq",
+          "q": "What does Fatou's theorem say about the Poisson integral $u$ of an $L^1$ boundary function $g$ on the unit circle?",
+          "choices": [
+            "$u$ has continuous radial limits everywhere.",
+            "$u(re^{i\\theta}) \\to g(\\theta)$ as $r \\to 1^-$ for almost every $\\theta$.",
+            "$u$ extends to a holomorphic function on $|z|<1$.",
+            "$u$ vanishes identically on the boundary."
+          ],
+          "answer": 1,
+          "hint": "Boundary recovery is almost everywhere, not everywhere — measure-theoretic limits.",
+          "explain": "Fatou's theorem: for $g\\in L^1$ on the circle, the Poisson integral $u = P*g$ converges nontangentially (in particular radially) to $g$ at almost every boundary point. Continuity is not needed — only $L^1$."
+        }
+      ]
+    },
+    "hf-harnack-inequality": {
+      "title": "Harnack's inequality",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Let $u$ be positive and harmonic on the disk $B(0, R)$ in $\\mathbb{R}^2$, with $u(0) = 1$. Use Harnack's inequality at $r = R/2$ to give the largest possible value of $u(x)$ for $|x| = R/2$.",
+          "answer": 3,
+          "tol": 1e-6,
+          "hint": "Plug $r = R/2$ into the Harnack bound $\\tfrac{R+r}{R-r} u(0)$.",
+          "explain": "Harnack: $u(x) \\le \\tfrac{R+r}{R-r}u(0) = \\tfrac{R + R/2}{R - R/2}\\cdot 1 = \\tfrac{3R/2}{R/2} = 3$. Sharpness is achieved (in the limit) by Poisson kernels with mass concentrated near a single boundary point."
+        },
+        {
+          "type": "mcq",
+          "q": "A positive harmonic function on all of $\\mathbb{R}^n$ must be…",
+          "choices": [
+            "constant.",
+            "radially symmetric.",
+            "bounded but possibly nonconstant.",
+            "linear in each coordinate."
+          ],
+          "answer": 0,
+          "hint": "Apply Harnack on balls of radius $R \\to \\infty$.",
+          "explain": "For positive harmonic $u$ on $\\mathbb{R}^n$, Harnack on $B(0,R)$ gives $\\tfrac{R-r}{R+r}u(0) \\le u(x) \\le \\tfrac{R+r}{R-r}u(0)$ for $|x|<R$. Letting $R\\to\\infty$ with $r$ fixed pinches both bounds to $u(0)$, so $u\\equiv u(0)$. This is the harmonic Liouville theorem."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does Harnack's inequality fail without the positivity assumption?",
+          "choices": [
+            "It actually still holds — positivity is not needed.",
+            "Without positivity the multiplicative bounds become meaningless: a sign change makes $u(0)$ small while $u(x)$ stays large in absolute value.",
+            "The Laplacian is not linear without positivity.",
+            "The mean value property requires positivity."
+          ],
+          "answer": 1,
+          "hint": "Consider $u(x,y) = x$ on the disk: $u(0)=0$ but $u$ ranges over $[-1,1]$.",
+          "explain": "Harnack bounds are multiplicative in $u(0)$. If $u$ changes sign, $u(0)$ may equal $0$ while $u$ is large elsewhere; the bound $u(x) \\le C\\cdot u(0) = 0$ is then false. The proof via the Poisson kernel uses positivity of the kernel to compare oscillation."
+        }
+      ]
+    },
+    "hf-subharmonic": {
+      "title": "Subharmonic functions and Perron's method",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A function $v$ is subharmonic on $\\Omega$ when…",
+          "choices": [
+            "$\\Delta v \\le 0$ (in the classical or distributional sense).",
+            "$\\Delta v \\ge 0$, equivalently $v(x) \\le$ the ball average over every admissible $B(x,r)$.",
+            "$v$ is bounded above by every harmonic function.",
+            "$v$ has no local maxima."
+          ],
+          "answer": 1,
+          "hint": "Subharmonic = below harmonic majorants. Replace 'equals' in the MVP with 'less than or equal'.",
+          "explain": "Subharmonicity is $\\Delta v \\ge 0$ (sign convention: think of $-\\Delta$ as positive operator). Equivalently, an upper semicontinuous $v$ is subharmonic iff $v(x) \\le \\frac{1}{|B|}\\int_B v$ for every admissible ball. Every $|f|^p$ for holomorphic $f$ is subharmonic — a key source of examples."
+        },
+        {
+          "type": "mcq",
+          "q": "Perron's method constructs a candidate Dirichlet solution as…",
+          "choices": [
+            "the limit of Newton's method on $\\Delta u = 0$.",
+            "the supremum of all subharmonic functions on $\\Omega$ that are $\\le g$ on $\\partial\\Omega$.",
+            "the average of $g$ over $\\partial\\Omega$.",
+            "the harmonic conjugate of the boundary data."
+          ],
+          "answer": 1,
+          "hint": "Build the largest subharmonic function below the boundary data; harmonicity follows from sub-mean-value pushforward.",
+          "explain": "Perron defines $u(x) = \\sup\\{v(x) : v \\text{ subharmonic on } \\Omega,\\ \\limsup_{y\\to\\zeta} v(y) \\le g(\\zeta)\\ \\forall \\zeta\\in\\partial\\Omega\\}$. Local 'harmonic lifting' on small balls (replace $v$ by its Poisson integral) shows $u$ is harmonic. Boundary regularity $u(\\zeta)=g(\\zeta)$ requires a barrier at $\\zeta$ — domains where every boundary point has a barrier are called regular."
+        },
+        {
+          "type": "mcq",
+          "q": "Which statement about subharmonic functions and the maximum principle is correct?",
+          "choices": [
+            "Subharmonic functions can attain interior maxima only on regular domains.",
+            "A subharmonic $v$ on a bounded $\\Omega$, continuous on $\\overline\\Omega$, satisfies $\\sup_{\\overline\\Omega} v = \\sup_{\\partial\\Omega} v$ — and an interior max forces constancy.",
+            "The maximum principle fails for subharmonic functions.",
+            "Subharmonic functions are bounded below by harmonic majorants only when $\\Omega$ is convex."
+          ],
+          "answer": 1,
+          "hint": "The MVP-style inequality $v(x) \\le$ ball average drives the max principle the same way.",
+          "explain": "Sub-mean-value implies the same max principle as for harmonic functions: $\\sup v$ is attained on the boundary, and an interior max forces local constancy. (Sub' for max — 'sub'harmonic functions sit below harmonic ones, and so can only push their values up to the boundary.) This is exactly the property Perron's method exploits."
+        }
+      ]
+    }
+  }
+}

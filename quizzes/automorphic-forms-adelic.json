@@ -25,7 +25,10 @@
             "$\\mathrm{GL}_2(\\mathbb{R})^+ \\cdot \\mathrm{GL}_2(\\hat{\\mathbb{Z}})$",
             "The principal congruence subgroup $\\Gamma(N) \\subset \\mathrm{SL}_2(\\mathbb{Z})$"
           ],
-          "answer": [0, 2],
+          "answer": [
+            0,
+            2
+          ],
           "explain": "$\\mathrm{GL}_2(\\hat{\\mathbb{Z}})$ is compact open; multiplying by the open $\\mathrm{GL}_2(\\mathbb{R})^+$ stays open. $\\mathrm{GL}_2(\\mathbb{Q})$ is discrete (not open), and a classical congruence subgroup is a subgroup of $\\mathrm{SL}_2(\\mathbb{Z})$, not of the adelic group."
         },
         {
@@ -67,6 +70,7 @@
             "$Y_0(N) = \\Gamma_0(N) \\backslash \\mathrm{GL}_2(\\mathbb{R})$"
           ],
           "answer": 0,
+          "hint": "$\\mathbb{H} \\cong \\mathrm{GL}_2(\\mathbb{R})^+ / Z(\\mathbb{R})^+ \\mathrm{SO}_2(\\mathbb{R})$ and quotienting on both sides by $\\mathrm{GL}_2(\\mathbb{Q})$ on the left and by $K_0(N)$ on the right…",
           "explain": "$\\mathbb{H} \\cong \\mathrm{GL}_2(\\mathbb{R})^+ / Z(\\mathbb{R})^+ \\mathrm{SO}_2(\\mathbb{R})$ and quotienting on both sides by $\\mathrm{GL}_2(\\mathbb{Q})$ on the left and by $K_0(N)$ on the right recovers $\\Gamma_0(N) \\backslash \\mathbb{H}$."
         },
         {
@@ -79,6 +83,7 @@
             "The product formula fails."
           ],
           "answer": 1,
+          "hint": "Strong approximation for $\\mathrm{GL}_2$ uses that $\\mathrm{SL}_2$ has trivial idèle class group; $\\mathrm{GL}_1$'s class group is precisely $C_\\mathbb{Q}$, which is non-trivial — so…",
           "explain": "Strong approximation for $\\mathrm{GL}_2$ uses that $\\mathrm{SL}_2$ has trivial idèle class group; $\\mathrm{GL}_1$'s class group is precisely $C_\\mathbb{Q}$, which is non-trivial — so $\\mathbb{A}^\\times \\ne \\mathbb{Q}^\\times \\cdot \\mathbb{R}^\\times \\cdot \\hat{\\mathbb{Z}}^\\times$ in a single double coset."
         }
       ]
@@ -95,7 +100,11 @@
             "Moderate (polynomial) growth.",
             "Compact support on $\\mathrm{GL}_2(\\mathbb{Q}) \\backslash \\mathrm{GL}_2(\\mathbb{A})$."
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            0,
+            1,
+            2
+          ],
           "explain": "Compact support is too strong — it would rule out Eisenstein series. The three required conditions are right $K$-finiteness, $\\mathfrak{z}$-finiteness, and moderate growth."
         },
         {
@@ -120,6 +129,7 @@
             "Because $\\phi$ must be a homomorphism."
           ],
           "answer": 1,
+          "hint": "$\\mathrm{GL}_2(\\mathbb{Q})$ embeds discretely in the locally compact $\\mathrm{GL}_2(\\mathbb{A})$, so the quotient $\\mathrm{GL}_2(\\mathbb{Q}) \\backslash \\mathrm{GL}_2(\\mathbb{A})$ is the analogue of…",
           "explain": "$\\mathrm{GL}_2(\\mathbb{Q})$ embeds discretely in the locally compact $\\mathrm{GL}_2(\\mathbb{A})$, so the quotient $\\mathrm{GL}_2(\\mathbb{Q}) \\backslash \\mathrm{GL}_2(\\mathbb{A})$ is the analogue of $\\Gamma \\backslash G$ in the classical setting."
         }
       ]
@@ -243,6 +253,7 @@
             "Dirichlet's theorem on primes in arithmetic progressions."
           ],
           "answer": 0,
+          "hint": "Atkin–Lehner singles out a unique normalised new-form at each level $N \\mid M$ in the classical decomposition $S_k(\\Gamma_0(M)) = \\bigoplus_{N \\mid M} S_k^{\\mathrm{new}}(\\Gamma_0(N))^{\\dim}$ — the…",
           "explain": "Atkin–Lehner singles out a unique normalised new-form at each level $N \\mid M$ in the classical decomposition $S_k(\\Gamma_0(M)) = \\bigoplus_{N \\mid M} S_k^{\\mathrm{new}}(\\Gamma_0(N))^{\\dim}$ — the same statement, prime by prime, in the local Whittaker / Kirillov language."
         }
       ]
@@ -284,6 +295,7 @@
             "Because Dirichlet series have no analogue beyond $\\mathrm{GL}_1$."
           ],
           "answer": 0,
+          "hint": "$\\mathbb{H} = \\mathrm{GL}_2(\\mathbb{R})^+ / Z \\mathrm{SO}_2$ is a special low-dimensional symmetric space; for $\\mathrm{GL}_n$ with $n \\ge 3$ the analogous symmetric space is non-Kähler and the…",
           "explain": "$\\mathbb{H} = \\mathrm{GL}_2(\\mathbb{R})^+ / Z \\mathrm{SO}_2$ is a special low-dimensional symmetric space; for $\\mathrm{GL}_n$ with $n \\ge 3$ the analogous symmetric space is non-Kähler and the classical theory of holomorphic modular forms breaks down. Working directly on $\\mathrm{GL}_n(\\mathbb{Q}) \\backslash \\mathrm{GL}_n(\\mathbb{A})$ avoids the issue."
         }
       ]

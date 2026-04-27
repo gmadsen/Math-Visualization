@@ -12,7 +12,9 @@
         "presheaf-topos"
       ],
       "blurb": "The $\\infty$-category $\\mathcal{P}(C) = \\mathrm{Fun}(C^{\\mathrm{op}}, \\mathcal{S})$ of $\\infty$-presheaves on a small $\\infty$-category $C$, valued in spaces $\\mathcal{S}$, is the universal cocomplete $\\infty$-category receiving $C$. It is the prototypical $\\infty$-topos.",
-      "tags": ["universal-property"]
+      "tags": [
+        "universal-property"
+      ]
     },
     {
       "id": "infty-topos-definition",
@@ -23,7 +25,10 @@
         "infty-limits"
       ],
       "blurb": "An $\\infty$-topos is an $\\infty$-category equivalent to an accessible left-exact localization of a presheaf $\\infty$-topos $\\mathcal{P}(C)$. The localization mimics sheafification — it forces a Grothendieck-type covering condition to be invertible up to higher homotopy.",
-      "tags": ["foundation", "descent"]
+      "tags": [
+        "foundation",
+        "descent"
+      ]
     },
     {
       "id": "giraud-infty",
@@ -34,7 +39,10 @@
         "topos-of-sheaves"
       ],
       "blurb": "Lurie's $\\infty$-categorical version of Giraud's axioms characterizes $\\infty$-topoi intrinsically: presentability + descent for groupoid objects + universal disjoint coproducts. Generalizes the 1-Giraud axioms in homotopy-coherent form.",
-      "tags": ["classification", "descent"]
+      "tags": [
+        "classification",
+        "descent"
+      ]
     },
     {
       "id": "geometric-morphisms-infty",
@@ -46,7 +54,9 @@
         "geometric-morphisms-intro"
       ],
       "blurb": "A geometric morphism $\\mathcal{F} \\to \\mathcal{E}$ of $\\infty$-topoi is an adjoint pair $f^* \\dashv f_*$ with $f^*$ left exact, exactly as in the 1-categorical case. Étale geometric morphisms model open inclusions; surjective ones model covers.",
-      "tags": ["functoriality"]
+      "tags": [
+        "functoriality"
+      ]
     },
     {
       "id": "hypercompletion",
@@ -63,7 +73,9 @@
       "anchor": "internal-logic",
       "prereqs": [
         "infty-topos-definition",
-        "internal-language"
+        "internal-language",
+        "tt-higher-inductive-types",
+        "tt-univalence"
       ],
       "blurb": "Every $\\infty$-topos has an internal type theory — Martin-Löf-style with univalent universes and higher inductive types — modeled by the $\\infty$-category itself. This is the connection between $\\infty$-topoi and homotopy type theory (HoTT)."
     },
@@ -76,7 +88,10 @@
         "geometric-morphisms-of-sites"
       ],
       "blurb": "The $\\infty$-categorical refinement of the étale topos $\\mathrm{Sh}_{\\mathrm{ét}}(X)$ keeps higher homotopical information — its hypercompletion is the natural home for $\\ell$-adic sheaves and derived étale cohomology. Bridges classical étale theory and derived algebraic geometry.",
-      "tags": ["cohomology", "descent"]
+      "tags": [
+        "cohomology",
+        "descent"
+      ]
     }
   ]
 }

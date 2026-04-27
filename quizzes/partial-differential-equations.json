@@ -1,0 +1,249 @@
+{
+  "topic": "partial-differential-equations",
+  "quizzes": {
+    "pde-classification": {
+      "title": "Classification: elliptic / parabolic / hyperbolic",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Classify $u_{xx} + 4u_{xy} + 3u_{yy} = 0$ by its discriminant $b^2 - ac$.",
+          "choices": [
+            "Elliptic",
+            "Parabolic",
+            "Hyperbolic"
+          ],
+          "answer": 2,
+          "hint": "Read off $a=1$, $b=2$, $c=3$ from the symmetric form $a u_{xx}+2b u_{xy}+c u_{yy}$, then compute $b^2-ac$.",
+          "explain": "$b^2-ac = 4 - 3 = 1 > 0$, so the equation is hyperbolic — like the wave equation, with two real characteristic directions."
+        },
+        {
+          "type": "mcq",
+          "q": "Which model PDE is the canonical parabolic example?",
+          "choices": [
+            "$\\Delta u = 0$",
+            "$u_t = \\Delta u$",
+            "$u_{tt} = \\Delta u$"
+          ],
+          "answer": 1,
+          "hint": "Parabolic means discriminant zero; that is the case when one of the second derivatives is replaced by a first.",
+          "explain": "The heat equation $u_t=\\Delta u$ is parabolic. Laplace is elliptic and the wave equation is hyperbolic."
+        },
+        {
+          "type": "mcq",
+          "q": "True or false: an elliptic equation has real characteristic curves.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": 1,
+          "hint": "Characteristic directions are roots of $a\\lambda^2 - 2b\\lambda + c = 0$.",
+          "explain": "Elliptic means $b^2-ac<0$, so the characteristic polynomial has no real roots — that is precisely why elliptic problems take Dirichlet/Neumann data on a closed boundary rather than initial data along a curve."
+        }
+      ]
+    },
+    "pde-heat-equation": {
+      "title": "Heat equation and the heat kernel",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the fundamental solution (heat kernel) of $u_t = \\Delta u$ on $\\mathbb{R}^n$?",
+          "choices": [
+            "$K_t(x) = (4\\pi t)^{-n/2} e^{-|x|^2/4t}$",
+            "$K_t(x) = (2\\pi t)^{-n/2} e^{-|x|^2/2t}$",
+            "$K_t(x) = e^{-t|x|^2}$"
+          ],
+          "answer": 0,
+          "hint": "The Gaussian variance grows linearly in $t$: $\\sigma^2 = 2t$.",
+          "explain": "The heat kernel is the Gaussian $K_t(x)=(4\\pi t)^{-n/2}\\exp(-|x|^2/4t)$, the unique solution with $K_0=\\delta_0$. The width $\\sqrt{2t}$ shows the diffusive scaling."
+        },
+        {
+          "type": "mcq",
+          "q": "Suppose $u$ solves $u_t=\\Delta u$ on a bounded domain with continuous data. The maximum principle says the maximum of $u$ is attained:",
+          "choices": [
+            "Only in the interior",
+            "On the parabolic boundary (initial time + spatial boundary)",
+            "Strictly inside, by smoothness"
+          ],
+          "answer": 1,
+          "hint": "Heat does not spontaneously create hot spots — it can only inherit them.",
+          "explain": "The parabolic maximum principle: $\\max u$ is taken on $\\{t=0\\}\\cup(\\partial\\Omega\\times[0,T])$. Diffusion smooths and dampens, never amplifies."
+        },
+        {
+          "type": "mcq",
+          "q": "If the initial data is the delta $\\delta_0$, the solution at time $t>0$ is:",
+          "choices": [
+            "Zero away from the origin",
+            "A Gaussian of width $\\sqrt{2t}$",
+            "A travelling pulse of speed $1$"
+          ],
+          "answer": 1,
+          "hint": "Convolution with $\\delta_0$ is the identity.",
+          "explain": "$u(x,t)=K_t*\\delta_0=K_t(x)$, a Gaussian with variance $2t$. Information from a point spreads instantly to all of $\\mathbb{R}^n$ — heat has infinite propagation speed."
+        }
+      ]
+    },
+    "pde-wave-equation": {
+      "title": "Wave equation and d'Alembert",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "On $\\mathbb{R}$, the wave equation $u_{tt}=c^2 u_{xx}$ with data $u(x,0)=f$, $u_t(x,0)=0$ has solution:",
+          "choices": [
+            "$u(x,t) = f(x-ct)$",
+            "$u(x,t) = \\tfrac12[f(x-ct)+f(x+ct)]$",
+            "$u(x,t) = f(x)\\cos(ct)$"
+          ],
+          "answer": 1,
+          "hint": "d'Alembert: each datum splits into a left- and right-moving copy.",
+          "explain": "With zero initial velocity, $u(x,t)=\\tfrac12[f(x-ct)+f(x+ct)]$ — the initial profile splits in half, each half traveling at speed $c$ in opposite directions."
+        },
+        {
+          "type": "mcq",
+          "q": "True or false: the wave equation has finite speed of propagation.",
+          "choices": [
+            "True",
+            "False"
+          ],
+          "answer": 0,
+          "hint": "Compare with the heat kernel, which is everywhere positive for $t>0$.",
+          "explain": "Yes — the value $u(x_0,t_0)$ depends only on data inside the backward light cone $|x-x_0|\\le c t_0$. Disturbances propagate at speed at most $c$."
+        },
+        {
+          "type": "mcq",
+          "q": "Huygens' principle (sharp wavefronts) holds in:",
+          "choices": [
+            "All dimensions",
+            "Odd dimensions $n\\ge 3$",
+            "Even dimensions only"
+          ],
+          "answer": 1,
+          "hint": "In $n=2$ the disturbance leaves a tail; in $n=3$ it does not.",
+          "explain": "In odd $n\\ge 3$ the solution at $(x_0,t_0)$ depends only on data on the sphere $|x-x_0|=ct_0$, giving sharp wavefronts. In even dimensions there is a residual tail inside the cone."
+        }
+      ]
+    },
+    "pde-laplace-equation": {
+      "title": "Laplace equation and the Dirichlet problem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A function harmonic on $\\Omega$ and continuous on $\\overline{\\Omega}$ attains its maximum:",
+          "choices": [
+            "Possibly in the interior",
+            "Only on $\\partial\\Omega$ (unless $u$ is constant)",
+            "Only at critical points"
+          ],
+          "answer": 1,
+          "hint": "Mean-value property forces $u$ at any interior point to equal the average over a surrounding sphere.",
+          "explain": "The strong maximum principle: a non-constant harmonic function takes its max only on the boundary. This is what makes the Dirichlet problem (prescribe $u|_{\\partial\\Omega}$) well-posed."
+        },
+        {
+          "type": "mcq",
+          "q": "On the unit disk, the unique harmonic extension of a continuous boundary value $g$ is given by:",
+          "choices": [
+            "Convolution with the heat kernel",
+            "The Poisson integral $u(r,\\theta)=\\tfrac{1}{2\\pi}\\int P_r(\\theta-\\phi)g(\\phi)\\,d\\phi$",
+            "Contour integration of $g$"
+          ],
+          "answer": 1,
+          "hint": "The Poisson kernel $P_r(\\theta)=(1-r^2)/(1-2r\\cos\\theta+r^2)$ is the answer.",
+          "explain": "The Poisson integral formula is the explicit solution of the Dirichlet problem on the disk. As $r\\to 1$ the kernel concentrates on the boundary point — recovering $g$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Neumann problem $\\Delta u=0$, $\\partial_\\nu u=g$ on a bounded domain is solvable only when:",
+          "choices": [
+            "$g$ has compact support",
+            "$g$ is smooth",
+            "$\\int_{\\partial\\Omega} g\\,dS = 0$"
+          ],
+          "answer": 2,
+          "hint": "Integrate $\\Delta u=0$ over $\\Omega$ and use the divergence theorem.",
+          "explain": "By divergence, $\\int_{\\partial\\Omega}\\partial_\\nu u\\,dS = \\int_\\Omega \\Delta u\\,dx = 0$, so the prescribed flux must have zero mean. The solution is then unique up to an additive constant."
+        }
+      ]
+    },
+    "pde-weak-solutions": {
+      "title": "Weak solutions and Galerkin approximation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A weak solution of $-\\Delta u = f$ with zero Dirichlet data lives in:",
+          "choices": [
+            "$C^2(\\Omega)$",
+            "$H^1_0(\\Omega)$",
+            "$L^2(\\Omega)$"
+          ],
+          "answer": 1,
+          "hint": "Integration by parts moves one derivative onto the test function — so we need one weak derivative in $L^2$, plus zero trace.",
+          "explain": "$H^1_0(\\Omega)$ is exactly the closure of $C_c^\\infty(\\Omega)$ in $H^1$: one weak derivative in $L^2$ and zero boundary trace. It is the natural energy space."
+        },
+        {
+          "type": "mcq",
+          "q": "The weak formulation of $-\\Delta u=f$ on $H^1_0$ reads:",
+          "choices": [
+            "$\\int u\\,v = \\int fv$ for all $v$",
+            "$\\int \\nabla u\\cdot\\nabla v = \\int fv$ for all $v\\in H^1_0$",
+            "$\\int (\\Delta u)v = -\\int fv$"
+          ],
+          "answer": 1,
+          "hint": "Integrate $-\\Delta u\\cdot v$ by parts; the boundary term vanishes because $v\\in H^1_0$.",
+          "explain": "Integration by parts gives $-\\int(\\Delta u)v = \\int\\nabla u\\cdot\\nabla v$ since $v$ vanishes on $\\partial\\Omega$. This is the energy form $a(u,v)=\\langle f,v\\rangle$."
+        },
+        {
+          "type": "mcq",
+          "q": "Galerkin's method approximates the weak solution by:",
+          "choices": [
+            "Iterating the heat semigroup",
+            "Solving the variational problem on a finite-dimensional subspace $V_n\\subset H^1_0$",
+            "Convolving with the fundamental solution"
+          ],
+          "answer": 1,
+          "hint": "Pick basis functions; reduce the PDE to a linear system; let the basis grow.",
+          "explain": "Galerkin: choose $V_n=\\mathrm{span}(\\phi_1,\\ldots,\\phi_n)$, find $u_n\\in V_n$ with $a(u_n,\\phi_j)=\\langle f,\\phi_j\\rangle$ for all $j$, and pass $n\\to\\infty$. This is the abstract template for finite elements."
+        }
+      ]
+    },
+    "pde-existence-and-regularity": {
+      "title": "Lax–Milgram, elliptic regularity, embedding",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Lax–Milgram delivers a unique weak solution when the bilinear form $a$ is:",
+          "choices": [
+            "Symmetric and bounded",
+            "Continuous and coercive on $H^1_0$",
+            "Compact and self-adjoint"
+          ],
+          "answer": 1,
+          "hint": "Coercive means $a(u,u)\\ge\\alpha\\|u\\|^2$ for some $\\alpha>0$.",
+          "explain": "Lax–Milgram: continuous + coercive bilinear form on a Hilbert space is invertible. Symmetry is not needed — Lax–Milgram is the non-symmetric Riesz representation theorem."
+        },
+        {
+          "type": "mcq",
+          "q": "Elliptic regularity says: if $-\\Delta u = f$ weakly with $f\\in H^k$ on a smooth domain, then:",
+          "choices": [
+            "$u\\in H^k$ as well",
+            "$u\\in H^{k+2}$",
+            "$u\\in C^k$ but not better"
+          ],
+          "answer": 1,
+          "hint": "Each Laplacian eats two derivatives — running the equation backwards gains two.",
+          "explain": "Interior elliptic regularity: $u$ has two more weak derivatives than $f$. Bootstrapping: if $f\\in C^\\infty$ then $u\\in C^\\infty$."
+        },
+        {
+          "type": "mcq",
+          "q": "For $\\Omega\\subset\\mathbb{R}^n$ bounded and smooth, when does $H^k(\\Omega)\\hookrightarrow C^0(\\overline{\\Omega})$ hold?",
+          "choices": [
+            "For every $k\\ge 1$",
+            "When $k > n/2$",
+            "Only in dimension $n=1$"
+          ],
+          "answer": 1,
+          "hint": "Sobolev embedding trades $kp$ derivatives in $L^p$ for $\\lfloor k - n/p\\rfloor$ classical derivatives.",
+          "explain": "Sobolev: $H^k\\hookrightarrow C^0$ when $k>n/2$ (with $p=2$). In 1D, $k=1$ suffices; in 3D one needs $k\\ge 2$. This is how weak solutions become classical."
+        }
+      ]
+    }
+  }
+}

@@ -39,7 +39,7 @@
         "tangent-space-of-moduli",
         "cech-cohomology"
       ],
-      "blurb": "The obstruction to lifting a deformation from $\\mathrm{Spec}\\,k[\\epsilon]/\\epsilon^2$ to $\\mathrm{Spec}\\,k[t]/(t^3)$ (and beyond) is a class in $H^2(X_0, T_{X_0})$. Vanishing of $H^2$ implies the deformation functor is unobstructed and the moduli space is smooth at $X_0$.",
+      "blurb": "The obstruction to lifting a deformation from $\\Spec\\,k[\\epsilon]/\\epsilon^2$ to $\\Spec\\,k[t]/(t^3)$ (and beyond) is a class in $H^2(X_0, T_{X_0})$. Vanishing of $H^2$ implies the deformation functor is unobstructed and the moduli space is smooth at $X_0$.",
       "tags": [
         "lifting",
         "cohomology"
@@ -53,7 +53,7 @@
         "first-order-deformation",
         "artinian-local-ca"
       ],
-      "blurb": "The deformation functor $\\mathrm{Def}_{X_0}: \\mathrm{Art}_k \\to \\mathrm{Set}$ assigns to each Artinian local $k$-algebra $A$ (a finite-length local ring with residue field $k$ — prime and maximal coincide there) the set of flat lifts of $X_0$ to $\\mathrm{Spec}\\,A$. Schlessinger's criteria characterize when $\\mathrm{Def}_{X_0}$ has a hull or is pro-representable.",
+      "blurb": "The deformation functor $\\mathrm{Def}_{X_0}: \\mathrm{Art}_k \\to \\mathrm{Set}$ assigns to each Artinian local $k$-algebra $A$ (a finite-length local ring with residue field $k$ — prime and maximal coincide there) the set of flat lifts of $X_0$ to $\\Spec\\,A$. Schlessinger's criteria characterize when $\\mathrm{Def}_{X_0}$ has a hull or is pro-representable.",
       "tags": [
         "lifting",
         "moduli",

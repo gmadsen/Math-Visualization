@@ -20,7 +20,7 @@
           "type": "numeric",
           "q": "Let $\\mathbb{P}$ be the uniform law on $\\Omega=\\{1,\\ldots,10\\}$. Compute $\\mathbb{P}(\\{\\text{odd}\\}\\cup\\{\\text{prime}\\})$ where prime = $\\{2,3,5,7\\}$.",
           "answer": 0.6,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Odd $=\\{1,3,5,7,9\\}$; prime $=\\{2,3,5,7\\}$; union $=\\{1,2,3,5,7,9\\}$, size $6$, probability $6/10=0.6$."
         },
         {
@@ -32,7 +32,11 @@
             "$\\{\\varnothing,\\{a\\},\\{b\\},\\Omega\\}$",
             "$\\mathcal{P}(\\Omega)$"
           ],
-          "answer": [0, 1, 3],
+          "answer": [
+            0,
+            1,
+            3
+          ],
           "explain": "Option 2 fails: $\\{a\\}\\cup\\{b\\}=\\{a,b\\}$ is not included, so the collection is not closed under unions. The other three are all valid $\\sigma$-algebras."
         }
       ],
@@ -54,7 +58,7 @@
           "type": "numeric",
           "q": "Let $A_n\\downarrow A$ be a decreasing sequence of events with $\\mathbb{P}(A_1)<\\infty$. If $\\mathbb{P}(A_n)=1/n$, what is $\\mathbb{P}(A)$?",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Use continuity of measure from above.",
           "explain": "Continuity from above: $\\mathbb{P}(A)=\\lim\\mathbb{P}(A_n)=\\lim 1/n=0$."
         }
@@ -95,7 +99,11 @@
             "Independence",
             "Law of total probability"
           ],
-          "answer": [1, 0, 2],
+          "answer": [
+            1,
+            0,
+            2
+          ],
           "explain": "Law of total probability is the partition sum; Bayes flips conditioning; independence is the product rule."
         }
       ],
@@ -142,7 +150,7 @@
           "type": "numeric",
           "q": "Let $X$ be Bernoulli with $\\mathbb{P}(X=1)=0.3$. What is $\\mathbb{P}_X(\\{1\\})$, the push-forward measure of the singleton?",
           "answer": 0.3,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "The law is $\\mathbb{P}_X(B)=\\mathbb{P}(X\\in B)$, so $\\mathbb{P}_X(\\{1\\})=\\mathbb{P}(X=1)=0.3$."
         },
         {
@@ -155,6 +163,7 @@
             "Neither — measurability fails under arithmetic"
           ],
           "answer": 0,
+          "hint": "Both sums and products of measurable functions are measurable, since $(\\mathbb{R}^2,\\mathcal{B}\\otimes\\mathcal{B})\\to\\mathbb{R}$ via $(x,y)\\mapsto x+y$ and $(x,y)\\mapsto xy$ are Borel-measurable (in…",
           "explain": "Both sums and products of measurable functions are measurable, since $(\\mathbb{R}^2,\\mathcal{B}\\otimes\\mathcal{B})\\to\\mathbb{R}$ via $(x,y)\\mapsto x+y$ and $(x,y)\\mapsto xy$ are Borel-measurable (in fact continuous)."
         }
       ],
@@ -214,12 +223,17 @@
             "$\\mathbb{R}$"
           ],
           "right": [
-            "Binomial$(n,p)$",
             "Poisson$(\\lambda)$",
             "Exponential$(\\lambda)$",
-            "Gaussian$(\\mu,\\sigma^2)$"
+            "Gaussian$(\\mu,\\sigma^2)$",
+            "Binomial$(n,p)$"
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            3,
+            0,
+            1,
+            2
+          ],
           "explain": "Binomial is supported on $\\{0,\\ldots,n\\}$; Poisson on non-negative integers; Exponential on $[0,\\infty)$; Gaussian on $\\mathbb{R}$."
         }
       ],
@@ -240,9 +254,17 @@
         {
           "type": "construction",
           "q": "Click where the mode of a $\\text{Gamma}(k=3,\\theta=1)$ density $f(x)=x^2 e^{-x}/2$ lies. (Mode is $(k-1)\\theta$ for $k\\ge 1$; x-axis is labelled 0..10.)",
-          "target": { "kind": "point", "x": 20, "y": 50, "tolerance": 8 },
+          "target": {
+            "kind": "point",
+            "x": 20,
+            "y": 50,
+            "tolerance": 8
+          },
           "viewBox": "0 0 100 100",
-          "start": { "x": 50, "y": 50 },
+          "start": {
+            "x": 50,
+            "y": 50
+          },
           "explain": "Setting $f'(x)=0$ gives $x=k-1=2$; at $x/5=20$ in the viewBox. The Gamma$(k,\\theta)$ mode is $(k-1)\\theta$ for $k\\ge 1$."
         }
       ]
@@ -273,7 +295,7 @@
           "type": "numeric",
           "q": "For $X$ with $\\mathbb{E}[X]=2$ and $\\mathbb{E}[X^2]=5$, compute $\\text{Var}(X)$.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Variance shortcut: $\\text{Var}(X)=\\mathbb{E}[X^2]-(\\mathbb{E}[X])^2=5-4=1$."
         }
       ],
@@ -358,7 +380,10 @@
         {
           "type": "complex",
           "q": "For $X\\sim\\mathcal{N}(0,1)$, compute $\\varphi_X(1)$ as $a+bi$.",
-          "answer": [0.6065, 0],
+          "answer": [
+            0.6065,
+            0
+          ],
           "tol": 0.01,
           "explain": "Gaussian characteristic function: $\\varphi_X(t)=e^{-t^2/2}$, so $\\varphi_X(1)=e^{-1/2}\\approx 0.6065$ (real)."
         }
@@ -437,7 +462,11 @@
             "almost surely",
             "in probability"
           ],
-          "answer": [1, 2, 0],
+          "answer": [
+            1,
+            2,
+            0
+          ],
           "explain": "a.s. $\\Rightarrow$ in prob. $\\Rightarrow$ in dist. The chain is strict: each reverse implication fails in general."
         }
       ],
@@ -451,7 +480,11 @@
             "convergence in distribution",
             "almost-sure convergence of a subsequence"
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            0,
+            1,
+            2
+          ],
           "hint": "a.s. implies in-probability; what does NOT imply a.s. back?",
           "explain": "a.s. $\\Rightarrow$ in prob. (strictly); a.s. $\\not\\Leftrightarrow L^1$ (neither implies the other without extra hypotheses, but both are strictly weaker in that a.s. does not imply $L^1$ without UI, and $L^1$ does not imply a.s.); in dist. is weakest. Subsequential a.s. convergence is a consequence of convergence in probability, not strictly weaker."
         },
@@ -720,7 +753,7 @@
         {
           "type": "numeric",
           "q": "A random walk on $\\mathbb{Z}$ with equal steps $\\pm 1$ is recurrent. For a simple random walk on $\\mathbb{Z}^3$ (Pólya's theorem), what is $\\mathbb{P}(\\text{return to origin})\\approx$? Report to 3 decimals.",
-          "answer": 0.340,
+          "answer": 0.34,
           "tol": 0.02,
           "hint": "$\\mathbb{Z}^3$ random walks are transient; return probability is $\\approx 0.34$.",
           "explain": "Pólya's theorem: random walks on $\\mathbb{Z}$ and $\\mathbb{Z}^2$ are recurrent (return probability $1$); on $\\mathbb{Z}^d$ for $d\\ge 3$ they are transient. The return probability for $\\mathbb{Z}^3$ is approximately $0.3405$ (Watson's integrals)."
@@ -761,7 +794,7 @@
           "type": "numeric",
           "q": "$S_n=\\sum_{i=1}^n X_i$ where $X_i$ are i.i.d.\\ with $\\mathbb{E}[X_i]=0$. What is $\\mathbb{E}[S_{10}\\mid\\mathcal{F}_5]-S_5$?",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "By independence: $\\mathbb{E}[S_{10}\\mid\\mathcal{F}_5]=S_5+\\mathbb{E}[X_6+\\cdots+X_{10}\\mid\\mathcal{F}_5]=S_5+0=S_5$. So the difference is $0$: random walk is a martingale."
         },
         {

@@ -8,7 +8,8 @@
       "title": "Germs and disks of convergence",
       "anchor": "germs",
       "prereqs": [
-        "analyticity"
+        "analyticity",
+        "analytic-continuation"
       ],
       "blurb": "A holomorphic germ at $a$ is a convergent power series $\\sum c_n(z-a)^n$; its disk of convergence has radius $1/\\limsup|c_n|^{1/n}$, and the identity theorem makes any two overlapping germs unique on their intersection."
     },
@@ -32,7 +33,9 @@
         "fundamental-group"
       ],
       "blurb": "If $U$ is simply connected and a germ continues along every path in $U$, the continuation is single-valued; on non-simply-connected domains, looping around a branch point produces monodromy (e.g. $\\log$ shifts by $2\\pi i$).",
-      "tags": ["lifting"]
+      "tags": [
+        "lifting"
+      ]
     },
     {
       "id": "schwarz-reflection",
@@ -46,7 +49,7 @@
     },
     {
       "id": "zeta-functional-equation",
-      "title": "Riemann\u2019s functional equation for $\\zeta$",
+      "title": "Riemann’s functional equation for $\\zeta$",
       "anchor": "zeta",
       "prereqs": [
         "continuation-along-path",
@@ -54,7 +57,9 @@
         "theta-transformation-law"
       ],
       "blurb": "Splitting the Mellin integral $\\pi^{-s/2}\\Gamma(s/2)\\zeta(s) = \\tfrac12\\int_0^\\infty(\\theta(x)-1)x^{s/2-1}dx$ at $x=1$ and applying the theta transformation $\\theta(1/x)=\\sqrt{x}\\,\\theta(x)$ produces the symmetry $\\xi(s)=\\xi(1-s)$ of the completed zeta function.",
-      "tags": ["duality"]
+      "tags": [
+        "duality"
+      ]
     }
   ]
 }

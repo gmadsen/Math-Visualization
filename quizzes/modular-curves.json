@@ -1,0 +1,239 @@
+{
+  "topic": "modular-curves",
+  "quizzes": {
+    "mc-y0-x0": {
+      "title": "Y0(N), X0(N), cusps",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which condition defines the congruence subgroup $\\Gamma_0(N) \\subset \\mathrm{SL}_2(\\mathbb{Z})$?",
+          "choices": [
+            "$a \\equiv d \\equiv 1 \\pmod N$ and $b \\equiv c \\equiv 0 \\pmod N$",
+            "$c \\equiv 0 \\pmod N$",
+            "$b \\equiv 0 \\pmod N$",
+            "$\\det \\equiv 1 \\pmod N$"
+          ],
+          "answer": 1,
+          "hint": "$\\Gamma_0(N)$ is the upper-triangular-mod-$N$ condition: only the lower-left entry must vanish modulo $N$.",
+          "explain": "$\\Gamma_0(N) = \\{\\begin{pmatrix}a&b\\\\c&d\\end{pmatrix}\\in\\mathrm{SL}_2(\\mathbb{Z}) : c\\equiv 0\\pmod N\\}$. The stronger condition $a\\equiv d\\equiv 1$, $b\\equiv c\\equiv 0$ defines the principal congruence subgroup $\\Gamma(N)$, and $b\\equiv 0$ alone gives a different (lower-triangular) congruence group, while $\\det\\equiv 1\\pmod N$ is automatic since the determinant is already $1$ in $\\mathbb{Z}$."
+        },
+        {
+          "type": "numeric",
+          "q": "The index $[\\mathrm{SL}_2(\\mathbb{Z}):\\Gamma_0(N)]$ equals $N\\prod_{p\\mid N}(1+1/p)$. Compute this index for $N=11$.",
+          "answer": 12,
+          "tol": 0.001,
+          "hint": "$N=11$ is prime, so the product collapses to $11(1 + 1/11) = 11 + 1 = 12$.",
+          "explain": "For prime $N=p$, the formula simplifies to $p(1+1/p) = p+1$. So $[\\mathrm{SL}_2(\\mathbb{Z}):\\Gamma_0(11)] = 12$. This index will reappear as the degree of the natural map $X_0(11) \\to X(1)$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why must we add cusps to $Y_0(N) = \\mathcal{H}/\\Gamma_0(N)$ to obtain $X_0(N)$?",
+          "choices": [
+            "$Y_0(N)$ is not Hausdorff",
+            "$Y_0(N)$ is non-compact; cusps compactify it to a Riemann surface",
+            "$Y_0(N)$ has the wrong dimension",
+            "Cusps repair singular points of $Y_0(N)$"
+          ],
+          "answer": 1,
+          "hint": "Sequences in $\\mathcal{H}$ tending to a rational on the boundary or to $i\\infty$ have no limit in $\\mathcal{H}/\\Gamma_0(N)$ — those missing limits are exactly the cusps.",
+          "explain": "$Y_0(N)$ is already a smooth Hausdorff Riemann surface — it just is not compact. The boundary $\\mathbb{Q} \\cup \\{i\\infty\\}$ of $\\mathcal{H}$ projects to finitely many missing points modulo $\\Gamma_0(N)$, called cusps. Adjoining them and giving each cusp a local chart $q = e^{2\\pi i \\tau/h}$ produces the smooth compact $X_0(N)$."
+        }
+      ]
+    },
+    "mc-moduli-of-elliptic-curves": {
+      "title": "Moduli interpretation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A non-cuspidal point of $Y_0(N)$ corresponds to which kind of object?",
+          "choices": [
+            "An elliptic curve $E$ alone",
+            "A pair $(E, P)$ where $P \\in E$ has order $N$",
+            "A pair $(E, C)$ where $C \\subset E$ is a cyclic subgroup of order $N$",
+            "An $N$-isogeny $E \\to E'$ together with a basepoint"
+          ],
+          "answer": 2,
+          "hint": "The level structure for $\\Gamma_0(N)$ remembers a cyclic order-$N$ subgroup, not a chosen point on it.",
+          "explain": "$Y_0(N)$ parametrizes pairs $(E,C)$ with $C\\subset E$ cyclic of order $N$, up to isomorphism. The variant $Y_1(N)$ rigidifies further to $(E,P)$ with $P$ of order $N$, and $Y(N)$ uses a full level-$N$ basis. The choice $(E,C)$ is equivalent to a cyclic $N$-isogeny $E \\to E/C$, but the moduli problem is phrased without picking a basepoint on the kernel."
+        },
+        {
+          "type": "mcq",
+          "q": "For $\\tau \\in \\mathcal{H}$, write $E_\\tau = \\mathbb{C}/(\\mathbb{Z} + \\mathbb{Z}\\tau)$. Which subgroup of $E_\\tau$ provides the canonical cyclic order-$N$ subgroup attached to $\\tau \\bmod \\Gamma_0(N)$?",
+          "choices": [
+            "$\\langle 1/N \\rangle = \\frac{1}{N}\\mathbb{Z}/\\mathbb{Z}$",
+            "$\\langle \\tau/N \\rangle$",
+            "The full $N$-torsion $E_\\tau[N]$",
+            "$\\langle (1+\\tau)/N \\rangle$"
+          ],
+          "answer": 0,
+          "hint": "Modulo the lattice, the points $0, 1/N, 2/N, \\ldots, (N-1)/N$ form a cyclic subgroup of order $N$.",
+          "explain": "The image of $\\frac{1}{N}\\mathbb{Z}$ in $\\mathbb{C}/\\Lambda_\\tau$ is the cyclic subgroup of order $N$ singled out by $\\Gamma_0(N)$. Two values $\\tau, \\tau'$ produce isomorphic pairs $(E_\\tau, \\langle 1/N\\rangle) \\cong (E_{\\tau'}, \\langle 1/N\\rangle)$ iff $\\tau' = \\gamma\\tau$ for some $\\gamma \\in \\Gamma_0(N)$ — that is exactly the moduli claim."
+        },
+        {
+          "type": "numeric",
+          "q": "Take $N=2$. The subgroups of $E_\\tau$ of order $2$ are exactly the three nonzero $2$-torsion points. How many such subgroups are there?",
+          "answer": 3,
+          "tol": 0.001,
+          "hint": "$E[2] \\cong (\\mathbb{Z}/2)^2$ has $4$ elements, so $3$ nonzero ones, each generating a distinct order-$2$ subgroup.",
+          "explain": "$E[2]$ has $4$ elements (one of them the origin), and any nonzero $2$-torsion point generates a cyclic subgroup of order $2$. These $3$ subgroups are exactly the level-$2$ structures, so the natural map $X_0(2)\\to X(1)$ has degree $3 = [\\mathrm{SL}_2(\\mathbb{Z}):\\Gamma_0(2)]$."
+        }
+      ]
+    },
+    "mc-hecke-correspondences-curves": {
+      "title": "Hecke correspondences",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "For a prime $p \\nmid N$, the Hecke correspondence $T_p$ sends $(E,C)$ to the sum over the order-$p$ subgroups $D\\subset E$ disjoint from $C$ of the pairs $(E/D, (C+D)/D)$. How many summands appear?",
+          "answer": 4,
+          "tol": 0.001,
+          "hint": "There are $p+1$ subgroups of $E[p]$ of order $p$, and (since $p\\nmid N$) all of them meet $C$ trivially. Take $p=3$.",
+          "explain": "$E[p]\\cong(\\mathbb{Z}/p)^2$ has $p^2-1$ nonzero points partitioned into $p+1$ cyclic subgroups of order $p$. When $p\\nmid N$, each is automatically disjoint from $C$, so $T_p$ has $p+1$ summands. For $p=3$ that is $4$."
+        },
+        {
+          "type": "mcq",
+          "q": "On $q$-expansions, the same operator $T_p$ for $p\\nmid N$ acts on a weight-$k$ form $f = \\sum a_n q^n$ by:",
+          "choices": [
+            "$T_p f = \\sum a_{pn} q^n$",
+            "$T_p f = \\sum a_{n/p} q^n$ (with $a_{n/p}=0$ if $p\\nmid n$)",
+            "$T_p f = \\sum (a_{pn} + p^{k-1} a_{n/p})\\, q^n$",
+            "$T_p f = p\\,f$"
+          ],
+          "answer": 2,
+          "hint": "The two terms come from the two kinds of summands: the unique $D = E[p] \\cap (\\text{kernel of multiplication})$-like piece and the subgroups disjoint from a chosen reference.",
+          "explain": "The geometric correspondence translates on $q$-expansions to $T_p f = \\sum_n (a_{pn} + p^{k-1}a_{n/p})\\, q^n$, with $a_{n/p}$ understood to vanish unless $p\\mid n$. Eigenforms with $T_p f = a_p f$ then satisfy the recursion $a_{pn} = a_p a_n - p^{k-1} a_{n/p}$, the engine behind Euler products."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is $T_p$ called a 'correspondence' rather than a 'morphism' from $X_0(N)$ to itself?",
+          "choices": [
+            "Because it depends on a choice of base point",
+            "Because it is a curve inside $X_0(N) \\times X_0(N)$, not the graph of a function",
+            "Because it is only defined modulo the cusps",
+            "Because it does not preserve Hecke eigenforms"
+          ],
+          "answer": 1,
+          "hint": "A correspondence is multi-valued: a single $(E,C)$ has $p+1$ images, recorded as a divisor in the product.",
+          "explain": "$T_p$ is the projection of the modular curve $X_0(Np)$ along its two natural maps to $X_0(N)$ — equivalently the divisor $\\{((E,C), (E/D, (C+D)/D)) : D\\subset E, |D|=p, D\\cap C=0\\}$ inside $X_0(N)\\times X_0(N)$. As a multi-valued map it cannot be a morphism, but it pushes forward divisors and so acts on $\\mathrm{Pic}^0$."
+        }
+      ]
+    },
+    "mc-jacobian-J0": {
+      "title": "Jacobian J0(N)",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For a smooth projective curve $X$ over $\\mathbb{C}$ of genus $g$, the Jacobian $J(X) = \\mathrm{Pic}^0(X)$ is an abelian variety of dimension:",
+          "choices": [
+            "$1$",
+            "$g$",
+            "$2g$",
+            "$g(g-1)/2$"
+          ],
+          "answer": 1,
+          "hint": "$\\mathrm{Pic}^0(X) \\cong H^0(X, \\Omega^1)^* / H_1(X,\\mathbb{Z})$, and the holomorphic-1-form space has dimension $g$.",
+          "explain": "$J(X)$ is the quotient of the $g$-dimensional vector space $H^0(X,\\Omega^1)^*$ by the rank-$2g$ lattice $H_1(X,\\mathbb{Z})$ embedded via integration. Hence $\\dim J(X) = g$. Applied to $X_0(N)$ this matches Eichler–Shimura: the tangent space $H^0(X_0(N),\\Omega^1)$ is canonically $S_2(\\Gamma_0(N))$, so $\\dim J_0(N) = \\dim S_2(\\Gamma_0(N)) = g(X_0(N))$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Eichler–Shimura isomorphism identifies $H^0(X_0(N), \\Omega^1)$ with which space of modular forms?",
+          "choices": [
+            "All forms $M_2(\\Gamma_0(N))$",
+            "Cusp forms $S_2(\\Gamma_0(N))$",
+            "Cusp forms $S_k(\\Gamma_0(N))$ for all $k$ at once",
+            "Eisenstein series $E_2$ only"
+          ],
+          "answer": 1,
+          "hint": "$f(\\tau)\\,d\\tau$ is a holomorphic differential on $X_0(N)$ exactly when $f$ vanishes at every cusp.",
+          "explain": "The map $f \\mapsto f(\\tau)\\,d\\tau$ sends $S_2(\\Gamma_0(N))$ isomorphically to $H^0(X_0(N),\\Omega^1)$. The cusp condition is essential: an Eisenstein series in $M_2 \\setminus S_2$ would give a meromorphic, not holomorphic, differential at the cusps. Higher weights $k \\ge 4$ correspond instead to sections of $\\Omega^1(\\text{cusps})^{\\otimes(k-1)}$, but only $k=2$ is the literal cotangent space."
+        },
+        {
+          "type": "numeric",
+          "q": "The genus of $X_0(11)$ is $1$. What is $\\dim_{\\mathbb{C}} S_2(\\Gamma_0(11))$?",
+          "answer": 1,
+          "tol": 0.001,
+          "hint": "Eichler–Shimura: $\\dim S_2(\\Gamma_0(N)) = g(X_0(N))$.",
+          "explain": "By Eichler–Shimura, $\\dim S_2(\\Gamma_0(N))$ equals the genus of $X_0(N)$. For $N=11$ this is $1$, and the unique normalized cusp form is $\\eta(\\tau)^2 \\eta(11\\tau)^2 = q\\prod_{n\\ge 1}(1-q^n)^2(1-q^{11n})^2$, which is the modular form attached to the elliptic curve $11a$."
+        }
+      ]
+    },
+    "mc-genus-formula": {
+      "title": "Genus formulas",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "The genus formula gives $g(X_0(N)) = 1 + \\frac{[\\mathrm{SL}_2(\\mathbb{Z}):\\Gamma_0(N)]}{12} - \\frac{\\nu_2}{4} - \\frac{\\nu_3}{3} - \\frac{\\nu_\\infty}{2}$. For $N=11$ the data are $[\\mathrm{SL}_2:\\Gamma_0(11)]=12$, $\\nu_2=0$, $\\nu_3=0$, $\\nu_\\infty=2$. Compute $g(X_0(11))$.",
+          "answer": 1,
+          "tol": 0.001,
+          "hint": "$g = 1 + 12/12 - 0 - 0 - 2/2 = 1 + 1 - 1 = 1$.",
+          "explain": "Plug in: $g(X_0(11)) = 1 + 1 - 0 - 0 - 1 = 1$. So $X_0(11)$ is an elliptic curve over $\\mathbb{Q}$ — explicitly the curve $y^2 + y = x^3 - x^2 - 10x - 20$ of conductor $11$, the lowest-conductor non-CM elliptic curve."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is the smallest prime $N$ for which $X_0(N)$ has genus at least $1$?",
+          "choices": [
+            "$N=5$",
+            "$N=7$",
+            "$N=11$",
+            "$N=13$"
+          ],
+          "answer": 2,
+          "hint": "$X_0(N)$ has genus $0$ for $N\\in\\{1,2,3,5,7,13\\}$ among the primes; $11$ is the first exception.",
+          "explain": "Among primes, $X_0(N)$ has genus $0$ for $N\\in\\{2,3,5,7,13\\}$ and genus $\\ge 1$ for $N=11$ and all $N\\ge 17$. The list of genus-$0$ levels of any kind is finite (the $15$ values $1\\text{–}10, 12, 13, 16, 18, 25$); after that the curves carry interesting cusp forms."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does the genus formula for $X_0(N)$ have terms with denominators $4$ and $3$?",
+          "choices": [
+            "From the order-$2$ and order-$3$ stabilizers $S$ and $ST$ in $\\mathrm{PSL}_2(\\mathbb{Z})$",
+            "Because $X(1)$ has Euler characteristic $1/12$",
+            "Because $X_0(N)$ has $4$ cusps for $N$ even and $3$ for $N$ odd",
+            "From the action of $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ on cusps"
+          ],
+          "answer": 0,
+          "hint": "The map $X_0(N) \\to X(1)$ ramifies above the elliptic points of $X(1)$, which are stabilized by elements of orders $2$ and $3$.",
+          "explain": "The orbifold $X(1)$ has cone points of orders $2$ and $3$ (the orbits of $i$ and $\\rho = e^{2\\pi i/3}$ in $\\mathcal{H}$). Riemann–Hurwitz applied to $X_0(N) \\to X(1)$ produces fractional contributions of size $1/4$ and $1/3$ from the elliptic points, plus a $1/2$ contribution from each cusp."
+        }
+      ]
+    },
+    "mc-cusps-galois": {
+      "title": "Cusps and Galois action",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "$X_0(N)$ for prime $N$ has exactly $2$ cusps. How many cusps does $X_0(6)$ have? (Use the formula $\\nu_\\infty(X_0(N)) = \\sum_{d\\mid N} \\varphi(\\gcd(d, N/d))$.)",
+          "answer": 4,
+          "tol": 0.001,
+          "hint": "Divisors of $6$ are $1,2,3,6$. Compute $\\gcd(d,N/d)$ and $\\varphi$ for each: $\\varphi(1)+\\varphi(1)+\\varphi(1)+\\varphi(1) = 4$.",
+          "explain": "For $d\\in\\{1,2,3,6\\}$, the values $\\gcd(d, 6/d)$ are $1,1,1,1$. Each contributes $\\varphi(1)=1$, totaling $4$ cusps. They are usually labelled $0, 1/2, 1/3, \\infty$, all rational over $\\mathbb{Q}$."
+        },
+        {
+          "type": "mcq",
+          "q": "On $X_0(N)$ over $\\mathbb{Q}$, which two cusps are always individually $\\mathbb{Q}$-rational?",
+          "choices": [
+            "All cusps are $\\mathbb{Q}$-rational",
+            "Only $0$ and $\\infty$ are always $\\mathbb{Q}$-rational",
+            "Only $\\infty$ is always $\\mathbb{Q}$-rational",
+            "No cusp is $\\mathbb{Q}$-rational unless $N=1$"
+          ],
+          "answer": 1,
+          "hint": "The cusps $0$ and $\\infty$ correspond to degenerations of the level structure that are defined over $\\mathbb{Q}$; intermediate cusps for non-prime $N$ may only be defined over a cyclotomic extension.",
+          "explain": "In the moduli interpretation $\\infty$ is the cusp where the elliptic curve degenerates with the cyclic subgroup specializing to the connected component of the Néron model, and $0$ is the Atkin–Lehner image. Both are $\\mathbb{Q}$-rational. For prime $N$ those are the only two cusps and there is nothing more to say, but for composite $N$ the remaining cusps generally form Galois orbits over $\\mathbb{Q}(\\zeta_N)$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Atkin–Lehner involution $w_N$ on $X_0(N)$ acts on the moduli interpretation as:",
+          "choices": [
+            "$(E, C) \\mapsto (E, C)$",
+            "$(E, C) \\mapsto (E/C, E[N]/C)$",
+            "$(E, C) \\mapsto (E, E[N])$",
+            "$(E, C) \\mapsto (E, -C)$"
+          ],
+          "answer": 1,
+          "hint": "$w_N$ swaps $E$ with the isogenous curve $E/C$ and replaces $C$ with the kernel of the dual isogeny.",
+          "explain": "$w_N$ is the involution induced by $\\tau\\mapsto -1/(N\\tau)$ on $\\mathcal{H}$. In moduli terms it sends $(E,C)$ to $(E/C, E[N]/C)$: the dual cyclic order-$N$ subgroup of the isogenous curve. It exchanges the two rational cusps $0\\leftrightarrow \\infty$ and is the simplest of the modular involutions whose quotients $X_0(N)/w_N$ are themselves arithmetically rich curves."
+        }
+      ]
+    }
+  }
+}

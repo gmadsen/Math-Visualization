@@ -1,0 +1,84 @@
+{
+  "topic": "spectral-theory",
+  "title": "Spectral theory",
+  "page": "spectral-theory.html",
+  "concepts": [
+    {
+      "id": "st-bounded-operators-spectrum",
+      "title": "Spectrum of a bounded operator",
+      "anchor": "spectrum",
+      "prereqs": [
+        "bounded-operators-fa",
+        "spectrum-classification"
+      ],
+      "blurb": "For $T\\in B(H)$, $\\sigma(T)=\\{\\lambda\\in\\mathbb{C} : T-\\lambda I \\text{ is not invertible}\\}$ is a non-empty compact subset of the closed disk of radius $\\|T\\|$, decomposing into point, continuous, and residual parts.",
+      "tags": [
+        "compactness",
+        "classification"
+      ]
+    },
+    {
+      "id": "st-self-adjoint-spectrum",
+      "title": "Spectrum of self-adjoint operators",
+      "anchor": "self-adjoint",
+      "prereqs": [
+        "st-bounded-operators-spectrum",
+        "adjoint-hilbert"
+      ],
+      "blurb": "Self-adjoint operators have $\\sigma(T)\\subset\\mathbb{R}$, and the spectral radius equals the operator norm: $r(T)=\\|T\\|$. Residual spectrum is empty.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "st-spectral-theorem-compact",
+      "title": "Spectral theorem (compact self-adjoint)",
+      "anchor": "spectral-compact",
+      "prereqs": [
+        "st-self-adjoint-spectrum",
+        "banach-hilbert-spaces"
+      ],
+      "blurb": "A compact self-adjoint operator $K$ on a separable Hilbert space admits an orthonormal eigenbasis $(\\varphi_n)$ with real eigenvalues $\\lambda_n\\to 0$, and $K=\\sum_n\\lambda_n\\langle\\varphi_n,\\cdot\\rangle\\varphi_n$.",
+      "tags": [
+        "compactness",
+        "classification"
+      ]
+    },
+    {
+      "id": "st-spectral-theorem-bounded",
+      "title": "Spectral theorem (bounded self-adjoint)",
+      "anchor": "spectral-bounded",
+      "prereqs": [
+        "st-spectral-theorem-compact",
+        "cstar-basics",
+        "lebesgue-measure"
+      ],
+      "blurb": "Every bounded self-adjoint operator $T$ admits a unique projection-valued measure $E$ on $\\sigma(T)$ such that $T=\\int_{\\sigma(T)}\\lambda\\,dE_\\lambda$, giving a continuous functional calculus $f\\mapsto f(T)$.",
+      "tags": [
+        "classification",
+        "duality"
+      ]
+    },
+    {
+      "id": "st-unbounded-operators",
+      "title": "Unbounded self-adjoint operators",
+      "anchor": "unbounded",
+      "prereqs": [
+        "st-spectral-theorem-bounded"
+      ],
+      "blurb": "Densely defined closed operators (Laplacian, momentum, position) admit a spectral resolution $T=\\int\\lambda\\,dE_\\lambda$ on their domain; Stone's theorem then identifies self-adjoint $T$ with strongly continuous unitary groups $e^{itT}$.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "st-applications",
+      "title": "Applications: quantum mechanics, PDE, harmonic analysis",
+      "anchor": "applications",
+      "prereqs": [
+        "st-unbounded-operators"
+      ],
+      "blurb": "Observables in QM are self-adjoint operators whose spectra are measurable energies; eigenvalue problems for elliptic PDE invoke the compact spectral theorem; Fourier transform diagonalizes translation-invariant operators."
+    }
+  ]
+}

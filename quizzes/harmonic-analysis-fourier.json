@@ -20,7 +20,7 @@
           "type": "numeric",
           "q": "Let $f(x) = 3 + 4\\cos(2\\pi x) - 2\\sin(4\\pi x)$ on $\\mathbb{T}$. Compute $\\|f\\|_{L^2(\\mathbb{T})}^2 = \\int_0^1 |f(x)|^2\\,dx$.",
           "answer": 19,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Write $4\\cos(2\\pi x) = 2(e_1 + e_{-1})$ and $-2\\sin(4\\pi x) = i(e_2 - e_{-2})$. The Fourier coefficients are $\\hat f(0)=3$, $\\hat f(\\pm 1) = 2$, $\\hat f(2) = i$, $\\hat f(-2) = -i$. By Parseval, $\\|f\\|_2^2 = 9 + 4 + 4 + 1 + 1 = 19$."
         },
         {
@@ -68,7 +68,7 @@
           "type": "numeric",
           "q": "Let $f = \\mathbf{1}_{[-1/2, 1/2]}$ on $\\mathbb{R}$. Compute $\\|\\hat f\\|_{L^2}^2$ using Plancherel.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Plancherel says $\\|\\hat f\\|_2 = \\|f\\|_2$ for $f\\in L^1\\cap L^2$. Here $\\|f\\|_2^2 = \\int_{-1/2}^{1/2} 1\\,dx = 1$, so $\\|\\hat f\\|_2^2 = 1$. (Aside: $\\hat f(\\xi) = \\mathrm{sinc}(\\xi) = \\sin(\\pi \\xi)/(\\pi \\xi)$.)"
         }
       ]
@@ -104,7 +104,7 @@
           "type": "numeric",
           "q": "Let $g(x) = e^{-\\pi x^2}$. Using $\\hat g = g$ and the convolution theorem, compute $\\widehat{(g*g)}(0)$.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\widehat{g*g} = \\hat g\\,\\hat g = g\\cdot g = e^{-2\\pi \\xi^2}$. Evaluating at $\\xi = 0$ gives $1$."
         }
       ]
@@ -146,6 +146,7 @@
             "$0$"
           ],
           "answer": 1,
+          "hint": "By the duality pairing, $\\langle\\hat\\delta,\\varphi\\rangle = \\langle\\delta,\\hat\\varphi\\rangle = \\hat\\varphi(0) = \\int\\varphi(x)\\,dx = \\langle 1,\\varphi\\rangle$, so $\\hat\\delta = 1$ as a tempered…",
           "explain": "By the duality pairing, $\\langle\\hat\\delta,\\varphi\\rangle = \\langle\\delta,\\hat\\varphi\\rangle = \\hat\\varphi(0) = \\int\\varphi(x)\\,dx = \\langle 1,\\varphi\\rangle$, so $\\hat\\delta = 1$ as a tempered distribution. Dually, $\\hat 1 = \\delta$."
         }
       ]
@@ -181,7 +182,7 @@
           "type": "numeric",
           "q": "For $f(x) = e^{-\\pi x^2}$, compute the lower bound $\\|f\\|_2^2/(4\\pi)$ in Heisenberg's inequality.",
           "answer": 0.05627314338,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\|f\\|_2^2 = \\int_{\\mathbb{R}} e^{-2\\pi x^2}\\,dx = 1/\\sqrt{2}$. So $\\|f\\|_2^2/(4\\pi) = 1/(4\\pi\\sqrt{2}) \\approx 0.05627$. The Gaussian saturates the inequality with equality."
         }
       ]
@@ -211,13 +212,14 @@
             "It's not — analytic continuation is purely about contour integrals"
           ],
           "answer": 1,
+          "hint": "Riemann's 1859 proof represents $\\xi(s)$ as a Mellin transform of $\\theta - 1$; the symmetry $s\\leftrightarrow 1-s$ comes from the modular relation for $\\theta$, which in turn is Poisson applied to…",
           "explain": "Riemann's 1859 proof represents $\\xi(s)$ as a Mellin transform of $\\theta - 1$; the symmetry $s\\leftrightarrow 1-s$ comes from the modular relation for $\\theta$, which in turn is Poisson applied to $f_t(x) = e^{-\\pi t x^2}$."
         },
         {
           "type": "numeric",
           "q": "For $f_t(x) = e^{-\\pi t x^2}$ (so $\\hat f_t(\\xi) = t^{-1/2} e^{-\\pi \\xi^2/t}$), let $\\theta(t) = \\sum_{n\\in\\mathbb{Z}} e^{-\\pi n^2 t}$. By Poisson summation, $\\theta(t) = t^{-1/2}\\theta(1/t)$. Compute the ratio $\\theta(4)/\\theta(1/4)$.",
           "answer": 0.5,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\theta(4) = (4)^{-1/2}\\theta(1/4) = \\tfrac12 \\theta(1/4)$, so $\\theta(4)/\\theta(1/4) = 1/2$. The modular transformation rescales the lattice."
         }
       ]
@@ -229,7 +231,7 @@
           "type": "numeric",
           "q": "Compute $\\hat g(0)$ where $g(x) = e^{-\\pi x^2}$.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\hat g(\\xi) = e^{-\\pi \\xi^2}$ is the famous self-dual Gaussian; at $\\xi = 0$ this is $1$. (Equivalently, $\\int_{\\mathbb{R}} e^{-\\pi x^2}\\,dx = 1$.)"
         },
         {
@@ -271,7 +273,7 @@
             "the group of Borel measures on $G$"
           ],
           "answer": 1,
-          "explain": "$\\widehat G = \\mathrm{Hom}_{\\mathrm{cts}}(G, U(1))$ — the continuous unitary characters. Pontryagin duality is the canonical isomorphism $G \\cong \\widehat{\\widehat G}$ for locally compact abelian $G$."
+          "explain": "$\\widehat G = \\Hom_{\\mathrm{cts}}(G, U(1))$ — the continuous unitary characters. Pontryagin duality is the canonical isomorphism $G \\cong \\widehat{\\widehat G}$ for locally compact abelian $G$."
         },
         {
           "type": "matching",
@@ -288,7 +290,12 @@
             "$\\mathbb{R}$",
             "$\\mathbb{T}$"
           ],
-          "answer": [2, 0, 3, 1],
+          "answer": [
+            2,
+            0,
+            3,
+            1
+          ],
           "explain": "$\\mathbb{R}$ and finite cyclic groups are self-dual; $\\mathbb{T}$ and $\\mathbb{Z}$ are dual to each other (Fourier series ↔ Fourier coefficients). The general Plancherel theorem on $G$ specializes to all the classical Fourier theorems."
         },
         {
@@ -301,6 +308,7 @@
             "$\\widehat G$ is always compact"
           ],
           "answer": 1,
+          "hint": "With Haar measures normalized compatibly (via the Plancherel measure on $\\widehat G$), the Fourier transform is a unitary isomorphism — the same statement as classical Plancherel on $\\mathbb{R}$ or…",
           "explain": "With Haar measures normalized compatibly (via the Plancherel measure on $\\widehat G$), the Fourier transform is a unitary isomorphism — the same statement as classical Plancherel on $\\mathbb{R}$ or Parseval on $\\mathbb{T}$, in one breath."
         }
       ]

@@ -20,14 +20,17 @@
           "type": "numeric",
           "q": "For the unit-speed circle $\\gamma(t)=(\\cos t,\\sin t)$ in the plane, what is the curvature $\\kappa$?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "A unit circle has $\\kappa=1/R=1$. In general $\\kappa=|\\ddot\\gamma|$ for a unit-speed planar curve, and here $|\\ddot\\gamma|=1$."
         },
         {
           "type": "complex",
           "q": "Let $\\mathbf{x}(u,v)=(u,v,u^2-v^2)$ (the saddle). At $(u,v)=(0,0)$, $\\mathbf{x}_u\\times\\mathbf{x}_v=(a,b,c)$. Give $a+bi$.",
-          "answer": [0, 0],
-          "tol": 1e-6,
+          "answer": [
+            0,
+            0
+          ],
+          "tol": 0.000001,
           "explain": "$\\mathbf{x}_u=(1,0,2u)$, $\\mathbf{x}_v=(0,1,-2v)$. At $(0,0)$ the cross product is $(0,0,1)$, so $a=0,b=0$."
         }
       ],
@@ -49,7 +52,7 @@
           "type": "numeric",
           "q": "The helix $\\gamma(t)=(\\cos t,\\sin t,t)/\\sqrt{2}$ is unit-speed. Its curvature $\\kappa=|\\gamma''|$. Compute $\\kappa$ (give an exact decimal or fraction).",
           "answer": 0.7071067811865476,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Differentiate twice and use the helix formula $\\kappa = a/(a^2+b^2)$.",
           "explain": "$\\gamma'(t)=(-\\sin t,\\cos t,1)/\\sqrt{2}$ has $|\\gamma'|=1$ (unit-speed). Differentiating: $\\gamma''(t)=(-\\cos t,-\\sin t,0)/\\sqrt{2}$. Then $|\\gamma''|=\\sqrt{\\cos^2t+\\sin^2t}/\\sqrt{2}=1/\\sqrt{2}\\approx 0.7071$. For a helix $(a\\cos t,a\\sin t,bt)$ the curvature formula is $\\kappa=a/(a^2+b^2)$; here after arc-length reparametrization $a=b=1/\\sqrt{2}$, giving $\\kappa=(1/\\sqrt{2})/(1/2+1/2)=1/\\sqrt{2}$."
         },
@@ -87,14 +90,14 @@
           "type": "numeric",
           "q": "For the cylinder $\\mathbf{x}(u,v)=(\\cos u,\\sin u,v)$, compute $E\\cdot G-F^2$.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\mathbf{x}_u=(-\\sin u,\\cos u,0)$, $\\mathbf{x}_v=(0,0,1)$, so $E=1$, $G=1$, $F=0$ and $EG-F^2=1$."
         },
         {
           "type": "numeric",
           "q": "For the sphere of radius $R$ with $\\mathbf{x}(u,v)=(R\\sin u\\cos v,R\\sin u\\sin v,R\\cos u)$, compute $E$ at any $(u,v)$.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\mathbf{x}_u=(R\\cos u\\cos v,R\\cos u\\sin v,-R\\sin u)$ — wait, with $R=1$ we get $E=\\mathbf{x}_u\\cdot\\mathbf{x}_u=\\cos^2u+\\sin^2u=1$. For general $R$, $E=R^2$; taking $R=1$ gives $1$."
         }
       ],
@@ -116,7 +119,7 @@
           "type": "numeric",
           "q": "For the torus $\\mathbf{x}(u,v)=((R+r\\cos u)\\cos v,(R+r\\cos u)\\sin v,r\\sin u)$ with $R=3,r=1$, compute $F=\\mathbf{x}_u\\cdot\\mathbf{x}_v$ at $(u,v)=(0,0)$.",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "The torus parametrization yields orthogonal coordinate curves.",
           "explain": "$\\mathbf{x}_u=(-r\\sin u\\cos v,-r\\sin u\\sin v,r\\cos u)$ and $\\mathbf{x}_v=(-(R+r\\cos u)\\sin v,(R+r\\cos u)\\cos v,0)$. Their dot product is $r\\sin u(R+r\\cos u)\\sin v\\cos v - r\\sin u(R+r\\cos u)\\sin v\\cos v+0=0$ for all $(u,v)$, confirming $F=0$ everywhere on the torus."
         },
@@ -124,7 +127,7 @@
           "type": "numeric",
           "q": "For the saddle $\\mathbf{x}(u,v)=(u,v,u^2-v^2)$, the second fundamental form coefficients at $(0,0)$ are $e=\\mathbf{x}_{uu}\\cdot\\mathbf{n}$, $f=\\mathbf{x}_{uv}\\cdot\\mathbf{n}$, $g=\\mathbf{x}_{vv}\\cdot\\mathbf{n}$. Compute $eg-f^2$ (which equals $K\\cdot(EG-F^2)$).",
           "answer": -4,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Second derivatives of the saddle give opposite-sign principal curvatures.",
           "explain": "At $(0,0)$: $\\mathbf{n}=(0,0,1)$ (unit normal from $\\mathbf{x}_u\\times\\mathbf{x}_v=(0,0,1)$). $\\mathbf{x}_{uu}=(0,0,2)$, $\\mathbf{x}_{uv}=(0,0,0)$, $\\mathbf{x}_{vv}=(0,0,-2)$. So $e=2$, $f=0$, $g=-2$, giving $eg-f^2=2\\cdot(-2)-0=-4$. Since $EG-F^2=1$ here, $K=-4$."
         }
@@ -143,13 +146,14 @@
             "nilpotent when $K\\neq 0$"
           ],
           "answer": 1,
+          "hint": "Differentiating $\\langle N,\\mathbf{x}_u\\rangle=\\langle N,\\mathbf{x}_v\\rangle=0$ shows $S_p$ is self-adjoint for $I$, so it diagonalizes over $\\mathbb{R}$ with eigenvalues $k_1\\ge k_2$ (the principal…",
           "explain": "Differentiating $\\langle N,\\mathbf{x}_u\\rangle=\\langle N,\\mathbf{x}_v\\rangle=0$ shows $S_p$ is self-adjoint for $I$, so it diagonalizes over $\\mathbb{R}$ with eigenvalues $k_1\\ge k_2$ (the principal curvatures) along orthogonal principal directions."
         },
         {
           "type": "numeric",
           "q": "On the round sphere of radius $R$ the Gauss map is $\\mathbf{n}(p)=p/R$, so $S_p=(1/R)\\,\\mathrm{id}$. Give the Gaussian curvature $K=\\det S_p$ when $R=3$.",
           "answer": 0.1111111111111111,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Both principal curvatures equal $1/R$, so $K=k_1k_2=1/R^2$. For $R=3$, $K=1/9\\approx 0.1111$."
         },
         {
@@ -183,7 +187,7 @@
           "type": "numeric",
           "q": "For a surface with principal curvatures $k_1=3$ and $k_2=-1$, compute the mean curvature $H=(k_1+k_2)/2$.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Mean curvature is the average of principal curvatures.",
           "explain": "$H=(k_1+k_2)/2=(3+(-1))/2=2/2=1$."
         },
@@ -221,14 +225,14 @@
           "type": "numeric",
           "q": "On the sphere of radius $R$, the Gaussian curvature is constant. Compute $K$ when $R=2$.",
           "answer": 0.25,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "For a round sphere of radius $R$, $K=1/R^2$. With $R=2$ that is $1/4=0.25$."
         },
         {
           "type": "numeric",
           "q": "A geodesic triangle on the unit sphere has interior angles $\\pi/2,\\pi/2,\\pi/2$. By Gauss–Bonnet, its area equals the angle excess. What is the area?",
           "answer": 1.5707963267948966,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Angle sum is $3\\pi/2$; excess over $\\pi$ is $\\pi/2$. On the unit sphere $K=1$, so area $=\\int K\\,dA=\\pi/2\\approx 1.5708$."
         }
       ],
@@ -250,7 +254,7 @@
           "type": "numeric",
           "q": "On the hyperbolic plane with $K\\equiv -1$, a geodesic triangle has angle sum $\\pi/6$. Compute its area using the Gauss–Bonnet formula $\\text{Area}=\\pi-(\\alpha+\\beta+\\gamma)$.",
           "answer": 2.617993877991494,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Use the angle-defect area formula for $K=-1$.",
           "explain": "$\\text{Area}=\\pi-\\pi/6=5\\pi/6\\approx 2.6180$."
         },
@@ -288,15 +292,15 @@
           "type": "numeric",
           "q": "For a closed genus-$3$ orientable surface, compute $\\int_S K\\,dA$.",
           "answer": -25.132741228718345,
-          "tol": 1e-5,
+          "tol": 0.00001,
           "explain": "$\\chi=2-2g=2-6=-4$, so $\\int_S K\\,dA=2\\pi\\chi=-8\\pi\\approx -25.1327$."
         },
         {
           "type": "numeric",
           "q": "A geodesic triangle on a surface of constant curvature $K=-1$ has interior angles $\\alpha+\\beta+\\gamma=\\pi/3$. By local Gauss–Bonnet, what is the area of the triangle?",
           "answer": 2.0943951023931953,
-          "tol": 1e-6,
-          "explain": "For a geodesic triangle, local Gauss–Bonnet reduces to $(\\alpha+\\beta+\\gamma)-\\pi=\\int_\\triangle K\\,dA$. With $K\\equiv -1$ and $\\alpha+\\beta+\\gamma=\\pi/3$: $-2\\pi/3 = -\\mathrm{Area}$, so $\\mathrm{Area}=2\\pi/3\\approx 2.0944$."
+          "tol": 0.000001,
+          "explain": "For a geodesic triangle, local Gauss–Bonnet reduces to $(\\alpha+\\beta+\\gamma)-\\pi=\\int_\\tr{}iangle K\\,dA$. With $K\\equiv -1$ and $\\alpha+\\beta+\\gamma=\\pi/3$: $-2\\pi/3 = -\\mathrm{Area}$, so $\\mathrm{Area}=2\\pi/3\\approx 2.0944$."
         }
       ],
       "hard": [
@@ -317,7 +321,7 @@
           "type": "numeric",
           "q": "Use the local Gauss–Bonnet formula for a geodesic polygon. A geodesic quadrilateral on the unit sphere ($K=1$) has interior angles $\\pi/2,\\pi/2,\\pi/2,\\pi/2+\\varepsilon$ with $\\varepsilon=\\pi/4$. Compute its area.",
           "answer": 0.7853981633974483,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Area equals angle sum minus $(n-2)\\pi$ for a geodesic $n$-gon.",
           "explain": "For a geodesic $n$-gon: Area $= \\sum_i\\alpha_i - (n-2)\\pi$. Here $n=4$, $\\sum\\alpha_i = 3(\\pi/2)+(\\pi/2+\\pi/4)=2\\pi+\\pi/4$. Area $=2\\pi+\\pi/4-2\\pi=\\pi/4\\approx 0.7854$."
         },
@@ -332,7 +336,7 @@
           ],
           "answer": 0,
           "hint": "Triangulate, sum local angle defects, collapse to $V-E+F$.",
-          "explain": "The standard proof: triangulate, apply local Gauss–Bonnet to each geodesic triangle ($\\sum\\alpha_i-\\pi=\\int_{\\triangle_i}K\\,dA$), sum over all triangles. The angle contributions at interior vertices telescope to $2\\pi V$, and the combinatorial identity $2E=3F$ for a triangulation gives $V-E+F=\\chi$, yielding $\\int_S K\\,dA=2\\pi\\chi$. Since $\\chi$ is a topological invariant (homotopy type), so is this integral."
+          "explain": "The standard proof: triangulate, apply local Gauss–Bonnet to each geodesic triangle ($\\sum\\alpha_i-\\pi=\\int_{\\tr{}iangle_i}K\\,dA$), sum over all triangles. The angle contributions at interior vertices telescope to $2\\pi V$, and the combinatorial identity $2E=3F$ for a triangulation gives $V-E+F=\\chi$, yielding $\\int_S K\\,dA=2\\pi\\chi$. Since $\\chi$ is a topological invariant (homotopy type), so is this integral."
         }
       ]
     }

@@ -20,7 +20,7 @@
           "type": "numeric",
           "q": "On $S^2$ with the two-chart stereographic atlas from $N$ and $S$, the overlap $U_N\\cap U_S$ is $S^2$ minus how many points?",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "The north chart misses $N$ and the south chart misses $S$, so the overlap is $S^2\\setminus\\{N,S\\}$ — two missing points."
         },
         {
@@ -53,7 +53,7 @@
           "type": "numeric",
           "q": "The torus $T^2 = S^1\\times S^1$ carries a smooth atlas derived from the product of two two-chart atlases on $S^1$. What is the minimum number of charts in such a product atlas?",
           "answer": 4,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Each factor $S^1$ needs at least $2$ charts, so the product atlas has $2\\times 2 = 4$ charts of the form $U_i\\times V_j$."
         },
         {
@@ -77,7 +77,7 @@
           "type": "numeric",
           "q": "What is the dimension of the matrix Lie group $\\mathrm{SO}(n)$?",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\mathrm{SO}(n)$ has dimension $n(n-1)/2$; for $n=3$ this is $3(3-1)/2=3$ — reflecting the three Euler angles."
         },
         {
@@ -96,7 +96,7 @@
           "type": "numeric",
           "q": "The Grassmannian $\\mathrm{Gr}(k,n)$ of $k$-planes in $\\mathbb{R}^n$ has dimension $k(n-k)$. What is $\\dim\\mathrm{Gr}(2,5)$?",
           "answer": 6,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\dim\\mathrm{Gr}(2,5)=2\\cdot(5-2)=6$. The charts are graphs of linear maps $W_0\\to W_0^\\perp$, giving $k(n-k)$ parameters."
         }
       ],
@@ -105,7 +105,7 @@
           "type": "numeric",
           "q": "The unitary group $\\mathrm{U}(n)$ is cut out of $\\mathrm{GL}_n(\\mathbb{C})$ by $A^*A=I$. What is its real dimension for $n=2$?",
           "answer": 4,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\mathrm{U}(n)$ has real dimension $n^2$. For $n=2$ this gives $4$. (Concretely: $\\mathrm{U}(2)\\cong \\mathrm{U}(1)\\times\\mathrm{SU}(2)/\\mathbb{Z}_2$, with $\\dim\\mathrm{U}(1)=1$ and $\\dim\\mathrm{SU}(2)=3$.)"
         },
         {
@@ -165,7 +165,7 @@
           "type": "numeric",
           "q": "Let $f\\colon\\mathbb{R}^2\\to\\mathbb{R}^2$, $f(x,y)=(x+y,\\,xy)$. At $p=(1,2)$ the Jacobian is $\\begin{pmatrix}1&1\\\\ y&x\\end{pmatrix}_{(1,2)} = \\begin{pmatrix}1&1\\\\2&1\\end{pmatrix}$. What is the rank of $df_p$?",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\det\\begin{pmatrix}1&1\\\\2&1\\end{pmatrix} = 1-2 = -1\\ne 0$, so the Jacobian is invertible and $\\operatorname{rank}(df_p)=2$."
         }
       ],
@@ -198,7 +198,7 @@
           "type": "numeric",
           "q": "Let $f\\colon\\mathbb{R}^2\\to\\mathbb{R}^2$, $f(x,y)=(e^x\\cos y,\\,e^x\\sin y)$ (complex exponential). What is $|\\det(df_p)|$ at the point $p=(0,0)$?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$df_p = \\begin{pmatrix} e^x\\cos y & -e^x\\sin y \\\\ e^x\\sin y & e^x\\cos y\\end{pmatrix}$, with determinant $e^{2x}$. At $(0,0)$ this is $1$. So $f$ is a local diffeomorphism everywhere, though not globally injective — $f$ is $2\\pi$-periodic in $y$."
         }
       ]
@@ -207,29 +207,35 @@
       "title": "Tangent spaces and bundles",
       "questions": [
         {
-          "type": "mcq",
-          "q": "For a smooth $n$-manifold $M$ and $p\\in M$, the tangent space $T_pM$ is:",
+          "type": "multi-select",
+          "q": "Select every statement that is true of the tangent space $T_pM$ at a point $p$ of a smooth $n$-manifold $M$.",
           "choices": [
-            "an $n$-dimensional real vector space",
-            "the tangent line to a fixed curve through $p$",
-            "a subset of $M$ near $p$",
-            "the kernel of some linear map on $M$"
+            "$T_pM$ is an $n$-dimensional real vector space.",
+            "Equivalently, $T_pM$ is the space of point-derivations $D\\colon C^\\infty_p(M)\\to\\mathbb{R}$ at $p$ — linear maps satisfying the Leibniz rule $D(fg)=D(f)g(p)+f(p)D(g)$.",
+            "$T_pM$ depends on the choice of chart: different charts give non-isomorphic tangent spaces.",
+            "The coordinate vectors $\\partial/\\partial x^1|_p,\\dots,\\partial/\\partial x^n|_p$ in any chart form a basis of $T_pM$.",
+            "$T_pM$ is canonically a subset of $M$ containing $p$."
           ],
-          "answer": 0,
-          "explain": "In any chart the coordinate vectors $\\partial/\\partial x^1,\\dots,\\partial/\\partial x^n$ form a basis, so $T_pM$ is an $n$-dimensional real vector space."
+          "answer": [
+            0,
+            1,
+            3
+          ],
+          "hint": "Three equivalent definitions of $T_pM$ — equivalence-classes of curves, point-derivations, chart-dependent components — all give the same $n$-dimensional vector space, basis-independent.",
+          "explain": "$T_pM$ is an intrinsic $n$-dimensional real vector space. The point-derivation definition is one of three standard equivalent ones (the others use velocities of curves through $p$, or component-tuples under chart-change). Coordinate vectors give a basis in any chart, but the space itself is canonical (chart-independent). $T_pM$ is not a subset of $M$ — it is a separate vector space attached to $p$."
         },
         {
           "type": "numeric",
           "q": "What is the dimension of the tangent bundle $TM$ of a smooth $n$-manifold $M$?",
           "answer": 6,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$TM$ has dimension $2n$; for $n=3$ this is $6$."
         },
         {
           "type": "numeric",
           "q": "Under a chart change $y=y(x)$, a tangent vector with components $X^i$ becomes $\\tilde X^j = (\\partial y^j/\\partial x^i)X^i$. If $X=(2,0)$ in coordinates $x$ and the Jacobian at the point is $\\begin{pmatrix}3&1\\\\0&2\\end{pmatrix}$, what is $\\tilde X^1$?",
           "answer": 6,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\tilde X^1 = 3\\cdot 2 + 1\\cdot 0 = 6$."
         }
       ],
@@ -250,7 +256,7 @@
           "type": "numeric",
           "q": "Let $f:M\\to N$ be a smooth map between manifolds of dimensions $3$ and $5$. What is the dimension of $\\ker(df_p)$ if $df_p$ has rank $2$?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "By the rank-nullity theorem applied to $df_p:T_pM\\to T_{f(p)}N$, $\\dim\\ker(df_p)=\\dim T_pM-\\operatorname{rank}(df_p)=3-2=1$."
         },
         {
@@ -298,7 +304,7 @@
           "type": "numeric",
           "q": "On $\\mathbb{R}^2$, the vector field $X = x\\,\\partial_x + y\\,\\partial_y$ acts on the function $f(x,y)=x^2+y^2$ as $Xf$. What is $(Xf)(1,2)$?",
           "answer": 10,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$Xf = x\\cdot 2x + y\\cdot 2y = 2(x^2+y^2)$. At $(1,2)$: $2(1+4) = 10$."
         }
       ],
@@ -319,7 +325,7 @@
           "type": "numeric",
           "q": "For a smooth $n$-manifold $M$, what is the dimension of the total space $TM$ of its tangent bundle when $n=5$?",
           "answer": 10,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\dim TM = 2n$. For $n=5$ this is $10$: a chart $(U,\\varphi)$ on $M$ gives a chart on $TM$ with coordinates $(x^1,\\dots,x^n,\\dot x^1,\\dots,\\dot x^n)$."
         },
         {
@@ -355,7 +361,7 @@
           "type": "numeric",
           "q": "By the regular value theorem, if $c$ is a regular value of $g\\colon\\mathbb{R}^{n+1}\\to\\mathbb{R}$ then $g^{-1}(c)$ is a smooth manifold of dimension $n$. For $g(x)=\\|x\\|^2$ on $\\mathbb{R}^4$ and $c=1$, what is the dimension of $g^{-1}(1)=S^3$?",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$g\\colon\\mathbb{R}^4\\to\\mathbb{R}$, and $1$ is regular, so $g^{-1}(1)$ has dimension $4-1=3$."
         },
         {
@@ -388,7 +394,7 @@
           "type": "numeric",
           "q": "Let $g:\\mathbb{R}^3\\to\\mathbb{R}^2$, $g(x,y,z)=(x^2+y^2+z^2,\\, x+y+z)$. At the point $p=(1,0,0)$, what is the rank of $dg_p$?",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$dg_p = \\begin{pmatrix}2&0&0\\\\1&1&1\\end{pmatrix}$. The first row has leading entry $2$ and the second has entry $1$ in the second column; the two rows are linearly independent, so $\\operatorname{rank}(dg_p)=2$, making $p$ a regular point."
         },
         {
@@ -424,7 +430,7 @@
           "type": "numeric",
           "q": "On $\\mathbb{R}$, the vector field $X=x\\,\\partial_x$ has integral curve through $x_0=1$ given by $\\gamma(t)=e^t$. What is $\\gamma(\\ln 3)$?",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Solving $\\dot x=x$ with $x(0)=1$ gives $x(t)=e^t$. Then $\\gamma(\\ln 3)=e^{\\ln 3}=3$."
         },
         {
@@ -470,7 +476,7 @@
           "type": "numeric",
           "q": "Let $X=-y\\,\\partial_x+x\\,\\partial_y$ on $\\mathbb{R}^2$ (rotation generator). Starting at $(1,0)$, the integral curve is $\\gamma(t)=(\\cos t,\\sin t)$. What is the $y$-coordinate of $\\Phi^X_{\\pi/2}(1,0)$?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\Phi^X_{\\pi/2}(1,0)=(\\cos(\\pi/2),\\sin(\\pi/2))=(0,1)$, so the $y$-coordinate is $1$."
         }
       ]
@@ -494,20 +500,26 @@
           "type": "numeric",
           "q": "On $\\mathbb{R}^2$ with $X=\\partial_x$ and $Y=x\\,\\partial_y$, the Lie bracket is $[X,Y]=\\partial_y$. Applying $[X,Y]$ to $f(x,y)=y^2$ at the point $(3,4)$ gives what number?",
           "answer": 8,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$[X,Y]f = \\partial_y(y^2) = 2y$. At $(3,4)$ this evaluates to $2\\cdot 4 = 8$."
         },
         {
-          "type": "mcq",
-          "q": "Which identity does the Lie bracket satisfy, making $\\mathfrak{X}(M)$ a Lie algebra?",
+          "type": "multi-select",
+          "q": "Select every identity that holds for the Lie bracket on $\\mathfrak{X}(M)$ for arbitrary $X,Y,Z\\in\\mathfrak{X}(M)$ and $f\\in C^\\infty(M)$.",
           "choices": [
-            "$[X,Y] = [Y,X]$ (symmetry)",
-            "$[X,[Y,Z]] + [Y,[Z,X]] + [Z,[X,Y]] = 0$ (Jacobi identity) and $[X,Y]=-[Y,X]$ (antisymmetry)",
-            "$[X,Y]\\cdot[Y,Z] = [X,Z]$",
-            "$[X,X] = X$"
+            "$[X,Y] = -[Y,X]$ (antisymmetry).",
+            "$[X,[Y,Z]] + [Y,[Z,X]] + [Z,[X,Y]] = 0$ (Jacobi identity).",
+            "$[fX,Y] = f[X,Y] - Y(f)X$ (failure of $C^\\infty$-bilinearity).",
+            "$[X,Y] = [Y,X]$ (symmetry).",
+            "$[X,X] = X$."
           ],
-          "answer": 1,
-          "explain": "The bracket is antisymmetric ($[X,Y]=-[Y,X]$, so in particular $[X,X]=0$) and satisfies the Jacobi identity. Those two axioms define a Lie algebra over $\\mathbb{R}$."
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "hint": "Antisymmetry + Jacobi makes $\\mathfrak{X}(M)$ a Lie algebra; the bracket is $\\mathbb{R}$-bilinear but not $C^\\infty$-bilinear — pulling out a function picks up a derivation term.",
+          "explain": "Antisymmetry and Jacobi together make $\\mathfrak{X}(M)$ a Lie algebra over $\\mathbb{R}$. From antisymmetry, $[X,X]=0$ — so options (3) and (4) fail. The bracket is not $C^\\infty$-bilinear: $[fX,Y]=f[X,Y]-Y(f)X$, with the extra $-Y(f)X$ term reflecting the fact that $Y$ differentiates the coefficient $f$. This is why the Lie bracket is a differential operator, not a tensor."
         }
       ],
       "hard": [
@@ -539,7 +551,7 @@
           "type": "numeric",
           "q": "On $\\mathbb{R}^2$ with $X = \\partial_x$ and $Y = x\\,\\partial_y + y\\,\\partial_x$, compute the $\\partial_y$-component of $[X,Y]$ evaluated at any point.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "For vector fields written as $X=X^i\\partial_i$, $Y=Y^j\\partial_j$, the bracket components are $[X,Y]^k = X^i\\partial_i Y^k - Y^i\\partial_i X^k$. Here $X=(1,0)$ and $Y=(y,x)$, with $X$ having constant coefficients. $[X,Y]^y = X^i\\partial_i Y^y - Y^i\\partial_i X^y = \\partial_x(x) - 0 = 1$. So $[X,Y]^y = 1$ is constant (independent of position)."
         }
       ]
@@ -548,16 +560,22 @@
       "title": "Partitions of unity",
       "questions": [
         {
-          "type": "mcq",
-          "q": "A smooth partition of unity subordinate to an open cover $\\{U_\\alpha\\}$ of $M$ is a family $\\{\\rho_\\alpha\\colon M\\to[0,1]\\}$ such that:",
+          "type": "proof-completion",
+          "q": "A standard construction of a smooth partition of unity subordinate to an open cover $\\{U_\\alpha\\}$ of a paracompact smooth manifold $M$ proceeds as follows. Pick the correct next step.",
+          "steps": [
+            "Pass to a locally finite refinement $\\{V_\\beta\\}$ of $\\{U_\\alpha\\}$ — possible because $M$ is paracompact.",
+            "For each $V_\\beta$, choose a smooth bump function $\\psi_\\beta\\colon M\\to[0,1]$ with $\\operatorname{supp}\\psi_\\beta\\subset V_\\beta$ and $\\psi_\\beta>0$ on a smaller open set $W_\\beta\\subset V_\\beta$ such that $\\{W_\\beta\\}$ still covers $M$.",
+            "Form the locally finite sum $\\Psi = \\sum_\\beta \\psi_\\beta$, which is smooth and strictly positive everywhere on $M$ since the $\\{W_\\beta\\}$ cover $M$."
+          ],
           "choices": [
-            "$\\operatorname{supp}\\rho_\\alpha\\subseteq U_\\alpha$, the family is locally finite, and $\\sum_\\alpha\\rho_\\alpha\\equiv 1$",
-            "each $\\rho_\\alpha$ is a constant function summing to $1$",
-            "exactly one $\\rho_\\alpha$ is $1$ at each point, the others $0$",
-            "$\\rho_\\alpha$ is the characteristic function of $U_\\alpha$"
+            "Define $\\rho_\\beta = \\psi_\\beta / \\Psi$; then each $\\rho_\\beta$ is smooth with $\\operatorname{supp}\\rho_\\beta\\subset V_\\beta$, $0\\le\\rho_\\beta\\le 1$, and $\\sum_\\beta\\rho_\\beta = 1$.",
+            "Define $\\rho_\\beta = \\psi_\\beta$; the locally finite sum being everywhere positive already gives $\\sum_\\beta\\psi_\\beta = 1$.",
+            "Replace each $\\psi_\\beta$ by the characteristic function $\\mathbf{1}_{V_\\beta}$ to ensure $\\sum = 1$.",
+            "Use a metric to define $\\rho_\\beta$ as the distance to the complement of $V_\\beta$."
           ],
           "answer": 0,
-          "explain": "A smooth partition of unity subordinate to $\\{U_\\alpha\\}$ consists of smooth non-negative bumps $\\rho_\\alpha$ supported in the corresponding $U_\\alpha$, with the family locally finite (so the sum makes sense pointwise), and $\\sum_\\alpha\\rho_\\alpha\\equiv 1$ on $M$. Characteristic functions of open sets are not even continuous, so (D) fails."
+          "hint": "Normalize each bump by the locally finite (smooth, positive) sum.",
+          "explain": "The final step is normalization: $\\rho_\\beta := \\psi_\\beta/\\Psi$ is smooth (denominator is smooth and positive), satisfies $\\operatorname{supp}\\rho_\\beta\\subset V_\\beta$, and $\\sum_\\beta\\rho_\\beta = \\Psi/\\Psi = 1$. Local finiteness of $\\{V_\\beta\\}$ guarantees the pointwise sum has only finitely many nonzero terms. The result is a smooth partition of unity subordinate to the (refined) cover."
         },
         {
           "type": "mcq",
@@ -569,13 +587,14 @@
             "only submanifolds of $\\mathbb{R}^n$"
           ],
           "answer": 2,
+          "hint": "Smooth partitions of unity exist on any paracompact smooth manifold; our definition already assumes second countability + Hausdorff, which imply paracompactness, so every smooth manifold in this…",
           "explain": "Smooth partitions of unity exist on any paracompact smooth manifold; our definition already assumes second countability + Hausdorff, which imply paracompactness, so every smooth manifold in this notebook admits them. Compactness and orientability are irrelevant."
         },
         {
           "type": "numeric",
           "q": "Suppose $\\{\\rho_1,\\rho_2,\\rho_3\\}$ is a partition of unity on $M$ and at a point $p$, $\\rho_1(p)=0.2$, $\\rho_2(p)=0.5$. What is $\\rho_3(p)$?",
           "answer": 0.3,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "By definition $\\rho_1(p)+\\rho_2(p)+\\rho_3(p)=1$, so $\\rho_3(p)=1-0.2-0.5=0.3$."
         }
       ],
@@ -619,6 +638,7 @@
             "$M$ embeds into $\\mathbb{R}^n$ for some $n$"
           ],
           "answer": 1,
+          "hint": "Orientability is equivalent to the existence of an oriented atlas — one for which every transition $\\varphi_\\beta\\circ\\varphi_\\alpha^{-1}$ has $\\det D(\\varphi_\\beta\\circ\\varphi_\\alpha^{-1})>0$ on its…",
           "explain": "Orientability is equivalent to the existence of an oriented atlas — one for which every transition $\\varphi_\\beta\\circ\\varphi_\\alpha^{-1}$ has $\\det D(\\varphi_\\beta\\circ\\varphi_\\alpha^{-1})>0$ on its domain. Equivalently, $M$ admits a nowhere-vanishing top-degree form."
         },
         {
@@ -637,7 +657,7 @@
           "type": "numeric",
           "q": "How many orientations does a connected orientable smooth manifold admit?",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "An orientation is a choice of sign on the top exterior power at each point, varying continuously. On a connected manifold there are exactly two global choices, differing by an overall sign flip."
         }
       ],
@@ -658,7 +678,7 @@
           "type": "numeric",
           "q": "On the 2-sphere $S^2$ with the usual orientation, consider the two stereographic charts from $N$ and $S$. On their overlap $S^2\\setminus\\{N,S\\}$, the transition is $\\varphi_S\\circ\\varphi_N^{-1}(u,v)=(u,v)/(u^2+v^2)$. What is the sign of the Jacobian determinant of this transition at $(u,v)=(1,0)$? Enter $+1$ or $-1$.",
           "answer": -1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Write the transition as $(u,v)\\mapsto(u/r^2,v/r^2)$ with $r^2=u^2+v^2$. Its Jacobian at $(1,0)$ has determinant $-1/r^4=-1$. So these two stereographic charts are oppositely oriented; to get a positively oriented atlas one composes $\\varphi_S$ with a reflection. This is why the two-chart stereographic atlas is a smooth atlas but not an oriented atlas as stated — an adjustment is needed."
         },
         {

@@ -14,14 +14,49 @@
       "tags": ["foundation", "group-action"]
     },
     {
+      "id": "splitting-fields",
+      "title": "Splitting fields",
+      "anchor": "galois",
+      "prereqs": [
+        "field-extensions-galois",
+        "field-extensions-basics",
+        "polynomial-rings-irreducibility"
+      ],
+      "blurb": "The splitting field of $f \\in K[x]$ is the smallest extension of $K$ over which $f$ factors into linear factors. It is unique up to $K$-isomorphism and is the natural domain on which $\\Gal(L/K)$ acts.",
+      "tags": ["foundation", "classification"]
+    },
+    {
       "id": "fundamental-theorem-galois",
       "title": "Fundamental theorem of Galois theory",
       "anchor": "solvable",
       "prereqs": [
-        "field-extensions-galois"
+        "field-extensions-galois",
+        "splitting-fields"
       ],
       "blurb": "Intermediate fields correspond contravariantly to subgroups of the Galois group.",
       "tags": ["duality", "classification", "group-action"]
+    },
+    {
+      "id": "solvable-groups",
+      "title": "Solvable groups",
+      "anchor": "solvable",
+      "prereqs": [
+        "subgroups-cosets-lagrange",
+        "quotient-groups-iso-theorems"
+      ],
+      "blurb": "$G$ is solvable iff its derived series $G \\tr{}iangleright G' \\tr{}iangleright G'' \\tr{}iangleright \\cdots$ terminates at $\\{e\\}$. Equivalently, $G$ admits a normal series with abelian quotients. Examples: $S_3, S_4$ are solvable; $S_n$ for $n \\geq 5$ is not.",
+      "tags": ["classification", "group-action"]
+    },
+    {
+      "id": "radical-extensions",
+      "title": "Radical extensions",
+      "anchor": "quintic",
+      "prereqs": [
+        "splitting-fields",
+        "solvable-groups"
+      ],
+      "blurb": "A tower $K = F_0 \\subset F_1 \\subset \\cdots \\subset F_n$ with $F_{i+1} = F_i(\\sqrt[n_i]{a_i})$. A polynomial $f$ is solvable by radicals iff its splitting field embeds in such a tower; on the group side this becomes a normal series with cyclic quotients, hence solvability of $\\Gal$.",
+      "tags": ["classification"]
     },
     {
       "id": "solvability-by-radicals",
@@ -29,11 +64,14 @@
       "anchor": "quintic",
       "prereqs": [
         "fundamental-theorem-galois",
+        "splitting-fields",
+        "solvable-groups",
+        "radical-extensions",
         "algebraic-structures",
         "quotients-homomorphisms",
         "field-extensions-basics"
       ],
-      "blurb": "Group-theoretic solvability explains why general quintics resist radical formulas.",
+      "blurb": "$f \\in K[x]$ is solvable by radicals iff $\\Gal(L/K)$ is a solvable group, where $L$ is the splitting field. The general quintic has Galois group $S_5$, which is not solvable — so no general radical formula exists for degree $\\geq 5$.",
       "tags": ["classification"]
     },
     {

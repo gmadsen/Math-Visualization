@@ -1,0 +1,96 @@
+{
+  "topic": "galois-cohomology-and-brauer",
+  "title": "Galois cohomology and Brauer groups",
+  "page": "galois-cohomology-and-brauer.html",
+  "concepts": [
+    {
+      "id": "gcb-cocycle-cohomology",
+      "title": "Galois cocycles and $H^i(G,M)$",
+      "anchor": "cocycles",
+      "prereqs": [
+        "h1-crossed-homs",
+        "field-extensions-galois",
+        "fundamental-theorem-galois"
+      ],
+      "blurb": "For a finite Galois extension $L/K$ with $G=\\Gal(L/K)$ acting on a $G$-module $M$, $H^i(G,M)$ is computed by inhomogeneous cochains $c:G^i\\to M$ modulo coboundaries. Examples: $H^0=M^G$, $H^1(G,L^\\times)=1$ (Hilbert 90), $H^1(G,\\mu_n)=K^\\times/(K^\\times)^n$ (Kummer).",
+      "tags": [
+        "cohomology",
+        "group-action",
+        "foundation"
+      ]
+    },
+    {
+      "id": "gcb-h1-torsors",
+      "title": "$H^1$ classifies torsors and twisted forms",
+      "anchor": "torsors",
+      "prereqs": [
+        "gcb-cocycle-cohomology"
+      ],
+      "blurb": "$H^1(G,A(L))$ parameterises isomorphism classes of $G$-torsors under an algebraic group $A$ — equivalently, $L/K$-twisted forms of an object with automorphism group $A$. For $A=\\mathrm{PGL}_n$ the torsors are central simple algebras of degree $n$; for $A=\\mathrm{O}_q$ they are quadratic forms in the same genus.",
+      "tags": [
+        "cohomology",
+        "classification",
+        "descent"
+      ]
+    },
+    {
+      "id": "gcb-h2-extensions",
+      "title": "$H^2$ and group extensions",
+      "anchor": "extensions",
+      "prereqs": [
+        "gcb-cocycle-cohomology",
+        "h2-extensions"
+      ],
+      "blurb": "$H^2(G,A)$ parameterises equivalence classes of central extensions $1\\to A\\to E\\to G\\to 1$. The Schur multiplier $M(G)=H^2(G,\\mathbb{C}^\\times)$ controls projective representations: every projective rep lifts to a linear rep of a central extension by $M(G)$.",
+      "tags": [
+        "cohomology",
+        "classification",
+        "exact-sequence"
+      ]
+    },
+    {
+      "id": "gcb-brauer-group",
+      "title": "Brauer group $\\mathrm{Br}(K) = H^2(K,\\bar K^\\times)$",
+      "anchor": "brauer",
+      "prereqs": [
+        "gcb-h2-extensions",
+        "gcb-h1-torsors"
+      ],
+      "blurb": "The Brauer group is $\\mathrm{Br}(K)=H^2(\\Gal(\\bar K/K),\\bar K^\\times)$, equivalently equivalence classes of central simple $K$-algebras under $A\\sim B$ iff $M_m(A)\\cong M_n(B)$. Each class has a unique division-algebra representative; cyclic algebras $(a,b)_n$ generate via the cup product $K^\\times/(K^\\times)^n \\otimes K^\\times/(K^\\times)^n \\to \\mathrm{Br}(K)[n]$.",
+      "tags": [
+        "cohomology",
+        "classification",
+        "duality"
+      ]
+    },
+    {
+      "id": "gcb-cup-product-cassels-tate",
+      "title": "Cup product and Tate local duality",
+      "anchor": "cup-product",
+      "prereqs": [
+        "gcb-cocycle-cohomology",
+        "gcb-brauer-group"
+      ],
+      "blurb": "The cup product $H^p(G,M)\\otimes H^q(G,N)\\to H^{p+q}(G,M\\otimes N)$ pairs cocycles. Over a non-archimedean local field $K$, Tate duality gives a perfect pairing $H^i(K,M)\\times H^{2-i}(K,M^*) \\to H^2(K,\\bar K^\\times) = \\mathbb{Q}/\\mathbb{Z}$ for finite $M$ — the cohomological avatar of local class field theory.",
+      "tags": [
+        "cohomology",
+        "duality"
+      ]
+    },
+    {
+      "id": "gcb-applications-arithmetic",
+      "title": "Applications: Hasse principle, Selmer, descent",
+      "anchor": "applications",
+      "prereqs": [
+        "gcb-brauer-group",
+        "gcb-cup-product-cassels-tate"
+      ],
+      "blurb": "Albert–Brauer–Hasse–Noether: a central simple algebra splits over $\\mathbb{Q}$ iff it splits over every $\\mathbb{Q}_v$. The Brauer–Manin obstruction explains why some smooth varieties have local points everywhere yet no global point. Selmer groups in BSD-style descent are kernels of restriction maps between Galois cohomology groups.",
+      "tags": [
+        "cohomology",
+        "duality",
+        "descent"
+      ]
+    }
+  ]
+}

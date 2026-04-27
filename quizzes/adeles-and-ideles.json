@@ -54,7 +54,7 @@
           "type": "numeric",
           "q": "Let $x = 2^{-3} \\cdot 3^2 \\cdot 5$. Compute $|x|_2 \\cdot |x|_3 \\cdot |x|_5 \\cdot |x|_\\infty$ (the product over all places).",
           "answer": 1,
-          "tol": 1e-09,
+          "tol": 1e-9,
           "hint": "Count the finite places with nontrivial valuation; the rest contribute $1$.",
           "explain": "This is the product formula: $\\prod_v |x|_v = 1$ for any $x \\in \\mathbb{Q}^\\times$. We get $|x|_2 = 2^3$, $|x|_3 = 3^{-2}$, $|x|_5 = 5^{-1}$, $|x|_\\infty = 2^{-3} \\cdot 3^2 \\cdot 5$, and their product is $1$."
         },
@@ -179,15 +179,15 @@
         },
         {
           "type": "mcq",
-          "q": "Class field theory for $\\mathbb{Q}$ identifies the Galois group $\\operatorname{Gal}(\\mathbb{Q}^{\\mathrm{ab}}/\\mathbb{Q})$ with a quotient of which group?",
+          "q": "Class field theory for $\\mathbb{Q}$ identifies the Galois group $\\Gal(\\mathbb{Q}^{\\mathrm{ab}}/\\mathbb{Q})$ with a quotient of which group?",
           "choices": [
             "The additive group $\\mathbb{A}_\\mathbb{Q}$",
             "The idele class group $C_\\mathbb{Q} = \\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times$",
             "The unit group $\\hat{\\mathbb{Z}}^\\times = \\prod_p \\mathbb{Z}_p^\\times$",
-            "The absolute Galois group $\\operatorname{Gal}(\\bar{\\mathbb{Q}}/\\mathbb{Q})$"
+            "The absolute Galois group $\\Gal(\\bar{\\mathbb{Q}}/\\mathbb{Q})$"
           ],
           "answer": 1,
-          "explain": "Global class field theory (the Artin map) provides a canonical surjection $C_\\mathbb{Q} \\twoheadrightarrow \\operatorname{Gal}(\\mathbb{Q}^{\\mathrm{ab}}/\\mathbb{Q})$. For $\\mathbb{Q}$ this recovers the Kronecker-Weber theorem: every abelian extension is cyclotomic."
+          "explain": "Global class field theory (the Artin map) provides a canonical surjection $C_\\mathbb{Q} \\twoheadrightarrow \\Gal(\\mathbb{Q}^{\\mathrm{ab}}/\\mathbb{Q})$. For $\\mathbb{Q}$ this recovers the Kronecker-Weber theorem: every abelian extension is cyclotomic."
         }
       ],
       "hard": [
@@ -214,8 +214,8 @@
             "$\\mathbb{Z}/2\\mathbb{Z}$"
           ],
           "answer": 1,
-          "hint": "Kronecker-Weber pins down $\\mathrm{Gal}(\\mathbb{Q}^{\\mathrm{ab}}/\\mathbb{Q})$; match that profinite group.",
-          "explain": "The idele class group $C_\\mathbb{Q}^1$ is isomorphic to $\\hat{\\mathbb{Z}}^\\times = \\prod_p \\mathbb{Z}_p^\\times$ via the Artin isomorphism. This is consistent with the Kronecker-Weber theorem: $\\operatorname{Gal}(\\mathbb{Q}^{\\mathrm{ab}}/\\mathbb{Q}) \\cong \\hat{\\mathbb{Z}}^\\times$."
+          "hint": "Kronecker-Weber pins down $\\Gal(\\mathbb{Q}^{\\mathrm{ab}}/\\mathbb{Q})$; match that profinite group.",
+          "explain": "The idele class group $C_\\mathbb{Q}^1$ is isomorphic to $\\hat{\\mathbb{Z}}^\\times = \\prod_p \\mathbb{Z}_p^\\times$ via the Artin isomorphism. This is consistent with the Kronecker-Weber theorem: $\\Gal(\\mathbb{Q}^{\\mathrm{ab}}/\\mathbb{Q}) \\cong \\hat{\\mathbb{Z}}^\\times$."
         },
         {
           "type": "mcq",
@@ -317,6 +317,7 @@
             "A polynomial function on $\\mathbb{A}_\\mathbb{Q}$"
           ],
           "answer": 1,
+          "hint": "The Schwartz-Bruhat space on $\\mathbb{A}_\\mathbb{Q}$ consists of finite linear combinations of pure tensors $f_\\infty \\otimes \\prod_p f_p$ where $f_\\infty \\in \\mathcal{S}(\\mathbb{R})$, each $f_p$ is…",
           "explain": "The Schwartz-Bruhat space on $\\mathbb{A}_\\mathbb{Q}$ consists of finite linear combinations of pure tensors $f_\\infty \\otimes \\prod_p f_p$ where $f_\\infty \\in \\mathcal{S}(\\mathbb{R})$, each $f_p$ is locally constant and compactly supported on $\\mathbb{Q}_p$, and $f_p = \\mathbf{1}_{\\mathbb{Z}_p}$ for all but finitely many $p$."
         },
         {

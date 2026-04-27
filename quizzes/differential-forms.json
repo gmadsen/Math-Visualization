@@ -20,14 +20,14 @@
           "type": "numeric",
           "q": "What is $\\dim \\Omega^2(\\mathbb{R}^4)$ over $C^\\infty(\\mathbb{R}^4)$? (Equivalently, $\\binom{4}{2}$.)",
           "answer": 6,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "A basis of $\\Omega^k(\\mathbb{R}^n)$ is $\\{dx^{i_1}\\wedge\\cdots\\wedge dx^{i_k}\\}$ with strictly increasing indices, so the dimension is $\\binom{n}{k}=\\binom{4}{2}=6$."
         },
         {
           "type": "numeric",
           "q": "Let $v=(2,1)$ and $w=(1,3)$ in $\\mathbb{R}^2$. Compute $(dx\\wedge dy)(v,w) = v_1 w_2 - v_2 w_1$.",
           "answer": 5,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$(dx\\wedge dy)(v,w)=\\det\\begin{pmatrix}2&1\\\\1&3\\end{pmatrix}=2\\cdot 3-1\\cdot 1=5$."
         }
       ],
@@ -36,7 +36,7 @@
           "type": "numeric",
           "q": "Let $\\alpha = x\\,dy\\wedge dz + y\\,dz\\wedge dx + z\\,dx\\wedge dy$ on $\\mathbb{R}^3$. Compute $(dx\\wedge dy\\wedge dz)(e_1,e_2,e_3)$ where $e_i$ are standard basis vectors.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$(dx\\wedge dy\\wedge dz)(e_1,e_2,e_3)=\\det[dx^i(e_j)]=\\det I_3=1$. The wedge of all coordinate $1$-forms evaluates to $1$ on the positively oriented standard frame."
         },
         {
@@ -55,7 +55,7 @@
           "type": "numeric",
           "q": "Compute $\\dim\\Omega^k(\\mathbb{R}^5)$ for $k=3$.",
           "answer": 10,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\binom{5}{3}=10$. Basis elements are $dx^{i_1}\\wedge dx^{i_2}\\wedge dx^{i_3}$ with $i_1<i_2<i_3$ from $\\{1,2,3,4,5\\}$."
         }
       ]
@@ -79,7 +79,7 @@
           "type": "numeric",
           "q": "For $\\omega = x\\,dy - y\\,dx$ on $\\mathbb{R}^2$, compute the coefficient of $dx\\wedge dy$ in $d\\omega$ (i.e. $Q_x - P_y$ where $\\omega = P\\,dx + Q\\,dy$).",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Here $P=-y$, $Q=x$, so $Q_x-P_y = 1-(-1)=2$. Thus $d\\omega = 2\\,dx\\wedge dy$."
         },
         {
@@ -92,6 +92,7 @@
             "$\\nabla\\cdot X = \\nabla\\times X$"
           ],
           "answer": 1,
+          "hint": "Via $f\\leftrightarrow 0$-form, $X\\leftrightarrow 1$-form, and $\\star$ to get $2$-forms, $d^2=0$ becomes $\\nabla\\times(\\nabla f)=0$ and $\\nabla\\cdot(\\nabla\\times X)=0$ — two classical identities, one…",
           "explain": "Via $f\\leftrightarrow 0$-form, $X\\leftrightarrow 1$-form, and $\\star$ to get $2$-forms, $d^2=0$ becomes $\\nabla\\times(\\nabla f)=0$ and $\\nabla\\cdot(\\nabla\\times X)=0$ — two classical identities, one proof."
         }
       ],
@@ -100,7 +101,7 @@
           "type": "numeric",
           "q": "Let $\\omega = xyz\\,dx\\wedge dy\\wedge dz$ on $\\mathbb{R}^3$. What is $d\\omega$?",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\omega$ is already a $3$-form on $\\mathbb{R}^3$, so $d\\omega\\in\\Omega^4(\\mathbb{R}^3)=0$. The coefficient (thought of as a $4$-form component) is $0$."
         },
         {
@@ -148,7 +149,7 @@
           "type": "numeric",
           "q": "Let $f(u,v) = (u+v,\\ uv)$ from $\\mathbb{R}^2$ to $\\mathbb{R}^2$ with target coordinates $(x,y)$. Compute the coefficient of $du\\wedge dv$ in $f^*(dx\\wedge dy)$ at $(u,v)=(3,1)$.",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$f^*dx = du+dv$ and $f^*dy = v\\,du+u\\,dv$, so $f^*(dx\\wedge dy) = (du+dv)\\wedge(v\\,du+u\\,dv) = (u-v)\\,du\\wedge dv$. At $(3,1)$ the coefficient is $3-1=2$. (Equivalently, the Jacobian determinant $\\det Df = u-v$.)"
         },
         {
@@ -169,7 +170,7 @@
           "type": "numeric",
           "q": "Let $f(u,v)=(u^2-v^2,\\ 2uv)$ from $\\mathbb{R}^2\\to\\mathbb{R}^2$. Compute $\\det Df$ at $(u,v)=(1,1)$.",
           "answer": 8,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$Df=\\begin{pmatrix}2u & -2v \\\\ 2v & 2u\\end{pmatrix}$, so $\\det Df=4u^2+4v^2$. At $(1,1)$: $4+4=8$. Equivalently, $f$ corresponds to $z\\mapsto z^2$ and $|f'(z)|^2=4|z|^2=8$ at $z=1+i$."
         },
         {
@@ -188,7 +189,7 @@
           "type": "numeric",
           "q": "Let $g(s,t)=(s\\cos t,\\ s\\sin t)$ (polar coordinates), $s>0$. Compute the coefficient of $ds\\wedge dt$ in $g^*(dx\\wedge dy)$ at $s=2$.",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$g^*dx=\\cos t\\,ds-s\\sin t\\,dt$, $g^*dy=\\sin t\\,ds+s\\cos t\\,dt$. Wedging: $g^*(dx\\wedge dy)=s(\\cos^2 t+\\sin^2 t)\\,ds\\wedge dt=s\\,ds\\wedge dt$. At $s=2$ the coefficient is $2$."
         }
       ]
@@ -224,7 +225,7 @@
           "type": "numeric",
           "q": "Let $\\sigma:[0,1]\\to\\mathbb{R}^2$, $\\sigma(t)=(t,t^2)$, and $\\omega = dy$. Compute $\\int_\\sigma\\omega$.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\sigma^*\\omega = \\sigma^*(dy) = d(t^2) = 2t\\,dt$. Then $\\int_\\sigma\\omega = \\int_0^1 2t\\,dt = 1$. Geometrically, $\\int_\\sigma dy$ is just the net vertical displacement of $\\sigma$, $y(1)-y(0)=1-0=1$."
         }
       ],
@@ -233,7 +234,7 @@
           "type": "numeric",
           "q": "Let $c = \\sigma_1 - \\sigma_2$ be a $1$-chain where $\\sigma_1(t)=(t,0)$ and $\\sigma_2(t)=(0,t)$ for $t\\in[0,1]$, and let $\\omega=x\\,dx+y\\,dy$. Compute $\\int_c\\omega$.",
           "answer": 0,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\int_{\\sigma_1}\\omega=\\int_0^1 t\\,dt=\\frac{1}{2}$. $\\int_{\\sigma_2}\\omega=\\int_0^1 t\\,dt=\\frac{1}{2}$. So $\\int_c\\omega=\\frac{1}{2}-\\frac{1}{2}=0$. Indeed $\\omega=d(\\frac{x^2+y^2}{2})$ is exact, so its integral over any cycle (or any chain with equal endpoints) is path-independent."
         },
         {
@@ -252,7 +253,7 @@
           "type": "numeric",
           "q": "The boundary of the standard $2$-simplex $\\Delta^2$ consists of three $1$-simplices. How many $0$-simplices (vertices) does $\\partial\\Delta^2$ have (counting with multiplicity from the chain formula $\\partial_0\\circ\\partial_1 c=0$, i.e. how many distinct vertices)?",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\partial\\Delta^2 = [v_1,v_2]-[v_0,v_2]+[v_0,v_1]$. Each edge contributes its two endpoints; the three edges share the three vertices $v_0,v_1,v_2$. All boundary-of-boundary cancellations confirm $\\partial^2=0$, and there are $3$ distinct vertices."
         }
       ]
@@ -276,14 +277,14 @@
           "type": "numeric",
           "q": "Let $\\omega = (-y\\,dx + x\\,dy)/(x^2+y^2)$ on $\\mathbb{R}^2\\setminus\\{0\\}$ and let $\\gamma$ be a loop winding $n=3$ times counterclockwise around $0$. Compute $\\oint_\\gamma \\omega / \\pi$.",
           "answer": 6,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\oint_\\gamma \\omega = 2\\pi n = 6\\pi$, so $\\oint_\\gamma\\omega/\\pi = 6$. Nonzero integral means $\\omega$ is closed but not exact."
         },
         {
           "type": "numeric",
           "q": "What is $\\dim H^1_{\\mathrm{dR}}(T^2)$ for the $2$-torus $T^2 = S^1\\times S^1$?",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "The torus has two independent $1$-cycles ($d\\theta_1$ and $d\\theta_2$), so $H^1_{\\mathrm{dR}}(T^2)\\cong\\mathbb{R}^2$ and its dimension is $2$."
         }
       ],
@@ -304,7 +305,7 @@
           "type": "numeric",
           "q": "Compute $\\dim H^2_{\\mathrm{dR}}(S^2)$.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "By de Rham's theorem, $H^k_{\\mathrm{dR}}(S^n)\\cong H^k(S^n;\\mathbb{R})$. For $S^2$: $H^0=H^2=\\mathbb{R}$ and $H^1=0$. So $\\dim H^2_{\\mathrm{dR}}(S^2)=1$, generated by the area form."
         },
         {

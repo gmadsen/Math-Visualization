@@ -37,7 +37,7 @@
         "h0-fixed-points",
         "exact-sequences"
       ],
-      "blurb": "$H^1(G,M)$ is crossed homomorphisms $\\varphi(gh)=\\varphi(g)+g\\varphi(h)$ modulo principal ones $g\\mapsto gm-m$. Hilbert's Theorem 90 says $H^1(\\mathrm{Gal}(L/K),L^\\times)=1$ for cyclic $L/K$: every norm-one element is of the form $\\sigma(\\alpha)/\\alpha$.",
+      "blurb": "$H^1(G,M)$ is crossed homomorphisms $\\varphi(gh)=\\varphi(g)+g\\varphi(h)$ modulo principal ones $g\\mapsto gm-m$. Hilbert's Theorem 90 says $H^1(\\Gal(L/K),L^\\times)=1$ for cyclic $L/K$: every norm-one element is of the form $\\sigma(\\alpha)/\\alpha$.",
       "tags": [
         "cohomology",
         "duality"
@@ -82,7 +82,7 @@
         "h2-extensions",
         "spectral-sequences-ha"
       ],
-      "blurb": "For $H\\trianglelefteq G$ the five-term sequence $0\\to H^1(G/H,M^H)\\to H^1(G,M)\\to H^1(H,M)^{G/H}\\to H^2(G/H,M^H)\\to H^2(G,M)$ is the low-degree edge of the LHS spectral sequence $E_2^{p,q}=H^p(G/H,H^q(H,M))\\Rightarrow H^{p+q}(G,M)$.",
+      "blurb": "For $H\\tr{}ianglelefteq G$ the five-term sequence $0\\to H^1(G/H,M^H)\\to H^1(G,M)\\to H^1(H,M)^{G/H}\\to H^2(G/H,M^H)\\to H^2(G,M)$ is the low-degree edge of the LHS spectral sequence $E_2^{p,q}=H^p(G/H,H^q(H,M))\\Rightarrow H^{p+q}(G,M)$.",
       "tags": [
         "cohomology",
         "exact-sequence",
@@ -98,7 +98,7 @@
         "h2-extensions",
         "field-extensions-galois"
       ],
-      "blurb": "Continuous group cohomology of $G_k=\\mathrm{Gal}(\\bar k/k)$ acting on a Galois module $M$ is Galois cohomology $H^n(k,M)$. Hilbert 90 says $H^1(k,\\bar k^\\times)=0$; $H^2(k,\\bar k^\\times)=\\mathrm{Br}(k)$ is the Brauer group of central simple algebras, with the Kummer sequence giving $H^1(k,\\mu_n)=k^\\times/(k^\\times)^n$.",
+      "blurb": "Continuous group cohomology of $G_k=\\Gal(\\bar k/k)$ acting on a Galois module $M$ is Galois cohomology $H^n(k,M)$. Hilbert 90 says $H^1(k,\\bar k^\\times)=0$; $H^2(k,\\bar k^\\times)=\\mathrm{Br}(k)$ is the Brauer group of central simple algebras, with the Kummer sequence giving $H^1(k,\\mu_n)=k^\\times/(k^\\times)^n$.",
       "tags": [
         "cohomology",
         "duality",

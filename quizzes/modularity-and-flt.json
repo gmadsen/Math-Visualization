@@ -20,7 +20,7 @@
           "type": "numeric",
           "q": "The Frey discriminant is $\\Delta=(abc)^{2p}/2^{8}$. Suppose $\\ell$ is an odd prime dividing $abc$ exactly once (i.e. $v_\\ell(abc)=1$), and take $p=5$. Compute $v_\\ell(\\Delta)\\bmod p$.",
           "answer": 0,
-          "tol": 1e-09,
+          "tol": 1e-9,
           "hint": "$v_\\ell(\\Delta)=2p\\cdot v_\\ell(abc)$ at odd $\\ell$; what is that value mod $p$?",
           "explain": "At an odd prime $\\ell\\mid abc$, the factor of $2^8$ doesn't affect $v_\\ell$, so $v_\\ell(\\Delta)=2p\\cdot v_\\ell(abc)=2\\cdot 5\\cdot 1=10$, and $10\\equiv 0\\pmod 5$. This divisibility by $p$ is precisely what makes $\\overline{\\rho}_{E,p}$ unramified at $\\ell$, enabling Ribet's level-lowering to strip $\\ell$ from the level."
         },
@@ -60,7 +60,7 @@
         },
         {
           "type": "mcq",
-          "q": "Serre's original conjecture (now Khare\u2013Wintenberger theorem) predicts that every odd irreducible $\\overline{\\rho}: G_\\mathbb{Q} \\to \\mathrm{GL}_2(\\mathbb{F}_p)$ is modular. In the FLT proof, which weaker statement about $\\overline{\\rho}_{E,p}$ actually suffices to apply Ribet's theorem?",
+          "q": "Serre's original conjecture (now Khare–Wintenberger theorem) predicts that every odd irreducible $\\overline{\\rho}: G_\\mathbb{Q} \\to \\mathrm{GL}_2(\\mathbb{F}_p)$ is modular. In the FLT proof, which weaker statement about $\\overline{\\rho}_{E,p}$ actually suffices to apply Ribet's theorem?",
           "choices": [
             "The full Serre conjecture for all $p$",
             "That $\\overline{\\rho}_{E,3}$ or $\\overline{\\rho}_{E,5}$ is modular, which follows from $E$ being modular",
@@ -80,7 +80,7 @@
           "q": "Which space of modular forms is matched to an elliptic curve $E/\\mathbb{Q}$ of conductor $N$ by the modularity theorem?",
           "choices": [
             "$M_k(\\mathrm{SL}_2(\\mathbb{Z}))$ for $k$ even",
-            "$S_2(\\Gamma_0(N))$ \u2014 weight-2 cusp forms for $\\Gamma_0(N)$",
+            "$S_2(\\Gamma_0(N))$ — weight-2 cusp forms for $\\Gamma_0(N)$",
             "$S_{12}(\\mathrm{SL}_2(\\mathbb{Z}))$",
             "$M_2(\\Gamma_1(N))$"
           ],
@@ -96,11 +96,11 @@
         },
         {
           "type": "mcq",
-          "q": "Wiles and Taylor\u2013Wiles (1995) proved modularity for <em>semistable</em> elliptic curves over $\\mathbb{Q}$. Who extended this to <em>every</em> elliptic curve over $\\mathbb{Q}$?",
+          "q": "Wiles and Taylor–Wiles (1995) proved modularity for <em>semistable</em> elliptic curves over $\\mathbb{Q}$. Who extended this to <em>every</em> elliptic curve over $\\mathbb{Q}$?",
           "choices": [
             "Ribet",
             "Serre",
-            "Breuil\u2013Conrad\u2013Diamond\u2013Taylor (2001)",
+            "Breuil–Conrad–Diamond–Taylor (2001)",
             "Deligne"
           ],
           "answer": 2,
@@ -125,7 +125,7 @@
             "It is equal to the Riemann zeta function"
           ],
           "answer": 1,
-          "explain": "Hecke's theory gives $L(f, s)$ an analytic continuation and functional equation for any newform $f$. Via modularity $L(E, s) = L(f_E, s)$, the elliptic curve $L$-function inherits both properties \u2014 this is essential for BSD and other applications."
+          "explain": "Hecke's theory gives $L(f, s)$ an analytic continuation and functional equation for any newform $f$. Via modularity $L(E, s) = L(f_E, s)$, the elliptic curve $L$-function inherits both properties — this is essential for BSD and other applications."
         },
         {
           "type": "mcq",
@@ -173,7 +173,7 @@
             "Because $p$ is prime"
           ],
           "answer": 1,
-          "explain": "After Ribet, $\\overline\\rho_{E,p}$ would come from a weight-2 newform in $S_2(\\Gamma_0(2))$. But $X_0(2)$ has genus $0$, so $S_2(\\Gamma_0(2)) = 0$. No such newform exists \u2014 contradiction, and therefore $a^p+b^p=c^p$ has no nontrivial integer solutions."
+          "explain": "After Ribet, $\\overline\\rho_{E,p}$ would come from a weight-2 newform in $S_2(\\Gamma_0(2))$. But $X_0(2)$ has genus $0$, so $S_2(\\Gamma_0(2)) = 0$. No such newform exists — contradiction, and therefore $a^p+b^p=c^p$ has no nontrivial integer solutions."
         }
       ],
       "hard": [
@@ -218,7 +218,7 @@
           "type": "mcq",
           "q": "Mazur's universal deformation ring $R^{\\mathrm{univ}}$ of an absolutely irreducible residual representation $\\overline\\rho : G_\\mathbb{Q} \\to \\mathrm{GL}_2(\\mathbb{F}_p)$ represents which functor?",
           "choices": [
-            "$A \\mapsto \\mathrm{Hom}(G_\\mathbb{Q}, A^\\times)$",
+            "$A \\mapsto \\Hom(G_\\mathbb{Q}, A^\\times)$",
             "$A \\mapsto \\{\\text{continuous lifts } \\rho: G_\\mathbb{Q} \\to \\mathrm{GL}_2(A) \\text{ of } \\overline\\rho\\}/\\!\\sim$ on complete Noetherian local $\\mathbb{Z}_p$-algebras with residue field $\\mathbb{F}_p$",
             "$A \\mapsto \\mathrm{GL}_2(A)$",
             "$A \\mapsto A \\otimes_{\\mathbb{Z}_p} \\mathbb{Q}_p$"
@@ -233,9 +233,10 @@
             "$H^0(G_\\mathbb{Q}, \\mathrm{Ad}\\,\\overline\\rho)$",
             "$H^1_\\Sigma(G_\\mathbb{Q}, \\mathrm{Ad}\\,\\overline\\rho)$, the Selmer group with local conditions at $\\Sigma$",
             "$H^2(G_\\mathbb{Q}, \\mathrm{Ad}\\,\\overline\\rho)$",
-            "$\\pi_1^{\\text{\u00e9t}}(\\mathrm{Spec}\\,\\mathbb{Z}[1/\\Sigma])$"
+            "$\\pi_1^{\\text{ét}}(\\Spec\\,\\mathbb{Z}[1/\\Sigma])$"
           ],
           "answer": 1,
+          "hint": "The mod-$\\mathfrak{m}^2$ (Zariski) tangent space of $R_\\Sigma$ is naturally the Selmer group $H^1_\\Sigma(G_\\mathbb{Q}, \\mathrm{Ad}\\,\\overline\\rho)$: first-order deformations are exactly adjoint…",
           "explain": "The mod-$\\mathfrak{m}^2$ (Zariski) tangent space of $R_\\Sigma$ is naturally the Selmer group $H^1_\\Sigma(G_\\mathbb{Q}, \\mathrm{Ad}\\,\\overline\\rho)$: first-order deformations are exactly adjoint cocycles satisfying the chosen local conditions."
         },
         {
@@ -249,7 +250,7 @@
       "hard": [
         {
           "type": "mcq",
-          "q": "The tangent space of $R_\\Sigma$ computes $H^1_\\Sigma(G_\\mathbb{Q}, \\mathrm{Ad}\\,\\overline{\\rho})$. In the Taylor\u2013Wiles method, one adds auxiliary primes $Q_n = \\{q_1, \\ldots, q_n\\}$ to enlarge $\\Sigma$. What is the net effect on the tangent space dimension?",
+          "q": "The tangent space of $R_\\Sigma$ computes $H^1_\\Sigma(G_\\mathbb{Q}, \\mathrm{Ad}\\,\\overline{\\rho})$. In the Taylor–Wiles method, one adds auxiliary primes $Q_n = \\{q_1, \\ldots, q_n\\}$ to enlarge $\\Sigma$. What is the net effect on the tangent space dimension?",
           "choices": [
             "It stays fixed because the Selmer conditions are unchanged",
             "It grows by $n$ because each auxiliary prime $q_i \\equiv 1 \\pmod{p}$ contributes one new local condition",
@@ -257,7 +258,7 @@
             "It shrinks by $n$ since auxiliary primes impose extra ramification"
           ],
           "answer": 1,
-          "explain": "Each Taylor\u2013Wiles prime $q \\equiv 1 \\pmod{p}$ with $\\overline{\\rho}(\\mathrm{Frob}_q)$ having distinct eigenvalues adds one dimension to the unrestricted local $H^1$ at $q$, enlarging the Selmer tangent space by $1$. Choosing $n$ such primes balances the obstruction count in the numerical criterion."
+          "explain": "Each Taylor–Wiles prime $q \\equiv 1 \\pmod{p}$ with $\\overline{\\rho}(\\mathrm{Frob}_q)$ having distinct eigenvalues adds one dimension to the unrestricted local $H^1$ at $q$, enlarging the Selmer tangent space by $1$. Choosing $n$ such primes balances the obstruction count in the numerical criterion."
         },
         {
           "type": "mcq",
@@ -276,7 +277,7 @@
           "q": "In the minimal deformation problem for $\\overline{\\rho}_{E,p}$ at a prime $p$ where $\\mathrm{Ad}^0\\overline{\\rho}$ has $H^0 = 0$, Euler characteristic considerations give $\\dim H^1 - \\dim H^2 = -\\chi$. If the local Euler factors at $p$ and $\\infty$ contribute a net correction of $-1$, and the global $\\chi(G_\\mathbb{Q,\\Sigma}, \\mathrm{Ad}^0\\overline{\\rho}) = -3$ before local correction, what is $\\dim H^1_\\Sigma - \\dim H^2_\\Sigma$?",
           "answer": -4,
           "tol": 0.01,
-          "explain": "The Euler characteristic formula: $\\dim H^1_\\Sigma - \\dim H^2_\\Sigma = \\chi(G_{\\mathbb{Q},\\Sigma}, \\mathrm{Ad}^0\\overline{\\rho}) + \\text{local correction} = -3 + (-1) = -4$. A negative value means obstructions outweigh tangent dimensions, which the Taylor\u2013Wiles patching resolves by adding auxiliary primes."
+          "explain": "The Euler characteristic formula: $\\dim H^1_\\Sigma - \\dim H^2_\\Sigma = \\chi(G_{\\mathbb{Q},\\Sigma}, \\mathrm{Ad}^0\\overline{\\rho}) + \\text{local correction} = -3 + (-1) = -4$. A negative value means obstructions outweigh tangent dimensions, which the Taylor–Wiles patching resolves by adding auxiliary primes."
         }
       ]
     },
@@ -290,7 +291,7 @@
             "$R_\\Sigma$ = endomorphism ring of $E$;   $\\mathbb{T}_\\Sigma$ = Tate module",
             "$R_\\Sigma$ = universal deformation ring of $\\overline\\rho$ with ramification data $\\Sigma$;   $\\mathbb{T}_\\Sigma$ = localized Hecke algebra acting on $S_2(\\Gamma_0(N_\\Sigma))$",
             "$R_\\Sigma$ = ring of integers of a number field;   $\\mathbb{T}_\\Sigma$ = its Galois closure",
-            "$R_\\Sigma$ = \u00e9tale fundamental group;   $\\mathbb{T}_\\Sigma$ = de Rham cohomology"
+            "$R_\\Sigma$ = étale fundamental group;   $\\mathbb{T}_\\Sigma$ = de Rham cohomology"
           ],
           "answer": 1,
           "explain": "$R_\\Sigma$ is the Galois-deformation side: all $p$-adic lifts of $\\overline\\rho$ with prescribed ramification. $\\mathbb{T}_\\Sigma$ is the automorphic side: Hecke operators on weight-2 cusp forms, localized at the maximal ideal matching $\\overline\\rho$. R = T says the two moduli spaces coincide."
@@ -299,13 +300,13 @@
           "type": "mcq",
           "q": "Why is the surjection $R_\\Sigma \\twoheadrightarrow \\mathbb{T}_\\Sigma$ automatic, and what technique upgrades it to an isomorphism?",
           "choices": [
-            "Surjectivity is automatic because Hecke eigensystems give modular Galois lifts of $\\overline\\rho$; the Taylor\u2013Wiles patching argument over auxiliary prime sets $Q_n$ forces injectivity.",
-            "Both come from the Riemann\u2013Roch theorem on $X_0(N)$.",
+            "Surjectivity is automatic because Hecke eigensystems give modular Galois lifts of $\\overline\\rho$; the Taylor–Wiles patching argument over auxiliary prime sets $Q_n$ forces injectivity.",
+            "Both come from the Riemann–Roch theorem on $X_0(N)$.",
             "One uses the Weil conjectures; the other uses Hodge theory.",
             "Ribet's level-lowering theorem gives the isomorphism directly."
           ],
           "answer": 0,
-          "explain": "Modular eigensystems visibly produce lifts of $\\overline\\rho$, giving a natural surjection $R_\\Sigma \\twoheadrightarrow \\mathbb{T}_\\Sigma$ by the universal property of $R_\\Sigma$. Taylor\u2013Wiles patching chooses auxiliary 'nice' primes $Q_n$, matches dimensions on both sides level by level, and takes a compatible limit to collapse the surjection into an isomorphism."
+          "explain": "Modular eigensystems visibly produce lifts of $\\overline\\rho$, giving a natural surjection $R_\\Sigma \\twoheadrightarrow \\mathbb{T}_\\Sigma$ by the universal property of $R_\\Sigma$. Taylor–Wiles patching chooses auxiliary 'nice' primes $Q_n$, matches dimensions on both sides level by level, and takes a compatible limit to collapse the surjection into an isomorphism."
         },
         {
           "type": "mcq",
@@ -317,13 +318,13 @@
             "$\\overline\\rho$ has finite image."
           ],
           "answer": 1,
-          "explain": "R = T means the map from Galois lifts to Hecke systems is a bijection: every $p$-adic lift of $\\overline\\rho$ with the prescribed local conditions comes from a weight-2 cusp form. For a modular residual $\\overline\\rho$, this promotes modularity from the residual level to every characteristic-zero lift \u2014 the whole point of modularity lifting."
+          "explain": "R = T means the map from Galois lifts to Hecke systems is a bijection: every $p$-adic lift of $\\overline\\rho$ with the prescribed local conditions comes from a weight-2 cusp form. For a modular residual $\\overline\\rho$, this promotes modularity from the residual level to every characteristic-zero lift — the whole point of modularity lifting."
         }
       ],
       "hard": [
         {
           "type": "mcq",
-          "q": "The Taylor\u2013Wiles patching argument constructs inverse systems $R_{Q_n} \\twoheadrightarrow \\mathbb{T}_{Q_n}$ over auxiliary sets $Q_n$. In the limit, one obtains an isomorphism $R_\\infty \\cong \\mathbb{T}_\\infty$ of power series rings over $\\mathbb{Z}_p$. Which property of the auxiliary primes $q \\in Q_n$ is essential for the patching to work?",
+          "q": "The Taylor–Wiles patching argument constructs inverse systems $R_{Q_n} \\twoheadrightarrow \\mathbb{T}_{Q_n}$ over auxiliary sets $Q_n$. In the limit, one obtains an isomorphism $R_\\infty \\cong \\mathbb{T}_\\infty$ of power series rings over $\\mathbb{Z}_p$. Which property of the auxiliary primes $q \\in Q_n$ is essential for the patching to work?",
           "choices": [
             "$q \\equiv -1 \\pmod{p}$ so that the local Galois group has order $2$",
             "$q \\equiv 1 \\pmod{p}$ and $\\overline{\\rho}(\\mathrm{Frob}_q)$ has distinct eigenvalues mod $p$, ensuring the local deformation ring at $q$ is formally smooth",
@@ -339,7 +340,7 @@
           "items": [
             "W1: The Frey curve $E_{a,b,c}$ is semistable.",
             "W2: Apply Ribet's level-lowering to $\\overline{\\rho}_{E,p}$, reducing the level to $2$.",
-            "W3: Prove the modularity lifting theorem $R_\\Sigma=\\mathbb{T}_\\Sigma$ via Taylor\u2013Wiles patching.",
+            "W3: Prove the modularity lifting theorem $R_\\Sigma=\\mathbb{T}_\\Sigma$ via Taylor–Wiles patching.",
             "W4: Conclude that the Frey curve is modular.",
             "W5: Derive a contradiction from $\\dim S_2(\\Gamma_0(2))=0$."
           ],
@@ -351,7 +352,7 @@
             4
           ],
           "hint": "Semistability is the hypothesis that enables the modularity engine; Ribet acts after modularity is known.",
-          "explain": "W1 (semistable Frey curve) is the hypothesis that lets Wiles' modularity lifting engine apply. W3 (R=T via Taylor\u2013Wiles) is the technical heart, which combined with residual modularity yields W4 (Frey is modular). Then W2 (Ribet) lowers the level of $\\overline{\\rho}_{E,p}$ from the Frey conductor down to $2$, and W5 closes the contradiction: no weight-$2$ cusp form of level $2$ exists."
+          "explain": "W1 (semistable Frey curve) is the hypothesis that lets Wiles' modularity lifting engine apply. W3 (R=T via Taylor–Wiles) is the technical heart, which combined with residual modularity yields W4 (Frey is modular). Then W2 (Ribet) lowers the level of $\\overline{\\rho}_{E,p}$ from the Frey conductor down to $2$, and W5 closes the contradiction: no weight-$2$ cusp form of level $2$ exists."
         },
         {
           "type": "numeric",

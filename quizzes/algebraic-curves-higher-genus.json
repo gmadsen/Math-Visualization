@@ -45,7 +45,6 @@
         }
       ]
     },
-
     "divisors-on-curves": {
       "title": "Divisors on curves",
       "questions": [
@@ -79,7 +78,6 @@
         }
       ]
     },
-
     "riemann-roch-curves": {
       "title": "Riemann–Roch on curves",
       "questions": [
@@ -130,7 +128,6 @@
         }
       ]
     },
-
     "canonical-embedding": {
       "title": "The canonical embedding",
       "questions": [
@@ -185,7 +182,6 @@
         }
       ]
     },
-
     "hyperelliptic-curves": {
       "title": "Hyperelliptic curves",
       "questions": [
@@ -206,7 +202,11 @@
             "$y^2 = x^7 + x^3 + 1$",
             "Any smooth curve of genus $g = 2$"
           ],
-          "answer": [0, 2, 3],
+          "answer": [
+            0,
+            2,
+            3
+          ],
           "explain": "(a) $y^2 = $ (degree 5) is hyperelliptic of genus 2. (c) $y^2 = $ (degree 7) is hyperelliptic of genus 3. (d) every genus-2 curve is hyperelliptic (canonical map is the unique $g^1_2$). The smooth plane quartic in (b) is the canonical model of a non-hyperelliptic genus-3 curve (generic case).",
           "hint": "Hyperelliptic ⇔ $y^2 = f(x)$ with $f$ separable of degree $2g+1$ or $2g+2$, OR genus $\\le 2$."
         },
@@ -220,7 +220,6 @@
         }
       ]
     },
-
     "moduli-of-curves-genus-g": {
       "title": "Moduli of higher-genus curves $\\mathcal{M}_g$",
       "questions": [

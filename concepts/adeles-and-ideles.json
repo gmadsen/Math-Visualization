@@ -57,7 +57,8 @@
       "prereqs": [
         "idele-class-group",
         "dirichlet-series-basics",
-        "analytic-continuation"
+        "analytic-continuation",
+        "poisson-summation"
       ],
       "blurb": "Tate's 1950 thesis recovers the analytic continuation and functional equation of $\\zeta(s)$ by integrating a Schwartz–Bruhat function on $\\mathbb{A}_\\mathbb{Q}$ against a character of $C_\\mathbb{Q}$; Poisson summation on $\\mathbb{A}_\\mathbb{Q}/\\mathbb{Q}$ yields the symmetry.",
       "tags": [

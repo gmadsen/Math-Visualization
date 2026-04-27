@@ -20,13 +20,18 @@
           "type": "numeric",
           "q": "How many ideals does $\\mathbb{Z}/12\\mathbb{Z}$ have?",
           "answer": 6,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Ideals of $\\mathbb{Z}/n$ correspond to divisors of $n$. Divisors of $12$: $1,2,3,4,6,12$, so $6$ ideals."
         },
         {
           "type": "mcq",
-          "q": "Which ideal of $\\mathbb{Z}$ has zero set $V(I) = \\{(2),(3),(5)\\}\\subset\\mathrm{Spec}(\\mathbb{Z})$?",
-          "choices": ["$(2\\cdot 3\\cdot 5)=(30)$", "$(2+3+5)=(10)$", "$(2)$", "$(0)$"],
+          "q": "Which ideal of $\\mathbb{Z}$ has zero set $V(I) = \\{(2),(3),(5)\\}\\subset\\Spec(\\mathbb{Z})$?",
+          "choices": [
+            "$(2\\cdot 3\\cdot 5)=(30)$",
+            "$(2+3+5)=(10)$",
+            "$(2)$",
+            "$(0)$"
+          ],
           "answer": 0,
           "explain": "$V(I)=\\{\\mathfrak{p}:I\\subseteq\\mathfrak{p}\\}$. In $\\mathbb{Z}$, $(30)\\subseteq (p)$ iff $p\\in\\{2,3,5\\}$, so $V((30))=\\{(2),(3),(5)\\}$."
         }
@@ -49,7 +54,7 @@
           "type": "numeric",
           "q": "How many elements does $\\mathbb{Z}[x]/(2,x^2+x+1)$ have?",
           "answer": 4,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Reduce mod $2$ first and check irreducibility.",
           "explain": "$\\mathbb{Z}[x]/(2,x^2+x+1)\\cong\\mathbb{F}_2[x]/(x^2+x+1)$. Since $x^2+x+1$ is irreducible over $\\mathbb{F}_2$, this is the field $\\mathbb{F}_4$ with $4$ elements."
         }
@@ -74,7 +79,7 @@
           "type": "numeric",
           "q": "How many maximal ideals does $\\mathbb{Z}/30\\mathbb{Z}$ have?",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "In an Artinian ring every prime is maximal. Primes of $\\mathbb{Z}/30$ correspond to primes dividing $30=2\\cdot 3\\cdot 5$, giving $(2),(3),(5)$: $3$ maximal ideals."
         },
         {
@@ -87,7 +92,10 @@
             "$(2,x)$",
             "$(3, x^2+1)$"
           ],
-          "answer": [3, 4],
+          "answer": [
+            3,
+            4
+          ],
           "explain": "$\\dim\\mathbb{Z}[x]=2$, so maximal ideals have height $2$. $(0)$ is generic (height $0$); $(2),(x)$ are height $1$ (quotient is a domain but not a field). $(2,x)$ and $(3,x^2+1)$ are height-$2$ with residue field $\\mathbb{F}_2$ and $\\mathbb{F}_9$ respectively."
         }
       ],
@@ -109,7 +117,7 @@
           "type": "numeric",
           "q": "In $A = \\mathbb{Z}[\\sqrt{-5}]$, the prime $(2)\\subset\\mathbb{Z}$ factors as $(2, 1+\\sqrt{-5})^2$. How many primes of $A$ lie over $(2)$?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "The prime is ramified.",
           "explain": "$(2)$ is ramified: $(2)A = \\mathfrak{p}^2$ with $\\mathfrak{p} = (2, 1+\\sqrt{-5})$, so exactly one prime lies above $(2)$. Note $A/\\mathfrak{p}\\cong\\mathbb{F}_2$."
         },
@@ -132,40 +140,40 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "In $\\mathrm{Spec}(\\mathbb{Z})$, the closure $\\overline{\\{(0)\\}}$ equals:",
+          "q": "In $\\Spec(\\mathbb{Z})$, the closure $\\overline{\\{(0)\\}}$ equals:",
           "choices": [
             "$\\{(0)\\}$",
-            "$\\mathrm{Spec}(\\mathbb{Z})$",
+            "$\\Spec(\\mathbb{Z})$",
             "the set of maximal ideals $(p)$",
             "the empty set"
           ],
           "answer": 1,
-          "explain": "$\\overline{\\{\\mathfrak{p}\\}} = V(\\mathfrak{p}) = \\{\\mathfrak{q}:\\mathfrak{p}\\subseteq\\mathfrak{q}\\}$. Since $(0)\\subseteq\\mathfrak{q}$ for all primes, $\\overline{\\{(0)\\}}=\\mathrm{Spec}(\\mathbb{Z})$: the generic point is dense."
+          "explain": "$\\overline{\\{\\mathfrak{p}\\}} = V(\\mathfrak{p}) = \\{\\mathfrak{q}:\\mathfrak{p}\\subseteq\\mathfrak{q}\\}$. Since $(0)\\subseteq\\mathfrak{q}$ for all primes, $\\overline{\\{(0)\\}}=\\Spec(\\mathbb{Z})$: the generic point is dense."
         },
         {
           "type": "numeric",
-          "q": "How many points does the distinguished open set $D(6) = \\{\\mathfrak{p}:6\\notin\\mathfrak{p}\\} \\subset \\mathrm{Spec}(\\mathbb{Z}/30)$ contain?",
+          "q": "How many points does the distinguished open set $D(6) = \\{\\mathfrak{p}:6\\notin\\mathfrak{p}\\} \\subset \\Spec(\\mathbb{Z}/30)$ contain?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Primes of $\\mathbb{Z}/30$ are $(2),(3),(5)$. $D(6)$ excludes primes containing $6$, i.e. containing $2$ or $3$, so it excludes $(2)$ and $(3)$, leaving $\\{(5)\\}$: $1$ point."
         },
         {
           "type": "mcq",
-          "q": "Which subset of $\\mathrm{Spec}(\\mathbb{Z})$ is NOT closed in the Zariski topology?",
+          "q": "Which subset of $\\Spec(\\mathbb{Z})$ is NOT closed in the Zariski topology?",
           "choices": [
             "$\\{(2),(3)\\}$",
             "$\\{(0)\\}$",
-            "$\\mathrm{Spec}(\\mathbb{Z})$",
+            "$\\Spec(\\mathbb{Z})$",
             "$\\emptyset$"
           ],
           "answer": 1,
-          "explain": "Closed sets are $V(I)$ for ideals $I$. $\\{(2),(3)\\}=V((6))$ is closed; $\\mathrm{Spec}=V((0))$; $\\emptyset=V((1))$. But $\\{(0)\\}$ would be $V(I)$ only if $I=(0)$, and $V((0))=\\mathrm{Spec}$, not $\\{(0)\\}$. The generic point $(0)$ is not closed."
+          "explain": "Closed sets are $V(I)$ for ideals $I$. $\\{(2),(3)\\}=V((6))$ is closed; $\\Spec=V((0))$; $\\emptyset=V((1))$. But $\\{(0)\\}$ would be $V(I)$ only if $I=(0)$, and $V((0))=\\Spec$, not $\\{(0)\\}$. The generic point $(0)$ is not closed."
         }
       ],
       "hard": [
         {
           "type": "mcq",
-          "q": "For a ring $A$, the map $\\mathrm{Spec}(A/I)\\to\\mathrm{Spec}(A)$ induced by $A\\twoheadrightarrow A/I$ is:",
+          "q": "For a ring $A$, the map $\\Spec(A/I)\\to\\Spec(A)$ induced by $A\\twoheadrightarrow A/I$ is:",
           "choices": [
             "a homeomorphism onto $V(I)$",
             "always surjective",
@@ -174,25 +182,28 @@
           ],
           "answer": 0,
           "hint": "Primes of $A/I$ correspond to primes of $A$ containing $I$.",
-          "explain": "Primes of $A/I$ biject with primes of $A$ containing $I$, i.e. with $V(I)$; the bijection is a Zariski homeomorphism. Similarly $\\mathrm{Spec}(S^{-1}A)$ embeds as the open set of primes disjoint from $S$."
+          "explain": "Primes of $A/I$ biject with primes of $A$ containing $I$, i.e. with $V(I)$; the bijection is a Zariski homeomorphism. Similarly $\\Spec(S^{-1}A)$ embeds as the open set of primes disjoint from $S$."
         },
         {
           "type": "multi-select",
-          "q": "Select all properties that $\\mathrm{Spec}(A)$ always satisfies as a topological space.",
+          "q": "Select all properties that $\\Spec(A)$ always satisfies as a topological space.",
           "choices": [
             "quasi-compact (every open cover has a finite subcover)",
             "Hausdorff",
             "$T_0$ (points distinguishable by open sets)",
             "connected"
           ],
-          "answer": [0, 2],
-          "explain": "$\\mathrm{Spec}(A)$ is always quasi-compact and $T_0$, never Hausdorff unless zero-dimensional (non-closed generic points). Connectedness fails for $A\\times B$: $\\mathrm{Spec}(A\\times B)=\\mathrm{Spec}(A)\\sqcup\\mathrm{Spec}(B)$."
+          "answer": [
+            0,
+            2
+          ],
+          "explain": "$\\Spec(A)$ is always quasi-compact and $T_0$, never Hausdorff unless zero-dimensional (non-closed generic points). Connectedness fails for $A\\times B$: $\\Spec(A\\times B)=\\Spec(A)\\sqcup\\Spec(B)$."
         },
         {
           "type": "numeric",
-          "q": "How many irreducible components does $\\mathrm{Spec}(k[x,y]/(xy(x-1)))$ have?",
+          "q": "How many irreducible components does $\\Spec(k[x,y]/(xy(x-1)))$ have?",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Decompose $(xy(x-1))$ into its prime components.",
           "explain": "$(xy(x-1)) = (x)\\cap(y)\\cap(x-1)$ as a radical ideal. The three minimal primes correspond to three irreducible components: the $y$-axis $(x)$, the $x$-axis $(y)$, and the line $x=1$."
         }
@@ -217,7 +228,7 @@
           "type": "numeric",
           "q": "What is the nilradical of $\\mathbb{Z}/72\\mathbb{Z}$? (Give its smallest nonnegative generator.)",
           "answer": 6,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$72 = 2^3\\cdot 3^2$. Nilradical = $(\\mathrm{rad}(72)) = (2\\cdot 3) = (6)$. An element is nilpotent iff it's divisible by every prime dividing $72$, i.e. by $6$."
         },
         {
@@ -256,14 +267,17 @@
             "$k[x]$ for a field $k$",
             "Any Jacobson ring (e.g. finitely generated $k$-algebra)"
           ],
-          "answer": [0, 3],
+          "answer": [
+            0,
+            3
+          ],
           "explain": "In Artinian rings, every prime is maximal, so the two intersections agree. Jacobson rings are defined by $\\mathrm{nil}(A/I)=\\mathrm{Jac}(A/I)$ for every $I$, in particular for $I=0$. For $\\mathbb{Z}$: $\\mathrm{nil}=(0)$, $\\mathrm{Jac}=\\bigcap(p)=(0)$ — equal! But $k[x]$: $\\mathrm{nil}=(0)$, $\\mathrm{Jac}=\\bigcap(f)=(0)$... actually these are both $(0)$ for one-dimensional Jacobson domains. Option B is valid too; but stricter rings like $\\mathbb{Z}_{(p)}$ fail."
         },
         {
           "type": "numeric",
           "q": "Let $A=k[x,y]/(x^2,xy)$. Compute $\\dim_k(\\mathrm{nil}(A))$ as a $k$-vector space.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "$A/(\\bar x)\\cong k[y]$ is reduced, so $\\mathrm{nil}(A) \\subseteq (\\bar x)$.",
           "explain": "$A$ has basis $\\{1,\\bar y,\\bar y^2,\\dots,\\bar x\\}$ over $k$. Since $A/(\\bar x)\\cong k[y]$ is reduced, $\\mathrm{nil}(A) = (\\bar x)$. And $(\\bar x) = k\\cdot\\bar x$ (since $\\bar x\\bar y = 0$), giving $\\dim_k\\mathrm{nil}(A)=1$."
         }
@@ -288,7 +302,7 @@
           "type": "numeric",
           "q": "How many $\\mathbb{Z}$-submodules does $\\mathbb{Z}/6\\mathbb{Z}$ have?",
           "answer": 4,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Submodules of $\\mathbb{Z}/6$ correspond to divisors of $6$: $1,2,3,6$, giving $4$ submodules: $0,\\;2\\mathbb{Z}/6,\\;3\\mathbb{Z}/6,\\;\\mathbb{Z}/6$ itself."
         },
         {
@@ -307,7 +321,7 @@
       "hard": [
         {
           "type": "mcq",
-          "q": "Let $M, N$ be finitely generated modules over a commutative ring $A$. The canonical map $M^\\vee \\otimes N \\to \\mathrm{Hom}(M, N)$ (where $M^\\vee = \\mathrm{Hom}(M, A)$) is an isomorphism when:",
+          "q": "Let $M, N$ be finitely generated modules over a commutative ring $A$. The canonical map $M^\\vee \\otimes N \\to \\Hom(M, N)$ (where $M^\\vee = \\Hom(M, A)$) is an isomorphism when:",
           "choices": [
             "always",
             "$M$ is finitely generated projective",
@@ -316,25 +330,29 @@
           ],
           "answer": 1,
           "hint": "The isomorphism requires dualizability of $M$.",
-          "explain": "$M^\\vee\\otimes N\\to\\mathrm{Hom}(M,N)$ is an iso when $M$ is f.g. projective (dualizable in $A\\mathbf{-Mod}$). It fails for general f.g. $M$ (e.g. torsion modules over a domain)."
+          "explain": "$M^\\vee\\otimes N\\to\\Hom(M,N)$ is an iso when $M$ is f.g. projective (dualizable in $A\\mathbf{-Mod}$). It fails for general f.g. $M$ (e.g. torsion modules over a domain)."
         },
         {
           "type": "multi-select",
           "q": "Select all statements that hold for modules $M$ over a commutative ring $A$.",
           "choices": [
-            "$\\mathrm{Hom}_A(A, M) \\cong M$ for every $M$",
+            "$\\Hom_A(A, M) \\cong M$ for every $M$",
             "$M\\otimes_A A \\cong M$ for every $M$",
             "Direct sum is a left adjoint to the diagonal functor",
             "Every finitely generated module over a PID is free"
           ],
-          "answer": [0, 1, 2],
-          "explain": "$\\mathrm{Hom}(A,-)$ and $-\\otimes A$ are both the identity functor on $A\\mathbf{-Mod}$. Coproducts (direct sums) are left adjoint to diagonal. The last is false: $\\mathbb{Z}/n$ is f.g. over $\\mathbb{Z}$ but not free."
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explain": "$\\Hom(A,-)$ and $-\\otimes A$ are both the identity functor on $A\\mathbf{-Mod}$. Coproducts (direct sums) are left adjoint to diagonal. The last is false: $\\mathbb{Z}/n$ is f.g. over $\\mathbb{Z}$ but not free."
         },
         {
           "type": "numeric",
           "q": "Compute $\\dim_{\\mathbb{F}_p}(\\mathbb{F}_p[x]/(x^3) \\otimes_{\\mathbb{F}_p[x]} \\mathbb{F}_p[x]/(x^7))$.",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Use $A/I \\otimes_A A/J \\cong A/(I+J)$.",
           "explain": "$\\mathbb{F}_p[x]/(x^3)\\otimes_{\\mathbb{F}_p[x]}\\mathbb{F}_p[x]/(x^7) \\cong \\mathbb{F}_p[x]/((x^3)+(x^7))=\\mathbb{F}_p[x]/(x^3)$ since $(x^3)\\supseteq(x^7)$. Dimension $= 3$."
         }
@@ -364,14 +382,17 @@
             "$k[x,y]/(xy)$",
             "The ring of continuous functions $C(\\mathbb{R})$"
           ],
-          "answer": [0, 2],
+          "answer": [
+            0,
+            2
+          ],
           "explain": "$\\mathbb{Z}$ is a PID (Noetherian). $k[x,y]/(xy)$ is a quotient of the Noetherian $k[x,y]$. $k[x_1,x_2,\\dots]$ has the non-stabilizing chain $(x_1)\\subsetneq(x_1,x_2)\\subsetneq\\cdots$. $C(\\mathbb{R})$ has chains of vanishing ideals that don't stabilize."
         },
         {
           "type": "numeric",
           "q": "The Hilbert basis theorem says: if $A$ is Noetherian then so is $A[x]$. Applying this repeatedly, $k[x_1,\\dots,x_n]$ is Noetherian over any field $k$. How many generators does the ideal $(x^5, x^3 y, y^7)\\subset k[x,y]$ need, minimally?",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "In a monomial ideal, minimal generators are the monomials not divisible by other monomials in the generating set. $x^5, x^3y, y^7$: none divides another, so all three are needed. $3$ generators."
         }
       ],
@@ -385,7 +406,12 @@
             "For any $g\\in I$, subtract a combination $\\sum a_i x^{k_i} f_i$ to reduce $\\deg g$",
             "Reduce to a finite-dimensional sub-case and invoke Noetherianness of $A$"
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
           "hint": "Start by extracting data from $I$; end by invoking ACC on $A$.",
           "explain": "The classical proof: first define $J$ = leading coefficients of elements of $I$ (this is an ideal of $A$), pick generators via Noetherianness of $A$, use them to reduce any $g\\in I$ modulo bounded-degree pieces, and finish with f.g. coefficient modules."
         },
@@ -406,7 +432,7 @@
           "type": "numeric",
           "q": "Let $A = k[x,y,z]/(x^2, xy, yz, z^2)$ (monomial quotient). How many associated primes does $A$ have as an $A$-module of itself?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Consider annihilators of nonzero elements.",
           "explain": "The only minimal prime containing $(x^2,xy,yz,z^2)$ is the nilradical's associated prime $(x,y,z)$: every nonzero element's annihilator is contained in $(x,y,z)$. One associated prime."
         }
@@ -431,7 +457,7 @@
           "type": "numeric",
           "q": "What is the length $\\ell_k(A)$ (equivalently $\\dim_k A$) of $A = k[x,y]/(x,y)^3$ as a $k$-vector space?",
           "answer": 6,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Basis $\\{1, x, y, x^2, xy, y^2\\}$. Length grows as $1 + 2 + 3 = 6 = \\binom{3+1}{2}$. In general $\\dim_k k[x_1,\\dots,x_d]/(x_1,\\dots,x_d)^n = \\binom{n+d-1}{d}$."
         },
         {
@@ -444,12 +470,16 @@
             "$k \\times k$",
             "$k[x]/(x^5)$"
           ],
-          "answer": [0, 2, 4],
+          "answer": [
+            0,
+            2,
+            4
+          ],
           "explain": "$k[\\epsilon]/(\\epsilon^2)$, $k[x,y]/(x^2,xy,y^2)$, and $k[x]/(x^5)$ are Artinian local with residue field $k$ — finite-dimensional over $k$ with a single maximal ideal that is nilpotent. $k[x]$ is not Artinian (infinite-dimensional, dim $1$). $k\\times k$ is Artinian but not local — it has two maximal ideals."
         },
         {
           "type": "mcq",
-          "q": "Which Artinian local $k$-algebra is the universal first-order thickening — the test ring for first-order deformations of $\\mathrm{Spec}\\,k$?",
+          "q": "Which Artinian local $k$-algebra is the universal first-order thickening — the test ring for first-order deformations of $\\Spec\\,k$?",
           "choices": [
             "$k$ itself",
             "$k[\\epsilon]/(\\epsilon^2)$",
@@ -457,7 +487,7 @@
             "$k[\\epsilon]/(\\epsilon^3)$"
           ],
           "answer": 1,
-          "explain": "$k[\\epsilon]/(\\epsilon^2)$ — the dual numbers — has length $2$ with $\\mathfrak{m}^2 = 0$ and embedding dimension $1$. A morphism $\\mathrm{Spec}\\,k[\\epsilon]/(\\epsilon^2) \\to X_0$ is exactly a $k$-point together with a tangent vector; flat lifts of $X_0$ to $\\mathrm{Spec}\\,k[\\epsilon]/(\\epsilon^2)$ are first-order deformations."
+          "explain": "$k[\\epsilon]/(\\epsilon^2)$ — the dual numbers — has length $2$ with $\\mathfrak{m}^2 = 0$ and embedding dimension $1$. A morphism $\\Spec\\,k[\\epsilon]/(\\epsilon^2) \\to X_0$ is exactly a $k$-point together with a tangent vector; flat lifts of $X_0$ to $\\Spec\\,k[\\epsilon]/(\\epsilon^2)$ are first-order deformations."
         }
       ]
     },
@@ -480,7 +510,7 @@
           "type": "numeric",
           "q": "How many primes less than $100$ survive in $\\mathbb{Z}[1/2]$ (i.e. remain non-unit primes)?",
           "answer": 24,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Primes of $S^{-1}A$ correspond to primes of $A$ disjoint from $S$. Inverting $2$ kills $(2)$, leaving odd primes $<100$: $3,5,7,11,\\dots,97$, which is $24$ primes."
         },
         {
@@ -514,7 +544,7 @@
           "type": "numeric",
           "q": "Let $A=\\mathbb{Z}_{(5)}$. How many ideals does $A/(125)$ have?",
           "answer": 4,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$A/(125)\\cong\\mathbb{Z}/125$ as rings: local with chain $(0)\\subsetneq(25)\\subsetneq(5)\\subsetneq(1)$. $4$ ideals."
         },
         {
@@ -535,22 +565,23 @@
       "title": "Flatness and Tor",
       "questions": [
         {
-          "type": "mcq",
-          "q": "Which $\\mathbb{Z}$-module is NOT flat?",
-          "choices": [
-            "$\\mathbb{Q}$",
-            "$\\mathbb{Z}[1/2]$",
-            "$\\mathbb{Z}/3\\mathbb{Z}$",
-            "$\\mathbb{Z}^{\\oplus 5}$"
+          "type": "spot-the-error",
+          "q": "A student claims $\\mathbb{Z}/3$ is a flat $\\mathbb{Z}$-module. Identify the flawed step in their argument.",
+          "steps": [
+            "Tensor the injection $\\mathbb{Z}\\xrightarrow{3}\\mathbb{Z}$ with $\\mathbb{Z}/3$ to test flatness of $\\mathbb{Z}/3$.",
+            "The induced map $\\mathbb{Z}/3\\xrightarrow{3}\\mathbb{Z}/3$ is the zero map (since $3\\equiv 0\\pmod 3$).",
+            "Since the original map $\\mathbb{Z}\\xrightarrow{3}\\mathbb{Z}$ is injective and tensoring preserves injectivity in general, the induced map $\\mathbb{Z}/3\\xrightarrow{3}\\mathbb{Z}/3$ is also injective.",
+            "Therefore $\\mathbb{Z}/3$ is flat over $\\mathbb{Z}$."
           ],
           "answer": 2,
-          "explain": "Over a PID, flat = torsion-free. $\\mathbb{Z}/3$ has torsion."
+          "hint": "Tensor product is right exact, not exact in general — preserving injectivity is exactly the flatness hypothesis we are trying to verify.",
+          "explain": "Step 2 is the flaw. Tensor product is only right exact; preserving injections IS the definition of flatness, so claiming it 'in general' begs the question. In fact step 1 reveals the issue concretely: the induced map is multiplication by $3$ on $\\mathbb{Z}/3$, which is the zero map — not injective. So $\\mathrm{Tor}_1^{\\mathbb{Z}}(\\mathbb{Z}/3,\\mathbb{Z}/3) = \\mathbb{Z}/3 \\ne 0$, witnessing non-flatness. Over a PID, flat $=$ torsion-free, and $\\mathbb{Z}/3$ has torsion."
         },
         {
           "type": "numeric",
           "q": "Compute $\\dim_{\\mathbb{F}_2}\\mathrm{Tor}_1^{\\mathbb{Z}}(\\mathbb{Z}/2,\\mathbb{Z}/2)$.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Resolve $\\mathbb{Z}/2$ via $0\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}\\to\\mathbb{Z}/2\\to 0$, tensor with $\\mathbb{Z}/2$: $\\mathbb{Z}/2\\xrightarrow{0}\\mathbb{Z}/2$, kernel $\\mathbb{Z}/2$."
         },
         {
@@ -584,7 +615,7 @@
           "type": "numeric",
           "q": "Compute the order of $\\mathrm{Tor}_2^{\\mathbb{Z}}(\\mathbb{Z}/6,\\mathbb{Z}/4)$.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\mathbb{Z}$ has global dimension $1$, so $\\mathrm{Tor}_i^{\\mathbb{Z}}=0$ for $i\\ge 2$. Trivial group has order $1$."
         },
         {
@@ -605,35 +636,46 @@
       "title": "Nakayama's lemma and Zariski tangent spaces",
       "questions": [
         {
-          "type": "mcq",
-          "q": "Let $(A,\\mathfrak{m},k)$ be local Noetherian, $M$ f.g. Elements $m_1,\\dots,m_r\\in M$ generate $M$ iff:",
-          "choices": [
-            "$m_1,\\dots,m_r$ are $A$-linearly independent",
-            "their images span $M/\\mathfrak{m}M$ as a $k$-vector space",
-            "they generate $\\mathfrak{m}M$",
-            "$M$ is free of rank $r$"
+          "type": "proof-completion",
+          "q": "Let $(A,\\mathfrak{m},k)$ be local Noetherian and $M$ a f.g. $A$-module. We want to show: if $\\bar m_1,\\dots,\\bar m_r$ span $M/\\mathfrak{m}M$ over $k$, then $m_1,\\dots,m_r$ generate $M$ over $A$. Pick the correct next step.",
+          "steps": [
+            "Suppose $\\bar m_1,\\dots,\\bar m_r$ span $M/\\mathfrak{m}M$ over $k$.",
+            "Let $N = A m_1 + \\cdots + A m_r \\subseteq M$ be the submodule they generate.",
+            "Then $N + \\mathfrak{m}M = M$, since $\\bar m_i$ already span $M/\\mathfrak{m}M$, so passing to $M/N$ gives $M/N = \\mathfrak{m}\\cdot(M/N)$."
           ],
-          "answer": 1,
-          "explain": "Nakayama corollary: minimal generators biject with a basis of $M/\\mathfrak{m}M$."
+          "choices": [
+            "Conclude $M/N$ is f.g. and satisfies $M/N = \\mathfrak{m}\\cdot(M/N)$, then apply Nakayama's lemma to $M/N$ to deduce $M/N = 0$, i.e. $M = N$.",
+            "Conclude $N = \\mathfrak{m}M$ and so $N = 0$.",
+            "Apply the Hilbert basis theorem to deduce $A[m_1,\\dots,m_r]$ is Noetherian.",
+            "Pass to the completion $\\hat A$ and use faithful flatness."
+          ],
+          "answer": 0,
+          "hint": "Nakayama: a f.g. module $N'$ with $\\mathfrak{m}\\cdot N' = N'$ must vanish.",
+          "explain": "Nakayama corollary: if $M/N$ is f.g. and equals $\\mathfrak{m}\\cdot(M/N)$, then $M/N = 0$, so $N = M$ and $m_1,\\dots,m_r$ generate $M$. Equivalently, minimal generators of $M$ biject with a basis of $M/\\mathfrak{m}M$."
         },
         {
           "type": "numeric",
           "q": "For the nodal cubic $y^2=x^3+x^2$ at the origin $p$, compute $\\dim_k(\\mathfrak{m}/\\mathfrak{m}^2)$ of the local ring at $p$.",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Both partials of $y^2-x^3-x^2$ vanish at origin; Jacobian zero. Zariski tangent space has dimension $2$ while the curve is $1$-dim: singular."
         },
         {
-          "type": "mcq",
-          "q": "A Noetherian local ring $(A,\\mathfrak{m},k)$ is regular when:",
+          "type": "multi-select",
+          "q": "Select every Noetherian local ring $(A,\\mathfrak{m},k)$ that is regular, i.e. has $\\dim_k\\mathfrak{m}/\\mathfrak{m}^2 = \\dim A$.",
           "choices": [
-            "$A$ is a domain",
-            "$\\dim_k\\mathfrak{m}/\\mathfrak{m}^2 = \\dim A$",
-            "$\\mathfrak{m}$ is principal",
-            "$A$ is a UFD"
+            "$\\mathbb{Z}_{(p)}$ (the localization of $\\mathbb{Z}$ at a prime $p$)",
+            "$k[x,y]_{(x,y)}$ (the localization of $k[x,y]$ at the origin)",
+            "$k[x,y]/(xy)$ localized at the origin (the node)",
+            "$k[[x_1,\\dots,x_n]]$ (formal power series ring)"
           ],
-          "answer": 1,
-          "explain": "Regularity: embedding dimension = Krull dimension. $\\dim_k\\mathfrak{m}/\\mathfrak{m}^2\\ge\\dim A$, equality iff regular."
+          "answer": [
+            0,
+            1,
+            3
+          ],
+          "hint": "Regularity: embedding dimension equals Krull dimension. The node has $\\dim_k\\mathfrak{m}/\\mathfrak{m}^2 = 2$ but Krull dimension $1$.",
+          "explain": "Regularity means $\\dim_k\\mathfrak{m}/\\mathfrak{m}^2 = \\dim A$. $\\mathbb{Z}_{(p)}$ is a DVR (dim 1, $\\mathfrak{m}/\\mathfrak{m}^2$ 1-dim). $k[x,y]_{(x,y)}$ is regular of dim 2. $k[[x_1,\\dots,x_n]]$ is regular of dim $n$. The node $k[x,y]/(xy)$ at the origin has Krull dim $1$ but $\\mathfrak{m}/\\mathfrak{m}^2$ is spanned by $x,y$ (dim 2), so it is singular."
         }
       ],
       "hard": [
@@ -654,7 +696,7 @@
           "type": "numeric",
           "q": "Let $A=k[[t]]$, $\\mathfrak{m}=(t)$. Compute $\\dim_k\\mathfrak{m}^3/\\mathfrak{m}^4$.",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\mathfrak{m}^n=(t^n)$, so $\\mathfrak{m}^3/\\mathfrak{m}^4\\cong k$ spanned by $t^3$."
         },
         {
@@ -690,7 +732,7 @@
           "type": "numeric",
           "q": "By Noether normalization, $B=k[x,y]/(xy-1)$ is finite over $k[z]$ for some $z$. Minimum $[B:k[z]]$?",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Choose $z=x+y$: $x,y$ satisfy $t^2-zt+1=0$, so $B$ is free of rank $2$ over $k[z]$."
         },
         {
@@ -698,7 +740,7 @@
           "q": "If $A\\subseteq B$ is integral of domains, which fails in general?",
           "choices": [
             "$\\dim A=\\dim B$",
-            "$\\mathrm{Spec}(B)\\to\\mathrm{Spec}(A)$ is surjective",
+            "$\\Spec(B)\\to\\Spec(A)$ is surjective",
             "$A$ is a field iff $B$ is a field",
             "$B$ is a finitely generated $A$-module"
           ],
@@ -724,7 +766,7 @@
           "type": "numeric",
           "q": "How many primes of $\\mathbb{Z}[i]$ lie over $(5)\\subset\\mathbb{Z}$?",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$5=(2+i)(2-i)$ splits since $5\\equiv 1\\pmod 4$. Two primes."
         },
         {
@@ -748,13 +790,18 @@
           "type": "numeric",
           "q": "Krull dimension of $k[x_1,x_2,x_3,x_4]$?",
           "answer": 4,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\dim k[x_1,\\dots,x_n]=n$; chain $(0)\\subsetneq(x_1)\\subsetneq\\cdots\\subsetneq(x_1,\\dots,x_4)$."
         },
         {
           "type": "mcq",
           "q": "$\\dim k[x,y]/(xy)$?",
-          "choices": ["$0$", "$1$", "$2$", "$\\infty$"],
+          "choices": [
+            "$0$",
+            "$1$",
+            "$2$",
+            "$\\infty$"
+          ],
           "answer": 1,
           "explain": "Two coordinate axes; longest chain is (generic of one axis) $\\subsetneq$ (origin): dim $1$."
         },
@@ -762,7 +809,7 @@
           "type": "numeric",
           "q": "$\\dim\\mathbb{Z}[x]$?",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\dim A[x]=\\dim A+1$ for Noetherian $A$. $\\dim\\mathbb{Z}=1$, so $\\dim\\mathbb{Z}[x]=2$. Chain: $(0)\\subsetneq(p)\\subsetneq(p,x)$."
         }
       ],
@@ -771,7 +818,7 @@
           "type": "numeric",
           "q": "Compute $\\dim k[x,y,z]/(xz-y^2, yz-x^3, z^2-x^2 y)$ (twisted cubic).",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Twisted cubic is a $1$-dim curve $t\\mapsto(t,t^2,t^3)$."
         },
         {
@@ -790,7 +837,7 @@
           "type": "numeric",
           "q": "Compute $\\dim \\mathbb{R}[x,y,z]/(x^2+y^2+z^2-1)$.",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$2$-sphere is $2$-dim irreducible variety; $\\dim$ = tr.deg = $2$."
         }
       ]
@@ -801,7 +848,12 @@
         {
           "type": "mcq",
           "q": "The transcendence degree $\\mathrm{tr.deg}_k(k(x,y))$ of the field of rational functions in two variables is:",
-          "choices": ["$0$", "$1$", "$2$", "$\\infty$"],
+          "choices": [
+            "$0$",
+            "$1$",
+            "$2$",
+            "$\\infty$"
+          ],
           "answer": 2,
           "explain": "$\\{x,y\\}$ is algebraically independent over $k$, so $\\mathrm{tr.deg}=2$. This is the same as the Krull dimension of $k[x,y]$."
         },
@@ -809,7 +861,7 @@
           "type": "numeric",
           "q": "Let $B = k[x,y,z]/(z - xy)$. Compute $\\mathrm{tr.deg}_k\\,\\mathrm{Frac}(B)$.",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "The relation $z=xy$ makes $z$ algebraically dependent on $x,y$. $\\mathrm{Frac}(B)=k(x,y)$, with tr.deg $2$. (Matches $\\dim B = 2$.)"
         },
         {
@@ -843,7 +895,7 @@
           "type": "numeric",
           "q": "Compute $\\mathrm{tr.deg}_{\\mathbb{Q}}(\\mathbb{Q}(\\sqrt{2}, \\pi, e))$ assuming $\\pi, e$ are algebraically independent over $\\mathbb{Q}$ (this is open, but assume it).",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\sqrt{2}$ is algebraic over $\\mathbb{Q}$ (contributes $0$ to tr.deg). $\\pi, e$ assumed algebraically independent contribute $2$. Total: $2$."
         },
         {

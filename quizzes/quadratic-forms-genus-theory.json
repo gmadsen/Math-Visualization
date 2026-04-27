@@ -311,6 +311,7 @@
             "$p \\equiv 1 \\pmod{|D|}$"
           ],
           "answer": 0,
+          "hint": "Via the ideal-form isomorphism, $p$ is represented by a principal form iff the prime ideal above $p$ is principal, which happens iff $p$ splits completely in the Hilbert class field — the content of…",
           "explain": "Via the ideal-form isomorphism, $p$ is represented by a principal form iff the prime ideal above $p$ is principal, which happens iff $p$ splits completely in the Hilbert class field — the content of class field theory."
         }
       ],

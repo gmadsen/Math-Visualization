@@ -1,0 +1,78 @@
+{
+  "topic": "stochastic-processes-and-martingales",
+  "title": "Stochastic processes and martingales",
+  "page": "stochastic-processes-and-martingales.html",
+  "concepts": [
+    {
+      "id": "sp-filtrations",
+      "title": "Filtrations and adapted processes",
+      "anchor": "filtrations",
+      "prereqs": [
+        "sigma-algebras",
+        "sample-spaces-events"
+      ],
+      "blurb": "A filtration $(\\mathcal{F}_n)$ is an increasing family of sub-$\\sigma$-algebras encoding the information available at time $n$; a process is adapted when each $X_n$ is $\\mathcal{F}_n$-measurable, and a stopping time $\\tau$ satisfies $\\{\\tau\\le n\\}\\in\\mathcal{F}_n$.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "sp-discrete-martingales",
+      "title": "Discrete-time martingales",
+      "anchor": "discrete-martingales",
+      "prereqs": [
+        "sp-filtrations",
+        "expectation-moments",
+        "martingales"
+      ],
+      "blurb": "An adapted $L^1$ process $(M_n)$ is a martingale when $\\mathbb{E}[M_{n+1}\\mid\\mathcal{F}_n]=M_n$; mean-zero random walk and Doob martingales $\\mathbb{E}[Z\\mid\\mathcal{F}_n]$ are the canonical examples."
+    },
+    {
+      "id": "sp-optional-stopping",
+      "title": "Optional stopping theorem",
+      "anchor": "optional-stopping",
+      "prereqs": [
+        "sp-discrete-martingales",
+        "martingales"
+      ],
+      "blurb": "If $\\tau$ is a stopping time and either (a) $\\tau$ is bounded, (b) $M$ is uniformly integrable, or (c) $\\tau<\\infty$ a.s. and $(M_{n\\wedge\\tau})$ is bounded, then $\\mathbb{E}[M_\\tau]=\\mathbb{E}[M_0]$; gambler's ruin and Wald's identity drop out as corollaries.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "sp-doob-decomposition",
+      "title": "Doob decomposition and quadratic variation",
+      "anchor": "doob-decomposition",
+      "prereqs": [
+        "sp-discrete-martingales",
+        "martingales"
+      ],
+      "blurb": "Every $L^1$ adapted process splits uniquely as $X_n=X_0+M_n+A_n$ with $M$ a martingale and $A$ predictable; for $X=S^2$ with $S$ a mean-zero random walk this recovers $\\langle S\\rangle_n=n$, the discrete quadratic variation.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "sp-martingale-convergence",
+      "title": "Martingale convergence theorem",
+      "anchor": "convergence",
+      "prereqs": [
+        "sp-discrete-martingales",
+        "convergence-rv",
+        "martingales"
+      ],
+      "blurb": "If $\\sup_n\\mathbb{E}|M_n|<\\infty$ then $M_n\\to M_\\infty$ a.s. for some $M_\\infty\\in L^1$ (Doob); uniform integrability upgrades the convergence to $L^1$, while $L^1$-bounded-without-UI examples like the doubling product $\\prod X_i$ collapse to $0$ even with $\\mathbb{E}[M_n]=1$."
+    },
+    {
+      "id": "sp-continuous-martingales",
+      "title": "Continuous-time martingales and Brownian motion",
+      "anchor": "continuous-martingales",
+      "prereqs": [
+        "sp-martingale-convergence",
+        "brownian-motion"
+      ],
+      "blurb": "Brownian motion $W_t$ is the canonical continuous martingale, with $W_t^2-t$ a martingale and quadratic variation $[W]_t=t$ a.s.; Burkholder–Davis–Gundy ties $L^p$ norms of $\\sup_{s\\le t}M_s$ to $[M]_t$, setting up Itô calculus."
+    }
+  ]
+}

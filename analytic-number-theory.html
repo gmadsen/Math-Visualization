@@ -1,0 +1,1259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Analytic number theory</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\Spec',
+        '\\Gal':'\\Gal',
+        '\\Hom':'\\Hom',
+        '\\tr':'\\tr',
+        '\\ad':'\\ad',
+        '\\ind':'\\ind'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"automorphic-forms-adelic","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"additive-number-theory":{"next":"quadratic-forms-genus-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"moduli-spaces","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":null,"prev":"heights-arithmetic-geometry","section":"Number theory","title":"Analytic number theory"},"automorphic-forms-adelic":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-topoi","prev":"infinity-categories","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"deformation-theory":{"next":"etale-cohomology","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"group-cohomology","prev":"homological","section":"Algebra & homological","title":"Derived categories"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"harmonic-analysis-fourier","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":null,"section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":null,"prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":null,"prev":"deformation-theory","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"deformation-theory","prev":"group-schemes","section":"Algebraic geometry","title":"Étale fundamental group"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"naive-set-theory","section":"Logic & Foundations","title":"First order logic and completeness"},"forcing-and-independence":{"next":null,"prev":"type-theory-and-hott","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":null,"prev":"lie-algebras","section":"Algebra & homological","title":"Galois cohomology and brauer"},"galois-representations":{"next":"heights-arithmetic-geometry","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"lie-algebras","prev":"derived-categories","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"etale-fundamental-group","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"harmonic-analysis-fourier":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"spectral-theory","prev":"partial-differential-equations","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"analytic-number-theory","prev":"galois-representations","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"homological":{"next":"derived-categories","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"cocartesian-fibrations","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-topoi (Lurie)"},"information-theory":{"next":"large-deviations","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"stacks","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"large-deviations":{"next":null,"prev":"information-theory","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"galois-cohomology-and-brauer","prev":"group-cohomology","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"model-theory-basics":{"next":"computability-and-decidability","prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":null,"prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"modular-curves","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"algebraic-spaces","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":null,"prev":"characteristic-classes","section":"Geometry & topology","title":"Morse theory"},"naive-set-theory":{"next":"first-order-logic-and-completeness","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"harmonic-functions","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"stochastic-processes-and-martingales","prev":null,"section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"additive-number-theory","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"additive-number-theory","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"random-walks-and-mixing":{"next":"information-theory","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra & homological","title":"Representation theory"},"riemann-surfaces":{"next":"characteristic-classes","prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"sheaf-cohomology":{"next":"algebraic-de-rham-cohomology","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"algebraic-curves-higher-genus","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Sobolev spaces & distributions"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":null,"prev":"harmonic-functions","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"intersection-theory-chow","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":"probability-theory","section":"Probability & statistics","title":"Stochastic processes and martingales"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"type-theory-and-hott":{"next":"forcing-and-independence","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and hott"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"model-theory-basics","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"Zfc and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="Number theory" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+  <a href="#pnt">1&nbsp;Prime&nbsp;counting</a>
+  <a href="#explicit">2&nbsp;Explicit&nbsp;formula</a>
+  <a href="#zerofree">3&nbsp;Zero-free&nbsp;regions</a>
+  <a href="#dirichlet">4&nbsp;Primes&nbsp;in&nbsp;APs</a>
+  <a href="#sieves">5&nbsp;Sieves</a>
+  <a href="#bombieri">6&nbsp;Bombieri–Vinogradov</a>
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Analytic number theory</h1>
+  <p class="sub">From counting primes to controlling them. Riemann's $\zeta(s)$, the explicit formula, zero-free regions, Dirichlet's theorem on primes in arithmetic progressions, sieve methods, and the Bombieri–Vinogradov theorem — analysis as a microscope on the integers.</p>
+</section>
+
+<section id="pnt">
+<h2>1. $\pi(x)$ and the prime number theorem</h2>
+<p>Let $\pi(x) = \#\{p \le x : p \text{ prime}\}$. The earliest serious prediction about $\pi(x)$ is Gauss's, made in 1792 (he was fifteen): the density of primes near $x$ should be $1/\log x$, so
+$$\pi(x) \;\approx\; \mathrm{Li}(x) \;=\; \int_2^x \frac{dt}{\log t}.$$
+Integration by parts gives $\mathrm{Li}(x) = x/\log x + x/(\log x)^2 + 2x/(\log x)^3 + \cdots$, so the leading-order content is $\pi(x) \sim x/\log x$ — the <strong>prime number theorem</strong> (PNT) of Hadamard and de la Vallée Poussin (1896). The logarithmic integral $\mathrm{Li}(x)$ keeps the higher-order corrections and matches $\pi(x)$ to many leading digits, while $x/\log x$ undershoots by several percent in the range we can compute.</p>
+
+<p>The story splits into two questions. <em>How fast does $\pi(x)/(x/\log x) \to 1$?</em> is a question about the error term in PNT, and the answer is intimately tied to the zeros of the Riemann zeta function. <em>How are primes distributed within a fixed residue class</em> $a \bmod q$? is Dirichlet's question, and its answer involves a family of $L$-functions. We treat both in this page; sieve methods (the third pillar) handle the residual cases — twin primes, almost-primes, primes in short intervals — where $\zeta$ alone is too blunt.</p>
+
+<div class="widget" id="w-pnt">
+  <div class="hd"><div class="ttl">$\pi(x)$ vs. $x/\log x$ vs. $\mathrm{Li}(x)$</div><div class="hint">drag $x$ from $10$ to $10000$</div></div>
+  <svg id="pnt-svg" viewBox="0 0 620 320" width="620" height="320"><title>$\pi(x)$ vs. $x/\log x$ vs. $\mathrm{Li}(x)$</title></svg>
+  <div class="row">
+    <label for="pnt-x">$x$</label>
+    <input type="range" id="pnt-x" min="10" max="10000" step="10" value="2000">
+    <span id="pnt-xv" class="readout" style="min-width:120px;flex:0 0 auto">$x = 2000$</span>
+  </div>
+  <div class="readout" id="pnt-out"></div>
+  <div class="small">All three curves grow like $x/\log x$ to leading order. $\mathrm{Li}(x)$ tracks $\pi(x)$ closely; $x/\log x$ undershoots by $\sim x/(\log x)^2$. PNT is the statement that the ratio $\pi(x)/(x/\log x) \to 1$, even though both curves grow without bound.</div>
+</div>
+
+<div class="quiz" data-concept="ant-prime-counting"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./analytic-number-theory.html#explicit">Analytic number theory</a> · $\zeta(s)$ and the explicit formula</div>
+    <div><a href="./analytic-number-theory.html#dirichlet">Analytic number theory</a> · Dirichlet's theorem on primes in AP</div>
+    <div><a href="./analytic-number-theory.html#sieves">Analytic number theory</a> · Sieve methods</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="explicit">
+<h2>2. $\zeta(s)$ and the explicit formula</h2>
+<p>The Euler product
+$$\zeta(s) \;=\; \sum_{n \ge 1} \frac{1}{n^s} \;=\; \prod_p \frac{1}{1 - p^{-s}}, \qquad \mathrm{Re}\,s > 1$$
+makes $\zeta$ an analytic encoding of the primes. Taking $-\log$ and differentiating,
+$$-\frac{\zeta'(s)}{\zeta(s)} \;=\; \sum_{n \ge 1} \frac{\Lambda(n)}{n^s}, \qquad \Lambda(n) = \begin{cases} \log p & n = p^k, \\ 0 & \text{else.} \end{cases}$$
+The von Mangoldt $\psi(x) = \sum_{n \le x} \Lambda(n)$ is the natural prime-counting cousin: PNT is equivalent to $\psi(x) \sim x$. Apply <a href="./dirichlet-series-euler-products.html#perron">Perron's formula</a> to $-\zeta'/\zeta$ and shift the contour past the poles. The pole of $\zeta(s)$ at $s = 1$ becomes the residue $-(-1) \cdot x^1/1 = x$ in $\psi(x)$. Each non-trivial zero $\rho = \beta + i\gamma$ of $\zeta$ contributes a residue $-x^\rho/\rho$ via $-\zeta'(\rho)/\zeta(\rho)$'s pole. The trivial zeros at $-2, -4, \ldots$ contribute $-\tfrac12 \log(1 - x^{-2})$.</p>
+
+<p>The result is Riemann's <strong>explicit formula</strong> (proved rigorously by von Mangoldt):
+$$\boxed{\;\psi(x) \;=\; x \;-\; \sum_{\rho} \frac{x^\rho}{\rho} \;-\; \log 2\pi \;-\; \tfrac12 \log\!\bigl(1 - x^{-2}\bigr).\;}$$
+The error in $\psi(x) - x$ is exactly the sum over zeros. Riemann's hypothesis — that every non-trivial $\rho$ has $\mathrm{Re}\,\rho = 1/2$ — is precisely the assertion that $\psi(x) - x = O(x^{1/2}(\log x)^2)$, the smallest possible error.</p>
+
+<div class="widget" id="w-explicit">
+  <div class="hd"><div class="ttl">Zeros of $\zeta(s)$ and the truncated explicit formula</div><div class="hint">add zeros, watch $\psi(x)$ converge</div></div>
+  <svg id="ex-svg" viewBox="0 0 620 360" width="620" height="360"><title>Zeros of $\zeta(s)$ and the truncated explicit formula</title></svg>
+  <div class="row">
+    <label for="ex-N">number of zero-pairs $N$</label>
+    <input type="range" id="ex-N" min="0" max="20" step="1" value="6">
+    <span id="ex-Nv" class="readout" style="min-width:90px;flex:0 0 auto">$N = 6$</span>
+  </div>
+  <div class="readout" id="ex-out"></div>
+  <div class="small">Top: critical strip with the first $20$ non-trivial zeros (heights $\gamma_n$ from the LMFDB). Bottom: the truncated explicit formula $x - \sum_{|\gamma_k| \le \gamma_N} x^{\rho_k}/\rho_k$ vs. $\psi(x)$. Each pair of zeros adds an oscillation of frequency $\gamma_k$ and amplitude $x^{1/2}/|\rho_k|$.</div>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./complex-analysis.html#laurent">Residue theorem</a></li>
+    <li><a href="./dirichlet-series-euler-products.html#perron">Perron's formula</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./analytic-number-theory.html#zerofree">Analytic number theory</a> · Zero-free regions and PNT proofs</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="ant-riemann-zeta-from-pnt"></div>
+</section>
+
+<section id="zerofree">
+<h2>3. Zero-free regions and PNT proofs</h2>
+<p>To prove $\psi(x) \sim x$, the only thing the explicit formula demands is that <em>no zero $\rho$ has $\mathrm{Re}\,\rho = 1$</em>. Hadamard and de la Vallée Poussin's 1896 argument is short and beautiful. From the Euler product,
+$$\log \zeta(\sigma + it) \;=\; \sum_p \sum_{k \ge 1} \frac{1}{k\, p^{k(\sigma + it)}} \;=\; \sum_{p,k} \frac{\cos(t k \log p) - i \sin(t k \log p)}{k\, p^{k\sigma}},$$
+so $\mathrm{Re}\,\log\zeta(\sigma + it) = \sum_{p,k} \cos(tk\log p)/(k p^{k\sigma})$. The key trigonometric inequality
+$$3 + 4\cos\theta + \cos 2\theta \;=\; 2(1 + \cos\theta)^2 \;\ge\; 0$$
+applied term-by-term to $\theta = tk\log p$ gives
+$$3\,\mathrm{Re}\log\zeta(\sigma) \;+\; 4\,\mathrm{Re}\log\zeta(\sigma + it) \;+\; \mathrm{Re}\log\zeta(\sigma + 2it) \;\ge\; 0,$$
+i.e. $|\zeta(\sigma)^3 \zeta(\sigma+it)^4 \zeta(\sigma+2it)| \ge 1$. As $\sigma \searrow 1$, $\zeta(\sigma)$ blows up like $1/(\sigma-1)$. A double zero $\zeta(1+it) = 0$ would force the product to vanish; the inequality forbids this, so $\zeta(1+it) \ne 0$.</p>
+
+<p>Sharpening the argument with growth bounds for $\zeta$ and $\zeta'/\zeta$ (Borel–Carathéodory) extends the conclusion to a thin region:
+$$\zeta(\sigma + it) \ne 0 \qquad \text{for} \qquad \sigma \;>\; 1 - \frac{c}{\log|t|}, \quad |t| \ge 2.$$
+Combined with the explicit formula and a Hadamard product expansion, this yields PNT with effective remainder $\psi(x) = x + O(x \exp(-c\sqrt{\log x}))$. Vinogradov–Korobov sharpens this to $\sigma > 1 - c / (\log|t|)^{2/3}(\log\log|t|)^{1/3}$, the best known unconditional region.</p>
+
+<div class="widget" id="w-zerofree">
+  <div class="hd"><div class="ttl">The critical strip and the zero-free region</div><div class="hint">drag $c$, see the forbidden zone shrink</div></div>
+  <svg id="zf-svg" viewBox="0 0 620 360" width="620" height="360"><title>The critical strip and the zero-free region</title></svg>
+  <div class="row">
+    <label for="zf-c">constant $c$</label>
+    <input type="range" id="zf-c" min="0.1" max="3" step="0.05" value="1">
+    <span id="zf-cv" class="readout" style="min-width:90px;flex:0 0 auto">$c = 1.00$</span>
+  </div>
+  <div class="row">
+    <label for="zf-mode">region</label>
+    <select id="zf-mode">
+      <option value="classical">classical: $\sigma &gt; 1 - c/\log|t|$</option>
+      <option value="vk">Vinogradov–Korobov: $\sigma &gt; 1 - c/(\log|t|)^{2/3}$</option>
+      <option value="rh">RH: $\sigma &gt; 1/2$</option>
+    </select>
+  </div>
+  <div class="small">Critical strip $0 \le \sigma \le 1$ shaded blue. Forbidden-zero region (where $\zeta \ne 0$) shaded green. The first 20 non-trivial zeros (real part $1/2$, heights $\gamma_n$) plotted as yellow dots — they all sit on the critical line, regardless of which proven region we draw.</div>
+</div>
+
+<div class="quiz" data-concept="ant-zero-free-region"></div>
+</section>
+
+<section id="dirichlet">
+<h2>4. Dirichlet's theorem on primes in AP</h2>
+<p><strong>Theorem (Dirichlet, 1837).</strong> <em>If $\gcd(a, q) = 1$, the arithmetic progression $a, a+q, a+2q, \ldots$ contains infinitely many primes.</em></p>
+
+<p><strong>Worked example: orthogonality of characters.</strong> The proof of Dirichlet's theorem uses character orthogonality to extract the contribution of one residue class from $\sum_{p \le x} 1$.</p>
+<p>The proof hinges on <a href="./dirichlet-series-euler-products.html#chars">Dirichlet $L$-functions</a> $L(s, \chi) = \sum_n \chi(n)/n^s$, where $\chi : (\mathbb{Z}/q)^\times \to \mathbb{C}^\times$ is a multiplicative character. Orthogonality of characters gives
+$$\frac{1}{\varphi(q)} \sum_{\chi \bmod q} \bar\chi(a)\,\chi(n) \;=\; \mathbf{1}[n \equiv a \pmod q],$$
+so summing $\log L(s, \chi)$ weighted by $\bar\chi(a)/\varphi(q)$ over all $\chi$ collapses to the partial sum $\sum_{p \equiv a} p^{-s} + O(1)$. The trivial character contributes $\log\zeta(s)$, which blows up as $s \to 1^+$. Each non-trivial $\chi$ contributes $\log L(s, \chi)$. <em>Provided</em> $L(1, \chi) \ne 0$ for every non-trivial $\chi$, those terms are bounded. So the prime sum diverges, and infinitely many primes hit the class $a$.</p>
+
+<p>The non-vanishing $L(1, \chi) \ne 0$ is the heart of the proof. For complex $\chi$ it follows easily from the meromorphic continuation of the product $\prod_\chi L(s, \chi) = \zeta_K(s)$, the Dedekind zeta of the cyclotomic field $\mathbb{Q}(\zeta_q)$, which has a simple pole. The hard case is real (quadratic) $\chi$, where Dirichlet's class-number formula
+$$L(1, \chi) \;=\; \frac{2\pi h_d}{w_d \sqrt{|d|}} \quad \text{(or analogous formula for } \mathrm{Re} > 0\text{)}$$
+expresses $L(1, \chi)$ as a positive multiple of the class number $h_d$ — and class numbers are positive integers.</p>
+
+<div class="widget" id="w-dirichlet">
+  <div class="hd"><div class="ttl">Primes mod $q$ on a residue wheel</div><div class="hint">pick $q$, watch the equidistribution</div></div>
+  <svg id="dr-svg" viewBox="0 0 620 360" width="620" height="360"><title>Primes mod $q$ on a residue wheel</title></svg>
+  <div class="row">
+    <label for="dr-q">modulus $q$</label>
+    <select id="dr-q">
+      <option value="3">$q = 3$</option>
+      <option value="4">$q = 4$</option>
+      <option value="5">$q = 5$</option>
+      <option value="6">$q = 6$</option>
+      <option value="7">$q = 7$</option>
+      <option value="8" selected>$q = 8$</option>
+      <option value="10">$q = 10$</option>
+      <option value="12">$q = 12$</option>
+    </select>
+    <label for="dr-x">primes up to $x$</label>
+    <input type="range" id="dr-x" min="50" max="3000" step="50" value="500">
+    <span id="dr-xv" class="small">x = 500</span>
+  </div>
+  <div class="readout" id="dr-out"></div>
+  <div class="small">Each spoke is a residue class $a \bmod q$. Coprime classes (where Dirichlet predicts $\sim x/(\varphi(q)\log x)$ primes) are highlighted; non-coprime classes (where $\gcd(a, q) > 1$) catch only the prime divisor of $q$ itself, if any.</div>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./dirichlet-series-euler-products.html#dir">Dirichlet characters and L-series</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./analytic-number-theory.html#bombieri">Analytic number theory</a> · Bombieri–Vinogradov on average</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="ant-dirichlet-theorem"></div>
+</section>
+
+<section id="sieves">
+<h2>5. Sieve methods</h2>
+<p>Erathosthenes's sieve runs as inclusion–exclusion. To count integers $n \le x$ with no prime factor $\le z$,
+$$S(x, z) \;=\; \sum_{n \le x}\,\sum_{d \mid \gcd(n, P(z))} \mu(d) \;=\; \sum_{d \mid P(z)} \mu(d)\, \Bigl\lfloor \frac{x}{d} \Bigr\rfloor, \qquad P(z) = \prod_{p \le z} p.$$
+The naive identity is exact, but useless for primes: if $z = \sqrt{x}$, the sifted set is $\{1\} \cup \{\text{primes in } (\sqrt{x}, x]\}$, so $S(x, \sqrt{x}) = \pi(x) - \pi(\sqrt{x}) + 1$. The trouble: $P(z)$ has $2^{\pi(z)}$ divisors, each contributing an $O(1)$ rounding error, and $2^{\pi(\sqrt{x})}$ swamps the main term $x \prod_{p \le \sqrt{x}}(1 - 1/p) \sim 2 e^{-\gamma} \sqrt{x}/\log\sqrt{x}$.</p>
+
+<p><strong>Brun's idea (1915):</strong> truncate the inclusion–exclusion at $r$ levels. Brun's pure sieve uses
+$$\sum_{\substack{d \mid P(z) \\ \omega(d) \le 2r}} \mu(d) \mathbf{1}[d \mid n] \;\ge\; \mathbf{1}[\gcd(n, P(z)) = 1] \;\ge\; \sum_{\substack{d \mid P(z) \\ \omega(d) \le 2r+1}} \mu(d) \mathbf{1}[d \mid n].$$
+Truncated upper bounds yield bounds like $\pi_2(x) = \#\{p \le x : p, p+2 \text{ both prime}\} \ll x/(\log x)^2$ — so $\sum_{p, p+2 \text{ prime}}(1/p + 1/(p+2))$ converges to <strong>Brun's constant</strong> $B_2 \approx 1.902\ldots$. The convergence is the original surprise: even if there are infinitely many twin primes, they are sparse.</p>
+
+<p><strong>Selberg (1947):</strong> replace truncation by squares. For any sequence $(\lambda_d)$ with $\lambda_1 = 1$,
+$$\bigl(\textstyle\sum_{d \mid n} \lambda_d\bigr)^2 \;\ge\; \mathbf{1}[\gcd(n, P(z)) = 1].$$
+Summing over $n \le x$ and optimizing in $\lambda$ gives an upper bound that is best possible up to a constant — the <strong>Selberg sieve</strong>. This is the engine behind Bombieri–Vinogradov (next section), Chen's theorem (every large even number is $p + p_2$ with $p_2$ a prime or product of two primes), and Maynard–Tao bounded gaps between primes.</p>
+
+<div class="widget" id="w-sieves">
+  <div class="hd"><div class="ttl">Truncated inclusion–exclusion vs. exact sieve</div><div class="hint">truncation level $r$, watch error oscillate</div></div>
+  <svg id="sv-svg" viewBox="0 0 620 320" width="620" height="320"><title>Truncated inclusion–exclusion vs. exact sieve</title></svg>
+  <div class="row">
+    <label for="sv-r">truncation $r$ (terms with $\omega(d) \le r$)</label>
+    <input type="range" id="sv-r" min="0" max="8" step="1" value="3">
+    <span id="sv-rv" class="readout" style="min-width:90px;flex:0 0 auto">$r = 3$</span>
+    <label for="sv-z">sift threshold $z$</label>
+    <input type="range" id="sv-z" min="2" max="20" step="1" value="7">
+    <span id="sv-zv" class="small">z = 7</span>
+  </div>
+  <div class="readout" id="sv-out"></div>
+  <div class="small">Counting integers $\le x = 200$ coprime to $P(z) = \prod_{p \le z} p$. Exact answer (green dashed) vs. truncated alternating sum (yellow). Even $r$ over-counts, odd $r$ under-counts — the inclusion–exclusion error oscillates as $r$ grows, and Brun's trick is to stop at the right truncation.</div>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./dirichlet-series-euler-products.html#series">Dirichlet series basics</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="ant-sieve-methods"></div>
+</section>
+
+<section id="bombieri">
+<h2>6. Bombieri–Vinogradov: GRH on average</h2>
+<p>PNT for arithmetic progressions says $\pi(x; q, a) \sim \mathrm{Li}(x)/\varphi(q)$ for $\gcd(a, q) = 1$. The error term
+$$E(x; q, a) \;=\; \pi(x; q, a) - \frac{\mathrm{Li}(x)}{\varphi(q)}$$
+is the analogue of $\psi(x) - x$ for the progression. The <strong>generalized Riemann hypothesis</strong> (GRH) for $L(s, \chi)$ would give $E(x; q, a) \ll x^{1/2} (\log x)^2$ uniformly in $q \le x$ — strong enough for almost any application. Unconditionally we have nothing like that. But on average over $q$, we essentially do.</p>
+
+<p><strong>Theorem (Bombieri 1965, A. I. Vinogradov 1965).</strong> <em>For every $A > 0$ there exists $B > 0$ such that
+$$\sum_{q \le Q} \;\max_{\gcd(a, q) = 1} |E(x; q, a)| \;\ll_A\; \frac{x}{(\log x)^A}, \qquad Q = \frac{x^{1/2}}{(\log x)^B}.$$</em></p>
+
+<p>The bound matches what GRH would give summed over $q \le \sqrt{x}$. Most arithmetic applications need exactly this $\ell^1$-on-moduli norm, not pointwise control, so the slogan "GRH on average" is fair. The proof goes through the large sieve inequality of Montgomery and Bombieri, controlling sums $\sum_{q \le Q} \sum_\chi^* |\sum_{n \le x} a_n \chi(n)|^2$ for primitive characters $\chi$; the prime-counting function feeds into this via a Vaughan-type identity that splits $\Lambda(n)$ into bilinear pieces. Pushing $Q$ past $\sqrt{x}$ is the open <strong>Elliott–Halberstam conjecture</strong> ($Q$ up to $x^{1-\varepsilon}$), which would lower the Maynard–Tao prime gap from $246$ to as small as $12$.</p>
+
+<div class="widget" id="w-bv">
+  <div class="hd"><div class="ttl">Distribution of $|E(x; q, a)|$ over moduli $q$</div><div class="hint">drag $x$, see the histogram</div></div>
+  <svg id="bv-svg" viewBox="0 0 620 320" width="620" height="320"><title>Distribution of $|E(x; q, a)|$ over moduli $q$</title></svg>
+  <div class="row">
+    <label for="bv-x">$x$</label>
+    <input type="range" id="bv-x" min="200" max="5000" step="100" value="2000">
+    <span id="bv-xv" class="readout" style="min-width:90px;flex:0 0 auto">$x = 2000$</span>
+  </div>
+  <div class="readout" id="bv-out"></div>
+  <div class="small">For each $q \in [2, \sqrt{x}]$ we compute $\max_{\gcd(a,q)=1} |E(x;q,a)|$ and bin the values. Bombieri–Vinogradov bounds the <em>sum</em> over $q$ (i.e. the bulk mass on the left of the histogram); individual $q$ may have larger error, but they are rare.</div>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./L-functions.html#unified">Prototype L-functions</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="ant-bombieri-vinogradov"></div>
+</section>
+
+<section id="outro">
+<h2>7. Connections</h2>
+
+<p>Analytic number theory translates additive / multiplicative questions about integers into questions about complex-analytic functions — and then exploits the dictionary in both directions.</p>
+
+<h3>Dirichlet series and L-functions</h3>
+
+<p><a href="./dirichlet-series-euler-products.html">Dirichlet series</a> are the engines: $\zeta(s)$ for primes, $L(s, \chi)$ for primes in AP, more elaborate <a href="./L-functions.html">$L$-functions</a> for arithmetic objects. Euler products are the bridge from "sum over $n$" to "product over primes".</p>
+
+<h3>Modular forms and Galois representations</h3>
+
+<p>Hecke L-functions live both as Mellin transforms of modular forms and as compositions through Galois representations; <a href="./modular-forms.html">modular forms</a>, <a href="./hecke-operators.html">Hecke operators</a>, and <a href="./galois-representations.html">Galois representations</a> form a single arc of which analytic NT is the analytic vertex.</p>
+
+<h3>Complex analysis</h3>
+
+<p><a href="./complex-analysis.html">Complex analysis</a> — residues, contour integrals, Phragmén–Lindelöf — is the proof technique. The explicit formula and zero-free regions read off the analytic structure of $\zeta$.</p>
+
+<h3>Sieve theory and additive combinatorics</h3>
+
+<p>Sieve methods (Brun, Selberg) connect to <a href="./extremal-combinatorics.html">extremal combinatorics</a>; Bombieri–Vinogradov is the strongest unconditional input for the Goldston–Pintz–Yıldırım circle, leading to bounded gaps between primes.</p>
+
+<p class="small" style="margin-top:2.5rem">Open frontiers: the Riemann hypothesis (and the corresponding GRH for Dirichlet $L$-functions); the parity problem in sieve theory; Vinogradov's mean-value theorem and Bourgain–Demeter decoupling; recent work on bounded gaps between primes (Maynard, Tao).</p>
+</section>
+</main>
+
+<script>
+/* =============================== shared: prime sieve + Li(x) =============================== */
+const ANT = (function(){
+  const N = 5200;
+  const composite = new Uint8Array(N+1);
+  for(let p=2; p*p<=N; p++) if(!composite[p]) for(let k=p*p; k<=N; k+=p) composite[k] = 1;
+  const primes = [];
+  const isPrime = new Uint8Array(N+1);
+  for(let p=2; p<=N; p++) if(!composite[p]){ primes.push(p); isPrime[p] = 1; }
+  // Li(x) via Simpson's rule on int_2^x dt/log t
+  function Li(x){
+    if(x <= 2) return 0;
+    const M = 200;
+    const h = (x - 2) / M;
+    let s = 1/Math.log(2) + 1/Math.log(x);
+    for(let k=1; k<M; k++){
+      const t = 2 + k*h;
+      s += (k%2 ? 4 : 2) / Math.log(t);
+    }
+    return s * h / 3;
+  }
+  function pi(x){
+    let c = 0;
+    for(let k=0; k<primes.length && primes[k] <= x; k++) c++;
+    return c;
+  }
+  // first 20 imaginary parts of non-trivial zeros of zeta (Riemann zeros, LMFDB)
+  const ZEROS = [
+    14.134725142, 21.022039639, 25.010857580, 30.424876126, 32.935061588,
+    37.586178159, 40.918719012, 43.327073281, 48.005150881, 49.773832478,
+    52.970321478, 56.446247697, 59.347044003, 60.831778525, 65.112544048,
+    67.079810529, 69.546401711, 72.067157674, 75.704690699, 77.144840069
+  ];
+  return {primes, isPrime, Li, pi, ZEROS, N};
+})();
+</script>
+
+<script>
+/* =============================== SECTION 1 widget: pi(x) vs x/log x vs Li(x) =============================== */
+(function(){
+  const svg = document.querySelector("#pnt-svg");
+  const xR = document.querySelector("#pnt-x");
+  const xv = document.querySelector("#pnt-xv");
+  const out = document.querySelector("#pnt-out");
+  const W = 620, H = 320, pad = 50;
+
+  function draw(){
+    svg.innerHTML = "";
+    const X = parseInt(xR.value, 10);
+    xv.textContent = `x = ${X}`;
+    const samples = 80;
+    const xs = [], piX = [], xlogX = [], LiX = [];
+    let pCount = 0;
+    let pIdx = 0;
+    for(let i=1; i<=samples; i++){
+      const x = Math.round(X * i / samples);
+      while(pIdx < ANT.primes.length && ANT.primes[pIdx] <= x){ pCount++; pIdx++; }
+      xs.push(x);
+      piX.push(pCount);
+      xlogX.push(x < 3 ? 0 : x / Math.log(x));
+      LiX.push(ANT.Li(x));
+    }
+    const ymax = Math.max(...piX, ...LiX) * 1.1 + 1;
+    const xmin = 2;
+    const toX = x => pad + (x-xmin)/(X-xmin)*(W-2*pad);
+    const toY = y => H - pad - y/ymax*(H-2*pad);
+
+    // axes
+    svg.appendChild(SVG("line",{x1:pad,y1:toY(0),x2:W-pad,y2:toY(0),stroke:"var(--mute)"}));
+    svg.appendChild(SVG("line",{x1:pad,y1:toY(0),x2:pad,y2:toY(ymax),stroke:"var(--mute)"}));
+
+    // x-axis ticks
+    for(let k=0; k<=5; k++){
+      const v = Math.round(X*k/5);
+      const t = SVG("text",{x:toX(Math.max(xmin,v)), y:toY(0)+18, "text-anchor":"middle", "font-size":11, fill:"var(--mute)"});
+      t.textContent = v; svg.appendChild(t);
+    }
+    // y-axis ticks
+    for(let k=0; k<=4; k++){
+      const v = Math.round(ymax*k/4);
+      const t = SVG("text",{x:pad-8, y:toY(v)+4, "text-anchor":"end", "font-size":11, fill:"var(--mute)"});
+      t.textContent = v; svg.appendChild(t);
+    }
+
+    function path(values, color, dash){
+      let d = "";
+      for(let i=0; i<xs.length; i++){
+        d += (i===0?"M":"L") + toX(xs[i]) + " " + toY(values[i]) + " ";
+      }
+      const p = SVG("path",{d, fill:"none", stroke:color, "stroke-width":2});
+      if(dash) p.setAttribute("stroke-dasharray", dash);
+      svg.appendChild(p);
+    }
+    path(xlogX, "var(--pink)", "5 4");
+    path(LiX, "var(--green)", "4 3");
+    path(piX, "var(--yellow)", null);
+
+    // legend (viewport coords)
+    const items = [
+      ["— π(x) (exact)", "var(--yellow)"],
+      ["- - Li(x)", "var(--green)"],
+      ["- - x / log x", "var(--pink)"]
+    ];
+    items.forEach((it, i) => {
+      const t = SVG("text",{x:pad+10, y:pad+14+i*16, "font-size":12, fill:it[1]});
+      t.textContent = it[0]; svg.appendChild(t);
+    });
+
+    const piVal = piX[piX.length-1];
+    const xLog = xlogX[xlogX.length-1];
+    const li = LiX[LiX.length-1];
+    out.textContent = `at x = ${X}:  π(x) = ${piVal},  x/log x ≈ ${xLog.toFixed(1)},  Li(x) ≈ ${li.toFixed(1)}.   ratio π(x)/(x/log x) = ${(piVal/xLog).toFixed(4)}`;
+  }
+  xR.addEventListener("input", draw);
+  draw();
+})();
+</script>
+
+<script>
+/* =============================== SECTION 2 widget: zeros + truncated explicit formula =============================== */
+(function(){
+  const svg = document.querySelector("#ex-svg");
+  const NR = document.querySelector("#ex-N");
+  const Nv = document.querySelector("#ex-Nv");
+  const out = document.querySelector("#ex-out");
+  const W = 620, H = 360, pad = 50;
+  const stripH = 150, plotH = 160, gap = 20;
+
+  function draw(){
+    svg.innerHTML = "";
+    const N = parseInt(NR.value, 10);
+    Nv.textContent = `N = ${N}`;
+
+    // ===== top: critical strip + zeros =====
+    const stripY0 = pad;
+    const sigmin = -1, sigmax = 2.5;
+    const tmax = 80;
+    const sx = s => pad + (s - sigmin)/(sigmax - sigmin)*(W - 2*pad);
+    const sy = t => stripY0 + stripH/2 - t/tmax * (stripH/2 - 8);
+
+    // critical-strip shading 0..1
+    svg.appendChild(SVG("rect",{x:sx(0), y:stripY0, width:sx(1)-sx(0), height:stripH,
+      fill:"rgba(88,196,221,0.10)"}));
+    // critical line at sigma = 1/2
+    svg.appendChild(SVG("line",{x1:sx(0.5), y1:stripY0, x2:sx(0.5), y2:stripY0+stripH,
+      stroke:"var(--cyan)", "stroke-width":1.2, "stroke-dasharray":"4 4"}));
+    // pole at s = 1
+    svg.appendChild(SVG("circle",{cx:sx(1), cy:sy(0), r:5, fill:"var(--pink)"}));
+    const pl = SVG("text",{x:sx(1)+8, y:sy(0)+4, "font-size":11, fill:"var(--pink)"});
+    pl.textContent = "pole at s=1"; svg.appendChild(pl);
+    // axes
+    svg.appendChild(SVG("line",{x1:sx(sigmin), y1:sy(0), x2:sx(sigmax), y2:sy(0), stroke:"var(--mute)"}));
+    // sigma ticks
+    [0, 0.5, 1].forEach(s => {
+      const t = SVG("text",{x:sx(s), y:stripY0+stripH+14, "text-anchor":"middle", "font-size":11, fill:"var(--mute)"});
+      t.textContent = `σ=${s}`; svg.appendChild(t);
+    });
+    // zeros
+    for(let k=0; k<ANT.ZEROS.length; k++){
+      const g = ANT.ZEROS[k];
+      const active = k < N;
+      const color = active ? "var(--yellow)" : "var(--mute)";
+      svg.appendChild(SVG("circle",{cx:sx(0.5), cy:sy(g), r:active?4:2.5, fill:color}));
+      svg.appendChild(SVG("circle",{cx:sx(0.5), cy:sy(-g), r:active?4:2.5, fill:color}));
+    }
+    const tt = SVG("text",{x:pad, y:stripY0-8, "font-size":12, fill:"var(--ink)"});
+    tt.textContent = "critical strip 0 ≤ σ ≤ 1, zeros at σ = 1/2 (yellow = active)"; svg.appendChild(tt);
+
+    // ===== bottom: psi(x) vs truncated explicit formula =====
+    const plotY0 = stripY0 + stripH + gap + 10;
+    const xmin = 2, xmax = 100;
+    const px = x => pad + (x - xmin)/(xmax - xmin)*(W - 2*pad);
+
+    // exact psi(x)
+    const xs = [], psi = [];
+    let acc = 0;
+    let nextSample = 1;
+    const Mx = 200;
+    for(let m=1; m<=Mx; m++){
+      const x = xmin + (xmax-xmin)*m/Mx;
+      acc = 0;
+      for(let n=2; n<=Math.floor(x); n++){
+        // count Lambda(n): log p if n=p^k else 0
+        let r = n;
+        let p = 0;
+        for(let q=2; q*q<=r; q++){
+          if(r%q===0){ p = q; while(r%q===0) r /= q; break; }
+        }
+        if(r > 1){ if(p===0 || r===n) p = r; else { p = -1; } }
+        if(p > 0){
+          // verify n is a prime power
+          let nn = n;
+          while(nn % p === 0) nn /= p;
+          if(nn === 1) acc += Math.log(p);
+        }
+      }
+      xs.push(x); psi.push(acc);
+      nextSample++;
+    }
+    // truncated explicit formula
+    const approx = xs.map(x => {
+      let val = x;
+      for(let k=0; k<N && k<ANT.ZEROS.length; k++){
+        const g = ANT.ZEROS[k];
+        // rho = 1/2 + i g, x^rho/rho + x^{bar rho}/bar rho = 2 Re(x^rho / rho)
+        // x^rho = x^{1/2} * (cos(g log x) + i sin(g log x))
+        const lx = Math.log(x);
+        const xr = Math.sqrt(x) * Math.cos(g*lx);
+        const xi = Math.sqrt(x) * Math.sin(g*lx);
+        // 1/rho = (1/2 - i g)/(1/4 + g^2)
+        const denom = 0.25 + g*g;
+        const rRe = 0.5/denom, rIm = -g/denom;
+        // x^rho / rho real part:
+        const re = xr*rRe - xi*rIm;
+        val -= 2*re;
+      }
+      return val;
+    });
+
+    const ymin = 0, ymax = xmax * 1.15;
+    const py = y => plotY0 + plotH - (y - ymin)/(ymax - ymin)*plotH;
+
+    // axes
+    svg.appendChild(SVG("line",{x1:px(xmin), y1:py(0), x2:px(xmax), y2:py(0), stroke:"var(--mute)"}));
+    svg.appendChild(SVG("line",{x1:px(xmin), y1:py(0), x2:px(xmin), y2:py(ymax), stroke:"var(--mute)"}));
+    // y = x reference
+    let dRef = "";
+    for(let i=0; i<xs.length; i++){
+      dRef += (i===0?"M":"L") + px(xs[i]) + " " + py(xs[i]) + " ";
+    }
+    svg.appendChild(SVG("path",{d:dRef, fill:"none", stroke:"var(--mute)", "stroke-width":1, "stroke-dasharray":"3 4"}));
+    // exact psi
+    let dPsi = "";
+    for(let i=0; i<xs.length; i++){
+      dPsi += (i===0?"M":"L") + px(xs[i]) + " " + py(psi[i]) + " ";
+    }
+    svg.appendChild(SVG("path",{d:dPsi, fill:"none", stroke:"var(--green)", "stroke-width":2}));
+    // approximation
+    let dApp = "";
+    for(let i=0; i<xs.length; i++){
+      const v = Math.max(ymin, Math.min(ymax, approx[i]));
+      dApp += (i===0?"M":"L") + px(xs[i]) + " " + py(v) + " ";
+    }
+    svg.appendChild(SVG("path",{d:dApp, fill:"none", stroke:"var(--yellow)", "stroke-width":2}));
+    // ticks
+    for(let k=0; k<=5; k++){
+      const v = Math.round(xmin + (xmax-xmin)*k/5);
+      const t = SVG("text",{x:px(v), y:py(0)+15, "text-anchor":"middle", "font-size":11, fill:"var(--mute)"});
+      t.textContent = v; svg.appendChild(t);
+    }
+    // legend
+    const li = [
+      ["— ψ(x) (exact)", "var(--green)"],
+      [`— x − Σ x^ρ/ρ over ${N} zero pairs`, "var(--yellow)"],
+      ["- - y = x (main term)", "var(--mute)"]
+    ];
+    li.forEach((it, i) => {
+      const t = SVG("text",{x:pad+10, y:plotY0+14+i*15, "font-size":11, fill:it[1]});
+      t.textContent = it[0]; svg.appendChild(t);
+    });
+
+    out.textContent = `${N} pairs of zeros active. At x = 50: ψ(x) = ${psi[Math.floor(Mx*0.49)].toFixed(2)}, truncated approximation = ${approx[Math.floor(Mx*0.49)].toFixed(2)}.`;
+  }
+  NR.addEventListener("input", draw);
+  draw();
+})();
+</script>
+
+<script>
+/* =============================== SECTION 3 widget: critical strip + zero-free region =============================== */
+(function(){
+  const svg = document.querySelector("#zf-svg");
+  const cR = document.querySelector("#zf-c");
+  const cv = document.querySelector("#zf-cv");
+  const mode = document.querySelector("#zf-mode");
+  const W = 620, H = 360, pad = 50;
+  const sigmin = -0.2, sigmax = 1.4;
+  const tmax = 60;
+  const sx = s => pad + (s - sigmin)/(sigmax - sigmin)*(W - 2*pad);
+  const sy = t => H/2 - t/tmax * (H/2 - pad);
+
+  function draw(){
+    svg.innerHTML = "";
+    const c = parseFloat(cR.value);
+    cv.textContent = `c = ${c.toFixed(2)}`;
+    const m = mode.value;
+
+    // critical-strip shading 0..1
+    svg.appendChild(SVG("rect",{x:sx(0), y:pad, width:sx(1)-sx(0), height:H-2*pad,
+      fill:"rgba(88,196,221,0.10)"}));
+
+    // forbidden-zero region: shade where |t| > something, sigma > boundary(t)
+    // build a polygon (left edge = sigma_*(t), right edge = sigmax)
+    function boundary(t){
+      const at = Math.max(2, Math.abs(t));
+      if(m === "rh") return 0.5;
+      if(m === "vk") return 1 - c / Math.pow(Math.log(at), 2/3);
+      return 1 - c/Math.log(at);
+    }
+    const Nt = 100;
+    let dpath = "";
+    // upper edge
+    for(let i=0; i<=Nt; i++){
+      const t = -tmax + 2*tmax*i/Nt;
+      const sig = boundary(t);
+      const x = sx(Math.max(sigmin, Math.min(sigmax, sig)));
+      const y = sy(t);
+      dpath += (i===0?"M":"L") + x + " " + y + " ";
+    }
+    // close along right edge
+    dpath += "L" + sx(sigmax) + " " + sy(tmax) + " ";
+    dpath += "L" + sx(sigmax) + " " + sy(-tmax) + " Z";
+    svg.appendChild(SVG("path",{d:dpath, fill:"rgba(131,193,103,0.15)", stroke:"var(--green)", "stroke-width":1.2}));
+
+    // axes: real/imaginary
+    svg.appendChild(SVG("line",{x1:sx(sigmin), y1:sy(0), x2:sx(sigmax), y2:sy(0), stroke:"var(--mute)"}));
+    svg.appendChild(SVG("line",{x1:sx(0), y1:pad, x2:sx(0), y2:H-pad, stroke:"var(--mute)"}));
+    // critical line σ = 1/2
+    svg.appendChild(SVG("line",{x1:sx(0.5), y1:pad, x2:sx(0.5), y2:H-pad,
+      stroke:"var(--cyan)", "stroke-width":1.2, "stroke-dasharray":"4 4"}));
+    // line σ = 1
+    svg.appendChild(SVG("line",{x1:sx(1), y1:pad, x2:sx(1), y2:H-pad,
+      stroke:"var(--mute)", "stroke-width":1.2, "stroke-dasharray":"3 5"}));
+    // pole at s = 1
+    svg.appendChild(SVG("circle",{cx:sx(1), cy:sy(0), r:5, fill:"var(--pink)"}));
+
+    // ticks
+    [0, 0.5, 1].forEach(s => {
+      const t = SVG("text",{x:sx(s), y:H-pad+18, "text-anchor":"middle", "font-size":11, fill:"var(--mute)"});
+      t.textContent = `σ=${s}`; svg.appendChild(t);
+    });
+    [-50, -25, 25, 50].forEach(t => {
+      const tt = SVG("text",{x:sx(0)+6, y:sy(t)+4, "font-size":11, fill:"var(--mute)"});
+      tt.textContent = `t=${t}`; svg.appendChild(tt);
+    });
+
+    // zeros
+    for(let k=0; k<ANT.ZEROS.length; k++){
+      const g = ANT.ZEROS[k];
+      svg.appendChild(SVG("circle",{cx:sx(0.5), cy:sy(g), r:3.5, fill:"var(--yellow)"}));
+      svg.appendChild(SVG("circle",{cx:sx(0.5), cy:sy(-g), r:3.5, fill:"var(--yellow)"}));
+    }
+
+    // legend
+    const li = [
+      ["█ critical strip 0 ≤ σ ≤ 1", "var(--cyan)"],
+      ["█ proven zero-free region", "var(--green)"],
+      ["• non-trivial zeros (σ = 1/2)", "var(--yellow)"]
+    ];
+    li.forEach((it, i) => {
+      const t = SVG("text",{x:pad+8, y:pad+14+i*16, "font-size":12, fill:it[1]});
+      t.textContent = it[0]; svg.appendChild(t);
+    });
+  }
+  cR.addEventListener("input", draw);
+  mode.addEventListener("change", draw);
+  draw();
+})();
+</script>
+
+<script>
+/* =============================== SECTION 4 widget: residue wheel =============================== */
+(function(){
+  const svg = document.querySelector("#dr-svg");
+  const qS = document.querySelector("#dr-q");
+  const xR = document.querySelector("#dr-x");
+  const xv = document.querySelector("#dr-xv");
+  const out = document.querySelector("#dr-out");
+  const W = 620, H = 360;
+  const cx = W/2, cy = H/2;
+  const R = 130;
+
+  function gcd(a,b){ while(b){ [a,b] = [b, a%b]; } return a; }
+  function phi(n){
+    let c = 0;
+    for(let k=1; k<=n; k++) if(gcd(k,n)===1) c++;
+    return c;
+  }
+
+  function draw(){
+    svg.innerHTML = "";
+    const q = parseInt(qS.value, 10);
+    const X = parseInt(xR.value, 10);
+    xv.textContent = `x = ${X}`;
+
+    // count primes by class
+    const counts = new Array(q).fill(0);
+    for(let i=0; i<ANT.primes.length; i++){
+      const p = ANT.primes[i];
+      if(p > X) break;
+      counts[p % q]++;
+    }
+    const totalCop = counts.reduce((a,c,i) => a + (gcd(i,q)===1 ? c : 0), 0);
+    const f = phi(q);
+    const expected = totalCop / f;
+    const maxC = Math.max(...counts, 1);
+    const Rmax = R + 60;
+
+    // wheel center marker
+    svg.appendChild(SVG("circle",{cx, cy, r:R, fill:"none", stroke:"var(--line)", "stroke-width":1.2}));
+
+    // bars
+    for(let a=0; a<q; a++){
+      const ang = -Math.PI/2 + 2*Math.PI*a/q;
+      const cop = (gcd(a,q)===1);
+      const c = counts[a];
+      const len = (c/maxC) * 70;
+      const x1 = cx + Math.cos(ang)*R;
+      const y1 = cy + Math.sin(ang)*R;
+      const x2 = cx + Math.cos(ang)*(R+len);
+      const y2 = cy + Math.sin(ang)*(R+len);
+      const color = cop ? "var(--yellow)" : "var(--mute)";
+      svg.appendChild(SVG("line",{x1,y1,x2,y2,stroke:color,"stroke-width":cop?5:2.5}));
+      // label
+      const xl = cx + Math.cos(ang)*(Rmax+8);
+      const yl = cy + Math.sin(ang)*(Rmax+8) + 4;
+      const t = SVG("text",{x:xl, y:yl, "text-anchor":"middle", "font-size":12,
+        fill: cop ? "var(--yellow)" : "var(--mute)",
+        "font-weight": cop ? 600 : 400});
+      t.textContent = `${a}: ${c}`;
+      svg.appendChild(t);
+    }
+
+    // central caption
+    const t1 = SVG("text",{x:cx, y:cy-10, "text-anchor":"middle", "font-size":14, fill:"var(--ink)", "font-weight":600});
+    t1.textContent = `q = ${q}`; svg.appendChild(t1);
+    const t2 = SVG("text",{x:cx, y:cy+10, "text-anchor":"middle", "font-size":12, fill:"var(--mute)"});
+    t2.textContent = `φ(q) = ${f}`; svg.appendChild(t2);
+    const t3 = SVG("text",{x:cx, y:cy+30, "text-anchor":"middle", "font-size":11, fill:"var(--cyan)"});
+    t3.textContent = `expected per coprime class ≈ ${expected.toFixed(1)}`; svg.appendChild(t3);
+
+    // readout
+    const lines = [];
+    for(let a=0; a<q; a++){
+      if(gcd(a,q)===1){
+        lines.push(`π(x; ${q}, ${a}) = ${counts[a]}`);
+      }
+    }
+    out.textContent = lines.join("   ") + `   |   total in coprime classes = ${totalCop}, perfectly equidistributed would give ${expected.toFixed(2)} per class.`;
+  }
+  qS.addEventListener("change", draw);
+  xR.addEventListener("input", draw);
+  draw();
+})();
+</script>
+
+<script>
+/* =============================== SECTION 5 widget: truncated inclusion-exclusion =============================== */
+(function(){
+  const svg = document.querySelector("#sv-svg");
+  const rR = document.querySelector("#sv-r");
+  const rv = document.querySelector("#sv-rv");
+  const zR = document.querySelector("#sv-z");
+  const zv = document.querySelector("#sv-zv");
+  const out = document.querySelector("#sv-out");
+  const W = 620, H = 320, pad = 50;
+  const X = 200;
+
+  function smallPrimes(z){
+    const ps = [];
+    for(let p=2; p<=z; p++){
+      let prime = true;
+      for(let q=2; q*q<=p; q++) if(p%q===0){ prime = false; break; }
+      if(prime) ps.push(p);
+    }
+    return ps;
+  }
+  function squarefreeDivisors(ps){
+    const out = [{d:1, omega:0, mu:1}];
+    for(const p of ps){
+      const cur = out.slice();
+      for(const e of cur){
+        out.push({d:e.d*p, omega:e.omega+1, mu:-e.mu});
+      }
+    }
+    return out;
+  }
+
+  function compute(z, rmax){
+    const ps = smallPrimes(z);
+    const divs = squarefreeDivisors(ps);
+    // exact: sum mu(d) floor(X/d)
+    let exact = 0;
+    for(const e of divs) exact += e.mu * Math.floor(X/e.d);
+    // truncated up to omega <= r, for r = 0..rmax+1
+    const trunc = [];
+    for(let r=0; r<=rmax; r++){
+      let s = 0;
+      for(const e of divs){ if(e.omega <= r) s += e.mu * Math.floor(X/e.d); }
+      trunc.push(s);
+    }
+    // Mertens-style main term: X * prod_{p<=z} (1 - 1/p)
+    let main = X;
+    for(const p of ps) main *= (1 - 1/p);
+    return {exact, trunc, main, ps};
+  }
+
+  function draw(){
+    svg.innerHTML = "";
+    const r = parseInt(rR.value, 10);
+    const z = parseInt(zR.value, 10);
+    rv.textContent = `r = ${r}`;
+    zv.textContent = `z = ${z}`;
+
+    const rmaxKnob = parseInt(rR.max, 10);
+    const data = compute(z, rmaxKnob);
+    const numPrimes = data.ps.length;
+    const rmaxPlot = Math.min(rmaxKnob, numPrimes);
+
+    const xmin = 0, xmax = rmaxPlot;
+    const allVals = data.trunc.slice(0, rmaxPlot+1).concat([data.exact, data.main]);
+    let ymin = Math.min(...allVals), ymax = Math.max(...allVals);
+    const margin = (ymax - ymin) * 0.15 + 1;
+    ymin -= margin; ymax += margin;
+
+    const toX = x => pad + (x - xmin)/(xmax - xmin)*(W - 2*pad);
+    const toY = y => H - pad - (y - ymin)/(ymax - ymin)*(H - 2*pad);
+
+    // axes
+    svg.appendChild(SVG("line",{x1:pad, y1:H-pad, x2:W-pad, y2:H-pad, stroke:"var(--mute)"}));
+    svg.appendChild(SVG("line",{x1:pad, y1:pad, x2:pad, y2:H-pad, stroke:"var(--mute)"}));
+
+    // exact line (green dashed)
+    svg.appendChild(SVG("line",{x1:pad, y1:toY(data.exact), x2:W-pad, y2:toY(data.exact),
+      stroke:"var(--green)", "stroke-width":1.5, "stroke-dasharray":"5 4"}));
+    // main term line (cyan dashed)
+    svg.appendChild(SVG("line",{x1:pad, y1:toY(data.main), x2:W-pad, y2:toY(data.main),
+      stroke:"var(--cyan)", "stroke-width":1.5, "stroke-dasharray":"3 4"}));
+
+    // truncated values as connected dots
+    let d = "";
+    for(let i=0; i<=rmaxPlot; i++){
+      const px = toX(i);
+      const py = toY(data.trunc[i]);
+      d += (i===0?"M":"L") + px + " " + py + " ";
+      const active = (i === r);
+      svg.appendChild(SVG("circle",{cx:px, cy:py, r:active?6:3.5,
+        fill: active ? "var(--yellow)" : "var(--pink)"}));
+    }
+    svg.appendChild(SVG("path",{d, fill:"none", stroke:"var(--pink)", "stroke-width":1.5}));
+
+    // x ticks
+    for(let i=0; i<=rmaxPlot; i++){
+      const t = SVG("text",{x:toX(i), y:H-pad+16, "text-anchor":"middle", "font-size":11, fill:"var(--mute)"});
+      t.textContent = i; svg.appendChild(t);
+    }
+    // y ticks
+    for(let k=0; k<=4; k++){
+      const v = Math.round(ymin + (ymax-ymin)*k/4);
+      const t = SVG("text",{x:pad-8, y:toY(v)+4, "text-anchor":"end", "font-size":11, fill:"var(--mute)"});
+      t.textContent = v; svg.appendChild(t);
+    }
+
+    // legend
+    const li = [
+      ["• truncated alternating sum (up to r terms)", "var(--pink)"],
+      [`- - exact ${"S(X,z)"} = ${data.exact}`, "var(--green)"],
+      [`- - Mertens main term X·Π(1−1/p) ≈ ${data.main.toFixed(2)}`, "var(--cyan)"]
+    ];
+    li.forEach((it, i) => {
+      const t = SVG("text",{x:pad+8, y:pad+14+i*15, "font-size":11, fill:it[1]});
+      t.textContent = it[0]; svg.appendChild(t);
+    });
+
+    out.textContent = `X = 200, primes ≤ z = [${data.ps.join(", ")}].   truncated at r = ${r}: ${data.trunc[Math.min(r, rmaxPlot)]}.   exact: ${data.exact}.   error: ${(data.trunc[Math.min(r, rmaxPlot)] - data.exact).toFixed(0)}`;
+  }
+  rR.addEventListener("input", draw);
+  zR.addEventListener("input", draw);
+  draw();
+})();
+</script>
+
+<script>
+/* =============================== SECTION 6 widget: Bombieri-Vinogradov error histogram =============================== */
+(function(){
+  const svg = document.querySelector("#bv-svg");
+  const xR = document.querySelector("#bv-x");
+  const xv = document.querySelector("#bv-xv");
+  const out = document.querySelector("#bv-out");
+  const W = 620, H = 320, pad = 50;
+
+  function gcd(a,b){ while(b){ [a,b] = [b, a%b]; } return a; }
+  function phi(n){
+    let c = 0;
+    for(let k=1; k<=n; k++) if(gcd(k,n)===1) c++;
+    return c;
+  }
+
+  function draw(){
+    svg.innerHTML = "";
+    const X = parseInt(xR.value, 10);
+    xv.textContent = `x = ${X}`;
+    const Q = Math.floor(Math.sqrt(X));
+    const Lix = ANT.Li(X);
+
+    // for each q in [3, Q], compute max_a |pi(x;q,a) - Li(x)/phi(q)|
+    const errs = [];
+    for(let q=3; q<=Q; q++){
+      const cnt = new Array(q).fill(0);
+      for(let i=0; i<ANT.primes.length; i++){
+        const p = ANT.primes[i];
+        if(p > X) break;
+        cnt[p % q]++;
+      }
+      const fq = phi(q);
+      const expected = Lix / fq;
+      let maxErr = 0;
+      for(let a=0; a<q; a++){
+        if(gcd(a,q) !== 1) continue;
+        const e = Math.abs(cnt[a] - expected);
+        if(e > maxErr) maxErr = e;
+      }
+      errs.push(maxErr);
+    }
+
+    if(errs.length === 0){
+      out.textContent = "x too small — pick larger x.";
+      return;
+    }
+
+    // histogram
+    const eMax = Math.max(...errs);
+    const bins = 14;
+    const counts = new Array(bins).fill(0);
+    for(const e of errs){
+      const b = Math.min(bins-1, Math.floor(e/(eMax+1e-9) * bins));
+      counts[b]++;
+    }
+    const cMax = Math.max(...counts);
+    const xmin = 0, xmax = bins;
+    const ymin = 0, ymax = cMax * 1.15 + 1;
+    const toX = i => pad + i/bins*(W-2*pad);
+    const toY = y => H - pad - y/ymax*(H-2*pad);
+
+    // axes
+    svg.appendChild(SVG("line",{x1:pad, y1:toY(0), x2:W-pad, y2:toY(0), stroke:"var(--mute)"}));
+    svg.appendChild(SVG("line",{x1:pad, y1:toY(0), x2:pad, y2:toY(ymax), stroke:"var(--mute)"}));
+
+    // bars
+    const bw = (W - 2*pad)/bins - 2;
+    for(let i=0; i<bins; i++){
+      const h = toY(0) - toY(counts[i]);
+      svg.appendChild(SVG("rect",{x:toX(i)+1, y:toY(counts[i]), width:bw, height:h,
+        fill:"var(--violet)", opacity:0.85, stroke:"var(--line)"}));
+    }
+
+    // average and total error
+    let totErr = 0; for(const e of errs) totErr += e;
+    const avg = totErr / errs.length;
+
+    // label x-axis (error magnitude)
+    for(let k=0; k<=bins; k+=Math.max(1,Math.floor(bins/7))){
+      const v = (k/bins * eMax).toFixed(1);
+      const t = SVG("text",{x:toX(k), y:toY(0)+16, "text-anchor":"middle", "font-size":10, fill:"var(--mute)"});
+      t.textContent = v; svg.appendChild(t);
+    }
+    const xt = SVG("text",{x:W/2, y:H-8, "text-anchor":"middle", "font-size":11, fill:"var(--mute)"});
+    xt.textContent = `bin: max_a |π(x;q,a) − Li(x)/φ(q)|`;
+    svg.appendChild(xt);
+
+    // y label
+    for(let k=0; k<=4; k++){
+      const v = Math.round(ymax*k/4);
+      const t = SVG("text",{x:pad-8, y:toY(v)+4, "text-anchor":"end", "font-size":11, fill:"var(--mute)"});
+      t.textContent = v; svg.appendChild(t);
+    }
+
+    // legend
+    const sumLabel = SVG("text",{x:pad+8, y:pad+14, "font-size":12, fill:"var(--cyan)"});
+    sumLabel.textContent = `Σ_q max|E| = ${totErr.toFixed(1)}    avg = ${avg.toFixed(2)}    Q = √x = ${Q}`;
+    svg.appendChild(sumLabel);
+    const bvLabel = SVG("text",{x:pad+8, y:pad+30, "font-size":12, fill:"var(--mute)"});
+    bvLabel.textContent = `BV bound x/(log x)^A: at x = ${X}, x/(log x)^3 ≈ ${(X/Math.pow(Math.log(X),3)).toFixed(1)}`;
+    svg.appendChild(bvLabel);
+
+    out.textContent = `${errs.length} moduli q ∈ [3, ${Q}].  Σ_q max_a |E(x;q,a)| = ${totErr.toFixed(1)};  bulk of mass sits at small errors — that is BV's content.`;
+  }
+  xR.addEventListener("input", draw);
+  draw();
+})();
+</script>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('analytic-number-theory'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-27</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

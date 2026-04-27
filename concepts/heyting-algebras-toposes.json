@@ -1,6 +1,6 @@
 {
   "topic": "heyting-algebras-toposes",
-  "title": "Heyting algebras and intuitionist logic in toposes",
+  "title": "Heyting algebras and toposes",
   "page": "heyting-algebras-toposes.html",
   "concepts": [
     {
@@ -18,7 +18,8 @@
       "anchor": "omega-heyting",
       "prereqs": [
         "subobject-classifier",
-        "heyting-algebra"
+        "heyting-algebra",
+        "sieves"
       ],
       "blurb": "In any topos, the subobject classifier $\\Omega$ carries an internal Heyting-algebra structure: maps $\\Omega \\times \\Omega \\to \\Omega$ implementing $\\wedge, \\vee, \\Rightarrow$. Subobject lattices $\\mathrm{Sub}(X)$ become external Heyting algebras with these operations applied pointwise."
     },

@@ -1,0 +1,284 @@
+{
+  "topic": "zfc-and-ordinals",
+  "quizzes": {
+    "zfc-axioms": {
+      "title": "The ZFC axioms",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which axiom of ZFC blocks Russell's paradoxical collection $R = \\{x : x \\notin x\\}$ from being a set?",
+          "choices": [
+            "Extensionality",
+            "Separation (restricted comprehension)",
+            "Power set",
+            "Choice"
+          ],
+          "answer": 1,
+          "explain": "Naive comprehension $\\{x : \\varphi(x)\\}$ is replaced by Separation: $\\{x \\in A : \\varphi(x)\\}$ for an already-given set $A$. Without an ambient set, Russell's $R$ never gets formed; Regularity additionally rules out $x \\in x$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which ZFC axiom asserts the existence of an infinite set?",
+          "choices": [
+            "Pairing",
+            "Union",
+            "Infinity",
+            "Replacement"
+          ],
+          "answer": 2,
+          "explain": "Infinity posits a set $I$ with $\\emptyset \\in I$ and $x \\in I \\Rightarrow x \\cup \\{x\\} \\in I$. The intersection of all such $I$ is $\\omega$, the set of finite von Neumann ordinals."
+        },
+        {
+          "type": "mcq",
+          "q": "Replacement strictly extends Separation. Which of the following requires Replacement (not just Separation)?",
+          "choices": [
+            "Forming $\\{n \\in \\omega : n \\text{ is even}\\}$",
+            "Forming $\\{V_n : n \\in \\omega\\}$ where $V_0=\\emptyset, V_{n+1}=\\mathcal P(V_n)$, and then taking $V_\\omega = \\bigcup V_n$",
+            "Forming $A \\cap B$ from given sets $A,B$",
+            "Forming $\\mathcal{P}(A)$ from a given set $A$"
+          ],
+          "answer": 1,
+          "explain": "Separation only filters elements out of an already-given set. Iterating $\\mathcal P$ along $\\omega$ produces the function $n \\mapsto V_n$; collecting its image into a set is exactly Replacement. Power Set then closes us off; Union assembles $V_\\omega$."
+        }
+      ]
+    },
+    "von-neumann-ordinals": {
+      "title": "Von Neumann ordinals",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Under the von Neumann encoding, which set is the ordinal $3$?",
+          "choices": [
+            "$\\{3\\}$",
+            "$\\{\\{\\{\\emptyset\\}\\}\\}$",
+            "$\\{\\emptyset, \\{\\emptyset\\}, \\{\\emptyset, \\{\\emptyset\\}\\}\\}$",
+            "$\\{1,2,3\\}$"
+          ],
+          "answer": 2,
+          "explain": "$0=\\emptyset$, $1=\\{0\\}=\\{\\emptyset\\}$, $2=\\{0,1\\}=\\{\\emptyset,\\{\\emptyset\\}\\}$, $3=\\{0,1,2\\}=\\{\\emptyset,\\{\\emptyset\\},\\{\\emptyset,\\{\\emptyset\\}\\}\\}$. Each ordinal is the set of all smaller ordinals."
+        },
+        {
+          "type": "mcq",
+          "q": "Which statement is true of every ordinal $\\alpha$?",
+          "choices": [
+            "$\\alpha \\in \\alpha$",
+            "$\\alpha$ is transitive and well-ordered by $\\in$",
+            "$\\alpha$ has a maximum element",
+            "$\\alpha$ is finite"
+          ],
+          "answer": 1,
+          "explain": "An ordinal is by definition a transitive set well-ordered by $\\in$. Regularity rules out $\\alpha\\in\\alpha$. Successor ordinals have a maximum; limit ordinals (like $\\omega$) do not."
+        },
+        {
+          "type": "numeric",
+          "q": "Among the ordinals $\\omega,\\;\\omega+1,\\;\\omega\\cdot 2,\\;\\omega^2$, how many are limit ordinals? (Recall: a limit ordinal is nonzero and not a successor.)",
+          "answer": 3,
+          "tol": 0,
+          "explain": "$\\omega$, $\\omega\\cdot 2 = \\omega+\\omega$, and $\\omega^2$ are all limits — none has an immediate predecessor. Only $\\omega+1$ is a successor (its predecessor is $\\omega$). So the count is $3$."
+        }
+      ]
+    },
+    "ordinal-arithmetic": {
+      "title": "Ordinal arithmetic",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which equality holds in ordinal arithmetic?",
+          "choices": [
+            "$1 + \\omega = \\omega + 1$",
+            "$1 + \\omega = \\omega$",
+            "$\\omega \\cdot 2 = 2 \\cdot \\omega$",
+            "$\\omega^2 = 2^\\omega$"
+          ],
+          "answer": 1,
+          "explain": "$1+\\omega$ is order type $\\bullet,0,1,2,\\dots$, which has the same order type as $\\omega$. But $\\omega+1$ has a maximum, so $\\omega+1\\ne\\omega$. Likewise $2\\cdot\\omega = \\omega \\ne \\omega\\cdot 2 = \\omega+\\omega$, and $2^\\omega = \\omega$ as ordinals (not $2^{\\aleph_0}$ as cardinals)."
+        },
+        {
+          "type": "mcq",
+          "q": "What is $\\varepsilon_0$?",
+          "choices": [
+            "The first uncountable ordinal",
+            "The cardinality of the continuum",
+            "The least ordinal $\\alpha$ with $\\omega^\\alpha = \\alpha$",
+            "An inaccessible cardinal"
+          ],
+          "answer": 2,
+          "explain": "$\\varepsilon_0$ is the supremum (and limit) of the tower $\\omega,\\;\\omega^\\omega,\\;\\omega^{\\omega^\\omega},\\dots$ — equivalently the least fixed point of $\\alpha\\mapsto\\omega^\\alpha$. It is countable but already too large for Peano arithmetic to prove well-founded (Gentzen)."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute the ordinal $(\\omega + 3) + (\\omega + 5)$ in Cantor normal form, and enter the coefficient of $\\omega^1$. (E.g. for $\\omega\\cdot 4 + 7$, enter $4$.)",
+          "answer": 2,
+          "tol": 0,
+          "explain": "$(\\omega+3)+(\\omega+5) = \\omega + (3+\\omega) + 5 = \\omega + \\omega + 5 = \\omega\\cdot 2 + 5$. The lower term $3$ is absorbed by the next $\\omega$ on its right because addition is left-distributive but not commutative. The coefficient of $\\omega^1$ is $2$."
+        }
+      ]
+    },
+    "cardinals-cofinality": {
+      "title": "Cardinals and cofinality",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Why is $|\\mathbb R| = 2^{\\aleph_0}$?",
+          "choices": [
+            "Because $\\mathbb R$ is countable",
+            "Because there is an injection $\\mathbb R \\hookrightarrow \\mathcal P(\\mathbb Q)$ via Dedekind cuts and $2^{\\aleph_0}\\hookrightarrow\\mathbb R$ via binary expansions; Cantor–Schröder–Bernstein closes the gap",
+            "Because $\\mathbb R$ has dimension $2$ over $\\mathbb Q$",
+            "Because $\\mathbb R$ is well-ordered by the standard order"
+          ],
+          "answer": 1,
+          "explain": "$\\mathbb R\\hookrightarrow\\mathcal P(\\mathbb Q)\\cong 2^{\\aleph_0}$ by sending $r\\mapsto\\{q\\in\\mathbb Q: q<r\\}$. Conversely $2^{\\aleph_0}\\hookrightarrow\\mathbb R$ via binary expansions (after fixing the $0.0\\overline 1=0.1\\overline 0$ ambiguity). Cantor–Schröder–Bernstein gives the bijection."
+        },
+        {
+          "type": "mcq",
+          "q": "What is $\\operatorname{cf}(\\aleph_\\omega)$?",
+          "choices": [
+            "$\\aleph_0$",
+            "$\\aleph_\\omega$",
+            "$\\aleph_{\\omega+1}$",
+            "$\\aleph_1$"
+          ],
+          "answer": 0,
+          "explain": "$\\aleph_\\omega = \\sup_n \\aleph_n$ is the limit of a countable sequence, so its cofinality is $\\omega = \\aleph_0$. This makes $\\aleph_\\omega$ a singular cardinal — by König's theorem, $2^{\\aleph_0} \\ne \\aleph_\\omega$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which cardinal is regular?",
+          "choices": [
+            "$\\aleph_\\omega$",
+            "$\\aleph_{\\omega_1}$",
+            "$\\aleph_1$",
+            "$\\aleph_{\\omega+\\omega}$"
+          ],
+          "answer": 2,
+          "explain": "Successor cardinals $\\aleph_{\\alpha+1}$ are regular (in ZFC). Limit cardinals $\\aleph_\\lambda$ have $\\operatorname{cf}(\\aleph_\\lambda) = \\operatorname{cf}(\\lambda)$, so $\\aleph_\\omega$ and $\\aleph_{\\omega+\\omega}$ have cofinality $\\omega$ — singular. $\\aleph_{\\omega_1}$ is singular too (cofinality $\\omega_1 < \\aleph_{\\omega_1}$)."
+        }
+      ]
+    },
+    "axiom-of-choice": {
+      "title": "The axiom of choice",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which is NOT equivalent to AC over ZF?",
+          "choices": [
+            "Zorn's lemma",
+            "Every set can be well-ordered",
+            "Every vector space has a basis",
+            "Every infinite set is in bijection with $\\omega$"
+          ],
+          "answer": 3,
+          "explain": "AC is equivalent to Zorn's lemma, the well-ordering theorem, Tychonoff's theorem, and 'every vector space has a basis'. But 'every infinite set is countable' is false — Cantor showed $\\mathbb R$ is uncountable, no choice needed."
+        },
+        {
+          "type": "mcq",
+          "q": "Tychonoff's theorem (every product of compact spaces is compact) is equivalent to AC. Which restricted form is provable in ZF without choice?",
+          "choices": [
+            "The product of countably many compact Hausdorff spaces is compact",
+            "The product of any family of finite discrete spaces is compact",
+            "The product of two compact spaces is compact",
+            "All of the above need full AC"
+          ],
+          "answer": 2,
+          "explain": "Finite products of compact spaces are compact in ZF. Countable products of compact Hausdorff spaces need countable choice (DC). The general Tychonoff theorem is equivalent to AC (Kelley 1950)."
+        },
+        {
+          "type": "mcq",
+          "q": "Which construction is known to require AC?",
+          "choices": [
+            "A bijection $\\mathbb N\\times\\mathbb N\\to\\mathbb N$",
+            "A non-measurable subset of $\\mathbb R$ (Vitali)",
+            "The supremum of a bounded set of reals",
+            "A continuous function $\\mathbb R\\to\\mathbb R$"
+          ],
+          "answer": 1,
+          "explain": "Vitali's construction picks one representative from each coset of $\\mathbb Q$ in $\\mathbb R/\\mathbb Q$, an uncountable family of non-empty sets — this is exactly a choice function. Solovay (1970) showed it is consistent with ZF+DC that every set of reals is Lebesgue measurable, so the non-measurable set really requires AC."
+        }
+      ]
+    },
+    "continuum-hypothesis": {
+      "title": "The continuum hypothesis",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What does the continuum hypothesis (CH) assert?",
+          "choices": [
+            "$|\\mathbb R| = \\aleph_0$",
+            "$|\\mathbb R| = \\aleph_1$, i.e. there is no set of size strictly between $\\aleph_0$ and $2^{\\aleph_0}$",
+            "$2^{\\aleph_0} = \\aleph_\\omega$",
+            "Every infinite subset of $\\mathbb R$ is countable"
+          ],
+          "answer": 1,
+          "explain": "CH is the statement $2^{\\aleph_0}=\\aleph_1$. Equivalently: every infinite subset of $\\mathbb R$ is either countable or in bijection with $\\mathbb R$ — there is no cardinality in between."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the status of CH in ZFC?",
+          "choices": [
+            "Provable",
+            "Refutable",
+            "Independent: consistent and consistent-with-negation, both established (Gödel 1940 + Cohen 1963)",
+            "An open problem"
+          ],
+          "answer": 2,
+          "explain": "Gödel (1940) built the constructible universe $L$, an inner model of ZFC where CH (and GCH) hold; this shows ZFC + CH is consistent. Cohen (1963) introduced forcing to build a model where CH fails. Neither half can prove CH itself."
+        },
+        {
+          "type": "mcq",
+          "q": "The technique Cohen invented to refute CH is now ubiquitous in set theory. What is its name?",
+          "choices": [
+            "Compactness",
+            "Forcing",
+            "Ultrapowers",
+            "Diagonalization"
+          ],
+          "answer": 1,
+          "hint": "Forcing adjoins to a ground model $M$ a generic filter $G$ on a partial order $\\mathbb P\\in M$, producing a larger model $M[G]\\models$ ZFC where carefully chosen statements (like $\\neg$CH) are forced…",
+          "explain": "Forcing adjoins to a ground model $M$ a generic filter $G$ on a partial order $\\mathbb P\\in M$, producing a larger model $M[G]\\models$ ZFC where carefully chosen statements (like $\\neg$CH) are forced to hold. It is the standard tool for independence results."
+        }
+      ]
+    },
+    "inaccessible-cardinals": {
+      "title": "Inaccessible cardinals",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "An (uncountable) inaccessible cardinal $\\kappa$ is required to be:",
+          "choices": [
+            "Regular and a strong limit ($\\lambda<\\kappa\\Rightarrow 2^\\lambda<\\kappa$)",
+            "Singular and a limit cardinal",
+            "A successor cardinal $\\aleph_{\\alpha+1}$",
+            "Equal to $\\aleph_\\omega$"
+          ],
+          "answer": 0,
+          "explain": "Inaccessible = uncountable + regular + strong limit. Both conditions ensure $V_\\kappa$ is closed under power-set and unions of size $<\\kappa$, so $V_\\kappa\\models$ ZFC."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is the existence of an inaccessible cardinal strictly stronger than ZFC?",
+          "choices": [
+            "Because $V_\\kappa\\models$ ZFC, so ZFC + 'an inaccessible exists' proves Con(ZFC), which by Gödel's second incompleteness theorem ZFC alone cannot",
+            "Because inaccessibles are easy to construct from $\\omega$",
+            "Because the axiom of choice fails at $\\kappa$",
+            "Because $V_\\kappa$ has size $\\aleph_0$"
+          ],
+          "answer": 0,
+          "explain": "If ZFC + Inaccessible $\\vdash$ Con(ZFC), then ZFC alone cannot prove the existence of an inaccessible — else ZFC would prove Con(ZFC), violating Gödel II. So 'an inaccessible exists' has strictly higher consistency strength than ZFC."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the connection between inaccessibles and Grothendieck universes?",
+          "choices": [
+            "There is no connection",
+            "A Grothendieck universe is exactly $V_\\kappa$ for $\\kappa$ inaccessible (uncountable case)",
+            "Every Grothendieck universe is countable",
+            "Grothendieck universes need only ZF, not ZFC"
+          ],
+          "answer": 1,
+          "hint": "A Grothendieck universe $\\mathcal U$ is a transitive set closed under pairs, unions, power-sets, and replacement-like indexing — exactly the closure conditions $V_\\kappa$ has when $\\kappa$ is…",
+          "explain": "A Grothendieck universe $\\mathcal U$ is a transitive set closed under pairs, unions, power-sets, and replacement-like indexing — exactly the closure conditions $V_\\kappa$ has when $\\kappa$ is inaccessible. SGA assumes 'every set lies in a Grothendieck universe' for category-theoretic foundations; this is the universe axiom, equivalent to a proper class of inaccessibles."
+        }
+      ]
+    }
+  }
+}

@@ -27,7 +27,11 @@
             "The unique map from a Kan complex $X$ to $\\Delta^0$.",
             "The boundary inclusion $\\partial \\Delta^2 \\hookrightarrow \\Delta^2$."
           ],
-          "answer": [0, 2, 3],
+          "answer": [
+            0,
+            2,
+            3
+          ],
           "explain": "Identity-style maps and Kan fibrations satisfy <em>every</em> horn condition, so they are left fibrations a fortiori. A Kan complex over a point is the same data as a Kan fibration to $\\Delta^0$. The boundary inclusion is not even surjective in dimension $2$ — it does not extend the constant horn at the missing $2$-simplex. The fold map is not a fibration of any kind.",
           "hint": "Every Kan fibration is a left fibration; a left fibration over a point is precisely a Kan complex."
         },
@@ -110,6 +114,7 @@
             "They become equal after passing to the homotopy category $h(\\mathcal{E})$."
           ],
           "answer": 1,
+          "hint": "Cocartesian lifts are unique up to a <em>contractible</em> space of choices, so any two cocartesian lifts of $\\bar{e}$ starting at $x$ are linked by an equivalence between their endpoints — and that…",
           "explain": "Cocartesian lifts are unique up to a <em>contractible</em> space of choices, so any two cocartesian lifts of $\\bar{e}$ starting at $x$ are linked by an equivalence between their endpoints — and that equivalence sits in the fiber $\\mathcal{E}_{\\bar{y}}$ (since both endpoints live there). Equality on the nose is far too strong; the homotopy-category quotient is too coarse."
         }
       ]
@@ -140,7 +145,11 @@
             "The diagonal $\\mathcal{C} \\to \\mathcal{C} \\times \\mathcal{C}$.",
             "The equalizer inclusion $\\mathrm{eq}(f, g) \\hookrightarrow \\mathcal{C}$ for parallel functors $f, g: \\mathcal{C} \\to \\mathcal{D}$."
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            0,
+            1,
+            2
+          ],
           "explain": "Source-of-an-arrow, product projection, and the modules-over-CAlg fibration are the three canonical examples (Kerodon 5.1.5). The diagonal is generally not even an inner fibration. An equalizer inclusion is a <em>monomorphism</em>, not a fibration; it has no nontrivial cocartesian lifts.",
           "hint": "Cocartesian fibrations classify covariant families of $\\infty$-categories — projections and arrow-source maps fit; inclusions and diagonals don't."
         },
@@ -186,7 +195,12 @@
             "$X /\\!\\!/ G \\to BG$",
             "$\\mathcal{C} \\times \\mathcal{D} \\to \\mathcal{C}$"
           ],
-          "answer": [3, 0, 2, 1],
+          "answer": [
+            3,
+            0,
+            2,
+            1
+          ],
           "explain": "(left index → right slot.) Constant family ↔ product projection (idx 3 of left = $\\mathcal{C} \\times \\mathcal{D}$). Slice functor ↔ arrow-source (left idx 1 → right idx 0, since right[0] is the modules fibration — wait, double-check: right[0] is Mod$\\to$CAlg → matches Module functor (left idx 2). The intended answer pairs are: 'constant $\\mathcal{D}$' ↔ '$\\mathcal{C} \\times \\mathcal{D} \\to \\mathcal{C}$', 'slice $c \\mapsto \\mathcal{C}_{c/}$' ↔ '$s: \\mathrm{Fun}(\\Delta^1,\\mathcal{C}) \\to \\mathcal{C}$', 'modules $R \\mapsto \\mathrm{Mod}_R$' ↔ '$\\mathrm{Mod} \\to \\mathrm{CAlg}$', 'BG-action on $X$' ↔ '$X /\\!\\!/ G \\to BG$'. Each is a canonical example of straightening."
         }
       ]
@@ -240,7 +254,7 @@
           "choices": [
             "The forgetful functor $\\mathrm{Mod}_S \\to \\mathrm{Mod}_R$ (restriction of scalars).",
             "The base-change functor $S \\otimes_R (-): \\mathrm{Mod}_R \\to \\mathrm{Mod}_S$.",
-            "The internal-Hom $\\mathrm{Hom}_R(S, -): \\mathrm{Mod}_R \\to \\mathrm{Mod}_S$.",
+            "The internal-Hom $\\Hom_R(S, -): \\mathrm{Mod}_R \\to \\mathrm{Mod}_S$.",
             "Tensoring with the kernel of $\\bar{f}$."
           ],
           "answer": 1,
@@ -419,7 +433,12 @@
             "$\\mathrm{Mod} \\to \\mathrm{CAlg}$ — the universal modules fibration",
             "$s: \\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$ — the source map of the arrow category"
           ],
-          "answer": [3, 2, 0, 1],
+          "answer": [
+            3,
+            2,
+            0,
+            1
+          ],
           "explain": "(left → right indices.) Slice functor straightens to the source map (left 0 → right 3). Modules functor straightens to the modules fibration (left 1 → right 2). $G$-action straightens to homotopy quotient (left 2 → right 0). Constant singleton functor unstraightens to the identity (left 3 → right 1)."
         },
         {
@@ -432,7 +451,10 @@
             "$X /\\!\\!/ G \\to BG$ — homotopy quotient projection.",
             "$\\mathcal{C} \\times \\mathcal{D} \\to \\mathcal{C}$ — product projection where $\\mathcal{D}$ is an $\\infty$-category but not a Kan complex."
           ],
-          "answer": [0, 3],
+          "answer": [
+            0,
+            3
+          ],
           "explain": "$\\mathcal{C}_{x/} \\to \\mathcal{C}$ has Kan-complex fibers $\\mathrm{Map}_\\mathcal{C}(x, -)$, so it is a left fibration. $X /\\!\\!/ G \\to BG$ has fibers all equivalent to the space $X$, so it is a left fibration. The arrow source-map has $\\infty$-category fibers $\\mathcal{C}_{x/}$ (not Kan complexes in general), so it's cocartesian but not left. The slice 'forget target' map is a <em>right</em> fibration. A product projection with an $\\infty$-category factor is cocartesian, not left.",
           "hint": "Left fibration = cocartesian + Kan-complex fibers = $\\mathcal{S}$-valued straightening."
         },
@@ -446,6 +468,7 @@
             "Base change is computed using $\\mathrm{Tor}$, but the fibration only sees its $0$th cohomology."
           ],
           "answer": 1,
+          "hint": "The cocartesian-fibration formalism is intrinsically homotopy-coherent: cocartesian lifts are unique only up to (a contractible space of) higher homotopy, so the corresponding base-change functor is…",
           "explain": "The cocartesian-fibration formalism is intrinsically homotopy-coherent: cocartesian lifts are unique only up to (a contractible space of) higher homotopy, so the corresponding base-change functor is the derived (= $\\mathbb{L}$-tensor) one. Plain $\\otimes_R$ would be the wrong functor on $\\mathrm{Mod}_R$ at the chain-level, breaking homotopy invariance and failing to give a cocartesian fibration."
         }
       ]

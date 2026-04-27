@@ -50,9 +50,11 @@ const repoRoot = resolve(scriptsDir, '..');
 // groupings inside concepts/index.json. Order within each section determines
 // where a new slug lands on append.
 const SECTIONS = [
-  'Foundations',
-  'Algebra',
+  'Logic & Foundations',
+  'Algebra & homological',
+  'Higher categories & toposes',
   'Analysis',
+  'Probability & statistics',
   'Geometry & topology',
   'Number theory',
   'Modular forms & L-functions',
@@ -67,21 +69,36 @@ const SECTIONS = [
 // suffix on `<a class="card X">` (y/b/g/p/v/c) and the matching CSS variable
 // used inside the inline SVG.
 const SECTION_PALETTE = new Map([
-  ['Foundations',                  { klass: 'b', cssVar: '--blue'   }],
-  ['Algebra',                      { klass: 'y', cssVar: '--yellow' }],
+  ['Logic & Foundations',          { klass: 'b', cssVar: '--blue'   }],
+  ['Algebra & homological',        { klass: 'y', cssVar: '--yellow' }],
+  ['Higher categories & toposes',  { klass: 'c', cssVar: '--cyan'   }],
   ['Analysis',                     { klass: 'p', cssVar: '--pink'   }],
+  ['Probability & statistics',     { klass: 'g', cssVar: '--green'  }],
   ['Geometry & topology',          { klass: 'v', cssVar: '--violet' }],
   ['Number theory',                { klass: 'y', cssVar: '--yellow' }],
   ['Modular forms & L-functions',  { klass: 'c', cssVar: '--cyan'   }],
   ['Algebraic geometry',           { klass: 'g', cssVar: '--green'  }],
-  ['Combinatorics & graph theory', { klass: 'g', cssVar: '--green'  }],
+  ['Combinatorics & graph theory', { klass: 'v', cssVar: '--violet' }],
 ]);
 
 // Accept shorthand aliases for convenience. Map them to the canonical name.
 const SECTION_ALIASES = new Map([
-  ['foundations', 'Foundations'],
-  ['algebra', 'Algebra'],
+  ['foundations', 'Logic & Foundations'],
+  ['logic', 'Logic & Foundations'],
+  ['logic-and-foundations', 'Logic & Foundations'],
+  ['logic & foundations', 'Logic & Foundations'],
+  ['algebra', 'Algebra & homological'],
+  ['algebra-and-homological', 'Algebra & homological'],
+  ['algebra & homological', 'Algebra & homological'],
+  ['higher-categories', 'Higher categories & toposes'],
+  ['higher-categories-and-toposes', 'Higher categories & toposes'],
+  ['higher categories & toposes', 'Higher categories & toposes'],
+  ['toposes', 'Higher categories & toposes'],
   ['analysis', 'Analysis'],
+  ['probability', 'Probability & statistics'],
+  ['probability-and-statistics', 'Probability & statistics'],
+  ['probability & statistics', 'Probability & statistics'],
+  ['statistics', 'Probability & statistics'],
   ['geometry', 'Geometry & topology'],
   ['geometry-topology', 'Geometry & topology'],
   ['geometry & topology', 'Geometry & topology'],
@@ -108,7 +125,7 @@ const SECTION_ALIASES = new Map([
 // in one of the 7 regular sections, and if the topic is also a capstone the
 // authoring agent manually migrates it to the capstones group + adds an
 // entry to concepts/capstones.json.
-const CAPSTONES_GROUP_INDEX = 8; // 0-based, immediately after the 8 SECTIONS
+const CAPSTONES_GROUP_INDEX = 10; // 0-based, immediately after the 10 SECTIONS
 
 function usage() {
   console.error('usage: node scripts/new-topic.mjs <topic-slug> <section>');
@@ -238,6 +255,30 @@ html = html.replace(
 <!-- TODO: content goes here — prose, widgets, and a quiz placeholder:
      <div class="quiz" data-concept="<concept-id>"></div>
 -->
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     Connections outro — pedagogy reviewer's templated closure pattern.
+     Strong-corpus topics (measure-theory, functional-analysis, elliptic-
+     curves, commutative-algebra) all end with a short "where this leads"
+     section. Bottom-quartile topics tend to skip it; the scaffolder now
+     emits this stub so the no-closure habit doesn't recur on new topics.
+     Authoring agents: replace the bullet list with 3-5 real cross-topic
+     pointers and write 1-2 sentences naming open frontiers.
+═══════════════════════════════════════════════════════════════════ -->
+<section id="connections">
+<h2>Connections</h2>
+
+<p><!-- TODO: 1-2 sentences naming the open frontier this topic opens onto.
+What is being researched? What's still hard? What surprises a beginner who
+expects the area to be settled? --></p>
+
+<ul>
+<!-- TODO: 3-5 sibling topics this one feeds into / reaches back from.
+Format: <li><a href="./<other-topic>.html#<anchor>">Other topic — concept</a> — one-clause why this concept matters there.</li>
+-->
+</ul>
 </section>
 
 `;

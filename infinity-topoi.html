@@ -18,7 +18,15 @@
         {left:'\\(',right:'\\)',display:false},
         {left:'\\[',right:'\\]',display:true}
       ],
-      throwOnError:false
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\Spec',
+        '\\Gal':'\\Gal',
+        '\\Hom':'\\Hom',
+        '\\tr':'\\tr',
+        '\\ad':'\\ad',
+        '\\ind':'\\ind'
+      }
     });
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
@@ -155,7 +163,7 @@
   /* display-prefs-css-auto-end */
 </style>
 <!-- breadcrumb-head-auto-begin -->
-<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"galois-representations","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"group-schemes","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":null,"prev":"deformation-theory","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"intersection-theory-chow","prev":"etale-cohomology","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"automorphic-forms-adelic":{"next":null,"prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra","title":"Category theory"},"class-field-theory":{"next":"heights-arithmetic-geometry","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"group-cohomology","prev":"derived-categories","section":"Algebra","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"deformation-theory":{"next":"algebraic-de-rham-cohomology","prev":"group-schemes","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"cocartesian-fibrations","prev":"infinity-topoi","section":"Algebra","title":"Derived categories"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"probability-theory","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":"homological","section":"Algebra","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"etale-cohomology":{"next":"algebraic-spaces","prev":"stacks","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"algebraic-curves-higher-genus","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Étale fundamental group"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-representations":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Galois representations"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Algebra","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":null,"prev":"cocartesian-fibrations","section":"Algebra","title":"Group cohomology"},"group-schemes":{"next":"deformation-theory","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Group schemes"},"harmonic-analysis-fourier":{"next":null,"prev":"sobolev-spaces-distributions","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":null,"prev":"class-field-theory","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Algebra","title":"Heyting algebras & intuitionist logic"},"homological":{"next":"elementary-topos-theory","prev":"commutative-algebra","section":"Algebra","title":"Homological algebra"},"infinity-categories":{"next":"infinity-topoi","prev":"simplicial-sets-and-nerve","section":"Algebra","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":"derived-categories","prev":"infinity-categories","section":"Algebra","title":"∞-topoi (Lurie)"},"intersection-theory-chow":{"next":"etale-fundamental-group","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"automorphic-forms-adelic","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"galois-representations","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"naive-set-theory":{"next":null,"prev":null,"section":"Foundations","title":"Naive set theory"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"power-sums-bernoulli":{"next":"waring","prev":"sums-of-squares","section":"Number theory","title":"Power sums & Bernoulli"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"waring","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"sums-of-squares","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra","title":"Representation theory"},"riemann-surfaces":{"next":null,"prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"sheaf-cohomology":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":null,"prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Algebra","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"moduli-spaces","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"harmonic-analysis-fourier","prev":"probability-theory","section":"Analysis","title":"Sobolev spaces & distributions"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"stacks":{"next":"etale-cohomology","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"sums-of-squares":{"next":"power-sums-bernoulli","prev":"quadratic-reciprocity","section":"Number theory","title":"Sums of squares"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"waring":{"next":"quadratic-forms-genus-theory","prev":"power-sums-bernoulli","section":"Number theory","title":"Waring's problem"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"}};</script>
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"automorphic-forms-adelic","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"additive-number-theory":{"next":"quadratic-forms-genus-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"moduli-spaces","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":null,"prev":"heights-arithmetic-geometry","section":"Number theory","title":"Analytic number theory"},"automorphic-forms-adelic":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-topoi","prev":"infinity-categories","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"deformation-theory":{"next":"etale-cohomology","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"group-cohomology","prev":"homological","section":"Algebra & homological","title":"Derived categories"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"harmonic-analysis-fourier","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":null,"section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":null,"prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":null,"prev":"deformation-theory","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"deformation-theory","prev":"group-schemes","section":"Algebraic geometry","title":"Étale fundamental group"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"naive-set-theory","section":"Logic & Foundations","title":"First order logic and completeness"},"forcing-and-independence":{"next":null,"prev":"type-theory-and-hott","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":null,"prev":"lie-algebras","section":"Algebra & homological","title":"Galois cohomology and brauer"},"galois-representations":{"next":"heights-arithmetic-geometry","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"lie-algebras","prev":"derived-categories","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"etale-fundamental-group","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"harmonic-analysis-fourier":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"spectral-theory","prev":"partial-differential-equations","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"analytic-number-theory","prev":"galois-representations","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"homological":{"next":"derived-categories","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"cocartesian-fibrations","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-topoi (Lurie)"},"information-theory":{"next":"large-deviations","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"stacks","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"large-deviations":{"next":null,"prev":"information-theory","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"galois-cohomology-and-brauer","prev":"group-cohomology","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"model-theory-basics":{"next":"computability-and-decidability","prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":null,"prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"modular-curves","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"algebraic-spaces","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":null,"prev":"characteristic-classes","section":"Geometry & topology","title":"Morse theory"},"naive-set-theory":{"next":"first-order-logic-and-completeness","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"harmonic-functions","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"stochastic-processes-and-martingales","prev":null,"section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"additive-number-theory","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"additive-number-theory","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"random-walks-and-mixing":{"next":"information-theory","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra & homological","title":"Representation theory"},"riemann-surfaces":{"next":"characteristic-classes","prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"sheaf-cohomology":{"next":"algebraic-de-rham-cohomology","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"algebraic-curves-higher-genus","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Sobolev spaces & distributions"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":null,"prev":"harmonic-functions","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"intersection-theory-chow","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":"probability-theory","section":"Probability & statistics","title":"Stochastic processes and martingales"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"type-theory-and-hott":{"next":"forcing-and-independence","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and hott"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"model-theory-basics","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"Zfc and ordinals"}};</script>
 <script src="./js/breadcrumb.js"></script>
 <script src="./js/glossary-popover.js" defer></script>
 <link rel="stylesheet" media="print" href="./css/print.css">
@@ -294,7 +302,7 @@ where $\mathrm{Fun}^L$ denotes colimit-preserving functors. Every functor $F\col
 <script>
 (function(){
   if(!window.MVProofScrubber) return;
-  MVProofScrubber.init('#w-presheaf-universal-property', {
+  const __h = MVProofScrubber.init('#w-presheaf-universal-property', {
     title: "$\\mathcal{P}(C)$ as free cocompletion: the universal property unpacked",
     hint: "drag the slider — or press play",
     viewBox: "0 0 460 220",
@@ -337,6 +345,19 @@ where $\mathrm{Fun}^L$ denotes colimit-preserving functors. Every functor $F\col
       },
     ],
   });
+  const __r = document.getElementById('w-presheaf-universal-property');
+  if (__r && __h) {
+    const __mk = (t) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = t; b.style.cssText = 'min-width:5rem'; return b; };
+    const __nav = document.createElement('div');
+    __nav.className = 'row';
+    __nav.style.cssText = 'gap:.4rem;justify-content:center;margin-top:.4rem';
+    const __p = __mk('← prev'), __rs = __mk('↻ restart'), __n = __mk('next →');
+    __p.addEventListener('click', () => __h.setStep(__h.step - 1));
+    __n.addEventListener('click', () => __h.setStep(__h.step + 1));
+    __rs.addEventListener('click', () => { __h.stop(); __h.setStep(0); });
+    __nav.append(__p, __rs, __n);
+    __r.appendChild(__nav);
+  }
 })();
 </script>
 
@@ -460,7 +481,7 @@ where $C$ is a small $\infty$-category, $i$ is the fully faithful inclusion of a
 <script>
 (function(){
   if(!window.MVProofScrubber) return;
-  MVProofScrubber.init('#w-giraud-axioms', {
+  const __h = MVProofScrubber.init('#w-giraud-axioms', {
     title: "$\\infty$-Giraud, axiom by axiom — verified on $\\mathcal{X} = \\mathcal{S}$ (spaces)",
     hint: "drag the slider — or press play",
     viewBox: "0 0 480 220",
@@ -498,6 +519,19 @@ where $C$ is a small $\infty$-category, $i$ is the fully faithful inclusion of a
       },
     ],
   });
+  const __r = document.getElementById('w-giraud-axioms');
+  if (__r && __h) {
+    const __mk = (t) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = t; b.style.cssText = 'min-width:5rem'; return b; };
+    const __nav = document.createElement('div');
+    __nav.className = 'row';
+    __nav.style.cssText = 'gap:.4rem;justify-content:center;margin-top:.4rem';
+    const __p = __mk('← prev'), __rs = __mk('↻ restart'), __n = __mk('next →');
+    __p.addEventListener('click', () => __h.setStep(__h.step - 1));
+    __n.addEventListener('click', () => __h.setStep(__h.step + 1));
+    __rs.addEventListener('click', () => { __h.stop(); __h.setStep(0); });
+    __nav.append(__p, __rs, __n);
+    __r.appendChild(__nav);
+  }
 })();
 </script>
 
@@ -514,7 +548,7 @@ with $f^*$ left exact (preserves finite $\infty$-limits). The convention is the 
 
 <p>Two key classes:</p>
 <ul>
-  <li><strong>Étale geometric morphisms.</strong> For $X \in \mathcal{E}$, the slice $\mathcal{E}_{/X}$ is again an $\infty$-topos and the projection $\mathcal{E}_{/X} \to \mathcal{E}$ is geometric: $f^* = X \times -$ (pullback) and $f_* = \mathrm{Hom}_{\mathcal{E}}(X, -)$ in the right sense. These model "open inclusion" — $f^*$ has a further left adjoint $f_!$ (the dependent sum / extension by zero), making it part of an "étale geometric morphism" in Lurie's terminology. Étale geometric morphisms $\mathcal{X} \to \mathcal{E}$ are equivalent to objects $X \in \mathcal{E}$ — like open inclusions of a space are equivalent to opens.</li>
+  <li><strong>Étale geometric morphisms.</strong> For $X \in \mathcal{E}$, the slice $\mathcal{E}_{/X}$ is again an $\infty$-topos and the projection $\mathcal{E}_{/X} \to \mathcal{E}$ is geometric: $f^* = X \times -$ (pullback) and $f_* = \Hom_{\mathcal{E}}(X, -)$ in the right sense. These model "open inclusion" — $f^*$ has a further left adjoint $f_!$ (the dependent sum / extension by zero), making it part of an "étale geometric morphism" in Lurie's terminology. Étale geometric morphisms $\mathcal{X} \to \mathcal{E}$ are equivalent to objects $X \in \mathcal{E}$ — like open inclusions of a space are equivalent to opens.</li>
   <li><strong>Surjective geometric morphisms.</strong> $f$ is surjective if $f^*$ is conservative — reflects equivalences. Models a "cover": $f^*\colon \mathrm{Sh}_\infty(X) \to \mathrm{Sh}_\infty(\widetilde X)$ for an étale cover $\widetilde X \to X$ is conservative because checking equivalences locally suffices.</li>
 </ul>
 
@@ -525,7 +559,7 @@ with $f^*$ left exact (preserves finite $\infty$-limits). The convention is the 
   <ul>
     <li><a href="./infinity-categories.html#infty-adjunctions">Adjunctions $\infty$-categorically</a> — for the precise meaning of $f^* \dashv f_*$ in $\infty$-land.</li>
     <li><a href="./grothendieck-topologies-sites.html">Geometric morphisms of 1-topoi</a> — the same adjoint pair, one categorical level lower.</li>
-    <li><a href="./infinity-topoi.html#etale-infty-topos">Étale $\infty$-topos of a scheme</a> — concrete instance: pullback along $\mathrm{Spec}\,\mathbb{Z}_p \to \mathrm{Spec}\,\mathbb{Z}$.</li>
+    <li><a href="./infinity-topoi.html#etale-infty-topos">Étale $\infty$-topos of a scheme</a> — concrete instance: pullback along $\Spec\,\mathbb{Z}_p \to \Spec\,\mathbb{Z}$.</li>
     <li><a href="./elementary-topos-theory.html#geometric-morphisms">Geometric morphisms</a></li>
   </ul>
 </aside>
@@ -652,14 +686,6 @@ with $f^*$ left exact (preserves finite $\infty$-limits). The convention is the 
 <p>The fix is <strong>hypercompletion</strong>: localize $\mathcal{X}$ further at the class of $\infty$-connective morphisms. The result $\mathcal{X}^{\wedge}$ is the maximal hypercomplete left-exact localization of $\mathcal{X}$, and is itself an $\infty$-topos (HTT 6.5.2.13). For $\mathcal{X}$ hypercomplete, $\mathcal{X}^{\wedge} = \mathcal{X}$. Equivalently: $\mathcal{X}^{\wedge}$ is the $\infty$-category of <em>hypersheaves</em> — presheaves satisfying descent for hypercovers, not just covers.</p>
 
 <p>For most working contexts hypercompletion is automatic or harmless. <em>Topological space</em> $X$ of finite covering dimension: $\mathrm{Sh}_\infty(X)$ is already hypercomplete. <em>Locally Noetherian scheme of finite Krull dimension, étale topology</em>: the étale $\infty$-topos $X_{\mathrm{ét}}^\wedge$ is hypercomplete and is the natural home for $\ell$-adic sheaves. The pathology bites when you try to look at very large bases (infinite Krull dimension; pro-finite covers of profinite groups with infinite virtual cohomological dimension; certain operadic completions) — there hypercompletion is the right move.</p>
-<aside class="callback">
-  <div class="ttl">See also</div>
-  <ul>
-    <li><a href="./algebraic-topology.html">Algebraic topology</a> — for the classical Whitehead theorem.</li>
-    <li><a href="./infinity-topoi.html#etale-infty-topos">The étale $\infty$-topos</a> — where hypercompletion is the operative move for $\ell$-adic / derived étale.</li>
-  </ul>
-</aside>
-
 <div class="widget" id="w-whitehead-internal"></div>
 <script>
 (function(){
@@ -705,7 +731,7 @@ with $f^*$ left exact (preserves finite $\infty$-limits). The convention is the 
 <script>
 (function(){
   if(!window.MVCounterexampleExplorer) return;
-  MVCounterexampleExplorer.init('#w-hyp-cases', {
+  const __h = MVCounterexampleExplorer.init('#w-hyp-cases', {
     title: "Hypercomplete vs non-hypercomplete: a case library",
     hint: "pick a case — see whether each hypothesis holds",
     viewBox: "0 0 320 160",
@@ -750,9 +776,9 @@ with $f^*$ left exact (preserves finite $\infty$-limits). The convention is the 
         }
       },
       {
-        name: '$X = \\mathrm{Spec}(\\prod_{n} k_n)$, $k_n$ a sequence of fields',
+        name: '$X = \\Spec(\\prod_{n} k_n)$, $k_n$ a sequence of fields',
         latex: '\\mathrm{Sh}_\\infty(X_{\\mathrm{Zar}}), \\dim X = \\infty',
-        svgInner: "<rect x='40' y='40' width='240' height='80' fill='var(--panel2)' stroke='var(--pink)' stroke-width='1.6' rx='10'/><text x='160' y='70' text-anchor='middle' font-size='12' fill='var(--ink)'>$\\mathrm{Spec}\\,(\\prod_n k_n)$</text><text x='160' y='95' text-anchor='middle' font-size='11' fill='var(--mute)'>infinite Krull dimension — pathological</text>",
+        svgInner: "<rect x='40' y='40' width='240' height='80' fill='var(--panel2)' stroke='var(--pink)' stroke-width='1.6' rx='10'/><text x='160' y='70' text-anchor='middle' font-size='12' fill='var(--ink)'>$\\Spec\\,(\\prod_n k_n)$</text><text x='160' y='95' text-anchor='middle' font-size='11' fill='var(--mute)'>infinite Krull dimension — pathological</text>",
         hypotheses: {
           hyp:       { pass: false, note: 'NOT hypercomplete: a non-hypercomplete sheaf exists witnessed by an $\\infty$-connective map that fails to be an equivalence (HTT 6.5.4 — countable infinite-product example).' },
           finite:    { pass: false, note: 'Krull dimension is infinite by construction (the spectrum has countably many isolated points).' },
@@ -761,9 +787,9 @@ with $f^*$ left exact (preserves finite $\infty$-limits). The convention is the 
         }
       },
       {
-        name: 'Étale $\\infty$-topos of $\\mathrm{Spec}\\,k$, $k$ algebraically closed',
-        latex: '(\\mathrm{Spec}\\,\\bar k)_{\\mathrm{ét}}^\\wedge \\simeq \\mathcal{S}',
-        svgInner: "<rect x='80' y='40' width='160' height='80' fill='color-mix(in srgb, var(--blue) 12%, var(--panel2))' stroke='var(--blue)' stroke-width='1.6' rx='10'/><text x='160' y='75' text-anchor='middle' font-size='12' fill='var(--ink)'>$(\\mathrm{Spec}\\,\\bar k)_{\\mathrm{ét}}^\\wedge$</text><text x='160' y='100' text-anchor='middle' font-size='11' fill='var(--mute)'>= spaces (after hypercompletion)</text>",
+        name: 'Étale $\\infty$-topos of $\\Spec\\,k$, $k$ algebraically closed',
+        latex: '(\\Spec\\,\\bar k)_{\\mathrm{ét}}^\\wedge \\simeq \\mathcal{S}',
+        svgInner: "<rect x='80' y='40' width='160' height='80' fill='color-mix(in srgb, var(--blue) 12%, var(--panel2))' stroke='var(--blue)' stroke-width='1.6' rx='10'/><text x='160' y='75' text-anchor='middle' font-size='12' fill='var(--ink)'>$(\\Spec\\,\\bar k)_{\\mathrm{ét}}^\\wedge$</text><text x='160' y='100' text-anchor='middle' font-size='11' fill='var(--mute)'>= spaces (after hypercompletion)</text>",
         hypotheses: {
           hyp:       { pass: true,  note: 'After hypercompletion, equivalent to $\\mathcal{S}$ itself (no nontrivial Galois data over a separable closure).' },
           finite:    { pass: true,  note: 'Spectrum is a single point; cohomological dimension 0.' },
@@ -784,6 +810,18 @@ with $f^*$ left exact (preserves finite $\infty$-limits). The convention is the 
       },
     ],
   });
+  const __r = document.getElementById('w-hyp-cases');
+  if (__r && __h) {
+    const __mk = (t) => { const b = document.createElement('button'); b.type = 'button'; b.textContent = t; b.style.cssText = 'min-width:5rem'; return b; };
+    const __nav = document.createElement('div');
+    __nav.className = 'row';
+    __nav.style.cssText = 'gap:.4rem;justify-content:center;margin-top:.4rem';
+    const __p = __mk('← prev case'), __n = __mk('next case →');
+    __p.addEventListener('click', () => __h.select(__h.index - 1));
+    __n.addEventListener('click', () => __h.select(__h.index + 1));
+    __nav.append(__p, __n);
+    __r.appendChild(__nav);
+  }
 })();
 </script>
 
@@ -806,7 +844,7 @@ with $f^*$ left exact (preserves finite $\infty$-limits). The convention is the 
   <tr><td>Higher inductive type</td><td>Colimit (or generalized inductive colimit)</td></tr>
 </table>
 
-<p>The most interesting feature is the <strong>universe / object classifier</strong>. In a 1-topos $\mathcal{E}$, the subobject classifier $\Omega \in \mathcal{E}$ classifies <em>monomorphisms</em>: $\mathrm{Sub}(X) \cong \mathrm{Hom}_{\mathcal{E}}(X, \Omega)$. In an $\infty$-topos, monomorphisms are replaced by <em>maps</em> (or, more precisely, by a chosen size of map), and "the" subobject classifier becomes an entire <em>universe of types</em>: a family of objects $\mathcal{U}_\kappa \in \mathcal{X}$ such that, for each $X$, the space $\mathrm{Map}(X, \mathcal{U}_\kappa)$ is the space of "$\kappa$-small fibrations over $X$" (HTT 6.1.6). The universe is <strong>univalent</strong> — equality of types in the universe is equivalent to equivalence of types — automatically, because the object classifier is built as a moduli object in $\mathcal{X}$.</p>
+<p>The most interesting feature is the <strong>universe / object classifier</strong>. In a 1-topos $\mathcal{E}$, the subobject classifier $\Omega \in \mathcal{E}$ classifies <em>monomorphisms</em>: $\mathrm{Sub}(X) \cong \Hom_{\mathcal{E}}(X, \Omega)$. In an $\infty$-topos, monomorphisms are replaced by <em>maps</em> (or, more precisely, by a chosen size of map), and "the" subobject classifier becomes an entire <em>universe of types</em>: a family of objects $\mathcal{U}_\kappa \in \mathcal{X}$ such that, for each $X$, the space $\mathrm{Map}(X, \mathcal{U}_\kappa)$ is the space of "$\kappa$-small fibrations over $X$" (HTT 6.1.6). The universe is <strong>univalent</strong> — equality of types in the universe is equivalent to equivalence of types — automatically, because the object classifier is built as a moduli object in $\mathcal{X}$.</p>
 
 <p>One useful comparison. In a 1-topos, $\Omega = \{0, 1\}$ (or its Heyting-algebra refinement) is the subobject classifier — but only of <em>$(-1)$-truncated</em> objects (propositions). In an $\infty$-topos, you have a tower
 $$\Omega = \mathcal{U}_{\leq -1} \subset \mathcal{U}_{\leq 0} \subset \mathcal{U}_{\leq 1} \subset \cdots \subset \mathcal{U}$$
@@ -819,6 +857,8 @@ where $\mathcal{U}_{\leq n}$ classifies $n$-truncated maps; the bottom is the cl
   <ul>
     <li><a href="./heyting-algebras-toposes.html#internal-language">The internal Mitchell–Bénabou language</a> — the 1-categorical analogue: each topos models intuitionistic higher-order logic.</li>
     <li><a href="./elementary-topos-theory.html#omega">Subobject classifier $\Omega$</a> — what becomes the universe $\mathcal{U}$.</li>
+    <li><a href="./type-theory-and-hott.html#hits">Higher inductive types</a></li>
+    <li><a href="./type-theory-and-hott.html#univalence">Univalence axiom</a></li>
   </ul>
 </aside>
 <!-- callback-auto-end -->
@@ -835,7 +875,7 @@ where $\mathcal{U}_{\leq n}$ classifies $n$-truncated maps; the bottom is the cl
     steps: [
       {
         title: "Recall: 1-topos $\\Omega$ classifies subobjects",
-        body: "In a 1-topos $\\mathcal{E}$ the subobject classifier $\\Omega$ has the universal property $\\mathrm{Sub}(X) \\cong \\mathrm{Hom}(X, \\Omega)$. A monomorphism $A \\hookrightarrow X$ corresponds to its characteristic map $\\chi_A\\colon X \\to \\Omega$, with $A$ recoverable as the pullback of $\\mathrm{true}\\colon * \\to \\Omega$ along $\\chi_A$.",
+        body: "In a 1-topos $\\mathcal{E}$ the subobject classifier $\\Omega$ has the universal property $\\mathrm{Sub}(X) \\cong \\Hom(X, \\Omega)$. A monomorphism $A \\hookrightarrow X$ corresponds to its characteristic map $\\chi_A\\colon X \\to \\Omega$, with $A$ recoverable as the pullback of $\\mathrm{true}\\colon * \\to \\Omega$ along $\\chi_A$.",
         svgInner: "<rect x='40' y='80' width='90' height='80' fill='var(--panel2)' stroke='var(--blue)' rx='8'/><text x='85' y='125' text-anchor='middle' font-size='13'>X</text><line x1='130' y1='120' x2='320' y2='120' stroke='var(--yellow)' stroke-width='1.8' marker-end='url(#arr-uv)'/><defs><marker id='arr-uv' viewBox='0 0 10 10' refX='9' refY='5' markerWidth='6' markerHeight='6' orient='auto'><path d='M0,0 L10,5 L0,10 z' fill='var(--yellow)'/></marker></defs><text x='225' y='110' text-anchor='middle' font-size='12' fill='var(--yellow)'>χ_A</text><rect x='320' y='80' width='90' height='80' fill='color-mix(in srgb, var(--violet) 16%, var(--panel2))' stroke='var(--violet)' rx='8'/><text x='365' y='125' text-anchor='middle' font-size='13'>Ω</text><text x='225' y='200' text-anchor='middle' font-size='10' fill='var(--mute)'>Ω = subobject classifier; classifies (-1)-truncated maps</text>"
       },
       {
@@ -899,7 +939,7 @@ where $\mathcal{U}_{\leq n}$ classifies $n$-truncated maps; the bottom is the cl
 $$ \mathrm{Sh}_\infty(X_{\mathrm{ét}}) := \mathrm{Sh}_\infty(X_{\mathrm{ét}}, \mathcal{S})$$
 — sheaves of <em>spaces</em> on the étale site. This $\infty$-topos retains higher gluing data; its $0$-truncation $\tau_{\leq 0} \mathrm{Sh}_\infty(X_{\mathrm{ét}}) = \mathrm{Sh}_{\mathrm{ét}}(X)$ recovers the classical étale topos. Its <em>hypercompletion</em> $\mathrm{Sh}_\infty(X_{\mathrm{ét}})^\wedge$ is the natural home for $\ell$-adic sheaves: classical $\ell$-adic cohomology is the cohomology of objects in this hypercomplete $\infty$-topos in disguise.</p>
 
-<p>The basic test case is $X = \mathrm{Spec}\,\mathbb{Z}$. The étale site has, as "geometric points", maps $\mathrm{Spec}\,\bar k \to \mathrm{Spec}\,\mathbb{Z}$ for $\bar k$ separably closed — which factor through some maximal-ideal residue field $\mathbb{F}_p$ or through the generic point $\mathrm{Spec}\,\mathbb{Q}$. Each prime $p$ corresponds to a closed point with local étale-topos data $\mathrm{Spec}\,\mathbb{Z}_p^{\mathrm{sh}}$ — the strict henselization of $\mathbb{Z}_{(p)}$ at $p$, with residue field $\bar{\mathbb{F}}_p$ and absolute Galois group $G_{\mathbb{F}_p} = \widehat{\mathbb{Z}}$ (topologically generated by Frobenius). The generic point has local data $\mathrm{Spec}\,\bar{\mathbb{Q}}$ with absolute Galois group $G_{\mathbb{Q}} = \mathrm{Gal}(\bar{\mathbb{Q}}/\mathbb{Q})$. The étale $\infty$-topos packages all this data — local rings, Galois groups, specialization morphisms — into a single homotopy-coherent sheaf theory.</p>
+<p>The basic test case is $X = \Spec\,\mathbb{Z}$. The étale site has, as "geometric points", maps $\Spec\,\bar k \to \Spec\,\mathbb{Z}$ for $\bar k$ separably closed — which factor through some maximal-ideal residue field $\mathbb{F}_p$ or through the generic point $\Spec\,\mathbb{Q}$. Each prime $p$ corresponds to a closed point with local étale-topos data $\Spec\,\mathbb{Z}_p^{\mathrm{sh}}$ — the strict henselization of $\mathbb{Z}_{(p)}$ at $p$, with residue field $\bar{\mathbb{F}}_p$ and absolute Galois group $G_{\mathbb{F}_p} = \widehat{\mathbb{Z}}$ (topologically generated by Frobenius). The generic point has local data $\Spec\,\bar{\mathbb{Q}}$ with absolute Galois group $G_{\mathbb{Q}} = \Gal(\bar{\mathbb{Q}}/\mathbb{Q})$. The étale $\infty$-topos packages all this data — local rings, Galois groups, specialization morphisms — into a single homotopy-coherent sheaf theory.</p>
 
 <p>For the $\infty$-version, hypercompletion is the operative move: derived $\ell$-adic cohomology requires either explicit Postnikov-tower convergence or hypersheaf descent. The Lurie–Galois reconstruction theorem (HTT 7.3 + Galois) says that for $X$ a Noetherian scheme of finite Krull dimension, $\mathrm{Sh}_\infty(X_{\mathrm{ét}})^\wedge$ encodes $X$ up to a profinite Galois twist — étale homotopy type, in modern language. This is the categorical setting of derived étale cohomology, $p$-adic Hodge theory in the Bhatt–Scholze prismatic formalism, and pro-étale ∞-topoi.</p>
 <!-- callback-auto-begin -->
@@ -914,9 +954,9 @@ $$ \mathrm{Sh}_\infty(X_{\mathrm{ét}}) := \mathrm{Sh}_\infty(X_{\mathrm{ét}}, 
 <!-- callback-auto-end -->
 
 <div class="widget" id="w-spec-z-etale">
-  <div class="hd"><div class="ttl">The étale $\infty$-topos of $\mathrm{Spec}\,\mathbb{Z}$ — click a point</div><div class="hint">click the generic point or any closed point to see local ring + Galois group</div></div>
+  <div class="hd"><div class="ttl">The étale $\infty$-topos of $\Spec\,\mathbb{Z}$ — click a point</div><div class="hint">click the generic point or any closed point to see local ring + Galois group</div></div>
   <svg id="svg-spec-z-etale" viewBox="0 0 480 240" width="100%"><title>Étale ∞-topos of Spec Z — local Galois data at each point</title></svg>
-  <div class="readout" id="out-spec-z">Click a point on $\mathrm{Spec}\,\mathbb{Z}$ — generic $(\eta)$ or a closed point $(p)$ — to inspect its local ring, residue field, and absolute Galois group.</div>
+  <div class="readout" id="out-spec-z">Click a point on $\Spec\,\mathbb{Z}$ — generic $(\eta)$ or a closed point $(p)$ — to inspect its local ring, residue field, and absolute Galois group.</div>
 </div>
 <script>
 (function(){
@@ -929,8 +969,8 @@ $$ \mathrm{Sh}_\infty(X_{\mathrm{ét}}) := \mathrm{Sh}_\infty(X_{\mathrm{ét}}, 
         local: '$\\mathcal{O}_{X, \\eta} = \\mathbb{Q}$ — the field of fractions of $\\mathbb{Z}$.',
         strict: '$\\mathcal{O}_{X, \\eta}^{\\mathrm{sh}} = \\bar{\\mathbb{Q}}$ — separable closure (= algebraic closure since char 0).',
         residue: '$\\kappa(\\eta) = \\mathbb{Q}$',
-        galois: '$G_\\eta = \\mathrm{Gal}(\\bar{\\mathbb{Q}}/\\mathbb{Q})$ — the absolute Galois group of $\\mathbb{Q}$, of cardinality $2^{\\aleph_0}$ and infinite cohomological dimension.',
-        local_topos: '$\\mathrm{Sh}_\\infty((\\mathrm{Spec}\\,\\bar{\\mathbb{Q}})_{\\mathrm{ét}})^\\wedge \\simeq \\mathcal{S}$ (étale topos of a sep-closed point) — locally trivial.',
+        galois: '$G_\\eta = \\Gal(\\bar{\\mathbb{Q}}/\\mathbb{Q})$ — the absolute Galois group of $\\mathbb{Q}$, of cardinality $2^{\\aleph_0}$ and infinite cohomological dimension.',
+        local_topos: '$\\mathrm{Sh}_\\infty((\\Spec\\,\\bar{\\mathbb{Q}})_{\\mathrm{ét}})^\\wedge \\simeq \\mathcal{S}$ (étale topos of a sep-closed point) — locally trivial.',
         note: 'Étale $\\infty$-topos at $\\eta$ is the home of "geometric" data over the generic fiber — modular, $\\ell$-adic Galois reps live here.'
       }
     },
@@ -946,8 +986,8 @@ $$ \mathrm{Sh}_\infty(X_{\mathrm{ét}}) := \mathrm{Sh}_\infty(X_{\mathrm{ét}}, 
         local: '$\\mathcal{O}_{X, (p)} = \\mathbb{Z}_{(p)}$ — localization at the prime $(p)$.',
         strict: '$\\mathcal{O}_{X, (p)}^{\\mathrm{sh}} = \\mathbb{Z}_p^{\\mathrm{sh}}$ — strict henselization, with residue field $\\bar{\\mathbb{F}}_p$.',
         residue: '$\\kappa((p)) = \\mathbb{F}_p$',
-        galois: '$G_{(p)} = \\mathrm{Gal}(\\bar{\\mathbb{F}}_p / \\mathbb{F}_p) = \\widehat{\\mathbb{Z}}$, topologically generated by the Frobenius $\\mathrm{Frob}_p\\colon x \\mapsto x^p$.',
-        local_topos: '$\\mathrm{Sh}_\\infty((\\mathrm{Spec}\\,\\mathbb{F}_p)_{\\mathrm{ét}})^\\wedge \\simeq B\\widehat{\\mathbb{Z}}$ — pro-finite classifying space of the Frobenius.',
+        galois: '$G_{(p)} = \\Gal(\\bar{\\mathbb{F}}_p / \\mathbb{F}_p) = \\widehat{\\mathbb{Z}}$, topologically generated by the Frobenius $\\mathrm{Frob}_p\\colon x \\mapsto x^p$.',
+        local_topos: '$\\mathrm{Sh}_\\infty((\\Spec\\,\\mathbb{F}_p)_{\\mathrm{ét}})^\\wedge \\simeq B\\widehat{\\mathbb{Z}}$ — pro-finite classifying space of the Frobenius.',
         note: 'Cohomological dimension of $\\mathbb{F}_p$ is 1 (only $H^0$ and $H^1$ nontrivial in Galois cohomology) — so this local topos is hypercomplete and well-behaved.'
       }
     }
@@ -958,8 +998,8 @@ $$ \mathrm{Sh}_\infty(X_{\mathrm{ét}}) := \mathrm{Sh}_\infty(X_{\mathrm{ét}}, 
     local: `$\\mathcal{O}_{X, (${p})} = \\mathbb{Z}_{(${p})}$ — localization of $\\mathbb{Z}$ at $(${p})$, with residue field $\\mathbb{F}_{${p}}$.`,
     strict: `$\\mathcal{O}_{X, (${p})}^{\\mathrm{sh}} = \\mathbb{Z}_{${p}}^{\\mathrm{sh}}$ — strict henselization, residue field $\\bar{\\mathbb{F}}_{${p}}$.`,
     residue: `$\\kappa((${p})) = \\mathbb{F}_{${p}}$ — finite field of $${p}$ elements.`,
-    galois: `$G_{(${p})} = \\mathrm{Gal}(\\bar{\\mathbb{F}}_{${p}}/\\mathbb{F}_{${p}}) = \\widehat{\\mathbb{Z}}$, topologically generated by Frobenius $x \\mapsto x^{${p}}$.`,
-    local_topos: `$\\mathrm{Sh}_\\infty((\\mathrm{Spec}\\,\\mathbb{F}_{${p}})_{\\mathrm{ét}})^\\wedge \\simeq B\\widehat{\\mathbb{Z}}$ (pro-finite classifying $\\infty$-topos).`,
+    galois: `$G_{(${p})} = \\Gal(\\bar{\\mathbb{F}}_{${p}}/\\mathbb{F}_{${p}}) = \\widehat{\\mathbb{Z}}$, topologically generated by Frobenius $x \\mapsto x^{${p}}$.`,
+    local_topos: `$\\mathrm{Sh}_\\infty((\\Spec\\,\\mathbb{F}_{${p}})_{\\mathrm{ét}})^\\wedge \\simeq B\\widehat{\\mathbb{Z}}$ (pro-finite classifying $\\infty$-topos).`,
     note: `Galois cohomology of $\\mathbb{F}_{${p}}$ has $\\mathrm{cd} = 1$; the local $\\infty$-topos is hypercomplete.`
   });
   for(const pt of points){
@@ -1017,6 +1057,29 @@ $$ \mathrm{Sh}_\infty(X_{\mathrm{ét}}) := \mathrm{Sh}_\infty(X_{\mathrm{ét}}, 
 <div class="quiz" data-concept="etale-infty-topos-of-scheme"></div>
 </section>
 
+<section id="outro">
+<h2>8. Connections</h2>
+
+<p>An $\infty$-topos is the place where you would finally write down a globally functioning theory of "spaces" — ordinary topoi were a working draft, and HoTT spelled out the internal language.</p>
+
+<h3>Internal logic and 1-topoi</h3>
+
+<p>A 1-topos has a Heyting-algebra subobject classifier; an $\infty$-topos has the entire $\infty$-groupoid of types. The propositional fragment is exactly what <a href="./heyting-algebras-toposes.html">Heyting algebras and topos logic</a> studied; <a href="./elementary-topos-theory.html">elementary topos theory</a> covers the 1-categorical Lawvere–Tierney machinery.</p>
+
+<h3>Sheaf-theoretic models</h3>
+
+<p>Every Grothendieck $\infty$-topos is a left-exact localisation of presheaves of spaces on a small $\infty$-category. <a href="./grothendieck-topologies-sites.html">Sites and sheaves</a> is the 1-categorical predecessor; replacing $\mathrm{Set}$ with $\mathrm{Spaces}$ is the entire content of "going $\infty$".</p>
+
+<h3>Quasi-category technical core</h3>
+
+<p>The technical machinery — Yoneda, presentability, accessibility, Bousfield localisation — lives in <a href="./infinity-categories.html">$\infty$-categories</a>. $\infty$-topoi are the most-structured presentable $\infty$-categories, distinguished by their internal logic.</p>
+
+<h3>Univalent foundations</h3>
+
+<p>Voevodsky’s univalence axiom makes <a href="./type-theory-and-hott.html">homotopy type theory</a> precisely the internal language of an $\infty$-topos (modulo strictness questions). The Curry–Howard correspondence becomes a structural identification: types are objects of an $\infty$-topos, terms are global elements, identifications are paths.</p>
+
+<p class="small" style="margin-top:2.5rem">Open frontiers: condensed and pyknotic mathematics (a different completion of "set with topology"), motivic homotopy theory (an $\infty$-topos on the étale or Nisnevich site of a base scheme), modal homotopy type theory (geometric morphisms become modal operators in the type theory).</p>
+</section>
 </main>
 
 <script>

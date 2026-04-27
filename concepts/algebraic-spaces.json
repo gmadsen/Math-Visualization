@@ -8,7 +8,8 @@
       "title": "Why schemes aren't enough",
       "anchor": "why-algebraic-spaces",
       "prereqs": [
-        "spectrum-primes"
+        "spectrum-primes",
+        "locally-ringed-space"
       ],
       "blurb": "Some natural quotients (e.g. $\\mathbb{A}^1 / \\mathbb{Z}$ over a field, or non-free group actions on schemes) are not schemes. Algebraic spaces are the smallest enlargement of schemes that closes the category under such étale quotients while keeping a representable definition."
     },
@@ -21,7 +22,9 @@
         "etale-morphism"
       ],
       "blurb": "An étale equivalence relation on a scheme $U$ is a monomorphism $R \\hookrightarrow U \\times U$ which is an equivalence relation in the categorical sense, with both projections étale. Quotients of these are exactly algebraic spaces.",
-      "tags": ["descent"]
+      "tags": [
+        "descent"
+      ]
     },
     {
       "id": "algebraic-space-definition",
@@ -33,7 +36,10 @@
         "sheaves-on-a-site"
       ],
       "blurb": "An algebraic space is a sheaf $X$ on the étale site of schemes whose diagonal $X \\to X \\times X$ is representable and which admits an étale surjection $U \\twoheadrightarrow X$ from a scheme. Equivalently, $X = U/R$ for an étale equivalence relation $R \\rightrightarrows U$.",
-      "tags": ["descent", "foundation"]
+      "tags": [
+        "descent",
+        "foundation"
+      ]
     },
     {
       "id": "morphisms-of-algebraic-spaces",
@@ -63,7 +69,9 @@
         "dm-stacks-coarse-space"
       ],
       "blurb": "An algebraic space is a stack with trivial automorphism groups; a DM stack with trivial automorphism groups is an algebraic space. The hierarchy schemes ⊂ algebraic spaces ⊂ DM stacks ⊂ Artin stacks tracks how much non-trivial isotropy the geometric object can carry.",
-      "tags": ["classification"]
+      "tags": [
+        "classification"
+      ]
     }
   ]
 }

@@ -1,0 +1,269 @@
+{
+  "topic": "stochastic-calculus",
+  "quizzes": {
+    "sc-ito-integral": {
+      "title": "Itô integral",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which evaluation point for the integrand on each subinterval $[t_k,t_{k+1}]$ defines the Itô integral?",
+          "choices": [
+            "Left endpoint $H_{t_k}$",
+            "Right endpoint $H_{t_{k+1}}$",
+            "Midpoint $H_{(t_k+t_{k+1})/2}$",
+            "Maximum of $H$ on the subinterval"
+          ],
+          "answer": 0,
+          "hint": "The choice that keeps the integrand $\\mathcal{F}_{t_k}$-measurable, i.e. predictable, is the Itô convention.",
+          "explain": "Itô uses the left endpoint so the integrand is predictable; the resulting integral is then a martingale. The midpoint convention gives Stratonovich, which obeys the classical chain rule but is not a martingale."
+        },
+        {
+          "type": "mcq",
+          "q": "What integrability condition makes $\\int_0^t H_s\\,dB_s$ a square-integrable martingale?",
+          "choices": [
+            "$\\int_0^t |H_s|\\,ds<\\infty$ a.s.",
+            "$\\mathbb{E}\\int_0^t H_s^2\\,ds<\\infty$",
+            "$H$ is continuous",
+            "$\\sup_s |H_s|<\\infty$ a.s."
+          ],
+          "answer": 1,
+          "hint": "The Itô isometry equates $\\mathbb{E}[(\\int H\\,dB)^2]$ with $\\mathbb{E}\\int H^2\\,ds$.",
+          "explain": "By the Itô isometry $\\mathbb{E}[(\\int_0^t H\\,dB)^2]=\\mathbb{E}\\int_0^t H^2\\,ds$, so finiteness of the right side is precisely the $L^2$ condition that makes the integral a square-integrable martingale."
+        },
+        {
+          "type": "mcq",
+          "q": "What is $\\mathbb{E}\\big[\\int_0^t B_s\\,dB_s\\big]$?",
+          "choices": [
+            "$0$",
+            "$t/2$",
+            "$t$",
+            "$B_t^2/2$"
+          ],
+          "answer": 0,
+          "hint": "Itô integrals against Brownian motion are martingales started at $0$.",
+          "explain": "$\\int_0^t B_s\\,dB_s$ is a martingale starting at $0$, so its expectation is $0$. Itô's formula identifies it as $\\tfrac{1}{2}B_t^2-\\tfrac{1}{2}t$, whose expectation is also $0$."
+        }
+      ]
+    },
+    "sc-ito-formula": {
+      "title": "Itô's formula",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "By Itô's formula, what is $d(B_t^2)$ for standard Brownian motion?",
+          "choices": [
+            "$2 B_t\\,dB_t$",
+            "$2 B_t\\,dB_t + dt$",
+            "$B_t\\,dB_t$",
+            "$2 B_t\\,dt$"
+          ],
+          "answer": 1,
+          "hint": "$f(x)=x^2$ has $f'(x)=2x$ and $f''(x)=2$; $(dB_t)^2=dt$.",
+          "explain": "With $f(x)=x^2$, $df(B_t)=2B_t\\,dB_t+\\tfrac{1}{2}\\cdot 2\\cdot dt=2B_t\\,dB_t+dt$. The extra $dt$ is the Itô correction that classical calculus misses."
+        },
+        {
+          "type": "mcq",
+          "q": "In Itô's formula $df(X_t)=f'(X_t)\\,dX_t+\\tfrac{1}{2}f''(X_t)(dX_t)^2$, the $(dX_t)^2$ term equals:",
+          "choices": [
+            "$0$",
+            "The quadratic variation $d\\langle X\\rangle_t$",
+            "$dt$ in every case",
+            "$(dt)^2$"
+          ],
+          "answer": 1,
+          "hint": "For Brownian motion $\\langle B\\rangle_t=t$, but for $dX=b\\,dt+\\sigma\\,dB$ the variation is $\\sigma^2\\,dt$.",
+          "explain": "$(dX_t)^2$ is shorthand for $d\\langle X\\rangle_t$. For an Itô process $dX_t=b\\,dt+\\sigma\\,dB_t$ this evaluates to $\\sigma^2\\,dt$ — only the diffusion term contributes since $(dt)^2=0$ and $dt\\,dB=0$."
+        },
+        {
+          "type": "mcq",
+          "q": "Apply Itô to $f(t,x)=e^{x}$ with $X_t=B_t$. What is $d(e^{B_t})$?",
+          "choices": [
+            "$e^{B_t}\\,dB_t$",
+            "$e^{B_t}\\,dB_t + \\tfrac{1}{2}e^{B_t}\\,dt$",
+            "$e^{B_t}\\,dB_t - \\tfrac{1}{2}e^{B_t}\\,dt$",
+            "$e^{B_t}\\,dt$"
+          ],
+          "answer": 1,
+          "hint": "$f'=f''=e^x$ for $f(x)=e^x$; the Itô correction $\\tfrac{1}{2}f''\\,dt$ adds.",
+          "explain": "$df(B_t)=e^{B_t}\\,dB_t+\\tfrac{1}{2}e^{B_t}\\,dt$. To get a martingale you must subtract the drift, giving the exponential martingale $\\exp(B_t-t/2)$."
+        }
+      ]
+    },
+    "sc-sde-existence": {
+      "title": "SDE existence and uniqueness",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What condition on the coefficients $b,\\sigma$ guarantees a unique strong solution to $dX_t=b(X_t)\\,dt+\\sigma(X_t)\\,dB_t$?",
+          "choices": [
+            "Continuity of $b,\\sigma$",
+            "Boundedness of $b,\\sigma$",
+            "Global Lipschitz continuity of $b,\\sigma$",
+            "Smoothness of $b,\\sigma$"
+          ],
+          "answer": 2,
+          "hint": "Picard iteration needs a contraction; Lipschitz constants control the iteration's growth.",
+          "explain": "Lipschitz coefficients (with linear growth) make the Picard iteration in $L^2$ a contraction, yielding existence and pathwise uniqueness — strong solutions in the standard Itô sense."
+        },
+        {
+          "type": "mcq",
+          "q": "For geometric Brownian motion $dX_t=\\mu X_t\\,dt+\\sigma X_t\\,dB_t$ with $X_0=x_0>0$, the closed-form solution is:",
+          "choices": [
+            "$x_0 e^{\\mu t+\\sigma B_t}$",
+            "$x_0 e^{(\\mu-\\sigma^2/2) t+\\sigma B_t}$",
+            "$x_0(1+\\mu t+\\sigma B_t)$",
+            "$x_0 e^{\\mu t}+\\sigma B_t$"
+          ],
+          "answer": 1,
+          "hint": "Apply Itô to $\\log X_t$; the variance correction $-\\sigma^2/2$ appears.",
+          "explain": "Itô on $\\log X_t$ gives $d\\log X_t=(\\mu-\\sigma^2/2)\\,dt+\\sigma\\,dB_t$, integrating to $X_t=x_0\\exp((\\mu-\\sigma^2/2)t+\\sigma B_t)$. The $-\\sigma^2/2$ is the Itô correction."
+        },
+        {
+          "type": "mcq",
+          "q": "A weak solution to an SDE is one where:",
+          "choices": [
+            "Coefficients fail to be Lipschitz",
+            "The driving Brownian motion is given in advance",
+            "We construct a probability space and Brownian motion $B$ together with $X$ satisfying the equation in law",
+            "The solution is only defined up to a stopping time"
+          ],
+          "answer": 2,
+          "hint": "Strong = pathwise on a fixed $B$; weak = only the joint law is required.",
+          "explain": "A weak solution allows freedom in choosing the underlying probability space and Brownian motion; only the joint law of $(X,B)$ is required to satisfy the SDE. Strong solutions fix $B$ in advance and demand a pathwise solution."
+        }
+      ]
+    },
+    "sc-girsanov": {
+      "title": "Girsanov's theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Under Girsanov with density $Z_T=\\exp(\\int_0^T\\theta_s\\,dB_s-\\tfrac{1}{2}\\int_0^T\\theta_s^2\\,ds)$, the process $\\tilde B_t=B_t-\\int_0^t\\theta_s\\,ds$ is:",
+          "choices": [
+            "A martingale under $\\mathbb{P}$",
+            "A Brownian motion under $\\mathbb{Q}=Z_T\\,d\\mathbb{P}$",
+            "A Brownian motion under $\\mathbb{P}$",
+            "Constant"
+          ],
+          "answer": 1,
+          "hint": "Girsanov absorbs the drift $\\int\\theta\\,ds$ into the measure change.",
+          "explain": "Girsanov's theorem states exactly this: under the new measure $\\mathbb{Q}$ defined by Radon–Nikodym density $Z_T$, the drift-corrected process $\\tilde B$ is a standard Brownian motion."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is the exponential martingale $Z_t=\\exp(\\int_0^t\\theta_s\\,dB_s-\\tfrac{1}{2}\\int_0^t\\theta_s^2\\,ds)$ a martingale (under Novikov)?",
+          "choices": [
+            "Because the integrand is bounded",
+            "Because Itô's formula gives $dZ_t=Z_t\\theta_t\\,dB_t$, with no drift",
+            "Because Brownian motion has independent increments",
+            "By the optional stopping theorem"
+          ],
+          "answer": 1,
+          "hint": "Apply Itô to $Z_t$; the $-\\tfrac{1}{2}\\theta^2\\,dt$ in the exponent kills the Itô correction.",
+          "explain": "Itô on $\\log Z_t$ gives $dZ_t=Z_t\\theta_t\\,dB_t$ — drift-free. Under Novikov's condition $\\mathbb{E}\\exp(\\tfrac{1}{2}\\int\\theta^2\\,ds)<\\infty$, this local martingale is a true martingale."
+        },
+        {
+          "type": "mcq",
+          "q": "In risk-neutral pricing, the change of measure from $\\mathbb{P}$ to $\\mathbb{Q}$:",
+          "choices": [
+            "Eliminates volatility from the asset SDE",
+            "Replaces the real-world drift $\\mu$ with the risk-free rate $r$",
+            "Makes the asset price deterministic",
+            "Decreases option prices"
+          ],
+          "answer": 1,
+          "hint": "Under $\\mathbb{Q}$ discounted prices are martingales; only the drift, not the volatility, shifts.",
+          "explain": "Girsanov shifts only the drift: under $\\mathbb{Q}$ the discounted asset is a martingale, so $\\mu$ is replaced by $r$. Volatility $\\sigma$ is invariant under absolutely continuous measure change."
+        }
+      ]
+    },
+    "sc-feynman-kac": {
+      "title": "Feynman–Kac formula",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Feynman–Kac formula expresses the solution of which type of PDE as an expectation?",
+          "choices": [
+            "Hyperbolic (wave) equations",
+            "Linear parabolic / second-order elliptic equations",
+            "Fully nonlinear elliptic equations",
+            "First-order transport equations"
+          ],
+          "answer": 1,
+          "hint": "Brownian motion's generator is $\\tfrac{1}{2}\\Delta$ — a second-order operator.",
+          "explain": "Feynman–Kac links second-order linear parabolic and elliptic PDEs (whose generator matches the SDE's infinitesimal generator) to Brownian-functional expectations. The wave equation, by contrast, is hyperbolic and admits no such probabilistic representation."
+        },
+        {
+          "type": "mcq",
+          "q": "If $u(t,x)=\\mathbb{E}[g(B_T)\\mid B_t=x]$, then $u$ satisfies:",
+          "choices": [
+            "$\\partial_t u + \\tfrac{1}{2}\\partial_{xx} u = 0,\\ u(T,x)=g(x)$",
+            "$\\partial_t u = \\partial_{xx} u,\\ u(0,x)=g(x)$",
+            "$\\partial_t u + u_x = 0$",
+            "$u_{xx}=0$"
+          ],
+          "answer": 0,
+          "hint": "The backward heat equation with terminal data $g$ at time $T$.",
+          "explain": "Conditional expectations of a terminal payoff solve the backward heat equation $\\partial_t u+\\tfrac{1}{2}\\partial_{xx}u=0$ with terminal condition $u(T,x)=g(x)$, by Itô applied to $u(t,B_t)$."
+        },
+        {
+          "type": "mcq",
+          "q": "Adding a discount factor $e^{-r(T-t)}$ to Feynman–Kac corresponds to which PDE term?",
+          "choices": [
+            "An advection term $b\\,\\partial_x u$",
+            "A diffusion term $\\sigma^2\\partial_{xx}u$",
+            "A reaction (potential) term $-r\\,u$",
+            "A source term"
+          ],
+          "answer": 2,
+          "hint": "$e^{-rt}$ in the Itô formula for $u(t,X_t)e^{-rt}$ produces a $-ru$ term.",
+          "explain": "Discounting in the expectation corresponds to a $-ru$ potential term in the PDE: $\\partial_t u+\\tfrac{1}{2}\\sigma^2\\partial_{xx}u+b\\partial_x u-ru=0$. This is the Black–Scholes equation."
+        }
+      ]
+    },
+    "sc-applications": {
+      "title": "Applications",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In the Black–Scholes model, the price of a European call is:",
+          "choices": [
+            "$\\mathbb{E}_\\mathbb{P}[(S_T-K)^+]$ (real-world expectation)",
+            "$e^{-rT}\\mathbb{E}_\\mathbb{Q}[(S_T-K)^+]$ (discounted risk-neutral expectation)",
+            "$(S_0-K)^+$",
+            "$S_0\\cdot K$"
+          ],
+          "answer": 1,
+          "hint": "Risk-neutral pricing combines Girsanov (drift change) with Feynman–Kac (PDE ↔ expectation).",
+          "explain": "Under the risk-neutral measure $\\mathbb{Q}$, discounted asset prices are martingales, and the no-arbitrage price equals the discounted expected payoff. Feynman–Kac then identifies this with the Black–Scholes PDE."
+        },
+        {
+          "type": "mcq",
+          "q": "The Kalman filter is the optimal estimator for which class of stochastic models?",
+          "choices": [
+            "Nonlinear non-Gaussian SDEs",
+            "Linear Gaussian state-space models",
+            "Discrete Markov chains only",
+            "Deterministic ODEs"
+          ],
+          "answer": 1,
+          "hint": "Linearity + Gaussian noise = closed-form recursive conditional expectations.",
+          "explain": "For linear Gaussian state-space models the conditional law given observations remains Gaussian, so the conditional mean and covariance close under recursion — the Kalman filter equations. Nonlinear or non-Gaussian models need particle filters or other approximations."
+        },
+        {
+          "type": "mcq",
+          "q": "Pricing an American option leads to which mathematical structure?",
+          "choices": [
+            "An optimal-stopping problem and a free-boundary PDE",
+            "A linear regression",
+            "A first-passage time of a random walk",
+            "A Markov chain mixing time"
+          ],
+          "answer": 0,
+          "hint": "The holder chooses a stopping time $\\tau$ to maximise $\\mathbb{E}[e^{-r\\tau}g(X_\\tau)]$.",
+          "explain": "American options give the holder the right to exercise at any stopping time $\\tau\\le T$. The price is $\\sup_\\tau\\mathbb{E}_\\mathbb{Q}[e^{-r\\tau}g(X_\\tau)]$, an optimal-stopping problem whose value function solves a free-boundary (variational) PDE."
+        }
+      ]
+    }
+  }
+}

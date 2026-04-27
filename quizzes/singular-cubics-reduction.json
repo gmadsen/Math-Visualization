@@ -32,7 +32,7 @@
           "type": "numeric",
           "q": "For the cuspidal parametrization $(x,y) = (t^2, t^3)$, evaluate $y$ at $t = 3$.",
           "answer": 27,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "$y = t^3 = 3^3 = 27$. The cusp $y^2 = x^3$ is parametrized by $t \\mapsto (t^2,t^3)$, with $t=0$ mapping to the singular point."
         }
       ],
@@ -54,7 +54,7 @@
           "type": "numeric",
           "q": "For the nodal cubic $C: y^2 = x^3 + x^2$, the parametrization $(x,y)=(t^2-1,\\, t(t^2-1))$ covers the smooth locus. Verify: compute $y^2 - x^3 - x^2$ at $t=2$ and give the answer.",
           "answer": 0,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Substitute the parametrization and simplify to the defining equation.",
           "explain": "At $t=2$: $x=4-1=3$, $y=2(4-1)=6$. Then $y^2-x^3-x^2=36-27-9=0$, confirming the point $(3,6)$ lies on the cubic."
         },
@@ -92,7 +92,7 @@
           "type": "numeric",
           "q": "For $E : y^2 = x^3 + 1$ (so $a = 0, b = 1$), compute $\\Delta = -16(4a^3 + 27 b^2)$.",
           "answer": -432,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "$\\Delta = -16(4\\cdot 0 + 27\\cdot 1) = -16\\cdot 27 = -432 = -2^4\\cdot 3^3$, so the only primes of bad reduction for this model are $2$ and $3$."
         },
         {
@@ -126,7 +126,7 @@
           "type": "numeric",
           "q": "For $E: y^2 = x^3 - 7$ (so $a=0$, $b=-7$), compute $\\Delta = -16(4\\cdot 0 + 27\\cdot 49)$.",
           "answer": -21168,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Compute $-16 \\cdot 27 \\cdot 49$.",
           "explain": "$\\Delta = -16 \\cdot 27 \\cdot 49 = -16 \\cdot 1323 = -21168$. The prime factorization is $-2^4\\cdot 3^3\\cdot 7^2$, so bad primes are $2, 3, 7$."
         },
@@ -176,7 +176,7 @@
           "type": "numeric",
           "q": "For a non-split multiplicative reduction at $p = 7$, the smooth part of $\\tilde E_p$ has order $p+1$. Compute this order.",
           "answer": 8,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "The non-split torus has order $p + 1 = 7 + 1 = 8$. Split multiplicative would instead give $p - 1 = 6$; additive would give $p = 7$."
         }
       ],
@@ -302,6 +302,7 @@
             "$\\Delta \\mapsto \\Delta$ (discriminant is invariant)"
           ],
           "answer": 2,
+          "hint": "The short Weierstrass form transforms $a \\to u^{-4} a,\\, b \\to u^{-6} b$, and $\\Delta = -16(4a^3 + 27 b^2)$ picks up $u^{-12}$; when we clear denominators the integer model's discriminant scales by…",
           "explain": "The short Weierstrass form transforms $a \\to u^{-4} a,\\, b \\to u^{-6} b$, and $\\Delta = -16(4a^3 + 27 b^2)$ picks up $u^{-12}$; when we clear denominators the integer model's discriminant scales by $u^{12}$. This is exactly why minimality asks for the smallest achievable $v_p(\\Delta)$ at each prime."
         },
         {

@@ -11,7 +11,10 @@
         "lp-spaces"
       ],
       "blurb": "Infinite-dimensional normed spaces provide the analytic home for operators and PDEs.",
-      "tags": ["foundation", "completion"]
+      "tags": [
+        "foundation",
+        "completion"
+      ]
     },
     {
       "id": "operator-norm",
@@ -28,7 +31,8 @@
       "anchor": "bounded",
       "prereqs": [
         "operator-norm",
-        "banach-hilbert-spaces"
+        "banach-hilbert-spaces",
+        "algebraic-structures"
       ],
       "blurb": "Linear operators on Hilbert spaces admit operator norms, adjoints, and projection geometry."
     },
@@ -37,10 +41,13 @@
       "title": "Adjoint operator on Hilbert space",
       "anchor": "adjoint",
       "prereqs": [
-        "bounded-operators-fa"
+        "bounded-operators-fa",
+        "riesz-representation"
       ],
       "blurb": "Self-adjoint, normal, and unitary operators are detected through identities between T and T*; Pauli matrices make the distinctions concrete in 2×2.",
-      "tags": ["duality"]
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "big-four-theorems",
@@ -60,7 +67,10 @@
         "compactness"
       ],
       "blurb": "Compact operators send bounded sets to precompact sets; Riesz–Schauder gives a discrete spectrum accumulating only at 0 and the Fredholm alternative for T−λI.",
-      "tags": ["compactness", "classification"]
+      "tags": [
+        "compactness",
+        "classification"
+      ]
     },
     {
       "id": "spectral-theorem-fa",
@@ -71,7 +81,9 @@
         "compact-operators"
       ],
       "blurb": "Self-adjoint and normal operators are analyzed through spectral decompositions.",
-      "tags": ["classification"]
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "spectrum-classification",
@@ -82,7 +94,9 @@
         "spectral-theorem-fa"
       ],
       "blurb": "The spectrum decomposes by which way T−λ fails to be invertible: not injective (point), dense-range-but-not-closed (continuous), or non-dense range (residual).",
-      "tags": ["classification"]
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "riesz-representation",
@@ -93,7 +107,9 @@
         "lp-spaces"
       ],
       "blurb": "Every bounded linear functional on a Hilbert space is inner product with a unique vector; on Lᵖ it is integration against an Lᵩ density.",
-      "tags": ["duality"]
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "weak-topology",
@@ -104,7 +120,10 @@
         "compactness"
       ],
       "blurb": "Coarsen the topology so dual pairings become continuous; Banach–Alaoglu then makes the unit ball of the dual weak-* compact.",
-      "tags": ["compactness", "duality"]
+      "tags": [
+        "compactness",
+        "duality"
+      ]
     },
     {
       "id": "reflexivity",
@@ -116,7 +135,9 @@
         "lp-spaces"
       ],
       "blurb": "X is reflexive when the canonical embedding X → X** is surjective; Lᵖ (1<p<∞) and Hilbert spaces qualify; L¹, L∞, C[0,1], c₀ do not.",
-      "tags": ["duality"]
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "distributions",
@@ -128,7 +149,9 @@
         "real-differentiation"
       ],
       "blurb": "The dual of Cc^∞ is the space of distributions — delta, principal value, tempered — extending differentiation and Fourier analysis beyond functions.",
-      "tags": ["duality"]
+      "tags": [
+        "duality"
+      ]
     }
   ]
 }

@@ -1,0 +1,219 @@
+{
+  "topic": "enumerative-combinatorics",
+  "quizzes": {
+    "ec-binomial-and-stars-bars": {
+      "title": "Binomials and stars-and-bars",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "How many ways are there to choose a $3$-subset from $\\{1,2,\\ldots,7\\}$?",
+          "answer": 35,
+          "tol": 0,
+          "explain": "$\\binom{7}{3} = \\frac{7!}{3!\\,4!} = \\frac{7\\cdot 6\\cdot 5}{6} = 35$.",
+          "hint": "Compute $\\binom{7}{3}$."
+        },
+        {
+          "type": "numeric",
+          "q": "How many non-negative integer solutions does $x_1+x_2+x_3+x_4 = 6$ have?",
+          "answer": 84,
+          "tol": 0,
+          "explain": "Stars-and-bars: $\\binom{n+r-1}{r-1} = \\binom{6+3}{3} = \\binom{9}{3} = 84$.",
+          "hint": "Use $\\binom{n+r-1}{r-1}$ with $n=6$, $r=4$."
+        },
+        {
+          "type": "mcq",
+          "q": "How many ways are there to arrange the letters of MISSISSIPPI?",
+          "choices": [
+            "$11!$",
+            "$\\binom{11}{4,4,2,1}$",
+            "$\\binom{11}{1,4,4,2}$",
+            "Both (b) and (c) (they are equal)"
+          ],
+          "answer": 3,
+          "explain": "The multinomial coefficient $\\binom{11}{1,4,4,2}=\\frac{11!}{1!\\,4!\\,4!\\,2!}=34650$ is symmetric in the bin sizes, so any ordering of $\\{1,4,4,2\\}$ gives the same value. The plain $11!$ overcounts because it treats identical letters as distinguishable.",
+          "hint": "M·1, I·4, S·4, P·2."
+        }
+      ]
+    },
+    "ec-inclusion-exclusion": {
+      "title": "Inclusion–exclusion",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Compute the derangement number $D_4$ (permutations of $\\{1,2,3,4\\}$ with no fixed points).",
+          "answer": 9,
+          "tol": 0,
+          "explain": "$D_4 = 4!\\sum_{k=0}^{4}(-1)^k/k! = 24(1 - 1 + 1/2 - 1/6 + 1/24) = 24 - 24 + 12 - 4 + 1 = 9$.",
+          "hint": "$D_n = n!\\sum_{k=0}^n (-1)^k/k!$."
+        },
+        {
+          "type": "numeric",
+          "q": "In a group of $100$ people, $60$ speak French, $50$ speak German, and $20$ speak both. How many speak at least one of the two languages?",
+          "answer": 90,
+          "tol": 0,
+          "explain": "$|F\\cup G| = |F| + |G| - |F\\cap G| = 60 + 50 - 20 = 90$.",
+          "hint": "Two-set inclusion–exclusion."
+        },
+        {
+          "type": "mcq",
+          "q": "How many integers in $\\{1,\\ldots,100\\}$ are divisible by neither $2$ nor $5$?",
+          "choices": [
+            "30",
+            "40",
+            "50",
+            "60"
+          ],
+          "answer": 1,
+          "explain": "Divisible by 2: 50; by 5: 20; by both (i.e. by 10): 10. So divisible by 2 or 5 is $50+20-10=60$, and the complement is $100-60=40$.",
+          "hint": "Count the bad set, subtract from $100$."
+        }
+      ]
+    },
+    "ec-recurrences-and-gen-fun": {
+      "title": "Generating functions",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "What is the coefficient of $x^4$ in $(1-x)^{-1} = \\sum_{n\\ge 0} x^n$?",
+          "answer": 1,
+          "tol": 0,
+          "explain": "Every coefficient of the geometric series $\\sum x^n$ is $1$.",
+          "hint": "It is the geometric series."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute the Catalan number $C_4 = \\frac{1}{5}\\binom{8}{4}$.",
+          "answer": 14,
+          "tol": 0,
+          "explain": "$\\binom{8}{4} = 70$, so $C_4 = 70/5 = 14$. The first Catalan numbers are $1, 1, 2, 5, 14, 42, \\ldots$.",
+          "hint": "$\\binom{8}{4}=70$, divide by $5$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which functional equation does the Catalan generating function $C(x) = \\sum_{n\\ge 0} C_n x^n$ satisfy?",
+          "choices": [
+            "$C(x) = 1 + x C(x)$",
+            "$C(x) = 1 + x C(x)^2$",
+            "$C(x) = x + C(x)^2$",
+            "$C(x) = 1/(1 - x C(x))$"
+          ],
+          "answer": 1,
+          "explain": "The recurrence $C_{n+1}=\\sum_{k=0}^n C_k C_{n-k}$ becomes $C(x) - 1 = x\\,C(x)^2$, i.e. $C(x) = 1 + x C(x)^2$. Solving gives $C(x) = (1-\\sqrt{1-4x})/(2x)$.",
+          "hint": "A Dyck path is empty, or starts with an up-step, then a Dyck path, then a down-step, then a Dyck path."
+        }
+      ]
+    },
+    "ec-permutation-statistics": {
+      "title": "Permutation statistics",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "How many inversions does the permutation $\\sigma = (3, 1, 4, 2)$ in one-line notation have? (An inversion is a pair $i<j$ with $\\sigma(i) > \\sigma(j)$.)",
+          "answer": 3,
+          "tol": 0,
+          "explain": "Inverted pairs: $(3,1), (3,2), (4,2)$. Total $= 3$.",
+          "hint": "List all $i<j$ where $\\sigma(i) > \\sigma(j)$."
+        },
+        {
+          "type": "numeric",
+          "q": "How many descents does $\\sigma = (2, 4, 1, 3, 5)$ have? (A descent is a position $i$ with $\\sigma(i) > \\sigma(i+1)$.)",
+          "answer": 1,
+          "tol": 0,
+          "explain": "Compare adjacent: $2<4$, $4>1$ (descent at $i=2$), $1<3$, $3<5$. One descent.",
+          "hint": "Look at adjacent positions."
+        },
+        {
+          "type": "mcq",
+          "q": "What is $\\sum_{k=1}^n c(n,k)$ where $c(n,k)$ is the number of permutations of $[n]$ with exactly $k$ cycles?",
+          "choices": [
+            "$2^n$",
+            "$n!$",
+            "$n^n$",
+            "$\\binom{2n}{n}$"
+          ],
+          "answer": 1,
+          "explain": "Every permutation has some number of cycles, so summing over $k$ recovers $|S_n| = n!$. Equivalently, $\\sum_k c(n,k) x^k = x(x+1)(x+2)\\cdots(x+n-1)$ specialised at $x=1$.",
+          "hint": "Each permutation gets counted once."
+        }
+      ]
+    },
+    "ec-partition-theory": {
+      "title": "Integer partitions",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Compute $p(5)$, the number of partitions of $5$.",
+          "answer": 7,
+          "tol": 0,
+          "explain": "The partitions of $5$ are: $5$, $4{+}1$, $3{+}2$, $3{+}1{+}1$, $2{+}2{+}1$, $2{+}1{+}1{+}1$, $1{+}1{+}1{+}1{+}1$. Seven of them.",
+          "hint": "List them by largest part."
+        },
+        {
+          "type": "mcq",
+          "q": "Euler's generating function for $p(n)$ is:",
+          "choices": [
+            "$\\sum_{n\\ge 0} p(n) q^n = \\prod_{k\\ge 1}(1 - q^k)$",
+            "$\\sum_{n\\ge 0} p(n) q^n = \\prod_{k\\ge 1}(1 - q^k)^{-1}$",
+            "$\\sum_{n\\ge 0} p(n) q^n = \\prod_{k\\ge 1}(1 + q^k)$",
+            "$\\sum_{n\\ge 0} p(n) q^n = \\sum_{k\\ge 1} q^k/(1 - q^k)$"
+          ],
+          "answer": 1,
+          "explain": "Each part of size $k$ may be used $0, 1, 2, \\ldots$ times, contributing the geometric series $1 + q^k + q^{2k} + \\cdots = (1-q^k)^{-1}$. The product over $k$ gives Euler's product.",
+          "hint": "Geometric series for each part size."
+        },
+        {
+          "type": "mcq",
+          "q": "Euler's identity says: partitions of $n$ into distinct parts are equinumerous with partitions of $n$ into…",
+          "choices": [
+            "even parts",
+            "odd parts",
+            "parts $\\equiv \\pm 1 \\pmod{5}$",
+            "parts at most $\\sqrt{n}$"
+          ],
+          "answer": 1,
+          "explain": "The generating-function proof: $\\prod_k (1+q^k) = \\prod_k \\frac{1-q^{2k}}{1-q^k} = \\prod_k \\frac{1}{1-q^{2k-1}}$ (the even factors cancel). The right-hand side counts partitions into odd parts.",
+          "hint": "$1+q^k = (1-q^{2k})/(1-q^k)$."
+        }
+      ]
+    },
+    "ec-bijective-proofs": {
+      "title": "Bijective proofs",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "How many triangulations does a convex hexagon have? (Use $C_4$.)",
+          "answer": 14,
+          "tol": 0,
+          "explain": "Triangulations of a convex $(n+2)$-gon are counted by $C_n$. A hexagon has $n+2 = 6$, so $n = 4$ and $C_4 = 14$.",
+          "hint": "$C_n$ counts triangulations of an $(n+2)$-gon."
+        },
+        {
+          "type": "mcq",
+          "q": "Which family is NOT counted by Catalan numbers $C_n$?",
+          "choices": [
+            "Dyck paths from $(0,0)$ to $(2n, 0)$",
+            "Triangulations of a convex $(n+2)$-gon",
+            "Permutations of $[n]$ avoiding the pattern $231$",
+            "Set partitions of $[n]$"
+          ],
+          "answer": 3,
+          "explain": "All but the last are Catalan. Set partitions of $[n]$ are counted by the Bell number $B_n$, not the Catalan number. ($B_4 = 15 \\ne 14 = C_4$.)",
+          "hint": "Set partitions are counted by Bell numbers."
+        },
+        {
+          "type": "mcq",
+          "q": "The RSK correspondence is a bijection between matrices with non-negative integer entries and:",
+          "choices": [
+            "pairs $(P, Q)$ of standard Young tableaux of the same shape",
+            "pairs $(P, Q)$ of semistandard Young tableaux of the same shape",
+            "single semistandard Young tableaux",
+            "permutations of $[n]$"
+          ],
+          "answer": 1,
+          "explain": "RSK in full generality bijects $\\mathbb{Z}_{\\ge 0}$-matrices with pairs of semistandard tableaux of the same shape. Restricted to permutation matrices it gives the Robinson–Schensted bijection between $S_n$ and pairs of standard Young tableaux of the same shape.",
+          "hint": "Matrices have repeated entries, so the tableaux are semistandard."
+        }
+      ]
+    }
+  }
+}

@@ -20,7 +20,7 @@
           "type": "numeric",
           "q": "For the linear system $\\dot x = -x$ on $\\mathbb{R}$ with $x(0)=4$, compute $x(\\ln 2)$.",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Solution is $x(t)=4e^{-t}$, so $x(\\ln 2)=4/2=2$."
         },
         {
@@ -32,11 +32,15 @@
             "converges to $+\\infty$ monotonically"
           ],
           "right": [
-            "$\\dot x = -x$",
             "$\\dot x = x^2$",
-            "$\\dot x = x$"
+            "$\\dot x = x$",
+            "$\\dot x = -x$"
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            2,
+            0,
+            1
+          ],
           "explain": "$\\dot x=-x$: exponential decay to 0. $\\dot x=x^2$: $x(t)=x_0/(1-x_0 t)$ blows up at $t=1/x_0$. $\\dot x=x$: exponential growth."
         }
       ],
@@ -73,7 +77,7 @@
           "type": "numeric",
           "q": "Let $X(x,y)=(-y,x)$ on $\\mathbb{R}^2$. How far from the origin is $\\Phi_{\\pi/2}(1,0)$?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "This is rotation; the flow preserves $x^2+y^2$.",
           "explain": "$X=(-y,x)$ is rigid rotation: $\\Phi_t(x,y)=(\\cos t\\,x-\\sin t\\,y,\\sin t\\,x+\\cos t\\,y)$. Distance to origin is preserved; the answer is $1$."
         }
@@ -98,7 +102,7 @@
           "type": "numeric",
           "q": "For $\\dot x = \\sin x$, the fixed point at $x=0$ has Jacobian $\\cos 0$. What is its value?",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$X(x)=\\sin x$ gives $X'(x)=\\cos x$; at $0$, $X'(0)=1>0$, so $0$ is a repelling (unstable) fixed point."
         },
         {
@@ -131,8 +135,11 @@
         {
           "type": "complex",
           "q": "For $A=\\begin{pmatrix}0 & -1 \\\\ 1 & 0\\end{pmatrix}$, give one eigenvalue as $a+bi$.",
-          "answer": [0, 1],
-          "tol": 1e-6,
+          "answer": [
+            0,
+            1
+          ],
+          "tol": 0.000001,
           "hint": "$\\det(A-\\lambda I)=\\lambda^2+1$.",
           "explain": "Characteristic polynomial $\\lambda^2+1=0$ gives $\\lambda=\\pm i$; $(0,1)$ or $(0,-1)$ both qualify as answers."
         },
@@ -155,7 +162,7 @@
       "questions": [
         {
           "type": "mcq",
-          "q": "For a 2×2 matrix $A$ with $\\operatorname{tr}A=-3,\\ \\det A=2$, the origin is a:",
+          "q": "For a 2×2 matrix $A$ with $\\tr{}A=-3,\\ \\det A=2$, the origin is a:",
           "choices": [
             "saddle",
             "stable node",
@@ -163,7 +170,7 @@
             "center"
           ],
           "answer": 1,
-          "explain": "Discriminant $\\operatorname{tr}^2-4\\det = 9-8=1>0$, so eigenvalues are real; $\\det>0$ + $\\operatorname{tr}<0$ means both eigenvalues negative: a stable node."
+          "explain": "Discriminant $\\tr^2-4\\det = 9-8=1>0$, so eigenvalues are real; $\\det>0$ + $\\tr<0$ means both eigenvalues negative: a stable node."
         },
         {
           "type": "multi-select",
@@ -174,7 +181,10 @@
             "$\\dot x=2x+y,\\ \\dot y=x+2y$",
             "$\\dot x=y,\\ \\dot y=x$"
           ],
-          "answer": [0, 3],
+          "answer": [
+            0,
+            3
+          ],
           "explain": "Saddle requires $\\det A<0$. (a) $\\det=-1$: saddle. (b) $\\det=2$: stable node. (c) $\\det=3$: node. (d) $\\det=-1$: saddle."
         },
         {
@@ -193,7 +203,7 @@
       "hard": [
         {
           "type": "matching",
-          "q": "Match $(\\operatorname{tr},\\det)$ to the portrait type.",
+          "q": "Match $(\\tr,\\det)$ to the portrait type.",
           "left": [
             "stable spiral",
             "saddle",
@@ -201,14 +211,19 @@
             "stable node"
           ],
           "right": [
-            "$\\operatorname{tr}<0,\\ \\det>0,\\ \\operatorname{tr}^2<4\\det$",
             "$\\det<0$",
-            "$\\operatorname{tr}=0,\\ \\det>0$",
-            "$\\operatorname{tr}<0,\\ \\det>0,\\ \\operatorname{tr}^2>4\\det$"
+            "$\\tr=0,\\ \\det>0$",
+            "$\\tr<0,\\ \\det>0,\\ \\tr^2>4\\det$",
+            "$\\tr<0,\\ \\det>0,\\ \\tr^2<4\\det$"
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            3,
+            0,
+            1,
+            2
+          ],
           "hint": "Spirals have complex eigenvalues (negative discriminant).",
-          "explain": "Sign of $\\det$ separates saddle from node/spiral. Sign of $\\operatorname{tr}$ separates stable/unstable. Discriminant $\\operatorname{tr}^2-4\\det$ separates node (positive) from spiral (negative)."
+          "explain": "Sign of $\\det$ separates saddle from node/spiral. Sign of $\\tr$ separates stable/unstable. Discriminant $\\tr^2-4\\det$ separates node (positive) from spiral (negative)."
         },
         {
           "type": "mcq",
@@ -221,7 +236,7 @@
           ],
           "answer": 2,
           "hint": "Linearize at the origin: $A=\\begin{pmatrix}0&1\\\\-1&\\mu\\end{pmatrix}$.",
-          "explain": "Jacobian at origin has $\\operatorname{tr}=\\mu>0$ and $\\det=1>0$; for $\\mu<2$, $\\operatorname{tr}^2-4\\det=\\mu^2-4<0$ gives complex eigenvalues with positive real part — an unstable spiral. The outward spiral is trapped by a stable limit cycle."
+          "explain": "Jacobian at origin has $\\tr=\\mu>0$ and $\\det=1>0$; for $\\mu<2$, $\\tr^2-4\\det=\\mu^2-4<0$ gives complex eigenvalues with positive real part — an unstable spiral. The outward spiral is trapped by a stable limit cycle."
         },
         {
           "type": "ordering",
@@ -233,7 +248,13 @@
             "Sketch representative trajectories consistent with the local classifications.",
             "Identify any invariant lines or conserved quantities."
           ],
-          "answer": [0, 2, 4, 1, 3],
+          "answer": [
+            0,
+            2,
+            4,
+            1,
+            3
+          ],
           "hint": "Fixed points first; nullclines scaffold the trajectories.",
           "explain": "Standard recipe: (1) fixed points, (2) classify them, (3) invariants / symmetries, (4) nullclines, (5) trajectories glued from local pictures."
         }
@@ -270,7 +291,7 @@
           "type": "numeric",
           "q": "For $\\dot r = r(1-r^2),\\ \\dot\\theta = 1$ in polar coordinates, the unique stable limit cycle is the circle $r = ?$",
           "answer": 1,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$\\dot r=0$ at $r=0$ (origin, unstable) and $r=1$ (cycle). Near $r=1$ the radial flow contracts ($\\dot r=r(1-r^2)$ changes sign), so $r=1$ is the stable limit cycle."
         }
       ],
@@ -304,7 +325,7 @@
           "type": "numeric",
           "q": "The Van der Pol oscillator has a unique stable limit cycle for all $\\mu>0$. For $\\mu=0$, what is the amplitude of the (degenerate) circular orbit through $(2,0)$?",
           "answer": 2,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "$\\mu=0$ gives $\\ddot x+x=0$: a harmonic oscillator.",
           "explain": "At $\\mu=0$ the system is $\\ddot x+x=0$ (center); every circle is a periodic orbit. Through $(2,0)$ the amplitude is $2$. For $\\mu\\to 0^+$ the unique limit cycle approaches amplitude $2$."
         }
@@ -317,7 +338,7 @@
           "type": "numeric",
           "q": "For the logistic map $f_r(x)=rx(1-x)$ with $r=2.5$, compute the non-zero fixed point $x^*\\in(0,1)$.",
           "answer": 0.6,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "$x^*=1-1/r=1-0.4=0.6$."
         },
         {
@@ -335,11 +356,33 @@
         {
           "type": "guess-my-rule",
           "q": "Here are inputs and outputs of an unknown one-parameter logistic map $f_r(x)=rx(1-x)$. Figure out $r$ and compute the requested outputs.",
-          "examples": [[0.5, 0.75], [0.25, 0.5625], [0.1, 0.27]],
-          "testCases": [[0.2, 0.48], [0.6, 0.72]],
+          "examples": [
+            [
+              0.5,
+              0.75
+            ],
+            [
+              0.25,
+              0.5625
+            ],
+            [
+              0.1,
+              0.27
+            ]
+          ],
+          "testCases": [
+            [
+              0.2,
+              0.48
+            ],
+            [
+              0.6,
+              0.72
+            ]
+          ],
           "inputKind": "number in [0,1]",
           "outputKind": "number in [0,1]",
-          "tol": 1e-2,
+          "tol": 0.01,
           "hint": "From $f_r(0.5)=0.75$ solve for $r$.",
           "explain": "$f_r(0.5)=r/4=0.75$ gives $r=3$. Then $f_3(0.2)=3\\cdot 0.2\\cdot 0.8=0.48$ and $f_3(0.6)=3\\cdot 0.6\\cdot 0.4=0.72$."
         }
@@ -349,7 +392,7 @@
           "type": "numeric",
           "q": "The logistic map's non-zero fixed point $x^*=1-1/r$ becomes unstable when $|f_r'(x^*)|=1$. At what $r$?",
           "answer": 3,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "$f_r'(x)=r-2rx$.",
           "explain": "$f_r'(x^*)=r-2r(1-1/r)=r-2r+2=2-r$. $|2-r|=1$ with $r>0$ gives $r=1$ (emerging) or $r=3$ (period-doubling)."
         },
@@ -369,8 +412,11 @@
         {
           "type": "complex",
           "q": "For the doubling map $f(x)=2x\\bmod 1$, give the 2-periodic orbit $\\{p,q\\}$ as $p+qi$, with $p<q$.",
-          "answer": [0.3333333333333333, 0.6666666666666667],
-          "tol": 1e-6,
+          "answer": [
+            0.3333333333333333,
+            0.6666666666666667
+          ],
+          "tol": 0.000001,
           "hint": "$f^2(x)=4x\\bmod 1$; solve $4p\\bmod 1=p$ away from fixed points.",
           "explain": "Fixed points of $f^2$: $4x-x\\in\\mathbb{Z}$ with $x\\in[0,1)$ gives $x\\in\\{0,1/3,2/3\\}$. Excluding the fixed point $x=0$, the 2-cycle is $\\{1/3,2/3\\}$: $f(1/3)=2/3$, $f(2/3)=1/3$."
         }
@@ -383,7 +429,7 @@
           "type": "numeric",
           "q": "Iterate the logistic map $f_r(x)=rx(1-x)$ at $r=2.5$ from any $x_0\\in(0,1)$ for many steps. To what value does $x_n$ converge?",
           "answer": 0.6,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "For $1<r<3$ the non-zero fixed point $x^*=1-1/r$ is attracting. At $r=2.5$, $x^*=1-0.4=0.6$."
         },
         {
@@ -437,12 +483,18 @@
             "Hopf"
           ],
           "right": [
-            "$\\dot x=\\mu-x^2$",
             "$\\dot x=\\mu x-x^2$",
             "$\\dot x=\\mu x-x^3$",
-            "$\\dot r=\\mu r-r^3,\\ \\dot\\theta=1$"
+            "$\\dot r=\\mu r-r^3,\\ \\dot\\theta=1$",
+            "$\\dot x=\\mu-x^2$"
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            3,
+            0,
+            1,
+            2
+          ],
+          "hint": "Saddle-node creates/destroys a pair of fixed points; transcritical exchanges stability between two fixed points; pitchfork bifurcates one fixed point into three (with a cubic symmetry); Hopf births a…",
           "explain": "Saddle-node creates/destroys a pair of fixed points; transcritical exchanges stability between two fixed points; pitchfork bifurcates one fixed point into three (with a cubic symmetry); Hopf births a limit cycle from a spiral."
         },
         {
@@ -468,7 +520,12 @@
             "The bifurcation preserves the $x\\mapsto -x$ symmetry.",
             "The bifurcation is NOT generic: it requires an $x\\mapsto -x$ symmetry to stay robust under perturbation."
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
           "hint": "All four statements are standard textbook facts about the supercritical pitchfork.",
           "explain": "Each statement is the classical lore: symmetry is essential (break it and you get a saddle-node plus a transcritical)."
         },
@@ -502,7 +559,7 @@
           "type": "numeric",
           "q": "Compute the Lyapunov exponent of the doubling map $f(x)=2x\\bmod 1$ on $[0,1)$.",
           "answer": 0.6931471805599453,
-          "tol": 1e-4,
+          "tol": 0.0001,
           "explain": "$f'(x)=2$ almost everywhere, so $\\lambda=\\int \\log|f'(x)|\\,dx=\\log 2\\approx 0.6931$."
         },
         {
@@ -525,7 +582,11 @@
             "the map is topologically transitive",
             "sensitive dependence on initial conditions"
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            0,
+            1,
+            2
+          ],
           "explain": "In Devaney's original list (easier → harder): (i) dense periodic points, (ii) transitivity, (iii) SDIC. Banks–Brooks–Cairns–Davis–Stacey later showed (iii) is implied by (i)+(ii) on infinite metric spaces."
         }
       ],
@@ -534,7 +595,7 @@
           "type": "numeric",
           "q": "For the fully-chaotic logistic map $f_4(x)=4x(1-x)$, the invariant density is $\\rho(x)=\\tfrac{1}{\\pi\\sqrt{x(1-x)}}$. The Lyapunov exponent is $\\int_0^1 \\log|f_4'(x)|\\,\\rho(x)\\,dx$. Evaluate.",
           "answer": 0.6931471805599453,
-          "tol": 1e-3,
+          "tol": 0.001,
           "hint": "Conjugate to the tent map via $x=\\sin^2(\\pi y/2)$; both give $\\log 2$.",
           "explain": "$f_4$ is semiconjugate to the doubling (or tent) map; the conjugacy preserves Lyapunov exponents, so $\\lambda=\\log 2$."
         },
@@ -588,7 +649,7 @@
           "type": "numeric",
           "q": "For the Lorenz system $\\dot x=\\sigma(y-x),\\ \\dot y=\\rho x-y-xz,\\ \\dot z=xy-\\beta z$, compute $\\operatorname{div}X$ with $\\sigma=10,\\beta=8/3$.",
           "answer": -13.666666666666666,
-          "tol": 1e-3,
+          "tol": 0.001,
           "explain": "$\\operatorname{div}X = -\\sigma - 1 - \\beta = -10 - 1 - 8/3 = -41/3 \\approx -13.67$. Strictly negative, so Lorenz is dissipative."
         },
         {
@@ -600,7 +661,10 @@
             "$\\dot x=y,\\ \\dot y=-\\sin x$ (pendulum)",
             "$\\dot x=y,\\ \\dot y=-x-\\mu y$ with $\\mu>0$"
           ],
-          "answer": [0, 2],
+          "answer": [
+            0,
+            2
+          ],
           "explain": "(a) Hamiltonian flow: $\\operatorname{div}X=\\partial^2 H/\\partial q\\partial p - \\partial^2 H/\\partial p\\partial q=0$. (b) $\\operatorname{div}=-1<0$: dissipative. (c) Pendulum is Hamiltonian with $H=y^2/2-\\cos x$. (d) Damped oscillator: $\\operatorname{div}=-\\mu<0$."
         }
       ],
@@ -638,7 +702,7 @@
           "type": "numeric",
           "q": "Under a flow with constant $\\operatorname{div}X=-0.5$, a phase-space ball of volume $1$ shrinks to what volume after $t=10$ seconds?",
           "answer": 0.006737946999085467,
-          "tol": 1e-3,
+          "tol": 0.001,
           "hint": "Volume evolves as $\\mathrm{vol}(t)=\\mathrm{vol}(0)e^{\\int_0^t \\operatorname{div}X\\,ds}$.",
           "explain": "With constant divergence $c=-0.5$, $\\mathrm{vol}(t)=e^{ct}=e^{-5}\\approx 0.00674$."
         }
@@ -675,7 +739,7 @@
           "type": "numeric",
           "q": "For the rigid rotation $\\dot r=0,\\ \\dot\\theta=1$ with section $\\Sigma=\\{\\theta=0\\}$, the first-return map $P\\colon \\Sigma\\to\\Sigma$ has return time equal to:",
           "answer": 6.283185307179586,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Starting at $\\theta=0$, the flow returns to $\\theta=0$ after $\\Delta t=2\\pi$, so $\\tau\\equiv 2\\pi$."
         }
       ],
@@ -702,7 +766,13 @@
             "Define $P(x)=\\Phi_{\\tau(x)}(x)$.",
             "Compute the Floquet multipliers as eigenvalues of $dP(x^*)$."
           ],
-          "answer": [0, 1, 2, 3, 4],
+          "answer": [
+            0,
+            1,
+            2,
+            3,
+            4
+          ],
           "hint": "Geometric construction, then analytic definition, then linearization.",
           "explain": "Standard recipe: pick the cycle and a section, produce the return time, define the map, linearize for stability."
         },
@@ -748,18 +818,22 @@
             "sequence containing every finite word"
           ],
           "right": [
-            "eventually periodic orbit",
             "periodic orbit",
-            "dense orbit"
+            "dense orbit",
+            "eventually periodic orbit"
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            2,
+            0,
+            1
+          ],
           "explain": "Topological conjugacy transports each property: eventual periodicity, periodicity, and density are all preserved by the coding."
         },
         {
           "type": "numeric",
           "q": "Count the number of 2-periodic points of the full 2-shift $\\sigma$ on $\\{0,1\\}^{\\mathbb{N}}$ (including fixed points).",
           "answer": 4,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "explain": "Fixed points of $\\sigma^2$ correspond to length-2 binary words: $00,01,10,11$ — four sequences in total (including the two fixed points $\\overline{0}$ and $\\overline{1}$)."
         }
       ],
@@ -781,7 +855,7 @@
           "type": "numeric",
           "q": "How many period-$n$ points does the full 2-shift have? For $n=5$, give the count.",
           "answer": 32,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Period-$n$ here means fixed under $\\sigma^n$ (including lower periods).",
           "explain": "Fixed points of $\\sigma^n$ correspond to length-$n$ binary words: $2^n$. For $n=5$, $2^5=32$."
         },
@@ -794,7 +868,11 @@
             "sensitive dependence on initial conditions",
             "every orbit is periodic"
           ],
-          "answer": [0, 1, 2],
+          "answer": [
+            0,
+            1,
+            2
+          ],
           "hint": "Three of these are Devaney-chaos; the fourth is false for any infinite system with dense periodic + transitive points.",
           "explain": "The 2-shift is a model example of Devaney chaos: transitive (a sequence containing every word generates a dense orbit), periodic points are dense (periodic binary strings), SDIC (flip the $n$-th digit to separate orbits after $n$ shifts). Not every orbit is periodic — most are aperiodic."
         }
@@ -836,7 +914,10 @@
             "$T(x)=2x\\bmod 1$",
             "$T(x)=x$ (identity)"
           ],
-          "answer": [0, 2],
+          "answer": [
+            0,
+            2
+          ],
           "explain": "Irrational rotations are uniquely ergodic (Weyl). The doubling map is ergodic (even mixing). Rational rotations split $[0,1)$ into finitely many cycles — not ergodic. The identity preserves every set — far from ergodic."
         }
       ],
@@ -844,8 +925,11 @@
         {
           "type": "complex",
           "q": "By Birkhoff applied to $f(x)=x$ under $T(x)=2x\\bmod 1$, $\\tfrac{1}{N}\\sum_{k<N}T^k(x)\\to a$ for a.e. $x$. Give $a$ as $a+bi$.",
-          "answer": [0.5, 0],
-          "tol": 1e-6,
+          "answer": [
+            0.5,
+            0
+          ],
+          "tol": 0.000001,
           "hint": "$T$ preserves Lebesgue; $\\int_0^1 x\\,dx=?$",
           "explain": "The doubling map is ergodic w.r.t. Lebesgue, so time averages equal the space average $\\int_0^1 x\\,dx=1/2$."
         },
@@ -866,7 +950,7 @@
           "type": "numeric",
           "q": "By Birkhoff, for almost every $x\\in[0,1)$, the asymptotic frequency of digit $1$ in the binary expansion of $x$ equals what number?",
           "answer": 0.5,
-          "tol": 1e-6,
+          "tol": 0.000001,
           "hint": "Apply Birkhoff to $\\mathbf{1}_{[1/2,1)}$ under the doubling map.",
           "explain": "This is the Borel normal-numbers theorem. The indicator of $\\{x\\in[0,1):b_1=1\\}=[1/2,1)$ has $\\int=1/2$; ergodicity of $T(x)=2x\\bmod 1$ delivers the claim for a.e. $x$."
         }
@@ -930,7 +1014,11 @@
             "The non-trivial fixed points are stable.",
             "It exhibits sensitive dependence on initial conditions on the attractor."
           ],
-          "answer": [0, 1, 3],
+          "answer": [
+            0,
+            1,
+            3
+          ],
           "hint": "At $\\rho=28$, the non-trivial fixed points are UNSTABLE (past the Hopf bifurcation at $\\rho\\approx 24.74$).",
           "explain": "Lorenz has 3 fixed points for $\\rho>1$; at $\\rho=28$ the origin is a saddle, the two symmetric points have already become unstable spirals (subcritical Hopf at $\\rho\\approx 24.74$), and the attractor exhibits SDIC."
         },
@@ -944,12 +1032,17 @@
             "strange attractor"
           ],
           "right": [
-            "single equilibrium, dimension 0",
             "closed periodic orbit, dimension 1",
             "quasi-periodic orbit on $T^2$, dimension 2",
-            "fractal set with chaotic dynamics"
+            "fractal set with chaotic dynamics",
+            "single equilibrium, dimension 0"
           ],
-          "answer": [0, 1, 2, 3],
+          "answer": [
+            3,
+            0,
+            1,
+            2
+          ],
           "explain": "The four standard asymptotic behaviours of dissipative flows: equilibrium, periodic, quasi-periodic, chaotic. Dimension climbs from 0 to a fractal value."
         }
       ]

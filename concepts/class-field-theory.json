@@ -20,7 +20,7 @@
         "idele-class-groups",
         "class-group-units-ant"
       ],
-      "blurb": "The Hilbert class field $H/K$ is the maximal unramified abelian extension; the Artin map identifies $\\operatorname{Gal}(H/K)$ with the ideal class group $\\operatorname{Cl}(K)$, so $[H:K]=h_K$.",
+      "blurb": "The Hilbert class field $H/K$ is the maximal unramified abelian extension; the Artin map identifies $\\Gal(H/K)$ with the ideal class group $\\operatorname{Cl}(K)$, so $[H:K]=h_K$.",
       "tags": [
         "duality"
       ]
@@ -52,7 +52,8 @@
       "anchor": "existence",
       "prereqs": [
         "local-global-cft",
-        "artin-reciprocity-preview"
+        "artin-reciprocity-preview",
+        "idele-class-group"
       ],
       "blurb": "Every finite-index open subgroup of an idèle class group (equivalently, every congruence subgroup of a ray class group) is the kernel of the Artin map for some finite abelian extension — the class-field correspondence is a bijection.",
       "tags": [

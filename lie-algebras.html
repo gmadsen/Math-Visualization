@@ -1,0 +1,1057 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Lie algebras</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\Spec',
+        '\\Gal':'\\Gal',
+        '\\Hom':'\\Hom',
+        '\\tr':'\\tr',
+        '\\ad':'\\ad',
+        '\\ind':'\\ind'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  .matgrid{display:inline-grid;grid-template-columns:repeat(2,minmax(74px,1fr));gap:4px;
+    font-family:ui-monospace,monospace;font-size:.92rem}
+  .matgrid > div{background:#0b0f16;border:1px solid var(--line);border-radius:4px;
+    padding:.35rem .45rem;text-align:right;color:#cbd5e1}
+  .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.8rem;margin:.8rem 0}
+  .gallery .card{background:#0b0f16;border:1px solid var(--line);border-radius:6px;padding:.5rem;text-align:center}
+  .gallery .card .lbl{color:var(--mute);font-size:.82rem;margin-top:.25rem}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"automorphic-forms-adelic","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"additive-number-theory":{"next":"quadratic-forms-genus-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"moduli-spaces","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":null,"prev":"heights-arithmetic-geometry","section":"Number theory","title":"Analytic number theory"},"automorphic-forms-adelic":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-topoi","prev":"infinity-categories","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"deformation-theory":{"next":"etale-cohomology","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"group-cohomology","prev":"homological","section":"Algebra & homological","title":"Derived categories"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"harmonic-analysis-fourier","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":null,"section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":null,"prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":null,"prev":"deformation-theory","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"deformation-theory","prev":"group-schemes","section":"Algebraic geometry","title":"Étale fundamental group"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"naive-set-theory","section":"Logic & Foundations","title":"First order logic and completeness"},"forcing-and-independence":{"next":null,"prev":"type-theory-and-hott","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":null,"prev":"lie-algebras","section":"Algebra & homological","title":"Galois cohomology and brauer"},"galois-representations":{"next":"heights-arithmetic-geometry","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"lie-algebras","prev":"derived-categories","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"etale-fundamental-group","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"harmonic-analysis-fourier":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"spectral-theory","prev":"partial-differential-equations","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"analytic-number-theory","prev":"galois-representations","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"homological":{"next":"derived-categories","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"cocartesian-fibrations","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-topoi (Lurie)"},"information-theory":{"next":"large-deviations","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"stacks","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"large-deviations":{"next":null,"prev":"information-theory","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"galois-cohomology-and-brauer","prev":"group-cohomology","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"model-theory-basics":{"next":"computability-and-decidability","prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":null,"prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"modular-curves","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"algebraic-spaces","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":null,"prev":"characteristic-classes","section":"Geometry & topology","title":"Morse theory"},"naive-set-theory":{"next":"first-order-logic-and-completeness","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"harmonic-functions","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"stochastic-processes-and-martingales","prev":null,"section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"additive-number-theory","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"additive-number-theory","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"random-walks-and-mixing":{"next":"information-theory","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra & homological","title":"Representation theory"},"riemann-surfaces":{"next":"characteristic-classes","prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"sheaf-cohomology":{"next":"algebraic-de-rham-cohomology","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"algebraic-curves-higher-genus","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Sobolev spaces & distributions"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":null,"prev":"harmonic-functions","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"intersection-theory-chow","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":"probability-theory","section":"Probability & statistics","title":"Stochastic processes and martingales"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"type-theory-and-hott":{"next":"forcing-and-independence","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and hott"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"model-theory-basics","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"Zfc and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="Algebra & homological" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+  <a href="#axioms">1&nbsp;Axioms</a>
+  <a href="#derivations">2&nbsp;Adjoint</a>
+  <a href="#solvable-nilpotent">3&nbsp;Solvable</a>
+  <a href="#cartan-killing">4&nbsp;Cartan–Killing</a>
+  <a href="#sl2-roots">5&nbsp;sl₂ &amp; weights</a>
+  <a href="#classification">6&nbsp;Classification</a>
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Lie algebras</h1>
+  <p class="sub">Differentiate a Lie group at the identity and you get a vector space with a bracket. The whole zoo of classical and exceptional symmetries — A, B, C, D, plus G₂, F₄, E₆, E₇, E₈ — is decoded from skew-symmetry, Jacobi, and a single bilinear form.</p>
+</section>
+
+<section id="axioms">
+<h2>1. Axioms and matrix examples</h2>
+<p>A <strong>Lie algebra</strong> over $\mathbb{C}$ (or any field) is a vector space $\mathfrak{g}$ together with a bilinear bracket $[\cdot,\cdot]\colon\mathfrak{g}\times\mathfrak{g}\to\mathfrak{g}$ satisfying</p>
+<p>$$[x,x]=0\quad\text{(skew-symmetry)},\qquad [x,[y,z]]+[y,[z,x]]+[z,[x,y]]=0\quad\text{(Jacobi)}.$$</p>
+<p>The skew condition $[x,x]=0$ is equivalent to $[x,y]=-[y,x]$ in characteristic $\neq 2$. Every associative algebra $A$ becomes a Lie algebra under the <em>commutator bracket</em> $[a,b]=ab-ba$; this is where every example below comes from.</p>
+
+<h3>Classical matrix Lie algebras</h3>
+<table class="plain">
+  <thead><tr><th>Algebra</th><th>Defining equation</th><th>$\dim$</th><th>Lie group</th></tr></thead>
+  <tbody>
+    <tr><td>$\mathfrak{gl}_n$</td><td>(all $n\times n$ matrices)</td><td>$n^2$</td><td>$\mathrm{GL}_n$</td></tr>
+    <tr><td>$\mathfrak{sl}_n$</td><td>$\tr\,X = 0$</td><td>$n^2-1$</td><td>$\mathrm{SL}_n$</td></tr>
+    <tr><td>$\mathfrak{so}_n$</td><td>$X+X^\top = 0$</td><td>$\binom{n}{2}$</td><td>$\mathrm{SO}_n$</td></tr>
+    <tr><td>$\mathfrak{sp}_{2n}$</td><td>$X^\top J + JX = 0$, $J$ symplectic form</td><td>$n(2n+1)$</td><td>$\mathrm{Sp}_{2n}$</td></tr>
+  </tbody>
+</table>
+<p>Each defining condition is preserved by $[X,Y]=XY-YX$: differentiating the group equation $g\in G$ at $g=I$ along $g(t)=I+tX+\cdots$ gives the linear equation cutting out $\mathfrak{g}\subset\mathfrak{gl}_n$.</p>
+
+<div class="widget" id="bracket-table">
+  <div class="hd">
+    <div class="ttl">Bracket-table inspector — $\mathfrak{sl}_2$</div>
+    <div class="hint">click a cell to see $[X,Y]$ for the standard basis $\{e,h,f\}$</div>
+  </div>
+  <div class="row">
+    <div id="bt-table"></div>
+    <div style="margin-left:auto;min-width:240px">
+      <div class="readout" id="bt-out">Click a cell.</div>
+    </div>
+  </div>
+  <p class="small" style="margin:.4rem 0 0">$e=\bigl(\begin{smallmatrix}0&amp;1\\0&amp;0\end{smallmatrix}\bigr)$, $h=\bigl(\begin{smallmatrix}1&amp;0\\0&amp;-1\end{smallmatrix}\bigr)$, $f=\bigl(\begin{smallmatrix}0&amp;0\\1&amp;0\end{smallmatrix}\bigr)$. Verify Jacobi by clicking the diagonal pairs.</p>
+</div>
+<script>
+(function(){
+  const basis = ["e","h","f"];
+  // bracket table for sl2: [row,col] -> coeff vector in (e,h,f)
+  // [e,h]=-2e, [h,e]=2e ; [h,f]=-2f, [f,h]=2f ; [e,f]=h, [f,e]=-h
+  const B = {
+    "e,e":[0,0,0], "e,h":[-2,0,0], "e,f":[0,1,0],
+    "h,e":[2,0,0], "h,h":[0,0,0], "h,f":[0,0,-2],
+    "f,e":[0,-1,0], "f,h":[0,0,2], "f,f":[0,0,0]
+  };
+  function fmtVec(v){
+    const parts = [];
+    v.forEach((c,i)=>{
+      if(c===0) return;
+      const sign = c<0 ? "-" : (parts.length? "+" : "");
+      const mag = Math.abs(c)===1 ? "" : Math.abs(c)+"·";
+      parts.push(sign + mag + basis[i]);
+    });
+    return parts.length ? parts.join(" ") : "0";
+  }
+  const root = document.querySelector("#bracket-table");
+  if(!root) return;
+  const tbl = root.querySelector("#bt-table");
+  const out = root.querySelector("#bt-out");
+  const t = document.createElement("table");
+  t.className = "plain";
+  t.style.minWidth = "240px";
+  let html = "<thead><tr><th></th>";
+  basis.forEach(b => html += "<th style=\"text-align:center\">"+b+"</th>");
+  html += "</tr></thead><tbody>";
+  basis.forEach(r => {
+    html += "<tr><th>"+r+"</th>";
+    basis.forEach(c => {
+      const key = r + "," + c;
+      const v = fmtVec(B[key]);
+      html += "<td style=\"text-align:center;cursor:pointer\" data-pair=\"" + key + "\">[" + r + "," + c + "] = " + v + "</td>";
+    });
+    html += "</tr>";
+  });
+  html += "</tbody>";
+  t.innerHTML = html;
+  tbl.appendChild(t);
+  t.addEventListener("click", ev => {
+    const td = ev.target.closest("td[data-pair]");
+    if(!td) return;
+    const key = td.getAttribute("data-pair");
+    const v = B[key];
+    const [r,c] = key.split(",");
+    const sym = "[" + r + "," + c + "] = " + fmtVec(v);
+    const skew = "[" + c + "," + r + "] = " + fmtVec(v.map(x=>-x));
+    out.textContent = sym + "\n" + skew + (r===c ? "\n(skew-symmetry forces this to vanish.)" : "");
+    [...t.querySelectorAll("td")].forEach(x => x.style.background = "");
+    td.style.background = "color-mix(in srgb, var(--yellow) 15%, transparent)";
+  });
+})();
+</script>
+
+<div class="note">Skew-symmetry is the antisymmetric part of the commutator; the Jacobi identity is the trace of associativity that survives. Together they are the only two axioms.</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebra.html#intro">Groups, rings, and fields</a></li>
+    <li><a href="./lie-groups.html#intro">Lie groups and matrix examples</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./lie-algebras.html#derivations">Lie algebras</a> · Derivations and the adjoint representation</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="la-axioms"></div>
+</section>
+
+<section id="derivations">
+<h2>2. Derivations and the adjoint representation</h2>
+<p>For each $x\in\mathfrak{g}$ define $\ad(x)\colon\mathfrak{g}\to\mathfrak{g}$ by $\ad(x)(y)=[x,y]$. The Jacobi identity says exactly that $\ad(x)$ is a <em>derivation</em> of the bracket:</p>
+<p>$$\ad(x)[y,z]=[\ad(x)y,\,z]+[y,\,\ad(x)z].$$</p>
+<p>Equivalently, $[\ad(x),\ad(y)]=\ad([x,y])$, so $\ad\colon\mathfrak{g}\to\mathfrak{gl}(\mathfrak{g})$ is itself a Lie algebra homomorphism — the <strong>adjoint representation</strong>.</p>
+
+<h3>The Killing form</h3>
+<p>The trace form on the adjoint rep,</p>
+<p>$$B(x,y)=\tr\bigl(\ad(x)\,\ad(y)\bigr),$$</p>
+<p>is symmetric, bilinear, and $\mathfrak{g}$-invariant: $B([z,x],y)+B(x,[z,y])=0$. It is canonical — the only such form up to scalar on a simple Lie algebra.</p>
+
+<div class="widget" id="adjoint-vis">
+  <div class="hd">
+    <div class="ttl">Adjoint action on $\mathfrak{sl}_2$</div>
+    <div class="hint">choose $x\in\{e,h,f\}$ and watch where $\ad(x)$ sends each basis vector</div>
+  </div>
+  <div class="row">
+    <label>$x =$
+      <select id="adj-x">
+        <option value="e">e</option>
+        <option value="h" selected>h</option>
+        <option value="f">f</option>
+      </select>
+    </label>
+    <span class="small">eigenvalues of $\ad(x)$:</span>
+    <span class="readout" id="adj-eig" style="display:inline-block;min-width:200px"></span>
+  </div>
+  <svg viewBox="-160 -110 320 220" width="100%" height="260" id="adj-svg"></svg>
+  <p class="small" style="margin:.4rem 0 0">When $x=h$, the action is diagonal with eigenvalues $\{2,0,-2\}$ — this is the <em>root decomposition</em> in miniature: $\mathfrak{sl}_2 = \mathfrak{g}_{-2}\oplus\mathfrak{g}_0\oplus\mathfrak{g}_{2}$.</p>
+</div>
+<script>
+(function(){
+  // ad(x) acting on basis (e,h,f). columns of M are ad(x)(e), ad(x)(h), ad(x)(f).
+  const AD = {
+    e: [[0,-2,0],[0,0,1],[0,0,0]],   // ad(e): e->0, h->-2e, f->h
+    h: [[2,0,0],[0,0,0],[0,0,-2]],   // ad(h): e->2e, h->0, f->-2f
+    f: [[0,0,0],[0,2,0],[-1,0,0]]    // ad(f): e->h, h->2f, f->0
+  };
+  const root = document.querySelector("#adjoint-vis");
+  if(!root) return;
+  const sel = root.querySelector("#adj-x");
+  const eig = root.querySelector("#adj-eig");
+  const svg = root.querySelector("#adj-svg");
+  const positions = { e:[ 110,-60], h:[0,80], f:[-110,-60] };
+  function fmtVec(v){
+    const labels=["e","h","f"];
+    const parts=[];
+    v.forEach((c,i)=>{
+      if(Math.abs(c)<1e-9) return;
+      const sign = c<0 ? "-" : (parts.length? "+" : "");
+      const mag = Math.abs(c)===1 ? "" : Math.abs(c)+"·";
+      parts.push(sign + mag + labels[i]);
+    });
+    return parts.length ? parts.join(" ") : "0";
+  }
+  function eigsForX(x){
+    if(x==="h") return "2, 0, -2";
+    if(x==="e" || x==="f") return "0, 0, 0 (nilpotent)";
+    return "";
+  }
+  function redraw(){
+    const x = sel.value;
+    const M = AD[x];
+    eig.textContent = eigsForX(x);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // basis nodes
+    Object.entries(positions).forEach(([lbl,p])=>{
+      drawNode(svg, p[0], p[1], lbl, {r:20, stroke: "var(--yellow)"});
+    });
+    // for each column j, image is sum_i M[i][j] * basis_i
+    const labels = ["e","h","f"];
+    labels.forEach((src,j)=>{
+      const col = [M[0][j], M[1][j], M[2][j]];
+      const img = fmtVec(col);
+      // pick a target: if image is single-vector with coefficient, draw arrow there;
+      // otherwise label the source node with the formula
+      const nonzero = col.map((c,i)=>[c,i]).filter(([c])=>Math.abs(c)>1e-9);
+      const srcP = positions[src];
+      if(nonzero.length === 1){
+        const [coef,idx] = nonzero[0];
+        const tgt = labels[idx];
+        const tgtP = positions[tgt];
+        const lbl = (coef===1?"":(coef===-1?"-":coef+"·")) + tgt;
+        if(src===tgt){
+          // self-loop: small label by node
+          const t = SVG("text",{x:srcP[0]+28,y:srcP[1]-22,fill:"var(--mute)","font-size":12,"font-style":"italic"});
+          t.textContent = "ad("+x+")("+src+")="+img;
+          svg.appendChild(t);
+        } else {
+          drawArrow(svg, srcP, tgtP, {color:"var(--cyan)", label:lbl, markerId:"arr-adj", curve:14});
+        }
+      } else if(nonzero.length === 0){
+        const t = SVG("text",{x:srcP[0]+28,y:srcP[1]-22,fill:"var(--mute)","font-size":12,"font-style":"italic"});
+        t.textContent = "ad("+x+")("+src+")=0";
+        svg.appendChild(t);
+      }
+    });
+    // header
+    const hdr = SVG("text",{x:0,y:-90,"text-anchor":"middle","font-size":13,fill:"var(--mute)"});
+    hdr.textContent = "ad("+x+") on the basis (e,h,f)";
+    svg.appendChild(hdr);
+  }
+  sel.addEventListener("change", redraw);
+  redraw();
+})();
+</script>
+
+<div class="note">$\ad(h)$ is diagonalizable; $\ad(e)$ and $\ad(f)$ are nilpotent. The combination "diagonalizable + nilpotent" is exactly the Jordan decomposition that makes semisimple Lie algebras tractable.</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./lie-groups.html#bracket">Bracket, commutators, and BCH</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./lie-algebras.html#cartan-killing">Lie algebras</a> · Cartan, Killing, and semisimplicity</div>
+    <div><a href="./lie-algebras.html#solvable-nilpotent">Lie algebras</a> · Solvable and nilpotent Lie algebras</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="la-derivations-and-adjoint"></div>
+</section>
+
+<section id="solvable-nilpotent">
+<h2>3. Solvable and nilpotent Lie algebras</h2>
+<p>Two filtrations of $\mathfrak{g}$ measure how far it is from being abelian:</p>
+<ul>
+  <li>The <strong>derived series</strong> $\mathfrak{g}^{(0)}=\mathfrak{g}$, $\mathfrak{g}^{(k+1)}=[\mathfrak{g}^{(k)},\mathfrak{g}^{(k)}]$. $\mathfrak{g}$ is <em>solvable</em> if some $\mathfrak{g}^{(k)}=0$.</li>
+  <li>The <strong>lower central series</strong> $\mathfrak{g}^{0}=\mathfrak{g}$, $\mathfrak{g}^{k+1}=[\mathfrak{g},\mathfrak{g}^{k}]$. $\mathfrak{g}$ is <em>nilpotent</em> if some $\mathfrak{g}^{k}=0$.</li>
+</ul>
+<p>Nilpotent $\Rightarrow$ solvable. Two structure theorems pin them down:</p>
+<ul>
+  <li><strong>Engel.</strong> $\mathfrak{g}$ is nilpotent $\iff$ each $\ad(x)$ is a nilpotent operator.</li>
+  <li><strong>Lie.</strong> Every finite-dimensional rep of a solvable Lie algebra over $\mathbb{C}$ is simultaneously upper-triangularizable.</li>
+</ul>
+
+<div class="widget" id="derived-series">
+  <div class="hd">
+    <div class="ttl">Derived-series collapse</div>
+    <div class="hint">step through $\mathfrak{g}^{(0)}\supseteq\mathfrak{g}^{(1)}\supseteq\cdots$ for three sample algebras</div>
+  </div>
+  <div class="row">
+    <label>algebra:
+      <select id="ds-which">
+        <option value="b2">Borel $\mathfrak{b}_2$ (upper-tri $2\times 2$)</option>
+        <option value="heis">Heisenberg $\mathfrak{n}_3$ (strict upper-tri $3\times 3$)</option>
+        <option value="sl2">$\mathfrak{sl}_2(\mathbb{C})$</option>
+      </select>
+    </label>
+    <button type="button" id="ds-step">step →</button>
+    <button type="button" id="ds-reset">reset</button>
+  </div>
+  <svg viewBox="0 0 560 180" width="100%" height="200" id="ds-svg"></svg>
+  <div class="readout" id="ds-out">Pick an algebra and press step.</div>
+</div>
+<script>
+(function(){
+  // for each algebra: list of dims of g^{(0)}, g^{(1)}, g^{(2)}, ...
+  const data = {
+    b2:   { name:"α·E11+β·E22+γ·E12 (Borel)", series:[3,1,0], verdict:"solvable, NOT nilpotent" },
+    heis: { name:"Heisenberg n_3", series:[3,1,0], verdict:"nilpotent (hence solvable)" },
+    sl2:  { name:"sl_2", series:[3,3,3,3], verdict:"semisimple — derived series stays at full dim" }
+  };
+  const root = document.querySelector("#derived-series");
+  if(!root) return;
+  const sel = root.querySelector("#ds-which");
+  const step = root.querySelector("#ds-step");
+  const reset = root.querySelector("#ds-reset");
+  const svg = root.querySelector("#ds-svg");
+  const out = root.querySelector("#ds-out");
+  let k = 0;
+  function redraw(){
+    const d = data[sel.value];
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const xs = [40, 140, 240, 340, 440];
+    const seriesCap = Math.min(d.series.length, xs.length);
+    const maxBar = 100;
+    const dim0 = d.series[0];
+    for(let i=0;i<seriesCap;i++){
+      const x = xs[i];
+      const dim = d.series[i];
+      const filled = i <= k;
+      const h = (dim/dim0)*maxBar + 4;
+      const color = dim===0 ? "var(--green)" : (filled ? "var(--yellow)" : "var(--mute)");
+      svg.appendChild(SVG("rect",{x:x-26,y:130-h,width:52,height:h,
+        fill: filled? color : "var(--panel2)", stroke: color, "stroke-width":1.5, rx:4}));
+      const lbl = SVG("text",{x:x,y:152,"text-anchor":"middle","font-size":12, fill:"var(--mute)"});
+      lbl.textContent = "g^("+i+")";
+      svg.appendChild(lbl);
+      const dlbl = SVG("text",{x:x,y:170,"text-anchor":"middle","font-size":12, fill:filled? "var(--ink)":"var(--mute)"});
+      dlbl.textContent = "dim "+dim;
+      svg.appendChild(dlbl);
+    }
+    const arrowY = 90;
+    for(let i=0;i<seriesCap-1;i++){
+      drawArrow(svg, [xs[i]+28, arrowY], [xs[i+1]-28, arrowY], {
+        color: i<k ? "var(--cyan)" : "var(--mute)",
+        markerId: "arr-ds-"+i, width:1.2
+      });
+      const t = SVG("text",{x:(xs[i]+xs[i+1])/2, y:arrowY-8, "text-anchor":"middle", "font-size":11,
+        fill:i<k? "var(--cyan)":"var(--mute)", "font-style":"italic"});
+      t.textContent = "[·,·]";
+      svg.appendChild(t);
+    }
+    const dimNow = d.series[Math.min(k, d.series.length-1)];
+    out.textContent = d.name + "\n  step k = " + k + ", dim g^(" + k + ") = " + dimNow + (dimNow===0 ? "  ⇒  series terminated" : "") + "\n  verdict: " + d.verdict;
+  }
+  step.addEventListener("click", ()=>{ const cap = data[sel.value].series.length-1; if(k<cap) k++; redraw(); });
+  reset.addEventListener("click", ()=>{ k=0; redraw(); });
+  sel.addEventListener("change", ()=>{ k=0; redraw(); });
+  redraw();
+})();
+</script>
+
+<div class="note">$\mathfrak{sl}_2$ is its own derived algebra — $[\mathfrak{sl}_2,\mathfrak{sl}_2]=\mathfrak{sl}_2$ — so the derived series never collapses. This is the cleanest signal of <em>semisimplicity</em>.</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebra.html#finite">Quotients and finite fields</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./lie-algebras.html#cartan-killing">Lie algebras</a> · Cartan, Killing, and semisimplicity</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="la-solvable-and-nilpotent"></div>
+</section>
+
+<section id="cartan-killing">
+<h2>4. Cartan, Killing, and the root decomposition</h2>
+<p>A Lie algebra is <strong>semisimple</strong> if its largest solvable ideal (the <em>radical</em>) is zero. Cartan's criterion converts this into a linear-algebra check on the Killing form:</p>
+<p>$$\mathfrak{g}\text{ semisimple}\ \iff\ B\text{ is nondegenerate}.$$</p>
+<p>Now pick a <strong>Cartan subalgebra</strong> $\mathfrak{h}\subset\mathfrak{g}$ — a maximal toral (ad-diagonalizable) subalgebra. The adjoint action of $\mathfrak{h}$ decomposes $\mathfrak{g}$ into simultaneous eigenspaces:</p>
+<p>$$\mathfrak{g} = \mathfrak{h}\ \oplus\ \bigoplus_{\alpha\in\Phi}\mathfrak{g}_\alpha,\qquad \mathfrak{g}_\alpha=\{x\in\mathfrak{g}:[h,x]=\alpha(h)x\ \forall h\in\mathfrak{h}\}.$$</p>
+<p>The nonzero linear functionals $\alpha\in\mathfrak{h}^*$ that show up form a finite set $\Phi\subset\mathfrak{h}^*$ — the <strong>root system</strong>. It is symmetric ($\Phi=-\Phi$), spans $\mathfrak{h}^*$, and satisfies the integrality conditions that make it one of the rank-$n$ <em>root systems</em>.</p>
+
+<div class="widget" id="root-vis">
+  <div class="hd">
+    <div class="ttl">Rank-2 root systems</div>
+    <div class="hint">switch among $A_2$, $B_2$, $G_2$ — the three irreducible options in dimension $2$</div>
+  </div>
+  <div class="row">
+    <button type="button" data-rs="A2" class="active">A₂ — sl₃</button>
+    <button type="button" data-rs="B2">B₂ — so₅ ≅ sp₄</button>
+    <button type="button" data-rs="G2">G₂ — exceptional</button>
+  </div>
+  <svg viewBox="-160 -160 320 320" width="100%" height="320" id="rv-svg"></svg>
+  <div class="readout" id="rv-out"></div>
+</div>
+<script>
+(function(){
+  function rotate(p, ang){ const c=Math.cos(ang), s=Math.sin(ang); return [p[0]*c - p[1]*s, p[0]*s + p[1]*c]; }
+  // root-system root vectors in 2D, scaled for the viewBox
+  function rootsA2(){
+    const r = 110;
+    const out=[];
+    for(let k=0;k<6;k++){
+      out.push([r*Math.cos(k*Math.PI/3), r*Math.sin(k*Math.PI/3)]);
+    }
+    return out;
+  }
+  function rootsB2(){
+    // 4 short (length 1), 4 long (length sqrt 2). Show short along axes, long on diagonals.
+    const s = 90, L = 90*Math.SQRT2;
+    return [
+      [s,0],[-s,0],[0,s],[0,-s],
+      [L*Math.cos(Math.PI/4), L*Math.sin(Math.PI/4)],
+      [L*Math.cos(3*Math.PI/4), L*Math.sin(3*Math.PI/4)],
+      [L*Math.cos(-Math.PI/4), L*Math.sin(-Math.PI/4)],
+      [L*Math.cos(-3*Math.PI/4), L*Math.sin(-3*Math.PI/4)]
+    ];
+  }
+  function rootsG2(){
+    // 6 short of length 1, 6 long of length sqrt(3); short at 0,60,..., long at 30,90,...
+    const s = 70, L = 70*Math.sqrt(3);
+    const out=[];
+    for(let k=0;k<6;k++){ out.push([s*Math.cos(k*Math.PI/3), s*Math.sin(k*Math.PI/3)]); }
+    for(let k=0;k<6;k++){ out.push([L*Math.cos(Math.PI/6 + k*Math.PI/3), L*Math.sin(Math.PI/6 + k*Math.PI/3)]); }
+    return out;
+  }
+  const data = {
+    A2: { roots: rootsA2(), info:"6 roots, all the same length, hexagonal symmetry; rank 2; algebra sl_3 (8-dim)." },
+    B2: { roots: rootsB2(), info:"8 roots in two orbits (short/long, ratio 1:sqrt 2); rank 2; algebra so_5 = sp_4 (10-dim)." },
+    G2: { roots: rootsG2(), info:"12 roots in two orbits (short/long, ratio 1:sqrt 3); rank 2; exceptional algebra G_2 (14-dim)." }
+  };
+  const root = document.querySelector("#root-vis");
+  if(!root) return;
+  const svg = root.querySelector("#rv-svg");
+  const out = root.querySelector("#rv-out");
+  let cur = "A2";
+  function redraw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // axes
+    svg.appendChild(SVG("line",{x1:-150,y1:0,x2:150,y2:0,stroke:"var(--line)","stroke-width":1}));
+    svg.appendChild(SVG("line",{x1:0,y1:-150,x2:0,y2:150,stroke:"var(--line)","stroke-width":1}));
+    // grid circles to highlight orbits
+    [40,70,90,110,130].forEach(r => {
+      svg.appendChild(SVG("circle",{cx:0,cy:0,r:r,fill:"none",stroke:"var(--line)","stroke-width":0.4,"stroke-dasharray":"2 4"}));
+    });
+    const d = data[cur];
+    d.roots.forEach((p,i)=>{
+      const len = Math.hypot(p[0],p[1]);
+      const isShort = (cur==="B2" && Math.abs(len-90)<2) || (cur==="G2" && Math.abs(len-70)<2);
+      const color = isShort ? "var(--cyan)" : "var(--yellow)";
+      // arrow from origin (note: SVG y is inverted, but our roots are symmetric so it doesn't matter visually)
+      drawArrow(svg, [0,0], [p[0],p[1]], {color, markerId:"arr-rs-"+(isShort?"s":"l"), width:1.6});
+      svg.appendChild(SVG("circle",{cx:p[0],cy:p[1],r:3.5,fill:color}));
+    });
+    out.textContent = cur + " — " + d.info;
+  }
+  root.querySelectorAll("button[data-rs]").forEach(b => {
+    b.addEventListener("click", ()=>{
+      cur = b.getAttribute("data-rs");
+      root.querySelectorAll("button[data-rs]").forEach(x => x.classList.remove("active"));
+      b.classList.add("active");
+      redraw();
+    });
+  });
+  redraw();
+})();
+</script>
+
+<div class="note">A <em>simple</em> Lie algebra has an irreducible root system, encoded by a connected <strong>Dynkin diagram</strong>. We meet the diagrams in §6.</div>
+
+<div class="quiz" data-concept="la-cartan-killing-classification"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./lie-algebras.html#sl2-roots">Lie algebras</a> · $\mathfrak{sl}_2$-triples, root spaces, weights</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="sl2-roots">
+<h2>5. $\mathfrak{sl}_2$-triples and weight diagrams</h2>
+<p>Every root $\alpha\in\Phi$ of a semisimple $\mathfrak{g}$ produces an embedded copy of $\mathfrak{sl}_2$:</p>
+<p>$$e_\alpha\in\mathfrak{g}_\alpha,\quad f_\alpha\in\mathfrak{g}_{-\alpha},\quad h_\alpha=[e_\alpha,f_\alpha]\in\mathfrak{h},\qquad [h_\alpha,e_\alpha]=2e_\alpha,\ [h_\alpha,f_\alpha]=-2f_\alpha.$$</p>
+<p>This is the <strong>$\mathfrak{sl}_2$-triple</strong> attached to $\alpha$. The classification of finite-dimensional representations of $\mathfrak{sl}_2$ is the engine driving everything that follows.</p>
+
+<h3>Weight diagrams of $V_n$</h3>
+<p>For each integer $n\ge 0$ there is a unique (up to iso) irreducible representation $V_n$ of $\mathfrak{sl}_2(\mathbb{C})$ of dimension $n+1$. Its weights — the eigenvalues of $h$ — are</p>
+<p>$$n,\ n-2,\ n-4,\ \ldots,\ -n+2,\ -n,$$</p>
+<p>each with multiplicity $1$. The action of $e$ raises by $2$, the action of $f$ lowers by $2$.</p>
+
+<div class="widget" id="weight-diagram">
+  <div class="hd">
+    <div class="ttl">Weight diagram of $V_n$</div>
+    <div class="hint">drag the slider; click a weight to see the $e/f$ action</div>
+  </div>
+  <div class="row">
+    <label>$n=$ <input type="range" id="wd-n" min="0" max="8" step="1" value="4"></label>
+    <span class="readout" id="wd-info" style="display:inline-block;min-width:260px"></span>
+  </div>
+  <svg viewBox="-220 -90 440 160" width="100%" height="200" id="wd-svg"></svg>
+  <p class="small" style="margin:.4rem 0 0">$\dim V_n = n+1$. Casimir $C=ef+fe+\tfrac12 h^2$ acts on $V_n$ as the scalar $\tfrac{n(n+2)}{2}$ — the analogue of $j(j+1)$ in physics with $j=n/2$.</p>
+</div>
+<script>
+(function(){
+  const root = document.querySelector("#weight-diagram");
+  if(!root) return;
+  const sl = root.querySelector("#wd-n");
+  const info = root.querySelector("#wd-info");
+  const svg = root.querySelector("#wd-svg");
+  let selectedW = null;
+  function redraw(){
+    const n = +sl.value;
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // axis
+    svg.appendChild(SVG("line",{x1:-200,y1:0,x2:200,y2:0,stroke:"var(--line)","stroke-width":1}));
+    const weights = [];
+    for(let w=n; w>=-n; w-=2) weights.push(w);
+    const N = weights.length;
+    const span = Math.max(2, n);
+    const xs = w => (w/span) * 180;
+    weights.forEach(w => {
+      const x = xs(w);
+      const color = (w===selectedW) ? "var(--pink)" : "var(--yellow)";
+      svg.appendChild(SVG("circle",{cx:x,cy:0,r:8,fill:color,stroke:"#fff","stroke-width":1.2,
+        style:"cursor:pointer", "data-w":w}));
+      const t = SVG("text",{x:x,y:30,"text-anchor":"middle","font-size":12,fill:"var(--mute)"});
+      t.textContent = w;
+      svg.appendChild(t);
+    });
+    // axis label
+    const lbl = SVG("text",{x:0,y:-32,"text-anchor":"middle","font-size":13,fill:"var(--mute)"});
+    lbl.textContent = "weights of V_" + n + "  (h-eigenvalues)";
+    svg.appendChild(lbl);
+    // edges for selected
+    if(selectedW !== null && Math.abs(selectedW)<=n){
+      const x0 = xs(selectedW);
+      if(selectedW + 2 <= n){
+        drawArrow(svg, [x0+9,-12], [xs(selectedW+2)-9, -12], {color:"var(--cyan)", label:"e", markerId:"arr-wd-e"});
+      }
+      if(selectedW - 2 >= -n){
+        drawArrow(svg, [x0-9, 12], [xs(selectedW-2)+9, 12], {color:"var(--violet)", label:"f", markerId:"arr-wd-f"});
+      }
+    }
+    // attach click handlers
+    [...svg.querySelectorAll("circle[data-w]")].forEach(c => {
+      c.addEventListener("click", ev => {
+        selectedW = +ev.target.getAttribute("data-w");
+        redraw();
+      });
+    });
+    if(selectedW !== null && (selectedW > n || selectedW < -n)) selectedW = null;
+    if(selectedW === null){
+      info.textContent = "dim V_" + n + " = " + (n+1) + ".  Casimir acts as " + ((n*(n+2))/2) + ".";
+    } else {
+      const eDest = (selectedW+2 <= n) ? "v_"+(selectedW+2) : "0 (top of ladder)";
+      const fDest = (selectedW-2 >= -n) ? "v_"+(selectedW-2) : "0 (bottom of ladder)";
+      info.textContent = "weight " + selectedW + ":  e·v -> " + eDest + ",  f·v -> " + fDest;
+    }
+  }
+  sl.addEventListener("input", ()=>{ selectedW=null; redraw(); });
+  redraw();
+})();
+</script>
+
+<div class="note">In a general semisimple $\mathfrak{g}$, the simultaneous $\mathfrak{h}$-eigenspaces of an arbitrary representation $V$ are its <em>weight spaces</em>; restricting along each $\mathfrak{sl}_2$-triple recovers an $\mathfrak{sl}_2$-weight string. The combinatorics of root systems plus this $\mathfrak{sl}_2$ rule is enough to classify all irreducible reps.</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./representation-theory.html#hw">Highest-weight vectors for $\mathfrak{sl}_2$</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./lie-algebras.html#classification">Lie algebras</a> · Classification of simple Lie algebras</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="la-sl2-and-roots"></div>
+</section>
+
+<section id="classification">
+<h2>6. Classification: A, B, C, D, E, F, G</h2>
+<p>Cartan and Killing's miraculous theorem: every simple complex Lie algebra is one of the four infinite families</p>
+<p>$$A_n=\mathfrak{sl}_{n+1},\quad B_n=\mathfrak{so}_{2n+1},\quad C_n=\mathfrak{sp}_{2n},\quad D_n=\mathfrak{so}_{2n}\ (n\ge 2)$$</p>
+<p>or one of the five exceptions $G_2,\ F_4,\ E_6,\ E_7,\ E_8$. The combinatorial fingerprint is the connected <strong>Dynkin diagram</strong>: nodes are simple roots, bonds encode angles ($1$ bond $= 120^\circ$ equal length, $2$ bonds $=135^\circ$ length-ratio $\sqrt{2}$, $3$ bonds $=150^\circ$ length-ratio $\sqrt{3}$), and the arrow on a multiple bond points from long to short root.</p>
+
+<div class="widget" id="dynkin-gallery">
+  <div class="hd">
+    <div class="ttl">Dynkin-diagram gallery</div>
+    <div class="hint">classical series + the five exceptions</div>
+  </div>
+  <div class="gallery" id="dg-grid"></div>
+  <div class="readout" id="dg-out">Click a diagram for details.</div>
+</div>
+<script>
+(function(){
+  function diagram(svgId, kind){
+    // Returns an SVG element with the Dynkin diagram drawn.
+    const svg = SVG("svg",{viewBox:"0 0 200 60", width:"100%", height:"60"});
+    function node(x,filled){
+      svg.appendChild(SVG("circle",{cx:x,cy:30,r:6,fill:filled?"var(--yellow)":"var(--panel2)",stroke:"var(--yellow)","stroke-width":1.4}));
+    }
+    function bond(x1,x2,n,arrow){
+      // n in {1,2,3}; arrow optional ('->' from x1 to x2 or '<-' opposite). draw n parallel lines.
+      const offsets = n===1?[0]:(n===2?[-3,3]:[-5,0,5]);
+      offsets.forEach(o => svg.appendChild(SVG("line",{x1:x1+6,y1:30+o,x2:x2-6,y2:30+o,stroke:"var(--ink)","stroke-width":1.2})));
+      if(n>=2 && arrow){
+        const mid = (x1+x2)/2;
+        const dir = arrow==="->" ? 1 : -1;
+        const tri = SVG("path",{
+          d: "M"+(mid - dir*4)+",26 L"+(mid + dir*4)+",30 L"+(mid - dir*4)+",34 z",
+          fill:"var(--ink)"
+        });
+        svg.appendChild(tri);
+      }
+    }
+    function label(t,x){
+      const e = SVG("text",{x:x,y:55,"text-anchor":"middle","font-size":11,fill:"var(--mute)"});
+      e.textContent = t;
+      svg.appendChild(e);
+    }
+    if(kind==="An"){
+      const xs=[30,70,110,130,170];
+      xs.forEach(x=>node(x,true));
+      bond(xs[0],xs[1],1); bond(xs[1],xs[2],1);
+      // gap shown by ellipsis
+      const e = SVG("text",{x:120,y:33,"text-anchor":"middle","font-size":13,fill:"var(--mute)"});
+      e.textContent = "···"; svg.appendChild(e);
+      bond(xs[3],xs[4],1);
+      label("A_n  (n nodes)", 100);
+    }
+    else if(kind==="Bn"){
+      const xs=[30,70,110,150,190];
+      xs.forEach(x=>node(x,true));
+      bond(xs[0],xs[1],1); bond(xs[1],xs[2],1);
+      const e = SVG("text",{x:130,y:33,"text-anchor":"middle","font-size":13,fill:"var(--mute)"});
+      e.textContent = "···"; svg.appendChild(e);
+      bond(xs[3],xs[4],2,"->");
+      label("B_n  (last bond double, long→short)", 100);
+    }
+    else if(kind==="Cn"){
+      const xs=[30,70,110,150,190];
+      xs.forEach(x=>node(x,true));
+      bond(xs[0],xs[1],1); bond(xs[1],xs[2],1);
+      const e = SVG("text",{x:130,y:33,"text-anchor":"middle","font-size":13,fill:"var(--mute)"});
+      e.textContent = "···"; svg.appendChild(e);
+      bond(xs[3],xs[4],2,"<-");
+      label("C_n  (last bond double, short→long)", 100);
+    }
+    else if(kind==="Dn"){
+      const xs=[30,70,110,140];
+      xs.forEach(x=>node(x,true));
+      // branch
+      node(160, true);
+      svg.appendChild(SVG("line",{x1:140+6,y1:30,x2:160-6,y2:30-12,stroke:"var(--ink)","stroke-width":1.2}));
+      svg.appendChild(SVG("circle",{cx:160,cy:18,r:6,fill:"var(--yellow)",stroke:"var(--yellow)","stroke-width":1.4}));
+      svg.appendChild(SVG("line",{x1:140+6,y1:30,x2:160-6,y2:30+12,stroke:"var(--ink)","stroke-width":1.2}));
+      svg.appendChild(SVG("circle",{cx:160,cy:42,r:6,fill:"var(--yellow)",stroke:"var(--yellow)","stroke-width":1.4}));
+      bond(xs[0],xs[1],1); bond(xs[1],xs[2],1);
+      const e = SVG("text",{x:125,y:33,"text-anchor":"middle","font-size":13,fill:"var(--mute)"});
+      e.textContent = "···"; svg.appendChild(e);
+      label("D_n  (forked tail)", 100);
+    }
+    else if(kind==="G2"){
+      node(70,true); node(130,true); bond(70,130,3,"->");
+      label("G_2 (triple bond, long→short)", 100);
+    }
+    else if(kind==="F4"){
+      node(40,true); node(80,true); node(120,true); node(160,true);
+      bond(40,80,1); bond(80,120,2,"->"); bond(120,160,1);
+      label("F_4 (middle double bond)", 100);
+    }
+    else if(kind==="E6"){
+      node(30,true); node(60,true); node(90,true); node(120,true); node(150,true);
+      bond(30,60,1); bond(60,90,1); bond(90,120,1); bond(120,150,1);
+      svg.appendChild(SVG("line",{x1:90,y1:30-6,x2:90,y2:30-18,stroke:"var(--ink)","stroke-width":1.2}));
+      svg.appendChild(SVG("circle",{cx:90,cy:30-24,r:6,fill:"var(--yellow)",stroke:"var(--yellow)","stroke-width":1.4}));
+      label("E_6 (one branch off node 3 of 5)", 100);
+    }
+    else if(kind==="E7"){
+      const xs=[20,50,80,110,140,170];
+      xs.forEach(x=>node(x,true));
+      bond(xs[0],xs[1],1); bond(xs[1],xs[2],1); bond(xs[2],xs[3],1); bond(xs[3],xs[4],1); bond(xs[4],xs[5],1);
+      svg.appendChild(SVG("line",{x1:80,y1:30-6,x2:80,y2:30-18,stroke:"var(--ink)","stroke-width":1.2}));
+      svg.appendChild(SVG("circle",{cx:80,cy:30-24,r:6,fill:"var(--yellow)",stroke:"var(--yellow)","stroke-width":1.4}));
+      label("E_7 (one branch off node 3 of 6)", 100);
+    }
+    else if(kind==="E8"){
+      const xs=[10,40,70,100,130,160,190];
+      xs.forEach(x=>node(x,true));
+      bond(xs[0],xs[1],1); bond(xs[1],xs[2],1); bond(xs[2],xs[3],1); bond(xs[3],xs[4],1); bond(xs[4],xs[5],1); bond(xs[5],xs[6],1);
+      svg.appendChild(SVG("line",{x1:70,y1:30-6,x2:70,y2:30-18,stroke:"var(--ink)","stroke-width":1.2}));
+      svg.appendChild(SVG("circle",{cx:70,cy:30-24,r:6,fill:"var(--yellow)",stroke:"var(--yellow)","stroke-width":1.4}));
+      label("E_8 (one branch off node 3 of 7)", 100);
+    }
+    return svg;
+  }
+  const info = {
+    An:"A_n = sl_{n+1}: dim n(n+2). Reps indexed by Young diagrams. Self-dual only when n=1.",
+    Bn:"B_n = so_{2n+1}: dim n(2n+1). Spin double cover Spin_{2n+1}. Vector rep = (2n+1)-dim.",
+    Cn:"C_n = sp_{2n}: dim n(2n+1). Standard rep is symplectic, dimension 2n.",
+    Dn:"D_n = so_{2n}: dim n(2n-1). Two half-spin reps; D_2 = A_1 × A_1, D_3 = A_3 (low-rank coincidences).",
+    G2:"G_2: dim 14. Automorphism group of the octonions; smallest exceptional algebra.",
+    F4:"F_4: dim 52. Automorphisms of the exceptional Jordan algebra h_3(O).",
+    E6:"E_6: dim 78. Plays a role in GUTs; complexification has fundamental rep of dim 27.",
+    E7:"E_7: dim 133. Smallest fundamental rep is 56-dim (closely tied to lines on a cubic surface).",
+    E8:"E_8: dim 248. Self-dual lattice, equals its own adjoint rep — the largest exception."
+  };
+  const root = document.querySelector("#dynkin-gallery");
+  if(!root) return;
+  const grid = root.querySelector("#dg-grid");
+  const out = root.querySelector("#dg-out");
+  const order = ["An","Bn","Cn","Dn","G2","F4","E6","E7","E8"];
+  order.forEach(k => {
+    const card = document.createElement("div");
+    card.className = "card";
+    card.style.cursor = "pointer";
+    card.appendChild(diagram("dg-"+k, k));
+    const lbl = document.createElement("div");
+    lbl.className = "lbl";
+    lbl.textContent = k;
+    card.appendChild(lbl);
+    card.addEventListener("click", ()=>{
+      out.textContent = info[k];
+      grid.querySelectorAll(".card").forEach(x => x.style.outline = "");
+      card.style.outline = "2px solid var(--yellow)";
+    });
+    grid.appendChild(card);
+  });
+})();
+</script>
+
+<div class="note">$E_8$ is the largest, with $248$ dimensions. Its root lattice equals its weight lattice — a unique even unimodular lattice in dimension $8$ — and it shows up everywhere from string compactifications to sphere packing.</div>
+
+<div class="quiz" data-concept="la-classification-simple"></div>
+</section>
+
+<section id="outro">
+<h2>7. Connections</h2>
+
+<p>The Cartan–Killing classification is one of the great theorems of 20th-century algebra: it produces a finite list (A, B, C, D plus exceptionals) that surfaces in geometry, representation theory, and number theory in completely different guises.</p>
+
+<h3>Lie groups</h3>
+
+<p><a href="./lie-groups.html">Lie groups</a> are the global / topological counterpart; the Lie algebra is the linearisation at the identity. The exponential map and the BCH formula are the bridge in both directions.</p>
+
+<h3>Representation theory</h3>
+
+<p><a href="./representation-theory.html">Representations</a> of semisimple Lie algebras are classified by highest weights; characters, Weyl groups, and the Peter–Weyl theorem are the main organising principles.</p>
+
+<h3>Algebraic groups and number theory</h3>
+
+<p>Reductive algebraic groups are the algebraic-geometry counterpart of compact Lie groups; <a href="./group-schemes.html">group schemes</a> are the framework. Automorphic forms attached to algebraic groups (Langlands) are the modern arithmetic application.</p>
+
+<h3>Geometry and physics</h3>
+
+<p>Differential geometry consumes Lie-algebra-valued forms (connections, curvature); <a href="./differential-geometry.html">differential geometry</a> uses these. Gauge theory and conformal field theory rely on infinite-dimensional analogues (Kac–Moody, Virasoro).</p>
+
+<p class="small" style="margin-top:2.5rem">Open frontiers: quantum groups and crystal bases; geometric representation theory (D-modules, perverse sheaves); the Langlands program as a representation-theoretic bridge; categorification (Khovanov, Khovanov–Lauda–Rouquier).</p>
+</section>
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/ /g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('lie-algebras'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-27</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

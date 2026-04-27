@@ -1,0 +1,268 @@
+{
+  "topic": "galois-cohomology-and-brauer",
+  "quizzes": {
+    "gcb-cocycle-cohomology": {
+      "title": "Galois cocycles and $H^i(G,M)$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Let $G=\\Gal(\\mathbb{Q}(i)/\\mathbb{Q})=\\langle\\sigma\\rangle$. Which statement is Hilbert's Theorem 90 in this case?",
+          "choices": [
+            "$H^1(G,\\mathbb{Q}(i)^\\times)=1$, so every norm-one $\\beta\\in\\mathbb{Q}(i)^\\times$ has the form $\\sigma(\\alpha)/\\alpha$.",
+            "$H^2(G,\\mathbb{Q}(i)^\\times)=0$.",
+            "Every element of $\\mathbb{Q}(i)$ is a sum of two squares.",
+            "$H^0(G,\\mathbb{Q}(i)^\\times)=\\mathbb{Q}(i)^\\times$."
+          ],
+          "answer": 0,
+          "hint": "Hilbert 90 is about cyclic Galois extensions and norm-one elements.",
+          "explain": "Hilbert 90 says $H^1$ of a cyclic Galois group with coefficients in $L^\\times$ vanishes. The cocycle attached to $\\beta\\in\\ker N$ is then a coboundary $g\\mapsto\\sigma(\\alpha)/\\alpha$."
+        },
+        {
+          "type": "mcq",
+          "q": "A 1-cochain $\\varphi:G\\to M$ is a cocycle iff",
+          "choices": [
+            "$\\varphi(gh)=\\varphi(g)+g\\cdot\\varphi(h)$ for all $g,h\\in G$.",
+            "$\\varphi(gh)=\\varphi(g)+\\varphi(h)$ for all $g,h$.",
+            "$\\varphi(g)\\cdot\\varphi(h)=\\varphi(gh)$.",
+            "$\\varphi$ is a homomorphism."
+          ],
+          "answer": 0,
+          "hint": "The action of $g$ on the second factor twists the homomorphism law.",
+          "explain": "The 1-cocycle (crossed homomorphism) condition is $\\varphi(gh)=\\varphi(g)+g\\cdot\\varphi(h)$. When the action is trivial it collapses to an ordinary homomorphism."
+        },
+        {
+          "type": "mcq",
+          "q": "What is $H^0(\\Gal(\\bar K/K),\\bar K^\\times)$?",
+          "choices": [
+            "$K^\\times$.",
+            "$\\bar K^\\times$.",
+            "$0$.",
+            "$\\mathbb{Z}/2$."
+          ],
+          "answer": 0,
+          "hint": "$H^0$ is fixed points; a nonzero element of $\\bar K$ fixed by every automorphism lies in $K$.",
+          "explain": "By definition $H^0(G,M)=M^G$. The fixed field of $\\Gal(\\bar K/K)$ is $K$, so the fixed elements of $\\bar K^\\times$ are $K^\\times$."
+        }
+      ]
+    },
+    "gcb-h1-torsors": {
+      "title": "$H^1$ classifies torsors",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A $G$-torsor under $A$ is a $G$-set $X$ on which $A$ acts simply transitively, with the $G$-action and $A$-action compatible. What is the role of $H^1(G,A)$?",
+          "choices": [
+            "It is the pointed set of isomorphism classes of $G$-torsors under $A$.",
+            "It counts subgroups of $A$.",
+            "It computes the Galois group of $X$.",
+            "It is always trivial when $A$ is abelian."
+          ],
+          "answer": 0,
+          "hint": "Trivial torsor $\\leftrightarrow$ trivial cohomology class.",
+          "explain": "$H^1(G,A)$ parameterises isomorphism classes of $G$-torsors under $A$; the trivial class is the trivial torsor $A$ acting on itself."
+        },
+        {
+          "type": "mcq",
+          "q": "By Galois descent, $H^1(\\Gal(\\bar K/K),\\mathrm{PGL}_n(\\bar K))$ classifies",
+          "choices": [
+            "Central simple algebras over $K$ of degree $n$.",
+            "Vector spaces over $K$ of dimension $n$.",
+            "Subfields of $\\bar K$ of degree $n$.",
+            "Quadratic forms over $K$ in $n$ variables."
+          ],
+          "answer": 0,
+          "hint": "$\\mathrm{PGL}_n$ is the automorphism group of $M_n$.",
+          "explain": "$\\mathrm{PGL}_n(\\bar K)=\\mathrm{Aut}(M_n(\\bar K))$ as a $\\bar K$-algebra, so its $H^1$ classifies $\\bar K/K$-twisted forms of $M_n(K)$ — exactly the central simple $K$-algebras of degree $n$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is $H^1(\\Gal(\\bar K/K),\\mathrm{GL}_n(\\bar K))=1$?",
+          "choices": [
+            "The only $\\bar K/K$-twisted form of $K^n$ as a $K$-vector space is itself — Hilbert 90 generalised.",
+            "$\\mathrm{GL}_n$ is abelian.",
+            "The action factors through a finite quotient.",
+            "It follows from Sylow's theorem."
+          ],
+          "answer": 0,
+          "hint": "All $K$-vector spaces of the same dimension are isomorphic.",
+          "explain": "There is only one $K$-vector space of dimension $n$ up to isomorphism, so there is only one $\\bar K/K$-twisted form of $K^n$ — i.e. $H^1$ vanishes. This is the matrix-valued Hilbert 90."
+        }
+      ]
+    },
+    "gcb-h2-extensions": {
+      "title": "$H^2$ and group extensions",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "An extension $1\\to A\\to E\\to G\\to 1$ with $A$ abelian and central is split iff",
+          "choices": [
+            "Its class in $H^2(G,A)$ is zero.",
+            "$A$ is trivial.",
+            "$G$ is solvable.",
+            "$E$ is abelian."
+          ],
+          "answer": 0,
+          "hint": "A splitting is a section of $E\\to G$ that is a homomorphism; the obstruction is the cocycle.",
+          "explain": "Split central extensions are exactly the trivial cocycle classes in $H^2(G,A)$. A non-zero class records an obstruction to choosing a homomorphic section."
+        },
+        {
+          "type": "mcq",
+          "q": "The Schur multiplier of a finite group $G$ is",
+          "choices": [
+            "$M(G) = H^2(G,\\mathbb{C}^\\times)$, classifying central extensions by $\\mathbb{C}^\\times$.",
+            "The number of conjugacy classes of $G$.",
+            "$G/[G,G]$.",
+            "The character table determinant."
+          ],
+          "answer": 0,
+          "hint": "It controls the projective representations of $G$.",
+          "explain": "$M(G)=H^2(G,\\mathbb{C}^\\times)$ classifies central extensions by $\\mathbb{C}^\\times$. Every projective representation of $G$ lifts to a linear representation of a central extension by an element of $M(G)$."
+        },
+        {
+          "type": "mcq",
+          "q": "Up to equivalence, how many extensions $1\\to\\mathbb{Z}/2\\to E\\to\\mathbb{Z}/2\\to 1$ exist (trivial action)?",
+          "choices": [
+            "Two: the split extension $E=V_4$ and the cyclic $E=C_4$.",
+            "One.",
+            "Four.",
+            "Infinitely many."
+          ],
+          "answer": 0,
+          "explain": "$H^2(\\mathbb{Z}/2,\\mathbb{Z}/2)=\\mathbb{Z}/2$. The zero class gives $V_4=\\mathbb{Z}/2\\times\\mathbb{Z}/2$; the nontrivial class gives $\\mathbb{Z}/4$."
+        }
+      ]
+    },
+    "gcb-brauer-group": {
+      "title": "The Brauer group",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which is the Brauer group $\\mathrm{Br}(K)$ as a Galois cohomology group?",
+          "choices": [
+            "$H^2(\\Gal(\\bar K/K),\\bar K^\\times)$.",
+            "$H^1(\\Gal(\\bar K/K),\\bar K^\\times)$.",
+            "$H^2(\\Gal(\\bar K/K),\\bar K)$.",
+            "$H^0(\\Gal(\\bar K/K),\\bar K^\\times)$."
+          ],
+          "answer": 0,
+          "hint": "Hilbert 90 kills the $H^1$.",
+          "explain": "By definition $\\mathrm{Br}(K)=H^2(G_K,\\bar K^\\times)$. $H^1$ vanishes by Hilbert 90; $H^2$ first encounters interesting twisting and matches central simple algebras."
+        },
+        {
+          "type": "mcq",
+          "q": "$\\mathrm{Br}(\\mathbb{R})$ is",
+          "choices": [
+            "$\\mathbb{Z}/2$, generated by the class of Hamilton's quaternions $\\mathbb{H}$.",
+            "$0$.",
+            "$\\mathbb{Q}/\\mathbb{Z}$.",
+            "$\\mathbb{Z}$."
+          ],
+          "answer": 0,
+          "hint": "Frobenius classified finite-dimensional division algebras over $\\mathbb{R}$.",
+          "explain": "Over $\\mathbb{R}$ the only finite-dimensional central division algebras are $\\mathbb{R}$ and $\\mathbb{H}$ (quaternions), giving $\\mathrm{Br}(\\mathbb{R})=\\mathbb{Z}/2$."
+        },
+        {
+          "type": "mcq",
+          "q": "The cyclic algebra $(a,b)_n$ is the $K$-algebra generated by $x,y$ with $x^n=a$, $y^n=b$, $yx=\\zeta_n xy$. Which is true?",
+          "choices": [
+            "Its class in $\\mathrm{Br}(K)$ equals the cup product of $a,b\\in K^\\times/(K^\\times)^n\\cong H^1(K,\\mu_n)$.",
+            "It is always a matrix algebra.",
+            "It is commutative.",
+            "Its class is trivial in $\\mathrm{Br}(K)$."
+          ],
+          "answer": 0,
+          "hint": "Kummer + cup product into $\\mathrm{Br}(K)[n]$.",
+          "explain": "By Kummer theory $K^\\times/(K^\\times)^n=H^1(K,\\mu_n)$ when $\\mu_n\\subset K$. The cup product lands in $H^2(K,\\mu_n\\otimes\\mu_n)\\cong H^2(K,\\mu_n)\\subset\\mathrm{Br}(K)[n]$ and is represented by the cyclic algebra $(a,b)_n$."
+        }
+      ]
+    },
+    "gcb-cup-product-cassels-tate": {
+      "title": "Cup product and Tate local duality",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Local Tate duality for a non-archimedean local field $K$ with finite Galois module $M$ gives a perfect pairing",
+          "choices": [
+            "$H^i(K,M)\\times H^{2-i}(K,M^*)\\to H^2(K,\\bar K^\\times)=\\mathbb{Q}/\\mathbb{Z}$.",
+            "$H^i(K,M)\\times H^i(K,M)\\to\\mathbb{Z}$.",
+            "$H^0(K,M)\\times H^2(K,M)\\to K^\\times$.",
+            "$H^1(K,M)\\times H^1(K,M^*)\\to\\mathbb{Z}/2$."
+          ],
+          "answer": 0,
+          "hint": "The dualizing module is $\\bar K^\\times$, whose $H^2$ is $\\mathrm{Br}(K)=\\mathbb{Q}/\\mathbb{Z}$ for local $K$.",
+          "explain": "For a local field the Brauer group is canonically $\\mathbb{Q}/\\mathbb{Z}$, and local Tate duality pairs $H^i(K,M)$ with $H^{2-i}(K,\\Hom(M,\\bar K^\\times))$ into it."
+        },
+        {
+          "type": "mcq",
+          "q": "The cup product on Galois cohomology",
+          "choices": [
+            "Is graded-commutative: $\\alpha\\cup\\beta=(-1)^{|\\alpha||\\beta|}\\beta\\cup\\alpha$ on cohomology.",
+            "Is symmetric on cochains.",
+            "Vanishes on $H^1\\otimes H^1$.",
+            "Lands in degree $\\max(|\\alpha|,|\\beta|)$."
+          ],
+          "answer": 0,
+          "hint": "Cocycle-level commutativity holds only up to a coboundary; sign appears on cohomology.",
+          "explain": "The Alexander–Whitney cup product satisfies graded-commutativity on cohomology classes but only up to coboundaries on cochains."
+        },
+        {
+          "type": "mcq",
+          "q": "Local class field theory says that for a non-archimedean local $K$, the local invariant",
+          "choices": [
+            "$\\mathrm{inv}_K:\\mathrm{Br}(K)\\xrightarrow{\\sim}\\mathbb{Q}/\\mathbb{Z}$ is an isomorphism.",
+            "$\\mathrm{Br}(K)=0$.",
+            "$\\mathrm{Br}(K)=\\mathbb{Z}/2$.",
+            "$\\mathrm{Br}(K)$ is uncountable."
+          ],
+          "answer": 0,
+          "hint": "Each finite cyclic unramified extension contributes $\\mathbb{Z}/n$.",
+          "explain": "For non-archimedean local $K$, the unramified Brauer group is $\\mathrm{Br}(K^{\\mathrm{ur}}/K)=\\mathbb{Q}/\\mathbb{Z}$ via Frobenius, and this exhausts $\\mathrm{Br}(K)$."
+        }
+      ]
+    },
+    "gcb-applications-arithmetic": {
+      "title": "Applications: Hasse, Selmer, descent",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Albert–Brauer–Hasse–Noether says: a central simple algebra $A$ over a number field $K$ is split iff",
+          "choices": [
+            "It is split over every completion $K_v$ of $K$.",
+            "It is split over $K_\\infty$ alone.",
+            "It is non-trivial in $\\mathrm{Br}(K)$.",
+            "It is a quaternion algebra."
+          ],
+          "answer": 0,
+          "hint": "Local-global for the Brauer group.",
+          "explain": "ABHN gives the exact sequence $0\\to\\mathrm{Br}(K)\\to\\bigoplus_v\\mathrm{Br}(K_v)\\xrightarrow{\\sum\\mathrm{inv}_v}\\mathbb{Q}/\\mathbb{Z}\\to 0$, so vanishing locally everywhere implies vanishing globally."
+        },
+        {
+          "type": "mcq",
+          "q": "The Brauer–Manin obstruction is",
+          "choices": [
+            "An obstruction to local-everywhere points lifting to a global rational point, computed by pairing with Brauer classes on $X$.",
+            "A bound on the rank of an elliptic curve.",
+            "The discriminant of a Galois extension.",
+            "An invariant of formal groups."
+          ],
+          "answer": 0,
+          "hint": "It refines the Hasse principle when the principle fails.",
+          "explain": "For a smooth proper variety $X$, points of $X(\\mathbb{A}_K)$ orthogonal to every Brauer class on $X$ form $X(\\mathbb{A}_K)^{\\mathrm{Br}}\\supseteq X(K)$; failure of equality is the Brauer–Manin obstruction."
+        },
+        {
+          "type": "mcq",
+          "q": "In BSD-style descent on an elliptic curve $E/K$, the Selmer group $\\mathrm{Sel}_n(E/K)$ sits in an exact sequence",
+          "choices": [
+            "$0\\to E(K)/nE(K)\\to \\mathrm{Sel}_n(E/K)\\to \\mathrm{III}(E/K)[n]\\to 0$.",
+            "$0\\to \\mathrm{Sel}_n(E/K)\\to \\mathbb{Z}\\to E(K)\\to 0$.",
+            "$0\\to E(K)\\to E(\\bar K)\\to \\mathrm{Sel}_n(E/K)\\to 0$.",
+            "$\\mathrm{Sel}_n(E/K) = \\mathrm{Br}(K)[n]$."
+          ],
+          "answer": 0,
+          "hint": "Selmer is the local-global Galois cohomology kernel; Tate–Shafarevich is what's left after subtracting the global Mordell–Weil image.",
+          "explain": "$\\mathrm{Sel}_n$ is the kernel of $H^1(K,E[n])\\to\\prod_v H^1(K_v,E)$. Its image of the Kummer map is $E(K)/nE(K)$; the cokernel is $\\mathrm{III}(E/K)[n]$."
+        }
+      ]
+    }
+  }
+}

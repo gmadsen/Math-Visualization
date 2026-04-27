@@ -1,0 +1,75 @@
+{
+  "topic": "forcing-and-independence",
+  "title": "Forcing and independence",
+  "page": "forcing-and-independence.html",
+  "concepts": [
+    {
+      "id": "forcing-posets",
+      "title": "Forcing posets and dense subsets",
+      "anchor": "posets",
+      "prereqs": [
+        "zfc-axioms"
+      ],
+      "blurb": "A forcing notion is a poset $(\\mathbb P,\\le)$ of conditions, where $p\\le q$ means $p$ is stronger (carries more information) than $q$. A subset $D\\subseteq\\mathbb P$ is dense if every condition has an extension in $D$ — every line of questioning can be answered.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "forcing-generic-extensions",
+      "title": "Generic filters and the model $M[G]$",
+      "anchor": "generic",
+      "prereqs": [
+        "forcing-posets",
+        "fol-lowenheim-skolem"
+      ],
+      "blurb": "Given a countable transitive model $M\\models$ ZFC and a poset $\\mathbb P\\in M$, a filter $G\\subseteq\\mathbb P$ is $M$-generic if it meets every dense set $D\\in M$. The extension $M[G]$ is the smallest transitive model of ZFC containing $M\\cup\\{G\\}$.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "forcing-truth-lemma",
+      "title": "The forcing relation and truth lemma",
+      "anchor": "truth-lemma",
+      "prereqs": [
+        "forcing-generic-extensions"
+      ],
+      "blurb": "The relation $p\\Vdash\\varphi$ ($p$ forces $\\varphi$) is definable inside $M$ by recursion on the formula. Truth lemma: $M[G]\\models\\varphi$ iff some $p\\in G$ forces $\\varphi$. So statements about the unknown $G$ are decided by the conditions $M$ already sees.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "forcing-cohen-reals",
+      "title": "Cohen forcing for adding reals",
+      "anchor": "cohen-reals",
+      "prereqs": [
+        "forcing-truth-lemma"
+      ],
+      "blurb": "The Cohen poset $2^{<\\omega}$ has finite binary strings ordered by extension. A generic filter $G$ collects to a single new real $r_G\\in 2^\\omega$ not in $M$. Forcing with the product $2^{<\\omega}\\times\\aleph_2$ injects $\\aleph_2^M$ many new reals at once."
+    },
+    {
+      "id": "forcing-not-ch",
+      "title": "Independence of the continuum hypothesis",
+      "anchor": "not-ch",
+      "prereqs": [
+        "forcing-cohen-reals",
+        "continuum-hypothesis"
+      ],
+      "blurb": "Cohen (1963): forcing with the side-by-side Cohen poset over a model of ZFC + CH gives an extension where $2^{\\aleph_0}\\ge\\aleph_2$, so $\\neg$CH holds. Combined with Gödel's $L$ (CH consistent), CH is independent of ZFC.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "forcing-applications",
+      "title": "Other independence results",
+      "anchor": "applications",
+      "prereqs": [
+        "forcing-not-ch"
+      ],
+      "blurb": "Forcing also settles the Suslin hypothesis (independent), Martin's axiom (consistent with $\\neg$CH and useful as a parameter), Whitehead's problem in algebra, and large-cardinal indestructibility — Laver-style preparations make supercompacts survive any further forcing."
+    }
+  ]
+}

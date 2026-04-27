@@ -20,14 +20,14 @@
           "type": "numeric",
           "q": "Compute $I_{(0,0)}(x, y)$ for the two coordinate axes meeting transversely at the origin.",
           "answer": 1,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "$\\mathcal{O}_{(0,0)}/(x,y)=k$, which has $k$-dimension $1$. Transverse smooth crossings always contribute multiplicity $1$."
         },
         {
           "type": "numeric",
           "q": "Compute $I_{(0,0)}(y, y-x^2)$ — the $x$-axis and a parabola tangent to it at the origin.",
           "answer": 2,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "In $\\mathcal{O}_{(0,0)}$ the ideal $(y, y-x^2)=(y, x^2)$, and $\\mathcal{O}/(y,x^2)$ has basis $\\{1, x\\}$ over $k$, so the dimension is $2$. A simple tangency contributes multiplicity $2$."
         }
       ],
@@ -36,7 +36,7 @@
           "type": "numeric",
           "q": "Compute $I_{(0,0)}(y^2 - x^3,\\, y)$: the cuspidal cubic $y^2=x^3$ and the $x$-axis at the origin.",
           "answer": 3,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Set $y=0$ and compute the order of vanishing of $-x^3$.",
           "explain": "Substitute $y=0$ into $y^2-x^3$: the ideal becomes $(x^3, y)$ in $\\mathcal{O}_{(0,0)}$, so the quotient has basis $\\{1, x, x^2\\}$ over $k$, giving dimension $3$. A cusp creates higher-order contact."
         },
@@ -57,7 +57,7 @@
           "type": "numeric",
           "q": "Using the additivity property $I_P(f_1 f_2,\\, g) = I_P(f_1,g)+I_P(f_2,g)$, compute $I_{(0,0)}(x(x-y),\\, y)$ — the union of the two lines $x=0$ and $x=y$ meeting the $x$-axis.",
           "answer": 2,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Split into $x$ and $x - y$, then sum the local indices.",
           "explain": "$I_{(0,0)}(x,y)=1$ (transverse crossing) and $I_{(0,0)}(x-y,y)=I_{(0,0)}(x,y)=1$ after substituting $y=0$ in $x-y$. Additivity gives $1+1=2$."
         }
@@ -82,14 +82,14 @@
           "type": "numeric",
           "q": "Compute $\\mathrm{Res}_Y(Y-1, Y-2)$ for the two linear polynomials $f=Y-1, g=Y-2$.",
           "answer": -1,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "For two monic linear polynomials $Y-\\alpha, Y-\\beta$, the resultant is $\\alpha-\\beta$. Here $\\alpha=1,\\beta=2$, so $\\mathrm{Res}=1-2=-1$. It is nonzero because $1\\neq 2$."
         },
         {
           "type": "numeric",
           "q": "If $C$ and $D$ are projective plane curves of degrees $d=3$ and $e=4$ with no common component, what is $\\deg \\mathrm{Res}_Y(F,G)(X,Z)$ as a form in $(X,Z)$?",
           "answer": 12,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "The degree of the resultant as a form in the remaining variables is $de=3\\cdot 4 = 12$, which is precisely why Bézout's count gives $de$ intersections."
         }
       ],
@@ -111,7 +111,7 @@
           "type": "numeric",
           "q": "Compute $\\mathrm{Res}_Y(Y^2 - 1,\\, Y^2 - 4)$ using the fact that for $f=\\prod(Y-\\alpha_i)$ and $g$, $\\mathrm{Res}(f,g)=\\prod_i g(\\alpha_i)$.",
           "answer": 9,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Evaluate $g$ at the roots $\\pm 1$ of $f$: $(1-4)(1-4)$.",
           "explain": "Roots of $f=Y^2-1$ are $\\pm 1$. Then $\\mathrm{Res}=g(1)\\cdot g(-1)=(1-4)(1-4)=(-3)(-3)=9$. Both polynomials have no common root, consistent with $\\mathrm{Res}\\neq 0$."
         },
@@ -149,7 +149,7 @@
           "type": "numeric",
           "q": "Two smooth conics in $\\mathbb{P}^2_{\\mathbb{C}}$ with no common component meet in how many points, counted with multiplicity?",
           "answer": 4,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "$d=e=2$, so Bézout gives $de=4$. Real pictures can show 0, 1, 2, 3, or 4 real points, but over $\\mathbb{C}$ and with multiplicity the count is always $4$."
         },
         {
@@ -181,7 +181,7 @@
           "type": "numeric",
           "q": "Over $\\mathbb{R}$ the conic $x^2+y^2+1=0$ has no real points, yet Bézout says it meets every line in $\\mathbb{P}^2_{\\mathbb{C}}$ in $1\\cdot 2=2$ points counted with multiplicity. How many of those points are real?",
           "answer": 0,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Complex points always exist by the fundamental theorem of algebra.",
           "explain": "The equation $x^2+y^2=-1$ has no real solutions; all intersections occur in complex-conjugate pairs. Bézout counts over $\\mathbb{C}$ and guarantees $2$ points there, but zero are defined over $\\mathbb{R}$. This is why algebraic closure is essential."
         },
@@ -189,7 +189,7 @@
           "type": "numeric",
           "q": "A line $L$ is tangent to a smooth cubic $C$ at a flex point $P$ (an inflection point). What is $I_P(L, C)$?",
           "answer": 3,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Flex tangents have intersection multiplicity $3$ with the cubic.",
           "explain": "At a flex, the tangent line has third-order contact: locally $C$ looks like $y=x^3$, so $(y, y-x^3)$ gives quotient with basis $\\{1,x,x^2\\}$, dimension $3$. Bézout says $L\\cdot C = 3$ total, all concentrated at $P$, confirming $P$ is the only intersection."
         }
@@ -202,14 +202,14 @@
           "type": "numeric",
           "q": "Two smooth cubics in $\\mathbb{P}^2$ with no common component meet in how many points, counted with multiplicity?",
           "answer": 9,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "By Bézout, $d\\cdot e = 3\\cdot 3 = 9$. Cayley–Bacharach says those nine points are so rigid that any cubic through eight of them passes through the ninth."
         },
         {
           "type": "numeric",
           "q": "The projective space of plane cubics $\\{[F]\\ :\\ F \\text{ homogeneous degree }3\\}$ has projective dimension $\\binom{3+2}{2}-1$. Compute this number.",
           "answer": 9,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "$\\binom{5}{2}-1 = 10-1 = 9$. Eight points generically impose eight independent linear conditions, leaving a $\\mathbb{P}^1$-pencil of cubics through them — inside which the Bézout ninth point lies automatically."
         },
         {
@@ -243,7 +243,7 @@
           "type": "numeric",
           "q": "The Cayley–Bacharach theorem generalizes: any curve of degree $2d-3$ through $d^2-1$ of the $d^2$ intersections of two degree-$d$ curves passes through the remaining one. For $d=4$, what is $2d-3$?",
           "answer": 5,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Count constraints: a degree-$(2d-3)$ curve has one missing condition from the $d^2$ points.",
           "explain": "$2(4)-3 = 5$. So for two quartics (meeting in $16$ points), any quintic through $15$ of those points passes through the $16$th — a direct generalization of the cubic case."
         },
@@ -269,14 +269,14 @@
           "type": "numeric",
           "q": "Three generic quadric surfaces in $\\mathbb{P}^3_{\\mathbb{C}}$ meet in how many points, counted with multiplicity?",
           "answer": 8,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "Bézout in $\\mathbb{P}^3$: $d_1 d_2 d_3 = 2\\cdot 2\\cdot 2 = 8$."
         },
         {
           "type": "numeric",
           "q": "Four generic hypersurfaces of degrees $2,3,3,5$ in $\\mathbb{P}^4$ meet in how many points?",
           "answer": 90,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "explain": "$2\\cdot 3\\cdot 3\\cdot 5 = 90$. The Chow-ring computation $(2H)(3H)(3H)(5H) = 90 H^4 = 90\\cdot[\\mathrm{pt}]$ in $A^{\\ast}(\\mathbb{P}^4)=\\mathbb{Z}[H]/(H^5)$."
         },
         {
@@ -297,7 +297,7 @@
           "type": "numeric",
           "q": "In $\\mathbb{P}^n$, the Chow ring is $\\mathbb{Z}[H]/(H^{n+1})$ where $H$ is the hyperplane class. A hypersurface of degree $d$ represents $dH$. Compute the degree of the zero-cycle $(2H)(2H)(2H)(2H)$ in $A^*(\\mathbb{P}^4)$, i.e., the number of intersection points of four generic quadrics in $\\mathbb{P}^4$.",
           "answer": 16,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Multiplying degrees in the Chow ring corresponds to intersecting hypersurfaces.",
           "explain": "$(2H)^4 = 2^4 H^4 = 16 H^4$. In $\\mathbb{P}^4$, $H^4=[\\mathrm{pt}]$ is the class of a point, so the product represents $16$ points. Bézout: $2^4=16$."
         },
@@ -318,7 +318,7 @@
           "type": "numeric",
           "q": "A complete intersection of hypersurfaces of degrees $d_1,\\dots,d_n$ in $\\mathbb{P}^n$ is a single point when $\\prod d_i = 1$. What is the only way this can happen with all $d_i\\ge 1$ and $n\\ge 2$?",
           "answer": 1,
-          "tol": 1e-06,
+          "tol": 0.000001,
           "hint": "Each factor is one, so only hyperplanes of degree one intersect in a single point.",
           "explain": "Each $d_i\\ge 1$ and $\\prod d_i=1$ forces all $d_i=1$; every hypersurface must be a hyperplane. Then $n$ hyperplanes in general position in $\\mathbb{P}^n$ meet in exactly $1$ point. The answer $1$ is the product $1^n=1$."
         }
