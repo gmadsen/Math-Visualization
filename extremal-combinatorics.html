@@ -293,10 +293,7 @@ When $r \mid n$ this simplifies to $\frac{r-1}{r} \cdot \frac{n^2}{2}$, the limi
     <div><a href="./extremal-combinatorics.html#erdos-stone">Extremal combinatorics</a> · Erdős–Stone–Simonovits: the chromatic threshold</div>
     <div><a href="./extremal-combinatorics.html#kst">Extremal combinatorics</a> · Kővári–Sós–Turán &amp; the Zarankiewicz problem</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* ============================ widget 1: Turán graph ============================ */
 (function(){
   const nIn = $('#turan-n'), rIn = $('#turan-r');
@@ -368,6 +365,8 @@ When $r \mid n$ this simplifies to $\frac{r-1}{r} \cdot \frac{n^2}{2}$, the limi
 })();
 </script>
 
+
+</section>
 <section id="kst">
 <h2>2. Kővári–Sós–Turán &amp; the Zarankiewicz problem</h2>
 <p>Turán's theorem handles forbidden complete graphs $K_{r+1}$, all of which have chromatic number $\ge 3$. The bipartite case ($\chi = 2$) is fundamentally different: forbidding $K_{2,2}$ allows only $O(n^{3/2})$ edges, not $\Theta(n^2)$. The first general bound is Kővári–Sós–Turán (1954).</p>
@@ -412,10 +411,7 @@ In particular, $\mathrm{ex}(n, K_{s,t}) = O(n^{2 - 1/s})$.</p>
   <div class="ttl">Used in</div>
     <div><a href="./extremal-combinatorics.html#erdos-stone">Extremal combinatorics</a> · Erdős–Stone–Simonovits: the chromatic threshold</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* ============================ widget 2: KST exponent ============================ */
 (function(){
   const sIn = $('#kst-s'), tIn = $('#kst-t');
@@ -505,6 +501,8 @@ In particular, $\mathrm{ex}(n, K_{s,t}) = O(n^{2 - 1/s})$.</p>
 })();
 </script>
 
+
+</section>
 <section id="erdos-stone">
 <h2>3. Erdős–Stone–Simonovits</h2>
 <p>What if we forbid an arbitrary graph $H$? The answer involves only one number: the chromatic number $\chi(H)$.</p>
@@ -539,10 +537,7 @@ Equivalently, $\pi(H) := \lim_{n \to \infty} \mathrm{ex}(n, H) / \binom{n}{2} = 
   <div class="ttl">Used in</div>
     <div><a href="./extremal-combinatorics.html#removal">Extremal combinatorics</a> · Triangle removal lemma and Szemerédi regularity</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* ============================ widget 3: Erdős–Stone density ============================ */
 (function(){
   const chiIn = $('#es-chi');
@@ -620,6 +615,8 @@ Equivalently, $\pi(H) := \lim_{n \to \infty} \mathrm{ex}(n, H) / \binom{n}{2} = 
 })();
 </script>
 
+
+</section>
 <section id="ramsey">
 <h2>4. Ramsey numbers</h2>
 <p>Turán-type theorems forbid one specific subgraph globally; Ramsey-type theorems insist that <em>any</em> partition produces a forbidden monochromatic copy. The slogan: <em>complete disorder is impossible</em>.</p>
@@ -668,10 +665,7 @@ Equivalently, $\pi(H) := \lim_{n \to \infty} \mathrm{ex}(n, H) / \binom{n}{2} = 
     <li><a href="./probability-theory.html#sample">Sample spaces, events, and probability measures</a></li>
   </ul>
 </aside>
-<!-- callback-auto-end --><div class="quiz" data-concept="ramsey-numbers"></div>
-</section>
-
-<script>
+<!-- callback-auto-end --><div class="quiz" data-concept="ramsey-numbers"></div><script>
 /* ============================ widget 4: R(3,3) explorer ============================ */
 (function(){
   const svg = $('#ramsey-svg'), out = $('#ramsey-out');
@@ -782,6 +776,8 @@ Equivalently, $\pi(H) := \lim_{n \to \infty} \mathrm{ex}(n, H) / \binom{n}{2} = 
 })();
 </script>
 
+
+</section>
 <section id="sperner">
 <h2>5. Sperner's theorem &amp; the LYM inequality</h2>
 <p>Switch from graphs to set systems. The <strong>Boolean lattice</strong> $2^{[n]}$ has $2^n$ subsets of $[n] = \{1, \ldots, n\}$, ordered by inclusion. An <strong>antichain</strong> is a family $\mathcal{F} \subseteq 2^{[n]}$ no member of which contains another. How big can an antichain be?</p>
@@ -821,10 +817,7 @@ giving LYM. Sperner now follows: each summand is at least $1 / \binom{n}{\lfloor
     <li><a href="./naive-set-theory.html#sets">Sets and functions</a></li>
   </ul>
 </aside>
-<!-- callback-auto-end --><div class="quiz" data-concept="sperner-lym"></div>
-</section>
-
-<script>
+<!-- callback-auto-end --><div class="quiz" data-concept="sperner-lym"></div><script>
 /* ============================ widget 5: Sperner ============================ */
 (function(){
   const svg = $('#sperner-svg'), out = $('#sperner-out');
@@ -921,6 +914,8 @@ giving LYM. Sperner now follows: each summand is at least $1 / \binom{n}{\lfloor
 })();
 </script>
 
+
+</section>
 <section id="removal">
 <h2>6. The triangle removal lemma &amp; Szemerédi regularity</h2>
 <p>The deepest tool of modern extremal graph theory. The <strong>triangle removal lemma</strong> says: a graph that is "almost" triangle-free is in fact "almost" a triangle-free graph after deleting a small number of edges.</p>
@@ -954,10 +949,7 @@ giving LYM. Sperner now follows: each summand is at least $1 / \binom{n}{\lfloor
   <div class="readout" id="rm-out"></div>
   <div class="small">Cyan curve: removable region — graphs whose triangle count $T \le \delta\,n^3$ require deleting $\le \varepsilon\,n^2$ edges to become triangle-free. Yellow line: $\varepsilon n^2$ at the chosen $\varepsilon$. Pink dot: a "robust" graph with $T = \varepsilon n^3 / 6$ triangles — far above $\delta n^3$, hence supersaturated.</div>
 </div>
-<div class="quiz" data-concept="triangle-removal-regularity"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="triangle-removal-regularity"></div><script>
 /* ============================ widget 6: removal-lemma frontier ============================ */
 (function(){
   const epsIn = $('#rm-eps'), nIn = $('#rm-n');
@@ -1040,6 +1032,8 @@ giving LYM. Sperner now follows: each summand is at least $1 / \binom{n}{\lfloor
 })();
 </script>
 
+
+</section>
 <section id="outro">
 <h2>7. Connections</h2>
 

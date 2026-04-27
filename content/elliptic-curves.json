@@ -24,7 +24,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n\n\n\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "quiz",
@@ -34,6 +34,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -50,7 +54,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "quiz",
@@ -60,6 +64,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -77,7 +85,7 @@
       "blocks": [
         {
           "type": "raw",
-          "html": "<section id=\"j\">\n<h2>4. The $j$-invariant</h2>\n\n<p>Two short Weierstrass curves $E : y^2 = x^3 + ax + b$ and $E' : y^2 = x^3 + a' x + b'$ are isomorphic over $\\bar k$ iff there exists $u \\in \\bar k^\\times$ with $a' = u^4 a$ and $b' = u^6 b$. The isomorphism is the substitution $x \\mapsto u^2 x$, $y \\mapsto u^3 y$. Any isomorphism-invariant polynomial function of $(a,b)$ must therefore be $\\bar k^\\times$-invariant under this weight-$(4,6)$ action.</p>\n\n<p>The standard choice is the <em>$j$-invariant</em>:\n$$j(E) = 1728 \\cdot \\frac{4 a^3}{4 a^3 + 27 b^2} = -1728 \\cdot \\frac{(4a)^3}{\\Delta}.$$\nA direct check: $a \\mapsto u^4 a$ sends $a^3 \\mapsto u^{12} a^3$, $b \\mapsto u^6 b$ sends $b^2 \\mapsto u^{12} b^2$, so numerator and denominator scale by $u^{12}$ and the ratio is unchanged.</p>\n\n<div class=\"note\">\n  <b>Theorem.</b> Over $\\bar k$, two elliptic curves are isomorphic iff they have the same $j$-invariant. Over $k$ itself, curves with the same $j$ are <em>twists</em> of each other — classified by $H^1(\\operatorname{Gal}(\\bar k / k), \\operatorname{Aut}(E))$. For generic $j \\ne 0, 1728$, $\\operatorname{Aut}(E) = \\{\\pm 1\\}$, and the twists are parametrized by $k^\\times / (k^\\times)^2$ — quadratic twists.\n</div>\n\n<p>Thus $j$ is a <em>coarse moduli map</em> $\\{\\text{elliptic curves}/\\bar k\\} \\to \\bar k$. In scheme-theoretic language the affine line with coordinate $j$ is the coarse moduli space $\\mathcal{M}_{1,1}$ (over $\\bar k$, or as a Deligne–Mumford stack more carefully); the point $j = 0$ has extra automorphisms (the cube root of unity $\\omega$), as does $j = 1728$ (the $i$), and $j = \\infty$ corresponds to the nodal cubic at the cusp of the stack.</p>\n\n<h3>Famous $j$-values</h3>\n\n<table class=\"plain\">\n  <tr><th>curve</th><th>$a$</th><th>$b$</th><th>$j$</th><th>endomorphism ring</th></tr>\n  <tr><td>$y^2 = x^3 + 1$</td><td>$0$</td><td>$1$</td><td>$0$</td><td>$\\mathbb{Z}[\\omega]$, CM by $\\mathbb{Q}(\\sqrt{-3})$</td></tr>\n  <tr><td>$y^2 = x^3 - x$</td><td>$-1$</td><td>$0$</td><td>$1728$</td><td>$\\mathbb{Z}[i]$, CM by $\\mathbb{Q}(i)$</td></tr>\n  <tr><td>$y^2 = x^3 - 15 x + 22$</td><td>$-15$</td><td>$22$</td><td>$-3375$</td><td>CM by $\\mathbb{Q}(\\sqrt{-7})$</td></tr>\n  <tr><td>$y^2 = x^3 - 595 x + 5586$</td><td>$-595$</td><td>$5586$</td><td>$-32768$</td><td>CM by $\\mathbb{Q}(\\sqrt{-11})$</td></tr>\n</table>\n\n<div class=\"widget\">\n<div class=\"hd\"><span class=\"ttl\">$j$-invariant calculator</span><span class=\"hint\">and famous curves</span></div>\n<div class=\"row\">\n  <label>$a$ <input type=\"range\" id=\"j-a\" min=\"-8\" max=\"8\" step=\"0.1\" value=\"-1\"></label>\n  <span id=\"j-aval\" class=\"small\">-1</span>\n  <label>$b$ <input type=\"range\" id=\"j-b\" min=\"-8\" max=\"8\" step=\"0.1\" value=\"0\"></label>\n  <span id=\"j-bval\" class=\"small\">0</span>\n</div>\n<div class=\"row\">\n  <button data-ab=\"0,1\">$j = 0$ (CM ω)</button>\n  <button data-ab=\"-1,0\">$j = 1728$ (CM i)</button>\n  <button data-ab=\"-15,22\">$j = -3375$</button>\n  <button data-ab=\"-35,98\">$j = -32768$</button>\n</div>\n<div id=\"j-out\" class=\"readout\"></div>\n</div>\n\n<script>\n(function(){\n  const A = document.getElementById('j-a');\n  const B = document.getElementById('j-b');\n  const Av = document.getElementById('j-aval');\n  const Bv = document.getElementById('j-bval');\n  const out = document.getElementById('j-out');\n  const btns = document.querySelectorAll('#j-out').length;\n  function upd(){\n    const a = +A.value, b = +B.value;\n    Av.textContent = a.toFixed(2);\n    Bv.textContent = b.toFixed(2);\n    const D = -16*(4*a*a*a + 27*b*b);\n    const numer = 4*a*a*a;\n    const denom = 4*a*a*a + 27*b*b;\n    let msg;\n    if(Math.abs(denom) < 1e-9){\n      msg = 'Δ = 0 (singular); j undefined (or ∞)';\n    } else {\n      const j = 1728 * numer / denom;\n      msg = 'Δ = -16(4a³+27b²) = '+D.toFixed(4)+'\\n'+\n            'j = 1728 · 4a³/(4a³+27b²) = '+j.toFixed(4);\n      if(Math.abs(j) < 1e-6) msg += '\\nj = 0: CM by Z[ω], endomorphism e^(2πi/3).';\n      else if(Math.abs(j - 1728) < 1e-3) msg += '\\nj = 1728: CM by Z[i], endomorphism i.';\n    }\n    out.textContent = msg;\n  }\n  A.addEventListener('input', upd);\n  B.addEventListener('input', upd);\n  document.querySelectorAll('button[data-ab]').forEach(btn=>{\n    btn.addEventListener('click', ()=>{\n      const [a,b] = btn.dataset.ab.split(',').map(Number);\n      A.value = a; B.value = b; upd();\n    });\n  });\n  upd();\n})();\n</script>\n\n<p>The values $j = 0$ and $j = 1728$ are special because they are the only $j$-invariants where $|\\operatorname{Aut}(E)| > 2$. A curve with $j = 0$ admits the order-$6$ automorphism $(x, y) \\mapsto (\\omega x, -y)$ with $\\omega = e^{2\\pi i / 3}$; a curve with $j = 1728$ admits the order-$4$ automorphism $(x, y) \\mapsto (-x, i y)$. These extra automorphisms are what give the corresponding points on the moduli stack their orbifold structure.</p>\n\n<h3>CM points</h3>\n\n<p>The $j$-invariants of CM elliptic curves are remarkable algebraic integers — the <em>singular moduli</em>. There are finitely many (one for each ideal class in each imaginary quadratic order), and each generates an abelian extension of its CM field: the Hilbert class field, in the simplest case. The numbers $j(\\tau)$ at CM points $\\tau$ are conspicuously integer-heavy: $j((1+\\sqrt{-163})/2) = -640320^3$, whence the near-integer $e^{\\pi\\sqrt{163}} \\approx 640320^3 + 744$ made famous by Ramanujan.</p>\n\n</section>\n\n"
+          "html": "<section id=\"j\">\n<h2>4. The $j$-invariant</h2>\n\n<p>Two short Weierstrass curves $E : y^2 = x^3 + ax + b$ and $E' : y^2 = x^3 + a' x + b'$ are isomorphic over $\\bar k$ iff there exists $u \\in \\bar k^\\times$ with $a' = u^4 a$ and $b' = u^6 b$. The isomorphism is the substitution $x \\mapsto u^2 x$, $y \\mapsto u^3 y$. Any isomorphism-invariant polynomial function of $(a,b)$ must therefore be $\\bar k^\\times$-invariant under this weight-$(4,6)$ action.</p>\n\n<p>The standard choice is the <em>$j$-invariant</em>:\n$$j(E) = 1728 \\cdot \\frac{4 a^3}{4 a^3 + 27 b^2} = -1728 \\cdot \\frac{(4a)^3}{\\Delta}.$$\nA direct check: $a \\mapsto u^4 a$ sends $a^3 \\mapsto u^{12} a^3$, $b \\mapsto u^6 b$ sends $b^2 \\mapsto u^{12} b^2$, so numerator and denominator scale by $u^{12}$ and the ratio is unchanged.</p>\n\n<div class=\"note\">\n  <b>Theorem.</b> Over $\\bar k$, two elliptic curves are isomorphic iff they have the same $j$-invariant. Over $k$ itself, curves with the same $j$ are <em>twists</em> of each other — classified by $H^1(\\operatorname{Gal}(\\bar k / k), \\operatorname{Aut}(E))$. For generic $j \\ne 0, 1728$, $\\operatorname{Aut}(E) = \\{\\pm 1\\}$, and the twists are parametrized by $k^\\times / (k^\\times)^2$ — quadratic twists.\n</div>\n\n<p>Thus $j$ is a <em>coarse moduli map</em> $\\{\\text{elliptic curves}/\\bar k\\} \\to \\bar k$. In scheme-theoretic language the affine line with coordinate $j$ is the coarse moduli space $\\mathcal{M}_{1,1}$ (over $\\bar k$, or as a Deligne–Mumford stack more carefully); the point $j = 0$ has extra automorphisms (the cube root of unity $\\omega$), as does $j = 1728$ (the $i$), and $j = \\infty$ corresponds to the nodal cubic at the cusp of the stack.</p>\n\n<h3>Famous $j$-values</h3>\n\n<table class=\"plain\">\n  <tr><th>curve</th><th>$a$</th><th>$b$</th><th>$j$</th><th>endomorphism ring</th></tr>\n  <tr><td>$y^2 = x^3 + 1$</td><td>$0$</td><td>$1$</td><td>$0$</td><td>$\\mathbb{Z}[\\omega]$, CM by $\\mathbb{Q}(\\sqrt{-3})$</td></tr>\n  <tr><td>$y^2 = x^3 - x$</td><td>$-1$</td><td>$0$</td><td>$1728$</td><td>$\\mathbb{Z}[i]$, CM by $\\mathbb{Q}(i)$</td></tr>\n  <tr><td>$y^2 = x^3 - 15 x + 22$</td><td>$-15$</td><td>$22$</td><td>$-3375$</td><td>CM by $\\mathbb{Q}(\\sqrt{-7})$</td></tr>\n  <tr><td>$y^2 = x^3 - 595 x + 5586$</td><td>$-595$</td><td>$5586$</td><td>$-32768$</td><td>CM by $\\mathbb{Q}(\\sqrt{-11})$</td></tr>\n</table>\n\n<div class=\"widget\">\n<div class=\"hd\"><span class=\"ttl\">$j$-invariant calculator</span><span class=\"hint\">and famous curves</span></div>\n<div class=\"row\">\n  <label>$a$ <input type=\"range\" id=\"j-a\" min=\"-8\" max=\"8\" step=\"0.1\" value=\"-1\"></label>\n  <span id=\"j-aval\" class=\"small\">-1</span>\n  <label>$b$ <input type=\"range\" id=\"j-b\" min=\"-8\" max=\"8\" step=\"0.1\" value=\"0\"></label>\n  <span id=\"j-bval\" class=\"small\">0</span>\n</div>\n<div class=\"row\">\n  <button data-ab=\"0,1\">$j = 0$ (CM ω)</button>\n  <button data-ab=\"-1,0\">$j = 1728$ (CM i)</button>\n  <button data-ab=\"-15,22\">$j = -3375$</button>\n  <button data-ab=\"-35,98\">$j = -32768$</button>\n</div>\n<div id=\"j-out\" class=\"readout\"></div>\n</div>\n\n<script>\n(function(){\n  const A = document.getElementById('j-a');\n  const B = document.getElementById('j-b');\n  const Av = document.getElementById('j-aval');\n  const Bv = document.getElementById('j-bval');\n  const out = document.getElementById('j-out');\n  const btns = document.querySelectorAll('#j-out').length;\n  function upd(){\n    const a = +A.value, b = +B.value;\n    Av.textContent = a.toFixed(2);\n    Bv.textContent = b.toFixed(2);\n    const D = -16*(4*a*a*a + 27*b*b);\n    const numer = 4*a*a*a;\n    const denom = 4*a*a*a + 27*b*b;\n    let msg;\n    if(Math.abs(denom) < 1e-9){\n      msg = 'Δ = 0 (singular); j undefined (or ∞)';\n    } else {\n      const j = 1728 * numer / denom;\n      msg = 'Δ = -16(4a³+27b²) = '+D.toFixed(4)+'\\n'+\n            'j = 1728 · 4a³/(4a³+27b²) = '+j.toFixed(4);\n      if(Math.abs(j) < 1e-6) msg += '\\nj = 0: CM by Z[ω], endomorphism e^(2πi/3).';\n      else if(Math.abs(j - 1728) < 1e-3) msg += '\\nj = 1728: CM by Z[i], endomorphism i.';\n    }\n    out.textContent = msg;\n  }\n  A.addEventListener('input', upd);\n  B.addEventListener('input', upd);\n  document.querySelectorAll('button[data-ab]').forEach(btn=>{\n    btn.addEventListener('click', ()=>{\n      const [a,b] = btn.dataset.ab.split(',').map(Number);\n      A.value = a; B.value = b; upd();\n    });\n  });\n  upd();\n})();\n</script>\n\n<p>The values $j = 0$ and $j = 1728$ are special because they are the only $j$-invariants where $|\\operatorname{Aut}(E)| > 2$. A curve with $j = 0$ admits the order-$6$ automorphism $(x, y) \\mapsto (\\omega x, -y)$ with $\\omega = e^{2\\pi i / 3}$; a curve with $j = 1728$ admits the order-$4$ automorphism $(x, y) \\mapsto (-x, i y)$. These extra automorphisms are what give the corresponding points on the moduli stack their orbifold structure.</p>\n\n<h3>CM points</h3>\n\n<p>The $j$-invariants of CM elliptic curves are remarkable algebraic integers — the <em>singular moduli</em>. There are finitely many (one for each ideal class in each imaginary quadratic order), and each generates an abelian extension of its CM field: the Hilbert class field, in the simplest case. The numbers $j(\\tau)$ at CM points $\\tau$ are conspicuously integer-heavy: $j((1+\\sqrt{-163})/2) = -640320^3$, whence the near-integer $e^{\\pi\\sqrt{163}} \\approx 640320^3 + 744$ made famous by Ramanujan.</p>"
         },
         {
           "type": "raw",
@@ -91,6 +99,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -115,7 +127,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n\n\n\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "quiz",
@@ -125,6 +137,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -141,7 +157,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "quiz",
@@ -151,6 +167,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },

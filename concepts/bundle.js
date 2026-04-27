@@ -1858,11 +1858,83 @@ window.__MVConcepts = {
       "page": "lie-algebras.html",
       "concepts": [
         {
-          "id": "lie-algebras-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "la-axioms",
+          "title": "Axioms and matrix examples",
+          "anchor": "axioms",
+          "prereqs": [
+            "algebraic-structures",
+            "lie-group-definition"
+          ],
+          "blurb": "A Lie algebra is a vector space with a skew-symmetric bracket $[\\cdot,\\cdot]$ satisfying the Jacobi identity $[x,[y,z]]+[y,[z,x]]+[z,[x,y]]=0$. Standard families: $\\mathfrak{gl}_n$ (all matrices), $\\mathfrak{sl}_n$ (traceless), $\\mathfrak{so}_n$ (skew-symmetric), $\\mathfrak{sp}_{2n}$ (symplectic).",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "la-derivations-and-adjoint",
+          "title": "Derivations and the adjoint representation",
+          "anchor": "derivations",
+          "prereqs": [
+            "la-axioms",
+            "lie-bracket-bch"
+          ],
+          "blurb": "The adjoint $\\mathrm{ad}(x)=[x,-]$ makes every $x\\in\\mathfrak g$ act as a derivation of the bracket; the Killing form $B(x,y)=\\mathrm{tr}(\\mathrm{ad}(x)\\mathrm{ad}(y))$ is the canonical $\\mathfrak g$-invariant symmetric bilinear form.",
+          "tags": [
+            "group-action",
+            "duality"
+          ]
+        },
+        {
+          "id": "la-solvable-and-nilpotent",
+          "title": "Solvable and nilpotent Lie algebras",
+          "anchor": "solvable-nilpotent",
+          "prereqs": [
+            "la-derivations-and-adjoint",
+            "quotients-homomorphisms"
+          ],
+          "blurb": "The derived series $\\mathfrak g\\supseteq[\\mathfrak g,\\mathfrak g]\\supseteq\\cdots$ measures solvability; the lower-central series measures nilpotence. Engel: $\\mathrm{ad}\\,x$ nilpotent for every $x$ iff $\\mathfrak g$ is nilpotent. Lie: every solvable rep over $\\mathbb C$ is upper-triangularizable.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "la-cartan-killing-classification",
+          "title": "Cartan, Killing, and semisimplicity",
+          "anchor": "cartan-killing",
+          "prereqs": [
+            "la-derivations-and-adjoint",
+            "la-solvable-and-nilpotent"
+          ],
+          "blurb": "Cartan's criterion: $\\mathfrak g$ is semisimple iff its Killing form is nondegenerate. A Cartan subalgebra $\\mathfrak h$ diagonalizes $\\mathrm{ad}$ and yields a root system $\\Phi\\subset\\mathfrak h^*$, encoded combinatorially by a Dynkin diagram.",
+          "tags": [
+            "classification",
+            "duality"
+          ]
+        },
+        {
+          "id": "la-sl2-and-roots",
+          "title": "$\\mathfrak{sl}_2$-triples, root spaces, weights",
+          "anchor": "sl2-roots",
+          "prereqs": [
+            "la-cartan-killing-classification",
+            "highest-weight-theorem"
+          ],
+          "blurb": "Each root $\\alpha\\in\\Phi$ gives an $\\mathfrak{sl}_2$-triple $(e_\\alpha,h_\\alpha,f_\\alpha)$; finite-dimensional irreps of $\\mathfrak{sl}_2$ are weight diagrams $V_n$ with weights $n,n-2,\\dots,-n$, and every semisimple representation decomposes into such weight strings.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "la-classification-simple",
+          "title": "Classification of simple Lie algebras",
+          "anchor": "classification",
+          "prereqs": [
+            "la-sl2-and-roots"
+          ],
+          "blurb": "Over $\\mathbb C$ the simple Lie algebras are exactly the four classical series $A_n=\\mathfrak{sl}_{n+1}$, $B_n=\\mathfrak{so}_{2n+1}$, $C_n=\\mathfrak{sp}_{2n}$, $D_n=\\mathfrak{so}_{2n}$ together with five exceptions $E_6,E_7,E_8,F_4,G_2$ — read off from connected Dynkin diagrams.",
+          "tags": [
+            "classification"
+          ]
         }
       ]
     },
@@ -1872,11 +1944,93 @@ window.__MVConcepts = {
       "page": "galois-cohomology-and-brauer.html",
       "concepts": [
         {
-          "id": "galois-cohomology-and-brauer-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "gcb-cocycle-cohomology",
+          "title": "Galois cocycles and $H^i(G,M)$",
+          "anchor": "cocycles",
+          "prereqs": [
+            "h1-crossed-homs",
+            "field-extensions-galois",
+            "fundamental-theorem-galois"
+          ],
+          "blurb": "For a finite Galois extension $L/K$ with $G=\\mathrm{Gal}(L/K)$ acting on a $G$-module $M$, $H^i(G,M)$ is computed by inhomogeneous cochains $c:G^i\\to M$ modulo coboundaries. Examples: $H^0=M^G$, $H^1(G,L^\\times)=1$ (Hilbert 90), $H^1(G,\\mu_n)=K^\\times/(K^\\times)^n$ (Kummer).",
+          "tags": [
+            "cohomology",
+            "group-action",
+            "foundation"
+          ]
+        },
+        {
+          "id": "gcb-h1-torsors",
+          "title": "$H^1$ classifies torsors and twisted forms",
+          "anchor": "torsors",
+          "prereqs": [
+            "gcb-cocycle-cohomology"
+          ],
+          "blurb": "$H^1(G,A(L))$ parameterises isomorphism classes of $G$-torsors under an algebraic group $A$ — equivalently, $L/K$-twisted forms of an object with automorphism group $A$. For $A=\\mathrm{PGL}_n$ the torsors are central simple algebras of degree $n$; for $A=\\mathrm{O}_q$ they are quadratic forms in the same genus.",
+          "tags": [
+            "cohomology",
+            "classification",
+            "descent"
+          ]
+        },
+        {
+          "id": "gcb-h2-extensions",
+          "title": "$H^2$ and group extensions",
+          "anchor": "extensions",
+          "prereqs": [
+            "gcb-cocycle-cohomology",
+            "h2-extensions"
+          ],
+          "blurb": "$H^2(G,A)$ parameterises equivalence classes of central extensions $1\\to A\\to E\\to G\\to 1$. The Schur multiplier $M(G)=H^2(G,\\mathbb{C}^\\times)$ controls projective representations: every projective rep lifts to a linear rep of a central extension by $M(G)$.",
+          "tags": [
+            "cohomology",
+            "classification",
+            "exact-sequence"
+          ]
+        },
+        {
+          "id": "gcb-brauer-group",
+          "title": "Brauer group $\\mathrm{Br}(K) = H^2(K,\\bar K^\\times)$",
+          "anchor": "brauer",
+          "prereqs": [
+            "gcb-h2-extensions",
+            "gcb-h1-torsors"
+          ],
+          "blurb": "The Brauer group is $\\mathrm{Br}(K)=H^2(\\mathrm{Gal}(\\bar K/K),\\bar K^\\times)$, equivalently equivalence classes of central simple $K$-algebras under $A\\sim B$ iff $M_m(A)\\cong M_n(B)$. Each class has a unique division-algebra representative; cyclic algebras $(a,b)_n$ generate via the cup product $K^\\times/(K^\\times)^n \\otimes K^\\times/(K^\\times)^n \\to \\mathrm{Br}(K)[n]$.",
+          "tags": [
+            "cohomology",
+            "classification",
+            "duality"
+          ]
+        },
+        {
+          "id": "gcb-cup-product-cassels-tate",
+          "title": "Cup product and Tate local duality",
+          "anchor": "cup-product",
+          "prereqs": [
+            "gcb-cocycle-cohomology",
+            "gcb-brauer-group"
+          ],
+          "blurb": "The cup product $H^p(G,M)\\otimes H^q(G,N)\\to H^{p+q}(G,M\\otimes N)$ pairs cocycles. Over a non-archimedean local field $K$, Tate duality gives a perfect pairing $H^i(K,M)\\times H^{2-i}(K,M^*) \\to H^2(K,\\bar K^\\times) = \\mathbb{Q}/\\mathbb{Z}$ for finite $M$ — the cohomological avatar of local class field theory.",
+          "tags": [
+            "cohomology",
+            "duality"
+          ]
+        },
+        {
+          "id": "gcb-applications-arithmetic",
+          "title": "Applications: Hasse principle, Selmer, descent",
+          "anchor": "applications",
+          "prereqs": [
+            "gcb-brauer-group",
+            "gcb-cup-product-cassels-tate"
+          ],
+          "blurb": "Albert–Brauer–Hasse–Noether: a central simple algebra splits over $\\mathbb{Q}$ iff it splits over every $\\mathbb{Q}_v$. The Brauer–Manin obstruction explains why some smooth varieties have local points everywhere yet no global point. Selmer groups in BSD-style descent are kernels of restriction maps between Galois cohomology groups.",
+          "tags": [
+            "cohomology",
+            "duality",
+            "descent"
+          ]
         }
       ]
     },
@@ -3891,11 +4045,81 @@ window.__MVConcepts = {
       "page": "spectral-theory.html",
       "concepts": [
         {
-          "id": "spectral-theory-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "st-bounded-operators-spectrum",
+          "title": "Spectrum of a bounded operator",
+          "anchor": "spectrum",
+          "prereqs": [
+            "bounded-operators-fa",
+            "spectrum-classification"
+          ],
+          "blurb": "For $T\\in B(H)$, $\\sigma(T)=\\{\\lambda\\in\\mathbb{C} : T-\\lambda I \\text{ is not invertible}\\}$ is a non-empty compact subset of the closed disk of radius $\\|T\\|$, decomposing into point, continuous, and residual parts.",
+          "tags": [
+            "compactness",
+            "classification"
+          ]
+        },
+        {
+          "id": "st-self-adjoint-spectrum",
+          "title": "Spectrum of self-adjoint operators",
+          "anchor": "self-adjoint",
+          "prereqs": [
+            "st-bounded-operators-spectrum",
+            "adjoint-hilbert"
+          ],
+          "blurb": "Self-adjoint operators have $\\sigma(T)\\subset\\mathbb{R}$, and the spectral radius equals the operator norm: $r(T)=\\|T\\|$. Residual spectrum is empty.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "st-spectral-theorem-compact",
+          "title": "Spectral theorem (compact self-adjoint)",
+          "anchor": "spectral-compact",
+          "prereqs": [
+            "st-self-adjoint-spectrum",
+            "banach-hilbert-spaces"
+          ],
+          "blurb": "A compact self-adjoint operator $K$ on a separable Hilbert space admits an orthonormal eigenbasis $(\\varphi_n)$ with real eigenvalues $\\lambda_n\\to 0$, and $K=\\sum_n\\lambda_n\\langle\\varphi_n,\\cdot\\rangle\\varphi_n$.",
+          "tags": [
+            "compactness",
+            "classification"
+          ]
+        },
+        {
+          "id": "st-spectral-theorem-bounded",
+          "title": "Spectral theorem (bounded self-adjoint)",
+          "anchor": "spectral-bounded",
+          "prereqs": [
+            "st-spectral-theorem-compact",
+            "cstar-basics",
+            "lebesgue-measure"
+          ],
+          "blurb": "Every bounded self-adjoint operator $T$ admits a unique projection-valued measure $E$ on $\\sigma(T)$ such that $T=\\int_{\\sigma(T)}\\lambda\\,dE_\\lambda$, giving a continuous functional calculus $f\\mapsto f(T)$.",
+          "tags": [
+            "classification",
+            "duality"
+          ]
+        },
+        {
+          "id": "st-unbounded-operators",
+          "title": "Unbounded self-adjoint operators",
+          "anchor": "unbounded",
+          "prereqs": [
+            "st-spectral-theorem-bounded"
+          ],
+          "blurb": "Densely defined closed operators (Laplacian, momentum, position) admit a spectral resolution $T=\\int\\lambda\\,dE_\\lambda$ on their domain; Stone's theorem then identifies self-adjoint $T$ with strongly continuous unitary groups $e^{itT}$.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "st-applications",
+          "title": "Applications: quantum mechanics, PDE, harmonic analysis",
+          "anchor": "applications",
+          "prereqs": [
+            "st-unbounded-operators"
+          ],
+          "blurb": "Observables in QM are self-adjoint operators whose spectra are measurable energies; eigenvalue problems for elliptic PDE invoke the compact spectral theorem; Fourier transform diagonalizes translation-invariant operators."
         }
       ]
     },
@@ -4259,11 +4483,71 @@ window.__MVConcepts = {
       "page": "information-theory.html",
       "concepts": [
         {
-          "id": "information-theory-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "it-shannon-entropy",
+          "title": "Shannon entropy",
+          "anchor": "entropy",
+          "prereqs": [
+            "expectation-moments",
+            "random-variables"
+          ],
+          "blurb": "For a discrete random variable $X$ with pmf $p$, $H(X)=-\\sum_i p_i\\log p_i$ measures average uncertainty in bits (log base $2$) or nats (log base $e$); it is concave in $p$, vanishes on point masses, and is maximised at $\\log n$ by the uniform law on $n$ symbols.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "it-mutual-information",
+          "title": "Mutual information",
+          "anchor": "mutual-info",
+          "prereqs": [
+            "it-shannon-entropy",
+            "conditional-bayes"
+          ],
+          "blurb": "$I(X;Y)=H(X)-H(X\\mid Y)=H(X)+H(Y)-H(X,Y)$ measures the bits about $X$ revealed by observing $Y$; equivalently $I(X;Y)=D(p_{XY}\\,\\|\\,p_X p_Y)$, the KL distance from the joint to the product of marginals.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "it-kl-divergence",
+          "title": "Kullback–Leibler divergence",
+          "anchor": "kl-divergence",
+          "prereqs": [
+            "it-shannon-entropy",
+            "ld-sanov-theorem"
+          ],
+          "blurb": "$D(p\\,\\|\\,q)=\\sum_i p_i\\log(p_i/q_i)$ measures the inefficiency of coding $p$-distributed data with a $q$-tuned codebook; Gibbs' inequality gives $D(p\\,\\|\\,q)\\ge 0$ with equality iff $p=q$, and $D$ is the canonical rate function of Sanov's theorem."
+        },
+        {
+          "id": "it-source-coding",
+          "title": "Source coding",
+          "anchor": "source-coding",
+          "prereqs": [
+            "it-shannon-entropy"
+          ],
+          "blurb": "Shannon's source-coding theorem: $H(X)$ is the asymptotic minimum bits-per-symbol for lossless compression. Huffman coding achieves prefix-free codes with average length within one bit of $H(X)$; the asymptotic equipartition property (AEP) explains why typical sequences fill a set of size $\\approx 2^{nH(X)}$."
+        },
+        {
+          "id": "it-channel-coding",
+          "title": "Channel coding",
+          "anchor": "channel-coding",
+          "prereqs": [
+            "it-mutual-information"
+          ],
+          "blurb": "The capacity of a discrete memoryless channel is $C=\\max_{p_X}I(X;Y)$. Shannon's noisy-channel theorem: any rate $R<C$ admits codes with vanishing error as block length grows, and any $R>C$ has error bounded away from $0$ — capacity is the sharp threshold."
+        },
+        {
+          "id": "it-rate-distortion",
+          "title": "Rate–distortion",
+          "anchor": "rate-distortion",
+          "prereqs": [
+            "it-mutual-information",
+            "it-source-coding"
+          ],
+          "blurb": "For lossy compression with distortion measure $d$ and tolerance $D$, the rate–distortion function is $R(D)=\\min\\{I(X;\\hat X):\\mathbb{E}[d(X,\\hat X)]\\le D\\}$ — the minimum bits per symbol that still keep expected distortion under $D$. For a Gaussian source with squared-error distortion, $R(D)=\\tfrac{1}{2}\\log(\\sigma^2/D)$ on $[0,\\sigma^2]$.",
+          "tags": [
+            "duality"
+          ]
         }
       ]
     },
@@ -4937,11 +5221,85 @@ window.__MVConcepts = {
       "page": "characteristic-classes.html",
       "concepts": [
         {
-          "id": "characteristic-classes-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "cc-vector-bundles",
+          "title": "Vector bundles",
+          "anchor": "vector-bundles",
+          "prereqs": [
+            "tangent-bundle"
+          ],
+          "blurb": "A rank-$n$ vector bundle $E \\to X$ is locally trivial of fibre $\\mathbb{R}^n$ (or $\\mathbb{C}^n$); transition functions $g_{\\alpha\\beta}\\colon U_\\alpha \\cap U_\\beta \\to GL_n$ on a cover $\\{U_\\alpha\\}$ recover the bundle up to isomorphism. The tangent bundle $TM$, normal bundles, and line bundles like the Möbius bundle are the running examples.",
+          "tags": [
+            "foundation",
+            "fibration"
+          ]
+        },
+        {
+          "id": "cc-stiefel-whitney",
+          "title": "Stiefel–Whitney classes",
+          "anchor": "stiefel-whitney",
+          "prereqs": [
+            "cc-vector-bundles",
+            "singular-homology"
+          ],
+          "blurb": "A real rank-$n$ bundle $E \\to X$ has Stiefel–Whitney classes $w_i(E) \\in H^i(X; \\mathbb{Z}/2)$, $i=0,\\ldots,n$, satisfying naturality $w_i(f^*E) = f^*w_i(E)$, the Whitney sum formula $w(E\\oplus F) = w(E)\\smile w(F)$, and the normalisation $w_1(\\gamma_1) \\ne 0$ for the tautological line bundle on $\\mathbb{RP}^\\infty$. Vanishing of $w_1$ is orientability; vanishing of $w_2$ is the obstruction to a spin structure.",
+          "tags": [
+            "cohomology",
+            "classification"
+          ]
+        },
+        {
+          "id": "cc-chern-classes",
+          "title": "Chern classes",
+          "anchor": "chern",
+          "prereqs": [
+            "cc-vector-bundles",
+            "singular-homology"
+          ],
+          "blurb": "A complex rank-$n$ bundle $E \\to X$ has Chern classes $c_i(E) \\in H^{2i}(X; \\mathbb{Z})$, characterised by naturality, the Whitney sum $c(E\\oplus F) = c(E)\\smile c(F)$, and $c_1(\\mathcal{O}(1)) = $ generator of $H^2(\\mathbb{CP}^\\infty;\\mathbb{Z})$. The splitting principle reduces every computation to formal sums of line bundles, and the top Chern class $c_n(E)$ equals the Euler class of the underlying oriented real bundle.",
+          "tags": [
+            "cohomology",
+            "classification"
+          ]
+        },
+        {
+          "id": "cc-pontryagin",
+          "title": "Pontryagin classes",
+          "anchor": "pontryagin",
+          "prereqs": [
+            "cc-chern-classes"
+          ],
+          "blurb": "For a real bundle $E \\to X$, complexify to $E\\otimes\\mathbb{C}$ and define $p_i(E) = (-1)^i c_{2i}(E\\otimes\\mathbb{C}) \\in H^{4i}(X;\\mathbb{Z})$. Odd Chern classes of a complexification are 2-torsion, so the surviving information sits in degrees divisible by $4$ — these classes are the building blocks of the signature theorem and the Hirzebruch $L$-genus.",
+          "tags": [
+            "cohomology"
+          ]
+        },
+        {
+          "id": "cc-euler-class",
+          "title": "Euler class",
+          "anchor": "euler",
+          "prereqs": [
+            "cc-vector-bundles",
+            "singular-homology"
+          ],
+          "blurb": "An oriented real rank-$n$ bundle $E \\to X$ has an Euler class $e(E) \\in H^n(X;\\mathbb{Z})$, the obstruction to a nowhere-vanishing section. For $E = TM$ on a closed oriented manifold, $\\langle e(TM), [M] \\rangle = \\chi(M)$ — the Poincaré–Hopf theorem expresses the Euler characteristic as the signed sum of zeros of any vector field.",
+          "tags": [
+            "cohomology",
+            "duality"
+          ]
+        },
+        {
+          "id": "cc-chern-weil",
+          "title": "Chern–Weil theory",
+          "anchor": "chern-weil",
+          "prereqs": [
+            "cc-chern-classes",
+            "stokes-derham"
+          ],
+          "blurb": "Pick a connection $\\nabla$ on a complex bundle $E \\to M$, take its curvature $F_\\nabla \\in \\Omega^2(M;\\mathrm{End}\\,E)$, and feed it into an $\\mathrm{Ad}$-invariant polynomial $P$. The form $P(F_\\nabla)$ is closed and its de Rham class is independent of $\\nabla$; the polynomials $\\det(I + \\tfrac{i}{2\\pi}F_\\nabla)$ recover the total Chern class. Gauss–Bonnet $\\int_\\Sigma K\\,dA = 2\\pi\\chi(\\Sigma)$ is the rank-$1$ Chern–Weil identity for $T\\Sigma$.",
+          "tags": [
+            "cohomology",
+            "functoriality"
+          ]
         }
       ]
     },
@@ -4951,11 +5309,84 @@ window.__MVConcepts = {
       "page": "morse-theory.html",
       "concepts": [
         {
-          "id": "morse-theory-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "mt-morse-functions",
+          "title": "Morse functions and non-degenerate critical points",
+          "anchor": "morse-functions",
+          "prereqs": [
+            "smooth-manifold-definition",
+            "tangent-space-manifolds"
+          ],
+          "blurb": "A smooth $f\\colon M\\to\\mathbb{R}$ is Morse when every critical point is non-degenerate (Hessian invertible). The Morse lemma gives a chart in which $f = -x_1^2-\\cdots-x_k^2 + x_{k+1}^2+\\cdots+x_n^2 + c$, where the index $k$ is the number of negative eigenvalues. Morse functions are dense in $C^\\infty(M)$.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "mt-handle-decomposition",
+          "title": "Handle decomposition via sublevel sets",
+          "anchor": "handle-decomp",
+          "prereqs": [
+            "mt-morse-functions",
+            "vector-field-flows"
+          ],
+          "blurb": "As $c$ increases, the sublevel set $M^c=\\{f\\le c\\}$ deforms by gradient flow except when $c$ crosses a critical value: there it gains a $k$-handle $D^k\\times D^{n-k}$, where $k$ is the Morse index. Cells, not points, are how the topology changes.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "mt-cw-structure",
+          "title": "CW structure from a Morse function",
+          "anchor": "cw-structure",
+          "prereqs": [
+            "mt-handle-decomposition",
+            "singular-homology"
+          ],
+          "blurb": "Up to homotopy each $k$-handle attached to $M^{c-\\epsilon}$ is a $k$-cell, so $M$ has the homotopy type of a CW complex with one cell of dimension $k$ for every critical point of index $k$. This is the bridge from differential topology to cellular homology.",
+          "tags": [
+            "functoriality"
+          ]
+        },
+        {
+          "id": "mt-morse-inequalities",
+          "title": "Morse inequalities",
+          "anchor": "inequalities",
+          "prereqs": [
+            "mt-cw-structure"
+          ],
+          "blurb": "If $c_k(f)$ counts index-$k$ critical points and $b_k(M)$ are Betti numbers, then $b_k(M)\\le c_k(f)$ (weak) and $\\sum_k(-1)^k c_k = \\chi(M)$ (Morse–Reeb). The strong inequalities $\\sum_{k\\le j}(-1)^{j-k}(c_k - b_k)\\ge 0$ refine the count via the chain complex.",
+          "tags": [
+            "cohomology",
+            "exact-sequence"
+          ]
+        },
+        {
+          "id": "mt-morse-homology",
+          "title": "Morse homology",
+          "anchor": "morse-homology",
+          "prereqs": [
+            "mt-cw-structure",
+            "exterior-derivative"
+          ],
+          "blurb": "Pick a Morse–Smale gradient: the chain complex has critical points as generators in degree equal to their index, and the boundary $\\partial$ counts signed gradient flow lines between consecutive-index critical points. The resulting homology is canonically isomorphic to singular homology — a hands-on model of $H_*(M)$.",
+          "tags": [
+            "cohomology",
+            "exact-sequence"
+          ]
+        },
+        {
+          "id": "mt-applications",
+          "title": "Applications and generalisations",
+          "anchor": "applications",
+          "prereqs": [
+            "mt-morse-inequalities",
+            "mt-morse-homology"
+          ],
+          "blurb": "Reeb's sphere theorem (a closed manifold with exactly two critical points is homeomorphic to a sphere), Bott's perfect Morse functions on Lie groups, and the infinite-dimensional analogue — Floer homology on path/loop spaces — all flow from this machinery.",
+          "tags": [
+            "classification"
+          ]
         }
       ]
     },
@@ -8564,11 +8995,62 @@ window.__MVConcepts = {
       "page": "enumerative-combinatorics.html",
       "concepts": [
         {
-          "id": "enumerative-combinatorics-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "ec-binomial-and-stars-bars",
+          "title": "Binomial coefficients, multinomials, and stars-and-bars",
+          "anchor": "basics",
+          "prereqs": [
+            "sets-functions"
+          ],
+          "blurb": "$\\binom{n}{k}$ counts $k$-subsets of $[n]$; the multinomial $\\binom{n}{k_1,\\ldots,k_r}$ counts ordered partitions into bins of sizes $k_i$. Stars-and-bars: weak compositions of $n$ into $r$ parts are counted by $\\binom{n+r-1}{r-1}$, the canonical bijection between non-negative integer solutions and binary strings."
+        },
+        {
+          "id": "ec-inclusion-exclusion",
+          "title": "Inclusion–exclusion and derangements",
+          "anchor": "inclusion-exclusion",
+          "prereqs": [
+            "ec-binomial-and-stars-bars"
+          ],
+          "blurb": "$|A_1\\cup\\cdots\\cup A_n| = \\sum |A_i| - \\sum |A_i\\cap A_j| + \\cdots + (-1)^{n+1}|A_1\\cap\\cdots\\cap A_n|$. Applied to permutations avoiding fixed points gives the derangement count $D_n = n!\\sum_{k=0}^n (-1)^k/k!$, with $D_n/n! \\to 1/e$."
+        },
+        {
+          "id": "ec-recurrences-and-gen-fun",
+          "title": "Recurrences and generating functions",
+          "anchor": "generating-functions",
+          "prereqs": [
+            "ec-binomial-and-stars-bars"
+          ],
+          "blurb": "Encode a sequence $a_n$ as either an ordinary generating function $A(x)=\\sum a_n x^n$ or an exponential one $\\hat A(x)=\\sum a_n x^n/n!$. Recurrences become functional equations; the Catalan recurrence $C_{n+1}=\\sum C_k C_{n-k}$ becomes $C(x)=1+xC(x)^2$, solved to $C(x)=(1-\\sqrt{1-4x})/(2x)$ giving $C_n=\\frac{1}{n+1}\\binom{2n}{n}$."
+        },
+        {
+          "id": "ec-permutation-statistics",
+          "title": "Permutation statistics",
+          "anchor": "permutation-stats",
+          "prereqs": [
+            "ec-binomial-and-stars-bars"
+          ],
+          "blurb": "Inversions, cycles, and descents partition $S_n$ into refined classes. Eulerian numbers $\\langle n \\atop k\\rangle$ count permutations with $k$ descents; (signless) Stirling numbers of the first kind $c(n,k)$ count those with $k$ cycles. Cycle index polynomials package $S_n$'s cycle structure for Pólya enumeration of colourings under group actions.",
+          "tags": [
+            "group-action"
+          ]
+        },
+        {
+          "id": "ec-partition-theory",
+          "title": "Integer partitions and Euler's product",
+          "anchor": "partitions",
+          "prereqs": [
+            "ec-recurrences-and-gen-fun"
+          ],
+          "blurb": "$p(n)$ counts ways to write $n=\\lambda_1+\\cdots+\\lambda_r$ with $\\lambda_1\\ge\\cdots\\ge\\lambda_r\\ge 1$. Euler's product $\\sum p(n) q^n = \\prod_{k\\ge 1}(1-q^k)^{-1}$ is the generating-function identity that bootstraps everything. Rogers–Ramanujan: partitions with parts differing by at least $2$ are equinumerous with partitions into parts $\\equiv \\pm 1\\pmod 5$."
+        },
+        {
+          "id": "ec-bijective-proofs",
+          "title": "Bijective proofs",
+          "anchor": "bijections",
+          "prereqs": [
+            "ec-partition-theory",
+            "ec-permutation-statistics"
+          ],
+          "blurb": "When two sequences agree, find a bijection. Catalan-counted families — Dyck paths, triangulations of an $(n{+}2)$-gon, binary trees, non-crossing partitions — all carry explicit bijections. Stirling's formula $n!\\sim \\sqrt{2\\pi n}(n/e)^n$ has a bijective shadow via lattice-path arguments. The RSK correspondence biject ions matrices with pairs of standard Young tableaux of the same shape, the bedrock of symmetric-function combinatorics."
         }
       ]
     },
@@ -9408,15 +9890,15 @@ window.__MVConcepts = {
       "concepts": 49,
       "intra": 56,
       "crossOut": 4,
-      "crossIn": 10,
+      "crossIn": 11,
       "density": 0.08163265306122448
     },
     "Algebra & homological": {
-      "concepts": 78,
-      "intra": 107,
-      "crossOut": 9,
+      "concepts": 88,
+      "intra": 126,
+      "crossOut": 13,
       "crossIn": 61,
-      "density": 0.11538461538461539
+      "density": 0.14772727272727273
     },
     "Higher categories & toposes": {
       "concepts": 45,
@@ -9426,31 +9908,31 @@ window.__MVConcepts = {
       "density": 0.5111111111111111
     },
     "Analysis": {
-      "concepts": 117,
-      "intra": 187,
+      "concepts": 122,
+      "intra": 198,
       "crossOut": 16,
       "crossIn": 32,
-      "density": 0.13675213675213677
+      "density": 0.13114754098360656
     },
     "Probability & statistics": {
-      "concepts": 36,
-      "intra": 51,
+      "concepts": 41,
+      "intra": 61,
       "crossOut": 10,
       "crossIn": 8,
-      "density": 0.2777777777777778
+      "density": 0.24390243902439024
     },
     "Geometry & topology": {
-      "concepts": 51,
-      "intra": 60,
+      "concepts": 61,
+      "intra": 81,
       "crossOut": 6,
-      "crossIn": 49,
-      "density": 0.11764705882352941
+      "crossIn": 51,
+      "density": 0.09836065573770492
     },
     "Number theory": {
       "concepts": 78,
       "intra": 101,
       "crossOut": 30,
-      "crossIn": 22,
+      "crossIn": 24,
       "density": 0.38461538461538464
     },
     "Modular forms & L-functions": {
@@ -9468,11 +9950,11 @@ window.__MVConcepts = {
       "density": 0.43119266055045874
     },
     "Combinatorics & graph theory": {
-      "concepts": 34,
-      "intra": 28,
-      "crossOut": 16,
+      "concepts": 39,
+      "intra": 34,
+      "crossOut": 17,
       "crossIn": 1,
-      "density": 0.47058823529411764
+      "density": 0.4358974358974359
     }
   }
 };

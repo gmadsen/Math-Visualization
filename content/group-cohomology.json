@@ -94,7 +94,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./group-cohomology.html#h2\">Group cohomology</a> · $H^2$ classifies group extensions</div>\n    <div><a href=\"./group-cohomology.html#cyclic\">Group cohomology</a> · Cyclic groups, periodicity, and Tate cohomology</div>\n    <div><a href=\"./group-cohomology.html#galois-cohom\">Group cohomology</a> · Galois cohomology and the Brauer group</div>\n    <div><a href=\"./group-cohomology.html#infres\">Group cohomology</a> · Inflation–restriction and Lyndon–Hochschild–Serre</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./galois-cohomology-and-brauer.html#cocycles\">Galois cohomology and Brauer groups</a> · Galois cocycles and $H^i(G,M)$</div>\n    <div><a href=\"./group-cohomology.html#h2\">Group cohomology</a> · $H^2$ classifies group extensions</div>\n    <div><a href=\"./group-cohomology.html#cyclic\">Group cohomology</a> · Cyclic groups, periodicity, and Tate cohomology</div>\n    <div><a href=\"./group-cohomology.html#galois-cohom\">Group cohomology</a> · Galois cohomology and the Brauer group</div>\n    <div><a href=\"./group-cohomology.html#infres\">Group cohomology</a> · Inflation–restriction and Lyndon–Hochschild–Serre</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",
@@ -130,7 +130,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./group-cohomology.html#cyclic\">Group cohomology</a> · Cyclic groups, periodicity, and Tate cohomology</div>\n    <div><a href=\"./group-cohomology.html#galois-cohom\">Group cohomology</a> · Galois cohomology and the Brauer group</div>\n    <div><a href=\"./group-cohomology.html#infres\">Group cohomology</a> · Inflation–restriction and Lyndon–Hochschild–Serre</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./galois-cohomology-and-brauer.html#extensions\">Galois cohomology and Brauer groups</a> · $H^2$ and group extensions</div>\n    <div><a href=\"./group-cohomology.html#cyclic\">Group cohomology</a> · Cyclic groups, periodicity, and Tate cohomology</div>\n    <div><a href=\"./group-cohomology.html#galois-cohom\">Group cohomology</a> · Galois cohomology and the Brauer group</div>\n    <div><a href=\"./group-cohomology.html#infres\">Group cohomology</a> · Inflation–restriction and Lyndon–Hochschild–Serre</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",

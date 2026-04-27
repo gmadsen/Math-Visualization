@@ -93,7 +93,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -153,6 +153,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -216,11 +220,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./probability-theory.html#markov\">Probability theory</a> · Markov chains</div>\n    <div><a href=\"./probability-theory.html#martingales\">Probability theory</a> · Martingales</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./information-theory.html#mutual-info\">Information theory</a> · Mutual information</div>\n    <div><a href=\"./probability-theory.html#markov\">Probability theory</a> · Markov chains</div>\n    <div><a href=\"./probability-theory.html#martingales\">Probability theory</a> · Martingales</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -262,6 +266,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -325,11 +333,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./probability-theory.html#expectation\">Probability theory</a> · Expectation, variance, and moments</div>\n    <div><a href=\"./probability-theory.html#conv\">Probability theory</a> · Modes of convergence</div>\n    <div><a href=\"./probability-theory.html#supports\">Probability theory</a> · Supports, distributions, and densities</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./information-theory.html#entropy\">Information theory</a> · Shannon entropy</div>\n    <div><a href=\"./probability-theory.html#expectation\">Probability theory</a> · Expectation, variance, and moments</div>\n    <div><a href=\"./probability-theory.html#conv\">Probability theory</a> · Modes of convergence</div>\n    <div><a href=\"./probability-theory.html#supports\">Probability theory</a> · Supports, distributions, and densities</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -363,6 +371,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -418,7 +430,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -456,6 +468,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -515,11 +531,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./large-deviations.html#cramer\">Large deviations</a> · Cramér's theorem</div>\n    <div><a href=\"./probabilistic-method.html#concentration\">Probabilistic method</a> · Concentration: Markov, Chebyshev, Chernoff, Azuma</div>\n    <div><a href=\"./probabilistic-method.html#existence\">Probabilistic method</a> · Existence by expectation</div>\n    <div><a href=\"./probabilistic-method.html#linearity\">Probabilistic method</a> · Linearity of expectation</div>\n    <div><a href=\"./probabilistic-method.html#thresholds\">Probabilistic method</a> · Thresholds in $G(n,p)$</div>\n    <div><a href=\"./probability-theory.html#lln\">Probability theory</a> · Law of large numbers</div>\n    <div class=\"more\">… and 3 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./information-theory.html#entropy\">Information theory</a> · Shannon entropy</div>\n    <div><a href=\"./large-deviations.html#cramer\">Large deviations</a> · Cramér's theorem</div>\n    <div><a href=\"./probabilistic-method.html#concentration\">Probabilistic method</a> · Concentration: Markov, Chebyshev, Chernoff, Azuma</div>\n    <div><a href=\"./probabilistic-method.html#existence\">Probabilistic method</a> · Existence by expectation</div>\n    <div><a href=\"./probabilistic-method.html#linearity\">Probabilistic method</a> · Linearity of expectation</div>\n    <div><a href=\"./probabilistic-method.html#thresholds\">Probabilistic method</a> · Thresholds in $G(n,p)$</div>\n    <div class=\"more\">… and 4 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -549,6 +565,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -608,7 +628,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -642,6 +662,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -731,7 +755,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -765,6 +789,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -828,7 +856,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -866,6 +894,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -945,7 +977,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -995,6 +1027,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -1072,11 +1108,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./stochastic-processes-and-martingales.html#continuous-martingales\">Stochastic processes and martingales</a> · Continuous-time martingales and Brownian motion</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./stochastic-calculus.html#ito-integral\">Stochastic calculus</a> · Itô integral</div>\n    <div><a href=\"./stochastic-processes-and-martingales.html#continuous-martingales\">Stochastic processes and martingales</a> · Continuous-time martingales and Brownian motion</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -1110,6 +1146,10 @@
         {
           "type": "raw",
           "html": "\n\n<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     }

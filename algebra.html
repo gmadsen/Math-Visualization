@@ -214,7 +214,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
     <div><a href="./galois.html#galois">Galois theory</a> · Field extensions and automorphisms</div>
     <div><a href="./galois.html#quintic">Galois theory</a> · Solvability by radicals</div>
     <div><a href="./group-schemes.html#hopf-algebra">Group schemes</a> · Affine group schemes ↔ commutative Hopf algebras</div>
-    <div class="more">… and 8 more.</div>
+    <div class="more">… and 9 more.</div>
 </aside>
 <!-- backlinks-auto-end -->
 
@@ -261,14 +261,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
     <div><a href="./elementary-topos-theory.html#g-set-topos">Elementary topos theory</a> · The topos of $G$-sets</div>
     <div><a href="./representation-theory.html#def">Representation theory</a> · Group representations</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 2: Cayley =============================== */
 (function(){
   // Groups catalog
@@ -548,6 +541,8 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 })();
 </script>
 
+
+</section>
 <section id="dihedral">
 <h2>3. Dihedral groups D<sub>n</sub></h2>
 <p>The symmetries of a regular $n$-gon form the dihedral group $D_n$ of order $2n$. It has the presentation</p>
@@ -568,10 +563,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
   <div class="readout" id="dih-readout"></div>
 </div>
 
-<p class="small">Under the hood: each button-press pre-multiplies the current element. The relation $srs=r^{-1}$ collapses any word to a canonical $r^a s^b$.</p>
-</section>
-
-<script>
+<p class="small">Under the hood: each button-press pre-multiplies the current element. The relation $srs=r^{-1}$ collapses any word to a canonical $r^a s^b$.</p><script>
 /* =============================== SECTION 3: Dihedral =============================== */
 (function(){
   const svg = $('#dih-svg');
@@ -720,6 +712,8 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 })();
 </script>
 
+
+</section>
 <section id="clock">
 <h2>4. The ring ℤ/nℤ</h2>
 <p>Reducing integers mod $n$ makes $\mathbb{Z}/n\mathbb{Z}$ a commutative ring of size $n$. Its structure hinges on a single number-theoretic fact: $a\in(\mathbb{Z}/n\mathbb{Z})^\times$ iff $\gcd(a,n)=1$.</p>
@@ -741,10 +735,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
   </div>
   <svg id="clk-svg" viewBox="0 0 820 360" width="820" height="360"><title>ℤ/nℤ clock</title></svg>
   <div class="readout" id="clk-readout"></div>
-</div>
-</section>
-
-<script>
+</div><script>
 /* =============================== SECTION 4: Z/nZ clock =============================== */
 (function(){
   const svg = $('#clk-svg');
@@ -865,6 +856,8 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 })();
 </script>
 
+
+</section>
 <section id="polyeuclid">
 <h2>5. Polynomial rings &amp; the Euclidean algorithm</h2>
 <p>For a field $k$, the ring $k[x]$ is a Euclidean domain with "size" = degree. So the same Euclidean algorithm that computes $\gcd$ in $\mathbb{Z}$ computes $\gcd$ in $k[x]$ — and with it, Bézout coefficients, irreducibility tests via divisibility, and field extensions like $\mathbb{Q}(\alpha)=\mathbb{Q}[x]/(m_\alpha)$.</p>
@@ -897,10 +890,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 
 <div class="note">
 <p style="margin:.2rem 0"><strong>Key consequence.</strong> In $k[x]$, $(f)+(g)=(\gcd(f,g))$, so every ideal is principal. This is why $k[x]/(p)$ is a field precisely when $p$ is irreducible — a fact we'll lean on in the next section to build $\mathbb{F}_{p^n}$.</p>
-</div>
-</section>
-
-<script>
+</div><script>
 /* =============================== SECTION 5: Polynomial Euclid =============================== */
 (function(){
   // Rationals with BigInt
@@ -1073,6 +1063,8 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 })();
 </script>
 
+
+</section>
 <section id="finite">
 <h2>6. Finite fields 𝔽<sub>pⁿ</sub></h2>
 <p>For every prime power $q=p^n$ there is a unique field with exactly $q$ elements, up to isomorphism. It's built as</p>
@@ -1102,15 +1094,9 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
     <div><a href="./category-theory.html#adj">Category theory</a> · Yoneda, limits, and adjunctions</div>
     <div><a href="./galois.html#normal-separable">Galois theory</a> · Normal and separable extensions</div>
     <div><a href="./galois.html#quintic">Galois theory</a> · Solvability by radicals</div>
+    <div><a href="./lie-algebras.html#solvable-nilpotent">Lie algebras</a> · Solvable and nilpotent Lie algebras</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 6: Finite fields =============================== */
 (function(){
   // precomputed monic irreducible polynomials (constant first)
@@ -1394,6 +1380,8 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 })();
 </script>
 
+
+</section>
 <section id="ideals">
 <h2>7. Ideals and quotient rings</h2>
 <p>For commutative rings, the analogue of a normal subgroup is an <strong>ideal</strong>: a subset $I\subseteq R$ closed under addition and under multiplication by <em>any</em> ring element, i.e. $rI\subseteq I$ for every $r\in R$. Ideals are exactly the kernels of ring homomorphisms, and the quotient ring $R/I$ is well-defined with the usual coset arithmetic $(r+I)+(s+I)=r+s+I,\ (r+I)(s+I)=rs+I$.</p>
@@ -1465,11 +1453,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
     <div><a href="./algebra.html#sylow">Abstract algebra</a> · Sylow theorems</div>
     <div><a href="./galois.html#solvable">Galois theory</a> · Solvable groups</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 9: Cosets =============================== */
 (function(){
   function mkZn(n){
@@ -1626,6 +1610,8 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 })();
 </script>
 
+
+</section>
 <section id="quotients-iso">
 <h2>10. Quotient groups and isomorphism theorems</h2>
 <p>When $N\trianglelefteq G$, the set of cosets $G/N$ carries a well-defined multiplication $(aN)(bN)=(ab)N$ — well-defined precisely because $N$ is normal, so the choice of representatives doesn't matter. The map $\pi:G\to G/N$, $g\mapsto gN$, is a surjective homomorphism with kernel $N$, and every surjection of $G$ arises this way.</p>
@@ -1660,11 +1646,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
     <div><a href="./algebra.html#semidirect">Abstract algebra</a> · Semidirect products and short exact sequences</div>
     <div><a href="./galois.html#solvable">Galois theory</a> · Solvable groups</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 10: Quotients =============================== */
 (function(){
   function mkZn(n){
@@ -1821,6 +1803,8 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 })();
 </script>
 
+
+</section>
 <section id="orbits">
 <h2>11. Group actions, orbits, and Burnside</h2>
 <p>A (left) <strong>action</strong> of $G$ on a set $X$ is a map $G\times X\to X$ satisfying $e\cdot x=x$ and $(gh)\cdot x=g\cdot(h\cdot x)$. The action partitions $X$ into <em>orbits</em> $G\cdot x=\{g\cdot x: g\in G\}$. For each $x$, its <em>stabilizer</em> $\mathrm{Stab}(x)=\{g: g\cdot x=x\}$ is a subgroup of $G$, and the <strong>orbit-stabilizer theorem</strong> gives</p>
@@ -1843,11 +1827,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
     <div><a href="./algebra.html#sylow">Abstract algebra</a> · Sylow theorems</div>
     <div><a href="./group-cohomology.html#bar">Group cohomology</a> · The bar resolution and $H^n(G,M)$</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 11: Orbits / Burnside =============================== */
 (function(){
   // D4 action on a 2x2 grid indexed [0 1 / 2 3] (row-major):
@@ -1992,6 +1972,8 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 })();
 </script>
 
+
+</section>
 <section id="sylow">
 <h2>12. Sylow theorems</h2>
 <p>Write $|G|=p^k m$ with $\gcd(p,m)=1$. A <strong>Sylow $p$-subgroup</strong> is a subgroup of order exactly $p^k$. The three Sylow theorems say:</p>
@@ -2011,10 +1993,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
   <div id="sy-out"></div>
   <div class="readout" id="sy-readout"></div>
 </div>
-<div class="quiz" data-concept="sylow-theorems"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="sylow-theorems"></div><script>
 /* =============================== SECTION 12: Sylow =============================== */
 (function(){
   function factor(n){
@@ -2082,6 +2061,8 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 })();
 </script>
 
+
+</section>
 <section id="abelian">
 <h2>13. Finite abelian groups</h2>
 <p>The <strong>fundamental theorem of finite abelian groups</strong> says every finite abelian group $A$ is (uniquely up to reordering) a direct sum of cyclic groups of prime-power order:</p>
@@ -2099,10 +2080,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
   <div id="ab-out"></div>
   <div class="readout" id="ab-readout"></div>
 </div>
-<div class="quiz" data-concept="finite-abelian-classification"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="finite-abelian-classification"></div><script>
 /* =============================== SECTION 13: Finite abelian =============================== */
 (function(){
   function factor(n){
@@ -2212,6 +2190,8 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 })();
 </script>
 
+
+</section>
 <section id="polyrings">
 <h2>14. Polynomial rings and irreducibility</h2>
 <p>Over a field $k$, the ring $k[x]$ is a Euclidean domain: its irreducibles are the prime elements, and every polynomial factors uniquely (up to units) into irreducibles. Over $\mathbb{Z}$, Gauss's lemma says a primitive polynomial in $\mathbb{Z}[x]$ is irreducible over $\mathbb{Z}$ iff it is irreducible over $\mathbb{Q}$.</p>
@@ -2242,10 +2222,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
   <div class="ttl">Used in</div>
     <div><a href="./galois.html#galois">Galois theory</a> · Splitting fields</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 14: Polynomial irreducibility =============================== */
 (function(){
   function parseCoeffs(s){
@@ -2412,6 +2389,8 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 })();
 </script>
 
+
+</section>
 <section id="semidirect">
 <h2>15. Semidirect products and short exact sequences</h2>
 <p>A <strong>short exact sequence</strong> of groups is a chain $1\to N\xrightarrow{\iota} G\xrightarrow{\pi} H\to 1$ with $\iota$ injective, $\pi$ surjective, and $\mathrm{im}\,\iota=\ker\pi$. So $N\trianglelefteq G$ and $G/N\cong H$. The sequence <em>splits</em> when $\pi$ admits a homomorphism section $s:H\to G$; equivalently $G$ is isomorphic to a <strong>semidirect product</strong> $N\rtimes_\varphi H$, where $\varphi:H\to\mathrm{Aut}(N)$, $\varphi(h)(n)=s(h)\,n\,s(h)^{-1}$.</p>
@@ -2436,10 +2415,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
   <div class="ttl">Used in</div>
     <div><a href="./group-cohomology.html#h2">Group cohomology</a> · $H^2$ classifies group extensions</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 15: Semidirect / SES =============================== */
 (function(){
   const nSl = $('#sd-n'), nV = $('#sd-nv');
@@ -2518,6 +2494,8 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 <div id="sections-end"></div>
 
 <footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+
+</section>
 </main>
 
 <script>

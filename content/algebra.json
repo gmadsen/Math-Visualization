@@ -21,7 +21,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebra.html#cayley\">Abstract algebra</a> · Cayley tables and subgroups</div>\n    <div><a href=\"./commutative-algebra.html#ideals\">Commutative algebra</a> · Ideals and quotient rings</div>\n    <div><a href=\"./functional-analysis.html#bounded\">Functional analysis</a> · Bounded operators and adjoints</div>\n    <div><a href=\"./galois.html#galois\">Galois theory</a> · Field extensions and automorphisms</div>\n    <div><a href=\"./galois.html#quintic\">Galois theory</a> · Solvability by radicals</div>\n    <div><a href=\"./group-schemes.html#hopf-algebra\">Group schemes</a> · Affine group schemes ↔ commutative Hopf algebras</div>\n    <div class=\"more\">… and 8 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebra.html#cayley\">Abstract algebra</a> · Cayley tables and subgroups</div>\n    <div><a href=\"./commutative-algebra.html#ideals\">Commutative algebra</a> · Ideals and quotient rings</div>\n    <div><a href=\"./functional-analysis.html#bounded\">Functional analysis</a> · Bounded operators and adjoints</div>\n    <div><a href=\"./galois.html#galois\">Galois theory</a> · Field extensions and automorphisms</div>\n    <div><a href=\"./galois.html#quintic\">Galois theory</a> · Solvability by radicals</div>\n    <div><a href=\"./group-schemes.html#hopf-algebra\">Group schemes</a> · Affine group schemes ↔ commutative Hopf algebras</div>\n    <div class=\"more\">… and 9 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -80,7 +80,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n\n\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -110,6 +110,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -142,7 +146,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p class=\"small\">Under the hood: each button-press pre-multiplies the current element. The relation $srs=r^{-1}$ collapses any word to a canonical $r^a s^b$.</p>\n</section>\n\n"
+          "html": "\n\n<p class=\"small\">Under the hood: each button-press pre-multiplies the current element. The relation $srs=r^{-1}$ collapses any word to a canonical $r^a s^b$.</p>"
         },
         {
           "type": "widget-script",
@@ -166,6 +170,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -207,7 +215,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -241,6 +249,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -278,7 +290,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<div class=\"note\">\n<p style=\"margin:.2rem 0\"><strong>Key consequence.</strong> In $k[x]$, $(f)+(g)=(\\gcd(f,g))$, so every ideal is principal. This is why $k[x]/(p)$ is a field precisely when $p$ is irreducible — a fact we'll lean on in the next section to build $\\mathbb{F}_{p^n}$.</p>\n</div>\n</section>\n\n"
+          "html": "\n\n<div class=\"note\">\n<p style=\"margin:.2rem 0\"><strong>Key consequence.</strong> In $k[x]$, $(f)+(g)=(\\gcd(f,g))$, so every ideal is principal. This is why $k[x]/(p)$ is a field precisely when $p$ is irreducible — a fact we'll lean on in the next section to build $\\mathbb{F}_{p^n}$.</p>\n</div>"
         },
         {
           "type": "widget-script",
@@ -308,6 +320,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -353,11 +369,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebra.html#ideals\">Abstract algebra</a> · Ideals and quotient rings</div>\n    <div><a href=\"./category-theory.html#adj\">Category theory</a> · Yoneda, limits, and adjunctions</div>\n    <div><a href=\"./galois.html#normal-separable\">Galois theory</a> · Normal and separable extensions</div>\n    <div><a href=\"./galois.html#quintic\">Galois theory</a> · Solvability by radicals</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebra.html#ideals\">Abstract algebra</a> · Ideals and quotient rings</div>\n    <div><a href=\"./category-theory.html#adj\">Category theory</a> · Yoneda, limits, and adjunctions</div>\n    <div><a href=\"./galois.html#normal-separable\">Galois theory</a> · Normal and separable extensions</div>\n    <div><a href=\"./galois.html#quintic\">Galois theory</a> · Solvability by radicals</div>\n    <div><a href=\"./lie-algebras.html#solvable-nilpotent\">Lie algebras</a> · Solvable and nilpotent Lie algebras</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
-          "html": "\n\n\n\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -381,6 +397,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -487,7 +507,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -517,6 +537,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -571,7 +595,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -601,6 +625,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -655,7 +683,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -685,6 +713,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -731,7 +763,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -761,6 +793,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -807,7 +843,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -837,6 +873,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -891,7 +931,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -925,6 +965,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -975,7 +1019,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -1005,6 +1049,10 @@
         {
           "type": "raw",
           "html": "\n\n<div id=\"sections-end\"></div>\n\n<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     }

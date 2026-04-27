@@ -365,8 +365,6 @@ function matMul(A,B){
     <div class="more">… and 2 more.</div>
 </aside>
 <!-- backlinks-auto-end -->
-</section>
-
 <script>
 /* =============================== SECTION 2: winding number widget =============================== */
 (function(){
@@ -530,6 +528,8 @@ function matMul(A,B){
 
 <div class="quiz" data-concept="fundamental-group"></div>
 
+
+</section>
 <section id="universal-cover-circle">
 <h2>3. The universal cover of S¹</h2>
 <p>The exponential map $p\colon \mathbb{R}\to S^1$, $t\mapsto e^{2\pi i t}$, is the canonical example of a <strong>covering space</strong>: every point of $S^1$ has a small arc whose preimage in $\mathbb{R}$ splits into a disjoint family of intervals, one per integer translate. The fibre over the basepoint $*=1$ is exactly $\mathbb{Z}\subset\mathbb{R}$, which is what makes the integers appear inside the topology of the circle.</p>
@@ -623,10 +623,7 @@ function matMul(A,B){
     <div><a href="./etale-fundamental-group.html#finite-etale-covers">The étale fundamental group</a> · Finite étale covers</div>
     <div><a href="./lie-groups.html#so3su2">Lie groups</a> · SO(3), SU(2), and the double cover</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 3: covering spaces =============================== */
 (function(){
   const pick = $('#cov-pick'), slide = $('#cov-slide'), lab = $('#cov-lab');
@@ -783,6 +780,8 @@ function matMul(A,B){
 
 <div class="quiz" data-concept="covering-spaces"></div>
 
+
+</section>
 <section id="homology">
 <h2>5. Simplicial and singular homology</h2>
 <p>The fundamental group sees only one-dimensional information and is painfully hard to compute (it's non-abelian in general). <em>Homology</em> is its abelianized cousin in all dimensions, and the price of abelianization is that we can actually compute it.</p>
@@ -836,16 +835,14 @@ function matMul(A,B){
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./algebraic-de-rham-cohomology.html#comparison-betti">Algebraic de Rham cohomology</a> · Comparison with Betti cohomology</div>
+    <div><a href="./characteristic-classes.html#chern">Characteristic classes</a> · Chern classes</div>
+    <div><a href="./characteristic-classes.html#euler">Characteristic classes</a> · Euler class</div>
+    <div><a href="./characteristic-classes.html#stiefel-whitney">Characteristic classes</a> · Stiefel–Whitney classes</div>
     <div><a href="./differential-forms.html#integration">Differential forms</a> · Integration of forms over chains</div>
     <div><a href="./etale-cohomology.html#comparison">Étale cohomology</a> · Comparison theorems: étale vs. singular, de Rham, crystalline</div>
-    <div><a href="./homological.html#les">Homological algebra</a> · Long exact sequence in homology</div>
-    <div><a href="./intersection-theory-chow.html#chow-groups">Intersection theory and Chow groups</a> · Chow groups $A_*(X)$</div>
-    <div><a href="./simplicial-complexes-combinatorial.html#realize">Simplicial complexes (combinatorial)</a> · Geometric realization and the nerve</div>
+    <div class="more">… and 4 more.</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 4: simplicial complex =============================== */
 (function(){
   const svg = $('#sp-svg'), out = $('#sp-out');
@@ -1087,6 +1084,8 @@ function matMul(A,B){
 
 <div class="quiz" data-concept="singular-homology"></div>
 
+
+</section>
 <section id="mv">
 <h2>6. Mayer–Vietoris</h2>
 <p>For $X = U\cup V$ with $U, V$ open (or more generally, a suitable cover), there is a long exact sequence of homology groups</p>
@@ -1114,10 +1113,7 @@ for $n\ge 1$. The base case $n=1$ is just $H_*(S^1)=\{\mathbb{Z},\mathbb{Z},0,\d
   <div class="readout" id="mv-out"></div>
 </div>
 
-<p>The same machinery tells you $H_*(T^2)$ via a split of the torus as two annuli; $H_*$ of any CW-complex via its cell filtration; and generally reduces the topology of a complicated space to its pieces plus a connecting homomorphism.</p>
-</section>
-
-<script>
+<p>The same machinery tells you $H_*(T^2)$ via a split of the torus as two annuli; $H_*$ of any CW-complex via its cell filtration; and generally reduces the topology of a complicated space to its pieces plus a connecting homomorphism.</p><script>
 /* =============================== SECTION 5: Mayer–Vietoris =============================== */
 (function(){
   const sel = $('#mv-n'), svg = $('#mv-svg'), out = $('#mv-out');
@@ -1223,6 +1219,8 @@ for $n\ge 1$. The base case $n=1$ is just $H_*(S^1)=\{\mathbb{Z},\mathbb{Z},0,\d
 })();
 </script>
 
+
+</section>
 <section id="chi">
 <h2>7. Euler characteristic and a taste of cohomology</h2>
 <p>The <strong>Euler characteristic</strong> of a finite CW-complex $X$ is the alternating sum</p>
@@ -1267,10 +1265,7 @@ The left side is a local analytic invariant (curvature integrated); the right si
 
 <div class="note"><strong>Big picture.</strong> The leap from $\pi_1$ to $H_*$ was the leap from non-abelian to abelian — from words to equivalence classes of chains. That move made everything computable. The price: information is lost (a knot complement has $\pi_1$ distinguishing knots that $H_*$ cannot tell apart). The trade-off between computable and sensitive is the central tension of the whole field, and it is why $\pi_n$, $H_n$, $H^n$, $K$-theory, bordism, etc. all coexist: each one picks a different balance on that axis.</div>
 
-<p class="small">Algebraic topology as a named discipline goes back to Poincaré's Analysis Situs (1895). Homology was in something like modern form by the 1920s (Noether insisted on groups instead of Betti numbers and torsion coefficients separately). Eilenberg and Steenrod axiomatized it all in 1952. Category-theoretic refinements from Grothendieck, Quillen, Lurie extend the story into derived and higher algebra — the algebraic topology of today.</p>
-</section>
-
-<script>
+<p class="small">Algebraic topology as a named discipline goes back to Poincaré's Analysis Situs (1895). Homology was in something like modern form by the 1920s (Noether insisted on groups instead of Betti numbers and torsion coefficients separately). Eilenberg and Steenrod axiomatized it all in 1952. Category-theoretic refinements from Grothendieck, Quillen, Lurie extend the story into derived and higher algebra — the algebraic topology of today.</p><script>
 /* =============================== SECTION 6: χ calculator =============================== */
 (function(){
   const pick = $('#chi-pick'), out = $('#chi-out'), svg = $('#chi-svg');
@@ -1470,6 +1465,8 @@ The left side is a local analytic invariant (curvature integrated); the right si
 </script>
 
 <footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+
+</section>
 </main>
 
 <script>

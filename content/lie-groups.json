@@ -93,7 +93,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-groups.html#algebra\">Lie groups</a> · Lie algebra as tangent space at the identity</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-algebras.html#axioms\">Lie algebras</a> · Axioms and matrix examples</div>\n    <div><a href=\"./lie-groups.html#algebra\">Lie groups</a> · Lie algebra as tangent space at the identity</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -363,7 +363,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-groups.html#adjoint\">Lie groups</a> · Adjoint representation and Killing form</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-algebras.html#derivations\">Lie algebras</a> · Derivations and the adjoint representation</div>\n    <div><a href=\"./lie-groups.html#adjoint\">Lie groups</a> · Adjoint representation and Killing form</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

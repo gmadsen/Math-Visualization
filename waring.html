@@ -303,10 +303,7 @@ which holds for all $k\le 471{,}600{,}000$ and all sufficiently large $k$ (Kubin
 
 
 
-<div class="quiz" data-concept="waring-problem-statement"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="waring-problem-statement"></div><script>
 (function(){
   function powersUpTo(k, lim){
     const arr=[]; for(let x=1; ; x++){ const v=Math.pow(x,k); if(v>lim) break; arr.push({x,v}); }
@@ -360,6 +357,8 @@ which holds for all $k\le 471{,}600{,}000$ and all sufficiently large $k$ (Kubin
 })();
 </script>
 
+
+</section>
 <section id="gvsG">
 <h2>2. <span>$g(k)$</span> versus <span>$G(k)$</span></h2>
 <p>The constant $g(k)$ is hostage to a few small "bad" integers — $7$, $23$, $79$, $223$ — that are inefficient because they are too small to use large powers. For the large-$n$ behaviour it is more natural to define the <strong>asymptotic Waring constant</strong>:</p>
@@ -395,10 +394,7 @@ which holds for all $k\le 471{,}600{,}000$ and all sufficiently large $k$ (Kubin
   <div class="readout small" id="gg-out">bars: $g(k)$ (yellow) vs $G(k)$ (green, midpoint when an interval is known). Gap shows the "exceptional" penalty.</div>
 </div>
 
-<div class="quiz" data-concept="g-k-vs-G-k"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="g-k-vs-G-k"></div><script>
 (function(){
   const data = [
     {k:2,  g:4,   Glo:4,  Ghi:4},
@@ -477,6 +473,8 @@ which holds for all $k\le 471{,}600{,}000$ and all sufficiently large $k$ (Kubin
 })();
 </script>
 
+
+</section>
 <section id="hilbert">
 <h2>3. Hilbert–Waring: finiteness</h2>
 <p>For 140 years after Waring no one could prove even that $g(k)<\infty$ in general. Then:</p>
@@ -564,10 +562,7 @@ $$r_{s,k}(N) = \int_0^1 f(\alpha)^s\, e(-\alpha N)\, d\alpha.$$</div>
 
 
 
-<div class="quiz" data-concept="circle-method-intro"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="circle-method-intro"></div><script>
 (function(){
   const svg = $('#c-svg'), kSel = $('#c-k'), mSl = $('#c-M'),
         mLab = $('#c-mlab'), out = $('#c-out');
@@ -675,6 +670,8 @@ $$r_{s,k}(N) = \int_0^1 f(\alpha)^s\, e(-\alpha N)\, d\alpha.$$</div>
 })();
 </script>
 
+
+</section>
 <section id="arcs">
 <h2>5. Major arcs: the main term</h2>
 <p>Pick $\alpha$ close to a reduced fraction $a/q$: write $\alpha = a/q + \beta$ with $|\beta|$ small. Then
@@ -726,10 +723,7 @@ The leading term $N^{s/k-1}$ is the geometric expectation: the volume of the box
   <div class="readout" id="gs-out"></div>
 </div>
 
-<div class="quiz" data-concept="major-vs-minor-arcs"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="major-vs-minor-arcs"></div><script>
 (function(){
   const kSel = $('#gs-k'), qIn = $('#gs-q'), aIn = $('#gs-a'), out = $('#gs-out');
   function gcd(a,b){ a=Math.abs(a); b=Math.abs(b); while(b){ const t=b; b=a%b; a=t;} return a; }
@@ -765,6 +759,8 @@ The leading term $N^{s/k-1}$ is the geometric expectation: the volume of the box
 })();
 </script>
 
+
+</section>
 <section id="local">
 <h2>6. Local densities — Hasse principle for powers</h2>
 <p>The singular series $\mathfrak{S}(N)$ is more than a bookkeeping device: it factors as a product over primes,

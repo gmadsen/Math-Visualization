@@ -282,14 +282,7 @@ By convention $p(0) = 1$ (the empty partition). A compact picture: each partitio
   <div class="ttl">Used in</div>
     <div><a href="./partitions-generating-functions.html#euler">Partitions and generating functions</a> · Euler's partition product</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* ============================ widget 1: partition explorer ========================= */
 (function(){
   const svg = $('#pn-svg'), slider = $('#pn-n'), out = $('#pn-nv');
@@ -364,6 +357,8 @@ By convention $p(0) = 1$ (the empty partition). A compact picture: each partitio
 })();
 </script>
 
+
+</section>
 <section id="euler">
 <h2>2. Euler's product formula</h2>
 <p>The magic. Consider the formal product
@@ -400,14 +395,7 @@ The middle step is the telescoping $1-q^{2n} = (1-q^n)(1+q^n)$.</li>
   <div class="ttl">Used in</div>
     <div><a href="./partitions-generating-functions.html#pent">Partitions and generating functions</a> · Euler's pentagonal number theorem</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =========================== widget 2: Euler product expansion ==================== */
 (function(){
   const svg = $('#euler-svg'), Nin = $('#euler-N'), Nv = $('#euler-Nv'), out = $('#euler-out');
@@ -493,6 +481,8 @@ The middle step is the telescoping $1-q^{2n} = (1-q^n)(1+q^n)$.</li>
 })();
 </script>
 
+
+</section>
 <section id="pent">
 <h2>3. Euler's pentagonal number theorem</h2>
 <p>Here is the surprise of surprises. Invert Euler's product — the series with $p(n)$ coefficients becomes $\prod(1-q^n)$, a product of signs and differences. Expanding this you might expect coefficients growing like $p(n)$ in magnitude with chaotic signs. Instead, the expansion is <em>almost entirely zero</em>:
@@ -531,14 +521,7 @@ Only $O(\sqrt{n})$ pentagonal numbers fit below $n$, so computing $p(n)$ takes $
     <div><a href="./partitions-generating-functions.html#eta">Partitions and generating functions</a> · Dedekind eta as a modular form</div>
     <div><a href="./partitions-generating-functions.html#ram">Partitions and generating functions</a> · Ramanujan congruences</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* ======================== widget 3: pentagonal recurrence ========================= */
 (function(){
   const svg = $('#pent-svg'), Nin = $('#pent-N'), Nv = $('#pent-Nv'), out = $('#pent-out');
@@ -625,6 +608,8 @@ Only $O(\sqrt{n})$ pentagonal numbers fit below $n$, so computing $p(n)$ takes $
 })();
 </script>
 
+
+</section>
 <section id="jtp">
 <h2>4. The Jacobi triple product</h2>
 <p>Euler's identity sits inside a two-variable master identity — the <strong>Jacobi triple product</strong>:
@@ -650,10 +635,7 @@ a sister identity used in the proof of <strong>Jacobi's two-square theorem</stro
   <svg id="jtp-svg" viewBox="0 0 620 240" width="620" height="240"><title>Triple product at $z = -q$, recovering Euler</title></svg>
   <div class="readout" id="jtp-out" style="font-size:.85rem"></div>
   <div class="small">Blue: sum side $\sum_{|k|\le N} (-1)^k q^{k(3k-1)/2}$. Yellow: product side $\prod_{n=1}^N (1-q^n)$. Both converge coefficient-by-coefficient; disagreement at $q^m$ arises only when $m$ is beyond the truncation window.</div>
-</div>
-</section>
-
-<script>
+</div><script>
 /* ============================== widget 4: triple product ========================== */
 (function(){
   const svg = $('#jtp-svg'), Nin = $('#jtp-N'), Nv = $('#jtp-Nv'), out = $('#jtp-out');
@@ -736,6 +718,8 @@ a sister identity used in the proof of <strong>Jacobi's two-square theorem</stro
 })();
 </script>
 
+
+</section>
 <section id="ram">
 <h2>5. Ramanujan's congruences</h2>
 <p>Look again at the table:
@@ -771,10 +755,7 @@ which makes the factor of $5$ explicit. The deeper explanation — why no other 
 </aside>
 <!-- callback-auto-end -->
 
-<div class="quiz" data-concept="ramanujan-congruences"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="ramanujan-congruences"></div><script>
 /* ============================== widget 5: Ramanujan check ========================= */
 (function(){
   const svg = $('#ram-svg'), input = $('#ram-n'), out = $('#ram-out');
@@ -867,6 +848,8 @@ which makes the factor of $5$ explicit. The deeper explanation — why no other 
 })();
 </script>
 
+
+</section>
 <section id="eta">
 <h2>6. The Dedekind eta function</h2>
 <p>All of this lives upstairs on the upper half-plane. Set $q = e^{2\pi i \tau}$ and define the <strong>Dedekind eta function</strong>
@@ -917,10 +900,7 @@ the first nonzero cusp form of weight $12$. Its coefficients $\tau(1), \tau(2), 
 
 
 
-<div class="quiz" data-concept="dedekind-eta-modular"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="dedekind-eta-modular"></div><script>
 /* ============================== widget 6: 1/eta expansion ========================= */
 (function(){
   const svg = $('#eta-svg'), Kin = $('#eta-K'), Kv = $('#eta-Kv'), out = $('#eta-out');
@@ -987,6 +967,8 @@ the first nonzero cusp form of weight $12$. Its coefficients $\tau(1), \tau(2), 
 })();
 </script>
 
+
+</section>
 <section id="hr">
 <h2>7. Hardy–Ramanujan asymptotics</h2>
 <p>How fast does $p(n)$ grow? In 1918 Hardy and Ramanujan proved the celebrated asymptotic
@@ -1002,10 +984,7 @@ A saddle-point in $\tau$ for the coefficient extraction $p(n) = \tfrac{1}{2\pi i
   <div class="hd"><div class="ttl">Hardy–Ramanujan vs. exact $p(n)$</div><div class="hint">relative error shrinks like $1/\sqrt{n}$</div></div>
   <svg id="hr-svg" viewBox="0 0 620 260" width="620" height="260"><title>Hardy–Ramanujan vs. exact $p(n)$</title></svg>
   <div class="readout" id="hr-out" style="font-size:.85rem"></div>
-</div>
-</section>
-
-<script>
+</div><script>
 /* ============================== widget 7: HR asymptotic ========================== */
 (function(){
   const svg = $('#hr-svg'), out = $('#hr-out');
@@ -1087,6 +1066,8 @@ A saddle-point in $\tau$ for the coefficient extraction $p(n) = \tfrac{1}{2\pi i
 })();
 </script>
 
+
+</section>
 <section id="forward">
 <h2>Where this goes next</h2>
 <p>Every strand widens downstream.</p>

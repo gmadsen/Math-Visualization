@@ -279,15 +279,7 @@ function drawNode(svg, x, y, label, opts={}){
     <div><a href="./automorphic-forms-adelic.html#lfunction">Automorphic forms (adelic)</a> · Automorphic $L$-functions</div>
     <div><a href="./L-functions.html#completed">L-functions</a> · Completion and functional equations</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 (function(){
   const svg = $('#sch-svg');
   if(!svg) return;
@@ -315,6 +307,8 @@ function drawNode(svg, x, y, label, opts={}){
 })();
 </script>
 
+
+</section>
 <section id="zeta">
 <h2>2. $\zeta(s)$ as prototype</h2>
 <p>The <strong>Riemann zeta function</strong> is the $L$-function with all local data trivial:
@@ -377,10 +371,7 @@ The coefficients $a_n$ are determined by the local quadratics via the recursion 
     <span id="ec-sv" class="readout" style="min-width:90px;flex:0 0 auto">s = 2.00</span>
   </div>
   <div class="small">Partial sum $\sum_{n\le N} a_n/n^s$ (cyan) vs partial Euler product $\prod_{p \le P} L_p(s)$ (yellow), for the CM curve $E: y^2 = x^3 - x$ (conductor 32). Both converge to $L(E,s)$ in the half-plane $\mathrm{Re}\,s &gt; 3/2$.</div>
-</div>
-</section>
-
-<script>
+</div><script>
 /* ============ ap bar chart for y^2 = x^3 - x ============ */
 (function(){
   const svg = $('#ap-svg');
@@ -707,6 +698,8 @@ The coefficients $a_n$ are determined by the local quadratics via the recursion 
 
 <div class="quiz" data-concept="lfunction-prototype"></div>
 
+
+</section>
 <section id="modular">
 <h2>4. $L(f,s)$ of a cusp form eigenform</h2>
 <p>Let $f = \sum_{n\ge 1} a_n q^n \in S_k(\Gamma_0(N))$ be a weight-$k$ cusp form that is also a simultaneous eigenform for all the <a href="./modular-forms.html">Hecke operators</a> $T_p$. Then its Dirichlet series
@@ -742,10 +735,7 @@ $$L(f,s) \;=\; \prod_{p \nmid N}\frac{1}{1 - a_p\,p^{-s} + p^{k-1}\,p^{-2s}} \;\
   </div>
   <div class="readout" id="hk-out"></div>
   <div class="small">Shows $a_{p^j}$ for $j = 0,1,2,\dots$ via $a_{p^{j+1}} = a_p\,a_{p^j} - p^{k-1}\,a_{p^{j-1}}$. For $k=12, p=2, a_2=-24$ this matches Ramanujan's $\tau(2^j)$.</div>
-</div>
-</section>
-
-<script>
+</div><script>
 /* ============ Hecke recursion demo ============ */
 (function(){
   const kSel = $('#hk-k'), pSel = $('#hk-p'), apIn = $('#hk-ap'), out = $('#hk-out'), svg = $('#hk-svg');
@@ -795,6 +785,8 @@ $$L(f,s) \;=\; \prod_{p \nmid N}\frac{1}{1 - a_p\,p^{-s} + p^{k-1}\,p^{-2s}} \;\
 
 <div class="quiz" data-concept="functional-equation-completion"></div>
 
+
+</section>
 <section id="completed">
 <h2>5. The completed $L$-function and the functional equation</h2>
 <p>Local data at primes gives a Dirichlet series; to get a clean functional equation we also need to include the <em>archimedean place</em>. For an elliptic curve $E/\mathbb{Q}$ with conductor $N$, define the <strong>completed $L$-function</strong>
@@ -846,10 +838,7 @@ The sign $w$ is the <strong>root number</strong> (or sign of the functional equa
     <div><a href="./L-functions.html#modularity">L-functions</a> · Arithmetic data and modularity links</div>
     <div><a href="./L-functions.html#special-values">L-functions</a> · Special values and arithmetic</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* ============ completed vs bare ============ */
 (function(){
   const svg = $('#fe-svg'), NSel = $('#fe-N'), wSel = $('#fe-w');
@@ -1001,6 +990,8 @@ The sign $w$ is the <strong>root number</strong> (or sign of the functional equa
 
 <div class="quiz" data-concept="arithmetic-data-lfunctions"></div>
 
+
+</section>
 <section id="mellin">
 <h2>6. The Mellin transform: from $f$ to $L(f,s)$</h2>
 <p>The bridge between the <em>upper half plane</em> and the <em>$s$-plane</em> is the Mellin transform. For a cusp form $f(\tau) = \sum_{n\ge 1} a_n\,e^{2\pi i n\tau}$ on the ray $\tau = iy$ with $y > 0$, we have $f(iy) = \sum_{n\ge 1} a_n\,e^{-2\pi n y}$ and
@@ -1016,10 +1007,7 @@ The functional equation $\Lambda(f,s) = \varepsilon\,\Lambda(f, k-s)$ is then a 
   <div class="hd"><div class="ttl">Mellin transform visual</div><div class="hint">$f(iy)$ as $y$ runs along the vertical ray</div></div>
   <svg id="mel-svg" viewBox="0 0 640 260" width="640" height="260"><title>Mellin transform visual</title></svg>
   <div class="small">Left: the upper half plane with the imaginary ray $\tau = iy$ highlighted. Right: the real-valued function $y \mapsto f(iy)$ decays exponentially at $\infty$ and (after the modular symmetry $y \mapsto 1/y$) at $0$. The Mellin integral $\int_0^\infty f(iy) y^{s-1}\,dy$ packages this two-sided decay into $\Lambda(f,s)$.</div>
-</div>
-</section>
-
-<script>
+</div><script>
 /* ============ Mellin visual ============ */
 (function(){
   const svg = $('#mel-svg');
@@ -1100,6 +1088,8 @@ The functional equation $\Lambda(f,s) = \varepsilon\,\Lambda(f, k-s)$ is then a 
 })();
 </script>
 
+
+</section>
 <section id="modularity">
 <h2>7. Why modularity matters</h2>
 <p>Two $L$-functions were constructed independently:
@@ -1140,15 +1130,7 @@ Equivalently: the Fourier coefficients of $f$ match the point-count data of $E$ 
     <div><a href="./L-functions.html#special-values">L-functions</a> · Special values and arithmetic</div>
     <div><a href="./sato-tate.html#symn">Sato–Tate</a> · Symmetric-power L-functions</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* ============ modularity dictionary schematic ============ */
 (function(){
   const svg = $('#md-svg');
@@ -1182,6 +1164,8 @@ Equivalently: the Fourier coefficients of $f$ match the point-count data of $E$ 
 })();
 </script>
 
+
+</section>
 <section id="continuation">
 <h2>8. Analytic continuation of $L$-functions</h2>
 <p>A Dirichlet series $L(s) = \sum a_n n^{-s}$ only defines a holomorphic function where it converges: for an elliptic curve the Hasse bound $|a_p|\le 2\sqrt p$ pins convergence to $\mathrm{Re}\,s > 3/2$; for $\zeta(s)$ to $\mathrm{Re}\,s > 1$. The content of saying "$L$ is an $L$-function" is that this half-plane restriction is an artifact — the true object extends to a meromorphic function on all of $\mathbb{C}$, with at most a simple pole at $s=1$ (and no poles at all for cusp-form $L$-functions).</p>

@@ -263,10 +263,7 @@ the number of ways to write $n$ as an ordered sum of $k$ integer squares (with s
   <p class="small">Row $n=0$ gives $r_k(0)=1$ (all zeros). Note the gaps in $r_2$ (no reps for $3,6,7,11,12,\ldots$), the single gap $r_3(7)=0$, and that $r_4(n)\ge 1$ for every $n$ — foreshadowing Lagrange.</p>
 </div>
 
-<p>The goal is to understand why these patterns appear, first by elementary number theory (Fermat, Gauss, Lagrange) and then by recognising the $r_k(n)$ as Fourier coefficients of a modular form.</p>
-</section>
-
-<script>
+<p>The goal is to understand why these patterns appear, first by elementary number theory (Fermat, Gauss, Lagrange) and then by recognising the $r_k(n)$ as Fourier coefficients of a modular form.</p><script>
 (function(){
   function r2(n){
     if(n<0) return 0;
@@ -345,6 +342,8 @@ the number of ways to write $n$ as an ordered sum of $k$ integer squares (with s
 })();
 </script>
 
+
+</section>
 <section id="fermat">
 <h2>2. Fermat's two-squares theorem</h2>
 <p>The key prime-level result, conjectured by Girard (1625), claimed by Fermat (1640), and proved by Euler by infinite descent (1749):</p>
@@ -376,10 +375,7 @@ Iterating until $k=1$ produces $p=a^2+b^2$.</p>
     <button id="bf-go">multiply</button>
   </div>
   <div class="readout" id="bf-out"></div>
-</div>
-</section>
-
-<script>
+</div><script>
 (function(){
   const go=document.getElementById('bf-go'), out=document.getElementById('bf-out');
   function render(){
@@ -401,6 +397,8 @@ Iterating until $k=1$ produces $p=a^2+b^2$.</p>
 })();
 </script>
 
+
+</section>
 <section id="gaussian">
 <h2>3. Why it works: the Gaussian integers</h2>
 <p>Fermat's theorem is the surface of a deeper structural fact. Pass from $\mathbb{Z}$ to the <strong>Gaussian integers</strong>
@@ -449,14 +447,7 @@ The norm $N(a+bi)=a^2+b^2$ is multiplicative, and $\mathbb{Z}[i]$ is a Euclidean
   <div class="ttl">Used in</div>
     <div><a href="./sums-of-squares.html#three">Sums of squares</a> · Legendre three-square theorem</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 (function(){
   const svg = document.getElementById('lat-svg');
   const pick = document.getElementById('lat-p');
@@ -517,6 +508,8 @@ The norm $N(a+bi)=a^2+b^2$ is multiplicative, and $\mathbb{Z}[i]$ is a Euclidean
 })();
 </script>
 
+
+</section>
 <section id="twosq">
 <h2>4. Two squares for general $n$</h2>
 <p>Multiplicativity in $\mathbb{Z}[i]$ lets us read off the answer for composite $n$. Factor $n=2^{e_0}\prod_{p\equiv 1} p^{e_p}\prod_{q\equiv 3} q^{f_q}$.</p>
@@ -561,10 +554,7 @@ where $d_j(n)$ is the number of positive divisors of $n$ congruent to $j\pmod 4$
 
 
 
-<div class="quiz" data-concept="two-squares-theorem"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="two-squares-theorem"></div><script>
 (function(){
   function factor(n){
     const f={}; let m=n;
@@ -632,6 +622,8 @@ where $d_j(n)$ is the number of positive divisors of $n$ congruent to $j\pmod 4$
 })();
 </script>
 
+
+</section>
 <section id="three">
 <h2>5. Three squares: Legendre–Gauss</h2>
 <p>Sums of three squares are more delicate — they do not form a semigroup under multiplication. Legendre (1798) and Gauss (1801) settled the question:</p>
@@ -668,14 +660,7 @@ where $h(D)$ is the class number of discriminant $D$. This is the first appearan
   <div class="ttl">Used in</div>
     <div><a href="./sums-of-squares.html#four">Sums of squares</a> · Four squares and Waring perspective</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 (function(){
   function isExcluded(n){
     if(n<=0) return false;
@@ -753,6 +738,8 @@ where $h(D)$ is the class number of discriminant $D$. This is the first appearan
 })();
 </script>
 
+
+</section>
 <section id="four">
 <h2>6. Four squares: Lagrange</h2>
 <p>Finally, everything becomes a sum of four squares:</p>
@@ -792,14 +779,7 @@ $$(a_1^2+a_2^2+a_3^2+a_4^2)(b_1^2+b_2^2+b_3^2+b_4^2) = c_1^2+c_2^2+c_3^2+c_4^2$$
     <div><a href="./sums-of-squares.html#waring">Sums of squares</a> · Waring's problem: g(k) and G(k)</div>
     <div><a href="./waring.html#statement">Waring's problem and the circle method</a> · Waring's problem: g(k)</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 (function(){
   function oneRep4(n){
     if(n===0) return '0²+0²+0²+0²';
@@ -858,6 +838,8 @@ $$(a_1^2+a_2^2+a_3^2+a_4^2)(b_1^2+b_2^2+b_3^2+b_4^2) = c_1^2+c_2^2+c_3^2+c_4^2$$
 })();
 </script>
 
+
+</section>
 <section id="waring">
 <h2>7. Waring's problem</h2>
 <p>If four squares suffice for every $n$, what about higher powers? Waring asked (1770): is there, for each $k\ge 1$, a finite number $g(k)$ such that every positive integer is a sum of at most $g(k)$ $k$-th powers?</p>
@@ -880,10 +862,7 @@ $$(a_1^2+a_2^2+a_3^2+a_4^2)(b_1^2+b_2^2+b_3^2+b_4^2) = c_1^2+c_2^2+c_3^2+c_4^2$$
   <div class="readout" id="waring-out">click a row…</div>
 </div>
 
-<div class="quiz" data-concept="waring-problem"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="waring-problem"></div><script>
 (function(){
   const rows = [
     {k:2, g:'4 (Lagrange)',         G:'4',      note:'Legendre–Gauss rules out $4^a(8b+7)$ for three'},
@@ -947,6 +926,8 @@ $$(a_1^2+a_2^2+a_3^2+a_4^2)(b_1^2+b_2^2+b_3^2+b_4^2) = c_1^2+c_2^2+c_3^2+c_4^2$$
 })();
 </script>
 
+
+</section>
 <section id="forward">
 <h2>8. Forward: $\theta$-series and modular forms</h2>
 <p>All of these counts $r_k(n)$ are Fourier coefficients of a single object. Define the Jacobi theta series
@@ -976,10 +957,7 @@ So every question about $r_k(n)$ is a question about the $q$-expansion of $\thet
   <li><em>modular-forms.html</em> — modular forms for $\mathrm{SL}_2(\mathbb{Z})$ and congruence subgroups, Eisenstein and cusp forms, Hecke operators, and the identification of $\theta^k$.</li>
 </ul>
 
-<p>So: the puzzle of which integers are sums of $k$ squares, which took two hundred years to untangle by elementary means, turns out to be <em>one equation</em> among generating functions on the upper half-plane — a story continued at <a href="./upper-half-plane-hyperbolic.html">upper-half-plane-hyperbolic.html</a> and onward.</p>
-</section>
-
-<script>
+<p>So: the puzzle of which integers are sums of $k$ squares, which took two hundred years to untangle by elementary means, turns out to be <em>one equation</em> among generating functions on the upper half-plane — a story continued at <a href="./upper-half-plane-hyperbolic.html">upper-half-plane-hyperbolic.html</a> and onward.</p><script>
 (function(){
   function r2(n){
     if(n===0) return 1;
@@ -1047,6 +1025,8 @@ So every question about $r_k(n)$ is a question about the $q$-expansion of $\thet
 </script>
 
 <footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+
+</section>
 </main>
 
 <script>

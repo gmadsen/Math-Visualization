@@ -290,7 +290,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n\n\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -330,6 +330,10 @@
         {
           "type": "raw",
           "html": "\n\n<!-- ================================================================== -->\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -380,7 +384,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -424,6 +428,10 @@
         {
           "type": "raw",
           "html": "\n\n<!-- ================================================================== -->\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -483,7 +491,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -510,6 +518,10 @@
         {
           "type": "raw",
           "html": "\n\n<!-- ================================================================== -->\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -574,7 +586,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -614,6 +626,10 @@
         {
           "type": "raw",
           "html": "\n\n<!-- ================================================================== -->\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -682,7 +698,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n\n\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -722,6 +738,10 @@
         {
           "type": "raw",
           "html": "\n\n<!-- ================================================================== -->\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -756,7 +776,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -783,6 +803,10 @@
         {
           "type": "raw",
           "html": "\n\n<div class=\"note\"><strong>Where this goes next.</strong> The same Euler-Maclaurin machinery powers Riemann-Siegel, the sharpest elementary algorithm for $\\zeta(s)$ on the critical line; the even-Bernoulli corrections become a trigonometric series in $t=\\operatorname{Im}(s)$, and the asymptotic cutoff is chosen around $K\\sim \\sqrt{t/(2\\pi)}$. That is the backbone of every numerical zero-verification ever computed.</div>\n\n<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     }

@@ -302,10 +302,7 @@ function drawNode(svg, x, y, label, opts={}){
     <div><a href="./zfc-and-ordinals.html#choice">ZFC and ordinals</a> · The axiom of choice</div>
     <div><a href="./zfc-and-ordinals.html#ordinals">ZFC and ordinals</a> · Von Neumann ordinals</div>
 </aside>
-<!-- backlinks-auto-end --><div class="quiz" data-concept="zfc-axioms"></div>
-</section>
-
-<script>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="zfc-axioms"></div><script>
 (function(){
   const slider = $('#cum-r'), lab = $('#cum-lab'), svg = $('#cum-svg'), out = $('#cum-out');
   // |V_n| for n=0..6 is 0,1,2,4,16,65536,2^65536 — the last is astronomical
@@ -352,6 +349,8 @@ the universe V = ⋃_α V_α is a proper class, not a set.`;
 })();
 </script>
 
+
+</section>
 <section id="ordinals">
 <h2>2. Von Neumann ordinals</h2>
 <p>An <strong>ordinal</strong> is a transitive set well-ordered by $\in$. Concretely, von Neumann's recipe is:</p>
@@ -399,10 +398,7 @@ the universe V = ⋃_α V_α is a proper class, not a set.`;
     <div><a href="./zfc-and-ordinals.html#cardinals">ZFC and ordinals</a> · Cardinals and cofinality</div>
     <div><a href="./zfc-and-ordinals.html#ordinal-arith">ZFC and ordinals</a> · Ordinal arithmetic</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 (function(){
   const buttons = $$('#w-ordpic button[data-mode]');
   const svg = $('#ordpic-svg'), out = $('#ordpic-out');
@@ -476,6 +472,8 @@ the universe V = ⋃_α V_α is a proper class, not a set.`;
 })();
 </script>
 
+
+</section>
 <section id="ordinal-arith">
 <h2>3. Ordinal arithmetic</h2>
 <p>Sum, product, and exponentiation of ordinals are defined by transfinite recursion on the second argument:</p>
@@ -519,10 +517,7 @@ with $\beta_1>\beta_2>\cdots>\beta_k$ and $n_i\in\mathbb N_{>0}$. The first ordi
 
 <div class="note"><strong>Gentzen's theorem.</strong> Peano arithmetic cannot prove that $\varepsilon_0$ is well-founded. Adding well-foundedness of $\varepsilon_0$ as an extra principle (Gentzen, 1936) yields a consistency proof of PA. So $\varepsilon_0$ is, quantitatively, where the strength of PA runs out.</div>
 
-<div class="quiz" data-concept="ordinal-arithmetic"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="ordinal-arithmetic"></div><script>
 (function(){
   const a=$('#oc-a'), op=$('#oc-op'), b=$('#oc-b'), out=$('#oc-out');
   // table of canonical results, computed once. keyed by (a, op, b).
@@ -651,6 +646,8 @@ the asymmetry is "left arg gets repeated, right arg is the count".`;
 })();
 </script>
 
+
+</section>
 <section id="cardinals">
 <h2>4. Cardinals and cofinality</h2>
 <p>Two sets have the same <strong>cardinality</strong> if there is a bijection between them. The <strong>cardinal</strong> $|X|$ is, in ZFC, the <em>least ordinal</em> in bijection with $X$ (this uses the well-ordering theorem, hence AC). For finite $X$ this is just the integer $|X|$; for infinite $X$ the cardinals are exactly the <em>initial</em> ordinals — those not in bijection with any smaller ordinal.</p>
@@ -697,10 +694,7 @@ $\mathbb R \hookrightarrow \mathcal P(\mathbb Q)$ via Dedekind cuts $r\mapsto\{q
     <div><a href="./zfc-and-ordinals.html#inaccessibles">ZFC and ordinals</a> · Inaccessible cardinals</div>
     <div><a href="./zfc-and-ordinals.html#ch">ZFC and ordinals</a> · The continuum hypothesis</div>
 </aside>
-<!-- backlinks-auto-end --><div class="quiz" data-concept="cardinals-cofinality"></div>
-</section>
-
-<script>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="cardinals-cofinality"></div><script>
 (function(){
   const svg=$('#aleph-svg'), out=$('#aleph-out');
   function render(){
@@ -741,6 +735,8 @@ $\mathbb R \hookrightarrow \mathcal P(\mathbb Q)$ via Dedekind cuts $r\mapsto\{q
 })();
 </script>
 
+
+</section>
 <section id="choice">
 <h2>5. The axiom of choice</h2>
 <p>Often phrased: <em>for every family of nonempty sets $\{A_i\}_{i\in I}$, the product $\prod_i A_i$ is nonempty.</em> Equivalently, there is a <strong>choice function</strong> $f\colon I\to\bigcup A_i$ with $f(i)\in A_i$ for all $i$.</p>
@@ -778,10 +774,7 @@ $\mathbb R \hookrightarrow \mathcal P(\mathbb Q)$ via Dedekind cuts $r\mapsto\{q
   <div class="ttl">Used in</div>
     <div><a href="./zfc-and-ordinals.html#inaccessibles">ZFC and ordinals</a> · Inaccessible cardinals</div>
 </aside>
-<!-- backlinks-auto-end --><div class="quiz" data-concept="axiom-of-choice"></div>
-</section>
-
-<script>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="axiom-of-choice"></div><script>
 (function(){
   const svg=$('#ch-svg'), out=$('#ch-out');
   const clearBtn=$('#ch-clear'), randBtn=$('#ch-rand');
@@ -841,6 +834,8 @@ picked so far: ${pick.filter(p=>p>=0).length}/${N}.
 })();
 </script>
 
+
+</section>
 <section id="ch">
 <h2>6. The continuum hypothesis</h2>
 <p>Cantor proved $|\mathbb N| < |\mathbb R|$ in 1874, and conjectured the <strong>continuum hypothesis</strong>:</p>
@@ -872,10 +867,7 @@ picked so far: ${pick.filter(p=>p>=0).length}/${N}.
   <div class="ttl">Used in</div>
     <div><a href="./forcing-and-independence.html#not-ch">Forcing and independence</a> · Independence of the continuum hypothesis</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 (function(){
   const svg=$('#ch-svg2'), out=$('#ch-out2');
   // candidates: ℵ₀, ℵ₁, ℵ₂, ℵ_ω, ℵ_{ω+1}
@@ -926,6 +918,8 @@ within that constraint, every aleph value is consistent with ZFC.`;
 })();
 </script>
 
+
+</section>
 <section id="inaccessibles">
 <h2>7. Inaccessible cardinals (and Grothendieck universes)</h2>
 <p>An uncountable cardinal $\kappa$ is <strong>(strongly) inaccessible</strong> if it is</p>
@@ -956,10 +950,7 @@ within that constraint, every aleph value is consistent with ZFC.`;
   <div class="readout" id="lc-out"></div>
 </div>
 
-<div class="quiz" data-concept="inaccessible-cardinals"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="inaccessible-cardinals"></div><script>
 (function(){
   const svg=$('#lc-svg'), out=$('#lc-out');
   const tiers = [
@@ -997,6 +988,8 @@ Woodin / supercompact — modern set theory; force determinacy axioms in inner m
 })();
 </script>
 
+
+</section>
 </main>
 
 <script>

@@ -67,7 +67,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -102,6 +102,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -237,7 +241,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n\n\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -347,6 +351,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -410,7 +418,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n\n\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -445,6 +453,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -491,7 +503,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -530,6 +542,10 @@
         {
           "type": "raw",
           "html": "\n\n<h3>Listen to the growth of $r_k(n)$</h3>\n<p>Numbers-on-a-page hide the qualitative fact that $r_4(n)$ grows linearly in $n$ (via $\\sigma(n)$), while $r_2(n)$ meanders and $r_1(n)$ is mostly zero. Sweep the slider below: pitch tracks $\\log(1 + r_k(n))$, so you hear the four-square density surge where $\\theta^4$ explodes. Choose $k$ with the buttons.</p>\n\n<div id=\"w-sonify-rk\"></div>\n\n<script>\n(function(){\n  if(!window.MVSonify) return;\n  // Minimal r_k table shared with widget 4 — recomputed here to keep\n  // this block self-contained.\n  function rk(k, n){\n    if(n < 0) return 0;\n    var N = n|0;\n    var r1 = new Array(N+1).fill(0);\n    r1[0] = 1;\n    for(var m=1; m*m<=N; m++) r1[m*m] = 2;\n    var cur = r1.slice();\n    for(var i=1; i<k; i++){\n      var nxt = new Array(N+1).fill(0);\n      for(var a=0; a<=N; a++){\n        if(!cur[a]) continue;\n        for(var b=0; a+b<=N; b++){\n          if(!r1[b]) continue;\n          nxt[a+b] += cur[a]*r1[b];\n        }\n      }\n      cur = nxt;\n    }\n    return cur[N] | 0;\n  }\n  // Memo by k; compute on demand.\n  var cache = {};\n  function rkM(k, n){\n    var key = k + ':' + n;\n    if(!(key in cache)) cache[key] = rk(k, n);\n    return cache[key];\n  }\n  var state = { k: 4 };\n  var host = document.getElementById('w-sonify-rk');\n  host.classList.add('widget');\n  host.innerHTML =\n    '<div class=\"hd\">' +\n      '<div class=\"ttl\">Sonify $r_k(n)$</div>' +\n      '<div class=\"hint\">pitch ∝ log(1 + $r_k(n)$); slider is $n$</div>' +\n    '</div>' +\n    '<div class=\"row\" id=\"sk-btns\">' +\n      '<button data-k=\"1\">θ</button>' +\n      '<button data-k=\"2\">θ²</button>' +\n      '<button data-k=\"3\">θ³</button>' +\n      '<button data-k=\"4\" class=\"active\">θ⁴</button>' +\n      '<button data-k=\"8\">θ⁸</button>' +\n    '</div>' +\n    '<div id=\"sk-sonify\"></div>';\n  function mkOpts(){\n    return {\n      title: 'r_' + state.k + '(n) as pitch',\n      hint: 'Slide n from 0 to 40. Silence where r_k(n)=0.',\n      paramRange: [0, 40],\n      step: 1,\n      initial: 16,\n      computePitch: function(n){\n        var v = rkM(state.k, n|0);\n        // 220 Hz → 1200 Hz over log scale 0..log(1+maxSeen).\n        var L = Math.log(1 + v);\n        return 220 + 160 * L;\n      },\n      computeGain: function(n){\n        var v = rkM(state.k, n|0);\n        if(v === 0) return 0;\n        return Math.min(0.35, 0.05 + 0.04 * Math.log(1 + v));\n      },\n      display: function(n){\n        var v = rkM(state.k, n|0);\n        return 'n = ' + (n|0) + '   r_' + state.k + '(n) = ' + v;\n      }\n    };\n  }\n  function mount(){\n    var slot = document.getElementById('sk-sonify');\n    slot.innerHTML = '';\n    var inner = document.createElement('div');\n    slot.appendChild(inner);\n    MVSonify.init(inner, mkOpts());\n  }\n  mount();\n  var btns = host.querySelectorAll('#sk-btns button');\n  btns.forEach(function(b){\n    b.addEventListener('click', function(){\n      btns.forEach(function(x){ x.classList.remove('active'); });\n      b.classList.add('active');\n      state.k = parseInt(b.dataset.k, 10);\n      mount();\n    });\n  });\n})();\n</script>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -593,7 +609,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n\n\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -632,6 +648,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -692,7 +712,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n\n\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -728,6 +748,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -822,7 +846,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -908,6 +932,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },

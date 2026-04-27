@@ -431,7 +431,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n\n\n\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -521,6 +521,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -588,7 +592,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -846,6 +850,10 @@
         {
           "type": "raw",
           "html": "\n\n<p>Parallel transport around a closed loop does <em>not</em> return the vector to itself — it rotates by an angle equal to $\\int K\\,dA$ over the enclosed region. This is the <strong>holonomy</strong> of the Levi-Civita connection; on a flat surface it would be zero, and the fact that it isn't is exactly curvature. It is the local-to-global shadow of the exterior angle contribution in Gauss–Bonnet.</p>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },

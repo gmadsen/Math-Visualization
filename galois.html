@@ -234,10 +234,7 @@ function factorizeInt(n){
   </div>
   <svg id="cs-svg" viewBox="0 0 820 440" width="820" height="440"><title>Compass &amp;amp; straightedge stepper</title></svg>
   <div class="readout" id="cs-readout"></div>
-</div>
-</section>
-
-<script>
+</div><script>
 /* =============================== SECTION 2: Compass & straightedge =============================== */
 (function(){
   const CONS = {
@@ -521,6 +518,8 @@ function factorizeInt(n){
 })();
 </script>
 
+
+</section>
 <section id="construct">
 <h2>3. What a compass <em>cannot</em> do</h2>
 <p>The jump from the preceding gallery to a precise algebraic statement is:</p>
@@ -587,10 +586,7 @@ for some $a\ge 0$ and distinct Fermat primes $p_i\in\{3,5,17,257,65537\}$ (no ot
   <svg id="ng-svg" viewBox="-130 -130 260 260" width="360" height="360"><title>n-gon constructibility checker</title></svg>
 </div>
 
-<p class="small">Gauss was sixteen when he discovered the construction of the regular 17-gon. He asked that it be engraved on his tombstone; the stonemason refused, reportedly saying that so many sides would look like a circle. The <em>65537</em>-gon — the largest $n$-gon known to be constructible from a single odd prime — was carried out explicitly by Hermes over a ten-year span; the manuscript sits in the attic of the mathematics department in Göttingen.</p>
-</section>
-
-<script>
+<p class="small">Gauss was sixteen when he discovered the construction of the regular 17-gon. He asked that it be engraved on his tombstone; the stonemason refused, reportedly saying that so many sides would look like a circle. The <em>65537</em>-gon — the largest $n$-gon known to be constructible from a single odd prime — was carried out explicitly by Hermes over a ten-year span; the manuscript sits in the attic of the mathematics department in Göttingen.</p><script>
 (function(){
   const nIn = $('#ng-n'), go = $('#ng-go'), out = $('#ng-out'),
         hint = $('#ng-hint'), svg = $('#ng-svg');
@@ -679,6 +675,8 @@ for some $a\ge 0$ and distinct Fermat primes $p_i\in\{3,5,17,257,65537\}$ (no ot
 })();
 </script>
 
+
+</section>
 <section id="galois">
 <h2>4. Splitting fields and Galois groups</h2>
 <p>Fix $f(x)\in\mathbb{Q}[x]$ separable of degree $d$ with roots $\alpha_1,\dots,\alpha_d\in\mathbb{C}$. The <strong>splitting field</strong> is $L=\mathbb{Q}(\alpha_1,\dots,\alpha_d)$. Every field automorphism $\sigma\colon L\to L$ fixing $\mathbb{Q}$ must send each root to another root, hence</p>
@@ -737,10 +735,7 @@ for some $a\ge 0$ and distinct Fermat primes $p_i\in\{3,5,17,257,65537\}$ (no ot
 
 
 
-<div class="quiz" data-concept="field-extensions-galois"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="field-extensions-galois"></div><script>
 (function(){
   const TAU = 2*Math.PI;
   function pol(r,t){ return [r*Math.cos(t), r*Math.sin(t)]; }
@@ -1012,6 +1007,8 @@ for some $a\ge 0$ and distinct Fermat primes $p_i\in\{3,5,17,257,65537\}$ (no ot
 })();
 </script>
 
+
+</section>
 <section id="solvable">
 <h2>5. Solvable groups</h2>
 <p>Galois' great insight: the arithmetic operation <em>"extract an $n$-th root"</em> corresponds, on the side of groups, to <em>"take a cyclic quotient"</em>. A tower of radical extensions</p>
@@ -1059,14 +1056,7 @@ reaches the trivial group in finitely many steps, where $G'=[G,G]$ is generated 
     <div><a href="./galois.html#quintic">Galois theory</a> · Radical extensions</div>
     <div><a href="./galois.html#quintic">Galois theory</a> · Solvability by radicals</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 (function(){
   function compose(a,b){ return a.map((_,i)=>a[b[i]]); }
   function inv(p){ const q=Array(p.length); p.forEach((v,i)=>{q[v]=i}); return q; }
@@ -1252,6 +1242,8 @@ reaches the trivial group in finitely many steps, where $G'=[G,G]$ is generated 
 })();
 </script>
 
+
+</section>
 <section id="quintic">
 <h2>6. The quintic</h2>
 <p>We have the two ingredients. Galois' main theorem ties them together:</p>
@@ -1534,10 +1526,7 @@ reaches the trivial group in finitely many steps, where $G'=[G,G]$ is generated 
 </aside>
 <!-- backlinks-auto-end -->
 
-<div class="quiz" data-concept="solvability-by-radicals"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="solvability-by-radicals"></div><script>
 (function(){
   const CLASSES = [
     {name:'{e}',  rep:'e',          ctype:'1⁵',    size:1},
@@ -1593,6 +1582,8 @@ reaches the trivial group in finitely many steps, where $G'=[G,G]$ is generated 
 })();
 </script>
 
+
+</section>
 <section id="normal-separable">
 <h2>7. Normal and separable extensions</h2>
 <p>Why did §4 quietly require <em>splitting fields</em>? Because an extension $L/K$ deserves to be called <strong>Galois</strong> only when two conditions are met. First, $L/K$ is <strong>normal</strong>: every irreducible polynomial in $K[x]$ that has one root in $L$ factors completely over $L$ — equivalently, $L$ is the splitting field of some polynomial. Second, $L/K$ is <strong>separable</strong>: every $\alpha\in L$ has a minimal polynomial over $K$ with distinct roots in an algebraic closure. In characteristic zero (and for finite fields) separability is free, so a normal finite extension <em>is</em> Galois; in characteristic $p$ the inseparable extension $\mathbb{F}_p(t)/\mathbb{F}_p(t^p)$ shows things can go wrong — its only automorphism is the identity, yet $[L:K]=p$.</p>

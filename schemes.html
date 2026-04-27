@@ -271,10 +271,7 @@ function mod(a,n){return ((a%n)+n)%n}
 
 <div class="note">
 <p style="margin:.2rem 0"><strong>Reading a scheme.</strong> A scheme has more information than a topological space. At each point $\mathfrak p$ there's a residue field $\kappa(\mathfrak p)$ and functions take values in different fields at different points. For $\operatorname{Spec}\mathbb{Z}$: $\kappa((p))=\mathbb{F}_p$ and $\kappa((0))=\mathbb{Q}$.</p>
-</div>
-</section>
-
-<script>
+</div><script>
 /* =============================== SECTION 2: Spec Z =============================== */
 (function(){
   const svg = $('#specz-svg');
@@ -389,6 +386,8 @@ function mod(a,n){return ((a%n)+n)%n}
 })();
 </script>
 
+
+</section>
 <section id="speckx">
 <h2>3. The affine line Spec k[x]</h2>
 <p>Let $k$ be a field. The primes of $k[x]$ are $(0)$ and $(f)$ where $f$ is irreducible over $k$. So $\operatorname{Spec}k[x]$ has one generic point, plus one closed point for each monic irreducible polynomial.</p>
@@ -426,10 +425,7 @@ function mod(a,n){return ((a%n)+n)%n}
   <div class="readout" id="speckx-readout">Pick a field and polynomial. Hover a dot for its prime ideal.</div>
 </div>
 
-<p class="small">Watch the point $(x^2+1)$ of $\operatorname{Spec}\mathbb{R}[x]$ split into two points $(x-i),(x+i)$ of $\operatorname{Spec}\mathbb{C}[x]$ when you switch $\mathbb{R}\to\mathbb{C}$. That's the first taste of <em>base change</em>: geometry changes with the field.</p>
-</section>
-
-<script>
+<p class="small">Watch the point $(x^2+1)$ of $\operatorname{Spec}\mathbb{R}[x]$ split into two points $(x-i),(x+i)$ of $\operatorname{Spec}\mathbb{C}[x]$ when you switch $\mathbb{R}\to\mathbb{C}$. That's the first taste of <em>base change</em>: geometry changes with the field.</p><script>
 /* =============================== SECTION 3: Spec k[x] =============================== */
 (function(){
   const svg = $('#speckx-svg');
@@ -646,6 +642,8 @@ function mod(a,n){return ((a%n)+n)%n}
 })();
 </script>
 
+
+</section>
 <section id="speckxy">
 <h2>4. Dimension two: Spec k[x,y]</h2>
 <p>One more dimension up. For $R=k[x,y]$ the primes come in three flavors:</p>
@@ -692,13 +690,7 @@ function mod(a,n){return ((a%n)+n)%n}
 <!-- backlinks-auto-end -->
 
 
-<div class="quiz" data-concept="structure-sheaf-schemes"></div>
-
-
-
-</section>
-
-<script>
+<div class="quiz" data-concept="structure-sheaf-schemes"></div><script>
 /* =============================== SECTION 4: Spec k[x,y] =============================== */
 (function(){
   const svg = $('#speckxy-svg');
@@ -853,6 +845,8 @@ function mod(a,n){return ((a%n)+n)%n}
 })();
 </script>
 
+
+</section>
 <section id="specialization">
 <h2>5. Zariski topology &amp; specialization</h2>
 <p>The closed sets of $\operatorname{Spec}R$ are the vanishing loci $V(I)=\{\mathfrak p\supseteq I\}$. The closure of a single point $\mathfrak p$ is $V(\mathfrak p)$ — the set of primes containing it. We say $\mathfrak p$ <strong>specializes</strong> to $\mathfrak q$, written $\mathfrak p \leadsto \mathfrak q$, if $\mathfrak p\subseteq \mathfrak q$, i.e. $\mathfrak q$ is in the closure of $\{\mathfrak p\}$.</p>
@@ -864,10 +858,7 @@ function mod(a,n){return ((a%n)+n)%n}
   <div class="readout" id="spec-readout">Click a node: the <span style="color:var(--yellow)">closure</span> is the node plus everything below. The <span style="color:var(--blue)">"generization"</span> is everything above.</div>
 </div>
 
-<p class="small">Heuristic: smaller ideal ⇒ bigger point. The empty ideal $(0)$ is the "biggest" (most generic) point; maximal ideals are the "smallest" (most specialized). Dimension of a scheme = length of the longest specialization chain.</p>
-</section>
-
-<script>
+<p class="small">Heuristic: smaller ideal ⇒ bigger point. The empty ideal $(0)$ is the "biggest" (most generic) point; maximal ideals are the "smallest" (most specialized). Dimension of a scheme = length of the longest specialization chain.</p><script>
 /* =============================== SECTION 5: Specialization poset =============================== */
 (function(){
   const svg = $('#spec-svg');
@@ -998,6 +989,8 @@ function mod(a,n){return ((a%n)+n)%n}
 })();
 </script>
 
+
+</section>
 <section id="fat">
 <h2>6. Nilpotents: fat points</h2>
 <p>Here's the payoff for the problem 1 we raised at the start. Consider the rings $\mathbb{C}[x]/(x)$ and $\mathbb{C}[x]/(x^n)$ for $n\geq 2$. Their sets of primes are both $\{(x)\}$ — a single point. But as <em>schemes</em> they differ: the structure ring remembers up to $(n-1)$-th order derivatives.</p>
@@ -1017,10 +1010,7 @@ function mod(a,n){return ((a%n)+n)%n}
   <div class="readout" id="fat-readout"></div>
 </div>
 
-<p>Two variables: $\operatorname{Spec}\mathbb{C}[x,y]/(x^2,xy,y^2)$ is a "fat point" with the full 2-dim tangent space. $\operatorname{Spec}\mathbb{C}[x,y]/(x^2,y)$ is a length-2 scheme pointing in the $x$-direction — an infinitesimal arrow.</p>
-</section>
-
-<script>
+<p>Two variables: $\operatorname{Spec}\mathbb{C}[x,y]/(x^2,xy,y^2)$ is a "fat point" with the full 2-dim tangent space. $\operatorname{Spec}\mathbb{C}[x,y]/(x^2,y)$ is a length-2 scheme pointing in the $x$-direction — an infinitesimal arrow.</p><script>
 /* =============================== SECTION 6: Fat points =============================== */
 (function(){
   const svg = $('#fat-svg');
@@ -1151,6 +1141,8 @@ function mod(a,n){return ((a%n)+n)%n}
 })();
 </script>
 
+
+</section>
 <section id="gluing">
 <h2>7. Gluing: building ℙ¹</h2>
 <p>A general scheme is not of the form $\operatorname{Spec}R$. It's built by <em>gluing</em> affines along open subsets. The simplest nontrivial example is the projective line $\mathbb{P}^1$.</p>
@@ -1176,14 +1168,7 @@ function mod(a,n){return ((a%n)+n)%n}
     <div><a href="./schemes.html#fiber-over-point">Schemes</a> · Fibers of a morphism over a point</div>
     <div><a href="./schemes.html#projective-scheme">Schemes</a> · Projective schemes and Proj</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 7: Gluing → P^1 =============================== */
 (function(){
   const svg = $('#glue-svg');
@@ -1353,6 +1338,8 @@ function mod(a,n){return ((a%n)+n)%n}
 
 <!-- SECTIONS TO BE APPENDED BELOW -->
 
+
+</section>
 <section id="generic-point">
 <h2>8. Generic points and specialization</h2>
 <p>Classical geometry only sees <em>closed</em> points — maximal ideals. Scheme theory adds one extra point for every non-maximal prime, and those extra points are surprisingly useful. A prime $\mathfrak p\subsetneq R$ that is not maximal is called a <strong>generic point</strong>. Its closure in $\operatorname{Spec}R$ is exactly $V(\mathfrak p) = \{\mathfrak q : \mathfrak p\subseteq \mathfrak q\}$, an <em>entire irreducible subvariety</em> — not just a point.</p>
@@ -1446,10 +1433,7 @@ function mod(a,n){return ((a%n)+n)%n}
   <div class="ttl">Used in</div>
     <div><a href="./intersection-theory-chow.html#cycles-and-equivalence">Intersection theory and Chow groups</a> · Algebraic cycles and rational equivalence</div>
 </aside>
-<!-- backlinks-auto-end --><div class="quiz" data-concept="closed-subscheme"></div>
-</section>
-
-<script>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="closed-subscheme"></div><script>
 /* =============================== SECTION 12: Closed subschemes (static) =============================== */
 (function(){
   const svg = $('#closed-sub-svg');
@@ -1506,6 +1490,8 @@ function mod(a,n){return ((a%n)+n)%n}
 })();
 </script>
 
+
+</section>
 <section id="dimension">
 <h2>13. Dimension of a scheme</h2>
 <p>The specialization picture from §5 already hints at a natural notion of dimension: chains of primes $\mathfrak p_0\subsetneq \mathfrak p_1\subsetneq\cdots\subsetneq \mathfrak p_d$ in $R$ correspond to chains of specializations $\mathfrak p_0\leadsto \mathfrak p_1\leadsto\cdots\leadsto \mathfrak p_d$ in $\operatorname{Spec}R$. The <strong>dimension</strong> of $\operatorname{Spec}R$ is the length of the longest such chain — by definition the <strong>Krull dimension</strong> of $R$.</p>
@@ -1550,10 +1536,7 @@ function mod(a,n){return ((a%n)+n)%n}
 </div>
 
 <p>The fiber $X_y$ can collapse, extend, or gain nilpotents depending on $y$ — that's precisely what "the family degenerates" means geometrically. Studying a morphism <em>is</em> studying how its fibers vary, and the dedicated page on <a href="./morphisms-fiber-products.html#fiber">morphisms and fiber products</a> develops this into the general theory of base change.</p>
-<div class="quiz" data-concept="fiber-over-point"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="fiber-over-point"></div><script>
 /* =============================== SECTION 14: Arithmetic surface fibers (static) =============================== */
 (function(){
   const svg = $('#fiber-svg');
@@ -1607,6 +1590,8 @@ function mod(a,n){return ((a%n)+n)%n}
 <div id="sections-end"></div>
 
 <footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+
+</section>
 </main>
 
 <script>

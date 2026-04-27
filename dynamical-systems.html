@@ -370,10 +370,7 @@ function rk4Step(f, t, y, h){
 <!-- backlinks-auto-end -->
 
 
-<div class="quiz" data-concept="dyn-orbits-flows"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="dyn-orbits-flows"></div><script>
 /* ============================= SECTION 1: flow widget ============================= */
 (function(){
   const svg = $('#fl-svg'), pick = $('#fl-pick'), Tslider=$('#fl-T'), Tval=$('#fl-Tval'), out=$('#fl-out');
@@ -438,6 +435,8 @@ function rk4Step(f, t, y, h){
 })();
 </script>
 
+
+</section>
 <section id="fixed">
 <h2>2. Fixed points and linearization</h2>
 <p>A <strong>fixed point</strong> $p^*$ is a zero of $X$: $X(p^*)=0$. Near $p^*$ the vector field looks like its linearization $DX(p^*)$, and the local dynamics is usually faithfully captured by this linear picture.</p>
@@ -475,11 +474,7 @@ function rk4Step(f, t, y, h){
     <div><a href="./dynamical-systems.html#bifurcation">Dynamical systems</a> · Bifurcations</div>
     <div><a href="./dynamical-systems.html#phase">Dynamical systems</a> · Phase portraits in 2D</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 (function(){
   const svg=$('#li-svg'), out=$('#li-out');
   const sa=$('#li-a'), sb=$('#li-b'), sc=$('#li-c'), sd=$('#li-d');
@@ -539,6 +534,8 @@ function rk4Step(f, t, y, h){
 })();
 </script>
 
+
+</section>
 <section id="phase">
 <h2>3. Phase portraits in 2D</h2>
 <p>In two dimensions, a full phase portrait is within reach. Start with the <em>linear</em> systems: the 2×2 Jacobian $A=\begin{pmatrix}a&amp;b\\c&amp;d\end{pmatrix}$ is classified by its <em>trace</em> $\operatorname{tr}A=a+d$ and <em>determinant</em> $\det A=ad-bc$. The $(\operatorname{tr},\det)$-plane is the atlas of 2D linear dynamics:</p>
@@ -580,11 +577,7 @@ function rk4Step(f, t, y, h){
   <div class="ttl">Used in</div>
     <div><a href="./dynamical-systems.html#limit-cycles">Dynamical systems</a> · Periodic orbits and limit cycles</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 (function(){
   const svg=$('#ph-svg'), pick=$('#ph-pick'), mu=$('#ph-mu'), muv=$('#ph-muval'), out=$('#ph-out');
   function render(){
@@ -651,6 +644,8 @@ function rk4Step(f, t, y, h){
 })();
 </script>
 
+
+</section>
 <section id="limit-cycles">
 <h2>4. Periodic orbits and limit cycles</h2>
 <p>A <strong>periodic orbit</strong> is a closed curve in phase space traced out by a non-constant solution. A <strong>limit cycle</strong> is an isolated periodic orbit: there is a neighbourhood containing no other periodic orbit. Limit cycles are the attractors that do not collapse to a point — self-sustained oscillators live there.</p>
@@ -679,11 +674,7 @@ function rk4Step(f, t, y, h){
   <div class="ttl">Used in</div>
     <div><a href="./dynamical-systems.html#poincare">Dynamical systems</a> · Poincaré sections and return maps</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 (function(){
   const svg=$('#vd-svg'), mu=$('#vd-mu'), muv=$('#vd-muval'), out=$('#vd-out');
   function render(){
@@ -722,6 +713,8 @@ function rk4Step(f, t, y, h){
 })();
 </script>
 
+
+</section>
 <section id="maps">
 <h2>5. Iterated maps and the logistic family</h2>
 <p>Discrete dynamics: pick a map $f\colon X\to X$ and iterate. The orbit of $x$ is the sequence $x,\,f(x),\,f^2(x),\,\ldots$ A <strong>fixed point</strong> satisfies $f(x^*)=x^*$; a <strong>period-$n$ point</strong> satisfies $f^n(x^*)=x^*$ with $n$ minimal. Linearization near a fixed point: $x_{k+1}-x^*\approx f'(x^*)(x_k-x^*)$, so stability is governed by the <strong>multiplier</strong> $f'(x^*)$ — attracting iff $|f'(x^*)|&lt;1$.</p>
@@ -756,11 +749,7 @@ function rk4Step(f, t, y, h){
     <div><a href="./dynamical-systems.html#poincare">Dynamical systems</a> · Poincaré sections and return maps</div>
     <div><a href="./dynamical-systems.html#period-doubling-cascade">Dynamical systems</a> · The period-doubling cascade</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 (function(){
   const svg=$('#co-svg'), pick=$('#co-pick'), rs=$('#co-r'), xs=$('#co-x0');
   const rv=$('#co-rval'), xv=$('#co-x0val'), out=$('#co-out');
@@ -804,6 +793,8 @@ function rk4Step(f, t, y, h){
 })();
 </script>
 
+
+</section>
 <section id="period-doubling-cascade">
 <h2>6. The period-doubling cascade</h2>
 <p>Zoom in on the logistic family at the boundary between order and chaos. As $r$ grows past $3$ the attracting fixed point $x^*=1-1/r$ loses stability and a stable 2-cycle is born; past $r_2\approx 3.449$ the 2-cycle bifurcates to a 4-cycle; then to an 8-cycle, then 16, 32, $\ldots$ The bifurcation values $r_n$ accumulate at $r_\infty\approx 3.5699$, beyond which the orbit becomes (generically) chaotic. The successive intervals $r_n-r_{n-1}$ shrink at a geometric rate</p>
@@ -814,11 +805,7 @@ function rk4Step(f, t, y, h){
 
 <div class="widget" id="w-logistic-chaos"></div>
 
-<div class="quiz" data-concept="period-doubling-cascade"></div>
-
-</section>
-
-<script>
+<div class="quiz" data-concept="period-doubling-cascade"></div><script>
 (function(){
   if(!window.MVRecurrencePlotter) return;
   MVRecurrencePlotter.init('#w-logistic-chaos', {
@@ -830,6 +817,8 @@ function rk4Step(f, t, y, h){
 })();
 </script>
 
+
+</section>
 <section id="bifurcation">
 <h2>7. Bifurcations</h2>
 <p>A <strong>bifurcation</strong> is a qualitative change in the phase portrait as a parameter crosses a critical value. Locally, every codimension-one bifurcation in a 1-parameter family looks (up to smooth change of coordinates) like one of a handful of <em>normal forms</em>:</p>
@@ -864,11 +853,7 @@ function rk4Step(f, t, y, h){
   <div class="ttl">Used in</div>
     <div><a href="./dynamical-systems.html#chaos">Dynamical systems</a> · Chaos and Lyapunov exponents</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 (function(){
   const svg=$('#bi-svg'), rs=$('#bi-r'), rv=$('#bi-rval'), out=$('#bi-out');
   // Precompute the attractor as a set of (r, x) dots.
@@ -903,6 +888,8 @@ function rk4Step(f, t, y, h){
 })();
 </script>
 
+
+</section>
 <section id="chaos">
 <h2>8. Chaos and Lyapunov exponents</h2>
 <p>Chaos, as formalized by Devaney, requires three things of a map $f\colon X\to X$:</p>
@@ -936,11 +923,7 @@ function rk4Step(f, t, y, h){
     <div><a href="./dynamical-systems.html#attractors">Dynamical systems</a> · Strange attractors</div>
     <div><a href="./dynamical-systems.html#symbolic">Dynamical systems</a> · Symbolic dynamics</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 (function(){
   const svg=$('#ly-svg'), rs=$('#ly-r'), rv=$('#ly-rval'), out=$('#ly-out');
   const R0=2.8, R1=4.0;
@@ -986,6 +969,8 @@ function rk4Step(f, t, y, h){
 })();
 </script>
 
+
+</section>
 <section id="conservative">
 <h2>9. Conservative vs dissipative flows</h2>
 <p>How does a flow treat phase-space volume? The answer is contained in the divergence of the vector field and Liouville's theorem.</p>
@@ -1024,10 +1009,7 @@ Consequences: $\operatorname{div}X\equiv 0$ ⇒ flow preserves volume (<em>conse
 </aside>
 <!-- callback-auto-end -->
 
-<div class="quiz" data-concept="dyn-conservative-dissipative"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="dyn-conservative-dissipative"></div><script>
 (function(){
   const svg=$('#dv-svg'), pick=$('#dv-pick'), Ts=$('#dv-T'), Tv=$('#dv-Tval'), out=$('#dv-out');
   const FIELDS = {
@@ -1068,6 +1050,8 @@ Consequences: $\operatorname{div}X\equiv 0$ ⇒ flow preserves volume (<em>conse
 })();
 </script>
 
+
+</section>
 <section id="poincare">
 <h2>10. Poincaré sections and return maps</h2>
 <p>How do you study a cycle without getting tangled in continuous time? Cut across it. Choose a codimension-1 submanifold $\Sigma\subset M$ transverse to the flow, and look at the sequence of <em>hits</em>.</p>
@@ -1093,11 +1077,7 @@ Consequences: $\operatorname{div}X\equiv 0$ ⇒ flow preserves volume (<em>conse
   <div class="ttl">Used in</div>
     <div><a href="./dynamical-systems.html#attractors">Dynamical systems</a> · Strange attractors</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 (function(){
   const svg=$('#po-svg'), cs=$('#po-c'), cv=$('#po-cval'), out=$('#po-out');
   function render(){
@@ -1135,6 +1115,8 @@ Consequences: $\operatorname{div}X\equiv 0$ ⇒ flow preserves volume (<em>conse
 })();
 </script>
 
+
+</section>
 <section id="symbolic">
 <h2>11. Symbolic dynamics</h2>
 <p>Symbolic dynamics translates a dynamical system into a language on an alphabet. Partition state space into finitely many labelled cells $A_0,\ldots,A_{k-1}$; the <strong>itinerary</strong> of $x$ is the sequence $\sigma(x)=(a_0,a_1,a_2,\ldots)$ where $a_n$ is the label of the cell containing $f^n(x)$. Under mild conditions the map $\sigma$ becomes a topological conjugacy — or at least a semiconjugacy — to the <strong>shift</strong> $\sigma_s\colon (s_0,s_1,\ldots)\mapsto (s_1,s_2,\ldots)$ on the sequence space $\Omega_k=\{0,\ldots,k-1\}^{\mathbb{N}}$.</p>
@@ -1152,10 +1134,7 @@ Consequences: $\operatorname{div}X\equiv 0$ ⇒ flow preserves volume (<em>conse
   <div class="readout" id="sy-out"></div>
 </div>
 
-<div class="quiz" data-concept="dyn-symbolic-dynamics"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="dyn-symbolic-dynamics"></div><script>
 (function(){
   const svg=$('#sy-svg'), xs=$('#sy-x'), xv=$('#sy-xval'), out=$('#sy-out');
   function render(){
@@ -1194,6 +1173,8 @@ Consequences: $\operatorname{div}X\equiv 0$ ⇒ flow preserves volume (<em>conse
 })();
 </script>
 
+
+</section>
 <section id="ergodic">
 <h2>12. Ergodicity and invariant measures</h2>
 <p>Add a measure, and time averages turn into space averages. A measurable map $T\colon X\to X$ on a probability space $(X,\mathcal{B},\mu)$ is <strong>measure-preserving</strong> if $\mu(T^{-1}A)=\mu(A)$ for every $A\in\mathcal{B}$. It is <strong>ergodic</strong> if every $T$-invariant measurable set has measure $0$ or $1$.</p>
@@ -1224,10 +1205,7 @@ converges almost everywhere to a $T$-invariant function $\bar f\in L^1$. If $T$ 
 </aside>
 <!-- callback-auto-end -->
 
-<div class="quiz" data-concept="dyn-ergodicity"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="dyn-ergodicity"></div><script>
 (function(){
   const svg=$('#er-svg'), xs=$('#er-x'), xv=$('#er-xval'), out=$('#er-out');
   function render(){
@@ -1260,6 +1238,8 @@ converges almost everywhere to a $T$-invariant function $\bar f\in L^1$. If $T$ 
 })();
 </script>
 
+
+</section>
 <section id="attractors">
 <h2>13. Strange attractors</h2>
 <p>A <strong>strange attractor</strong> is an invariant set $\Lambda$ that</p>
@@ -1286,10 +1266,7 @@ converges almost everywhere to a $T$-invariant function $\bar f\in L^1$. If $T$ 
   <div class="readout" id="lo-out"></div>
 </div>
 
-<div class="quiz" data-concept="dyn-strange-attractors"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="dyn-strange-attractors"></div><script>
 (function(){
   const svg=$('#lo-svg');
   const ss=$('#lo-s'), bs=$('#lo-b'), rs=$('#lo-r');
@@ -1357,6 +1334,8 @@ converges almost everywhere to a $T$-invariant function $\bar f\in L^1$. If $T$ 
 </script>
 
 <footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+
+</section>
 </main>
 
 <script>

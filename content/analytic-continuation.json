@@ -77,7 +77,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -121,6 +121,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -188,7 +192,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -222,6 +226,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -281,7 +289,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -315,6 +323,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -383,7 +395,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -427,6 +439,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -488,7 +504,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p class=\"small\">Try $\\theta = 0$ (corresponding to $z=r$ real): the partial sums grow like $1/\\sqrt{1-r}$, diverging at $r=1$. Try a rational angle $\\theta = 2\\pi\\cdot p/q$: same growth, after pulling out a root-of-unity phase. Try a \"generic\" irrational angle: partial sums oscillate wildly but individual values are small — yet no neighborhood of the angle is free of singularities.</p>\n</section>\n\n"
+          "html": "\n\n<p class=\"small\">Try $\\theta = 0$ (corresponding to $z=r$ real): the partial sums grow like $1/\\sqrt{1-r}$, diverging at $r=1$. Try a rational angle $\\theta = 2\\pi\\cdot p/q$: same growth, after pulling out a root-of-unity phase. Try a \"generic\" irrational angle: partial sums oscillate wildly but individual values are small — yet no neighborhood of the angle is free of singularities.</p>"
         },
         {
           "type": "widget-script",
@@ -542,6 +558,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -687,7 +707,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -812,6 +832,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },

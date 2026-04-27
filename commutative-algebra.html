@@ -448,11 +448,7 @@ function allMonicPolysUpToDeg(d,p){
     <div><a href="./commutative-algebra.html#radicals">Commutative algebra</a> · Nilradical and Jacobson radical</div>
     <div><a href="./commutative-algebra.html#zariski">Commutative algebra</a> · Spec and Zariski topology</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 2: prime vs maximal explorer =============================== */
 (function(){
   const DATA = {
@@ -537,6 +533,8 @@ function allMonicPolysUpToDeg(d,p){
 })();
 </script>
 
+
+</section>
 <section id="zariski">
 <h2>3. Spec and the Zariski topology</h2>
 <p>Given a ring $A$, $\mathrm{Spec}(A)$ becomes a topological space with closed sets</p>
@@ -587,11 +585,7 @@ function allMonicPolysUpToDeg(d,p){
   <div class="ttl">Used in</div>
     <div><a href="./commutative-algebra.html#dim">Commutative algebra</a> · Krull dimension and depth heuristics</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 3: Zariski topology explorer =============================== */
 (function(){
   const CONFIG = {
@@ -696,6 +690,8 @@ function allMonicPolysUpToDeg(d,p){
 })();
 </script>
 
+
+</section>
 <section id="radicals">
 <h2>4. Nilradical and Jacobson radical</h2>
 <p>Two canonical ideals measure different flavors of "smallness":</p>
@@ -726,10 +722,7 @@ $$\mathrm{Jac}(A) = \bigcap_{\mathfrak{m}\text{ maximal}}\mathfrak{m} = \{x\in A
   <div class="readout" id="rad-out" style="min-height:8em"></div>
 </div>
 <p class="small">Nilradical is "algebraic information you can't see geometrically" — reducing a scheme kills nilpotents but keeps the underlying point set. Jacobson radical is what Nakayama's lemma handles in §9.</p>
-<div class="quiz" data-concept="nilradical-jacobson-ca"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="nilradical-jacobson-ca"></div><script>
 /* =============================== SECTION 4: radicals =============================== */
 (function(){
   function radOfN(n){
@@ -1159,6 +1152,8 @@ $$\mathrm{Jac}(A) = \bigcap_{\mathfrak{m}\text{ maximal}}\mathfrak{m} = \{x\in A
 })();
 </script>
 
+
+</section>
 <section id="modules">
 <h2>5. Modules and tensor products</h2>
 <p>A module $M$ over $A$ is an abelian group with an $A$-action — "linear algebra over rings". When $A$ is a field this is just a vector space; when $A=\mathbb{Z}$ it is an abelian group. The interesting thing is that over $\mathbb{Z}$, unlike over a field, modules can have <em>torsion</em>: $2\cdot \bar 1 = 0$ in $\mathbb{Z}/2$.</p>
@@ -1203,11 +1198,7 @@ Consequence: $\mathbb{Z}/m \otimes_\mathbb{Z} \mathbb{Z}/n \;=\; \mathbb{Z}/\gcd
     <div><a href="./commutative-algebra.html#nakayama">Commutative algebra</a> · Nakayama's lemma and Zariski tangent spaces</div>
     <div><a href="./commutative-algebra.html#noetherian">Commutative algebra</a> · Noetherian rings and Hilbert basis</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 2: tensor product =============================== */
 (function(){
   function parseGroup(s){
@@ -1326,6 +1317,8 @@ Consequence: $\mathbb{Z}/m \otimes_\mathbb{Z} \mathbb{Z}/n \;=\; \mathbb{Z}/\gcd
 })();
 </script>
 
+
+</section>
 <section id="noetherian">
 <h2>6. Noetherian rings and the Hilbert basis theorem</h2>
 <p>A ring $A$ is <strong>Noetherian</strong> when every ascending chain of ideals $I_1\subseteq I_2\subseteq\cdots$ eventually stabilizes — equivalently, every ideal is finitely generated. This bounds "how complicated" ideals can be and is the single hypothesis most commutative-algebra theorems actually need.</p>
@@ -1359,11 +1352,7 @@ Consequence: $\mathbb{Z}/m \otimes_\mathbb{Z} \mathbb{Z}/n \;=\; \mathbb{Z}/\gcd
     <div><a href="./commutative-algebra.html#integral">Commutative algebra</a> · Integral extensions and Noether normalization</div>
     <div><a href="./simplicial-complexes-combinatorial.html#shell">Simplicial complexes (combinatorial)</a> · Shellable and Cohen–Macaulay complexes</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 6: Noetherian ascending chain =============================== */
 (function(){
   const SETUPS = {
@@ -1429,6 +1418,8 @@ Consequence: $\mathbb{Z}/m \otimes_\mathbb{Z} \mathbb{Z}/n \;=\; \mathbb{Z}/\gcd
 })();
 </script>
 
+
+</section>
 <section id="artinian-local">
 <h2>7. Artinian local rings</h2>
 <p>A ring $A$ is <strong>Artinian</strong> when it satisfies the descending chain condition (DCC): every chain of ideals $I_1\supseteq I_2\supseteq\cdots$ eventually stabilizes. The dual of Noetherianness — but the two are <em>not</em> symmetric. The Akizuki–Hopkins theorem gives a much sharper picture:</p>
@@ -1466,10 +1457,7 @@ Consequence: $\mathbb{Z}/m \otimes_\mathbb{Z} \mathbb{Z}/n \;=\; \mathbb{Z}/\gcd
   <div class="ttl">Used in</div>
     <div><a href="./deformation-theory.html#deformation-functor">Deformation theory</a> · Deformation functors and Schlessinger's criteria</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 7: Artinian local zoo =============================== */
 (function(){
   const RINGS = [
@@ -1526,6 +1514,8 @@ Consequence: $\mathbb{Z}/m \otimes_\mathbb{Z} \mathbb{Z}/n \;=\; \mathbb{Z}/\gcd
 })();
 </script>
 
+
+</section>
 <section id="localize">
 <h2>8. Localization</h2>
 <p>Localization is the algebraic shadow of "zooming in". Pick a multiplicatively closed set $S\subset A$ (with $1\in S$, closed under multiplication, not containing $0$ unless you want to kill the ring). The <strong>localization</strong></p>
@@ -1567,14 +1557,7 @@ Consequence: $\mathbb{Z}/m \otimes_\mathbb{Z} \mathbb{Z}/n \;=\; \mathbb{Z}/\gcd
     <div><a href="./schemes.html#residue-field">Schemes</a> · Residue fields and evaluation at points</div>
     <div><a href="./sheaves.html#qcoh">Sheaves</a> · Quasi-coherent sheaves on affine schemes</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 3: localization =============================== */
 (function(){
   const ringSel = $('#loc-ring'), modeSel = $('#loc-mode'),
@@ -1678,6 +1661,8 @@ Consequence: $\mathbb{Z}/m \otimes_\mathbb{Z} \mathbb{Z}/n \;=\; \mathbb{Z}/\gcd
 })();
 </script>
 
+
+</section>
 <section id="flat">
 <h2>9. Flatness</h2>
 <p>Tensoring is right-exact but not always left-exact. An $A$-module $M$ is <strong>flat</strong> if tensoring with $M$ preserves injections — equivalently, preserves all short <a href="./homological.html#exact" data-auto-inline-link="1" data-concept-id="exact-sequences" data-blurb="Exactness at B means im f = ker g; short exact sequences 0→A→B→C→0 are the atomic building blocks of homological algebra.">exact sequences</a>:</p>
@@ -1727,10 +1712,7 @@ so the first map becomes zero and is no longer injective. The kernel is $\mathrm
 </aside>
 <!-- callback-auto-end -->
 
-<div class="quiz" data-concept="flatness-ca"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="flatness-ca"></div><script>
 /* =============================== SECTION 4: flatness =============================== */
 (function(){
   // Express each group as its order (0 = Z)
@@ -1868,6 +1850,8 @@ so the first map becomes zero and is no longer injective. The kernel is $\mathrm
 })();
 </script>
 
+
+</section>
 <section id="nakayama">
 <h2>10. Nakayama's lemma</h2>
 <p>Let $(A,\mathfrak{m})$ be a local ring (one maximal ideal) with residue field $k=A/\mathfrak{m}$.</p>
@@ -1906,10 +1890,7 @@ so the first map becomes zero and is no longer injective. The kernel is $\mathrm
   </div>
 </div>
 <p>The proof of Nakayama is a one-line determinant trick: if $m_1,\dots,m_n$ generate $M$ and $\mathfrak{m}M=M$, write each $m_i=\sum_j a_{ij}m_j$ with $a_{ij}\in\mathfrak{m}$; Cayley–Hamilton applied to the matrix $a=(a_{ij})$ yields $\det(I-a)\cdot m_i = 0$ for all $i$. Since $\det(I-a)\equiv 1\pmod{\mathfrak{m}}$ it is a unit, forcing $M=0$. The same trick gives the determinantal form: if $\phi\colon M\to M$ satisfies $\phi(M)\subset\mathfrak{a}M$ for an ideal $\mathfrak{a}$, then $\phi$ satisfies a monic polynomial with non-leading coefficients in $\mathfrak{a}$.</p>
-<div class="quiz" data-concept="nakayama-lemma-ca"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="nakayama-lemma-ca"></div><script>
 /* =============================== SECTION 5: tangent space =============================== */
 (function(){
   const CURVES = {
@@ -2077,6 +2058,8 @@ so the first map becomes zero and is no longer injective. The kernel is $\mathrm
 })();
 </script>
 
+
+</section>
 <section id="integral">
 <h2>11. Integral extensions and Noether normalization</h2>
 <p>Fix a ring extension $A\subseteq B$. An element $b\in B$ is <strong>integral over $A$</strong> if it satisfies a monic polynomial</p>
@@ -2127,10 +2110,7 @@ so the first map becomes zero and is no longer injective. The kernel is $\mathrm
 
 
 
-<div class="quiz" data-concept="integral-extensions-ca"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="integral-extensions-ca"></div><script>
 /* =============================== SECTION 10: integrality checker =============================== */
 (function(){
   const DATA = {
@@ -2197,6 +2177,8 @@ so the first map becomes zero and is no longer injective. The kernel is $\mathrm
 })();
 </script>
 
+
+</section>
 <section id="dim">
 <h2>12. Dimension and primary decomposition</h2>
 <p>The <strong>Krull dimension</strong> of a ring $A$ is the supremum of lengths $n$ of chains</p>
@@ -2240,11 +2222,7 @@ $\dim \mathbb{Z} = 1$ (chains $(0)\subsetneq(p)$) · $\dim k = 0$ · $\dim k[x] 
     <div><a href="./commutative-algebra.html#trdeg">Commutative algebra</a> · Transcendence degree and geometric dimension</div>
     <div><a href="./schemes.html#dimension">Schemes</a> · Dimension of a scheme</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 6: Krull dimension =============================== */
 (function(){
   // each preset: list of primes with labels and heights; edges (containment)
@@ -2427,6 +2405,8 @@ $\dim \mathbb{Z} = 1$ (chains $(0)\subsetneq(p)$) · $\dim k = 0$ · $\dim k[x] 
 })();
 </script>
 
+
+</section>
 <section id="trdeg">
 <h2>13. Transcendence degree and geometric dimension</h2>
 <p>For a field extension $K/k$, the <strong>transcendence degree</strong> $\mathrm{tr.deg}_k(K)$ is the cardinality of a maximal algebraically independent subset of $K$ over $k$ — the "number of free parameters" separating $K$ from $k$. All such subsets have the same size (a Steinitz-style exchange argument). A transcendence basis extends to $K$ via an algebraic extension.</p>
@@ -2457,10 +2437,7 @@ Proof: apply Noether normalization to find $k[y_1,\dots,y_d]\hookrightarrow B$ f
 <p><span class="pill">dim of fibre</span> For a dominant morphism $f\colon X\to Y$ of irreducible varieties, the generic fibre has dimension $\dim X - \dim Y$; special fibres can only jump up (upper-semicontinuity).</p>
 
 <p class="small">Transcendence degree also controls the function-field side of the dictionary: birational equivalence of varieties $\Leftrightarrow$ isomorphism of their fraction fields over $k$. So birational classification of curves ($\mathrm{tr.deg}=1$) is the classification of one-variable function fields, which Riemann-Roch organizes by genus.</p>
-<div class="quiz" data-concept="transcendence-degree-ca"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="transcendence-degree-ca"></div><script>
 /* =============================== SECTION 12: transcendence degree =============================== */
 (function(){
   const RINGS = {
@@ -2491,6 +2468,8 @@ Proof: apply Noether normalization to find $k[y_1,\dots,y_d]\hookrightarrow B$ f
 <p style="margin-top:3rem">The pattern running through these twelve sections: every classical operation (taking a subvariety, zooming in, linearizing, perturbing, counting parameters) has an exact algebraic shadow — quotient, localization, tangent space via $\mathfrak{m}/\mathfrak{m}^2$, flatness, transcendence degree. Commutative algebra is the language that lets you turn geometric questions into finite computations on ideals and modules, and vice versa. The payoff, once you start using schemes seriously, is that the two pictures collapse into one.</p>
 
 <footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+
+</section>
 </main>
 
 <script>

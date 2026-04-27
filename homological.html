@@ -437,10 +437,7 @@ function zmoduleFromSmith(invariants, extraFree){
 
 
 
-<div class="quiz" data-concept="chain-complexes"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="chain-complexes"></div><script>
 /* =============================== SECTION 1: Chain complexes =============================== */
 (function(){
   // preset data: dims = [dim C_0, dim C_1, dim C_2], d1 (int matrix), d2 (int matrix or null)
@@ -611,6 +608,8 @@ function zmoduleFromSmith(invariants, extraFree){
 })();
 </script>
 
+
+</section>
 <section id="exact">
 <h2>2. Exact sequences</h2>
 <p>A sequence of abelian groups and homomorphisms</p>
@@ -656,14 +655,7 @@ Multiplication by $n$ is injective (no torsion in $\mathbb{Z}$), and its cokerne
     <div><a href="./homological.html#abelian">Homological algebra</a> · Abelian categories and triangulated preview</div>
     <div class="more">… and 5 more.</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 2: Exact sequences =============================== */
 (function(){
   // Each example specifies: A, B, C as {kind:'Z'}, {kind:'Zn', n}, {kind:'sum', parts:[...]}
@@ -778,6 +770,8 @@ Multiplication by $n$ is injective (no torsion in $\mathbb{Z}$), and its cokerne
 })();
 </script>
 
+
+</section>
 <section id="snake">
 <h2>3. The snake lemma</h2>
 <p>Everyone meets the snake lemma once and then uses it forever. Suppose we have a commutative diagram of abelian groups with exact rows:</p>
@@ -821,14 +815,7 @@ $$0 \to \ker\alpha \to \ker\beta \to \ker\gamma \xrightarrow{\;\delta\;} \operat
     <div><a href="./homological.html#les">Homological algebra</a> · Long exact sequence in homology</div>
     <div><a href="./homological.html#five">Homological algebra</a> · The five lemma</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 3: Snake lemma animation =============================== */
 (function(){
   const svg = $('#sn-svg'), out = $('#sn-out'), stage = $('#sn-stage'),
@@ -990,6 +977,8 @@ $$0 \to \ker\alpha \to \ker\beta \to \ker\gamma \xrightarrow{\;\delta\;} \operat
 })();
 </script>
 
+
+</section>
 <section id="five">
 <h2>4. The five lemma</h2>
 <p>The snake lemma's close cousin, used constantly to <em>recognize isomorphisms</em> inside big diagrams. Suppose we have a commutative diagram of abelian groups (or objects of any abelian category) with <em>exact rows</em>:</p>
@@ -1023,10 +1012,7 @@ B_1 & \to & B_2 & \to & B_3 & \to & B_4 & \to & B_5.
 
 <p class="small">Weakening any hypothesis in the five lemma breaks it: standard counterexamples drop $f_1$ surjective (so $f_3$ can fail to be injective even if everything else is an isomorphism), etc. The four outer hypotheses are each doing work — this is why the lemma is "tight."</p>
 
-<div class="quiz" data-concept="five-lemma"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="five-lemma"></div><script>
 /* =============================== SECTION 4: Five lemma chase =============================== */
 (function(){
   const svg = $('#fl-svg'), out = $('#fl-out'), stage = $('#fl-stage');
@@ -1138,6 +1124,8 @@ B_1 & \to & B_2 & \to & B_3 & \to & B_4 & \to & B_5.
 })();
 </script>
 
+
+</section>
 <section id="les">
 <h2>5. The long exact sequence in homology</h2>
 <p>Suppose $0 \to A_\bullet \xrightarrow{f} B_\bullet \xrightarrow{g} C_\bullet \to 0$ is a short exact sequence of chain complexes — a triple of complexes with a chain map of each, so that in every degree $n$ the rows $0\to A_n \to B_n \to C_n\to 0$ are exact and all squares commute with the differentials. Applying the snake lemma to two consecutive degrees extracts a <strong>connecting homomorphism</strong> $\partial : H_n(C) \to H_{n-1}(A)$, and iterating over every $n$ splices the pieces into one infinite exact sequence:</p>
@@ -1225,11 +1213,7 @@ Over a PID (including $\mathbb{Z}$), projective $\iff$ free. Over a Dedekind dom
     <div><a href="./homological.html#derived">Homological algebra</a> · Derived functors and Ext/Tor</div>
     <div><a href="./operator-algebras.html#ncg">Operator algebras</a> · Noncommutative dictionary</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 6: Projective lifting =============================== */
 (function(){
   const svg = $('#pj-svg'), out = $('#pj-out');
@@ -1351,6 +1335,8 @@ Over a PID (including $\mathbb{Z}$), projective $\iff$ free. Over a Dedekind dom
 })();
 </script>
 
+
+</section>
 <section id="injective">
 <h2>7. Injective modules</h2>
 <p>Dual to projective: a module $I$ is <strong>injective</strong> if every injection $A\hookrightarrow B$ and every map $f\colon A\to I$ extends to a map $\tilde f\colon B\to I$:</p>
@@ -1392,11 +1378,7 @@ $\begin{array}{ccc}
   <div class="ttl">Used in</div>
     <div><a href="./homological.html#derived">Homological algebra</a> · Derived functors and Ext/Tor</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 7: Injective / Baer toggle =============================== */
 (function(){
   const Isel = $('#inj-I'), nIn = $('#inj-n'), aIn = $('#inj-a'), out = $('#inj-out');
@@ -1504,6 +1486,8 @@ $\begin{array}{ccc}
 })();
 </script>
 
+
+</section>
 <section id="flat">
 <h2>8. Flat modules</h2>
 <p>A module $M$ is <strong>flat</strong> if the functor $-\otimes_R M$ is exact — equivalently (since $-\otimes M$ is always right exact), if it takes injective maps to injective maps. Flatness is strictly between "free" and nothing: every projective module is flat, but many flat modules are not projective.</p>
@@ -1543,11 +1527,7 @@ $\begin{array}{ccc}
     <div><a href="./deformation-theory.html#first-order-deformation">Deformation theory</a> · First-order deformations</div>
     <div><a href="./homological.html#resolutions">Homological algebra</a> · Resolutions: projective, injective, flat</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 8: Flat modules =============================== */
 (function(){
   const Msel = $('#fl-M'), nIn = $('#fl-n'), out = $('#fl-out');
@@ -1613,6 +1593,8 @@ $\begin{array}{ccc}
 })();
 </script>
 
+
+</section>
 <section id="derived">
 <h2>9. Derived functors, Ext and Tor</h2>
 <p>Many constructions in algebra are <em>left</em> or <em>right exact</em> but fail to be exact on both sides. $\operatorname{Hom}(M,-)$ is left exact; $-\otimes_A N$ is right exact; $(-)^G$ (invariants under a group action) is left exact; $\Gamma$ (global sections of a sheaf) is left exact. <strong>Derived functors</strong> package the failure into a sequence of functors $R^iF$ or $L_iF$ forming, for each short exact sequence in the source, a long exact sequence of derived values.</p>
@@ -1664,14 +1646,7 @@ $\begin{array}{ccc}
     <div><a href="./homological.html#spectral">Homological algebra</a> · Spectral sequences</div>
     <div><a href="./sheaf-cohomology.html#derived">Sheaf cohomology</a> · Derived functor sheaf cohomology</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 4: Ext and Tor =============================== */
 (function(){
   // Parse group spec into list of summands, each an int: 0 means Z, m>0 means Z/m.
@@ -1909,6 +1884,8 @@ $\begin{array}{ccc}
 })();
 </script>
 
+
+</section>
 <section id="resolutions">
 <h2>10. Resolutions: projective, injective, flat</h2>
 <p>A <strong>projective resolution</strong> of an $A$-module $M$ is an exact sequence</p>
@@ -1943,10 +1920,7 @@ $\begin{array}{ccc}
   <div class="ttl">Used in</div>
     <div><a href="./derived-categories.html#derived-functors-triangulated">Derived categories</a> · Derived functors $RF, LF$</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 5: Free resolution builder =============================== */
 (function(){
   const viewSpan = $('#res-view'), out = $('#res-out');
@@ -2020,6 +1994,8 @@ $\begin{array}{ccc}
 })();
 </script>
 
+
+</section>
 <section id="spectral">
 <h2>11. Spectral sequences (a gentle taste)</h2>
 <p>A <strong>spectral sequence</strong> is a sequence of "pages" $E_0, E_1, E_2, \dots$ where each page is a bigraded abelian group with a differential $d_r: E_r^{p,q} \to E_r^{p-r, q+r-1}$ (or with indices reversed, depending on convention) satisfying $d_r^2 = 0$, and the next page is the homology of the current one: $E_{r+1}^{p,q} = H(E_r^{p,q}, d_r)$. Under reasonable finiteness conditions, the differentials eventually vanish and the pages stabilize at an $E_\infty$ page, which is (up to a filtration) the answer you were after.</p>
@@ -2050,10 +2026,7 @@ $\begin{array}{ccc}
   <div class="ttl">Used in</div>
     <div><a href="./group-cohomology.html#infres">Group cohomology</a> · Inflation–restriction and Lyndon–Hochschild–Serre</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 6: Spectral sequence viewer =============================== */
 (function(){
   // Double complex:
@@ -2214,6 +2187,8 @@ $\begin{array}{ccc}
 })();
 </script>
 
+
+</section>
 <section id="abelian">
 <h2>12. Abelian categories and a triangulated preview</h2>
 <p>Every diagram chase in §§1–11 secretly takes place in an <strong>abelian category</strong>: a category with a zero object, all finite biproducts, all kernels and cokernels, and in which every monomorphism is a kernel and every epimorphism is a cokernel (the "every mono/epi is normal" axiom). In an abelian category, short exact sequences, the snake lemma, the five lemma, Ext/Tor, and all the tools we've built work verbatim.</p>
@@ -2267,10 +2242,7 @@ Every Ext group appears as a hom in the derived category after a shift. This is 
     <div><a href="./derived-categories.html#t-structures">Derived categories</a> · $t$-structures and hearts</div>
     <div><a href="./derived-categories.html#triangulated-structure">Derived categories</a> · Triangulated structure and exact triangles</div>
 </aside>
-<!-- backlinks-auto-end --><div class="quiz" data-concept="abelian-categories"></div>
-</section>
-
-<script>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="abelian-categories"></div><script>
 /* =============================== SECTION 12: Abelian/triangulated classifier =============================== */
 (function(){
   const pick = $('#abc-pick'), out = $('#abc-out');
@@ -2375,6 +2347,8 @@ Every Ext group appears as a hom in the derived category after a shift. This is 
 })();
 </script>
 
+
+</section>
 <section id="outro">
 <h2>Where this goes next</h2>
 <p>What we've skipped or only previewed, in order of increasing sophistication:</p>

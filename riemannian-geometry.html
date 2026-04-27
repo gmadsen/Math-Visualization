@@ -342,10 +342,7 @@ The inverse matrix is written $g^{ij}$ and used to raise indices; $(g_{ij})$ and
 
 
 
-<div class="quiz" data-concept="riemannian-metrics"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="riemannian-metrics"></div><script>
 /* =============================== SECTION 2 widget =============================== */
 (function(){
   const svg = $('#met-svg'), sel = $('#met-sel'), out = $('#met-out');
@@ -443,6 +440,8 @@ The inverse matrix is written $g^{ij}$ and used to raise indices; $(g_{ij})$ and
 })();
 </script>
 
+
+</section>
 <section id="christoffel">
 <h2>3. The Levi-Civita connection</h2>
 
@@ -486,10 +485,7 @@ This is a linear first-order ODE in the components of $V$; given $V(0)\in T_{\ga
     <span class="readout" id="pt-out" style="flex:1"></span>
   </div>
   <p class="small">On the unit sphere, the holonomy angle equals the oriented spherical area enclosed by the loop (Gauss&ndash;Bonnet for a simply connected region: $\iint K\,dA = \text{area}$ since $K=1$).</p>
-</div>
-</section>
-
-<script>
+</div><script>
 /* =============================== SECTION 3 widget — parallel transport on sphere =============================== */
 (function(){
   const svg = $('#pt-svg'), out = $('#pt-out'), play = $('#pt-play'), reset = $('#pt-reset');
@@ -760,6 +756,8 @@ This is a linear first-order ODE in the components of $V$; given $V(0)\in T_{\ga
 })();
 </script>
 
+
+</section>
 <section id="geodesics">
 <h2>4. Geodesics</h2>
 
@@ -806,14 +804,7 @@ This is a local diffeomorphism from a neighbourhood of $0\in T_p M$ onto a neigh
   <div class="ttl">Used in</div>
     <div><a href="./riemannian-geometry.html#comparison">Riemannian geometry</a> · Curvature tensor and comparison</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 4 widget — geodesic shooter =============================== */
 (function(){
   const svg = $('#geo-svg'), out = $('#geo-out'), TS = $('#geo-T'), TV = $('#geo-Tv'), CLR = $('#geo-clear');
@@ -1151,6 +1142,8 @@ This is a local diffeomorphism from a neighbourhood of $0\in T_p M$ onto a neigh
 })();
 </script>
 
+
+</section>
 <section id="curvature">
 <h2>5. The Riemann curvature tensor</h2>
 
@@ -1206,10 +1199,7 @@ This depends only on $\Pi$, not the chosen basis. In dimension $2$, $K$ equals t
   <svg id="sec-svg" viewBox="0 0 620 220" width="620" height="220"><title>Sectional curvature calculator</title></svg>
   <div class="readout" id="sec-out"></div>
   <p class="small">For a $2$-manifold there is only one plane at each point: the sectional curvature <em>is</em> $K$. For constant-curvature spaces, $R(u,v)w = K\bigl(g(v,w)u - g(u,w)v\bigr)$, so $K(\Pi) = K$ for every plane.</p>
-</div>
-</section>
-
-<script>
+</div><script>
 /* =============================== SECTION 5 widget — sectional curvature =============================== */
 (function(){
   const svg=$('#sec-svg'), out=$('#sec-out'), sp=$('#sec-sp'), ua=$('#sec-ua'), va=$('#sec-va');
@@ -1279,6 +1269,8 @@ This depends only on $\Pi$, not the chosen basis. In dimension $2$, $K$ equals t
 })();
 </script>
 
+
+</section>
 <section id="models">
 <h2>6. Model spaces of constant curvature</h2>
 
@@ -1307,10 +1299,7 @@ In particular, on a constant-curvature surface with $K = \kappa$, the <em>excess
   <div class="hd"><div class="ttl">Geodesic triangles: angle sum</div><div class="hint">drag vertices; sphere / flat / hyperbolic side-by-side</div></div>
   <svg id="tri-svg" viewBox="0 0 660 280" width="660" height="280"><title>Geodesic triangles: angle sum</title></svg>
   <div class="readout" id="tri-out"></div>
-</div>
-</section>
-
-<script>
+</div><script>
 /* =============================== SECTION 6 widget — geodesic triangles =============================== */
 (function(){
   const svg=$('#tri-svg'), out=$('#tri-out');
@@ -1610,6 +1599,8 @@ In particular, on a constant-curvature surface with $K = \kappa$, the <em>excess
 })();
 </script>
 
+
+</section>
 <section id="jacobi">
 <h2>7. Jacobi fields</h2>
 
@@ -1645,10 +1636,7 @@ Positive curvature gives sinusoidal behaviour &mdash; neighbours <em>refocus</em
   <svg id="jac-svg" viewBox="0 0 660 320" width="660" height="320"><title>Jacobi field on the sphere</title></svg>
   <div class="readout" id="jac-out"></div>
   <p class="small">Left: two geodesics from $N$ on the unit sphere. Right: separation $|J|(t) = \delta \cdot \sin t$ plotted as a function of $t$. Max at equator $(t=\pi/2)$; conjugate point at south pole $(t=\pi)$.</p>
-</div>
-</section>
-
-<script>
+</div><script>
 /* =============================== SECTION 7 widget — Jacobi field on sphere =============================== */
 (function(){
   const svg=$('#jac-svg'), out=$('#jac-out'), dEl=$('#jac-d'), dVv=$('#jac-dv');
@@ -1790,6 +1778,8 @@ Positive curvature gives sinusoidal behaviour &mdash; neighbours <em>refocus</em
 })();
 </script>
 
+
+</section>
 <section id="comparison">
 <h2>8. Comparison theorems</h2>
 
@@ -1816,14 +1806,7 @@ for some $\kappa>0$, then $M$ is compact, and $\operatorname{diam}(M)\le \pi/\sq
   <div class="ttl">Used in</div>
     <div><a href="./riemannian-geometry.html#ricci">Riemannian geometry</a> · Ricci curvature and Einstein manifolds</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 8 widget — comparison visuals =============================== */
 (function(){
   const svg=$('#comp-svg');
@@ -1883,6 +1866,8 @@ for some $\kappa>0$, then $M$ is compact, and $\operatorname{diam}(M)\le \pi/\sq
 })();
 </script>
 
+
+</section>
 <section id="ricci">
 <h2>9. Ricci curvature and Einstein manifolds</h2>
 

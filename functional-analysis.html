@@ -314,10 +314,7 @@ $$\|x+y\|_p^2+\|x-y\|_p^2 = 2\cdot 2^{2/p},\qquad 2\|x\|_p^2+2\|y\|_p^2 = 4.$$
 <h3>Separability, density, and the subspace of polynomials</h3>
 <p>A Banach space is <strong>separable</strong> if it has a countable dense subset. $\ell^p$ and $L^p[a,b]$ are separable for $1\le p<\infty$; $\ell^\infty$ is not. The <strong>Weierstrass approximation theorem</strong> (polynomials are dense in $C[a,b]$ with sup norm) and the <strong>Stone–Weierstrass theorem</strong> (any subalgebra of $C(X)$ separating points and containing constants is dense) are the first tools that populate Banach spaces with explicit bases.</p>
 
-<div class="note"><strong>Cautionary example.</strong> Not every Banach space has a Schauder basis. Enflo (1973) constructed a separable Banach space with no Schauder basis, settling a forty-year open problem; the approximation property is genuinely subtle outside the Hilbert setting.</div>
-</section>
-
-<script>
+<div class="note"><strong>Cautionary example.</strong> Not every Banach space has a Schauder basis. Enflo (1973) constructed a separable Banach space with no Schauder basis, settling a forty-year open problem; the approximation property is genuinely subtle outside the Hilbert setting.</div><script>
 /* ============================ §1 norm-ball widget ============================ */
 (function(){
   const svg = $('#ball-svg'), pSlider = $('#ball-p'), pOut = $('#ball-p-out'),
@@ -399,6 +396,8 @@ $$\|x+y\|_p^2+\|x-y\|_p^2 = 2\cdot 2^{2/p},\qquad 2\|x\|_p^2+2\|y\|_p^2 = 4.$$
 })();
 </script>
 
+
+</section>
 <section id="hilbert">
 <h2>2. Hilbert-space geometry</h2>
 <p>Hilbert space feels like $\mathbb{R}^n$ with a countable basis — angles, perpendicularity, Pythagoras, projection onto a subspace, all work. The miracle is that these survive infinite dimensions <em>when</em> the space is complete.</p>
@@ -479,7 +478,7 @@ $$u_n = v_n - \sum_{k<n}\langle v_n, e_k\rangle e_k,\qquad e_n = u_n/\|u_n\|.$$
     <div><a href="./functional-analysis.html#riesz">Functional analysis</a> · Riesz representation theorem</div>
     <div><a href="./harmonic-analysis-fourier.html#fourier-series">Harmonic analysis &amp; Fourier theory</a> · Fourier series on the circle</div>
     <div><a href="./operator-algebras.html#gns">Operator algebras</a> · GNS construction</div>
-    <div class="more">… and 3 more.</div>
+    <div class="more">… and 4 more.</div>
 </aside>
 <!-- backlinks-auto-end -->
 
@@ -487,10 +486,7 @@ $$u_n = v_n - \sum_{k<n}\langle v_n, e_k\rangle e_k,\qquad e_n = u_n/\|u_n\|.$$
 
 
 
-<div class="quiz" data-concept="banach-hilbert-spaces"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="banach-hilbert-spaces"></div><script>
 /* ============================ §2 Gram–Schmidt widget ============================ */
 (function(){
   const svg = $('#gs-svg'), step = $('#gs-step'), stepOut = $('#gs-step-out'),
@@ -729,6 +725,8 @@ v−Pv  = (${r[0].toFixed(2)}, ${r[1].toFixed(2)}, ${r[2].toFixed(2)})    ‖v�
 })();
 </script>
 
+
+</section>
 <section id="opnorm">
 <h2>3. Bounded operators and the operator norm</h2>
 
@@ -781,11 +779,7 @@ $$\|T\| = \sup_{\|x\|\le 1}\|Tx\|_Y = \sup_{x\ne 0}\frac{\|Tx\|_Y}{\|x\|_X} = \i
   <div class="ttl">Used in</div>
     <div><a href="./functional-analysis.html#bounded">Functional analysis</a> · Bounded operators and adjoints</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* ============================ §3 operator norm widget ============================ */
 (function(){
   const svg = $('#opnorm-svg'),
@@ -889,6 +883,8 @@ Frobenius norm ‖T‖_F = √(a²+b²+c²+d²) = ${Math.sqrt(a*a+b*b+c*c+d*d).t
 })();
 </script>
 
+
+</section>
 <section id="bounded">
 <h2>4. Bounded linear operators</h2>
 <p>Let $X,Y$ be normed spaces. A linear map $T\colon X\to Y$ is <strong>bounded</strong> when</p>
@@ -947,7 +943,7 @@ $$\sigma_x=\begin{pmatrix}0&1\\1&0\end{pmatrix},\quad
     <div><a href="./functional-analysis.html#spec-class">Functional analysis</a> · Spectrum classification: point, continuous, residual</div>
     <div><a href="./functional-analysis.html#bigfour">Functional analysis</a> · The big four theorems</div>
     <div><a href="./functional-analysis.html#weak">Functional analysis</a> · Weak and weak-* topologies</div>
-    <div class="more">… and 3 more.</div>
+    <div class="more">… and 4 more.</div>
 </aside>
 <!-- backlinks-auto-end -->
 
@@ -1013,10 +1009,12 @@ $$\langle Tx,y\rangle = \langle x, T^*y\rangle,\qquad \forall x,y\in H.$$
   <div class="readout" id="adj-out"></div>
 </div>
 
-<div class="quiz" data-concept="adjoint-hilbert"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="adjoint-hilbert"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./spectral-theory.html#self-adjoint">Spectral theory</a> · Spectrum of self-adjoint operators</div>
+</aside>
+<!-- backlinks-auto-end --><script>
 /* ============================ §5 adjoint widget ============================ */
 (function(){
   const aS=$('#adj-a'), bS=$('#adj-b'), cS=$('#adj-c'), dS=$('#adj-d');
@@ -1100,6 +1098,8 @@ spectrum lies in: ${selfAdj ? 'ℝ (self-adjoint)' : skewAdj ? 'iℝ (skew-adjoi
 })();
 </script>
 
+
+</section>
 <section id="bigfour">
 <h2>6. The big four theorems</h2>
 <p>Four theorems, all ultimately powered by the <strong>Baire category theorem</strong> (a complete metric space is not a countable union of nowhere-dense sets) or by <strong>Zorn's lemma</strong>, organize Banach-space analysis.</p>
@@ -1236,10 +1236,7 @@ spectrum lies in: ${selfAdj ? 'ℝ (self-adjoint)' : skewAdj ? 'iℝ (skew-adjoi
 <!-- backlinks-auto-end -->
 
 
-<div class="quiz" data-concept="compact-operators"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="compact-operators"></div><script>
 /* ============================ §5 spectrum widget ============================ */
 (function(){
   const svg = $('#spec-svg'), N = $('#spec-N'), NOut = $('#spec-N-out'),
@@ -1307,6 +1304,8 @@ ${mode==='compact'
 })();
 </script>
 
+
+</section>
 <section id="spectral">
 <h2>8. The spectral theorem</h2>
 
@@ -1429,10 +1428,12 @@ $$C(\sigma(T))\hookrightarrow B(H),\qquad f\mapsto f(T)=\int_{\sigma(T)} f(\lamb
   <div class="readout" id="specclass-out"></div>
 </div>
 
-<div class="quiz" data-concept="spectrum-classification"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="spectrum-classification"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./spectral-theory.html#spectrum">Spectral theory</a> · Spectrum of a bounded operator</div>
+</aside>
+<!-- backlinks-auto-end --><script>
 /* ============================ §9 spectrum classifier ============================ */
 (function(){
   const svg = $('#specclass-svg'), opSel = $('#specclass-op'),
@@ -1702,6 +1703,8 @@ ${fmt(Arec)}
 })();
 </script>
 
+
+</section>
 <section id="duality">
 <h2>10. Duality and the Riesz representation</h2>
 
@@ -1769,10 +1772,7 @@ $$\Big|\int fg\,d\mu\Big|\le\|f\|_p\|g\|_q\qquad\text{(Hölder)}.$$
     <span class="readout" id="fs-N-out" style="min-width:60px;flex:0 0 auto">N = 5</span>
   </div>
   <div class="readout" id="fs-out"></div>
-</div>
-</section>
-
-<script>
+</div><script>
 /* ============================ §7 Fourier-series widget ============================ */
 (function(){
   const svg = $('#fs-svg'), tgt = $('#fs-tgt'), N = $('#fs-N'), NOut = $('#fs-N-out'), out = $('#fs-out');
@@ -1885,6 +1885,8 @@ Pointwise near jumps: Gibbs overshoot ≈ 9% of the jump persists for every N �
 })();
 </script>
 
+
+</section>
 <section id="riesz">
 <h2>11. The Riesz representation theorem</h2>
 
@@ -1908,6 +1910,7 @@ Pointwise near jumps: Gibbs overshoot ≈ 9% of the jump persists for every N �
     <div><a href="./functional-analysis.html#adjoint">Functional analysis</a> · Adjoint operator on Hilbert space</div>
     <div><a href="./functional-analysis.html#reflexivity">Functional analysis</a> · Reflexivity</div>
     <div><a href="./operator-algebras.html#states">Operator algebras</a> · States and pure states</div>
+    <div><a href="./partial-differential-equations.html#regularity">Partial differential equations</a> · Lax–Milgram, elliptic regularity, embedding</div>
     <div><a href="./sobolev-spaces-distributions.html#variational">Sobolev spaces &amp; distributions</a> · Variational Poisson problem &amp; Lax–Milgram</div>
 </aside>
 <!-- backlinks-auto-end -->
@@ -1976,10 +1979,7 @@ $$J\colon X\to X^{**},\qquad (Jx)(\ell) = \ell(x)\ \text{for } \ell\in X^*.$$
 </aside>
 <!-- callback-auto-end -->
 
-<div class="quiz" data-concept="reflexivity"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="reflexivity"></div><script>
 /* ============================ §12 reflexivity widget ============================ */
 (function(){
   const sel = $('#refl-sp'), out = $('#refl-out');
@@ -2021,6 +2021,8 @@ note: ${d.note}`;
 })();
 </script>
 
+
+</section>
 <section id="weak">
 <h2>13. Weak and weak-* topologies</h2>
 
@@ -2105,10 +2107,7 @@ $$\mathcal{D}'(\Omega) = \{T\colon\mathcal{D}(\Omega)\to\mathbb{C} \text{ contin
 </aside>
 <!-- backlinks-auto-end -->
 
-<div class="quiz" data-concept="distributions"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="distributions"></div><script>
 /* ============================ §14 delta-bump widget ============================ */
 (function(){
   const svg = $('#delta-svg'), sS = $('#delta-sigma'), sO = $('#delta-sigma-out'),
@@ -2197,6 +2196,8 @@ Pointwise, f_σ(0) = 1/(√(2π)σ) → ∞; away from 0, f_σ(x) → 0. The lim
 })();
 </script>
 
+
+</section>
 <section id="outro">
 <h2>15. Connections</h2>
 

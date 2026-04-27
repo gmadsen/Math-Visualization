@@ -32,7 +32,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p>The goal is to understand why these patterns appear, first by elementary number theory (Fermat, Gauss, Lagrange) and then by recognising the $r_k(n)$ as Fourier coefficients of a modular form.</p>\n</section>\n\n"
+          "html": "\n\n<p>The goal is to understand why these patterns appear, first by elementary number theory (Fermat, Gauss, Lagrange) and then by recognising the $r_k(n)$ as Fourier coefficients of a modular form.</p>"
         },
         {
           "type": "widget-script",
@@ -57,6 +57,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -117,7 +121,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -169,6 +173,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -223,7 +231,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n\n\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -253,6 +261,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -317,7 +329,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -348,6 +360,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -411,7 +427,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n\n\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -446,6 +462,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -502,7 +522,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n\n\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -533,6 +553,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -576,7 +600,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -603,6 +627,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -642,7 +670,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p>The key miracle, due to Jacobi, is that $\\theta(\\tau)$ is a <strong>modular form of weight $1/2$</strong> on a congruence subgroup — more precisely, $\\theta(\\tau)$ satisfies functional equations under $\\tau\\mapsto \\tau+1$ (trivially) and $\\tau\\mapsto -1/4\\tau$ (via Poisson summation). Hence $\\theta^k$ is a modular form of weight $k/2$, and the ring of modular forms on $\\Gamma_0(4)$ is <em>finite-dimensional</em> in each weight. This forces identities like $\\theta^4=1+8\\sum_{d}\\sigma^{(2)}(d) q^d$ (an <a href=\"./modular-forms.html#eisen\" data-auto-inline-link=\"1\" data-concept-id=\"eisenstein-series-mf\" data-blurb=\"The series E4 and E6 are explicit modular forms that generate much of the level-1 ring structure.\">Eisenstein series</a>), recovering Jacobi's $r_4(n)=8\\sum_{d\\mid n,\\,4\\nmid d}d$ for free.</p>\n\n<p>The same machinery powers:</p>\n<ul>\n  <li>$r_6(n)$, $r_8(n)$, $\\ldots$ — closed forms from Eisenstein series of higher weight;</li>\n  <li>the deep formula for $r_3(n)$ in terms of class numbers (a weight-$3/2$ modular form);</li>\n  <li>and, transposing to <a href=\"./elliptic-curves.html\">elliptic curves</a>, the modularity theorem for $E/\\mathbb{Q}$.</li>\n</ul>\n\n<p>Two pages in this notebook will develop the tools:</p>\n<ul>\n  <li><em>theta-functions.html</em> — $\\theta$ as an entire object: transformation laws, Jacobi's triple product, applications to partitions.</li>\n  <li><em>modular-forms.html</em> — modular forms for $\\mathrm{SL}_2(\\mathbb{Z})$ and congruence subgroups, Eisenstein and cusp forms, Hecke operators, and the identification of $\\theta^k$.</li>\n</ul>\n\n<p>So: the puzzle of which integers are sums of $k$ squares, which took two hundred years to untangle by elementary means, turns out to be <em>one equation</em> among generating functions on the upper half-plane — a story continued at <a href=\"./upper-half-plane-hyperbolic.html\">upper-half-plane-hyperbolic.html</a> and onward.</p>\n</section>\n\n"
+          "html": "\n\n<p>The key miracle, due to Jacobi, is that $\\theta(\\tau)$ is a <strong>modular form of weight $1/2$</strong> on a congruence subgroup — more precisely, $\\theta(\\tau)$ satisfies functional equations under $\\tau\\mapsto \\tau+1$ (trivially) and $\\tau\\mapsto -1/4\\tau$ (via Poisson summation). Hence $\\theta^k$ is a modular form of weight $k/2$, and the ring of modular forms on $\\Gamma_0(4)$ is <em>finite-dimensional</em> in each weight. This forces identities like $\\theta^4=1+8\\sum_{d}\\sigma^{(2)}(d) q^d$ (an <a href=\"./modular-forms.html#eisen\" data-auto-inline-link=\"1\" data-concept-id=\"eisenstein-series-mf\" data-blurb=\"The series E4 and E6 are explicit modular forms that generate much of the level-1 ring structure.\">Eisenstein series</a>), recovering Jacobi's $r_4(n)=8\\sum_{d\\mid n,\\,4\\nmid d}d$ for free.</p>\n\n<p>The same machinery powers:</p>\n<ul>\n  <li>$r_6(n)$, $r_8(n)$, $\\ldots$ — closed forms from Eisenstein series of higher weight;</li>\n  <li>the deep formula for $r_3(n)$ in terms of class numbers (a weight-$3/2$ modular form);</li>\n  <li>and, transposing to <a href=\"./elliptic-curves.html\">elliptic curves</a>, the modularity theorem for $E/\\mathbb{Q}$.</li>\n</ul>\n\n<p>Two pages in this notebook will develop the tools:</p>\n<ul>\n  <li><em>theta-functions.html</em> — $\\theta$ as an entire object: transformation laws, Jacobi's triple product, applications to partitions.</li>\n  <li><em>modular-forms.html</em> — modular forms for $\\mathrm{SL}_2(\\mathbb{Z})$ and congruence subgroups, Eisenstein and cusp forms, Hecke operators, and the identification of $\\theta^k$.</li>\n</ul>\n\n<p>So: the puzzle of which integers are sums of $k$ squares, which took two hundred years to untangle by elementary means, turns out to be <em>one equation</em> among generating functions on the upper half-plane — a story continued at <a href=\"./upper-half-plane-hyperbolic.html\">upper-half-plane-hyperbolic.html</a> and onward.</p>"
         },
         {
           "type": "widget-script",
@@ -674,6 +702,10 @@
         {
           "type": "raw",
           "html": "\n\n<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     }

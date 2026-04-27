@@ -11,18 +11,18 @@ reach into upstream foundations or stay within their own cluster.
 
 | section | concepts | intra edges | cross out | cross in | density |
 |---|---:|---:|---:|---:|---:|
-| Logic & Foundations | 49 | 56 | 4 | 10 | 0.082 |
-| Algebra & homological | 78 | 107 | 9 | 61 | 0.115 |
+| Logic & Foundations | 49 | 56 | 4 | 11 | 0.082 |
+| Algebra & homological | 88 | 126 | 13 | 61 | 0.148 |
 | Higher categories & toposes | 45 | 68 | 23 | 2 | 0.511 |
-| Analysis | 107 | 166 | 16 | 30 | 0.150 |
-| Probability & statistics | 22 | 22 | 9 | 8 | 0.409 |
-| Geometry & topology | 51 | 60 | 6 | 48 | 0.118 |
-| Number theory | 73 | 96 | 25 | 22 | 0.342 |
-| Modular forms & L-functions | 74 | 94 | 47 | 6 | 0.635 |
+| Analysis | 122 | 198 | 16 | 32 | 0.131 |
+| Probability & statistics | 41 | 61 | 10 | 8 | 0.244 |
+| Geometry & topology | 61 | 81 | 6 | 51 | 0.098 |
+| Number theory | 78 | 101 | 30 | 24 | 0.385 |
+| Modular forms & L-functions | 79 | 103 | 48 | 10 | 0.608 |
 | Algebraic geometry | 109 | 138 | 47 | 14 | 0.431 |
-| Combinatorics & graph theory | 34 | 28 | 16 | 1 | 0.471 |
+| Combinatorics & graph theory | 39 | 34 | 17 | 1 | 0.436 |
 
-## EMPTY — concepts with no prereqs (15)
+## EMPTY — concepts with no prereqs (2)
 
 Concepts whose `prereqs` field is `[]` and whose owning topic is *not*
 a foundation/prereq topic. Almost always indicates a missing cross-
@@ -32,21 +32,8 @@ at brand-new progress alongside genuine entry points like
 
 | topic | concept | title |
 |---|---|---|
-| analytic-number-theory | `analytic-number-theory-intro` | Intro |
-| characteristic-classes | `characteristic-classes-intro` | Intro |
-| enumerative-combinatorics | `enumerative-combinatorics-intro` | Intro |
-| galois-cohomology-and-brauer | `galois-cohomology-and-brauer-intro` | Intro |
-| harmonic-functions | `harmonic-functions-intro` | Intro |
-| information-theory | `information-theory-intro` | Intro |
-| large-deviations | `large-deviations-intro` | Intro |
-| lie-algebras | `lie-algebras-intro` | Intro |
-| modular-curves | `modular-curves-intro` | Intro |
-| morse-theory | `morse-theory-intro` | Intro |
-| partial-differential-equations | `partial-differential-equations-intro` | Intro |
+| analytic-number-theory | `ant-prime-counting` | $\pi(x)$ and the prime number theorem |
 | spectral-graph-theory | `adjacency-and-laplacian` | Adjacency, degree, and the Laplacian |
-| spectral-theory | `spectral-theory-intro` | Intro |
-| stochastic-calculus | `stochastic-calculus-intro` | Intro |
-| stochastic-processes-and-martingales | `stochastic-processes-and-martingales-intro` | Intro |
 
 ## THIN-NEW — new-arc concepts with intra-topic-only prereqs (13)
 

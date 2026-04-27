@@ -73,7 +73,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#de-rham-complex\">Algebraic de Rham cohomology</a> · The algebraic de Rham complex $\\Omega^\\bullet_{X/k}$</div>\n    <div><a href=\"./differential-forms.html#deRham\">Differential forms</a> · Stokes theorem and de Rham cohomology</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#de-rham-complex\">Algebraic de Rham cohomology</a> · The algebraic de Rham complex $\\Omega^\\bullet_{X/k}$</div>\n    <div><a href=\"./differential-forms.html#deRham\">Differential forms</a> · Stokes theorem and de Rham cohomology</div>\n    <div><a href=\"./morse-theory.html#morse-homology\">Morse theory</a> · Morse homology</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -176,7 +176,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#de-rham-curves\">Algebraic de Rham cohomology</a> · Worked example: de Rham of a smooth curve</div>\n    <div><a href=\"./etale-cohomology.html#comparison\">Étale cohomology</a> · Comparison theorems: étale vs. singular, de Rham, crystalline</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#de-rham-curves\">Algebraic de Rham cohomology</a> · Worked example: de Rham of a smooth curve</div>\n    <div><a href=\"./characteristic-classes.html#chern-weil\">Characteristic classes</a> · Chern–Weil theory</div>\n    <div><a href=\"./etale-cohomology.html#comparison\">Étale cohomology</a> · Comparison theorems: étale vs. singular, de Rham, crystalline</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

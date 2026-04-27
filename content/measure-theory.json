@@ -60,7 +60,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -112,6 +112,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -195,7 +199,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -219,6 +223,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -240,7 +248,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./dynamical-systems.html#ergodic\">Dynamical systems</a> · Ergodicity and invariant measures</div>\n    <div><a href=\"./harmonic-functions.html#poisson\">Harmonic functions</a> · Poisson kernel</div>\n    <div><a href=\"./measure-theory.html#integral\">Measure theory</a> · Lebesgue integral</div>\n    <div><a href=\"./measure-theory.html#convergence\">Measure theory</a> · Monotone and dominated convergence</div>\n    <div><a href=\"./measure-theory.html#product-measure\">Measure theory</a> · Product measures &amp; σ-finiteness</div>\n    <div><a href=\"./measure-theory.html#riesz-measure\">Measure theory</a> · Riesz representation (measure form)</div>\n    <div class=\"more\">… and 1 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./dynamical-systems.html#ergodic\">Dynamical systems</a> · Ergodicity and invariant measures</div>\n    <div><a href=\"./harmonic-functions.html#poisson\">Harmonic functions</a> · Poisson kernel</div>\n    <div><a href=\"./measure-theory.html#integral\">Measure theory</a> · Lebesgue integral</div>\n    <div><a href=\"./measure-theory.html#convergence\">Measure theory</a> · Monotone and dominated convergence</div>\n    <div><a href=\"./measure-theory.html#product-measure\">Measure theory</a> · Product measures &amp; σ-finiteness</div>\n    <div><a href=\"./measure-theory.html#riesz-measure\">Measure theory</a> · Riesz representation (measure form)</div>\n    <div class=\"more\">… and 3 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -323,7 +331,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -376,6 +384,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -416,7 +428,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -449,6 +461,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -493,11 +509,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./harmonic-analysis-fourier.html#fourier-transform\">Harmonic analysis &amp; Fourier theory</a> · Fourier transform on $\\mathbb{R}$</div>\n    <div><a href=\"./measure-theory.html#fubini\">Measure theory</a> · Fubini &amp; Tonelli</div>\n    <div><a href=\"./measure-theory.html#lp\">Measure theory</a> · Lᵖ spaces</div>\n    <div><a href=\"./probability-theory.html#conv\">Probability theory</a> · Modes of convergence</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./harmonic-analysis-fourier.html#fourier-transform\">Harmonic analysis &amp; Fourier theory</a> · Fourier transform on $\\mathbb{R}$</div>\n    <div><a href=\"./measure-theory.html#fubini\">Measure theory</a> · Fubini &amp; Tonelli</div>\n    <div><a href=\"./measure-theory.html#lp\">Measure theory</a> · Lᵖ spaces</div>\n    <div><a href=\"./partial-differential-equations.html#heat\">Partial differential equations</a> · Heat equation and the heat kernel</div>\n    <div><a href=\"./probability-theory.html#conv\">Probability theory</a> · Modes of convergence</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
-          "html": "\n\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -530,6 +546,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -570,11 +590,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./functional-analysis.html#hilbert\">Functional analysis</a> · Banach and Hilbert spaces</div>\n    <div><a href=\"./functional-analysis.html#reflexivity\">Functional analysis</a> · Reflexivity</div>\n    <div><a href=\"./functional-analysis.html#riesz\">Functional analysis</a> · Riesz representation theorem</div>\n    <div><a href=\"./harmonic-analysis-fourier.html#fourier-series\">Harmonic analysis &amp; Fourier theory</a> · Fourier series on the circle</div>\n    <div><a href=\"./measure-theory.html#radon-nikodym\">Measure theory</a> · Signed measures &amp; Radon–Nikodym</div>\n    <div><a href=\"./probability-theory.html#expectation\">Probability theory</a> · Expectation, variance, and moments</div>\n    <div class=\"more\">… and 2 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./functional-analysis.html#hilbert\">Functional analysis</a> · Banach and Hilbert spaces</div>\n    <div><a href=\"./functional-analysis.html#reflexivity\">Functional analysis</a> · Reflexivity</div>\n    <div><a href=\"./functional-analysis.html#riesz\">Functional analysis</a> · Riesz representation theorem</div>\n    <div><a href=\"./harmonic-analysis-fourier.html#fourier-series\">Harmonic analysis &amp; Fourier theory</a> · Fourier series on the circle</div>\n    <div><a href=\"./measure-theory.html#radon-nikodym\">Measure theory</a> · Signed measures &amp; Radon–Nikodym</div>\n    <div><a href=\"./partial-differential-equations.html#weak-solutions\">Partial differential equations</a> · Weak solutions and Galerkin approximation</div>\n    <div class=\"more\">… and 3 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -607,6 +627,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -656,7 +680,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -680,6 +704,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -725,7 +753,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -749,6 +777,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -794,7 +826,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -818,6 +850,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -871,7 +907,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -895,6 +931,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -940,7 +980,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -964,6 +1004,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },

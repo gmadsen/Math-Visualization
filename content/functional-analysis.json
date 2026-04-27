@@ -41,7 +41,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p>For $p<1$ the unit \"ball\" is non-convex — the triangle inequality fails, so $\\|\\cdot\\|_p$ is a <em>quasi-norm</em>, not a norm. The widget flags this visually.</p>\n\n<h3>Equivalence of norms in finite dimensions</h3>\n<p>On $\\mathbb{R}^n$ any two norms are equivalent: there are $c,C>0$ with $c\\|x\\|_\\alpha\\le\\|x\\|_\\beta\\le C\\|x\\|_\\alpha$. In particular all finite-dimensional normed spaces are Banach, and every linear map between them is bounded. <em>None</em> of this survives infinite dimensions: on $C[0,1]$, $\\|\\cdot\\|_\\infty$ and $\\|\\cdot\\|_{L^2}$ are not equivalent — uniform convergence is strictly stronger than mean-square convergence.</p>\n\n<h3>Separability, density, and the subspace of polynomials</h3>\n<p>A Banach space is <strong>separable</strong> if it has a countable dense subset. $\\ell^p$ and $L^p[a,b]$ are separable for $1\\le p<\\infty$; $\\ell^\\infty$ is not. The <strong>Weierstrass approximation theorem</strong> (polynomials are dense in $C[a,b]$ with sup norm) and the <strong>Stone–Weierstrass theorem</strong> (any subalgebra of $C(X)$ separating points and containing constants is dense) are the first tools that populate Banach spaces with explicit bases.</p>\n\n<div class=\"note\"><strong>Cautionary example.</strong> Not every Banach space has a Schauder basis. Enflo (1973) constructed a separable Banach space with no Schauder basis, settling a forty-year open problem; the approximation property is genuinely subtle outside the Hilbert setting.</div>\n</section>\n\n"
+          "html": "\n\n<p>For $p<1$ the unit \"ball\" is non-convex — the triangle inequality fails, so $\\|\\cdot\\|_p$ is a <em>quasi-norm</em>, not a norm. The widget flags this visually.</p>\n\n<h3>Equivalence of norms in finite dimensions</h3>\n<p>On $\\mathbb{R}^n$ any two norms are equivalent: there are $c,C>0$ with $c\\|x\\|_\\alpha\\le\\|x\\|_\\beta\\le C\\|x\\|_\\alpha$. In particular all finite-dimensional normed spaces are Banach, and every linear map between them is bounded. <em>None</em> of this survives infinite dimensions: on $C[0,1]$, $\\|\\cdot\\|_\\infty$ and $\\|\\cdot\\|_{L^2}$ are not equivalent — uniform convergence is strictly stronger than mean-square convergence.</p>\n\n<h3>Separability, density, and the subspace of polynomials</h3>\n<p>A Banach space is <strong>separable</strong> if it has a countable dense subset. $\\ell^p$ and $L^p[a,b]$ are separable for $1\\le p<\\infty$; $\\ell^\\infty$ is not. The <strong>Weierstrass approximation theorem</strong> (polynomials are dense in $C[a,b]$ with sup norm) and the <strong>Stone–Weierstrass theorem</strong> (any subalgebra of $C(X)$ separating points and containing constants is dense) are the first tools that populate Banach spaces with explicit bases.</p>\n\n<div class=\"note\"><strong>Cautionary example.</strong> Not every Banach space has a Schauder basis. Enflo (1973) constructed a separable Banach space with no Schauder basis, settling a forty-year open problem; the approximation property is genuinely subtle outside the Hilbert setting.</div>"
         },
         {
           "type": "widget-script",
@@ -75,6 +75,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -143,7 +147,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./functional-analysis.html#opnorm\">Functional analysis</a> · Bounded linear operators and the operator norm</div>\n    <div><a href=\"./functional-analysis.html#bounded\">Functional analysis</a> · Bounded operators and adjoints</div>\n    <div><a href=\"./functional-analysis.html#distributions\">Functional analysis</a> · Distributions and test functions</div>\n    <div><a href=\"./functional-analysis.html#riesz\">Functional analysis</a> · Riesz representation theorem</div>\n    <div><a href=\"./harmonic-analysis-fourier.html#fourier-series\">Harmonic analysis &amp; Fourier theory</a> · Fourier series on the circle</div>\n    <div><a href=\"./operator-algebras.html#gns\">Operator algebras</a> · GNS construction</div>\n    <div class=\"more\">… and 3 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./functional-analysis.html#opnorm\">Functional analysis</a> · Bounded linear operators and the operator norm</div>\n    <div><a href=\"./functional-analysis.html#bounded\">Functional analysis</a> · Bounded operators and adjoints</div>\n    <div><a href=\"./functional-analysis.html#distributions\">Functional analysis</a> · Distributions and test functions</div>\n    <div><a href=\"./functional-analysis.html#riesz\">Functional analysis</a> · Riesz representation theorem</div>\n    <div><a href=\"./harmonic-analysis-fourier.html#fourier-series\">Harmonic analysis &amp; Fourier theory</a> · Fourier series on the circle</div>\n    <div><a href=\"./operator-algebras.html#gns\">Operator algebras</a> · GNS construction</div>\n    <div class=\"more\">… and 4 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -156,7 +160,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -203,6 +207,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -276,7 +284,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -325,6 +333,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -350,7 +362,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./functional-analysis.html#adjoint\">Functional analysis</a> · Adjoint operator on Hilbert space</div>\n    <div><a href=\"./functional-analysis.html#compact\">Functional analysis</a> · Compact operators and Fredholm alternative</div>\n    <div><a href=\"./functional-analysis.html#spectral\">Functional analysis</a> · Spectral theorem viewpoint</div>\n    <div><a href=\"./functional-analysis.html#spec-class\">Functional analysis</a> · Spectrum classification: point, continuous, residual</div>\n    <div><a href=\"./functional-analysis.html#bigfour\">Functional analysis</a> · The big four theorems</div>\n    <div><a href=\"./functional-analysis.html#weak\">Functional analysis</a> · Weak and weak-* topologies</div>\n    <div class=\"more\">… and 3 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./functional-analysis.html#adjoint\">Functional analysis</a> · Adjoint operator on Hilbert space</div>\n    <div><a href=\"./functional-analysis.html#compact\">Functional analysis</a> · Compact operators and Fredholm alternative</div>\n    <div><a href=\"./functional-analysis.html#spectral\">Functional analysis</a> · Spectral theorem viewpoint</div>\n    <div><a href=\"./functional-analysis.html#spec-class\">Functional analysis</a> · Spectrum classification: point, continuous, residual</div>\n    <div><a href=\"./functional-analysis.html#bigfour\">Functional analysis</a> · The big four theorems</div>\n    <div><a href=\"./functional-analysis.html#weak\">Functional analysis</a> · Weak and weak-* topologies</div>\n    <div class=\"more\">… and 4 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -413,7 +425,11 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./spectral-theory.html#self-adjoint\">Spectral theory</a> · Spectrum of self-adjoint operators</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -455,6 +471,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -542,7 +562,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -579,6 +599,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -703,7 +727,11 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./spectral-theory.html#spectrum\">Spectral theory</a> · Spectrum of a bounded operator</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -785,6 +813,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -817,7 +849,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -841,6 +873,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -861,7 +897,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./functional-analysis.html#adjoint\">Functional analysis</a> · Adjoint operator on Hilbert space</div>\n    <div><a href=\"./functional-analysis.html#reflexivity\">Functional analysis</a> · Reflexivity</div>\n    <div><a href=\"./operator-algebras.html#states\">Operator algebras</a> · States and pure states</div>\n    <div><a href=\"./sobolev-spaces-distributions.html#variational\">Sobolev spaces &amp; distributions</a> · Variational Poisson problem &amp; Lax–Milgram</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./functional-analysis.html#adjoint\">Functional analysis</a> · Adjoint operator on Hilbert space</div>\n    <div><a href=\"./functional-analysis.html#reflexivity\">Functional analysis</a> · Reflexivity</div>\n    <div><a href=\"./operator-algebras.html#states\">Operator algebras</a> · States and pure states</div>\n    <div><a href=\"./partial-differential-equations.html#regularity\">Partial differential equations</a> · Lax–Milgram, elliptic regularity, embedding</div>\n    <div><a href=\"./sobolev-spaces-distributions.html#variational\">Sobolev spaces &amp; distributions</a> · Variational Poisson problem &amp; Lax–Milgram</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -925,7 +961,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -951,6 +987,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -1051,7 +1091,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -1089,6 +1129,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },

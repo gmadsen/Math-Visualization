@@ -281,10 +281,7 @@ Lebesgue's idea: <em>slice the range, not the domain.</em> Instead of summing $f
     <button id="rvl-reset">reset</button>
   </div>
   <div class="readout" id="rvl-out">Pick a strategy. Rationals are drawn as short cyan ticks (dense in $[0,1]$); irrationals are implicit between them.</div>
-</div>
-</section>
-
-<script>
+</div><script>
 /* =============================== §1 Riemann vs Lebesgue widget =============================== */
 (function(){
   const svg = $('#rvl-svg'), out = $('#rvl-out');
@@ -407,6 +404,8 @@ Lebesgue's idea: <em>slice the range, not the domain.</em> Instead of summing $f
 })();
 </script>
 
+
+</section>
 <section id="sigma">
 <h2>2. $\sigma$-algebras and measures</h2>
 
@@ -485,11 +484,7 @@ The $\le$ direction is free (subadditivity); the $\ge$ direction is the content 
     <div><a href="./measure-theory.html#hausdorff">Measure theory</a> · Hausdorff measure &amp; dimension</div>
     <div><a href="./measure-theory.html#lebesgue">Measure theory</a> · Lebesgue measure</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== §3 Outer measure covering demo =============================== */
 (function(){
   const svg = $('#outer-svg'), out = $('#outer-out');
@@ -550,6 +545,8 @@ The $\le$ direction is free (subadditivity); the $\ge$ direction is the content 
 })();
 </script>
 
+
+</section>
 <section id="lebesgue">
 <h2>4. Lebesgue measure on $\mathbb{R}$</h2>
 
@@ -569,7 +566,7 @@ Outer regularity on the left is straightforward from the cover-infimum definitio
     <div><a href="./measure-theory.html#convergence">Measure theory</a> · Monotone and dominated convergence</div>
     <div><a href="./measure-theory.html#product-measure">Measure theory</a> · Product measures &amp; σ-finiteness</div>
     <div><a href="./measure-theory.html#riesz-measure">Measure theory</a> · Riesz representation (measure form)</div>
-    <div class="more">… and 1 more.</div>
+    <div class="more">… and 3 more.</div>
 </aside>
 <!-- backlinks-auto-end -->
 
@@ -637,11 +634,7 @@ so $\varphi_n$ is simple, $0\le\varphi_n\nearrow f$ pointwise, and uniformly on 
     <div><a href="./measure-theory.html#convergence">Measure theory</a> · Monotone and dominated convergence</div>
     <div><a href="./probability-theory.html#rv">Probability theory</a> · Random variables</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== §5 Preimage viewer widget =============================== */
 (function(){
   const svg = $('#preimage-svg'), out = $('#preimage-out');
@@ -771,6 +764,8 @@ so $\varphi_n$ is simple, $0\le\varphi_n\nearrow f$ pointwise, and uniformly on 
 })();
 </script>
 
+
+</section>
 <section id="integral">
 <h2>6. The Lebesgue integral</h2>
 
@@ -825,10 +820,7 @@ Linearity, monotonicity, and the triangle inequality $\bigl|\int f\bigr|\le\int 
     <div><a href="./operator-algebras.html#states">Operator algebras</a> · States and pure states</div>
     <div><a href="./probability-theory.html#expectation">Probability theory</a> · Expectation, variance, and moments</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== §3 Simple-function approximation =============================== */
 (function(){
   const svg = $('#simple-svg'), out = $('#simple-out'), sel = $('#simple-n');
@@ -928,6 +920,8 @@ Linearity, monotonicity, and the triangle inequality $\bigl|\int f\bigr|\le\int 
 
 <div class="quiz" data-concept="lebesgue-integral"></div>
 
+
+</section>
 <section id="convergence">
 <h2>7. Convergence theorems</h2>
 
@@ -996,14 +990,10 @@ $$ \lim_n \int f_n\,d\mu = \int f\,d\mu, \qquad \lim_n \int |f_n - f|\,d\mu = 0.
     <div><a href="./harmonic-analysis-fourier.html#fourier-transform">Harmonic analysis &amp; Fourier theory</a> · Fourier transform on $\mathbb{R}$</div>
     <div><a href="./measure-theory.html#fubini">Measure theory</a> · Fubini &amp; Tonelli</div>
     <div><a href="./measure-theory.html#lp">Measure theory</a> · Lᵖ spaces</div>
+    <div><a href="./partial-differential-equations.html#heat">Partial differential equations</a> · Heat equation and the heat kernel</div>
     <div><a href="./probability-theory.html#conv">Probability theory</a> · Modes of convergence</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== §4 DCT demonstrator =============================== */
 (function(){
   const svg = $('#dct-svg'), out = $('#dct-out');
@@ -1094,6 +1084,8 @@ $$ \lim_n \int f_n\,d\mu = \int f\,d\mu, \qquad \lim_n \int |f_n - f|\,d\mu = 0.
 
 <div class="quiz" data-concept="convergence-theorems"></div>
 
+
+</section>
 <section id="lp">
 <h2>8. $L^p$ spaces</h2>
 
@@ -1170,13 +1162,10 @@ The case $p=1$, $q=\infty$ requires $\sigma$-finiteness. The case $p=\infty$ is 
     <div><a href="./functional-analysis.html#riesz">Functional analysis</a> · Riesz representation theorem</div>
     <div><a href="./harmonic-analysis-fourier.html#fourier-series">Harmonic analysis &amp; Fourier theory</a> · Fourier series on the circle</div>
     <div><a href="./measure-theory.html#radon-nikodym">Measure theory</a> · Signed measures &amp; Radon–Nikodym</div>
-    <div><a href="./probability-theory.html#expectation">Probability theory</a> · Expectation, variance, and moments</div>
-    <div class="more">… and 2 more.</div>
+    <div><a href="./partial-differential-equations.html#weak-solutions">Partial differential equations</a> · Weak solutions and Galerkin approximation</div>
+    <div class="more">… and 3 more.</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== §5 Lp unit ball widget =============================== */
 (function(){
   const svg = $('#lp-svg'), out = $('#lp-out');
@@ -1252,6 +1241,8 @@ The case $p=1$, $q=\infty$ requires $\sigma$-finiteness. The case $p=\infty$ is 
 
 <div class="quiz" data-concept="lp-spaces"></div>
 
+
+</section>
 <section id="product-measure">
 <h2>9. Product measures &amp; $\sigma$-finiteness</h2>
 
@@ -1284,11 +1275,7 @@ This measurability-of-sections statement is the combinatorial heart of Tonelli�
   <div class="ttl">Used in</div>
     <div><a href="./measure-theory.html#fubini">Measure theory</a> · Fubini &amp; Tonelli</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== §9 Product-measure rectangle widget =============================== */
 (function(){
   const svg = $('#product-svg'), out = $('#product-out');
@@ -1347,6 +1334,8 @@ This measurability-of-sections statement is the combinatorial heart of Tonelli�
 })();
 </script>
 
+
+</section>
 <section id="fubini">
 <h2>10. Fubini &amp; Tonelli</h2>
 
@@ -1387,10 +1376,7 @@ Then $\int_0^1\!\int_0^1 f\,dx\,dy = \pi/4$ while $\int_0^1\!\int_0^1 f\,dy\,dx 
 </div>
 
 
-<div class="quiz" data-concept="fubini-tonelli"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="fubini-tonelli"></div><script>
 /* =============================== §10 Fubini iterated-integral widget =============================== */
 (function(){
   const svg = $('#fubini-svg'), out = $('#fubini-out');
@@ -1472,6 +1458,8 @@ Then $\int_0^1\!\int_0^1 f\,dx\,dy = \pi/4$ while $\int_0^1\!\int_0^1 f\,dy\,dx 
 })();
 </script>
 
+
+</section>
 <section id="radon-nikodym">
 <h2>11. Signed measures &amp; Radon–Nikodym</h2>
 
@@ -1502,10 +1490,7 @@ One writes $f = \dfrac{d\nu}{d\mu}$ — the <em>Radon–Nikodym density</em>.</d
 </div>
 
 
-<div class="quiz" data-concept="signed-measures-radon-nikodym"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="signed-measures-radon-nikodym"></div><script>
 /* =============================== §11 Radon-Nikodym density widget =============================== */
 (function(){
   const svg = $('#rn-svg'), out = $('#rn-out');
@@ -1574,6 +1559,8 @@ One writes $f = \dfrac{d\nu}{d\mu}$ — the <em>Radon–Nikodym density</em>.</d
 })();
 </script>
 
+
+</section>
 <section id="riesz-measure">
 <h2>12. Riesz representation (measure form)</h2>
 
@@ -1620,10 +1607,7 @@ Here "regular" means:
 </div>
 
 
-<div class="quiz" data-concept="riesz-representation-measures"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="riesz-representation-measures"></div><script>
 /* =============================== §12 Riesz functional/measure selector =============================== */
 (function(){
   const svg = $('#riesz-svg'), out = $('#riesz-out');
@@ -1706,6 +1690,8 @@ Here "regular" means:
 })();
 </script>
 
+
+</section>
 <section id="hausdorff">
 <h2>13. Hausdorff measure &amp; dimension</h2>
 
@@ -1743,10 +1729,7 @@ and $0<\mathcal{H}^s(E)<\infty$. The middle-thirds Cantor set has $N=2$, $r=1/3$
 </div>
 
 
-<div class="quiz" data-concept="hausdorff-measure"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="hausdorff-measure"></div><script>
 /* =============================== §13 Hausdorff measure/dimension widget =============================== */
 (function(){
   const svg = $('#hausdorff-svg'), out = $('#hausdorff-out');
@@ -1828,6 +1811,8 @@ and $0<\mathcal{H}^s(E)<\infty$. The middle-thirds Cantor set has $N=2$, $r=1/3$
 })();
 </script>
 
+
+</section>
 <section id="outro">
 <h2>14. Connections</h2>
 

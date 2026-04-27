@@ -99,7 +99,7 @@
         },
         {
           "type": "raw",
-          "html": "</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -145,6 +145,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -298,7 +302,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -331,6 +335,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -377,11 +385,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#comparison-betti\">Algebraic de Rham cohomology</a> · Comparison with Betti cohomology</div>\n    <div><a href=\"./differential-forms.html#integration\">Differential forms</a> · Integration of forms over chains</div>\n    <div><a href=\"./etale-cohomology.html#comparison\">Étale cohomology</a> · Comparison theorems: étale vs. singular, de Rham, crystalline</div>\n    <div><a href=\"./homological.html#les\">Homological algebra</a> · Long exact sequence in homology</div>\n    <div><a href=\"./intersection-theory-chow.html#chow-groups\">Intersection theory and Chow groups</a> · Chow groups $A_*(X)$</div>\n    <div><a href=\"./simplicial-complexes-combinatorial.html#realize\">Simplicial complexes (combinatorial)</a> · Geometric realization and the nerve</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-de-rham-cohomology.html#comparison-betti\">Algebraic de Rham cohomology</a> · Comparison with Betti cohomology</div>\n    <div><a href=\"./characteristic-classes.html#chern\">Characteristic classes</a> · Chern classes</div>\n    <div><a href=\"./characteristic-classes.html#euler\">Characteristic classes</a> · Euler class</div>\n    <div><a href=\"./characteristic-classes.html#stiefel-whitney\">Characteristic classes</a> · Stiefel–Whitney classes</div>\n    <div><a href=\"./differential-forms.html#integration\">Differential forms</a> · Integration of forms over chains</div>\n    <div><a href=\"./etale-cohomology.html#comparison\">Étale cohomology</a> · Comparison theorems: étale vs. singular, de Rham, crystalline</div>\n    <div class=\"more\">… and 4 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -425,6 +433,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -456,7 +468,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p>The same machinery tells you $H_*(T^2)$ via a split of the torus as two annuli; $H_*$ of any CW-complex via its cell filtration; and generally reduces the topology of a complicated space to its pieces plus a connecting homomorphism.</p>\n</section>\n\n"
+          "html": "\n\n<p>The same machinery tells you $H_*(T^2)$ via a split of the torus as two annuli; $H_*$ of any CW-complex via its cell filtration; and generally reduces the topology of a complicated space to its pieces plus a connecting homomorphism.</p>"
         },
         {
           "type": "widget-script",
@@ -480,6 +492,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -511,7 +527,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<h3>A taste of cohomology</h3>\n<p>Dualizing the chain complex $C_\\bullet$ gives the <em>cochain complex</em> $C^\\bullet=\\operatorname{Hom}(C_\\bullet,\\mathbb{Z})$ with coboundary $\\delta\\colon C^n\\to C^{n+1}$ transpose to $\\partial$. Its cohomology $H^n(X)$ is a refinement of homology with extra structure: a graded-commutative ring under the <em>cup product</em> $\\smile\\colon H^p\\otimes H^q\\to H^{p+q}$. For instance, $H^*(T^2;\\mathbb{Z})\\cong\\Lambda[\\alpha,\\beta]$ — the exterior algebra on two degree-1 generators — while $H^*(\\mathbb{CP}^n;\\mathbb{Z})\\cong\\mathbb{Z}[x]/(x^{n+1})$ with $|x|=2$.</p>\n\n<div class=\"note\"><strong>Poincaré duality.</strong> If $M$ is a closed oriented $n$-manifold, there is a natural isomorphism\n$$H^k(M;\\mathbb{Z})\\;\\cong\\;H_{n-k}(M;\\mathbb{Z}).$$\nEquivalently, cap product with the fundamental class $[M]\\in H_n(M)$ is an isomorphism. The dual picture: a codimension-$k$ submanifold gives a class in $H^k$. For $M=S^n$: $H^0=H^n=\\mathbb{Z}$, everything else zero — the duality is tautological. For surfaces: $b_k=b_{2-k}$; for $T^2$ you get $1,2,1$; for $\\Sigma_g$ you get $1, 2g, 1$.</div>\n\n<div class=\"ok\"><strong>Gauss–Bonnet, one-liner.</strong> For a closed oriented Riemannian 2-manifold,\n$$\\int_M K\\,dA = 2\\pi\\,\\chi(M).$$\nThe left side is a local analytic invariant (curvature integrated); the right side is a global discrete invariant (Euler characteristic). A round sphere has $K=1/R^2$, $\\int K dA = 4\\pi = 2\\pi\\cdot 2$. A flat torus has $K=0$ and $\\chi(T^2)=0$, a perfect match.</div>\n\n<p>The story continues from here — characteristic classes, spectral sequences, stable homotopy theory — but the germ is always the same. Attach a functor $X\\mapsto A(X)$ that turns continuous deformations into algebra, and the functor will see shadows of the shape you could not otherwise make precise.</p>\n\n<div class=\"note\"><strong>Big picture.</strong> The leap from $\\pi_1$ to $H_*$ was the leap from non-abelian to abelian — from words to equivalence classes of chains. That move made everything computable. The price: information is lost (a knot complement has $\\pi_1$ distinguishing knots that $H_*$ cannot tell apart). The trade-off between computable and sensitive is the central tension of the whole field, and it is why $\\pi_n$, $H_n$, $H^n$, $K$-theory, bordism, etc. all coexist: each one picks a different balance on that axis.</div>\n\n<p class=\"small\">Algebraic topology as a named discipline goes back to Poincaré's Analysis Situs (1895). Homology was in something like modern form by the 1920s (Noether insisted on groups instead of Betti numbers and torsion coefficients separately). Eilenberg and Steenrod axiomatized it all in 1952. Category-theoretic refinements from Grothendieck, Quillen, Lurie extend the story into derived and higher algebra — the algebraic topology of today.</p>\n</section>\n\n"
+          "html": "\n\n<h3>A taste of cohomology</h3>\n<p>Dualizing the chain complex $C_\\bullet$ gives the <em>cochain complex</em> $C^\\bullet=\\operatorname{Hom}(C_\\bullet,\\mathbb{Z})$ with coboundary $\\delta\\colon C^n\\to C^{n+1}$ transpose to $\\partial$. Its cohomology $H^n(X)$ is a refinement of homology with extra structure: a graded-commutative ring under the <em>cup product</em> $\\smile\\colon H^p\\otimes H^q\\to H^{p+q}$. For instance, $H^*(T^2;\\mathbb{Z})\\cong\\Lambda[\\alpha,\\beta]$ — the exterior algebra on two degree-1 generators — while $H^*(\\mathbb{CP}^n;\\mathbb{Z})\\cong\\mathbb{Z}[x]/(x^{n+1})$ with $|x|=2$.</p>\n\n<div class=\"note\"><strong>Poincaré duality.</strong> If $M$ is a closed oriented $n$-manifold, there is a natural isomorphism\n$$H^k(M;\\mathbb{Z})\\;\\cong\\;H_{n-k}(M;\\mathbb{Z}).$$\nEquivalently, cap product with the fundamental class $[M]\\in H_n(M)$ is an isomorphism. The dual picture: a codimension-$k$ submanifold gives a class in $H^k$. For $M=S^n$: $H^0=H^n=\\mathbb{Z}$, everything else zero — the duality is tautological. For surfaces: $b_k=b_{2-k}$; for $T^2$ you get $1,2,1$; for $\\Sigma_g$ you get $1, 2g, 1$.</div>\n\n<div class=\"ok\"><strong>Gauss–Bonnet, one-liner.</strong> For a closed oriented Riemannian 2-manifold,\n$$\\int_M K\\,dA = 2\\pi\\,\\chi(M).$$\nThe left side is a local analytic invariant (curvature integrated); the right side is a global discrete invariant (Euler characteristic). A round sphere has $K=1/R^2$, $\\int K dA = 4\\pi = 2\\pi\\cdot 2$. A flat torus has $K=0$ and $\\chi(T^2)=0$, a perfect match.</div>\n\n<p>The story continues from here — characteristic classes, spectral sequences, stable homotopy theory — but the germ is always the same. Attach a functor $X\\mapsto A(X)$ that turns continuous deformations into algebra, and the functor will see shadows of the shape you could not otherwise make precise.</p>\n\n<div class=\"note\"><strong>Big picture.</strong> The leap from $\\pi_1$ to $H_*$ was the leap from non-abelian to abelian — from words to equivalence classes of chains. That move made everything computable. The price: information is lost (a knot complement has $\\pi_1$ distinguishing knots that $H_*$ cannot tell apart). The trade-off between computable and sensitive is the central tension of the whole field, and it is why $\\pi_n$, $H_n$, $H^n$, $K$-theory, bordism, etc. all coexist: each one picks a different balance on that axis.</div>\n\n<p class=\"small\">Algebraic topology as a named discipline goes back to Poincaré's Analysis Situs (1895). Homology was in something like modern form by the 1920s (Noether insisted on groups instead of Betti numbers and torsion coefficients separately). Eilenberg and Steenrod axiomatized it all in 1952. Category-theoretic refinements from Grothendieck, Quillen, Lurie extend the story into derived and higher algebra — the algebraic topology of today.</p>"
         },
         {
           "type": "widget-script",
@@ -535,6 +551,10 @@
         {
           "type": "raw",
           "html": "\n\n<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     }

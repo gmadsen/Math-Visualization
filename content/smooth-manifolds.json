@@ -52,7 +52,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-groups.html#intro\">Lie groups</a> · Lie groups and matrix examples</div>\n    <div><a href=\"./riemann-surfaces.html#intro\">Riemann surfaces</a> · Riemann surfaces as 1D complex manifolds</div>\n    <div><a href=\"./riemannian-geometry.html#metric\">Riemannian geometry</a> · Riemannian metrics</div>\n    <div><a href=\"./smooth-manifolds.html#examples\">Smooth manifolds</a> · Examples: spheres, projective spaces, matrix groups</div>\n    <div><a href=\"./smooth-manifolds.html#partition\">Smooth manifolds</a> · Partitions of unity</div>\n    <div><a href=\"./smooth-manifolds.html#maps\">Smooth manifolds</a> · Smooth maps and diffeomorphisms</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-groups.html#intro\">Lie groups</a> · Lie groups and matrix examples</div>\n    <div><a href=\"./morse-theory.html#morse-functions\">Morse theory</a> · Morse functions and non-degenerate critical points</div>\n    <div><a href=\"./riemann-surfaces.html#intro\">Riemann surfaces</a> · Riemann surfaces as 1D complex manifolds</div>\n    <div><a href=\"./riemannian-geometry.html#metric\">Riemannian geometry</a> · Riemannian metrics</div>\n    <div><a href=\"./smooth-manifolds.html#examples\">Smooth manifolds</a> · Examples: spheres, projective spaces, matrix groups</div>\n    <div><a href=\"./smooth-manifolds.html#partition\">Smooth manifolds</a> · Partitions of unity</div>\n    <div class=\"more\">… and 1 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -65,7 +65,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -98,6 +98,10 @@
         {
           "type": "raw",
           "html": "\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -173,7 +177,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -206,6 +210,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -263,11 +271,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./differential-forms.html#wedge\">Differential forms</a> · Differential forms and wedge product</div>\n    <div><a href=\"./lie-groups.html#algebra\">Lie groups</a> · Lie algebra as tangent space at the identity</div>\n    <div><a href=\"./riemannian-geometry.html#metric\">Riemannian geometry</a> · Riemannian metrics</div>\n    <div><a href=\"./smooth-manifolds.html#sub\">Smooth manifolds</a> · Immersions, submersions, and submanifolds</div>\n    <div><a href=\"./smooth-manifolds.html#bundle\">Smooth manifolds</a> · Tangent bundle and vector fields</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./differential-forms.html#wedge\">Differential forms</a> · Differential forms and wedge product</div>\n    <div><a href=\"./lie-groups.html#algebra\">Lie groups</a> · Lie algebra as tangent space at the identity</div>\n    <div><a href=\"./morse-theory.html#morse-functions\">Morse theory</a> · Morse functions and non-degenerate critical points</div>\n    <div><a href=\"./riemannian-geometry.html#metric\">Riemannian geometry</a> · Riemannian metrics</div>\n    <div><a href=\"./smooth-manifolds.html#sub\">Smooth manifolds</a> · Immersions, submersions, and submanifolds</div>\n    <div><a href=\"./smooth-manifolds.html#bundle\">Smooth manifolds</a> · Tangent bundle and vector fields</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
-          "html": "\n\n\n\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -304,6 +312,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -357,11 +369,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./smooth-manifolds.html#flows\">Smooth manifolds</a> · Integral curves and flows</div>\n    <div><a href=\"./smooth-manifolds.html#bracket\">Smooth manifolds</a> · Lie bracket of vector fields</div>\n    <div><a href=\"./smooth-manifolds.html#orientation\">Smooth manifolds</a> · Orientation of manifolds</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./characteristic-classes.html#vector-bundles\">Characteristic classes</a> · Vector bundles</div>\n    <div><a href=\"./smooth-manifolds.html#flows\">Smooth manifolds</a> · Integral curves and flows</div>\n    <div><a href=\"./smooth-manifolds.html#bracket\">Smooth manifolds</a> · Lie bracket of vector fields</div>\n    <div><a href=\"./smooth-manifolds.html#orientation\">Smooth manifolds</a> · Orientation of manifolds</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -394,6 +406,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -451,11 +467,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./dynamical-systems.html#orbits\">Dynamical systems</a> · Orbits, flows, and vector fields</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./dynamical-systems.html#orbits\">Dynamical systems</a> · Orbits, flows, and vector fields</div>\n    <div><a href=\"./morse-theory.html#handle-decomp\">Morse theory</a> · Handle decomposition via sublevel sets</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -492,6 +508,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -545,7 +565,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -578,6 +598,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -631,7 +655,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n\n\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -660,6 +684,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -709,7 +737,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -742,6 +770,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -791,7 +823,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -824,6 +856,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },

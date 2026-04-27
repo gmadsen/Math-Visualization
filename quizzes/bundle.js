@@ -5673,19 +5673,262 @@ window.MVQuizBank = {
   "characteristic-classes": {
     "topic": "characteristic-classes",
     "quizzes": {
-      "characteristic-classes-intro": {
-        "title": "Intro",
+      "cc-vector-bundles": {
+        "title": "Vector bundles",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder question — content forthcoming.",
+            "q": "Which datum determines a rank-$n$ vector bundle $E \\to X$ up to isomorphism, given an open cover $\\{U_\\alpha\\}$ of $X$?",
             "choices": [
-              "A",
-              "B"
+              "A choice of basis for each fibre $E_x$",
+              "Transition functions $g_{\\alpha\\beta}\\colon U_\\alpha \\cap U_\\beta \\to GL_n$ satisfying the cocycle condition $g_{\\alpha\\beta} g_{\\beta\\gamma} = g_{\\alpha\\gamma}$",
+              "A global section $s\\colon X \\to E$",
+              "A trivialisation $E \\cong X \\times \\mathbb{R}^n$"
             ],
+            "answer": 1,
+            "hint": "Local triviality plus how the trivialisations agree on overlaps.",
+            "explain": "A bundle is glued from local trivialisations $E|_{U_\\alpha} \\cong U_\\alpha\\times\\mathbb{R}^n$, and the transition data $g_{\\alpha\\beta}$ — subject to the cocycle condition — determines the bundle. Global sections need not exist (a global trivialisation is too strong)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which bundle is non-trivial?",
+            "choices": [
+              "The trivial bundle $S^1 \\times \\mathbb{R} \\to S^1$",
+              "The Möbius line bundle on $S^1$",
+              "$T\\mathbb{R}^n \\to \\mathbb{R}^n$",
+              "$T S^3 \\to S^3$"
+            ],
+            "answer": 1,
+            "hint": "Which one has no nowhere-vanishing section that returns to the same value after one loop?",
+            "explain": "The Möbius bundle is the rank-$1$ bundle on $S^1$ whose monodromy multiplies by $-1$; it admits no nowhere-vanishing section, hence is non-trivial. $T\\mathbb{R}^n$ is trivial, and $TS^3$ is trivial because $S^3$ is parallelisable (it is a Lie group)."
+          },
+          {
+            "type": "mcq",
+            "q": "Let $M$ be a smooth manifold and $f\\colon N \\to M$ a smooth map. The pullback $f^*TM$ is naturally identified with which bundle on $N$?",
+            "choices": [
+              "$TN$",
+              "The bundle whose fibre over $p\\in N$ is $T_{f(p)}M$",
+              "The normal bundle of $f$",
+              "The trivial bundle $N\\times\\mathbb{R}^{\\dim M}$"
+            ],
+            "answer": 1,
+            "hint": "Pullback rebuilds the fibres above $f(p)$ over $p$.",
+            "explain": "By definition $(f^*TM)_p = T_{f(p)}M$. When $f$ is an immersion, $f^*TM \\cong TN \\oplus \\nu_f$, but in general $f^*TM \\ne TN$."
+          }
+        ]
+      },
+      "cc-stiefel-whitney": {
+        "title": "Stiefel–Whitney classes",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What does the vanishing of $w_1(E)$ measure for a real vector bundle $E \\to X$?",
+            "choices": [
+              "Triviality of $E$",
+              "Orientability of $E$",
+              "Existence of a spin structure on $E$",
+              "Existence of a nowhere-vanishing section"
+            ],
+            "answer": 1,
+            "hint": "It is the mod-$2$ obstruction to a coherent choice of frame orientation.",
+            "explain": "$w_1(E) \\in H^1(X;\\mathbb{Z}/2)$ classifies the determinant line bundle $\\det E$ up to isomorphism; it vanishes iff $E$ is orientable. Triviality is much stronger; a spin structure requires $w_2 = 0$ on top of $w_1 = 0$."
+          },
+          {
+            "type": "mcq",
+            "q": "By the Whitney sum formula, $w(E \\oplus F) = w(E) \\smile w(F)$. What is $w_2(E\\oplus F)$ in terms of the $w_i$?",
+            "choices": [
+              "$w_2(E) + w_2(F)$",
+              "$w_2(E) + w_1(E)\\smile w_1(F) + w_2(F)$",
+              "$w_1(E)\\smile w_1(F)$",
+              "$w_2(E) \\smile w_2(F)$"
+            ],
+            "answer": 1,
+            "hint": "Expand $(1 + w_1(E) + w_2(E) + \\cdots)(1 + w_1(F) + w_2(F) + \\cdots)$ and read off the degree-$2$ piece.",
+            "explain": "Multiplying total classes and collecting degree-$2$ terms gives $w_2(E\\oplus F) = w_2(E) + w_1(E) w_1(F) + w_2(F)$. The cross term $w_1 \\smile w_1$ is exactly what $w_2$ feels under direct sum."
+          },
+          {
+            "type": "mcq",
+            "q": "For the tangent bundle of $\\mathbb{RP}^2$, which Stiefel–Whitney class is non-zero?",
+            "choices": [
+              "All $w_i$ vanish",
+              "$w_1(T\\mathbb{RP}^2) \\ne 0$ only",
+              "$w_2(T\\mathbb{RP}^2) \\ne 0$ only",
+              "Both $w_1$ and $w_2$ are non-zero"
+            ],
+            "answer": 3,
+            "hint": "$\\mathbb{RP}^2$ is non-orientable, and $\\chi(\\mathbb{RP}^2) = 1$ is odd.",
+            "explain": "$T\\mathbb{RP}^2 \\oplus \\mathbb{R} \\cong (\\gamma^*)^{\\oplus 3}$ gives $w(T\\mathbb{RP}^2) = (1+a)^3 = 1 + 3a + 3a^2 = 1 + a + a^2$ in $H^*(\\mathbb{RP}^2;\\mathbb{Z}/2) = \\mathbb{Z}/2[a]/(a^3)$, so $w_1 = a \\ne 0$ (non-orientable) and $w_2 = a^2 \\ne 0$ (no spin structure)."
+          }
+        ]
+      },
+      "cc-chern-classes": {
+        "title": "Chern classes",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In which cohomology group does the Chern class $c_i(E)$ of a complex rank-$n$ bundle $E \\to X$ live?",
+            "choices": [
+              "$H^i(X; \\mathbb{Z})$",
+              "$H^{2i}(X; \\mathbb{Z})$",
+              "$H^i(X; \\mathbb{Z}/2)$",
+              "$H^{2i}(X; \\mathbb{R})$"
+            ],
+            "answer": 1,
+            "hint": "Complex bundles double the cohomological degree compared with real ones.",
+            "explain": "Each Chern class lives in even integral degree: $c_i(E) \\in H^{2i}(X;\\mathbb{Z})$. The total Chern class $c(E) = 1 + c_1 + \\cdots + c_n$ assembles them in $H^{\\mathrm{even}}(X;\\mathbb{Z})$."
+          },
+          {
+            "type": "mcq",
+            "q": "On $X = \\mathbb{CP}^1 = S^2$, complex line bundles are classified by which integer invariant?",
+            "choices": [
+              "The rank, always $1$",
+              "The integer $\\langle c_1(L), [\\mathbb{CP}^1] \\rangle \\in \\mathbb{Z}$",
+              "The Euler characteristic $\\chi(\\mathbb{CP}^1) = 2$",
+              "The signature"
+            ],
+            "answer": 1,
+            "hint": "$H^2(\\mathbb{CP}^1;\\mathbb{Z}) \\cong \\mathbb{Z}$ and $c_1$ is the universal characteristic class.",
+            "explain": "Pic$(\\mathbb{CP}^1) \\cong \\mathbb{Z}$, with the isomorphism $L \\mapsto \\deg L = \\langle c_1(L), [\\mathbb{CP}^1]\\rangle$. The line bundle $\\mathcal{O}(d)$ has $c_1 = d \\cdot h$ where $h$ is the generator of $H^2$."
+          },
+          {
+            "type": "mcq",
+            "q": "If $E \\to X$ is a complex rank-$n$ bundle, the top Chern class $c_n(E)$ agrees with which other class of the underlying real bundle?",
+            "choices": [
+              "$w_n(E_\\mathbb{R})$",
+              "$p_n(E_\\mathbb{R})$",
+              "The Euler class $e(E_\\mathbb{R})$ of the underlying oriented real $2n$-bundle",
+              "It has no real-bundle counterpart"
+            ],
+            "answer": 2,
+            "hint": "Both classes obstruct the existence of a nowhere-vanishing section.",
+            "explain": "A complex structure on a real bundle gives a canonical orientation, and the top Chern class $c_n(E) \\in H^{2n}(X;\\mathbb{Z})$ equals the Euler class $e(E_\\mathbb{R}) \\in H^{2n}(X;\\mathbb{Z})$ — both count zeros of a generic section."
+          }
+        ]
+      },
+      "cc-pontryagin": {
+        "title": "Pontryagin classes",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "By definition, $p_i(E) = ?$ for a real bundle $E$.",
+            "choices": [
+              "$c_i(E\\otimes\\mathbb{C})$",
+              "$(-1)^i c_{2i}(E\\otimes\\mathbb{C})$",
+              "$c_i(E)^2$",
+              "$w_{2i}(E)$ lifted to $\\mathbb{Z}$"
+            ],
+            "answer": 1,
+            "hint": "Take the complexification, keep only even Chern classes, and absorb a sign.",
+            "explain": "$p_i(E) := (-1)^i c_{2i}(E\\otimes\\mathbb{C}) \\in H^{4i}(X;\\mathbb{Z})$. The sign is conventional; odd Chern classes of $E\\otimes\\mathbb{C}$ are 2-torsion because $E\\otimes\\mathbb{C}\\cong \\overline{E\\otimes\\mathbb{C}}$ as complex bundles."
+          },
+          {
+            "type": "mcq",
+            "q": "What cohomological degree does $p_i(E)$ live in?",
+            "choices": [
+              "$H^i(X;\\mathbb{Z})$",
+              "$H^{2i}(X;\\mathbb{Z})$",
+              "$H^{4i}(X;\\mathbb{Z})$",
+              "$H^{4i}(X;\\mathbb{Z}/2)$"
+            ],
+            "answer": 2,
+            "hint": "Complexification doubles degrees, and we keep only even Chern classes.",
+            "explain": "Since $c_{2i}(E\\otimes\\mathbb{C}) \\in H^{4i}(X;\\mathbb{Z})$, Pontryagin classes are concentrated in degrees divisible by $4$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why are the odd Chern classes $c_{2i+1}(E\\otimes\\mathbb{C})$ ignored in defining Pontryagin classes?",
+            "choices": [
+              "They vanish identically",
+              "They are 2-torsion (annihilated by $2$), and the integral lift is captured by the even classes",
+              "They equal $w_{2i+1}$",
+              "They equal the Euler class"
+            ],
+            "answer": 1,
+            "hint": "$E\\otimes\\mathbb{C}$ is isomorphic to its conjugate as a complex bundle.",
+            "explain": "The complexification of a real bundle is isomorphic to its complex conjugate, so $c_k(E\\otimes\\mathbb{C}) = (-1)^k c_k(E\\otimes\\mathbb{C})$, forcing $2 c_{2i+1}(E\\otimes\\mathbb{C}) = 0$. The honest integral information lives in even degrees."
+          }
+        ]
+      },
+      "cc-euler-class": {
+        "title": "Euler class",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a closed oriented smooth manifold $M^n$, what does $\\langle e(TM), [M] \\rangle$ compute?",
+            "choices": [
+              "The signature $\\sigma(M)$",
+              "The Euler characteristic $\\chi(M)$",
+              "The first Pontryagin number $p_1(M)$",
+              "The first Stiefel–Whitney number $w_1(M)$"
+            ],
+            "answer": 1,
+            "hint": "Poincaré–Hopf: count signed zeros of any vector field.",
+            "explain": "By Poincaré–Hopf, for any vector field $X$ on $M$ with isolated zeros, $\\sum_p \\mathrm{ind}_p(X) = \\chi(M)$, and the same number is computed by pairing the Euler class with the fundamental class."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\chi(T^2)$ for the $2$-torus.",
             "answer": 0,
-            "hint": "Placeholder.",
-            "explain": "Placeholder."
+            "tol": 0,
+            "hint": "$T^2 = S^1 \\times S^1$ is parallelisable, so $TT^2$ admits a nowhere-vanishing section.",
+            "explain": "The torus has a nowhere-vanishing vector field (e.g. $\\partial/\\partial\\theta_1$), so by Poincaré–Hopf $\\chi(T^2) = 0$. Equivalently, the Betti numbers $1,2,1$ give $\\chi = 1-2+1 = 0$."
+          },
+          {
+            "type": "mcq",
+            "q": "On which space does an oriented rank-$n$ bundle fail to have a nowhere-vanishing section iff $e(E) \\ne 0$?",
+            "choices": [
+              "Only on contractible spaces",
+              "On any reasonable base — the Euler class is the universal primary obstruction in $H^n$",
+              "Only on closed manifolds of dimension $n$",
+              "Only on simply connected spaces"
+            ],
+            "answer": 1,
+            "hint": "Obstruction theory expresses non-vanishing of a rank-$n$ section as an obstruction in $H^n$.",
+            "explain": "For an oriented rank-$n$ bundle on a CW base, the primary obstruction to a nowhere-vanishing section is exactly the Euler class $e(E) \\in H^n(X;\\mathbb{Z})$. Higher obstructions can appear but the first one is always $e(E)$."
+          }
+        ]
+      },
+      "cc-chern-weil": {
+        "title": "Chern–Weil theory",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Given a connection $\\nabla$ with curvature $F_\\nabla$ on a complex bundle, which polynomial gives the total Chern class?",
+            "choices": [
+              "$\\mathrm{tr}(F_\\nabla)$",
+              "$\\det(F_\\nabla)$",
+              "$\\det\\!\\left(I + \\frac{i}{2\\pi}F_\\nabla\\right)$",
+              "$\\mathrm{tr}(F_\\nabla^2)$"
+            ],
+            "answer": 2,
+            "hint": "The factor $\\frac{i}{2\\pi}$ is exactly the normalisation that produces integral classes.",
+            "explain": "Chern–Weil: $c(E) = \\det\\!\\big(I + \\frac{i}{2\\pi}F_\\nabla\\big)$ as a closed $\\mathrm{Ad}$-invariant form on $M$, whose de Rham class is independent of $\\nabla$. Expanding in degrees gives $c_k$."
+          },
+          {
+            "type": "mcq",
+            "q": "On a closed oriented surface $\\Sigma$ with Riemannian metric, the Gauss–Bonnet theorem $\\int_\\Sigma K\\,dA = 2\\pi\\,\\chi(\\Sigma)$ is which Chern–Weil identity?",
+            "choices": [
+              "$c_2(T\\Sigma\\otimes\\mathbb{C})$ in degree $4$",
+              "$e(T\\Sigma)$ paired against $[\\Sigma]$, i.e. the rank-$1$ Chern–Weil formula",
+              "$p_1(T\\Sigma)$ paired against $[\\Sigma]$",
+              "$w_2(T\\Sigma)$ paired against $[\\Sigma]$"
+            ],
+            "answer": 1,
+            "hint": "$\\Sigma$ is $2$-dimensional, so we need a degree-$2$ class — and we are computing $\\chi$.",
+            "explain": "$T\\Sigma$ is an oriented rank-$2$ real bundle, equivalently a complex line bundle; the curvature $2$-form is $-K\\,dA$ (up to sign), and $\\frac{1}{2\\pi}\\int_\\Sigma K\\,dA = \\chi(\\Sigma)$ is the Chern–Weil expression of the Euler/first-Chern number."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the de Rham class of $P(F_\\nabla)$ independent of the connection $\\nabla$?",
+            "choices": [
+              "Because $F_\\nabla = 0$ for any connection",
+              "Because $F_{\\nabla} = F_{\\nabla'}$ for any two connections",
+              "Because $P(F_{\\nabla'}) - P(F_\\nabla) = d\\,(\\text{transgression form})$ is exact",
+              "Because $P$ vanishes on commutators"
+            ],
+            "answer": 2,
+            "hint": "Two connections differ by an $\\mathrm{End}(E)$-valued $1$-form; build a path between them.",
+            "explain": "If $\\nabla_t = \\nabla + t(\\nabla' - \\nabla)$ is a path of connections, integrating $\\frac{d}{dt}P(F_{\\nabla_t})$ over $t \\in [0,1]$ produces an explicit primitive, the Chern–Simons / transgression form, so $[P(F_\\nabla)]$ is independent of $\\nabla$ in de Rham cohomology."
           }
         ]
       }
@@ -12163,19 +12406,217 @@ window.MVQuizBank = {
   "enumerative-combinatorics": {
     "topic": "enumerative-combinatorics",
     "quizzes": {
-      "enumerative-combinatorics-intro": {
-        "title": "Intro",
+      "ec-binomial-and-stars-bars": {
+        "title": "Binomials and stars-and-bars",
         "questions": [
           {
+            "type": "numeric",
+            "q": "How many ways are there to choose a $3$-subset from $\\{1,2,\\ldots,7\\}$?",
+            "answer": 35,
+            "tol": 0,
+            "explain": "$\\binom{7}{3} = \\frac{7!}{3!\\,4!} = \\frac{7\\cdot 6\\cdot 5}{6} = 35$.",
+            "hint": "Compute $\\binom{7}{3}$."
+          },
+          {
+            "type": "numeric",
+            "q": "How many non-negative integer solutions does $x_1+x_2+x_3+x_4 = 6$ have?",
+            "answer": 84,
+            "tol": 0,
+            "explain": "Stars-and-bars: $\\binom{n+r-1}{r-1} = \\binom{6+3}{3} = \\binom{9}{3} = 84$.",
+            "hint": "Use $\\binom{n+r-1}{r-1}$ with $n=6$, $r=4$."
+          },
+          {
             "type": "mcq",
-            "q": "Placeholder question — content forthcoming.",
+            "q": "How many ways are there to arrange the letters of MISSISSIPPI?",
             "choices": [
-              "A",
-              "B"
+              "$11!$",
+              "$\\binom{11}{4,4,2,1}$",
+              "$\\binom{11}{1,4,4,2}$",
+              "Both (b) and (c) (they are equal)"
             ],
-            "answer": 0,
-            "hint": "Placeholder.",
-            "explain": "Placeholder."
+            "answer": 3,
+            "explain": "The multinomial coefficient $\\binom{11}{1,4,4,2}=\\frac{11!}{1!\\,4!\\,4!\\,2!}=34650$ is symmetric in the bin sizes, so any ordering of $\\{1,4,4,2\\}$ gives the same value. The plain $11!$ overcounts because it treats identical letters as distinguishable.",
+            "hint": "M·1, I·4, S·4, P·2."
+          }
+        ]
+      },
+      "ec-inclusion-exclusion": {
+        "title": "Inclusion–exclusion",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Compute the derangement number $D_4$ (permutations of $\\{1,2,3,4\\}$ with no fixed points).",
+            "answer": 9,
+            "tol": 0,
+            "explain": "$D_4 = 4!\\sum_{k=0}^{4}(-1)^k/k! = 24(1 - 1 + 1/2 - 1/6 + 1/24) = 24 - 24 + 12 - 4 + 1 = 9$.",
+            "hint": "$D_n = n!\\sum_{k=0}^n (-1)^k/k!$."
+          },
+          {
+            "type": "numeric",
+            "q": "In a group of $100$ people, $60$ speak French, $50$ speak German, and $20$ speak both. How many speak at least one of the two languages?",
+            "answer": 90,
+            "tol": 0,
+            "explain": "$|F\\cup G| = |F| + |G| - |F\\cap G| = 60 + 50 - 20 = 90$.",
+            "hint": "Two-set inclusion–exclusion."
+          },
+          {
+            "type": "mcq",
+            "q": "How many integers in $\\{1,\\ldots,100\\}$ are divisible by neither $2$ nor $5$?",
+            "choices": [
+              "30",
+              "40",
+              "50",
+              "60"
+            ],
+            "answer": 1,
+            "explain": "Divisible by 2: 50; by 5: 20; by both (i.e. by 10): 10. So divisible by 2 or 5 is $50+20-10=60$, and the complement is $100-60=40$.",
+            "hint": "Count the bad set, subtract from $100$."
+          }
+        ]
+      },
+      "ec-recurrences-and-gen-fun": {
+        "title": "Generating functions",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "What is the coefficient of $x^4$ in $(1-x)^{-1} = \\sum_{n\\ge 0} x^n$?",
+            "answer": 1,
+            "tol": 0,
+            "explain": "Every coefficient of the geometric series $\\sum x^n$ is $1$.",
+            "hint": "It is the geometric series."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute the Catalan number $C_4 = \\frac{1}{5}\\binom{8}{4}$.",
+            "answer": 14,
+            "tol": 0,
+            "explain": "$\\binom{8}{4} = 70$, so $C_4 = 70/5 = 14$. The first Catalan numbers are $1, 1, 2, 5, 14, 42, \\ldots$.",
+            "hint": "$\\binom{8}{4}=70$, divide by $5$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which functional equation does the Catalan generating function $C(x) = \\sum_{n\\ge 0} C_n x^n$ satisfy?",
+            "choices": [
+              "$C(x) = 1 + x C(x)$",
+              "$C(x) = 1 + x C(x)^2$",
+              "$C(x) = x + C(x)^2$",
+              "$C(x) = 1/(1 - x C(x))$"
+            ],
+            "answer": 1,
+            "explain": "The recurrence $C_{n+1}=\\sum_{k=0}^n C_k C_{n-k}$ becomes $C(x) - 1 = x\\,C(x)^2$, i.e. $C(x) = 1 + x C(x)^2$. Solving gives $C(x) = (1-\\sqrt{1-4x})/(2x)$.",
+            "hint": "A Dyck path is empty, or starts with an up-step, then a Dyck path, then a down-step, then a Dyck path."
+          }
+        ]
+      },
+      "ec-permutation-statistics": {
+        "title": "Permutation statistics",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "How many inversions does the permutation $\\sigma = (3, 1, 4, 2)$ in one-line notation have? (An inversion is a pair $i<j$ with $\\sigma(i) > \\sigma(j)$.)",
+            "answer": 3,
+            "tol": 0,
+            "explain": "Inverted pairs: $(3,1), (3,2), (4,2)$. Total $= 3$.",
+            "hint": "List all $i<j$ where $\\sigma(i) > \\sigma(j)$."
+          },
+          {
+            "type": "numeric",
+            "q": "How many descents does $\\sigma = (2, 4, 1, 3, 5)$ have? (A descent is a position $i$ with $\\sigma(i) > \\sigma(i+1)$.)",
+            "answer": 1,
+            "tol": 0,
+            "explain": "Compare adjacent: $2<4$, $4>1$ (descent at $i=2$), $1<3$, $3<5$. One descent.",
+            "hint": "Look at adjacent positions."
+          },
+          {
+            "type": "mcq",
+            "q": "What is $\\sum_{k=1}^n c(n,k)$ where $c(n,k)$ is the number of permutations of $[n]$ with exactly $k$ cycles?",
+            "choices": [
+              "$2^n$",
+              "$n!$",
+              "$n^n$",
+              "$\\binom{2n}{n}$"
+            ],
+            "answer": 1,
+            "explain": "Every permutation has some number of cycles, so summing over $k$ recovers $|S_n| = n!$. Equivalently, $\\sum_k c(n,k) x^k = x(x+1)(x+2)\\cdots(x+n-1)$ specialised at $x=1$.",
+            "hint": "Each permutation gets counted once."
+          }
+        ]
+      },
+      "ec-partition-theory": {
+        "title": "Integer partitions",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Compute $p(5)$, the number of partitions of $5$.",
+            "answer": 7,
+            "tol": 0,
+            "explain": "The partitions of $5$ are: $5$, $4{+}1$, $3{+}2$, $3{+}1{+}1$, $2{+}2{+}1$, $2{+}1{+}1{+}1$, $1{+}1{+}1{+}1{+}1$. Seven of them.",
+            "hint": "List them by largest part."
+          },
+          {
+            "type": "mcq",
+            "q": "Euler's generating function for $p(n)$ is:",
+            "choices": [
+              "$\\sum_{n\\ge 0} p(n) q^n = \\prod_{k\\ge 1}(1 - q^k)$",
+              "$\\sum_{n\\ge 0} p(n) q^n = \\prod_{k\\ge 1}(1 - q^k)^{-1}$",
+              "$\\sum_{n\\ge 0} p(n) q^n = \\prod_{k\\ge 1}(1 + q^k)$",
+              "$\\sum_{n\\ge 0} p(n) q^n = \\sum_{k\\ge 1} q^k/(1 - q^k)$"
+            ],
+            "answer": 1,
+            "explain": "Each part of size $k$ may be used $0, 1, 2, \\ldots$ times, contributing the geometric series $1 + q^k + q^{2k} + \\cdots = (1-q^k)^{-1}$. The product over $k$ gives Euler's product.",
+            "hint": "Geometric series for each part size."
+          },
+          {
+            "type": "mcq",
+            "q": "Euler's identity says: partitions of $n$ into distinct parts are equinumerous with partitions of $n$ into…",
+            "choices": [
+              "even parts",
+              "odd parts",
+              "parts $\\equiv \\pm 1 \\pmod{5}$",
+              "parts at most $\\sqrt{n}$"
+            ],
+            "answer": 1,
+            "explain": "The generating-function proof: $\\prod_k (1+q^k) = \\prod_k \\frac{1-q^{2k}}{1-q^k} = \\prod_k \\frac{1}{1-q^{2k-1}}$ (the even factors cancel). The right-hand side counts partitions into odd parts.",
+            "hint": "$1+q^k = (1-q^{2k})/(1-q^k)$."
+          }
+        ]
+      },
+      "ec-bijective-proofs": {
+        "title": "Bijective proofs",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "How many triangulations does a convex hexagon have? (Use $C_4$.)",
+            "answer": 14,
+            "tol": 0,
+            "explain": "Triangulations of a convex $(n+2)$-gon are counted by $C_n$. A hexagon has $n+2 = 6$, so $n = 4$ and $C_4 = 14$.",
+            "hint": "$C_n$ counts triangulations of an $(n+2)$-gon."
+          },
+          {
+            "type": "mcq",
+            "q": "Which family is NOT counted by Catalan numbers $C_n$?",
+            "choices": [
+              "Dyck paths from $(0,0)$ to $(2n, 0)$",
+              "Triangulations of a convex $(n+2)$-gon",
+              "Permutations of $[n]$ avoiding the pattern $231$",
+              "Set partitions of $[n]$"
+            ],
+            "answer": 3,
+            "explain": "All but the last are Catalan. Set partitions of $[n]$ are counted by the Bell number $B_n$, not the Catalan number. ($B_4 = 15 \\ne 14 = C_4$.)",
+            "hint": "Set partitions are counted by Bell numbers."
+          },
+          {
+            "type": "mcq",
+            "q": "The RSK correspondence is a bijection between matrices with non-negative integer entries and:",
+            "choices": [
+              "pairs $(P, Q)$ of standard Young tableaux of the same shape",
+              "pairs $(P, Q)$ of semistandard Young tableaux of the same shape",
+              "single semistandard Young tableaux",
+              "permutations of $[n]$"
+            ],
+            "answer": 1,
+            "explain": "RSK in full generality bijects $\\mathbb{Z}_{\\ge 0}$-matrices with pairs of semistandard tableaux of the same shape. Restricted to permutation matrices it gives the Robinson–Schensted bijection between $S_n$ and pairs of standard Young tableaux of the same shape.",
+            "hint": "Matrices have repeated entries, so the tableaux are semistandard."
           }
         ]
       }
@@ -15475,19 +15916,267 @@ window.MVQuizBank = {
   "galois-cohomology-and-brauer": {
     "topic": "galois-cohomology-and-brauer",
     "quizzes": {
-      "galois-cohomology-and-brauer-intro": {
-        "title": "Intro",
+      "gcb-cocycle-cohomology": {
+        "title": "Galois cocycles and $H^i(G,M)$",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder question — content forthcoming.",
+            "q": "Let $G=\\mathrm{Gal}(\\mathbb{Q}(i)/\\mathbb{Q})=\\langle\\sigma\\rangle$. Which statement is Hilbert's Theorem 90 in this case?",
             "choices": [
-              "A",
-              "B"
+              "$H^1(G,\\mathbb{Q}(i)^\\times)=1$, so every norm-one $\\beta\\in\\mathbb{Q}(i)^\\times$ has the form $\\sigma(\\alpha)/\\alpha$.",
+              "$H^2(G,\\mathbb{Q}(i)^\\times)=0$.",
+              "Every element of $\\mathbb{Q}(i)$ is a sum of two squares.",
+              "$H^0(G,\\mathbb{Q}(i)^\\times)=\\mathbb{Q}(i)^\\times$."
             ],
             "answer": 0,
-            "hint": "Placeholder.",
-            "explain": "Placeholder."
+            "hint": "Hilbert 90 is about cyclic Galois extensions and norm-one elements.",
+            "explain": "Hilbert 90 says $H^1$ of a cyclic Galois group with coefficients in $L^\\times$ vanishes. The cocycle attached to $\\beta\\in\\ker N$ is then a coboundary $g\\mapsto\\sigma(\\alpha)/\\alpha$."
+          },
+          {
+            "type": "mcq",
+            "q": "A 1-cochain $\\varphi:G\\to M$ is a cocycle iff",
+            "choices": [
+              "$\\varphi(gh)=\\varphi(g)+g\\cdot\\varphi(h)$ for all $g,h\\in G$.",
+              "$\\varphi(gh)=\\varphi(g)+\\varphi(h)$ for all $g,h$.",
+              "$\\varphi(g)\\cdot\\varphi(h)=\\varphi(gh)$.",
+              "$\\varphi$ is a homomorphism."
+            ],
+            "answer": 0,
+            "hint": "The action of $g$ on the second factor twists the homomorphism law.",
+            "explain": "The 1-cocycle (crossed homomorphism) condition is $\\varphi(gh)=\\varphi(g)+g\\cdot\\varphi(h)$. When the action is trivial it collapses to an ordinary homomorphism."
+          },
+          {
+            "type": "mcq",
+            "q": "What is $H^0(\\mathrm{Gal}(\\bar K/K),\\bar K^\\times)$?",
+            "choices": [
+              "$K^\\times$.",
+              "$\\bar K^\\times$.",
+              "$0$.",
+              "$\\mathbb{Z}/2$."
+            ],
+            "answer": 0,
+            "hint": "$H^0$ is fixed points; a nonzero element of $\\bar K$ fixed by every automorphism lies in $K$.",
+            "explain": "By definition $H^0(G,M)=M^G$. The fixed field of $\\mathrm{Gal}(\\bar K/K)$ is $K$, so the fixed elements of $\\bar K^\\times$ are $K^\\times$."
+          }
+        ]
+      },
+      "gcb-h1-torsors": {
+        "title": "$H^1$ classifies torsors",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A $G$-torsor under $A$ is a $G$-set $X$ on which $A$ acts simply transitively, with the $G$-action and $A$-action compatible. What is the role of $H^1(G,A)$?",
+            "choices": [
+              "It is the pointed set of isomorphism classes of $G$-torsors under $A$.",
+              "It counts subgroups of $A$.",
+              "It computes the Galois group of $X$.",
+              "It is always trivial when $A$ is abelian."
+            ],
+            "answer": 0,
+            "hint": "Trivial torsor $\\leftrightarrow$ trivial cohomology class.",
+            "explain": "$H^1(G,A)$ parameterises isomorphism classes of $G$-torsors under $A$; the trivial class is the trivial torsor $A$ acting on itself."
+          },
+          {
+            "type": "mcq",
+            "q": "By Galois descent, $H^1(\\mathrm{Gal}(\\bar K/K),\\mathrm{PGL}_n(\\bar K))$ classifies",
+            "choices": [
+              "Central simple algebras over $K$ of degree $n$.",
+              "Vector spaces over $K$ of dimension $n$.",
+              "Subfields of $\\bar K$ of degree $n$.",
+              "Quadratic forms over $K$ in $n$ variables."
+            ],
+            "answer": 0,
+            "hint": "$\\mathrm{PGL}_n$ is the automorphism group of $M_n$.",
+            "explain": "$\\mathrm{PGL}_n(\\bar K)=\\mathrm{Aut}(M_n(\\bar K))$ as a $\\bar K$-algebra, so its $H^1$ classifies $\\bar K/K$-twisted forms of $M_n(K)$ — exactly the central simple $K$-algebras of degree $n$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is $H^1(\\mathrm{Gal}(\\bar K/K),\\mathrm{GL}_n(\\bar K))=1$?",
+            "choices": [
+              "The only $\\bar K/K$-twisted form of $K^n$ as a $K$-vector space is itself — Hilbert 90 generalised.",
+              "$\\mathrm{GL}_n$ is abelian.",
+              "The action factors through a finite quotient.",
+              "It follows from Sylow's theorem."
+            ],
+            "answer": 0,
+            "hint": "All $K$-vector spaces of the same dimension are isomorphic.",
+            "explain": "There is only one $K$-vector space of dimension $n$ up to isomorphism, so there is only one $\\bar K/K$-twisted form of $K^n$ — i.e. $H^1$ vanishes. This is the matrix-valued Hilbert 90."
+          }
+        ]
+      },
+      "gcb-h2-extensions": {
+        "title": "$H^2$ and group extensions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "An extension $1\\to A\\to E\\to G\\to 1$ with $A$ abelian and central is split iff",
+            "choices": [
+              "Its class in $H^2(G,A)$ is zero.",
+              "$A$ is trivial.",
+              "$G$ is solvable.",
+              "$E$ is abelian."
+            ],
+            "answer": 0,
+            "hint": "A splitting is a section of $E\\to G$ that is a homomorphism; the obstruction is the cocycle.",
+            "explain": "Split central extensions are exactly the trivial cocycle classes in $H^2(G,A)$. A non-zero class records an obstruction to choosing a homomorphic section."
+          },
+          {
+            "type": "mcq",
+            "q": "The Schur multiplier of a finite group $G$ is",
+            "choices": [
+              "$M(G) = H^2(G,\\mathbb{C}^\\times)$, classifying central extensions by $\\mathbb{C}^\\times$.",
+              "The number of conjugacy classes of $G$.",
+              "$G/[G,G]$.",
+              "The character table determinant."
+            ],
+            "answer": 0,
+            "hint": "It controls the projective representations of $G$.",
+            "explain": "$M(G)=H^2(G,\\mathbb{C}^\\times)$ classifies central extensions by $\\mathbb{C}^\\times$. Every projective representation of $G$ lifts to a linear representation of a central extension by an element of $M(G)$."
+          },
+          {
+            "type": "mcq",
+            "q": "Up to equivalence, how many extensions $1\\to\\mathbb{Z}/2\\to E\\to\\mathbb{Z}/2\\to 1$ exist (trivial action)?",
+            "choices": [
+              "Two: the split extension $E=V_4$ and the cyclic $E=C_4$.",
+              "One.",
+              "Four.",
+              "Infinitely many."
+            ],
+            "answer": 0,
+            "hint": "$H^2(\\mathbb{Z}/2,\\mathbb{Z}/2)=\\mathbb{Z}/2$.",
+            "explain": "$H^2(\\mathbb{Z}/2,\\mathbb{Z}/2)=\\mathbb{Z}/2$. The zero class gives $V_4=\\mathbb{Z}/2\\times\\mathbb{Z}/2$; the nontrivial class gives $\\mathbb{Z}/4$."
+          }
+        ]
+      },
+      "gcb-brauer-group": {
+        "title": "The Brauer group",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which is the Brauer group $\\mathrm{Br}(K)$ as a Galois cohomology group?",
+            "choices": [
+              "$H^2(\\mathrm{Gal}(\\bar K/K),\\bar K^\\times)$.",
+              "$H^1(\\mathrm{Gal}(\\bar K/K),\\bar K^\\times)$.",
+              "$H^2(\\mathrm{Gal}(\\bar K/K),\\bar K)$.",
+              "$H^0(\\mathrm{Gal}(\\bar K/K),\\bar K^\\times)$."
+            ],
+            "answer": 0,
+            "hint": "Hilbert 90 kills the $H^1$.",
+            "explain": "By definition $\\mathrm{Br}(K)=H^2(G_K,\\bar K^\\times)$. $H^1$ vanishes by Hilbert 90; $H^2$ first encounters interesting twisting and matches central simple algebras."
+          },
+          {
+            "type": "mcq",
+            "q": "$\\mathrm{Br}(\\mathbb{R})$ is",
+            "choices": [
+              "$\\mathbb{Z}/2$, generated by the class of Hamilton's quaternions $\\mathbb{H}$.",
+              "$0$.",
+              "$\\mathbb{Q}/\\mathbb{Z}$.",
+              "$\\mathbb{Z}$."
+            ],
+            "answer": 0,
+            "hint": "Frobenius classified finite-dimensional division algebras over $\\mathbb{R}$.",
+            "explain": "Over $\\mathbb{R}$ the only finite-dimensional central division algebras are $\\mathbb{R}$ and $\\mathbb{H}$ (quaternions), giving $\\mathrm{Br}(\\mathbb{R})=\\mathbb{Z}/2$."
+          },
+          {
+            "type": "mcq",
+            "q": "The cyclic algebra $(a,b)_n$ is the $K$-algebra generated by $x,y$ with $x^n=a$, $y^n=b$, $yx=\\zeta_n xy$. Which is true?",
+            "choices": [
+              "Its class in $\\mathrm{Br}(K)$ equals the cup product of $a,b\\in K^\\times/(K^\\times)^n\\cong H^1(K,\\mu_n)$.",
+              "It is always a matrix algebra.",
+              "It is commutative.",
+              "Its class is trivial in $\\mathrm{Br}(K)$."
+            ],
+            "answer": 0,
+            "hint": "Kummer + cup product into $\\mathrm{Br}(K)[n]$.",
+            "explain": "By Kummer theory $K^\\times/(K^\\times)^n=H^1(K,\\mu_n)$ when $\\mu_n\\subset K$. The cup product lands in $H^2(K,\\mu_n\\otimes\\mu_n)\\cong H^2(K,\\mu_n)\\subset\\mathrm{Br}(K)[n]$ and is represented by the cyclic algebra $(a,b)_n$."
+          }
+        ]
+      },
+      "gcb-cup-product-cassels-tate": {
+        "title": "Cup product and Tate local duality",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Local Tate duality for a non-archimedean local field $K$ with finite Galois module $M$ gives a perfect pairing",
+            "choices": [
+              "$H^i(K,M)\\times H^{2-i}(K,M^*)\\to H^2(K,\\bar K^\\times)=\\mathbb{Q}/\\mathbb{Z}$.",
+              "$H^i(K,M)\\times H^i(K,M)\\to\\mathbb{Z}$.",
+              "$H^0(K,M)\\times H^2(K,M)\\to K^\\times$.",
+              "$H^1(K,M)\\times H^1(K,M^*)\\to\\mathbb{Z}/2$."
+            ],
+            "answer": 0,
+            "hint": "The dualizing module is $\\bar K^\\times$, whose $H^2$ is $\\mathrm{Br}(K)=\\mathbb{Q}/\\mathbb{Z}$ for local $K$.",
+            "explain": "For a local field the Brauer group is canonically $\\mathbb{Q}/\\mathbb{Z}$, and local Tate duality pairs $H^i(K,M)$ with $H^{2-i}(K,\\mathrm{Hom}(M,\\bar K^\\times))$ into it."
+          },
+          {
+            "type": "mcq",
+            "q": "The cup product on Galois cohomology",
+            "choices": [
+              "Is graded-commutative: $\\alpha\\cup\\beta=(-1)^{|\\alpha||\\beta|}\\beta\\cup\\alpha$ on cohomology.",
+              "Is symmetric on cochains.",
+              "Vanishes on $H^1\\otimes H^1$.",
+              "Lands in degree $\\max(|\\alpha|,|\\beta|)$."
+            ],
+            "answer": 0,
+            "hint": "Cocycle-level commutativity holds only up to a coboundary; sign appears on cohomology.",
+            "explain": "The Alexander–Whitney cup product satisfies graded-commutativity on cohomology classes but only up to coboundaries on cochains."
+          },
+          {
+            "type": "mcq",
+            "q": "Local class field theory says that for a non-archimedean local $K$, the local invariant",
+            "choices": [
+              "$\\mathrm{inv}_K:\\mathrm{Br}(K)\\xrightarrow{\\sim}\\mathbb{Q}/\\mathbb{Z}$ is an isomorphism.",
+              "$\\mathrm{Br}(K)=0$.",
+              "$\\mathrm{Br}(K)=\\mathbb{Z}/2$.",
+              "$\\mathrm{Br}(K)$ is uncountable."
+            ],
+            "answer": 0,
+            "hint": "Each finite cyclic unramified extension contributes $\\mathbb{Z}/n$.",
+            "explain": "For non-archimedean local $K$, the unramified Brauer group is $\\mathrm{Br}(K^{\\mathrm{ur}}/K)=\\mathbb{Q}/\\mathbb{Z}$ via Frobenius, and this exhausts $\\mathrm{Br}(K)$."
+          }
+        ]
+      },
+      "gcb-applications-arithmetic": {
+        "title": "Applications: Hasse, Selmer, descent",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Albert–Brauer–Hasse–Noether says: a central simple algebra $A$ over a number field $K$ is split iff",
+            "choices": [
+              "It is split over every completion $K_v$ of $K$.",
+              "It is split over $K_\\infty$ alone.",
+              "It is non-trivial in $\\mathrm{Br}(K)$.",
+              "It is a quaternion algebra."
+            ],
+            "answer": 0,
+            "hint": "Local-global for the Brauer group.",
+            "explain": "ABHN gives the exact sequence $0\\to\\mathrm{Br}(K)\\to\\bigoplus_v\\mathrm{Br}(K_v)\\xrightarrow{\\sum\\mathrm{inv}_v}\\mathbb{Q}/\\mathbb{Z}\\to 0$, so vanishing locally everywhere implies vanishing globally."
+          },
+          {
+            "type": "mcq",
+            "q": "The Brauer–Manin obstruction is",
+            "choices": [
+              "An obstruction to local-everywhere points lifting to a global rational point, computed by pairing with Brauer classes on $X$.",
+              "A bound on the rank of an elliptic curve.",
+              "The discriminant of a Galois extension.",
+              "An invariant of formal groups."
+            ],
+            "answer": 0,
+            "hint": "It refines the Hasse principle when the principle fails.",
+            "explain": "For a smooth proper variety $X$, points of $X(\\mathbb{A}_K)$ orthogonal to every Brauer class on $X$ form $X(\\mathbb{A}_K)^{\\mathrm{Br}}\\supseteq X(K)$; failure of equality is the Brauer–Manin obstruction."
+          },
+          {
+            "type": "mcq",
+            "q": "In BSD-style descent on an elliptic curve $E/K$, the Selmer group $\\mathrm{Sel}_n(E/K)$ sits in an exact sequence",
+            "choices": [
+              "$0\\to E(K)/nE(K)\\to \\mathrm{Sel}_n(E/K)\\to \\mathrm{III}(E/K)[n]\\to 0$.",
+              "$0\\to \\mathrm{Sel}_n(E/K)\\to \\mathbb{Z}\\to E(K)\\to 0$.",
+              "$0\\to E(K)\\to E(\\bar K)\\to \\mathrm{Sel}_n(E/K)\\to 0$.",
+              "$\\mathrm{Sel}_n(E/K) = \\mathrm{Br}(K)[n]$."
+            ],
+            "answer": 0,
+            "hint": "Selmer is the local-global Galois cohomology kernel; Tate–Shafarevich is what's left after subtracting the global Mordell–Weil image.",
+            "explain": "$\\mathrm{Sel}_n$ is the kernel of $H^1(K,E[n])\\to\\prod_v H^1(K_v,E)$. Its image of the Kummer map is $E(K)/nE(K)$; the cokernel is $\\mathrm{III}(E/K)[n]$."
           }
         ]
       }
@@ -20684,19 +21373,227 @@ window.MVQuizBank = {
   "information-theory": {
     "topic": "information-theory",
     "quizzes": {
-      "information-theory-intro": {
-        "title": "Intro",
+      "it-shannon-entropy": {
+        "title": "Shannon entropy",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Compute $H(X)$ in bits for the fair coin: $X\\in\\{0,1\\}$ with $p_0=p_1=1/2$.",
+            "answer": 1,
+            "tol": 0.0001,
+            "hint": "$H = -2\\cdot\\tfrac{1}{2}\\log_2\\tfrac{1}{2} = 1$ bit.",
+            "explain": "$H(X) = -\\sum_i p_i \\log_2 p_i = -2\\cdot\\tfrac{1}{2}\\log_2(1/2) = 1$ bit. The fair coin is the maximum-entropy law on two symbols."
+          },
+          {
+            "type": "mcq",
+            "q": "Which distribution on $\\{1,\\ldots,n\\}$ maximises $H(X)$?",
+            "choices": [
+              "Point mass at $i=1$",
+              "Geometric with parameter $1/n$",
+              "Uniform: $p_i=1/n$ for all $i$",
+              "Whichever puts most mass at the largest $i$"
+            ],
+            "answer": 2,
+            "hint": "Concavity of $-x\\log x$ with the constraint $\\sum p_i=1$ pushes mass to spread out.",
+            "explain": "By Jensen / Lagrange multipliers, the unique maximiser is uniform with $H = \\log n$. Point masses give $H = 0$ (the minimum)."
+          },
+          {
+            "type": "numeric",
+            "q": "Binary entropy $h(p) = -p\\log_2 p - (1-p)\\log_2(1-p)$. Compute $h(1/4)$ in bits (round to 3 decimals).",
+            "answer": 0.811,
+            "tol": 0.005,
+            "hint": "$h(1/4) = -\\tfrac{1}{4}\\log_2\\tfrac{1}{4} - \\tfrac{3}{4}\\log_2\\tfrac{3}{4} = \\tfrac{1}{2} + \\tfrac{3}{4}\\log_2(4/3)$.",
+            "explain": "$h(1/4) = 0.5 + 0.75\\cdot 0.4150 \\approx 0.8113$ bits. The binary entropy peaks at $p=1/2$ with value $1$ and is symmetric in $p\\leftrightarrow 1-p$."
+          }
+        ]
+      },
+      "it-mutual-information": {
+        "title": "Mutual information",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder question — content forthcoming.",
+            "q": "Which identity for mutual information is FALSE?",
             "choices": [
-              "A",
-              "B"
+              "$I(X;Y) = H(X) - H(X\\mid Y)$",
+              "$I(X;Y) = H(X) + H(Y) - H(X,Y)$",
+              "$I(X;Y) = D(p_{XY}\\,\\|\\,p_X p_Y)$",
+              "$I(X;Y) = H(X,Y) - H(X\\mid Y) - H(Y\\mid X)$"
+            ],
+            "answer": 3,
+            "hint": "Subtracting both conditionals from $H(X,Y)$ double-counts the overlap.",
+            "explain": "$H(X,Y) - H(X\\mid Y) - H(Y\\mid X) = I(X;Y)$ would require subtracting only one conditional, not both. The correct identity is $H(X,Y) = H(X\\mid Y) + H(Y) = H(Y\\mid X) + H(X)$."
+          },
+          {
+            "type": "numeric",
+            "q": "If $X$ and $Y$ are independent, what is $I(X;Y)$?",
+            "answer": 0,
+            "tol": 0.0001,
+            "hint": "Independence means the joint factors as $p_{XY} = p_X p_Y$, so the KL distance to the product is $0$.",
+            "explain": "Independence is exactly $p_{XY} = p_X p_Y$, hence $D(p_{XY}\\,\\|\\,p_X p_Y) = 0$. Conversely $I(X;Y) = 0$ implies independence."
+          },
+          {
+            "type": "mcq",
+            "q": "The data-processing inequality states that for a Markov chain $X\\to Y\\to Z$:",
+            "choices": [
+              "$I(X;Z) \\ge I(X;Y)$",
+              "$I(X;Z) \\le I(X;Y)$",
+              "$I(X;Z) = I(Y;Z)$",
+              "$I(X;Z) = H(Z)$"
+            ],
+            "answer": 1,
+            "hint": "Post-processing $Y$ into $Z$ cannot create information about $X$ that $Y$ did not already carry.",
+            "explain": "For any Markov chain $X\\to Y\\to Z$, $I(X;Z) \\le I(X;Y)$ — passing through $Y$ is a bottleneck that can only lose information about $X$. This is the data-processing inequality."
+          }
+        ]
+      },
+      "it-kl-divergence": {
+        "title": "Kullback–Leibler divergence",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which property of $D(p\\,\\|\\,q)$ is FALSE?",
+            "choices": [
+              "$D(p\\,\\|\\,q) \\ge 0$ (Gibbs' inequality)",
+              "$D(p\\,\\|\\,q) = 0 \\iff p = q$",
+              "$D(p\\,\\|\\,q) = D(q\\,\\|\\,p)$",
+              "$D(p\\,\\|\\,q) = \\infty$ when $p$ has support outside $q$"
+            ],
+            "answer": 2,
+            "hint": "$D$ is not symmetric — it's not a metric.",
+            "explain": "$D(p\\,\\|\\,q)$ is generally not symmetric: e.g. with $p=(1/2,1/2)$ and $q=(1,0)$, $D(p\\,\\|\\,q)=\\infty$ but $D(q\\,\\|\\,p)=1$ bit. The other three properties hold."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $D(p\\,\\|\\,q)$ in bits for $p=(1/2,1/2)$ and $q=(1/4,3/4)$.",
+            "answer": 0.2075,
+            "tol": 0.005,
+            "hint": "$D = \\tfrac{1}{2}\\log_2(2) + \\tfrac{1}{2}\\log_2(2/3) = 1 - \\tfrac{1}{2}\\log_2 3$.",
+            "explain": "$D(p\\,\\|\\,q) = \\tfrac{1}{2}\\log_2((1/2)/(1/4)) + \\tfrac{1}{2}\\log_2((1/2)/(3/4)) = \\tfrac{1}{2}(1) + \\tfrac{1}{2}(\\log_2(2/3)) \\approx 0.2075$ bits."
+          },
+          {
+            "type": "mcq",
+            "q": "In Sanov's theorem, the empirical distribution of $n$ i.i.d.\\ samples from $\\mu$ deviates to a set $A$ of distributions with probability decaying like $e^{-n\\cdot(\\,\\cdot\\,)}$. The exponent is:",
+            "choices": [
+              "$H(\\mu)$",
+              "$\\inf_{\\nu\\in A} D(\\nu\\,\\|\\,\\mu)$",
+              "$\\inf_{\\nu\\in A} D(\\mu\\,\\|\\,\\nu)$",
+              "Variance of $\\mu$"
+            ],
+            "answer": 1,
+            "hint": "Sanov picks the closest distribution in $A$ to the truth $\\mu$, in KL distance from the candidate $\\nu$ to $\\mu$.",
+            "explain": "Sanov's theorem: $\\mathbb{P}(L_n \\in A) \\asymp \\exp(-n\\inf_{\\nu\\in A} D(\\nu\\,\\|\\,\\mu))$. KL divergence is the canonical large-deviations rate for empirical measures."
+          }
+        ]
+      },
+      "it-source-coding": {
+        "title": "Source coding",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Shannon's source-coding theorem says: for an i.i.d.\\ source with entropy $H(X)$, the minimum expected bits per symbol of any lossless code is:",
+            "choices": [
+              "Exactly $H(X)$",
+              "At least $H(X)$, and rates approaching $H(X)$ are achievable as block length grows",
+              "Always $\\log_2 n$ where $n$ is the alphabet size",
+              "Bounded above by $H(X)$"
+            ],
+            "answer": 1,
+            "hint": "$H(X)$ is a lower bound on average code length, achievable in the limit.",
+            "explain": "$H(X)$ is the sharp asymptotic rate: any lossless code uses at least $H(X)$ bits per symbol on average, and block-coding achieves $H(X) + \\varepsilon$ for any $\\varepsilon > 0$ as the block length grows."
+          },
+          {
+            "type": "numeric",
+            "q": "A source emits symbols $\\{a,b,c,d\\}$ with probabilities $(1/2, 1/4, 1/8, 1/8)$. Compute $H(X)$ in bits.",
+            "answer": 1.75,
+            "tol": 0.001,
+            "hint": "$H = \\tfrac{1}{2}(1) + \\tfrac{1}{4}(2) + \\tfrac{1}{8}(3) + \\tfrac{1}{8}(3)$.",
+            "explain": "$H(X) = \\tfrac{1}{2}\\log_2 2 + \\tfrac{1}{4}\\log_2 4 + \\tfrac{1}{8}\\log_2 8 + \\tfrac{1}{8}\\log_2 8 = 0.5 + 0.5 + 0.375 + 0.375 = 1.75$ bits. The Huffman code $\\{0, 10, 110, 111\\}$ achieves exactly this."
+          },
+          {
+            "type": "mcq",
+            "q": "The asymptotic equipartition property (AEP) states that for $n$ i.i.d.\\ samples from $X$, the typical set has size approximately:",
+            "choices": [
+              "$2^{nH(X)}$",
+              "$n^{H(X)}$",
+              "$2^{n}$",
+              "$H(X)^n$"
             ],
             "answer": 0,
-            "hint": "Placeholder.",
-            "explain": "Placeholder."
+            "hint": "Each typical sequence has probability about $2^{-nH(X)}$, and the total mass is close to $1$.",
+            "explain": "The AEP says most probability mass concentrates on $\\approx 2^{nH(X)}$ \"typical\" sequences, each with probability $\\approx 2^{-nH(X)}$. Source coding then needs $\\approx nH(X)$ bits to index them."
+          }
+        ]
+      },
+      "it-channel-coding": {
+        "title": "Channel coding",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "The binary symmetric channel with cross-over probability $p$ has capacity $C = 1 - h(p)$ bits, where $h$ is binary entropy. Compute $C$ for $p = 0$.",
+            "answer": 1,
+            "tol": 0.0001,
+            "hint": "A noiseless binary channel transmits one bit per use.",
+            "explain": "$h(0) = 0$, so $C = 1 - 0 = 1$ bit per channel use — the noiseless binary channel is perfectly clear."
+          },
+          {
+            "type": "numeric",
+            "q": "For the BSC, what is the capacity $C$ in bits when $p = 1/2$?",
+            "answer": 0,
+            "tol": 0.0001,
+            "hint": "$h(1/2) = 1$, so $C = 1 - 1 = 0$.",
+            "explain": "At $p = 1/2$ the output is independent of the input — every transmitted bit is randomised — so $C = 0$. The BSC capacity is symmetric around $1/2$ and minimised there."
+          },
+          {
+            "type": "mcq",
+            "q": "Shannon's noisy-channel theorem implies which of the following?",
+            "choices": [
+              "Every channel can transmit data with zero error at any rate",
+              "Rates $R < C$ admit codes with vanishing error; rates $R > C$ have error bounded below",
+              "$C$ is achieved only by uniform input distributions",
+              "Capacity decreases with block length"
+            ],
+            "answer": 1,
+            "hint": "Capacity is the sharp threshold between achievable and unachievable rates.",
+            "explain": "Shannon's theorem: for any $R < C$, there exist block codes whose error probability tends to $0$ as block length grows; for $R > C$, error is bounded away from $0$. $C$ is a sharp threshold."
+          }
+        ]
+      },
+      "it-rate-distortion": {
+        "title": "Rate–distortion",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The rate–distortion function $R(D)$ for a source $X$ and distortion $d$ is defined as:",
+            "choices": [
+              "$\\max_{p_{\\hat X\\mid X}} I(X;\\hat X)$ subject to $\\mathbb{E}[d(X,\\hat X)]\\le D$",
+              "$\\min_{p_{\\hat X\\mid X}} I(X;\\hat X)$ subject to $\\mathbb{E}[d(X,\\hat X)]\\le D$",
+              "$H(X) - D$",
+              "$\\min_{p_{\\hat X\\mid X}} H(\\hat X)$"
+            ],
+            "answer": 1,
+            "hint": "We minimise the bits used while keeping expected distortion below $D$.",
+            "explain": "$R(D) = \\min_{p_{\\hat X\\mid X}: \\mathbb{E}[d(X,\\hat X)]\\le D} I(X;\\hat X)$. This is the smallest mutual information (≈ bits per symbol) needed to reconstruct $X$ within average distortion $D$."
+          },
+          {
+            "type": "numeric",
+            "q": "For a Gaussian source $X\\sim\\mathcal{N}(0,\\sigma^2)$ with squared-error distortion, $R(D) = \\tfrac{1}{2}\\log_2(\\sigma^2/D)$ for $0 < D \\le \\sigma^2$. Compute $R(\\sigma^2)$ in bits.",
+            "answer": 0,
+            "tol": 0.0001,
+            "hint": "When $D = \\sigma^2$, the constant $\\hat X = 0$ already achieves the distortion bound.",
+            "explain": "$R(\\sigma^2) = \\tfrac{1}{2}\\log_2 1 = 0$ bits — at distortion equal to source variance, the trivial reconstruction $\\hat X = 0$ suffices and no information needs to be transmitted."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is $R(D)$ monotonically non-increasing in $D$?",
+            "choices": [
+              "Because $I$ is symmetric",
+              "Because relaxing the distortion constraint enlarges the feasible set, so the minimum can only decrease",
+              "Because $H(X)$ does not depend on $D$",
+              "Because $R(0) = 0$"
+            ],
+            "answer": 1,
+            "hint": "Larger $D$ admits more reconstruction laws, so the minimum over a larger set is smaller.",
+            "explain": "Increasing $D$ expands the feasible set $\\{p_{\\hat X\\mid X}: \\mathbb{E}[d]\\le D\\}$, so $\\min I(X;\\hat X)$ over a larger set is no larger. Hence $R$ is non-increasing in $D$."
           }
         ]
       }
@@ -21615,19 +22512,252 @@ window.MVQuizBank = {
   "lie-algebras": {
     "topic": "lie-algebras",
     "quizzes": {
-      "lie-algebras-intro": {
-        "title": "Intro",
+      "la-axioms": {
+        "title": "Bracket axioms and matrix Lie algebras",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder question — content forthcoming.",
+            "q": "Which identity, beyond bilinearity and skew-symmetry $[x,y]=-[y,x]$, is the defining axiom of a Lie algebra?",
             "choices": [
-              "A",
-              "B"
+              "Associativity: $[[x,y],z]=[x,[y,z]]$",
+              "Jacobi: $[x,[y,z]]+[y,[z,x]]+[z,[x,y]]=0$",
+              "Leibniz product: $[xy,z]=x[y,z]+[x,z]y$",
+              "Bracket squares to zero: $[x,x]=0$ alone"
+            ],
+            "answer": 1,
+            "explain": "The Jacobi identity is the third bracket axiom. ($[x,x]=0$ is equivalent to skew-symmetry in characteristic $\\neq 2$ and is therefore not the extra defining condition.) Lie algebras are typically not associative — $\\mathrm{ad}$ is a derivation, not a homomorphism.",
+            "hint": "It is the cyclic-sum identity that makes $\\mathrm{ad}(x)$ a derivation of the bracket."
+          },
+          {
+            "type": "numeric",
+            "q": "What is $\\dim_{\\mathbb C}\\mathfrak{sl}_3(\\mathbb C)$?",
+            "answer": 8,
+            "tol": 0,
+            "explain": "$\\mathfrak{sl}_n$ is the traceless matrices: $\\dim\\mathfrak{sl}_n=n^2-1$. For $n=3$ that is $9-1=8$.",
+            "hint": "$n^2$ matrix entries minus one trace constraint."
+          },
+          {
+            "type": "mcq",
+            "q": "Which set of matrices forms a Lie subalgebra of $\\mathfrak{gl}_n$ under the commutator $[X,Y]=XY-YX$?",
+            "choices": [
+              "Invertible matrices (i.e. $\\mathrm{GL}_n$)",
+              "Symmetric matrices $X=X^\\top$",
+              "Skew-symmetric matrices $X=-X^\\top$",
+              "Matrices of trace $1$"
+            ],
+            "answer": 2,
+            "explain": "If $X^\\top=-X$ and $Y^\\top=-Y$, then $[X,Y]^\\top=(XY-YX)^\\top=Y^\\top X^\\top - X^\\top Y^\\top = YX-XY=-[X,Y]$, so the skew-symmetric matrices $\\mathfrak{so}_n$ are bracket-closed. Invertibility is not preserved (and $0$ is not invertible); symmetric matrices are not bracket-closed; trace-$1$ is not even a subspace.",
+            "hint": "Compute $[X,Y]^\\top$ when $X,Y$ are skew."
+          }
+        ]
+      },
+      "la-derivations-and-adjoint": {
+        "title": "Adjoint action and Killing form",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why is $\\mathrm{ad}\\colon\\mathfrak g\\to\\mathrm{End}(\\mathfrak g)$ a Lie algebra homomorphism?",
+            "choices": [
+              "Because $\\mathrm{ad}(x)\\mathrm{ad}(y)=\\mathrm{ad}(xy)$ by associativity",
+              "Because $[\\mathrm{ad}(x),\\mathrm{ad}(y)]=\\mathrm{ad}([x,y])$ — exactly the Jacobi identity",
+              "Because the Killing form is bilinear",
+              "Because every derivation is inner"
+            ],
+            "answer": 1,
+            "explain": "Apply both sides to $z$: $[\\mathrm{ad}(x),\\mathrm{ad}(y)]\\,z=[x,[y,z]]-[y,[x,z]]$, while $\\mathrm{ad}([x,y])\\,z=[[x,y],z]$. These agree iff $[x,[y,z]]+[y,[z,x]]+[z,[x,y]]=0$, the Jacobi identity. So $\\mathrm{ad}$ is a Lie homomorphism precisely because of Jacobi.",
+            "hint": "Expand $[\\mathrm{ad}(x),\\mathrm{ad}(y)]$ acting on a third element $z$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Killing form $B(x,y)=\\mathrm{tr}(\\mathrm{ad}(x)\\mathrm{ad}(y))$ is $\\mathfrak g$-invariant in the sense:",
+            "choices": [
+              "$B([z,x],y)+B(x,[z,y])=0$ for all $x,y,z$",
+              "$B([z,x],y)=B(x,[z,y])$ for all $x,y,z$",
+              "$B(x,y)=0$ whenever $[x,y]=0$",
+              "$B$ is positive-definite on every Lie algebra"
             ],
             "answer": 0,
-            "hint": "Placeholder.",
-            "explain": "Placeholder."
+            "explain": "Invariance means $B$ is annihilated by the adjoint action: differentiating $B(\\mathrm{Ad}(g)x,\\mathrm{Ad}(g)y)=B(x,y)$ gives $B([z,x],y)+B(x,[z,y])=0$. Equivalently, $\\mathrm{ad}(z)$ is skew with respect to $B$. The Killing form is rarely positive-definite (it is on compact real forms only).",
+            "hint": "Differentiate the group-level identity $B(\\mathrm{Ad}(g)x,\\mathrm{Ad}(g)y)=B(x,y)$ at $g=e$."
+          },
+          {
+            "type": "mcq",
+            "q": "For abelian $\\mathfrak g$ (so $[x,y]=0$ identically), the Killing form is:",
+            "choices": [
+              "Identically zero",
+              "Nondegenerate",
+              "Positive-definite",
+              "The standard inner product on $\\mathbb R^n$"
+            ],
+            "answer": 0,
+            "explain": "If $\\mathfrak g$ is abelian then $\\mathrm{ad}(x)=0$ for every $x$, so $B(x,y)=\\mathrm{tr}(0\\cdot 0)=0$ identically. This is the cleanest example of a degenerate Killing form — abelian Lie algebras are the opposite of semisimple.",
+            "hint": "$\\mathrm{ad}(x)=[x,-]$; what is it when the bracket vanishes?"
+          }
+        ]
+      },
+      "la-solvable-and-nilpotent": {
+        "title": "Solvable, nilpotent, and the structural series",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The derived series of $\\mathfrak g$ is $\\mathfrak g^{(0)}=\\mathfrak g$, $\\mathfrak g^{(k+1)}=[\\mathfrak g^{(k)},\\mathfrak g^{(k)}]$. $\\mathfrak g$ is solvable iff:",
+            "choices": [
+              "$\\mathfrak g^{(k)}=\\mathfrak g$ for all $k$",
+              "$\\mathfrak g^{(k)}=0$ for some $k$",
+              "Every $\\mathrm{ad}(x)$ is nilpotent",
+              "The Killing form is nondegenerate"
+            ],
+            "answer": 1,
+            "explain": "Solvability of a Lie algebra is the direct analogue of solvability of a group: the derived series eventually terminates at $0$. Nilpotence is the stronger condition that the lower-central series $\\mathfrak g^0=\\mathfrak g$, $\\mathfrak g^{k+1}=[\\mathfrak g,\\mathfrak g^k]$ terminates; nilpotent implies solvable but not conversely.",
+            "hint": "Each step of the derived series replaces $\\mathfrak h$ by $[\\mathfrak h,\\mathfrak h]$ — solvability says you eventually hit $0$."
+          },
+          {
+            "type": "mcq",
+            "q": "Engel's theorem says: $\\mathfrak g$ is nilpotent iff",
+            "choices": [
+              "$\\mathfrak g$ is abelian",
+              "$\\mathrm{ad}(x)$ is a nilpotent endomorphism for every $x\\in\\mathfrak g$",
+              "Every element of $\\mathfrak g$ is itself a nilpotent matrix",
+              "$\\mathfrak g$ has trivial center"
+            ],
+            "answer": 1,
+            "explain": "Engel: $\\mathfrak g$ is nilpotent precisely when each $\\mathrm{ad}(x)$ is a nilpotent endomorphism — pointwise nilpotence of the adjoint forces uniform nilpotence of the lower-central series. (Even though abstract elements need not be matrices, $\\mathrm{ad}(x)$ always is.) Lie's theorem is the parallel statement for solvable: every solvable rep over $\\mathbb C$ is upper-triangularizable.",
+            "hint": "It is a statement purely about the operators $\\mathrm{ad}(x)$, not about the abstract elements."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following Lie algebras is solvable but not nilpotent?",
+            "choices": [
+              "$\\mathfrak{sl}_2(\\mathbb C)$",
+              "Strictly upper-triangular $3\\times 3$ matrices (Heisenberg)",
+              "Upper-triangular $2\\times 2$ matrices",
+              "Diagonal matrices (any size)"
+            ],
+            "answer": 2,
+            "explain": "Upper-triangular $2\\times 2$ matrices form the Borel $\\mathfrak b_2$. Its derived algebra is the strictly upper-triangular line, which is abelian, so the derived series terminates — solvable. But $\\mathrm{ad}(\\mathrm{diag}(a,b))$ acting on $E_{12}$ has eigenvalue $a-b\\neq 0$, so $\\mathrm{ad}$ is not nilpotent. The Heisenberg algebra is nilpotent (so also solvable); diagonals are abelian; $\\mathfrak{sl}_2$ is semisimple, not solvable.",
+            "hint": "Look at a Borel — derived once, then abelian, but $\\mathrm{ad}$ has nonzero eigenvalues."
+          }
+        ]
+      },
+      "la-cartan-killing-classification": {
+        "title": "Semisimplicity, Cartan subalgebras, root systems",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Cartan's criterion characterizes semisimple Lie algebras as those with:",
+            "choices": [
+              "Trivial center",
+              "Nondegenerate Killing form",
+              "Only inner derivations",
+              "Finite-dimensional adjoint representation"
+            ],
+            "answer": 1,
+            "explain": "A finite-dimensional Lie algebra over a field of characteristic zero is semisimple iff its Killing form $B$ is nondegenerate. Equivalently, the radical (largest solvable ideal) is zero. Trivial center is necessary but not sufficient; semisimple Lie algebras do have only inner derivations, but that is a consequence, not the criterion.",
+            "hint": "It is the bilinear-form condition on $B(x,y)=\\mathrm{tr}(\\mathrm{ad}(x)\\mathrm{ad}(y))$."
+          },
+          {
+            "type": "mcq",
+            "q": "A Cartan subalgebra $\\mathfrak h\\subset\\mathfrak g$ of a complex semisimple Lie algebra is:",
+            "choices": [
+              "A maximal abelian subalgebra",
+              "A maximal solvable subalgebra (a Borel)",
+              "A self-normalizing nilpotent subalgebra; equivalently for semisimple $\\mathfrak g$, a maximal toral one",
+              "The center of $\\mathfrak g$"
+            ],
+            "answer": 2,
+            "explain": "The general definition is: $\\mathfrak h$ is nilpotent and equals its own normalizer. For complex semisimple $\\mathfrak g$ this is equivalent to being a maximal toral (ad-diagonalizable) subalgebra — the diagonal matrices in $\\mathfrak{sl}_n$. Borels are maximal solvable, strictly larger than $\\mathfrak h$. Maximal abelian is too weak in general (though it coincides with Cartan in the semisimple case).",
+            "hint": "Two equivalent characterizations: nilpotent and self-normalizing, or maximal toral (in the semisimple case)."
+          },
+          {
+            "type": "numeric",
+            "q": "The root system $A_2$ (associated with $\\mathfrak{sl}_3$) has how many roots?",
+            "answer": 6,
+            "tol": 0,
+            "explain": "$\\mathfrak{sl}_3$ has Cartan subalgebra of rank $2$ and dimension $8=2+6$. The six nonzero roots are $\\pm(\\alpha_1)$, $\\pm(\\alpha_2)$, $\\pm(\\alpha_1+\\alpha_2)$ — the vertices of a regular hexagon in $\\mathfrak h^*$.",
+            "hint": "$\\dim\\mathfrak{sl}_3=8$; subtract the rank."
+          }
+        ]
+      },
+      "la-sl2-and-roots": {
+        "title": "$\\mathfrak{sl}_2$-triples and weight strings",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In the standard $\\mathfrak{sl}_2$-triple $\\{e,h,f\\}$, the bracket relations are:",
+            "choices": [
+              "$[h,e]=2e$, $[h,f]=-2f$, $[e,f]=h$",
+              "$[h,e]=e$, $[h,f]=-f$, $[e,f]=2h$",
+              "$[e,h]=2e$, $[f,h]=2f$, $[e,f]=-h$",
+              "$[h,e]=2f$, $[h,f]=2e$, $[e,f]=h$"
+            ],
+            "answer": 0,
+            "explain": "With the standard generators $e=\\begin{pmatrix}0&1\\\\0&0\\end{pmatrix}$, $h=\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}$, $f=\\begin{pmatrix}0&0\\\\1&0\\end{pmatrix}$ one computes directly $[h,e]=2e$, $[h,f]=-2f$, $[e,f]=h$. The factor $2$ on the diagonal action is exactly the root pairing $\\alpha(h)=2$.",
+            "hint": "Compute with the standard upper/lower triangular and diagonal $2\\times 2$ matrices."
+          },
+          {
+            "type": "mcq",
+            "q": "Which sequence of weights occurs in the irreducible $\\mathfrak{sl}_2$-representation $V_4$ of dimension $5$?",
+            "choices": [
+              "$0,1,2,3,4$",
+              "$4,2,0,-2,-4$",
+              "$-2,-1,0,1,2$",
+              "$1,2,3,4,5$"
+            ],
+            "answer": 1,
+            "explain": "$V_n$ has highest weight $n$ and weights $n,n-2,\\dots,-n$, each with multiplicity $1$. For $n=4$: $\\{4,2,0,-2,-4\\}$. The action of $f$ steps from $V_n$ down by $2$ at a time, so weights are integers of the same parity as $n$.",
+            "hint": "Highest weight is $n=4$; the $f$-orbit subtracts $2$ at each step."
+          },
+          {
+            "type": "mcq",
+            "q": "In the Clebsch–Gordan rule $V_m\\otimes V_n=\\bigoplus_{k=0}^{\\min(m,n)}V_{m+n-2k}$, the decomposition of $V_2\\otimes V_2$ is:",
+            "choices": [
+              "$V_4\\oplus V_2\\oplus V_0$",
+              "$V_4\\oplus V_0$",
+              "$V_2\\oplus V_2\\oplus V_2$",
+              "$V_4$ only"
+            ],
+            "answer": 0,
+            "explain": "With $m=n=2$ and $k=0,1,2$: $V_{4}\\oplus V_{2}\\oplus V_{0}$. This matches the spin-$1\\otimes$ spin-$1$ decomposition into spin-$2$, spin-$1$, spin-$0$ familiar from physics. Dimensions: $5+3+1=9=3\\cdot 3$.",
+            "hint": "$k$ runs from $0$ to $\\min(m,n)=2$; dimensions must add to $9$."
+          }
+        ]
+      },
+      "la-classification-simple": {
+        "title": "Simple Lie algebras over $\\mathbb C$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which classical series corresponds to the symplectic Lie algebra $\\mathfrak{sp}_{2n}$?",
+            "choices": [
+              "$A_n$",
+              "$B_n$",
+              "$C_n$",
+              "$D_n$"
+            ],
+            "answer": 2,
+            "explain": "The Cartan labels for the four classical infinite series are $A_n=\\mathfrak{sl}_{n+1}$, $B_n=\\mathfrak{so}_{2n+1}$, $C_n=\\mathfrak{sp}_{2n}$, $D_n=\\mathfrak{so}_{2n}$. So symplectic is $C_n$.",
+            "hint": "Mnemonic: A special-linear, B/D orthogonal (odd/even), C symplectic."
+          },
+          {
+            "type": "numeric",
+            "q": "How many exceptional simple complex Lie algebras are there?",
+            "answer": 5,
+            "tol": 0,
+            "explain": "The exceptions are $G_2$, $F_4$, $E_6$, $E_7$, $E_8$ — five total. Together with the four classical series $A,B,C,D$ they exhaust the simple complex Lie algebras (Killing–Cartan classification, late 19th century).",
+            "hint": "$G_2$, $F_4$, and the $E$-series."
+          },
+          {
+            "type": "mcq",
+            "q": "A Dynkin diagram for a simple complex Lie algebra is connected. Which feature distinguishes the diagram of $G_2$ from those of the classical $A,B,C,D$ series?",
+            "choices": [
+              "It has a trivalent branch node",
+              "It has a triple-bond edge between its two nodes",
+              "It is a closed cycle",
+              "It has more than one connected component"
+            ],
+            "answer": 1,
+            "explain": "$G_2$ is the unique simple Lie algebra of rank $2$ with a triple bond — the two simple roots have ratio $\\sqrt 3$ in length and their angle is $150^\\circ$. $A_2$ has a single bond, $B_2=C_2$ has a double bond. Trivalent branch nodes appear in $D_n,E_6,E_7,E_8$. A simple Lie algebra has connected Dynkin diagram by definition.",
+            "hint": "Among rank-$2$ root systems, the bond multiplicities are $1,2,3$ for $A_2,B_2,G_2$."
           }
         ]
       }
@@ -25688,19 +26818,267 @@ window.MVQuizBank = {
   "morse-theory": {
     "topic": "morse-theory",
     "quizzes": {
-      "morse-theory-intro": {
-        "title": "Intro",
+      "mt-morse-functions": {
+        "title": "Morse functions",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder question — content forthcoming.",
+            "q": "A smooth function $f\\colon M\\to\\mathbb{R}$ is called Morse when every critical point...",
             "choices": [
-              "A",
-              "B"
+              "is isolated, regardless of the Hessian",
+              "has invertible Hessian (non-degenerate)",
+              "is a local minimum",
+              "has rational coordinates"
+            ],
+            "answer": 1,
+            "hint": "Non-degenerate means $\\det \\mathrm{Hess}(f) \\ne 0$ at the critical point.",
+            "explain": "Morse = every critical point is non-degenerate, i.e. the Hessian is an invertible symmetric matrix. Non-degeneracy automatically implies isolated, but the converse fails (think $f(x)=x^4$)."
+          },
+          {
+            "type": "mcq",
+            "q": "On a chart around a non-degenerate critical point, the Morse lemma writes $f$ as $-x_1^2-\\cdots-x_k^2 + x_{k+1}^2+\\cdots+x_n^2 + c$. The integer $k$ is called the...",
+            "choices": [
+              "degree of $f$",
+              "Morse index",
+              "Hessian determinant",
+              "codimension"
+            ],
+            "answer": 1,
+            "hint": "It counts the negative eigenvalues of the Hessian.",
+            "explain": "The Morse index $k$ is the number of negative eigenvalues of the Hessian — equivalently, the dimension of the maximal subspace on which the Hessian is negative definite."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is it harmless to assume the function we study is Morse?",
+            "choices": [
+              "Every smooth function is automatically Morse.",
+              "Morse functions are dense in $C^\\infty(M,\\mathbb{R})$, so we may perturb any $f$ to one.",
+              "Only Morse functions admit a gradient.",
+              "Sard's theorem produces them for free."
+            ],
+            "answer": 1,
+            "hint": "Density in the smooth topology lets us perturb generic statements.",
+            "explain": "Morse functions form an open dense subset of $C^\\infty(M,\\mathbb{R})$: an arbitrary smooth $f$ can be perturbed by an arbitrarily small amount to a Morse function. So results about Morse functions transfer to generic smooth ones."
+          }
+        ]
+      },
+      "mt-handle-decomposition": {
+        "title": "Handle decomposition",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "If $f$ has no critical values in $[a,b]$, how does the sublevel set $M^a=\\{f\\le a\\}$ relate to $M^b=\\{f\\le b\\}$?",
+            "choices": [
+              "$M^b$ has strictly more components.",
+              "$M^a$ is a deformation retract of $M^b$ — they are diffeomorphic.",
+              "$M^b$ has strictly larger Euler characteristic.",
+              "There is no relation."
+            ],
+            "answer": 1,
+            "hint": "Use the gradient flow downward to push $M^b$ onto $M^a$.",
+            "explain": "Without a critical value in between, the (rescaled) negative gradient flow gives a smooth deformation retraction of $M^b$ onto $M^a$. Topology only changes when $c$ crosses a critical value."
+          },
+          {
+            "type": "mcq",
+            "q": "When $c$ crosses a critical value of a Morse function with a single index-$k$ critical point, $M^{c+\\epsilon}$ is obtained from $M^{c-\\epsilon}$ by attaching...",
+            "choices": [
+              "an $n$-cell",
+              "a $k$-handle $D^k\\times D^{n-k}$",
+              "a single point",
+              "the cone on $\\partial M^{c-\\epsilon}$"
+            ],
+            "answer": 1,
+            "hint": "The stable manifold of the critical point has dimension equal to the Morse index $k$.",
+            "explain": "The thickened version of the index-$k$ cell is a $k$-handle: $D^k\\times D^{n-k}$ glued along $\\partial D^k\\times D^{n-k}$. The descending disk has dimension $k$; the ascending disk has dimension $n-k$."
+          },
+          {
+            "type": "mcq",
+            "q": "On the standard height function on $S^2$ (north and south poles), the handle decomposition consists of:",
+            "choices": [
+              "two 1-handles",
+              "a 0-handle (disk) and a 2-handle (disk) glued along $S^1$",
+              "an infinite chain of cells",
+              "a single 2-handle"
+            ],
+            "answer": 1,
+            "hint": "South pole = index 0, north pole = index 2.",
+            "explain": "South pole is a minimum (index 0): a 0-handle = $D^0\\times D^2$, a 2-disk. North pole is a maximum (index 2): a 2-handle = $D^2\\times D^0$, another 2-disk. Glued along their boundary circle they make $S^2$."
+          }
+        ]
+      },
+      "mt-cw-structure": {
+        "title": "CW structure",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The CW structure produced from a Morse function on $M$ has one cell of dimension $k$ for every...",
+            "choices": [
+              "smooth chart of $M$",
+              "critical point of $f$ of Morse index $k$",
+              "connected component of $M$",
+              "homology class of $M$"
+            ],
+            "answer": 1,
+            "hint": "Index $k$ critical point gives a $k$-cell.",
+            "explain": "Up to homotopy the $k$-handle attached at an index-$k$ critical point is a $k$-cell. So there is exactly one $k$-cell per index-$k$ critical point — that is the CW structure."
+          },
+          {
+            "type": "mcq",
+            "q": "A height-function Morse decomposition of the torus $T^2$ (standard embedding in $\\mathbb{R}^3$) has critical points at indices $0,1,1,2$. The resulting CW structure has:",
+            "choices": [
+              "one 0-cell, two 1-cells, one 2-cell",
+              "four 2-cells",
+              "one cell of each dimension $0,1,2,3$",
+              "two 0-cells and two 1-cells"
             ],
             "answer": 0,
-            "hint": "Placeholder.",
-            "explain": "Placeholder."
+            "hint": "Read off cell counts directly from the index list.",
+            "explain": "Each index $k$ contributes one $k$-cell: indices $0,1,1,2$ give one 0-cell, two 1-cells, one 2-cell — exactly the standard CW structure on $T^2$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Euler characteristic of $M$ in terms of critical-point counts $c_k$ is:",
+            "choices": [
+              "$\\sum_k c_k$",
+              "$\\sum_k (-1)^k c_k$",
+              "$c_0 \\cdot c_n$",
+              "$\\prod_k c_k$"
+            ],
+            "answer": 1,
+            "hint": "Cellular Euler characteristic: alternating sum of cell counts.",
+            "explain": "The CW Euler characteristic is $\\sum_k (-1)^k (\\text{number of } k\\text{-cells})$, which from a Morse function reads $\\sum_k (-1)^k c_k(f)$. This is independent of the Morse function chosen."
+          }
+        ]
+      },
+      "mt-morse-inequalities": {
+        "title": "Morse inequalities",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The weak Morse inequality states that for any Morse $f$ and any $k$,",
+            "choices": [
+              "$b_k(M) = c_k(f)$",
+              "$b_k(M) \\le c_k(f)$",
+              "$b_k(M) \\ge c_k(f)$",
+              "$b_k(M) \\cdot c_k(f) = \\chi(M)$"
+            ],
+            "answer": 1,
+            "hint": "Betti numbers are bounded above by index counts.",
+            "explain": "Each index-$k$ critical point contributes a $k$-cell, and Betti numbers cannot exceed the number of $k$-cells in any CW structure. Hence $b_k(M)\\le c_k(f)$."
+          },
+          {
+            "type": "mcq",
+            "q": "A Morse function is called perfect when",
+            "choices": [
+              "$b_k(M) = c_k(f)$ for every $k$",
+              "the Hessian is the identity at each critical point",
+              "it has a unique critical point",
+              "all critical points have index 0"
+            ],
+            "answer": 0,
+            "hint": "The chain complex differential vanishes — index counts equal Betti numbers.",
+            "explain": "A perfect Morse function realises the equality case of the weak inequality: the differential in the Morse complex is zero, so the count of index-$k$ critical points equals $b_k(M)$. They exist on $\\mathbb{C}P^n$, on flag varieties, and on compact Lie groups (Bott)."
+          },
+          {
+            "type": "mcq",
+            "q": "Any Morse function on the closed orientable genus-2 surface $\\Sigma_2$ must have at least how many critical points?",
+            "choices": [
+              "2",
+              "4",
+              "6",
+              "8"
+            ],
+            "answer": 2,
+            "hint": "Sum the Betti numbers: $b_0 + b_1 + b_2 = 1 + 4 + 1$.",
+            "explain": "By the weak Morse inequality, $\\sum_k c_k \\ge \\sum_k b_k = 1+4+1 = 6$. Six critical points (one min, four saddles, one max) is achieved by the standard height function."
+          }
+        ]
+      },
+      "mt-morse-homology": {
+        "title": "Morse homology",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In the Morse chain complex, the generators of $C_k$ are",
+            "choices": [
+              "all points of $M$",
+              "critical points of $f$ of Morse index $k$",
+              "smooth $k$-simplices in $M$",
+              "$k$-forms on $M$"
+            ],
+            "answer": 1,
+            "hint": "One generator per index-$k$ critical point.",
+            "explain": "$C_k$ is the free abelian group (or $\\mathbb{Z}/2$-vector space) on the index-$k$ critical points of a Morse–Smale pair $(f,g)$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Morse boundary $\\partial\\colon C_k \\to C_{k-1}$ counts...",
+            "choices": [
+              "all flow lines from each generator",
+              "signed gradient flow lines between critical points whose indices differ by 1",
+              "the sum of Hessian eigenvalues",
+              "the chart transitions between critical points"
+            ],
+            "answer": 1,
+            "hint": "Index drops by 1 along each rigid trajectory.",
+            "explain": "For a Morse–Smale gradient, the moduli space of unparameterised flow lines from index-$k$ to index-$(k-1)$ critical points is 0-dimensional and oriented; $\\partial$ counts these signed."
+          },
+          {
+            "type": "mcq",
+            "q": "What does Morse homology compute?",
+            "choices": [
+              "Nothing intrinsic — it depends on $f$.",
+              "It is canonically isomorphic to the singular homology $H_*(M)$.",
+              "Only the Euler characteristic.",
+              "The fundamental group."
+            ],
+            "answer": 1,
+            "hint": "Different Morse functions give chain-homotopy-equivalent complexes.",
+            "explain": "Morse homology $HM_*(M)$ is independent of the Morse–Smale pair (continuation maps give chain homotopy equivalences) and is canonically isomorphic to singular $H_*(M;\\mathbb{Z})$."
+          }
+        ]
+      },
+      "mt-applications": {
+        "title": "Applications",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Reeb's theorem says that a closed manifold $M$ admitting a Morse function with exactly two critical points is...",
+            "choices": [
+              "a torus",
+              "homeomorphic to a sphere",
+              "non-orientable",
+              "always smoothly the standard $S^n$"
+            ],
+            "answer": 1,
+            "hint": "Two critical points = two handles, gluing two disks.",
+            "explain": "Two critical points must be a min (index 0) and max (index $n$). The two disks glued along their common boundary is homeomorphic to $S^n$ — but the smooth structure may be exotic (Milnor's exotic 7-spheres)."
+          },
+          {
+            "type": "mcq",
+            "q": "$\\mathbb{R}P^2$ admits a Morse function with critical-point indices $0,1,2$. The corresponding Morse counts $(c_0,c_1,c_2)=(1,1,1)$ give Euler characteristic:",
+            "choices": [
+              "$0$",
+              "$1$",
+              "$2$",
+              "$3$"
+            ],
+            "answer": 1,
+            "hint": "$\\chi = c_0 - c_1 + c_2$.",
+            "explain": "$\\chi(\\mathbb{R}P^2) = 1 - 1 + 1 = 1$. Compare with $\\chi(S^2)=1-0+1=2$ from $(c_0,c_1,c_2)=(1,0,1)$ — the index-1 critical point is what distinguishes them topologically."
+          },
+          {
+            "type": "mcq",
+            "q": "Floer homology generalises Morse homology by replacing the finite-dimensional manifold $M$ with an infinite-dimensional space, e.g.",
+            "choices": [
+              "the loop space $\\Lambda M$ or path space $\\mathcal{P}M$",
+              "the tangent bundle $TM$",
+              "the cotangent bundle $T^*M$",
+              "the universal cover $\\widetilde{M}$"
+            ],
+            "answer": 0,
+            "hint": "Critical points of the action functional on loops are periodic orbits.",
+            "explain": "Floer's insight: the symplectic action functional on the free loop space (or path space with Lagrangian boundary) has critical points = periodic orbits (or Lagrangian intersections), and gradient flow lines = pseudo-holomorphic strips. The Morse complex generalises term-by-term."
           }
         ]
       }
@@ -27410,19 +28788,247 @@ window.MVQuizBank = {
   "partial-differential-equations": {
     "topic": "partial-differential-equations",
     "quizzes": {
-      "partial-differential-equations-intro": {
-        "title": "Intro",
+      "pde-classification": {
+        "title": "Classification: elliptic / parabolic / hyperbolic",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder question — content forthcoming.",
+            "q": "Classify $u_{xx} + 4u_{xy} + 3u_{yy} = 0$ by its discriminant $b^2 - ac$.",
             "choices": [
-              "A",
-              "B"
+              "Elliptic",
+              "Parabolic",
+              "Hyperbolic"
+            ],
+            "answer": 2,
+            "hint": "Read off $a=1$, $b=2$, $c=3$ from the symmetric form $a u_{xx}+2b u_{xy}+c u_{yy}$, then compute $b^2-ac$.",
+            "explain": "$b^2-ac = 4 - 3 = 1 > 0$, so the equation is hyperbolic — like the wave equation, with two real characteristic directions."
+          },
+          {
+            "type": "mcq",
+            "q": "Which model PDE is the canonical parabolic example?",
+            "choices": [
+              "$\\Delta u = 0$",
+              "$u_t = \\Delta u$",
+              "$u_{tt} = \\Delta u$"
+            ],
+            "answer": 1,
+            "hint": "Parabolic means discriminant zero; that is the case when one of the second derivatives is replaced by a first.",
+            "explain": "The heat equation $u_t=\\Delta u$ is parabolic. Laplace is elliptic and the wave equation is hyperbolic."
+          },
+          {
+            "type": "mcq",
+            "q": "True or false: an elliptic equation has real characteristic curves.",
+            "choices": [
+              "True",
+              "False"
+            ],
+            "answer": 1,
+            "hint": "Characteristic directions are roots of $a\\lambda^2 - 2b\\lambda + c = 0$.",
+            "explain": "Elliptic means $b^2-ac<0$, so the characteristic polynomial has no real roots — that is precisely why elliptic problems take Dirichlet/Neumann data on a closed boundary rather than initial data along a curve."
+          }
+        ]
+      },
+      "pde-heat-equation": {
+        "title": "Heat equation and the heat kernel",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the fundamental solution (heat kernel) of $u_t = \\Delta u$ on $\\mathbb{R}^n$?",
+            "choices": [
+              "$K_t(x) = (4\\pi t)^{-n/2} e^{-|x|^2/4t}$",
+              "$K_t(x) = (2\\pi t)^{-n/2} e^{-|x|^2/2t}$",
+              "$K_t(x) = e^{-t|x|^2}$"
             ],
             "answer": 0,
-            "hint": "Placeholder.",
-            "explain": "Placeholder."
+            "hint": "The Gaussian variance grows linearly in $t$: $\\sigma^2 = 2t$.",
+            "explain": "The heat kernel is the Gaussian $K_t(x)=(4\\pi t)^{-n/2}\\exp(-|x|^2/4t)$, the unique solution with $K_0=\\delta_0$. The width $\\sqrt{2t}$ shows the diffusive scaling."
+          },
+          {
+            "type": "mcq",
+            "q": "Suppose $u$ solves $u_t=\\Delta u$ on a bounded domain with continuous data. The maximum principle says the maximum of $u$ is attained:",
+            "choices": [
+              "Only in the interior",
+              "On the parabolic boundary (initial time + spatial boundary)",
+              "Strictly inside, by smoothness"
+            ],
+            "answer": 1,
+            "hint": "Heat does not spontaneously create hot spots — it can only inherit them.",
+            "explain": "The parabolic maximum principle: $\\max u$ is taken on $\\{t=0\\}\\cup(\\partial\\Omega\\times[0,T])$. Diffusion smooths and dampens, never amplifies."
+          },
+          {
+            "type": "mcq",
+            "q": "If the initial data is the delta $\\delta_0$, the solution at time $t>0$ is:",
+            "choices": [
+              "Zero away from the origin",
+              "A Gaussian of width $\\sqrt{2t}$",
+              "A travelling pulse of speed $1$"
+            ],
+            "answer": 1,
+            "hint": "Convolution with $\\delta_0$ is the identity.",
+            "explain": "$u(x,t)=K_t*\\delta_0=K_t(x)$, a Gaussian with variance $2t$. Information from a point spreads instantly to all of $\\mathbb{R}^n$ — heat has infinite propagation speed."
+          }
+        ]
+      },
+      "pde-wave-equation": {
+        "title": "Wave equation and d'Alembert",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On $\\mathbb{R}$, the wave equation $u_{tt}=c^2 u_{xx}$ with data $u(x,0)=f$, $u_t(x,0)=0$ has solution:",
+            "choices": [
+              "$u(x,t) = f(x-ct)$",
+              "$u(x,t) = \\tfrac12[f(x-ct)+f(x+ct)]$",
+              "$u(x,t) = f(x)\\cos(ct)$"
+            ],
+            "answer": 1,
+            "hint": "d'Alembert: each datum splits into a left- and right-moving copy.",
+            "explain": "With zero initial velocity, $u(x,t)=\\tfrac12[f(x-ct)+f(x+ct)]$ — the initial profile splits in half, each half traveling at speed $c$ in opposite directions."
+          },
+          {
+            "type": "mcq",
+            "q": "True or false: the wave equation has finite speed of propagation.",
+            "choices": [
+              "True",
+              "False"
+            ],
+            "answer": 0,
+            "hint": "Compare with the heat kernel, which is everywhere positive for $t>0$.",
+            "explain": "Yes — the value $u(x_0,t_0)$ depends only on data inside the backward light cone $|x-x_0|\\le c t_0$. Disturbances propagate at speed at most $c$."
+          },
+          {
+            "type": "mcq",
+            "q": "Huygens' principle (sharp wavefronts) holds in:",
+            "choices": [
+              "All dimensions",
+              "Odd dimensions $n\\ge 3$",
+              "Even dimensions only"
+            ],
+            "answer": 1,
+            "hint": "In $n=2$ the disturbance leaves a tail; in $n=3$ it does not.",
+            "explain": "In odd $n\\ge 3$ the solution at $(x_0,t_0)$ depends only on data on the sphere $|x-x_0|=ct_0$, giving sharp wavefronts. In even dimensions there is a residual tail inside the cone."
+          }
+        ]
+      },
+      "pde-laplace-equation": {
+        "title": "Laplace equation and the Dirichlet problem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A function harmonic on $\\Omega$ and continuous on $\\overline{\\Omega}$ attains its maximum:",
+            "choices": [
+              "Possibly in the interior",
+              "Only on $\\partial\\Omega$ (unless $u$ is constant)",
+              "Only at critical points"
+            ],
+            "answer": 1,
+            "hint": "Mean-value property forces $u$ at any interior point to equal the average over a surrounding sphere.",
+            "explain": "The strong maximum principle: a non-constant harmonic function takes its max only on the boundary. This is what makes the Dirichlet problem (prescribe $u|_{\\partial\\Omega}$) well-posed."
+          },
+          {
+            "type": "mcq",
+            "q": "On the unit disk, the unique harmonic extension of a continuous boundary value $g$ is given by:",
+            "choices": [
+              "Convolution with the heat kernel",
+              "The Poisson integral $u(r,\\theta)=\\tfrac{1}{2\\pi}\\int P_r(\\theta-\\phi)g(\\phi)\\,d\\phi$",
+              "Contour integration of $g$"
+            ],
+            "answer": 1,
+            "hint": "The Poisson kernel $P_r(\\theta)=(1-r^2)/(1-2r\\cos\\theta+r^2)$ is the answer.",
+            "explain": "The Poisson integral formula is the explicit solution of the Dirichlet problem on the disk. As $r\\to 1$ the kernel concentrates on the boundary point — recovering $g$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Neumann problem $\\Delta u=0$, $\\partial_\\nu u=g$ on a bounded domain is solvable only when:",
+            "choices": [
+              "$g$ has compact support",
+              "$g$ is smooth",
+              "$\\int_{\\partial\\Omega} g\\,dS = 0$"
+            ],
+            "answer": 2,
+            "hint": "Integrate $\\Delta u=0$ over $\\Omega$ and use the divergence theorem.",
+            "explain": "By divergence, $\\int_{\\partial\\Omega}\\partial_\\nu u\\,dS = \\int_\\Omega \\Delta u\\,dx = 0$, so the prescribed flux must have zero mean. The solution is then unique up to an additive constant."
+          }
+        ]
+      },
+      "pde-weak-solutions": {
+        "title": "Weak solutions and Galerkin approximation",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A weak solution of $-\\Delta u = f$ with zero Dirichlet data lives in:",
+            "choices": [
+              "$C^2(\\Omega)$",
+              "$H^1_0(\\Omega)$",
+              "$L^2(\\Omega)$"
+            ],
+            "answer": 1,
+            "hint": "Integration by parts moves one derivative onto the test function — so we need one weak derivative in $L^2$, plus zero trace.",
+            "explain": "$H^1_0(\\Omega)$ is exactly the closure of $C_c^\\infty(\\Omega)$ in $H^1$: one weak derivative in $L^2$ and zero boundary trace. It is the natural energy space."
+          },
+          {
+            "type": "mcq",
+            "q": "The weak formulation of $-\\Delta u=f$ on $H^1_0$ reads:",
+            "choices": [
+              "$\\int u\\,v = \\int fv$ for all $v$",
+              "$\\int \\nabla u\\cdot\\nabla v = \\int fv$ for all $v\\in H^1_0$",
+              "$\\int (\\Delta u)v = -\\int fv$"
+            ],
+            "answer": 1,
+            "hint": "Integrate $-\\Delta u\\cdot v$ by parts; the boundary term vanishes because $v\\in H^1_0$.",
+            "explain": "Integration by parts gives $-\\int(\\Delta u)v = \\int\\nabla u\\cdot\\nabla v$ since $v$ vanishes on $\\partial\\Omega$. This is the energy form $a(u,v)=\\langle f,v\\rangle$."
+          },
+          {
+            "type": "mcq",
+            "q": "Galerkin's method approximates the weak solution by:",
+            "choices": [
+              "Iterating the heat semigroup",
+              "Solving the variational problem on a finite-dimensional subspace $V_n\\subset H^1_0$",
+              "Convolving with the fundamental solution"
+            ],
+            "answer": 1,
+            "hint": "Pick basis functions; reduce the PDE to a linear system; let the basis grow.",
+            "explain": "Galerkin: choose $V_n=\\mathrm{span}(\\phi_1,\\ldots,\\phi_n)$, find $u_n\\in V_n$ with $a(u_n,\\phi_j)=\\langle f,\\phi_j\\rangle$ for all $j$, and pass $n\\to\\infty$. This is the abstract template for finite elements."
+          }
+        ]
+      },
+      "pde-existence-and-regularity": {
+        "title": "Lax–Milgram, elliptic regularity, embedding",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Lax–Milgram delivers a unique weak solution when the bilinear form $a$ is:",
+            "choices": [
+              "Symmetric and bounded",
+              "Continuous and coercive on $H^1_0$",
+              "Compact and self-adjoint"
+            ],
+            "answer": 1,
+            "hint": "Coercive means $a(u,u)\\ge\\alpha\\|u\\|^2$ for some $\\alpha>0$.",
+            "explain": "Lax–Milgram: continuous + coercive bilinear form on a Hilbert space is invertible. Symmetry is not needed — Lax–Milgram is the non-symmetric Riesz representation theorem."
+          },
+          {
+            "type": "mcq",
+            "q": "Elliptic regularity says: if $-\\Delta u = f$ weakly with $f\\in H^k$ on a smooth domain, then:",
+            "choices": [
+              "$u\\in H^k$ as well",
+              "$u\\in H^{k+2}$",
+              "$u\\in C^k$ but not better"
+            ],
+            "answer": 1,
+            "hint": "Each Laplacian eats two derivatives — running the equation backwards gains two.",
+            "explain": "Interior elliptic regularity: $u$ has two more weak derivatives than $f$. Bootstrapping: if $f\\in C^\\infty$ then $u\\in C^\\infty$."
+          },
+          {
+            "type": "mcq",
+            "q": "For $\\Omega\\subset\\mathbb{R}^n$ bounded and smooth, when does $H^k(\\Omega)\\hookrightarrow C^0(\\overline{\\Omega})$ hold?",
+            "choices": [
+              "For every $k\\ge 1$",
+              "When $k > n/2$",
+              "Only in dimension $n=1$"
+            ],
+            "answer": 1,
+            "hint": "Sobolev embedding trades $kp$ derivatives in $L^p$ for $\\lfloor k - n/p\\rfloor$ classical derivatives.",
+            "explain": "Sobolev: $H^k\\hookrightarrow C^0$ when $k>n/2$ (with $p=2$). In 1D, $k=1$ suffices; in 3D one needs $k\\ge 2$. This is how weak solutions become classical."
           }
         ]
       }
@@ -38119,19 +39725,269 @@ window.MVQuizBank = {
   "spectral-theory": {
     "topic": "spectral-theory",
     "quizzes": {
-      "spectral-theory-intro": {
-        "title": "Intro",
+      "st-bounded-operators-spectrum": {
+        "title": "Spectrum of a bounded operator",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder question — content forthcoming.",
+            "q": "Which set is $\\lambda$ in the spectrum $\\sigma(T)$ of a bounded operator $T$?",
             "choices": [
-              "A",
-              "B"
+              "$\\{\\lambda : T-\\lambda I \\text{ has non-trivial kernel}\\}$",
+              "$\\{\\lambda : T-\\lambda I \\text{ is not invertible in } B(H)\\}$",
+              "$\\{\\lambda : \\|\\lambda\\|<\\|T\\|\\}$",
+              "$\\{\\lambda : T\\varphi=\\lambda\\varphi \\text{ for some unit vector }\\varphi\\}$"
+            ],
+            "answer": 1,
+            "hint": "On infinite-dimensional spaces, $T-\\lambda I$ can be injective without being invertible.",
+            "explain": "The spectrum is the set of $\\lambda$ for which $T-\\lambda I$ fails to be invertible as an element of $B(H)$. Choices (a) and (d) describe the point spectrum (eigenvalues), which is generally a proper subset of $\\sigma(T)$."
+          },
+          {
+            "type": "mcq",
+            "q": "On $\\ell^2(\\mathbb{N})$, the right shift $S(x_1,x_2,\\dots)=(0,x_1,x_2,\\dots)$ has what spectrum?",
+            "choices": [
+              "Just $\\{0\\}$",
+              "The unit circle $\\{\\lambda:|\\lambda|=1\\}$",
+              "The closed unit disk $\\{\\lambda:|\\lambda|\\le 1\\}$",
+              "Empty"
+            ],
+            "answer": 2,
+            "hint": "$S$ is an isometry so $\\|S\\|=1$, and $\\sigma(S)$ is closed inside the disk of radius $\\|S\\|$.",
+            "explain": "The right shift has no eigenvalues (point spectrum is empty), but $\\sigma(S)$ equals the closed unit disk: every $|\\lambda|<1$ lies in the residual spectrum (range not dense), and $|\\lambda|=1$ in the continuous spectrum. By contrast the left shift has the open disk in point spectrum."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is $\\sigma(T)$ always non-empty for $T\\in B(H)$?",
+            "choices": [
+              "Because $T$ has at least one eigenvalue",
+              "Because $0\\in\\sigma(T)$ for every operator",
+              "Because the resolvent $\\lambda\\mapsto(T-\\lambda I)^{-1}$ is a bounded entire function vanishing at infinity if $\\sigma(T)=\\emptyset$, contradicting Liouville",
+              "Because the spectral radius formula forces it"
+            ],
+            "answer": 2,
+            "hint": "Apply Liouville's theorem to the operator-valued resolvent.",
+            "explain": "If $\\sigma(T)=\\emptyset$ then the resolvent $R(\\lambda)=(T-\\lambda I)^{-1}$ is entire as a $B(H)$-valued function, and $R(\\lambda)\\to 0$ as $|\\lambda|\\to\\infty$. Liouville (in the Banach-space-valued form) forces $R\\equiv 0$, contradicting $R(\\lambda)(T-\\lambda I)=I$. So $\\sigma(T)$ is non-empty."
+          }
+        ]
+      },
+      "st-self-adjoint-spectrum": {
+        "title": "Self-adjoint spectrum",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "If $T=T^*$ on a Hilbert space, what does $\\sigma(T)$ look like?",
+            "choices": [
+              "Always finite",
+              "Contained in $\\mathbb{R}$",
+              "Contained in the unit disk",
+              "Contained in $i\\mathbb{R}$ (imaginary axis)"
+            ],
+            "answer": 1,
+            "hint": "Use $\\langle T\\varphi,\\varphi\\rangle=\\langle\\varphi,T\\varphi\\rangle$ to constrain Im $\\lambda$.",
+            "explain": "If $T=T^*$ and $\\lambda=a+ib$ with $b\\ne 0$, then $\\|(T-\\lambda)\\varphi\\|^2=\\|(T-a)\\varphi\\|^2+b^2\\|\\varphi\\|^2\\ge b^2\\|\\varphi\\|^2$, so $T-\\lambda$ is bounded below and has closed range; the same holds for $T-\\bar\\lambda=(T-\\lambda)^*$, so the range is dense, hence $T-\\lambda$ is invertible. Therefore $\\sigma(T)\\subset\\mathbb{R}$."
+          },
+          {
+            "type": "mcq",
+            "q": "For self-adjoint $T$, the spectral radius $r(T)=\\sup_{\\lambda\\in\\sigma(T)}|\\lambda|$ equals:",
+            "choices": [
+              "$\\|T\\|^{1/2}$",
+              "$\\|T\\|$ exactly",
+              "Strictly less than $\\|T\\|$",
+              "$\\sqrt{\\|T^*T\\|}$"
+            ],
+            "answer": 1,
+            "hint": "Combine the spectral radius formula $r(T)=\\lim\\|T^n\\|^{1/n}$ with $\\|T^2\\|=\\|T\\|^2$ for self-adjoint $T$.",
+            "explain": "For self-adjoint $T$, $\\|T^2\\|=\\|T\\|^2$ (because $\\|T^2\\|=\\|T^*T\\|=\\|T\\|^2$), and inductively $\\|T^{2^k}\\|=\\|T\\|^{2^k}$. Thus $r(T)=\\lim\\|T^n\\|^{1/n}=\\|T\\|$. (For general operators only $r(T)\\le\\|T\\|$.)"
+          },
+          {
+            "type": "multi-select",
+            "q": "Which parts of the spectrum can a bounded self-adjoint operator have?",
+            "choices": [
+              "Point spectrum",
+              "Continuous spectrum",
+              "Residual spectrum"
+            ],
+            "answer": [
+              0,
+              1
+            ],
+            "hint": "Use that $\\overline{\\mathrm{Ran}(T-\\lambda)}^\\perp = \\ker(T-\\bar\\lambda)$ when $T$ is self-adjoint and $\\lambda\\in\\mathbb{R}$.",
+            "explain": "Self-adjoint operators have empty residual spectrum: if $\\lambda\\in\\mathbb{R}$ and $T-\\lambda$ has range not dense, then $\\ker(T-\\lambda)^*=\\ker(T-\\lambda)\\ne 0$, so $\\lambda$ is actually in the point spectrum, contradiction. Point and continuous spectrum are both possible."
+          }
+        ]
+      },
+      "st-spectral-theorem-compact": {
+        "title": "Spectral theorem (compact)",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A compact self-adjoint operator $K\\ne 0$ on a separable Hilbert space admits:",
+            "choices": [
+              "An orthonormal basis of eigenvectors with eigenvalues in $\\mathbb{R}\\setminus\\{0\\}$ accumulating only at 0",
+              "An orthonormal basis of eigenvectors all with eigenvalue 0",
+              "No eigenvectors in general",
+              "Eigenvalues all bounded away from 0"
             ],
             "answer": 0,
-            "hint": "Placeholder.",
-            "explain": "Placeholder."
+            "hint": "Riesz–Schauder forces a discrete non-zero spectrum.",
+            "explain": "By the spectral theorem for compact self-adjoint operators, $K=\\sum_n\\lambda_n\\langle\\varphi_n,\\cdot\\rangle\\varphi_n$ with $(\\varphi_n)$ orthonormal eigenvectors, $\\lambda_n\\in\\mathbb{R}$, and $\\lambda_n\\to 0$. The eigenspace at 0 may be infinite-dimensional (the kernel)."
+          },
+          {
+            "type": "mcq",
+            "q": "Why must each non-zero eigenvalue $\\lambda_n$ of a compact operator have finite-dimensional eigenspace?",
+            "choices": [
+              "Because $K$ is bounded",
+              "Because the unit ball of an infinite-dimensional eigenspace is mapped to itself, contradicting compactness of $K$ (since $K$ acts as $\\lambda_n\\cdot I$ there)",
+              "Because eigenspaces are always finite-dimensional",
+              "Because of the open mapping theorem"
+            ],
+            "answer": 1,
+            "hint": "On the eigenspace, $K$ acts as a non-zero scalar.",
+            "explain": "On the eigenspace $E_{\\lambda_n}$, $K$ acts as multiplication by $\\lambda_n\\ne 0$. If $E_{\\lambda_n}$ were infinite-dimensional, the unit ball (closed and bounded but not compact) would map under $K$ to a bounded set whose closure contains $\\lambda_n\\cdot$(unit ball), which fails to be compact, contradicting compactness of $K$."
+          },
+          {
+            "type": "mcq",
+            "q": "The integral operator $(Kf)(x)=\\int_0^1 k(x,y)f(y)\\,dy$ on $L^2[0,1]$ is compact and self-adjoint when $k$ is:",
+            "choices": [
+              "Bounded and measurable",
+              "$L^2([0,1]^2)$ and $k(x,y)=\\overline{k(y,x)}$",
+              "Continuous and skew-symmetric",
+              "Real-analytic"
+            ],
+            "answer": 1,
+            "hint": "Hilbert–Schmidt $\\Rightarrow$ compact; symmetric kernel $\\Rightarrow$ self-adjoint.",
+            "explain": "If $k\\in L^2([0,1]^2)$, the integral operator is Hilbert–Schmidt with $\\|K\\|_{HS}^2=\\iint|k(x,y)|^2\\,dx\\,dy$, hence compact. Self-adjointness $\\langle Kf,g\\rangle=\\langle f,Kg\\rangle$ is equivalent to $k(x,y)=\\overline{k(y,x)}$."
+          }
+        ]
+      },
+      "st-spectral-theorem-bounded": {
+        "title": "Spectral theorem (bounded)",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The bounded spectral theorem expresses a self-adjoint operator $T$ as:",
+            "choices": [
+              "A finite sum $T=\\sum\\lambda_k P_k$ of eigenprojections",
+              "$T=\\int_{\\sigma(T)}\\lambda\\,dE_\\lambda$ for a unique projection-valued measure $E$ on the Borel sets of $\\sigma(T)$",
+              "$T=U|T|$ (polar decomposition)",
+              "A power series in $T$"
+            ],
+            "answer": 1,
+            "hint": "Functional calculus produces a PVM, not a discrete sum, when the spectrum is continuous.",
+            "explain": "Every bounded self-adjoint operator admits a unique projection-valued measure $E$ supported on $\\sigma(T)\\subset\\mathbb{R}$ with $T=\\int\\lambda\\,dE_\\lambda$. The discrete sum form is the special case where the spectrum is a finite or countable set of eigenvalues (e.g. compact)."
+          },
+          {
+            "type": "mcq",
+            "q": "If $T$ is the multiplication operator $(Tf)(x)=x\\cdot f(x)$ on $L^2[0,1]$, what is $\\sigma(T)$ and the PVM?",
+            "choices": [
+              "$\\sigma(T)=\\{0\\}$, no PVM",
+              "$\\sigma(T)=[0,1]$ continuous, $E_\\Omega f=\\mathbf{1}_\\Omega\\cdot f$",
+              "$\\sigma(T)=\\mathbb{N}$, point spectrum",
+              "$\\sigma(T)=[0,1]$, but PVM is identity"
+            ],
+            "answer": 1,
+            "hint": "For multiplication operators, the PVM is multiplication by indicator functions.",
+            "explain": "$T$ is self-adjoint with purely continuous spectrum $\\sigma(T)=[0,1]$. The associated PVM is $E_\\Omega f = \\mathbf{1}_\\Omega(x) f(x)$ for Borel $\\Omega\\subset[0,1]$, and $T=\\int_0^1\\lambda\\,dE_\\lambda$. Every bounded self-adjoint operator is unitarily equivalent to such a multiplication operator on some $L^2(\\mu)$."
+          },
+          {
+            "type": "mcq",
+            "q": "The continuous functional calculus $f\\mapsto f(T)$ for $f\\in C(\\sigma(T))$ satisfies:",
+            "choices": [
+              "$\\|f(T)\\|\\le\\|f\\|_{L^2}$",
+              "$\\|f(T)\\|=\\|f\\|_{C(\\sigma(T))}=\\sup_{\\lambda\\in\\sigma(T)}|f(\\lambda)|$ (isometry)",
+              "$f(T)$ is always invertible",
+              "It is only defined for polynomials"
+            ],
+            "answer": 1,
+            "hint": "The Gelfand transform is an isometric *-isomorphism.",
+            "explain": "For $T$ self-adjoint (or normal), the map $f\\mapsto f(T)$ is an isometric *-homomorphism from $C(\\sigma(T))$ to $C^*(T,1)\\subset B(H)$: $\\|f(T)\\|=\\sup_{\\lambda\\in\\sigma(T)}|f(\\lambda)|$. This is the Gelfand–Naimark theorem applied to the unital commutative $C^*$-algebra generated by $T$."
+          }
+        ]
+      },
+      "st-unbounded-operators": {
+        "title": "Unbounded operators",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A symmetric operator $A$ ($\\langle A\\varphi,\\psi\\rangle=\\langle\\varphi,A\\psi\\rangle$ for $\\varphi,\\psi\\in\\mathrm{Dom}(A)$) is self-adjoint when:",
+            "choices": [
+              "Always — symmetric and self-adjoint coincide",
+              "$\\mathrm{Dom}(A)=\\mathrm{Dom}(A^*)$, in addition to symmetry",
+              "$A$ is bounded",
+              "$A$ is densely defined"
+            ],
+            "answer": 1,
+            "hint": "For unbounded operators, domain matters as much as the formula.",
+            "explain": "Symmetric ($A\\subset A^*$) is weaker than self-adjoint ($A=A^*$). The latter requires the additional domain equality $\\mathrm{Dom}(A)=\\mathrm{Dom}(A^*)$. Symmetric extensions of $A$ correspond to self-adjoint extensions only when defect indices match — a delicate issue famously solved by von Neumann."
+          },
+          {
+            "type": "mcq",
+            "q": "The Laplacian $-\\Delta$ on $L^2[0,1]$ with Dirichlet boundary conditions ($u(0)=u(1)=0$) is self-adjoint with eigenvalues:",
+            "choices": [
+              "$\\lambda_n = n$ for $n\\ge 0$",
+              "$\\lambda_n = (n\\pi)^2$ for $n\\ge 1$, eigenfunctions $\\sin(n\\pi x)$",
+              "$\\lambda_n = e^{-n}$ exponentially decaying",
+              "Continuous spectrum $[0,\\infty)$"
+            ],
+            "answer": 1,
+            "hint": "Solve $-u''=\\lambda u$ with $u(0)=u(1)=0$.",
+            "explain": "The Dirichlet Laplacian on $[0,1]$ has compact resolvent and discrete spectrum $\\lambda_n=(n\\pi)^2$ ($n\\ge 1$) with $L^2$-orthonormal eigenfunctions $\\sqrt{2}\\sin(n\\pi x)$. Note: on $\\mathbb{R}$ (no boundary) the spectrum is $[0,\\infty)$ continuous — boundary conditions matter."
+          },
+          {
+            "type": "mcq",
+            "q": "Stone's theorem says: strongly continuous one-parameter unitary groups $U(t)=e^{itA}$ on $H$ are in bijection with:",
+            "choices": [
+              "Bounded self-adjoint operators",
+              "Self-adjoint operators (possibly unbounded), via $A=-i\\frac{d}{dt}U(t)|_{t=0}$",
+              "Unitary operators",
+              "Compact normal operators"
+            ],
+            "answer": 1,
+            "hint": "The generator of a unitary group must be self-adjoint and is generally unbounded.",
+            "explain": "Stone's theorem: for any strongly continuous unitary group $U(t)$ on $H$ there is a unique self-adjoint $A$ (possibly unbounded) with $U(t)=e^{itA}$, and $A\\varphi=-i\\,\\frac{d}{dt}U(t)\\varphi|_{t=0}$ on the natural domain. This is the analytic underpinning of quantum dynamics."
+          }
+        ]
+      },
+      "st-applications": {
+        "title": "Applications",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In quantum mechanics, the energy levels of the harmonic oscillator $H=-\\tfrac{\\hbar^2}{2m}\\partial_x^2+\\tfrac{1}{2}m\\omega^2 x^2$ are:",
+            "choices": [
+              "$E_n = n\\hbar\\omega$ for $n\\ge 0$",
+              "$E_n = (n+\\tfrac12)\\hbar\\omega$ for $n\\ge 0$",
+              "Continuous on $[0,\\infty)$",
+              "$E_n = \\hbar\\omega/n^2$"
+            ],
+            "answer": 1,
+            "hint": "The ladder operators give equally spaced eigenvalues with a non-zero ground-state energy.",
+            "explain": "The harmonic oscillator Hamiltonian has discrete spectrum $E_n=(n+\\tfrac12)\\hbar\\omega$ with $n\\ge 0$, evenly spaced by $\\hbar\\omega$. The ground-state energy $\\tfrac12\\hbar\\omega$ is non-zero — a quantum effect with no classical analogue."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does diagonalizing the Laplacian solve the heat equation $\\partial_t u = \\Delta u$ on a compact domain?",
+            "choices": [
+              "Because the heat equation is linear",
+              "Because expanding $u_0=\\sum c_n\\varphi_n$ in the eigenbasis gives $u(t)=\\sum c_n e^{-\\lambda_n t}\\varphi_n$, reducing PDE to a decoupled ODE per mode",
+              "Because the eigenfunctions are orthogonal",
+              "Because of Fubini's theorem"
+            ],
+            "answer": 1,
+            "hint": "The exponential of a diagonalized operator is diagonal in the same basis.",
+            "explain": "If $\\Delta\\varphi_n=-\\lambda_n\\varphi_n$ and $u_0=\\sum c_n\\varphi_n$, then $u(t)=e^{t\\Delta}u_0=\\sum c_n e^{-\\lambda_n t}\\varphi_n$ solves the heat equation. The compact spectral theorem gives the eigenbasis; the unbounded functional calculus defines $e^{t\\Delta}$ as a contraction semigroup."
+          },
+          {
+            "type": "mcq",
+            "q": "On $L^2(\\mathbb{R})$, the translation operators $(T_y f)(x)=f(x-y)$ are simultaneously diagonalized by:",
+            "choices": [
+              "The Hermite functions",
+              "The Fourier transform: $\\widehat{T_y f}(\\xi)=e^{-2\\pi i y\\xi}\\hat f(\\xi)$",
+              "The wavelet transform",
+              "The Legendre polynomials"
+            ],
+            "answer": 1,
+            "hint": "Translation has multiplicative character $e^{-2\\pi i y\\xi}$ in the Fourier domain.",
+            "explain": "Translations on $\\mathbb{R}$ form a unitary group whose Stone generator is $-i\\partial_x$. The Fourier transform $\\mathcal{F}\\colon L^2(\\mathbb{R})\\to L^2(\\hat{\\mathbb{R}})$ diagonalizes $-i\\partial_x$ as multiplication by $2\\pi\\xi$, so $T_y$ becomes multiplication by $e^{-2\\pi i y\\xi}$. This is the spectral theorem for the abelian group $\\mathbb{R}$."
           }
         ]
       }
@@ -38515,19 +40371,267 @@ window.MVQuizBank = {
   "stochastic-calculus": {
     "topic": "stochastic-calculus",
     "quizzes": {
-      "stochastic-calculus-intro": {
-        "title": "Intro",
+      "sc-ito-integral": {
+        "title": "Itô integral",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder question — content forthcoming.",
+            "q": "Which evaluation point for the integrand on each subinterval $[t_k,t_{k+1}]$ defines the Itô integral?",
             "choices": [
-              "A",
-              "B"
+              "Left endpoint $H_{t_k}$",
+              "Right endpoint $H_{t_{k+1}}$",
+              "Midpoint $H_{(t_k+t_{k+1})/2}$",
+              "Maximum of $H$ on the subinterval"
             ],
             "answer": 0,
-            "hint": "Placeholder.",
-            "explain": "Placeholder."
+            "hint": "The choice that keeps the integrand $\\mathcal{F}_{t_k}$-measurable, i.e. predictable, is the Itô convention.",
+            "explain": "Itô uses the left endpoint so the integrand is predictable; the resulting integral is then a martingale. The midpoint convention gives Stratonovich, which obeys the classical chain rule but is not a martingale."
+          },
+          {
+            "type": "mcq",
+            "q": "What integrability condition makes $\\int_0^t H_s\\,dB_s$ a square-integrable martingale?",
+            "choices": [
+              "$\\int_0^t |H_s|\\,ds<\\infty$ a.s.",
+              "$\\mathbb{E}\\int_0^t H_s^2\\,ds<\\infty$",
+              "$H$ is continuous",
+              "$\\sup_s |H_s|<\\infty$ a.s."
+            ],
+            "answer": 1,
+            "hint": "The Itô isometry equates $\\mathbb{E}[(\\int H\\,dB)^2]$ with $\\mathbb{E}\\int H^2\\,ds$.",
+            "explain": "By the Itô isometry $\\mathbb{E}[(\\int_0^t H\\,dB)^2]=\\mathbb{E}\\int_0^t H^2\\,ds$, so finiteness of the right side is precisely the $L^2$ condition that makes the integral a square-integrable martingale."
+          },
+          {
+            "type": "mcq",
+            "q": "What is $\\mathbb{E}\\big[\\int_0^t B_s\\,dB_s\\big]$?",
+            "choices": [
+              "$0$",
+              "$t/2$",
+              "$t$",
+              "$B_t^2/2$"
+            ],
+            "answer": 0,
+            "hint": "Itô integrals against Brownian motion are martingales started at $0$.",
+            "explain": "$\\int_0^t B_s\\,dB_s$ is a martingale starting at $0$, so its expectation is $0$. Itô's formula identifies it as $\\tfrac{1}{2}B_t^2-\\tfrac{1}{2}t$, whose expectation is also $0$."
+          }
+        ]
+      },
+      "sc-ito-formula": {
+        "title": "Itô's formula",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "By Itô's formula, what is $d(B_t^2)$ for standard Brownian motion?",
+            "choices": [
+              "$2 B_t\\,dB_t$",
+              "$2 B_t\\,dB_t + dt$",
+              "$B_t\\,dB_t$",
+              "$2 B_t\\,dt$"
+            ],
+            "answer": 1,
+            "hint": "$f(x)=x^2$ has $f'(x)=2x$ and $f''(x)=2$; $(dB_t)^2=dt$.",
+            "explain": "With $f(x)=x^2$, $df(B_t)=2B_t\\,dB_t+\\tfrac{1}{2}\\cdot 2\\cdot dt=2B_t\\,dB_t+dt$. The extra $dt$ is the Itô correction that classical calculus misses."
+          },
+          {
+            "type": "mcq",
+            "q": "In Itô's formula $df(X_t)=f'(X_t)\\,dX_t+\\tfrac{1}{2}f''(X_t)(dX_t)^2$, the $(dX_t)^2$ term equals:",
+            "choices": [
+              "$0$",
+              "The quadratic variation $d\\langle X\\rangle_t$",
+              "$dt$ in every case",
+              "$(dt)^2$"
+            ],
+            "answer": 1,
+            "hint": "For Brownian motion $\\langle B\\rangle_t=t$, but for $dX=b\\,dt+\\sigma\\,dB$ the variation is $\\sigma^2\\,dt$.",
+            "explain": "$(dX_t)^2$ is shorthand for $d\\langle X\\rangle_t$. For an Itô process $dX_t=b\\,dt+\\sigma\\,dB_t$ this evaluates to $\\sigma^2\\,dt$ — only the diffusion term contributes since $(dt)^2=0$ and $dt\\,dB=0$."
+          },
+          {
+            "type": "mcq",
+            "q": "Apply Itô to $f(t,x)=e^{x}$ with $X_t=B_t$. What is $d(e^{B_t})$?",
+            "choices": [
+              "$e^{B_t}\\,dB_t$",
+              "$e^{B_t}\\,dB_t + \\tfrac{1}{2}e^{B_t}\\,dt$",
+              "$e^{B_t}\\,dB_t - \\tfrac{1}{2}e^{B_t}\\,dt$",
+              "$e^{B_t}\\,dt$"
+            ],
+            "answer": 1,
+            "hint": "$f'=f''=e^x$ for $f(x)=e^x$; the Itô correction $\\tfrac{1}{2}f''\\,dt$ adds.",
+            "explain": "$df(B_t)=e^{B_t}\\,dB_t+\\tfrac{1}{2}e^{B_t}\\,dt$. To get a martingale you must subtract the drift, giving the exponential martingale $\\exp(B_t-t/2)$."
+          }
+        ]
+      },
+      "sc-sde-existence": {
+        "title": "SDE existence and uniqueness",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What condition on the coefficients $b,\\sigma$ guarantees a unique strong solution to $dX_t=b(X_t)\\,dt+\\sigma(X_t)\\,dB_t$?",
+            "choices": [
+              "Continuity of $b,\\sigma$",
+              "Boundedness of $b,\\sigma$",
+              "Global Lipschitz continuity of $b,\\sigma$",
+              "Smoothness of $b,\\sigma$"
+            ],
+            "answer": 2,
+            "hint": "Picard iteration needs a contraction; Lipschitz constants control the iteration's growth.",
+            "explain": "Lipschitz coefficients (with linear growth) make the Picard iteration in $L^2$ a contraction, yielding existence and pathwise uniqueness — strong solutions in the standard Itô sense."
+          },
+          {
+            "type": "mcq",
+            "q": "For geometric Brownian motion $dX_t=\\mu X_t\\,dt+\\sigma X_t\\,dB_t$ with $X_0=x_0>0$, the closed-form solution is:",
+            "choices": [
+              "$x_0 e^{\\mu t+\\sigma B_t}$",
+              "$x_0 e^{(\\mu-\\sigma^2/2) t+\\sigma B_t}$",
+              "$x_0(1+\\mu t+\\sigma B_t)$",
+              "$x_0 e^{\\mu t}+\\sigma B_t$"
+            ],
+            "answer": 1,
+            "hint": "Apply Itô to $\\log X_t$; the variance correction $-\\sigma^2/2$ appears.",
+            "explain": "Itô on $\\log X_t$ gives $d\\log X_t=(\\mu-\\sigma^2/2)\\,dt+\\sigma\\,dB_t$, integrating to $X_t=x_0\\exp((\\mu-\\sigma^2/2)t+\\sigma B_t)$. The $-\\sigma^2/2$ is the Itô correction."
+          },
+          {
+            "type": "mcq",
+            "q": "A weak solution to an SDE is one where:",
+            "choices": [
+              "Coefficients fail to be Lipschitz",
+              "The driving Brownian motion is given in advance",
+              "We construct a probability space and Brownian motion $B$ together with $X$ satisfying the equation in law",
+              "The solution is only defined up to a stopping time"
+            ],
+            "answer": 2,
+            "hint": "Strong = pathwise on a fixed $B$; weak = only the joint law is required.",
+            "explain": "A weak solution allows freedom in choosing the underlying probability space and Brownian motion; only the joint law of $(X,B)$ is required to satisfy the SDE. Strong solutions fix $B$ in advance and demand a pathwise solution."
+          }
+        ]
+      },
+      "sc-girsanov": {
+        "title": "Girsanov's theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Under Girsanov with density $Z_T=\\exp(\\int_0^T\\theta_s\\,dB_s-\\tfrac{1}{2}\\int_0^T\\theta_s^2\\,ds)$, the process $\\tilde B_t=B_t-\\int_0^t\\theta_s\\,ds$ is:",
+            "choices": [
+              "A martingale under $\\mathbb{P}$",
+              "A Brownian motion under $\\mathbb{Q}=Z_T\\,d\\mathbb{P}$",
+              "A Brownian motion under $\\mathbb{P}$",
+              "Constant"
+            ],
+            "answer": 1,
+            "hint": "Girsanov absorbs the drift $\\int\\theta\\,ds$ into the measure change.",
+            "explain": "Girsanov's theorem states exactly this: under the new measure $\\mathbb{Q}$ defined by Radon–Nikodym density $Z_T$, the drift-corrected process $\\tilde B$ is a standard Brownian motion."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the exponential martingale $Z_t=\\exp(\\int_0^t\\theta_s\\,dB_s-\\tfrac{1}{2}\\int_0^t\\theta_s^2\\,ds)$ a martingale (under Novikov)?",
+            "choices": [
+              "Because the integrand is bounded",
+              "Because Itô's formula gives $dZ_t=Z_t\\theta_t\\,dB_t$, with no drift",
+              "Because Brownian motion has independent increments",
+              "By the optional stopping theorem"
+            ],
+            "answer": 1,
+            "hint": "Apply Itô to $Z_t$; the $-\\tfrac{1}{2}\\theta^2\\,dt$ in the exponent kills the Itô correction.",
+            "explain": "Itô on $\\log Z_t$ gives $dZ_t=Z_t\\theta_t\\,dB_t$ — drift-free. Under Novikov's condition $\\mathbb{E}\\exp(\\tfrac{1}{2}\\int\\theta^2\\,ds)<\\infty$, this local martingale is a true martingale."
+          },
+          {
+            "type": "mcq",
+            "q": "In risk-neutral pricing, the change of measure from $\\mathbb{P}$ to $\\mathbb{Q}$:",
+            "choices": [
+              "Eliminates volatility from the asset SDE",
+              "Replaces the real-world drift $\\mu$ with the risk-free rate $r$",
+              "Makes the asset price deterministic",
+              "Decreases option prices"
+            ],
+            "answer": 1,
+            "hint": "Under $\\mathbb{Q}$ discounted prices are martingales; only the drift, not the volatility, shifts.",
+            "explain": "Girsanov shifts only the drift: under $\\mathbb{Q}$ the discounted asset is a martingale, so $\\mu$ is replaced by $r$. Volatility $\\sigma$ is invariant under absolutely continuous measure change."
+          }
+        ]
+      },
+      "sc-feynman-kac": {
+        "title": "Feynman–Kac formula",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Feynman–Kac formula expresses the solution of which type of PDE as an expectation?",
+            "choices": [
+              "Hyperbolic (wave) equations",
+              "Linear parabolic / second-order elliptic equations",
+              "Fully nonlinear elliptic equations",
+              "First-order transport equations"
+            ],
+            "answer": 1,
+            "hint": "Brownian motion's generator is $\\tfrac{1}{2}\\Delta$ — a second-order operator.",
+            "explain": "Feynman–Kac links second-order linear parabolic and elliptic PDEs (whose generator matches the SDE's infinitesimal generator) to Brownian-functional expectations. The wave equation, by contrast, is hyperbolic and admits no such probabilistic representation."
+          },
+          {
+            "type": "mcq",
+            "q": "If $u(t,x)=\\mathbb{E}[g(B_T)\\mid B_t=x]$, then $u$ satisfies:",
+            "choices": [
+              "$\\partial_t u + \\tfrac{1}{2}\\partial_{xx} u = 0,\\ u(T,x)=g(x)$",
+              "$\\partial_t u = \\partial_{xx} u,\\ u(0,x)=g(x)$",
+              "$\\partial_t u + u_x = 0$",
+              "$u_{xx}=0$"
+            ],
+            "answer": 0,
+            "hint": "The backward heat equation with terminal data $g$ at time $T$.",
+            "explain": "Conditional expectations of a terminal payoff solve the backward heat equation $\\partial_t u+\\tfrac{1}{2}\\partial_{xx}u=0$ with terminal condition $u(T,x)=g(x)$, by Itô applied to $u(t,B_t)$."
+          },
+          {
+            "type": "mcq",
+            "q": "Adding a discount factor $e^{-r(T-t)}$ to Feynman–Kac corresponds to which PDE term?",
+            "choices": [
+              "An advection term $b\\,\\partial_x u$",
+              "A diffusion term $\\sigma^2\\partial_{xx}u$",
+              "A reaction (potential) term $-r\\,u$",
+              "A source term"
+            ],
+            "answer": 2,
+            "hint": "$e^{-rt}$ in the Itô formula for $u(t,X_t)e^{-rt}$ produces a $-ru$ term.",
+            "explain": "Discounting in the expectation corresponds to a $-ru$ potential term in the PDE: $\\partial_t u+\\tfrac{1}{2}\\sigma^2\\partial_{xx}u+b\\partial_x u-ru=0$. This is the Black–Scholes equation."
+          }
+        ]
+      },
+      "sc-applications": {
+        "title": "Applications",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In the Black–Scholes model, the price of a European call is:",
+            "choices": [
+              "$\\mathbb{E}_\\mathbb{P}[(S_T-K)^+]$ (real-world expectation)",
+              "$e^{-rT}\\mathbb{E}_\\mathbb{Q}[(S_T-K)^+]$ (discounted risk-neutral expectation)",
+              "$(S_0-K)^+$",
+              "$S_0\\cdot K$"
+            ],
+            "answer": 1,
+            "hint": "Risk-neutral pricing combines Girsanov (drift change) with Feynman–Kac (PDE ↔ expectation).",
+            "explain": "Under the risk-neutral measure $\\mathbb{Q}$, discounted asset prices are martingales, and the no-arbitrage price equals the discounted expected payoff. Feynman–Kac then identifies this with the Black–Scholes PDE."
+          },
+          {
+            "type": "mcq",
+            "q": "The Kalman filter is the optimal estimator for which class of stochastic models?",
+            "choices": [
+              "Nonlinear non-Gaussian SDEs",
+              "Linear Gaussian state-space models",
+              "Discrete Markov chains only",
+              "Deterministic ODEs"
+            ],
+            "answer": 1,
+            "hint": "Linearity + Gaussian noise = closed-form recursive conditional expectations.",
+            "explain": "For linear Gaussian state-space models the conditional law given observations remains Gaussian, so the conditional mean and covariance close under recursion — the Kalman filter equations. Nonlinear or non-Gaussian models need particle filters or other approximations."
+          },
+          {
+            "type": "mcq",
+            "q": "Pricing an American option leads to which mathematical structure?",
+            "choices": [
+              "An optimal-stopping problem and a free-boundary PDE",
+              "A linear regression",
+              "A first-passage time of a random walk",
+              "A Markov chain mixing time"
+            ],
+            "answer": 0,
+            "hint": "The holder chooses a stopping time $\\tau$ to maximise $\\mathbb{E}[e^{-r\\tau}g(X_\\tau)]$.",
+            "explain": "American options give the holder the right to exercise at any stopping time $\\tau\\le T$. The price is $\\sup_\\tau\\mathbb{E}_\\mathbb{Q}[e^{-r\\tau}g(X_\\tau)]$, an optimal-stopping problem whose value function solves a free-boundary (variational) PDE."
           }
         ]
       }

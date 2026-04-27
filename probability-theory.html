@@ -304,11 +304,7 @@ function phi(x){ return Math.exp(-x*x/2)/Math.sqrt(2*Math.PI); }
     <div><a href="./probability-theory.html#rv">Probability theory</a> · Random variables</div>
     <div><a href="./stochastic-processes-and-martingales.html#filtrations">Stochastic processes and martingales</a> · Filtrations and adapted processes</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== §1 Events on two dice =============================== */
 (function(){
   const svg = $('#events-svg'), out = $('#events-out');
@@ -366,6 +362,8 @@ function phi(x){ return Math.exp(-x*x/2)/Math.sqrt(2*Math.PI); }
 })();
 </script>
 
+
+</section>
 <section id="bayes">
 <h2>2. Conditional probability and Bayes' rule</h2>
 
@@ -410,14 +408,11 @@ Posteriors on rare conditions are dominated by the false-positive rate — a $99
 <!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./information-theory.html#mutual-info">Information theory</a> · Mutual information</div>
     <div><a href="./probability-theory.html#markov">Probability theory</a> · Markov chains</div>
     <div><a href="./probability-theory.html#martingales">Probability theory</a> · Martingales</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== §2 Bayes flipper =============================== */
 (function(){
   const svg = $('#bayes-svg'), out = $('#b-out');
@@ -473,6 +468,8 @@ Posteriors on rare conditions are dominated by the false-positive rate — a $99
 })();
 </script>
 
+
+</section>
 <section id="rv">
 <h2>3. Random variables</h2>
 
@@ -516,15 +513,12 @@ Once we have $\mathbb{P}_X$, the original $(\Omega,\mathcal{F},\mathbb{P})$ rece
 <!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./information-theory.html#entropy">Information theory</a> · Shannon entropy</div>
     <div><a href="./probability-theory.html#expectation">Probability theory</a> · Expectation, variance, and moments</div>
     <div><a href="./probability-theory.html#conv">Probability theory</a> · Modes of convergence</div>
     <div><a href="./probability-theory.html#supports">Probability theory</a> · Supports, distributions, and densities</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== §3 Push-forward visualization =============================== */
 (function(){
   const svg = $('#rv-svg'), out = $('#rv-out');
@@ -592,6 +586,8 @@ Once we have $\mathbb{P}_X$, the original $(\Omega,\mathcal{F},\mathbb{P})$ rece
 })();
 </script>
 
+
+</section>
 <section id="supports">
 <h2>4. Supports, distributions, and densities</h2>
 
@@ -637,10 +633,7 @@ Once we have $\mathbb{P}_X$, the original $(\Omega,\mathcal{F},\mathbb{P})$ rece
   <div class="readout" id="d-out"></div>
 </div>
 
-<div class="quiz" data-concept="supports-distributions"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="supports-distributions"></div><script>
 /* =============================== §4 Distribution explorer =============================== */
 (function(){
   const svg = $('#dist-svg'), out = $('#d-out');
@@ -824,6 +817,8 @@ Once we have $\mathbb{P}_X$, the original $(\Omega,\mathcal{F},\mathbb{P})$ rece
 })();
 </script>
 
+
+</section>
 <section id="expectation">
 <h2>5. Expectation, variance, and moments</h2>
 
@@ -863,19 +858,15 @@ Applied to $|X-\mu|^2$: <strong>Chebyshev</strong>: $\mathbb{P}(|X-\mu|\ge\varep
 <!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./information-theory.html#entropy">Information theory</a> · Shannon entropy</div>
     <div><a href="./large-deviations.html#cramer">Large deviations</a> · Cramér's theorem</div>
     <div><a href="./probabilistic-method.html#concentration">Probabilistic method</a> · Concentration: Markov, Chebyshev, Chernoff, Azuma</div>
     <div><a href="./probabilistic-method.html#existence">Probabilistic method</a> · Existence by expectation</div>
     <div><a href="./probabilistic-method.html#linearity">Probabilistic method</a> · Linearity of expectation</div>
     <div><a href="./probabilistic-method.html#thresholds">Probabilistic method</a> · Thresholds in $G(n,p)$</div>
-    <div><a href="./probability-theory.html#lln">Probability theory</a> · Law of large numbers</div>
-    <div class="more">… and 3 more.</div>
+    <div class="more">… and 4 more.</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== §5 Expectation weighing scale =============================== */
 (function(){
   const svg = $('#scale-svg'), out = $('#scale-out');
@@ -978,6 +969,8 @@ Applied to $|X-\mu|^2$: <strong>Chebyshev</strong>: $\mathbb{P}(|X-\mu|\ge\varep
 })();
 </script>
 
+
+</section>
 <section id="gen-fun">
 <h2>6. Moment and characteristic functions</h2>
 
@@ -1028,11 +1021,7 @@ Check: $M_X'(0)=\mu=\mathbb{E}[X]$; $M_X''(0)=\mu^2+\sigma^2=\mathbb{E}[X^2]$; v
   <div class="ttl">Used in</div>
     <div><a href="./probability-theory.html#clt">Probability theory</a> · Central limit theorem</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== §6 MGF/CF plot =============================== */
 (function(){
   const svg = $('#mgf-svg'), out = $('#m-out');
@@ -1097,6 +1086,8 @@ Check: $M_X'(0)=\mu=\mathbb{E}[X]$; $M_X''(0)=\mu^2+\sigma^2=\mathbb{E}[X^2]$; v
 })();
 </script>
 
+
+</section>
 <section id="conv">
 <h2>7. Modes of convergence</h2>
 
@@ -1186,10 +1177,7 @@ $$\mathbb{P}(|\bar X_N-\mu|\ge\varepsilon)\le\sigma^2/(N\varepsilon^2)\to 0.$$</
   <div class="ttl">Used in</div>
     <div><a href="./large-deviations.html#cramer">Large deviations</a> · Cramér's theorem</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== §8 LLN simulator =============================== */
 (function(){
   const svg = $('#lln-svg'), out = $('#lln-out');
@@ -1280,6 +1268,8 @@ $$\mathbb{P}(|\bar X_N-\mu|\ge\varepsilon)\le\sigma^2/(N\varepsilon^2)\to 0.$$</
 })();
 </script>
 
+
+</section>
 <section id="clt">
 <h2>9. Central limit theorem</h2>
 
@@ -1324,11 +1314,7 @@ the characteristic function of $\mathcal{N}(0,1)$. Apply Lévy's continuity theo
   <div class="ttl">Used in</div>
     <div><a href="./probability-theory.html#brownian">Probability theory</a> · Brownian motion</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== §9 CLT simulator =============================== */
 (function(){
   const svg = $('#clt-svg'), out = $('#clt-out');
@@ -1425,6 +1411,8 @@ the characteristic function of $\mathcal{N}(0,1)$. Apply Lévy's continuity theo
 })();
 </script>
 
+
+</section>
 <section id="markov">
 <h2>10. Markov chains</h2>
 
@@ -1488,10 +1476,7 @@ Solve $\pi P=\pi$ with $\sum\pi=1$: $\pi\approx(0.47,0.28,0.25)$. The widget bel
     <div><a href="./random-walks-and-mixing.html#markov">Random walks and mixing</a> · Markov chains and transition matrices</div>
     <div><a href="./spectral-graph-theory.html#random-walks">Spectral graph theory</a> · Random walks and the spectral gap</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== §10 Markov chain animator =============================== */
 (function(){
   const svg = $('#mk-svg'), out = $('#mk-out');
@@ -1600,6 +1585,8 @@ Solve $\pi P=\pi$ with $\sum\pi=1$: $\pi\approx(0.47,0.28,0.25)$. The widget bel
 })();
 </script>
 
+
+</section>
 <section id="martingales">
 <h2>11. Martingales</h2>
 
@@ -1687,12 +1674,10 @@ with $d_1=(\ln(S_0/K)+(r+\sigma^2/2)T)/(\sigma\sqrt{T})$, $d_2=d_1-\sigma\sqrt{T
 <div class="quiz" data-concept="brownian-motion"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./stochastic-calculus.html#ito-integral">Stochastic calculus</a> · Itô integral</div>
     <div><a href="./stochastic-processes-and-martingales.html#continuous-martingales">Stochastic processes and martingales</a> · Continuous-time martingales and Brownian motion</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== §12 Brownian motion =============================== */
 (function(){
   const svg = $('#bm-svg'), out = $('#bm-out');
@@ -1798,6 +1783,8 @@ with $d_1=(\ln(S_0/K)+(r+\sigma^2/2)T)/(\sigma\sqrt{T})$, $d_2=d_1-\sigma\sqrt{T
 </script>
 
 <footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+
+</section>
 </main>
 
 <script>

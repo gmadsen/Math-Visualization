@@ -35,7 +35,11 @@
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./stochastic-processes-and-martingales.html#discrete-martingales\">Stochastic processes and martingales</a> · Discrete-time martingales</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -45,6 +49,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -80,7 +88,11 @@
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./stochastic-processes-and-martingales.html#doob-decomposition\">Stochastic processes and martingales</a> · Doob decomposition and quadratic variation</div>\n    <div><a href=\"./stochastic-processes-and-martingales.html#convergence\">Stochastic processes and martingales</a> · Martingale convergence theorem</div>\n    <div><a href=\"./stochastic-processes-and-martingales.html#optional-stopping\">Stochastic processes and martingales</a> · Optional stopping theorem</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -90,6 +102,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -117,7 +133,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -127,6 +143,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -154,7 +174,11 @@
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./stochastic-calculus.html#ito-formula\">Stochastic calculus</a> · Itô's formula</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -164,6 +188,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -199,7 +227,11 @@
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./stochastic-processes-and-martingales.html#continuous-martingales\">Stochastic processes and martingales</a> · Continuous-time martingales and Brownian motion</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -209,6 +241,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -244,7 +280,11 @@
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./stochastic-calculus.html#ito-integral\">Stochastic calculus</a> · Itô integral</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -254,6 +294,10 @@
         {
           "type": "raw",
           "html": "\n\n<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     }

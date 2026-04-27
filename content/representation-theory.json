@@ -541,7 +541,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./representation-theory.html#sl2\">Representation theory</a> · Weight decomposition for $\\mathfrak{sl}_2$</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-algebras.html#sl2-roots\">Lie algebras</a> · $\\mathfrak{sl}_2$-triples, root spaces, weights</div>\n    <div><a href=\"./representation-theory.html#sl2\">Representation theory</a> · Weight decomposition for $\\mathfrak{sl}_2$</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

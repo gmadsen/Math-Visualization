@@ -291,15 +291,7 @@ As $\sigma \to \infty$, every term $a_k/k^\sigma$ with $k < n$ is killed by mult
     <div><a href="./power-sums-bernoulli.html#zeta">Power sums, Bernoulli numbers, and Euler-Maclaurin</a> · Euler's formula for $\zeta(2n)$</div>
     <div class="more">… and 2 more.</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 1 widget =============================== */
 (function(){
   const svg = $('#hp-svg'), sig = $('#hp-sig'), sigv = $('#hp-sigv');
@@ -353,6 +345,8 @@ As $\sigma \to \infty$, every term $a_k/k^\sigma$ with $k < n$ is killed by mult
 
 <div class="quiz" data-concept="dirichlet-series-basics"></div>
 
+
+</section>
 <section id="zeta">
 <h2>2. The prototype: Riemann's $\zeta(s)$</h2>
 <p>Take every $a_n = 1$. You get the Riemann zeta function:
@@ -372,10 +366,7 @@ where $\gamma = \lim_{N\to\infty}\!\bigl(\sum_{n\le N} 1/n - \log N\bigr) \appro
     <span id="z-val" class="readout" style="min-width:240px;flex:0 0 auto">ζ(2.00) ≈ 1.6449</span>
   </div>
   <div class="small">Partial sum to $N=200$ shown. As $\sigma \downarrow 1$ the value blows up like $1/(\sigma-1)$.</div>
-</div>
-</section>
-
-<script>
+</div><script>
 /* =============================== SECTION 2 widget =============================== */
 (function(){
   const svg = $('#z-svg'), sig = $('#z-sig'), val = $('#z-val');
@@ -438,6 +429,8 @@ where $\gamma = \lim_{N\to\infty}\!\bigl(\sum_{n\le N} 1/n - \log N\bigr) \appro
 })();
 </script>
 
+
+</section>
 <section id="euler">
 <h2>3. Euler products: the analytic form of unique factorization</h2>
 <p>Here is the miracle. A Dirichlet series whose coefficients $a_n$ are <strong>multiplicative</strong> — meaning $a_{mn} = a_m a_n$ whenever $\gcd(m,n)=1$, and $a_1 = 1$ — splits as a product indexed by primes:
@@ -496,10 +489,7 @@ Watch the partial sieve converge to $1$.</p>
     <div><a href="./dirichlet-series-euler-products.html#dir">Dirichlet series and Euler products</a> · Dirichlet characters and L-series</div>
     <div><a href="./sato-tate.html#symn">Sato–Tate</a> · Symmetric-power L-functions</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 3a: sieve =============================== */
 (function(){
   const svg = $('#sv-svg'), btnRow = $('#sv-btns'), out = $('#sv-out'), sRange = $('#sv-s'), sVal = $('#sv-s-val');
@@ -636,6 +626,8 @@ Watch the partial sieve converge to $1$.</p>
 
 <div class="quiz" data-concept="euler-product-structure"></div>
 
+
+</section>
 <section id="chars">
 <h2>4. Dirichlet characters and $L$-functions</h2>
 <p>A <strong>Dirichlet character modulo $N$</strong> is a homomorphism
@@ -678,10 +670,7 @@ That specific identity — evaluating the series at $s=1$ — is a prototype of 
     <span id="lc-val" class="readout" style="min-width:280px;flex:0 0 auto"></span>
   </div>
   <div class="small">At $s=1$: $L(1,\chi_3) = \pi/4 \approx 0.7854$. No pole — a hallmark of <em>non-trivial</em> characters.</div>
-</div>
-</section>
-
-<script>
+</div><script>
 /* =============================== SECTION 4a: character table =============================== */
 (function(){
   const NSel = $('#ct-N'), info = $('#ct-info'), out = $('#ct-table');
@@ -833,6 +822,8 @@ That specific identity — evaluating the series at $s=1$ — is a prototype of 
 })();
 </script>
 
+
+</section>
 <section id="cont">
 <h2>5. Analytic continuation and the functional equation</h2>
 <p>The series $\sum 1/n^s$ only makes sense for $\mathrm{Re}\,s > 1$. But $\zeta$ extends to a meromorphic function on <em>all</em> of $\mathbb{C}$, with a single simple pole at $s=1$. The extension is not merely a technicality — it connects the primes at $\mathrm{Re}\,s > 1$ to the "mirror world" at $\mathrm{Re}\,s < 0$ via a <strong>functional equation</strong>.</p>
@@ -863,10 +854,7 @@ $$\theta(1/x) \;=\; \sqrt{x}\,\theta(x)$$
 <div class="ok"><strong>Why this matters.</strong> The functional equation trades knowledge of $\zeta$ on $\mathrm{Re}\,s > 1$ (where we have convergence) for knowledge on $\mathrm{Re}\,s < 0$. The "critical strip" $0 \le \mathrm{Re}\,s \le 1$ is where the interesting zeros live. The <em>Riemann Hypothesis</em> conjectures all non-trivial zeros lie on $\mathrm{Re}\,s = 1/2$.</div>
 
 <p>The same game works for Dirichlet $L$-functions: each non-trivial $L(s,\chi)$ extends to an entire function and satisfies a functional equation relating $s$ and $1-s$, with a "root number" $W(\chi)$ (a complex number of absolute value $1$) appearing:
-$$\Lambda(s,\chi) \;=\; W(\chi)\,\Lambda(1-s,\overline{\chi}).$$</p>
-</section>
-
-<script>
+$$\Lambda(s,\chi) \;=\; W(\chi)\,\Lambda(1-s,\overline{\chi}).$$</p><script>
 /* =============================== SECTION 5 widget =============================== */
 (function(){
   const svg = $('#fe-svg'), sR = $('#fe-s'), sv = $('#fe-sv');
@@ -917,6 +905,8 @@ $$\Lambda(s,\chi) \;=\; W(\chi)\,\Lambda(1-s,\overline{\chi}).$$</p>
 })();
 </script>
 
+
+</section>
 <section id="mellin">
 <h2>6. The Mellin transform: turning series into integrals</h2>
 <p>Every identity of the form "a Dirichlet series equals an integral against a theta-like kernel" is an instance of the <strong>Mellin transform</strong>. For a function $f\colon (0,\infty)\to\mathbb{C}$ decaying fast enough at both ends, define
@@ -961,15 +951,7 @@ A Dirichlet series has become the Mellin transform of a generating function on t
     <div><a href="./dirichlet-series-euler-products.html#perron">Dirichlet series and Euler products</a> · Perron's formula</div>
     <div><a href="./power-sums-bernoulli.html#func-eq">Power sums, Bernoulli numbers, and Euler-Maclaurin</a> · Functional equation preview via Mellin</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 6 widget: gamma/Mellin integral =============================== */
 (function(){
   const svg = $('#ml-svg'), sR = $('#ml-s'), nR = $('#ml-n'), sv = $('#ml-sv'), nv = $('#ml-nv'), out = $('#ml-out');
@@ -1075,6 +1057,8 @@ A Dirichlet series has become the Mellin transform of a generating function on t
 
 <div class="quiz" data-concept="mellin-transform-dirichlet"></div>
 
+
+</section>
 <section id="perron">
 <h2>7. Perron's formula: recovering coefficients from the series</h2>
 <p>A Dirichlet series $D(s) = \sum_{n\ge 1} a_n/n^s$ encodes the sequence $(a_n)$ as an analytic function. How do we run the encoding backwards? The answer is <strong>Perron's formula</strong>: for any $c > \sigma_a$ and $x > 0$ not an integer,
@@ -1108,11 +1092,7 @@ The remaining integral is $O(1)$ — i.e. the floor function is $x-1/2+O(1)$, wh
   <div class="ttl">Used in</div>
     <div><a href="./analytic-number-theory.html#explicit">Analytic number theory</a> · $\zeta(s)$ and the explicit formula</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 7 widget: truncated Perron =============================== */
 (function(){
   const svg = $('#pr-svg'), TR = $('#pr-T'), Tv = $('#pr-Tv'), out = $('#pr-out');
@@ -1223,6 +1203,8 @@ The remaining integral is $O(1)$ — i.e. the floor function is $x-1/2+O(1)$, wh
 
 <div class="quiz" data-concept="perron-formula"></div>
 
+
+</section>
 <section id="dir">
 <h2>8. Dirichlet's theorem: primes in arithmetic progressions</h2>
 <p><strong>Theorem (Dirichlet, 1837).</strong> <em>If $\gcd(a,N) = 1$, then there are infinitely many primes $p$ with $p \equiv a \pmod N$.</em></p>
@@ -1268,15 +1250,7 @@ $$\pi(x; N, a) \;\sim\; \frac{1}{\varphi(N)}\,\frac{x}{\log x} \qquad (\gcd(a,N)
     <div><a href="./analytic-number-theory.html#dirichlet">Analytic number theory</a> · Dirichlet's theorem on primes in AP</div>
     <div><a href="./L-functions.html#unified">L-functions</a> · Prototype L-functions</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 6 widget =============================== */
 (function(){
   const svg = $('#ap-svg'), xR = $('#ap-x'), xv = $('#ap-xv'), out = $('#ap-out');
@@ -1354,6 +1328,8 @@ $$\pi(x; N, a) \;\sim\; \frac{1}{\varphi(N)}\,\frac{x}{\log x} \qquad (\gcd(a,N)
 
 <div class="quiz" data-concept="dirichlet-characters-lseries"></div>
 
+
+</section>
 <section id="forward">
 <h2>7. What comes next</h2>
 <p>Once you believe a Dirichlet series encodes arithmetic into analysis, and an Euler product encodes unique factorization into geometry, you can ask the same questions of other arithmetic objects.</p>

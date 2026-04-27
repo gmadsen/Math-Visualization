@@ -308,10 +308,7 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="ttl">Used in</div>
     <div><a href="./matroid-theory.html#bases">Matroid theory</a> · Bases, rank, and cryptomorphism</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* ============================ widget 1: axiom checker ============================ */
 (function(){
   const Ein = $('#axioms-E'), Iin = $('#axioms-I'), out = $('#axioms-out');
@@ -405,6 +402,8 @@ function drawNode(svg, x, y, label, opts={}){
 })();
 </script>
 
+
+</section>
 <section id="bases">
 <h2>2. Bases, rank, and cryptomorphism</h2>
 <p>A maximal independent set is a <strong>basis</strong>. The exchange axiom (I3) forces all bases to have the same cardinality, called the <strong>rank</strong> $r(M)$. More generally, for any $S \subseteq E$ define
@@ -452,10 +451,7 @@ This <strong>rank function</strong> $r : 2^E \to \mathbb{Z}_{\ge 0}$ is the seco
     <div><a href="./matroid-theory.html#greedy">Matroid theory</a> · The greedy algorithm</div>
     <div><a href="./matroid-theory.html#examples">Matroid theory</a> · Vector, graphic, uniform, transversal matroids</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* ============================ widget 2: bases & rank ============================ */
 (function(){
   const nIn = $('#bases-n'), rIn = $('#bases-r');
@@ -568,6 +564,8 @@ This <strong>rank function</strong> $r : 2^E \to \mathbb{Z}_{\ge 0}$ is the seco
 })();
 </script>
 
+
+</section>
 <section id="examples">
 <h2>3. Vector, graphic, uniform, transversal</h2>
 <p>The class of matroids is wide enough to be interesting and narrow enough to be tractable. Four canonical families:</p>
@@ -613,10 +611,7 @@ This <strong>rank function</strong> $r : 2^E \to \mathbb{Z}_{\ge 0}$ is the seco
     <li><a href="./algebra.html#polyrings">Polynomial rings and irreducibility</a></li>
   </ul>
 </aside>
-<!-- callback-auto-end --><div class="quiz" data-concept="matroid-examples"></div>
-</section>
-
-<script>
+<!-- callback-auto-end --><div class="quiz" data-concept="matroid-examples"></div><script>
 /* ============================ widget 3: graphic matroid (K4) ============================ */
 (function(){
   const svg = $('#graph-svg'), out = $('#graph-out');
@@ -711,6 +706,8 @@ This <strong>rank function</strong> $r : 2^E \to \mathbb{Z}_{\ge 0}$ is the seco
 })();
 </script>
 
+
+</section>
 <section id="closure">
 <h2>4. Closure, flats, and the geometric lattice</h2>
 <p>For $S \subseteq E$, the <strong>closure</strong> $\operatorname{cl}(S)$ is
@@ -743,10 +740,7 @@ That is, $\operatorname{cl}(S)$ contains every element that contributes nothing 
   <div class="readout" id="flats-out"></div>
   <div class="small">In the graphic matroid $M(G)$, flats correspond to edge sets closed under "complete-the-cycle." Rank-$0$ flat: $\emptyset$. Rank-$1$ flats: each single edge (a "point"). Rank-$2$ flats: the "triangles" — the three edges of any $K_3$ subgraph — plus the disjoint pairs of edges, all closed. Rank-$3$ flat: $E$ itself.</div>
 </div>
-<div class="quiz" data-concept="matroid-closure-flats"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="matroid-closure-flats"></div><script>
 /* ============================ widget 4: flats of M(K_4) ============================ */
 (function(){
   const svg = $('#flats-svg'), out = $('#flats-out'), step = $('#flats-step');
@@ -841,6 +835,8 @@ That is, $\operatorname{cl}(S)$ contains every element that contributes nothing 
 })();
 </script>
 
+
+</section>
 <section id="duality">
 <h2>5. Matroid duality</h2>
 <p>Every matroid $M$ on ground set $E$ has a <strong>dual matroid</strong> $M^*$ on the same ground set, defined by
@@ -874,10 +870,7 @@ Spanning trees of $G$ are in bijection with spanning trees of $G^*$ via edge-com
   <div class="ttl">Used in</div>
     <div><a href="./matroid-theory.html#tutte">Matroid theory</a> · The Tutte polynomial</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* ============================ widget 5: dual matroid ============================ */
 (function(){
   const svg = $('#dual-svg'), out = $('#dual-out');
@@ -991,6 +984,8 @@ Spanning trees of $G$ are in bijection with spanning trees of $G^*$ via edge-com
 })();
 </script>
 
+
+</section>
 <section id="greedy">
 <h2>6. The greedy algorithm</h2>
 <p>Suppose each $e \in E$ has a non-negative weight $w(e)$, and we want a maximum-weight independent set. The <strong>greedy algorithm</strong>:</p>
@@ -1044,10 +1039,7 @@ Spanning trees of $G$ are in bijection with spanning trees of $G^*$ via edge-com
   <div class="ttl">Used in</div>
     <div><a href="./matroid-theory.html#tutte">Matroid theory</a> · The Tutte polynomial</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* ============================ widget 6: greedy success/failure ============================ */
 (function(){
   const out = $('#greedy-out'), svg = $('#greedy-svg');
@@ -1160,6 +1152,8 @@ Spanning trees of $G$ are in bijection with spanning trees of $G^*$ via edge-com
 })();
 </script>
 
+
+</section>
 <section id="tutte">
 <h2>7. The Tutte polynomial</h2>
 <p>The deepest invariant of a matroid is a two-variable polynomial whose specializations enumerate spanning trees, count colorings, compute reliability, and read out the partition function of statistical-mechanics models. Define the <strong>Tutte polynomial</strong> via corank–nullity:
@@ -1208,10 +1202,7 @@ Here $M \setminus e$ is the matroid <em>deletion</em> (remove $e$, restrict $\ma
   <div class="readout" id="tutte-out"></div>
   <div class="small">$T_M(x,y)$ is computed directly from $\sum_S (x-1)^{r(E)-r(S)}(y-1)^{|S|-r(S)}$ over all $2^{|E|}$ subsets. The slider evaluates at user-specified $(x,y)$; the table beneath lists the canonical evaluations.</div>
 </div>
-<div class="quiz" data-concept="tutte-polynomial"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="tutte-polynomial"></div><script>
 /* ============================ widget 7: Tutte polynomial ============================ */
 (function(){
   const out = $('#tutte-out');
@@ -1346,6 +1337,8 @@ Here $M \setminus e$ is the matroid <em>deletion</em> (remove $e$, restrict $\ma
 })();
 </script>
 
+
+</section>
 <section id="outro">
 <h2>8. Connections</h2>
 

@@ -286,10 +286,7 @@ The sequence of exponents is $0, 1, 4, 9, 16, 25, \ldots$ — the perfect square
 
 
 
-<div class="quiz" data-concept="theta-series-lattice"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="theta-series-lattice"></div><script>
 /* =============================== widget 1: theta(iy) ============================== */
 (function(){
   const svg = $('#def-svg'), slider = $('#def-y'), yv = $('#def-yv');
@@ -370,6 +367,8 @@ The sequence of exponents is $0, 1, 4, 9, 16, 25, \ldots$ — the perfect square
 })();
 </script>
 
+
+</section>
 <section id="conv">
 <h2>2. Convergence and the $q$-expansion</h2>
 <p>On $\mathcal{H}$ we have $|q| = |e^{2\pi i \tau}| = e^{-2\pi \operatorname{Im}\tau} < 1$, so $|q^{1/2}| = e^{-\pi \operatorname{Im}\tau}$ also satisfies $|q^{1/2}| < 1$. The individual term $|q^{n^2/2}| = e^{-\pi n^2 \operatorname{Im}\tau}$ decays like a Gaussian in $n$, which is far faster than geometric. So $\theta(\tau)$ converges absolutely and uniformly on any set $\operatorname{Im}\tau \ge \varepsilon > 0$, and is holomorphic on $\mathcal{H}$.</p>
@@ -403,14 +402,7 @@ That is: $r_1^*(0) = 1$; $r_1^*(m) = 2$ if $m$ is a positive square; otherwise $
   <div class="ttl">Used in</div>
     <div><a href="./theta-functions.html#trans">Theta functions</a> · Theta transformation law</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* ========================= widget 2: q-expansion bar chart ======================== */
 (function(){
   const svg = $('#qexp-svg');
@@ -498,6 +490,8 @@ That is: $r_1^*(0) = 1$; $r_1^*(m) = 2$ if $m$ is a positive square; otherwise $
 })();
 </script>
 
+
+</section>
 <section id="trans">
 <h2>3. The transformation law</h2>
 <p>The periodic symmetry $\theta(\tau+2) = \theta(\tau)$ is easy. The deep fact — and the whole reason theta is a modular object — is what happens under $\tau \mapsto -1/\tau$:
@@ -535,14 +529,7 @@ Rearranging gives the boxed identity. The factor $\sqrt{-i\tau}$ is the "weight 
     <div><a href="./analytic-continuation.html#zeta">Analytic continuation</a> · Riemann’s functional equation for $\zeta$</div>
     <div><a href="./theta-functions.html#eta">Theta functions</a> · Dedekind eta and theta</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* ============================== widget 3: transformation ========================== */
 (function(){
   const svg = $('#trans-svg'), out = $('#trans-out');
@@ -629,6 +616,8 @@ Rearranging gives the boxed identity. The factor $\sqrt{-i\tau}$ is the "weight 
 })();
 </script>
 
+
+</section>
 <section id="sos">
 <h2>4. Sums of squares from $\theta^k$</h2>
 <p>The generating-function engine. Because $\theta(\tau) = \sum_{n\in\mathbb{Z}} q^{n^2/2}$, taking the $k$-th power multiplies out to
@@ -656,10 +645,7 @@ where $\sigma(n) = \sum_{d\mid n} d$ is the sum-of-divisors function and $\sigma
   <svg id="rk-svg" viewBox="0 0 620 180" width="620" height="180"><title>$r_k(n)$ calculator</title></svg>
   <div class="readout" id="rk-out" style="font-family:ui-monospace,monospace;font-size:.88rem"></div>
   <div class="small">The bars show $r_k(n)$ for the chosen $n$ at $k = 1,2,3,4,8$. Below: the divisor formulas $r_2(n) = 4(d_1 - d_3)$ and $r_4(n) = 8\sigma(n) - 32\sigma(n/4)$ are cross-checked.</div>
-</div>
-</section>
-
-<script>
+</div><script>
 /* ============================== widget 4: r_k(n) calculator ======================= */
 (function(){
   const input = $('#rk-n'), out = $('#rk-out'), hint = $('#rk-hint'), svg = $('#rk-svg');
@@ -889,6 +875,8 @@ where $\sigma(n) = \sum_{d\mid n} d$ is the sum-of-divisors function and $\sigma
 })();
 </script>
 
+
+</section>
 <section id="jtp">
 <h2>5. The Jacobi triple product</h2>
 <p>Theta has a second life as an infinite product. The <strong>Jacobi triple product identity</strong> states that, as formal series in $q$ and $z$,
@@ -923,14 +911,7 @@ The right-hand side is a two-variable theta series; setting $z = 1$ gives our $\
     <div><a href="./partitions-generating-functions.html#eta">Partitions and generating functions</a> · Dedekind eta as a modular form</div>
     <div><a href="./partitions-generating-functions.html#ram">Partitions and generating functions</a> · Ramanujan congruences</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* ============================== widget 5: triple product ========================== */
 (function(){
   const svg = $('#jtp-svg'), Nin = $('#jtp-N'), Nv = $('#jtp-Nv'), out = $('#jtp-out');
@@ -1038,6 +1019,8 @@ The right-hand side is a two-variable theta series; setting $z = 1$ gives our $\
 })();
 </script>
 
+
+</section>
 <section id="eta">
 <h2>6. The Dedekind eta function</h2>
 <p>Theta has an arithmetic sibling: the <strong>Dedekind eta function</strong>
@@ -1069,14 +1052,7 @@ See <a href="./modular-forms.html">modular forms</a> for the construction of $\D
   <div class="ttl">Used in</div>
     <div><a href="./theta-functions.html#jtp">Theta functions</a> · Jacobi triple product and q-identities</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* ============================== widget 6: eta^24 vs tau =========================== */
 (function(){
   const svg = $('#eta-svg'), Kin = $('#eta-K'), Kv = $('#eta-Kv'), out = $('#eta-out');
@@ -1185,6 +1161,8 @@ See <a href="./modular-forms.html">modular forms</a> for the construction of $\D
 })();
 </script>
 
+
+</section>
 <section id="lat">
 <h2>7. Theta series of a lattice</h2>
 <p>The pattern lifts cleanly. Let $L \subset \mathbb{R}^n$ be a lattice — an abelian subgroup of rank $n$ spanning $\mathbb{R}^n$ — equipped with the standard inner product. Define
@@ -1212,10 +1190,7 @@ The number of $E_8$ lattice vectors of squared length $2n$ equals $240\,\sigma_3
   <svg id="lat-svg" viewBox="0 0 620 320" width="620" height="320"><title>Theta series of 2D lattices</title></svg>
   <div class="readout" id="lat-out" style="font-size:.85rem"></div>
   <div class="small">Left: the lattice $L$ drawn to scale; colored rings show vectors of each squared length. Right: the theta series $\Theta_L(\tau) = \sum N_L(m)\, q^{m/2}$, first several coefficients.</div>
-</div>
-</section>
-
-<script>
+</div><script>
 /* ============================== widget 7: lattice theta =========================== */
 (function(){
   const svg = $('#lat-svg'), out = $('#lat-out');
@@ -1368,6 +1343,8 @@ The number of $E_8$ lattice vectors of squared length $2n$ equals $240\,\sigma_3
 })();
 </script>
 
+
+</section>
 <section id="forward">
 <h2>Where this goes next</h2>
 <p>Every strand started here widens downstream.</p>

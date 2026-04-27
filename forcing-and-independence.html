@@ -288,10 +288,7 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="ttl">Used in</div>
     <div><a href="./forcing-and-independence.html#generic">Forcing and independence</a> · Generic filters and the model $M[G]$</div>
 </aside>
-<!-- backlinks-auto-end --><div class="quiz" data-concept="forcing-posets"></div>
-</section>
-
-<script>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="forcing-posets"></div><script>
 (function(){
   const buttons = $$('#w-poset button[data-q]');
   const svg = $('#poset-svg'), out = $('#poset-out');
@@ -377,6 +374,8 @@ function drawNode(svg, x, y, label, opts={}){
 })();
 </script>
 
+
+</section>
 <section id="generic">
 <h2>2. Generic filters and the model $M[G]$</h2>
 <p>Fix a countable transitive model $M\models$ ZFC and a poset $\mathbb P\in M$. A subset $G\subseteq\mathbb P$ is a <strong>filter</strong> if it is upward-closed ($p\in G,\ q\ge p\Rightarrow q\in G$) and downward-directed ($p,q\in G\Rightarrow\exists r\in G,\ r\le p,q$). It is $M$-<strong>generic</strong> if additionally:</p>
@@ -421,10 +420,7 @@ G\cap D \ne \emptyset \quad\text{for every dense } D\in M.
   <div class="ttl">Used in</div>
     <div><a href="./forcing-and-independence.html#truth-lemma">Forcing and independence</a> · The forcing relation and truth lemma</div>
 </aside>
-<!-- backlinks-auto-end --><div class="quiz" data-concept="forcing-generic-extensions"></div>
-</section>
-
-<script>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="forcing-generic-extensions"></div><script>
 (function(){
   const stepBtn = $('#gen-step'), resetBtn = $('#gen-reset');
   const counter = $('#gen-counter'), svg = $('#gen-svg'), out = $('#gen-out');
@@ -558,6 +554,8 @@ key fact: r_G ∉ M.  the dense sets D_s = {p : p disagrees with s} for s ∈ (2
 })();
 </script>
 
+
+</section>
 <section id="truth-lemma">
 <h2>3. The forcing relation and truth lemma</h2>
 <p>So far the construction has been semantic: pick $G$, look at $M[G]$. The miracle is that <em>everything true in $M[G]$ is decided by data already in $M$</em>. The bookkeeping device is the <strong>forcing relation</strong> $p\Vdash\varphi$, defined inside $M$ by recursion on the formula $\varphi$ (which is built from $\mathbb P$-names). Read $p\Vdash\varphi$ as "every generic $G$ containing $p$ makes $\varphi$ true in $M[G]$".</p>
@@ -599,10 +597,7 @@ Equivalently: truth in $M[G]$ is decided by the conditions that ended up in $G$.
   <div class="ttl">Used in</div>
     <div><a href="./forcing-and-independence.html#cohen-reals">Forcing and independence</a> · Cohen forcing for adding reals</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 (function(){
   const buttons = $$('#w-forces button[data-p]');
   const svg = $('#forces-svg'), out = $('#forces-out');
@@ -667,6 +662,8 @@ density: for every φ, some extension q ≤ p decides φ either way.`;
 })();
 </script>
 
+
+</section>
 <section id="cohen-reals">
 <h2>4. Cohen forcing for adding reals</h2>
 <p>The poset $\mathbb P=2^{<\omega}$ — the binary tree of finite strings — is <strong>Cohen forcing</strong>. A generic filter $G$ is a chain of finite strings cofinal in length, and its <em>collapse</em> is a single new infinite binary sequence:</p>
@@ -707,10 +704,7 @@ r_G \;=\; \bigcup_{p\in G} p \;\in\; 2^\omega.
   <div class="ttl">Used in</div>
     <div><a href="./forcing-and-independence.html#not-ch">Forcing and independence</a> · Independence of the continuum hypothesis</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 (function(){
   const stepBtn = $('#cohen-step'), jumpBtn = $('#cohen-jump'), resetBtn = $('#cohen-reset');
   const lenLab = $('#cohen-len'), svg = $('#cohen-svg'), out = $('#cohen-out');
@@ -791,6 +785,8 @@ diagonalization against any old s ∈ M: the dense set D_s = {p : disagrees with
 })();
 </script>
 
+
+</section>
 <section id="not-ch">
 <h2>5. Independence of the continuum hypothesis</h2>
 <p>Putting the pieces together. Let $M$ be a countable transitive model of ZFC + CH (Gödel's $L$ if you like). Let $\mathbb P=\operatorname{Fn}(\aleph_2^M\times\omega,2)$. Let $G$ be $M$-generic. Then:</p>
@@ -845,10 +841,7 @@ So neither CH nor $\neg$CH is provable in ZFC: <strong>CH is independent of ZFC<
   <div class="ttl">Used in</div>
     <div><a href="./forcing-and-independence.html#applications">Forcing and independence</a> · Other independence results</div>
 </aside>
-<!-- backlinks-auto-end --><div class="quiz" data-concept="forcing-not-ch"></div>
-</section>
-
-<script>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="forcing-not-ch"></div><script>
 (function(){
   const sel = $('#ch-target'), svg = $('#aleph2-svg'), out = $('#aleph2-out');
   const cands = [
@@ -927,6 +920,8 @@ Easton (1970): every "reasonable" function α ↦ 2^ℵ_α is consistent.`;
 })();
 </script>
 
+
+</section>
 <section id="applications">
 <h2>6. Other independence results and Martin's axiom</h2>
 <p>Forcing did not stop with CH. The same general machine — pick a poset, force, decode the truth in the extension via $\Vdash$ — settles a long list of questions ZFC cannot.</p>
@@ -956,10 +951,7 @@ Easton (1970): every "reasonable" function α ↦ 2^ℵ_α is consistent.`;
 
 <div class="note"><strong>The big picture.</strong> Independence is the rule, not the exception, once you leave the safe haven of arithmetic. The set-theoretic universe is not a single object — it is a multiverse, and forcing is the device that lets us hop between members. CH is the most famous member of the long list above, but everyday questions in algebraic topology (Whitehead), measure theory (cardinal invariants of the continuum), and analysis (the Suslin problem) all live there too.</div>
 
-<div class="quiz" data-concept="forcing-applications"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="forcing-applications"></div><script>
 (function(){
   const svg = $('#deps-svg'), out = $('#deps-out');
   // Nodes positioned roughly left-to-right by consistency strength.
@@ -1039,6 +1031,8 @@ Easton (1970): every "reasonable" function α ↦ 2^ℵ_α is consistent.`;
 })();
 </script>
 
+
+</section>
 </main>
 
 <script>

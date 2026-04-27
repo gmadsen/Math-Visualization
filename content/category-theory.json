@@ -141,7 +141,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n\n\n\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -313,7 +313,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -454,7 +454,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -581,7 +581,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -659,7 +659,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -768,7 +768,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n\n\n\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -1112,7 +1112,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p class=\"small\">Notice the rhythm. <em>Hypothesis</em> arrows are given. <em>Derived</em> arrows (in green) arrive by universal property or composition. The <em>uniqueness</em> clause of a universal property isn't decorative — it's the punchline every time: \"something exists and is unique\" is a recipe for collapsing two parallel arrows into one, which is exactly what's happening when $vu = \\operatorname{id}_P$ at the end of the product-uniqueness proof.</p>\n</section>\n\n"
+          "html": "\n\n<p class=\"small\">Notice the rhythm. <em>Hypothesis</em> arrows are given. <em>Derived</em> arrows (in green) arrive by universal property or composition. The <em>uniqueness</em> clause of a universal property isn't decorative — it's the punchline every time: \"something exists and is unique\" is a recipe for collapsing two parallel arrows into one, which is exactly what's happening when $vu = \\operatorname{id}_P$ at the end of the product-uniqueness proof.</p>"
         },
         {
           "type": "widget-script",
@@ -1400,6 +1400,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -1579,7 +1583,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n\n\n\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -1735,6 +1739,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -1832,7 +1840,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -1904,6 +1912,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -1953,7 +1965,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -1977,6 +1989,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -2045,7 +2061,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -2089,6 +2105,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -2138,7 +2158,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -2162,6 +2182,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -2222,7 +2246,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -2266,6 +2290,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -2311,7 +2339,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -2335,6 +2363,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -2399,7 +2431,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -2446,6 +2478,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -2495,7 +2531,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -2528,6 +2564,10 @@
         {
           "type": "raw",
           "html": "\n\n<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     }

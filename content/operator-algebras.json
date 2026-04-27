@@ -29,7 +29,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./operator-algebras.html#approx-units\">Operator algebras</a> · Approximate units and amenability</div>\n    <div><a href=\"./operator-algebras.html#duality\">Operator algebras</a> · Commutative duality and spectra</div>\n    <div><a href=\"./operator-algebras.html#spec\">Operator algebras</a> · Continuous functional calculus</div>\n    <div><a href=\"./operator-algebras.html#ncg\">Operator algebras</a> · Noncommutative dictionary</div>\n    <div><a href=\"./operator-algebras.html#banach-spec\">Operator algebras</a> · Spectrum in Banach algebras</div>\n    <div><a href=\"./operator-algebras.html#vna\">Operator algebras</a> · Von Neumann algebras and the double commutant</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./operator-algebras.html#approx-units\">Operator algebras</a> · Approximate units and amenability</div>\n    <div><a href=\"./operator-algebras.html#duality\">Operator algebras</a> · Commutative duality and spectra</div>\n    <div><a href=\"./operator-algebras.html#spec\">Operator algebras</a> · Continuous functional calculus</div>\n    <div><a href=\"./operator-algebras.html#ncg\">Operator algebras</a> · Noncommutative dictionary</div>\n    <div><a href=\"./operator-algebras.html#banach-spec\">Operator algebras</a> · Spectrum in Banach algebras</div>\n    <div><a href=\"./operator-algebras.html#vna\">Operator algebras</a> · Von Neumann algebras and the double commutant</div>\n    <div class=\"more\">… and 1 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -144,7 +144,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -179,6 +179,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -228,7 +232,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -270,6 +274,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -311,7 +319,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -345,6 +353,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -421,7 +433,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -472,6 +484,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -517,7 +533,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -541,6 +557,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -626,7 +646,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -678,6 +698,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -762,7 +786,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -821,6 +845,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -862,7 +890,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -886,6 +914,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -969,7 +1001,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -993,6 +1025,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -1070,7 +1106,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -1122,6 +1158,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -1163,7 +1203,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -1187,6 +1227,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -1242,7 +1286,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<h3>Where to read more</h3>\n<ul>\n  <li><a href=\"./functional-analysis.html\">Functional analysis</a> — the Banach/Hilbert backbone, $B(H)$, the spectral theorem.</li>\n  <li><a href=\"./complex-analysis.html\">Complex analysis</a> — the Cauchy integral that powers holomorphic functional calculus.</li>\n  <li><a href=\"./algebraic-topology.html\">Topology</a> — compact Hausdorff, weak-$*$ topology, Stone–Čech compactification.</li>\n  <li><a href=\"./schemes.html\">Schemes</a> and <a href=\"./commutative-algebra.html\">commutative algebra</a> — the Grothendieck side of this table.</li>\n  <li><a href=\"./functor-of-points.html\">Functor of points</a> — the categorical re-statement of Spec, parallel to \"$X = \\hat{C(X)}$.\"</li>\n  <li><a href=\"./sheaves.html\">Sheaves</a> — what's missing on the analytic side and present on the algebraic side.</li>\n  <li><a href=\"./category-theory.html\">Category theory</a> — the equivalence-of-categories language.</li>\n</ul>\n\n<h3>Reading order</h3>\n<ol>\n  <li>Spectra and the spectral radius for bounded operators (functional analysis).</li>\n  <li>Banach algebras, characters, the Gelfand–Mazur theorem.</li>\n  <li>$C^*$-axioms and the commutative Gelfand–Naimark theorem.</li>\n  <li>Continuous and Borel functional calculus; the spectral theorem.</li>\n  <li>GNS construction and the noncommutative Gelfand–Naimark theorem ($A\\hookrightarrow B(H)$).</li>\n  <li>K-theory of $C^*$-algebras and a sample noncommutative space — $A_\\theta$ is the standard tutorial.</li>\n  <li>Then: spectral triples, Connes's noncommutative geometry, or branch into operator $K$-theory and Baum–Connes.</li>\n</ol>\n</section>\n\n"
+          "html": "\n\n<h3>Where to read more</h3>\n<ul>\n  <li><a href=\"./functional-analysis.html\">Functional analysis</a> — the Banach/Hilbert backbone, $B(H)$, the spectral theorem.</li>\n  <li><a href=\"./complex-analysis.html\">Complex analysis</a> — the Cauchy integral that powers holomorphic functional calculus.</li>\n  <li><a href=\"./algebraic-topology.html\">Topology</a> — compact Hausdorff, weak-$*$ topology, Stone–Čech compactification.</li>\n  <li><a href=\"./schemes.html\">Schemes</a> and <a href=\"./commutative-algebra.html\">commutative algebra</a> — the Grothendieck side of this table.</li>\n  <li><a href=\"./functor-of-points.html\">Functor of points</a> — the categorical re-statement of Spec, parallel to \"$X = \\hat{C(X)}$.\"</li>\n  <li><a href=\"./sheaves.html\">Sheaves</a> — what's missing on the analytic side and present on the algebraic side.</li>\n  <li><a href=\"./category-theory.html\">Category theory</a> — the equivalence-of-categories language.</li>\n</ul>\n\n<h3>Reading order</h3>\n<ol>\n  <li>Spectra and the spectral radius for bounded operators (functional analysis).</li>\n  <li>Banach algebras, characters, the Gelfand–Mazur theorem.</li>\n  <li>$C^*$-axioms and the commutative Gelfand–Naimark theorem.</li>\n  <li>Continuous and Borel functional calculus; the spectral theorem.</li>\n  <li>GNS construction and the noncommutative Gelfand–Naimark theorem ($A\\hookrightarrow B(H)$).</li>\n  <li>K-theory of $C^*$-algebras and a sample noncommutative space — $A_\\theta$ is the standard tutorial.</li>\n  <li>Then: spectral triples, Connes's noncommutative geometry, or branch into operator $K$-theory and Baum–Connes.</li>\n</ol>"
         },
         {
           "type": "widget-script",
@@ -1289,6 +1333,10 @@
         {
           "type": "raw",
           "html": "\n\n<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     }

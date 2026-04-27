@@ -78,7 +78,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p class=\"small\">Notice the dashed line above the primes. That's the generic point $(0)$; its closure is all of $\\operatorname{Spec}\\mathbb{Z}$. Every closed point \"specializes from\" it.</p>\n\n<div class=\"note\">\n<p style=\"margin:.2rem 0\"><strong>Reading a scheme.</strong> A scheme has more information than a topological space. At each point $\\mathfrak p$ there's a residue field $\\kappa(\\mathfrak p)$ and functions take values in different fields at different points. For $\\operatorname{Spec}\\mathbb{Z}$: $\\kappa((p))=\\mathbb{F}_p$ and $\\kappa((0))=\\mathbb{Q}$.</p>\n</div>\n</section>\n\n"
+          "html": "\n\n<p class=\"small\">Notice the dashed line above the primes. That's the generic point $(0)$; its closure is all of $\\operatorname{Spec}\\mathbb{Z}$. Every closed point \"specializes from\" it.</p>\n\n<div class=\"note\">\n<p style=\"margin:.2rem 0\"><strong>Reading a scheme.</strong> A scheme has more information than a topological space. At each point $\\mathfrak p$ there's a residue field $\\kappa(\\mathfrak p)$ and functions take values in different fields at different points. For $\\operatorname{Spec}\\mathbb{Z}$: $\\kappa((p))=\\mathbb{F}_p$ and $\\kappa((0))=\\mathbb{Q}$.</p>\n</div>"
         },
         {
           "type": "widget-script",
@@ -115,6 +115,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -167,7 +171,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p class=\"small\">Watch the point $(x^2+1)$ of $\\operatorname{Spec}\\mathbb{R}[x]$ split into two points $(x-i),(x+i)$ of $\\operatorname{Spec}\\mathbb{C}[x]$ when you switch $\\mathbb{R}\\to\\mathbb{C}$. That's the first taste of <em>base change</em>: geometry changes with the field.</p>\n</section>\n\n"
+          "html": "\n\n<p class=\"small\">Watch the point $(x^2+1)$ of $\\operatorname{Spec}\\mathbb{R}[x]$ split into two points $(x-i),(x+i)$ of $\\operatorname{Spec}\\mathbb{C}[x]$ when you switch $\\mathbb{R}\\to\\mathbb{C}$. That's the first taste of <em>base change</em>: geometry changes with the field.</p>"
         },
         {
           "type": "widget-script",
@@ -212,6 +216,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -276,7 +284,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -308,6 +316,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -457,7 +469,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p class=\"small\">Heuristic: smaller ideal ⇒ bigger point. The empty ideal $(0)$ is the \"biggest\" (most generic) point; maximal ideals are the \"smallest\" (most specialized). Dimension of a scheme = length of the longest specialization chain.</p>\n</section>\n\n"
+          "html": "\n\n<p class=\"small\">Heuristic: smaller ideal ⇒ bigger point. The empty ideal $(0)$ is the \"biggest\" (most generic) point; maximal ideals are the \"smallest\" (most specialized). Dimension of a scheme = length of the longest specialization chain.</p>"
         },
         {
           "type": "widget-script",
@@ -599,6 +611,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -630,7 +646,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p>Two variables: $\\operatorname{Spec}\\mathbb{C}[x,y]/(x^2,xy,y^2)$ is a \"fat point\" with the full 2-dim tangent space. $\\operatorname{Spec}\\mathbb{C}[x,y]/(x^2,y)$ is a length-2 scheme pointing in the $x$-direction — an infinitesimal arrow.</p>\n</section>\n\n"
+          "html": "\n\n<p>Two variables: $\\operatorname{Spec}\\mathbb{C}[x,y]/(x^2,xy,y^2)$ is a \"fat point\" with the full 2-dim tangent space. $\\operatorname{Spec}\\mathbb{C}[x,y]/(x^2,y)$ is a length-2 scheme pointing in the $x$-direction — an infinitesimal arrow.</p>"
         },
         {
           "type": "widget-script",
@@ -654,6 +670,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -724,7 +744,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n\n\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -770,6 +790,10 @@
         {
           "type": "raw",
           "html": "\n\n<!-- SECTIONS TO BE APPENDED BELOW -->\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -927,7 +951,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -960,6 +984,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -1035,7 +1063,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -1068,6 +1096,10 @@
         {
           "type": "raw",
           "html": "\n\n<div id=\"sections-end\"></div>\n\n<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     }

@@ -1500,15 +1500,7 @@ $$\Gamma^k_{ij} = \tfrac{1}{2} g^{kl}\bigl(\partial_i g_{jl} + \partial_j g_{il}
   <div class="ttl">Used in</div>
     <div><a href="./differential-geometry.html#gaussbonnet">Differential geometry</a> · Gauss–Bonnet theorem</div>
 </aside>
-<!-- backlinks-auto-end -->
-
-
-
-
-
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 /* ============================ §7 geodesic ============================ */
 (function(){
   const svg=$('#ge-svg'), pick=$('#ge-pick'),
@@ -1736,6 +1728,8 @@ $$\Gamma^k_{ij} = \tfrac{1}{2} g^{kl}\bigl(\partial_i g_{jl} + \partial_j g_{il}
 })();
 </script>
 
+
+</section>
 <section id="gaussbonnet">
 <h2>8. Gauss–Bonnet</h2>
 <p>For a geodesic triangle with interior angles $\alpha, \beta, \gamma$ on a surface $S$, the angle sum is</p>
@@ -1782,11 +1776,7 @@ where $\chi(S) = V - E + F$ is the Euler characteristic of any triangulation.</d
   <div class="readout" id="gb-out"></div>
 </div>
 
-<div class="quiz" data-concept="gauss-bonnet"></div>
-
-</section>
-
-<script>
+<div class="quiz" data-concept="gauss-bonnet"></div><script>
 /* ====================== §8 Gauss–Bonnet widget ====================== */
 (function(){
   const svg=$('#gb-svg'), pick=$('#gb-pick'), out=$('#gb-out');
@@ -2237,6 +2227,8 @@ Since $\chi(S^2) = 2$, the total defect of any polyhedron homeomorphic to a sphe
 
 <p>Parallel transport around a closed loop does <em>not</em> return the vector to itself — it rotates by an angle equal to $\int K\,dA$ over the enclosed region. This is the <strong>holonomy</strong> of the Levi-Civita connection; on a flat surface it would be zero, and the fact that it isn't is exactly curvature. It is the local-to-global shadow of the exterior angle contribution in Gauss–Bonnet.</p>
 
+
+</section>
 <section id="manifolds">
 <h2>9. Abstract smooth manifolds</h2>
 <p>So far $S$ has been an embedded surface in $\mathbb{R}^3$. The abstract notion frees us from the ambient space. A <strong>smooth $n$-manifold</strong> is a topological space $M$ (second-countable Hausdorff) with an <strong>atlas</strong> $\{(U_\alpha, \varphi_\alpha)\}$: each $\varphi_\alpha$ is a homeomorphism from $U_\alpha$ to an open subset of $\mathbb{R}^n$, and the transition maps $\varphi_\beta \circ \varphi_\alpha^{-1}$ are $C^\infty$ wherever defined.</p>

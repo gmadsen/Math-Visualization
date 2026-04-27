@@ -364,10 +364,7 @@ function sgtJacobi(A0){
     <div><a href="./spectral-graph-theory.html#kernel-components">Spectral graph theory</a> · Kernel multiplicity = number of components</div>
     <div><a href="./spectral-graph-theory.html#random-walks">Spectral graph theory</a> · Random walks and the spectral gap</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 (function(){
   /* ============== SECTION 1 widget: matrix viewer + spectra ============== */
   const svg = $('#adj-svg'), out = $('#adj-out');
@@ -516,6 +513,8 @@ function sgtJacobi(A0){
 })();
 </script>
 
+
+</section>
 <section id="kernel-components">
 <h2>2. The kernel of $L$ counts components</h2>
 
@@ -544,10 +543,7 @@ function sgtJacobi(A0){
   <div class="ttl">Used in</div>
     <div><a href="./spectral-graph-theory.html#fiedler">Spectral graph theory</a> · Algebraic connectivity and the Fiedler vector</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 (function(){
   /* SECTION 2: edge-deletion + Laplacian spectrum */
   const svg = $('#comp-svg'), out = $('#comp-out'), reset = $('#comp-reset');
@@ -640,6 +636,8 @@ function sgtJacobi(A0){
 })();
 </script>
 
+
+</section>
 <section id="fiedler">
 <h2>3. Algebraic connectivity and the Fiedler vector</h2>
 
@@ -695,10 +693,7 @@ function sgtJacobi(A0){
     <div><a href="./spectral-graph-theory.html#cheeger">Spectral graph theory</a> · Cheeger's inequality</div>
     <div><a href="./spectral-graph-theory.html#spectral-clustering">Spectral graph theory</a> · Spectral clustering</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 (function(){
   /* SECTION 3: Fiedler vector visualization */
   const svg = $('#fie-svg'), out = $('#fie-out'), gSel = $('#fie-graph');
@@ -794,6 +789,8 @@ function sgtJacobi(A0){
 })();
 </script>
 
+
+</section>
 <section id="cheeger">
 <h2>4. Cheeger's inequality</h2>
 
@@ -843,10 +840,7 @@ For an arbitrary graph, replace $\lambda_2$ with the second eigenvalue of the no
   <div class="ttl">Used in</div>
     <div><a href="./spectral-graph-theory.html#spectral-clustering">Spectral graph theory</a> · Spectral clustering</div>
 </aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<script>
+<!-- backlinks-auto-end --><script>
 (function(){
   /* SECTION 4: Sweep cut */
   const svg = $('#ch-svg'), out = $('#ch-out'), gSel = $('#ch-graph');
@@ -957,6 +951,8 @@ For an arbitrary graph, replace $\lambda_2$ with the second eigenvalue of the no
 })();
 </script>
 
+
+</section>
 <section id="random-walks">
 <h2>5. Random walks and the spectral gap</h2>
 
@@ -1009,10 +1005,7 @@ For an arbitrary graph, replace $\lambda_2$ with the second eigenvalue of the no
   <div class="ttl">Used in</div>
     <div><a href="./spectral-graph-theory.html#bipartite-expanders">Spectral graph theory</a> · Bipartite graphs, expanders, and Ramanujan</div>
 </aside>
-<!-- backlinks-auto-end --><div class="quiz" data-concept="random-walks-mixing"></div>
-</section>
-
-<script>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="random-walks-mixing"></div><script>
 (function(){
   /* SECTION 5: Random walk mixing */
   const svg = $('#rw-svg'), out = $('#rw-out'), gSel=$('#rw-graph');
@@ -1110,6 +1103,8 @@ For an arbitrary graph, replace $\lambda_2$ with the second eigenvalue of the no
 })();
 </script>
 
+
+</section>
 <section id="bipartite-expanders">
 <h2>6. Bipartite graphs and expanders</h2>
 
@@ -1146,10 +1141,7 @@ $$\liminf_{n\to\infty} \lambda_2(A_{G_n})\;\ge\; 2\sqrt{d-1}.$$</div>
   <div class="readout" id="bip-out"></div>
 </div>
 
-<div class="quiz" data-concept="bipartite-and-expanders"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="bipartite-and-expanders"></div><script>
 (function(){
   /* SECTION 6: Normalized Laplacian — bipartite indicator */
   const svg = $('#bip-svg'), out = $('#bip-out'), gSel=$('#bip-graph');
@@ -1274,6 +1266,8 @@ $$\liminf_{n\to\infty} \lambda_2(A_{G_n})\;\ge\; 2\sqrt{d-1}.$$</div>
 })();
 </script>
 
+
+</section>
 <section id="spectral-clustering">
 <h2>7. Spectral clustering: eigenvectors as coordinates</h2>
 
@@ -1310,10 +1304,7 @@ $$\liminf_{n\to\infty} \lambda_2(A_{G_n})\;\ge\; 2\sqrt{d-1}.$$</div>
 
 <p>The left pane is the graph; the right pane is its 2-dimensional spectral embedding $i\mapsto (u_2(i), u_3(i))$. Clusters are tight blobs; weakly-clustered graphs spread along a curve. The eigengap $\nu_{k+1}-\nu_k$ tells you how many clusters the spectrum is "willing" to commit to — a heuristic but a remarkably reliable one.</p>
 
-<div class="quiz" data-concept="spectral-clustering"></div>
-</section>
-
-<script>
+<div class="quiz" data-concept="spectral-clustering"></div><script>
 (function(){
   /* SECTION 7: Spectral embedding (u2,u3) */
   const svg = $('#cl-svg'), out = $('#cl-out'), gSel = $('#cl-graph');
@@ -1454,6 +1445,8 @@ $$\liminf_{n\to\infty} \lambda_2(A_{G_n})\;\ge\; 2\sqrt{d-1}.$$</div>
 })();
 </script>
 
+
+</section>
 <section id="coda">
 <h2>Coda: a graph is a discrete manifold</h2>
 

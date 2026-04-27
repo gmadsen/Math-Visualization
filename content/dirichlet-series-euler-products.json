@@ -57,7 +57,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n\n\n\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -99,6 +99,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -140,7 +144,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -173,6 +177,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -267,7 +275,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -355,6 +363,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -422,7 +434,7 @@
         },
         {
           "type": "raw",
-          "html": "\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -482,6 +494,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -523,7 +539,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<div class=\"ok\"><strong>Why this matters.</strong> The functional equation trades knowledge of $\\zeta$ on $\\mathrm{Re}\\,s > 1$ (where we have convergence) for knowledge on $\\mathrm{Re}\\,s < 0$. The \"critical strip\" $0 \\le \\mathrm{Re}\\,s \\le 1$ is where the interesting zeros live. The <em>Riemann Hypothesis</em> conjectures all non-trivial zeros lie on $\\mathrm{Re}\\,s = 1/2$.</div>\n\n<p>The same game works for Dirichlet $L$-functions: each non-trivial $L(s,\\chi)$ extends to an entire function and satisfies a functional equation relating $s$ and $1-s$, with a \"root number\" $W(\\chi)$ (a complex number of absolute value $1$) appearing:\n$$\\Lambda(s,\\chi) \\;=\\; W(\\chi)\\,\\Lambda(1-s,\\overline{\\chi}).$$</p>\n</section>\n\n"
+          "html": "\n\n<div class=\"ok\"><strong>Why this matters.</strong> The functional equation trades knowledge of $\\zeta$ on $\\mathrm{Re}\\,s > 1$ (where we have convergence) for knowledge on $\\mathrm{Re}\\,s < 0$. The \"critical strip\" $0 \\le \\mathrm{Re}\\,s \\le 1$ is where the interesting zeros live. The <em>Riemann Hypothesis</em> conjectures all non-trivial zeros lie on $\\mathrm{Re}\\,s = 1/2$.</div>\n\n<p>The same game works for Dirichlet $L$-functions: each non-trivial $L(s,\\chi)$ extends to an entire function and satisfies a functional equation relating $s$ and $1-s$, with a \"root number\" $W(\\chi)$ (a complex number of absolute value $1$) appearing:\n$$\\Lambda(s,\\chi) \\;=\\; W(\\chi)\\,\\Lambda(1-s,\\overline{\\chi}).$$</p>"
         },
         {
           "type": "widget-script",
@@ -556,6 +572,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -621,7 +641,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n\n\n\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -671,6 +691,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -728,7 +752,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -774,6 +798,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
@@ -835,7 +863,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n\n\n\n\n</section>\n\n"
+          "html": ""
         },
         {
           "type": "widget-script",
@@ -881,6 +909,10 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "\n</section>\n"
         }
       ]
     },
