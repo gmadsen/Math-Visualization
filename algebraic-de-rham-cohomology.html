@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Algebraic de rham cohomology</title>
+<title>Algebraic de Rham cohomology</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
@@ -252,7 +252,7 @@ function drawNode(svg, x, y, label, opts={}){
 <main>
 
 <section class="hero">
-  <h1>Algebraic de rham cohomology</h1>
+  <h1>Algebraic de Rham cohomology</h1>
   <p class="sub">Hypercohomology of $\Omega^\bullet_{X/k}$: Hodge filtration, Betti comparison, Hodge diamond.</p>
 </section>
 
@@ -846,6 +846,29 @@ The total Betti is $1 + 2g + 1 = 2g + 2$, which equals the topological Euler cha
 <div class="quiz" data-concept="de-rham-curves"></div>
 </section>
 
+<section id="outro">
+<h2>7. Connections</h2>
+
+<p>Algebraic de Rham cohomology is the algebraic-geometry replacement for the de Rham complex: it works in any characteristic, descends to base fields without sacrificing functoriality, and bridges several theories.</p>
+
+<h3>Smooth manifolds and forms</h3>
+
+<p><a href="./differential-forms.html">Differential forms</a> develops the smooth-manifold side; Grothendieck’s comparison theorem identifies algebraic and analytic de Rham cohomology in characteristic 0. The algebraic side is the only one that descends to $\mathbb{Q}$.</p>
+
+<h3>Sheaf cohomology and hyperdirect images</h3>
+
+<p>The de Rham complex is computed by <a href="./sheaf-cohomology.html">sheaf cohomology</a> as the hypercohomology of $\Omega^\bullet_{X/k}$; the spectral sequence $E_1^{p,q} = H^q(X, \Omega^p) \Rightarrow H^{p+q}_{\mathrm{dR}}(X)$ is the Hodge-de Rham filtration.</p>
+
+<h3>Complex analysis and Hodge theory</h3>
+
+<p>For a smooth projective variety over $\mathbb{C}$, GAGA reduces algebraic de Rham to <a href="./complex-analysis.html">complex analytic</a> de Rham, which by Hodge theory decomposes into $H^p \otimes H^q$. The Hodge filtration, period map, and mixed Hodge structures are the modern shape.</p>
+
+<h3>Étale cohomology and motives</h3>
+
+<p><a href="./etale-cohomology.html">Étale cohomology</a> with $\ell$-adic coefficients is the analogue in positive characteristic; the comparison conjectures (de Rham vs étale vs crystalline) are the heart of $p$-adic Hodge theory.</p>
+
+<p class="small" style="margin-top:2.5rem">Open frontiers: $p$-adic Hodge theory (Fontaine’s theory of period rings, the de Rham — crystalline — étale comparison), Beilinson regulators, mixed motives, and the role of de Rham cohomology in conjectural motive-theoretic interpretations of $L$-functions.</p>
+</section>
 </main>
 
 <script>

@@ -7445,18 +7445,239 @@ window.MVQuizBank = {
   "computability-and-decidability": {
     "topic": "computability-and-decidability",
     "quizzes": {
-      "computability-and-decidability-intro": {
-        "title": "Intro",
+      "comp-turing-machines": {
+        "title": "Turing machines",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder question — content forthcoming.",
+            "q": "A configuration of a Turing machine consists of which triple?",
             "choices": [
-              "A",
-              "B"
+              "(state, head position, transition function)",
+              "(state, tape contents, head position)",
+              "(input alphabet, tape alphabet, transition function)",
+              "(start state, accept state, reject state)"
+            ],
+            "answer": 1,
+            "explain": "A snapshot of a running TM is exactly (current state, full tape contents, head index). The transition function and the alphabets are part of the machine's static description, not its runtime configuration."
+          },
+          {
+            "type": "mcq",
+            "q": "Why are multitape Turing machines no more powerful than single-tape machines?",
+            "choices": [
+              "They have the same number of states.",
+              "They are simulated with at most polynomial slowdown by interleaving tracks on one tape.",
+              "Multitape machines cannot read from more than one tape per step.",
+              "They are restricted to deterministic transitions."
+            ],
+            "answer": 1,
+            "explain": "Encode $k$ tapes as $k$ tracks of one tape, plus marker symbols for each head. One step of the multitape machine becomes a sweep across the simulated tape — quadratic overhead, but still computable."
+          },
+          {
+            "type": "numeric",
+            "q": "A binary-alphabet TM has $|Q|=4$ states (including accept and reject) and tape alphabet $\\{0,1,\\sqcup\\}$. How many distinct $(q,a)$ input pairs does its transition function $\\delta$ need to specify?",
+            "answer": 12,
+            "tol": 0,
+            "explain": "$|Q|\\times|\\Gamma| = 4\\times 3 = 12$. Each pair $(q,a)$ gets one row in the transition table."
+          }
+        ]
+      },
+      "comp-recursive-functions": {
+        "title": "Recursive functions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which closure operator distinguishes the partial-recursive functions from the primitive-recursive functions?",
+            "choices": [
+              "Composition",
+              "Primitive recursion",
+              "Unbounded minimisation ($\\mu$-operator)",
+              "Projection"
+            ],
+            "answer": 2,
+            "explain": "Composition, primitive recursion, and the basic functions yield the primitive-recursive class — every member is total. Adding the $\\mu$-operator (least $y$ with $g(\\vec x,y)=0$, possibly undefined) produces partiality and matches Turing-computability."
+          },
+          {
+            "type": "mcq",
+            "q": "Ackermann's function is total but not primitive-recursive. What does this show?",
+            "choices": [
+              "Some computable functions grow faster than every primitive-recursive function.",
+              "The Church–Turing thesis is false.",
+              "Primitive recursion is equivalent to $\\mu$-recursion.",
+              "Ackermann's function is not Turing-computable."
             ],
             "answer": 0,
-            "explain": "Placeholder."
+            "explain": "Ackermann diagonalises against any fixed level of nested recursion, so its growth rate dominates every primitive-recursive function. It is still computable — by a Turing machine, or equivalently a $\\mu$-recursive scheme — confirming the proper inclusion PR ⊊ partial-recursive."
+          },
+          {
+            "type": "numeric",
+            "q": "Define $f$ by primitive recursion: $f(0)=2$, $f(n+1)=f(n)+3$. Compute $f(4)$.",
+            "answer": 14,
+            "tol": 0,
+            "explain": "$f$ is the arithmetic progression $2,5,8,11,14,\\ldots$, so $f(4)=2+4\\cdot 3=14$. Primitive recursion is exactly this kind of step-by-step build-up from a base case."
+          }
+        ]
+      },
+      "comp-halting-problem": {
+        "title": "The halting problem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What does the diagonal machine $D$ in the halting-problem proof do on input $\\langle M\\rangle$?",
+            "choices": [
+              "Simulates $M$ on $\\langle M\\rangle$ directly.",
+              "Asks the supposed decider $h$ whether $M$ halts on $\\langle M\\rangle$, and does the opposite.",
+              "Halts iff $M$ halts on the empty string.",
+              "Counts the states of $M$ and halts iff that count is even."
+            ],
+            "answer": 1,
+            "explain": "If $h(\\langle M,\\langle M\\rangle\\rangle)=$ \"halts\", $D$ enters an infinite loop; otherwise $D$ halts. Running $D$ on its own code yields the contradiction \"$D$ halts iff $D$ doesn't halt\"."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is countability of Turing machines essential to the diagonal argument?",
+            "choices": [
+              "It guarantees the tape alphabet is finite.",
+              "It lets us list all TMs $M_0, M_1, M_2, \\ldots$ and define $D$ by diagonalising over that list.",
+              "It implies every language is recognisable.",
+              "It ensures every TM halts on a countable input."
+            ],
+            "answer": 1,
+            "explain": "Each TM has a finite description, so the set of TMs is countable. Cantor's diagonal construction of $D$ depends on enumerating the candidates and disagreeing with each at one diagonal coordinate."
+          },
+          {
+            "type": "mcq",
+            "q": "Which problem is computationally equivalent to the halting problem?",
+            "choices": [
+              "Deciding whether a given TM has at least 5 states.",
+              "Deciding whether a given DFA accepts the empty string.",
+              "Deciding whether two given TMs accept the same language.",
+              "Deciding whether the input length of a TM is even."
+            ],
+            "answer": 2,
+            "explain": "TM-equivalence is undecidable — Rice's theorem and a direct halting reduction both show it. The other three options are decidable: state count is computable, DFA emptiness is graph reachability, parity of input length is trivial."
+          }
+        ]
+      },
+      "comp-rec-vs-re": {
+        "title": "Recursive vs r.e.",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A set $A$ is recursive iff:",
+            "choices": [
+              "$A$ is recursively enumerable.",
+              "Both $A$ and its complement are recursively enumerable.",
+              "$A$ is finite.",
+              "$A$ is the language of some non-deterministic TM."
+            ],
+            "answer": 1,
+            "explain": "If $A$ and $\\mathbb{N}\\setminus A$ both have semi-deciders, run them in parallel — exactly one halts on each input, giving a decider for $A$. Conversely a decider trivially yields semi-deciders for both."
+          },
+          {
+            "type": "mcq",
+            "q": "The halting set $H$ is:",
+            "choices": [
+              "Recursive.",
+              "r.e. but not recursive.",
+              "Neither r.e. nor co-r.e.",
+              "Co-r.e. but not r.e."
+            ],
+            "answer": 1,
+            "explain": "Simulating $M$ on $w$ is a semi-decider for $H$ (halt iff $M$ halts), so $H$ is r.e. The diagonal proof rules out a decider, so $H$ is not recursive. Its complement is not r.e. — that's a separate diagonal."
+          },
+          {
+            "type": "mcq",
+            "q": "Which is an example of a semi-decidable but not decidable property?",
+            "choices": [
+              "The set of TMs with exactly 7 states.",
+              "The set of polynomials with integer coefficients.",
+              "The set $\\{\\langle M\\rangle : M \\text{ accepts at least one input}\\}$.",
+              "The set of even natural numbers."
+            ],
+            "answer": 2,
+            "explain": "Dovetail $M$ on $0,1,2,\\ldots$; if any branch accepts, halt. That's a semi-decider. By Rice's theorem the property is undecidable, so it is r.e. but not recursive. The other three are recursive (decided by inspecting the description or input directly)."
+          }
+        ]
+      },
+      "comp-undecidability": {
+        "title": "Undecidability via reduction",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "$A\\le_m B$ means:",
+            "choices": [
+              "$A\\subseteq B$.",
+              "There is a computable $f$ with $x\\in A \\iff f(x)\\in B$.",
+              "$A$ and $B$ are both r.e.",
+              "Every TM for $B$ also decides $A$."
+            ],
+            "answer": 1,
+            "explain": "Many-one reduction wraps each instance of $A$ as an instance of $B$ via a total computable map $f$. A decider for $B$ then composes with $f$ to decide $A$ — so undecidability of $A$ propagates upward to $B$."
+          },
+          {
+            "type": "mcq",
+            "q": "Rice's theorem says, in one line:",
+            "choices": [
+              "Every property of TM <em>codes</em> is undecidable.",
+              "Every non-trivial property of the <em>language</em> recognised by a TM is undecidable.",
+              "Every TM has an undecidable halting problem.",
+              "No TM can simulate another."
+            ],
+            "answer": 1,
+            "explain": "Rice rules out semantic decidability — anything that depends only on $L(M)$, that is non-trivial (some TM has it, some doesn't), is undecidable. Syntactic properties of the description (\"has 7 states\") are unaffected."
+          },
+          {
+            "type": "mcq",
+            "q": "Suppose $H\\le_m B$ (halting reduces to $B$). What can you conclude?",
+            "choices": [
+              "$B$ is decidable.",
+              "$B$ is undecidable.",
+              "$B$ is finite.",
+              "$B$ is r.e. but not recursive."
+            ],
+            "answer": 1,
+            "explain": "Reductions transfer hardness upward. If $B$ were decidable, composition with the reduction would decide halting — a contradiction. We can't conclude anything sharper without more information about $B$."
+          }
+        ]
+      },
+      "comp-godel-incompleteness": {
+        "title": "Gödel incompleteness",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "How does the halting problem give Gödel's first incompleteness theorem?",
+            "choices": [
+              "Halting is decidable, so arithmetic must be too.",
+              "If a sound, recursively axiomatised $T$ proved every true halting fact, halting would be decidable — contradiction.",
+              "Gödel's theorem implies halting is decidable.",
+              "Every TM has a Gödel number, so every theorem is provable."
+            ],
+            "answer": 1,
+            "explain": "\"$M$ halts on $w$\" is $\\Sigma_1$, so a complete sound recursive $T$ would let us search for proofs of either it or its negation, deciding halting. Halting is undecidable, hence $T$ is incomplete: some true $\\Sigma_1$ sentence is unprovable."
+          },
+          {
+            "type": "mcq",
+            "q": "What does Rosser's refinement contribute?",
+            "choices": [
+              "It removes the assumption of $\\omega$-consistency, requiring only plain consistency.",
+              "It strengthens the conclusion to \"$T$ is unsound\".",
+              "It makes the proof constructive only over PA.",
+              "It eliminates the need for Gödel numbering."
+            ],
+            "answer": 0,
+            "explain": "Gödel's original proof needed $\\omega$-consistency; Rosser's modified self-referential sentence (\"for every proof of me there is a shorter refutation\") only needs $T$ to be consistent."
+          },
+          {
+            "type": "mcq",
+            "q": "Gödel's <em>second</em> incompleteness theorem says:",
+            "choices": [
+              "Every consistent theory is decidable.",
+              "A consistent, recursively axiomatised $T$ extending enough arithmetic cannot prove its own consistency $\\mathrm{Con}(T)$.",
+              "Arithmetic has a complete extension.",
+              "Halting is provable in PA."
+            ],
+            "answer": 1,
+            "explain": "Formalise the first-theorem proof inside $T$: from $\\mathrm{Con}(T)$, $T$ derives the unprovability of its Gödel sentence $G$, hence $G$ itself — contradicting $T\\not\\vdash G$. So $T\\not\\vdash\\mathrm{Con}(T)$."
           }
         ]
       }
@@ -12055,18 +12276,255 @@ window.MVQuizBank = {
   "first-order-logic-and-completeness": {
     "topic": "first-order-logic-and-completeness",
     "quizzes": {
-      "first-order-logic-and-completeness-intro": {
-        "title": "Intro",
+      "fol-syntax": {
+        "title": "Syntax: languages, terms, formulas",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder question — content forthcoming.",
+            "q": "In the formula $\\forall x\\,(P(x) \\to \\exists y\\, R(x,y)) \\land Q(z)$, which variables occur free?",
             "choices": [
-              "A",
-              "B"
+              "$x$ only",
+              "$y$ only",
+              "$z$ only",
+              "$x$ and $z$"
+            ],
+            "answer": 2,
+            "explain": "$x$ is bound by $\\forall x$ inside the first conjunct; $y$ is bound by $\\exists y$. $Q(z)$ is outside any quantifier scope, so $z$ is the only free variable."
+          },
+          {
+            "type": "numeric",
+            "q": "How many distinct terms of depth at most $1$ can be built from one constant $c$, one unary function $f$, and one variable $x$? (Depth $0$: variable or constant. Depth $1$: $f$ applied to a depth-$0$ term.)",
+            "answer": 4,
+            "tol": 0,
+            "explain": "Depth-$0$ terms: $c, x$ (2). Depth-$1$ terms: $f(c), f(x)$ (2). Total $2 + 2 = 4$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is a well-formed first-order formula in the language of arithmetic $\\{0, 1, +, \\cdot, =, <\\}$?",
+            "choices": [
+              "$\\forall x\\,\\exists y\\,(x + y = 1)$",
+              "$\\forall < (x \\cdot y)$",
+              "$\\exists\\, +\\, (x = y)$",
+              "$\\forall x\\,(x)$"
             ],
             "answer": 0,
-            "explain": "Placeholder."
+            "explain": "The first is a sentence: 'every $x$ has an additive complement to $1$'. The others misuse symbols: relation/function symbols cannot be quantified over (that would be second-order), and $(x)$ is not a formula."
+          }
+        ]
+      },
+      "fol-semantics": {
+        "title": "Tarski semantics and structures",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $\\mathfrak{A} = (\\mathbb{Z}, +, 0)$ in the language $\\{+, 0\\}$. Which sentence is $\\mathfrak{A}$ a model of?",
+            "choices": [
+              "$\\forall x\\,\\exists y\\,(x + y = 0)$",
+              "$\\forall x\\,(x + x = 0)$",
+              "$\\exists x\\,\\forall y\\,(x + y = y \\land x \\ne 0)$",
+              "$\\forall x\\,(x = 0)$"
+            ],
+            "answer": 0,
+            "explain": "Every integer has an additive inverse: $y = -x$. The second fails for $x = 1$. The third asks for a non-zero additive identity. The fourth is trivially false."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $\\mathfrak{A}$ be the structure on $\\{a,b,c\\}$ where $R$ is interpreted as the relation $\\{(a,b),(b,c),(a,c)\\}$. How many ordered pairs $(x,y)$ satisfy $\\mathfrak{A}\\models R(x,y) \\lor R(y,x)$?",
+            "answer": 6,
+            "tol": 0,
+            "explain": "The relation $R \\cup R^{-1}$ has $3$ pairs each from $R$ and $R^{-1}$, all distinct: $(a,b),(b,c),(a,c),(b,a),(c,b),(c,a)$. So $6$ pairs."
+          },
+          {
+            "type": "mcq",
+            "q": "Which is the correct definition of $\\mathfrak{A}\\models \\forall x\\,\\varphi(x)\\,[s]$ under Tarski's recursion (with $s$ an assignment, $s[x\\mapsto a]$ the update)?",
+            "choices": [
+              "$\\mathfrak{A}\\models \\varphi(x)\\,[s]$ for some $a$ in the domain.",
+              "$\\mathfrak{A}\\models \\varphi(x)\\,[s[x\\mapsto a]]$ for every $a$ in the domain.",
+              "$\\mathfrak{A}\\models \\varphi(a)$ for every closed term $a$.",
+              "$\\mathfrak{A}\\models \\varphi(x)$ when $s$ is the empty assignment."
+            ],
+            "answer": 1,
+            "explain": "The semantic clause for $\\forall x$ is: $\\varphi$ holds for every value of $x$ ranging over the domain — i.e. for the modified assignment $s[x\\mapsto a]$ as $a$ varies. Restricting to closed terms is wrong: domains may contain elements named by no closed term."
+          }
+        ]
+      },
+      "fol-deduction": {
+        "title": "Deduction: proof systems and soundness",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The soundness theorem $\\Gamma\\vdash\\varphi \\Rightarrow \\Gamma\\models\\varphi$ is proved by:",
+            "choices": [
+              "Constructing a model of $\\Gamma$ in which $\\varphi$ fails.",
+              "Induction on the length of the formal proof, checking each axiom is valid and each rule preserves validity.",
+              "Diagonalisation against the set of provable formulas.",
+              "The compactness theorem applied to $\\Gamma \\cup \\{\\neg\\varphi\\}$."
+            ],
+            "answer": 1,
+            "explain": "Soundness is proved by induction on proofs. Logical axioms are tautologies, hence valid; rules like modus ponens preserve truth in every structure. Therefore every theorem of the calculus is semantically valid."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is the universal generalisation rule (or a correct restriction of it)?",
+            "choices": [
+              "From $\\Gamma\\vdash\\varphi(x)$ infer $\\Gamma\\vdash\\forall x\\,\\varphi(x)$, provided $x$ is not free in any formula of $\\Gamma$.",
+              "From $\\Gamma\\vdash\\varphi(x)$ infer $\\Gamma\\vdash\\forall x\\,\\varphi(x)$ unconditionally.",
+              "From $\\Gamma\\vdash\\varphi(c)$ for some constant $c$ infer $\\Gamma\\vdash\\forall x\\,\\varphi(x)$ unconditionally.",
+              "From $\\Gamma\\vdash\\exists x\\,\\varphi(x)$ infer $\\Gamma\\vdash\\forall x\\,\\varphi(x)$."
+            ],
+            "answer": 0,
+            "explain": "The side condition '$x$ not free in $\\Gamma$' is essential: from $\\{P(x)\\}$ we must NOT conclude $\\forall x\\,P(x)$, since $x$ is being used as a name. Dropping the side condition gives an unsound rule."
+          },
+          {
+            "type": "numeric",
+            "q": "In a Hilbert system with modus ponens as the only inference rule, how many premises does an application of MP take?",
+            "answer": 2,
+            "tol": 0,
+            "explain": "Modus ponens: from $\\varphi$ and $\\varphi\\to\\psi$ infer $\\psi$. Two premises."
+          }
+        ]
+      },
+      "fol-completeness": {
+        "title": "Gödel's completeness theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Gödel's completeness theorem states:",
+            "choices": [
+              "Every true sentence of arithmetic is provable in PA.",
+              "$\\Gamma\\vdash\\varphi$ if and only if $\\Gamma\\models\\varphi$, equivalently every consistent theory has a model.",
+              "Every theory is decidable.",
+              "Every formula is equivalent to a quantifier-free formula."
+            ],
+            "answer": 1,
+            "explain": "Completeness equates syntactic provability with semantic entailment. The first option is the (false) statement that Gödel's incompleteness theorem refutes. The third and fourth are unrelated."
+          },
+          {
+            "type": "mcq",
+            "q": "Henkin's proof of completeness builds a model of a consistent theory $T$ by:",
+            "choices": [
+              "Extending $T$ to a maximal consistent theory with witnesses ($\\exists x\\,\\varphi \\Rightarrow \\varphi(c)$ for some constant $c$), then taking closed terms modulo provable equality as the domain.",
+              "Applying the compactness theorem directly.",
+              "Diagonalising against all $\\mathcal{L}$-structures.",
+              "Constructing a forcing extension of the standard model."
+            ],
+            "answer": 0,
+            "explain": "Henkin's recipe: (1) add witness constants for every existential, in a chain; (2) Lindenbaum-extend to maximal consistency; (3) define $s\\sim t$ iff $T\\vdash s=t$; the quotient set of closed terms is the domain. Truth in this term model coincides with provability."
+          },
+          {
+            "type": "numeric",
+            "q": "A consistent theory $T$ has at least how many models? (By the completeness theorem, the minimum guaranteed.)",
+            "answer": 1,
+            "tol": 0,
+            "explain": "Consistency $\\iff$ existence of a model. So at least $1$."
+          }
+        ]
+      },
+      "fol-compactness": {
+        "title": "Compactness and non-standard models",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The compactness theorem states that a set $\\Sigma$ of first-order sentences is satisfiable iff:",
+            "choices": [
+              "$\\Sigma$ is finite.",
+              "Every finite subset of $\\Sigma$ is satisfiable.",
+              "$\\Sigma$ is countable.",
+              "$\\Sigma$ is decidable."
+            ],
+            "answer": 1,
+            "explain": "Finite-satisfiability of every finite subset implies global satisfiability. Proof: by completeness, satisfiability $\\iff$ consistency, and inconsistency requires a finite proof, hence a finite inconsistent subset."
+          },
+          {
+            "type": "mcq",
+            "q": "To build a non-standard model of arithmetic from $\\mathrm{Th}(\\mathbb{N})$ via compactness, one adds a fresh constant $c$ and the sentences:",
+            "choices": [
+              "$c = 0, c = 1, c = 2, \\ldots$",
+              "$c \\ne \\overline{n}$ for every $n \\in \\mathbb{N}$ (where $\\overline{n}$ is the numeral for $n$).",
+              "$c < c$.",
+              "$\\forall x\\,(x < c)$."
+            ],
+            "answer": 1,
+            "explain": "Each finite subset of $\\mathrm{Th}(\\mathbb{N}) \\cup \\{c \\ne \\overline{n} : n \\in \\mathbb{N}\\}$ is satisfiable in $\\mathbb{N}$ (interpret $c$ as a number larger than all numerals mentioned), so the whole set is satisfiable. The resulting model contains $c$ different from every standard numeral — a non-standard element."
+          },
+          {
+            "type": "numeric",
+            "q": "Downward Löwenheim–Skolem: a satisfiable theory in a countable language has a model of cardinality $\\aleph_n$ for some $n$. Enter the smallest such $n$.",
+            "answer": 0,
+            "tol": 0,
+            "explain": "A countable model has cardinality $\\aleph_0$, so $n=0$."
+          }
+        ]
+      },
+      "fol-lowenheim-skolem": {
+        "title": "Löwenheim–Skolem and Skolem's paradox",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The downward Löwenheim–Skolem theorem says:",
+            "choices": [
+              "Every theory has a finite model.",
+              "Every satisfiable theory in a countable first-order language has a countable model.",
+              "Every consistent theory has a unique model up to isomorphism.",
+              "Every model has a countable elementary extension."
+            ],
+            "answer": 1,
+            "explain": "Downward LS: countable language + satisfiable $\\Rightarrow$ countable model. Upward LS would say models can be made arbitrarily large. Uniqueness of models is categoricity, a separate notion."
+          },
+          {
+            "type": "mcq",
+            "q": "Skolem's paradox concerns the fact that:",
+            "choices": [
+              "ZFC is inconsistent.",
+              "ZFC has a countable model $M$, yet $M\\models$ '$\\mathbb{R}$ is uncountable'. The bijection $\\mathbb{N}\\to\\mathbb{R}^M$ exists externally but is not an element of $M$.",
+              "Every model of ZFC must be uncountable.",
+              "Cantor's theorem fails in non-standard models."
+            ],
+            "answer": 1,
+            "explain": "Skolem's resolution: 'uncountable in $M$' means 'no bijection $\\mathbb{N}^M\\to\\mathbb{R}^M$ exists inside $M$'. The external bijection is invisible to $M$. Uncountability is not absolute between models."
+          },
+          {
+            "type": "numeric",
+            "q": "If a first-order theory in a countable language has an infinite model, by upward Löwenheim–Skolem it has models of every cardinality $\\kappa \\ge \\aleph_n$. Enter the smallest such $n$.",
+            "answer": 0,
+            "tol": 0,
+            "explain": "Upward LS: an infinite model implies models of every cardinality $\\kappa \\ge \\max(\\aleph_0, |\\mathcal{L}|) = \\aleph_0$. So $n=0$."
+          }
+        ]
+      },
+      "fol-decidable-theories": {
+        "title": "Decidable theories and quantifier elimination",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A complete, recursively axiomatised first-order theory is automatically:",
+            "choices": [
+              "Inconsistent.",
+              "Decidable: there is an algorithm that, given $\\varphi$, decides whether $T\\vdash\\varphi$.",
+              "Categorical in every cardinality.",
+              "Finite."
+            ],
+            "answer": 1,
+            "explain": "Algorithm: enumerate proofs from the recursive axioms. Since $T$ is complete, exactly one of $\\varphi, \\neg\\varphi$ is a theorem; whichever appears first is the answer. Without completeness, some sentences are independent; without recursive axiomatisation we cannot enumerate proofs."
+          },
+          {
+            "type": "mcq",
+            "q": "Which theory admits quantifier elimination?",
+            "choices": [
+              "Peano arithmetic.",
+              "ZFC.",
+              "The theory of algebraically closed fields of fixed characteristic (ACF$_p$).",
+              "True arithmetic $\\mathrm{Th}(\\mathbb{N}, +, \\cdot, 0, 1)$."
+            ],
+            "answer": 2,
+            "explain": "ACF$_p$ admits QE in the language of rings: every formula is equivalent to a Boolean combination of polynomial equations (Tarski–Chevalley). PA and ZFC are incomplete; true arithmetic is undecidable (Tarski), so it does not admit QE."
+          },
+          {
+            "type": "numeric",
+            "q": "DLO (dense linear orders without endpoints) is $\\aleph_0$-categorical. How many countable models does DLO have, up to isomorphism?",
+            "answer": 1,
+            "tol": 0,
+            "explain": "Cantor's back-and-forth: any two countable dense linear orders without endpoints are isomorphic to $(\\mathbb{Q}, <)$. Exactly $1$ countable model up to isomorphism."
           }
         ]
       }
@@ -20946,18 +21404,225 @@ window.MVQuizBank = {
   "model-theory-basics": {
     "topic": "model-theory-basics",
     "quizzes": {
-      "model-theory-basics-intro": {
-        "title": "Intro",
+      "mt-structures": {
+        "title": "Structures and signatures",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder question — content forthcoming.",
+            "q": "Which of the following is the standard signature for the theory of (unital) rings?",
             "choices": [
-              "A",
-              "B"
+              "$\\sigma = \\{<\\}$ (one binary relation)",
+              "$\\sigma = \\{0, 1, +, \\cdot, -\\}$ (two constants, two binary operations, one unary operation)",
+              "$\\sigma = \\{e, \\cdot, ^{-1}\\}$ (one constant, one binary, one unary)",
+              "$\\sigma = \\{\\in\\}$ (one binary relation)"
+            ],
+            "answer": 1,
+            "explain": "Ring axioms quantify over $0$, $1$, addition, multiplication, and additive inverse, so the natural signature is $\\{0,1,+,\\cdot,-\\}$. The third option is the signature of groups; the fourth is the signature of set theory; the first is the signature of orders."
+          },
+          {
+            "type": "numeric",
+            "q": "How many distinct $\\sigma$-structures are there on the two-element domain $\\{0,1\\}$ when $\\sigma = \\{R\\}$ has a single binary relation symbol?",
+            "answer": 16,
+            "tol": 0,
+            "explain": "A binary relation on a $2$-element set is a subset of $\\{0,1\\}^2$, which has $4$ ordered pairs. The number of subsets is $2^4 = 16$."
+          },
+          {
+            "type": "mcq",
+            "q": "Let $\\mathfrak{A} = (\\{1,2,3\\}; <)$ where $<$ is interpreted as the strict ordering $1<2<3$. Which sentence does $\\mathfrak{A}$ satisfy?",
+            "choices": [
+              "$\\forall x\\,\\exists y\\,(x < y)$",
+              "$\\forall x\\,\\forall y\\,(x < y \\to y < x)$",
+              "$\\exists x\\,\\forall y\\,(\\neg (y < x))$",
+              "$\\forall x\\,(x < x)$"
+            ],
+            "answer": 2,
+            "explain": "Choice 3 says 'there is a minimum'; the element $1$ witnesses it (no $y<1$). Choice 1 fails at $x=3$ (no upper element). Choice 2 says $<$ is symmetric, false. Choice 4 says $<$ is reflexive, false."
+          }
+        ]
+      },
+      "mt-elementary-equivalence": {
+        "title": "Elementary equivalence",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Two $\\sigma$-structures $\\mathfrak{A}$ and $\\mathfrak{B}$ are <em>elementarily equivalent</em> ($\\mathfrak{A}\\equiv\\mathfrak{B}$) when:",
+            "choices": [
+              "There is a bijection $A\\to B$ preserving every relation and operation.",
+              "They satisfy exactly the same first-order $\\sigma$-sentences.",
+              "They have the same cardinality.",
+              "Every formula true in $\\mathfrak{A}$ has a witness in $\\mathfrak{B}$."
+            ],
+            "answer": 1,
+            "explain": "By definition, $\\mathfrak{A}\\equiv\\mathfrak{B}$ iff $\\mathrm{Th}(\\mathfrak{A}) = \\mathrm{Th}(\\mathfrak{B})$ — the same first-order sentences are true in both. Choice 1 is isomorphism (strictly stronger). Cardinality is invisible to first-order logic."
+          },
+          {
+            "type": "mcq",
+            "q": "Which pair of structures is elementarily equivalent in the language of orders $\\{<\\}$?",
+            "choices": [
+              "$(\\mathbb{N}, <)$ and $(\\mathbb{Z}, <)$",
+              "$(\\mathbb{Q}, <)$ and $(\\mathbb{R}, <)$",
+              "$(\\mathbb{Z}, <)$ and $(\\mathbb{Q}, <)$",
+              "$(\\{0,1\\}, <)$ and $(\\{0,1,2\\}, <)$"
+            ],
+            "answer": 1,
+            "explain": "$(\\mathbb{Q},<)$ and $(\\mathbb{R},<)$ are both dense linear orders without endpoints, and DLO is a complete theory — so they are elementarily equivalent. $\\mathbb{N}$ has a minimum (false in $\\mathbb{Z}$), $\\mathbb{Z}$ is discrete (every element has an immediate successor; false in $\\mathbb{Q}$), and finite structures of different sizes can always be separated by a sentence counting elements."
+          },
+          {
+            "type": "numeric",
+            "q": "How many distinct first-order theories (= equivalence classes under $\\equiv$) are there among finite linear orders in the language $\\{<\\}$? (Hint: a finite linear order is determined up to isomorphism by its size, and isomorphic structures are elementarily equivalent.)",
+            "answer": 0,
+            "tol": 0,
+            "explain": "Trick question — there are infinitely many. For each $n\\ge 1$ the sentence 'there are exactly $n$ elements' picks out a unique equivalence class, and these classes are all distinct. Enter $0$ to mean the count is unbounded. (Strictly: countably infinitely many.)",
+            "tol_note": "Author note: this question is designed to be flagged as 'unbounded' — answer 0 is the convention here."
+          }
+        ]
+      },
+      "mt-isomorphism-vs-equivalence": {
+        "title": "Isomorphism vs elementary equivalence",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For two <em>finite</em> $\\sigma$-structures over a finite signature, which implication holds?",
+            "choices": [
+              "$\\mathfrak{A}\\equiv\\mathfrak{B} \\iff \\mathfrak{A}\\cong\\mathfrak{B}$",
+              "$\\mathfrak{A}\\cong\\mathfrak{B} \\Rightarrow \\mathfrak{A}\\equiv\\mathfrak{B}$ but not the converse",
+              "$\\mathfrak{A}\\equiv\\mathfrak{B} \\Rightarrow \\mathfrak{A}\\cong\\mathfrak{B}$ but not the converse",
+              "Neither implication holds in general"
             ],
             "answer": 0,
-            "explain": "Placeholder."
+            "explain": "For finite structures the two notions coincide. Isomorphism always implies elementary equivalence (any iso preserves truth of every formula). Conversely, on a finite structure the complete first-order theory pins down the isomorphism type — you can write a sentence describing the entire diagram."
+          },
+          {
+            "type": "mcq",
+            "q": "Which is a correct example of two infinite structures $\\mathfrak{A}\\equiv\\mathfrak{B}$ that are <em>not</em> isomorphic?",
+            "choices": [
+              "$(\\mathbb{Z}, +, 0)$ and $(\\mathbb{Q}, +, 0)$",
+              "$(\\mathbb{Q}, <)$ and $(\\mathbb{R}, <)$",
+              "$(\\mathbb{N}, +, \\cdot)$ and $(\\mathbb{Z}, +, \\cdot)$",
+              "$(\\mathbb{R}, +, \\cdot)$ and $(\\mathbb{C}, +, \\cdot)$"
+            ],
+            "answer": 1,
+            "explain": "$(\\mathbb{Q},<)$ and $(\\mathbb{R},<)$ are both models of DLO (a complete theory), so they are elementarily equivalent; but they have different cardinalities, so they are not isomorphic. The other pairs differ in first-order properties (e.g. divisibility, sentence about $-1$, $\\sqrt{-1}$)."
+          },
+          {
+            "type": "numeric",
+            "q": "By Cantor's back-and-forth theorem, how many isomorphism classes of <em>countable</em> dense linear orders without endpoints exist?",
+            "answer": 1,
+            "tol": 0,
+            "explain": "Cantor proved that any two countable dense linear orders without endpoints are isomorphic, via a back-and-forth construction. So there is exactly $1$ isomorphism class. This is the model-theoretic statement that DLO is $\\aleph_0$-categorical."
+          }
+        ]
+      },
+      "mt-types-and-saturation": {
+        "title": "Types and saturation",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A complete $1$-type $p(x)$ over a structure $\\mathfrak{A}$ is:",
+            "choices": [
+              "A formula $\\varphi(x)$ defining a single element of $A$.",
+              "A maximal consistent set of formulas $\\varphi(x)$ with parameters from $A$.",
+              "An automorphism of $\\mathfrak{A}$ fixing $x$.",
+              "An $\\mathfrak{A}$-definable subset of $A$."
+            ],
+            "answer": 1,
+            "explain": "A complete type is the maximal consistent first-order description of (a possible) element. By compactness it is always realised in some elementary extension of $\\mathfrak{A}$ — it may or may not be realised inside $\\mathfrak{A}$ itself."
+          },
+          {
+            "type": "mcq",
+            "q": "In the structure $(\\mathbb{Q},<)$, consider the type 'element greater than every rational $q\\in\\mathbb{Q}$', i.e. $p(x) = \\{x > q : q\\in\\mathbb{Q}\\}$. Which is true?",
+            "choices": [
+              "$p(x)$ is inconsistent — so it does not define a type.",
+              "$p(x)$ is realised in $(\\mathbb{Q},<)$.",
+              "$p(x)$ is consistent and omitted in $(\\mathbb{Q},<)$, but realised in some elementary extension by compactness.",
+              "$p(x)$ has no consistent extension to a complete type."
+            ],
+            "answer": 2,
+            "explain": "Every finite subset of $p$ is consistent (witness: any rational larger than the finite list of $q$'s mentioned), so by compactness $p$ is consistent. But no rational is larger than every rational, so $p$ is omitted in $(\\mathbb{Q},<)$. Compactness produces an elementary extension where it is realised — that extension contains a 'point at infinity'."
+          },
+          {
+            "type": "numeric",
+            "q": "A structure $\\mathfrak{A}$ is <em>$\\omega$-saturated</em> if every type over a finite parameter set is realised in $\\mathfrak{A}$. The countable random graph is $\\omega$-saturated; the dense linear order $(\\mathbb{Q},<)$ also is. How many distinct complete $1$-types over the empty parameter set does the theory DLO have?",
+            "answer": 1,
+            "tol": 0,
+            "explain": "DLO is a complete theory, and over the empty set there is exactly one complete $1$-type — every element of a model satisfies the same formulas in $\\{<\\}$ with no parameters. (Once you add even one parameter, the type space splits into 'less than', 'equal to', 'greater than' that parameter.)"
+          }
+        ]
+      },
+      "mt-ehrenfeucht-fraisse": {
+        "title": "Ehrenfeucht–Fraïssé games",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Ehrenfeucht–Fraïssé theorem states that Duplicator has a winning strategy in the $n$-round EF game on $\\mathfrak{A}$ vs $\\mathfrak{B}$ iff:",
+            "choices": [
+              "$\\mathfrak{A}$ and $\\mathfrak{B}$ are isomorphic.",
+              "$\\mathfrak{A}$ and $\\mathfrak{B}$ agree on every first-order sentence of quantifier rank $\\le n$.",
+              "$\\mathfrak{A}$ and $\\mathfrak{B}$ have the same cardinality.",
+              "$\\mathfrak{A}$ embeds into $\\mathfrak{B}$ as an elementary substructure."
+            ],
+            "answer": 1,
+            "explain": "EF games measure agreement up to <em>quantifier rank</em>: an $n$-round Duplicator strategy exactly captures indistinguishability by rank-$n$ sentences. As $n\\to\\infty$ this approaches full elementary equivalence (for finite signatures)."
+          },
+          {
+            "type": "numeric",
+            "q": "Consider the linear orders $\\mathfrak{A}=(\\{0,1,2\\},<)$ and $\\mathfrak{B}=(\\{0,1,2,3\\},<)$. What is the largest $n$ for which Duplicator wins the $n$-round EF game on $\\mathfrak{A}$ vs $\\mathfrak{B}$? (Hint: a sentence of quantifier rank $n$ can count up to roughly $2^n$ elements; here a rank-$2$ sentence already separates them.)",
+            "answer": 1,
+            "tol": 0,
+            "explain": "With $1$ round Duplicator can match either's chosen element to a counterpart in the other; both orders look like 'one element' from a first-order perspective at rank $1$. With $2$ rounds Spoiler picks the largest element in $\\mathfrak{B}$, then the second-largest; in $\\mathfrak{A}$ Duplicator runs out of distinct space to copy this configuration. So $n=1$ is the largest Duplicator winning round count."
+          },
+          {
+            "type": "mcq",
+            "q": "Which property of finite graphs is <em>not</em> first-order definable, as proved by an EF-game argument?",
+            "choices": [
+              "'Has at least 5 vertices.'",
+              "'Is connected.'",
+              "'Contains a triangle.'",
+              "'Every vertex has degree exactly 2.'"
+            ],
+            "answer": 1,
+            "explain": "Connectivity is the canonical example of a non-FO-definable property. The proof: for any $n$, a long cycle $C_{2n+1}$ (connected) and a disjoint union $C_n \\sqcup C_{n+1}$ (disconnected) agree on every sentence of quantifier rank $\\le n$, by an EF-game argument. The other three are FO-definable: count vertices, count edges in a triangle, count neighbours."
+          }
+        ]
+      },
+      "mt-applications-to-algebra": {
+        "title": "Applications to algebra",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The theory ACF$_0$ (algebraically closed fields of characteristic $0$) is:",
+            "choices": [
+              "Incomplete — it has elementarily inequivalent models.",
+              "Complete — all of its models are elementarily equivalent.",
+              "Inconsistent — it has no models.",
+              "Categorical in every cardinality."
+            ],
+            "answer": 1,
+            "explain": "ACF$_0$ is a complete theory: any two algebraically closed fields of characteristic $0$ are elementarily equivalent (this is essentially the Lefschetz principle). It is categorical in <em>uncountable</em> cardinalities (Steinitz: transcendence degree determines isomorphism type) but not in $\\aleph_0$ — countable ACF$_0$'s of different transcendence degrees are not isomorphic."
+          },
+          {
+            "type": "mcq",
+            "q": "The Ax–Grothendieck theorem states that every injective polynomial map $f: \\mathbb{C}^n \\to \\mathbb{C}^n$ is surjective. The model-theoretic proof reduces it to:",
+            "choices": [
+              "The fundamental theorem of algebra over $\\mathbb{C}$.",
+              "The fact that injective maps on finite sets are surjective, plus a transfer principle from the algebraic closures of finite fields to $\\mathbb{C}$.",
+              "Bezout's theorem in projective space.",
+              "Hilbert's Nullstellensatz."
+            ],
+            "answer": 1,
+            "explain": "The proof: 'injective $\\Rightarrow$ surjective' is a first-order schema (one sentence per pair of degree bounds). It holds trivially in every algebraic closure $\\overline{\\mathbb{F}_p}$ — those fields are unions of finite fields, where injections of finite sets are bijections. By the Lefschetz principle (ACF$_0$ and ACF$_p$ for large $p$ agree on first-order sentences), it holds in $\\mathbb{C}$. This is the canonical 'compactness + transfer' application."
+          },
+          {
+            "type": "mcq",
+            "q": "A theory $T$ is <em>model-complete</em> when every embedding between models is an elementary embedding. ACF is model-complete because:",
+            "choices": [
+              "Every algebraic closure is unique up to isomorphism.",
+              "ACF admits quantifier elimination (so existential formulas pull back along embeddings).",
+              "Algebraically closed fields are categorical in all cardinalities.",
+              "The Galois group of the algebraic closure is trivial."
+            ],
+            "answer": 1,
+            "explain": "Model-completeness is equivalent to: every formula is equivalent (modulo $T$) to an $\\exists$-formula whose existential witness, if it exists in any model, exists in any extension. ACF has full quantifier elimination, which implies model-completeness. The other options are true facts about ACF but don't directly give model-completeness."
           }
         ]
       }
@@ -35622,18 +36287,229 @@ window.MVQuizBank = {
   "type-theory-and-hott": {
     "topic": "type-theory-and-hott",
     "quizzes": {
-      "type-theory-and-hott-intro": {
-        "title": "Intro",
+      "tt-judgments": {
+        "title": "Judgments and contexts",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder question — content forthcoming.",
+            "q": "Which of the following is NOT one of the four basic judgment forms of (intensional) Martin-Löf type theory?",
             "choices": [
-              "A",
-              "B"
+              "$A\\;\\mathsf{type}$ ($A$ is a type)",
+              "$a:A$ ($a$ is a term of type $A$)",
+              "$a\\in A$ ($a$ is a member of the set $A$)",
+              "$a\\equiv b:A$ (definitional equality of terms)"
+            ],
+            "answer": 2,
+            "explain": "Type theory replaces set-theoretic membership with the typing judgment $a:A$. The four basic forms are $A\\;\\mathsf{type}$, $A\\equiv B$, $a:A$, and $a\\equiv b:A$ — all derived in a context $\\Gamma$. Membership $\\in$ has no separate role."
+          },
+          {
+            "type": "mcq",
+            "q": "In the context $\\Gamma=(x:A,\\ y:B(x))$, which condition is required for $\\Gamma$ to be well-formed?",
+            "choices": [
+              "$A$ and $B(x)$ must be the same type.",
+              "$A$ is a type in the empty context, and $B(x)$ is a type in the context $(x:A)$.",
+              "$x$ and $y$ must denote the same element.",
+              "$B$ must be independent of $x$."
+            ],
+            "answer": 1,
+            "explain": "Contexts are built left-to-right. Each new variable's type may depend on the earlier ones, but only the earlier ones — so $\\vdash A\\;\\mathsf{type}$ and then $x:A\\vdash B(x)\\;\\mathsf{type}$. Independence of $B$ from $x$ would just give a non-dependent context."
+          },
+          {
+            "type": "numeric",
+            "q": "How many free variables appear in the well-formed context $\\Gamma=(n:\\mathbb{N},\\ v:\\mathsf{Vec}(\\mathbb{R},n),\\ f:\\mathsf{Vec}(\\mathbb{R},n)\\to\\mathbb{R})$?",
+            "answer": 3,
+            "tol": 0,
+            "explain": "Each entry of the context introduces exactly one free variable: $n$, $v$, and $f$ — three in total. Note that $\\mathbb{R}$ and $\\mathbb{N}$ are constants, not new variables."
+          }
+        ]
+      },
+      "tt-pi-sigma": {
+        "title": "Π and Σ types",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Under the propositions-as-types correspondence, the dependent product $\\prod_{x:A} B(x)$ corresponds to which logical statement?",
+            "choices": [
+              "$\\exists x\\in A.\\ B(x)$",
+              "$\\forall x\\in A.\\ B(x)$",
+              "$A\\Rightarrow B$ (with $B$ independent of $x$)",
+              "$A\\land B$"
+            ],
+            "answer": 1,
+            "explain": "A term of $\\prod_{x:A} B(x)$ is a function assigning, for each $a:A$, a proof of $B(a)$ — exactly the constructive content of $\\forall x.\\ B(x)$. The non-dependent special case $\\prod_{x:A} B = A\\to B$ recovers material implication."
+          },
+          {
+            "type": "mcq",
+            "q": "Which expression correctly $\\beta$-reduces $(\\lambda x.\\,\\lambda y.\\, x)(a)(b)$?",
+            "choices": [
+              "$a$",
+              "$b$",
+              "$(a,b)$",
+              "$\\lambda x.\\,a$"
             ],
             "answer": 0,
-            "explain": "Placeholder."
+            "explain": "$(\\lambda x.\\lambda y.x)(a)\\equiv \\lambda y.a$, and applying that to $b$ gives $a$. This is the K combinator: discard the second argument."
+          },
+          {
+            "type": "numeric",
+            "q": "A term of $\\Sigma_{n:\\mathbb{N}} \\mathsf{Vec}(\\mathbb{R},n)$ is a pair $(n,v)$ with $v$ a vector of length $n$. If we project the second component of $(3,(1.0,2.0,3.0))$, how many real entries does the resulting vector have?",
+            "answer": 3,
+            "tol": 0,
+            "explain": "$\\mathrm{pr}_2$ of a Σ-pair $(a,b)$ returns $b$, here a vector of length $n=3$. The Σ-type is the dependent generalisation of a Cartesian product: the type of the second component depends on the first."
+          }
+        ]
+      },
+      "tt-identity-types": {
+        "title": "Identity types",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the unique constructor of the identity type $\\mathsf{Id}_A(a,b)$?",
+            "choices": [
+              "$\\mathsf{refl}_a:\\mathsf{Id}_A(a,a)$, which inhabits $\\mathsf{Id}_A(a,b)$ only when $a$ and $b$ are the same.",
+              "Pairs $(a,b)$ such that $a=b$ in the metatheory.",
+              "A function $A\\to A$ taking $a$ to $b$.",
+              "Any term, since identity types are always inhabited."
+            ],
+            "answer": 0,
+            "explain": "The only point-constructor for $\\mathsf{Id}_A$ is $\\mathsf{refl}$. Crucially, $\\mathsf{refl}_a$ has type $\\mathsf{Id}_A(a,a)$ — to inhabit $\\mathsf{Id}_A(a,b)$ for distinct $a,b$ you must derive a witness through other rules (the J-eliminator or transport along earlier identifications)."
+          },
+          {
+            "type": "mcq",
+            "q": "In the homotopy interpretation, an element $p:\\mathsf{Id}_A(a,b)$ is interpreted as:",
+            "choices": [
+              "The number $1$ if $a=b$ and $0$ otherwise.",
+              "A continuous path from $a$ to $b$ in the space $A$.",
+              "An arbitrary function $A\\to A$.",
+              "An element of the underlying set of $A$."
+            ],
+            "answer": 1,
+            "explain": "The path interpretation is the central idea of HoTT: types are spaces, terms are points, identifications are paths, identifications between identifications are homotopies, and so on up the tower."
+          },
+          {
+            "type": "numeric",
+            "q": "If $p:\\mathsf{Id}_A(a,b)$ and $q:\\mathsf{Id}_A(b,c)$, the concatenation $p\\cdot q$ has type $\\mathsf{Id}_A(a,?)$. What goes in the blank, given $a$ has 'index' $0$, $b$ has 'index' $1$, $c$ has 'index' $2$?",
+            "answer": 2,
+            "tol": 0,
+            "explain": "Concatenation of paths $a\\to b$ and $b\\to c$ produces a path $a\\to c$. So $p\\cdot q:\\mathsf{Id}_A(a,c)$, and the answer is the index of $c$, namely $2$."
+          }
+        ]
+      },
+      "tt-univalence": {
+        "title": "Univalence axiom",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Univalence asserts that for types $A,B$ in a universe $\\mathcal{U}$, the canonical map\n$$\\mathsf{idtoeqv}:(A=B)\\to(A\\simeq B)$$\nis:",
+            "choices": [
+              "An equivalence — i.e. $(A=B)\\simeq(A\\simeq B)$.",
+              "A bijection of underlying sets only.",
+              "Always the identity function.",
+              "Surjective but not injective."
+            ],
+            "answer": 0,
+            "explain": "Voevodsky's univalence axiom upgrades 'identifications $\\Rightarrow$ equivalences' to a full equivalence of types. Equivalent types are then identifiable, and structure transports along this identification."
+          },
+          {
+            "type": "mcq",
+            "q": "Which slogan best captures the practical effect of univalence?",
+            "choices": [
+              "Every type has at most one element.",
+              "Isomorphic structures are identical.",
+              "Every type is decidably equal to itself.",
+              "Type theory is inconsistent."
+            ],
+            "answer": 1,
+            "explain": "Univalence makes 'isomorphism is identity' a theorem of the foundation, not just a working principle. Anything you can say about $A$ that's invariant under equivalence automatically transfers to any $B\\simeq A$."
+          },
+          {
+            "type": "mcq",
+            "q": "Univalence is INCOMPATIBLE with which classical principle?",
+            "choices": [
+              "Function extensionality.",
+              "Uniqueness of identity proofs (UIP / axiom K).",
+              "The propositions-as-types reading of $\\forall$ as $\\Pi$.",
+              "Inductive definitions."
+            ],
+            "answer": 1,
+            "explain": "UIP says every two elements of $\\mathsf{Id}_A(a,b)$ are themselves equal. But under univalence, the identity type of the universe at $(\\mathbb{B},\\mathbb{B})$ has two distinct elements — $\\mathsf{refl}$ and the swap equivalence — refuting UIP."
+          }
+        ]
+      },
+      "tt-higher-inductive-types": {
+        "title": "Higher inductive types",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which of the following is the correct constructor list for the circle $S^1$ as a higher inductive type?",
+            "choices": [
+              "Two point constructors $\\mathsf{n},\\mathsf{s}$ and one path constructor $\\mathsf{loop}:\\mathsf{Id}(\\mathsf{n},\\mathsf{s})$.",
+              "One point constructor $\\mathsf{base}$ and one path constructor $\\mathsf{loop}:\\mathsf{Id}(\\mathsf{base},\\mathsf{base})$.",
+              "One point constructor $\\mathsf{base}$ only — paths are derived.",
+              "An infinite list of point constructors $\\mathsf{base}_n$ for $n\\in\\mathbb{Z}$."
+            ],
+            "answer": 1,
+            "explain": "The HoTT presentation of the circle has a single point $\\mathsf{base}:S^1$ together with a path $\\mathsf{loop}:\\mathsf{Id}_{S^1}(\\mathsf{base},\\mathsf{base})$. Iterating $\\mathsf{loop}$ produces all integer winding numbers."
+          },
+          {
+            "type": "mcq",
+            "q": "Why are higher inductive types called 'higher'?",
+            "choices": [
+              "They live in a higher universe than ordinary inductive types.",
+              "They take constructors at every dimension — points, paths, paths between paths, etc.",
+              "They require a higher-order logic to define.",
+              "They're only definable in proof assistants, not on paper."
+            ],
+            "answer": 1,
+            "explain": "Ordinary inductive types let you specify only point-level data. HITs additionally let you specify path-level identifications, and recursively higher-cell coherences — directly synthesising $n$-cells of a CW complex inside the syntax."
+          },
+          {
+            "type": "numeric",
+            "q": "The fundamental group of the circle, computed inside HoTT, is $\\Omega(S^1)\\simeq\\mathbb{Z}$. What is the order of the path $\\mathsf{loop}^3$ in $\\pi_1(S^1)$? (Enter $0$ if it has infinite order.)",
+            "answer": 0,
+            "tol": 0,
+            "explain": "$\\pi_1(S^1)\\cong\\mathbb{Z}$ is a free abelian group on the generator $\\mathsf{loop}$. The element $\\mathsf{loop}^3$ corresponds to $3\\in\\mathbb{Z}$, which has infinite order."
+          }
+        ]
+      },
+      "tt-models": {
+        "title": "Models of HoTT",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In Voevodsky's simplicial-set model, a type is interpreted as:",
+            "choices": [
+              "An arbitrary set.",
+              "A topological space up to homeomorphism.",
+              "A Kan complex (i.e. a fibrant simplicial set, an $\\infty$-groupoid).",
+              "A finite category."
+            ],
+            "answer": 2,
+            "explain": "Types are interpreted as Kan complexes — simplicial sets satisfying the horn-filling condition — which present $\\infty$-groupoids. This is the homotopy-theoretic structure that powers identity types and univalence."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the simplicial-set model satisfy univalence?",
+            "choices": [
+              "Because every Kan complex is contractible.",
+              "Because the universe of small Kan fibrations is itself fibrant and classifies equivalences.",
+              "Because every simplicial set is the nerve of a category.",
+              "Because Kan complexes are sets."
+            ],
+            "answer": 1,
+            "explain": "Voevodsky constructed a univalent universe of small Kan fibrations: a Kan complex whose paths are exactly equivalences of fibres. Inside this universe, $(A=B)$ matches $(A\\simeq B)$ by construction, validating univalence."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the foundational role of producing a model of HoTT?",
+            "choices": [
+              "It shows the theory has no useful applications.",
+              "It exhibits a consistent semantic interpretation, so HoTT is a coherent foundation, not just a syntactic game.",
+              "It replaces type theory with set theory.",
+              "It is required to run any proof assistant."
+            ],
+            "answer": 1,
+            "explain": "Models are how we know the theory is consistent: any contradiction in HoTT would yield a contradiction in the simplicial-set model (and hence in ZFC + inaccessibles). Models also make the homotopy-theoretic intuitions precise."
           }
         ]
       }
@@ -36717,18 +37593,280 @@ window.MVQuizBank = {
   "zfc-and-ordinals": {
     "topic": "zfc-and-ordinals",
     "quizzes": {
-      "zfc-and-ordinals-intro": {
-        "title": "Intro",
+      "zfc-axioms": {
+        "title": "The ZFC axioms",
         "questions": [
           {
             "type": "mcq",
-            "q": "Placeholder question — content forthcoming.",
+            "q": "Which axiom of ZFC blocks Russell's paradoxical collection $R = \\{x : x \\notin x\\}$ from being a set?",
             "choices": [
-              "A",
-              "B"
+              "Extensionality",
+              "Separation (restricted comprehension)",
+              "Power set",
+              "Choice"
+            ],
+            "answer": 1,
+            "explain": "Naive comprehension $\\{x : \\varphi(x)\\}$ is replaced by Separation: $\\{x \\in A : \\varphi(x)\\}$ for an already-given set $A$. Without an ambient set, Russell's $R$ never gets formed; Regularity additionally rules out $x \\in x$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which ZFC axiom asserts the existence of an infinite set?",
+            "choices": [
+              "Pairing",
+              "Union",
+              "Infinity",
+              "Replacement"
+            ],
+            "answer": 2,
+            "explain": "Infinity posits a set $I$ with $\\emptyset \\in I$ and $x \\in I \\Rightarrow x \\cup \\{x\\} \\in I$. The intersection of all such $I$ is $\\omega$, the set of finite von Neumann ordinals."
+          },
+          {
+            "type": "mcq",
+            "q": "Replacement strictly extends Separation. Which of the following requires Replacement (not just Separation)?",
+            "choices": [
+              "Forming $\\{n \\in \\omega : n \\text{ is even}\\}$",
+              "Forming $\\{V_n : n \\in \\omega\\}$ where $V_0=\\emptyset, V_{n+1}=\\mathcal P(V_n)$, and then taking $V_\\omega = \\bigcup V_n$",
+              "Forming $A \\cap B$ from given sets $A,B$",
+              "Forming $\\mathcal{P}(A)$ from a given set $A$"
+            ],
+            "answer": 1,
+            "explain": "Separation only filters elements out of an already-given set. Iterating $\\mathcal P$ along $\\omega$ produces the function $n \\mapsto V_n$; collecting its image into a set is exactly Replacement. Power Set then closes us off; Union assembles $V_\\omega$."
+          }
+        ]
+      },
+      "von-neumann-ordinals": {
+        "title": "Von Neumann ordinals",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Under the von Neumann encoding, which set is the ordinal $3$?",
+            "choices": [
+              "$\\{3\\}$",
+              "$\\{\\{\\{\\emptyset\\}\\}\\}$",
+              "$\\{\\emptyset, \\{\\emptyset\\}, \\{\\emptyset, \\{\\emptyset\\}\\}\\}$",
+              "$\\{1,2,3\\}$"
+            ],
+            "answer": 2,
+            "explain": "$0=\\emptyset$, $1=\\{0\\}=\\{\\emptyset\\}$, $2=\\{0,1\\}=\\{\\emptyset,\\{\\emptyset\\}\\}$, $3=\\{0,1,2\\}=\\{\\emptyset,\\{\\emptyset\\},\\{\\emptyset,\\{\\emptyset\\}\\}\\}$. Each ordinal is the set of all smaller ordinals."
+          },
+          {
+            "type": "mcq",
+            "q": "Which statement is true of every ordinal $\\alpha$?",
+            "choices": [
+              "$\\alpha \\in \\alpha$",
+              "$\\alpha$ is transitive and well-ordered by $\\in$",
+              "$\\alpha$ has a maximum element",
+              "$\\alpha$ is finite"
+            ],
+            "answer": 1,
+            "explain": "An ordinal is by definition a transitive set well-ordered by $\\in$. Regularity rules out $\\alpha\\in\\alpha$. Successor ordinals have a maximum; limit ordinals (like $\\omega$) do not."
+          },
+          {
+            "type": "numeric",
+            "q": "Among the ordinals $\\omega,\\;\\omega+1,\\;\\omega\\cdot 2,\\;\\omega^2$, how many are limit ordinals? (Recall: a limit ordinal is nonzero and not a successor.)",
+            "answer": 3,
+            "tol": 0,
+            "explain": "$\\omega$, $\\omega\\cdot 2 = \\omega+\\omega$, and $\\omega^2$ are all limits — none has an immediate predecessor. Only $\\omega+1$ is a successor (its predecessor is $\\omega$). So the count is $3$."
+          }
+        ]
+      },
+      "ordinal-arithmetic": {
+        "title": "Ordinal arithmetic",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which equality holds in ordinal arithmetic?",
+            "choices": [
+              "$1 + \\omega = \\omega + 1$",
+              "$1 + \\omega = \\omega$",
+              "$\\omega \\cdot 2 = 2 \\cdot \\omega$",
+              "$\\omega^2 = 2^\\omega$"
+            ],
+            "answer": 1,
+            "explain": "$1+\\omega$ is order type $\\bullet,0,1,2,\\dots$, which has the same order type as $\\omega$. But $\\omega+1$ has a maximum, so $\\omega+1\\ne\\omega$. Likewise $2\\cdot\\omega = \\omega \\ne \\omega\\cdot 2 = \\omega+\\omega$, and $2^\\omega = \\omega$ as ordinals (not $2^{\\aleph_0}$ as cardinals)."
+          },
+          {
+            "type": "mcq",
+            "q": "What is $\\varepsilon_0$?",
+            "choices": [
+              "The first uncountable ordinal",
+              "The cardinality of the continuum",
+              "The least ordinal $\\alpha$ with $\\omega^\\alpha = \\alpha$",
+              "An inaccessible cardinal"
+            ],
+            "answer": 2,
+            "explain": "$\\varepsilon_0$ is the supremum (and limit) of the tower $\\omega,\\;\\omega^\\omega,\\;\\omega^{\\omega^\\omega},\\dots$ — equivalently the least fixed point of $\\alpha\\mapsto\\omega^\\alpha$. It is countable but already too large for Peano arithmetic to prove well-founded (Gentzen)."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute the ordinal $(\\omega + 3) + (\\omega + 5)$ in Cantor normal form, and enter the coefficient of $\\omega^1$. (E.g. for $\\omega\\cdot 4 + 7$, enter $4$.)",
+            "answer": 2,
+            "tol": 0,
+            "explain": "$(\\omega+3)+(\\omega+5) = \\omega + (3+\\omega) + 5 = \\omega + \\omega + 5 = \\omega\\cdot 2 + 5$. The lower term $3$ is absorbed by the next $\\omega$ on its right because addition is left-distributive but not commutative. The coefficient of $\\omega^1$ is $2$."
+          }
+        ]
+      },
+      "cardinals-cofinality": {
+        "title": "Cardinals and cofinality",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why is $|\\mathbb R| = 2^{\\aleph_0}$?",
+            "choices": [
+              "Because $\\mathbb R$ is countable",
+              "Because there is an injection $\\mathbb R \\hookrightarrow \\mathcal P(\\mathbb Q)$ via Dedekind cuts and $2^{\\aleph_0}\\hookrightarrow\\mathbb R$ via binary expansions; Cantor–Schröder–Bernstein closes the gap",
+              "Because $\\mathbb R$ has dimension $2$ over $\\mathbb Q$",
+              "Because $\\mathbb R$ is well-ordered by the standard order"
+            ],
+            "answer": 1,
+            "explain": "$\\mathbb R\\hookrightarrow\\mathcal P(\\mathbb Q)\\cong 2^{\\aleph_0}$ by sending $r\\mapsto\\{q\\in\\mathbb Q: q<r\\}$. Conversely $2^{\\aleph_0}\\hookrightarrow\\mathbb R$ via binary expansions (after fixing the $0.0\\overline 1=0.1\\overline 0$ ambiguity). Cantor–Schröder–Bernstein gives the bijection."
+          },
+          {
+            "type": "mcq",
+            "q": "What is $\\operatorname{cf}(\\aleph_\\omega)$?",
+            "choices": [
+              "$\\aleph_0$",
+              "$\\aleph_\\omega$",
+              "$\\aleph_{\\omega+1}$",
+              "$\\aleph_1$"
             ],
             "answer": 0,
-            "explain": "Placeholder."
+            "explain": "$\\aleph_\\omega = \\sup_n \\aleph_n$ is the limit of a countable sequence, so its cofinality is $\\omega = \\aleph_0$. This makes $\\aleph_\\omega$ a singular cardinal — by König's theorem, $2^{\\aleph_0} \\ne \\aleph_\\omega$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which cardinal is regular?",
+            "choices": [
+              "$\\aleph_\\omega$",
+              "$\\aleph_{\\omega_1}$",
+              "$\\aleph_1$",
+              "$\\aleph_{\\omega+\\omega}$"
+            ],
+            "answer": 2,
+            "explain": "Successor cardinals $\\aleph_{\\alpha+1}$ are regular (in ZFC). Limit cardinals $\\aleph_\\lambda$ have $\\operatorname{cf}(\\aleph_\\lambda) = \\operatorname{cf}(\\lambda)$, so $\\aleph_\\omega$ and $\\aleph_{\\omega+\\omega}$ have cofinality $\\omega$ — singular. $\\aleph_{\\omega_1}$ is singular too (cofinality $\\omega_1 < \\aleph_{\\omega_1}$)."
+          }
+        ]
+      },
+      "axiom-of-choice": {
+        "title": "The axiom of choice",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which is NOT equivalent to AC over ZF?",
+            "choices": [
+              "Zorn's lemma",
+              "Every set can be well-ordered",
+              "Every vector space has a basis",
+              "Every infinite set is in bijection with $\\omega$"
+            ],
+            "answer": 3,
+            "explain": "AC is equivalent to Zorn's lemma, the well-ordering theorem, Tychonoff's theorem, and 'every vector space has a basis'. But 'every infinite set is countable' is false — Cantor showed $\\mathbb R$ is uncountable, no choice needed."
+          },
+          {
+            "type": "mcq",
+            "q": "Tychonoff's theorem (every product of compact spaces is compact) is equivalent to AC. Which restricted form is provable in ZF without choice?",
+            "choices": [
+              "The product of countably many compact Hausdorff spaces is compact",
+              "The product of any family of finite discrete spaces is compact",
+              "The product of two compact spaces is compact",
+              "All of the above need full AC"
+            ],
+            "answer": 2,
+            "explain": "Finite products of compact spaces are compact in ZF. Countable products of compact Hausdorff spaces need countable choice (DC). The general Tychonoff theorem is equivalent to AC (Kelley 1950)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which construction is known to require AC?",
+            "choices": [
+              "A bijection $\\mathbb N\\times\\mathbb N\\to\\mathbb N$",
+              "A non-measurable subset of $\\mathbb R$ (Vitali)",
+              "The supremum of a bounded set of reals",
+              "A continuous function $\\mathbb R\\to\\mathbb R$"
+            ],
+            "answer": 1,
+            "explain": "Vitali's construction picks one representative from each coset of $\\mathbb Q$ in $\\mathbb R/\\mathbb Q$, an uncountable family of non-empty sets — this is exactly a choice function. Solovay (1970) showed it is consistent with ZF+DC that every set of reals is Lebesgue measurable, so the non-measurable set really requires AC."
+          }
+        ]
+      },
+      "continuum-hypothesis": {
+        "title": "The continuum hypothesis",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What does the continuum hypothesis (CH) assert?",
+            "choices": [
+              "$|\\mathbb R| = \\aleph_0$",
+              "$|\\mathbb R| = \\aleph_1$, i.e. there is no set of size strictly between $\\aleph_0$ and $2^{\\aleph_0}$",
+              "$2^{\\aleph_0} = \\aleph_\\omega$",
+              "Every infinite subset of $\\mathbb R$ is countable"
+            ],
+            "answer": 1,
+            "explain": "CH is the statement $2^{\\aleph_0}=\\aleph_1$. Equivalently: every infinite subset of $\\mathbb R$ is either countable or in bijection with $\\mathbb R$ — there is no cardinality in between."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the status of CH in ZFC?",
+            "choices": [
+              "Provable",
+              "Refutable",
+              "Independent: consistent and consistent-with-negation, both established (Gödel 1940 + Cohen 1963)",
+              "An open problem"
+            ],
+            "answer": 2,
+            "explain": "Gödel (1940) built the constructible universe $L$, an inner model of ZFC where CH (and GCH) hold; this shows ZFC + CH is consistent. Cohen (1963) introduced forcing to build a model where CH fails. Neither half can prove CH itself."
+          },
+          {
+            "type": "mcq",
+            "q": "The technique Cohen invented to refute CH is now ubiquitous in set theory. What is its name?",
+            "choices": [
+              "Compactness",
+              "Forcing",
+              "Ultrapowers",
+              "Diagonalization"
+            ],
+            "answer": 1,
+            "explain": "Forcing adjoins to a ground model $M$ a generic filter $G$ on a partial order $\\mathbb P\\in M$, producing a larger model $M[G]\\models$ ZFC where carefully chosen statements (like $\\neg$CH) are forced to hold. It is the standard tool for independence results."
+          }
+        ]
+      },
+      "inaccessible-cardinals": {
+        "title": "Inaccessible cardinals",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "An (uncountable) inaccessible cardinal $\\kappa$ is required to be:",
+            "choices": [
+              "Regular and a strong limit ($\\lambda<\\kappa\\Rightarrow 2^\\lambda<\\kappa$)",
+              "Singular and a limit cardinal",
+              "A successor cardinal $\\aleph_{\\alpha+1}$",
+              "Equal to $\\aleph_\\omega$"
+            ],
+            "answer": 0,
+            "explain": "Inaccessible = uncountable + regular + strong limit. Both conditions ensure $V_\\kappa$ is closed under power-set and unions of size $<\\kappa$, so $V_\\kappa\\models$ ZFC."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the existence of an inaccessible cardinal strictly stronger than ZFC?",
+            "choices": [
+              "Because $V_\\kappa\\models$ ZFC, so ZFC + 'an inaccessible exists' proves Con(ZFC), which by Gödel's second incompleteness theorem ZFC alone cannot",
+              "Because inaccessibles are easy to construct from $\\omega$",
+              "Because the axiom of choice fails at $\\kappa$",
+              "Because $V_\\kappa$ has size $\\aleph_0$"
+            ],
+            "answer": 0,
+            "explain": "If ZFC + Inaccessible $\\vdash$ Con(ZFC), then ZFC alone cannot prove the existence of an inaccessible — else ZFC would prove Con(ZFC), violating Gödel II. So 'an inaccessible exists' has strictly higher consistency strength than ZFC."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the connection between inaccessibles and Grothendieck universes?",
+            "choices": [
+              "There is no connection",
+              "A Grothendieck universe is exactly $V_\\kappa$ for $\\kappa$ inaccessible (uncountable case)",
+              "Every Grothendieck universe is countable",
+              "Grothendieck universes need only ZF, not ZFC"
+            ],
+            "answer": 1,
+            "explain": "A Grothendieck universe $\\mathcal U$ is a transitive set closed under pairs, unions, power-sets, and replacement-like indexing — exactly the closure conditions $V_\\kappa$ has when $\\kappa$ is inaccessible. SGA assumes 'every set lies in a Grothendieck universe' for category-theoretic foundations; this is the universe axiom, equivalent to a proper class of inaccessibles."
           }
         ]
       }

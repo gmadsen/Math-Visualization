@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Etale fundamental group</title>
+<title>The étale fundamental group</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
@@ -252,7 +252,7 @@ function drawNode(svg, x, y, label, opts={}){
 <main>
 
 <section class="hero">
-  <h1>Etale fundamental group</h1>
+  <h1>The étale fundamental group</h1>
   <p class="sub">$\pi_1^{\acute{e}t}(X, \bar{x})$: Grothendieck's Galois theory unifying covers and fields.</p>
 </section>
 
@@ -744,6 +744,29 @@ the <strong>profinite completion</strong> of the topological $\pi_1$.</p>
 <div class="quiz" data-concept="comparison-topological"></div>
 </section>
 
+<section id="outro">
+<h2>7. Connections</h2>
+
+<p>Grothendieck’s étale $\pi_1$ is the precise sense in which "Galois theory is topology of arithmetic". The bridges below are the main places it surfaces.</p>
+
+<h3>Galois theory of fields</h3>
+
+<p>For a field $k$ with separable closure $\bar k$, $\pi_1^{\text{ét}}(\mathrm{Spec}\,k) = \mathrm{Gal}(\bar k/k)$. <a href="./galois.html">Galois theory</a> is the dimension-0 case; for $k = \mathbb{Q}$ this becomes the absolute Galois group of $\mathbb{Q}$, the great unknown of arithmetic.</p>
+
+<h3>Topology and the comparison theorem</h3>
+
+<p>For a smooth complex variety $X$, the étale $\pi_1$ is the profinite completion of the topological $\pi_1$ from <a href="./algebraic-topology.html">algebraic topology</a>. This is Grauert–Remmert / Grothendieck’s "Riemann existence theorem" — the bridge is exact.</p>
+
+<h3>Étale cohomology</h3>
+
+<p><a href="./etale-cohomology.html">Étale cohomology</a> of a constant sheaf $\mathbb{Z}/n$ becomes group cohomology of $\pi_1^{\text{ét}}$ on the stalk; the entire arithmetic-topology dictionary (Frobenius eigenvalues, Weil conjectures, Tate’s conjecture) ultimately rests on this fundamental-group description.</p>
+
+<h3>Schemes and finite étale covers</h3>
+
+<p>A finite étale cover of <a href="./schemes.html">schemes</a> is the geometric incarnation of a separable extension of fields; étale fundamental groups classify them by the same Galois-correspondence pattern as for fields.</p>
+
+<p class="small" style="margin-top:2.5rem">Open frontiers: anabelian geometry (Mochizuki–Tamagawa: when does $\pi_1^{\text{ét}}$ recover the variety?), Grothendieck’s section conjecture, and the geometric Langlands program (a representation-theoretic recasting of $\pi_1^{\text{ét}}$ for curves over function fields).</p>
+</section>
 </main>
 
 <script>

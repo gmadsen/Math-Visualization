@@ -4,11 +4,80 @@
   "page": "zfc-and-ordinals.html",
   "concepts": [
     {
-      "id": "zfc-and-ordinals-intro",
-      "title": "Intro",
-      "anchor": "intro",
-      "prereqs": [],
-      "blurb": "Placeholder — content forthcoming."
+      "id": "zfc-axioms",
+      "title": "The ZFC axioms",
+      "anchor": "axioms",
+      "prereqs": [
+        "sets-functions",
+        "cartesian-product-powerset"
+      ],
+      "blurb": "Extensionality, pairing, union, power-set, infinity, separation, replacement, regularity, choice — the nine axioms that pin down which collections are sets and rule out Russell's paradox.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "von-neumann-ordinals",
+      "title": "Von Neumann ordinals",
+      "anchor": "ordinals",
+      "prereqs": [
+        "zfc-axioms"
+      ],
+      "blurb": "Each ordinal $\\alpha$ is the set of strictly smaller ordinals: $0=\\emptyset$, $1=\\{0\\}$, $2=\\{0,1\\}$, $\\omega=\\{0,1,2,\\dots\\}$. Transfinite induction and recursion run along the well-order $\\in$."
+    },
+    {
+      "id": "ordinal-arithmetic",
+      "title": "Ordinal arithmetic",
+      "anchor": "ordinal-arith",
+      "prereqs": [
+        "von-neumann-ordinals"
+      ],
+      "blurb": "Sum, product, and exponentiation of ordinals defined by transfinite recursion. Non-commutative ($1+\\omega=\\omega\\ne\\omega+1$), and the tower $\\omega,\\omega^\\omega,\\omega^{\\omega^\\omega},\\dots$ converges to $\\varepsilon_0$."
+    },
+    {
+      "id": "cardinals-cofinality",
+      "title": "Cardinals and cofinality",
+      "anchor": "cardinals",
+      "prereqs": [
+        "von-neumann-ordinals",
+        "countability"
+      ],
+      "blurb": "$|X|$ as the least ordinal in bijection with $X$; the $\\aleph$-hierarchy $\\aleph_0,\\aleph_1,\\aleph_2,\\dots$; cofinality $\\operatorname{cf}(\\kappa)$ classifying regular vs singular cardinals; $|\\mathbb R|=2^{\\aleph_0}$.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "axiom-of-choice",
+      "title": "The axiom of choice",
+      "anchor": "choice",
+      "prereqs": [
+        "zfc-axioms",
+        "axiom-of-choice-intuition"
+      ],
+      "blurb": "AC, Zorn's lemma, and the well-ordering theorem are equivalent over ZF. Tychonoff's product theorem, existence of a Hamel basis for $\\mathbb R/\\mathbb Q$, and a non-measurable set all need it."
+    },
+    {
+      "id": "continuum-hypothesis",
+      "title": "The continuum hypothesis",
+      "anchor": "ch",
+      "prereqs": [
+        "cardinals-cofinality"
+      ],
+      "blurb": "CH: $2^{\\aleph_0}=\\aleph_1$. Gödel (1940) showed CH is consistent with ZFC; Cohen (1963) showed $\\neg$CH is too — so CH is independent. Forcing is the technique behind Cohen's half."
+    },
+    {
+      "id": "inaccessible-cardinals",
+      "title": "Inaccessible cardinals",
+      "anchor": "inaccessibles",
+      "prereqs": [
+        "cardinals-cofinality",
+        "axiom-of-choice"
+      ],
+      "blurb": "An uncountable regular strong-limit cardinal $\\kappa$ — closed under power-set and unions of size $<\\kappa$. $V_\\kappa$ is then a model of ZFC, so existence of one is strictly stronger than ZFC. Grothendieck universes are exactly $V_\\kappa$ for $\\kappa$ inaccessible.",
+      "tags": [
+        "classification"
+      ]
     }
   ]
 }

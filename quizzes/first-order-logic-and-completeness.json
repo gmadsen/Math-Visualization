@@ -1,18 +1,255 @@
 {
   "topic": "first-order-logic-and-completeness",
   "quizzes": {
-    "first-order-logic-and-completeness-intro": {
-      "title": "Intro",
+    "fol-syntax": {
+      "title": "Syntax: languages, terms, formulas",
       "questions": [
         {
           "type": "mcq",
-          "q": "Placeholder question — content forthcoming.",
+          "q": "In the formula $\\forall x\\,(P(x) \\to \\exists y\\, R(x,y)) \\land Q(z)$, which variables occur free?",
           "choices": [
-            "A",
-            "B"
+            "$x$ only",
+            "$y$ only",
+            "$z$ only",
+            "$x$ and $z$"
+          ],
+          "answer": 2,
+          "explain": "$x$ is bound by $\\forall x$ inside the first conjunct; $y$ is bound by $\\exists y$. $Q(z)$ is outside any quantifier scope, so $z$ is the only free variable."
+        },
+        {
+          "type": "numeric",
+          "q": "How many distinct terms of depth at most $1$ can be built from one constant $c$, one unary function $f$, and one variable $x$? (Depth $0$: variable or constant. Depth $1$: $f$ applied to a depth-$0$ term.)",
+          "answer": 4,
+          "tol": 0,
+          "explain": "Depth-$0$ terms: $c, x$ (2). Depth-$1$ terms: $f(c), f(x)$ (2). Total $2 + 2 = 4$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is a well-formed first-order formula in the language of arithmetic $\\{0, 1, +, \\cdot, =, <\\}$?",
+          "choices": [
+            "$\\forall x\\,\\exists y\\,(x + y = 1)$",
+            "$\\forall < (x \\cdot y)$",
+            "$\\exists\\, +\\, (x = y)$",
+            "$\\forall x\\,(x)$"
           ],
           "answer": 0,
-          "explain": "Placeholder."
+          "explain": "The first is a sentence: 'every $x$ has an additive complement to $1$'. The others misuse symbols: relation/function symbols cannot be quantified over (that would be second-order), and $(x)$ is not a formula."
+        }
+      ]
+    },
+    "fol-semantics": {
+      "title": "Tarski semantics and structures",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Let $\\mathfrak{A} = (\\mathbb{Z}, +, 0)$ in the language $\\{+, 0\\}$. Which sentence is $\\mathfrak{A}$ a model of?",
+          "choices": [
+            "$\\forall x\\,\\exists y\\,(x + y = 0)$",
+            "$\\forall x\\,(x + x = 0)$",
+            "$\\exists x\\,\\forall y\\,(x + y = y \\land x \\ne 0)$",
+            "$\\forall x\\,(x = 0)$"
+          ],
+          "answer": 0,
+          "explain": "Every integer has an additive inverse: $y = -x$. The second fails for $x = 1$. The third asks for a non-zero additive identity. The fourth is trivially false."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $\\mathfrak{A}$ be the structure on $\\{a,b,c\\}$ where $R$ is interpreted as the relation $\\{(a,b),(b,c),(a,c)\\}$. How many ordered pairs $(x,y)$ satisfy $\\mathfrak{A}\\models R(x,y) \\lor R(y,x)$?",
+          "answer": 6,
+          "tol": 0,
+          "explain": "The relation $R \\cup R^{-1}$ has $3$ pairs each from $R$ and $R^{-1}$, all distinct: $(a,b),(b,c),(a,c),(b,a),(c,b),(c,a)$. So $6$ pairs."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct definition of $\\mathfrak{A}\\models \\forall x\\,\\varphi(x)\\,[s]$ under Tarski's recursion (with $s$ an assignment, $s[x\\mapsto a]$ the update)?",
+          "choices": [
+            "$\\mathfrak{A}\\models \\varphi(x)\\,[s]$ for some $a$ in the domain.",
+            "$\\mathfrak{A}\\models \\varphi(x)\\,[s[x\\mapsto a]]$ for every $a$ in the domain.",
+            "$\\mathfrak{A}\\models \\varphi(a)$ for every closed term $a$.",
+            "$\\mathfrak{A}\\models \\varphi(x)$ when $s$ is the empty assignment."
+          ],
+          "answer": 1,
+          "explain": "The semantic clause for $\\forall x$ is: $\\varphi$ holds for every value of $x$ ranging over the domain — i.e. for the modified assignment $s[x\\mapsto a]$ as $a$ varies. Restricting to closed terms is wrong: domains may contain elements named by no closed term."
+        }
+      ]
+    },
+    "fol-deduction": {
+      "title": "Deduction: proof systems and soundness",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The soundness theorem $\\Gamma\\vdash\\varphi \\Rightarrow \\Gamma\\models\\varphi$ is proved by:",
+          "choices": [
+            "Constructing a model of $\\Gamma$ in which $\\varphi$ fails.",
+            "Induction on the length of the formal proof, checking each axiom is valid and each rule preserves validity.",
+            "Diagonalisation against the set of provable formulas.",
+            "The compactness theorem applied to $\\Gamma \\cup \\{\\neg\\varphi\\}$."
+          ],
+          "answer": 1,
+          "explain": "Soundness is proved by induction on proofs. Logical axioms are tautologies, hence valid; rules like modus ponens preserve truth in every structure. Therefore every theorem of the calculus is semantically valid."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is the universal generalisation rule (or a correct restriction of it)?",
+          "choices": [
+            "From $\\Gamma\\vdash\\varphi(x)$ infer $\\Gamma\\vdash\\forall x\\,\\varphi(x)$, provided $x$ is not free in any formula of $\\Gamma$.",
+            "From $\\Gamma\\vdash\\varphi(x)$ infer $\\Gamma\\vdash\\forall x\\,\\varphi(x)$ unconditionally.",
+            "From $\\Gamma\\vdash\\varphi(c)$ for some constant $c$ infer $\\Gamma\\vdash\\forall x\\,\\varphi(x)$ unconditionally.",
+            "From $\\Gamma\\vdash\\exists x\\,\\varphi(x)$ infer $\\Gamma\\vdash\\forall x\\,\\varphi(x)$."
+          ],
+          "answer": 0,
+          "explain": "The side condition '$x$ not free in $\\Gamma$' is essential: from $\\{P(x)\\}$ we must NOT conclude $\\forall x\\,P(x)$, since $x$ is being used as a name. Dropping the side condition gives an unsound rule."
+        },
+        {
+          "type": "numeric",
+          "q": "In a Hilbert system with modus ponens as the only inference rule, how many premises does an application of MP take?",
+          "answer": 2,
+          "tol": 0,
+          "explain": "Modus ponens: from $\\varphi$ and $\\varphi\\to\\psi$ infer $\\psi$. Two premises."
+        }
+      ]
+    },
+    "fol-completeness": {
+      "title": "Gödel's completeness theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Gödel's completeness theorem states:",
+          "choices": [
+            "Every true sentence of arithmetic is provable in PA.",
+            "$\\Gamma\\vdash\\varphi$ if and only if $\\Gamma\\models\\varphi$, equivalently every consistent theory has a model.",
+            "Every theory is decidable.",
+            "Every formula is equivalent to a quantifier-free formula."
+          ],
+          "answer": 1,
+          "explain": "Completeness equates syntactic provability with semantic entailment. The first option is the (false) statement that Gödel's incompleteness theorem refutes. The third and fourth are unrelated."
+        },
+        {
+          "type": "mcq",
+          "q": "Henkin's proof of completeness builds a model of a consistent theory $T$ by:",
+          "choices": [
+            "Extending $T$ to a maximal consistent theory with witnesses ($\\exists x\\,\\varphi \\Rightarrow \\varphi(c)$ for some constant $c$), then taking closed terms modulo provable equality as the domain.",
+            "Applying the compactness theorem directly.",
+            "Diagonalising against all $\\mathcal{L}$-structures.",
+            "Constructing a forcing extension of the standard model."
+          ],
+          "answer": 0,
+          "explain": "Henkin's recipe: (1) add witness constants for every existential, in a chain; (2) Lindenbaum-extend to maximal consistency; (3) define $s\\sim t$ iff $T\\vdash s=t$; the quotient set of closed terms is the domain. Truth in this term model coincides with provability."
+        },
+        {
+          "type": "numeric",
+          "q": "A consistent theory $T$ has at least how many models? (By the completeness theorem, the minimum guaranteed.)",
+          "answer": 1,
+          "tol": 0,
+          "explain": "Consistency $\\iff$ existence of a model. So at least $1$."
+        }
+      ]
+    },
+    "fol-compactness": {
+      "title": "Compactness and non-standard models",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The compactness theorem states that a set $\\Sigma$ of first-order sentences is satisfiable iff:",
+          "choices": [
+            "$\\Sigma$ is finite.",
+            "Every finite subset of $\\Sigma$ is satisfiable.",
+            "$\\Sigma$ is countable.",
+            "$\\Sigma$ is decidable."
+          ],
+          "answer": 1,
+          "explain": "Finite-satisfiability of every finite subset implies global satisfiability. Proof: by completeness, satisfiability $\\iff$ consistency, and inconsistency requires a finite proof, hence a finite inconsistent subset."
+        },
+        {
+          "type": "mcq",
+          "q": "To build a non-standard model of arithmetic from $\\mathrm{Th}(\\mathbb{N})$ via compactness, one adds a fresh constant $c$ and the sentences:",
+          "choices": [
+            "$c = 0, c = 1, c = 2, \\ldots$",
+            "$c \\ne \\overline{n}$ for every $n \\in \\mathbb{N}$ (where $\\overline{n}$ is the numeral for $n$).",
+            "$c < c$.",
+            "$\\forall x\\,(x < c)$."
+          ],
+          "answer": 1,
+          "explain": "Each finite subset of $\\mathrm{Th}(\\mathbb{N}) \\cup \\{c \\ne \\overline{n} : n \\in \\mathbb{N}\\}$ is satisfiable in $\\mathbb{N}$ (interpret $c$ as a number larger than all numerals mentioned), so the whole set is satisfiable. The resulting model contains $c$ different from every standard numeral — a non-standard element."
+        },
+        {
+          "type": "numeric",
+          "q": "Downward Löwenheim–Skolem: a satisfiable theory in a countable language has a model of cardinality $\\aleph_n$ for some $n$. Enter the smallest such $n$.",
+          "answer": 0,
+          "tol": 0,
+          "explain": "A countable model has cardinality $\\aleph_0$, so $n=0$."
+        }
+      ]
+    },
+    "fol-lowenheim-skolem": {
+      "title": "Löwenheim–Skolem and Skolem's paradox",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The downward Löwenheim–Skolem theorem says:",
+          "choices": [
+            "Every theory has a finite model.",
+            "Every satisfiable theory in a countable first-order language has a countable model.",
+            "Every consistent theory has a unique model up to isomorphism.",
+            "Every model has a countable elementary extension."
+          ],
+          "answer": 1,
+          "explain": "Downward LS: countable language + satisfiable $\\Rightarrow$ countable model. Upward LS would say models can be made arbitrarily large. Uniqueness of models is categoricity, a separate notion."
+        },
+        {
+          "type": "mcq",
+          "q": "Skolem's paradox concerns the fact that:",
+          "choices": [
+            "ZFC is inconsistent.",
+            "ZFC has a countable model $M$, yet $M\\models$ '$\\mathbb{R}$ is uncountable'. The bijection $\\mathbb{N}\\to\\mathbb{R}^M$ exists externally but is not an element of $M$.",
+            "Every model of ZFC must be uncountable.",
+            "Cantor's theorem fails in non-standard models."
+          ],
+          "answer": 1,
+          "explain": "Skolem's resolution: 'uncountable in $M$' means 'no bijection $\\mathbb{N}^M\\to\\mathbb{R}^M$ exists inside $M$'. The external bijection is invisible to $M$. Uncountability is not absolute between models."
+        },
+        {
+          "type": "numeric",
+          "q": "If a first-order theory in a countable language has an infinite model, by upward Löwenheim–Skolem it has models of every cardinality $\\kappa \\ge \\aleph_n$. Enter the smallest such $n$.",
+          "answer": 0,
+          "tol": 0,
+          "explain": "Upward LS: an infinite model implies models of every cardinality $\\kappa \\ge \\max(\\aleph_0, |\\mathcal{L}|) = \\aleph_0$. So $n=0$."
+        }
+      ]
+    },
+    "fol-decidable-theories": {
+      "title": "Decidable theories and quantifier elimination",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A complete, recursively axiomatised first-order theory is automatically:",
+          "choices": [
+            "Inconsistent.",
+            "Decidable: there is an algorithm that, given $\\varphi$, decides whether $T\\vdash\\varphi$.",
+            "Categorical in every cardinality.",
+            "Finite."
+          ],
+          "answer": 1,
+          "explain": "Algorithm: enumerate proofs from the recursive axioms. Since $T$ is complete, exactly one of $\\varphi, \\neg\\varphi$ is a theorem; whichever appears first is the answer. Without completeness, some sentences are independent; without recursive axiomatisation we cannot enumerate proofs."
+        },
+        {
+          "type": "mcq",
+          "q": "Which theory admits quantifier elimination?",
+          "choices": [
+            "Peano arithmetic.",
+            "ZFC.",
+            "The theory of algebraically closed fields of fixed characteristic (ACF$_p$).",
+            "True arithmetic $\\mathrm{Th}(\\mathbb{N}, +, \\cdot, 0, 1)$."
+          ],
+          "answer": 2,
+          "explain": "ACF$_p$ admits QE in the language of rings: every formula is equivalent to a Boolean combination of polynomial equations (Tarski–Chevalley). PA and ZFC are incomplete; true arithmetic is undecidable (Tarski), so it does not admit QE."
+        },
+        {
+          "type": "numeric",
+          "q": "DLO (dense linear orders without endpoints) is $\\aleph_0$-categorical. How many countable models does DLO have, up to isomorphism?",
+          "answer": 1,
+          "tol": 0,
+          "explain": "Cantor's back-and-forth: any two countable dense linear orders without endpoints are isomorphic to $(\\mathbb{Q}, <)$. Exactly $1$ countable model up to isomorphism."
         }
       ]
     }

@@ -1,18 +1,225 @@
 {
   "topic": "model-theory-basics",
   "quizzes": {
-    "model-theory-basics-intro": {
-      "title": "Intro",
+    "mt-structures": {
+      "title": "Structures and signatures",
       "questions": [
         {
           "type": "mcq",
-          "q": "Placeholder question — content forthcoming.",
+          "q": "Which of the following is the standard signature for the theory of (unital) rings?",
           "choices": [
-            "A",
-            "B"
+            "$\\sigma = \\{<\\}$ (one binary relation)",
+            "$\\sigma = \\{0, 1, +, \\cdot, -\\}$ (two constants, two binary operations, one unary operation)",
+            "$\\sigma = \\{e, \\cdot, ^{-1}\\}$ (one constant, one binary, one unary)",
+            "$\\sigma = \\{\\in\\}$ (one binary relation)"
+          ],
+          "answer": 1,
+          "explain": "Ring axioms quantify over $0$, $1$, addition, multiplication, and additive inverse, so the natural signature is $\\{0,1,+,\\cdot,-\\}$. The third option is the signature of groups; the fourth is the signature of set theory; the first is the signature of orders."
+        },
+        {
+          "type": "numeric",
+          "q": "How many distinct $\\sigma$-structures are there on the two-element domain $\\{0,1\\}$ when $\\sigma = \\{R\\}$ has a single binary relation symbol?",
+          "answer": 16,
+          "tol": 0,
+          "explain": "A binary relation on a $2$-element set is a subset of $\\{0,1\\}^2$, which has $4$ ordered pairs. The number of subsets is $2^4 = 16$."
+        },
+        {
+          "type": "mcq",
+          "q": "Let $\\mathfrak{A} = (\\{1,2,3\\}; <)$ where $<$ is interpreted as the strict ordering $1<2<3$. Which sentence does $\\mathfrak{A}$ satisfy?",
+          "choices": [
+            "$\\forall x\\,\\exists y\\,(x < y)$",
+            "$\\forall x\\,\\forall y\\,(x < y \\to y < x)$",
+            "$\\exists x\\,\\forall y\\,(\\neg (y < x))$",
+            "$\\forall x\\,(x < x)$"
+          ],
+          "answer": 2,
+          "explain": "Choice 3 says 'there is a minimum'; the element $1$ witnesses it (no $y<1$). Choice 1 fails at $x=3$ (no upper element). Choice 2 says $<$ is symmetric, false. Choice 4 says $<$ is reflexive, false."
+        }
+      ]
+    },
+    "mt-elementary-equivalence": {
+      "title": "Elementary equivalence",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Two $\\sigma$-structures $\\mathfrak{A}$ and $\\mathfrak{B}$ are <em>elementarily equivalent</em> ($\\mathfrak{A}\\equiv\\mathfrak{B}$) when:",
+          "choices": [
+            "There is a bijection $A\\to B$ preserving every relation and operation.",
+            "They satisfy exactly the same first-order $\\sigma$-sentences.",
+            "They have the same cardinality.",
+            "Every formula true in $\\mathfrak{A}$ has a witness in $\\mathfrak{B}$."
+          ],
+          "answer": 1,
+          "explain": "By definition, $\\mathfrak{A}\\equiv\\mathfrak{B}$ iff $\\mathrm{Th}(\\mathfrak{A}) = \\mathrm{Th}(\\mathfrak{B})$ — the same first-order sentences are true in both. Choice 1 is isomorphism (strictly stronger). Cardinality is invisible to first-order logic."
+        },
+        {
+          "type": "mcq",
+          "q": "Which pair of structures is elementarily equivalent in the language of orders $\\{<\\}$?",
+          "choices": [
+            "$(\\mathbb{N}, <)$ and $(\\mathbb{Z}, <)$",
+            "$(\\mathbb{Q}, <)$ and $(\\mathbb{R}, <)$",
+            "$(\\mathbb{Z}, <)$ and $(\\mathbb{Q}, <)$",
+            "$(\\{0,1\\}, <)$ and $(\\{0,1,2\\}, <)$"
+          ],
+          "answer": 1,
+          "explain": "$(\\mathbb{Q},<)$ and $(\\mathbb{R},<)$ are both dense linear orders without endpoints, and DLO is a complete theory — so they are elementarily equivalent. $\\mathbb{N}$ has a minimum (false in $\\mathbb{Z}$), $\\mathbb{Z}$ is discrete (every element has an immediate successor; false in $\\mathbb{Q}$), and finite structures of different sizes can always be separated by a sentence counting elements."
+        },
+        {
+          "type": "numeric",
+          "q": "How many distinct first-order theories (= equivalence classes under $\\equiv$) are there among finite linear orders in the language $\\{<\\}$? (Hint: a finite linear order is determined up to isomorphism by its size, and isomorphic structures are elementarily equivalent.)",
+          "answer": 0,
+          "tol": 0,
+          "explain": "Trick question — there are infinitely many. For each $n\\ge 1$ the sentence 'there are exactly $n$ elements' picks out a unique equivalence class, and these classes are all distinct. Enter $0$ to mean the count is unbounded. (Strictly: countably infinitely many.)",
+          "tol_note": "Author note: this question is designed to be flagged as 'unbounded' — answer 0 is the convention here."
+        }
+      ]
+    },
+    "mt-isomorphism-vs-equivalence": {
+      "title": "Isomorphism vs elementary equivalence",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For two <em>finite</em> $\\sigma$-structures over a finite signature, which implication holds?",
+          "choices": [
+            "$\\mathfrak{A}\\equiv\\mathfrak{B} \\iff \\mathfrak{A}\\cong\\mathfrak{B}$",
+            "$\\mathfrak{A}\\cong\\mathfrak{B} \\Rightarrow \\mathfrak{A}\\equiv\\mathfrak{B}$ but not the converse",
+            "$\\mathfrak{A}\\equiv\\mathfrak{B} \\Rightarrow \\mathfrak{A}\\cong\\mathfrak{B}$ but not the converse",
+            "Neither implication holds in general"
           ],
           "answer": 0,
-          "explain": "Placeholder."
+          "explain": "For finite structures the two notions coincide. Isomorphism always implies elementary equivalence (any iso preserves truth of every formula). Conversely, on a finite structure the complete first-order theory pins down the isomorphism type — you can write a sentence describing the entire diagram."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is a correct example of two infinite structures $\\mathfrak{A}\\equiv\\mathfrak{B}$ that are <em>not</em> isomorphic?",
+          "choices": [
+            "$(\\mathbb{Z}, +, 0)$ and $(\\mathbb{Q}, +, 0)$",
+            "$(\\mathbb{Q}, <)$ and $(\\mathbb{R}, <)$",
+            "$(\\mathbb{N}, +, \\cdot)$ and $(\\mathbb{Z}, +, \\cdot)$",
+            "$(\\mathbb{R}, +, \\cdot)$ and $(\\mathbb{C}, +, \\cdot)$"
+          ],
+          "answer": 1,
+          "explain": "$(\\mathbb{Q},<)$ and $(\\mathbb{R},<)$ are both models of DLO (a complete theory), so they are elementarily equivalent; but they have different cardinalities, so they are not isomorphic. The other pairs differ in first-order properties (e.g. divisibility, sentence about $-1$, $\\sqrt{-1}$)."
+        },
+        {
+          "type": "numeric",
+          "q": "By Cantor's back-and-forth theorem, how many isomorphism classes of <em>countable</em> dense linear orders without endpoints exist?",
+          "answer": 1,
+          "tol": 0,
+          "explain": "Cantor proved that any two countable dense linear orders without endpoints are isomorphic, via a back-and-forth construction. So there is exactly $1$ isomorphism class. This is the model-theoretic statement that DLO is $\\aleph_0$-categorical."
+        }
+      ]
+    },
+    "mt-types-and-saturation": {
+      "title": "Types and saturation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A complete $1$-type $p(x)$ over a structure $\\mathfrak{A}$ is:",
+          "choices": [
+            "A formula $\\varphi(x)$ defining a single element of $A$.",
+            "A maximal consistent set of formulas $\\varphi(x)$ with parameters from $A$.",
+            "An automorphism of $\\mathfrak{A}$ fixing $x$.",
+            "An $\\mathfrak{A}$-definable subset of $A$."
+          ],
+          "answer": 1,
+          "explain": "A complete type is the maximal consistent first-order description of (a possible) element. By compactness it is always realised in some elementary extension of $\\mathfrak{A}$ — it may or may not be realised inside $\\mathfrak{A}$ itself."
+        },
+        {
+          "type": "mcq",
+          "q": "In the structure $(\\mathbb{Q},<)$, consider the type 'element greater than every rational $q\\in\\mathbb{Q}$', i.e. $p(x) = \\{x > q : q\\in\\mathbb{Q}\\}$. Which is true?",
+          "choices": [
+            "$p(x)$ is inconsistent — so it does not define a type.",
+            "$p(x)$ is realised in $(\\mathbb{Q},<)$.",
+            "$p(x)$ is consistent and omitted in $(\\mathbb{Q},<)$, but realised in some elementary extension by compactness.",
+            "$p(x)$ has no consistent extension to a complete type."
+          ],
+          "answer": 2,
+          "explain": "Every finite subset of $p$ is consistent (witness: any rational larger than the finite list of $q$'s mentioned), so by compactness $p$ is consistent. But no rational is larger than every rational, so $p$ is omitted in $(\\mathbb{Q},<)$. Compactness produces an elementary extension where it is realised — that extension contains a 'point at infinity'."
+        },
+        {
+          "type": "numeric",
+          "q": "A structure $\\mathfrak{A}$ is <em>$\\omega$-saturated</em> if every type over a finite parameter set is realised in $\\mathfrak{A}$. The countable random graph is $\\omega$-saturated; the dense linear order $(\\mathbb{Q},<)$ also is. How many distinct complete $1$-types over the empty parameter set does the theory DLO have?",
+          "answer": 1,
+          "tol": 0,
+          "explain": "DLO is a complete theory, and over the empty set there is exactly one complete $1$-type — every element of a model satisfies the same formulas in $\\{<\\}$ with no parameters. (Once you add even one parameter, the type space splits into 'less than', 'equal to', 'greater than' that parameter.)"
+        }
+      ]
+    },
+    "mt-ehrenfeucht-fraisse": {
+      "title": "Ehrenfeucht–Fraïssé games",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Ehrenfeucht–Fraïssé theorem states that Duplicator has a winning strategy in the $n$-round EF game on $\\mathfrak{A}$ vs $\\mathfrak{B}$ iff:",
+          "choices": [
+            "$\\mathfrak{A}$ and $\\mathfrak{B}$ are isomorphic.",
+            "$\\mathfrak{A}$ and $\\mathfrak{B}$ agree on every first-order sentence of quantifier rank $\\le n$.",
+            "$\\mathfrak{A}$ and $\\mathfrak{B}$ have the same cardinality.",
+            "$\\mathfrak{A}$ embeds into $\\mathfrak{B}$ as an elementary substructure."
+          ],
+          "answer": 1,
+          "explain": "EF games measure agreement up to <em>quantifier rank</em>: an $n$-round Duplicator strategy exactly captures indistinguishability by rank-$n$ sentences. As $n\\to\\infty$ this approaches full elementary equivalence (for finite signatures)."
+        },
+        {
+          "type": "numeric",
+          "q": "Consider the linear orders $\\mathfrak{A}=(\\{0,1,2\\},<)$ and $\\mathfrak{B}=(\\{0,1,2,3\\},<)$. What is the largest $n$ for which Duplicator wins the $n$-round EF game on $\\mathfrak{A}$ vs $\\mathfrak{B}$? (Hint: a sentence of quantifier rank $n$ can count up to roughly $2^n$ elements; here a rank-$2$ sentence already separates them.)",
+          "answer": 1,
+          "tol": 0,
+          "explain": "With $1$ round Duplicator can match either's chosen element to a counterpart in the other; both orders look like 'one element' from a first-order perspective at rank $1$. With $2$ rounds Spoiler picks the largest element in $\\mathfrak{B}$, then the second-largest; in $\\mathfrak{A}$ Duplicator runs out of distinct space to copy this configuration. So $n=1$ is the largest Duplicator winning round count."
+        },
+        {
+          "type": "mcq",
+          "q": "Which property of finite graphs is <em>not</em> first-order definable, as proved by an EF-game argument?",
+          "choices": [
+            "'Has at least 5 vertices.'",
+            "'Is connected.'",
+            "'Contains a triangle.'",
+            "'Every vertex has degree exactly 2.'"
+          ],
+          "answer": 1,
+          "explain": "Connectivity is the canonical example of a non-FO-definable property. The proof: for any $n$, a long cycle $C_{2n+1}$ (connected) and a disjoint union $C_n \\sqcup C_{n+1}$ (disconnected) agree on every sentence of quantifier rank $\\le n$, by an EF-game argument. The other three are FO-definable: count vertices, count edges in a triangle, count neighbours."
+        }
+      ]
+    },
+    "mt-applications-to-algebra": {
+      "title": "Applications to algebra",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The theory ACF$_0$ (algebraically closed fields of characteristic $0$) is:",
+          "choices": [
+            "Incomplete — it has elementarily inequivalent models.",
+            "Complete — all of its models are elementarily equivalent.",
+            "Inconsistent — it has no models.",
+            "Categorical in every cardinality."
+          ],
+          "answer": 1,
+          "explain": "ACF$_0$ is a complete theory: any two algebraically closed fields of characteristic $0$ are elementarily equivalent (this is essentially the Lefschetz principle). It is categorical in <em>uncountable</em> cardinalities (Steinitz: transcendence degree determines isomorphism type) but not in $\\aleph_0$ — countable ACF$_0$'s of different transcendence degrees are not isomorphic."
+        },
+        {
+          "type": "mcq",
+          "q": "The Ax–Grothendieck theorem states that every injective polynomial map $f: \\mathbb{C}^n \\to \\mathbb{C}^n$ is surjective. The model-theoretic proof reduces it to:",
+          "choices": [
+            "The fundamental theorem of algebra over $\\mathbb{C}$.",
+            "The fact that injective maps on finite sets are surjective, plus a transfer principle from the algebraic closures of finite fields to $\\mathbb{C}$.",
+            "Bezout's theorem in projective space.",
+            "Hilbert's Nullstellensatz."
+          ],
+          "answer": 1,
+          "explain": "The proof: 'injective $\\Rightarrow$ surjective' is a first-order schema (one sentence per pair of degree bounds). It holds trivially in every algebraic closure $\\overline{\\mathbb{F}_p}$ — those fields are unions of finite fields, where injections of finite sets are bijections. By the Lefschetz principle (ACF$_0$ and ACF$_p$ for large $p$ agree on first-order sentences), it holds in $\\mathbb{C}$. This is the canonical 'compactness + transfer' application."
+        },
+        {
+          "type": "mcq",
+          "q": "A theory $T$ is <em>model-complete</em> when every embedding between models is an elementary embedding. ACF is model-complete because:",
+          "choices": [
+            "Every algebraic closure is unique up to isomorphism.",
+            "ACF admits quantifier elimination (so existential formulas pull back along embeddings).",
+            "Algebraically closed fields are categorical in all cardinalities.",
+            "The Galois group of the algebraic closure is trivial."
+          ],
+          "answer": 1,
+          "explain": "Model-completeness is equivalent to: every formula is equivalent (modulo $T$) to an $\\exists$-formula whose existential witness, if it exists in any model, exists in any extension. ACF has full quantifier elimination, which implies model-completeness. The other options are true facts about ACF but don't directly give model-completeness."
         }
       ]
     }

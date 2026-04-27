@@ -304,11 +304,79 @@ window.__MVConcepts = {
       "page": "first-order-logic-and-completeness.html",
       "concepts": [
         {
-          "id": "first-order-logic-and-completeness-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "fol-syntax",
+          "title": "Syntax: languages, terms, formulas",
+          "anchor": "syntax",
+          "prereqs": [
+            "naive-set-theory:sets-functions"
+          ],
+          "blurb": "A first-order language $\\mathcal{L}$ is a triple of constant, function, and relation symbols (with arities). Terms are built from variables, constants, and function applications; formulas from atomic predicates by Boolean connectives and quantifiers $\\forall, \\exists$. Free vs bound variables; sentences are formulas with no free variables.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "fol-semantics",
+          "title": "Tarski semantics and structures",
+          "anchor": "semantics",
+          "prereqs": [
+            "fol-syntax"
+          ],
+          "blurb": "An $\\mathcal{L}$-structure $\\mathfrak{A}$ interprets each symbol on a non-empty domain. With a variable assignment $s$, terms denote elements and formulas denote truth values; $\\mathfrak{A}\\models\\varphi[s]$ is defined by recursion. A theory $T$ is satisfiable iff some $\\mathfrak{A}\\models T$, and $T\\models\\varphi$ iff every model of $T$ satisfies $\\varphi$.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "fol-deduction",
+          "title": "Deduction: proof systems and soundness",
+          "anchor": "deduction",
+          "prereqs": [
+            "fol-syntax"
+          ],
+          "blurb": "A Hilbert-style or natural-deduction calculus assigns formal proofs $\\Gamma\\vdash\\varphi$. Soundness: $\\Gamma\\vdash\\varphi \\Rightarrow \\Gamma\\models\\varphi$, proved by induction on proofs. The hard direction — completeness — is the converse and is Gödel's theorem.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "fol-completeness",
+          "title": "Gödel's completeness theorem",
+          "anchor": "completeness",
+          "prereqs": [
+            "fol-semantics",
+            "fol-deduction"
+          ],
+          "blurb": "$\\Gamma\\vdash\\varphi \\iff \\Gamma\\models\\varphi$. Equivalently, every consistent theory has a model. Henkin's proof: add witness constants for every $\\exists x\\,\\psi(x)$, extend to a maximal consistent Henkin theory, then take the term model — closed terms modulo provable equality — as the canonical structure."
+        },
+        {
+          "id": "fol-compactness",
+          "title": "Compactness and non-standard models",
+          "anchor": "compactness",
+          "prereqs": [
+            "fol-completeness",
+            "compactness"
+          ],
+          "blurb": "Compactness theorem: a set of sentences is satisfiable iff every finite subset is. An immediate corollary of completeness, since proofs are finite. Adding a constant $c$ with $c>0, c>1, c>2,\\ldots$ to Peano arithmetic gives a consistent extension, hence a non-standard model of $\\mathbb{N}$ containing infinite elements."
+        },
+        {
+          "id": "fol-lowenheim-skolem",
+          "title": "Löwenheim–Skolem and Skolem's paradox",
+          "anchor": "lowenheim-skolem",
+          "prereqs": [
+            "fol-completeness",
+            "countability"
+          ],
+          "blurb": "Downward Löwenheim–Skolem: any satisfiable theory in a countable language has a countable model. Applied to ZFC, this yields a countable model of set theory — even though ZFC proves $\\mathbb{R}$ is uncountable. The 'paradox' is resolved: 'uncountable' is internal; the bijection witnessing countability lives outside the model."
+        },
+        {
+          "id": "fol-decidable-theories",
+          "title": "Decidable theories and quantifier elimination",
+          "anchor": "decidable",
+          "prereqs": [
+            "fol-completeness"
+          ],
+          "blurb": "A theory $T$ is decidable if there's an algorithm to test $T\\vdash\\varphi$. Complete + recursively axiomatised $\\Rightarrow$ decidable. Quantifier elimination (e.g. for dense linear orders without endpoints, real closed fields, algebraically closed fields) reduces every formula to a quantifier-free one, giving decidability and a clean structure theory of definable sets."
         }
       ]
     },
@@ -318,11 +386,80 @@ window.__MVConcepts = {
       "page": "zfc-and-ordinals.html",
       "concepts": [
         {
-          "id": "zfc-and-ordinals-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "zfc-axioms",
+          "title": "The ZFC axioms",
+          "anchor": "axioms",
+          "prereqs": [
+            "sets-functions",
+            "cartesian-product-powerset"
+          ],
+          "blurb": "Extensionality, pairing, union, power-set, infinity, separation, replacement, regularity, choice — the nine axioms that pin down which collections are sets and rule out Russell's paradox.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "von-neumann-ordinals",
+          "title": "Von Neumann ordinals",
+          "anchor": "ordinals",
+          "prereqs": [
+            "zfc-axioms"
+          ],
+          "blurb": "Each ordinal $\\alpha$ is the set of strictly smaller ordinals: $0=\\emptyset$, $1=\\{0\\}$, $2=\\{0,1\\}$, $\\omega=\\{0,1,2,\\dots\\}$. Transfinite induction and recursion run along the well-order $\\in$."
+        },
+        {
+          "id": "ordinal-arithmetic",
+          "title": "Ordinal arithmetic",
+          "anchor": "ordinal-arith",
+          "prereqs": [
+            "von-neumann-ordinals"
+          ],
+          "blurb": "Sum, product, and exponentiation of ordinals defined by transfinite recursion. Non-commutative ($1+\\omega=\\omega\\ne\\omega+1$), and the tower $\\omega,\\omega^\\omega,\\omega^{\\omega^\\omega},\\dots$ converges to $\\varepsilon_0$."
+        },
+        {
+          "id": "cardinals-cofinality",
+          "title": "Cardinals and cofinality",
+          "anchor": "cardinals",
+          "prereqs": [
+            "von-neumann-ordinals",
+            "countability"
+          ],
+          "blurb": "$|X|$ as the least ordinal in bijection with $X$; the $\\aleph$-hierarchy $\\aleph_0,\\aleph_1,\\aleph_2,\\dots$; cofinality $\\operatorname{cf}(\\kappa)$ classifying regular vs singular cardinals; $|\\mathbb R|=2^{\\aleph_0}$.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "axiom-of-choice",
+          "title": "The axiom of choice",
+          "anchor": "choice",
+          "prereqs": [
+            "zfc-axioms",
+            "axiom-of-choice-intuition"
+          ],
+          "blurb": "AC, Zorn's lemma, and the well-ordering theorem are equivalent over ZF. Tychonoff's product theorem, existence of a Hamel basis for $\\mathbb R/\\mathbb Q$, and a non-measurable set all need it."
+        },
+        {
+          "id": "continuum-hypothesis",
+          "title": "The continuum hypothesis",
+          "anchor": "ch",
+          "prereqs": [
+            "cardinals-cofinality"
+          ],
+          "blurb": "CH: $2^{\\aleph_0}=\\aleph_1$. Gödel (1940) showed CH is consistent with ZFC; Cohen (1963) showed $\\neg$CH is too — so CH is independent. Forcing is the technique behind Cohen's half."
+        },
+        {
+          "id": "inaccessible-cardinals",
+          "title": "Inaccessible cardinals",
+          "anchor": "inaccessibles",
+          "prereqs": [
+            "cardinals-cofinality",
+            "axiom-of-choice"
+          ],
+          "blurb": "An uncountable regular strong-limit cardinal $\\kappa$ — closed under power-set and unions of size $<\\kappa$. $V_\\kappa$ is then a model of ZFC, so existence of one is strictly stronger than ZFC. Grothendieck universes are exactly $V_\\kappa$ for $\\kappa$ inaccessible.",
+          "tags": [
+            "classification"
+          ]
         }
       ]
     },
@@ -332,25 +469,165 @@ window.__MVConcepts = {
       "page": "model-theory-basics.html",
       "concepts": [
         {
-          "id": "model-theory-basics-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "mt-structures",
+          "title": "Structures and signatures",
+          "anchor": "structures",
+          "prereqs": [
+            "first-order-logic-and-completeness:fol-syntax",
+            "first-order-logic-and-completeness:fol-semantics"
+          ],
+          "blurb": "A signature $\\sigma$ is a list of constant, function, and relation symbols with arities. A $\\sigma$-structure $\\mathfrak{A}=(A;c^{\\mathfrak{A}},f^{\\mathfrak{A}},R^{\\mathfrak{A}},\\ldots)$ interprets each symbol on a non-empty domain. Groups, ordered sets, graphs, and fields are all structures over the appropriate signature; model theory is the study of what first-order sentences see in them.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "mt-elementary-equivalence",
+          "title": "Elementary equivalence",
+          "anchor": "elementary-equivalence",
+          "prereqs": [
+            "mt-structures",
+            "first-order-logic-and-completeness:fol-semantics"
+          ],
+          "blurb": "Two $\\sigma$-structures $\\mathfrak{A},\\mathfrak{B}$ are <em>elementarily equivalent</em>, written $\\mathfrak{A}\\equiv\\mathfrak{B}$, when they satisfy exactly the same first-order $\\sigma$-sentences. Elementary equivalence is much coarser than isomorphism: $(\\mathbb{Q},<)$ and $(\\mathbb{R},<)$ are elementarily equivalent but not isomorphic; $\\mathbb{N}$ and any non-standard model of arithmetic are elementarily equivalent by construction.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "mt-isomorphism-vs-equivalence",
+          "title": "Isomorphism vs elementary equivalence",
+          "anchor": "iso-vs-equivalence",
+          "prereqs": [
+            "mt-elementary-equivalence"
+          ],
+          "blurb": "For finite structures the two notions coincide: $\\mathfrak{A}\\equiv\\mathfrak{B}$ implies $\\mathfrak{A}\\cong\\mathfrak{B}$, since the size and complete diagram pin down the isomorphism class. For infinite structures they part ways — Cantor's back-and-forth shows any two countable dense linear orders without endpoints are isomorphic, but $(\\mathbb{Q},<)\\equiv(\\mathbb{R},<)$ are non-isomorphic. The example $(\\mathbb{N},<)$ vs $(\\mathbb{Z},<)$ shows even elementary equivalence can fail.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "mt-types-and-saturation",
+          "title": "Types and saturation",
+          "anchor": "types",
+          "prereqs": [
+            "mt-elementary-equivalence",
+            "first-order-logic-and-completeness:fol-compactness"
+          ],
+          "blurb": "An $n$-<em>type</em> over a parameter set $A$ is a maximal consistent set of formulas $p(x_1,\\ldots,x_n)$ with parameters from $A$ — a complete first-order description of an $n$-tuple. By compactness every type is realised in some elementary extension; a structure is $\\omega$-<em>saturated</em> if every type over a finite parameter set is already realised in it. Saturation is the model-theoretic analogue of compactness for spaces.",
+          "tags": [
+            "foundation",
+            "compactness"
+          ]
+        },
+        {
+          "id": "mt-ehrenfeucht-fraisse",
+          "title": "Ehrenfeucht–Fraïssé games",
+          "anchor": "ef-games",
+          "prereqs": [
+            "mt-elementary-equivalence"
+          ],
+          "blurb": "The $n$-round EF game on structures $\\mathfrak{A},\\mathfrak{B}$ pits Spoiler — who picks elements trying to expose a difference — against Duplicator, who copies them across to preserve a partial isomorphism. Duplicator has a winning strategy in the $n$-round game iff $\\mathfrak{A}$ and $\\mathfrak{B}$ agree on every sentence of quantifier rank $\\le n$. EF games are the standard tool for proving non-definability results, e.g. that connectivity is not first-order definable on graphs.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "mt-applications-to-algebra",
+          "title": "Applications to algebra",
+          "anchor": "applications",
+          "prereqs": [
+            "mt-types-and-saturation",
+            "mt-elementary-equivalence",
+            "field-extensions-basics"
+          ],
+          "blurb": "ACF (algebraically closed fields) is a model-complete theory: every embedding between models is elementary, so first-order truth transfers freely along extensions. Compactness + the Lefschetz principle yield Ax–Grothendieck — every injective polynomial map $\\mathbb{C}^n\\to\\mathbb{C}^n$ is surjective — by reduction to algebraic closures of finite fields. These transfer principles are the standard model-theoretic tools used in algebraic geometry.",
+          "tags": [
+            "classification"
+          ]
         }
       ]
     },
     "computability-and-decidability": {
       "topic": "computability-and-decidability",
-      "title": "Computability and decidability",
+      "title": "Computability theory",
       "page": "computability-and-decidability.html",
       "concepts": [
         {
-          "id": "computability-and-decidability-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "comp-turing-machines",
+          "title": "Turing machines",
+          "anchor": "turing",
+          "prereqs": [
+            "naive-set-theory:sets-functions"
+          ],
+          "blurb": "A Turing machine is a finite-state controller scanning a two-way infinite tape. A configuration is a triple (state, tape contents, head position); the transition function $\\delta\\colon Q\\times\\Sigma\\to Q\\times\\Sigma\\times\\{L,R\\}$ rewrites a cell, moves the head, and updates state. Acceptance is by halting in a designated accept state. Variants — multitape, nondeterministic, two-counter — all simulate one another with at most polynomial overhead, which is the empirical content of the Church–Turing thesis.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "comp-recursive-functions",
+          "title": "Recursive and partial-recursive functions",
+          "anchor": "recursive",
+          "prereqs": [
+            "comp-turing-machines"
+          ],
+          "blurb": "Build $\\mathbb{N}^k\\to\\mathbb{N}$ functions from three primitives — zero, successor, projection — closed under composition, primitive recursion (define $f(n+1)$ from $f(n)$), and the unbounded $\\mu$-operator (least $y$ with $g(\\vec x,y)=0$). Without $\\mu$ you get the primitive-recursive functions (every total, including Ackermann's exception); with $\\mu$ you get the partial-recursive functions, which Turing showed coincide exactly with Turing-computable. The Church–Turing thesis asserts this is the right notion of \"effectively computable\".",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "comp-halting-problem",
+          "title": "The halting problem",
+          "anchor": "halting",
+          "prereqs": [
+            "comp-turing-machines",
+            "naive-set-theory:countability"
+          ],
+          "blurb": "Let $H = \\{ \\langle M,w\\rangle : M \\text{ halts on } w\\}$. Suppose $h$ decides $H$. Build $D(\\langle M\\rangle)$ which runs $h$ on $\\langle M, \\langle M\\rangle\\rangle$ and loops if $h$ says \"halts\", halts otherwise. Then $D$ on its own code halts iff it doesn't — contradiction. The argument is Cantor's diagonal applied to the countable list of Turing machines. Halting is the prototype undecidable problem; everything else reduces to it.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "comp-rec-vs-re",
+          "title": "Recursive vs recursively enumerable",
+          "anchor": "rec-vs-re",
+          "prereqs": [
+            "comp-halting-problem"
+          ],
+          "blurb": "A set $A\\subseteq\\mathbb{N}$ is <em>recursive</em> (decidable) if its characteristic function is computable; <em>recursively enumerable</em> (semi-decidable, Σ⁰₁) if there is a TM that halts exactly on inputs in $A$. Theorem: $A$ is recursive iff both $A$ and $\\mathbb{N}\\setminus A$ are r.e. The halting set $H$ is r.e. but not recursive; its complement is not even r.e. The r.e. sets sit one level above the recursive sets in the arithmetical hierarchy.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "comp-undecidability",
+          "title": "Undecidability via reduction",
+          "anchor": "reductions",
+          "prereqs": [
+            "comp-halting-problem",
+            "comp-rec-vs-re"
+          ],
+          "blurb": "$A\\le_m B$ (many-one reducible) means there is a computable $f$ with $x\\in A \\iff f(x)\\in B$. If $A$ is undecidable and $A\\le_m B$ then $B$ is undecidable. <strong>Rice's theorem</strong>: every non-trivial property of the languages recognized by Turing machines is undecidable. Reductions from halting kill emptiness, equivalence, totality, regularity for TMs — and via further reductions, Hilbert's tenth problem, the word problem for groups, and the Post correspondence problem.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "comp-godel-incompleteness",
+          "title": "Gödel incompleteness — computability lens",
+          "anchor": "godel",
+          "prereqs": [
+            "comp-halting-problem",
+            "first-order-logic-and-completeness:fol-completeness"
+          ],
+          "blurb": "Any consistent, recursively axiomatised theory $T$ extending Robinson arithmetic can express \"$M$ halts on $w$\" as a $\\Sigma_1$ formula. If $T$ proved every true halting fact and refuted every false one, halting would be decidable — contradicting the halting theorem. So $T$ is incomplete: some true $\\Sigma_1$ sentence is unprovable. Strengthening from <em>ω-consistency</em> to plain consistency (Rosser's trick) gives Gödel's first theorem; the second theorem ($T\\not\\vdash\\mathrm{Con}(T)$) follows by formalising the proof inside $T$.",
+          "tags": [
+            "foundation"
+          ]
         }
       ]
     },
@@ -374,11 +651,80 @@ window.__MVConcepts = {
       "page": "type-theory-and-hott.html",
       "concepts": [
         {
-          "id": "type-theory-and-hott-intro",
-          "title": "Intro",
-          "anchor": "intro",
-          "prereqs": [],
-          "blurb": "Placeholder — content forthcoming."
+          "id": "tt-judgments",
+          "title": "Judgments and contexts",
+          "anchor": "judgments",
+          "prereqs": [
+            "naive-set-theory:sets-functions"
+          ],
+          "blurb": "A judgment is a primitive assertion of the theory: $\\Gamma\\vdash a:A$ ('in context $\\Gamma$, the term $a$ has type $A$'). The four basic forms — $A\\;\\mathsf{type}$, $a:A$, $A\\equiv B$, $a\\equiv b:A$ — replace 'membership' with a structured deduction system. Contexts $\\Gamma=(x_1:A_1,\\ldots,x_n:A_n)$ track free variables; well-formedness is itself a derivable judgment.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "tt-pi-sigma",
+          "title": "Π and Σ types",
+          "anchor": "pi-sigma",
+          "prereqs": [
+            "tt-judgments"
+          ],
+          "blurb": "The dependent function type $\\prod_{x:A} B(x)$ generalises $A\\to B$: its terms $\\lambda x.b(x)$ pick a $B(a)$ for each $a:A$. The dependent pair $\\sum_{x:A} B(x)$ generalises $A\\times B$: a term $(a,b)$ packages a base point with proof. Under propositions-as-types Curry–Howard $\\forall$ becomes $\\Pi$ and $\\exists$ becomes $\\Sigma$; computation is $\\beta$-reduction $(\\lambda x.b)(a)\\equiv b[a/x]$.",
+          "tags": [
+            "foundation",
+            "universal-property"
+          ]
+        },
+        {
+          "id": "tt-identity-types",
+          "title": "Identity types",
+          "anchor": "identity",
+          "prereqs": [
+            "tt-pi-sigma"
+          ],
+          "blurb": "For each $A$ and each $a,b:A$ there is a type $\\mathsf{Id}_A(a,b)$ of identifications. It has one constructor $\\mathsf{refl}_a:\\mathsf{Id}_A(a,a)$ and an eliminator (the J-rule) saying any property of identifications is determined by what it does on $\\mathsf{refl}$. The HoTT slogan is that elements of $\\mathsf{Id}_A(a,b)$ behave like paths in a space, with concatenation, inversion, and higher coherences.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "tt-univalence",
+          "title": "Univalence axiom",
+          "anchor": "univalence",
+          "prereqs": [
+            "tt-identity-types",
+            "category-theory:categories-morphisms"
+          ],
+          "blurb": "Univalence asserts that the canonical map $(A=B)\\to(A\\simeq B)$ from identifications of types to equivalences is itself an equivalence. Operationally: isomorphic structures are identifiable, and any property invariant under one is invariant under the other. Voevodsky's axiom turns 'equivalence' into 'equality' and forces the universe to be a higher groupoid rather than a discrete set of types.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "tt-higher-inductive-types",
+          "title": "Higher inductive types",
+          "anchor": "hits",
+          "prereqs": [
+            "tt-identity-types"
+          ],
+          "blurb": "An inductive type is specified by point constructors; a higher inductive type also takes path constructors and (recursively) higher-cell constructors. The circle $S^1$ is generated by a point $\\mathsf{base}$ and a loop $\\mathsf{loop}:\\mathsf{Id}(\\mathsf{base},\\mathsf{base})$; the interval, sphere, suspension, and pushout follow the same pattern. HITs synthesise homotopy theory inside type theory.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "tt-models",
+          "title": "Models of HoTT",
+          "anchor": "models",
+          "prereqs": [
+            "tt-univalence",
+            "tt-higher-inductive-types",
+            "kan-complex"
+          ],
+          "blurb": "A model interprets each type as an object and each judgment as a derivation in some semantic category. Voevodsky's simplicial-set model interprets types as Kan complexes ($\\infty$-groupoids), Π/Σ as fibred mapping spaces / total spaces, identity types as path objects, and univalence holds because equivalence of Kan complexes coincides with weak equivalence. This is what justifies HoTT as a foundation, not just a syntax.",
+          "tags": [
+            "foundation"
+          ]
         }
       ]
     },
@@ -1991,7 +2337,8 @@ window.__MVConcepts = {
           "anchor": "internal-logic",
           "prereqs": [
             "infty-topos-definition",
-            "internal-language"
+            "internal-language",
+            "tt-higher-inductive-types"
           ],
           "blurb": "Every $\\infty$-topos has an internal type theory — Martin-Löf-style with univalent universes and higher inductive types — modeled by the $\\infty$-category itself. This is the connection between $\\infty$-topoi and homotopy type theory (HoTT)."
         },
@@ -3199,7 +3546,8 @@ window.__MVConcepts = {
           "anchor": "poisson",
           "prereqs": [
             "fourier-transform-real-line",
-            "schwartz-space-distributions"
+            "schwartz-space-distributions",
+            "analytic-continuation"
           ],
           "tags": [
             "duality"
@@ -4129,11 +4477,27 @@ window.__MVConcepts = {
           ]
         },
         {
+          "id": "splitting-fields",
+          "title": "Splitting fields",
+          "anchor": "galois",
+          "prereqs": [
+            "field-extensions-galois",
+            "field-extensions-basics",
+            "polynomial-rings-irreducibility"
+          ],
+          "blurb": "The splitting field of $f \\in K[x]$ is the smallest extension of $K$ over which $f$ factors into linear factors. It is unique up to $K$-isomorphism and is the natural domain on which $\\mathrm{Gal}(L/K)$ acts.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
           "id": "fundamental-theorem-galois",
           "title": "Fundamental theorem of Galois theory",
           "anchor": "solvable",
           "prereqs": [
-            "field-extensions-galois"
+            "field-extensions-galois",
+            "splitting-fields"
           ],
           "blurb": "Intermediate fields correspond contravariantly to subgroups of the Galois group.",
           "tags": [
@@ -4143,16 +4507,46 @@ window.__MVConcepts = {
           ]
         },
         {
+          "id": "solvable-groups",
+          "title": "Solvable groups",
+          "anchor": "solvable",
+          "prereqs": [
+            "subgroups-cosets-lagrange",
+            "quotient-groups-iso-theorems"
+          ],
+          "blurb": "$G$ is solvable iff its derived series $G \\triangleright G' \\triangleright G'' \\triangleright \\cdots$ terminates at $\\{e\\}$. Equivalently, $G$ admits a normal series with abelian quotients. Examples: $S_3, S_4$ are solvable; $S_n$ for $n \\geq 5$ is not.",
+          "tags": [
+            "classification",
+            "group-action"
+          ]
+        },
+        {
+          "id": "radical-extensions",
+          "title": "Radical extensions",
+          "anchor": "quintic",
+          "prereqs": [
+            "splitting-fields",
+            "solvable-groups"
+          ],
+          "blurb": "A tower $K = F_0 \\subset F_1 \\subset \\cdots \\subset F_n$ with $F_{i+1} = F_i(\\sqrt[n_i]{a_i})$. A polynomial $f$ is solvable by radicals iff its splitting field embeds in such a tower; on the group side this becomes a normal series with cyclic quotients, hence solvability of $\\mathrm{Gal}$.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
           "id": "solvability-by-radicals",
           "title": "Solvability by radicals",
           "anchor": "quintic",
           "prereqs": [
             "fundamental-theorem-galois",
+            "splitting-fields",
+            "solvable-groups",
+            "radical-extensions",
             "algebraic-structures",
             "quotients-homomorphisms",
             "field-extensions-basics"
           ],
-          "blurb": "Group-theoretic solvability explains why general quintics resist radical formulas.",
+          "blurb": "$f \\in K[x]$ is solvable by radicals iff $\\mathrm{Gal}(L/K)$ is a solvable group, where $L$ is the splitting field. The general quintic has Galois group $S_5$, which is not solvable — so no general radical formula exists for degree $\\geq 5$.",
           "tags": [
             "classification"
           ]
@@ -4680,7 +5074,8 @@ window.__MVConcepts = {
           "prereqs": [
             "idele-class-group",
             "dirichlet-series-basics",
-            "analytic-continuation"
+            "analytic-continuation",
+            "poisson-summation"
           ],
           "blurb": "Tate's 1950 thesis recovers the analytic continuation and functional equation of $\\zeta(s)$ by integrating a Schwartz–Bruhat function on $\\mathbb{A}_\\mathbb{Q}$ against a character of $C_\\mathbb{Q}$; Poisson summation on $\\mathbb{A}_\\mathbb{Q}/\\mathbb{Q}$ yields the symmetry.",
           "tags": [
@@ -5105,7 +5500,8 @@ window.__MVConcepts = {
           "title": "Theta transformation law",
           "anchor": "trans",
           "prereqs": [
-            "theta-q-expansion"
+            "theta-q-expansion",
+            "poisson-summation"
           ],
           "blurb": "Poisson summation drives modular transformation formulas for theta functions.",
           "tags": [
@@ -8359,31 +8755,31 @@ window.__MVConcepts = {
   ],
   "sectionStats": {
     "Logic & Foundations": {
-      "concepts": 12,
-      "intra": 5,
-      "crossOut": 0,
-      "crossIn": 5,
-      "density": 0
+      "concepts": 39,
+      "intra": 42,
+      "crossOut": 3,
+      "crossIn": 6,
+      "density": 0.07692307692307693
     },
     "Algebra & homological": {
       "concepts": 78,
       "intra": 107,
       "crossOut": 9,
-      "crossIn": 50,
+      "crossIn": 55,
       "density": 0.11538461538461539
     },
     "Higher categories & toposes": {
       "concepts": 45,
       "intra": 66,
-      "crossOut": 21,
-      "crossIn": 1,
-      "density": 0.4666666666666667
+      "crossOut": 22,
+      "crossIn": 2,
+      "density": 0.4888888888888889
     },
     "Analysis": {
       "concepts": 107,
-      "intra": 152,
+      "intra": 153,
       "crossOut": 14,
-      "crossIn": 25,
+      "crossIn": 27,
       "density": 0.1308411214953271
     },
     "Probability & statistics": {
@@ -8397,22 +8793,22 @@ window.__MVConcepts = {
       "concepts": 51,
       "intra": 58,
       "crossOut": 6,
-      "crossIn": 45,
+      "crossIn": 46,
       "density": 0.11764705882352941
     },
     "Number theory": {
-      "concepts": 70,
-      "intra": 87,
-      "crossOut": 20,
+      "concepts": 73,
+      "intra": 94,
+      "crossOut": 25,
       "crossIn": 21,
-      "density": 0.2857142857142857
+      "density": 0.3424657534246575
     },
     "Modular forms & L-functions": {
       "concepts": 74,
       "intra": 94,
-      "crossOut": 43,
+      "crossOut": 44,
       "crossIn": 6,
-      "density": 0.581081081081081
+      "density": 0.5945945945945946
     },
     "Algebraic geometry": {
       "concepts": 109,

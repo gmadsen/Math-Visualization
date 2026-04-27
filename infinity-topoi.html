@@ -811,6 +811,7 @@ where $\mathcal{U}_{\leq n}$ classifies $n$-truncated maps; the bottom is the cl
   <ul>
     <li><a href="./heyting-algebras-toposes.html#internal-language">The internal Mitchell–Bénabou language</a> — the 1-categorical analogue: each topos models intuitionistic higher-order logic.</li>
     <li><a href="./elementary-topos-theory.html#omega">Subobject classifier $\Omega$</a> — what becomes the universe $\mathcal{U}$.</li>
+    <li><a href="./type-theory-and-hott.html#hits">Higher inductive types</a></li>
   </ul>
 </aside>
 <!-- callback-auto-end -->
@@ -1009,6 +1010,29 @@ $$ \mathrm{Sh}_\infty(X_{\mathrm{ét}}) := \mathrm{Sh}_\infty(X_{\mathrm{ét}}, 
 <div class="quiz" data-concept="etale-infty-topos-of-scheme"></div>
 </section>
 
+<section id="outro">
+<h2>8. Connections</h2>
+
+<p>An $\infty$-topos is the place where you would finally write down a globally functioning theory of "spaces" — ordinary topoi were a working draft, and HoTT spelled out the internal language.</p>
+
+<h3>Internal logic and 1-topoi</h3>
+
+<p>A 1-topos has a Heyting-algebra subobject classifier; an $\infty$-topos has the entire $\infty$-groupoid of types. The propositional fragment is exactly what <a href="./heyting-algebras-toposes.html">Heyting algebras and topos logic</a> studied; <a href="./elementary-topos-theory.html">elementary topos theory</a> covers the 1-categorical Lawvere–Tierney machinery.</p>
+
+<h3>Sheaf-theoretic models</h3>
+
+<p>Every Grothendieck $\infty$-topos is a left-exact localisation of presheaves of spaces on a small $\infty$-category. <a href="./grothendieck-topologies-sites.html">Sites and sheaves</a> is the 1-categorical predecessor; replacing $\mathrm{Set}$ with $\mathrm{Spaces}$ is the entire content of "going $\infty$".</p>
+
+<h3>Quasi-category technical core</h3>
+
+<p>The technical machinery — Yoneda, presentability, accessibility, Bousfield localisation — lives in <a href="./infinity-categories.html">$\infty$-categories</a>. $\infty$-topoi are the most-structured presentable $\infty$-categories, distinguished by their internal logic.</p>
+
+<h3>Univalent foundations</h3>
+
+<p>Voevodsky’s univalence axiom makes <a href="./type-theory-and-hott.html">homotopy type theory</a> precisely the internal language of an $\infty$-topos (modulo strictness questions). The Curry–Howard correspondence becomes a structural identification: types are objects of an $\infty$-topos, terms are global elements, identifications are paths.</p>
+
+<p class="small" style="margin-top:2.5rem">Open frontiers: condensed and pyknotic mathematics (a different completion of "set with topology"), motivic homotopy theory (an $\infty$-topos on the étale or Nisnevich site of a base scheme), modal homotopy type theory (geometric morphisms become modal operators in the type theory).</p>
+</section>
 </main>
 
 <script>

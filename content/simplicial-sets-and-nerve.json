@@ -259,7 +259,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./infinity-categories.html#quasi-category\">$\\infty$-categories (quasi-categories)</a> · Quasi-categories</div>\n    <div><a href=\"./simplicial-sets-and-nerve.html#horn-filling\">Simplicial sets and the nerve</a> · Inner-horn filling and quasi-categorical nerves</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./infinity-categories.html#quasi-category\">$\\infty$-categories (quasi-categories)</a> · Quasi-categories</div>\n    <div><a href=\"./simplicial-sets-and-nerve.html#horn-filling\">Simplicial sets and the nerve</a> · Inner-horn filling and quasi-categorical nerves</div>\n    <div><a href=\"./type-theory-and-hott.html#models\">Type theory and HoTT</a> · Models of HoTT</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

@@ -180,7 +180,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebra.html#intro\">Groups, rings, and fields</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebra.html#intro\">Groups, rings, and fields</a></li>\n    <li><a href=\"./algebra.html#extensions\">Field extensions and minimal polynomials</a></li>\n    <li><a href=\"./algebra.html#polyrings\">Polynomial rings and irreducibility</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
@@ -188,7 +188,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebraic-number-theory.html#examples\">Algebraic number theory</a> · Number fields and rings of integers</div>\n    <div><a href=\"./galois.html#solvable\">Galois theory</a> · Fundamental theorem of Galois theory</div>\n    <div><a href=\"./galois.html#normal-separable\">Galois theory</a> · Normal and separable extensions</div>\n    <div><a href=\"./galois-representations.html#rep\">Galois representations</a> · Galois representations and examples</div>\n    <div><a href=\"./group-cohomology.html#galois-cohom\">Group cohomology</a> · Galois cohomology and the Brauer group</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./galois.html#solvable\">Galois theory</a> · Fundamental theorem of Galois theory</div>\n    <div><a href=\"./galois.html#quintic\">Galois theory</a> · Radical extensions</div>\n    <div><a href=\"./galois.html#quintic\">Galois theory</a> · Solvability by radicals</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -280,7 +280,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./etale-fundamental-group.html#spec-field-galois\">The étale fundamental group</a> · $\\pi_1^{\\acute{e}t}(\\mathrm{Spec}\\,k) = \\mathrm{Gal}(\\bar{k}/k)$</div>\n    <div><a href=\"./frobenius-and-reciprocity.html#decomposition\">Frobenius and reciprocity</a> · Decomposition and inertia groups</div>\n    <div><a href=\"./galois.html#quintic\">Galois theory</a> · Solvability by radicals</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebra.html#cosets\">Subgroups, cosets, and Lagrange</a></li>\n    <li><a href=\"./algebra.html#quotients-iso\">Quotient groups and isomorphism theorems</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./galois.html#quintic\">Galois theory</a> · Radical extensions</div>\n    <div><a href=\"./galois.html#quintic\">Galois theory</a> · Solvability by radicals</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -372,6 +376,10 @@
         {
           "type": "raw",
           "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebra.html#extensions\">Field extensions and minimal polynomials</a></li>\n    <li><a href=\"./algebra.html#finite\">Quotients and finite fields</a></li>\n    <li><a href=\"./algebra.html#intro\">Groups, rings, and fields</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./galois.html#quintic\">Galois theory</a> · Solvability by radicals</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

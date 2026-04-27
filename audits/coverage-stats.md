@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **105**, concepts: **597**
-- Widgets: **629** (registry-driven: 563, inline: 66)
-- Quizzes: **2923** (v1: 1687, hard: 1223, expert: 13)
-- Quiz types: mcq: 1837, numeric: 885, multi-select: 82, matching: 30, complex: 29, ordering: 21, spot-the-error: 21, proof-completion: 14, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **125**
-- Concepts lacking a hard-tier quiz: **159**
+- Topics: **105**, concepts: **627**
+- Widgets: **661** (registry-driven: 563, inline: 98)
+- Quizzes: **3014** (v1: 1778, hard: 1223, expert: 13)
+- Quiz types: mcq: 1908, numeric: 905, multi-select: 82, matching: 30, complex: 29, ordering: 21, spot-the-error: 21, proof-completion: 14, construction: 2, guess-my-rule: 2
+- Concepts lacking a widget in their section: **123**
+- Concepts lacking a hard-tier quiz: **189**
 
 ## Per-slug registry adoption
 
@@ -161,13 +161,13 @@ page has wired one in yet.
 
 ### Logic & Foundations
 
-- Topics: **8**, concepts: **12**
-- Widgets: **4** (registry-driven: 4, inline: 0)
-  - by family: clickable-diagram: 3, button-stepper: 1
-  - by dimension: 2d: 4
-  - by gesture: click: 4
-- Quizzes: **37** (v1: 22, hard: 15, expert: 0)
-  - by type: mcq: 26, numeric: 11
+- Topics: **8**, concepts: **39**
+- Widgets: **36** (registry-driven: 4, inline: 32)
+  - by family: unknown: 32, clickable-diagram: 3, button-stepper: 1
+  - by dimension: unknown: 32, 2d: 4
+  - by gesture: unknown: 32, click: 4
+- Quizzes: **128** (v1: 113, hard: 15, expert: 0)
+  - by type: mcq: 97, numeric: 31
 
 ### Algebra & homological
 
@@ -221,7 +221,7 @@ page has wired one in yet.
 
 ### Number theory
 
-- Topics: **14**, concepts: **70**
+- Topics: **14**, concepts: **73**
 - Widgets: **89** (registry-driven: 82, inline: 7)
   - by family: button-stepper: 67, unknown: 7, clickable-diagram: 4, input-form: 4, declarative-host: 2, proof-scrubber: 1, modular-arithmetic-clock: 1, inline-code-cell: 1, clickable-graph: 1, svg-illustration: 1
   - by dimension: 2d: 82, unknown: 7
@@ -262,12 +262,12 @@ page has wired one in yet.
 ## Per-topic
 
 - `naive-set-theory` (Logic & Foundations) — concepts=5, widgets=4 (slug=4), quiz=30 (v1=15, hard=15, expert=0)
-- `first-order-logic-and-completeness` (Logic & Foundations) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
-- `zfc-and-ordinals` (Logic & Foundations) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
-- `model-theory-basics` (Logic & Foundations) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
-- `computability-and-decidability` (Logic & Foundations) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
+- `first-order-logic-and-completeness` (Logic & Foundations) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
+- `zfc-and-ordinals` (Logic & Foundations) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
+- `model-theory-basics` (Logic & Foundations) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `computability-and-decidability` (Logic & Foundations) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `complexity-theory` (Logic & Foundations) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
-- `type-theory-and-hott` (Logic & Foundations) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
+- `type-theory-and-hott` (Logic & Foundations) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `forcing-and-independence` (Logic & Foundations) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
 - `algebra` (Algebra & homological) — concepts=12, widgets=12 (slug=12), quiz=73 (v1=36, hard=37, expert=0)
 - `category-theory` (Algebra & homological) — concepts=12, widgets=17 (slug=17), quiz=72 (v1=36, hard=36, expert=0)
@@ -312,7 +312,7 @@ page has wired one in yet.
 - `riemann-surfaces` (Geometry & topology) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
 - `characteristic-classes` (Geometry & topology) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
 - `morse-theory` (Geometry & topology) — concepts=1, widgets=0 (slug=0), quiz=1 (v1=1, hard=0, expert=0)
-- `galois` (Number theory) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
+- `galois` (Number theory) — concepts=8, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
 - `quadratic-reciprocity` (Number theory) — concepts=6, widgets=7 (slug=7), quiz=33 (v1=18, hard=15, expert=0)
 - `quadratic-forms-genus-theory` (Number theory) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
 - `sums-of-squares` (Number theory) — concepts=5, widgets=8 (slug=8), quiz=30 (v1=15, hard=15, expert=0)
@@ -373,12 +373,7 @@ page has wired one in yet.
 
 - `cartesian-product-powerset` (naive-set-theory)
 - `axiom-of-choice-intuition` (naive-set-theory)
-- `first-order-logic-and-completeness-intro` (first-order-logic-and-completeness)
-- `zfc-and-ordinals-intro` (zfc-and-ordinals)
-- `model-theory-basics-intro` (model-theory-basics)
-- `computability-and-decidability-intro` (computability-and-decidability)
 - `complexity-theory-intro` (complexity-theory)
-- `type-theory-and-hott-intro` (type-theory-and-hott)
 - `forcing-and-independence-intro` (forcing-and-independence)
 - `algebraic-structures` (algebra)
 - `ring-ideals` (algebra)
@@ -391,26 +386,31 @@ page has wired one in yet.
 - `sigma-algebras` (measure-theory)
 - `riemann-sphere` (complex-analysis)
 - `mobius-transformations` (complex-analysis)
+- `cauchy-riemann` (complex-analysis)
+- `holomorphic-function` (complex-analysis)
+- `domain-coloring` (complex-analysis)
+- `cauchy-theorem` (complex-analysis)
+- `cauchy-integral-formula` (complex-analysis)
 
 ### Concepts missing a hard-tier quiz (top 20)
 
-- `first-order-logic-and-completeness-intro` (first-order-logic-and-completeness)
-- `zfc-and-ordinals-intro` (zfc-and-ordinals)
-- `model-theory-basics-intro` (model-theory-basics)
-- `computability-and-decidability-intro` (computability-and-decidability)
-- `complexity-theory-intro` (complexity-theory)
-- `type-theory-and-hott-intro` (type-theory-and-hott)
-- `forcing-and-independence-intro` (forcing-and-independence)
-- `artinian-local-ca` (commutative-algebra)
-- `homotopy-category-K` (derived-categories)
-- `t-structures` (derived-categories)
-- `examples-D-Coh` (derived-categories)
-- `bar-resolution` (group-cohomology)
-- `h0-fixed-points` (group-cohomology)
-- `h1-crossed-homs` (group-cohomology)
-- `h2-extensions` (group-cohomology)
-- `cyclic-periodic-tate` (group-cohomology)
-- `inflation-restriction-lhs` (group-cohomology)
-- `galois-cohomology-brauer` (group-cohomology)
-- `lie-algebras-intro` (lie-algebras)
-- `galois-cohomology-and-brauer-intro` (galois-cohomology-and-brauer)
+- `fol-syntax` (first-order-logic-and-completeness)
+- `fol-semantics` (first-order-logic-and-completeness)
+- `fol-deduction` (first-order-logic-and-completeness)
+- `fol-completeness` (first-order-logic-and-completeness)
+- `fol-compactness` (first-order-logic-and-completeness)
+- `fol-lowenheim-skolem` (first-order-logic-and-completeness)
+- `fol-decidable-theories` (first-order-logic-and-completeness)
+- `zfc-axioms` (zfc-and-ordinals)
+- `von-neumann-ordinals` (zfc-and-ordinals)
+- `ordinal-arithmetic` (zfc-and-ordinals)
+- `cardinals-cofinality` (zfc-and-ordinals)
+- `axiom-of-choice` (zfc-and-ordinals)
+- `continuum-hypothesis` (zfc-and-ordinals)
+- `inaccessible-cardinals` (zfc-and-ordinals)
+- `mt-structures` (model-theory-basics)
+- `mt-elementary-equivalence` (model-theory-basics)
+- `mt-isomorphism-vs-equivalence` (model-theory-basics)
+- `mt-types-and-saturation` (model-theory-basics)
+- `mt-ehrenfeucht-fraisse` (model-theory-basics)
+- `mt-applications-to-algebra` (model-theory-basics)

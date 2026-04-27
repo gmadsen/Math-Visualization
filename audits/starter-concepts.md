@@ -11,18 +11,18 @@ reach into upstream foundations or stay within their own cluster.
 
 | section | concepts | intra edges | cross out | cross in | density |
 |---|---:|---:|---:|---:|---:|
-| Logic & Foundations | 12 | 5 | 0 | 5 | 0.000 |
-| Algebra & homological | 78 | 107 | 9 | 50 | 0.115 |
-| Higher categories & toposes | 45 | 66 | 21 | 1 | 0.467 |
-| Analysis | 107 | 152 | 14 | 25 | 0.131 |
+| Logic & Foundations | 39 | 42 | 3 | 6 | 0.077 |
+| Algebra & homological | 78 | 107 | 9 | 55 | 0.115 |
+| Higher categories & toposes | 45 | 66 | 22 | 2 | 0.489 |
+| Analysis | 107 | 153 | 14 | 27 | 0.131 |
 | Probability & statistics | 17 | 15 | 7 | 7 | 0.412 |
-| Geometry & topology | 51 | 58 | 6 | 45 | 0.118 |
-| Number theory | 70 | 87 | 20 | 21 | 0.286 |
-| Modular forms & L-functions | 74 | 94 | 43 | 6 | 0.581 |
+| Geometry & topology | 51 | 58 | 6 | 46 | 0.118 |
+| Number theory | 73 | 94 | 25 | 21 | 0.342 |
+| Modular forms & L-functions | 74 | 94 | 44 | 6 | 0.595 |
 | Algebraic geometry | 109 | 137 | 42 | 14 | 0.385 |
 | Combinatorics & graph theory | 34 | 28 | 12 | 0 | 0.353 |
 
-## EMPTY — concepts with no prereqs (26)
+## EMPTY — concepts with no prereqs (21)
 
 Concepts whose `prereqs` field is `[]` and whose owning topic is *not*
 a foundation/prereq topic. Almost always indicates a missing cross-
@@ -35,18 +35,15 @@ at brand-new progress alongside genuine entry points like
 | analytic-number-theory | `analytic-number-theory-intro` | Intro |
 | characteristic-classes | `characteristic-classes-intro` | Intro |
 | complexity-theory | `complexity-theory-intro` | Intro |
-| computability-and-decidability | `computability-and-decidability-intro` | Intro |
 | enumerative-combinatorics | `enumerative-combinatorics-intro` | Intro |
 | extremal-combinatorics | `sperner-lym` | Sperner's theorem and the LYM inequality |
 | extremal-combinatorics | `turan-theorem` | Turán's theorem and the Turán graph |
-| first-order-logic-and-completeness | `first-order-logic-and-completeness-intro` | Intro |
 | forcing-and-independence | `forcing-and-independence-intro` | Intro |
 | galois-cohomology-and-brauer | `galois-cohomology-and-brauer-intro` | Intro |
 | harmonic-functions | `harmonic-functions-intro` | Intro |
 | information-theory | `information-theory-intro` | Intro |
 | large-deviations | `large-deviations-intro` | Intro |
 | lie-algebras | `lie-algebras-intro` | Intro |
-| model-theory-basics | `model-theory-basics-intro` | Intro |
 | modular-curves | `modular-curves-intro` | Intro |
 | morse-theory | `morse-theory-intro` | Intro |
 | partial-differential-equations | `partial-differential-equations-intro` | Intro |
@@ -56,8 +53,6 @@ at brand-new progress alongside genuine entry points like
 | spectral-theory | `spectral-theory-intro` | Intro |
 | stochastic-calculus | `stochastic-calculus-intro` | Intro |
 | stochastic-processes-and-martingales | `stochastic-processes-and-martingales-intro` | Intro |
-| type-theory-and-hott | `type-theory-and-hott-intro` | Intro |
-| zfc-and-ordinals | `zfc-and-ordinals-intro` | Intro |
 
 ## THIN-NEW — new-arc concepts with intra-topic-only prereqs (13)
 

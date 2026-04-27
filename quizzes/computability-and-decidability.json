@@ -1,18 +1,239 @@
 {
   "topic": "computability-and-decidability",
   "quizzes": {
-    "computability-and-decidability-intro": {
-      "title": "Intro",
+    "comp-turing-machines": {
+      "title": "Turing machines",
       "questions": [
         {
           "type": "mcq",
-          "q": "Placeholder question — content forthcoming.",
+          "q": "A configuration of a Turing machine consists of which triple?",
           "choices": [
-            "A",
-            "B"
+            "(state, head position, transition function)",
+            "(state, tape contents, head position)",
+            "(input alphabet, tape alphabet, transition function)",
+            "(start state, accept state, reject state)"
+          ],
+          "answer": 1,
+          "explain": "A snapshot of a running TM is exactly (current state, full tape contents, head index). The transition function and the alphabets are part of the machine's static description, not its runtime configuration."
+        },
+        {
+          "type": "mcq",
+          "q": "Why are multitape Turing machines no more powerful than single-tape machines?",
+          "choices": [
+            "They have the same number of states.",
+            "They are simulated with at most polynomial slowdown by interleaving tracks on one tape.",
+            "Multitape machines cannot read from more than one tape per step.",
+            "They are restricted to deterministic transitions."
+          ],
+          "answer": 1,
+          "explain": "Encode $k$ tapes as $k$ tracks of one tape, plus marker symbols for each head. One step of the multitape machine becomes a sweep across the simulated tape — quadratic overhead, but still computable."
+        },
+        {
+          "type": "numeric",
+          "q": "A binary-alphabet TM has $|Q|=4$ states (including accept and reject) and tape alphabet $\\{0,1,\\sqcup\\}$. How many distinct $(q,a)$ input pairs does its transition function $\\delta$ need to specify?",
+          "answer": 12,
+          "tol": 0,
+          "explain": "$|Q|\\times|\\Gamma| = 4\\times 3 = 12$. Each pair $(q,a)$ gets one row in the transition table."
+        }
+      ]
+    },
+    "comp-recursive-functions": {
+      "title": "Recursive functions",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which closure operator distinguishes the partial-recursive functions from the primitive-recursive functions?",
+          "choices": [
+            "Composition",
+            "Primitive recursion",
+            "Unbounded minimisation ($\\mu$-operator)",
+            "Projection"
+          ],
+          "answer": 2,
+          "explain": "Composition, primitive recursion, and the basic functions yield the primitive-recursive class — every member is total. Adding the $\\mu$-operator (least $y$ with $g(\\vec x,y)=0$, possibly undefined) produces partiality and matches Turing-computability."
+        },
+        {
+          "type": "mcq",
+          "q": "Ackermann's function is total but not primitive-recursive. What does this show?",
+          "choices": [
+            "Some computable functions grow faster than every primitive-recursive function.",
+            "The Church–Turing thesis is false.",
+            "Primitive recursion is equivalent to $\\mu$-recursion.",
+            "Ackermann's function is not Turing-computable."
           ],
           "answer": 0,
-          "explain": "Placeholder."
+          "explain": "Ackermann diagonalises against any fixed level of nested recursion, so its growth rate dominates every primitive-recursive function. It is still computable — by a Turing machine, or equivalently a $\\mu$-recursive scheme — confirming the proper inclusion PR ⊊ partial-recursive."
+        },
+        {
+          "type": "numeric",
+          "q": "Define $f$ by primitive recursion: $f(0)=2$, $f(n+1)=f(n)+3$. Compute $f(4)$.",
+          "answer": 14,
+          "tol": 0,
+          "explain": "$f$ is the arithmetic progression $2,5,8,11,14,\\ldots$, so $f(4)=2+4\\cdot 3=14$. Primitive recursion is exactly this kind of step-by-step build-up from a base case."
+        }
+      ]
+    },
+    "comp-halting-problem": {
+      "title": "The halting problem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What does the diagonal machine $D$ in the halting-problem proof do on input $\\langle M\\rangle$?",
+          "choices": [
+            "Simulates $M$ on $\\langle M\\rangle$ directly.",
+            "Asks the supposed decider $h$ whether $M$ halts on $\\langle M\\rangle$, and does the opposite.",
+            "Halts iff $M$ halts on the empty string.",
+            "Counts the states of $M$ and halts iff that count is even."
+          ],
+          "answer": 1,
+          "explain": "If $h(\\langle M,\\langle M\\rangle\\rangle)=$ \"halts\", $D$ enters an infinite loop; otherwise $D$ halts. Running $D$ on its own code yields the contradiction \"$D$ halts iff $D$ doesn't halt\"."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is countability of Turing machines essential to the diagonal argument?",
+          "choices": [
+            "It guarantees the tape alphabet is finite.",
+            "It lets us list all TMs $M_0, M_1, M_2, \\ldots$ and define $D$ by diagonalising over that list.",
+            "It implies every language is recognisable.",
+            "It ensures every TM halts on a countable input."
+          ],
+          "answer": 1,
+          "explain": "Each TM has a finite description, so the set of TMs is countable. Cantor's diagonal construction of $D$ depends on enumerating the candidates and disagreeing with each at one diagonal coordinate."
+        },
+        {
+          "type": "mcq",
+          "q": "Which problem is computationally equivalent to the halting problem?",
+          "choices": [
+            "Deciding whether a given TM has at least 5 states.",
+            "Deciding whether a given DFA accepts the empty string.",
+            "Deciding whether two given TMs accept the same language.",
+            "Deciding whether the input length of a TM is even."
+          ],
+          "answer": 2,
+          "explain": "TM-equivalence is undecidable — Rice's theorem and a direct halting reduction both show it. The other three options are decidable: state count is computable, DFA emptiness is graph reachability, parity of input length is trivial."
+        }
+      ]
+    },
+    "comp-rec-vs-re": {
+      "title": "Recursive vs r.e.",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A set $A$ is recursive iff:",
+          "choices": [
+            "$A$ is recursively enumerable.",
+            "Both $A$ and its complement are recursively enumerable.",
+            "$A$ is finite.",
+            "$A$ is the language of some non-deterministic TM."
+          ],
+          "answer": 1,
+          "explain": "If $A$ and $\\mathbb{N}\\setminus A$ both have semi-deciders, run them in parallel — exactly one halts on each input, giving a decider for $A$. Conversely a decider trivially yields semi-deciders for both."
+        },
+        {
+          "type": "mcq",
+          "q": "The halting set $H$ is:",
+          "choices": [
+            "Recursive.",
+            "r.e. but not recursive.",
+            "Neither r.e. nor co-r.e.",
+            "Co-r.e. but not r.e."
+          ],
+          "answer": 1,
+          "explain": "Simulating $M$ on $w$ is a semi-decider for $H$ (halt iff $M$ halts), so $H$ is r.e. The diagonal proof rules out a decider, so $H$ is not recursive. Its complement is not r.e. — that's a separate diagonal."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is an example of a semi-decidable but not decidable property?",
+          "choices": [
+            "The set of TMs with exactly 7 states.",
+            "The set of polynomials with integer coefficients.",
+            "The set $\\{\\langle M\\rangle : M \\text{ accepts at least one input}\\}$.",
+            "The set of even natural numbers."
+          ],
+          "answer": 2,
+          "explain": "Dovetail $M$ on $0,1,2,\\ldots$; if any branch accepts, halt. That's a semi-decider. By Rice's theorem the property is undecidable, so it is r.e. but not recursive. The other three are recursive (decided by inspecting the description or input directly)."
+        }
+      ]
+    },
+    "comp-undecidability": {
+      "title": "Undecidability via reduction",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "$A\\le_m B$ means:",
+          "choices": [
+            "$A\\subseteq B$.",
+            "There is a computable $f$ with $x\\in A \\iff f(x)\\in B$.",
+            "$A$ and $B$ are both r.e.",
+            "Every TM for $B$ also decides $A$."
+          ],
+          "answer": 1,
+          "explain": "Many-one reduction wraps each instance of $A$ as an instance of $B$ via a total computable map $f$. A decider for $B$ then composes with $f$ to decide $A$ — so undecidability of $A$ propagates upward to $B$."
+        },
+        {
+          "type": "mcq",
+          "q": "Rice's theorem says, in one line:",
+          "choices": [
+            "Every property of TM <em>codes</em> is undecidable.",
+            "Every non-trivial property of the <em>language</em> recognised by a TM is undecidable.",
+            "Every TM has an undecidable halting problem.",
+            "No TM can simulate another."
+          ],
+          "answer": 1,
+          "explain": "Rice rules out semantic decidability — anything that depends only on $L(M)$, that is non-trivial (some TM has it, some doesn't), is undecidable. Syntactic properties of the description (\"has 7 states\") are unaffected."
+        },
+        {
+          "type": "mcq",
+          "q": "Suppose $H\\le_m B$ (halting reduces to $B$). What can you conclude?",
+          "choices": [
+            "$B$ is decidable.",
+            "$B$ is undecidable.",
+            "$B$ is finite.",
+            "$B$ is r.e. but not recursive."
+          ],
+          "answer": 1,
+          "explain": "Reductions transfer hardness upward. If $B$ were decidable, composition with the reduction would decide halting — a contradiction. We can't conclude anything sharper without more information about $B$."
+        }
+      ]
+    },
+    "comp-godel-incompleteness": {
+      "title": "Gödel incompleteness",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "How does the halting problem give Gödel's first incompleteness theorem?",
+          "choices": [
+            "Halting is decidable, so arithmetic must be too.",
+            "If a sound, recursively axiomatised $T$ proved every true halting fact, halting would be decidable — contradiction.",
+            "Gödel's theorem implies halting is decidable.",
+            "Every TM has a Gödel number, so every theorem is provable."
+          ],
+          "answer": 1,
+          "explain": "\"$M$ halts on $w$\" is $\\Sigma_1$, so a complete sound recursive $T$ would let us search for proofs of either it or its negation, deciding halting. Halting is undecidable, hence $T$ is incomplete: some true $\\Sigma_1$ sentence is unprovable."
+        },
+        {
+          "type": "mcq",
+          "q": "What does Rosser's refinement contribute?",
+          "choices": [
+            "It removes the assumption of $\\omega$-consistency, requiring only plain consistency.",
+            "It strengthens the conclusion to \"$T$ is unsound\".",
+            "It makes the proof constructive only over PA.",
+            "It eliminates the need for Gödel numbering."
+          ],
+          "answer": 0,
+          "explain": "Gödel's original proof needed $\\omega$-consistency; Rosser's modified self-referential sentence (\"for every proof of me there is a shorter refutation\") only needs $T$ to be consistent."
+        },
+        {
+          "type": "mcq",
+          "q": "Gödel's <em>second</em> incompleteness theorem says:",
+          "choices": [
+            "Every consistent theory is decidable.",
+            "A consistent, recursively axiomatised $T$ extending enough arithmetic cannot prove its own consistency $\\mathrm{Con}(T)$.",
+            "Arithmetic has a complete extension.",
+            "Halting is provable in PA."
+          ],
+          "answer": 1,
+          "explain": "Formalise the first-theorem proof inside $T$: from $\\mathrm{Con}(T)$, $T$ derives the unprovability of its Gödel sentence $G$, hence $G$ itself — contradicting $T\\not\\vdash G$. So $T\\not\\vdash\\mathrm{Con}(T)$."
         }
       ]
     }

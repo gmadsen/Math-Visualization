@@ -26,10 +26,13 @@
       "title": "Theta transformation law",
       "anchor": "trans",
       "prereqs": [
-        "theta-q-expansion"
+        "theta-q-expansion",
+        "poisson-summation"
       ],
       "blurb": "Poisson summation drives modular transformation formulas for theta functions.",
-      "tags": ["duality"]
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "dedekind-eta-theta",

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Heyting algebras toposes</title>
+<title>Heyting algebras and toposes</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
@@ -256,7 +256,7 @@ function drawNode(svg, x, y, label, opts={}){
 <main>
 
 <section class="hero">
-  <h1>Heyting algebras toposes</h1>
+  <h1>Heyting algebras and toposes</h1>
   <p class="sub">Intuitionist logic inside any topos: $\Omega$ as a Heyting algebra and the Mitchell–Bénabou language.</p>
 </section>
 
@@ -817,6 +817,29 @@ $f^*$ preserves $\wedge$ because it preserves finite products of subobjects (i.e
 <div class="quiz" data-concept="geometric-morphisms-logic"></div>
 </section>
 
+<section id="outro">
+<h2>7. Connections</h2>
+
+<p>Heyting algebras and the internal logic they organise are not a destination — they are a hinge between several theories that the rest of this notebook develops.</p>
+
+<h3>The internal logic and category theory</h3>
+
+<p>Every reasoning step you took inside $\mathcal{E}$ — the typing-tree judgments, the universally-quantified Kripke–Joyal clauses — is interpretable in any cartesian-closed category with a subobject classifier. The full account starts from <a href="./category-theory.html#cartesian-closed">cartesian-closed categories</a> and <a href="./elementary-topos-theory.html#power-objects">power-object axioms</a>; what we have here is the slice of that story specific to <em>propositional</em> reasoning.</p>
+
+<h3>Sheaf semantics and Grothendieck topoi</h3>
+
+<p>The Kripke–Joyal forcing relation $U \Vdash \varphi$ is the same as <em>local-truth in a sheaf</em>: a Grothendieck topology determines which covering families count, and forcing on the resulting topos becomes site-aware. <a href="./grothendieck-topologies-sites.html">Sites and sheaves</a> is the next step if you want to build topoi rather than reason inside a fixed one.</p>
+
+<h3>Higher topoi and homotopy type theory</h3>
+
+<p>Replace sets with $\infty$-groupoids and the same internal-language game produces the language of <a href="./infinity-topoi.html">$\infty$-topoi</a>. The propositions live a layer below the higher truth-values, and the $\Omega$ of this page becomes a $(-1)$-truncated object. Univalence in <a href="./type-theory-and-hott.html">homotopy type theory</a> turns isomorphism into identity at every height.</p>
+
+<h3>Constructive mathematics</h3>
+
+<p>The double-negation translation in $\S 5$ embeds classical logic into intuitionistic logic — a precise way to say "classical mathematics is intuitionistic mathematics about double-negation-stable propositions". This is the logician's translation; <a href="./first-order-logic-and-completeness.html">first-order logic</a> develops the syntactic side, and reverse mathematics studies which classical theorems require which non-constructive principles.</p>
+
+<p class="small" style="margin-top:2.5rem">Open frontiers: realizability topoi (effectivity carriers a different internal logic), modal type theory (geometric morphisms become modal operators), and synthetic mathematics done <em>inside</em> a topos (synthetic differential geometry, synthetic stability theory) all exploit the same internal-language machinery.</p>
+</section>
 </main>
 
 <script>

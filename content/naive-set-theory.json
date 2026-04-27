@@ -35,7 +35,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./category-theory.html#cat\">Category theory</a> · Categories and morphisms</div>\n    <div><a href=\"./naive-set-theory.html#products\">Naive set theory</a> · Cartesian products and power sets</div>\n    <div><a href=\"./naive-set-theory.html#countable\">Naive set theory</a> · Countability</div>\n    <div><a href=\"./naive-set-theory.html#equivalence\">Naive set theory</a> · Equivalence relations and quotients</div>\n    <div><a href=\"./projective-plane.html#defn\">Projective plane</a> · Projective points and lines</div>\n    <div><a href=\"./quadratic-reciprocity.html#multiplicative-group-mod-p\">Quadratic reciprocity</a> · The multiplicative group (Z/p)×</div>\n    <div class=\"more\">… and 1 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./category-theory.html#cat\">Category theory</a> · Categories and morphisms</div>\n    <div><a href=\"./naive-set-theory.html#products\">Naive set theory</a> · Cartesian products and power sets</div>\n    <div><a href=\"./naive-set-theory.html#countable\">Naive set theory</a> · Countability</div>\n    <div><a href=\"./naive-set-theory.html#equivalence\">Naive set theory</a> · Equivalence relations and quotients</div>\n    <div><a href=\"./projective-plane.html#defn\">Projective plane</a> · Projective points and lines</div>\n    <div><a href=\"./quadratic-reciprocity.html#multiplicative-group-mod-p\">Quadratic reciprocity</a> · The multiplicative group (Z/p)×</div>\n    <div class=\"more\">… and 2 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -171,7 +171,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./naive-set-theory.html#choice\">Naive set theory</a> · Axiom of choice</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./naive-set-theory.html#choice\">Naive set theory</a> · Axiom of choice</div>\n    <div><a href=\"./zfc-and-ordinals.html#axioms\">ZFC and ordinals</a> · The ZFC axioms</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -275,7 +275,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./naive-set-theory.html#choice\">Naive set theory</a> · Axiom of choice</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./first-order-logic-and-completeness.html#lowenheim-skolem\">First-order logic and completeness</a> · Löwenheim–Skolem and Skolem's paradox</div>\n    <div><a href=\"./naive-set-theory.html#choice\">Naive set theory</a> · Axiom of choice</div>\n    <div><a href=\"./zfc-and-ordinals.html#cardinals\">ZFC and ordinals</a> · Cardinals and cofinality</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -333,7 +333,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./point-set-topology.html#open\">Point-set topology</a> · Topological spaces</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./point-set-topology.html#open\">Point-set topology</a> · Topological spaces</div>\n    <div><a href=\"./zfc-and-ordinals.html#choice\">ZFC and ordinals</a> · The axiom of choice</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

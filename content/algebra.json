@@ -428,7 +428,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./galois.html#quintic\">Galois theory</a> · Solvability by radicals</div>\n    <div><a href=\"./projective-plane.html#cross-ratio\">Projective plane</a> · The cross-ratio</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./galois.html#quintic\">Galois theory</a> · Solvability by radicals</div>\n    <div><a href=\"./galois.html#galois\">Galois theory</a> · Splitting fields</div>\n    <div><a href=\"./model-theory-basics.html#applications\">Model theory</a> · Applications to algebra</div>\n    <div><a href=\"./projective-plane.html#cross-ratio\">Projective plane</a> · The cross-ratio</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -483,7 +483,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebra.html#orbits\">Abstract algebra</a> · Group actions, orbits, and Burnside</div>\n    <div><a href=\"./algebra.html#quotients-iso\">Abstract algebra</a> · Quotient groups and isomorphism theorems</div>\n    <div><a href=\"./algebra.html#sylow\">Abstract algebra</a> · Sylow theorems</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebra.html#orbits\">Abstract algebra</a> · Group actions, orbits, and Burnside</div>\n    <div><a href=\"./algebra.html#quotients-iso\">Abstract algebra</a> · Quotient groups and isomorphism theorems</div>\n    <div><a href=\"./algebra.html#sylow\">Abstract algebra</a> · Sylow theorems</div>\n    <div><a href=\"./galois.html#solvable\">Galois theory</a> · Solvable groups</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -567,7 +567,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebra.html#abelian\">Abstract algebra</a> · Finite abelian groups</div>\n    <div><a href=\"./algebra.html#semidirect\">Abstract algebra</a> · Semidirect products and short exact sequences</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./algebra.html#abelian\">Abstract algebra</a> · Finite abelian groups</div>\n    <div><a href=\"./algebra.html#semidirect\">Abstract algebra</a> · Semidirect products and short exact sequences</div>\n    <div><a href=\"./galois.html#solvable\">Galois theory</a> · Solvable groups</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -884,6 +884,10 @@
           "type": "quiz",
           "concept": "polynomial-rings-irreducibility",
           "html": "<div class=\"quiz\" data-concept=\"polynomial-rings-irreducibility\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./galois.html#galois\">Galois theory</a> · Splitting fields</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

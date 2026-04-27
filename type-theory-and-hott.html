@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Type theory and hott</title>
+<title>Type theory and HoTT</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
@@ -154,8 +154,16 @@
   .mv-display-toggle--off { opacity: 0.35; }
   /* display-prefs-css-auto-end */
 </style>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
 <!-- breadcrumb-head-auto-begin -->
-<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"automorphic-forms-adelic","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"moduli-spaces","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"automorphic-forms-adelic":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra & homological","title":"Category theory"},"class-field-theory":{"next":"galois-representations","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-topoi","prev":"infinity-categories","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"deformation-theory":{"next":"etale-cohomology","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"group-cohomology","prev":"homological","section":"Algebra & homological","title":"Derived categories"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"harmonic-analysis-fourier","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":null,"section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"etale-cohomology":{"next":null,"prev":"deformation-theory","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"deformation-theory","prev":"group-schemes","section":"Algebraic geometry","title":"Étale fundamental group"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-representations":{"next":"heights-arithmetic-geometry","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":null,"prev":"derived-categories","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"etale-fundamental-group","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"harmonic-analysis-fourier":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":null,"prev":"galois-representations","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"homological":{"next":"derived-categories","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"cocartesian-fibrations","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-topoi (Lurie)"},"intersection-theory-chow":{"next":"group-schemes","prev":"stacks","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":null,"prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"algebraic-spaces","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"naive-set-theory":{"next":null,"prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"power-sums-bernoulli":{"next":"waring","prev":"sums-of-squares","section":"Number theory","title":"Power sums & Bernoulli"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":null,"prev":null,"section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"waring","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"sums-of-squares","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra & homological","title":"Representation theory"},"riemann-surfaces":{"next":null,"prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"sheaf-cohomology":{"next":"algebraic-de-rham-cohomology","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":null,"prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"algebraic-curves-higher-genus","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":null,"prev":"harmonic-analysis-fourier","section":"Analysis","title":"Sobolev spaces & distributions"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"stacks":{"next":"intersection-theory-chow","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"sums-of-squares":{"next":"power-sums-bernoulli","prev":"quadratic-reciprocity","section":"Number theory","title":"Sums of squares"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"waring":{"next":"quadratic-forms-genus-theory","prev":"power-sums-bernoulli","section":"Number theory","title":"Waring's problem"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"}};</script>
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"automorphic-forms-adelic","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"moduli-spaces","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":null,"prev":"heights-arithmetic-geometry","section":"Number theory","title":"Analytic number theory"},"automorphic-forms-adelic":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-topoi","prev":"infinity-categories","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"deformation-theory":{"next":"etale-cohomology","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"group-cohomology","prev":"homological","section":"Algebra & homological","title":"Derived categories"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"harmonic-analysis-fourier","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":null,"section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":null,"prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":null,"prev":"deformation-theory","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"deformation-theory","prev":"group-schemes","section":"Algebraic geometry","title":"Étale fundamental group"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"naive-set-theory","section":"Logic & Foundations","title":"First order logic and completeness"},"forcing-and-independence":{"next":null,"prev":"type-theory-and-hott","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":null,"prev":"lie-algebras","section":"Algebra & homological","title":"Galois cohomology and brauer"},"galois-representations":{"next":"heights-arithmetic-geometry","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"lie-algebras","prev":"derived-categories","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"etale-fundamental-group","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"harmonic-analysis-fourier":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"spectral-theory","prev":"partial-differential-equations","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"analytic-number-theory","prev":"galois-representations","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"homological":{"next":"derived-categories","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"cocartesian-fibrations","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-topoi (Lurie)"},"information-theory":{"next":"large-deviations","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"stacks","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"large-deviations":{"next":null,"prev":"information-theory","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"galois-cohomology-and-brauer","prev":"group-cohomology","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"model-theory-basics":{"next":"computability-and-decidability","prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":null,"prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"modular-curves","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"algebraic-spaces","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":null,"prev":"characteristic-classes","section":"Geometry & topology","title":"Morse theory"},"naive-set-theory":{"next":"first-order-logic-and-completeness","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"harmonic-functions","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"power-sums-bernoulli":{"next":"waring","prev":"sums-of-squares","section":"Number theory","title":"Power sums & Bernoulli"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"stochastic-processes-and-martingales","prev":null,"section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"waring","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"sums-of-squares","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"random-walks-and-mixing":{"next":"information-theory","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra & homological","title":"Representation theory"},"riemann-surfaces":{"next":"characteristic-classes","prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"sheaf-cohomology":{"next":"algebraic-de-rham-cohomology","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"algebraic-curves-higher-genus","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Sobolev spaces & distributions"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":null,"prev":"harmonic-functions","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"intersection-theory-chow","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":"probability-theory","section":"Probability & statistics","title":"Stochastic processes and martingales"},"sums-of-squares":{"next":"power-sums-bernoulli","prev":"quadratic-reciprocity","section":"Number theory","title":"Sums of squares"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"type-theory-and-hott":{"next":"forcing-and-independence","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and hott"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"waring":{"next":"quadratic-forms-genus-theory","prev":"power-sums-bernoulli","section":"Number theory","title":"Waring's problem"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"model-theory-basics","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"Zfc and ordinals"}};</script>
 <script src="./js/breadcrumb.js"></script>
 <script src="./js/glossary-popover.js" defer></script>
 <link rel="stylesheet" media="print" href="./css/print.css">
@@ -168,7 +176,6 @@
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
 <script src="./js/katex-select.js"></script>
-<script src="./js/widget-diagram-editor.js"></script>
 <script src="./quizzes/bundle.js"></script>
 <!-- display-prefs-head-auto-begin -->
 <script src="./js/display-prefs.js"></script>
@@ -183,7 +190,6 @@ const SVG = (tag,attrs={})=>{
   for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
   return e;
 };
-// draw an arrow marker def once per svg (idempotent)
 function ensureArrow(svg, id, color){
   let defs = svg.querySelector('defs');
   if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
@@ -192,7 +198,6 @@ function ensureArrow(svg, id, color){
   mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
   defs.appendChild(mk);
 }
-// curved arrow between two pixel points, with optional label
 function drawArrow(svg, p1, p2, opts={}){
   const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
   ensureArrow(svg, markerId, color);
@@ -200,7 +205,6 @@ function drawArrow(svg, p1, p2, opts={}){
   const dx=x2-x1, dy=y2-y1;
   const L = Math.hypot(dx,dy) || 1;
   const ux=dx/L, uy=dy/L;
-  // shorten endpoints
   const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
   const ax=x1+ux*pad1, ay=y1+uy*pad1;
   const bx=x2-ux*pad2, by=y2-uy*pad2;
@@ -229,25 +233,882 @@ function drawNode(svg, x, y, label, opts={}){
 }
 </script>
 
-<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
-  <a href="#intro">1&nbsp;Intro</a>
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+  <a href="#judgments">1&nbsp;Judgments</a>
+  <a href="#pi-sigma">2&nbsp;Π&nbsp;and&nbsp;Σ</a>
+  <a href="#identity">3&nbsp;Identity&nbsp;types</a>
+  <a href="#univalence">4&nbsp;Univalence</a>
+  <a href="#hits">5&nbsp;HITs</a>
+  <a href="#models">6&nbsp;Models</a>
 </nav>
 <!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+<div id="mv-lineage-mount" class="lineage-strip" hidden></div>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
 
 <main>
 
 <section class="hero">
-  <h1>Type theory and hott</h1>
-  <p class="sub"><!-- TODO: one-sentence tagline. --></p>
+  <h1>Type theory and HoTT</h1>
+  <p class="sub">A foundation that replaces 'membership in a set' with 'derivation of a typing judgment', then discovers that its identity types behave like spaces. From Π/Σ and the Curry–Howard correspondence to univalence, higher inductive types, and the simplicial-set model.</p>
 </section>
 
-<section id="intro">
-<h2>1. Intro</h2>
-<p>Placeholder — content forthcoming.</p>
-<div class="quiz" data-concept="type-theory-and-hott-intro"></div>
+<p>Set theory says 'mathematics is the study of what's in collections'. <strong>Type theory</strong> says 'mathematics is the study of what we can derive', and replaces the global $\in$ with a structured deduction system over <em>typing judgments</em>. Every term carries its type with it; well-formed expressions are the ones with a derivation. Layered on top of this — first by Martin-Löf, then by Voevodsky and the HoTT community — sits a startling discovery: the identity type $\mathsf{Id}_A(a,b)$ behaves like the space of paths from $a$ to $b$, with all the higher-cell coherences of homotopy theory. The univalence axiom then forces 'isomorphism = identity' as a theorem.</p>
+
+<div class="note"><strong>Plan.</strong> Sections 1–2 are the apparatus of dependent type theory: judgments, contexts, the Π/Σ duo and Curry–Howard. Section 3 introduces identity types and the path-space picture. Sections 4–5 are HoTT proper: univalence and higher inductive types. Section 6 sketches Voevodsky's simplicial-set model — what makes the syntax a coherent foundation.</div>
+
+<section id="judgments">
+<h2>1. Judgments and contexts</h2>
+
+<p>The primitive notion of type theory is the <strong>judgment</strong>. There are four basic forms:</p>
+<table class="plain">
+<thead><tr><th>judgment</th><th>read as</th></tr></thead>
+<tbody>
+<tr><td>$\Gamma\vdash A\;\mathsf{type}$</td><td>'in context $\Gamma$, the expression $A$ is a type'</td></tr>
+<tr><td>$\Gamma\vdash a:A$</td><td>'in context $\Gamma$, the term $a$ has type $A$'</td></tr>
+<tr><td>$\Gamma\vdash A\equiv B\;\mathsf{type}$</td><td>'$A$ and $B$ are definitionally equal types'</td></tr>
+<tr><td>$\Gamma\vdash a\equiv b:A$</td><td>'$a$ and $b$ are definitionally equal terms of $A$'</td></tr>
+</tbody>
+</table>
+
+<p>A <strong>context</strong> $\Gamma$ is a finite list $(x_1:A_1,\,x_2:A_2(x_1),\,\ldots,\,x_n:A_n(x_1,\ldots,x_{n-1}))$ where each $A_i$ is a type in the previous context. Variables in a context are <em>distinct</em>, and later types may depend on earlier ones — that's where the 'dependent' in dependent type theory enters. Well-formedness is itself a judgment, $\Gamma\;\mathsf{ctx}$, derivable by an obvious recursion.</p>
+
+<div class="note"><strong>Why judgments instead of "$a\in A$".</strong> In set theory, $\in$ is a global relation: any term can in principle be tested for membership in any set. In type theory, '$a:A$' is meaningful only as the conclusion of a derivation. You can't ask 'is $\pi:\mathbb{N}$?' as a yes/no question — there is simply no derivation. This makes type-checking decidable in nice cases, and it makes the foundation <em>computational</em>: every well-typed term reduces.</div>
+
+<p>The widget below builds up a context one variable at a time and pretty-prints the typing derivation.</p>
+
+<div class="widget" id="w-ctx">
+  <div class="hd"><div class="ttl">Context builder</div><div class="hint">add variables left-to-right; each new type may depend on earlier ones</div></div>
+  <div class="row">
+    <label>scenario</label>
+    <select id="ctx-scenario">
+      <option value="0" selected>vector of length n</option>
+      <option value="1">matrix m × n</option>
+      <option value="2">graph + vertex + path</option>
+      <option value="3">just a function f : A → B</option>
+    </select>
+    <button id="ctx-step-back">−</button>
+    <button id="ctx-step-fwd">+</button>
+  </div>
+  <svg id="ctx-svg" viewBox="0 0 620 220" width="620" height="220"><title>Context builder</title></svg>
+  <div class="readout" id="ctx-out"></div>
+</div>
+
+<div class="quiz" data-concept="tt-judgments"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./type-theory-and-hott.html#pi-sigma">Type theory and HoTT</a> · Π and Σ types</div>
+</aside>
+<!-- backlinks-auto-end -->
 </section>
+
+<script>
+/* =========================== Context builder =========================== */
+(function(){
+  const svg=$('#ctx-svg'), out=$('#ctx-out'), sel=$('#ctx-scenario');
+  const back=$('#ctx-step-back'), fwd=$('#ctx-step-fwd');
+  // each scenario: list of context entries, each {var, type, depHTML, deps:[indices of earlier vars]}
+  const scenarios = [
+    [
+      {v:'n', t:'ℕ', deps:[]},
+      {v:'v', t:'Vec(ℝ, n)', deps:[0]},
+      {v:'f', t:'Vec(ℝ, n) → ℝ', deps:[0]}
+    ],
+    [
+      {v:'m', t:'ℕ', deps:[]},
+      {v:'n', t:'ℕ', deps:[]},
+      {v:'M', t:'Mat(ℝ, m, n)', deps:[0,1]}
+    ],
+    [
+      {v:'G', t:'Graph', deps:[]},
+      {v:'x', t:'Vert(G)', deps:[0]},
+      {v:'y', t:'Vert(G)', deps:[0]},
+      {v:'p', t:'Path(G, x, y)', deps:[0,1,2]}
+    ],
+    [
+      {v:'A', t:'Type', deps:[]},
+      {v:'B', t:'Type', deps:[]},
+      {v:'f', t:'A → B', deps:[0,1]}
+    ]
+  ];
+  let scenarioIdx = 0;
+  let step = 1; // 1..n entries shown
+
+  function clamp(){
+    const n = scenarios[scenarioIdx].length;
+    if(step < 1) step = 1;
+    if(step > n) step = n;
+  }
+
+  function render(){
+    clamp();
+    svg.innerHTML='';
+    const ctx = scenarios[scenarioIdx];
+    const W = 620, H = 220;
+    const padX = 30, padY = 36;
+    const colW = (W - 2*padX) / Math.max(1, ctx.length);
+    // colors
+    const FILL_ON  = 'rgba(126,224,214,0.14)';
+    const FILL_OFF = 'rgba(154,164,178,0.07)';
+    const STR_ON   = 'var(--cyan)';
+    const STR_OFF  = 'var(--line)';
+    // dep arrows first (later columns -> earlier) for visible variables
+    for(let i=0;i<ctx.length;i++){
+      if(i >= step) continue;
+      for(const d of ctx[i].deps){
+        if(d >= step) continue;
+        const x1 = padX + d*colW + colW*0.5;
+        const x2 = padX + i*colW + colW*0.5;
+        const y  = padY + 70;
+        const mid = (x1+x2)/2;
+        const path = SVG('path',{
+          d:`M${x2-22} ${y+24} C ${mid} ${y+72}, ${mid} ${y+72}, ${x1+22} ${y+24}`,
+          fill:'none', stroke:'var(--violet)', 'stroke-width':1, 'stroke-dasharray':'3 3'
+        });
+        svg.appendChild(path);
+      }
+    }
+    // boxes
+    for(let i=0;i<ctx.length;i++){
+      const on = i < step;
+      const cx = padX + i*colW + colW*0.5;
+      const cy = padY + 50;
+      svg.appendChild(SVG('rect',{x:cx-colW*0.45, y:cy-22, width:colW*0.9, height:46, rx:8, ry:8,
+        fill: on ? FILL_ON : FILL_OFF, stroke: on ? STR_ON : STR_OFF, 'stroke-width':1.4}));
+      const t = SVG('text',{x:cx, y:cy+5,'text-anchor':'middle','font-size':14, fill: on ? 'var(--ink)' : 'var(--mute)'});
+      t.textContent = `${ctx[i].v} : ${ctx[i].t}`;
+      svg.appendChild(t);
+    }
+    // label
+    const lbl = SVG('text',{x:W/2, y:18, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+    lbl.textContent = 'context Γ — left-to-right; dashed arrows = type depends on this earlier variable';
+    svg.appendChild(lbl);
+    // judgment
+    const judg = SVG('text',{x:W/2, y:H-14,'text-anchor':'middle','font-size':14, fill:'var(--yellow)','font-family':'ui-monospace,monospace'});
+    let pieces = [];
+    for(let i=0;i<step;i++) pieces.push(`${ctx[i].v}:${ctx[i].t}`);
+    judg.textContent = `Γ = ( ${pieces.join(', ')} )    ⊢  Γ ctx`;
+    svg.appendChild(judg);
+    renderReadout();
+  }
+  function renderReadout(){
+    const ctx = scenarios[scenarioIdx];
+    const lines = [];
+    lines.push('derivation of  Γ ctx :');
+    lines.push('');
+    lines.push('  · ctx              (empty context)');
+    let acc = [];
+    for(let i=0;i<step;i++){
+      const en = ctx[i];
+      const depStr = en.deps.length ? `  uses {${en.deps.map(d=>ctx[d].v).join(',')}}` : '';
+      const head = acc.length ? `  ( ${acc.map(a=>a.v+':'+a.t).join(', ')} )` : '  ·';
+      lines.push(`${head}  ⊢  ${en.t}  type${depStr}`);
+      acc.push(en);
+      lines.push(`  ⇒ ( ${acc.map(a=>a.v+':'+a.t).join(', ')} ) ctx`);
+    }
+    lines.push('');
+    lines.push(`free vars: { ${acc.map(a=>a.v).join(', ')} }`);
+    lines.push(`step ${step} / ${ctx.length}`);
+    out.textContent = lines.join('\n');
+  }
+
+  sel.addEventListener('change', ()=>{ scenarioIdx = parseInt(sel.value,10); step = 1; render(); });
+  back.addEventListener('click', ()=>{ step--; render(); });
+  fwd.addEventListener('click', ()=>{ step++; render(); });
+  render();
+})();
+</script>
+
+<section id="pi-sigma">
+<h2>2. Π and Σ types</h2>
+
+<p>The two type-formers that bring dependence to life are <strong>Π</strong> (dependent function) and <strong>Σ</strong> (dependent pair).</p>
+
+<table class="plain">
+<thead><tr><th></th><th>$\Pi_{x:A} B(x)$</th><th>$\Sigma_{x:A} B(x)$</th></tr></thead>
+<tbody>
+<tr><td>introduce</td><td>$\lambda x.\,b(x)$ where $b(x):B(x)$</td><td>$(a,b)$ where $a:A,\ b:B(a)$</td></tr>
+<tr><td>eliminate</td><td>apply: $f(a):B(a)$</td><td>project: $\mathrm{pr}_1(p):A$, $\mathrm{pr}_2(p):B(\mathrm{pr}_1 p)$</td></tr>
+<tr><td>compute</td><td>$(\lambda x.b)(a)\equiv b[a/x]$</td><td>$\mathrm{pr}_1(a,b)\equiv a$, $\mathrm{pr}_2(a,b)\equiv b$</td></tr>
+<tr><td>logic side</td><td>$\forall x.\,B(x)$</td><td>$\exists x.\,B(x)$</td></tr>
+<tr><td>set-theory side</td><td>section of the bundle $B\to A$</td><td>total space of the bundle $B\to A$</td></tr>
+</tbody>
+</table>
+
+<p>When $B$ does not actually mention $x$, $\Pi_{x:A} B$ collapses to the function type $A\to B$ and $\Sigma_{x:A} B$ collapses to the product $A\times B$. The dependent versions are how type theory talks about <em>vectors of length $n$</em>, <em>polynomials of degree $\le d$</em>, or <em>matrices of shape $(m,n)$</em> without escaping into a metatheory.</p>
+
+<div class="ok"><strong>Curry–Howard slogan.</strong> $\forall \leftrightarrow \Pi$, $\exists \leftrightarrow \Sigma$, $\Rightarrow \leftrightarrow \to$, $\land \leftrightarrow \times$, $\lor \leftrightarrow +$, $\neg P \leftrightarrow P\to\bot$. A program of type $T$ <em>is</em> a constructive proof of the proposition $T$.</div>
+
+<p>The widget evaluates a small λ-calculus term step by step. Watch β-reduction unfold.</p>
+
+<div class="widget" id="w-lambda">
+  <div class="hd"><div class="ttl">λ-reduction stepper</div><div class="hint">step β-redex by β-redex; readout shows free variables</div></div>
+  <div class="row">
+    <label>term</label>
+    <select id="lam-pick">
+      <option value="0" selected>(λx.λy.x) a b   — K, returns a</option>
+      <option value="1">(λx.λy.y) a b   — KI, returns b</option>
+      <option value="2">(λf.λx.f(f x)) g a   — Church 2 applied to g</option>
+      <option value="3">(λx.x x)(λx.x x)   — Ω, diverges</option>
+    </select>
+    <button id="lam-step">step</button>
+    <button id="lam-reset">reset</button>
+  </div>
+  <svg id="lam-svg" viewBox="0 0 620 200" width="620" height="200"><title>λ-reduction stepper</title></svg>
+  <div class="readout" id="lam-out"></div>
+</div>
+
+<div class="quiz" data-concept="tt-pi-sigma"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./type-theory-and-hott.html#identity">Type theory and HoTT</a> · Identity types</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<script>
+/* =========================== λ-reduction stepper =========================== */
+(function(){
+  const svg=$('#lam-svg'), out=$('#lam-out'), pick=$('#lam-pick');
+  const stepBtn=$('#lam-step'), resetBtn=$('#lam-reset');
+  // strings only — the redexes are picked by left-to-right beta on a parenthesised string
+  const programs = [
+    ['(λx.λy.x) a b', 6],
+    ['(λx.λy.y) a b', 6],
+    ['(λf.λx.f (f x)) g a', 8],
+    ['(λx.x x) (λx.x x)', 4]
+  ];
+  let progIdx = 0;
+  let history = [];
+
+  function reduce(s){
+    // a tiny ad-hoc β-reducer for the four hand-picked terms:
+    // we look for "(λX.M) N " and substitute. M, N are atomic or balanced parens.
+    // We bail out / mark stuck if no redex.
+    const m = s.match(/^\(λ([a-z])\.([\s\S]+)\)\s+([^\s()]+|\([^()]*(?:\([^()]*\)[^()]*)*\))(.*)$/);
+    if(!m) return null;
+    const [, v, body, arg, rest] = m;
+    // capture-free substitution body[arg/v] (our examples avoid clashes)
+    const sub = body.replace(new RegExp(`(?<![a-zA-Z])${v}(?![a-zA-Z])`,'g'), arg);
+    return (sub + rest).trim();
+  }
+
+  // Better: use a hard-coded redex chain per scenario (so we don't need a
+  // production parser for divergence detection).
+  const chains = [
+    ['(λx.λy.x) a b', '(λy.a) b', 'a'],
+    ['(λx.λy.y) a b', '(λy.y) b', 'b'],
+    ['(λf.λx.f (f x)) g a', '(λx.g (g x)) a', 'g (g a)'],
+    ['(λx.x x) (λx.x x)', '(λx.x x) (λx.x x)', '(λx.x x) (λx.x x)']  // self-similar
+  ];
+
+  function reset(){
+    progIdx = parseInt(pick.value,10);
+    history = [chains[progIdx][0]];
+    render();
+  }
+
+  function step(){
+    const chain = chains[progIdx];
+    const i = history.length;
+    if(i >= chain.length) return;
+    history.push(chain[i]);
+    render();
+  }
+
+  function render(){
+    svg.innerHTML='';
+    const W = 620, H = 200;
+    const padX = 30, top = 28;
+    const stepH = 28;
+    const cur = history[history.length-1];
+    // render history as stacked lines (most recent at bottom highlighted)
+    const max = Math.min(history.length, 5);
+    const startIdx = Math.max(0, history.length - max);
+    for(let k=startIdx; k<history.length; k++){
+      const y = top + (k-startIdx)*stepH;
+      const isLast = k === history.length-1;
+      const t = SVG('text',{x:padX, y:y, 'font-size':14,
+        fill: isLast ? 'var(--yellow)' : 'var(--mute)',
+        'font-family':'ui-monospace,monospace'});
+      t.textContent = (k===0 ? '   ' : '→  ') + history[k];
+      svg.appendChild(t);
+      if(isLast){
+        // underline
+        svg.appendChild(SVG('line',{x1:padX-4, y1:y+6, x2:padX+history[k].length*8.4 + 30, y2:y+6,
+          stroke:'var(--yellow)','stroke-width':1, 'stroke-dasharray':'2 4'}));
+      }
+    }
+    // status badge
+    const chain = chains[progIdx];
+    const isDiv = (progIdx === 3);
+    let status;
+    if(isDiv && history.length >= 4){
+      status = '↻ diverges (Ω self-replicates)';
+    } else if(history.length >= chain.length){
+      status = '✓ normal form reached';
+    } else {
+      status = `step ${history.length-1} / ${chain.length-1}  — click step to reduce`;
+    }
+    const stTxt = SVG('text',{x:padX, y:H-16,'font-size':12, fill:'var(--mute)'});
+    stTxt.textContent = status;
+    svg.appendChild(stTxt);
+    renderReadout();
+  }
+
+  function renderReadout(){
+    const cur = history[history.length-1];
+    // free-variable scan: lower-case letters that aren't immediately preceded by λ.
+    const free = new Set();
+    const bound = new Set();
+    cur.replace(/λ([a-z])/g, (_,v)=>{ bound.add(v); return _; });
+    for(const m of cur.matchAll(/(?<![a-zA-Z])([a-z])(?![a-zA-Z])/g)){
+      if(!bound.has(m[1])) free.add(m[1]);
+    }
+    const lines = [];
+    lines.push(`current term : ${cur}`);
+    lines.push(`bound vars   : { ${[...bound].join(', ')} }`);
+    lines.push(`free vars    : { ${[...free].join(', ')} }`);
+    lines.push(`reductions   : ${history.length - 1}`);
+    lines.push('');
+    if(progIdx === 3){
+      lines.push('this is Ω = (λx.xx)(λx.xx). β-reducing gives back Ω: an');
+      lines.push('infinite β-chain inside untyped λ-calculus.  Crucially, Ω');
+      lines.push('is NOT typable in simply-typed λ-calculus — types rule it out.');
+    } else {
+      lines.push('β-rule:  (λx.M) N  ⟶  M[N/x]');
+    }
+    out.textContent = lines.join('\n');
+  }
+
+  pick.addEventListener('change', reset);
+  stepBtn.addEventListener('click', step);
+  resetBtn.addEventListener('click', reset);
+  reset();
+})();
+</script>
+
+<section id="identity">
+<h2>3. Identity types</h2>
+
+<p>For every type $A$ and every $a,b:A$ we form the <strong>identity type</strong> $\mathsf{Id}_A(a,b)$. It has exactly one constructor:</p>
+$$\mathsf{refl}_a : \mathsf{Id}_A(a,a)$$
+
+<p>and one elimination rule, the <strong>J-rule</strong> (path induction): to define a function out of $\mathsf{Id}_A(a,b)$ for arbitrary $a,b$, it suffices to specify what it does on $\mathsf{refl}_a$ for arbitrary $a$. From J alone one derives:</p>
+<ul>
+  <li>concatenation $\mathsf{Id}_A(a,b)\to \mathsf{Id}_A(b,c)\to \mathsf{Id}_A(a,c)$, written $p\cdot q$;</li>
+  <li>inversion $\mathsf{Id}_A(a,b)\to \mathsf{Id}_A(b,a)$, written $p^{-1}$;</li>
+  <li>action of any function $f:A\to B$ on identifications: $\mathsf{ap}_f:\mathsf{Id}_A(a,b)\to \mathsf{Id}_B(f(a),f(b))$;</li>
+  <li>transport along $p$: if $P:A\to\mathsf{Type}$ and $u:P(a)$, then $p_*(u):P(b)$.</li>
+</ul>
+
+<div class="note"><strong>Path-space picture.</strong> Read $A$ as a topological space, $a,b:A$ as points, $p:\mathsf{Id}_A(a,b)$ as a path, $\mathsf{refl}_a$ as the constant path. Concatenation, inversion, and $\mathsf{ap}_f$ are then literally path concatenation, path reversal, and post-composition with a continuous map. This is the picture HoTT takes seriously.</div>
+
+<p>The widget below shows two endpoints in a small square; drag one of them to see how the path between $a$ and $b$ moves, and watch its homotopy class read out.</p>
+
+<div class="widget" id="w-path">
+  <div class="hd"><div class="ttl">Path space Id_A(a,b)</div><div class="hint">drag <em>a</em> or <em>b</em>; the path stretches; refl is the loop at a point</div></div>
+  <div class="row">
+    <button id="path-coincide">make a = b (refl)</button>
+    <button id="path-spread">spread apart</button>
+    <button id="path-loop">loop a back to itself</button>
+  </div>
+  <svg id="path-svg" viewBox="0 0 620 260" width="620" height="260"><title>Path space</title></svg>
+  <div class="readout" id="path-out"></div>
+</div>
+
+<div class="quiz" data-concept="tt-identity-types"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./type-theory-and-hott.html#hits">Type theory and HoTT</a> · Higher inductive types</div>
+    <div><a href="./type-theory-and-hott.html#univalence">Type theory and HoTT</a> · Univalence axiom</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<script>
+/* =========================== Path-space widget =========================== */
+(function(){
+  const svg=$('#path-svg'), out=$('#path-out');
+  const W=620, H=260;
+  let A = {x: 180, y: 130};
+  let B = {x: 440, y: 130};
+  let dragging = null;
+
+  function clamp(p){
+    p.x = Math.max(40, Math.min(W-40, p.x));
+    p.y = Math.max(40, Math.min(H-40, p.y));
+  }
+
+  function render(){
+    svg.innerHTML='';
+    // panel
+    svg.appendChild(SVG('rect',{x:20, y:20, width:W-40, height:H-40, rx:10, ry:10,
+      fill:'rgba(126,224,214,0.04)', stroke:'var(--line)', 'stroke-width':1, 'stroke-dasharray':'4 4'}));
+    const lblA = SVG('text',{x:30, y:38,'font-size':12, fill:'var(--mute)'});
+    lblA.textContent = 'type A (a "space")';
+    svg.appendChild(lblA);
+
+    const dx = B.x - A.x, dy = B.y - A.y;
+    const dist = Math.hypot(dx,dy);
+    const same = dist < 6;
+
+    // path between A and B
+    if(same){
+      // refl loop: small circle at A
+      svg.appendChild(SVG('circle',{cx:A.x+22, cy:A.y, r:18, fill:'none',
+        stroke:'var(--yellow)','stroke-width':2}));
+      const t = SVG('text',{x:A.x+22, y:A.y-26,'text-anchor':'middle','font-size':12,
+        fill:'var(--yellow)','font-style':'italic'});
+      t.textContent = 'refl_a';
+      svg.appendChild(t);
+    } else {
+      // curved path
+      const mx = (A.x+B.x)/2;
+      const my = (A.y+B.y)/2 - 30;
+      svg.appendChild(SVG('path',{
+        d:`M${A.x} ${A.y} Q ${mx} ${my} ${B.x} ${B.y}`,
+        fill:'none', stroke:'var(--cyan)','stroke-width':2.4
+      }));
+      // arrow at end
+      const ang = Math.atan2(B.y-my, B.x-mx);
+      const ah = SVG('path',{
+        d:`M${B.x} ${B.y} L ${B.x - 10*Math.cos(ang-0.4)} ${B.y - 10*Math.sin(ang-0.4)} L ${B.x - 10*Math.cos(ang+0.4)} ${B.y - 10*Math.sin(ang+0.4)} Z`,
+        fill:'var(--cyan)'});
+      svg.appendChild(ah);
+      const t = SVG('text',{x:mx, y:my-6,'text-anchor':'middle','font-size':13,
+        fill:'var(--cyan)','font-style':'italic'});
+      t.textContent = 'p : Id_A(a, b)';
+      svg.appendChild(t);
+    }
+
+    // endpoints
+    function ep(p, label, color){
+      svg.appendChild(SVG('circle',{cx:p.x, cy:p.y, r:8, fill:color, stroke:'#000','stroke-width':1.5,
+        style:'cursor:grab','data-pt':label}));
+      const t = SVG('text',{x:p.x, y:p.y-14, 'text-anchor':'middle','font-size':14,
+        fill:color,'font-weight':700});
+      t.textContent = label;
+      svg.appendChild(t);
+    }
+    ep(A, 'a', 'var(--pink)');
+    if(!same) ep(B, 'b', 'var(--violet)');
+    else {
+      // overlap badge
+      const t = SVG('text',{x:A.x, y:A.y-14, 'text-anchor':'middle','font-size':14,
+        fill:'var(--pink)','font-weight':700});
+      t.textContent = 'a = b';
+      svg.appendChild(t);
+    }
+    renderReadout(same, dist);
+  }
+
+  function renderReadout(same, dist){
+    const lines = [];
+    lines.push(`endpoints  : a = (${A.x.toFixed(0)}, ${A.y.toFixed(0)}),  b = (${B.x.toFixed(0)}, ${B.y.toFixed(0)})`);
+    lines.push(`euclid dist: ${dist.toFixed(1)} px  (visualisation only)`);
+    lines.push('');
+    if(same){
+      lines.push('a = b (definitionally),  so  Id_A(a, b)  is inhabited by  refl_a.');
+      lines.push('refl_a  is the canonical "constant path" at a.');
+    } else {
+      lines.push('a ≠ b (as drawn).  An element  p : Id_A(a, b)  asserts');
+      lines.push('an identification of a with b.  Picture: a path from a to b.');
+      lines.push('');
+      lines.push('  · concat:   p · q : Id_A(a, c)   when q : Id_A(b, c)');
+      lines.push('  · inverse:  p⁻¹  : Id_A(b, a)');
+      lines.push('  · ap_f(p)  : Id_B(f a, f b)   for f : A → B');
+    }
+    out.textContent = lines.join('\n');
+  }
+
+  function ptFromEvent(e){
+    const r = svg.getBoundingClientRect();
+    const sx = (e.clientX - r.left) * (W/r.width);
+    const sy = (e.clientY - r.top)  * (H/r.height);
+    return {x:sx, y:sy};
+  }
+  svg.addEventListener('pointerdown', e=>{
+    const tag = e.target && e.target.getAttribute && e.target.getAttribute('data-pt');
+    if(tag === 'a'){ dragging = A; }
+    else if(tag === 'b'){ dragging = B; }
+    if(dragging){ svg.setPointerCapture(e.pointerId); }
+  });
+  svg.addEventListener('pointermove', e=>{
+    if(!dragging) return;
+    const p = ptFromEvent(e);
+    dragging.x = p.x; dragging.y = p.y;
+    clamp(dragging);
+    render();
+  });
+  svg.addEventListener('pointerup', e=>{
+    if(dragging){ svg.releasePointerCapture(e.pointerId); }
+    dragging = null;
+  });
+
+  $('#path-coincide').addEventListener('click', ()=>{ B.x = A.x; B.y = A.y; render(); });
+  $('#path-spread').addEventListener('click', ()=>{ A = {x:180, y:130}; B = {x:440, y:130}; render(); });
+  $('#path-loop').addEventListener('click', ()=>{ B.x = A.x + 0.5; B.y = A.y + 0.5; render(); });
+  render();
+})();
+</script>
+
+<section id="univalence">
+<h2>4. The univalence axiom</h2>
+
+<p>For any two types $A,B$ in a universe $\mathcal{U}$, there is a canonical map</p>
+$$\mathsf{idtoeqv}: (A=B) \longrightarrow (A\simeq B)$$
+<p>built from path induction: an identification $p:A=B$ transports any element of $A$ to one of $B$, and the inverse operation transports back. <strong>Voevodsky's univalence axiom</strong> says this canonical map is itself an equivalence:</p>
+$$ \mathsf{ua}: (A=B) \;\simeq\; (A\simeq B). $$
+
+<p>Consequences are immediate and dramatic:</p>
+<ul>
+  <li>If $A\simeq B$, then there is an identification $A=B$. <em>Isomorphism is identity.</em></li>
+  <li>Every property invariant under equivalence is automatically invariant under identification — and vice versa. So you can transport a theorem from a structure to anything equivalent.</li>
+  <li>It contradicts Streicher's axiom K (uniqueness of identity proofs): the universe at $(\mathbb{B},\mathbb{B})$ has the swap equivalence as a non-reflexive identification.</li>
+  <li>It implies <em>function extensionality</em> ($\Pi\,x.\,f(x)=g(x)$ implies $f=g$).</li>
+</ul>
+
+<div class="ok"><strong>Use case.</strong> If $A$ is the type of finite groups and $B$ the type of bijections of $A$ with itself, univalence says proving a property of finite groups up to isomorphism really does prove it 'on the nose' — no boilerplate to transport along a chosen isomorphism. The bookkeeping vanishes.</div>
+
+<p>The widget below shows two finite types that happen to be equivalent (a $2$-element type and the booleans), and lets you toggle the canonical equivalence (identity) vs the swap. Both produce identifications $\mathbb{B}=\mathbb{B}$ under univalence — and they're <em>different</em>.</p>
+
+<div class="widget" id="w-univ">
+  <div class="hd"><div class="ttl">Equivalence ↔ identification</div><div class="hint">two equivalences B → B give two distinct identifications B = B</div></div>
+  <div class="row">
+    <label>equivalence</label>
+    <button id="univ-id" class="active">id</button>
+    <button id="univ-swap">swap</button>
+  </div>
+  <svg id="univ-svg" viewBox="0 0 620 240" width="620" height="240"><title>Equivalence ↔ identification</title></svg>
+  <div class="readout" id="univ-out"></div>
+</div>
+
+<div class="quiz" data-concept="tt-univalence"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./type-theory-and-hott.html#models">Type theory and HoTT</a> · Models of HoTT</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./category-theory.html#cat">Category theory · Categories and morphisms</a> — isomorphism in a category is the abstract notion univalence promotes to identity.</li>
+  </ul>
+</aside>
+</section>
+
+<script>
+/* =========================== Univalence toggle =========================== */
+(function(){
+  const svg=$('#univ-svg'), out=$('#univ-out');
+  const idBtn=$('#univ-id'), swBtn=$('#univ-swap');
+  let mode = 'id'; // 'id' | 'swap'
+
+  function render(){
+    svg.innerHTML='';
+    idBtn.classList.toggle('active', mode==='id');
+    swBtn.classList.toggle('active', mode==='swap');
+    const W=620, H=240;
+    // two columns: left B, right B
+    const Lx = 160, Rx = 460;
+    const tt = 70, ff = 160;
+    function panel(x, label){
+      svg.appendChild(SVG('rect',{x:x-90, y:30, width:180, height:H-60, rx:12, ry:12,
+        fill:'var(--panel2)', stroke:'var(--line)','stroke-width':1.2}));
+      const t = SVG('text',{x:x, y:24, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+      t.textContent = label;
+      svg.appendChild(t);
+      drawNode(svg, x, tt, 'tt', {r:18, stroke:'var(--cyan)'});
+      drawNode(svg, x, ff, 'ff', {r:18, stroke:'var(--cyan)'});
+    }
+    panel(Lx, 'B (left)');
+    panel(Rx, 'B (right)');
+    const c1 = mode==='id' ? 'var(--green)' : 'var(--pink)';
+    const c2 = c1;
+    if(mode === 'id'){
+      drawArrow(svg, [Lx+22, tt], [Rx-22, tt], {color:c1, markerId:'uv-id-1', label:'tt ↦ tt', labelSide:0});
+      drawArrow(svg, [Lx+22, ff], [Rx-22, ff], {color:c2, markerId:'uv-id-2', label:'ff ↦ ff', labelSide:0});
+    } else {
+      drawArrow(svg, [Lx+22, tt], [Rx-22, ff], {color:c1, markerId:'uv-sw-1', curve:30, label:'tt ↦ ff'});
+      drawArrow(svg, [Lx+22, ff], [Rx-22, tt], {color:c2, markerId:'uv-sw-2', curve:-30, label:'ff ↦ tt'});
+    }
+    // path-bar at top
+    const py = 6;
+    const pcLabel = SVG('text',{x:W/2, y:18,'text-anchor':'middle','font-size':13,
+      fill: mode==='id' ? 'var(--green)' : 'var(--pink)'});
+    pcLabel.textContent = mode==='id' ? 'p_id : Id_𝒰(B, B) — the trivial identification' : 'p_swap : Id_𝒰(B, B) — the swap identification';
+    svg.appendChild(pcLabel);
+    renderReadout();
+  }
+  function renderReadout(){
+    const lines = [];
+    lines.push('equivalence  : e : B ≃ B');
+    lines.push(mode==='id' ?
+      '             tt ↦ tt,  ff ↦ ff   (identity)' :
+      '             tt ↦ ff,  ff ↦ tt   (swap)');
+    lines.push('');
+    lines.push('univalence  ⇒  ua(e) : B = B');
+    lines.push('');
+    lines.push('Different e ⇒ different ua(e).  Two distinct elements');
+    lines.push('of  Id_𝒰(B, B)  — refuting axiom K (UIP).');
+    lines.push('');
+    lines.push(mode==='id' ?
+      'note: ua(id) is itself the reflexive identification refl_B.' :
+      'note: ua(swap) ≠ refl_B  in the universe.');
+    out.textContent = lines.join('\n');
+  }
+  idBtn.addEventListener('click', ()=>{ mode='id'; render(); });
+  swBtn.addEventListener('click', ()=>{ mode='swap'; render(); });
+  render();
+})();
+</script>
+
+<section id="hits">
+<h2>5. Higher inductive types</h2>
+
+<p>An ordinary inductive type — like $\mathbb{N}$ generated by $0$ and $\mathsf{succ}$ — specifies <strong>point</strong> constructors. A <strong>higher inductive type</strong> (HIT) additionally takes <strong>path</strong> constructors, and recursively <em>higher-cell</em> constructors. The canonical example is the <strong>circle</strong>:</p>
+
+$$ S^1 \;\;\text{generated by}\;\; \mathsf{base}:S^1, \quad \mathsf{loop}:\mathsf{Id}_{S^1}(\mathsf{base},\mathsf{base}). $$
+
+<p>That is the entire definition. From it one can reconstruct, inside the type theory, the fact that $\pi_1(S^1)\simeq\mathbb{Z}$ — the generator is $\mathsf{loop}$, and iterating it produces every integer winding number. Other examples:</p>
+
+<table class="plain">
+<thead><tr><th>HIT</th><th>generators</th></tr></thead>
+<tbody>
+<tr><td>interval $I$</td><td>$0, 1:I$,  $\mathsf{seg}:\mathsf{Id}(0,1)$</td></tr>
+<tr><td>$2$-sphere $S^2$</td><td>$\mathsf{base}:S^2$,  $\mathsf{surf}:\mathsf{Id}_{\Omega(S^2)}(\mathsf{refl},\mathsf{refl})$</td></tr>
+<tr><td>suspension $\Sigma A$</td><td>$\mathsf{N},\mathsf{S}$,  $\mathsf{merid}: A\to\mathsf{Id}(\mathsf{N},\mathsf{S})$</td></tr>
+<tr><td>pushout $B\sqcup_A C$</td><td>injections + a path constructor identifying the two copies along $A$</td></tr>
+<tr><td>set-quotient $A/{\sim}$</td><td>$[\cdot]:A\to A/{\sim}$,  paths $\mathsf{eq}:a\sim b\to\mathsf{Id}([a],[b])$, and a truncation</td></tr>
+</tbody>
+</table>
+
+<div class="note"><strong>Why it works.</strong> An ordinary inductive type's elimination rule says 'to map out, define what to do on each constructor'. For HITs the same recipe extends: to map $S^1\to X$, give a point $x:X$ and a loop $\ell:\mathsf{Id}(x,x)$. The recursion principle then computes coherently with the path constructor.</div>
+
+<p>The widget shows $S^1$ as the HIT $(\mathsf{base},\mathsf{loop})$. Click to add additional iterations of the loop; watch the winding number tick.</p>
+
+<div class="widget" id="w-circle">
+  <div class="hd"><div class="ttl">Circle as a HIT</div><div class="hint">+/− to wind; element of π₁(S¹) ≅ ℤ readout</div></div>
+  <div class="row">
+    <button id="cir-add">loop +1</button>
+    <button id="cir-sub">loop −1</button>
+    <button id="cir-zero">refl_base</button>
+  </div>
+  <svg id="cir-svg" viewBox="0 0 620 280" width="620" height="280"><title>Circle as a HIT</title></svg>
+  <div class="readout" id="cir-out"></div>
+</div>
+
+<div class="quiz" data-concept="tt-higher-inductive-types"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./infinity-topoi.html#internal-logic">$\infty$-topoi (Lurie's higher topos theory)</a> · Internal logic: homotopy type theory and ∞-toposes</div>
+    <div><a href="./type-theory-and-hott.html#models">Type theory and HoTT</a> · Models of HoTT</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<script>
+/* =========================== Circle / winding-number widget =========================== */
+(function(){
+  const svg=$('#cir-svg'), out=$('#cir-out');
+  let n = 1;  // signed winding number
+
+  function render(){
+    svg.innerHTML='';
+    const W=620, H=280;
+    const cx = 310, cy = 140, R = 90;
+    // base circle
+    svg.appendChild(SVG('circle',{cx, cy, r:R, fill:'none',
+      stroke:'var(--line)', 'stroke-width':1.5, 'stroke-dasharray':'4 4'}));
+    // wound path: |n| full circles, direction by sign
+    const turns = Math.abs(n);
+    const dir = n >= 0 ? 1 : -1;
+    if(turns >= 1){
+      // animated-looking spiral via slight radius variation
+      const segs = 60 * turns;
+      let d = '';
+      for(let i=0;i<=segs;i++){
+        const t = i/segs;
+        const ang = dir * (t * 2 * Math.PI * turns) - Math.PI/2;
+        const rr = R + Math.sin(t * 6 * Math.PI) * 1.5;
+        const x = cx + rr*Math.cos(ang);
+        const y = cy + rr*Math.sin(ang);
+        d += (i===0?'M':' L') + x.toFixed(2) + ' ' + y.toFixed(2);
+      }
+      svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--cyan)','stroke-width':2.4}));
+    }
+    // base point
+    drawNode(svg, cx, cy - R, 'base', {r:11, stroke:'var(--yellow)', fontSize:11});
+    // labels
+    const t1 = SVG('text',{x:cx, y:30, 'text-anchor':'middle','font-size':13, fill:'var(--mute)'});
+    t1.textContent = 'S¹  generated by  base : S¹  and  loop : Id(base, base)';
+    svg.appendChild(t1);
+    const t2 = SVG('text',{x:cx, y:H-22, 'text-anchor':'middle','font-size':14, fill:'var(--yellow)','font-family':'ui-monospace,monospace'});
+    t2.textContent = `current path: loop^${n}   ∈  π₁(S¹) ≅ ℤ`;
+    svg.appendChild(t2);
+    renderReadout();
+  }
+  function renderReadout(){
+    const lines = [];
+    lines.push(`winding number n = ${n}`);
+    if(n === 0){
+      lines.push('this is refl_base : Id(base, base) — the constant path.');
+    } else {
+      const sign = n > 0 ? '+' : '−';
+      lines.push(`element of  Ω(S¹, base) :   loop^${n}`);
+      lines.push(`under the iso  Ω(S¹) ≅ ℤ:   maps to ${n}`);
+      lines.push('');
+      lines.push(`identification: a path that wraps base around the circle ${Math.abs(n)} times (${sign} direction).`);
+    }
+    lines.push('');
+    lines.push('inside HoTT: π₁(S¹) ≅ ℤ is a *theorem* (Licata–Shulman),');
+    lines.push('not an axiom — derived from the HIT definition + univalence.');
+    out.textContent = lines.join('\n');
+  }
+  $('#cir-add').addEventListener('click', ()=>{ n++; render(); });
+  $('#cir-sub').addEventListener('click', ()=>{ n--; render(); });
+  $('#cir-zero').addEventListener('click', ()=>{ n=0; render(); });
+  render();
+})();
+</script>
+
+<section id="models">
+<h2>6. Models of HoTT</h2>
+
+<p>Syntax must mean something. A <strong>model</strong> of HoTT is a categorical structure that interprets every type, term, and judgment, validating all the rules. The flagship model is Voevodsky's:</p>
+
+<ul>
+  <li>Types ↦ <strong>Kan complexes</strong> (fibrant simplicial sets, presenting $\infty$-groupoids).</li>
+  <li>Dependent type $B$ over $A$ ↦ a <strong>Kan fibration</strong> $B\to A$.</li>
+  <li>$\Sigma_{x:A} B(x)$ ↦ total space of the fibration.</li>
+  <li>$\Pi_{x:A} B(x)$ ↦ space of sections (fibred mapping space).</li>
+  <li>Identity type $\mathsf{Id}_A(a,b)$ ↦ <strong>path object</strong> $A^I$ at the pair $(a,b)$.</li>
+  <li>Universe $\mathcal{U}$ ↦ a <strong>univalent universe</strong> classifying small Kan fibrations.</li>
+</ul>
+
+<p>Univalence holds because, by construction, the path space of the universe at $(A,B)$ matches the space of equivalences $A\simeq B$. Higher inductive types have models too: $S^1$ in the model is a Kan complex weakly equivalent to the topological circle.</p>
+
+<div class="ok"><strong>Why a model matters.</strong> A consistent model proves the theory consistent. Voevodsky's construction is what tells us HoTT is a coherent foundation, not a syntax that might secretly prove $0=1$. Subsequently other models (cubical, Bezem–Coquand, Orton–Pitts) made constructive sense of univalence — leading to <em>cubical type theory</em> with computational univalence.</p></div>
+
+<p>The widget below sketches how a single type $A$ unfolds, in the model, into an $\infty$-groupoid: points, paths between points, paths between paths, and so on.</p>
+
+<div class="widget" id="w-model">
+  <div class="hd"><div class="ttl">Type ↦ ∞-groupoid</div><div class="hint">cycle through dimensions: 0-cells (points), 1-cells (paths), 2-cells (homotopies)</div></div>
+  <div class="row">
+    <label>show up to dimension</label>
+    <input type="range" id="mdl-dim" min="0" max="3" step="1" value="1">
+    <span class="pill" id="mdl-dim-pill">1</span>
+  </div>
+  <svg id="mdl-svg" viewBox="0 0 620 280" width="620" height="280"><title>Type as ∞-groupoid</title></svg>
+  <div class="readout" id="mdl-out"></div>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./first-order-logic-and-completeness.html#completeness">First-order logic · Gödel's completeness theorem</a> — the analogous syntax-vs-semantics bridge for first-order logic.</li>
+    <li><a href="./simplicial-sets-and-nerve.html#kan-complex">Kan complexes</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="tt-models"></div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./first-order-logic-and-completeness.html#completeness">First-order logic · Gödel's completeness theorem</a> — the analogous syntax-vs-semantics bridge for first-order logic.</li>
+  </ul>
+</aside>
+</section>
+
+<script>
+/* =========================== Type ↦ ∞-groupoid widget =========================== */
+(function(){
+  const svg=$('#mdl-svg'), out=$('#mdl-out');
+  const dim=$('#mdl-dim'), pill=$('#mdl-dim-pill');
+
+  function render(){
+    svg.innerHTML='';
+    const d = parseInt(dim.value, 10);
+    pill.textContent = String(d);
+    const W=620, H=280;
+    // Three sample 0-cells
+    const pts = [
+      {x:160, y:160, label:'a'},
+      {x:320, y:90,  label:'b'},
+      {x:480, y:160, label:'c'},
+      {x:320, y:220, label:'d'}
+    ];
+    // 1-cells (paths)
+    const paths = [
+      {from:0, to:1, lbl:'p'},
+      {from:1, to:2, lbl:'q'},
+      {from:0, to:2, lbl:'p·q'},
+      {from:0, to:3, lbl:'r'}
+    ];
+    // outline / panel
+    svg.appendChild(SVG('rect',{x:20, y:30, width:W-40, height:H-50, rx:14, ry:14,
+      fill:'rgba(126,224,214,0.04)', stroke:'var(--line)','stroke-width':1, 'stroke-dasharray':'5 5'}));
+
+    // 1-cells — only when d≥1
+    if(d >= 1){
+      for(const e of paths){
+        drawArrow(svg, [pts[e.from].x, pts[e.from].y], [pts[e.to].x, pts[e.to].y],
+          {color:'var(--cyan)', curve:14, markerId:`mdl-arr-${e.from}-${e.to}`,
+           label:e.lbl, labelSide:1, width:1.6});
+      }
+    }
+    // 2-cells (homotopy between p·q and the direct path) — only when d≥2
+    if(d >= 2){
+      // homotopy diamond between path {0->1->2} and direct {0->2}
+      svg.appendChild(SVG('path',{
+        d:`M${pts[0].x} ${pts[0].y} Q 320 50, ${pts[2].x} ${pts[2].y} Q 320 220, ${pts[0].x} ${pts[0].y} Z`,
+        fill:'rgba(255,216,102,0.08)', stroke:'none'}));
+      const t = SVG('text',{x:320, y:140, 'text-anchor':'middle','font-size':13,
+        fill:'var(--yellow)','font-style':'italic'});
+      t.textContent = 'α : Id(p·q, direct)';
+      svg.appendChild(t);
+    }
+    // 3-cells (badge) — d=3
+    if(d >= 3){
+      svg.appendChild(SVG('rect',{x:430, y:230, width:170, height:34, rx:8, ry:8,
+        fill:'rgba(179,157,219,0.12)', stroke:'var(--violet)','stroke-width':1.2}));
+      const t3 = SVG('text',{x:515, y:252,'text-anchor':'middle','font-size':12,fill:'var(--violet)'});
+      t3.textContent = '... and 3-cells, 4-cells, ...';
+      svg.appendChild(t3);
+    }
+    // 0-cells
+    for(let i=0;i<pts.length;i++){
+      drawNode(svg, pts[i].x, pts[i].y, pts[i].label, {r:14, stroke:'var(--pink)'});
+    }
+    const tag = SVG('text',{x:W/2, y:48, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+    tag.textContent = 'a single type A unfolds in the model as an ∞-groupoid';
+    svg.appendChild(tag);
+    renderReadout(d);
+  }
+  function renderReadout(d){
+    const lines = [];
+    lines.push(`dimension cap d = ${d}`);
+    lines.push('');
+    if(d >= 0) lines.push('0-cells : terms of A         (points)');
+    if(d >= 1) lines.push('1-cells : Id_A(a, b)         (paths)');
+    if(d >= 2) lines.push('2-cells : Id_{Id_A}(p, q)    (homotopies)');
+    if(d >= 3) lines.push('3-cells : Id of Id of Id     (and so on, up the tower)');
+    lines.push('');
+    lines.push('Voevodsky\'s simplicial-set model:');
+    lines.push('  type        ↦  Kan complex');
+    lines.push('  Π,Σ          ↦  fibred mapping space, total space');
+    lines.push('  identity     ↦  path object');
+    lines.push('  universe     ↦  classifier of small Kan fibrations');
+    lines.push('  univalence   ↦  paths in 𝒰  =  equivalences');
+    out.textContent = lines.join('\n');
+  }
+  dim.addEventListener('input', render);
+  render();
+})();
+</script>
 
 </main>
 
@@ -269,7 +1130,7 @@ function drawNode(svg, x, y, label, opts={}){
       const li = document.createElement('li');
       const a = document.createElement('a');
       a.href = src.getAttribute('href');
-      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      a.textContent = src.textContent.replace(/ /g,' ').trim();
       li.appendChild(a); ol.appendChild(li);
     });
     aside.appendChild(ol);
@@ -309,7 +1170,7 @@ function drawNode(svg, x, y, label, opts={}){
   <summary>changelog</summary>
   <table>
     <tbody>
-      <tr><td>2026-04-27</td><td>initial version</td></tr>
+      <tr><td>2026-04-26</td><td>initial version: 6 concepts, 6 widgets (context builder, λ stepper, path-space, univalence toggle, S¹ HIT, ∞-groupoid)</td></tr>
     </tbody>
   </table>
 </details>

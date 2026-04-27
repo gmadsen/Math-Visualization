@@ -4,11 +4,83 @@
   "page": "model-theory-basics.html",
   "concepts": [
     {
-      "id": "model-theory-basics-intro",
-      "title": "Intro",
-      "anchor": "intro",
-      "prereqs": [],
-      "blurb": "Placeholder — content forthcoming."
+      "id": "mt-structures",
+      "title": "Structures and signatures",
+      "anchor": "structures",
+      "prereqs": [
+        "first-order-logic-and-completeness:fol-syntax",
+        "first-order-logic-and-completeness:fol-semantics"
+      ],
+      "blurb": "A signature $\\sigma$ is a list of constant, function, and relation symbols with arities. A $\\sigma$-structure $\\mathfrak{A}=(A;c^{\\mathfrak{A}},f^{\\mathfrak{A}},R^{\\mathfrak{A}},\\ldots)$ interprets each symbol on a non-empty domain. Groups, ordered sets, graphs, and fields are all structures over the appropriate signature; model theory is the study of what first-order sentences see in them.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "mt-elementary-equivalence",
+      "title": "Elementary equivalence",
+      "anchor": "elementary-equivalence",
+      "prereqs": [
+        "mt-structures",
+        "first-order-logic-and-completeness:fol-semantics"
+      ],
+      "blurb": "Two $\\sigma$-structures $\\mathfrak{A},\\mathfrak{B}$ are <em>elementarily equivalent</em>, written $\\mathfrak{A}\\equiv\\mathfrak{B}$, when they satisfy exactly the same first-order $\\sigma$-sentences. Elementary equivalence is much coarser than isomorphism: $(\\mathbb{Q},<)$ and $(\\mathbb{R},<)$ are elementarily equivalent but not isomorphic; $\\mathbb{N}$ and any non-standard model of arithmetic are elementarily equivalent by construction.",
+      "tags": [
+        "foundation",
+        "classification"
+      ]
+    },
+    {
+      "id": "mt-isomorphism-vs-equivalence",
+      "title": "Isomorphism vs elementary equivalence",
+      "anchor": "iso-vs-equivalence",
+      "prereqs": [
+        "mt-elementary-equivalence"
+      ],
+      "blurb": "For finite structures the two notions coincide: $\\mathfrak{A}\\equiv\\mathfrak{B}$ implies $\\mathfrak{A}\\cong\\mathfrak{B}$, since the size and complete diagram pin down the isomorphism class. For infinite structures they part ways — Cantor's back-and-forth shows any two countable dense linear orders without endpoints are isomorphic, but $(\\mathbb{Q},<)\\equiv(\\mathbb{R},<)$ are non-isomorphic. The example $(\\mathbb{N},<)$ vs $(\\mathbb{Z},<)$ shows even elementary equivalence can fail.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "mt-types-and-saturation",
+      "title": "Types and saturation",
+      "anchor": "types",
+      "prereqs": [
+        "mt-elementary-equivalence",
+        "first-order-logic-and-completeness:fol-compactness"
+      ],
+      "blurb": "An $n$-<em>type</em> over a parameter set $A$ is a maximal consistent set of formulas $p(x_1,\\ldots,x_n)$ with parameters from $A$ — a complete first-order description of an $n$-tuple. By compactness every type is realised in some elementary extension; a structure is $\\omega$-<em>saturated</em> if every type over a finite parameter set is already realised in it. Saturation is the model-theoretic analogue of compactness for spaces.",
+      "tags": [
+        "foundation",
+        "compactness"
+      ]
+    },
+    {
+      "id": "mt-ehrenfeucht-fraisse",
+      "title": "Ehrenfeucht–Fraïssé games",
+      "anchor": "ef-games",
+      "prereqs": [
+        "mt-elementary-equivalence"
+      ],
+      "blurb": "The $n$-round EF game on structures $\\mathfrak{A},\\mathfrak{B}$ pits Spoiler — who picks elements trying to expose a difference — against Duplicator, who copies them across to preserve a partial isomorphism. Duplicator has a winning strategy in the $n$-round game iff $\\mathfrak{A}$ and $\\mathfrak{B}$ agree on every sentence of quantifier rank $\\le n$. EF games are the standard tool for proving non-definability results, e.g. that connectivity is not first-order definable on graphs.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "mt-applications-to-algebra",
+      "title": "Applications to algebra",
+      "anchor": "applications",
+      "prereqs": [
+        "mt-types-and-saturation",
+        "mt-elementary-equivalence",
+        "field-extensions-basics"
+      ],
+      "blurb": "ACF (algebraically closed fields) is a model-complete theory: every embedding between models is elementary, so first-order truth transfers freely along extensions. Compactness + the Lefschetz principle yield Ax–Grothendieck — every injective polynomial map $\\mathbb{C}^n\\to\\mathbb{C}^n$ is surjective — by reduction to algebraic closures of finite fields. These transfer principles are the standard model-theoretic tools used in algebraic geometry.",
+      "tags": [
+        "classification"
+      ]
     }
   ]
 }

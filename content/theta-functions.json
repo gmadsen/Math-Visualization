@@ -402,6 +402,10 @@
         },
         {
           "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./harmonic-analysis-fourier.html#poisson\">Poisson summation</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
           "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./analytic-continuation.html#zeta\">Analytic continuation</a> · Riemann’s functional equation for $\\zeta$</div>\n    <div><a href=\"./theta-functions.html#eta\">Theta functions</a> · Dedekind eta and theta</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {

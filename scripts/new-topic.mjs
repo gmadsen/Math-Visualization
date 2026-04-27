@@ -257,6 +257,30 @@ html = html.replace(
 -->
 </section>
 
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     Connections outro — pedagogy reviewer's templated closure pattern.
+     Strong-corpus topics (measure-theory, functional-analysis, elliptic-
+     curves, commutative-algebra) all end with a short "where this leads"
+     section. Bottom-quartile topics tend to skip it; the scaffolder now
+     emits this stub so the no-closure habit doesn't recur on new topics.
+     Authoring agents: replace the bullet list with 3-5 real cross-topic
+     pointers and write 1-2 sentences naming open frontiers.
+═══════════════════════════════════════════════════════════════════ -->
+<section id="connections">
+<h2>Connections</h2>
+
+<p><!-- TODO: 1-2 sentences naming the open frontier this topic opens onto.
+What is being researched? What's still hard? What surprises a beginner who
+expects the area to be settled? --></p>
+
+<ul>
+<!-- TODO: 3-5 sibling topics this one feeds into / reaches back from.
+Format: <li><a href="./<other-topic>.html#<anchor>">Other topic — concept</a> — one-clause why this concept matters there.</li>
+-->
+</ul>
+</section>
+
 `;
   html = before + stubSections + after;
 }

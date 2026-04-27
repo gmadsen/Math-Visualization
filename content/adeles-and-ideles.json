@@ -398,7 +398,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./complex-analysis.html#coda\">Analytic continuation</a></li>\n    <li><a href=\"./dirichlet-series-euler-products.html#series\">Dirichlet series basics</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./complex-analysis.html#coda\">Analytic continuation</a></li>\n    <li><a href=\"./dirichlet-series-euler-products.html#series\">Dirichlet series basics</a></li>\n    <li><a href=\"./harmonic-analysis-fourier.html#poisson\">Poisson summation</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",

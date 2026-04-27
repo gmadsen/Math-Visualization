@@ -1,14 +1,82 @@
 {
   "topic": "computability-and-decidability",
-  "title": "Computability and decidability",
+  "title": "Computability theory",
   "page": "computability-and-decidability.html",
   "concepts": [
     {
-      "id": "computability-and-decidability-intro",
-      "title": "Intro",
-      "anchor": "intro",
-      "prereqs": [],
-      "blurb": "Placeholder — content forthcoming."
+      "id": "comp-turing-machines",
+      "title": "Turing machines",
+      "anchor": "turing",
+      "prereqs": [
+        "naive-set-theory:sets-functions"
+      ],
+      "blurb": "A Turing machine is a finite-state controller scanning a two-way infinite tape. A configuration is a triple (state, tape contents, head position); the transition function $\\delta\\colon Q\\times\\Sigma\\to Q\\times\\Sigma\\times\\{L,R\\}$ rewrites a cell, moves the head, and updates state. Acceptance is by halting in a designated accept state. Variants — multitape, nondeterministic, two-counter — all simulate one another with at most polynomial overhead, which is the empirical content of the Church–Turing thesis.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "comp-recursive-functions",
+      "title": "Recursive and partial-recursive functions",
+      "anchor": "recursive",
+      "prereqs": [
+        "comp-turing-machines"
+      ],
+      "blurb": "Build $\\mathbb{N}^k\\to\\mathbb{N}$ functions from three primitives — zero, successor, projection — closed under composition, primitive recursion (define $f(n+1)$ from $f(n)$), and the unbounded $\\mu$-operator (least $y$ with $g(\\vec x,y)=0$). Without $\\mu$ you get the primitive-recursive functions (every total, including Ackermann's exception); with $\\mu$ you get the partial-recursive functions, which Turing showed coincide exactly with Turing-computable. The Church–Turing thesis asserts this is the right notion of \"effectively computable\".",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "comp-halting-problem",
+      "title": "The halting problem",
+      "anchor": "halting",
+      "prereqs": [
+        "comp-turing-machines",
+        "naive-set-theory:countability"
+      ],
+      "blurb": "Let $H = \\{ \\langle M,w\\rangle : M \\text{ halts on } w\\}$. Suppose $h$ decides $H$. Build $D(\\langle M\\rangle)$ which runs $h$ on $\\langle M, \\langle M\\rangle\\rangle$ and loops if $h$ says \"halts\", halts otherwise. Then $D$ on its own code halts iff it doesn't — contradiction. The argument is Cantor's diagonal applied to the countable list of Turing machines. Halting is the prototype undecidable problem; everything else reduces to it.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "comp-rec-vs-re",
+      "title": "Recursive vs recursively enumerable",
+      "anchor": "rec-vs-re",
+      "prereqs": [
+        "comp-halting-problem"
+      ],
+      "blurb": "A set $A\\subseteq\\mathbb{N}$ is <em>recursive</em> (decidable) if its characteristic function is computable; <em>recursively enumerable</em> (semi-decidable, Σ⁰₁) if there is a TM that halts exactly on inputs in $A$. Theorem: $A$ is recursive iff both $A$ and $\\mathbb{N}\\setminus A$ are r.e. The halting set $H$ is r.e. but not recursive; its complement is not even r.e. The r.e. sets sit one level above the recursive sets in the arithmetical hierarchy.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "comp-undecidability",
+      "title": "Undecidability via reduction",
+      "anchor": "reductions",
+      "prereqs": [
+        "comp-halting-problem",
+        "comp-rec-vs-re"
+      ],
+      "blurb": "$A\\le_m B$ (many-one reducible) means there is a computable $f$ with $x\\in A \\iff f(x)\\in B$. If $A$ is undecidable and $A\\le_m B$ then $B$ is undecidable. <strong>Rice's theorem</strong>: every non-trivial property of the languages recognized by Turing machines is undecidable. Reductions from halting kill emptiness, equivalence, totality, regularity for TMs — and via further reductions, Hilbert's tenth problem, the word problem for groups, and the Post correspondence problem.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "comp-godel-incompleteness",
+      "title": "Gödel incompleteness — computability lens",
+      "anchor": "godel",
+      "prereqs": [
+        "comp-halting-problem",
+        "first-order-logic-and-completeness:fol-completeness"
+      ],
+      "blurb": "Any consistent, recursively axiomatised theory $T$ extending Robinson arithmetic can express \"$M$ halts on $w$\" as a $\\Sigma_1$ formula. If $T$ proved every true halting fact and refuted every false one, halting would be decidable — contradicting the halting theorem. So $T$ is incomplete: some true $\\Sigma_1$ sentence is unprovable. Strengthening from <em>ω-consistency</em> to plain consistency (Rosser's trick) gives Gödel's first theorem; the second theorem ($T\\not\\vdash\\mathrm{Con}(T)$) follows by formalising the proof inside $T$.",
+      "tags": [
+        "foundation"
+      ]
     }
   ]
 }

@@ -4,11 +4,79 @@
   "page": "first-order-logic-and-completeness.html",
   "concepts": [
     {
-      "id": "first-order-logic-and-completeness-intro",
-      "title": "Intro",
-      "anchor": "intro",
-      "prereqs": [],
-      "blurb": "Placeholder — content forthcoming."
+      "id": "fol-syntax",
+      "title": "Syntax: languages, terms, formulas",
+      "anchor": "syntax",
+      "prereqs": [
+        "naive-set-theory:sets-functions"
+      ],
+      "blurb": "A first-order language $\\mathcal{L}$ is a triple of constant, function, and relation symbols (with arities). Terms are built from variables, constants, and function applications; formulas from atomic predicates by Boolean connectives and quantifiers $\\forall, \\exists$. Free vs bound variables; sentences are formulas with no free variables.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "fol-semantics",
+      "title": "Tarski semantics and structures",
+      "anchor": "semantics",
+      "prereqs": [
+        "fol-syntax"
+      ],
+      "blurb": "An $\\mathcal{L}$-structure $\\mathfrak{A}$ interprets each symbol on a non-empty domain. With a variable assignment $s$, terms denote elements and formulas denote truth values; $\\mathfrak{A}\\models\\varphi[s]$ is defined by recursion. A theory $T$ is satisfiable iff some $\\mathfrak{A}\\models T$, and $T\\models\\varphi$ iff every model of $T$ satisfies $\\varphi$.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "fol-deduction",
+      "title": "Deduction: proof systems and soundness",
+      "anchor": "deduction",
+      "prereqs": [
+        "fol-syntax"
+      ],
+      "blurb": "A Hilbert-style or natural-deduction calculus assigns formal proofs $\\Gamma\\vdash\\varphi$. Soundness: $\\Gamma\\vdash\\varphi \\Rightarrow \\Gamma\\models\\varphi$, proved by induction on proofs. The hard direction — completeness — is the converse and is Gödel's theorem.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "fol-completeness",
+      "title": "Gödel's completeness theorem",
+      "anchor": "completeness",
+      "prereqs": [
+        "fol-semantics",
+        "fol-deduction"
+      ],
+      "blurb": "$\\Gamma\\vdash\\varphi \\iff \\Gamma\\models\\varphi$. Equivalently, every consistent theory has a model. Henkin's proof: add witness constants for every $\\exists x\\,\\psi(x)$, extend to a maximal consistent Henkin theory, then take the term model — closed terms modulo provable equality — as the canonical structure."
+    },
+    {
+      "id": "fol-compactness",
+      "title": "Compactness and non-standard models",
+      "anchor": "compactness",
+      "prereqs": [
+        "fol-completeness",
+        "compactness"
+      ],
+      "blurb": "Compactness theorem: a set of sentences is satisfiable iff every finite subset is. An immediate corollary of completeness, since proofs are finite. Adding a constant $c$ with $c>0, c>1, c>2,\\ldots$ to Peano arithmetic gives a consistent extension, hence a non-standard model of $\\mathbb{N}$ containing infinite elements."
+    },
+    {
+      "id": "fol-lowenheim-skolem",
+      "title": "Löwenheim–Skolem and Skolem's paradox",
+      "anchor": "lowenheim-skolem",
+      "prereqs": [
+        "fol-completeness",
+        "countability"
+      ],
+      "blurb": "Downward Löwenheim–Skolem: any satisfiable theory in a countable language has a countable model. Applied to ZFC, this yields a countable model of set theory — even though ZFC proves $\\mathbb{R}$ is uncountable. The 'paradox' is resolved: 'uncountable' is internal; the bijection witnessing countability lives outside the model."
+    },
+    {
+      "id": "fol-decidable-theories",
+      "title": "Decidable theories and quantifier elimination",
+      "anchor": "decidable",
+      "prereqs": [
+        "fol-completeness"
+      ],
+      "blurb": "A theory $T$ is decidable if there's an algorithm to test $T\\vdash\\varphi$. Complete + recursively axiomatised $\\Rightarrow$ decidable. Quantifier elimination (e.g. for dense linear orders without endpoints, real closed fields, algebraically closed fields) reduces every formula to a quantifier-free one, giving decidability and a clean structure theory of definable sets."
     }
   ]
 }
