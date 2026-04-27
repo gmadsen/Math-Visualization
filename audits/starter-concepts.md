@@ -11,17 +11,17 @@ reach into upstream foundations or stay within their own cluster.
 
 | section | concepts | intra edges | cross out | cross in | density |
 |---|---:|---:|---:|---:|---:|
-| Logic & Foundations | 49 | 56 | 4 | 15 | 0.082 |
+| Logic & Foundations | 49 | 56 | 5 | 15 | 0.102 |
 | Algebra & homological | 106 | 157 | 16 | 70 | 0.151 |
 | Higher categories & toposes | 45 | 68 | 23 | 2 | 0.511 |
-| Analysis | 146 | 249 | 23 | 55 | 0.158 |
+| Analysis | 146 | 249 | 24 | 59 | 0.164 |
 | Probability & statistics | 53 | 86 | 14 | 10 | 0.264 |
-| Geometry & topology | 97 | 144 | 15 | 75 | 0.155 |
+| Geometry & topology | 97 | 144 | 18 | 79 | 0.186 |
 | Number theory | 90 | 115 | 33 | 24 | 0.367 |
-| Modular forms & L-functions | 85 | 112 | 52 | 11 | 0.612 |
-| Algebraic geometry | 127 | 172 | 54 | 15 | 0.425 |
+| Modular forms & L-functions | 85 | 112 | 52 | 12 | 0.612 |
+| Algebraic geometry | 127 | 173 | 55 | 15 | 0.433 |
 | Combinatorics & graph theory | 51 | 50 | 22 | 2 | 0.431 |
-| Mathematical physics | 24 | 22 | 23 | 0 | 0.958 |
+| Mathematical physics | 24 | 22 | 26 | 0 | 1.083 |
 
 ## EMPTY — concepts with no prereqs (3)
 

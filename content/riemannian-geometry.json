@@ -235,7 +235,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./general-relativity.html#schwarzschild\">General relativity</a> · Schwarzschild solution and event horizons</div>\n    <div><a href=\"./riemannian-geometry.html#comparison\">Riemannian geometry</a> · Curvature tensor and comparison</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./general-relativity.html#einstein-eq\">General relativity</a> · Einstein field equations</div>\n    <div><a href=\"./general-relativity.html#schwarzschild\">General relativity</a> · Schwarzschild solution and event horizons</div>\n    <div><a href=\"./riemannian-geometry.html#comparison\">Riemannian geometry</a> · Curvature tensor and comparison</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

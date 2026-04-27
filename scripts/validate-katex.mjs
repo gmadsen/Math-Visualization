@@ -420,6 +420,8 @@ const KATEX_MACROS = new Set([
   'jmath', 'ell', 'wp', 'Re', 'Im', 'Finv', 'Game', 'eth', 'mho', 'Bbbk',
   'flat', 'natural', 'sharp', 'S', 'P', 'copyright', 'circledR',
   'circledS', 'pounds', 'yen', 'checkmark', 'diagup', 'diagdown',
+  'Box', 'bigcirc', 'square', 'blacksquare', 'triangle', 'blacktriangle',
+  'Diamond', 'lozenge', 'blacklozenge',
   'surd', 'spadesuit', 'clubsuit', 'heartsuit', 'diamondsuit',
   'angle', 'measuredangle', 'sphericalangle',
   // Dots and spacing

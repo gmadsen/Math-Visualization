@@ -494,7 +494,7 @@ $$ |x-a|<\delta \;\Longrightarrow\; |f(x)-f(a)|<\varepsilon. $$
 <h2>3. Differentiation</h2>
 
 <p>The derivative at $a$ is a number $f'(a)$, but the <em>right</em> way to read its definition is as a best-linear-approximation statement. A function $f$ is <strong>differentiable at $a$</strong> if there exists a linear map $L\colon\mathbb{R}\to\mathbb{R}$ (multiplication by the single number $f'(a)$) such that</p>
-$$ f(a+h) = f(a) + L(h) + r(h),\quad \text{with}\quad \frac{|r(h)|}{|h|}\longrightarrow 0 \text{ as } h\to 0. $$
+$$ f(a+h) = f(a) + L(h) + r(h),\quad \text{with}\quad \frac{|r(h)|}{|h|}\to 0 \text{ as } h\to 0. $$
 <p>Equivalently $f'(a)=\lim_{h\to 0}\big(f(a+h)-f(a)\big)/h$. The packaging matters: in §6 the "linear map $L$" becomes the Jacobian, and the limit condition generalizes verbatim.</p>
 
 <div class="widget" id="w-mvt">
@@ -897,7 +897,7 @@ $$ U(f,P)=\sum_{k=1}^n \Big(\sup_{[x_{k-1},x_k]} f\Big)(x_k-x_{k-1}),\qquad L(f,
 <h2>6. Multivariable differentiation</h2>
 
 <p>A map $F\colon U\subseteq\mathbb{R}^n\to\mathbb{R}^m$ is <strong>differentiable at $a\in U$</strong> if there exists a <em>linear map</em> $L\colon\mathbb{R}^n\to\mathbb{R}^m$ such that</p>
-$$ F(a+h) = F(a) + L(h) + r(h),\qquad \frac{\|r(h)\|}{\|h\|}\longrightarrow 0 \text{ as } h\to 0. $$
+$$ F(a+h) = F(a) + L(h) + r(h),\qquad \frac{\|r(h)\|}{\|h\|}\to 0 \text{ as } h\to 0. $$
 <p>The linear map $L$ is the <strong>total derivative</strong> $DF(a)\in\Hom(\mathbb{R}^n,\mathbb{R}^m)$. In the standard basis it is represented by the <strong>Jacobian matrix</strong></p>
 $$ J_F(a) = \Big[\partial_j F^i(a)\Big]_{\substack{1\le i\le m\\ 1\le j\le n}}. $$
 <p>The $i$-th row is the gradient $\nabla F^i$ of the $i$-th component; the $j$-th column is the partial derivative vector $\partial_j F$.</p>

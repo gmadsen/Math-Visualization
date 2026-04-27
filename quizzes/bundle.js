@@ -15284,7 +15284,7 @@ window.MVQuizBank = {
               "It requires the Riemann hypothesis"
             ],
             "answer": 0,
-            "explain": "The zigzag $G\\,\\textcircled{z}\\,H$ multiplies vertex counts and reduces degree to $\\deg(H)^2$ while preserving a spectral gap — a purely combinatorial recursion underlying Reingold's $\\mathrm{SL}=\\mathrm{L}$ proof."
+            "explain": "The zigzag $G\\,\\boxtimes\\,H$ multiplies vertex counts and reduces degree to $\\deg(H)^2$ while preserving a spectral gap — a purely combinatorial recursion underlying Reingold's $\\mathrm{SL}=\\mathrm{L}$ proof."
           }
         ]
       },
@@ -19232,11 +19232,16 @@ window.MVQuizBank = {
         "title": "Gravitational waves",
         "questions": [
           {
-            "type": "numeric",
+            "type": "mcq",
             "q": "A gravitational wave in transverse-traceless gauge has how many independent polarisation modes?",
             "answer": 2,
-            "tol": 0.5,
-            "explain": "Linearised gravity has 10 metric components. Lorenz gauge fixes 4, residual gauge fixes 4 more, leaving 2 physical polarisations — the plus and cross modes."
+            "explain": "Linearised gravity has 10 metric components. Lorenz gauge fixes 4, residual gauge fixes 4 more, leaving 2 physical polarisations — the plus and cross modes.",
+            "choices": [
+              "0",
+              "1",
+              "2",
+              "4"
+            ]
           },
           {
             "type": "mcq",
@@ -26867,7 +26872,7 @@ window.MVQuizBank = {
             "type": "numeric",
             "q": "A z-test of $H_0:\\mu=0$ vs $H_1:\\mu>0$ (one-sided, known $\\sigma=1$, $n=25$ samples) rejects at level $\\alpha=0.05$ when $\\bar X>1.645/\\sqrt{25}$. What is the threshold on $\\bar X$? (Round to 4 decimals.)",
             "answer": 0.329,
-            "tol": 0.001,
+            "tol": 0.0005,
             "explain": "Under $H_0$, $\\bar X\\sim\\mathcal{N}(0,1/n)$. The $0.95$ quantile of $\\mathcal{N}(0,1/n)$ is $z_{0.95}/\\sqrt n=1.645/5=0.329$. Reject when $\\bar X>0.329$."
           },
           {

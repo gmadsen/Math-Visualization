@@ -48,7 +48,7 @@
       "blocks": [
         {
           "type": "raw",
-          "html": "<section id=\"quintic\">\n<h2>2. The quintic prediction</h2>\n\n<p>The first hard test of mirror symmetry is the <strong>quintic 3-fold</strong> $X = \\{F = 0\\} \\subset \\mathbb{P}^4$, where $F$ is a generic homogeneous quintic. It has $h^{1,1}(X) = 1$ and $h^{2,1}(X) = 101$, so its mirror $Y$ should have $h^{1,1}(Y) = 101$ and $h^{2,1}(Y) = 1$. Greene and Plesser identified $Y$ as a crepant resolution of the orbifold</p>\n\n$$Y \\;=\\; \\widetilde{ \\{x_1^5 + x_2^5 + x_3^5 + x_4^5 + x_5^5 - 5\\psi\\, x_1 x_2 x_3 x_4 x_5 = 0\\} / (\\mathbb{Z}/5)^3 }.$$\n\n<p>$Y$ is a one-parameter family in $\\psi$ — its single complex modulus matches the single Kähler modulus of $X$. <strong>Candelas, de la Ossa, Green, and Parkes (1991)</strong> computed periods on $Y$, applied the mirror map, and read off — by mirror symmetry — the genus-zero <strong>Gromov–Witten invariants</strong> $n_d$ of $X$: the (suitably weighted) number of degree-$d$ rational curves on the quintic.</p>\n\n"
+          "html": "<section id=\"quintic\">\n<h2>2. The quintic prediction</h2>\n<p><strong>Worked example: the quintic threefold.</strong> The mirror-symmetric prediction of curve counts on $X = \\{F_5 = 0\\} \\subset \\mathbb{P}^4$ is one of the great worked examples in modern geometry — the rest of this section walks through it step by step.</p>\n\n<p>The first hard test of mirror symmetry is the <strong>quintic 3-fold</strong> $X = \\{F = 0\\} \\subset \\mathbb{P}^4$, where $F$ is a generic homogeneous quintic. It has $h^{1,1}(X) = 1$ and $h^{2,1}(X) = 101$, so its mirror $Y$ should have $h^{1,1}(Y) = 101$ and $h^{2,1}(Y) = 1$. Greene and Plesser identified $Y$ as a crepant resolution of the orbifold</p>\n\n$$Y \\;=\\; \\widetilde{ \\{x_1^5 + x_2^5 + x_3^5 + x_4^5 + x_5^5 - 5\\psi\\, x_1 x_2 x_3 x_4 x_5 = 0\\} / (\\mathbb{Z}/5)^3 }.$$\n\n<p>$Y$ is a one-parameter family in $\\psi$ — its single complex modulus matches the single Kähler modulus of $X$. <strong>Candelas, de la Ossa, Green, and Parkes (1991)</strong> computed periods on $Y$, applied the mirror map, and read off — by mirror symmetry — the genus-zero <strong>Gromov–Witten invariants</strong> $n_d$ of $X$: the (suitably weighted) number of degree-$d$ rational curves on the quintic.</p>\n\n"
         },
         {
           "type": "widget",
@@ -59,6 +59,10 @@
         {
           "type": "raw",
           "html": "\n\n<p>The lines count $2{,}875$ was already known to 19th-century algebraic geometers (Schubert calculus). The conics count $609{,}250$ was a hard theorem of Katz in 1986. Everything from cubics on was completely out of reach until CdGP wrote down a generating function in five lines of physics-flavoured calculus and let the mirror map do the work.</p>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./elliptic-curves.html#intro\">Elliptic curves and Weierstrass models</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "quiz",
@@ -126,7 +130,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./calabi-yau-manifolds.html#period\">Calabi–Yau manifolds — period map</a></li>\n    <li><a href=\"./algebraic-de-rham-cohomology.html#hodge-filtration\">Algebraic de Rham — Hodge filtration</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./calabi-yau-manifolds.html#period\">Calabi–Yau manifolds — period map</a></li>\n    <li><a href=\"./algebraic-de-rham-cohomology.html#hodge-filtration\">Algebraic de Rham — Hodge filtration</a></li>\n    <li><a href=\"./partial-differential-equations.html#classification\">Classification: elliptic / parabolic / hyperbolic</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
@@ -152,7 +156,7 @@
       "blocks": [
         {
           "type": "raw",
-          "html": "<section id=\"hms\">\n<h2>5. Homological mirror symmetry</h2>\n\n<p>Hodge-number swaps and curve-count predictions are <em>numerical</em> mirror symmetry. <strong>Kontsevich (ICM 1994)</strong> proposed a vastly stronger structural form:</p>\n\n$$\\boxed{\\, D^b\\mathrm{Coh}(X) \\;\\;\\cong\\;\\; D^\\pi \\mathrm{Fuk}(Y) \\,}$$\n\n<p>as triangulated (or more precisely $A_\\infty$-) categories. The B-side is the <strong>bounded derived category of coherent sheaves</strong> on $X$ — see <a href=\"./derived-categories.html#d-coh\">Derived categories §$D^b\\mathrm{Coh}(X)$</a>. The A-side is the <strong>(split-closed) Fukaya category</strong> of $Y$, whose objects are Lagrangian submanifolds equipped with brane data (orientation, spin structure, grading, local system) and whose morphism complexes are <em>Lagrangian intersection Floer cohomologies</em>:</p>\n\n$$\\mathrm{Hom}_{\\mathrm{Fuk}}(L_0, L_1) \\;=\\; CF^*(L_0, L_1), \\quad d \\;=\\; \\text{count of pseudo-holomorphic strips.}$$\n\n"
+          "html": "<section id=\"hms\">\n<h2>5. Homological mirror symmetry</h2>\n\n<p>Hodge-number swaps and curve-count predictions are <em>numerical</em> mirror symmetry. <strong>Kontsevich (ICM 1994)</strong> proposed a vastly stronger structural form:</p>\n\n$$\\boxed{\\, D^b\\mathrm{Coh}(X) \\;\\;\\cong\\;\\; D^\\pi \\mathrm{Fuk}(Y) \\,}$$\n\n<p>as triangulated (or more precisely $A_\\infty$-) categories. The B-side is the <strong>bounded derived category of coherent sheaves</strong> on $X$ — see <a href=\"./derived-categories.html#d-coh\">Derived categories §$D^b\\mathrm{Coh}(X)$</a>. The A-side is the <strong>(split-closed) Fukaya category</strong> of $Y$, whose objects are Lagrangian submanifolds equipped with brane data (orientation, spin structure, grading, local system) and whose morphism complexes are <em>Lagrangian intersection Floer cohomologies</em>:</p>\n\n$$\\Hom_{\\mathrm{Fuk}}(L_0, L_1) \\;=\\; CF^*(L_0, L_1), \\quad d \\;=\\; \\text{count of pseudo-holomorphic strips.}$$\n\n"
         },
         {
           "type": "widget",
@@ -162,7 +166,7 @@
         },
         {
           "type": "raw",
-          "html": "\n\n<p>Numerical consequences fall out: $\\dim \\mathrm{Hom}^*(\\mathcal{O}_x, \\mathcal{O}_x) = 1 + 3 + 3 + 1 = 8$ (Koszul) matches $\\dim HF^*(L, L) = \\chi(T^3) \\cdot \\text{rank}$, and the Euler pairing on $K^0(D^b\\mathrm{Coh}(X))$ matches the symplectic intersection form on $H_n(Y, \\mathbb{Z})$. <strong>Proven cases</strong>: elliptic curves (Polishchuk–Zaslow), abelian varieties (Fukaya, Kontsevich–Soibelman), the quartic K3 (Seidel), the quintic 3-fold (Sheridan), toric Fano varieties (Abouzaid, Fang–Liu–Treumann–Zaslow), and many more. HMS is now a central organizing principle in symplectic topology and derived algebraic geometry.</p>\n\n"
+          "html": "\n\n<p>Numerical consequences fall out: $\\dim \\Hom^*(\\mathcal{O}_x, \\mathcal{O}_x) = 1 + 3 + 3 + 1 = 8$ (Koszul) matches $\\dim HF^*(L, L) = \\chi(T^3) \\cdot \\text{rank}$, and the Euler pairing on $K^0(D^b\\mathrm{Coh}(X))$ matches the symplectic intersection form on $H_n(Y, \\mathbb{Z})$. <strong>Proven cases</strong>: elliptic curves (Polishchuk–Zaslow), abelian varieties (Fukaya, Kontsevich–Soibelman), the quartic K3 (Seidel), the quintic 3-fold (Sheridan), toric Fano varieties (Abouzaid, Fang–Liu–Treumann–Zaslow), and many more. HMS is now a central organizing principle in symplectic topology and derived algebraic geometry.</p>\n\n"
         },
         {
           "type": "raw",
@@ -188,7 +192,7 @@
       "blocks": [
         {
           "type": "raw",
-          "html": "<section id=\"syz\">\n<h2>6. Strominger–Yau–Zaslow fibrations</h2>\n\n<p>HMS gives an equivalence of categories. <strong>Strominger, Yau, and Zaslow (1996)</strong> went the other direction and proposed a <em>geometric mechanism</em>. Their conjecture: a CY 3-fold $X$ admits a <strong>special-Lagrangian $T^3$-fibration</strong></p>\n\n$$\\pi \\colon X \\;\\longrightarrow\\; B$$\n\n<p>over a real 3-dimensional base $B$. The smooth fibres $T^3_b = \\pi^{-1}(b)$ are 3-tori, Lagrangian (so $\\omega|_{T^3_b} = 0$), and <em>special</em> in McLean's sense (calibrated by $\\mathrm{Re}\\,\\Omega$). The mirror $Y$ is the <strong>dual fibration</strong></p>\n\n$$\\check\\pi \\colon Y \\;\\longrightarrow\\; B, \\qquad Y_b \\;=\\; \\mathrm{Hom}(T^3_b, U(1)) \\;\\cong\\; \\check T^3_b.$$\n\n"
+          "html": "<section id=\"syz\">\n<h2>6. Strominger–Yau–Zaslow fibrations</h2>\n\n<p>HMS gives an equivalence of categories. <strong>Strominger, Yau, and Zaslow (1996)</strong> went the other direction and proposed a <em>geometric mechanism</em>. Their conjecture: a CY 3-fold $X$ admits a <strong>special-Lagrangian $T^3$-fibration</strong></p>\n\n$$\\pi \\colon X \\;\\to\\; B$$\n\n<p>over a real 3-dimensional base $B$. The smooth fibres $T^3_b = \\pi^{-1}(b)$ are 3-tori, Lagrangian (so $\\omega|_{T^3_b} = 0$), and <em>special</em> in McLean's sense (calibrated by $\\mathrm{Re}\\,\\Omega$). The mirror $Y$ is the <strong>dual fibration</strong></p>\n\n$$\\check\\pi \\colon Y \\;\\to\\; B, \\qquad Y_b \\;=\\; \\Hom(T^3_b, U(1)) \\;\\cong\\; \\check T^3_b.$$\n\n"
         },
         {
           "type": "widget",

@@ -350,7 +350,7 @@ function drawNode(svg, x, y, label, opts={}){
 <p>Left fibrations are too rigid for many natural examples — the fibers are forced to be $\infty$-groupoids, but we want to allow them to be honest $\infty$-categories. <strong>Cocartesian edges</strong> are the device that lets one go from an arbitrary inner fibration to a "fibration with covariant transport" without insisting that the fibers collapse to spaces.</p>
 
 <p>Formally: an edge $e: x \to y$ in $\mathcal{E}$ over $\bar{e} = p(e): \bar{x} \to \bar{y}$ in $\mathcal{B}$ is <strong>$p$-cocartesian</strong> iff for every $z \in \mathcal{E}$, the canonical square of mapping spaces
-$$ \mathrm{Map}_{\mathcal{E}}(y, z) \;\longrightarrow\; \mathrm{Map}_{\mathcal{E}}(x, z) \times_{\mathrm{Map}_\mathcal{B}(\bar{x}, p(z))} \mathrm{Map}_\mathcal{B}(\bar{y}, p(z)) $$
+$$ \mathrm{Map}_{\mathcal{E}}(y, z) \;\to\; \mathrm{Map}_{\mathcal{E}}(x, z) \times_{\mathrm{Map}_\mathcal{B}(\bar{x}, p(z))} \mathrm{Map}_\mathcal{B}(\bar{y}, p(z)) $$
 is a homotopy equivalence (HTT 2.4.1.5; Kerodon 5.1.1). Equivalently, every $\Lambda^{n+1}_0$-horn whose initial edge is $e$ admits a filler — and this filler is unique up to a contractible space of choices, given the data downstairs.</p>
 
 <p>Concretely at $n = 1$: pick any edge $h: x \to z$ in $\mathcal{E}$ and any $2$-simplex $\bar{\sigma}$ in $\mathcal{B}$ with $\partial_2 \bar{\sigma} = \bar{e}$ and $\partial_0 \bar{\sigma} = p(h)|_{\bar{y} \to p(z)}$ — that is, a downstairs witness for "$h$ factors through $\bar{e}$." The cocartesian condition asks: does $\bar{\sigma}$ lift to a $2$-simplex $\sigma$ in $\mathcal{E}$ with $\partial_2 \sigma = e$ and $\partial_1 \sigma = h$? The presence of such a lift, and its essential uniqueness, is exactly the property that $e$ is "the universal way of extending $x$ along $\bar{e}$."</p>
@@ -754,11 +754,11 @@ $$ \mathrm{LFib}(\mathcal{B}) \;\simeq\; \mathrm{Fun}(\mathcal{B}, \mathcal{S}) 
 of $\infty$-categories. So a covariant family of spaces parameterized by $\mathcal{B}$ is the same data as a left fibration $p: \mathcal{E} \to \mathcal{B}$. Dually, $\mathrm{RFib}(\mathcal{B}) \simeq \mathrm{Fun}(\mathcal{B}^{\mathrm{op}}, \mathcal{S}) = \mathcal{P}(\mathcal{B})$ is the genuine presheaf $\infty$-category, and right fibrations are presheaves of spaces in disguise.</p>
 
 <p>The <strong>universal left fibration</strong> is the forgetful map $\mathcal{S}_{*/} \to \mathcal{S}$ from the $\infty$-category of pointed spaces to the $\infty$-category of spaces. The fiber over $X \in \mathcal{S}$ is precisely $X$ — every space, with its identity-classified-base-point. Every left fibration $p: \mathcal{E} \to \mathcal{B}$ arises by pullback:
-$$ \begin{array}{ccc} \mathcal{E} & \longrightarrow & \mathcal{S}_{*/} \\ {\scriptstyle p}\downarrow & & \downarrow \\ \mathcal{B} & \xrightarrow{\;\mathrm{St}(p)\;} & \mathcal{S} \end{array} $$
+$$ \begin{array}{ccc} \mathcal{E} & \to & \mathcal{S}_{*/} \\ {\scriptstyle p}\downarrow & & \downarrow \\ \mathcal{B} & \xrightarrow{\;\mathrm{St}(p)\;} & \mathcal{S} \end{array} $$
 i.e. $\mathcal{E} \simeq \mathcal{B} \times_\mathcal{S} \mathcal{S}_{*/}$. This is the $\infty$-categorical universal property and the source of the slogan "spaces are pointed-spaces fibered."</p>
 
 <p><strong>Yoneda's factorization.</strong> The $\infty$-Yoneda embedding $y: \mathcal{B} \to \mathcal{P}(\mathcal{B}) = \mathrm{Fun}(\mathcal{B}^{\mathrm{op}}, \mathcal{S})$ sends each object $b$ to the functor "represent" $\mathrm{Map}_\mathcal{B}(-, b)$. Under the right-fibration version of straightening, this representing functor unstraightens to the <strong>over-category fibration</strong>
-$$ \mathcal{B}_{/b} \;\longrightarrow\; \mathcal{B}, $$
+$$ \mathcal{B}_{/b} \;\to\; \mathcal{B}, $$
 the slice $\infty$-category whose fiber over $a$ is $\mathrm{Map}_\mathcal{B}(a, b)$. So Yoneda factors through the family of slices, which assemble into the universal right fibration $\mathrm{ev}_1: \mathrm{Fun}(\Delta^1, \mathcal{B}) \to \mathcal{B}$ (target evaluation).</p>
 
 <p>Specializing further: for $\mathcal{B} = \Delta^0$, the equivalence $\mathrm{LFib}(\Delta^0) \simeq \mathcal{S}$ recovers the basic fact that a left fibration over a point is the same as a Kan complex — its single fiber.</p>

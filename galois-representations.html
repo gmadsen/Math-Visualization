@@ -303,7 +303,7 @@ $$ \mathrm{Frob}_p \in \Gal(K/\mathbb{Q}) \big/ I_p, \qquad \mathrm{Frob}_p: x \
 <section id="rep">
 <h2>2. What is a Galois representation?</h2>
 <p>A <strong>Galois representation</strong> is a continuous homomorphism</p>
-$$ \rho \colon G_\mathbb{Q} \;\longrightarrow\; \mathrm{GL}_n(K) $$
+$$ \rho \colon G_\mathbb{Q} \;\to\; \mathrm{GL}_n(K) $$
 <p>where the coefficient field $K$ is one of three standard choices:</p>
 <table class="plain">
 <thead><tr><th>coefficient field</th><th>name</th><th>source</th></tr></thead>
@@ -363,7 +363,7 @@ $$ \rho \colon G_\mathbb{Q} \;\longrightarrow\; \mathrm{GL}_n(K) $$
 <p>The group $G_\mathbb{Q}$ acts on the $\ell^n$-th roots of unity $\mu_{\ell^n} = \{\zeta \in \bar{\mathbb{Q}}: \zeta^{\ell^n}=1\} \cong \mathbb{Z}/\ell^n$. On a generator $\zeta$, any $\sigma \in G_\mathbb{Q}$ acts by</p>
 $$ \sigma(\zeta) \;=\; \zeta^{\,\chi_n(\sigma)}, \qquad \chi_n(\sigma) \in (\mathbb{Z}/\ell^n)^\times. $$
 <p>These fit together into the <strong>$\ell$-adic cyclotomic character</strong></p>
-$$ \chi \colon G_\mathbb{Q} \;\longrightarrow\; \varprojlim_n\, (\mathbb{Z}/\ell^n)^\times \;=\; \mathbb{Z}_\ell^\times. $$
+$$ \chi \colon G_\mathbb{Q} \;\to\; \varprojlim_n\, (\mathbb{Z}/\ell^n)^\times \;=\; \mathbb{Z}_\ell^\times. $$
 <p>This is a 1-dimensional $\ell$-adic Galois representation. At an unramified prime $p \neq \ell$, $\chi(\mathrm{Frob}_p) = p$.</p>
 
 <div class="widget" id="w-cyclo">
@@ -407,7 +407,7 @@ $$ \rho_\psi \colon G_\mathbb{Q} \to (\mathbb{Z}/N)^\times \xrightarrow{\psi} \m
 <p>The multiplication-by-$\ell$ map $[\ell]: E[\ell^{n+1}] \to E[\ell^n]$ lets us take the inverse limit:</p>
 $$ T_\ell E \;=\; \varprojlim_n\, E[\ell^n] \;\cong\; \mathbb{Z}_\ell^2. $$
 <p>This is the <strong>Tate module</strong>. It is a free rank-2 $\mathbb{Z}_\ell$-module, and $G_\mathbb{Q}$ acts $\mathbb{Z}_\ell$-linearly. Choosing a basis gives the $\ell$-adic Galois representation attached to $E$:</p>
-$$ \rho_{E,\ell} \colon G_\mathbb{Q} \;\longrightarrow\; \mathrm{GL}_2(\mathbb{Z}_\ell). $$
+$$ \rho_{E,\ell} \colon G_\mathbb{Q} \;\to\; \mathrm{GL}_2(\mathbb{Z}_\ell). $$
 <p>Tensoring with $\mathbb{Q}_\ell$ gives a representation on a 2-dimensional $\mathbb{Q}_\ell$-vector space $V_\ell E = T_\ell E \otimes \mathbb{Q}_\ell$.</p>
 
 <div class="widget" id="w-tate">
@@ -536,7 +536,7 @@ $$ L(E,s) \;=\; \prod_p L_p(E,s). $$
 <h2>7. Modular forms and Deligne's construction</h2>
 <p>Let $f = \sum_{n\ge 1} a_n(f) q^n$ be a normalised cuspidal eigenform of weight $k\ge 2$ on $\Gamma_0(N)$ with character $\varepsilon$. Its Fourier coefficients $a_n(f)$ are algebraic numbers, generating a finite extension $K_f \subset \bar{\mathbb{Q}}$.</p>
 <p>A theorem of Eichler–Shimura (weight 2) and Deligne (all weights) attaches to $f$, for each prime $\ell$ and each place $\lambda$ of $K_f$ above $\ell$, a continuous 2-dimensional Galois representation</p>
-$$ \rho_{f,\lambda} \colon G_\mathbb{Q} \;\longrightarrow\; \mathrm{GL}_2(K_{f,\lambda}) $$
+$$ \rho_{f,\lambda} \colon G_\mathbb{Q} \;\to\; \mathrm{GL}_2(K_{f,\lambda}) $$
 <p>that is unramified outside $N\ell$ and satisfies, for every prime $p \nmid N\ell$,</p>
 $$ \tr\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; a_p(f), \qquad \det\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; \varepsilon(p)\, p^{k-1}. $$
 <p>The Fourier coefficients of an eigenform <em>are</em> traces of Frobenius. This is one of the deepest bridges in number theory: automorphic $\leftrightarrow$ Galois.</p>

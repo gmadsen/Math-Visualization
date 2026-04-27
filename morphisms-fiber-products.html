@@ -281,13 +281,13 @@ function sqrtModP(a, p){
 
 <ul>
   <li>a continuous map $f\colon |X|\to |Y|$ of topological spaces;</li>
-  <li>a map of sheaves of rings $f^{\#}\colon \mathcal{O}_Y\longrightarrow f_{*}\mathcal{O}_X$.</li>
+  <li>a map of sheaves of rings $f^{\#}\colon \mathcal{O}_Y\to f_{*}\mathcal{O}_X$.</li>
 </ul>
 
 <p>Think of $f^{\#}$ as the rule "pull back regular functions." For every open $V\subseteq Y$ we get a ring homomorphism $f^{\#}_V\colon \mathcal{O}_Y(V)\to \mathcal{O}_X(f^{-1}V)$ compatible with restriction — that's what a map of sheaves is.</p>
 
 <p>But there is a crucial extra condition: $f^{\#}$ must be <em>local on stalks</em>. For every point $x\in X$ with image $y=f(x)$, the induced map on stalks
-$$f^{\#}_x\colon \mathcal{O}_{Y,y}\longrightarrow \mathcal{O}_{X,x}$$
+$$f^{\#}_x\colon \mathcal{O}_{Y,y}\to \mathcal{O}_{X,x}$$
 must be a <strong>local ring homomorphism</strong>: it sends the maximal ideal $\mathfrak{m}_y$ into $\mathfrak{m}_x$. Equivalently, $f^{\#}_x$ pulls back "functions vanishing at $y$" to "functions vanishing at $x$."</p>
 
 <p>Why insist on this? Without it one gets maps that are algebraically nonsense. Consider $X=Y=\Spec{}k[t]_{(t)}$ (the local ring at the origin of the affine line). As topological spaces both are two-point sets $\{\text{generic},\text{closed}\}$. The identity continuous map is fine; the sheaf map, however, has exactly <em>two</em> choices of ring endomorphism: the identity $k[t]_{(t)}\to k[t]_{(t)}$, and the inclusion $k[t]_{(t)}\hookrightarrow \operatorname{Frac}(k[t]_{(t)})=k(t)$ followed by… wait, that lands in a different ring. The real test case is $\Spec k(t)\to \Spec k[t]_{(t)}$: there is a ring map $k[t]_{(t)}\hookrightarrow k(t)$ (localization), and it is <em>not</em> local — it sends $t\in\mathfrak{m}$ to a unit. Geometrically, the generic point of the local line is being mapped to the generic point of the same line; the associated underlying continuous map sends the one point of $\Spec k(t)$ to the generic point, and the stalk map is $k[t]_{(t)}\to k(t)$ which is not local. And that's fine — the underlying continuous map chose the generic fiber, so the condition "send $\mathfrak{m}_{\text{gen}}=(0)$ into $\mathfrak{m}_{\text{gen}}=(0)$" is vacuous. Locality is automatic when the target point is generic; it bites when we try to map a closed point to a non-closed point.</p>
@@ -1242,7 +1242,7 @@ It's a scheme over the field $\kappa(\mathfrak{p})$ — possibly with non-reduce
 <h2>7. Capstone: the family $x^2 - a$</h2>
 
 <p>Time to put it all together. Consider the morphism
-$$f\colon \Spec\mathbb{Z}[x]/(x^2 - a) \;\longrightarrow\; \Spec\mathbb{Z}[a],$$
+$$f\colon \Spec\mathbb{Z}[x]/(x^2 - a) \;\to\; \Spec\mathbb{Z}[a],$$
 induced by the ring inclusion $\mathbb{Z}[a] \hookrightarrow \mathbb{Z}[a,x]/(x^2-a) = \mathbb{Z}[x]/(x^2-a)$ (where the second equality is the observation that in the quotient, $a$ is redundantly encoded as $x^2$, so we may as well eliminate it — but the map from $\mathbb{Z}[a]$ to this quotient is what it is). The total space is a hypersurface in $\mathbb{A}^2_{\mathbb{Z}}$ (with coordinates $a$ and $x$), and we're projecting to the $a$-axis.</p>
 
 <p>This is a beautiful toy because <em>every</em> phenomenon — reduction, reducibility, ramification — shows up in a one-parameter family.</p>
@@ -1763,7 +1763,7 @@ $$\Spec\bigl(\mathbb{F}_p[x]/(x^2-a_0)\bigr).$$</p>
 <h3>The diagonal and separatedness</h3>
 
 <p>For a morphism $f\colon X\to S$ there is a canonical <strong>diagonal</strong>
-$$\Delta_{f}\colon X \;\longrightarrow\; X\times_S X, \qquad x\mapsto (x,x).$$
+$$\Delta_{f}\colon X \;\to\; X\times_S X, \qquad x\mapsto (x,x).$$
 It is always a locally closed immersion. The morphism $f$ is <strong>separated</strong> iff $\Delta_f$ is a <em>closed</em> immersion. Equivalently, the image of $\Delta_f$ is Zariski-closed inside $X\times_S X$.</p>
 
 <p>This is the scheme-theoretic analog of the Hausdorff condition: in a Hausdorff space, the diagonal is closed inside the product. The prototype non-separated scheme is the <strong>line with doubled origin</strong>, obtained by gluing two copies of $\mathbb{A}^1_k$ along the open $\mathbb{A}^1_k\setminus\{0\}$. The two origins converge to each other, just like two limits of the same sequence in a non-Hausdorff topological space. Its diagonal fails to be closed at the pair "(left origin, right origin)."</p>
@@ -1775,7 +1775,7 @@ It is always a locally closed immersion. The morphism $f$ is <strong>separated</
 <p>A morphism $f\colon X\to S$ is <strong>proper</strong> if it is separated, of finite type, and <em>universally closed</em> — meaning for every base change $S'\to S$, the induced map $X\times_S S'\to S'$ sends closed sets to closed sets. Universal closedness is the scheme-theoretic cousin of properness in topology: preimages of compact sets are compact after arbitrary base change.</p>
 
 <p>The universal closure condition is equivalent (for Noetherian targets) to the <strong>valuative criterion of properness</strong>: for every discrete valuation ring $R$ with fraction field $K$, every diagram
-$$\begin{array}{ccc}\Spec K & \longrightarrow & X \\ \downarrow & & \downarrow f \\ \Spec R & \longrightarrow & S\end{array}$$
+$$\begin{array}{ccc}\Spec K & \to & X \\ \downarrow & & \downarrow f \\ \Spec R & \to & S\end{array}$$
 admits a <em>unique</em> lift $\Spec R\to X$. "Points defined generically extend uniquely across a boundary point" — exactly what <a href="./point-set-topology.html#compact" data-auto-inline-link="1" data-concept-id="compactness" data-blurb="Every open cover has a finite subcover; preserved under continuous images; Heine–Borel, sequential compactness, and why compact Hausdorff is the right target category.">compactness</a> should mean for schemes.</p>
 
 <p>The canonical example is projective space: $\mathbb{P}^n_k\to\Spec k$ is proper. Affine space $\mathbb{A}^n_k\to\Spec k$ is <em>not</em> proper, since the valuative criterion fails: a $K$-point like $1/t\in\mathbb{A}^1_K$ does not extend to a $R$-point of $\mathbb{A}^1$. You have to projectivize before properness kicks in.</p>

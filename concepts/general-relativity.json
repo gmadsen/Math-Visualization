@@ -8,10 +8,14 @@
       "title": "Spacetime as a Lorentzian manifold",
       "anchor": "spacetime",
       "prereqs": [
-        "riemannian-metrics"
+        "riemannian-metrics",
+        "smooth-manifold-definition"
       ],
       "blurb": "Spacetime is a smooth 4-manifold $(M,g)$ with a non-degenerate metric of signature $(-,+,+,+)$. The light cone $g(v,v)=0$ separates timelike, lightlike, and spacelike vectors at each point and pins down the local causal structure: only timelike worldlines can carry massive observers and only causal curves can transmit information.",
-      "tags": ["foundation", "classification"]
+      "tags": [
+        "foundation",
+        "classification"
+      ]
     },
     {
       "id": "gr-einstein-equations",
@@ -20,10 +24,14 @@
       "prereqs": [
         "gr-spacetime",
         "ricci-curvature",
-        "pde-classification"
+        "pde-classification",
+        "levi-civita-connection"
       ],
       "blurb": "$R_{\\mu\\nu}-\\tfrac12 g_{\\mu\\nu}R+\\Lambda g_{\\mu\\nu}=8\\pi G\\,T_{\\mu\\nu}$ couples the Ricci-trace curvature of spacetime to the stress-energy tensor of matter. Geometry on the left, matter on the right; in vacuum with $\\Lambda=0$ the equation reduces to $R_{\\mu\\nu}=0$, a quasi-linear hyperbolic PDE for the metric whose nonlinearity is the source of nearly every interesting GR phenomenon.",
-      "tags": ["classification", "universal-property"]
+      "tags": [
+        "classification",
+        "universal-property"
+      ]
     },
     {
       "id": "gr-schwarzschild",
@@ -34,7 +42,9 @@
         "levi-civita-connection"
       ],
       "blurb": "The unique static spherically-symmetric vacuum solution is $ds^2=-(1-2M/r)\\,dt^2+(1-2M/r)^{-1}dr^2+r^2 d\\Omega^2$. The coordinate singularity at $r=2M$ is the event horizon — a one-way membrane no causal curve can cross outward — while $r=0$ is a genuine curvature singularity where $R_{\\mu\\nu\\rho\\sigma}R^{\\mu\\nu\\rho\\sigma}\\sim M^2/r^6$.",
-      "tags": ["classification"]
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "gr-kerr-rotating",
@@ -44,7 +54,10 @@
         "gr-schwarzschild"
       ],
       "blurb": "A spinning black hole of mass $M$ and angular momentum $J=Ma$ is described by the Kerr metric in Boyer–Lindquist coordinates. Two surfaces appear: the event horizon at $r_+=M+\\sqrt{M^2-a^2}$ and an outer stationary-limit surface bounding an ergosphere where no observer can stay at rest — frame-dragging forces co-rotation, enabling the Penrose process for energy extraction.",
-      "tags": ["classification", "group-action"]
+      "tags": [
+        "classification",
+        "group-action"
+      ]
     },
     {
       "id": "gr-cosmology-flrw",
@@ -54,7 +67,9 @@
         "gr-einstein-equations"
       ],
       "blurb": "The Friedmann–Lemaître–Robertson–Walker metric $ds^2=-dt^2+a(t)^2[dr^2/(1-kr^2)+r^2 d\\Omega^2]$ encodes a homogeneous isotropic universe. Einstein's equations reduce to the Friedmann equations for the scale factor $a(t)$; the redshift $1+z=a(t_0)/a(t_e)$ tracks expansion, and a positive $\\Lambda$ drives accelerating expansion as observed for dark energy.",
-      "tags": ["classification"]
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "gr-gravitational-waves",
@@ -65,7 +80,10 @@
         "pde-wave-equation"
       ],
       "blurb": "Write $g_{\\mu\\nu}=\\eta_{\\mu\\nu}+h_{\\mu\\nu}$ with $|h|\\ll1$ on a Minkowski background. In Lorenz gauge the Einstein equations linearise to $\\Box \\bar h_{\\mu\\nu}=-16\\pi G\\,T_{\\mu\\nu}$ — a wave equation for two transverse-traceless polarisation modes propagating at $c$. Binary black hole inspirals radiate $\\sim 10^{-21}$ strain detected by LIGO via interferometric arms.",
-      "tags": ["classification", "duality"]
+      "tags": [
+        "classification",
+        "duality"
+      ]
     }
   ]
 }

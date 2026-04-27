@@ -90,7 +90,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./mostow-rigidity.html#hyp3\">Mostow rigidity</a> · Hyperbolic 3-manifolds</div>\n    <div><a href=\"./upper-half-plane-hyperbolic.html#geod\">Upper half-plane and hyperbolic geometry</a> · Geodesics in H</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./mostow-rigidity.html#hyp3\">Mostow rigidity</a> · Hyperbolic 3-manifolds</div>\n    <div><a href=\"./mostow-rigidity.html#statement\">Mostow rigidity</a> · Mostow's rigidity theorem</div>\n    <div><a href=\"./upper-half-plane-hyperbolic.html#geod\">Upper half-plane and hyperbolic geometry</a> · Geodesics in H</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

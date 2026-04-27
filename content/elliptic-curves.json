@@ -20,7 +20,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./bezout.html#cayleybach\">Bézout theorem</a> · Cayley–Bacharach and associativity</div>\n    <div><a href=\"./elliptic-curves.html#complex\">Elliptic curves</a> · Complex uniformization and CM</div>\n    <div><a href=\"./elliptic-curves.html#group\">Elliptic curves</a> · Group law on cubic curves</div>\n    <div><a href=\"./elliptic-curves.html#j\">Elliptic curves</a> · The j-invariant and isomorphism classes</div>\n    <div><a href=\"./modularity-and-flt.html#frey\">Modularity and FLT</a> · The Frey curve</div>\n    <div><a href=\"./sato-tate.html#angle\">Sato–Tate</a> · Hasse bound and the Frobenius angle</div>\n    <div class=\"more\">… and 1 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./bezout.html#cayleybach\">Bézout theorem</a> · Cayley–Bacharach and associativity</div>\n    <div><a href=\"./elliptic-curves.html#complex\">Elliptic curves</a> · Complex uniformization and CM</div>\n    <div><a href=\"./elliptic-curves.html#group\">Elliptic curves</a> · Group law on cubic curves</div>\n    <div><a href=\"./elliptic-curves.html#j\">Elliptic curves</a> · The j-invariant and isomorphism classes</div>\n    <div><a href=\"./mirror-symmetry.html#quintic\">Mirror symmetry</a> · The quintic prediction</div>\n    <div><a href=\"./modularity-and-flt.html#frey\">Modularity and FLT</a> · The Frey curve</div>\n    <div class=\"more\">… and 2 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

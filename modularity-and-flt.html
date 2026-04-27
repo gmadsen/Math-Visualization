@@ -947,13 +947,13 @@ Ribet step removes one ℓ when ρ̄ is unramified mod p at ℓ. Goal: level 2.`
 <h2>4. Deformation rings</h2>
 
 <p>The engine that drives modularity lifting is Mazur's theory of <strong>deformations of Galois representations</strong>. Fix a residual representation
-$$\overline\rho : G_\mathbb{Q} \longrightarrow \mathrm{GL}_2(\mathbb{F}_p)$$
+$$\overline\rho : G_\mathbb{Q} \to \mathrm{GL}_2(\mathbb{F}_p)$$
 (thought of as the mod-$p$ reduction of some unknown $p$-adic lift). A <em>deformation</em> of $\overline\rho$ to a complete Noetherian local $\mathbb{Z}_p$-algebra $(A, \mathfrak{m}_A)$ with residue field $\mathbb{F}_p$ is a continuous lift
-$$\rho : G_\mathbb{Q} \longrightarrow \mathrm{GL}_2(A), \qquad \rho \bmod \mathfrak{m}_A \ =\ \overline\rho,$$
+$$\rho : G_\mathbb{Q} \to \mathrm{GL}_2(A), \qquad \rho \bmod \mathfrak{m}_A \ =\ \overline\rho,$$
 taken up to conjugation by $\ker(\mathrm{GL}_2(A) \to \mathrm{GL}_2(\mathbb{F}_p))$.</p>
 
 <p>Mazur (1989) proved that — assuming $\overline\rho$ is absolutely irreducible — this functor $A \mapsto \{\text{deformations of }\overline\rho\text{ to }A\}$ is <em>representable</em>. There is a universal complete Noetherian local ring $R^{\mathrm{univ}}$ and a universal deformation
-$$\rho^{\mathrm{univ}} : G_\mathbb{Q} \longrightarrow \mathrm{GL}_2(R^{\mathrm{univ}})$$
+$$\rho^{\mathrm{univ}} : G_\mathbb{Q} \to \mathrm{GL}_2(R^{\mathrm{univ}})$$
 from which every other deformation arises by unique base change along a ring map $R^{\mathrm{univ}} \to A$. The ring $R^{\mathrm{univ}}$ is the <em>formal moduli space</em> of $p$-adic lifts of $\overline\rho$.</p>
 
 <div class="note"><strong>Cutting down by ramification data.</strong> In practice one fixes a finite set of primes $\Sigma$ (containing $p$ and the ramification primes of $\overline\rho$) and imposes local conditions at each $\ell \in \Sigma$: unramified outside $\Sigma$, ordinary at $p$, Steinberg at a Steinberg prime, etc. These cut out a quotient $R_\Sigma$ of $R^{\mathrm{univ}}$ — still a complete Noetherian local ring, but now with tangent space computed by a <em>Selmer group</em>

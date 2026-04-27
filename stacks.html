@@ -269,7 +269,7 @@ function drawLoop(svg, cx, cy, label, color, markerId){
 <section id="recap">
 <h2>1. Recap: the moduli problem</h2>
 <p>A <strong>moduli problem</strong> asks for a space whose points parameterise some class of geometric objects — elliptic curves, vector bundles, stable maps, and so on. The naive formulation is a functor</p>
-$$ \mathcal{M}: \mathrm{Sch}^{\mathrm{op}} \longrightarrow \mathrm{Set}, \qquad R \longmapsto \{\text{objects over } \Spec\, R\}/\cong. $$
+$$ \mathcal{M}: \mathrm{Sch}^{\mathrm{op}} \to \mathrm{Set}, \qquad R \longmapsto \{\text{objects over } \Spec\, R\}/\cong. $$
 <p>If this functor is representable by a scheme $M$, we call $M$ a <strong>fine moduli space</strong>. For elliptic curves the functor is <em>not</em> representable: the culprit is the non-trivial automorphism $[-1]$ on every elliptic curve, and the extra automorphisms $\mu_4$ at $j=1728$, $\mu_6$ at $j=0$. See the <a href="./elliptic-curves.html">elliptic-curves</a>, <a href="./moduli-spaces.html">moduli-spaces</a>, and <a href="./functor-of-points.html">functor-of-points</a> pages for the obstruction in detail.</p>
 <div class="note"><strong>The diagnostic.</strong> Take a family $\mathcal{E}\to B$ and an automorphism $\sigma$ of a fibre. If the representing object ignored $\sigma$, twisting $\mathcal{E}$ along a cover by $\sigma$ would give an inequivalent family with the <em>same</em> classifying map. Representability fails because distinct families produce the same classifying morphism.</div>
 <p>The standard move — pass to the coarse moduli space (here, the $j$-line $\mathbb{A}^1_j$) — discards the automorphism data entirely. Coarse moduli is a bijection on points but forgets the $\mathrm{Aut}$-groups that made the problem interesting in the first place.</p>
@@ -335,7 +335,7 @@ $$ \mathcal{M}: \mathrm{Sch}^{\mathrm{op}} \longrightarrow \mathrm{Set}, \qquad 
 <section id="fib">
 <h2>3. Fibered categories and groupoid-valued functors</h2>
 <p>Repackage the moduli problem as</p>
-$$ \mathcal{M}: \mathrm{Sch}^{\mathrm{op}} \longrightarrow \mathrm{Grpd}, \qquad R \longmapsto \mathcal{M}(R), $$
+$$ \mathcal{M}: \mathrm{Sch}^{\mathrm{op}} \to \mathrm{Grpd}, \qquad R \longmapsto \mathcal{M}(R), $$
 <p>where $\mathcal{M}(R)$ is the <em>groupoid</em> whose objects are families $X\to\Spec\,R$ of the desired type and whose arrows are isomorphisms of families over $\Spec\,R$. For a ring map $R\to S$, pullback sends a family over $R$ to a family over $S$ and gives the restriction functor $\mathcal{M}(R)\to\mathcal{M}(S)$.</p>
 
 <div class="note"><strong>Subtlety.</strong> Pullback is only defined up to canonical isomorphism, not on the nose — $f^*(g^*X)$ and $(gf)^*X$ are canonically isomorphic but not equal. The honest way to handle this is a <strong>fibered category</strong> $\mathcal{M}\to\mathrm{Sch}$: one single category sitting over $\mathrm{Sch}$, with a prescribed notion of pullback via cartesian arrows. A groupoid-valued pseudo-functor and a category fibered in groupoids carry the same information; use whichever feels lighter.</div>
@@ -709,7 +709,7 @@ A one-line slogan: DM ⇔ Artin with $\dim \mathrm{Aut}(x) = 0$ at every geometr
 <p>Finally we can describe the moduli of elliptic curves honestly. $\mathcal{M}_{1,1}$ is the stack whose $R$-points are the groupoid of elliptic curves $E\to\Spec\,R$ with their isomorphisms. It is a DM stack.</p>
 
 <p>An atlas: fix $N\ge 3$ prime to the characteristics in sight. The functor "elliptic curve with full level-$N$ structure" $\mathcal{M}_{1,1}(N)$ is already representable by a scheme $Y(N)$ because level-$N$ structure rigidifies (no non-trivial automorphism fixes a level-3 structure). The forgetful map</p>
-$$ Y(N) \longrightarrow \mathcal{M}_{1,1} $$
+$$ Y(N) \to \mathcal{M}_{1,1} $$
 <p>is étale (the Galois group being $\mathrm{GL}_2(\mathbb{Z}/N)/\{\pm1\}$) and surjective, i.e. an étale atlas.</p>
 
 <div class="note"><strong>Coarse shadow.</strong> The coarse moduli space of $\mathcal{M}_{1,1}$ is the $j$-line $\mathbb{A}^1_j$. Generic points have automorphism group $\mu_2 = \{\pm1\}$ (the $[-1]$ involution on every elliptic curve). Two points are <em>stacky</em> in the sense that their automorphism group is larger:

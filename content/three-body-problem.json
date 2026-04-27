@@ -112,7 +112,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./symplectic-manifolds.html#hamiltonian\">symplectic-manifolds — Hamiltonian vector fields and flows</a> — KAM is a theorem about Hamiltonian perturbations of integrable systems on a symplectic manifold.</li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./symplectic-manifolds.html#hamiltonian\">symplectic-manifolds — Hamiltonian vector fields and flows</a> — KAM is a theorem about Hamiltonian perturbations of integrable systems on a symplectic manifold.</li>\n    <li><a href=\"./measure-theory.html#lebesgue\">Lebesgue measure</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "quiz",
