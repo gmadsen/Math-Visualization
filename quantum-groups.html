@@ -1,0 +1,1088 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Quantum groups</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"automorphic-forms-adelic","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"additive-number-theory":{"next":"quadratic-forms-genus-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"moduli-spaces","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"mathematics-and-cryptography","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"mostow-rigidity","prev":"k-theory","section":"Geometry & topology","title":"Atiyah singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"etale-cohomology","section":"Algebraic geometry","title":"Calabi yau manifolds"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-topoi","prev":"infinity-categories","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":null,"prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"deformation-theory":{"next":"etale-cohomology","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"group-cohomology","prev":"homological","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"expanders","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"harmonic-analysis-fourier","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":null,"section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":"calabi-yau-manifolds","prev":"deformation-theory","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"deformation-theory","prev":"group-schemes","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":null,"prev":"designs","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"naive-set-theory","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":null,"prev":"variational-methods","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"type-theory-and-hott","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"quantum-groups","prev":"lie-algebras","section":"Algebra & homological","title":"Galois cohomology and brauer"},"galois-representations":{"next":"heights-arithmetic-geometry","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"general-relativity":{"next":"schrodinger-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":null,"prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"lie-algebras","prev":"derived-categories","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"etale-fundamental-group","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"hamiltonians-classical-mechanics":{"next":"general-relativity","prev":"three-body-problem","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"spectral-theory","prev":"partial-differential-equations","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"analytic-number-theory","prev":"galois-representations","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":null,"prev":"mathematical-statistics","section":"Probability & statistics","title":"High dimensional geometry"},"homological":{"next":"derived-categories","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"cocartesian-fibrations","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-topoi (Lurie)"},"information-theory":{"next":"large-deviations","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"stacks","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"ricci-flow","section":"Geometry & topology","title":"K theory"},"knot-polynomials":{"next":"ricci-flow","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Knot polynomials"},"large-deviations":{"next":"mathematical-statistics","prev":"information-theory","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"galois-cohomology-and-brauer","prev":"group-cohomology","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"mathematical-statistics":{"next":"high-dimensional-geometry","prev":"large-deviations","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"mirror-symmetry":{"next":"resolution-of-singularities","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"model-theory-basics":{"next":"computability-and-decidability","prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"modular-curves","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"algebraic-spaces","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"characteristic-classes","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":null,"prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Mostow rigidity"},"naive-set-theory":{"next":"first-order-logic-and-completeness","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"wavelets","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"harmonic-functions","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"stochastic-processes-and-martingales","prev":null,"section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"additive-number-theory","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"additive-number-theory","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"quantum-groups":{"next":"quaternions-octonions-and-division-algebras","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"quantum-groups","section":"Algebra & homological","title":"Quaternions octonions and division algebras"},"random-walks-and-mixing":{"next":"information-theory","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":null,"prev":"mirror-symmetry","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"k-theory","prev":"knot-polynomials","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"characteristic-classes","prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":null,"prev":"general-relativity","section":"Mathematical physics","title":"Schrodinger equation"},"sheaf-cohomology":{"next":"algebraic-de-rham-cohomology","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"algebraic-curves-higher-genus","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Sobolev spaces & distributions"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"wavelets","prev":"harmonic-functions","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"intersection-theory-chow","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":"probability-theory","section":"Probability & statistics","title":"Stochastic processes and martingales"},"symplectic-manifolds":{"next":"knot-polynomials","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"hamiltonians-classical-mechanics","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"type-theory-and-hott":{"next":"forcing-and-independence","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and hott"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"fixed-point-theorems","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":null,"prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"numerical-analysis","prev":"spectral-theory","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"model-theory-basics","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"Zfc and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="Algebra & homological" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color="var(--ink)", curve=0, label=null, labelSide=1, markerId="arr-default", dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG("path",{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:"none", stroke:color, "stroke-width":width,
+    "marker-end":`url(#${markerId})`
+  });
+  if(dash) path.setAttribute("stroke-dasharray", dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG("text",{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      "text-anchor":"middle","font-size":12, fill:color, "font-style":"italic"});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill="var(--panel2)", stroke="var(--blue)", textColor="#fff", fontSize=14} = opts;
+  svg.appendChild(SVG("circle",{cx:x,cy:y,r,fill,stroke,"stroke-width":1.5}));
+  const t = SVG("text",{x,y:y+fontSize*0.35,"text-anchor":"middle","font-size":fontSize,fill:textColor,"font-weight":600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+  <a href="#hopf">1&nbsp;Hopf algebras</a>
+  <a href="#uq-sl2">2&nbsp;$U_q(\mathfrak{sl}_2)$</a>
+  <a href="#r-matrix">3&nbsp;$R$-matrix</a>
+  <a href="#reps">4&nbsp;Representations</a>
+  <a href="#knots">5&nbsp;Knot invariants</a>
+  <a href="#applications">6&nbsp;Applications</a>
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Quantum groups</h1>
+  <p class="sub">Deform the universal enveloping algebra $U(\mathfrak g)$ by a single parameter $q$ and the cocommutativity of group multiplication breaks: tensor products of representations no longer commute, but they almost do, witnessed by an $R$-matrix that satisfies the Yang–Baxter equation. The shadow of that single failure of symmetry runs through knot polynomials, integrable lattice models, and categorification.</p>
+</section>
+
+<section id="hopf">
+<h2>1. Hopf algebras</h2>
+<p>A <strong>Hopf algebra</strong> $(H,m,\eta,\Delta,\varepsilon,S)$ over a field $k$ has five structure maps:</p>
+<table class="plain">
+  <thead><tr><th>Map</th><th>Type</th><th>Role</th></tr></thead>
+  <tbody>
+    <tr><td>$m\colon H\otimes H\to H$</td><td>multiplication</td><td>associative</td></tr>
+    <tr><td>$\eta\colon k\to H$</td><td>unit</td><td>$\eta(1)=1_H$</td></tr>
+    <tr><td>$\Delta\colon H\to H\otimes H$</td><td>comultiplication</td><td>coassociative</td></tr>
+    <tr><td>$\varepsilon\colon H\to k$</td><td>counit</td><td>$(\varepsilon\otimes\mathrm{id})\Delta=(\mathrm{id}\otimes\varepsilon)\Delta=\mathrm{id}$</td></tr>
+    <tr><td>$S\colon H\to H$</td><td>antipode</td><td>convolution-inverse of $\mathrm{id}$</td></tr>
+  </tbody>
+</table>
+<p>Bialgebra axioms force $\Delta$ and $\varepsilon$ to be algebra homomorphisms. The antipode is the unique map satisfying $m\circ(S\otimes\mathrm{id})\circ\Delta = m\circ(\mathrm{id}\otimes S)\circ\Delta = \eta\circ\varepsilon$ — by abstract nonsense this forces $S$ to be an algebra <em>anti</em>-homomorphism.</p>
+
+<h3>Two prototypes</h3>
+<p>For a finite group $G$, the <strong>group algebra</strong> $\mathbb C[G]$ is a Hopf algebra with</p>
+<p>$$\Delta(g)=g\otimes g,\qquad \varepsilon(g)=1,\qquad S(g)=g^{-1}\quad (g\in G).$$</p>
+<p>It is cocommutative ($\tau\circ\Delta=\Delta$, where $\tau$ is the flip). For a Lie algebra $\mathfrak g$, the <strong>universal enveloping algebra</strong> $U(\mathfrak g)$ is also Hopf with</p>
+<p>$$\Delta(x)=x\otimes 1+1\otimes x,\qquad \varepsilon(x)=0,\qquad S(x)=-x\quad (x\in\mathfrak g),$$</p>
+<p>extended as algebra maps. Both are cocommutative — quantization will break this.</p>
+
+<div class="widget" id="hopf-axioms">
+  <div class="hd">
+    <div class="ttl">Hopf axiom inspector</div>
+    <div class="hint">pick an axiom; see the commutative square it asserts</div>
+  </div>
+  <div class="row">
+    <button data-ax="assoc" class="active">associativity</button>
+    <button data-ax="coassoc">coassociativity</button>
+    <button data-ax="bialg">$\Delta$ is an algebra map</button>
+    <button data-ax="antipode">antipode</button>
+  </div>
+  <svg id="hopf-svg" viewBox="0 0 720 220" width="720" height="220" aria-label="Hopf algebra commutative diagram"></svg>
+  <div class="readout" id="hopf-out"></div>
+</div>
+<script>
+(function(){
+  const svg = document.querySelector("#hopf-svg");
+  const out = document.querySelector("#hopf-out");
+  if(!svg || !out) return;
+  const buttons = document.querySelectorAll("#hopf-axioms button[data-ax]");
+  const diagrams = {
+    assoc: {
+      nodes: [
+        {x:120,y:50,label:"H⊗H⊗H"},
+        {x:580,y:50,label:"H⊗H"},
+        {x:120,y:170,label:"H⊗H"},
+        {x:580,y:170,label:"H"}
+      ],
+      arrows: [
+        {a:0,b:1,label:"m⊗id"},
+        {a:0,b:2,label:"id⊗m"},
+        {a:1,b:3,label:"m"},
+        {a:2,b:3,label:"m"}
+      ],
+      caption: "Associativity: m∘(m⊗id) = m∘(id⊗m).  The multiplication square commutes."
+    },
+    coassoc: {
+      nodes: [
+        {x:120,y:50,label:"H"},
+        {x:580,y:50,label:"H⊗H"},
+        {x:120,y:170,label:"H⊗H"},
+        {x:580,y:170,label:"H⊗H⊗H"}
+      ],
+      arrows: [
+        {a:0,b:1,label:"Δ"},
+        {a:0,b:2,label:"Δ"},
+        {a:1,b:3,label:"id⊗Δ"},
+        {a:2,b:3,label:"Δ⊗id"}
+      ],
+      caption: "Coassociativity: (id⊗Δ)∘Δ = (Δ⊗id)∘Δ.  Comultiplication is unambiguous up to triple-tensor."
+    },
+    bialg: {
+      nodes: [
+        {x:120,y:50,label:"H⊗H"},
+        {x:580,y:50,label:"H"},
+        {x:120,y:170,label:"H⊗H⊗H⊗H"},
+        {x:580,y:170,label:"H⊗H"}
+      ],
+      arrows: [
+        {a:0,b:1,label:"m"},
+        {a:0,b:2,label:"Δ⊗Δ"},
+        {a:2,b:3,label:"id⊗τ⊗id ; m⊗m"},
+        {a:1,b:3,label:"Δ"}
+      ],
+      caption: "Bialgebra compatibility: Δ(ab) = Δ(a)Δ(b).  The flip τ is the only obstruction to cocommutativity."
+    },
+    antipode: {
+      nodes: [
+        {x:120,y:50,label:"H"},
+        {x:350,y:50,label:"H⊗H"},
+        {x:580,y:50,label:"H⊗H"},
+        {x:580,y:170,label:"H"},
+        {x:120,y:170,label:"k"}
+      ],
+      arrows: [
+        {a:0,b:1,label:"Δ"},
+        {a:1,b:2,label:"S⊗id"},
+        {a:2,b:3,label:"m"},
+        {a:0,b:4,label:"ε"},
+        {a:4,b:3,label:"η"}
+      ],
+      caption: "Antipode axiom: m∘(S⊗id)∘Δ = η∘ε.  S is convolution-inverse to id_H."
+    }
+  };
+  function render(key){
+    const d = diagrams[key];
+    svg.innerHTML = "";
+    d.nodes.forEach(n => {
+      const t = SVG("text",{x:n.x,y:n.y,"text-anchor":"middle","font-size":15,"font-family":"ui-monospace,monospace",fill:"var(--ink)"});
+      t.textContent = n.label;
+      svg.appendChild(t);
+    });
+    d.arrows.forEach((arr,i) => {
+      const a = d.nodes[arr.a], b = d.nodes[arr.b];
+      const color = ["var(--blue)","var(--yellow)","var(--cyan)","var(--violet)","var(--green)"][i%5];
+      drawArrow(svg, [a.x, a.y+8], [b.x, b.y-12], {color, label:arr.label, markerId:"hopf-"+key+"-"+i, curve: (a.y===b.y)?0:8, pad1:24, pad2:24});
+    });
+    out.textContent = d.caption;
+  }
+  buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      buttons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      render(btn.dataset.ax);
+    });
+  });
+  render("assoc");
+})();
+</script>
+
+<div class="note">A commutative algebra of functions on a group $G$ ($\mathbb C[G]$ if $G$ is finite) is dual to the cocommutative $\mathbb C[G]$: the Hopf structure is a single algebraic object that simultaneously sees the algebra of functions and the group operation. Quantum groups are the deformations where neither side is commutative anymore.</div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./category-theory.html#cat">Categories and morphisms</a></li>
+    <li><a href="./representation-theory.html#tensor-dual">Tensor products and dual representations</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="qg-hopf-algebras"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./category-theory.html#cat">Categories and morphisms</a></li>
+    <li><a href="./representation-theory.html#tensor-dual">Tensor products and dual representations</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./quantum-groups.html#uq-sl2">Quantum groups</a> · Drinfeld–Jimbo $U_q(\mathfrak{sl}_2)$</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="uq-sl2">
+<h2>2. Drinfeld–Jimbo $U_q(\mathfrak{sl}_2)$</h2>
+<p>Fix a nonzero $q\in\mathbb C$ with $q\ne\pm 1$. The <strong>quantized enveloping algebra</strong> $U_q(\mathfrak{sl}_2)$ is generated by $E$, $F$, $K$, $K^{-1}$ subject to</p>
+<p>$$KK^{-1}=K^{-1}K=1,\qquad KEK^{-1}=q^2 E,\qquad KFK^{-1}=q^{-2} F,$$</p>
+<p>$$[E,F] \;=\; \dfrac{K-K^{-1}}{q-q^{-1}}.$$</p>
+<p>The Hopf structure is determined by</p>
+<p>$$\Delta(K)=K\otimes K,\qquad \Delta(E)=E\otimes 1+K\otimes E,\qquad \Delta(F)=F\otimes K^{-1}+1\otimes F,$$</p>
+<p>$$S(K)=K^{-1},\quad S(E)=-K^{-1}E,\quad S(F)=-FK,\quad \varepsilon(K)=1,\;\varepsilon(E)=\varepsilon(F)=0.$$</p>
+
+<h3>Why this is a deformation</h3>
+<p>Set $K=q^H$ formally and expand in $\hbar=\log q$:</p>
+<p>$$KEK^{-1}=q^2 E \;\Rightarrow\; (1+\hbar H+\cdots)E(1-\hbar H+\cdots) = (1+2\hbar+\cdots)E,$$</p>
+<p>which to first order is $[H,E]=2E$. Similarly $[E,F] = (K-K^{-1})/(q-q^{-1}) \to H$ in the limit. So $U_q(\mathfrak{sl}_2)\rightsquigarrow U(\mathfrak{sl}_2)$ as $q\to 1$ — a smooth deformation of the classical relations.</p>
+
+<div class="widget" id="qsl2-deform">
+  <div class="hd">
+    <div class="ttl">$q$-deformation slider</div>
+    <div class="hint">watch $[E,F]$ interpolate between the quantum and classical bracket</div>
+  </div>
+  <div class="row">
+    <label>$q =$ <input type="range" id="q-slider" min="0.50" max="1.50" step="0.01" value="1.20"></label>
+    <span class="readout" id="q-val" style="display:inline-block;min-width:120px"></span>
+  </div>
+  <svg id="qsl2-svg" viewBox="0 0 700 220" width="700" height="220" aria-label="quantum deformation of [E,F]"></svg>
+  <div class="readout" id="qsl2-out"></div>
+</div>
+<script>
+(function(){
+  const svg = document.querySelector("#qsl2-svg");
+  const out = document.querySelector("#qsl2-out");
+  const slider = document.querySelector("#q-slider");
+  const qval = document.querySelector("#q-val");
+  if(!svg || !out || !slider) return;
+  const W = 700, H = 220;
+  const x0 = 60, x1 = W - 30;
+  const y0 = 30, y1 = H - 40;
+  function plot(q){
+    svg.innerHTML = "";
+    // axes
+    svg.appendChild(SVG("line",{x1:x0,y1:y1,x2:x1,y2:y1,stroke:"var(--line)","stroke-width":1}));
+    svg.appendChild(SVG("line",{x1:x0,y1:y0,x2:x0,y2:y1,stroke:"var(--line)","stroke-width":1}));
+    // baseline H = log eigenvalue (n=1..6)
+    const ns = [1,2,3,4,5,6];
+    const xs = ns.map((n,i) => x0 + (i+0.5)*((x1-x0)/ns.length));
+    // classical: [E,F] eigenvalue on a weight-n vector is n
+    // quantum: [n]_q = (q^n - q^(-n))/(q - q^(-1))
+    const qbr = (n) => {
+      if(Math.abs(q-1) < 1e-6) return n;
+      return (Math.pow(q,n) - Math.pow(q,-n)) / (q - 1/q);
+    };
+    const classicals = ns;
+    const quantums = ns.map(qbr);
+    const allVals = [...classicals, ...quantums];
+    const ymax = Math.max(...allVals.map(Math.abs)) * 1.2 + 0.5;
+    const ymin = -1;
+    function yOf(v){ return y1 - (v - ymin) / (ymax - ymin) * (y1 - y0); }
+    // x-axis labels
+    ns.forEach((n,i) => {
+      const t = SVG("text",{x:xs[i],y:y1+18,"text-anchor":"middle","font-size":12,fill:"var(--mute)"});
+      t.textContent = "n="+n;
+      svg.appendChild(t);
+    });
+    // y-axis label
+    const ylab = SVG("text",{x:30,y:y0+12,"font-size":12,fill:"var(--mute)"});
+    ylab.textContent = "eigval";
+    svg.appendChild(ylab);
+    // bars: classical (yellow) and quantum (cyan)
+    const barW = (x1-x0)/ns.length * 0.32;
+    classicals.forEach((v,i) => {
+      const yc = yOf(v);
+      svg.appendChild(SVG("rect",{x:xs[i]-barW-2, y:Math.min(yc,yOf(0)), width:barW, height:Math.abs(yc-yOf(0)),
+        fill:"var(--yellow)", opacity:0.8}));
+    });
+    quantums.forEach((v,i) => {
+      const yc = yOf(v);
+      svg.appendChild(SVG("rect",{x:xs[i]+2, y:Math.min(yc,yOf(0)), width:barW, height:Math.abs(yc-yOf(0)),
+        fill:"var(--cyan)", opacity:0.8}));
+    });
+    // legend
+    const lg = SVG("g",{transform:"translate(" + (x1-180) + ", " + (y0+10) + ")"});
+    lg.appendChild(SVG("rect",{x:0,y:0,width:14,height:10,fill:"var(--yellow)"}));
+    const t1 = SVG("text",{x:20,y:9,"font-size":12,fill:"var(--ink)"});
+    t1.textContent = "classical n";
+    lg.appendChild(t1);
+    lg.appendChild(SVG("rect",{x:0,y:18,width:14,height:10,fill:"var(--cyan)"}));
+    const t2 = SVG("text",{x:20,y:27,"font-size":12,fill:"var(--ink)"});
+    t2.textContent = "quantum [n]_q";
+    lg.appendChild(t2);
+    svg.appendChild(lg);
+    // axes baseline at zero
+    svg.appendChild(SVG("line",{x1:x0,y1:yOf(0),x2:x1,y2:yOf(0),stroke:"var(--mute)","stroke-width":0.7,"stroke-dasharray":"3 3"}));
+  }
+  function update(){
+    const q = parseFloat(slider.value);
+    qval.textContent = "q = " + q.toFixed(2);
+    plot(q);
+    const dist = Math.abs(q - 1);
+    let msg = "[E,F] acts on the weight-n vector by [n]_q = (q^n-q^(-n))/(q-q^(-1));";
+    if(dist < 0.02) msg += "\nat q=1 this collapses to n — the classical eigenvalue of H.";
+    else msg += `\nat q=${q.toFixed(2)} the spacing q-deforms but stays positive integer at n=1.`;
+    out.textContent = msg;
+  }
+  slider.addEventListener("input", update);
+  update();
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./lie-algebras.html#axioms">Lie algebras — axioms and matrix examples</a></li>
+    <li><a href="./lie-algebras.html#sl2-roots">Lie algebras — $\mathfrak{sl}_2$-triples and weights</a></li>
+    <li><a href="./category-theory.html#cat">Category theory — categories and morphisms</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./quantum-groups.html#reps">Quantum groups</a> · Representations and crystal bases</div>
+    <div><a href="./quantum-groups.html#r-matrix">Quantum groups</a> · Universal $R$-matrix and Yang–Baxter</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="qg-uq-sl2"></div>
+</section>
+
+<section id="r-matrix">
+<h2>3. The universal $R$-matrix and Yang–Baxter</h2>
+<p>$U_q(\mathfrak g)$ is <strong>quasitriangular</strong>: there is an invertible element $R\in U_q(\mathfrak g)\widehat\otimes U_q(\mathfrak g)$ — the <em>universal $R$-matrix</em> — that intertwines the comultiplication with its opposite,</p>
+<p>$$\Delta^{op}(x) \;=\; R\,\Delta(x)\,R^{-1}\qquad\text{for all }x\in U_q(\mathfrak g),$$</p>
+<p>and satisfies the <strong>Yang–Baxter equation</strong></p>
+<p>$$R_{12}\,R_{13}\,R_{23} \;=\; R_{23}\,R_{13}\,R_{12} \quad\text{in } U_q(\mathfrak g)^{\otimes 3}.$$</p>
+<p>Here $R_{ij}$ is $R$ inserted in the $i$-th and $j$-th tensor slots and identity elsewhere. For $U_q(\mathfrak{sl}_2)$ on $V_1\otimes V_1$ (with $V_1$ the 2-dimensional standard rep) the matrix in the basis $\{v\otimes v, v\otimes w, w\otimes v, w\otimes w\}$ reads</p>
+<p>$$R \;=\; \begin{pmatrix} q & 0 & 0 & 0 \\ 0 & 1 & q-q^{-1} & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & q \end{pmatrix}.$$</p>
+
+<h3>Geometric meaning: the third Reidemeister move</h3>
+<p>Read each $R_{ij}$ as a positive crossing of strands $i$ and $j$. The Yang–Baxter relation is then exactly Reidemeister III, the move that allows sliding a strand across a crossing. So $R$ furnishes a representation of the braid group $B_n$ on $V^{\otimes n}$.</p>
+
+<div class="widget" id="ybe-vis">
+  <div class="hd">
+    <div class="ttl">Yang–Baxter as Reidemeister III</div>
+    <div class="hint">flip the side: both sides equal $R_{12}R_{13}R_{23} = R_{23}R_{13}R_{12}$</div>
+  </div>
+  <div class="row">
+    <button id="ybe-left" class="active">left side: $R_{12}R_{13}R_{23}$</button>
+    <button id="ybe-right">right side: $R_{23}R_{13}R_{12}$</button>
+  </div>
+  <svg id="ybe-svg" viewBox="0 0 600 260" width="600" height="260" aria-label="Yang-Baxter braid diagram"></svg>
+  <div class="readout" id="ybe-out"></div>
+</div>
+<script>
+(function(){
+  const svg = document.querySelector("#ybe-svg");
+  const out = document.querySelector("#ybe-out");
+  const bL = document.querySelector("#ybe-left");
+  const bR = document.querySelector("#ybe-right");
+  if(!svg || !out) return;
+  const W = 600, H = 260;
+  const lanes = [120, 300, 480];
+  const colors = ["var(--cyan)","var(--yellow)","var(--pink)"];
+  // crossing helper: strand a goes over strand b at vertical center y
+  function crossing(svg, xa, xb, y, h, over, color1, color2){
+    // strand from (xa, y - h/2) -> (xb, y + h/2): goes over if `over`
+    // strand from (xb, y - h/2) -> (xa, y + h/2): goes under if `over`
+    const ya = y - h/2, yb = y + h/2;
+    const drawStrand = (x1,x2,col,under) => {
+      const path = SVG("path",{
+        d: `M${x1} ${ya} C ${x1} ${y}, ${x2} ${y}, ${x2} ${yb}`,
+        fill:"none", stroke: col, "stroke-width":4, "stroke-linecap":"round"
+      });
+      if(under){
+        // gap effect: draw a thicker bg first
+        const bg = SVG("path",{
+          d: `M${x1} ${ya} C ${x1} ${y}, ${x2} ${y}, ${x2} ${yb}`,
+          fill:"none", stroke: "var(--panel)", "stroke-width":10
+        });
+        svg.appendChild(bg);
+      }
+      svg.appendChild(path);
+    };
+    // first draw the under strand fully, then over with gap
+    if(over){
+      // strand b -> a is over; strand a -> b is under
+      drawStrand(xa, xb, color1, true);
+      drawStrand(xb, xa, color2, false);
+    } else {
+      drawStrand(xb, xa, color2, true);
+      drawStrand(xa, xb, color1, false);
+    }
+  }
+  function straight(svg, x, y1, y2, color){
+    svg.appendChild(SVG("line",{x1:x,y1:y1,x2:x,y2:y2,stroke:color,"stroke-width":4,"stroke-linecap":"round"}));
+  }
+  function render(side){
+    svg.innerHTML = "";
+    // top labels
+    [0,1,2].forEach(i => {
+      const t = SVG("text",{x:lanes[i],y:18,"text-anchor":"middle","font-size":13,fill:"var(--mute)"});
+      t.textContent = "V"+(i+1);
+      svg.appendChild(t);
+    });
+    // three crossings stacked vertically
+    // left side: R12 (between lane 0 and 1), R13 (between lane 0 and 2), R23 (between lane 1 and 2)
+    // right side: R23, R13, R12
+    const yTop = 40, h = 60;
+    let crossings;
+    if(side === "L"){
+      crossings = [
+        {a:0,b:1, y:yTop+h/2, label:"R₁₂"},
+        {a:0,b:2, y:yTop+h+h/2, label:"R₁₃"},
+        {a:1,b:2, y:yTop+2*h+h/2, label:"R₂₃"}
+      ];
+    } else {
+      crossings = [
+        {a:1,b:2, y:yTop+h/2, label:"R₂₃"},
+        {a:0,b:2, y:yTop+h+h/2, label:"R₁₃"},
+        {a:0,b:1, y:yTop+2*h+h/2, label:"R₁₂"}
+      ];
+    }
+    // We need to track strand color through the diagram.  We'll permute colors
+    // at each crossing.  Initial strand colors:
+    let strands = [colors[0], colors[1], colors[2]];
+    // Draw straight passing strands above the first crossing
+    for(let i=0;i<3;i++){
+      straight(svg, lanes[i], yTop, yTop+h-1, strands[i]);
+    }
+    // Wait — instead, render each crossing as a self-contained box with three lanes.
+    // We split each crossing into a box of height h centered at .y.
+    svg.innerHTML = "";
+    // re-render labels
+    [0,1,2].forEach(i => {
+      const t = SVG("text",{x:lanes[i],y:18,"text-anchor":"middle","font-size":13,fill:"var(--mute)"});
+      t.textContent = "V"+(i+1);
+      svg.appendChild(t);
+    });
+    let curColors = [colors[0], colors[1], colors[2]];
+    for(let k=0;k<crossings.length;k++){
+      const c = crossings[k];
+      const yMid = c.y;
+      const yA = yMid - h/2, yB = yMid + h/2;
+      // identify which lanes are crossing and which is straight
+      const passLanes = [0,1,2].filter(i => i !== c.a && i !== c.b);
+      // draw straight strands
+      passLanes.forEach(i => straight(svg, lanes[i], yA, yB, curColors[i]));
+      // draw crossing on c.a / c.b
+      crossing(svg, lanes[c.a], lanes[c.b], yMid, h, true, curColors[c.a], curColors[c.b]);
+      // swap colors
+      const tmp = curColors[c.a];
+      curColors[c.a] = curColors[c.b];
+      curColors[c.b] = tmp;
+      // label on the right
+      const lab = SVG("text",{x:W-30,y:yMid+4,"text-anchor":"end","font-size":13,fill:"var(--mute)"});
+      lab.textContent = c.label;
+      svg.appendChild(lab);
+    }
+    // bottom labels (final permutation)
+    [0,1,2].forEach(i => {
+      const t = SVG("text",{x:lanes[i],y:H-8,"text-anchor":"middle","font-size":13,fill:"var(--mute)"});
+      t.textContent = (curColors[i] === colors[0]) ? "V1" : (curColors[i] === colors[1]) ? "V2" : "V3";
+      svg.appendChild(t);
+    });
+    out.textContent = (side === "L"
+      ? "Left side: R12 then R13 then R23 — strand 1 weaves first."
+      : "Right side: R23 then R13 then R12 — strand 3 weaves first.")
+      + "\nBoth produce the permutation (1 2 3) → (3 2 1) and equal operators.  Yang–Baxter says the two stacks of crossings are isotopic.";
+  }
+  bL.addEventListener("click", () => { bL.classList.add("active"); bR.classList.remove("active"); render("L"); });
+  bR.addEventListener("click", () => { bR.classList.add("active"); bL.classList.remove("active"); render("R"); });
+  render("L");
+})();
+</script>
+
+<div class="note">When $q=1$ the formula $R = q\,P_+ + q^{-1}P_- + (q-q^{-1})\,(\text{off-diag})$ collapses to the identity flip — symmetric monoidal, no braiding. The $R$-matrix is exactly the obstruction to symmetric, and that obstruction is what makes knot invariants nontrivial.</div>
+
+<div class="quiz" data-concept="qg-r-matrix"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./quantum-groups.html#knots">Quantum groups</a> · Reshetikhin–Turaev knot invariants</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="reps">
+<h2>4. Representations and crystal bases</h2>
+<p>Over generic $q$ (i.e. $q$ not a root of unity), finite-dimensional <em>type-1</em> $U_q(\mathfrak{sl}_2)$-modules look classical: the irreducibles $V_n$ for $n\in\mathbb Z_{\ge 0}$ have dimension $n+1$ with weight basis $\{v_n, v_{n-2}, \dots, v_{-n}\}$, where</p>
+<p>$$Kv_k = q^k v_k,\qquad Ev_k = [\,(n-k)/2 + 1\,]_q\, v_{k+2},\qquad Fv_k = [\,(n+k)/2\,]_q\, v_{k-2},$$</p>
+<p>and $[m]_q = (q^m - q^{-m})/(q-q^{-1})$ is the <em>$q$-integer</em>. Tensor products decompose by a quantum Clebsch–Gordan rule</p>
+<p>$$V_m \otimes V_n \;\cong\; \bigoplus_{k=0}^{\min(m,n)} V_{\,m+n-2k}.$$</p>
+
+<h3>Crystals — the $q\to 0$ shadow</h3>
+<p>Kashiwara's crystal basis $B(V_n)$ for $V_n$ is the set $\{v_n, v_{n-2}, \dots, v_{-n}\}$ regarded as the vertices of a coloured graph with one $F$-arrow between consecutive weight vectors. Tensor products of crystals are computed by an explicit combinatorial rule on pairs of arrow strings: irreducible components match irreducible factors of the quantum tensor product.</p>
+
+<div class="widget" id="crystal-vis">
+  <div class="hd">
+    <div class="ttl">Crystal-graph tensor product for $\mathfrak{sl}_2$</div>
+    <div class="hint">pick highest weights — see $V_m\otimes V_n$ decompose into a sum of crystals</div>
+  </div>
+  <div class="row">
+    <label>$m =$ <input type="number" id="cr-m" min="1" max="5" value="2" style="width:60px"></label>
+    <label>$n =$ <input type="number" id="cr-n" min="1" max="5" value="3" style="width:60px"></label>
+  </div>
+  <svg id="crystal-svg" viewBox="0 0 700 240" width="700" height="240" aria-label="crystal graph decomposition"></svg>
+  <div class="readout" id="crystal-out"></div>
+</div>
+<script>
+(function(){
+  const svg = document.querySelector("#crystal-svg");
+  const out = document.querySelector("#crystal-out");
+  const inM = document.querySelector("#cr-m");
+  const inN = document.querySelector("#cr-n");
+  if(!svg || !out) return;
+  function render(){
+    const m = Math.max(1, Math.min(5, parseInt(inM.value)||2));
+    const n = Math.max(1, Math.min(5, parseInt(inN.value)||3));
+    svg.innerHTML = "";
+    // decomposition: V_{m+n}, V_{m+n-2}, ..., V_{|m-n|}
+    const components = [];
+    for(let k=Math.abs(m-n); k<=m+n; k+=2) components.push(k);
+    components.reverse(); // largest first
+    // layout: each component as a horizontal row of dots with arrows
+    const padX = 60, rowH = 40;
+    const yStart = 30;
+    const maxNodes = m+n+1;
+    const dx = (700 - 2*padX) / maxNodes;
+    components.forEach((d, i) => {
+      const y = yStart + i*rowH;
+      const numNodes = d+1;
+      const xStart = padX + ((maxNodes - numNodes)/2) * dx;
+      // arrows
+      for(let j=0;j<numNodes-1;j++){
+        const x1 = xStart + j*dx;
+        const x2 = xStart + (j+1)*dx;
+        drawArrow(svg, [x1,y], [x2,y], {color:"var(--cyan)", markerId:"cr-"+i+"-"+j, pad1:8, pad2:10});
+      }
+      // nodes
+      for(let j=0;j<numNodes;j++){
+        const x = xStart + j*dx;
+        svg.appendChild(SVG("circle",{cx:x,cy:y,r:6,fill:"var(--yellow)",stroke:"var(--ink)","stroke-width":1}));
+      }
+      // label on left
+      const lab = SVG("text",{x:padX-10, y:y+4, "text-anchor":"end","font-size":13,fill:"var(--ink)"});
+      lab.textContent = "V_" + d;
+      svg.appendChild(lab);
+    });
+    out.textContent = `V_${m} ⊗ V_${n}  =  ${components.map(d => "V_"+d).join("  ⊕  ")}\n` +
+                      `dimensions: ${(m+1)}·${(n+1)} = ${(m+1)*(n+1)} = ` +
+                      components.map(d => d+1).join(" + ");
+  }
+  inM.addEventListener("input", render);
+  inN.addEventListener("input", render);
+  render();
+})();
+</script>
+
+<h3>Lusztig's canonical basis</h3>
+<p>Lusztig constructed a distinguished $\mathbb Z[q,q^{-1}]$-basis $\mathbf B$ of the integral form of $U_q^-(\mathfrak g)$ that is</p>
+<ul>
+<li>bar-invariant: $\overline q = q^{-1}$ fixes each basis element,</li>
+<li>has positive integer structure constants for multiplication and the bar involution,</li>
+<li>compatible with all highest-weight modules: each $V_\lambda$ has a canonical basis subset of $\mathbf B$.</li>
+</ul>
+<p>The positivity of these structure constants is a deep theorem; it was an early hint that there should be a categorification — vector-space dimensions whose Euler characteristic is the basis element. KLR algebras supply exactly such a categorification.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./lie-algebras.html#cartan-killing">Lie algebras — Cartan, Killing, semisimplicity</a></li>
+    <li><a href="./representation-theory.html#def">Representation theory — group representations</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./quantum-groups.html#knots">Quantum groups</a> · Reshetikhin–Turaev knot invariants</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="qg-representations"></div>
+</section>
+
+<section id="knots">
+<h2>5. Reshetikhin–Turaev knot invariants</h2>
+<p>A <strong>framed oriented tangle</strong> is a 1-manifold with boundary in $\mathbb R^2\times[0,1]$ whose endpoints lie on $\mathbb R\times\{0,1\}$. Reshetikhin and Turaev built a tensor functor</p>
+<p>$$F\colon \mathbf{Tang}_V \;\to\; \mathrm{Rep}\bigl(U_q(\mathfrak g)\bigr)$$</p>
+<p>from the category of $V$-labelled tangles to $U_q(\mathfrak g)$-modules. The functor is forced by three pieces of data:</p>
+<ul>
+<li><strong>Crossing</strong> $\mapsto$ braiding $c_{V,V} = \tau\circ R_{V,V}$,</li>
+<li><strong>Cup / cap</strong> $\mapsto$ evaluation / coevaluation on $V\otimes V^*$ (rigid duality),</li>
+<li><strong>Framing twist</strong> $\mapsto$ the ribbon element $\theta$.</li>
+</ul>
+<p>For an oriented knot $K$ closed up to a 1-tangle from $\mathbb C\to\mathbb C$, the functor returns a scalar — the <strong>quantum knot invariant</strong>:</p>
+<p>$$J_K(q) \;=\; F(K) \;\in\; \mathbb Z[q^{\pm 1/2}].$$</p>
+
+<h3>Three families</h3>
+<table class="plain">
+  <thead><tr><th>Quantum group</th><th>Representation</th><th>Polynomial</th></tr></thead>
+  <tbody>
+    <tr><td>$U_q(\mathfrak{sl}_2)$</td><td>standard $V_1$</td><td>Jones $V_K(q)$</td></tr>
+    <tr><td>$U_q(\mathfrak{sl}_n)$</td><td>standard $\mathbb C^n$</td><td>HOMFLY $P_K(q,a)$ at $a=q^n$</td></tr>
+    <tr><td>$U_q(\mathfrak{so}_n),\,U_q(\mathfrak{sp}_{2n})$</td><td>standard</td><td>Kauffman two-variable</td></tr>
+  </tbody>
+</table>
+
+<div class="widget" id="rt-vis">
+  <div class="hd">
+    <div class="ttl">Reshetikhin–Turaev on Hopf-link / trefoil</div>
+    <div class="hint">step through the assignment crossing $\mapsto R$, cap $\mapsto$ ev</div>
+  </div>
+  <div class="row">
+    <button data-knot="hopf" class="active">Hopf link</button>
+    <button data-knot="trefoil">Trefoil $3_1$</button>
+    <button data-knot="unknot">Unknot</button>
+  </div>
+  <svg id="rt-svg" viewBox="0 0 600 280" width="600" height="280" aria-label="knot diagram"></svg>
+  <div class="readout" id="rt-out"></div>
+</div>
+<script>
+(function(){
+  const svg = document.querySelector("#rt-svg");
+  const out = document.querySelector("#rt-out");
+  if(!svg || !out) return;
+  const buttons = document.querySelectorAll("#rt-vis button[data-knot]");
+  function arc(svg, x, y, r, start, end, color, ccw=false){
+    // draw arc from angle start to angle end (radians), centered at (x,y)
+    const x1 = x + r*Math.cos(start), y1 = y + r*Math.sin(start);
+    const x2 = x + r*Math.cos(end), y2 = y + r*Math.sin(end);
+    let large = (end - start) > Math.PI ? 1 : 0;
+    let sweep = ccw ? 0 : 1;
+    svg.appendChild(SVG("path",{d:`M${x1} ${y1} A ${r} ${r} 0 ${large} ${sweep} ${x2} ${y2}`,
+      fill:"none",stroke:color,"stroke-width":4,"stroke-linecap":"round"}));
+  }
+  function strand(svg, x1, y1, x2, y2, color, withGap=false){
+    if(withGap){
+      svg.appendChild(SVG("line",{x1,y1,x2,y2,stroke:"var(--panel)","stroke-width":10}));
+    }
+    svg.appendChild(SVG("line",{x1,y1,x2,y2,stroke:color,"stroke-width":4,"stroke-linecap":"round"}));
+  }
+  function curve(svg, x1, y1, cx1, cy1, cx2, cy2, x2, y2, color, withGap=false){
+    if(withGap){
+      svg.appendChild(SVG("path",{d:`M${x1} ${y1} C ${cx1} ${cy1}, ${cx2} ${cy2}, ${x2} ${y2}`,
+        fill:"none", stroke:"var(--panel)","stroke-width":10}));
+    }
+    svg.appendChild(SVG("path",{d:`M${x1} ${y1} C ${cx1} ${cy1}, ${cx2} ${cy2}, ${x2} ${y2}`,
+      fill:"none", stroke:color, "stroke-width":4, "stroke-linecap":"round"}));
+  }
+  function render(knot){
+    svg.innerHTML = "";
+    const cyan = "var(--cyan)", yel = "var(--yellow)", pink = "var(--pink)";
+    if(knot === "unknot"){
+      // simple ellipse
+      svg.appendChild(SVG("ellipse",{cx:300,cy:140,rx:120,ry:90,fill:"none",stroke:cyan,"stroke-width":4}));
+      out.textContent = "Unknot.  No crossings ⇒ R-matrix never appears.\nF(unknot) = qdim(V) = [n+1]_q for V = V_n.";
+      return;
+    }
+    if(knot === "hopf"){
+      // two interlocking ellipses
+      svg.appendChild(SVG("ellipse",{cx:230,cy:140,rx:100,ry:70,fill:"none",stroke:cyan,"stroke-width":4}));
+      // second ellipse with two arcs to fake under-over
+      // top arc
+      svg.appendChild(SVG("path",{d:"M 240 140 A 100 70 0 0 1 440 140",fill:"none",stroke:yel,"stroke-width":4}));
+      svg.appendChild(SVG("path",{d:"M 240 140 A 100 70 0 0 0 440 140",fill:"none",stroke:"var(--panel)","stroke-width":10}));
+      svg.appendChild(SVG("path",{d:"M 240 140 A 100 70 0 0 0 440 140",fill:"none",stroke:yel,"stroke-width":4}));
+      // labels
+      const t1 = SVG("text",{x:230,y:30,"text-anchor":"middle","font-size":12,fill:"var(--mute)"});
+      t1.textContent = "component A"; svg.appendChild(t1);
+      const t2 = SVG("text",{x:440,y:30,"text-anchor":"middle","font-size":12,fill:"var(--mute)"});
+      t2.textContent = "component B"; svg.appendChild(t2);
+      // crossing labels
+      const r1 = SVG("text",{x:250,y:150,"font-size":11,fill:"var(--cyan)","font-style":"italic"});
+      r1.textContent = "R"; svg.appendChild(r1);
+      const r2 = SVG("text",{x:420,y:150,"font-size":11,fill:"var(--cyan)","font-style":"italic"});
+      r2.textContent = "R"; svg.appendChild(r2);
+      out.textContent = "Hopf link: 2 positive crossings.\nF(Hopf) = (qtr ⊗ qtr)(R₂₁ R₁₂)\nFor V_1 of U_q(sl_2): F(Hopf) = q² + q⁻²  (Jones up to normalization).";
+      return;
+    }
+    if(knot === "trefoil"){
+      // stylized trefoil: three lobes around a center
+      const cx = 300, cy = 150;
+      const R = 90;
+      // three lobes at angles 90°, 210°, 330° (in degrees)
+      // simpler: draw three crossings around the center with arcs
+      // Use a parametric trefoil: x = sin(t) + 2 sin(2t), y = cos(t) - 2 cos(2t)
+      let pts = [];
+      const N = 200;
+      for(let i=0;i<=N;i++){
+        const t = i/N * Math.PI * 2;
+        const x = cx + 30 * (Math.sin(t) + 2*Math.sin(2*t));
+        const y = cy + 30 * (Math.cos(t) - 2*Math.cos(2*t));
+        pts.push([x,y]);
+      }
+      // draw under-arcs first (background gap), then over-arcs.  Simpler: just draw the curve as one path.
+      let d = "M" + pts[0][0] + " " + pts[0][1];
+      for(let i=1;i<pts.length;i++) d += " L " + pts[i][0] + " " + pts[i][1];
+      svg.appendChild(SVG("path",{d,fill:"none",stroke:cyan,"stroke-width":4,"stroke-linecap":"round"}));
+      // mark three crossings
+      [0, Math.PI*2/3, Math.PI*4/3].forEach((th,i) => {
+        const xx = cx + 60*Math.cos(th + Math.PI/2);
+        const yy = cy + 60*Math.sin(th + Math.PI/2);
+        svg.appendChild(SVG("circle",{cx:xx,cy:yy,r:14,fill:"none",stroke:yel,"stroke-width":1.5,"stroke-dasharray":"3 2"}));
+        const t = SVG("text",{x:xx,y:yy+4,"text-anchor":"middle","font-size":11,fill:yel,"font-style":"italic"});
+        t.textContent = "R";
+        svg.appendChild(t);
+      });
+      out.textContent = "Trefoil 3_1: 3 positive crossings ⇒ each contributes one R.\nF(3_1) = qtr( c_{V,V} c_{V,V} c_{V,V} )\nJones polynomial: V(3_1) = -q⁻⁴ + q⁻³ + q⁻¹ (sign / normalization conventions vary).";
+    }
+  }
+  buttons.forEach(b => b.addEventListener("click", () => {
+    buttons.forEach(x => x.classList.remove("active"));
+    b.classList.add("active");
+    render(b.dataset.knot);
+  }));
+  render("hopf");
+})();
+</script>
+
+<div class="ok">Witten subsequently realized the Jones polynomial as an expectation value of a Wilson loop in 3d Chern–Simons gauge theory at level $k$ with $q=e^{2\pi i/(k+2)}$ — a path-integral derivation of the same algebraic invariant. Reshetikhin–Turaev is the rigorous, finite-dimensional shadow of that quantum field theory.</div>
+
+<div class="quiz" data-concept="qg-knot-invariants"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./quantum-groups.html#applications">Quantum groups</a> · Affine, KZ, and categorification</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="applications">
+<h2>6. Affine quantum groups, KZ, and categorification</h2>
+<p>The Drinfeld–Jimbo construction extends to the <strong>affine</strong> Lie algebras $\widehat{\mathfrak g}$, giving $U_q(\widehat{\mathfrak g})$. Its representations sit on top of an evaluation map $V(z) = V\otimes\mathbb C[z,z^{-1}]$ and the spectral $R$-matrix $R(z/w)$ depends on the ratio of evaluation parameters.</p>
+
+<h3>Integrable lattice models</h3>
+<p>For the six-vertex model, the Boltzmann weights of a vertex configuration are exactly the entries of the spectral $R$-matrix of $U_q(\widehat{\mathfrak{sl}_2})$ on $V_1\otimes V_1$. Yang–Baxter $R_{12}(u)R_{13}(u+v)R_{23}(v) = R_{23}(v)R_{13}(u+v)R_{12}(u)$ implies that transfer matrices at different spectral parameters commute, which is the algebraic source of integrability.</p>
+
+<h3>Drinfeld–Kohno: KZ monodromy</h3>
+<p>The Knizhnik–Zamolodchikov flat connection on $\mathrm{Conf}_n(\mathbb C)$ with values in $\mathfrak g^{\otimes n}$ is</p>
+<p>$$\nabla \;=\; d \;-\; \hbar\sum_{i<j}\,\dfrac{\Omega_{ij}}{z_i - z_j}\,d(z_i-z_j),$$</p>
+<p>where $\Omega = \sum_a x_a\otimes x^a$ is the Casimir element. <strong>Drinfeld–Kohno</strong>: the monodromy representation of the braid group $B_n$ on $\bigl(V_1\otimes\cdots\otimes V_n\bigr)$ is canonically equivalent to the representation defined by the $R$-matrix of $U_q(\mathfrak g)$ at $q = e^{i\pi\hbar}$. Differential geometry on configuration space matches the algebra of quantum groups.</p>
+
+<h3>Categorification</h3>
+<p>Khovanov–Lauda–Rouquier (KLR) constructed a graded 2-category $\mathcal U$ whose Grothendieck group is $U_q(\mathfrak g)_{\mathbb Z[q,q^{-1}]}$. Each $q^k$ becomes a grading shift; multiplication becomes composition of 1-morphisms; canonical-basis elements lift to indecomposable 1-morphisms. Khovanov homology categorifies the Jones polynomial: $V_K(q)$ becomes the Euler characteristic of a bigraded chain complex $\mathrm{Kh}^{\bullet,\bullet}(K)$, and the latter is a strictly stronger invariant (it detects the unknot).</p>
+
+<div class="widget" id="application-map">
+  <div class="hd">
+    <div class="ttl">Where quantum groups appear</div>
+    <div class="hint">click a node — read where the $R$-matrix shows up</div>
+  </div>
+  <svg id="app-svg" viewBox="0 0 720 320" width="720" height="320" aria-label="quantum group applications map"></svg>
+  <div class="readout" id="app-out">Click a node.</div>
+</div>
+<script>
+(function(){
+  const svg = document.querySelector("#app-svg");
+  const out = document.querySelector("#app-out");
+  if(!svg || !out) return;
+  const center = {x:360, y:160, label:"U_q(g)", color:"var(--yellow)", info:"Drinfeld–Jimbo quantum group: braided Hopf algebra with universal R."};
+  const sat = [
+    {x:140, y:80, label:"6-vertex / XXZ", color:"var(--cyan)",
+      info:"Affine U_q(sl_2-hat).  Boltzmann weights = R(z/w).  Commuting transfer matrices ⇒ integrability."},
+    {x:580, y:80, label:"Jones / HOMFLY", color:"var(--pink)",
+      info:"Reshetikhin–Turaev: F(crossing) = c = τ∘R.  Closes a braid into a knot polynomial."},
+    {x:140, y:240, label:"KZ monodromy", color:"var(--violet)",
+      info:"Drinfeld–Kohno: monodromy of KZ on Conf_n(C) ≅ R-matrix braid action at q = e^{iπħ}."},
+    {x:580, y:240, label:"Khovanov / KLR", color:"var(--green)",
+      info:"Categorification: K_0(KLR-mod) = U_q(g).  Khovanov homology categorifies Jones."}
+  ];
+  // edges
+  sat.forEach(s => drawArrow(svg, [center.x, center.y], [s.x, s.y], {color:"var(--mute)", markerId:"app-"+s.label.replace(/\W/g,""), pad1:30, pad2:34, width:1.2, dash:"4 4"}));
+  // central node
+  const allNodes = [center, ...sat];
+  allNodes.forEach((n, i) => {
+    const g = SVG("g",{class:"app-node","data-i":i,style:"cursor:pointer"});
+    g.appendChild(SVG("circle",{cx:n.x,cy:n.y,r:30,fill:"var(--panel2)",stroke:n.color,"stroke-width":2}));
+    const t = SVG("text",{x:n.x,y:n.y+4,"text-anchor":"middle","font-size":11,fill:"#fff","font-weight":600});
+    t.textContent = n.label;
+    g.appendChild(t);
+    g.addEventListener("click", () => { out.textContent = n.info; });
+    svg.appendChild(g);
+  });
+  out.textContent = "Click any node to see the role of the R-matrix there.";
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./category-theory.html#mon">Category theory — monoidal categories</a></li>
+    <li><a href="./representation-theory.html#tensor-dual">Representation theory — tensor and dual reps</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+<div class="quiz" data-concept="qg-applications"></div>
+</section>
+
+<section id="connections">
+<h2>Connections</h2>
+
+<p>Quantum groups sit at the intersection of three live frontiers: the <em>quantum geometric Langlands program</em> (Gaitsgory–Lurie) replaces the classical Langlands sheaf-on-$\mathrm{Bun}_G$ picture with categories of $U_q(\mathfrak g)$-modules and predicts a duality interchanging $q$ and the Langlands dual; <em>2-Kac–Moody algebras</em> (Rouquier) categorify the entire Drinfeld–Jimbo machinery and link knot homology to derived categories of Lie-algebra representations; and <em>quantum cluster algebras</em> propose that canonical bases come from cluster monomials, but this is open in general type.</p>
+
+<ul>
+<li><a href="./lie-algebras.html#cartan-killing">Lie algebras — root systems and Cartan classification</a> — quantize root data, get a quantum group.</li>
+<li><a href="./representation-theory.html#tensor-dual">Representation theory — tensor and dual reps</a> — the braided monoidal category $\mathrm{Rep}(U_q(\mathfrak g))$ is the deformation of $\mathrm{Rep}(G)$.</li>
+<li><a href="./category-theory.html#mon">Category theory — monoidal categories</a> — the natural home for braidings, ribbon structures, and quantum traces.</li>
+<li><a href="./algebraic-topology.html#intro">Algebraic topology</a> — knot polynomials and their categorifications connect 3-manifold topology back to algebra.</li>
+<li><a href="./moonshine.html#intro">Monstrous moonshine</a> — vertex operator algebras and their quantum-group cousins govern modular characters; affine $U_q(\widehat{\mathfrak g})$ is closely related.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector("aside.sidetoc");
+    const topnav = document.querySelector("nav.toc");
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll("a[href^=\"#\"]")];
+    if(!srcs.length) return;
+    const title = document.createElement("div");
+    title.className = "sidetoc-title";
+    title.textContent = "On this page";
+    aside.appendChild(title);
+    const ol = document.createElement("ol");
+    srcs.forEach(src => {
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = src.getAttribute("href");
+      a.textContent = src.textContent.replace(/ /g," ").trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll("a")];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute("href").slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove("active"));
+      activeLink.classList.add("active");
+    }
+    update();
+    window.addEventListener("scroll", update, {passive:true});
+    window.addEventListener("resize", update);
+  }
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", build);
+  else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init("quantum-groups"); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-26</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

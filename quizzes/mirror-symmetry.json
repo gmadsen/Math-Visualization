@@ -1,0 +1,251 @@
+{
+  "topic": "mirror-symmetry",
+  "quizzes": {
+    "ms-mirror-pair-statement": {
+      "title": "The mirror pair statement",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which Hodge-number identities are predicted by mirror symmetry between Calabi–Yau 3-folds $X$ and $Y$?",
+          "choices": [
+            "$h^{1,1}(X) = h^{1,1}(Y)$ and $h^{2,1}(X) = h^{2,1}(Y)$.",
+            "$h^{1,1}(X) = h^{2,1}(Y)$ and $h^{2,1}(X) = h^{1,1}(Y)$.",
+            "$h^{p,q}(X) = h^{q,p}(Y)$ for every $(p,q)$.",
+            "$h^{p,q}(X) = h^{3-p, 3-q}(Y)$ for every $(p,q)$."
+          ],
+          "answer": 1,
+          "explain": "Mirror symmetry swaps the two non-trivial Hodge numbers of a CY 3-fold: Kähler moduli on one side become complex-structure moduli on the other, so $h^{1,1}$ and $h^{2,1}$ trade places."
+        },
+        {
+          "type": "mcq",
+          "q": "Which physical pairing does the mirror correspondence implement?",
+          "choices": [
+            "A-model on $X$ ≅ A-model on $Y$.",
+            "B-model on $X$ ≅ B-model on $Y$.",
+            "A-model on $X$ ≅ B-model on $Y$.",
+            "Type-IIA on $X$ ≅ heterotic on $Y$."
+          ],
+          "answer": 2,
+          "explain": "Mirror symmetry exchanges symplectic (A-model, type-IIA) data on $X$ with complex (B-model, type-IIB) data on $Y$."
+        },
+        {
+          "type": "mcq",
+          "q": "What is exchanged at the level of moduli spaces?",
+          "choices": [
+            "Kähler moduli of $X$ ↔ complex-structure moduli of $Y$.",
+            "Cohomology of $X$ ↔ homotopy groups of $Y$.",
+            "Picard group of $X$ ↔ Brauer group of $Y$.",
+            "Fundamental group of $X$ ↔ étale cohomology of $Y$."
+          ],
+          "answer": 0,
+          "explain": "The complexified Kähler cone of $X$ (deformations of $\\omega$) is identified with the complex-structure moduli of $Y$ (deformations of $J$)."
+        }
+      ]
+    },
+    "ms-quintic-prediction": {
+      "title": "The quintic prediction",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What did Candelas–de la Ossa–Green–Parkes compute on the mirror of the quintic?",
+          "choices": [
+            "Étale cohomology with $\\ell$-adic coefficients.",
+            "Periods $\\int_\\gamma \\Omega$ of the holomorphic 3-form, then read off Gromov–Witten invariants of the quintic.",
+            "Galois representations attached to the Hasse–Weil zeta function.",
+            "Hecke eigenvalues of a weight-2 modular form."
+          ],
+          "answer": 1,
+          "explain": "They solved a Picard–Fuchs ODE for the periods on the mirror, applied the mirror map, and matched the resulting series to a genus-zero GW generating function — predicting curve counts on the quintic for every degree."
+        },
+        {
+          "type": "mcq",
+          "q": "How many lines are there on a generic quintic 3-fold in $\\mathbb{P}^4$?",
+          "choices": [
+            "$120$",
+            "$2{,}875$",
+            "$317{,}206{,}375$",
+            "$609{,}250$"
+          ],
+          "answer": 1,
+          "explain": "The classical count is $2{,}875$ lines (degree 1 rational curves). $609{,}250$ is the number of conics, $317{,}206{,}375$ the twisted cubics."
+        },
+        {
+          "type": "mcq",
+          "q": "Who later gave rigorous mathematical proofs (to all genus-zero degrees) of the CdGP predictions?",
+          "choices": [
+            "Wiles and Taylor.",
+            "Givental, and independently Lian–Liu–Yau.",
+            "Donaldson and Floer.",
+            "Atiyah and Singer."
+          ],
+          "answer": 1,
+          "explain": "Givental's mirror theorem (mid-1990s) and the independent proof by Lian, Liu, and Yau put the genus-zero predictions on firm mathematical footing."
+        }
+      ]
+    },
+    "ms-gromov-witten": {
+      "title": "A-model: Gromov–Witten invariants",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Genus-zero Gromov–Witten invariants $N_\\beta$ of a Calabi–Yau 3-fold $X$ are integrals over which moduli space?",
+          "choices": [
+            "$\\overline{\\mathcal{M}}_{g, n}$ of stable curves.",
+            "$\\overline{\\mathcal{M}}_{0,0}(X, \\beta)$ of stable maps from genus-zero curves to $X$ in class $\\beta$.",
+            "$\\mathrm{Hilb}^n(X)$ of $n$ points on $X$.",
+            "$\\mathrm{Pic}(X)$ of line bundles on $X$."
+          ],
+          "answer": 1,
+          "explain": "Gromov–Witten invariants are virtual integrals over the moduli of stable maps; for a CY 3-fold the virtual dimension at $g=0$ is zero, so the integral of $1$ is a number."
+        },
+        {
+          "type": "mcq",
+          "q": "What kind of geometric data does the A-model depend on?",
+          "choices": [
+            "Complex-structure moduli (deformations of $J$).",
+            "Kähler / symplectic moduli (deformations of $\\omega$).",
+            "Both, equally.",
+            "Neither — only topological data."
+          ],
+          "answer": 1,
+          "explain": "Gromov–Witten counts depend on the symplectic class $[\\omega]$; varying $J$ doesn't change the invariants. That is the A vs. B asymmetry mirror symmetry exchanges."
+        },
+        {
+          "type": "mcq",
+          "q": "What does \"pseudo-holomorphic\" mean in the definition of a stable map $f\\colon \\Sigma \\to X$?",
+          "choices": [
+            "$f$ is real-analytic.",
+            "$f$ satisfies $\\overline{\\partial}_J f = 0$ for a chosen almost-complex structure $J$ tame against $\\omega$.",
+            "$f$ has bounded image.",
+            "$f$ pulls back $\\omega$ to zero."
+          ],
+          "answer": 1,
+          "explain": "Pseudo-holomorphic means the Cauchy–Riemann equations $\\overline{\\partial}_J f = 0$ hold for a tame almost-complex structure — Gromov's notion that founded symplectic curve counting."
+        }
+      ]
+    },
+    "ms-period-integrals": {
+      "title": "B-model: periods and Picard–Fuchs",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is a period of a Calabi–Yau 3-fold $Y$?",
+          "choices": [
+            "An eigenvalue of the Laplacian on $Y$.",
+            "An integral $\\int_\\gamma \\Omega$ where $\\Omega$ is the holomorphic 3-form and $\\gamma$ is a 3-cycle.",
+            "A trace of Frobenius on étale cohomology.",
+            "A character of the fundamental group."
+          ],
+          "answer": 1,
+          "explain": "Periods pair the holomorphic top form against integral 3-cycles. As complex structure varies, the periods are holomorphic in $t$ and satisfy the Picard–Fuchs ODE."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the Picard–Fuchs equation?",
+          "choices": [
+            "A differential equation satisfied by the periods $\\Pi_\\gamma(t)$ as the complex structure varies.",
+            "A Hamiltonian equation for the symplectic form $\\omega$.",
+            "The heat equation on the moduli space.",
+            "Maxwell's equations on the worldsheet."
+          ],
+          "answer": 0,
+          "explain": "Periods of a smooth family of CYs satisfy a linear ODE in the complex-structure parameter — the Picard–Fuchs equation — because $H^3$ has finite rank and Gauss–Manin connects the fibres."
+        },
+        {
+          "type": "mcq",
+          "q": "What does the mirror map do?",
+          "choices": [
+            "It is a real diffeomorphism between $X$ and $Y$.",
+            "It is a change of coordinates from B-model parameters $t$ to A-model parameters $q$ identifying period integrals on $Y$ with GW generating functions on $X$.",
+            "It takes Hodge classes to algebraic classes.",
+            "It sends prime ideals of $\\mathbb{Z}$ to maximal ideals of $\\mathbb{C}[t]$."
+          ],
+          "answer": 1,
+          "explain": "The mirror map is the canonical change of variables on the moduli side that turns hypergeometric period series into Gromov–Witten potentials, making the prediction explicit."
+        }
+      ]
+    },
+    "ms-homological-mirror": {
+      "title": "Homological mirror symmetry (Kontsevich)",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Kontsevich's homological mirror symmetry conjectures an equivalence of which two categories?",
+          "choices": [
+            "$D^b\\mathrm{Coh}(X) \\cong \\mathrm{Fuk}(Y)$ as triangulated categories.",
+            "$\\mathrm{Coh}(X) \\cong \\mathrm{QCoh}(Y)$ as abelian categories.",
+            "$\\pi_1(X) \\cong \\pi_1(Y)$ as groups.",
+            "$\\Spec H^*(X) \\cong \\Spec H^*(Y)$ as schemes."
+          ],
+          "answer": 0,
+          "explain": "HMS pairs the bounded derived category of coherent sheaves on the B-side with the (split-closed) Fukaya category on the A-side, both viewed as triangulated (or $A_\\infty$) categories."
+        },
+        {
+          "type": "mcq",
+          "q": "Objects of the Fukaya category of $(Y, \\omega)$ are (roughly):",
+          "choices": [
+            "Coherent sheaves on $Y$.",
+            "Lagrangian submanifolds of $Y$ equipped with brane data, with hom-spaces given by Lagrangian intersection Floer cohomology.",
+            "Closed 3-forms on $Y$.",
+            "Étale neighbourhoods of points of $Y$."
+          ],
+          "answer": 1,
+          "explain": "The Fukaya category is built from Lagrangians (with extra data — orientation, spin, local system, grading), and morphisms are computed by Floer chain complexes counting pseudo-holomorphic strips."
+        },
+        {
+          "type": "mcq",
+          "q": "Which case of HMS is among the earliest to be proven?",
+          "choices": [
+            "The case of arbitrary smooth projective 5-folds.",
+            "The elliptic curve $E$ vs. its mirror dual elliptic curve (Polishchuk–Zaslow).",
+            "Singular projective varieties of arbitrary dimension.",
+            "Stacks of curves of genus $\\ge 2$."
+          ],
+          "answer": 1,
+          "explain": "Polishchuk and Zaslow proved HMS for elliptic curves in 1998; the quartic K3 (Seidel) and the quintic 3-fold (Sheridan, after Nadler–Zaslow's work on cotangent bundles) followed."
+        }
+      ]
+    },
+    "ms-syz": {
+      "title": "Strominger–Yau–Zaslow fibrations",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What geometric structure on a CY 3-fold $X$ does the SYZ conjecture posit?",
+          "choices": [
+            "A holomorphic foliation of $X$ by Riemann surfaces.",
+            "A special-Lagrangian $T^3$-fibration $X \\to B$ over a real 3-dimensional base.",
+            "A finite Galois cover of $X$ by an abelian variety.",
+            "An étale fundamental groupoid."
+          ],
+          "answer": 1,
+          "explain": "The conjectured fibration has generic fibres that are 3-tori, special-Lagrangian (calibrated by $\\mathrm{Re}\\,\\Omega$) — the geometric core of the SYZ picture."
+        },
+        {
+          "type": "mcq",
+          "q": "How is the mirror $Y$ constructed in the SYZ picture?",
+          "choices": [
+            "Take the universal cover of $X$.",
+            "Replace each fibre $T^3_b$ by its dual torus $\\check T^3_b = \\mathrm{Hom}(T^3_b, U(1))$ and glue.",
+            "Quotient $X$ by an involution.",
+            "Apply Serre duality fibrewise."
+          ],
+          "answer": 1,
+          "explain": "$Y \\to B$ is the same base equipped with the dual torus fibration; on each fibre this is T-duality, exchanging position and momentum on the torus and trading symplectic for complex structure."
+        },
+        {
+          "type": "mcq",
+          "q": "Which programme builds CY mirror pairs from tropical / integral-affine bases via SYZ-style fibrations?",
+          "choices": [
+            "The Langlands programme.",
+            "The Gross–Siebert programme.",
+            "The Geometric Langlands correspondence.",
+            "The Beilinson–Bloch conjectures."
+          ],
+          "answer": 1,
+          "explain": "Gross and Siebert reconstruct CY mirror pairs from integral-affine bases with singularities, building toric degenerations and using log/tropical methods — a programme rooted in the SYZ conjecture."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "topic": "expanders",
+  "title": "Expanders",
+  "page": "expanders.html",
+  "concepts": [
+    {
+      "id": "e-definition",
+      "title": "Combinatorial expansion",
+      "anchor": "definition",
+      "prereqs": [],
+      "blurb": "A $d$-regular graph $G$ on $n$ vertices is an $(n,d,\\varepsilon)$-expander when every vertex set $S$ with $|S|\\le n/2$ has $|N(S)|\\ge(1+\\varepsilon)|S|$ — small sets always touch many new neighbours, so the graph cannot be cleanly cut.",
+      "tags": ["foundation"]
+    },
+    {
+      "id": "e-spectral-gap",
+      "title": "Spectral expansion",
+      "anchor": "spectral-gap",
+      "prereqs": ["e-definition", "adjacency-and-laplacian", "rw-spectral-gap"],
+      "blurb": "Equivalently, a $d$-regular graph expands when the second-largest eigenvalue $\\lambda_2$ of the normalized adjacency $A/d$ is bounded away from $1$. Spectral expansion implies edge expansion (the easy direction of Cheeger), and the spectral gap $1-\\lambda_2$ is the quantitative knob.",
+      "tags": ["foundation"]
+    },
+    {
+      "id": "e-cheeger",
+      "title": "Cheeger inequality (graph version)",
+      "anchor": "cheeger",
+      "prereqs": ["e-spectral-gap", "cheeger-inequality"],
+      "blurb": "The graph Cheeger inequality $\\tfrac{1}{2}\\lambda_2 \\le \\phi(G) \\le \\sqrt{2\\lambda_2}$ pins edge expansion between two functions of the spectral gap — the discrete shadow of Cheeger's Riemannian theorem and the bridge between combinatorial and spectral expansion.",
+      "tags": ["duality"]
+    },
+    {
+      "id": "e-explicit-constructions",
+      "title": "Explicit constructions",
+      "anchor": "construction",
+      "prereqs": ["e-spectral-gap", "random-walks-mixing"],
+      "blurb": "Margulis–Gabber–Galil produced the first explicit expander family using $SL_2(\\mathbb{Z})$ generators on $(\\mathbb{Z}/n)^2$; Lubotzky–Phillips–Sarnak upgraded this to Ramanujan graphs of degree $p+1$ via Hecke eigenvalues; Reingold–Vadhan–Wigderson's zigzag product gives a combinatorial recursion that needs no number theory.",
+      "tags": ["classification"]
+    },
+    {
+      "id": "e-applications",
+      "title": "Applications",
+      "anchor": "applications",
+      "prereqs": ["e-spectral-gap", "rw-mixing-time"],
+      "blurb": "Expanders are the workhorse of pseudorandomness: error-correcting codes (Sipser–Spielman), derandomisation by walking on an expander, fast mixing of MCMC, and Reingold's $\\mathrm{LOGSPACE}$ algorithm for undirected $s$–$t$ connectivity all reduce to a uniform spectral gap.",
+      "tags": ["functoriality"]
+    },
+    {
+      "id": "e-ramanujan-graphs",
+      "title": "Ramanujan graphs and Alon–Boppana",
+      "anchor": "ramanujan",
+      "prereqs": ["e-explicit-constructions", "bipartite-and-expanders", "characters-orthogonality"],
+      "blurb": "Alon–Boppana shows any infinite family of $d$-regular graphs satisfies $\\liminf \\lambda_2 \\ge 2\\sqrt{d-1}$. A graph saturating this bound is called Ramanujan; the LPS construction realises Ramanujan graphs as Cayley graphs of $\\mathrm{PGL}_2(\\mathbb{F}_p)$, with the bound on $\\lambda_2$ coming from Deligne's proof of the Ramanujan conjecture for weight-$2$ modular forms.",
+      "tags": ["classification", "group-action"]
+    }
+  ]
+}

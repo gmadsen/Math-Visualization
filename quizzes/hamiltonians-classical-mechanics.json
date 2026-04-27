@@ -1,0 +1,269 @@
+{
+  "topic": "hamiltonians-classical-mechanics",
+  "quizzes": {
+    "hcm-phase-space": {
+      "title": "Phase space",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "On the cotangent bundle $T^*Q$ with canonical coordinates $(q^i,p_i)$, the tautological 1-form is $\\theta=\\sum p_i\\,dq^i$. The canonical symplectic form is then:",
+          "choices": [
+            "$\\omega = d\\theta = \\sum dp_i\\wedge dq^i$",
+            "$\\omega = \\theta\\wedge\\theta$",
+            "$\\omega = \\sum p_i\\,dp_i + q^i\\,dq^i$",
+            "$\\omega = -d^2\\theta = 0$"
+          ],
+          "answer": 0,
+          "hint": "$\\omega$ is by definition the exterior derivative of the tautological 1-form (up to sign convention).",
+          "explain": "By construction $\\omega = -d\\theta = \\sum dq^i\\wedge dp_i = \\sum dp_i\\wedge dq^i$ depending on sign convention. Either sign gives a closed non-degenerate 2-form. Note $\\theta\\wedge\\theta=0$ since $\\theta$ is a 1-form."
+        },
+        {
+          "type": "mcq",
+          "q": "If $\\dim Q = n$, what is $\\dim T^*Q$, and why is this the right dimension for phase space?",
+          "choices": [
+            "$n$ — only positions are physical.",
+            "$2n$ — a state needs both position and conjugate momentum.",
+            "$n+1$ — one extra dimension for time.",
+            "$n^2$ — momenta form a matrix."
+          ],
+          "answer": 1,
+          "hint": "Newton's second law is second-order in $q$; converting to first order doubles the variables.",
+          "explain": "Each fibre $T^*_qQ$ has dimension $n$, so $T^*Q$ has dimension $2n$. This matches the phase-space dimension demanded by mechanics: a second-order ODE in $q$ becomes a first-order system in $(q,p)$, which is what Hamilton's equations realise on $T^*Q$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why are the canonical coordinates $(q^i,p_i)$ on $T^*Q$ automatically Darboux coordinates?",
+          "choices": [
+            "Because $T^*Q$ is contractible.",
+            "Because $\\omega = \\sum dp_i\\wedge dq^i$ already has the Darboux normal form in those coordinates.",
+            "Because every chart is a Darboux chart.",
+            "Because Hamilton's equations require it."
+          ],
+          "answer": 1,
+          "hint": "Darboux's theorem promises such coordinates exist; on $T^*Q$ they're already built in.",
+          "explain": "Darboux's theorem says any symplectic manifold has local coordinates in which $\\omega = \\sum dp_i\\wedge dq^i$. On $T^*Q$ the construction $\\omega = -d\\theta$ produces this form directly in the natural fibred coordinates — no further straightening needed."
+        }
+      ]
+    },
+    "hcm-hamilton-equations": {
+      "title": "Hamilton's equations",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For the simple harmonic oscillator $H = \\tfrac{p^2}{2m} + \\tfrac{1}{2}m\\omega^2 q^2$, Hamilton's equations are:",
+          "choices": [
+            "$\\dot q = m\\omega^2 q,\\ \\dot p = -p/m$",
+            "$\\dot q = p/m,\\ \\dot p = -m\\omega^2 q$",
+            "$\\dot q = -m\\omega^2 q,\\ \\dot p = p/m$",
+            "$\\dot q = p,\\ \\dot p = q$"
+          ],
+          "answer": 1,
+          "hint": "$\\dot q = \\partial H/\\partial p,\\ \\dot p = -\\partial H/\\partial q$.",
+          "explain": "Differentiating: $\\partial H/\\partial p = p/m$ so $\\dot q = p/m$. And $\\partial H/\\partial q = m\\omega^2 q$, so $\\dot p = -m\\omega^2 q$. Eliminating $p$ recovers $\\ddot q + \\omega^2 q = 0$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is the Hamiltonian $H$ automatically conserved along trajectories of $X_H$?",
+          "choices": [
+            "Because $\\omega$ is non-degenerate.",
+            "Because $X_H(H) = dH(X_H) = \\omega(X_H,X_H) = 0$ by antisymmetry of $\\omega$.",
+            "Because $H$ is positive.",
+            "It's not — $H$ can change in time."
+          ],
+          "answer": 1,
+          "hint": "Apply the defining identity $\\iota_{X_H}\\omega = dH$ to $X_H$ itself.",
+          "explain": "By definition $\\iota_{X_H}\\omega = dH$, so $dH(X_H) = \\omega(X_H,X_H) = 0$ since $\\omega$ is alternating. Hence $H$ is constant along the flow — energy conservation is geometric, not a separate axiom."
+        },
+        {
+          "type": "mcq",
+          "q": "Liouville's theorem says the Hamiltonian flow preserves which structure?",
+          "choices": [
+            "Euclidean distance in phase space.",
+            "The phase-space volume form $\\omega^n/n!$.",
+            "The number of trajectories passing through a point.",
+            "The Hamiltonian's value at the origin."
+          ],
+          "answer": 1,
+          "hint": "Phase-space volume is the top exterior power of $\\omega$.",
+          "explain": "$\\mathcal{L}_{X_H}\\omega = d(\\iota_{X_H}\\omega) + \\iota_{X_H}d\\omega = d(dH) + 0 = 0$. So $X_H$ preserves $\\omega$, hence its top power $\\omega^n/n!$ — the phase-space volume. Distances and trajectory counts are not preserved in general."
+        }
+      ]
+    },
+    "hcm-canonical-transformations": {
+      "title": "Canonical transformations",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A diffeomorphism $\\varphi\\colon T^*Q\\to T^*Q$ is called canonical (symplectic) when:",
+          "choices": [
+            "$\\varphi$ preserves the Hamiltonian.",
+            "$\\varphi^*\\omega = \\omega$.",
+            "$\\varphi$ is linear in $(q,p)$.",
+            "$\\varphi$ is a translation."
+          ],
+          "answer": 1,
+          "hint": "The defining condition is preservation of the symplectic form, not of any particular Hamiltonian.",
+          "explain": "Canonical/symplectic means $\\varphi^*\\omega=\\omega$. This implies that Hamilton's equations transform covariantly: if $\\varphi^*\\omega=\\omega$ then the flow of $X_H$ pulls back to the flow of $X_{H\\circ\\varphi}$. Linearity is unnecessary; preserving a specific $H$ is a stronger condition."
+        },
+        {
+          "type": "mcq",
+          "q": "A type-1 generating function $S(q,Q)$ defines a canonical transformation by which formulas?",
+          "choices": [
+            "$p = \\partial S/\\partial q,\\ P = -\\partial S/\\partial Q$",
+            "$p = -\\partial S/\\partial Q,\\ P = \\partial S/\\partial q$",
+            "$p = \\partial S/\\partial t,\\ P = \\partial S/\\partial t$",
+            "$p = qQ,\\ P = q+Q$"
+          ],
+          "answer": 0,
+          "hint": "Old momentum is the partial of $S$ with respect to old position; new momentum is the negative partial in the new position.",
+          "explain": "The condition $p\\,dq - P\\,dQ = dS$ on a Lagrangian graph in $T^*(Q\\times Q)$ unpacks to $p = \\partial S/\\partial q,\\ P = -\\partial S/\\partial Q$. Different sign conventions exist; this is the standard one."
+        },
+        {
+          "type": "mcq",
+          "q": "The Hamilton–Jacobi equation $\\partial S/\\partial t + H(q,\\partial S/\\partial q,t) = 0$ comes from looking for a generating function $S$ such that:",
+          "choices": [
+            "the new Hamiltonian $K$ vanishes identically, so the new coordinates are constants of motion.",
+            "$S$ is harmonic.",
+            "$S$ is positive.",
+            "$S$ depends only on $t$."
+          ],
+          "answer": 0,
+          "hint": "If $K=0$ then $\\dot Q = \\dot P = 0$.",
+          "explain": "Choosing $S$ so the transformed Hamiltonian $K = H + \\partial S/\\partial t$ vanishes makes the new coordinates $(Q,P)$ constants of motion: integrating Hamilton's equations is reduced to solving the (single, nonlinear, first-order) Hamilton–Jacobi PDE."
+        }
+      ]
+    },
+    "hcm-noether": {
+      "title": "Noether's theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "If $f\\in C^\\infty(T^*Q)$ satisfies $\\{f,H\\}=0$, then along the flow of $X_H$:",
+          "choices": [
+            "$f$ grows linearly in time.",
+            "$f$ is conserved: $\\dot f = 0$.",
+            "$f$ vanishes identically.",
+            "$f$ equals $H$."
+          ],
+          "answer": 1,
+          "hint": "Recall $\\dot f = X_H(f) = \\{f,H\\}$.",
+          "explain": "Along the Hamiltonian flow, $\\dot f = X_H(f) = \\omega(X_f,X_H) = \\{f,H\\}$. So $\\{f,H\\}=0$ exactly means $f$ is a first integral. This is Noether in Poisson form: symmetries (functions Poisson-commuting with $H$) are conserved quantities."
+        },
+        {
+          "type": "mcq",
+          "q": "For a free particle in $\\mathbb{R}^3$ with $H = |p|^2/(2m)$, which symmetry corresponds to conservation of linear momentum $p_i$?",
+          "choices": [
+            "Time translation.",
+            "Spatial translation $q^i\\mapsto q^i + a$.",
+            "Rotation about the origin.",
+            "Galilean boost."
+          ],
+          "answer": 1,
+          "hint": "Translation in $q^i$ is generated by $p_i$.",
+          "explain": "The flow of $X_{p_i}$ is the translation $q^i \\mapsto q^i + t$, leaving all $p_j$ and $|p|^2$ unchanged. Since $\\{p_i,H\\} = 0$, the translation is a symmetry and $p_i$ is conserved. Time translation gives energy conservation; rotations give angular momentum."
+        },
+        {
+          "type": "mcq",
+          "q": "Which conserved quantity does the rotational symmetry $q\\mapsto Rq,\\ p\\mapsto Rp$ ($R\\in SO(3)$) of a central-potential Hamiltonian $H = |p|^2/(2m) + V(|q|)$ produce?",
+          "choices": [
+            "Energy $H$.",
+            "Linear momentum $p$.",
+            "Angular momentum $L = q\\times p$.",
+            "The Laplace–Runge–Lenz vector."
+          ],
+          "answer": 2,
+          "hint": "Rotations are generated by angular momentum components.",
+          "explain": "Each component $L_i$ generates rotations about axis $i$ via the Poisson bracket. For a rotationally symmetric $H$, $\\{L_i,H\\}=0$, so $L=q\\times p$ is conserved. The LRL vector is the additional Kepler-specific symmetry beyond rotations."
+        }
+      ]
+    },
+    "hcm-integrable-systems": {
+      "title": "Integrability and KAM",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A Hamiltonian system on a $2n$-dimensional symplectic manifold is Liouville integrable when there exist:",
+          "choices": [
+            "$2n$ constants of motion of any kind.",
+            "$n$ functionally independent first integrals $f_1=H,f_2,\\dots,f_n$ that pairwise Poisson-commute.",
+            "A single conserved energy.",
+            "$n$ first integrals that anti-commute."
+          ],
+          "answer": 1,
+          "hint": "Count: $n$ commuting integrals on a $2n$-manifold.",
+          "explain": "Liouville–Arnold requires $n$ functionally independent first integrals in involution ($\\{f_i,f_j\\}=0$). On a regular compact common level set, the joint flows give a free $\\mathbb{R}^n$ action whose orbits are tori $T^n$; action-angle coordinates linearise the dynamics on each torus."
+        },
+        {
+          "type": "mcq",
+          "q": "In action-angle coordinates $(I,\\theta)$, an integrable Hamiltonian becomes $H=H(I)$ alone. Hamilton's equations then read:",
+          "choices": [
+            "$\\dot I = 0,\\ \\dot\\theta = \\partial H/\\partial I$ — actions are constant, angles wind at frequencies $\\omega(I)$.",
+            "$\\dot I = -I,\\ \\dot\\theta = \\theta$.",
+            "Both $I$ and $\\theta$ oscillate.",
+            "$\\dot I = \\theta,\\ \\dot\\theta = I$."
+          ],
+          "answer": 0,
+          "hint": "Since $H$ is independent of $\\theta$, $\\partial H/\\partial\\theta = 0$.",
+          "explain": "$\\dot I_i = -\\partial H/\\partial\\theta_i = 0$ and $\\dot\\theta_i = \\partial H/\\partial I_i = \\omega_i(I)$. Each invariant torus carries a linear flow with frequency vector $\\omega(I)$; the dynamics is quasi-periodic."
+        },
+        {
+          "type": "mcq",
+          "q": "The KAM theorem (Kolmogorov–Arnold–Moser) says that under a small non-degenerate perturbation $H_\\varepsilon = H_0(I) + \\varepsilon H_1(I,\\theta)$ of an integrable $H_0$:",
+          "choices": [
+            "All invariant tori are destroyed for any $\\varepsilon>0$.",
+            "Most invariant tori survive — those with sufficiently Diophantine (badly approximable) frequency vectors.",
+            "Only the tori with rational frequencies survive.",
+            "The system becomes chaotic everywhere."
+          ],
+          "answer": 1,
+          "hint": "Resonant (rational-frequency) tori are exactly the ones that break.",
+          "explain": "KAM: tori whose frequency vectors $\\omega(I)$ satisfy a Diophantine condition $|k\\cdot\\omega| \\geq \\gamma|k|^{-\\tau}$ persist as smooth deformations for small $\\varepsilon$. The rationally resonant tori shatter into Birkhoff zones with thin chaotic layers — visible in numerical experiments as the gradual onset of disorder."
+        }
+      ]
+    },
+    "hcm-applications": {
+      "title": "Worked examples",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The 1D harmonic oscillator $H = \\tfrac{p^2}{2m} + \\tfrac{1}{2}m\\omega^2 q^2$ has phase portrait consisting of:",
+          "choices": [
+            "Parabolas opening upward.",
+            "Concentric ellipses (level sets of $H$) traversed at angular frequency $\\omega$.",
+            "Straight lines.",
+            "A single fixed point."
+          ],
+          "answer": 1,
+          "hint": "Level sets of a positive-definite quadratic form are ellipses.",
+          "explain": "Since $H$ is a positive-definite quadratic form in $(q,p)$, each level set $\\{H=E\\}$ is an ellipse. The flow rotates at angular frequency $\\omega$ in the appropriately scaled coordinates $(q,p/m\\omega)$ — the iconic phase portrait of the harmonic oscillator."
+        },
+        {
+          "type": "mcq",
+          "q": "What makes the Kepler problem $H = |p|^2/(2m) - k/|q|$ super-integrable?",
+          "choices": [
+            "It admits no conserved quantities.",
+            "Beyond energy and angular momentum, the Laplace–Runge–Lenz vector $A = p\\times L - mk\\hat q$ is also conserved, giving more independent integrals than dimensions of phase space allow generically.",
+            "It has only one degree of freedom.",
+            "The orbits are not closed."
+          ],
+          "answer": 1,
+          "hint": "Closed orbits are a strong constraint — only the harmonic oscillator and the Kepler/Coulomb potential have all bounded orbits closed (Bertrand's theorem).",
+          "explain": "Generic integrable systems on a $2n$-manifold have $n$ commuting integrals. Kepler has $n+1$: $H$, $L = q\\times p$, and the LRL vector $A$. The extra symmetry is hidden $SO(4)$ (for bound states), and it's why Kepler orbits close into ellipses rather than precessing."
+        },
+        {
+          "type": "mcq",
+          "q": "Geodesic flow on a Riemannian manifold $(M,g)$ is the Hamiltonian flow on $T^*M$ for which Hamiltonian?",
+          "choices": [
+            "$H = 0$.",
+            "$H(q,p) = \\tfrac{1}{2} g^{ij}(q) p_i p_j$, the dual metric on cotangent fibres.",
+            "$H(q,p) = |q|^2$.",
+            "$H(q,p) = p_1 p_2\\cdots p_n$."
+          ],
+          "answer": 1,
+          "hint": "Kinetic energy with no potential.",
+          "explain": "Take the Riemannian metric $g_{ij}$, raise indices to $g^{ij}$, and form $H = \\tfrac{1}{2} g^{ij}p_ip_j$. Hamilton's equations reproduce the geodesic equation; trajectories project to geodesics on $M$. Geometric mechanics often starts here."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,1022 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Knot polynomials</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\Spec',
+        '\\Gal':'\\Gal',
+        '\\Hom':'\\Hom',
+        '\\tr':'\\tr',
+        '\\ad':'\\ad',
+        '\\ind':'\\ind'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"automorphic-forms-adelic","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"additive-number-theory":{"next":"quadratic-forms-genus-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"moduli-spaces","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"mathematics-and-cryptography","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"mostow-rigidity","prev":"k-theory","section":"Geometry & topology","title":"Atiyah singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"etale-cohomology","section":"Algebraic geometry","title":"Calabi yau manifolds"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-topoi","prev":"infinity-categories","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":null,"prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"deformation-theory":{"next":"etale-cohomology","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"group-cohomology","prev":"homological","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"expanders","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"harmonic-analysis-fourier","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":null,"section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":"calabi-yau-manifolds","prev":"deformation-theory","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"deformation-theory","prev":"group-schemes","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":null,"prev":"designs","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"naive-set-theory","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":null,"prev":"variational-methods","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"type-theory-and-hott","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"quantum-groups","prev":"lie-algebras","section":"Algebra & homological","title":"Galois cohomology and brauer"},"galois-representations":{"next":"heights-arithmetic-geometry","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"general-relativity":{"next":"schrodinger-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":null,"prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"lie-algebras","prev":"derived-categories","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"etale-fundamental-group","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"hamiltonians-classical-mechanics":{"next":"general-relativity","prev":"three-body-problem","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"spectral-theory","prev":"partial-differential-equations","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"analytic-number-theory","prev":"galois-representations","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":null,"prev":"mathematical-statistics","section":"Probability & statistics","title":"High dimensional geometry"},"homological":{"next":"derived-categories","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"cocartesian-fibrations","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-topoi (Lurie)"},"information-theory":{"next":"large-deviations","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"stacks","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"ricci-flow","section":"Geometry & topology","title":"K theory"},"knot-polynomials":{"next":"ricci-flow","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Knot polynomials"},"large-deviations":{"next":"mathematical-statistics","prev":"information-theory","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"galois-cohomology-and-brauer","prev":"group-cohomology","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"mathematical-statistics":{"next":"high-dimensional-geometry","prev":"large-deviations","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"mirror-symmetry":{"next":"resolution-of-singularities","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"model-theory-basics":{"next":"computability-and-decidability","prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"modular-curves","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"algebraic-spaces","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"characteristic-classes","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":null,"prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Mostow rigidity"},"naive-set-theory":{"next":"first-order-logic-and-completeness","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"wavelets","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"harmonic-functions","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"stochastic-processes-and-martingales","prev":null,"section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"additive-number-theory","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"additive-number-theory","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"quantum-groups":{"next":"quaternions-octonions-and-division-algebras","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"quantum-groups","section":"Algebra & homological","title":"Quaternions octonions and division algebras"},"random-walks-and-mixing":{"next":"information-theory","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":null,"prev":"mirror-symmetry","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"k-theory","prev":"knot-polynomials","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"characteristic-classes","prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":null,"prev":"general-relativity","section":"Mathematical physics","title":"Schrodinger equation"},"sheaf-cohomology":{"next":"algebraic-de-rham-cohomology","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"algebraic-curves-higher-genus","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Sobolev spaces & distributions"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"wavelets","prev":"harmonic-functions","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"intersection-theory-chow","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":"probability-theory","section":"Probability & statistics","title":"Stochastic processes and martingales"},"symplectic-manifolds":{"next":"knot-polynomials","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"hamiltonians-classical-mechanics","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"type-theory-and-hott":{"next":"forcing-and-independence","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and hott"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"fixed-point-theorems","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":null,"prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"numerical-analysis","prev":"spectral-theory","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"model-theory-basics","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"Zfc and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="Geometry & topology" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color="var(--ink)", curve=0, label=null, labelSide=1, markerId="arr-default", dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG("path",{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:"none", stroke:color, "stroke-width":width,
+    "marker-end":`url(#${markerId})`
+  });
+  if(dash) path.setAttribute("stroke-dasharray", dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG("text",{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      "text-anchor":"middle","font-size":12, fill:color, "font-style":"italic"});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill="var(--panel2)", stroke="var(--blue)", textColor="#fff", fontSize=14} = opts;
+  svg.appendChild(SVG("circle",{cx:x,cy:y,r,fill,stroke,"stroke-width":1.5}));
+  const t = SVG("text",{x,y:y+fontSize*0.35,"text-anchor":"middle","font-size":fontSize,fill:textColor,"font-weight":600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+  <a href="#knots">1&nbsp;Knots&nbsp;&amp;&nbsp;links</a>
+  <a href="#reidemeister">2&nbsp;Reidemeister&nbsp;moves</a>
+  <a href="#alexander">3&nbsp;Alexander</a>
+  <a href="#jones">4&nbsp;Jones</a>
+  <a href="#homfly">5&nbsp;HOMFLY</a>
+  <a href="#quantum">6&nbsp;Quantum&nbsp;invariants</a>
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Knot polynomials</h1>
+  <p class="sub">Tangled circles in $S^3$, projected to a plane and reduced by three local moves, then turned into Laurent polynomials. From Alexander to Jones to HOMFLY to the modern quantum picture: each step trades more topology for more algebra.</p>
+</section>
+
+<section id="knots">
+<h2>1. Knots and links</h2>
+<p>A <em>knot</em> is an embedding $K\colon S^1 \hookrightarrow S^3$ — a circle sitting inside a 3-sphere without self-intersections. A <em>link</em> is the same but with finitely many disjoint circles. We never just look at the image: two embeddings count as the same knot when one can be continuously deformed into the other through embeddings, i.e. when there is an <strong>ambient isotopy</strong> of $S^3$ carrying one to the other. The equivalence class of the round circle is the <em>unknot</em>; everything else is a genuine tangle.</p>
+
+<p>Why $S^3$ and not $\mathbb{R}^3$? Because the one-point compactification adds nothing topologically — every knot in $\mathbb{R}^3$ misses some point at infinity, and any ambient isotopy can be pushed away from that point. Working in $S^3$ makes the symmetry between a knot and its complement cleaner: the knot complement $S^3 \setminus K$ is a 3-manifold whose homotopy type detects (almost) everything about $K$.</p>
+
+<div class="ok"><strong>Knot table starter pack.</strong> The simplest non-trivial knots are the <em>trefoil</em> $3_1$ (3 crossings, two mirror forms), the <em>figure-eight</em> $4_1$ (4 crossings, equal to its mirror), and the $5_1$ and $5_2$ knots. The simplest non-trivial link is the <em>Hopf link</em>, two circles linked through each other once.</div>
+
+<div class="widget" id="w-knot-gallery">
+  <div class="hd"><div class="ttl">Knot gallery</div><div class="hint">click a button to draw a diagram · the unknot is just a circle</div></div>
+  <svg id="kg-svg" viewBox="0 0 700 320" width="700" height="320"><title>Knot gallery</title></svg>
+  <div class="row">
+    <button id="kg-unknot" class="active">unknot</button>
+    <button id="kg-trefoil">right trefoil $3_1$</button>
+    <button id="kg-fig8">figure-eight $4_1$</button>
+    <button id="kg-hopf">Hopf link</button>
+  </div>
+  <div class="readout" id="kg-readout">The round circle: the simplest equivalence class. Every knot is its diagram modulo Reidemeister moves; the unknot is the class of every diagram that can be reduced to a circle.</div>
+</div>
+
+<p>Diagrams are how we actually compute. Project a knot onto a plane in general position: you get a 4-valent planar graph (the projection) decorated at every vertex with which strand crosses over the other. The number of crossings depends on the projection — the <em>crossing number</em> $c(K)$ is the minimum over all diagrams. For the trefoil, $c(3_1) = 3$; for the figure-eight, $c(4_1) = 4$.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-topology.html#pi1">Fundamental group</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./knot-polynomials.html#reidemeister">Knot polynomials</a> · Reidemeister moves</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="kp-knots-and-links"></div>
+</section>
+
+<section id="reidemeister">
+<h2>2. Reidemeister moves</h2>
+<p>Two diagrams represent the same knot iff one can be obtained from the other by a finite sequence of three local moves and planar isotopy. This is <strong>Reidemeister's theorem</strong>, and it converts a continuous 3D problem (ambient isotopy) into a combinatorial rewrite system on planar diagrams. The three moves are:</p>
+
+<ul>
+  <li><strong>R1</strong> — add or remove a single twist (a kink). Changes writhe by $\pm 1$.</li>
+  <li><strong>R2</strong> — slide one strand under another and back (a "poke"). Adds or removes one $+$ and one $-$ crossing; writhe unchanged.</li>
+  <li><strong>R3</strong> — slide a strand across a crossing of two other strands. Same crossings, different positions; writhe unchanged.</li>
+</ul>
+
+<div class="widget" id="w-reidemeister">
+  <div class="hd"><div class="ttl">Reidemeister moves</div><div class="hint">switch between the three moves · before / after on each side</div></div>
+  <svg id="rm-svg" viewBox="0 0 720 280" width="720" height="280"><title>Reidemeister moves before / after</title></svg>
+  <div class="row">
+    <button id="rm-r1" class="active">R1 — twist</button>
+    <button id="rm-r2">R2 — poke</button>
+    <button id="rm-r3">R3 — slide</button>
+  </div>
+  <div class="readout" id="rm-readout">R1 — adding or removing a single twist (kink). Changes the writhe by ±1.</div>
+</div>
+
+<p>Reidemeister's theorem is the engine behind every diagrammatic invariant on this page. To prove that some assignment $D \mapsto P(D)$ is a knot invariant, you only need to check three local pictures: that $P$ is unchanged under R1, R2, R3. Many invariants are nearly invariant — only failing under R1 — and you have to multiply by a writhe-correction factor to get a true invariant. The Jones polynomial is exactly this story.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-topology.html#pi1">Algebraic topology — Fundamental group</a> (knots are detected by $\pi_1(S^3 \setminus K)$, the <em>knot group</em>; the unknot has $\pi_1 = \mathbb{Z}$, the trefoil has the braid group $B_3$ on 2 generators).</li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./knot-polynomials.html#alexander">Knot polynomials</a> · Alexander polynomial</div>
+    <div><a href="./knot-polynomials.html#jones">Knot polynomials</a> · Jones polynomial</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="kp-reidemeister-moves"></div>
+</section>
+
+<section id="alexander">
+<h2>3. The Alexander polynomial</h2>
+<p>Alexander (1928) was the first knot polynomial, and it is the most "topological" — it comes from algebraic topology of the knot complement. Pick a <em>Seifert surface</em> $\Sigma$ for $K$: an oriented surface in $S^3$ with $\partial \Sigma = K$. Such a $\Sigma$ exists for every oriented knot (Seifert's algorithm constructs one from a diagram). The first homology $H_1(\Sigma) \cong \mathbb{Z}^{2g}$ where $g$ is the genus of $\Sigma$, and on it lives the <em>Seifert form</em> $V_{ij} = \mathrm{lk}(\alpha_i^+, \alpha_j)$ — the linking number of a basis curve pushed up off the surface with another basis curve.</p>
+
+<p>The Alexander polynomial is then</p>
+<p style="text-align:center">$\displaystyle \Delta_K(t) = \det(V - tV^T) \in \mathbb{Z}[t, t^{-1}]$,</p>
+<p>well-defined up to a unit $\pm t^k$. Different choices of Seifert surface give $V$'s related by elementary stabilization, and the determinant changes by such a unit.</p>
+
+<div class="widget" id="w-alexander">
+  <div class="hd"><div class="ttl">Alexander polynomials in the catalog</div><div class="hint">pick a knot · the polynomial appears in factored Laurent form</div></div>
+  <svg id="ax-svg" viewBox="0 0 680 200" width="680" height="200"><title>Alexander polynomial readout</title></svg>
+  <div class="row">
+    <button id="ax-unknot" class="active">unknot</button>
+    <button id="ax-trefoil">trefoil $3_1$</button>
+    <button id="ax-fig8">figure-eight $4_1$</button>
+    <button id="ax-5_1">torus knot $5_1$</button>
+    <button id="ax-5_2">$5_2$</button>
+  </div>
+  <div class="readout" id="ax-readout">Δ(t) = 1 — the unknot has trivial Alexander polynomial.</div>
+</div>
+
+<p>Alexander's polynomial has a beautiful symmetry — $\Delta_K(t^{-1}) = \Delta_K(t)$ up to units — reflecting the fact that the knot complement has a Poincaré-duality structure. It satisfies a skein relation</p>
+<p style="text-align:center">$\Delta(L_+) - \Delta(L_-) = (t^{1/2} - t^{-1/2})\,\Delta(L_0),$</p>
+<p>where $L_+, L_-, L_0$ are the standard $+/-/$smoothing diagrams at one chosen crossing — and this relation, plus $\Delta(\mathrm{unknot}) = 1$, recursively determines $\Delta$ for any knot or link.</p>
+
+<div class="bad"><strong>Limitation.</strong> The Alexander polynomial is invariant under mirroring: $\Delta_{K^*} = \Delta_K$. So it cannot distinguish the right trefoil from the left trefoil. It also fails to detect the unknot — there are infinitely many knots (the Conway knot, the Kinoshita–Terasaka knot, …) with $\Delta = 1$.</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-topology.html#homology">Algebraic topology — Singular homology</a> (the Seifert form is the linking pairing on $H_1(\Sigma)$, computed via $H_1$ of the knot complement and its infinite cyclic cover).</li>
+    <li><a href="./algebra.html#intro">Abstract algebra — Groups, rings, and fields</a> (the polynomial lives in the Laurent ring $\mathbb{Z}[t, t^{-1}]$, a principal ideal domain after localizing).</li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./knot-polynomials.html#homfly">Knot polynomials</a> · HOMFLY polynomial</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+<div class="quiz" data-concept="kp-alexander-polynomial"></div>
+</section>
+
+<section id="jones">
+<h2>4. The Jones polynomial</h2>
+<p>Vaughan Jones (1984) discovered a different polynomial — coming from operator algebras on subfactors — that turned out to detect chirality. The cleanest combinatorial route is via Kauffman's <em>state-sum</em> bracket. Given an unoriented diagram $D$, the bracket $\langle D \rangle \in \mathbb{Z}[A^{\pm 1}]$ is defined by three rules:</p>
+
+<ul>
+  <li><strong>Skein.</strong> $\langle L_\times \rangle = A \langle L_0 \rangle + A^{-1} \langle L_\infty \rangle$ — at each crossing, smooth in two ways and weight by $A^{\pm 1}$.</li>
+  <li><strong>Loop.</strong> $\langle \bigcirc \sqcup L \rangle = (-A^2 - A^{-2}) \langle L \rangle$ — adding a disjoint circle multiplies by $\delta = -A^2 - A^{-2}$.</li>
+  <li><strong>Empty.</strong> $\langle \varnothing \rangle = 1$.</li>
+</ul>
+
+<p>To compute $\langle D \rangle$ on a diagram with $n$ crossings, expand each crossing both ways: you get $2^n$ <em>states</em>, each a planar collection of disjoint circles. Sum $A^{a-b} \delta^{|s|-1}$ over all states $s$, where $a$ is the number of $A$-smoothings, $b$ the number of $A^{-1}$-smoothings, and $|s|$ the number of circles.</p>
+
+<div class="widget" id="w-bracket">
+  <div class="hd"><div class="ttl">Kauffman state sum on the trefoil</div><div class="hint">8 states · click "next" to step through · running total displayed</div></div>
+  <svg id="kb-svg" viewBox="0 0 700 280" width="700" height="280"><title>Kauffman state-sum walkthrough</title></svg>
+  <div class="row">
+    <button id="kb-prev">← prev</button>
+    <button id="kb-next">next →</button>
+    <button id="kb-reset">reset</button>
+    <span class="small" id="kb-step">state 1 / 8</span>
+  </div>
+  <div class="readout" id="kb-readout">State 1 of 8 — all three crossings smoothed as A. Weight: A³ · δ¹ (one circle). Running total updates as you step.</div>
+</div>
+
+<p>The bracket is invariant under R2 and R3 but not R1: an R1 twist multiplies it by $-A^{\pm 3}$. Fix this with the <em>writhe</em> $w(D) = \sum_{\text{crossings}} \pm 1$. The combination</p>
+<p style="text-align:center">$X(D) = (-A)^{-3 w(D)} \langle D \rangle$</p>
+<p>is invariant under all three Reidemeister moves; setting $A = q^{-1/4}$ converts it to the <strong>Jones polynomial</strong> $V_K(q) \in \mathbb{Z}[q^{1/2}, q^{-1/2}]$.</p>
+
+<div class="ok"><strong>Chirality detection.</strong> $V_{3_1}(q) = -q^{-4} + q^{-3} + q^{-1}$ for the right trefoil; the left (mirror) trefoil has $V = -q^4 + q^3 + q$. They are different polynomials, so Jones distinguishes the trefoil from its mirror — a feat Alexander cannot perform.</div>
+
+<p>The Jones polynomial obeys its own skein relation</p>
+<p style="text-align:center">$q^{-1} V(L_+) - q\, V(L_-) = (q^{1/2} - q^{-1/2})\, V(L_0),$</p>
+<p>and is also <em>categorified</em>: Khovanov homology assigns to each link $L$ a bigraded chain complex $\mathrm{Kh}^{i,j}(L)$ whose graded Euler characteristic is exactly $V_L(q)$ (up to normalization). Knots have $\mathrm{Kh}$, much like topological spaces have singular homology — a richer invariant whose graded Euler characteristic recovers the polynomial.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebra.html#intro">Abstract algebra — Groups, rings, and fields</a> (the bracket lives in the Laurent ring $\mathbb{Z}[A^{\pm 1}]$; the skein relation makes computation algorithmic).</li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./knot-polynomials.html#homfly">Knot polynomials</a> · HOMFLY polynomial</div>
+    <div><a href="./knot-polynomials.html#quantum">Knot polynomials</a> · Quantum invariants</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+<div class="quiz" data-concept="kp-jones-polynomial"></div>
+</section>
+
+<section id="homfly">
+<h2>5. The HOMFLY polynomial</h2>
+<p>HOMFLY (Hoste, Ocneanu, Millett, Freyd, Lickorish, Yetter — and independently Przytycki, Traczyk: HOMFLYPT) is a two-variable polynomial $P_K(\alpha, z) \in \mathbb{Z}[\alpha^{\pm 1}, z^{\pm 1}]$ uniquely determined by:</p>
+
+<ul>
+  <li>$P(\text{unknot}) = 1$,</li>
+  <li>the skein relation $\alpha\, P(L_+) - \alpha^{-1}\, P(L_-) = z\, P(L_0)$.</li>
+</ul>
+
+<p>The two parameters $\alpha, z$ make HOMFLY strictly more powerful than either Alexander or Jones — it specialises to both:</p>
+
+<table class="plain">
+  <thead><tr><th>specialisation</th><th>$\alpha$</th><th>$z$</th><th>recovers</th></tr></thead>
+  <tbody>
+    <tr><td>Alexander</td><td>$1$</td><td>$t^{1/2} - t^{-1/2}$</td><td>$\Delta_K(t)$</td></tr>
+    <tr><td>Jones</td><td>$q^{-1}$</td><td>$q^{1/2} - q^{-1/2}$</td><td>$V_K(q)$</td></tr>
+  </tbody>
+</table>
+
+<div class="widget" id="w-homfly">
+  <div class="hd"><div class="ttl">Skein-tree expansion</div><div class="hint">apply the HOMFLY skein at one crossing · watch the diagrams simplify</div></div>
+  <svg id="hf-svg" viewBox="0 0 700 280" width="700" height="280"><title>HOMFLY skein tree</title></svg>
+  <div class="row">
+    <button id="hf-step">resolve one crossing</button>
+    <button id="hf-reset">reset</button>
+    <span class="small" id="hf-count">depth 0</span>
+  </div>
+  <div class="readout" id="hf-readout">Start at the right trefoil. The HOMFLY skein resolves a crossing into a linear combination of L₋ and L₀ with α/z coefficients. Repeating brings every diagram down to disjoint unknots.</div>
+</div>
+
+<p>Why two variables? The skein relation has three terms, and after fixing the value on the unknot, one variable's worth of freedom remains. This freedom is exactly what is needed to remember whether you are sitting in the $\mathfrak{sl}_n$ representation theory for varying $n$ — see the next section.</p>
+
+<div class="quiz" data-concept="kp-homfly-polynomial"></div>
+</section>
+
+<section id="quantum">
+<h2>6. Quantum invariants</h2>
+<p>The unifying picture, due to Reshetikhin and Turaev (1990), is that every knot polynomial is a <em>quantum invariant</em>: a number obtained by reading an oriented tangle diagram top-to-bottom as a morphism in a <em>ribbon category</em> $\mathcal{C}$, with each elementary piece sent to a fixed morphism:</p>
+
+<table class="plain">
+  <thead><tr><th>diagram piece</th><th>morphism in $\mathcal{C}$</th></tr></thead>
+  <tbody>
+    <tr><td>vertical strand labelled $V$</td><td>$\mathrm{id}_V \colon V \to V$</td></tr>
+    <tr><td>positive crossing</td><td>braiding $R_{V,V}\colon V \otimes V \to V \otimes V$</td></tr>
+    <tr><td>negative crossing</td><td>$R_{V,V}^{-1}$</td></tr>
+    <tr><td>cap (left) / cup (right)</td><td>evaluation $\mathrm{ev}\colon V \otimes V^* \to \mathbf{1}$ / coevaluation $\mathrm{coev}\colon \mathbf{1} \to V \otimes V^*$</td></tr>
+  </tbody>
+</table>
+
+<p>The compatibility of these morphisms is exactly what a ribbon category encodes. Reidemeister moves translate to algebraic identities:</p>
+
+<ul>
+  <li><strong>R3</strong> $\Leftrightarrow$ Yang–Baxter equation: $R_{12} R_{13} R_{23} = R_{23} R_{13} R_{12}$.</li>
+  <li><strong>R2</strong> $\Leftrightarrow$ $R \cdot R^{-1} = \mathrm{id}$.</li>
+  <li><strong>R1</strong> $\Leftrightarrow$ ribbon-twist compatibility.</li>
+</ul>
+
+<div class="widget" id="w-rmatrix">
+  <div class="hd"><div class="ttl">$R$-matrix for $U_q(\mathfrak{sl}_2)$</div><div class="hint">on the standard 2-dim rep · drag the slider to vary $q$</div></div>
+  <svg id="rmx-svg" viewBox="0 0 680 240" width="680" height="240"><title>R-matrix entries vs q</title></svg>
+  <div class="row">
+    <label>$q$</label>
+    <input type="range" id="rmx-q" min="0.3" max="3" step="0.05" value="1.4">
+    <span class="small" id="rmx-qval">q = 1.40</span>
+  </div>
+  <div class="readout" id="rmx-readout">The $4 \times 4$ matrix $R$ on $V \otimes V$ where $V = \mathbb{C}^2$. Entries depend on $q$; at $q = 1$ it degenerates to the swap (classical). The Jones polynomial is the trace of products of $R$'s and $R^{-1}$'s built from the diagram.</div>
+</div>
+
+<p>Different choices of $(\mathcal{C}, V)$ give different polynomial invariants:</p>
+
+<table class="plain">
+  <thead><tr><th>category</th><th>object $V$</th><th>knot invariant</th></tr></thead>
+  <tbody>
+    <tr><td>$U_q(\mathfrak{sl}_2)\text{-mod}$</td><td>standard $\mathbb{C}^2$</td><td>Jones $V_K(q)$</td></tr>
+    <tr><td>$U_q(\mathfrak{sl}_n)\text{-mod}$</td><td>standard $\mathbb{C}^n$</td><td>$\mathfrak{sl}_n$ HOMFLY</td></tr>
+    <tr><td>$U_q(\mathfrak{sl}_2)\text{-mod}$</td><td>$\mathrm{Sym}^N \mathbb{C}^2$</td><td>colored Jones $V_N(K; q)$</td></tr>
+    <tr><td>$U_q(\mathfrak{so}_n)\text{-mod}$</td><td>standard $\mathbb{C}^n$</td><td>Kauffman polynomial</td></tr>
+  </tbody>
+</table>
+
+<p>This is the grand unification: knot polynomials, statistical-mechanics partition functions, and 3-dimensional topological quantum field theories are facets of one combinatorial-categorical object. Witten's interpretation makes them path integrals for Chern–Simons theory; Reshetikhin–Turaev makes them honest combinatorial invariants. The volume conjecture relates the $N \to \infty$ asymptotics of the colored Jones polynomial to the hyperbolic volume of the knot complement — a still-open bridge between quantum and hyperbolic topology.</p>
+
+<div class="quiz" data-concept="kp-quantum-invariants"></div>
+</section>
+
+</main>
+
+<script>
+/* =============================== Section 1: knot gallery =============================== */
+(function(){
+  const svg = $("#kg-svg");
+  const readout = $("#kg-readout");
+  const buttons = {
+    unknot: $("#kg-unknot"),
+    trefoil: $("#kg-trefoil"),
+    fig8: $("#kg-fig8"),
+    hopf: $("#kg-hopf")
+  };
+  const W = 700, H = 320;
+
+  // small helper to draw an over-strand "arc with break" — strand A goes over strand B at a crossing
+  function strand(svg, points, color){
+    let d = "";
+    for(let i=0;i<points.length;i++){
+      d += (i===0 ? "M " : "L ") + points[i][0].toFixed(1) + " " + points[i][1].toFixed(1) + " ";
+    }
+    svg.appendChild(SVG("path",{d, fill:"none", stroke:color, "stroke-width":4, "stroke-linecap":"round", "stroke-linejoin":"round"}));
+  }
+  // crossing: under-strand has a small gap, over-strand is solid through
+  function gapStrand(svg, p1, p2, color){
+    const dx = p2[0]-p1[0], dy = p2[1]-p1[1];
+    const L = Math.hypot(dx,dy);
+    const ux = dx/L, uy = dy/L;
+    const gap = 9;
+    const a1 = [p1[0], p1[1]];
+    const a2 = [p1[0]+ux*(L/2-gap), p1[1]+uy*(L/2-gap)];
+    const b1 = [p1[0]+ux*(L/2+gap), p1[1]+uy*(L/2+gap)];
+    const b2 = [p2[0], p2[1]];
+    strand(svg,[a1,a2],color);
+    strand(svg,[b1,b2],color);
+  }
+
+  function drawUnknot(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG("title")).textContent = "Unknot";
+    svg.appendChild(SVG("circle",{cx:W/2, cy:H/2, r:80, fill:"none", stroke:"var(--blue)", "stroke-width":4}));
+    const lab = SVG("text",{x:W/2, y:H/2+130, "text-anchor":"middle", "font-size":13, fill:"var(--mute)"});
+    lab.textContent = "the unknot — every diagram reducible to a single circle is in this class";
+    svg.appendChild(lab);
+  }
+
+  function drawTrefoil(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // a stylised trefoil: three lobes meeting at three crossings, all with the same handedness
+    const cx = W/2, cy = H/2 - 10;
+    const R = 75;
+    const lobePts = (k)=>{
+      const a = (k*2*Math.PI)/3 - Math.PI/2;
+      const pts = [];
+      for(let i=0;i<=40;i++){
+        const t = i/40;
+        const angle = a - 0.9 + t*1.8;
+        const r = R + 35*Math.sin(t*Math.PI);
+        pts.push([cx + r*Math.cos(angle), cy + r*Math.sin(angle)]);
+      }
+      return pts;
+    };
+    const colors = ["var(--pink)","var(--cyan)","var(--yellow)"];
+    for(let k=0;k<3;k++){
+      // overlay each lobe but interrupt its tail under the next lobe's head
+      const pts = lobePts(k);
+      // draw with gap near the end (simulating under-crossing)
+      const main = pts.slice(0, Math.floor(pts.length*0.86));
+      const tail = pts.slice(Math.floor(pts.length*0.92));
+      strand(svg, main, colors[k]);
+      strand(svg, tail, colors[k]);
+    }
+    const lab = SVG("text",{x:cx, y:cy+150, "text-anchor":"middle", "font-size":13, fill:"var(--mute)"});
+    lab.textContent = "right-handed trefoil 3₁ — 3 crossings, all positive (writhe +3)";
+    svg.appendChild(lab);
+  }
+
+  function drawFig8(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const cx = W/2, cy = H/2 - 10;
+    // figure-eight: parametrise as Lissajous (sin t, sin 2t)
+    const pts = [];
+    const A = 130, B = 80;
+    for(let i=0;i<=400;i++){
+      const t = (i/400)*2*Math.PI;
+      pts.push([cx + A*Math.sin(t), cy + B*Math.sin(2*t)]);
+    }
+    // colour-cycle so the four crossings show "alternating" structure
+    let d = "";
+    for(let i=0;i<pts.length;i++){
+      d += (i===0?"M ":"L ") + pts[i][0].toFixed(1) + " " + pts[i][1].toFixed(1) + " ";
+    }
+    svg.appendChild(SVG("path",{d, fill:"none", stroke:"var(--violet)", "stroke-width":4, "stroke-linejoin":"round", "stroke-linecap":"round"}));
+    const lab = SVG("text",{x:cx, y:cy+150, "text-anchor":"middle", "font-size":13, fill:"var(--mute)"});
+    lab.textContent = "figure-eight 4₁ — 4 crossings, amphichiral (= its own mirror)";
+    svg.appendChild(lab);
+  }
+
+  function drawHopf(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const cx = W/2, cy = H/2 - 10;
+    const r = 60;
+    // two interlocking circles: shift them off centre
+    svg.appendChild(SVG("circle",{cx:cx-40, cy:cy, r, fill:"none", stroke:"var(--pink)", "stroke-width":4}));
+    svg.appendChild(SVG("circle",{cx:cx+40, cy:cy, r, fill:"none", stroke:"var(--cyan)", "stroke-width":4}));
+    // crude "linking" hint: pink crosses over cyan on the left, cyan crosses over pink on the right
+    svg.appendChild(SVG("circle",{cx:cx-40, cy:cy, r, fill:"none", stroke:"var(--bg)", "stroke-width":10, "stroke-dasharray":"6 350", "stroke-dashoffset":160}));
+    svg.appendChild(SVG("circle",{cx:cx-40, cy:cy, r, fill:"none", stroke:"var(--pink)", "stroke-width":4, "stroke-dasharray":"6 350", "stroke-dashoffset":156}));
+    const lab = SVG("text",{x:cx, y:cy+130, "text-anchor":"middle", "font-size":13, fill:"var(--mute)"});
+    lab.textContent = "Hopf link — two components, linking number ±1";
+    svg.appendChild(lab);
+  }
+
+  const drawers = {
+    unknot: { fn: drawUnknot, msg: "The round circle: the simplest equivalence class. Every knot is its diagram modulo Reidemeister moves; the unknot is the class of every diagram that can be reduced to a circle." },
+    trefoil: { fn: drawTrefoil, msg: "The right-handed trefoil 3₁ — the simplest non-trivial knot. Crossing number 3. Its mirror image (left trefoil) is a different knot — they are distinguished by the Jones polynomial, not by Alexander." },
+    fig8: { fn: drawFig8, msg: "The figure-eight 4₁ — the simplest amphichiral knot (equal to its mirror). Crossing number 4. Its complement in S³ has the largest hyperbolic volume of any 4-crossing knot." },
+    hopf: { fn: drawHopf, msg: "The Hopf link — the simplest non-trivial 2-component link, linking number ±1. Its complement is fibred over the circle by Seifert tori." }
+  };
+
+  function select(key){
+    Object.keys(buttons).forEach(k => buttons[k].classList.toggle("active", k===key));
+    drawers[key].fn();
+    readout.textContent = drawers[key].msg;
+  }
+
+  buttons.unknot.addEventListener("click", ()=>select("unknot"));
+  buttons.trefoil.addEventListener("click", ()=>select("trefoil"));
+  buttons.fig8.addEventListener("click", ()=>select("fig8"));
+  buttons.hopf.addEventListener("click", ()=>select("hopf"));
+  select("unknot");
+})();
+</script>
+
+<script>
+/* =============================== Section 2: Reidemeister moves =============================== */
+(function(){
+  const svg = $("#rm-svg");
+  const readout = $("#rm-readout");
+  const buttons = { r1: $("#rm-r1"), r2: $("#rm-r2"), r3: $("#rm-r3") };
+
+  function clear(){ while(svg.firstChild) svg.removeChild(svg.firstChild); }
+  function panel(x, y, label){
+    svg.appendChild(SVG("rect",{x, y, width:280, height:200, fill:"#0b0f16", stroke:"var(--line)", rx:8}));
+    const t = SVG("text",{x:x+140, y:y+20, "text-anchor":"middle", "font-size":12, fill:"var(--mute)"});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  function arrow(){
+    svg.appendChild(SVG("text",{x:360, y:130, "text-anchor":"middle", "font-size":24, fill:"var(--yellow)"}))
+      .textContent = "↔";
+  }
+
+  function drawR1(){
+    clear();
+    panel(20, 30, "before — straight strand"); panel(420, 30, "after — one twist");
+    // before: straight vertical strand
+    svg.appendChild(SVG("path",{d:"M 160 60 L 160 220", fill:"none", stroke:"var(--blue)", "stroke-width":4}));
+    // after: strand with a single loop (twist)
+    const path = "M 560 60 L 560 110 C 540 110, 530 145, 555 145 C 580 145, 575 130, 560 130 L 560 220";
+    svg.appendChild(SVG("path",{d:path, fill:"none", stroke:"var(--blue)", "stroke-width":4, "stroke-linecap":"round"}));
+    arrow();
+  }
+
+  function drawR2(){
+    clear();
+    panel(20, 30, "before — two parallel strands");
+    panel(420, 30, "after — one strand poked through");
+    // before: two vertical strands
+    svg.appendChild(SVG("path",{d:"M 120 60 L 120 220", fill:"none", stroke:"var(--blue)", "stroke-width":4}));
+    svg.appendChild(SVG("path",{d:"M 200 60 L 200 220", fill:"none", stroke:"var(--pink)", "stroke-width":4}));
+    // after: blue strand goes over and back under the pink
+    svg.appendChild(SVG("path",{d:"M 600 60 L 600 220", fill:"none", stroke:"var(--pink)", "stroke-width":4}));
+    // blue: over, then under
+    svg.appendChild(SVG("path",{d:"M 520 60 L 520 100 C 520 120, 600 110, 600 130 C 600 130, 600 130, 600 130", fill:"none", stroke:"var(--blue)", "stroke-width":4}));
+    // gap on blue where it goes under
+    svg.appendChild(SVG("path",{d:"M 600 145 C 600 155, 540 160, 530 175 L 530 220", fill:"none", stroke:"var(--blue)", "stroke-width":4}));
+    arrow();
+  }
+
+  function drawR3(){
+    clear();
+    panel(20, 30, "before — strand left of crossing");
+    panel(420, 30, "after — strand slid across");
+    // before: two crossing strands plus a third on the left
+    // X: pink and cyan cross
+    svg.appendChild(SVG("path",{d:"M 120 70 L 250 220", fill:"none", stroke:"var(--pink)", "stroke-width":4}));
+    svg.appendChild(SVG("path",{d:"M 250 70 L 180 130", fill:"none", stroke:"var(--cyan)", "stroke-width":4}));
+    svg.appendChild(SVG("path",{d:"M 195 145 L 120 220", fill:"none", stroke:"var(--cyan)", "stroke-width":4}));
+    // third strand (yellow) on left
+    svg.appendChild(SVG("path",{d:"M 60 70 L 60 220", fill:"none", stroke:"var(--yellow)", "stroke-width":4}));
+    // after: yellow strand has slid to the right of crossing
+    svg.appendChild(SVG("path",{d:"M 500 70 L 630 220", fill:"none", stroke:"var(--pink)", "stroke-width":4}));
+    svg.appendChild(SVG("path",{d:"M 630 70 L 560 130", fill:"none", stroke:"var(--cyan)", "stroke-width":4}));
+    svg.appendChild(SVG("path",{d:"M 575 145 L 500 220", fill:"none", stroke:"var(--cyan)", "stroke-width":4}));
+    svg.appendChild(SVG("path",{d:"M 680 70 L 680 220", fill:"none", stroke:"var(--yellow)", "stroke-width":4}));
+    arrow();
+  }
+
+  const moves = {
+    r1: { fn: drawR1, msg: "R1 — adding or removing a single twist (kink). Changes the writhe by ±1; this is why the Kauffman bracket needs a writhe correction to become Jones." },
+    r2: { fn: drawR2, msg: "R2 — poking one strand under another and back. Adds one positive and one negative crossing; the writhe is unchanged. Translates to R · R⁻¹ = id." },
+    r3: { fn: drawR3, msg: "R3 — sliding a strand across a crossing. Number of crossings and signs unchanged. Algebraically, this is the Yang–Baxter equation R₁₂ R₁₃ R₂₃ = R₂₃ R₁₃ R₁₂." }
+  };
+
+  function select(k){
+    Object.keys(buttons).forEach(b => buttons[b].classList.toggle("active", b===k));
+    moves[k].fn();
+    readout.textContent = moves[k].msg;
+  }
+  buttons.r1.addEventListener("click", ()=>select("r1"));
+  buttons.r2.addEventListener("click", ()=>select("r2"));
+  buttons.r3.addEventListener("click", ()=>select("r3"));
+  select("r1");
+})();
+</script>
+
+<script>
+/* =============================== Section 3: Alexander polynomial readout =============================== */
+(function(){
+  const svg = $("#ax-svg");
+  const readout = $("#ax-readout");
+  const buttons = {
+    unknot: $("#ax-unknot"), trefoil: $("#ax-trefoil"), fig8: $("#ax-fig8"),
+    "5_1": $("#ax-5_1"), "5_2": $("#ax-5_2")
+  };
+
+  const data = {
+    unknot:   { poly: "Δ(t) = 1", at1: 1, val: "Δ(t) = 1 — the unknot has trivial Alexander polynomial." },
+    trefoil:  { poly: "Δ(t) = t − 1 + t⁻¹", at1: 1, val: "Trefoil: Δ(t) = t − 1 + t⁻¹. Symmetric under t ↔ t⁻¹. Δ(1) = 1 (true for every knot, not just trefoil)." },
+    fig8:     { poly: "Δ(t) = −t + 3 − t⁻¹", at1: 1, val: "Figure-eight: Δ(t) = −t + 3 − t⁻¹. Δ(1) = 1; |Δ(−1)| = 5 (the determinant of 4₁)." },
+    "5_1":    { poly: "Δ(t) = t² − t + 1 − t⁻¹ + t⁻²", at1: 1, val: "Torus knot 5₁ = T(5,2): Δ(t) = t² − t + 1 − t⁻¹ + t⁻². Genus 2." },
+    "5_2":    { poly: "Δ(t) = 2t − 3 + 2t⁻¹", at1: 1, val: "5₂: Δ(t) = 2t − 3 + 2t⁻¹. Different from 5₁ — Alexander already distinguishes 5₁ and 5₂." }
+  };
+
+  function render(k){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W = 680, H = 200;
+    svg.appendChild(SVG("rect",{x:20, y:20, width:W-40, height:H-40, fill:"#0b0f16", stroke:"var(--line)", rx:8}));
+    const polyText = SVG("text",{x:W/2, y:80, "text-anchor":"middle", "font-size":24, fill:"var(--yellow)", "font-family":"ui-monospace,monospace"});
+    polyText.textContent = data[k].poly;
+    svg.appendChild(polyText);
+    const at1 = SVG("text",{x:W/2, y:130, "text-anchor":"middle", "font-size":14, fill:"var(--mute)"});
+    at1.textContent = "Δ(1) = " + data[k].at1 + "    (always ±1 for knots)";
+    svg.appendChild(at1);
+    const sym = SVG("text",{x:W/2, y:155, "text-anchor":"middle", "font-size":12, fill:"var(--cyan)"});
+    sym.textContent = "symmetry: Δ(t⁻¹) = Δ(t) up to ±tᵏ";
+    svg.appendChild(sym);
+  }
+
+  function select(k){
+    Object.keys(buttons).forEach(b => buttons[b].classList.toggle("active", b===k));
+    render(k);
+    readout.textContent = data[k].val;
+  }
+  Object.keys(buttons).forEach(k => buttons[k].addEventListener("click", ()=>select(k)));
+  select("unknot");
+})();
+</script>
+
+<script>
+/* =============================== Section 4: Kauffman state-sum walk-through =============================== */
+(function(){
+  const svg = $("#kb-svg");
+  const readout = $("#kb-readout");
+  const stepLabel = $("#kb-step");
+  const btnPrev = $("#kb-prev"), btnNext = $("#kb-next"), btnReset = $("#kb-reset");
+
+  // For the trefoil with 3 crossings, there are 2^3 = 8 states.
+  // Each state is encoded as 3 bits: 0 = A-smoothing (multiply by A), 1 = A^{-1}-smoothing (multiply by A^{-1}).
+  // Number of resulting circles is a precomputed combinatorial fact for the trefoil:
+  //   AAA → 2 circles, AAB → 3, ABA → 3, ABB → 2, BAA → 3, BAB → 2, BBA → 2, BBB → 1.
+  const states = [
+    { bits: "AAA", circles: 2, weight: "A³" },
+    { bits: "AAB", circles: 3, weight: "A²A⁻¹ = A" },
+    { bits: "ABA", circles: 3, weight: "A²A⁻¹ = A" },
+    { bits: "ABB", circles: 2, weight: "A·A⁻² = A⁻¹" },
+    { bits: "BAA", circles: 3, weight: "A²A⁻¹ = A" },
+    { bits: "BAB", circles: 2, weight: "A·A⁻² = A⁻¹" },
+    { bits: "BBA", circles: 2, weight: "A·A⁻² = A⁻¹" },
+    { bits: "BBB", circles: 1, weight: "A⁻³" }
+  ];
+
+  let idx = 0;
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W = 700, H = 280;
+    svg.appendChild(SVG("rect",{x:20, y:20, width:W-40, height:H-40, fill:"#0b0f16", stroke:"var(--line)", rx:8}));
+    const s = states[idx];
+    const big = SVG("text",{x:W/2, y:90, "text-anchor":"middle", "font-size":26, fill:"var(--yellow)", "font-family":"ui-monospace,monospace"});
+    big.textContent = "smoothings: " + s.bits;
+    svg.appendChild(big);
+    const w = SVG("text",{x:W/2, y:130, "text-anchor":"middle", "font-size":18, fill:"var(--cyan)", "font-family":"ui-monospace,monospace"});
+    w.textContent = "weight: " + s.weight + " · δ^" + (s.circles-1) + "    (δ = -A² - A⁻²)";
+    svg.appendChild(w);
+    const c = SVG("text",{x:W/2, y:170, "text-anchor":"middle", "font-size":14, fill:"var(--mute)"});
+    c.textContent = "this state contributes " + s.circles + " disjoint circles after smoothing";
+    svg.appendChild(c);
+    // running formula for Kauffman bracket of trefoil
+    if(idx===states.length-1){
+      const f = SVG("text",{x:W/2, y:220, "text-anchor":"middle", "font-size":13, fill:"var(--green)", "font-family":"ui-monospace,monospace"});
+      f.textContent = "⟨3₁⟩ = -A⁵ - A⁻³ + A⁻⁷ (after summing all 8 states)";
+      svg.appendChild(f);
+    }
+    stepLabel.textContent = "state " + (idx+1) + " / " + states.length;
+    readout.textContent = "State " + (idx+1) + " of " + states.length + " — bits " + s.bits +
+      ", weight " + s.weight + ", " + s.circles + " circles. Bracket sums A^(a-b) · δ^(|s|-1) over all 8 states.";
+  }
+
+  btnPrev.addEventListener("click", ()=>{ idx = (idx - 1 + states.length) % states.length; render(); });
+  btnNext.addEventListener("click", ()=>{ idx = (idx + 1) % states.length; render(); });
+  btnReset.addEventListener("click", ()=>{ idx = 0; render(); });
+  render();
+})();
+</script>
+
+<script>
+/* =============================== Section 5: HOMFLY skein tree =============================== */
+(function(){
+  const svg = $("#hf-svg");
+  const readout = $("#hf-readout");
+  const stepBtn = $("#hf-step");
+  const resetBtn = $("#hf-reset");
+  const counter = $("#hf-count");
+
+  // depth: how many times the skein has been applied
+  // Start: trefoil 3₁
+  // After one step: linear combo of (Hopf) and (smoothed = unknot ⊔ unknot)
+  // After two steps: linear combo of unknot, unknot ⊔ unknot, unknot ⊔ unknot ⊔ unknot, …
+  let depth = 0;
+  const stages = [
+    { tex: "P(3₁)", text: "right trefoil — 3 positive crossings" },
+    { tex: "α² P(unknot) + α z P(Hopf)", text: "after one skein at one crossing: written via the unknot and the Hopf link with an α z coefficient" },
+    { tex: "α² + α z [α² + α z P(unknot ⊔ unknot)]", text: "after two skeins: only the Hopf link remains, recursively reduced to unknots" },
+    { tex: "α² + α³ z δ + α² z² δ", text: "fully reduced — δ = (α − α⁻¹)/z is the value of P(unknot ⊔ unknot)/P(unknot); the result is the HOMFLY of 3₁" }
+  ];
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W = 700, H = 280;
+    svg.appendChild(SVG("rect",{x:20, y:20, width:W-40, height:H-40, fill:"#0b0f16", stroke:"var(--line)", rx:8}));
+    const s = stages[depth];
+    const big = SVG("text",{x:W/2, y:120, "text-anchor":"middle", "font-size":18, fill:"var(--yellow)", "font-family":"ui-monospace,monospace"});
+    big.textContent = s.tex;
+    svg.appendChild(big);
+    const sub = SVG("text",{x:W/2, y:160, "text-anchor":"middle", "font-size":13, fill:"var(--mute)"});
+    sub.textContent = s.text;
+    svg.appendChild(sub);
+    if(depth===stages.length-1){
+      const ok = SVG("text",{x:W/2, y:210, "text-anchor":"middle", "font-size":13, fill:"var(--green)"});
+      ok.textContent = "P(3₁) = -α⁻² + α² + α⁻² z²    (after using P(unknot)=1, δ=(α−α⁻¹)/z)";
+      svg.appendChild(ok);
+    }
+    counter.textContent = "depth " + depth;
+  }
+  stepBtn.addEventListener("click", ()=>{
+    if(depth < stages.length-1){ depth++; render();
+      readout.textContent = "Depth " + depth + ": " + stages[depth].text;
+    }
+  });
+  resetBtn.addEventListener("click", ()=>{ depth = 0; render();
+    readout.textContent = "Start at the right trefoil. The HOMFLY skein resolves a crossing into a linear combination of L₋ and L₀ with α/z coefficients. Repeating brings every diagram down to disjoint unknots.";
+  });
+  render();
+})();
+</script>
+
+<script>
+/* =============================== Section 6: R-matrix entries vs q =============================== */
+(function(){
+  const svg = $("#rmx-svg");
+  const slider = $("#rmx-q");
+  const qlabel = $("#rmx-qval");
+  const readout = $("#rmx-readout");
+
+  function render(q){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W = 680, H = 240;
+    svg.appendChild(SVG("rect",{x:20, y:20, width:W-40, height:H-40, fill:"#0b0f16", stroke:"var(--line)", rx:8}));
+    // U_q(sl_2) R-matrix on V ⊗ V where V = C^2 with basis (e_0, e_1)
+    // R = q^{1/2} (E_{00,00} + E_{11,11}) + (q^{1/2} - q^{-1/2}) E_{01,10}/0?? -- conventions vary; we just show the standard 4x4
+    // We use (in basis 00,01,10,11):
+    //  R = [ q,    0,            0,        0;
+    //        0,    1,            q-q^{-1},0;
+    //        0,    0,            1,        0;
+    //        0,    0,            0,        q ]   (a common convention; spectral parameter free)
+    const r00 = q.toFixed(3);
+    const r11 = "1";
+    const r12 = (q - 1/q).toFixed(3);
+    const r22 = "1";
+    const r33 = q.toFixed(3);
+    // grid
+    const x0 = 240, y0 = 60, cell = 50;
+    for(let i=0;i<4;i++){
+      for(let j=0;j<4;j++){
+        svg.appendChild(SVG("rect",{x:x0+j*cell, y:y0+i*cell, width:cell, height:cell, fill:"#0b0f16", stroke:"var(--line)"}));
+      }
+    }
+    // entries (only non-zero)
+    function place(i,j,txt,col){
+      const t = SVG("text",{x:x0+j*cell+cell/2, y:y0+i*cell+cell/2+5, "text-anchor":"middle", "font-size":13, fill:col, "font-family":"ui-monospace,monospace"});
+      t.textContent = txt; svg.appendChild(t);
+    }
+    place(0,0, r00, "var(--yellow)");
+    place(1,1, r11, "var(--mute)");
+    place(1,2, r12, "var(--cyan)");
+    place(2,2, r22, "var(--mute)");
+    place(3,3, r33, "var(--yellow)");
+    for(let i=0;i<4;i++) for(let j=0;j<4;j++){
+      if((i===0&&j===0)||(i===1&&j===1)||(i===1&&j===2)||(i===2&&j===2)||(i===3&&j===3)) continue;
+      place(i,j, "0", "var(--line)");
+    }
+    // labels
+    const tl = SVG("text",{x:x0-12, y:y0+cell/2+5, "text-anchor":"end", "font-size":11, fill:"var(--mute)"}); tl.textContent="00"; svg.appendChild(tl);
+    const tl1 = SVG("text",{x:x0-12, y:y0+cell+cell/2+5, "text-anchor":"end", "font-size":11, fill:"var(--mute)"}); tl1.textContent="01"; svg.appendChild(tl1);
+    const tl2 = SVG("text",{x:x0-12, y:y0+2*cell+cell/2+5, "text-anchor":"end", "font-size":11, fill:"var(--mute)"}); tl2.textContent="10"; svg.appendChild(tl2);
+    const tl3 = SVG("text",{x:x0-12, y:y0+3*cell+cell/2+5, "text-anchor":"end", "font-size":11, fill:"var(--mute)"}); tl3.textContent="11"; svg.appendChild(tl3);
+    const tt = SVG("text",{x:x0+cell/2, y:y0-8, "text-anchor":"middle", "font-size":11, fill:"var(--mute)"}); tt.textContent="00"; svg.appendChild(tt);
+    const tt1 = SVG("text",{x:x0+cell+cell/2, y:y0-8, "text-anchor":"middle", "font-size":11, fill:"var(--mute)"}); tt1.textContent="01"; svg.appendChild(tt1);
+    const tt2 = SVG("text",{x:x0+2*cell+cell/2, y:y0-8, "text-anchor":"middle", "font-size":11, fill:"var(--mute)"}); tt2.textContent="10"; svg.appendChild(tt2);
+    const tt3 = SVG("text",{x:x0+3*cell+cell/2, y:y0-8, "text-anchor":"middle", "font-size":11, fill:"var(--mute)"}); tt3.textContent="11"; svg.appendChild(tt3);
+    const lab = SVG("text",{x:W/2, y:y0+4*cell+30, "text-anchor":"middle", "font-size":12, fill:"var(--mute)"});
+    lab.textContent = "diagonal entries = q (yellow), off-diagonal q − q⁻¹ (cyan); at q=1 R becomes the swap";
+    svg.appendChild(lab);
+  }
+
+  function update(){
+    const q = parseFloat(slider.value);
+    qlabel.textContent = "q = " + q.toFixed(2);
+    render(q);
+    readout.textContent = "Current q = " + q.toFixed(2) +
+      ". R-matrix on C² ⊗ C² (basis 00, 01, 10, 11). Diagonal entries q, off-diagonal q − q⁻¹. " +
+      "At q = 1 only the diagonal survives and R = id (the classical limit, swap on swap-symmetric tensors). " +
+      "Yang–Baxter R₁₂R₁₃R₂₃ = R₂₃R₁₃R₁₂ holds for every q.";
+  }
+  slider.addEventListener("input", update);
+  update();
+})();
+</script>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector("aside.sidetoc");
+    const topnav = document.querySelector("nav.toc");
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement("div");
+    title.className = "sidetoc-title";
+    title.textContent = "On this page";
+    aside.appendChild(title);
+    const ol = document.createElement("ol");
+    srcs.forEach(src => {
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.href = src.getAttribute("href");
+      a.textContent = src.textContent.replace(/ /g," ").trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll("a")];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute("href").slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove("active"));
+      activeLink.classList.add("active");
+    }
+    update();
+    window.addEventListener("scroll", update, {passive:true});
+    window.addEventListener("resize", update);
+  }
+  if(document.readyState === "loading") document.addEventListener("DOMContentLoaded", build);
+  else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init("knot-polynomials"); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-27</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

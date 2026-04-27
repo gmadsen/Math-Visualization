@@ -1,0 +1,69 @@
+{
+  "topic": "designs",
+  "title": "Designs",
+  "page": "designs.html",
+  "concepts": [
+    {
+      "id": "d-block-designs",
+      "title": "Balanced incomplete block designs",
+      "anchor": "block-designs",
+      "prereqs": [
+        "sets-functions",
+        "ec-binomial-and-stars-bars"
+      ],
+      "blurb": "A $(v, k, \\lambda)$-BIBD is a collection of $k$-subsets (blocks) of a $v$-set so that every pair of points appears in exactly $\\lambda$ blocks. Necessary conditions $\\lambda(v-1) = r(k-1)$ and $bk = vr$ link the parameters $(v,b,r,k,\\lambda)$ but are far from sufficient — Fisher's inequality and Bruck–Ryser–Chowla cut deeper.",
+      "tags": ["foundation"]
+    },
+    {
+      "id": "d-fisher-inequality",
+      "title": "Fisher's inequality",
+      "anchor": "fisher",
+      "prereqs": [
+        "d-block-designs"
+      ],
+      "blurb": "Any non-trivial $2$-design satisfies $b \\ge v$: at least as many blocks as points. The proof inspects the incidence matrix $N$ and shows $NN^\\top = (r-\\lambda)I + \\lambda J$ has full rank $v$, forcing $\\mathrm{rank}(N) = v$, hence $b \\ge v$.",
+      "tags": ["foundation"]
+    },
+    {
+      "id": "d-finite-projective-planes",
+      "title": "Finite projective planes",
+      "anchor": "finite-pp",
+      "prereqs": [
+        "d-fisher-inequality",
+        "projective-points-lines"
+      ],
+      "blurb": "A projective plane of order $q$ has $q^2 + q + 1$ points and the same number of lines, with $q+1$ points on each line — the symmetric $(q^2+q+1, q+1, 1)$-design. They exist iff $q$ is a prime power, with Bruck–Ryser–Chowla forbidding $q \\equiv 1, 2 \\pmod 4$ unless $q$ is a sum of two squares (ruling out e.g. $q=10$).",
+      "tags": ["classification", "duality"]
+    },
+    {
+      "id": "d-latin-squares",
+      "title": "Latin squares & MOLS",
+      "anchor": "latin-squares",
+      "prereqs": [
+        "d-block-designs"
+      ],
+      "blurb": "A Latin square of order $n$ is an $n \\times n$ array filled so each row and column is a permutation of $[n]$. Two are orthogonal if their superposition lists every pair $(a,b) \\in [n]^2$ once. A complete set of $n-1$ MOLS exists iff a projective plane of order $n$ does — Euler's $36$-officers problem closed the $n=6$ case (no MOLS pair).",
+      "tags": ["classification"]
+    },
+    {
+      "id": "d-error-correcting-codes",
+      "title": "Designs from codes",
+      "anchor": "codes",
+      "prereqs": [
+        "d-block-designs"
+      ],
+      "blurb": "Linear codes and combinatorial designs are deeply intertwined. The supports of minimum-weight codewords in the Hamming $[7,4,3]$ code form the Fano plane $\\mathrm{PG}(2,2)$, the unique Steiner triple system $S(2,3,7)$. The binary Golay code $G_{23}$ yields the Steiner system $S(4,7,23)$, and perfect codes correspond to specific $t$-designs by Assmus–Mattson.",
+      "tags": ["classification"]
+    },
+    {
+      "id": "d-applications",
+      "title": "Applications: experiments, testing, geometry",
+      "anchor": "applications",
+      "prereqs": [
+        "d-block-designs",
+        "d-latin-squares"
+      ],
+      "blurb": "BIBDs were born from agricultural statistics — Fisher used them to test $v$ fertilizers on $b$ field plots so every pair is compared with equal precision. Latin squares schedule pairwise-orthogonal interactions in software testing; finite affine planes enable threshold cryptography; Steiner systems underlie tournament round-robins."
+    }
+  ]
+}

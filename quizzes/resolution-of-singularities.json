@@ -1,0 +1,251 @@
+{
+  "topic": "resolution-of-singularities",
+  "quizzes": {
+    "ros-singular-vs-smooth": {
+      "title": "Singular vs smooth",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "At which point of $V(y^2 - x^3) \\subset \\mathbb{A}^2$ does the Jacobian criterion detect a singularity?",
+          "choices": [
+            "$(1, 1)$",
+            "$(0, 0)$",
+            "$(-1, -1)$",
+            "$(2, 2\\sqrt{2})$"
+          ],
+          "answer": 1,
+          "explain": "$f = y^2 - x^3$ has $\\partial_x f = -3x^2$, $\\partial_y f = 2y$. Both vanish only at the origin, where $f$ also vanishes — that is the cusp."
+        },
+        {
+          "type": "mcq",
+          "q": "For the nodal curve $y^2 = x^2 + x^3$ at the origin, what is the tangent cone?",
+          "choices": [
+            "A single line $y = 0$",
+            "The pair of lines $y = x$ and $y = -x$",
+            "The full plane $\\mathbb{A}^2$",
+            "Empty"
+          ],
+          "answer": 1,
+          "explain": "The lowest-degree term is $y^2 - x^2 = (y-x)(y+x)$, so the tangent cone is the union of the two lines $y = \\pm x$."
+        },
+        {
+          "type": "mcq",
+          "q": "If $X \\subset \\mathbb{A}^n$ is cut out by $r$ equations and $\\dim X = d$ at $p$, smoothness at $p$ means the Jacobian rank is:",
+          "choices": [
+            "exactly $d$",
+            "exactly $n - d$",
+            "exactly $r$",
+            "at most $r$"
+          ],
+          "answer": 1,
+          "explain": "Smoothness asks the codimension to be cut out transversally, so $\\mathrm{rank}\\,J(p) = n - d$. Equivalently, $\\dim T_p X = d$."
+        }
+      ]
+    },
+    "ros-blow-up": {
+      "title": "Blowing up",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "On the blow-up $\\mathrm{Bl}_0 \\mathbb{A}^2 \\subset \\mathbb{A}^2 \\times \\mathbb{P}^1$, the exceptional divisor over the origin is:",
+          "choices": [
+            "a single point",
+            "a copy of $\\mathbb{P}^1$",
+            "a pair of disjoint points",
+            "all of $\\mathbb{A}^2$"
+          ],
+          "answer": 1,
+          "explain": "The fiber over $0$ is the projectivization of the tangent space — for $\\mathbb{A}^2$ that is $\\mathbb{P}^1$, parametrising lines through the origin."
+        },
+        {
+          "type": "mcq",
+          "q": "Which property characterises the blow-up $\\mathrm{Bl}_Z X$ as a universal object?",
+          "choices": [
+            "It is the unique smooth model of $X$",
+            "It is the smallest variety containing $Z$",
+            "It is universal among $X$-schemes on which the ideal sheaf $\\mathcal{I}_Z$ pulls back to a locally principal (Cartier) ideal",
+            "It is the normalisation of $X$"
+          ],
+          "answer": 2,
+          "explain": "The blow-up is defined by exactly this universal property: any map $f : Y \\to X$ with $f^{-1}\\mathcal{I}_Z$ invertible factors uniquely through $\\mathrm{Bl}_Z X$."
+        },
+        {
+          "type": "mcq",
+          "q": "Outside the centre $Z$, the blow-up morphism $\\pi : \\mathrm{Bl}_Z X \\to X$ is:",
+          "choices": [
+            "an isomorphism",
+            "a finite cover of degree $> 1$",
+            "a closed immersion",
+            "a constant map"
+          ],
+          "answer": 0,
+          "explain": "$\\pi$ is birational and changes nothing away from $Z$. It is an isomorphism on the open complement $X \\setminus Z$."
+        }
+      ]
+    },
+    "ros-resolution-statement": {
+      "title": "Hironaka's theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Hironaka's theorem (1964) guarantees a proper birational $\\pi : \\tilde X \\to X$ with $\\tilde X$ smooth, under which assumption?",
+          "choices": [
+            "$X$ is projective",
+            "$X$ is defined over a field of characteristic $0$",
+            "$X$ has only nodal singularities",
+            "$X$ is a curve"
+          ],
+          "answer": 1,
+          "explain": "The classical statement is for varieties over a field of characteristic zero. Positive-characteristic resolution is open in dimension $\\ge 4$."
+        },
+        {
+          "type": "mcq",
+          "q": "Where does Hironaka's resolution agree with $X$?",
+          "choices": [
+            "Only at one chosen point",
+            "Everywhere — it is an isomorphism globally",
+            "On the smooth locus of $X$",
+            "On the singular locus of $X$"
+          ],
+          "answer": 2,
+          "explain": "By construction $\\pi$ is an iso over the smooth open subset; only the singular locus gets modified."
+        },
+        {
+          "type": "mcq",
+          "q": "Hironaka's proof produces $\\tilde X$ as:",
+          "choices": [
+            "a single blow-up at the singular locus",
+            "the normalisation of $X$",
+            "a finite sequence of blow-ups along smooth centres inside the singular locus",
+            "a quotient by a finite group"
+          ],
+          "answer": 2,
+          "explain": "The argument tracks an invariant (multiplicity, Hilbert–Samuel function) that strictly drops after each blow-up at a carefully chosen smooth centre, terminating in a smooth model."
+        }
+      ]
+    },
+    "ros-curves": {
+      "title": "Resolving curves",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Blowing up the cusp $y^2 = x^3$ at the origin yields a curve whose strict transform is:",
+          "choices": [
+            "still cuspidal",
+            "smooth, parametrised by $t \\mapsto (t^2, t^3)$",
+            "two transverse smooth branches",
+            "empty"
+          ],
+          "answer": 1,
+          "explain": "Setting $y = tx$ gives $t^2 x^2 = x^3$, i.e. $x = t^2$ on the strict transform; then $y = t \\cdot t^2 = t^3$. The single smooth point $t = 0$ replaces the cusp."
+        },
+        {
+          "type": "mcq",
+          "q": "The normalisation $\\tilde C \\to C$ of an irreducible nodal curve $C$ separates the node into:",
+          "choices": [
+            "one smooth point",
+            "two distinct smooth points (one per branch)",
+            "a $\\mathbb{P}^1$",
+            "a non-reduced point"
+          ],
+          "answer": 1,
+          "explain": "Normalisation pulls apart the two analytic branches that the node identifies; each branch contributes one smooth preimage."
+        },
+        {
+          "type": "mcq",
+          "q": "Which constructions give the same resolution of a planar curve singularity?",
+          "choices": [
+            "Normalisation only",
+            "Blow-up of the singular point only",
+            "Newton–Puiseux parametrisation only",
+            "All three agree in dimension one"
+          ],
+          "answer": 3,
+          "explain": "For curves, normalisation, iterated blow-ups, and Puiseux parametrisations all produce the same smooth model — the curve case is essentially settled."
+        }
+      ]
+    },
+    "ros-surfaces": {
+      "title": "Surface singularities (ADE)",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The dual graph of the minimal resolution of the $A_n$ surface singularity $x^2 + y^2 + z^{n+1} = 0$ is:",
+          "choices": [
+            "a single $\\mathbb{P}^1$",
+            "a chain of $n$ rational curves $\\mathbb{P}^1$",
+            "a star with three arms",
+            "a cycle of length $n$"
+          ],
+          "answer": 1,
+          "explain": "The exceptional divisor is a chain of $n$ smooth rational curves with intersection matrix $-\\mathrm{Cartan}(A_n)$ — the $A_n$ Dynkin diagram."
+        },
+        {
+          "type": "mcq",
+          "q": "Brieskorn realised the ADE surface singularities as quotients $\\mathbb{C}^2 / \\Gamma$ where $\\Gamma$ is:",
+          "choices": [
+            "any cyclic group",
+            "any finite subgroup of $\\mathrm{GL}_2(\\mathbb{C})$",
+            "a finite subgroup of $\\mathrm{SL}_2(\\mathbb{C})$",
+            "$\\mathbb{Z}/n$ acting trivially"
+          ],
+          "answer": 2,
+          "explain": "Finite subgroups of $\\mathrm{SL}_2(\\mathbb{C})$ are classified by ADE: cyclic ($A_n$), binary dihedral ($D_n$), and binary tetrahedral / octahedral / icosahedral ($E_6, E_7, E_8$)."
+        },
+        {
+          "type": "mcq",
+          "q": "The McKay correspondence pairs:",
+          "choices": [
+            "irreducible representations of $\\Gamma$ (other than the trivial one) with exceptional curves of the resolution",
+            "elements of $\\Gamma$ with components of $X$",
+            "characters of $\\Gamma$ with cohomology classes of $X$",
+            "Sylow subgroups of $\\Gamma$ with branch points"
+          ],
+          "answer": 0,
+          "explain": "Non-trivial irreps of $\\Gamma \\subset \\mathrm{SL}_2(\\mathbb{C})$ correspond bijectively to vertices of the Dynkin diagram, i.e. exceptional $\\mathbb{P}^1$'s in the minimal resolution."
+        }
+      ]
+    },
+    "ros-applications": {
+      "title": "Applications & frontiers",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In Mori's minimal model program, the role of resolution is to:",
+          "choices": [
+            "produce the unique smooth projective model",
+            "give a smooth starting point from which to contract extremal rays toward a minimal model",
+            "compute Hodge numbers",
+            "replace a variety by its dual"
+          ],
+          "answer": 1,
+          "explain": "MMP starts from a smooth (resolved) projective variety and runs a sequence of contractions and flips to reach a minimal or canonical model."
+        },
+        {
+          "type": "mcq",
+          "q": "A 'log resolution' of a pair $(X, D)$ produces a smooth $\\tilde X$ on which:",
+          "choices": [
+            "$D$ is contracted to a point",
+            "the total transform of $D$ together with the exceptional divisor is a simple normal crossing divisor",
+            "$D$ becomes ample",
+            "$\\tilde X$ is itself singular but $D$ is smooth"
+          ],
+          "answer": 1,
+          "explain": "Log resolution asks the preimage of $D$ plus exceptional divisors to have only transversal smooth components — the SNC condition powers motivic integration and weak factorisation."
+        },
+        {
+          "type": "mcq",
+          "q": "Which problem is still open as of today?",
+          "choices": [
+            "Resolution of singularities for curves",
+            "Resolution of surfaces in characteristic $0$",
+            "Resolution of singularities in characteristic $p$ in dimension $\\ge 4$",
+            "Resolution for ADE surface singularities"
+          ],
+          "answer": 2,
+          "explain": "Hironaka settled char 0 in all dimensions; Abhyankar and Cossart–Piltant settled char $p$ up to dimension 3. Higher dimensions remain open; de Jong's alterations are the best general substitute."
+        }
+      ]
+    }
+  }
+}

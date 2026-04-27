@@ -12,7 +12,10 @@
         "real-differentiation"
       ],
       "blurb": "A continuous dynamical system is a smooth vector field $X$ on $M$; its flow $\\Phi_t$ sends each $p$ along the unique integral curve $\\dot\\gamma = X(\\gamma)$. The forward orbit $\\{\\Phi_t(p):t\\ge 0\\}$ is what we study.",
-      "tags": ["foundation", "group-action"]
+      "tags": [
+        "foundation",
+        "group-action"
+      ]
     },
     {
       "id": "dyn-fixed-linearization",
@@ -22,7 +25,9 @@
         "dyn-orbits-flows"
       ],
       "blurb": "At an equilibrium $X(p^*)=0$ the Jacobian $DX(p^*)$ controls local behaviour: by Hartman–Grobman, when $DX(p^*)$ is hyperbolic the flow near $p^*$ is topologically conjugate to its linearization.",
-      "tags": ["classification"]
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "dyn-phase-portraits",
@@ -32,7 +37,9 @@
         "dyn-fixed-linearization"
       ],
       "blurb": "In the plane, $(\\tr A,\\det A)$ classifies a linear system into sink, source, saddle, center, or spiral; nullclines and fixed points then glue into a global portrait.",
-      "tags": ["classification"]
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "dyn-limit-cycles",
@@ -42,7 +49,9 @@
         "dyn-phase-portraits"
       ],
       "blurb": "A limit cycle is an isolated periodic orbit. Poincaré–Bendixson: a non-empty compact $\\omega$-limit set in a planar flow that contains no fixed point is a periodic orbit; Dulac rules out cycles via a divergence criterion.",
-      "tags": ["compactness"]
+      "tags": [
+        "compactness"
+      ]
     },
     {
       "id": "dyn-iterated-maps",
@@ -71,7 +80,9 @@
         "dyn-iterated-maps"
       ],
       "blurb": "A bifurcation is a qualitative change of the phase portrait as a parameter crosses a critical value. Local codimension-one normal forms: saddle-node $\\dot x=\\mu-x^2$, transcritical $\\dot x=\\mu x-x^2$, pitchfork $\\dot x=\\mu x-x^3$, Hopf (birth of a cycle), period-doubling (for maps).",
-      "tags": ["classification"]
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "dyn-chaos",
@@ -89,7 +100,8 @@
       "anchor": "conservative",
       "prereqs": [
         "dyn-orbits-flows",
-        "forms-and-wedge"
+        "forms-and-wedge",
+        "sm-hamiltonian-flow"
       ],
       "blurb": "Liouville: $\\tfrac{d}{dt}\\mathrm{vol}(\\Phi_t(U)) = \\int_U \\operatorname{div}X\\,d\\mathrm{vol}$. Conservative flows preserve a volume form ($\\operatorname{div}X=0$); dissipative ones contract phase-space volume ($\\operatorname{div}X<0$), forcing attractors to have zero volume."
     },
@@ -121,7 +133,9 @@
         "lebesgue-measure"
       ],
       "blurb": "A measure-preserving $T$ is ergodic iff every invariant set has measure $0$ or $1$. Birkhoff: for ergodic $T$, time averages $\\tfrac{1}{N}\\sum_{k<N} f(T^k x)$ converge a.e. to the space average $\\int f\\,d\\mu$.",
-      "tags": ["group-action"]
+      "tags": [
+        "group-action"
+      ]
     },
     {
       "id": "dyn-strange-attractors",

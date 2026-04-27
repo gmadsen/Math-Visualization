@@ -11,18 +11,19 @@ reach into upstream foundations or stay within their own cluster.
 
 | section | concepts | intra edges | cross out | cross in | density |
 |---|---:|---:|---:|---:|---:|
-| Logic & Foundations | 49 | 56 | 4 | 11 | 0.082 |
-| Algebra & homological | 88 | 126 | 13 | 61 | 0.148 |
+| Logic & Foundations | 49 | 56 | 5 | 15 | 0.102 |
+| Algebra & homological | 106 | 157 | 16 | 70 | 0.151 |
 | Higher categories & toposes | 45 | 68 | 23 | 2 | 0.511 |
-| Analysis | 122 | 200 | 16 | 33 | 0.131 |
-| Probability & statistics | 41 | 65 | 11 | 8 | 0.268 |
-| Geometry & topology | 61 | 81 | 6 | 52 | 0.098 |
-| Number theory | 78 | 101 | 30 | 24 | 0.385 |
-| Modular forms & L-functions | 79 | 104 | 48 | 10 | 0.608 |
-| Algebraic geometry | 109 | 138 | 48 | 14 | 0.440 |
-| Combinatorics & graph theory | 39 | 34 | 17 | 1 | 0.436 |
+| Analysis | 146 | 249 | 24 | 59 | 0.164 |
+| Probability & statistics | 53 | 86 | 14 | 10 | 0.264 |
+| Geometry & topology | 97 | 144 | 18 | 79 | 0.186 |
+| Number theory | 90 | 115 | 33 | 24 | 0.367 |
+| Modular forms & L-functions | 85 | 112 | 52 | 12 | 0.612 |
+| Algebraic geometry | 127 | 173 | 55 | 15 | 0.433 |
+| Combinatorics & graph theory | 51 | 50 | 22 | 2 | 0.431 |
+| Mathematical physics | 24 | 22 | 26 | 0 | 1.083 |
 
-## EMPTY — concepts with no prereqs (2)
+## EMPTY — concepts with no prereqs (3)
 
 Concepts whose `prereqs` field is `[]` and whose owning topic is *not*
 a foundation/prereq topic. Almost always indicates a missing cross-
@@ -33,6 +34,7 @@ at brand-new progress alongside genuine entry points like
 | topic | concept | title |
 |---|---|---|
 | analytic-number-theory | `ant-prime-counting` | $\pi(x)$ and the prime number theorem |
+| expanders | `e-definition` | Combinatorial expansion |
 | spectral-graph-theory | `adjacency-and-laplacian` | Adjacency, degree, and the Laplacian |
 
 ## THIN-NEW — new-arc concepts with intra-topic-only prereqs (13)

@@ -1,0 +1,236 @@
+{
+  "topic": "variational-methods",
+  "quizzes": {
+    "vm-functional-derivative": {
+      "title": "Functional derivative",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Let $J(u)=\\tfrac12\\int_0^1 (u'(x))^2\\,dx$ on $H^1_0(0,1)$. The Gateaux derivative $\\langle J'(u),h\\rangle$ equals which expression?",
+          "choices": [
+            "$\\int_0^1 u(x)\\,h(x)\\,dx$",
+            "$\\int_0^1 u'(x)\\,h'(x)\\,dx$",
+            "$\\int_0^1 (u'(x))^2\\,h(x)\\,dx$",
+            "$u(1)\\,h(1) - u(0)\\,h(0)$"
+          ],
+          "answer": 1,
+          "explain": "Expand $J(u+\\varepsilon h)=\\tfrac12\\int(u'+\\varepsilon h')^2 = J(u)+\\varepsilon\\int u'h' + O(\\varepsilon^2)$. The linear coefficient is the Gateaux derivative. After integrating by parts and using $h\\in H^1_0$, this also equals $-\\int u''h$, which is how the Euler-Lagrange equation $-u''=0$ pops out."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is the correct distinction between Gateaux and Fréchet derivatives?",
+          "choices": [
+            "Gateaux requires linearity in $h$; Fréchet does not",
+            "Fréchet additionally requires the remainder to be $o(\\|h\\|)$ uniformly in the direction",
+            "Fréchet works only in finite dimensions",
+            "They coincide on every Banach space"
+          ],
+          "answer": 1,
+          "explain": "Gateaux differentiability gives a directional derivative for each fixed $h$ but allows the remainder to depend non-uniformly on direction. Fréchet upgrades this: $J(u+h)=J(u)+\\langle J'(u),h\\rangle+o(\\|h\\|)$ uniformly in $h$, recovering classical differential calculus and chain rule."
+        },
+        {
+          "type": "numeric",
+          "q": "For $J(u)=\\int_0^1 u(x)^3\\,dx$, compute $\\langle J'(u),h\\rangle / \\int_0^1 h\\,dx$ when $u\\equiv 2$ and $h$ is any test function with $\\int h = 1$.",
+          "answer": 12,
+          "tol": 0.0001,
+          "explain": "$\\delta J/\\delta u = 3u^2$, so at $u=2$ the functional derivative is the constant $12$. Hence $\\langle J'(u),h\\rangle = \\int 12\\,h = 12\\int h$, and the ratio is $12$."
+        }
+      ]
+    },
+    "vm-euler-lagrange": {
+      "title": "Euler–Lagrange equations",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Euler–Lagrange equation for the brachistochrone Lagrangian $L = \\sqrt{1+(y')^2}/\\sqrt{2gy}$ has which conserved quantity?",
+          "choices": [
+            "$L$ itself",
+            "$y'\\,\\partial_{y'}L - L$ (the Hamiltonian / Beltrami identity)",
+            "$\\partial_x L$",
+            "Nothing — no symmetry available"
+          ],
+          "answer": 1,
+          "explain": "Because $L$ does not depend on $x$ explicitly, the Beltrami identity $L - y'\\partial_{y'}L = C$ (a first integral) holds. Solving it for the brachistochrone gives the cycloid $x = r(\\theta-\\sin\\theta)$, $y=r(1-\\cos\\theta)$ — Bernoulli's celebrated 1697 answer."
+        },
+        {
+          "type": "mcq",
+          "q": "For $J(u)=\\int_a^b L(x,u,u')\\,dx$ with $u(a),u(b)$ fixed, the Euler–Lagrange equation is",
+          "choices": [
+            "$\\partial_u L = 0$",
+            "$\\partial_{u'} L = 0$",
+            "$\\frac{d}{dx}\\partial_{u'}L = \\partial_u L$",
+            "$\\partial_u L + \\partial_{u'} L = 0$"
+          ],
+          "answer": 2,
+          "explain": "Setting $\\frac{d}{d\\varepsilon}J(u+\\varepsilon h)|_{\\varepsilon=0}=0$ for every $h$ vanishing at the endpoints, integrating $\\partial_{u'}L\\cdot h'$ by parts (boundary terms drop because $h(a)=h(b)=0$), and applying the fundamental lemma of the calculus of variations yields the Euler–Lagrange equation."
+        },
+        {
+          "type": "numeric",
+          "q": "Minimise $J(u)=\\int_0^1 ((u')^2 + u^2)\\,dx$ with $u(0)=0,\\,u(1)=1$. The Euler–Lagrange equation is $u''=u$. Compute $u(1/2)$ to 3 decimals.",
+          "answer": 0.443,
+          "tol": 0.005,
+          "explain": "$u''=u$ with $u(0)=0$, $u(1)=1$ has solution $u(x)=\\sinh(x)/\\sinh(1)$. Then $u(1/2)=\\sinh(0.5)/\\sinh(1) \\approx 0.5211/1.1752 \\approx 0.443$. Strictly less than the linear interpolant $0.5$ — the quadratic penalty $\\int u^2$ pulls the curve down toward zero."
+        }
+      ]
+    },
+    "vm-direct-method": {
+      "title": "Direct method (Tonelli)",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The direct method requires three ingredients on the energy $J\\colon X\\to\\mathbb{R}$. Which is NOT one of them?",
+          "choices": [
+            "Coercivity: $J(u)\\to\\infty$ as $\\|u\\|\\to\\infty$",
+            "Reflexivity of $X$ (so weak compactness applies)",
+            "Weak lower-semicontinuity: $u_k\\rightharpoonup u\\Rightarrow J(u)\\le\\liminf J(u_k)$",
+            "Strict convexity (so the minimiser is unique)"
+          ],
+          "answer": 3,
+          "explain": "Strict convexity gives uniqueness, but Tonelli's existence proof needs only coercivity (to bound a minimising sequence), reflexivity (Banach–Alaoglu gives a weakly convergent subsequence), and weak lower-semicontinuity (so the weak limit attains the infimum)."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does coercivity fail for $J(u)=\\int_0^1 (u'(x))^2\\,dx$ on the full $H^1(0,1)$ without boundary conditions?",
+          "choices": [
+            "$J$ is not bounded below",
+            "Constants $u\\equiv c$ have $J(c)=0$ but $\\|c\\|_{H^1}\\to\\infty$ as $|c|\\to\\infty$",
+            "$J$ is not convex",
+            "Weak limits don't exist in $H^1$"
+          ],
+          "answer": 1,
+          "explain": "Adding an arbitrary constant doesn't change $u'$, so $J$ is invariant under $u\\mapsto u+c$. The norm $\\|u\\|_{H^1}^2 = \\|u\\|_{L^2}^2 + \\|u'\\|_{L^2}^2$ blows up while $J$ stays put — hence not coercive. Imposing $u(0)=0$ (the Poincaré inequality) restores coercivity."
+        },
+        {
+          "type": "mcq",
+          "q": "Which functional FAILS to be weakly lower-semicontinuous on $H^1(0,1)$?",
+          "choices": [
+            "$J(u)=\\int (u')^2$",
+            "$J(u)=\\int u^2$",
+            "$J(u)=-\\int (u')^2$",
+            "$J(u)=\\int (1+(u')^2)^{1/2}$ (length functional)"
+          ],
+          "answer": 2,
+          "explain": "Convex continuous functionals on a reflexive space are automatically weakly lower-semicontinuous. The first two are convex; the fourth is convex (concave-up integrand in $u'$). The third is concave in $u'$, hence its negative is convex — so $-\\int(u')^2$ is weakly upper-semicontinuous, the wrong direction."
+        }
+      ]
+    },
+    "vm-mountain-pass": {
+      "title": "Mountain-pass theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The mountain-pass geometry requires that $J$ has a local min at $0$, AND",
+          "choices": [
+            "$J$ is bounded below",
+            "There exists $u_*\\ne 0$ with $J(u_*)\\le J(0)$",
+            "$J$ is convex",
+            "$J$ is everywhere differentiable"
+          ],
+          "answer": 1,
+          "explain": "The picture: $0$ is a valley, $u_*$ is a far point at or below the valley floor. Any path from $0$ to $u_*$ must climb over a ridge; the lowest such ridge-height is the mountain-pass critical value. Without the second valley there's no mountain to cross."
+        },
+        {
+          "type": "mcq",
+          "q": "The Palais–Smale compactness condition $(PS)$ says that every sequence with $J(u_k)$ bounded and $J'(u_k)\\to 0$",
+          "choices": [
+            "Is bounded in norm",
+            "Converges weakly",
+            "Has a strongly convergent subsequence",
+            "Has a Cauchy subsequence in the metric of $J$"
+          ],
+          "answer": 2,
+          "explain": "(PS) demands strong convergence of a subsequence — this is what lets you pass from approximate critical points to genuine ones. On bounded domains with subcritical growth (Sobolev embedding compact) this is standard; at the critical Sobolev exponent, $(PS)$ can fail and concentration-compactness must replace it."
+        },
+        {
+          "type": "mcq",
+          "q": "The mountain-pass theorem produces a critical point at the saddle-height. This critical point",
+          "choices": [
+            "Is necessarily a minimum",
+            "Is necessarily a maximum",
+            "Is a saddle (Morse index $\\ge 1$)",
+            "Need not be a critical point at all"
+          ],
+          "answer": 2,
+          "explain": "By construction the critical value $c = \\inf_\\gamma\\max_t J(\\gamma(t))$ exceeds $J(0)$ but is bounded above on connecting paths — neither a global minimum nor a maximum. The Morse-theoretic interpretation: the topology of sublevel sets changes at $c$, forcing a critical point of index at least $1$."
+        }
+      ]
+    },
+    "vm-isoperimetric": {
+      "title": "Isoperimetric inequality",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The classical planar isoperimetric inequality reads",
+          "choices": [
+            "$L \\le 2\\pi A$",
+            "$4\\pi A \\le L^2$",
+            "$A \\le L^2$",
+            "$A^2 \\le \\pi L$"
+          ],
+          "answer": 1,
+          "explain": "Among simple closed curves in the plane bounding area $A$ with perimeter $L$, $4\\pi A \\le L^2$ with equality iff the curve is a circle. Equivalently, fixing $L$ maximises $A$ at $L^2/(4\\pi)$ — the disk — and fixing $A$ minimises $L$ at $2\\sqrt{\\pi A}$."
+        },
+        {
+          "type": "numeric",
+          "q": "A region in the plane has perimeter $L=10$. What is the maximum possible area?",
+          "answer": 7.9577,
+          "tol": 0.005,
+          "explain": "By isoperimetry the disk maximises: $A_{\\max} = L^2/(4\\pi) = 100/(4\\pi) \\approx 7.958$. The maximiser is realised by the disk of circumference $10$, radius $r=10/(2\\pi)\\approx 1.59$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is the Euler–Lagrange equation for the isoperimetric problem (maximise area at fixed perimeter) $\\kappa = \\text{const}$?",
+          "choices": [
+            "The Lagrange multiplier $\\lambda$ for the perimeter constraint forces constant geodesic curvature",
+            "Because $\\partial_x L = 0$",
+            "By Noether's theorem applied to rotations",
+            "It's the Bonnet–Myers theorem"
+          ],
+          "answer": 0,
+          "explain": "Constrained variation: at a critical point of $A$ subject to fixed $L$, $\\delta A = \\lambda\\,\\delta L$. The first variation of area is $\\int h\\,ds$ along normal perturbation $h$; the first variation of length is $\\int \\kappa\\, h\\,ds$. Equality for all $h$ forces $\\kappa\\equiv\\lambda$ — constant curvature, hence a circle."
+        }
+      ]
+    },
+    "vm-applications": {
+      "title": "Applications: geodesics, minimal surfaces, gauge theory",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A geodesic on a Riemannian manifold satisfies $\\nabla_{\\dot\\gamma}\\dot\\gamma=0$. This is the Euler–Lagrange equation for which functional?",
+          "choices": [
+            "Energy $E(\\gamma)=\\tfrac12\\int g(\\dot\\gamma,\\dot\\gamma)\\,dt$",
+            "Volume $V(\\gamma)=\\int 1\\,dt$",
+            "Curvature $K(\\gamma)=\\int|\\nabla_{\\dot\\gamma}\\dot\\gamma|^2\\,dt$",
+            "Mean curvature $H(\\gamma)$"
+          ],
+          "answer": 0,
+          "explain": "Critical points of the energy functional (with parametrisation fixed) are exactly geodesics. The arc-length functional $L(\\gamma)=\\int|\\dot\\gamma|\\,dt$ has the same minimisers but is reparametrisation-invariant — using $E$ instead pins the parametrisation to constant speed and avoids the degeneracy."
+        },
+        {
+          "type": "mcq",
+          "q": "Plateau's problem asks for a surface of least area spanning a given closed curve in $\\mathbb{R}^3$. The Euler–Lagrange equation is",
+          "choices": [
+            "Gauss curvature $K=0$",
+            "Mean curvature $H=0$ (the minimal-surface equation)",
+            "Constant scalar curvature",
+            "$\\Delta f = 0$ for the height function"
+          ],
+          "answer": 1,
+          "explain": "Stationarity of area against normal variations forces $H=0$ pointwise — the trace of the second fundamental form vanishes. Locally over a graph $z=f(x,y)$ this is $\\nabla\\cdot(\\nabla f/\\sqrt{1+|\\nabla f|^2})=0$, the minimal-surface equation. Soap films model this physically."
+        },
+        {
+          "type": "mcq",
+          "q": "The Yang–Mills functional is $YM(A) = \\int_M |F_A|^2\\,d\\mathrm{vol}$. Its critical points satisfy",
+          "choices": [
+            "$dA = 0$",
+            "$d^*F_A = 0$ (the Yang–Mills equation)",
+            "$F_A = 0$ (flat connection)",
+            "$\\nabla A = 0$"
+          ],
+          "answer": 1,
+          "explain": "Computing the first variation in the connection $A$ gives $\\delta YM = 2\\int\\langle F_A, d_A(\\delta A)\\rangle = 2\\int\\langle d_A^* F_A,\\delta A\\rangle$ (Bianchi gives $d_A F_A = 0$ automatically). Stationarity is $d_A^* F_A = 0$. Self-dual instantons $F_A = *F_A$ are a privileged class of solutions — the bridge to Donaldson theory."
+        }
+      ]
+    }
+  }
+}

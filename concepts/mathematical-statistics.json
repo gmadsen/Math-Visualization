@@ -1,0 +1,53 @@
+{
+  "topic": "mathematical-statistics",
+  "title": "Mathematical statistics",
+  "page": "mathematical-statistics.html",
+  "concepts": [
+    {
+      "id": "ms-estimators",
+      "title": "Point estimators: bias, consistency, MSE, sufficiency",
+      "anchor": "estimators",
+      "prereqs": ["random-variables", "expectation-moments"],
+      "blurb": "An estimator $\\hat\\theta_n=T(X_1,\\ldots,X_n)$ is a measurable function of the sample; bias is $\\mathbb{E}_\\theta[\\hat\\theta_n]-\\theta$, variance is $\\mathrm{Var}_\\theta(\\hat\\theta_n)$, and mean-square error decomposes as $\\mathrm{MSE}=\\mathrm{bias}^2+\\mathrm{variance}$. Consistency means $\\hat\\theta_n\\to\\theta$ in probability; a sufficient statistic carries all sample information about $\\theta$ via the Fisher–Neyman factorisation $f(x;\\theta)=g(T(x);\\theta)\\,h(x)$.",
+      "tags": ["foundation"]
+    },
+    {
+      "id": "ms-mle",
+      "title": "Maximum likelihood and the score equation",
+      "anchor": "mle",
+      "prereqs": ["ms-estimators", "it-kl-divergence"],
+      "blurb": "The MLE maximises $\\ell(\\theta)=\\sum_i\\log f(X_i;\\theta)$, equivalently solves the score equation $\\partial_\\theta\\ell=0$. Under regularity, $\\hat\\theta_{\\mathrm{MLE}}$ is consistent and asymptotically normal: $\\sqrt n(\\hat\\theta_n-\\theta)\\xrightarrow{d}\\mathcal{N}(0,\\,1/I(\\theta))$ where $I(\\theta)=\\mathbb{E}_\\theta[(\\partial_\\theta\\log f)^2]$ is Fisher information. MLE minimises empirical KL to the true law, so it is the statistical mirror of $D(p\\,\\|\\,q)$."
+    },
+    {
+      "id": "ms-cramer-rao",
+      "title": "Cramér–Rao bound, UMVU, Rao–Blackwell",
+      "anchor": "cramer-rao",
+      "prereqs": ["ms-estimators", "ms-mle"],
+      "blurb": "Cramér–Rao: any unbiased $\\hat\\theta_n$ satisfies $\\mathrm{Var}_\\theta(\\hat\\theta_n)\\ge 1/(nI(\\theta))$ — Fisher information is the floor on estimator variance. An estimator hitting the floor is UMVU (uniformly minimum-variance unbiased). Rao–Blackwell: conditioning any unbiased estimator on a sufficient statistic strictly reduces variance, so UMVU lives among functions of complete sufficient statistics (Lehmann–Scheffé).",
+      "tags": ["duality"]
+    },
+    {
+      "id": "ms-hypothesis-testing",
+      "title": "Hypothesis testing: Neyman–Pearson and likelihood ratios",
+      "anchor": "testing",
+      "prereqs": ["ms-mle"],
+      "blurb": "A test of $H_0:\\theta\\in\\Theta_0$ vs $H_1:\\theta\\in\\Theta_1$ partitions the sample space into rejection / acceptance; size $\\alpha=\\sup_{\\Theta_0}\\mathbb{P}_\\theta(\\text{reject})$ is type-I error, power $1-\\beta=\\mathbb{P}_{\\theta_1}(\\text{reject})$. Neyman–Pearson lemma: for simple-vs-simple, the likelihood ratio test $\\Lambda(x)=L(\\theta_1;x)/L(\\theta_0;x)\\gtrless k$ is uniformly most powerful at every level. The $p$-value is the smallest $\\alpha$ at which the observed data would have rejected."
+    },
+    {
+      "id": "ms-bayesian",
+      "title": "Bayesian inference: posteriors, conjugate priors, credible intervals",
+      "anchor": "bayesian",
+      "prereqs": ["ms-mle"],
+      "blurb": "Bayes' rule on parameters: $\\pi(\\theta\\mid x)\\propto\\pi(\\theta)\\,L(\\theta;x)$ — the posterior is prior times likelihood, normalised. Conjugate priors close the family under updating (Beta–Binomial, Gamma–Poisson, Normal–Normal). MAP $\\hat\\theta=\\arg\\max\\pi(\\theta\\mid x)$ is the posterior mode; the posterior mean minimises squared-error loss. A $1-\\alpha$ credible interval is any region of posterior mass $1-\\alpha$ — typically the highest-posterior-density interval.",
+      "tags": ["duality"]
+    },
+    {
+      "id": "ms-asymptotics",
+      "title": "Asymptotics: delta method, Slutsky, Wilks",
+      "anchor": "asymptotics",
+      "prereqs": ["central-limit-theorem", "convergence-rv", "ms-mle"],
+      "blurb": "The delta method propagates CLT through smooth $g$: if $\\sqrt n(\\hat\\theta_n-\\theta)\\xrightarrow{d}\\mathcal{N}(0,\\sigma^2)$ then $\\sqrt n(g(\\hat\\theta_n)-g(\\theta))\\xrightarrow{d}\\mathcal{N}(0,g'(\\theta)^2\\sigma^2)$. Slutsky lets you replace nuisance estimates by their probability limits inside a converging sequence. Wilks' theorem: under $H_0$, $-2\\log\\Lambda_n\\xrightarrow{d}\\chi^2_{r}$ where $r=\\dim\\Theta-\\dim\\Theta_0$ — the LRT calibrates itself asymptotically without simulation.",
+      "tags": ["completion"]
+    }
+  ]
+}

@@ -1,0 +1,251 @@
+{
+  "topic": "mostow-rigidity",
+  "quizzes": {
+    "mr-statement": {
+      "title": "Mostow's rigidity theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Mostow rigidity asserts that for closed hyperbolic $n$-manifolds $M_1,M_2$ with $n\\ge 3$, an isomorphism $\\pi_1(M_1)\\cong\\pi_1(M_2)$ implies:",
+          "choices": [
+            "$M_1$ and $M_2$ are homotopy equivalent only",
+            "$M_1$ and $M_2$ are isometric (and the isometry is unique up to homotopy)",
+            "$M_1$ and $M_2$ have the same fundamental group but possibly different hyperbolic metrics",
+            "$M_1$ and $M_2$ are merely diffeomorphic"
+          ],
+          "answer": 1,
+          "explain": "Mostow upgrades a $\\pi_1$-isomorphism all the way to a unique isometry — the hyperbolic metric is determined by the topology."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does the theorem fail in dimension $n=2$?",
+          "choices": [
+            "Closed hyperbolic surfaces of genus $g\\ge 2$ form a $(6g-6)$-dimensional Teichmüller moduli space, so the metric is not unique",
+            "Surfaces have no fundamental group",
+            "$\\mathbb{H}^2$ is not a symmetric space",
+            "$\\mathrm{PSL}_2(\\mathbb{R})$ has trivial center"
+          ],
+          "answer": 0,
+          "explain": "Teichmüller space has positive dimension exactly when $n=2$; rigidity needs $n\\ge 3$ so the symmetric space has rank-1 with no continuous deformations."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of the following is NOT a hypothesis of the classical Mostow rigidity theorem?",
+          "choices": [
+            "$M_1, M_2$ are closed (compact, no boundary)",
+            "$M_1, M_2$ admit hyperbolic metrics of constant sectional curvature $-1$",
+            "$\\dim M_i \\ge 3$",
+            "$M_1, M_2$ are simply connected"
+          ],
+          "answer": 3,
+          "explain": "Simple connectivity would make $\\pi_1$ trivial; the theorem operates on closed hyperbolic manifolds, whose universal cover $\\mathbb{H}^n$ is simply connected but $M_i$ themselves have rich $\\pi_1$."
+        }
+      ]
+    },
+    "mr-hyperbolic-3-mflds": {
+      "title": "Hyperbolic 3-manifolds",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A closed hyperbolic 3-manifold is a quotient $\\mathbb{H}^3/\\Gamma$ where $\\Gamma$ is:",
+          "choices": [
+            "Any subgroup of $\\mathrm{PSL}_2(\\mathbb{C})$",
+            "A torsion-free discrete cocompact subgroup of $\\mathrm{PSL}_2(\\mathbb{C})$",
+            "A finite subgroup of $\\mathrm{SO}(3)$",
+            "An abelian subgroup of $\\mathrm{SL}_2(\\mathbb{R})$"
+          ],
+          "answer": 1,
+          "explain": "Closed = cocompact, smooth = torsion-free, properly discontinuous action = discrete; the orientation-preserving isometry group of $\\mathbb{H}^3$ is $\\mathrm{PSL}_2(\\mathbb{C})$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is $\\mathrm{PSL}_2(\\mathbb{C})$ the right Lie group to host these lattices?",
+          "choices": [
+            "It is the orientation-preserving isometry group of $\\mathbb{H}^3$",
+            "It is compact",
+            "It is abelian",
+            "It is the Galois group of $\\mathbb{C}/\\mathbb{R}$"
+          ],
+          "answer": 0,
+          "explain": "$\\mathrm{Isom}^+(\\mathbb{H}^3)\\cong\\mathrm{PSL}_2(\\mathbb{C})$ acting by Möbius transformations on the boundary $\\widehat{\\mathbb{C}}=S^2$."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the boundary at infinity of $\\mathbb{H}^3$?",
+          "choices": [
+            "$S^1$",
+            "$S^2$",
+            "$\\mathbb{R}^2$",
+            "A single point"
+          ],
+          "answer": 1,
+          "explain": "$\\mathbb{H}^3$ compactifies by adding the round sphere $S^2$ at infinity; $\\mathrm{PSL}_2(\\mathbb{C})$ acts on it by Möbius transformations."
+        }
+      ]
+    },
+    "mr-quasi-isometry": {
+      "title": "Quasi-isometry and boundary extension",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A map $f:\\mathbb{H}^n\\to\\mathbb{H}^n$ is a $(K,C)$-quasi-isometry if for all $x,y$:",
+          "choices": [
+            "$d(f(x),f(y)) = K\\cdot d(x,y)$ exactly",
+            "$\\tfrac{1}{K} d(x,y) - C \\le d(f(x),f(y)) \\le K\\,d(x,y) + C$, with $f$ coarsely surjective",
+            "$d(f(x),f(y)) \\le d(x,y)$",
+            "$f$ is smooth and orientation-preserving"
+          ],
+          "answer": 1,
+          "explain": "Quasi-isometry is the coarse multiplicative-and-additive bound — the right notion for invariants of finitely generated groups."
+        },
+        {
+          "type": "mcq",
+          "q": "Mostow's analytic centerpiece extends a $\\pi_1$-equivariant quasi-isometry of $\\mathbb{H}^n$ to a homeomorphism of $S^{n-1}$ that is:",
+          "choices": [
+            "Smooth",
+            "Quasi-conformal",
+            "Linear",
+            "Holomorphic"
+          ],
+          "answer": 1,
+          "explain": "The boundary extension is quasi-conformal — controlled distortion of infinitesimal balls — even when the bulk map is far from smooth."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does the lift of a homotopy equivalence $M_1\\to M_2$ between closed hyperbolic manifolds become a quasi-isometry of universal covers?",
+          "choices": [
+            "Because every continuous map is a quasi-isometry",
+            "Because Švarc–Milnor: a cocompact properly discontinuous isometric action makes $\\Gamma$ quasi-isometric to its space, and the lift is $\\Gamma$-equivariant Lipschitz",
+            "Because $\\mathbb{H}^n$ is compact",
+            "Because homotopy equivalences are smooth"
+          ],
+          "answer": 1,
+          "explain": "Švarc–Milnor: if $\\Gamma$ acts cocompactly and properly discontinuously on a proper geodesic space, the orbit map is a quasi-isometry. The lift inherits this."
+        }
+      ]
+    },
+    "mr-ergodicity-of-action": {
+      "title": "Ergodicity of the boundary action",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A measurable action of a group $\\Gamma$ on $(X,\\mu)$ is ergodic if:",
+          "choices": [
+            "Every orbit is dense",
+            "Every $\\Gamma$-invariant measurable subset has measure $0$ or full measure",
+            "$\\Gamma$ acts freely",
+            "$\\Gamma$ is finite"
+          ],
+          "answer": 1,
+          "explain": "Ergodicity = no measurable invariant subsets except null/conull — the measure-theoretic version of irreducibility."
+        },
+        {
+          "type": "mcq",
+          "q": "In Mostow's proof, ergodicity of $\\Gamma$ on the boundary is used to show that the quasi-conformal boundary map:",
+          "choices": [
+            "Is constant",
+            "Has zero distortion almost everywhere, hence is conformal (Möbius)",
+            "Has infinite distortion",
+            "Vanishes on a positive-measure set"
+          ],
+          "answer": 1,
+          "explain": "The dilatation tensor of the boundary map is $\\Gamma$-invariant; ergodicity forces it constant a.e., and analysis of quasi-conformal maps then forces zero distortion → Möbius."
+        },
+        {
+          "type": "mcq",
+          "q": "Which classical result underpins ergodicity of a cocompact lattice acting on the boundary sphere?",
+          "choices": [
+            "The Hopf ergodicity theorem for geodesic flow on a hyperbolic manifold",
+            "Riesz representation",
+            "Cauchy's residue theorem",
+            "The implicit function theorem"
+          ],
+          "answer": 0,
+          "explain": "Hopf's argument shows the geodesic flow on a closed hyperbolic manifold is ergodic; this descends to ergodicity of $\\Gamma$ on $S^{n-1}\\times S^{n-1}$."
+        }
+      ]
+    },
+    "mr-arithmetic-lattices": {
+      "title": "Margulis arithmeticity",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Margulis's arithmeticity theorem states: every irreducible lattice in a connected semisimple Lie group $G$ of real rank $\\ge 2$ is:",
+          "choices": [
+            "Free",
+            "Arithmetic — commensurable with the integer points of an algebraic $\\mathbb{Q}$-group",
+            "Abelian",
+            "Finite"
+          ],
+          "answer": 1,
+          "explain": "Higher-rank lattices are forced to be number-theoretic objects; the theorem stitches differential geometry to arithmetic."
+        },
+        {
+          "type": "mcq",
+          "q": "In what crucial way does Margulis go beyond Mostow?",
+          "choices": [
+            "It reduces to the rank-one case",
+            "It applies in higher rank ($\\ge 2$) and produces an arithmetic structure, not merely an isometry",
+            "It removes the discreteness hypothesis",
+            "It only treats compact lattices"
+          ],
+          "answer": 1,
+          "explain": "Mostow handles rank one (including $\\mathbb{H}^n$) producing isometric uniqueness; Margulis attacks higher rank and yields arithmeticity — a stronger structural conclusion."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does $\\mathbb{H}^n$ not fall under arithmeticity automatically (so non-arithmetic hyperbolic lattices can exist)?",
+          "choices": [
+            "$\\mathrm{Isom}(\\mathbb{H}^n)$ has real rank $1$, below the threshold of Margulis's theorem",
+            "$\\mathbb{H}^n$ is compact",
+            "$\\mathbb{H}^n$ is not a symmetric space",
+            "All lattices in $\\mathrm{PSL}_2(\\mathbb{C})$ are arithmetic"
+          ],
+          "answer": 0,
+          "explain": "Real rank of $\\mathrm{Isom}(\\mathbb{H}^n)$ is $1$; Gromov–Piatetski-Shapiro famously construct non-arithmetic hyperbolic lattices in every dimension."
+        }
+      ]
+    },
+    "mr-applications": {
+      "title": "Volume, simplicial volume, and geometrisation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A consequence of Mostow rigidity for closed hyperbolic 3-manifolds is:",
+          "choices": [
+            "Volume is a topological invariant",
+            "Volume is unbounded in any homotopy class",
+            "Volume is always rational",
+            "Volume depends on the choice of metric"
+          ],
+          "answer": 0,
+          "explain": "Since the metric is determined by topology, every metric invariant — volume, length spectrum, Laplace spectrum — becomes a topological invariant."
+        },
+        {
+          "type": "mcq",
+          "q": "Gromov's simplicial volume $\\|M\\|$ of a closed hyperbolic $n$-manifold satisfies:",
+          "choices": [
+            "$\\|M\\| = 0$ always",
+            "$\\|M\\| = \\mathrm{Vol}(M)/v_n$, where $v_n$ is the volume of a regular ideal hyperbolic $n$-simplex",
+            "$\\|M\\| = \\chi(M)$",
+            "$\\|M\\| = $ the dimension of $M$"
+          ],
+          "answer": 1,
+          "explain": "Gromov–Thurston: simplicial volume equals hyperbolic volume divided by the maximum-volume ideal simplex constant; the ratio is rigid."
+        },
+        {
+          "type": "mcq",
+          "q": "Where does Mostow rigidity fit in Thurston's geometrisation programme for 3-manifolds?",
+          "choices": [
+            "It rules out hyperbolic geometry from the eight Thurston model geometries",
+            "It guarantees that the hyperbolic pieces of the JSJ–geometric decomposition are unique up to isometry",
+            "It implies all 3-manifolds admit a hyperbolic metric",
+            "It is unrelated to geometrisation"
+          ],
+          "answer": 1,
+          "explain": "Geometrisation cuts a 3-manifold into pieces each modelled on one of eight homogeneous geometries; the hyperbolic pieces are rigid by Mostow."
+        }
+      ]
+    }
+  }
+}

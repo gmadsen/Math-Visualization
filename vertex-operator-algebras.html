@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Vertex operator algebras</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\Spec',
+        '\\Gal':'\\Gal',
+        '\\Hom':'\\Hom',
+        '\\tr':'\\tr',
+        '\\ad':'\\ad',
+        '\\ind':'\\ind'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"automorphic-forms-adelic","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"additive-number-theory":{"next":"quadratic-forms-genus-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"moduli-spaces","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"mathematics-and-cryptography","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"mostow-rigidity","prev":"k-theory","section":"Geometry & topology","title":"Atiyah singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"etale-cohomology","section":"Algebraic geometry","title":"Calabi yau manifolds"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-topoi","prev":"infinity-categories","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":null,"prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"deformation-theory":{"next":"etale-cohomology","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"group-cohomology","prev":"homological","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"expanders","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"harmonic-analysis-fourier","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":null,"section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":"calabi-yau-manifolds","prev":"deformation-theory","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"deformation-theory","prev":"group-schemes","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":null,"prev":"designs","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"naive-set-theory","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":null,"prev":"variational-methods","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"type-theory-and-hott","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"quantum-groups","prev":"lie-algebras","section":"Algebra & homological","title":"Galois cohomology and brauer"},"galois-representations":{"next":"heights-arithmetic-geometry","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"general-relativity":{"next":"schrodinger-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":null,"prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"lie-algebras","prev":"derived-categories","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"etale-fundamental-group","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"hamiltonians-classical-mechanics":{"next":"general-relativity","prev":"three-body-problem","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"spectral-theory","prev":"partial-differential-equations","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"analytic-number-theory","prev":"galois-representations","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":null,"prev":"mathematical-statistics","section":"Probability & statistics","title":"High dimensional geometry"},"homological":{"next":"derived-categories","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"cocartesian-fibrations","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-topoi (Lurie)"},"information-theory":{"next":"large-deviations","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"stacks","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"ricci-flow","section":"Geometry & topology","title":"K theory"},"knot-polynomials":{"next":"ricci-flow","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Knot polynomials"},"large-deviations":{"next":"mathematical-statistics","prev":"information-theory","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"galois-cohomology-and-brauer","prev":"group-cohomology","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"mathematical-statistics":{"next":"high-dimensional-geometry","prev":"large-deviations","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"mirror-symmetry":{"next":"resolution-of-singularities","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"model-theory-basics":{"next":"computability-and-decidability","prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"modular-curves","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"algebraic-spaces","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"characteristic-classes","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":null,"prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Mostow rigidity"},"naive-set-theory":{"next":"first-order-logic-and-completeness","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"wavelets","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"harmonic-functions","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"stochastic-processes-and-martingales","prev":null,"section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"additive-number-theory","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"additive-number-theory","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"quantum-groups":{"next":"quaternions-octonions-and-division-algebras","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"quantum-groups","section":"Algebra & homological","title":"Quaternions octonions and division algebras"},"random-walks-and-mixing":{"next":"information-theory","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":null,"prev":"mirror-symmetry","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"k-theory","prev":"knot-polynomials","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"characteristic-classes","prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":null,"prev":"general-relativity","section":"Mathematical physics","title":"Schrodinger equation"},"sheaf-cohomology":{"next":"algebraic-de-rham-cohomology","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"algebraic-curves-higher-genus","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Sobolev spaces & distributions"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"wavelets","prev":"harmonic-functions","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"intersection-theory-chow","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":"probability-theory","section":"Probability & statistics","title":"Stochastic processes and martingales"},"symplectic-manifolds":{"next":"knot-polynomials","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"hamiltonians-classical-mechanics","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"type-theory-and-hott":{"next":"forcing-and-independence","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and hott"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"fixed-point-theorems","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":null,"prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"numerical-analysis","prev":"spectral-theory","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"model-theory-basics","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"Zfc and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="Modular forms & L-functions" data-level="advanced">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+  <a href="#vertex-ops">1&nbsp;Vertex&nbsp;ops</a>
+  <a href="#axioms">2&nbsp;Axioms</a>
+  <a href="#virasoro">3&nbsp;Virasoro</a>
+  <a href="#modular">4&nbsp;Modular</a>
+  <a href="#moonshine-mod">5&nbsp;$V^\natural$</a>
+  <a href="#applications">6&nbsp;CFT&nbsp;&amp;&nbsp;chiral</a>
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Vertex operator algebras</h1>
+  <p class="sub">A vertex operator algebra is the algebraic shadow of two-dimensional conformal field theory: states are vectors, fields are formal Laurent series of operators indexed by states, and the only thing that replaces commutativity is locality — the requirement that any two fields commute up to a finite-order pole at the diagonal. This single relaxation is enough to encode the Virasoro algebra, force modular invariance on graded characters, and produce $V^\natural$, the algebra whose automorphism group is the Monster.</p>
+  <div class="note"><strong>Prerequisites.</strong> Formal power series and $q$-expansions live in <a href="./modular-forms.html#qexp">modular forms</a>. The Lie-algebra background — root systems, the Cartan–Killing classification, and central extensions — comes from <a href="./lie-algebras.html">Lie algebras</a>. Characters, irreducibles, and trace formulas are developed in <a href="./representation-theory.html">representation theory</a>. The downstream payoff is <a href="./moonshine.html">monstrous moonshine</a>.</div>
+</section>
+
+<section id="vertex-ops">
+<h2>1. Vertex operators and locality</h2>
+
+<p>Fix a $\mathbb{Z}$-graded complex vector space $V = \bigoplus_{n} V_n$. A <strong>vertex operator</strong> is a linear map
+$$Y(\,\cdot\,, z) \;:\; V \;\to\; \mathrm{End}(V)[[z, z^{-1}]], \qquad Y(a, z) \;=\; \sum_{n \in \mathbb{Z}} a_n\, z^{-n - 1},$$
+that takes a state $a \in V$ to a formal Laurent series whose coefficients $a_n \in \mathrm{End}(V)$ are called the <em>modes</em> of $a$. The convention $z^{-n-1}$ (rather than $z^n$) is so that $a_n$ lowers degree by $n$, consistent with the conformal-weight grading we will introduce.</p>
+
+<p>Two states $a, b$ produce two operator-valued series $Y(a, z)$ and $Y(b, w)$. They cannot in general commute as endomorphisms of $V$, because acting on a single fixed vector both have infinitely many non-zero modes — a single composition is itself a doubly infinite formal series. What replaces commutativity is</p>
+
+<div class="ok">
+<p><strong>Locality.</strong> For every $a, b \in V$ there exists $N \ge 0$ (depending on $a, b$) such that</p>
+<p>$$(z - w)^N \; \big[\, Y(a, z),\, Y(b, w) \,\big] \;=\; 0 \quad \text{in } \mathrm{End}(V)[[z^{\pm 1}, w^{\pm 1}]].$$</p>
+</div>
+
+<p>Multiplying by $(z - w)^N$ kills any pole of order at most $N$ on the diagonal $z = w$; the equation says that after this clearing-of-denominators the two compositions agree. Locality is strictly weaker than commutativity (it allows finite-order singularities at $z = w$) and strictly stronger than nothing (it forbids essential singularities).</p>
+
+<div class="widget" id="w-vop">
+  <div class="hd"><div class="ttl">Widget 1 · Mode bookkeeping</div><div class="hint">drag the slider to read off which mode $a_n$ comes from which power of $z$ in $Y(a,z) = \sum a_n z^{-n-1}$</div></div>
+  <div class="row">
+    <label for="w-vop-n">mode index $n$ =</label>
+    <input id="w-vop-n" type="range" min="-4" max="4" step="1" value="-1">
+    <span id="w-vop-nv" class="pill">n = −1</span>
+  </div>
+  <svg viewBox="0 0 720 200" id="w-vop-svg" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Widget 1 · Mode bookkeeping</title></svg>
+  <div class="readout" id="w-vop-out"></div>
+</div>
+
+<script>
+(function(){
+  const sl = $('#w-vop-n'), lb = $('#w-vop-nv'), svg = $('#w-vop-svg'), out = $('#w-vop-out');
+  function render(){
+    const n = +sl.value;
+    lb.textContent = `n = ${n}`;
+    svg.innerHTML = "";
+    // axis
+    svg.appendChild(SVG('line',{x1:30,y1:120,x2:690,y2:120,stroke:'var(--line)','stroke-width':1}));
+    // mode bins -4..4 mapped to z^{-(n+1)}
+    const xs = [];
+    for(let k=-4;k<=4;k++){
+      const x = 60 + (k + 4) * 70;
+      xs.push({k,x});
+      const fill = (k===n) ? 'var(--yellow)' : 'var(--panel2)';
+      const stroke = (k===n) ? 'var(--yellow)' : 'var(--line)';
+      svg.appendChild(SVG('rect',{x:x-22,y:90,width:44,height:30,rx:4,
+        fill, stroke,'stroke-width':1.5}));
+      const tlab = SVG('text',{x,y:111,'text-anchor':'middle','font-size':13,
+        fill:(k===n?'#111':'var(--ink)'),'font-weight':600});
+      tlab.textContent = `a_${k}`;
+      svg.appendChild(tlab);
+      const tpow = SVG('text',{x,y:148,'text-anchor':'middle','font-size':12,
+        fill:'var(--mute)','font-style':'italic'});
+      tpow.textContent = `z^{${-k-1}}`;
+      svg.appendChild(tpow);
+    }
+    const ttl = SVG('text',{x:360,y:35,'text-anchor':'middle','font-size':14,fill:'var(--ink)'});
+    ttl.textContent = "Y(a, z) = … + a_{-2} z + a_{-1} + a_0 z^{-1} + a_1 z^{-2} + …";
+    svg.appendChild(ttl);
+    const ttl2 = SVG('text',{x:360,y:182,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    ttl2.textContent = "highlighted: coefficient of z^{-(n+1)}";
+    svg.appendChild(ttl2);
+    let s = `mode  a_${n}  is the coefficient of  z^{${-n-1}}\n`;
+    if(n===-1) s += "this is the constant-in-z term; a_{-1} 1 = a (creation axiom)";
+    else if(n>=0) s += "n ≥ 0 : these modes annihilate the vacuum (positive-energy half)";
+    else s += "n ≤ -1 : these modes create from the vacuum (negative-energy half)";
+    out.textContent = s;
+  }
+  sl.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<p>Two further axioms tie the formal-series picture to a state space: the <strong>vacuum</strong> $\mathbf{1} \in V$ is a distinguished element with $Y(\mathbf{1}, z) = \mathrm{id}_V$, and <strong>creation</strong> demands $Y(a, z)\mathbf{1} \in V[[z]]$ with $Y(a, z)\mathbf{1}\big|_{z = 0} = a$. Reading the constant-in-$z$ coefficient gives $a_{-1}\mathbf{1} = a$: every state is recovered by acting with the $(-1)$-mode on the vacuum.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./lie-algebras.html#axioms">Axioms and matrix examples</a></li>
+    <li><a href="./modular-forms.html#qexp">q-expansions and arithmetic data</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="voa-vertex-operators"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./lie-algebras.html#axioms">Axioms and matrix examples</a></li>
+    <li><a href="./modular-forms.html#qexp">q-expansions and arithmetic data</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./vertex-operator-algebras.html#axioms">Vertex operator algebras</a> · VOA axioms — vacuum, translation, locality, Jacobi</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="axioms">
+<h2>2. The full axiom system — vacuum, translation, locality, Jacobi</h2>
+
+<p>A <strong>vertex operator algebra</strong> is a quadruple $(V, Y, \mathbf{1}, \omega)$ where $V$ is a $\mathbb{Z}$-graded vector space (eventually $\mathbb{Z}_{\ge 0}$ once a Virasoro is fixed), $Y : V \to \mathrm{End}(V)[[z^{\pm 1}]]$ is a state–field correspondence, $\mathbf{1} \in V$ is a vacuum vector, and $\omega \in V$ is a conformal vector (treated separately in §3). The axioms — there are five — split into two camps:</p>
+
+<table class="plain">
+<thead><tr><th>axiom</th><th>statement</th><th>role</th></tr></thead>
+<tbody>
+<tr><td>Vacuum</td><td>$Y(\mathbf{1}, z) = \mathrm{id}_V$</td><td>$\mathbf{1}$ is the unit of the operator algebra</td></tr>
+<tr><td>Creation</td><td>$Y(a, z)\mathbf{1} \in V[[z]]$, equal to $a$ at $z = 0$</td><td>state–field correspondence is injective on states</td></tr>
+<tr><td>Translation</td><td>$[T, Y(a, z)] = \partial_z Y(a, z)$</td><td>infinitesimal translation by an inner derivation</td></tr>
+<tr><td>Locality</td><td>$(z - w)^N [Y(a, z), Y(b, w)] = 0$ for $N \gg 0$</td><td>fields commute up to a diagonal pole</td></tr>
+<tr><td>Grading</td><td>$V = \bigoplus_n V_n$ with $\dim V_n &lt; \infty$, $V_n = 0$ for $n \ll 0$</td><td>finiteness of the spectrum</td></tr>
+</tbody>
+</table>
+
+<p>An equivalent and often more useful repackaging is the <strong>Borcherds–Jacobi identity</strong>: for all $a, b, c \in V$ and all integers $\ell, m, n$,
+$$\sum_{i \ge 0} \binom{\ell}{i} (a_{m + i} b)_{n + \ell - i} c \;=\; \sum_{i \ge 0} (-1)^i \binom{\ell}{i} \big( a_{m + \ell - i} b_{n + i} c \;-\; (-1)^\ell b_{n + \ell - i} a_{m + i} c \big).$$
+The Jacobi identity bundles locality, weak associativity (the Goddard uniqueness theorem), and skew-symmetry into a single relation among modes. Once you accept it, all manipulations become combinatorics with binomial coefficients.</p>
+
+<div class="widget" id="w-ax">
+  <div class="hd"><div class="ttl">Widget 2 · Axiom dependency map</div><div class="hint">click a node to see which axioms force which structure</div></div>
+  <svg viewBox="0 0 720 320" id="w-ax-svg" style="background:#0b0f16;border:1px solid var(--line);border-radius:6px"><title>Widget 2 · Axiom dependency map</title></svg>
+  <div class="readout" id="w-ax-out">click an axiom node…</div>
+</div>
+
+<script>
+(function(){
+  const svg = $('#w-ax-svg'), out = $('#w-ax-out');
+  const NODES = [
+    {id:"vac",   x:120, y:60,  label:"Vacuum",     color:'var(--blue)',
+     desc:"Y(1, z) = id_V. Forces 1 to be the unit; a_{-1} 1 = a recovers states from modes."},
+    {id:"crea",  x:340, y:60,  label:"Creation",   color:'var(--blue)',
+     desc:"Y(a, z) 1 ∈ V[[z]] with value a at z=0. Couples vacuum to grading: positive modes a_{n≥0} kill 1."},
+    {id:"loc",   x:580, y:60,  label:"Locality",   color:'var(--cyan)',
+     desc:"(z−w)^N [Y(a,z), Y(b,w)] = 0. Fields commute up to a finite-order pole on the diagonal — the OPE."},
+    {id:"trans", x:230, y:200, label:"Translation",color:'var(--violet)',
+     desc:"[T, Y(a,z)] = ∂_z Y(a,z). Infinitesimal translations are inner derivations of the operator algebra."},
+    {id:"jac",   x:470, y:200, label:"Jacobi",     color:'var(--yellow)',
+     desc:"Borcherds–Jacobi identity. Equivalent to locality + weak associativity; bundles everything into one relation."},
+    {id:"gr",    x:350, y:280, label:"Grading",    color:'var(--green)',
+     desc:"V = ⊕ V_n, finite-dim pieces, bounded below. Required so that traces and characters converge."},
+  ];
+  const EDGES = [
+    ["vac","trans","↦"],["crea","trans","↦"],
+    ["loc","jac","≡"], ["trans","jac","↦"],
+    ["jac","gr","↦"], ["loc","gr","↦"]
+  ];
+  const NMAP = Object.fromEntries(NODES.map(n=>[n.id,n]));
+  ensureArrow(svg,'arrow-ax','var(--mute)');
+  EDGES.forEach(([a,b])=>{
+    const A = NMAP[a], B = NMAP[b];
+    drawArrow(svg, [A.x, A.y+18], [B.x, B.y-18], {color:'var(--mute)',markerId:'arrow-ax',width:1.2,curve:0});
+  });
+  NODES.forEach(n=>{
+    const g = SVG('g',{style:'cursor:pointer'});
+    g.appendChild(SVG('rect',{x:n.x-58,y:n.y-18,width:116,height:36,rx:8,
+      fill:'var(--panel2)',stroke:n.color,'stroke-width':1.5}));
+    const t = SVG('text',{x:n.x,y:n.y+5,'text-anchor':'middle','font-size':14,fill:'#fff','font-weight':600});
+    t.textContent = n.label;
+    g.appendChild(t);
+    g.addEventListener('click', ()=>{
+      out.textContent = `${n.label}\n${n.desc}`;
+    });
+    svg.appendChild(g);
+  });
+  // legend at viewport offset
+  const L = SVG('g',{transform:'translate(540, 280)'});
+  L.appendChild(SVG('rect',{x:0,y:0,width:170,height:30,rx:4,
+    fill:'rgba(0,0,0,0.4)',stroke:'var(--line)','stroke-width':1}));
+  const lt = SVG('text',{x:8,y:19,'font-size':11,fill:'var(--mute)'});
+  lt.textContent = "arrows: implication / equivalence";
+  L.appendChild(lt);
+  svg.appendChild(L);
+})();
+</script>
+
+<p>The five axioms are not independent: in many treatments translation is derived from $L_{-1}$ (a Virasoro mode) and grading is derived from $L_0$, so the irreducible core is "Y plus vacuum plus locality plus a conformal vector". That is why the Borcherds–Jacobi identity has become the working definition.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./lie-algebras.html#axioms">Lie algebra axioms</a> — the locality axiom is to VOAs as the Jacobi identity is to Lie algebras.</li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./vertex-operator-algebras.html#virasoro">Vertex operator algebras</a> · Virasoro algebra and central charge</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="voa-axioms"></div>
+</section>
+
+<section id="virasoro">
+<h2>3. The Virasoro algebra and central charge</h2>
+
+<p>The conformal vector $\omega \in V$ is a state of conformal weight $2$ whose vertex operator
+$$Y(\omega, z) \;=\; \sum_{n \in \mathbb{Z}} L_n\, z^{-n - 2}$$
+generates a copy of the <strong>Virasoro algebra</strong> inside $\mathrm{End}(V)$:
+$$\boxed{\;[L_m, L_n] \;=\; (m - n)\, L_{m + n} \;+\; \frac{c}{12} (m^3 - m)\, \delta_{m + n,\, 0}\;}.$$
+The constant $c \in \mathbb{C}$ is the <strong>central charge</strong> of the VOA; it is a numerical invariant rigidly determined by the VOA structure. The shift $-2$ in $z^{-n-2}$ encodes that $\omega$ has weight $2$: more generally a state of weight $h$ has $Y(a, z) = \sum_n a_n z^{-n - h}$.</p>
+
+<p>Two further demands fix $\omega$'s role: $L_{-1} = T$ is the translation operator (so the translation axiom is now a consequence), and $L_0$ acts on $V_n$ by the integer $n$. The grading is therefore the spectrum of $L_0$.</p>
+
+<div class="widget" id="w-vir">
+  <div class="hd"><div class="ttl">Widget 3 · Virasoro bracket calculator</div><div class="hint">pick $m, n$ and central charge $c$; widget evaluates $[L_m, L_n]$ and shows the central term</div></div>
+  <div class="row">
+    <label>m =</label>
+    <select id="w-vir-m">
+      <option>-3</option><option>-2</option><option>-1</option>
+      <option selected>0</option><option>1</option><option>2</option><option>3</option>
+    </select>
+    <label>n =</label>
+    <select id="w-vir-n">
+      <option>-3</option><option>-2</option><option selected>-1</option>
+      <option>0</option><option>1</option><option>2</option><option>3</option>
+    </select>
+    <label for="w-vir-c">c =</label>
+    <input id="w-vir-c" type="range" min="0" max="48" step="1" value="24">
+    <span id="w-vir-cv" class="pill">c = 24</span>
+  </div>
+  <div class="readout" id="w-vir-out"></div>
+</div>
+
+<script>
+(function(){
+  const M = $('#w-vir-m'), N = $('#w-vir-n'), C = $('#w-vir-c'), CV = $('#w-vir-cv'), OUT = $('#w-vir-out');
+  function render(){
+    const m = parseInt(M.value, 10), n = parseInt(N.value, 10), c = parseInt(C.value, 10);
+    CV.textContent = `c = ${c}`;
+    const sum = m + n;
+    const struct = m - n;
+    const cocycle = (sum === 0) ? (m*m*m - m) : 0;
+    const cterm = (sum === 0) ? (c * (m*m*m - m)) / 12 : 0;
+    let lines = [];
+    lines.push(`[L_${m}, L_${n}]  =  ${struct} · L_${sum}` + (sum===0 ? `  +  (c/12)(m^3 − m) · δ_{m+n,0}` : ``));
+    lines.push("");
+    lines.push(`structure constant  (m − n)            = ${struct}`);
+    lines.push(`m^3 − m                               = ${m*m*m - m}`);
+    lines.push(`(m^3 − m) · δ_{m+n,0}                = ${cocycle}`);
+    lines.push(`central term  (c/12)(m^3 − m) δ_{m+n,0} = ${cterm}`);
+    if(sum !== 0){
+      lines.push("");
+      lines.push("(central term vanishes when m + n ≠ 0)");
+    } else if(m === -1 || m === 0 || m === 1){
+      lines.push("");
+      lines.push("(central term vanishes on the sl_2 subalgebra ⟨L_{−1}, L_0, L_1⟩ since m^3 − m = 0)");
+    }
+    OUT.textContent = lines.join("\n");
+  }
+  [M, N, C].forEach(el => el.addEventListener('input', render));
+  render();
+})();
+</script>
+
+<p>Among VOAs the central charge takes integer or rational values for the most-studied examples: $c = 1$ for the Heisenberg (free-boson) VOA, $c = \dim L$ for a lattice VOA on a rank-$\dim L$ lattice, $c = \frac{k\dim\mathfrak{g}}{k + h^\vee}$ at level $k$ for the affine Kac–Moody VOA $\widehat{\mathfrak{g}}_k$, and $c = 24$ for the moonshine module $V^\natural$. Unitary VOAs satisfy $c \ge 0$.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./lie-algebras.html#classification">Cartan–Killing classification</a> — the Virasoro algebra is the unique non-trivial central extension of the Witt algebra; central extensions belong to the deformation-theoretic side of Lie theory.</li>
+    <li><a href="./lie-algebras.html#cartan-killing">Cartan, Killing, and semisimplicity</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./vertex-operator-algebras.html#modular">Vertex operator algebras</a> · Modular invariance — Zhu's theorem</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="voa-virasoro"></div>
+</section>
+
+<section id="modular">
+<h2>4. Modular invariance — Zhu's theorem</h2>
+
+<p>If $V$ is a "nice enough" VOA — rational and $C_2$-cofinite, in the technical jargon — it has only finitely many irreducible modules $M_1, \ldots, M_r$. To each module $M$ attach the <strong>graded character</strong>
+$$\mathrm{ch}_M(\tau) \;=\; \tr_M\, q^{L_0 - c/24}, \qquad q = e^{2\pi i \tau},$$
+treated as a formal $q$-series. The $-c/24$ shift is the Casimir of the Virasoro vacuum representation; equivalently it is the shift that appears in $\eta(\tau) = q^{1/24}\prod (1 - q^n)$.</p>
+
+<div class="ok">
+<p><strong>Zhu's theorem (1996).</strong> The vector space spanned by $\mathrm{ch}_{M_1}, \ldots, \mathrm{ch}_{M_r}$ is invariant under the action of $\mathrm{SL}_2(\mathbb{Z})$ via $\tau \mapsto \frac{a\tau + b}{c\tau + d}$. Each character $\mathrm{ch}_{M_i}$ is one component of a vector-valued modular form for $\mathrm{SL}_2(\mathbb{Z})$.</p>
+</div>
+
+<p>Two consequences are immediate. First, characters need not individually be $\mathrm{SL}_2(\mathbb{Z})$-modular — they merely span an $\mathrm{SL}_2(\mathbb{Z})$-stable space. Second, the matrix $S$ representing the action of $\tau \mapsto -1/\tau$ on the basis of characters carries the <em>fusion-rule</em> data of the VOA via the Verlinde formula. Modular invariance is the bridge from the algebraic VOA side to the analytic modular-forms side.</p>
+
+<div class="widget" id="w-zhu">
+  <div class="hd"><div class="ttl">Widget 4 · Character of $V^\natural$ — leading $q$-coefficients</div><div class="hint">slide $N$ to read off $\mathrm{ch}_{V^\natural}(\tau) = \sum (\dim V^\natural_n) q^{n - 1}$ and recover $J(\tau)$</div></div>
+  <div class="row">
+    <label for="w-zhu-N">show through $q^N$ with $N$ =</label>
+    <input id="w-zhu-N" type="range" min="0" max="6" step="1" value="3">
+    <span id="w-zhu-Nv" class="pill">N = 3</span>
+  </div>
+  <div class="readout" id="w-zhu-out"></div>
+</div>
+
+<script>
+(function(){
+  // dim V^natural_n = c_n (Fourier coef of j(tau))
+  // grading shift: in V^natural, V^natural_n has L_0 - c/24 = n - 1 (since c = 24, c/24 = 1)
+  // so ch_{V^natural}(tau) = sum_n (dim V^natural_n) q^{n-1}, leading term q^{-1}.
+  const C = ["1","196884","21493760","864299970","20245856256","333202640600","4252023300096"];
+  const sl = $('#w-zhu-N'), lb = $('#w-zhu-Nv'), out = $('#w-zhu-out');
+  function render(){
+    const N = +sl.value;
+    lb.textContent = `N = ${N}`;
+    let lines = [];
+    lines.push("ch_{V^natural}(tau)  =  tr q^{L_0 − c/24}    (c = 24, so c/24 = 1)");
+    lines.push("");
+    lines.push("n   L_0 − c/24    dim V^natural_n");
+    lines.push("--  -----------   ---------------");
+    for(let n=0;n<=N;n++){
+      const exp = (n - 1).toString().padStart(3," ");
+      const dim = C[n].padStart(15," ");
+      lines.push(`${n.toString().padStart(2," ")}      ${exp}        ${dim}`);
+    }
+    lines.push("");
+    let series = "ch = q^{-1}";
+    for(let n=1;n<=N;n++){
+      const e = n - 1;
+      const term = (e === 0) ? `${C[n]}` : `${C[n]}·q^{${e}}`;
+      series += `  +  ${term}`;
+    }
+    series += "  +  …";
+    lines.push(series);
+    lines.push("");
+    lines.push("compare j(tau) − 744 = J(tau) = q^{-1} + 196884·q + 21493760·q^2 + …");
+    out.textContent = lines.join("\n");
+  }
+  sl.addEventListener('input', render);
+  render();
+})();
+</script>
+
+<p>The smallest unitary rational VOAs at $c &lt; 1$ are the <em>minimal-model</em> VOAs $\mathrm{Vir}(p, q)$ at central charge $c = 1 - 6(p - q)^2 / pq$; their characters are the famous Rogers–Ramanujan-type identities. At $c = 1$ the Heisenberg VOA gives $\mathrm{ch} = 1/\eta(\tau)$, with the modular weight $-1/2$ visible in the $\eta$-shift. At $c = 24$ the moonshine module gives $\mathrm{ch} = J(\tau)$ — a weight-$0$ modular function.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./modular-forms.html#forms">Modular form definition</a> — Zhu's theorem promotes characters to vector-valued modular forms.</li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./vertex-operator-algebras.html#applications">Vertex operator algebras</a> · Applications — chiral CFT and chiral algebras</div>
+    <div><a href="./vertex-operator-algebras.html#moonshine-mod">Vertex operator algebras</a> · The moonshine module $V^\natural$</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="voa-modular-invariance"></div>
+</section>
+
+<section id="moonshine-mod">
+<h2>5. The moonshine module $V^\natural$</h2>
+
+<p>Frenkel, Lepowsky, and Meurman built $V^\natural$ in the mid-1980s by orbifolding the lattice VOA on the Leech lattice $\Lambda$. The construction has three layers:</p>
+
+<table class="plain">
+<thead><tr><th>step</th><th>object</th><th>graded dim</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>$V_\Lambda$ — the lattice VOA on the Leech lattice $\Lambda$ (rank $24$)</td><td>$\Theta_\Lambda(\tau) / \eta(\tau)^{24}$</td></tr>
+<tr><td>2</td><td>$V_\Lambda^+$ — fixed points of the $-1$ involution (a VOA itself)</td><td>$\frac{1}{2}\big(\mathrm{ch}\, V_\Lambda + \mathrm{ch}\, V_\Lambda^{tw}\big)$</td></tr>
+<tr><td>3</td><td>$V^\natural = V_\Lambda^+ \oplus V_\Lambda^{tw,+}$ — the $\mathbb{Z}/2$ orbifold</td><td>$J(\tau) = j(\tau) - 744$</td></tr>
+</tbody>
+</table>
+
+<p>The miracle is that the orbifolding kills the constant term ($744$) and leaves a graded VOA whose graded dimension is exactly $J(\tau)$. By construction the Monster $\mathbb{M}$ acts as <em>automorphisms of $V^\natural$</em> — and FLM showed it is the <em>full</em> automorphism group.</p>
+
+<div class="widget" id="w-moon">
+  <div class="hd"><div class="ttl">Widget 5 · McKay–Thompson series viewer</div><div class="hint">pick a Monster conjugacy class; widget shows $T_g(\tau) = \sum \tr(g\,|\,V^\natural_n)\, q^{n-1}$ leading coefficients and its Hauptmodul label</div></div>
+  <div class="row">
+    <label>conjugacy class:</label>
+    <select id="w-moon-g">
+      <option value="1A" selected>1A — identity</option>
+      <option value="2A">2A — Bimonster involution</option>
+      <option value="2B">2B — other involution</option>
+      <option value="3A">3A — order 3 (Fi24-related)</option>
+      <option value="3B">3B — other order 3</option>
+      <option value="5A">5A — order 5</option>
+    </select>
+  </div>
+  <div class="readout" id="w-moon-out"></div>
+</div>
+
+<script>
+(function(){
+  // McKay-Thompson series leading traces, from Conway-Norton tables.
+  // Format: name, Gamma label (Hauptmodul of), q^-1 coef, q coef, q^2 coef, q^3 coef.
+  const T = {
+    "1A": {g:"Γ_0(1)+",       q:[1,196884, 21493760,    864299970]},
+    "2A": {g:"Γ_0(2)+",       q:[1,4372,   96256,       1240002]},
+    "2B": {g:"Γ_0(2)",        q:[1,276,    -2048,       11202]},
+    "3A": {g:"Γ_0(3)+",       q:[1,783,    8672,        65367]},
+    "3B": {g:"Γ_0(3)",        q:[1,54,     -76,         243]},
+    "5A": {g:"Γ_0(5)+",       q:[1,134,    760,         3345]},
+  };
+  const S = $('#w-moon-g'), OUT = $('#w-moon-out');
+  function render(){
+    const g = S.value;
+    const data = T[g];
+    let lines = [];
+    lines.push(`McKay–Thompson series  T_${g}(tau)  =  Σ tr(g | V^natural_n) q^{n-1}`);
+    lines.push("");
+    lines.push(`leading coefficients (n = 0, 1, 2, 3):`);
+    lines.push(`q^{-1}  :  ${data.q[0]}        (always 1 — vacuum is g-fixed)`);
+    lines.push(`q^{0}   :  ${data.q[1]}`);
+    lines.push(`q^{1}   :  ${data.q[2]}`);
+    lines.push(`q^{2}   :  ${data.q[3]}`);
+    lines.push("");
+    lines.push(`Conway–Norton: T_${g}(tau) is the Hauptmodul of  ${data.g}`);
+    lines.push(`(i.e., generates the function field of a genus-zero modular curve)`);
+    OUT.textContent = lines.join("\n");
+  }
+  S.addEventListener('change', render);
+  render();
+})();
+</script>
+
+<p>The graded dimension is the case $g = 1$, and recovers $J(\tau)$. For $g \ne 1$ the trace $\tr(g \mid V^\natural_n)$ assembles into a different $q$-series — Conway and Norton conjectured (and Borcherds proved) that each such series is the Hauptmodul of a genus-zero subgroup of $\mathrm{SL}_2(\mathbb{R})$ commensurable with $\mathrm{SL}_2(\mathbb{Z})$. Borcherds' proof routes through the <em>Monster Lie algebra</em>, a generalised Kac–Moody algebra obtained by tensoring $V^\natural$ with the rank-2 Lorentzian-lattice VOA and applying the Goddard–Thorn no-ghost theorem; its denominator identity gives recursion relations among the trace coefficients that uniquely pin them to the Hauptmodul side.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./moonshine.html#borcherds">Borcherds' proof — generalized Kac–Moody and replication</a> — the Monster Lie algebra is built from $V^\natural$.</li>
+    <li><a href="./representation-theory.html#characters">Characters and orthogonality</a> — McKay–Thompson series are graded characters of the Monster acting on $V^\natural$.</li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+<div class="quiz" data-concept="voa-moonshine-module"></div>
+</section>
+
+<section id="applications">
+<h2>6. Applications — chiral CFT and Beilinson–Drinfeld chiral algebras</h2>
+
+<p>Vertex operator algebras axiomatise the <strong>chiral half</strong> of two-dimensional conformal field theory. A 2D CFT factors (subject to modular invariance) into a holomorphic and an antiholomorphic sector; each sector is a VOA. The full theory is reconstructed from the two halves plus gluing data, and modular invariance of the partition function is exactly Zhu's theorem applied to both halves.</p>
+
+<p>The geometric upgrade is due to Beilinson and Drinfeld: a <strong>chiral algebra</strong> on an algebraic curve $X$ is a $\mathcal{D}_X$-module $\mathcal{A}$ together with a chiral product
+$$\mu : j_*j^* (\mathcal{A} \boxtimes \mathcal{A}) \;\to\; \Delta_*\mathcal{A}$$
+(where $j$ is the open immersion of $X^2 \setminus \Delta$ into $X^2$ and $\Delta$ is the diagonal) satisfying associativity and skew-symmetry constraints. Restricting to the formal disc near a closed point recovers a VOA; varying the point globalises it to the entire curve.</p>
+
+<div class="widget" id="w-app">
+  <div class="hd"><div class="ttl">Widget 6 · VOA construction zoo</div><div class="hint">pick a construction; widget shows the input data and central charge $c$</div></div>
+  <div class="row">
+    <label>construction:</label>
+    <select id="w-app-k">
+      <option value="heis" selected>Heisenberg (free boson)</option>
+      <option value="lat">Lattice VOA $V_L$</option>
+      <option value="aff">Affine Kac–Moody $\widehat{\mathfrak{g}}_k$</option>
+      <option value="vir">Virasoro $\mathrm{Vir}(p,q)$</option>
+      <option value="vnat">Moonshine module $V^\natural$</option>
+      <option value="bd">BD chiral algebra $\mathcal{A}$ on $X$</option>
+    </select>
+  </div>
+  <div class="readout" id="w-app-out"></div>
+</div>
+
+<script>
+(function(){
+  const ZOO = {
+    heis: {
+      name: "Heisenberg (free boson)",
+      input: "rank-1 abelian Lie algebra h with non-degenerate form",
+      c: "c = 1 (rank 1)",
+      detail: "Generators b_n with [b_m, b_n] = m δ_{m+n,0}; Y(b, z) = sum b_n z^{-n-1}.\nCharacter: ch = 1/eta(tau).\nThe simplest interesting VOA — the building block for lattice and affine constructions."
+    },
+    lat: {
+      name: "Lattice VOA V_L",
+      input: "even positive-definite lattice L of rank r",
+      c: "c = r = rank L",
+      detail: "Underlying space C[L] tensor S(h_-) where h = L tensor C, h_- the negative Heisenberg modes.\nVertex operators e^{alpha} for alpha in L are the lattice exponentials.\nL = Leech (rank 24): central charge 24, building block of the moonshine module."
+    },
+    aff: {
+      name: "Affine Kac–Moody VOA  V_k(g)",
+      input: "simple Lie algebra g, level k (positive integer)",
+      c: "c = k·dim(g) / (k + h^∨)",
+      detail: "Vacuum module of the affine Lie algebra hat{g} at level k, modulo the singular vectors at integral level.\nIrreducible modules ↔ integrable highest-weight reps of hat{g}_k.\nUnderlies the Wess–Zumino–Witten model in CFT."
+    },
+    vir: {
+      name: "Virasoro minimal model  Vir(p, q)",
+      input: "coprime integers p, q ≥ 2",
+      c: "c = 1 − 6(p−q)^2 / (p·q)",
+      detail: "(p, q) = (3, 4): Ising model, c = 1/2.\n(p, q) = (4, 5): tricritical Ising, c = 7/10.\nFinitely many irreducible modules — characters give the famous Rogers–Ramanujan-type identities."
+    },
+    vnat: {
+      name: "Moonshine module  V^natural",
+      input: "Z/2-orbifold of V_Λ for Λ = Leech lattice",
+      c: "c = 24",
+      detail: "Graded dimension = J(tau) = j(tau) − 744.\nAutomorphism group = the Monster M (full Aut group, FLM 1988).\nMcKay–Thompson series tr(g|V^natural_n) → Hauptmoduln (Borcherds 1992)."
+    },
+    bd: {
+      name: "Beilinson–Drinfeld chiral algebra",
+      input: "a smooth algebraic curve X, plus a D_X-module with chiral product",
+      c: "c is intrinsic to the local VOA; global object lives over X",
+      detail: "A chiral algebra is the global / curve-valued upgrade of a VOA.\nRestriction to formal disc at x ∈ X recovers a VOA.\nFundamental object in geometric Langlands: the BD-affine grassmannian and BD chiral chiral algebras give the Hecke side."
+    }
+  };
+  const S = $('#w-app-k'), OUT = $('#w-app-out');
+  function render(){
+    const d = ZOO[S.value];
+    let lines = [];
+    lines.push(`construction: ${d.name}`);
+    lines.push(`input data:   ${d.input}`);
+    lines.push(`central charge: ${d.c}`);
+    lines.push("");
+    lines.push(d.detail);
+    OUT.textContent = lines.join("\n");
+  }
+  S.addEventListener('change', render);
+  render();
+})();
+</script>
+
+<p>The chiral-algebra framework is the technical heart of the geometric Langlands program: the Hecke side is built from BD chiral algebras on the affine Grassmannian, and the Galois side from $\mathcal{D}$-modules on the moduli stack of bundles. The "geometric Satake" equivalence is, in this language, a statement that two chiral algebras are equivalent. None of this would have been formulable without the VOA prehistory — locality, modular invariance, and rationality are the formal-power-series shadows of an entire chapter of representation theory.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./representation-theory.html#def">Group representations</a> — VOA modules form a modular tensor category, the natural home for fusion rules.</li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+<div class="quiz" data-concept="voa-applications"></div>
+</section>
+
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/ /g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('vertex-operator-algebras'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-27</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

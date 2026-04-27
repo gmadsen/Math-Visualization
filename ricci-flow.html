@@ -1,0 +1,1004 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ricci flow</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\Spec',
+        '\\Gal':'\\Gal',
+        '\\Hom':'\\Hom',
+        '\\tr':'\\tr',
+        '\\ad':'\\ad',
+        '\\ind':'\\ind'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"automorphic-forms-adelic","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"additive-number-theory":{"next":"quadratic-forms-genus-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"moduli-spaces","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"mathematics-and-cryptography","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"mostow-rigidity","prev":"k-theory","section":"Geometry & topology","title":"Atiyah singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"etale-cohomology","section":"Algebraic geometry","title":"Calabi yau manifolds"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-topoi","prev":"infinity-categories","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":null,"prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"deformation-theory":{"next":"etale-cohomology","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"group-cohomology","prev":"homological","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"expanders","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"harmonic-analysis-fourier","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":null,"section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":"calabi-yau-manifolds","prev":"deformation-theory","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"deformation-theory","prev":"group-schemes","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":null,"prev":"designs","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"naive-set-theory","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":null,"prev":"variational-methods","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"type-theory-and-hott","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"quantum-groups","prev":"lie-algebras","section":"Algebra & homological","title":"Galois cohomology and brauer"},"galois-representations":{"next":"heights-arithmetic-geometry","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"general-relativity":{"next":"schrodinger-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":null,"prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"lie-algebras","prev":"derived-categories","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"etale-fundamental-group","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"hamiltonians-classical-mechanics":{"next":"general-relativity","prev":"three-body-problem","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"spectral-theory","prev":"partial-differential-equations","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"analytic-number-theory","prev":"galois-representations","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":null,"prev":"mathematical-statistics","section":"Probability & statistics","title":"High dimensional geometry"},"homological":{"next":"derived-categories","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"cocartesian-fibrations","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-topoi (Lurie)"},"information-theory":{"next":"large-deviations","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"stacks","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"ricci-flow","section":"Geometry & topology","title":"K theory"},"knot-polynomials":{"next":"ricci-flow","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Knot polynomials"},"large-deviations":{"next":"mathematical-statistics","prev":"information-theory","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"galois-cohomology-and-brauer","prev":"group-cohomology","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"mathematical-statistics":{"next":"high-dimensional-geometry","prev":"large-deviations","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"mirror-symmetry":{"next":"resolution-of-singularities","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"model-theory-basics":{"next":"computability-and-decidability","prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"modular-curves","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"algebraic-spaces","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"characteristic-classes","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":null,"prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Mostow rigidity"},"naive-set-theory":{"next":"first-order-logic-and-completeness","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"wavelets","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"harmonic-functions","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"stochastic-processes-and-martingales","prev":null,"section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"additive-number-theory","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"additive-number-theory","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"quantum-groups":{"next":"quaternions-octonions-and-division-algebras","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"quantum-groups","section":"Algebra & homological","title":"Quaternions octonions and division algebras"},"random-walks-and-mixing":{"next":"information-theory","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":null,"prev":"mirror-symmetry","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"k-theory","prev":"knot-polynomials","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"characteristic-classes","prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":null,"prev":"general-relativity","section":"Mathematical physics","title":"Schrodinger equation"},"sheaf-cohomology":{"next":"algebraic-de-rham-cohomology","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"algebraic-curves-higher-genus","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Sobolev spaces & distributions"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"wavelets","prev":"harmonic-functions","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"intersection-theory-chow","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":"probability-theory","section":"Probability & statistics","title":"Stochastic processes and martingales"},"symplectic-manifolds":{"next":"knot-polynomials","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"hamiltonians-classical-mechanics","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"type-theory-and-hott":{"next":"forcing-and-independence","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and hott"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"fixed-point-theorems","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":null,"prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"numerical-analysis","prev":"spectral-theory","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"model-theory-basics","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"Zfc and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="Geometry & topology" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+  <a href="#equation">1&nbsp;Equation</a>
+  <a href="#short-time">2&nbsp;Short&nbsp;time</a>
+  <a href="#singularities">3&nbsp;Singularities</a>
+  <a href="#soliton">4&nbsp;Solitons</a>
+  <a href="#surgery">5&nbsp;Surgery</a>
+  <a href="#poincare">6&nbsp;Poincaré</a>
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Ricci flow</h1>
+  <p class="sub">Take a Riemannian metric and let it evolve as if it were a temperature distribution: positively curved regions cool toward roundness, negatively curved regions stretch out. Hamilton's equation $\partial_t g_{ij} = -2 R_{ij}$ is a heat equation for the metric. Singularities form, surgery removes them, and what survives is the geometric decomposition of the manifold — the path Perelman walked to prove the Poincaré conjecture.</p>
+</section>
+
+<section id="equation">
+<h2>1. The Ricci flow equation</h2>
+<p>Fix a smooth manifold $M$ and a Riemannian metric $g_0$. Hamilton (1982) introduced the evolution equation
+$$\partial_t g_{ij} \;=\; -2\,R_{ij}(g),$$
+where $R_{ij}$ is the Ricci tensor of the time-dependent metric $g(t)$. The minus sign is decisive: where Ricci is positive, $g$ shrinks; where Ricci is negative, $g$ grows. Heuristically, Ricci flow tries to homogenise curvature.</p>
+
+<p>The clearest test case is an <em>Einstein metric</em> $\mathrm{Ric}=\lambda g$. Try the ansatz $g(t)=\rho(t)\,g_0$. Ricci is invariant under constant rescaling, so $R_{ij}(g(t))=\lambda\,(g_0)_{ij}$ and the equation reduces to $\rho' = -2\lambda$:
+$$g(t) \;=\; (1-2\lambda t)\,g_0.$$
+Round spheres ($\lambda>0$) shrink homothetically and disappear at $t=1/(2\lambda)$. Hyperbolic metrics ($\lambda<0$) expand. Flat tori sit still. Already we see the three behaviours that organise the long-time theory.</p>
+
+<div class="note"><strong>Heat-equation analogy.</strong> In <em>harmonic coordinates</em> $\Delta x^k = 0$, Ricci has the form
+$$-2 R_{ij} \;=\; \Delta g_{ij} \;+\; Q(g,\partial g),$$
+with $Q$ a quadratic in $g$ and $\partial g$. So the principal symbol of $\partial_t g - \Delta g$ vanishes — the equation is a quasilinear parabolic system whose linearisation is the rough Laplacian on symmetric 2-tensors.</div>
+
+<div class="widget" id="w-flow-types">
+  <div class="hd"><span class="ttl">Widget · Einstein flows by sign of $\lambda$</span><span class="hint">drag time; pick the curvature regime</span></div>
+  <div class="row">
+    <button id="ft-pos" class="active">$\lambda>0$ (sphere)</button>
+    <button id="ft-zero">$\lambda=0$ (flat)</button>
+    <button id="ft-neg">$\lambda<0$ (hyperbolic)</button>
+  </div>
+  <div class="row">
+    <label for="ft-t">time $t$</label>
+    <input type="range" id="ft-t" min="0" max="100" value="20" step="1">
+    <span class="pill" id="ft-t-out">$t=0.20$</span>
+  </div>
+  <svg id="ft-svg" viewBox="0 0 760 280" width="100%"><title>Widget · Einstein flows under Ricci flow</title></svg>
+  <div class="readout" id="ft-out"></div>
+  <p class="small">Three Einstein metrics under $g(t)=(1-2\lambda t)g_0$: shrinking sphere ($\lambda=1$, extinct at $t=0.5$), flat plane (static), expanding hyperbolic ($\lambda=-1$). The bar tracks the conformal factor $\rho(t)=1-2\lambda t$; the disk on the right shows the schematic radius scaling.</p>
+</div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./partial-differential-equations.html#classification">Classification: elliptic / parabolic / hyperbolic</a></li>
+    <li><a href="./partial-differential-equations.html#heat">Heat equation and the heat kernel</a></li>
+    <li><a href="./riemannian-geometry.html#ricci">Ricci curvature and Einstein manifolds</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="rf-equation"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./partial-differential-equations.html#classification">Classification: elliptic / parabolic / hyperbolic</a></li>
+    <li><a href="./partial-differential-equations.html#heat">Heat equation and the heat kernel</a></li>
+    <li><a href="./riemannian-geometry.html#ricci">Ricci curvature and Einstein manifolds</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./ricci-flow.html#soliton">Ricci flow</a> · Ricci solitons</div>
+    <div><a href="./ricci-flow.html#short-time">Ricci flow</a> · Short-time existence and the DeTurck trick</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="short-time">
+<h2>2. Short-time existence and DeTurck</h2>
+<p>Does a smooth solution to $\partial_t g = -2\,\mathrm{Ric}(g)$ even exist for $t>0$? The answer is yes on every closed manifold, but the proof has a subtle wrinkle.</p>
+
+<div class="note"><strong>Theorem (Hamilton 1982).</strong> For every smooth metric $g_0$ on a closed manifold $M^n$ there exists $T>0$ and a unique smooth one-parameter family $\{g(t)\}_{t\in[0,T)}$ solving $\partial_t g=-2\,\mathrm{Ric}(g)$ with $g(0)=g_0$. The maximal $T$ is characterised by curvature blow-up: either $T=\infty$, or $\sup_M|\mathrm{Rm}|(\cdot,t)\to\infty$ as $t\to T$.</div>
+
+<p>The wrinkle: Ricci flow is <em>diffeomorphism invariant</em>. If $\phi_t$ is a smooth family of diffeomorphisms and $g(t)$ is a Ricci flow, then $\phi_t^* g(t)$ is also a Ricci flow with possibly different initial data. Concretely, the Lie derivative direction $\mathcal{L}_X g$ for any vector field $X$ lies in the kernel of the linearised principal symbol. So the system is only <em>weakly parabolic</em>, and standard parabolic short-time existence does not apply directly.</p>
+
+<div class="widget" id="w-deturck">
+  <div class="hd"><span class="ttl">Widget · The DeTurck trick — gauge fixing</span><span class="hint">click a step to advance</span></div>
+  <svg id="dt-svg" viewBox="0 0 760 280" width="100%"><title>Widget · DeTurck trick diagram</title></svg>
+  <div class="row">
+    <button id="dt-step" class="active">step 1</button>
+    <button id="dt-reset">reset</button>
+  </div>
+  <div class="readout" id="dt-out"></div>
+  <p class="small">Three boxes, three arrows: (1) modify the equation by adding $\mathcal{L}_W g$ for the DeTurck vector field $W^k = g^{ij}(\Gamma^k_{ij}-\tilde\Gamma^k_{ij})$; (2) the modified flow is strictly parabolic on a closed manifold, so standard PDE theory gives a unique solution; (3) pull back along $\phi_t^{-1}$ (the diffeomorphisms generated by $-W$) to recover an honest Ricci flow $g(t)$.</p>
+</div>
+
+<p>DeTurck (1983) found the fix: add a Lie-derivative gauge term. Pick a fixed background metric $\tilde g$; let $\tilde\Gamma$ be its Christoffel symbols. Define the DeTurck vector field
+$$W^k(g) \;=\; g^{ij}\bigl(\Gamma^k_{ij}(g) - \tilde\Gamma^k_{ij}\bigr)$$
+and consider the <strong>Ricci–DeTurck flow</strong>
+$$\partial_t g \;=\; -2\,\mathrm{Ric}(g) + \mathcal{L}_{W(g)} g.$$
+The added term cancels precisely the gauge-degeneracy of the principal symbol: Ricci–DeTurck flow is strictly parabolic. Standard theory gives a unique smooth solution on $[0,T)$. Then, integrating $-W$ to a smooth family of diffeomorphisms $\phi_t$, the pull-back $\phi_t^*\tilde g(t)$ solves the genuine Ricci flow.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./partial-differential-equations.html#classification">Partial differential equations</a> · the parabolic / elliptic / hyperbolic trichotomy that classifies the gauge-fixed flow.</li>
+    <li><a href="./smooth-manifolds.html#intro">Smooth manifolds</a> · the differentiable category in which the flow lives.</li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./ricci-flow.html#singularities">Ricci flow</a> · Singularity formation and ancient solutions</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="rf-short-time"></div>
+</section>
+
+<section id="singularities">
+<h2>3. Singularity formation</h2>
+<p>The continuation theorem says smooth solutions extend until curvature explodes. So the interesting question is <em>how</em> curvature blows up. Hamilton classified singularities by the rate.</p>
+
+<p>Suppose $T<\infty$ is the maximal existence time. Set $K(t)=\sup_M|\mathrm{Rm}|(\cdot,t)$. Three regimes:</p>
+
+<table class="plain">
+  <thead><tr><th>Type</th><th>Rate as $t\to T$</th><th>Example</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Type I</strong></td><td>$K(t)\,(T-t)$ bounded</td><td>round shrinking sphere; non-degenerate neckpinch</td></tr>
+    <tr><td><strong>Type IIa</strong></td><td>$K(t)\,(T-t)\to\infty$ (slower-than-parabolic blowup)</td><td>degenerate neckpinch on $S^3$</td></tr>
+    <tr><td><strong>Type III</strong></td><td>$T=\infty$, $K(t)\,t$ bounded</td><td>immortal expanding flow</td></tr>
+  </tbody>
+</table>
+
+<div class="widget" id="w-blowup">
+  <div class="hd"><span class="ttl">Widget · curvature blow-up rates</span><span class="hint">drag time toward $T$</span></div>
+  <div class="row">
+    <label for="bu-t">time $t/T$</label>
+    <input type="range" id="bu-t" min="0" max="98" value="50" step="1">
+    <span class="pill" id="bu-t-out">$t/T=0.50$</span>
+  </div>
+  <svg id="bu-svg" viewBox="0 0 760 300" width="100%"><title>Widget · Type I and Type II blowup curves</title></svg>
+  <div class="readout" id="bu-out"></div>
+  <p class="small">Plotting $K(t)$ for $t\in[0,T)$. Type I: $K(t)=C/(T-t)$ — the natural parabolic rate. Type II: $K(t)=C/(T-t)^2$ — supercritical. The vertical line marks $T$. Both diverge, but Type II is <em>so much</em> faster that parabolic rescaling near a Type II singularity produces an eternal (not just ancient) limit.</p>
+</div>
+
+<p>Why does this matter? Take a singular point $(x_0,T)$ and perform <strong>parabolic rescaling</strong>: choose a sequence $\lambda_k\to\infty$ and set
+$$g_k(s) \;=\; \lambda_k\,g\!\left(t_k+\tfrac{s}{\lambda_k}\right),\qquad t_k\to T.$$
+Hamilton's compactness theorem (modelled on Cheeger–Gromov) says that under bounded curvature plus a noncollapsing hypothesis the family $g_k$ subconverges, in the pointed Cheeger–Gromov sense, to a Ricci flow $g_\infty$ defined on $(-\infty,0]$ — an <strong>ancient solution</strong>. The geometry of the singularity is encoded in the geometry of these ancient limits.</p>
+
+<p>Perelman's <strong>$\kappa$-noncollapsing theorem</strong> supplies the missing ingredient: along any Ricci flow with bounded curvature on a closed manifold, the volume of every metric ball $B(x,r)$ with $|\mathrm{Rm}|\le r^{-2}$ on it satisfies $\mathrm{vol}\,B(x,r)\ge\kappa\,r^n$. Without this, the rescaled limits could collapse to a lower-dimensional object; with it, the limit is genuinely $n$-dimensional and noncollapsed.</p>
+
+<div class="quiz" data-concept="rf-singularities"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./ricci-flow.html#surgery">Ricci flow</a> · Surgery on $\epsilon$-necks</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="soliton">
+<h2>4. Ricci solitons</h2>
+<p>The fixed points of Ricci flow modulo scaling and pull-back are <em>solitons</em>. They are the natural model geometries — "asymptotic shapes" that singular regions resemble after parabolic rescaling.</p>
+
+<div class="note"><strong>Definition.</strong> A <strong>Ricci soliton</strong> is a triple $(M,g_0,X)$ where $X$ is a smooth vector field and $\lambda\in\mathbb{R}$ is a constant satisfying
+$$\mathrm{Ric}(g_0) + \tfrac12\,\mathcal{L}_X g_0 \;=\; \lambda\,g_0.$$
+It is <strong>shrinking</strong>, <strong>steady</strong>, or <strong>expanding</strong> for $\lambda>0$, $\lambda=0$, $\lambda<0$. If $X=\nabla f$ is a gradient, the soliton is <strong>gradient</strong> with potential $f$.</div>
+
+<p>The point of the definition: solving the soliton equation is exactly equivalent to producing a <em>self-similar</em> Ricci flow. Set $\sigma(t)=1-2\lambda t$ and let $\phi_t$ be the flow of $X/\sigma(t)$. Then
+$$g(t) \;=\; \sigma(t)\,\phi_t^*\,g_0$$
+is a Ricci flow. Einstein metrics are the special case $X=0$. So solitons strictly extend the Einstein zoo.</p>
+
+<div class="widget" id="w-soliton">
+  <div class="hd"><span class="ttl">Widget · the soliton zoo</span><span class="hint">click a soliton</span></div>
+  <svg id="sl-svg" viewBox="0 0 760 320" width="100%"><title>Widget · examples of Ricci solitons</title></svg>
+  <div class="readout" id="sl-out">click a node</div>
+  <p class="small">Six canonical solitons placed on the $\lambda$-axis: shrinking (round $S^n$, Gaussian on $\mathbb{R}^n$), steady (Hamilton's cigar on $\mathbb{R}^2$, Bryant on $\mathbb{R}^3$), expanding (hyperbolic $\mathbb{H}^n$), and the Kähler–Ricci soliton on $\mathbb{CP}^2\#\overline{\mathbb{CP}^2}$. Click a node to see its potential and pertinent invariants.</p>
+</div>
+
+<p><strong>Examples to keep in hand.</strong></p>
+<ul>
+  <li><em>Hamilton's cigar</em> (1988): on $\mathbb{R}^2$ with $g=(1+x^2+y^2)^{-1}(dx^2+dy^2)$, a steady gradient soliton with potential $f=-\log(1+|x|^2)$. Curvature decays at infinity; the manifold has the topology of $\mathbb{R}^2$ but the asymptotic geometry of a cylinder.</li>
+  <li><em>Bryant soliton</em> (1990s): the unique rotationally symmetric steady gradient soliton on $\mathbb{R}^n$ for $n\ge 3$, modelling Type II singularities of 3-D Ricci flow.</li>
+  <li><em>Gaussian shrinker</em>: $\mathbb{R}^n$ with $g=$ Euclidean and $f=|x|^2/4$ is a shrinking gradient soliton; it is the model for <em>any</em> compact shrinker after blow-down.</li>
+  <li><em>Kähler–Ricci soliton on $\mathbb{CP}^2\#\overline{\mathbb{CP}^2}$</em> (Koiso, Cao 1996): a non-Einstein shrinking soliton on a non-Kähler-Einstein toric surface — proof that solitons strictly generalise Einstein.</li>
+</ul>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./riemannian-geometry.html#ricci">Riemannian geometry · Ricci curvature</a> — the geometric meaning of $\mathrm{Ric}$, before time enters.</li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./ricci-flow.html#surgery">Ricci flow</a> · Surgery on $\epsilon$-necks</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="rf-soliton"></div>
+</section>
+
+<section id="surgery">
+<h2>5. Surgery on $\epsilon$-necks</h2>
+<p>If a Ricci flow on a closed 3-manifold develops a singularity at $T<\infty$, the flow simply stops as a smooth object. To continue, Hamilton introduced and Perelman perfected a procedure: cut the manifold along high-curvature regions and glue in standard caps.</p>
+
+<div class="note"><strong>$\epsilon$-neck.</strong> A region $U\subset M$ at time $t$ is an <strong>$\epsilon$-neck</strong> centered at $x$ of scale $r$ if, after rescaling by $r^{-2}$, the ball $B(x,\epsilon^{-1}r)$ in $(U,r^{-2}g(t))$ is $\epsilon$-close in $C^{[\epsilon^{-1}]}$ to the standard round cylinder $S^2\times[-\epsilon^{-1},\epsilon^{-1}]$ of unit scalar curvature.</div>
+
+<p>The <strong>Canonical Neighbourhood Theorem</strong> (Perelman, 2002–03) says: in a 3-D Ricci flow with surgery, every spacetime point of sufficiently large curvature has a small neighbourhood that is, up to rescaling, $\epsilon$-close either to an $\epsilon$-neck, an $\epsilon$-cap (a half-cylinder capped off with a 3-ball), or a (closed) component of nonnegative curvature. So singularities are <em>locally classified</em>.</p>
+
+<div class="widget" id="w-surgery">
+  <div class="hd"><span class="ttl">Widget · neckpinch and surgery</span><span class="hint">drag time; press surgery to cut</span></div>
+  <div class="row">
+    <label for="sg-t">time $t$</label>
+    <input type="range" id="sg-t" min="0" max="100" value="0" step="1">
+    <span class="pill" id="sg-t-out">$t=0.00$</span>
+    <button id="sg-cut">apply surgery</button>
+    <button id="sg-reset">reset</button>
+  </div>
+  <svg id="sg-svg" viewBox="0 0 760 320" width="100%"><title>Widget · neckpinch and surgery on a dumbbell</title></svg>
+  <div class="readout" id="sg-out"></div>
+  <p class="small">A dumbbell metric on $S^3$: two round balls joined by a thin neck. As $t$ advances, the neck pinches off (the round-cylinder model has curvature $1/(T-t)$). Pressing "apply surgery" cuts along the neck cross-section and glues in two standard caps, replacing one connected $S^3$ by two disjoint $S^3$'s. Continue the flow on each piece independently.</p>
+</div>
+
+<p>The surgery operation. Pick a small enough surgery scale $h\ll r$. Each $\epsilon$-neck of scale $r$ has a central 2-sphere cross-section. Excise a $h$-neighbourhood of the cross-section and glue in two copies of the <em>standard cap</em> — a fixed metric on $D^3$ that interpolates between the round cylinder boundary and a smooth interior. The new manifold $M^+$ is smooth, possibly with more components than $M$. Restart Ricci flow on $M^+$ with the postsurgery metric.</p>
+
+<div class="ok"><strong>Finiteness.</strong> Perelman shows that with carefully chosen surgery scales there are only finitely many surgery times on any bounded interval $[0,T_*]$, and they have no accumulation point. Each surgery removes a definite fraction of volume, so the total volume drops monotonically across surgeries.</div>
+
+<p>Topologically, surgery on an $\epsilon$-neck removes an $S^2\times I$ and glues two $D^3$ caps — so the manifold either splits into two components or its genus drops. After finitely many surgeries the flow either terminates (the manifold becomes empty) or runs forever on a manifold whose pieces have well-controlled long-time geometry. Both outcomes feed directly into the next section.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./partial-differential-equations.html#heat">Partial differential equations · the heat equation</a> — the parabolic prototype that Ricci flow generalises.</li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./ricci-flow.html#poincare">Ricci flow</a> · Poincaré conjecture and geometrisation</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="rf-surgery"></div>
+</section>
+
+<section id="poincare">
+<h2>6. Poincaré conjecture and geometrisation</h2>
+<p>Two threads come together. (1) Ricci flow with surgery exists for all time on any closed 3-manifold; (2) the limiting geometry of the long-time flow is rigid enough to recover the manifold's topology.</p>
+
+<div class="note"><strong>Theorem (Perelman, 2002–03).</strong> Let $M^3$ be a closed simply connected 3-manifold and run Ricci flow with surgery starting from any smooth Riemannian metric. Then the flow becomes <em>extinct</em> in finite time: there is a $T<\infty$ after which the manifold is empty.</div>
+
+<p>The proof of extinction uses Perelman's <strong>$\mathcal{W}$-entropy</strong>
+$$\mathcal{W}(g,f,\tau) \;=\; \int_M \bigl[\tau(R+|\nabla f|^2) + f - n\bigr]\,(4\pi\tau)^{-n/2}e^{-f}\,dV,$$
+which is monotone-increasing along the coupled system $(\partial_t g=-2\mathrm{Ric},\;\partial_t f= -\Delta f + |\nabla f|^2 - R + n/(2\tau))$. Combined with finite extinction time for 2-sphere homotopy classes (Colding–Minicozzi / Perelman), this rules out infinite-time existence on simply connected $M^3$. Tracing through the surgeries, one finds $M$ is a connected sum of finitely many copies of $S^3$ and $S^2\times S^1$. Simple connectivity forces all but a single $S^3$ to be trivial, so $M\cong S^3$. This is the <strong>Poincaré conjecture</strong>.</p>
+
+<div class="widget" id="w-extinct">
+  <div class="hd"><span class="ttl">Widget · extinction timeline</span><span class="hint">drag the play head</span></div>
+  <div class="row">
+    <label for="ex-t">time $t$</label>
+    <input type="range" id="ex-t" min="0" max="100" value="20" step="1">
+    <span class="pill" id="ex-t-out">$t=0.20$</span>
+  </div>
+  <svg id="ex-svg" viewBox="0 0 760 300" width="100%"><title>Widget · Ricci flow with surgery on a fake 3-sphere</title></svg>
+  <div class="readout" id="ex-out"></div>
+  <p class="small">Schematic timeline: an initial homotopy 3-sphere develops a neck, surgery splits it into two pieces, each piece becomes round and shrinks to a point. Extinction time = the latest surviving piece's collapse time. The path of pieces through the surgery is a tree of $S^3$'s.</p>
+</div>
+
+<p>For non-simply-connected closed 3-manifolds the flow may run forever. Perelman shows the long-time limit decomposes the manifold along incompressible tori into pieces, each of which is either:</p>
+<ul>
+  <li>a <em>thick</em> piece, on which $g(t)/t$ converges to a finite-volume hyperbolic metric; or</li>
+  <li>a <em>thin</em> piece, which is a graph manifold (a Seifert-fibred piece glued to others along incompressible tori).</li>
+</ul>
+
+<div class="ok"><strong>Geometrisation.</strong> Combining the thick/thin decomposition with the prime decomposition (across surgery) and the JSJ decomposition (along the incompressible tori), every closed orientable 3-manifold decomposes canonically into pieces, each carrying one of the eight Thurston model geometries:
+$$S^3,\quad \mathbb{E}^3,\quad \mathbb{H}^3,\quad S^2\times\mathbb{R},\quad \mathbb{H}^2\times\mathbb{R},\quad \widetilde{SL_2\mathbb{R}},\quad \mathrm{Nil},\quad \mathrm{Sol}.$$</div>
+
+<p>This is <strong>Thurston's geometrisation conjecture</strong>: a structural theorem about all closed 3-manifolds that subsumes Poincaré as a corollary. Ricci flow with surgery realises the decomposition geometrically — flow regularises the metric, surgery cuts along the JSJ tori, and the long-time limit lands on the model geometries.</p>
+
+<div class="quiz" data-concept="rf-poincare-thurston"></div>
+</section>
+
+<section id="connections">
+<h2>Connections</h2>
+
+<p>Ricci flow is the prototype <em>geometric flow</em>: a parabolic equation that smooths a geometric object using its own intrinsic invariants. Its success in dimension 3 raised hopes for a parallel program in dimension 4 — but here Ricci flow develops worse singularities, surgery is harder to control, and the full geometrisation picture is open. The active research frontiers below are the most direct continuations of the ideas on this page.</p>
+
+<ul>
+  <li><a href="./riemannian-geometry.html#ricci">Riemannian geometry — Ricci curvature</a> — the static object that Ricci flow evolves; sectional and Ricci comparison theorems are the prerequisite calculus.</li>
+  <li><a href="./partial-differential-equations.html#heat">Partial differential equations — heat equation</a> — the linear parabolic prototype; Ricci flow inherits maximum principles, regularity, and entropy methods from heat-equation theory.</li>
+  <li><a href="./morse-theory.html#morse-functions">Morse theory</a> — the negative gradient flow $\dot\gamma=-\nabla f$ is the small-dimensional analogue: a flow that simplifies a geometric object using its own invariants.</li>
+  <li><a href="./smooth-manifolds.html#flows">Smooth manifolds — flows of vector fields</a> — the DeTurck trick is exactly the diffeomorphism-flow construction applied to a gauge field on the space of metrics.</li>
+  <li><a href="./differential-geometry.html">Differential geometry</a> — mean curvature flow, Yamabe flow, Kähler–Ricci flow are the close cousins; each runs the same playbook (parabolic rescaling, soliton classification, surgery) on a different geometric quantity.</li>
+</ul>
+
+<p class="small" style="margin-top:2.5rem">Open frontiers: 4-D Ricci flow with surgery (singularity classification still open), Kähler–Ricci flow on Fano varieties (analytic minimal model program, Tian–Donaldson–Sun), Ricci flow on metric-measure spaces and synthetic curvature bounds (Sturm–Lott–Villani), and the conjectural relation to renormalisation group flows in physics.</p>
+</section>
+
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/ /g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+
+<script>
+/* § 1 Einstein flows by sign of lambda */
+(function(){
+  const svg = document.getElementById("ft-svg");
+  const tIn = document.getElementById("ft-t");
+  const tOut = document.getElementById("ft-t-out");
+  const out = document.getElementById("ft-out");
+  const bPos = document.getElementById("ft-pos");
+  const bZero = document.getElementById("ft-zero");
+  const bNeg = document.getElementById("ft-neg");
+  if(!svg) return;
+  let lambda = 1;
+  function setLambda(L, btn){
+    lambda = L;
+    [bPos,bZero,bNeg].forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    draw();
+  }
+  function draw(){
+    svg.innerHTML = "<title>Widget · Einstein flows under Ricci flow</title>";
+    const t = parseFloat(tIn.value)/100; // [0,1]
+    tOut.textContent = "t = " + t.toFixed(2);
+    // conformal factor rho(t) = 1 - 2 lambda t
+    const rho = Math.max(0, 1 - 2*lambda*t);
+    // bar chart of rho on left
+    const x0=70, y0=240, height=180;
+    svg.appendChild(SVG("line",{x1:x0,y1:y0,x2:x0,y2:y0-height,stroke:"var(--mute)","stroke-width":1}));
+    svg.appendChild(SVG("text",{x:x0-30,y:y0-height-8,"text-anchor":"start","font-size":12,fill:"var(--mute)"})).textContent = "ρ(t)";
+    // y axis ticks at 0,0.5,1,1.5,2
+    [0,0.5,1,1.5,2].forEach(v => {
+      const yy = y0 - (v/2)*height;
+      svg.appendChild(SVG("line",{x1:x0-4,y1:yy,x2:x0+4,y2:yy,stroke:"var(--mute)","stroke-width":1}));
+      svg.appendChild(SVG("text",{x:x0-8,y:yy+4,"text-anchor":"end","font-size":10,fill:"var(--mute)"})).textContent = v.toFixed(1);
+    });
+    // baseline at rho=1
+    const yBase = y0 - (1/2)*height;
+    svg.appendChild(SVG("line",{x1:x0,y1:yBase,x2:x0+220,y2:yBase,stroke:"var(--mute)","stroke-width":1,"stroke-dasharray":"3 3"}));
+    // bar of current rho (capped at 2 visually)
+    const rhoC = Math.min(2, rho);
+    const yTop = y0 - (rhoC/2)*height;
+    const color = lambda>0 ? "var(--pink)" : (lambda<0 ? "var(--cyan)" : "var(--green)");
+    svg.appendChild(SVG("rect",{x:x0+12, y:yTop, width:48, height:y0-yTop, fill:color, opacity:0.4, stroke:color, "stroke-width":1.5}));
+    svg.appendChild(SVG("text",{x:x0+36,y:yTop-6,"text-anchor":"middle","font-size":12,fill:color})).textContent = "ρ = " + rho.toFixed(2);
+    // schematic geometry on right
+    const cx=520, cy=140;
+    if(lambda>0){
+      // shrinking sphere: circle whose radius scales with sqrt(rho)
+      const r = 100*Math.sqrt(Math.max(0,rho));
+      if(r>1){
+        svg.appendChild(SVG("circle",{cx,cy,r,fill:"var(--panel2)",stroke:"var(--pink)","stroke-width":2}));
+        svg.appendChild(SVG("ellipse",{cx,cy,rx:r,ry:r*0.32,fill:"none",stroke:"var(--pink)","stroke-width":1,"stroke-dasharray":"3 3"}));
+      } else {
+        svg.appendChild(SVG("text",{x:cx,y:cy,"text-anchor":"middle","font-size":14,fill:"var(--pink)"})).textContent = "extinct";
+      }
+      svg.appendChild(SVG("text",{x:cx,y:cy+r+24,"text-anchor":"middle","font-size":12,fill:"var(--mute)"})).textContent = "shrinking sphere (extinct at t = 1/(2λ) = 0.5)";
+    } else if(lambda===0){
+      svg.appendChild(SVG("rect",{x:cx-100,y:cy-60,width:200,height:120,fill:"var(--panel2)",stroke:"var(--green)","stroke-width":2}));
+      // grid
+      for(let i=1;i<5;i++){
+        svg.appendChild(SVG("line",{x1:cx-100+i*40,y1:cy-60,x2:cx-100+i*40,y2:cy+60,stroke:"var(--green)","stroke-width":0.7,opacity:0.4}));
+        if(i<3) svg.appendChild(SVG("line",{x1:cx-100,y1:cy-60+i*40,x2:cx+100,y2:cy-60+i*40,stroke:"var(--green)","stroke-width":0.7,opacity:0.4}));
+      }
+      svg.appendChild(SVG("text",{x:cx,y:cy+90,"text-anchor":"middle","font-size":12,fill:"var(--mute)"})).textContent = "flat torus — static";
+    } else {
+      // expanding hyperbolic: circle radius grows
+      const r = 60*Math.sqrt(rho);
+      svg.appendChild(SVG("circle",{cx,cy,r,fill:"var(--panel2)",stroke:"var(--cyan)","stroke-width":2}));
+      // Poincaré disk pseudo-arcs
+      for(let k=0;k<6;k++){
+        const a = k*Math.PI/3;
+        svg.appendChild(SVG("path",{
+          d: "M " + (cx+r*Math.cos(a)) + " " + (cy+r*Math.sin(a)) +
+             " Q " + cx + " " + cy + " " + (cx+r*Math.cos(a+Math.PI)) + " " + (cy+r*Math.sin(a+Math.PI)),
+          fill:"none", stroke:"var(--cyan)", "stroke-width":0.7, opacity:0.45
+        }));
+      }
+      svg.appendChild(SVG("text",{x:cx,y:cy+r+24,"text-anchor":"middle","font-size":12,fill:"var(--mute)"})).textContent = "expanding hyperbolic (immortal)";
+    }
+    // readout
+    let msg;
+    if(lambda>0) msg = "λ = +1 → ρ(t) = 1 − 2t.  Extinction time t* = 0.5";
+    else if(lambda===0) msg = "λ = 0 → ρ(t) ≡ 1.  Flat metrics are static fixed points";
+    else msg = "λ = −1 → ρ(t) = 1 + 2t.  Hyperbolic metrics expand for all t ≥ 0";
+    out.textContent = msg;
+  }
+  bPos.addEventListener("click", () => setLambda(1, bPos));
+  bZero.addEventListener("click", () => setLambda(0, bZero));
+  bNeg.addEventListener("click", () => setLambda(-1, bNeg));
+  tIn.addEventListener("input", draw);
+  draw();
+})();
+</script>
+
+<script>
+/* § 2 DeTurck trick diagram */
+(function(){
+  const svg = document.getElementById("dt-svg");
+  const stepBtn = document.getElementById("dt-step");
+  const resetBtn = document.getElementById("dt-reset");
+  const out = document.getElementById("dt-out");
+  if(!svg) return;
+  let step = 1;
+  function draw(){
+    svg.innerHTML = "<title>Widget · DeTurck trick diagram</title>";
+    // three boxes
+    const boxes = [
+      {x:60, y:80, w:180, h:100, ttl:"Ricci flow", body:"∂ₜg = −2 Ric(g)", note:"weakly parabolic", color:"var(--pink)"},
+      {x:290, y:80, w:200, h:100, ttl:"Ricci–DeTurck", body:"∂ₜg = −2 Ric + ℒ_W g", note:"strictly parabolic", color:"var(--yellow)"},
+      {x:540, y:80, w:160, h:100, ttl:"Pull-back", body:"g(t) = φₜ* g̃(t)", note:"genuine flow", color:"var(--green)"}
+    ];
+    boxes.forEach((b,i) => {
+      const active = (step >= i+1);
+      svg.appendChild(SVG("rect",{x:b.x,y:b.y,width:b.w,height:b.h,rx:8,fill:active?"var(--panel2)":"var(--panel)",stroke:active?b.color:"var(--mute)","stroke-width":active?2:1,opacity:active?1:0.45}));
+      svg.appendChild(SVG("text",{x:b.x+b.w/2,y:b.y+24,"text-anchor":"middle","font-size":12,fill:b.color,"font-weight":600})).textContent = b.ttl;
+      svg.appendChild(SVG("text",{x:b.x+b.w/2,y:b.y+54,"text-anchor":"middle","font-size":13,fill:active?"var(--ink)":"var(--mute)"})).textContent = b.body;
+      svg.appendChild(SVG("text",{x:b.x+b.w/2,y:b.y+82,"text-anchor":"middle","font-size":11,fill:"var(--mute)","font-style":"italic"})).textContent = b.note;
+    });
+    // arrows
+    if(step >= 2) drawArrow(svg,[240,130],[290,130],{color:"var(--yellow)",label:"add ℒ_W g",markerId:"dt-a1",pad1:6,pad2:8});
+    if(step >= 3) drawArrow(svg,[490,130],[540,130],{color:"var(--green)",label:"pull back",markerId:"dt-a2",pad1:6,pad2:8});
+    // bottom annotation
+    const labels = [
+      "Step 1: write the bare Ricci flow. Diffeomorphism invariance ⇒ kernel along Lie-derivative directions.",
+      "Step 2: add ℒ_W g for W^k = g^{ij}(Γ^k_{ij} − Γ̃^k_{ij}). Modified flow is strictly parabolic; standard PDE theory ⇒ unique smooth g̃(t).",
+      "Step 3: integrate −W to a 1-parameter family φₜ of diffeomorphisms; pull-back recovers a genuine Ricci flow."
+    ];
+    out.textContent = labels[step-1];
+    stepBtn.textContent = step < 3 ? ("step " + (step+1)) : "step 3 (done)";
+  }
+  stepBtn.addEventListener("click", () => { step = Math.min(3, step+1); draw(); });
+  resetBtn.addEventListener("click", () => { step = 1; draw(); });
+  draw();
+})();
+</script>
+
+<script>
+/* § 3 curvature blowup */
+(function(){
+  const svg = document.getElementById("bu-svg");
+  const tIn = document.getElementById("bu-t");
+  const tOut = document.getElementById("bu-t-out");
+  const out = document.getElementById("bu-out");
+  if(!svg) return;
+  function draw(){
+    svg.innerHTML = "<title>Widget · Type I and Type II blowup curves</title>";
+    const tau = parseFloat(tIn.value)/100; // in [0, 0.98]
+    tOut.textContent = "t/T = " + tau.toFixed(2);
+    // axes
+    const x0=70, y0=260, w=620, h=200;
+    svg.appendChild(SVG("line",{x1:x0,y1:y0,x2:x0+w,y2:y0,stroke:"var(--mute)","stroke-width":1}));
+    svg.appendChild(SVG("line",{x1:x0,y1:y0,x2:x0,y2:y0-h,stroke:"var(--mute)","stroke-width":1}));
+    svg.appendChild(SVG("text",{x:x0+w-10,y:y0+18,"text-anchor":"end","font-size":12,fill:"var(--mute)"})).textContent = "t / T";
+    svg.appendChild(SVG("text",{x:x0-30,y:y0-h+14,"text-anchor":"start","font-size":12,fill:"var(--mute)"})).textContent = "K(t) = sup |Rm|";
+    // tick at T
+    svg.appendChild(SVG("line",{x1:x0+w,y1:y0,x2:x0+w,y2:y0-h,stroke:"var(--pink)","stroke-width":1.5,"stroke-dasharray":"4 3"}));
+    svg.appendChild(SVG("text",{x:x0+w,y:y0+18,"text-anchor":"middle","font-size":12,fill:"var(--pink)"})).textContent = "T";
+    // Type I: K = 1/(1 - tau)
+    const ptsI = [];
+    for(let i=0;i<=80;i++){
+      const tt = i/80*0.97;
+      const K = 1/(1-tt);
+      const xx = x0 + tt*w;
+      const yy = y0 - Math.min(h-10, K*30);
+      ptsI.push(xx + "," + yy);
+    }
+    svg.appendChild(SVG("polyline",{points:ptsI.join(" "),fill:"none",stroke:"var(--cyan)","stroke-width":2}));
+    // Type II: K = 1/(1 - tau)^2
+    const ptsII = [];
+    for(let i=0;i<=80;i++){
+      const tt = i/80*0.93;
+      const K = 1/Math.pow(1-tt,2);
+      const xx = x0 + tt*w;
+      const yy = y0 - Math.min(h-10, K*5);
+      ptsII.push(xx + "," + yy);
+    }
+    svg.appendChild(SVG("polyline",{points:ptsII.join(" "),fill:"none",stroke:"var(--yellow)","stroke-width":2}));
+    // current marker on Type I
+    const KI = 1/(1-tau);
+    const xx = x0 + tau*w;
+    const yyI = y0 - Math.min(h-10, KI*30);
+    svg.appendChild(SVG("circle",{cx:xx,cy:yyI,r:5,fill:"var(--cyan)",stroke:"#111","stroke-width":1.5}));
+    // current on Type II
+    const KII = 1/Math.pow(1-tau,2);
+    const yyII = y0 - Math.min(h-10, KII*5);
+    svg.appendChild(SVG("circle",{cx:xx,cy:yyII,r:5,fill:"var(--yellow)",stroke:"#111","stroke-width":1.5}));
+    // legend
+    svg.appendChild(SVG("rect",{x:x0+w-200,y:y0-h+10,width:180,height:54,fill:"var(--panel2)",stroke:"var(--line)","stroke-width":1,rx:6}));
+    svg.appendChild(SVG("line",{x1:x0+w-188,y1:y0-h+25,x2:x0+w-160,y2:y0-h+25,stroke:"var(--cyan)","stroke-width":2}));
+    svg.appendChild(SVG("text",{x:x0+w-154,y:y0-h+29,"font-size":12,fill:"var(--cyan)"})).textContent = "Type I: K = C/(T−t)";
+    svg.appendChild(SVG("line",{x1:x0+w-188,y1:y0-h+47,x2:x0+w-160,y2:y0-h+47,stroke:"var(--yellow)","stroke-width":2}));
+    svg.appendChild(SVG("text",{x:x0+w-154,y:y0-h+51,"font-size":12,fill:"var(--yellow)"})).textContent = "Type II: K = C/(T−t)²";
+    out.textContent = "K_I(" + tau.toFixed(2) + ") ≈ " + KI.toFixed(2) + "    K_II(" + tau.toFixed(2) + ") ≈ " + KII.toFixed(2);
+  }
+  tIn.addEventListener("input", draw);
+  draw();
+})();
+</script>
+
+<script>
+/* § 4 soliton zoo */
+(function(){
+  const svg = document.getElementById("sl-svg");
+  const out = document.getElementById("sl-out");
+  if(!svg) return;
+  const solitons = [
+    {name:"round S^n",          lambda:1,  type:"shrinking", x:140, color:"var(--pink)",   info:"Einstein soliton on S^n with Ric = (n−1)g; shrinks self-similarly to a point at t = 1/(2(n−1))."},
+    {name:"Gaussian on R^n",    lambda:1,  type:"shrinking", x:240, color:"var(--pink)",   info:"Gradient shrinker (R^n, g_E, f = |x|²/4); the universal model for Type I limits at compact shrinkers."},
+    {name:"Hamilton's cigar",   lambda:0,  type:"steady",    x:340, color:"var(--yellow)", info:"Steady gradient soliton on R² with g = (1+|x|²)⁻¹ g_E; potential f = −log(1+|x|²); asymptotic to a cylinder at infinity."},
+    {name:"Bryant",             lambda:0,  type:"steady",    x:440, color:"var(--yellow)", info:"Rotationally symmetric steady gradient soliton on R^n (n≥3); models Type II 3-D singularities."},
+    {name:"H^n",                lambda:-1, type:"expanding", x:560, color:"var(--cyan)",   info:"Hyperbolic space, Einstein soliton with λ < 0; expanding self-similarly under Ricci flow."},
+    {name:"Koiso/Cao on CP²#CP̄²", lambda:1, type:"shrinking", x:660, color:"var(--violet)", info:"Non-Einstein Kähler shrinking soliton on the toric surface CP² blown up at one point. First explicit non-Einstein compact shrinker."}
+  ];
+  function draw(highlightIdx){
+    svg.innerHTML = "<title>Widget · examples of Ricci solitons</title>";
+    const cy = 180;
+    // axis
+    svg.appendChild(SVG("line",{x1:80,y1:cy,x2:720,y2:cy,stroke:"var(--mute)","stroke-width":1.5}));
+    svg.appendChild(SVG("text",{x:720,y:cy+22,"text-anchor":"end","font-size":12,fill:"var(--mute)"})).textContent = "λ axis";
+    // type bands
+    const bands = [
+      {x1:80, x2:280, lbl:"shrinking λ>0", color:"var(--pink)"},
+      {x1:280,x2:500, lbl:"steady λ=0",    color:"var(--yellow)"},
+      {x1:500,x2:720, lbl:"expanding λ<0", color:"var(--cyan)"}
+    ];
+    bands.forEach(b => {
+      svg.appendChild(SVG("rect",{x:b.x1,y:cy-4,width:b.x2-b.x1,height:8,fill:b.color,opacity:0.18}));
+      svg.appendChild(SVG("text",{x:(b.x1+b.x2)/2,y:cy+44,"text-anchor":"middle","font-size":11,fill:b.color,"font-style":"italic"})).textContent = b.lbl;
+    });
+    // soliton nodes
+    solitons.forEach((s,i) => {
+      const r = (highlightIdx===i) ? 12 : 9;
+      const node = SVG("circle",{cx:s.x,cy,r,fill:s.color,stroke:"#111","stroke-width":1.5,style:"cursor:pointer"});
+      node.addEventListener("click", () => draw(i));
+      svg.appendChild(node);
+      const t = SVG("text",{x:s.x,y:cy-22,"text-anchor":"middle","font-size":11,fill:s.color});
+      t.textContent = s.name;
+      svg.appendChild(t);
+    });
+    // highlight
+    if(highlightIdx != null){
+      const s = solitons[highlightIdx];
+      svg.appendChild(SVG("circle",{cx:s.x,cy,r:18,fill:"none",stroke:s.color,"stroke-width":1.5,"stroke-dasharray":"3 3"}));
+      out.textContent = s.name + " (" + s.type + ", λ = " + s.lambda + "):  " + s.info;
+    } else {
+      out.textContent = "click a node";
+    }
+  }
+  draw(null);
+})();
+</script>
+
+<script>
+/* § 5 neckpinch and surgery */
+(function(){
+  const svg = document.getElementById("sg-svg");
+  const tIn = document.getElementById("sg-t");
+  const tOut = document.getElementById("sg-t-out");
+  const cutBtn = document.getElementById("sg-cut");
+  const resetBtn = document.getElementById("sg-reset");
+  const out = document.getElementById("sg-out");
+  if(!svg) return;
+  let cut = false;
+  function draw(){
+    svg.innerHTML = "<title>Widget · neckpinch and surgery on a dumbbell</title>";
+    const t = parseFloat(tIn.value)/100;
+    tOut.textContent = "t = " + t.toFixed(2);
+    const cyMid = 160;
+    // dumbbell: two big circles, neck radius shrinks with t (until cut)
+    const R = 60;
+    const xL = 220, xR = 540;
+    const neckR = cut ? 0 : Math.max(2, R*(1 - t*0.95));
+    // left ball
+    svg.appendChild(SVG("circle",{cx:xL,cy:cyMid,r:R,fill:"var(--panel2)",stroke:"var(--blue)","stroke-width":2}));
+    // right ball
+    svg.appendChild(SVG("circle",{cx:xR,cy:cyMid,r:R,fill:"var(--panel2)",stroke:"var(--blue)","stroke-width":2}));
+    if(!cut){
+      // smooth neck connecting them
+      const path = "M " + (xL+R) + " " + (cyMid-neckR) +
+        " C " + (xL+R+40) + " " + (cyMid-neckR) +
+        ", " + (xR-R-40) + " " + (cyMid-neckR) +
+        ", " + (xR-R) + " " + (cyMid-neckR) +
+        " L " + (xR-R) + " " + (cyMid+neckR) +
+        " C " + (xR-R-40) + " " + (cyMid+neckR) +
+        ", " + (xL+R+40) + " " + (cyMid+neckR) +
+        ", " + (xL+R) + " " + (cyMid+neckR) + " Z";
+      svg.appendChild(SVG("path",{d:path,fill:"var(--panel2)",stroke:"var(--yellow)","stroke-width":2}));
+      // mark neck cross-section
+      svg.appendChild(SVG("ellipse",{cx:380,cy:cyMid,rx:8,ry:neckR,fill:"none",stroke:"var(--pink)","stroke-width":1.5,"stroke-dasharray":"3 3"}));
+      svg.appendChild(SVG("text",{x:380,y:cyMid-neckR-12,"text-anchor":"middle","font-size":11,fill:"var(--pink)"})).textContent = "neck cross-section S²";
+    } else {
+      // caps glued onto each ball
+      svg.appendChild(SVG("path",{d:"M " + (xL+R-2) + " " + (cyMid-30) + " Q " + (xL+R+40) + " " + cyMid + " " + (xL+R-2) + " " + (cyMid+30) + " Z",
+        fill:"var(--panel2)",stroke:"var(--green)","stroke-width":2}));
+      svg.appendChild(SVG("path",{d:"M " + (xR-R+2) + " " + (cyMid-30) + " Q " + (xR-R-40) + " " + cyMid + " " + (xR-R+2) + " " + (cyMid+30) + " Z",
+        fill:"var(--panel2)",stroke:"var(--green)","stroke-width":2}));
+      svg.appendChild(SVG("text",{x:xL+R+30,y:cyMid+50,"text-anchor":"middle","font-size":11,fill:"var(--green)"})).textContent = "cap D³";
+      svg.appendChild(SVG("text",{x:xR-R-30,y:cyMid+50,"text-anchor":"middle","font-size":11,fill:"var(--green)"})).textContent = "cap D³";
+    }
+    // labels
+    svg.appendChild(SVG("text",{x:xL,y:cyMid+R+28,"text-anchor":"middle","font-size":12,fill:"var(--blue)"})).textContent = "S³ component";
+    svg.appendChild(SVG("text",{x:xR,y:cyMid+R+28,"text-anchor":"middle","font-size":12,fill:"var(--blue)"})).textContent = "S³ component";
+    // info
+    let msg;
+    if(cut) msg = "post-surgery: two disjoint S³'s, each with a smooth metric. Restart Ricci flow on each piece independently.";
+    else if(neckR < 6) msg = "neck radius " + neckR.toFixed(1) + " — curvature on the neck ≈ 1/neckR² blowing up. Apply surgery.";
+    else msg = "neck radius " + neckR.toFixed(1) + " — flow still smooth.";
+    out.textContent = msg;
+  }
+  tIn.addEventListener("input", draw);
+  cutBtn.addEventListener("click", () => { cut = true; draw(); });
+  resetBtn.addEventListener("click", () => { cut = false; tIn.value = 0; draw(); });
+  draw();
+})();
+</script>
+
+<script>
+/* § 6 extinction timeline */
+(function(){
+  const svg = document.getElementById("ex-svg");
+  const tIn = document.getElementById("ex-t");
+  const tOut = document.getElementById("ex-t-out");
+  const out = document.getElementById("ex-out");
+  if(!svg) return;
+  function draw(){
+    svg.innerHTML = "<title>Widget · Ricci flow with surgery on a fake 3-sphere</title>";
+    const t = parseFloat(tIn.value)/100;
+    tOut.textContent = "t = " + t.toFixed(2);
+    // timeline axis
+    const y0 = 240, x0 = 60, x1 = 720;
+    svg.appendChild(SVG("line",{x1:x0,y1:y0,x2:x1,y2:y0,stroke:"var(--mute)","stroke-width":1.5}));
+    // event ticks
+    const events = [
+      {t:0.00, lbl:"start", color:"var(--blue)"},
+      {t:0.30, lbl:"surgery 1", color:"var(--pink)"},
+      {t:0.55, lbl:"surgery 2", color:"var(--pink)"},
+      {t:0.78, lbl:"piece 1 extinct", color:"var(--green)"},
+      {t:0.92, lbl:"all extinct", color:"var(--green)"}
+    ];
+    events.forEach(ev => {
+      const xx = x0 + ev.t*(x1-x0);
+      svg.appendChild(SVG("line",{x1:xx,y1:y0-6,x2:xx,y2:y0+6,stroke:ev.color,"stroke-width":2}));
+      svg.appendChild(SVG("text",{x:xx,y:y0+22,"text-anchor":"middle","font-size":11,fill:ev.color})).textContent = ev.lbl;
+    });
+    // play head
+    const xh = x0 + t*(x1-x0);
+    svg.appendChild(SVG("circle",{cx:xh,cy:y0,r:6,fill:"var(--cyan)",stroke:"#111","stroke-width":1.5}));
+    // tree of pieces (top)
+    // Before t=0.30: one component
+    // 0.30 < t < 0.55: two components
+    // 0.55 < t < 0.78: three components (one of the two split again)
+    // 0.78 < t < 0.92: two components remain
+    // t > 0.92: empty
+    function drawSphere(cx,cy,r,col,opacity=1){
+      svg.appendChild(SVG("circle",{cx,cy,r,fill:"var(--panel2)",stroke:col,"stroke-width":2,opacity}));
+      svg.appendChild(SVG("ellipse",{cx,cy,rx:r,ry:r*0.32,fill:"none",stroke:col,"stroke-width":1,"stroke-dasharray":"3 3",opacity}));
+    }
+    if(t < 0.30){
+      // one big dumbbell-ish lump
+      const r = 60 - t*50;
+      drawSphere(390, 110, r, "var(--blue)");
+      svg.appendChild(SVG("text",{x:390,y:110-r-8,"text-anchor":"middle","font-size":11,fill:"var(--blue)"})).textContent = "M³ (homotopy 3-sphere)";
+    } else if(t < 0.55){
+      drawSphere(280, 110, 40, "var(--blue)");
+      drawSphere(500, 110, 38, "var(--blue)");
+      svg.appendChild(SVG("text",{x:280,y:60,"text-anchor":"middle","font-size":11,fill:"var(--blue)"})).textContent = "piece A";
+      svg.appendChild(SVG("text",{x:500,y:60,"text-anchor":"middle","font-size":11,fill:"var(--blue)"})).textContent = "piece B";
+    } else if(t < 0.78){
+      drawSphere(220, 110, 30, "var(--blue)");
+      drawSphere(390, 110, 30, "var(--blue)");
+      drawSphere(560, 110, 28, "var(--blue)");
+      svg.appendChild(SVG("text",{x:220,y:70,"text-anchor":"middle","font-size":11,fill:"var(--blue)"})).textContent = "A";
+      svg.appendChild(SVG("text",{x:390,y:70,"text-anchor":"middle","font-size":11,fill:"var(--blue)"})).textContent = "B₁";
+      svg.appendChild(SVG("text",{x:560,y:70,"text-anchor":"middle","font-size":11,fill:"var(--blue)"})).textContent = "B₂";
+    } else if(t < 0.92){
+      drawSphere(310, 110, 22, "var(--blue)");
+      drawSphere(490, 110, 18, "var(--blue)");
+      svg.appendChild(SVG("text",{x:310,y:80,"text-anchor":"middle","font-size":11,fill:"var(--blue)"})).textContent = "B₁";
+      svg.appendChild(SVG("text",{x:490,y:80,"text-anchor":"middle","font-size":11,fill:"var(--blue)"})).textContent = "B₂";
+    } else {
+      svg.appendChild(SVG("text",{x:390,y:110,"text-anchor":"middle","font-size":18,fill:"var(--green)","font-weight":600})).textContent = "∅  (extinction)";
+    }
+    // commentary
+    let msg;
+    if(t < 0.30) msg = "smooth flow on M³. Curvature concentrating in a thin neck.";
+    else if(t < 0.55) msg = "after surgery 1: M splits into two components A and B. Each becomes a homotopy 3-sphere.";
+    else if(t < 0.78) msg = "after surgery 2: B splits into B₁, B₂. Three round-and-shrinking pieces.";
+    else if(t < 0.92) msg = "piece A has gone extinct (round S³ collapses to a point).  B₁, B₂ continue.";
+    else msg = "all pieces extinct. M³ ≅ A # B₁ # B₂ ≅ S³ # S³ # S³ ≅ S³  ⇒  Poincaré.";
+    out.textContent = msg;
+  }
+  tIn.addEventListener("input", draw);
+  draw();
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('ricci-flow'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-26</td><td>initial version — six concepts with bespoke widgets</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

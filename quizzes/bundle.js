@@ -4733,6 +4733,275 @@ window.MVQuizBank = {
       }
     }
   },
+  "atiyah-singer-index-theorem": {
+    "topic": "atiyah-singer-index-theorem",
+    "quizzes": {
+      "atiyah-singer-statement": {
+        "title": "The index theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What does the analytic index $\\ind(D)$ of an elliptic operator $D$ count?",
+            "choices": [
+              "$\\dim\\ker D + \\dim\\mathrm{coker}\\,D$",
+              "$\\dim\\ker D - \\dim\\mathrm{coker}\\,D$",
+              "The trace of $D$",
+              "The number of eigenvalues of $D$"
+            ],
+            "answer": 1,
+            "hint": "It is a signed count of obstructions: solutions minus obstructions to surjectivity.",
+            "explain": "$\\ind(D)=\\dim\\ker D-\\dim\\mathrm{coker}\\,D$. Both summands are finite when $D$ is elliptic on a closed manifold; the difference is a deformation-stable integer."
+          },
+          {
+            "type": "mcq",
+            "q": "Atiyah–Singer asserts that $\\ind(D)$ depends only on which datum?",
+            "choices": [
+              "The lower-order terms of $D$",
+              "The boundary values of solutions",
+              "The class of the principal symbol $[\\sigma(D)]\\in K^0(T^*M)$",
+              "The dimension of $M$"
+            ],
+            "answer": 2,
+            "hint": "Lower-order perturbations leave the index unchanged; only the leading symbol matters.",
+            "explain": "The index is a homotopy invariant of the symbol; it only sees the K-theory class $[\\sigma(D)]\\in K^0(T^*M)$, not the operator itself."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is invariance under deformation a non-trivial fact?",
+            "choices": [
+              "Both $\\dim\\ker D$ and $\\dim\\mathrm{coker}\\,D$ are individually constant",
+              "$\\ker D$ may jump under perturbation, but the difference $\\dim\\ker-\\dim\\mathrm{coker}$ stays put",
+              "The operator $D$ is rigid on closed manifolds",
+              "Closed manifolds admit no continuous deformation of operators"
+            ],
+            "answer": 1,
+            "hint": "Eigenvalues can cross zero; one of $\\ker, \\mathrm{coker}$ may grow while the other shrinks by the same amount.",
+            "explain": "Continuous families of Fredholm operators have constant index even when individual kernel and cokernel dimensions jump — the jumps cancel. This stability is what lets the analytic index match a topological invariant."
+          }
+        ]
+      },
+      "as-elliptic-operators": {
+        "title": "Elliptic operators and Fredholm property",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "An order-$m$ operator $D=\\sum_{|\\alpha|\\le m}a_\\alpha(x)\\partial^\\alpha$ is elliptic when which condition holds?",
+            "choices": [
+              "$a_0(x)\\ne 0$ everywhere",
+              "Its principal symbol $\\sigma_m(D)(x,\\xi)=\\sum_{|\\alpha|=m}a_\\alpha(x)(i\\xi)^\\alpha$ is invertible for every $\\xi\\ne 0$",
+              "All coefficients are constant",
+              "The operator is self-adjoint"
+            ],
+            "answer": 1,
+            "hint": "Look at the leading-order homogeneous part viewed as a function on $T^*M\\setminus 0$.",
+            "explain": "Ellipticity is the invertibility of the principal symbol away from the zero section of $T^*M$. The Laplacian $-\\Delta$ has $\\sigma_2=|\\xi|^2$, vanishing only at $\\xi=0$ — hence elliptic; the heat operator $\\partial_t-\\Delta$ has $\\sigma_2=|\\xi|^2$ which vanishes when $\\xi=0$ but the time covector is nonzero, making it parabolic, not elliptic."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does ellipticity force $\\dim\\ker D<\\infty$ and $\\dim\\mathrm{coker}\\,D<\\infty$ on a closed manifold?",
+            "choices": [
+              "Sobolev embedding compactly embeds $H^s\\hookrightarrow H^{s-1}$, and a parametrix turns $D$ into a Fredholm operator",
+              "Eigenvalues of $D$ form a finite set",
+              "The closed manifold is finite-dimensional",
+              "Elliptic operators are bounded"
+            ],
+            "answer": 0,
+            "hint": "A parametrix $Q$ inverts $D$ modulo compact errors; Fredholmness then follows.",
+            "explain": "On a closed manifold, an elliptic operator admits a pseudodifferential parametrix with $QD=I-S$, $DQ=I-T$ where $S,T$ are smoothing (compact between any Sobolev spaces). This identifies $D$ as a Fredholm map between Sobolev spaces."
+          },
+          {
+            "type": "mcq",
+            "q": "Elliptic regularity says: if $Du=f$ with $f\\in H^k$, then …",
+            "choices": [
+              "$u\\in H^{k-m}$ for the order $m$",
+              "$u\\in H^{k+m}$, gaining $m$ derivatives over $f$",
+              "$u\\in L^2$ regardless of $f$",
+              "$u$ is bounded"
+            ],
+            "answer": 1,
+            "hint": "Solving an order-$m$ equation should let you integrate the equation $m$ times.",
+            "explain": "Elliptic regularity: $f\\in H^k\\Rightarrow u\\in H^{k+m}$. Iterating, $f$ smooth implies $u$ smooth. Combined with Fredholmness, this means $\\ker D$ consists of smooth sections, so the analytic index is finite."
+          }
+        ]
+      },
+      "as-topological-side": {
+        "title": "The topological index",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the K-theory home of the symbol class of an elliptic operator on $M$?",
+            "choices": [
+              "$K^0(M)$",
+              "$K^0(T^*M)$ (compactly supported)",
+              "$K^1(M)$",
+              "$H^*(M;\\mathbb{Z})$"
+            ],
+            "answer": 1,
+            "hint": "The symbol is a bundle map on $T^*M$, an isomorphism off the zero section.",
+            "explain": "$\\sigma(D)$ defines an iso between pulled-back bundles outside the zero section in $T^*M$, hence a compactly supported K-class $[\\sigma(D)]\\in K^0(T^*M)$. This is the entry point for the topological index."
+          },
+          {
+            "type": "mcq",
+            "q": "The topological index is given by which cohomology pairing?",
+            "choices": [
+              "$\\langle c_n(TM),[M]\\rangle$",
+              "$\\bigl\\langle\\mathrm{ch}([\\sigma(D)])\\smile\\mathrm{Td}(TM\\otimes\\mathbb{C}),[T^*M]\\bigr\\rangle$",
+              "$\\int_M e(TM)$",
+              "$\\int_M\\mathrm{ch}(\\sigma(D))$"
+            ],
+            "answer": 1,
+            "hint": "The Todd class corrects for K-orientation when integrating over $T^*M$.",
+            "explain": "Atiyah–Singer's index formula: $\\ind_{\\mathrm{top}}(D)=\\int_{T^*M}\\mathrm{ch}([\\sigma(D)])\\cdot\\mathrm{Td}(TM_\\mathbb{C})$. The Todd class is the K-theoretic Thom-class correction translating into ordinary cohomology."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the Todd class $\\mathrm{Td}$ appear in the formula?",
+            "choices": [
+              "It enforces the K-theory Thom isomorphism on $T^*M$ when translated to ordinary cohomology",
+              "It cancels the Pontryagin class of $TM$",
+              "It is the Chern character of the trivial bundle",
+              "It controls torsion only"
+            ],
+            "answer": 0,
+            "hint": "Both $\\mathrm{ch}$ and the Thom isomorphism need to be reconciled with each other.",
+            "explain": "The Riemann–Roch defect: the K-theory pushforward and the ordinary-cohomology pushforward disagree by $\\mathrm{Td}(TM_\\mathbb{C})$. Matching them is exactly the Riemann–Roch theorem; Atiyah–Singer is its index-theoretic incarnation."
+          }
+        ]
+      },
+      "as-special-cases": {
+        "title": "Classical specialisations",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Applied to the operator $D=d+d^*\\colon\\Omega^{\\mathrm{even}}\\to\\Omega^{\\mathrm{odd}}$ on a closed oriented manifold, the index theorem recovers …",
+            "choices": [
+              "Hirzebruch–Riemann–Roch",
+              "Gauss–Bonnet–Chern: $\\chi(M)=\\int_M e(TM)$",
+              "The Hopf invariant",
+              "The Lefschetz fixed-point formula"
+            ],
+            "answer": 1,
+            "hint": "$\\ker(d+d^*)$ on even forms is even-dimensional harmonic cohomology by Hodge theory.",
+            "explain": "$\\ind(d+d^*)=\\sum_k(-1)^k\\dim H^k(M)=\\chi(M)$. The right-hand topological invariant integrates the Pfaffian/Euler form, recovering Gauss–Bonnet–Chern."
+          },
+          {
+            "type": "mcq",
+            "q": "On a holomorphic vector bundle $E\\to X$ over a closed complex manifold, $\\ind(\\bar\\partial_E)$ equals …",
+            "choices": [
+              "$\\chi(X,E)=\\sum(-1)^k\\dim H^k(X,E)$",
+              "$\\dim H^0(X,E)$",
+              "$\\dim X$",
+              "$\\deg(E)$"
+            ],
+            "answer": 0,
+            "hint": "Dolbeault cohomology gives the kernels and cokernels of $\\bar\\partial$ on $(0,k)$-forms with values in $E$.",
+            "explain": "$\\ind(\\bar\\partial_E)=\\sum_k(-1)^k\\dim H^k(X,E)$, the holomorphic Euler characteristic. Atiyah–Singer specialises to $\\chi(X,E)=\\int_X\\mathrm{ch}(E)\\cdot\\mathrm{Td}(TX)$, which is Hirzebruch–Riemann–Roch."
+          },
+          {
+            "type": "mcq",
+            "q": "The signature theorem identifies $\\sigma(M)$ with which integral?",
+            "choices": [
+              "$\\int_M\\mathrm{ch}(TM)$",
+              "$\\int_M L(TM)$ for the Hirzebruch $L$-genus",
+              "$\\int_M e(TM)^2$",
+              "$\\int_M\\hat A(TM)$"
+            ],
+            "answer": 1,
+            "hint": "$L=\\prod x_i/\\tanh(x_i)$ in formal Pontryagin roots.",
+            "explain": "For the signature operator $D_+\\colon\\Omega^+\\to\\Omega^-$ on a $4k$-manifold, the index equals the signature: $\\sigma(M)=\\int_M L(TM)$. In dimension $4$, $\\sigma=\\tfrac{1}{3}\\langle p_1,[M]\\rangle$."
+          }
+        ]
+      },
+      "as-dirac-operators": {
+        "title": "Dirac operators and the $\\hat A$-genus",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On a $2n$-dimensional spin manifold, the index of the Dirac operator $D\\colon\\Gamma(S^+)\\to\\Gamma(S^-)$ equals …",
+            "choices": [
+              "$\\int_M e(TM)$",
+              "$\\int_M\\hat A(TM)$",
+              "$\\int_M L(TM)$",
+              "$\\chi(M)/2$"
+            ],
+            "answer": 1,
+            "hint": "The $\\hat A$-genus has formal expansion $\\prod (x_i/2)/\\sinh(x_i/2)$.",
+            "explain": "Atiyah–Singer for the Dirac operator: $\\ind(D)=\\int_M\\hat A(TM)$. On a closed spin $4$-manifold, $\\hat A=-p_1/24$, so $\\ind(D)=-\\langle p_1,[M]\\rangle/24$, which equals $-\\sigma(M)/8$ via the signature theorem."
+          },
+          {
+            "type": "mcq",
+            "q": "Lichnerowicz's vanishing theorem says that on a closed spin manifold of positive scalar curvature, …",
+            "choices": [
+              "$\\hat A(M)$ is bounded",
+              "$\\hat A(M)=0$",
+              "$\\chi(M)=0$",
+              "$M$ is parallelizable"
+            ],
+            "answer": 1,
+            "hint": "The Bochner–Weitzenböck formula for $D^2$ has a positive curvature term forcing $\\ker D=0$.",
+            "explain": "Lichnerowicz: $D^2=\\nabla^*\\nabla+\\tfrac{R}{4}$ where $R$ is the scalar curvature. If $R>0$ everywhere, $\\ker D=0$, so $\\ind(D)=-\\dim\\mathrm{coker}\\,D\\le 0$ and dually $\\ge 0$, hence $0$. This obstructs many spin manifolds (e.g. $K3$) from carrying positive-scalar-curvature metrics."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the integrality of $\\hat A(M)$ a non-trivial output on a spin manifold?",
+            "choices": [
+              "$\\hat A$ is rational a priori; integrality on spin manifolds comes from $\\ind(D)\\in\\mathbb{Z}$",
+              "$\\hat A$ is always integer-valued for any oriented manifold",
+              "$\\hat A$ vanishes on simply-connected manifolds",
+              "$\\hat A$ equals the Euler class"
+            ],
+            "answer": 0,
+            "hint": "Without spin, $\\hat A$ would only land in $\\mathbb{Q}$, but $\\ind(D)$ is an integer.",
+            "explain": "The expansion of $\\hat A$ involves rational coefficients. The fact that its integral against $[M]$ is an integer when $M$ is spin is one of the first divisibility theorems that the index theorem produces — historically how Rokhlin's $\\sigma\\equiv 0\\pmod{16}$ for spin $4$-manifolds was reproved."
+          }
+        ]
+      },
+      "as-applications": {
+        "title": "Heat kernel, families, equivariant, anomalies",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The McKean–Singer formula expresses $\\ind(D)$ as which trace?",
+            "choices": [
+              "$\\tr(e^{-tD^*D})-\\tr(e^{-tDD^*})$, independent of $t>0$",
+              "$\\tr(D)$",
+              "$\\det(D)$",
+              "$\\lim_{t\\to\\infty}\\tr(e^{-tD})$"
+            ],
+            "answer": 0,
+            "hint": "Pair off non-zero eigenvalues of $D^*D$ and $DD^*$; only the kernels survive.",
+            "explain": "The supertrace of $e^{-tD^2}$ is independent of $t$. As $t\\to\\infty$ it picks out only $\\ker D$ and $\\ker D^*=\\mathrm{coker}\\,D$; as $t\\to 0$ the heat-kernel asymptotic produces a local index density. Equating the two limits is the heat-kernel proof."
+          },
+          {
+            "type": "mcq",
+            "q": "In the families index theorem, the index of a family $\\{D_b\\}_{b\\in B}$ of elliptic operators lives in which group?",
+            "choices": [
+              "$\\mathbb{Z}$",
+              "$K^0(B)$",
+              "$H^0(B;\\mathbb{Z})$",
+              "$\\mathrm{Diff}(B)$"
+            ],
+            "answer": 1,
+            "hint": "Generalise an integer to a virtual bundle on the parameter space.",
+            "explain": "The kernels and cokernels assemble into a virtual bundle $[\\ker D]-[\\mathrm{coker}\\,D]\\in K^0(B)$. The families version of Atiyah–Singer computes this via a fibre-integration of $\\mathrm{ch}\\cdot\\mathrm{Td}$."
+          },
+          {
+            "type": "mcq",
+            "q": "In gauge theory, the index of the chiral Dirac operator coupled to a connection $A$ on a $4$-manifold corresponds physically to …",
+            "choices": [
+              "The instanton number / second Chern number of the gauge field",
+              "The string tension",
+              "The mass of the lightest fermion",
+              "The Euler characteristic of spacetime"
+            ],
+            "answer": 0,
+            "hint": "$\\int\\mathrm{tr}(F\\wedge F)$ on the gauge bundle.",
+            "explain": "$\\ind(D_A)=\\int_M\\hat A(TM)\\cdot\\mathrm{ch}(E_A)$ — for a $\\mathrm{SU}(N)$ bundle in dim $4$ the leading piece is $\\int_M c_2(E_A)$, the instanton number. The chiral anomaly in physics is exactly this index."
+          }
+        ]
+      }
+    }
+  },
   "automorphic-forms-adelic": {
     "topic": "automorphic-forms-adelic",
     "quizzes": {
@@ -5721,6 +5990,256 @@ window.MVQuizBank = {
             ],
             "answer": 0,
             "explain": "From the exact sequence, $|\\Sha[2]| = |\\mathrm{Sel}_2|/|E(\\mathbb{Q})/2E| = 32/8 = 4$. This is the standard way $2$-descent pins down $|\\Sha[2]|$ even when the full group is out of reach."
+          }
+        ]
+      }
+    }
+  },
+  "calabi-yau-manifolds": {
+    "topic": "calabi-yau-manifolds",
+    "quizzes": {
+      "cy-definition": {
+        "title": "Definition: Ricci-flat Kähler manifolds",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which characterisation is **not** equivalent to the others for a compact Kähler $n$-fold $X$?",
+            "choices": [
+              "$c_1(X) = 0$ in $H^2(X, \\mathbb{R})$",
+              "Trivial canonical bundle $K_X \\cong \\mathcal{O}_X$",
+              "Existence of a nowhere-vanishing holomorphic $n$-form",
+              "Vanishing $h^{1,0}(X)$"
+            ],
+            "answer": 3,
+            "explain": "The first three are equivalent (and define a CY in the strict sense). Vanishing of $h^{1,0}$ is an *extra* condition some authors impose to rule out tori — for example $h^{1,0}(\\mathrm{K3}) = 0$ but $h^{1,0}(\\text{elliptic curve}) = 1$, and both are CY by the first three criteria."
+          },
+          {
+            "type": "mcq",
+            "q": "Yau's theorem (Calabi conjecture) tells us:",
+            "choices": [
+              "Every Kähler class on a CY contains a unique Ricci-flat Kähler metric",
+              "Every CY admits a flat Kähler metric (zero curvature)",
+              "Every CY is automatically projective",
+              "Every CY is simply connected"
+            ],
+            "answer": 0,
+            "explain": "Ricci-flat ($\\mathrm{Ric} = 0$), not flat ($R = 0$). The metric is unique inside each Kähler class, but the curvature tensor is generically nonzero — only its trace vanishes."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are Calabi–Yau manifolds (in the broad sense $c_1 = 0$)?",
+            "choices": [
+              "An elliptic curve $\\mathbb{C}/\\Lambda$",
+              "$\\mathbb{P}^n$ for $n \\geq 1$",
+              "A smooth quartic surface in $\\mathbb{P}^3$ (a K3)",
+              "A smooth quintic 3-fold in $\\mathbb{P}^4$"
+            ],
+            "answer": [
+              0,
+              2,
+              3
+            ],
+            "explain": "$\\mathbb{P}^n$ has $K = \\mathcal{O}(-n-1)$, so $c_1 \\neq 0$ — it is Fano, not CY. The other three all have trivial canonical bundle by the adjunction formula on $\\mathbb{P}^N$."
+          }
+        ]
+      },
+      "cy-hodge-numbers": {
+        "title": "The Hodge diamond",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On a CY 3-fold $X$, what is $h^{3,0}(X)$?",
+            "choices": [
+              "$0$",
+              "$1$",
+              "$h^{1,1}(X)$",
+              "Depends on $X$"
+            ],
+            "answer": 1,
+            "explain": "$H^{3,0}(X) = H^0(X, \\Omega^3) = H^0(X, K_X)$, and the trivialisation $K_X \\cong \\mathcal{O}_X$ gives a 1-dimensional space spanned by the holomorphic volume form $\\Omega$."
+          },
+          {
+            "type": "numeric",
+            "q": "The quintic 3-fold has $h^{1,1} = 1$ and $h^{2,1} = 101$. What is its Euler characteristic $\\chi$?",
+            "answer": -200,
+            "tol": 0,
+            "explain": "$\\chi = 2(h^{1,1} - h^{2,1}) = 2(1 - 101) = -200$. The diamond rows sum to $1, 0, 1, 102, 1, 0, 1$ across degrees $0,\\ldots,6$ with signs $+,-,+,-,+,-,+$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which symmetry of the Hodge diamond is **specific** to CY (and not true for an arbitrary compact Kähler manifold)?",
+            "choices": [
+              "$h^{p,q} = h^{q,p}$",
+              "$h^{p,q} = h^{n-p, n-q}$",
+              "$h^{n,0} = h^{0,0} = 1$",
+              "$\\sum (-1)^{p+q} h^{p,q} = \\chi$"
+            ],
+            "answer": 2,
+            "explain": "Hodge symmetry, Serre duality, and the Euler-characteristic formula hold on any compact Kähler manifold. $h^{n,0} = 1 = h^{0,0}$ is the CY-specific statement, encoding the global holomorphic volume form."
+          }
+        ]
+      },
+      "cy-examples": {
+        "title": "Examples: elliptic curves, K3, the quintic",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why is a smooth quintic hypersurface $X \\subset \\mathbb{P}^4$ a Calabi–Yau 3-fold?",
+            "choices": [
+              "$\\mathbb{P}^4$ itself is CY",
+              "Adjunction: $K_X = (K_{\\mathbb{P}^4} \\otimes \\mathcal{O}(5))|_X = \\mathcal{O}(-5+5)|_X = \\mathcal{O}_X$",
+              "Every smooth projective 3-fold has trivial canonical bundle",
+              "It is a complete intersection of dimension $\\geq 3$"
+            ],
+            "answer": 1,
+            "explain": "$K_{\\mathbb{P}^n} = \\mathcal{O}(-n-1)$, so for a degree-$d$ hypersurface $X \\subset \\mathbb{P}^n$ the adjunction formula gives $K_X = \\mathcal{O}(d-n-1)|_X$. CY iff $d = n+1$: degree 5 in $\\mathbb{P}^4$, degree 4 in $\\mathbb{P}^3$ (K3), degree 3 in $\\mathbb{P}^2$ (elliptic curve)."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the Hodge diamond of a K3 surface?",
+            "choices": [
+              "$1; 0,0; 1,20,1; 0,0; 1$",
+              "$1; 1,1; 1,2,1; 1,1; 1$",
+              "$1; 0,0; 1,0,1; 0,0; 1$",
+              "$1; 1,1; 1,20,1; 1,1; 1$"
+            ],
+            "answer": 0,
+            "explain": "K3 has $h^{1,0} = h^{0,1} = 0$ (simply connected, $b_1 = 0$) and $h^{1,1} = 20$. Total Betti numbers $b_0=1, b_1=0, b_2=22, b_3=0, b_4=1$ and $\\chi = 24$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following degrees $d$ make a smooth hypersurface $X^{n-1} \\subset \\mathbb{P}^n$ Calabi–Yau?",
+            "choices": [
+              "$d = n$",
+              "$d = n+1$",
+              "$d = 2n$",
+              "Any degree, as long as $X$ is smooth"
+            ],
+            "answer": 1,
+            "explain": "Adjunction gives $K_X = \\mathcal{O}(d - n - 1)|_X$; this is trivial iff $d = n+1$. Smaller $d$ gives Fano, larger $d$ gives general type."
+          }
+        ]
+      },
+      "cy-period-map": {
+        "title": "Periods and Picard–Fuchs",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In a family $\\{X_t\\}$ of CY $n$-folds, the period integrals $\\Pi_i(t) = \\int_{\\gamma_i} \\Omega_t$ are functions of $t$ that:",
+            "choices": [
+              "Are always polynomial in $t$",
+              "Satisfy a linear ODE — the Picard–Fuchs equation — derived from Gauss–Manin",
+              "Are locally constant by Stokes' theorem",
+              "Are independent of the choice of cycle $\\gamma_i$"
+            ],
+            "answer": 1,
+            "explain": "The Gauss–Manin connection on $H^n_{\\mathrm{dR}}$ flat-translates cohomology classes; differentiating the periods enough times produces a linear relation, the Picard–Fuchs ODE. Solutions are typically transcendental (hypergeometric for the quintic)."
+          },
+          {
+            "type": "mcq",
+            "q": "Monodromy of the period map around a singular point in moduli measures:",
+            "choices": [
+              "How $\\Omega_t$ changes when you go around the puncture",
+              "The action on $H_n(X,\\mathbb{Z})$ when the cycles $\\gamma_i$ are transported around the singular fibre",
+              "The diffeomorphism class of the singular fibre",
+              "Nothing — periods are single-valued"
+            ],
+            "answer": 1,
+            "explain": "Monodromy is the parallel-transport action on integral cohomology after looping around a discriminant point. For a maximally unipotent boundary point of the quintic, the monodromy logarithm is nilpotent of index 4 — this is the data that mirror symmetry uses to identify the large-volume limit on the $A$-side."
+          },
+          {
+            "type": "mcq",
+            "q": "The mirror quintic family is governed by a Picard–Fuchs operator of order:",
+            "choices": [
+              "2",
+              "3",
+              "4",
+              "5"
+            ],
+            "answer": 2,
+            "explain": "Order 4, matching $\\dim H^3(X,\\mathbb{C}) = 2 + 2h^{2,1} = 4$ for the mirror (which has $h^{2,1} = 1$). The four solutions encode the prepotential and, via mirror symmetry, the genus-0 Gromov–Witten invariants of the original quintic."
+          }
+        ]
+      },
+      "cy-mirror-pair": {
+        "title": "Mirror symmetry: swapping the diamond",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "If $(X, Y)$ is a mirror pair of CY 3-folds, which equality holds?",
+            "choices": [
+              "$h^{1,1}(X) = h^{1,1}(Y)$",
+              "$h^{1,1}(X) = h^{2,1}(Y)$ and $h^{2,1}(X) = h^{1,1}(Y)$",
+              "$\\chi(X) = \\chi(Y)$",
+              "$X \\cong Y$ as complex manifolds"
+            ],
+            "answer": 1,
+            "explain": "Mirror symmetry swaps the two non-trivial entries of the CY 3-fold Hodge diamond. Consequently $\\chi(X) = -\\chi(Y)$: the quintic ($\\chi = -200$) is mirror to a 3-fold with $\\chi = +200$."
+          },
+          {
+            "type": "mcq",
+            "q": "On the physics side, mirror symmetry is a duality between:",
+            "choices": [
+              "Type IIA on $X$ and type IIB on $Y$",
+              "Bosonic and supersymmetric string theory",
+              "Open and closed strings on the same target",
+              "Gauge theory and gravity"
+            ],
+            "answer": 0,
+            "explain": "The two type-II string theories compactified on mirror CY 3-folds give the same 4D effective theory. The exchange swaps the Kähler moduli (controlled by $h^{1,1}$) with the complex-structure moduli (controlled by $h^{2,1}$)."
+          },
+          {
+            "type": "mcq",
+            "q": "The Candelas–de la Ossa–Green–Parkes prediction for the quintic is a count of:",
+            "choices": [
+              "Lines on a generic quintic",
+              "Rational curves of every degree on a generic quintic 3-fold",
+              "Holomorphic 3-forms on the quintic",
+              "Periods of $\\Omega$ over integral cycles"
+            ],
+            "answer": 1,
+            "explain": "The number of rational curves of each degree (genus-0 Gromov–Witten invariants) on the quintic was extracted from the periods of the mirror family — degree 1: 2875, degree 2: 609250, etc. — and later proved by Givental and Lian–Liu–Yau."
+          }
+        ]
+      },
+      "cy-applications": {
+        "title": "String compactifications, DT, SYZ",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why are CY 3-folds the geometries used to compactify the extra dimensions of superstring theory?",
+            "choices": [
+              "They are easy to write down explicitly",
+              "Ricci-flatness + holonomy $\\mathrm{SU}(3)$ preserves $\\mathcal{N}=1$ supersymmetry in 4D",
+              "Their Hodge numbers count gauge bosons",
+              "They have no moduli"
+            ],
+            "answer": 1,
+            "explain": "10D $\\mathcal{N}=1$ string on $\\mathbb{R}^{1,3} \\times X$ preserves $\\mathcal{N}=1$ in 4D iff $X$ has holonomy contained in $\\mathrm{SU}(n)$, i.e. $X$ is Calabi–Yau (the Killing-spinor equation reduces to a covariant constant spinor, which exists exactly when $\\mathrm{Ric} = 0$ Kähler)."
+          },
+          {
+            "type": "mcq",
+            "q": "Donaldson–Thomas invariants of a CY 3-fold $X$ count:",
+            "choices": [
+              "Holomorphic curves in $X$",
+              "Stable ideal sheaves with fixed Chern character",
+              "Critical points of a Morse function on $X$",
+              "Rational points of $X$ over $\\mathbb{F}_p$"
+            ],
+            "answer": 1,
+            "explain": "DT invariants are virtual counts of stable ideal sheaves on $X$ — equivalently subschemes — and are conjecturally equivalent (MNOP) to Gromov–Witten counts of the same $X$. On the mirror side they swap with another curve count."
+          },
+          {
+            "type": "mcq",
+            "q": "The Strominger–Yau–Zaslow conjecture asserts that a CY 3-fold near a large-complex-structure limit admits:",
+            "choices": [
+              "A Ricci-flat Einstein metric",
+              "A holomorphic embedding into $\\mathbb{P}^N$",
+              "A special-Lagrangian $T^3$-fibration $X \\to B$, with the mirror obtained by dualising the fibres",
+              "A free action of a finite group whose quotient is again CY"
+            ],
+            "answer": 2,
+            "explain": "SYZ realises mirror symmetry T-duality fibrewise: dualising the special-Lagrangian 3-torus fibres of $X \\to B$ produces the mirror $Y \\to B$, giving a geometric (and not merely Hodge-theoretic) explanation for why mirrors exist."
           }
         ]
       }
@@ -9586,6 +10105,232 @@ window.MVQuizBank = {
       }
     }
   },
+  "computational-number-theory": {
+    "topic": "computational-number-theory",
+    "quizzes": {
+      "cnt-primality": {
+        "title": "Primality testing",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why is Fermat's little theorem alone insufficient as a primality test?",
+            "choices": [
+              "It is too slow to compute $a^{n-1} \\bmod n$.",
+              "Carmichael numbers like $561$ satisfy $a^{n-1}\\equiv 1\\pmod n$ for every $a$ coprime to $n$ yet are composite.",
+              "It only works when $n$ is even.",
+              "It requires factoring $n-1$ in advance."
+            ],
+            "answer": 1,
+            "explain": "Carmichael numbers are composite Fermat liars for every base coprime to $n$. Miller–Rabin strengthens the test by also checking square roots of $1$, ruling these out."
+          },
+          {
+            "type": "numeric",
+            "q": "Run a single Miller–Rabin round on $n=15$ with base $a=2$. Write $n-1 = 14 = 2 \\cdot 7$, so $d=7,\\ s=1$. Compute $2^7 \\bmod 15$.",
+            "answer": 8,
+            "tol": 0.5,
+            "explain": "$2^7 = 128 = 8\\cdot 15 + 8$, so $2^7 \\equiv 8 \\pmod{15}$. Since $8 \\not\\equiv \\pm 1$ and $s=1$ leaves no further squarings, $a=2$ is a Miller–Rabin witness — $15$ is composite."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the asymptotic running time of the AKS deterministic primality test in $\\log n$?",
+            "choices": [
+              "$O((\\log n)^{1/2})$",
+              "Exponential in $\\log n$",
+              "$O((\\log n)^{6+\\epsilon})$ — polynomial in $\\log n$",
+              "Subexponential, $L_n[1/3,c]$"
+            ],
+            "answer": 2,
+            "explain": "AKS (2002) was the first deterministic, unconditional, polynomial-time primality test. Tighter analyses bring the exponent down toward $6$; Miller–Rabin remains faster in practice but is probabilistic."
+          }
+        ]
+      },
+      "cnt-factoring": {
+        "title": "Integer factoring",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Pollard's $\\rho$ method for factoring $n$ iterates $x \\mapsto x^2 + c \\bmod n$ and looks for a collision. Why does it work?",
+            "choices": [
+              "By the birthday paradox, two iterates coincide modulo a prime factor $p$ in roughly $\\sqrt{p}$ steps; their difference shares a factor with $n$.",
+              "Because $x^2+c$ has no real roots when $c>0$.",
+              "Because every quadratic polynomial is irreducible modulo a prime.",
+              "Because the iteration enumerates all residues mod $n$ in order."
+            ],
+            "answer": 0,
+            "explain": "The sequence reduced mod $p$ is shorter than mod $n$, so a cycle appears in $O(\\sqrt p)$ steps. Floyd's tortoise–hare detector finds two iterates with $x_i \\equiv x_j \\pmod p$ but $x_i \\not\\equiv x_j \\pmod n$, so $\\gcd(x_i-x_j, n)$ is a nontrivial factor."
+          },
+          {
+            "type": "mcq",
+            "q": "The general number-field sieve runs in time approximately:",
+            "choices": [
+              "$\\exp\\!\\big((\\log n)^{1/2}\\big)$",
+              "$L_n[1/3, (64/9)^{1/3}]$ (subexponential)",
+              "Polynomial in $\\log n$",
+              "$\\exp(n)$"
+            ],
+            "answer": 1,
+            "explain": "GNFS achieves $L_n[1/3, c]$ with $c=(64/9)^{1/3}\\approx 1.923$ for general integers. This is the current asymptotic record; no polynomial-time classical factoring algorithm is known."
+          },
+          {
+            "type": "numeric",
+            "q": "Run Pollard's $\\rho$ with $f(x)=x^2+1$, $x_0=2$ on $n=91$. After two steps the sequence is $x_1=5, x_2=26$. Compute $\\gcd(x_2-x_1,\\ 91)$.",
+            "answer": 7,
+            "tol": 0.5,
+            "explain": "$x_2 - x_1 = 21$, and $\\gcd(21, 91) = 7$. So $91 = 7 \\cdot 13$."
+          }
+        ]
+      },
+      "cnt-lattice-reduction": {
+        "title": "LLL & lattice reduction",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What does LLL guarantee about its output basis $b_1, \\dots, b_n$?",
+            "choices": [
+              "$b_1$ is the shortest vector in the lattice.",
+              "$\\|b_1\\| \\le 2^{(n-1)/2}\\, \\lambda_1(L)$ where $\\lambda_1$ is the shortest-vector length, and the algorithm runs in polynomial time.",
+              "All $b_i$ are pairwise orthogonal.",
+              "$\\|b_1\\| \\le \\log n \\cdot \\lambda_1(L)$."
+            ],
+            "answer": 1,
+            "explain": "LLL trades exact shortness for polynomial-time computability: the first basis vector is within a factor $2^{(n-1)/2}$ of optimal — exponentially loose, but enough to break many cryptosystems and find integer relations."
+          },
+          {
+            "type": "mcq",
+            "q": "Coppersmith's theorem uses LLL to find:",
+            "choices": [
+              "Eigenvalues of integer matrices.",
+              "Small roots of a polynomial $f(x)$ modulo $N$ when $|x| < N^{1/d}$, where $d=\\deg f$.",
+              "The factorization of $N$ given just $N$.",
+              "Discrete logarithms in finite fields."
+            ],
+            "answer": 1,
+            "explain": "Coppersmith builds a lattice from shifted multiples of $f$ and applies LLL; a short vector encodes a polynomial with the same small roots over $\\mathbb{Z}$, which are then findable. Used in stereotyped-message attacks on low-exponent RSA."
+          },
+          {
+            "type": "mcq",
+            "q": "Which is NOT a standard application of LLL?",
+            "choices": [
+              "Detecting integer relations among real numbers (e.g. $\\zeta(3)$ vs powers of $\\pi$).",
+              "Cryptanalysis of knapsack cryptosystems.",
+              "Polynomial-time integer factoring.",
+              "Reducing the lattice of relations in Buchmann's class-group algorithm."
+            ],
+            "answer": 2,
+            "explain": "LLL accelerates many sub-routines in factoring (Coppersmith) but no polynomial-time factoring algorithm is known — the other three are textbook applications."
+          }
+        ]
+      },
+      "cnt-modular-arithmetic-algorithms": {
+        "title": "Modular arithmetic algorithms",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Compute $7^{13} \\bmod 11$ by repeated squaring. (Binary: $13 = 1101_2$.)",
+            "answer": 2,
+            "tol": 0.5,
+            "explain": "$7^2\\equiv 5$, $7^4\\equiv 25\\equiv 3$, $7^8\\equiv 9$. So $7^{13}=7^8\\cdot 7^4\\cdot 7^1 \\equiv 9\\cdot 3\\cdot 7 = 189 \\equiv 2\\pmod{11}$."
+          },
+          {
+            "type": "mcq",
+            "q": "Tonelli–Shanks computes $\\sqrt{a} \\bmod p$ when $\\left(\\tfrac{a}{p}\\right)=1$. The simple case $p\\equiv 3\\pmod 4$ has the closed form:",
+            "choices": [
+              "$a^{(p-1)/2} \\bmod p$",
+              "$a^{(p+1)/4} \\bmod p$",
+              "$a^{p} \\bmod p$",
+              "$a^{(p-1)/4} \\bmod p$"
+            ],
+            "answer": 1,
+            "explain": "If $p\\equiv 3\\pmod 4$, set $r = a^{(p+1)/4}$. Then $r^2 = a^{(p+1)/2} = a\\cdot a^{(p-1)/2} \\equiv a$ since $a$ is a QR. The general algorithm handles $p\\equiv 1\\pmod 4$ with extra work."
+          },
+          {
+            "type": "numeric",
+            "q": "Solve $x \\equiv 2 \\pmod 3,\\ x \\equiv 3 \\pmod 5,\\ x \\equiv 2 \\pmod 7$ via CRT. Give the smallest non-negative $x$.",
+            "answer": 23,
+            "tol": 0.5,
+            "explain": "Modulus $3\\cdot 5\\cdot 7=105$. $x=23$ satisfies all three: $23=7\\cdot 3+2$, $23=4\\cdot 5+3$, $23=3\\cdot 7+2$."
+          }
+        ]
+      },
+      "cnt-elliptic-curves-computation": {
+        "title": "Schoof & point counting",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Schoof's algorithm computes $\\#E(\\mathbb{F}_p)=p+1-t$ by determining $t \\bmod \\ell$ for several small primes $\\ell$. Why does this suffice?",
+            "choices": [
+              "Because $t$ is always a small prime.",
+              "By Hasse's bound $|t|\\le 2\\sqrt p$, so $t$ is recovered via CRT once $\\prod \\ell > 4\\sqrt p$.",
+              "Because Frobenius has order $\\ell$ on every torsion subgroup.",
+              "Because $t = p+1$ always."
+            ],
+            "answer": 1,
+            "explain": "Hasse bounds $t$ to a window of width $4\\sqrt p$. Combining residues mod enough small $\\ell$ via CRT pins $t$ down uniquely; the resulting algorithm is polynomial in $\\log p$."
+          },
+          {
+            "type": "mcq",
+            "q": "On what does Schoof compute the action of Frobenius $\\phi_p:(x,y)\\mapsto(x^p,y^p)$?",
+            "choices": [
+              "The full curve $E$ — infeasible.",
+              "The $\\ell$-torsion subgroup $E[\\ell]$, represented by the $\\ell$-th division polynomial.",
+              "The $\\ell$-adic completion of $E$.",
+              "Only the identity element $\\mathcal O$."
+            ],
+            "answer": 1,
+            "explain": "Computing in $\\mathbb{F}_p[x,y]/(\\psi_\\ell, E)$ where $\\psi_\\ell$ is the $\\ell$-th division polynomial keeps everything finite-dimensional. Schoof then matches $\\phi_p^2 - t\\phi_p + p \\equiv 0$ on $E[\\ell]$ to extract $t \\bmod \\ell$."
+          },
+          {
+            "type": "mcq",
+            "q": "The SEA improvement to Schoof exploits:",
+            "choices": [
+              "Faster matrix inversion.",
+              "Modular polynomials $\\Phi_\\ell(X,Y)$ to work on a kernel subgroup of $E[\\ell]$ rather than all of $E[\\ell]$, when $\\ell$ is an Elkies prime.",
+              "Quantum computation.",
+              "Replacing $\\mathbb{F}_p$ by $\\mathbb R$."
+            ],
+            "answer": 1,
+            "explain": "Schoof–Elkies–Atkin uses the modular polynomial $\\Phi_\\ell$ to detect when Frobenius has rational eigenvectors on $E[\\ell]$ (Elkies primes), reducing the work from degree $\\ell^2-1$ to roughly $\\ell$."
+          }
+        ]
+      },
+      "cnt-class-group-computation": {
+        "title": "Class & unit group computation",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Buchmann's algorithm computes the class group of a number field $K$ in subexponential time, but only conditionally. On what?",
+            "choices": [
+              "The Riemann hypothesis for $\\zeta$.",
+              "The generalized Riemann hypothesis (GRH) for Hecke $L$-functions of $K$.",
+              "$P=NP$.",
+              "The Birch–Swinnerton-Dyer conjecture."
+            ],
+            "answer": 1,
+            "explain": "GRH is needed to bound the size of generators of the class group: under GRH, prime ideals up to $(\\log |\\Delta_K|)^{2}$ generate $\\mathrm{Cl}(K)$, making the factor-base relation method provably correct in subexponential time."
+          },
+          {
+            "type": "mcq",
+            "q": "Where does LLL enter Buchmann's algorithm?",
+            "choices": [
+              "It is used to test primality of the discriminant.",
+              "It reduces the lattice of relations among factor-base ideals to extract the Smith normal form, recovering both the class group structure and the regulator.",
+              "It computes the Galois group of $K$.",
+              "It evaluates the zeta function at $s=1$."
+            ],
+            "answer": 1,
+            "explain": "Each relation among factor-base prime ideals lives in $\\mathbb{Z}^{|S|}$ together with a logarithm vector for units. LLL reduces this combined lattice; its Smith normal form yields the class group invariants and a basis of fundamental units (hence the regulator)."
+          },
+          {
+            "type": "numeric",
+            "q": "The class number of $\\mathbb{Q}(\\sqrt{-5})$ is:",
+            "answer": 2,
+            "tol": 0.5,
+            "explain": "The ring of integers $\\mathbb{Z}[\\sqrt{-5}]$ is the canonical example of a non-PID: $6 = 2\\cdot 3 = (1+\\sqrt{-5})(1-\\sqrt{-5})$ are two essentially different factorizations. The class group is $\\mathbb{Z}/2\\mathbb{Z}$, so $h=2$."
+          }
+        ]
+      }
+    }
+  },
   "deformation-theory": {
     "topic": "deformation-theory",
     "quizzes": {
@@ -10320,6 +11065,242 @@ window.MVQuizBank = {
             "answer": 1,
             "explain": "Mukai's 1981 theorem: for $X$ an abelian variety with dual $\\hat X$ and Poincaré bundle $\\mathcal{P}$ on $X \\times \\hat X$, the FM transform $\\Phi_{\\mathcal{P}}\\colon D^b(X) \\xrightarrow{\\sim} D^b(\\hat X)$ is an equivalence. (b), (c), (d) are also derived-equivalence phenomena but not Mukai's specific construction.",
             "hint": "Look up the Poincaré bundle."
+          }
+        ]
+      }
+    }
+  },
+  "designs": {
+    "topic": "designs",
+    "quizzes": {
+      "d-block-designs": {
+        "title": "Balanced incomplete block designs",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A $(v, k, \\lambda) = (7, 3, 1)$-BIBD has $b$ blocks and replication $r$. What are $b$ and $r$?",
+            "choices": [
+              "$b = 7$, $r = 3$",
+              "$b = 21$, $r = 9$",
+              "$b = 14$, $r = 6$",
+              "$b = 7$, $r = 1$"
+            ],
+            "answer": 0,
+            "explain": "From $\\lambda(v-1) = r(k-1)$ we get $1 \\cdot 6 = r \\cdot 2$, so $r = 3$. Then $bk = vr$ gives $3b = 7 \\cdot 3 = 21$, so $b = 7$. This is the Fano plane: $7$ points, $7$ lines, each line through $3$ points, each point on $3$ lines."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of these parameter triples $(v, k, \\lambda)$ satisfies the necessary divisibility conditions for a BIBD to exist?",
+            "choices": [
+              "$(v, k, \\lambda) = (8, 3, 1)$",
+              "$(v, k, \\lambda) = (9, 3, 1)$",
+              "$(v, k, \\lambda) = (10, 4, 1)$",
+              "$(v, k, \\lambda) = (11, 5, 1)$"
+            ],
+            "answer": 1,
+            "explain": "Need $\\lambda(v-1) \\equiv 0 \\pmod{k-1}$ and $\\lambda v(v-1) \\equiv 0 \\pmod{k(k-1)}$. For $(9,3,1)$: $8 \\equiv 0 \\pmod 2$ and $9 \\cdot 8 = 72 \\equiv 0 \\pmod 6$. The other triples fail one or both. (And indeed, the affine plane $\\mathrm{AG}(2,3)$ realizes $(9,3,1)$.)"
+          },
+          {
+            "type": "numeric",
+            "q": "In a $(v, k, \\lambda) = (13, 4, 1)$-BIBD, how many blocks $b$ are there?",
+            "answer": 13,
+            "tol": 0.01,
+            "explain": "$r(k-1) = \\lambda(v-1) \\Rightarrow 3r = 12 \\Rightarrow r = 4$. Then $bk = vr \\Rightarrow 4b = 13 \\cdot 4 \\Rightarrow b = 13$. This is $\\mathrm{PG}(2,3)$: a symmetric $2$-design with $b = v$."
+          }
+        ]
+      },
+      "d-fisher-inequality": {
+        "title": "Fisher's inequality",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Fisher's inequality says: in any non-trivial $2$-$(v,k,\\lambda)$ design,",
+            "choices": [
+              "$b \\ge v$",
+              "$b \\le v$",
+              "$b = v$",
+              "$\\lambda \\ge k$"
+            ],
+            "answer": 0,
+            "explain": "Fisher's inequality is $b \\ge v$. Equality $b = v$ defines a symmetric design (e.g. projective planes). The bound comes from the incidence matrix $N$ having $\\mathrm{rank}(N) = v$ over $\\mathbb{R}$."
+          },
+          {
+            "type": "mcq",
+            "q": "The key linear-algebra step in Fisher's proof shows that for the $v \\times b$ incidence matrix $N$,",
+            "choices": [
+              "$NN^\\top = rI$",
+              "$NN^\\top = \\lambda J$",
+              "$NN^\\top = (r-\\lambda)I + \\lambda J$",
+              "$N^\\top N = vI$"
+            ],
+            "answer": 2,
+            "explain": "$(NN^\\top)_{ii} = r$ (replication count) and $(NN^\\top)_{ij} = \\lambda$ for $i \\ne j$ (pair-coverage count). So $NN^\\top = (r-\\lambda)I + \\lambda J$. Its eigenvalues are $r - \\lambda$ (with multiplicity $v-1$) and $r + (v-1)\\lambda = rk$ (multiplicity $1$); for non-trivial designs both are positive, so the matrix is invertible and $\\mathrm{rank}(N) = v \\le b$."
+          },
+          {
+            "type": "mcq",
+            "q": "A symmetric $2$-design is one with $b = v$. Which is the most familiar example?",
+            "choices": [
+              "A complete graph $K_n$",
+              "A projective plane of order $q$",
+              "The empty design",
+              "A Latin square"
+            ],
+            "answer": 1,
+            "explain": "A projective plane of order $q$ has $v = b = q^2+q+1$, $k = r = q+1$, $\\lambda = 1$. Symmetric designs are the equality case of Fisher and enjoy a dual design (swap blocks and points)."
+          }
+        ]
+      },
+      "d-finite-projective-planes": {
+        "title": "Finite projective planes",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "How many points does a projective plane of order $q = 4$ have?",
+            "answer": 21,
+            "tol": 0.01,
+            "explain": "$q^2 + q + 1 = 16 + 4 + 1 = 21$. Each line carries $q + 1 = 5$ points, and each point lies on $5$ lines."
+          },
+          {
+            "type": "mcq",
+            "q": "By the Bruck–Ryser–Chowla theorem, a projective plane of order $q$ with $q \\equiv 1$ or $2 \\pmod 4$ exists only if",
+            "choices": [
+              "$q$ is a prime",
+              "$q$ is a sum of two integer squares",
+              "$q$ is even",
+              "$q + 1$ is prime"
+            ],
+            "answer": 1,
+            "explain": "BRC: if $q \\equiv 1,2 \\pmod 4$ then $q$ must be expressible as $a^2 + b^2$. This rules out $q = 6$ (= 2·3, not a sum of two squares) and $q = 14, 21, 22, \\ldots$. The case $q = 10$ ($= 1^2 + 3^2$) survived BRC and was eventually killed by a 1989 computer search."
+          },
+          {
+            "type": "mcq",
+            "q": "The Fano plane is the projective plane of order $q = 2$. It is the unique $(v,k,\\lambda) = $",
+            "choices": [
+              "$(7, 3, 1)$ design",
+              "$(7, 2, 1)$ design",
+              "$(8, 3, 1)$ design",
+              "$(7, 3, 2)$ design"
+            ],
+            "answer": 0,
+            "explain": "$v = q^2+q+1 = 7$, $k = q+1 = 3$, $\\lambda = 1$ (any two points lie on exactly one line). Up to isomorphism it is the unique Steiner triple system on $7$ points."
+          }
+        ]
+      },
+      "d-latin-squares": {
+        "title": "Latin squares & MOLS",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Two Latin squares $L_1, L_2$ of order $n$ are orthogonal if",
+            "choices": [
+              "$L_1 = L_2^\\top$",
+              "Their superposition contains every pair $(a, b) \\in [n] \\times [n]$ exactly once",
+              "Their entrywise product is a Latin square",
+              "$L_1 + L_2$ is constant"
+            ],
+            "answer": 1,
+            "explain": "Pair-up cell $(i,j)$ as $(L_1(i,j), L_2(i,j))$; orthogonality requires every one of the $n^2$ ordered pairs to appear exactly once. A complete set of $n-1$ mutually orthogonal Latin squares (MOLS) exists iff a projective plane of order $n$ exists."
+          },
+          {
+            "type": "numeric",
+            "q": "The maximum number of mutually orthogonal Latin squares of order $n = 5$ is $n - 1 = ?$",
+            "answer": 4,
+            "tol": 0.01,
+            "explain": "Order $5$ is a prime, so a projective plane $\\mathrm{PG}(2,5)$ exists, and a complete set of $n - 1 = 4$ MOLS can be built by labelling cells with $\\mathbb{F}_5$ and using $L_a(i,j) = i + a j \\pmod 5$ for $a = 1, 2, 3, 4$."
+          },
+          {
+            "type": "mcq",
+            "q": "Euler's $36$-officers problem asks for two orthogonal Latin squares of order $6$. The answer (Tarry, 1900) is:",
+            "choices": [
+              "Yes, they exist.",
+              "No, no such pair exists.",
+              "They exist only over $\\mathbb{F}_6$.",
+              "The question is undecidable."
+            ],
+            "answer": 1,
+            "explain": "Tarry's exhaustive 1900 enumeration showed no pair of orthogonal Latin squares of order $6$ exists. This is the only $n > 2$ for which MOLS pairs fail; the full Bose–Shrikhande–Parker theorem (1959) confirmed pairs exist for every other $n \\ne 2, 6$."
+          }
+        ]
+      },
+      "d-error-correcting-codes": {
+        "title": "Designs from codes",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The supports of weight-$3$ codewords in the binary Hamming $[7,4,3]$ code form the blocks of which design?",
+            "choices": [
+              "The Fano plane $\\mathrm{PG}(2,2)$",
+              "The affine plane $\\mathrm{AG}(2,3)$",
+              "The Steiner system $S(5,6,12)$",
+              "A complete bipartite design"
+            ],
+            "answer": 0,
+            "explain": "The Hamming $[7,4,3]$ code's $7$ minimum-weight codewords have weight-$3$ supports that are exactly the $7$ lines of the Fano plane — the Steiner triple system $S(2,3,7)$."
+          },
+          {
+            "type": "mcq",
+            "q": "A Steiner system $S(t, k, v)$ is a collection of $k$-subsets (blocks) of a $v$-set such that",
+            "choices": [
+              "Every $t$-subset of points is contained in exactly one block",
+              "Every block contains exactly $t$ points",
+              "Every pair of blocks meets in $t$ points",
+              "Each point lies in exactly $t$ blocks"
+            ],
+            "answer": 0,
+            "explain": "$S(t,k,v)$ is a $t$-design with $\\lambda = 1$: every $t$-set lies in a unique block. $S(2,3,7)$ is the Fano plane; $S(5,8,24)$ is the famous Witt design built from the binary Golay code."
+          },
+          {
+            "type": "mcq",
+            "q": "The Assmus–Mattson theorem says that under mild conditions, the supports of weight-$w$ codewords in a code $C$ form",
+            "choices": [
+              "A Latin square",
+              "A $t$-design for some $t$ depending on the dual distance",
+              "A finite projective plane",
+              "An MDS code"
+            ],
+            "answer": 1,
+            "explain": "Assmus–Mattson (1969): for a self-dual or otherwise nicely structured code $C$, the supports of weight-$w$ codewords (for each $w$ in a certain range) form $t$-designs, with $t$ governed by the minimum weight of $C^\\perp$. This is the bridge yielding $S(5,8,24)$ from the Golay code $G_{24}$."
+          }
+        ]
+      },
+      "d-applications": {
+        "title": "Applications",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why did R. A. Fisher introduce balanced incomplete block designs in agriculture?",
+            "choices": [
+              "To minimize the cost of seed",
+              "So every pair of treatments is compared on equally many plots, equalizing variance",
+              "To avoid Latin squares",
+              "To ensure plots are spatially adjacent"
+            ],
+            "answer": 1,
+            "explain": "BIBDs equalize the precision with which any pair of treatments is compared: every pair appears together in exactly $\\lambda$ blocks, so paired-comparison variance is the same across all pairs."
+          },
+          {
+            "type": "mcq",
+            "q": "In combinatorial software testing, an orthogonal array of strength $t$ guarantees",
+            "choices": [
+              "Every individual parameter takes every value",
+              "Every $t$-tuple of parameter values appears in some test row",
+              "Every test row is unique",
+              "The number of tests is $\\le t$"
+            ],
+            "answer": 1,
+            "explain": "Strength-$t$ orthogonal arrays — close cousins of MOLS — promise that every choice of $t$ parameter columns covers every value combination. Pairwise ($t = 2$) testing finds most bugs that depend on at most two parameter interactions, with vastly fewer than $\\prod n_i$ runs."
+          },
+          {
+            "type": "mcq",
+            "q": "A round-robin tournament for $7$ teams where each pair meets exactly once corresponds to",
+            "choices": [
+              "A Steiner triple system $S(2,3,7)$",
+              "The complete graph $K_7$ as a $1$-factorization",
+              "A Latin square of order $7$",
+              "An affine plane $\\mathrm{AG}(2,7)$"
+            ],
+            "answer": 1,
+            "explain": "Scheduling $K_7$ as a sequence of perfect-matching rounds is the classic $1$-factorization problem; it splits into Steiner-style rounds for odd $n$ via a 'circle method'. The pairing-once-each constraint is exactly $\\lambda = 1$ for pairs, the BIBD signature."
           }
         ]
       }
@@ -14145,6 +15126,252 @@ window.MVQuizBank = {
       }
     }
   },
+  "expanders": {
+    "topic": "expanders",
+    "quizzes": {
+      "e-definition": {
+        "title": "Combinatorial expansion",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "An $(n,d,\\varepsilon)$-expander is a $d$-regular graph on $n$ vertices satisfying which condition?",
+            "choices": [
+              "$|N(S)| \\ge (1+\\varepsilon)|S|$ for every $S$ with $|S|\\le n/2$",
+              "$|N(S)| \\ge (1+\\varepsilon)|S|$ for every $S$ with $|S|\\ge n/2$",
+              "Every vertex has degree at most $\\varepsilon n$",
+              "The diameter is at most $\\log_d n$"
+            ],
+            "answer": 0,
+            "explain": "The defining inequality is on small sets — $|S|\\le n/2$ — because once $|S|>n/2$ the complement is the small side and the symmetric statement reapplies."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the definition restrict to $|S|\\le n/2$?",
+            "choices": [
+              "Because $|N(S)|$ is bounded above by $n-|S|$, so for $|S|>n/2$ the inequality $|N(S)|\\ge(1+\\varepsilon)|S|$ would force $\\varepsilon\\le 0$",
+              "Because $N(S)$ is undefined when $S$ is the whole vertex set",
+              "By convention; the inequality holds for all $S$ in any expander",
+              "Because random walks only mix on small sets"
+            ],
+            "answer": 0,
+            "explain": "$N(S)\\subseteq V\\setminus S$ has at most $n-|S|$ elements, so $(1+\\varepsilon)|S|\\le n-|S|$ forces $|S|\\le n/(2+\\varepsilon)$. Restricting to the small side is the only way to get a meaningful inequality."
+          },
+          {
+            "type": "mcq",
+            "q": "Which graph family is NOT an expander family?",
+            "choices": [
+              "The cycles $C_n$ as $n\\to\\infty$",
+              "The 3-regular Ramanujan graphs of LPS",
+              "Random $d$-regular graphs on $n$ vertices, for fixed $d\\ge 3$",
+              "Cayley graphs of $\\mathrm{PGL}_2(\\mathbb{F}_p)$ with the LPS generators"
+            ],
+            "answer": 0,
+            "explain": "Cycles have diameter $\\Theta(n)$ and the spectral gap collapses to $0$ as $n\\to\\infty$; they fail expansion. The other three families are the textbook expander examples."
+          }
+        ]
+      },
+      "e-spectral-gap": {
+        "title": "Spectral expansion",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a $d$-regular graph let $\\lambda_2$ be the second-largest eigenvalue of $A/d$. Spectral expansion means:",
+            "choices": [
+              "$\\lambda_2 \\le 1-\\delta$ for some constant $\\delta>0$ (uniformly across the family)",
+              "$\\lambda_2 = 1$",
+              "$\\lambda_2$ is irrational",
+              "All eigenvalues are positive"
+            ],
+            "answer": 0,
+            "explain": "A uniform spectral gap $1-\\lambda_2 \\ge \\delta$ is the spectral form of expansion. The largest eigenvalue is always $1$ (for a regular graph), so the relevant data is how far $\\lambda_2$ sits below it."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does spectral expansion imply edge expansion (the easy direction of Cheeger)?",
+            "choices": [
+              "Because the indicator vector of a small set $S$ has a large component orthogonal to the constant, and the spectral gap forces $\\langle \\mathbf{1}_S, A\\mathbf{1}_{V\\setminus S}\\rangle$ to be sizable",
+              "Because every regular graph is bipartite",
+              "By the Perron–Frobenius theorem alone",
+              "Because the Laplacian has integer eigenvalues"
+            ],
+            "answer": 0,
+            "explain": "Decomposing $\\mathbf{1}_S = \\alpha\\mathbf{1} + v$ with $v\\perp\\mathbf{1}$ and applying the Rayleigh bound on $A$ to $v$ gives a lower bound on the cut $|E(S,\\bar S)|$ proportional to the spectral gap."
+          },
+          {
+            "type": "numeric",
+            "q": "For the cycle $C_n$ with $n$ large, the second-largest eigenvalue of $A/2$ is approximately $\\cos(2\\pi/n)$. What is its limit as $n\\to\\infty$?",
+            "answer": 1,
+            "tol": 0.01,
+            "explain": "$\\cos(2\\pi/n)\\to 1$, so the spectral gap collapses — confirming cycles do not form an expander family."
+          }
+        ]
+      },
+      "e-cheeger": {
+        "title": "Cheeger inequality",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Cheeger's inequality for graphs states (with $\\lambda_2$ the second eigenvalue of the normalized Laplacian and $\\phi(G)$ the edge-expansion constant):",
+            "choices": [
+              "$\\tfrac{1}{2}\\lambda_2 \\le \\phi(G) \\le \\sqrt{2\\lambda_2}$",
+              "$\\phi(G) = \\lambda_2$",
+              "$\\phi(G) \\le \\lambda_2^2$",
+              "$\\phi(G) \\ge \\lambda_n$"
+            ],
+            "answer": 0,
+            "explain": "Edge expansion is sandwiched between a linear lower bound and a square-root upper bound in $\\lambda_2$. The square-root upper bound is the harder direction, proved via the spectral sweep cut."
+          },
+          {
+            "type": "mcq",
+            "q": "What does the upper-bound direction $\\phi(G)\\le\\sqrt{2\\lambda_2}$ give algorithmically?",
+            "choices": [
+              "A constant-factor approximation algorithm for the sparsest cut, using thresholding of the Fiedler vector",
+              "An exact polynomial-time algorithm for the maximum cut",
+              "A linear-time algorithm for graph isomorphism",
+              "Nothing algorithmic; it is a pure existence result"
+            ],
+            "answer": 0,
+            "explain": "Sweeping over thresholds of the Fiedler vector $u_2$ produces a cut whose ratio matches $\\sqrt{2\\lambda_2}$ — this is the spectral sweep, a constant-factor approximation."
+          },
+          {
+            "type": "mcq",
+            "q": "Cheeger's graph inequality is the discrete shadow of which Riemannian theorem?",
+            "choices": [
+              "Cheeger's inequality $\\lambda_1 \\ge h(M)^2/4$ on a closed Riemannian manifold",
+              "The Gauss–Bonnet theorem",
+              "The Hodge decomposition",
+              "The Atiyah–Singer index theorem"
+            ],
+            "answer": 0,
+            "explain": "Jeff Cheeger's 1970 isoperimetric bound on the smallest positive Laplace eigenvalue of a manifold motivated and named the graph version."
+          }
+        ]
+      },
+      "e-explicit-constructions": {
+        "title": "Explicit constructions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Margulis–Gabber–Galil's expander family is built on which vertex set?",
+            "choices": [
+              "$(\\mathbb{Z}/n\\mathbb{Z})^2$, with edges given by a fixed set of $SL_2(\\mathbb{Z})$ generators",
+              "The cyclic group $\\mathbb{Z}/n\\mathbb{Z}$ with $\\pm 1$ generators",
+              "Cayley graphs of free groups",
+              "Random bipartite graphs"
+            ],
+            "answer": 0,
+            "explain": "The MGG construction uses translations and shears from $SL_2(\\mathbb{Z})$ acting on $(\\mathbb{Z}/n)^2$. It was the first explicit expander family with a quantitative spectral gap (via Kazhdan's property (T))."
+          },
+          {
+            "type": "mcq",
+            "q": "Lubotzky–Phillips–Sarnak's Ramanujan graphs have which degree?",
+            "choices": [
+              "$p+1$ for a prime $p$",
+              "$p$ for a prime $p$",
+              "$2$",
+              "Arbitrary even integer"
+            ],
+            "answer": 0,
+            "explain": "LPS graphs are $(p+1)$-regular Cayley graphs of $\\mathrm{PGL}_2(\\mathbb{F}_q)$ generated by integer quaternions of norm $p$ — and the count of such quaternions is $p+1$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the headline feature of the zigzag product (Reingold–Vadhan–Wigderson)?",
+            "choices": [
+              "It iteratively combines a large and a small expander to produce a new expander whose spectral gap can be analysed combinatorially, with no number theory",
+              "It only works over finite fields of characteristic 2",
+              "It produces Ramanujan graphs",
+              "It requires the Riemann hypothesis"
+            ],
+            "answer": 0,
+            "explain": "The zigzag $G\\,\\boxtimes\\,H$ multiplies vertex counts and reduces degree to $\\deg(H)^2$ while preserving a spectral gap — a purely combinatorial recursion underlying Reingold's $\\mathrm{SL}=\\mathrm{L}$ proof."
+          }
+        ]
+      },
+      "e-applications": {
+        "title": "Applications",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Reingold's theorem (2004) shows undirected $s$–$t$ connectivity lies in:",
+            "choices": [
+              "$\\mathrm{LOGSPACE}$ ($\\mathrm{L}$)",
+              "$\\mathrm{NP}$",
+              "$\\mathrm{PSPACE}$",
+              "$\\mathrm{EXPTIME}$"
+            ],
+            "answer": 0,
+            "explain": "Reingold deterministically explores any input graph in logarithmic space by repeatedly applying the zigzag product to the input and walking on the resulting expander, proving $\\mathrm{SL}=\\mathrm{L}$."
+          },
+          {
+            "type": "mcq",
+            "q": "How are expanders used in derandomisation (the BPP-style 'amplification with few random bits' application)?",
+            "choices": [
+              "Walk on an expander instead of taking independent samples — a $t$-step walk gives a sample whose error decays exponentially in $t$ but uses only $\\log n + O(t)$ random bits",
+              "Replace random bits with all-zero bits",
+              "Use the Riemann zeta function to seed a PRG",
+              "Multiply $\\lambda_2$ by random unit vectors"
+            ],
+            "answer": 0,
+            "explain": "The expander Chernoff bound shows a random walk on an expander concentrates as well as independent sampling but with logarithmic seed length — this is the canonical pseudorandomness-from-expansion argument."
+          },
+          {
+            "type": "mcq",
+            "q": "How do expanders enter the construction of Sipser–Spielman codes?",
+            "choices": [
+              "A bipartite expander defines the parity-check structure; expansion implies that any small corruption pattern conflicts with many checks, so unique decoding is possible in linear time",
+              "The expander provides a Fourier basis for decoding",
+              "They give the field over which the code is defined",
+              "They are unrelated to coding theory"
+            ],
+            "answer": 0,
+            "explain": "In the Sipser–Spielman expander code, vertices on one side of a bipartite expander are bits and vertices on the other side are parity checks; the expansion property forces low-weight error patterns to fail many checks, enabling fast iterative decoding."
+          }
+        ]
+      },
+      "e-ramanujan-graphs": {
+        "title": "Ramanujan graphs",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Alon–Boppana lower bound says that for any infinite family of $d$-regular graphs $G_n$:",
+            "choices": [
+              "$\\liminf_{n\\to\\infty} \\lambda_2(G_n) \\ge 2\\sqrt{d-1}$",
+              "$\\limsup_{n\\to\\infty} \\lambda_2(G_n) \\le 2\\sqrt{d-1}$",
+              "$\\lambda_2(G_n) = 0$ for all $n$",
+              "$\\lambda_2(G_n) \\le 1/n$"
+            ],
+            "answer": 0,
+            "explain": "Alon–Boppana shows the second eigenvalue cannot stay below $2\\sqrt{d-1}-o(1)$ — this is the spectral radius of the $d$-regular infinite tree. Ramanujan graphs are the ones that saturate this floor."
+          },
+          {
+            "type": "mcq",
+            "q": "A $d$-regular graph $G$ is called Ramanujan when:",
+            "choices": [
+              "Every nontrivial adjacency eigenvalue $\\lambda$ satisfies $|\\lambda| \\le 2\\sqrt{d-1}$",
+              "$\\lambda_2 = d$",
+              "$G$ is bipartite and has girth at least $\\log n$",
+              "$G$ is a Cayley graph of an abelian group"
+            ],
+            "answer": 0,
+            "explain": "The Ramanujan condition pins all nontrivial eigenvalues inside $[-2\\sqrt{d-1},\\,2\\sqrt{d-1}]$ — exactly the support of the spectral measure of the $d$-regular infinite tree. It is the strongest possible expansion at fixed degree."
+          },
+          {
+            "type": "mcq",
+            "q": "The LPS construction proves the Ramanujan bound by reducing it to which deep theorem?",
+            "choices": [
+              "Deligne's proof of the Ramanujan–Petersson conjecture for weight-$2$ modular forms",
+              "Wiles's proof of Fermat's Last Theorem",
+              "The Riemann hypothesis for $\\zeta(s)$",
+              "Mostow rigidity"
+            ],
+            "answer": 0,
+            "explain": "Eigenvalues of LPS Cayley graphs are Hecke eigenvalues of weight-$2$ cusp forms; Deligne's bound $|a_p|\\le 2\\sqrt p$ (a corollary of his proof of the Weil conjectures) gives precisely $|\\lambda|\\le 2\\sqrt{p}$, hence the Ramanujan property at degree $p+1$."
+          }
+        ]
+      }
+    }
+  },
   "extremal-combinatorics": {
     "topic": "extremal-combinatorics",
     "quizzes": {
@@ -14639,6 +15866,242 @@ window.MVQuizBank = {
             "answer": 1,
             "tol": 0,
             "explain": "Cantor's back-and-forth: any two countable dense linear orders without endpoints are isomorphic to $(\\mathbb{Q}, <)$. Exactly $1$ countable model up to isomorphism."
+          }
+        ]
+      }
+    }
+  },
+  "fixed-point-theorems": {
+    "topic": "fixed-point-theorems",
+    "quizzes": {
+      "fpt-banach": {
+        "title": "Banach contraction principle",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which hypothesis is essential for the Banach contraction principle to guarantee a unique fixed point?",
+            "choices": [
+              "the metric space is bounded",
+              "the metric space is complete and the map has Lipschitz constant $L<1$",
+              "the map is continuous and the space is connected",
+              "the map is differentiable on a compact set"
+            ],
+            "answer": 1,
+            "explain": "Completeness is needed for the Cauchy iteration $x_{n+1}=f(x_n)$ to have a limit; the strict contraction $L<1$ forces uniqueness and geometric convergence at rate $L$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $f(x)=\\tfrac{1}{2}x+1$ on $\\mathbb{R}$. What is the unique fixed point?",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "Solve $x=\\tfrac{1}{2}x+1$, giving $x=2$. The Lipschitz constant is $1/2<1$, so Picard iteration from any starting point converges to $2$."
+          },
+          {
+            "type": "mcq",
+            "q": "Define $f\\colon\\mathbb{R}\\to\\mathbb{R}$ by $f(x)=x+e^{-x}$. Why does Banach's theorem fail to apply, even though $|f'(x)|<1$ for all $x$?",
+            "choices": [
+              "$f$ is not continuous",
+              "$\\mathbb{R}$ is not complete",
+              "there is no global Lipschitz constant $L<1$, only $|f'(x)|<1$ pointwise",
+              "$f$ has no fixed point"
+            ],
+            "answer": 2,
+            "explain": "Banach demands a uniform $L<1$, not merely $|f'(x)|<1$ at each point. Here $f'(x)=1-e^{-x}\\to 1$ as $x\\to\\infty$, so $\\sup|f'|=1$. Indeed $f(x)>x$ everywhere, so $f$ has no fixed point."
+          }
+        ]
+      },
+      "fpt-brouwer": {
+        "title": "Brouwer fixed-point theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which of the following spaces does NOT satisfy the Brouwer fixed-point property?",
+            "choices": [
+              "the closed disk $D^2$",
+              "the closed cube $[0,1]^n$",
+              "the circle $S^1$",
+              "any non-empty compact convex subset of $\\mathbb{R}^n$"
+            ],
+            "answer": 2,
+            "explain": "$S^1$ admits the antipodal map $x\\mapsto -x$, which is continuous and fixed-point-free. Brouwer requires a contractible (or just convex compact) domain; circles are not contractible."
+          },
+          {
+            "type": "mcq",
+            "q": "The standard proof of Brouwer reduces to which auxiliary statement?",
+            "choices": [
+              "the Hairy Ball theorem",
+              "no retraction $D^n\\to S^{n-1}$ extends the identity on $S^{n-1}$",
+              "every polynomial has a root",
+              "the unit ball of $\\ell^2$ is compact"
+            ],
+            "answer": 1,
+            "explain": "If $f\\colon D^n\\to D^n$ had no fixed point, the ray from $f(x)$ through $x$ defines a retraction $D^n\\to S^{n-1}$, contradicting the no-retraction lemma. The latter is proved by computing $H_{n-1}$ or the degree."
+          },
+          {
+            "type": "numeric",
+            "q": "For the constant map $f\\colon D^2\\to D^2$, $f(x)=(0,0)$, how many fixed points does $f$ have?",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "$x=(0,0)$ is the unique fixed point. Brouwer guarantees at least one; this map shows the count can be exactly one (and the degree of $\\mathrm{id}-f$ is $1$)."
+          }
+        ]
+      },
+      "fpt-schauder": {
+        "title": "Schauder fixed-point theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the role of compactness in Schauder's theorem that distinguishes it from Brouwer's?",
+            "choices": [
+              "compactness is automatic in any Banach space",
+              "in infinite dimensions the closed unit ball is not compact, so one assumes either a compact convex domain or that the operator is compact on a bounded set",
+              "compactness replaces continuity",
+              "no compactness is needed; convexity suffices"
+            ],
+            "answer": 1,
+            "explain": "In $\\mathbb{R}^n$ closed-bounded equals compact, so Brouwer needs no extra hypothesis. In a Banach space the unit ball is non-compact (Riesz's lemma), so Schauder demands the convex set be compact, or that $T$ be a compact operator on a closed bounded convex set."
+          },
+          {
+            "type": "mcq",
+            "q": "Schauder is typically applied to PDEs and integral equations because:",
+            "choices": [
+              "linear operators are always compact",
+              "integral operators with continuous kernels on $C[a,b]$ are compact (Arzelà–Ascoli), making the Schauder hypotheses easy to verify",
+              "PDE solutions live in finite-dimensional spaces",
+              "the spectral theorem implies a fixed point"
+            ],
+            "answer": 1,
+            "explain": "Compact operators arise everywhere in analysis — Volterra, Fredholm, Green's functions. Arzelà–Ascoli guarantees the image of a bounded set is precompact, so $T$ maps a closed bounded convex set into a compact convex set."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is convexity of the domain essential in Schauder's theorem?",
+            "choices": [
+              "only convex sets are compact",
+              "convexity is needed to approximate by finite-dimensional Brouwer applications via convex combinations",
+              "convexity replaces completeness",
+              "non-convex sets fail to be metric spaces"
+            ],
+            "answer": 1,
+            "explain": "Schauder's proof uses finite $\\varepsilon$-nets and Brouwer on their convex hulls. Without convexity the convex-hull retraction step fails, and indeed an annulus admits a fixed-point-free rotation."
+          }
+        ]
+      },
+      "fpt-lefschetz": {
+        "title": "Lefschetz fixed-point theorem",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "For the identity map $\\mathrm{id}\\colon T^2\\to T^2$ on the 2-torus, the homology Betti numbers are $b_0=1,\\,b_1=2,\\,b_2=1$. Compute the Lefschetz number $\\Lambda(\\mathrm{id})$.",
+            "answer": 0,
+            "tol": 0.000001,
+            "explain": "$\\Lambda(\\mathrm{id})=\\sum(-1)^k b_k=1-2+1=0$, the Euler characteristic of the torus. Lefschetz gives no obstruction: indeed a non-trivial translation has no fixed points."
+          },
+          {
+            "type": "mcq",
+            "q": "Which Brouwer-type theorem does Lefschetz recover when applied to a contractible space?",
+            "choices": [
+              "Brouwer fixed-point: contractible $\\Rightarrow$ $H_0=\\mathbb{Z}$, $H_k=0$ for $k>0$, so $\\Lambda(f)=1\\ne 0$",
+              "Schauder",
+              "Banach contraction",
+              "Kakutani"
+            ],
+            "answer": 0,
+            "explain": "On a contractible space all higher homology vanishes and $f_*\\colon H_0\\to H_0$ is the identity, so $\\Lambda(f)=1$. Non-zero Lefschetz number forces a fixed point — exactly Brouwer."
+          },
+          {
+            "type": "mcq",
+            "q": "What does $\\Lambda(f)\\ne 0$ tell you, and what does $\\Lambda(f)=0$ tell you?",
+            "choices": [
+              "$\\Lambda(f)\\ne 0$ implies $f$ has a fixed point; $\\Lambda(f)=0$ is inconclusive",
+              "$\\Lambda(f)=0$ implies $f$ has no fixed point",
+              "$\\Lambda(f)$ counts fixed points exactly",
+              "$\\Lambda(f)$ is always non-negative"
+            ],
+            "answer": 0,
+            "explain": "Lefschetz is one-directional: non-zero trace forces a fixed point. A zero Lefschetz number is silent — a torus rotation has $\\Lambda=0$ and no fixed points; the identity also has $\\Lambda=\\chi$, often zero, yet fixes everything."
+          }
+        ]
+      },
+      "fpt-kakutani": {
+        "title": "Kakutani fixed-point theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What does Kakutani's theorem add to Brouwer's?",
+            "choices": [
+              "it works in infinite dimensions",
+              "it allows set-valued maps $\\varphi(x)$ with non-empty closed convex values, requiring $x\\in\\varphi(x)$ at the fixed point",
+              "it removes the convexity requirement",
+              "it replaces compactness with completeness"
+            ],
+            "answer": 1,
+            "explain": "Kakutani upgrades single-valued continuous maps to upper-hemicontinuous correspondences with non-empty compact convex images. The fixed-point condition becomes membership: $x\\in\\varphi(x)$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is Kakutani — not Brouwer — the right tool for Nash equilibrium?",
+            "choices": [
+              "best-response maps are typically multi-valued (ties produce sets of best responses), and Nash needs a fixed point of this correspondence",
+              "Brouwer requires linearity",
+              "Brouwer gives uniqueness, which Nash forbids",
+              "Nash equilibria are always pure strategies"
+            ],
+            "answer": 0,
+            "explain": "Each player's best-response set $B_i(\\sigma_{-i})$ is a non-empty compact convex subset of their mixed-strategy simplex, but generally not a singleton. Kakutani applied to $\\sigma\\mapsto\\prod_i B_i(\\sigma_{-i})$ produces a Nash equilibrium."
+          },
+          {
+            "type": "mcq",
+            "q": "Which property must $\\varphi$ satisfy beyond non-empty closed convex values?",
+            "choices": [
+              "Lipschitz continuity",
+              "upper hemicontinuity (closed graph in the compact case)",
+              "differentiability",
+              "linearity"
+            ],
+            "answer": 1,
+            "explain": "Upper hemicontinuity — equivalently, closed graph when the codomain is compact — is the analogue of continuity for set-valued maps and is exactly the regularity Kakutani requires."
+          }
+        ]
+      },
+      "fpt-applications": {
+        "title": "Applications: ODEs, IVT, Nash, Markov chains",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Picard–Lindelöf existence and uniqueness for $\\dot{x}=f(t,x)$ rests on which fixed-point theorem?",
+            "choices": [
+              "Brouwer",
+              "Banach contraction (applied to the Picard integral operator on $C([t_0-h,t_0+h])$)",
+              "Schauder",
+              "Lefschetz"
+            ],
+            "answer": 1,
+            "explain": "The integral operator $T(\\varphi)(t)=x_0+\\int_{t_0}^t f(s,\\varphi(s))\\,ds$ is a contraction on a small enough interval when $f$ is Lipschitz in $x$, giving the unique solution as its fixed point."
+          },
+          {
+            "type": "mcq",
+            "q": "A finite-state Markov chain with stochastic matrix $P$ has a stationary distribution because:",
+            "choices": [
+              "$P$ has a unique eigenvalue",
+              "the simplex $\\Delta$ is non-empty compact convex and $\\pi\\mapsto\\pi P$ is continuous, so Brouwer gives $\\pi^*\\in\\Delta$ with $\\pi^*P=\\pi^*$",
+              "$P$ is symmetric",
+              "every Markov chain is reversible"
+            ],
+            "answer": 1,
+            "explain": "Brouwer applied to the simplex $\\Delta=\\{\\pi\\ge 0:\\sum\\pi_i=1\\}$ under $\\pi\\mapsto\\pi P$ produces a stationary distribution — no irreducibility or symmetry needed."
+          },
+          {
+            "type": "mcq",
+            "q": "The implicit function theorem can be derived from which fixed-point principle?",
+            "choices": [
+              "Lefschetz",
+              "Banach contraction (the Newton-style operator $y\\mapsto y-A^{-1}F(x,y)$ is a contraction near the base point)",
+              "Kakutani",
+              "Schauder"
+            ],
+            "answer": 1,
+            "explain": "Linearizing $F(x,y)=0$ at the base point and applying Banach contraction to a Newton-iteration operator on a small ball yields the implicit function $y=g(x)$ with the desired smoothness."
           }
         ]
       }
@@ -17582,6 +19045,483 @@ window.MVQuizBank = {
       }
     }
   },
+  "general-relativity": {
+    "topic": "general-relativity",
+    "quizzes": {
+      "gr-spacetime": {
+        "title": "Spacetime as a Lorentzian manifold",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A 4-vector $v$ at a point of spacetime satisfies $g(v,v)<0$ in signature $(-,+,+,+)$. What is $v$?",
+            "choices": [
+              "Spacelike",
+              "Lightlike (null)",
+              "Timelike",
+              "Undefined — the metric must be positive-definite"
+            ],
+            "answer": 2,
+            "explain": "In signature $(-,+,+,+)$ a vector with $g(v,v)<0$ is timelike. Spacelike vectors satisfy $g(v,v)>0$ and lightlike vectors satisfy $g(v,v)=0$."
+          },
+          {
+            "type": "numeric",
+            "q": "In Minkowski space with metric $\\eta=\\mathrm{diag}(-1,1,1,1)$, compute $\\eta(v,v)$ for $v=(2,1,1,1)$.",
+            "answer": -1,
+            "tol": 0.000001,
+            "explain": "$\\eta(v,v)=-(2)^2+1+1+1=-4+3=-1$. The vector is timelike."
+          },
+          {
+            "type": "mcq",
+            "q": "Why must spacetime be Lorentzian rather than Riemannian?",
+            "choices": [
+              "Because Riemannian metrics cannot be defined on 4-manifolds",
+              "Because a positive-definite metric has no light cones and no causal structure",
+              "Because Riemannian curvature is always zero",
+              "Because Einstein's equations require Euclidean signature"
+            ],
+            "answer": 1,
+            "explain": "A Riemannian (positive-definite) metric makes every nonzero vector spacelike, so there is no notion of timelike worldline, light cone, or causality. The indefinite signature $(-,+,+,+)$ is what makes spacetime physical."
+          }
+        ]
+      },
+      "gr-einstein-equations": {
+        "title": "Einstein field equations",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What does the Einstein tensor $G_{\\mu\\nu}=R_{\\mu\\nu}-\\tfrac12 g_{\\mu\\nu}R$ satisfy identically?",
+            "choices": [
+              "$G_{\\mu\\nu}=0$",
+              "$\\nabla^\\mu G_{\\mu\\nu}=0$ (contracted Bianchi)",
+              "$G_{\\mu\\nu}=g_{\\mu\\nu}$",
+              "$G_{\\mu\\nu}$ is symmetric only on a Kähler manifold"
+            ],
+            "answer": 1,
+            "explain": "The contracted second Bianchi identity gives $\\nabla^\\mu G_{\\mu\\nu}=0$. This automatically enforces conservation $\\nabla^\\mu T_{\\mu\\nu}=0$ on the matter side."
+          },
+          {
+            "type": "mcq",
+            "q": "In vacuum with $\\Lambda=0$, the Einstein equations reduce to:",
+            "choices": [
+              "$R=0$ (scalar curvature vanishes)",
+              "$R_{\\mu\\nu\\rho\\sigma}=0$ (flat spacetime)",
+              "$R_{\\mu\\nu}=0$ (Ricci-flat)",
+              "$g_{\\mu\\nu}=\\eta_{\\mu\\nu}$"
+            ],
+            "answer": 2,
+            "explain": "Tracing $G_{\\mu\\nu}=0$ gives $R=0$, hence $R_{\\mu\\nu}=0$. Vacuum spacetimes are Ricci-flat but generally not Riemann-flat — Schwarzschild and Kerr are nontrivial Ricci-flat solutions."
+          },
+          {
+            "type": "numeric",
+            "q": "How many algebraically independent components does the symmetric tensor $g_{\\mu\\nu}$ have on a 4-dimensional spacetime?",
+            "answer": 10,
+            "tol": 0.5,
+            "explain": "A symmetric $4\\times4$ matrix has $4(4+1)/2=10$ independent components. Diffeomorphism gauge freedom subtracts 4, leaving 6 physical metric degrees of freedom."
+          }
+        ]
+      },
+      "gr-schwarzschild": {
+        "title": "Schwarzschild solution",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "At what radius $r$ (in units of $M$) does the Schwarzschild event horizon sit?",
+            "answer": 2,
+            "tol": 0.000001,
+            "explain": "The metric component $g_{tt}=-(1-2M/r)$ vanishes at $r=2M$. This is the event horizon — a coordinate singularity, not a curvature singularity."
+          },
+          {
+            "type": "mcq",
+            "q": "Which curvature invariant shows that $r=0$ in Schwarzschild is a genuine singularity?",
+            "choices": [
+              "$R=0$",
+              "$R_{\\mu\\nu}=0$",
+              "$R_{\\mu\\nu\\rho\\sigma}R^{\\mu\\nu\\rho\\sigma}=48 M^2/r^6$",
+              "The metric determinant"
+            ],
+            "answer": 2,
+            "explain": "The Kretschmann scalar $K=R_{\\mu\\nu\\rho\\sigma}R^{\\mu\\nu\\rho\\sigma}=48 M^2/r^6$ blows up as $r\\to 0$ but is finite at $r=2M$. This is coordinate-invariant, so $r=0$ is a true curvature singularity while $r=2M$ is just a chart artefact."
+          },
+          {
+            "type": "mcq",
+            "q": "Birkhoff's theorem states that:",
+            "choices": [
+              "Every spherically symmetric vacuum solution is static and equal to Schwarzschild",
+              "Schwarzschild is the unique stationary axisymmetric solution",
+              "Black holes have no hair beyond mass, charge, angular momentum",
+              "Gravitational waves carry no energy"
+            ],
+            "answer": 0,
+            "explain": "Birkhoff's theorem: any spherically symmetric vacuum solution of Einstein's equations is static, asymptotically flat, and isometric to Schwarzschild. There is no monopole gravitational radiation."
+          }
+        ]
+      },
+      "gr-kerr-rotating": {
+        "title": "Kerr metric",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "For an extremal Kerr black hole the spin parameter $a$ saturates the bound $a=M$. Compute the horizon radius $r_+=M+\\sqrt{M^2-a^2}$ in units of $M$ when $a=M$.",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "When $a=M$ the discriminant $M^2-a^2$ vanishes, so $r_+=M$. The two horizons of subextremal Kerr coalesce; beyond this the geometry has a naked singularity."
+          },
+          {
+            "type": "mcq",
+            "q": "Inside the ergosphere of a Kerr black hole:",
+            "choices": [
+              "Light cannot escape",
+              "No timelike observer can remain at fixed spatial coordinates — frame dragging forces co-rotation with the hole",
+              "Time runs backwards",
+              "The metric becomes Riemannian"
+            ],
+            "answer": 1,
+            "explain": "The ergosphere lies between the event horizon and the outer stationary limit surface where $g_{tt}=0$. Inside it, $\\partial_t$ becomes spacelike, so no observer can be static in the asymptotic frame — they are dragged along $\\partial_\\phi$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Penrose process extracts energy from a Kerr black hole by:",
+            "choices": [
+              "Annihilating matter at the singularity",
+              "Splitting an infalling particle inside the ergosphere so the negative-energy fragment crosses the horizon",
+              "Hawking radiation at large radius",
+              "Tidal heating of an orbiting companion"
+            ],
+            "answer": 1,
+            "explain": "Inside the ergosphere a particle can have negative Killing energy. If it splits and the negative-energy piece falls into the hole, the escaping piece carries more energy than the original, at the cost of the hole's angular momentum."
+          }
+        ]
+      },
+      "gr-cosmology-flrw": {
+        "title": "FLRW cosmology",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In the FLRW metric with scale factor $a(t)$, the cosmological redshift is:",
+            "choices": [
+              "$1+z = a(t_e)/a(t_0)$",
+              "$1+z = a(t_0)/a(t_e)$",
+              "$1+z = (a(t_0)-a(t_e))/a(t_e)$",
+              "$1+z = e^{H(t_0-t_e)}$"
+            ],
+            "answer": 1,
+            "explain": "Photon wavelengths stretch with the scale factor: $\\lambda_0/\\lambda_e = a(t_0)/a(t_e) = 1+z$. So light emitted when the universe was half its current size arrives with $z=1$."
+          },
+          {
+            "type": "numeric",
+            "q": "If a galaxy is observed at redshift $z=2$, what was the ratio $a(t_e)/a(t_0)$ at the moment its light was emitted?",
+            "answer": 0.3333333333,
+            "tol": 0.01,
+            "explain": "$1+z=3=a(t_0)/a(t_e)$, so $a(t_e)/a(t_0)=1/3\\approx0.333$. The universe was a third its current size when the photons left."
+          },
+          {
+            "type": "mcq",
+            "q": "A positive cosmological constant $\\Lambda>0$ drives:",
+            "choices": [
+              "Recollapse to a Big Crunch",
+              "Linear expansion $a(t)\\propto t$",
+              "Accelerating exponential expansion $a(t)\\propto e^{Ht}$ in vacuum",
+              "Static universe with no expansion"
+            ],
+            "answer": 2,
+            "explain": "With $\\Lambda$ dominating, the Friedmann equation gives $H^2=\\Lambda/3$, hence $a(t)\\propto e^{Ht}$ — de Sitter expansion. This is the leading model for dark-energy-driven late-time acceleration."
+          }
+        ]
+      },
+      "gr-gravitational-waves": {
+        "title": "Gravitational waves",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A gravitational wave in transverse-traceless gauge has how many independent polarisation modes?",
+            "answer": 2,
+            "explain": "Linearised gravity has 10 metric components. Lorenz gauge fixes 4, residual gauge fixes 4 more, leaving 2 physical polarisations — the plus and cross modes.",
+            "choices": [
+              "0",
+              "1",
+              "2",
+              "4"
+            ]
+          },
+          {
+            "type": "mcq",
+            "q": "The linearised Einstein equation in Lorenz gauge takes the form:",
+            "choices": [
+              "$\\Delta\\bar h_{\\mu\\nu}=0$ (Laplace)",
+              "$\\Box\\bar h_{\\mu\\nu}=-16\\pi G\\,T_{\\mu\\nu}$ (wave)",
+              "$\\partial_t \\bar h_{\\mu\\nu}=\\Delta\\bar h_{\\mu\\nu}$ (heat)",
+              "$\\bar h_{\\mu\\nu}=\\eta_{\\mu\\nu}$ (algebraic)"
+            ],
+            "answer": 1,
+            "explain": "In Lorenz gauge $\\partial^\\mu \\bar h_{\\mu\\nu}=0$ the linearised Einstein equation is the inhomogeneous wave equation $\\Box \\bar h_{\\mu\\nu}=-16\\pi G\\,T_{\\mu\\nu}$. Solutions propagate at $c$."
+          },
+          {
+            "type": "mcq",
+            "q": "LIGO's first detection (GW150914) measured a strain of order:",
+            "choices": [
+              "$h\\sim 10^{-3}$",
+              "$h\\sim 10^{-9}$",
+              "$h\\sim 10^{-21}$",
+              "$h\\sim 10^{-40}$"
+            ],
+            "answer": 2,
+            "explain": "Binary black hole mergers at hundreds of megaparsecs produce strains of $h\\sim 10^{-21}$ at Earth. Over LIGO's 4 km arms this is a $\\sim 10^{-18}$ m displacement — about $1/1000$ the diameter of a proton."
+          }
+        ]
+      }
+    }
+  },
+  "geometric-and-combinatorial-group-theory": {
+    "topic": "geometric-and-combinatorial-group-theory",
+    "quizzes": {
+      "gcgt-presentations": {
+        "title": "Presentations and the word problem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What does the presentation $G = \\langle S \\mid R \\rangle$ formally denote?",
+            "choices": [
+              "The free group on $S$ with extra generators $R$",
+              "The quotient $F(S) / \\langle\\!\\langle R \\rangle\\!\\rangle$ of the free group on $S$ by the normal closure of $R$",
+              "The direct product of cyclic groups generated by $S$, modulo the relations $R$",
+              "The Cayley graph with vertex set $S$ and edge set $R$"
+            ],
+            "answer": 1,
+            "explain": "A presentation realizes $G$ as $F(S) / N$, where $N$ is the smallest normal subgroup of $F(S)$ containing $R$ — this guarantees every word in $R$ becomes trivial in $G$ along with all conjugates."
+          },
+          {
+            "type": "mcq",
+            "q": "Which group is $\\langle a, b \\mid aba^{-1}b^{-1} \\rangle$?",
+            "choices": [
+              "The free group on two generators $F_2$",
+              "The cyclic group $\\mathbb{Z}$",
+              "The free abelian group $\\mathbb{Z}^2$",
+              "The dihedral group $D_\\infty$"
+            ],
+            "answer": 2,
+            "explain": "The relator $aba^{-1}b^{-1} = e$ says $ab = ba$, so adding commutativity to the free group on $\\{a,b\\}$ yields $\\mathbb{Z}^2$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the word problem for a finitely-presented group?",
+            "choices": [
+              "Decide whether two words in the generators give the same element",
+              "Compute the order of every element",
+              "Find a minimal generating set",
+              "Construct an explicit Cayley graph drawing"
+            ],
+            "answer": 0,
+            "explain": "Equivalently, decide whether a given word equals the identity. Novikov (1955) and Boone (1958) showed this is undecidable in general, but solvable for many large classes (hyperbolic, automatic, residually finite F.P.)."
+          }
+        ]
+      },
+      "gcgt-cayley-graph": {
+        "title": "Cayley graphs and the word metric",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In $\\mathrm{Cay}(G, S)$, what is the degree of every vertex when $S$ is symmetric (i.e. $s \\in S \\Rightarrow s^{-1} \\in S$) and contains no involutions?",
+            "choices": [
+              "$|G|$",
+              "$|S|$",
+              "$|S|/2$",
+              "$\\log_2 |G|$"
+            ],
+            "answer": 1,
+            "explain": "Each $s \\in S$ contributes one outgoing edge $g \\to gs$ at every vertex. With $S$ symmetric and involution-free, edges come in $\\{s, s^{-1}\\}$ pairs, so each vertex has exactly $|S|$ neighbors."
+          },
+          {
+            "type": "mcq",
+            "q": "Which action of $G$ on $\\mathrm{Cay}(G, S)$ is by graph automorphisms?",
+            "choices": [
+              "Right multiplication: $g \\cdot h = hg$",
+              "Left multiplication: $g \\cdot h = gh$",
+              "Conjugation: $g \\cdot h = ghg^{-1}$",
+              "Inversion: $g \\cdot h = h^{-1}$"
+            ],
+            "answer": 1,
+            "explain": "Left multiplication preserves edges: if $h \\to hs$ is an edge, then $gh \\to ghs = (gh)s$ is also an edge. Right multiplication moves along the edge labelled $s$, so it is not an automorphism (it permutes labels)."
+          },
+          {
+            "type": "mcq",
+            "q": "What does the word metric $d_S(g, h)$ measure?",
+            "choices": [
+              "The number of generators in $S$",
+              "The number of subgroups separating $g$ and $h$",
+              "The length of the shortest word in $S^{\\pm 1}$ representing $g^{-1}h$",
+              "The Euclidean distance between $g$ and $h$ in some embedding"
+            ],
+            "answer": 2,
+            "explain": "$d_S(g, h)$ is the graph distance in $\\mathrm{Cay}(G, S)$ — equivalently, the smallest $n$ such that $g^{-1}h = s_1 s_2 \\cdots s_n$ with each $s_i \\in S \\cup S^{-1}$."
+          }
+        ]
+      },
+      "gcgt-quasi-isometry": {
+        "title": "Quasi-isometry and large-scale geometry",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which of the following is a quasi-isometry between $\\mathbb{R}$ and $\\mathbb{Z}$?",
+            "choices": [
+              "The constant map $x \\mapsto 0$",
+              "The exponential $x \\mapsto 2^x$",
+              "The floor function $x \\mapsto \\lfloor x \\rfloor$",
+              "Only the identity restricted to $\\mathbb{Z}$"
+            ],
+            "answer": 2,
+            "explain": "$\\lfloor \\cdot \\rfloor$ is a $(1,1)$-quasi-isometry: $|\\lfloor x \\rfloor - \\lfloor y \\rfloor| \\le |x-y| + 1$ and image is $1$-dense. Constants collapse distance; exponentials blow it up."
+          },
+          {
+            "type": "mcq",
+            "q": "By the Schwarz–Milnor lemma, two finite generating sets $S, S'$ of the same group $G$ produce Cayley graphs that are:",
+            "choices": [
+              "Isomorphic as graphs",
+              "Quasi-isometric, but generally not isomorphic",
+              "Homeomorphic when realized geometrically",
+              "Always equal as edge-labelled graphs"
+            ],
+            "answer": 1,
+            "explain": "Each generator of $S'$ has finite length in $S$, giving a bilipschitz comparison of word metrics — hence a quasi-isometry. The graphs are usually not isomorphic: $\\mathbb{Z}$ with $S=\\{1\\}$ is a line, with $S=\\{2,3\\}$ it has different local structure."
+          },
+          {
+            "type": "mcq",
+            "q": "Which property is NOT a quasi-isometry invariant of finitely-generated groups?",
+            "choices": [
+              "Growth type (polynomial vs. exponential)",
+              "Number of ends",
+              "Gromov hyperbolicity",
+              "The order of a specific element"
+            ],
+            "answer": 3,
+            "explain": "Element order is local arithmetic — invisible to large-scale geometry. Growth, ends, and hyperbolicity are all coarse invariants."
+          }
+        ]
+      },
+      "gcgt-growth": {
+        "title": "Growth functions and Gromov's theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the growth type of $\\mathbb{Z}^d$ with the standard generating set?",
+            "choices": [
+              "Polynomial of degree $d$",
+              "Polynomial of degree $1$",
+              "Exponential",
+              "Intermediate"
+            ],
+            "answer": 0,
+            "explain": "The ball of radius $n$ in $\\mathbb{Z}^d$ is a discrete diamond (the $\\ell^1$-ball) of volume $\\Theta(n^d)$ — polynomial growth of degree exactly $d$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the growth type of the free group $F_2$?",
+            "choices": [
+              "Polynomial of degree $2$",
+              "Exponential",
+              "Linear",
+              "Intermediate (subexponential, superpolynomial)"
+            ],
+            "answer": 1,
+            "explain": "The Cayley graph of $F_2 = \\langle a, b \\rangle$ is the $4$-regular tree, whose ball of radius $n$ has $1 + 4(3^n - 1)/2$ vertices — exponential growth with rate $3$."
+          },
+          {
+            "type": "mcq",
+            "q": "What does Gromov's polynomial-growth theorem say?",
+            "choices": [
+              "Every f.g. group has polynomial growth",
+              "A f.g. group has polynomial growth iff it is virtually nilpotent",
+              "Polynomial growth is equivalent to being abelian",
+              "Polynomial growth implies finite"
+            ],
+            "answer": 1,
+            "explain": "Gromov (1981): polynomial growth $\\Leftrightarrow$ a finite-index nilpotent subgroup exists. The hard direction uses an asymptotic-cone limit argument and Montgomery–Zippin's solution to Hilbert's fifth problem."
+          }
+        ]
+      },
+      "gcgt-hyperbolic-groups": {
+        "title": "Gromov-hyperbolic groups",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A geodesic triangle in a $\\delta$-hyperbolic space is $\\delta$-thin in the sense that:",
+            "choices": [
+              "Each side has length at most $\\delta$",
+              "Each side lies in the $\\delta$-neighborhood of the union of the other two",
+              "The triangle has area at most $\\delta$",
+              "Some pair of sides is parallel up to $\\delta$"
+            ],
+            "answer": 1,
+            "explain": "Thin-triangles capture negative curvature combinatorially: in $\\mathbb{H}^2$ all triangles satisfy this with a uniform $\\delta$, while in $\\mathbb{R}^2$ no finite $\\delta$ works."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is hyperbolic?",
+            "choices": [
+              "$\\mathbb{Z}^2$ with the standard generators",
+              "The free group $F_n$ for any $n \\ge 2$",
+              "The Heisenberg group",
+              "$\\mathbb{Z}^d$ for $d \\ge 2$"
+            ],
+            "answer": 1,
+            "explain": "Trees are $0$-hyperbolic, and the Cayley graph of $F_n$ is a $2n$-regular tree. Abelian groups of rank $\\ge 2$ contain flat planes and are not hyperbolic."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the word problem solvable in linear time for a hyperbolic group?",
+            "choices": [
+              "Because every relator is short",
+              "Because every word equal to the identity admits a Dehn presentation: it contains more than half of some relator, allowing greedy shortening",
+              "Because hyperbolic groups are abelian",
+              "Because every element has finite order"
+            ],
+            "answer": 1,
+            "explain": "Dehn's algorithm — repeatedly replacing more-than-half of a relator with the shorter complement — terminates linearly in word length on a hyperbolic group, decisively solving the word problem."
+          }
+        ]
+      },
+      "gcgt-applications": {
+        "title": "Applications and frontiers",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Mostow's rigidity theorem says that for closed hyperbolic manifolds of dimension $\\ge 3$:",
+            "choices": [
+              "They are all diffeomorphic",
+              "Isomorphism of fundamental groups implies isometry (up to scale)",
+              "They have trivial fundamental group",
+              "Their volumes are arbitrary"
+            ],
+            "answer": 1,
+            "explain": "A homotopy equivalence between two closed hyperbolic $n$-manifolds ($n \\ge 3$) is homotopic to an isometry. So $\\pi_1$ determines the metric — a striking failure of flexibility in higher rank."
+          },
+          {
+            "type": "mcq",
+            "q": "Cayley graphs of which family give an explicit construction of expander graphs?",
+            "choices": [
+              "$\\mathbb{Z}/n\\mathbb{Z}$ with $S = \\{1\\}$",
+              "$\\mathrm{SL}_2(\\mathbb{F}_p)$ with a fixed finite generating set (varying $p$)",
+              "$F_2$ with $S = \\{a, b\\}$",
+              "Any sequence of finite cyclic groups"
+            ],
+            "answer": 1,
+            "explain": "Margulis (1973) showed Cayley graphs of $\\mathrm{SL}_2(\\mathbb{F}_p)$ with a fixed generating set form an expander family — a key application of property (T) and a foundation of pseudorandom-graph constructions."
+          },
+          {
+            "type": "mcq",
+            "q": "Which decision problem for finitely-presented groups is undecidable in full generality?",
+            "choices": [
+              "The word problem only",
+              "The conjugacy problem only",
+              "The isomorphism problem only",
+              "All three: word, conjugacy, and isomorphism problems"
+            ],
+            "answer": 3,
+            "explain": "Novikov–Boone (word), Miller (conjugacy), and Adian–Rabin (isomorphism) all proved undecidability for general f.p. groups. Each becomes tractable on restricted classes — hyperbolic groups, for instance, decide all three."
+          }
+        ]
+      }
+    }
+  },
   "grothendieck-topologies-sites": {
     "topic": "grothendieck-topologies-sites",
     "quizzes": {
@@ -18601,6 +20541,275 @@ window.MVQuizBank = {
             "answer": 1,
             "explain": "By the Kummer sequence $1 \\to \\mu_n \\to \\mathbb{G}_m \\xrightarrow{[n]} \\mathbb{G}_m \\to 1$ (exact in the étale topology for $n$ invertible in $k$), we get $\\Gamma^\\times/(\\Gamma^\\times)^n \\to H^1(X, \\mu_n) \\to \\mathrm{Pic}(X)[n] \\to 0$. For $X$ a complete curve over $\\bar k$, $\\Gamma(X, \\mathcal{O}_X) = \\bar k$, so the first piece is trivial. Then $H^1(X, \\mu_n) = \\mathrm{Pic}(X)[n] = \\mathrm{Pic}^0(X)[n] = J(X)[n] = (\\mathbb{Z}/n)^{2g}$ (the $n$-torsion of the Jacobian, for $\\gcd(n, p) = 1$).",
             "hint": "$\\mathrm{Pic}^0(X)$ is the Jacobian, an abelian variety of dimension $g$; its $n$-torsion has rank $2g$ when $n$ is coprime to char."
+          }
+        ]
+      }
+    }
+  },
+  "hamiltonians-classical-mechanics": {
+    "topic": "hamiltonians-classical-mechanics",
+    "quizzes": {
+      "hcm-phase-space": {
+        "title": "Phase space",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On the cotangent bundle $T^*Q$ with canonical coordinates $(q^i,p_i)$, the tautological 1-form is $\\theta=\\sum p_i\\,dq^i$. The canonical symplectic form is then:",
+            "choices": [
+              "$\\omega = d\\theta = \\sum dp_i\\wedge dq^i$",
+              "$\\omega = \\theta\\wedge\\theta$",
+              "$\\omega = \\sum p_i\\,dp_i + q^i\\,dq^i$",
+              "$\\omega = -d^2\\theta = 0$"
+            ],
+            "answer": 0,
+            "hint": "$\\omega$ is by definition the exterior derivative of the tautological 1-form (up to sign convention).",
+            "explain": "By construction $\\omega = -d\\theta = \\sum dq^i\\wedge dp_i = \\sum dp_i\\wedge dq^i$ depending on sign convention. Either sign gives a closed non-degenerate 2-form. Note $\\theta\\wedge\\theta=0$ since $\\theta$ is a 1-form."
+          },
+          {
+            "type": "mcq",
+            "q": "If $\\dim Q = n$, what is $\\dim T^*Q$, and why is this the right dimension for phase space?",
+            "choices": [
+              "$n$ — only positions are physical.",
+              "$2n$ — a state needs both position and conjugate momentum.",
+              "$n+1$ — one extra dimension for time.",
+              "$n^2$ — momenta form a matrix."
+            ],
+            "answer": 1,
+            "hint": "Newton's second law is second-order in $q$; converting to first order doubles the variables.",
+            "explain": "Each fibre $T^*_qQ$ has dimension $n$, so $T^*Q$ has dimension $2n$. This matches the phase-space dimension demanded by mechanics: a second-order ODE in $q$ becomes a first-order system in $(q,p)$, which is what Hamilton's equations realise on $T^*Q$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why are the canonical coordinates $(q^i,p_i)$ on $T^*Q$ automatically Darboux coordinates?",
+            "choices": [
+              "Because $T^*Q$ is contractible.",
+              "Because $\\omega = \\sum dp_i\\wedge dq^i$ already has the Darboux normal form in those coordinates.",
+              "Because every chart is a Darboux chart.",
+              "Because Hamilton's equations require it."
+            ],
+            "answer": 1,
+            "hint": "Darboux's theorem promises such coordinates exist; on $T^*Q$ they're already built in.",
+            "explain": "Darboux's theorem says any symplectic manifold has local coordinates in which $\\omega = \\sum dp_i\\wedge dq^i$. On $T^*Q$ the construction $\\omega = -d\\theta$ produces this form directly in the natural fibred coordinates — no further straightening needed."
+          }
+        ]
+      },
+      "hcm-hamilton-equations": {
+        "title": "Hamilton's equations",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For the simple harmonic oscillator $H = \\tfrac{p^2}{2m} + \\tfrac{1}{2}m\\omega^2 q^2$, Hamilton's equations are:",
+            "choices": [
+              "$\\dot q = m\\omega^2 q,\\ \\dot p = -p/m$",
+              "$\\dot q = p/m,\\ \\dot p = -m\\omega^2 q$",
+              "$\\dot q = -m\\omega^2 q,\\ \\dot p = p/m$",
+              "$\\dot q = p,\\ \\dot p = q$"
+            ],
+            "answer": 1,
+            "hint": "$\\dot q = \\partial H/\\partial p,\\ \\dot p = -\\partial H/\\partial q$.",
+            "explain": "Differentiating: $\\partial H/\\partial p = p/m$ so $\\dot q = p/m$. And $\\partial H/\\partial q = m\\omega^2 q$, so $\\dot p = -m\\omega^2 q$. Eliminating $p$ recovers $\\ddot q + \\omega^2 q = 0$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the Hamiltonian $H$ automatically conserved along trajectories of $X_H$?",
+            "choices": [
+              "Because $\\omega$ is non-degenerate.",
+              "Because $X_H(H) = dH(X_H) = \\omega(X_H,X_H) = 0$ by antisymmetry of $\\omega$.",
+              "Because $H$ is positive.",
+              "It's not — $H$ can change in time."
+            ],
+            "answer": 1,
+            "hint": "Apply the defining identity $\\iota_{X_H}\\omega = dH$ to $X_H$ itself.",
+            "explain": "By definition $\\iota_{X_H}\\omega = dH$, so $dH(X_H) = \\omega(X_H,X_H) = 0$ since $\\omega$ is alternating. Hence $H$ is constant along the flow — energy conservation is geometric, not a separate axiom."
+          },
+          {
+            "type": "mcq",
+            "q": "Liouville's theorem says the Hamiltonian flow preserves which structure?",
+            "choices": [
+              "Euclidean distance in phase space.",
+              "The phase-space volume form $\\omega^n/n!$.",
+              "The number of trajectories passing through a point.",
+              "The Hamiltonian's value at the origin."
+            ],
+            "answer": 1,
+            "hint": "Phase-space volume is the top exterior power of $\\omega$.",
+            "explain": "$\\mathcal{L}_{X_H}\\omega = d(\\iota_{X_H}\\omega) + \\iota_{X_H}d\\omega = d(dH) + 0 = 0$. So $X_H$ preserves $\\omega$, hence its top power $\\omega^n/n!$ — the phase-space volume. Distances and trajectory counts are not preserved in general."
+          }
+        ]
+      },
+      "hcm-canonical-transformations": {
+        "title": "Canonical transformations",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A diffeomorphism $\\varphi\\colon T^*Q\\to T^*Q$ is called canonical (symplectic) when:",
+            "choices": [
+              "$\\varphi$ preserves the Hamiltonian.",
+              "$\\varphi^*\\omega = \\omega$.",
+              "$\\varphi$ is linear in $(q,p)$.",
+              "$\\varphi$ is a translation."
+            ],
+            "answer": 1,
+            "hint": "The defining condition is preservation of the symplectic form, not of any particular Hamiltonian.",
+            "explain": "Canonical/symplectic means $\\varphi^*\\omega=\\omega$. This implies that Hamilton's equations transform covariantly: if $\\varphi^*\\omega=\\omega$ then the flow of $X_H$ pulls back to the flow of $X_{H\\circ\\varphi}$. Linearity is unnecessary; preserving a specific $H$ is a stronger condition."
+          },
+          {
+            "type": "mcq",
+            "q": "A type-1 generating function $S(q,Q)$ defines a canonical transformation by which formulas?",
+            "choices": [
+              "$p = \\partial S/\\partial q,\\ P = -\\partial S/\\partial Q$",
+              "$p = -\\partial S/\\partial Q,\\ P = \\partial S/\\partial q$",
+              "$p = \\partial S/\\partial t,\\ P = \\partial S/\\partial t$",
+              "$p = qQ,\\ P = q+Q$"
+            ],
+            "answer": 0,
+            "hint": "Old momentum is the partial of $S$ with respect to old position; new momentum is the negative partial in the new position.",
+            "explain": "The condition $p\\,dq - P\\,dQ = dS$ on a Lagrangian graph in $T^*(Q\\times Q)$ unpacks to $p = \\partial S/\\partial q,\\ P = -\\partial S/\\partial Q$. Different sign conventions exist; this is the standard one."
+          },
+          {
+            "type": "mcq",
+            "q": "The Hamilton–Jacobi equation $\\partial S/\\partial t + H(q,\\partial S/\\partial q,t) = 0$ comes from looking for a generating function $S$ such that:",
+            "choices": [
+              "the new Hamiltonian $K$ vanishes identically, so the new coordinates are constants of motion.",
+              "$S$ is harmonic.",
+              "$S$ is positive.",
+              "$S$ depends only on $t$."
+            ],
+            "answer": 0,
+            "hint": "If $K=0$ then $\\dot Q = \\dot P = 0$.",
+            "explain": "Choosing $S$ so the transformed Hamiltonian $K = H + \\partial S/\\partial t$ vanishes makes the new coordinates $(Q,P)$ constants of motion: integrating Hamilton's equations is reduced to solving the (single, nonlinear, first-order) Hamilton–Jacobi PDE."
+          }
+        ]
+      },
+      "hcm-noether": {
+        "title": "Noether's theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "If $f\\in C^\\infty(T^*Q)$ satisfies $\\{f,H\\}=0$, then along the flow of $X_H$:",
+            "choices": [
+              "$f$ grows linearly in time.",
+              "$f$ is conserved: $\\dot f = 0$.",
+              "$f$ vanishes identically.",
+              "$f$ equals $H$."
+            ],
+            "answer": 1,
+            "hint": "Recall $\\dot f = X_H(f) = \\{f,H\\}$.",
+            "explain": "Along the Hamiltonian flow, $\\dot f = X_H(f) = \\omega(X_f,X_H) = \\{f,H\\}$. So $\\{f,H\\}=0$ exactly means $f$ is a first integral. This is Noether in Poisson form: symmetries (functions Poisson-commuting with $H$) are conserved quantities."
+          },
+          {
+            "type": "mcq",
+            "q": "For a free particle in $\\mathbb{R}^3$ with $H = |p|^2/(2m)$, which symmetry corresponds to conservation of linear momentum $p_i$?",
+            "choices": [
+              "Time translation.",
+              "Spatial translation $q^i\\mapsto q^i + a$.",
+              "Rotation about the origin.",
+              "Galilean boost."
+            ],
+            "answer": 1,
+            "hint": "Translation in $q^i$ is generated by $p_i$.",
+            "explain": "The flow of $X_{p_i}$ is the translation $q^i \\mapsto q^i + t$, leaving all $p_j$ and $|p|^2$ unchanged. Since $\\{p_i,H\\} = 0$, the translation is a symmetry and $p_i$ is conserved. Time translation gives energy conservation; rotations give angular momentum."
+          },
+          {
+            "type": "mcq",
+            "q": "Which conserved quantity does the rotational symmetry $q\\mapsto Rq,\\ p\\mapsto Rp$ ($R\\in SO(3)$) of a central-potential Hamiltonian $H = |p|^2/(2m) + V(|q|)$ produce?",
+            "choices": [
+              "Energy $H$.",
+              "Linear momentum $p$.",
+              "Angular momentum $L = q\\times p$.",
+              "The Laplace–Runge–Lenz vector."
+            ],
+            "answer": 2,
+            "hint": "Rotations are generated by angular momentum components.",
+            "explain": "Each component $L_i$ generates rotations about axis $i$ via the Poisson bracket. For a rotationally symmetric $H$, $\\{L_i,H\\}=0$, so $L=q\\times p$ is conserved. The LRL vector is the additional Kepler-specific symmetry beyond rotations."
+          }
+        ]
+      },
+      "hcm-integrable-systems": {
+        "title": "Integrability and KAM",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A Hamiltonian system on a $2n$-dimensional symplectic manifold is Liouville integrable when there exist:",
+            "choices": [
+              "$2n$ constants of motion of any kind.",
+              "$n$ functionally independent first integrals $f_1=H,f_2,\\dots,f_n$ that pairwise Poisson-commute.",
+              "A single conserved energy.",
+              "$n$ first integrals that anti-commute."
+            ],
+            "answer": 1,
+            "hint": "Count: $n$ commuting integrals on a $2n$-manifold.",
+            "explain": "Liouville–Arnold requires $n$ functionally independent first integrals in involution ($\\{f_i,f_j\\}=0$). On a regular compact common level set, the joint flows give a free $\\mathbb{R}^n$ action whose orbits are tori $T^n$; action-angle coordinates linearise the dynamics on each torus."
+          },
+          {
+            "type": "mcq",
+            "q": "In action-angle coordinates $(I,\\theta)$, an integrable Hamiltonian becomes $H=H(I)$ alone. Hamilton's equations then read:",
+            "choices": [
+              "$\\dot I = 0,\\ \\dot\\theta = \\partial H/\\partial I$ — actions are constant, angles wind at frequencies $\\omega(I)$.",
+              "$\\dot I = -I,\\ \\dot\\theta = \\theta$.",
+              "Both $I$ and $\\theta$ oscillate.",
+              "$\\dot I = \\theta,\\ \\dot\\theta = I$."
+            ],
+            "answer": 0,
+            "hint": "Since $H$ is independent of $\\theta$, $\\partial H/\\partial\\theta = 0$.",
+            "explain": "$\\dot I_i = -\\partial H/\\partial\\theta_i = 0$ and $\\dot\\theta_i = \\partial H/\\partial I_i = \\omega_i(I)$. Each invariant torus carries a linear flow with frequency vector $\\omega(I)$; the dynamics is quasi-periodic."
+          },
+          {
+            "type": "mcq",
+            "q": "The KAM theorem (Kolmogorov–Arnold–Moser) says that under a small non-degenerate perturbation $H_\\varepsilon = H_0(I) + \\varepsilon H_1(I,\\theta)$ of an integrable $H_0$:",
+            "choices": [
+              "All invariant tori are destroyed for any $\\varepsilon>0$.",
+              "Most invariant tori survive — those with sufficiently Diophantine (badly approximable) frequency vectors.",
+              "Only the tori with rational frequencies survive.",
+              "The system becomes chaotic everywhere."
+            ],
+            "answer": 1,
+            "hint": "Resonant (rational-frequency) tori are exactly the ones that break.",
+            "explain": "KAM: tori whose frequency vectors $\\omega(I)$ satisfy a Diophantine condition $|k\\cdot\\omega| \\geq \\gamma|k|^{-\\tau}$ persist as smooth deformations for small $\\varepsilon$. The rationally resonant tori shatter into Birkhoff zones with thin chaotic layers — visible in numerical experiments as the gradual onset of disorder."
+          }
+        ]
+      },
+      "hcm-applications": {
+        "title": "Worked examples",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The 1D harmonic oscillator $H = \\tfrac{p^2}{2m} + \\tfrac{1}{2}m\\omega^2 q^2$ has phase portrait consisting of:",
+            "choices": [
+              "Parabolas opening upward.",
+              "Concentric ellipses (level sets of $H$) traversed at angular frequency $\\omega$.",
+              "Straight lines.",
+              "A single fixed point."
+            ],
+            "answer": 1,
+            "hint": "Level sets of a positive-definite quadratic form are ellipses.",
+            "explain": "Since $H$ is a positive-definite quadratic form in $(q,p)$, each level set $\\{H=E\\}$ is an ellipse. The flow rotates at angular frequency $\\omega$ in the appropriately scaled coordinates $(q,p/m\\omega)$ — the iconic phase portrait of the harmonic oscillator."
+          },
+          {
+            "type": "mcq",
+            "q": "What makes the Kepler problem $H = |p|^2/(2m) - k/|q|$ super-integrable?",
+            "choices": [
+              "It admits no conserved quantities.",
+              "Beyond energy and angular momentum, the Laplace–Runge–Lenz vector $A = p\\times L - mk\\hat q$ is also conserved, giving more independent integrals than dimensions of phase space allow generically.",
+              "It has only one degree of freedom.",
+              "The orbits are not closed."
+            ],
+            "answer": 1,
+            "hint": "Closed orbits are a strong constraint — only the harmonic oscillator and the Kepler/Coulomb potential have all bounded orbits closed (Bertrand's theorem).",
+            "explain": "Generic integrable systems on a $2n$-manifold have $n$ commuting integrals. Kepler has $n+1$: $H$, $L = q\\times p$, and the LRL vector $A$. The extra symmetry is hidden $SO(4)$ (for bound states), and it's why Kepler orbits close into ellipses rather than precessing."
+          },
+          {
+            "type": "mcq",
+            "q": "Geodesic flow on a Riemannian manifold $(M,g)$ is the Hamiltonian flow on $T^*M$ for which Hamiltonian?",
+            "choices": [
+              "$H = 0$.",
+              "$H(q,p) = \\tfrac{1}{2} g^{ij}(q) p_i p_j$, the dual metric on cotangent fibres.",
+              "$H(q,p) = |q|^2$.",
+              "$H(q,p) = p_1 p_2\\cdots p_n$."
+            ],
+            "answer": 1,
+            "hint": "Kinetic energy with no potential.",
+            "explain": "Take the Riemannian metric $g_{ij}$, raise indices to $g^{ij}$, and form $H = \\tfrac{1}{2} g^{ij}p_ip_j$. Hamilton's equations reproduce the geodesic equation; trajectories project to geodesics on $M$. Geometric mechanics often starts here."
           }
         ]
       }
@@ -20193,6 +22402,257 @@ window.MVQuizBank = {
             "answer": 0,
             "explain": "This is geometric soundness: a $\\mathcal{T}$-model in $\\mathcal{F}$ corresponds to a geometric morphism $\\mathcal{F} \\to \\mathrm{Set}[\\mathcal{T}]$; $f^*$ preserves geometric formulas, so anything provable geometrically in the classifying topos transports along $f^*$ to $\\mathcal{F}$. This is the central technical reason for restricting to geometric logic.",
             "hint": "The whole point of the geometric fragment: it transports along arbitrary geometric morphisms, including those classifying models."
+          }
+        ]
+      }
+    }
+  },
+  "high-dimensional-geometry": {
+    "topic": "high-dimensional-geometry",
+    "quizzes": {
+      "hdg-sphere-concentration": {
+        "title": "Concentration on the sphere",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Lévy's lemma asserts that a $1$-Lipschitz function $f:S^{n-1}\\to\\mathbb{R}$ concentrates near its median with what kind of tail?",
+            "choices": [
+              "Polynomial: $\\sigma(|f-\\mathrm{med}\\,f|>t)\\le C/t^{n}$",
+              "Sub-exponential: $\\sigma(|f-\\mathrm{med}\\,f|>t)\\le 2e^{-c(n-1)t}$",
+              "Sub-Gaussian: $\\sigma(|f-\\mathrm{med}\\,f|>t)\\le 2e^{-(n-1)t^{2}/2}$",
+              "No tail bound is uniform in $n$"
+            ],
+            "answer": 2,
+            "explain": "Lévy's lemma gives a Gaussian tail with rate $(n-1)/2$, so the deviation scale is $1/\\sqrt n$ — the higher the dimension, the tighter the concentration around the median."
+          },
+          {
+            "type": "mcq",
+            "q": "If $u,v$ are independent uniform random points on $S^{n-1}$, what is $\\mathbb{E}[\\langle u,v\\rangle^{2}]$?",
+            "choices": [
+              "$0$",
+              "$1/n$",
+              "$1/\\sqrt{n}$",
+              "$1/2$"
+            ],
+            "answer": 1,
+            "explain": "By symmetry $\\mathbb{E}[\\langle u,v\\rangle^{2}]=\\mathbb{E}[u_{1}^{2}]=1/n$. So $\\langle u,v\\rangle$ is concentrated on a window of width $1/\\sqrt n$ around $0$ — generic high-D vectors are almost orthogonal."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is concentration on the sphere called the \"blessing of dimensionality\"?",
+            "choices": [
+              "Because volume grows with $n$, giving more room for clusters",
+              "Because Lipschitz functions are essentially constant on most of $S^{n-1}$, so empirical averages behave deterministically",
+              "Because every set has measure $1$ in the limit $n\\to\\infty$",
+              "Because the curse of dimensionality is a folk myth"
+            ],
+            "answer": 1,
+            "explain": "High dimension makes Lipschitz functionals (norms, distances, smooth statistics) almost constant on the sphere — predictable behaviour from random inputs is the engine of modern high-D probability."
+          }
+        ]
+      },
+      "hdg-dvoretzky": {
+        "title": "Dvoretzky's theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Dvoretzky's theorem says every centred convex body $K\\subset\\mathbb{R}^{n}$ has an almost-Euclidean section of dimension at least:",
+            "choices": [
+              "$O(1)$",
+              "$\\Theta(\\log n)$",
+              "$\\Theta(\\sqrt{n})$",
+              "$\\Theta(n)$"
+            ],
+            "answer": 1,
+            "explain": "Milman's proof gives $k(K,\\varepsilon)=\\Omega(\\varepsilon^{2}\\log n)$ for any centred convex body. The $\\log n$ scaling is sharp for $\\ell^{\\infty}$."
+          },
+          {
+            "type": "mcq",
+            "q": "What does \"almost-spherical section\" mean for a normed space $(\\mathbb{R}^{n},\\|\\cdot\\|)$ on a subspace $E$?",
+            "choices": [
+              "$\\|\\cdot\\|$ restricted to $E$ is exactly the Euclidean norm",
+              "$E$ is contained in the unit sphere of $\\|\\cdot\\|$",
+              "There is $c>0$ with $c\\,|x|\\le\\|x\\|\\le (1+\\varepsilon)c\\,|x|$ for all $x\\in E$",
+              "$E$ has positive Gaussian measure"
+            ],
+            "answer": 2,
+            "explain": "An $(1+\\varepsilon)$-Euclidean section is a subspace on which the given norm is sandwiched between two Hilbert-space norms with ratio $1+\\varepsilon$ — the geometry on $E$ looks Euclidean up to distortion $\\varepsilon$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which proof technique drives Dvoretzky's theorem?",
+            "choices": [
+              "The Hahn–Banach theorem applied to the polar body",
+              "Concentration of $\\|x\\|$ on the sphere combined with an $\\varepsilon$-net argument on Grassmannians",
+              "Spectral decomposition of the moment-of-inertia tensor",
+              "Riemann–Roch on a curve of high genus"
+            ],
+            "answer": 1,
+            "explain": "Milman's argument: Lévy concentration shows $\\|\\cdot\\|$ is essentially constant on most of $S^{n-1}$; an $\\varepsilon$-net on the Grassmannian then produces a subspace where the deviation is small uniformly."
+          }
+        ]
+      },
+      "hdg-johnson-lindenstrauss": {
+        "title": "Johnson–Lindenstrauss",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "How does the JL target dimension $k$ scale with the number of points $N$ and distortion $\\varepsilon$?",
+            "choices": [
+              "$k=O(N/\\varepsilon)$",
+              "$k=O(\\log N/\\varepsilon^{2})$",
+              "$k=O(\\sqrt{N}\\log(1/\\varepsilon))$",
+              "$k=O(n/\\log N)$"
+            ],
+            "answer": 1,
+            "explain": "The JL lemma gives $k=O(\\varepsilon^{-2}\\log N)$ — independent of the ambient $n$. The $\\varepsilon^{-2}$ comes from the variance of the projected length; the $\\log N$ from a union bound over $\\binom{N}{2}$ pairs."
+          },
+          {
+            "type": "mcq",
+            "q": "For a random $k\\times n$ Gaussian matrix $G$ with i.i.d.\\ $\\mathcal{N}(0,1/k)$ entries and a fixed unit vector $x$, what is $\\mathbb{E}[\\|Gx\\|^{2}]$?",
+            "choices": [
+              "$0$",
+              "$1$",
+              "$k$",
+              "$n/k$"
+            ],
+            "answer": 1,
+            "explain": "$\\mathbb{E}[\\|Gx\\|^{2}]=\\sum_{i=1}^{k}\\mathbb{E}[(g_{i}\\cdot x)^{2}]=k\\cdot(1/k)\\|x\\|^{2}=\\|x\\|^{2}=1$. The JL embedding is unbiased; concentration around $1$ is the content of the lemma."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does JL preserve <em>pairwise distances</em>, not arbitrary geometric features?",
+            "choices": [
+              "It uses only differences $x_{i}-x_{j}$, applies the lemma to each, and union-bounds",
+              "Distances are conformally invariant",
+              "It assumes the data lies on a low-dimensional manifold",
+              "The Gaussian projection preserves all rank-1 matrices"
+            ],
+            "answer": 0,
+            "explain": "JL lifts a one-vector concentration ($\\|Gx\\|\\approx\\|x\\|$ with high probability) to all $\\binom{N}{2}$ difference vectors via a union bound — giving multiplicative distance preservation but not, say, angle preservation against arbitrary subspaces."
+          }
+        ]
+      },
+      "hdg-talagrand": {
+        "title": "Talagrand's inequality",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Talagrand's convex-distance inequality is a concentration statement on which kind of probability space?",
+            "choices": [
+              "Compact Riemannian manifolds with positive curvature",
+              "Product spaces $\\Omega=\\Omega_{1}\\times\\cdots\\times\\Omega_{n}$ with product measure",
+              "Locally compact abelian groups",
+              "Banach spaces with cotype $2$"
+            ],
+            "answer": 1,
+            "explain": "Talagrand's setting is product probability spaces. Its strength is that the bound depends on the convex distance, not on a metric Lipschitz constant — so it controls many functionals that aren't Lipschitz on the Hamming cube."
+          },
+          {
+            "type": "mcq",
+            "q": "For a convex $1$-Lipschitz $f:[0,1]^{n}\\to\\mathbb{R}$ with $X$ uniform on $[0,1]^{n}$, Talagrand gives a tail of order:",
+            "choices": [
+              "$e^{-cnt^{2}}$",
+              "$e^{-ct^{2}}$ (no $n$)",
+              "$e^{-cn}$",
+              "$1/(1+t^{2})$"
+            ],
+            "answer": 1,
+            "explain": "Talagrand's bound is dimension-free in $n$: $\\mathbb{P}(|f-\\mathrm{med}\\,f|>t)\\le 4e^{-t^{2}/4}$. The Lipschitz constant absorbs scaling; one extra slot does not increase the deviation."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is convexity needed in Talagrand's statement (it fails for general $1$-Lipschitz $f$ on the cube)?",
+            "choices": [
+              "Convexity is just a convenience; the inequality holds for any Lipschitz $f$",
+              "Convexity ensures $f$ is differentiable a.e.",
+              "Convexity lets the convex distance dominate the increment, so the certificate-based induction closes",
+              "Convexity makes $f$ harmonic"
+            ],
+            "answer": 2,
+            "explain": "Talagrand's induction over coordinates uses convexity to control how a coordinate-flip changes $f$ in terms of the convex distance — giving the dimension-free constant. For non-convex Lipschitz $f$ on the Hamming cube the standard bound has a $\\sqrt n$ in the deviation."
+          }
+        ]
+      },
+      "hdg-isoperimetry": {
+        "title": "Gaussian isoperimetry",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Among Borel sets $A\\subset\\mathbb{R}^{n}$ of fixed Gaussian measure, which extremise the Gaussian surface area?",
+            "choices": [
+              "Euclidean balls",
+              "Halfspaces $\\{x:\\langle x,v\\rangle\\le c\\}$",
+              "Cubes",
+              "Cones with vertex at the origin"
+            ],
+            "answer": 1,
+            "explain": "Borell–Sudakov–Tsirelson: halfspaces are the Gaussian-isoperimetric minimisers, in contrast with Euclidean isoperimetry where balls are optimal."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the Poincaré–Maxwell limit linking the sphere and the Gaussian?",
+            "choices": [
+              "Uniform measure on $S^{n-1}(\\sqrt n)$ projected onto the first $k$ coordinates converges to $\\mathcal{N}(0,I_{k})$ as $n\\to\\infty$",
+              "$S^{n-1}$ has constant Gaussian curvature, equal to that of $\\mathbb{R}^{n}$",
+              "$L^{2}(S^{n-1})$ is unitarily equivalent to $L^{2}(\\mathbb{R}^{n},\\gamma)$",
+              "The diameter of $S^{n-1}$ converges to $\\infty$"
+            ],
+            "answer": 0,
+            "explain": "Project the uniform measure on the radius-$\\sqrt n$ sphere onto $k$ fixed coordinates: the marginal converges to standard $k$-dim Gaussian. This is why concentration on $S^{n-1}$ \"becomes\" Gaussian concentration in the limit."
+          },
+          {
+            "type": "mcq",
+            "q": "Which functional inequality, due to Gross, is equivalent to Gaussian isoperimetry up to dimension-free constants?",
+            "choices": [
+              "Brunn–Minkowski",
+              "The log-Sobolev inequality $\\mathrm{Ent}_{\\gamma}(f^{2})\\le 2\\int|\\nabla f|^{2}\\,d\\gamma$",
+              "The Bishop–Gromov volume comparison",
+              "The Hardy–Littlewood–Sobolev inequality"
+            ],
+            "answer": 1,
+            "explain": "Gross's log-Sobolev inequality for the Gaussian measure $\\gamma$ controls entropy by Dirichlet energy and is dimension-free. Bobkov's functional refinement is the sharp form that recovers Gaussian isoperimetry directly."
+          }
+        ]
+      },
+      "hdg-applications": {
+        "title": "Applications",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Compressed sensing recovers a $k$-sparse signal $x\\in\\mathbb{R}^{n}$ from $m$ random linear measurements when:",
+            "choices": [
+              "$m\\ge n$ always",
+              "$m\\ge ck\\log(n/k)$, where the sensing matrix satisfies the Restricted Isometry Property",
+              "$m\\ge\\sqrt{n}$",
+              "$m=k$ exactly"
+            ],
+            "answer": 1,
+            "explain": "Candès–Tao show $\\ell^{1}$-minimisation recovers $k$-sparse $x$ exactly from $m=O(k\\log(n/k))$ Gaussian measurements. RIP is proved via JL-type concentration on every $k$-dim coordinate subspace."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the limiting empirical spectral distribution of $\\frac{1}{n}WW^{*}$ where $W$ is $m\\times n$ with i.i.d.\\ entries of mean $0$ and variance $1$, as $m,n\\to\\infty$ with $m/n\\to\\lambda$?",
+            "choices": [
+              "Semicircle law",
+              "Marchenko–Pastur law on $[(1-\\sqrt\\lambda)^{2},(1+\\sqrt\\lambda)^{2}]$",
+              "Standard Gaussian",
+              "Tracy–Widom"
+            ],
+            "answer": 1,
+            "explain": "The Wishart-type matrix has empirical spectrum converging to the Marchenko–Pastur distribution with parameter $\\lambda$. The semicircle is for symmetric Wigner matrices; Tracy–Widom is for the largest eigenvalue."
+          },
+          {
+            "type": "mcq",
+            "q": "VC-style PAC bounds give a sample complexity of order $m=O(d/\\varepsilon^{2})$ for a hypothesis class of VC dimension $d$. The bound rests on which probabilistic tool?",
+            "choices": [
+              "The fundamental theorem of calculus",
+              "Uniform concentration of empirical means (a Talagrand / chaining argument over the class)",
+              "Riemann's hypothesis",
+              "The spectral theorem for self-adjoint operators"
+            ],
+            "answer": 1,
+            "explain": "PAC learning bounds use uniform concentration: empirical means concentrate around expectations <em>uniformly</em> over the hypothesis class. Talagrand-type inequalities and chaining are the modern tools."
           }
         ]
       }
@@ -22489,6 +24949,501 @@ window.MVQuizBank = {
       }
     }
   },
+  "k-theory": {
+    "topic": "k-theory",
+    "quizzes": {
+      "k-vector-bundles": {
+        "title": "Topological $K^0(X)$ from vector bundles",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why must we pass to the Grothendieck group rather than just take isomorphism classes of vector bundles?",
+            "choices": [
+              "Vector bundles do not form a set",
+              "$\\mathrm{Vect}_\\mathbb{C}(X)$ is a monoid under $\\oplus$ but cancellation can fail",
+              "Direct sum is not associative",
+              "Pullback is not functorial"
+            ],
+            "answer": 1,
+            "hint": "Even on $S^2$, $E\\oplus\\mathbf{1}\\cong F\\oplus\\mathbf{1}$ does not force $E\\cong F$.",
+            "explain": "$(\\mathrm{Vect}_\\mathbb{C}(X),\\oplus)$ is an abelian monoid; the universal map to a group adjoins formal inverses, identifying $[E]=[F]$ exactly when $E\\oplus G\\cong F\\oplus G$ for some $G$ (stable equivalence)."
+          },
+          {
+            "type": "mcq",
+            "q": "What is $K^0(\\mathrm{pt})$?",
+            "choices": [
+              "$0$",
+              "$\\mathbb{Z}$",
+              "$\\mathbb{Z}\\oplus\\mathbb{Z}$",
+              "$\\mathbb{Z}/2$"
+            ],
+            "answer": 1,
+            "hint": "Vector bundles on a point are just vector spaces, classified by dimension.",
+            "explain": "$\\mathrm{Vect}_\\mathbb{C}(\\mathrm{pt})\\cong\\mathbb{N}$ via dimension, whose Grothendieck group is $\\mathbb{Z}$. The rank map $K^0(X)\\to K^0(\\mathrm{pt})=\\mathbb{Z}$ is the augmentation."
+          },
+          {
+            "type": "mcq",
+            "q": "Which structure on $K^0(X)$ comes from the tensor product of bundles?",
+            "choices": [
+              "An abelian-group structure",
+              "A commutative ring structure with unit $[\\mathbf{1}]$",
+              "A grading by rank",
+              "A pairing into $\\mathbb{Z}$"
+            ],
+            "answer": 1,
+            "hint": "$\\otimes$ distributes over $\\oplus$ and the trivial line bundle is a unit.",
+            "explain": "$\\oplus$ gives the addition, $\\otimes$ gives the multiplication, and the trivial line bundle is the multiplicative unit. Pullback $f^*$ is a ring map, making $K^0$ a contravariant functor to commutative rings."
+          }
+        ]
+      },
+      "k-grothendieck-group": {
+        "title": "Grothendieck group $K_0$ of an exact category",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In Quillen's $K_0(\\mathcal{C})$ of an exact category, what relation does each short exact sequence $0\\to A\\to B\\to C\\to 0$ impose?",
+            "choices": [
+              "$[A]+[B]+[C]=0$",
+              "$[B]=[A]+[C]$",
+              "$[A]\\cdot[C]=[B]$",
+              "$[A]=[B]=[C]$"
+            ],
+            "answer": 1,
+            "hint": "Think of an exact sequence as splitting $B$ into $A$ and $C$ at the level of classes.",
+            "explain": "$K_0(\\mathcal{C})$ is the free abelian group on isomorphism classes modulo $[B]-[A]-[C]$ for every short exact sequence; it linearises additivity through extensions."
+          },
+          {
+            "type": "mcq",
+            "q": "What is $K_0(\\mathbb{Z})$, the Grothendieck group of finitely generated projective $\\mathbb{Z}$-modules?",
+            "choices": [
+              "$0$",
+              "$\\mathbb{Z}$, generated by $[\\mathbb{Z}]$",
+              "$\\mathbb{Z}\\oplus\\mathbb{Z}/2$",
+              "$\\mathbb{Q}^\\times$"
+            ],
+            "answer": 1,
+            "hint": "Over a PID every finitely generated projective is free, classified by rank.",
+            "explain": "Projectives over a PID are free, so the rank map is an iso $K_0(\\mathbb{Z})\\xrightarrow{\\sim}\\mathbb{Z}$. More generally $K_0(\\mathcal{O}_F)=\\mathbb{Z}\\oplus\\mathrm{Cl}(F)$ for a Dedekind domain."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does $K_0(\\mathrm{Vect}(X))$ recover $K^0(X)$ even though the definition references all short exact sequences?",
+            "choices": [
+              "Vector bundles have no nontrivial extensions over compact $X$",
+              "Every short exact sequence of vector bundles splits, so the relation reduces to $[E\\oplus F]=[E]+[F]$",
+              "$\\mathrm{Vect}(X)$ is a semisimple category",
+              "Pullback kills extensions"
+            ],
+            "answer": 1,
+            "hint": "Choose a Hermitian metric; the orthogonal complement provides a splitting.",
+            "explain": "On a paracompact base, any short exact sequence of vector bundles splits (pick a metric and take the orthogonal complement of the sub-bundle). So the only relation surviving in $K_0$ is direct-sum additivity, matching the naive Grothendieck group of the monoid."
+          }
+        ]
+      },
+      "k-bott-periodicity": {
+        "title": "Bott periodicity",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Bott periodicity says complex topological K-theory satisfies which isomorphism?",
+            "choices": [
+              "$K^n(X)\\cong K^{n+1}(X)$",
+              "$K^n(X)\\cong K^{n+2}(X)$",
+              "$K^n(X)\\cong K^{n+4}(X)$",
+              "$K^n(X)\\cong K^{n+8}(X)$"
+            ],
+            "answer": 1,
+            "hint": "The Bott class lives on $S^2$, signalling the period.",
+            "explain": "Complex K-theory is $2$-periodic: $K^n(X)\\cong K^{n+2}(X)$ via external product with the Bott class $\\beta\\in\\widetilde K^0(S^2)$. Real K-theory $KO$ is $8$-periodic — the genuine surprise."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the Bott class $\\beta\\in\\widetilde K^0(S^2)$?",
+            "choices": [
+              "$[\\mathbf{1}]$",
+              "$[\\mathcal{O}(1)]-[\\mathbf{1}]$",
+              "$[\\mathcal{O}(1)]\\otimes[\\mathcal{O}(-1)]$",
+              "$[T S^2]$"
+            ],
+            "answer": 1,
+            "hint": "It is the reduced class of the Hopf line bundle on $\\mathbb{CP}^1=S^2$.",
+            "explain": "$\\beta=[\\mathcal{O}(1)]-[\\mathbf 1]\\in\\widetilde K^0(S^2)$ generates a copy of $\\mathbb{Z}$. Multiplication by $\\beta$ is the Bott periodicity isomorphism $\\widetilde K^0(X)\\xrightarrow{\\sim}\\widetilde K^0(\\Sigma^2 X)$."
+          },
+          {
+            "type": "mcq",
+            "q": "Bott's original (1959) theorem on the homotopy groups of $U=\\varinjlim U(n)$ states which periodicity?",
+            "choices": [
+              "$\\pi_n(U)$ is $\\mathbb{Z}$ for all $n$",
+              "$\\pi_n(U)\\cong\\pi_{n+2}(U)$, with $\\pi_0(U)=0,\\;\\pi_1(U)=\\mathbb{Z}$",
+              "$\\pi_n(U)\\cong\\pi_{n+8}(U)$",
+              "$\\pi_n(U)$ vanishes for $n$ even"
+            ],
+            "answer": 1,
+            "hint": "$\\pi_n(U)=\\mathbb{Z}$ for $n$ odd and $0$ for $n$ even (and positive).",
+            "explain": "Bott proved $\\Omega U\\simeq\\mathbb{Z}\\times BU$, hence $\\pi_n(U)\\cong\\pi_{n-1}(\\mathbb{Z}\\times BU)$, giving the $2$-periodic pattern $\\dots,0,\\mathbb{Z},0,\\mathbb{Z},\\dots$ — the homotopical shadow of the Bott class on $S^2$."
+          }
+        ]
+      },
+      "k-chern-character": {
+        "title": "Chern character",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On formal Chern roots $x_i$ of a bundle $E$, the Chern character is given by which formula?",
+            "choices": [
+              "$\\mathrm{ch}(E)=\\prod_i(1+x_i)$",
+              "$\\mathrm{ch}(E)=\\sum_i e^{x_i}$",
+              "$\\mathrm{ch}(E)=\\sum_i x_i^2$",
+              "$\\mathrm{ch}(E)=\\prod_i\\frac{x_i}{1-e^{-x_i}}$"
+            ],
+            "answer": 1,
+            "hint": "It must be additive on $\\oplus$ and multiplicative on $\\otimes$ — only the exponential does both.",
+            "explain": "$\\mathrm{ch}(E)=\\sum_i e^{x_i}=\\mathrm{rk}(E)+c_1(E)+\\tfrac{1}{2}(c_1^2-2c_2)+\\cdots$. The first option is the total Chern class; the last is the Todd class."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does $\\mathrm{ch}\\colon K^0(X)\\otimes\\mathbb{Q}\\to H^{\\text{even}}(X;\\mathbb{Q})$ become an isomorphism for finite CW $X$?",
+            "choices": [
+              "Because $K^0$ is rationally trivial",
+              "Because it intertwines the Atiyah–Hirzebruch spectral sequence which collapses rationally",
+              "Because $\\mathrm{ch}$ is integral",
+              "Because $X$ is a manifold"
+            ],
+            "answer": 1,
+            "hint": "Rationally any cohomology theory is determined by its coefficients.",
+            "explain": "The Atiyah–Hirzebruch spectral sequence $H^p(X;K^q(\\mathrm{pt}))\\Rightarrow K^{p+q}(X)$ collapses after $\\otimes\\mathbb{Q}$, and $\\mathrm{ch}$ realises the resulting iso. So K-theory and cohomology agree rationally; integrally K-theory carries finer torsion."
+          },
+          {
+            "type": "mcq",
+            "q": "How does the Chern character behave on tensor products?",
+            "choices": [
+              "$\\mathrm{ch}(E\\otimes F)=\\mathrm{ch}(E)+\\mathrm{ch}(F)$",
+              "$\\mathrm{ch}(E\\otimes F)=\\mathrm{ch}(E)\\smile\\mathrm{ch}(F)$",
+              "$\\mathrm{ch}(E\\otimes F)=\\mathrm{ch}(E)\\circ\\mathrm{ch}(F)$",
+              "$\\mathrm{ch}(E\\otimes F)=\\mathrm{ch}(F)/\\mathrm{ch}(E)$"
+            ],
+            "answer": 1,
+            "hint": "Tensor adds Chern roots: $(E\\otimes F)$ has roots $x_i+y_j$.",
+            "explain": "Since $e^{x_i+y_j}=e^{x_i}e^{y_j}$, $\\mathrm{ch}(E\\otimes F)=(\\sum e^{x_i})(\\sum e^{y_j})=\\mathrm{ch}(E)\\smile\\mathrm{ch}(F)$. Combined with additivity on $\\oplus$, this makes $\\mathrm{ch}$ a ring map."
+          }
+        ]
+      },
+      "k-algebraic-k-theory": {
+        "title": "Algebraic K-theory $K_n(R)$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a commutative ring $R$, what is $K_1(R)$ as defined by Quillen's $+$-construction $K_n(R)=\\pi_n(BGL(R)^+)$?",
+            "choices": [
+              "$R^\\times$",
+              "$GL_\\infty(R)^{\\mathrm{ab}}=GL_\\infty(R)/E(R)$",
+              "$\\mathrm{Pic}(R)$",
+              "The Brauer group $\\mathrm{Br}(R)$"
+            ],
+            "answer": 1,
+            "hint": "$\\pi_1$ of $BG^+$ is the abelianisation of $G$, and the elementary subgroup $E(R)$ is the commutator subgroup of $GL_\\infty(R)$ (Whitehead's lemma).",
+            "explain": "By Whitehead's lemma the commutator subgroup of $GL_\\infty(R)$ is $E(R)$, so $K_1(R)=GL_\\infty(R)^{\\mathrm{ab}}=GL_\\infty(R)/E(R)$. Over a field this is $\\det\\colon GL_\\infty\\twoheadrightarrow F^\\times$; over a commutative local ring the determinant gives $K_1(R)\\cong R^\\times$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is $K_2(R)$ in Milnor's presentation?",
+            "choices": [
+              "The kernel of $\\det\\colon GL_\\infty(R)\\to R^\\times$",
+              "The kernel $\\mathrm{St}(R)\\to E(R)$ where $\\mathrm{St}(R)$ is the Steinberg group",
+              "$R^\\times\\otimes_\\mathbb{Z} R^\\times$",
+              "The Brauer group of $R$"
+            ],
+            "answer": 1,
+            "hint": "$\\mathrm{St}(R)$ is the universal central extension of $E(R)$.",
+            "explain": "$K_2(R)=\\ker(\\mathrm{St}(R)\\twoheadrightarrow E(R))$, the centre of the Steinberg group. Matsumoto's theorem identifies $K_2$ of a field with $F^\\times\\otimes F^\\times/\\langle a\\otimes(1-a)\\rangle$, the Milnor symbols."
+          },
+          {
+            "type": "mcq",
+            "q": "Why must Quillen apply the $+$-construction to $BGL_\\infty(R)$ rather than just take its homotopy groups?",
+            "choices": [
+              "$BGL_\\infty(R)$ is not connected",
+              "$\\pi_n(BGL_\\infty(R))$ is not a homotopy invariant",
+              "$\\pi_1(BGL_\\infty(R))=GL_\\infty(R)$ is non-abelian; the $+$-construction abelianises $\\pi_1$ without changing homology, producing a space with the right $\\pi_n$",
+              "The classifying space is too small"
+            ],
+            "answer": 2,
+            "hint": "We want $K_1=GL_\\infty^{\\mathrm{ab}}$, but $\\pi_1(BG)=G$.",
+            "explain": "$BG$ is a $K(G,1)$, so its homotopy is concentrated in $\\pi_1=G$. The plus-construction kills the perfect commutator subgroup $E(R)\\subset GL_\\infty(R)$ in $\\pi_1$, leaving the abelianisation, while preserving homology — and creates higher homotopy. The result $\\pi_n(BGL(R)^+)$ is Quillen's $K_n(R)$."
+          }
+        ]
+      },
+      "k-applications": {
+        "title": "Applications: index theorem & K-theory of $\\mathcal{O}_F$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In the Atiyah–Singer index theorem, the analytic index $\\ind(D)=\\dim\\ker D-\\dim\\mathrm{coker}\\,D$ is computed as which topological pairing?",
+            "choices": [
+              "$\\langle e(TM),[M]\\rangle$",
+              "$\\langle\\mathrm{ch}([\\sigma(D)])\\smile\\mathrm{Td}(TM\\otimes\\mathbb{C}),[T^*M]\\rangle$",
+              "$\\dim M\\cdot\\chi(M)$",
+              "$\\langle p_1(TM),[M]\\rangle$"
+            ],
+            "answer": 1,
+            "hint": "Symbol $\\to$ K-class on $T^*M$, then push to a number via Chern character and the Todd genus.",
+            "explain": "Atiyah–Singer: $\\ind(D)=\\langle\\mathrm{ch}([\\sigma(D)])\\smile\\mathrm{Td}(TM\\otimes\\mathbb{C}),[T^*M]\\rangle$. The symbol class $[\\sigma(D)]\\in K^0(T^*M)$ encodes $D$ topologically; Chern character converts to rational cohomology and the Todd class corrects for the integrality."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the rank of $K_n(\\mathcal{O}_F)$ for a number field $F$ with $r_1$ real and $r_2$ complex places, in Borel's calculation?",
+            "choices": [
+              "Always $0$",
+              "$r_1+r_2$ for $n=4k+1$ and $r_2$ for $n=4k+3$ ($k\\ge 1$); zero in even positive degrees",
+              "$1$ for all $n$",
+              "$r_1\\cdot r_2$"
+            ],
+            "answer": 1,
+            "hint": "The ranks of higher K-groups of $\\mathcal{O}_F$ are governed by Dirichlet's unit-theorem pattern, alternating between $r_1+r_2$ and $r_2$.",
+            "explain": "Borel: $K_{4k+1}(\\mathcal{O}_F)\\otimes\\mathbb{Q}$ has rank $r_1+r_2$ and $K_{4k+3}(\\mathcal{O}_F)\\otimes\\mathbb{Q}$ has rank $r_2$ for $k\\ge 1$, while even-degree higher K-groups have torsion only. $K_1(\\mathcal{O}_F)=\\mathcal{O}_F^\\times$ recovers Dirichlet's unit theorem (rank $r_1+r_2-1$, plus roots of unity)."
+          },
+          {
+            "type": "mcq",
+            "q": "Quillen's calculation of $K_n(\\mathbb{F}_q)$ gives which answer for $n\\ge 1$?",
+            "choices": [
+              "$\\mathbb{F}_q^\\times$ for all $n$",
+              "$0$ for $n$ even and $\\mathbb{Z}/(q^k-1)$ in degree $2k-1$",
+              "$\\mathbb{Z}$ for all $n$",
+              "Always $\\mathbb{Z}/2$"
+            ],
+            "answer": 1,
+            "hint": "$K$-theory of a finite field is purely torsion in odd degrees and zero in positive even degrees.",
+            "explain": "Quillen (1972) computed $K_{2k-1}(\\mathbb{F}_q)\\cong\\mathbb{Z}/(q^k-1)$ and $K_{2k}(\\mathbb{F}_q)=0$ for $k\\ge 1$, with $K_0(\\mathbb{F}_q)=\\mathbb{Z}$ and $K_1(\\mathbb{F}_q)=\\mathbb{F}_q^\\times$. Borel's theorem combines this with localisation sequences to get $K_n(\\mathcal{O}_F)$."
+          }
+        ]
+      }
+    }
+  },
+  "knot-polynomials": {
+    "topic": "knot-polynomials",
+    "quizzes": {
+      "kp-knots-and-links": {
+        "title": "Knots and links",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Two knots $K_0$ and $K_1$ in $S^3$ are <em>equivalent</em> as knots when:",
+            "choices": [
+              "They share the same image as subsets of $S^3$",
+              "There is an ambient isotopy $H: S^3 \\times [0,1] \\to S^3$ with $H(\\cdot, 0) = \\mathrm{id}$ and $H(K_0, 1) = K_1$",
+              "Their complements have the same volume",
+              "They have the same number of crossings in some planar diagram"
+            ],
+            "answer": 1,
+            "explain": "Knot equivalence is ambient isotopy of $S^3$ — a continuous family of self-homeomorphisms of the ambient space starting at the identity and ending with one carrying $K_0$ onto $K_1$. Sharing an image is too strong; the other criteria are not isotopy invariants."
+          },
+          {
+            "type": "numeric",
+            "q": "How many components does a $3$-component link have, by definition?",
+            "answer": 3,
+            "tol": 0.0001,
+            "explain": "An $n$-component link is an embedding of a disjoint union of $n$ copies of $S^1$, so a $3$-component link has $3$ components. A knot is a $1$-component link."
+          },
+          {
+            "type": "mcq",
+            "q": "The unknot $U$ is the equivalence class of the round circle in $S^3$. Which is true about its complement $S^3 \\setminus U$?",
+            "choices": [
+              "It is homeomorphic to $\\mathbb{R}^3$",
+              "It is homeomorphic to an open solid torus $S^1 \\times D^2$ (open)",
+              "It is simply connected",
+              "It is a 3-sphere with a point removed"
+            ],
+            "answer": 1,
+            "explain": "$S^3$ is the union of two solid tori glued along their boundary; the complement of the core circle of one is the open interior of the other, so $S^3 \\setminus U \\cong S^1 \\times \\mathring{D}^2$. Its fundamental group is $\\mathbb{Z}$ — generated by a meridian linking the unknot once."
+          }
+        ]
+      },
+      "kp-reidemeister-moves": {
+        "title": "Reidemeister moves",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Reidemeister's theorem states that two planar knot diagrams represent ambient-isotopic knots in $S^3$ if and only if:",
+            "choices": [
+              "They have the same number of crossings",
+              "One can be transformed into the other by a finite sequence of R1, R2, and R3 moves (and planar isotopy)",
+              "They have the same writhe",
+              "They have the same number of components"
+            ],
+            "answer": 1,
+            "explain": "The theorem gives a combinatorial criterion for 3D ambient isotopy: an isotopy of the knot in $S^3$ corresponds, on a generic projection, to a finite sequence of three local moves on the diagram (plus planar isotopy of the underlying graph)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which Reidemeister move <em>changes</em> the writhe (signed crossing count) of an oriented diagram?",
+            "choices": [
+              "R1 (adding/removing a single twist)",
+              "R2 (poking one strand under another and back)",
+              "R3 (sliding a strand across a crossing)",
+              "None of them"
+            ],
+            "answer": 0,
+            "explain": "R1 introduces or removes one crossing of fixed sign, changing the writhe by $\\pm 1$. R2 introduces a $+$ and a $-$ crossing simultaneously (writhe unchanged), and R3 is a slide that preserves both the number and signs of crossings."
+          },
+          {
+            "type": "numeric",
+            "q": "The standard 3-crossing diagram of the right-handed trefoil has all three crossings of sign $+1$. What is its writhe?",
+            "answer": 3,
+            "tol": 0.0001,
+            "explain": "Writhe is the sum of crossing signs over the diagram. With three positive crossings the writhe is $+3$; the left-handed mirror trefoil has writhe $-3$, and the difference is what eventually distinguishes the two via the Jones polynomial."
+          }
+        ]
+      },
+      "kp-alexander-polynomial": {
+        "title": "Alexander polynomial",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Alexander polynomial $\\Delta_K(t)$ is defined up to which ambiguity?",
+            "choices": [
+              "An overall sign only",
+              "A unit $\\pm t^k$ in $\\mathbb{Z}[t, t^{-1}]$",
+              "A complex unit on the unit circle",
+              "It is fully canonical with no ambiguity"
+            ],
+            "answer": 1,
+            "explain": "Different Seifert surfaces give Seifert matrices that differ by elementary moves and stabilizations; the resulting determinants are equal up to multiplication by units of $\\mathbb{Z}[t, t^{-1}]$, which are exactly $\\pm t^k$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which symmetry does the Alexander polynomial satisfy?",
+            "choices": [
+              "$\\Delta_K(t) = \\Delta_K(-t)$",
+              "$\\Delta_K(t^{-1}) = \\Delta_K(t)$ up to sign and power of $t$",
+              "$\\Delta_K(t) = -\\Delta_K(t)$",
+              "$\\Delta_K(t \\cdot s) = \\Delta_K(t) \\Delta_K(s)$"
+            ],
+            "answer": 1,
+            "explain": "From $\\Delta_K(t) = \\det(V - tV^T)$ one computes $\\Delta_K(t^{-1}) = \\det(V - t^{-1} V^T) = (-t)^{-g} \\det(tV - V^T) = (-t)^{-g} \\Delta_K(t)$ where $g = \\dim V$, so the two agree up to a unit in $\\mathbb{Z}[t, t^{-1}]$."
+          },
+          {
+            "type": "numeric",
+            "q": "The Alexander polynomial of the trefoil knot is $\\Delta(t) = t - 1 + t^{-1}$ (up to units). Compute $\\Delta(1)$.",
+            "answer": 1,
+            "tol": 0.0001,
+            "explain": "$\\Delta(1) = 1 - 1 + 1 = 1$. In fact $|\\Delta_K(1)| = 1$ for every knot (not link), because the Alexander matrix at $t=1$ presents $H_1$ of the knot complement, which is always $\\mathbb{Z}$."
+          }
+        ]
+      },
+      "kp-jones-polynomial": {
+        "title": "Jones polynomial",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Kauffman bracket $\\langle \\cdot \\rangle$ on unoriented diagrams is built from the local skein rule $\\langle L_\\times \\rangle = A \\langle L_0 \\rangle + A^{-1} \\langle L_\\infty \\rangle$ together with the loop value $\\langle \\bigcirc \\sqcup L \\rangle = (-A^2 - A^{-2}) \\langle L \\rangle$. The bracket is invariant under R2 and R3 but <em>not</em> under R1. To fix this, the Jones polynomial uses:",
+            "choices": [
+              "Multiplication by $(-A)^{-3w(D)}$ where $w(D)$ is the writhe",
+              "A change of variable from $A$ to $q$",
+              "Restriction to alternating diagrams",
+              "Symmetrization $V(q) + V(q^{-1})$"
+            ],
+            "answer": 0,
+            "explain": "An R1 move multiplies the bracket by $-A^{\\pm 3}$ and changes the writhe by $\\pm 1$. Multiplying the bracket by $(-A)^{-3w(D)}$ exactly cancels this, producing an honest knot invariant. Setting $A = q^{-1/4}$ gives the Jones polynomial in $q$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which is the Jones polynomial able to distinguish that the Alexander polynomial cannot?",
+            "choices": [
+              "The unknot from the Hopf link",
+              "Connected sum from disjoint union",
+              "The right-handed trefoil from its mirror (left-handed) trefoil",
+              "Two components from three components"
+            ],
+            "answer": 2,
+            "explain": "$V_{3_1}(q) = -q^{-4} + q^{-3} + q^{-1}$ for the right trefoil, while the mirror has $-q^4 + q^3 + q$. They are not equal, so Jones detects chirality. The Alexander polynomial is unchanged by mirroring (up to units) and so cannot."
+          },
+          {
+            "type": "numeric",
+            "q": "The Jones polynomial of the unknot is $V_U(q) = 1$. Compute $V_U(2)$.",
+            "answer": 1,
+            "tol": 0.0001,
+            "explain": "$V_U(q) \\equiv 1$ as a constant polynomial, so $V_U(q) = 1$ for every value of $q$ — including $q = 2$."
+          }
+        ]
+      },
+      "kp-homfly-polynomial": {
+        "title": "HOMFLY polynomial",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The HOMFLY polynomial $P_K(\\alpha, z)$ is determined by which two pieces of data?",
+            "choices": [
+              "$P(\\text{unknot}) = 1$ and a single skein relation $\\alpha P(L_+) - \\alpha^{-1} P(L_-) = z P(L_0)$",
+              "A presentation of $\\pi_1$ of the complement",
+              "The Seifert genus and the writhe",
+              "The bracket and a writhe normalization"
+            ],
+            "answer": 0,
+            "explain": "HOMFLY is uniquely characterised by the value $1$ on the unknot together with the three-term skein relating the two crossings $L_\\pm$ and the smoothing $L_0$ at any chosen crossing. From these alone the polynomial is computable on any diagram by skein induction."
+          },
+          {
+            "type": "mcq",
+            "q": "Under which substitution does HOMFLY specialise to the Jones polynomial $V_K(q)$?",
+            "choices": [
+              "$\\alpha = 1$, $z = t^{1/2} - t^{-1/2}$",
+              "$\\alpha = q^{-1}$, $z = q^{1/2} - q^{-1/2}$",
+              "$\\alpha = q$, $z = 1$",
+              "$\\alpha = 0$, $z = q$"
+            ],
+            "answer": 1,
+            "explain": "Substituting $\\alpha = q^{-1}$ and $z = q^{1/2} - q^{-1/2}$ into the HOMFLY skein recovers exactly the Jones skein $q^{-1} V(L_+) - q V(L_-) = (q^{1/2} - q^{-1/2}) V(L_0)$. Setting $\\alpha = 1$ instead recovers Alexander."
+          },
+          {
+            "type": "numeric",
+            "q": "HOMFLY of the unknot is $P_U(\\alpha, z) = 1$. What is its value at $\\alpha = 2$, $z = 3$?",
+            "answer": 1,
+            "tol": 0.0001,
+            "explain": "$P_U \\equiv 1$ is constant, so its value is $1$ regardless of $\\alpha$ and $z$. The skein relation propagates the unknot value to every other link."
+          }
+        ]
+      },
+      "kp-quantum-invariants": {
+        "title": "Quantum invariants",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In the Reshetikhin–Turaev construction, an oriented tangle diagram is read top-to-bottom and each piece contributes a morphism in a ribbon category. A positive crossing contributes:",
+            "choices": [
+              "Evaluation $V \\otimes V^* \\to \\mathbf{1}$",
+              "The braiding / $R$-matrix $R: V \\otimes V \\to V \\otimes V$",
+              "Coevaluation $\\mathbf{1} \\to V \\otimes V^*$",
+              "The identity on $V$"
+            ],
+            "answer": 1,
+            "explain": "Crossings are precisely the braidings of the ribbon category — the $R$-matrix $R_{V,V}$ for a positive crossing of two strands labelled $V$, and $R^{-1}$ for the negative crossing. Caps and cups give evaluation and coevaluation; vertical strands give identities."
+          },
+          {
+            "type": "mcq",
+            "q": "Which ribbon category, applied to the standard $2$-dimensional representation, produces the Jones polynomial?",
+            "choices": [
+              "$U_q(\\mathfrak{sl}_2)$",
+              "The category of finite sets",
+              "$U_q(\\mathfrak{sl}_3)$",
+              "The Hecke algebra of type $A_n$"
+            ],
+            "answer": 0,
+            "explain": "The Jones polynomial is the Reshetikhin–Turaev invariant for the quantum group $U_q(\\mathfrak{sl}_2)$ acting on its $2$-dimensional standard rep. Replacing $\\mathfrak{sl}_2$ by $\\mathfrak{sl}_n$ on the standard $n$-dim rep gives the $\\mathfrak{sl}_n$ HOMFLY specialisation."
+          },
+          {
+            "type": "mcq",
+            "q": "The Yang–Baxter equation $R_{12} R_{13} R_{23} = R_{23} R_{13} R_{12}$ on $V^{\\otimes 3}$ corresponds to which Reidemeister move?",
+            "choices": [
+              "R1",
+              "R2",
+              "R3",
+              "Planar isotopy"
+            ],
+            "answer": 2,
+            "explain": "R3 is the slide of a strand across a crossing — three braidings on three strands rearrange in two ways, and equality of the resulting compositions is exactly the Yang–Baxter equation. R2 corresponds to $R \\circ R^{-1} = \\mathrm{id}$; R1 is fixed up by the ribbon twist."
+          }
+        ]
+      }
+    }
+  },
   "L-functions": {
     "topic": "L-functions",
     "quizzes": {
@@ -23792,6 +26747,458 @@ window.MVQuizBank = {
       }
     }
   },
+  "mathematical-statistics": {
+    "topic": "mathematical-statistics",
+    "quizzes": {
+      "ms-estimators": {
+        "title": "Point estimators: bias, consistency, MSE, sufficiency",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $X_1,\\ldots,X_n$ be i.i.d. with mean $\\mu$ and variance $\\sigma^2$. Which estimator of $\\sigma^2$ is unbiased?",
+            "choices": [
+              "$\\hat\\sigma^2_{\\text{MLE}}=\\tfrac{1}{n}\\sum (X_i-\\bar X)^2$",
+              "$S^2=\\tfrac{1}{n-1}\\sum (X_i-\\bar X)^2$",
+              "$\\tfrac{1}{n}\\sum X_i^2$",
+              "$\\bar X^2$"
+            ],
+            "answer": 1,
+            "explain": "The Bessel-corrected sample variance $S^2=\\tfrac{1}{n-1}\\sum(X_i-\\bar X)^2$ has $\\mathbb{E}[S^2]=\\sigma^2$. The $1/n$ MLE version is biased downward by a factor $(n-1)/n$ because $\\bar X$ already absorbed one degree of freedom."
+          },
+          {
+            "type": "numeric",
+            "q": "Estimator $\\hat\\theta$ has bias $0.2$ and variance $0.09$ at the true parameter. What is its MSE?",
+            "answer": 0.13,
+            "tol": 0.0001,
+            "explain": "$\\mathrm{MSE}=\\mathrm{bias}^2+\\mathrm{var}=0.04+0.09=0.13$. The bias-variance decomposition is the basic accounting identity for risk under squared loss."
+          },
+          {
+            "type": "mcq",
+            "q": "By the Fisher–Neyman factorisation theorem, $T(X)$ is sufficient for $\\theta$ iff the joint density factors as:",
+            "choices": [
+              "$f(x;\\theta)=g(T(x);\\theta)\\,h(x)$",
+              "$f(x;\\theta)=g(x)\\,h(\\theta)$",
+              "$f(x;\\theta)=\\sum_t g(t;\\theta)\\mathbf{1}_{T(x)=t}$",
+              "$f(x;\\theta)=g(T(x))\\,h(\\theta)$"
+            ],
+            "answer": 0,
+            "explain": "Fisher–Neyman: $T$ is sufficient iff $f(x;\\theta)$ splits as a piece $g$ that depends on the data only through $T(x)$ times a $\\theta$-free piece $h(x)$. Equivalently, the conditional law of $X$ given $T$ is free of $\\theta$."
+          }
+        ]
+      },
+      "ms-mle": {
+        "title": "Maximum likelihood and the score equation",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "For i.i.d. $X_i\\sim\\mathrm{Exp}(\\lambda)$ (density $\\lambda e^{-\\lambda x}$, $x>0$), compute the MLE of $\\lambda$ when $n=5$ and $\\sum X_i=10$.",
+            "answer": 0.5,
+            "tol": 0.0001,
+            "explain": "$\\ell(\\lambda)=n\\log\\lambda-\\lambda\\sum X_i$; setting $\\ell'=n/\\lambda-\\sum X_i=0$ gives $\\hat\\lambda=n/\\sum X_i=5/10=0.5$. The MLE for an exponential rate is the reciprocal of the sample mean."
+          },
+          {
+            "type": "numeric",
+            "q": "For $X_i\\sim\\mathcal{N}(\\theta,1)$, the Fisher information per sample is $I(\\theta)=$?",
+            "answer": 1,
+            "tol": 0.0001,
+            "explain": "$\\log f=-\\tfrac{1}{2}(x-\\theta)^2+\\text{const}$, so $\\partial_\\theta\\log f=x-\\theta$ and $I(\\theta)=\\mathbb{E}[(X-\\theta)^2]=\\sigma^2=1$. Asymptotic variance of $\\hat\\theta_{\\mathrm{MLE}}=\\bar X$ is $1/(nI)=1/n$, matching $\\mathrm{Var}(\\bar X)$ exactly."
+          },
+          {
+            "type": "mcq",
+            "q": "MLE corresponds to minimising which divergence between the empirical distribution $\\hat p_n$ and the model family $\\{p_\\theta\\}$?",
+            "choices": [
+              "Total variation $\\|\\hat p_n-p_\\theta\\|_{\\mathrm{TV}}$",
+              "Hellinger distance",
+              "Kullback–Leibler $D(\\hat p_n\\,\\|\\,p_\\theta)$",
+              "Wasserstein-2 distance"
+            ],
+            "answer": 2,
+            "explain": "$D(\\hat p_n\\,\\|\\,p_\\theta)=-\\tfrac{1}{n}\\sum\\log p_\\theta(X_i)+\\text{const}(\\hat p_n)$, so minimising KL in $\\theta$ maximises $\\sum\\log p_\\theta(X_i)$ — the log-likelihood. This is exactly why MLE inherits Sanov-style asymptotics."
+          }
+        ]
+      },
+      "ms-cramer-rao": {
+        "title": "Cramér–Rao, UMVU, Rao–Blackwell",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "For i.i.d. $X_i\\sim\\mathcal{N}(\\mu,\\sigma^2)$ with $\\sigma^2$ known, the Cramér–Rao lower bound on $\\mathrm{Var}(\\hat\\mu)$ for unbiased $\\hat\\mu$ from $n$ samples equals $\\sigma^2/(cn)$. What is $c$?",
+            "answer": 1,
+            "tol": 0.0001,
+            "explain": "$I(\\mu)=1/\\sigma^2$ per observation, so the CRLB is $1/(nI)=\\sigma^2/n$, i.e. $c=1$. The sample mean $\\bar X$ achieves it — $\\bar X$ is UMVU for $\\mu$."
+          },
+          {
+            "type": "mcq",
+            "q": "Rao–Blackwell says: given an unbiased estimator $W$ and a sufficient statistic $T$, the estimator $W^*=\\mathbb{E}[W\\mid T]$:",
+            "choices": [
+              "Is biased but lower variance",
+              "Is unbiased with variance $\\le$ that of $W$",
+              "Equals $W$ exactly",
+              "Has variance $0$"
+            ],
+            "answer": 1,
+            "explain": "By tower, $\\mathbb{E}[W^*]=\\mathbb{E}[W]=\\theta$ (still unbiased). Conditional Jensen / law of total variance gives $\\mathrm{Var}(W^*)\\le\\mathrm{Var}(W)$, with equality iff $W$ was already a function of $T$. Combined with completeness (Lehmann–Scheffé), this gives UMVU."
+          },
+          {
+            "type": "mcq",
+            "q": "Which estimator achieves the Cramér–Rao bound?",
+            "choices": [
+              "Any consistent estimator",
+              "Any unbiased estimator with finite variance",
+              "An efficient estimator (typically the MLE in regular models, asymptotically)",
+              "The method-of-moments estimator"
+            ],
+            "answer": 2,
+            "explain": "An estimator hitting the CRLB is called efficient. Generically, only special unbiased estimators (e.g. $\\bar X$ for Gaussian mean) hit it exactly; the MLE achieves it asymptotically — $\\sqrt n(\\hat\\theta_{\\mathrm{MLE}}-\\theta)\\to\\mathcal{N}(0,1/I(\\theta))$."
+          }
+        ]
+      },
+      "ms-hypothesis-testing": {
+        "title": "Hypothesis testing, Neyman–Pearson, likelihood ratios",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For testing $H_0:\\theta=\\theta_0$ vs $H_1:\\theta=\\theta_1$ (both simple), the Neyman–Pearson lemma says the most powerful level-$\\alpha$ test rejects when:",
+            "choices": [
+              "$|X-\\theta_0|$ is large",
+              "$L(\\theta_1;x)/L(\\theta_0;x)>k$ for an $\\alpha$-calibrated $k$",
+              "$\\hat\\theta_{\\mathrm{MLE}}$ is closer to $\\theta_1$ than $\\theta_0$",
+              "The $p$-value under $H_0$ is $<\\alpha$, regardless of the form of the rejection set"
+            ],
+            "answer": 1,
+            "explain": "Neyman–Pearson is constructive: fix $\\alpha=\\mathbb{P}_{\\theta_0}(\\Lambda>k)$, then rejection region $\\{\\Lambda>k\\}$ is the most powerful at level $\\alpha$ — every other size-$\\alpha$ test has power $\\le 1-\\beta_{\\text{NP}}$."
+          },
+          {
+            "type": "numeric",
+            "q": "A z-test of $H_0:\\mu=0$ vs $H_1:\\mu>0$ (one-sided, known $\\sigma=1$, $n=25$ samples) rejects at level $\\alpha=0.05$ when $\\bar X>1.645/\\sqrt{25}$. What is the threshold on $\\bar X$? (Round to 4 decimals.)",
+            "answer": 0.329,
+            "tol": 0.0005,
+            "explain": "Under $H_0$, $\\bar X\\sim\\mathcal{N}(0,1/n)$. The $0.95$ quantile of $\\mathcal{N}(0,1/n)$ is $z_{0.95}/\\sqrt n=1.645/5=0.329$. Reject when $\\bar X>0.329$."
+          },
+          {
+            "type": "mcq",
+            "q": "The $p$-value of an observation $x_{\\text{obs}}$ is best described as:",
+            "choices": [
+              "The probability that $H_0$ is true given the data",
+              "The probability of observing data at least as extreme as $x_{\\text{obs}}$ assuming $H_0$",
+              "Type-II error probability",
+              "$1$ minus the power of the test"
+            ],
+            "answer": 1,
+            "explain": "$p=\\mathbb{P}_{H_0}(T(X)\\ge T(x_{\\text{obs}}))$ — a probability under the null, not a posterior on $H_0$. Confusing the two is the canonical frequentist–Bayesian fallacy."
+          }
+        ]
+      },
+      "ms-bayesian": {
+        "title": "Bayesian inference: posteriors, conjugates, credible intervals",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Beta–Binomial conjugacy: with $\\theta\\sim\\mathrm{Beta}(\\alpha,\\beta)$ prior and $X\\sim\\mathrm{Binom}(n,\\theta)$ data, the posterior is:",
+            "choices": [
+              "$\\mathrm{Beta}(\\alpha+x,\\beta+n-x)$",
+              "$\\mathrm{Beta}(\\alpha+n,\\beta+n)$",
+              "$\\mathrm{Beta}(\\alpha x,\\beta(n-x))$",
+              "$\\mathrm{Normal}(x/n,\\,x(n-x)/n^3)$"
+            ],
+            "answer": 0,
+            "explain": "Posterior $\\propto\\theta^{\\alpha-1}(1-\\theta)^{\\beta-1}\\cdot\\theta^x(1-\\theta)^{n-x}=\\theta^{\\alpha+x-1}(1-\\theta)^{\\beta+n-x-1}$ — a $\\mathrm{Beta}(\\alpha+x,\\beta+n-x)$. Conjugate priors are exactly the families closed under this update."
+          },
+          {
+            "type": "numeric",
+            "q": "Flat prior $\\theta\\sim\\mathrm{Beta}(1,1)$ on a coin's heads-probability; observe $7$ heads in $10$ flips. The posterior is $\\mathrm{Beta}(8,4)$. Compute the posterior mean.",
+            "answer": 0.6666666667,
+            "tol": 0.001,
+            "explain": "$\\mathbb{E}[\\theta\\mid x]=\\alpha'/(\\alpha'+\\beta')=8/12=2/3\\approx 0.667$. The MLE was $7/10=0.7$; the prior pulls the estimate slightly toward $1/2$."
+          },
+          {
+            "type": "mcq",
+            "q": "MAP and posterior mean coincide when:",
+            "choices": [
+              "The likelihood is Gaussian",
+              "The posterior is symmetric and unimodal (e.g. Gaussian, symmetric Beta)",
+              "Always",
+              "The prior is flat"
+            ],
+            "answer": 1,
+            "explain": "For symmetric unimodal posteriors, mode = mean. Asymmetric posteriors (e.g. $\\mathrm{Beta}(2,5)$) have mode $\\neq$ mean. MAP minimises a $0$–$1$ loss; posterior mean minimises squared-error loss."
+          }
+        ]
+      },
+      "ms-asymptotics": {
+        "title": "Asymptotics: delta method, Slutsky, Wilks",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Apply the delta method: if $\\sqrt n(\\hat\\theta_n-\\theta)\\xrightarrow{d}\\mathcal{N}(0,1)$ and $g(\\theta)=\\theta^2$ with $\\theta=3$, then $\\sqrt n(g(\\hat\\theta_n)-g(\\theta))\\xrightarrow{d}\\mathcal{N}(0,v)$. Compute $v$.",
+            "answer": 36,
+            "tol": 0.0001,
+            "explain": "Delta method: $v=g'(\\theta)^2\\sigma^2=(2\\theta)^2\\cdot 1=4\\theta^2=4\\cdot 9=36$. The Jacobian of $g$ stretches the asymptotic variance by $g'(\\theta)^2$."
+          },
+          {
+            "type": "mcq",
+            "q": "Wilks' theorem says that under $H_0$, the LRT statistic $-2\\log\\Lambda_n$ converges in distribution to:",
+            "choices": [
+              "$\\mathcal{N}(0,1)$",
+              "$\\chi^2_r$ where $r=\\dim\\Theta-\\dim\\Theta_0$",
+              "$F$-distribution",
+              "$\\mathrm{Exp}(1)$"
+            ],
+            "answer": 1,
+            "explain": "$-2\\log\\Lambda_n\\xrightarrow{d}\\chi^2_r$ with $r$ the difference in dimensions. This is what calibrates LRT-based confidence regions: $\\{\\theta:-2\\log\\Lambda(\\theta)<\\chi^2_{r,1-\\alpha}\\}$ has asymptotic coverage $1-\\alpha$."
+          },
+          {
+            "type": "mcq",
+            "q": "Slutsky's theorem says: if $X_n\\xrightarrow{d}X$ and $Y_n\\xrightarrow{p}c$ (constant), then:",
+            "choices": [
+              "$X_n+Y_n\\xrightarrow{d}X+c$ and $X_nY_n\\xrightarrow{d}cX$",
+              "$X_n+Y_n\\xrightarrow{p}X+c$",
+              "$Y_nX_n\\xrightarrow{d}\\mathcal{N}(c,1)$",
+              "Convergence fails unless $X$ is Gaussian"
+            ],
+            "answer": 0,
+            "explain": "Slutsky lets you replace a consistent nuisance estimate by its limit inside a converging-in-distribution sequence. Used constantly: $\\sqrt n(\\bar X-\\mu)/S\\xrightarrow{d}\\mathcal{N}(0,1)$ because $S\\xrightarrow{p}\\sigma$."
+          }
+        ]
+      }
+    }
+  },
+  "mathematics-and-cryptography": {
+    "topic": "mathematics-and-cryptography",
+    "quizzes": {
+      "crypto-modular-arithmetic": {
+        "title": "Modular arithmetic and Euler's theorem",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Compute $\\phi(35)$.",
+            "answer": 24,
+            "tol": 0.5,
+            "explain": "$35=5\\cdot 7$, so $\\phi(35)=(5-1)(7-1)=24$."
+          },
+          {
+            "type": "mcq",
+            "q": "By Fermat–Euler, $7^{40} \\bmod 100$ equals which of the following?",
+            "choices": [
+              "$0$",
+              "$1$",
+              "$7$",
+              "$49$"
+            ],
+            "answer": 1,
+            "explain": "$\\gcd(7,100)=1$ and $\\phi(100)=40$, so $7^{40}\\equiv 1 \\pmod{100}$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which integer is a primitive root modulo $7$?",
+            "choices": [
+              "$2$",
+              "$3$",
+              "$6$",
+              "$1$"
+            ],
+            "answer": 1,
+            "explain": "Powers of $3$ mod $7$ cycle through $3,2,6,4,5,1$ — all six nonzero residues. The order of $3$ is $\\phi(7)=6$, so $3$ is primitive. ($2$ has order $3$; $6\\equiv -1$ has order $2$.)"
+          }
+        ]
+      },
+      "crypto-rsa": {
+        "title": "RSA",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "RSA toy: $p=11,q=13$, so $n=143$ and $\\phi(n)=120$. Take $e=7$. Compute the private exponent $d=e^{-1} \\bmod 120$.",
+            "answer": 103,
+            "tol": 0.5,
+            "explain": "Extended Euclid: $7\\cdot 103=721=6\\cdot 120+1$, so $7\\cdot 103\\equiv 1 \\pmod{120}$, giving $d=103$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is RSA decryption $c^d\\equiv m \\pmod n$ correct?",
+            "choices": [
+              "Because $c=m^e$ and $ed\\equiv 1 \\pmod n$",
+              "Because $ed\\equiv 1 \\pmod{\\phi(n)}$, so $m^{ed}=m^{1+k\\phi(n)}\\equiv m \\pmod n$ by Fermat–Euler",
+              "Because $d$ is the multiplicative inverse of $c$ mod $n$",
+              "Because every $m$ is a primitive root mod $n$"
+            ],
+            "answer": 1,
+            "explain": "The key identity is $ed\\equiv 1 \\pmod{\\phi(n)}$ (not mod $n$); Fermat–Euler then collapses $m^{k\\phi(n)}$ to $1$ when $\\gcd(m,n)=1$, and a CRT argument handles the remaining cases."
+          },
+          {
+            "type": "mcq",
+            "q": "Knowing $\\phi(n)$ for an RSA modulus $n=pq$ is equivalent to knowing what?",
+            "choices": [
+              "Just the public exponent $e$",
+              "The factorization of $n$ into $p$ and $q$",
+              "The discrete log of $e$ base $2$",
+              "Nothing extra — $\\phi(n)$ is public"
+            ],
+            "answer": 1,
+            "explain": "From $n=pq$ and $\\phi(n)=(p-1)(q-1)=n-(p+q)+1$ one recovers $p+q$, and combined with $pq=n$ this gives a quadratic whose roots are $p$ and $q$. So $\\phi(n)$ and the factorization are polynomial-time equivalent."
+          }
+        ]
+      },
+      "crypto-discrete-log": {
+        "title": "Discrete logarithm and Diffie–Hellman",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "In $(\\mathbb{Z}/23)^\\times$ with primitive root $g=5$, find $\\log_5 10$ (i.e. the smallest $x\\ge 0$ with $5^x \\equiv 10 \\pmod{23}$).",
+            "answer": 3,
+            "tol": 0.5,
+            "explain": "$5^1=5,\\ 5^2=25\\equiv 2,\\ 5^3=10 \\pmod{23}$. So $\\log_5 10 = 3$."
+          },
+          {
+            "type": "mcq",
+            "q": "In Diffie–Hellman, Alice sends $A=g^a$, Bob sends $B=g^b$. The shared secret is:",
+            "choices": [
+              "$g^{a+b}$, computed as $A\\cdot B$",
+              "$g^{ab}$, computed by Alice as $B^a$ and by Bob as $A^b$",
+              "$g^{a/b}$, computed using Euclid",
+              "$g^{a\\oplus b}$"
+            ],
+            "answer": 1,
+            "explain": "Both parties compute $g^{ab}$: Alice raises Bob's $B=g^b$ to her secret $a$, Bob raises $A=g^a$ to his secret $b$. The eavesdropper sees $g^a, g^b$ and faces the computational Diffie–Hellman problem to recover $g^{ab}$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the asymptotic complexity of the index calculus for the discrete log in $\\mathbb{F}_p^\\times$?",
+            "choices": [
+              "Polynomial in $\\log p$",
+              "Sub-exponential, of the form $L_p[1/3, c]$",
+              "Fully exponential, $\\Theta(p)$",
+              "Square-root, $O(\\sqrt p)$"
+            ],
+            "answer": 1,
+            "explain": "Index calculus runs in sub-exponential time $L_p[1/3,c]=\\exp((c+o(1))(\\log p)^{1/3}(\\log\\log p)^{2/3})$. This is faster than Pollard's $\\rho$ ($O(\\sqrt p)$) on $\\mathbb{F}_p^\\times$ but exploits the smooth-factorization structure unique to the multiplicative group of a field."
+          }
+        ]
+      },
+      "crypto-elliptic-curve": {
+        "title": "Elliptic-curve cryptography",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why does ECC achieve smaller key sizes than finite-field DH for the same security level?",
+            "choices": [
+              "Elliptic-curve points are encoded with fewer bits per element",
+              "On a generic curve $E(\\mathbb{F}_p)$ no index-calculus attack is known, so the best DLP algorithm is $O(\\sqrt p)$ Pollard $\\rho$ rather than sub-exponential",
+              "Elliptic curves have a faster group law than $(\\mathbb{Z}/p)^\\times$",
+              "Elliptic curves are post-quantum secure"
+            ],
+            "answer": 1,
+            "explain": "On generic elliptic curves no sub-exponential DLP algorithm is known, so a key length matching $O(\\sqrt p)$ rather than $L_p[1/3]$ suffices. 256-bit ECC ≈ 3072-bit RSA/DH. (ECC is not post-quantum — Shor breaks it just as it breaks RSA.)"
+          },
+          {
+            "type": "mcq",
+            "q": "By Hasse's theorem, the order $\\#E(\\mathbb{F}_p)$ satisfies which bound?",
+            "choices": [
+              "$\\#E(\\mathbb{F}_p) = p$ exactly",
+              "$|\\#E(\\mathbb{F}_p) - (p+1)| \\le 2\\sqrt p$",
+              "$\\#E(\\mathbb{F}_p) \\le \\log p$",
+              "$\\#E(\\mathbb{F}_p) = p^2$"
+            ],
+            "answer": 1,
+            "explain": "Hasse: $\\#E(\\mathbb{F}_p)=p+1-a_p$ with $|a_p|\\le 2\\sqrt p$. So the curve order is approximately $p$, with a $\\sqrt p$-sized fluctuation."
+          },
+          {
+            "type": "mcq",
+            "q": "The MOV attack reduces the elliptic-curve discrete log on a curve $E/\\mathbb{F}_p$ to the discrete log in which group?",
+            "choices": [
+              "$(\\mathbb{Z}/p)^\\times$",
+              "$\\mathbb{F}_{p^k}^\\times$ for some embedding degree $k$, via the Weil pairing",
+              "$\\mathbb{Z}/(p-1)\\mathbb{Z}$",
+              "$E(\\mathbb{Q})$"
+            ],
+            "answer": 1,
+            "explain": "The Weil/Tate pairing embeds $E[\\ell]$ into $\\mathbb{F}_{p^k}^\\times$ where $k$ is the smallest integer with $\\ell\\mid p^k-1$. When $k$ is small, sub-exponential index calculus on $\\mathbb{F}_{p^k}^\\times$ beats $O(\\sqrt p)$ on $E$. Standard curves (P-256, Curve25519) have $k$ astronomically large."
+          }
+        ]
+      },
+      "crypto-lattice-based": {
+        "title": "Lattice-based and post-quantum cryptography",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why is RSA / ECC considered \"quantum-broken\" in principle?",
+            "choices": [
+              "Quantum computers can brute-force any cipher",
+              "Shor's algorithm factors integers and computes discrete logs in polynomial time on a fault-tolerant quantum computer",
+              "Quantum computers solve every NP problem in polynomial time",
+              "Grover's algorithm fully breaks RSA"
+            ],
+            "answer": 1,
+            "explain": "Shor (1994) gives polynomial-time quantum algorithms for integer factorization and the discrete log in any abelian group — so RSA, DH, and ECC all fall once a sufficiently large fault-tolerant quantum machine exists. Grover gives only a quadratic speedup on generic search, far weaker."
+          },
+          {
+            "type": "mcq",
+            "q": "The Learning With Errors (LWE) problem asks the solver to:",
+            "choices": [
+              "Factor a random matrix",
+              "Recover a secret vector $\\mathbf{s}\\in\\mathbb{Z}_q^n$ from samples $(\\mathbf{a}_i, \\langle\\mathbf{a}_i,\\mathbf{s}\\rangle + e_i \\bmod q)$ where $e_i$ is small Gaussian noise",
+              "Find the shortest vector in $\\mathbb{R}^n$",
+              "Decide whether $P=NP$"
+            ],
+            "answer": 1,
+            "explain": "LWE is exactly noisy linear algebra mod $q$: without the error term you would solve for $\\mathbf{s}$ by Gaussian elimination, but small Gaussian $e_i$ destroys that. Regev showed (quantum reduction) that average-case LWE is at least as hard as worst-case approximate-SVP / GapSVP."
+          },
+          {
+            "type": "mcq",
+            "q": "Which cryptosystem was selected by NIST in 2022/2024 as the primary post-quantum key-encapsulation standard (FIPS 203)?",
+            "choices": [
+              "NTRU",
+              "CRYSTALS-Kyber",
+              "SIKE (supersingular isogeny)",
+              "McEliece"
+            ],
+            "answer": 1,
+            "explain": "CRYSTALS-Kyber, a Module-LWE KEM, became FIPS 203 in 2024. SIKE was a candidate but was broken in 2022 by the Castryck–Decru attack. Classic McEliece (code-based) and HQC are alternates; NTRU is closely related to Kyber but not the chosen primary standard."
+          }
+        ]
+      },
+      "crypto-zero-knowledge": {
+        "title": "Zero-knowledge proofs",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "An interactive proof system has three properties. Which set is correct?",
+            "choices": [
+              "Confidentiality, integrity, availability",
+              "Completeness, soundness, zero-knowledge",
+              "Polynomial, deterministic, verifiable",
+              "Public, private, hashed"
+            ],
+            "answer": 1,
+            "explain": "Completeness (true statements are accepted by an honest prover), soundness (false statements are rejected with high probability against any prover), and zero-knowledge (the verifier learns nothing beyond the truth of the statement — formalised by transcript simulatability)."
+          },
+          {
+            "type": "mcq",
+            "q": "Schnorr's protocol proves knowledge of a discrete log $x$ with $h=g^x$. The prover sends $t=g^r$, the verifier sends a random challenge $c$, the prover replies with $s=r+cx$. The verifier accepts iff:",
+            "choices": [
+              "$g^s = t \\cdot h^c$",
+              "$g^s = t + h^c$",
+              "$h^s = g^c$",
+              "$s = r \\cdot c$"
+            ],
+            "answer": 0,
+            "explain": "$g^s = g^{r+cx} = g^r \\cdot (g^x)^c = t\\cdot h^c$. Soundness: a prover who can answer two distinct challenges $c\\ne c'$ for the same $t$ reveals $x=(s-s')/(c-c')$. Zero-knowledge: the simulator picks $s, c$ first and sets $t = g^s/h^c$."
+          },
+          {
+            "type": "mcq",
+            "q": "The acronym SNARK in zk-SNARK stands for which property set?",
+            "choices": [
+              "Symmetric, Non-interactive, Authenticated, Robust, Keyed",
+              "Succinct, Non-interactive Argument of Knowledge",
+              "Stateless Non-malleable Random-Access Knowledge",
+              "Sound, Negligible, Adaptive, Ring-based, Knowledgeable"
+            ],
+            "answer": 1,
+            "explain": "Succinct (proof size and verification time poly-logarithmic in the witness), Non-interactive (one message from prover to verifier, often via Fiat–Shamir), Argument of Knowledge (computational soundness, with an extractor pulling out a witness from any convincing prover). Groth16 and PLONK are the workhorses."
+          }
+        ]
+      }
+    }
+  },
   "matroid-theory": {
     "topic": "matroid-theory",
     "quizzes": {
@@ -24949,6 +28356,257 @@ window.MVQuizBank = {
             ],
             "answer": 0,
             "explain": "$\\mathcal{H}^1([a,b])=b-a$ because optimal covers by small intervals have diameter-sum approaching $b-a$. Both $\\mathcal{H}^1$ and $m$ are translation-invariant, $\\sigma$-finite, and agree on a generating ring of intervals, so Carathéodory uniqueness forces $\\mathcal{H}^1=m$ on $\\mathcal{B}(\\mathbb{R})$."
+          }
+        ]
+      }
+    }
+  },
+  "mirror-symmetry": {
+    "topic": "mirror-symmetry",
+    "quizzes": {
+      "ms-mirror-pair-statement": {
+        "title": "The mirror pair statement",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which Hodge-number identities are predicted by mirror symmetry between Calabi–Yau 3-folds $X$ and $Y$?",
+            "choices": [
+              "$h^{1,1}(X) = h^{1,1}(Y)$ and $h^{2,1}(X) = h^{2,1}(Y)$.",
+              "$h^{1,1}(X) = h^{2,1}(Y)$ and $h^{2,1}(X) = h^{1,1}(Y)$.",
+              "$h^{p,q}(X) = h^{q,p}(Y)$ for every $(p,q)$.",
+              "$h^{p,q}(X) = h^{3-p, 3-q}(Y)$ for every $(p,q)$."
+            ],
+            "answer": 1,
+            "explain": "Mirror symmetry swaps the two non-trivial Hodge numbers of a CY 3-fold: Kähler moduli on one side become complex-structure moduli on the other, so $h^{1,1}$ and $h^{2,1}$ trade places."
+          },
+          {
+            "type": "mcq",
+            "q": "Which physical pairing does the mirror correspondence implement?",
+            "choices": [
+              "A-model on $X$ ≅ A-model on $Y$.",
+              "B-model on $X$ ≅ B-model on $Y$.",
+              "A-model on $X$ ≅ B-model on $Y$.",
+              "Type-IIA on $X$ ≅ heterotic on $Y$."
+            ],
+            "answer": 2,
+            "explain": "Mirror symmetry exchanges symplectic (A-model, type-IIA) data on $X$ with complex (B-model, type-IIB) data on $Y$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is exchanged at the level of moduli spaces?",
+            "choices": [
+              "Kähler moduli of $X$ ↔ complex-structure moduli of $Y$.",
+              "Cohomology of $X$ ↔ homotopy groups of $Y$.",
+              "Picard group of $X$ ↔ Brauer group of $Y$.",
+              "Fundamental group of $X$ ↔ étale cohomology of $Y$."
+            ],
+            "answer": 0,
+            "explain": "The complexified Kähler cone of $X$ (deformations of $\\omega$) is identified with the complex-structure moduli of $Y$ (deformations of $J$)."
+          }
+        ]
+      },
+      "ms-quintic-prediction": {
+        "title": "The quintic prediction",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What did Candelas–de la Ossa–Green–Parkes compute on the mirror of the quintic?",
+            "choices": [
+              "Étale cohomology with $\\ell$-adic coefficients.",
+              "Periods $\\int_\\gamma \\Omega$ of the holomorphic 3-form, then read off Gromov–Witten invariants of the quintic.",
+              "Galois representations attached to the Hasse–Weil zeta function.",
+              "Hecke eigenvalues of a weight-2 modular form."
+            ],
+            "answer": 1,
+            "explain": "They solved a Picard–Fuchs ODE for the periods on the mirror, applied the mirror map, and matched the resulting series to a genus-zero GW generating function — predicting curve counts on the quintic for every degree."
+          },
+          {
+            "type": "mcq",
+            "q": "How many lines are there on a generic quintic 3-fold in $\\mathbb{P}^4$?",
+            "choices": [
+              "$120$",
+              "$2{,}875$",
+              "$317{,}206{,}375$",
+              "$609{,}250$"
+            ],
+            "answer": 1,
+            "explain": "The classical count is $2{,}875$ lines (degree 1 rational curves). $609{,}250$ is the number of conics, $317{,}206{,}375$ the twisted cubics."
+          },
+          {
+            "type": "mcq",
+            "q": "Who later gave rigorous mathematical proofs (to all genus-zero degrees) of the CdGP predictions?",
+            "choices": [
+              "Wiles and Taylor.",
+              "Givental, and independently Lian–Liu–Yau.",
+              "Donaldson and Floer.",
+              "Atiyah and Singer."
+            ],
+            "answer": 1,
+            "explain": "Givental's mirror theorem (mid-1990s) and the independent proof by Lian, Liu, and Yau put the genus-zero predictions on firm mathematical footing."
+          }
+        ]
+      },
+      "ms-gromov-witten": {
+        "title": "A-model: Gromov–Witten invariants",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Genus-zero Gromov–Witten invariants $N_\\beta$ of a Calabi–Yau 3-fold $X$ are integrals over which moduli space?",
+            "choices": [
+              "$\\overline{\\mathcal{M}}_{g, n}$ of stable curves.",
+              "$\\overline{\\mathcal{M}}_{0,0}(X, \\beta)$ of stable maps from genus-zero curves to $X$ in class $\\beta$.",
+              "$\\mathrm{Hilb}^n(X)$ of $n$ points on $X$.",
+              "$\\mathrm{Pic}(X)$ of line bundles on $X$."
+            ],
+            "answer": 1,
+            "explain": "Gromov–Witten invariants are virtual integrals over the moduli of stable maps; for a CY 3-fold the virtual dimension at $g=0$ is zero, so the integral of $1$ is a number."
+          },
+          {
+            "type": "mcq",
+            "q": "What kind of geometric data does the A-model depend on?",
+            "choices": [
+              "Complex-structure moduli (deformations of $J$).",
+              "Kähler / symplectic moduli (deformations of $\\omega$).",
+              "Both, equally.",
+              "Neither — only topological data."
+            ],
+            "answer": 1,
+            "explain": "Gromov–Witten counts depend on the symplectic class $[\\omega]$; varying $J$ doesn't change the invariants. That is the A vs. B asymmetry mirror symmetry exchanges."
+          },
+          {
+            "type": "mcq",
+            "q": "What does \"pseudo-holomorphic\" mean in the definition of a stable map $f\\colon \\Sigma \\to X$?",
+            "choices": [
+              "$f$ is real-analytic.",
+              "$f$ satisfies $\\overline{\\partial}_J f = 0$ for a chosen almost-complex structure $J$ tame against $\\omega$.",
+              "$f$ has bounded image.",
+              "$f$ pulls back $\\omega$ to zero."
+            ],
+            "answer": 1,
+            "explain": "Pseudo-holomorphic means the Cauchy–Riemann equations $\\overline{\\partial}_J f = 0$ hold for a tame almost-complex structure — Gromov's notion that founded symplectic curve counting."
+          }
+        ]
+      },
+      "ms-period-integrals": {
+        "title": "B-model: periods and Picard–Fuchs",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is a period of a Calabi–Yau 3-fold $Y$?",
+            "choices": [
+              "An eigenvalue of the Laplacian on $Y$.",
+              "An integral $\\int_\\gamma \\Omega$ where $\\Omega$ is the holomorphic 3-form and $\\gamma$ is a 3-cycle.",
+              "A trace of Frobenius on étale cohomology.",
+              "A character of the fundamental group."
+            ],
+            "answer": 1,
+            "explain": "Periods pair the holomorphic top form against integral 3-cycles. As complex structure varies, the periods are holomorphic in $t$ and satisfy the Picard–Fuchs ODE."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the Picard–Fuchs equation?",
+            "choices": [
+              "A differential equation satisfied by the periods $\\Pi_\\gamma(t)$ as the complex structure varies.",
+              "A Hamiltonian equation for the symplectic form $\\omega$.",
+              "The heat equation on the moduli space.",
+              "Maxwell's equations on the worldsheet."
+            ],
+            "answer": 0,
+            "explain": "Periods of a smooth family of CYs satisfy a linear ODE in the complex-structure parameter — the Picard–Fuchs equation — because $H^3$ has finite rank and Gauss–Manin connects the fibres."
+          },
+          {
+            "type": "mcq",
+            "q": "What does the mirror map do?",
+            "choices": [
+              "It is a real diffeomorphism between $X$ and $Y$.",
+              "It is a change of coordinates from B-model parameters $t$ to A-model parameters $q$ identifying period integrals on $Y$ with GW generating functions on $X$.",
+              "It takes Hodge classes to algebraic classes.",
+              "It sends prime ideals of $\\mathbb{Z}$ to maximal ideals of $\\mathbb{C}[t]$."
+            ],
+            "answer": 1,
+            "explain": "The mirror map is the canonical change of variables on the moduli side that turns hypergeometric period series into Gromov–Witten potentials, making the prediction explicit."
+          }
+        ]
+      },
+      "ms-homological-mirror": {
+        "title": "Homological mirror symmetry (Kontsevich)",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Kontsevich's homological mirror symmetry conjectures an equivalence of which two categories?",
+            "choices": [
+              "$D^b\\mathrm{Coh}(X) \\cong \\mathrm{Fuk}(Y)$ as triangulated categories.",
+              "$\\mathrm{Coh}(X) \\cong \\mathrm{QCoh}(Y)$ as abelian categories.",
+              "$\\pi_1(X) \\cong \\pi_1(Y)$ as groups.",
+              "$\\Spec H^*(X) \\cong \\Spec H^*(Y)$ as schemes."
+            ],
+            "answer": 0,
+            "explain": "HMS pairs the bounded derived category of coherent sheaves on the B-side with the (split-closed) Fukaya category on the A-side, both viewed as triangulated (or $A_\\infty$) categories."
+          },
+          {
+            "type": "mcq",
+            "q": "Objects of the Fukaya category of $(Y, \\omega)$ are (roughly):",
+            "choices": [
+              "Coherent sheaves on $Y$.",
+              "Lagrangian submanifolds of $Y$ equipped with brane data, with hom-spaces given by Lagrangian intersection Floer cohomology.",
+              "Closed 3-forms on $Y$.",
+              "Étale neighbourhoods of points of $Y$."
+            ],
+            "answer": 1,
+            "explain": "The Fukaya category is built from Lagrangians (with extra data — orientation, spin, local system, grading), and morphisms are computed by Floer chain complexes counting pseudo-holomorphic strips."
+          },
+          {
+            "type": "mcq",
+            "q": "Which case of HMS is among the earliest to be proven?",
+            "choices": [
+              "The case of arbitrary smooth projective 5-folds.",
+              "The elliptic curve $E$ vs. its mirror dual elliptic curve (Polishchuk–Zaslow).",
+              "Singular projective varieties of arbitrary dimension.",
+              "Stacks of curves of genus $\\ge 2$."
+            ],
+            "answer": 1,
+            "explain": "Polishchuk and Zaslow proved HMS for elliptic curves in 1998; the quartic K3 (Seidel) and the quintic 3-fold (Sheridan, after Nadler–Zaslow's work on cotangent bundles) followed."
+          }
+        ]
+      },
+      "ms-syz": {
+        "title": "Strominger–Yau–Zaslow fibrations",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What geometric structure on a CY 3-fold $X$ does the SYZ conjecture posit?",
+            "choices": [
+              "A holomorphic foliation of $X$ by Riemann surfaces.",
+              "A special-Lagrangian $T^3$-fibration $X \\to B$ over a real 3-dimensional base.",
+              "A finite Galois cover of $X$ by an abelian variety.",
+              "An étale fundamental groupoid."
+            ],
+            "answer": 1,
+            "explain": "The conjectured fibration has generic fibres that are 3-tori, special-Lagrangian (calibrated by $\\mathrm{Re}\\,\\Omega$) — the geometric core of the SYZ picture."
+          },
+          {
+            "type": "mcq",
+            "q": "How is the mirror $Y$ constructed in the SYZ picture?",
+            "choices": [
+              "Take the universal cover of $X$.",
+              "Replace each fibre $T^3_b$ by its dual torus $\\check T^3_b = \\mathrm{Hom}(T^3_b, U(1))$ and glue.",
+              "Quotient $X$ by an involution.",
+              "Apply Serre duality fibrewise."
+            ],
+            "answer": 1,
+            "explain": "$Y \\to B$ is the same base equipped with the dual torus fibration; on each fibre this is T-duality, exchanging position and momentum on the torus and trading symplectic for complex structure."
+          },
+          {
+            "type": "mcq",
+            "q": "Which programme builds CY mirror pairs from tropical / integral-affine bases via SYZ-style fibrations?",
+            "choices": [
+              "The Langlands programme.",
+              "The Gross–Siebert programme.",
+              "The Geometric Langlands correspondence.",
+              "The Beilinson–Bloch conjectures."
+            ],
+            "answer": 1,
+            "explain": "Gross and Siebert reconstruct CY mirror pairs from integral-affine bases with singularities, building toric degenerations and using log/tropical methods — a programme rooted in the SYZ conjecture."
           }
         ]
       }
@@ -27554,6 +31212,257 @@ window.MVQuizBank = {
       }
     }
   },
+  "mostow-rigidity": {
+    "topic": "mostow-rigidity",
+    "quizzes": {
+      "mr-statement": {
+        "title": "Mostow's rigidity theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Mostow rigidity asserts that for closed hyperbolic $n$-manifolds $M_1,M_2$ with $n\\ge 3$, an isomorphism $\\pi_1(M_1)\\cong\\pi_1(M_2)$ implies:",
+            "choices": [
+              "$M_1$ and $M_2$ are homotopy equivalent only",
+              "$M_1$ and $M_2$ are isometric (and the isometry is unique up to homotopy)",
+              "$M_1$ and $M_2$ have the same fundamental group but possibly different hyperbolic metrics",
+              "$M_1$ and $M_2$ are merely diffeomorphic"
+            ],
+            "answer": 1,
+            "explain": "Mostow upgrades a $\\pi_1$-isomorphism all the way to a unique isometry — the hyperbolic metric is determined by the topology."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the theorem fail in dimension $n=2$?",
+            "choices": [
+              "Closed hyperbolic surfaces of genus $g\\ge 2$ form a $(6g-6)$-dimensional Teichmüller moduli space, so the metric is not unique",
+              "Surfaces have no fundamental group",
+              "$\\mathbb{H}^2$ is not a symmetric space",
+              "$\\mathrm{PSL}_2(\\mathbb{R})$ has trivial center"
+            ],
+            "answer": 0,
+            "explain": "Teichmüller space has positive dimension exactly when $n=2$; rigidity needs $n\\ge 3$ so the symmetric space has rank-1 with no continuous deformations."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is NOT a hypothesis of the classical Mostow rigidity theorem?",
+            "choices": [
+              "$M_1, M_2$ are closed (compact, no boundary)",
+              "$M_1, M_2$ admit hyperbolic metrics of constant sectional curvature $-1$",
+              "$\\dim M_i \\ge 3$",
+              "$M_1, M_2$ are simply connected"
+            ],
+            "answer": 3,
+            "explain": "Simple connectivity would make $\\pi_1$ trivial; the theorem operates on closed hyperbolic manifolds, whose universal cover $\\mathbb{H}^n$ is simply connected but $M_i$ themselves have rich $\\pi_1$."
+          }
+        ]
+      },
+      "mr-hyperbolic-3-mflds": {
+        "title": "Hyperbolic 3-manifolds",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A closed hyperbolic 3-manifold is a quotient $\\mathbb{H}^3/\\Gamma$ where $\\Gamma$ is:",
+            "choices": [
+              "Any subgroup of $\\mathrm{PSL}_2(\\mathbb{C})$",
+              "A torsion-free discrete cocompact subgroup of $\\mathrm{PSL}_2(\\mathbb{C})$",
+              "A finite subgroup of $\\mathrm{SO}(3)$",
+              "An abelian subgroup of $\\mathrm{SL}_2(\\mathbb{R})$"
+            ],
+            "answer": 1,
+            "explain": "Closed = cocompact, smooth = torsion-free, properly discontinuous action = discrete; the orientation-preserving isometry group of $\\mathbb{H}^3$ is $\\mathrm{PSL}_2(\\mathbb{C})$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is $\\mathrm{PSL}_2(\\mathbb{C})$ the right Lie group to host these lattices?",
+            "choices": [
+              "It is the orientation-preserving isometry group of $\\mathbb{H}^3$",
+              "It is compact",
+              "It is abelian",
+              "It is the Galois group of $\\mathbb{C}/\\mathbb{R}$"
+            ],
+            "answer": 0,
+            "explain": "$\\mathrm{Isom}^+(\\mathbb{H}^3)\\cong\\mathrm{PSL}_2(\\mathbb{C})$ acting by Möbius transformations on the boundary $\\widehat{\\mathbb{C}}=S^2$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the boundary at infinity of $\\mathbb{H}^3$?",
+            "choices": [
+              "$S^1$",
+              "$S^2$",
+              "$\\mathbb{R}^2$",
+              "A single point"
+            ],
+            "answer": 1,
+            "explain": "$\\mathbb{H}^3$ compactifies by adding the round sphere $S^2$ at infinity; $\\mathrm{PSL}_2(\\mathbb{C})$ acts on it by Möbius transformations."
+          }
+        ]
+      },
+      "mr-quasi-isometry": {
+        "title": "Quasi-isometry and boundary extension",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A map $f:\\mathbb{H}^n\\to\\mathbb{H}^n$ is a $(K,C)$-quasi-isometry if for all $x,y$:",
+            "choices": [
+              "$d(f(x),f(y)) = K\\cdot d(x,y)$ exactly",
+              "$\\tfrac{1}{K} d(x,y) - C \\le d(f(x),f(y)) \\le K\\,d(x,y) + C$, with $f$ coarsely surjective",
+              "$d(f(x),f(y)) \\le d(x,y)$",
+              "$f$ is smooth and orientation-preserving"
+            ],
+            "answer": 1,
+            "explain": "Quasi-isometry is the coarse multiplicative-and-additive bound — the right notion for invariants of finitely generated groups."
+          },
+          {
+            "type": "mcq",
+            "q": "Mostow's analytic centerpiece extends a $\\pi_1$-equivariant quasi-isometry of $\\mathbb{H}^n$ to a homeomorphism of $S^{n-1}$ that is:",
+            "choices": [
+              "Smooth",
+              "Quasi-conformal",
+              "Linear",
+              "Holomorphic"
+            ],
+            "answer": 1,
+            "explain": "The boundary extension is quasi-conformal — controlled distortion of infinitesimal balls — even when the bulk map is far from smooth."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the lift of a homotopy equivalence $M_1\\to M_2$ between closed hyperbolic manifolds become a quasi-isometry of universal covers?",
+            "choices": [
+              "Because every continuous map is a quasi-isometry",
+              "Because Švarc–Milnor: a cocompact properly discontinuous isometric action makes $\\Gamma$ quasi-isometric to its space, and the lift is $\\Gamma$-equivariant Lipschitz",
+              "Because $\\mathbb{H}^n$ is compact",
+              "Because homotopy equivalences are smooth"
+            ],
+            "answer": 1,
+            "explain": "Švarc–Milnor: if $\\Gamma$ acts cocompactly and properly discontinuously on a proper geodesic space, the orbit map is a quasi-isometry. The lift inherits this."
+          }
+        ]
+      },
+      "mr-ergodicity-of-action": {
+        "title": "Ergodicity of the boundary action",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A measurable action of a group $\\Gamma$ on $(X,\\mu)$ is ergodic if:",
+            "choices": [
+              "Every orbit is dense",
+              "Every $\\Gamma$-invariant measurable subset has measure $0$ or full measure",
+              "$\\Gamma$ acts freely",
+              "$\\Gamma$ is finite"
+            ],
+            "answer": 1,
+            "explain": "Ergodicity = no measurable invariant subsets except null/conull — the measure-theoretic version of irreducibility."
+          },
+          {
+            "type": "mcq",
+            "q": "In Mostow's proof, ergodicity of $\\Gamma$ on the boundary is used to show that the quasi-conformal boundary map:",
+            "choices": [
+              "Is constant",
+              "Has zero distortion almost everywhere, hence is conformal (Möbius)",
+              "Has infinite distortion",
+              "Vanishes on a positive-measure set"
+            ],
+            "answer": 1,
+            "explain": "The dilatation tensor of the boundary map is $\\Gamma$-invariant; ergodicity forces it constant a.e., and analysis of quasi-conformal maps then forces zero distortion → Möbius."
+          },
+          {
+            "type": "mcq",
+            "q": "Which classical result underpins ergodicity of a cocompact lattice acting on the boundary sphere?",
+            "choices": [
+              "The Hopf ergodicity theorem for geodesic flow on a hyperbolic manifold",
+              "Riesz representation",
+              "Cauchy's residue theorem",
+              "The implicit function theorem"
+            ],
+            "answer": 0,
+            "explain": "Hopf's argument shows the geodesic flow on a closed hyperbolic manifold is ergodic; this descends to ergodicity of $\\Gamma$ on $S^{n-1}\\times S^{n-1}$."
+          }
+        ]
+      },
+      "mr-arithmetic-lattices": {
+        "title": "Margulis arithmeticity",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Margulis's arithmeticity theorem states: every irreducible lattice in a connected semisimple Lie group $G$ of real rank $\\ge 2$ is:",
+            "choices": [
+              "Free",
+              "Arithmetic — commensurable with the integer points of an algebraic $\\mathbb{Q}$-group",
+              "Abelian",
+              "Finite"
+            ],
+            "answer": 1,
+            "explain": "Higher-rank lattices are forced to be number-theoretic objects; the theorem stitches differential geometry to arithmetic."
+          },
+          {
+            "type": "mcq",
+            "q": "In what crucial way does Margulis go beyond Mostow?",
+            "choices": [
+              "It reduces to the rank-one case",
+              "It applies in higher rank ($\\ge 2$) and produces an arithmetic structure, not merely an isometry",
+              "It removes the discreteness hypothesis",
+              "It only treats compact lattices"
+            ],
+            "answer": 1,
+            "explain": "Mostow handles rank one (including $\\mathbb{H}^n$) producing isometric uniqueness; Margulis attacks higher rank and yields arithmeticity — a stronger structural conclusion."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does $\\mathbb{H}^n$ not fall under arithmeticity automatically (so non-arithmetic hyperbolic lattices can exist)?",
+            "choices": [
+              "$\\mathrm{Isom}(\\mathbb{H}^n)$ has real rank $1$, below the threshold of Margulis's theorem",
+              "$\\mathbb{H}^n$ is compact",
+              "$\\mathbb{H}^n$ is not a symmetric space",
+              "All lattices in $\\mathrm{PSL}_2(\\mathbb{C})$ are arithmetic"
+            ],
+            "answer": 0,
+            "explain": "Real rank of $\\mathrm{Isom}(\\mathbb{H}^n)$ is $1$; Gromov–Piatetski-Shapiro famously construct non-arithmetic hyperbolic lattices in every dimension."
+          }
+        ]
+      },
+      "mr-applications": {
+        "title": "Volume, simplicial volume, and geometrisation",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A consequence of Mostow rigidity for closed hyperbolic 3-manifolds is:",
+            "choices": [
+              "Volume is a topological invariant",
+              "Volume is unbounded in any homotopy class",
+              "Volume is always rational",
+              "Volume depends on the choice of metric"
+            ],
+            "answer": 0,
+            "explain": "Since the metric is determined by topology, every metric invariant — volume, length spectrum, Laplace spectrum — becomes a topological invariant."
+          },
+          {
+            "type": "mcq",
+            "q": "Gromov's simplicial volume $\\|M\\|$ of a closed hyperbolic $n$-manifold satisfies:",
+            "choices": [
+              "$\\|M\\| = 0$ always",
+              "$\\|M\\| = \\mathrm{Vol}(M)/v_n$, where $v_n$ is the volume of a regular ideal hyperbolic $n$-simplex",
+              "$\\|M\\| = \\chi(M)$",
+              "$\\|M\\| = $ the dimension of $M$"
+            ],
+            "answer": 1,
+            "explain": "Gromov–Thurston: simplicial volume equals hyperbolic volume divided by the maximum-volume ideal simplex constant; the ratio is rigid."
+          },
+          {
+            "type": "mcq",
+            "q": "Where does Mostow rigidity fit in Thurston's geometrisation programme for 3-manifolds?",
+            "choices": [
+              "It rules out hyperbolic geometry from the eight Thurston model geometries",
+              "It guarantees that the hyperbolic pieces of the JSJ–geometric decomposition are unique up to isometry",
+              "It implies all 3-manifolds admit a hyperbolic metric",
+              "It is unrelated to geometrisation"
+            ],
+            "answer": 1,
+            "explain": "Geometrisation cuts a 3-manifold into pieces each modelled on one of eight homogeneous geometries; the hyperbolic pieces are rigid by Mostow."
+          }
+        ]
+      }
+    }
+  },
   "naive-set-theory": {
     "topic": "naive-set-theory",
     "quizzes": {
@@ -27895,6 +31804,237 @@ window.MVQuizBank = {
             ],
             "answer": 0,
             "explain": "The Vitali set $V$ is built by picking exactly one element from each equivalence class of $x\\sim y\\iff x-y\\in\\mathbb{Q}$ restricted to $[0,1]$. There are uncountably many classes and no canonical choice; AC is invoked to guarantee a simultaneous selection. Assuming $V$ is measurable then leads to a contradiction with countable additivity."
+          }
+        ]
+      }
+    }
+  },
+  "numerical-analysis": {
+    "topic": "numerical-analysis",
+    "quizzes": {
+      "na-floating-point": {
+        "title": "Floating-point arithmetic",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In IEEE 754 double precision, machine epsilon $\\varepsilon_M$ is closest to which value?",
+            "choices": [
+              "$1.19\\times 10^{-7}$",
+              "$2.22\\times 10^{-16}$",
+              "$1.0\\times 10^{-300}$",
+              "$5.96\\times 10^{-8}$"
+            ],
+            "answer": 1,
+            "explain": "Doubles use a 52-bit mantissa, so $\\varepsilon_M = 2^{-52}\\approx 2.22\\times 10^{-16}$. Single precision (24-bit) gives $2^{-23}\\approx 1.19\\times 10^{-7}$; the other values are unrelated to the format."
+          },
+          {
+            "type": "mcq",
+            "q": "A problem is ill-conditioned but the algorithm is backward-stable. What can you conclude about the computed result?",
+            "choices": [
+              "It will be accurate to machine precision",
+              "It is the exact solution to a slightly perturbed problem; accuracy depends on the condition number",
+              "It is unusable — backward stability is meaningless without forward stability",
+              "It is exactly the true solution, since the algorithm is stable"
+            ],
+            "answer": 1,
+            "explain": "Backward stability means $\\hat{y}=f(x+\\delta x)$ with $\\delta x$ small. The forward error is then bounded by $\\kappa(\\text{problem})\\cdot \\|\\delta x\\|$: a stable algorithm on an ill-conditioned problem still loses digits, and that's not the algorithm's fault."
+          },
+          {
+            "type": "numeric",
+            "q": "If the relative roundoff per operation is $\\varepsilon_M$ and you sum $n=10^6$ floats naively, the worst-case relative error is bounded by approximately $n\\varepsilon_M$. With $\\varepsilon_M=2^{-52}\\approx 2.22\\times 10^{-16}$, what is $n\\varepsilon_M$?",
+            "answer": 2.22e-10,
+            "tol": 1e-11,
+            "explain": "$10^6 \\times 2.22\\times 10^{-16} = 2.22\\times 10^{-10}$. Kahan summation tightens this to $O(\\varepsilon_M)$ regardless of $n$ by carrying a running compensation term."
+          }
+        ]
+      },
+      "na-rootfinding": {
+        "title": "Rootfinding",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Newton's method applied to $f(x)=x^2-2$ starting from $x_0=1$. What is $x_2$?",
+            "choices": [
+              "$1.5$",
+              "$1.41666\\ldots$",
+              "$1.41421356\\ldots$",
+              "$2.0$"
+            ],
+            "answer": 1,
+            "explain": "Newton: $x_{n+1}=x_n - (x_n^2-2)/(2x_n) = (x_n+2/x_n)/2$. From $x_0=1$: $x_1=(1+2)/2=1.5$, then $x_2=(1.5+4/3)/2=17/12\\approx 1.41667$. Quadratic convergence — three iterations get you to machine precision."
+          },
+          {
+            "type": "mcq",
+            "q": "Bisection on $[0,1]$ with tolerance $10^{-6}$ requires roughly how many iterations?",
+            "choices": [
+              "$6$",
+              "$10$",
+              "$20$",
+              "$60$"
+            ],
+            "answer": 2,
+            "explain": "After $n$ steps the interval length is $2^{-n}$. We need $2^{-n}<10^{-6}$, i.e. $n > \\log_2(10^6)\\approx 19.93$, so $n=20$. Bisection's linear convergence with rate $1/2$ means each step buys exactly one bit."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the order of convergence of the secant method near a simple root?",
+            "choices": [
+              "Linear ($p=1$)",
+              "Golden ratio ($p=(1+\\sqrt5)/2\\approx 1.618$)",
+              "Quadratic ($p=2$)",
+              "Cubic ($p=3$)"
+            ],
+            "answer": 1,
+            "explain": "The secant error recursion $e_{n+1}\\sim C e_n e_{n-1}$ leads to $p^2 = p+1$, whose positive root is the golden ratio $\\phi=(1+\\sqrt 5)/2\\approx 1.618$. It's slower than Newton's $p=2$ but trades the derivative evaluation for cheaper iterations."
+          }
+        ]
+      },
+      "na-quadrature": {
+        "title": "Quadrature",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Composite trapezoid rule on $n$ panels has error scaling as $h^2$ where $h=(b-a)/n$. If doubling $n$ shrinks the error by what factor?",
+            "answer": 4,
+            "tol": 0.001,
+            "explain": "Halving $h$ shrinks $h^2$ by $4$. So each doubling of $n$ buys two bits of accuracy. Simpson's $O(h^4)$ buys four bits per doubling."
+          },
+          {
+            "type": "mcq",
+            "q": "Gauss–Legendre quadrature with $n$ nodes integrates polynomials of degree $\\le ?$ exactly.",
+            "choices": [
+              "$n-1$",
+              "$n$",
+              "$2n-1$",
+              "$2n$"
+            ],
+            "answer": 2,
+            "explain": "Choosing the $n$ nodes as zeros of the $n$-th Legendre polynomial buys an extra $n$ degrees of exactness over a generic $n$-point quadrature, giving exactness up to degree $2n-1$. This is optimal: no $n$-point rule integrates all polynomials of degree $2n$ exactly."
+          },
+          {
+            "type": "mcq",
+            "q": "Simpson's rule is exact for polynomials of degree up to:",
+            "choices": [
+              "$1$",
+              "$2$",
+              "$3$",
+              "$4$"
+            ],
+            "answer": 2,
+            "explain": "By construction Simpson's rule integrates parabolas exactly, but a symmetry argument bumps the exactness to cubics: the cubic remainder is odd about the midpoint and integrates to zero. The error term is $-(b-a)h^4 f^{(4)}(\\xi)/180$."
+          }
+        ]
+      },
+      "na-linear-systems": {
+        "title": "Linear systems",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "If $A$ is symmetric positive definite, which factorization is the natural choice and what is its leading cost?",
+            "choices": [
+              "LU at $O(n^3)$",
+              "QR at $O(n^3)$",
+              "Cholesky $A=LL^\\top$ at $\\tfrac12 n^3$ flops",
+              "SVD at $O(n^3)$"
+            ],
+            "answer": 2,
+            "explain": "Cholesky exploits SPD structure to halve LU's cost and avoid pivoting. It also fails fast: a non-positive pivot signals that $A$ is not SPD, useful as a numerical SPD test."
+          },
+          {
+            "type": "numeric",
+            "q": "If $\\kappa(A)=10^8$ and you solve $Ax=b$ in IEEE double precision ($\\varepsilon_M\\approx 10^{-16}$), the relative error in $x$ is bounded by roughly $\\kappa(A)\\varepsilon_M$. Enter this bound (a number).",
+            "answer": 1e-8,
+            "tol": 1e-9,
+            "explain": "$\\kappa(A)\\,\\varepsilon_M = 10^8\\cdot 10^{-16}=10^{-8}$. Rule of thumb: you lose $\\log_{10}\\kappa(A)$ digits of accuracy. Conjugate gradient sees a related but weaker dependence: convergence rate $\\sim (\\sqrt\\kappa-1)/(\\sqrt\\kappa+1)$."
+          },
+          {
+            "type": "mcq",
+            "q": "Conjugate gradient on an SPD system with condition number $\\kappa$ converges in roughly how many iterations to a fixed tolerance?",
+            "choices": [
+              "$O(\\kappa)$",
+              "$O(\\sqrt{\\kappa})$",
+              "$O(\\log\\kappa)$",
+              "$O(n)$ regardless of $\\kappa$"
+            ],
+            "answer": 1,
+            "explain": "The CG error decays as $((\\sqrt\\kappa-1)/(\\sqrt\\kappa+1))^k$, so reducing the error by a fixed factor needs $O(\\sqrt\\kappa)$ steps. This is exponentially better than Jacobi/Gauss–Seidel's $O(\\kappa)$ — preconditioning is the standard way to shrink $\\kappa$."
+          }
+        ]
+      },
+      "na-finite-differences": {
+        "title": "Finite differences and stability",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which finite difference approximates $f'(x)$ with error $O(h^2)$ rather than $O(h)$?",
+            "choices": [
+              "Forward: $(f(x+h)-f(x))/h$",
+              "Backward: $(f(x)-f(x-h))/h$",
+              "Central: $(f(x+h)-f(x-h))/(2h)$",
+              "Scaled forward: $(f(x+2h)-f(x))/(2h)$"
+            ],
+            "answer": 2,
+            "explain": "Taylor expansion: $f(x\\pm h)=f(x)\\pm h f'(x) + \\tfrac{h^2}{2}f''(x)\\pm\\tfrac{h^3}{6}f'''(x)+\\cdots$. The central difference cancels the $f''$ term, leaving $f'(x)+\\tfrac{h^2}{6}f'''(x)+\\cdots$. The other one-sided differences keep the $f''(x)h/2$ leading error."
+          },
+          {
+            "type": "mcq",
+            "q": "An explicit FD scheme for the heat equation $u_t=u_{xx}$ is stable when:",
+            "choices": [
+              "$\\Delta t\\le \\Delta x$",
+              "$\\Delta t\\le \\tfrac12(\\Delta x)^2$",
+              "$\\Delta t\\le (\\Delta x)^4$",
+              "Always — explicit schemes are unconditionally stable"
+            ],
+            "answer": 1,
+            "explain": "Von Neumann analysis on $u^{n+1}_j=u^n_j + (\\Delta t/\\Delta x^2)(u^n_{j+1}-2u^n_j+u^n_{j-1})$ gives an amplification factor whose modulus stays $\\le 1$ iff $\\Delta t/\\Delta x^2\\le 1/2$. Cross that and tiny errors blow up exponentially. Implicit (Crank–Nicolson) schemes lift the restriction at the cost of a linear solve per step."
+          },
+          {
+            "type": "numeric",
+            "q": "For the wave equation $u_{tt}=c^2 u_{xx}$ with $c=2$ and $\\Delta x=0.1$, the CFL condition $c\\Delta t/\\Delta x\\le 1$ caps $\\Delta t$. What is the largest stable $\\Delta t$?",
+            "answer": 0.05,
+            "tol": 0.000001,
+            "explain": "$\\Delta t\\le \\Delta x/c = 0.1/2 = 0.05$. The condition encodes that the numerical domain of dependence must contain the analytic one (the cone with slope $1/c$); otherwise information that should reach a node is missed by the stencil."
+          }
+        ]
+      },
+      "na-finite-elements": {
+        "title": "Finite elements",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In the FEM Galerkin formulation for $-\\Delta u=f$ on $\\Omega$ with $u=0$ on $\\partial\\Omega$, the stiffness matrix entry $K_{ij}$ equals:",
+            "choices": [
+              "$\\int_\\Omega \\varphi_i\\varphi_j$",
+              "$\\int_\\Omega \\nabla\\varphi_i\\cdot\\nabla\\varphi_j$",
+              "$\\int_\\Omega f\\varphi_i\\varphi_j$",
+              "$\\varphi_i(x_j)$"
+            ],
+            "answer": 1,
+            "explain": "Multiply $-\\Delta u=f$ by $\\varphi_j$ and integrate by parts: $\\int\\nabla u\\cdot\\nabla\\varphi_j = \\int f\\varphi_j$. Substituting $u=\\sum c_i\\varphi_i$ produces $K_{ij}=\\int\\nabla\\varphi_i\\cdot\\nabla\\varphi_j$ and the load vector $b_j=\\int f\\varphi_j$. The first option $\\int\\varphi_i\\varphi_j$ is the mass matrix, used for time-dependent problems."
+          },
+          {
+            "type": "mcq",
+            "q": "With piecewise-linear hat basis on a mesh of size $h$, Céa's lemma gives the a priori estimate $\\|u-u_h\\|_{H^1}\\le ?$",
+            "choices": [
+              "$C h^2 \\|u\\|_{H^2}$",
+              "$C h \\|u\\|_{H^2}$",
+              "$C \\|u\\|_{L^2}$",
+              "$C h^{-1} \\|f\\|_{L^2}$"
+            ],
+            "answer": 1,
+            "explain": "Céa's lemma + linear interpolation error in $H^1$ gives $\\|u-u_h\\|_{H^1}\\le Ch\\|u\\|_{H^2}$. The $L^2$ estimate is one order better: $\\|u-u_h\\|_{L^2}\\le Ch^2\\|u\\|_{H^2}$ via Aubin–Nitsche duality. Higher-order ($P^k$) elements scale as $h^k$ in $H^1$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which property of the FEM stiffness matrix $K$ for $-\\Delta$ with Dirichlet BCs makes conjugate gradient an excellent solver?",
+            "choices": [
+              "$K$ is dense and unitary",
+              "$K$ is sparse, symmetric, and positive definite",
+              "$K$ is upper triangular",
+              "$K$ has constant entries on diagonals"
+            ],
+            "answer": 1,
+            "explain": "Each $\\varphi_i$ has compact support, so $K_{ij}\\ne 0$ only when supports overlap — sparse. Symmetry is immediate from the symmetric bilinear form. Positivity: $v^\\top K v=\\int|\\nabla(\\sum v_i\\varphi_i)|^2\\ge 0$ with equality only at $v=0$ (Poincaré on $H^1_0$). SPD + sparse is exactly the regime where CG with multigrid preconditioning shines."
           }
         ]
       }
@@ -32604,6 +36744,506 @@ window.MVQuizBank = {
       }
     }
   },
+  "quantum-groups": {
+    "topic": "quantum-groups",
+    "quizzes": {
+      "qg-hopf-algebras": {
+        "questions": [
+          {
+            "type": "mcq",
+            "choices": [
+              "$\\Delta(g) = g\\otimes g$",
+              "$\\Delta(g) = g\\otimes 1 + 1\\otimes g$",
+              "$\\Delta(g) = g\\otimes g^{-1}$",
+              "$\\Delta(g) = 1\\otimes 1$"
+            ],
+            "answer": 0,
+            "explain": "Group elements are the grouplike elements: $\\Delta(g)=g\\otimes g$ and $\\varepsilon(g)=1$. The primitive form $x\\otimes 1+1\\otimes x$ is what Lie algebra elements satisfy inside $U(\\mathfrak g)$.",
+            "q": "In the group Hopf algebra $\\mathbb{C}[G]$, what is the comultiplication on a basis element $g\\in G$?"
+          },
+          {
+            "type": "mcq",
+            "choices": [
+              "It is a two-sided convolution inverse of the identity in $\\mathrm{End}(H)$.",
+              "It is an algebra homomorphism.",
+              "It is its own inverse, $S^2=\\mathrm{id}$.",
+              "It satisfies $S(1)=1$."
+            ],
+            "answer": 0,
+            "explain": "$S$ is defined by $m\\circ(S\\otimes\\mathrm{id})\\circ\\Delta = m\\circ(\\mathrm{id}\\otimes S)\\circ\\Delta = \\eta\\circ\\varepsilon$ — a convolution inverse, hence unique. $S$ is an antihomomorphism, and $S^2=\\mathrm{id}$ only in the cocommutative case.",
+            "q": "Which axiom forces the antipode $S$ to be unique once it exists?"
+          },
+          {
+            "type": "mcq",
+            "choices": [
+              "Because $\\Delta(x)=x\\otimes 1+1\\otimes x$, $S(x)=-x$, $\\varepsilon(x)=0$ extend uniquely to algebra (anti)homomorphisms.",
+              "Because $\\mathfrak g$ is a vector space.",
+              "Because $U(\\mathfrak g)$ is commutative.",
+              "Because Lie brackets are skew-symmetric."
+            ],
+            "answer": 0,
+            "explain": "The primitive coproduct on Lie generators extends by the universal property of $U(\\mathfrak g)$. Cocommutativity reflects that $\\mathfrak g$ has no braiding — quantization breaks exactly that symmetry.",
+            "q": "Why is $U(\\mathfrak g)$ a Hopf algebra?"
+          }
+        ],
+        "title": "Hopf algebras"
+      },
+      "qg-uq-sl2": {
+        "questions": [
+          {
+            "type": "mcq",
+            "choices": [
+              "$[E,F] = H$",
+              "$[E,F] = 0$",
+              "$[E,F] = K$",
+              "$[E,F] = q H$"
+            ],
+            "answer": 0,
+            "explain": "Expanding $K=q^H = 1 + (\\log q) H + \\cdots$ gives $(K-K^{-1})/(q-q^{-1}) \\to H$ in the limit, recovering the classical $\\mathfrak{sl}_2$ relation.",
+            "q": "In $U_q(\\mathfrak{sl}_2)$, what does the relation $[E,F]=(K-K^{-1})/(q-q^{-1})$ become as $q\\to 1$ with $K=q^H$?"
+          },
+          {
+            "type": "mcq",
+            "choices": [
+              "$KEK^{-1} = q^2 E$",
+              "$KEK^{-1} = q E$",
+              "$KE = EK$",
+              "$E^2 = K$"
+            ],
+            "answer": 0,
+            "explain": "Conjugation by the grouplike $K=q^H$ replaces the additive eigenvalue $2$ with the multiplicative $q^2$. Differentiating at $q=1$ recovers the classical bracket.",
+            "q": "Which relation is the quantum analogue of $[H,E]=2E$?"
+          },
+          {
+            "type": "mcq",
+            "choices": [
+              "$\\Delta(E) = E\\otimes 1 + K\\otimes E$",
+              "$\\Delta(E) = E\\otimes 1 + 1\\otimes E$",
+              "$\\Delta(E) = E\\otimes E$",
+              "$\\Delta(E) = K\\otimes K$"
+            ],
+            "answer": 0,
+            "explain": "The Drinfeld–Jimbo coproduct twists primitivity by the Cartan element: $\\Delta(E)=E\\otimes 1+K\\otimes E$ and $\\Delta(F)=F\\otimes K^{-1}+1\\otimes F$. This is what kills cocommutativity and produces a braiding.",
+            "q": "What is the comultiplication $\\Delta(E)$ in $U_q(\\mathfrak{sl}_2)$?"
+          }
+        ],
+        "title": "Drinfeld–Jimbo $U_q(\\mathfrak{sl}_2)$"
+      },
+      "qg-r-matrix": {
+        "questions": [
+          {
+            "type": "mcq",
+            "choices": [
+              "$\\sigma_1\\sigma_2\\sigma_1 = \\sigma_2\\sigma_1\\sigma_2$",
+              "$\\sigma_i\\sigma_j = \\sigma_j\\sigma_i$ for $|i-j|\\ge 2$",
+              "$\\sigma_i^2 = 1$",
+              "$\\sigma_1\\sigma_2 = \\sigma_2\\sigma_1$"
+            ],
+            "answer": 0,
+            "explain": "Reidemeister III / the third braid relation is exactly Yang–Baxter on three strands. The $R$-matrix gives a representation of the braid group $B_n$ on $V^{\\otimes n}$.",
+            "q": "The Yang–Baxter equation $R_{12}R_{13}R_{23}=R_{23}R_{13}R_{12}$ corresponds geometrically to which braid identity?"
+          },
+          {
+            "type": "mcq",
+            "choices": [
+              "Quasitriangularity: $\\Delta^{op} = R\\,\\Delta\\,R^{-1}$.",
+              "Cocommutativity.",
+              "Commutativity.",
+              "Being a free module."
+            ],
+            "answer": 0,
+            "explain": "Drinfeld's definition: a quasitriangular Hopf algebra carries an invertible $R$ intertwining $\\Delta$ and the flipped $\\Delta^{op}$. Cocommutative means $\\Delta=\\Delta^{op}$, so $R=1\\otimes 1$ and the braiding is trivial.",
+            "q": "What property of $U_q(\\mathfrak g)$ does the universal $R$-matrix witness?"
+          },
+          {
+            "type": "mcq",
+            "choices": [
+              "Module isomorphism $V\\otimes W\\to W\\otimes V$ giving a braiding on $\\mathrm{Rep}(U_q(\\mathfrak g))$.",
+              "A scalar.",
+              "The identity map.",
+              "An algebra homomorphism $U_q(\\mathfrak g)\\to U_q(\\mathfrak g)$."
+            ],
+            "answer": 0,
+            "explain": "$c_{V,W}=\\tau\\circ R_{V,W}$ is exactly the braiding making $\\mathrm{Rep}(U_q(\\mathfrak g))$ a braided monoidal category. Generic $q$ gives a non-symmetric braiding — the swap is no longer an involution.",
+            "q": "On a tensor product of two $U_q(\\mathfrak g)$-modules, the operator $\\tau\\circ R$ (flip composed with $R$) is a/an…"
+          }
+        ],
+        "title": "Universal $R$-matrix and Yang–Baxter"
+      },
+      "qg-representations": {
+        "questions": [
+          {
+            "type": "mcq",
+            "choices": [
+              "The non-negative integers $n$, with $\\dim V_n = n+1$ — exactly as in the classical case.",
+              "Roots of unity only.",
+              "Real numbers $\\lambda\\ge 0$.",
+              "Conjugacy classes of $\\mathrm{SL}_2(\\mathbb{C})$."
+            ],
+            "answer": 0,
+            "explain": "At generic $q$ the representation theory is a deformation of the classical one — same labels, same dimensions, $K$ acts on the highest-weight vector by $q^n$. Roots of unity bring genuinely new phenomena (small quantum groups, tilting modules).",
+            "q": "For generic $q$, the irreducible type-1 finite-dimensional $U_q(\\mathfrak{sl}_2)$-modules are parametrized by…"
+          },
+          {
+            "type": "mcq",
+            "choices": [
+              "A combinatorial graph (with coloured edges) computing tensor product decompositions.",
+              "The classical Lie algebra $\\mathfrak g$ itself.",
+              "The center of $U_q(\\mathfrak g)$.",
+              "The Killing form."
+            ],
+            "answer": 0,
+            "explain": "Crystals are coloured graphs where vertices are basis elements and edges record the $q\\to 0$ shadow of $E_i,F_i$. The tensor product rule becomes a simple combinatorial recipe — Littelmann paths, Young tableaux, etc.",
+            "q": "What does Kashiwara's crystal basis recover when one specializes at $q=0$?"
+          },
+          {
+            "type": "mcq",
+            "choices": [
+              "It is bar-invariant ($\\overline{q}=q^{-1}$) and has positive integer structure constants for tensor products and multiplication.",
+              "It diagonalizes the antipode $S$.",
+              "It consists of grouplike elements.",
+              "It is preserved by the comultiplication."
+            ],
+            "answer": 0,
+            "explain": "Bar-invariance plus an integral lattice condition pin the canonical basis uniquely. The positivity of structure constants is a deep theorem (and the seed of categorification — these integers count dimensions of $\\mathrm{Hom}$ spaces in a categorical lift).",
+            "q": "Lusztig's canonical basis is distinguished from an arbitrary highest-weight basis by which property?"
+          }
+        ],
+        "title": "Representations and crystal bases"
+      },
+      "qg-knot-invariants": {
+        "questions": [
+          {
+            "type": "mcq",
+            "choices": [
+              "$\\tau\\circ R_{V,V}\\colon V\\otimes V\\to V\\otimes V$",
+              "The identity $\\mathrm{id}_{V\\otimes V}$",
+              "The antipode $S\\otimes S$",
+              "A scalar projector"
+            ],
+            "answer": 0,
+            "explain": "Each crossing becomes the braiding $c_{V,V}=\\tau R$; the inverse crossing gets $c^{-1}$. Closing the braid and taking a quantum trace gives the knot invariant.",
+            "q": "Reshetikhin–Turaev assigns to a positive crossing of two strands labelled by $V$ which operator?"
+          },
+          {
+            "type": "mcq",
+            "choices": [
+              "The Jones polynomial.",
+              "The Alexander polynomial.",
+              "The Conway polynomial.",
+              "The HOMFLY polynomial in two variables."
+            ],
+            "answer": 0,
+            "explain": "Jones falls out of $U_q(\\mathfrak{sl}_2)$ on $V_1$. HOMFLY comes from $U_q(\\mathfrak{sl}_n)$ for variable $n$, and Kauffman / two-variable Kauffman from $U_q(\\mathfrak{so}_n)$ or $U_q(\\mathfrak{sp}_{2n})$.",
+            "q": "Which knot polynomial arises from $U_q(\\mathfrak{sl}_2)$ acting on its 2-dimensional standard representation?"
+          },
+          {
+            "type": "mcq",
+            "choices": [
+              "Because $R$ satisfies Yang–Baxter (Reidemeister III) and the cap/cup data make the construction Reidemeister I and II invariant.",
+              "Because $R$ is symmetric.",
+              "Because all knots are isotopic.",
+              "Because $R$ commutes with the antipode."
+            ],
+            "answer": 0,
+            "explain": "Yang–Baxter is exactly Reidemeister III. The Markov-style framing fix and the rigid duality of $U_q(\\mathfrak g)$-mod handle Reidemeister II and (up to a framing factor) Reidemeister I.",
+            "q": "Why is the assignment 'crossing $\\mapsto R$' well-defined as a knot invariant?"
+          }
+        ],
+        "title": "Reshetikhin–Turaev knot invariants"
+      },
+      "qg-applications": {
+        "questions": [
+          {
+            "type": "mcq",
+            "choices": [
+              "The $R$-matrix action of a quantum group on tensor products of representations.",
+              "The Galois action on étale cohomology.",
+              "The Hodge decomposition.",
+              "The Frobenius eigenvalues of an L-function."
+            ],
+            "answer": 0,
+            "explain": "KZ is a flat connection on configuration space valued in $\\mathfrak g\\otimes\\mathfrak g$; transporting around braids gives exactly the $U_q(\\mathfrak g)$ braiding, with $q=e^{i\\pi\\hbar}$ for the deformation parameter $\\hbar$.",
+            "q": "The Drinfeld–Kohno theorem identifies the monodromy of the Knizhnik–Zamolodchikov equation with…"
+          },
+          {
+            "type": "mcq",
+            "choices": [
+              "Integrable lattice models and quantum spin chains (XXZ, six-vertex).",
+              "Non-relativistic Schrödinger evolution on $\\mathbb R^3$.",
+              "Brownian motion on a graph.",
+              "Classical Hamiltonian flows on cotangent bundles."
+            ],
+            "answer": 0,
+            "explain": "The $R$-matrix of $U_q(\\widehat{\\mathfrak{sl}_2})$ on a tensor power of the standard rep is the Boltzmann weight of the six-vertex model; commuting transfer matrices come from the universal $R$ in the second tensor slot.",
+            "q": "Affine quantum groups $U_q(\\widehat{\\mathfrak g})$ govern which family of physical models?"
+          },
+          {
+            "type": "mcq",
+            "choices": [
+              "The integers (dimensions, multiplicities) by graded vector spaces or chain complexes — promoting $U_q(\\mathfrak g)$ to a 2-category.",
+              "Quantum groups by classical Lie algebras.",
+              "The $R$-matrix by the identity.",
+              "Knot polynomials by knot groups."
+            ],
+            "answer": 0,
+            "explain": "KLR (and Khovanov for $\\mathfrak{sl}_2$) builds a graded 2-category whose Grothendieck group is $U_q(\\mathfrak g)$; Khovanov homology categorifies the Jones polynomial, with Euler characteristic recovering it.",
+            "q": "What does Khovanov–Lauda–Rouquier (KLR) categorification replace?"
+          }
+        ],
+        "title": "Affine, KZ, and categorification"
+      }
+    }
+  },
+  "quaternions-octonions-and-division-algebras": {
+    "topic": "quaternions-octonions-and-division-algebras",
+    "quizzes": {
+      "qoda-quaternions": {
+        "title": "Quaternions $\\mathbb{H}$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Using $i^2=j^2=k^2=ijk=-1$, what is $ji$?",
+            "choices": [
+              "$k$",
+              "$-k$",
+              "$i$",
+              "$1$"
+            ],
+            "answer": 1,
+            "explain": "From $ijk=-1$ we get $ij=-k^{-1}=k$ (since $k^{-1}=-k$). Multiplying $ij=k$ on the left by $j^{-1}=-j$ and on the right by $i^{-1}=-i$ gives $ji=-k$. The quaternions are non-commutative: $ij=-ji$.",
+            "hint": "Multiply $ijk=-1$ on the right by $k^{-1}=-k$ to get $ij=k$, then use anticommutativity of $i,j$."
+          },
+          {
+            "type": "numeric",
+            "q": "What is $|q|^2$ for $q=1+i+2j-2k$?",
+            "answer": 10,
+            "tol": 0,
+            "explain": "$|q|^2=q\\overline q=a^2+b^2+c^2+d^2=1+1+4+4=10$. Then $q^{-1}=\\overline q/|q|^2=(1-i-2j+2k)/10$.",
+            "hint": "Sum the squares of the four real components."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following best describes $\\mathbb{H}$ as an algebra over $\\mathbb{R}$?",
+            "choices": [
+              "A 2-dimensional commutative field extension",
+              "A 4-dimensional associative non-commutative division algebra",
+              "A 4-dimensional commutative ring with zero divisors",
+              "An 8-dimensional non-associative algebra"
+            ],
+            "answer": 1,
+            "explain": "$\\mathbb{H}\\cong\\mathbb{R}^4$ is associative (matrix multiplication realises it), non-commutative ($ij=-ji$), and a division algebra (every non-zero $q$ has $q^{-1}=\\overline q/|q|^2$). It is the unique such object beyond $\\mathbb{R}$ and $\\mathbb{C}$ (Frobenius).",
+            "hint": "Count basis elements and check whether $i,j,k$ commute."
+          }
+        ]
+      },
+      "qoda-rotations": {
+        "title": "Unit quaternions and $\\mathrm{SU}(2)\\to\\mathrm{SO}(3)$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which manifold is the group of unit quaternions diffeomorphic to?",
+            "choices": [
+              "$S^2$",
+              "$S^3$",
+              "$\\mathbb{RP}^3$",
+              "$T^3$"
+            ],
+            "answer": 1,
+            "explain": "Unit quaternions are $\\{(a,b,c,d):a^2+b^2+c^2+d^2=1\\}\\subset\\mathbb{R}^4$, which is exactly $S^3$. As a Lie group this is $\\mathrm{Sp}(1)\\cong\\mathrm{SU}(2)$. Quotienting by $\\{\\pm 1\\}$ gives $\\mathrm{SO}(3)\\cong\\mathbb{RP}^3$.",
+            "hint": "Solve $|q|^2=1$ in $\\mathbb{R}^4$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the kernel of the conjugation map $\\mathrm{SU}(2)\\to\\mathrm{SO}(3),\\ q\\mapsto(v\\mapsto qvq^{-1})$ acting on $\\mathrm{Im}\\,\\mathbb{H}\\cong\\mathbb{R}^3$?",
+            "choices": [
+              "Trivial — the map is an isomorphism",
+              "$\\{\\pm 1\\}\\cong\\mathbb{Z}/2$",
+              "$\\{1,i,-1,-i\\}\\cong\\mathbb{Z}/4$",
+              "The whole centre $\\mathrm{U}(1)$"
+            ],
+            "answer": 1,
+            "explain": "$qvq^{-1}=v$ for every imaginary $v$ forces $q$ to commute with all of $\\mathrm{Im}\\,\\mathbb{H}$, so $q\\in\\mathbb{R}\\cap S^3=\\{\\pm 1\\}$. Thus $\\mathrm{SO}(3)\\cong\\mathrm{SU}(2)/\\{\\pm 1\\}$ — the famous double cover.",
+            "hint": "$q$ must commute with $i,j,k$; the centre of $\\mathbb{H}$ is $\\mathbb{R}$."
+          },
+          {
+            "type": "mcq",
+            "q": "If $q=\\cos(\\theta/2)+\\sin(\\theta/2)\\,\\hat n$ with $\\hat n\\in\\mathrm{Im}\\,\\mathbb{H}$ a unit imaginary, what does the map $v\\mapsto qvq^{-1}$ do to $\\mathbb{R}^3=\\mathrm{Im}\\,\\mathbb{H}$?",
+            "choices": [
+              "Reflection across the plane $\\hat n^\\perp$",
+              "Rotation by $\\theta/2$ about $\\hat n$",
+              "Rotation by $\\theta$ about $\\hat n$",
+              "Translation by $\\hat n$"
+            ],
+            "answer": 2,
+            "explain": "Conjugation by a unit quaternion with half-angle $\\theta/2$ rotates $\\mathrm{Im}\\,\\mathbb{H}$ by the full angle $\\theta$ around the axis $\\hat n$. The half-angle is the source of the double cover: $q$ and $-q$ implement the same rotation.",
+            "hint": "Why is the cover 2-to-1? The half-angle in $q$ doubles when you conjugate."
+          }
+        ]
+      },
+      "qoda-cayley-dickson": {
+        "title": "Cayley–Dickson construction",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Going up the tower $\\mathbb{R}\\to\\mathbb{C}\\to\\mathbb{H}\\to\\mathbb{O}$, which property is lost at the step $\\mathbb{C}\\to\\mathbb{H}$?",
+            "choices": [
+              "Self-conjugation $x^*=x$",
+              "Commutativity",
+              "Associativity",
+              "The division-algebra property"
+            ],
+            "answer": 1,
+            "explain": "At each doubling something is sacrificed. $\\mathbb{R}\\to\\mathbb{C}$ loses $x^*=x$. $\\mathbb{C}\\to\\mathbb{H}$ loses commutativity ($ij\\neq ji$). $\\mathbb{H}\\to\\mathbb{O}$ loses associativity. $\\mathbb{O}\\to\\mathbb{S}$ (sedenions) loses the no-zero-divisor property.",
+            "hint": "Which of $i,j$ in $\\mathbb{H}$ commute? They don't."
+          },
+          {
+            "type": "numeric",
+            "q": "What is the real dimension of the algebra produced by 5 iterations of Cayley–Dickson starting at $\\mathbb{R}$ (so $\\mathbb{R},\\mathbb{C},\\mathbb{H},\\mathbb{O},\\mathbb{S},\\dots$ — the 5th doubling)?",
+            "answer": 32,
+            "tol": 0,
+            "explain": "Each step doubles dimension: $1\\to 2\\to 4\\to 8\\to 16\\to 32$. After $\\mathbb{O}$ comes the sedenions $\\mathbb{S}$ (dim 16); the 5th doubling gives the 32-dimensional 'trigintaduonions'. From $\\mathbb{S}$ on, zero divisors appear.",
+            "hint": "$2^5$."
+          },
+          {
+            "type": "mcq",
+            "q": "In Cayley–Dickson $(a,b)(c,d)=(ac-d^*b,da+bc^*)$ starting from $A=\\mathbb{R}$ (so $a^*=a$), what algebra does the first doubling produce?",
+            "choices": [
+              "$\\mathbb{R}\\oplus\\mathbb{R}$",
+              "$\\mathbb{C}$",
+              "$\\mathbb{H}$",
+              "$\\mathbb{R}[t]/(t^2-1)$"
+            ],
+            "answer": 1,
+            "explain": "Setting $i=(0,1)$, the formula gives $i^2=(0,1)(0,1)=(-1\\cdot 1,\\ 0)=-1$. The doubling of $\\mathbb{R}$ is $\\mathbb{C}$, with conjugation $(a,b)^*=(a,-b)$ recovering the usual complex conjugate.",
+            "hint": "Compute $(0,1)(0,1)$."
+          }
+        ]
+      },
+      "qoda-octonions": {
+        "title": "Octonions $\\mathbb{O}$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which identity holds in $\\mathbb{O}$ but is strictly weaker than associativity?",
+            "choices": [
+              "Commutativity $xy=yx$",
+              "Alternativity: $x(xy)=(xx)y$ and $(yx)x=y(xx)$",
+              "Power-distributivity $x^n y=yx^n$",
+              "Bracket-Jacobi $[x,[y,z]]+[y,[z,x]]+[z,[x,y]]=0$"
+            ],
+            "answer": 1,
+            "explain": "$\\mathbb{O}$ is alternative: any subalgebra generated by two elements is associative, so $x(xy)=(xx)y$ and similar identities hold even though general triples can fail to associate. Artin's theorem: alternative $\\Leftrightarrow$ every two-generated subalgebra is associative.",
+            "hint": "Two-generated subalgebras are still associative."
+          },
+          {
+            "type": "numeric",
+            "q": "What is $\\dim_{\\mathbb R}\\mathbb{O}$?",
+            "answer": 8,
+            "tol": 0,
+            "explain": "$\\mathbb{O}$ is the Cayley–Dickson double of $\\mathbb{H}$, so $\\dim_{\\mathbb R}\\mathbb{O}=2\\cdot 4=8$, with basis $\\{1,e_1,\\dots,e_7\\}$.",
+            "hint": "Double the dimension of $\\mathbb{H}$."
+          },
+          {
+            "type": "mcq",
+            "q": "How many copies of $\\mathbb{H}$ sit inside $\\mathbb{O}$ as 4-dimensional associative subalgebras containing $1$?",
+            "choices": [
+              "3",
+              "5",
+              "7",
+              "21"
+            ],
+            "answer": 2,
+            "explain": "The 7 oriented lines of the Fano plane on $\\{e_1,\\dots,e_7\\}$ each pick out a triple $\\{e_a,e_b,e_c\\}$ closed under multiplication, generating with $1$ a quaternion subalgebra $\\mathbb{H}\\subset\\mathbb{O}$. So there are exactly 7 such copies of $\\mathbb{H}$.",
+            "hint": "Count the lines of the Fano plane."
+          }
+        ]
+      },
+      "qoda-frobenius-theorem": {
+        "title": "Frobenius's theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the exact statement of Frobenius's theorem (1877)?",
+            "choices": [
+              "Every commutative real algebra is $\\mathbb{R}$ or $\\mathbb{C}$.",
+              "The only finite-dimensional associative division algebras over $\\mathbb{R}$ are $\\mathbb{R}$, $\\mathbb{C}$, $\\mathbb{H}$.",
+              "The only normed real algebras are $\\mathbb{R},\\mathbb{C},\\mathbb{H},\\mathbb{O}$.",
+              "Every finite field extension of $\\mathbb{R}$ has degree $\\le 2$."
+            ],
+            "answer": 1,
+            "explain": "Frobenius classifies finite-dimensional $\\textbf{associative}$ division algebras over $\\mathbb{R}$: exactly $\\mathbb{R},\\mathbb{C},\\mathbb{H}$. Dropping associativity admits $\\mathbb{O}$ (Hurwitz, choice 3); finite extension fields of $\\mathbb{R}$ are $\\mathbb{R}$ or $\\mathbb{C}$ (choice 4 is true but is the algebraic-closure fact, not Frobenius).",
+            "hint": "Three algebras, all associative."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does Frobenius's argument force the dimension of an associative real division algebra to be $1$, $2$, or $4$?",
+            "choices": [
+              "Every real division algebra has a unique generator.",
+              "The orthogonal complement of $\\mathbb{R}$ is a Euclidean space, and one can only fit $0$, $1$, or $3$ pairwise-anticommuting unit vectors there forced by associativity.",
+              "Nakayama's lemma forces dimension $\\le 4$.",
+              "Real Banach algebras are at most $4$-dimensional."
+            ],
+            "answer": 1,
+            "explain": "Pick $x\\notin\\mathbb R$; its minimal polynomial is irreducible of degree $\\le 2$, so $x^2\\in\\mathbb R$. The pure-imaginary part of the algebra is Euclidean. Associativity plus unit-norm anticommutativity force exactly $0$, $1$, or $3$ generators ($\\mathbb R,\\mathbb C,\\mathbb H$); a fourth would violate $i(jk)=(ij)k$.",
+            "hint": "After a third generator $i,j,k$, where could a fourth go without breaking associativity?"
+          },
+          {
+            "type": "mcq",
+            "q": "Which of these is $\\textbf{not}$ a finite-dimensional associative real division algebra?",
+            "choices": [
+              "$\\mathbb{R}$",
+              "$\\mathbb{C}$",
+              "$\\mathbb{H}$",
+              "$\\mathbb{O}$"
+            ],
+            "answer": 3,
+            "explain": "$\\mathbb{O}$ is a division algebra but is non-associative, so it is excluded by Frobenius (which assumes associativity). It does appear in Hurwitz's broader classification of composition algebras.",
+            "hint": "Which one fails associativity?"
+          }
+        ]
+      },
+      "qoda-hurwitz-theorem": {
+        "title": "Hurwitz's theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Hurwitz's theorem (1898) classifies which class of real algebras?",
+            "choices": [
+              "Associative division algebras",
+              "Composition algebras (unital algebras with a quadratic norm satisfying $|xy|=|x||y|$)",
+              "Lie algebras with non-degenerate Killing form",
+              "Commutative rings with $1$"
+            ],
+            "answer": 1,
+            "explain": "Hurwitz: the only finite-dimensional real composition algebras are $\\mathbb{R},\\mathbb{C},\\mathbb{H},\\mathbb{O}$. The $\\textbf{norm-multiplicative}$ condition $|xy|=|x||y|$ is the key — it forces dimension $\\in\\{1,2,4,8\\}$.",
+            "hint": "What does $|xy|=|x||y|$ characterise?"
+          },
+          {
+            "type": "numeric",
+            "q": "How many distinct finite-dimensional real $\\textbf{composition}$ algebras are there, up to isomorphism (Hurwitz)?",
+            "answer": 4,
+            "tol": 0,
+            "explain": "Exactly four: $\\mathbb{R},\\mathbb{C},\\mathbb{H},\\mathbb{O}$, of dimensions $1,2,4,8$. The dimension restriction matches the Bott–Milnor/Kervaire result that $\\mathbb{R}^n$ admits a continuous bilinear product without zero divisors only for $n\\in\\{1,2,4,8\\}$.",
+            "hint": "Four dimensions: $1,2,4,8$."
+          },
+          {
+            "type": "mcq",
+            "q": "The classical identity $(a^2+b^2+c^2+d^2)(e^2+f^2+g^2+h^2)=$ (sum of four squares) is an instance of which structure?",
+            "choices": [
+              "The norm being multiplicative on $\\mathbb{C}$",
+              "The norm being multiplicative on $\\mathbb{H}$ (Euler's four-square identity)",
+              "The Pythagorean theorem in $\\mathbb{R}^4$",
+              "Frobenius reciprocity"
+            ],
+            "answer": 1,
+            "explain": "Euler's four-square identity is exactly $|q|^2|q'|^2=|qq'|^2$ for $q,q'\\in\\mathbb{H}$ — the multiplicativity of the quaternion norm. The eight-square identity (Degen) similarly comes from $\\mathbb{O}$. There is no $16$-square identity, matching the failure of Cayley–Dickson at the sedenion step.",
+            "hint": "Four squares = quaternion norm."
+          }
+        ]
+      }
+    }
+  },
   "random-walks-and-mixing": {
     "topic": "random-walks-and-mixing",
     "quizzes": {
@@ -34560,6 +39200,526 @@ window.MVQuizBank = {
       }
     }
   },
+  "resolution-of-singularities": {
+    "topic": "resolution-of-singularities",
+    "quizzes": {
+      "ros-singular-vs-smooth": {
+        "title": "Singular vs smooth",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "At which point of $V(y^2 - x^3) \\subset \\mathbb{A}^2$ does the Jacobian criterion detect a singularity?",
+            "choices": [
+              "$(1, 1)$",
+              "$(0, 0)$",
+              "$(-1, -1)$",
+              "$(2, 2\\sqrt{2})$"
+            ],
+            "answer": 1,
+            "explain": "$f = y^2 - x^3$ has $\\partial_x f = -3x^2$, $\\partial_y f = 2y$. Both vanish only at the origin, where $f$ also vanishes — that is the cusp."
+          },
+          {
+            "type": "mcq",
+            "q": "For the nodal curve $y^2 = x^2 + x^3$ at the origin, what is the tangent cone?",
+            "choices": [
+              "A single line $y = 0$",
+              "The pair of lines $y = x$ and $y = -x$",
+              "The full plane $\\mathbb{A}^2$",
+              "Empty"
+            ],
+            "answer": 1,
+            "explain": "The lowest-degree term is $y^2 - x^2 = (y-x)(y+x)$, so the tangent cone is the union of the two lines $y = \\pm x$."
+          },
+          {
+            "type": "mcq",
+            "q": "If $X \\subset \\mathbb{A}^n$ is cut out by $r$ equations and $\\dim X = d$ at $p$, smoothness at $p$ means the Jacobian rank is:",
+            "choices": [
+              "exactly $d$",
+              "exactly $n - d$",
+              "exactly $r$",
+              "at most $r$"
+            ],
+            "answer": 1,
+            "explain": "Smoothness asks the codimension to be cut out transversally, so $\\mathrm{rank}\\,J(p) = n - d$. Equivalently, $\\dim T_p X = d$."
+          }
+        ]
+      },
+      "ros-blow-up": {
+        "title": "Blowing up",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On the blow-up $\\mathrm{Bl}_0 \\mathbb{A}^2 \\subset \\mathbb{A}^2 \\times \\mathbb{P}^1$, the exceptional divisor over the origin is:",
+            "choices": [
+              "a single point",
+              "a copy of $\\mathbb{P}^1$",
+              "a pair of disjoint points",
+              "all of $\\mathbb{A}^2$"
+            ],
+            "answer": 1,
+            "explain": "The fiber over $0$ is the projectivization of the tangent space — for $\\mathbb{A}^2$ that is $\\mathbb{P}^1$, parametrising lines through the origin."
+          },
+          {
+            "type": "mcq",
+            "q": "Which property characterises the blow-up $\\mathrm{Bl}_Z X$ as a universal object?",
+            "choices": [
+              "It is the unique smooth model of $X$",
+              "It is the smallest variety containing $Z$",
+              "It is universal among $X$-schemes on which the ideal sheaf $\\mathcal{I}_Z$ pulls back to a locally principal (Cartier) ideal",
+              "It is the normalisation of $X$"
+            ],
+            "answer": 2,
+            "explain": "The blow-up is defined by exactly this universal property: any map $f : Y \\to X$ with $f^{-1}\\mathcal{I}_Z$ invertible factors uniquely through $\\mathrm{Bl}_Z X$."
+          },
+          {
+            "type": "mcq",
+            "q": "Outside the centre $Z$, the blow-up morphism $\\pi : \\mathrm{Bl}_Z X \\to X$ is:",
+            "choices": [
+              "an isomorphism",
+              "a finite cover of degree $> 1$",
+              "a closed immersion",
+              "a constant map"
+            ],
+            "answer": 0,
+            "explain": "$\\pi$ is birational and changes nothing away from $Z$. It is an isomorphism on the open complement $X \\setminus Z$."
+          }
+        ]
+      },
+      "ros-resolution-statement": {
+        "title": "Hironaka's theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Hironaka's theorem (1964) guarantees a proper birational $\\pi : \\tilde X \\to X$ with $\\tilde X$ smooth, under which assumption?",
+            "choices": [
+              "$X$ is projective",
+              "$X$ is defined over a field of characteristic $0$",
+              "$X$ has only nodal singularities",
+              "$X$ is a curve"
+            ],
+            "answer": 1,
+            "explain": "The classical statement is for varieties over a field of characteristic zero. Positive-characteristic resolution is open in dimension $\\ge 4$."
+          },
+          {
+            "type": "mcq",
+            "q": "Where does Hironaka's resolution agree with $X$?",
+            "choices": [
+              "Only at one chosen point",
+              "Everywhere — it is an isomorphism globally",
+              "On the smooth locus of $X$",
+              "On the singular locus of $X$"
+            ],
+            "answer": 2,
+            "explain": "By construction $\\pi$ is an iso over the smooth open subset; only the singular locus gets modified."
+          },
+          {
+            "type": "mcq",
+            "q": "Hironaka's proof produces $\\tilde X$ as:",
+            "choices": [
+              "a single blow-up at the singular locus",
+              "the normalisation of $X$",
+              "a finite sequence of blow-ups along smooth centres inside the singular locus",
+              "a quotient by a finite group"
+            ],
+            "answer": 2,
+            "explain": "The argument tracks an invariant (multiplicity, Hilbert–Samuel function) that strictly drops after each blow-up at a carefully chosen smooth centre, terminating in a smooth model."
+          }
+        ]
+      },
+      "ros-curves": {
+        "title": "Resolving curves",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Blowing up the cusp $y^2 = x^3$ at the origin yields a curve whose strict transform is:",
+            "choices": [
+              "still cuspidal",
+              "smooth, parametrised by $t \\mapsto (t^2, t^3)$",
+              "two transverse smooth branches",
+              "empty"
+            ],
+            "answer": 1,
+            "explain": "Setting $y = tx$ gives $t^2 x^2 = x^3$, i.e. $x = t^2$ on the strict transform; then $y = t \\cdot t^2 = t^3$. The single smooth point $t = 0$ replaces the cusp."
+          },
+          {
+            "type": "mcq",
+            "q": "The normalisation $\\tilde C \\to C$ of an irreducible nodal curve $C$ separates the node into:",
+            "choices": [
+              "one smooth point",
+              "two distinct smooth points (one per branch)",
+              "a $\\mathbb{P}^1$",
+              "a non-reduced point"
+            ],
+            "answer": 1,
+            "explain": "Normalisation pulls apart the two analytic branches that the node identifies; each branch contributes one smooth preimage."
+          },
+          {
+            "type": "mcq",
+            "q": "Which constructions give the same resolution of a planar curve singularity?",
+            "choices": [
+              "Normalisation only",
+              "Blow-up of the singular point only",
+              "Newton–Puiseux parametrisation only",
+              "All three agree in dimension one"
+            ],
+            "answer": 3,
+            "explain": "For curves, normalisation, iterated blow-ups, and Puiseux parametrisations all produce the same smooth model — the curve case is essentially settled."
+          }
+        ]
+      },
+      "ros-surfaces": {
+        "title": "Surface singularities (ADE)",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The dual graph of the minimal resolution of the $A_n$ surface singularity $x^2 + y^2 + z^{n+1} = 0$ is:",
+            "choices": [
+              "a single $\\mathbb{P}^1$",
+              "a chain of $n$ rational curves $\\mathbb{P}^1$",
+              "a star with three arms",
+              "a cycle of length $n$"
+            ],
+            "answer": 1,
+            "explain": "The exceptional divisor is a chain of $n$ smooth rational curves with intersection matrix $-\\mathrm{Cartan}(A_n)$ — the $A_n$ Dynkin diagram."
+          },
+          {
+            "type": "mcq",
+            "q": "Brieskorn realised the ADE surface singularities as quotients $\\mathbb{C}^2 / \\Gamma$ where $\\Gamma$ is:",
+            "choices": [
+              "any cyclic group",
+              "any finite subgroup of $\\mathrm{GL}_2(\\mathbb{C})$",
+              "a finite subgroup of $\\mathrm{SL}_2(\\mathbb{C})$",
+              "$\\mathbb{Z}/n$ acting trivially"
+            ],
+            "answer": 2,
+            "explain": "Finite subgroups of $\\mathrm{SL}_2(\\mathbb{C})$ are classified by ADE: cyclic ($A_n$), binary dihedral ($D_n$), and binary tetrahedral / octahedral / icosahedral ($E_6, E_7, E_8$)."
+          },
+          {
+            "type": "mcq",
+            "q": "The McKay correspondence pairs:",
+            "choices": [
+              "irreducible representations of $\\Gamma$ (other than the trivial one) with exceptional curves of the resolution",
+              "elements of $\\Gamma$ with components of $X$",
+              "characters of $\\Gamma$ with cohomology classes of $X$",
+              "Sylow subgroups of $\\Gamma$ with branch points"
+            ],
+            "answer": 0,
+            "explain": "Non-trivial irreps of $\\Gamma \\subset \\mathrm{SL}_2(\\mathbb{C})$ correspond bijectively to vertices of the Dynkin diagram, i.e. exceptional $\\mathbb{P}^1$'s in the minimal resolution."
+          }
+        ]
+      },
+      "ros-applications": {
+        "title": "Applications & frontiers",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In Mori's minimal model program, the role of resolution is to:",
+            "choices": [
+              "produce the unique smooth projective model",
+              "give a smooth starting point from which to contract extremal rays toward a minimal model",
+              "compute Hodge numbers",
+              "replace a variety by its dual"
+            ],
+            "answer": 1,
+            "explain": "MMP starts from a smooth (resolved) projective variety and runs a sequence of contractions and flips to reach a minimal or canonical model."
+          },
+          {
+            "type": "mcq",
+            "q": "A 'log resolution' of a pair $(X, D)$ produces a smooth $\\tilde X$ on which:",
+            "choices": [
+              "$D$ is contracted to a point",
+              "the total transform of $D$ together with the exceptional divisor is a simple normal crossing divisor",
+              "$D$ becomes ample",
+              "$\\tilde X$ is itself singular but $D$ is smooth"
+            ],
+            "answer": 1,
+            "explain": "Log resolution asks the preimage of $D$ plus exceptional divisors to have only transversal smooth components — the SNC condition powers motivic integration and weak factorisation."
+          },
+          {
+            "type": "mcq",
+            "q": "Which problem is still open as of today?",
+            "choices": [
+              "Resolution of singularities for curves",
+              "Resolution of surfaces in characteristic $0$",
+              "Resolution of singularities in characteristic $p$ in dimension $\\ge 4$",
+              "Resolution for ADE surface singularities"
+            ],
+            "answer": 2,
+            "explain": "Hironaka settled char 0 in all dimensions; Abhyankar and Cossart–Piltant settled char $p$ up to dimension 3. Higher dimensions remain open; de Jong's alterations are the best general substitute."
+          }
+        ]
+      }
+    }
+  },
+  "ricci-flow": {
+    "topic": "ricci-flow",
+    "quizzes": {
+      "rf-equation": {
+        "title": "The Ricci flow equation",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Hamilton's Ricci flow equation reads:",
+            "choices": [
+              "$\\partial_t g_{ij} = +2 R_{ij}$",
+              "$\\partial_t g_{ij} = -2 R_{ij}$",
+              "$\\partial_t g_{ij} = -\\Delta g_{ij}$",
+              "$\\partial_t g_{ij} = R\\,g_{ij}$"
+            ],
+            "answer": 1,
+            "hint": "The metric evolves opposite to the Ricci curvature.",
+            "explain": "The flow is $\\partial_t g_{ij}=-2R_{ij}$. The minus sign tries to round out positive curvature and stretch out negative curvature; the factor of 2 matches the Bianchi identity normalisation that makes the equation parabolic."
+          },
+          {
+            "type": "mcq",
+            "q": "On an Einstein metric $\\mathrm{Ric}=\\lambda g$, the Ricci flow starting from $g_0$ is given by:",
+            "choices": [
+              "$g(t) = g_0$ (stationary)",
+              "$g(t) = (1 - 2\\lambda t)\\,g_0$",
+              "$g(t) = e^{-2\\lambda t}\\,g_0$",
+              "$g(t) = g_0 + t\\cdot\\mathrm{Ric}(g_0)$"
+            ],
+            "answer": 1,
+            "hint": "Try the ansatz $g(t)=\\rho(t)g_0$ and substitute.",
+            "explain": "If $g(t)=\\rho(t)g_0$ then $R_{ij}(g(t))=R_{ij}(g_0)=\\lambda g_0{}_{ij}$ (Ricci is invariant under constant rescaling). So $\\rho'(t)=-2\\lambda$, giving $\\rho(t)=1-2\\lambda t$. Spheres ($\\lambda>0$) shrink to a point at $t=1/(2\\lambda)$; hyperbolic metrics ($\\lambda<0$) expand."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is Ricci flow described as a 'heat equation for the metric'?",
+            "choices": [
+              "It dissipates energy by the heat-kernel formula.",
+              "In harmonic coordinates the principal part is $\\partial_t g_{ij}=\\Delta g_{ij}+\\text{lower order}$.",
+              "It is identical to the heat equation $u_t=\\Delta u$.",
+              "It satisfies the maximum principle for $g$ itself."
+            ],
+            "answer": 1,
+            "hint": "Look at the linearisation in a good coordinate gauge.",
+            "explain": "In harmonic coordinates $-2R_{ij}=\\Delta g_{ij}+Q(g,\\partial g)$ where $Q$ collects nonlinear lower-order terms. So Ricci flow is a quasilinear parabolic system whose principal symbol is the rough Laplacian — that is the precise sense in which it is a heat equation for $g$."
+          }
+        ]
+      },
+      "rf-short-time": {
+        "title": "Short-time existence and DeTurck",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Hamilton's short-time existence theorem says that for any smooth initial metric $g_0$ on a closed manifold:",
+            "choices": [
+              "the Ricci flow exists for all time $t\\ge 0$",
+              "a smooth solution exists on a maximal interval $[0,T)$ with $T>0$, and is unique",
+              "a solution exists only if $g_0$ has positive Ricci curvature",
+              "no smooth solution exists in general"
+            ],
+            "answer": 1,
+            "hint": "Compactness and parabolic-system theory give existence + uniqueness up to a maximal time.",
+            "explain": "On a closed manifold there is a unique smooth solution on some $[0,T)$ with $T>0$, and $T$ is maximal: either $T=\\infty$ or curvature blows up as $t\\to T$. The proof requires repairing parabolicity via DeTurck."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the bare Ricci flow equation NOT strictly parabolic?",
+            "choices": [
+              "Its symbol has a positive eigenvalue.",
+              "Diffeomorphism invariance produces a kernel in the principal symbol along gauge directions.",
+              "$R_{ij}$ is a rank-2 tensor, so the equation has too many components.",
+              "It is third order, not second order."
+            ],
+            "answer": 1,
+            "hint": "If $\\phi_t$ is a 1-parameter family of diffeomorphisms, $\\phi_t^* g(t)$ also solves Ricci flow.",
+            "explain": "Because Ricci flow is invariant under pull-back by diffeomorphisms, infinitesimal gauge changes $\\mathcal{L}_X g$ lie in the kernel of the linearised principal symbol. So the system is only weakly parabolic; strict parabolicity (and standard PDE theory) fails until the gauge is fixed."
+          },
+          {
+            "type": "mcq",
+            "q": "DeTurck's trick repairs parabolicity by:",
+            "choices": [
+              "discretising time with implicit Euler",
+              "adding $\\mathcal{L}_W g$ for a vector field $W$ chosen so the modified flow is strictly parabolic, then pulling back by $\\phi_t^{-1}$ to recover Ricci flow",
+              "switching to harmonic coordinates everywhere on $M$",
+              "subtracting the trace $-\\tfrac{1}{n}R\\,g$"
+            ],
+            "answer": 1,
+            "hint": "The added term is a Lie derivative chosen to cancel the gauge degeneracy.",
+            "explain": "DeTurck adds $\\mathcal{L}_W g$ where $W^k = g^{ij}(\\Gamma^k_{ij}-\\tilde\\Gamma^k_{ij})$ relative to a fixed background metric. The modified flow is strictly parabolic and has a unique solution by standard theory; pulling back along the diffeomorphisms generated by $-W$ recovers an honest Ricci flow."
+          }
+        ]
+      },
+      "rf-singularities": {
+        "title": "Singularities and ancient solutions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "If a Ricci flow on a closed manifold reaches its maximal time $T<\\infty$, what must happen?",
+            "choices": [
+              "the volume goes to zero",
+              "$\\sup_M |\\mathrm{Rm}|(\\cdot,t)\\to\\infty$ as $t\\to T$",
+              "the diameter stays bounded",
+              "nothing — solutions can simply stop"
+            ],
+            "answer": 1,
+            "hint": "Smooth solutions extend past $T$ unless a quantity blows up.",
+            "explain": "Hamilton's continuation criterion: a smooth Ricci flow on a closed manifold extends past $T$ unless $\\sup |\\mathrm{Rm}|\\to\\infty$ as $t\\to T$. Curvature blow-up is the only obstruction to long-time existence."
+          },
+          {
+            "type": "mcq",
+            "q": "A Type I singularity is one where, near the singular time $T$:",
+            "choices": [
+              "$|\\mathrm{Rm}|(T-t)\\to 0$",
+              "$\\sup |\\mathrm{Rm}|(T-t)$ stays bounded",
+              "$\\sup |\\mathrm{Rm}| \\le C/(T-t)$ for some constant $C$",
+              "$\\sup |\\mathrm{Rm}| \\ge C/(T-t)^2$"
+            ],
+            "answer": 2,
+            "hint": "Type I = the natural parabolic blow-up rate.",
+            "explain": "$|\\mathrm{Rm}|$ scales like $1/\\text{(distance to singular time)}$ under parabolic rescaling. Type I means this rate is achieved as an upper bound; Type II is supercritical (e.g. degenerate neckpinches); Type III is for immortal flows."
+          },
+          {
+            "type": "mcq",
+            "q": "Parabolic rescaling about a singular point produces, in the limit, a solution defined for all $t\\in(-\\infty,0]$. Such a solution is called:",
+            "choices": [
+              "an Einstein flow",
+              "an ancient solution",
+              "an immortal solution",
+              "a heat kernel"
+            ],
+            "answer": 1,
+            "hint": "It exists arbitrarily far back in time.",
+            "explain": "An ancient solution is a Ricci flow defined on $(-\\infty,T_0]$. Hamilton and Perelman showed that blow-up limits at Type I/II singularities are $\\kappa$-noncollapsed ancient solutions, and tangent flows of these encode the local geometry of the singularity."
+          }
+        ]
+      },
+      "rf-soliton": {
+        "title": "Ricci solitons",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A Ricci soliton is a metric $g_0$ together with a vector field $X$ and constant $\\lambda$ such that:",
+            "choices": [
+              "$\\mathrm{Ric}(g_0) = 0$",
+              "$\\mathrm{Ric}(g_0) + \\tfrac12 \\mathcal{L}_X g_0 = \\lambda\\, g_0$",
+              "$\\mathrm{Ric}(g_0) = \\lambda\\, g_0$ only",
+              "$\\Delta g_0 = -2\\,\\mathrm{Ric}(g_0)$"
+            ],
+            "answer": 1,
+            "hint": "The metric should evolve only by scaling and pull-back along $X$'s flow.",
+            "explain": "The soliton equation $\\mathrm{Ric}+\\tfrac12\\mathcal{L}_X g=\\lambda g$ encodes self-similarity: $g(t)=\\sigma(t)\\phi_t^* g_0$ with $\\sigma(t)=1-2\\lambda t$ and $\\phi_t$ the flow of $X/\\sigma(t)$ solves Ricci flow. Einstein metrics are the special case $X=0$."
+          },
+          {
+            "type": "mcq",
+            "q": "A soliton is called shrinking, steady, or expanding according to the sign of $\\lambda$. Which is which?",
+            "choices": [
+              "shrinking $\\lambda<0$, steady $\\lambda=0$, expanding $\\lambda>0$",
+              "shrinking $\\lambda>0$, steady $\\lambda=0$, expanding $\\lambda<0$",
+              "shrinking $\\lambda=0$, steady $\\lambda>0$, expanding $\\lambda<0$",
+              "the sign of $\\lambda$ does not determine the type"
+            ],
+            "answer": 1,
+            "hint": "Recall $\\sigma(t)=1-2\\lambda t$.",
+            "explain": "$\\lambda>0$ gives $\\sigma(t)$ decreasing — the metric shrinks (and goes singular at $t=1/(2\\lambda)$); $\\lambda=0$ gives $\\sigma\\equiv 1$ — translating soliton; $\\lambda<0$ gives $\\sigma$ increasing — the metric expands."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is a steady Ricci soliton?",
+            "choices": [
+              "the round sphere $S^n$",
+              "Hamilton's cigar soliton on $\\mathbb{R}^2$",
+              "hyperbolic space $\\mathbb{H}^n$",
+              "the standard Euclidean metric on $\\mathbb{R}^n$"
+            ],
+            "answer": 1,
+            "hint": "Steady = $\\lambda=0$, gradient soliton on a non-compact surface.",
+            "explain": "Hamilton's cigar $g=\\frac{dx^2+dy^2}{1+x^2+y^2}$ on $\\mathbb{R}^2$ is the canonical 2-D steady gradient soliton. The round sphere is shrinking ($\\lambda>0$, Einstein); hyperbolic space is expanding ($\\lambda<0$); flat $\\mathbb{R}^n$ is static (also a degenerate soliton)."
+          }
+        ]
+      },
+      "rf-surgery": {
+        "title": "Surgery on $\\epsilon$-necks",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "An $\\epsilon$-neck in a 3-D Ricci flow is a region of the manifold which, after rescaling so that the curvature is order 1, is $\\epsilon$-close in $C^k$ to:",
+            "choices": [
+              "a piece of round 3-sphere $S^3$",
+              "a piece of round cylinder $S^2\\times\\mathbb{R}$",
+              "the Bryant soliton",
+              "flat $\\mathbb{R}^3$"
+            ],
+            "answer": 1,
+            "hint": "Necks look long and thin — one dimension is stretched.",
+            "explain": "An $\\epsilon$-neck is a region modelled on $S^{n-1}\\times[-\\epsilon^{-1},\\epsilon^{-1}]$ (in 3-D: $S^2\\times\\mathbb{R}$) after parabolic rescaling. Singular regions in 3-D Ricci flow develop $\\epsilon$-necks generically."
+          },
+          {
+            "type": "mcq",
+            "q": "Surgery on an $\\epsilon$-neck consists of:",
+            "choices": [
+              "smoothing the metric by averaging",
+              "cutting the neck along a 2-sphere cross-section and gluing in two standard caps",
+              "removing the entire connected component containing the neck",
+              "letting the flow evolve through the singularity unmodified"
+            ],
+            "answer": 1,
+            "hint": "Topologically: cut $S^2\\times\\mathbb{R}$ at a slice, cap off both pieces with $D^3$.",
+            "explain": "Cut along a cross-sectional $S^2$ inside the neck and glue a standard cap (a $D^3$ with a controlled metric) onto each side. The resulting manifold may have more components, but each surgery is a simple topological operation: removal of a $S^2\\times I$ and attachment of two 3-balls."
+          },
+          {
+            "type": "mcq",
+            "q": "On any finite time interval, Hamilton–Perelman surgery requires:",
+            "choices": [
+              "uncountably many surgeries",
+              "only finitely many surgeries, and they have no accumulation point",
+              "exactly one surgery per singular time",
+              "infinitely many surgeries that accumulate at every singular time"
+            ],
+            "answer": 1,
+            "hint": "Volume bounds and noncollapsing limit how often surgery can fire.",
+            "explain": "Perelman's noncollapsing and curvature estimates ensure that surgery scales stay bounded below on each finite interval and that volume drops by a fixed amount per surgery, so surgery times are isolated and finite-in-number on any $[0,T]$."
+          }
+        ]
+      },
+      "rf-poincare-thurston": {
+        "title": "Poincaré conjecture and geometrisation",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Perelman's proof of the Poincaré conjecture shows that on any closed simply connected 3-manifold $M$, Ricci flow with surgery:",
+            "choices": [
+              "exists for all time without surgery",
+              "becomes extinct (the manifold disappears) in finite time",
+              "converges to a hyperbolic metric",
+              "produces a flat metric in the limit"
+            ],
+            "answer": 1,
+            "hint": "Extinction means $M$ becomes empty after finitely many surgeries.",
+            "explain": "Perelman proved that Ricci flow with surgery on a closed simply connected 3-manifold becomes extinct in finite time. The path of surgeries shows $M$ is a connected sum of finitely many $S^3$'s and $S^2\\times S^1$'s; simple connectivity forces $M\\cong S^3$, proving Poincaré."
+          },
+          {
+            "type": "mcq",
+            "q": "Two of Perelman's monotone quantities along Ricci flow are:",
+            "choices": [
+              "the Euler characteristic and the genus",
+              "the $\\mathcal{F}$-entropy and the $\\mathcal{W}$-entropy (reduced volume)",
+              "the volume and the diameter",
+              "the first Betti number and the signature"
+            ],
+            "answer": 1,
+            "hint": "Both are functionals on metrics introduced specifically for Ricci flow.",
+            "explain": "The $\\mathcal{F}$-functional is monotone along Ricci flow (steady-soliton energy); the $\\mathcal{W}$-entropy is monotone along the flow combined with rescaling and gives the noncollapsing theorem. The reduced volume is the geometric counterpart."
+          },
+          {
+            "type": "mcq",
+            "q": "Thurston's geometrisation conjecture, proved by Perelman, says every closed orientable 3-manifold decomposes (along spheres and tori) into pieces each carrying one of:",
+            "choices": [
+              "exactly two model geometries",
+              "the eight Thurston geometries",
+              "infinitely many distinct geometries",
+              "either spherical or hyperbolic geometry only"
+            ],
+            "answer": 1,
+            "hint": "The list includes $S^3$, $\\mathbb{E}^3$, $\\mathbb{H}^3$, $S^2\\times\\mathbb{R}$, $\\mathbb{H}^2\\times\\mathbb{R}$, $\\widetilde{SL_2\\mathbb{R}}$, Nil, Sol.",
+            "explain": "Thurston's eight model geometries are the maximal simply connected homogeneous 3-spaces with cocompact isometry group. Geometrisation says every prime 3-manifold is built from pieces locally isometric to one of these; Ricci flow with surgery realises the decomposition geometrically."
+          }
+        ]
+      }
+    }
+  },
   "riemann-surfaces": {
     "topic": "riemann-surfaces",
     "quizzes": {
@@ -36357,6 +41517,232 @@ window.MVQuizBank = {
             ],
             "answer": 0,
             "explain": "Base change commutes with Proj: $\\mathbb P^1_{\\mathbb Z}\\times_{\\Spec\\mathbb Z}\\Spec\\kappa((p))=\\mathbb P^1_{\\mathbb F_p}$, and similarly the generic fiber is $\\mathbb P^1_{\\mathbb Q}$. The fibers are genuine $\\mathbb P^1$'s over each residue field — the 'arithmetic surface' $\\mathbb P^1_{\\mathbb Z}$ is a family of projective lines parametrized by $\\Spec\\mathbb Z$."
+          }
+        ]
+      }
+    }
+  },
+  "schrodinger-equation": {
+    "topic": "schrodinger-equation",
+    "quizzes": {
+      "se-time-dependent": {
+        "title": "Time-dependent Schrödinger equation",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why is $\\|\\psi(t)\\|_{L^2}$ conserved under $i\\hbar\\,\\partial_t\\psi = H\\psi$?",
+            "choices": [
+              "Because $H$ is self-adjoint, so $e^{-itH/\\hbar}$ is unitary.",
+              "Because $V$ is bounded below.",
+              "Because $\\psi$ is smooth in $t$.",
+              "Because $H$ is compact."
+            ],
+            "answer": 0,
+            "explain": "Self-adjointness of $H$ makes $U_t=e^{-itH/\\hbar}$ a strongly continuous unitary group (Stone), and unitaries preserve the $L^2$ norm exactly."
+          },
+          {
+            "type": "mcq",
+            "q": "For a free particle ($V=0$) in 1D, the Schrödinger equation $i\\hbar\\,\\partial_t\\psi = -\\frac{\\hbar^2}{2m}\\partial_{xx}\\psi$ relates to which classical PDE type?",
+            "choices": [
+              "Hyperbolic",
+              "Elliptic",
+              "Parabolic up to the factor $i$ (Schrödinger / imaginary-time heat)",
+              "First-order transport"
+            ],
+            "answer": 2,
+            "explain": "The principal symbol matches the heat equation up to a factor of $i$; substituting $t \\to -it$ gives a true parabolic equation, which is why Schrödinger evolution is sometimes called 'imaginary-time heat flow'."
+          },
+          {
+            "type": "numeric",
+            "q": "If $\\|\\psi(0)\\|_{L^2}^2 = 1$ and the Hamiltonian is self-adjoint, what is $\\|\\psi(10\\,\\mathrm{s})\\|_{L^2}^2$?",
+            "answer": 1,
+            "tol": 0.001,
+            "explain": "Unitary evolution preserves the $L^2$ norm exactly — total probability stays at 1 forever."
+          }
+        ]
+      },
+      "se-stationary": {
+        "title": "Stationary states",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "If $H\\varphi = E\\varphi$, how does the time-evolved state $\\psi(x,t)$ depend on $t$?",
+            "choices": [
+              "$\\psi(x,t) = \\varphi(x) + Et$",
+              "$\\psi(x,t) = e^{-iEt/\\hbar}\\varphi(x)$",
+              "$\\psi(x,t) = e^{Et/\\hbar}\\varphi(x)$",
+              "$\\psi(x,t) = \\cos(Et/\\hbar)\\,\\varphi(x)$"
+            ],
+            "answer": 1,
+            "explain": "Plug $\\psi=e^{-iEt/\\hbar}\\varphi$ into $i\\hbar\\,\\partial_t\\psi=H\\psi$: the LHS gives $E\\psi$, the RHS gives $E\\psi$. Stationary states evolve only by a global phase."
+          },
+          {
+            "type": "mcq",
+            "q": "What does 'stationary state' mean physically?",
+            "choices": [
+              "$\\psi$ doesn't change at all.",
+              "$|\\psi|^2$ — the probability density — is time-independent.",
+              "$\\psi$ is real.",
+              "$\\psi$ vanishes at infinity."
+            ],
+            "answer": 1,
+            "explain": "The phase $e^{-iEt/\\hbar}$ has modulus 1, so $|\\psi(x,t)|^2 = |\\varphi(x)|^2$ for all $t$. Observables are stationary; the wavefunction itself precesses in phase."
+          },
+          {
+            "type": "mcq",
+            "q": "Bound states of $H = -\\Delta + V$ correspond to which part of $\\sigma(H)$?",
+            "choices": [
+              "Continuous spectrum",
+              "Residual spectrum",
+              "Point spectrum (eigenvalues with $L^2$ eigenfunctions)",
+              "Resolvent set"
+            ],
+            "answer": 2,
+            "explain": "Bound states are normalizable eigenfunctions — they lie in $L^2$, so the corresponding $E$ is in the point spectrum. Scattering states (plane-wave-like) lie in the continuous spectrum."
+          }
+        ]
+      },
+      "se-harmonic-oscillator": {
+        "title": "Harmonic oscillator",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "What is the ground-state energy $E_0$ of the harmonic oscillator in units of $\\hbar\\omega$?",
+            "answer": 0.5,
+            "tol": 0.001,
+            "explain": "$E_n = \\hbar\\omega(n+\\tfrac{1}{2})$ gives $E_0 = \\tfrac{1}{2}\\hbar\\omega$ — the zero-point energy, a direct consequence of $[x,p]=i\\hbar$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the commutator $[a, a^\\dagger]$ for the ladder operators?",
+            "choices": [
+              "$0$",
+              "$1$",
+              "$i\\hbar$",
+              "$2a^\\dagger a$"
+            ],
+            "answer": 1,
+            "explain": "Direct computation from $a = \\sqrt{m\\omega/2\\hbar}(x+ip/m\\omega)$ and $[x,p]=i\\hbar$ gives $[a,a^\\dagger]=1$. This is the entire algebraic content of the oscillator."
+          },
+          {
+            "type": "numeric",
+            "q": "What is the energy spacing $E_{n+1} - E_n$ in units of $\\hbar\\omega$?",
+            "answer": 1,
+            "tol": 0.001,
+            "explain": "$E_{n+1}-E_n = \\hbar\\omega$ — uniform spacing is what makes the oscillator the workhorse of quantization (phonons, photons, Fock space)."
+          }
+        ]
+      },
+      "se-hydrogen": {
+        "title": "Hydrogen atom",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "If $E_1 = -13.6\\,\\mathrm{eV}$, what is $E_2$ in eV (to 2 decimals)?",
+            "answer": -3.4,
+            "tol": 0.05,
+            "explain": "$E_n = -E_0/n^2$, so $E_2 = -13.6/4 = -3.40\\,\\mathrm{eV}$. The Lyman-α transition $2\\to 1$ releases $13.6 - 3.4 = 10.2\\,\\mathrm{eV}$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the radial Schrödinger equation in spherical coordinates separate?",
+            "choices": [
+              "Because $V = -e^2/r$ is constant.",
+              "Because $V$ depends only on $r$ — the potential is rotation-invariant — so $H$ commutes with the angular momentum operators $L^2$ and $L_z$.",
+              "Because the wavefunction is radial.",
+              "Because $\\Delta$ in 3D is one-dimensional."
+            ],
+            "answer": 1,
+            "explain": "Rotational symmetry of $V(r)$ means $[H, L^2]=[H, L_z]=0$, so simultaneous eigenfunctions exist: $\\varphi_{n\\ell m} = R_{n\\ell}(r)\\,Y_\\ell^m(\\theta,\\phi)$."
+          },
+          {
+            "type": "numeric",
+            "q": "How many linearly independent bound states share energy $E_n$ for $n=2$ in hydrogen (ignoring spin)?",
+            "answer": 4,
+            "tol": 0,
+            "explain": "Hydrogen's degeneracy is $n^2$: for $n=2$ that's $4$ states ($2s$ plus three $2p$). The 'accidental' SO(4) symmetry — Runge–Lenz — makes states with different $\\ell$ degenerate."
+          }
+        ]
+      },
+      "se-scattering": {
+        "title": "Scattering and tunneling",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a 1D barrier of height $V_0$ and a particle with energy $E < V_0$, what does quantum mechanics predict?",
+            "choices": [
+              "Transmission is exactly zero.",
+              "Transmission is exactly one.",
+              "Transmission is non-zero (tunneling).",
+              "The particle reflects with infinite probability."
+            ],
+            "answer": 2,
+            "explain": "Inside the barrier the wavefunction decays as $e^{-\\kappa x}$ with $\\kappa = \\sqrt{2m(V_0-E)}/\\hbar$, but it doesn't vanish. Matching at the boundaries gives non-zero transmission — the foundation of $\\alpha$-decay and STM."
+          },
+          {
+            "type": "mcq",
+            "q": "Plane-wave solutions $e^{ikx}$ of $-\\Delta\\,\\psi = k^2\\psi$ are not in $L^2(\\mathbb{R})$. What does this mean spectrally?",
+            "choices": [
+              "They aren't valid solutions.",
+              "They lie in the continuous spectrum, not the point spectrum.",
+              "They are eigenvalues with finite-dimensional eigenspaces.",
+              "They contradict the spectral theorem."
+            ],
+            "answer": 1,
+            "explain": "Continuous spectrum means generalized (non-$L^2$) eigenfunctions; the rigorous treatment uses spectral measures or rigged Hilbert spaces. Wavepackets — superpositions $\\int c(k)e^{ikx}\\,dk$ — are the genuine $L^2$ states."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the relation between transmission $T$ and reflection $R$ for a 1D barrier?",
+            "choices": [
+              "$T + R = 0$",
+              "$T + R = 1$ (probability conservation)",
+              "$T - R = 1$",
+              "$T \\cdot R = 1$"
+            ],
+            "answer": 1,
+            "explain": "Conservation of probability current gives $T + R = 1$: every particle either transmits or reflects. This is the unitarity of the S-matrix in disguise."
+          }
+        ]
+      },
+      "se-path-integral-preview": {
+        "title": "Path integral preview",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In Feynman's path integral $\\int e^{iS[q]/\\hbar}\\,\\mathcal{D}q$, what is $S[q]$?",
+            "choices": [
+              "The Hamiltonian evaluated at the path.",
+              "The classical action $\\int L(q,\\dot q)\\,dt$ along the path.",
+              "The energy of the path.",
+              "The arc-length of the path."
+            ],
+            "answer": 1,
+            "explain": "$S[q] = \\int_{t_i}^{t_f} L(q,\\dot q,t)\\,dt$ is the classical action — the same one that's stationary on Euler–Lagrange trajectories."
+          },
+          {
+            "type": "mcq",
+            "q": "How does the classical limit $\\hbar \\to 0$ emerge from the path integral?",
+            "choices": [
+              "Only the classical path contributes; all others vanish.",
+              "Stationary phase: paths near $\\delta S = 0$ dominate; the rest cancel by oscillation.",
+              "The integral becomes Gaussian.",
+              "The integrand becomes 1."
+            ],
+            "answer": 1,
+            "explain": "As $\\hbar \\to 0$, the phase $e^{iS/\\hbar}$ oscillates wildly except at critical points of $S$ — paths satisfying $\\delta S = 0$, i.e. the Euler–Lagrange equation. This is the WKB / stationary-phase picture."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the path-integral measure $\\mathcal{D}q$ mathematically subtle?",
+            "choices": [
+              "It's a finite-dimensional integral.",
+              "There is no honest translation-invariant measure on path space; it's defined by limits of discretizations or by Wick rotation to the Wiener measure.",
+              "Paths are smooth.",
+              "The action is unbounded."
+            ],
+            "answer": 1,
+            "explain": "Lebesgue-style measures don't exist on infinite-dimensional spaces. Imaginary-time ($t\\to -i\\tau$) converts the oscillatory integral into a Gaussian one — the Wiener measure on Brownian paths — which is rigorously defined."
           }
         ]
       }
@@ -40563,6 +45949,275 @@ window.MVQuizBank = {
       }
     }
   },
+  "symplectic-manifolds": {
+    "topic": "symplectic-manifolds",
+    "quizzes": {
+      "sm-symplectic-form": {
+        "title": "Symplectic forms",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A symplectic form $\\omega$ on $M$ is a 2-form satisfying which two conditions?",
+            "choices": [
+              "Closed and pointwise non-degenerate",
+              "Exact and pointwise positive definite",
+              "Harmonic and integer-valued",
+              "Closed and rank one"
+            ],
+            "answer": 0,
+            "hint": "$d\\omega=0$ plus invertibility of $\\omega_p\\colon T_pM\\to T_p^*M$.",
+            "explain": "By definition $\\omega$ is symplectic when $d\\omega=0$ (closed) and $\\omega_p$ is non-degenerate at every $p$ (the induced map $T_pM\\to T_p^*M$, $v\\mapsto \\iota_v\\omega$, is an isomorphism). Positive definiteness is the wrong condition — $\\omega$ is alternating, not symmetric."
+          },
+          {
+            "type": "mcq",
+            "q": "Why must a symplectic manifold have even dimension?",
+            "choices": [
+              "Closed forms only exist in even dimensions.",
+              "An alternating non-degenerate bilinear form on $\\mathbb{R}^d$ exists only when $d$ is even.",
+              "Stokes's theorem fails in odd dimensions.",
+              "The Lie bracket vanishes in odd dimensions."
+            ],
+            "answer": 1,
+            "hint": "Think about the determinant of an antisymmetric matrix in odd size.",
+            "explain": "An antisymmetric $d\\times d$ matrix $A$ satisfies $\\det A = (-1)^d\\det A$, so $\\det A = 0$ when $d$ is odd. Non-degeneracy of $\\omega_p$ (an antisymmetric bilinear form on $T_pM$) is impossible in odd dimension."
+          },
+          {
+            "type": "mcq",
+            "q": "On a symplectic $2n$-manifold, the top exterior power $\\omega^n = \\omega\\wedge\\cdots\\wedge\\omega$ is...",
+            "choices": [
+              "always zero",
+              "a nowhere-vanishing volume form, so $M$ is canonically oriented",
+              "exact whenever $M$ is closed",
+              "a closed 1-form"
+            ],
+            "answer": 1,
+            "hint": "Non-degeneracy of $\\omega$ is equivalent to $\\omega^n\\ne 0$ pointwise.",
+            "explain": "Non-degeneracy of $\\omega$ at $p$ is equivalent to $\\omega_p^n\\ne 0\\in\\Lambda^{2n}T_p^*M$. So $\\omega^n$ is a nowhere-vanishing top form — a volume form — and it gives $M$ a canonical orientation. (When $M$ is closed, $\\omega$ cannot itself be exact: if $\\omega=d\\alpha$ then $\\omega^n=d(\\alpha\\wedge\\omega^{n-1})$ would integrate to $0$.)"
+          }
+        ]
+      },
+      "sm-darboux": {
+        "title": "Darboux's theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Darboux's theorem states that around every point of $(M^{2n},\\omega)$ there is a chart in which $\\omega$ equals which canonical form?",
+            "choices": [
+              "$\\sum_i x_i\\,dx_i$",
+              "$\\sum_i dp_i\\wedge dq_i$",
+              "$dx_1\\wedge dx_2\\wedge\\cdots\\wedge dx_{2n}$",
+              "$\\sum_i p_i\\,dq_i$"
+            ],
+            "answer": 1,
+            "hint": "Pairs of coordinates wedged together.",
+            "explain": "Darboux: there exist local coordinates $(p_1,\\dots,p_n,q_1,\\dots,q_n)$ in which $\\omega = \\sum_{i=1}^n dp_i\\wedge dq_i$. The form $\\sum p_i\\,dq_i$ is the Liouville/tautological 1-form whose exterior derivative is the canonical $\\omega$ on $T^*N$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the most striking pedagogical consequence of Darboux's theorem?",
+            "choices": [
+              "Symplectic manifolds are classified by their dimension.",
+              "There are no local invariants — all symplectic manifolds of dimension $2n$ are locally the same.",
+              "Every symplectic manifold is parallelisable.",
+              "Symplectic manifolds admit a Riemannian metric uniquely."
+            ],
+            "answer": 1,
+            "hint": "Compare with the Riemannian case (curvature) or the Kähler case (complex structure).",
+            "explain": "Darboux says there is no symplectic analogue of curvature: locally every $(M^{2n},\\omega)$ looks like $(\\mathbb{R}^{2n},\\omega_0)$. All symplectic invariants are global. Dimension alone does not classify globally — Gromov capacities, symplectic homology, and Floer-theoretic invariants distinguish symplectic manifolds with the same dimension."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is NOT a corollary of Darboux's theorem?",
+            "choices": [
+              "Every symplectic manifold of dimension $2$ is locally area-preserving-equivalent to $(\\mathbb{R}^2, dx\\wedge dy)$.",
+              "Every symplectic chart can be chosen so that $\\omega = \\sum dp_i\\wedge dq_i$ on its domain.",
+              "Every closed symplectic manifold is symplectomorphic to a torus.",
+              "There is no local symplectic curvature invariant."
+            ],
+            "answer": 2,
+            "hint": "Darboux is local; classification of closed symplectic manifolds is wide open.",
+            "explain": "Darboux gives local equivalence only. Globally, classifying closed symplectic manifolds is a hard, open problem (think Kähler vs non-Kähler, Gromov non-squeezing, exotic symplectic structures on $\\mathbb{R}^{2n}$). Tori are very far from being the only example."
+          }
+        ]
+      },
+      "sm-hamiltonian-flow": {
+        "title": "Hamiltonian flow",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Given $H\\colon M\\to\\mathbb{R}$, the Hamiltonian vector field $X_H$ is defined by which equation?",
+            "choices": [
+              "$X_H = \\nabla H$",
+              "$\\iota_{X_H}\\omega = dH$",
+              "$dX_H = H\\cdot\\omega$",
+              "$\\mathcal{L}_{X_H} H = \\omega$"
+            ],
+            "answer": 1,
+            "hint": "Use non-degeneracy of $\\omega$ to invert the differential of $H$.",
+            "explain": "The defining identity is $\\iota_{X_H}\\omega = dH$. Non-degeneracy of $\\omega$ means the bundle map $TM\\to T^*M$, $v\\mapsto\\iota_v\\omega$, is an isomorphism, so $dH$ has a unique pre-image $X_H$. The gradient $\\nabla H$ requires a metric, not a symplectic form."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the energy $H$ conserved along the flow of $X_H$?",
+            "choices": [
+              "Because $X_H$ is the gradient of $H$.",
+              "Because $X_H(H) = dH(X_H) = \\omega(X_H,X_H) = 0$ by antisymmetry.",
+              "Because $X_H$ vanishes wherever $H$ does.",
+              "Because $\\omega$ is exact."
+            ],
+            "answer": 1,
+            "hint": "Use the defining identity $\\iota_{X_H}\\omega = dH$ and that $\\omega$ is alternating.",
+            "explain": "$\\dot H = X_H(H) = dH(X_H) = (\\iota_{X_H}\\omega)(X_H) = \\omega(X_H,X_H) = 0$ since $\\omega$ is alternating. Energy conservation is automatic — built into the geometry, not an extra hypothesis."
+          },
+          {
+            "type": "mcq",
+            "q": "The flow of $X_H$ preserves the symplectic form $\\omega$ because Cartan's magic formula gives $\\mathcal{L}_{X_H}\\omega = $...",
+            "choices": [
+              "$d(\\iota_{X_H}\\omega) + \\iota_{X_H}d\\omega = ddH + 0 = 0$",
+              "$X_H\\cdot\\omega \\ne 0$",
+              "$\\iota_{X_H}\\omega = H$",
+              "$dH\\wedge\\omega$"
+            ],
+            "answer": 0,
+            "hint": "Cartan: $\\mathcal{L}_X = d\\iota_X + \\iota_X d$. Use $d\\omega=0$.",
+            "explain": "Cartan's formula gives $\\mathcal{L}_{X_H}\\omega = d(\\iota_{X_H}\\omega) + \\iota_{X_H}d\\omega = d(dH) + \\iota_{X_H}\\cdot 0 = 0+0 = 0$. So the flow $\\Phi_t^{X_H}$ is a symplectomorphism for every $t$ — Liouville's theorem in geometric form."
+          }
+        ]
+      },
+      "sm-poisson-bracket": {
+        "title": "Poisson bracket",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On a symplectic manifold the Poisson bracket of $f,g\\in C^\\infty(M)$ is defined as...",
+            "choices": [
+              "$\\{f,g\\} = fg - gf$",
+              "$\\{f,g\\} = \\omega(X_f, X_g)$",
+              "$\\{f,g\\} = df\\wedge dg$",
+              "$\\{f,g\\} = \\nabla f\\cdot\\nabla g$"
+            ],
+            "answer": 1,
+            "hint": "Plug the two Hamiltonian vector fields into $\\omega$.",
+            "explain": "By definition $\\{f,g\\} = \\omega(X_f,X_g) = X_f(g) = -X_g(f)$. The first equality is the definition; the others use $\\iota_{X_f}\\omega = df$. The bracket of ordinary functions is identically zero — they need to come from $\\omega$ to interact."
+          },
+          {
+            "type": "mcq",
+            "q": "Which structural property does $(C^\\infty(M),\\{\\cdot,\\cdot\\})$ NOT satisfy automatically?",
+            "choices": [
+              "Antisymmetry: $\\{f,g\\} = -\\{g,f\\}$",
+              "Jacobi identity",
+              "Leibniz rule: $\\{f,gh\\} = \\{f,g\\}h + g\\{f,h\\}$",
+              "Commutativity: $\\{f,g\\} = \\{g,f\\}$"
+            ],
+            "answer": 3,
+            "hint": "It's a Lie bracket, not a commutative product.",
+            "explain": "Antisymmetry, Jacobi, and Leibniz hold (the first two make it a Lie algebra; Leibniz makes it a Poisson algebra). Commutativity fails — the whole point of the bracket is to be antisymmetric, the opposite of commutative."
+          },
+          {
+            "type": "mcq",
+            "q": "Quantisation replaces the Poisson bracket of classical observables with which quantum object?",
+            "choices": [
+              "The product of operators $\\hat A\\hat B$",
+              "The commutator divided by $i\\hbar$, $[\\hat A,\\hat B]/(i\\hbar)$",
+              "The trace of $\\hat A\\hat B$",
+              "The expectation value $\\langle\\hat A\\hat B\\rangle$"
+            ],
+            "answer": 1,
+            "hint": "Dirac's correspondence principle.",
+            "explain": "The Dirac correspondence: $\\{f,g\\}\\leadsto [\\hat A,\\hat B]/(i\\hbar)$ where $\\hat A,\\hat B$ are the operators quantising $f,g$. To leading order in $\\hbar$ the quantum commutator reproduces the classical bracket — that is what makes geometric quantisation a quantisation."
+          }
+        ]
+      },
+      "sm-lagrangian-submanifolds": {
+        "title": "Lagrangian submanifolds",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A submanifold $L$ of a symplectic $(M^{2n},\\omega)$ is Lagrangian when which two conditions hold?",
+            "choices": [
+              "$\\dim L = 2n$ and $\\omega|_L = \\omega$",
+              "$\\dim L = n$ and $\\omega|_L = 0$",
+              "$\\dim L = n+1$ and $L$ is closed",
+              "$\\dim L = 1$ and $\\omega|_L\\ne 0$"
+            ],
+            "answer": 1,
+            "hint": "Half the dimension of $M$, and $\\omega$ vanishes on tangent vectors of $L$.",
+            "explain": "A Lagrangian is a maximal isotropic submanifold: $\\omega$ vanishes on $TL\\times TL$ (\"isotropic\") and $\\dim L = \\frac12\\dim M = n$ (\"maximal\"). Smaller-than-$n$ isotropics exist but are not Lagrangian."
+          },
+          {
+            "type": "mcq",
+            "q": "On the cotangent bundle $T^*N$ with its canonical $\\omega = -d\\lambda$, the zero section $\\{(x,0):x\\in N\\}$ is...",
+            "choices": [
+              "an open subset",
+              "a Lagrangian submanifold",
+              "a symplectic submanifold of half-rank",
+              "never embedded"
+            ],
+            "answer": 1,
+            "hint": "Compute $\\dim$ and check $\\omega$ on tangent vectors of the zero section.",
+            "explain": "The zero section has dimension $\\dim N = n = \\frac12\\dim T^*N$, and its tangent vectors all have momentum coordinate zero, so $\\omega = \\sum dp_i\\wedge dq_i$ vanishes on them. More generally the graph of any closed 1-form $\\alpha\\in\\Omega^1(N)$ is a Lagrangian in $T^*N$."
+          },
+          {
+            "type": "mcq",
+            "q": "A canonical relation between $(M_1,\\omega_1)$ and $(M_2,\\omega_2)$ is a Lagrangian submanifold of which symplectic manifold?",
+            "choices": [
+              "$(M_1\\times M_2,\\omega_1+\\omega_2)$",
+              "$(M_1\\times M_2,\\omega_1\\ominus\\omega_2)$ — i.e. $\\omega_1$ on the first factor minus $\\omega_2$ on the second",
+              "$(M_1\\sqcup M_2, \\omega_1\\sqcup\\omega_2)$",
+              "$(\\mathrm{Hom}(M_1,M_2),0)$"
+            ],
+            "answer": 1,
+            "hint": "Graphs of symplectomorphisms are the prototype — try $\\omega_1 - f^*\\omega_2$.",
+            "explain": "The product $(M_1\\times M_2,\\omega_1\\ominus\\omega_2 := \\pi_1^*\\omega_1 - \\pi_2^*\\omega_2)$ is the right symplectic structure: the graph of a symplectomorphism $f\\colon M_1\\to M_2$ is then a Lagrangian. Canonical relations compose Lagrangians and turn $\\mathbf{Symp}$ into a symplectic category."
+          }
+        ]
+      },
+      "sm-floer-homology-preview": {
+        "title": "Floer homology preview",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Hamiltonian Floer homology applies Morse-theoretic ideas to which functional, on which space?",
+            "choices": [
+              "The Dirichlet energy on the loop space of a Riemannian manifold",
+              "The symplectic action functional on the free loop space of a symplectic manifold",
+              "The Euler characteristic on configuration space",
+              "The Chern–Simons functional on a 3-manifold"
+            ],
+            "answer": 1,
+            "hint": "Hamiltonian flow has periodic orbits; those should be the critical points.",
+            "explain": "Floer studied $\\mathcal{A}_H(\\gamma) = \\int_{D^2}\\bar u^*\\omega - \\int_0^1 H(t,\\gamma(t))\\,dt$ on the free loop space $\\mathcal{L}M$. Critical points of $\\mathcal{A}_H$ are exactly the 1-periodic orbits of $X_{H_t}$, recovering Hamiltonian dynamics as a variational problem."
+          },
+          {
+            "type": "mcq",
+            "q": "In Lagrangian Floer homology of two Lagrangians $L_0,L_1\\subset M$, the chain complex is generated by...",
+            "choices": [
+              "the connected components of $L_0\\cup L_1$",
+              "the transverse intersection points $L_0\\pitchfork L_1$",
+              "the closed geodesics on $M$",
+              "the symplectic capacities of $M$"
+            ],
+            "answer": 1,
+            "hint": "Where does the action functional on paths from $L_0$ to $L_1$ have its critical points?",
+            "explain": "The action functional on paths $\\gamma\\colon [0,1]\\to M$ with $\\gamma(0)\\in L_0,\\gamma(1)\\in L_1$ has critical points exactly at constant paths sitting at intersection points of $L_0$ and $L_1$. Generically the intersection is transverse and finite, giving a finite-rank chain complex."
+          },
+          {
+            "type": "mcq",
+            "q": "What does Hamiltonian Floer homology of a closed symplectic manifold $M$ compute (Arnold conjecture)?",
+            "choices": [
+              "It vanishes identically.",
+              "It recovers the singular homology $H_*(M;\\mathbb{Z}/2)$ (or $\\mathbb{Z}$ under suitable hypotheses).",
+              "It computes the fundamental group $\\pi_1(M)$.",
+              "It is unrelated to the topology of $M$."
+            ],
+            "answer": 1,
+            "hint": "The Arnold conjecture lower-bounds periodic orbit counts by Betti numbers.",
+            "explain": "Floer (and later Fukaya–Ono, Liu–Tian) proved $HF_*(M;H) \\cong H_*(M)$ as an invariant. Comparing chain ranks gives the Arnold lower bound: the number of 1-periodic orbits of any non-degenerate $H$ is at least $\\sum_k b_k(M)$ — the Morse-inequality analogue, in infinite dimensions."
+          }
+        ]
+      }
+    }
+  },
   "theta-functions": {
     "topic": "theta-functions",
     "quizzes": {
@@ -40894,6 +46549,257 @@ window.MVQuizBank = {
             "answer": 0,
             "hint": "The functional equation pins the ratio; then match at $q = 0$.",
             "explain": "The key steps are: (1) verify the functional equation $P(qz,q)=z^{-1}q^{-1/2}P(z,q)$ from the product form; (2) deduce that $c_n(q)=c_0(q)q^{n^2/2}$; (3) fix $c_0$ by a special value (e.g. $z=i$ or $z=1$ combined with Jacobi's identity), completing the proof."
+          }
+        ]
+      }
+    }
+  },
+  "three-body-problem": {
+    "topic": "three-body-problem",
+    "quizzes": {
+      "tbp-newton-equations": {
+        "title": "Newton's equations and conserved quantities",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Three point masses interacting only by gravity have how many independent classical first integrals?",
+            "choices": [
+              "6",
+              "8",
+              "10",
+              "12"
+            ],
+            "answer": 2,
+            "explain": "Total energy (1), total linear momentum (3), centre-of-mass position at $t=0$ (3), and total angular momentum (3) — ten classical integrals, exhausted by Bruns' theorem (1887)."
+          },
+          {
+            "type": "mcq",
+            "q": "After Galilean reduction (fixing the centre of mass and removing momentum), how many effective degrees of freedom remain in the planar three-body problem?",
+            "choices": [
+              "3",
+              "4",
+              "6",
+              "9"
+            ],
+            "answer": 1,
+            "explain": "The planar problem is $12$-dimensional in phase space; quotienting by translations (4) and rotations + energy + angular momentum reductions leaves a $4$-dimensional reduced phase space."
+          },
+          {
+            "type": "mcq",
+            "q": "Which acceleration formula governs body $i$ under Newtonian gravity from the other bodies?",
+            "choices": [
+              "$\\ddot r_i = G\\sum_{j\\ne i} m_j (r_i-r_j)/|r_i-r_j|^3$",
+              "$\\ddot r_i = G\\sum_{j\\ne i} m_j (r_j-r_i)/|r_j-r_i|^3$",
+              "$\\ddot r_i = -G\\sum_{j\\ne i} m_j (r_j-r_i)/|r_j-r_i|^2$",
+              "$\\ddot r_i = G m_i \\sum_{j\\ne i} (r_j-r_i)/|r_j-r_i|^3$"
+            ],
+            "answer": 1,
+            "explain": "Force on $i$ points from $r_i$ toward $r_j$ — i.e. along $r_j-r_i$ — and decays as $1/r^2$, so the unit vector divided by $r^2$ is $(r_j-r_i)/|r_j-r_i|^3$. Body $i$'s mass cancels."
+          }
+        ]
+      },
+      "tbp-restricted-3body": {
+        "title": "Restricted three-body & Lagrange points",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "How many Lagrange points does the planar circular restricted three-body problem have?",
+            "choices": [
+              "3",
+              "4",
+              "5",
+              "infinitely many"
+            ],
+            "answer": 2,
+            "explain": "Three collinear ($L_1$ between the masses, $L_2$ beyond the lighter, $L_3$ behind the heavier) plus two equilateral ($L_4,L_5$) for a total of five."
+          },
+          {
+            "type": "mcq",
+            "q": "Which Lagrange points can be linearly stable, and under what condition?",
+            "choices": [
+              "$L_1,L_2,L_3$ are stable for all mass ratios",
+              "$L_4,L_5$ are stable when $m_1/m_2 > 24.96$",
+              "All five are unstable",
+              "Only $L_1$ is stable"
+            ],
+            "answer": 1,
+            "explain": "The collinear points are saddles for every mass ratio. The equilateral points $L_4,L_5$ are linearly stable when the mass ratio exceeds the Routh value $(25+3\\sqrt{69})/2 \\approx 24.96$ — well satisfied by Sun/Jupiter, hence the Trojans."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the rotating frame give a time-independent Hamiltonian for the restricted problem?",
+            "choices": [
+              "The test particle has no kinetic energy",
+              "The two primaries are stationary in that frame, so the gravitational potential is time-independent (Coriolis and centrifugal are positional)",
+              "Newton's gravity is automatically autonomous",
+              "Energy is not conserved in the inertial frame"
+            ],
+            "answer": 1,
+            "explain": "In the corotating frame the primaries sit at fixed positions; the potential they generate plus the centrifugal term depend only on $(x,y,z)$, not $t$. The Coriolis force is velocity-dependent but adds no time-dependence. The conserved Jacobi integral $C$ replaces energy."
+          }
+        ]
+      },
+      "tbp-special-solutions": {
+        "title": "Lagrange, Euler, figure-eight",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What configuration does Lagrange's 1772 explicit solution maintain?",
+            "choices": [
+              "Three masses on a rotating line",
+              "Three masses at the vertices of an equilateral triangle that rotates rigidly",
+              "Three masses on three Keplerian ellipses with a common focus",
+              "Three masses chasing each other along a figure-eight"
+            ],
+            "answer": 1,
+            "explain": "Lagrange's solution: place three masses at the vertices of an equilateral triangle and give each the right velocity to rotate rigidly about the common centre of mass. The triangle stays equilateral forever (though it can also expand/contract along a Keplerian similarity)."
+          },
+          {
+            "type": "mcq",
+            "q": "Who proved (in 2000) the existence of the figure-eight three-body orbit?",
+            "choices": [
+              "Poincaré and Birkhoff",
+              "Sundman",
+              "Chenciner and Montgomery",
+              "Arnold and Moser"
+            ],
+            "answer": 2,
+            "explain": "Chenciner and Montgomery used a variational argument minimising action over a symmetry-constrained loop space, showing the minimiser is a smooth orbit on which three equal masses chase each other along a single planar curve — the figure-eight."
+          },
+          {
+            "type": "mcq",
+            "q": "What special symmetry does the figure-eight orbit possess?",
+            "choices": [
+              "All three bodies trace the same planar curve",
+              "Only one body moves; the other two are at rest",
+              "All three bodies lie on a line at all times",
+              "The orbit is purely radial"
+            ],
+            "answer": 0,
+            "explain": "The defining feature: a single planar curve (with the symmetry group of the lemniscate) is traced by all three masses, who chase each other around it with equal time-spacing."
+          }
+        ]
+      },
+      "tbp-poincare-tangle": {
+        "title": "Poincaré's tangle",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What did Poincaré discover, while correcting an error in his 1889 prize memoir, about stable and unstable manifolds of a hyperbolic periodic orbit?",
+            "choices": [
+              "They never intersect",
+              "They are always identical",
+              "When they intersect transversally once, they must do so infinitely often, in an extremely intricate pattern",
+              "They form smooth tori"
+            ],
+            "answer": 2,
+            "explain": "Invariance under the flow forces a single transverse intersection point to be carried by iteration into infinitely many others, and the manifolds oscillate wildly between them — the homoclinic tangle. Poincaré called the picture too complicated to draw."
+          },
+          {
+            "type": "mcq",
+            "q": "What dynamical mechanism did Smale use to formalise the chaos hidden in Poincaré's tangle?",
+            "choices": [
+              "The Poincaré–Bendixson theorem",
+              "The horseshoe map: a return map conjugate to the shift on $\\{0,1\\}^{\\mathbb{Z}}$",
+              "The KAM theorem",
+              "Lyapunov exponents"
+            ],
+            "answer": 1,
+            "explain": "Smale's horseshoe is a geometric template: a square is stretched, folded, and mapped back over itself, so that the invariant Cantor-like set carries dynamics topologically conjugate to the full shift on two symbols — infinitely many periodic orbits, sensitive dependence, and the canonical model of chaos."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the three-body problem considered the birthplace of dynamical systems theory?",
+            "choices": [
+              "It has a simple closed-form solution",
+              "Poincaré's qualitative attack on it — replacing solve-it with describe-its-orbits — invented the entire qualitative theory of differential equations",
+              "It is the only problem in classical mechanics",
+              "It admits a complete set of action-angle variables"
+            ],
+            "answer": 1,
+            "explain": "Bruns (1887) and Poincaré (1889) proved no algebraic first integrals beyond the classical ten exist. Forced to abandon explicit formulas, Poincaré invented Poincaré sections, recurrence, structural stability, and the topology of phase space — the qualitative theory."
+          }
+        ]
+      },
+      "tbp-kam": {
+        "title": "KAM theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The KAM theorem applies to small perturbations $H = H_0(I) + \\varepsilon H_1(I,\\theta)$ of which kind of system?",
+            "choices": [
+              "Dissipative",
+              "Integrable Hamiltonian (with action-angle variables)",
+              "Stochastic",
+              "Linear"
+            ],
+            "answer": 1,
+            "explain": "KAM perturbs an integrable Hamiltonian — one foliated by invariant tori indexed by action variables $I$ with linear flow on each torus — and shows most tori survive small Hamiltonian perturbations."
+          },
+          {
+            "type": "mcq",
+            "q": "Which condition on the frequency vector $\\omega$ identifies tori that survive?",
+            "choices": [
+              "$\\omega$ is rational",
+              "$\\omega = 0$",
+              "$\\omega$ is Diophantine: $|k\\cdot\\omega|\\ge \\gamma|k|^{-\\tau}$ for all nonzero $k\\in\\mathbb{Z}^n$",
+              "$\\omega$ is bounded"
+            ],
+            "answer": 2,
+            "explain": "Resonances $k\\cdot\\omega=0$ produce small denominators in the perturbation series; the Diophantine condition quantifies how badly $\\omega$ avoids them, giving the convergent Newton iteration of the KAM scheme."
+          },
+          {
+            "type": "mcq",
+            "q": "What does KAM say about long-term stability of the solar system?",
+            "choices": [
+              "Every initial condition is stable forever",
+              "Most invariant tori (positive measure tending to full measure as $\\varepsilon\\to 0$) survive small perturbations, giving measure-theoretic stability of generic orbits",
+              "All planets eventually collide",
+              "The solar system is exactly integrable"
+            ],
+            "answer": 1,
+            "explain": "KAM gives positive-measure stability, not pointwise stability — the surviving tori form a Cantor-like set of positive measure. Numerical work by Laskar shows the actual solar system is mildly chaotic on Gyr timescales, consistent with measure-theoretic but not pointwise KAM stability."
+          }
+        ]
+      },
+      "tbp-applications": {
+        "title": "Spacecraft and Trojans",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Where is the James Webb Space Telescope parked?",
+            "choices": [
+              "Geostationary orbit",
+              "A halo orbit around the Sun–Earth $L_2$ point",
+              "Lunar orbit",
+              "Sun–Earth $L_4$"
+            ],
+            "answer": 1,
+            "explain": "JWST orbits the Sun–Earth $L_2$ point (1.5 million km anti-sunward of Earth) on a halo orbit, keeping Sun, Earth, and Moon all behind its sunshield. $L_2$ is a saddle, so active station-keeping is required."
+          },
+          {
+            "type": "mcq",
+            "q": "What are Jupiter's Trojan asteroids?",
+            "choices": [
+              "Asteroids in the main belt between Mars and Jupiter",
+              "Comets in the Kuiper belt",
+              "Asteroids librating around Jupiter's $L_4$ and $L_5$ Lagrange points (60° ahead and behind)",
+              "Jupiter's moons"
+            ],
+            "answer": 2,
+            "explain": "Over $10^4$ catalogued bodies librate in the stable equilateral wells $L_4$ (Greek camp, 60° ahead) and $L_5$ (Trojan camp, 60° behind) of the Sun–Jupiter system — a direct empirical confirmation of Lagrange's 1772 equilateral solution."
+          },
+          {
+            "type": "mcq",
+            "q": "What dynamical mechanism powers a gravity assist (\"slingshot\")?",
+            "choices": [
+              "A pure rocket burn at periapsis",
+              "Conservation of energy in the inertial frame, combined with a redirection of the spacecraft's velocity in the planet's frame, transferring orbital energy from the planet to the spacecraft (or vice versa)",
+              "Dark energy",
+              "Atmospheric drag"
+            ],
+            "answer": 1,
+            "explain": "In the planet's rest frame the encounter is elastic — speed in/out are equal. Boosting back to the heliocentric frame, the rotation of the velocity vector by the planet's orbital velocity gives the spacecraft a net change in solar-frame speed. This is the restricted three-body problem at work."
           }
         ]
       }
@@ -41480,6 +47386,719 @@ window.MVQuizBank = {
             "answer": 0,
             "hint": "Diagonalize over $\\mathbb{C}$ and then descend to $SO(2)$.",
             "explain": "Any elliptic $g$ has a unique fixed point $p\\in\\mathbb{H}$. Choose $h\\in PSL_2(\\mathbb{R})$ with $h(p)=i$; then $hgh^{-1}$ fixes $i$. The stabiliser of $i$ consists of matrices with $a=d, b=-c, a^2+b^2=1$, i.e., rotations $SO(2)$ mod $\\pm I$."
+          }
+        ]
+      }
+    }
+  },
+  "variational-methods": {
+    "topic": "variational-methods",
+    "quizzes": {
+      "vm-functional-derivative": {
+        "title": "Functional derivative",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $J(u)=\\tfrac12\\int_0^1 (u'(x))^2\\,dx$ on $H^1_0(0,1)$. The Gateaux derivative $\\langle J'(u),h\\rangle$ equals which expression?",
+            "choices": [
+              "$\\int_0^1 u(x)\\,h(x)\\,dx$",
+              "$\\int_0^1 u'(x)\\,h'(x)\\,dx$",
+              "$\\int_0^1 (u'(x))^2\\,h(x)\\,dx$",
+              "$u(1)\\,h(1) - u(0)\\,h(0)$"
+            ],
+            "answer": 1,
+            "explain": "Expand $J(u+\\varepsilon h)=\\tfrac12\\int(u'+\\varepsilon h')^2 = J(u)+\\varepsilon\\int u'h' + O(\\varepsilon^2)$. The linear coefficient is the Gateaux derivative. After integrating by parts and using $h\\in H^1_0$, this also equals $-\\int u''h$, which is how the Euler-Lagrange equation $-u''=0$ pops out."
+          },
+          {
+            "type": "mcq",
+            "q": "Which is the correct distinction between Gateaux and Fréchet derivatives?",
+            "choices": [
+              "Gateaux requires linearity in $h$; Fréchet does not",
+              "Fréchet additionally requires the remainder to be $o(\\|h\\|)$ uniformly in the direction",
+              "Fréchet works only in finite dimensions",
+              "They coincide on every Banach space"
+            ],
+            "answer": 1,
+            "explain": "Gateaux differentiability gives a directional derivative for each fixed $h$ but allows the remainder to depend non-uniformly on direction. Fréchet upgrades this: $J(u+h)=J(u)+\\langle J'(u),h\\rangle+o(\\|h\\|)$ uniformly in $h$, recovering classical differential calculus and chain rule."
+          },
+          {
+            "type": "numeric",
+            "q": "For $J(u)=\\int_0^1 u(x)^3\\,dx$, compute $\\langle J'(u),h\\rangle / \\int_0^1 h\\,dx$ when $u\\equiv 2$ and $h$ is any test function with $\\int h = 1$.",
+            "answer": 12,
+            "tol": 0.0001,
+            "explain": "$\\delta J/\\delta u = 3u^2$, so at $u=2$ the functional derivative is the constant $12$. Hence $\\langle J'(u),h\\rangle = \\int 12\\,h = 12\\int h$, and the ratio is $12$."
+          }
+        ]
+      },
+      "vm-euler-lagrange": {
+        "title": "Euler–Lagrange equations",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Euler–Lagrange equation for the brachistochrone Lagrangian $L = \\sqrt{1+(y')^2}/\\sqrt{2gy}$ has which conserved quantity?",
+            "choices": [
+              "$L$ itself",
+              "$y'\\,\\partial_{y'}L - L$ (the Hamiltonian / Beltrami identity)",
+              "$\\partial_x L$",
+              "Nothing — no symmetry available"
+            ],
+            "answer": 1,
+            "explain": "Because $L$ does not depend on $x$ explicitly, the Beltrami identity $L - y'\\partial_{y'}L = C$ (a first integral) holds. Solving it for the brachistochrone gives the cycloid $x = r(\\theta-\\sin\\theta)$, $y=r(1-\\cos\\theta)$ — Bernoulli's celebrated 1697 answer."
+          },
+          {
+            "type": "mcq",
+            "q": "For $J(u)=\\int_a^b L(x,u,u')\\,dx$ with $u(a),u(b)$ fixed, the Euler–Lagrange equation is",
+            "choices": [
+              "$\\partial_u L = 0$",
+              "$\\partial_{u'} L = 0$",
+              "$\\frac{d}{dx}\\partial_{u'}L = \\partial_u L$",
+              "$\\partial_u L + \\partial_{u'} L = 0$"
+            ],
+            "answer": 2,
+            "explain": "Setting $\\frac{d}{d\\varepsilon}J(u+\\varepsilon h)|_{\\varepsilon=0}=0$ for every $h$ vanishing at the endpoints, integrating $\\partial_{u'}L\\cdot h'$ by parts (boundary terms drop because $h(a)=h(b)=0$), and applying the fundamental lemma of the calculus of variations yields the Euler–Lagrange equation."
+          },
+          {
+            "type": "numeric",
+            "q": "Minimise $J(u)=\\int_0^1 ((u')^2 + u^2)\\,dx$ with $u(0)=0,\\,u(1)=1$. The Euler–Lagrange equation is $u''=u$. Compute $u(1/2)$ to 3 decimals.",
+            "answer": 0.443,
+            "tol": 0.005,
+            "explain": "$u''=u$ with $u(0)=0$, $u(1)=1$ has solution $u(x)=\\sinh(x)/\\sinh(1)$. Then $u(1/2)=\\sinh(0.5)/\\sinh(1) \\approx 0.5211/1.1752 \\approx 0.443$. Strictly less than the linear interpolant $0.5$ — the quadratic penalty $\\int u^2$ pulls the curve down toward zero."
+          }
+        ]
+      },
+      "vm-direct-method": {
+        "title": "Direct method (Tonelli)",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The direct method requires three ingredients on the energy $J\\colon X\\to\\mathbb{R}$. Which is NOT one of them?",
+            "choices": [
+              "Coercivity: $J(u)\\to\\infty$ as $\\|u\\|\\to\\infty$",
+              "Reflexivity of $X$ (so weak compactness applies)",
+              "Weak lower-semicontinuity: $u_k\\rightharpoonup u\\Rightarrow J(u)\\le\\liminf J(u_k)$",
+              "Strict convexity (so the minimiser is unique)"
+            ],
+            "answer": 3,
+            "explain": "Strict convexity gives uniqueness, but Tonelli's existence proof needs only coercivity (to bound a minimising sequence), reflexivity (Banach–Alaoglu gives a weakly convergent subsequence), and weak lower-semicontinuity (so the weak limit attains the infimum)."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does coercivity fail for $J(u)=\\int_0^1 (u'(x))^2\\,dx$ on the full $H^1(0,1)$ without boundary conditions?",
+            "choices": [
+              "$J$ is not bounded below",
+              "Constants $u\\equiv c$ have $J(c)=0$ but $\\|c\\|_{H^1}\\to\\infty$ as $|c|\\to\\infty$",
+              "$J$ is not convex",
+              "Weak limits don't exist in $H^1$"
+            ],
+            "answer": 1,
+            "explain": "Adding an arbitrary constant doesn't change $u'$, so $J$ is invariant under $u\\mapsto u+c$. The norm $\\|u\\|_{H^1}^2 = \\|u\\|_{L^2}^2 + \\|u'\\|_{L^2}^2$ blows up while $J$ stays put — hence not coercive. Imposing $u(0)=0$ (the Poincaré inequality) restores coercivity."
+          },
+          {
+            "type": "mcq",
+            "q": "Which functional FAILS to be weakly lower-semicontinuous on $H^1(0,1)$?",
+            "choices": [
+              "$J(u)=\\int (u')^2$",
+              "$J(u)=\\int u^2$",
+              "$J(u)=-\\int (u')^2$",
+              "$J(u)=\\int (1+(u')^2)^{1/2}$ (length functional)"
+            ],
+            "answer": 2,
+            "explain": "Convex continuous functionals on a reflexive space are automatically weakly lower-semicontinuous. The first two are convex; the fourth is convex (concave-up integrand in $u'$). The third is concave in $u'$, hence its negative is convex — so $-\\int(u')^2$ is weakly upper-semicontinuous, the wrong direction."
+          }
+        ]
+      },
+      "vm-mountain-pass": {
+        "title": "Mountain-pass theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The mountain-pass geometry requires that $J$ has a local min at $0$, AND",
+            "choices": [
+              "$J$ is bounded below",
+              "There exists $u_*\\ne 0$ with $J(u_*)\\le J(0)$",
+              "$J$ is convex",
+              "$J$ is everywhere differentiable"
+            ],
+            "answer": 1,
+            "explain": "The picture: $0$ is a valley, $u_*$ is a far point at or below the valley floor. Any path from $0$ to $u_*$ must climb over a ridge; the lowest such ridge-height is the mountain-pass critical value. Without the second valley there's no mountain to cross."
+          },
+          {
+            "type": "mcq",
+            "q": "The Palais–Smale compactness condition $(PS)$ says that every sequence with $J(u_k)$ bounded and $J'(u_k)\\to 0$",
+            "choices": [
+              "Is bounded in norm",
+              "Converges weakly",
+              "Has a strongly convergent subsequence",
+              "Has a Cauchy subsequence in the metric of $J$"
+            ],
+            "answer": 2,
+            "explain": "(PS) demands strong convergence of a subsequence — this is what lets you pass from approximate critical points to genuine ones. On bounded domains with subcritical growth (Sobolev embedding compact) this is standard; at the critical Sobolev exponent, $(PS)$ can fail and concentration-compactness must replace it."
+          },
+          {
+            "type": "mcq",
+            "q": "The mountain-pass theorem produces a critical point at the saddle-height. This critical point",
+            "choices": [
+              "Is necessarily a minimum",
+              "Is necessarily a maximum",
+              "Is a saddle (Morse index $\\ge 1$)",
+              "Need not be a critical point at all"
+            ],
+            "answer": 2,
+            "explain": "By construction the critical value $c = \\inf_\\gamma\\max_t J(\\gamma(t))$ exceeds $J(0)$ but is bounded above on connecting paths — neither a global minimum nor a maximum. The Morse-theoretic interpretation: the topology of sublevel sets changes at $c$, forcing a critical point of index at least $1$."
+          }
+        ]
+      },
+      "vm-isoperimetric": {
+        "title": "Isoperimetric inequality",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The classical planar isoperimetric inequality reads",
+            "choices": [
+              "$L \\le 2\\pi A$",
+              "$4\\pi A \\le L^2$",
+              "$A \\le L^2$",
+              "$A^2 \\le \\pi L$"
+            ],
+            "answer": 1,
+            "explain": "Among simple closed curves in the plane bounding area $A$ with perimeter $L$, $4\\pi A \\le L^2$ with equality iff the curve is a circle. Equivalently, fixing $L$ maximises $A$ at $L^2/(4\\pi)$ — the disk — and fixing $A$ minimises $L$ at $2\\sqrt{\\pi A}$."
+          },
+          {
+            "type": "numeric",
+            "q": "A region in the plane has perimeter $L=10$. What is the maximum possible area?",
+            "answer": 7.9577,
+            "tol": 0.005,
+            "explain": "By isoperimetry the disk maximises: $A_{\\max} = L^2/(4\\pi) = 100/(4\\pi) \\approx 7.958$. The maximiser is realised by the disk of circumference $10$, radius $r=10/(2\\pi)\\approx 1.59$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the Euler–Lagrange equation for the isoperimetric problem (maximise area at fixed perimeter) $\\kappa = \\text{const}$?",
+            "choices": [
+              "The Lagrange multiplier $\\lambda$ for the perimeter constraint forces constant geodesic curvature",
+              "Because $\\partial_x L = 0$",
+              "By Noether's theorem applied to rotations",
+              "It's the Bonnet–Myers theorem"
+            ],
+            "answer": 0,
+            "explain": "Constrained variation: at a critical point of $A$ subject to fixed $L$, $\\delta A = \\lambda\\,\\delta L$. The first variation of area is $\\int h\\,ds$ along normal perturbation $h$; the first variation of length is $\\int \\kappa\\, h\\,ds$. Equality for all $h$ forces $\\kappa\\equiv\\lambda$ — constant curvature, hence a circle."
+          }
+        ]
+      },
+      "vm-applications": {
+        "title": "Applications: geodesics, minimal surfaces, gauge theory",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A geodesic on a Riemannian manifold satisfies $\\nabla_{\\dot\\gamma}\\dot\\gamma=0$. This is the Euler–Lagrange equation for which functional?",
+            "choices": [
+              "Energy $E(\\gamma)=\\tfrac12\\int g(\\dot\\gamma,\\dot\\gamma)\\,dt$",
+              "Volume $V(\\gamma)=\\int 1\\,dt$",
+              "Curvature $K(\\gamma)=\\int|\\nabla_{\\dot\\gamma}\\dot\\gamma|^2\\,dt$",
+              "Mean curvature $H(\\gamma)$"
+            ],
+            "answer": 0,
+            "explain": "Critical points of the energy functional (with parametrisation fixed) are exactly geodesics. The arc-length functional $L(\\gamma)=\\int|\\dot\\gamma|\\,dt$ has the same minimisers but is reparametrisation-invariant — using $E$ instead pins the parametrisation to constant speed and avoids the degeneracy."
+          },
+          {
+            "type": "mcq",
+            "q": "Plateau's problem asks for a surface of least area spanning a given closed curve in $\\mathbb{R}^3$. The Euler–Lagrange equation is",
+            "choices": [
+              "Gauss curvature $K=0$",
+              "Mean curvature $H=0$ (the minimal-surface equation)",
+              "Constant scalar curvature",
+              "$\\Delta f = 0$ for the height function"
+            ],
+            "answer": 1,
+            "explain": "Stationarity of area against normal variations forces $H=0$ pointwise — the trace of the second fundamental form vanishes. Locally over a graph $z=f(x,y)$ this is $\\nabla\\cdot(\\nabla f/\\sqrt{1+|\\nabla f|^2})=0$, the minimal-surface equation. Soap films model this physically."
+          },
+          {
+            "type": "mcq",
+            "q": "The Yang–Mills functional is $YM(A) = \\int_M |F_A|^2\\,d\\mathrm{vol}$. Its critical points satisfy",
+            "choices": [
+              "$dA = 0$",
+              "$d^*F_A = 0$ (the Yang–Mills equation)",
+              "$F_A = 0$ (flat connection)",
+              "$\\nabla A = 0$"
+            ],
+            "answer": 1,
+            "explain": "Computing the first variation in the connection $A$ gives $\\delta YM = 2\\int\\langle F_A, d_A(\\delta A)\\rangle = 2\\int\\langle d_A^* F_A,\\delta A\\rangle$ (Bianchi gives $d_A F_A = 0$ automatically). Stationarity is $d_A^* F_A = 0$. Self-dual instantons $F_A = *F_A$ are a privileged class of solutions — the bridge to Donaldson theory."
+          }
+        ]
+      }
+    }
+  },
+  "vertex-operator-algebras": {
+    "topic": "vertex-operator-algebras",
+    "quizzes": {
+      "voa-vertex-operators": {
+        "title": "Vertex operators and locality",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A vertex operator $Y(a, z)$ associated to a state $a$ in a VOA is:",
+            "choices": [
+              "a single linear operator on the state space $V$",
+              "a formal Laurent series $\\sum_n a_n z^{-n-1}$ whose coefficients are linear operators on $V$",
+              "a holomorphic function on the punctured disc valued in $V$",
+              "an element of the Lie algebra of automorphisms of $V$"
+            ],
+            "answer": 1,
+            "explain": "$Y(\\cdot, z) : V \\to \\mathrm{End}(V)[[z, z^{-1}]]$ is a state–field correspondence: each $a \\in V$ gives the formal series $Y(a, z) = \\sum_{n \\in \\mathbb{Z}} a_n z^{-n-1}$. The mode $a_n$ is the coefficient of $z^{-n-1}$, so $a_{-1}\\mathbf{1} = a$ recovers the state."
+          },
+          {
+            "type": "mcq",
+            "q": "The locality axiom for two vertex operators $Y(a, z)$ and $Y(b, w)$ says:",
+            "choices": [
+              "$[Y(a, z), Y(b, w)] = 0$ identically",
+              "$Y(a, z) Y(b, w) = Y(b, w) Y(a, z)$ as formal series",
+              "there exists $N \\gg 0$ with $(z - w)^N [Y(a, z), Y(b, w)] = 0$",
+              "$Y(a, z) Y(b, w)$ converges absolutely for $|z| > |w|$"
+            ],
+            "answer": 2,
+            "explain": "Two fields are mutually local if some power $(z-w)^N$ kills their commutator. This is weaker than commutativity: it allows OPE singularities at $z = w$ but forces them to be of finite order, recovering an algebraic shadow of the physicists' radial-ordering."
+          },
+          {
+            "type": "numeric",
+            "q": "If $Y(a, z) = \\sum_n a_n z^{-n-1}$, what is the index $n$ of the mode whose action on the vacuum returns $a$ — i.e. the $n$ for which $a_n \\mathbf{1} = a$?",
+            "answer": -1,
+            "tol": 0,
+            "explain": "By the creation axiom, $Y(a, z)\\mathbf{1}|_{z=0} = a$. Reading off the constant term in $z$ (the coefficient of $z^0$) and matching against $\\sum_n a_n z^{-n-1}$ forces $-n - 1 = 0$, so $n = -1$. Thus $a = a_{-1}\\mathbf{1}$, the standard 'state-from-mode' identification."
+          }
+        ]
+      },
+      "voa-axioms": {
+        "title": "VOA axioms — vacuum, translation, locality, Jacobi",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The vacuum axiom of a VOA requires that:",
+            "choices": [
+              "$Y(\\mathbf{1}, z) = \\mathrm{id}_V$, the constant series of the identity operator",
+              "$Y(a, z)\\mathbf{1} = 0$ for every $a \\in V$",
+              "$\\mathbf{1}$ is annihilated by every mode $a_n$",
+              "$Y(\\mathbf{1}, z) = z^{-1}\\, \\mathrm{id}_V$"
+            ],
+            "answer": 0,
+            "explain": "The vacuum vector $\\mathbf{1}$ is the unit: $Y(\\mathbf{1}, z) = \\mathrm{id}_V$ (no $z$-dependence). The companion axiom $Y(a, z)\\mathbf{1} \\in V[[z]]$ with $Y(a, z)\\mathbf{1}|_{z=0} = a$ encodes the state–field correspondence."
+          },
+          {
+            "type": "mcq",
+            "q": "The translation operator $T$ in a VOA satisfies:",
+            "choices": [
+              "$[T, Y(a, z)] = z\\, Y(a, z)$",
+              "$[T, Y(a, z)] = \\partial_z Y(a, z)$",
+              "$T \\cdot Y(a, z) = Y(Ta, z)$",
+              "$T = L_{-1} L_1$"
+            ],
+            "answer": 1,
+            "explain": "Translation covariance: differentiating with respect to the formal variable $z$ is realised by the inner derivation $[T, -]$. The infinitesimal translation $T$ is identified with $L_{-1}$ once a Virasoro element is fixed."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the Borcherds–Jacobi identity often preferred over locality plus the vacuum axiom as the definition of a VOA?",
+            "choices": [
+              "It is strictly weaker, allowing more examples",
+              "It packages locality, associativity, and skew-symmetry into a single equation among modes, which is convenient for proofs",
+              "It avoids any reference to formal power series",
+              "It is the only axiom that makes sense in positive characteristic"
+            ],
+            "answer": 1,
+            "explain": "The Jacobi identity $\\sum (\\cdots) Y(a, z_1) Y(b, z_2) c = \\cdots$ is equivalent to locality plus weak associativity (under standard hypotheses) and reduces to a single mode-level relation. It makes algebraic manipulations — computing OPE coefficients, deriving commutator formulas — purely combinatorial."
+          }
+        ]
+      },
+      "voa-virasoro": {
+        "title": "Virasoro algebra and central charge",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Virasoro algebra commutation relation in a VOA reads:",
+            "choices": [
+              "$[L_m, L_n] = (m + n) L_{m+n}$",
+              "$[L_m, L_n] = (m - n) L_{m+n} + \\tfrac{c}{12}(m^3 - m)\\,\\delta_{m+n, 0}$",
+              "$[L_m, L_n] = m\\, L_{m+n} + c\\, \\delta_{m+n, 0}$",
+              "$[L_m, L_n] = (m - n) L_{m+n}$ (no central term)"
+            ],
+            "answer": 1,
+            "explain": "The Virasoro algebra is the unique non-trivial central extension of the Witt algebra of vector fields on $S^1$. The cocycle $\\tfrac{c}{12}(m^3 - m)\\,\\delta_{m+n,0}$ scales with the central charge $c$, vanishing on $L_{-1}, L_0, L_1$ (the $\\mathfrak{sl}_2$ subalgebra) since $m^3 - m = m(m-1)(m+1)$."
+          },
+          {
+            "type": "numeric",
+            "q": "For the central charge of the moonshine module $V^\\natural$, what is $c$?",
+            "answer": 24,
+            "tol": 0,
+            "explain": "$V^\\natural$ has central charge $c = 24$. This is forced by modular invariance: the graded character $\\tr q^{L_0 - c/24}$ must transform like a weight-$0$ modular function on $\\mathrm{SL}_2(\\mathbb{Z})$, which requires the shift $-c/24 = -1$ so that $L_0 - c/24$ has integer eigenvalues starting at $-1$, matching $J(\\tau) = q^{-1} + 196884\\, q + \\cdots$."
+          },
+          {
+            "type": "mcq",
+            "q": "The conformal vector $\\omega \\in V$ supplies the operators $L_n$ via:",
+            "choices": [
+              "$Y(\\omega, z) = \\sum_n L_n z^{-n}$",
+              "$Y(\\omega, z) = \\sum_n L_n z^{-n - 2}$",
+              "$L_n = \\omega \\cdot (-z)^n$",
+              "$L_n$ is unrelated to $\\omega$"
+            ],
+            "answer": 1,
+            "explain": "By convention $Y(\\omega, z) = \\sum_n L_n z^{-n - 2}$ — the shift by $2$ comes from $\\omega$ having conformal weight $2$ (it is the stress–energy tensor in CFT language). Then $L_0$ is the coefficient of $z^{-2}$ and acts as the grading operator."
+          }
+        ]
+      },
+      "voa-modular-invariance": {
+        "title": "Modular invariance — Zhu's theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Zhu's theorem (1996) states that for a $C_2$-cofinite rational VOA $V$, the graded characters $\\mathrm{ch}_M(\\tau) = \\tr_M q^{L_0 - c/24}$ of irreducible modules:",
+            "choices": [
+              "are individually modular forms for $\\mathrm{SL}_2(\\mathbb{Z})$",
+              "form the components of a vector-valued modular form for $\\mathrm{SL}_2(\\mathbb{Z})$, with the modules permuted by the modular action",
+              "are constant in $\\tau$",
+              "are Dirichlet series rather than $q$-series"
+            ],
+            "answer": 1,
+            "explain": "Zhu showed that the span of the graded characters of irreducible $V$-modules is preserved by the $\\mathrm{SL}_2(\\mathbb{Z})$-action $\\tau \\mapsto (a\\tau + b)/(c\\tau + d)$; together they assemble into a vector-valued modular form. Individual characters mix under $S : \\tau \\mapsto -1/\\tau$ — that mixing is the fusion-rules data."
+          },
+          {
+            "type": "mcq",
+            "q": "The shift by $-c/24$ in $\\tr q^{L_0 - c/24}$ is necessary because:",
+            "choices": [
+              "without it the trace diverges",
+              "it adjusts the modular weight so the character has good $\\mathrm{SL}_2(\\mathbb{Z})$ transformation properties (the $\\eta$-function shift)",
+              "it makes the leading coefficient equal $1$",
+              "it is a normalisation choice with no mathematical content"
+            ],
+            "answer": 1,
+            "explain": "The $-c/24$ shift comes from the Casimir of the Virasoro vacuum representation; it is exactly the shift in $\\eta(\\tau) = q^{1/24} \\prod(1 - q^n)$. Without it, the character is a $q$-series with no good modular transformation; with it, the character lives on the modular curve $X(1)$ rather than its universal cover."
+          },
+          {
+            "type": "mcq",
+            "q": "$C_2$-cofiniteness is the requirement that:",
+            "choices": [
+              "$V$ has finite central charge",
+              "the quotient $V / C_2(V)$ is finite-dimensional, where $C_2(V)$ is spanned by $a_{-2} b$ for $a, b \\in V$",
+              "$V$ has only countably many irreducible modules",
+              "$V$ admits a non-degenerate invariant bilinear form"
+            ],
+            "answer": 1,
+            "explain": "$C_2(V)$ is the span of $\\{a_{-2} b : a, b \\in V\\}$; finite-dimensionality of $V / C_2(V)$ is a strong finiteness condition that, combined with rationality, gives Zhu's theorem and the Verlinde formula. Every VOA appearing in moonshine satisfies it."
+          }
+        ]
+      },
+      "voa-moonshine-module": {
+        "title": "The moonshine module $V^\\natural$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The moonshine module $V^\\natural$ of Frenkel–Lepowsky–Meurman is:",
+            "choices": [
+              "a finite-dimensional representation of the Monster",
+              "a $\\mathbb{Z}$-graded VOA of central charge $24$ whose graded dimension is $J(\\tau) = j(\\tau) - 744$",
+              "the Lie algebra of the Monster",
+              "the affinisation of the Leech lattice"
+            ],
+            "answer": 1,
+            "explain": "$V^\\natural$ is built as a $\\mathbb{Z}/2$-orbifold of the lattice VOA on the Leech lattice. Its graded dimension is $\\sum_n (\\dim V^\\natural_n)\\, q^n = J(\\tau)$, and the Monster $\\mathbb{M}$ acts as its full automorphism group — the cleanest realisation of McKay's observation."
+          },
+          {
+            "type": "mcq",
+            "q": "The Conway–Norton conjecture, proved by Borcherds, asserts that for each $g \\in \\mathbb{M}$ the McKay–Thompson series $T_g(\\tau) = \\sum_n \\tr(g \\mid V^\\natural_n)\\, q^n$ is:",
+            "choices": [
+              "a polynomial in $j(\\tau)$",
+              "the Hauptmodul of a genus-zero subgroup of $\\mathrm{SL}_2(\\mathbb{R})$ commensurable with $\\mathrm{SL}_2(\\mathbb{Z})$",
+              "always equal to $J(\\tau)$",
+              "a cusp form of weight $24$"
+            ],
+            "answer": 1,
+            "explain": "For each conjugacy class $[g] \\subset \\mathbb{M}$, $T_g$ is the Hauptmodul of a specific genus-zero subgroup $\\Gamma_g \\subset \\mathrm{SL}_2(\\mathbb{R})$. The 'genus-zero' constraint is what made the conjecture so striking: it pins out a finite list of subgroups out of an infinite family."
+          },
+          {
+            "type": "mcq",
+            "q": "Borcherds' proof routes through the Monster Lie algebra, which is built from $V^\\natural$ via:",
+            "choices": [
+              "the BRST cohomology of the Goddard–Thorn no-ghost theorem",
+              "Lie's third theorem applied to $V^\\natural$",
+              "the universal enveloping algebra of $V^\\natural$",
+              "the Drinfeld–Jimbo quantum-group construction"
+            ],
+            "answer": 0,
+            "explain": "Borcherds tensors $V^\\natural$ with a rank-$2$ Lorentzian-lattice VOA, then applies the Goddard–Thorn no-ghost theorem to extract a generalised Kac–Moody (Borcherds–Kac–Moody) Lie algebra. Its denominator identity furnishes the replication formulas that pin each Thompson series to its Conway–Norton Hauptmodul."
+          }
+        ]
+      },
+      "voa-applications": {
+        "title": "Applications — chiral CFT and chiral algebras",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In two-dimensional conformal field theory, a vertex operator algebra encodes:",
+            "choices": [
+              "the full physical Hilbert space",
+              "the chiral (holomorphic) half of the theory; the antichiral half is a separate VOA",
+              "the partition function only",
+              "the spectrum of conformal weights up to integer shifts"
+            ],
+            "answer": 1,
+            "explain": "A 2D CFT factorises (subject to modular invariance) into a chiral and an antichiral half. Each half is a VOA — the same axioms that codify locality of fields on $S^1$ at fixed time. The full theory is a tensor product of the two halves modulo gluing data."
+          },
+          {
+            "type": "mcq",
+            "q": "Beilinson–Drinfeld's chiral algebras generalise VOAs by:",
+            "choices": [
+              "replacing formal power series with $\\mathcal{D}$-modules on an algebraic curve",
+              "passing to characteristic $p$",
+              "dropping the conformal vector",
+              "adding a second translation operator"
+            ],
+            "answer": 0,
+            "explain": "A chiral algebra on a curve $X$ is a $\\mathcal{D}$-module on $X$ with a chiral product on $\\mathcal{A} \\boxtimes \\mathcal{A}$ over $X \\times X$ off the diagonal. Restriction to the formal disc near a point recovers a VOA; the global data is what makes geometric Langlands work."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is NOT an example of a vertex operator algebra?",
+            "choices": [
+              "the lattice VOA $V_L$ for an even positive-definite lattice $L$",
+              "the affine Kac–Moody VOA at a positive integer level",
+              "the Heisenberg (free-boson) VOA",
+              "the universal enveloping algebra of an arbitrary finite-dimensional Lie algebra"
+            ],
+            "answer": 3,
+            "explain": "Lattice, affine Kac–Moody (at admissible levels), and Heisenberg VOAs are the standard VOA constructions. The universal enveloping algebra $U(\\mathfrak{g})$ of an arbitrary finite-dimensional Lie algebra is an associative algebra, not a VOA — to get a VOA from $\\mathfrak{g}$ you affinise to $\\widehat{\\mathfrak{g}}$ and pass to a vacuum module at a chosen level."
+          }
+        ]
+      }
+    }
+  },
+  "wavelets": {
+    "topic": "wavelets",
+    "quizzes": {
+      "w-multiresolution": {
+        "title": "Multiresolution analysis",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which axiom is NOT part of Mallat's definition of an MRA on $L^2(\\mathbb{R})$?",
+            "choices": [
+              "$V_j\\subset V_{j+1}$ for every $j\\in\\mathbb{Z}$",
+              "$\\bigcap_j V_j=\\{0\\}$ and $\\overline{\\bigcup_j V_j}=L^2(\\mathbb{R})$",
+              "$f(x)\\in V_j\\iff f(2x)\\in V_{j+1}$",
+              "Each $V_j$ is finite-dimensional"
+            ],
+            "answer": 3,
+            "explain": "An MRA explicitly violates finite-dimensionality: $V_0$ already has the integer translates of $\\phi$ as an orthonormal basis, so $\\dim V_0=\\aleph_0$. The other three are exactly Mallat's nesting, density-and-separation, and dyadic-dilation axioms."
+          },
+          {
+            "type": "mcq",
+            "q": "If $\\phi$ is the scaling function of an MRA and $\\psi$ the associated wavelet, what is $W_0=V_1\\ominus V_0$?",
+            "choices": [
+              "Span of integer translates of $\\phi$",
+              "Span of integer translates of $\\psi$",
+              "All of $V_1$",
+              "The zero subspace"
+            ],
+            "answer": 1,
+            "explain": "By construction $\\psi\\in V_1$ is orthogonal to $V_0$, and $\\{\\psi(\\cdot-k)\\}_{k\\in\\mathbb{Z}}$ is an orthonormal basis of the orthogonal complement $W_0$. Iterating dilations gives $\\{\\psi_{j,k}\\}$ as an orthonormal basis of $L^2(\\mathbb{R})=\\bigoplus_j W_j$."
+          },
+          {
+            "type": "numeric",
+            "q": "Take $V_j=\\{f\\in L^2(\\mathbb{R}): f$ is constant on every dyadic interval $[2^{-j}k,2^{-j}(k+1))\\}$ (the Haar MRA). What is the integral $\\int_{\\mathbb{R}}\\phi(x)\\,dx$ for the canonical scaling function $\\phi=\\chi_{[0,1)}$?",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "$\\phi$ is the indicator of a unit interval, so $\\int\\phi=1$. The normalisation $\\int\\phi=1$ is forced (up to sign) by $\\sum_k\\phi(\\cdot-k)\\equiv 1$ — a partition-of-unity condition any MRA scaling function satisfies."
+          }
+        ]
+      },
+      "w-haar-wavelet": {
+        "title": "The Haar wavelet",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Compute the Haar wavelet coefficient $\\langle f,\\psi_{0,0}\\rangle$ for $f(x)=x$ on $[0,1)$ and $0$ elsewhere, where $\\psi_{0,0}=\\psi=\\chi_{[0,1/2)}-\\chi_{[1/2,1)}$.",
+            "answer": -0.25,
+            "tol": 0.001,
+            "explain": "$\\langle f,\\psi\\rangle=\\int_0^{1/2}x\\,dx-\\int_{1/2}^1 x\\,dx=\\tfrac{1}{8}-\\tfrac{3}{8}=-\\tfrac{1}{4}$. The first half of the ramp averages to $1/4$, the second half to $3/4$; the Haar coefficient is half their difference times the interval width."
+          },
+          {
+            "type": "mcq",
+            "q": "Which property of $\\{\\psi_{j,k}\\}_{j,k\\in\\mathbb{Z}}$ with $\\psi$ the Haar wavelet is FALSE?",
+            "choices": [
+              "It is an orthonormal basis of $L^2(\\mathbb{R})$",
+              "Each $\\psi_{j,k}$ has compact support",
+              "Every $\\psi_{j,k}$ is continuous",
+              "$\\int\\psi_{j,k}=0$ for every $j,k$"
+            ],
+            "answer": 2,
+            "explain": "The Haar wavelet is $\\chi_{[0,1/2)}-\\chi_{[1/2,1)}$ — a step function with two jump discontinuities. The other claims hold: it is the standard textbook example of a compactly supported orthonormal wavelet basis with one vanishing moment."
+          },
+          {
+            "type": "mcq",
+            "q": "How many vanishing moments does the Haar wavelet have?",
+            "choices": [
+              "$0$",
+              "$1$",
+              "$2$",
+              "Infinitely many"
+            ],
+            "answer": 1,
+            "explain": "$\\int\\psi(x)\\,dx=\\tfrac12-\\tfrac12=0$, so the $0$th moment vanishes. But $\\int x\\psi(x)\\,dx=\\int_0^{1/2}x\\,dx-\\int_{1/2}^1 x\\,dx=-1/4\\ne 0$, so the $1$st moment does not. Exactly one vanishing moment — that's why Haar barely sees linear trends; Daubechies-$N$ wavelets are designed to kill the first $N$ moments."
+          }
+        ]
+      },
+      "w-daubechies": {
+        "title": "Daubechies wavelets",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What does it mean for an orthonormal wavelet $\\psi$ to have $N$ vanishing moments?",
+            "choices": [
+              "$\\psi$ is supported on an interval of length $N$",
+              "$\\int x^k\\psi(x)\\,dx=0$ for $k=0,1,\\ldots,N-1$",
+              "$\\hat\\psi$ has $N$ zeros",
+              "$\\psi$ is $N$ times continuously differentiable"
+            ],
+            "answer": 1,
+            "explain": "Vanishing-moment conditions are about $\\int x^k\\psi=0$ for $k<N$. Equivalently $\\hat\\psi(\\xi)$ has a zero of order $N$ at $\\xi=0$. They control how fast wavelet coefficients decay on smooth signals: if $f\\in C^N$ near $2^{-j}k$, then $|\\langle f,\\psi_{j,k}\\rangle|=O(2^{-j(N+1/2)})$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Daubechies-$N$ wavelet $\\psi_N$ is supported on which interval?",
+            "choices": [
+              "$[0,N]$",
+              "$[0,2N-1]$",
+              "$[-N,N]$",
+              "All of $\\mathbb{R}$"
+            ],
+            "answer": 1,
+            "explain": "Daubechies's filter $h_n$ has $2N$ non-zero taps, $n=0,\\ldots,2N-1$, so the scaling and wavelet functions have support $[0,2N-1]$. Daubechies-$1$ is the Haar wavelet (support $[0,1]$, one vanishing moment); higher $N$ trades support length for smoothness and more vanishing moments."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does Daubechies require the QMF condition $|m_0(\\xi)|^2+|m_0(\\xi+1/2)|^2=1$ on the filter symbol $m_0(\\xi)=\\tfrac{1}{\\sqrt 2}\\sum_n h_n e^{-2\\pi in\\xi}$?",
+            "choices": [
+              "To make the filter real-valued",
+              "To force compact support",
+              "To make $\\{\\phi(\\cdot-k)\\}$ an orthonormal set",
+              "To impose $N$ vanishing moments"
+            ],
+            "answer": 2,
+            "explain": "Orthonormality of integer translates of $\\phi$ is equivalent (via Poisson summation) to $\\sum_k|\\hat\\phi(\\xi+k)|^2=1$, and propagating that through the refinement equation $\\hat\\phi(2\\xi)=m_0(\\xi)\\hat\\phi(\\xi)$ produces the QMF identity. Compact support and vanishing moments are independent design knobs imposed on $h_n$ separately."
+          }
+        ]
+      },
+      "w-discrete-transform": {
+        "title": "Discrete wavelet transform",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Apply one step of the Haar DWT to the length-$4$ signal $(8,2,4,6)$. What is the first detail coefficient $d_1$ (the high-pass output at position $0$, computed as $(x_0-x_1)/\\sqrt 2$)?",
+            "answer": 4.2426,
+            "tol": 0.01,
+            "explain": "The Haar high-pass filter takes pairwise differences and rescales by $1/\\sqrt 2$: $d_1=(8-2)/\\sqrt 2=6/\\sqrt 2=3\\sqrt 2\\approx 4.243$. The low-pass branch yields $(8+2)/\\sqrt 2=5\\sqrt 2$ at the same position; together they reconstruct $(8,2)$ via inverse rotation."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the asymptotic cost of the Mallat pyramid DWT on a length-$n$ signal with a fixed filter of $L$ taps?",
+            "choices": [
+              "$O(n)$",
+              "$O(n\\log n)$",
+              "$O(n^2)$",
+              "$O(L^n)$"
+            ],
+            "answer": 0,
+            "explain": "Each level convolves with a fixed $L$-tap filter and downsamples by $2$, so level $j$ costs $O(L\\cdot n/2^j)$; summing the geometric series gives $O(Ln)=O(n)$. Strictly cheaper than the FFT's $O(n\\log n)$ — and because each level halves the data, the whole transform is genuinely linear-time."
+          },
+          {
+            "type": "mcq",
+            "q": "In the standard pyramid algorithm, what does the inverse DWT do at each level?",
+            "choices": [
+              "Convolve and downsample by $2$",
+              "Upsample by $2$ then convolve with the dual filters and sum",
+              "Take a direct FFT",
+              "Solve a linear system of size $n\\times n$"
+            ],
+            "answer": 1,
+            "explain": "Inversion mirrors analysis: the low-pass and high-pass coefficient streams are upsampled (zero-stuffed to twice their length), each is convolved with its dual reconstruction filter, and the two streams are added. For an orthonormal wavelet the dual filters are time-reversals of the analysis filters; the algorithm stays $O(n)$ overall."
+          }
+        ]
+      },
+      "w-wavelet-vs-fourier": {
+        "title": "Time-frequency localisation",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A wavelet atom $\\psi_{j,k}$ occupies a Heisenberg cell of approximate dimensions",
+            "choices": [
+              "$\\Delta x\\sim 2^{-j}$, $\\Delta\\xi\\sim 2^{-j}$",
+              "$\\Delta x\\sim 2^{-j}$, $\\Delta\\xi\\sim 2^j$",
+              "$\\Delta x\\sim 1$, $\\Delta\\xi\\sim 1$ (independent of $j$)",
+              "$\\Delta x\\sim 2^j$, $\\Delta\\xi\\sim 2^j$"
+            ],
+            "answer": 1,
+            "explain": "Dilation by $2^j$ shrinks support by $2^{-j}$ in space and stretches frequency content by $2^j$. The Heisenberg product $\\Delta x\\,\\Delta\\xi\\sim 1$ — saturating the uncertainty principle — but the cell shape adapts: high-frequency atoms are short and tall, low-frequency atoms are long and narrow. Gabor windows, by contrast, force a fixed cell shape at every frequency."
+          },
+          {
+            "type": "mcq",
+            "q": "For which signal class do wavelet expansions outperform Fourier expansions most dramatically?",
+            "choices": [
+              "Pure sinusoids on a long interval",
+              "Stationary signals (translation-invariant statistics)",
+              "Signals with isolated singularities or sharp edges",
+              "Bandlimited signals"
+            ],
+            "answer": 2,
+            "explain": "A jump discontinuity smears across all Fourier coefficients (Gibbs phenomenon, $|\\hat f(\\xi)|\\sim 1/|\\xi|$), but only the wavelets whose support touches the jump have large coefficients — a logarithmic number of them. Stationary or bandlimited signals are exactly where Fourier shines; wavelets give up phase coherence in exchange for spatial localisation."
+          },
+          {
+            "type": "mcq",
+            "q": "If $f\\in C^N$ on a neighbourhood of $2^{-j}k$ and $\\psi$ has $N$ vanishing moments, the wavelet coefficient satisfies",
+            "choices": [
+              "$|\\langle f,\\psi_{j,k}\\rangle|=O(1)$",
+              "$|\\langle f,\\psi_{j,k}\\rangle|=O(2^{-j(N+1/2)})$",
+              "$|\\langle f,\\psi_{j,k}\\rangle|=O(2^{j N})$",
+              "It vanishes identically"
+            ],
+            "answer": 1,
+            "explain": "Taylor-expand $f$ to order $N$ at the centre and pair against $\\psi_{j,k}$: the first $N$ terms vanish by the moment conditions, leaving a remainder bounded by $\\|f^{(N)}\\|_\\infty\\cdot 2^{-j(N+1/2)}$ (the extra $1/2$ is the $L^2$ normalisation $2^{j/2}$). This is the decay engine behind wavelet compression of smooth signals."
+          }
+        ]
+      },
+      "w-applications": {
+        "title": "Applications",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why does JPEG2000 use a wavelet transform instead of the blocked $8\\times 8$ DCT of legacy JPEG?",
+            "choices": [
+              "Wavelets compress better in the worst case for every image",
+              "Wavelets eliminate the blocking artefacts of fixed-tile DCT and degrade smoothly under aggressive quantisation",
+              "Wavelets are faster than the FFT-based DCT",
+              "Wavelets are easier to implement in hardware"
+            ],
+            "answer": 1,
+            "explain": "JPEG's tiling produces visible $8\\times 8$ blocks at low bitrates because each tile quantises independently. The CDF 9/7 biorthogonal wavelet in JPEG2000 is global and multi-scale, so high quantisation looks like overall smoothing rather than mosaic. Speed and worst-case ratio are not the differentiator."
+          },
+          {
+            "type": "mcq",
+            "q": "Donoho–Johnstone soft-thresholding denoises a signal by transforming, applying $\\hat c=\\operatorname{sgn}(c)(|c|-\\lambda)_+$ to each wavelet coefficient $c$, and inverting. Why does this work?",
+            "choices": [
+              "Wavelet coefficients of white noise are concentrated on a few atoms",
+              "Smooth signals have most wavelet coefficients near zero, while white noise spreads i.i.d. Gaussian mass over all coefficients — thresholding kills the noise floor",
+              "Soft-thresholding is the orthogonal projection onto the closest signal in $L^2$",
+              "Wavelet coefficients of white noise are exactly zero"
+            ],
+            "answer": 1,
+            "explain": "The wavelet transform of white Gaussian noise is again white Gaussian (orthogonal change of basis). Smooth signals concentrate energy in few large coefficients; thresholding at $\\lambda\\sim\\sigma\\sqrt{2\\log n}$ removes the noise floor while keeping signal spikes. Donoho–Johnstone proved this is asymptotically minimax over Besov balls."
+          },
+          {
+            "type": "mcq",
+            "q": "Why are wavelets a natural basis for Calderón–Zygmund operators (e.g. the Hilbert transform, $-\\Delta^{-1}$)?",
+            "choices": [
+              "Wavelets diagonalise every CZ operator",
+              "Vanishing moments make $\\langle T\\psi_{j,k},\\psi_{j',k'}\\rangle$ decay rapidly off the diagonal $(j,k)=(j',k')$, compressing $T$ to a sparse matrix",
+              "CZ operators commute with translation and dilation",
+              "Wavelet coefficients are always real-valued"
+            ],
+            "answer": 1,
+            "explain": "Beylkin–Coifman–Rokhlin showed that for a CZ operator $T$ and a wavelet with $N$ vanishing moments, $|\\langle T\\psi_{j,k},\\psi_{j',k'}\\rangle|\\le C 2^{-(N+1)|j-j'|}(1+|2^j k-2^{j'}k'|)^{-N-1}$. Most entries are negligibly small, so $T$ is approximated by an $O(n)$-entry sparse matrix — wavelets do not diagonalise $T$ exactly, but they nearly do."
           }
         ]
       }

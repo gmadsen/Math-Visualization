@@ -1,0 +1,54 @@
+{
+  "topic": "high-dimensional-geometry",
+  "title": "High-dimensional geometry",
+  "page": "high-dimensional-geometry.html",
+  "concepts": [
+    {
+      "id": "hdg-sphere-concentration",
+      "title": "Concentration on the sphere",
+      "anchor": "sphere",
+      "prereqs": ["expectation-moments", "lp-spaces"],
+      "blurb": "On $S^{n-1}$ a $1$-Lipschitz function $f$ concentrates near its median: $\\sigma(|f-\\mathrm{med}\\,f|>t)\\le 2e^{-(n-1)t^2/2}$ (Lévy's lemma). Generic vectors look almost orthogonal — the \"blessing of dimensionality\".",
+      "tags": ["foundation"]
+    },
+    {
+      "id": "hdg-dvoretzky",
+      "title": "Dvoretzky's theorem",
+      "anchor": "dvoretzky",
+      "prereqs": ["hdg-sphere-concentration", "banach-hilbert-spaces"],
+      "blurb": "Every centred convex body in $\\mathbb{R}^n$ has an almost-Euclidean section of dimension $k\\asymp\\log n$: the unit ball of any norm contains a subspace whose induced norm is $(1+\\varepsilon)$-equivalent to $\\ell^2$.",
+      "tags": ["classification"]
+    },
+    {
+      "id": "hdg-johnson-lindenstrauss",
+      "title": "Johnson–Lindenstrauss",
+      "anchor": "jl",
+      "prereqs": ["hdg-sphere-concentration", "random-variables"],
+      "blurb": "Any $N$ points in $\\mathbb{R}^n$ embed into $\\mathbb{R}^k$ with $k=O(\\varepsilon^{-2}\\log N)$ via a random Gaussian projection while preserving every pairwise distance up to $1\\pm\\varepsilon$ — the workhorse dimension reduction of high-D ML."
+    },
+    {
+      "id": "hdg-talagrand",
+      "title": "Talagrand's inequality",
+      "anchor": "talagrand",
+      "prereqs": ["hdg-sphere-concentration", "convergence-rv"],
+      "blurb": "On product probability spaces a convex $1$-Lipschitz $f$ satisfies $\\mathbb{P}(|f-\\mathrm{med}\\,f|>t)\\le 4e^{-t^2/4}$ — convex-distance concentration that is dimension-free and underlies modern high-dimensional probability.",
+      "tags": ["duality"]
+    },
+    {
+      "id": "hdg-isoperimetry",
+      "title": "Gaussian isoperimetry",
+      "anchor": "isoperimetry",
+      "prereqs": ["hdg-sphere-concentration", "bounded-operators-fa"],
+      "blurb": "Among Borel sets of equal Gaussian measure, halfspaces minimise the Gaussian boundary measure. The sphere $\\to$ Gauss limit (Poincaré) plus log-Sobolev (Gross) and Bobkov's functional inequality place isoperimetry at the analytic core of concentration.",
+      "tags": ["duality"]
+    },
+    {
+      "id": "hdg-applications",
+      "title": "Applications",
+      "anchor": "applications",
+      "prereqs": ["hdg-johnson-lindenstrauss", "hdg-talagrand", "ld-cramer-theorem"],
+      "blurb": "Compressed sensing (RIP via JL), random matrix theory (Marchenko–Pastur, Wigner), PAC bounds in statistical learning, and random tensors all rest on concentration of measure as the geometric backbone of modern high-dimensional data analysis.",
+      "tags": ["classification"]
+    }
+  ]
+}

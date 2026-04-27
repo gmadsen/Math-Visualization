@@ -1,0 +1,1047 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>K-theory</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\Spec',
+        '\\Gal':'\\Gal',
+        '\\Hom':'\\Hom',
+        '\\tr':'\\tr',
+        '\\ad':'\\ad',
+        '\\ind':'\\ind'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"automorphic-forms-adelic","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"additive-number-theory":{"next":"quadratic-forms-genus-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"moduli-spaces","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"mathematics-and-cryptography","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"mostow-rigidity","prev":"k-theory","section":"Geometry & topology","title":"Atiyah singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"etale-cohomology","section":"Algebraic geometry","title":"Calabi yau manifolds"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-topoi","prev":"infinity-categories","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":null,"prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"deformation-theory":{"next":"etale-cohomology","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"group-cohomology","prev":"homological","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"expanders","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"harmonic-analysis-fourier","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":null,"section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":"calabi-yau-manifolds","prev":"deformation-theory","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"deformation-theory","prev":"group-schemes","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":null,"prev":"designs","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"naive-set-theory","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":null,"prev":"variational-methods","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"type-theory-and-hott","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"quantum-groups","prev":"lie-algebras","section":"Algebra & homological","title":"Galois cohomology and brauer"},"galois-representations":{"next":"heights-arithmetic-geometry","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"general-relativity":{"next":"schrodinger-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":null,"prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"lie-algebras","prev":"derived-categories","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"etale-fundamental-group","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"hamiltonians-classical-mechanics":{"next":"general-relativity","prev":"three-body-problem","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"spectral-theory","prev":"partial-differential-equations","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"analytic-number-theory","prev":"galois-representations","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":null,"prev":"mathematical-statistics","section":"Probability & statistics","title":"High dimensional geometry"},"homological":{"next":"derived-categories","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"cocartesian-fibrations","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-topoi (Lurie)"},"information-theory":{"next":"large-deviations","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"stacks","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"ricci-flow","section":"Geometry & topology","title":"K theory"},"knot-polynomials":{"next":"ricci-flow","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Knot polynomials"},"large-deviations":{"next":"mathematical-statistics","prev":"information-theory","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"galois-cohomology-and-brauer","prev":"group-cohomology","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"mathematical-statistics":{"next":"high-dimensional-geometry","prev":"large-deviations","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"mirror-symmetry":{"next":"resolution-of-singularities","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"model-theory-basics":{"next":"computability-and-decidability","prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"modular-curves","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"algebraic-spaces","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"characteristic-classes","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":null,"prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Mostow rigidity"},"naive-set-theory":{"next":"first-order-logic-and-completeness","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"wavelets","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"harmonic-functions","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"stochastic-processes-and-martingales","prev":null,"section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"additive-number-theory","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"additive-number-theory","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"quantum-groups":{"next":"quaternions-octonions-and-division-algebras","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"quantum-groups","section":"Algebra & homological","title":"Quaternions octonions and division algebras"},"random-walks-and-mixing":{"next":"information-theory","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":null,"prev":"mirror-symmetry","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"k-theory","prev":"knot-polynomials","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"characteristic-classes","prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":null,"prev":"general-relativity","section":"Mathematical physics","title":"Schrodinger equation"},"sheaf-cohomology":{"next":"algebraic-de-rham-cohomology","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"algebraic-curves-higher-genus","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Sobolev spaces & distributions"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"wavelets","prev":"harmonic-functions","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"intersection-theory-chow","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":"probability-theory","section":"Probability & statistics","title":"Stochastic processes and martingales"},"symplectic-manifolds":{"next":"knot-polynomials","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"hamiltonians-classical-mechanics","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"type-theory-and-hott":{"next":"forcing-and-independence","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and hott"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"fixed-point-theorems","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":null,"prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"numerical-analysis","prev":"spectral-theory","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"model-theory-basics","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"Zfc and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="Geometry & topology" data-level="advanced">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color="var(--ink)", curve=0, label=null, labelSide=1, markerId="arr-default", dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG("path",{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:"none", stroke:color, "stroke-width":width,
+    "marker-end":`url(#${markerId})`
+  });
+  if(dash) path.setAttribute("stroke-dasharray", dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG("text",{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      "text-anchor":"middle","font-size":12, fill:color, "font-style":"italic"});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill="var(--panel2)", stroke="var(--blue)", textColor="#fff", fontSize=14} = opts;
+  svg.appendChild(SVG("circle",{cx:x,cy:y,r,fill,stroke,"stroke-width":1.5}));
+  const t = SVG("text",{x,y:y+fontSize*0.35,"text-anchor":"middle","font-size":fontSize,fill:textColor,"font-weight":600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+  <a href="#vector-bundles">1&nbsp;Vector&nbsp;bundles</a>
+  <a href="#grothendieck">2&nbsp;Grothendieck</a>
+  <a href="#bott">3&nbsp;Bott</a>
+  <a href="#chern-character">4&nbsp;Chern&nbsp;character</a>
+  <a href="#algebraic-k">5&nbsp;Algebraic&nbsp;K</a>
+  <a href="#applications">6&nbsp;Applications</a>
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>K-theory</h1>
+  <p class="sub">Vector bundles modulo direct sum, formally inverted: a generalised cohomology theory whose values are stable equivalence classes of bundles. Bott periodicity makes it $2$-periodic for complex theories and $8$-periodic for real ones; the Chern character converts it rationally back to ordinary cohomology; Quillen's $+$-construction extends it from rings to a full hierarchy of higher invariants $K_n(R)$.</p>
+</section>
+
+<section id="vector-bundles">
+<h2>1. Topological $K^0(X)$ from vector bundles</h2>
+<p>Let $X$ be a compact Hausdorff space and $\mathrm{Vect}_\mathbb{C}(X)$ the set of isomorphism classes of complex vector bundles on $X$. Direct sum $\oplus$ makes it an <em>abelian monoid</em>, but cancellation can fail: there exist bundles $E,F,G$ with $E\oplus G\cong F\oplus G$ yet $E\not\cong F$ (this is "stable but not unstable equivalence" — the failure is genuine on $S^7$, for instance).</p>
+
+<p>The <strong>Grothendieck group</strong> $K^0(X)$ is the universal abelian group receiving a monoid map from $\mathrm{Vect}_\mathbb{C}(X)$:
+$$K^0(X) \;=\; \{\,[E]-[F]\,\}/\!\sim, \qquad [E]-[F]\sim[E']-[F'] \iff E\oplus F'\oplus G \cong E'\oplus F\oplus G \text{ for some }G.$$
+Concretely every element is a formal difference of bundle classes; two differences agree iff they become equal after stabilising by a common bundle.</p>
+
+<p>$K^0$ inherits much more than the abelian group law:</p>
+<ul>
+  <li><strong>Ring structure.</strong> Tensor product distributes over direct sum: $(E\oplus E')\otimes F\cong (E\otimes F)\oplus(E'\otimes F)$. Setting $[E]\cdot[F]=[E\otimes F]$ makes $K^0(X)$ a commutative ring with unit $[\mathbf 1]$ (the trivial line bundle).</li>
+  <li><strong>Functoriality.</strong> A continuous $f\colon Y\to X$ induces the ring homomorphism $f^*\colon K^0(X)\to K^0(Y)$, $f^*[E]=[f^*E]$.</li>
+  <li><strong>Augmentation.</strong> The rank gives a ring map $\dim\colon K^0(X)\to\mathbb{Z}$; its kernel is the <em>reduced K-theory</em> $\widetilde K^0(X)$.</li>
+</ul>
+
+<div class="ok"><strong>Computation.</strong> $K^0(\mathrm{pt})=\mathbb{Z}$ (bundles on a point are vector spaces, classified by dimension). $K^0(S^2)=\mathbb{Z}\oplus\mathbb{Z}$, generated by $[\mathbf 1]$ and the Bott class $[\mathcal{O}(1)]-[\mathbf 1]$. The widget builds elements of $K^0$ as formal $\oplus$-combinations and tracks rank and stable equivalence.</div>
+
+<div class="widget" id="w-grothendieck">
+  <div class="hd"><div class="ttl">Building elements of $K^0(X)$</div><div class="hint">add bundles with $\oplus$, take a formal difference, watch the rank</div></div>
+  <svg id="kg-svg" viewBox="0 0 820 280" width="820" height="280"><title>Bundles assembled by direct sum, displayed as stacks of fibres, plus a rank readout</title></svg>
+  <div class="row">
+    <button id="kg-add-line">add line bundle $L$</button>
+    <button id="kg-add-rank2">add rank-2 bundle $V$</button>
+    <button id="kg-sub-line">subtract $L$</button>
+    <button id="kg-reset">reset</button>
+  </div>
+  <div class="readout" id="kg-readout" aria-live="polite">$[E]=0$. Click "add" to build a class; the rank of the resulting formal difference $[E_+]-[E_-]$ updates live.</div>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./characteristic-classes.html#vector-bundles">Vector bundles</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./atiyah-singer-index-theorem.html#topological">The Atiyah–Singer index theorem</a> · The topological index via $\mathrm{ch}\cdot\mathrm{Td}$</div>
+    <div><a href="./k-theory.html#bott">K-theory</a> · Bott periodicity</div>
+    <div><a href="./k-theory.html#chern-character">K-theory</a> · Chern character</div>
+    <div><a href="./k-theory.html#grothendieck">K-theory</a> · Grothendieck group $K_0$ of an exact category</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="k-vector-bundles"></div>
+</section>
+
+<section id="grothendieck">
+<h2>2. Grothendieck group of an exact category</h2>
+<p>Quillen's elegance: replace "monoid + group completion" with the more flexible <strong>exact category</strong> picture. An exact category $\mathcal{C}$ is an additive category equipped with a class of distinguished short exact sequences $0\to A\to B\to C\to 0$ (e.g. all SES in an abelian category, or split SES of vector bundles).</p>
+
+<p>The <strong>Grothendieck group</strong> $K_0(\mathcal{C})$ is then
+$$K_0(\mathcal{C}) \;=\; \mathbb{Z}\langle\,[X] : X\in\mathcal{C}\,\rangle \,/\, \big([B]-[A]-[C]\;\text{for every distinguished SES}\big).$$
+This recovers the bundle picture and many more:</p>
+
+<table class="plain">
+  <thead><tr><th>category $\mathcal{C}$</th><th>$K_0(\mathcal{C})$</th><th>by what</th></tr></thead>
+  <tbody>
+    <tr><td>$\mathrm{Vect}_\mathbb{C}(X)$, split SES</td><td>$K^0(X)$</td><td>SES of bundles split (orthogonal complement)</td></tr>
+    <tr><td>$\mathbf{Proj}(R)$, fin. gen. projective $R$-modules</td><td>$K_0(R)$</td><td>algebraic $K_0$ of a ring</td></tr>
+    <tr><td>$\mathrm{Coh}(X)$ on a scheme $X$</td><td>$G_0(X)$</td><td>K-theory with coefficients in coherent sheaves</td></tr>
+    <tr><td>$\mathbf{Mod}^{\mathrm{fg}}(\mathbb{Z})$</td><td>$\mathbb{Z}$</td><td>$[\mathbb{Z}/n]=0$ from $0\to\mathbb{Z}\xrightarrow{n}\mathbb{Z}\to\mathbb{Z}/n\to 0$</td></tr>
+  </tbody>
+</table>
+
+<div class="note"><strong>The vanishing of $[\mathbb{Z}/n]$.</strong> In $K_0(\mathbf{Mod}^{\mathrm{fg}}(\mathbb{Z}))$ the SES $0\to\mathbb{Z}\to\mathbb{Z}\to\mathbb{Z}/n\to 0$ forces $[\mathbb{Z}/n]=[\mathbb{Z}]-[\mathbb{Z}]=0$. So torsion modules contribute nothing — $K_0$ sees only the rank, and the map "rank" $\colon K_0\to\mathbb{Z}$ is an iso.</div>
+
+<p>The price of allowing all SES (not just split) is exactly that <em>extensions kill differences</em>. For projective $R$-modules every SES splits, so $K_0(R)$ counts projectives up to stable equivalence — the projective class group, $\widetilde K_0(R)=K_0(R)/\mathbb{Z}[R]$, captures non-free projectives. For Dedekind domains $\widetilde K_0(\mathcal{O}_F)=\mathrm{Cl}(F)$, the ideal class group.</p>
+
+<div class="widget" id="w-extensions">
+  <div class="hd"><div class="ttl">SES relations in $K_0$</div><div class="hint">pick a sequence — see what relation it imposes</div></div>
+  <svg id="ex-svg" viewBox="0 0 820 240" width="820" height="240"><title>Three short exact sequences and the K_0 relations they enforce</title></svg>
+  <div class="row">
+    <button class="ex-pick active" data-key="split" aria-pressed="true">split: $0\to A\to A\oplus C\to C\to 0$</button>
+    <button class="ex-pick" data-key="z-mod-n" aria-pressed="false">$0\to\mathbb{Z}\xrightarrow{n}\mathbb{Z}\to\mathbb{Z}/n\to 0$</button>
+    <button class="ex-pick" data-key="bundle-pair" aria-pressed="false">$0\to L\to E\to L'\to 0$ (line bundles)</button>
+  </div>
+  <div class="readout" id="ex-readout" aria-live="polite">Split SES: $[A\oplus C]=[A]+[C]$ — the additivity that defines $K^0(X)$ for vector bundles.</div>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./homological.html#exact">Exact sequences</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./atiyah-singer-index-theorem.html#topological">The Atiyah–Singer index theorem</a> · The topological index via $\mathrm{ch}\cdot\mathrm{Td}$</div>
+    <div><a href="./k-theory.html#algebraic-k">K-theory</a> · Algebraic K-theory $K_n(R)$</div>
+</aside>
+<!-- backlinks-auto-end -->
+<div class="quiz" data-concept="k-grothendieck-group"></div>
+</section>
+
+<section id="bott">
+<h2>3. Bott periodicity</h2>
+<p>The deep theorem of complex K-theory, due to Bott (1959) and reformulated by Atiyah–Bott (1964): there is a natural isomorphism
+$$\widetilde K^0(X) \xrightarrow{\;\sim\;} \widetilde K^0(\Sigma^2 X), \qquad \alpha \mapsto \beta\boxtimes\alpha,$$
+where $\beta=[\mathcal{O}(1)]-[\mathbf 1]\in\widetilde K^0(S^2)$ is the <strong>Bott class</strong> (the reduced class of the Hopf line bundle on $\mathbb{CP}^1$) and $\boxtimes$ is the external product. Equivalently $K^n(X)\cong K^{n+2}(X)$ for all $n$.</p>
+
+<p>Three immediate consequences:</p>
+<ul>
+  <li><strong>$\mathbb{Z}/2$-graded cohomology theory.</strong> $K^*(X)$ is determined by just two groups: $K^0(X)$ and $K^1(X)\cong\widetilde K^0(SX)$. For a finite CW complex these admit a Mayer–Vietoris exact hexagon.</li>
+  <li><strong>Computation of spheres.</strong> $\widetilde K^0(S^{2k})\cong\mathbb{Z}$ generated by $\beta^k$; $\widetilde K^0(S^{2k+1})=0$. Compare with ordinary cohomology, $\widetilde H^*(S^n;\mathbb{Z})=\mathbb{Z}$ in degree $n$, zero elsewhere — K-theory packages all the even spheres into one periodic pattern.</li>
+  <li><strong>Real version.</strong> Real K-theory $KO$ has period $8$ — the surprise that ultimately drove Adams to settle the Hopf invariant one problem.</li>
+</ul>
+
+<div class="ok"><strong>Bott's homotopical statement.</strong> Let $U=\varinjlim U(n)$ be the infinite unitary group. Then
+$$\Omega U \;\simeq\; \mathbb{Z}\times BU, \qquad \Omega^2 U \;\simeq\; U.$$
+The homotopy groups $\pi_n(U)$ thus satisfy $\pi_n(U)\cong\pi_{n+2}(U)$, with values $0,\mathbb{Z},0,\mathbb{Z},\ldots$ starting in degree $0$.</div>
+
+<div class="widget" id="w-bott">
+  <div class="hd"><div class="ttl">Period-2 pattern of $\pi_n(U)$ vs $\pi_n(O)$</div><div class="hint">scrub the degree slider — see the periodic homotopy groups</div></div>
+  <svg id="bp-svg" viewBox="0 0 820 280" width="820" height="280"><title>Periodic homotopy groups of the stable unitary and orthogonal groups</title></svg>
+  <div class="row">
+    <label for="bp-n">$n$</label>
+    <input type="range" id="bp-n" min="0" max="11" step="1" value="2">
+    <button class="bp-pick active" data-key="U" aria-pressed="true">complex ($U$)</button>
+    <button class="bp-pick" data-key="O" aria-pressed="false">real ($O$)</button>
+  </div>
+  <div class="readout" id="bp-readout" aria-live="polite">$\pi_2(U)=0$ — even-degree complex case. The period-2 pattern is $0,\mathbb{Z},0,\mathbb{Z},\ldots$ starting at $n=0$.</div>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-topology.html#pi1">Fundamental group</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./atiyah-singer-index-theorem.html#topological">The Atiyah–Singer index theorem</a> · The topological index via $\mathrm{ch}\cdot\mathrm{Td}$</div>
+    <div><a href="./k-theory.html#applications">K-theory</a> · Applications: index theorem &amp; K-theory of $\mathcal{O}_F$</div>
+</aside>
+<!-- backlinks-auto-end -->
+<div class="quiz" data-concept="k-bott-periodicity"></div>
+</section>
+
+<section id="chern-character">
+<h2>4. Chern character</h2>
+<p>K-theory is finer than cohomology integrally, but rationally they agree. The bridge is the <strong>Chern character</strong>, the unique natural ring homomorphism
+$$\mathrm{ch}\colon K^0(X)\to H^{\mathrm{even}}(X;\mathbb{Q})$$
+extending $\mathrm{ch}([L])=e^{c_1(L)}=1+c_1(L)+\tfrac{1}{2}c_1(L)^2+\cdots$ for line bundles. By the splitting principle, on a bundle $E$ with formal Chern roots $x_1,\ldots,x_n$:
+$$\mathrm{ch}(E) \;=\; \sum_{i=1}^n e^{x_i} \;=\; n + c_1(E) + \tfrac{1}{2}\!\left(c_1(E)^2 - 2c_2(E)\right) + \tfrac{1}{6}\!\left(c_1^3 - 3c_1c_2 + 3c_3\right) + \cdots.$$</p>
+
+<p>The exponential is forced by the two structural compatibilities:</p>
+<ul>
+  <li><strong>Additivity:</strong> $\mathrm{ch}(E\oplus F)=\mathrm{ch}(E)+\mathrm{ch}(F)$, since the roots of $E\oplus F$ are the union of roots.</li>
+  <li><strong>Multiplicativity:</strong> $\mathrm{ch}(E\otimes F)=\mathrm{ch}(E)\smile\mathrm{ch}(F)$, since $E\otimes F$ has roots $x_i+y_j$ and $e^{x_i+y_j}=e^{x_i}e^{y_j}$.</li>
+</ul>
+
+<div class="note"><strong>Atiyah–Hirzebruch.</strong> Tensoring with $\mathbb{Q}$, the Chern character becomes an isomorphism
+$$\mathrm{ch}\otimes\mathbb{Q}\colon K^0(X)\otimes\mathbb{Q} \;\xrightarrow{\;\sim\;}\; H^{\mathrm{even}}(X;\mathbb{Q}) \qquad (\text{finite CW }X).$$
+The Atiyah–Hirzebruch spectral sequence $E_2^{p,q}=H^p(X;K^q(\mathrm{pt}))\Rightarrow K^{p+q}(X)$ collapses rationally — over $\mathbb{Q}$, K-theory is no fancier than cohomology. The genuinely new content of K-theory is its <em>integral torsion</em>.</div>
+
+<p>For line bundles $\mathrm{ch}(L)=e^{c_1(L)}$, so on $\mathbb{CP}^n$ with $c_1(\mathcal{O}(1))=H$ the generator,
+$$\mathrm{ch}(\mathcal{O}(d)) \;=\; e^{dH} \;=\; 1 + dH + \tfrac{d^2}{2}H^2 + \cdots + \tfrac{d^n}{n!}H^n.$$
+The coefficients $d^k/k!$ are not integers — the Chern character genuinely lives in $H^*(\mathbb{CP}^n;\mathbb{Q})$, not $\mathbb{Z}$.</p>
+
+<div class="widget" id="w-ch">
+  <div class="hd"><div class="ttl">Chern character of $\mathcal{O}(d)$ on $\mathbb{CP}^n$</div><div class="hint">slide $d$ — watch the cohomology terms scale as $d^k/k!$</div></div>
+  <svg id="ch-svg" viewBox="0 0 820 280" width="820" height="280"><title>Chern character expansion of the line bundle O(d) on complex projective space</title></svg>
+  <div class="row">
+    <label for="ch-d">$d$</label>
+    <input type="range" id="ch-d" min="-3" max="6" step="1" value="2">
+    <label for="ch-n">$n$</label>
+    <input type="range" id="ch-n" min="1" max="4" step="1" value="3">
+  </div>
+  <div class="readout" id="ch-readout" aria-live="polite">$\mathrm{ch}(\mathcal{O}(2))=1+2H+2H^2+\tfrac{4}{3}H^3$ on $\mathbb{CP}^3$ — note the non-integer denominators that force rational coefficients.</div>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-topology.html#homology">Cup product on cohomology</a></li>
+    <li><a href="./characteristic-classes.html#chern">Chern classes</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./atiyah-singer-index-theorem.html#statement">The Atiyah–Singer index theorem</a> · The index theorem</div>
+    <div><a href="./k-theory.html#applications">K-theory</a> · Applications: index theorem &amp; K-theory of $\mathcal{O}_F$</div>
+</aside>
+<!-- backlinks-auto-end -->
+<div class="quiz" data-concept="k-chern-character"></div>
+</section>
+
+<section id="algebraic-k">
+<h2>5. Algebraic K-theory $K_n(R)$</h2>
+<p>For a ring $R$, the low K-groups have hands-on descriptions:</p>
+
+<table class="plain">
+  <thead><tr><th>group</th><th>presentation</th><th>example</th></tr></thead>
+  <tbody>
+    <tr><td>$K_0(R)$</td><td>Grothendieck group of fin. gen. projective modules</td><td>$K_0(\mathbb{Z})=\mathbb{Z}$, $K_0(\mathcal{O}_F)=\mathbb{Z}\oplus\mathrm{Cl}(F)$</td></tr>
+    <tr><td>$K_1(R)$</td><td>$GL_\infty(R)^{\mathrm{ab}} = GL_\infty(R)/E(R)$</td><td>$K_1(\mathbb{Z})=\{\pm 1\}$; $K_1(\mathbb{F}_q)=\mathbb{F}_q^\times$</td></tr>
+    <tr><td>$K_2(R)$</td><td>$\ker\bigl(\mathrm{St}(R)\twoheadrightarrow E(R)\bigr)$</td><td>$K_2(\mathbb{Z})=\mathbb{Z}/2$; $K_2(F)=F^\times\!\otimes\!F^\times/\langle a\otimes(1-a)\rangle$ (Matsumoto)</td></tr>
+  </tbody>
+</table>
+
+<p>These three were defined separately and unified by Quillen (1972) via the <strong>$+$-construction</strong>:
+$$K_n(R) \;=\; \pi_n\bigl(BGL(R)^+\bigr), \qquad n\ge 1,$$
+together with $K_0(R)=\pi_0$. Here $BGL(R)$ is the classifying space of the infinite general linear group, and $X\mapsto X^+$ is a homotopy modification that abelianises $\pi_1$ by killing a perfect normal subgroup (here $E(R)\subset GL_\infty(R)$, the elementary subgroup) without changing integral homology.</p>
+
+<div class="ok"><strong>Whitehead's lemma.</strong> $E(R)$ — the subgroup generated by elementary matrices $e_{ij}(r)=I+r\,E_{ij}$ — equals the commutator subgroup $[GL_\infty(R),GL_\infty(R)]$. So $\pi_1(BGL(R)^+)=GL_\infty(R)/E(R)=K_1(R)$, recovering the original Bass definition.</div>
+
+<p>The Steinberg group $\mathrm{St}(R)$ is the universal central extension of $E(R)$. The kernel of $\mathrm{St}(R)\twoheadrightarrow E(R)$ is $K_2(R)$ — Milnor's definition — and equals $\pi_2(BGL(R)^+)$ in Quillen's framework.</p>
+
+<div class="note"><strong>Quillen's calculation of $K_*(\mathbb{F}_q)$.</strong> A virtuoso application of Brauer lifting and the homology of finite groups of Lie type:
+$$K_{2k}(\mathbb{F}_q) = 0, \qquad K_{2k-1}(\mathbb{F}_q) = \mathbb{Z}/(q^k-1) \quad (k\ge 1).$$
+This is the input that combines, via localisation, with class field theory to produce Borel's calculation of $K_n(\mathcal{O}_F)\otimes\mathbb{Q}$.</div>
+
+<div class="widget" id="w-quillen">
+  <div class="hd"><div class="ttl">Low K-groups for sample rings</div><div class="hint">choose a ring — see $K_0,K_1,K_2$ side by side</div></div>
+  <svg id="qk-svg" viewBox="0 0 820 280" width="820" height="280"><title>Tabulated low K-groups for the integers, finite fields, and rings of integers in number fields</title></svg>
+  <div class="row">
+    <button class="qk-pick active" data-key="Z" aria-pressed="true">$\mathbb{Z}$</button>
+    <button class="qk-pick" data-key="Fq" aria-pressed="false">$\mathbb{F}_q$</button>
+    <button class="qk-pick" data-key="OF" aria-pressed="false">$\mathcal{O}_F$ (number field)</button>
+    <button class="qk-pick" data-key="field" aria-pressed="false">field $F$</button>
+  </div>
+  <div class="readout" id="qk-readout" aria-live="polite">$R=\mathbb{Z}$: $K_0=\mathbb{Z}$ (rank), $K_1=\{\pm 1\}$ (units), $K_2=\mathbb{Z}/2$ (Tate, $\{-1,-1\}$).</div>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./homological.html#exact">Exact sequences</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./k-theory.html#applications">K-theory</a> · Applications: index theorem &amp; K-theory of $\mathcal{O}_F$</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="k-algebraic-k-theory"></div>
+</section>
+
+<section id="applications">
+<h2>6. Applications: index theorem and $K_*(\mathcal{O}_F)$</h2>
+<p>K-theory's two cardinal applications come from its two faces — topological and algebraic.</p>
+
+<h3>The Atiyah–Singer index theorem</h3>
+
+<p>Let $D\colon\Gamma(E)\to\Gamma(F)$ be an <em>elliptic</em> differential operator between vector bundles on a closed manifold $M$. Two integers attach to $D$:</p>
+<ul>
+  <li>The <strong>analytic index</strong> $\ind(D)=\dim\ker D - \dim\mathrm{coker}\, D$, finite by ellipticity.</li>
+  <li>The <strong>topological index</strong>: the symbol $\sigma(D)\colon\pi^*E\to\pi^*F$ (a bundle map on $T^*M\setminus 0$, an iso outside the zero section) defines a class
+$$[\sigma(D)] \;\in\; K^0(T^*M).$$</li>
+</ul>
+
+<p>Atiyah–Singer (1963):
+$$\boxed{\;\ind(D) \;=\; \bigl\langle\,\mathrm{ch}([\sigma(D)])\smile\mathrm{Td}(TM\otimes\mathbb{C}),\,[T^*M]\,\bigr\rangle.\;}$$
+The Chern character and Todd class together translate the K-class into an integral cohomology pairing — and the answer is the analytical invariant. Special cases recover Gauss–Bonnet ($D=d+d^*$, even forms vs odd), Hirzebruch signature ($D$ on self-dual vs anti-self-dual forms), and Hirzebruch–Riemann–Roch ($D=\bar\partial$ on a holomorphic bundle).</p>
+
+<h3>K-theory of rings of integers</h3>
+
+<p>For $F$ a number field with $r_1$ real and $r_2$ complex places, Borel (1974) computed:
+$$\mathrm{rk}_\mathbb{Z}\, K_n(\mathcal{O}_F) \;=\; \begin{cases} 1 & n=0 \\ r_1+r_2-1 & n=1 \\ 0 & n\ge 2,\;n\text{ even} \\ r_1+r_2 & n\equiv 1\pmod 4,\;n\ge 5 \\ r_2 & n\equiv 3\pmod 4,\;n\ge 3.\end{cases}$$
+The $n=1$ entry is Dirichlet's unit theorem; the higher-degree entries refine it. The proof routes through Quillen's $K_*(\mathbb{F}_q)$ calculation, the localisation sequence $\cdots\to K_n(\mathbb{F}_p)\to K_n(\mathbb{Z}_p)\to K_n(\mathbb{Q}_p)\to\cdots$, and stable cohomology of arithmetic groups.</p>
+
+<div class="widget" id="w-applications">
+  <div class="hd"><div class="ttl">Index theorem in pictures</div><div class="hint">pick an operator — see its symbol class and the resulting integer</div></div>
+  <svg id="ai-svg" viewBox="0 0 820 320" width="820" height="320"><title>Three classical operators with their topological symbols and analytic indices</title></svg>
+  <div class="row">
+    <button class="ai-pick active" data-key="dirac" aria-pressed="true">Dirac on spin 4-mfd</button>
+    <button class="ai-pick" data-key="dolbeault" aria-pressed="false">$\bar\partial$ on holomorphic bundle</button>
+    <button class="ai-pick" data-key="signature" aria-pressed="false">signature operator</button>
+  </div>
+  <div class="readout" id="ai-readout" aria-live="polite">Dirac $D$ on a spin 4-manifold: $\ind(D)=-\tfrac{1}{24}\langle p_1(TM),[M]\rangle=-\sigma(M)/8$ for a closed spin manifold — the $\widehat A$-genus.</div>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-topology.html#homology">Cup product on cohomology</a></li>
+    <li><a href="./characteristic-classes.html#chern">Chern classes</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+<!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./atiyah-singer-index-theorem.html#statement">The Atiyah–Singer index theorem</a> · The index theorem</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="k-applications"></div>
+</section>
+
+<section id="connections">
+<h2>Connections</h2>
+
+<p>K-theory is the prototype of a generalised cohomology theory, and the place where bundle topology, index theory, and the arithmetic of rings of integers all meet a single algebraic invariant. The frontier is broad: motivic K-theory and algebraic cycles (Bloch–Beilinson), $K(1)$- and $K(n)$-local stable homotopy (chromatic), trace methods (TC, THH, cyclotomic spectra by Nikolaus–Scholze), and equivariant / twisted K-theory in mathematical physics.</p>
+
+<ul>
+<li><a href="./characteristic-classes.html#chern">Characteristic classes — Chern classes</a> — the splitting principle and Chern roots are how the Chern character is computed.</li>
+<li><a href="./algebraic-topology.html#homology">Algebraic topology — singular cohomology</a> — the receiver of $\mathrm{ch}$, and the host of the Atiyah–Hirzebruch spectral sequence.</li>
+<li><a href="./homological.html#exact">Homological algebra — exact sequences</a> — the relations defining $K_0$ of an exact category, and the localisation long exact sequence in algebraic K-theory.</li>
+<li><a href="./differential-geometry.html">Differential geometry</a> — connections, curvature, and Chern–Weil supply the analytic representatives entering the index theorem.</li>
+<li><a href="./class-field-theory.html">Class field theory</a> — feeds into Borel's calculation of higher $K_n(\mathcal{O}_F)$ and the regulators conjecturally controlling special values of $\zeta_F$.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/ /g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+
+<script>
+/* =============================== SECTION 1: Building K^0 elements =============================== */
+(function(){
+  const svg = $("#kg-svg");
+  if(!svg) return;
+  const W = 820, H = 280;
+  const readout = $("#kg-readout");
+  let plus = []; // contributions on the + side, each {kind, rank, color, label}
+  let minus = [];
+
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const baseY = 200;
+    function drawStack(arr, x0, signLabel){
+      svg.appendChild(SVG("text",{x:x0, y:40, "font-size":14, fill:"var(--mute)"})).textContent = signLabel;
+      let y = baseY;
+      if(arr.length===0){
+        const t = SVG("text",{x:x0, y:y-30, "font-size":13, fill:"var(--mute)", "font-style":"italic"});
+        t.textContent = "(empty: rank 0)";
+        svg.appendChild(t);
+        return;
+      }
+      for(const item of arr){
+        for(let i=0;i<item.rank;i++){
+          const w = 110, h = 22;
+          const r = SVG("rect",{x:x0, y:y-h, width:w, height:h-2, fill:item.color, opacity:0.85, rx:3});
+          svg.appendChild(r);
+          y -= h;
+        }
+        const lab = SVG("text",{x:x0+55, y:y-6, "text-anchor":"middle", "font-size":12, fill:"var(--ink)"});
+        lab.textContent = item.label;
+        svg.appendChild(lab);
+        y -= 14;
+      }
+    }
+    drawStack(plus, 100, "[E₊]  (rank " + plus.reduce((a,b)=>a+b.rank,0) + ")");
+    drawStack(minus, 350, "−[E₋]  (rank " + minus.reduce((a,b)=>a+b.rank,0) + ")");
+    // equals sign
+    const eq = SVG("text",{x:560, y:130, "font-size":28, fill:"var(--mute)"});
+    eq.textContent = "=";
+    svg.appendChild(eq);
+    const totalRank = plus.reduce((a,b)=>a+b.rank,0) - minus.reduce((a,b)=>a+b.rank,0);
+    const tt = SVG("text",{x:680, y:130, "text-anchor":"middle", "font-size":18, fill:"var(--yellow)", "font-weight":600});
+    tt.textContent = "rank = " + totalRank;
+    svg.appendChild(tt);
+    const sub = SVG("text",{x:680, y:160, "text-anchor":"middle", "font-size":12, fill:"var(--mute)"});
+    sub.textContent = "in K⁰(X)";
+    svg.appendChild(sub);
+  }
+
+  function update(){
+    draw();
+    const totalPlus = plus.reduce((a,b)=>a+b.rank,0);
+    const totalMinus = minus.reduce((a,b)=>a+b.rank,0);
+    const r = totalPlus - totalMinus;
+    if(plus.length===0 && minus.length===0){
+      readout.textContent = "[E]=0. Click \"add\" to build a class; the rank of the resulting formal difference [E₊]−[E₋] updates live.";
+    } else {
+      readout.textContent = `[E₊] − [E₋]: ranks ${totalPlus} − ${totalMinus} = ${r}. Tensor product: rank multiplies; pullback: rank is preserved. The kernel of rank is the reduced theory K̃⁰(X).`;
+    }
+  }
+  $("#kg-add-line").addEventListener("click", ()=>{
+    plus.push({kind:"line", rank:1, color:"var(--cyan)", label:"L"});
+    update();
+  });
+  $("#kg-add-rank2").addEventListener("click", ()=>{
+    plus.push({kind:"rk2", rank:2, color:"var(--violet)", label:"V"});
+    update();
+  });
+  $("#kg-sub-line").addEventListener("click", ()=>{
+    minus.push({kind:"line", rank:1, color:"var(--pink)", label:"L"});
+    update();
+  });
+  $("#kg-reset").addEventListener("click", ()=>{
+    plus = []; minus = []; update();
+  });
+  update();
+})();
+
+/* =============================== SECTION 2: SES relations =============================== */
+(function(){
+  const svg = $("#ex-svg");
+  if(!svg) return;
+  const readout = $("#ex-readout");
+  const buttons = $$(".ex-pick");
+  const data = {
+    split:{
+      seq:"0 → A → A⊕C → C → 0",
+      rel:"[A⊕C] = [A] + [C]",
+      msg:"Split SES: [A⊕C]=[A]+[C] — the additivity that defines K⁰(X) for vector bundles."
+    },
+    "z-mod-n":{
+      seq:"0 → ℤ →ⁿ ℤ → ℤ/n → 0",
+      rel:"[ℤ/n] = [ℤ] − [ℤ] = 0",
+      msg:"Multiplication by n: in K₀(Mod^fg(ℤ)) torsion classes vanish. So K₀(Mod^fg(ℤ)) = ℤ via rank."
+    },
+    "bundle-pair":{
+      seq:"0 → L → E → L′ → 0",
+      rel:"[E] = [L] + [L′] = [L⊕L′]",
+      msg:"Even before splitting: [E]=[L]+[L′] in K⁰. With a metric the SES splits as bundles, but the K-theory relation holds regardless."
+    }
+  };
+  function draw(key){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const d = data[key];
+    const t1 = SVG("text",{x:410, y:80, "text-anchor":"middle", "font-size":18, fill:"var(--ink)", "font-family":"ui-monospace,monospace"});
+    t1.textContent = d.seq;
+    svg.appendChild(t1);
+    const t2 = SVG("text",{x:410, y:130, "text-anchor":"middle", "font-size":14, fill:"var(--mute)"});
+    t2.textContent = "imposes the relation in K₀:";
+    svg.appendChild(t2);
+    const t3 = SVG("text",{x:410, y:175, "text-anchor":"middle", "font-size":20, fill:"var(--yellow)", "font-weight":600, "font-family":"ui-monospace,monospace"});
+    t3.textContent = d.rel;
+    svg.appendChild(t3);
+    readout.textContent = d.msg;
+  }
+  buttons.forEach(b => {
+    b.addEventListener("click", ()=>{
+      buttons.forEach(x=>{x.classList.remove("active"); x.setAttribute("aria-pressed","false");});
+      b.classList.add("active"); b.setAttribute("aria-pressed","true");
+      draw(b.dataset.key);
+    });
+  });
+  draw("split");
+})();
+
+/* =============================== SECTION 3: Bott periodicity =============================== */
+(function(){
+  const svg = $("#bp-svg");
+  if(!svg) return;
+  const slider = $("#bp-n");
+  const readout = $("#bp-readout");
+  const buttons = $$(".bp-pick");
+  let group = "U";
+
+  // π_n(U): n=0:0, 1:Z, 2:0, 3:Z, ... (period 2)
+  function piU(n){ return (n%2===1) ? "ℤ" : "0"; }
+  // π_n(O): n=0:Z/2, 1:Z/2, 2:0, 3:Z, 4:0, 5:0, 6:0, 7:Z, then period 8
+  function piO(n){
+    const tab = ["ℤ/2","ℤ/2","0","ℤ","0","0","0","ℤ"];
+    return tab[((n%8)+8)%8];
+  }
+
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const n = +slider.value;
+    const W = 820, H = 280;
+    const x0 = 60, x1 = 760, y0 = 220;
+    svg.appendChild(SVG("line",{x1:x0, y1:y0, x2:x1, y2:y0, stroke:"var(--line)", "stroke-width":1}));
+    const N = 12;
+    for(let i=0;i<N;i++){
+      const x = x0 + (x1-x0)*i/(N-1);
+      const isCur = (i===n);
+      svg.appendChild(SVG("line",{x1:x, y1:y0-4, x2:x, y2:y0+4, stroke:"var(--mute)"}));
+      const t = SVG("text",{x, y:y0+22, "text-anchor":"middle", "font-size":11, fill:"var(--mute)"});
+      t.textContent = i;
+      svg.appendChild(t);
+      const v = (group==="U") ? piU(i) : piO(i);
+      const vv = SVG("text",{x, y:y0-18, "text-anchor":"middle", "font-size":14,
+        fill: isCur ? "var(--yellow)" : "var(--ink)", "font-weight": isCur ? 700 : 400});
+      vv.textContent = v;
+      svg.appendChild(vv);
+    }
+    const heading = SVG("text",{x:60, y:50, "font-size":16, fill:"var(--cyan)", "font-weight":600});
+    heading.textContent = (group==="U") ? "πₙ(U) — period 2" : "πₙ(O) — period 8";
+    svg.appendChild(heading);
+    const sub = SVG("text",{x:60, y:75, "font-size":13, fill:"var(--mute)"});
+    sub.textContent = (group==="U") ? "0, ℤ, 0, ℤ, 0, ℤ, 0, ℤ, ..." : "ℤ/2, ℤ/2, 0, ℤ, 0, 0, 0, ℤ, ℤ/2, ℤ/2, ...";
+    svg.appendChild(sub);
+    const v = (group==="U") ? piU(n) : piO(n);
+    const tag = SVG("text",{x:60, y:120, "font-size":15, fill:"var(--ink)"});
+    tag.textContent = `π_${n}(${group}) = ${v}`;
+    svg.appendChild(tag);
+    readout.textContent = `π_${n}(${group}) = ${v}. ` + ((group==="U")
+      ? "Complex K-theory K⁰(point)=ℤ, K¹(point)=0, period 2 in degree."
+      : "Real KO-theory has period 8: KO⁰=ℤ, KO¹=ℤ/2, KO²=ℤ/2, KO³=0, KO⁴=ℤ, KO⁵=KO⁶=KO⁷=0.");
+  }
+  slider.addEventListener("input", draw);
+  buttons.forEach(b => {
+    b.addEventListener("click", ()=>{
+      buttons.forEach(x=>{x.classList.remove("active"); x.setAttribute("aria-pressed","false");});
+      b.classList.add("active"); b.setAttribute("aria-pressed","true");
+      group = b.dataset.key;
+      draw();
+    });
+  });
+  draw();
+})();
+
+/* =============================== SECTION 4: Chern character =============================== */
+(function(){
+  const svg = $("#ch-svg");
+  if(!svg) return;
+  const dSlider = $("#ch-d");
+  const nSlider = $("#ch-n");
+  const readout = $("#ch-readout");
+
+  function fact(k){ let r=1; for(let i=2;i<=k;i++) r*=i; return r; }
+  function ratStr(num, den){
+    if(num===0) return "0";
+    if(den===1) return String(num);
+    // gcd
+    function gcd(a,b){ a=Math.abs(a); b=Math.abs(b); while(b){[a,b]=[b,a%b];} return a; }
+    const g = gcd(num,den);
+    const a = num/g, b = den/g;
+    if(b===1) return String(a);
+    return `${a}/${b}`;
+  }
+
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const d = +dSlider.value;
+    const n = +nSlider.value;
+    const heading = SVG("text",{x:60, y:50, "font-size":16, fill:"var(--cyan)", "font-weight":600});
+    heading.textContent = `ch(O(${d})) on CP^${n}`;
+    svg.appendChild(heading);
+    // Build expansion ch(O(d)) = sum_{k=0..n} d^k/k! H^k
+    const terms = [];
+    for(let k=0;k<=n;k++){
+      const num = Math.pow(d,k);
+      const den = fact(k);
+      const c = ratStr(num, den);
+      const Hk = (k===0) ? "1" : (k===1 ? "H" : `H^${k}`);
+      if(c==="0") continue;
+      terms.push(c==="1" ? Hk : (Hk==="1" ? c : `${c}·${Hk}`));
+    }
+    const expr = terms.join(" + ");
+    const t = SVG("text",{x:60, y:100, "font-size":18, fill:"var(--ink)", "font-family":"ui-monospace,monospace"});
+    t.textContent = "ch = " + expr;
+    svg.appendChild(t);
+
+    // Bar chart of coefficients (numeric)
+    const xL=60, xR=760, yB=240;
+    const barW = (xR-xL)/(n+1) - 12;
+    let maxAbs = 0;
+    for(let k=0;k<=n;k++){
+      const v = Math.pow(d,k)/fact(k);
+      if(Math.abs(v)>maxAbs) maxAbs = Math.abs(v);
+    }
+    if(maxAbs<1e-9) maxAbs = 1;
+    for(let k=0;k<=n;k++){
+      const v = Math.pow(d,k)/fact(k);
+      const h = 80 * (Math.abs(v)/maxAbs);
+      const x = xL + k*((xR-xL)/(n+1)) + 6;
+      const color = (v>=0) ? "var(--green)" : "var(--pink)";
+      const y = (v>=0) ? (yB - h) : yB;
+      svg.appendChild(SVG("rect",{x, y, width:barW, height:h, fill:color, opacity:0.7}));
+      const lab = SVG("text",{x:x+barW/2, y:yB+18, "text-anchor":"middle", "font-size":12, fill:"var(--mute)"});
+      lab.textContent = (k===0)?"deg 0":`deg ${2*k}`;
+      svg.appendChild(lab);
+      const num = Math.pow(d,k); const den = fact(k);
+      const valText = ratStr(num, den);
+      const vlab = SVG("text",{x:x+barW/2, y:(v>=0?y-6:y+h+14), "text-anchor":"middle", "font-size":12,
+        fill:(v>=0)?"var(--green)":"var(--pink)"});
+      vlab.textContent = valText;
+      svg.appendChild(vlab);
+    }
+    svg.appendChild(SVG("line",{x1:xL, y1:yB, x2:xR, y2:yB, stroke:"var(--line)"}));
+
+    readout.textContent = `ch(O(${d})) = ${expr} on CP^${n}. Coefficients are d^k/k! — non-integer in general, so ch lives in H^*(X;ℚ), not H^*(X;ℤ).`;
+  }
+  dSlider.addEventListener("input", draw);
+  nSlider.addEventListener("input", draw);
+  draw();
+})();
+
+/* =============================== SECTION 5: Low K-groups =============================== */
+(function(){
+  const svg = $("#qk-svg");
+  if(!svg) return;
+  const readout = $("#qk-readout");
+  const buttons = $$(".qk-pick");
+  const data = {
+    Z:{
+      label:"R = ℤ",
+      rows:[["K₀","ℤ","rank, free abelian on [ℤ]"],
+            ["K₁","{±1}","units of ℤ"],
+            ["K₂","ℤ/2","Tate, generated by {−1,−1}"]],
+      msg:"R=ℤ: K₀=ℤ (rank), K₁={±1} (units), K₂=ℤ/2 (Tate, {−1,−1})."
+    },
+    Fq:{
+      label:"R = 𝔽_q (finite field of order q)",
+      rows:[["K₀","ℤ","every f.g. module is free"],
+            ["K₁","𝔽_q^×","determinant; cyclic of order q−1"],
+            ["K₂","0","Quillen: K₂(𝔽_q)=0"]],
+      msg:"R=𝔽_q: K_{2k−1}=ℤ/(q^k−1), K_{2k}=0 for k≥1. Quillen's foundational calculation."
+    },
+    OF:{
+      label:"R = 𝒪_F (number field F)",
+      rows:[["K₀","ℤ ⊕ Cl(F)","rank + ideal class group"],
+            ["K₁","𝒪_F^×","Dirichlet: ℤ^{r₁+r₂−1} ⊕ μ(F)"],
+            ["K₂","finite","computed case by case; K₂(ℤ)=ℤ/2"]],
+      msg:"R=𝒪_F: K₀=ℤ⊕Cl(F), K₁=𝒪_F^× (Dirichlet's unit theorem). Borel computed K_n⊗ℚ for all n."
+    },
+    field:{
+      label:"R = F (a field)",
+      rows:[["K₀","ℤ","every f.g. module is free"],
+            ["K₁","F^×","determinant"],
+            ["K₂","Milnor symbols","F^×⊗F^× / ⟨a⊗(1−a)⟩ (Matsumoto)"]],
+      msg:"R=F (field): K₀=ℤ, K₁=F^× (det), K₂=K₂^M(F) (Milnor symbols, Matsumoto's theorem)."
+    }
+  };
+  function draw(key){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const d = data[key];
+    const heading = SVG("text",{x:60, y:50, "font-size":16, fill:"var(--cyan)", "font-weight":600});
+    heading.textContent = d.label;
+    svg.appendChild(heading);
+    // Header row
+    const cols = [80, 200, 380];
+    const headers = ["group","value","picture"];
+    headers.forEach((h,i)=>{
+      const t = SVG("text",{x:cols[i], y:90, "font-size":12, fill:"var(--mute)", "letter-spacing":"0.08em"});
+      t.textContent = h.toUpperCase();
+      svg.appendChild(t);
+    });
+    svg.appendChild(SVG("line",{x1:60, y1:100, x2:760, y2:100, stroke:"var(--line)"}));
+    d.rows.forEach((row, idx)=>{
+      const y = 130 + idx*45;
+      row.forEach((cell, i)=>{
+        const t = SVG("text",{x:cols[i], y, "font-size":15, fill: i===0 ? "var(--yellow)" : "var(--ink)",
+          "font-family": i<2 ? "ui-monospace,monospace" : "inherit", "font-weight": i===0 ? 600 : 400});
+        t.textContent = cell;
+        svg.appendChild(t);
+      });
+    });
+    readout.textContent = d.msg;
+  }
+  buttons.forEach(b => {
+    b.addEventListener("click", ()=>{
+      buttons.forEach(x=>{x.classList.remove("active"); x.setAttribute("aria-pressed","false");});
+      b.classList.add("active"); b.setAttribute("aria-pressed","true");
+      draw(b.dataset.key);
+    });
+  });
+  draw("Z");
+})();
+
+/* =============================== SECTION 6: Index theorem =============================== */
+(function(){
+  const svg = $("#ai-svg");
+  if(!svg) return;
+  const readout = $("#ai-readout");
+  const buttons = $$(".ai-pick");
+  const data = {
+    dirac:{
+      heading:"Dirac D on a closed spin 4-manifold M",
+      symbol:"[σ(D)] ∈ K⁰(T*M)",
+      formula:"ind(D) = ⟨ Â(TM), [M] ⟩ = − σ(M)/8",
+      msg:"Dirac D on a spin 4-manifold: ind(D) = −⟨ p₁(TM),[M] ⟩/24 = −σ(M)/8 — the Â-genus, equal to one-eighth the negative of the signature."
+    },
+    dolbeault:{
+      heading:"∂̄ on a holomorphic vector bundle E → X",
+      symbol:"[σ(∂̄)] = [Λ^•T*X^{0,1}] · [E]",
+      formula:"ind(∂̄) = χ(X,E) = ⟨ ch(E)·Td(TX), [X] ⟩",
+      msg:"Dolbeault ∂̄ on a holomorphic bundle: ind = Σ(−1)^q dim H^q(X,E) = ⟨ ch(E)·Td(TX),[X] ⟩ — Hirzebruch–Riemann–Roch."
+    },
+    signature:{
+      heading:"Signature operator d+d* on M^{4k}",
+      symbol:"[σ(d+d*)] ∈ K⁰(T*M)",
+      formula:"ind = σ(M) = ⟨ L(p₁,…,p_k), [M] ⟩",
+      msg:"Signature operator: ind = σ(M), Hirzebruch's L-genus formula. For M⁴: σ(M) = p₁(TM)[M]/3."
+    }
+  };
+  function draw(key){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const d = data[key];
+    const heading = SVG("text",{x:60, y:50, "font-size":16, fill:"var(--cyan)", "font-weight":600});
+    heading.textContent = d.heading;
+    svg.appendChild(heading);
+    // analytic side
+    const aLabel = SVG("text",{x:60, y:110, "font-size":14, fill:"var(--mute)", "letter-spacing":"0.08em"});
+    aLabel.textContent = "ANALYTIC";
+    svg.appendChild(aLabel);
+    const aFormula = SVG("text",{x:60, y:140, "font-size":15, fill:"var(--yellow)", "font-family":"ui-monospace,monospace"});
+    aFormula.textContent = "ind(D) = dim ker D − dim coker D";
+    svg.appendChild(aFormula);
+
+    // arrow
+    drawArrow(svg, [200,180], [200,220], {color:"var(--mute)", curve:0, label:"Atiyah–Singer", labelSide:1});
+
+    const tLabel = SVG("text",{x:60, y:250, "font-size":14, fill:"var(--mute)", "letter-spacing":"0.08em"});
+    tLabel.textContent = "TOPOLOGICAL";
+    svg.appendChild(tLabel);
+    const tSym = SVG("text",{x:60, y:278, "font-size":15, fill:"var(--ink)", "font-family":"ui-monospace,monospace"});
+    tSym.textContent = "symbol class:  " + d.symbol;
+    svg.appendChild(tSym);
+    const tFor = SVG("text",{x:60, y:303, "font-size":15, fill:"var(--green)", "font-family":"ui-monospace,monospace"});
+    tFor.textContent = d.formula;
+    svg.appendChild(tFor);
+
+    readout.textContent = d.msg;
+  }
+  buttons.forEach(b => {
+    b.addEventListener("click", ()=>{
+      buttons.forEach(x=>{x.classList.remove("active"); x.setAttribute("aria-pressed","false");});
+      b.classList.add("active"); b.setAttribute("aria-pressed","true");
+      draw(b.dataset.key);
+    });
+  });
+  draw("dirac");
+})();
+</script>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('k-theory'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-26</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>
