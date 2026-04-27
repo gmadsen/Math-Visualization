@@ -1068,6 +1068,29 @@ $V$ solves a <em>variational</em> PDE: $\min(\,-\partial_t V-\mathcal{L}V+rV,\;V
 
 
 </section>
+<section id="outro">
+<h2>7. Connections</h2>
+
+<p>Itô calculus is the bridge between probability and analysis — once $dB^2 = dt$ is internalised, three classes of theorems start to feel inevitable rather than mysterious.</p>
+
+<h3>Stochastic processes and martingales</h3>
+
+<p><a href="./stochastic-processes-and-martingales.html">The discrete and continuous-time martingale theory</a> is the structural backbone — Doob decomposition, optional stopping, BDG inequalities — on which the Itô integral is built. The integrand class (predictable, locally square-integrable) is exactly the language we used there.</p>
+
+<h3>Partial differential equations</h3>
+
+<p>Feynman–Kac is one face of a deep symmetry: parabolic PDEs and continuous-time martingales are two ways to look at the same flow of probability mass. <a href="./partial-differential-equations.html#heat">The heat equation</a> and <a href="./harmonic-functions.html">harmonic-function theory</a> reappear as expectations, and conversely PDE methods (maximum principles, semigroups) attack stochastic problems.</p>
+
+<h3>Mathematical finance</h3>
+
+<p>Black–Scholes is a self-financing-replication argument plus Itô's formula plus an SDE for the underlying. The change of measure that turns the discounted price into a martingale (the risk-neutral measure) is exactly the Girsanov transform of $\S 4$. Beyond European options, jump-diffusion, stochastic volatility, and interest-rate term-structure models are all formulated this way.</p>
+
+<h3>Statistical mechanics and SPDEs</h3>
+
+<p>Fluctuation theory of interacting particle systems is the source of stochastic PDEs (KPZ, Allen–Cahn, the stochastic heat equation). Roughness theory (Hairer, Gubinelli) extends Itô calculus to drivers rougher than Brownian motion.</p>
+
+<p class="small" style="margin-top:2.5rem">Open frontiers: rough-path theory and regularity structures (Hairer's Fields-medal work on KPZ); Malliavin calculus as a calculus of variations on Wiener space; stochastic optimal transport and entropic regularization, which connect Itô calculus to large deviations and the Schrödinger problem.</p>
+</section>
 </main>
 
 <script>

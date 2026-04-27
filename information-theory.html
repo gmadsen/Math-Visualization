@@ -987,6 +987,29 @@ and $R(D) = 0$ for $D \ge \sigma^2$ (the trivial $\hat X = 0$ already has distor
 <footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
 
 </section>
+<section id="outro">
+<h2>7. Connections</h2>
+
+<p>Shannon's 1948 framework reduced "communication" to a precise mathematical object — entropy as the cost of information — and the same object reappeared in half a dozen other places.</p>
+
+<h3>Probability and large deviations</h3>
+
+<p>KL-divergence is a Sanov rate function; <a href="./large-deviations.html">large-deviation theory</a> gives the exponential cost of empirical-distribution deviations from a reference, which is the same cost source-coding measures.</p>
+
+<h3>Statistical mechanics</h3>
+
+<p>Shannon entropy and Boltzmann entropy coincide in the i.i.d. case; the maximum-entropy distribution at fixed mean energy is the Gibbs measure. Information-theoretic inequalities (Han, Shearer) become entropy inequalities in stat mech.</p>
+
+<h3>Statistics and inference</h3>
+
+<p>Cramér–Rao bound (lower bound on estimator variance) is a Fisher-information / KL-divergence argument; Stein's lemma in hypothesis testing has KL-divergence as the asymptotic exponent. <a href="./probability-theory.html">Probability theory</a> supplies the joint distributions.</p>
+
+<h3>Algorithms and complexity</h3>
+
+<p>Kolmogorov complexity is the algorithmic counterpart of Shannon entropy; channel coding gives the existence of error-correcting codes (Reed–Solomon, LDPC, polar codes) with rates approaching capacity.</p>
+
+<p class="small" style="margin-top:2.5rem">Open frontiers: capacity-achieving structured codes and 5G/6G applications; non-asymptotic / dispersion results (Polyanskiy–Poor–Verdú); information-theoretic limits in machine learning (information bottleneck, generalisation bounds via mutual information).</p>
+</section>
 </main>
 
 <script>
