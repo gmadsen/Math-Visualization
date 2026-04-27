@@ -45,6 +45,46 @@ The creative-improvements arc shipped its full Tier 0 → Tier 2 plan; everythin
 - **`cheerio`** over `node-html-parser` — richer for DOM manipulation in `inject-*`/`fix-*` scripts.
 - **`katex` as a dependency** — would let `validate-katex.mjs` do real rendering instead of heuristic checks.
 
+## Future topics — Princeton Companion gap analysis
+
+Cross-referenced PCM Parts III–V against the 103-topic corpus on 2026-04-27. These are the gaps that have clear curricular value AND fit the existing 10-section spine (i.e. each candidate has natural prereq parents and downstream consumers already in the corpus). Drafted in batches that mirror the 22-topic fan-out in the `analysis/content-and-org` PR — agents can take 3–5 at a time.
+
+### Batch A — high curricular leverage (6)
+
+- **K-theory** (PCM III.47) — algebraic + topological K-theory; receiver of Atiyah–Singer; consumes `characteristic-classes`, `algebraic-topology`, `homological`. Geometry & topology section.
+- **Symplectic manifolds** (III.90) — Darboux, Hamiltonian flows, Floer-homology backdrop; pairs with `morse-theory § 7` Connections. Geometry & topology.
+- **Knot polynomials** (III.46) — Alexander, Jones, HOMFLY; bridge to vertex operator algebras + quantum groups. Geometry & topology.
+- **Quaternions, octonions, normed division algebras** (III.78) — classical, self-contained, very visualizable; pairs with `lie-algebras`. Algebra & homological.
+- **Wavelets** (III.99 + VII.3) — discrete/multiscale Fourier; pairs with `harmonic-analysis-fourier`. Analysis.
+- **Mathematics and cryptography** (VII.7) — RSA, ECDSA, lattice-based KEM, factor-via-quadratic-sieve; consumes `p-adic-numbers`, `complexity-theory`, `elliptic-curves`. Cross-cutting; most natural in Number theory.
+
+### Batch B — capstone / bridge candidates (6)
+
+- **Vertex operator algebras** (IV.13) — Already half-cited from `moonshine`; closes the loop with modular forms + representation theory. Modular forms & L-functions.
+- **Quantum groups** (III.77) — Hopf-algebra deformations, R-matrices, knot invariants. Algebra & homological.
+- **Schrödinger equation** (III.85) — alongside heat / wave / Laplace in `partial-differential-equations`; ties to spectral-theory and quantum mechanics. Analysis.
+- **Ricci flow** (III.80) — capstone-style; ties `riemannian-geometry`, smooth manifolds, and the Poincaré conjecture. Geometry & topology.
+- **Geometric & combinatorial group theory** (IV.11) — Cayley graphs, Gromov's polynomial-growth theorem, hyperbolic groups; absorbs the `combinatorics → algebraic-geometry` flag in `audits/dag-health.md`. Algebra & homological (or new section).
+- **Atiyah–Singer index theorem** (V.2) — natural new capstone consuming K-theory + characteristic-classes + elliptic operators + PDE. Capstone.
+
+### Honorable mentions — also high-value, slightly thinner fit
+
+- **Designs** (III.14) — combinatorial designs, finite projective planes. Combinatorics.
+- **Expanders** (III.25) — could stand alone or extend `spectral-graph-theory`.
+- **Calabi–Yau manifolds** (III.6) — bridge to mirror symmetry; needs `complex-analysis` + `algebraic-geometry`.
+- **Mirror symmetry** (IV.14) — capstone candidate consuming Calabi–Yau + symplectic + AG.
+- **Mathematical statistics** (VII.10) — MLE, Cramér–Rao, hypothesis testing, Bayesian inference. Probability & statistics.
+- **High-dimensional geometry / concentration** (IV.24) — Dvoretzky, Talagrand, JL. Bridges Probability + functional-analysis.
+- **Numerical analysis** (IV.20) — finite differences, finite elements, conditioning, stability. Analysis or new section.
+- **Computational number theory** (IV.5) — factoring, primality, lattice reduction (LLL). Number theory.
+- **Hamiltonians + classical mechanics** (III.35) — ties symplectic + dynamical-systems.
+- **Three-body problem** (V.36) — classical mechanics + dynamical-systems capstone.
+- **Variational methods** (III.95) — Euler–Lagrange, calculus of variations. Analysis.
+- **General relativity / Einstein equations** (IV.17) — riemannian-geometry + PDE consumer; advanced.
+- **Fixed-point theorems** (V.13) — survey: Brouwer, Banach, Lefschetz, Kakutani.
+- **Resolution of singularities** (V.32) — Hironaka; AG capstone.
+- **Mostow rigidity** (V.27) — riemannian-geometry / hyperbolic 3-manifold capstone.
+
 ## Out of scope
 
 Items the user has explicitly de-prioritized. **Don't suggest these as "what next" without prompting.**
