@@ -1,0 +1,14 @@
+{
+  "topic": "schrodinger-equation",
+  "title": "Schrodinger equation",
+  "page": "schrodinger-equation.html",
+  "concepts": [
+    {
+      "id": "schrodinger-equation-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

@@ -4733,6 +4733,10 @@ window.MVQuizBank = {
       }
     }
   },
+  "atiyah-singer-index-theorem": {
+    "topic": "atiyah-singer-index-theorem",
+    "quizzes": {}
+  },
   "automorphic-forms-adelic": {
     "topic": "automorphic-forms-adelic",
     "quizzes": {
@@ -17582,6 +17586,10 @@ window.MVQuizBank = {
       }
     }
   },
+  "geometric-and-combinatorial-group-theory": {
+    "topic": "geometric-and-combinatorial-group-theory",
+    "quizzes": {}
+  },
   "grothendieck-topologies-sites": {
     "topic": "grothendieck-topologies-sites",
     "quizzes": {
@@ -22489,6 +22497,14 @@ window.MVQuizBank = {
       }
     }
   },
+  "k-theory": {
+    "topic": "k-theory",
+    "quizzes": {}
+  },
+  "knot-polynomials": {
+    "topic": "knot-polynomials",
+    "quizzes": {}
+  },
   "L-functions": {
     "topic": "L-functions",
     "quizzes": {
@@ -23791,6 +23807,10 @@ window.MVQuizBank = {
         ]
       }
     }
+  },
+  "mathematics-and-cryptography": {
+    "topic": "mathematics-and-cryptography",
+    "quizzes": {}
   },
   "matroid-theory": {
     "topic": "matroid-theory",
@@ -32604,6 +32624,14 @@ window.MVQuizBank = {
       }
     }
   },
+  "quantum-groups": {
+    "topic": "quantum-groups",
+    "quizzes": {}
+  },
+  "quaternions-octonions-and-division-algebras": {
+    "topic": "quaternions-octonions-and-division-algebras",
+    "quizzes": {}
+  },
   "random-walks-and-mixing": {
     "topic": "random-walks-and-mixing",
     "quizzes": {
@@ -34560,6 +34588,10 @@ window.MVQuizBank = {
       }
     }
   },
+  "ricci-flow": {
+    "topic": "ricci-flow",
+    "quizzes": {}
+  },
   "riemann-surfaces": {
     "topic": "riemann-surfaces",
     "quizzes": {
@@ -36361,6 +36393,10 @@ window.MVQuizBank = {
         ]
       }
     }
+  },
+  "schrodinger-equation": {
+    "topic": "schrodinger-equation",
+    "quizzes": {}
   },
   "sheaf-cohomology": {
     "topic": "sheaf-cohomology",
@@ -40563,6 +40599,10 @@ window.MVQuizBank = {
       }
     }
   },
+  "symplectic-manifolds": {
+    "topic": "symplectic-manifolds",
+    "quizzes": {}
+  },
   "theta-functions": {
     "topic": "theta-functions",
     "quizzes": {
@@ -41484,6 +41524,14 @@ window.MVQuizBank = {
         ]
       }
     }
+  },
+  "vertex-operator-algebras": {
+    "topic": "vertex-operator-algebras",
+    "quizzes": {}
+  },
+  "wavelets": {
+    "topic": "wavelets",
+    "quizzes": {}
   },
   "zeta-values": {
     "topic": "zeta-values",

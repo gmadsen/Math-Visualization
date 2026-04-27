@@ -1,0 +1,14 @@
+{
+  "topic": "wavelets",
+  "title": "Wavelets",
+  "page": "wavelets.html",
+  "concepts": [
+    {
+      "id": "wavelets-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

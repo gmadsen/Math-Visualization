@@ -1,0 +1,14 @@
+{
+  "topic": "symplectic-manifolds",
+  "title": "Symplectic manifolds",
+  "page": "symplectic-manifolds.html",
+  "concepts": [
+    {
+      "id": "symplectic-manifolds-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

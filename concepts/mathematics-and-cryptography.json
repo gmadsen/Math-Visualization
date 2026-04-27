@@ -1,0 +1,14 @@
+{
+  "topic": "mathematics-and-cryptography",
+  "title": "Mathematics and cryptography",
+  "page": "mathematics-and-cryptography.html",
+  "concepts": [
+    {
+      "id": "mathematics-and-cryptography-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

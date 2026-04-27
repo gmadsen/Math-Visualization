@@ -1,0 +1,14 @@
+{
+  "topic": "ricci-flow",
+  "title": "Ricci flow",
+  "page": "ricci-flow.html",
+  "concepts": [
+    {
+      "id": "ricci-flow-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

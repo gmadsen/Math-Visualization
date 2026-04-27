@@ -1,0 +1,14 @@
+{
+  "topic": "vertex-operator-algebras",
+  "title": "Vertex operator algebras",
+  "page": "vertex-operator-algebras.html",
+  "concepts": [
+    {
+      "id": "vertex-operator-algebras-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

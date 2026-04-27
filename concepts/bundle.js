@@ -4,6 +4,18 @@
 window.__MVConcepts = {
   "index": {
     "topics": [
+      "symplectic-manifolds",
+      "quantum-groups",
+      "quaternions-octonions-and-division-algebras",
+      "geometric-and-combinatorial-group-theory",
+      "wavelets",
+      "vertex-operator-algebras",
+      "schrodinger-equation",
+      "mathematics-and-cryptography",
+      "knot-polynomials",
+      "ricci-flow",
+      "k-theory",
+      "atiyah-singer-index-theorem",
       "naive-set-theory",
       "first-order-logic-and-completeness",
       "zfc-and-ordinals",
@@ -230,10 +242,190 @@ window.__MVConcepts = {
       "analytic-number-theory": "standard",
       "modular-curves": "advanced",
       "enumerative-combinatorics": "standard",
-      "additive-number-theory": "standard"
+      "additive-number-theory": "standard",
+      "k-theory": "advanced",
+      "symplectic-manifolds": "advanced",
+      "knot-polynomials": "standard",
+      "quaternions-octonions-and-division-algebras": "standard",
+      "wavelets": "standard",
+      "mathematics-and-cryptography": "standard",
+      "vertex-operator-algebras": "advanced",
+      "quantum-groups": "advanced",
+      "schrodinger-equation": "standard",
+      "ricci-flow": "advanced",
+      "geometric-and-combinatorial-group-theory": "advanced",
+      "atiyah-singer-index-theorem": "capstone"
     }
   },
   "topics": {
+    "symplectic-manifolds": {
+      "topic": "symplectic-manifolds",
+      "title": "Symplectic manifolds",
+      "page": "symplectic-manifolds.html",
+      "concepts": [
+        {
+          "id": "symplectic-manifolds-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "quantum-groups": {
+      "topic": "quantum-groups",
+      "title": "Quantum groups",
+      "page": "quantum-groups.html",
+      "concepts": [
+        {
+          "id": "quantum-groups-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "quaternions-octonions-and-division-algebras": {
+      "topic": "quaternions-octonions-and-division-algebras",
+      "title": "Quaternions octonions and division algebras",
+      "page": "quaternions-octonions-and-division-algebras.html",
+      "concepts": [
+        {
+          "id": "quaternions-octonions-and-division-algebras-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "geometric-and-combinatorial-group-theory": {
+      "topic": "geometric-and-combinatorial-group-theory",
+      "title": "Geometric and combinatorial group theory",
+      "page": "geometric-and-combinatorial-group-theory.html",
+      "concepts": [
+        {
+          "id": "geometric-and-combinatorial-group-theory-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "wavelets": {
+      "topic": "wavelets",
+      "title": "Wavelets",
+      "page": "wavelets.html",
+      "concepts": [
+        {
+          "id": "wavelets-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "vertex-operator-algebras": {
+      "topic": "vertex-operator-algebras",
+      "title": "Vertex operator algebras",
+      "page": "vertex-operator-algebras.html",
+      "concepts": [
+        {
+          "id": "vertex-operator-algebras-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "schrodinger-equation": {
+      "topic": "schrodinger-equation",
+      "title": "Schrodinger equation",
+      "page": "schrodinger-equation.html",
+      "concepts": [
+        {
+          "id": "schrodinger-equation-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "mathematics-and-cryptography": {
+      "topic": "mathematics-and-cryptography",
+      "title": "Mathematics and cryptography",
+      "page": "mathematics-and-cryptography.html",
+      "concepts": [
+        {
+          "id": "mathematics-and-cryptography-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "knot-polynomials": {
+      "topic": "knot-polynomials",
+      "title": "Knot polynomials",
+      "page": "knot-polynomials.html",
+      "concepts": [
+        {
+          "id": "knot-polynomials-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "ricci-flow": {
+      "topic": "ricci-flow",
+      "title": "Ricci flow",
+      "page": "ricci-flow.html",
+      "concepts": [
+        {
+          "id": "ricci-flow-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "k-theory": {
+      "topic": "k-theory",
+      "title": "K theory",
+      "page": "k-theory.html",
+      "concepts": [
+        {
+          "id": "k-theory-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
+    "atiyah-singer-index-theorem": {
+      "topic": "atiyah-singer-index-theorem",
+      "title": "Atiyah singer index theorem",
+      "page": "atiyah-singer-index-theorem.html",
+      "concepts": [
+        {
+          "id": "atiyah-singer-index-theorem-intro",
+          "title": "Intro",
+          "anchor": "intro",
+          "prereqs": [],
+          "blurb": "Placeholder — content forthcoming."
+        }
+      ]
+    },
     "naive-set-theory": {
       "topic": "naive-set-theory",
       "title": "Naive set theory",
@@ -9522,7 +9714,10 @@ window.__MVConcepts = {
           "derived-categories",
           "group-cohomology",
           "lie-algebras",
-          "galois-cohomology-and-brauer"
+          "galois-cohomology-and-brauer",
+          "quaternions-octonions-and-division-algebras",
+          "quantum-groups",
+          "geometric-and-combinatorial-group-theory"
         ],
         "color": "y"
       },
@@ -9554,7 +9749,9 @@ window.__MVConcepts = {
           "sobolev-spaces-distributions",
           "partial-differential-equations",
           "harmonic-functions",
-          "spectral-theory"
+          "spectral-theory",
+          "wavelets",
+          "schrodinger-equation"
         ],
         "color": "p"
       },
@@ -9584,7 +9781,12 @@ window.__MVConcepts = {
           "lie-groups",
           "riemann-surfaces",
           "characteristic-classes",
-          "morse-theory"
+          "morse-theory",
+          "k-theory",
+          "symplectic-manifolds",
+          "knot-polynomials",
+          "ricci-flow",
+          "atiyah-singer-index-theorem"
         ],
         "color": "v"
       },
@@ -9603,7 +9805,8 @@ window.__MVConcepts = {
           "class-field-theory",
           "galois-representations",
           "heights-arithmetic-geometry",
-          "analytic-number-theory"
+          "analytic-number-theory",
+          "mathematics-and-cryptography"
         ],
         "color": "y"
       },
@@ -9625,7 +9828,8 @@ window.__MVConcepts = {
           "sato-tate",
           "bsd",
           "modularity-and-flt",
-          "modular-curves"
+          "modular-curves",
+          "vertex-operator-algebras"
         ],
         "color": "c"
       },
@@ -9853,7 +10057,19 @@ window.__MVConcepts = {
     "analytic-number-theory": "standard",
     "modular-curves": "advanced",
     "enumerative-combinatorics": "standard",
-    "additive-number-theory": "standard"
+    "additive-number-theory": "standard",
+    "k-theory": "advanced",
+    "symplectic-manifolds": "advanced",
+    "knot-polynomials": "standard",
+    "quaternions-octonions-and-division-algebras": "standard",
+    "wavelets": "standard",
+    "mathematics-and-cryptography": "standard",
+    "vertex-operator-algebras": "advanced",
+    "quantum-groups": "advanced",
+    "schrodinger-equation": "standard",
+    "ricci-flow": "advanced",
+    "geometric-and-combinatorial-group-theory": "advanced",
+    "atiyah-singer-index-theorem": "capstone"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -9881,11 +10097,11 @@ window.__MVConcepts = {
       "density": 0.08163265306122448
     },
     "Algebra & homological": {
-      "concepts": 88,
+      "concepts": 91,
       "intra": 126,
       "crossOut": 13,
       "crossIn": 61,
-      "density": 0.14772727272727273
+      "density": 0.14285714285714285
     },
     "Higher categories & toposes": {
       "concepts": 45,
@@ -9895,11 +10111,11 @@ window.__MVConcepts = {
       "density": 0.5111111111111111
     },
     "Analysis": {
-      "concepts": 122,
+      "concepts": 124,
       "intra": 200,
       "crossOut": 16,
       "crossIn": 33,
-      "density": 0.13114754098360656
+      "density": 0.12903225806451613
     },
     "Probability & statistics": {
       "concepts": 41,
@@ -9909,25 +10125,25 @@ window.__MVConcepts = {
       "density": 0.2682926829268293
     },
     "Geometry & topology": {
-      "concepts": 61,
+      "concepts": 66,
       "intra": 81,
       "crossOut": 6,
       "crossIn": 52,
-      "density": 0.09836065573770492
+      "density": 0.09090909090909091
     },
     "Number theory": {
-      "concepts": 78,
+      "concepts": 79,
       "intra": 101,
       "crossOut": 30,
       "crossIn": 24,
-      "density": 0.38461538461538464
+      "density": 0.379746835443038
     },
     "Modular forms & L-functions": {
-      "concepts": 79,
+      "concepts": 80,
       "intra": 104,
       "crossOut": 48,
       "crossIn": 10,
-      "density": 0.6075949367088608
+      "density": 0.6
     },
     "Algebraic geometry": {
       "concepts": 109,

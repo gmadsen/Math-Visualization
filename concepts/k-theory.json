@@ -1,0 +1,14 @@
+{
+  "topic": "k-theory",
+  "title": "K theory",
+  "page": "k-theory.html",
+  "concepts": [
+    {
+      "id": "k-theory-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}

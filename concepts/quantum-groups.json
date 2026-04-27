@@ -1,0 +1,14 @@
+{
+  "topic": "quantum-groups",
+  "title": "Quantum groups",
+  "page": "quantum-groups.html",
+  "concepts": [
+    {
+      "id": "quantum-groups-intro",
+      "title": "Intro",
+      "anchor": "intro",
+      "prereqs": [],
+      "blurb": "Placeholder — content forthcoming."
+    }
+  ]
+}
