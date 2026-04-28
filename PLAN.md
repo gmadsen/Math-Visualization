@@ -4,21 +4,21 @@ Forward-looking priorities for the notebook. Daily-workflow commands, one-time s
 
 When something ships, delete its bullet here. The full step list of `rebuild.mjs` is in `scripts/rebuild.mjs` — refer to it rather than restating step names here.
 
-## Corpus snapshot (2026-04-25)
+## Corpus snapshot (2026-04-27)
 
 From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
-- 73 topics, 506 concepts, 812 prereq edges (315 cross-topic), 23 capstones
-- Per-section density (cross-out per concept): Foundations 0.00, Algebra 0.115, Analysis 0.119, Geometry & topology 0.122, Number theory 0.263, Algebraic geometry 0.385, Modular forms & L-functions 0.549
-- 100 concepts lack a widget in their owning section
-- THIN-NEW count: 13 (down from 40 across the prereq passes)
-- Quiz tiers: v1 = 1454, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
+- 130 topics, 873 concepts, 1538 prereq edges (647 cross-topic), 24 capstones
+- 160 concepts lack a widget in their owning section
+- 306 widgets remain inline (registry-driven: 568) — concentrated in PCM-gap topics (math physics + combinatorics)
+- THIN-NEW count: 13; EMPTY-prereq count: 3 (`ant-prime-counting`, `e-definition`, `adjacency-and-laplacian`)
+- Quiz tiers: v1 = 2550, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 
-## Open on this branch
+## Near-term tasks
 
-The creative-improvements arc shipped its full Tier 0 → Tier 2 plan; everything in the original scope landed. Open items below are post-arc polish that surfaced during integration but was deferred as low-leverage relative to the closeout.
-
-- **Tier 1 tagging pass — coverage tail.** The tagging agent reached 62.8% (361 of 575 concepts) with quality > coverage. Roughly 200 untagged concepts remain — many genuinely unsuitable, but a follow-up pass focused on Modular forms / L-functions / capstones could close some real gaps.
+- **Tier 1 tagging pass — coverage tail.** ~200 of the 575 (creative-improvements–era) concepts remain untagged. The tagging agent reached 62.8 % with quality > coverage; a focused follow-up on Modular forms / L-functions / capstones could close real gaps. Number is pre–PCM-gap; recount before resuming.
+- **PCM-gap topic widget structure.** All 12 PCM-gap-batch topics (4 math physics + 8 combinatorics) ship widgets that render fine, but they are stored as inline `<div class="widget">` inside `raw` blocks (math physics) or as `widget` blocks without a `slug` (combinatorics). Coverage audit reports them as "0 registry-driven". Promotion to bespoke `widgets/<slug>/` entries (passthrough `bodyMarkup` / `bodyScript`, mirroring the prior 18-topic batch) would close the report. No user-visible change.
+- **Math physics has no `hard` tier and Combinatorics has no `hard` tier.** 12 topics × ~6 concepts × 2-3 questions each = ~150 missing hard-tier questions. Per "Out of scope", de-prioritized — listed here so the gap is visible, not actioned.
 
 ## Authoring polish — small
 
@@ -45,46 +45,6 @@ The creative-improvements arc shipped its full Tier 0 → Tier 2 plan; everythin
 - **`cheerio`** over `node-html-parser` — richer for DOM manipulation in `inject-*`/`fix-*` scripts.
 - **`katex` as a dependency** — would let `validate-katex.mjs` do real rendering instead of heuristic checks.
 
-## Future topics — Princeton Companion gap analysis
-
-Cross-referenced PCM Parts III–V against the 103-topic corpus on 2026-04-27. These are the gaps that have clear curricular value AND fit the existing 10-section spine (i.e. each candidate has natural prereq parents and downstream consumers already in the corpus). Drafted in batches that mirror the 22-topic fan-out in the `analysis/content-and-org` PR — agents can take 3–5 at a time.
-
-### Batch A — high curricular leverage (6)
-
-- **K-theory** (PCM III.47) — algebraic + topological K-theory; receiver of Atiyah–Singer; consumes `characteristic-classes`, `algebraic-topology`, `homological`. Geometry & topology section.
-- **Symplectic manifolds** (III.90) — Darboux, Hamiltonian flows, Floer-homology backdrop; pairs with `morse-theory § 7` Connections. Geometry & topology.
-- **Knot polynomials** (III.46) — Alexander, Jones, HOMFLY; bridge to vertex operator algebras + quantum groups. Geometry & topology.
-- **Quaternions, octonions, normed division algebras** (III.78) — classical, self-contained, very visualizable; pairs with `lie-algebras`. Algebra & homological.
-- **Wavelets** (III.99 + VII.3) — discrete/multiscale Fourier; pairs with `harmonic-analysis-fourier`. Analysis.
-- **Mathematics and cryptography** (VII.7) — RSA, ECDSA, lattice-based KEM, factor-via-quadratic-sieve; consumes `p-adic-numbers`, `complexity-theory`, `elliptic-curves`. Cross-cutting; most natural in Number theory.
-
-### Batch B — capstone / bridge candidates (6)
-
-- **Vertex operator algebras** (IV.13) — Already half-cited from `moonshine`; closes the loop with modular forms + representation theory. Modular forms & L-functions.
-- **Quantum groups** (III.77) — Hopf-algebra deformations, R-matrices, knot invariants. Algebra & homological.
-- **Schrödinger equation** (III.85) — alongside heat / wave / Laplace in `partial-differential-equations`; ties to spectral-theory and quantum mechanics. Analysis.
-- **Ricci flow** (III.80) — capstone-style; ties `riemannian-geometry`, smooth manifolds, and the Poincaré conjecture. Geometry & topology.
-- **Geometric & combinatorial group theory** (IV.11) — Cayley graphs, Gromov's polynomial-growth theorem, hyperbolic groups; absorbs the `combinatorics → algebraic-geometry` flag in `audits/dag-health.md`. Algebra & homological (or new section).
-- **Atiyah–Singer index theorem** (V.2) — natural new capstone consuming K-theory + characteristic-classes + elliptic operators + PDE. Capstone.
-
-### Honorable mentions — also high-value, slightly thinner fit
-
-- **Designs** (III.14) — combinatorial designs, finite projective planes. Combinatorics.
-- **Expanders** (III.25) — could stand alone or extend `spectral-graph-theory`.
-- **Calabi–Yau manifolds** (III.6) — bridge to mirror symmetry; needs `complex-analysis` + `algebraic-geometry`.
-- **Mirror symmetry** (IV.14) — capstone candidate consuming Calabi–Yau + symplectic + AG.
-- **Mathematical statistics** (VII.10) — MLE, Cramér–Rao, hypothesis testing, Bayesian inference. Probability & statistics.
-- **High-dimensional geometry / concentration** (IV.24) — Dvoretzky, Talagrand, JL. Bridges Probability + functional-analysis.
-- **Numerical analysis** (IV.20) — finite differences, finite elements, conditioning, stability. Analysis or new section.
-- **Computational number theory** (IV.5) — factoring, primality, lattice reduction (LLL). Number theory.
-- **Hamiltonians + classical mechanics** (III.35) — ties symplectic + dynamical-systems.
-- **Three-body problem** (V.36) — classical mechanics + dynamical-systems capstone.
-- **Variational methods** (III.95) — Euler–Lagrange, calculus of variations. Analysis.
-- **General relativity / Einstein equations** (IV.17) — riemannian-geometry + PDE consumer; advanced.
-- **Fixed-point theorems** (V.13) — survey: Brouwer, Banach, Lefschetz, Kakutani.
-- **Resolution of singularities** (V.32) — Hironaka; AG capstone.
-- **Mostow rigidity** (V.27) — riemannian-geometry / hyperbolic 3-manifold capstone.
-
 ## Follow-ups from PR #36 / #37 review
 
 Items raised by the review-team agents that were deferred at merge time. **#1 is a real bug, the rest are quality gaps.**
@@ -105,25 +65,3 @@ Items the user has explicitly de-prioritized. **Don't suggest these as "what nex
 
 These are real coverage gaps but not where the user wants to spend time. Per-session feedback memory: lowest-leverage direction, structural/architectural improvements come first.
 
-## Shipped recently
-
-Don't enumerate — see `git log --oneline -50`. Major arcs landed in the current branch (`feat/concept-graph-improvements`):
-
-- **100% widget registry adoption.** 118 inline (slug-less) widgets across 18 topics promoted to bespoke `widgets/<slug>/` directories — schema + index.mjs + README per slug. Corpus is now 563 widget blocks / 135 unique slugs / 1104 AJV-validated params, 0 inline. Pattern: passthrough `renderMarkup` / `renderScript` over opaque `bodyMarkup` / `bodyScript` artifact strings (mirroring surface-viewer's `bare` interaction). Future passes can refine specific widgets toward structured params where data shape is regular.
-- **Mindmap** (`mindmap.html`): force-clustered concept-graph view of all 506 concepts with per-section stats, focus mode (k-hop undirected by default; "full chain" toggle for the upstream transitive closure), gap-list with click + keyboard activation, URL-persisted focus, a11y, jsdom test, print stylesheet, friendly error banner, light-theme overlays, mobile responsiveness (`@media (max-width:720px)` switches stage to viewport-relative height, lets toolbar wrap).
-- **`json-block-writer`**: source-of-truth-respecting equivalent of `html-injector`. Phase-2b refactor: `audit-callbacks --fix`, `inject-used-in-backlinks --fix`, `inject-breadcrumb --fix`, `inject-page-metadata --fix` all write to `content/<topic>.json` instead of HTML. Hardening: `upsertFencedBlock` auto-explodes co-mingled host blocks instead of silent wholesale-replace; `blockHasFence` uses an anchored regex; `updateCss(doc, fenceName, cssText)` for fenced CSS rule updates with malformed-fence detection. 68-assertion test suite (was 31).
-- **All 73 topics now JSON-source-of-truth** (15-topic migration via `extract-topic.mjs`).
-- **80+ cross-topic prereq edges added** across multiple passes. Cross-topic edge count: 224 → 315. EMPTY-prereq advanced concepts: 7 → 0. THIN-NEW: 40 → 13.
-- **`audit-callbacks` consumer cleanup + Pass-4 partial drift.** `replaceFencedCallbackInPlace` and `inject-used-in-backlinks.explodeFencedBacklinks` removed (auto-explode in `upsertFencedBlock` covers the same case). Pass 4b detects per-href stale callback links a section carries among valid ones. CSS-fence migration: the `aside.callback` rule moved into a fenced `callback-css-auto` block managed by `updateCss`. 73 topics one-shot migrated; subsequent runs idempotent.
-- **`audit-callbacks` additive regenerator** (earlier pass): existing aside `<li>` items (prereq-derived OR hand-authored "See also" prose) preserved verbatim across canonical regen. Stale-aside + per-section fidelity warnings on malformed `<li>`.
-- **`audit-cross-topic-prereqs` confidence scoring.** Suggestions now carry `high` / `medium` / `low` labels. HIGH = matched phrase in source's blurb OR in a sentence with dependency-defining verb. `--min-confidence` flag filters output. `EXPLICIT_REJECTS` map records 10 semantic FPs where the surface match is misleading (Liouville's theorem in dynamics ≠ in complex analysis; etc.). Plus reverse-direction cycle suppression: if target depends on source transitively, don't suggest source → target. Output banded by tier.
-- **`audit-doc-drift` verbatim-substring heuristic.** Old slug-name token-matching produced 8 false positives. New rule scans PLAN.md "Shipped recently" for the *exact* commit subject line. 0 false positives.
-- **`audit-starter-concepts.mjs`**: new advisory step in rebuild's chain. Surfaces empty-prereq regressions, writes per-section density snapshot to `audits/starter-concepts.md`, warns on topics missing from sections.json.
-- **`scripts/lib/section-stats.mjs`**: single source of truth for per-section concept/intra/cross-out/cross-in/density. mindmap.html reads precomputed `__MVConcepts.sectionStats`; audit-starter-concepts and audit-bundle-staleness use the lib directly.
-- **`concepts/index.json`: data-driven `levels` + `newArc`.** Topic-difficulty as data (`prereq` / `standard` / `advanced` / `capstone`). `newArc` lists topics scaffolded recently with thin / known-incomplete cross-topic prereqs (drives audit-starter-concepts' THIN-NEW pass; meant to shrink to zero). Both live in the bundle; `validate-concepts.mjs` enforces drift detection in either direction; `audit-bundle-staleness.mjs` verifies `levels` + `newArc` + `sectionStats` + `sections` keys match.
-- **`audit-cross-page-consistency` SPECIAL extension.** Six gaps were false positives for pages that legitimately deviate from the topic-page contract (mindmap, search, widgets, capstone story pages). SPECIAL set extended to skip them; 0 gaps now.
-- **`pathway.html` / mindmap section coloring** now derived from bundled `concepts/sections.json` instead of inline maps that drifted from the corpus.
-- **`artinian-local-ca` concept** authored under commutative-algebra (Akizuki–Hopkins, Artinian-local structure theorem, dual-numbers / fat-point / non-curvilinear test rings). `deformation-functor.prereqs`: `primes-maximals-ca` → `artinian-local-ca`.
-- **Display-prefs icons** (`js/display-prefs.js`): replaced `🔧/❓/🌳` emoji glyphs with inline SVGs (the deciduous tree wasn't rendering on systems without a color emoji font; theme-aware via `currentColor`).
-- **Bug fixes**: `katex-select` optgroup preservation + popup keyboard nav (real DOM focus, not just visual class) + light-theme overlays no longer invisible on white panel; breadcrumb HTML-entity decoding (`Adèles &amp; idèles` → `Adèles & idèles`); README ∞ unicode in two link texts where GitHub MathJax-in-link-text fails; `inject-used-in-backlinks.parentSectionIdFor` regex anchoring (no `id="paths"` ↔ `id="paths-derived"` collision); error-banner `[hidden]` rule preventing the SVG from being covered.
-- **Two reviewer-batch passes**: 39 line-comment threads (25 first-pass + 14 second-pass) all addressed and resolved on the PR; ~5 acknowledged-with-rationale (architectural items deferred with explicit follow-up plans).
