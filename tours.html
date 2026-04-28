@@ -23,7 +23,10 @@
         '\\Spec':'\\operatorname{Spec}',
         '\\Gal':'\\operatorname{Gal}',
         '\\Hom':'\\operatorname{Hom}',
-        '\\tr':'\\operatorname{tr}'
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}',
+        '\\Sha':'\\text{Ш}'
       }
     });
   }
@@ -514,7 +517,7 @@ const SVG = (tag,attrs={})=>{
       const li = document.createElement('li');
       const a = document.createElement('a');
       a.href = src.getAttribute('href');
-      a.textContent = src.textContent.replace(/ /g,' ').trim();
+      const clone=src.cloneNode(true);clone.querySelectorAll('.katex-mathml').forEach(n=>n.remove());a.textContent=clone.textContent.replace(/ /g,' ').trim();
       li.appendChild(a); ol.appendChild(li);
     });
     aside.appendChild(ol);

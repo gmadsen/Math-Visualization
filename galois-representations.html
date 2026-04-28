@@ -1409,7 +1409,7 @@ $$ \tr\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; a_p(f), \qquad \det\rho_{f,\lambda
       const li = document.createElement('li');
       const a = document.createElement('a');
       a.href = src.getAttribute('href');
-      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      const clone=src.cloneNode(true);clone.querySelectorAll('.katex-mathml').forEach(n=>n.remove());a.textContent=clone.textContent.replace(/\u00a0/g,' ').trim();
       li.appendChild(a); ol.appendChild(li);
     });
     aside.appendChild(ol);
