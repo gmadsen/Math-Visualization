@@ -85,6 +85,17 @@ Cross-referenced PCM Parts III–V against the 103-topic corpus on 2026-04-27. T
 - **Resolution of singularities** (V.32) — Hironaka; AG capstone.
 - **Mostow rigidity** (V.27) — riemannian-geometry / hyperbolic 3-manifold capstone.
 
+## Follow-ups from PR #36 / #37 review
+
+Items raised by the review-team agents that were deferred at merge time. **#1 is a real bug, the rest are quality gaps.**
+
+1. **Orphan `<label>` a11y, corpus-wide pass.** PR #37 reviewer flagged unwrapped/unassociated `<label>` elements in `expanders.html` (and the same pattern recurs across many widget pages). Screen readers can't announce these controls. Wire every orphan `<label>` to its sibling `<input>`/`<select>` via `for=` attribute or wrap-the-control. Audit candidate: a one-shot script that finds all `<label>` without `for=` and not wrapping a control, then auto-fixes by matching to the nearest sibling.
+2. **Quiz type-variety on the new 27 topics.** 87% of v1 questions in PR #36 + PR #37 banks (~470 of 540) are `mcq` or `numeric`. Per the previous E1 batch (PR #35 phase 3i), replace ~3 questions per topic with `matching` / `multi-select` / `ordering` / `proof-completion` / `spot-the-error`. Lever: `audit-blurb-question-alignment` plus the existing per-type schemas in `schemas/quiz-bank.schema.json`.
+3. **Hint coverage on the 14 hint-poor banks** (everything in PR #36 + #37 except `hamiltonians-classical-mechanics`, which the agent authored with hints). Auto-derive from `explain` field's first sentence, the same way the A3 batch in PR #35 did. Drop hints that are byte-identical to the explain fallback (per the quiz-review agent's comment 4183105888).
+4. **Trivia-as-question replacements.** A handful of v1 mcqs in PR #37 reduce to recall of a labeled fact (CdGP attribution, HMS history, LIGO strain, Cheeger Riemannian provenance). Quiz-review agent flagged them at comment 4183109392; rewrite to test the underlying concept.
+5. **Blurb undercoverage instances.** `cnt-modular-arithmetic-algorithms` (only one of three blurb pillars tested), `ms-mle` (asymptotic normality / score equation untested despite being in the blurb). Quiz-review comment 4183111160.
+6. **KaTeX macro-loader expansion.** Notation reviewer flagged `\Re`, `\vol`, `\End` as candidates that just crossed the threshold where defining once in the loader pays off. Currently rendering correctly via `\mathrm{...}` so cosmetic, not a bug.
+
 ## Out of scope
 
 Items the user has explicitly de-prioritized. **Don't suggest these as "what next" without prompting.**
