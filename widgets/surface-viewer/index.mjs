@@ -49,7 +49,7 @@ function renderSelectInControls(sel) {
     return `      <option value="${o.value}"${selAttr}>${o.label}</option>`;
   }).join('\n');
   return (
-    `    <label>${sel.label}</label>\n` +
+    `    <label for="${sel.id}">${sel.label}</label>\n` +
     `    <select id="${sel.id}">\n` +
     `${opts}\n` +
     `    </select>`

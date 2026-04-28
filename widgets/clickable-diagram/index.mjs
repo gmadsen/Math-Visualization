@@ -87,7 +87,7 @@ function renderReadoutOnlyMarkup(params) {
     `<div class="widget" id="${widgetId}">\n` +
     renderHdLine(params) +
     `  <div class="row">\n` +
-    `    <label>${pickLabel}</label>\n` +
+    `    <label for="${pickId}">${pickLabel}</label>\n` +
     `    <select id="${pickId}">\n` +
     `${optionsBlock}\n` +
     `    </select>\n` +
@@ -147,7 +147,7 @@ function renderProofStepperMarkup(params) {
     `<div class="widget" id="${widgetId}">\n` +
     renderHdLine(params) +
     `  <div class="row">\n` +
-    `    <label>${pickLabel}</label>\n` +
+    `    <label for="${pickId}">${pickLabel}</label>\n` +
     `    <select id="${pickId}">\n` +
     `${optionsBlock}\n` +
     `    </select>\n` +

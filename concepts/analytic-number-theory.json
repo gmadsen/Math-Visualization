@@ -7,7 +7,10 @@
       "id": "ant-prime-counting",
       "title": "$\\pi(x)$ and the prime number theorem",
       "anchor": "pnt",
-      "prereqs": [],
+      "prereqs": [
+        "real-numbers",
+        "sets-functions"
+      ],
       "blurb": "The counting function $\\pi(x) = \\#\\{p \\le x : p \\text{ prime}\\}$ satisfies $\\pi(x) \\sim x/\\log x$, equivalently $\\pi(x) \\sim \\mathrm{Li}(x) = \\int_2^x dt/\\log t$; the logarithmic integral is a substantially better numerical match.",
       "tags": [
         "foundation"
@@ -31,7 +34,7 @@
       "prereqs": [
         "ant-riemann-zeta-from-pnt"
       ],
-      "blurb": "Hadamard and de la Vallée Poussin (1896) showed $\\zeta(s) \\ne 0$ on $\\mathrm{Re}\\,s = 1$ via the trigonometric inequality $3 + 4\\cos\\theta + \\cos 2\\theta \\ge 0$, then extended this to a region $\\sigma > 1 - c/\\log|t|$. Pushing zeros away from the line $\\mathrm{Re}\\,s = 1$ controls the error in $\\psi(x) - x$ and yields PNT with effective remainder $O(x e^{-c\\sqrt{\\log x}})$.",
+      "blurb": "Hadamard and de la Vall\u00e9e Poussin (1896) showed $\\zeta(s) \\ne 0$ on $\\mathrm{Re}\\,s = 1$ via the trigonometric inequality $3 + 4\\cos\\theta + \\cos 2\\theta \\ge 0$, then extended this to a region $\\sigma > 1 - c/\\log|t|$. Pushing zeros away from the line $\\mathrm{Re}\\,s = 1$ controls the error in $\\psi(x) - x$ and yields PNT with effective remainder $O(x e^{-c\\sqrt{\\log x}})$.",
       "tags": [
         "classification"
       ]
@@ -54,17 +57,17 @@
         "ant-prime-counting",
         "dirichlet-series-basics"
       ],
-      "blurb": "Inclusion–exclusion ($\\sum_{d\\mid P} \\mu(d) \\lfloor x/d \\rfloor$) is too erratic for primes; truncating the Möbius weights at small divisors gives Brun and Selberg sieves. Brun proved $\\sum_{p\\text{ twin}} (1/p + 1/(p+2))$ converges (the twin-prime constant) and bounded gaps follow from Selberg-style upper bounds on $\\#\\{n \\le x : n,n+2 \\text{ both prime}\\}$."
+      "blurb": "Inclusion\u2013exclusion ($\\sum_{d\\mid P} \\mu(d) \\lfloor x/d \\rfloor$) is too erratic for primes; truncating the M\u00f6bius weights at small divisors gives Brun and Selberg sieves. Brun proved $\\sum_{p\\text{ twin}} (1/p + 1/(p+2))$ converges (the twin-prime constant) and bounded gaps follow from Selberg-style upper bounds on $\\#\\{n \\le x : n,n+2 \\text{ both prime}\\}$."
     },
     {
       "id": "ant-bombieri-vinogradov",
-      "title": "Bombieri–Vinogradov on average",
+      "title": "Bombieri\u2013Vinogradov on average",
       "anchor": "bombieri",
       "prereqs": [
         "ant-dirichlet-theorem",
         "lfunction-prototype"
       ],
-      "blurb": "On average over moduli $q \\le x^{1/2}/(\\log x)^A$, the Bombieri–Vinogradov theorem bounds $\\sum_q \\max_{\\gcd(a,q)=1} |\\pi(x;q,a) - \\mathrm{Li}(x)/\\varphi(q)|$ by $x/(\\log x)^B$ — a GRH-quality error in the $\\ell^1$ norm even though GRH itself remains open."
+      "blurb": "On average over moduli $q \\le x^{1/2}/(\\log x)^A$, the Bombieri\u2013Vinogradov theorem bounds $\\sum_q \\max_{\\gcd(a,q)=1} |\\pi(x;q,a) - \\mathrm{Li}(x)/\\varphi(q)|$ by $x/(\\log x)^B$ \u2014 a GRH-quality error in the $\\ell^1$ norm even though GRH itself remains open."
     }
   ]
 }

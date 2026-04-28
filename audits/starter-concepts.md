@@ -11,19 +11,19 @@ reach into upstream foundations or stay within their own cluster.
 
 | section | concepts | intra edges | cross out | cross in | density |
 |---|---:|---:|---:|---:|---:|
-| Logic & Foundations | 49 | 56 | 5 | 15 | 0.102 |
-| Algebra & homological | 106 | 157 | 16 | 70 | 0.151 |
+| Logic & Foundations | 49 | 56 | 5 | 17 | 0.102 |
+| Algebra & homological | 106 | 157 | 16 | 71 | 0.151 |
 | Higher categories & toposes | 45 | 68 | 23 | 2 | 0.511 |
-| Analysis | 146 | 249 | 24 | 59 | 0.164 |
+| Analysis | 146 | 249 | 24 | 60 | 0.164 |
 | Probability & statistics | 53 | 86 | 14 | 10 | 0.264 |
 | Geometry & topology | 97 | 144 | 18 | 79 | 0.186 |
-| Number theory | 90 | 115 | 33 | 24 | 0.367 |
+| Number theory | 90 | 115 | 35 | 24 | 0.389 |
 | Modular forms & L-functions | 85 | 112 | 52 | 12 | 0.612 |
 | Algebraic geometry | 127 | 173 | 55 | 15 | 0.433 |
-| Combinatorics & graph theory | 51 | 50 | 22 | 2 | 0.431 |
+| Combinatorics & graph theory | 51 | 51 | 24 | 2 | 0.471 |
 | Mathematical physics | 24 | 22 | 26 | 0 | 1.083 |
 
-## EMPTY — concepts with no prereqs (3)
+## EMPTY — concepts with no prereqs (0)
 
 Concepts whose `prereqs` field is `[]` and whose owning topic is *not*
 a foundation/prereq topic. Almost always indicates a missing cross-
@@ -31,11 +31,7 @@ topic upstream wiring; pathway.html will surface the concept as "ready"
 at brand-new progress alongside genuine entry points like
 `sets-functions` and `algebraic-structures`.
 
-| topic | concept | title |
-|---|---|---|
-| analytic-number-theory | `ant-prime-counting` | $\pi(x)$ and the prime number theorem |
-| expanders | `e-definition` | Combinatorial expansion |
-| spectral-graph-theory | `adjacency-and-laplacian` | Adjacency, degree, and the Laplacian |
+_Currently clean — no advanced concept lists `prereqs: []`._
 
 ## THIN-NEW — new-arc concepts with intra-topic-only prereqs (13)
 
