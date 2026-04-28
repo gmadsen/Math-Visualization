@@ -188,7 +188,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./bsd.html#mordell-weil\">Birch and Swinnerton-Dyer</a> · Mordell–Weil theorem</div>\n    <div><a href=\"./bsd.html#regulator\">Birch and Swinnerton-Dyer</a> · Néron–Tate height and the regulator</div>\n    <div><a href=\"./heights-arithmetic-geometry.html#canonical\">Heights in arithmetic geometry</a> · Néron–Tate canonical height</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./bsd.html#mordell-weil\">Birch and Swinnerton-Dyer</a> · Mordell–Weil theorem</div>\n    <div><a href=\"./bsd.html#regulator\">Birch and Swinnerton-Dyer</a> · Néron–Tate height and the regulator</div>\n    <div><a href=\"./heights-arithmetic-geometry.html#descent\">Heights in arithmetic geometry</a> · Mordell–Weil descent: heights into finite generation</div>\n    <div><a href=\"./heights-arithmetic-geometry.html#canonical\">Heights in arithmetic geometry</a> · Néron–Tate canonical height</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

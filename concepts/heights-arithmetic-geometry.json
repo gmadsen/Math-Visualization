@@ -93,6 +93,48 @@
         "duality",
         "cohomology"
       ]
+    },
+    {
+      "id": "mordell-weil-descent",
+      "title": "Mordell–Weil descent: heights into finite generation",
+      "anchor": "descent",
+      "prereqs": [
+        "neron-tate-canonical-height",
+        "mordell-weil-ec"
+      ],
+      "blurb": "The proof that $E(K)$ is finitely generated splits into two halves. <strong>Weak Mordell–Weil:</strong> $E(K)/2E(K)$ is finite — a Galois-cohomology / Kummer-pairing argument bounded by the unit group and class group of $K(E[2])$. <strong>Descent via heights:</strong> from coset reps $Q_1,\\dots,Q_m$, every $P\\in E(K)$ writes as $P=2P'+Q_i$ with $\\hat h(P')\\le\\tfrac14\\hat h(P)+C$. Iterating contracts every point into a Northcott-finite ball, giving a finite generating set.",
+      "tags": [
+        "finiteness",
+        "duality"
+      ]
+    },
+    {
+      "id": "vojta-conjecture-abc",
+      "title": "Vojta's conjecture and the abc connection",
+      "anchor": "vojta",
+      "prereqs": [
+        "weil-height-line-bundle",
+        "heights-mordell-faltings"
+      ],
+      "blurb": "Vojta's conjecture is a Diophantine analog of Nevanlinna's second main theorem: for a smooth projective $X/K$, an effective normal-crossings divisor $D$, and any $\\varepsilon>0$, all but a proper Zariski-closed set of $K$-rational points satisfy $h_{K_X+D}(P)\\le\\varepsilon\\cdot h_A(P)+m_S(P,D)+O(1)$. Specialised to $\\mathbb{P}^1$ minus three points it implies the <strong>abc conjecture</strong>: for coprime $a+b=c$, $\\max(|a|,|b|,|c|)\\ll_\\varepsilon\\mathrm{rad}(abc)^{1+\\varepsilon}$. Faltings, Roth, and Schmidt's subspace theorem are visible as low-dimensional shadows.",
+      "tags": [
+        "finiteness",
+        "duality"
+      ]
+    },
+    {
+      "id": "bogomolov-equidistribution",
+      "title": "Bogomolov, equidistribution, and small points",
+      "anchor": "bogomolov",
+      "prereqs": [
+        "neron-tate-canonical-height",
+        "mahler-measure-lehmer"
+      ],
+      "blurb": "How rare are points of small canonical height? <strong>Bogomolov</strong> (Ullmo, Zhang 1998): on a curve $C$ of genus $\\ge 2$ embedded in its Jacobian by an Abel–Jacobi map, the points $P\\in C(\\bar K)$ with $\\hat h(P)<\\varepsilon$ are finite for some $\\varepsilon>0$. <strong>Yuan–Zhang equidistribution:</strong> any sequence $P_n\\in A(\\bar K)$ of generic small points ($\\hat h(P_n)\\to 0$) becomes equidistributed against the Haar measure on $A(\\mathbb{C})$. Lehmer's gap and the Manin–Mumford theorem are special cases.",
+      "tags": [
+        "finiteness",
+        "duality"
+      ]
     }
   ]
 }

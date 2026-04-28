@@ -273,6 +273,119 @@
           "explain": "Each finite place contributes a local intersection multiplicity; the archimedean place needs a curvature integral to balance the product formula. The Hermitian metric is exactly what supplies that archimedean local height."
         }
       ]
+    },
+    "mordell-weil-descent": {
+      "title": "Mordell–Weil descent",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Mordell–Weil theorem $E(K)\\cong\\mathbb{Z}^r\\oplus T$ is proved by combining two ingredients. They are:",
+          "choices": [
+            "Hasse's bound $|a_p|\\le 2\\sqrt p$ and the Birch–Swinnerton-Dyer conjecture.",
+            "Weak Mordell–Weil ($E(K)/2E(K)$ finite) and a height-driven descent that contracts every point into a Northcott-finite ball.",
+            "Faltings' theorem applied to the Jacobian of $E$.",
+            "The Hasse–Weil L-function and its meromorphic continuation."
+          ],
+          "answer": 1,
+          "explain": "Weak Mordell–Weil gives finitely many cosets $Q_1,\\dots,Q_m$ for $E(K)/2E(K)$. Heights then provide the descent: $P=2P'+Q_i$ with $\\hat h(P')\\le\\tfrac14\\hat h(P)+C$, so iterating drives every $P$ into a finite Northcott set, yielding a finite generating set."
+        },
+        {
+          "type": "numeric",
+          "q": "If $\\hat h(P)=400$ and the descent step gives $\\hat h(P')\\le\\tfrac14\\hat h(P)+C$ with $C=10$, what is the upper bound on $\\hat h(P')$ after one descent?",
+          "answer": 110,
+          "tol": 1e-6,
+          "explain": "$\\tfrac14(400)+10=100+10=110$. Each iteration shrinks the height by a factor of $4$ plus a bounded additive constant; after enough steps, $\\hat h$ is dominated by $C$ alone — Northcott-finite."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is the *weak* Mordell–Weil step (finiteness of $E(K)/2E(K)$) the harder half conceptually, even though heights do the algorithmic work?",
+          "choices": [
+            "Heights are only defined for elliptic curves with complex multiplication.",
+            "Without weak Mordell–Weil, there is no fixed finite list of coset representatives to descend toward — the height-shrinking iteration has nothing to terminate at.",
+            "Northcott's theorem fails on elliptic curves with positive rank.",
+            "The descent step requires $K=\\mathbb{Q}$, while weak Mordell–Weil works over any number field."
+          ],
+          "answer": 1,
+          "explain": "The descent only narrows down a point modulo $2E(K)$. If that quotient were infinite, you could shrink heights forever without ever reaching a finite generating set. Weak MW supplies the cosets — its proof uses Galois cohomology, the Kummer pairing, and finiteness of class groups / unit groups of $K(E[2])$."
+        }
+      ]
+    },
+    "vojta-conjecture-abc": {
+      "title": "Vojta's conjecture",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The abc conjecture states that for coprime positive integers $a+b=c$ and any $\\varepsilon>0$:",
+          "choices": [
+            "$c\\le\\mathrm{rad}(abc)$ for all but finitely many triples.",
+            "$c\\le K_\\varepsilon\\cdot\\mathrm{rad}(abc)^{1+\\varepsilon}$ for some constant $K_\\varepsilon$.",
+            "$c\\le\\mathrm{rad}(abc)^{2}$ unconditionally.",
+            "$\\log c\\le(\\log\\mathrm{rad}(abc))^{1+\\varepsilon}$."
+          ],
+          "answer": 1,
+          "explain": "abc bounds $c$ by $\\mathrm{rad}(abc)^{1+\\varepsilon}$ up to a constant depending on $\\varepsilon$. The radical $\\mathrm{rad}(n)$ is the product of distinct primes dividing $n$, ignoring multiplicity — so it punishes $c$'s with lots of small prime power factors."
+        },
+        {
+          "type": "numeric",
+          "q": "Compute $\\mathrm{rad}(abc)$ for the abc-triple $a=1,\\ b=8,\\ c=9$. (Recall $\\mathrm{rad}(n)$ is the product of distinct primes dividing $n$.)",
+          "answer": 6,
+          "tol": 1e-9,
+          "explain": "$abc=1\\cdot 8\\cdot 9 = 72 = 2^3\\cdot 3^2$. The distinct primes dividing $72$ are $\\{2,3\\}$, so $\\mathrm{rad}(72)=2\\cdot 3=6$. The 'quality' $\\log c/\\log\\mathrm{rad}=\\log 9/\\log 6\\approx 1.226$ — modest but nonzero, so $c>\\mathrm{rad}(abc)$ already here."
+        },
+        {
+          "type": "mcq",
+          "q": "Vojta's conjecture for a smooth projective $X/K$ with normal-crossings divisor $D$ predicts an inequality of shape $h_{K_X+D}(P)\\le\\varepsilon\\cdot h_A(P)+m_S(P,D)+O(1)$. Which classical theorem is the easiest dimension-1 special case?",
+          "choices": [
+            "The Mordell–Weil theorem.",
+            "Roth's theorem on rational approximation to algebraic numbers.",
+            "The Riemann hypothesis for curves over finite fields.",
+            "Faltings' isogeny theorem."
+          ],
+          "answer": 1,
+          "explain": "Roth's theorem is the dimension-$1$ Vojta inequality on $\\mathbb{P}^1$ minus a single point: rational points cannot approximate an algebraic number $\\alpha$ better than $|p/q-\\alpha|\\gg q^{-2-\\varepsilon}$. Faltings sits on a higher-genus curve; abc lives on $\\mathbb{P}^1$ minus three points; Schmidt's subspace theorem is the multidim'l generalisation."
+        }
+      ]
+    },
+    "bogomolov-equidistribution": {
+      "title": "Bogomolov & equidistribution",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Bogomolov's conjecture (proved by Ullmo and Zhang for curves) says: for a curve $C$ of genus $\\ge 2$ embedded in $\\operatorname{Jac}(C)$ via an Abel–Jacobi map, the set $\\{P\\in C(\\bar K):\\hat h(P)<\\varepsilon\\}$ is:",
+          "choices": [
+            "Empty for $\\varepsilon$ small.",
+            "Finite for some $\\varepsilon>0$.",
+            "Always Zariski-dense in $C$.",
+            "Infinite but discrete on $C(\\mathbb{C})$."
+          ],
+          "answer": 1,
+          "explain": "Small-points-are-rare: for $\\varepsilon>0$ small enough, only finitely many points of $C$ have canonical height below $\\varepsilon$. Setting $\\varepsilon\\to 0$ recovers Manin–Mumford (torsion points of $\\operatorname{Jac}$ meeting $C$ are finite); setting $\\varepsilon$ moderate improves on Faltings by giving a uniform-style bound."
+        },
+        {
+          "type": "mcq",
+          "q": "Yuan's equidistribution theorem (a refinement of Szpiro–Ullmo–Zhang): if $P_n\\in A(\\bar K)$ is a generic sequence with $\\hat h(P_n)\\to 0$, then the Galois-orbit measures $\\mu_n=\\frac{1}{|\\operatorname{Gal}\\cdot P_n|}\\sum_{Q\\in\\operatorname{Gal}\\cdot P_n}\\delta_Q$ on $A(\\mathbb{C})$ converge weakly to:",
+          "choices": [
+            "The point-mass at the origin $0\\in A$.",
+            "The (translation-invariant) Haar / Lebesgue measure on $A(\\mathbb{C})$.",
+            "The pushforward of Brownian motion on the universal cover.",
+            "The arithmetic curvature form of the Hodge bundle."
+          ],
+          "answer": 1,
+          "explain": "Generic small points equidistribute against the natural Haar measure of the abelian variety viewed as a complex torus. This is the Diophantine cousin of Weyl's classical equidistribution — heights replace continued-fraction approximation as the smallness measure."
+        },
+        {
+          "type": "mcq",
+          "q": "Which statement is *not* a known consequence (or near-consequence) of the Bogomolov / equidistribution circle?",
+          "choices": [
+            "Manin–Mumford: only finitely many torsion points of $\\operatorname{Jac}(C)$ lie on $C\\hookrightarrow\\operatorname{Jac}(C)$.",
+            "Lehmer-style: heights of non-torsion points on $A$ are bounded below by a positive function of the degree (after suitable normalisation).",
+            "BSD: the analytic and algebraic ranks of $E/\\mathbb{Q}$ agree.",
+            "Effective uniform versions of Faltings' theorem when one fixes the Jacobian."
+          ],
+          "answer": 2,
+          "explain": "BSD is a different beast — it ties $L$-function vanishing orders to ranks and lives in modular / motivic land, not on the height side. Manin–Mumford and Lehmer-style lower bounds are direct corollaries; uniform Bogomolov implies effective Faltings on fixed Jacobians (work of Dimitrov–Gao–Habegger, Kühne, Yuan)."
+        }
+      ]
     }
   }
 }
