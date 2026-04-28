@@ -241,6 +241,9 @@ function drawNode(svg, x, y, label, opts={}){
   <a href="#jacobian">4&nbsp;Jacobian</a>
   <a href="#genus">5&nbsp;Genus</a>
   <a href="#cusps-galois">6&nbsp;Cusps</a>
+  <a href="#atkin-lehner">7&nbsp;Atkin–Lehner</a>
+  <a href="#heegner">8&nbsp;Heegner</a>
+  <a href="#mazur-torsion">9&nbsp;Mazur</a>
 </nav>
 <!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
 
@@ -572,6 +575,7 @@ class in Y_0(${N}) ↔ pair (E_τ, C) up to isomorphism`;
   <div class="ttl">Used in</div>
     <div><a href="./modular-curves.html#cusps-galois">Modular curves</a> · Cusps and rationality over $\mathbb{Q}$</div>
     <div><a href="./modular-curves.html#hecke-corr">Modular curves</a> · Hecke correspondences on $X_0(N)$</div>
+    <div><a href="./modular-curves.html#heegner">Modular curves</a> · Heegner points and CM</div>
 </aside>
 <!-- backlinks-auto-end --><div class="quiz" data-concept="mc-moduli-of-elliptic-curves"></div>
 </section>
@@ -712,6 +716,7 @@ with the convention $a_{n/p} = 0$ unless $p \mid n$. The two terms come from the
 <!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./modular-curves.html#atkin-lehner">Modular curves</a> · Atkin–Lehner involutions and the old/new decomposition</div>
     <div><a href="./modular-curves.html#jacobian">Modular curves</a> · The Jacobian $J_0(N)$ and Eichler–Shimura</div>
 </aside>
 <!-- backlinks-auto-end --><div class="quiz" data-concept="mc-hecke-correspondences-curves"></div>
@@ -832,7 +837,13 @@ whose $\ell$-adic Tate module recovers exactly the Galois representation attache
     <li><a href="./modularity-and-flt.html#modularity">Modularity theorem</a></li>
   </ul>
 </aside>
-<!-- callback-auto-end -->
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./modular-curves.html#atkin-lehner">Modular curves</a> · Atkin–Lehner involutions and the old/new decomposition</div>
+    <div><a href="./modular-curves.html#mazur-torsion">Modular curves</a> · Mazur's torsion theorem via $X_1(N)$</div>
+</aside>
+<!-- backlinks-auto-end -->
 
 <div class="quiz" data-concept="mc-jacobian-J0"></div>
 </section>
@@ -1136,8 +1147,469 @@ Atkin–Lehner w_N swaps cusps 0 ↔ ∞`;
 <div class="quiz" data-concept="mc-cusps-galois"></div>
 </section>
 
+<section id="atkin-lehner">
+<h2>7. Atkin–Lehner involutions and the old/new decomposition</h2>
+<p>For each <em>exact</em> divisor $d \Vert N$ — meaning $d \mid N$ with $\gcd(d, N/d) = 1$ — there is an involution $w_d$ of $X_0(N)$ defined by any matrix
+$$w_d \;=\; \begin{pmatrix} a d & b \\ N c & d D \end{pmatrix}, \qquad \det(w_d) = d, \quad a d D - b N c / d = 1$$
+(any choice of integers $a, b, c, D$ making this matrix lie in the normalizer of $\Gamma_0(N)$ in $\mathrm{GL}_2^+(\mathbb{Q})$ gives the same coset). Because the determinants are pairwise coprime, the involutions commute pairwise: $w_d \circ w_{d'} = w_{d''}$ where $d'' = dd'/\gcd(d,d')^2$. The full Atkin–Lehner group $W_N \cong (\mathbb{Z}/2)^{\omega(N)}$ has order $2^{\omega(N)}$, where $\omega(N)$ is the number of distinct prime factors of $N$.</p>
+
+<p>Each $w_d$ commutes with every Hecke operator $T_p$ for $p \nmid N$. So the Hecke decomposition of $S_2(\Gamma_0(N))$ refines into joint Hecke + Atkin–Lehner eigenspaces, and the Atkin–Lehner sign $\varepsilon_d(f) \in \{\pm 1\}$ of a newform $f$ controls the sign of the functional equation of its $L$-function: $\varepsilon(L(f, s)) = -\varepsilon_N(f)$ for $f$ a newform of weight $2$ and level $N$.</p>
+
+<div class="widget" id="w-al">
+  <div class="hd"><span class="ttl">Widget 7 · Atkin–Lehner group $W_N$ and old/new dimension count</span><span class="hint">choose $N$, see $|W_N| = 2^{\omega(N)}$, $\dim S_2^{\mathrm{old}}$, $\dim S_2^{\mathrm{new}}$</span></div>
+  <div class="row" id="w-al-buttons">
+    <button data-N="11" class="active">N = 11</button>
+    <button data-N="22">N = 22</button>
+    <button data-N="33">N = 33</button>
+    <button data-N="37">N = 37</button>
+    <button data-N="55">N = 55</button>
+    <button data-N="66">N = 66</button>
+    <button data-N="77">N = 77</button>
+  </div>
+  <svg id="w-al-svg" viewBox="0 0 720 320" width="720" height="320" aria-label="Atkin-Lehner old new decomposition"></svg>
+  <div class="readout small" id="w-al-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = document.getElementById("w-al-svg");
+  const buttons = document.getElementById("w-al-buttons");
+  const out = document.getElementById("w-al-out");
+  const W = 720, H = 320;
+
+  // (N, omega, primes[], g, dim_S2_new, dim_S2_old, |W_N|)
+  // Source: standard tables (LMFDB, Cremona).
+  const TBL = {
+    11: { primes:[11],         g:1, snew:1, sold:0 },
+    22: { primes:[2,11],       g:2, snew:0, sold:2 },
+    33: { primes:[3,11],       g:3, snew:1, sold:2 },
+    37: { primes:[37],         g:2, snew:2, sold:0 },
+    55: { primes:[5,11],       g:5, snew:3, sold:2 },
+    66: { primes:[2,3,11],     g:9, snew:3, sold:6 },
+    77: { primes:[7,11],       g:7, snew:5, sold:2 }
+  };
+
+  let activeN = 11;
+
+  function divisors(N){
+    const r = [];
+    for(let d=1; d<=N; d++) if(N%d===0) r.push(d);
+    return r;
+  }
+  function isExact(d, N){
+    let g = d, b = N/d;
+    while(b){ const t = g%b; g = b; b = t; }
+    return g === 1;
+  }
+
+  function render(){
+    svg.innerHTML = "";
+    const data = TBL[activeN];
+    const omega = data.primes.length;
+    const sizeW = 1 << omega;
+    const dimS2 = data.snew + data.sold;
+
+    // top label
+    const top = SVG("text",{x:W/2, y:30, "text-anchor":"middle", "font-size":14, fill:"var(--ink)"});
+    top.textContent = `N = ${activeN}, ω(N) = ${omega}, |W_N| = 2^${omega} = ${sizeW}`;
+    svg.appendChild(top);
+
+    // Left column: list of exact divisors d || N
+    const padL = 40, padT = 60;
+    const colXTitle = padL + 80;
+    const lblL = SVG("text",{x:colXTitle, y:padT, "text-anchor":"middle", "font-size":12, fill:"var(--cyan)"});
+    lblL.textContent = `Atkin–Lehner involutions w_d`;
+    svg.appendChild(lblL);
+
+    const exact = divisors(activeN).filter(d => isExact(d, activeN));
+    exact.forEach((d, i) => {
+      const Y = padT + 28 + i * 22;
+      svg.appendChild(SVG("rect",{x:padL, y:Y-13, width:160, height:18, fill:"var(--panel2)", stroke:"var(--cyan)", "stroke-width":1, rx:4}));
+      const t = SVG("text",{x:colXTitle, y:Y+1, "text-anchor":"middle", "font-size":11, fill:"var(--ink)"});
+      t.textContent = d === 1 ? `w_1 = id` : `w_${d}  (d ‖ ${activeN})`;
+      svg.appendChild(t);
+    });
+
+    // Right column: bar showing dim S_2 split into new + old
+    const barX = 280, barW = 360, barY = padT + 30, barH = 60;
+    const fracNew = dimS2 ? data.snew / dimS2 : 0;
+    const newW = barW * fracNew;
+    svg.appendChild(SVG("rect",{x:barX, y:barY, width:newW, height:barH, fill:"var(--yellow)", "fill-opacity":0.85}));
+    svg.appendChild(SVG("rect",{x:barX+newW, y:barY, width:barW-newW, height:barH, fill:"var(--violet)", "fill-opacity":0.65}));
+    svg.appendChild(SVG("rect",{x:barX, y:barY, width:barW, height:barH, fill:"none", stroke:"var(--ink)", "stroke-width":1.2}));
+
+    // bar labels
+    const barLbl = SVG("text",{x:barX+barW/2, y:barY-8, "text-anchor":"middle", "font-size":12, fill:"var(--ink)"});
+    barLbl.textContent = `S_2(Γ_0(${activeN})) = S_2^new ⊕ S_2^old   (dim = ${dimS2})`;
+    svg.appendChild(barLbl);
+    if(newW > 30){
+      const tn = SVG("text",{x:barX+newW/2, y:barY+barH/2+4, "text-anchor":"middle", "font-size":12, fill:"#111", "font-weight":600});
+      tn.textContent = `new: ${data.snew}`;
+      svg.appendChild(tn);
+    }
+    if(barW-newW > 30){
+      const to = SVG("text",{x:barX+newW+(barW-newW)/2, y:barY+barH/2+4, "text-anchor":"middle", "font-size":12, fill:"#111", "font-weight":600});
+      to.textContent = `old: ${data.sold}`;
+      svg.appendChild(to);
+    }
+
+    // Legend & explanation
+    const ex = SVG("text",{x:barX, y:barY+barH+30, "font-size":11, fill:"var(--mute)"});
+    ex.textContent = `S_2^old comes from levels M | N (M < N) via f(τ) ↦ f(dτ) for d | N/M`;
+    svg.appendChild(ex);
+    const ex2 = SVG("text",{x:barX, y:barY+barH+50, "font-size":11, fill:"var(--mute)"});
+    ex2.textContent = `S_2^new = unique basis of newforms with multiplicity-one q-expansions`;
+    svg.appendChild(ex2);
+    const ex3 = SVG("text",{x:barX, y:barY+barH+74, "font-size":11, fill:"var(--cyan)"});
+    ex3.textContent = `W_N permutes both summands; each f has Atkin–Lehner signs ε_d ∈ {±1}`;
+    svg.appendChild(ex3);
+
+    out.textContent = `N = ${activeN}
+prime factors: ${data.primes.join(", ")}    ω(N) = ${omega}
+|W_N| = 2^${omega} = ${sizeW}    (Atkin–Lehner involutions, including w_1 = id)
+dim S_2(Γ_0(${activeN})) = g(X_0(${activeN})) = ${data.g}
+dim S_2^new = ${data.snew},   dim S_2^old = ${data.sold}`;
+  }
+
+  buttons.addEventListener("click", (e) => {
+    const n = e.target.dataset && e.target.dataset.N;
+    if(!n) return;
+    activeN = parseInt(n, 10);
+    [...buttons.children].forEach(b => b.classList.toggle("active", b.dataset.N === n));
+    render();
+  });
+  render();
+})();
+</script>
+
+<p>The decomposition $S_2(\Gamma_0(N)) = S_2^{\mathrm{old}} \oplus S_2^{\mathrm{new}}$ refines the Hecke action: oldforms are pulled back from strict divisor levels via $f(\tau) \mapsto f(d\tau)$, while $S_2^{\mathrm{new}}$ admits a unique basis of <em>newforms</em> — normalized Hecke eigenforms whose $q$-expansions begin $q + a_2 q^2 + a_3 q^3 + \cdots$ and whose Hecke eigenvalues uniquely determine them (multiplicity-one). On the Jacobian side this gives an isogeny decomposition
+$$J_0(N) \;\sim\; \prod_{M \mid N} J_0(M)^{\mathrm{new}\,\sigma_0(N/M)},$$
+and each newform of level $N$ gives one factor of $J_0(N)^{\mathrm{new}}$ on which $W_N$ acts by signs.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./hecke-operators.html#hecke-action">Hecke operators on modular forms</a></li>
+    <li><a href="./modular-forms.html#cusp-forms">Cusp forms and the Petersson inner product</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+<div class="quiz" data-concept="mc-atkin-lehner-newforms"></div>
+</section>
+
+<section id="heegner">
+<h2>8. Heegner points and CM</h2>
+<p>If a moduli pair $(E, C) \in Y_0(N)(\overline{\mathbb{Q}})$ has $E$ a CM elliptic curve — i.e. $\mathrm{End}(E) \otimes \mathbb{Q}$ is an imaginary quadratic field $K = \mathbb{Q}(\sqrt{D})$, with $D < 0$ — and the cyclic subgroup $C$ is invariant under the CM action, then the corresponding point of $X_0(N)$ is called a <strong>Heegner point</strong> of discriminant $D$. The defining condition factors through orders: write $\mathcal{O}_D \subset K$ for the order of discriminant $D$, and require</p>
+<p>$$\mathrm{End}(E) \;\cong\; \mathcal{O}_D, \qquad \mathcal{O}_D \cdot C \;=\; C.$$</p>
+
+<p>For such Heegner points to exist on $X_0(N)$ we need every prime $p \mid N$ to <em>split</em> in $\mathcal{O}_D$ (the <strong>Heegner hypothesis</strong>): equivalently $\bigl(\frac{D}{p}\bigr) = 1$ for each $p \mid N$. Under this hypothesis there is a bijection between Heegner points of discriminant $D$ on $X_0(N)$ and pairs $(\mathfrak{a}, \mathfrak{n})$, where $\mathfrak{a}$ is a fractional $\mathcal{O}_D$-ideal class in $\mathrm{Cl}(\mathcal{O}_D)$ and $\mathfrak{n}$ is an $\mathcal{O}_D$-ideal of norm $N$.</p>
+
+<div class="widget" id="w-heeg">
+  <div class="hd"><span class="ttl">Widget 8 · Heegner-hypothesis check $(N, D)$</span><span class="hint">does $N$ split in $\mathbb{Q}(\sqrt{D})$? if so, how many Heegner points?</span></div>
+  <div class="row">
+    <label for="w-heeg-N">level $N$:</label>
+    <select id="w-heeg-N">
+      <option value="11" selected>N = 11</option>
+      <option value="14">N = 14</option>
+      <option value="15">N = 15</option>
+      <option value="17">N = 17</option>
+      <option value="23">N = 23</option>
+      <option value="37">N = 37</option>
+    </select>
+    <label for="w-heeg-D">disc $D$ (neg.):</label>
+    <select id="w-heeg-D">
+      <option value="-3">D = -3</option>
+      <option value="-4">D = -4</option>
+      <option value="-7" selected>D = -7</option>
+      <option value="-8">D = -8</option>
+      <option value="-11">D = -11</option>
+      <option value="-15">D = -15</option>
+      <option value="-19">D = -19</option>
+      <option value="-23">D = -23</option>
+      <option value="-43">D = -43</option>
+    </select>
+    <span id="w-heeg-status" class="pill">…</span>
+  </div>
+  <svg id="w-heeg-svg" viewBox="0 0 720 280" width="720" height="280" aria-label="Heegner hypothesis splitting"></svg>
+  <div class="readout" id="w-heeg-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = document.getElementById("w-heeg-svg");
+  const selN = document.getElementById("w-heeg-N");
+  const selD = document.getElementById("w-heeg-D");
+  const status = document.getElementById("w-heeg-status");
+  const out = document.getElementById("w-heeg-out");
+  const W = 720, H = 280;
+
+  function legendre(a, p){
+    a = ((a % p) + p) % p;
+    if(a === 0) return 0;
+    // Euler's criterion: a^((p-1)/2) mod p
+    let r = 1, e = (p-1)/2, b = a;
+    while(e > 0){
+      if(e & 1) r = (r * b) % p;
+      b = (b * b) % p;
+      e = Math.floor(e/2);
+    }
+    return r === 1 ? 1 : -1;
+  }
+  function primeFactors(n){
+    const ps = [];
+    for(let p=2; p*p<=n; p++){
+      if(n%p===0){ ps.push(p); while(n%p===0) n/=p; }
+    }
+    if(n>1) ps.push(n);
+    return ps;
+  }
+  // class number table for fundamental discriminants D < 0 (and a few non-fundamental)
+  const CLASS = { "-3":1, "-4":1, "-7":1, "-8":1, "-11":1, "-15":2, "-19":1, "-20":2, "-23":3, "-24":2, "-31":3, "-43":1, "-47":5, "-67":1, "-71":7, "-163":1 };
+
+  function render(){
+    svg.innerHTML = "";
+    const N = parseInt(selN.value, 10);
+    const D = parseInt(selD.value, 10);
+
+    const ps = primeFactors(N);
+    const splits = ps.map(p => ({p, sym: legendre(D, p)}));
+    const allSplit = splits.every(s => s.sym === 1);
+
+    status.textContent = allSplit ? "Heegner hypothesis ✓" : "Heegner hypothesis ✗";
+    status.style.background = allSplit ? "rgba(125,224,214,0.18)" : "rgba(224,122,95,0.18)";
+    status.style.borderColor = allSplit ? "var(--cyan)" : "var(--pink)";
+    status.style.color = allSplit ? "var(--cyan)" : "var(--pink)";
+
+    // Title
+    const tt = SVG("text",{x:W/2, y:30, "text-anchor":"middle", "font-size":14, fill:"var(--ink)"});
+    tt.textContent = `Splitting of ${N} = ${ps.join("·")} in 𝒪_K = ℤ[√(${D})]`;
+    svg.appendChild(tt);
+
+    // Display each prime as a card
+    const cardW = 130, cardH = 88, gap = 20;
+    const totalW = ps.length * cardW + (ps.length-1) * gap;
+    const startX = (W - totalW) / 2;
+    splits.forEach((s, i) => {
+      const X = startX + i * (cardW + gap);
+      const Y = 60;
+      const col = s.sym === 1 ? "var(--cyan)" : (s.sym === -1 ? "var(--pink)" : "var(--mute)");
+      svg.appendChild(SVG("rect",{x:X, y:Y, width:cardW, height:cardH, fill:"var(--panel2)", stroke:col, "stroke-width":2, rx:6}));
+      const t1 = SVG("text",{x:X+cardW/2, y:Y+22, "text-anchor":"middle", "font-size":13, fill:"var(--ink)"});
+      t1.textContent = `p = ${s.p}`;
+      svg.appendChild(t1);
+      const t2 = SVG("text",{x:X+cardW/2, y:Y+44, "text-anchor":"middle", "font-size":13, fill:col});
+      t2.textContent = `(${D}/${s.p}) = ${s.sym>=0 ? "+" : ""}${s.sym}`;
+      svg.appendChild(t2);
+      const t3 = SVG("text",{x:X+cardW/2, y:Y+66, "text-anchor":"middle", "font-size":11, fill:col});
+      t3.textContent = s.sym === 1 ? "splits" : (s.sym === -1 ? "inert" : "ramifies");
+      svg.appendChild(t3);
+    });
+
+    // Bottom: count
+    const h = CLASS[String(D)] ?? "?";
+    const bot = SVG("text",{x:W/2, y:H-40, "text-anchor":"middle", "font-size":12, fill:allSplit ? "var(--cyan)" : "var(--mute)"});
+    bot.textContent = allSplit
+      ? `# Heegner points of disc ${D} on X_0(${N}) = h(D) · 2^(ω(N)) = ${h} · ${1<<ps.length} = ${h * (1<<ps.length)}`
+      : `no Heegner points of disc ${D} on X_0(${N}) (some prime is inert/ramified)`;
+    svg.appendChild(bot);
+
+    if(allSplit){
+      const bot2 = SVG("text",{x:W/2, y:H-20, "text-anchor":"middle", "font-size":11, fill:"var(--mute)"});
+      bot2.textContent = `defined over the Hilbert class field H_D ⊃ K = ℚ(√(${D})), of degree h(D) = ${h} over K`;
+      svg.appendChild(bot2);
+    }
+
+    out.textContent = allSplit
+      ? `(N=${N}, D=${D}) satisfies the Heegner hypothesis.
+class number h(D) = ${h};  number of Heegner points on X_0(${N}) of disc D = ${h * (1<<ps.length)}
+these points are all defined over the Hilbert class field H_D, with Gal(H_D/K) ≅ Cl(𝒪_D)
+Gross–Zagier:  ĥ(Tr_{H_D/K} φ(P)) = (explicit period) · L'(E/K, 1)`
+      : `(N=${N}, D=${D}) FAILS the Heegner hypothesis.
+at least one prime p | ${N} is inert or ramified in ℚ(√(${D})), so no compatible cyclic order-${N} subgroup exists for a CM elliptic curve of disc D.`;
+  }
+
+  selN.addEventListener("change", render);
+  selD.addEventListener("change", render);
+  render();
+})();
+</script>
+
+<p>The fundamental theorem of CM (Shimura–Taniyama) shows that Heegner points on $X_0(N)$ of discriminant $D$ are defined over the <strong>Hilbert class field</strong> $H_D$ of $K = \mathbb{Q}(\sqrt{D})$, with Galois action $\mathrm{Gal}(H_D/K) \cong \mathrm{Cl}(\mathcal{O}_D)$ permuting them simply transitively for each fixed ideal $\mathfrak{n}$ of norm $N$. Composing with the modular parametrization $\phi : X_0(N) \to E$ for an elliptic curve $E$ of conductor $N$ produces algebraic points $\phi(P_D) \in E(H_D)$. The trace
+$$y_K \;=\; \mathrm{Tr}_{H_D/K} \phi(P_D) \;\in\; E(K)$$
+is the celebrated <strong>Heegner point</strong> on $E$ over the imaginary quadratic field $K$.</p>
+
+<p>The <strong>Gross–Zagier formula</strong> (1986) computes its Néron–Tate height: up to explicit periods,
+$$\widehat{h}(y_K) \;=\; c_E \cdot L'(E/K, 1),$$
+with $c_E$ a non-zero constant. Combined with Kolyvagin's Euler-system bound on the Selmer group, this gives the <strong>rank-$1$ case of BSD</strong>: whenever $L(E/K, s)$ has a simple zero at $s = 1$, the Mordell–Weil group $E(K)$ has rank exactly $1$, generated up to torsion by $y_K$. This is the deepest unconditional theorem in the BSD direction known to date.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./elliptic-curves.html#cm">Complex multiplication for elliptic curves</a></li>
+    <li><a href="./bsd.html#gross-zagier">Gross–Zagier and the rank-$1$ BSD case</a></li>
+    <li><a href="./elliptic-curves.html#complex">Complex uniformization and CM</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+<div class="quiz" data-concept="mc-heegner-points"></div>
+</section>
+
+<section id="mazur-torsion">
+<h2>9. Mazur's torsion theorem via $X_1(N)$</h2>
+<p>The variant modular curve $X_1(N) = \overline{\mathcal{H}/\Gamma_1(N)}$ classifies pairs $(E, P)$ where $P \in E$ has <em>exact</em> order $N$ — a strictly more rigid level structure than the cyclic-subgroup data of $X_0(N)$. Concretely
+$$\Gamma_1(N) \;=\; \Bigl\{ \begin{pmatrix} a & b \\ c & d \end{pmatrix} \in \mathrm{SL}_2(\mathbb{Z}) \;:\; a \equiv d \equiv 1 \pmod N,\ c \equiv 0 \pmod N \Bigr\},$$
+and $Y_1(N)(\mathbb{Q}) \setminus \{\text{cusps}\}$ parametrizes elliptic curves $E/\mathbb{Q}$ with a $\mathbb{Q}$-rational point of order $N$. Hence the question "which $\mathbb{Z}/N$ can occur as torsion of an elliptic curve over $\mathbb{Q}$?" is exactly: which $X_1(N)$ have non-cuspidal $\mathbb{Q}$-points?</p>
+
+<p>Mazur's torsion theorem (1977) settles this:</p>
+<p>$$E(\mathbb{Q})_{\mathrm{tors}} \;\cong\; \begin{cases} \mathbb{Z}/n & \text{for some } n \in \{1,2,3,4,5,6,7,8,9,10,12\}, \\ \mathbb{Z}/2 \oplus \mathbb{Z}/2n & \text{for some } n \in \{1,2,3,4\}.\end{cases}$$</p>
+
+<p>That is exactly $11 + 4 = 15$ groups; everything else is excluded. Each of the $15$ groups does occur — explicit families are known. The key arithmetic content lies in the exclusions, which are equivalent to showing that $X_1(N)(\mathbb{Q})$ contains only cusps for $N \in \{11, 13, 14, 15, 16, 17, 18, 21\}$ (and a finite check for the remaining higher $N$).</p>
+
+<div class="widget" id="w-maz">
+  <div class="hd"><span class="ttl">Widget 9 · Mazur's allowed torsion groups</span><span class="hint">click an order $N$ to see status: occurs / excluded / cuspidal-only</span></div>
+  <div class="row" id="w-maz-buttons">
+    <button data-N="5" class="active">N = 5</button>
+    <button data-N="7">N = 7</button>
+    <button data-N="10">N = 10</button>
+    <button data-N="11">N = 11</button>
+    <button data-N="12">N = 12</button>
+    <button data-N="13">N = 13</button>
+    <button data-N="15">N = 15</button>
+    <button data-N="17">N = 17</button>
+    <button data-N="21">N = 21</button>
+  </div>
+  <svg id="w-maz-svg" viewBox="0 0 720 320" width="720" height="320" aria-label="Mazur torsion table"></svg>
+  <div class="readout" id="w-maz-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = document.getElementById("w-maz-svg");
+  const buttons = document.getElementById("w-maz-buttons");
+  const out = document.getElementById("w-maz-out");
+  const W = 720, H = 320;
+
+  // Genus of X_1(N) for relevant N (Cohen, Stein tables)
+  const G1 = { 1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0, 11:1, 12:0, 13:2, 14:1, 15:1, 16:2, 17:5, 18:2, 19:7, 20:3, 21:5, 22:6, 23:12 };
+  const STATUS = {
+    5:  {ok:true,  example:"E: y² + y = x³ − x;   P = (0,0) order 5"},
+    7:  {ok:true,  example:"E: y² + xy = x³ − x² − 2x − 1;   P order 7"},
+    10: {ok:true,  example:"E: y² + xy = x³ − 45x + 81;   P order 10 (LMFDB 66.c1)"},
+    11: {ok:false, example:"X_1(11) has genus 1; only finitely many ℚ-points, all cusps (Mazur)"},
+    12: {ok:true,  example:"E: y² = x³ − 4x;   E(ℚ)_tors ≅ ℤ/12 not direct, but ℤ/2 ⊕ ℤ/6 occurs at level 30"},
+    13: {ok:false, example:"X_1(13) has genus 2; ℚ-points are cusps (Mazur)"},
+    15: {ok:false, example:"X_1(15) has genus 1; ℚ-points are cusps (Mazur)"},
+    17: {ok:false, example:"X_1(17) has genus 5; ℚ-points are cusps (Mazur)"},
+    21: {ok:false, example:"X_1(21) has genus 5; ℚ-points are cusps (Mazur)"}
+  };
+  let activeN = 5;
+
+  function render(){
+    svg.innerHTML = "";
+    const s = STATUS[activeN];
+    const g = G1[activeN] ?? "?";
+
+    // Top: Mazur 15 groups
+    const tt = SVG("text",{x:W/2, y:28, "text-anchor":"middle", "font-size":14, fill:"var(--ink)"});
+    tt.textContent = `Mazur's 15 allowed E(ℚ)_tors groups`;
+    svg.appendChild(tt);
+
+    // Show 11 cyclic + 4 product groups in a grid
+    const cyc = [1,2,3,4,5,6,7,8,9,10,12];
+    const prod = [1,2,3,4]; // ℤ/2 ⊕ ℤ/2n
+    const startY = 60;
+    const rowH = 26;
+    const colW = 56;
+
+    // Cyclic row
+    const lblCyc = SVG("text",{x:30, y:startY+rowH/2+4, "font-size":12, fill:"var(--mute)"});
+    lblCyc.textContent = "ℤ/N:";
+    svg.appendChild(lblCyc);
+    cyc.forEach((n, i) => {
+      const X = 80 + i * colW;
+      const isActive = n === activeN;
+      const fill = isActive ? "var(--yellow)" : "var(--cyan)";
+      svg.appendChild(SVG("rect",{x:X, y:startY, width:colW-6, height:rowH, fill, "fill-opacity":isActive?1:0.4, stroke:"var(--ink)", "stroke-width":isActive?1.5:0.6, rx:4}));
+      const t = SVG("text",{x:X+(colW-6)/2, y:startY+18, "text-anchor":"middle", "font-size":12, fill:isActive?"#111":"var(--ink)", "font-weight":isActive?700:500});
+      t.textContent = n;
+      svg.appendChild(t);
+    });
+
+    // Product row
+    const lblP = SVG("text",{x:30, y:startY+rowH+30+rowH/2+4, "font-size":12, fill:"var(--mute)"});
+    lblP.textContent = "ℤ/2⊕ℤ/2n:";
+    svg.appendChild(lblP);
+    prod.forEach((n, i) => {
+      const X = 130 + i * colW;
+      svg.appendChild(SVG("rect",{x:X, y:startY+rowH+30, width:colW-6, height:rowH, fill:"var(--violet)", "fill-opacity":0.4, stroke:"var(--ink)", "stroke-width":0.6, rx:4}));
+      const t = SVG("text",{x:X+(colW-6)/2, y:startY+rowH+30+18, "text-anchor":"middle", "font-size":11, fill:"var(--ink)"});
+      t.textContent = `n=${n}`;
+      svg.appendChild(t);
+    });
+
+    // Excluded zone
+    const exY = startY + 2*rowH + 60;
+    svg.appendChild(SVG("rect",{x:80, y:exY, width:560, height:50, fill:"var(--pink)", "fill-opacity":0.10, stroke:"var(--pink)", "stroke-dasharray":"4 3", rx:6}));
+    const exT = SVG("text",{x:360, y:exY+22, "text-anchor":"middle", "font-size":12, fill:"var(--pink)"});
+    exT.textContent = "excluded (Mazur): N = 11, 13, 14, 15, 16, 17, 18, 21,  and all N ≥ 23";
+    svg.appendChild(exT);
+    const exT2 = SVG("text",{x:360, y:exY+40, "text-anchor":"middle", "font-size":11, fill:"var(--mute)"});
+    exT2.textContent = "X_1(N)(ℚ) for these N consists only of cusps";
+    svg.appendChild(exT2);
+
+    // Status panel
+    const pY = exY + 70;
+    const okFill = s.ok ? "var(--cyan)" : "var(--pink)";
+    svg.appendChild(SVG("rect",{x:60, y:pY, width:600, height:50, fill:"var(--panel2)", stroke:okFill, "stroke-width":2, rx:6}));
+    const stat = SVG("text",{x:360, y:pY+18, "text-anchor":"middle", "font-size":13, fill:okFill, "font-weight":600});
+    stat.textContent = s.ok ? `N = ${activeN}: occurs as E(ℚ)_tors  (g(X_1(${activeN})) = ${g})` : `N = ${activeN}: excluded by Mazur  (g(X_1(${activeN})) = ${g})`;
+    svg.appendChild(stat);
+    const ex = SVG("text",{x:360, y:pY+38, "text-anchor":"middle", "font-size":11, fill:"var(--mute)"});
+    ex.textContent = s.example;
+    svg.appendChild(ex);
+
+    out.textContent = s.ok
+      ? `N = ${activeN} occurs as torsion of some E/ℚ.
+genus g(X_1(${activeN})) = ${g}  →  X_1(${activeN}) has infinitely many ℚ-points (rational moduli of E with P of order N)`
+      : `N = ${activeN} is EXCLUDED by Mazur's theorem.
+genus g(X_1(${activeN})) = ${g}  →  Mazur shows X_1(${activeN})(ℚ) consists entirely of cusps via the Eisenstein quotient + formal-immersion argument`;
+  }
+
+  buttons.addEventListener("click", (e) => {
+    const n = e.target.dataset && e.target.dataset.N;
+    if(!n) return;
+    activeN = parseInt(n, 10);
+    [...buttons.children].forEach(b => b.classList.toggle("active", b.dataset.N === n));
+    render();
+  });
+  render();
+})();
+</script>
+
+<p>The proof strategy is one of the most influential in modern arithmetic geometry. For each excluded $N$, Mazur studies the Jacobian $J_0(N)$ together with the <strong>Eisenstein ideal</strong> $I \subset \mathbb{T}$ — the kernel of the surjection $\mathbb{T} \twoheadrightarrow \mathbb{Z}$ sending $T_p \mapsto 1 + p$. The <em>Eisenstein quotient</em> $J_0(N)/IJ_0(N)$ has finite Mordell–Weil group (Mazur's main calculation), and a <em>formal-immersion</em> argument forces any rational non-cuspidal point of $X_1(N)$ to map injectively, giving a contradiction.</p>
+
+<p>The Eisenstein-ideal technology Mazur invented in this paper went on to power the entire framework of Galois deformations, modular Iwasawa theory, and ultimately Wiles's proof of FLT — all of which return to $J_0(N)$ as their geometric backbone.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./elliptic-curves.html#mordell-weil">Mordell–Weil for elliptic curves</a></li>
+    <li><a href="./modularity-and-flt.html#fermat">Modularity and FLT</a></li>
+    <li><a href="./elliptic-curves.html#mordell">Mordell–Weil and invariants</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+<div class="quiz" data-concept="mc-mazur-torsion"></div>
+</section>
+
 <section id="outro">
-<h2>7. Connections</h2>
+<h2>10. Connections</h2>
 
 <p>Modular curves are the moduli spaces of elliptic curves with level structure, and almost every theorem about elliptic curves passes through them.</p>
 
@@ -1157,7 +1629,7 @@ Atkin–Lehner w_N swaps cusps 0 ↔ ∞`;
 
 <p><a href="./galois-representations.html">Galois representations</a> attached to weight-2 newforms come from the Tate module of $J_0(N)$; this is the bridge to <a href="./modularity-and-flt.html">modularity / FLT</a>.</p>
 
-<p class="small" style="margin-top:2.5rem">Open frontiers: explicit Mazur-style level-lowering; modular curves at composite level (X(N), X_1(N), Atkin–Lehner involutions); the geometric Langlands program for function fields, where modular curves become Hitchin moduli; rational points on modular curves and Mazur's torsion theorem.</p>
+<p class="small" style="margin-top:2.5rem">Open frontiers: rational points on $X_0(N)$ for general $N$ beyond Mazur's level-lowering range; the Beilinson conjectures relating $L$-values of modular forms to motivic cohomology of $X_0(N)$; the geometric Langlands program for function fields, where modular curves become Hitchin moduli; explicit higher-rank Heegner-style constructions for $L'(E,1)=0$ curves.</p>
 </section>
 </main>
 
