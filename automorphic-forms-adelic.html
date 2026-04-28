@@ -245,6 +245,8 @@ function drawNode(svg, x, y, label, opts={}){
   <a href="#satake">5&nbsp;Satake</a>
   <a href="#whittaker">6&nbsp;Whittaker</a>
   <a href="#lfunction">7&nbsp;$L$-functions</a>
+  <a href="#spectral">8&nbsp;Spectral&nbsp;decomposition</a>
+  <a href="#functoriality">9&nbsp;Functoriality</a>
 </nav>
 <!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
 
@@ -526,6 +528,7 @@ into a direct sum of irreducible <strong>automorphic representations</strong>. <
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./automorphic-forms-adelic.html#dictionary">Automorphic forms (adelic)</a> · Classical-to-adelic dictionary</div>
+    <div><a href="./automorphic-forms-adelic.html#spectral">Automorphic forms (adelic)</a> · Eisenstein series and the spectral decomposition</div>
     <div><a href="./automorphic-forms-adelic.html#satake">Automorphic forms (adelic)</a> · Spherical Hecke algebra and Satake</div>
     <div><a href="./automorphic-forms-adelic.html#whittaker">Automorphic forms (adelic)</a> · Whittaker model and the new-form</div>
 </aside>
@@ -699,6 +702,7 @@ and $\alpha_p \beta_p = p^{k-1}$ (or $1$ in the unitary normalisation), recoveri
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./automorphic-forms-adelic.html#lfunction">Automorphic forms (adelic)</a> · Automorphic $L$-functions</div>
+    <div><a href="./automorphic-forms-adelic.html#functoriality">Automorphic forms (adelic)</a> · Functoriality and the $L$-group</div>
 </aside>
 <!-- backlinks-auto-end --><div class="quiz" data-concept="spherical-hecke-satake"></div><script>
 /* ===== Section 5: Satake parameter explorer ===== */
@@ -910,7 +914,12 @@ makes sense for every $n$, with the same three regularity conditions and the sam
     <li><a href="./L-functions.html#unified">Prototype L-functions</a></li>
   </ul>
 </aside>
-<!-- callback-auto-end --><div class="quiz" data-concept="automorphic-l-function"></div><script>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./automorphic-forms-adelic.html#functoriality">Automorphic forms (adelic)</a> · Functoriality and the $L$-group</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="automorphic-l-function"></div><script>
 /* ===== Section 7: local-factor builder ===== */
 (function(){
   const sEl = $('#lf-s'), sVal = $('#lf-s-val');
@@ -975,6 +984,354 @@ makes sense for every $n$, with the same three regularity conditions and the sam
     out.textContent = lines.join('\n');
   }
   update();
+})();
+</script>
+
+
+</section>
+<section id="spectral">
+<h2>8. Eisenstein series and the spectral decomposition</h2>
+
+<p>The space of cusp forms is one piece of automorphic representation theory. The full picture is the right regular representation
+$$L^2\bigl( \mathrm{GL}_2(\mathbb{Q}) \backslash \mathrm{GL}_2(\mathbb{A})^1 \bigr) \;=\; L^2_{\mathrm{cusp}} \;\oplus\; L^2_{\mathrm{res}} \;\oplus\; L^2_{\mathrm{cont}},$$
+where $\mathrm{GL}_2(\mathbb{A})^1 = \{ g : |\det g|_\mathbb{A} = 1 \}$ trims off the central $\mathbb{R}_{>0}$. Each summand has a different shape:</p>
+
+<ul>
+  <li><strong>Cuspidal $L^2_{\mathrm{cusp}}$.</strong> A Hilbert direct sum $\bigoplus_\pi m(\pi) \, \pi$ of irreducible cuspidal $\pi$ — by <em>multiplicity-one</em> for $\mathrm{GL}_2$, every $m(\pi) \le 1$. The classical $S_k(\Gamma_0(N))$ embeds inside.</li>
+  <li><strong>Residual $L^2_{\mathrm{res}}$.</strong> A discrete sum of representations built from <em>residues of Eisenstein series</em>. For $\mathrm{GL}_2$ over $\mathbb{Q}$ this is a one-parameter family of one-dimensional representations $g \mapsto |\det g|^s$ at $s = 1/2$ — the residual constants.</li>
+  <li><strong>Continuous $L^2_{\mathrm{cont}}$.</strong> A direct integral $\int_{\Re s = 1/2}^\oplus E(\,\cdot\,, s) \, ds$ of Eisenstein series along the critical line.</li>
+</ul>
+
+<h3>The Eisenstein series</h3>
+<p>For $\phi$ a section of an induced representation $\mathrm{Ind}_B^G \chi_s$ from the standard Borel $B$, the (real-analytic) <strong>Eisenstein series</strong> is the average
+$$E(g, s; \phi) \;=\; \sum_{\gamma \in B(\mathbb{Q}) \backslash \mathrm{GL}_2(\mathbb{Q})} \phi_s(\gamma g),$$
+convergent for $\Re s$ large and meromorphically continued (Selberg, Langlands) to $s \in \mathbb{C}$. Its <em>constant term</em> along the unipotent is the Eisenstein analogue of a Whittaker expansion:
+$$E_0(g, s) \;=\; \phi_s(g) + M(s)\,\phi_s(g),$$
+where $M(s)$ is the <strong>standard intertwining operator</strong>. The functional equation $M(s) M(-s) = \mathrm{id}$ and $E(g, s) = M(s) E(g, -s)$ propagate to a functional equation for $L(s, \pi)$ when $\pi$ is cuspidal — the intertwiner is what manufactures the global $\Gamma$-factor symmetry.</p>
+
+<div class="widget" id="w-spectral">
+  <div class="hd">
+    <div class="ttl">Eisenstein constant term along $\Re s = \sigma$</div>
+    <div class="hint">scrub $s$ to see the pole at $s=1$ that produces the residual spectrum</div>
+  </div>
+  <div class="row">
+    <label for="es-s">$s$ =</label>
+    <input id="es-s" type="range" min="0.05" max="2" step="0.005" value="1.0">
+    <span class="pill" id="es-s-val">1.000</span>
+  </div>
+  <svg id="es-svg" viewBox="0 0 660 280" width="660" height="280"><title>Eisenstein constant term as a function of s</title></svg>
+  <div class="readout" id="es-out">&nbsp;</div>
+</div>
+
+<p>The pole of $E(g, s)$ at $s = 1$ has residue a constant function (more precisely the function $|\det g|^{1/2}$, after the unitary shift). Its $L^2$-span is the one-dimensional residual spectrum. Pushing the contour from $\Re s = 2$ down to $\Re s = 1/2$ and picking up this pole is the <em>Maass–Selberg</em> argument that decomposes a smooth $L^2$ function as cuspidal + residual + a contour integral on the unitary axis.</p>
+
+<div class="note">
+  <strong>Why this matters.</strong> Without the Eisenstein piece the trace formula has no continuous side and Selberg's Plancherel formula has no kernel. Functoriality transfers (Section 9) often <em>create</em> Eisenstein representations on the target group out of cuspidal ones on the source — e.g. $\chi \boxplus \chi'$ on $\mathrm{GL}_2$ from a pair of Hecke characters.
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./modular-forms.html#eisenstein">Classical Eisenstein series $E_k(\tau)$</a> — the holomorphic prototype.</li>
+    <li><a href="./modular-forms.html#eisen">Eisenstein series</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="eisenstein-spectral-decomposition"></div><script>
+/* ===== Section 8: Eisenstein constant term scrubber ===== */
+(function(){
+  const sEl = $('#es-s'), sVal = $('#es-s-val');
+  const svg = $('#es-svg'), out = $('#es-out');
+  const W = 660, H = 280;
+  const padL = 50, padR = 18, padT = 18, padB = 36;
+  const xMin = 0.05, xMax = 2;
+  const yMin = -3, yMax = 6;
+
+  // toy model: E_0(g, s) = 1 + ξ(2s-1)/ξ(2s), where ξ(s) = π^{-s/2} Γ(s/2) ζ(s) is
+  // the completed zeta. Pole at s = 1 from ξ(2s-1) at s=1 (ζ(1)=∞).
+  // We plot Re of a real-axis slice of the (regularised) ratio.
+  function zeta(s){
+    // crude truncated Euler-Maclaurin OK for s>0.05 (toy use only)
+    if(Math.abs(s-1) < 1e-3) return 1/(s-1);  // explicit pole
+    let sum = 0;
+    const N = 60;
+    for(let n=1; n<=N; n++) sum += 1/Math.pow(n, s);
+    // tail correction: ∫_N^∞ x^{-s} dx = N^{1-s}/(s-1)
+    sum += Math.pow(N, 1-s)/(s-1) - 0.5/Math.pow(N, s);
+    return sum;
+  }
+  function gammaApprox(x){
+    if(x < 0.5) return Math.PI / (Math.sin(Math.PI*x) * gammaApprox(1-x));
+    x -= 1;
+    const c = [0.99999999999980993, 676.5203681218851, -1259.1392167224028, 771.32342877765313,
+               -176.61502916214059, 12.507343278686905, -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7];
+    let a = c[0];
+    const t = x + 7.5;
+    for(let i=1; i<9; i++) a += c[i] / (x + i);
+    return Math.sqrt(2*Math.PI) * Math.pow(t, x+0.5) * Math.exp(-t) * a;
+  }
+  function xi(s){
+    return Math.pow(Math.PI, -s/2) * gammaApprox(s/2) * zeta(s);
+  }
+  function E0(s){
+    // toy real-axis evaluation of the Eisenstein constant term ratio
+    if(Math.abs(s-1) < 5e-3) return Number.POSITIVE_INFINITY * (s-1>0 ? 1 : -1);
+    const num = xi(2*s - 1);
+    const den = xi(2*s);
+    if(!isFinite(num) || !isFinite(den) || Math.abs(den) < 1e-10) return NaN;
+    return 1 + num/den;
+  }
+
+  function px(x){ return padL + (x - xMin)/(xMax - xMin) * (W - padL - padR); }
+  function py(y){ return padT + (yMax - y)/(yMax - yMin) * (H - padT - padB); }
+
+  function draw(){
+    svg.innerHTML = '';
+    // axes
+    svg.appendChild(SVG('line',{x1:padL, y1:py(0), x2:W-padR, y2:py(0), stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:padL, y1:padT, x2:padL, y2:H-padB, stroke:'var(--line)','stroke-width':1}));
+    // grid + tick labels
+    [0, 0.5, 1, 1.5, 2].forEach(x => {
+      svg.appendChild(SVG('line',{x1:px(x), y1:padT, x2:px(x), y2:H-padB, stroke:'var(--line)','stroke-width':0.5,'stroke-dasharray':'2,3', opacity:0.4}));
+      const t = SVG('text',{x:px(x), y:H-padB+16,'text-anchor':'middle','font-size':11, fill:'var(--mute)'});
+      t.textContent = x.toString(); svg.appendChild(t);
+    });
+    [-2, 0, 2, 4, 6].forEach(y => {
+      const t = SVG('text',{x:padL-8, y:py(y)+4,'text-anchor':'end','font-size':11, fill:'var(--mute)'});
+      t.textContent = y.toString(); svg.appendChild(t);
+    });
+    // mark s=1 pole
+    svg.appendChild(SVG('line',{x1:px(1), y1:padT, x2:px(1), y2:H-padB, stroke:'var(--pink)','stroke-width':1.2,'stroke-dasharray':'4,4'}));
+    const polelab = SVG('text',{x:px(1)+6, y:padT+12,'font-size':11, fill:'var(--pink)'});
+    polelab.textContent = 'pole at s = 1 → residual spectrum'; svg.appendChild(polelab);
+    // mark unitary axis s = 1/2 (continuous spectrum lives there)
+    svg.appendChild(SVG('line',{x1:px(0.5), y1:padT, x2:px(0.5), y2:H-padB, stroke:'var(--cyan)','stroke-width':1.2,'stroke-dasharray':'4,4'}));
+    const unilab = SVG('text',{x:px(0.5)-6, y:padT+12,'text-anchor':'end','font-size':11, fill:'var(--cyan)'});
+    unilab.textContent = 'unitary axis (cont. spectrum)'; svg.appendChild(unilab);
+
+    // sample E_0(s)
+    const N = 300;
+    let path = '';
+    let prev = null;
+    for(let i=0; i<=N; i++){
+      const x = xMin + (xMax - xMin) * i/N;
+      if(Math.abs(x - 1) < 0.01) { prev = null; continue; }
+      const y = E0(x);
+      if(!isFinite(y) || y < yMin*1.5 || y > yMax*1.5){ prev = null; continue; }
+      const X = px(x), Y = py(Math.max(yMin, Math.min(yMax, y)));
+      path += (prev ? 'L' : 'M') + X.toFixed(1) + ' ' + Y.toFixed(1) + ' ';
+      prev = [X,Y];
+    }
+    svg.appendChild(SVG('path',{d:path, fill:'none', stroke:'var(--yellow)','stroke-width':1.8}));
+
+    // the marker for the current s
+    const s = parseFloat(sEl.value);
+    const ys = E0(s);
+    if(isFinite(ys)){
+      const X = px(s), Y = py(Math.max(yMin, Math.min(yMax, ys)));
+      svg.appendChild(SVG('circle',{cx:X, cy:Y, r:5, fill:'var(--violet)', stroke:'#fff','stroke-width':1.5}));
+    }
+    // axis title
+    const tt = SVG('text',{x:W/2, y:H-4,'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+    tt.textContent = 'Re s'; svg.appendChild(tt);
+    const yt = SVG('text',{x:14, y:H/2,'text-anchor':'middle','font-size':12, fill:'var(--mute)','transform':'rotate(-90 14,' + (H/2) + ')'});
+    yt.textContent = 'E_0(s)  (real slice)'; svg.appendChild(yt);
+  }
+  function update(){
+    const s = parseFloat(sEl.value);
+    sVal.textContent = s.toFixed(3);
+    const v = E0(s);
+    let line2 = 'E_0(s) ≈ ' + (isFinite(v) ? v.toFixed(4) : '∞ (pole)');
+    let regime = '';
+    if(Math.abs(s - 1) < 0.02) regime = '   ←  near the residual pole';
+    else if(Math.abs(s - 0.5) < 0.02) regime = '   ←  on the unitary axis (continuous spectrum)';
+    else if(s > 1) regime = '   ←  region of absolute convergence (Re s > 1)';
+    else regime = '   ←  meromorphically continued region';
+    out.textContent =
+      's = ' + s.toFixed(3) + '\n' +
+      line2 + regime + '\n\n' +
+      'Spectral picture: cuspidal (discrete) ⊕ residual (pole at s=1) ⊕ continuous (∫ over Re s = 1/2).';
+    draw();
+  }
+  sEl.addEventListener('input', update);
+  update();
+})();
+</script>
+
+<!-- ======================================================= -->
+
+</section>
+<section id="functoriality">
+<h2>9. Functoriality and the $L$-group</h2>
+
+<p>The Langlands programme's organising principle is <strong>functoriality</strong>: every reductive group has a <em>dual group</em>, and homomorphisms between dual groups should induce transfers of automorphic representations. The setup is purely group-theoretic, the consequences arithmetic.</p>
+
+<h3>The $L$-group</h3>
+<p>Let $G$ be a connected reductive group over $\mathbb{Q}$ — say $\mathrm{GL}_n$, $\mathrm{Sp}_{2n}$, $\mathrm{SO}_n$. Its <strong>dual group</strong> $\hat G$ is the connected reductive complex group whose root datum is dual to $G$'s. Concretely:</p>
+
+<table class="plain">
+  <thead><tr><th>$G$</th><th>$\hat G$</th></tr></thead>
+  <tbody>
+    <tr><td>$\mathrm{GL}_n$</td><td>$\mathrm{GL}_n(\mathbb{C})$</td></tr>
+    <tr><td>$\mathrm{SL}_n$</td><td>$\mathrm{PGL}_n(\mathbb{C})$</td></tr>
+    <tr><td>$\mathrm{Sp}_{2n}$</td><td>$\mathrm{SO}_{2n+1}(\mathbb{C})$</td></tr>
+    <tr><td>$\mathrm{SO}_{2n+1}$</td><td>$\mathrm{Sp}_{2n}(\mathbb{C})$</td></tr>
+    <tr><td>$\mathrm{SO}_{2n}$</td><td>$\mathrm{SO}_{2n}(\mathbb{C})$</td></tr>
+  </tbody>
+</table>
+
+<p>The <strong>$L$-group</strong> is ${}^L G := \hat G \rtimes \Gal(\overline{\mathbb{Q}} / \mathbb{Q})$ — a semidirect product of $\hat G$ with the absolute Galois group, with action determined by the action on the based root datum. For split $G$ (e.g. $\mathrm{GL}_n$), the action is trivial and ${}^L G = \hat G \times \Gal$.</p>
+
+<h3>The Satake parameter is an $\hat G$-conjugacy class</h3>
+<p>For an unramified $\pi_p$ on $G$, the Satake isomorphism (Section 5) attaches a <em>semisimple conjugacy class</em> $c(\pi_p) \in \hat G(\mathbb{C})$ — for $G = \mathrm{GL}_2$, this is precisely $\mathrm{diag}(\alpha_p, \beta_p)$. Local $L$-factors come from <strong>representations of ${}^L G$</strong>: pick $r : {}^L G \to \mathrm{GL}(V)$ and define
+$$L_p(s, \pi_p, r) \;=\; \det\!\bigl( I - r(c(\pi_p)) \, p^{-s} \bigr)^{-1}.$$
+For $r = \mathrm{std}$ the standard $n$-dim representation of ${}^L \mathrm{GL}_n$, this recovers the automorphic $L$-function of Section 7.</p>
+
+<h3>The functoriality conjecture</h3>
+<p><strong>(Langlands functoriality.)</strong> Given a homomorphism $\rho : {}^L H \to {}^L G$ of $L$-groups, every cuspidal automorphic representation $\pi_H$ of $H(\mathbb{A})$ should have a <strong>functorial transfer</strong> $\pi_G$ on $G(\mathbb{A})$ — characterised by
+$$c(\pi_{G,p}) \;=\; \rho\bigl( c(\pi_{H,p}) \bigr) \quad \text{for almost every } p,$$
+and consequently $L(s, \pi_H, r \circ \rho) = L(s, \pi_G, r)$ for every $r$.</p>
+
+<div class="widget" id="w-functoriality">
+  <div class="hd">
+    <div class="ttl">Functoriality transfers — pick an $L$-group map</div>
+    <div class="hint">click a transfer arrow $\rho : {}^L H \to {}^L G$ to read its image on Satake parameters</div>
+  </div>
+  <svg id="fc-svg" viewBox="0 0 660 320" width="660" height="320"><title>Three functorial transfers between L-groups</title></svg>
+  <div class="readout" id="fc-out">&nbsp;</div>
+</div>
+
+<p>Three landmark cases tell most of the story:</p>
+
+<ul>
+  <li><strong>Class field theory.</strong> $H = \mathrm{GL}_1$, $G = \mathrm{GL}_n$, $\rho$ is the diagonal embedding $z \mapsto \mathrm{diag}(z, \dots, z)$. A Hecke character $\chi$ on $\mathbb{A}^\times / \mathbb{Q}^\times$ transfers to the (non-cuspidal) automorphic representation $\chi \boxplus \cdots \boxplus \chi$. This <em>is</em> abelian class field theory, in automorphic packaging.</li>
+  <li><strong>Cyclic base change (Arthur–Clozel).</strong> $H = \mathrm{GL}_n / \mathbb{Q}$, $G = \mathrm{Res}_{E/\mathbb{Q}} \mathrm{GL}_n$ for a cyclic extension $E/\mathbb{Q}$. A cuspidal $\pi$ on $\mathrm{GL}_n(\mathbb{A}_\mathbb{Q})$ transfers to a $\Gal(E/\mathbb{Q})$-invariant representation on $\mathrm{GL}_n(\mathbb{A}_E)$. Proven via the Arthur–Selberg trace formula.</li>
+  <li><strong>Symmetric powers $\mathrm{Sym}^k$.</strong> $H = G = \mathrm{GL}_2$, $\rho = \mathrm{Sym}^k : \mathrm{GL}_2(\mathbb{C}) \to \mathrm{GL}_{k+1}(\mathbb{C})$. If $\pi$ has Satake parameters $(\alpha, \beta)$, the transfer $\mathrm{Sym}^k \pi$ on $\mathrm{GL}_{k+1}$ has parameters $(\alpha^k, \alpha^{k-1}\beta, \dots, \beta^k)$. <strong>Sato–Tate</strong> for an elliptic curve $E$ is exactly the analyticity of $L(s, \mathrm{Sym}^k \pi_E)$ for all $k \ge 1$, established by Newton–Thorne (2021) — a theorem one only knows how to <em>state</em> through functoriality.</li>
+</ul>
+
+<div class="note">
+  <strong>The trace formula as the engine.</strong> The principal tool for proving cases of functoriality is the <em>Arthur–Selberg trace formula</em>, which equates a geometric sum of orbital integrals on $G(\mathbb{Q}) \backslash G(\mathbb{A})$ with a spectral sum of characters of automorphic representations. Comparing trace formulas for $H$ and $G$ along a transfer $\rho$ is what extracts a transfer of representations.
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./class-field-theory.html#artin-map">Artin reciprocity</a> — the abelian case ${}^L\mathrm{GL}_1 \to {}^L \mathrm{GL}_n$.</li>
+    <li><a href="./sato-tate.html#equidistribution">Sato–Tate</a> — equidistribution as $\mathrm{Sym}^k$ functoriality.</li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="functoriality-langlands-sketch"></div><script>
+/* ===== Section 9: clickable functoriality diagram ===== */
+(function(){
+  const svg = $('#fc-svg'), out = $('#fc-out');
+  const W = 660, H = 320;
+
+  const transfers = [
+    {
+      id: 'cft',
+      label: 'Class field theory',
+      from: 'GL₁',
+      to:   'GLₙ',
+      rho:  'z ↦ diag(z, …, z)',
+      example: 'Hecke χ on 𝔸×/ℚ× transfers to χ ⊞ ⋯ ⊞ χ on GLₙ.',
+      satake: 'Satake (α) ↦ (α, α, …, α) — n copies.',
+      status: 'Theorem (CFT, Artin).'
+    },
+    {
+      id: 'bc',
+      label: 'Cyclic base change',
+      from: 'GLₙ/ℚ',
+      to:   'Res_{E/ℚ} GLₙ',
+      rho:  'GLₙ(ℂ) ↪ (GLₙ(ℂ))^{[E:ℚ]} ⋊ Gal(E/ℚ)',
+      example: 'Cuspidal π on GLₙ(𝔸_ℚ) lifts to Gal(E/ℚ)-invariant Π on GLₙ(𝔸_E).',
+      satake: '(α₁, …, αₙ) ↦ (α₁^{[E:ℚ]}, …, αₙ^{[E:ℚ]}) at split primes.',
+      status: 'Theorem (Arthur–Clozel, 1989) for cyclic E/ℚ.'
+    },
+    {
+      id: 'sym',
+      label: 'Sym^k transfer',
+      from: 'GL₂',
+      to:   'GL_{k+1}',
+      rho:  'Sym^k : GL₂(ℂ) → GL_{k+1}(ℂ)',
+      example: 'Sym^k of a weight-2 newform; k=2 controls Sato–Tate moments.',
+      satake: '(α, β) ↦ (α^k, α^{k-1}β, …, β^k).',
+      status: 'Sym^k for all k ≥ 1: Newton–Thorne (2021), gives full Sato–Tate.'
+    }
+  ];
+
+  let active = 'sym';
+
+  function draw(){
+    svg.innerHTML = '';
+    // axis bar
+    const baseY = 220;
+    const leftX = 110, rightX = W - 110;
+
+    // header text
+    const t = SVG('text',{x:W/2, y:30,'text-anchor':'middle','font-size':14, fill:'var(--ink)','font-weight':600});
+    t.textContent = 'ρ : ᴸH → ᴸG  (click an arrow to inspect)'; svg.appendChild(t);
+
+    transfers.forEach((tr, i) => {
+      const y = 70 + i*55;
+      const isActive = tr.id === active;
+      const col = tr.id === 'cft' ? 'var(--cyan)' : tr.id === 'bc' ? 'var(--violet)' : 'var(--yellow)';
+
+      // left node (H)
+      svg.appendChild(SVG('rect',{x:leftX-44, y:y-16, width:88, height:32, rx:6,
+        fill:'var(--panel2)', stroke:isActive?col:'var(--line)','stroke-width':isActive?2:1}));
+      const lt = SVG('text',{x:leftX, y:y+5,'text-anchor':'middle','font-size':13, fill:'var(--ink)','font-weight':600});
+      lt.textContent = 'ᴸ' + tr.from; svg.appendChild(lt);
+
+      // right node (G)
+      svg.appendChild(SVG('rect',{x:rightX-44, y:y-16, width:88, height:32, rx:6,
+        fill:'var(--panel2)', stroke:isActive?col:'var(--line)','stroke-width':isActive?2:1}));
+      const rt = SVG('text',{x:rightX, y:y+5,'text-anchor':'middle','font-size':13, fill:'var(--ink)','font-weight':600});
+      rt.textContent = 'ᴸ' + tr.to; svg.appendChild(rt);
+
+      // arrow
+      const arr = SVG('line',{x1:leftX+44, y1:y, x2:rightX-44, y2:y,
+        stroke:isActive?col:'var(--mute)','stroke-width':isActive?2:1.2,
+        'marker-end':'url(#fc-arrow-' + tr.id + ')'});
+      svg.appendChild(arr);
+
+      // arrow marker def
+      const defs = SVG('defs');
+      const mk = SVG('marker',{id:'fc-arrow-' + tr.id, viewBox:'0 0 10 10', refX:9, refY:5,
+        markerWidth:6, markerHeight:6, orient:'auto'});
+      mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z', fill: isActive?col:'var(--mute)'}));
+      defs.appendChild(mk); svg.appendChild(defs);
+
+      // label above arrow
+      const lbl = SVG('text',{x:(leftX+rightX)/2, y:y-8,'text-anchor':'middle','font-size':12,
+        fill: isActive?col:'var(--mute)','font-style':'italic'});
+      lbl.textContent = tr.label; svg.appendChild(lbl);
+
+      // hit area
+      const hit = SVG('rect',{x:leftX-50, y:y-22, width:rightX-leftX+100, height:44,
+        fill:'transparent', style:'cursor:pointer'});
+      hit.addEventListener('click', () => { active = tr.id; draw(); update(); });
+      svg.appendChild(hit);
+    });
+
+    // bottom row: representations transfer
+    const sub = SVG('text',{x:W/2, y:H-18,'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+    sub.textContent = 'cuspidal π on H(𝔸)   ⤳   functorial transfer ρ_*(π) on G(𝔸)';
+    svg.appendChild(sub);
+  }
+
+  function update(){
+    const tr = transfers.find(t => t.id === active);
+    out.textContent =
+      'Transfer: ' + tr.label + '\n' +
+      '  ᴸ' + tr.from + '  →  ᴸ' + tr.to + '\n' +
+      '  ρ:  ' + tr.rho + '\n\n' +
+      'On Satake parameters:\n  ' + tr.satake + '\n\n' +
+      'Concrete instance: ' + tr.example + '\n\n' +
+      'Status: ' + tr.status + '\n\n' +
+      'L-function identity: L(s, π_H, r ∘ ρ) = L(s, ρ_*(π_H), r) for every r : ᴸG → GL(V).';
+  }
+  draw(); update();
 })();
 </script>
 

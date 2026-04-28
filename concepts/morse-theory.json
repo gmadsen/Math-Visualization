@@ -67,6 +67,28 @@
       ],
       "blurb": "Reeb's sphere theorem (a closed manifold with exactly two critical points is homeomorphic to a sphere), Bott's perfect Morse functions on Lie groups, and the infinite-dimensional analogue — Floer homology on path/loop spaces — all flow from this machinery.",
       "tags": ["classification"]
+    },
+    {
+      "id": "mt-morse-smale",
+      "title": "Morse–Smale gradients and transversality",
+      "anchor": "morse-smale",
+      "prereqs": [
+        "mt-handle-decomposition",
+        "mt-morse-homology"
+      ],
+      "blurb": "A pair $(f,g)$ is Morse–Smale when stable and unstable manifolds of distinct critical points intersect transversally: $W^s(q)\\pitchfork W^u(p)$. Smale showed that for fixed Morse $f$ this holds for an open dense set of metrics. Transversality forces moduli of trajectories $\\mathcal{M}(p,q)/\\mathbb{R}$ to be smooth manifolds of dimension $\\ind(p)-\\ind(q)-1$, and broken trajectories give the Gromov-style compactification that makes $\\partial^2=0$ a counting argument.",
+      "tags": ["classification", "foundation"]
+    },
+    {
+      "id": "mt-cerf-theory",
+      "title": "Cerf theory and wall-crossing",
+      "anchor": "cerf-theory",
+      "prereqs": [
+        "mt-morse-functions",
+        "mt-handle-decomposition"
+      ],
+      "blurb": "In a generic 1-parameter family $f_t$, every $f_t$ is Morse except at a discrete set of times where two things can happen: a <em>birth-death</em> ($f_t = x^3 - tx + \\cdots$) creates or cancels an index-$k$ / index-$(k+1)$ critical pair, and an <em>independent crossing</em> swaps two critical values without changing the topology. Cerf's theorem makes the space of Morse functions a stratified manifold whose codimension-1 wall is exactly this birth-death set; this is the diff-topological foundation of $h$-cobordism, handle slides, and Kirby calculus.",
+      "tags": ["classification", "exact-sequence"]
     }
   ]
 }

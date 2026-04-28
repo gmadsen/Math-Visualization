@@ -173,7 +173,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./partial-differential-equations.html#weak-solutions\">Partial differential equations</a> · Weak solutions and Galerkin approximation</div>\n    <div><a href=\"./schrodinger-equation.html#hydrogen\">Schrödinger equation</a> · Hydrogen atom</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./partial-differential-equations.html#weak-solutions\">Partial differential equations</a> · Weak solutions and Galerkin approximation</div>\n    <div><a href=\"./schrodinger-equation.html#hydrogen\">Schrödinger equation</a> · Hydrogen atom</div>\n    <div><a href=\"./spectral-theory.html#weyl-law\">Spectral theory</a> · Weyl's law for the Laplacian</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

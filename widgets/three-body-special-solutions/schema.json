@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/three-body-special-solutions/schema.json",
+  "title": "three-body-special-solutions widget params",
+  "description": "Bespoke widget for the §3 special-solutions choreography demo on the three-body-problem topic — three preset buttons (Lagrange equilateral, Euler collinear, figure-eight) above an SVG that animates the chosen choreography forward in time, with a readout naming the current solution and a trailing `<p class=\"small\">` of provenance. The button-row + animated-SVG + readout + trailing prose layout doesn't fit any shared slug; this slug captures it as one unit.",
+  "meta": {
+    "family": "three-body-special-solutions",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title",
+    "hint",
+    "bodyMarkup",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\">. Required by the corpus-wide test-widget-renderers convention."
+    },
+    "title": {
+      "type": "string",
+      "description": "Header title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Header hint rendered inside .hd > .hint."
+    },
+    "bodyMarkup": {
+      "type": "string",
+      "x-artifact": "verbatim inner-body HTML; portable consumers should rebuild button-row + svg + readout + trailing prose from explicit fields once a shared shape proves out",
+      "description": "ARTIFACT. Verbatim HTML emitted between the closing </div> of the .hd row and the closing </div> of the outer widget — preset-button row, <svg>, readout div, trailing <p class=\"small\">."
+    },
+    "sectionComment": {
+      "type": "string",
+      "description": "ARTIFACT. Optional /* ... */ banner placed between the leading <script> tag and the IIFE opener."
+    },
+    "bodyScript": {
+      "type": "string",
+      "x-artifact": "script body is bespoke; portable consumers should re-implement the three closed-form choreographies (equilateral rotation, collinear rotation, figure-eight parametrization) from scratch",
+      "description": "ARTIFACT. Verbatim JS statements that go inside `(function(){\\n…\\n})();` — wires the three preset buttons, animates the chosen choreography, and updates the readout."
+    }
+  }
+}

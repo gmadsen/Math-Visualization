@@ -267,10 +267,10 @@ function drawNode(svg, x, y, label, opts={}){
 <p>$$\omega = -d\theta = \sum_{i=1}^n dq^i\wedge dp_i.$$</p>
 <p>Each fibre $T^*_q Q$ is an $n$-dimensional vector space; together $\dim T^*Q = 2n$. The form $\omega$ is closed (since $\omega = d(-\theta)$) and non-degenerate (the matrix $\begin{pmatrix}0 & I\\ -I & 0\end{pmatrix}$ in canonical coordinates is invertible). Phase space is a symplectic manifold by birthright — and the natural coordinates $(q,p)$ are <em>already</em> Darboux.</p>
 
-<div class="widget">
+<div class="widget" id="w-phase-space-cell-phase-space">
   <div class="hd">
     <div class="ttl">Phase-space cell</div>
-    <div class="hint">Drag the cell — Liouville's theorem will preserve its area</div>
+    <div class="hint">Drag the cell — Liouville&#39;s theorem will preserve its area</div>
   </div>
   <svg id="ps-svg" viewBox="-220 -160 440 320" width="100%" height="320" aria-label="Phase space cell"></svg>
   <div class="row">
@@ -278,306 +278,7 @@ function drawNode(svg, x, y, label, opts={}){
     <button id="ps-reset">Reset</button>
   </div>
   <div class="readout" id="ps-readout">Area: 1.000  ·  centroid: (0, 0)  ·  shape: square</div>
-</div>
-
-<p>The picture above shows a small square in the $(q,p)$ plane evolving under the harmonic oscillator. The shape sheers and rotates, but the <em>area</em> never changes — this is Liouville's theorem (§2) made visible.</p>
-
-<aside class="note">
-<strong>Why $T^*Q$ and not $TQ$?</strong> Velocities $\dot q$ live in the tangent bundle; momenta $p_i = \partial L/\partial \dot q^i$ are linear functionals on velocities, hence cotangent vectors. The Legendre transform $TQ\to T^*Q$ sends a Lagrangian $L(q,\dot q)$ to a Hamiltonian $H(q,p)$ — when invertible, the two formulations are equivalent. Symplectic structure lives naturally on $T^*Q$ because $\theta$ is built without choosing a metric.
-</aside>
-
-<!-- callback-auto-begin -->
-<aside class="callback">
-  <div class="ttl">See also</div>
-  <ul>
-    <li><a href="./differential-forms.html#wedge">Differential forms and wedge product</a></li>
-    <li><a href="./symplectic-manifolds.html#form">Symplectic form</a></li>
-  </ul>
-</aside>
-<!-- callback-auto-end --><!-- backlinks-auto-begin -->
-<aside class="related">
-  <div class="ttl">Used in</div>
-    <div><a href="./hamiltonians-classical-mechanics.html#hamilton-eq">Hamiltonians and classical mechanics</a> · Hamilton's equations</div>
-</aside>
-<!-- backlinks-auto-end --><div class="quiz" data-concept="hcm-phase-space"></div>
-</section>
-
-<section id="hamilton-eq">
-<h2>2. Hamilton's equations and the Hamiltonian flow</h2>
-
-<p>A smooth function $H\colon T^*Q\to\mathbb{R}$ — the <em>Hamiltonian</em>, usually total energy — generates a vector field $X_H$ defined by the symplectic equation</p>
-<p>$$\iota_{X_H}\omega \;=\; dH.$$</p>
-<p>Non-degeneracy of $\omega$ makes $X_H$ unique. In canonical coordinates, working out both sides gives the celebrated</p>
-<p>$$\dot q^i \;=\; \frac{\partial H}{\partial p_i},\qquad \dot p_i \;=\; -\frac{\partial H}{\partial q^i}.$$</p>
-<p>These are <em>Hamilton's equations</em>: a system of $2n$ first-order ODEs replacing the $n$ second-order Lagrangian equations.</p>
-
-<div class="widget">
-  <div class="hd">
-    <div class="ttl">Hamiltonian flow on the plane</div>
-    <div class="hint">Pick $H$ and watch the vector field + a trajectory</div>
-  </div>
-  <div class="row">
-    <label for="hf-H">Hamiltonian:</label>
-    <select id="hf-H">
-      <option value="osc" selected>$H = (p^2 + q^2)/2$ (harmonic oscillator)</option>
-      <option value="pend">$H = p^2/2 - \cos q$ (pendulum)</option>
-      <option value="duff">$H = p^2/2 + q^4/4 - q^2/2$ (double well)</option>
-      <option value="free">$H = p^2/2$ (free particle)</option>
-    </select>
-  </div>
-  <svg id="hf-svg" viewBox="-220 -160 440 320" width="100%" height="320" aria-label="Hamiltonian flow"></svg>
-  <div class="row">
-    <button id="hf-step">Step trajectory</button>
-    <button id="hf-clear">Clear</button>
-    <span class="small">Click in the field to launch a trajectory.</span>
-  </div>
-  <div class="readout" id="hf-readout">Click to drop an initial condition.</div>
-</div>
-
-<p>Two structural facts fall out of the defining identity, almost for free:</p>
-
-<p><strong>Energy conservation.</strong> Along the flow, $\dot H = X_H(H) = dH(X_H) = \omega(X_H, X_H) = 0$ since $\omega$ is alternating. Energy is conserved <em>because</em> $\omega$ is antisymmetric — geometry, not a separate axiom.</p>
-
-<p><strong>Liouville's theorem.</strong> By Cartan's magic formula,</p>
-<p>$$\mathcal{L}_{X_H}\omega = d(\iota_{X_H}\omega) + \iota_{X_H}\,d\omega = d(dH) + 0 = 0.$$</p>
-<p>So $X_H$ preserves $\omega$ and therefore its top exterior power $\omega^n/n!$ — the phase-space volume form. Hamiltonian flows are volume-preserving.</p>
-
-<!-- callback-auto-begin -->
-<aside class="callback">
-  <div class="ttl">See also</div>
-  <ul>
-    <li><a href="./dynamical-systems.html#orbits">Orbits, flows, and vector fields</a></li>
-    <li><a href="./symplectic-manifolds.html#hamiltonian">Hamiltonian vector fields and flows</a></li>
-  </ul>
-</aside>
-<!-- callback-auto-end --><!-- backlinks-auto-begin -->
-<aside class="related">
-  <div class="ttl">Used in</div>
-    <div><a href="./hamiltonians-classical-mechanics.html#canonical">Hamiltonians and classical mechanics</a> · Canonical transformations and Hamilton–Jacobi</div>
-    <div><a href="./hamiltonians-classical-mechanics.html#noether">Hamiltonians and classical mechanics</a> · Symmetries and Noether's theorem</div>
-</aside>
-<!-- backlinks-auto-end --><div class="quiz" data-concept="hcm-hamilton-equations"></div>
-</section>
-
-<section id="canonical">
-<h2>3. Canonical transformations and Hamilton–Jacobi</h2>
-
-<p>A change of coordinates $\varphi\colon T^*Q\to T^*Q$ is <em>canonical</em> (or symplectic) when it preserves the symplectic form: $\varphi^*\omega = \omega$. Such transformations move Hamilton's equations to Hamilton's equations, possibly with a different Hamiltonian — but they always look like Hamilton's equations.</p>
-
-<p>The cleanest way to manufacture a canonical transformation is via a <em>generating function</em>. Pick $S(q, Q)$ depending on the old position $q$ and the new position $Q$. Set</p>
-<p>$$p_i = \frac{\partial S}{\partial q^i},\qquad P_i = -\frac{\partial S}{\partial Q^i}.$$</p>
-<p>The graph $\{(q, p, Q, P) : p = \partial_q S,\ P = -\partial_Q S\}$ is a Lagrangian submanifold of $(T^*Q\times T^*Q,\,\omega\ominus\omega)$, and the resulting map $(q,p)\mapsto(Q,P)$ is canonical for free.</p>
-
-<p>The <em>Hamilton–Jacobi equation</em> asks: can we choose $S(q, t)$ so that the transformed Hamiltonian vanishes? If so, the new coordinates are constants of motion and we've integrated the dynamics. The condition is</p>
-<p>$$\frac{\partial S}{\partial t} + H\!\left(q,\frac{\partial S}{\partial q},t\right) = 0.$$</p>
-<p>A non-linear first-order PDE for one function $S$ — sometimes solvable by separation of variables, sometimes not.</p>
-
-<div class="widget">
-  <div class="hd">
-    <div class="ttl">Canonical transformations preserve area</div>
-    <div class="hint">Linear symplectic maps act on the $(q,p)$ plane</div>
-  </div>
-  <div class="row">
-    <label for="ct-map">Map $\varphi$:</label>
-    <select id="ct-map">
-      <option value="rot">$R_\theta$ — rotation</option>
-      <option value="shear">Shear: $(q,p)\mapsto(q, p+aq)$</option>
-      <option value="scale">Squeeze: $(q,p)\mapsto(\lambda q, p/\lambda)$</option>
-      <option value="non" >Non-canonical: $(q,p)\mapsto(\lambda q, p)$</option>
-    </select>
-    <label for="ct-param">parameter:</label>
-    <input id="ct-param" type="range" min="0" max="100" value="40" />
-  </div>
-  <svg id="ct-svg" viewBox="-220 -160 440 320" width="100%" height="320" aria-label="Canonical transformation"></svg>
-  <div class="readout" id="ct-readout">$\det J = 1$ — area preserved.</div>
-</div>
-
-<aside class="note">
-<strong>Hamilton–Jacobi $\to$ Schrödinger.</strong> Setting $S = -i\hbar\,\log\psi$ in HJ formally yields the Schrödinger equation in the WKB limit $\hbar\to 0$. Canonical transformations are the classical shadow of unitary transformations, and HJ is the classical shadow of the eikonal limit of wave mechanics.
-</aside>
-
-<!-- callback-auto-begin -->
-<aside class="callback">
-  <div class="ttl">See also</div>
-  <ul>
-    <li><a href="./symplectic-manifolds.html#poisson">Poisson bracket</a></li>
-  </ul>
-</aside>
-<!-- callback-auto-end --><!-- backlinks-auto-begin -->
-<aside class="related">
-  <div class="ttl">Used in</div>
-    <div><a href="./hamiltonians-classical-mechanics.html#integrable">Hamiltonians and classical mechanics</a> · Integrable systems and KAM</div>
-</aside>
-<!-- backlinks-auto-end --><div class="quiz" data-concept="hcm-canonical-transformations"></div>
-</section>
-
-<section id="noether">
-<h2>4. Symmetries and Noether's theorem</h2>
-
-<p>The Poisson bracket on $C^\infty(T^*Q)$ is</p>
-<p>$$\{f, g\} = \omega(X_f, X_g) = \sum_i \frac{\partial f}{\partial q^i}\frac{\partial g}{\partial p_i} - \frac{\partial f}{\partial p_i}\frac{\partial g}{\partial q^i}.$$</p>
-<p>It makes $C^\infty(T^*Q)$ into a Lie algebra, and along the Hamiltonian flow,</p>
-<p>$$\dot f \;=\; X_H(f) \;=\; \{f, H\}.$$</p>
-
-<p>The slogan is short and exact: <strong>$f$ is conserved iff $\{f, H\} = 0$.</strong></p>
-
-<p>Each conserved $f$ generates its own flow $X_f$, and $\{f, H\} = 0$ means that flow is a symmetry of $H$. So Noether's theorem in Hamiltonian dress reads:</p>
-<p class="ok"><strong>Continuous symmetries of $H$ ↔ functions Poisson-commuting with $H$ ↔ conserved quantities.</strong></p>
-
-<table class="plain">
-<thead><tr><th>Symmetry</th><th>Generator</th><th>Conserved quantity</th></tr></thead>
-<tbody>
-<tr><td>Translation in $q^i$</td><td>$X_{p_i}$</td><td>Momentum $p_i$</td></tr>
-<tr><td>Rotation about axis $i$</td><td>$X_{L_i}$</td><td>Angular momentum $L_i = \epsilon_{ijk} q^j p_k$</td></tr>
-<tr><td>Time translation</td><td>$X_H$</td><td>Energy $H$</td></tr>
-<tr><td>Boost (Galilean / relativistic)</td><td>$X_{K_i}$</td><td>Centre-of-mass motion</td></tr>
-</tbody>
-</table>
-
-<div class="widget">
-  <div class="hd">
-    <div class="ttl">Conserved quantities under symmetry</div>
-    <div class="hint">Watch a quantity evolve along the flow</div>
-  </div>
-  <div class="row">
-    <label for="nt-sys">System:</label>
-    <select id="nt-sys">
-      <option value="osc">Harmonic oscillator $H = (p^2+q^2)/2$</option>
-      <option value="cent">Central potential (2D), $H = |p|^2/2 - 1/|q|$</option>
-      <option value="grav">Uniform gravity $H = p^2/2 + q$</option>
-    </select>
-    <label for="nt-quant">Track:</label>
-    <select id="nt-quant">
-      <option value="H">$H$ — energy</option>
-      <option value="p">$p$ — linear momentum</option>
-      <option value="L">$L$ — angular momentum (2D only)</option>
-    </select>
-  </div>
-  <svg id="nt-svg" viewBox="0 -90 440 180" width="100%" height="220" aria-label="Conserved quantity"></svg>
-  <div class="readout" id="nt-readout">Pick a system, then a quantity to track.</div>
-</div>
-
-<!-- callback-auto-begin -->
-<aside class="callback">
-  <div class="ttl">See also</div>
-  <ul>
-    <li><a href="./symplectic-manifolds.html#poisson">Poisson bracket</a></li>
-  </ul>
-</aside>
-<!-- callback-auto-end --><!-- backlinks-auto-begin -->
-<aside class="related">
-  <div class="ttl">Used in</div>
-    <div><a href="./hamiltonians-classical-mechanics.html#integrable">Hamiltonians and classical mechanics</a> · Integrable systems and KAM</div>
-</aside>
-<!-- backlinks-auto-end --><div class="quiz" data-concept="hcm-noether"></div>
-</section>
-
-<section id="integrable">
-<h2>5. Integrable systems, action-angle coordinates, and KAM</h2>
-
-<p>A Hamiltonian system on a $2n$-dimensional symplectic manifold is <em>Liouville integrable</em> if it admits $n$ functionally independent first integrals $f_1 = H, f_2, \dots, f_n$ that pairwise Poisson-commute: $\{f_i, f_j\} = 0$. The maximum possible. Their joint flows define a (locally free) $\mathbb{R}^n$-action.</p>
-
-<p><strong>Liouville–Arnold theorem.</strong> If a regular common level set $\{f = c\}$ is compact and connected, it is diffeomorphic to a torus $T^n$, and there exist <em>action-angle coordinates</em> $(I_1,\dots,I_n,\theta_1,\dots,\theta_n)$ on a neighbourhood in which</p>
-<p>$$\omega = \sum_i dI_i\wedge d\theta_i,\qquad H = H(I)\ \text{(independent of $\theta$)}.$$</p>
-<p>Hamilton's equations become trivially soluble: $\dot I = 0$, $\dot\theta_i = \partial H/\partial I_i \equiv \omega_i(I)$. Each torus carries a quasi-periodic linear flow with frequency vector $\omega(I)$.</p>
-
-<div class="widget">
-  <div class="hd">
-    <div class="ttl">A 2-torus orbit and KAM perturbation</div>
-    <div class="hint">Two frequencies; rationality / irrationality decides closure</div>
-  </div>
-  <div class="row">
-    <label for="kam-w1">$\omega_1$:</label>
-    <input id="kam-w1" type="range" min="50" max="200" value="100" />
-    <label for="kam-w2">$\omega_2$:</label>
-    <input id="kam-w2" type="range" min="50" max="200" value="161" />
-    <label for="kam-eps">perturb $\varepsilon$:</label>
-    <input id="kam-eps" type="range" min="0" max="80" value="0" />
-  </div>
-  <svg id="kam-svg" viewBox="-220 -180 440 360" width="100%" height="360" aria-label="KAM tori"></svg>
-  <div class="readout" id="kam-readout">$\omega_2/\omega_1 = 1.610$ — irrational, dense winding.</div>
-</div>
-
-<p><strong>The KAM theorem.</strong> The <em>generic</em> Hamiltonian is not integrable. But integrable systems are not isolated curiosities: under a small perturbation $H_\varepsilon = H_0(I) + \varepsilon H_1(I, \theta)$, the theorem of Kolmogorov, Arnold, and Moser says that <em>most</em> invariant tori survive — specifically, those whose frequency vectors satisfy a Diophantine condition</p>
-<p>$$|k\cdot\omega(I)| \;\geq\; \frac{\gamma}{|k|^\tau}\quad\text{for all $0\ne k\in\mathbb{Z}^n$.}$$</p>
-<p>The perturbed tori form a Cantor-like set of positive measure. Resonant tori (with rationally related frequencies) shatter into thin <em>Birkhoff zones</em> with chaotic layers — the seeds of chaos in nearly-integrable systems.</p>
-
-<aside class="note">
-<strong>What KAM is famous for.</strong> KAM was the first rigorous answer to a long-standing question: do small perturbations of the solar system (an integrable Kepler problem at zeroth order) preserve stability? Answer: most planetary tori survive small perturbation. Modern long-time numerical simulations show the inner solar system is in fact in a weakly chaotic regime — KAM applies <em>locally</em>, not over astronomical timescales.
-</aside>
-
-<!-- callback-auto-begin -->
-<aside class="callback">
-  <div class="ttl">See also</div>
-  <ul>
-    <li><a href="./dynamical-systems.html#conservative">Conservative vs dissipative flows</a></li>
-  </ul>
-</aside>
-<!-- callback-auto-end --><!-- backlinks-auto-begin -->
-<aside class="related">
-  <div class="ttl">Used in</div>
-    <div><a href="./hamiltonians-classical-mechanics.html#applications">Hamiltonians and classical mechanics</a> · Worked examples</div>
-</aside>
-<!-- backlinks-auto-end --><div class="quiz" data-concept="hcm-integrable-systems"></div>
-</section>
-
-<section id="applications">
-<h2>6. Worked examples</h2>
-
-<p>The canon of classical mechanics is short, and almost every named system is integrable. Each one teaches a different lesson.</p>
-
-<h3>The harmonic oscillator</h3>
-<p>$H = \tfrac{p^2}{2m} + \tfrac{1}{2}m\omega^2 q^2$. Action-angle coordinates: $I = E/\omega$, $\theta = \omega t + \theta_0$. Phase portrait: concentric ellipses, all traversed at the same period $2\pi/\omega$ — the only system besides Kepler with all bounded orbits closed (Bertrand's theorem).</p>
-
-<h3>The Kepler problem</h3>
-<p>$H = \tfrac{|p|^2}{2m} - \tfrac{k}{|q|}$. Conserved: energy $H$, angular momentum $L = q\times p$, and the <em>Laplace–Runge–Lenz vector</em></p>
-<p>$$A = p\times L - mk\,\hat q.$$</p>
-<p>Together $(H, L, A)$ give more independent integrals than the dimension allows generically — Kepler is <em>super-integrable</em>. The hidden symmetry is $SO(4)$ (for bound states), and it forces orbits to close: ellipses, parabolas, or hyperbolae, never precessing rosettes.</p>
-
-<div class="widget">
-  <div class="hd">
-    <div class="ttl">Kepler orbits</div>
-    <div class="hint">Vary energy and angular momentum to sweep the conics</div>
-  </div>
-  <div class="row">
-    <label for="kp-E">Energy $E$:</label>
-    <input id="kp-E" type="range" min="-90" max="40" value="-50" />
-    <label for="kp-L">Angular momentum $L$:</label>
-    <input id="kp-L" type="range" min="20" max="120" value="65" />
-  </div>
-  <svg id="kp-svg" viewBox="-220 -160 440 320" width="100%" height="320" aria-label="Kepler orbit"></svg>
-  <div class="readout" id="kp-readout">Ellipse · eccentricity 0.500 · period 6.28</div>
-</div>
-
-<h3>Geodesic flow</h3>
-<p>On a Riemannian $(M, g)$, take $H(q, p) = \tfrac{1}{2}g^{ij}(q)\,p_i p_j$. Hamilton's equations on $T^*M$ project to geodesics on $M$. Curvature, conjugate points, the Jacobi equation — the geometry of $M$ is the geometry of this flow on phase space.</p>
-
-<h3>Convex billiards</h3>
-<p>Free flight inside a convex region $\Omega\subset\mathbb{R}^2$ with elastic reflection at $\partial\Omega$. The <em>Birkhoff billiard map</em> on $\partial\Omega\times[0,\pi]$ is a 2D area-preserving map, an excellent KAM testbed: caustics are surviving invariant curves, glancing trajectories live near the singular boundary $\sin\alpha = 0$.</p>
-
-<h3>What's left out</h3>
-<p>The three-body problem is famously <em>not</em> integrable (Poincaré, 1890): the failure of the Birkhoff series to converge near a homoclinic point opens the door to chaos. Most named "complicated" systems — the double pendulum, the Hénon–Heiles potential, gravitational $N$-body — sit on the non-integrable side.</p>
-
-<div class="quiz" data-concept="hcm-applications"></div>
-</section>
-
-<section id="connections">
-<h2>Connections</h2>
-
-<p>Classical mechanics is the source of symplectic geometry, but the import runs both ways: every modern advance in symplectic topology — Gromov's non-squeezing, Floer homology, mirror symmetry — was conceived to detect rigidity invisible to the Hamiltonian flow itself. Quantisation maps $\{f, g\}\rightsquigarrow [\hat f, \hat g]/(i\hbar)$, but no fully natural functor from symplectic manifolds to Hilbert spaces exists; geometric quantisation, deformation quantisation, and the Fukaya category are partial answers.</p>
-
-<ul>
-<li><a href="./symplectic-manifolds.html#hamiltonian">Symplectic manifolds — Hamiltonian flow</a> — the abstract setup we specialised here to $T^*Q$.</li>
-<li><a href="./symplectic-manifolds.html#poisson">Symplectic manifolds — Poisson bracket</a> — the algebraic shadow of the symplectic form, classical limit of the commutator.</li>
-<li><a href="./dynamical-systems.html#conservative">Dynamical systems — Conservative flows</a> — Liouville's theorem from the dynamicist's vantage.</li>
-<li><a href="./differential-forms.html#wedge">Differential forms — wedge product</a> — the multilinear algebra underwriting $\omega$.</li>
-<li><a href="./riemannian-geometry.html">Riemannian geometry</a> — geodesic flow is the cleanest non-trivial Hamiltonian system after the oscillator.</li>
-</ul>
-</section>
-
-</main>
-
-<script>
+</div><script>
 /* §1 phase-space cell evolving under harmonic oscillator */
 (function(){
   const svg = document.getElementById("ps-svg");
@@ -662,7 +363,59 @@ function drawNode(svg, x, y, label, opts={}){
 })();
 </script>
 
-<script>
+<p>The picture above shows a small square in the $(q,p)$ plane evolving under the harmonic oscillator. The shape sheers and rotates, but the <em>area</em> never changes — this is Liouville's theorem (§2) made visible.</p>
+
+<aside class="note">
+<strong>Why $T^*Q$ and not $TQ$?</strong> Velocities $\dot q$ live in the tangent bundle; momenta $p_i = \partial L/\partial \dot q^i$ are linear functionals on velocities, hence cotangent vectors. The Legendre transform $TQ\to T^*Q$ sends a Lagrangian $L(q,\dot q)$ to a Hamiltonian $H(q,p)$ — when invertible, the two formulations are equivalent. Symplectic structure lives naturally on $T^*Q$ because $\theta$ is built without choosing a metric.
+</aside>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./differential-forms.html#wedge">Differential forms and wedge product</a></li>
+    <li><a href="./symplectic-manifolds.html#form">Symplectic form</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./hamiltonians-classical-mechanics.html#hamilton-eq">Hamiltonians and classical mechanics</a> · Hamilton's equations</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="hcm-phase-space"></div>
+</section>
+
+<section id="hamilton-eq">
+<h2>2. Hamilton's equations and the Hamiltonian flow</h2>
+
+<p>A smooth function $H\colon T^*Q\to\mathbb{R}$ — the <em>Hamiltonian</em>, usually total energy — generates a vector field $X_H$ defined by the symplectic equation</p>
+<p>$$\iota_{X_H}\omega \;=\; dH.$$</p>
+<p>Non-degeneracy of $\omega$ makes $X_H$ unique. In canonical coordinates, working out both sides gives the celebrated</p>
+<p>$$\dot q^i \;=\; \frac{\partial H}{\partial p_i},\qquad \dot p_i \;=\; -\frac{\partial H}{\partial q^i}.$$</p>
+<p>These are <em>Hamilton's equations</em>: a system of $2n$ first-order ODEs replacing the $n$ second-order Lagrangian equations.</p>
+
+<div class="widget" id="w-flow-portrait-hamilton-eq">
+  <div class="hd">
+    <div class="ttl">Hamiltonian flow on the plane</div>
+    <div class="hint">Pick $H$ and watch the vector field + a trajectory</div>
+  </div>
+  <div class="row">
+    <label for="hf-H">Hamiltonian:</label>
+    <select id="hf-H">
+      <option value="osc" selected>$H = (p^2 + q^2)/2$ (harmonic oscillator)</option>
+      <option value="pend">$H = p^2/2 - \cos q$ (pendulum)</option>
+      <option value="duff">$H = p^2/2 + q^4/4 - q^2/2$ (double well)</option>
+      <option value="free">$H = p^2/2$ (free particle)</option>
+    </select>
+  </div>
+  <svg id="hf-svg" viewBox="-220 -160 440 320" width="100%" height="320" aria-label="Hamiltonian flow"></svg>
+  <div class="row">
+    <button id="hf-step">Step trajectory</button>
+    <button id="hf-clear">Clear</button>
+    <span class="small">Click in the field to launch a trajectory.</span>
+  </div>
+  <div class="readout" id="hf-readout">Click to drop an initial condition.</div>
+</div><script>
 /* §2 Hamiltonian flow with field + trajectory */
 (function(){
   const svg = document.getElementById("hf-svg");
@@ -767,7 +520,63 @@ function drawNode(svg, x, y, label, opts={}){
 })();
 </script>
 
-<script>
+<p>Two structural facts fall out of the defining identity, almost for free:</p>
+
+<p><strong>Energy conservation.</strong> Along the flow, $\dot H = X_H(H) = dH(X_H) = \omega(X_H, X_H) = 0$ since $\omega$ is alternating. Energy is conserved <em>because</em> $\omega$ is antisymmetric — geometry, not a separate axiom.</p>
+
+<p><strong>Liouville's theorem.</strong> By Cartan's magic formula,</p>
+<p>$$\mathcal{L}_{X_H}\omega = d(\iota_{X_H}\omega) + \iota_{X_H}\,d\omega = d(dH) + 0 = 0.$$</p>
+<p>So $X_H$ preserves $\omega$ and therefore its top exterior power $\omega^n/n!$ — the phase-space volume form. Hamiltonian flows are volume-preserving.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./dynamical-systems.html#orbits">Orbits, flows, and vector fields</a></li>
+    <li><a href="./symplectic-manifolds.html#hamiltonian">Hamiltonian vector fields and flows</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./hamiltonians-classical-mechanics.html#canonical">Hamiltonians and classical mechanics</a> · Canonical transformations and Hamilton–Jacobi</div>
+    <div><a href="./hamiltonians-classical-mechanics.html#noether">Hamiltonians and classical mechanics</a> · Symmetries and Noether's theorem</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="hcm-hamilton-equations"></div>
+</section>
+
+<section id="canonical">
+<h2>3. Canonical transformations and Hamilton–Jacobi</h2>
+
+<p>A change of coordinates $\varphi\colon T^*Q\to T^*Q$ is <em>canonical</em> (or symplectic) when it preserves the symplectic form: $\varphi^*\omega = \omega$. Such transformations move Hamilton's equations to Hamilton's equations, possibly with a different Hamiltonian — but they always look like Hamilton's equations.</p>
+
+<p>The cleanest way to manufacture a canonical transformation is via a <em>generating function</em>. Pick $S(q, Q)$ depending on the old position $q$ and the new position $Q$. Set</p>
+<p>$$p_i = \frac{\partial S}{\partial q^i},\qquad P_i = -\frac{\partial S}{\partial Q^i}.$$</p>
+<p>The graph $\{(q, p, Q, P) : p = \partial_q S,\ P = -\partial_Q S\}$ is a Lagrangian submanifold of $(T^*Q\times T^*Q,\,\omega\ominus\omega)$, and the resulting map $(q,p)\mapsto(Q,P)$ is canonical for free.</p>
+
+<p>The <em>Hamilton–Jacobi equation</em> asks: can we choose $S(q, t)$ so that the transformed Hamiltonian vanishes? If so, the new coordinates are constants of motion and we've integrated the dynamics. The condition is</p>
+<p>$$\frac{\partial S}{\partial t} + H\!\left(q,\frac{\partial S}{\partial q},t\right) = 0.$$</p>
+<p>A non-linear first-order PDE for one function $S$ — sometimes solvable by separation of variables, sometimes not.</p>
+
+<div class="widget" id="w-canonical-transform-canonical">
+  <div class="hd">
+    <div class="ttl">Canonical transformations preserve area</div>
+    <div class="hint">Linear symplectic maps act on the $(q,p)$ plane</div>
+  </div>
+  <div class="row">
+    <label for="ct-map">Map $\varphi$:</label>
+    <select id="ct-map">
+      <option value="rot">$R_\theta$ — rotation</option>
+      <option value="shear">Shear: $(q,p)\mapsto(q, p+aq)$</option>
+      <option value="scale">Squeeze: $(q,p)\mapsto(\lambda q, p/\lambda)$</option>
+      <option value="non" >Non-canonical: $(q,p)\mapsto(\lambda q, p)$</option>
+    </select>
+    <label for="ct-param">parameter:</label>
+    <input id="ct-param" type="range" min="0" max="100" value="40" />
+  </div>
+  <svg id="ct-svg" viewBox="-220 -160 440 320" width="100%" height="320" aria-label="Canonical transformation"></svg>
+  <div class="readout" id="ct-readout">$\det J = 1$ — area preserved.</div>
+</div><script>
 /* §3 canonical transformations on a square */
 (function(){
   const svg = document.getElementById("ct-svg");
@@ -823,7 +632,70 @@ function drawNode(svg, x, y, label, opts={}){
 })();
 </script>
 
-<script>
+<aside class="note">
+<strong>Hamilton–Jacobi $\to$ Schrödinger.</strong> Setting $S = -i\hbar\,\log\psi$ in HJ formally yields the Schrödinger equation in the WKB limit $\hbar\to 0$. Canonical transformations are the classical shadow of unitary transformations, and HJ is the classical shadow of the eikonal limit of wave mechanics.
+</aside>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./symplectic-manifolds.html#poisson">Poisson bracket</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./hamiltonians-classical-mechanics.html#integrable">Hamiltonians and classical mechanics</a> · Integrable systems and KAM</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="hcm-canonical-transformations"></div>
+</section>
+
+<section id="noether">
+<h2>4. Symmetries and Noether's theorem</h2>
+
+<p>The Poisson bracket on $C^\infty(T^*Q)$ is</p>
+<p>$$\{f, g\} = \omega(X_f, X_g) = \sum_i \frac{\partial f}{\partial q^i}\frac{\partial g}{\partial p_i} - \frac{\partial f}{\partial p_i}\frac{\partial g}{\partial q^i}.$$</p>
+<p>It makes $C^\infty(T^*Q)$ into a Lie algebra, and along the Hamiltonian flow,</p>
+<p>$$\dot f \;=\; X_H(f) \;=\; \{f, H\}.$$</p>
+
+<p>The slogan is short and exact: <strong>$f$ is conserved iff $\{f, H\} = 0$.</strong></p>
+
+<p>Each conserved $f$ generates its own flow $X_f$, and $\{f, H\} = 0$ means that flow is a symmetry of $H$. So Noether's theorem in Hamiltonian dress reads:</p>
+<p class="ok"><strong>Continuous symmetries of $H$ ↔ functions Poisson-commuting with $H$ ↔ conserved quantities.</strong></p>
+
+<table class="plain">
+<thead><tr><th>Symmetry</th><th>Generator</th><th>Conserved quantity</th></tr></thead>
+<tbody>
+<tr><td>Translation in $q^i$</td><td>$X_{p_i}$</td><td>Momentum $p_i$</td></tr>
+<tr><td>Rotation about axis $i$</td><td>$X_{L_i}$</td><td>Angular momentum $L_i = \epsilon_{ijk} q^j p_k$</td></tr>
+<tr><td>Time translation</td><td>$X_H$</td><td>Energy $H$</td></tr>
+<tr><td>Boost (Galilean / relativistic)</td><td>$X_{K_i}$</td><td>Centre-of-mass motion</td></tr>
+</tbody>
+</table>
+
+<div class="widget" id="w-conserved-quantity-noether">
+  <div class="hd">
+    <div class="ttl">Conserved quantities under symmetry</div>
+    <div class="hint">Watch a quantity evolve along the flow</div>
+  </div>
+  <div class="row">
+    <label for="nt-sys">System:</label>
+    <select id="nt-sys">
+      <option value="osc">Harmonic oscillator $H = (p^2+q^2)/2$</option>
+      <option value="cent">Central potential (2D), $H = |p|^2/2 - 1/|q|$</option>
+      <option value="grav">Uniform gravity $H = p^2/2 + q$</option>
+    </select>
+    <label for="nt-quant">Track:</label>
+    <select id="nt-quant">
+      <option value="H">$H$ — energy</option>
+      <option value="p">$p$ — linear momentum</option>
+      <option value="L">$L$ — angular momentum (2D only)</option>
+    </select>
+  </div>
+  <svg id="nt-svg" viewBox="0 -90 440 180" width="100%" height="220" aria-label="Conserved quantity"></svg>
+  <div class="readout" id="nt-readout">Pick a system, then a quantity to track.</div>
+</div><script>
 /* §4 conserved quantity tracker */
 (function(){
   const svg = document.getElementById("nt-svg");
@@ -922,7 +794,46 @@ function drawNode(svg, x, y, label, opts={}){
 })();
 </script>
 
-<script>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./symplectic-manifolds.html#poisson">Poisson bracket</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./hamiltonians-classical-mechanics.html#integrable">Hamiltonians and classical mechanics</a> · Integrable systems and KAM</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="hcm-noether"></div>
+</section>
+
+<section id="integrable">
+<h2>5. Integrable systems, action-angle coordinates, and KAM</h2>
+
+<p>A Hamiltonian system on a $2n$-dimensional symplectic manifold is <em>Liouville integrable</em> if it admits $n$ functionally independent first integrals $f_1 = H, f_2, \dots, f_n$ that pairwise Poisson-commute: $\{f_i, f_j\} = 0$. The maximum possible. Their joint flows define a (locally free) $\mathbb{R}^n$-action.</p>
+
+<p><strong>Liouville–Arnold theorem.</strong> If a regular common level set $\{f = c\}$ is compact and connected, it is diffeomorphic to a torus $T^n$, and there exist <em>action-angle coordinates</em> $(I_1,\dots,I_n,\theta_1,\dots,\theta_n)$ on a neighbourhood in which</p>
+<p>$$\omega = \sum_i dI_i\wedge d\theta_i,\qquad H = H(I)\ \text{(independent of $\theta$)}.$$</p>
+<p>Hamilton's equations become trivially soluble: $\dot I = 0$, $\dot\theta_i = \partial H/\partial I_i \equiv \omega_i(I)$. Each torus carries a quasi-periodic linear flow with frequency vector $\omega(I)$.</p>
+
+<div class="widget" id="w-kam-tori-integrable">
+  <div class="hd">
+    <div class="ttl">A 2-torus orbit and KAM perturbation</div>
+    <div class="hint">Two frequencies; rationality / irrationality decides closure</div>
+  </div>
+  <div class="row">
+    <label for="kam-w1">$\omega_1$:</label>
+    <input id="kam-w1" type="range" min="50" max="200" value="100" />
+    <label for="kam-w2">$\omega_2$:</label>
+    <input id="kam-w2" type="range" min="50" max="200" value="161" />
+    <label for="kam-eps">perturb $\varepsilon$:</label>
+    <input id="kam-eps" type="range" min="0" max="80" value="0" />
+  </div>
+  <svg id="kam-svg" viewBox="-220 -180 440 360" width="100%" height="360" aria-label="KAM tori"></svg>
+  <div class="readout" id="kam-readout">$\omega_2/\omega_1 = 1.610$ — irrational, dense winding.</div>
+</div><script>
 /* §5 KAM tori on a 2-torus */
 (function(){
   const svg = document.getElementById("kam-svg");
@@ -986,7 +897,56 @@ function drawNode(svg, x, y, label, opts={}){
 })();
 </script>
 
-<script>
+<p><strong>The KAM theorem.</strong> The <em>generic</em> Hamiltonian is not integrable. But integrable systems are not isolated curiosities: under a small perturbation $H_\varepsilon = H_0(I) + \varepsilon H_1(I, \theta)$, the theorem of Kolmogorov, Arnold, and Moser says that <em>most</em> invariant tori survive — specifically, those whose frequency vectors satisfy a Diophantine condition</p>
+<p>$$|k\cdot\omega(I)| \;\geq\; \frac{\gamma}{|k|^\tau}\quad\text{for all $0\ne k\in\mathbb{Z}^n$.}$$</p>
+<p>The perturbed tori form a Cantor-like set of positive measure. Resonant tori (with rationally related frequencies) shatter into thin <em>Birkhoff zones</em> with chaotic layers — the seeds of chaos in nearly-integrable systems.</p>
+
+<aside class="note">
+<strong>What KAM is famous for.</strong> KAM was the first rigorous answer to a long-standing question: do small perturbations of the solar system (an integrable Kepler problem at zeroth order) preserve stability? Answer: most planetary tori survive small perturbation. Modern long-time numerical simulations show the inner solar system is in fact in a weakly chaotic regime — KAM applies <em>locally</em>, not over astronomical timescales.
+</aside>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./dynamical-systems.html#conservative">Conservative vs dissipative flows</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./hamiltonians-classical-mechanics.html#applications">Hamiltonians and classical mechanics</a> · Worked examples</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="hcm-integrable-systems"></div>
+</section>
+
+<section id="applications">
+<h2>6. Worked examples</h2>
+
+<p>The canon of classical mechanics is short, and almost every named system is integrable. Each one teaches a different lesson.</p>
+
+<h3>The harmonic oscillator</h3>
+<p>$H = \tfrac{p^2}{2m} + \tfrac{1}{2}m\omega^2 q^2$. Action-angle coordinates: $I = E/\omega$, $\theta = \omega t + \theta_0$. Phase portrait: concentric ellipses, all traversed at the same period $2\pi/\omega$ — the only system besides Kepler with all bounded orbits closed (Bertrand's theorem).</p>
+
+<h3>The Kepler problem</h3>
+<p>$H = \tfrac{|p|^2}{2m} - \tfrac{k}{|q|}$. Conserved: energy $H$, angular momentum $L = q\times p$, and the <em>Laplace–Runge–Lenz vector</em></p>
+<p>$$A = p\times L - mk\,\hat q.$$</p>
+<p>Together $(H, L, A)$ give more independent integrals than the dimension allows generically — Kepler is <em>super-integrable</em>. The hidden symmetry is $SO(4)$ (for bound states), and it forces orbits to close: ellipses, parabolas, or hyperbolae, never precessing rosettes.</p>
+
+<div class="widget" id="w-kepler-orbits-applications">
+  <div class="hd">
+    <div class="ttl">Kepler orbits</div>
+    <div class="hint">Vary energy and angular momentum to sweep the conics</div>
+  </div>
+  <div class="row">
+    <label for="kp-E">Energy $E$:</label>
+    <input id="kp-E" type="range" min="-90" max="40" value="-50" />
+    <label for="kp-L">Angular momentum $L$:</label>
+    <input id="kp-L" type="range" min="20" max="120" value="65" />
+  </div>
+  <svg id="kp-svg" viewBox="-220 -160 440 320" width="100%" height="320" aria-label="Kepler orbit"></svg>
+  <div class="readout" id="kp-readout">Ellipse · eccentricity 0.500 · period 6.28</div>
+</div><script>
 /* §6 Kepler orbit */
 (function(){
   const svg = document.getElementById("kp-svg");
@@ -1064,6 +1024,34 @@ function drawNode(svg, x, y, label, opts={}){
   draw();
 })();
 </script>
+
+<h3>Geodesic flow</h3>
+<p>On a Riemannian $(M, g)$, take $H(q, p) = \tfrac{1}{2}g^{ij}(q)\,p_i p_j$. Hamilton's equations on $T^*M$ project to geodesics on $M$. Curvature, conjugate points, the Jacobi equation — the geometry of $M$ is the geometry of this flow on phase space.</p>
+
+<h3>Convex billiards</h3>
+<p>Free flight inside a convex region $\Omega\subset\mathbb{R}^2$ with elastic reflection at $\partial\Omega$. The <em>Birkhoff billiard map</em> on $\partial\Omega\times[0,\pi]$ is a 2D area-preserving map, an excellent KAM testbed: caustics are surviving invariant curves, glancing trajectories live near the singular boundary $\sin\alpha = 0$.</p>
+
+<h3>What's left out</h3>
+<p>The three-body problem is famously <em>not</em> integrable (Poincaré, 1890): the failure of the Birkhoff series to converge near a homoclinic point opens the door to chaos. Most named "complicated" systems — the double pendulum, the Hénon–Heiles potential, gravitational $N$-body — sit on the non-integrable side.</p>
+
+<div class="quiz" data-concept="hcm-applications"></div>
+</section>
+
+<section id="connections">
+<h2>Connections</h2>
+
+<p>Classical mechanics is the source of symplectic geometry, but the import runs both ways: every modern advance in symplectic topology — Gromov's non-squeezing, Floer homology, mirror symmetry — was conceived to detect rigidity invisible to the Hamiltonian flow itself. Quantisation maps $\{f, g\}\rightsquigarrow [\hat f, \hat g]/(i\hbar)$, but no fully natural functor from symplectic manifolds to Hilbert spaces exists; geometric quantisation, deformation quantisation, and the Fukaya category are partial answers.</p>
+
+<ul>
+<li><a href="./symplectic-manifolds.html#hamiltonian">Symplectic manifolds — Hamiltonian flow</a> — the abstract setup we specialised here to $T^*Q$.</li>
+<li><a href="./symplectic-manifolds.html#poisson">Symplectic manifolds — Poisson bracket</a> — the algebraic shadow of the symplectic form, classical limit of the commutator.</li>
+<li><a href="./dynamical-systems.html#conservative">Dynamical systems — Conservative flows</a> — Liouville's theorem from the dynamicist's vantage.</li>
+<li><a href="./differential-forms.html#wedge">Differential forms — wedge product</a> — the multilinear algebra underwriting $\omega$.</li>
+<li><a href="./riemannian-geometry.html">Riemannian geometry</a> — geodesic flow is the cleanest non-trivial Hamiltonian system after the oscillator.</li>
+</ul>
+</section>
+
+</main>
 
 <script>
 /* sidebar TOC builder + active-section highlighting */

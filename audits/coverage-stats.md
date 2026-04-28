@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **130**, concepts: **873**
-- Widgets: **874** (registry-driven: 568, inline: 306)
-- Quizzes: **3786** (v1: 2550, hard: 1223, expert: 13)
-- Quiz types: mcq: 2537, numeric: 1009, multi-select: 96, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **160**
-- Concepts lacking a hard-tier quiz: **435**
+- Topics: **130**, concepts: **896**
+- Widgets: **915** (registry-driven: 611, inline: 304)
+- Quizzes: **3855** (v1: 2619, hard: 1223, expert: 13)
+- Quiz types: mcq: 2587, numeric: 1028, multi-select: 96, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Concepts lacking a widget in their section: **145**
+- Concepts lacking a hard-tier quiz: **458**
 
 ## Per-slug registry adoption
 
@@ -18,16 +18,20 @@ page has wired one in yet.
 
 | slug | family | gesture | dimension | instances | topics |
 |---|---|---|---|---:|---|
-| `button-stepper` | button-stepper | click | 2d | 336 | L-functions, additive-number-theory, adeles-and-ideles, algebra, algebraic-number-theory, algebraic-topology, analytic-continuation, bezout, bsd, category-theory, class-field-theory, complex-analysis, differential-geometry, dirichlet-series-euler-products, dynamical-systems, etale-cohomology, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, galois-representations, hecke-operators, homological, lie-groups, measure-theory, modular-forms, modularity-and-flt, moduli-spaces, moonshine, morphisms-fiber-products, naive-set-theory, operator-algebras, p-adic-numbers, partitions-generating-functions, point-set-topology, probability-theory, projective-plane, quadratic-forms-genus-theory, quadratic-reciprocity, representation-theory, riemann-surfaces, riemannian-geometry, sato-tate, schemes, sheaf-cohomology, sheaves, singular-cubics-reduction, smooth-manifolds, stacks, theta-functions, upper-half-plane-hyperbolic, zeta-values |
+| `button-stepper` | button-stepper | click | 2d | 339 | L-functions, additive-number-theory, adeles-and-ideles, algebra, algebraic-number-theory, algebraic-topology, analytic-continuation, bezout, bsd, category-theory, class-field-theory, complex-analysis, differential-geometry, dirichlet-series-euler-products, dynamical-systems, etale-cohomology, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, galois-representations, hecke-operators, homological, lie-groups, measure-theory, modular-forms, modularity-and-flt, moduli-spaces, moonshine, morphisms-fiber-products, naive-set-theory, operator-algebras, p-adic-numbers, partitions-generating-functions, point-set-topology, probability-theory, projective-plane, quadratic-forms-genus-theory, quadratic-reciprocity, representation-theory, riemann-surfaces, riemannian-geometry, sato-tate, schemes, sheaf-cohomology, sheaves, singular-cubics-reduction, smooth-manifolds, stacks, theta-functions, upper-half-plane-hyperbolic, zeta-values |
 | `clickable-diagram` | clickable-diagram | click | 2d | 69 | algebra, algebraic-number-theory, algebraic-topology, bezout, category-theory, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, homological, measure-theory, morphisms-fiber-products, naive-set-theory, operator-algebras, quadratic-reciprocity, real-analysis, riemannian-geometry, schemes, sheaves, stacks |
+| `parametric-plot` | parametric-plot | slider | 2d | 11 | analytic-continuation, analytic-number-theory, expanders |
+| `schrodinger-figure` | schrodinger-figure | slider | 2d | 7 | schrodinger-equation |
 | `clickable-graph` | clickable-graph | click | 2d | 6 | adeles-and-ideles, riemannian-geometry, schemes, sheaves |
 | `surface-viewer` | surface-viewer | drag | 3d | 6 | differential-geometry, lie-groups |
 | `svg-illustration` | svg-illustration | static | 2d | 6 | L-functions, riemann-surfaces |
-| `parametric-plot` | parametric-plot | slider | 2d | 5 | analytic-continuation |
+| `inline-code-cell` | inline-code-cell | edit | 2d | 4 | analytic-number-theory, heights-arithmetic-geometry, p-adic-numbers |
 | `input-form` | input-form | input | 2d | 4 | additive-number-theory |
 | `lattice-visualizer` | lattice-visualizer | slider | 2d | 4 | elliptic-curves, modular-forms, riemann-surfaces, theta-functions |
 | `modular-arithmetic-clock` | modular-arithmetic-clock | slider | 2d | 4 | additive-number-theory, frobenius-and-reciprocity, p-adic-numbers, quadratic-reciprocity |
 | `declarative-host` | declarative-host | interactive | 2d | 3 | additive-number-theory, category-theory |
+| `counterexample-explorer` | counterexample-explorer | select | 2d | 2 | heights-arithmetic-geometry, point-set-topology |
+| `proof-scrubber` | proof-scrubber | timeline | 2d | 2 | algebraic-topology, analytic-number-theory |
 | `algebraic-curves-canonical-embedding-scrubber` | algebraic-curves-canonical-embedding-scrubber | interact | 2d | 1 | algebraic-curves-higher-genus |
 | `algebraic-curves-hyperelliptic-cover` | algebraic-curves-hyperelliptic-cover | interact | 2d | 1 | algebraic-curves-higher-genus |
 | `algebraic-curves-jacobian-lattice` | algebraic-curves-jacobian-lattice | interact | 2d | 1 | algebraic-curves-higher-genus |
@@ -48,6 +52,7 @@ page has wired one in yet.
 | `algebraic-spaces-morphisms-diagram` | clickable-diagram | click | 2d | 1 | algebraic-spaces |
 | `algebraic-spaces-scheme-stack-hierarchy` | clickable-diagram | click | 2d | 1 | algebraic-spaces |
 | `algebraic-spaces-why-scrubber` | proof-scrubber | scrub | 2d | 1 | algebraic-spaces |
+| `branching-proof-scrubber` | branching-proof-scrubber | branching-timeline | 2d | 1 | galois |
 | `class-field-theory-reciprocity-dictionary` | svg-illustration | read | 2d | 1 | class-field-theory |
 | `cocartesian-fibrations-edge-scrubber` | cocartesian-fibrations-edge-scrubber | interact | 2d | 1 | cocartesian-fibrations |
 | `cocartesian-fibrations-examples-graph` | cocartesian-fibrations-examples-graph | interact | 2d | 1 | cocartesian-fibrations |
@@ -72,7 +77,6 @@ page has wired one in yet.
 | `commutative-algebra-zariski-spec` | clickable-diagram | click | 2d | 1 | commutative-algebra |
 | `composition-explorer` | clickable-diagram | click | 2d | 1 | category-theory |
 | `constraint-bifurcation-explorer` | constraint-bifurcation-explorer | slider | 2d | 1 | real-analysis |
-| `counterexample-explorer` | counterexample-explorer | select | 2d | 1 | point-set-topology |
 | `deformation-theory-cotangent-scrubber` | proof-scrubber | scrub | 2d | 1 | deformation-theory |
 | `deformation-theory-curve-sandbox` | svg-illustration | interact | 2d | 1 | deformation-theory |
 | `deformation-theory-first-order-scrubber` | proof-scrubber | scrub | 2d | 1 | deformation-theory |
@@ -87,6 +91,7 @@ page has wired one in yet.
 | `derived-categories-roof` | clickable-diagram | click | 2d | 1 | derived-categories |
 | `derived-categories-t-structure` | clickable-diagram | click | 2d | 1 | derived-categories |
 | `derived-categories-triangle` | clickable-diagram | click | 2d | 1 | derived-categories |
+| `diagram-editor` | diagram-editor | drag-and-toggle | 2d | 1 | homological |
 | `elementary-topos-theory-axioms-scrub` | declarative-host | click | 2d | 1 | elementary-topos-theory |
 | `elementary-topos-theory-chi-pullback` | declarative-host | click | 2d | 1 | elementary-topos-theory |
 | `elementary-topos-theory-geom-graph` | declarative-host | click | 2d | 1 | elementary-topos-theory |
@@ -100,7 +105,7 @@ page has wired one in yet.
 | `etale-fundamental-group-frob-clock` | declarative-host | click | 2d | 1 | etale-fundamental-group |
 | `etale-fundamental-group-galois-equiv` | declarative-host | click | 2d | 1 | etale-fundamental-group |
 | `etale-fundamental-group-pi1-construct` | declarative-host | click | 2d | 1 | etale-fundamental-group |
-| `galois-quintic-unsolvability` | proof-scrubber | scrub | 2d | 1 | galois |
+| `expanders-vertex-expansion` | expanders-vertex-expansion | click | 2d | 1 | expanders |
 | `grothendieck-topologies-sites-axioms-scrub` | declarative-host | click | 2d | 1 | grothendieck-topologies-sites |
 | `grothendieck-topologies-sites-geom-comp` | declarative-host | click | 2d | 1 | grothendieck-topologies-sites |
 | `grothendieck-topologies-sites-giraud` | declarative-host | click | 2d | 1 | grothendieck-topologies-sites |
@@ -115,6 +120,12 @@ page has wired one in yet.
 | `group-schemes-mu-n-add` | modular-arithmetic-clock | drag | 2d | 1 | group-schemes |
 | `group-schemes-mu-n-clock` | modular-arithmetic-clock | drag | 2d | 1 | group-schemes |
 | `group-schemes-torsor-cases` | counterexample-explorer | click | 2d | 1 | group-schemes |
+| `hamiltonians-canonical-transform` | hamiltonians-canonical-transform | slider | 2d | 1 | hamiltonians-classical-mechanics |
+| `hamiltonians-conserved-quantity` | hamiltonians-conserved-quantity | select | 2d | 1 | hamiltonians-classical-mechanics |
+| `hamiltonians-flow-portrait` | hamiltonians-flow-portrait | click | 2d | 1 | hamiltonians-classical-mechanics |
+| `hamiltonians-kam-tori` | hamiltonians-kam-tori | slider | 2d | 1 | hamiltonians-classical-mechanics |
+| `hamiltonians-kepler-orbits` | hamiltonians-kepler-orbits | slider | 2d | 1 | hamiltonians-classical-mechanics |
+| `hamiltonians-phase-space-cell` | hamiltonians-phase-space-cell | button | 2d | 1 | hamiltonians-classical-mechanics |
 | `heyting-algebras-toposes-geometric-composition` | clickable-diagram | click | 2d | 1 | heyting-algebras-toposes |
 | `heyting-algebras-toposes-heyting-clickable` | clickable-diagram | click | 2d | 1 | heyting-algebras-toposes |
 | `heyting-algebras-toposes-internal-language-dictionary` | clickable-diagram | click | 2d | 1 | heyting-algebras-toposes |
@@ -137,15 +148,21 @@ page has wired one in yet.
 | `infinity-topoi-presheaf-universal` | proof-scrubber | scrub | 2d | 1 | infinity-topoi |
 | `infinity-topoi-univalent-universes` | clickable-diagram | click | 2d | 1 | infinity-topoi |
 | `infinity-topoi-whitehead-internal` | proof-scrubber | scrub | 2d | 1 | infinity-topoi |
-| `inline-code-cell` | inline-code-cell | edit | 2d | 1 | p-adic-numbers |
 | `intersection-theory-chow-chern-multiplicativity` | parametric-plot | select | 2d | 1 | intersection-theory-chow |
 | `intersection-theory-chow-cycles-rational-equivalence` | clickable-diagram | click | 2d | 1 | intersection-theory-chow |
 | `intersection-theory-chow-grr-scrub` | proof-scrubber | scrub | 2d | 1 | intersection-theory-chow |
 | `intersection-theory-chow-intersection-product` | clickable-diagram | click | 2d | 1 | intersection-theory-chow |
 | `intersection-theory-chow-orbits` | parametric-plot | select | 2d | 1 | intersection-theory-chow |
 | `intersection-theory-chow-pn-ring` | parametric-plot | select | 2d | 1 | intersection-theory-chow |
+| `julia-playground` | julia-playground | slider | 2d | 1 | dynamical-systems |
+| `matroid-axiom-checker` | matroid-axiom-checker | click | 2d | 1 | matroid-theory |
+| `matroid-bases-rank-explorer` | matroid-bases-rank-explorer | slider | 2d | 1 | matroid-theory |
+| `matroid-dual-explorer` | matroid-dual-explorer | click | 2d | 1 | matroid-theory |
+| `matroid-flats-stepper` | matroid-flats-stepper | step | 2d | 1 | matroid-theory |
+| `matroid-graph-forests` | matroid-graph-forests | click | 2d | 1 | matroid-theory |
+| `matroid-greedy-vs-nonmatroid` | matroid-greedy-vs-nonmatroid | slider | 2d | 1 | matroid-theory |
+| `matroid-tutte-polynomial` | matroid-tutte-polynomial | slider | 2d | 1 | matroid-theory |
 | `natural-transformation-explorer` | naturality-square | slider+click | 2d | 1 | category-theory |
-| `proof-scrubber` | proof-scrubber | timeline | 2d | 1 | algebraic-topology |
 | `recurrence-plotter` | recurrence-plotter | slider | 2d | 1 | dynamical-systems |
 | `simplicial-sets-delta-generators` | clickable-diagram | click | 2d | 1 | simplicial-sets-and-nerve |
 | `simplicial-sets-faces-degeneracies` | clickable-diagram | click | 2d | 1 | simplicial-sets-and-nerve |
@@ -153,9 +170,12 @@ page has wired one in yet.
 | `simplicial-sets-inner-horn-filler` | button-stepper | click | 2d | 1 | simplicial-sets-and-nerve |
 | `simplicial-sets-nerve-2simplex` | clickable-diagram | click | 2d | 1 | simplicial-sets-and-nerve |
 | `simplicial-sets-realization-stepper` | button-stepper | step | 2d | 1 | simplicial-sets-and-nerve |
-| `branching-proof-scrubber` | branching-proof-scrubber | branching-timeline | 2d | 0 | _(none — fixture-only)_ |
-| `diagram-editor` | diagram-editor | drag-and-toggle | 2d | 0 | _(none — fixture-only)_ |
-| `julia-playground` | julia-playground | slider | 2d | 0 | _(none — fixture-only)_ |
+| `three-body-halo-orbits` | three-body-halo-orbits | click | 2d | 1 | three-body-problem |
+| `three-body-horseshoe` | three-body-horseshoe | click | 2d | 1 | three-body-problem |
+| `three-body-kam-tori` | three-body-kam-tori | slider | 2d | 1 | three-body-problem |
+| `three-body-lagrange-points` | three-body-lagrange-points | slider | 2d | 1 | three-body-problem |
+| `three-body-nbody-simulator` | three-body-nbody-simulator | click | 2d | 1 | three-body-problem |
+| `three-body-special-solutions` | three-body-special-solutions | click | 2d | 1 | three-body-problem |
 
 ## Per-subject
 
@@ -172,10 +192,10 @@ page has wired one in yet.
 ### Algebra & homological
 
 - Topics: **12**, concepts: **106**
-- Widgets: **104** (registry-driven: 73, inline: 31)
-  - by family: button-stepper: 38, unknown: 31, clickable-diagram: 21, parametric-plot: 9, proof-scrubber: 2, naturality-square: 1, declarative-host: 1, clickable-graph: 1
-  - by dimension: 2d: 73, unknown: 31
-  - by gesture: click: 60, unknown: 31, select: 9, scrub: 2, slider+click: 1, interactive: 1
+- Widgets: **105** (registry-driven: 74, inline: 31)
+  - by family: button-stepper: 38, unknown: 31, clickable-diagram: 21, parametric-plot: 9, proof-scrubber: 2, naturality-square: 1, declarative-host: 1, clickable-graph: 1, diagram-editor: 1
+  - by dimension: 2d: 74, unknown: 31
+  - by gesture: click: 60, unknown: 31, select: 9, scrub: 2, slider+click: 1, interactive: 1, drag-and-toggle: 1
 - Quizzes: **505** (v1: 319, hard: 186, expert: 0)
   - by type: mcq: 318, numeric: 145, multi-select: 20, ordering: 7, matching: 5, spot-the-error: 5, proof-completion: 4, complex: 1
 
@@ -191,13 +211,13 @@ page has wired one in yet.
 
 ### Analysis
 
-- Topics: **15**, concepts: **146**
-- Widgets: **106** (registry-driven: 70, inline: 36)
-  - by family: button-stepper: 37, unknown: 36, clickable-diagram: 31, constraint-bifurcation-explorer: 1, recurrence-plotter: 1
-  - by dimension: 2d: 70, unknown: 36
-  - by gesture: click: 68, unknown: 36, slider: 2
-- Quizzes: **561** (v1: 376, hard: 185, expert: 0)
-  - by type: mcq: 352, numeric: 139, multi-select: 15, complex: 14, matching: 14, ordering: 12, proof-completion: 9, spot-the-error: 4, construction: 1, guess-my-rule: 1
+- Topics: **15**, concepts: **149**
+- Widgets: **107** (registry-driven: 71, inline: 36)
+  - by family: button-stepper: 37, unknown: 36, clickable-diagram: 31, constraint-bifurcation-explorer: 1, recurrence-plotter: 1, julia-playground: 1
+  - by dimension: 2d: 71, unknown: 36
+  - by gesture: click: 68, unknown: 36, slider: 3
+- Quizzes: **570** (v1: 385, hard: 185, expert: 0)
+  - by type: mcq: 358, numeric: 142, multi-select: 15, complex: 14, matching: 14, ordering: 12, proof-completion: 9, spot-the-error: 4, construction: 1, guess-my-rule: 1
 
 ### Probability & statistics
 
@@ -211,33 +231,33 @@ page has wired one in yet.
 
 ### Geometry & topology
 
-- Topics: **16**, concepts: **97**
-- Widgets: **99** (registry-driven: 51, inline: 48)
-  - by family: unknown: 48, button-stepper: 34, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, counterexample-explorer: 1, proof-scrubber: 1, lattice-visualizer: 1
-  - by dimension: unknown: 48, 2d: 45, 3d: 6
-  - by gesture: unknown: 48, click: 40, drag: 6, static: 2, select: 1, timeline: 1, slider: 1
-- Quizzes: **433** (v1: 291, hard: 142, expert: 0)
-  - by type: mcq: 299, numeric: 118, complex: 7, multi-select: 4, matching: 3, ordering: 1, proof-completion: 1
+- Topics: **16**, concepts: **102**
+- Widgets: **104** (registry-driven: 51, inline: 53)
+  - by family: unknown: 53, button-stepper: 34, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, counterexample-explorer: 1, proof-scrubber: 1, lattice-visualizer: 1
+  - by dimension: unknown: 53, 2d: 45, 3d: 6
+  - by gesture: unknown: 53, click: 40, drag: 6, static: 2, select: 1, timeline: 1, slider: 1
+- Quizzes: **448** (v1: 306, hard: 142, expert: 0)
+  - by type: mcq: 310, numeric: 122, complex: 7, multi-select: 4, matching: 3, ordering: 1, proof-completion: 1
 
 ### Number theory
 
-- Topics: **14**, concepts: **90**
-- Widgets: **103** (registry-driven: 84, inline: 19)
-  - by family: button-stepper: 66, unknown: 19, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, declarative-host: 2, proof-scrubber: 1, inline-code-cell: 1, clickable-graph: 1, svg-illustration: 1
-  - by dimension: 2d: 84, unknown: 19
-  - by gesture: click: 71, unknown: 19, slider: 4, input: 4, interactive: 2, scrub: 1, edit: 1, read: 1
-- Quizzes: **445** (v1: 262, hard: 183, expert: 0)
-  - by type: mcq: 298, numeric: 140, complex: 3, matching: 2, ordering: 1, guess-my-rule: 1
+- Topics: **14**, concepts: **97**
+- Widgets: **110** (registry-driven: 91, inline: 19)
+  - by family: button-stepper: 66, unknown: 19, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, inline-code-cell: 4, declarative-host: 2, parametric-plot: 2, branching-proof-scrubber: 1, clickable-graph: 1, svg-illustration: 1, counterexample-explorer: 1, proof-scrubber: 1
+  - by dimension: 2d: 91, unknown: 19
+  - by gesture: click: 71, unknown: 19, slider: 6, input: 4, edit: 4, interactive: 2, branching-timeline: 1, read: 1, select: 1, timeline: 1
+- Quizzes: **466** (v1: 283, hard: 183, expert: 0)
+  - by type: mcq: 315, numeric: 144, complex: 3, matching: 2, ordering: 1, guess-my-rule: 1
 
 ### Modular forms & L-functions
 
-- Topics: **16**, concepts: **85**
-- Widgets: **119** (registry-driven: 100, inline: 19)
-  - by family: button-stepper: 89, unknown: 19, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 2
-  - by dimension: 2d: 100, unknown: 19
-  - by gesture: click: 89, unknown: 19, slider: 7, static: 4
-- Quizzes: **450** (v1: 255, hard: 195, expert: 0)
-  - by type: mcq: 296, numeric: 148, multi-select: 4, matching: 1, ordering: 1
+- Topics: **16**, concepts: **93**
+- Widgets: **127** (registry-driven: 103, inline: 24)
+  - by family: button-stepper: 92, unknown: 24, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 2
+  - by dimension: 2d: 103, unknown: 24
+  - by gesture: click: 92, unknown: 24, slider: 7, static: 4
+- Quizzes: **474** (v1: 279, hard: 195, expert: 0)
+  - by type: mcq: 312, numeric: 156, multi-select: 4, matching: 1, ordering: 1
 
 ### Algebraic geometry
 
@@ -252,20 +272,20 @@ page has wired one in yet.
 ### Combinatorics & graph theory
 
 - Topics: **8**, concepts: **51**
-- Widgets: **51** (registry-driven: 0, inline: 51)
-  - by family: unknown: 51
-  - by dimension: unknown: 51
-  - by gesture: unknown: 51
+- Widgets: **51** (registry-driven: 12, inline: 39)
+  - by family: unknown: 39, parametric-plot: 4, expanders-vertex-expansion: 1, matroid-axiom-checker: 1, matroid-bases-rank-explorer: 1, matroid-graph-forests: 1, matroid-flats-stepper: 1, matroid-dual-explorer: 1, matroid-greedy-vs-nonmatroid: 1, matroid-tutte-polynomial: 1
+  - by dimension: unknown: 39, 2d: 12
+  - by gesture: unknown: 39, slider: 7, click: 4, step: 1
 - Quizzes: **153** (v1: 153, hard: 0, expert: 0)
   - by type: mcq: 112, numeric: 31, multi-select: 10
 
 ### Mathematical physics
 
 - Topics: **4**, concepts: **24**
-- Widgets: **0** (registry-driven: 0, inline: 0)
-  - by family: _(none)_
-  - by dimension: _(none)_
-  - by gesture: _(none)_
+- Widgets: **19** (registry-driven: 19, inline: 0)
+  - by family: schrodinger-figure: 7, hamiltonians-phase-space-cell: 1, hamiltonians-flow-portrait: 1, hamiltonians-canonical-transform: 1, hamiltonians-conserved-quantity: 1, hamiltonians-kam-tori: 1, hamiltonians-kepler-orbits: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
+  - by dimension: 2d: 19
+  - by gesture: slider: 12, click: 5, button: 1, select: 1
 - Quizzes: **72** (v1: 72, hard: 0, expert: 0)
   - by type: mcq: 62, numeric: 10
 
@@ -281,18 +301,18 @@ page has wired one in yet.
 - `mirror-symmetry` (Algebraic geometry) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `mostow-rigidity` (Geometry & topology) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `resolution-of-singularities` (Algebraic geometry) — concepts=6, widgets=5 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
-- `hamiltonians-classical-mechanics` (Mathematical physics) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `hamiltonians-classical-mechanics` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `general-relativity` (Mathematical physics) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
-- `three-body-problem` (Mathematical physics) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `three-body-problem` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `designs` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
-- `expanders` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `expanders` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=5), quiz=18 (v1=18, hard=0, expert=0)
 - `symplectic-manifolds` (Geometry & topology) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `quantum-groups` (Algebra & homological) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `quaternions-octonions-and-division-algebras` (Algebra & homological) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `geometric-and-combinatorial-group-theory` (Algebra & homological) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `wavelets` (Analysis) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `vertex-operator-algebras` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
-- `schrodinger-equation` (Mathematical physics) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `schrodinger-equation` (Mathematical physics) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
 - `mathematics-and-cryptography` (Number theory) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `knot-polynomials` (Geometry & topology) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `ricci-flow` (Geometry & topology) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
@@ -310,7 +330,7 @@ page has wired one in yet.
 - `category-theory` (Algebra & homological) — concepts=12, widgets=17 (slug=17), quiz=72 (v1=36, hard=36, expert=0)
 - `representation-theory` (Algebra & homological) — concepts=13, widgets=13 (slug=13), quiz=74 (v1=39, hard=35, expert=0)
 - `commutative-algebra` (Algebra & homological) — concepts=13, widgets=13 (slug=13), quiz=75 (v1=40, hard=35, expert=0)
-- `homological` (Algebra & homological) — concepts=12, widgets=11 (slug=11), quiz=73 (v1=36, hard=37, expert=0)
+- `homological` (Algebra & homological) — concepts=12, widgets=12 (slug=12), quiz=73 (v1=36, hard=37, expert=0)
 - `derived-categories` (Algebra & homological) — concepts=7, widgets=7 (slug=7), quiz=27 (v1=21, hard=6, expert=0)
 - `group-cohomology` (Algebra & homological) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
 - `lie-algebras` (Algebra & homological) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
@@ -327,12 +347,12 @@ page has wired one in yet.
 - `complex-analysis` (Analysis) — concepts=26, widgets=7 (slug=7), quiz=28 (v1=16, hard=12, expert=0)
 - `functional-analysis` (Analysis) — concepts=12, widgets=11 (slug=11), quiz=72 (v1=36, hard=36, expert=0)
 - `operator-algebras` (Analysis) — concepts=12, widgets=12 (slug=12), quiz=72 (v1=36, hard=36, expert=0)
-- `dynamical-systems` (Analysis) — concepts=13, widgets=13 (slug=13), quiz=75 (v1=39, hard=36, expert=0)
+- `dynamical-systems` (Analysis) — concepts=13, widgets=14 (slug=14), quiz=75 (v1=39, hard=36, expert=0)
 - `sobolev-spaces-distributions` (Analysis) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
 - `harmonic-analysis-fourier` (Analysis) — concepts=8, widgets=5 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
 - `partial-differential-equations` (Analysis) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `harmonic-functions` (Analysis) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
-- `spectral-theory` (Analysis) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `spectral-theory` (Analysis) — concepts=9, widgets=0 (slug=0), quiz=27 (v1=27, hard=0, expert=0)
 - `probability-theory` (Probability & statistics) — concepts=12, widgets=10 (slug=10), quiz=73 (v1=36, hard=24, expert=13)
 - `stochastic-processes-and-martingales` (Probability & statistics) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `stochastic-calculus` (Probability & statistics) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
@@ -347,8 +367,8 @@ page has wired one in yet.
 - `riemannian-geometry` (Geometry & topology) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `lie-groups` (Geometry & topology) — concepts=7, widgets=6 (slug=6), quiz=42 (v1=21, hard=21, expert=0)
 - `riemann-surfaces` (Geometry & topology) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
-- `characteristic-classes` (Geometry & topology) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
-- `morse-theory` (Geometry & topology) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `characteristic-classes` (Geometry & topology) — concepts=9, widgets=9 (slug=0), quiz=27 (v1=27, hard=0, expert=0)
+- `morse-theory` (Geometry & topology) — concepts=8, widgets=8 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
 - `galois` (Number theory) — concepts=8, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
 - `quadratic-reciprocity` (Number theory) — concepts=6, widgets=7 (slug=7), quiz=33 (v1=18, hard=15, expert=0)
 - `quadratic-forms-genus-theory` (Number theory) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
@@ -358,8 +378,8 @@ page has wired one in yet.
 - `adeles-and-ideles` (Number theory) — concepts=5, widgets=5 (slug=5), quiz=30 (v1=15, hard=15, expert=0)
 - `frobenius-and-reciprocity` (Number theory) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `class-field-theory` (Number theory) — concepts=6, widgets=8 (slug=8), quiz=36 (v1=18, hard=18, expert=0)
-- `heights-arithmetic-geometry` (Number theory) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
-- `analytic-number-theory` (Number theory) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `heights-arithmetic-geometry` (Number theory) — concepts=10, widgets=10 (slug=3), quiz=30 (v1=30, hard=0, expert=0)
+- `analytic-number-theory` (Number theory) — concepts=10, widgets=10 (slug=4), quiz=30 (v1=30, hard=0, expert=0)
 - `upper-half-plane-hyperbolic` (Modular forms & L-functions) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `modular-forms` (Modular forms & L-functions) — concepts=6, widgets=8 (slug=8), quiz=33 (v1=18, hard=15, expert=0)
 - `theta-functions` (Modular forms & L-functions) — concepts=5, widgets=8 (slug=8), quiz=30 (v1=15, hard=15, expert=0)
@@ -370,9 +390,9 @@ page has wired one in yet.
 - `zeta-values` (Modular forms & L-functions) — concepts=5, widgets=5 (slug=5), quiz=30 (v1=15, hard=15, expert=0)
 - `L-functions` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `galois-representations` (Number theory) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
-- `moonshine` (Modular forms & L-functions) — concepts=5, widgets=5 (slug=5), quiz=30 (v1=15, hard=15, expert=0)
-- `automorphic-forms-adelic` (Modular forms & L-functions) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
-- `modular-curves` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `moonshine` (Modular forms & L-functions) — concepts=8, widgets=8 (slug=8), quiz=39 (v1=24, hard=15, expert=0)
+- `automorphic-forms-adelic` (Modular forms & L-functions) — concepts=9, widgets=9 (slug=0), quiz=27 (v1=27, hard=0, expert=0)
+- `modular-curves` (Modular forms & L-functions) — concepts=9, widgets=9 (slug=0), quiz=27 (v1=27, hard=0, expert=0)
 - `projective-plane` (Algebraic geometry) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `bezout` (Algebraic geometry) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `schemes` (Algebraic geometry) — concepts=10, widgets=8 (slug=8), quiz=60 (v1=30, hard=30, expert=0)
@@ -392,7 +412,7 @@ page has wired one in yet.
 - `etale-fundamental-group` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=24 (v1=18, hard=6, expert=0)
 - `deformation-theory` (Algebraic geometry) — concepts=6, widgets=7 (slug=7), quiz=24 (v1=18, hard=6, expert=0)
 - `spectral-graph-theory` (Combinatorics & graph theory) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
-- `matroid-theory` (Combinatorics & graph theory) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
+- `matroid-theory` (Combinatorics & graph theory) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `probabilistic-method` (Combinatorics & graph theory) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
 - `extremal-combinatorics` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `simplicial-complexes-combinatorial` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
@@ -419,13 +439,13 @@ page has wired one in yet.
 - `fpt-kakutani` (fixed-point-theorems)
 - `fpt-applications` (fixed-point-theorems)
 - `ros-applications` (resolution-of-singularities)
-- `hcm-phase-space` (hamiltonians-classical-mechanics)
-- `hcm-hamilton-equations` (hamiltonians-classical-mechanics)
-- `hcm-canonical-transformations` (hamiltonians-classical-mechanics)
-- `hcm-noether` (hamiltonians-classical-mechanics)
-- `hcm-integrable-systems` (hamiltonians-classical-mechanics)
-- `hcm-applications` (hamiltonians-classical-mechanics)
 - `gr-spacetime` (general-relativity)
+- `gr-einstein-equations` (general-relativity)
+- `gr-schwarzschild` (general-relativity)
+- `gr-kerr-rotating` (general-relativity)
+- `gr-cosmology-flrw` (general-relativity)
+- `gr-gravitational-waves` (general-relativity)
+- `gcgt-presentations` (geometric-and-combinatorial-group-theory)
 
 ### Concepts missing a hard-tier quiz (top 20)
 

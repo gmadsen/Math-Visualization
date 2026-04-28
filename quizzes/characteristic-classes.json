@@ -259,6 +259,123 @@
           "explain": "If $\\nabla_t = \\nabla + t(\\nabla' - \\nabla)$ is a path of connections, integrating $\\frac{d}{dt}P(F_{\\nabla_t})$ over $t \\in [0,1]$ produces an explicit primitive, the Chern–Simons / transgression form, so $[P(F_\\nabla)]$ is independent of $\\nabla$ in de Rham cohomology."
         }
       ]
+    },
+    "cc-classifying-spaces": {
+      "title": "Classifying spaces $BO(n)$, $BU(n)$",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What does the bijection $[X, BU(n)] \\xrightarrow{\\sim} \\{\\text{rank-}n \\text{ complex bundles on }X\\}/\\!\\sim$ send a homotopy class of maps $f$ to?",
+          "choices": [
+            "The trivial bundle of rank $n$",
+            "The pullback $f^*\\gamma_n$ of the tautological bundle",
+            "The tangent bundle of $X$",
+            "The dual bundle $f^*\\gamma_n^\\vee$"
+          ],
+          "answer": 1,
+          "hint": "$BU(n) = \\mathrm{Gr}_n(\\mathbb{C}^\\infty)$ carries a tautological rank-$n$ bundle.",
+          "explain": "The infinite Grassmannian $BU(n)$ has the tautological bundle $\\gamma_n\\to BU(n)$ whose fibre at a subspace $V$ is $V$ itself. Every rank-$n$ complex bundle on a paracompact $X$ is $f^*\\gamma_n$ for a unique homotopy class $f\\colon X\\to BU(n)$."
+        },
+        {
+          "type": "mcq",
+          "q": "What is $H^*(BU(n);\\mathbb{Z})$ as a graded ring?",
+          "choices": [
+            "$\\mathbb{Z}$ in every even degree",
+            "$\\mathbb{Z}/2[w_1,\\ldots,w_n]$",
+            "$\\mathbb{Z}[c_1,\\ldots,c_n]$ with $|c_i| = 2i$",
+            "$\\Lambda_\\mathbb{Z}(c_1,\\ldots,c_n)$ exterior"
+          ],
+          "answer": 2,
+          "hint": "Universal Chern classes generate freely in even degree.",
+          "explain": "$H^*(BU(n);\\mathbb{Z}) = \\mathbb{Z}[c_1,\\ldots,c_n]$, polynomial in the universal Chern classes $c_i$ of degree $2i$. A characteristic class is exactly a polynomial in the $c_i$. The mod-$2$ analogue $\\mathbb{Z}/2[w_1,\\ldots,w_n]$ is the cohomology of $BO(n)$."
+        },
+        {
+          "type": "numeric",
+          "q": "On $\\mathbb{CP}^1\\cong S^2$, the line bundle $\\mathcal{O}(d)$ is classified by a map $\\mathbb{CP}^1 \\to BU(1) = \\mathbb{CP}^\\infty$ of degree $d$. Compute $\\langle c_1(\\mathcal{O}(d)),[\\mathbb{CP}^1]\\rangle$ when $d = 5$.",
+          "answer": 5,
+          "tol": 0,
+          "hint": "$c_1(\\mathcal{O}(d))$ is $d$ times the generator of $H^2(\\mathbb{CP}^1;\\mathbb{Z})$.",
+          "explain": "The classifying map for $\\mathcal{O}(d)$ has degree $d$ on $H^2$, and the universal $c_1$ pulls back to $d$ times the generator. Pairing with $[\\mathbb{CP}^1]$ gives $d = 5$. Equivalently, $\\mathcal{O}(d) = \\mathcal{O}(1)^{\\otimes d}$ and $c_1$ is additive on tensor products of line bundles."
+        }
+      ]
+    },
+    "cc-signature-theorem": {
+      "title": "Hirzebruch signature theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the signature $\\sigma(M)$ of a closed oriented $4k$-manifold?",
+          "choices": [
+            "The Euler characteristic $\\chi(M)$",
+            "$b_{2k}^+ - b_{2k}^-$, the index of the cup-product pairing on $H^{2k}(M;\\mathbb{R})$",
+            "The first Pontryagin number",
+            "The total Betti number $\\sum b_i$"
+          ],
+          "answer": 1,
+          "hint": "Diagonalise the cup-product pairing on the middle cohomology.",
+          "explain": "On a closed oriented $4k$-manifold, the cup-product pairing $Q(\\alpha,\\beta) = \\langle\\alpha\\smile\\beta,[M]\\rangle$ is a symmetric non-degenerate form on $H^{2k}(M;\\mathbb{R})$. Its signature $\\sigma(M) = b_{2k}^+ - b_{2k}^-$ is the Hirzebruch signature."
+        },
+        {
+          "type": "numeric",
+          "q": "For $\\mathbb{CP}^2$ the first Pontryagin number is $p_1[\\mathbb{CP}^2] = 3$. Compute $L_1[\\mathbb{CP}^2]$, hence $\\sigma(\\mathbb{CP}^2)$ via Hirzebruch.",
+          "answer": 1,
+          "tol": 0,
+          "hint": "$L_1 = p_1/3$.",
+          "explain": "The first $L$-polynomial is $L_1 = p_1/3$, so $L_1[\\mathbb{CP}^2] = 3/3 = 1$. Hirzebruch's theorem gives $\\sigma(\\mathbb{CP}^2) = 1$, agreeing with the intersection form $(1)$ on $H^2(\\mathbb{CP}^2;\\mathbb{R})\\cong\\mathbb{R}$."
+        },
+        {
+          "type": "mcq",
+          "q": "Hirzebruch's theorem $\\sigma(M^{4k}) = \\langle L_k(p_1,\\ldots,p_k), [M]\\rangle$ has a striking integrality consequence. Which one?",
+          "choices": [
+            "Every $4k$-manifold has $\\sigma(M) = 0$",
+            "$L_k$ is a polynomial with integer coefficients",
+            "Pontryagin numbers like $p_1[M]$ on a $4$-manifold are divisible by $3$, since $\\sigma(M) = p_1[M]/3$ is an integer",
+            "Every closed $4k$-manifold has Euler characteristic divisible by $L_k$"
+          ],
+          "answer": 2,
+          "hint": "$L_1$ has a $3$ in the denominator but $\\sigma$ is always an integer.",
+          "explain": "The $L$-polynomial has rational coefficients ($L_1 = p_1/3$, $L_2 = (7p_2 - p_1^2)/45$, …), but $\\langle L_k,[M]\\rangle = \\sigma(M)\\in\\mathbb{Z}$ always. So $p_1[M]$ is divisible by $3$ on any closed oriented $4$-manifold — a non-trivial divisibility constraint forced by Hirzebruch."
+        }
+      ]
+    },
+    "cc-equivariant": {
+      "title": "Equivariant characteristic classes",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is $H^*_G(\\mathrm{pt};\\mathbb{Z})$ for $G$ a compact Lie group?",
+          "choices": [
+            "$\\mathbb{Z}$ in degree $0$ only",
+            "$H^*(BG;\\mathbb{Z})$",
+            "$H^*(G;\\mathbb{Z})$, the cohomology of the group itself",
+            "Always polynomial of rank $\\dim G$"
+          ],
+          "answer": 1,
+          "hint": "The Borel construction $X_G$ for $X = \\mathrm{pt}$ is just $BG$.",
+          "explain": "$H^*_G(X) := H^*((X\\times EG)/G;\\mathbb{Z})$, and for $X = \\mathrm{pt}$ this is $H^*(EG/G;\\mathbb{Z}) = H^*(BG;\\mathbb{Z})$. For $G = T = (S^1)^n$ this is the polynomial ring $\\mathbb{Z}[t_1,\\ldots,t_n]$ with $|t_i|=2$."
+        },
+        {
+          "type": "mcq",
+          "q": "In Atiyah–Bott $T$-localisation $\\int_X \\alpha = \\sum_{p\\in X^T} \\iota_p^*\\alpha / e^T(\\nu_p)$, what is $e^T(\\nu_p)$?",
+          "choices": [
+            "The ordinary Euler characteristic of $\\nu_p$",
+            "The equivariant Euler class of the normal bundle to the fixed-point component at $p$",
+            "The signature of $\\nu_p$",
+            "The first Chern class of $\\nu_p$"
+          ],
+          "answer": 1,
+          "hint": "Localisation pushes forward to the fixed locus; the denominator accounts for the normal directions.",
+          "explain": "$\\nu_p = T_pX$ is the (equivariant) normal bundle at the fixed point $p$, and $e^T(\\nu_p)\\in H^*(BT)$ is its equivariant Euler class — a non-zero polynomial in the $t_i$ (the weights of the $T$-action). Inverting it lives in the localised ring $\\mathrm{Frac}\\,H^*(BT)$."
+        },
+        {
+          "type": "numeric",
+          "q": "On $\\mathbb{CP}^1$ with the standard $S^1$ action, the two fixed points $p_0, p_1$ have $T$-weights $t_0, t_1$ on $T_{p_0}\\mathbb{CP}^1$ and $T_{p_1}\\mathbb{CP}^1$ given by $t_1 - t_0$ and $t_0 - t_1$ respectively. Compute the Atiyah–Bott sum $\\frac{t_0}{t_1 - t_0} + \\frac{t_1}{t_0 - t_1}$ as a rational function of $t_0,t_1$, and enter the resulting integer.",
+          "answer": -1,
+          "tol": 0,
+          "hint": "Put both fractions over the common denominator $t_1 - t_0$.",
+          "explain": "$\\frac{t_0}{t_1 - t_0} + \\frac{t_1}{t_0 - t_1} = \\frac{t_0}{t_1-t_0} - \\frac{t_1}{t_1-t_0} = \\frac{t_0 - t_1}{t_1 - t_0} = -1$. The geometric integral $\\int_{\\mathbb{CP}^1} c_1(\\mathcal{O}(1)) = 1$ uses the orientation convention where the equivariant Euler class is $e^T(\\nu_{p_i}) = t_i - t_{1-i}$ (rather than $t_{1-i} - t_i$); flipping the sign convention flips the sum from $-1$ to $+1$. The miraculous fact that the answer is a constant — independent of $t_0, t_1$ — is the entire point of Atiyah–Bott."
+        }
+      ]
     }
   }
 }

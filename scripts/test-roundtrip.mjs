@@ -86,6 +86,15 @@ for (const f of contentFiles) {
 if (errors.length) {
   for (const e of errors) console.error(`  ${e}`);
   console.error(`test-roundtrip: FAIL — ${pass} ok, ${errors.length} drifted`);
+  if (!FIX) {
+    console.error(
+      '\n  content/*.json is the source of truth — the on-disk HTML is\n' +
+      '  out of date. Run `node scripts/rebuild.mjs` locally (default\n' +
+      '  fix mode regenerates HTML from JSON), then commit the result.\n' +
+      '  If you intended a hand-edit on HTML, run `node scripts/extract-topic.mjs <topic>`\n' +
+      '  first to backport the change into the JSON.',
+    );
+  }
   process.exit(1);
 }
 

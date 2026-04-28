@@ -511,6 +511,55 @@
         },
         {
           "type": "raw",
+          "html": "\n\n<p>The cascade is not just a 1D phenomenon. The logistic map is conjugate (after a change of variable) to the real <em>quadratic family</em> $z\\mapsto z^2+c$, restricted to the real axis. Drop that constraint and let $c$ wander in the complex plane: the parameter values for which the orbit of $0$ stays bounded form the <strong>Mandelbrot set</strong>, and for each $c$ the points whose forward orbits stay bounded form the <strong>filled Julia set</strong> $K_c$. The real-axis period-doubling cascade is the visible cross-section of an enormous fractal: each doubling $r_n$ corresponds to a $c_n$ on the negative real axis where $K_c$ acquires a new pinch.</p>\n\n<p>The widget below renders $K_c$ for an interactively chosen $c$. The default $c=-1$ is the <strong>basilica</strong> — the Julia set of the first stable 2-cycle, exactly the complex-plane home of the cascade's first doubling. Drag the $\\Re(c)$ / $\\Im(c)$ sliders, or shift-click on the canvas to pin $c$ at a clicked point: every connected $K_c$ corresponds to a $c$ inside the Mandelbrot set, and the disconnected dust-Julia sets (Fatou's theorem) sit outside it.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "id": "w-julia-cascade",
+          "slug": "julia-playground",
+          "params": {
+            "widgetId": "w-julia-cascade",
+            "title": "Filled Julia set $K_c$ for $z\\mapsto z^2+c$",
+            "hint": "drag $\\Re(c)$ / $\\Im(c)$ to move $c$ · shift-click to pin · $c=-1$ is the basilica · $c=-0.75$ is the cusp · the real-axis cascade lives at $c\\in[-2,\\,1/4]$",
+            "mode": "julia",
+            "cReal": -1,
+            "cImag": 0,
+            "xmin": -1.7,
+            "xmax": 1.7,
+            "ymin": -1.1,
+            "ymax": 1.1,
+            "maxIterations": 120,
+            "width": 520,
+            "height": 340,
+            "palette": "violet"
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
+        },
+        {
+          "type": "widget-script",
+          "slug": "julia-playground",
+          "params": {
+            "widgetId": "w-julia-cascade",
+            "title": "Filled Julia set $K_c$ for $z\\mapsto z^2+c$",
+            "hint": "drag $\\Re(c)$ / $\\Im(c)$ to move $c$ · shift-click to pin · $c=-1$ is the basilica · $c=-0.75$ is the cusp · the real-axis cascade lives at $c\\in[-2,\\,1/4]$",
+            "mode": "julia",
+            "cReal": -1,
+            "cImag": 0,
+            "xmin": -1.7,
+            "xmax": 1.7,
+            "ymin": -1.1,
+            "ymax": 1.1,
+            "maxIterations": 120,
+            "width": 520,
+            "height": 340,
+            "palette": "violet"
+          }
+        },
+        {
+          "type": "raw",
           "html": "\n\n"
         },
         {

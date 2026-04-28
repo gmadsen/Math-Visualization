@@ -4730,6 +4730,172 @@ window.MVQuizBank = {
             "explain": "Elliott–Halberstam (1968) conjectures the same average bound holds for $Q \\le x^{1-\\varepsilon}$. Conditional on it, sieve methods give bounded prime gaps as small as $12$ (Maynard); Zhang's unconditional gap of $70 \\cdot 10^6$ used a weakened EH result."
           }
         ]
+      },
+      "ant-circle-method": {
+        "title": "The Hardy–Littlewood circle method",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In the circle method, the count $r_k(N)$ of representations of $N$ as a sum of $k$ values of $f$ is recovered as which integral over the generating exponential sum $S(\\alpha) = \\sum_n e(\\alpha f(n))$?",
+            "choices": [
+              "$\\int_0^1 S(\\alpha)\\,d\\alpha$",
+              "$\\int_0^1 S(\\alpha)^k\\,d\\alpha$",
+              "$\\int_0^1 S(\\alpha)^k\\, e(-N\\alpha)\\,d\\alpha$",
+              "$\\int_0^\\infty S(\\alpha)^k\\,d\\alpha$"
+            ],
+            "answer": 2,
+            "hint": "Multiplying by $e(-N\\alpha)$ and integrating extracts the Fourier coefficient at $N$.",
+            "explain": "$S(\\alpha)^k = \\sum_{n_1,\\ldots,n_k} e(\\alpha\\,(f(n_1)+\\cdots+f(n_k)))$, and $\\int_0^1 e(\\alpha m)\\,d\\alpha = \\mathbf 1_{m=0}$, so $\\int_0^1 S(\\alpha)^k e(-N\\alpha)\\,d\\alpha$ counts solutions to $f(n_1)+\\cdots+f(n_k)=N$."
+          },
+          {
+            "type": "mcq",
+            "q": "On the major arcs (the union of small neighborhoods of rationals $a/q$ with $q$ small), the exponential sum $S(\\alpha)$ behaves like",
+            "choices": [
+              "a clean main term $\\frac{1}{q}\\,c_q(a) \\cdot v(\\alpha - a/q)$ from a singular series, plus a controllable error",
+              "a random walk of length $\\sqrt{N}$",
+              "exactly zero",
+              "a rapidly oscillating noise indistinguishable from white noise"
+            ],
+            "answer": 0,
+            "hint": "Near $a/q$, the integers $n$ split into residue classes mod $q$, giving a Ramanujan-type sum $c_q(a) = \\sum_{(t,q)=1} e(at/q)$ and a smooth integral $v$.",
+            "explain": "The major-arc analysis writes $S(\\alpha)$ near $a/q$ in terms of a Gauss/Ramanujan sum (the arithmetic factor $c_q(a)/q$) times a smooth oscillatory integral $v(\\alpha - a/q)$ that contains the analytic content. Summing these contributions across rationals gives the singular series — the heuristic main term."
+          },
+          {
+            "type": "numeric",
+            "q": "The Hardy–Littlewood prediction for $r_3(N) = \\#\\{(p_1,p_2,p_3): p_1+p_2+p_3 = N, \\text{ each } p_i \\text{ prime}\\}$ has main term $\\mathfrak{S}(N) \\cdot N^2/(2\\,(\\log N)^3)$ for odd $N$. For even $N$, the singular series $\\mathfrak{S}(N)$ vanishes; what is its value?",
+            "answer": 0,
+            "tol": 0,
+            "hint": "An even number is a sum of three odd primes only if one of them is $2$, which is rare; the local obstruction at $2$ kills $\\mathfrak{S}$.",
+            "explain": "Three odd primes always sum to an odd number, so $\\mathfrak{S}(N) = 0$ for even $N$. This is the local obstruction at $p=2$. For odd $N$, $\\mathfrak{S}(N) \\ge \\mathfrak{S}_0 > 0$, and Vinogradov's theorem says ternary Goldbach holds for every sufficiently large odd $N$ (now every odd $N \\ge 7$, by Helfgott)."
+          }
+        ]
+      },
+      "ant-exponential-sums": {
+        "title": "Exponential sums and equidistribution",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Weyl's criterion characterizes equidistribution of $\\{a_n\\} \\subset \\mathbb{R}/\\mathbb{Z}$ as the condition that, for every nonzero integer $k$,",
+            "choices": [
+              "$\\frac{1}{N}\\sum_{n \\le N} e(k a_n) \\to 0$",
+              "$\\frac{1}{N}\\sum_{n \\le N} a_n \\to 1/2$",
+              "$\\sum_n e(k a_n)$ converges absolutely",
+              "$a_n$ is irrational for every $n$"
+            ],
+            "answer": 0,
+            "hint": "Equidistribution is dual to cancellation in every nonzero Fourier mode.",
+            "explain": "By Weierstrass, equidistribution of $\\{a_n\\}$ on the circle is equivalent to $\\frac{1}{N}\\sum f(a_n) \\to \\int f$ for every continuous $f$. Trigonometric polynomials are dense, so it reduces to the single-frequency condition $\\frac{1}{N}\\sum e(k a_n) \\to 0$ for $k \\ne 0$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is $\\{n\\alpha\\}_{n=1}^\\infty$ equidistributed on $[0,1)$ exactly when $\\alpha$ is irrational?",
+            "choices": [
+              "Rational $\\alpha$ makes the sequence periodic, so it samples only finitely many values",
+              "Irrationality is unrelated to equidistribution",
+              "Rational $\\alpha$ has Hausdorff dimension zero",
+              "Rational $\\alpha$ violates Weyl's criterion only for $k = 0$"
+            ],
+            "answer": 0,
+            "hint": "If $\\alpha = p/q$, the sequence cycles with period $q$.",
+            "explain": "For rational $\\alpha = p/q$, $\\{n\\alpha\\}$ takes only finitely many values $0, 1/q, \\ldots, (q-1)/q$, so $\\frac{1}{N}\\sum e(k n\\alpha)$ does not vanish for $k$ a multiple of $q$. For irrational $\\alpha$ the geometric sum $\\sum_{n=1}^N e(k n\\alpha) = (e(k(N+1)\\alpha) - e(k\\alpha))/(e(k\\alpha)-1)$ is bounded by $1/|\\sin \\pi k\\alpha|$, so $1/N$ times it tends to $0$ — Weyl's criterion holds."
+          },
+          {
+            "type": "mcq",
+            "q": "Weyl's inequality bounds $\\bigl|\\sum_{n \\le N} e(\\alpha n^k)\\bigr|$ when $\\alpha$ has a rational approximation $|\\alpha - a/q| < 1/q^2$, $\\gcd(a,q)=1$. The key consequence is",
+            "choices": [
+              "the sum is exactly zero",
+              "the sum is $\\ll N (q^{-1} + N^{-1} + qN^{-k})^{1/2^{k-1}}$, so it is small unless $q$ is in a narrow range",
+              "the sum equals $N$",
+              "the sum has size $\\sqrt{N}$ regardless of $\\alpha$"
+            ],
+            "answer": 1,
+            "hint": "Weyl's inequality is what makes the minor-arc bound in the circle method work — the exponent $1/2^{k-1}$ is small but nontrivial.",
+            "explain": "Weyl's inequality gives $|\\sum_{n \\le N} e(\\alpha n^k)| \\ll N^{1+\\varepsilon} (q^{-1} + N^{-1} + qN^{-k})^{1/2^{k-1}}$, which is nontrivial when $q$ is neither too small (then $\\alpha$ is on a major arc) nor too large (then $qN^{-k}$ dominates). The $1/2^{k-1}$ savings degrade with $k$, motivating Vinogradov's mean-value theorem for sharper bounds."
+          }
+        ]
+      },
+      "ant-selberg-elementary": {
+        "title": "Selberg's symmetry formula and elementary PNT",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Selberg's symmetry formula reads",
+            "choices": [
+              "$\\sum_{p \\le x} \\log p = x + O(x/\\log x)$",
+              "$\\sum_{p \\le x} \\log^2 p + \\sum_{pq \\le x} \\log p \\log q = 2 x \\log x + O(x)$",
+              "$\\sum_{n \\le x} \\Lambda(n) = x$",
+              "$\\sum_{p \\le x} 1/p = \\log\\log x + M$"
+            ],
+            "answer": 1,
+            "hint": "It is symmetric in primes ($p$) and prime pairs ($pq$).",
+            "explain": "Selberg derived $\\sum_{p \\le x} \\log^2 p + \\sum_{pq \\le x} \\log p \\log q = 2 x \\log x + O(x)$ by elementary manipulations of $\\Lambda * 1 = \\log$ and $\\Lambda + \\Lambda * \\Lambda$. The two sums are forced to balance: if one is too small the other must be too large, leading to a contradiction unless both behave like $x \\log x$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why was the elementary proof of PNT (Erdős–Selberg, 1948–49) historically significant?",
+            "choices": [
+              "It gave a sharper error term than Hadamard's analytic proof",
+              "It showed that complex analysis is not strictly necessary for PNT, contrary to what was widely believed",
+              "It eliminated the need to define $\\pi(x)$",
+              "It generalized PNT to infinite-dimensional algebras"
+            ],
+            "answer": 1,
+            "hint": "Hardy and others had conjectured no elementary proof was possible.",
+            "explain": "Hardy had publicly speculated that PNT could not be proved without complex analysis, viewing the depth of the result as inseparable from the analytic structure of $\\zeta(s)$. The Erdős–Selberg argument refuted this — though the resulting error term is weaker than the analytic proof's $O(x e^{-c\\sqrt{\\log x}})$, the proof is essentially real-variable."
+          },
+          {
+            "type": "mcq",
+            "q": "The bootstrap from Selberg's symmetry formula to PNT proceeds by",
+            "choices": [
+              "directly invoking the residue theorem",
+              "showing that $A = \\limsup_x |\\psi(x)/x - 1|$ satisfies $A \\le \\tfrac12 A$ (so $A = 0$), via the symmetry's averaging effect",
+              "induction on the number of prime factors",
+              "Mellin-transform inversion"
+            ],
+            "answer": 1,
+            "hint": "Symmetry feeds back the same quantity at half scale — a self-improvement loop forces zero.",
+            "explain": "Define $R(x) = \\psi(x) - x$. Selberg's formula combined with elementary inequalities gives $|R(x)| \\le \\tfrac{1}{2}\\max_{y \\le x} |R(y)| + o(x)$, which iterates down to $R(x) = o(x)$ — i.e. $\\psi(x) \\sim x$, equivalent to PNT. The averaging on the right is the symmetric pairing of $p$ with $pq$."
+          }
+        ]
+      },
+      "ant-large-sieve": {
+        "title": "The large sieve inequality",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The (analytic) large sieve inequality bounds",
+            "choices": [
+              "$\\sum_{q \\le Q} \\sum_{\\chi \\bmod q}^{*} \\bigl|\\sum_{n \\le N} a_n \\chi(n)\\bigr|^2 \\le (Q^2 + N) \\sum_{n \\le N} |a_n|^2$",
+              "$\\sum_{n \\le N} |a_n|^2 \\le \\sum_p (\\log p)^2$",
+              "$\\sum_{q \\le Q} \\varphi(q) = Q^2/(2\\zeta(2))$",
+              "$\\sum_{p \\le N} 1/p \\le \\log\\log N + B$"
+            ],
+            "answer": 0,
+            "hint": "Sum is over $q \\le Q$ and primitive characters $\\chi^*$ mod $q$; the constant is $Q^2 + N$.",
+            "explain": "The Montgomery–Bombieri form of the large sieve says $\\sum_{q \\le Q} \\sum_{\\chi^*} |\\sum_{n \\le N} a_n \\chi(n)|^2 \\le (Q^2 + N)\\|a\\|_2^2$. The dual form bounds $\\sum_r |\\sum_n a_n e(n\\alpha_r)|^2$ by $(\\delta^{-1}+N)\\|a\\|_2^2$ for $\\delta$-spaced frequencies $\\alpha_r$ — the two are equivalent via Plancherel."
+          },
+          {
+            "type": "mcq",
+            "q": "The large sieve constant $(Q^2 + N)$ is essentially sharp because",
+            "choices": [
+              "the number of primitive characters $\\sum_{q \\le Q}\\varphi^*(q) \\sim Q^2/\\zeta(2)$, and the inequality is tight when $a_n$ is supported on a residue class",
+              "primes have density zero",
+              "$\\zeta(s)$ has a pole at $s = 1$",
+              "Riemann's hypothesis would imply a smaller constant"
+            ],
+            "answer": 0,
+            "hint": "Counting primitive characters mod $q \\le Q$ is asymptotic to $Q^2 / \\zeta(2)$.",
+            "explain": "There are $\\asymp Q^2$ primitive characters of conductors $\\le Q$, so the LHS already has $\\asymp Q^2 \\|a\\|_2^2$ Plancherel mass when $a$ is concentrated on one residue class. The $N$ on the right is the trivial bound from Cauchy–Schwarz applied to a single Dirichlet sum. Both regimes show up — hence $Q^2 + N$, not max."
+          },
+          {
+            "type": "numeric",
+            "q": "Take $N = 100$ and $a_n = 1$ for $n \\le N$, $0$ otherwise. The right-hand side coefficient $\\sum_{n \\le N} |a_n|^2$ in the large sieve equals what number?",
+            "answer": 100,
+            "tol": 0,
+            "hint": "It is just the count of nonzero entries.",
+            "explain": "$\\sum |a_n|^2 = \\sum_{n \\le 100} 1 = 100$. So with $Q = \\sqrt{N} = 10$, the large sieve gives $\\sum_{q,\\chi^*} |\\sum_n \\chi(n)|^2 \\le (Q^2+N) N = 200 \\cdot 100 = 20000$ — substantially sharper than the trivial $\\sum_q q \\cdot N^2$."
+          }
+        ]
       }
     }
   },
@@ -5301,6 +5467,79 @@ window.MVQuizBank = {
             "answer": 0,
             "hint": "$\\mathbb{H} = \\mathrm{GL}_2(\\mathbb{R})^+ / Z \\mathrm{SO}_2$ is a special low-dimensional symmetric space; for $\\mathrm{GL}_n$ with $n \\ge 3$ the analogous symmetric space is non-Kähler and the…",
             "explain": "$\\mathbb{H} = \\mathrm{GL}_2(\\mathbb{R})^+ / Z \\mathrm{SO}_2$ is a special low-dimensional symmetric space; for $\\mathrm{GL}_n$ with $n \\ge 3$ the analogous symmetric space is non-Kähler and the classical theory of holomorphic modular forms breaks down. Working directly on $\\mathrm{GL}_n(\\mathbb{Q}) \\backslash \\mathrm{GL}_n(\\mathbb{A})$ avoids the issue."
+          }
+        ]
+      },
+      "eisenstein-spectral-decomposition": {
+        "title": "Eisenstein series and the spectral decomposition",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The right regular representation on $L^2(\\mathrm{GL}_2(\\mathbb{Q}) \\backslash \\mathrm{GL}_2(\\mathbb{A})^1)$ decomposes as:",
+            "choices": [
+              "$L^2_{\\mathrm{cusp}}$ alone — every $L^2$ automorphic function is a cusp form.",
+              "$L^2_{\\mathrm{cusp}} \\oplus L^2_{\\mathrm{res}} \\oplus L^2_{\\mathrm{cont}}$ — cuspidal $\\oplus$ residual $\\oplus$ continuous.",
+              "$L^2_{\\mathrm{cusp}} \\oplus L^2_{\\mathrm{cont}}$ — only two pieces.",
+              "An irreducible representation."
+            ],
+            "answer": 1,
+            "explain": "The full $L^2$ splits into three: cuspidal (discrete, built from cusp forms), residual (discrete, from residues of Eisenstein series), continuous (a direct integral of Eisenstein series along the unitary axis $\\Re s = 1/2$)."
+          },
+          {
+            "type": "mcq",
+            "q": "Where does the continuous spectrum of $L^2(\\mathrm{GL}_2(\\mathbb{Q}) \\backslash \\mathrm{GL}_2(\\mathbb{A})^1)$ live as a contour in the $s$-plane?",
+            "choices": [
+              "$\\Re s = 0$",
+              "$\\Re s = 1/2$ (the unitary axis)",
+              "$\\Re s = 1$",
+              "It is a discrete sum, not a contour."
+            ],
+            "answer": 1,
+            "explain": "The continuous spectrum is the direct integral $\\int_{\\Re s = 1/2}^\\oplus E(\\,\\cdot\\,, s)\\, ds$. Eisenstein series along the unitary axis are unitary (the intertwiner $M(s)$ is a unitary operator there) and exhaust the continuous part."
+          },
+          {
+            "type": "numeric",
+            "q": "For the toy Eisenstein constant term $E_0(s) = 1 + \\xi(2s-1)/\\xi(2s)$, at which real $s \\in (0, 2)$ does the residual pole sit (the one giving the residual constant in $L^2_{\\mathrm{res}}$)?",
+            "answer": 1,
+            "tol": 0.01,
+            "explain": "$\\xi(2s-1)$ acquires the simple pole of $\\zeta$ when $2s-1 = 1$, i.e. $s = 1$. The residue at $s=1$ of $E(g, s)$ is the constant function (after the unitary shift, $|\\det g|^{1/2}$), whose $L^2$-span is the one-dimensional residual spectrum."
+          }
+        ]
+      },
+      "functoriality-langlands-sketch": {
+        "title": "Functoriality and the $L$-group",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the dual group $\\hat G$ of $G = \\mathrm{GL}_n$?",
+            "choices": [
+              "$\\mathrm{SL}_n(\\mathbb{C})$",
+              "$\\mathrm{GL}_n(\\mathbb{C})$",
+              "$\\mathrm{PGL}_n(\\mathbb{C})$",
+              "$\\mathrm{Sp}_{2n}(\\mathbb{C})$"
+            ],
+            "answer": 1,
+            "explain": "$\\mathrm{GL}_n$ is self-dual under root-datum duality: $\\hat{\\mathrm{GL}}_n = \\mathrm{GL}_n(\\mathbb{C})$. This makes ${}^L\\mathrm{GL}_n = \\mathrm{GL}_n(\\mathbb{C}) \\times \\Gal$ (split case)."
+          },
+          {
+            "type": "mcq",
+            "q": "Under the symmetric-power transfer $\\mathrm{Sym}^k : {}^L\\mathrm{GL}_2 \\to {}^L\\mathrm{GL}_{k+1}$, the Satake parameters $(\\alpha, \\beta)$ of $\\pi$ map to:",
+            "choices": [
+              "$(\\alpha + \\beta, \\alpha\\beta, \\dots)$ — the elementary symmetric polynomials.",
+              "$(\\alpha^k, \\alpha^{k-1}\\beta, \\alpha^{k-2}\\beta^2, \\dots, \\beta^k)$ — the $k+1$ monomials.",
+              "$(\\alpha^k, \\beta^k)$ — pairs of pure powers.",
+              "$(k\\alpha, k\\beta)$ — scaled."
+            ],
+            "answer": 1,
+            "hint": "Sym$^k \\mathbb{C}^2$ has basis $\\{e_1^k, e_1^{k-1}e_2, \\dots, e_2^k\\}$ on which $\\mathrm{diag}(\\alpha, \\beta)$ acts diagonally with eigenvalues…",
+            "explain": "$\\mathrm{Sym}^k$ on the standard 2-dim rep has eigenvalues $\\alpha^{k-i}\\beta^i$ for $i = 0, \\dots, k$ — exactly $k+1$ values, matching $\\dim \\mathrm{GL}_{k+1}$'s standard rep. This is why Sato–Tate moments need $\\mathrm{Sym}^k$ functoriality for every $k$."
+          },
+          {
+            "type": "numeric",
+            "q": "If a cuspidal $\\pi$ on $\\mathrm{GL}_2$ has Satake parameter pair $(\\alpha, \\beta) = (2, 1/2)$ at $p = 11$ (so $a_{11} = \\alpha + \\beta = 2.5$), what is the trace of $\\mathrm{Sym}^3(c(\\pi_{11}))$ on the standard 4-dim representation of $\\mathrm{GL}_4(\\mathbb{C})$ — i.e. $\\alpha^3 + \\alpha^2\\beta + \\alpha\\beta^2 + \\beta^3$?",
+            "answer": 10.625,
+            "tol": 0.01,
+            "explain": "$\\alpha\\beta = 1$ and $\\alpha + \\beta = 2.5$, so $\\alpha^2\\beta + \\alpha\\beta^2 = \\alpha\\beta(\\alpha+\\beta) = 2.5$ and $\\alpha^3 + \\beta^3 = (\\alpha+\\beta)^3 - 3\\alpha\\beta(\\alpha+\\beta) = 15.625 - 7.5 = 8.125$. Total $= 10.625$. The Sato–Tate $k$-th moment is built from such traces."
           }
         ]
       }
@@ -7392,6 +7631,123 @@ window.MVQuizBank = {
             "answer": 2,
             "hint": "Two connections differ by an $\\mathrm{End}(E)$-valued $1$-form; build a path between them.",
             "explain": "If $\\nabla_t = \\nabla + t(\\nabla' - \\nabla)$ is a path of connections, integrating $\\frac{d}{dt}P(F_{\\nabla_t})$ over $t \\in [0,1]$ produces an explicit primitive, the Chern–Simons / transgression form, so $[P(F_\\nabla)]$ is independent of $\\nabla$ in de Rham cohomology."
+          }
+        ]
+      },
+      "cc-classifying-spaces": {
+        "title": "Classifying spaces $BO(n)$, $BU(n)$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What does the bijection $[X, BU(n)] \\xrightarrow{\\sim} \\{\\text{rank-}n \\text{ complex bundles on }X\\}/\\!\\sim$ send a homotopy class of maps $f$ to?",
+            "choices": [
+              "The trivial bundle of rank $n$",
+              "The pullback $f^*\\gamma_n$ of the tautological bundle",
+              "The tangent bundle of $X$",
+              "The dual bundle $f^*\\gamma_n^\\vee$"
+            ],
+            "answer": 1,
+            "hint": "$BU(n) = \\mathrm{Gr}_n(\\mathbb{C}^\\infty)$ carries a tautological rank-$n$ bundle.",
+            "explain": "The infinite Grassmannian $BU(n)$ has the tautological bundle $\\gamma_n\\to BU(n)$ whose fibre at a subspace $V$ is $V$ itself. Every rank-$n$ complex bundle on a paracompact $X$ is $f^*\\gamma_n$ for a unique homotopy class $f\\colon X\\to BU(n)$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is $H^*(BU(n);\\mathbb{Z})$ as a graded ring?",
+            "choices": [
+              "$\\mathbb{Z}$ in every even degree",
+              "$\\mathbb{Z}/2[w_1,\\ldots,w_n]$",
+              "$\\mathbb{Z}[c_1,\\ldots,c_n]$ with $|c_i| = 2i$",
+              "$\\Lambda_\\mathbb{Z}(c_1,\\ldots,c_n)$ exterior"
+            ],
+            "answer": 2,
+            "hint": "Universal Chern classes generate freely in even degree.",
+            "explain": "$H^*(BU(n);\\mathbb{Z}) = \\mathbb{Z}[c_1,\\ldots,c_n]$, polynomial in the universal Chern classes $c_i$ of degree $2i$. A characteristic class is exactly a polynomial in the $c_i$. The mod-$2$ analogue $\\mathbb{Z}/2[w_1,\\ldots,w_n]$ is the cohomology of $BO(n)$."
+          },
+          {
+            "type": "numeric",
+            "q": "On $\\mathbb{CP}^1\\cong S^2$, the line bundle $\\mathcal{O}(d)$ is classified by a map $\\mathbb{CP}^1 \\to BU(1) = \\mathbb{CP}^\\infty$ of degree $d$. Compute $\\langle c_1(\\mathcal{O}(d)),[\\mathbb{CP}^1]\\rangle$ when $d = 5$.",
+            "answer": 5,
+            "tol": 0,
+            "hint": "$c_1(\\mathcal{O}(d))$ is $d$ times the generator of $H^2(\\mathbb{CP}^1;\\mathbb{Z})$.",
+            "explain": "The classifying map for $\\mathcal{O}(d)$ has degree $d$ on $H^2$, and the universal $c_1$ pulls back to $d$ times the generator. Pairing with $[\\mathbb{CP}^1]$ gives $d = 5$. Equivalently, $\\mathcal{O}(d) = \\mathcal{O}(1)^{\\otimes d}$ and $c_1$ is additive on tensor products of line bundles."
+          }
+        ]
+      },
+      "cc-signature-theorem": {
+        "title": "Hirzebruch signature theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the signature $\\sigma(M)$ of a closed oriented $4k$-manifold?",
+            "choices": [
+              "The Euler characteristic $\\chi(M)$",
+              "$b_{2k}^+ - b_{2k}^-$, the index of the cup-product pairing on $H^{2k}(M;\\mathbb{R})$",
+              "The first Pontryagin number",
+              "The total Betti number $\\sum b_i$"
+            ],
+            "answer": 1,
+            "hint": "Diagonalise the cup-product pairing on the middle cohomology.",
+            "explain": "On a closed oriented $4k$-manifold, the cup-product pairing $Q(\\alpha,\\beta) = \\langle\\alpha\\smile\\beta,[M]\\rangle$ is a symmetric non-degenerate form on $H^{2k}(M;\\mathbb{R})$. Its signature $\\sigma(M) = b_{2k}^+ - b_{2k}^-$ is the Hirzebruch signature."
+          },
+          {
+            "type": "numeric",
+            "q": "For $\\mathbb{CP}^2$ the first Pontryagin number is $p_1[\\mathbb{CP}^2] = 3$. Compute $L_1[\\mathbb{CP}^2]$, hence $\\sigma(\\mathbb{CP}^2)$ via Hirzebruch.",
+            "answer": 1,
+            "tol": 0,
+            "hint": "$L_1 = p_1/3$.",
+            "explain": "The first $L$-polynomial is $L_1 = p_1/3$, so $L_1[\\mathbb{CP}^2] = 3/3 = 1$. Hirzebruch's theorem gives $\\sigma(\\mathbb{CP}^2) = 1$, agreeing with the intersection form $(1)$ on $H^2(\\mathbb{CP}^2;\\mathbb{R})\\cong\\mathbb{R}$."
+          },
+          {
+            "type": "mcq",
+            "q": "Hirzebruch's theorem $\\sigma(M^{4k}) = \\langle L_k(p_1,\\ldots,p_k), [M]\\rangle$ has a striking integrality consequence. Which one?",
+            "choices": [
+              "Every $4k$-manifold has $\\sigma(M) = 0$",
+              "$L_k$ is a polynomial with integer coefficients",
+              "Pontryagin numbers like $p_1[M]$ on a $4$-manifold are divisible by $3$, since $\\sigma(M) = p_1[M]/3$ is an integer",
+              "Every closed $4k$-manifold has Euler characteristic divisible by $L_k$"
+            ],
+            "answer": 2,
+            "hint": "$L_1$ has a $3$ in the denominator but $\\sigma$ is always an integer.",
+            "explain": "The $L$-polynomial has rational coefficients ($L_1 = p_1/3$, $L_2 = (7p_2 - p_1^2)/45$, …), but $\\langle L_k,[M]\\rangle = \\sigma(M)\\in\\mathbb{Z}$ always. So $p_1[M]$ is divisible by $3$ on any closed oriented $4$-manifold — a non-trivial divisibility constraint forced by Hirzebruch."
+          }
+        ]
+      },
+      "cc-equivariant": {
+        "title": "Equivariant characteristic classes",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is $H^*_G(\\mathrm{pt};\\mathbb{Z})$ for $G$ a compact Lie group?",
+            "choices": [
+              "$\\mathbb{Z}$ in degree $0$ only",
+              "$H^*(BG;\\mathbb{Z})$",
+              "$H^*(G;\\mathbb{Z})$, the cohomology of the group itself",
+              "Always polynomial of rank $\\dim G$"
+            ],
+            "answer": 1,
+            "hint": "The Borel construction $X_G$ for $X = \\mathrm{pt}$ is just $BG$.",
+            "explain": "$H^*_G(X) := H^*((X\\times EG)/G;\\mathbb{Z})$, and for $X = \\mathrm{pt}$ this is $H^*(EG/G;\\mathbb{Z}) = H^*(BG;\\mathbb{Z})$. For $G = T = (S^1)^n$ this is the polynomial ring $\\mathbb{Z}[t_1,\\ldots,t_n]$ with $|t_i|=2$."
+          },
+          {
+            "type": "mcq",
+            "q": "In Atiyah–Bott $T$-localisation $\\int_X \\alpha = \\sum_{p\\in X^T} \\iota_p^*\\alpha / e^T(\\nu_p)$, what is $e^T(\\nu_p)$?",
+            "choices": [
+              "The ordinary Euler characteristic of $\\nu_p$",
+              "The equivariant Euler class of the normal bundle to the fixed-point component at $p$",
+              "The signature of $\\nu_p$",
+              "The first Chern class of $\\nu_p$"
+            ],
+            "answer": 1,
+            "hint": "Localisation pushes forward to the fixed locus; the denominator accounts for the normal directions.",
+            "explain": "$\\nu_p = T_pX$ is the (equivariant) normal bundle at the fixed point $p$, and $e^T(\\nu_p)\\in H^*(BT)$ is its equivariant Euler class — a non-zero polynomial in the $t_i$ (the weights of the $T$-action). Inverting it lives in the localised ring $\\mathrm{Frac}\\,H^*(BT)$."
+          },
+          {
+            "type": "numeric",
+            "q": "On $\\mathbb{CP}^1$ with the standard $S^1$ action, the two fixed points $p_0, p_1$ have $T$-weights $t_0, t_1$ on $T_{p_0}\\mathbb{CP}^1$ and $T_{p_1}\\mathbb{CP}^1$ given by $t_1 - t_0$ and $t_0 - t_1$ respectively. Compute the Atiyah–Bott sum $\\frac{t_0}{t_1 - t_0} + \\frac{t_1}{t_0 - t_1}$ as a rational function of $t_0,t_1$, and enter the resulting integer.",
+            "answer": -1,
+            "tol": 0,
+            "hint": "Put both fractions over the common denominator $t_1 - t_0$.",
+            "explain": "$\\frac{t_0}{t_1 - t_0} + \\frac{t_1}{t_0 - t_1} = \\frac{t_0}{t_1-t_0} - \\frac{t_1}{t_1-t_0} = \\frac{t_0 - t_1}{t_1 - t_0} = -1$. The geometric integral $\\int_{\\mathbb{CP}^1} c_1(\\mathcal{O}(1)) = 1$ uses the orientation convention where the equivariant Euler class is $e^T(\\nu_{p_i}) = t_i - t_{1-i}$ (rather than $t_{1-i} - t_i$); flipping the sign convention flips the sum from $-1$ to $+1$. The miraculous fact that the answer is a constant — independent of $t_0, t_1$ — is the entire point of Atiyah–Bott."
           }
         ]
       }
@@ -22006,6 +22362,119 @@ window.MVQuizBank = {
             "explain": "Each finite place contributes a local intersection multiplicity; the archimedean place needs a curvature integral to balance the product formula. The Hermitian metric is exactly what supplies that archimedean local height."
           }
         ]
+      },
+      "mordell-weil-descent": {
+        "title": "Mordell–Weil descent",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Mordell–Weil theorem $E(K)\\cong\\mathbb{Z}^r\\oplus T$ is proved by combining two ingredients. They are:",
+            "choices": [
+              "Hasse's bound $|a_p|\\le 2\\sqrt p$ and the Birch–Swinnerton-Dyer conjecture.",
+              "Weak Mordell–Weil ($E(K)/2E(K)$ finite) and a height-driven descent that contracts every point into a Northcott-finite ball.",
+              "Faltings' theorem applied to the Jacobian of $E$.",
+              "The Hasse–Weil L-function and its meromorphic continuation."
+            ],
+            "answer": 1,
+            "explain": "Weak Mordell–Weil gives finitely many cosets $Q_1,\\dots,Q_m$ for $E(K)/2E(K)$. Heights then provide the descent: $P=2P'+Q_i$ with $\\hat h(P')\\le\\tfrac14\\hat h(P)+C$, so iterating drives every $P$ into a finite Northcott set, yielding a finite generating set."
+          },
+          {
+            "type": "numeric",
+            "q": "If $\\hat h(P)=400$ and the descent step gives $\\hat h(P')\\le\\tfrac14\\hat h(P)+C$ with $C=10$, what is the upper bound on $\\hat h(P')$ after one descent?",
+            "answer": 110,
+            "tol": 0.000001,
+            "explain": "$\\tfrac14(400)+10=100+10=110$. Each iteration shrinks the height by a factor of $4$ plus a bounded additive constant; after enough steps, $\\hat h$ is dominated by $C$ alone — Northcott-finite."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the *weak* Mordell–Weil step (finiteness of $E(K)/2E(K)$) the harder half conceptually, even though heights do the algorithmic work?",
+            "choices": [
+              "Heights are only defined for elliptic curves with complex multiplication.",
+              "Without weak Mordell–Weil, there is no fixed finite list of coset representatives to descend toward — the height-shrinking iteration has nothing to terminate at.",
+              "Northcott's theorem fails on elliptic curves with positive rank.",
+              "The descent step requires $K=\\mathbb{Q}$, while weak Mordell–Weil works over any number field."
+            ],
+            "answer": 1,
+            "explain": "The descent only narrows down a point modulo $2E(K)$. If that quotient were infinite, you could shrink heights forever without ever reaching a finite generating set. Weak MW supplies the cosets — its proof uses Galois cohomology, the Kummer pairing, and finiteness of class groups / unit groups of $K(E[2])$."
+          }
+        ]
+      },
+      "vojta-conjecture-abc": {
+        "title": "Vojta's conjecture",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The abc conjecture states that for coprime positive integers $a+b=c$ and any $\\varepsilon>0$:",
+            "choices": [
+              "$c\\le\\mathrm{rad}(abc)$ for all but finitely many triples.",
+              "$c\\le K_\\varepsilon\\cdot\\mathrm{rad}(abc)^{1+\\varepsilon}$ for some constant $K_\\varepsilon$.",
+              "$c\\le\\mathrm{rad}(abc)^{2}$ unconditionally.",
+              "$\\log c\\le(\\log\\mathrm{rad}(abc))^{1+\\varepsilon}$."
+            ],
+            "answer": 1,
+            "explain": "abc bounds $c$ by $\\mathrm{rad}(abc)^{1+\\varepsilon}$ up to a constant depending on $\\varepsilon$. The radical $\\mathrm{rad}(n)$ is the product of distinct primes dividing $n$, ignoring multiplicity — so it punishes $c$'s with lots of small prime power factors."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\mathrm{rad}(abc)$ for the abc-triple $a=1,\\ b=8,\\ c=9$. (Recall $\\mathrm{rad}(n)$ is the product of distinct primes dividing $n$.)",
+            "answer": 6,
+            "tol": 1e-9,
+            "explain": "$abc=1\\cdot 8\\cdot 9 = 72 = 2^3\\cdot 3^2$. The distinct primes dividing $72$ are $\\{2,3\\}$, so $\\mathrm{rad}(72)=2\\cdot 3=6$. The 'quality' $\\log c/\\log\\mathrm{rad}=\\log 9/\\log 6\\approx 1.226$ — modest but nonzero, so $c>\\mathrm{rad}(abc)$ already here."
+          },
+          {
+            "type": "mcq",
+            "q": "Vojta's conjecture for a smooth projective $X/K$ with normal-crossings divisor $D$ predicts an inequality of shape $h_{K_X+D}(P)\\le\\varepsilon\\cdot h_A(P)+m_S(P,D)+O(1)$. Which classical theorem is the easiest dimension-1 special case?",
+            "choices": [
+              "The Mordell–Weil theorem.",
+              "Roth's theorem on rational approximation to algebraic numbers.",
+              "The Riemann hypothesis for curves over finite fields.",
+              "Faltings' isogeny theorem."
+            ],
+            "answer": 1,
+            "explain": "Roth's theorem is the dimension-$1$ Vojta inequality on $\\mathbb{P}^1$ minus a single point: rational points cannot approximate an algebraic number $\\alpha$ better than $|p/q-\\alpha|\\gg q^{-2-\\varepsilon}$. Faltings sits on a higher-genus curve; abc lives on $\\mathbb{P}^1$ minus three points; Schmidt's subspace theorem is the multidim'l generalisation."
+          }
+        ]
+      },
+      "bogomolov-equidistribution": {
+        "title": "Bogomolov & equidistribution",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Bogomolov's conjecture (proved by Ullmo and Zhang for curves) says: for a curve $C$ of genus $\\ge 2$ embedded in $\\operatorname{Jac}(C)$ via an Abel–Jacobi map, the set $\\{P\\in C(\\bar K):\\hat h(P)<\\varepsilon\\}$ is:",
+            "choices": [
+              "Empty for $\\varepsilon$ small.",
+              "Finite for some $\\varepsilon>0$.",
+              "Always Zariski-dense in $C$.",
+              "Infinite but discrete on $C(\\mathbb{C})$."
+            ],
+            "answer": 1,
+            "explain": "Small-points-are-rare: for $\\varepsilon>0$ small enough, only finitely many points of $C$ have canonical height below $\\varepsilon$. Setting $\\varepsilon\\to 0$ recovers Manin–Mumford (torsion points of $\\operatorname{Jac}$ meeting $C$ are finite); setting $\\varepsilon$ moderate improves on Faltings by giving a uniform-style bound."
+          },
+          {
+            "type": "mcq",
+            "q": "Yuan's equidistribution theorem (a refinement of Szpiro–Ullmo–Zhang): if $P_n\\in A(\\bar K)$ is a generic sequence with $\\hat h(P_n)\\to 0$, then the Galois-orbit measures $\\mu_n=\\frac{1}{|\\operatorname{Gal}\\cdot P_n|}\\sum_{Q\\in\\operatorname{Gal}\\cdot P_n}\\delta_Q$ on $A(\\mathbb{C})$ converge weakly to:",
+            "choices": [
+              "The point-mass at the origin $0\\in A$.",
+              "The (translation-invariant) Haar / Lebesgue measure on $A(\\mathbb{C})$.",
+              "The pushforward of Brownian motion on the universal cover.",
+              "The arithmetic curvature form of the Hodge bundle."
+            ],
+            "answer": 1,
+            "explain": "Generic small points equidistribute against the natural Haar measure of the abelian variety viewed as a complex torus. This is the Diophantine cousin of Weyl's classical equidistribution — heights replace continued-fraction approximation as the smallness measure."
+          },
+          {
+            "type": "mcq",
+            "q": "Which statement is *not* a known consequence (or near-consequence) of the Bogomolov / equidistribution circle?",
+            "choices": [
+              "Manin–Mumford: only finitely many torsion points of $\\operatorname{Jac}(C)$ lie on $C\\hookrightarrow\\operatorname{Jac}(C)$.",
+              "Lehmer-style: heights of non-torsion points on $A$ are bounded below by a positive function of the degree (after suitable normalisation).",
+              "BSD: the analytic and algebraic ranks of $E/\\mathbb{Q}$ agree.",
+              "Effective uniform versions of Faltings' theorem when one fixes the Jacobian."
+            ],
+            "answer": 2,
+            "explain": "BSD is a different beast — it ties $L$-function vanishing orders to ranks and lives in modular / motivic land, not on the height side. Manin–Mumford and Lehmer-style lower bounds are direct corollaries; uniform Bogomolov implies effective Faltings on fixed Jacobians (work of Dimitrov–Gao–Habegger, Kühne, Yuan)."
+          }
+        ]
       }
     }
   },
@@ -29075,6 +29544,123 @@ window.MVQuizBank = {
             "explain": "$w_N$ is the involution induced by $\\tau\\mapsto -1/(N\\tau)$ on $\\mathcal{H}$. In moduli terms it sends $(E,C)$ to $(E/C, E[N]/C)$: the dual cyclic order-$N$ subgroup of the isogenous curve. It exchanges the two rational cusps $0\\leftrightarrow \\infty$ and is the simplest of the modular involutions whose quotients $X_0(N)/w_N$ are themselves arithmetically rich curves."
           }
         ]
+      },
+      "mc-atkin-lehner-newforms": {
+        "title": "Atkin–Lehner & old/new",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For which divisors $d$ of $N$ does the Atkin–Lehner matrix $w_d$ define an involution on $X_0(N)$?",
+            "choices": [
+              "Every divisor $d \\mid N$",
+              "Only $d = 1$ and $d = N$",
+              "Exact divisors $d \\Vert N$, i.e. $\\gcd(d, N/d) = 1$",
+              "Only prime divisors $d \\mid N$"
+            ],
+            "answer": 2,
+            "hint": "The construction of $w_d$ requires $d$ and $N/d$ to be coprime so that the matrix can be normalized to determinant $d$ inside $\\Gamma_0(N) \\cdot w_d$.",
+            "explain": "The Atkin–Lehner involutions are indexed by exact divisors $d \\Vert N$ — those with $\\gcd(d, N/d) = 1$. For $N$ squarefree every divisor is exact, so the group of involutions has order $2^{\\omega(N)}$; for $N$ with repeated prime factors only the squarefree-coprime decompositions contribute. The involution $w_N$ (the full level) and $w_1 = \\mathrm{id}$ are always present."
+          },
+          {
+            "type": "numeric",
+            "q": "How many Atkin–Lehner involutions does $X_0(30)$ carry (including the identity $w_1$)? Recall $30 = 2\\cdot 3 \\cdot 5$ is squarefree.",
+            "answer": 8,
+            "tol": 0.001,
+            "hint": "$|\\{w_d : d \\Vert N\\}| = 2^{\\omega(N)}$ where $\\omega(N)$ is the number of distinct prime factors. For $N=30$, $\\omega(30) = 3$.",
+            "explain": "$30$ has three distinct prime factors, so $\\omega(30) = 3$ and the Atkin–Lehner group is $(\\mathbb{Z}/2)^3$ of order $8$. Its non-identity elements are $w_2, w_3, w_5, w_6, w_{10}, w_{15}, w_{30}$. They commute with each Hecke operator $T_p$ for $p \\nmid 30$, so each Hecke eigenspace decomposes further into Atkin–Lehner sign eigenspaces."
+          },
+          {
+            "type": "mcq",
+            "q": "What is an 'oldform' in $S_2(\\Gamma_0(N))$?",
+            "choices": [
+              "A form arising from Eisenstein series",
+              "A form fixed by $w_N$",
+              "A form pulled back from $S_2(\\Gamma_0(M))$ for some proper divisor $M \\mid N$, possibly via $f(\\tau) \\mapsto f(d\\tau)$",
+              "A form whose $q$-expansion has no leading coefficient"
+            ],
+            "answer": 2,
+            "hint": "Oldforms come from lower level: if $f \\in S_2(\\Gamma_0(M))$ and $M d \\mid N$, then both $f(\\tau)$ and $f(d\\tau)$ lie in $S_2(\\Gamma_0(N))$.",
+            "explain": "$S_2^{\\mathrm{old}}(\\Gamma_0(N))$ is the subspace spanned by $\\{f(d\\tau) : f \\in S_2(\\Gamma_0(M)),\\ M \\mid N,\\ M < N,\\ Md \\mid N\\}$ — forms recycled from strictly lower level. Atkin–Lehner showed the Petersson-orthogonal complement, $S_2^{\\mathrm{new}}(\\Gamma_0(N))$, has a unique basis of normalized eigenforms with multiplicity-one $q$-expansions: the newforms of level $N$, the genuine arithmetic content."
+          }
+        ]
+      },
+      "mc-heegner-points": {
+        "title": "Heegner points",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A Heegner point of discriminant $D < 0$ on $X_0(N)$ is the moduli point of a pair $(E, C)$ where:",
+            "choices": [
+              "$E$ has $j$-invariant $0$ or $1728$",
+              "$E$ has CM by an order in $\\mathbb{Q}(\\sqrt{D})$ and $C$ is compatible with that order",
+              "$E$ is defined over $\\mathbb{Q}$ with conductor dividing $D$",
+              "$E[N]$ is rational over $\\mathbb{Q}(\\sqrt{D})$"
+            ],
+            "answer": 1,
+            "hint": "The defining feature is complex multiplication: $\\mathrm{End}(E) \\otimes \\mathbb{Q} = \\mathbb{Q}(\\sqrt{D})$, and the level structure $C$ lies in the kernel of an endomorphism.",
+            "explain": "A Heegner point of discriminant $D$ on $X_0(N)$ is the class of a pair $(E, C)$ where $\\mathrm{End}(E) \\cong \\mathcal{O}_D$, the order of discriminant $D$ in $\\mathbb{Q}(\\sqrt{D})$, and $C \\subset E$ is a cyclic order-$N$ subgroup invariant under $\\mathcal{O}_D$ — equivalently $C$ is the kernel of an $\\mathcal{O}_D$-equivariant cyclic $N$-isogeny. By the theory of CM, such points are defined over the Hilbert class field $H_D$."
+          },
+          {
+            "type": "numeric",
+            "q": "The Heegner hypothesis for $(N, D)$ requires every prime $p \\mid N$ to split in $\\mathbb{Q}(\\sqrt{D})$. For $N = 11$ and $D = -7$, the prime $11$ in $\\mathbb{Q}(\\sqrt{-7})$ has $\\bigl(\\frac{-7}{11}\\bigr) = ?$ Compute this Legendre symbol (give $+1$ or $-1$).",
+            "answer": 1,
+            "tol": 0.001,
+            "hint": "$-7 \\equiv 4 \\pmod{11}$, and $4 = 2^2$ is a square modulo $11$.",
+            "explain": "$-7 \\equiv 4 \\pmod{11}$, so $\\bigl(\\frac{-7}{11}\\bigr) = \\bigl(\\frac{4}{11}\\bigr) = +1$. Hence $11$ splits in $\\mathbb{Q}(\\sqrt{-7})$ and the Heegner hypothesis is satisfied — there are Heegner points of discriminant $-7$ on $X_0(11)$ defined over the Hilbert class field of $\\mathbb{Q}(\\sqrt{-7})$, which equals $\\mathbb{Q}(\\sqrt{-7})$ itself since the class number is $1$."
+          },
+          {
+            "type": "mcq",
+            "q": "Heegner points are central to the rank-$1$ case of BSD because the Gross–Zagier formula:",
+            "choices": [
+              "Computes $L(E, 1)$ as a finite Euler product",
+              "Equates the Néron–Tate height of the trace of a Heegner point under $X_0(N) \\to E$ with $L'(E, 1)$ times an explicit period",
+              "Shows every elliptic curve over $\\mathbb{Q}$ has rank $1$",
+              "Identifies Heegner points with the cusp $0 \\in X_0(N)$"
+            ],
+            "answer": 1,
+            "hint": "Gross–Zagier relates a height of an algebraic point to a derivative of an L-function — that is the rank-$1$ analogue of BSD's leading-coefficient prediction.",
+            "explain": "Gross–Zagier (1986): for an elliptic curve $E$ with modular parametrization $\\phi : X_0(N) \\to E$ and a Heegner point $y_K \\in E(K)$ obtained as $\\mathrm{Tr}_{H_D/K}\\phi(P_D)$, the Néron–Tate height $\\hat{h}(y_K)$ equals (up to explicit periods) $L'(E/K, 1)$. Combined with Kolyvagin's Euler-system argument, this proves rank $E(\\mathbb{Q}) = 1$ whenever $L'(E, 1) \\ne 0$ — the strongest unconditional progress on BSD."
+          }
+        ]
+      },
+      "mc-mazur-torsion": {
+        "title": "Mazur's torsion theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What does the modular curve $X_1(N)$ classify?",
+            "choices": [
+              "Elliptic curves $E$ with a chosen cyclic subgroup of order $N$",
+              "Elliptic curves $E$ with a chosen point $P \\in E$ of exact order $N$",
+              "Elliptic curves with full level-$N$ structure $(E, E[N] \\cong (\\mathbb{Z}/N)^2)$",
+              "Elliptic curves with conductor exactly $N$"
+            ],
+            "answer": 1,
+            "hint": "The subscript $1$ in $\\Gamma_1(N)$ comes from the condition $a \\equiv d \\equiv 1 \\pmod N$, which rigidifies a chosen point of order $N$, not just its subgroup.",
+            "explain": "$Y_1(N) = \\mathcal{H}/\\Gamma_1(N)$ classifies pairs $(E, P)$ with $P \\in E(\\mathbb{C})$ of exact order $N$, up to isomorphism. The forgetful map $Y_1(N) \\to Y_0(N)$ remembers only the cyclic subgroup $\\langle P \\rangle$ — a $\\varphi(N)/2$-to-$1$ cover. A non-cuspidal $\\mathbb{Q}$-rational point of $X_1(N)$ corresponds to an elliptic curve $E/\\mathbb{Q}$ with a $\\mathbb{Q}$-rational point of order $N$."
+          },
+          {
+            "type": "numeric",
+            "q": "Mazur's theorem says $E(\\mathbb{Q})_{\\mathrm{tors}}$ is one of exactly $15$ finite groups: $\\mathbb{Z}/n$ for $n \\in \\{1,\\ldots,10,12\\}$ and $\\mathbb{Z}/2 \\oplus \\mathbb{Z}/2n$ for $n \\in \\{1,2,3,4\\}$. What is the largest cyclic order $n$ that can appear as a torsion subgroup $\\mathbb{Z}/n$ of an elliptic curve over $\\mathbb{Q}$?",
+            "answer": 12,
+            "tol": 0.001,
+            "hint": "The cyclic torsion list is $\\{1,2,3,4,5,6,7,8,9,10,12\\}$ — note $11$ is excluded.",
+            "explain": "The 11 cyclic groups in Mazur's list have orders $\\{1,2,\\ldots,10,12\\}$; order $11$ is conspicuously missing, and orders $\\ge 13$ never occur. The exclusion of $11$ matches the genus-$1$ curve $X_1(11)$ having only finitely many $\\mathbb{Q}$-points — Mazur showed they are all cusps."
+          },
+          {
+            "type": "mcq",
+            "q": "Mazur's strategy for proving $X_1(N)(\\mathbb{Q})$ has only cusps for the forbidden $N$ involves:",
+            "choices": [
+              "Direct enumeration of rational points by descent on each $X_1(N)$",
+              "Studying the Eisenstein quotient of $J_1(N)$ and showing its Mordell–Weil group is finite, then using a formal-immersion argument",
+              "Computing the genus of $X_1(N)$ and applying Faltings' theorem",
+              "The modularity theorem for elliptic curves"
+            ],
+            "answer": 1,
+            "hint": "The proof predates Faltings; the key tool is the Eisenstein ideal and its quotient of the Jacobian.",
+            "explain": "Mazur defined the Eisenstein ideal $I \\subset \\mathbb{T}$ in the Hecke algebra of $J_0(N)$ and studied the Eisenstein quotient $J_0(N)/IJ_0(N)$. He proved it has finite Mordell–Weil group (the rational points are essentially Eisenstein-class divisor classes). A formal-immersion lemma then forces any rational non-cuspidal point of $X_1(N)$ to reduce to a cusp at every prime, contradiction. The technique opened the entire subject of Galois deformations and ultimately fed into the proof of FLT."
+          }
+        ]
       }
     }
   },
@@ -30574,6 +31160,114 @@ window.MVQuizBank = {
             "explain": "$c(1) = c_1 = 196884$, the coefficient of $q^1$ in $J(\\tau)$. So the factor $(1-pq)^{196884}$ appears in the infinite product, reflecting the $196884$-dimensional root space at $(m,n)=(1,1)$ in the Monster Lie algebra."
           }
         ]
+      },
+      "replication-formulas": {
+        "title": "Replication formulas and Hauptmodul recursions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Faber polynomials $\\Phi_n(X) \\in \\mathbb{Z}[X]$ are characterised by:",
+            "choices": [
+              "$\\Phi_n(j(\\tau)) = q^{-n} + O(q)$ — a modular function with a single pole of order $n$ at the cusp",
+              "$\\Phi_n(X) = X^n$ for all $n$",
+              "$\\Phi_n$ is the $n$-th Hecke eigenform of weight $0$",
+              "$\\Phi_n(X) = (X - 744)^n$"
+            ],
+            "answer": 0,
+            "explain": "$\\Phi_n(j)$ is the unique weight-$0$ modular function with a pole of order exactly $n$ at the cusp and leading coefficient $1$. Equivalently, $\\Phi_n$ is the $n$-th Faber polynomial of the conformal map $j^{-1}$; its coefficients are integer polynomials in $c(1), \\dots, c(n-1)$."
+          },
+          {
+            "type": "numeric",
+            "q": "How many of the Fourier coefficients $c(1), c(2), c(3), \\dots$ of $J(\\tau)$ are 'free' (i.e., not forced by the replication recursion from previous coefficients)?",
+            "answer": 1,
+            "tol": 0,
+            "explain": "Only $c(1) = 196884$ is free; every $c(N)$ for $N \\ge 2$ is determined by $c(1), \\dots, c(N-1)$ via the Faber-polynomial recursion $\\Phi_N(J) = q^{-N} + O(q)$. This is the 'replicability' of $J$."
+          },
+          {
+            "type": "mcq",
+            "q": "When the replication recursion is applied to a Thompson series $T_g$ instead of $J$, the substitution is:",
+            "choices": [
+              "replace $\\dim V^\\natural_n$ by $\\dim V_g$ throughout",
+              "replace $c(N) = \\dim V^\\natural_N$ by $c_g(N) = \\tr\\!\\big(g \\,|\\, V^\\natural_N\\big)$ throughout",
+              "replace $q$ by $q^{|g|}$ throughout",
+              "replace the Faber polynomials by Hecke operators"
+            ],
+            "answer": 1,
+            "explain": "Inserting $g$ into the trace converts $\\dim$ to $\\tr g$ at every graded piece, so $c \\mapsto c_g$. The Faber recursion with $c$ replaced by $c_g$ then forces $T_g$ to be replicable, hence — by Cummins–Gannon — a Hauptmodul of one of the $171$ moonshine groups."
+          }
+        ]
+      },
+      "genus-zero-moonshine-groups": {
+        "title": "Genus-zero groups and Ogg's coincidence",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A discrete subgroup $\\Gamma \\le \\mathrm{SL}_2(\\mathbb{R})$ is a 'moonshine group' (in Conway–Norton's sense) when:",
+            "choices": [
+              "$\\Gamma = \\mathrm{SL}_2(\\mathbb{Z})$ itself",
+              "$\\Gamma$ is commensurable with $\\mathrm{SL}_2(\\mathbb{Z})$ and the modular curve $\\Gamma\\backslash\\mathcal{H}^*$ has genus $0$",
+              "$\\Gamma$ is a congruence subgroup of arbitrary level",
+              "$\\Gamma$ is a maximal compact subgroup"
+            ],
+            "answer": 1,
+            "explain": "Conway and Norton's $171$ moonshine groups are exactly those commensurable with $\\mathrm{SL}_2(\\mathbb{Z})$ whose modular-curve quotient $\\Gamma\\backslash\\mathcal{H}^*$ has genus zero — so the function field is generated by a single element, the Hauptmodul."
+          },
+          {
+            "type": "numeric",
+            "q": "How many primes $p$ satisfy: $X_0(p)+$ (the Atkin–Lehner extension) has genus $0$?",
+            "answer": 15,
+            "tol": 0,
+            "explain": "Ogg's $15$ supersingular primes: $\\{2,3,5,7,11,13,17,19,23,29,31,41,47,59,71\\}$. These are precisely the prime divisors of $|\\mathbb{M}|$ — Ogg's celebrated coincidence, which moonshine explains."
+          },
+          {
+            "type": "mcq",
+            "q": "The Fricke involution $w_N = \\tfrac{1}{\\sqrt{N}}\\bigl(\\begin{smallmatrix}0 & -1 \\\\ N & 0\\end{smallmatrix}\\bigr)$ acts on the upper half-plane by:",
+            "choices": [
+              "$\\tau \\mapsto \\tau + N$",
+              "$\\tau \\mapsto -\\,\\dfrac{1}{N\\tau}$",
+              "$\\tau \\mapsto \\dfrac{\\tau}{N}$",
+              "$\\tau \\mapsto N\\tau$"
+            ],
+            "answer": 1,
+            "explain": "$w_N \\cdot \\tau = -1/(N\\tau)$. It normalizes $\\Gamma_0(N)$, has order $2$ in $\\mathrm{PGL}_2(\\mathbb{Q})$, and the quotient $\\Gamma_0(N)+ = \\langle \\Gamma_0(N), w_N\\rangle$ has half (or smaller) the index in $\\mathrm{SL}_2(\\mathbb{R})$ — sometimes dropping the modular-curve genus from positive to zero."
+          }
+        ]
+      },
+      "generalized-moonshine": {
+        "title": "Generalized moonshine (Norton, Carnahan)",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Generalized moonshine attaches a $q$-series $Z(g,h;\\tau)$ to:",
+            "choices": [
+              "every element $g \\in \\mathbb{M}$",
+              "every commuting pair $(g,h) \\in \\mathbb{M} \\times \\mathbb{M}$",
+              "every irreducible character $\\chi \\in \\widehat{\\mathbb{M}}$",
+              "every cusp of $X_0(N)$"
+            ],
+            "answer": 1,
+            "explain": "Norton's generalized moonshine attaches one series $Z(g,h;\\tau)$ to each commuting pair. Ordinary Conway–Norton is the slice $g = e$: $Z(e,h;\\tau) = T_h(\\tau)$."
+          },
+          {
+            "type": "mcq",
+            "q": "Under $\\bigl(\\begin{smallmatrix}a & b\\\\ c & d\\end{smallmatrix}\\bigr) \\in \\mathrm{SL}_2(\\mathbb{Z})$, the twisted series $Z(g,h;\\tau)$ transforms as:",
+            "choices": [
+              "$Z(g,h;\\tau) = Z(g,h; \\tfrac{a\\tau+b}{c\\tau+d})$ (full $\\mathrm{SL}_2(\\mathbb{Z})$-invariance)",
+              "$Z(g,h;\\tfrac{a\\tau+b}{c\\tau+d}) = \\zeta \\cdot Z(g^a h^c, g^b h^d;\\,\\tau)$ for a $24$th root of unity $\\zeta$",
+              "$Z(g,h;\\tau)$ is a holomorphic modular form of weight $12$",
+              "$Z(g,h;\\tau)$ is a Maass form of eigenvalue $1/4$"
+            ],
+            "answer": 1,
+            "explain": "The $\\mathrm{SL}_2(\\mathbb{Z})$ action permutes commuting pairs by $(g,h) \\mapsto (g^a h^c,\\, g^b h^d)$ (the natural $\\mathbb{Z}^2$-action on the abelian subgroup $\\langle g,h\\rangle$). Modulo a $24$th-root-of-unity cocycle this is exactly Norton's covariance — the orbifold-CFT torus partition function transformation."
+          },
+          {
+            "type": "numeric",
+            "q": "For $g = e$ (the identity), the twisted series $Z(e, h; \\tau)$ specialises to which classical series? Enter $|h|$ for $h$ in the conjugacy class 2A — i.e., the order of the moonshine group $\\Gamma_0(2)+$ as a coset index in $\\mathrm{SL}_2(\\mathbb{Z})$.",
+            "answer": 2,
+            "tol": 0,
+            "explain": "For $g = e$, ${}^e\\!V^\\natural = V^\\natural$ and $Z(e,h;\\tau) = T_h(\\tau)$ — the ordinary Thompson series. For $h$ in class 2A, $T_{2A}$ is the Hauptmodul for $\\Gamma_0(2)+$, an index-$2$ extension of $\\Gamma_0(2)$ by the Fricke involution $w_2$."
+          }
+        ]
       }
     }
   },
@@ -31163,6 +31857,89 @@ window.MVQuizBank = {
             "answer": 1,
             "hint": "Different Morse functions give chain-homotopy-equivalent complexes.",
             "explain": "Morse homology $HM_*(M)$ is independent of the Morse–Smale pair (continuation maps give chain homotopy equivalences) and is canonically isomorphic to singular $H_*(M;\\mathbb{Z})$."
+          }
+        ]
+      },
+      "mt-morse-smale": {
+        "title": "Morse–Smale and transversality",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A pair $(f,g)$ on $M$ (Morse function plus Riemannian metric) is called Morse–Smale when, for every two critical points $p\\ne q$,",
+            "choices": [
+              "$W^u(p)\\cap W^s(q) = \\emptyset$ always",
+              "$W^u(p)$ and $W^s(q)$ intersect transversally inside $M$",
+              "$\\ind(p) = \\ind(q)$ implies $p = q$",
+              "the Hessians at $p$ and $q$ commute"
+            ],
+            "answer": 1,
+            "hint": "Transversality of stable and unstable manifolds is the defining condition.",
+            "explain": "Morse–Smale: $W^u(p)\\pitchfork W^s(q)$ for every distinct pair of critical points. Equivalently, $T_xW^u(p) + T_xW^s(q) = T_xM$ at every intersection $x$. Smale showed that for any Morse $f$, the set of metrics making $(f,g)$ Morse–Smale is open and dense in the $C^\\infty$ topology."
+          },
+          {
+            "type": "numeric",
+            "q": "If $\\ind(p) = 3$ and $\\ind(q) = 1$ and $(f,g)$ is Morse–Smale on a closed manifold, what is the dimension of the moduli space $\\mathcal{M}(p,q)/\\mathbb{R}$ of unparameterised gradient trajectories from $p$ to $q$?",
+            "answer": 1,
+            "tol": 0,
+            "hint": "Dimension formula: $\\ind(p) - \\ind(q) - 1$.",
+            "explain": "The unparameterised moduli space has dimension $\\ind(p)-\\ind(q)-1$. With indices $3$ and $1$, the dimension is $3-1-1 = 1$ — a 1-manifold whose ends are broken trajectories through an intermediate index-$2$ critical point."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the Morse boundary $\\partial$ count only trajectories from index-$k$ to index-$(k-1)$ critical points (not index-$(k-2)$ etc.)?",
+            "choices": [
+              "It is an arbitrary convention.",
+              "Only consecutive-index moduli spaces are 0-dimensional, so the count is finite and signed.",
+              "Higher-difference trajectories don't exist generically.",
+              "Trajectories between non-consecutive indices are non-orientable."
+            ],
+            "answer": 1,
+            "hint": "Dimension of $\\mathcal{M}(p,q)/\\mathbb{R}$ is $\\ind(p)-\\ind(q)-1$.",
+            "explain": "When $\\ind(p)-\\ind(q) = 1$, the moduli space is $0$-dimensional (a finite set of points to count); for $\\ind(p)-\\ind(q) > 1$ it is positive-dimensional and there is no 'count'. Broken trajectories of total drop $1$ form the boundary of the $1$-dimensional moduli for drop $2$, which is exactly what gives $\\partial^2=0$."
+          }
+        ]
+      },
+      "mt-cerf-theory": {
+        "title": "Cerf theory and wall-crossing",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Consider the 1-parameter family $f_t(x) = x^3 - tx$ on $\\mathbb{R}$. For which values of $t$ is $f_t$ a Morse function?",
+            "choices": [
+              "All $t$",
+              "Only $t = 0$",
+              "All $t \\ne 0$",
+              "Only $t > 0$"
+            ],
+            "answer": 2,
+            "hint": "Compute $f'_t(x) = 3x^2 - t$ and check when its zeros are non-degenerate.",
+            "explain": "Critical points solve $3x^2 = t$. For $t>0$ there are two: $x = \\pm\\sqrt{t/3}$, with $f''_t = 6x \\ne 0$ — both non-degenerate. For $t<0$ there are no real critical points (vacuously Morse). At $t=0$ the only critical point is $x=0$ with $f''_0(0) = 0$, degenerate — the birth-death moment."
+          },
+          {
+            "type": "mcq",
+            "q": "In the family $f_t(x) = x^3 - tx$, as $t$ increases through $0$, the indices of the two critical points born at $x = \\pm\\sqrt{t/3}$ are:",
+            "choices": [
+              "both $0$",
+              "both $1$",
+              "$0$ and $1$",
+              "$1$ and $2$"
+            ],
+            "answer": 2,
+            "hint": "Index of a 1-dimensional non-degenerate critical point is $0$ if $f''>0$, $1$ if $f''<0$.",
+            "explain": "At $x = +\\sqrt{t/3}$, $f''_t = 6\\sqrt{t/3} > 0$ — local minimum, index $0$. At $x = -\\sqrt{t/3}$, $f''_t < 0$ — local maximum, index $1$. The pair (index $k$, index $k+1$) born together is the universal birth-death pattern."
+          },
+          {
+            "type": "mcq",
+            "q": "Cerf's theorem states that the space $C^\\infty(M,\\mathbb{R})$ of smooth functions on a closed manifold $M$ admits a stratification in which",
+            "choices": [
+              "every $f$ is Morse",
+              "Morse functions form an open dense set; the codimension-$1$ wall is the birth-death locus, the codimension-$1$ strata of higher type are independent crossings of critical values",
+              "only finitely many $f$ are Morse",
+              "the stratification has no codimension-$1$ wall"
+            ],
+            "answer": 1,
+            "hint": "Generic 1-parameter families avoid codimension-$2$ phenomena; they cross only the codimension-$1$ wall.",
+            "explain": "Cerf's theorem: Morse functions are open and dense (codimension $0$). The codimension-$1$ stratum decomposes into birth-death points (locally $x^3 - tx + \\text{quadratic}$) and independent-crossing points (two critical values cross without index change). Generic 1-parameter families meet this stratum transversally and miss everything codimension $\\ge 2$ — this is the foundation of the $h$-cobordism theorem and Kirby calculus on handle slides."
           }
         ]
       },
@@ -45064,6 +45841,123 @@ window.MVQuizBank = {
             "answer": 1,
             "hint": "Translation has multiplicative character $e^{-2\\pi i y\\xi}$ in the Fourier domain.",
             "explain": "Translations on $\\mathbb{R}$ form a unitary group whose Stone generator is $-i\\partial_x$. The Fourier transform $\\mathcal{F}\\colon L^2(\\mathbb{R})\\to L^2(\\hat{\\mathbb{R}})$ diagonalizes $-i\\partial_x$ as multiplication by $2\\pi\\xi$, so $T_y$ becomes multiplication by $e^{-2\\pi i y\\xi}$. This is the spectral theorem for the abelian group $\\mathbb{R}$."
+          }
+        ]
+      },
+      "st-compact-fredholm": {
+        "title": "Compact operators and the Fredholm alternative",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Fredholm alternative for a compact operator $K$ on a Hilbert space says: for $\\lambda\\ne 0$, the equation $Kx-\\lambda x = y$ is solvable for every $y$ iff:",
+            "choices": [
+              "$\\lambda$ is real",
+              "$K-\\lambda I$ is injective (equivalently, $\\lambda\\notin\\sigma_p(K)$)",
+              "$y$ has finite norm",
+              "$K$ is self-adjoint"
+            ],
+            "answer": 1,
+            "hint": "For Fredholm operators of index $0$, injectivity and surjectivity are equivalent.",
+            "explain": "$K-\\lambda I$ is Fredholm of index $0$ when $\\lambda\\ne 0$ and $K$ is compact (Riesz–Schauder). So $\\dim\\ker(K-\\lambda I)=\\dim\\mathrm{coker}(K-\\lambda I)$, and the equation is universally solvable iff the kernel is trivial. Equivalently, if $\\lambda$ is not an eigenvalue, $K-\\lambda I$ is invertible; if $\\lambda$ is an eigenvalue, the inhomogeneous equation is solvable exactly when $y\\perp\\ker(K^*-\\bar\\lambda I)$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is NOT generally true for a compact operator $K\\in B(H)$ on a separable Hilbert space?",
+            "choices": [
+              "$K$ is the norm-limit of finite-rank operators",
+              "Every non-zero $\\lambda\\in\\sigma(K)$ is an eigenvalue with finite-dimensional eigenspace",
+              "$\\sigma(K)$ accumulates only at $0$",
+              "$0\\notin\\sigma(K)$"
+            ],
+            "answer": 3,
+            "hint": "What is the spectrum of the zero operator? Of any non-invertible compact operator?",
+            "explain": "On infinite-dimensional $H$, $0\\in\\sigma(K)$ for every compact $K$: a compact operator on infinite-dimensional space cannot be invertible (its image of the unit ball is precompact, hence not the whole unit ball). The other three statements are core consequences of compactness — approximation by finite-rank, Riesz–Schauder discrete non-zero spectrum, and accumulation only at $0$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $K$ on $\\ell^2(\\mathbb{N})$ be diagonal with eigenvalues $\\lambda_n = 1/n$ for $n\\ge 1$. What is the index $\\dim\\ker(K-\\tfrac12 I)-\\dim\\mathrm{coker}(K-\\tfrac12 I)$?",
+            "answer": 0,
+            "hint": "$K$ is compact and $\\tfrac12\\ne 0$, so $K-\\tfrac12 I$ is Fredholm of index $0$.",
+            "explain": "$K$ is compact (a diagonal operator with $\\lambda_n\\to 0$). For any non-zero $\\lambda$, $K-\\lambda I$ is Fredholm of index $0$. Concretely: $\\ker(K-\\tfrac12 I)$ is spanned by $e_2$ (one-dimensional), and the cokernel is also one-dimensional (the orthogonal complement of the range, also $\\mathbb{C}\\cdot e_2$ since $K$ is self-adjoint). Index $=1-1=0$.",
+            "tol": 0
+          }
+        ]
+      },
+      "st-trace-class-hilbert-schmidt": {
+        "title": "Trace-class and Hilbert–Schmidt operators",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A bounded operator $T\\in B(H)$ is Hilbert–Schmidt iff:",
+            "choices": [
+              "$T$ is compact",
+              "$\\sum_n s_n(T) < \\infty$ where $s_n$ are the singular values",
+              "$\\sum_n s_n(T)^2 < \\infty$, equivalently $\\sum_n \\|Te_n\\|^2 < \\infty$ for some (any) ONB $(e_n)$",
+              "$T$ is bounded"
+            ],
+            "answer": 2,
+            "hint": "The Hilbert–Schmidt norm is $\\|T\\|_{HS}^2=\\sum\\|Te_n\\|^2$ — square-summable singular values.",
+            "explain": "$T\\in\\mathcal{S}_2$ iff $\\|T\\|_{HS}^2=\\sum_n\\|Te_n\\|^2<\\infty$, equivalently $\\sum_n s_n(T)^2<\\infty$. The sum is independent of the ONB. Hilbert–Schmidt $\\Rightarrow$ compact, but the converse fails (e.g. $K$ with $s_n=1/\\log(n+2)$ is compact but not HS). Trace-class $\\mathcal{S}_1$ requires the stricter $\\sum s_n<\\infty$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $K$ be the diagonal operator on $\\ell^2(\\mathbb{N})$ with eigenvalues $\\lambda_n=1/n^2$ for $n\\ge 1$. What is $\\operatorname{tr}(K)$?  (Round to 4 decimals; recall $\\sum_{n\\ge 1} 1/n^2=\\pi^2/6$.)",
+            "answer": 1.6449,
+            "hint": "Trace of a diagonal trace-class operator is the sum of eigenvalues.",
+            "explain": "$K$ is positive and trace-class because $\\sum 1/n^2 = \\pi^2/6 \\approx 1.6449$ converges. The trace is $\\operatorname{tr}(K)=\\sum_n \\langle Ke_n,e_n\\rangle = \\sum_n 1/n^2 = \\pi^2/6$. Note $K$ is also Hilbert–Schmidt with $\\|K\\|_{HS}^2=\\sum 1/n^4=\\pi^4/90$, and the inclusion $\\mathcal{S}_1\\subset\\mathcal{S}_2$ is automatic since trace-class is a stronger condition.",
+            "tol": 0.001
+          },
+          {
+            "type": "mcq",
+            "q": "The dual of $B(H)$-as-a-Banach-space identifies trace-class operators with which space, and via which pairing?",
+            "choices": [
+              "$\\mathcal{S}_1$ is the predual of $B(H)$, with $\\langle T, S\\rangle = \\operatorname{tr}(TS)$ for $T\\in\\mathcal{S}_1$, $S\\in B(H)$",
+              "$\\mathcal{S}_1 = B(H)^*$ via the operator norm",
+              "$\\mathcal{S}_2 = B(H)^*$",
+              "$\\mathcal{S}_1$ has no relation to duality on $B(H)$"
+            ],
+            "answer": 0,
+            "hint": "Schatten duality reads $(\\mathcal{S}_1)^* = B(H)$ — so $\\mathcal{S}_1$ is the predual.",
+            "explain": "Schatten–von Neumann duality: $\\mathcal{S}_1$ is the predual of $B(H)$ via $\\langle T, S\\rangle=\\operatorname{tr}(TS)$, giving $(\\mathcal{S}_1)^*\\cong B(H)$ isometrically. Equivalently $(\\mathcal{K}(H))^*=\\mathcal{S}_1$, where $\\mathcal{K}(H)$ is the compact operators. The Hilbert–Schmidt class $\\mathcal{S}_2$ is self-dual under the same pairing — it is itself a Hilbert space with inner product $\\langle T,S\\rangle_{HS}=\\operatorname{tr}(S^*T)$."
+          }
+        ]
+      },
+      "st-weyl-laplacian": {
+        "title": "Weyl's law for the Laplacian",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Weyl's law for the Dirichlet Laplacian on a bounded domain $\\Omega\\subset\\mathbb{R}^d$ asserts:",
+            "choices": [
+              "$N(\\lambda)\\sim |\\Omega|\\,\\lambda$",
+              "$N(\\lambda)\\sim\\frac{\\omega_d|\\Omega|}{(2\\pi)^d}\\lambda^{d/2}$ as $\\lambda\\to\\infty$, where $\\omega_d$ is the volume of the unit ball in $\\mathbb{R}^d$",
+              "$\\lambda_n\\to\\infty$ exponentially in $n$",
+              "$N(\\lambda)$ is exactly $|\\Omega|\\lambda^{d/2}$"
+            ],
+            "answer": 1,
+            "hint": "The leading term packs the eigenvalues with the same density as Fourier modes in a box of volume $|\\Omega|$.",
+            "explain": "Weyl's law: the eigenvalue counting function $N(\\lambda)=\\#\\{n:\\lambda_n\\le\\lambda\\}$ satisfies $N(\\lambda)\\sim\\frac{\\omega_d|\\Omega|}{(2\\pi)^d}\\lambda^{d/2}$ as $\\lambda\\to\\infty$. Equivalently $\\lambda_n\\sim\\frac{(2\\pi)^2}{(\\omega_d|\\Omega|)^{2/d}}n^{2/d}$. The two leading-order spectral invariants — dimension $d$ and volume $|\\Omega|$ — are visible in the asymptotics; subleading terms encode boundary length, curvature, etc."
+          },
+          {
+            "type": "numeric",
+            "q": "On the rectangle $\\Omega=[0,a]\\times[0,b]$, the Dirichlet Laplacian has eigenvalues $\\lambda_{m,n}=\\pi^2(m^2/a^2+n^2/b^2)$ for $m,n\\ge 1$. With $a=b=1$, what is the smallest eigenvalue $\\lambda_1$?  (Round to 4 decimals.)",
+            "answer": 19.7392,
+            "hint": "The minimum is $(m,n)=(1,1)$, giving $\\lambda=2\\pi^2$.",
+            "explain": "On the unit square, $\\lambda_{m,n}=\\pi^2(m^2+n^2)$, minimized at $(1,1)$: $\\lambda_1=2\\pi^2\\approx 19.7392$. The corresponding eigenfunction is $\\sin(\\pi x)\\sin(\\pi y)$. Weyl's law for $d=2$, $|\\Omega|=1$ predicts $N(\\lambda)\\sim\\lambda/(4\\pi)$, consistent with the lattice-point count $\\#\\{(m,n)\\in\\mathbb{Z}_{\\ge 1}^2 : m^2+n^2\\le\\lambda/\\pi^2\\}$ being a quarter-disk of radius $\\sqrt{\\lambda}/\\pi$.",
+            "tol": 0.01
+          },
+          {
+            "type": "mcq",
+            "q": "\"Can you hear the shape of a drum?\" (Kac, 1966) asks whether the Laplace spectrum determines $\\Omega$ up to isometry. The answer is:",
+            "choices": [
+              "Yes — the spectrum determines $\\Omega$ uniquely",
+              "No — Gordon, Webb, and Wolpert (1992) constructed isospectral non-isometric planar domains",
+              "Only in dimension 1",
+              "Only for convex $\\Omega$"
+            ],
+            "answer": 1,
+            "hint": "There exist explicit non-isometric drums with identical spectra.",
+            "explain": "Weyl's law shows the spectrum determines the dimension and volume of $\\Omega$, and finer asymptotics recover the boundary length (Pleijel) and the Euler characteristic of $\\Omega$ (Kac). But Gordon, Webb, and Wolpert (1992) gave explicit pairs of polygonal isospectral non-isometric planar domains — so the spectrum does NOT determine $\\Omega$ up to isometry. You can hear a great deal but not everything."
           }
         ]
       }

@@ -244,6 +244,10 @@ function drawNode(svg, x, y, label, opts={}){
   <a href="#dirichlet">4&nbsp;Primes&nbsp;in&nbsp;APs</a>
   <a href="#sieves">5&nbsp;Sieves</a>
   <a href="#bombieri">6&nbsp;Bombieri–Vinogradov</a>
+  <a href="#circle-method">7&nbsp;Circle&nbsp;method</a>
+  <a href="#expsums">8&nbsp;Exponential&nbsp;sums</a>
+  <a href="#selberg-elementary">9&nbsp;Selberg's&nbsp;PNT</a>
+  <a href="#large-sieve">10&nbsp;Large&nbsp;sieve</a>
 </nav>
 <!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
 
@@ -290,7 +294,10 @@ Integration by parts gives $\mathrm{Li}(x) = x/\log x + x/(\log x)^2 + 2x/(\log 
   <div class="ttl">Used in</div>
     <div><a href="./analytic-number-theory.html#explicit">Analytic number theory</a> · $\zeta(s)$ and the explicit formula</div>
     <div><a href="./analytic-number-theory.html#dirichlet">Analytic number theory</a> · Dirichlet's theorem on primes in AP</div>
+    <div><a href="./analytic-number-theory.html#expsums">Analytic number theory</a> · Exponential sums and equidistribution</div>
+    <div><a href="./analytic-number-theory.html#selberg-elementary">Analytic number theory</a> · Selberg's symmetry formula and elementary PNT</div>
     <div><a href="./analytic-number-theory.html#sieves">Analytic number theory</a> · Sieve methods</div>
+    <div><a href="./analytic-number-theory.html#circle-method">Analytic number theory</a> · The Hardy–Littlewood circle method</div>
 </aside>
 <!-- backlinks-auto-end -->
 </section>
@@ -368,7 +375,12 @@ Combined with the explicit formula and a Hadamard product expansion, this yields
   <div class="small">Critical strip $0 \le \sigma \le 1$ shaded blue. Forbidden-zero region (where $\zeta \ne 0$) shaded green. The first 20 non-trivial zeros (real part $1/2$, heights $\gamma_n$) plotted as yellow dots — they all sit on the critical line, regardless of which proven region we draw.</div>
 </div>
 
-<div class="quiz" data-concept="ant-zero-free-region"></div>
+<div class="quiz" data-concept="ant-zero-free-region"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./analytic-number-theory.html#selberg-elementary">Analytic number theory</a> · Selberg's symmetry formula and elementary PNT</div>
+</aside>
+<!-- backlinks-auto-end -->
 </section>
 
 <section id="dirichlet">
@@ -491,11 +503,350 @@ $$\sum_{q \le Q} \;\max_{\gcd(a, q) = 1} |E(x; q, a)| \;\ll_A\; \frac{x}{(\log x
     <li><a href="./L-functions.html#unified">Prototype L-functions</a></li>
   </ul>
 </aside>
-<!-- callback-auto-end --><div class="quiz" data-concept="ant-bombieri-vinogradov"></div>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./analytic-number-theory.html#large-sieve">Analytic number theory</a> · The large sieve inequality</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="ant-bombieri-vinogradov"></div>
+</section>
+
+<section id="circle-method">
+<h2>7. The Hardy–Littlewood circle method</h2>
+<p>For an additive counting problem — "how many ways can $N$ be written as a sum of $k$ values of $f$?" — the generating exponential sum
+$$S(\alpha) \;=\; \sum_{n \le N} e(\alpha\,f(n)), \qquad e(x) := e^{2\pi i x}$$
+encodes everything. Expanding $S(\alpha)^k$ and using $\int_0^1 e(\alpha m)\,d\alpha = \mathbf 1_{m=0}$,
+$$r_k(N) \;=\; \#\{(n_1,\ldots,n_k): f(n_1) + \cdots + f(n_k) = N\} \;=\; \int_0^1 S(\alpha)^k\, e(-N\alpha)\,d\alpha.$$
+The trick is dissecting the integration domain $[0,1]$ into the rationals where $S$ is large and predictable (<strong>major arcs</strong>) and everywhere else (<strong>minor arcs</strong>).</p>
+
+<p><strong>Major arcs.</strong> Fix a height $K$ and let $\mathfrak{M} = \bigcup_{q \le K} \bigcup_{(a,q)=1} \bigl[a/q - K/N,\ a/q + K/N\bigr]$. Near $\alpha = a/q$, the substitution $\alpha = a/q + \beta$ separates an arithmetic factor (a Ramanujan-type sum mod $q$) from an analytic factor (an oscillatory integral in $\beta$). The sum of major-arc contributions is the <em>singular series</em> $\mathfrak{S}(N) \cdot$ (smooth main term). For ternary Goldbach ($f(n) = n$, $k = 3$, $n$ prime), $\mathfrak{S}(N) > 0$ on odd $N$ and the prediction is $r_3(N) \sim \mathfrak{S}(N) \frac{N^2}{2(\log N)^3}$.</p>
+
+<p><strong>Minor arcs.</strong> Everywhere off the major arcs, $\alpha$ has poor rational approximations, and Weyl's inequality (next section) gives cancellation in $S(\alpha)$. The minor-arc integral is an error term, dominated when $K$ is chosen well.</p>
+
+<p>This circle of ideas was Hardy and Littlewood's framework for Waring's problem — every integer is a sum of $g(k)$ $k$-th powers, with $g(2) = 4$ (Lagrange), $g(3) = 9$ (Wieferich), $g(4) = 19$ (Balasubramanian–Deshouillers–Dress) — and Vinogradov's 1937 proof that every sufficiently large odd $N$ is a sum of three primes.</p>
+
+<div class="widget" id="w-cm">
+  <div class="hd"><div class="ttl">Major arcs vs. minor arcs on $[0,1]$</div><div class="hint">drag $K$ — watch the major arcs grow</div></div>
+  <svg id="cm-svg" viewBox="0 0 620 280" width="620" height="280"><title>Major arcs vs. minor arcs on $[0,1]$</title></svg>
+  <div class="row">
+    <label for="cm-K">major-arc cutoff $K$</label>
+    <input type="range" id="cm-K" min="1" max="12" step="1" value="4">
+    <span class="small" id="cm-Kv">K = 4</span>
+  </div>
+  <div class="readout" id="cm-out">&nbsp;</div>
+</div>
+
+<script>
+(function(){
+  const svg = $('#cm-svg'), out = $('#cm-out');
+  const KR = $('#cm-K'), Kv = $('#cm-Kv');
+  const W = 620, H = 280, pad = 50;
+  const N = 200; // notional N for arc-half-width K/N
+  function draw(){
+    svg.innerHTML = '';
+    const K = parseInt(KR.value, 10);
+    Kv.textContent = 'K = ' + K;
+    const y0 = 130;
+    // baseline
+    svg.appendChild(SVG('line',{x1:pad, y1:y0, x2:W-pad, y2:y0, stroke:'var(--mute)','stroke-width':1.5}));
+    // ticks at 0, 1
+    [0,1].forEach(v => {
+      const x = pad + v*(W-2*pad);
+      svg.appendChild(SVG('line',{x1:x, y1:y0-6, x2:x, y2:y0+6, stroke:'var(--mute)'}));
+      const t = SVG('text',{x:x, y:y0+22, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+      t.textContent = v; svg.appendChild(t);
+    });
+    // gather rationals a/q with q<=K, gcd(a,q)=1, in [0,1]
+    function gcd(a,b){ while(b){[a,b]=[b,a%b];} return a; }
+    const arcs = [];
+    for(let q=1; q<=K; q++){
+      for(let a=0; a<=q; a++){
+        if(gcd(a,q)===1 || (a===0 && q===1) || (a===q && q===1)){
+          arcs.push({a, q, val: a/q});
+        }
+      }
+    }
+    // arc half-width K/N
+    const halfW = K / N;
+    // draw arcs
+    arcs.forEach(({a,q,val}) => {
+      const cx = pad + val*(W-2*pad);
+      const wPx = halfW*(W-2*pad);
+      svg.appendChild(SVG('rect',{x:cx-wPx, y:y0-26, width:2*wPx, height:52,
+        fill:'var(--cyan)', 'fill-opacity':0.18, stroke:'var(--cyan)', 'stroke-width':1}));
+      // tick + label
+      svg.appendChild(SVG('line',{x1:cx, y1:y0-30, x2:cx, y2:y0+30, stroke:'var(--cyan)','stroke-width':1.2}));
+      if(q <= 6 || (q <= K && q*q <= 36)){
+        const t = SVG('text',{x:cx, y:y0-36, 'text-anchor':'middle','font-size':11, fill:'var(--cyan)'});
+        t.textContent = a + '/' + q; svg.appendChild(t);
+      }
+    });
+    // legend boxes
+    svg.appendChild(SVG('rect',{x:pad, y:30, width:14, height:14, fill:'var(--cyan)','fill-opacity':0.18, stroke:'var(--cyan)'}));
+    const lt1 = SVG('text',{x:pad+22, y:42, 'font-size':12, fill:'var(--ink)'});
+    lt1.textContent = 'major arcs (rationals a/q with q ≤ K)'; svg.appendChild(lt1);
+    svg.appendChild(SVG('rect',{x:pad, y:52, width:14, height:14, fill:'transparent', stroke:'var(--mute)', 'stroke-dasharray':'3 3'}));
+    const lt2 = SVG('text',{x:pad+22, y:64, 'font-size':12, fill:'var(--mute)'});
+    lt2.textContent = 'minor arcs = everything else'; svg.appendChild(lt2);
+    // count + coverage
+    const numArcs = arcs.length;
+    const coverage = Math.min(1, numArcs * 2 * halfW);
+    out.textContent = 'K = ' + K + ':  ' + numArcs + ' major arcs, each of half-width K/N = ' + halfW.toFixed(4)
+      + '\nfraction of [0,1] covered by major arcs ≈ ' + (coverage*100).toFixed(1) + '%'
+      + '\nas K grows the arcs multiply but each arc shrinks for fixed N — chosen optimally to absorb the singular series without overlap.';
+  }
+  KR.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./complex-analysis.html#contour">Cauchy integral formula</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./analytic-number-theory.html#expsums">Analytic number theory</a> · Exponential sums and equidistribution</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="ant-circle-method"></div>
+</section>
+
+<section id="expsums">
+<h2>8. Exponential sums and equidistribution</h2>
+<p>The minor-arc bounds the circle method demands are statements that exponential sums $\sum e(f(n))$ <em>cancel</em> — that the unit-circle vectors $e(f(n))$ point in enough different directions to leave a small residual. Quantifying this is the subject of <strong>Weyl's inequality</strong>, <strong>van der Corput's $A$- and $B$-processes</strong>, and the connection to <strong>equidistribution</strong>.</p>
+
+<p><strong>Weyl's criterion (1916).</strong> A sequence $\{a_n\}_{n=1}^\infty \subset \mathbb{R}/\mathbb{Z}$ is equidistributed iff for every $k \in \mathbb{Z}\setminus\{0\}$,
+$$\frac{1}{N} \sum_{n=1}^N e(k a_n) \;\longrightarrow\; 0.$$
+This dualizes equidistribution into a Fourier statement: cancellation in every nonzero frequency.</p>
+
+<p><strong>Weyl's inequality.</strong> If $|\alpha - a/q| \le 1/q^2$ with $\gcd(a, q) = 1$, then
+$$\biggl|\sum_{n \le N} e(\alpha n^k)\biggr| \;\ll\; N^{1+\varepsilon}\bigl(q^{-1} + N^{-1} + qN^{-k}\bigr)^{1/2^{k-1}}.$$
+The square-root cancellation degrades exponentially in $k$ — for $k=3$ we save only $1/4$, for $k=4$ only $1/8$. Sharper bounds came later: Vinogradov's mean-value theorem (1935), refined to optimality by Wooley and by Bourgain–Demeter–Guth (2016) via $\ell^2$-decoupling.</p>
+
+<p><strong>Consequences.</strong> Weyl's criterion + estimates of $\sum_{p \le N} e(\alpha p)$ give <em>Vinogradov's three-primes theorem</em>: $\{p\alpha\}$ is equidistributed for irrational $\alpha$. The same machinery proves equidistribution of $\{n^2 \alpha\}$, $\{P(n)\alpha\}$ for any non-constant integer polynomial $P$, and underlies modern density results in additive combinatorics (e.g. Furstenberg–Sárközy on $n^2$-differences in dense sets).</p>
+
+<div class="widget" id="w-weyl"></div><script>
+(function(){
+  if(!window.MVInlineCodeCell) return;
+  MVInlineCodeCell.init('#w-weyl', {
+    title: "Weyl-sum sandbox: $\\sum_{n=1}^N e(\\alpha n^k)$",
+    hint: "edit α and k, hit Run · prelude includes gcd, mod, factor, isPrime, primes, pow",
+    initialCode: "// Compute the Weyl sum  S(alpha; N, k) = sum_{n=1..N} e(2*pi*i*alpha*n^k)\n// and report its magnitude / N (the Weyl-criterion ratio).\n// Try:\n//   alpha = sqrt(2)        // irrational, ratio -> 0 as N grows\n//   alpha = 1/3            // rational, ratio stays away from 0 when k=1\n//   alpha = 0.5*Math.sqrt(5) - 0.5  // golden ratio - 1 (badly approximable)\n//   k = 1, 2, 3, 4         // higher k gets harder per Weyl's inequality\nconst alpha = Math.sqrt(2);\nconst k = 2;\nconst Ns = [100, 1000, 10000, 50000];\nfor (const N of Ns) {\n  let re = 0, im = 0;\n  for (let n = 1; n <= N; n++) {\n    const theta = 2 * Math.PI * alpha * Math.pow(n, k);\n    re += Math.cos(theta);\n    im += Math.sin(theta);\n  }\n  const mag = Math.sqrt(re*re + im*im);\n  console.log('N = ' + N + ':  |S| = ' + mag.toFixed(2)\n    + ',   |S|/N = ' + (mag/N).toFixed(4)\n    + ',   |S|/sqrt(N) = ' + (mag/Math.sqrt(N)).toFixed(3));\n}\n// Weyl's criterion: |S|/N -> 0 means {alpha n^k} is equidistributed.\n// Square-root heuristic: |S| ~ sqrt(N) for generic irrational alpha.\n",
+    prelude: "math",
+    rows: 16,
+    runLabel: "Run",
+  });
+})();
+</script>
+
+<div class="quiz" data-concept="ant-exponential-sums"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./analytic-number-theory.html#large-sieve">Analytic number theory</a> · The large sieve inequality</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="selberg-elementary">
+<h2>9. Selberg's symmetry formula and elementary PNT</h2>
+<p>Hardy speculated that PNT could not be proved without complex analysis — that the depth of the result was inseparable from the analytic structure of $\zeta(s)$. The 1948–49 work of Atle Selberg and Paul Erdős refuted this, deriving PNT from real-variable manipulations of $\Lambda$ and $\log$. The keystone is</p>
+
+<p><strong>Selberg's symmetry formula:</strong>
+$$\sum_{p \le x} \log^2 p \;+\; \sum_{pq \le x} \log p \, \log q \;=\; 2x \log x + O(x).$$
+The two sums are <em>symmetric</em> partners: the first counts primes weighted by $\log^2 p$; the second counts ordered pairs of primes $(p,q)$ with $pq \le x$. Their sum is rigid — if PNT failed, one term would be too small (forcing the other to be too large), but the total is pinned to $2x \log x$ to within $O(x)$.</p>
+
+<p><strong>Sketch.</strong> Start from $\Lambda * 1 = \log$ (i.e. $\sum_{d \mid n} \Lambda(d) = \log n$). Möbius-invert to get $\Lambda = \mu * \log$. Then
+$$\Lambda(n) \log n \;+\; (\Lambda * \Lambda)(n) \;=\; \sum_{d \mid n} \mu(d) \log^2(n/d).$$
+Summing both sides for $n \le x$ and using elementary asymptotics $\sum_{n \le x} \log^2 n = x\log^2 x - 2x\log x + 2x + O(\log^2 x)$ gives Selberg's identity after Abel summation.</p>
+
+<p><strong>The bootstrap.</strong> Set $R(x) = \psi(x) - x$. Selberg's identity rewrites as $R(x)\log x + \int_1^x R(x/t)\,d\psi(t) = O(x)$. Erdős's contribution: an averaging argument that turns this into the self-improvement $\limsup_x |R(x)/x| \le \tfrac12 \limsup_x |R(x)/x|$, forcing $R(x) = o(x)$ — equivalent to PNT. The error is weaker than the analytic proof's $O(x e^{-c\sqrt{\log x}})$, but the proof is real-variable.</p>
+
+<div class="widget" id="w-selberg"></div><script>
+(function(){
+  if(!window.MVProofScrubber) return;
+  MVProofScrubber.init('#w-selberg', {
+    title: "Selberg–Erdős bootstrap to PNT",
+    hint: "drag the slider — or press play",
+    viewBox: "0 0 320 180",
+    autoplayMs: 2600,
+    steps: [
+      {
+        title: "Setup: $\\Lambda * 1 = \\log$",
+        body: "Define $\\Lambda(n) = \\log p$ if $n = p^k$, else $0$. Then $\\sum_{d \\mid n} \\Lambda(d) = \\log n$ — every $\\log n$ decomposes via the prime-power divisor lattice. Möbius-invert to recover $\\Lambda(n) = \\sum_{d \\mid n} \\mu(d) \\log(n/d)$.",
+        svgInner: "<text x='160' y='40' text-anchor='middle' font-size='14' fill='var(--ink)'>Λ ∗ 1 = log</text><text x='160' y='75' text-anchor='middle' font-size='13' fill='var(--mute)'>Σ_{d|n} Λ(d) = log n</text><text x='160' y='115' text-anchor='middle' font-size='13' fill='var(--cyan)'>Λ = μ ∗ log</text><text x='160' y='150' text-anchor='middle' font-size='12' fill='var(--mute)'>(Möbius inversion)</text>",
+      },
+      {
+        title: "Selberg's identity",
+        body: "Apply $\\mu * \\log$ to both factors of $\\log^2$. After Abel summation,\n$$\\sum_{p \\le x} \\log^2 p + \\sum_{pq \\le x} \\log p \\log q = 2x \\log x + O(x).$$\nThe two sums are symmetric — primes weighted by $\\log^2$, paired with prime pairs weighted by $\\log p \\log q$.",
+        svgInner: "<text x='160' y='35' text-anchor='middle' font-size='12' fill='var(--ink)'>Σ_{p≤x} log²p</text><text x='160' y='60' text-anchor='middle' font-size='14' fill='var(--mute)'>+</text><text x='160' y='85' text-anchor='middle' font-size='12' fill='var(--ink)'>Σ_{pq≤x} log p · log q</text><line x1='60' y1='105' x2='260' y2='105' stroke='var(--mute)'/><text x='160' y='130' text-anchor='middle' font-size='14' fill='var(--yellow)'>= 2x log x + O(x)</text>",
+      },
+      {
+        title: "Translate to $\\psi(x) - x$",
+        body: "Both sums can be re-expressed via $\\psi(x) = \\sum_{n \\le x} \\Lambda(n)$. Setting $R(x) := \\psi(x) - x$, Selberg's identity becomes a functional inequality\n$$R(x)\\log x \\;+\\; \\int_1^x R(x/t)\\,d\\psi(t) \\;=\\; O(x).$$\nA defect $R(x) > 0$ forces the integral to be negative, which forces a defect $R(x/t) < 0$ at smaller scales — and vice versa. The two errors anti-correlate.",
+        svgInner: "<text x='160' y='40' text-anchor='middle' font-size='13' fill='var(--ink)'>R(x) := ψ(x) − x</text><text x='160' y='75' text-anchor='middle' font-size='12' fill='var(--mute)'>R(x) log x + ∫ R(x/t) dψ(t) = O(x)</text><text x='160' y='110' text-anchor='middle' font-size='12' fill='var(--cyan)'>positive R at x</text><text x='160' y='130' text-anchor='middle' font-size='12' fill='var(--cyan)'>↕ forces negative R at x/t</text>",
+      },
+      {
+        title: "Erdős's averaging step",
+        body: "Erdős's key insight: the symmetry forces an averaging inequality. If $A := \\limsup_x |R(x)/x|$, then\n$$A \\;\\le\\; \\tfrac{1}{2} A \\;+\\; o(1),$$\ni.e. the limsup self-improves by a factor of $1/2$ at each iteration. Iterating gives $A \\le 2^{-k} A + o(1)$ for every $k$, hence $A = 0$.",
+        svgInner: "<text x='160' y='40' text-anchor='middle' font-size='13' fill='var(--ink)'>A := lim sup |R(x)/x|</text><text x='160' y='80' text-anchor='middle' font-size='14' fill='var(--yellow)'>A ≤ ½ A</text><text x='160' y='110' text-anchor='middle' font-size='12' fill='var(--mute)'>iterate ⟹ A ≤ 2⁻ᵏ A → 0</text><text x='160' y='145' text-anchor='middle' font-size='13' fill='var(--green)'>R(x) = o(x)</text>",
+      },
+      {
+        title: "Conclude PNT",
+        body: "$R(x) = o(x)$ is equivalent to $\\psi(x) \\sim x$, which by partial summation is equivalent to $\\pi(x) \\sim x/\\log x$ — the prime number theorem. No contour integration, no $\\zeta$-zeros — just real-variable manipulations of multiplicative functions. The error term is weaker than de la Vallée Poussin's analytic $O(x e^{-c\\sqrt{\\log x}})$, but the proof is elementary in the precise technical sense.",
+        svgInner: "<text x='160' y='45' text-anchor='middle' font-size='14' fill='var(--green)'>ψ(x) ∼ x</text><text x='160' y='75' text-anchor='middle' font-size='14' fill='var(--green)'>π(x) ∼ x / log x</text><text x='160' y='115' text-anchor='middle' font-size='13' fill='var(--ink)'>PNT — no complex analysis</text><text x='160' y='145' text-anchor='middle' font-size='11' fill='var(--mute)'>Erdős–Selberg, 1948–49</text>",
+      },
+    ],
+  });
+})();
+</script>
+
+<div class="quiz" data-concept="ant-selberg-elementary"></div>
+</section>
+
+<section id="large-sieve">
+<h2>10. The large sieve inequality</h2>
+<p>The Bombieri–Vinogradov theorem (Section 6) is a statement; the <strong>large sieve inequality</strong> is the engine that proves it. In its analytic form (Montgomery–Bombieri, late 1960s):</p>
+
+<p><strong>Theorem (analytic large sieve).</strong> <em>For any complex sequence $(a_n)_{n \le N}$ and any $Q \ge 1$,
+$$\sum_{q \le Q} \;\sum_{\chi \bmod q}^{*} \;\biggl|\sum_{n \le N} a_n \chi(n)\biggr|^2 \;\le\; (Q^2 + N) \sum_{n \le N} |a_n|^2,$$
+where the inner sum is over primitive characters $\chi$ mod $q$.</em></p>
+
+<p>The constant $Q^2 + N$ is essentially sharp. The number of primitive characters of conductors $\le Q$ is $\asymp Q^2/\zeta(2)$, so when $a_n$ is concentrated on a single residue class the LHS is already $\asymp Q^2 \|a\|_2^2$; the trivial Cauchy–Schwarz bound gives $N \|a\|_2^2$. Both regimes appear — hence the sum, not the max.</p>
+
+<p><strong>Dual / Plancherel reformulation.</strong> Equivalently, for $\delta$-spaced frequencies $\alpha_1, \ldots, \alpha_R \in \mathbb{R}/\mathbb{Z}$,
+$$\sum_{r=1}^R \biggl|\sum_{n \le N} a_n e(n\alpha_r)\biggr|^2 \;\le\; (\delta^{-1} + N) \sum |a_n|^2.$$
+The Farey rationals $\{a/q : q \le Q\}$ are $1/Q^2$-spaced, so $\delta^{-1} = Q^2$. This is the form most directly visible in the circle method's minor-arc analysis.</p>
+
+<p><strong>From large sieve to Bombieri–Vinogradov.</strong> Run a Vaughan-style identity that decomposes $\Lambda(n)$ into a sum of bilinear forms $\sum_{m,k} \alpha_m \beta_k \mathbf 1_{mk \le x}$. Each bilinear form's $\ell^2$-mass over characters is bounded by the large sieve inequality applied to $(\alpha)$ and $(\beta)$ separately. Summing gives the Bombieri–Vinogradov bound — a GRH-quality error on average. Pushing $Q$ past $\sqrt{x}$ would need cancellation among <em>off-diagonal</em> bilinear pairs, which is the substance of Elliott–Halberstam and the post-Zhang work on bounded gaps between primes.</p>
+
+<div class="widget" id="w-ls">
+  <div class="hd"><div class="ttl">Large sieve: LHS vs. $(Q^2 + N)\|a\|^2$</div><div class="hint">drag $Q$ — see when each side dominates</div></div>
+  <svg id="ls-svg" viewBox="0 0 620 320" width="620" height="320"><title>Large sieve: LHS vs. $(Q^2 + N)\|a\|^2$</title></svg>
+  <div class="row">
+    <label for="ls-Q">$Q$ (modulus cutoff)</label>
+    <input type="range" id="ls-Q" min="2" max="50" step="1" value="10">
+    <span class="small" id="ls-Qv">Q = 10</span>
+  </div>
+  <div class="row">
+    <label for="ls-N">$N$ (sequence length)</label>
+    <input type="range" id="ls-N" min="50" max="800" step="10" value="200">
+    <span class="small" id="ls-Nv">N = 200</span>
+  </div>
+  <div class="readout" id="ls-out">&nbsp;</div>
+</div>
+
+<script>
+(function(){
+  const svg = $('#ls-svg'), out = $('#ls-out');
+  const QR = $('#ls-Q'), Qv = $('#ls-Qv');
+  const NR = $('#ls-N'), Nv = $('#ls-Nv');
+  const W = 620, H = 320, pad = 50;
+  function gcd(a,b){ while(b){[a,b]=[b,a%b];} return a; }
+  // simulate large-sieve LHS for the test sequence a_n = 1 for n<=N, else 0
+  // -- against Farey rationals a/q with q in [1..Qmax]: |sum_{n<=N} e(n*a/q)|^2
+  // -- Plancherel form (frequencies are Q^{-2}-spaced via Farey)
+  function lsSimulated(Qmax, N){
+    let total = 0;
+    let count = 0;
+    for(let q=1; q<=Qmax; q++){
+      for(let a=1; a<=q; a++){
+        if(gcd(a,q) !== 1) continue;
+        const alpha = a/q;
+        // |sum_{n<=N} e(n alpha)|^2 = |(e((N+1)alpha) - e(alpha))/(e(alpha)-1)|^2
+        // for alpha != 0, otherwise N^2.
+        if(Math.abs(alpha - Math.round(alpha)) < 1e-12){
+          total += N*N;
+        } else {
+          const num = Math.sin(Math.PI * alpha * N) / Math.sin(Math.PI * alpha);
+          total += num * num;
+        }
+        count++;
+      }
+    }
+    return {total, count};
+  }
+  function draw(){
+    svg.innerHTML = '';
+    const Qmax = parseInt(QR.value, 10);
+    const N = parseInt(NR.value, 10);
+    Qv.textContent = 'Q = ' + Qmax;
+    Nv.textContent = 'N = ' + N;
+
+    // sample LHS over Q = 2..Qmax
+    const Qs = [], lhs = [], rhs = [];
+    for(let Q=2; Q<=Qmax; Q++){
+      const {total} = lsSimulated(Q, N);
+      Qs.push(Q);
+      lhs.push(total);
+      // RHS is (Q^2 + N) * ||a||^2 = (Q^2 + N) * N
+      rhs.push((Q*Q + N) * N);
+    }
+    const allVals = lhs.concat(rhs);
+    const ymax = Math.max(...allVals) * 1.1 + 1;
+    const xmin = 2, xmax = Qmax;
+    const toX = q => pad + (q-xmin)/(xmax-xmin)*(W-2*pad);
+    const toY = y => H - pad - y/ymax*(H-2*pad);
+
+    // axes
+    svg.appendChild(SVG('line',{x1:pad, y1:toY(0), x2:W-pad, y2:toY(0), stroke:'var(--mute)'}));
+    svg.appendChild(SVG('line',{x1:pad, y1:toY(0), x2:pad, y2:toY(ymax), stroke:'var(--mute)'}));
+
+    // RHS = (Q^2+N) N curve (cyan dashed)
+    let dR = '';
+    for(let i=0; i<Qs.length; i++){
+      dR += (i===0?'M':'L') + toX(Qs[i]) + ' ' + toY(rhs[i]) + ' ';
+    }
+    svg.appendChild(SVG('path',{d:dR, fill:'none', stroke:'var(--cyan)', 'stroke-width':2, 'stroke-dasharray':'5 4'}));
+
+    // LHS curve (yellow solid)
+    let dL = '';
+    for(let i=0; i<Qs.length; i++){
+      dL += (i===0?'M':'L') + toX(Qs[i]) + ' ' + toY(lhs[i]) + ' ';
+    }
+    svg.appendChild(SVG('path',{d:dL, fill:'none', stroke:'var(--yellow)', 'stroke-width':2}));
+
+    // x ticks
+    for(let k=0; k<=5; k++){
+      const v = Math.round(xmin + (xmax-xmin)*k/5);
+      const t = SVG('text',{x:toX(v), y:toY(0)+18, 'text-anchor':'middle','font-size':11, fill:'var(--mute)'});
+      t.textContent = v; svg.appendChild(t);
+    }
+    const xlab = SVG('text',{x:W/2, y:H-8, 'text-anchor':'middle','font-size':11, fill:'var(--mute)'});
+    xlab.textContent = 'modulus cutoff Q'; svg.appendChild(xlab);
+
+    // legend (viewport coords)
+    const items = [
+      ['— Σ_{q≤Q} Σ_χ* |Σ a_n χ(n)|² (LHS, simulated)', 'var(--yellow)'],
+      ['- - (Q² + N)·||a||² (large-sieve bound)', 'var(--cyan)']
+    ];
+    items.forEach((it, i) => {
+      const t = SVG('text',{x:pad+10, y:pad+14+i*16, 'font-size':12, fill:it[1]});
+      t.textContent = it[0]; svg.appendChild(t);
+    });
+
+    const lhsAtQ = lhs[lhs.length-1];
+    const rhsAtQ = rhs[rhs.length-1];
+    const slack = rhsAtQ / Math.max(1, lhsAtQ);
+    out.textContent = 'Q = ' + Qmax + ', N = ' + N + ':  LHS ≈ ' + lhsAtQ.toFixed(0)
+      + ',   (Q²+N)·N = ' + rhsAtQ.toFixed(0)
+      + ',   slack = RHS/LHS ≈ ' + slack.toFixed(2)
+      + '\nLarge sieve is sharp up to a constant; here the test sequence (a_n = 1) is concentrated, so the bound is essentially tight.';
+  }
+  QR.addEventListener('input', draw);
+  NR.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<div class="quiz" data-concept="ant-large-sieve"></div>
 </section>
 
 <section id="outro">
-<h2>7. Connections</h2>
+<h2>11. Connections</h2>
 
 <p>Analytic number theory translates additive / multiplicative questions about integers into questions about complex-analytic functions — and then exploits the dictionary in both directions.</p>
 

@@ -76,9 +76,14 @@ const STEPS = [
   //   node scripts/inject-changelog-footer.mjs
   // before publishing, or wire into a pre-release hook.
   { name: 'a11y',       script: 'fix-a11y.mjs',                 fix: true  },
+  // roundtrip runs FIRST in fix mode so smoke + topic-jsdom check the
+  // regenerated HTML. Reversed order would let a content/json edit pass
+  // smoke against stale HTML, leaving the failure to be caught only on
+  // the next rebuild. In --no-fix mode roundtrip is strict and bails on
+  // any drift, which preserves the CI invariant.
+  { name: 'roundtrip',  script: 'test-roundtrip.mjs',           fix: true  },
   { name: 'smoke',      script: 'smoke-test.mjs',               fix: false },
   { name: 'topic-jsdom', script: 'test-topic-jsdom.mjs',        fix: false },
-  { name: 'roundtrip',  script: 'test-roundtrip.mjs',           fix: true  },
   { name: 'stats',      script: 'stats-coverage.mjs',           fix: false },
   { name: 'draft-cards', script: 'audit-draft-index-cards.mjs', fix: false },
   { name: 'starter',    script: 'audit-starter-concepts.mjs',   fix: false },

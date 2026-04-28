@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/schrodinger-figure/schema.json",
+  "title": "schrodinger-figure widget params",
+  "description": "Bespoke widget shape for the schrodinger-equation topic. Each section's interactive is an anonymous (idless) <div class=\"widget\"> with a structured .hd header (title + optional hint) followed by a verbatim middle (zero or more <div class=\"row\"> blocks containing sliders / buttons / spans) and a single <svg> + readout pair. The middle's markup variants (slider+span, slider+span+button, three buttons, two slider rows, no row at all) are too varied to share with parametric-plot or button-stepper without creeping their schemas, and the schrodinger widgets are unique on the page (no other topic uses idless widget wrappers in this exact shape), so the body lives in `bodyMarkup` as an artifact string. The driving IIFE is captured verbatim in `bodyScript`. Portable consumers (React / SSR) read `title`, `hint`, `svg`, `readoutId`, and the parsed-but-not-shipped controls from a future structured field; for the vanilla-HTML site, byte-identity is preserved by emitting `bodyMarkup` and `bodyScript` directly.",
+  "meta": {
+    "family": "schrodinger-figure",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title",
+    "svg",
+    "readoutId",
+    "bodyMarkup",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "Optional DOM id for the outer <div class=\"widget\"> wrapper. When omitted, no id attribute is emitted (matches the schrodinger-equation source which uses anonymous widget divs)."
+    },
+    "title": {
+      "type": "string",
+      "description": "Header title rendered inside .hd > .ttl, and the default text inside the SVG's <title> child."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    },
+    "svg": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "viewBox",
+        "width",
+        "height"
+      ],
+      "description": "Primary SVG host. The renderer emits <svg id=... viewBox=... width=... height=...><title>...</title></svg> after `bodyMarkup`'s pre-svg rows but before the readout. Setting svg.titleText overrides the default of widget.title.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+        },
+        "viewBox": {
+          "type": "string"
+        },
+        "width": {
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "height": {
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "titleText": {
+          "type": "string",
+          "description": "Override for the <title> element's text content. Defaults to the widget's `title` when omitted."
+        }
+      }
+    },
+    "readoutId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the trailing <div class=\"readout\"> companion."
+    },
+    "readoutInitial": {
+      "type": "string",
+      "description": "Initial inner HTML of the readout <div>. Defaults to '' (empty) — the schrodinger source's convention is that the IIFE writes the readout at startup so the initial markup is empty."
+    },
+    "bodyMarkup": {
+      "type": "string",
+      "x-artifact": "row inner-HTML is widget-specific (sliders + spans + buttons in irregular orderings); portable consumers should structure their own controls from a future `controls` field rather than parsing this string",
+      "description": "ARTIFACT. Verbatim bytes inserted between the .hd line and the <svg> block. Typically zero, one, or two <div class=\"row\">…</div> blocks each indented by two spaces. Empty string is allowed (W3 has no row). The trailing newline before <svg> is supplied by the renderer."
+    },
+    "bodyScript": {
+      "type": "string",
+      "x-artifact": "script body is widget-specific; portable consumers should drive their own renderer from a future structured `draw` descriptor",
+      "description": "ARTIFACT. Verbatim JS that goes inside `(function(){\\n…\\n})();` — reads slider/button DOM, draws into the SVG, writes the readout."
+    },
+    "sectionComment": {
+      "type": "string",
+      "description": "ARTIFACT. Optional /* ... */ comment placed between the leading <script> tag and the IIFE opener."
+    }
+  }
+}

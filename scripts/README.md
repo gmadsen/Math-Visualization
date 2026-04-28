@@ -143,14 +143,16 @@ CI ([`.github/workflows/verify.yml`](../.github/workflows/verify.yml)) runs `reb
 15. `inject-display-prefs.mjs --fix`
 16. `inject-index-stats.mjs --fix`
 17. `fix-a11y.mjs --fix`
-18. `smoke-test.mjs`
-19. `test-topic-jsdom.mjs`
-20. `test-roundtrip.mjs`
+18. `test-roundtrip.mjs --fix`
+19. `smoke-test.mjs`
+20. `test-topic-jsdom.mjs`
 21. `stats-coverage.mjs`
 22. `audit-draft-index-cards.mjs`
 23. `audit-starter-concepts.mjs`
 24. `audit-doc-drift.mjs`
 
-`--only <step>` runs one step. Valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `schema`, `widget-params`, `widget-renderers`, `widget-hydration`, `validate`, `concept-latex`, `katex`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `a11y`, `smoke`, `topic-jsdom`, `roundtrip`, `stats`, `draft-cards`, `starter`, `doc-drift`.
+Round-trip is intentionally first among the post-injector steps so that smoke and topic-jsdom check the regenerated HTML, not stale on-disk HTML — otherwise a content/json edit that broke a topic page would pass its first rebuild and only fail the next one.
+
+`--only <step>` runs one step. Valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `schema`, `widget-params`, `widget-renderers`, `widget-hydration`, `validate`, `concept-latex`, `katex`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `a11y`, `roundtrip`, `smoke`, `topic-jsdom`, `stats`, `draft-cards`, `starter`, `doc-drift`.
 
 `inject-changelog-footer.mjs` is intentionally **not** in the rebuild chain — its output references "latest commit touching this page", but the commit that refreshes the changelog can't reference itself, so every post-commit audit would flag one-commit-behind drift forever. Run it manually (`node scripts/inject-changelog-footer.mjs`) before publishing or cutting a release; `--audit` mode reports stale pages without writing.

@@ -243,7 +243,10 @@ function drawNode(svg, x, y, label, opts={}){
   <a href="#spectral-compact">3&nbsp;Compact</a>
   <a href="#spectral-bounded">4&nbsp;Bounded</a>
   <a href="#unbounded">5&nbsp;Unbounded</a>
-  <a href="#applications">6&nbsp;Applications</a>
+  <a href="#compact-fredholm">6&nbsp;Compact &amp; Fredholm</a>
+  <a href="#trace-class">7&nbsp;Trace-class</a>
+  <a href="#weyl-law">8&nbsp;Weyl's law</a>
+  <a href="#applications">9&nbsp;Applications</a>
 </nav>
 <!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
 
@@ -578,6 +581,7 @@ Each non-zero eigenvalue has a finite-dimensional eigenspace (compactness rules 
 <!-- callback-auto-end --><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./spectral-theory.html#compact-fredholm">Spectral theory</a> · Compact operators and the Fredholm alternative</div>
     <div><a href="./spectral-theory.html#spectral-bounded">Spectral theory</a> · Spectral theorem (bounded self-adjoint)</div>
 </aside>
 <!-- backlinks-auto-end --><div class="quiz" data-concept="st-spectral-theorem-compact"></div>
@@ -748,12 +752,296 @@ $E_\Omega$ is an orthogonal projection for every Borel $\Omega$, and $E_\Omega E
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./spectral-theory.html#applications">Spectral theory</a> · Applications: quantum mechanics, PDE, harmonic analysis</div>
+    <div><a href="./spectral-theory.html#weyl-law">Spectral theory</a> · Weyl's law for the Laplacian</div>
 </aside>
 <!-- backlinks-auto-end -->
 </section>
 
+<section id="compact-fredholm">
+<h2>6. Compact operators and the Fredholm alternative</h2>
+<p>Compactness is the analytic upgrade of "finite-dimensional behaviour." An operator $K\in B(H)$ is <em>compact</em> if it sends bounded sets to precompact sets — equivalently, if $K$ is the norm-limit of finite-rank operators. The compacts $\mathcal{K}(H)$ form a closed two-sided $*$-ideal of $B(H)$.</p>
+<p>The miracle, due to Riesz, Schauder, and Fredholm, is that for $\lambda\ne 0$ the operator $T-\lambda I$ with $T=K$ behaves like a square matrix:</p>
+<div class="ok"><strong>Fredholm alternative.</strong> Let $K\in\mathcal{K}(H)$ and $\lambda\in\mathbb{C}\setminus\{0\}$. Then $K-\lambda I$ is <strong>Fredholm of index $0$</strong>:
+<ul>
+  <li>$\dim\ker(K-\lambda I) = \dim\mathrm{coker}(K-\lambda I) < \infty$.</li>
+  <li>$\mathrm{Ran}(K-\lambda I)$ is closed.</li>
+  <li>The equation $Kx-\lambda x = y$ is solvable iff $y\perp\ker(K^*-\bar\lambda I)$.</li>
+  <li>Either $K-\lambda I$ is invertible, <em>or</em> $\lambda\in\sigma_p(K)$ with finite-dimensional eigenspace — never anything in between.</li>
+</ul>
+</div>
+<p>The non-zero spectrum is therefore discrete, with finite multiplicities and accumulating only at $0$ — exactly the picture from the compact spectral theorem, now without self-adjointness. The general <em>index</em> of a Fredholm operator $T$ is $\operatorname{ind}(T)=\dim\ker T - \dim\mathrm{coker} T\in\mathbb{Z}$, a homotopy invariant under norm-continuous deformations through Fredholm operators. For $K-\lambda I$ above, $\operatorname{ind}=0$ because $K\mapsto 0$ is a path of compact perturbations and $-\lambda I$ is invertible.</p>
+<p>The classical model: integral equations $\varphi(x) - \lambda\int_0^1 k(x,y)\varphi(y)\,dy = f(x)$ with $L^2$ kernel. The compact operator $K\varphi(x)=\int k(x,y)\varphi(y)\,dy$ controls the equation; for $\lambda^{-1}\notin\sigma(K)$ there is a unique solution, otherwise the equation is solvable iff $f$ is orthogonal to all solutions of the homogeneous adjoint equation. Fredholm's 1903 paper invented this game — and it underlies modern elliptic-PDE theory and index theory.</p>
+
+<div class="widget">
+  <div class="hd"><div class="ttl">Truncating compact $K$ to rank $r$</div><div class="hint">Compact $\Leftrightarrow$ approximated in norm by finite-rank.</div></div>
+  <div class="row">
+    <label>truncation rank $r$<input id="frd-r" type="range" min="1" max="20" value="5"></label>
+    <label>decay $\sigma_n = n^{-\alpha}$<input id="frd-alpha" type="range" min="5" max="25" value="10"></label>
+    <span id="frd-stat" class="small"></span>
+  </div>
+  <svg id="frd-svg" viewBox="0 0 640 280" width="640" height="280"></svg>
+  <div class="readout" id="frd-readout"></div>
+</div>
+
+<script>
+(function(){
+  const svg = document.getElementById("frd-svg");
+  const out = document.getElementById("frd-readout");
+  const stat = document.getElementById("frd-stat");
+  const sr = document.getElementById("frd-r");
+  const sa = document.getElementById("frd-alpha");
+  const left=60, right=620, top=20, bot=240;
+  function clear(){ while(svg.firstChild) svg.removeChild(svg.firstChild); }
+  function draw(){
+    clear();
+    const r = +sr.value;
+    const alpha = +sa.value/10;     // 0.5 .. 2.5
+    const N = 30;
+    const sing = [];
+    for(let n=1;n<=N;n++) sing.push(Math.pow(n, -alpha));
+    // axis
+    svg.appendChild(SVG("line",{x1:left,y1:bot,x2:right,y2:bot,stroke:"var(--line)"}));
+    svg.appendChild(SVG("line",{x1:left,y1:top,x2:left,y2:bot,stroke:"var(--line)"}));
+    // bars
+    const barW = (right-left)/N - 4;
+    const yMax = sing[0];
+    for(let n=0;n<N;n++){
+      const x = left + 4 + n*((right-left)/N);
+      const h = (sing[n]/yMax) * (bot-top-20);
+      const inside = (n+1) <= r;
+      const fill = inside ? "var(--cyan)" : "var(--mute)";
+      svg.appendChild(SVG("rect",{x, y:bot-h, width:barW, height:h, fill, opacity:inside?0.95:0.35}));
+    }
+    // truncation cut line
+    const cutX = left + 4 + (r-1)*((right-left)/N) + barW + 2;
+    svg.appendChild(SVG("line",{x1:cutX,y1:top,x2:cutX,y2:bot,stroke:"var(--yellow)","stroke-width":2,"stroke-dasharray":"5 4"}));
+    const tcut = SVG("text",{x:cutX+6,y:top+14,"font-size":11,fill:"var(--yellow)"}); tcut.textContent=`rank-${r} cutoff`; svg.appendChild(tcut);
+    // labels
+    const ylab = SVG("text",{x:left-8,y:top+12,"font-size":11,fill:"var(--mute)","text-anchor":"end"}); ylab.textContent="σₙ"; svg.appendChild(ylab);
+    const xlab = SVG("text",{x:right-6,y:bot+16,"font-size":11,fill:"var(--mute)","text-anchor":"end"}); xlab.textContent="n"; svg.appendChild(xlab);
+    // approximation error in operator norm: |K - K_r| = σ_{r+1}
+    const err = sing[r];      // σ_{r+1}, since 0-indexed
+    stat.textContent = `α = ${alpha.toFixed(2)},  rank r = ${r}`;
+    out.textContent = `Singular values σₙ = n^(-${alpha.toFixed(2)}) (compact iff σₙ → 0).  Best rank-${r} approximation Kᵣ = Σ_{n≤${r}} σₙ ⟨φₙ,·⟩ψₙ.\nOperator-norm error ‖K - Kᵣ‖ = σ_{${r+1}} ≈ ${err.toFixed(4)}.\nAs r → ∞ the error → 0, so K = lim Kᵣ in operator norm — the defining property of compact operators on a separable H.`;
+  }
+  sr.addEventListener("input", draw);
+  sa.addEventListener("input", draw);
+  draw();
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./functional-analysis.html#compact">Compact operators</a> — Riesz–Schauder, finite-rank approximation, Fredholm alternative on Hilbert space.</li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./spectral-theory.html#trace-class">Spectral theory</a> · Trace-class and Hilbert–Schmidt operators</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="st-compact-fredholm"></div>
+</section>
+
+<section id="trace-class">
+<h2>7. Trace-class and Hilbert–Schmidt: the Schatten ideals</h2>
+<p>Compact operators come with a finer filtration. Every compact $T\in\mathcal{K}(H)$ has <em>singular values</em> $s_n(T)$, the eigenvalues of $|T|=\sqrt{T^*T}$ in non-increasing order. The Schatten $p$-ideal is</p>
+$$\mathcal{S}_p(H) \;=\; \Big\{T\in\mathcal{K}(H) : \|T\|_p^p := \sum_{n}s_n(T)^p < \infty\Big\},\qquad p\in[1,\infty).$$
+<p>The two cases that name themselves:</p>
+<ul>
+  <li>$\mathcal{S}_2$, the <strong>Hilbert–Schmidt</strong> operators. The norm $\|T\|_{HS}^2 = \sum\|Te_n\|^2 = \sum s_n(T)^2$ is independent of the orthonormal basis $(e_n)$, and $\mathcal{S}_2$ itself is a Hilbert space with inner product $\langle T,S\rangle_{HS}=\operatorname{tr}(S^*T)$. On $L^2(X,\mu)$, an integral operator $K_kf(x)=\int k(x,y)f(y)\,d\mu(y)$ is HS iff $k\in L^2(X\times X,\mu\otimes\mu)$, with $\|K_k\|_{HS}=\|k\|_2$.</li>
+  <li>$\mathcal{S}_1$, the <strong>trace-class</strong> operators. The functional $\operatorname{tr}(T)=\sum_n\langle Te_n,e_n\rangle$ converges absolutely on $\mathcal{S}_1$ and is independent of the ONB; it is positive on positive operators and satisfies $\operatorname{tr}(AB)=\operatorname{tr}(BA)$ when at least one factor is trace-class. For positive $T$, $\operatorname{tr}(T)=\sum s_n(T)$ — finiteness defines the ideal.</li>
+</ul>
+<p>The chain of inclusions matches summability:</p>
+$$\text{finite-rank}\;\subset\;\mathcal{S}_1\;\subset\;\mathcal{S}_2\;\subset\;\mathcal{S}_p\;\subset\;\mathcal{K}(H)\;\subset\;B(H),\qquad 1\le p\le\infty.$$
+<p>Hölder for Schatten norms: if $1/p+1/q=1/r$ then $\|TS\|_r\le\|T\|_p\|S\|_q$. The case $p=q=2$, $r=1$ is most useful: the product of two HS operators is trace-class.</p>
+<p><strong>Schatten duality.</strong> Pairing by $\langle T,S\rangle = \operatorname{tr}(TS)$ identifies</p>
+$$\mathcal{K}(H)^*\cong\mathcal{S}_1, \qquad \mathcal{S}_1^*\cong B(H), \qquad \mathcal{S}_p^*\cong\mathcal{S}_q\;(1<p<\infty,\,1/p+1/q=1).$$
+<p>So $\mathcal{S}_1$ is the unique <em>predual</em> of $B(H)$: a normal state on $B(H)$ is the same as a positive trace-class operator $\rho$ with $\operatorname{tr}\rho=1$ — the <em>density matrix</em> of quantum statistical mechanics.</p>
+
+<div class="widget">
+  <div class="hd"><div class="ttl">Where does $\sum n^{-\alpha p}$ converge?</div><div class="hint">Cross the Schatten thresholds by sliding $\alpha,p$.</div></div>
+  <div class="row">
+    <label>decay $\alpha$<input id="sch-a" type="range" min="3" max="30" value="15"></label>
+    <label>Schatten index $p$<input id="sch-p" type="range" min="5" max="40" value="10"></label>
+    <span id="sch-stat" class="small"></span>
+  </div>
+  <svg id="sch-svg" viewBox="0 0 640 320" width="640" height="320"></svg>
+  <div class="readout" id="sch-readout"></div>
+</div>
+
+<script>
+(function(){
+  const svg = document.getElementById("sch-svg");
+  const out = document.getElementById("sch-readout");
+  const stat = document.getElementById("sch-stat");
+  const sa = document.getElementById("sch-a");
+  const sp = document.getElementById("sch-p");
+  const left=70, right=620, top=20, bot=280;
+  function clear(){ while(svg.firstChild) svg.removeChild(svg.firstChild); }
+  function draw(){
+    clear();
+    const alpha = +sa.value/10;   // 0.3 .. 3.0
+    const p = +sp.value/10;       // 0.5 .. 4.0
+    const ap = alpha*p;
+    // partial sums S_N = Σ_{n=1}^N n^{-αp}
+    const N = 200;
+    const pts = [];
+    let S = 0;
+    for(let n=1;n<=N;n++){
+      S += Math.pow(n, -ap);
+      pts.push([n, S]);
+    }
+    // for plotting, divide by max value to fit
+    const Smax = pts[N-1][1];
+    const yMap = (s)=>bot - (bot-top-30) * (s/Math.max(Smax, 1));
+    const xMap = (n)=>left + (right-left) * (n/N);
+    // axes
+    svg.appendChild(SVG("line",{x1:left,y1:bot,x2:right,y2:bot,stroke:"var(--line)"}));
+    svg.appendChild(SVG("line",{x1:left,y1:top,x2:left,y2:bot,stroke:"var(--line)"}));
+    // labels
+    const xl = SVG("text",{x:right-6,y:bot+18,"font-size":11,fill:"var(--mute)","text-anchor":"end"}); xl.textContent="N"; svg.appendChild(xl);
+    const yl = SVG("text",{x:left-12,y:top+12,"font-size":11,fill:"var(--mute)","text-anchor":"end"}); yl.textContent="S_N"; svg.appendChild(yl);
+    // partial-sum curve
+    const d = pts.map((q,i)=>(i?"L":"M") + xMap(q[0]) + "," + yMap(q[1])).join(" ");
+    const converges = (ap > 1.0001);
+    const color = converges ? "var(--green)" : "var(--pink)";
+    svg.appendChild(SVG("path",{d, fill:"none", stroke:color, "stroke-width":2.2}));
+    // threshold band: αp = 1
+    // Schatten ideals: T ∈ S_p iff Σ s_n^p < ∞ iff Σ n^{-αp} < ∞ iff αp > 1
+    const verdict = converges
+      ? `αp = ${ap.toFixed(2)} > 1 ✓  T ∈ S_${p.toFixed(1)}  (sum ≈ ${Smax.toFixed(3)})`
+      : `αp = ${ap.toFixed(2)} ≤ 1 ✗  T ∉ S_${p.toFixed(1)}  (sum diverges, partial S_${N} ≈ ${Smax.toFixed(2)})`;
+    const tv = SVG("text",{x:right-6,y:top+18,"font-size":13,fill:color,"text-anchor":"end"}); tv.textContent=verdict; svg.appendChild(tv);
+    // mark the special p
+    const cls = ap > 1 ? (p<=1 ? "trace-class S_1" : (Math.abs(p-2)<.05 ? "Hilbert–Schmidt S_2" : `S_${p.toFixed(1)}`)) : "NOT in S_p";
+    stat.textContent = `α=${alpha.toFixed(2)},  p=${p.toFixed(1)},  membership: ${cls}`;
+    // notable thresholds annotated
+    const note = (alpha > 1 ? "S_1 (trace-class) needs α > 1" : alpha > 0.5 ? "S_2 (HS) needs α > 1/2" : "compact only when α > 0");
+    out.textContent = `Singular values sₙ = n^(-α). Membership in S_p ⇔ Σ sₙ^p = Σ n^(-αp) < ∞ ⇔ αp > 1.\n• α > 1 ⇒ trace-class (S_1), all S_p with p ≥ 1, Hilbert–Schmidt.\n• 1/2 < α ≤ 1 ⇒ Hilbert–Schmidt (S_2) but not trace-class.\n• 0 < α ≤ 1/2 ⇒ compact, but in no S_p with p ≤ 2.\nCurrent regime: ${note}.`;
+  }
+  sa.addEventListener("input", draw);
+  sp.addEventListener("input", draw);
+  draw();
+})();
+</script>
+
+<div class="quiz" data-concept="st-trace-class-hilbert-schmidt"></div>
+</section>
+
+<section id="weyl-law">
+<h2>8. Weyl's law: hearing the volume of a drum</h2>
+<p>For the Dirichlet Laplacian $-\Delta$ on a bounded domain $\Omega\subset\mathbb{R}^d$, the spectrum is a discrete sequence $0 < \lambda_1 \le \lambda_2 \le \cdots \to \infty$ of eigenvalues with finite multiplicity (compact resolvent). The <em>eigenvalue counting function</em> is</p>
+$$N(\lambda) \;=\; \#\{n : \lambda_n \le \lambda\}.$$
+<p>Hermann Weyl proved in 1911 that, as $\lambda\to\infty$,</p>
+$$\boxed{\;N(\lambda) \;\sim\; \frac{\omega_d\,|\Omega|}{(2\pi)^d}\,\lambda^{d/2}\;}\qquad(\omega_d = \text{volume of unit ball in }\mathbb{R}^d).$$
+<p>Equivalently $\lambda_n\sim C_d\,(n/|\Omega|)^{2/d}$. The leading-order asymptotics of the spectrum recover two geometric invariants:</p>
+<ul>
+  <li><strong>The dimension</strong> $d$ — through the exponent $d/2$.</li>
+  <li><strong>The volume</strong> $|\Omega|$ — through the prefactor.</li>
+</ul>
+<p>The proof, in modern dress: a <em>semiclassical</em> argument. The trace of the heat kernel $e^{t\Delta}$ on $\Omega$ has the small-$t$ expansion</p>
+$$\operatorname{tr}\bigl(e^{t\Delta}\bigr) = \sum_n e^{-\lambda_n t} \sim \frac{|\Omega|}{(4\pi t)^{d/2}} - \frac{|\partial\Omega|}{4\,(4\pi t)^{(d-1)/2}} + O(t^{-(d-2)/2})\quad(t\to 0^+),$$
+<p>and a Tauberian theorem (Karamata) inverts this to Weyl's law. The <em>second</em> coefficient gives the boundary length — Pleijel showed that you also hear the perimeter; the <em>third</em> gives the Euler characteristic. So you hear: $d$, $|\Omega|$, $|\partial\Omega|$, $\chi(\Omega)$.</p>
+<div class="note"><strong>Can you hear the shape of a drum?</strong> Mark Kac asked in 1966 whether $\sigma(-\Delta)$ determines $\Omega$ up to isometry. The answer is <em>no</em>: Gordon, Webb &amp; Wolpert (1992) constructed isospectral non-isometric polygonal domains. But you can hear $d$, $|\Omega|$, $|\partial\Omega|$, and the topology — Weyl, Pleijel, Kac.</div>
+<p>The same machinery extends to compact Riemannian manifolds (Minakshisundaram–Pleijel) and to elliptic pseudodifferential operators (Hörmander) — a corner of analysis where spectrum, geometry, and heat propagation are one story.</p>
+
+<div class="widget">
+  <div class="hd"><div class="ttl">$N(\lambda)$ for the rectangle $[0,a]\times[0,b]$</div><div class="hint">Lattice count vs. Weyl prediction $|\Omega|\,\lambda/(4\pi)$.</div></div>
+  <div class="row">
+    <label>side $a$<input id="wl-a" type="range" min="5" max="20" value="10"></label>
+    <label>side $b$<input id="wl-b" type="range" min="5" max="20" value="14"></label>
+    <label>$\lambda$<input id="wl-l" type="range" min="100" max="4000" value="800"></label>
+    <span id="wl-stat" class="small"></span>
+  </div>
+  <svg id="wl-svg" viewBox="0 0 640 280" width="640" height="280"></svg>
+  <div class="readout" id="wl-readout"></div>
+</div>
+
+<script>
+(function(){
+  const svg = document.getElementById("wl-svg");
+  const out = document.getElementById("wl-readout");
+  const stat = document.getElementById("wl-stat");
+  const sa = document.getElementById("wl-a"), sb = document.getElementById("wl-b"), sl = document.getElementById("wl-l");
+  const left=60, right=620, top=20, bot=240;
+  function clear(){ while(svg.firstChild) svg.removeChild(svg.firstChild); }
+  function exactCount(a, b, lam){
+    // # (m,n) ∈ Z_{≥1}² with π² (m²/a² + n²/b²) ≤ λ
+    // ⇔ m²/a² + n²/b² ≤ λ/π²
+    const R = lam/(Math.PI*Math.PI);
+    const Mmax = Math.floor(a*Math.sqrt(R));
+    let count = 0;
+    for(let m=1; m<=Mmax; m++){
+      const rem = R - m*m/(a*a);
+      if(rem <= 0) continue;
+      const Nmax = Math.floor(b*Math.sqrt(rem));
+      count += Nmax;
+    }
+    return count;
+  }
+  function draw(){
+    clear();
+    const a = +sa.value/10;     // 0.5 .. 2.0
+    const b = +sb.value/10;
+    const lamMax = +sl.value;
+    // sample N(λ) on a grid 0..lamMax (step ~ lamMax/200), exact and Weyl
+    const M = 200;
+    const exact = [], weyl = [];
+    for(let i=0;i<=M;i++){
+      const lam = (i/M) * lamMax;
+      exact.push(exactCount(a,b,lam));
+      weyl.push(a*b*lam/(4*Math.PI));
+    }
+    const Nmax = Math.max(exact[exact.length-1], weyl[weyl.length-1], 1);
+    const xMap = (lam)=>left + (right-left)*(lam/lamMax);
+    const yMap = (n)=>bot - (bot-top-20)*(n/Nmax);
+    // axes
+    svg.appendChild(SVG("line",{x1:left,y1:bot,x2:right,y2:bot,stroke:"var(--line)"}));
+    svg.appendChild(SVG("line",{x1:left,y1:top,x2:left,y2:bot,stroke:"var(--line)"}));
+    const xl = SVG("text",{x:right-6,y:bot+18,"font-size":11,fill:"var(--mute)","text-anchor":"end"}); xl.textContent="λ"; svg.appendChild(xl);
+    const yl = SVG("text",{x:left-10,y:top+12,"font-size":11,fill:"var(--mute)","text-anchor":"end"}); yl.textContent="N(λ)"; svg.appendChild(yl);
+    // exact step plot
+    let dE = `M ${xMap(0)} ${yMap(0)}`;
+    for(let i=1;i<=M;i++){
+      const lam = (i/M)*lamMax;
+      dE += ` L ${xMap(lam)} ${yMap(exact[i-1])} L ${xMap(lam)} ${yMap(exact[i])}`;
+    }
+    svg.appendChild(SVG("path",{d:dE, fill:"none", stroke:"var(--cyan)", "stroke-width":1.4}));
+    // Weyl line
+    const dW = `M ${xMap(0)} ${yMap(weyl[0])} L ${xMap(lamMax)} ${yMap(weyl[M])}`;
+    svg.appendChild(SVG("path",{d:dW, fill:"none", stroke:"var(--yellow)", "stroke-width":2.2, "stroke-dasharray":"6 4"}));
+    // legend
+    svg.appendChild(SVG("line",{x1:right-220,y1:top+10,x2:right-200,y2:top+10,stroke:"var(--cyan)","stroke-width":1.4}));
+    const l1 = SVG("text",{x:right-194,y:top+14,"font-size":12,fill:"var(--cyan)"}); l1.textContent="exact lattice count"; svg.appendChild(l1);
+    svg.appendChild(SVG("line",{x1:right-220,y1:top+30,x2:right-200,y2:top+30,stroke:"var(--yellow)","stroke-width":2.2,"stroke-dasharray":"6 4"}));
+    const l2 = SVG("text",{x:right-194,y:top+34,"font-size":12,fill:"var(--yellow)"}); l2.textContent="Weyl: |Ω|λ/(4π)"; svg.appendChild(l2);
+    // stat
+    const Ne = exactCount(a,b,lamMax);
+    const Nw = a*b*lamMax/(4*Math.PI);
+    const ratio = Ne/Math.max(Nw,1);
+    stat.textContent = `a=${a.toFixed(1)}, b=${b.toFixed(1)}, λ=${lamMax}: N=${Ne}, Weyl≈${Nw.toFixed(1)}, ratio=${ratio.toFixed(3)}`;
+    out.textContent = `Dirichlet eigenvalues on [0,${a.toFixed(1)}]×[0,${b.toFixed(1)}]: λ_{m,n} = π²(m²/a² + n²/b²), m,n ≥ 1.\nN(λ) counts lattice points (m,n) ∈ Z_{≥1}² in the quarter-ellipse m²/a² + n²/b² ≤ λ/π².\nWeyl's law: N(λ) ~ |Ω|λ/(4π) = ab λ/(4π) as λ → ∞.\nThe boundary correction is -|∂Ω|√λ/(4π) = -(2a+2b)√λ/(4π) ≈ ${(-(2*a+2*b)*Math.sqrt(lamMax)/(4*Math.PI)).toFixed(1)}, accounting for most of the gap to the leading term.`;
+  }
+  [sa, sb, sl].forEach(s=>s.addEventListener("input", draw));
+  draw();
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./partial-differential-equations.html#laplace">Laplace equation $\Delta u=0$</a> — boundary-value problems and elliptic regularity that pin down the Dirichlet Laplacian's compact resolvent.</li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="st-weyl-laplacian"></div>
+</section>
+
 <section id="applications">
-<h2>6. Applications: quantum mechanics, PDE, harmonic analysis</h2>
+<h2>9. Applications: quantum mechanics, PDE, harmonic analysis</h2>
 <p>Spectral theory's reach is wide:</p>
 <ul>
   <li><strong>Quantum mechanics.</strong> Observables are self-adjoint operators on a Hilbert space; their spectra are the possible measured values, and the spectral measure is the Born rule. Hamiltonians generate unitary time evolution $U(t)=e^{-itH/\hbar}$.</li>

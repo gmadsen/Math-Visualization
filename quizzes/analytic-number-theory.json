@@ -249,6 +249,172 @@
           "explain": "Elliott–Halberstam (1968) conjectures the same average bound holds for $Q \\le x^{1-\\varepsilon}$. Conditional on it, sieve methods give bounded prime gaps as small as $12$ (Maynard); Zhang's unconditional gap of $70 \\cdot 10^6$ used a weakened EH result."
         }
       ]
+    },
+    "ant-circle-method": {
+      "title": "The Hardy–Littlewood circle method",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In the circle method, the count $r_k(N)$ of representations of $N$ as a sum of $k$ values of $f$ is recovered as which integral over the generating exponential sum $S(\\alpha) = \\sum_n e(\\alpha f(n))$?",
+          "choices": [
+            "$\\int_0^1 S(\\alpha)\\,d\\alpha$",
+            "$\\int_0^1 S(\\alpha)^k\\,d\\alpha$",
+            "$\\int_0^1 S(\\alpha)^k\\, e(-N\\alpha)\\,d\\alpha$",
+            "$\\int_0^\\infty S(\\alpha)^k\\,d\\alpha$"
+          ],
+          "answer": 2,
+          "hint": "Multiplying by $e(-N\\alpha)$ and integrating extracts the Fourier coefficient at $N$.",
+          "explain": "$S(\\alpha)^k = \\sum_{n_1,\\ldots,n_k} e(\\alpha\\,(f(n_1)+\\cdots+f(n_k)))$, and $\\int_0^1 e(\\alpha m)\\,d\\alpha = \\mathbf 1_{m=0}$, so $\\int_0^1 S(\\alpha)^k e(-N\\alpha)\\,d\\alpha$ counts solutions to $f(n_1)+\\cdots+f(n_k)=N$."
+        },
+        {
+          "type": "mcq",
+          "q": "On the major arcs (the union of small neighborhoods of rationals $a/q$ with $q$ small), the exponential sum $S(\\alpha)$ behaves like",
+          "choices": [
+            "a clean main term $\\frac{1}{q}\\,c_q(a) \\cdot v(\\alpha - a/q)$ from a singular series, plus a controllable error",
+            "a random walk of length $\\sqrt{N}$",
+            "exactly zero",
+            "a rapidly oscillating noise indistinguishable from white noise"
+          ],
+          "answer": 0,
+          "hint": "Near $a/q$, the integers $n$ split into residue classes mod $q$, giving a Ramanujan-type sum $c_q(a) = \\sum_{(t,q)=1} e(at/q)$ and a smooth integral $v$.",
+          "explain": "The major-arc analysis writes $S(\\alpha)$ near $a/q$ in terms of a Gauss/Ramanujan sum (the arithmetic factor $c_q(a)/q$) times a smooth oscillatory integral $v(\\alpha - a/q)$ that contains the analytic content. Summing these contributions across rationals gives the singular series — the heuristic main term."
+        },
+        {
+          "type": "numeric",
+          "q": "The Hardy–Littlewood prediction for $r_3(N) = \\#\\{(p_1,p_2,p_3): p_1+p_2+p_3 = N, \\text{ each } p_i \\text{ prime}\\}$ has main term $\\mathfrak{S}(N) \\cdot N^2/(2\\,(\\log N)^3)$ for odd $N$. For even $N$, the singular series $\\mathfrak{S}(N)$ vanishes; what is its value?",
+          "answer": 0,
+          "tol": 0,
+          "hint": "An even number is a sum of three odd primes only if one of them is $2$, which is rare; the local obstruction at $2$ kills $\\mathfrak{S}$.",
+          "explain": "Three odd primes always sum to an odd number, so $\\mathfrak{S}(N) = 0$ for even $N$. This is the local obstruction at $p=2$. For odd $N$, $\\mathfrak{S}(N) \\ge \\mathfrak{S}_0 > 0$, and Vinogradov's theorem says ternary Goldbach holds for every sufficiently large odd $N$ (now every odd $N \\ge 7$, by Helfgott)."
+        }
+      ]
+    },
+    "ant-exponential-sums": {
+      "title": "Exponential sums and equidistribution",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Weyl's criterion characterizes equidistribution of $\\{a_n\\} \\subset \\mathbb{R}/\\mathbb{Z}$ as the condition that, for every nonzero integer $k$,",
+          "choices": [
+            "$\\frac{1}{N}\\sum_{n \\le N} e(k a_n) \\to 0$",
+            "$\\frac{1}{N}\\sum_{n \\le N} a_n \\to 1/2$",
+            "$\\sum_n e(k a_n)$ converges absolutely",
+            "$a_n$ is irrational for every $n$"
+          ],
+          "answer": 0,
+          "hint": "Equidistribution is dual to cancellation in every nonzero Fourier mode.",
+          "explain": "By Weierstrass, equidistribution of $\\{a_n\\}$ on the circle is equivalent to $\\frac{1}{N}\\sum f(a_n) \\to \\int f$ for every continuous $f$. Trigonometric polynomials are dense, so it reduces to the single-frequency condition $\\frac{1}{N}\\sum e(k a_n) \\to 0$ for $k \\ne 0$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is $\\{n\\alpha\\}_{n=1}^\\infty$ equidistributed on $[0,1)$ exactly when $\\alpha$ is irrational?",
+          "choices": [
+            "Rational $\\alpha$ makes the sequence periodic, so it samples only finitely many values",
+            "Irrationality is unrelated to equidistribution",
+            "Rational $\\alpha$ has Hausdorff dimension zero",
+            "Rational $\\alpha$ violates Weyl's criterion only for $k = 0$"
+          ],
+          "answer": 0,
+          "hint": "If $\\alpha = p/q$, the sequence cycles with period $q$.",
+          "explain": "For rational $\\alpha = p/q$, $\\{n\\alpha\\}$ takes only finitely many values $0, 1/q, \\ldots, (q-1)/q$, so $\\frac{1}{N}\\sum e(k n\\alpha)$ does not vanish for $k$ a multiple of $q$. For irrational $\\alpha$ the geometric sum $\\sum_{n=1}^N e(k n\\alpha) = (e(k(N+1)\\alpha) - e(k\\alpha))/(e(k\\alpha)-1)$ is bounded by $1/|\\sin \\pi k\\alpha|$, so $1/N$ times it tends to $0$ — Weyl's criterion holds."
+        },
+        {
+          "type": "mcq",
+          "q": "Weyl's inequality bounds $\\bigl|\\sum_{n \\le N} e(\\alpha n^k)\\bigr|$ when $\\alpha$ has a rational approximation $|\\alpha - a/q| < 1/q^2$, $\\gcd(a,q)=1$. The key consequence is",
+          "choices": [
+            "the sum is exactly zero",
+            "the sum is $\\ll N (q^{-1} + N^{-1} + qN^{-k})^{1/2^{k-1}}$, so it is small unless $q$ is in a narrow range",
+            "the sum equals $N$",
+            "the sum has size $\\sqrt{N}$ regardless of $\\alpha$"
+          ],
+          "answer": 1,
+          "hint": "Weyl's inequality is what makes the minor-arc bound in the circle method work — the exponent $1/2^{k-1}$ is small but nontrivial.",
+          "explain": "Weyl's inequality gives $|\\sum_{n \\le N} e(\\alpha n^k)| \\ll N^{1+\\varepsilon} (q^{-1} + N^{-1} + qN^{-k})^{1/2^{k-1}}$, which is nontrivial when $q$ is neither too small (then $\\alpha$ is on a major arc) nor too large (then $qN^{-k}$ dominates). The $1/2^{k-1}$ savings degrade with $k$, motivating Vinogradov's mean-value theorem for sharper bounds."
+        }
+      ]
+    },
+    "ant-selberg-elementary": {
+      "title": "Selberg's symmetry formula and elementary PNT",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Selberg's symmetry formula reads",
+          "choices": [
+            "$\\sum_{p \\le x} \\log p = x + O(x/\\log x)$",
+            "$\\sum_{p \\le x} \\log^2 p + \\sum_{pq \\le x} \\log p \\log q = 2 x \\log x + O(x)$",
+            "$\\sum_{n \\le x} \\Lambda(n) = x$",
+            "$\\sum_{p \\le x} 1/p = \\log\\log x + M$"
+          ],
+          "answer": 1,
+          "hint": "It is symmetric in primes ($p$) and prime pairs ($pq$).",
+          "explain": "Selberg derived $\\sum_{p \\le x} \\log^2 p + \\sum_{pq \\le x} \\log p \\log q = 2 x \\log x + O(x)$ by elementary manipulations of $\\Lambda * 1 = \\log$ and $\\Lambda + \\Lambda * \\Lambda$. The two sums are forced to balance: if one is too small the other must be too large, leading to a contradiction unless both behave like $x \\log x$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why was the elementary proof of PNT (Erdős–Selberg, 1948–49) historically significant?",
+          "choices": [
+            "It gave a sharper error term than Hadamard's analytic proof",
+            "It showed that complex analysis is not strictly necessary for PNT, contrary to what was widely believed",
+            "It eliminated the need to define $\\pi(x)$",
+            "It generalized PNT to infinite-dimensional algebras"
+          ],
+          "answer": 1,
+          "hint": "Hardy and others had conjectured no elementary proof was possible.",
+          "explain": "Hardy had publicly speculated that PNT could not be proved without complex analysis, viewing the depth of the result as inseparable from the analytic structure of $\\zeta(s)$. The Erdős–Selberg argument refuted this — though the resulting error term is weaker than the analytic proof's $O(x e^{-c\\sqrt{\\log x}})$, the proof is essentially real-variable."
+        },
+        {
+          "type": "mcq",
+          "q": "The bootstrap from Selberg's symmetry formula to PNT proceeds by",
+          "choices": [
+            "directly invoking the residue theorem",
+            "showing that $A = \\limsup_x |\\psi(x)/x - 1|$ satisfies $A \\le \\tfrac12 A$ (so $A = 0$), via the symmetry's averaging effect",
+            "induction on the number of prime factors",
+            "Mellin-transform inversion"
+          ],
+          "answer": 1,
+          "hint": "Symmetry feeds back the same quantity at half scale — a self-improvement loop forces zero.",
+          "explain": "Define $R(x) = \\psi(x) - x$. Selberg's formula combined with elementary inequalities gives $|R(x)| \\le \\tfrac{1}{2}\\max_{y \\le x} |R(y)| + o(x)$, which iterates down to $R(x) = o(x)$ — i.e. $\\psi(x) \\sim x$, equivalent to PNT. The averaging on the right is the symmetric pairing of $p$ with $pq$."
+        }
+      ]
+    },
+    "ant-large-sieve": {
+      "title": "The large sieve inequality",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The (analytic) large sieve inequality bounds",
+          "choices": [
+            "$\\sum_{q \\le Q} \\sum_{\\chi \\bmod q}^{*} \\bigl|\\sum_{n \\le N} a_n \\chi(n)\\bigr|^2 \\le (Q^2 + N) \\sum_{n \\le N} |a_n|^2$",
+            "$\\sum_{n \\le N} |a_n|^2 \\le \\sum_p (\\log p)^2$",
+            "$\\sum_{q \\le Q} \\varphi(q) = Q^2/(2\\zeta(2))$",
+            "$\\sum_{p \\le N} 1/p \\le \\log\\log N + B$"
+          ],
+          "answer": 0,
+          "hint": "Sum is over $q \\le Q$ and primitive characters $\\chi^*$ mod $q$; the constant is $Q^2 + N$.",
+          "explain": "The Montgomery–Bombieri form of the large sieve says $\\sum_{q \\le Q} \\sum_{\\chi^*} |\\sum_{n \\le N} a_n \\chi(n)|^2 \\le (Q^2 + N)\\|a\\|_2^2$. The dual form bounds $\\sum_r |\\sum_n a_n e(n\\alpha_r)|^2$ by $(\\delta^{-1}+N)\\|a\\|_2^2$ for $\\delta$-spaced frequencies $\\alpha_r$ — the two are equivalent via Plancherel."
+        },
+        {
+          "type": "mcq",
+          "q": "The large sieve constant $(Q^2 + N)$ is essentially sharp because",
+          "choices": [
+            "the number of primitive characters $\\sum_{q \\le Q}\\varphi^*(q) \\sim Q^2/\\zeta(2)$, and the inequality is tight when $a_n$ is supported on a residue class",
+            "primes have density zero",
+            "$\\zeta(s)$ has a pole at $s = 1$",
+            "Riemann's hypothesis would imply a smaller constant"
+          ],
+          "answer": 0,
+          "hint": "Counting primitive characters mod $q \\le Q$ is asymptotic to $Q^2 / \\zeta(2)$.",
+          "explain": "There are $\\asymp Q^2$ primitive characters of conductors $\\le Q$, so the LHS already has $\\asymp Q^2 \\|a\\|_2^2$ Plancherel mass when $a$ is concentrated on one residue class. The $N$ on the right is the trivial bound from Cauchy–Schwarz applied to a single Dirichlet sum. Both regimes show up — hence $Q^2 + N$, not max."
+        },
+        {
+          "type": "numeric",
+          "q": "Take $N = 100$ and $a_n = 1$ for $n \\le N$, $0$ otherwise. The right-hand side coefficient $\\sum_{n \\le N} |a_n|^2$ in the large sieve equals what number?",
+          "answer": 100,
+          "tol": 0,
+          "hint": "It is just the count of nonzero entries.",
+          "explain": "$\\sum |a_n|^2 = \\sum_{n \\le 100} 1 = 100$. So with $Q = \\sqrt{N} = 10$, the large sieve gives $\\sum_{q,\\chi^*} |\\sum_n \\chi(n)|^2 \\le (Q^2+N) N = 200 \\cdot 100 = 20000$ — substantially sharper than the trivial $\\sum_q q \\cdot N^2$."
+        }
+      ]
     }
   }
 }

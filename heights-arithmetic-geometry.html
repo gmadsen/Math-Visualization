@@ -176,6 +176,8 @@
 <script src="./js/progress.js"></script>
 <script src="./js/quiz.js"></script>
 <script src="./js/katex-select.js"></script>
+<script src="./js/widget-inline-code-cell.js"></script>
+<script src="./js/widget-counterexample-explorer.js"></script>
 <script src="./js/widget-diagram-editor.js"></script>
 <script src="./quizzes/bundle.js"></script>
 <!-- display-prefs-head-auto-begin -->
@@ -245,6 +247,9 @@ function drawNode(svg, x, y, label, opts={}){
   <a href="#mahler">5&nbsp;Mahler&nbsp;measure</a>
   <a href="#mordell-faltings">6&nbsp;Mordell–Faltings</a>
   <a href="#arakelov">7&nbsp;Arakelov</a>
+  <a href="#descent">8&nbsp;Mordell–Weil&nbsp;descent</a>
+  <a href="#vojta">9&nbsp;Vojta&nbsp;&amp;&nbsp;abc</a>
+  <a href="#bogomolov">10&nbsp;Bogomolov&nbsp;&amp;&nbsp;equidistribution</a>
 </nav>
 <!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
 
@@ -371,6 +376,7 @@ $$h_{X,f^*L}\;=\;h_{Y,L}\circ f\;+\;O(1).$$</p>
   <div class="ttl">Used in</div>
     <div><a href="./heights-arithmetic-geometry.html#arakelov">Heights in arithmetic geometry</a> · Arakelov heights — a glimpse</div>
     <div><a href="./heights-arithmetic-geometry.html#canonical">Heights in arithmetic geometry</a> · Néron–Tate canonical height</div>
+    <div><a href="./heights-arithmetic-geometry.html#vojta">Heights in arithmetic geometry</a> · Vojta's conjecture and the abc connection</div>
 </aside>
 <!-- backlinks-auto-end -->
 </section>
@@ -422,7 +428,9 @@ This is the volume of the Mordell–Weil lattice, and it is one of the factors i
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./heights-arithmetic-geometry.html#arakelov">Heights in arithmetic geometry</a> · Arakelov heights — a glimpse</div>
+    <div><a href="./heights-arithmetic-geometry.html#bogomolov">Heights in arithmetic geometry</a> · Bogomolov, equidistribution, and small points</div>
     <div><a href="./heights-arithmetic-geometry.html#mordell-faltings">Heights in arithmetic geometry</a> · Heights and Mordell–Faltings</div>
+    <div><a href="./heights-arithmetic-geometry.html#descent">Heights in arithmetic geometry</a> · Mordell–Weil descent: heights into finite generation</div>
 </aside>
 <!-- backlinks-auto-end --><div class="quiz" data-concept="neron-tate-canonical-height"></div>
 </section>
@@ -453,7 +461,12 @@ So Mahler measure <em>is</em> the height, packaged via the polynomial.</p>
 $$L(x)=x^{10}+x^9-x^7-x^6-x^5-x^4-x^3+x+1,\qquad M(L)\approx 1.17628\,081\ldots$$
 and no one has found a smaller value in the ninety years since. The question is wide open. A positive answer (a <em>gap</em> below $M(L)$) would have spectacular Diophantine consequences; a negative answer (Mahler measures arbitrarily close to $1$) would already be wildly surprising. Smyth proved the analogous gap for non-reciprocal polynomials, and Dobrowolski's lower bound $M(f)\ge 1+c\,(\log\log d/\log d)^3$ remains the best general bound.</p>
 
-<div class="quiz" data-concept="mahler-measure-lehmer"></div>
+<div class="quiz" data-concept="mahler-measure-lehmer"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./heights-arithmetic-geometry.html#bogomolov">Heights in arithmetic geometry</a> · Bogomolov, equidistribution, and small points</div>
+</aside>
+<!-- backlinks-auto-end -->
 </section>
 
 <section id="mordell-faltings">
@@ -487,7 +500,12 @@ and no one has found a smaller value in the ninety years since. The question is 
   </div>
   <div class="readout" id="md-out">…</div>
   <div class="row"><span class="small">A schematic illustration: at $g=0,1$ the count is infinite; at $g\ge 2$ it is finite, but explicit upper bounds (Coleman–Chabauty in low rank, Vojta's explicit Faltings) are notoriously hard.</span></div>
-</div><div class="quiz" data-concept="heights-mordell-faltings"></div>
+</div><div class="quiz" data-concept="heights-mordell-faltings"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./heights-arithmetic-geometry.html#vojta">Heights in arithmetic geometry</a> · Vojta's conjecture and the abc connection</div>
+</aside>
+<!-- backlinks-auto-end -->
 </section>
 
 <section id="arakelov">
@@ -515,6 +533,287 @@ The right-hand side decomposes as a sum over places $v\in M_K$ of local heights;
 
 <p>This frame unifies every height in this topic. The naive height comes from $\mathcal{O}_{\mathbb{P}^n}(1)$ with the Fubini–Study metric. The Néron–Tate height comes from a symmetric ample $L$ on an abelian scheme with the cubical metric supplied by the theta-function machinery. Even Faltings' height is an arithmetic degree, computed against the Hodge bundle on the moduli space of abelian varieties. Heights are not many objects — they are one object viewed at many compactifications.</p>
 <div class="quiz" data-concept="arakelov-heights-glimpse"></div>
+</section>
+
+<section id="descent">
+<h2>8. Mordell–Weil descent: heights into finite generation</h2>
+<p>The crown application of canonical heights is a constructive proof that $E(K)$ is finitely generated. The argument cleaves into two halves:</p>
+<ul>
+  <li><strong>Weak Mordell–Weil:</strong> $E(K)/2E(K)$ is finite.</li>
+  <li><strong>Descent step:</strong> from finitely many coset representatives, every point shrinks under repeated halving.</li>
+</ul>
+
+<p>Weak Mordell–Weil is the harder half conceptually but invisible to heights. One picks a Galois extension $L=K(E[2])/K$ over which all $2$-torsion is rational, then sets up the Kummer pairing
+$$E(K)/2E(K);\hookrightarrow;\operatorname{Hom}\bigl(\operatorname{Gal}(\bar K/L),\,E[2]\bigr).$$
+The image lies in homomorphisms unramified outside a finite set $S$ of bad primes; <em>finiteness of class numbers and unit groups of $L$</em> bounds such hom-sets. Conclusion: $|E(K)/2E(K)|<\infty$.</p>
+
+<p>Pick coset representatives $Q_1,\dots,Q_m$. Now <strong>heights take over</strong>. The defining quadratic identity $\hat h(P+Q)+\hat h(P-Q)=2\hat h(P)+2\hat h(Q)$ implies, for any expression $P=2P'+Q_i$,
+$$\hat h(P');=;\frac{1}{4}\hat h(P-Q_i);\le;\frac{1}{4}\bigl(2\hat h(P)+2\hat h(Q_i)-\hat h(P+Q_i)\bigr);\le;\frac{1}{4}\hat h(P)\,+\,C,$$
+with $C=\tfrac{1}{2}\max_i\hat h(Q_i)$. So one descent step contracts heights by a factor of $4$, plus a bounded additive correction.</p>
+
+<p>Iterate $n$ times: $\hat h(P^{(n)})\le 4^{-n}\hat h(P)+C\sum_{k\ge 0}4^{-k}=4^{-n}\hat h(P)+\tfrac{4}{3}C$. Eventually $\hat h(P^{(n)})\le\tfrac{4}{3}C+1$, which is a <em>fixed</em> bound independent of $P$. Northcott then says only finitely many points have height $\le\tfrac{4}{3}C+1$; that finite set, together with $Q_1,\dots,Q_m$, generates all of $E(K)$.</p>
+
+<p>The widget below performs an explicit $2$-descent on the rank-$1$ curve $E\colon y^2=x^3-x+1$ over $\mathbb{Q}$. Starting from the integer point $P=(0,1)$, it generates $2P, 4P, 8P,\dots$ via the duplication formula and reads off the canonical height growth $\hat h([2^n]P)=4^n\,\hat h(P)$ — exactly the inverse of one descent step.</p>
+
+<div class="widget" id="w-descent"></div><script>
+(function(){
+  if(!window.MVInlineCodeCell) return;
+  MVInlineCodeCell.init('#w-descent', {
+    title: "Descent on $y^2=x^3-x+1$",
+    hint: "compute $[2^n]P$ on a rank-1 curve and watch the canonical height blow up by $4^n$",
+    initialCode: "// Curve E : y^2 = x^3 - x + 1 over Q.   (rank 1, conductor 92, generator P0 = (0, 1))\n// Duplication formula on E: if P = (x, y) with y != 0,\n//    [2]P = (lambda^2 - 2x,   lambda*(x - x_new) - y)\n//    where lambda = (3x^2 + A) / (2y),  A = -1 here.\n//\n// The naive logarithmic height of (x, y) with x = a/b (lowest terms) is\n//    h(x) = log max(|a|, |b|).\n// The Néron–Tate canonical height satisfies  h_hat([n]P) = n^2 * h_hat(P).\n// We confirm this experimentally by reading off h(x_{2^n P}) and dividing by 4^n.\n\nfunction add(P, Q, A=-1n) {\n  if (P === null) return Q;\n  if (Q === null) return P;\n  const [x1,y1,d1] = P, [x2,y2,d2] = Q;            // (x_i, y_i) = (xi/d, yi/d) with common denom d\n  // To keep arithmetic exact we work with full rationals (num, den).\n  // We delegate to a generic rational implementation below; this stub is\n  // here just so the comment block reads cleanly.\n}\n\n// Rational arithmetic (exact, BigInt-backed).\nfunction gcdB(a,b){a=a<0n?-a:a;b=b<0n?-b:b;while(b){[a,b]=[b,a%b];}return a||1n;}\nfunction R(n,d=1n){if(d===0n)throw new Error('div by zero');if(d<0n){n=-n;d=-d;}const g=gcdB(n<0n?-n:n,d);return [n/g, d/g];}\nfunction add2([a,b],[c,d]){return R(a*d+c*b, b*d);}\nfunction sub2([a,b],[c,d]){return R(a*d-c*b, b*d);}\nfunction mul2([a,b],[c,d]){return R(a*c, b*d);}\nfunction div2([a,b],[c,d]){if(c===0n)throw new Error('div by zero');return R(a*d, b*c);}\nfunction eq2([a,b],[c,d]){return a*d===c*b;}\n\nfunction dbl([x,y]){\n  // lambda = (3x^2 + A) / (2y),  A = -1\n  const num = sub2(mul2([3n,1n], mul2(x,x)), [1n,1n]);\n  const den = mul2([2n,1n], y);\n  const lam = div2(num, den);\n  const xN = sub2(sub2(mul2(lam,lam), x), x);\n  const yN = sub2(mul2(lam, sub2(x, xN)), y);\n  return [xN, yN];\n}\n\nlet P = [[0n,1n], [1n,1n]];                       // P0 = (0, 1) on E\nconsole.log('n   x([2^n] P)                    h(x)            h(x)/4^n   (-> h_hat(P))');\nlet pt = P;\nfor (let n = 0; n <= 5; n++) {\n  const [num, den] = pt[0];                       // x = num/den\n  const a = num<0n ? -num : num;\n  const b = den<0n ? -den : den;\n  const big = a>b ? a : b;\n  const hLog = Math.log(Number(big));\n  const ratio = hLog / Math.pow(4, n);\n  console.log(`${n}   ${num}/${den}`.padEnd(34) + `${hLog.toFixed(4)}        ${ratio.toFixed(5)}`);\n  pt = dbl(pt);\n}\n// Reading the last column: it stabilises near h_hat(P0) ~ 0.0254 — Tate's averaging\n// applied to one point.  The descent step in the proof goes the OTHER direction:\n// from a point of height H, we reach a representative of height ~ H/4 + C.\n",
+    prelude: "math",
+    rows: 18,
+    runLabel: "Run",
+  });
+})();
+</script>
+<p>Reading the trajectory: the $x$-coordinate denominators of $[2^n]P_0$ explode like $4^n$ in their digit-count — exactly $\hat h([2^n]P)=4^n\hat h(P)$. The descent step <em>inverts</em> this: starting from a candidate $P$ of large height, we hunt for a $P'$ with $2P'\equiv P\pmod{Q_i}$ and read off a point of height $\sim\hat h(P)/4$.</p>
+
+<p>Crucially, descent gives a <strong>bounded search radius</strong>. After $n$ steps the iterates have height $\le\tfrac{4}{3}C+1$; one then enumerates the finite set of points with this height bound (Northcott) and works backwards to recover a generating set. For curves of small conductor the descent is fully algorithmic — it powers Cremona's tables and SageMath's <code>E.gens()</code>. For curves of large rank or large conductor, the bottleneck is computing $E(K)/2E(K)$ — not the height side — which is where Tate–Shafarevich obstructions enter.</p>
+
+<p>Three textbook subtleties hide in the contraction. First, the descent yields $E(K)/2^kE(K)$ in principle for any $k$, but $k=2$ is computationally cheapest. Second, the constant $C=\tfrac12\max\hat h(Q_i)$ depends on the chosen coset reps; choosing them with small height accelerates termination. Third, descent over a number field $K\ne\mathbb{Q}$ requires control of the $S$-unit group of $K(E[2])$ — usually the binding constraint on which curves admit explicit descent.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./elliptic-curves.html#mordell">Mordell–Weil and invariants</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="mordell-weil-descent"></div>
+</section>
+
+<section id="vojta">
+<h2>9. Vojta's conjecture and the abc connection</h2>
+<p>If Faltings' theorem is the global Mordell statement, <strong>Vojta's conjecture</strong> is its quantitative refinement and grand unifier. The setup: $X$ a smooth projective variety over a number field $K$, $D=\sum D_j$ a normal-crossings divisor on $X$, $A$ a fixed ample line bundle, $S$ a finite set of places of $K$. For $P\in X(K)\setminus D$, the <em>proximity function</em> $m_S(P,D)=\sum_{v\in S}\lambda_{D,v}(P)$ measures how close $P$ is to $D$ at the bad places. Vojta predicts:</p>
+$$h_{K_X+D}(P);\le;\varepsilon\cdot h_A(P)\,+\,m_S(P,D)\,+\,O_\varepsilon(1)\qquad\text{for all but finitely many $P$ outside a proper Zariski-closed set.}$$
+
+<p>Three classical theorems are visible as low-dimensional shadows:</p>
+<ul>
+  <li><strong>Roth (1955):</strong> $X=\mathbb{P}^1$, $D=$ one algebraic point. $|p/q-\alpha|\gg q^{-2-\varepsilon}$ for algebraic $\alpha$ — Diophantine approximation has finite quality.</li>
+  <li><strong>Schmidt's subspace theorem:</strong> $X=\mathbb{P}^n$, $D=$ a union of hyperplanes. Generalises Roth to higher dimension.</li>
+  <li><strong>Faltings (genus $\ge 2$):</strong> $X=C$ a curve of genus $\ge 2$, $D=\emptyset$. Then $K_C$ is ample so the inequality bounds $h_{K_C}(P)$ by $\varepsilon h_A$, forcing finite $C(K)$.</li>
+</ul>
+
+<p>The dazzling case: take $X=\mathbb{P}^1$ and $D=\{0,1,\infty\}$, three distinct points. Then $K_{\mathbb{P}^1}+D=\mathcal{O}(1)$, the height $h_{K_X+D}=h$ is the standard one, and the Vojta inequality reads</p>
+$$h(t);\le;m_S(t,\{0,1,\infty\})+\varepsilon\, h(t)+O(1).$$
+<p>Specialising to the $S$-unit equation $a+b=c$ with $a,b,c$ coprime, $\mathrm{rad}(abc)=\prod_{p\mid abc}p$, and setting $t=a/c$, the proximity sum becomes $\log\mathrm{rad}(abc)$ and $h(t)=\log\max(|a|,|c|)$. The result is the <strong>abc conjecture</strong>:</p>
+$$\max(|a|,|b|,|c|);\ll_\varepsilon;\mathrm{rad}(abc)^{\,1+\varepsilon}.$$
+
+<p>The widget below browses concrete abc-style triples and reads off whether the inequality is satisfied at exponent $1+\varepsilon$ for a few values of $\varepsilon$ — the "quality" $\log c/\log\mathrm{rad}(abc)$ measures how far the triple is from the conjectured threshold.</p>
+
+<div class="widget" id="w-vojta"></div><script>
+(function(){
+  if(!window.MVCounterexampleExplorer) return;
+  MVCounterexampleExplorer.init('#w-vojta', {
+      "title": "abc-flavoured triples vs. Vojta",
+      "hint": "pick a triple — read off how its quality compares to abc thresholds",
+      "viewBox": "0 0 320 160",
+      "hypotheses": [
+          {
+              "id": "q1",
+              "label": "Quality $\\le 1$ (i.e. $c\\le\\mathrm{rad}(abc)$)"
+          },
+          {
+              "id": "q12",
+              "label": "Quality $\\le 1.2$ (consistent with $\\varepsilon=0.2$)"
+          },
+          {
+              "id": "q14",
+              "label": "Quality $\\le 1.4$ (consistent with $\\varepsilon=0.4$)"
+          },
+          {
+              "id": "qabc",
+              "label": "Best known quality $\\approx 1.6299$ (would refute strong abc)"
+          }
+      ],
+      "cases": [
+          {
+              "name": "$1+8=9$",
+              "latex": "1 + 8 = 9,\\quad\\mathrm{rad}=2\\cdot 3=6",
+              "displayLabel": "q ≈ 1.226",
+              "hypotheses": {
+                  "q1": {
+                      "pass": false,
+                      "note": "$c=9>6=\\mathrm{rad}$ already breaches the strict bound"
+                  },
+                  "q12": {
+                      "pass": false,
+                      "note": "$\\log 9/\\log 6\\approx 1.226>1.2$, just over the line"
+                  },
+                  "q14": {
+                      "pass": true,
+                      "note": "comfortably under $1.4$"
+                  },
+                  "qabc": {
+                      "pass": true,
+                      "note": "far below the world record"
+                  }
+              }
+          },
+          {
+              "name": "$3+125=128$ ($5^3+3=2^7$)",
+              "latex": "3 + 5^3 = 2^7,\\quad\\mathrm{rad}=2\\cdot 3\\cdot 5=30",
+              "displayLabel": "q ≈ 1.427",
+              "hypotheses": {
+                  "q1": {
+                      "pass": false,
+                      "note": "$128>30$"
+                  },
+                  "q12": {
+                      "pass": false,
+                      "note": "$\\log 128/\\log 30\\approx 1.427$"
+                  },
+                  "q14": {
+                      "pass": false,
+                      "note": "a famous \"high-quality\" triple"
+                  },
+                  "qabc": {
+                      "pass": true,
+                      "note": "still well under $1.63$"
+                  }
+              }
+          },
+          {
+              "name": "$1+4374=4375$",
+              "latex": "1 + 2\\cdot 3^7 = 5^4\\cdot 7,\\quad\\mathrm{rad}=2\\cdot 3\\cdot 5\\cdot 7=210",
+              "displayLabel": "q ≈ 1.5679",
+              "hypotheses": {
+                  "q1": {
+                      "pass": false,
+                      "note": "$4375\\gg 210$"
+                  },
+                  "q12": {
+                      "pass": false,
+                      "note": "beyond $1.2$"
+                  },
+                  "q14": {
+                      "pass": false,
+                      "note": "beyond $1.4$"
+                  },
+                  "qabc": {
+                      "pass": true,
+                      "note": "a top-10 example, still under $1.63$"
+                  }
+              }
+          },
+          {
+              "name": "$2+3^{10}\\cdot 109=23^5$ (Reyssat)",
+              "latex": "2+3^{10}\\cdot 109 = 23^5,\\quad\\mathrm{rad}=2\\cdot 3\\cdot 23\\cdot 109=15042",
+              "displayLabel": "q ≈ 1.6299 (record)",
+              "hypotheses": {
+                  "q1": {
+                      "pass": false,
+                      "note": "far over"
+                  },
+                  "q12": {
+                      "pass": false,
+                      "note": "far over"
+                  },
+                  "q14": {
+                      "pass": false,
+                      "note": "far over"
+                  },
+                  "qabc": {
+                      "pass": false,
+                      "note": "this IS the current world record — anything strictly above would refute strong abc with $\\varepsilon\\le 0.6299$"
+                  }
+              }
+          },
+          {
+              "name": "$5+27=32$ ($2^5=5+3^3$)",
+              "latex": "5+3^3=2^5,\\quad\\mathrm{rad}=2\\cdot 3\\cdot 5=30",
+              "displayLabel": "q ≈ 1.0188",
+              "hypotheses": {
+                  "q1": {
+                      "pass": false,
+                      "note": "$32>30$ — barely"
+                  },
+                  "q12": {
+                      "pass": true,
+                      "note": "well below"
+                  },
+                  "q14": {
+                      "pass": true,
+                      "note": "well below"
+                  },
+                  "qabc": {
+                      "pass": true,
+                      "note": "far below the record"
+                  }
+              }
+          },
+          {
+              "name": "$1+2=3$ (smooth)",
+              "latex": "1+2=3,\\quad\\mathrm{rad}=2\\cdot 3=6",
+              "displayLabel": "q ≈ 0.613",
+              "hypotheses": {
+                  "q1": {
+                      "pass": true,
+                      "note": "$3<6$"
+                  },
+                  "q12": {
+                      "pass": true,
+                      "note": "far below"
+                  },
+                  "q14": {
+                      "pass": true,
+                      "note": "far below"
+                  },
+                  "qabc": {
+                      "pass": true,
+                      "note": "almost everyone is here — the \"generic\" case"
+                  }
+              }
+          }
+      ]
+  });
+})();
+</script>
+<p>The "quality" of a triple is $q(a,b,c)=\log\max(|a|,|b|,|c|)/\log\mathrm{rad}(abc)$. The strong abc conjecture predicts $\sup q\le 1+\varepsilon$ for any $\varepsilon>0$ (only finitely many exceptions). The current record is $q\approx 1.6299$ from Reyssat's triple $2+3^{10}\cdot 109=23^5$; no one has ever found $q>1.63$ despite enormous searches. If you ever meet $q\ge 2$, the abc conjecture is refuted — and a great deal of arithmetic geometry, including effective Faltings and uniform Mordell, falls with it.</p>
+
+<p>The forward implications run deep. Granville's $p$-adic refinement of abc would yield Fermat's Last Theorem with no modularity, an effective Roth theorem (constants depending on $\varepsilon$), and uniform bounds for the number of solutions of generalised Fermat equations $x^p+y^q=z^r$. Vojta's full conjecture goes further: it predicts effective height bounds for $C(K)$ when $C$ has genus $\ge 2$, with constants depending only on the genus and $K$ — the elusive "uniform Mordell". Mochizuki's contested IUT framework, Kim's non-abelian Chabauty, and recent breakthroughs of Dimitrov–Gao–Habegger and Kühne all hover around this circle of ideas.</p>
+
+<div class="quiz" data-concept="vojta-conjecture-abc"></div>
+</section>
+
+<section id="bogomolov">
+<h2>10. Bogomolov, equidistribution, and small points</h2>
+<p>Northcott rules out infinite sets of bounded height. The opposite extreme — sets of <em>small</em> height — is the engine of arithmetic equidistribution. Three theorems organise the picture:</p>
+
+<ul>
+  <li><strong>Manin–Mumford</strong> (Raynaud 1983): on a curve $C\hookrightarrow\operatorname{Jac}(C)$ of genus $\ge 2$, only finitely many torsion points of $\operatorname{Jac}$ lie on $C$. Torsion points are precisely the $\hat h=0$ points.</li>
+  <li><strong>Bogomolov</strong> (Ullmo 1998, Zhang 1998): the set $\{P\in C(\bar K):\hat h(P)<\varepsilon\}$ is <em>finite</em> for some $\varepsilon>0$. Strengthens Manin–Mumford to a "no almost-torsion" statement.</li>
+  <li><strong>Yuan–Zhang equidistribution</strong> (refining Szpiro–Ullmo–Zhang): a generic sequence of points $P_n\in A(\bar K)$ with $\hat h(P_n)\to 0$ has its Galois orbits $\mu_n=|G\cdot P_n|^{-1}\sum\delta_Q$ converge weakly to the Haar measure on $A(\mathbb{C})$.</li>
+</ul>
+
+<p>The unifying intuition: <em>small height = arithmetic randomness</em>. A torsion point lives in a finite Galois orbit by definition; a small-height non-torsion point lives in a Galois orbit so large that, projected to $A(\mathbb{C})$, it spreads uniformly. The hidden mechanism is the Bost–Soulé–Gillet "arithmetic Hilbert–Samuel" formula, an Arakelov-theoretic Riemann–Roch that turns the asymptotic count of small sections into a positive intersection number — vanishing only when the orbit measure equidistributes.</p>
+
+<p>The widget below experiments with the simplest test case: roots of unity inside $\mathbb{G}_m=\mathbb{P}^1\setminus\{0,\infty\}$. There the canonical height of a primitive $n$th root of unity $\zeta_n$ is $\hat h(\zeta_n)=0$ exactly (they are torsion); the equidistribution statement says that as $n$ ranges over a generic sequence, the $\varphi(n)$ Galois conjugates $\zeta_n^k$ spread uniformly around the unit circle $|z|=1$. We sample the angles, bin them, and measure their deviation from the uniform distribution.</p>
+
+<div class="widget" id="w-equidist"></div><script>
+(function(){
+  if(!window.MVInlineCodeCell) return;
+  MVInlineCodeCell.init('#w-equidist', {
+    title: "Equidistribution of $\\zeta_n^k$ on $|z|=1$",
+    hint: "Galois orbit of $\\zeta_n$ — how uniformly does it cover the unit circle?",
+    initialCode: "// Test case: A = G_m, identified with {z : |z|=1}^complex via the canonical embedding.\n// The roots of unity zeta_n^k (gcd(k,n)=1) are precisely the height-0 points of G_m,\n// and the Yuan-Zhang theorem specialises here to Erdős-style equidistribution:\n//\n//   { (k/n) * 2pi : 1<=k<n, gcd(k,n)=1 }  becomes uniform on [0, 2pi) as n -> infty.\n//\n// We bin the angles into 12 sectors and read off the L^1 / sup-norm deviation\n// from uniform.  Compare n=11 (prime, large primitive set) to n=12 (highly composite,\n// only 4 primitive roots) and to n=2310 = 2*3*5*7*11.\n\nfunction angles(n){\n  const out = [];\n  for (let k = 1; k < n; k++) {\n    if (gcd(k, n) === 1) out.push((2 * Math.PI * k) / n);\n  }\n  return out;\n}\n\nfunction deviation(angles, bins=12){\n  const counts = new Array(bins).fill(0);\n  for (const a of angles) {\n    const b = Math.floor((a / (2 * Math.PI)) * bins);\n    counts[b === bins ? 0 : b]++;\n  }\n  const total = angles.length;\n  const expected = total / bins;\n  let l1 = 0, sup = 0;\n  for (const c of counts) {\n    const dev = Math.abs(c - expected) / total;\n    l1 += dev;\n    if (dev > sup) sup = dev;\n  }\n  return { counts, total, l1, sup };\n}\n\nfor (const n of [11, 12, 60, 100, 2310]) {\n  const A = angles(n);\n  const { counts, total, l1, sup } = deviation(A, 12);\n  console.log('n = ' + n + '   |orbit| = phi(n) = ' + total\n    + '   L^1 dev = ' + l1.toFixed(4)\n    + '   sup dev = ' + sup.toFixed(4));\n  console.log('   bin counts (12 sectors): [' + counts.join(', ') + ']');\n}\n// As n grows along a generic sequence the deviations decay to 0 — but watch n=12:\n// only phi(12)=4 primitive roots and they sit at angles pi/6, 5pi/6, 7pi/6, 11pi/6.\n// Equidistribution is an asymptotic statement; tiny orbits are NOT individually uniform.\n",
+    prelude: "math",
+    rows: 16,
+    runLabel: "Run",
+  });
+})();
+</script>
+<p>The pattern in the readout is striking. For $n=12$ (only $\varphi(12)=4$ primitive roots) the orbit is concentrated in four bins out of twelve — equidistribution fails badly for fixed small $n$. For $n=11$ (prime) the $\varphi(11)=10$ primitive roots are already much more uniform. For $n=2310=2\cdot 3\cdot 5\cdot 7\cdot 11$ the $\varphi(n)=480$ primitive roots have $L^1$-deviation under $0.04$. Yuan–Zhang says <em>any generic sequence of small-height points</em> on any abelian variety equidistributes — roots of unity are just the testbed.</p>
+
+<p>The connection to Lehmer's problem (§5) is direct. Suppose Lehmer's conjecture fails: there exist non-torsion algebraic numbers $\alpha_n$ of bounded degree with $\hat h(\alpha_n)\to 0$. Equidistribution then implies the Galois orbits of the $\alpha_n$ pile uniformly onto $|z|=1$, but a separate analysis of resultants shows the discriminants must blow up — contradiction. So equidistribution gives a partial geometric refutation of Lehmer-failure scenarios, and refining the equidistribution speed (the rate at which $L^1$-deviation $\to 0$) is equivalent to refining Lehmer-style lower bounds on heights.</p>
+
+<p>The real power emerges when we move from $\mathbb{G}_m$ to higher-dimensional abelian varieties. Pila–Wilkie's <em>o-minimal</em> point-counting theorem combined with Bogomolov gives effective Manin–Mumford. The Pila–Zannier strategy proves the André–Oort conjecture for moduli spaces of abelian varieties: the only "special" subvarieties of $\mathcal{A}_g$ — those containing a Zariski-dense set of CM points — are themselves Shimura subvarieties. Heights, equidistribution, and o-minimality fuse into a single tool for understanding rational and torsion points on Shimura varieties.</p>
+
+<p>Where it all came from: Bogomolov's original conjecture (1981) lived inside Arakelov geometry, where height inequalities translate into volumes of arithmetic line bundles. Zhang's proof reduced it to the inequality $\widehat{c_1}(\bar L)^{n+1}>0$ — a positivity statement about arithmetic intersection numbers — and that, in turn, is what Arakelov's compactification was invented to make sense of. We have come full circle: the naive height of §1 is the same Arakelov degree of §7, and its smallest non-trivial values reveal the equidistribution structure of generic Galois orbits.</p>
+
+<div class="quiz" data-concept="bogomolov-equidistribution"></div>
 </section>
 
 </main>

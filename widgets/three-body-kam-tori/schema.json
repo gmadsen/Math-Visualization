@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/three-body-kam-tori/schema.json",
+  "title": "three-body-kam-tori widget params",
+  "description": "Bespoke widget for the §5 KAM tori-vs-perturbation illustration on the three-body-problem topic — a single perturbation slider $\\varepsilon$ with an inline `<span class=\"small\">` readout above an SVG of nested invariant tori, where rationally-resonant rings shatter into Birkhoff islands as $\\varepsilon$ grows and a marked golden-mean torus survives longest. Slider+span row + svg + readout + trailing `<p class=\"small\">` of Greene's-criterion provenance doesn't fit any shared slug; this slug captures it as one unit. (Distinct from `hamiltonians-kam-tori`, which is a 2-torus winding visualization driven by three sliders.)",
+  "meta": {
+    "family": "three-body-kam-tori",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title",
+    "hint",
+    "bodyMarkup",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\">. Required by the corpus-wide test-widget-renderers convention."
+    },
+    "title": {
+      "type": "string",
+      "description": "Header title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Header hint rendered inside .hd > .hint."
+    },
+    "bodyMarkup": {
+      "type": "string",
+      "x-artifact": "verbatim inner-body HTML; portable consumers should rebuild slider+svg+readout+prose from explicit fields once a shared shape proves out",
+      "description": "ARTIFACT. Verbatim HTML emitted between the closing </div> of the .hd row and the closing </div> of the outer widget — slider row with inline span readout, <svg>, readout div, trailing <p class=\"small\">."
+    },
+    "sectionComment": {
+      "type": "string",
+      "description": "ARTIFACT. Optional /* ... */ banner placed between the leading <script> tag and the IIFE opener."
+    },
+    "bodyScript": {
+      "type": "string",
+      "x-artifact": "script body is bespoke; portable consumers should re-implement the Diophantine-constant proxy + Birkhoff-island fallback from scratch",
+      "description": "ARTIFACT. Verbatim JS statements that go inside `(function(){\\n…\\n})();` — wires the $\\varepsilon$ slider, walks the indexed tori, breaks resonant ones into islands, marks the golden-mean torus."
+    }
+  }
+}

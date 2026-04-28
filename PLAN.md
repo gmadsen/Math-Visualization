@@ -56,6 +56,15 @@ Items raised by the review-team agents that were deferred at merge time. **#1 is
 5. **Blurb undercoverage instances.** `cnt-modular-arithmetic-algorithms` (only one of three blurb pillars tested), `ms-mle` (asymptotic normality / score equation untested despite being in the blurb). Quiz-review comment 4183111160.
 6. **KaTeX macro-loader expansion.** Notation reviewer flagged `\Re`, `\vol`, `\End` as candidates that just crossed the threshold where defining once in the loader pays off. Currently rendering correctly via `\mathrm{...}` so cosmetic, not a bug.
 
+## Follow-ups from PR #41 (sweep-2026-04-27)
+
+Phase 1 of two campaigns — the rest deferred:
+
+1. **Inline-widget migration — remaining topics.** PR #41 covered `expanders`, `schrodinger-equation`, `hamiltonians-classical-mechanics`, `three-body-problem`, `matroid-theory`. Remaining inline-heavy topics: `complex-analysis` (19/26 inline), `harmonic-analysis-fourier`, `sobolev-spaces-distributions`, `general-relativity`, plus 6 more in Combinatorics & graph theory (`designs`, `enumerative-combinatorics`, `extremal-combinatorics`, `probabilistic-method`, `simplicial-complexes-combinatorial`, `spectral-graph-theory`). Each follows the same per-section bespoke-slug template; group of three per session is the right batch size.
+2. **Bespoke-slug schema upgrade — promote artifact-style to structured.** The 21 bespoke slugs adopted in PR #41 carry `bodyMarkup` and `bodyScript` as opaque verbatim strings (annotated `x-artifact`). Once a shared shape is clear (e.g. all 6 hamiltonians slugs share preset+control+SVG+readout), absorb them into a shared `<topic>-figure` style slug with structured params, so React/SSR consumers can render from data alone. See `widgets/README.md` § "Structured vs. artifact-style adoption".
+3. **Tour cards in the index grid.** `tours.html` is linked from the top nav but doesn't have a section card on the index page. Adding "Tours" as its own row (visually distinct from topic cards) would surface the narrative entry point above the fold.
+4. **Canvas stub — track if any widget hits the Proxy fallback.** PR #41's jsdom canvas stub falls back to `noop` for unstubbed methods via Proxy. This is robust but silent. If a future canvas widget breaks because it expects a method to return non-`undefined`, the boot test will pass but runtime will fail. Worth a one-time audit grep for canvas method calls outside the explicit-stub list.
+
 ## Out of scope
 
 Items the user has explicitly de-prioritized. **Don't suggest these as "what next" without prompting.**

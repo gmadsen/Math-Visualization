@@ -395,6 +395,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <div class="widget" id="w-spec">
   <div class="hd"><div class="ttl">Spectrum of $\widehat A$</div><div class="hint">drag the slider · watch $\lambda_2$ collapse for cycles</div></div>
+  <svg id="spec-svg" viewBox="0 0 720 220" width="720" height="220"><title>Spectrum of normalized adjacency</title></svg>
   <div class="row">
     <label for="spec-fam">family:</label>
     <select id="spec-fam">
@@ -402,11 +403,12 @@ function drawNode(svg, x, y, label, opts={}){
       <option value="kn">complete $K_n$</option>
       <option value="hypercube" selected>hypercube $Q_k$</option>
     </select>
+  </div>
+  <div class="row">
     <label for="spec-size">size:</label>
     <input type="range" id="spec-size" min="3" max="32" step="1" value="8">
-    <span id="spec-sizeval" class="pill">n</span>
+    <span class="small" id="spec-sizeval">n</span>
   </div>
-  <svg id="spec-svg" viewBox="0 0 720 220" width="720" height="220"><title>Spectrum of normalized adjacency</title></svg>
   <div class="readout" id="spec-out"></div>
 </div>
 
@@ -522,6 +524,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <div class="widget" id="w-cheeger">
   <div class="hd"><div class="ttl">Cheeger ratio visualizer</div><div class="hint">slide threshold on the Fiedler vector · watch the cut</div></div>
+  <svg id="ch-svg" viewBox="0 0 720 280" width="720" height="280"><title>Cheeger ratio visualizer</title></svg>
   <div class="row">
     <label for="ch-graph">graph:</label>
     <select id="ch-graph">
@@ -529,11 +532,12 @@ function drawNode(svg, x, y, label, opts={}){
       <option value="path6">path $P_6$</option>
       <option value="cycle8">cycle $C_8$</option>
     </select>
+  </div>
+  <div class="row">
     <label for="ch-thresh">threshold:</label>
     <input type="range" id="ch-thresh" min="-1" max="1" step="0.02" value="0">
   </div>
-  <svg id="ch-svg" viewBox="0 0 720 280" width="720" height="280"><title>Cheeger ratio visualizer</title></svg>
-  <div class="readout" id="ch-out"></div>
+  <div class="readout" id="ch-out">&nbsp;</div>
 </div>
 
 <p>The dumbbell graph has a tight bottleneck: the Fiedler vector splits the two $K_5$ cleanly with $|E(S,\bar S)|=1$, giving $\phi \approx 1/(5\cdot 5) = 0.04$. Slide the threshold and watch the ratio $|E(S,\bar S)|/(d\,|S|)$ — its minimum across all sweep cuts is essentially the Cheeger upper bound, achieved at the natural split. On the path the optimal cut sits at the middle edge; on the cycle, no cut is good (every cut is balanced and uses two edges).</p>
@@ -778,17 +782,19 @@ function drawNode(svg, x, y, label, opts={}){
 
 <div class="widget" id="w-mix">
   <div class="hd"><div class="ttl">Mixing on an expander vs. a cycle</div><div class="hint">step the walk · expander forgets fast</div></div>
+  <svg id="mix-svg" viewBox="0 0 720 280" width="720" height="280"><title>Mixing comparison</title></svg>
   <div class="row">
-    <button id="mix-step">step</button>
-    <button id="mix-reset">reset</button>
     <label for="mix-graph">graph:</label>
     <select id="mix-graph">
       <option value="cycle">cycle $C_{20}$ (no gap)</option>
       <option value="expander" selected>3-regular expander (random)</option>
     </select>
   </div>
-  <svg id="mix-svg" viewBox="0 0 720 280" width="720" height="280"><title>Mixing comparison</title></svg>
-  <div class="readout" id="mix-out"></div>
+  <div class="row">
+    <button id="mix-step">step</button>
+    <button id="mix-reset">reset</button>
+  </div>
+  <div class="readout" id="mix-out">&nbsp;</div>
 </div>
 
 <p>The bars show the distribution $P^t(x_0,\cdot)$ after $t$ steps starting from a fixed vertex; the dashed line is the uniform distribution. On the cycle the distribution stays peaked for $\Theta(n^2)$ steps; on the random 3-regular expander it flattens in $\Theta(\log n)$ — that is the spectral gap turning into the practical "forget where you started" speed.</p>
@@ -909,6 +915,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <div class="widget" id="w-ram">
   <div class="hd"><div class="ttl">Ramanujan eigenvalue check</div><div class="hint">slide $d$ · compare a graph's $\lambda_2$ to $2\sqrt{d-1}$</div></div>
+  <svg id="ram-svg" viewBox="0 0 720 220" width="720" height="220"><title>Ramanujan eigenvalue check</title></svg>
   <div class="row">
     <label for="ram-graph">graph:</label>
     <select id="ram-graph">
@@ -918,8 +925,7 @@ function drawNode(svg, x, y, label, opts={}){
       <option value="random3">random 3-regular ($n=20$)</option>
     </select>
   </div>
-  <svg id="ram-svg" viewBox="0 0 720 220" width="720" height="220"><title>Ramanujan eigenvalue check</title></svg>
-  <div class="readout" id="ram-out"></div>
+  <div class="readout" id="ram-out">&nbsp;</div>
 </div>
 
 <p>The strip is $[-d, d]$; the shaded yellow band is the Ramanujan window $[-2\sqrt{d-1}, 2\sqrt{d-1}]$. A graph is Ramanujan iff every dot except the trivial $\pm d$ falls inside the band. The Petersen graph (eigenvalues $3, 1^{(5)}, -2^{(4)}$) is Ramanujan — $1$ and $-2$ both fit inside $[-2\sqrt 2, 2\sqrt 2]$. The cycle isn't really an expander, so its $\lambda_2 \to d$ as $n\to\infty$ and it overflows the band.</p>

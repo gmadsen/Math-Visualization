@@ -123,7 +123,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./sato-tate.html#cm\">Sato–Tate</a> · CM vs. non-CM: two equidistribution laws</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./modular-curves.html#heegner\">Modular curves</a> · Heegner points and CM</div>\n    <div><a href=\"./sato-tate.html#cm\">Sato–Tate</a> · CM vs. non-CM: two equidistribution laws</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -188,7 +188,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./bsd.html#mordell-weil\">Birch and Swinnerton-Dyer</a> · Mordell–Weil theorem</div>\n    <div><a href=\"./bsd.html#regulator\">Birch and Swinnerton-Dyer</a> · Néron–Tate height and the regulator</div>\n    <div><a href=\"./heights-arithmetic-geometry.html#canonical\">Heights in arithmetic geometry</a> · Néron–Tate canonical height</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./bsd.html#mordell-weil\">Birch and Swinnerton-Dyer</a> · Mordell–Weil theorem</div>\n    <div><a href=\"./bsd.html#regulator\">Birch and Swinnerton-Dyer</a> · Néron–Tate height and the regulator</div>\n    <div><a href=\"./heights-arithmetic-geometry.html#descent\">Heights in arithmetic geometry</a> · Mordell–Weil descent: heights into finite generation</div>\n    <div><a href=\"./heights-arithmetic-geometry.html#canonical\">Heights in arithmetic geometry</a> · Néron–Tate canonical height</div>\n    <div><a href=\"./modular-curves.html#mazur-torsion\">Modular curves</a> · Mazur's torsion theorem via $X_1(N)$</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

@@ -85,6 +85,48 @@
         "group-action",
         "classification"
       ]
+    },
+    {
+      "id": "mc-atkin-lehner-newforms",
+      "title": "Atkin–Lehner involutions and the old/new decomposition",
+      "anchor": "atkin-lehner",
+      "prereqs": [
+        "mc-jacobian-J0",
+        "mc-hecke-correspondences-curves"
+      ],
+      "blurb": "For each exact divisor $d \\Vert N$ (i.e. $\\gcd(d, N/d) = 1$) the matrix $w_d = \\bigl(\\begin{smallmatrix} ad & b \\\\ Nc & dD \\end{smallmatrix}\\bigr)$ with $\\det = d$ defines an involution $w_d$ on $X_0(N)$ commuting with $T_p$ for $p \\nmid N$. The $w_d$ generate a $(\\mathbb{Z}/2)^{\\omega(N)}$ acting on $S_2(\\Gamma_0(N))$, and Atkin–Lehner theory splits the space as $S_2 = S_2^{\\mathrm{old}} \\oplus S_2^{\\mathrm{new}}$ where $S_2^{\\mathrm{old}}$ is built from level-$M$ forms with $M \\mid N$, $M \\ne N$, and $S_2^{\\mathrm{new}}$ contains the genuine level-$N$ newforms.",
+      "tags": [
+        "duality",
+        "classification"
+      ]
+    },
+    {
+      "id": "mc-heegner-points",
+      "title": "Heegner points and CM",
+      "anchor": "heegner",
+      "prereqs": [
+        "mc-moduli-of-elliptic-curves",
+        "complex-multiplication"
+      ],
+      "blurb": "A Heegner point of level $N$ and discriminant $D < 0$ is a point of $X_0(N)$ whose moduli pair $(E, C)$ has $E$ a CM elliptic curve with endomorphism ring an order in $\\mathbb{Q}(\\sqrt{D})$ and $C$ a cyclic subgroup compatible with that order. By CM theory these points are defined over the Hilbert class field of $\\mathbb{Q}(\\sqrt{D})$; their traces under the modular parametrization $X_0(N) \\to E$ produce algebraic points on $E$ whose heights are computed by the Gross–Zagier formula and supply the rank-$1$ cases of BSD.",
+      "tags": [
+        "moduli",
+        "duality"
+      ]
+    },
+    {
+      "id": "mc-mazur-torsion",
+      "title": "Mazur's torsion theorem via $X_1(N)$",
+      "anchor": "mazur-torsion",
+      "prereqs": [
+        "mc-jacobian-J0",
+        "mordell-weil-ec"
+      ],
+      "blurb": "The variant modular curve $X_1(N)$, classifying pairs $(E, P)$ with $P \\in E$ of exact order $N$, has $\\mathbb{Q}$-rational non-cuspidal points iff some elliptic curve $E/\\mathbb{Q}$ admits a rational point of order $N$. Mazur (1977) proved that $X_1(N)(\\mathbb{Q})$ has no non-cuspidal rational points for $N \\in \\{11\\} \\cup \\{13,\\dots,18\\} \\cup \\{21\\}$, hence the torsion subgroup of any $E(\\mathbb{Q})$ is one of $15$ groups: $\\mathbb{Z}/n$ for $n \\in \\{1,\\ldots,10,12\\}$ or $\\mathbb{Z}/2 \\oplus \\mathbb{Z}/2n$ for $n \\in \\{1,2,3,4\\}$.",
+      "tags": [
+        "classification",
+        "moduli"
+      ]
     }
   ]
 }

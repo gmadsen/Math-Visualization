@@ -6531,6 +6531,46 @@ window.__MVConcepts = {
             "st-unbounded-operators"
           ],
           "blurb": "Observables in QM are self-adjoint operators whose spectra are measurable energies; eigenvalue problems for elliptic PDE invoke the compact spectral theorem; Fourier transform diagonalizes translation-invariant operators."
+        },
+        {
+          "id": "st-compact-fredholm",
+          "title": "Compact operators and the Fredholm alternative",
+          "anchor": "compact-fredholm",
+          "prereqs": [
+            "st-spectral-theorem-compact",
+            "compact-operators"
+          ],
+          "blurb": "Compact operators $K$ are norm-limits of finite-rank ones; for any $\\lambda\\ne 0$, $T-\\lambda I$ with $T=K$ is Fredholm of index $0$, so $\\dim\\ker(K-\\lambda I)=\\dim\\mathrm{coker}(K-\\lambda I)$ — the dichotomy \"$Kx-\\lambda x=y$ is solvable iff $y\\perp\\ker(K^*-\\bar\\lambda)$.\"",
+          "tags": [
+            "compactness",
+            "duality"
+          ]
+        },
+        {
+          "id": "st-trace-class-hilbert-schmidt",
+          "title": "Trace-class and Hilbert–Schmidt operators",
+          "anchor": "trace-class",
+          "prereqs": [
+            "st-compact-fredholm"
+          ],
+          "blurb": "Singular values $s_n(T)$ filter $B(H)$ into ideals: $\\mathcal{S}_2$ (Hilbert–Schmidt, $\\sum s_n^2<\\infty$) and $\\mathcal{S}_1$ (trace-class, $\\sum s_n<\\infty$). The trace $\\operatorname{tr}(T)=\\sum\\langle Te_n,e_n\\rangle$ is basis-independent on $\\mathcal{S}_1$, $\\mathcal{S}_2$ is itself a Hilbert space, and $\\mathcal{S}_1$ is the predual of $B(H)$.",
+          "tags": [
+            "compactness",
+            "duality"
+          ]
+        },
+        {
+          "id": "st-weyl-laplacian",
+          "title": "Weyl's law for the Laplacian",
+          "anchor": "weyl-law",
+          "prereqs": [
+            "st-unbounded-operators",
+            "pde-laplace-equation"
+          ],
+          "blurb": "For the Dirichlet Laplacian $-\\Delta$ on a bounded domain $\\Omega\\subset\\mathbb{R}^d$, the eigenvalue counting function $N(\\lambda)=\\#\\{\\lambda_n\\le\\lambda\\}$ satisfies $N(\\lambda)\\sim\\frac{\\omega_d|\\Omega|}{(2\\pi)^d}\\lambda^{d/2}$ — so the leading-order asymptotics recover the volume and dimension. \"Hearing the shape of a drum\" asks how much more the spectrum tells you.",
+          "tags": [
+            "compactness"
+          ]
         }
       ]
     },
@@ -7716,6 +7756,51 @@ window.__MVConcepts = {
             "cohomology",
             "functoriality"
           ]
+        },
+        {
+          "id": "cc-classifying-spaces",
+          "title": "Classifying spaces $BO(n)$, $BU(n)$",
+          "anchor": "classifying-spaces",
+          "prereqs": [
+            "cc-vector-bundles",
+            "cc-chern-classes"
+          ],
+          "blurb": "Real (resp. complex) rank-$n$ bundles on a paracompact $X$ are classified by homotopy classes $[X, BO(n)]$ (resp. $[X, BU(n)]$) — every bundle is the pullback $f^*\\gamma_n$ of the tautological bundle along a unique map $f$. The cohomology rings are polynomial: $H^*(BO(n);\\mathbb{Z}/2) = \\mathbb{Z}/2[w_1,\\ldots,w_n]$ and $H^*(BU(n);\\mathbb{Z}) = \\mathbb{Z}[c_1,\\ldots,c_n]$. So characteristic classes are literally the cohomology of the classifying space, and naturality / Whitney sum / normalisation are just $f^*$ pulled back.",
+          "tags": [
+            "classification",
+            "functoriality",
+            "cohomology"
+          ]
+        },
+        {
+          "id": "cc-signature-theorem",
+          "title": "Hirzebruch signature theorem",
+          "anchor": "signature",
+          "prereqs": [
+            "cc-pontryagin",
+            "stokes-derham"
+          ],
+          "blurb": "On a closed oriented $4k$-manifold $M$, the symmetric intersection form on $H^{2k}(M;\\mathbb{R})$ has a signature $\\sigma(M)\\in\\mathbb{Z}$. Hirzebruch: $\\sigma(M) = \\langle L_k(p_1,\\ldots,p_k),[M]\\rangle$, where the $L$-genus $L = \\prod x_i \\tanh^{-1}(x_i) / x_i$ is the multiplicative sequence with $L_1 = p_1/3$, $L_2 = (7p_2 - p_1^2)/45$. So a real-cohomology pairing of curvature polynomials computes a purely topological integer — the prototype of an index theorem.",
+          "tags": [
+            "cohomology",
+            "duality",
+            "classification"
+          ]
+        },
+        {
+          "id": "cc-equivariant",
+          "title": "Equivariant characteristic classes",
+          "anchor": "equivariant",
+          "prereqs": [
+            "cc-chern-classes",
+            "cc-classifying-spaces"
+          ],
+          "blurb": "For a compact Lie group $G$ acting on $X$, the Borel construction $X_G = (X\\times EG)/G$ has cohomology $H^*_G(X) := H^*(X_G;\\mathbb{Z})$, and a $G$-equivariant bundle $E\\to X$ produces equivariant Chern classes $c_i^G(E)\\in H^{2i}_G(X)$. Atiyah–Bott localisation: if $X$ is a smooth $S^1$-manifold with fixed-point set $F\\subset X$, integration on $X$ reduces to a sum over $F$, $\\int_X \\alpha = \\sum_{F_i}\\int_{F_i}\\iota_i^*\\alpha / e^{S^1}(\\nu_i)$ — characteristic numbers become weighted sums at fixed points.",
+          "tags": [
+            "cohomology",
+            "group-action",
+            "duality"
+          ]
         }
       ]
     },
@@ -7802,6 +7887,34 @@ window.__MVConcepts = {
           "blurb": "Reeb's sphere theorem (a closed manifold with exactly two critical points is homeomorphic to a sphere), Bott's perfect Morse functions on Lie groups, and the infinite-dimensional analogue — Floer homology on path/loop spaces — all flow from this machinery.",
           "tags": [
             "classification"
+          ]
+        },
+        {
+          "id": "mt-morse-smale",
+          "title": "Morse–Smale gradients and transversality",
+          "anchor": "morse-smale",
+          "prereqs": [
+            "mt-handle-decomposition",
+            "mt-morse-homology"
+          ],
+          "blurb": "A pair $(f,g)$ is Morse–Smale when stable and unstable manifolds of distinct critical points intersect transversally: $W^s(q)\\pitchfork W^u(p)$. Smale showed that for fixed Morse $f$ this holds for an open dense set of metrics. Transversality forces moduli of trajectories $\\mathcal{M}(p,q)/\\mathbb{R}$ to be smooth manifolds of dimension $\\ind(p)-\\ind(q)-1$, and broken trajectories give the Gromov-style compactification that makes $\\partial^2=0$ a counting argument.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "mt-cerf-theory",
+          "title": "Cerf theory and wall-crossing",
+          "anchor": "cerf-theory",
+          "prereqs": [
+            "mt-morse-functions",
+            "mt-handle-decomposition"
+          ],
+          "blurb": "In a generic 1-parameter family $f_t$, every $f_t$ is Morse except at a discrete set of times where two things can happen: a <em>birth-death</em> ($f_t = x^3 - tx + \\cdots$) creates or cancels an index-$k$ / index-$(k+1)$ critical pair, and an <em>independent crossing</em> swaps two critical values without changing the topology. Cerf's theorem makes the space of Morse functions a stratified manifold whose codimension-1 wall is exactly this birth-death set; this is the diff-topological foundation of $h$-cobordism, handle slides, and Kirby calculus.",
+          "tags": [
+            "classification",
+            "exact-sequence"
           ]
         }
       ]
@@ -8657,6 +8770,48 @@ window.__MVConcepts = {
             "duality",
             "cohomology"
           ]
+        },
+        {
+          "id": "mordell-weil-descent",
+          "title": "Mordell–Weil descent: heights into finite generation",
+          "anchor": "descent",
+          "prereqs": [
+            "neron-tate-canonical-height",
+            "mordell-weil-ec"
+          ],
+          "blurb": "The proof that $E(K)$ is finitely generated splits into two halves. <strong>Weak Mordell–Weil:</strong> $E(K)/2E(K)$ is finite — a Galois-cohomology / Kummer-pairing argument bounded by the unit group and class group of $K(E[2])$. <strong>Descent via heights:</strong> from coset reps $Q_1,\\dots,Q_m$, every $P\\in E(K)$ writes as $P=2P'+Q_i$ with $\\hat h(P')\\le\\tfrac14\\hat h(P)+C$. Iterating contracts every point into a Northcott-finite ball, giving a finite generating set.",
+          "tags": [
+            "finiteness",
+            "duality"
+          ]
+        },
+        {
+          "id": "vojta-conjecture-abc",
+          "title": "Vojta's conjecture and the abc connection",
+          "anchor": "vojta",
+          "prereqs": [
+            "weil-height-line-bundle",
+            "heights-mordell-faltings"
+          ],
+          "blurb": "Vojta's conjecture is a Diophantine analog of Nevanlinna's second main theorem: for a smooth projective $X/K$, an effective normal-crossings divisor $D$, and any $\\varepsilon>0$, all but a proper Zariski-closed set of $K$-rational points satisfy $h_{K_X+D}(P)\\le\\varepsilon\\cdot h_A(P)+m_S(P,D)+O(1)$. Specialised to $\\mathbb{P}^1$ minus three points it implies the <strong>abc conjecture</strong>: for coprime $a+b=c$, $\\max(|a|,|b|,|c|)\\ll_\\varepsilon\\mathrm{rad}(abc)^{1+\\varepsilon}$. Faltings, Roth, and Schmidt's subspace theorem are visible as low-dimensional shadows.",
+          "tags": [
+            "finiteness",
+            "duality"
+          ]
+        },
+        {
+          "id": "bogomolov-equidistribution",
+          "title": "Bogomolov, equidistribution, and small points",
+          "anchor": "bogomolov",
+          "prereqs": [
+            "neron-tate-canonical-height",
+            "mahler-measure-lehmer"
+          ],
+          "blurb": "How rare are points of small canonical height? <strong>Bogomolov</strong> (Ullmo, Zhang 1998): on a curve $C$ of genus $\\ge 2$ embedded in its Jacobian by an Abel–Jacobi map, the points $P\\in C(\\bar K)$ with $\\hat h(P)<\\varepsilon$ are finite for some $\\varepsilon>0$. <strong>Yuan–Zhang equidistribution:</strong> any sequence $P_n\\in A(\\bar K)$ of generic small points ($\\hat h(P_n)\\to 0$) becomes equidistributed against the Haar measure on $A(\\mathbb{C})$. Lehmer's gap and the Manin–Mumford theorem are special cases.",
+          "tags": [
+            "finiteness",
+            "duality"
+          ]
         }
       ]
     },
@@ -8731,6 +8886,46 @@ window.__MVConcepts = {
             "lfunction-prototype"
           ],
           "blurb": "On average over moduli $q \\le x^{1/2}/(\\log x)^A$, the Bombieri–Vinogradov theorem bounds $\\sum_q \\max_{\\gcd(a,q)=1} |\\pi(x;q,a) - \\mathrm{Li}(x)/\\varphi(q)|$ by $x/(\\log x)^B$ — a GRH-quality error in the $\\ell^1$ norm even though GRH itself remains open."
+        },
+        {
+          "id": "ant-circle-method",
+          "title": "The Hardy–Littlewood circle method",
+          "anchor": "circle-method",
+          "prereqs": [
+            "ant-prime-counting",
+            "cauchy-integral-formula"
+          ],
+          "blurb": "Encode a counting problem as the constant Fourier coefficient $r(N) = \\int_0^1 |S(\\alpha)|^k e(-N\\alpha)\\,d\\alpha$ of a generating exponential sum $S(\\alpha) = \\sum_{n \\le N} e(\\alpha n)$. Split $[0,1]$ into <em>major arcs</em> near rationals $a/q$ with small $q$ (where $S$ has a clean asymptotic) and <em>minor arcs</em> (where one needs cancellation bounds). Hardy–Littlewood proved Waring's problem; Vinogradov used it to settle ternary Goldbach for sufficiently large odd $N$."
+        },
+        {
+          "id": "ant-exponential-sums",
+          "title": "Exponential sums and equidistribution",
+          "anchor": "expsums",
+          "prereqs": [
+            "ant-prime-counting",
+            "ant-circle-method"
+          ],
+          "blurb": "Weyl's criterion says $\\{a_n\\} \\subset \\mathbb{R}/\\mathbb{Z}$ is equidistributed iff $\\frac{1}{N}\\sum_{n \\le N} e(k a_n) \\to 0$ for every $k \\ne 0$. Cancellation in $\\sum e(f(n))$ for polynomial $f$ — quantified by Weyl's inequality and refined by van der Corput's $A$- and $B$-processes — drives equidistribution of $\\{n\\alpha\\}$, $\\{p\\alpha\\}$ over primes, and the minor-arc estimates the circle method demands."
+        },
+        {
+          "id": "ant-selberg-elementary",
+          "title": "Selberg's symmetry formula and elementary PNT",
+          "anchor": "selberg-elementary",
+          "prereqs": [
+            "ant-prime-counting",
+            "ant-zero-free-region"
+          ],
+          "blurb": "Selberg's identity $\\sum_{p \\le x} \\log^2 p + \\sum_{pq \\le x} \\log p \\log q = 2x \\log x + O(x)$ — an elementary consequence of $\\Lambda \\ast 1 = \\log$ and $\\Lambda + \\Lambda \\ast \\Lambda$ counting weighted prime/prime-pair contributions — is symmetric in $p$ and $pq$. Erdős and Selberg (1948–49) bootstrapped it into a complex-analysis-free proof of PNT, settling a long-standing question about whether $\\zeta$ is essential."
+        },
+        {
+          "id": "ant-large-sieve",
+          "title": "The large sieve inequality",
+          "anchor": "large-sieve",
+          "prereqs": [
+            "ant-bombieri-vinogradov",
+            "ant-exponential-sums"
+          ],
+          "blurb": "The analytic large sieve bounds $\\sum_{q \\le Q} \\sum_{\\chi \\bmod q}^{*} |\\sum_{n \\le N} a_n \\chi(n)|^2 \\le (Q^2 + N) \\sum |a_n|^2$, summing over primitive characters. It is equivalent to a dual frequency-localization inequality $\\sum_{r=1}^R |T(\\alpha_r)|^2 \\le (\\delta^{-1} + N)\\sum |a_n|^2$ for $\\delta$-spaced $\\alpha_r$, and it powers Bombieri–Vinogradov: combine it with a Vaughan-style decomposition of $\\Lambda$ to derive GRH-on-average."
         }
       ]
     },
@@ -9413,6 +9608,46 @@ window.__MVConcepts = {
             "adjoint-roots"
           ],
           "blurb": "Borcherds built the Monster Lie algebra — a generalized Kac–Moody from the moonshine VOA via Goddard–Thorn — whose Weyl–Kac denominator identity gives replication recursions that pin each Thompson series to its Conway–Norton Hauptmodul."
+        },
+        {
+          "id": "replication-formulas",
+          "title": "Replication formulas and Hauptmodul recursions",
+          "anchor": "replication",
+          "prereqs": [
+            "borcherds-proof-sketch"
+          ],
+          "blurb": "Comparing $p^m q^n$ coefficients in Borcherds' denominator identity yields explicit Faber–Mahler recursions that determine each $c(N)$ from a finite list of lower coefficients; the same recursions, with $\\dim$ replaced by $\\tr g$, force every Thompson series to coincide with its Conway–Norton Hauptmodul.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "genus-zero-moonshine-groups",
+          "title": "Genus-zero groups and Ogg's coincidence",
+          "anchor": "genus-zero",
+          "prereqs": [
+            "thompson-series",
+            "mc-genus-formula"
+          ],
+          "blurb": "The 171 commensurability classes of moonshine groups $\\Gamma_g \\le \\mathrm{SL}_2(\\mathbb{R})$ are exactly the genus-zero quotients of $\\mathcal{H}^*$ commensurable with $\\mathrm{SL}_2(\\mathbb{Z})$; the set of primes $p$ with $\\Gamma_0(p)+$ genus zero — $\\{2,3,5,7,11,13,17,19,23,29,31,41,47,59,71\\}$ — is precisely Ogg's list of supersingular primes dividing $|\\mathbb{M}|$.",
+          "tags": [
+            "classification",
+            "moduli"
+          ]
+        },
+        {
+          "id": "generalized-moonshine",
+          "title": "Generalized moonshine (Norton, Carnahan)",
+          "anchor": "generalized",
+          "prereqs": [
+            "thompson-series",
+            "voa-moonshine-module"
+          ],
+          "blurb": "Norton's generalized moonshine attaches a McKay–Thompson series $Z(g,h;\\tau)$ to each commuting pair $(g,h) \\in \\mathbb{M}\\times\\mathbb{M}$ — the graded twisted trace on a $g$-twisted module of $V^\\natural$; conjectured (Norton 1984) and proved (Carnahan 2010+) to be a Hauptmodul for some genus-zero group, with covariance $Z(g,h;\\tau) = Z(g^a h^c, g^b h^d;\\,\\frac{a\\tau+b}{c\\tau+d})$ under $\\mathrm{SL}_2(\\mathbb{Z})$.",
+          "tags": [
+            "group-action",
+            "classification"
+          ]
         }
       ]
     },
@@ -9518,6 +9753,34 @@ window.__MVConcepts = {
             "duality",
             "functoriality"
           ]
+        },
+        {
+          "id": "eisenstein-spectral-decomposition",
+          "title": "Eisenstein series and the spectral decomposition",
+          "anchor": "spectral",
+          "prereqs": [
+            "automorphic-form-definition",
+            "eisenstein-series-mf"
+          ],
+          "blurb": "The right regular representation on $L^2(\\mathrm{GL}_2(\\mathbb{Q}) \\backslash \\mathrm{GL}_2(\\mathbb{A}))$ splits as $L^2_{\\mathrm{cusp}} \\,\\oplus\\, L^2_{\\mathrm{res}} \\,\\oplus\\, L^2_{\\mathrm{cont}}$. The cuspidal part is a discrete sum of cuspidal representations; the residual part is built from residues of Eisenstein series; the continuous part is a direct integral $\\int_{\\Re s = 1/2}^\\oplus E(\\,\\cdot\\,, s) \\, ds$ of Eisenstein series along the critical line. Eisenstein series $E(g, s; \\phi)$ supply the non-cuspidal half of the spectrum and meromorphically continue beyond the half-plane $\\Re s > 1$.",
+          "tags": [
+            "duality",
+            "completion"
+          ]
+        },
+        {
+          "id": "functoriality-langlands-sketch",
+          "title": "Functoriality and the $L$-group",
+          "anchor": "functoriality",
+          "prereqs": [
+            "automorphic-l-function",
+            "spherical-hecke-satake"
+          ],
+          "blurb": "Every connected reductive group $G$ over $\\mathbb{Q}$ has a dual group ${}^L G$ — a complex reductive group whose root datum is dual to $G$'s. The Langlands functoriality conjecture asserts: a homomorphism $r : {}^L H \\to {}^L G$ should induce a transfer of automorphic representations $\\pi_H \\rightsquigarrow \\pi_G$ matching $L$-functions: $L(s, \\pi_G) = L(s, \\pi_H, r)$. Special cases include class field theory ($G = \\mathrm{GL}_1$), cyclic base change, and the symmetric powers $\\mathrm{Sym}^k : {}^L \\mathrm{GL}_2 \\to {}^L \\mathrm{GL}_{k+1}$ underlying Sato–Tate.",
+          "tags": [
+            "functoriality",
+            "duality"
+          ]
         }
       ]
     },
@@ -9607,6 +9870,48 @@ window.__MVConcepts = {
           "tags": [
             "group-action",
             "classification"
+          ]
+        },
+        {
+          "id": "mc-atkin-lehner-newforms",
+          "title": "Atkin–Lehner involutions and the old/new decomposition",
+          "anchor": "atkin-lehner",
+          "prereqs": [
+            "mc-jacobian-J0",
+            "mc-hecke-correspondences-curves"
+          ],
+          "blurb": "For each exact divisor $d \\Vert N$ (i.e. $\\gcd(d, N/d) = 1$) the matrix $w_d = \\bigl(\\begin{smallmatrix} ad & b \\\\ Nc & dD \\end{smallmatrix}\\bigr)$ with $\\det = d$ defines an involution $w_d$ on $X_0(N)$ commuting with $T_p$ for $p \\nmid N$. The $w_d$ generate a $(\\mathbb{Z}/2)^{\\omega(N)}$ acting on $S_2(\\Gamma_0(N))$, and Atkin–Lehner theory splits the space as $S_2 = S_2^{\\mathrm{old}} \\oplus S_2^{\\mathrm{new}}$ where $S_2^{\\mathrm{old}}$ is built from level-$M$ forms with $M \\mid N$, $M \\ne N$, and $S_2^{\\mathrm{new}}$ contains the genuine level-$N$ newforms.",
+          "tags": [
+            "duality",
+            "classification"
+          ]
+        },
+        {
+          "id": "mc-heegner-points",
+          "title": "Heegner points and CM",
+          "anchor": "heegner",
+          "prereqs": [
+            "mc-moduli-of-elliptic-curves",
+            "complex-multiplication"
+          ],
+          "blurb": "A Heegner point of level $N$ and discriminant $D < 0$ is a point of $X_0(N)$ whose moduli pair $(E, C)$ has $E$ a CM elliptic curve with endomorphism ring an order in $\\mathbb{Q}(\\sqrt{D})$ and $C$ a cyclic subgroup compatible with that order. By CM theory these points are defined over the Hilbert class field of $\\mathbb{Q}(\\sqrt{D})$; their traces under the modular parametrization $X_0(N) \\to E$ produce algebraic points on $E$ whose heights are computed by the Gross–Zagier formula and supply the rank-$1$ cases of BSD.",
+          "tags": [
+            "moduli",
+            "duality"
+          ]
+        },
+        {
+          "id": "mc-mazur-torsion",
+          "title": "Mazur's torsion theorem via $X_1(N)$",
+          "anchor": "mazur-torsion",
+          "prereqs": [
+            "mc-jacobian-J0",
+            "mordell-weil-ec"
+          ],
+          "blurb": "The variant modular curve $X_1(N)$, classifying pairs $(E, P)$ with $P \\in E$ of exact order $N$, has $\\mathbb{Q}$-rational non-cuspidal points iff some elliptic curve $E/\\mathbb{Q}$ admits a rational point of order $N$. Mazur (1977) proved that $X_1(N)(\\mathbb{Q})$ has no non-cuspidal rational points for $N \\in \\{11\\} \\cup \\{13,\\dots,18\\} \\cup \\{21\\}$, hence the torsion subgroup of any $E(\\mathbb{Q})$ is one of $15$ groups: $\\mathbb{Z}/n$ for $n \\in \\{1,\\ldots,10,12\\}$ or $\\mathbb{Z}/2 \\oplus \\mathbb{Z}/2n$ for $n \\in \\{1,2,3,4\\}$.",
+          "tags": [
+            "classification",
+            "moduli"
           ]
         }
       ]
@@ -12382,11 +12687,11 @@ window.__MVConcepts = {
       "density": 0.5111111111111111
     },
     "Analysis": {
-      "concepts": 146,
-      "intra": 249,
+      "concepts": 149,
+      "intra": 254,
       "crossOut": 24,
-      "crossIn": 61,
-      "density": 0.1643835616438356
+      "crossIn": 62,
+      "density": 0.1610738255033557
     },
     "Probability & statistics": {
       "concepts": 53,
@@ -12396,31 +12701,31 @@ window.__MVConcepts = {
       "density": 0.2641509433962264
     },
     "Geometry & topology": {
-      "concepts": 97,
-      "intra": 144,
+      "concepts": 102,
+      "intra": 154,
       "crossOut": 18,
       "crossIn": 79,
-      "density": 0.18556701030927836
+      "density": 0.17647058823529413
     },
     "Number theory": {
-      "concepts": 90,
-      "intra": 115,
-      "crossOut": 36,
+      "concepts": 97,
+      "intra": 127,
+      "crossOut": 38,
       "crossIn": 24,
-      "density": 0.4
+      "density": 0.3917525773195876
     },
     "Modular forms & L-functions": {
-      "concepts": 85,
-      "intra": 112,
-      "crossOut": 52,
+      "concepts": 93,
+      "intra": 125,
+      "crossOut": 54,
       "crossIn": 12,
-      "density": 0.611764705882353
+      "density": 0.5806451612903226
     },
     "Algebraic geometry": {
       "concepts": 127,
       "intra": 173,
       "crossOut": 55,
-      "crossIn": 15,
+      "crossIn": 18,
       "density": 0.4330708661417323
     },
     "Combinatorics & graph theory": {

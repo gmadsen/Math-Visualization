@@ -482,7 +482,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./modular-forms.html#qexp\">Modular forms</a> · q-expansions and arithmetic data</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./automorphic-forms-adelic.html#spectral\">Automorphic forms (adelic)</a> · Eisenstein series and the spectral decomposition</div>\n    <div><a href=\"./modular-forms.html#qexp\">Modular forms</a> · q-expansions and arithmetic data</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

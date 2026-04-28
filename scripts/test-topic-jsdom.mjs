@@ -35,6 +35,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { availableParallelism } from 'node:os';
 
 const __filename = fileURLToPath(import.meta.url);
 const scriptsDir = dirname(__filename);
@@ -72,12 +73,94 @@ const onlyList = (onlyEnv || onlyArg || '')
   .filter(Boolean);
 const onlySet = onlyList.length ? new Set(onlyList.map((s) => s.replace(/\.html$/, ''))) : null;
 
+// JSDOM holds the main thread synchronously while topic scripts run, so
+// node:test in-process concurrency yields no speedup. We get real
+// parallelism by splitting the topic list across N child processes.
+//
+// Layout:
+//   - Driver (default invocation, no --only filter): spawns N children, each
+//     with TOPIC_JSDOM_WORKER=1 + a disjoint TOPIC_JSDOM_ONLY subset.
+//     Worker 0 also gets TOPIC_JSDOM_RUN_EXTRAS=1 so the pathway and mindmap
+//     suites run exactly once.
+//   - Worker (TOPIC_JSDOM_WORKER=1): falls through to the test-defining path.
+//   - User --only / TOPIC_JSDOM_ONLY: skip driver mode; behave as a single
+//     direct run (preserves the historical CLI ergonomics).
+const isWorker = process.env.TOPIC_JSDOM_WORKER === '1';
+const userInvokedOnly = !!(onlyEnv || onlyArg);
+const isDriver = !isWorker && !userInvokedOnly;
+const RUN_EXTRAS = !isWorker || process.env.TOPIC_JSDOM_RUN_EXTRAS === '1';
+
+if (isDriver) {
+  const allFiles = readdirSync(repoRoot)
+    .filter((f) => f.endsWith('.html') && !SKIP.has(f))
+    .sort();
+  const N = Math.max(
+    1,
+    Math.min(
+      Number(process.env.TOPIC_JSDOM_CONCURRENCY) || 8,
+      availableParallelism(),
+    ),
+  );
+  const buckets = Array.from({ length: N }, () => []);
+  allFiles.forEach((f, i) => buckets[i % N].push(f));
+
+  const { spawn } = await import('node:child_process');
+  // Buffer each worker's stdio in memory and flush on exit. Eight children
+  // sharing one TTY contend on writes badly enough to roughly double wall
+  // time; per-worker buffering dodges that and adds only marginal delay
+  // (output appears in 8 chunks rather than interleaved live).
+  const promises = buckets
+    .map((bucket, idx) => ({ bucket, idx }))
+    .filter(({ bucket }, idx) => bucket.length > 0 || idx === 0)
+    .map(
+      ({ bucket, idx }) =>
+        new Promise((resolveProm, rejectProm) => {
+          const env = {
+            ...process.env,
+            TOPIC_JSDOM_WORKER: '1',
+            TOPIC_JSDOM_ONLY: bucket
+              .map((f) => f.replace(/\.html$/, ''))
+              .join(','),
+            TOPIC_JSDOM_RUN_EXTRAS: idx === 0 ? '1' : '0',
+          };
+          const proc = spawn(process.execPath, [__filename], {
+            env,
+            stdio: ['ignore', 'pipe', 'pipe'],
+          });
+          const outBuf = [];
+          const errBuf = [];
+          proc.stdout.on('data', (d) => outBuf.push(d));
+          proc.stderr.on('data', (d) => errBuf.push(d));
+          proc.on('exit', (code) => {
+            if (outBuf.length) process.stdout.write(Buffer.concat(outBuf));
+            if (errBuf.length) process.stderr.write(Buffer.concat(errBuf));
+            if (code === 0) resolveProm({ idx, code });
+            else rejectProm(new Error(`worker ${idx} exited with code ${code}`));
+          });
+          proc.on('error', rejectProm);
+        }),
+    );
+
+  try {
+    await Promise.all(promises);
+    process.exit(0);
+  } catch (e) {
+    console.error(`test-topic-jsdom driver: ${e.message}`);
+    process.exit(1);
+  }
+}
+
 const htmlFiles = readdirSync(repoRoot)
   .filter((f) => f.endsWith('.html') && !SKIP.has(f))
   .filter((f) => !onlySet || onlySet.has(f.replace(/\.html$/, '')))
   .sort();
 
-if (htmlFiles.length === 0) {
+if (htmlFiles.length === 0 && !RUN_EXTRAS) {
+  // Worker bucket can be empty when N > number-of-html-files; that's fine.
+  process.exit(0);
+}
+
+if (htmlFiles.length === 0 && !isWorker) {
   console.log('test-topic-jsdom: no topic HTML files found (after --only filter).');
   process.exit(0);
 }
@@ -202,6 +285,62 @@ for (const file of htmlFiles) {
               disconnect() {}
             };
           }
+          // jsdom doesn't ship a canvas implementation; calling
+          // `getContext('2d')` on an HTMLCanvasElement throws a "Not
+          // Implemented" error. Stub a minimal 2D context so widgets that
+          // paint to canvas (e.g. julia-playground) boot cleanly. We
+          // explicitly stub the most-common methods, then wrap the result
+          // in a Proxy so any UNLISTED method (arcTo, ellipse, clip,
+          // setLineDash, etc.) silently no-ops instead of throwing
+          // `undefined is not a function`. Property reads on unknown keys
+          // return `undefined`, which is also what a real context returns
+          // for non-method state-property gets like `lineDashOffset` if
+          // the widget doesn't set them. We're only checking that the
+          // page boots, not that pixels match.
+          if (window.HTMLCanvasElement) {
+            const noop = () => {};
+            const mkImg = (w, h) => ({
+              data: new Uint8ClampedArray(w * h * 4),
+              width: w,
+              height: h,
+            });
+            window.HTMLCanvasElement.prototype.getContext = function (kind) {
+              if (kind !== '2d') return null;
+              const self = this;
+              const target = {
+                canvas: self,
+                fillStyle: '#000', strokeStyle: '#000', lineWidth: 1,
+                font: '10px sans-serif', textAlign: 'left', textBaseline: 'top',
+                globalAlpha: 1,
+                fillRect: noop, strokeRect: noop, clearRect: noop,
+                beginPath: noop, closePath: noop, moveTo: noop, lineTo: noop,
+                arc: noop, rect: noop, fill: noop, stroke: noop,
+                fillText: noop, strokeText: noop,
+                measureText: () => ({ width: 0 }),
+                createLinearGradient: () => ({ addColorStop: noop }),
+                createRadialGradient: () => ({ addColorStop: noop }),
+                save: noop, restore: noop, translate: noop, scale: noop, rotate: noop,
+                transform: noop, setTransform: noop, resetTransform: noop,
+                drawImage: noop,
+                getImageData: (x, y, w, h) => mkImg(w, h),
+                putImageData: noop,
+                createImageData: (w, h) => mkImg(w, h),
+              };
+              return new Proxy(target, {
+                get(t, key) {
+                  if (key in t) return t[key];
+                  // Default everything else to a no-op function: covers
+                  // arcTo, bezierCurveTo, quadraticCurveTo, ellipse,
+                  // roundRect, clip, isPointInPath, setLineDash, etc.
+                  return noop;
+                },
+                set(t, key, value) {
+                  t[key] = value;
+                  return true;
+                },
+              });
+            };
+          }
           if (typeof window.matchMedia !== 'function') {
             window.matchMedia = (q) => ({
               matches: false,
@@ -321,7 +460,7 @@ for (const file of htmlFiles) {
 // bars) needs an explicit typeset pass after each innerHTML write. The
 // generic topic boot test would mis-fire on pathway, so we run a targeted
 // check here.
-describe('pathway.html jsdom', () => {
+if (RUN_EXTRAS) describe('pathway.html jsdom', () => {
   test('capstone dropdown enhanced + dynamic HTML typeset + no raw $…$', async () => {
     const file = 'pathway.html';
     const abs = join(repoRoot, file);
@@ -490,7 +629,7 @@ describe('pathway.html jsdom', () => {
 //   - depth slider's input/change events update focusDepth (it must be live
 //     before the user clicks anything, since clicking with depth=2 vs depth=4
 //     should produce different keep-set sizes)
-describe('mindmap.html jsdom', () => {
+if (RUN_EXTRAS) describe('mindmap.html jsdom', () => {
   test('boots, layout completes, section-stats and gap-list populate', async () => {
     const file = 'mindmap.html';
     const abs = join(repoRoot, file);

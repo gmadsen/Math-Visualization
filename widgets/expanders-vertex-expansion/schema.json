@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/expanders-vertex-expansion/schema.json",
+  "title": "expanders-vertex-expansion widget params",
+  "description": "Bespoke widget for the vertex-expansion explorer on the expanders topic. Combines a graph-family <select> picker, an action <button> (clear selection), and a clickable SVG of a graph layout: clicking a vertex toggles it in/out of the selected set S, and the readout reports |N(S)|/|S|. The combination of select + button + click-on-SVG is unique on the page (clickable-graph has no form controls; parametric-plot has no click-on-SVG semantics) so this slug captures the gesture as one unit.",
+  "meta": {
+    "family": "expanders-vertex-expansion",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title",
+    "viewBox",
+    "svgWidth",
+    "svgHeight",
+    "pick",
+    "buttons",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\"> wrapper."
+    },
+    "svgId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the host <svg> element."
+    },
+    "outputId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the <div class=\"readout\"> companion."
+    },
+    "title": {
+      "type": "string",
+      "description": "Header title (also used as <title> child of <svg>)."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    },
+    "viewBox": {
+      "type": "string",
+      "description": "SVG viewBox attribute (e.g. \"0 0 720 320\")."
+    },
+    "svgWidth":  { "type": ["string", "number"] },
+    "svgHeight": { "type": ["string", "number"] },
+    "svgTitle": {
+      "type": "string",
+      "description": "<title> child of the <svg>. Defaults to the widget title."
+    },
+    "outputInitial": {
+      "type": "string",
+      "description": "Initial inner HTML of the readout <div>. Defaults to '&nbsp;'."
+    },
+    "pick": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "options"],
+      "description": "Graph-family chooser <select>.",
+      "properties": {
+        "id":      { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "label":   { "type": "string" },
+        "options": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["value", "label"],
+            "properties": {
+              "value":    { "type": "string" },
+              "label":    { "type": "string" },
+              "selected": { "type": "boolean" }
+            }
+          }
+        }
+      }
+    },
+    "buttons": {
+      "type": "array",
+      "description": "Action buttons (e.g. clear selection). Rendered in the same row as pick.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label"],
+        "properties": {
+          "id":    { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+          "label": { "type": "string" }
+        }
+      }
+    },
+    "sectionComment": {
+      "type": "string",
+      "description": "ARTIFACT. Optional /* ... */ comment placed between the leading <script> tag and the IIFE opener."
+    },
+    "bodyScript": {
+      "type": "string",
+      "x-artifact": "script body is bespoke; portable consumers should implement their own click-toggle + N(S) draw logic from {pick.options, buttons} + their own graph layouts",
+      "description": "ARTIFACT. Verbatim JS statements that go inside `(function(){\\n…\\n})();` — wires up the select, the buttons, and the SVG click handlers; computes N(S) and updates the readout."
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/three-body-halo-orbits/schema.json",
+  "title": "three-body-halo-orbits widget params",
+  "description": "Bespoke widget for the §6 halo-orbit / tadpole illustration on the three-body-problem topic — three preset buttons ($L_1$ halo, $L_2$ halo, $L_4$ tadpole) co-located with an amplitude slider in a single row above an SVG that animates a spacecraft on the chosen libration orbit, plus a readout reporting amplitude in km. The button-trio + slider mixed in one row + svg + readout + trailing `<p class=\"small\">` of mission provenance doesn't fit any shared slug; this slug captures it as one unit.",
+  "meta": {
+    "family": "three-body-halo-orbits",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title",
+    "hint",
+    "bodyMarkup",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\">. Required by the corpus-wide test-widget-renderers convention."
+    },
+    "title": {
+      "type": "string",
+      "description": "Header title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Header hint rendered inside .hd > .hint."
+    },
+    "bodyMarkup": {
+      "type": "string",
+      "x-artifact": "verbatim inner-body HTML; portable consumers should rebuild button+slider+svg+readout+prose from explicit fields once a shared shape proves out",
+      "description": "ARTIFACT. Verbatim HTML emitted between the closing </div> of the .hd row and the closing </div> of the outer widget — controls row (3 buttons + amplitude slider), <svg>, readout div, trailing <p class=\"small\">."
+    },
+    "sectionComment": {
+      "type": "string",
+      "description": "ARTIFACT. Optional /* ... */ banner placed between the leading <script> tag and the IIFE opener."
+    },
+    "bodyScript": {
+      "type": "string",
+      "x-artifact": "script body is bespoke; portable consumers should re-implement the collinear-Lagrange-point root-finder + libration-orbit parametrization from scratch",
+      "description": "ARTIFACT. Verbatim JS statements that go inside `(function(){\\n…\\n})();` — wires preset buttons + amplitude slider, locates $L_1$/$L_2$, parametrizes the halo / tadpole orbit, animates a spacecraft."
+    }
+  }
+}

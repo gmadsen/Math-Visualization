@@ -828,6 +828,318 @@ function rk4Step(f, t, y, h){
 })();
 </script>
 
+<p>The cascade is not just a 1D phenomenon. The logistic map is conjugate (after a change of variable) to the real <em>quadratic family</em> $z\mapsto z^2+c$, restricted to the real axis. Drop that constraint and let $c$ wander in the complex plane: the parameter values for which the orbit of $0$ stays bounded form the <strong>Mandelbrot set</strong>, and for each $c$ the points whose forward orbits stay bounded form the <strong>filled Julia set</strong> $K_c$. The real-axis period-doubling cascade is the visible cross-section of an enormous fractal: each doubling $r_n$ corresponds to a $c_n$ on the negative real axis where $K_c$ acquires a new pinch.</p>
+
+<p>The widget below renders $K_c$ for an interactively chosen $c$. The default $c=-1$ is the <strong>basilica</strong> — the Julia set of the first stable 2-cycle, exactly the complex-plane home of the cascade's first doubling. Drag the $\Re(c)$ / $\Im(c)$ sliders, or shift-click on the canvas to pin $c$ at a clicked point: every connected $K_c$ corresponds to a $c$ inside the Mandelbrot set, and the disconnected dust-Julia sets (Fatou's theorem) sit outside it.</p>
+
+<div class="widget" id="w-julia-cascade">
+  <div class="hd"><div class="ttl">Filled Julia set $K_c$ for $z\mapsto z^2+c$</div><div class="hint">drag $\Re(c)$ / $\Im(c)$ to move $c$ · shift-click to pin · $c=-1$ is the basilica · $c=-0.75$ is the cusp · the real-axis cascade lives at $c\in[-2,\,1/4]$</div></div>
+  <canvas id="w-julia-cascade-canvas" width="520" height="340" style="width:100%;max-width:520px;height:auto;display:block;border:1px solid var(--line);border-radius:6px;cursor:crosshair;image-rendering:pixelated;background:var(--bg)"></canvas>
+  <div class="row">
+    <label for="w-julia-cascade-cR">$\Re(c)$</label>
+    <input type="range" id="w-julia-cascade-cR" min="-2" max="2" step="0.001" value="-1">
+    <span class="small" id="w-julia-cascade-cR-out">-1.000</span>
+  </div>
+  <div class="row">
+    <label for="w-julia-cascade-cI">$\Im(c)$</label>
+    <input type="range" id="w-julia-cascade-cI" min="-2" max="2" step="0.001" value="0">
+    <span class="small" id="w-julia-cascade-cI-out">0.000</span>
+  </div>
+  <div class="row">
+    <label for="w-julia-cascade-iter">iterations</label>
+    <input type="range" id="w-julia-cascade-iter" min="16" max="400" step="1" value="120">
+    <span class="small" id="w-julia-cascade-iter-out">120</span>
+    <button id="w-julia-cascade-reset">reset view</button>
+  </div>
+  <div class="readout" id="w-julia-cascade-readout">drag to pan · wheel to zoom · shift-click to pin $c$</div>
+</div>
+
+<script>
+(function(){
+  var CFG = {"widgetId":"w-julia-cascade","mode":"julia","cReal":-1,"cImag":0,"xmin":-1.7,"xmax":1.7,"ymin":-1.1,"ymax":1.1,"maxIterations":120,"width":520,"height":340,"palette":"violet","minZoomSpan":0.01,"maxZoomSpan":8};
+  var ROOT = document.getElementById(CFG.widgetId);
+  if (!ROOT) return;
+  var canvas = document.getElementById(CFG.widgetId + '-canvas');
+  if (!canvas || !canvas.getContext) return;
+  var ctx = canvas.getContext('2d');
+  if (!ctx) return;
+  var readout = document.getElementById(CFG.widgetId + '-readout');
+  var cRIn = document.getElementById(CFG.widgetId + '-cR');
+  var cIIn = document.getElementById(CFG.widgetId + '-cI');
+  var iterIn = document.getElementById(CFG.widgetId + '-iter');
+  var cROut = document.getElementById(CFG.widgetId + '-cR-out');
+  var cIOut = document.getElementById(CFG.widgetId + '-cI-out');
+  var iterOut = document.getElementById(CFG.widgetId + '-iter-out');
+  var resetBtn = document.getElementById(CFG.widgetId + '-reset');
+
+  // ---- view + state -------------------------------------------------
+  var view = { xmin: CFG.xmin, xmax: CFG.xmax, ymin: CFG.ymin, ymax: CFG.ymax };
+  var iterMax = CFG.maxIterations;
+  var cR = CFG.cReal, cI = CFG.cImag;
+  var renderToken = 0;   // monotone — increment to cancel an in-flight render
+  var img = null;        // ImageData scratch
+
+  // ---- palette ------------------------------------------------------
+  // Resolve the project accent CSS variable to an [r,g,b] triple at
+  // render time so theme toggles refresh without a page reload.
+  function cssRGB(varName, fallback) {
+    var raw = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();
+    var m = raw.match(/^#([0-9a-fA-F]{3,6})$/);
+    if (m) {
+      var hex = m[1];
+      if (hex.length === 3) hex = hex.split('').map(function(c){return c+c;}).join('');
+      return [parseInt(hex.slice(0,2),16), parseInt(hex.slice(2,4),16), parseInt(hex.slice(4,6),16)];
+    }
+    var rgbm = raw.match(/rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/);
+    if (rgbm) return [+rgbm[1], +rgbm[2], +rgbm[3]];
+    return fallback;
+  }
+  function paletteRGB() {
+    var accentVar = '--' + CFG.palette;
+    var bg   = cssRGB('--bg',    [15, 18, 24]);
+    var mute = cssRGB('--mute',  [134, 145, 168]);
+    var ink  = cssRGB('--ink',   [232, 234, 240]);
+    var hot  = cssRGB(accentVar, [125, 224, 214]);
+    return { bg: bg, mute: mute, ink: ink, hot: hot };
+  }
+  function lerpRGB(a, b, t) {
+    return [
+      Math.round(a[0] + (b[0] - a[0]) * t),
+      Math.round(a[1] + (b[1] - a[1]) * t),
+      Math.round(a[2] + (b[2] - a[2]) * t)
+    ];
+  }
+  function colorize(mu, pal) {
+    // mu in [0,1]: smooth-normalized escape time. Two-stop ramp through
+    // mute to the chosen accent.
+    if (mu <= 0.5) return lerpRGB(pal.bg, pal.mute, mu * 2);
+    return lerpRGB(pal.mute, pal.hot, (mu - 0.5) * 2);
+  }
+
+  // ---- iteration core ----------------------------------------------
+  // Returns smooth-iteration count in [0, iterMax]. -1 means "did not
+  // escape" (interior point); plotted as ink color.
+  function escapeFrom(zx0, zy0, cx, cy, iterMax) {
+    var x = zx0, y = zy0;
+    for (var i = 0; i < iterMax; i++) {
+      var x2 = x*x, y2 = y*y;
+      if (x2 + y2 > 256) {
+        // Smooth iteration count: i + 1 - log_2(log(|z|))
+        var logZn = Math.log(x2 + y2) / 2;
+        var nu = Math.log(logZn / Math.LN2) / Math.LN2;
+        return i + 1 - nu;
+      }
+      var xn = x2 - y2 + cx;
+      y = 2*x*y + cy;
+      x = xn;
+    }
+    return -1;
+  }
+
+  // ---- palette cache ------------------------------------------------
+  // Resolve the project accent vars once at init; refresh on theme flip
+  // (MutationObserver below). Saves four getComputedStyle(:root) calls
+  // per slider tick during a drag (60-120 Hz).
+  var pal = paletteRGB();
+
+  // ---- render scheduling --------------------------------------------
+  // Slider/wheel/pan all want a fresh render. Coalesce back-to-back
+  // events into a single rAF — the renderToken cancellation already
+  // handles the race, this just stops kicking off renders that will be
+  // immediately superseded.
+  var renderQueued = false;
+  function queueRender() {
+    if (renderQueued) return;
+    renderQueued = true;
+    requestAnimationFrame(function() { renderQueued = false; startRender(); });
+  }
+
+  // ---- render loop --------------------------------------------------
+  function startRender() {
+    renderToken++;
+    var token = renderToken;
+    var W = CFG.width, H = CFG.height;
+    if (!img || img.width !== W || img.height !== H) img = ctx.createImageData(W, H);
+    var data = img.data;
+    var dx = (view.xmax - view.xmin) / W;
+    var dy = (view.ymax - view.ymin) / H;
+    var isM = CFG.mode === 'mandelbrot';
+    var iter = iterMax;
+    var rowsPerSlice = Math.max(8, Math.floor(40 - Math.log2(W * H) + 24));
+    if (rowsPerSlice > H) rowsPerSlice = H;
+
+    function renderSlice(yStart) {
+      if (token !== renderToken) return;   // newer render superseded us
+      var yEnd = Math.min(yStart + rowsPerSlice, H);
+      for (var py = yStart; py < yEnd; py++) {
+        var ya = view.ymax - py * dy;     // flip y so +i is up
+        for (var px = 0; px < W; px++) {
+          var xa = view.xmin + px * dx;
+          var n;
+          if (isM) n = escapeFrom(0, 0, xa, ya, iter);
+          else     n = escapeFrom(xa, ya, cR, cI, iter);
+          var rgb;
+          if (n < 0) {
+            rgb = pal.ink;
+          } else {
+            var mu = Math.max(0, Math.min(1, n / iter));
+            // Sharpen the gradient near the boundary; sqrt redistributes
+            // resolution toward the rapidly-escaping band.
+            mu = Math.sqrt(mu);
+            rgb = colorize(mu, pal);
+          }
+          var off = (py * W + px) * 4;
+          data[off    ] = rgb[0];
+          data[off + 1] = rgb[1];
+          data[off + 2] = rgb[2];
+          data[off + 3] = 255;
+        }
+      }
+      ctx.putImageData(img, 0, 0);
+      if (yEnd < H) {
+        // Yield to the event loop so sliders / pan / zoom stay responsive.
+        if (typeof requestAnimationFrame === 'function') {
+          requestAnimationFrame(function(){ renderSlice(yEnd); });
+        } else {
+          setTimeout(function(){ renderSlice(yEnd); }, 0);
+        }
+      }
+    }
+    renderSlice(0);
+  }
+
+  // ---- readout ------------------------------------------------------
+  function fmt(x) { return (Math.round(x * 1000) / 1000).toString(); }
+  function updateReadout() {
+    var span = view.xmax - view.xmin;
+    var center = '(' + fmt((view.xmin + view.xmax) / 2) + ', ' + fmt((view.ymin + view.ymax) / 2) + ')';
+    var line = 'view ' + center + ' · span ' + fmt(span) + ' · iter ' + iterMax;
+    if (CFG.mode === 'julia') line += ' · c = ' + fmt(cR) + (cI >= 0 ? ' + ' : ' − ') + fmt(Math.abs(cI)) + 'i';
+    if (readout) readout.textContent = line;
+  }
+
+  // ---- input wiring -------------------------------------------------
+  function pixelToPlane(px, py) {
+    var rect = canvas.getBoundingClientRect();
+    var sx = canvas.width / rect.width;
+    var sy = canvas.height / rect.height;
+    var cx = px * sx;
+    var cy = py * sy;
+    return {
+      x: view.xmin + (cx / canvas.width) * (view.xmax - view.xmin),
+      y: view.ymax - (cy / canvas.height) * (view.ymax - view.ymin)
+    };
+  }
+  function clampSpan() {
+    var span = view.xmax - view.xmin;
+    if (span < CFG.minZoomSpan) {
+      var cx = (view.xmin + view.xmax) / 2;
+      var cy = (view.ymin + view.ymax) / 2;
+      var s = CFG.minZoomSpan / 2;
+      var sH = s * (CFG.height / CFG.width);
+      view.xmin = cx - s; view.xmax = cx + s;
+      view.ymin = cy - sH; view.ymax = cy + sH;
+    } else if (span > CFG.maxZoomSpan) {
+      var cx2 = (view.xmin + view.xmax) / 2;
+      var cy2 = (view.ymin + view.ymax) / 2;
+      var s2 = CFG.maxZoomSpan / 2;
+      var sH2 = s2 * (CFG.height / CFG.width);
+      view.xmin = cx2 - s2; view.xmax = cx2 + s2;
+      view.ymin = cy2 - sH2; view.ymax = cy2 + sH2;
+    }
+  }
+
+  var dragging = false, lastX = 0, lastY = 0, dragMoved = false;
+  canvas.addEventListener('pointerdown', function(e) {
+    if (e.shiftKey && CFG.mode === 'julia') {
+      var p = pixelToPlane(e.offsetX, e.offsetY);
+      cR = p.x; cI = p.y;
+      if (cRIn) cRIn.value = String(cR);
+      if (cIIn) cIIn.value = String(cI);
+      if (cROut) cROut.textContent = fmt(cR);
+      if (cIOut) cIOut.textContent = fmt(cI);
+      updateReadout();
+      queueRender();
+      return;
+    }
+    dragging = true; dragMoved = false;
+    lastX = e.clientX; lastY = e.clientY;
+    if (canvas.setPointerCapture) try { canvas.setPointerCapture(e.pointerId); } catch (_) {}
+  });
+  canvas.addEventListener('pointermove', function(e) {
+    if (!dragging) return;
+    var rect = canvas.getBoundingClientRect();
+    var dx = (e.clientX - lastX) / rect.width  * (view.xmax - view.xmin);
+    var dy = (e.clientY - lastY) / rect.height * (view.ymax - view.ymin);
+    if (Math.abs(e.clientX - lastX) + Math.abs(e.clientY - lastY) > 2) dragMoved = true;
+    view.xmin -= dx; view.xmax -= dx;
+    view.ymin += dy; view.ymax += dy;
+    lastX = e.clientX; lastY = e.clientY;
+    clampSpan();
+    updateReadout();
+    queueRender();
+  });
+  function endDrag() { dragging = false; }
+  canvas.addEventListener('pointerup', endDrag);
+  canvas.addEventListener('pointercancel', endDrag);
+  canvas.addEventListener('pointerleave', endDrag);
+
+  canvas.addEventListener('wheel', function(e) {
+    e.preventDefault();
+    var p = pixelToPlane(e.offsetX, e.offsetY);
+    var k = e.deltaY > 0 ? 1.2 : 1 / 1.2;
+    view.xmin = p.x + (view.xmin - p.x) * k;
+    view.xmax = p.x + (view.xmax - p.x) * k;
+    view.ymin = p.y + (view.ymin - p.y) * k;
+    view.ymax = p.y + (view.ymax - p.y) * k;
+    clampSpan();
+    updateReadout();
+    queueRender();
+  }, { passive: false });
+
+  if (cRIn) cRIn.addEventListener('input', function() {
+    cR = parseFloat(cRIn.value);
+    if (cROut) cROut.textContent = fmt(cR);
+    updateReadout();
+    queueRender();
+  });
+  if (cIIn) cIIn.addEventListener('input', function() {
+    cI = parseFloat(cIIn.value);
+    if (cIOut) cIOut.textContent = fmt(cI);
+    updateReadout();
+    queueRender();
+  });
+  if (iterIn) iterIn.addEventListener('input', function() {
+    iterMax = parseInt(iterIn.value, 10);
+    if (iterOut) iterOut.textContent = String(iterMax);
+    updateReadout();
+    queueRender();
+  });
+  if (resetBtn) resetBtn.addEventListener('click', function() {
+    view.xmin = CFG.xmin; view.xmax = CFG.xmax;
+    view.ymin = CFG.ymin; view.ymax = CFG.ymax;
+    iterMax = CFG.maxIterations;
+    cR = CFG.cReal; cI = CFG.cImag;
+    if (cRIn) cRIn.value = String(cR);
+    if (cIIn) cIIn.value = String(cI);
+    if (iterIn) iterIn.value = String(iterMax);
+    if (cROut) cROut.textContent = fmt(cR);
+    if (cIOut) cIOut.textContent = fmt(cI);
+    if (iterOut) iterOut.textContent = String(iterMax);
+    updateReadout();
+    startRender();
+  });
+
+  // Repaint on theme change so the palette tracks --bg / --ink / accent.
+  // Refresh the cached pal first, then kick a render.
+  var themeObserver = new MutationObserver(function() { pal = paletteRGB(); startRender(); });
+  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+  updateReadout();
+  startRender();
+})();
+</script>
+
 
 </section>
 <section id="bifurcation">

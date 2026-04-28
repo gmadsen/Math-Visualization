@@ -12,9 +12,49 @@
         },
         {
           "type": "widget",
-          "id": "w-expand",
-          "html": "<div class=\"widget\" id=\"w-expand\">\n  <div class=\"hd\"><div class=\"ttl\">Vertex expansion explorer</div><div class=\"hint\">click to toggle vertices · watch $|N(S)|/|S|$</div></div>\n  <div class=\"row\">\n    <label for=\"exp-graph\">graph:</label>\n    <select id=\"exp-graph\">\n      <option value=\"cycle10\">cycle $C_{10}$ (poor expander)</option>\n      <option value=\"petersen\" selected>Petersen graph (good)</option>\n      <option value=\"hypercube\">3-cube $Q_3$ (medium)</option>\n      <option value=\"k5\">complete $K_5$ (best)</option>\n    </select>\n    <button id=\"exp-clear\">clear $S$</button>\n  </div>\n  <svg id=\"exp-svg\" viewBox=\"0 0 720 320\" width=\"720\" height=\"320\"><title>Vertex expansion explorer</title></svg>\n  <div class=\"readout\" id=\"exp-out\">click vertices to add them to $S$.</div>\n</div>",
-          "script": null
+          "slug": "expanders-vertex-expansion",
+          "params": {
+            "widgetId": "w-expand",
+            "svgId": "exp-svg",
+            "outputId": "exp-out",
+            "title": "Vertex expansion explorer",
+            "hint": "click to toggle vertices · watch $|N(S)|/|S|$",
+            "viewBox": "0 0 720 320",
+            "svgWidth": 720,
+            "svgHeight": 320,
+            "svgTitle": "Vertex expansion explorer",
+            "outputInitial": "click vertices to add them to $S$.",
+            "pick": {
+              "id": "exp-graph",
+              "label": "graph:",
+              "options": [
+                {
+                  "value": "cycle10",
+                  "label": "cycle $C_{10}$ (poor expander)"
+                },
+                {
+                  "value": "petersen",
+                  "label": "Petersen graph (good)",
+                  "selected": true
+                },
+                {
+                  "value": "hypercube",
+                  "label": "3-cube $Q_3$ (medium)"
+                },
+                {
+                  "value": "k5",
+                  "label": "complete $K_5$ (best)"
+                }
+              ]
+            },
+            "buttons": [
+              {
+                "id": "exp-clear",
+                "label": "clear $S$"
+              }
+            ],
+            "bodyScript": "  const svg = $(\"#exp-svg\"), out = $(\"#exp-out\");\n  const sel = $(\"#exp-graph\"), btnClear = $(\"#exp-clear\");\n  const W = 720, H = 320;\n  const LIB = {\n    \"cycle10\": (function(){\n      const c=[360,160], r=120, P=[];\n      for(let k=0;k<10;k++){ const a=-Math.PI/2 + 2*Math.PI*k/10; P.push([c[0]+r*Math.cos(a), c[1]+r*Math.sin(a)]); }\n      const E=[]; for(let i=0;i<10;i++) E.push([i,(i+1)%10]);\n      return {pos:P, edges:E};\n    })(),\n    \"petersen\": (function(){\n      const c=[360,160], r1=130, r2=58, P=[];\n      for(let k=0;k<5;k++){ const a=-Math.PI/2 + 2*Math.PI*k/5; P.push([c[0]+r1*Math.cos(a), c[1]+r1*Math.sin(a)]); }\n      for(let k=0;k<5;k++){ const a=-Math.PI/2 + 2*Math.PI*k/5; P.push([c[0]+r2*Math.cos(a), c[1]+r2*Math.sin(a)]); }\n      const E=[[0,1],[1,2],[2,3],[3,4],[4,0],[5,7],[7,9],[9,6],[6,8],[8,5],[0,5],[1,6],[2,7],[3,8],[4,9]];\n      return {pos:P, edges:E};\n    })(),\n    \"hypercube\": (function(){\n      const cx=360, cy=160, s=80;\n      const corners = [\n        [cx-s, cy-s], [cx+s, cy-s], [cx+s, cy+s], [cx-s, cy+s],\n        [cx-s+30, cy-s-30], [cx+s+30, cy-s-30], [cx+s+30, cy+s-30], [cx-s+30, cy+s-30]\n      ];\n      const E=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];\n      return {pos:corners, edges:E};\n    })(),\n    \"k5\": (function(){\n      const c=[360,160], r=110, P=[];\n      for(let k=0;k<5;k++){ const a=-Math.PI/2 + 2*Math.PI*k/5; P.push([c[0]+r*Math.cos(a), c[1]+r*Math.sin(a)]); }\n      const E=[]; for(let i=0;i<5;i++) for(let j=i+1;j<5;j++) E.push([i,j]);\n      return {pos:P, edges:E};\n    })()\n  };\n  let state = {key:\"petersen\", S:new Set()};\n  function redraw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const t = SVG(\"title\"); t.textContent = \"Vertex expansion explorer\"; svg.appendChild(t);\n    const g = LIB[state.key];\n    // edges\n    for(const [a,b] of g.edges){\n      const inA = state.S.has(a), inB = state.S.has(b);\n      const cross = inA !== inB;\n      const color = cross ? \"var(--yellow)\" : (inA && inB ? \"var(--violet)\" : \"var(--line)\");\n      svg.appendChild(SVG(\"line\",{x1:g.pos[a][0],y1:g.pos[a][1],x2:g.pos[b][0],y2:g.pos[b][1],stroke:color,\"stroke-width\":1.8}));\n    }\n    // vertices\n    const N = new Set();\n    for(const [a,b] of g.edges){\n      if(state.S.has(a) && !state.S.has(b)) N.add(b);\n      if(state.S.has(b) && !state.S.has(a)) N.add(a);\n    }\n    for(let i=0;i<g.pos.length;i++){\n      const inS = state.S.has(i), inN = N.has(i);\n      const fill = inS ? \"var(--cyan)\" : (inN ? \"var(--yellow)\" : \"var(--panel2)\");\n      const stroke = inS ? \"var(--cyan)\" : (inN ? \"var(--yellow)\" : \"var(--mute)\");\n      const circ = SVG(\"circle\",{cx:g.pos[i][0],cy:g.pos[i][1],r:14,fill,stroke,\"stroke-width\":2,\"data-i\":i,style:\"cursor:pointer\"});\n      circ.addEventListener(\"click\", ()=>{\n        if(state.S.has(i)) state.S.delete(i); else state.S.add(i);\n        redraw();\n      });\n      svg.appendChild(circ);\n      const txt = SVG(\"text\",{x:g.pos[i][0],y:g.pos[i][1]+4,\"text-anchor\":\"middle\",\"font-size\":11,fill: inS ? \"#111\" : \"var(--ink)\",\"font-weight\":600,\"pointer-events\":\"none\"});\n      txt.textContent = String(i);\n      svg.appendChild(txt);\n    }\n    // legend\n    const legY = 18;\n    svg.appendChild(SVG(\"circle\",{cx:24,cy:legY,r:7,fill:\"var(--cyan)\",stroke:\"var(--cyan)\"}));\n    let tt = SVG(\"text\",{x:38,y:legY+4,\"font-size\":12,fill:\"var(--mute)\"}); tt.textContent = \"S\"; svg.appendChild(tt);\n    svg.appendChild(SVG(\"circle\",{cx:80,cy:legY,r:7,fill:\"var(--yellow)\",stroke:\"var(--yellow)\"}));\n    tt = SVG(\"text\",{x:94,y:legY+4,\"font-size\":12,fill:\"var(--mute)\"}); tt.textContent = \"N(S)\"; svg.appendChild(tt);\n    // readout\n    const sN = state.S.size, nN = N.size;\n    const ratio = sN > 0 ? (nN / sN).toFixed(3) : \"—\";\n    out.textContent = `|S| = ${sN}    |N(S)| = ${nN}    |N(S)|/|S| = ${ratio}`;\n  }\n  sel.addEventListener(\"change\", e=>{ state = {key:e.target.value, S:new Set()}; redraw(); });\n  btnClear.addEventListener(\"click\", ()=>{ state.S.clear(); redraw(); });\n  redraw();"
+          }
         },
         {
           "type": "raw",
@@ -39,8 +79,49 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-expand",
-          "html": "<script>\n(function(){\n  const svg = $(\"#exp-svg\"), out = $(\"#exp-out\");\n  const sel = $(\"#exp-graph\"), btnClear = $(\"#exp-clear\");\n  const W = 720, H = 320;\n  const LIB = {\n    \"cycle10\": (function(){\n      const c=[360,160], r=120, P=[];\n      for(let k=0;k<10;k++){ const a=-Math.PI/2 + 2*Math.PI*k/10; P.push([c[0]+r*Math.cos(a), c[1]+r*Math.sin(a)]); }\n      const E=[]; for(let i=0;i<10;i++) E.push([i,(i+1)%10]);\n      return {pos:P, edges:E};\n    })(),\n    \"petersen\": (function(){\n      const c=[360,160], r1=130, r2=58, P=[];\n      for(let k=0;k<5;k++){ const a=-Math.PI/2 + 2*Math.PI*k/5; P.push([c[0]+r1*Math.cos(a), c[1]+r1*Math.sin(a)]); }\n      for(let k=0;k<5;k++){ const a=-Math.PI/2 + 2*Math.PI*k/5; P.push([c[0]+r2*Math.cos(a), c[1]+r2*Math.sin(a)]); }\n      const E=[[0,1],[1,2],[2,3],[3,4],[4,0],[5,7],[7,9],[9,6],[6,8],[8,5],[0,5],[1,6],[2,7],[3,8],[4,9]];\n      return {pos:P, edges:E};\n    })(),\n    \"hypercube\": (function(){\n      const cx=360, cy=160, s=80;\n      const corners = [\n        [cx-s, cy-s], [cx+s, cy-s], [cx+s, cy+s], [cx-s, cy+s],\n        [cx-s+30, cy-s-30], [cx+s+30, cy-s-30], [cx+s+30, cy+s-30], [cx-s+30, cy+s-30]\n      ];\n      const E=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];\n      return {pos:corners, edges:E};\n    })(),\n    \"k5\": (function(){\n      const c=[360,160], r=110, P=[];\n      for(let k=0;k<5;k++){ const a=-Math.PI/2 + 2*Math.PI*k/5; P.push([c[0]+r*Math.cos(a), c[1]+r*Math.sin(a)]); }\n      const E=[]; for(let i=0;i<5;i++) for(let j=i+1;j<5;j++) E.push([i,j]);\n      return {pos:P, edges:E};\n    })()\n  };\n  let state = {key:\"petersen\", S:new Set()};\n  function redraw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const t = SVG(\"title\"); t.textContent = \"Vertex expansion explorer\"; svg.appendChild(t);\n    const g = LIB[state.key];\n    // edges\n    for(const [a,b] of g.edges){\n      const inA = state.S.has(a), inB = state.S.has(b);\n      const cross = inA !== inB;\n      const color = cross ? \"var(--yellow)\" : (inA && inB ? \"var(--violet)\" : \"var(--line)\");\n      svg.appendChild(SVG(\"line\",{x1:g.pos[a][0],y1:g.pos[a][1],x2:g.pos[b][0],y2:g.pos[b][1],stroke:color,\"stroke-width\":1.8}));\n    }\n    // vertices\n    const N = new Set();\n    for(const [a,b] of g.edges){\n      if(state.S.has(a) && !state.S.has(b)) N.add(b);\n      if(state.S.has(b) && !state.S.has(a)) N.add(a);\n    }\n    for(let i=0;i<g.pos.length;i++){\n      const inS = state.S.has(i), inN = N.has(i);\n      const fill = inS ? \"var(--cyan)\" : (inN ? \"var(--yellow)\" : \"var(--panel2)\");\n      const stroke = inS ? \"var(--cyan)\" : (inN ? \"var(--yellow)\" : \"var(--mute)\");\n      const circ = SVG(\"circle\",{cx:g.pos[i][0],cy:g.pos[i][1],r:14,fill,stroke,\"stroke-width\":2,\"data-i\":i,style:\"cursor:pointer\"});\n      circ.addEventListener(\"click\", ()=>{\n        if(state.S.has(i)) state.S.delete(i); else state.S.add(i);\n        redraw();\n      });\n      svg.appendChild(circ);\n      const txt = SVG(\"text\",{x:g.pos[i][0],y:g.pos[i][1]+4,\"text-anchor\":\"middle\",\"font-size\":11,fill: inS ? \"#111\" : \"var(--ink)\",\"font-weight\":600,\"pointer-events\":\"none\"});\n      txt.textContent = String(i);\n      svg.appendChild(txt);\n    }\n    // legend\n    const legY = 18;\n    svg.appendChild(SVG(\"circle\",{cx:24,cy:legY,r:7,fill:\"var(--cyan)\",stroke:\"var(--cyan)\"}));\n    let tt = SVG(\"text\",{x:38,y:legY+4,\"font-size\":12,fill:\"var(--mute)\"}); tt.textContent = \"S\"; svg.appendChild(tt);\n    svg.appendChild(SVG(\"circle\",{cx:80,cy:legY,r:7,fill:\"var(--yellow)\",stroke:\"var(--yellow)\"}));\n    tt = SVG(\"text\",{x:94,y:legY+4,\"font-size\":12,fill:\"var(--mute)\"}); tt.textContent = \"N(S)\"; svg.appendChild(tt);\n    // readout\n    const sN = state.S.size, nN = N.size;\n    const ratio = sN > 0 ? (nN / sN).toFixed(3) : \"—\";\n    out.textContent = `|S| = ${sN}    |N(S)| = ${nN}    |N(S)|/|S| = ${ratio}`;\n  }\n  sel.addEventListener(\"change\", e=>{ state = {key:e.target.value, S:new Set()}; redraw(); });\n  btnClear.addEventListener(\"click\", ()=>{ state.S.clear(); redraw(); });\n  redraw();\n})();\n</script>"
+          "slug": "expanders-vertex-expansion",
+          "params": {
+            "widgetId": "w-expand",
+            "svgId": "exp-svg",
+            "outputId": "exp-out",
+            "title": "Vertex expansion explorer",
+            "hint": "click to toggle vertices · watch $|N(S)|/|S|$",
+            "viewBox": "0 0 720 320",
+            "svgWidth": 720,
+            "svgHeight": 320,
+            "svgTitle": "Vertex expansion explorer",
+            "outputInitial": "click vertices to add them to $S$.",
+            "pick": {
+              "id": "exp-graph",
+              "label": "graph:",
+              "options": [
+                {
+                  "value": "cycle10",
+                  "label": "cycle $C_{10}$ (poor expander)"
+                },
+                {
+                  "value": "petersen",
+                  "label": "Petersen graph (good)",
+                  "selected": true
+                },
+                {
+                  "value": "hypercube",
+                  "label": "3-cube $Q_3$ (medium)"
+                },
+                {
+                  "value": "k5",
+                  "label": "complete $K_5$ (best)"
+                }
+              ]
+            },
+            "buttons": [
+              {
+                "id": "exp-clear",
+                "label": "clear $S$"
+              }
+            ],
+            "bodyScript": "  const svg = $(\"#exp-svg\"), out = $(\"#exp-out\");\n  const sel = $(\"#exp-graph\"), btnClear = $(\"#exp-clear\");\n  const W = 720, H = 320;\n  const LIB = {\n    \"cycle10\": (function(){\n      const c=[360,160], r=120, P=[];\n      for(let k=0;k<10;k++){ const a=-Math.PI/2 + 2*Math.PI*k/10; P.push([c[0]+r*Math.cos(a), c[1]+r*Math.sin(a)]); }\n      const E=[]; for(let i=0;i<10;i++) E.push([i,(i+1)%10]);\n      return {pos:P, edges:E};\n    })(),\n    \"petersen\": (function(){\n      const c=[360,160], r1=130, r2=58, P=[];\n      for(let k=0;k<5;k++){ const a=-Math.PI/2 + 2*Math.PI*k/5; P.push([c[0]+r1*Math.cos(a), c[1]+r1*Math.sin(a)]); }\n      for(let k=0;k<5;k++){ const a=-Math.PI/2 + 2*Math.PI*k/5; P.push([c[0]+r2*Math.cos(a), c[1]+r2*Math.sin(a)]); }\n      const E=[[0,1],[1,2],[2,3],[3,4],[4,0],[5,7],[7,9],[9,6],[6,8],[8,5],[0,5],[1,6],[2,7],[3,8],[4,9]];\n      return {pos:P, edges:E};\n    })(),\n    \"hypercube\": (function(){\n      const cx=360, cy=160, s=80;\n      const corners = [\n        [cx-s, cy-s], [cx+s, cy-s], [cx+s, cy+s], [cx-s, cy+s],\n        [cx-s+30, cy-s-30], [cx+s+30, cy-s-30], [cx+s+30, cy+s-30], [cx-s+30, cy+s-30]\n      ];\n      const E=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];\n      return {pos:corners, edges:E};\n    })(),\n    \"k5\": (function(){\n      const c=[360,160], r=110, P=[];\n      for(let k=0;k<5;k++){ const a=-Math.PI/2 + 2*Math.PI*k/5; P.push([c[0]+r*Math.cos(a), c[1]+r*Math.sin(a)]); }\n      const E=[]; for(let i=0;i<5;i++) for(let j=i+1;j<5;j++) E.push([i,j]);\n      return {pos:P, edges:E};\n    })()\n  };\n  let state = {key:\"petersen\", S:new Set()};\n  function redraw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const t = SVG(\"title\"); t.textContent = \"Vertex expansion explorer\"; svg.appendChild(t);\n    const g = LIB[state.key];\n    // edges\n    for(const [a,b] of g.edges){\n      const inA = state.S.has(a), inB = state.S.has(b);\n      const cross = inA !== inB;\n      const color = cross ? \"var(--yellow)\" : (inA && inB ? \"var(--violet)\" : \"var(--line)\");\n      svg.appendChild(SVG(\"line\",{x1:g.pos[a][0],y1:g.pos[a][1],x2:g.pos[b][0],y2:g.pos[b][1],stroke:color,\"stroke-width\":1.8}));\n    }\n    // vertices\n    const N = new Set();\n    for(const [a,b] of g.edges){\n      if(state.S.has(a) && !state.S.has(b)) N.add(b);\n      if(state.S.has(b) && !state.S.has(a)) N.add(a);\n    }\n    for(let i=0;i<g.pos.length;i++){\n      const inS = state.S.has(i), inN = N.has(i);\n      const fill = inS ? \"var(--cyan)\" : (inN ? \"var(--yellow)\" : \"var(--panel2)\");\n      const stroke = inS ? \"var(--cyan)\" : (inN ? \"var(--yellow)\" : \"var(--mute)\");\n      const circ = SVG(\"circle\",{cx:g.pos[i][0],cy:g.pos[i][1],r:14,fill,stroke,\"stroke-width\":2,\"data-i\":i,style:\"cursor:pointer\"});\n      circ.addEventListener(\"click\", ()=>{\n        if(state.S.has(i)) state.S.delete(i); else state.S.add(i);\n        redraw();\n      });\n      svg.appendChild(circ);\n      const txt = SVG(\"text\",{x:g.pos[i][0],y:g.pos[i][1]+4,\"text-anchor\":\"middle\",\"font-size\":11,fill: inS ? \"#111\" : \"var(--ink)\",\"font-weight\":600,\"pointer-events\":\"none\"});\n      txt.textContent = String(i);\n      svg.appendChild(txt);\n    }\n    // legend\n    const legY = 18;\n    svg.appendChild(SVG(\"circle\",{cx:24,cy:legY,r:7,fill:\"var(--cyan)\",stroke:\"var(--cyan)\"}));\n    let tt = SVG(\"text\",{x:38,y:legY+4,\"font-size\":12,fill:\"var(--mute)\"}); tt.textContent = \"S\"; svg.appendChild(tt);\n    svg.appendChild(SVG(\"circle\",{cx:80,cy:legY,r:7,fill:\"var(--yellow)\",stroke:\"var(--yellow)\"}));\n    tt = SVG(\"text\",{x:94,y:legY+4,\"font-size\":12,fill:\"var(--mute)\"}); tt.textContent = \"N(S)\"; svg.appendChild(tt);\n    // readout\n    const sN = state.S.size, nN = N.size;\n    const ratio = sN > 0 ? (nN / sN).toFixed(3) : \"—\";\n    out.textContent = `|S| = ${sN}    |N(S)| = ${nN}    |N(S)|/|S| = ${ratio}`;\n  }\n  sel.addEventListener(\"change\", e=>{ state = {key:e.target.value, S:new Set()}; redraw(); });\n  btnClear.addEventListener(\"click\", ()=>{ state.S.clear(); redraw(); });\n  redraw();"
+          }
         },
         {
           "type": "raw",
@@ -57,9 +138,85 @@
         },
         {
           "type": "widget",
-          "id": "w-spec",
-          "html": "<div class=\"widget\" id=\"w-spec\">\n  <div class=\"hd\"><div class=\"ttl\">Spectrum of $\\widehat A$</div><div class=\"hint\">drag the slider · watch $\\lambda_2$ collapse for cycles</div></div>\n  <div class=\"row\">\n    <label for=\"spec-fam\">family:</label>\n    <select id=\"spec-fam\">\n      <option value=\"cycle\">cycle $C_n$</option>\n      <option value=\"kn\">complete $K_n$</option>\n      <option value=\"hypercube\" selected>hypercube $Q_k$</option>\n    </select>\n    <label for=\"spec-size\">size:</label>\n    <input type=\"range\" id=\"spec-size\" min=\"3\" max=\"32\" step=\"1\" value=\"8\">\n    <span id=\"spec-sizeval\" class=\"pill\">n</span>\n  </div>\n  <svg id=\"spec-svg\" viewBox=\"0 0 720 220\" width=\"720\" height=\"220\"><title>Spectrum of normalized adjacency</title></svg>\n  <div class=\"readout\" id=\"spec-out\"></div>\n</div>",
-          "script": null
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "multi-mode",
+            "widgetId": "w-spec",
+            "svgId": "spec-svg",
+            "outputId": "spec-out",
+            "title": "Spectrum of $\\widehat A$",
+            "hint": "drag the slider · watch $\\lambda_2$ collapse for cycles",
+            "viewBox": "0 0 720 220",
+            "svgWidth": 720,
+            "svgHeight": 220,
+            "svgTitle": "Spectrum of normalized adjacency",
+            "outputInitial": "",
+            "pick": {
+              "id": "spec-fam",
+              "label": "family:",
+              "options": [
+                {
+                  "value": "cycle",
+                  "label": "cycle $C_n$"
+                },
+                {
+                  "value": "kn",
+                  "label": "complete $K_n$"
+                },
+                {
+                  "value": "hypercube",
+                  "label": "hypercube $Q_k$",
+                  "selected": true
+                }
+              ]
+            },
+            "sliders": [
+              {
+                "id": "spec-size",
+                "label": "size:",
+                "min": 3,
+                "max": 32,
+                "step": 1,
+                "init": 8,
+                "outId": "spec-sizeval",
+                "initReadout": "n"
+              }
+            ],
+            "modes": {
+              "cycle": {
+                "sliderDefaults": {
+                  "spec-size": {
+                    "min": 3,
+                    "max": 32,
+                    "step": 1,
+                    "init": 8
+                  }
+                }
+              },
+              "kn": {
+                "sliderDefaults": {
+                  "spec-size": {
+                    "min": 3,
+                    "max": 32,
+                    "step": 1,
+                    "init": 8
+                  }
+                }
+              },
+              "hypercube": {
+                "sliderDefaults": {
+                  "spec-size": {
+                    "min": 2,
+                    "max": 8,
+                    "step": 1,
+                    "init": 8
+                  }
+                }
+              }
+            },
+            "initialMode": "hypercube",
+            "bodyScript": "  const svg = $(\"#spec-svg\"), out = $(\"#spec-out\");\n  const fam = $(\"#spec-fam\"), sz = $(\"#spec-size\"), szLabel = $(\"#spec-sizeval\");\n  const W=720, H=220;\n  function eigs(family, n){\n    if(family === \"cycle\"){\n      const out = [];\n      for(let k=0;k<n;k++) out.push(Math.cos(2*Math.PI*k/n));\n      return out.sort((a,b)=>b-a);\n    }\n    if(family === \"kn\"){\n      // adjacency of K_n has eigenvalues n-1 (once) and -1 (n-1 times); normalized by d=n-1\n      const out = [1];\n      for(let k=1;k<n;k++) out.push(-1/(n-1));\n      return out;\n    }\n    if(family === \"hypercube\"){\n      // Q_k has 2^k vertices, degree k, eigenvalues k - 2j with multiplicity C(k,j); normalize by k\n      const k = n; // reinterpret slider as dimension\n      const out = [];\n      function binom(n,r){ let v=1; for(let i=0;i<r;i++) v *= (n-i)/(i+1); return Math.round(v); }\n      for(let j=0;j<=k;j++){\n        const lam = (k - 2*j)/k;\n        const m = binom(k,j);\n        for(let i=0;i<m;i++) out.push(lam);\n      }\n      return out.sort((a,b)=>b-a);\n    }\n    return [];\n  }\n  function redraw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const t = SVG(\"title\"); t.textContent = \"Spectrum of normalized adjacency\"; svg.appendChild(t);\n    const family = fam.value;\n    const raw = parseInt(sz.value, 10);\n    let n = raw;\n    if(family === \"hypercube\"){ n = Math.max(2, Math.min(8, raw)); szLabel.textContent = \"k = \" + n; }\n    else { n = raw; szLabel.textContent = \"n = \" + n; }\n    const evs = eigs(family, n);\n    // axis\n    const xL = 80, xR = W - 60, y0 = H/2 + 10;\n    svg.appendChild(SVG(\"line\",{x1:xL,y1:y0,x2:xR,y2:y0,stroke:\"var(--mute)\",\"stroke-width\":1.2}));\n    for(const v of [-1, -0.5, 0, 0.5, 1]){\n      const x = xL + (v+1)/2 * (xR - xL);\n      svg.appendChild(SVG(\"line\",{x1:x,y1:y0-5,x2:x,y2:y0+5,stroke:\"var(--mute)\"}));\n      const tx = SVG(\"text\",{x,y:y0+22,\"text-anchor\":\"middle\",\"font-size\":11,fill:\"var(--mute)\"});\n      tx.textContent = v.toFixed(1); svg.appendChild(tx);\n    }\n    // eigenvalue dots\n    for(let i=0;i<evs.length;i++){\n      const v = evs[i];\n      const x = xL + (v+1)/2 * (xR - xL);\n      const isTop = i === 0;\n      const isSecond = i === 1;\n      const color = isTop ? \"var(--green)\" : (isSecond ? \"var(--yellow)\" : \"var(--cyan)\");\n      svg.appendChild(SVG(\"circle\",{cx:x,cy:y0 - 22 - (i%5)*4,r:5,fill:color,opacity:0.9}));\n    }\n    // gap arrow\n    if(evs.length >= 2){\n      const x1 = xL + (evs[0]+1)/2 * (xR-xL);\n      const x2 = xL + (evs[1]+1)/2 * (xR-xL);\n      const ya = 60;\n      svg.appendChild(SVG(\"line\",{x1:x1,y1:ya,x2:x2,y2:ya,stroke:\"var(--yellow)\",\"stroke-width\":2}));\n      const tg = SVG(\"text\",{x:(x1+x2)/2,y:ya-8,\"text-anchor\":\"middle\",\"font-size\":12,fill:\"var(--yellow)\",\"font-weight\":600});\n      tg.textContent = \"gap = \" + (evs[0]-evs[1]).toFixed(3);\n      svg.appendChild(tg);\n    }\n    // title\n    const ttl = SVG(\"text\",{x:xL,y:30,\"font-size\":12,fill:\"var(--mute)\"});\n    ttl.textContent = `${family === \"cycle\" ? \"C_n\" : family === \"kn\" ? \"K_n\" : \"Q_k\"}: λ₁ = ${evs[0].toFixed(4)}, λ₂ = ${evs[1].toFixed(4)}`;\n    svg.appendChild(ttl);\n    // readout\n    out.textContent = `n = ${family === \"hypercube\" ? Math.pow(2,n) + \" (= 2^\" + n + \")\" : n}    spectral gap 1−λ₂ = ${(1 - evs[1]).toFixed(4)}`;\n  }\n  fam.addEventListener(\"change\", redraw);\n  sz.addEventListener(\"input\", redraw);\n  redraw();"
+          }
         },
         {
           "type": "raw",
@@ -84,8 +241,85 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-spec",
-          "html": "<script>\n(function(){\n  const svg = $(\"#spec-svg\"), out = $(\"#spec-out\");\n  const fam = $(\"#spec-fam\"), sz = $(\"#spec-size\"), szLabel = $(\"#spec-sizeval\");\n  const W=720, H=220;\n  function eigs(family, n){\n    if(family === \"cycle\"){\n      const out = [];\n      for(let k=0;k<n;k++) out.push(Math.cos(2*Math.PI*k/n));\n      return out.sort((a,b)=>b-a);\n    }\n    if(family === \"kn\"){\n      // adjacency of K_n has eigenvalues n-1 (once) and -1 (n-1 times); normalized by d=n-1\n      const out = [1];\n      for(let k=1;k<n;k++) out.push(-1/(n-1));\n      return out;\n    }\n    if(family === \"hypercube\"){\n      // Q_k has 2^k vertices, degree k, eigenvalues k - 2j with multiplicity C(k,j); normalize by k\n      const k = n; // reinterpret slider as dimension\n      const out = [];\n      function binom(n,r){ let v=1; for(let i=0;i<r;i++) v *= (n-i)/(i+1); return Math.round(v); }\n      for(let j=0;j<=k;j++){\n        const lam = (k - 2*j)/k;\n        const m = binom(k,j);\n        for(let i=0;i<m;i++) out.push(lam);\n      }\n      return out.sort((a,b)=>b-a);\n    }\n    return [];\n  }\n  function redraw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const t = SVG(\"title\"); t.textContent = \"Spectrum of normalized adjacency\"; svg.appendChild(t);\n    const family = fam.value;\n    const raw = parseInt(sz.value, 10);\n    let n = raw;\n    if(family === \"hypercube\"){ n = Math.max(2, Math.min(8, raw)); szLabel.textContent = \"k = \" + n; }\n    else { n = raw; szLabel.textContent = \"n = \" + n; }\n    const evs = eigs(family, n);\n    // axis\n    const xL = 80, xR = W - 60, y0 = H/2 + 10;\n    svg.appendChild(SVG(\"line\",{x1:xL,y1:y0,x2:xR,y2:y0,stroke:\"var(--mute)\",\"stroke-width\":1.2}));\n    for(const v of [-1, -0.5, 0, 0.5, 1]){\n      const x = xL + (v+1)/2 * (xR - xL);\n      svg.appendChild(SVG(\"line\",{x1:x,y1:y0-5,x2:x,y2:y0+5,stroke:\"var(--mute)\"}));\n      const tx = SVG(\"text\",{x,y:y0+22,\"text-anchor\":\"middle\",\"font-size\":11,fill:\"var(--mute)\"});\n      tx.textContent = v.toFixed(1); svg.appendChild(tx);\n    }\n    // eigenvalue dots\n    for(let i=0;i<evs.length;i++){\n      const v = evs[i];\n      const x = xL + (v+1)/2 * (xR - xL);\n      const isTop = i === 0;\n      const isSecond = i === 1;\n      const color = isTop ? \"var(--green)\" : (isSecond ? \"var(--yellow)\" : \"var(--cyan)\");\n      svg.appendChild(SVG(\"circle\",{cx:x,cy:y0 - 22 - (i%5)*4,r:5,fill:color,opacity:0.9}));\n    }\n    // gap arrow\n    if(evs.length >= 2){\n      const x1 = xL + (evs[0]+1)/2 * (xR-xL);\n      const x2 = xL + (evs[1]+1)/2 * (xR-xL);\n      const ya = 60;\n      svg.appendChild(SVG(\"line\",{x1:x1,y1:ya,x2:x2,y2:ya,stroke:\"var(--yellow)\",\"stroke-width\":2}));\n      const tg = SVG(\"text\",{x:(x1+x2)/2,y:ya-8,\"text-anchor\":\"middle\",\"font-size\":12,fill:\"var(--yellow)\",\"font-weight\":600});\n      tg.textContent = \"gap = \" + (evs[0]-evs[1]).toFixed(3);\n      svg.appendChild(tg);\n    }\n    // title\n    const ttl = SVG(\"text\",{x:xL,y:30,\"font-size\":12,fill:\"var(--mute)\"});\n    ttl.textContent = `${family === \"cycle\" ? \"C_n\" : family === \"kn\" ? \"K_n\" : \"Q_k\"}: λ₁ = ${evs[0].toFixed(4)}, λ₂ = ${evs[1].toFixed(4)}`;\n    svg.appendChild(ttl);\n    // readout\n    out.textContent = `n = ${family === \"hypercube\" ? Math.pow(2,n) + \" (= 2^\" + n + \")\" : n}    spectral gap 1−λ₂ = ${(1 - evs[1]).toFixed(4)}`;\n  }\n  fam.addEventListener(\"change\", redraw);\n  sz.addEventListener(\"input\", redraw);\n  redraw();\n})();\n</script>"
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "multi-mode",
+            "widgetId": "w-spec",
+            "svgId": "spec-svg",
+            "outputId": "spec-out",
+            "title": "Spectrum of $\\widehat A$",
+            "hint": "drag the slider · watch $\\lambda_2$ collapse for cycles",
+            "viewBox": "0 0 720 220",
+            "svgWidth": 720,
+            "svgHeight": 220,
+            "svgTitle": "Spectrum of normalized adjacency",
+            "outputInitial": "",
+            "pick": {
+              "id": "spec-fam",
+              "label": "family:",
+              "options": [
+                {
+                  "value": "cycle",
+                  "label": "cycle $C_n$"
+                },
+                {
+                  "value": "kn",
+                  "label": "complete $K_n$"
+                },
+                {
+                  "value": "hypercube",
+                  "label": "hypercube $Q_k$",
+                  "selected": true
+                }
+              ]
+            },
+            "sliders": [
+              {
+                "id": "spec-size",
+                "label": "size:",
+                "min": 3,
+                "max": 32,
+                "step": 1,
+                "init": 8,
+                "outId": "spec-sizeval",
+                "initReadout": "n"
+              }
+            ],
+            "modes": {
+              "cycle": {
+                "sliderDefaults": {
+                  "spec-size": {
+                    "min": 3,
+                    "max": 32,
+                    "step": 1,
+                    "init": 8
+                  }
+                }
+              },
+              "kn": {
+                "sliderDefaults": {
+                  "spec-size": {
+                    "min": 3,
+                    "max": 32,
+                    "step": 1,
+                    "init": 8
+                  }
+                }
+              },
+              "hypercube": {
+                "sliderDefaults": {
+                  "spec-size": {
+                    "min": 2,
+                    "max": 8,
+                    "step": 1,
+                    "init": 8
+                  }
+                }
+              }
+            },
+            "initialMode": "hypercube",
+            "bodyScript": "  const svg = $(\"#spec-svg\"), out = $(\"#spec-out\");\n  const fam = $(\"#spec-fam\"), sz = $(\"#spec-size\"), szLabel = $(\"#spec-sizeval\");\n  const W=720, H=220;\n  function eigs(family, n){\n    if(family === \"cycle\"){\n      const out = [];\n      for(let k=0;k<n;k++) out.push(Math.cos(2*Math.PI*k/n));\n      return out.sort((a,b)=>b-a);\n    }\n    if(family === \"kn\"){\n      // adjacency of K_n has eigenvalues n-1 (once) and -1 (n-1 times); normalized by d=n-1\n      const out = [1];\n      for(let k=1;k<n;k++) out.push(-1/(n-1));\n      return out;\n    }\n    if(family === \"hypercube\"){\n      // Q_k has 2^k vertices, degree k, eigenvalues k - 2j with multiplicity C(k,j); normalize by k\n      const k = n; // reinterpret slider as dimension\n      const out = [];\n      function binom(n,r){ let v=1; for(let i=0;i<r;i++) v *= (n-i)/(i+1); return Math.round(v); }\n      for(let j=0;j<=k;j++){\n        const lam = (k - 2*j)/k;\n        const m = binom(k,j);\n        for(let i=0;i<m;i++) out.push(lam);\n      }\n      return out.sort((a,b)=>b-a);\n    }\n    return [];\n  }\n  function redraw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const t = SVG(\"title\"); t.textContent = \"Spectrum of normalized adjacency\"; svg.appendChild(t);\n    const family = fam.value;\n    const raw = parseInt(sz.value, 10);\n    let n = raw;\n    if(family === \"hypercube\"){ n = Math.max(2, Math.min(8, raw)); szLabel.textContent = \"k = \" + n; }\n    else { n = raw; szLabel.textContent = \"n = \" + n; }\n    const evs = eigs(family, n);\n    // axis\n    const xL = 80, xR = W - 60, y0 = H/2 + 10;\n    svg.appendChild(SVG(\"line\",{x1:xL,y1:y0,x2:xR,y2:y0,stroke:\"var(--mute)\",\"stroke-width\":1.2}));\n    for(const v of [-1, -0.5, 0, 0.5, 1]){\n      const x = xL + (v+1)/2 * (xR - xL);\n      svg.appendChild(SVG(\"line\",{x1:x,y1:y0-5,x2:x,y2:y0+5,stroke:\"var(--mute)\"}));\n      const tx = SVG(\"text\",{x,y:y0+22,\"text-anchor\":\"middle\",\"font-size\":11,fill:\"var(--mute)\"});\n      tx.textContent = v.toFixed(1); svg.appendChild(tx);\n    }\n    // eigenvalue dots\n    for(let i=0;i<evs.length;i++){\n      const v = evs[i];\n      const x = xL + (v+1)/2 * (xR - xL);\n      const isTop = i === 0;\n      const isSecond = i === 1;\n      const color = isTop ? \"var(--green)\" : (isSecond ? \"var(--yellow)\" : \"var(--cyan)\");\n      svg.appendChild(SVG(\"circle\",{cx:x,cy:y0 - 22 - (i%5)*4,r:5,fill:color,opacity:0.9}));\n    }\n    // gap arrow\n    if(evs.length >= 2){\n      const x1 = xL + (evs[0]+1)/2 * (xR-xL);\n      const x2 = xL + (evs[1]+1)/2 * (xR-xL);\n      const ya = 60;\n      svg.appendChild(SVG(\"line\",{x1:x1,y1:ya,x2:x2,y2:ya,stroke:\"var(--yellow)\",\"stroke-width\":2}));\n      const tg = SVG(\"text\",{x:(x1+x2)/2,y:ya-8,\"text-anchor\":\"middle\",\"font-size\":12,fill:\"var(--yellow)\",\"font-weight\":600});\n      tg.textContent = \"gap = \" + (evs[0]-evs[1]).toFixed(3);\n      svg.appendChild(tg);\n    }\n    // title\n    const ttl = SVG(\"text\",{x:xL,y:30,\"font-size\":12,fill:\"var(--mute)\"});\n    ttl.textContent = `${family === \"cycle\" ? \"C_n\" : family === \"kn\" ? \"K_n\" : \"Q_k\"}: λ₁ = ${evs[0].toFixed(4)}, λ₂ = ${evs[1].toFixed(4)}`;\n    svg.appendChild(ttl);\n    // readout\n    out.textContent = `n = ${family === \"hypercube\" ? Math.pow(2,n) + \" (= 2^\" + n + \")\" : n}    spectral gap 1−λ₂ = ${(1 - evs[1]).toFixed(4)}`;\n  }\n  fam.addEventListener(\"change\", redraw);\n  sz.addEventListener(\"input\", redraw);\n  redraw();"
+          }
         },
         {
           "type": "raw",
@@ -102,9 +336,55 @@
         },
         {
           "type": "widget",
-          "id": "w-cheeger",
-          "html": "<div class=\"widget\" id=\"w-cheeger\">\n  <div class=\"hd\"><div class=\"ttl\">Cheeger ratio visualizer</div><div class=\"hint\">slide threshold on the Fiedler vector · watch the cut</div></div>\n  <div class=\"row\">\n    <label for=\"ch-graph\">graph:</label>\n    <select id=\"ch-graph\">\n      <option value=\"dumbbell\" selected>dumbbell (two $K_5$ joined by an edge)</option>\n      <option value=\"path6\">path $P_6$</option>\n      <option value=\"cycle8\">cycle $C_8$</option>\n    </select>\n    <label for=\"ch-thresh\">threshold:</label>\n    <input type=\"range\" id=\"ch-thresh\" min=\"-1\" max=\"1\" step=\"0.02\" value=\"0\">\n  </div>\n  <svg id=\"ch-svg\" viewBox=\"0 0 720 280\" width=\"720\" height=\"280\"><title>Cheeger ratio visualizer</title></svg>\n  <div class=\"readout\" id=\"ch-out\"></div>\n</div>",
-          "script": null
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "multi-mode",
+            "widgetId": "w-cheeger",
+            "svgId": "ch-svg",
+            "outputId": "ch-out",
+            "title": "Cheeger ratio visualizer",
+            "hint": "slide threshold on the Fiedler vector · watch the cut",
+            "viewBox": "0 0 720 280",
+            "svgWidth": 720,
+            "svgHeight": 280,
+            "svgTitle": "Cheeger ratio visualizer",
+            "pick": {
+              "id": "ch-graph",
+              "label": "graph:",
+              "options": [
+                {
+                  "value": "dumbbell",
+                  "label": "dumbbell (two $K_5$ joined by an edge)",
+                  "selected": true
+                },
+                {
+                  "value": "path6",
+                  "label": "path $P_6$"
+                },
+                {
+                  "value": "cycle8",
+                  "label": "cycle $C_8$"
+                }
+              ]
+            },
+            "sliders": [
+              {
+                "id": "ch-thresh",
+                "label": "threshold:",
+                "min": -1,
+                "max": 1,
+                "step": 0.02,
+                "init": 0
+              }
+            ],
+            "modes": {
+              "dumbbell": {},
+              "path6": {},
+              "cycle8": {}
+            },
+            "initialMode": "dumbbell",
+            "bodyScript": "  const svg = $(\"#ch-svg\"), out = $(\"#ch-out\");\n  const gSel = $(\"#ch-graph\"), thr = $(\"#ch-thresh\");\n  const W=720, H=280;\n  const LIB = {\n    \"dumbbell\": (function(){\n      const P = [];\n      const cL=[200,140], cR=[520,140], r=70;\n      for(let k=0;k<5;k++){ const a=-Math.PI/2 + 2*Math.PI*k/5; P.push([cL[0]+r*Math.cos(a), cL[1]+r*Math.sin(a)]); }\n      for(let k=0;k<5;k++){ const a=-Math.PI/2 + 2*Math.PI*k/5; P.push([cR[0]+r*Math.cos(a), cR[1]+r*Math.sin(a)]); }\n      const E=[];\n      for(let i=0;i<5;i++) for(let j=i+1;j<5;j++) E.push([i,j]);\n      for(let i=5;i<10;i++) for(let j=i+1;j<10;j++) E.push([i,j]);\n      E.push([1,6]); // bridge\n      return {pos:P, edges:E};\n    })(),\n    \"path6\": (function(){\n      const P=[]; for(let i=0;i<6;i++) P.push([100+i*100,140]);\n      const E=[]; for(let i=0;i<5;i++) E.push([i,i+1]);\n      return {pos:P, edges:E};\n    })(),\n    \"cycle8\": (function(){\n      const c=[360,140], r=110, P=[];\n      for(let k=0;k<8;k++){ const a=-Math.PI/2 + 2*Math.PI*k/8; P.push([c[0]+r*Math.cos(a), c[1]+r*Math.sin(a)]); }\n      const E=[]; for(let i=0;i<8;i++) E.push([i,(i+1)%8]);\n      return {pos:P, edges:E};\n    })()\n  };\n  // small Jacobi eigensolver for the (regularized) normalized adjacency\n  function jacobi(A0){\n    const n = A0.length;\n    const A = A0.map(r=>r.slice());\n    const V = Array.from({length:n},(_,i)=>Array.from({length:n},(_,j)=>i===j?1:0));\n    for(let it=0;it<200;it++){\n      let p=0,q=1,off=Math.abs(A[0][1]);\n      for(let i=0;i<n;i++) for(let j=i+1;j<n;j++){ if(Math.abs(A[i][j])>off){off=Math.abs(A[i][j]); p=i; q=j;} }\n      if(off<1e-11) break;\n      const app=A[p][p], aqq=A[q][q], apq=A[p][q];\n      const theta=(aqq-app)/(2*apq);\n      const t=(theta>=0?1:-1)/(Math.abs(theta)+Math.sqrt(theta*theta+1));\n      const c=1/Math.sqrt(1+t*t), s=t*c;\n      A[p][p]=app-t*apq; A[q][q]=aqq+t*apq; A[p][q]=0; A[q][p]=0;\n      for(let i=0;i<n;i++){\n        if(i!==p && i!==q){\n          const aip=A[i][p], aiq=A[i][q];\n          A[i][p]=c*aip-s*aiq; A[p][i]=A[i][p];\n          A[i][q]=s*aip+c*aiq; A[q][i]=A[i][q];\n        }\n      }\n      for(let i=0;i<n;i++){\n        const vip=V[i][p], viq=V[i][q];\n        V[i][p]=c*vip-s*viq; V[i][q]=s*vip+c*viq;\n      }\n    }\n    const idx = Array.from({length:n},(_,i)=>i).sort((a,b)=>A[a][a]-A[b][b]);\n    return {eigs: idx.map(i=>A[i][i]), vecs: idx.map(i=>V.map(row=>row[i]))};\n  }\n  function redraw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const t = SVG(\"title\"); t.textContent = \"Cheeger ratio visualizer\"; svg.appendChild(t);\n    const g = LIB[gSel.value];\n    const n = g.pos.length;\n    const A = Array.from({length:n},()=>Array(n).fill(0));\n    const deg = new Array(n).fill(0);\n    for(const [a,b] of g.edges){ A[a][b]=1; A[b][a]=1; deg[a]++; deg[b]++; }\n    // build symmetric normalized Laplacian L = I - D^{-1/2} A D^{-1/2}\n    const L = Array.from({length:n},()=>Array(n).fill(0));\n    for(let i=0;i<n;i++) for(let j=0;j<n;j++){\n      if(i===j) L[i][j] = deg[i] > 0 ? 1 : 0;\n      else if(deg[i]>0 && deg[j]>0) L[i][j] = -A[i][j]/Math.sqrt(deg[i]*deg[j]);\n    }\n    const {eigs, vecs} = jacobi(L);\n    // Fiedler is second-smallest\n    const fiedler = vecs[1];\n    // normalize by sqrt(deg) to get the actual Fiedler vector\n    const f = fiedler.map((x,i)=> deg[i]>0 ? x/Math.sqrt(deg[i]) : 0);\n    // recenter & rescale to [-1,1]\n    let mn=Infinity, mx=-Infinity;\n    for(const v of f){ if(v<mn) mn=v; if(v>mx) mx=v; }\n    const span = Math.max(1e-9, mx - mn);\n    const fScaled = f.map(v => 2*(v - mn)/span - 1);\n    // threshold cut\n    const tval = parseFloat(thr.value);\n    const S = fScaled.map(v => v <= tval);\n    // count cut edges\n    let cut = 0, sIn = 0;\n    for(let i=0;i<n;i++) if(S[i]) sIn++;\n    for(const [a,b] of g.edges){ if(S[a] !== S[b]) cut++; }\n    const dAvg = g.edges.length * 2 / n; // average degree\n    const sSize = Math.min(sIn, n - sIn);\n    const ratio = sSize > 0 ? cut / (dAvg * sSize) : 0;\n    // edges\n    for(const [a,b] of g.edges){\n      const isCut = S[a] !== S[b];\n      svg.appendChild(SVG(\"line\",{x1:g.pos[a][0],y1:g.pos[a][1],x2:g.pos[b][0],y2:g.pos[b][1],\n        stroke: isCut ? \"var(--yellow)\" : \"var(--line)\", \"stroke-width\": isCut ? 2.5 : 1.5}));\n    }\n    // vertices, colored by Fiedler value\n    for(let i=0;i<n;i++){\n      const v = fScaled[i];\n      const inS = S[i];\n      const fill = inS ? \"var(--cyan)\" : \"var(--pink)\";\n      svg.appendChild(SVG(\"circle\",{cx:g.pos[i][0],cy:g.pos[i][1],r:14,fill,stroke: inS ? \"var(--cyan)\" : \"var(--pink)\",\"stroke-width\":2}));\n      const tx = SVG(\"text\",{x:g.pos[i][0],y:g.pos[i][1]+4,\"text-anchor\":\"middle\",\"font-size\":11,fill:\"#111\",\"font-weight\":700});\n      tx.textContent = v.toFixed(2); svg.appendChild(tx);\n    }\n    // legend\n    const tx = SVG(\"text\",{x:20,y:20,\"font-size\":12,fill:\"var(--mute)\"});\n    tx.textContent = \"Fiedler value · cyan = below threshold (S)\";\n    svg.appendChild(tx);\n    out.textContent = `threshold = ${tval.toFixed(2)}    |S| = ${sIn}    |E(S, S̄)| = ${cut}    ratio |E(S,S̄)|/(d·|S|) = ${ratio.toFixed(3)}    λ₂(ℒ) = ${eigs[1].toFixed(3)}    √(2λ₂) = ${Math.sqrt(2*Math.max(0,eigs[1])).toFixed(3)}`;\n  }\n  gSel.addEventListener(\"change\", redraw);\n  thr.addEventListener(\"input\", redraw);\n  redraw();"
+          }
         },
         {
           "type": "raw",
@@ -125,8 +405,55 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-cheeger",
-          "html": "<script>\n(function(){\n  const svg = $(\"#ch-svg\"), out = $(\"#ch-out\");\n  const gSel = $(\"#ch-graph\"), thr = $(\"#ch-thresh\");\n  const W=720, H=280;\n  const LIB = {\n    \"dumbbell\": (function(){\n      const P = [];\n      const cL=[200,140], cR=[520,140], r=70;\n      for(let k=0;k<5;k++){ const a=-Math.PI/2 + 2*Math.PI*k/5; P.push([cL[0]+r*Math.cos(a), cL[1]+r*Math.sin(a)]); }\n      for(let k=0;k<5;k++){ const a=-Math.PI/2 + 2*Math.PI*k/5; P.push([cR[0]+r*Math.cos(a), cR[1]+r*Math.sin(a)]); }\n      const E=[];\n      for(let i=0;i<5;i++) for(let j=i+1;j<5;j++) E.push([i,j]);\n      for(let i=5;i<10;i++) for(let j=i+1;j<10;j++) E.push([i,j]);\n      E.push([1,6]); // bridge\n      return {pos:P, edges:E};\n    })(),\n    \"path6\": (function(){\n      const P=[]; for(let i=0;i<6;i++) P.push([100+i*100,140]);\n      const E=[]; for(let i=0;i<5;i++) E.push([i,i+1]);\n      return {pos:P, edges:E};\n    })(),\n    \"cycle8\": (function(){\n      const c=[360,140], r=110, P=[];\n      for(let k=0;k<8;k++){ const a=-Math.PI/2 + 2*Math.PI*k/8; P.push([c[0]+r*Math.cos(a), c[1]+r*Math.sin(a)]); }\n      const E=[]; for(let i=0;i<8;i++) E.push([i,(i+1)%8]);\n      return {pos:P, edges:E};\n    })()\n  };\n  // small Jacobi eigensolver for the (regularized) normalized adjacency\n  function jacobi(A0){\n    const n = A0.length;\n    const A = A0.map(r=>r.slice());\n    const V = Array.from({length:n},(_,i)=>Array.from({length:n},(_,j)=>i===j?1:0));\n    for(let it=0;it<200;it++){\n      let p=0,q=1,off=Math.abs(A[0][1]);\n      for(let i=0;i<n;i++) for(let j=i+1;j<n;j++){ if(Math.abs(A[i][j])>off){off=Math.abs(A[i][j]); p=i; q=j;} }\n      if(off<1e-11) break;\n      const app=A[p][p], aqq=A[q][q], apq=A[p][q];\n      const theta=(aqq-app)/(2*apq);\n      const t=(theta>=0?1:-1)/(Math.abs(theta)+Math.sqrt(theta*theta+1));\n      const c=1/Math.sqrt(1+t*t), s=t*c;\n      A[p][p]=app-t*apq; A[q][q]=aqq+t*apq; A[p][q]=0; A[q][p]=0;\n      for(let i=0;i<n;i++){\n        if(i!==p && i!==q){\n          const aip=A[i][p], aiq=A[i][q];\n          A[i][p]=c*aip-s*aiq; A[p][i]=A[i][p];\n          A[i][q]=s*aip+c*aiq; A[q][i]=A[i][q];\n        }\n      }\n      for(let i=0;i<n;i++){\n        const vip=V[i][p], viq=V[i][q];\n        V[i][p]=c*vip-s*viq; V[i][q]=s*vip+c*viq;\n      }\n    }\n    const idx = Array.from({length:n},(_,i)=>i).sort((a,b)=>A[a][a]-A[b][b]);\n    return {eigs: idx.map(i=>A[i][i]), vecs: idx.map(i=>V.map(row=>row[i]))};\n  }\n  function redraw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const t = SVG(\"title\"); t.textContent = \"Cheeger ratio visualizer\"; svg.appendChild(t);\n    const g = LIB[gSel.value];\n    const n = g.pos.length;\n    const A = Array.from({length:n},()=>Array(n).fill(0));\n    const deg = new Array(n).fill(0);\n    for(const [a,b] of g.edges){ A[a][b]=1; A[b][a]=1; deg[a]++; deg[b]++; }\n    // build symmetric normalized Laplacian L = I - D^{-1/2} A D^{-1/2}\n    const L = Array.from({length:n},()=>Array(n).fill(0));\n    for(let i=0;i<n;i++) for(let j=0;j<n;j++){\n      if(i===j) L[i][j] = deg[i] > 0 ? 1 : 0;\n      else if(deg[i]>0 && deg[j]>0) L[i][j] = -A[i][j]/Math.sqrt(deg[i]*deg[j]);\n    }\n    const {eigs, vecs} = jacobi(L);\n    // Fiedler is second-smallest\n    const fiedler = vecs[1];\n    // normalize by sqrt(deg) to get the actual Fiedler vector\n    const f = fiedler.map((x,i)=> deg[i]>0 ? x/Math.sqrt(deg[i]) : 0);\n    // recenter & rescale to [-1,1]\n    let mn=Infinity, mx=-Infinity;\n    for(const v of f){ if(v<mn) mn=v; if(v>mx) mx=v; }\n    const span = Math.max(1e-9, mx - mn);\n    const fScaled = f.map(v => 2*(v - mn)/span - 1);\n    // threshold cut\n    const tval = parseFloat(thr.value);\n    const S = fScaled.map(v => v <= tval);\n    // count cut edges\n    let cut = 0, sIn = 0;\n    for(let i=0;i<n;i++) if(S[i]) sIn++;\n    for(const [a,b] of g.edges){ if(S[a] !== S[b]) cut++; }\n    const dAvg = g.edges.length * 2 / n; // average degree\n    const sSize = Math.min(sIn, n - sIn);\n    const ratio = sSize > 0 ? cut / (dAvg * sSize) : 0;\n    // edges\n    for(const [a,b] of g.edges){\n      const isCut = S[a] !== S[b];\n      svg.appendChild(SVG(\"line\",{x1:g.pos[a][0],y1:g.pos[a][1],x2:g.pos[b][0],y2:g.pos[b][1],\n        stroke: isCut ? \"var(--yellow)\" : \"var(--line)\", \"stroke-width\": isCut ? 2.5 : 1.5}));\n    }\n    // vertices, colored by Fiedler value\n    for(let i=0;i<n;i++){\n      const v = fScaled[i];\n      const inS = S[i];\n      const fill = inS ? \"var(--cyan)\" : \"var(--pink)\";\n      svg.appendChild(SVG(\"circle\",{cx:g.pos[i][0],cy:g.pos[i][1],r:14,fill,stroke: inS ? \"var(--cyan)\" : \"var(--pink)\",\"stroke-width\":2}));\n      const tx = SVG(\"text\",{x:g.pos[i][0],y:g.pos[i][1]+4,\"text-anchor\":\"middle\",\"font-size\":11,fill:\"#111\",\"font-weight\":700});\n      tx.textContent = v.toFixed(2); svg.appendChild(tx);\n    }\n    // legend\n    const tx = SVG(\"text\",{x:20,y:20,\"font-size\":12,fill:\"var(--mute)\"});\n    tx.textContent = \"Fiedler value · cyan = below threshold (S)\";\n    svg.appendChild(tx);\n    out.textContent = `threshold = ${tval.toFixed(2)}    |S| = ${sIn}    |E(S, S̄)| = ${cut}    ratio |E(S,S̄)|/(d·|S|) = ${ratio.toFixed(3)}    λ₂(ℒ) = ${eigs[1].toFixed(3)}    √(2λ₂) = ${Math.sqrt(2*Math.max(0,eigs[1])).toFixed(3)}`;\n  }\n  gSel.addEventListener(\"change\", redraw);\n  thr.addEventListener(\"input\", redraw);\n  redraw();\n})();\n</script>"
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "multi-mode",
+            "widgetId": "w-cheeger",
+            "svgId": "ch-svg",
+            "outputId": "ch-out",
+            "title": "Cheeger ratio visualizer",
+            "hint": "slide threshold on the Fiedler vector · watch the cut",
+            "viewBox": "0 0 720 280",
+            "svgWidth": 720,
+            "svgHeight": 280,
+            "svgTitle": "Cheeger ratio visualizer",
+            "pick": {
+              "id": "ch-graph",
+              "label": "graph:",
+              "options": [
+                {
+                  "value": "dumbbell",
+                  "label": "dumbbell (two $K_5$ joined by an edge)",
+                  "selected": true
+                },
+                {
+                  "value": "path6",
+                  "label": "path $P_6$"
+                },
+                {
+                  "value": "cycle8",
+                  "label": "cycle $C_8$"
+                }
+              ]
+            },
+            "sliders": [
+              {
+                "id": "ch-thresh",
+                "label": "threshold:",
+                "min": -1,
+                "max": 1,
+                "step": 0.02,
+                "init": 0
+              }
+            ],
+            "modes": {
+              "dumbbell": {},
+              "path6": {},
+              "cycle8": {}
+            },
+            "initialMode": "dumbbell",
+            "bodyScript": "  const svg = $(\"#ch-svg\"), out = $(\"#ch-out\");\n  const gSel = $(\"#ch-graph\"), thr = $(\"#ch-thresh\");\n  const W=720, H=280;\n  const LIB = {\n    \"dumbbell\": (function(){\n      const P = [];\n      const cL=[200,140], cR=[520,140], r=70;\n      for(let k=0;k<5;k++){ const a=-Math.PI/2 + 2*Math.PI*k/5; P.push([cL[0]+r*Math.cos(a), cL[1]+r*Math.sin(a)]); }\n      for(let k=0;k<5;k++){ const a=-Math.PI/2 + 2*Math.PI*k/5; P.push([cR[0]+r*Math.cos(a), cR[1]+r*Math.sin(a)]); }\n      const E=[];\n      for(let i=0;i<5;i++) for(let j=i+1;j<5;j++) E.push([i,j]);\n      for(let i=5;i<10;i++) for(let j=i+1;j<10;j++) E.push([i,j]);\n      E.push([1,6]); // bridge\n      return {pos:P, edges:E};\n    })(),\n    \"path6\": (function(){\n      const P=[]; for(let i=0;i<6;i++) P.push([100+i*100,140]);\n      const E=[]; for(let i=0;i<5;i++) E.push([i,i+1]);\n      return {pos:P, edges:E};\n    })(),\n    \"cycle8\": (function(){\n      const c=[360,140], r=110, P=[];\n      for(let k=0;k<8;k++){ const a=-Math.PI/2 + 2*Math.PI*k/8; P.push([c[0]+r*Math.cos(a), c[1]+r*Math.sin(a)]); }\n      const E=[]; for(let i=0;i<8;i++) E.push([i,(i+1)%8]);\n      return {pos:P, edges:E};\n    })()\n  };\n  // small Jacobi eigensolver for the (regularized) normalized adjacency\n  function jacobi(A0){\n    const n = A0.length;\n    const A = A0.map(r=>r.slice());\n    const V = Array.from({length:n},(_,i)=>Array.from({length:n},(_,j)=>i===j?1:0));\n    for(let it=0;it<200;it++){\n      let p=0,q=1,off=Math.abs(A[0][1]);\n      for(let i=0;i<n;i++) for(let j=i+1;j<n;j++){ if(Math.abs(A[i][j])>off){off=Math.abs(A[i][j]); p=i; q=j;} }\n      if(off<1e-11) break;\n      const app=A[p][p], aqq=A[q][q], apq=A[p][q];\n      const theta=(aqq-app)/(2*apq);\n      const t=(theta>=0?1:-1)/(Math.abs(theta)+Math.sqrt(theta*theta+1));\n      const c=1/Math.sqrt(1+t*t), s=t*c;\n      A[p][p]=app-t*apq; A[q][q]=aqq+t*apq; A[p][q]=0; A[q][p]=0;\n      for(let i=0;i<n;i++){\n        if(i!==p && i!==q){\n          const aip=A[i][p], aiq=A[i][q];\n          A[i][p]=c*aip-s*aiq; A[p][i]=A[i][p];\n          A[i][q]=s*aip+c*aiq; A[q][i]=A[i][q];\n        }\n      }\n      for(let i=0;i<n;i++){\n        const vip=V[i][p], viq=V[i][q];\n        V[i][p]=c*vip-s*viq; V[i][q]=s*vip+c*viq;\n      }\n    }\n    const idx = Array.from({length:n},(_,i)=>i).sort((a,b)=>A[a][a]-A[b][b]);\n    return {eigs: idx.map(i=>A[i][i]), vecs: idx.map(i=>V.map(row=>row[i]))};\n  }\n  function redraw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const t = SVG(\"title\"); t.textContent = \"Cheeger ratio visualizer\"; svg.appendChild(t);\n    const g = LIB[gSel.value];\n    const n = g.pos.length;\n    const A = Array.from({length:n},()=>Array(n).fill(0));\n    const deg = new Array(n).fill(0);\n    for(const [a,b] of g.edges){ A[a][b]=1; A[b][a]=1; deg[a]++; deg[b]++; }\n    // build symmetric normalized Laplacian L = I - D^{-1/2} A D^{-1/2}\n    const L = Array.from({length:n},()=>Array(n).fill(0));\n    for(let i=0;i<n;i++) for(let j=0;j<n;j++){\n      if(i===j) L[i][j] = deg[i] > 0 ? 1 : 0;\n      else if(deg[i]>0 && deg[j]>0) L[i][j] = -A[i][j]/Math.sqrt(deg[i]*deg[j]);\n    }\n    const {eigs, vecs} = jacobi(L);\n    // Fiedler is second-smallest\n    const fiedler = vecs[1];\n    // normalize by sqrt(deg) to get the actual Fiedler vector\n    const f = fiedler.map((x,i)=> deg[i]>0 ? x/Math.sqrt(deg[i]) : 0);\n    // recenter & rescale to [-1,1]\n    let mn=Infinity, mx=-Infinity;\n    for(const v of f){ if(v<mn) mn=v; if(v>mx) mx=v; }\n    const span = Math.max(1e-9, mx - mn);\n    const fScaled = f.map(v => 2*(v - mn)/span - 1);\n    // threshold cut\n    const tval = parseFloat(thr.value);\n    const S = fScaled.map(v => v <= tval);\n    // count cut edges\n    let cut = 0, sIn = 0;\n    for(let i=0;i<n;i++) if(S[i]) sIn++;\n    for(const [a,b] of g.edges){ if(S[a] !== S[b]) cut++; }\n    const dAvg = g.edges.length * 2 / n; // average degree\n    const sSize = Math.min(sIn, n - sIn);\n    const ratio = sSize > 0 ? cut / (dAvg * sSize) : 0;\n    // edges\n    for(const [a,b] of g.edges){\n      const isCut = S[a] !== S[b];\n      svg.appendChild(SVG(\"line\",{x1:g.pos[a][0],y1:g.pos[a][1],x2:g.pos[b][0],y2:g.pos[b][1],\n        stroke: isCut ? \"var(--yellow)\" : \"var(--line)\", \"stroke-width\": isCut ? 2.5 : 1.5}));\n    }\n    // vertices, colored by Fiedler value\n    for(let i=0;i<n;i++){\n      const v = fScaled[i];\n      const inS = S[i];\n      const fill = inS ? \"var(--cyan)\" : \"var(--pink)\";\n      svg.appendChild(SVG(\"circle\",{cx:g.pos[i][0],cy:g.pos[i][1],r:14,fill,stroke: inS ? \"var(--cyan)\" : \"var(--pink)\",\"stroke-width\":2}));\n      const tx = SVG(\"text\",{x:g.pos[i][0],y:g.pos[i][1]+4,\"text-anchor\":\"middle\",\"font-size\":11,fill:\"#111\",\"font-weight\":700});\n      tx.textContent = v.toFixed(2); svg.appendChild(tx);\n    }\n    // legend\n    const tx = SVG(\"text\",{x:20,y:20,\"font-size\":12,fill:\"var(--mute)\"});\n    tx.textContent = \"Fiedler value · cyan = below threshold (S)\";\n    svg.appendChild(tx);\n    out.textContent = `threshold = ${tval.toFixed(2)}    |S| = ${sIn}    |E(S, S̄)| = ${cut}    ratio |E(S,S̄)|/(d·|S|) = ${ratio.toFixed(3)}    λ₂(ℒ) = ${eigs[1].toFixed(3)}    √(2λ₂) = ${Math.sqrt(2*Math.max(0,eigs[1])).toFixed(3)}`;\n  }\n  gSel.addEventListener(\"change\", redraw);\n  thr.addEventListener(\"input\", redraw);\n  redraw();"
+          }
         },
         {
           "type": "raw",
@@ -188,9 +515,50 @@
         },
         {
           "type": "widget",
-          "id": "w-mix",
-          "html": "<div class=\"widget\" id=\"w-mix\">\n  <div class=\"hd\"><div class=\"ttl\">Mixing on an expander vs. a cycle</div><div class=\"hint\">step the walk · expander forgets fast</div></div>\n  <div class=\"row\">\n    <button id=\"mix-step\">step</button>\n    <button id=\"mix-reset\">reset</button>\n    <label for=\"mix-graph\">graph:</label>\n    <select id=\"mix-graph\">\n      <option value=\"cycle\">cycle $C_{20}$ (no gap)</option>\n      <option value=\"expander\" selected>3-regular expander (random)</option>\n    </select>\n  </div>\n  <svg id=\"mix-svg\" viewBox=\"0 0 720 280\" width=\"720\" height=\"280\"><title>Mixing comparison</title></svg>\n  <div class=\"readout\" id=\"mix-out\"></div>\n</div>",
-          "script": null
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "multi-mode",
+            "widgetId": "w-mix",
+            "svgId": "mix-svg",
+            "outputId": "mix-out",
+            "title": "Mixing on an expander vs. a cycle",
+            "hint": "step the walk · expander forgets fast",
+            "viewBox": "0 0 720 280",
+            "svgWidth": 720,
+            "svgHeight": 280,
+            "svgTitle": "Mixing comparison",
+            "pick": {
+              "id": "mix-graph",
+              "label": "graph:",
+              "options": [
+                {
+                  "value": "cycle",
+                  "label": "cycle $C_{20}$ (no gap)"
+                },
+                {
+                  "value": "expander",
+                  "label": "3-regular expander (random)",
+                  "selected": true
+                }
+              ]
+            },
+            "buttons": [
+              {
+                "id": "mix-step",
+                "label": "step"
+              },
+              {
+                "id": "mix-reset",
+                "label": "reset"
+              }
+            ],
+            "modes": {
+              "cycle": {},
+              "expander": {}
+            },
+            "initialMode": "expander",
+            "bodyScript": "  const svg = $(\"#mix-svg\"), out = $(\"#mix-out\");\n  const stepBtn = $(\"#mix-step\"), resetBtn = $(\"#mix-reset\"), gSel = $(\"#mix-graph\");\n  const W=720, H=280;\n  let n = 20;\n  let P = null;\n  let dist = null;\n  let t = 0;\n  function buildCycle(n){\n    const M = Array.from({length:n},()=>Array(n).fill(0));\n    for(let i=0;i<n;i++){ M[i][(i+1)%n] = 0.5; M[i][(i-1+n)%n] = 0.5; }\n    return M;\n  }\n  function buildExpander(n){\n    // random 3-regular via random matching unions; deterministic seed for reproducibility\n    const M = Array.from({length:n},()=>Array(n).fill(0));\n    function matching(){\n      const perm = Array.from({length:n},(_,i)=>i);\n      // pseudo-random shuffle\n      for(let i=n-1;i>0;i--){\n        const j = Math.floor(Math.random()*(i+1));\n        [perm[i], perm[j]] = [perm[j], perm[i]];\n      }\n      const E = [];\n      for(let i=0;i<n;i+=2) E.push([perm[i], perm[i+1]]);\n      return E;\n    }\n    for(let r=0;r<3;r++){\n      const E = matching();\n      for(const [a,b] of E){ if(a!==b){ M[a][b] = 1/3; M[b][a] = 1/3; } }\n    }\n    // ensure rows sum to 1 (approximately) — fix any degenerate rows\n    for(let i=0;i<n;i++){\n      let s = 0;\n      for(let j=0;j<n;j++) s += M[i][j];\n      if(s < 0.01){ M[i][i] = 1; }\n      else if(Math.abs(s-1) > 0.01){ for(let j=0;j<n;j++) M[i][j] /= s; }\n    }\n    return M;\n  }\n  function reset(){\n    n = 20;\n    if(gSel.value === \"cycle\") P = buildCycle(n);\n    else P = buildExpander(n);\n    dist = new Array(n).fill(0); dist[0] = 1;\n    t = 0;\n    redraw();\n  }\n  function step(){\n    const next = new Array(n).fill(0);\n    for(let i=0;i<n;i++) for(let j=0;j<n;j++) next[j] += dist[i] * P[i][j];\n    dist = next;\n    t++;\n    redraw();\n  }\n  function redraw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const tt = SVG(\"title\"); tt.textContent = \"Mixing comparison\"; svg.appendChild(tt);\n    const padL = 60, padR = 30, padT = 30, padB = 50;\n    const gw = W - padL - padR, gh = H - padT - padB;\n    const bw = gw / n;\n    const uniform = 1/n;\n    const maxBar = Math.max(uniform * 2.5, ...dist);\n    // bars\n    for(let i=0;i<n;i++){\n      const h = (dist[i] / maxBar) * gh;\n      const x = padL + i*bw + 1, y = padT + (gh - h);\n      svg.appendChild(SVG(\"rect\",{x,y,width:Math.max(2,bw-2),height:h,fill:i===0?\"var(--yellow)\":\"var(--cyan)\",opacity:0.85}));\n    }\n    // uniform line\n    const yU = padT + gh - (uniform/maxBar)*gh;\n    svg.appendChild(SVG(\"line\",{x1:padL,y1:yU,x2:padL+gw,y2:yU,stroke:\"var(--violet)\",\"stroke-width\":1.5,\"stroke-dasharray\":\"5 4\"}));\n    // axis\n    svg.appendChild(SVG(\"line\",{x1:padL,y1:padT+gh,x2:padL+gw,y2:padT+gh,stroke:\"var(--mute)\"}));\n    const lbl = SVG(\"text\",{x:padL,y:20,\"font-size\":12,fill:\"var(--mute)\"});\n    lbl.textContent = \"P^t(x_0, ·)   (yellow = start vertex; violet dashed = uniform)\";\n    svg.appendChild(lbl);\n    // tv distance\n    let tv = 0;\n    for(let i=0;i<n;i++) tv += Math.abs(dist[i] - uniform);\n    tv /= 2;\n    out.textContent = `t = ${t}    ‖P^t(x_0, ·) − π‖_TV = ${tv.toFixed(4)}`;\n  }\n  stepBtn.addEventListener(\"click\", step);\n  resetBtn.addEventListener(\"click\", reset);\n  gSel.addEventListener(\"change\", reset);\n  reset();"
+          }
         },
         {
           "type": "raw",
@@ -211,8 +579,50 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-mix",
-          "html": "<script>\n(function(){\n  const svg = $(\"#mix-svg\"), out = $(\"#mix-out\");\n  const stepBtn = $(\"#mix-step\"), resetBtn = $(\"#mix-reset\"), gSel = $(\"#mix-graph\");\n  const W=720, H=280;\n  let n = 20;\n  let P = null;\n  let dist = null;\n  let t = 0;\n  function buildCycle(n){\n    const M = Array.from({length:n},()=>Array(n).fill(0));\n    for(let i=0;i<n;i++){ M[i][(i+1)%n] = 0.5; M[i][(i-1+n)%n] = 0.5; }\n    return M;\n  }\n  function buildExpander(n){\n    // random 3-regular via random matching unions; deterministic seed for reproducibility\n    const M = Array.from({length:n},()=>Array(n).fill(0));\n    function matching(){\n      const perm = Array.from({length:n},(_,i)=>i);\n      // pseudo-random shuffle\n      for(let i=n-1;i>0;i--){\n        const j = Math.floor(Math.random()*(i+1));\n        [perm[i], perm[j]] = [perm[j], perm[i]];\n      }\n      const E = [];\n      for(let i=0;i<n;i+=2) E.push([perm[i], perm[i+1]]);\n      return E;\n    }\n    for(let r=0;r<3;r++){\n      const E = matching();\n      for(const [a,b] of E){ if(a!==b){ M[a][b] = 1/3; M[b][a] = 1/3; } }\n    }\n    // ensure rows sum to 1 (approximately) — fix any degenerate rows\n    for(let i=0;i<n;i++){\n      let s = 0;\n      for(let j=0;j<n;j++) s += M[i][j];\n      if(s < 0.01){ M[i][i] = 1; }\n      else if(Math.abs(s-1) > 0.01){ for(let j=0;j<n;j++) M[i][j] /= s; }\n    }\n    return M;\n  }\n  function reset(){\n    n = 20;\n    if(gSel.value === \"cycle\") P = buildCycle(n);\n    else P = buildExpander(n);\n    dist = new Array(n).fill(0); dist[0] = 1;\n    t = 0;\n    redraw();\n  }\n  function step(){\n    const next = new Array(n).fill(0);\n    for(let i=0;i<n;i++) for(let j=0;j<n;j++) next[j] += dist[i] * P[i][j];\n    dist = next;\n    t++;\n    redraw();\n  }\n  function redraw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const tt = SVG(\"title\"); tt.textContent = \"Mixing comparison\"; svg.appendChild(tt);\n    const padL = 60, padR = 30, padT = 30, padB = 50;\n    const gw = W - padL - padR, gh = H - padT - padB;\n    const bw = gw / n;\n    const uniform = 1/n;\n    const maxBar = Math.max(uniform * 2.5, ...dist);\n    // bars\n    for(let i=0;i<n;i++){\n      const h = (dist[i] / maxBar) * gh;\n      const x = padL + i*bw + 1, y = padT + (gh - h);\n      svg.appendChild(SVG(\"rect\",{x,y,width:Math.max(2,bw-2),height:h,fill:i===0?\"var(--yellow)\":\"var(--cyan)\",opacity:0.85}));\n    }\n    // uniform line\n    const yU = padT + gh - (uniform/maxBar)*gh;\n    svg.appendChild(SVG(\"line\",{x1:padL,y1:yU,x2:padL+gw,y2:yU,stroke:\"var(--violet)\",\"stroke-width\":1.5,\"stroke-dasharray\":\"5 4\"}));\n    // axis\n    svg.appendChild(SVG(\"line\",{x1:padL,y1:padT+gh,x2:padL+gw,y2:padT+gh,stroke:\"var(--mute)\"}));\n    const lbl = SVG(\"text\",{x:padL,y:20,\"font-size\":12,fill:\"var(--mute)\"});\n    lbl.textContent = \"P^t(x_0, ·)   (yellow = start vertex; violet dashed = uniform)\";\n    svg.appendChild(lbl);\n    // tv distance\n    let tv = 0;\n    for(let i=0;i<n;i++) tv += Math.abs(dist[i] - uniform);\n    tv /= 2;\n    out.textContent = `t = ${t}    ‖P^t(x_0, ·) − π‖_TV = ${tv.toFixed(4)}`;\n  }\n  stepBtn.addEventListener(\"click\", step);\n  resetBtn.addEventListener(\"click\", reset);\n  gSel.addEventListener(\"change\", reset);\n  reset();\n})();\n</script>"
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "multi-mode",
+            "widgetId": "w-mix",
+            "svgId": "mix-svg",
+            "outputId": "mix-out",
+            "title": "Mixing on an expander vs. a cycle",
+            "hint": "step the walk · expander forgets fast",
+            "viewBox": "0 0 720 280",
+            "svgWidth": 720,
+            "svgHeight": 280,
+            "svgTitle": "Mixing comparison",
+            "pick": {
+              "id": "mix-graph",
+              "label": "graph:",
+              "options": [
+                {
+                  "value": "cycle",
+                  "label": "cycle $C_{20}$ (no gap)"
+                },
+                {
+                  "value": "expander",
+                  "label": "3-regular expander (random)",
+                  "selected": true
+                }
+              ]
+            },
+            "buttons": [
+              {
+                "id": "mix-step",
+                "label": "step"
+              },
+              {
+                "id": "mix-reset",
+                "label": "reset"
+              }
+            ],
+            "modes": {
+              "cycle": {},
+              "expander": {}
+            },
+            "initialMode": "expander",
+            "bodyScript": "  const svg = $(\"#mix-svg\"), out = $(\"#mix-out\");\n  const stepBtn = $(\"#mix-step\"), resetBtn = $(\"#mix-reset\"), gSel = $(\"#mix-graph\");\n  const W=720, H=280;\n  let n = 20;\n  let P = null;\n  let dist = null;\n  let t = 0;\n  function buildCycle(n){\n    const M = Array.from({length:n},()=>Array(n).fill(0));\n    for(let i=0;i<n;i++){ M[i][(i+1)%n] = 0.5; M[i][(i-1+n)%n] = 0.5; }\n    return M;\n  }\n  function buildExpander(n){\n    // random 3-regular via random matching unions; deterministic seed for reproducibility\n    const M = Array.from({length:n},()=>Array(n).fill(0));\n    function matching(){\n      const perm = Array.from({length:n},(_,i)=>i);\n      // pseudo-random shuffle\n      for(let i=n-1;i>0;i--){\n        const j = Math.floor(Math.random()*(i+1));\n        [perm[i], perm[j]] = [perm[j], perm[i]];\n      }\n      const E = [];\n      for(let i=0;i<n;i+=2) E.push([perm[i], perm[i+1]]);\n      return E;\n    }\n    for(let r=0;r<3;r++){\n      const E = matching();\n      for(const [a,b] of E){ if(a!==b){ M[a][b] = 1/3; M[b][a] = 1/3; } }\n    }\n    // ensure rows sum to 1 (approximately) — fix any degenerate rows\n    for(let i=0;i<n;i++){\n      let s = 0;\n      for(let j=0;j<n;j++) s += M[i][j];\n      if(s < 0.01){ M[i][i] = 1; }\n      else if(Math.abs(s-1) > 0.01){ for(let j=0;j<n;j++) M[i][j] /= s; }\n    }\n    return M;\n  }\n  function reset(){\n    n = 20;\n    if(gSel.value === \"cycle\") P = buildCycle(n);\n    else P = buildExpander(n);\n    dist = new Array(n).fill(0); dist[0] = 1;\n    t = 0;\n    redraw();\n  }\n  function step(){\n    const next = new Array(n).fill(0);\n    for(let i=0;i<n;i++) for(let j=0;j<n;j++) next[j] += dist[i] * P[i][j];\n    dist = next;\n    t++;\n    redraw();\n  }\n  function redraw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const tt = SVG(\"title\"); tt.textContent = \"Mixing comparison\"; svg.appendChild(tt);\n    const padL = 60, padR = 30, padT = 30, padB = 50;\n    const gw = W - padL - padR, gh = H - padT - padB;\n    const bw = gw / n;\n    const uniform = 1/n;\n    const maxBar = Math.max(uniform * 2.5, ...dist);\n    // bars\n    for(let i=0;i<n;i++){\n      const h = (dist[i] / maxBar) * gh;\n      const x = padL + i*bw + 1, y = padT + (gh - h);\n      svg.appendChild(SVG(\"rect\",{x,y,width:Math.max(2,bw-2),height:h,fill:i===0?\"var(--yellow)\":\"var(--cyan)\",opacity:0.85}));\n    }\n    // uniform line\n    const yU = padT + gh - (uniform/maxBar)*gh;\n    svg.appendChild(SVG(\"line\",{x1:padL,y1:yU,x2:padL+gw,y2:yU,stroke:\"var(--violet)\",\"stroke-width\":1.5,\"stroke-dasharray\":\"5 4\"}));\n    // axis\n    svg.appendChild(SVG(\"line\",{x1:padL,y1:padT+gh,x2:padL+gw,y2:padT+gh,stroke:\"var(--mute)\"}));\n    const lbl = SVG(\"text\",{x:padL,y:20,\"font-size\":12,fill:\"var(--mute)\"});\n    lbl.textContent = \"P^t(x_0, ·)   (yellow = start vertex; violet dashed = uniform)\";\n    svg.appendChild(lbl);\n    // tv distance\n    let tv = 0;\n    for(let i=0;i<n;i++) tv += Math.abs(dist[i] - uniform);\n    tv /= 2;\n    out.textContent = `t = ${t}    ‖P^t(x_0, ·) − π‖_TV = ${tv.toFixed(4)}`;\n  }\n  stepBtn.addEventListener(\"click\", step);\n  resetBtn.addEventListener(\"click\", reset);\n  gSel.addEventListener(\"change\", reset);\n  reset();"
+          }
         },
         {
           "type": "raw",
@@ -229,9 +639,50 @@
         },
         {
           "type": "widget",
-          "id": "w-ram",
-          "html": "<div class=\"widget\" id=\"w-ram\">\n  <div class=\"hd\"><div class=\"ttl\">Ramanujan eigenvalue check</div><div class=\"hint\">slide $d$ · compare a graph's $\\lambda_2$ to $2\\sqrt{d-1}$</div></div>\n  <div class=\"row\">\n    <label for=\"ram-graph\">graph:</label>\n    <select id=\"ram-graph\">\n      <option value=\"petersen\" selected>Petersen ($d=3$)</option>\n      <option value=\"cycle\">cycle $C_{12}$ ($d=2$)</option>\n      <option value=\"hypercube4\">hypercube $Q_4$ ($d=4$)</option>\n      <option value=\"random3\">random 3-regular ($n=20$)</option>\n    </select>\n  </div>\n  <svg id=\"ram-svg\" viewBox=\"0 0 720 220\" width=\"720\" height=\"220\"><title>Ramanujan eigenvalue check</title></svg>\n  <div class=\"readout\" id=\"ram-out\"></div>\n</div>",
-          "script": null
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "multi-mode",
+            "widgetId": "w-ram",
+            "svgId": "ram-svg",
+            "outputId": "ram-out",
+            "title": "Ramanujan eigenvalue check",
+            "hint": "slide $d$ · compare a graph's $\\lambda_2$ to $2\\sqrt{d-1}$",
+            "viewBox": "0 0 720 220",
+            "svgWidth": 720,
+            "svgHeight": 220,
+            "svgTitle": "Ramanujan eigenvalue check",
+            "pick": {
+              "id": "ram-graph",
+              "label": "graph:",
+              "options": [
+                {
+                  "value": "petersen",
+                  "label": "Petersen ($d=3$)",
+                  "selected": true
+                },
+                {
+                  "value": "cycle",
+                  "label": "cycle $C_{12}$ ($d=2$)"
+                },
+                {
+                  "value": "hypercube4",
+                  "label": "hypercube $Q_4$ ($d=4$)"
+                },
+                {
+                  "value": "random3",
+                  "label": "random 3-regular ($n=20$)"
+                }
+              ]
+            },
+            "modes": {
+              "petersen": {},
+              "cycle": {},
+              "hypercube4": {},
+              "random3": {}
+            },
+            "initialMode": "petersen",
+            "bodyScript": "  const svg = $(\"#ram-svg\"), out = $(\"#ram-out\");\n  const gSel = $(\"#ram-graph\");\n  const W=720, H=220;\n  function jacobi(A0){\n    const n = A0.length;\n    const A = A0.map(r=>r.slice());\n    const V = Array.from({length:n},(_,i)=>Array.from({length:n},(_,j)=>i===j?1:0));\n    for(let it=0;it<200;it++){\n      let p=0,q=1,off=Math.abs(A[0][1]);\n      for(let i=0;i<n;i++) for(let j=i+1;j<n;j++){ if(Math.abs(A[i][j])>off){off=Math.abs(A[i][j]); p=i; q=j;} }\n      if(off<1e-11) break;\n      const app=A[p][p], aqq=A[q][q], apq=A[p][q];\n      const theta=(aqq-app)/(2*apq);\n      const t=(theta>=0?1:-1)/(Math.abs(theta)+Math.sqrt(theta*theta+1));\n      const c=1/Math.sqrt(1+t*t), s=t*c;\n      A[p][p]=app-t*apq; A[q][q]=aqq+t*apq; A[p][q]=0; A[q][p]=0;\n      for(let i=0;i<n;i++){\n        if(i!==p && i!==q){\n          const aip=A[i][p], aiq=A[i][q];\n          A[i][p]=c*aip-s*aiq; A[p][i]=A[i][p];\n          A[i][q]=s*aip+c*aiq; A[q][i]=A[i][q];\n        }\n      }\n      for(let i=0;i<n;i++){\n        const vip=V[i][p], viq=V[i][q];\n        V[i][p]=c*vip-s*viq; V[i][q]=s*vip+c*viq;\n      }\n    }\n    return Array.from({length:n},(_,i)=>A[i][i]).sort((a,b)=>b-a);\n  }\n  function buildA(name){\n    let n, edges;\n    if(name === \"petersen\"){\n      n = 10;\n      edges = [[0,1],[1,2],[2,3],[3,4],[4,0],[5,7],[7,9],[9,6],[6,8],[8,5],[0,5],[1,6],[2,7],[3,8],[4,9]];\n    }\n    else if(name === \"cycle\"){\n      n = 12;\n      edges = [];\n      for(let i=0;i<12;i++) edges.push([i,(i+1)%12]);\n    }\n    else if(name === \"hypercube4\"){\n      n = 16;\n      edges = [];\n      for(let i=0;i<16;i++) for(let j=i+1;j<16;j++){\n        const xor = i ^ j;\n        if(xor && (xor & (xor-1)) === 0) edges.push([i,j]);\n      }\n    }\n    else { // random 3-regular\n      n = 20;\n      edges = [];\n      // simple ring + matching for guaranteed 3-regularity\n      for(let i=0;i<n;i++) edges.push([i,(i+1)%n]);\n      // pair opposite vertices\n      for(let i=0;i<n/2;i++) edges.push([i, i+n/2]);\n    }\n    const A = Array.from({length:n},()=>Array(n).fill(0));\n    let deg = 0;\n    for(const [a,b] of edges){ A[a][b]=1; A[b][a]=1; }\n    for(let j=0;j<n;j++) deg += A[0][j];\n    return {A, d: deg, n};\n  }\n  function redraw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const t = SVG(\"title\"); t.textContent = \"Ramanujan eigenvalue check\"; svg.appendChild(t);\n    const {A, d, n} = buildA(gSel.value);\n    const evs = jacobi(A);\n    // axis from -d to d\n    const xL = 60, xR = W - 40, y0 = H/2 + 20;\n    const xOf = v => xL + (v + d)/(2*d) * (xR - xL);\n    const ramR = 2*Math.sqrt(Math.max(1, d - 1));\n    // shaded ramanujan band\n    svg.appendChild(SVG(\"rect\",{x:xOf(-ramR),y:y0-30,width:xOf(ramR)-xOf(-ramR),height:60,fill:\"var(--yellow)\",opacity:0.15}));\n    // axis line + ticks\n    svg.appendChild(SVG(\"line\",{x1:xL,y1:y0,x2:xR,y2:y0,stroke:\"var(--mute)\",\"stroke-width\":1.5}));\n    for(let v=-d; v<=d; v++){\n      const x = xOf(v);\n      svg.appendChild(SVG(\"line\",{x1:x,y1:y0-4,x2:x,y2:y0+4,stroke:\"var(--mute)\"}));\n      if(v===-d || v===d || v===0){\n        const tx = SVG(\"text\",{x,y:y0+22,\"text-anchor\":\"middle\",\"font-size\":11,fill:\"var(--mute)\"});\n        tx.textContent = String(v); svg.appendChild(tx);\n      }\n    }\n    // band labels\n    const lL = SVG(\"text\",{x:xOf(-ramR),y:y0-38,\"text-anchor\":\"middle\",\"font-size\":11,fill:\"var(--yellow)\"});\n    lL.textContent = \"−2√(d−1)\"; svg.appendChild(lL);\n    const lR = SVG(\"text\",{x:xOf(ramR),y:y0-38,\"text-anchor\":\"middle\",\"font-size\":11,fill:\"var(--yellow)\"});\n    lR.textContent = \"+2√(d−1)\"; svg.appendChild(lR);\n    // eigenvalue dots\n    let lambda2 = -Infinity, isRam = true;\n    for(let i=0;i<evs.length;i++){\n      const v = evs[i];\n      const trivial = (Math.abs(v - d) < 1e-6) || (Math.abs(v + d) < 1e-6 && i === evs.length-1);\n      const x = xOf(v);\n      const yy = y0 - 4 - (i%6)*5;\n      const color = trivial ? \"var(--green)\" : (Math.abs(v) <= ramR + 1e-6 ? \"var(--cyan)\" : \"var(--pink)\");\n      if(!trivial && i > 0){ if(v > lambda2) lambda2 = v; if(Math.abs(v) > ramR + 1e-6) isRam = false; }\n      svg.appendChild(SVG(\"circle\",{cx:x,cy:yy,r:5,fill:color,opacity:0.92}));\n    }\n    const verdict = isRam ? \"Ramanujan ✓\" : \"not Ramanujan\";\n    const tv = SVG(\"text\",{x:20,y:24,\"font-size\":12,fill: isRam ? \"var(--green)\" : \"var(--pink)\",\"font-weight\":600});\n    tv.textContent = verdict; svg.appendChild(tv);\n    out.textContent = `n = ${n}    d = ${d}    λ₂ = ${lambda2.toFixed(4)}    Ramanujan bound 2√(d−1) = ${ramR.toFixed(4)}    ${isRam ? \"all nontrivial eigenvalues lie in the band.\" : \"some eigenvalue exceeds the band.\"}`;\n  }\n  gSel.addEventListener(\"change\", redraw);\n  redraw();"
+          }
         },
         {
           "type": "raw",
@@ -252,8 +703,50 @@
         },
         {
           "type": "widget-script",
-          "forWidget": "w-ram",
-          "html": "<script>\n(function(){\n  const svg = $(\"#ram-svg\"), out = $(\"#ram-out\");\n  const gSel = $(\"#ram-graph\");\n  const W=720, H=220;\n  function jacobi(A0){\n    const n = A0.length;\n    const A = A0.map(r=>r.slice());\n    const V = Array.from({length:n},(_,i)=>Array.from({length:n},(_,j)=>i===j?1:0));\n    for(let it=0;it<200;it++){\n      let p=0,q=1,off=Math.abs(A[0][1]);\n      for(let i=0;i<n;i++) for(let j=i+1;j<n;j++){ if(Math.abs(A[i][j])>off){off=Math.abs(A[i][j]); p=i; q=j;} }\n      if(off<1e-11) break;\n      const app=A[p][p], aqq=A[q][q], apq=A[p][q];\n      const theta=(aqq-app)/(2*apq);\n      const t=(theta>=0?1:-1)/(Math.abs(theta)+Math.sqrt(theta*theta+1));\n      const c=1/Math.sqrt(1+t*t), s=t*c;\n      A[p][p]=app-t*apq; A[q][q]=aqq+t*apq; A[p][q]=0; A[q][p]=0;\n      for(let i=0;i<n;i++){\n        if(i!==p && i!==q){\n          const aip=A[i][p], aiq=A[i][q];\n          A[i][p]=c*aip-s*aiq; A[p][i]=A[i][p];\n          A[i][q]=s*aip+c*aiq; A[q][i]=A[i][q];\n        }\n      }\n      for(let i=0;i<n;i++){\n        const vip=V[i][p], viq=V[i][q];\n        V[i][p]=c*vip-s*viq; V[i][q]=s*vip+c*viq;\n      }\n    }\n    return Array.from({length:n},(_,i)=>A[i][i]).sort((a,b)=>b-a);\n  }\n  function buildA(name){\n    let n, edges;\n    if(name === \"petersen\"){\n      n = 10;\n      edges = [[0,1],[1,2],[2,3],[3,4],[4,0],[5,7],[7,9],[9,6],[6,8],[8,5],[0,5],[1,6],[2,7],[3,8],[4,9]];\n    }\n    else if(name === \"cycle\"){\n      n = 12;\n      edges = [];\n      for(let i=0;i<12;i++) edges.push([i,(i+1)%12]);\n    }\n    else if(name === \"hypercube4\"){\n      n = 16;\n      edges = [];\n      for(let i=0;i<16;i++) for(let j=i+1;j<16;j++){\n        const xor = i ^ j;\n        if(xor && (xor & (xor-1)) === 0) edges.push([i,j]);\n      }\n    }\n    else { // random 3-regular\n      n = 20;\n      edges = [];\n      // simple ring + matching for guaranteed 3-regularity\n      for(let i=0;i<n;i++) edges.push([i,(i+1)%n]);\n      // pair opposite vertices\n      for(let i=0;i<n/2;i++) edges.push([i, i+n/2]);\n    }\n    const A = Array.from({length:n},()=>Array(n).fill(0));\n    let deg = 0;\n    for(const [a,b] of edges){ A[a][b]=1; A[b][a]=1; }\n    for(let j=0;j<n;j++) deg += A[0][j];\n    return {A, d: deg, n};\n  }\n  function redraw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const t = SVG(\"title\"); t.textContent = \"Ramanujan eigenvalue check\"; svg.appendChild(t);\n    const {A, d, n} = buildA(gSel.value);\n    const evs = jacobi(A);\n    // axis from -d to d\n    const xL = 60, xR = W - 40, y0 = H/2 + 20;\n    const xOf = v => xL + (v + d)/(2*d) * (xR - xL);\n    const ramR = 2*Math.sqrt(Math.max(1, d - 1));\n    // shaded ramanujan band\n    svg.appendChild(SVG(\"rect\",{x:xOf(-ramR),y:y0-30,width:xOf(ramR)-xOf(-ramR),height:60,fill:\"var(--yellow)\",opacity:0.15}));\n    // axis line + ticks\n    svg.appendChild(SVG(\"line\",{x1:xL,y1:y0,x2:xR,y2:y0,stroke:\"var(--mute)\",\"stroke-width\":1.5}));\n    for(let v=-d; v<=d; v++){\n      const x = xOf(v);\n      svg.appendChild(SVG(\"line\",{x1:x,y1:y0-4,x2:x,y2:y0+4,stroke:\"var(--mute)\"}));\n      if(v===-d || v===d || v===0){\n        const tx = SVG(\"text\",{x,y:y0+22,\"text-anchor\":\"middle\",\"font-size\":11,fill:\"var(--mute)\"});\n        tx.textContent = String(v); svg.appendChild(tx);\n      }\n    }\n    // band labels\n    const lL = SVG(\"text\",{x:xOf(-ramR),y:y0-38,\"text-anchor\":\"middle\",\"font-size\":11,fill:\"var(--yellow)\"});\n    lL.textContent = \"−2√(d−1)\"; svg.appendChild(lL);\n    const lR = SVG(\"text\",{x:xOf(ramR),y:y0-38,\"text-anchor\":\"middle\",\"font-size\":11,fill:\"var(--yellow)\"});\n    lR.textContent = \"+2√(d−1)\"; svg.appendChild(lR);\n    // eigenvalue dots\n    let lambda2 = -Infinity, isRam = true;\n    for(let i=0;i<evs.length;i++){\n      const v = evs[i];\n      const trivial = (Math.abs(v - d) < 1e-6) || (Math.abs(v + d) < 1e-6 && i === evs.length-1);\n      const x = xOf(v);\n      const yy = y0 - 4 - (i%6)*5;\n      const color = trivial ? \"var(--green)\" : (Math.abs(v) <= ramR + 1e-6 ? \"var(--cyan)\" : \"var(--pink)\");\n      if(!trivial && i > 0){ if(v > lambda2) lambda2 = v; if(Math.abs(v) > ramR + 1e-6) isRam = false; }\n      svg.appendChild(SVG(\"circle\",{cx:x,cy:yy,r:5,fill:color,opacity:0.92}));\n    }\n    const verdict = isRam ? \"Ramanujan ✓\" : \"not Ramanujan\";\n    const tv = SVG(\"text\",{x:20,y:24,\"font-size\":12,fill: isRam ? \"var(--green)\" : \"var(--pink)\",\"font-weight\":600});\n    tv.textContent = verdict; svg.appendChild(tv);\n    out.textContent = `n = ${n}    d = ${d}    λ₂ = ${lambda2.toFixed(4)}    Ramanujan bound 2√(d−1) = ${ramR.toFixed(4)}    ${isRam ? \"all nontrivial eigenvalues lie in the band.\" : \"some eigenvalue exceeds the band.\"}`;\n  }\n  gSel.addEventListener(\"change\", redraw);\n  redraw();\n})();\n</script>"
+          "slug": "parametric-plot",
+          "params": {
+            "interaction": "multi-mode",
+            "widgetId": "w-ram",
+            "svgId": "ram-svg",
+            "outputId": "ram-out",
+            "title": "Ramanujan eigenvalue check",
+            "hint": "slide $d$ · compare a graph's $\\lambda_2$ to $2\\sqrt{d-1}$",
+            "viewBox": "0 0 720 220",
+            "svgWidth": 720,
+            "svgHeight": 220,
+            "svgTitle": "Ramanujan eigenvalue check",
+            "pick": {
+              "id": "ram-graph",
+              "label": "graph:",
+              "options": [
+                {
+                  "value": "petersen",
+                  "label": "Petersen ($d=3$)",
+                  "selected": true
+                },
+                {
+                  "value": "cycle",
+                  "label": "cycle $C_{12}$ ($d=2$)"
+                },
+                {
+                  "value": "hypercube4",
+                  "label": "hypercube $Q_4$ ($d=4$)"
+                },
+                {
+                  "value": "random3",
+                  "label": "random 3-regular ($n=20$)"
+                }
+              ]
+            },
+            "modes": {
+              "petersen": {},
+              "cycle": {},
+              "hypercube4": {},
+              "random3": {}
+            },
+            "initialMode": "petersen",
+            "bodyScript": "  const svg = $(\"#ram-svg\"), out = $(\"#ram-out\");\n  const gSel = $(\"#ram-graph\");\n  const W=720, H=220;\n  function jacobi(A0){\n    const n = A0.length;\n    const A = A0.map(r=>r.slice());\n    const V = Array.from({length:n},(_,i)=>Array.from({length:n},(_,j)=>i===j?1:0));\n    for(let it=0;it<200;it++){\n      let p=0,q=1,off=Math.abs(A[0][1]);\n      for(let i=0;i<n;i++) for(let j=i+1;j<n;j++){ if(Math.abs(A[i][j])>off){off=Math.abs(A[i][j]); p=i; q=j;} }\n      if(off<1e-11) break;\n      const app=A[p][p], aqq=A[q][q], apq=A[p][q];\n      const theta=(aqq-app)/(2*apq);\n      const t=(theta>=0?1:-1)/(Math.abs(theta)+Math.sqrt(theta*theta+1));\n      const c=1/Math.sqrt(1+t*t), s=t*c;\n      A[p][p]=app-t*apq; A[q][q]=aqq+t*apq; A[p][q]=0; A[q][p]=0;\n      for(let i=0;i<n;i++){\n        if(i!==p && i!==q){\n          const aip=A[i][p], aiq=A[i][q];\n          A[i][p]=c*aip-s*aiq; A[p][i]=A[i][p];\n          A[i][q]=s*aip+c*aiq; A[q][i]=A[i][q];\n        }\n      }\n      for(let i=0;i<n;i++){\n        const vip=V[i][p], viq=V[i][q];\n        V[i][p]=c*vip-s*viq; V[i][q]=s*vip+c*viq;\n      }\n    }\n    return Array.from({length:n},(_,i)=>A[i][i]).sort((a,b)=>b-a);\n  }\n  function buildA(name){\n    let n, edges;\n    if(name === \"petersen\"){\n      n = 10;\n      edges = [[0,1],[1,2],[2,3],[3,4],[4,0],[5,7],[7,9],[9,6],[6,8],[8,5],[0,5],[1,6],[2,7],[3,8],[4,9]];\n    }\n    else if(name === \"cycle\"){\n      n = 12;\n      edges = [];\n      for(let i=0;i<12;i++) edges.push([i,(i+1)%12]);\n    }\n    else if(name === \"hypercube4\"){\n      n = 16;\n      edges = [];\n      for(let i=0;i<16;i++) for(let j=i+1;j<16;j++){\n        const xor = i ^ j;\n        if(xor && (xor & (xor-1)) === 0) edges.push([i,j]);\n      }\n    }\n    else { // random 3-regular\n      n = 20;\n      edges = [];\n      // simple ring + matching for guaranteed 3-regularity\n      for(let i=0;i<n;i++) edges.push([i,(i+1)%n]);\n      // pair opposite vertices\n      for(let i=0;i<n/2;i++) edges.push([i, i+n/2]);\n    }\n    const A = Array.from({length:n},()=>Array(n).fill(0));\n    let deg = 0;\n    for(const [a,b] of edges){ A[a][b]=1; A[b][a]=1; }\n    for(let j=0;j<n;j++) deg += A[0][j];\n    return {A, d: deg, n};\n  }\n  function redraw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const t = SVG(\"title\"); t.textContent = \"Ramanujan eigenvalue check\"; svg.appendChild(t);\n    const {A, d, n} = buildA(gSel.value);\n    const evs = jacobi(A);\n    // axis from -d to d\n    const xL = 60, xR = W - 40, y0 = H/2 + 20;\n    const xOf = v => xL + (v + d)/(2*d) * (xR - xL);\n    const ramR = 2*Math.sqrt(Math.max(1, d - 1));\n    // shaded ramanujan band\n    svg.appendChild(SVG(\"rect\",{x:xOf(-ramR),y:y0-30,width:xOf(ramR)-xOf(-ramR),height:60,fill:\"var(--yellow)\",opacity:0.15}));\n    // axis line + ticks\n    svg.appendChild(SVG(\"line\",{x1:xL,y1:y0,x2:xR,y2:y0,stroke:\"var(--mute)\",\"stroke-width\":1.5}));\n    for(let v=-d; v<=d; v++){\n      const x = xOf(v);\n      svg.appendChild(SVG(\"line\",{x1:x,y1:y0-4,x2:x,y2:y0+4,stroke:\"var(--mute)\"}));\n      if(v===-d || v===d || v===0){\n        const tx = SVG(\"text\",{x,y:y0+22,\"text-anchor\":\"middle\",\"font-size\":11,fill:\"var(--mute)\"});\n        tx.textContent = String(v); svg.appendChild(tx);\n      }\n    }\n    // band labels\n    const lL = SVG(\"text\",{x:xOf(-ramR),y:y0-38,\"text-anchor\":\"middle\",\"font-size\":11,fill:\"var(--yellow)\"});\n    lL.textContent = \"−2√(d−1)\"; svg.appendChild(lL);\n    const lR = SVG(\"text\",{x:xOf(ramR),y:y0-38,\"text-anchor\":\"middle\",\"font-size\":11,fill:\"var(--yellow)\"});\n    lR.textContent = \"+2√(d−1)\"; svg.appendChild(lR);\n    // eigenvalue dots\n    let lambda2 = -Infinity, isRam = true;\n    for(let i=0;i<evs.length;i++){\n      const v = evs[i];\n      const trivial = (Math.abs(v - d) < 1e-6) || (Math.abs(v + d) < 1e-6 && i === evs.length-1);\n      const x = xOf(v);\n      const yy = y0 - 4 - (i%6)*5;\n      const color = trivial ? \"var(--green)\" : (Math.abs(v) <= ramR + 1e-6 ? \"var(--cyan)\" : \"var(--pink)\");\n      if(!trivial && i > 0){ if(v > lambda2) lambda2 = v; if(Math.abs(v) > ramR + 1e-6) isRam = false; }\n      svg.appendChild(SVG(\"circle\",{cx:x,cy:yy,r:5,fill:color,opacity:0.92}));\n    }\n    const verdict = isRam ? \"Ramanujan ✓\" : \"not Ramanujan\";\n    const tv = SVG(\"text\",{x:20,y:24,\"font-size\":12,fill: isRam ? \"var(--green)\" : \"var(--pink)\",\"font-weight\":600});\n    tv.textContent = verdict; svg.appendChild(tv);\n    out.textContent = `n = ${n}    d = ${d}    λ₂ = ${lambda2.toFixed(4)}    Ramanujan bound 2√(d−1) = ${ramR.toFixed(4)}    ${isRam ? \"all nontrivial eigenvalues lie in the band.\" : \"some eigenvalue exceeds the band.\"}`;\n  }\n  gSel.addEventListener(\"change\", redraw);\n  redraw();"
+          }
         },
         {
           "type": "raw",

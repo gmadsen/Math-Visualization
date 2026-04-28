@@ -221,6 +221,89 @@
         }
       ]
     },
+    "mt-morse-smale": {
+      "title": "Morse–Smale and transversality",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A pair $(f,g)$ on $M$ (Morse function plus Riemannian metric) is called Morse–Smale when, for every two critical points $p\\ne q$,",
+          "choices": [
+            "$W^u(p)\\cap W^s(q) = \\emptyset$ always",
+            "$W^u(p)$ and $W^s(q)$ intersect transversally inside $M$",
+            "$\\ind(p) = \\ind(q)$ implies $p = q$",
+            "the Hessians at $p$ and $q$ commute"
+          ],
+          "answer": 1,
+          "hint": "Transversality of stable and unstable manifolds is the defining condition.",
+          "explain": "Morse–Smale: $W^u(p)\\pitchfork W^s(q)$ for every distinct pair of critical points. Equivalently, $T_xW^u(p) + T_xW^s(q) = T_xM$ at every intersection $x$. Smale showed that for any Morse $f$, the set of metrics making $(f,g)$ Morse–Smale is open and dense in the $C^\\infty$ topology."
+        },
+        {
+          "type": "numeric",
+          "q": "If $\\ind(p) = 3$ and $\\ind(q) = 1$ and $(f,g)$ is Morse–Smale on a closed manifold, what is the dimension of the moduli space $\\mathcal{M}(p,q)/\\mathbb{R}$ of unparameterised gradient trajectories from $p$ to $q$?",
+          "answer": 1,
+          "tol": 0,
+          "hint": "Dimension formula: $\\ind(p) - \\ind(q) - 1$.",
+          "explain": "The unparameterised moduli space has dimension $\\ind(p)-\\ind(q)-1$. With indices $3$ and $1$, the dimension is $3-1-1 = 1$ — a 1-manifold whose ends are broken trajectories through an intermediate index-$2$ critical point."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does the Morse boundary $\\partial$ count only trajectories from index-$k$ to index-$(k-1)$ critical points (not index-$(k-2)$ etc.)?",
+          "choices": [
+            "It is an arbitrary convention.",
+            "Only consecutive-index moduli spaces are 0-dimensional, so the count is finite and signed.",
+            "Higher-difference trajectories don't exist generically.",
+            "Trajectories between non-consecutive indices are non-orientable."
+          ],
+          "answer": 1,
+          "hint": "Dimension of $\\mathcal{M}(p,q)/\\mathbb{R}$ is $\\ind(p)-\\ind(q)-1$.",
+          "explain": "When $\\ind(p)-\\ind(q) = 1$, the moduli space is $0$-dimensional (a finite set of points to count); for $\\ind(p)-\\ind(q) > 1$ it is positive-dimensional and there is no 'count'. Broken trajectories of total drop $1$ form the boundary of the $1$-dimensional moduli for drop $2$, which is exactly what gives $\\partial^2=0$."
+        }
+      ]
+    },
+    "mt-cerf-theory": {
+      "title": "Cerf theory and wall-crossing",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Consider the 1-parameter family $f_t(x) = x^3 - tx$ on $\\mathbb{R}$. For which values of $t$ is $f_t$ a Morse function?",
+          "choices": [
+            "All $t$",
+            "Only $t = 0$",
+            "All $t \\ne 0$",
+            "Only $t > 0$"
+          ],
+          "answer": 2,
+          "hint": "Compute $f'_t(x) = 3x^2 - t$ and check when its zeros are non-degenerate.",
+          "explain": "Critical points solve $3x^2 = t$. For $t>0$ there are two: $x = \\pm\\sqrt{t/3}$, with $f''_t = 6x \\ne 0$ — both non-degenerate. For $t<0$ there are no real critical points (vacuously Morse). At $t=0$ the only critical point is $x=0$ with $f''_0(0) = 0$, degenerate — the birth-death moment."
+        },
+        {
+          "type": "mcq",
+          "q": "In the family $f_t(x) = x^3 - tx$, as $t$ increases through $0$, the indices of the two critical points born at $x = \\pm\\sqrt{t/3}$ are:",
+          "choices": [
+            "both $0$",
+            "both $1$",
+            "$0$ and $1$",
+            "$1$ and $2$"
+          ],
+          "answer": 2,
+          "hint": "Index of a 1-dimensional non-degenerate critical point is $0$ if $f''>0$, $1$ if $f''<0$.",
+          "explain": "At $x = +\\sqrt{t/3}$, $f''_t = 6\\sqrt{t/3} > 0$ — local minimum, index $0$. At $x = -\\sqrt{t/3}$, $f''_t < 0$ — local maximum, index $1$. The pair (index $k$, index $k+1$) born together is the universal birth-death pattern."
+        },
+        {
+          "type": "mcq",
+          "q": "Cerf's theorem states that the space $C^\\infty(M,\\mathbb{R})$ of smooth functions on a closed manifold $M$ admits a stratification in which",
+          "choices": [
+            "every $f$ is Morse",
+            "Morse functions form an open dense set; the codimension-$1$ wall is the birth-death locus, the codimension-$1$ strata of higher type are independent crossings of critical values",
+            "only finitely many $f$ are Morse",
+            "the stratification has no codimension-$1$ wall"
+          ],
+          "answer": 1,
+          "hint": "Generic 1-parameter families avoid codimension-$2$ phenomena; they cross only the codimension-$1$ wall.",
+          "explain": "Cerf's theorem: Morse functions are open and dense (codimension $0$). The codimension-$1$ stratum decomposes into birth-death points (locally $x^3 - tx + \\text{quadratic}$) and independent-crossing points (two critical values cross without index change). Generic 1-parameter families meet this stratum transversally and miss everything codimension $\\ge 2$ — this is the foundation of the $h$-cobordism theorem and Kirby calculus on handle slides."
+        }
+      ]
+    },
     "mt-applications": {
       "title": "Applications",
       "questions": [
