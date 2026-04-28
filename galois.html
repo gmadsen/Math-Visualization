@@ -224,7 +224,8 @@ function factorizeInt(n){
       <option value="equilateral" selected>equilateral triangle on AB</option>
       <option value="sqrt2">√2 from 0 and 1</option>
       <option value="hexagon">regular hexagon</option>
-      <option value="pentagon">regular pentagon</option>
+      <option value="pentagon">regular pentagon (Richmond)</option>
+      <option value="dblcube">doubling the cube — impossible</option>
     </select>
     <button id="cs-prev">◀ step</button>
     <button id="cs-next">step ▶</button>
@@ -237,62 +238,81 @@ function factorizeInt(n){
 </div><script>
 /* =============================== SECTION 2: Compass & straightedge =============================== */
 (function(){
+  // Each construction is an ordered list of primitive steps:
+  //   point       — name a fixed point at pos
+  //   line        — line through two named points
+  //   seg         — segment between two named points (visually distinct)
+  //   circle      — circle centered at one point passing through another
+  //                 (optionally extraRadiusFromSeg: ['p1','p2'] to use |p1p2| as the radius —
+  //                  models the legitimate compass-and-straightedge primitive of segment transfer)
+  //   intersect   — pick the (pick:0|1) intersection of two named objects, optionally avoiding a named point
+  //   text        — annotation step (no geometry, fires the readout only)
+  //   mark-target / strike-target — used by the impossibility demo only
+  //
+  // Steps that produce numbered geometry get the just-added highlight (yellow).
+  //
+  // PICK CONVENTION. The intersection helpers ccInt/lcInt return TWO points in a
+  // fixed order; flipping the operand order flips the order. We orient operands
+  // so that pick:0 is the "natural first" choice (upper, rightward, etc.) and
+  // pick:1 is the other. See traces inline below for tricky cases.
   const CONS = {
     bisect: {
       title:'Perpendicular bisector of segment AB',
-      summary:'Classic Euclid I.10: the intersections of two equal circles centered at A and B give two points P,Q whose line is perpendicular to AB and passes through its midpoint.',
+      summary:'Euclid I.10. Equal circles around A and B intersect on the perpendicular bisector.',
       steps:[
-        {type:'point', name:'A', pos:[-1.2,0], text:'place point A'},
-        {type:'point', name:'B', pos:[1.2,0], text:'place point B'},
-        {type:'seg', name:'AB', p1:'A', p2:'B', text:'the segment AB'},
-        {type:'circle', name:'cA', center:'A', through:'B', text:'circle centered at A through B'},
-        {type:'circle', name:'cB', center:'B', through:'A', text:'circle centered at B through A'},
-        {type:'intersect', of:['cA','cB'], name:'P', pick:0, text:'P = intersection above'},
-        {type:'intersect', of:['cA','cB'], name:'Q', pick:1, text:'Q = intersection below'},
-        {type:'line', name:'l', p1:'P', p2:'Q', text:'the line PQ — perpendicular bisector!'},
+        {type:'point', name:'A', pos:[-1.2,0]},
+        {type:'point', name:'B', pos:[1.2,0]},
+        {type:'seg', p1:'A', p2:'B', text:'segment AB'},
+        {type:'circle', name:'cA', center:'A', through:'B', text:'circle around A through B'},
+        {type:'circle', name:'cB', center:'B', through:'A', text:'circle around B through A'},
+        // ccInt(cA,cB): A=(-1.2,0) first, so bx-ax = 2.4 > 0, oy = +√(2.4²-1.2²)·… > 0 → pick:0 above.
+        {type:'intersect', of:['cA','cB'], name:'P', pick:0, text:'P = upper intersection'},
+        {type:'intersect', of:['cA','cB'], name:'Q', pick:1, text:'Q = lower intersection'},
+        {type:'line', name:'l', p1:'P', p2:'Q', text:'line PQ — the perpendicular bisector'},
       ],
     },
     equilateral: {
       title:'Equilateral triangle on a segment',
-      summary:'Euclid I.1. Two circles give an apex at height √3/2.',
+      summary:'Euclid I.1. Two equal circles give the apex at height √3/2 — the first place a quadratic irrational appears in Euclid.',
       steps:[
         {type:'point', name:'A', pos:[-1,0]},
         {type:'point', name:'B', pos:[1,0]},
         {type:'seg', p1:'A', p2:'B'},
         {type:'circle', name:'cA', center:'A', through:'B'},
         {type:'circle', name:'cB', center:'B', through:'A'},
-        {type:'intersect', of:['cA','cB'], name:'C', pick:0, text:'C at height √3 above AB'},
+        {type:'intersect', of:['cA','cB'], name:'C', pick:0, text:'C — apex at height √3 above AB'},
         {type:'seg', p1:'A', p2:'C'},
-        {type:'seg', p1:'B', p2:'C'},
+        {type:'seg', p1:'B', p2:'C', text:'△ABC equilateral; C lies in ℚ(√3)'},
       ],
     },
     sqrt2: {
       title:'Construct √2 from the unit segment',
-      summary:'Draw a unit circle, construct perpendicular, then take the diagonal of the 1×1 square (Pythagoras). √2 has degree 2 over ℚ, as expected.',
+      summary:'Drop the perpendicular at O (Euclid I.11), grab (0,1) on the unit circle, and the diagonal from (1,0) to (0,1) has length √2. Then transfer that length back to the x-axis to plant √2 there.',
       steps:[
-        {type:'point', name:'O', pos:[0,0], text:'origin'},
-        {type:'point', name:'E', pos:[1,0], text:'unit point (1,0)'},
-        {type:'line', name:'x', p1:'O', p2:'E', text:'the x-axis'},
-        {type:'circle', name:'c', center:'O', through:'E'},
-        // perpendicular at O: circle centered at E through O, intersect c (twice at ±(1,0)-E)? Nah, simplest: drop perpendicular by bisecting something.
-        // Simplest: unit point up is ...we need perpendicular. Construction: circle centered at E passing through O, and circle centered at (-1,0) passing through O. Those two intersect at (0,±√(1-0)) = (0,±1)? Wait: circle (E,1) passes through O and (2,0). Circle (-E,1) passes through O and (-2,0). Their intersection with circle c centered at O through E gives... let me think.
-        // Alternative simpler: the perpendicular to x-axis through O. Use two circles: centered at E and -E with radius > 1.
-        {type:'point', name:'F', pos:[-1,0], text:'the point (-1,0) — intersection of c with x-axis on the other side', constructed:true},
-        {type:'circle', name:'c1', center:'E', through:'F'},
-        {type:'circle', name:'c2', center:'F', through:'E'},
-        {type:'intersect', of:['c1','c2'], name:'U', pick:0, text:'upper intersection — gives perpendicular through O'},
-        {type:'line', name:'y', p1:'O', p2:'U', text:'the y-axis'},
-        {type:'intersect', of:['c','y'], name:'I', pick:0, text:'point (0,1) on the unit circle'},
-        {type:'seg', p1:'E', p2:'I', text:'the segment from (1,0) to (0,1) — its length is √2!'},
-        {type:'circle', name:'cs', center:'O', through:'I', text:'circle of radius 1 from O through (0,1) — same as c'},
-        // to actually "mark" √2 on x-axis: rotate (1,0) by a circle centered at O with radius |EI|. That circle has radius √2.
-        {type:'circle', name:'cR', center:'O', through:'E', text:'(the unit circle was already drawn)'},
-        // Actually place: draw circle centered at O through I's reflection... Let's just emphasize |EI|=√2.
+        {type:'point', name:'O', pos:[0,0]},
+        {type:'point', name:'E', pos:[1,0], text:'unit point E = (1,0)'},
+        {type:'line', name:'L', p1:'O', p2:'E', text:'the x-axis'},
+        {type:'circle', name:'c', center:'O', through:'E', text:'unit circle around O'},
+        // c ∩ L = {(1,0), (-1,0)}; avoid:E filters to the unique remaining point.
+        {type:'intersect', of:['c','L'], name:'F', pick:0, avoid:['E'], text:"F = (-1,0), antipode of E"},
+        {type:'circle', name:'cE', center:'E', through:'F', text:'circle (E, EF=2)'},
+        {type:'circle', name:'cF', center:'F', through:'E', text:'circle (F, FE=2)'},
+        // ccInt(cF,cE): F=(-1,0) first → bx-ax = 2, oy = +√3 → pick:0 is upper (0,√3).
+        {type:'intersect', of:['cF','cE'], name:'U', pick:0, text:'U = (0, √3) above the x-axis'},
+        {type:'intersect', of:['cF','cE'], name:'V', pick:1, text:'V = (0, −√3) below the x-axis'},
+        // Line VU goes from (0,-√3) up to (0,√3); dy>0 ensures pick:0 of c∩y is (0,1).
+        {type:'line', name:'y', p1:'V', p2:'U', text:'line VU passes through O — the perpendicular at O (y-axis)'},
+        {type:'intersect', of:['c','y'], name:'I', pick:0, text:'I = (0,1) — top of the unit circle'},
+        {type:'seg', p1:'E', p2:'I', text:'segment EI — by Pythagoras |EI| = √2'},
+        // Transfer the length |EI|=√2 to a circle around O. extraRadiusFromSeg is
+        // a recognised compass primitive (Euclid I.2 / collapsing-compass theorem).
+        {type:'circle', name:'cR', center:'O', through:'I', extraRadiusFromSeg:['E','I'], text:'circle around O of radius √2 (transferring |EI|)'},
+        {type:'intersect', of:['cR','L'], name:'S', pick:0, text:'S = (√2, 0). Tower: ℚ ⊂ ℚ(√2). ∎'},
       ],
     },
     hexagon: {
       title:'Regular hexagon',
-      summary:'The sides of a regular hexagon equal its circumradius, so you just walk the compass around the circle six times.',
+      summary:'A pure I.1 construction: side length equals circumradius, so you walk the compass around the unit circle six times.',
       steps:[
         {type:'point', name:'O', pos:[0,0]},
         {type:'point', name:'A0', pos:[1,0]},
@@ -300,7 +320,7 @@ function factorizeInt(n){
         {type:'circle', name:'c0', center:'A0', through:'O'},
         {type:'intersect', of:['c','c0'], name:'A1', pick:0},
         {type:'circle', name:'c1', center:'A1', through:'O'},
-        {type:'intersect', of:['c','c1'], name:'A2', pick:0, text:'third vertex — note we pick the one not equal to A0', avoid:['A0']},
+        {type:'intersect', of:['c','c1'], name:'A2', pick:0, avoid:['A0']},
         {type:'circle', name:'c2', center:'A2', through:'O'},
         {type:'intersect', of:['c','c2'], name:'A3', pick:0, avoid:['A1']},
         {type:'circle', name:'c3', center:'A3', through:'O'},
@@ -312,27 +332,69 @@ function factorizeInt(n){
         {type:'seg', p1:'A2', p2:'A3'},
         {type:'seg', p1:'A3', p2:'A4'},
         {type:'seg', p1:'A4', p2:'A5'},
-        {type:'seg', p1:'A5', p2:'A0'},
+        {type:'seg', p1:'A5', p2:'A0', text:'hexagon closed; every vertex lies in ℚ(√3)'},
       ],
     },
     pentagon: {
-      title:'Regular pentagon (via √5)',
-      summary:'The pentagon is constructible because cos(2π/5) = (√5−1)/4 involves only a single square root. Its minimal polynomial over ℚ has degree 2 (after dropping through the cyclotomic tower).',
+      title:'Regular pentagon (Richmond)',
+      summary:"Richmond's 1893 construction. Reach the point T at distance (√5−1)/2 from O on the y-axis (the golden cut), then transfer that to the unit circle to find vertex V₁; from V₁ walk the side length around. Tower: ℚ ⊂ ℚ(√5).",
       steps:[
         {type:'point', name:'O', pos:[0,0]},
-        {type:'point', name:'A', pos:[1,0]},
-        {type:'point', name:'Mneg', pos:[-1,0]},   // derive as intersection of x-axis and circle of radius 1 — skip deriv
-        {type:'circle', name:'c', center:'O', through:'A'},
-        // Bisect OMneg to get M = (-1/2, 0):
-        {type:'point', name:'M', pos:[-0.5,0], text:'midpoint of O and (-1,0)', constructed:true},
-        // circle centered at (0,1) (not yet constructed in a purist sense; we cheat for brevity) through M gives radius √(1+1/4)=√5/2
-        {type:'point', name:'U', pos:[0,1], text:'the point (0,1) on the unit circle'},
-        {type:'circle', name:'cm', center:'M', through:'U', text:'circle centered at M through U — radius √5/2'},
-        {type:'intersect', of:['cm',{axis:'x'}], name:'X', pick:0, text:'point on x-axis at distance (√5−1)/2 ... the golden ratio − 1!'},
-        {type:'line', name:'ymid', p1:'X', p2:'Xtop', text:'perpendicular from X upward'},
-        {type:'intersect', of:['ymid','c'], name:'V1', pick:0, text:'a vertex of the pentagon at x = (√5−1)/4'},
-        // For brevity the rest of the vertices follow by reflection / rotation
-        {type:'text', text:'…the remaining vertices are obtained by reflecting across the x-axis and walking the compass to the others. The construction is finite; every coordinate lies in ℚ(√5).'},
+        {type:'point', name:'A', pos:[1,0], text:'V₀ = A = (1,0)'},
+        {type:'circle', name:'c', center:'O', through:'A', text:'unit circle around O'},
+        {type:'line', name:'L', p1:'O', p2:'A', text:'the x-axis'},
+        // Antipode + perpendicular at O → N=(0,1). Standard Euclid I.11 sequence.
+        {type:'intersect', of:['c','L'], name:'Aprime', pick:0, avoid:['A'], text:"A' = (−1,0), antipode of A"},
+        {type:'circle', name:'cA', center:'A', through:'Aprime'},
+        {type:'circle', name:'cAp', center:'Aprime', through:'A'},
+        // ccInt(cAp,cA): cAp=(-1,0) first → bx-ax=2, oy=+√3 → pick:0 is (0,√3).
+        {type:'intersect', of:['cAp','cA'], name:'P', pick:0, text:'P = (0, √3)'},
+        {type:'intersect', of:['cAp','cA'], name:'Q', pick:1, text:'Q = (0, −√3)'},
+        {type:'line', name:'y', p1:'Q', p2:'P', text:'line QP — the y-axis'},
+        {type:'intersect', of:['c','y'], name:'N', pick:0, text:'N = (0,1)'},
+        // Bisect ON. Use the (already-built) c and a fresh cN around N through O.
+        {type:'circle', name:'cN', center:'N', through:'O'},
+        // ccInt(cN,c): cN=(0,1) first → ay-by=1, ox=+√3/2 → pick:0 is (√3/2, 1/2).
+        {type:'intersect', of:['cN','c'], name:'R', pick:0, text:'R = (√3/2, 1/2)'},
+        {type:'intersect', of:['cN','c'], name:'Rp', pick:1, text:"R' = (−√3/2, 1/2)"},
+        {type:'line', name:'mid', p1:'Rp', p2:'R', text:'line RR′ — perpendicular bisector of ON'},
+        {type:'intersect', of:['mid','y'], name:'M', pick:0, text:'M = (0, 1/2) — midpoint of ON'},
+        // Richmond's circle from M through A. Radius = √(1+1/4) = √5/2 — first appearance of √5.
+        {type:'circle', name:'cM', center:'M', through:'A', text:'circle (M, MA = √5/2) — the √5 enters here'},
+        // For the y-axis line going from Q=(0,-√3) up to P=(0,√3), pick:1 of cM∩y is the
+        // LOWER of the two intersections (T below O), i.e. (0, 1/2 − √5/2).
+        {type:'intersect', of:['cM','y'], name:'T', pick:1, text:'T = (0, 1/2 − √5/2). |OT| = (√5−1)/2 — the golden cut.'},
+        {type:'circle', name:'cAT', center:'A', through:'T', text:'circle (A, AT) — radius equals the pentagon side length'},
+        // ccInt(c,cAT): c=(0,0) first, cAT=(1,0) → bx-ax=1, oy positive → pick:0 is upper.
+        {type:'intersect', of:['c','cAT'], name:'V1', pick:0, text:'V₁ = (cos 72°, sin 72°)'},
+        {type:'intersect', of:['c','cAT'], name:'V4', pick:1, text:'V₄ = (cos 72°, −sin 72°)'},
+        // Walk the side length from V1 to V2 (counter-clockwise) and from V4 to V3.
+        {type:'circle', name:'cV1', center:'V1', through:'A'},
+        {type:'intersect', of:['c','cV1'], name:'V2', pick:0, avoid:['A'], text:'V₂ = (cos 144°, sin 144°)'},
+        {type:'circle', name:'cV4', center:'V4', through:'A'},
+        {type:'intersect', of:['c','cV4'], name:'V3', pick:0, avoid:['A'], text:'V₃ = (cos 216°, sin 216°)'},
+        {type:'seg', p1:'A',  p2:'V1'},
+        {type:'seg', p1:'V1', p2:'V2'},
+        {type:'seg', p1:'V2', p2:'V3'},
+        {type:'seg', p1:'V3', p2:'V4'},
+        {type:'seg', p1:'V4', p2:'A',  text:'pentagon closed; every vertex lies in ℚ(√5)'},
+      ],
+    },
+    dblcube: {
+      title:'Doubling the cube — impossible',
+      summary:'Suppose we could construct ∛2 from {0,1} using compass and straightedge. Each step adjoins at most one square root, so the final number lies in a tower of quadratic extensions — its degree over ℚ must be a power of 2. The minimal polynomial of ∛2 is x³ − 2 (degree 3). Three is not a power of two. So no compass-and-straightedge construction reaches ∛2 — ever.',
+      impossible: true,
+      target: Math.cbrt(2),
+      steps:[
+        {type:'point', name:'O', pos:[0,0]},
+        {type:'point', name:'E', pos:[1,0], text:'unit point E = (1,0)'},
+        {type:'text', text:'we want to construct the point T = (∛2, 0) ≈ (1.2599, 0).'},
+        {type:'mark-target', text:'plot the target ∛2 on the x-axis (the goal — but unreachable).'},
+        {type:'text', text:'rule of constructibility: every constructible number belongs to a tower ℚ ⊂ K₁ ⊂ K₂ ⊂ ⋯ with [Kᵢ₊₁ : Kᵢ] = 2.'},
+        {type:'text', text:'consequence: [ℚ(α) : ℚ] divides 2ⁿ — i.e. it must be a power of 2.'},
+        {type:'text', text:'the minimal polynomial of ∛2 is x³ − 2 (irreducible over ℚ by the rational-roots test).'},
+        {type:'text', text:'so [ℚ(∛2) : ℚ] = 3.'},
+        {type:'strike-target', text:'3 is not a power of 2 — no tower of quadratics reaches ∛2. Greeks vindicated. ∎'},
       ],
     },
   };
@@ -359,77 +421,125 @@ function factorizeInt(n){
     title.textContent = con.title;
     svg.appendChild(title);
 
-    // objects table
+    // build all objects up to and including the current step
     const objs = {};
-    // special 'Xtop' used in pentagon — helper auxiliary
     function pointPos(name){ return objs[name] && objs[name].type==='point'? objs[name].pos : null }
+
+    let targetMark = null;
 
     for(let s=0; s<step; s++){
       const st = con.steps[s];
+      const isLatest = (s === step - 1);
       if(st.type==='point'){
-        objs[st.name]={type:'point', pos:st.pos};
+        objs[st.name]={type:'point', pos:st.pos, fresh:isLatest};
       } else if(st.type==='circle'){
         const C = pointPos(st.center), P = pointPos(st.through);
         if(C && P){
-          const r = Math.hypot(C[0]-P[0], C[1]-P[1]);
-          objs[st.name]={type:'circle', center:C, radius:r};
+          let r = Math.hypot(C[0]-P[0], C[1]-P[1]);
+          if(st.extraRadiusFromSeg){
+            const [n1,n2] = st.extraRadiusFromSeg;
+            const p1 = pointPos(n1), p2 = pointPos(n2);
+            if(p1 && p2) r = Math.hypot(p1[0]-p2[0], p1[1]-p2[1]);
+          }
+          objs[st.name]={type:'circle', center:C, radius:r, fresh:isLatest};
         }
       } else if(st.type==='line'){
         const p1 = pointPos(st.p1), p2 = pointPos(st.p2);
-        if(p1 && p2) objs[st.name]={type:'line', p1, p2};
+        if(p1 && p2) objs[st.name]={type:'line', p1, p2, fresh:isLatest};
       } else if(st.type==='seg'){
         const p1 = pointPos(st.p1), p2 = pointPos(st.p2);
-        if(p1 && p2) objs[(st.name||('seg'+s))]={type:'seg', p1, p2};
+        if(p1 && p2){
+          const segName = st.name || ('seg'+s);
+          objs[segName]={type:'seg', p1, p2, fresh:isLatest};
+        }
       } else if(st.type==='intersect'){
-        // compute intersection of two constructed objects
         const result = intersect(st.of, objs, st.pick||0, st.avoid||[]);
         if(result){
-          objs[st.name]={type:'point', pos:result, highlight:true};
+          objs[st.name]={type:'point', pos:result, highlight:true, fresh:isLatest};
         }
-      } else if(st.type==='text'){
-        // handled in readout
+      } else if(st.type==='mark-target'){
+        if(con.target != null) targetMark = { x: con.target, struck: false };
+      } else if(st.type==='strike-target'){
+        if(targetMark) targetMark.struck = true;
+        else if(con.target != null) targetMark = { x: con.target, struck: true };
       }
+      // 'text' steps drive the readout only
     }
 
-    // special: pentagon has 'Xtop' which is an auxiliary — supply as a specific offset above X
-    if(key==='pentagon' && objs.X){
-      objs.Xtop = {type:'point', pos:[objs.X.pos[0], objs.X.pos[1]+1]};
-    }
-
-    // draw
-    // circles first
-    for(const [n,o] of Object.entries(objs)){
+    // ---- draw, painter's algorithm: circles → lines → segments → points
+    for(const o of Object.values(objs)){
       if(o.type==='circle'){
-        svg.appendChild(SVG('circle',{cx:tx(o.center[0]),cy:ty(o.center[1]),r:o.radius*sc,
-          fill:'none',stroke:'#58c4dd','stroke-width':1.2,'stroke-opacity':0.7}));
+        svg.appendChild(SVG('circle',{
+          cx:tx(o.center[0]), cy:ty(o.center[1]), r:o.radius*sc,
+          fill:'none',
+          stroke: o.fresh ? '#ffd866' : '#58c4dd',
+          'stroke-width': o.fresh ? 2 : 1.2,
+          'stroke-opacity': o.fresh ? 0.95 : 0.65,
+        }));
       }
     }
-    // lines
-    for(const [n,o] of Object.entries(objs)){
+    for(const o of Object.values(objs)){
       if(o.type==='line'){
-        // extend to SVG edges
         const [ax,ay]=o.p1, [bx,by]=o.p2;
         const dx=bx-ax, dy=by-ay;
         const L = 20;
-        svg.appendChild(SVG('line',{x1:tx(ax-L*dx),y1:ty(ay-L*dy),x2:tx(ax+L*dx),y2:ty(ay+L*dy),
-          stroke:'#ffd866','stroke-width':1.2,'stroke-opacity':0.7}));
+        svg.appendChild(SVG('line',{
+          x1:tx(ax-L*dx), y1:ty(ay-L*dy), x2:tx(ax+L*dx), y2:ty(ay+L*dy),
+          stroke: o.fresh ? '#ffd866' : '#94d2ff',
+          'stroke-width': o.fresh ? 1.6 : 1.0,
+          'stroke-opacity': o.fresh ? 0.9 : 0.6,
+        }));
       } else if(o.type==='seg'){
-        svg.appendChild(SVG('line',{x1:tx(o.p1[0]),y1:ty(o.p1[1]),x2:tx(o.p2[0]),y2:ty(o.p2[1]),
-          stroke:'#e07a5f','stroke-width':2}));
+        svg.appendChild(SVG('line',{
+          x1:tx(o.p1[0]), y1:ty(o.p1[1]), x2:tx(o.p2[0]), y2:ty(o.p2[1]),
+          stroke: o.fresh ? '#ffd866' : '#e07a5f',
+          'stroke-width': o.fresh ? 2.6 : 2,
+        }));
       }
     }
-    // points
     for(const [n,o] of Object.entries(objs)){
       if(o.type==='point'){
-        svg.appendChild(SVG('circle',{cx:tx(o.pos[0]),cy:ty(o.pos[1]),r:6,
-          fill:o.highlight?'#ffd866':'#e8ecf1', stroke:'#111','stroke-width':1.5}));
-        const label = SVG('text',{x:tx(o.pos[0])+9,y:ty(o.pos[1])-8,'font-size':13,fill:'#fff','font-weight':600});
+        const fill = o.fresh ? '#ffd866' : (o.highlight ? '#f3a93b' : '#e8ecf1');
+        svg.appendChild(SVG('circle',{
+          cx:tx(o.pos[0]), cy:ty(o.pos[1]), r: o.fresh ? 7 : 6,
+          fill, stroke:'#111', 'stroke-width':1.5,
+        }));
+        const label = SVG('text',{
+          x:tx(o.pos[0])+9, y:ty(o.pos[1])-8,
+          'font-size':13, fill:'#fff', 'font-weight':600,
+        });
         label.textContent = n;
         svg.appendChild(label);
       }
     }
 
-    // readout: current step description
+    // Impossibility demo: dashed target, then a strikethrough X when the proof completes.
+    if(targetMark){
+      const tcol = targetMark.struck ? '#e07a5f' : '#ffd866';
+      svg.appendChild(SVG('circle',{
+        cx:tx(targetMark.x), cy:ty(0), r:7,
+        fill:'none', stroke:tcol, 'stroke-width':2.2, 'stroke-dasharray':'4 3',
+      }));
+      const lab = SVG('text',{
+        x:tx(targetMark.x)+10, y:ty(0)-10,
+        'font-size':13, fill:tcol, 'font-weight':700,
+      });
+      lab.textContent = '∛2';
+      svg.appendChild(lab);
+      if(targetMark.struck){
+        const r = 12;
+        svg.appendChild(SVG('line',{
+          x1:tx(targetMark.x)-r, y1:ty(0)-r, x2:tx(targetMark.x)+r, y2:ty(0)+r,
+          stroke:'#e07a5f', 'stroke-width':2.5,
+        }));
+        svg.appendChild(SVG('line',{
+          x1:tx(targetMark.x)-r, y1:ty(0)+r, x2:tx(targetMark.x)+r, y2:ty(0)-r,
+          stroke:'#e07a5f', 'stroke-width':2.5,
+        }));
+      }
+    }
+
+    // readout
     if(step===0){
       ro.innerHTML = `<i>${con.summary}</i><br><span class="small">click "step ▶" to begin.</span>`;
     } else {
@@ -437,7 +547,10 @@ function factorizeInt(n){
       const desc = st.text || describeStep(st);
       ro.innerHTML = `<b>step ${step}</b>: ${desc}`;
       if(step===con.steps.length){
-        ro.innerHTML += `<br><span style="color:var(--green)">construction complete — every coordinate lies in a tower of quadratic extensions of ℚ.</span>`;
+        const closer = con.impossible
+          ? `<br><span style="color:var(--pink)">no construction exists — proven by the degree argument.</span>`
+          : `<br><span style="color:var(--green)">construction complete — every coordinate lies in a tower of quadratic extensions of ℚ.</span>`;
+        ro.innerHTML += closer;
       }
     }
   }
@@ -446,8 +559,9 @@ function factorizeInt(n){
     if(st.type==='point') return `place point <b>${st.name}</b>`;
     if(st.type==='circle') return `draw circle centered at ${st.center} through ${st.through} — name it ${st.name}`;
     if(st.type==='line') return `draw line through ${st.p1} and ${st.p2}`;
-    if(st.type==='seg') return `connect ${st.p1}-${st.p2} with a segment`;
+    if(st.type==='seg') return `connect ${st.p1}–${st.p2} with a segment`;
     if(st.type==='intersect') return `mark intersection ${st.name}`;
+    if(st.type==='text' || st.type==='mark-target' || st.type==='strike-target') return '';
     return '';
   }
 
@@ -456,18 +570,12 @@ function factorizeInt(n){
     if(os.length!==2 || !os[0] || !os[1]) return null;
     let candidates = [];
     const [A,B] = os;
-    if(A.axis==='x'){
-      // intersection of x-axis with some other object
-      return intersect([{type:'line',p1:[-1,0],p2:[1,0]}, B], {}, pickK, avoid);
-    }
-    if(B.axis==='x'){
-      return intersect([A,{type:'line',p1:[-1,0],p2:[1,0]}], {}, pickK, avoid);
-    }
+    if(A.axis==='x') return intersect([{type:'line',p1:[-1,0],p2:[1,0]}, B], {}, pickK, avoid);
+    if(B.axis==='x') return intersect([A,{type:'line',p1:[-1,0],p2:[1,0]}], {}, pickK, avoid);
     if(A.type==='circle' && B.type==='circle') candidates = ccInt(A,B);
     else if(A.type==='line' && B.type==='circle') candidates = lcInt(A,B);
     else if(A.type==='circle' && B.type==='line') candidates = lcInt(B,A);
     else if(A.type==='line' && B.type==='line') candidates = llInt(A,B);
-    // filter avoid
     if(avoid && avoid.length){
       const avoidPts = avoid.map(n=>objs[n]?.pos).filter(Boolean);
       candidates = candidates.filter(p => !avoidPts.some(q => Math.hypot(p[0]-q[0], p[1]-q[1])<1e-6));
@@ -487,7 +595,6 @@ function factorizeInt(n){
     return [[xm+ox, ym+oy],[xm-ox, ym-oy]];
   }
   function lcInt(L,C){
-    // parameterize line: p1 + t*(p2-p1)
     const [ax,ay]=L.p1, [bx,by]=L.p2; const [cx2,cy2]=C.center; const r = C.radius;
     const dx=bx-ax, dy=by-ay;
     const ex=ax-cx2, ey=ay-cy2;
@@ -513,8 +620,9 @@ function factorizeInt(n){
   all.addEventListener('click',()=>{step=CONS[key].steps.length; redraw()});
   reset.addEventListener('click',()=>{step=0; redraw()});
 
-  // init
-  key='equilateral'; pick.value=key; step=0; redraw();
+  // init — guard against an unknown initial value (e.g. from saved form state)
+  if(!CONS[pick.value]) pick.value='equilateral';
+  key=pick.value; step=0; redraw();
 })();
 </script>
 
