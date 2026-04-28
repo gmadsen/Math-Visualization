@@ -1,0 +1,226 @@
+{
+  "topic": "computational-number-theory",
+  "quizzes": {
+    "cnt-primality": {
+      "title": "Primality testing",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Why is Fermat's little theorem alone insufficient as a primality test?",
+          "choices": [
+            "It is too slow to compute $a^{n-1} \\bmod n$.",
+            "Carmichael numbers like $561$ satisfy $a^{n-1}\\equiv 1\\pmod n$ for every $a$ coprime to $n$ yet are composite.",
+            "It only works when $n$ is even.",
+            "It requires factoring $n-1$ in advance."
+          ],
+          "answer": 1,
+          "explain": "Carmichael numbers are composite Fermat liars for every base coprime to $n$. Miller–Rabin strengthens the test by also checking square roots of $1$, ruling these out."
+        },
+        {
+          "type": "numeric",
+          "q": "Run a single Miller–Rabin round on $n=15$ with base $a=2$. Write $n-1 = 14 = 2 \\cdot 7$, so $d=7,\\ s=1$. Compute $2^7 \\bmod 15$.",
+          "answer": 8,
+          "tol": 0.5,
+          "explain": "$2^7 = 128 = 8\\cdot 15 + 8$, so $2^7 \\equiv 8 \\pmod{15}$. Since $8 \\not\\equiv \\pm 1$ and $s=1$ leaves no further squarings, $a=2$ is a Miller–Rabin witness — $15$ is composite."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the asymptotic running time of the AKS deterministic primality test in $\\log n$?",
+          "choices": [
+            "$O((\\log n)^{1/2})$",
+            "Exponential in $\\log n$",
+            "$O((\\log n)^{6+\\epsilon})$ — polynomial in $\\log n$",
+            "Subexponential, $L_n[1/3,c]$"
+          ],
+          "answer": 2,
+          "explain": "AKS (2002) was the first deterministic, unconditional, polynomial-time primality test. Tighter analyses bring the exponent down toward $6$; Miller–Rabin remains faster in practice but is probabilistic."
+        }
+      ]
+    },
+    "cnt-factoring": {
+      "title": "Integer factoring",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Pollard's $\\rho$ method for factoring $n$ iterates $x \\mapsto x^2 + c \\bmod n$ and looks for a collision. Why does it work?",
+          "choices": [
+            "By the birthday paradox, two iterates coincide modulo a prime factor $p$ in roughly $\\sqrt{p}$ steps; their difference shares a factor with $n$.",
+            "Because $x^2+c$ has no real roots when $c>0$.",
+            "Because every quadratic polynomial is irreducible modulo a prime.",
+            "Because the iteration enumerates all residues mod $n$ in order."
+          ],
+          "answer": 0,
+          "explain": "The sequence reduced mod $p$ is shorter than mod $n$, so a cycle appears in $O(\\sqrt p)$ steps. Floyd's tortoise–hare detector finds two iterates with $x_i \\equiv x_j \\pmod p$ but $x_i \\not\\equiv x_j \\pmod n$, so $\\gcd(x_i-x_j, n)$ is a nontrivial factor."
+        },
+        {
+          "type": "mcq",
+          "q": "The general number-field sieve runs in time approximately:",
+          "choices": [
+            "$\\exp\\!\\big((\\log n)^{1/2}\\big)$",
+            "$L_n[1/3, (64/9)^{1/3}]$ (subexponential)",
+            "Polynomial in $\\log n$",
+            "$\\exp(n)$"
+          ],
+          "answer": 1,
+          "explain": "GNFS achieves $L_n[1/3, c]$ with $c=(64/9)^{1/3}\\approx 1.923$ for general integers. This is the current asymptotic record; no polynomial-time classical factoring algorithm is known."
+        },
+        {
+          "type": "numeric",
+          "q": "Run Pollard's $\\rho$ with $f(x)=x^2+1$, $x_0=2$ on $n=91$. After two steps the sequence is $x_1=5, x_2=26$. Compute $\\gcd(x_2-x_1,\\ 91)$.",
+          "answer": 7,
+          "tol": 0.5,
+          "explain": "$x_2 - x_1 = 21$, and $\\gcd(21, 91) = 7$. So $91 = 7 \\cdot 13$."
+        }
+      ]
+    },
+    "cnt-lattice-reduction": {
+      "title": "LLL & lattice reduction",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What does LLL guarantee about its output basis $b_1, \\dots, b_n$?",
+          "choices": [
+            "$b_1$ is the shortest vector in the lattice.",
+            "$\\|b_1\\| \\le 2^{(n-1)/2}\\, \\lambda_1(L)$ where $\\lambda_1$ is the shortest-vector length, and the algorithm runs in polynomial time.",
+            "All $b_i$ are pairwise orthogonal.",
+            "$\\|b_1\\| \\le \\log n \\cdot \\lambda_1(L)$."
+          ],
+          "answer": 1,
+          "explain": "LLL trades exact shortness for polynomial-time computability: the first basis vector is within a factor $2^{(n-1)/2}$ of optimal — exponentially loose, but enough to break many cryptosystems and find integer relations."
+        },
+        {
+          "type": "mcq",
+          "q": "Coppersmith's theorem uses LLL to find:",
+          "choices": [
+            "Eigenvalues of integer matrices.",
+            "Small roots of a polynomial $f(x)$ modulo $N$ when $|x| < N^{1/d}$, where $d=\\deg f$.",
+            "The factorization of $N$ given just $N$.",
+            "Discrete logarithms in finite fields."
+          ],
+          "answer": 1,
+          "explain": "Coppersmith builds a lattice from shifted multiples of $f$ and applies LLL; a short vector encodes a polynomial with the same small roots over $\\mathbb{Z}$, which are then findable. Used in stereotyped-message attacks on low-exponent RSA."
+        },
+        {
+          "type": "mcq",
+          "q": "Which is NOT a standard application of LLL?",
+          "choices": [
+            "Detecting integer relations among real numbers (e.g. $\\zeta(3)$ vs powers of $\\pi$).",
+            "Cryptanalysis of knapsack cryptosystems.",
+            "Polynomial-time integer factoring.",
+            "Reducing the lattice of relations in Buchmann's class-group algorithm."
+          ],
+          "answer": 2,
+          "explain": "LLL accelerates many sub-routines in factoring (Coppersmith) but no polynomial-time factoring algorithm is known — the other three are textbook applications."
+        }
+      ]
+    },
+    "cnt-modular-arithmetic-algorithms": {
+      "title": "Modular arithmetic algorithms",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Compute $7^{13} \\bmod 11$ by repeated squaring. (Binary: $13 = 1101_2$.)",
+          "answer": 2,
+          "tol": 0.5,
+          "explain": "$7^2\\equiv 5$, $7^4\\equiv 25\\equiv 3$, $7^8\\equiv 9$. So $7^{13}=7^8\\cdot 7^4\\cdot 7^1 \\equiv 9\\cdot 3\\cdot 7 = 189 \\equiv 2\\pmod{11}$."
+        },
+        {
+          "type": "mcq",
+          "q": "Tonelli–Shanks computes $\\sqrt{a} \\bmod p$ when $\\left(\\tfrac{a}{p}\\right)=1$. The simple case $p\\equiv 3\\pmod 4$ has the closed form:",
+          "choices": [
+            "$a^{(p-1)/2} \\bmod p$",
+            "$a^{(p+1)/4} \\bmod p$",
+            "$a^{p} \\bmod p$",
+            "$a^{(p-1)/4} \\bmod p$"
+          ],
+          "answer": 1,
+          "explain": "If $p\\equiv 3\\pmod 4$, set $r = a^{(p+1)/4}$. Then $r^2 = a^{(p+1)/2} = a\\cdot a^{(p-1)/2} \\equiv a$ since $a$ is a QR. The general algorithm handles $p\\equiv 1\\pmod 4$ with extra work."
+        },
+        {
+          "type": "numeric",
+          "q": "Solve $x \\equiv 2 \\pmod 3,\\ x \\equiv 3 \\pmod 5,\\ x \\equiv 2 \\pmod 7$ via CRT. Give the smallest non-negative $x$.",
+          "answer": 23,
+          "tol": 0.5,
+          "explain": "Modulus $3\\cdot 5\\cdot 7=105$. $x=23$ satisfies all three: $23=7\\cdot 3+2$, $23=4\\cdot 5+3$, $23=3\\cdot 7+2$."
+        }
+      ]
+    },
+    "cnt-elliptic-curves-computation": {
+      "title": "Schoof & point counting",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Schoof's algorithm computes $\\#E(\\mathbb{F}_p)=p+1-t$ by determining $t \\bmod \\ell$ for several small primes $\\ell$. Why does this suffice?",
+          "choices": [
+            "Because $t$ is always a small prime.",
+            "By Hasse's bound $|t|\\le 2\\sqrt p$, so $t$ is recovered via CRT once $\\prod \\ell > 4\\sqrt p$.",
+            "Because Frobenius has order $\\ell$ on every torsion subgroup.",
+            "Because $t = p+1$ always."
+          ],
+          "answer": 1,
+          "explain": "Hasse bounds $t$ to a window of width $4\\sqrt p$. Combining residues mod enough small $\\ell$ via CRT pins $t$ down uniquely; the resulting algorithm is polynomial in $\\log p$."
+        },
+        {
+          "type": "mcq",
+          "q": "On what does Schoof compute the action of Frobenius $\\phi_p:(x,y)\\mapsto(x^p,y^p)$?",
+          "choices": [
+            "The full curve $E$ — infeasible.",
+            "The $\\ell$-torsion subgroup $E[\\ell]$, represented by the $\\ell$-th division polynomial.",
+            "The $\\ell$-adic completion of $E$.",
+            "Only the identity element $\\mathcal O$."
+          ],
+          "answer": 1,
+          "explain": "Computing in $\\mathbb{F}_p[x,y]/(\\psi_\\ell, E)$ where $\\psi_\\ell$ is the $\\ell$-th division polynomial keeps everything finite-dimensional. Schoof then matches $\\phi_p^2 - t\\phi_p + p \\equiv 0$ on $E[\\ell]$ to extract $t \\bmod \\ell$."
+        },
+        {
+          "type": "mcq",
+          "q": "The SEA improvement to Schoof exploits:",
+          "choices": [
+            "Faster matrix inversion.",
+            "Modular polynomials $\\Phi_\\ell(X,Y)$ to work on a kernel subgroup of $E[\\ell]$ rather than all of $E[\\ell]$, when $\\ell$ is an Elkies prime.",
+            "Quantum computation.",
+            "Replacing $\\mathbb{F}_p$ by $\\mathbb R$."
+          ],
+          "answer": 1,
+          "explain": "Schoof–Elkies–Atkin uses the modular polynomial $\\Phi_\\ell$ to detect when Frobenius has rational eigenvectors on $E[\\ell]$ (Elkies primes), reducing the work from degree $\\ell^2-1$ to roughly $\\ell$."
+        }
+      ]
+    },
+    "cnt-class-group-computation": {
+      "title": "Class & unit group computation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Buchmann's algorithm computes the class group of a number field $K$ in subexponential time, but only conditionally. On what?",
+          "choices": [
+            "The Riemann hypothesis for $\\zeta$.",
+            "The generalized Riemann hypothesis (GRH) for Hecke $L$-functions of $K$.",
+            "$P=NP$.",
+            "The Birch–Swinnerton-Dyer conjecture."
+          ],
+          "answer": 1,
+          "explain": "GRH is needed to bound the size of generators of the class group: under GRH, prime ideals up to $(\\log |\\Delta_K|)^{2}$ generate $\\mathrm{Cl}(K)$, making the factor-base relation method provably correct in subexponential time."
+        },
+        {
+          "type": "mcq",
+          "q": "Where does LLL enter Buchmann's algorithm?",
+          "choices": [
+            "It is used to test primality of the discriminant.",
+            "It reduces the lattice of relations among factor-base ideals to extract the Smith normal form, recovering both the class group structure and the regulator.",
+            "It computes the Galois group of $K$.",
+            "It evaluates the zeta function at $s=1$."
+          ],
+          "answer": 1,
+          "explain": "Each relation among factor-base prime ideals lives in $\\mathbb{Z}^{|S|}$ together with a logarithm vector for units. LLL reduces this combined lattice; its Smith normal form yields the class group invariants and a basis of fundamental units (hence the regulator)."
+        },
+        {
+          "type": "numeric",
+          "q": "The class number of $\\mathbb{Q}(\\sqrt{-5})$ is:",
+          "answer": 2,
+          "tol": 0.5,
+          "explain": "The ring of integers $\\mathbb{Z}[\\sqrt{-5}]$ is the canonical example of a non-PID: $6 = 2\\cdot 3 = (1+\\sqrt{-5})(1-\\sqrt{-5})$ are two essentially different factorizations. The class group is $\\mathbb{Z}/2\\mathbb{Z}$, so $h=2$."
+        }
+      ]
+    }
+  }
+}

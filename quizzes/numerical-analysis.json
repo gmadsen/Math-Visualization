@@ -1,0 +1,231 @@
+{
+  "topic": "numerical-analysis",
+  "quizzes": {
+    "na-floating-point": {
+      "title": "Floating-point arithmetic",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In IEEE 754 double precision, machine epsilon $\\varepsilon_M$ is closest to which value?",
+          "choices": [
+            "$1.19\\times 10^{-7}$",
+            "$2.22\\times 10^{-16}$",
+            "$1.0\\times 10^{-300}$",
+            "$5.96\\times 10^{-8}$"
+          ],
+          "answer": 1,
+          "explain": "Doubles use a 52-bit mantissa, so $\\varepsilon_M = 2^{-52}\\approx 2.22\\times 10^{-16}$. Single precision (24-bit) gives $2^{-23}\\approx 1.19\\times 10^{-7}$; the other values are unrelated to the format."
+        },
+        {
+          "type": "mcq",
+          "q": "A problem is ill-conditioned but the algorithm is backward-stable. What can you conclude about the computed result?",
+          "choices": [
+            "It will be accurate to machine precision",
+            "It is the exact solution to a slightly perturbed problem; accuracy depends on the condition number",
+            "It is unusable — backward stability is meaningless without forward stability",
+            "It is exactly the true solution, since the algorithm is stable"
+          ],
+          "answer": 1,
+          "explain": "Backward stability means $\\hat{y}=f(x+\\delta x)$ with $\\delta x$ small. The forward error is then bounded by $\\kappa(\\text{problem})\\cdot \\|\\delta x\\|$: a stable algorithm on an ill-conditioned problem still loses digits, and that's not the algorithm's fault."
+        },
+        {
+          "type": "numeric",
+          "q": "If the relative roundoff per operation is $\\varepsilon_M$ and you sum $n=10^6$ floats naively, the worst-case relative error is bounded by approximately $n\\varepsilon_M$. With $\\varepsilon_M=2^{-52}\\approx 2.22\\times 10^{-16}$, what is $n\\varepsilon_M$?",
+          "answer": 2.22e-10,
+          "tol": 1e-11,
+          "explain": "$10^6 \\times 2.22\\times 10^{-16} = 2.22\\times 10^{-10}$. Kahan summation tightens this to $O(\\varepsilon_M)$ regardless of $n$ by carrying a running compensation term."
+        }
+      ]
+    },
+    "na-rootfinding": {
+      "title": "Rootfinding",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Newton's method applied to $f(x)=x^2-2$ starting from $x_0=1$. What is $x_2$?",
+          "choices": [
+            "$1.5$",
+            "$1.41666\\ldots$",
+            "$1.41421356\\ldots$",
+            "$2.0$"
+          ],
+          "answer": 1,
+          "explain": "Newton: $x_{n+1}=x_n - (x_n^2-2)/(2x_n) = (x_n+2/x_n)/2$. From $x_0=1$: $x_1=(1+2)/2=1.5$, then $x_2=(1.5+4/3)/2=17/12\\approx 1.41667$. Quadratic convergence — three iterations get you to machine precision."
+        },
+        {
+          "type": "mcq",
+          "q": "Bisection on $[0,1]$ with tolerance $10^{-6}$ requires roughly how many iterations?",
+          "choices": [
+            "$6$",
+            "$10$",
+            "$20$",
+            "$60$"
+          ],
+          "answer": 2,
+          "explain": "After $n$ steps the interval length is $2^{-n}$. We need $2^{-n}<10^{-6}$, i.e. $n > \\log_2(10^6)\\approx 19.93$, so $n=20$. Bisection's linear convergence with rate $1/2$ means each step buys exactly one bit."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the order of convergence of the secant method near a simple root?",
+          "choices": [
+            "Linear ($p=1$)",
+            "Golden ratio ($p=(1+\\sqrt5)/2\\approx 1.618$)",
+            "Quadratic ($p=2$)",
+            "Cubic ($p=3$)"
+          ],
+          "answer": 1,
+          "explain": "The secant error recursion $e_{n+1}\\sim C e_n e_{n-1}$ leads to $p^2 = p+1$, whose positive root is the golden ratio $\\phi=(1+\\sqrt 5)/2\\approx 1.618$. It's slower than Newton's $p=2$ but trades the derivative evaluation for cheaper iterations."
+        }
+      ]
+    },
+    "na-quadrature": {
+      "title": "Quadrature",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Composite trapezoid rule on $n$ panels has error scaling as $h^2$ where $h=(b-a)/n$. If doubling $n$ shrinks the error by what factor?",
+          "answer": 4,
+          "tol": 0.001,
+          "explain": "Halving $h$ shrinks $h^2$ by $4$. So each doubling of $n$ buys two bits of accuracy. Simpson's $O(h^4)$ buys four bits per doubling."
+        },
+        {
+          "type": "mcq",
+          "q": "Gauss–Legendre quadrature with $n$ nodes integrates polynomials of degree $\\le ?$ exactly.",
+          "choices": [
+            "$n-1$",
+            "$n$",
+            "$2n-1$",
+            "$2n$"
+          ],
+          "answer": 2,
+          "explain": "Choosing the $n$ nodes as zeros of the $n$-th Legendre polynomial buys an extra $n$ degrees of exactness over a generic $n$-point quadrature, giving exactness up to degree $2n-1$. This is optimal: no $n$-point rule integrates all polynomials of degree $2n$ exactly."
+        },
+        {
+          "type": "mcq",
+          "q": "Simpson's rule is exact for polynomials of degree up to:",
+          "choices": [
+            "$1$",
+            "$2$",
+            "$3$",
+            "$4$"
+          ],
+          "answer": 2,
+          "explain": "By construction Simpson's rule integrates parabolas exactly, but a symmetry argument bumps the exactness to cubics: the cubic remainder is odd about the midpoint and integrates to zero. The error term is $-(b-a)h^4 f^{(4)}(\\xi)/180$."
+        }
+      ]
+    },
+    "na-linear-systems": {
+      "title": "Linear systems",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "If $A$ is symmetric positive definite, which factorization is the natural choice and what is its leading cost?",
+          "choices": [
+            "LU at $O(n^3)$",
+            "QR at $O(n^3)$",
+            "Cholesky $A=LL^\\top$ at $\\tfrac12 n^3$ flops",
+            "SVD at $O(n^3)$"
+          ],
+          "answer": 2,
+          "explain": "Cholesky exploits SPD structure to halve LU's cost and avoid pivoting. It also fails fast: a non-positive pivot signals that $A$ is not SPD, useful as a numerical SPD test."
+        },
+        {
+          "type": "numeric",
+          "q": "If $\\kappa(A)=10^8$ and you solve $Ax=b$ in IEEE double precision ($\\varepsilon_M\\approx 10^{-16}$), the relative error in $x$ is bounded by roughly $\\kappa(A)\\varepsilon_M$. Enter this bound (a number).",
+          "answer": 1e-8,
+          "tol": 1e-9,
+          "explain": "$\\kappa(A)\\,\\varepsilon_M = 10^8\\cdot 10^{-16}=10^{-8}$. Rule of thumb: you lose $\\log_{10}\\kappa(A)$ digits of accuracy. Conjugate gradient sees a related but weaker dependence: convergence rate $\\sim (\\sqrt\\kappa-1)/(\\sqrt\\kappa+1)$."
+        },
+        {
+          "type": "mcq",
+          "q": "Conjugate gradient on an SPD system with condition number $\\kappa$ converges in roughly how many iterations to a fixed tolerance?",
+          "choices": [
+            "$O(\\kappa)$",
+            "$O(\\sqrt{\\kappa})$",
+            "$O(\\log\\kappa)$",
+            "$O(n)$ regardless of $\\kappa$"
+          ],
+          "answer": 1,
+          "explain": "The CG error decays as $((\\sqrt\\kappa-1)/(\\sqrt\\kappa+1))^k$, so reducing the error by a fixed factor needs $O(\\sqrt\\kappa)$ steps. This is exponentially better than Jacobi/Gauss–Seidel's $O(\\kappa)$ — preconditioning is the standard way to shrink $\\kappa$."
+        }
+      ]
+    },
+    "na-finite-differences": {
+      "title": "Finite differences and stability",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which finite difference approximates $f'(x)$ with error $O(h^2)$ rather than $O(h)$?",
+          "choices": [
+            "Forward: $(f(x+h)-f(x))/h$",
+            "Backward: $(f(x)-f(x-h))/h$",
+            "Central: $(f(x+h)-f(x-h))/(2h)$",
+            "Scaled forward: $(f(x+2h)-f(x))/(2h)$"
+          ],
+          "answer": 2,
+          "explain": "Taylor expansion: $f(x\\pm h)=f(x)\\pm h f'(x) + \\tfrac{h^2}{2}f''(x)\\pm\\tfrac{h^3}{6}f'''(x)+\\cdots$. The central difference cancels the $f''$ term, leaving $f'(x)+\\tfrac{h^2}{6}f'''(x)+\\cdots$. The other one-sided differences keep the $f''(x)h/2$ leading error."
+        },
+        {
+          "type": "mcq",
+          "q": "An explicit FD scheme for the heat equation $u_t=u_{xx}$ is stable when:",
+          "choices": [
+            "$\\Delta t\\le \\Delta x$",
+            "$\\Delta t\\le \\tfrac12(\\Delta x)^2$",
+            "$\\Delta t\\le (\\Delta x)^4$",
+            "Always — explicit schemes are unconditionally stable"
+          ],
+          "answer": 1,
+          "explain": "Von Neumann analysis on $u^{n+1}_j=u^n_j + (\\Delta t/\\Delta x^2)(u^n_{j+1}-2u^n_j+u^n_{j-1})$ gives an amplification factor whose modulus stays $\\le 1$ iff $\\Delta t/\\Delta x^2\\le 1/2$. Cross that and tiny errors blow up exponentially. Implicit (Crank–Nicolson) schemes lift the restriction at the cost of a linear solve per step."
+        },
+        {
+          "type": "numeric",
+          "q": "For the wave equation $u_{tt}=c^2 u_{xx}$ with $c=2$ and $\\Delta x=0.1$, the CFL condition $c\\Delta t/\\Delta x\\le 1$ caps $\\Delta t$. What is the largest stable $\\Delta t$?",
+          "answer": 0.05,
+          "tol": 1e-6,
+          "explain": "$\\Delta t\\le \\Delta x/c = 0.1/2 = 0.05$. The condition encodes that the numerical domain of dependence must contain the analytic one (the cone with slope $1/c$); otherwise information that should reach a node is missed by the stencil."
+        }
+      ]
+    },
+    "na-finite-elements": {
+      "title": "Finite elements",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In the FEM Galerkin formulation for $-\\Delta u=f$ on $\\Omega$ with $u=0$ on $\\partial\\Omega$, the stiffness matrix entry $K_{ij}$ equals:",
+          "choices": [
+            "$\\int_\\Omega \\varphi_i\\varphi_j$",
+            "$\\int_\\Omega \\nabla\\varphi_i\\cdot\\nabla\\varphi_j$",
+            "$\\int_\\Omega f\\varphi_i\\varphi_j$",
+            "$\\varphi_i(x_j)$"
+          ],
+          "answer": 1,
+          "explain": "Multiply $-\\Delta u=f$ by $\\varphi_j$ and integrate by parts: $\\int\\nabla u\\cdot\\nabla\\varphi_j = \\int f\\varphi_j$. Substituting $u=\\sum c_i\\varphi_i$ produces $K_{ij}=\\int\\nabla\\varphi_i\\cdot\\nabla\\varphi_j$ and the load vector $b_j=\\int f\\varphi_j$. The first option $\\int\\varphi_i\\varphi_j$ is the mass matrix, used for time-dependent problems."
+        },
+        {
+          "type": "mcq",
+          "q": "With piecewise-linear hat basis on a mesh of size $h$, Céa's lemma gives the a priori estimate $\\|u-u_h\\|_{H^1}\\le ?$",
+          "choices": [
+            "$C h^2 \\|u\\|_{H^2}$",
+            "$C h \\|u\\|_{H^2}$",
+            "$C \\|u\\|_{L^2}$",
+            "$C h^{-1} \\|f\\|_{L^2}$"
+          ],
+          "answer": 1,
+          "explain": "Céa's lemma + linear interpolation error in $H^1$ gives $\\|u-u_h\\|_{H^1}\\le Ch\\|u\\|_{H^2}$. The $L^2$ estimate is one order better: $\\|u-u_h\\|_{L^2}\\le Ch^2\\|u\\|_{H^2}$ via Aubin–Nitsche duality. Higher-order ($P^k$) elements scale as $h^k$ in $H^1$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which property of the FEM stiffness matrix $K$ for $-\\Delta$ with Dirichlet BCs makes conjugate gradient an excellent solver?",
+          "choices": [
+            "$K$ is dense and unitary",
+            "$K$ is sparse, symmetric, and positive definite",
+            "$K$ is upper triangular",
+            "$K$ has constant entries on diagonals"
+          ],
+          "answer": 1,
+          "explain": "Each $\\varphi_i$ has compact support, so $K_{ij}\\ne 0$ only when supports overlap — sparse. Symmetry is immediate from the symmetric bilinear form. Positivity: $v^\\top K v=\\int|\\nabla(\\sum v_i\\varphi_i)|^2\\ge 0$ with equality only at $v=0$ (Poincaré on $H^1_0$). SPD + sparse is exactly the regime where CG with multigrid preconditioning shines."
+        }
+      ]
+    }
+  }
+}

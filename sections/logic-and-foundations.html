@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Logic & Foundations · Interactive Mathematics Notebook</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="../css/theme-light.css">
+<script src="../js/theme-toggle.js"></script>
+<script defer src="../js/progress.js"></script>
+<script defer src="../concepts/bundle.js"></script>
+<script src="../js/onboarding.js" defer></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  /* Honour the OS / browser-level reduced-motion preference. The hero auto-
+     animation already gates itself in JS; this catches every other transform
+     and transition this page introduces (card hover lift, sticky-bar shadow,
+     mastery-ring stroke-dasharray, drawer slide, today/continue / pathway /
+     tag-card lifts). */
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{
+      animation-duration:0.001ms !important;
+      animation-iteration-count:1 !important;
+      transition-duration:0.001ms !important;
+      scroll-behavior:auto !important;
+    }
+    .card:hover,.featured-card:hover,.pathway-banner:hover,
+    .ru-card:hover,.tag-card:hover,.tag-card.active{transform:none}
+  }
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.6}
+  a{color:var(--blue)}
+  main{max-width:1000px;margin:0 auto;padding:1.6rem 1.5rem 6rem}
+  /* Top utility bar: replaces the old inline-styled right-aligned div. Four links
+     (Pathway · LaTeX cheatsheet · Your progress) aligned right, with a faint
+     brand wordmark on the left on wider viewports. Non-sticky — scrolls with
+     the page so the hero doesn't have to duck under a bar. */
+  .top-nav{display:flex;align-items:center;justify-content:space-between;
+    gap:0.8rem;padding:0.55rem 0 0.9rem;margin:0 0 1.8rem;
+    border-bottom:1px solid var(--line)}
+  .top-nav .brand{font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--mute);font-family:ui-monospace,Menlo,monospace;white-space:nowrap}
+  .top-nav .brand strong{color:var(--ink);font-weight:600;letter-spacing:0.14em}
+  .top-nav .nav-links{display:flex;gap:0.35rem;align-items:center;flex-wrap:wrap;
+    justify-content:flex-end}
+  .top-nav a.nav-link{color:var(--mute);text-decoration:none;
+    padding:0.35rem 0.75rem;border-radius:6px;border:1px solid transparent;
+    font-size:0.88rem;font-weight:500;line-height:1.2;
+    transition:color 150ms ease, background 150ms ease, border-color 150ms ease}
+  .top-nav a.nav-link:hover{color:var(--ink);background:var(--panel2);
+    border-color:var(--line)}
+  .top-nav a.nav-link.accent{color:var(--cyan);
+    border-color:color-mix(in srgb, var(--cyan) 32%, transparent)}
+  .top-nav a.nav-link.accent:hover{color:var(--cyan);
+    background:color-mix(in srgb, var(--cyan) 10%, transparent);
+    border-color:var(--cyan)}
+  @media (max-width:520px){
+    .top-nav{flex-direction:column;align-items:stretch;gap:0.5rem}
+    .top-nav .brand{text-align:center}
+    .top-nav .nav-links{justify-content:center}
+    .top-nav a.nav-link{font-size:0.82rem;padding:0.3rem 0.6rem}
+  }
+  .hero{text-align:center;margin-bottom:1.6rem}
+  .hero-tagline{margin:0.9rem auto 0;font-size:0.78rem;letter-spacing:0.16em;
+    text-transform:uppercase;color:var(--mute);
+    font-family:ui-monospace,Menlo,monospace;display:inline-flex;gap:0.55rem;
+    flex-wrap:wrap;justify-content:center;align-items:center}
+  .hero-tagline .dot{color:var(--line)}
+  .hero-tagline .tg-num{color:var(--cyan);font-weight:600}
+  /* Hero widget: a small Lissajous curve that morphs as you slide the
+     frequency ratio. Auto-animates a half-cycle on first load so the
+     reader sees the curves evolve before reaching for the slider. Pure
+     SVG, no extra deps. */
+  .hero-widget{margin:1.4rem auto 0;max-width:420px;padding:0.9rem 1.1rem 0.7rem;
+    background:color-mix(in srgb, var(--panel) 60%, transparent);
+    border:1px solid color-mix(in srgb, var(--cyan) 22%, var(--line));
+    border-radius:12px;display:flex;flex-direction:column;gap:0.4rem;
+    align-items:stretch;text-align:center}
+  .hero-widget svg{display:block;margin:0 auto;max-width:100%;height:auto}
+  .hero-widget .hw-row{display:flex;align-items:center;gap:0.7rem;
+    font-size:0.78rem;color:var(--mute);font-family:ui-monospace,Menlo,monospace}
+  .hero-widget .hw-row label{flex-shrink:0;letter-spacing:0.06em}
+  .hero-widget .hw-row input[type="range"]{flex:1;accent-color:var(--cyan)}
+  .hero-widget .hw-readout{color:var(--cyan);font-weight:600;min-width:4ch;
+    text-align:right}
+  .hero-widget .hw-curve{stroke:var(--cyan);stroke-width:1.3;fill:none;
+    stroke-linecap:round}
+  .hero-widget .hw-frame{stroke:var(--line);stroke-width:0.8;fill:none}
+  /* In-page section jump row: a compact horizontal strip of pill-links that
+     scroll to the matching #section anchor on this same page. Sits between
+     the pathway banner and Recently Updated so the whole seven-section map
+     is visible without scrolling past a thousand lines of cards. */
+  .section-jump{display:flex;flex-wrap:wrap;gap:6px;align-items:center;
+    padding:0.75rem 0.9rem;margin:0 0 2rem;
+    border:1px solid var(--line);border-radius:10px;
+    position:sticky;top:0;z-index:10;
+    backdrop-filter:blur(8px);
+    background:color-mix(in srgb, var(--panel) 88%, transparent);
+    transition:box-shadow 160ms ease, border-color 160ms ease}
+  .section-jump.stuck{box-shadow:0 6px 18px rgba(0,0,0,0.32);
+    border-color:color-mix(in srgb, var(--cyan) 30%, var(--line))}
+  /* Sentinel one pixel above the bar — when it scrolls out of view, the bar is
+     stuck. IntersectionObserver in the script block at the bottom of body adds
+     .stuck to .section-jump so the shadow/accent kicks in only when sticky. */
+  .sj-sentinel{height:1px;margin-top:-1px}
+  .section-jump .sj-label{font-size:0.7rem;letter-spacing:0.16em;
+    text-transform:uppercase;color:var(--mute);font-family:ui-monospace,Menlo,monospace;
+    margin-right:0.5rem;white-space:nowrap}
+  .section-jump a.sj-link{display:inline-flex;align-items:center;gap:6px;
+    padding:0.3rem 0.7rem;border-radius:999px;text-decoration:none;
+    font-size:0.85rem;color:var(--ink);
+    background:var(--panel2);border:1px solid var(--line);
+    transition:border-color 150ms ease, background 150ms ease, color 150ms ease}
+  .section-jump a.sj-link:hover{border-color:var(--cyan);color:var(--cyan)}
+  .section-jump a.sj-link .sj-dot{width:8px;height:8px;border-radius:50%;
+    background:var(--mute);flex-shrink:0;
+    transition:transform 150ms ease}
+  .section-jump a.sj-link:hover .sj-dot{transform:scale(1.25)}
+  .section-jump a.sj-link.s-b .sj-dot{background:var(--blue)}
+  .section-jump a.sj-link.s-y .sj-dot{background:var(--yellow)}
+  .section-jump a.sj-link.s-p .sj-dot{background:var(--pink)}
+  .section-jump a.sj-link.s-v .sj-dot{background:var(--violet)}
+  .section-jump a.sj-link.s-g .sj-dot{background:var(--green)}
+  .section-jump a.sj-link.s-c .sj-dot{background:var(--cyan)}
+  .section-jump a.sj-link.s-b:hover{border-color:var(--blue);color:var(--blue)}
+  .section-jump a.sj-link.s-y:hover{border-color:var(--yellow);color:var(--yellow)}
+  .section-jump a.sj-link.s-p:hover{border-color:var(--pink);color:var(--pink)}
+  .section-jump a.sj-link.s-v:hover{border-color:var(--violet);color:var(--violet)}
+  .section-jump a.sj-link.s-g:hover{border-color:var(--green);color:var(--green)}
+  .section-jump a.sj-link.s-c:hover{border-color:var(--cyan);color:var(--cyan)}
+  @media (max-width:520px){
+    .section-jump{padding:0.65rem 0.7rem;
+      flex-wrap:nowrap;overflow-x:auto;
+      scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+    .section-jump .sj-label{display:none}
+    .section-jump a.sj-link{font-size:0.78rem;padding:0.25rem 0.55rem;
+      flex-shrink:0;white-space:nowrap}
+  }
+  .pathway-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;
+    background:linear-gradient(135deg,rgba(125,224,214,0.08),rgba(179,157,219,0.08));
+    border:1px solid color-mix(in srgb, var(--cyan) 38%, transparent);
+    border-radius:12px;padding:1.1rem 1.3rem;margin:0 0 2.4rem;text-decoration:none;color:inherit;
+    transition:transform 150ms ease, border-color 150ms ease}
+  .pathway-banner:hover{transform:translateY(-2px);border-color:var(--cyan)}
+  .pathway-banner .pb-body{flex:1;min-width:0}
+  .pathway-banner .pb-eyebrow{font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:4px}
+  .pathway-banner .pb-title{font-size:1.15rem;font-weight:600;color:#fff;margin:0 0 3px}
+  .pathway-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
+  .pathway-banner .pb-arrow{font-size:1.6rem;color:var(--cyan);flex-shrink:0}
+  @media (max-width:520px){.pathway-banner{flex-direction:column;align-items:flex-start}.pathway-banner .pb-arrow{align-self:flex-end}}
+
+  /* Featured rail: two-card row sitting between the pathway banner and the
+     section-jump nav. Left card surfaces a date-seeded ready-to-master
+     concept ("Today's concept"); right card surfaces the topic owning the
+     visitor's most recently mastered concept ("Continue where you left
+     off"), or a curated welcome card for cold visitors. Hidden by default
+     and revealed by the script block at the bottom of body once
+     __MVConcepts has populated and a useful pick is available. */
+  .featured-rail{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 1.6rem}
+  .featured-card{display:flex;flex-direction:column;gap:6px;
+    background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem;text-decoration:none;color:inherit;
+    transition:transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease}
+  .featured-card:hover{transform:translateY(-3px);border-color:var(--violet);
+    box-shadow:0 6px 18px color-mix(in srgb, var(--violet) 22%, transparent)}
+  .featured-card.fc-continue:hover{border-color:var(--green);
+    box-shadow:0 6px 18px color-mix(in srgb, var(--green) 22%, transparent)}
+  .featured-card .fc-eyebrow{font-size:0.7rem;letter-spacing:0.16em;
+    text-transform:uppercase;color:var(--violet);font-weight:500;margin:0 0 2px}
+  .featured-card.fc-continue .fc-eyebrow{color:var(--green)}
+  .featured-card .fc-title{font-size:1.05rem;font-weight:600;color:#fff;margin:0;
+    line-height:1.35}
+  .featured-card .fc-desc{color:var(--mute);font-size:0.9rem;margin:2px 0 0;
+    line-height:1.45;flex:1;
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;
+    overflow:hidden}
+  .featured-card .fc-foot{display:flex;justify-content:space-between;
+    align-items:center;gap:0.5rem;margin-top:0.4rem;
+    font-size:0.78rem;color:var(--mute);font-family:ui-monospace,Menlo,monospace}
+  .featured-card .fc-arrow{color:var(--violet);font-size:1.1rem;line-height:1}
+  .featured-card.fc-continue .fc-arrow{color:var(--green)}
+  @media (max-width:640px){
+    .featured-rail{grid-template-columns:1fr}
+  }
+  h1{font-size:2.6rem;margin:0 0 0.6rem;letter-spacing:-0.02em;color:#fff}
+  .sub{color:var(--mute);margin:0 auto;max-width:640px;font-size:1.02rem}
+  /* Section header: was a tiny muted eyebrow label; now a distinctive title
+     row with a colored left-border marker, larger mixed-case type, and an
+     optional right-aligned concept count appended by the script block at the
+     bottom of body. NOTE: the raw class attribute is kept as exactly "sec"
+     (color goes on data-color, id goes separately) so the section-index
+     builder regex (scripts/build-section-indexes.mjs) keeps matching section
+     divs and picks up the title text cleanly. */
+  .sec{position:relative;margin:3rem 0 1rem;padding:0.35rem 0 0.55rem 0.85rem;
+    border-left:3px solid var(--line);border-bottom:1px solid var(--line);
+    display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+    font-size:1.18rem;font-weight:600;color:#fff;letter-spacing:-0.005em;
+    text-transform:none;scroll-margin-top:1.2rem}
+  .sec .sec-count{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--mute);font-family:ui-monospace,Menlo,monospace;font-weight:500;
+    white-space:nowrap}
+  /* Right-aligned stats group: mastery donut + topic count. The donut's
+     stroke colour inherits via currentColor so it picks up the section's
+     accent (set by data-color on .sec); empty rings stay neutral via the
+     .ring-empty class. */
+  .sec .sec-stats{display:inline-flex;align-items:center;gap:8px;flex-shrink:0}
+  .sec .sec-ring{width:18px;height:18px;flex-shrink:0;display:block}
+  .sec .sec-ring circle{fill:none;stroke-width:2.6}
+  .sec .sec-ring .ring-track{stroke:var(--line)}
+  .sec .sec-ring .ring-fill{stroke:currentColor;stroke-linecap:round;
+    transform:rotate(-90deg);transform-origin:center;
+    transition:stroke-dasharray 280ms ease}
+  .sec .sec-ring.ring-empty .ring-fill{stroke:var(--line)}
+  /* Section accent via data-color attribute (not a class) so the class
+     attribute stays exactly "sec" and the section-index builder's regex
+     keeps matching. */
+  .sec[data-color="b"]{border-left-color:var(--blue);color:var(--blue)}
+  .sec[data-color="y"]{border-left-color:var(--yellow);color:var(--yellow)}
+  .sec[data-color="p"]{border-left-color:var(--pink);color:var(--pink)}
+  .sec[data-color="v"]{border-left-color:var(--violet);color:var(--violet)}
+  .sec[data-color="g"]{border-left-color:var(--green);color:var(--green)}
+  .sec[data-color="c"]{border-left-color:var(--cyan);color:var(--cyan)}
+  /* Legacy styling preserved for the auto-generated bottom "Sections" block
+     (kept as a plain eyebrow row, since it links to separate landing pages).
+     Keyed off data-legacy so the class stays exactly "sec" for the builder. */
+  .sec[data-legacy]{border-left:none;padding-left:0;display:block;
+    font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--mute);font-weight:400}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));gap:12px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:0.95rem;display:flex;gap:14px;text-decoration:none;color:inherit;
+    transition:transform 160ms ease, border-color 160ms ease, background 160ms ease, box-shadow 160ms ease}
+  .card:hover{transform:translateY(-4px);background:var(--panel2);
+    box-shadow:0 6px 18px color-mix(in srgb, var(--mute) 18%, transparent)}
+  .card.y:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--yellow) 22%, transparent)}
+  .card.b:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--blue)   22%, transparent)}
+  .card.g:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--green)  22%, transparent)}
+  .card.p:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--pink)   22%, transparent)}
+  .card.v:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--violet) 22%, transparent)}
+  .card.c:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--cyan)   22%, transparent)}
+  .card.coming{opacity:0.55;cursor:not-allowed}
+  .card.coming:hover{transform:none;background:var(--panel);border-color:var(--line);box-shadow:none}
+  .thumb{width:90px;height:74px;flex-shrink:0;background:#0b0f16;
+    border:1px solid var(--line);border-radius:6px;
+    display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .body{flex:1;min-width:0;display:flex;flex-direction:column}
+  .tt{font-weight:600;margin:0 0 4px;font-size:1.04rem;color:#fff}
+  .desc{color:var(--mute);font-size:0.88rem;margin:0 0 8px;line-height:1.5;flex:1}
+  .tag{font-size:0.72rem;padding:1px 8px;border-radius:999px;
+    background:var(--panel2);color:var(--mute);border:1px solid var(--line);
+    letter-spacing:0.02em;align-self:flex-start;font-family:ui-monospace,Menlo,monospace}
+  .card.y .tt{color:var(--yellow)} .card.y:hover{border-color:var(--yellow)}
+  .card.b .tt{color:var(--blue)}   .card.b:hover{border-color:var(--blue)}
+  .card.g .tt{color:var(--green)}  .card.g:hover{border-color:var(--green)}
+  .card.p .tt{color:var(--pink)}   .card.p:hover{border-color:var(--pink)}
+  .card.v .tt{color:var(--violet)} .card.v:hover{border-color:var(--violet)}
+  .card.c .tt{color:var(--cyan)}   .card.c:hover{border-color:var(--cyan)}
+  svg{display:block}
+  .level{font-size:0.66rem;padding:1px 7px;border-radius:999px;margin-left:8px;vertical-align:middle;
+    border:1px solid transparent;text-transform:uppercase;letter-spacing:0.04em;font-family:ui-monospace,Menlo,monospace}
+  .level.prereq{background:rgba(131,193,103,0.16);color:#9fe17e;border-color:rgba(131,193,103,0.5)}
+  .level.advanced{background:rgba(224,122,95,0.16);color:#ffab96;border-color:rgba(224,122,95,0.5)}
+  .level.capstone{background:rgba(255,216,102,0.16);color:#ffe08a;border-color:rgba(255,216,102,0.55)}
+  /* mastery chip: small pill that sits in the bottom row of .body next to .tag.
+     Shows v1/total on the left (green), hard/total on the right (violet).
+     Zero-progress renders muted so the card doesn't feel empty. Injected by the
+     script block at the bottom of <body>; the script also wraps .tag + .mastery
+     in a row container so they share one horizontal line. */
+  .mrow{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+  .mrow .tag{align-self:auto}
+  .mastery{display:inline-flex;align-items:center;gap:6px;
+    font-size:0.7rem;font-family:ui-monospace,Menlo,monospace;
+    padding:1px 8px;border-radius:999px;background:var(--panel2);
+    border:1px solid var(--line);color:var(--mute);letter-spacing:0.02em;
+    white-space:nowrap}
+  .mastery .m-v1{color:var(--green)}
+  .mastery .m-hard{color:var(--violet)}
+  .mastery .m-sep{color:var(--mute);opacity:0.55}
+  /* Cold-visitor mastery chip: drop the opacity stacks (which previously
+     multiplied --mute below WCAG AA contrast on --panel2) and use --ink at a
+     muted but legible value. Computes to roughly --ink at 70% blended with
+     --bg, hitting ~7:1 against --panel2. */
+  .mastery.m-zero .m-v1{color:color-mix(in srgb, var(--ink) 72%, var(--bg))}
+  .mastery.m-zero .m-hard{color:color-mix(in srgb, var(--ink) 60%, var(--bg))}
+  .mastery.m-full-v1{border-color:color-mix(in srgb, var(--green) 45%, transparent)}
+  .mastery.m-full-hard{border-color:color-mix(in srgb, var(--violet) 55%, transparent)}
+  .mastery .m-check{color:var(--green);font-weight:600}
+  @media (max-width:420px){
+    .mastery{font-size:0.66rem;padding:1px 6px}
+    .mrow{gap:6px}
+  }
+  /* Per-topic progress drawer: a small activity-icon button (.progbtn) on each
+     topic card opens a shared slide-in drawer (.mvdrawer) that lists the
+     concepts of that topic with their mastery state. Main card click still
+     navigates to the topic; progbtn stops propagation so the drawer opens in
+     place. Reads MVProgress (never writes). */
+  .card{position:relative}
+  .progbtn{position:absolute;top:8px;right:8px;width:26px;height:26px;
+    display:inline-flex;align-items:center;justify-content:center;
+    padding:0;border-radius:6px;background:transparent;border:1px solid transparent;
+    color:var(--mute);cursor:pointer;line-height:0;z-index:2;
+    opacity:0;
+    transition:opacity 150ms ease, background 150ms ease, border-color 150ms ease, color 150ms ease}
+  .card:hover .progbtn{opacity:1}
+  .progbtn:focus-visible{opacity:1;outline:2px solid var(--cyan);outline-offset:1px}
+  .progbtn:hover{background:var(--panel2);border-color:var(--line);color:var(--ink)}
+  .progbtn svg{width:16px;height:16px;display:block;pointer-events:none}
+  /* Touch devices have no hover, so reveal the progbtn unconditionally there. */
+  @media (hover:none){
+    .progbtn{opacity:0.6}
+  }
+  .mv-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.55);
+    opacity:0;pointer-events:none;transition:opacity 180ms ease;z-index:40}
+  .mv-backdrop.open{opacity:1;pointer-events:auto}
+  .mvdrawer{position:fixed;top:0;right:0;height:100vh;width:380px;max-width:100vw;
+    background:var(--panel);border-left:1px solid var(--line);
+    transform:translateX(100%);transition:transform 220ms ease;z-index:41;
+    display:flex;flex-direction:column;color:var(--ink);box-shadow:-12px 0 36px rgba(0,0,0,0.35)}
+  .mvdrawer.open{transform:translateX(0)}
+  .mvdrawer .mvd-head{display:flex;align-items:flex-start;justify-content:space-between;
+    gap:12px;padding:1.1rem 1.2rem 0.8rem;border-bottom:1px solid var(--line)}
+  .mvdrawer .mvd-title{margin:0;font-size:1.08rem;color:#fff;font-weight:600;line-height:1.3}
+  .mvdrawer .mvd-sub{margin:4px 0 0;color:var(--mute);font-size:0.8rem;
+    font-family:ui-monospace,Menlo,monospace;letter-spacing:0.02em}
+  .mvdrawer .mvd-close{background:transparent;border:1px solid var(--line);
+    border-radius:6px;color:var(--mute);cursor:pointer;width:28px;height:28px;
+    display:inline-flex;align-items:center;justify-content:center;font-size:1.1rem;
+    line-height:1;flex-shrink:0;padding:0;transition:color 150ms ease, border-color 150ms ease}
+  .mvdrawer .mvd-close:hover{color:var(--ink);border-color:var(--mute)}
+  .mvdrawer .mvd-open{display:inline-block;margin:0.9rem 1.2rem 0;
+    padding:0.5rem 0.85rem;border-radius:6px;background:var(--panel2);
+    border:1px solid var(--line);color:var(--ink);text-decoration:none;
+    font-size:0.9rem;font-weight:500;
+    transition:border-color 150ms ease, background 150ms ease}
+  .mvdrawer .mvd-open:hover{border-color:var(--cyan);background:var(--panel)}
+  .mvdrawer .mvd-list{list-style:none;margin:1rem 0 0;padding:0 0.6rem;
+    overflow-y:auto;flex:1}
+  .mvdrawer .mvd-item{display:flex;align-items:flex-start;gap:10px;
+    padding:0.6rem 0.65rem;border-radius:6px;color:var(--ink);text-decoration:none;
+    font-size:0.92rem;line-height:1.35;
+    transition:background 150ms ease}
+  .mvdrawer .mvd-item:hover{background:var(--panel2)}
+  .mvdrawer .mvd-item .mvd-t{flex:1;min-width:0}
+  .mvdrawer .mvd-item .mvd-tlabel{color:#fff;font-weight:500}
+  .mvdrawer .mvd-item .mvd-state{display:block;font-size:0.72rem;color:var(--mute);
+    font-family:ui-monospace,Menlo,monospace;letter-spacing:0.02em;margin-top:2px}
+  .mvdrawer .mvd-item.locked .mvd-tlabel{color:var(--mute)}
+  .mvd-pip{width:12px;height:12px;border-radius:50%;flex-shrink:0;margin-top:4px;
+    background:transparent;border:1.6px solid var(--mute);box-sizing:border-box}
+  .mvd-pip.ready{background:var(--blue);border-color:var(--blue)}
+  .mvd-pip.v1{background:var(--green);border-color:var(--green)}
+  .mvd-pip.hard{background:var(--violet);border-color:var(--violet)}
+  .mvd-pip.expert{background:var(--yellow);border-color:var(--yellow)}
+  .mvd-pip.locked{background:transparent;border-color:var(--mute);opacity:0.55}
+  .mvdrawer .mvd-legend{padding:0.7rem 1.2rem 1rem;border-top:1px solid var(--line);
+    color:var(--mute);font-size:0.72rem;font-family:ui-monospace,Menlo,monospace;
+    letter-spacing:0.02em;display:flex;flex-wrap:wrap;gap:10px 14px}
+  .mvdrawer .mvd-legend span{display:inline-flex;align-items:center;gap:6px}
+  .mvdrawer .mvd-legend .mvd-pip{margin-top:0;width:10px;height:10px}
+  .mvdrawer .mvd-empty{padding:1rem 1.2rem;color:var(--mute);font-size:0.88rem}
+  @media (max-width:620px){
+    .mvdrawer{top:auto;bottom:0;right:0;left:0;height:78vh;width:100%;
+      border-left:none;border-top:1px solid var(--line);
+      border-top-left-radius:14px;border-top-right-radius:14px;
+      transform:translateY(100%)}
+    .mvdrawer.open{transform:translateY(0)}
+  }
+  /* "Recently updated" strip: populated by the script block at the bottom of <body>.
+     The #recently-updated container is hidden by default and only revealed once the
+     script successfully fetches and parses at least one topic's changelog footer.
+     Under file:// the script bails early so the strip stays hidden — no empty header. */
+  #recently-updated{display:none;margin:0 0 0.4rem}
+  #recently-updated.ready{display:block}
+  #recently-updated .ru-head{font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 0.8rem;padding-bottom:0.4rem;border-bottom:1px solid var(--line);
+    font-weight:400}
+  .ru-strip{display:flex;flex-direction:column;gap:8px}
+  .ru-card{background:var(--panel);border:1px solid var(--line);border-radius:8px;
+    padding:0.55rem 0.8rem;display:flex;align-items:center;gap:12px;
+    text-decoration:none;color:inherit;
+    transition:transform 150ms ease, border-color 150ms ease, background 150ms ease}
+  .ru-card:hover{transform:translateY(-1px);background:var(--panel2)}
+  .ru-card .ru-date{font-size:0.72rem;font-family:ui-monospace,Menlo,monospace;
+    color:var(--mute);white-space:nowrap;font-variant-numeric:tabular-nums;flex-shrink:0;
+    min-width:6.2em}
+  .ru-card .ru-title{font-weight:600;font-size:0.95rem;color:#fff;flex:1;min-width:0;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .ru-card .ru-tag{font-size:0.7rem;padding:1px 8px;border-radius:999px;
+    background:var(--panel2);color:var(--mute);border:1px solid var(--line);
+    letter-spacing:0.02em;font-family:ui-monospace,Menlo,monospace;flex-shrink:0;
+    overflow:hidden;text-overflow:ellipsis;max-width:14em;white-space:nowrap}
+  .ru-card.y .ru-title{color:var(--yellow)} .ru-card.y:hover{border-color:var(--yellow)}
+  .ru-card.b .ru-title{color:var(--blue)}   .ru-card.b:hover{border-color:var(--blue)}
+  .ru-card.g .ru-title{color:var(--green)}  .ru-card.g:hover{border-color:var(--green)}
+  .ru-card.p .ru-title{color:var(--pink)}   .ru-card.p:hover{border-color:var(--pink)}
+  .ru-card.v .ru-title{color:var(--violet)} .ru-card.v:hover{border-color:var(--violet)}
+  .ru-card.c .ru-title{color:var(--cyan)}   .ru-card.c:hover{border-color:var(--cyan)}
+  @media (max-width:520px){
+    .ru-card{padding:0.5rem 0.65rem;gap:8px}
+    .ru-card .ru-date{font-size:0.68rem;min-width:5.6em}
+    .ru-card .ru-title{font-size:0.88rem}
+    .ru-card .ru-tag{display:none}
+  }
+  footer{color:var(--mute);font-size:0.85rem;text-align:center;margin-top:4rem;
+    border-top:1px solid var(--line);padding-top:1.4rem}
+</style>
+</head>
+<body>
+<!-- section-index-auto-begin -->
+<main>
+  <nav class="section-nav" style="font-size:0.88rem;margin:0 0 1.6rem;color:var(--mute)">
+    <a href="../index.html" style="color:var(--violet)">← Full index</a>
+    &nbsp;·&nbsp;
+    <a href="../pathway.html" style="color:var(--violet)">Pathway explorer →</a>
+  </nav>
+  <section class="hero">
+    <h1>Logic & Foundations</h1>
+    <p class="sub"></p>
+  </section>
+
+  <div class="sec">Logic & Foundations</div>
+  <div class="grid">
+
+
+  <a class="card b" href="../naive-set-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- two overlapping circles (Venn) with a diagonal hint for Cantor diagonal -->
+        <circle cx="38" cy="42" r="20" fill="none" stroke="var(--blue)" stroke-width="1.4"/>
+        <circle cx="62" cy="42" r="20" fill="none" stroke="var(--blue)" stroke-width="1.4"/>
+        <g fill="var(--blue)"><circle cx="31" cy="42" r="1.8"/><circle cx="50" cy="42" r="1.8"/><circle cx="69" cy="42" r="1.8"/></g>
+        <text x="50" y="72" text-anchor="middle" font-size="8" fill="var(--blue)" font-style="italic" font-family="serif">A ∩ B</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Naive set theory <span class="level prereq">prereq</span></div>
+        <div class="desc">Sets, functions, unions/intersections, equivalence relations and quotients, Cantor's diagonal argument, and why $|\mathbb{R}|>|\mathbb{Q}|$.</div>
+        <span class="tag">∈ · ∼ · diagonal</span>
+      </div>
+    </a>
+
+
+    <a class="card b" href="../first-order-logic-and-completeness.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<g stroke="var(--blue)" stroke-width="1.2" fill="none">
+          <line x1="14" y1="32" x2="42" y2="32"/>
+          <line x1="58" y1="32" x2="86" y2="32"/>
+          <line x1="22" y1="50" x2="78" y2="50"/>
+        </g>
+        <g fill="var(--blue)" font-family="serif" font-size="10" font-style="italic">
+          <text x="28" y="27" text-anchor="middle">φ→ψ</text>
+          <text x="72" y="27" text-anchor="middle">φ</text>
+          <text x="50" y="64" text-anchor="middle">ψ</text>
+        </g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">First order logic and completeness</div>
+        <div class="desc">Syntax, semantics, deduction, the Gödel completeness theorem; compactness and Löwenheim–Skolem as consequences, Henkin construction by hand.</div>
+        <span class="tag">syntax · models · compactness · Henkin</span>
+      </div>
+    </a>
+
+
+    <a class="card b" href="../zfc-and-ordinals.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<g stroke="var(--blue)" stroke-width="1.3" fill="none">
+          <ellipse cx="50" cy="40" rx="40" ry="24"/>
+          <ellipse cx="50" cy="40" rx="30" ry="18"/>
+          <ellipse cx="50" cy="40" rx="20" ry="12"/>
+          <ellipse cx="50" cy="40" rx="10" ry="6"/>
+        </g>
+        <g fill="var(--blue)" font-family="serif" font-size="9" font-style="italic">
+          <text x="50" y="14" text-anchor="middle">V</text>
+          <text x="50" y="42" text-anchor="middle">α</text>
+        </g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Zfc and ordinals</div>
+        <div class="desc">Zermelo–Fraenkel, ordinals via ∈-well-ordering, cardinal arithmetic, the axiom of choice, the continuum hypothesis and where it stands.</div>
+        <span class="tag">axioms · ordinals · cardinals · choice</span>
+      </div>
+    </a>
+
+
+    <a class="card b" href="../model-theory-basics.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<g fill="var(--blue)">
+          <circle cx="22" cy="22" r="3"/><circle cx="50" cy="22" r="3"/><circle cx="78" cy="22" r="3"/>
+          <circle cx="22" cy="58" r="3"/><circle cx="50" cy="58" r="3"/><circle cx="78" cy="58" r="3"/>
+        </g>
+        <g stroke="var(--blue)" stroke-width="1.1" fill="none" stroke-dasharray="2 2">
+          <line x1="22" y1="26" x2="22" y2="54"/>
+          <line x1="50" y1="26" x2="50" y2="54"/>
+          <line x1="78" y1="26" x2="78" y2="54"/>
+        </g>
+        <g stroke="var(--blue)" stroke-width="1.1" fill="none">
+          <line x1="26" y1="22" x2="46" y2="22"/>
+          <line x1="54" y1="22" x2="74" y2="22"/>
+          <line x1="26" y1="58" x2="46" y2="58"/>
+          <line x1="54" y1="58" x2="74" y2="58"/>
+        </g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Model theory basics</div>
+        <div class="desc">Structures and elementary equivalence, types and saturation, Ehrenfeucht–Fraïssé back-and-forth, the Ax–Grothendieck transfer principle.</div>
+        <span class="tag">structures · types · EF games</span>
+      </div>
+    </a>
+
+
+    <a class="card b" href="../computability-and-decidability.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<g stroke="var(--blue)" stroke-width="1.2" fill="none">
+          <rect x="10" y="32" width="12" height="16"/><rect x="22" y="32" width="12" height="16"/>
+          <rect x="34" y="32" width="12" height="16"/><rect x="46" y="32" width="12" height="16"/>
+          <rect x="58" y="32" width="12" height="16"/><rect x="70" y="32" width="12" height="16"/>
+          <rect x="82" y="32" width="12" height="16"/>
+        </g>
+        <g fill="var(--blue)" font-family="monospace" font-size="9">
+          <text x="16" y="44" text-anchor="middle">0</text>
+          <text x="28" y="44" text-anchor="middle">1</text>
+          <text x="40" y="44" text-anchor="middle">1</text>
+          <text x="52" y="44" text-anchor="middle">0</text>
+          <text x="64" y="44" text-anchor="middle">1</text>
+        </g>
+        <path d="M 52 28 L 48 24 L 56 24 Z" fill="var(--blue)"/>
+        <text x="52" y="20" text-anchor="middle" font-family="serif" font-size="8" fill="var(--blue)">q</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Computability and decidability</div>
+        <div class="desc">Turing machines and recursive functions, the halting problem by diagonal, recursive vs r.e., Rice and Gödel via reduction.</div>
+        <span class="tag">Turing · halting · undecidable</span>
+      </div>
+    </a>
+
+
+    <a class="card b" href="../complexity-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<g stroke="var(--blue)" stroke-width="1.4" fill="none">
+          <ellipse cx="50" cy="40" rx="40" ry="22"/>
+          <ellipse cx="46" cy="42" rx="28" ry="15"/>
+          <ellipse cx="42" cy="44" rx="14" ry="8"/>
+        </g>
+        <g fill="var(--blue)" font-family="serif" font-size="8" font-style="italic">
+          <text x="42" y="46" text-anchor="middle">P</text>
+          <text x="64" y="46" text-anchor="middle">NP</text>
+          <text x="84" y="46" text-anchor="middle">EXP</text>
+        </g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Complexity theory</div>
+        <div class="desc">Time and space complexity, P vs NP, NP-completeness via Cook–Levin, Karp reductions, Savitch and the hierarchy theorems.</div>
+        <span class="tag">P · NP · reductions · hierarchy</span>
+      </div>
+    </a>
+
+
+    <a class="card b" href="../type-theory-and-hott.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<g fill="var(--blue)"><circle cx="20" cy="40" r="4"/><circle cx="80" cy="40" r="4"/></g>
+        <path d="M 24 40 Q 50 12 76 40" stroke="var(--blue)" stroke-width="1.5" fill="none"/>
+        <path d="M 24 40 Q 50 68 76 40" stroke="var(--blue)" stroke-width="1.5" fill="none" opacity="0.5"/>
+        <g fill="var(--blue)" font-family="serif" font-size="9" font-style="italic">
+          <text x="20" y="56" text-anchor="middle">a</text>
+          <text x="80" y="56" text-anchor="middle">b</text>
+          <text x="50" y="20" text-anchor="middle">p</text>
+        </g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Type theory and hott</div>
+        <div class="desc">Dependent types, Π/Σ types, identity types and J-rule, the univalence axiom, higher inductive types, ∞-groupoid models.</div>
+        <span class="tag">judgments · paths · univalence</span>
+      </div>
+    </a>
+
+
+    <a class="card b" href="../forcing-and-independence.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<g fill="var(--blue)">
+          <circle cx="50" cy="14" r="2.6"/>
+          <circle cx="30" cy="34" r="2.6"/><circle cx="70" cy="34" r="2.6"/>
+          <circle cx="20" cy="54" r="2.6"/><circle cx="40" cy="54" r="2.6"/>
+          <circle cx="60" cy="54" r="2.6"/><circle cx="80" cy="54" r="2.6"/>
+        </g>
+        <g stroke="var(--blue)" stroke-width="1.2" fill="none">
+          <line x1="50" y1="16" x2="30" y2="32"/><line x1="50" y1="16" x2="70" y2="32"/>
+          <line x1="30" y1="36" x2="20" y2="52"/><line x1="30" y1="36" x2="40" y2="52"/>
+          <line x1="70" y1="36" x2="60" y2="52"/><line x1="70" y1="36" x2="80" y2="52"/>
+        </g>
+        <text x="50" y="74" text-anchor="middle" font-family="serif" font-size="9" font-style="italic" fill="var(--blue)">G</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Forcing and independence</div>
+        <div class="desc">Cohen forcing for adjoining reals, generic filters and the truth lemma, the independence of CH, Suslin and Martin's axiom.</div>
+        <span class="tag">Cohen · genericity · CH</span>
+      </div>
+    </a>
+  </div>
+
+  <footer>
+    Dark palette &amp; pedagogical spirit after 3Blue1Brown. Math typeset with <a href="https://katex.org">KaTeX</a>. Interactive widgets are hand-written SVG + JS.
+  </footer>
+</main>
+<!-- section-index-auto-end -->
+</body>
+</html>

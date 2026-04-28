@@ -1,0 +1,94 @@
+{
+  "topic": "fixed-point-theorems",
+  "title": "Fixed-point theorems",
+  "page": "fixed-point-theorems.html",
+  "concepts": [
+    {
+      "id": "fpt-banach",
+      "title": "Banach contraction principle",
+      "anchor": "banach",
+      "prereqs": [
+        "metric-spaces"
+      ],
+      "blurb": "A contraction $f$ with Lipschitz constant $L<1$ on a complete metric space has a unique fixed point, reached by Picard iteration $x_{n+1}=f(x_n)$ with geometric convergence.",
+      "tags": [
+        "completion",
+        "foundation"
+      ]
+    },
+    {
+      "id": "fpt-brouwer",
+      "title": "Brouwer fixed-point theorem",
+      "anchor": "brouwer",
+      "prereqs": [
+        "compactness",
+        "connectedness",
+        "fpt-banach",
+        "singular-homology"
+      ],
+      "blurb": "Every continuous self-map of a closed ball $D^n\\to D^n$ has a fixed point; the proof goes through degree theory or the no-retraction lemma.",
+      "tags": [
+        "compactness"
+      ]
+    },
+    {
+      "id": "fpt-schauder",
+      "title": "Schauder fixed-point theorem",
+      "anchor": "schauder",
+      "prereqs": [
+        "fpt-brouwer",
+        "banach-hilbert-spaces",
+        "compact-operators"
+      ],
+      "blurb": "A continuous self-map of a non-empty convex compact subset of a Banach space — or a compact operator on a closed bounded convex set — has a fixed point. The infinite-dimensional companion to Brouwer.",
+      "tags": [
+        "compactness",
+        "completion"
+      ]
+    },
+    {
+      "id": "fpt-lefschetz",
+      "title": "Lefschetz fixed-point theorem",
+      "anchor": "lefschetz",
+      "prereqs": [
+        "fpt-brouwer",
+        "singular-homology",
+        "fundamental-group"
+      ],
+      "blurb": "If the Lefschetz number $\\Lambda(f)=\\sum (-1)^k\\,\\tr(f_*\\colon H_k\\to H_k)$ is non-zero, then $f$ has a fixed point. Brouwer is the special case of a contractible space.",
+      "tags": [
+        "cohomology",
+        "compactness"
+      ]
+    },
+    {
+      "id": "fpt-kakutani",
+      "title": "Kakutani fixed-point theorem",
+      "anchor": "kakutani",
+      "prereqs": [
+        "fpt-brouwer",
+        "compactness"
+      ],
+      "blurb": "An upper-hemicontinuous set-valued map $\\varphi$ from a non-empty compact convex set to its non-empty closed convex subsets has a fixed point $x\\in\\varphi(x)$. The engine behind Nash's existence proof.",
+      "tags": [
+        "compactness",
+        "group-action"
+      ]
+    },
+    {
+      "id": "fpt-applications",
+      "title": "Applications across mathematics",
+      "anchor": "applications",
+      "prereqs": [
+        "fpt-banach",
+        "fpt-brouwer",
+        "fpt-kakutani"
+      ],
+      "blurb": "Picard–Lindelöf for ODEs, the implicit function theorem, Nash equilibrium existence, and Markov-chain stationary distributions all reduce to one of these four fixed-point theorems.",
+      "tags": [
+        "foundation",
+        "classification"
+      ]
+    }
+  ]
+}

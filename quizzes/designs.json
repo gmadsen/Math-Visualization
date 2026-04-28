@@ -1,0 +1,236 @@
+{
+  "topic": "designs",
+  "quizzes": {
+    "d-block-designs": {
+      "title": "Balanced incomplete block designs",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A $(v, k, \\lambda) = (7, 3, 1)$-BIBD has $b$ blocks and replication $r$. What are $b$ and $r$?",
+          "choices": [
+            "$b = 7$, $r = 3$",
+            "$b = 21$, $r = 9$",
+            "$b = 14$, $r = 6$",
+            "$b = 7$, $r = 1$"
+          ],
+          "answer": 0,
+          "explain": "From $\\lambda(v-1) = r(k-1)$ we get $1 \\cdot 6 = r \\cdot 2$, so $r = 3$. Then $bk = vr$ gives $3b = 7 \\cdot 3 = 21$, so $b = 7$. This is the Fano plane: $7$ points, $7$ lines, each line through $3$ points, each point on $3$ lines."
+        },
+        {
+          "type": "mcq",
+          "q": "Which of these parameter triples $(v, k, \\lambda)$ satisfies the necessary divisibility conditions for a BIBD to exist?",
+          "choices": [
+            "$(v, k, \\lambda) = (8, 3, 1)$",
+            "$(v, k, \\lambda) = (9, 3, 1)$",
+            "$(v, k, \\lambda) = (10, 4, 1)$",
+            "$(v, k, \\lambda) = (11, 5, 1)$"
+          ],
+          "answer": 1,
+          "explain": "Need $\\lambda(v-1) \\equiv 0 \\pmod{k-1}$ and $\\lambda v(v-1) \\equiv 0 \\pmod{k(k-1)}$. For $(9,3,1)$: $8 \\equiv 0 \\pmod 2$ and $9 \\cdot 8 = 72 \\equiv 0 \\pmod 6$. The other triples fail one or both. (And indeed, the affine plane $\\mathrm{AG}(2,3)$ realizes $(9,3,1)$.)"
+        },
+        {
+          "type": "numeric",
+          "q": "In a $(v, k, \\lambda) = (13, 4, 1)$-BIBD, how many blocks $b$ are there?",
+          "answer": 13,
+          "tol": 0.01,
+          "explain": "$r(k-1) = \\lambda(v-1) \\Rightarrow 3r = 12 \\Rightarrow r = 4$. Then $bk = vr \\Rightarrow 4b = 13 \\cdot 4 \\Rightarrow b = 13$. This is $\\mathrm{PG}(2,3)$: a symmetric $2$-design with $b = v$."
+        }
+      ]
+    },
+    "d-fisher-inequality": {
+      "title": "Fisher's inequality",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Fisher's inequality says: in any non-trivial $2$-$(v,k,\\lambda)$ design,",
+          "choices": [
+            "$b \\ge v$",
+            "$b \\le v$",
+            "$b = v$",
+            "$\\lambda \\ge k$"
+          ],
+          "answer": 0,
+          "explain": "Fisher's inequality is $b \\ge v$. Equality $b = v$ defines a symmetric design (e.g. projective planes). The bound comes from the incidence matrix $N$ having $\\mathrm{rank}(N) = v$ over $\\mathbb{R}$."
+        },
+        {
+          "type": "mcq",
+          "q": "The key linear-algebra step in Fisher's proof shows that for the $v \\times b$ incidence matrix $N$,",
+          "choices": [
+            "$NN^\\top = rI$",
+            "$NN^\\top = \\lambda J$",
+            "$NN^\\top = (r-\\lambda)I + \\lambda J$",
+            "$N^\\top N = vI$"
+          ],
+          "answer": 2,
+          "explain": "$(NN^\\top)_{ii} = r$ (replication count) and $(NN^\\top)_{ij} = \\lambda$ for $i \\ne j$ (pair-coverage count). So $NN^\\top = (r-\\lambda)I + \\lambda J$. Its eigenvalues are $r - \\lambda$ (with multiplicity $v-1$) and $r + (v-1)\\lambda = rk$ (multiplicity $1$); for non-trivial designs both are positive, so the matrix is invertible and $\\mathrm{rank}(N) = v \\le b$."
+        },
+        {
+          "type": "mcq",
+          "q": "A symmetric $2$-design is one with $b = v$. Which is the most familiar example?",
+          "choices": [
+            "A complete graph $K_n$",
+            "A projective plane of order $q$",
+            "The empty design",
+            "A Latin square"
+          ],
+          "answer": 1,
+          "explain": "A projective plane of order $q$ has $v = b = q^2+q+1$, $k = r = q+1$, $\\lambda = 1$. Symmetric designs are the equality case of Fisher and enjoy a dual design (swap blocks and points)."
+        }
+      ]
+    },
+    "d-finite-projective-planes": {
+      "title": "Finite projective planes",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "How many points does a projective plane of order $q = 4$ have?",
+          "answer": 21,
+          "tol": 0.01,
+          "explain": "$q^2 + q + 1 = 16 + 4 + 1 = 21$. Each line carries $q + 1 = 5$ points, and each point lies on $5$ lines."
+        },
+        {
+          "type": "mcq",
+          "q": "By the Bruck–Ryser–Chowla theorem, a projective plane of order $q$ with $q \\equiv 1$ or $2 \\pmod 4$ exists only if",
+          "choices": [
+            "$q$ is a prime",
+            "$q$ is a sum of two integer squares",
+            "$q$ is even",
+            "$q + 1$ is prime"
+          ],
+          "answer": 1,
+          "explain": "BRC: if $q \\equiv 1,2 \\pmod 4$ then $q$ must be expressible as $a^2 + b^2$. This rules out $q = 6$ (= 2·3, not a sum of two squares) and $q = 14, 21, 22, \\ldots$. The case $q = 10$ ($= 1^2 + 3^2$) survived BRC and was eventually killed by a 1989 computer search."
+        },
+        {
+          "type": "mcq",
+          "q": "The Fano plane is the projective plane of order $q = 2$. It is the unique $(v,k,\\lambda) = $",
+          "choices": [
+            "$(7, 3, 1)$ design",
+            "$(7, 2, 1)$ design",
+            "$(8, 3, 1)$ design",
+            "$(7, 3, 2)$ design"
+          ],
+          "answer": 0,
+          "explain": "$v = q^2+q+1 = 7$, $k = q+1 = 3$, $\\lambda = 1$ (any two points lie on exactly one line). Up to isomorphism it is the unique Steiner triple system on $7$ points."
+        }
+      ]
+    },
+    "d-latin-squares": {
+      "title": "Latin squares & MOLS",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Two Latin squares $L_1, L_2$ of order $n$ are orthogonal if",
+          "choices": [
+            "$L_1 = L_2^\\top$",
+            "Their superposition contains every pair $(a, b) \\in [n] \\times [n]$ exactly once",
+            "Their entrywise product is a Latin square",
+            "$L_1 + L_2$ is constant"
+          ],
+          "answer": 1,
+          "explain": "Pair-up cell $(i,j)$ as $(L_1(i,j), L_2(i,j))$; orthogonality requires every one of the $n^2$ ordered pairs to appear exactly once. A complete set of $n-1$ mutually orthogonal Latin squares (MOLS) exists iff a projective plane of order $n$ exists."
+        },
+        {
+          "type": "numeric",
+          "q": "The maximum number of mutually orthogonal Latin squares of order $n = 5$ is $n - 1 = ?$",
+          "answer": 4,
+          "tol": 0.01,
+          "explain": "Order $5$ is a prime, so a projective plane $\\mathrm{PG}(2,5)$ exists, and a complete set of $n - 1 = 4$ MOLS can be built by labelling cells with $\\mathbb{F}_5$ and using $L_a(i,j) = i + a j \\pmod 5$ for $a = 1, 2, 3, 4$."
+        },
+        {
+          "type": "mcq",
+          "q": "Euler's $36$-officers problem asks for two orthogonal Latin squares of order $6$. The answer (Tarry, 1900) is:",
+          "choices": [
+            "Yes, they exist.",
+            "No, no such pair exists.",
+            "They exist only over $\\mathbb{F}_6$.",
+            "The question is undecidable."
+          ],
+          "answer": 1,
+          "explain": "Tarry's exhaustive 1900 enumeration showed no pair of orthogonal Latin squares of order $6$ exists. This is the only $n > 2$ for which MOLS pairs fail; the full Bose–Shrikhande–Parker theorem (1959) confirmed pairs exist for every other $n \\ne 2, 6$."
+        }
+      ]
+    },
+    "d-error-correcting-codes": {
+      "title": "Designs from codes",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The supports of weight-$3$ codewords in the binary Hamming $[7,4,3]$ code form the blocks of which design?",
+          "choices": [
+            "The Fano plane $\\mathrm{PG}(2,2)$",
+            "The affine plane $\\mathrm{AG}(2,3)$",
+            "The Steiner system $S(5,6,12)$",
+            "A complete bipartite design"
+          ],
+          "answer": 0,
+          "explain": "The Hamming $[7,4,3]$ code's $7$ minimum-weight codewords have weight-$3$ supports that are exactly the $7$ lines of the Fano plane — the Steiner triple system $S(2,3,7)$."
+        },
+        {
+          "type": "mcq",
+          "q": "A Steiner system $S(t, k, v)$ is a collection of $k$-subsets (blocks) of a $v$-set such that",
+          "choices": [
+            "Every $t$-subset of points is contained in exactly one block",
+            "Every block contains exactly $t$ points",
+            "Every pair of blocks meets in $t$ points",
+            "Each point lies in exactly $t$ blocks"
+          ],
+          "answer": 0,
+          "explain": "$S(t,k,v)$ is a $t$-design with $\\lambda = 1$: every $t$-set lies in a unique block. $S(2,3,7)$ is the Fano plane; $S(5,8,24)$ is the famous Witt design built from the binary Golay code."
+        },
+        {
+          "type": "mcq",
+          "q": "The Assmus–Mattson theorem says that under mild conditions, the supports of weight-$w$ codewords in a code $C$ form",
+          "choices": [
+            "A Latin square",
+            "A $t$-design for some $t$ depending on the dual distance",
+            "A finite projective plane",
+            "An MDS code"
+          ],
+          "answer": 1,
+          "explain": "Assmus–Mattson (1969): for a self-dual or otherwise nicely structured code $C$, the supports of weight-$w$ codewords (for each $w$ in a certain range) form $t$-designs, with $t$ governed by the minimum weight of $C^\\perp$. This is the bridge yielding $S(5,8,24)$ from the Golay code $G_{24}$."
+        }
+      ]
+    },
+    "d-applications": {
+      "title": "Applications",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Why did R. A. Fisher introduce balanced incomplete block designs in agriculture?",
+          "choices": [
+            "To minimize the cost of seed",
+            "So every pair of treatments is compared on equally many plots, equalizing variance",
+            "To avoid Latin squares",
+            "To ensure plots are spatially adjacent"
+          ],
+          "answer": 1,
+          "explain": "BIBDs equalize the precision with which any pair of treatments is compared: every pair appears together in exactly $\\lambda$ blocks, so paired-comparison variance is the same across all pairs."
+        },
+        {
+          "type": "mcq",
+          "q": "In combinatorial software testing, an orthogonal array of strength $t$ guarantees",
+          "choices": [
+            "Every individual parameter takes every value",
+            "Every $t$-tuple of parameter values appears in some test row",
+            "Every test row is unique",
+            "The number of tests is $\\le t$"
+          ],
+          "answer": 1,
+          "explain": "Strength-$t$ orthogonal arrays — close cousins of MOLS — promise that every choice of $t$ parameter columns covers every value combination. Pairwise ($t = 2$) testing finds most bugs that depend on at most two parameter interactions, with vastly fewer than $\\prod n_i$ runs."
+        },
+        {
+          "type": "mcq",
+          "q": "A round-robin tournament for $7$ teams where each pair meets exactly once corresponds to",
+          "choices": [
+            "A Steiner triple system $S(2,3,7)$",
+            "The complete graph $K_7$ as a $1$-factorization",
+            "A Latin square of order $7$",
+            "An affine plane $\\mathrm{AG}(2,7)$"
+          ],
+          "answer": 1,
+          "explain": "Scheduling $K_7$ as a sequence of perfect-matching rounds is the classic $1$-factorization problem; it splits into Steiner-style rounds for odd $n$ via a 'circle method'. The pairing-once-each constraint is exactly $\\lambda = 1$ for pairs, the BIBD signature."
+        }
+      ]
+    }
+  }
+}

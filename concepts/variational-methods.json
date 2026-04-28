@@ -1,0 +1,90 @@
+{
+  "topic": "variational-methods",
+  "title": "Variational methods",
+  "page": "variational-methods.html",
+  "concepts": [
+    {
+      "id": "vm-functional-derivative",
+      "title": "Functional derivative",
+      "anchor": "functional-derivative",
+      "prereqs": [
+        "banach-hilbert-spaces",
+        "bounded-operators-fa",
+        "lp-spaces"
+      ],
+      "blurb": "$\\delta J/\\delta u$ measures the linear response of a functional to a perturbation; the Gateaux directional derivative $\\lim_{\\varepsilon\\to 0}(J(u+\\varepsilon h)-J(u))/\\varepsilon$ upgrades to a Fréchet derivative when the linear part dominates uniformly in $h$.",
+      "tags": [
+        "duality"
+      ]
+    },
+    {
+      "id": "vm-euler-lagrange",
+      "title": "Euler–Lagrange equations",
+      "anchor": "euler-lagrange",
+      "prereqs": [
+        "vm-functional-derivative",
+        "lp-spaces"
+      ],
+      "blurb": "Stationarity of $J(u)=\\int L(x,u,u')\\,dx$ against compactly-supported variations forces $\\frac{d}{dx}\\partial_{u'}L = \\partial_u L$; the necessary condition every classical minimiser must satisfy.",
+      "tags": [
+        "universal-property"
+      ]
+    },
+    {
+      "id": "vm-direct-method",
+      "title": "Direct method (Tonelli)",
+      "anchor": "direct-method",
+      "prereqs": [
+        "vm-functional-derivative",
+        "convergence-theorems",
+        "banach-hilbert-spaces",
+        "pde-weak-solutions"
+      ],
+      "blurb": "Coercivity bounds a minimising sequence in a reflexive space; weak compactness extracts a subsequential limit; weak lower-semicontinuity ($J(u)\\le\\liminf J(u_k)$) certifies it as a minimiser. The blueprint behind every modern existence theorem in calculus of variations.",
+      "tags": [
+        "compactness"
+      ]
+    },
+    {
+      "id": "vm-mountain-pass",
+      "title": "Mountain-pass theorem",
+      "anchor": "mountain-pass",
+      "prereqs": [
+        "vm-functional-derivative",
+        "vm-direct-method",
+        "bounded-operators-fa"
+      ],
+      "blurb": "Ambrosetti–Rabinowitz: if $J$ has a local min at the origin and dips below it at some far point, the saddle-height $c=\\inf_\\gamma\\max_t J(\\gamma(t))$ over connecting paths is a critical value — provided the Palais–Smale compactness condition holds.",
+      "tags": [
+        "compactness"
+      ]
+    },
+    {
+      "id": "vm-isoperimetric",
+      "title": "Isoperimetric inequality",
+      "anchor": "isoperimetric",
+      "prereqs": [
+        "vm-direct-method",
+        "vm-euler-lagrange"
+      ],
+      "blurb": "Among planar regions of fixed perimeter $L$, the disk uniquely maximises area: $4\\pi A\\le L^2$. The Euler–Lagrange analysis gives constant geodesic curvature, and a calibration argument certifies the disk as the global optimum — the soap-bubble principle.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "vm-applications",
+      "title": "Applications: geodesics, minimal surfaces, gauge theory",
+      "anchor": "applications",
+      "prereqs": [
+        "vm-euler-lagrange",
+        "vm-direct-method",
+        "pde-existence-and-regularity"
+      ],
+      "blurb": "Geodesics minimise arc-length and satisfy $\\nabla_{\\dot\\gamma}\\dot\\gamma=0$; Plateau's problem produces minimal surfaces with $H=0$; thin elastic plates minimise bending energy $\\int|\\Delta u|^2$; Yang–Mills connections are critical points of $\\int|F_A|^2$. All of physics is a stationarity condition.",
+      "tags": [
+        "universal-property"
+      ]
+    }
+  ]
+}

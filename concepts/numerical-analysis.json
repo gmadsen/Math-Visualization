@@ -1,0 +1,76 @@
+{
+  "topic": "numerical-analysis",
+  "title": "Numerical analysis",
+  "page": "numerical-analysis.html",
+  "concepts": [
+    {
+      "id": "na-floating-point",
+      "title": "Floating-point arithmetic",
+      "anchor": "floating-point",
+      "prereqs": [
+        "real-numbers"
+      ],
+      "blurb": "IEEE 754 represents reals as $(-1)^s \\cdot m \\cdot 2^e$ with finite mantissa: machine epsilon $\\varepsilon_M\\approx 2.22\\times 10^{-16}$ in double precision bounds the relative roundoff $\\mathrm{fl}(x)=x(1+\\delta)$. Conditioning of a problem and numerical stability of an algorithm are two independent axes; a stable algorithm on an ill-conditioned problem still loses digits.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "na-rootfinding",
+      "title": "Rootfinding: bisection & Newton",
+      "anchor": "rootfinding",
+      "prereqs": [
+        "na-floating-point",
+        "real-differentiation"
+      ],
+      "blurb": "Bisection halves an interval $[a,b]$ with $f(a)f(b)<0$, converging linearly with rate $1/2$. Newton's iteration $x_{n+1}=x_n-f(x_n)/f'(x_n)$ converges quadratically near a simple root: $|e_{n+1}|\\le C|e_n|^2$. The order $p$ of convergence is the supremum with $|e_{n+1}|\\le C|e_n|^p$; secant gives the golden ratio $p=(1+\\sqrt5)/2$."
+    },
+    {
+      "id": "na-quadrature",
+      "title": "Quadrature: trapezoid, Simpson, Gauss",
+      "anchor": "quadrature",
+      "prereqs": [
+        "riemann-integral",
+        "na-floating-point"
+      ],
+      "blurb": "Composite trapezoid on $n$ panels has error $-\\tfrac{(b-a)h^2}{12}f''(\\xi)$ with $h=(b-a)/n$; Simpson's rule integrates cubics exactly with error $O(h^4)$; Gauss–Legendre with $n$ nodes integrates polynomials up to degree $2n-1$ exactly by choosing nodes as zeros of Legendre polynomials. The exponent of $h$ is the order of accuracy."
+    },
+    {
+      "id": "na-linear-systems",
+      "title": "Linear systems: direct & iterative solvers",
+      "anchor": "linear-systems",
+      "prereqs": [
+        "na-floating-point",
+        "banach-hilbert-spaces"
+      ],
+      "blurb": "$Ax=b$ via LU $(O(n^3))$, Cholesky for SPD $(\\tfrac12 n^3)$, or QR for least-squares; the condition number $\\kappa(A)=\\|A\\|\\,\\|A^{-1}\\|$ governs how perturbations $\\delta b$ amplify into $\\delta x$. For large sparse $A$, stationary iterations (Jacobi, Gauss–Seidel) converge when the spectral radius of the iteration matrix is $<1$, and Krylov methods (conjugate gradient on SPD systems) reach the solution in $O(\\sqrt{\\kappa})$ iterations."
+    },
+    {
+      "id": "na-finite-differences",
+      "title": "Finite differences and CFL stability",
+      "anchor": "fd",
+      "prereqs": [
+        "na-rootfinding",
+        "pde-classification",
+        "pde-heat-equation"
+      ],
+      "blurb": "Forward $(f(x+h)-f(x))/h$, backward, and central $(f(x+h)-f(x-h))/(2h)$ differences approximate $f'$ with truncation error $O(h)$, $O(h)$, $O(h^2)$. Discretizing $u_t=u_{xx}$ explicitly demands $\\Delta t\\le \\tfrac{1}{2}(\\Delta x)^2$; the wave equation explicit scheme demands the CFL condition $c\\,\\Delta t/\\Delta x\\le 1$. Cross those bounds and the scheme amplifies round-off geometrically.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "na-finite-elements",
+      "title": "Finite elements & Galerkin formulation",
+      "anchor": "fem",
+      "prereqs": [
+        "pde-weak-solutions",
+        "na-linear-systems"
+      ],
+      "blurb": "On a mesh $\\mathcal{T}_h$ with piecewise-linear hat basis $\\{\\varphi_i\\}$, write $u_h=\\sum c_i\\varphi_i\\in V_h\\subset H^1_0(\\Omega)$ and impose $\\int\\nabla u_h\\cdot\\nabla \\varphi_j=\\int f\\varphi_j$ for every $j$. The stiffness matrix $K_{ij}=\\int\\nabla\\varphi_i\\cdot\\nabla\\varphi_j$ is sparse and SPD; Céa's lemma plus interpolation give the a priori estimate $\\|u-u_h\\|_{H^1}\\le C h\\|u\\|_{H^2}$.",
+      "tags": [
+        "duality"
+      ]
+    }
+  ]
+}

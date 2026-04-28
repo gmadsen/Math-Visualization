@@ -7,8 +7,11 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
-<script src="../js/progress.js"></script>
-<script src="../concepts/bundle.js"></script>
+<link rel="stylesheet" href="../css/theme-light.css">
+<script src="../js/theme-toggle.js"></script>
+<script defer src="../js/progress.js"></script>
+<script defer src="../concepts/bundle.js"></script>
+<script src="../js/onboarding.js" defer></script>
 <script>
 (function(){
   function renderAll(){
@@ -33,6 +36,21 @@
     --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
   }
   *{box-sizing:border-box}
+  /* Honour the OS / browser-level reduced-motion preference. The hero auto-
+     animation already gates itself in JS; this catches every other transform
+     and transition this page introduces (card hover lift, sticky-bar shadow,
+     mastery-ring stroke-dasharray, drawer slide, today/continue / pathway /
+     tag-card lifts). */
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{
+      animation-duration:0.001ms !important;
+      animation-iteration-count:1 !important;
+      transition-duration:0.001ms !important;
+      scroll-behavior:auto !important;
+    }
+    .card:hover,.featured-card:hover,.pathway-banner:hover,
+    .ru-card:hover,.tag-card:hover,.tag-card.active{transform:none}
+  }
   html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
     font-size:17px;line-height:1.6}
@@ -74,13 +92,42 @@
     flex-wrap:wrap;justify-content:center;align-items:center}
   .hero-tagline .dot{color:var(--line)}
   .hero-tagline .tg-num{color:var(--cyan);font-weight:600}
+  /* Hero widget: a small Lissajous curve that morphs as you slide the
+     frequency ratio. Auto-animates a half-cycle on first load so the
+     reader sees the curves evolve before reaching for the slider. Pure
+     SVG, no extra deps. */
+  .hero-widget{margin:1.4rem auto 0;max-width:420px;padding:0.9rem 1.1rem 0.7rem;
+    background:color-mix(in srgb, var(--panel) 60%, transparent);
+    border:1px solid color-mix(in srgb, var(--cyan) 22%, var(--line));
+    border-radius:12px;display:flex;flex-direction:column;gap:0.4rem;
+    align-items:stretch;text-align:center}
+  .hero-widget svg{display:block;margin:0 auto;max-width:100%;height:auto}
+  .hero-widget .hw-row{display:flex;align-items:center;gap:0.7rem;
+    font-size:0.78rem;color:var(--mute);font-family:ui-monospace,Menlo,monospace}
+  .hero-widget .hw-row label{flex-shrink:0;letter-spacing:0.06em}
+  .hero-widget .hw-row input[type="range"]{flex:1;accent-color:var(--cyan)}
+  .hero-widget .hw-readout{color:var(--cyan);font-weight:600;min-width:4ch;
+    text-align:right}
+  .hero-widget .hw-curve{stroke:var(--cyan);stroke-width:1.3;fill:none;
+    stroke-linecap:round}
+  .hero-widget .hw-frame{stroke:var(--line);stroke-width:0.8;fill:none}
   /* In-page section jump row: a compact horizontal strip of pill-links that
      scroll to the matching #section anchor on this same page. Sits between
      the pathway banner and Recently Updated so the whole seven-section map
      is visible without scrolling past a thousand lines of cards. */
   .section-jump{display:flex;flex-wrap:wrap;gap:6px;align-items:center;
     padding:0.75rem 0.9rem;margin:0 0 2rem;
-    background:var(--panel);border:1px solid var(--line);border-radius:10px}
+    border:1px solid var(--line);border-radius:10px;
+    position:sticky;top:0;z-index:10;
+    backdrop-filter:blur(8px);
+    background:color-mix(in srgb, var(--panel) 88%, transparent);
+    transition:box-shadow 160ms ease, border-color 160ms ease}
+  .section-jump.stuck{box-shadow:0 6px 18px rgba(0,0,0,0.32);
+    border-color:color-mix(in srgb, var(--cyan) 30%, var(--line))}
+  /* Sentinel one pixel above the bar — when it scrolls out of view, the bar is
+     stuck. IntersectionObserver in the script block at the bottom of body adds
+     .stuck to .section-jump so the shadow/accent kicks in only when sticky. */
+  .sj-sentinel{height:1px;margin-top:-1px}
   .section-jump .sj-label{font-size:0.7rem;letter-spacing:0.16em;
     text-transform:uppercase;color:var(--mute);font-family:ui-monospace,Menlo,monospace;
     margin-right:0.5rem;white-space:nowrap}
@@ -107,9 +154,12 @@
   .section-jump a.sj-link.s-g:hover{border-color:var(--green);color:var(--green)}
   .section-jump a.sj-link.s-c:hover{border-color:var(--cyan);color:var(--cyan)}
   @media (max-width:520px){
-    .section-jump{padding:0.65rem 0.7rem}
+    .section-jump{padding:0.65rem 0.7rem;
+      flex-wrap:nowrap;overflow-x:auto;
+      scrollbar-width:thin;-webkit-overflow-scrolling:touch}
     .section-jump .sj-label{display:none}
-    .section-jump a.sj-link{font-size:0.78rem;padding:0.25rem 0.55rem}
+    .section-jump a.sj-link{font-size:0.78rem;padding:0.25rem 0.55rem;
+      flex-shrink:0;white-space:nowrap}
   }
   .pathway-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;
     background:linear-gradient(135deg,rgba(125,224,214,0.08),rgba(179,157,219,0.08));
@@ -123,6 +173,40 @@
   .pathway-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
   .pathway-banner .pb-arrow{font-size:1.6rem;color:var(--cyan);flex-shrink:0}
   @media (max-width:520px){.pathway-banner{flex-direction:column;align-items:flex-start}.pathway-banner .pb-arrow{align-self:flex-end}}
+
+  /* Featured rail: two-card row sitting between the pathway banner and the
+     section-jump nav. Left card surfaces a date-seeded ready-to-master
+     concept ("Today's concept"); right card surfaces the topic owning the
+     visitor's most recently mastered concept ("Continue where you left
+     off"), or a curated welcome card for cold visitors. Hidden by default
+     and revealed by the script block at the bottom of body once
+     __MVConcepts has populated and a useful pick is available. */
+  .featured-rail{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 1.6rem}
+  .featured-card{display:flex;flex-direction:column;gap:6px;
+    background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem;text-decoration:none;color:inherit;
+    transition:transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease}
+  .featured-card:hover{transform:translateY(-3px);border-color:var(--violet);
+    box-shadow:0 6px 18px color-mix(in srgb, var(--violet) 22%, transparent)}
+  .featured-card.fc-continue:hover{border-color:var(--green);
+    box-shadow:0 6px 18px color-mix(in srgb, var(--green) 22%, transparent)}
+  .featured-card .fc-eyebrow{font-size:0.7rem;letter-spacing:0.16em;
+    text-transform:uppercase;color:var(--violet);font-weight:500;margin:0 0 2px}
+  .featured-card.fc-continue .fc-eyebrow{color:var(--green)}
+  .featured-card .fc-title{font-size:1.05rem;font-weight:600;color:#fff;margin:0;
+    line-height:1.35}
+  .featured-card .fc-desc{color:var(--mute);font-size:0.9rem;margin:2px 0 0;
+    line-height:1.45;flex:1;
+    display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;
+    overflow:hidden}
+  .featured-card .fc-foot{display:flex;justify-content:space-between;
+    align-items:center;gap:0.5rem;margin-top:0.4rem;
+    font-size:0.78rem;color:var(--mute);font-family:ui-monospace,Menlo,monospace}
+  .featured-card .fc-arrow{color:var(--violet);font-size:1.1rem;line-height:1}
+  .featured-card.fc-continue .fc-arrow{color:var(--green)}
+  @media (max-width:640px){
+    .featured-rail{grid-template-columns:1fr}
+  }
   h1{font-size:2.6rem;margin:0 0 0.6rem;letter-spacing:-0.02em;color:#fff}
   .sub{color:var(--mute);margin:0 auto;max-width:640px;font-size:1.02rem}
   /* Section header: was a tiny muted eyebrow label; now a distinctive title
@@ -140,6 +224,18 @@
   .sec .sec-count{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;
     color:var(--mute);font-family:ui-monospace,Menlo,monospace;font-weight:500;
     white-space:nowrap}
+  /* Right-aligned stats group: mastery donut + topic count. The donut's
+     stroke colour inherits via currentColor so it picks up the section's
+     accent (set by data-color on .sec); empty rings stay neutral via the
+     .ring-empty class. */
+  .sec .sec-stats{display:inline-flex;align-items:center;gap:8px;flex-shrink:0}
+  .sec .sec-ring{width:18px;height:18px;flex-shrink:0;display:block}
+  .sec .sec-ring circle{fill:none;stroke-width:2.6}
+  .sec .sec-ring .ring-track{stroke:var(--line)}
+  .sec .sec-ring .ring-fill{stroke:currentColor;stroke-linecap:round;
+    transform:rotate(-90deg);transform-origin:center;
+    transition:stroke-dasharray 280ms ease}
+  .sec .sec-ring.ring-empty .ring-fill{stroke:var(--line)}
   /* Section accent via data-color attribute (not a class) so the class
      attribute stays exactly "sec" and the section-index builder's regex
      keeps matching. */
@@ -158,10 +254,17 @@
   .grid{display:grid;grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));gap:12px}
   .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;
     padding:0.95rem;display:flex;gap:14px;text-decoration:none;color:inherit;
-    transition:transform 150ms ease, border-color 150ms ease, background 150ms ease}
-  .card:hover{transform:translateY(-2px);background:var(--panel2)}
+    transition:transform 160ms ease, border-color 160ms ease, background 160ms ease, box-shadow 160ms ease}
+  .card:hover{transform:translateY(-4px);background:var(--panel2);
+    box-shadow:0 6px 18px color-mix(in srgb, var(--mute) 18%, transparent)}
+  .card.y:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--yellow) 22%, transparent)}
+  .card.b:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--blue)   22%, transparent)}
+  .card.g:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--green)  22%, transparent)}
+  .card.p:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--pink)   22%, transparent)}
+  .card.v:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--violet) 22%, transparent)}
+  .card.c:hover{box-shadow:0 6px 18px color-mix(in srgb, var(--cyan)   22%, transparent)}
   .card.coming{opacity:0.55;cursor:not-allowed}
-  .card.coming:hover{transform:none;background:var(--panel);border-color:var(--line)}
+  .card.coming:hover{transform:none;background:var(--panel);border-color:var(--line);box-shadow:none}
   .thumb{width:90px;height:74px;flex-shrink:0;background:#0b0f16;
     border:1px solid var(--line);border-radius:6px;
     display:flex;align-items:center;justify-content:center;overflow:hidden}
@@ -198,8 +301,12 @@
   .mastery .m-v1{color:var(--green)}
   .mastery .m-hard{color:var(--violet)}
   .mastery .m-sep{color:var(--mute);opacity:0.55}
-  .mastery.m-zero .m-v1{color:var(--mute);opacity:0.7}
-  .mastery.m-zero .m-hard{color:var(--mute);opacity:0.55}
+  /* Cold-visitor mastery chip: drop the opacity stacks (which previously
+     multiplied --mute below WCAG AA contrast on --panel2) and use --ink at a
+     muted but legible value. Computes to roughly --ink at 70% blended with
+     --bg, hitting ~7:1 against --panel2. */
+  .mastery.m-zero .m-v1{color:color-mix(in srgb, var(--ink) 72%, var(--bg))}
+  .mastery.m-zero .m-hard{color:color-mix(in srgb, var(--ink) 60%, var(--bg))}
   .mastery.m-full-v1{border-color:color-mix(in srgb, var(--green) 45%, transparent)}
   .mastery.m-full-hard{border-color:color-mix(in srgb, var(--violet) 55%, transparent)}
   .mastery .m-check{color:var(--green);font-weight:600}
@@ -217,10 +324,16 @@
     display:inline-flex;align-items:center;justify-content:center;
     padding:0;border-radius:6px;background:transparent;border:1px solid transparent;
     color:var(--mute);cursor:pointer;line-height:0;z-index:2;
-    transition:background 150ms ease, border-color 150ms ease, color 150ms ease}
+    opacity:0;
+    transition:opacity 150ms ease, background 150ms ease, border-color 150ms ease, color 150ms ease}
+  .card:hover .progbtn{opacity:1}
+  .progbtn:focus-visible{opacity:1;outline:2px solid var(--cyan);outline-offset:1px}
   .progbtn:hover{background:var(--panel2);border-color:var(--line);color:var(--ink)}
-  .progbtn:focus-visible{outline:2px solid var(--cyan);outline-offset:1px}
   .progbtn svg{width:16px;height:16px;display:block;pointer-events:none}
+  /* Touch devices have no hover, so reveal the progbtn unconditionally there. */
+  @media (hover:none){
+    .progbtn{opacity:0.6}
+  }
   .mv-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.55);
     opacity:0;pointer-events:none;transition:opacity 180ms ease;z-index:40}
   .mv-backdrop.open{opacity:1;pointer-events:auto}
@@ -334,7 +447,7 @@
   <div class="grid">
 
 
-    <a class="card v" href="../galois.html">
+  <a class="card v" href="../galois.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <g fill="var(--violet)">
           <circle cx="50" cy="12" r="3.3"/>
@@ -354,7 +467,7 @@
     </a>
 
 
-    <a class="card y" href="../quadratic-reciprocity.html">
+  <a class="card y" href="../quadratic-reciprocity.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- two primes with a flipping arrow between Legendre symbols -->
         <g font-family="serif" font-style="italic" fill="var(--yellow)">
@@ -375,77 +488,44 @@
         <span class="tag">(a/p) · Gauss · ± 1</span>
       </div>
     </a>
-
-
-    <a class="card b" href="../sums-of-squares.html">
+  <a class="card y" href="../additive-number-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- Gaussian-integer lattice with a circle of radius √r counting r_2(n) -->
+        <!-- Composite: Gaussian-integer lattice (sums of squares) + unit circle (Waring/circle method) + Faulhaber bars (Bernoulli) -->
+        <!-- background lattice dots (additive representations) -->
+        <g fill="var(--yellow)" opacity="0.4">
+          <circle cx="14" cy="14" r="1.4"/><circle cx="28" cy="14" r="1.4"/><circle cx="42" cy="14" r="1.4"/><circle cx="56" cy="14" r="1.4"/><circle cx="70" cy="14" r="1.4"/><circle cx="84" cy="14" r="1.4"/>
+          <circle cx="14" cy="28" r="1.4"/><circle cx="28" cy="28" r="1.4"/><circle cx="42" cy="28" r="1.4"/><circle cx="56" cy="28" r="1.4"/><circle cx="70" cy="28" r="1.4"/><circle cx="84" cy="28" r="1.4"/>
+          <circle cx="14" cy="42" r="1.4"/><circle cx="28" cy="42" r="1.4"/><circle cx="42" cy="42" r="1.4"/><circle cx="56" cy="42" r="1.4"/><circle cx="70" cy="42" r="1.4"/><circle cx="84" cy="42" r="1.4"/>
+        </g>
+        <!-- unit circle (circle method / sums of squares) -->
+        <circle cx="50" cy="36" r="22" fill="none" stroke="var(--yellow)" stroke-width="1.4"/>
+        <!-- highlighted lattice points on the circle (representations of n as sum of squares) -->
+        <g fill="var(--pink)">
+          <circle cx="50" cy="14" r="2.2"/><circle cx="72" cy="36" r="2.2"/>
+          <circle cx="50" cy="58" r="2.2"/><circle cx="28" cy="36" r="2.2"/>
+        </g>
+        <!-- Faulhaber bar staircase along the bottom -->
         <g fill="var(--blue)" opacity="0.85">
-          <circle cx="20" cy="60" r="1.6"/><circle cx="35" cy="60" r="1.6"/><circle cx="50" cy="60" r="1.6"/><circle cx="65" cy="60" r="1.6"/><circle cx="80" cy="60" r="1.6"/>
-          <circle cx="20" cy="45" r="1.6"/><circle cx="35" cy="45" r="1.6"/><circle cx="50" cy="45" r="1.6"/><circle cx="65" cy="45" r="1.6"/><circle cx="80" cy="45" r="1.6"/>
-          <circle cx="20" cy="30" r="1.6"/><circle cx="35" cy="30" r="1.6"/><circle cx="50" cy="30" r="1.6"/><circle cx="65" cy="30" r="1.6"/><circle cx="80" cy="30" r="1.6"/>
-          <circle cx="20" cy="15" r="1.6"/><circle cx="35" cy="15" r="1.6"/><circle cx="50" cy="15" r="1.6"/><circle cx="65" cy="15" r="1.6"/><circle cx="80" cy="15" r="1.6"/>
-        </g>
-        <!-- circle x^2+y^2 = n -->
-        <circle cx="50" cy="45" r="22" fill="none" stroke="var(--yellow)" stroke-width="1.3"/>
-        <!-- highlighted lattice points on the circle: (0,±n), (±a,±b) -->
-        <g fill="var(--yellow)">
-          <circle cx="50" cy="23" r="2.4"/><circle cx="50" cy="67" r="2.4"/>
-          <circle cx="28" cy="45" r="2.4"/><circle cx="72" cy="45" r="2.4"/>
+          <rect x="14" y="74" width="6" height="3"/>
+          <rect x="22" y="71" width="6" height="6"/>
+          <rect x="30" y="68" width="6" height="9"/>
+          <rect x="38" y="64" width="6" height="13"/>
+          <rect x="46" y="60" width="6" height="17"/>
+          <rect x="54" y="55" width="6" height="22"/>
+          <rect x="62" y="50" width="6" height="27"/>
+          <rect x="70" y="44" width="6" height="33"/>
+          <rect x="78" y="38" width="6" height="39"/>
         </g>
       </svg></div>
       <div class="body">
-        <div class="tt">Sums of squares</div>
-        <div class="desc">Fermat's two-squares, Lagrange's four-squares, Gaussian integers $\mathbb{Z}[i]$ as a UFD, the primes that split in $\mathbb{Z}[i]$, and a hint at theta functions.</div>
-        <span class="tag">r₂(n) · ℤ[i] · Lagrange</span>
+        <div class="tt">Additive number theory</div>
+        <div class="desc">Sums of squares (Fermat / Lagrange), Waring's problem and the circle method, power sums and Bernoulli numbers, $\zeta$-special-values via Euler–Maclaurin.</div>
+        <span class="tag">sum-of-squares · Waring · Bernoulli · circle-method</span>
       </div>
     </a>
 
 
-    <a class="card y" href="../power-sums-bernoulli.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- discrete staircase sum S_k(n) and smooth integral x^{k+1}/(k+1) -->
-        <g fill="var(--yellow)" opacity="0.85">
-          <rect x="16" y="58" width="9" height="6"/>
-          <rect x="27" y="50" width="9" height="14"/>
-          <rect x="38" y="40" width="9" height="24"/>
-          <rect x="49" y="28" width="9" height="36"/>
-          <rect x="60" y="14" width="9" height="50"/>
-        </g>
-        <path d="M 16 64 Q 40 64 84 10" fill="none" stroke="var(--blue)" stroke-width="1.4"/>
-        <text x="50" y="74" text-anchor="middle" font-size="7" fill="var(--yellow)" font-style="italic" font-family="serif">Σ kᵖ vs ∫ xᵖ dx</text>
-        <text x="12" y="16" font-size="9" fill="var(--pink)" font-style="italic" font-family="serif">Bₙ</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Power sums &amp; Bernoulli</div>
-        <div class="desc">Faulhaber's formulas, Bernoulli numbers $B_n$, the Euler–Maclaurin expansion, and the bridge to $\zeta(-n) = -B_{n+1}/(n+1)$ that foreshadows analytic continuation.</div>
-        <span class="tag">Bₙ · Faulhaber · Euler–Maclaurin</span>
-      </div>
-    </a>
-
-
-    <a class="card b" href="../waring.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- unit circle with exponential sum samples -->
-        <circle cx="50" cy="40" r="26" fill="none" stroke="var(--blue)" stroke-width="1.2"/>
-        <g fill="var(--yellow)">
-          <circle cx="76" cy="40" r="2"/><circle cx="70" cy="24" r="2"/>
-          <circle cx="54" cy="14" r="2"/><circle cx="34" cy="20" r="2"/>
-          <circle cx="24" cy="40" r="2"/><circle cx="32" cy="60" r="2"/>
-          <circle cx="54" cy="66" r="2"/><circle cx="70" cy="56" r="2"/>
-        </g>
-        <text x="50" y="76" text-anchor="middle" font-size="7" fill="var(--blue)" font-style="italic" font-family="serif">∫₀¹ f(α)ᵏ e(-nα) dα</text>
-        <text x="12" y="16" font-size="8" fill="var(--pink)" font-style="italic" font-family="serif">g(k)</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Waring's problem</div>
-        <div class="desc">Every positive integer is a sum of at most $g(k)$ $k$-th powers. The Hardy–Littlewood circle method: major and minor arcs, singular series, and exponential sums.</div>
-        <span class="tag">g(k) · G(k) · circle method</span>
-      </div>
-    </a>
-
-
-    <a class="card y" href="../quadratic-forms-genus-theory.html">
+  <a class="card y" href="../quadratic-forms-genus-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- binary quadratic form level curves + reduced region -->
         <g fill="none" stroke="var(--yellow)" stroke-width="1" opacity="0.7">
@@ -470,7 +550,7 @@
     </a>
 
 
-    <a class="card g" href="../algebraic-number-theory.html">
+  <a class="card g" href="../algebraic-number-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- lattice with a highlighted non-principal ideal -->
         <g fill="var(--green)">
@@ -494,7 +574,7 @@
     </a>
 
 
-    <a class="card c" href="../p-adic-numbers.html">
+  <a class="card c" href="../p-adic-numbers.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- p-adic tree for p=3: root with 3 children, each with 3 children -->
         <g stroke="var(--cyan)" stroke-width="1" fill="none" opacity="0.85">
@@ -522,7 +602,7 @@
     </a>
 
 
-    <a class="card c" href="../adeles-and-ideles.html">
+  <a class="card c" href="../adeles-and-ideles.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- restricted direct product: R × ∏' Q_p represented as a comb of places -->
         <line x1="10" y1="40" x2="90" y2="40" stroke="var(--cyan)" stroke-width="0.8" opacity="0.5"/>
@@ -552,7 +632,7 @@
     </a>
 
 
-    <a class="card g" href="../frobenius-and-reciprocity.html">
+  <a class="card g" href="../frobenius-and-reciprocity.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- dictionary arrows between arithmetic (primes) and automorphic (cycle shapes) -->
         <g fill="var(--green)">
@@ -587,7 +667,7 @@
     </a>
 
 
-    <a class="card v" href="../class-field-theory.html">
+  <a class="card v" href="../class-field-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <g fill="none" stroke="var(--violet)" stroke-width="1.2">
           <circle cx="32" cy="26" r="12"/><circle cx="68" cy="26" r="12"/><circle cx="50" cy="54" r="14"/>
@@ -599,6 +679,89 @@
         <div class="tt">Class field theory <span class="level advanced">advanced</span></div>
         <div class="desc">Abelian extensions of number fields via ideals and ideles: Artin reciprocity, local-global compatibility, and explicit splitting behavior of primes.</div>
         <span class="tag">Artin map · ideles · reciprocity</span>
+      </div>
+    </a>
+
+
+  <a class="card y" href="../galois-representations.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <g stroke="var(--yellow)" fill="none" stroke-width="1.2">
+          <rect x="16" y="16" width="26" height="20" rx="2"/><rect x="58" y="16" width="26" height="20" rx="2"/>
+          <rect x="37" y="46" width="26" height="20" rx="2"/>
+          <path d="M42 26 L58 26 M29 36 L45 46 M71 36 L55 46"/>
+        </g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Galois representations <span class="level advanced">advanced</span></div>
+        <div class="desc">Encode arithmetic symmetries as linear actions of Galois groups, linking field extensions to modular forms, Frobenius traces, and modern reciprocity.</div>
+        <span class="tag">Gal(ℚ̄/ℚ) · Frobenius · modularity</span>
+      </div>
+    </a>
+
+
+  <a class="card y" href="../heights-arithmetic-geometry.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <line x1="20" y1="64" x2="80" y2="64" stroke="var(--mute)" stroke-width="0.7"/>
+        <line x1="20" y1="64" x2="20" y2="20" stroke="var(--mute)" stroke-width="0.7"/>
+        <circle cx="30" cy="58" r="2" fill="var(--yellow)"/>
+        <circle cx="38" cy="50" r="2.4" fill="var(--yellow)"/>
+        <circle cx="48" cy="44" r="2.6" fill="var(--yellow)"/>
+        <circle cx="56" cy="38" r="3" fill="var(--yellow)"/>
+        <circle cx="64" cy="28" r="3.2" fill="var(--yellow)"/>
+        <circle cx="72" cy="22" r="3.6" fill="var(--yellow)"/>
+        <text x="14" y="22" font-size="6.5" fill="var(--mute)">log H</text>
+        <text x="68" y="76" font-size="6.5" fill="var(--mute)">|x|→∞</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Heights in arithmetic geometry</div>
+        <div class="desc">Naive height $H(P)$, Northcott finiteness, Weil heights via line bundles, the Néron–Tate canonical $\hat h$ as a quadratic regulator on Mordell–Weil. Mahler measure and Lehmer's question.</div>
+        <span class="tag">Northcott &middot; Weil &middot; Néron–Tate &middot; Mahler</span>
+      </div>
+    </a>
+
+
+    <a class="card y" href="../analytic-number-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<g stroke="var(--yellow)" stroke-width="1.4" fill="none">
+          <polyline points="10,62 22,62 22,52 36,52 36,42 50,42 50,32 70,32 70,22 90,22"/>
+          <path d="M 10 62 Q 30 56 50 40 Q 70 28 90 18" opacity="0.55"/>
+        </g>
+        <g fill="var(--mute)" font-size="8" font-family="serif" font-style="italic">
+          <text x="14" y="74">π(x)</text>
+        </g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Analytic number theory</div>
+        <div class="desc">π(x) and the prime number theorem, ζ(s) and the explicit formula, Dirichlet on primes in AP, sieve methods, Bombieri–Vinogradov.</div>
+        <span class="tag">PNT · ζ-zeros · sieves</span>
+      </div>
+    </a>
+
+
+    <a class="card y" href="../mathematics-and-cryptography.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
+        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--yellow)" stroke-width="1.4"/>
+        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--yellow)" font-style="italic" font-family="serif">draft</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Mathematics and cryptography</div>
+        <div class="desc">Draft — fill in once the page has real content.</div>
+        <span class="tag">Number theory</span>
+      </div>
+    </a>
+
+
+    <a class="card y" href="../computational-number-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
+        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--yellow)" stroke-width="1.4"/>
+        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--yellow)" font-style="italic" font-family="serif">draft</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Computational number theory</div>
+        <div class="desc">Draft — fill in once the page has real content.</div>
+        <span class="tag">Number theory</span>
       </div>
     </a>
   </div>

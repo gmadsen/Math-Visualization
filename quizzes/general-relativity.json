@@ -1,0 +1,226 @@
+{
+  "topic": "general-relativity",
+  "quizzes": {
+    "gr-spacetime": {
+      "title": "Spacetime as a Lorentzian manifold",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A 4-vector $v$ at a point of spacetime satisfies $g(v,v)<0$ in signature $(-,+,+,+)$. What is $v$?",
+          "choices": [
+            "Spacelike",
+            "Lightlike (null)",
+            "Timelike",
+            "Undefined — the metric must be positive-definite"
+          ],
+          "answer": 2,
+          "explain": "In signature $(-,+,+,+)$ a vector with $g(v,v)<0$ is timelike. Spacelike vectors satisfy $g(v,v)>0$ and lightlike vectors satisfy $g(v,v)=0$."
+        },
+        {
+          "type": "numeric",
+          "q": "In Minkowski space with metric $\\eta=\\mathrm{diag}(-1,1,1,1)$, compute $\\eta(v,v)$ for $v=(2,1,1,1)$.",
+          "answer": -1,
+          "tol": 0.000001,
+          "explain": "$\\eta(v,v)=-(2)^2+1+1+1=-4+3=-1$. The vector is timelike."
+        },
+        {
+          "type": "mcq",
+          "q": "Why must spacetime be Lorentzian rather than Riemannian?",
+          "choices": [
+            "Because Riemannian metrics cannot be defined on 4-manifolds",
+            "Because a positive-definite metric has no light cones and no causal structure",
+            "Because Riemannian curvature is always zero",
+            "Because Einstein's equations require Euclidean signature"
+          ],
+          "answer": 1,
+          "explain": "A Riemannian (positive-definite) metric makes every nonzero vector spacelike, so there is no notion of timelike worldline, light cone, or causality. The indefinite signature $(-,+,+,+)$ is what makes spacetime physical."
+        }
+      ]
+    },
+    "gr-einstein-equations": {
+      "title": "Einstein field equations",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What does the Einstein tensor $G_{\\mu\\nu}=R_{\\mu\\nu}-\\tfrac12 g_{\\mu\\nu}R$ satisfy identically?",
+          "choices": [
+            "$G_{\\mu\\nu}=0$",
+            "$\\nabla^\\mu G_{\\mu\\nu}=0$ (contracted Bianchi)",
+            "$G_{\\mu\\nu}=g_{\\mu\\nu}$",
+            "$G_{\\mu\\nu}$ is symmetric only on a Kähler manifold"
+          ],
+          "answer": 1,
+          "explain": "The contracted second Bianchi identity gives $\\nabla^\\mu G_{\\mu\\nu}=0$. This automatically enforces conservation $\\nabla^\\mu T_{\\mu\\nu}=0$ on the matter side."
+        },
+        {
+          "type": "mcq",
+          "q": "In vacuum with $\\Lambda=0$, the Einstein equations reduce to:",
+          "choices": [
+            "$R=0$ (scalar curvature vanishes)",
+            "$R_{\\mu\\nu\\rho\\sigma}=0$ (flat spacetime)",
+            "$R_{\\mu\\nu}=0$ (Ricci-flat)",
+            "$g_{\\mu\\nu}=\\eta_{\\mu\\nu}$"
+          ],
+          "answer": 2,
+          "explain": "Tracing $G_{\\mu\\nu}=0$ gives $R=0$, hence $R_{\\mu\\nu}=0$. Vacuum spacetimes are Ricci-flat but generally not Riemann-flat — Schwarzschild and Kerr are nontrivial Ricci-flat solutions."
+        },
+        {
+          "type": "numeric",
+          "q": "How many algebraically independent components does the symmetric tensor $g_{\\mu\\nu}$ have on a 4-dimensional spacetime?",
+          "answer": 10,
+          "tol": 0.5,
+          "explain": "A symmetric $4\\times4$ matrix has $4(4+1)/2=10$ independent components. Diffeomorphism gauge freedom subtracts 4, leaving 6 physical metric degrees of freedom."
+        }
+      ]
+    },
+    "gr-schwarzschild": {
+      "title": "Schwarzschild solution",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "At what radius $r$ (in units of $M$) does the Schwarzschild event horizon sit?",
+          "answer": 2,
+          "tol": 0.000001,
+          "explain": "The metric component $g_{tt}=-(1-2M/r)$ vanishes at $r=2M$. This is the event horizon — a coordinate singularity, not a curvature singularity."
+        },
+        {
+          "type": "mcq",
+          "q": "Which curvature invariant shows that $r=0$ in Schwarzschild is a genuine singularity?",
+          "choices": [
+            "$R=0$",
+            "$R_{\\mu\\nu}=0$",
+            "$R_{\\mu\\nu\\rho\\sigma}R^{\\mu\\nu\\rho\\sigma}=48 M^2/r^6$",
+            "The metric determinant"
+          ],
+          "answer": 2,
+          "explain": "The Kretschmann scalar $K=R_{\\mu\\nu\\rho\\sigma}R^{\\mu\\nu\\rho\\sigma}=48 M^2/r^6$ blows up as $r\\to 0$ but is finite at $r=2M$. This is coordinate-invariant, so $r=0$ is a true curvature singularity while $r=2M$ is just a chart artefact."
+        },
+        {
+          "type": "mcq",
+          "q": "Birkhoff's theorem states that:",
+          "choices": [
+            "Every spherically symmetric vacuum solution is static and equal to Schwarzschild",
+            "Schwarzschild is the unique stationary axisymmetric solution",
+            "Black holes have no hair beyond mass, charge, angular momentum",
+            "Gravitational waves carry no energy"
+          ],
+          "answer": 0,
+          "explain": "Birkhoff's theorem: any spherically symmetric vacuum solution of Einstein's equations is static, asymptotically flat, and isometric to Schwarzschild. There is no monopole gravitational radiation."
+        }
+      ]
+    },
+    "gr-kerr-rotating": {
+      "title": "Kerr metric",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "For an extremal Kerr black hole the spin parameter $a$ saturates the bound $a=M$. Compute the horizon radius $r_+=M+\\sqrt{M^2-a^2}$ in units of $M$ when $a=M$.",
+          "answer": 1,
+          "tol": 0.000001,
+          "explain": "When $a=M$ the discriminant $M^2-a^2$ vanishes, so $r_+=M$. The two horizons of subextremal Kerr coalesce; beyond this the geometry has a naked singularity."
+        },
+        {
+          "type": "mcq",
+          "q": "Inside the ergosphere of a Kerr black hole:",
+          "choices": [
+            "Light cannot escape",
+            "No timelike observer can remain at fixed spatial coordinates — frame dragging forces co-rotation with the hole",
+            "Time runs backwards",
+            "The metric becomes Riemannian"
+          ],
+          "answer": 1,
+          "explain": "The ergosphere lies between the event horizon and the outer stationary limit surface where $g_{tt}=0$. Inside it, $\\partial_t$ becomes spacelike, so no observer can be static in the asymptotic frame — they are dragged along $\\partial_\\phi$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Penrose process extracts energy from a Kerr black hole by:",
+          "choices": [
+            "Annihilating matter at the singularity",
+            "Splitting an infalling particle inside the ergosphere so the negative-energy fragment crosses the horizon",
+            "Hawking radiation at large radius",
+            "Tidal heating of an orbiting companion"
+          ],
+          "answer": 1,
+          "explain": "Inside the ergosphere a particle can have negative Killing energy. If it splits and the negative-energy piece falls into the hole, the escaping piece carries more energy than the original, at the cost of the hole's angular momentum."
+        }
+      ]
+    },
+    "gr-cosmology-flrw": {
+      "title": "FLRW cosmology",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "In the FLRW metric with scale factor $a(t)$, the cosmological redshift is:",
+          "choices": [
+            "$1+z = a(t_e)/a(t_0)$",
+            "$1+z = a(t_0)/a(t_e)$",
+            "$1+z = (a(t_0)-a(t_e))/a(t_e)$",
+            "$1+z = e^{H(t_0-t_e)}$"
+          ],
+          "answer": 1,
+          "explain": "Photon wavelengths stretch with the scale factor: $\\lambda_0/\\lambda_e = a(t_0)/a(t_e) = 1+z$. So light emitted when the universe was half its current size arrives with $z=1$."
+        },
+        {
+          "type": "numeric",
+          "q": "If a galaxy is observed at redshift $z=2$, what was the ratio $a(t_e)/a(t_0)$ at the moment its light was emitted?",
+          "answer": 0.3333333333,
+          "tol": 0.01,
+          "explain": "$1+z=3=a(t_0)/a(t_e)$, so $a(t_e)/a(t_0)=1/3\\approx0.333$. The universe was a third its current size when the photons left."
+        },
+        {
+          "type": "mcq",
+          "q": "A positive cosmological constant $\\Lambda>0$ drives:",
+          "choices": [
+            "Recollapse to a Big Crunch",
+            "Linear expansion $a(t)\\propto t$",
+            "Accelerating exponential expansion $a(t)\\propto e^{Ht}$ in vacuum",
+            "Static universe with no expansion"
+          ],
+          "answer": 2,
+          "explain": "With $\\Lambda$ dominating, the Friedmann equation gives $H^2=\\Lambda/3$, hence $a(t)\\propto e^{Ht}$ — de Sitter expansion. This is the leading model for dark-energy-driven late-time acceleration."
+        }
+      ]
+    },
+    "gr-gravitational-waves": {
+      "title": "Gravitational waves",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A gravitational wave in transverse-traceless gauge has how many independent polarisation modes?",
+          "answer": 2,
+          "explain": "Linearised gravity has 10 metric components. Lorenz gauge fixes 4, residual gauge fixes 4 more, leaving 2 physical polarisations — the plus and cross modes.",
+          "choices": [
+            "0",
+            "1",
+            "2",
+            "4"
+          ]
+        },
+        {
+          "type": "mcq",
+          "q": "The linearised Einstein equation in Lorenz gauge takes the form:",
+          "choices": [
+            "$\\Delta\\bar h_{\\mu\\nu}=0$ (Laplace)",
+            "$\\Box\\bar h_{\\mu\\nu}=-16\\pi G\\,T_{\\mu\\nu}$ (wave)",
+            "$\\partial_t \\bar h_{\\mu\\nu}=\\Delta\\bar h_{\\mu\\nu}$ (heat)",
+            "$\\bar h_{\\mu\\nu}=\\eta_{\\mu\\nu}$ (algebraic)"
+          ],
+          "answer": 1,
+          "explain": "In Lorenz gauge $\\partial^\\mu \\bar h_{\\mu\\nu}=0$ the linearised Einstein equation is the inhomogeneous wave equation $\\Box \\bar h_{\\mu\\nu}=-16\\pi G\\,T_{\\mu\\nu}$. Solutions propagate at $c$."
+        },
+        {
+          "type": "mcq",
+          "q": "LIGO's first detection (GW150914) measured a strain of order:",
+          "choices": [
+            "$h\\sim 10^{-3}$",
+            "$h\\sim 10^{-9}$",
+            "$h\\sim 10^{-21}$",
+            "$h\\sim 10^{-40}$"
+          ],
+          "answer": 2,
+          "explain": "Binary black hole mergers at hundreds of megaparsecs produce strains of $h\\sim 10^{-21}$ at Earth. Over LIGO's 4 km arms this is a $\\sim 10^{-18}$ m displacement — about $1/1000$ the diameter of a proton."
+        }
+      ]
+    }
+  }
+}

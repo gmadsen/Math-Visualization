@@ -1,0 +1,1129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Mathematical statistics</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\Spec',
+        '\\Gal':'\\Gal',
+        '\\Hom':'\\Hom',
+        '\\tr':'\\tr',
+        '\\ad':'\\ad',
+        '\\ind':'\\ind'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"automorphic-forms-adelic","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"additive-number-theory":{"next":"quadratic-forms-genus-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"moduli-spaces","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"mathematics-and-cryptography","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"mostow-rigidity","prev":"k-theory","section":"Geometry & topology","title":"Atiyah singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"etale-cohomology","section":"Algebraic geometry","title":"Calabi yau manifolds"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-topoi","prev":"infinity-categories","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":null,"prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"deformation-theory":{"next":"etale-cohomology","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"group-cohomology","prev":"homological","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"expanders","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"harmonic-analysis-fourier","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":null,"section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":"calabi-yau-manifolds","prev":"deformation-theory","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"deformation-theory","prev":"group-schemes","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":null,"prev":"designs","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"naive-set-theory","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":null,"prev":"variational-methods","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"type-theory-and-hott","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"quantum-groups","prev":"lie-algebras","section":"Algebra & homological","title":"Galois cohomology and brauer"},"galois-representations":{"next":"heights-arithmetic-geometry","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"general-relativity":{"next":"schrodinger-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":null,"prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"lie-algebras","prev":"derived-categories","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"etale-fundamental-group","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"hamiltonians-classical-mechanics":{"next":"general-relativity","prev":"three-body-problem","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"spectral-theory","prev":"partial-differential-equations","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"analytic-number-theory","prev":"galois-representations","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":null,"prev":"mathematical-statistics","section":"Probability & statistics","title":"High dimensional geometry"},"homological":{"next":"derived-categories","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"cocartesian-fibrations","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-topoi (Lurie)"},"information-theory":{"next":"large-deviations","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"stacks","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"ricci-flow","section":"Geometry & topology","title":"K theory"},"knot-polynomials":{"next":"ricci-flow","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Knot polynomials"},"large-deviations":{"next":"mathematical-statistics","prev":"information-theory","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"galois-cohomology-and-brauer","prev":"group-cohomology","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"mathematical-statistics":{"next":"high-dimensional-geometry","prev":"large-deviations","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"mirror-symmetry":{"next":"resolution-of-singularities","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"model-theory-basics":{"next":"computability-and-decidability","prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"modular-curves","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"algebraic-spaces","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"characteristic-classes","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":null,"prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Mostow rigidity"},"naive-set-theory":{"next":"first-order-logic-and-completeness","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"wavelets","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"harmonic-functions","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"stochastic-processes-and-martingales","prev":null,"section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"additive-number-theory","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"additive-number-theory","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"quantum-groups":{"next":"quaternions-octonions-and-division-algebras","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"quantum-groups","section":"Algebra & homological","title":"Quaternions octonions and division algebras"},"random-walks-and-mixing":{"next":"information-theory","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":null,"prev":"mirror-symmetry","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"k-theory","prev":"knot-polynomials","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"characteristic-classes","prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":null,"prev":"general-relativity","section":"Mathematical physics","title":"Schrodinger equation"},"sheaf-cohomology":{"next":"algebraic-de-rham-cohomology","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"algebraic-curves-higher-genus","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Sobolev spaces & distributions"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"wavelets","prev":"harmonic-functions","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"intersection-theory-chow","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":"probability-theory","section":"Probability & statistics","title":"Stochastic processes and martingales"},"symplectic-manifolds":{"next":"knot-polynomials","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"hamiltonians-classical-mechanics","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"type-theory-and-hott":{"next":"forcing-and-independence","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and hott"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"fixed-point-theorems","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":null,"prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"numerical-analysis","prev":"spectral-theory","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"model-theory-basics","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"Zfc and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="Probability & statistics" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+// standard normal pdf
+function phi(x){ return Math.exp(-x*x/2)/Math.sqrt(2*Math.PI); }
+// standard normal cdf via erf approximation (Abramowitz & Stegun 7.1.26)
+function Phi(x){
+  const a1=0.254829592, a2=-0.284496736, a3=1.421413741,
+        a4=-1.453152027, a5=1.061405429, p=0.3275911;
+  const sign = x<0 ? -1 : 1;
+  const ax = Math.abs(x)/Math.SQRT2;
+  const t = 1.0/(1.0 + p*ax);
+  const y = 1.0 - (((((a5*t+a4)*t)+a3)*t+a2)*t+a1)*t*Math.exp(-ax*ax);
+  return 0.5*(1.0 + sign*y);
+}
+// log-gamma via Lanczos
+function logGamma(z){
+  const g = 7;
+  const c = [0.99999999999980993, 676.5203681218851, -1259.1392167224028,
+             771.32342877765313, -176.61502916214059, 12.507343278686905,
+             -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7];
+  if(z < 0.5){
+    return Math.log(Math.PI/Math.sin(Math.PI*z)) - logGamma(1-z);
+  }
+  z -= 1;
+  let x = c[0];
+  for(let i=1;i<g+2;i++) x += c[i]/(z+i);
+  const t = z + g + 0.5;
+  return 0.5*Math.log(2*Math.PI) + (z+0.5)*Math.log(t) - t + Math.log(x);
+}
+// Beta pdf
+function betaPdf(x, a, b){
+  if(x<=0 || x>=1) return 0;
+  const logB = logGamma(a) + logGamma(b) - logGamma(a+b);
+  return Math.exp((a-1)*Math.log(x) + (b-1)*Math.log(1-x) - logB);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+  <a href="#estimators">1&nbsp;Estimators</a>
+  <a href="#mle">2&nbsp;MLE</a>
+  <a href="#cramer-rao">3&nbsp;Cramér–Rao</a>
+  <a href="#testing">4&nbsp;Testing</a>
+  <a href="#bayesian">5&nbsp;Bayesian</a>
+  <a href="#asymptotics">6&nbsp;Asymptotics</a>
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Mathematical statistics</h1>
+  <p class="sub">From samples to inference: estimators with bias and variance, maximum likelihood and the Fisher information bound, Neyman–Pearson tests, Bayesian posteriors with conjugate updates, and the asymptotic apparatus (delta method, Slutsky, Wilks) that makes finite-sample procedures honest as $n\to\infty$. Probability theory supplies the random variables; statistics asks what those samples tell you about the law.</p>
+</section>
+
+<section id="estimators">
+<h2>1. Point estimators: bias, consistency, MSE, sufficiency</h2>
+
+<p>Given i.i.d. samples $X_1,\ldots,X_n$ from a parametric family $\{f(x;\theta):\theta\in\Theta\}$, an <strong>estimator</strong> is any measurable function $\hat\theta_n=T(X_1,\ldots,X_n)$ taking values in $\Theta$. Two estimators of the same $\theta$ can differ wildly in their behaviour as $n$ grows — the language for comparing them is bias, variance, and risk.</p>
+
+<p>The <strong>bias</strong> at $\theta$ is $b(\theta)=\mathbb{E}_\theta[\hat\theta_n]-\theta$; the <strong>variance</strong> is $\mathrm{Var}_\theta(\hat\theta_n)$; and the <strong>mean-square error</strong> decomposes:
+$$\mathrm{MSE}_\theta(\hat\theta_n)=\mathbb{E}_\theta[(\hat\theta_n-\theta)^2]=b(\theta)^2+\mathrm{Var}_\theta(\hat\theta_n).$$
+A <em>biased</em> estimator with low variance can have lower MSE than an unbiased one — the statistical free lunch from accepting some bias.</p>
+
+<p><strong>Consistency.</strong> $\hat\theta_n$ is consistent if $\hat\theta_n\xrightarrow{p}\theta$ as $n\to\infty$. Strong consistency upgrades to almost-sure convergence. Consistency is essentially asking that bias and variance both go to zero.</p>
+
+<div class="note"><strong>Sufficiency.</strong> A statistic $T(X)$ is <em>sufficient</em> for $\theta$ when the conditional law of $X$ given $T$ is free of $\theta$. The Fisher–Neyman factorisation criterion makes this practical: $T$ is sufficient iff
+$$f(x;\theta)=g(T(x);\theta)\,h(x).$$
+For i.i.d. $\mathcal{N}(\mu,\sigma^2)$ samples, $(\sum X_i,\sum X_i^2)$ is sufficient — once you know the sample sum and sum of squares, the individual $X_i$ values carry no further information about $(\mu,\sigma^2)$.</div>
+
+<p><strong>Worked example: sample variance.</strong> Two natural variance estimators are
+$$\hat\sigma^2_{\mathrm{MLE}}=\tfrac{1}{n}\sum(X_i-\bar X)^2,\qquad S^2=\tfrac{1}{n-1}\sum(X_i-\bar X)^2.$$
+The first has bias $-\sigma^2/n$ (downward); $S^2$ is unbiased — Bessel's correction. But $\hat\sigma^2_{\mathrm{MLE}}$ has smaller variance, so $\mathrm{MSE}(\hat\sigma^2_{\mathrm{MLE}})<\mathrm{MSE}(S^2)$ for moderate $n$. Bias is not the only thing to optimise.</p>
+
+<div class="widget" id="w-mse">
+  <div class="hd"><div class="ttl">Bias–variance tradeoff</div><div class="hint">two estimators of $\sigma^2$, $n=10$</div></div>
+  <svg id="mse-svg" viewBox="0 0 760 280" width="760" height="280"><title>MSE bars for biased vs unbiased variance estimator</title></svg>
+  <div class="row">
+    <label for="mse-sigma">true $\sigma^2$</label>
+    <input id="mse-sigma" type="range" min="0.5" max="4" step="0.1" value="1.5">
+    <span id="mse-sigma-v" class="small"></span>
+  </div>
+  <div class="row">
+    <label for="mse-n">sample size $n$</label>
+    <input id="mse-n" type="range" min="3" max="40" step="1" value="10">
+    <span id="mse-n-v" class="small"></span>
+  </div>
+  <div class="readout" id="mse-out"></div>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./probability-theory.html#expectation">Expectation, variance, and moments</a></li>
+    <li><a href="./probability-theory.html#rv">Random variables</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./mathematical-statistics.html#cramer-rao">Mathematical statistics</a> · Cramér–Rao bound, UMVU, Rao–Blackwell</div>
+    <div><a href="./mathematical-statistics.html#mle">Mathematical statistics</a> · Maximum likelihood and the score equation</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="ms-estimators"></div>
+
+<script>
+/* =============================== §1 Bias-variance bars =============================== */
+(function(){
+  const svg = $('#mse-svg'), out = $('#mse-out');
+  const sig = $('#mse-sigma'), nctl = $('#mse-n');
+  const sigv = $('#mse-sigma-v'), nv = $('#mse-n-v');
+  const W=760, H=280;
+  function draw(){
+    const sigma2 = +sig.value, n = +nctl.value;
+    sigv.textContent = sigma2.toFixed(2);
+    nv.textContent = n;
+    // For Gaussian, Var(S^2) = 2 sigma^4/(n-1); Var(MLE) = (n-1)/n * Var(S^2) = 2(n-1)sigma^4/n^2
+    // bias(MLE) = -sigma^2/n; bias(S^2) = 0
+    const biasM = -sigma2/n, biasS = 0;
+    const varM = 2*(n-1)*sigma2*sigma2/(n*n);
+    const varS = 2*sigma2*sigma2/(n-1);
+    const mseM = biasM*biasM + varM;
+    const mseS = biasS*biasS + varS;
+    svg.innerHTML='';
+    const x0=80, y0=40, plotH=180, plotW=600;
+    // axes
+    svg.appendChild(SVG('line',{x1:x0,y1:y0+plotH,x2:x0+plotW,y2:y0+plotH,stroke:'var(--mute)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y0+plotH,stroke:'var(--mute)','stroke-width':1}));
+    // labels
+    const yt = SVG('text',{x:x0-50,y:y0+plotH/2,'text-anchor':'middle','font-size':12,fill:'var(--mute)','transform':`rotate(-90 ${x0-50} ${y0+plotH/2})`});
+    yt.textContent='MSE'; svg.appendChild(yt);
+    const maxMSE = Math.max(mseM, mseS) * 1.15;
+    function bar(x, w, biasSq, vari, label, color){
+      const h1 = (biasSq/maxMSE)*plotH;
+      const h2 = (vari/maxMSE)*plotH;
+      // variance (bottom)
+      svg.appendChild(SVG('rect',{x,y:y0+plotH-h2,width:w,height:h2,
+        fill:color,opacity:0.85,stroke:'var(--ink)','stroke-width':0.5}));
+      // bias^2 (stacked on top)
+      svg.appendChild(SVG('rect',{x,y:y0+plotH-h2-h1,width:w,height:h1,
+        fill:'var(--pink)',opacity:0.85,stroke:'var(--ink)','stroke-width':0.5}));
+      const lt = SVG('text',{x:x+w/2,y:y0+plotH+22,'text-anchor':'middle','font-size':12,fill:'var(--ink)'});
+      lt.textContent = label; svg.appendChild(lt);
+      const mt = SVG('text',{x:x+w/2,y:y0+plotH-h2-h1-8,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      mt.textContent = 'MSE='+(biasSq+vari).toFixed(3); svg.appendChild(mt);
+    }
+    bar(x0+120, 100, biasM*biasM, varM, 'MLE  (1/n)', 'var(--yellow)');
+    bar(x0+340, 100, biasS*biasS, varS, 'S²  (1/(n-1))', 'var(--cyan)');
+    // legend
+    svg.appendChild(SVG('rect',{x:x0+plotW-160,y:y0+10,width:14,height:14,fill:'var(--pink)',opacity:0.85}));
+    const lt1 = SVG('text',{x:x0+plotW-140,y:y0+22,'font-size':12,fill:'var(--ink)'});
+    lt1.textContent='bias²'; svg.appendChild(lt1);
+    svg.appendChild(SVG('rect',{x:x0+plotW-160,y:y0+32,width:14,height:14,fill:'var(--cyan)',opacity:0.85}));
+    const lt2 = SVG('text',{x:x0+plotW-140,y:y0+44,'font-size':12,fill:'var(--ink)'});
+    lt2.textContent='variance'; svg.appendChild(lt2);
+    out.textContent = `n=${n}, σ²=${sigma2.toFixed(2)}\nMLE: bias²=${(biasM*biasM).toFixed(4)}, var=${varM.toFixed(4)}, MSE=${mseM.toFixed(4)}\nS²:  bias²=${biasS.toFixed(4)},  var=${varS.toFixed(4)}, MSE=${mseS.toFixed(4)}\n${mseM<mseS?'MLE wins on MSE — accepted bias for less variance.':'S² wins on MSE.'}`;
+  }
+  [sig, nctl].forEach(el => el.addEventListener('input', draw));
+  draw();
+})();
+</script>
+
+</section>
+
+<section id="mle">
+<h2>2. Maximum likelihood and the score equation</h2>
+
+
+<p>Once we have an estimator framework, the next question is: which estimator do we pick? The answer for most parametric models is *the one that maximises the likelihood of the data we observed* — and the surprise is how often this strategy is asymptotically optimal.</p><p>The <strong>likelihood</strong> $L(\theta)=\prod_i f(X_i;\theta)$ is, viewed as a function of $\theta$ with the data fixed, just the joint density evaluated at the observed sample. Its log is the <strong>log-likelihood</strong>:
+$$\ell(\theta)=\sum_{i=1}^n\log f(X_i;\theta).$$
+The <strong>maximum likelihood estimator</strong> is $\hat\theta_{\mathrm{MLE}}=\arg\max_\theta\ell(\theta)$. Differentiating and setting to zero gives the <em>score equation</em>:
+$$\partial_\theta\ell(\theta)=\sum_i\frac{\partial_\theta f(X_i;\theta)}{f(X_i;\theta)}=0.$$</p>
+
+<p><strong>Fisher information</strong> measures the curvature of the log-likelihood:
+$$I(\theta)=\mathbb{E}_\theta[(\partial_\theta\log f(X;\theta))^2]=-\mathbb{E}_\theta[\partial_\theta^2\log f(X;\theta)].$$
+The two expressions agree under regularity (differentiating $\int f=1$ twice). The score has mean zero and variance $I(\theta)$.</p>
+
+<p>Under regularity, the MLE is consistent and satisfies the <strong>asymptotic normality</strong>
+$$\sqrt n\bigl(\hat\theta_n-\theta\bigr)\xrightarrow{d}\mathcal{N}\bigl(0,\,1/I(\theta)\bigr).$$
+The Fisher information sets the asymptotic precision; we will see in §3 that it is also a hard floor.</p>
+
+<div class="note"><strong>MLE = empirical KL minimiser.</strong> Let $\hat p_n$ be the empirical distribution of the sample. Then
+$$D(\hat p_n\,\|\,p_\theta)=\mathbb{E}_{\hat p_n}[\log\hat p_n]-\tfrac{1}{n}\ell(\theta).$$
+Minimising $D(\hat p_n\,\|\,p_\theta)$ in $\theta$ is the same problem as maximising $\ell(\theta)$. So MLE is the statistical shadow of <a href="./information-theory.html#kl-divergence">KL divergence</a>, and Sanov's theorem governs how fast the empirical law concentrates on the truth.</div>
+
+<p><strong>Worked example: exponential rate.</strong> For $X_i\sim\mathrm{Exp}(\lambda)$, $\log f=\log\lambda-\lambda x$, so $\ell(\lambda)=n\log\lambda-\lambda\sum X_i$ and $\hat\lambda_{\mathrm{MLE}}=n/\sum X_i=1/\bar X$. Fisher information is $I(\lambda)=1/\lambda^2$, so $\sqrt n(\hat\lambda-\lambda)\xrightarrow{d}\mathcal{N}(0,\lambda^2)$.</p>
+
+<div class="widget" id="w-mle">
+  <div class="hd"><div class="ttl">Likelihood curve and score</div><div class="hint">Bernoulli($\theta$), drag samples</div></div>
+  <svg id="mle-svg" viewBox="0 0 760 320" width="760" height="320"><title>Log-likelihood curve with MLE marked</title></svg>
+  <div class="row">
+    <label for="mle-k">heads observed (k)</label>
+    <input id="mle-k" type="range" min="0" max="20" step="1" value="7">
+    <span id="mle-k-v" class="small"></span>
+  </div>
+  <div class="row">
+    <label for="mle-n">total flips (n)</label>
+    <input id="mle-n" type="range" min="2" max="20" step="1" value="10">
+    <span id="mle-n-v" class="small"></span>
+  </div>
+  <div class="readout" id="mle-out"></div>
+</div>
+
+<div class="quiz" data-concept="ms-mle"></div>
+
+<script>
+/* =============================== §2 Likelihood curve =============================== */
+(function(){
+  const svg = $('#mle-svg'), out = $('#mle-out');
+  const kctl=$('#mle-k'), nctl=$('#mle-n');
+  const kv=$('#mle-k-v'), nv=$('#mle-n-v');
+  const W=760, H=320;
+  function draw(){
+    let n = +nctl.value, k = Math.min(+kctl.value, n);
+    kv.textContent = k; nv.textContent = n;
+    kctl.max = n;
+    svg.innerHTML='';
+    const x0=80, y0=40, plotW=600, plotH=220;
+    // axes
+    svg.appendChild(SVG('line',{x1:x0,y1:y0+plotH,x2:x0+plotW,y2:y0+plotH,stroke:'var(--mute)'}));
+    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y0+plotH,stroke:'var(--mute)'}));
+    // x-axis ticks
+    for(let i=0;i<=10;i++){
+      const xx = x0 + i*plotW/10;
+      svg.appendChild(SVG('line',{x1:xx,y1:y0+plotH,x2:xx,y2:y0+plotH+4,stroke:'var(--mute)'}));
+      const t=SVG('text',{x:xx,y:y0+plotH+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent=(i/10).toFixed(1); svg.appendChild(t);
+    }
+    const xlabel = SVG('text',{x:x0+plotW/2,y:y0+plotH+38,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    xlabel.textContent='θ (heads probability)'; svg.appendChild(xlabel);
+    const ylabel = SVG('text',{x:x0-50,y:y0+plotH/2,'text-anchor':'middle','font-size':12,fill:'var(--mute)','transform':`rotate(-90 ${x0-50} ${y0+plotH/2})`});
+    ylabel.textContent='log L(θ)'; svg.appendChild(ylabel);
+    // log-likelihood curve
+    function logL(theta){
+      if(theta<=0 || theta>=1) return -1e9;
+      return k*Math.log(theta) + (n-k)*Math.log(1-theta);
+    }
+    const N=200;
+    const ys=[];
+    for(let i=1;i<N;i++){
+      const t = i/N;
+      ys.push([t, logL(t)]);
+    }
+    const ymax = Math.max(...ys.map(p=>p[1]));
+    const ymin = ymax - 8;
+    function px(t){ return x0 + t*plotW; }
+    function py(v){ return y0 + plotH - (v-ymin)/(ymax-ymin)*plotH; }
+    let d='';
+    ys.forEach((p,i)=>{
+      const yp = Math.max(p[1], ymin);
+      d += (i===0?'M':'L')+px(p[0])+' '+py(yp)+' ';
+    });
+    svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--cyan)', 'stroke-width':2}));
+    // MLE
+    const mle = k/n;
+    if(mle>0 && mle<1){
+      svg.appendChild(SVG('line',{x1:px(mle),y1:y0,x2:px(mle),y2:y0+plotH,
+        stroke:'var(--yellow)','stroke-width':1.5,'stroke-dasharray':'4,4'}));
+      svg.appendChild(SVG('circle',{cx:px(mle),cy:py(logL(mle)),r:6,
+        fill:'var(--yellow)',stroke:'var(--ink)','stroke-width':1.5}));
+      const lab=SVG('text',{x:px(mle)+8,y:y0+18,'font-size':12,fill:'var(--yellow)'});
+      lab.textContent='θ̂_MLE = '+mle.toFixed(3); svg.appendChild(lab);
+    }
+    // Asymptotic CI band: theta_hat ± 1.96/sqrt(n*I(theta))
+    if(mle>0 && mle<1){
+      const fisher = 1/(mle*(1-mle));
+      const sd = 1/Math.sqrt(n*fisher);
+      const lo = Math.max(0.001, mle - 1.96*sd);
+      const hi = Math.min(0.999, mle + 1.96*sd);
+      svg.appendChild(SVG('rect',{x:px(lo),y:y0+plotH-6,width:px(hi)-px(lo),height:6,
+        fill:'var(--yellow)',opacity:0.35}));
+      const ci=SVG('text',{x:x0+plotW-8,y:y0+plotH-12,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      ci.textContent=`95% CI ≈ [${lo.toFixed(3)}, ${hi.toFixed(3)}]`; svg.appendChild(ci);
+    }
+    out.textContent = `Bernoulli MLE: θ̂ = k/n = ${k}/${n} = ${mle.toFixed(4)}\nFisher info I(θ̂) = 1/(θ̂(1-θ̂)) = ${(mle>0&&mle<1?(1/(mle*(1-mle))).toFixed(3):'∞')}\nAsymptotic SD = 1/√(nI) = ${(mle>0&&mle<1?(1/Math.sqrt(n/(mle*(1-mle)))).toFixed(4):'—')}`;
+  }
+  [kctl, nctl].forEach(el => el.addEventListener('input', draw));
+  draw();
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./information-theory.html#kl-divergence">Information theory — KL divergence</a></li>
+    <li><a href="./probability-theory.html#expectation">Probability theory — expectation</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./mathematical-statistics.html#asymptotics">Mathematical statistics</a> · Asymptotics: delta method, Slutsky, Wilks</div>
+    <div><a href="./mathematical-statistics.html#bayesian">Mathematical statistics</a> · Bayesian inference: posteriors, conjugate priors, credible intervals</div>
+    <div><a href="./mathematical-statistics.html#cramer-rao">Mathematical statistics</a> · Cramér–Rao bound, UMVU, Rao–Blackwell</div>
+    <div><a href="./mathematical-statistics.html#testing">Mathematical statistics</a> · Hypothesis testing: Neyman–Pearson and likelihood ratios</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<section id="cramer-rao">
+<h2>3. Cramér–Rao bound, UMVU, Rao–Blackwell</h2>
+
+<p>How small can $\mathrm{Var}_\theta(\hat\theta_n)$ be made among unbiased estimators? The <strong>Cramér–Rao inequality</strong> gives a sharp floor:
+$$\mathrm{Var}_\theta(\hat\theta_n)\ge\frac{1}{nI(\theta)}\quad\text{whenever}\quad\mathbb{E}_\theta[\hat\theta_n]=\theta.$$
+Information bounds variance — there is no free lunch on precision below what the score equation allows.</p>
+
+<p>An estimator achieving the floor is <strong>efficient</strong>; uniformly across $\theta$ it is the <strong>UMVU</strong> (uniformly minimum-variance unbiased) estimator. Sample mean $\bar X$ is UMVU for $\mathcal{N}(\mu,\sigma^2)$'s mean — its variance $\sigma^2/n$ exactly equals $1/(nI)$.</p>
+
+<div class="note"><strong>Rao–Blackwell.</strong> If $W$ is unbiased and $T$ is sufficient, then $W^*=\mathbb{E}[W\mid T]$ is also unbiased and has $\mathrm{Var}(W^*)\le\mathrm{Var}(W)$. The proof is a one-line application of the conditional Jensen inequality plus the law of total variance:
+$$\mathrm{Var}(W)=\mathbb{E}[\mathrm{Var}(W\mid T)]+\mathrm{Var}(\mathbb{E}[W\mid T])\ge\mathrm{Var}(W^*).$$
+<strong>Lehmann–Scheffé:</strong> if $T$ is also <em>complete</em>, $W^*$ is the unique UMVU estimator of $\theta$. Conditioning on a complete sufficient statistic projects you onto the optimal estimator.</div>
+
+<p><strong>Worked example.</strong> For $X_i\sim\mathcal{N}(\mu,\sigma^2)$ with $\sigma^2$ known, $I(\mu)=1/\sigma^2$ per sample, so the CRLB on unbiased estimators of $\mu$ is $\sigma^2/n$. The sample mean achieves this exactly — $\bar X$ is UMVU and efficient. For estimating $\sigma^2$ with $\mu$ known, the CRLB is $2\sigma^4/n$, and the MLE $\tfrac{1}{n}\sum(X_i-\mu)^2$ achieves it.</p>
+
+<div class="widget" id="w-cr">
+  <div class="hd"><div class="ttl">CRLB envelope</div><div class="hint">unbiased estimators live above the curve</div></div>
+  <svg id="cr-svg" viewBox="0 0 760 300" width="760" height="300"><title>Cramér–Rao envelope: variance vs sample size</title></svg>
+  <div class="row">
+    <label for="cr-fisher">Fisher info I(θ)</label>
+    <input id="cr-fisher" type="range" min="0.2" max="4" step="0.05" value="1">
+    <span id="cr-fisher-v" class="small"></span>
+  </div>
+  <div class="readout" id="cr-out"></div>
+</div>
+
+<div class="quiz" data-concept="ms-cramer-rao"></div>
+
+<script>
+/* =============================== §3 CRLB envelope =============================== */
+(function(){
+  const svg=$('#cr-svg'), out=$('#cr-out');
+  const fctl=$('#cr-fisher'), fv=$('#cr-fisher-v');
+  function draw(){
+    const I = +fctl.value;
+    fv.textContent = I.toFixed(2);
+    svg.innerHTML='';
+    const x0=80, y0=40, plotW=600, plotH=220;
+    // axes
+    svg.appendChild(SVG('line',{x1:x0,y1:y0+plotH,x2:x0+plotW,y2:y0+plotH,stroke:'var(--mute)'}));
+    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y0+plotH,stroke:'var(--mute)'}));
+    const nMin=2, nMax=50;
+    // y range: max at n=2
+    const yMax = 1/(nMin*I) * 1.2;
+    function px(n){ return x0 + (n-nMin)/(nMax-nMin)*plotW; }
+    function py(v){ return y0 + plotH - Math.min(v,yMax)/yMax*plotH; }
+    // CRLB curve
+    let d='';
+    for(let n=nMin;n<=nMax;n+=0.5){
+      const v = 1/(n*I);
+      d += (n===nMin?'M':'L')+px(n)+' '+py(v)+' ';
+    }
+    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2.5}));
+    // Fill below CRLB (forbidden)
+    let dfill = d + ' L'+px(nMax)+' '+py(yMax)+' L'+px(nMin)+' '+py(yMax)+' Z';
+    svg.appendChild(SVG('path',{d:dfill,fill:'var(--pink)',opacity:0.08}));
+    // Sample "estimator" points: efficient (on curve), inefficient (above)
+    function dot(n, v, color, label){
+      svg.appendChild(SVG('circle',{cx:px(n),cy:py(v),r:5,fill:color,stroke:'var(--ink)','stroke-width':1}));
+      if(label){
+        const t=SVG('text',{x:px(n)+8,y:py(v)+4,'font-size':11,fill:color});
+        t.textContent=label; svg.appendChild(t);
+      }
+    }
+    [5,10,20,40].forEach(n => dot(n, 1/(n*I), 'var(--yellow)', null));
+    dot(10, 1.5/(10*I), 'var(--pink)', 'inefficient');
+    dot(20, 1.0/(20*I), 'var(--cyan)', 'efficient');
+    // labels
+    for(let n=10;n<=50;n+=10){
+      const t=SVG('text',{x:px(n),y:y0+plotH+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent=n; svg.appendChild(t);
+    }
+    const xlabel=SVG('text',{x:x0+plotW/2,y:y0+plotH+38,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    xlabel.textContent='sample size n'; svg.appendChild(xlabel);
+    const ylabel=SVG('text',{x:x0-50,y:y0+plotH/2,'text-anchor':'middle','font-size':12,fill:'var(--mute)','transform':`rotate(-90 ${x0-50} ${y0+plotH/2})`});
+    ylabel.textContent='Var(θ̂)'; svg.appendChild(ylabel);
+    // Legend (viewport coords)
+    svg.appendChild(SVG('text',{x:x0+plotW-160,y:y0+18,'font-size':11,fill:'var(--yellow)'}));
+    const lg1=SVG('text',{x:x0+plotW-150,y:y0+22,'font-size':11,fill:'var(--yellow)'});
+    lg1.textContent='1/(nI(θ))  CRLB'; svg.appendChild(lg1);
+    const lg2=SVG('text',{x:x0+plotW-150,y:y0+40,'font-size':11,fill:'var(--pink)'});
+    lg2.textContent='forbidden region'; svg.appendChild(lg2);
+    out.textContent = `Fisher info I(θ) = ${I.toFixed(2)}\nCRLB at n=10:  Var(θ̂) ≥ ${(1/(10*I)).toFixed(4)}\nCRLB at n=20:  Var(θ̂) ≥ ${(1/(20*I)).toFixed(4)}\nUMVU/efficient estimators sit ON the yellow curve;\nany unbiased estimator must lie above it.`;
+  }
+  fctl.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+</section>
+
+<section id="testing">
+<h2>4. Hypothesis testing: Neyman–Pearson and likelihood ratios</h2>
+
+
+<p>Estimation tells us where $\theta$ probably is; testing tells us whether $\theta$ is plausibly some specific value $\theta_0$. Once estimation is in place, hypothesis testing is the natural next move.</p><p>A <strong>statistical test</strong> partitions the sample space into a rejection region $R$ and its complement; we reject $H_0:\theta\in\Theta_0$ in favour of $H_1:\theta\in\Theta_1$ when $X\in R$. Two error types:</p>
+
+<table class="plain">
+<tr><th></th><th>$H_0$ true</th><th>$H_1$ true</th></tr>
+<tr><td>reject $H_0$</td><td><span class="bad" style="margin:0;padding:.1rem .4rem;display:inline-block">type I, prob $\alpha$</span></td><td>correct, prob $1-\beta$ (power)</td></tr>
+<tr><td>accept $H_0$</td><td>correct, prob $1-\alpha$</td><td><span class="bad" style="margin:0;padding:.1rem .4rem;display:inline-block">type II, prob $\beta$</span></td></tr>
+</table>
+
+<p>The <strong>size</strong> $\alpha=\sup_{\theta\in\Theta_0}\mathbb{P}_\theta(X\in R)$ is the worst-case type-I error rate; the <strong>power function</strong> is $\theta\mapsto\mathbb{P}_\theta(X\in R)$, which we want large on $\Theta_1$ for fixed $\alpha$.</p>
+
+<div class="note"><strong>Neyman–Pearson lemma.</strong> For simple-vs-simple $H_0:\theta=\theta_0$ vs $H_1:\theta=\theta_1$, the level-$\alpha$ test that rejects when
+$$\Lambda(x)=\frac{L(\theta_1;x)}{L(\theta_0;x)}>k$$
+(with $k$ chosen so $\mathbb{P}_{\theta_0}(\Lambda>k)=\alpha$) is <em>uniformly most powerful</em>: every other test of size $\le\alpha$ has power $\le 1-\beta_{\mathrm{NP}}$. Likelihood ratios are the optimal test statistic.</div>
+
+<p>The <strong>$p$-value</strong> of an observation $x_{\mathrm{obs}}$ is $p=\mathbb{P}_{H_0}(T(X)\ge T(x_{\mathrm{obs}}))$ for the chosen test statistic $T$ — the smallest level at which $x_{\mathrm{obs}}$ would have led to rejection. It is not $\mathbb{P}(H_0\mid x)$.</p>
+
+<p><strong>Worked example: one-sample z-test.</strong> Test $H_0:\mu=0$ vs $H_1:\mu>0$ with i.i.d.\ $X_i\sim\mathcal{N}(\mu,1)$ and $n=25$. Under $H_0$, $\bar X\sim\mathcal{N}(0,1/25)$; reject at level $0.05$ when $\bar X>z_{0.95}/\sqrt n=1.645/5\approx 0.329$. Power at $\mu=0.5$:
+$$\mathbb{P}_{0.5}(\bar X>0.329)=1-\Phi\bigl(\tfrac{0.329-0.5}{1/5}\bigr)=1-\Phi(-0.855)\approx 0.804.$$</p>
+
+<div class="widget" id="w-np">
+  <div class="hd"><div class="ttl">Neyman–Pearson rejection region</div><div class="hint">slide $\alpha$, watch power follow</div></div>
+  <svg id="np-svg" viewBox="0 0 760 300" width="760" height="300"><title>Type I and II errors as overlapping Gaussian areas</title></svg>
+  <div class="row">
+    <label for="np-mu1">true effect $\mu_1$</label>
+    <input id="np-mu1" type="range" min="0.1" max="2.5" step="0.05" value="1.0">
+    <span id="np-mu1-v" class="small"></span>
+  </div>
+  <div class="row">
+    <label for="np-alpha">level $\alpha$</label>
+    <input id="np-alpha" type="range" min="0.001" max="0.25" step="0.001" value="0.05">
+    <span id="np-alpha-v" class="small"></span>
+  </div>
+  <div class="readout" id="np-out"></div>
+</div>
+
+<div class="quiz" data-concept="ms-hypothesis-testing"></div>
+
+<script>
+/* =============================== §4 Neyman-Pearson regions =============================== */
+(function(){
+  const svg=$('#np-svg'), out=$('#np-out');
+  const mu1=$('#np-mu1'), alpha=$('#np-alpha');
+  const mv=$('#np-mu1-v'), av=$('#np-alpha-v');
+  function invPhi(p){
+    // Beasley-Springer-Moro inversion (rough but adequate)
+    if(p<=0) return -10; if(p>=1) return 10;
+    const a = [-3.969683028665376e+01,2.209460984245205e+02,-2.759285104469687e+02,
+               1.383577518672690e+02,-3.066479806614716e+01,2.506628277459239e+00];
+    const b = [-5.447609879822406e+01,1.615858368580409e+02,-1.556989798598866e+02,
+               6.680131188771972e+01,-1.328068155288572e+01];
+    const c = [-7.784894002430293e-03,-3.223964580411365e-01,-2.400758277161838e+00,
+               -2.549732539343734e+00,4.374664141464968e+00,2.938163982698783e+00];
+    const d = [7.784695709041462e-03,3.224671290700398e-01,2.445134137142996e+00,
+               3.754408661907416e+00];
+    const pl=0.02425, ph=1-pl;
+    let q,r;
+    if(p<pl){
+      q=Math.sqrt(-2*Math.log(p));
+      return (((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])
+            /((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1);
+    }
+    if(p<=ph){
+      q=p-0.5; r=q*q;
+      return (((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5])*q
+            /(((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1);
+    }
+    q=Math.sqrt(-2*Math.log(1-p));
+    return -(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])
+            /((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1);
+  }
+  function draw(){
+    const m1=+mu1.value, a=+alpha.value;
+    mv.textContent=m1.toFixed(2); av.textContent=a.toFixed(3);
+    svg.innerHTML='';
+    const x0=80, y0=40, plotW=600, plotH=220;
+    svg.appendChild(SVG('line',{x1:x0,y1:y0+plotH,x2:x0+plotW,y2:y0+plotH,stroke:'var(--mute)'}));
+    const xMin=-3, xMax=4;
+    function px(x){ return x0 + (x-xMin)/(xMax-xMin)*plotW; }
+    const peakY = phi(0);
+    function py(v){ return y0 + plotH - v/peakY*(plotH*0.92); }
+    // critical value: under H0~N(0,1), reject when X > z_{1-a}
+    const z = invPhi(1-a);
+    // H0 curve
+    let d0='';
+    for(let i=0;i<=200;i++){
+      const x=xMin+i/200*(xMax-xMin);
+      d0 += (i===0?'M':'L')+px(x)+' '+py(phi(x))+' ';
+    }
+    svg.appendChild(SVG('path',{d:d0,fill:'none',stroke:'var(--cyan)','stroke-width':2}));
+    // H1 curve (shifted by mu1)
+    let d1='';
+    for(let i=0;i<=200;i++){
+      const x=xMin+i/200*(xMax-xMin);
+      d1 += (i===0?'M':'L')+px(x)+' '+py(phi(x-m1))+' ';
+    }
+    svg.appendChild(SVG('path',{d:d1,fill:'none',stroke:'var(--pink)','stroke-width':2}));
+    // Type I (alpha): area under H0 to the right of z
+    let dA='M'+px(z)+' '+py(0);
+    for(let i=0;i<=80;i++){
+      const x=z+i/80*(xMax-z);
+      dA += ' L'+px(x)+' '+py(phi(x));
+    }
+    dA += ' L'+px(xMax)+' '+py(0)+' Z';
+    svg.appendChild(SVG('path',{d:dA,fill:'var(--cyan)',opacity:0.35}));
+    // Type II (beta): area under H1 to the LEFT of z
+    let dB='M'+px(xMin)+' '+py(0);
+    for(let i=0;i<=80;i++){
+      const x=xMin+i/80*(z-xMin);
+      dB += ' L'+px(x)+' '+py(phi(x-m1));
+    }
+    dB += ' L'+px(z)+' '+py(0)+' Z';
+    svg.appendChild(SVG('path',{d:dB,fill:'var(--pink)',opacity:0.25}));
+    // critical line
+    svg.appendChild(SVG('line',{x1:px(z),y1:y0,x2:px(z),y2:y0+plotH,
+      stroke:'var(--yellow)','stroke-width':1.5,'stroke-dasharray':'4,4'}));
+    const cz=SVG('text',{x:px(z),y:y0-6,'text-anchor':'middle','font-size':11,fill:'var(--yellow)'});
+    cz.textContent='z='+z.toFixed(2); svg.appendChild(cz);
+    // x ticks
+    for(let x=xMin;x<=xMax;x++){
+      svg.appendChild(SVG('line',{x1:px(x),y1:y0+plotH,x2:px(x),y2:y0+plotH+4,stroke:'var(--mute)'}));
+      const t=SVG('text',{x:px(x),y:y0+plotH+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent=x; svg.appendChild(t);
+    }
+    // legend (viewport coords)
+    const lg1=SVG('text',{x:x0+plotW-130,y:y0+18,'font-size':11,fill:'var(--cyan)'});
+    lg1.textContent='H₀: N(0,1)'; svg.appendChild(lg1);
+    const lg2=SVG('text',{x:x0+plotW-130,y:y0+34,'font-size':11,fill:'var(--pink)'});
+    lg2.textContent=`H₁: N(${m1.toFixed(1)},1)`; svg.appendChild(lg2);
+    // power
+    const beta = Phi(z-m1);
+    const power = 1-beta;
+    out.textContent = `α = ${a.toFixed(3)}  (cyan area, type I)\nβ = ${beta.toFixed(3)}  (pink area, type II)\npower = 1−β = ${power.toFixed(3)}\nrejection region: X > ${z.toFixed(3)}`;
+  }
+  [mu1, alpha].forEach(el => el.addEventListener('input', draw));
+  draw();
+})();
+</script>
+
+</section>
+
+<section id="bayesian">
+<h2>5. Bayesian inference: posteriors, conjugate priors, credible intervals</h2>
+
+
+<p>Frequentist statistics treats $\theta$ as a fixed unknown and the data as random. Bayesian statistics flips this — $\theta$ is random with a prior distribution, and observing data shrinks our uncertainty by Bayes' rule. The methodologies look different but agree on most asymptotic claims.</p><p><strong>Bayesian inference</strong> treats $\theta$ as a random variable. Begin with a <em>prior</em> $\pi(\theta)$ encoding belief before data; observe $X$ with likelihood $L(\theta;x)=f(x;\theta)$; the <em>posterior</em> is
+$$\pi(\theta\mid x)=\frac{\pi(\theta)L(\theta;x)}{\int\pi(\theta')L(\theta';x)\,d\theta'}\propto\pi(\theta)L(\theta;x).$$
+Bayes' rule on parameters — the same identity that runs the medical-test posterior in <a href="./probability-theory.html#bayes">probability theory</a>, applied to a continuous parameter.</p>
+
+<p><strong>Conjugate priors</strong> are families closed under updating: when prior and likelihood multiply to a posterior in the same family, only the hyperparameters change. The classics:</p>
+
+<table class="plain">
+<tr><th>likelihood</th><th>conjugate prior</th><th>posterior</th></tr>
+<tr><td>Binomial$(n,\theta)$</td><td>$\mathrm{Beta}(\alpha,\beta)$</td><td>$\mathrm{Beta}(\alpha+x,\beta+n-x)$</td></tr>
+<tr><td>Poisson$(\lambda)$</td><td>$\mathrm{Gamma}(\alpha,\beta)$</td><td>$\mathrm{Gamma}(\alpha+\sum x_i,\beta+n)$</td></tr>
+<tr><td>Normal$(\mu,\sigma^2)$, $\sigma^2$ known</td><td>Normal$(\mu_0,\tau_0^2)$</td><td>Normal (precisions add)</td></tr>
+</table>
+
+<p><strong>Point summaries</strong> of the posterior:</p>
+<ul>
+  <li><strong>MAP</strong> $\hat\theta_{\mathrm{MAP}}=\arg\max\pi(\theta\mid x)$ — posterior mode; minimises a $0$–$1$ loss.</li>
+  <li><strong>Posterior mean</strong> $\mathbb{E}[\theta\mid x]$ — minimises squared-error loss.</li>
+  <li><strong>Posterior median</strong> — minimises absolute-error loss.</li>
+</ul>
+<p>For symmetric unimodal posteriors all three coincide. A <strong>$1-\alpha$ credible interval</strong> $C$ is any region with $\mathbb{P}(\theta\in C\mid x)=1-\alpha$; the <em>highest posterior density</em> interval is the shortest such region.</p>
+
+<div class="note"><strong>Frequentist vs Bayesian, in one line.</strong> A frequentist confidence interval has a coverage guarantee over <em>resampling</em> data with $\theta$ fixed; a Bayesian credible interval is a probability statement about $\theta$ <em>given the observed data</em>. They agree numerically with flat priors and Gaussian likelihoods; they diverge philosophically and at small $n$.</div>
+
+<p><strong>Worked example.</strong> Coin with $\theta\sim\mathrm{Beta}(1,1)$ (uniform prior). Flip $n=10$ times, see $k=7$ heads. Posterior is $\mathrm{Beta}(8,4)$, with mean $8/12\approx 0.667$ and mode $7/10=0.700$ (= MLE). The MLE is the MAP under the flat prior — uniform priors recover frequentist point estimates as their posterior modes.</p>
+
+<div class="widget" id="w-bayes">
+  <div class="hd"><div class="ttl">Beta posterior update</div><div class="hint">prior + new flips → posterior</div></div>
+  <svg id="bayes-svg" viewBox="0 0 760 300" width="760" height="300"><title>Beta prior, likelihood, and posterior</title></svg>
+  <div class="row">
+    <label for="ba-prior-a">prior α</label>
+    <input id="ba-prior-a" type="range" min="0.5" max="20" step="0.5" value="1">
+    <span id="ba-prior-a-v" class="small"></span>
+    <label for="ba-prior-b">prior β</label>
+    <input id="ba-prior-b" type="range" min="0.5" max="20" step="0.5" value="1">
+    <span id="ba-prior-b-v" class="small"></span>
+  </div>
+  <div class="row">
+    <label for="ba-k">heads observed</label>
+    <input id="ba-k" type="range" min="0" max="50" step="1" value="7">
+    <span id="ba-k-v" class="small"></span>
+    <label for="ba-n">total flips</label>
+    <input id="ba-n" type="range" min="1" max="50" step="1" value="10">
+    <span id="ba-n-v" class="small"></span>
+  </div>
+  <div class="readout" id="ba-out"></div>
+</div>
+
+<div class="quiz" data-concept="ms-bayesian"></div>
+
+<script>
+/* =============================== §5 Bayesian update =============================== */
+(function(){
+  const svg=$('#bayes-svg'), out=$('#ba-out');
+  const pa=$('#ba-prior-a'), pb=$('#ba-prior-b');
+  const kctl=$('#ba-k'), nctl=$('#ba-n');
+  const pav=$('#ba-prior-a-v'), pbv=$('#ba-prior-b-v');
+  const kv=$('#ba-k-v'), nv=$('#ba-n-v');
+  function draw(){
+    const a=+pa.value, b=+pb.value;
+    let n=+nctl.value, k=Math.min(+kctl.value, n);
+    pav.textContent=a.toFixed(1); pbv.textContent=b.toFixed(1);
+    kv.textContent=k; nv.textContent=n;
+    kctl.max=n;
+    svg.innerHTML='';
+    const x0=80, y0=40, plotW=600, plotH=220;
+    svg.appendChild(SVG('line',{x1:x0,y1:y0+plotH,x2:x0+plotW,y2:y0+plotH,stroke:'var(--mute)'}));
+    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y0+plotH,stroke:'var(--mute)'}));
+    function curve(alpha,beta,N){
+      const out=[];
+      for(let i=1;i<N;i++){
+        const t=i/N;
+        out.push([t, betaPdf(t,alpha,beta)]);
+      }
+      return out;
+    }
+    const N=240;
+    const post_a = a+k, post_b = b+n-k;
+    const c0 = curve(a,b,N);
+    const cP = curve(post_a, post_b, N);
+    // likelihood (normalised) ~ Beta(k+1, n-k+1)
+    const cL = curve(k+1, n-k+1, N);
+    const yMax = Math.max(...c0.map(p=>p[1]), ...cP.map(p=>p[1]), ...cL.map(p=>p[1])) * 1.1;
+    function px(t){ return x0 + t*plotW; }
+    function py(v){ return y0 + plotH - Math.min(v,yMax)/yMax*plotH; }
+    function plot(arr, color, dash, fillOp){
+      let d='';
+      arr.forEach((p,i)=>{ d += (i===0?'M':'L')+px(p[0])+' '+py(p[1])+' '; });
+      const path = SVG('path',{d, fill: fillOp ? color : 'none', stroke:color,'stroke-width':2, opacity: fillOp || 1});
+      if(dash) path.setAttribute('stroke-dasharray', dash);
+      svg.appendChild(path);
+    }
+    plot(c0, 'var(--violet)', '5,4');         // prior
+    plot(cL, 'var(--cyan)',   '2,3');         // likelihood
+    plot(cP, 'var(--yellow)', null);          // posterior
+    // posterior fill (credible region 95% via numeric quantile approximation)
+    // simple approach: fill 95% central
+    // x ticks
+    for(let i=0;i<=10;i++){
+      const xx=px(i/10);
+      svg.appendChild(SVG('line',{x1:xx,y1:y0+plotH,x2:xx,y2:y0+plotH+4,stroke:'var(--mute)'}));
+      const t=SVG('text',{x:xx,y:y0+plotH+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent=(i/10).toFixed(1); svg.appendChild(t);
+    }
+    const xlabel=SVG('text',{x:x0+plotW/2,y:y0+plotH+38,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    xlabel.textContent='θ'; svg.appendChild(xlabel);
+    // posterior mean and mode markers
+    const postMean = post_a/(post_a+post_b);
+    const postMode = (post_a>1 && post_b>1) ? (post_a-1)/(post_a+post_b-2) : null;
+    svg.appendChild(SVG('line',{x1:px(postMean),y1:y0+plotH,x2:px(postMean),y2:py(betaPdf(postMean,post_a,post_b)),
+      stroke:'var(--yellow)','stroke-width':1}));
+    if(postMode!==null){
+      svg.appendChild(SVG('circle',{cx:px(postMode),cy:py(betaPdf(postMode,post_a,post_b)),r:5,
+        fill:'var(--yellow)',stroke:'var(--ink)','stroke-width':1}));
+    }
+    // legend (viewport coords)
+    const lg1=SVG('text',{x:x0+plotW-150,y:y0+18,'font-size':11,fill:'var(--violet)'});
+    lg1.textContent=`prior  Beta(${a.toFixed(1)}, ${b.toFixed(1)})`; svg.appendChild(lg1);
+    const lg2=SVG('text',{x:x0+plotW-150,y:y0+34,'font-size':11,fill:'var(--cyan)'});
+    lg2.textContent=`likelihood (${k}/${n})`; svg.appendChild(lg2);
+    const lg3=SVG('text',{x:x0+plotW-150,y:y0+50,'font-size':11,fill:'var(--yellow)'});
+    lg3.textContent=`posterior  Beta(${post_a.toFixed(1)}, ${post_b.toFixed(1)})`; svg.appendChild(lg3);
+    out.textContent = `Posterior: Beta(${post_a.toFixed(1)}, ${post_b.toFixed(1)})\nposterior mean = ${postMean.toFixed(4)}\nposterior mode (MAP) = ${postMode!==null?postMode.toFixed(4):'(at boundary)'}\nMLE k/n = ${(k/n).toFixed(4)}`;
+  }
+  [pa, pb, kctl, nctl].forEach(el => el.addEventListener('input', draw));
+  draw();
+})();
+</script>
+
+</section>
+
+<section id="asymptotics">
+<h2>6. Asymptotics: delta method, Slutsky, Wilks</h2>
+
+<p>The CLT promotes any sample statistic with finite variance to an asymptotic Gaussian. Mathematical statistics builds three workhorses on top of it.</p>
+
+<p><strong>Delta method.</strong> If $\sqrt n(\hat\theta_n-\theta)\xrightarrow{d}\mathcal{N}(0,\sigma^2)$ and $g$ is continuously differentiable at $\theta$ with $g'(\theta)\neq 0$, then
+$$\sqrt n\bigl(g(\hat\theta_n)-g(\theta)\bigr)\xrightarrow{d}\mathcal{N}\bigl(0,\,g'(\theta)^2\sigma^2\bigr).$$
+Proof: Taylor expand $g(\hat\theta_n)\approx g(\theta)+g'(\theta)(\hat\theta_n-\theta)$ and apply Slutsky. The Jacobian rescales the asymptotic variance.</p>
+
+<p><strong>Slutsky's theorem.</strong> If $X_n\xrightarrow{d}X$ and $Y_n\xrightarrow{p}c$ (constant), then $X_n+Y_n\xrightarrow{d}X+c$ and $X_nY_n\xrightarrow{d}cX$. The lemma that lets you replace consistent nuisance estimates by their probability limits inside a converging sequence — for example, $\sqrt n(\bar X-\mu)/S\xrightarrow{d}\mathcal{N}(0,1)$ because $S\xrightarrow{p}\sigma$.</p>
+
+<div class="note"><strong>Wilks' theorem.</strong> For the LRT statistic $\Lambda_n=\sup_{\Theta_0}L/\sup_\Theta L$ with $H_0$ specifying $r=\dim\Theta-\dim\Theta_0$ constraints, under $H_0$:
+$$-2\log\Lambda_n\xrightarrow{d}\chi^2_r.$$
+This is the asymptotic calibration of the LRT — without simulation, you can read off the rejection threshold from $\chi^2_r$ tables. The constant $-2$ comes from Taylor-expanding $\log L$ around the unrestricted MLE; Fisher information turns the quadratic into a sum of $r$ squared standard normals.</div>
+
+<p><strong>Worked example.</strong> Estimate $\theta=p^2$ for $p$ a binomial proportion. The MLE of $p$ is $\hat p=k/n$ with $\sqrt n(\hat p-p)\xrightarrow{d}\mathcal{N}(0,p(1-p))$. Apply the delta method with $g(p)=p^2$, $g'(p)=2p$:
+$$\sqrt n(\hat p^2-p^2)\xrightarrow{d}\mathcal{N}(0,4p^2\cdot p(1-p))=\mathcal{N}(0,4p^3(1-p)).$$
+At $p=1/2$, this is $\mathcal{N}(0,1/4)$.</p>
+
+<div class="widget" id="w-asy">
+  <div class="hd"><div class="ttl">Wilks' theorem visualisation</div><div class="hint">$-2\log\Lambda$ pools to $\chi^2_r$</div></div>
+  <svg id="asy-svg" viewBox="0 0 760 320" width="760" height="320"><title>Chi-squared limit of LRT statistic</title></svg>
+  <div class="row">
+    <label for="asy-r">degrees of freedom $r$</label>
+    <input id="asy-r" type="range" min="1" max="6" step="1" value="2">
+    <span id="asy-r-v" class="small"></span>
+  </div>
+  <div class="row">
+    <label for="asy-alpha">level $\alpha$</label>
+    <input id="asy-alpha" type="range" min="0.01" max="0.20" step="0.005" value="0.05">
+    <span id="asy-alpha-v" class="small"></span>
+  </div>
+  <div class="readout" id="asy-out"></div>
+</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./probability-theory.html#clt">Central limit theorem</a></li>
+    <li><a href="./probability-theory.html#conv">Modes of convergence</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="ms-asymptotics"></div>
+
+<script>
+/* =============================== §6 Wilks chi-squared =============================== */
+(function(){
+  const svg=$('#asy-svg'), out=$('#asy-out');
+  const rctl=$('#asy-r'), actl=$('#asy-alpha');
+  const rv=$('#asy-r-v'), av=$('#asy-alpha-v');
+  function chi2pdf(x, r){
+    if(x<=0) return 0;
+    return Math.exp((r/2-1)*Math.log(x) - x/2 - logGamma(r/2) - (r/2)*Math.log(2));
+  }
+  // crude inverse via bisection on lower-tail integral
+  function chi2cdf(x, r){
+    // numerical integral via Simpson on [0,x]
+    if(x<=0) return 0;
+    const N=200;
+    const h=x/N;
+    let s=chi2pdf(0,r)+chi2pdf(x,r);
+    for(let i=1;i<N;i++){
+      s += (i%2===0?2:4)*chi2pdf(i*h, r);
+    }
+    return s*h/3;
+  }
+  function chi2inv(p, r){
+    // bisection
+    let lo=0, hi=Math.max(20, 2*r+20);
+    for(let i=0;i<60;i++){
+      const m=(lo+hi)/2;
+      if(chi2cdf(m, r) < p) lo=m; else hi=m;
+    }
+    return (lo+hi)/2;
+  }
+  function draw(){
+    const r=+rctl.value, a=+actl.value;
+    rv.textContent=r; av.textContent=a.toFixed(3);
+    svg.innerHTML='';
+    const x0=80, y0=40, plotW=600, plotH=220;
+    svg.appendChild(SVG('line',{x1:x0,y1:y0+plotH,x2:x0+plotW,y2:y0+plotH,stroke:'var(--mute)'}));
+    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:y0+plotH,stroke:'var(--mute)'}));
+    const xMax = Math.max(15, 3*r+8);
+    function px(x){ return x0 + x/xMax*plotW; }
+    // y range
+    let yMax = 0;
+    const N=300;
+    for(let i=1;i<=N;i++){
+      const x = i/N*xMax;
+      const v = chi2pdf(x, r);
+      if(v>yMax) yMax=v;
+    }
+    yMax *= 1.15;
+    function py(v){ return y0 + plotH - Math.min(v,yMax)/yMax*plotH; }
+    // pdf curve
+    let d='';
+    for(let i=0;i<=N;i++){
+      const x = i/N*xMax;
+      d += (i===0?'M':'L')+px(x)+' '+py(chi2pdf(x, r))+' ';
+    }
+    svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--cyan)', 'stroke-width':2}));
+    // critical value
+    const crit = chi2inv(1-a, r);
+    // shade tail
+    let dT='M'+px(crit)+' '+py(0);
+    for(let i=0;i<=80;i++){
+      const x = crit + i/80*(xMax-crit);
+      dT += ' L'+px(x)+' '+py(chi2pdf(x, r));
+    }
+    dT += ' L'+px(xMax)+' '+py(0)+' Z';
+    svg.appendChild(SVG('path',{d:dT, fill:'var(--pink)', opacity:0.35}));
+    svg.appendChild(SVG('line',{x1:px(crit),y1:y0,x2:px(crit),y2:y0+plotH,
+      stroke:'var(--yellow)','stroke-width':1.5,'stroke-dasharray':'4,4'}));
+    const cl=SVG('text',{x:px(crit),y:y0-6,'text-anchor':'middle','font-size':11,fill:'var(--yellow)'});
+    cl.textContent='χ²_{r,1−α} = '+crit.toFixed(2); svg.appendChild(cl);
+    // x ticks
+    const step = Math.max(1, Math.floor(xMax/8));
+    for(let x=0;x<=xMax;x+=step){
+      svg.appendChild(SVG('line',{x1:px(x),y1:y0+plotH,x2:px(x),y2:y0+plotH+4,stroke:'var(--mute)'}));
+      const t=SVG('text',{x:px(x),y:y0+plotH+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      t.textContent=x; svg.appendChild(t);
+    }
+    const xlabel=SVG('text',{x:x0+plotW/2,y:y0+plotH+38,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    xlabel.textContent='−2 log Λₙ  (LRT statistic under H₀)'; svg.appendChild(xlabel);
+    const ylabel=SVG('text',{x:x0-50,y:y0+plotH/2,'text-anchor':'middle','font-size':12,fill:'var(--mute)','transform':`rotate(-90 ${x0-50} ${y0+plotH/2})`});
+    ylabel.textContent='χ²_r density'; svg.appendChild(ylabel);
+    // legend
+    const lg1=SVG('text',{x:x0+plotW-160,y:y0+18,'font-size':11,fill:'var(--cyan)'});
+    lg1.textContent=`χ²_${r} pdf`; svg.appendChild(lg1);
+    const lg2=SVG('text',{x:x0+plotW-160,y:y0+34,'font-size':11,fill:'var(--pink)'});
+    lg2.textContent=`reject region (α=${a.toFixed(3)})`; svg.appendChild(lg2);
+    out.textContent = `r = ${r}  (= dim Θ − dim Θ₀, # constrained parameters)\nα = ${a.toFixed(3)}\ncritical value χ²_{r,1−α} = ${crit.toFixed(3)}\nReject H₀ when −2 log Λₙ > ${crit.toFixed(3)}.`;
+  }
+  [rctl, actl].forEach(el => el.addEventListener('input', draw));
+  draw();
+})();
+</script>
+
+</section>
+
+<section id="connections">
+<h2>Connections</h2>
+
+<p>Mathematical statistics is the inferential face of probability — every result here treats samples drawn from a probability law and asks what those samples reveal. Live frontiers: high-dimensional asymptotics where $p/n$ does not vanish (random matrix corrections to MLE), causal inference (where conditional distributions encode counterfactuals, not just associations), and the bridge to learning theory (PAC bounds, empirical risk minimisation as MLE under model misspecification).</p>
+
+<ul>
+  <li><a href="./probability-theory.html#clt">Probability theory — central limit theorem</a> — the asymptotic engine that makes MLE, delta method, and Wilks calibrate.</li>
+  <li><a href="./information-theory.html#kl-divergence">Information theory — KL divergence</a> — MLE is empirical-KL minimisation, and Sanov's theorem governs how fast empirical laws concentrate.</li>
+  <li><a href="./large-deviations.html#sanov">Large deviations — Sanov's theorem</a> — sharp exponential tail bounds for likelihood ratios; refines Wilks beyond first order.</li>
+  <li><a href="./stochastic-processes-and-martingales.html#filtrations">Stochastic processes — filtrations</a> — sequential testing and martingale-based confidence sequences extend the static framework here.</li>
+  <li><a href="./information-theory.html#mutual-info">Information theory — mutual information</a> — Fisher information is the local quadratic form of KL, hence the second derivative of relative entropy.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+/* sidebar TOC builder + active-section highlighting */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'On this page';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/ /g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('mathematical-statistics'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-27</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>
