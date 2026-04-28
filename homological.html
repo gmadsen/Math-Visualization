@@ -794,6 +794,23 @@ $\begin{array}{ccccccccc}
 <div class="note"><strong>Snake lemma.</strong> There is a natural <em>connecting homomorphism</em> $\delta:\ker\gamma\to\operatorname{coker}\alpha$ making the following sequence exact:
 $$0 \to \ker\alpha \to \ker\beta \to \ker\gamma \xrightarrow{\;\delta\;} \operatorname{coker}\alpha \to \operatorname{coker}\beta \to \operatorname{coker}\gamma \to 0.$$</div>
 
+<p>Before chasing the connecting morphism, get a feel for the shape of the diagram itself. Drag the six objects to rearrange them; toggle any one of the vertical maps $\alpha,\beta,\gamma$ off and watch which of the two commutative squares loses its ✓ — the two exact-row checks at $B$ and $B'$ stay green because they don't use the vertical maps.</p>
+
+<div class="widget" id="w-snake-shape">
+  <div class="hd"><div class="ttl">The snake-lemma diagram — drag, toggle, watch the relations</div><div class="hint">drag any object · toggle $\alpha$, $\beta$, or $\gamma$ off to break a square · the two exact-row checks at $B$ and $B'$ are independent of the verticals</div></div>
+  <svg id="w-snake-shape-svg" viewBox="0 0 520 280" style="width:100%;max-width:520px;height:auto;display:block;background:var(--panel2);border:1px solid var(--line);border-radius:6px;touch-action:none;user-select:none" aria-label="The snake-lemma diagram — drag, toggle, watch the relations"><title>The snake-lemma diagram — drag, toggle, watch the relations</title></svg>
+  <div class="row" id="w-snake-shape-toggles" style="flex-wrap:wrap;gap:4px;margin-top:8px">
+    <label class="small" for="w-snake-shape-toggle-alpha" style="display:inline-flex;align-items:center;gap:4px;margin-right:8px"><input type="checkbox" id="w-snake-shape-toggle-alpha" data-arrow-id="alpha" checked> <span class="arrow-label">$\alpha$ (A→Ap)</span></label>
+    <label class="small" for="w-snake-shape-toggle-beta" style="display:inline-flex;align-items:center;gap:4px;margin-right:8px"><input type="checkbox" id="w-snake-shape-toggle-beta" data-arrow-id="beta" checked> <span class="arrow-label">$\beta$ (B→Bp)</span></label>
+    <label class="small" for="w-snake-shape-toggle-gamma" style="display:inline-flex;align-items:center;gap:4px;margin-right:8px"><input type="checkbox" id="w-snake-shape-toggle-gamma" data-arrow-id="gamma" checked> <span class="arrow-label">$\gamma$ (C→Cp)</span></label>
+  </div>
+  <div class="row" style="margin-top:8px">
+    <span class="small" id="w-snake-shape-status" style="color:var(--mute)"></span>
+    <button id="w-snake-shape-reset" type="button" style="margin-left:auto">reset</button>
+  </div>
+  <div class="readout" id="w-snake-shape-readout" style="min-height:1.6em"></div>
+</div>
+
 <p>The point is that $\delta$ exists at all. Given $c\in\ker\gamma\subseteq C$, you lift to $b\in B$ with $p(b)=c$, apply $\beta$ to get $b'\in B'$; commutativity forces $p'(b') = \gamma(c) = 0$, so $b'$ lies in $\ker p' = \operatorname{im} i'$, and we can pull back to a unique $a'\in A'$. Well-defined modulo $\operatorname{im}\alpha$ by construction. The "snake" is the path your finger draws through the diagram as you follow the recipe: right, down, left. That is exactly the connecting morphism.</p>
 
 <p>Specializing the snake lemma to a short exact sequence of <em>chain complexes</em> — interpret the top and bottom rows as the same complex at two consecutive degrees and iterate — gives the long exact sequence in homology. This is the single most important consequence.</p>
@@ -824,6 +841,488 @@ $$0 \to \ker\alpha \to \ker\beta \to \ker\gamma \xrightarrow{\;\delta\;} \operat
     <div><a href="./homological.html#five">Homological algebra</a> · The five lemma</div>
 </aside>
 <!-- backlinks-auto-end --><script>
+(function(){
+  var CFG = {"widgetId":"w-snake-shape","width":520,"height":280,"palette":"violet","mode":"snap-grid","nodes":[{"id":"A","label":"$A$","x":0.143,"y":0.4,"color":"violet"},{"id":"B","label":"$B$","x":0.429,"y":0.4,"color":"violet"},{"id":"C","label":"$C$","x":0.714,"y":0.4,"color":"violet"},{"id":"Ap","label":"$A'$","x":0.143,"y":0.6,"color":"violet"},{"id":"Bp","label":"$B'$","x":0.429,"y":0.6,"color":"violet"},{"id":"Cp","label":"$C'$","x":0.714,"y":0.6,"color":"violet"}],"arrows":[{"id":"i","from":"A","to":"B","label":"$i$","kind":"mono"},{"id":"p","from":"B","to":"C","label":"$p$","kind":"epi"},{"id":"ip","from":"Ap","to":"Bp","label":"$i'$","kind":"mono"},{"id":"pp","from":"Bp","to":"Cp","label":"$p'$","kind":"epi"},{"id":"alpha","from":"A","to":"Ap","label":"$\\alpha$","kind":"morphism","togglable":true},{"id":"beta","from":"B","to":"Bp","label":"$\\beta$","kind":"morphism","togglable":true},{"id":"gamma","from":"C","to":"Cp","label":"$\\gamma$","kind":"morphism","togglable":true}],"relations":[{"kind":"commute","lhs":["i","beta"],"rhs":["alpha","ip"],"label":"left square: $\\beta\\circ i = i'\\circ\\alpha$"},{"kind":"commute","lhs":["p","gamma"],"rhs":["beta","pp"],"label":"right square: $\\gamma\\circ p = p'\\circ\\beta$"},{"kind":"exact","lhs":["i"],"rhs":["p"],"at":"B","label":"top row exact at $B$: $\\operatorname{im} i = \\ker p$"},{"kind":"exact","lhs":["ip"],"rhs":["pp"],"at":"Bp","label":"bottom row exact at $B'$: $\\operatorname{im} i' = \\ker p'$"}]};
+  var ROOT = document.getElementById(CFG.widgetId);
+  if (!ROOT) return;
+  var SVGNS = 'http://www.w3.org/2000/svg';
+  var XHTMLNS = 'http://www.w3.org/1999/xhtml';
+
+  // ---- DOM refs ------------------------------------------------------
+  var svg       = document.getElementById(CFG.widgetId + '-svg');
+  var readout   = document.getElementById(CFG.widgetId + '-readout');
+  var statusEl  = document.getElementById(CFG.widgetId + '-status');
+  var resetBtn  = document.getElementById(CFG.widgetId + '-reset');
+  var toggleBar = document.getElementById(CFG.widgetId + '-toggles');
+  if (!svg || !readout) return;
+
+  // ---- state ---------------------------------------------------------
+  // Working copy of node positions in SVG user-space (pixels), seeded
+  // from CFG.nodes[i].{x,y} ratios. Drag mutates this; reset restores it.
+  var positions = Object.create(null);
+  var initialPositions = Object.create(null);
+  for (var i = 0; i < CFG.nodes.length; i++) {
+    var n = CFG.nodes[i];
+    var px = clamp(n.x * CFG.width, 28, CFG.width - 28);
+    var py = clamp(n.y * CFG.height, 22, CFG.height - 22);
+    if (CFG.mode === 'snap-grid') {
+      var snapped = snapToGrid(px, py);
+      px = snapped.x; py = snapped.y;
+    }
+    positions[n.id] = { x: px, y: py };
+    initialPositions[n.id] = { x: px, y: py };
+  }
+
+  // Working set of present arrow ids (togglable arrows can drop out).
+  var arrowsOn = Object.create(null);
+  for (var ai = 0; ai < CFG.arrows.length; ai++) arrowsOn[CFG.arrows[ai].id] = true;
+
+  var byArrowId = Object.create(null);
+  for (var aj = 0; aj < CFG.arrows.length; aj++) byArrowId[CFG.arrows[aj].id] = CFG.arrows[aj];
+  var byNodeId = Object.create(null);
+  for (var nk = 0; nk < CFG.nodes.length; nk++) byNodeId[CFG.nodes[nk].id] = CFG.nodes[nk];
+
+  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+  function snapToGrid(x, y) {
+    // 6 columns x 4 rows, with a one-cell inset margin so nodes don't kiss the edge.
+    var COLS = 6, ROWS = 4;
+    var marginX = CFG.width / (COLS + 1);
+    var marginY = CFG.height / (ROWS + 1);
+    var cellW = (CFG.width - 2 * marginX) / (COLS - 1);
+    var cellH = (CFG.height - 2 * marginY) / (ROWS - 1);
+    var c = Math.round((x - marginX) / cellW);
+    var r = Math.round((y - marginY) / cellH);
+    c = clamp(c, 0, COLS - 1);
+    r = clamp(r, 0, ROWS - 1);
+    return { x: marginX + c * cellW, y: marginY + r * cellH };
+  }
+
+  // ---- KaTeX helper --------------------------------------------------
+  function typesetIn(el) {
+    if (window.renderMathInElement) {
+      try {
+        window.renderMathInElement(el, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$',  right: '$',  display: false },
+            { left: '\\(', right: '\\)', display: false },
+            { left: '\\[', right: '\\]', display: true }
+          ],
+          throwOnError: false
+        });
+      } catch (_) { /* swallow KaTeX errors so the page stays alive */ }
+    }
+  }
+
+  // ---- SVG element factory ------------------------------------------
+  function el(tag, attrs) {
+    var e = document.createElementNS(SVGNS, tag);
+    if (attrs) for (var k in attrs) e.setAttribute(k, attrs[k]);
+    return e;
+  }
+
+  // Ensure a marker (arrowhead) of a given color exists in <defs>.
+  function ensureMarker(defs, id, color, kind) {
+    if (defs.querySelector('#' + id)) return;
+    var marker = el('marker', {
+      id: id,
+      viewBox: '0 0 10 10',
+      refX: kind === 'epi' ? '11' : '9',
+      refY: '5',
+      markerWidth: '7', markerHeight: '7',
+      orient: 'auto-start-reverse'
+    });
+    if (kind === 'epi') {
+      // Double head: two stacked triangles (close to the canonical ↠ glyph).
+      var p1 = el('path', { d: 'M 0 0 L 10 5 L 0 10 z', fill: color });
+      var p2 = el('path', { d: 'M -6 0 L 4 5 L -6 10 z', fill: color });
+      marker.appendChild(p1);
+      marker.appendChild(p2);
+    } else {
+      var p = el('path', { d: 'M 0 0 L 10 5 L 0 10 z', fill: color });
+      marker.appendChild(p);
+    }
+    defs.appendChild(marker);
+  }
+
+  // For monos: a hooked-tail marker.
+  function ensureTailMarker(defs, id, color) {
+    if (defs.querySelector('#' + id)) return;
+    var marker = el('marker', {
+      id: id,
+      viewBox: '-2 -6 14 12',
+      refX: '0', refY: '0',
+      markerWidth: '8', markerHeight: '8',
+      orient: 'auto'
+    });
+    var p = el('path', {
+      d: 'M 8 -5 A 5 5 0 0 0 8 5',
+      fill: 'none', stroke: color, 'stroke-width': '1.6'
+    });
+    marker.appendChild(p);
+    defs.appendChild(marker);
+  }
+
+  // ---- geometry helpers ---------------------------------------------
+  function nodeBox(nid) {
+    // Bounding half-width / half-height for arrow trimming. Match
+    // renderNode's rect dimensions.
+    return { hw: 26, hh: 17 };
+  }
+  function trimToBox(p1, p2, box1, box2) {
+    // Trim the (p1, p2) segment so its endpoints sit on the rect borders
+    // around p1 and p2. Returns { a, b } trimmed endpoints.
+    function clipAtBox(c, p, hw, hh) {
+      var dx = p.x - c.x, dy = p.y - c.y;
+      if (dx === 0 && dy === 0) return c;
+      var tx = Math.abs(dx) > 0 ? hw / Math.abs(dx) : Infinity;
+      var ty = Math.abs(dy) > 0 ? hh / Math.abs(dy) : Infinity;
+      var t = Math.min(tx, ty);
+      return { x: c.x + dx * t, y: c.y + dy * t };
+    }
+    return {
+      a: clipAtBox(p1, p2, box1.hw + 4, box1.hh + 4),
+      b: clipAtBox(p2, p1, box2.hw + 4, box2.hh + 4)
+    };
+  }
+
+  // ---- relation evaluation ------------------------------------------
+  // Returns one of: 'sat' | 'vio' | 'ind' (indeterminate)
+  // - 'sat' = every referenced arrow is on AND endpoints resolve consistently
+  // - 'vio' = every referenced arrow is on BUT endpoints fail to align
+  //           (e.g. lhs ends at X but rhs ends at Y, or 'exact' chains miss "at")
+  // - 'ind' = at least one referenced arrow is off — relation is undefined
+  function pathEndpoints(arrowIds) {
+    if (!arrowIds || arrowIds.length === 0) return null;
+    var first = byArrowId[arrowIds[0]];
+    var last  = byArrowId[arrowIds[arrowIds.length - 1]];
+    if (!first || !last) return null;
+    // Validate composability: each step's "to" must equal the next step's "from".
+    for (var i = 0; i + 1 < arrowIds.length; i++) {
+      var hi = byArrowId[arrowIds[i]];
+      var lo = byArrowId[arrowIds[i + 1]];
+      if (!hi || !lo) return null;
+      if (hi.to !== lo.from) return { from: first.from, to: last.to, composable: false };
+    }
+    return { from: first.from, to: last.to, composable: true };
+  }
+  function evalRelation(rel) {
+    var ids = (rel.lhs || []).concat(rel.rhs || []);
+    for (var i = 0; i < ids.length; i++) {
+      if (!arrowsOn[ids[i]]) return 'ind';
+      if (!byArrowId[ids[i]]) return 'vio';
+    }
+    if (rel.kind === 'commute') {
+      var l = pathEndpoints(rel.lhs);
+      var r = pathEndpoints(rel.rhs);
+      if (!l || !r) return 'vio';
+      if (!l.composable || !r.composable) return 'vio';
+      if (l.from !== r.from || l.to !== r.to) return 'vio';
+      return 'sat';
+    }
+    if (rel.kind === 'exact') {
+      var lh = pathEndpoints(rel.lhs);
+      var rh = pathEndpoints(rel.rhs);
+      if (!lh || !rh) return 'vio';
+      if (!lh.composable || !rh.composable) return 'vio';
+      if (lh.to !== rel.at) return 'vio';
+      if (rh.from !== rel.at) return 'vio';
+      return 'sat';
+    }
+    return 'ind';
+  }
+
+  // ---- rendering -----------------------------------------------------
+  function renderArrow(arrow, accent, defs) {
+    var from = positions[arrow.from], to = positions[arrow.to];
+    if (!from || !to) return null;
+    var box1 = nodeBox(arrow.from), box2 = nodeBox(arrow.to);
+    var trimmed = trimToBox(from, to, box1, box2);
+    var a = trimmed.a, b = trimmed.b;
+    // Curve: perpendicular bow.
+    var dx = b.x - a.x, dy = b.y - a.y;
+    var len = Math.sqrt(dx*dx + dy*dy) || 1;
+    var nx = -dy / len, ny = dx / len;
+    var bow = arrow.curve || 0;
+    var mx = (a.x + b.x) / 2 + nx * bow;
+    var my = (a.y + b.y) / 2 + ny * bow;
+    var d = bow === 0
+      ? 'M ' + a.x + ' ' + a.y + ' L ' + b.x + ' ' + b.y
+      : 'M ' + a.x + ' ' + a.y + ' Q ' + mx + ' ' + my + ' ' + b.x + ' ' + b.y;
+
+    var kind = arrow.kind || 'morphism';
+    var dashed = kind === 'dotted';
+    var color = kind === 'dotted' ? 'var(--mute)' : 'var(--ink)';
+    var headId = CFG.widgetId + '-head-' + kind;
+    if (kind === 'epi') ensureMarker(defs, headId, color, 'epi');
+    else ensureMarker(defs, headId, color, 'plain');
+    var attrs = {
+      d: d, fill: 'none', stroke: color,
+      'stroke-width': '1.6',
+      'marker-end': 'url(#' + headId + ')',
+      'data-arrow-id': arrow.id
+    };
+    if (dashed) attrs['stroke-dasharray'] = '5 4';
+    if (kind === 'mono') {
+      var tailId = CFG.widgetId + '-tail-mono';
+      ensureTailMarker(defs, tailId, color);
+      attrs['marker-start'] = 'url(#' + tailId + ')';
+    }
+    var path = el('path', attrs);
+    var g = el('g', { 'class': 'arrow', 'data-arrow-id': arrow.id });
+    g.appendChild(path);
+
+    // ≅ glyph above the midpoint, for iso arrows.
+    if (kind === 'iso') {
+      var iso = el('text', {
+        x: String(mx), y: String(my - 8),
+        'text-anchor': 'middle',
+        'font-size': '14',
+        'font-style': 'italic',
+        fill: accent
+      });
+      iso.textContent = '≅';
+      g.appendChild(iso);
+    }
+
+    // Label rendered into a foreignObject so KaTeX works.
+    if (arrow.label) {
+      // Position label slightly off the path on the bow side.
+      var lx = mx + nx * 12;
+      var ly = my + ny * 12;
+      var fo = el('foreignObject', {
+        x: String(lx - 40), y: String(ly - 12),
+        width: '80', height: '24',
+        style: 'pointer-events:none;overflow:visible'
+      });
+      var div = document.createElementNS(XHTMLNS, 'div');
+      div.setAttribute('xmlns', XHTMLNS);
+      div.style.cssText = 'text-align:center;font-size:13px;color:var(--ink);font-style:italic;line-height:1.2';
+      div.textContent = arrow.label;
+      fo.appendChild(div);
+      g.appendChild(fo);
+      // KaTeX-typeset the label asynchronously (after the SVG is in the DOM).
+      pendingTypeset.push(div);
+    }
+    return g;
+  }
+
+  function renderNode(node, accent) {
+    var pos = positions[node.id];
+    if (!pos) return null;
+    var hw = 26, hh = 17;
+    var nodeColor = node.color === 'ink' || !node.color ? 'var(--ink)' : 'var(--' + node.color + ')';
+    var g = el('g', {
+      'class': 'node',
+      'data-node-id': node.id,
+      transform: 'translate(' + pos.x + ',' + pos.y + ')',
+      style: CFG.mode === 'fixed' ? 'cursor:default' : 'cursor:grab'
+    });
+    var rect = el('rect', {
+      x: String(-hw), y: String(-hh),
+      width: String(2 * hw), height: String(2 * hh),
+      rx: '6', ry: '6',
+      fill: 'var(--panel)',
+      stroke: nodeColor, 'stroke-width': '1.4'
+    });
+    g.appendChild(rect);
+    var fo = el('foreignObject', {
+      x: String(-hw + 2), y: String(-hh + 2),
+      width: String(2 * hw - 4), height: String(2 * hh - 4),
+      style: 'pointer-events:none;overflow:visible'
+    });
+    var div = document.createElementNS(XHTMLNS, 'div');
+    div.setAttribute('xmlns', XHTMLNS);
+    div.style.cssText = 'display:flex;align-items:center;justify-content:center;width:100%;height:100%;font-size:13px;color:' + nodeColor + ';font-weight:600';
+    div.textContent = node.label;
+    fo.appendChild(div);
+    g.appendChild(fo);
+    pendingTypeset.push(div);
+    var t = el('title');
+    t.textContent = node.label + (CFG.mode !== 'fixed' ? ' — drag to move' : '');
+    g.appendChild(t);
+    return g;
+  }
+
+  var pendingTypeset = [];
+
+  function renderAll() {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    pendingTypeset = [];
+    var accent = 'var(--' + CFG.palette + ')';
+    var defs = el('defs');
+    svg.appendChild(defs);
+
+    // Arrows first, so node rects overlay arrow ends cleanly.
+    var arrowsGroup = el('g', { 'class': 'arrows' });
+    svg.appendChild(arrowsGroup);
+    for (var i = 0; i < CFG.arrows.length; i++) {
+      var a = CFG.arrows[i];
+      if (!arrowsOn[a.id]) continue;
+      var g = renderArrow(a, accent, defs);
+      if (g) arrowsGroup.appendChild(g);
+    }
+
+    // Nodes.
+    var nodesGroup = el('g', { 'class': 'nodes' });
+    svg.appendChild(nodesGroup);
+    for (var j = 0; j < CFG.nodes.length; j++) {
+      var n = CFG.nodes[j];
+      var ng = renderNode(n, accent);
+      if (ng) nodesGroup.appendChild(ng);
+    }
+
+    // KaTeX-typeset all freshly-inserted labels in one pass.
+    for (var k = 0; k < pendingTypeset.length; k++) {
+      typesetIn(pendingTypeset[k]);
+    }
+
+    renderRelations();
+    renderStatus();
+  }
+
+  function renderRelations() {
+    var rels = CFG.relations || [];
+    if (rels.length === 0) {
+      readout.innerHTML = '<span class="small" style="color:var(--mute)">no relations declared — drag and toggle freely</span>';
+      return;
+    }
+    var lines = [];
+    var accent = 'var(--' + CFG.palette + ')';
+    for (var i = 0; i < rels.length; i++) {
+      var rel = rels[i];
+      var status = evalRelation(rel);
+      var glyph, color;
+      if (status === 'sat') { glyph = '✓'; color = accent; }
+      else if (status === 'ind') { glyph = '?'; color = 'var(--mute)'; }
+      else { glyph = '✗'; color = 'var(--pink)'; }
+      var label = rel.label;
+      if (!label) {
+        if (rel.kind === 'commute') {
+          label = '<span class="k">' + (rel.lhs || []).join(' ∘ ') + '</span> = <span class="k">' + (rel.rhs || []).join(' ∘ ') + '</span>';
+        } else if (rel.kind === 'exact') {
+          label = 'exact at ' + rel.at;
+        } else {
+          label = rel.kind;
+        }
+      }
+      lines.push('<div style="display:flex;gap:6px;align-items:baseline">' +
+        '<span style="color:' + color + ';font-weight:700;width:1em">' + glyph + '</span>' +
+        '<span style="color:var(--ink)">' + label + '</span></div>');
+    }
+    readout.innerHTML = lines.join('');
+    // KaTeX-typeset any LaTeX that snuck in via labels.
+    typesetIn(readout);
+  }
+
+  function renderStatus() {
+    if (!statusEl) return;
+    var on = 0, total = 0;
+    for (var i = 0; i < CFG.arrows.length; i++) {
+      total++;
+      if (arrowsOn[CFG.arrows[i].id]) on++;
+    }
+    var modeLabel = CFG.mode === 'free' ? 'free drag' :
+                    CFG.mode === 'snap-grid' ? 'snap to grid' : 'drag locked';
+    statusEl.textContent = on + '/' + total + ' arrows on · ' + modeLabel;
+  }
+
+  // ---- drag handling -------------------------------------------------
+  var dragNodeId = null;
+  var dragOffset = { x: 0, y: 0 };
+
+  function svgPointFromEvent(e) {
+    var rect = svg.getBoundingClientRect();
+    var sx = CFG.width / rect.width;
+    var sy = CFG.height / rect.height;
+    return { x: (e.clientX - rect.left) * sx, y: (e.clientY - rect.top) * sy };
+  }
+
+  if (CFG.mode !== 'fixed') {
+    svg.addEventListener('pointerdown', function(e){
+      var target = e.target;
+      // Walk up to nearest <g class="node"> so clicks on rect / text inside still register.
+      var nodeG = null, cur = target;
+      while (cur && cur !== svg) {
+        if (cur.getAttribute && cur.getAttribute('data-node-id')) { nodeG = cur; break; }
+        cur = cur.parentNode;
+      }
+      if (!nodeG) return;
+      dragNodeId = nodeG.getAttribute('data-node-id');
+      var pt = svgPointFromEvent(e);
+      var pos = positions[dragNodeId];
+      dragOffset.x = pt.x - pos.x;
+      dragOffset.y = pt.y - pos.y;
+      nodeG.style.cursor = 'grabbing';
+      if (svg.setPointerCapture) try { svg.setPointerCapture(e.pointerId); } catch (_) {}
+      e.preventDefault();
+    });
+    // rAF-coalesce live-drag re-renders. At display refresh rate (60-120 Hz)
+    // raw pointermove fires faster than the full renderAll (which rebuilds
+    // every node + arrow + KaTeX label) can finish. Without coalescing, drag
+    // queues rebuilds that supersede each other before pixels appear. With
+    // coalescing, at most one rebuild per frame.
+    var dragRafQueued = false;
+    function scheduleDragRender(){
+      if (dragRafQueued) return;
+      dragRafQueued = true;
+      requestAnimationFrame(function(){ dragRafQueued = false; renderAll(); });
+    }
+    svg.addEventListener('pointermove', function(e){
+      if (!dragNodeId) return;
+      var pt = svgPointFromEvent(e);
+      var nx = clamp(pt.x - dragOffset.x, 28, CFG.width - 28);
+      var ny = clamp(pt.y - dragOffset.y, 22, CFG.height - 22);
+      positions[dragNodeId] = { x: nx, y: ny };
+      scheduleDragRender();
+    });
+    function endDrag() {
+      if (!dragNodeId) return;
+      if (CFG.mode === 'snap-grid') {
+        var p = positions[dragNodeId];
+        var snapped = snapToGrid(p.x, p.y);
+        positions[dragNodeId] = snapped;
+        renderAll();
+      }
+      dragNodeId = null;
+    }
+    svg.addEventListener('pointerup', endDrag);
+    svg.addEventListener('pointercancel', endDrag);
+    svg.addEventListener('pointerleave', endDrag);
+  }
+
+  // ---- toggle wiring -------------------------------------------------
+  if (toggleBar) {
+    toggleBar.addEventListener('change', function(e){
+      var t = e.target;
+      if (!t || t.tagName !== 'INPUT' || t.type !== 'checkbox') return;
+      var id = t.getAttribute('data-arrow-id');
+      if (!id) return;
+      arrowsOn[id] = !!t.checked;
+      renderAll();
+    });
+  }
+
+  // ---- reset ---------------------------------------------------------
+  if (resetBtn) resetBtn.addEventListener('click', function(){
+    for (var id in initialPositions) {
+      positions[id] = { x: initialPositions[id].x, y: initialPositions[id].y };
+    }
+    for (var aid in arrowsOn) arrowsOn[aid] = true;
+    if (toggleBar) {
+      var inputs = toggleBar.querySelectorAll('input[type="checkbox"]');
+      for (var i = 0; i < inputs.length; i++) inputs[i].checked = true;
+    }
+    renderAll();
+  });
+
+  // Theme observer — repaint so accent colors track --bg / --ink / accent.
+  var themeObserver = new MutationObserver(function(){ renderAll(); });
+  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+  renderAll();
+})();
+</script><script>
 /* =============================== SECTION 3: Snake lemma animation =============================== */
 (function(){
   const svg = $('#sn-svg'), out = $('#sn-out'), stage = $('#sn-stage'),

@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **130**, concepts: **873**
-- Widgets: **874** (registry-driven: 568, inline: 306)
+- Widgets: **876** (registry-driven: 570, inline: 306)
 - Quizzes: **3786** (v1: 2550, hard: 1223, expert: 13)
 - Quiz types: mcq: 2537, numeric: 1009, multi-select: 96, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **160**
@@ -88,6 +88,7 @@ page has wired one in yet.
 | `derived-categories-roof` | clickable-diagram | click | 2d | 1 | derived-categories |
 | `derived-categories-t-structure` | clickable-diagram | click | 2d | 1 | derived-categories |
 | `derived-categories-triangle` | clickable-diagram | click | 2d | 1 | derived-categories |
+| `diagram-editor` | diagram-editor | drag-and-toggle | 2d | 1 | homological |
 | `elementary-topos-theory-axioms-scrub` | declarative-host | click | 2d | 1 | elementary-topos-theory |
 | `elementary-topos-theory-chi-pullback` | declarative-host | click | 2d | 1 | elementary-topos-theory |
 | `elementary-topos-theory-geom-graph` | declarative-host | click | 2d | 1 | elementary-topos-theory |
@@ -144,6 +145,7 @@ page has wired one in yet.
 | `intersection-theory-chow-intersection-product` | clickable-diagram | click | 2d | 1 | intersection-theory-chow |
 | `intersection-theory-chow-orbits` | parametric-plot | select | 2d | 1 | intersection-theory-chow |
 | `intersection-theory-chow-pn-ring` | parametric-plot | select | 2d | 1 | intersection-theory-chow |
+| `julia-playground` | julia-playground | slider | 2d | 1 | dynamical-systems |
 | `natural-transformation-explorer` | naturality-square | slider+click | 2d | 1 | category-theory |
 | `proof-scrubber` | proof-scrubber | timeline | 2d | 1 | algebraic-topology |
 | `recurrence-plotter` | recurrence-plotter | slider | 2d | 1 | dynamical-systems |
@@ -153,8 +155,6 @@ page has wired one in yet.
 | `simplicial-sets-inner-horn-filler` | button-stepper | click | 2d | 1 | simplicial-sets-and-nerve |
 | `simplicial-sets-nerve-2simplex` | clickable-diagram | click | 2d | 1 | simplicial-sets-and-nerve |
 | `simplicial-sets-realization-stepper` | button-stepper | step | 2d | 1 | simplicial-sets-and-nerve |
-| `diagram-editor` | diagram-editor | drag-and-toggle | 2d | 0 | _(none — fixture-only)_ |
-| `julia-playground` | julia-playground | slider | 2d | 0 | _(none — fixture-only)_ |
 
 ## Per-subject
 
@@ -171,10 +171,10 @@ page has wired one in yet.
 ### Algebra & homological
 
 - Topics: **12**, concepts: **106**
-- Widgets: **104** (registry-driven: 73, inline: 31)
-  - by family: button-stepper: 38, unknown: 31, clickable-diagram: 21, parametric-plot: 9, proof-scrubber: 2, naturality-square: 1, declarative-host: 1, clickable-graph: 1
-  - by dimension: 2d: 73, unknown: 31
-  - by gesture: click: 60, unknown: 31, select: 9, scrub: 2, slider+click: 1, interactive: 1
+- Widgets: **105** (registry-driven: 74, inline: 31)
+  - by family: button-stepper: 38, unknown: 31, clickable-diagram: 21, parametric-plot: 9, proof-scrubber: 2, naturality-square: 1, declarative-host: 1, clickable-graph: 1, diagram-editor: 1
+  - by dimension: 2d: 74, unknown: 31
+  - by gesture: click: 60, unknown: 31, select: 9, scrub: 2, slider+click: 1, interactive: 1, drag-and-toggle: 1
 - Quizzes: **505** (v1: 319, hard: 186, expert: 0)
   - by type: mcq: 318, numeric: 145, multi-select: 20, ordering: 7, matching: 5, spot-the-error: 5, proof-completion: 4, complex: 1
 
@@ -191,10 +191,10 @@ page has wired one in yet.
 ### Analysis
 
 - Topics: **15**, concepts: **146**
-- Widgets: **106** (registry-driven: 70, inline: 36)
-  - by family: button-stepper: 37, unknown: 36, clickable-diagram: 31, constraint-bifurcation-explorer: 1, recurrence-plotter: 1
-  - by dimension: 2d: 70, unknown: 36
-  - by gesture: click: 68, unknown: 36, slider: 2
+- Widgets: **107** (registry-driven: 71, inline: 36)
+  - by family: button-stepper: 37, unknown: 36, clickable-diagram: 31, constraint-bifurcation-explorer: 1, recurrence-plotter: 1, julia-playground: 1
+  - by dimension: 2d: 71, unknown: 36
+  - by gesture: click: 68, unknown: 36, slider: 3
 - Quizzes: **561** (v1: 376, hard: 185, expert: 0)
   - by type: mcq: 352, numeric: 139, multi-select: 15, complex: 14, matching: 14, ordering: 12, proof-completion: 9, spot-the-error: 4, construction: 1, guess-my-rule: 1
 
@@ -309,7 +309,7 @@ page has wired one in yet.
 - `category-theory` (Algebra & homological) — concepts=12, widgets=17 (slug=17), quiz=72 (v1=36, hard=36, expert=0)
 - `representation-theory` (Algebra & homological) — concepts=13, widgets=13 (slug=13), quiz=74 (v1=39, hard=35, expert=0)
 - `commutative-algebra` (Algebra & homological) — concepts=13, widgets=13 (slug=13), quiz=75 (v1=40, hard=35, expert=0)
-- `homological` (Algebra & homological) — concepts=12, widgets=11 (slug=11), quiz=73 (v1=36, hard=37, expert=0)
+- `homological` (Algebra & homological) — concepts=12, widgets=12 (slug=12), quiz=73 (v1=36, hard=37, expert=0)
 - `derived-categories` (Algebra & homological) — concepts=7, widgets=7 (slug=7), quiz=27 (v1=21, hard=6, expert=0)
 - `group-cohomology` (Algebra & homological) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
 - `lie-algebras` (Algebra & homological) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
@@ -326,7 +326,7 @@ page has wired one in yet.
 - `complex-analysis` (Analysis) — concepts=26, widgets=7 (slug=7), quiz=28 (v1=16, hard=12, expert=0)
 - `functional-analysis` (Analysis) — concepts=12, widgets=11 (slug=11), quiz=72 (v1=36, hard=36, expert=0)
 - `operator-algebras` (Analysis) — concepts=12, widgets=12 (slug=12), quiz=72 (v1=36, hard=36, expert=0)
-- `dynamical-systems` (Analysis) — concepts=13, widgets=13 (slug=13), quiz=75 (v1=39, hard=36, expert=0)
+- `dynamical-systems` (Analysis) — concepts=13, widgets=14 (slug=14), quiz=75 (v1=39, hard=36, expert=0)
 - `sobolev-spaces-distributions` (Analysis) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
 - `harmonic-analysis-fourier` (Analysis) — concepts=8, widgets=5 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
 - `partial-differential-equations` (Analysis) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)

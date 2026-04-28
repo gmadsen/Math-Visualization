@@ -208,7 +208,171 @@
       "blocks": [
         {
           "type": "raw",
-          "html": "<section id=\"snake\">\n<h2>3. The snake lemma</h2>\n<p>Everyone meets the snake lemma once and then uses it forever. Suppose we have a commutative diagram of abelian groups with exact rows:</p>\n<p style=\"text-align:center\">\n$\\begin{array}{ccccccccc}\n  0 & \\to & A & \\xrightarrow{\\;i\\;} & B & \\xrightarrow{\\;p\\;} & C & \\to & 0 \\\\\n    &     & \\downarrow\\alpha & & \\downarrow\\beta & & \\downarrow\\gamma & & \\\\\n  0 & \\to & A' & \\xrightarrow{\\;i'\\;} & B' & \\xrightarrow{\\;p'\\;} & C' & \\to & 0.\n\\end{array}$\n</p>\n\n<div class=\"note\"><strong>Snake lemma.</strong> There is a natural <em>connecting homomorphism</em> $\\delta:\\ker\\gamma\\to\\operatorname{coker}\\alpha$ making the following sequence exact:\n$$0 \\to \\ker\\alpha \\to \\ker\\beta \\to \\ker\\gamma \\xrightarrow{\\;\\delta\\;} \\operatorname{coker}\\alpha \\to \\operatorname{coker}\\beta \\to \\operatorname{coker}\\gamma \\to 0.$$</div>\n\n<p>The point is that $\\delta$ exists at all. Given $c\\in\\ker\\gamma\\subseteq C$, you lift to $b\\in B$ with $p(b)=c$, apply $\\beta$ to get $b'\\in B'$; commutativity forces $p'(b') = \\gamma(c) = 0$, so $b'$ lies in $\\ker p' = \\operatorname{im} i'$, and we can pull back to a unique $a'\\in A'$. Well-defined modulo $\\operatorname{im}\\alpha$ by construction. The \"snake\" is the path your finger draws through the diagram as you follow the recipe: right, down, left. That is exactly the connecting morphism.</p>\n\n<p>Specializing the snake lemma to a short exact sequence of <em>chain complexes</em> — interpret the top and bottom rows as the same complex at two consecutive degrees and iterate — gives the long exact sequence in homology. This is the single most important consequence.</p>\n\n"
+          "html": "<section id=\"snake\">\n<h2>3. The snake lemma</h2>\n<p>Everyone meets the snake lemma once and then uses it forever. Suppose we have a commutative diagram of abelian groups with exact rows:</p>\n<p style=\"text-align:center\">\n$\\begin{array}{ccccccccc}\n  0 & \\to & A & \\xrightarrow{\\;i\\;} & B & \\xrightarrow{\\;p\\;} & C & \\to & 0 \\\\\n    &     & \\downarrow\\alpha & & \\downarrow\\beta & & \\downarrow\\gamma & & \\\\\n  0 & \\to & A' & \\xrightarrow{\\;i'\\;} & B' & \\xrightarrow{\\;p'\\;} & C' & \\to & 0.\n\\end{array}$\n</p>\n\n<div class=\"note\"><strong>Snake lemma.</strong> There is a natural <em>connecting homomorphism</em> $\\delta:\\ker\\gamma\\to\\operatorname{coker}\\alpha$ making the following sequence exact:\n$$0 \\to \\ker\\alpha \\to \\ker\\beta \\to \\ker\\gamma \\xrightarrow{\\;\\delta\\;} \\operatorname{coker}\\alpha \\to \\operatorname{coker}\\beta \\to \\operatorname{coker}\\gamma \\to 0.$$</div>\n\n<p>Before chasing the connecting morphism, get a feel for the shape of the diagram itself. Drag the six objects to rearrange them; toggle any one of the vertical maps $\\alpha,\\beta,\\gamma$ off and watch which of the two commutative squares loses its ✓ — the two exact-row checks at $B$ and $B'$ stay green because they don't use the vertical maps.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "id": "w-snake-shape",
+          "slug": "diagram-editor",
+          "params": {
+            "widgetId": "w-snake-shape",
+            "title": "The snake-lemma diagram — drag, toggle, watch the relations",
+            "hint": "drag any object · toggle $\\alpha$, $\\beta$, or $\\gamma$ off to break a square · the two exact-row checks at $B$ and $B'$ are independent of the verticals",
+            "width": 520,
+            "height": 280,
+            "palette": "violet",
+            "mode": "snap-grid",
+            "nodes": [
+              {
+                "id": "A",
+                "label": "$A$",
+                "x": 0.143,
+                "y": 0.4,
+                "color": "violet"
+              },
+              {
+                "id": "B",
+                "label": "$B$",
+                "x": 0.429,
+                "y": 0.4,
+                "color": "violet"
+              },
+              {
+                "id": "C",
+                "label": "$C$",
+                "x": 0.714,
+                "y": 0.4,
+                "color": "violet"
+              },
+              {
+                "id": "Ap",
+                "label": "$A'$",
+                "x": 0.143,
+                "y": 0.6,
+                "color": "violet"
+              },
+              {
+                "id": "Bp",
+                "label": "$B'$",
+                "x": 0.429,
+                "y": 0.6,
+                "color": "violet"
+              },
+              {
+                "id": "Cp",
+                "label": "$C'$",
+                "x": 0.714,
+                "y": 0.6,
+                "color": "violet"
+              }
+            ],
+            "arrows": [
+              {
+                "id": "i",
+                "from": "A",
+                "to": "B",
+                "label": "$i$",
+                "kind": "mono"
+              },
+              {
+                "id": "p",
+                "from": "B",
+                "to": "C",
+                "label": "$p$",
+                "kind": "epi"
+              },
+              {
+                "id": "ip",
+                "from": "Ap",
+                "to": "Bp",
+                "label": "$i'$",
+                "kind": "mono"
+              },
+              {
+                "id": "pp",
+                "from": "Bp",
+                "to": "Cp",
+                "label": "$p'$",
+                "kind": "epi"
+              },
+              {
+                "id": "alpha",
+                "from": "A",
+                "to": "Ap",
+                "label": "$\\alpha$",
+                "kind": "morphism",
+                "togglable": true
+              },
+              {
+                "id": "beta",
+                "from": "B",
+                "to": "Bp",
+                "label": "$\\beta$",
+                "kind": "morphism",
+                "togglable": true
+              },
+              {
+                "id": "gamma",
+                "from": "C",
+                "to": "Cp",
+                "label": "$\\gamma$",
+                "kind": "morphism",
+                "togglable": true
+              }
+            ],
+            "relations": [
+              {
+                "kind": "commute",
+                "lhs": [
+                  "i",
+                  "beta"
+                ],
+                "rhs": [
+                  "alpha",
+                  "ip"
+                ],
+                "label": "left square: $\\beta\\circ i = i'\\circ\\alpha$"
+              },
+              {
+                "kind": "commute",
+                "lhs": [
+                  "p",
+                  "gamma"
+                ],
+                "rhs": [
+                  "beta",
+                  "pp"
+                ],
+                "label": "right square: $\\gamma\\circ p = p'\\circ\\beta$"
+              },
+              {
+                "kind": "exact",
+                "lhs": [
+                  "i"
+                ],
+                "rhs": [
+                  "p"
+                ],
+                "at": "B",
+                "label": "top row exact at $B$: $\\operatorname{im} i = \\ker p$"
+              },
+              {
+                "kind": "exact",
+                "lhs": [
+                  "ip"
+                ],
+                "rhs": [
+                  "pp"
+                ],
+                "at": "Bp",
+                "label": "bottom row exact at $B'$: $\\operatorname{im} i' = \\ker p'$"
+              }
+            ]
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n<p>The point is that $\\delta$ exists at all. Given $c\\in\\ker\\gamma\\subseteq C$, you lift to $b\\in B$ with $p(b)=c$, apply $\\beta$ to get $b'\\in B'$; commutativity forces $p'(b') = \\gamma(c) = 0$, so $b'$ lies in $\\ker p' = \\operatorname{im} i'$, and we can pull back to a unique $a'\\in A'$. Well-defined modulo $\\operatorname{im}\\alpha$ by construction. The \"snake\" is the path your finger draws through the diagram as you follow the recipe: right, down, left. That is exactly the connecting morphism.</p>\n\n<p>Specializing the snake lemma to a short exact sequence of <em>chain complexes</em> — interpret the top and bottom rows as the same complex at two consecutive degrees and iterate — gives the long exact sequence in homology. This is the single most important consequence.</p>\n\n"
         },
         {
           "type": "widget",
@@ -250,6 +414,165 @@
         {
           "type": "raw",
           "html": ""
+        },
+        {
+          "type": "widget-script",
+          "slug": "diagram-editor",
+          "params": {
+            "widgetId": "w-snake-shape",
+            "title": "The snake-lemma diagram — drag, toggle, watch the relations",
+            "hint": "drag any object · toggle $\\alpha$, $\\beta$, or $\\gamma$ off to break a square · the two exact-row checks at $B$ and $B'$ are independent of the verticals",
+            "width": 520,
+            "height": 280,
+            "palette": "violet",
+            "mode": "snap-grid",
+            "nodes": [
+              {
+                "id": "A",
+                "label": "$A$",
+                "x": 0.143,
+                "y": 0.4,
+                "color": "violet"
+              },
+              {
+                "id": "B",
+                "label": "$B$",
+                "x": 0.429,
+                "y": 0.4,
+                "color": "violet"
+              },
+              {
+                "id": "C",
+                "label": "$C$",
+                "x": 0.714,
+                "y": 0.4,
+                "color": "violet"
+              },
+              {
+                "id": "Ap",
+                "label": "$A'$",
+                "x": 0.143,
+                "y": 0.6,
+                "color": "violet"
+              },
+              {
+                "id": "Bp",
+                "label": "$B'$",
+                "x": 0.429,
+                "y": 0.6,
+                "color": "violet"
+              },
+              {
+                "id": "Cp",
+                "label": "$C'$",
+                "x": 0.714,
+                "y": 0.6,
+                "color": "violet"
+              }
+            ],
+            "arrows": [
+              {
+                "id": "i",
+                "from": "A",
+                "to": "B",
+                "label": "$i$",
+                "kind": "mono"
+              },
+              {
+                "id": "p",
+                "from": "B",
+                "to": "C",
+                "label": "$p$",
+                "kind": "epi"
+              },
+              {
+                "id": "ip",
+                "from": "Ap",
+                "to": "Bp",
+                "label": "$i'$",
+                "kind": "mono"
+              },
+              {
+                "id": "pp",
+                "from": "Bp",
+                "to": "Cp",
+                "label": "$p'$",
+                "kind": "epi"
+              },
+              {
+                "id": "alpha",
+                "from": "A",
+                "to": "Ap",
+                "label": "$\\alpha$",
+                "kind": "morphism",
+                "togglable": true
+              },
+              {
+                "id": "beta",
+                "from": "B",
+                "to": "Bp",
+                "label": "$\\beta$",
+                "kind": "morphism",
+                "togglable": true
+              },
+              {
+                "id": "gamma",
+                "from": "C",
+                "to": "Cp",
+                "label": "$\\gamma$",
+                "kind": "morphism",
+                "togglable": true
+              }
+            ],
+            "relations": [
+              {
+                "kind": "commute",
+                "lhs": [
+                  "i",
+                  "beta"
+                ],
+                "rhs": [
+                  "alpha",
+                  "ip"
+                ],
+                "label": "left square: $\\beta\\circ i = i'\\circ\\alpha$"
+              },
+              {
+                "kind": "commute",
+                "lhs": [
+                  "p",
+                  "gamma"
+                ],
+                "rhs": [
+                  "beta",
+                  "pp"
+                ],
+                "label": "right square: $\\gamma\\circ p = p'\\circ\\beta$"
+              },
+              {
+                "kind": "exact",
+                "lhs": [
+                  "i"
+                ],
+                "rhs": [
+                  "p"
+                ],
+                "at": "B",
+                "label": "top row exact at $B$: $\\operatorname{im} i = \\ker p$"
+              },
+              {
+                "kind": "exact",
+                "lhs": [
+                  "ip"
+                ],
+                "rhs": [
+                  "pp"
+                ],
+                "at": "Bp",
+                "label": "bottom row exact at $B'$: $\\operatorname{im} i' = \\ker p'$"
+              }
+            ]
+          }
         },
         {
           "type": "widget-script",
