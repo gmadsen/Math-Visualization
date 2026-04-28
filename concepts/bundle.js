@@ -8731,6 +8731,46 @@ window.__MVConcepts = {
             "lfunction-prototype"
           ],
           "blurb": "On average over moduli $q \\le x^{1/2}/(\\log x)^A$, the Bombieri–Vinogradov theorem bounds $\\sum_q \\max_{\\gcd(a,q)=1} |\\pi(x;q,a) - \\mathrm{Li}(x)/\\varphi(q)|$ by $x/(\\log x)^B$ — a GRH-quality error in the $\\ell^1$ norm even though GRH itself remains open."
+        },
+        {
+          "id": "ant-circle-method",
+          "title": "The Hardy–Littlewood circle method",
+          "anchor": "circle-method",
+          "prereqs": [
+            "ant-prime-counting",
+            "cauchy-integral-formula"
+          ],
+          "blurb": "Encode a counting problem as the constant Fourier coefficient $r(N) = \\int_0^1 |S(\\alpha)|^k e(-N\\alpha)\\,d\\alpha$ of a generating exponential sum $S(\\alpha) = \\sum_{n \\le N} e(\\alpha n)$. Split $[0,1]$ into <em>major arcs</em> near rationals $a/q$ with small $q$ (where $S$ has a clean asymptotic) and <em>minor arcs</em> (where one needs cancellation bounds). Hardy–Littlewood proved Waring's problem; Vinogradov used it to settle ternary Goldbach for sufficiently large odd $N$."
+        },
+        {
+          "id": "ant-exponential-sums",
+          "title": "Exponential sums and equidistribution",
+          "anchor": "expsums",
+          "prereqs": [
+            "ant-prime-counting",
+            "ant-circle-method"
+          ],
+          "blurb": "Weyl's criterion says $\\{a_n\\} \\subset \\mathbb{R}/\\mathbb{Z}$ is equidistributed iff $\\frac{1}{N}\\sum_{n \\le N} e(k a_n) \\to 0$ for every $k \\ne 0$. Cancellation in $\\sum e(f(n))$ for polynomial $f$ — quantified by Weyl's inequality and refined by van der Corput's $A$- and $B$-processes — drives equidistribution of $\\{n\\alpha\\}$, $\\{p\\alpha\\}$ over primes, and the minor-arc estimates the circle method demands."
+        },
+        {
+          "id": "ant-selberg-elementary",
+          "title": "Selberg's symmetry formula and elementary PNT",
+          "anchor": "selberg-elementary",
+          "prereqs": [
+            "ant-prime-counting",
+            "ant-zero-free-region"
+          ],
+          "blurb": "Selberg's identity $\\sum_{p \\le x} \\log^2 p + \\sum_{pq \\le x} \\log p \\log q = 2x \\log x + O(x)$ — an elementary consequence of $\\Lambda \\ast 1 = \\log$ and $\\Lambda + \\Lambda \\ast \\Lambda$ counting weighted prime/prime-pair contributions — is symmetric in $p$ and $pq$. Erdős and Selberg (1948–49) bootstrapped it into a complex-analysis-free proof of PNT, settling a long-standing question about whether $\\zeta$ is essential."
+        },
+        {
+          "id": "ant-large-sieve",
+          "title": "The large sieve inequality",
+          "anchor": "large-sieve",
+          "prereqs": [
+            "ant-bombieri-vinogradov",
+            "ant-exponential-sums"
+          ],
+          "blurb": "The analytic large sieve bounds $\\sum_{q \\le Q} \\sum_{\\chi \\bmod q}^{*} |\\sum_{n \\le N} a_n \\chi(n)|^2 \\le (Q^2 + N) \\sum |a_n|^2$, summing over primitive characters. It is equivalent to a dual frequency-localization inequality $\\sum_{r=1}^R |T(\\alpha_r)|^2 \\le (\\delta^{-1} + N)\\sum |a_n|^2$ for $\\delta$-spaced $\\alpha_r$, and it powers Bombieri–Vinogradov: combine it with a Vaughan-style decomposition of $\\Lambda$ to derive GRH-on-average."
         }
       ]
     },
@@ -12385,7 +12425,7 @@ window.__MVConcepts = {
       "concepts": 146,
       "intra": 249,
       "crossOut": 24,
-      "crossIn": 61,
+      "crossIn": 62,
       "density": 0.1643835616438356
     },
     "Probability & statistics": {
@@ -12403,11 +12443,11 @@ window.__MVConcepts = {
       "density": 0.18556701030927836
     },
     "Number theory": {
-      "concepts": 90,
-      "intra": 115,
-      "crossOut": 36,
+      "concepts": 94,
+      "intra": 122,
+      "crossOut": 37,
       "crossIn": 24,
-      "density": 0.4
+      "density": 0.39361702127659576
     },
     "Modular forms & L-functions": {
       "concepts": 85,

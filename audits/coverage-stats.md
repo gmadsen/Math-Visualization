@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **130**, concepts: **873**
-- Widgets: **876** (registry-driven: 570, inline: 306)
-- Quizzes: **3786** (v1: 2550, hard: 1223, expert: 13)
-- Quiz types: mcq: 2537, numeric: 1009, multi-select: 96, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Topics: **130**, concepts: **877**
+- Widgets: **880** (registry-driven: 574, inline: 306)
+- Quizzes: **3798** (v1: 2562, hard: 1223, expert: 13)
+- Quiz types: mcq: 2547, numeric: 1011, multi-select: 96, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **160**
-- Concepts lacking a hard-tier quiz: **435**
+- Concepts lacking a hard-tier quiz: **439**
 
 ## Per-slug registry adoption
 
@@ -20,14 +20,16 @@ page has wired one in yet.
 |---|---|---|---|---:|---|
 | `button-stepper` | button-stepper | click | 2d | 336 | L-functions, additive-number-theory, adeles-and-ideles, algebra, algebraic-number-theory, algebraic-topology, analytic-continuation, bezout, bsd, category-theory, class-field-theory, complex-analysis, differential-geometry, dirichlet-series-euler-products, dynamical-systems, etale-cohomology, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, galois-representations, hecke-operators, homological, lie-groups, measure-theory, modular-forms, modularity-and-flt, moduli-spaces, moonshine, morphisms-fiber-products, naive-set-theory, operator-algebras, p-adic-numbers, partitions-generating-functions, point-set-topology, probability-theory, projective-plane, quadratic-forms-genus-theory, quadratic-reciprocity, representation-theory, riemann-surfaces, riemannian-geometry, sato-tate, schemes, sheaf-cohomology, sheaves, singular-cubics-reduction, smooth-manifolds, stacks, theta-functions, upper-half-plane-hyperbolic, zeta-values |
 | `clickable-diagram` | clickable-diagram | click | 2d | 69 | algebra, algebraic-number-theory, algebraic-topology, bezout, category-theory, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, homological, measure-theory, morphisms-fiber-products, naive-set-theory, operator-algebras, quadratic-reciprocity, real-analysis, riemannian-geometry, schemes, sheaves, stacks |
+| `parametric-plot` | parametric-plot | slider | 2d | 7 | analytic-continuation, analytic-number-theory |
 | `clickable-graph` | clickable-graph | click | 2d | 6 | adeles-and-ideles, riemannian-geometry, schemes, sheaves |
 | `surface-viewer` | surface-viewer | drag | 3d | 6 | differential-geometry, lie-groups |
 | `svg-illustration` | svg-illustration | static | 2d | 6 | L-functions, riemann-surfaces |
-| `parametric-plot` | parametric-plot | slider | 2d | 5 | analytic-continuation |
 | `input-form` | input-form | input | 2d | 4 | additive-number-theory |
 | `lattice-visualizer` | lattice-visualizer | slider | 2d | 4 | elliptic-curves, modular-forms, riemann-surfaces, theta-functions |
 | `modular-arithmetic-clock` | modular-arithmetic-clock | slider | 2d | 4 | additive-number-theory, frobenius-and-reciprocity, p-adic-numbers, quadratic-reciprocity |
 | `declarative-host` | declarative-host | interactive | 2d | 3 | additive-number-theory, category-theory |
+| `inline-code-cell` | inline-code-cell | edit | 2d | 2 | analytic-number-theory, p-adic-numbers |
+| `proof-scrubber` | proof-scrubber | timeline | 2d | 2 | algebraic-topology, analytic-number-theory |
 | `algebraic-curves-canonical-embedding-scrubber` | algebraic-curves-canonical-embedding-scrubber | interact | 2d | 1 | algebraic-curves-higher-genus |
 | `algebraic-curves-hyperelliptic-cover` | algebraic-curves-hyperelliptic-cover | interact | 2d | 1 | algebraic-curves-higher-genus |
 | `algebraic-curves-jacobian-lattice` | algebraic-curves-jacobian-lattice | interact | 2d | 1 | algebraic-curves-higher-genus |
@@ -138,7 +140,6 @@ page has wired one in yet.
 | `infinity-topoi-presheaf-universal` | proof-scrubber | scrub | 2d | 1 | infinity-topoi |
 | `infinity-topoi-univalent-universes` | clickable-diagram | click | 2d | 1 | infinity-topoi |
 | `infinity-topoi-whitehead-internal` | proof-scrubber | scrub | 2d | 1 | infinity-topoi |
-| `inline-code-cell` | inline-code-cell | edit | 2d | 1 | p-adic-numbers |
 | `intersection-theory-chow-chern-multiplicativity` | parametric-plot | select | 2d | 1 | intersection-theory-chow |
 | `intersection-theory-chow-cycles-rational-equivalence` | clickable-diagram | click | 2d | 1 | intersection-theory-chow |
 | `intersection-theory-chow-grr-scrub` | proof-scrubber | scrub | 2d | 1 | intersection-theory-chow |
@@ -147,7 +148,6 @@ page has wired one in yet.
 | `intersection-theory-chow-pn-ring` | parametric-plot | select | 2d | 1 | intersection-theory-chow |
 | `julia-playground` | julia-playground | slider | 2d | 1 | dynamical-systems |
 | `natural-transformation-explorer` | naturality-square | slider+click | 2d | 1 | category-theory |
-| `proof-scrubber` | proof-scrubber | timeline | 2d | 1 | algebraic-topology |
 | `recurrence-plotter` | recurrence-plotter | slider | 2d | 1 | dynamical-systems |
 | `simplicial-sets-delta-generators` | clickable-diagram | click | 2d | 1 | simplicial-sets-and-nerve |
 | `simplicial-sets-faces-degeneracies` | clickable-diagram | click | 2d | 1 | simplicial-sets-and-nerve |
@@ -220,13 +220,13 @@ page has wired one in yet.
 
 ### Number theory
 
-- Topics: **14**, concepts: **90**
-- Widgets: **103** (registry-driven: 84, inline: 19)
-  - by family: button-stepper: 66, unknown: 19, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, declarative-host: 2, branching-proof-scrubber: 1, inline-code-cell: 1, clickable-graph: 1, svg-illustration: 1
-  - by dimension: 2d: 84, unknown: 19
-  - by gesture: click: 71, unknown: 19, slider: 4, input: 4, interactive: 2, branching-timeline: 1, edit: 1, read: 1
-- Quizzes: **445** (v1: 262, hard: 183, expert: 0)
-  - by type: mcq: 298, numeric: 140, complex: 3, matching: 2, ordering: 1, guess-my-rule: 1
+- Topics: **14**, concepts: **94**
+- Widgets: **107** (registry-driven: 88, inline: 19)
+  - by family: button-stepper: 66, unknown: 19, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, declarative-host: 2, inline-code-cell: 2, parametric-plot: 2, branching-proof-scrubber: 1, clickable-graph: 1, svg-illustration: 1, proof-scrubber: 1
+  - by dimension: 2d: 88, unknown: 19
+  - by gesture: click: 71, unknown: 19, slider: 6, input: 4, interactive: 2, edit: 2, branching-timeline: 1, read: 1, timeline: 1
+- Quizzes: **457** (v1: 274, hard: 183, expert: 0)
+  - by type: mcq: 308, numeric: 142, complex: 3, matching: 2, ordering: 1, guess-my-rule: 1
 
 ### Modular forms & L-functions
 
@@ -358,7 +358,7 @@ page has wired one in yet.
 - `frobenius-and-reciprocity` (Number theory) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `class-field-theory` (Number theory) — concepts=6, widgets=8 (slug=8), quiz=36 (v1=18, hard=18, expert=0)
 - `heights-arithmetic-geometry` (Number theory) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
-- `analytic-number-theory` (Number theory) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `analytic-number-theory` (Number theory) — concepts=10, widgets=10 (slug=4), quiz=30 (v1=30, hard=0, expert=0)
 - `upper-half-plane-hyperbolic` (Modular forms & L-functions) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `modular-forms` (Modular forms & L-functions) — concepts=6, widgets=8 (slug=8), quiz=33 (v1=18, hard=15, expert=0)
 - `theta-functions` (Modular forms & L-functions) — concepts=5, widgets=8 (slug=8), quiz=30 (v1=15, hard=15, expert=0)
