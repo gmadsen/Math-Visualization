@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/hamiltonians-kam-tori/schema.json",
+  "title": "hamiltonians-kam-tori widget params",
+  "description": "Bespoke widget for the §5 KAM-tori illustration on the hamiltonians-classical-mechanics topic. Three `<input type=\"range\">` sliders ($\\omega_1$, $\\omega_2$, $\\varepsilon$) all share a single .row above an SVG host showing a 2-torus orbit (closed curve when the frequency ratio is rational, dense winding when irrational, perturbed under a small KAM-style coupling). The all-sliders-in-one-row layout is bespoke; parametric-plot puts each slider in its own row.",
+  "meta": {
+    "family": "hamiltonians-kam-tori",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title",
+    "viewBox",
+    "svgWidth",
+    "svgHeight",
+    "ariaLabel",
+    "sliders",
+    "outputInitial",
+    "bodyScript"
+  ],
+  "properties": {
+    "svgId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+    },
+    "outputId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+    },
+    "title": {
+      "type": "string"
+    },
+    "hint": {
+      "type": "string"
+    },
+    "viewBox": {
+      "type": "string"
+    },
+    "svgWidth": {
+      "type": [
+        "string",
+        "number"
+      ]
+    },
+    "svgHeight": {
+      "type": [
+        "string",
+        "number"
+      ]
+    },
+    "ariaLabel": {
+      "type": "string"
+    },
+    "sliders": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Sliders rendered side-by-side inside a single .row.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "label",
+          "min",
+          "max",
+          "value"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+          },
+          "label": {
+            "type": "string"
+          },
+          "min": {
+            "type": "number"
+          },
+          "max": {
+            "type": "number"
+          },
+          "value": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "outputInitial": {
+      "type": "string"
+    },
+    "sectionComment": {
+      "type": "string",
+      "description": "ARTIFACT. Optional /* ... */ banner before the IIFE."
+    },
+    "bodyScript": {
+      "type": "string",
+      "x-artifact": "script body is bespoke; portable consumers should integrate the two-frequency torus winding from {sliders} alone",
+      "description": "ARTIFACT. Verbatim JS statements that go inside `(function(){\\n…\\n})();` — wires the three sliders, draws the winding, applies the perturbation, and reports the frequency ratio."
+    },
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\">. Required by the corpus-wide test-widget-renderers convention."
+    }
+  }
+}

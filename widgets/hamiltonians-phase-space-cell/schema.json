@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/hamiltonians-phase-space-cell/schema.json",
+  "title": "hamiltonians-phase-space-cell widget params",
+  "description": "Bespoke widget for the §1 phase-space cell on the hamiltonians-classical-mechanics topic. Renders an SVG host plus two action buttons (play/reset) and a readout reporting the cell's area, centroid, and shape. The buttons-only gesture (no sliders, no select) doesn't fit any shared slug; this slug captures it as a single unit and carries the bespoke draw logic in the bodyScript artifact.",
+  "meta": {
+    "family": "hamiltonians-phase-space-cell",
+    "dimension": "2d",
+    "gesture": "button",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "svgId",
+    "outputId",
+    "title",
+    "viewBox",
+    "svgWidth",
+    "svgHeight",
+    "ariaLabel",
+    "buttons",
+    "outputInitial",
+    "bodyScript"
+  ],
+  "properties": {
+    "svgId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the host <svg> element."
+    },
+    "outputId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the <div class=\"readout\"> companion."
+    },
+    "title": {
+      "type": "string",
+      "description": "Header title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional short hint rendered inside .hd > .hint."
+    },
+    "viewBox": {
+      "type": "string",
+      "description": "SVG viewBox attribute (e.g. \"-220 -160 440 320\")."
+    },
+    "svgWidth": {
+      "type": [
+        "string",
+        "number"
+      ]
+    },
+    "svgHeight": {
+      "type": [
+        "string",
+        "number"
+      ]
+    },
+    "ariaLabel": {
+      "type": "string",
+      "description": "aria-label attribute on the <svg>. The source uses aria-label rather than an internal <title> child — preserved verbatim for byte-identity."
+    },
+    "buttons": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Action buttons rendered inside a single .row.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "label"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+          },
+          "label": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "outputInitial": {
+      "type": "string",
+      "description": "Initial inner HTML of the readout <div>."
+    },
+    "sectionComment": {
+      "type": "string",
+      "description": "ARTIFACT. Optional /* ... */ comment placed between the leading <script> tag and the IIFE opener."
+    },
+    "bodyScript": {
+      "type": "string",
+      "x-artifact": "script body is bespoke; portable consumers should implement their own draw + Liouville-flow integrator from {buttons, ariaLabel} alone",
+      "description": "ARTIFACT. Verbatim JS statements that go inside `(function(){\\n…\\n})();` — sets up the SVG, draws the cell, integrates harmonic-oscillator flow on the play button, and writes area/centroid to the readout."
+    },
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\">. Required by the corpus-wide test-widget-renderers convention."
+    }
+  }
+}
