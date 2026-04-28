@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Tours — hand-curated paths through the notebook</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.9rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+
+  /* Tour-specific styling */
+  .tour-goal{color:var(--cyan);font-style:italic;margin:.4rem 0 1rem;font-size:1.02rem}
+  ol.tour{list-style:none;padding:0;margin:1rem 0;counter-reset:stop}
+  ol.tour > li{position:relative;padding:0 0 1.4rem 3rem;counter-increment:stop;
+    border-left:2px solid var(--line);margin-left:1rem}
+  ol.tour > li::before{content:counter(stop);position:absolute;left:-1.05rem;top:-.1rem;
+    width:2.1rem;height:2.1rem;border-radius:50%;background:var(--panel2);
+    border:1px solid var(--line);color:var(--ink);
+    display:flex;align-items:center;justify-content:center;font-weight:600;font-size:.9rem}
+  ol.tour > li:last-child{border-left-color:transparent}
+  ol.tour > li.endpoint::before{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  ol.tour .stop-title{font-weight:600;color:#fff;font-size:1.05rem;margin:0 0 .15rem;display:block}
+  ol.tour .stop-title a{color:#fff;text-decoration:none;border-bottom:1px dashed var(--blue)}
+  ol.tour .stop-title a:hover{color:var(--yellow);border-bottom-color:var(--yellow)}
+  ol.tour .stop-section{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--mute);margin-bottom:.4rem}
+  ol.tour .bridge{color:var(--ink);font-size:.97rem;line-height:1.6;margin:.5rem 0 0}
+  ol.tour .bridge em{color:var(--cyan);font-style:normal}
+
+  /* Tour-card heading colors */
+  section.tour h2{color:#fff}
+  section.tour[data-color="cyan"] h2{border-bottom-color:color-mix(in srgb, var(--cyan) 50%, var(--line))}
+  section.tour[data-color="yellow"] h2{border-bottom-color:color-mix(in srgb, var(--yellow) 50%, var(--line))}
+  section.tour[data-color="violet"] h2{border-bottom-color:color-mix(in srgb, var(--violet) 50%, var(--line))}
+  section.tour[data-color="green"] h2{border-bottom-color:color-mix(in srgb, var(--green) 50%, var(--line))}
+  section.tour[data-color="pink"] h2{border-bottom-color:color-mix(in srgb, var(--pink) 50%, var(--line))}
+  section.tour[data-color="blue"] h2{border-bottom-color:color-mix(in srgb, var(--blue) 50%, var(--line))}
+
+  /* Filtered-out tours fade and collapse — purely visual, anchors still work */
+  section.tour.dim{opacity:.25;filter:saturate(.4)}
+  section.tour.dim:hover{opacity:.5}
+
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+</style>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+</head>
+<body data-section="tours">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#bsd-road">1&nbsp;Road&nbsp;to&nbsp;BSD</a>
+  <a href="#flt-proof">2&nbsp;How&nbsp;FLT&nbsp;was&nbsp;proved</a>
+  <a href="#cohomology">3&nbsp;What&nbsp;is&nbsp;cohomology?</a>
+  <a href="#sets-to-topoi">4&nbsp;Naive&nbsp;sets&nbsp;to&nbsp;∞-topoi</a>
+  <a href="#sound-to-wavelets">5&nbsp;From&nbsp;sound&nbsp;to&nbsp;wavelets</a>
+  <a href="#local-global">6&nbsp;Local&nbsp;and&nbsp;global</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Tours — hand-curated paths through the notebook</h1>
+  <p class="sub">The <a href="./pathway.html">pathway explorer</a> shows the corpus as a directed graph: prerequisites, capstones, mastery state. That's a great map but a bad story. These tours are the opposite: a small number of <em>narratives</em> that string together topics in the order a real reader might want to encounter them, with a few sentences explaining why each next stop follows from the last.</p>
+  <p class="sub">Each tour is a sequence of links into existing topic pages — usually 4–6 stops, ending at a capstone or a deep theorem. Read the bridging prose, click into the topic, come back when ready. The tours overlap; that's intentional. Cohomology shows up in three of them.</p>
+</section>
+
+<div class="widget" id="w-tour-filter">
+  <div class="hd"><div class="ttl">Tour filter</div><div class="hint">click to spotlight one tour, or "all" to see them together</div></div>
+  <div class="row" id="tour-filter-buttons">
+    <button class="tf-btn active" data-tour="all">all tours</button>
+    <button class="tf-btn" data-tour="bsd-road">BSD</button>
+    <button class="tf-btn" data-tour="flt-proof">FLT</button>
+    <button class="tf-btn" data-tour="cohomology">cohomology</button>
+    <button class="tf-btn" data-tour="sets-to-topoi">sets → ∞-topoi</button>
+    <button class="tf-btn" data-tour="sound-to-wavelets">wavelets</button>
+    <button class="tf-btn" data-tour="local-global">local/global</button>
+  </div>
+  <div class="readout" id="tour-filter-readout">All six tours visible. Pick one to dim the others — anchors still work; this is a focus aid, not a hide.</div>
+</div>
+
+<section class="tour" id="bsd-road" data-color="cyan">
+<h2>1. The road to BSD</h2>
+<p class="tour-goal">Goal: understand why a Clay-Millennium prize is offered for a single equality between an analytic order of vanishing and an algebraic rank.</p>
+
+<ol class="tour">
+  <li>
+    <span class="stop-section">Algebraic geometry</span>
+    <span class="stop-title"><a href="./elliptic-curves.html#group">Elliptic curves and the chord–tangent group law</a></span>
+    <p class="bridge">Start where every BSD discussion starts: a smooth Weierstrass cubic $E\colon y^2 = x^3 + ax + b$ over $\mathbb{Q}$, with the marvellous fact that its rational points form an abelian group under chord–tangent addition. The identity is the point at infinity; the inverse of $(x,y)$ is $(x,-y)$; and the sum of two points $P, Q$ is the third intersection of $\overline{PQ}$ with $E$, reflected through the $x$-axis. Mordell's theorem says $E(\mathbb{Q}) \cong \mathbb{Z}^r \oplus T$ with $T$ a finite torsion subgroup. The integer $r$ — the <em>rank</em> — is the algebraic side of BSD, and it has no known algorithm: producing a rank-$28$ generator is a hand-tuned hunt. To even formulate the conjecture we need an analytic shadow that we <em>can</em> compute: counting points modulo each prime $p$ and packaging the counts into a generating function.</p>
+  </li>
+  <li>
+    <span class="stop-section">Modular forms &amp; L-functions</span>
+    <span class="stop-title"><a href="./modular-forms.html#forms">Modular forms on the upper half-plane</a></span>
+    <p class="bridge">Before we can build the L-function of $E$, we need to meet the other side of the modularity coin: holomorphic functions on $\mathbb{H} = \{\tau : \Im\tau &gt; 0\}$ that transform predictably under $\mathrm{SL}_2(\mathbb{Z})$ (or a congruence subgroup like $\Gamma_0(N)$) and are bounded at the cusps. A weight-$2k$ modular form $f$ satisfies $f\bigl(\frac{a\tau+b}{c\tau+d}\bigr) = (c\tau+d)^{2k} f(\tau)$. The Fourier expansion $f(\tau) = \sum a_n q^n$ with $q = e^{2\pi i\tau}$ packages each form into an arithmetic sequence $(a_n)$. The space of forms of given weight and level is finite-dimensional and effectively computable — that's the miracle. That arithmetic sequence is what will eventually meet our point counts on $E$, but first we need to make sense of what an $L$-function <em>is</em> as an object in its own right.</p>
+  </li>
+  <li>
+    <span class="stop-section">Modular forms &amp; L-functions</span>
+    <span class="stop-title"><a href="./L-functions.html#elliptic">L-functions: $L(E,s)$ and $L(f,s)$</a></span>
+    <p class="bridge">An $L$-function is a Dirichlet series $\sum a_n n^{-s}$ with an Euler product $\prod_p L_p(s)^{-1}$ over primes — local data glued into a single complex-analytic object. For an elliptic curve $E/\mathbb{Q}$ with good reduction at $p$, the local factor is $L_p(s) = 1 - a_p(E) p^{-s} + p^{1-2s}$ where $a_p(E) = p + 1 - \#E(\mathbb{F}_p)$. For a Hecke eigenform $f$, the local factor is $L_p(s) = 1 - a_p(f) p^{-s} + p^{2k-1-2s}$. <em>Two completely different definitions, two completely different worlds.</em> The Hasse–Weil conjecture predicts that $L(E,s)$ analytically continues to all of $\mathbb{C}$ and satisfies a functional equation $s \leftrightarrow 2 - s$; the only way we know how to prove that for a general $E$ is to <em>identify</em> $L(E,s) = L(f,s)$ for some weight-$2$ newform $f$. That identification is the content of the next stop.</p>
+  </li>
+  <li>
+    <span class="stop-section">Modular forms &amp; L-functions</span>
+    <span class="stop-title"><a href="./modularity-and-flt.html#modularity">Modularity: every elliptic curve over $\mathbb{Q}$ is a modular form</a></span>
+    <p class="bridge">The Modularity Theorem (Wiles, Taylor–Wiles, Breuil–Conrad–Diamond–Taylor) says exactly that: for every $E/\mathbb{Q}$ there is a weight-$2$ newform $f$ of level $N = $ conductor of $E$ such that $a_p(E) = a_p(f)$ for all primes. The conductor records the bad reduction of $E$ — small primes where the Weierstrass model goes singular — and it determines the level of $f$. Modularity is what gives $L(E,s)$ its analytic continuation and functional equation: both are <em>inherited</em> from the modular world, where the Mellin transform $L(f,s) = (2\pi)^s \Gamma(s)^{-1} \int_0^\infty f(it) t^{s-1}\,dt$ makes them automatic from the transformation law of $f$. With analytic continuation in hand, the order of vanishing $\mathrm{ord}_{s=1} L(E,s)$ is now a well-defined non-negative integer, called the <em>analytic rank</em>. Two integers, both attached to $E$, both meaningful — and the conjecture is that they're the same one.</p>
+  </li>
+  <li class="endpoint">
+    <span class="stop-section">Modular forms &amp; L-functions · capstone</span>
+    <span class="stop-title"><a href="./bsd.html#bsd-rank-equality">Birch &amp; Swinnerton-Dyer: analytic rank = algebraic rank</a></span>
+    <p class="bridge">The conjecture: $\mathrm{ord}_{s=1} L(E,s) = \mathrm{rank}\, E(\mathbb{Q})$. Equality of two integers, one defined by a Taylor expansion of a complex-analytic function and the other by counting independent rational points on a cubic curve. The refined version pins the <em>leading</em> Taylor coefficient to a product of period $\Omega_E$, regulator $R$, Tamagawa numbers $c_p$, torsion order $|E(\mathbb{Q})_{\mathrm{tors}}|^2$, and the order of the Tate–Shafarevich group $\Sha(E/\mathbb{Q})$ — five disparate quantities, four of them computable, $\Sha$ conjecturally finite. Known in rank $0$ and $1$ (Gross–Zagier–Kolyvagin); wide open in higher rank. Every step of this tour was a layer of scaffolding that even <em>states</em> the conjecture rigorously: without modularity, $L(E,s)$ has no value at $s=1$ to take an order of vanishing of.</p>
+  </li>
+</ol>
+
+<aside class="callback">
+  <div class="ttl">Diverges into</div>
+  <ul>
+    <li>Tour 2 (FLT proof) shares the modularity stop but pulls in deformation rings instead of $L$-values.</li>
+    <li>Tour 6 (local/global) shares the philosophy that arithmetic over $\mathbb{Q}$ is controlled by all completions $\mathbb{Q}_p$ and $\mathbb{R}$.</li>
+  </ul>
+</aside>
+</section>
+
+<section class="tour" id="flt-proof" data-color="yellow">
+<h2>2. How Fermat's Last Theorem was proved</h2>
+<p class="tour-goal">Goal: trace the chain Frey curve → Ribet's level-lowering → Wiles's modularity → contradiction, the second-most-quoted proof in modern mathematics.</p>
+
+<ol class="tour">
+  <li>
+    <span class="stop-section">Number theory</span>
+    <span class="stop-title"><a href="./galois.html#solvable">Galois theory and solvable extensions</a></span>
+    <p class="bridge">The classical setting: a polynomial $f \in \mathbb{Q}[x]$ has a splitting field $L \supset \mathbb{Q}$, the Galois group $\Gal(L/\mathbb{Q})$ acts faithfully on the roots, and "solvable by radicals" translates to a structural condition — solvability of the group. FLT — does $a^p + b^p = c^p$ have nonzero integer solutions for prime $p \geq 3$? — looks like it should belong here, and for $300$ years people <em>tried</em> to settle it with cyclotomic Galois theory (Kummer's regular primes, Iwasawa towers, the Vandiver conjecture). The strategy that finally worked is wildly different: instead of factoring $a^p + b^p$ in a cyclotomic ring of integers, attach a geometric object — an elliptic curve — to a hypothetical solution and study the Galois <em>representations</em> coming from it. Galois theory survives, but it acts on étale cohomology rather than on roots of polynomials.</p>
+  </li>
+  <li>
+    <span class="stop-section">Modular forms &amp; L-functions</span>
+    <span class="stop-title"><a href="./modular-forms.html#forms">Modular forms and newforms of level $N$</a></span>
+    <p class="bridge">We need to know what we're hunting for. A weight-$2$ newform of level $N$ is a cusp form $f\colon \mathbb{H} \to \mathbb{C}$ transforming under $\Gamma_0(N) \subset \mathrm{SL}_2(\mathbb{Z})$ that doesn't come from a lower level $N' \mid N$ — a Hecke eigenform that's "primitive" at $N$. The space $S_2(\Gamma_0(N))$ of weight-$2$ cusp forms is finite-dimensional with dimension given by an explicit formula in terms of the genus of the modular curve $X_0(N)$ and the number of elliptic and cusp points. In particular $\dim S_2(\Gamma_0(2)) = 0$ — there are <em>no</em> nonzero cusp forms at all of level $2$, weight $2$. Hold onto that fact: it will be the wall the entire FLT argument crashes the Frey curve into. The strategy is to derive a newform of level $2$ from a hypothetical solution and let dimension zero do the work.</p>
+  </li>
+  <li>
+    <span class="stop-section">Modular forms &amp; L-functions</span>
+    <span class="stop-title"><a href="./modular-curves.html#moduli">Modular curves $X_0(N)$ as moduli of elliptic curves</a></span>
+    <p class="bridge">Why do modular forms know about elliptic curves? Because $X_0(N) = \overline{\Gamma_0(N) \backslash \mathbb{H}}$ (compactified by adjoining cusps) is the <em>moduli space</em> of pairs $(E, C)$ with $E$ an elliptic curve and $C \subset E$ a cyclic subgroup of order $N$. Every elliptic curve $E/\mathbb{Q}$ of conductor $N$ corresponds to a $\mathbb{Q}$-point on $X_0(N)$, and weight-$2$ cusp forms are exactly holomorphic differentials on $X_0(N)$ — i.e. global sections of $\Omega^1_{X_0(N)}$. The Eichler–Shimura relations then attach to each Hecke eigenform $f$ an abelian variety quotient $A_f$ of the Jacobian $J_0(N) = \mathrm{Pic}^0(X_0(N))$, carrying a compatible system of $\ell$-adic Galois representations. Now the bridge is built: a modular form has a Galois representation, and a (suitable) elliptic curve has a Galois rep on its $\ell$-adic Tate module. <em>Modularity says these two representations are the same.</em></p>
+  </li>
+  <li>
+    <span class="stop-section">Number theory</span>
+    <span class="stop-title"><a href="./galois-representations.html#tate">Galois representations from the Tate module</a></span>
+    <p class="bridge">Given $E/\mathbb{Q}$ and a prime $\ell$, the $\ell$-adic Tate module $T_\ell E = \varprojlim E[\ell^n]$ carries a continuous action of $\Gal(\overline{\mathbb{Q}}/\mathbb{Q})$, giving a representation $\rho_{E,\ell}\colon G_\mathbb{Q} \to \mathrm{GL}_2(\mathbb{Z}_\ell)$. Reducing mod $\ell$ gives a residual representation $\bar\rho$ valued in $\mathrm{GL}_2(\mathbb{F}_\ell)$. Now Frey's idea, sharpened by Ribet: if $a^p + b^p = c^p$ with $p \geq 5$, the curve $E_{a,b,c}\colon y^2 = x(x-a^p)(x+b^p)$ has a residual representation $\bar\rho$ at $\ell = p$ which is unramified outside $2$ and $p$, finite at $p$, and absolutely irreducible. <em>Ribet's level-lowering theorem</em> then says: if $\bar\rho$ is modular of any level, it must be modular of level $2$.</p>
+  </li>
+  <li class="endpoint">
+    <span class="stop-section">Modular forms &amp; L-functions · capstone</span>
+    <span class="stop-title"><a href="./modularity-and-flt.html#ribet">Ribet + Wiles ⇒ FLT</a></span>
+    <p class="bridge">Wiles (with Taylor) proves: every semistable elliptic curve over $\mathbb{Q}$ is modular, by way of the now-famous deformation-theoretic identity $R_\Sigma = T_\Sigma$ between a universal deformation ring and a Hecke algebra. The Frey curve $E_{a,b,c}$ is semistable when $p \geq 5$, so its associated $\bar\rho$ <em>is</em> modular by Wiles. Ribet says any modular $\bar\rho$ with the ramification properties of $\bar\rho_{E_{a,b,c}}$ must come from a level-$2$ newform. But $\dim S_2(\Gamma_0(2)) = 0$. Contradiction — so no Frey curve, hence no nontrivial solution to $a^p + b^p = c^p$ for $p \geq 5$. (The cases $p = 3, 4$ are classical Fermat–Euler.) The proof reduces a Diophantine question to an existence statement about modular forms of a particular level, then exhibits a vector space whose dimension you can <em>just compute</em> and find to be zero.</p>
+  </li>
+</ol>
+
+<aside class="callback">
+  <div class="ttl">Diverges into</div>
+  <ul>
+    <li>Tour 1 (BSD road) follows the modularity link in the other direction — modularity is what makes $L(E,s)$ analytically tractable.</li>
+    <li>The Wiles step itself rests on deformation theory and Galois cohomology — see <a href="./modularity-and-flt.html#deformation">Deformation rings and $R = T$</a>.</li>
+  </ul>
+</aside>
+</section>
+
+<section class="tour" id="cohomology" data-color="violet">
+<h2>3. What is cohomology?</h2>
+<p class="tour-goal">Goal: see "cohomology" as one idea — the systematic measurement of obstructions — wearing five very different costumes.</p>
+
+<ol class="tour">
+  <li>
+    <span class="stop-section">Algebra &amp; homological</span>
+    <span class="stop-title"><a href="./group-cohomology.html#h2">Group cohomology and $H^2$ as central extensions</a></span>
+    <p class="bridge">The cleanest first sighting of cohomology. Given a group $G$ and a $G$-module $M$, the bar cochain complex $C^n(G, M) = \mathrm{Hom}_{\mathsf{Set}}(G^n, M)$ with differential $(d\varphi)(g_0, \ldots, g_n) = g_0 \varphi(g_1, \ldots, g_n) - \varphi(g_0 g_1, g_2, \ldots, g_n) + \cdots$ has cohomology $H^n(G, M)$. The interpretations are concrete: $H^0(G,M) = M^G$ is invariants, $H^1$ classifies crossed homomorphisms (derivations) modulo principal ones — Galois-cohomologically, this is torsors for $M$. $H^2$ classifies central extensions $1 \to M \to \tilde G \to G \to 1$ up to equivalence. <em>Cohomology measures things that almost split but don't.</em> Hold onto that phrase — it survives every change of context in this tour, even when "split" turns into "is locally trivial" or "lifts to characteristic zero."</p>
+  </li>
+  <li>
+    <span class="stop-section">Geometry &amp; topology</span>
+    <span class="stop-title"><a href="./algebraic-topology.html#homology">Singular homology and cohomology of a space</a></span>
+    <p class="bridge">Same idea, geometric incarnation: assign to a space $X$ the chain complex of singular simplices $C_n(X) = \mathbb{Z}\langle \sigma\colon \Delta^n \to X\rangle$ with boundary $\partial\sigma = \sum (-1)^i \sigma|_{\text{face}_i}$, and dualize to get cochains. $H^n(X; \mathbb{Z})$ is a topological invariant — homotopy-invariant, functorial in $X$, computable from a CW structure or a Mayer–Vietoris cover. Now the obstructions are <em>topological</em>: $H^1(S^1) = \mathbb{Z}$ detects the loop that can't be contracted; $H^2(S^2) = \mathbb{Z}$ detects the sphere that can't be filled. Künneth, Poincaré duality, and the cup product $\smile\colon H^p \otimes H^q \to H^{p+q}$ turn this into a genuine graded-commutative ring, not just a graded abelian group. The same complex pattern $\partial^2 = 0$ as group cohomology, the same "obstruction" intuition, but the underlying combinatorics now records geometric content.</p>
+  </li>
+  <li>
+    <span class="stop-section">Algebraic geometry</span>
+    <span class="stop-title"><a href="./sheaf-cohomology.html#cech">Sheaf cohomology via Čech and derived functors</a></span>
+    <p class="bridge">For coherent sheaves on a scheme, "global sections" $H^0(X, \mathcal{F}) = \Gamma(X, \mathcal{F})$ is the friendly part; the obstruction to lifting local sections to global sections lives in the higher right-derived functors $H^i(X, \mathcal{F}) = R^i\Gamma(X, \mathcal{F})$. Concretely you compute by Čech cohomology over an affine cover $\mathfrak{U} = \{U_\alpha\}$: alternating sums on $\check{C}^p(\mathfrak{U}, \mathcal{F}) = \prod \mathcal{F}(U_{\alpha_0\cdots\alpha_p})$. This is where geometry meets homological algebra. The cohomology of line bundles on $\mathbb{P}^n$, computable from the Koszul complex, controls everything downstream — Riemann–Roch on a curve, Serre duality $H^i(X, \mathcal{F}) \cong H^{n-i}(X, \mathcal{F}^\vee \otimes \omega_X)^\vee$, the entire dictionary between projective varieties and graded modules. <em>Same complex pattern, but the "module" is now a sheaf and the "group" is now an open cover.</em></p>
+  </li>
+  <li>
+    <span class="stop-section">Algebraic geometry</span>
+    <span class="stop-title"><a href="./algebraic-de-rham-cohomology.html#comparison-betti">Algebraic de Rham cohomology and the Hodge filtration</a></span>
+    <p class="bridge">Replace the sheaf $\mathcal{F}$ by the de Rham <em>complex</em> $\Omega^\bullet_{X/k} = (\mathcal{O}_X \to \Omega^1_{X/k} \to \Omega^2_{X/k} \to \cdots)$ of algebraic Kähler differential forms with the exterior derivative $d$, and take hypercohomology: $H^*_{\mathrm{dR}}(X/k) = \mathbb{H}^*(X, \Omega^\bullet_{X/k})$. Over $\mathbb{C}$ this matches singular cohomology with $\mathbb{C}$ coefficients (Grothendieck's comparison theorem), but it's defined purely algebraically — no transcendental input, no choice of metric. The Hodge filtration $F^p H^*_{\mathrm{dR}}$ comes from the "stupid" filtration $\sigma^{\geq p}$ on $\Omega^\bullet$ and gives the Hodge-to-de Rham spectral sequence. For smooth projective $X$ over $\mathbb{C}$, this degenerates at $E_1$ and yields the Hodge decomposition $H^n(X, \mathbb{C}) = \bigoplus_{p+q=n} H^q(X, \Omega^p)$. Now we have an algebraic invariant that recovers a topological one — and a finer structure besides.</p>
+  </li>
+  <li class="endpoint">
+    <span class="stop-section">Algebraic geometry · capstone</span>
+    <span class="stop-title"><a href="./etale-cohomology.html#weil">Étale cohomology and the Weil conjectures</a></span>
+    <p class="bridge">In characteristic $p$ there's no ambient $\mathbb{C}$ to compare to, and Zariski-open covers are too coarse to see torsion phenomena like $\ell$-th roots of unity (any constant sheaf $\underline{\mathbb{Z}/\ell}$ is acyclic on an irreducible variety). Grothendieck's solution: replace "open cover" by "étale cover" — a flat unramified cover, the algebraic analogue of a local homeomorphism — and define $H^i_{\mathrm{\acute{e}t}}(X, \mathbb{Z}_\ell)$ via the same derived-functor pattern on the new site. The payoff is enormous. Étale cohomology is a Weil cohomology theory for varieties over $\mathbb{F}_q$: a Lefschetz fixed-point formula computes $\#X(\mathbb{F}_{q^n})$ as alternating Frobenius traces, and Deligne's Riemann hypothesis pins the eigenvalues to absolute value $q^{i/2}$. <em>Cohomology was the obstruction-counting machine the whole time; étale cohomology is what happens when you're allowed to count obstructions in a Galois-equivariant way.</em></p>
+  </li>
+</ol>
+
+<aside class="callback">
+  <div class="ttl">Diverges into</div>
+  <ul>
+    <li>Tour 4 (sets → ∞-topoi) reaches sheaf cohomology from the "site / topos" direction instead of the derived-functor direction.</li>
+    <li>The étale cohomology stop powers Tour 2 — Galois representations <em>are</em> étale cohomology of varieties.</li>
+  </ul>
+</aside>
+</section>
+
+<section class="tour" id="sets-to-topoi" data-color="green">
+<h2>4. From naive sets to ∞-topoi</h2>
+<p class="tour-goal">Goal: walk from the membership relation $\in$ to the categorical universes that house all of derived algebraic geometry, in six honest steps.</p>
+
+<ol class="tour">
+  <li>
+    <span class="stop-section">Logic &amp; foundations</span>
+    <span class="stop-title"><a href="./naive-set-theory.html#sets">Sets, functions, products, and equivalence relations</a></span>
+    <p class="bridge">Begin where every working mathematician begins: a set is a "collection of elements" and a function $f\colon A \to B$ is a rule sending each element of $A$ to one in $B$. Cartesian products $A \times B$, disjoint unions $A \sqcup B$, equivalence classes $A/\!\sim$, function spaces $B^A$ — the four constructions you actually use a hundred times a day. The catch: in this naive picture, the operations are all about <em>elements</em>, and the moment you ask "what's the universal property of a product?" — i.e., the moment you describe $A \times B$ as the unique object equipped with projections $\pi_A, \pi_B$ such that any pair $(f, g)$ factors uniquely through it — you've left set theory and entered category theory. The leap from "membership" to "universal property" is the entire conceptual jump this tour follows up.</p>
+  </li>
+  <li>
+    <span class="stop-section">Algebra &amp; homological</span>
+    <span class="stop-title"><a href="./category-theory.html#yoneda">Categories, functors, Yoneda</a></span>
+    <p class="bridge">A category is what you get when you keep track of <em>arrows between things</em> rather than elements within things. Sets and functions, groups and homomorphisms, topological spaces and continuous maps — all categories. A functor preserves the arrow structure; a natural transformation is an arrow between functors. The whole subject is the disciplined unfolding of these three definitions. Yoneda's lemma is the punchline: an object $X$ is completely determined by the functor $\Hom(-, X)$, i.e. by the pattern of arrows into it from every other object. The functor $X \mapsto \Hom(-,X)$ embeds $\mathcal{C}$ fully faithfully into the functor category $[\mathcal{C}^{\mathrm{op}}, \mathsf{Set}]$. This is the philosophical lever that makes the rest of the tour possible — every later "topos" will be a category of sheaves, i.e. a particular kind of functor category, and Yoneda is what makes that reduction bite.</p>
+  </li>
+  <li>
+    <span class="stop-section">Higher categories &amp; toposes</span>
+    <span class="stop-title"><a href="./elementary-topos-theory.html#subobject-classifier">Elementary toposes and the subobject classifier</a></span>
+    <p class="bridge">An elementary topos is a category that "behaves like $\mathsf{Set}$": finite limits, exponentials $B^A$ (right adjoint to $-\times A$), and a subobject classifier $\Omega$ playing the role of $\{\mathrm{true}, \mathrm{false}\}$ — i.e. an object with a universal monomorphism $\mathrm{true}\colon 1 \to \Omega$ such that every monomorphism is a unique pullback of it. The slogan: a topos is a place where you can do mathematics. Sheaves on a topological space form a topos $\mathrm{Sh}(X)$; the topos of $G$-sets $[\mathcal{B}G, \mathsf{Set}]$ is another; the effective topos encodes computability. The internal logic is intuitionistic — excluded middle is not free, since $\Omega$ has more truth values than $\{0,1\}$ — and that's a feature: it lets you reason about <em>variation</em> as if it were membership. The forced-set-theoretic models of Cohen, viewed correctly, are toposes too.</p>
+  </li>
+  <li>
+    <span class="stop-section">Higher categories &amp; toposes</span>
+    <span class="stop-title"><a href="./simplicial-sets-and-nerve.html#nerve-of-category">Simplicial sets and the nerve of a category</a></span>
+    <p class="bridge">To go higher we need a combinatorial model of "category up to coherent homotopy." Simplicial sets are presheaves on the simplex category $\Delta$ (objects $[n] = \{0 &lt; 1 &lt; \cdots &lt; n\}$, morphisms order-preserving maps) — combinatorial gadgets that simultaneously model topological spaces (via geometric realization $|\cdot|\colon \mathsf{sSet} \to \mathsf{Top}$, a Quillen equivalence) and small categories (via the nerve $N(\mathcal{C})$). The point: $N(\mathcal{C})_n$ is the set of length-$n$ composable chains of arrows in $\mathcal{C}$; degeneracies insert identities; faces compose adjacent arrows or drop endpoints. So a category <em>is</em> a particular kind of simplicial set — one in which every "inner horn" $\Lambda^n_k$ ($0 &lt; k &lt; n$) admits a <em>unique</em> filler. Relax "unique" into "exists" and you get the next stop.</p>
+  </li>
+  <li>
+    <span class="stop-section">Higher categories &amp; toposes</span>
+    <span class="stop-title"><a href="./infinity-categories.html#quasi-category">$\infty$-categories as quasi-categories</a></span>
+    <p class="bridge">A quasi-category is a simplicial set in which every <em>inner horn</em> $\Lambda^n_k$ ($0 &lt; k &lt; n$) admits a filler — but not necessarily a unique one. The fillers play the role of "compositions defined up to coherent homotopy" — there's no chosen composite of $f$ and $g$, just a contractible space of choices. This is enough to do all of category theory: Joyal and Lurie show that limits, colimits, adjunctions, Kan extensions, and the Yoneda lemma all generalize. The whole point is that "homotopy types" — the $\infty$-groupoid version of sets — replace "sets" as the basic kind of mapping space. What was $\Hom(X,Y) \in \mathsf{Set}$ becomes $\mathrm{Map}(X,Y) \in \mathcal{S}$, the $\infty$-category of spaces. Mathematics with mapping spaces in $\mathcal{S}$ is called higher category theory.</p>
+  </li>
+  <li class="endpoint">
+    <span class="stop-section">Higher categories &amp; toposes · capstone</span>
+    <span class="stop-title"><a href="./infinity-topoi.html#infty-topos-definition">$\infty$-topoi and Lurie's higher topos theory</a></span>
+    <p class="bridge">An $\infty$-topos is an accessible left-exact localization of the presheaf $\infty$-category $\mathcal{P}(C) = \mathrm{Fun}(C^{\mathrm{op}}, \mathcal{S})$, where $\mathcal{S}$ is the $\infty$-category of spaces. The $\infty$-Giraud axioms characterize them intrinsically: small colimits exist, are universal, sums are disjoint, and groupoid objects are effective. Their internal logic is homotopy type theory (Voevodsky's univalence axiom is the topos-theoretic statement that equivalence equals identity in the universe). Their geometric examples — the étale, pro-étale, fppf $\infty$-topoi of a scheme — are the natural home of derived algebraic geometry, where descent for sheaves of spectra is automatic and cohomology is just hom. We started by asking what a set was; we end with the universe in which every modern descent and gluing statement becomes a one-line triviality.</p>
+  </li>
+</ol>
+
+<aside class="callback">
+  <div class="ttl">Diverges into</div>
+  <ul>
+    <li>Tour 3 (cohomology) intersects this tour at the sheaf step — the étale topos is where étale cohomology lives.</li>
+    <li>Internal logic / homotopy type theory is its own thread — see <a href="./type-theory-and-hott.html">type theory and HoTT</a>.</li>
+  </ul>
+</aside>
+</section>
+
+<section class="tour" id="sound-to-wavelets" data-color="pink">
+<h2>5. From sound to wavelets</h2>
+<p class="tour-goal">Goal: understand why decomposing a signal into frequencies is sometimes the wrong thing to do, and what to use instead.</p>
+
+<ol class="tour">
+  <li>
+    <span class="stop-section">Analysis</span>
+    <span class="stop-title"><a href="./harmonic-analysis-fourier.html#fourier-transform">Fourier series and the Fourier transform</a></span>
+    <p class="bridge">A periodic signal is a sum of sines and cosines (Fourier series); an aperiodic signal on $\mathbb{R}$ is an integral over a continuum of frequencies. The Fourier transform $\hat f(\xi) = \int_{\mathbb{R}^n} f(x) e^{-2\pi i x\cdot\xi}\,dx$ exchanges convolution $f * g$ for multiplication $\hat f \cdot \hat g$, derivative $\partial_j$ for multiplication by $2\pi i \xi_j$, translation for modulation, and the Gaussian for the Gaussian. It's the right basis for any system whose dynamics commute with translation — the heat equation, the wave equation, the Laplacian on $\mathbb{R}^n$, anything diagonalized by plane waves $e^{2\pi i x\cdot\xi}$. Two limitations show up immediately: Fourier doesn't see <em>where</em> a feature lives in time (only its frequency content), and many functions of physical interest — $\delta$, the constant $1$, $H(x)$ — aren't even integrable. The next stop fixes the second problem.</p>
+  </li>
+  <li>
+    <span class="stop-section">Analysis</span>
+    <span class="stop-title"><a href="./sobolev-spaces-distributions.html#weak-derivative">Distributions and weak derivatives</a></span>
+    <p class="bridge">Fourier needs a function class roomy enough to hold $\delta$, the constant function $1$, plane waves $e^{ix\cdot\xi}$, and step functions — none of which are classically integrable. Schwartz's distributions $\mathcal{D}'(\Omega)$ are the right abstraction: continuous linear functionals on test functions $C^\infty_c(\Omega)$. Differentiation extends to all of $\mathcal{D}'$ by transposition: $\langle \partial_j u, \varphi\rangle = -\langle u, \partial_j\varphi\rangle$. The tempered distributions $\mathcal{S}'(\mathbb{R}^n)$ are the dual of Schwartz space and form the natural domain for the Fourier transform. Sobolev spaces $H^s(\mathbb{R}^n)$ then arise as the natural domains for elliptic operators: $H^s = \{u \in \mathcal{S}' : (1+|\xi|^2)^{s/2}\hat u \in L^2\}$, the Fourier-side definition that makes derivatives just look like multiplication. Every estimate in PDE is at heart a statement about which Sobolev space some operator maps to which.</p>
+  </li>
+  <li>
+    <span class="stop-section">Analysis</span>
+    <span class="stop-title"><a href="./spectral-theory.html#self-adjoint">Spectral theory of self-adjoint operators</a></span>
+    <p class="bridge">Why is Fourier the "right basis" for the Laplacian? Because $-\Delta$ is self-adjoint on a suitable domain in $L^2(\mathbb{R}^n)$, and the spectral theorem says every self-adjoint operator on a Hilbert space is unitarily equivalent to a multiplication operator $M_\varphi$ on $L^2$ of some measure space — i.e. it has a coordinate system in which it's just "multiply by the real-valued function $\varphi$." Fourier is exactly that coordinate system for $-\Delta$ on $\mathbb{R}^n$, with $\varphi(\xi) = 4\pi^2|\xi|^2$. For a compact self-adjoint operator like the inverse Laplacian on a bounded domain, the spectrum is discrete and we get an honest orthonormal eigenbasis. The spectral theorem reframes "diagonalize an operator" as a universal procedure, not a clever trick — and it tells us when a smarter coordinate system might work better than Fourier.</p>
+  </li>
+  <li class="endpoint">
+    <span class="stop-section">Analysis</span>
+    <span class="stop-title"><a href="./wavelets.html#multiresolution">Wavelets and multiresolution analysis</a></span>
+    <p class="bridge">For signals with sharp edges or transients — images, speech, financial time series — Fourier is wasteful: a localized feature spreads across all frequencies, since a delta has constant transform. A wavelet basis is built from a single mother wavelet $\psi$ via dyadic dilations and integer translations $\psi_{j,k}(x) = 2^{j/2}\psi(2^j x - k)$. Each basis element is localized in <em>both</em> time and frequency, at a resolution that scales with $j$. Multiresolution analysis builds these from a nested family $V_0 \subset V_1 \subset V_2 \subset \cdots$ of approximation spaces with $V_{j+1} = V_j \oplus W_j$. The Haar wavelet is the simplest example; Daubechies's compactly-supported orthonormal wavelets came later and changed signal processing — JPEG 2000 is a wavelet codec. <em>Same Hilbert space $L^2(\mathbb{R})$, smarter basis, chosen to match the actual structure of the data.</em></p>
+  </li>
+</ol>
+
+<aside class="callback">
+  <div class="ttl">Diverges into</div>
+  <ul>
+    <li>Spectral theory connects to <a href="./operator-algebras.html">operator algebras</a> — the noncommutative continuation of this story.</li>
+    <li>Sobolev spaces are the natural domain for <a href="./partial-differential-equations.html">PDE</a>, the next stop after this tour.</li>
+  </ul>
+</aside>
+</section>
+
+<section class="tour" id="local-global" data-color="blue">
+<h2>6. The local–global principle</h2>
+<p class="tour-goal">Goal: see why "$x \in \mathbb{Q}$" is best understood as "$x \in \mathbb{Q}_p$ for every $p$, and $x \in \mathbb{R}$, simultaneously."</p>
+
+<ol class="tour">
+  <li>
+    <span class="stop-section">Number theory</span>
+    <span class="stop-title"><a href="./algebraic-number-theory.html#dedekind">Number fields, rings of integers, Dedekind domains</a></span>
+    <p class="bridge">The starting object: a number field $K = \mathbb{Q}(\alpha)$ — a finite extension of $\mathbb{Q}$ — and its ring of integers $\mathcal{O}_K$, the integral closure of $\mathbb{Z}$ in $K$. Unique factorization can fail in $\mathcal{O}_K$ (the famous example: $6 = 2 \cdot 3 = (1+\sqrt{-5})(1-\sqrt{-5})$ in $\mathbb{Z}[\sqrt{-5}]$) — but it always succeeds at the level of <em>ideals</em>, which factor uniquely into prime ideals. That's the content of "$\mathcal{O}_K$ is a Dedekind domain." The class group $\mathrm{Cl}(K) = $ ideals modulo principal ideals measures the failure of element-level unique factorization; Minkowski's geometry-of-numbers bound proves $|\mathrm{Cl}(K)| &lt; \infty$. We have global arithmetic — but most concrete questions ("does $x^3 - 5y^3 = 7$ have a solution in $\mathbb{Q}$?") are still hopeless from this height. We need to localize.</p>
+  </li>
+  <li>
+    <span class="stop-section">Number theory</span>
+    <span class="stop-title"><a href="./p-adic-numbers.html#qp">$p$-adic numbers and Hensel's lemma</a></span>
+    <p class="bridge">Localize. The completion $\mathbb{Q}_p$ at each prime $p$ — built from $\mathbb{Q}$ the way $\mathbb{R}$ is built, but with the absolute value $|p^k(a/b)|_p = p^{-k}$ in place of the usual one — is a complete field with its own non-archimedean topology. Inside it sits the ring of integers $\mathbb{Z}_p$, the closed unit ball. Hensel's lemma turns approximate solutions into exact ones the same way Newton's method does over $\mathbb{R}$: if $f(\bar a) \equiv 0 \pmod{p}$ and $f'(\bar a) \not\equiv 0 \pmod{p}$, then $\bar a$ lifts uniquely to a root in $\mathbb{Z}_p$. So solving an equation in $\mathbb{Q}_p$ is genuinely <em>easier</em> than in $\mathbb{Q}$. Hasse's local–global principle says: for a quadratic form $Q$, the equation $Q = 0$ has a nontrivial solution in $\mathbb{Q}$ iff it has one in $\mathbb{R}$ <em>and</em> in every $\mathbb{Q}_p$. The principle fails for cubics and higher, but the failures themselves become arithmetic invariants — the Tate–Shafarevich group $\Sha(E/\mathbb{Q})$ is precisely the failure for elliptic curves.</p>
+  </li>
+  <li>
+    <span class="stop-section">Number theory</span>
+    <span class="stop-title"><a href="./adeles-and-ideles.html#adeles">Adèles and idèles: all places at once</a></span>
+    <p class="bridge">Rather than juggle each $\mathbb{Q}_p$ and $\mathbb{R}$ separately, package them into the adèle ring $\mathbb{A}_\mathbb{Q} = \mathbb{R} \times \prod_p' \mathbb{Q}_p$, the <em>restricted</em> product in which almost every component sits in $\mathbb{Z}_p$ (else the product wouldn't be locally compact). The diagonal embedding $\mathbb{Q} \hookrightarrow \mathbb{A}_\mathbb{Q}$ is discrete with compact quotient $\mathbb{A}_\mathbb{Q}/\mathbb{Q}$ — the structural fact, an analogue of $\mathbb{Z} \hookrightarrow \mathbb{R}$ being discrete with compact quotient $\mathbb{R}/\mathbb{Z}$. This is what powers Tate's thesis: integration over $\mathbb{A}_\mathbb{Q}$ gives a single zeta integral whose decomposition place-by-place reproduces the Euler product. The idèles $\mathbb{A}_\mathbb{Q}^\times$ are the multiplicative version; their quotient $\mathbb{A}_\mathbb{Q}^\times/\mathbb{Q}^\times$ is the idèle class group, and its continuous characters are exactly Hecke characters — the right linear coefficients for $L$-functions of arithmetic type.</p>
+  </li>
+  <li>
+    <span class="stop-section">Number theory</span>
+    <span class="stop-title"><a href="./frobenius-and-reciprocity.html#frobenius">Frobenius elements and Chebotarev density</a></span>
+    <p class="bridge">For a Galois extension $L/K$ of number fields, every unramified prime $\mathfrak{p}$ of $K$ determines a Frobenius conjugacy class $\mathrm{Frob}_\mathfrak{p} \subset \Gal(L/K)$ — the local data at $\mathfrak{p}$, defined as the lift of $x \mapsto x^{N\mathfrak{p}}$ on the residue field. Chebotarev's density theorem says these classes equidistribute over $\Gal(L/K)$ as $\mathfrak{p}$ varies, with density equal to the relative size of each conjugacy class. In particular every conjugacy class is hit infinitely often, and the union of all $\mathrm{Frob}_\mathfrak{p}$ generates the Galois group topologically. The global Galois group is reconstructed from its local pieces — a non-abelian, statistical version of the local–global principle. Reciprocity laws (quadratic, Artin, modular) are all statements about how the conjugacy class $\mathrm{Frob}_\mathfrak{p}$ is <em>predictable</em> from local data — which residues $\mathfrak{p}$ falls into, modulo something computable.</p>
+  </li>
+  <li class="endpoint">
+    <span class="stop-section">Number theory · capstone</span>
+    <span class="stop-title"><a href="./heights-arithmetic-geometry.html#canonical">Heights, Northcott, and the canonical height</a></span>
+    <p class="bridge">A height function $h\colon \mathbb{P}^n(\overline{\mathbb{Q}}) \to \mathbb{R}_{\geq 0}$ measures the arithmetic complexity of a point — built place-by-place from local contributions and then summed. The naive height on $\mathbb{P}^1(\mathbb{Q})$ is $h(a/b) = \log\max(|a|, |b|)$ for coprime integers $a,b$; the Weil height generalizes to algebraic points by averaging over Galois conjugates. Northcott's finiteness theorem says there are only finitely many points of bounded height and bounded degree — the structural result that makes ranks and Mordell–Weil generators effective in principle. The <em>canonical height</em> $\hat h$ on an elliptic curve is the unique quadratic refinement of the Weil height that makes the group law isometric, $\hat h(nP) = n^2 \hat h(P)$, and it's the regulator quantity that appears in BSD. Each place — every $\mathbb{Q}_p$, $\mathbb{R}$, every closed point of an arithmetic scheme — contributes one term, and the global statement is the sum: the local–global principle, fully grown into Arakelov geometry.</p>
+  </li>
+</ol>
+
+<aside class="callback">
+  <div class="ttl">Diverges into</div>
+  <ul>
+    <li>Class field theory is the abelian crystallization of this story — see <a href="./class-field-theory.html">class field theory</a>.</li>
+    <li>The canonical height is the bridge into Tour 1's BSD endpoint.</li>
+  </ul>
+</aside>
+</section>
+
+<section>
+<h2>More tours coming</h2>
+<p>These six are a starting set, not a full atlas. Natural next routes — not yet written:</p>
+<ul>
+  <li><strong>Riemannian geometry to general relativity</strong> — smooth manifolds, the Levi-Civita connection, curvature tensors, Einstein's equations.</li>
+  <li><strong>The geometric Langlands program</strong> — sheaves on $\mathrm{Bun}_G$, geometric Satake, the function-sheaf dictionary.</li>
+  <li><strong>Why categorify?</strong> — from set, to group, to category, to $\infty$-category, with one running example (vector spaces vs. 2-vector spaces).</li>
+  <li><strong>How probability became measure theory</strong> — Lebesgue, $\sigma$-algebras, the Kolmogorov axioms, Brownian motion as a measure on path space.</li>
+  <li><strong>Curves over fields, from $\mathbb{R}$ to $\mathbb{F}_q$ to $\mathbb{Z}$</strong> — Riemann surfaces, algebraic curves of higher genus, point-counting in characteristic $p$, arithmetic surfaces.</li>
+</ul>
+<p class="small">The corpus is a graph. Tours are the human-friendly cross-sections. If a path you want isn't here, the <a href="./pathway.html">pathway explorer</a> lets you build your own from any concept's prerequisite tree.</p>
+</section>
+
+<footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
+
+</main>
+
+<script>
+/* ---------- Tour filter widget ---------- */
+(function(){
+  const buttons = $$('.tf-btn');
+  const readout = $('#tour-filter-readout');
+  const tours = $$('section.tour');
+  const TITLES = {
+    'all':'all six tours',
+    'bsd-road':'The road to BSD',
+    'flt-proof':'How Fermat’s Last Theorem was proved',
+    'cohomology':'What is cohomology?',
+    'sets-to-topoi':'From naive sets to ∞-topoi',
+    'sound-to-wavelets':'From sound to wavelets',
+    'local-global':'The local–global principle'
+  };
+  function pick(key){
+    buttons.forEach(b => b.classList.toggle('active', b.dataset.tour === key));
+    if(key === 'all'){
+      tours.forEach(t => t.classList.remove('dim'));
+      readout.textContent = 'All six tours visible. Pick one to dim the others — anchors still work; this is a focus aid, not a hide.';
+    } else {
+      tours.forEach(t => t.classList.toggle('dim', t.id !== key));
+      const target = document.getElementById(key);
+      const stops = target ? target.querySelectorAll('ol.tour > li').length : 0;
+      readout.textContent = `Spotlighting: ${TITLES[key] || key} (${stops} stops). Other tours are dimmed but still scrollable. Click "all tours" to restore.`;
+    }
+  }
+  buttons.forEach(b => b.addEventListener('click', () => pick(b.dataset.tour)));
+})();
+</script>
+
+<script>
+/* sidebar TOC builder + active-section highlighting (copied from category-theory.html) */
+(function(){
+  function build(){
+    const aside = document.querySelector('aside.sidetoc');
+    const topnav = document.querySelector('nav.toc');
+    if(!aside || !topnav) return;
+    const srcs = [...topnav.querySelectorAll('a[href^="#"]')];
+    if(!srcs.length) return;
+    const title = document.createElement('div');
+    title.className = 'sidetoc-title';
+    title.textContent = 'Tours';
+    aside.appendChild(title);
+    const ol = document.createElement('ol');
+    srcs.forEach(src => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = src.getAttribute('href');
+      a.textContent = src.textContent.replace(/ /g,' ').trim();
+      li.appendChild(a); ol.appendChild(li);
+    });
+    aside.appendChild(ol);
+    const links = [...aside.querySelectorAll('a')];
+    const sections = [];
+    links.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      const s = document.getElementById(id);
+      if(s) sections.push({a, s});
+    });
+    if(!sections.length) return;
+    function update(){
+      const threshold = 140;
+      let activeLink = sections[0].a;
+      for(const {a,s} of sections){
+        if(s.getBoundingClientRect().top <= threshold) activeLink = a;
+      }
+      links.forEach(x => x.classList.remove('active'));
+      activeLink.classList.add('active');
+    }
+    update();
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update);
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
+  else build();
+})();
+</script>
+
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-04-27</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>
