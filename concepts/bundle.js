@@ -1504,7 +1504,9 @@ window.__MVConcepts = {
           "id": "e-definition",
           "title": "Combinatorial expansion",
           "anchor": "definition",
-          "prereqs": [],
+          "prereqs": [
+            "sets-functions"
+          ],
           "blurb": "A $d$-regular graph $G$ on $n$ vertices is an $(n,d,\\varepsilon)$-expander when every vertex set $S$ with $|S|\\le n/2$ has $|N(S)|\\ge(1+\\varepsilon)|S|$ — small sets always touch many new neighbours, so the graph cannot be cleanly cut.",
           "tags": [
             "foundation"
@@ -8667,7 +8669,11 @@ window.__MVConcepts = {
           "id": "ant-prime-counting",
           "title": "$\\pi(x)$ and the prime number theorem",
           "anchor": "pnt",
-          "prereqs": [],
+          "prereqs": [
+            "real-numbers",
+            "sets-functions",
+            "numeric-series"
+          ],
           "blurb": "The counting function $\\pi(x) = \\#\\{p \\le x : p \\text{ prime}\\}$ satisfies $\\pi(x) \\sim x/\\log x$, equivalently $\\pi(x) \\sim \\mathrm{Li}(x) = \\int_2^x dt/\\log t$; the logarithmic integral is a substantially better numerical match.",
           "tags": [
             "foundation"
@@ -11018,7 +11024,9 @@ window.__MVConcepts = {
           "id": "adjacency-and-laplacian",
           "title": "Adjacency, degree, and the Laplacian",
           "anchor": "adjacency-laplacian",
-          "prereqs": [],
+          "prereqs": [
+            "algebraic-structures"
+          ],
           "blurb": "The adjacency matrix $A$, degree matrix $D$, and combinatorial Laplacian $L=D-A$ — the discrete analogue of $-\\Delta$, with a real spectrum $0=\\lambda_1\\le\\lambda_2\\le\\cdots\\le\\lambda_n$ and the Dirichlet energy form $f^\\top L f = \\sum_{ij\\in E}(f(i)-f(j))^2$."
         },
         {
@@ -12356,14 +12364,14 @@ window.__MVConcepts = {
       "concepts": 49,
       "intra": 56,
       "crossOut": 5,
-      "crossIn": 15,
+      "crossIn": 17,
       "density": 0.10204081632653061
     },
     "Algebra & homological": {
       "concepts": 106,
       "intra": 157,
       "crossOut": 16,
-      "crossIn": 70,
+      "crossIn": 71,
       "density": 0.1509433962264151
     },
     "Higher categories & toposes": {
@@ -12377,7 +12385,7 @@ window.__MVConcepts = {
       "concepts": 146,
       "intra": 249,
       "crossOut": 24,
-      "crossIn": 59,
+      "crossIn": 61,
       "density": 0.1643835616438356
     },
     "Probability & statistics": {
@@ -12397,9 +12405,9 @@ window.__MVConcepts = {
     "Number theory": {
       "concepts": 90,
       "intra": 115,
-      "crossOut": 33,
+      "crossOut": 36,
       "crossIn": 24,
-      "density": 0.36666666666666664
+      "density": 0.4
     },
     "Modular forms & L-functions": {
       "concepts": 85,
@@ -12418,9 +12426,9 @@ window.__MVConcepts = {
     "Combinatorics & graph theory": {
       "concepts": 51,
       "intra": 50,
-      "crossOut": 22,
+      "crossOut": 24,
       "crossIn": 2,
-      "density": 0.43137254901960786
+      "density": 0.47058823529411764
     },
     "Mathematical physics": {
       "concepts": 24,

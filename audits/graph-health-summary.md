@@ -1,16 +1,16 @@
 # Concept graph health — summary
 
 - Total concepts: **873**
-- Total prereq edges: **1528**
-- Implicit prereq candidates (total across all concepts): **284**
-- Multi-topic candidates (title appears in prose of ≥ 3 other topics): **35**
+- Total prereq edges: **1538**
+- Implicit prereq candidates (total across all concepts): **282**
+- Multi-topic candidates (title appears in prose of ≥ 3 other topics): **36**
 - Atomicity-split candidates (blurb ≥ 3 sentences AND > 200 chars): **130**
 - Dangling proper-noun phrases (in ≥ 2 topics, no matching concept): **37**
 - Orphan concepts (zero edges in or out): **0**
 
 ## Decision framework
 
-- ✅ **implicit_prereqs ≥ 200** (284): edge enrichment first. The existing graph has too many missing dependencies to benefit from restructuring.
+- ✅ **implicit_prereqs ≥ 200** (282): edge enrichment first. The existing graph has too many missing dependencies to benefit from restructuring.
 
 ## Top 15 multi-topic candidates
 
@@ -38,7 +38,6 @@
 - `chern-classes` (intersection-theory-chow) — 3 missing: cc-vector-bundles, k-chern-character, cc-euler-class
 - `vm-direct-method` (variational-methods) — 2 missing: compactness, reflexivity
 - `cy-hodge-numbers` (calabi-yau-manifolds) — 2 missing: connectedness, compactness
-- `mr-statement` (mostow-rigidity) — 2 missing: hyperbolic-metric, conformal-map
 - `hcm-phase-space` (hamiltonians-classical-mechanics) — 2 missing: exterior-derivative, liouville
 - `sm-hamiltonian-flow` (symplectic-manifolds) — 2 missing: hcm-hamilton-equations, liouville
 - `kp-jones-polynomial` (knot-polynomials) — 2 missing: open-sets, singular-homology
@@ -47,6 +46,7 @@
 - `abelian-categories` (homological) — 2 missing: snake-lemma, five-lemma
 - `infty-adjunctions` (infinity-categories) — 2 missing: quasi-category, kan-complex
 - `left-right-fibrations` (cocartesian-fibrations) — 2 missing: cocartesian-fibration, kan-complex
+- `complex-numbers` (complex-analysis) — 2 missing: riemann-sphere, mobius-transformations
 
 ## Top 20 dangling proper-noun phrases (by topic count)
 
@@ -99,7 +99,7 @@ Compact roll-up of the rows above. Bucket: 🟢 healthy (no implicit flags, ≤1
 | `dynamical-systems` | 13 | 4 | 0 | 2 | 0 | 🔴 |
 | `etale-cohomology` | 5 | 2 | 0 | 5 | 0 | 🔴 |
 | `group-schemes` | 6 | 4 | 0 | 3 | 0 | 🔴 |
-| `hamiltonians-classical-mechanics` | 6 | 1 | 0 | 6 | 0 | 🔴 |
+| `hamiltonians-classical-mechanics` | 6 | 1 | 0 | 6 | 1 | 🔴 |
 | `harmonic-functions` | 6 | 2 | 0 | 7 | 0 | 🔴 |
 | `homological` | 12 | 1 | 0 | 5 | 1 | 🔴 |
 | `infinity-categories` | 6 | 2 | 0 | 5 | 0 | 🔴 |
@@ -109,7 +109,7 @@ Compact roll-up of the rows above. Bucket: 🟢 healthy (no implicit flags, ≤1
 | `large-deviations` | 5 | 1 | 0 | 7 | 0 | 🔴 |
 | `mathematical-statistics` | 6 | 4 | 0 | 1 | 0 | 🔴 |
 | `measure-theory` | 12 | 4 | 0 | 4 | 1 | 🔴 |
-| `mirror-symmetry` | 6 | 4 | 0 | 1 | 0 | 🔴 |
+| `mirror-symmetry` | 6 | 4 | 0 | 2 | 0 | 🔴 |
 | `operator-algebras` | 12 | 4 | 0 | 7 | 0 | 🔴 |
 | `probabilistic-method` | 7 | 5 | 0 | 2 | 0 | 🔴 |
 | `probability-theory` | 12 | 1 | 0 | 5 | 2 | 🔴 |
@@ -176,7 +176,7 @@ Compact roll-up of the rows above. Bucket: 🟢 healthy (no implicit flags, ≤1
 | `moduli-spaces` | 5 | 2 | 0 | 2 | 0 | 🟡 |
 | `morphisms-fiber-products` | 5 | 0 | 0 | 2 | 1 | 🟡 |
 | `morse-theory` | 6 | 1 | 0 | 3 | 0 | 🟡 |
-| `mostow-rigidity` | 6 | 2 | 0 | 3 | 0 | 🟡 |
+| `mostow-rigidity` | 6 | 2 | 0 | 1 | 0 | 🟡 |
 | `naive-set-theory` | 5 | 1 | 0 | 2 | 1 | 🟡 |
 | `numerical-analysis` | 6 | 3 | 0 | 0 | 0 | 🟡 |
 | `p-adic-numbers` | 5 | 2 | 0 | 0 | 0 | 🟡 |
@@ -204,8 +204,8 @@ Compact roll-up of the rows above. Bucket: 🟢 healthy (no implicit flags, ≤1
 | `spectral-theory` | 6 | 1 | 0 | 1 | 0 | 🟡 |
 | `stacks` | 5 | 0 | 0 | 1 | 0 | 🟡 |
 | `stochastic-processes-and-martingales` | 6 | 1 | 0 | 3 | 0 | 🟡 |
-| `symplectic-manifolds` | 6 | 2 | 0 | 3 | 1 | 🟡 |
-| `three-body-problem` | 6 | 2 | 0 | 1 | 0 | 🟡 |
+| `symplectic-manifolds` | 6 | 1 | 0 | 3 | 1 | 🟡 |
+| `three-body-problem` | 6 | 2 | 0 | 0 | 0 | 🟡 |
 | `upper-half-plane-hyperbolic` | 5 | 1 | 0 | 3 | 0 | 🟡 |
 | `variational-methods` | 6 | 3 | 0 | 3 | 0 | 🟡 |
 | `vertex-operator-algebras` | 6 | 2 | 0 | 1 | 0 | 🟡 |

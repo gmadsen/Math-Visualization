@@ -7,7 +7,11 @@
       "id": "ant-prime-counting",
       "title": "$\\pi(x)$ and the prime number theorem",
       "anchor": "pnt",
-      "prereqs": [],
+      "prereqs": [
+        "real-numbers",
+        "sets-functions",
+        "numeric-series"
+      ],
       "blurb": "The counting function $\\pi(x) = \\#\\{p \\le x : p \\text{ prime}\\}$ satisfies $\\pi(x) \\sim x/\\log x$, equivalently $\\pi(x) \\sim \\mathrm{Li}(x) = \\int_2^x dt/\\log t$; the logarithmic integral is a substantially better numerical match.",
       "tags": [
         "foundation"

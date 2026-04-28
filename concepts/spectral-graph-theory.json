@@ -7,7 +7,9 @@
       "id": "adjacency-and-laplacian",
       "title": "Adjacency, degree, and the Laplacian",
       "anchor": "adjacency-laplacian",
-      "prereqs": [],
+      "prereqs": [
+        "algebraic-structures"
+      ],
       "blurb": "The adjacency matrix $A$, degree matrix $D$, and combinatorial Laplacian $L=D-A$ — the discrete analogue of $-\\Delta$, with a real spectrum $0=\\lambda_1\\le\\lambda_2\\le\\cdots\\le\\lambda_n$ and the Dirichlet energy form $f^\\top L f = \\sum_{ij\\in E}(f(i)-f(j))^2$."
     },
     {
