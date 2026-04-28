@@ -264,7 +264,7 @@ $$ i\hbar\,\partial_t \psi = H\psi, \qquad H = -\frac{\hbar^2}{2m}\Delta + V(x).
 $$ \tfrac{d}{dt}\|\psi(t)\|^2 = \tfrac{d}{dt}\langle \psi, \psi\rangle = \langle (-iH/\hbar)\psi,\psi\rangle + \langle \psi,(-iH/\hbar)\psi\rangle = 0, $$
 <p>so $\int |\psi(x,t)|^2\,dx \equiv 1$: total probability is preserved forever. Strip away the physics and Schrödinger evolution is a <em>structure theorem</em>: every self-adjoint operator generates a one-parameter unitary group, and that group is the dynamics.</p>
 
-<div class="widget">
+<div class="widget" id="w-figure-time-dep">
   <div class="hd"><div class="ttl">Free wavepacket spreading</div><div class="hint">Slide $t$; the Gaussian's width grows as $\sqrt{1+t^2}$ but $\int|\psi|^2 = 1$.</div></div>
   <div class="row">
     <label for="se-t">$t$</label>
@@ -363,6 +363,155 @@ $$ \tfrac{d}{dt}\|\psi(t)\|^2 = \tfrac{d}{dt}\langle \psi, \psi\rangle = \langle
     <div><a href="./schrodinger-equation.html#stationary">Schrödinger equation</a> · Stationary states and the eigenvalue problem</div>
 </aside>
 <!-- backlinks-auto-end -->
+<p>Below is what time evolution actually looks like in a confined system. A Gaussian wavepacket launched in the infinite square well $[0,\pi]$ decomposes as $\psi_0 = \sum_n c_n\varphi_n$ with $\varphi_n=\sqrt{2/\pi}\sin(nx)$, $E_n = n^2$. Each mode picks up a phase $e^{-iE_n t}$, and you recover $\psi(x,t)$ by summation. The packet reflects off the walls, scrambles into a comb of delta-like spikes (a fractional revival), and at $T_{\rm rev}=2\pi$ — the smallest time at which $e^{-iE_n T} = 1$ for every $n$, since all $E_n$ are integers — every phase resyncs and the original Gaussian reassembles itself. This is the simplest example of a <em>quantum revival</em>.</p>
+
+<div class="widget" id="w-figure-time-dep">
+  <div class="hd"><div class="ttl">Wave packet in an infinite square well</div><div class="hint">Gaussian launched on $[0,\pi]$. Watch it reflect off the walls and recohere at the revival $T_{\rm rev}=2\pi$.</div></div>
+  <div class="row">
+    <label for="se-well-k">$k_0$</label>
+    <input type="range" id="se-well-k" min="0" max="20" step="0.5" value="6">
+    <span id="se-well-k-val" class="small">k₀ = 6.0</span>
+  </div>
+  <div class="row">
+    <label for="se-well-t">$t$</label>
+    <input type="range" id="se-well-t" min="0" max="6.283" step="0.025" value="0">
+    <span id="se-well-t-val" class="small">t = 0.000</span>
+    <button id="se-well-play">Play</button>
+  </div>
+  <svg id="se-well" viewBox="0 0 640 280" width="640" height="280"><title>Wave packet in an infinite square well</title></svg>
+  <div class="readout" id="se-well-read"></div>
+</div>
+
+<script>
+(function(){
+  const svg = document.getElementById("se-well");
+  const out = document.getElementById("se-well-read");
+  const kIn = document.getElementById("se-well-k");
+  const kLab = document.getElementById("se-well-k-val");
+  const tIn = document.getElementById("se-well-t");
+  const tLab = document.getElementById("se-well-t-val");
+  const btn = document.getElementById("se-well-play");
+  const W = 640, H = 280, padL = 50, padR = 30, padT = 20, padB = 40;
+  const L = Math.PI, sigma = 0.45, x0 = L/2;
+  const Nmodes = 40, Nx = 240;
+  // Eigenstates phi_n(x) = sqrt(2/L) sin(n x); energies E_n = n^2 (units hbar=2m=1).
+  // Initial Gaussian psi0 ~ exp(-(x-x0)^2/(2 sigma^2)) exp(i k0 x), normalized over [0,L].
+  function computeCoeffs(k0){
+    const dx = L / Nx;
+    const psiR = new Array(Nx+1), psiI = new Array(Nx+1);
+    let normSq = 0;
+    for(let i=0;i<=Nx;i++){
+      const x = i*dx;
+      const env = Math.exp(-((x-x0)*(x-x0))/(2*sigma*sigma));
+      psiR[i] = env*Math.cos(k0*x);
+      psiI[i] = env*Math.sin(k0*x);
+      normSq += (psiR[i]*psiR[i] + psiI[i]*psiI[i]) * dx;
+    }
+    const norm = 1/Math.sqrt(normSq);
+    for(let i=0;i<=Nx;i++){ psiR[i]*=norm; psiI[i]*=norm; }
+    const A = Math.sqrt(2/L);
+    const cR = new Array(Nmodes+1), cI = new Array(Nmodes+1);
+    for(let n=1;n<=Nmodes;n++){
+      let sR = 0, sI = 0;
+      for(let i=0;i<=Nx;i++){
+        const x = i*dx;
+        const phin = A*Math.sin(n*x);
+        sR += phin*psiR[i]*dx;
+        sI += phin*psiI[i]*dx;
+      }
+      cR[n] = sR; cI[n] = sI;
+    }
+    return {cR, cI};
+  }
+  let k0 = parseFloat(kIn.value);
+  let coeffs = computeCoeffs(k0);
+  function xPx(x){ return padL + (x/L)*(W-padL-padR); }
+  function yPx(p, scale){ return H - padB - p*(H-padT-padB)/scale; }
+  function clear(){ while(svg.firstChild) svg.removeChild(svg.firstChild); }
+  function axes(){
+    svg.appendChild(SVG("rect",{x:0,y:padT,width:padL,height:H-padT-padB,fill:"var(--violet)",opacity:0.10}));
+    svg.appendChild(SVG("rect",{x:W-padR,y:padT,width:padR,height:H-padT-padB,fill:"var(--violet)",opacity:0.10}));
+    svg.appendChild(SVG("line",{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:"var(--line)"}));
+    svg.appendChild(SVG("line",{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:"var(--violet)","stroke-width":2}));
+    svg.appendChild(SVG("line",{x1:W-padR,y1:padT,x2:W-padR,y2:H-padB,stroke:"var(--violet)","stroke-width":2}));
+    [0, L/4, L/2, 3*L/4, L].forEach((xv,i)=>{
+      const x = xPx(xv);
+      svg.appendChild(SVG("line",{x1:x,y1:H-padB,x2:x,y2:H-padB+4,stroke:"var(--line)"}));
+      const t = SVG("text",{x,y:H-padB+18,"text-anchor":"middle","font-size":11,fill:"var(--mute)"});
+      t.textContent = ["0","π/4","π/2","3π/4","π"][i];
+      svg.appendChild(t);
+    });
+    const xl = SVG("text",{x:W-padR,y:H-padB-6,"text-anchor":"end","font-size":12,fill:"var(--mute)"});
+    xl.textContent = "x"; svg.appendChild(xl);
+    const yl = SVG("text",{x:padL+6,y:padT+12,"font-size":12,fill:"var(--mute)"});
+    yl.textContent = "|ψ(x,t)|²"; svg.appendChild(yl);
+  }
+  function draw(t){
+    clear(); axes();
+    const A = Math.sqrt(2/L);
+    let pts = [];
+    let total = 0;
+    let pmax = 0;
+    const xs = new Array(Nx+1), p2 = new Array(Nx+1);
+    const dx = L/Nx;
+    for(let i=0;i<=Nx;i++){
+      const x = i*dx;
+      let pr = 0, pi = 0;
+      for(let n=1;n<=Nmodes;n++){
+        const a = n*n*t;
+        const ca = Math.cos(a), sa = Math.sin(a);
+        const phin = A*Math.sin(n*x);
+        // (cR + i cI)(cos a - i sin a) = (cR cos a + cI sin a) + i(cI cos a - cR sin a)
+        pr += (coeffs.cR[n]*ca + coeffs.cI[n]*sa) * phin;
+        pi += (coeffs.cI[n]*ca - coeffs.cR[n]*sa) * phin;
+      }
+      const p = pr*pr + pi*pi;
+      xs[i] = x; p2[i] = p;
+      total += p*dx;
+      if(p>pmax) pmax = p;
+    }
+    const scale = Math.max(pmax, 1.5);
+    for(let i=0;i<=Nx;i++){ pts.push([xPx(xs[i]), yPx(p2[i], scale)]); }
+    svg.appendChild(SVG("path",{
+      d: "M"+pts.map(p=>p.join(" ")).join(" L"),
+      fill:"none", stroke:"var(--cyan)", "stroke-width":2.2
+    }));
+    svg.appendChild(SVG("path",{
+      d: "M"+pts.map(p=>p.join(" ")).join(" L")+` L${xPx(L)} ${yPx(0,scale)} L${xPx(0)} ${yPx(0,scale)} Z`,
+      fill:"var(--cyan)", opacity:0.12
+    }));
+    out.textContent = `t = ${t.toFixed(3)}    ∫|ψ|² dx ≈ ${total.toFixed(4)}    revival period T_rev = 2π ≈ 6.283`;
+  }
+  function update(){
+    const t = parseFloat(tIn.value);
+    tLab.textContent = "t = " + t.toFixed(3);
+    draw(t);
+  }
+  let raf = null;
+  function stepAnim(){
+    let t = parseFloat(tIn.value);
+    t += 0.025;
+    if(t > parseFloat(tIn.max)) t = parseFloat(tIn.min);
+    tIn.value = t;
+    update();
+    raf = requestAnimationFrame(stepAnim);
+  }
+  kIn.addEventListener("input", ()=>{
+    k0 = parseFloat(kIn.value);
+    kLab.textContent = "k₀ = " + k0.toFixed(1);
+    coeffs = computeCoeffs(k0);
+    update();
+  });
+  tIn.addEventListener("input", update);
+  btn.addEventListener("click", ()=>{
+    if(raf){ cancelAnimationFrame(raf); raf = null; btn.textContent = "Play"; btn.classList.remove("active"); }
+    else { btn.textContent = "Pause"; btn.classList.add("active"); stepAnim(); }
+  });
+  update();
+})();
+</script>
+
+
 </section>
 
 <section id="stationary">
@@ -373,7 +522,7 @@ $$ H\varphi = E\varphi. $$
 $$ \psi = \sum_{n} c_n \varphi_n + \int c(E)\,\varphi_E\,dE. $$
 <p>The discrete sum runs over <em>bound states</em> — eigenvalues with $L^2$ eigenfunctions. The integral runs over <em>scattering states</em> — generalized eigenfunctions that are not in $L^2$ but participate in the spectral measure. A bound state evolves only by the phase $e^{-iE_n t/\hbar}$, so the probability density $|\varphi_n|^2$ doesn't change with time — that's why they're called <em>stationary</em>.</p>
 
-<div class="widget">
+<div class="widget" id="w-figure-stationary">
   <div class="hd"><div class="ttl">Superposition of two energy eigenstates</div><div class="hint">$\psi(x,t) = c_1 e^{-iE_1 t/\hbar}\varphi_1 + c_2 e^{-iE_2 t/\hbar}\varphi_2$. Watch $|\psi|^2$ beat at frequency $|E_2-E_1|/\hbar$.</div></div>
   <div class="row">
     <label for="se-mix">|c₂|²</label>
@@ -476,7 +625,7 @@ $$ a = \sqrt{\tfrac{m\omega}{2\hbar}}\Bigl(x + \tfrac{i}{m\omega}p\Bigr), \qquad
 $$ E_n = \hbar\omega\bigl(n + \tfrac{1}{2}\bigr), \qquad n = 0, 1, 2, \dots $$
 <p>The eigenfunctions are Hermite polynomials times a Gaussian. The same algebra reappears wherever you see equally-spaced spectra: photons of frequency $\omega$ in QED, phonons in a crystal, second quantization in general.</p>
 
-<div class="widget">
+<div class="widget" id="w-figure-ho">
   <div class="hd"><div class="ttl">Energy ladder $E_n = \hbar\omega(n+\tfrac{1}{2})$</div><div class="hint">Click a level to see its wavefunction (Hermite × Gaussian).</div></div>
   <svg id="se-ladder" viewBox="0 0 640 320" width="640" height="320"><title>Energy ladder $E_n = \hbar\omega(n+\tfrac{1}{2})$</title></svg>
   <div class="readout" id="se-ladder-read"></div>
@@ -592,7 +741,7 @@ $$ \varphi_{n\ell m}(r,\theta,\phi) = R_{n\ell}(r)\,Y_\ell^m(\theta,\phi), $$
 $$ E_n = -\frac{E_0}{n^2}, \qquad E_0 = \frac{me^4}{2\hbar^2} \approx 13.6\,\mathrm{eV}. $$
 <p>The accidental degeneracy across $\ell$ at fixed $n$ — total multiplicity $n^2$ — is no accident: it comes from a hidden $\mathrm{SO}(4)$ symmetry generated by angular momentum together with the conserved Runge–Lenz vector. The continuous spectrum $[0, \infty)$ is the scattering regime: ionized electrons.</p>
 
-<div class="widget">
+<div class="widget" id="w-figure-hydrogen">
   <div class="hd"><div class="ttl">Hydrogen spectrum and Lyman/Balmer/Paschen series</div><div class="hint">$E_n = -13.6/n^2$ eV; transition $n\to m$ emits $|E_n - E_m|$.</div></div>
   <div class="row">
     <button id="hyd-lyman" class="active">Lyman (m=1, UV)</button>
@@ -686,7 +835,7 @@ $$ E_n = -\frac{E_0}{n^2}, \qquad E_0 = \frac{me^4}{2\hbar^2} \approx 13.6\,\mat
 $$ |T|^2 + |R|^2 = 1. $$
 <p>The startling feature: even when the energy $E$ is <em>below</em> the barrier height $V_0$, transmission $|T|^2 > 0$. The wavefunction inside the barrier decays exponentially, $\psi(x) \propto e^{-\kappa x}$ with $\kappa = \sqrt{2m(V_0-E)}/\hbar$, but it doesn't reach zero, so a thin enough barrier always lets some amplitude through. This is <em>quantum tunneling</em> — the engine of $\alpha$-decay, the scanning tunneling microscope, and Josephson junctions.</p>
 
-<div class="widget">
+<div class="widget" id="w-figure-scattering">
   <div class="hd"><div class="ttl">Rectangular barrier: tunneling probability $T(E)$</div><div class="hint">Drag $E$ across $V_0$. Transmission stays non-zero on the classically forbidden side.</div></div>
   <div class="row">
     <label for="se-E">$E/V_0$</label>
@@ -817,7 +966,7 @@ $$ K(x_f, t_f; x_i, t_i) = \int_{q(t_i)=x_i}^{q(t_f)=x_f} e^{i S[q]/\hbar}\,\mat
 
 <p>The classical limit is geometric: as $\hbar \to 0$, the phase $e^{iS/\hbar}$ oscillates faster and faster, and contributions from neighboring paths cancel — except where $\delta S = 0$. The stationary points of $S$ are exactly the solutions of the Euler–Lagrange equation. So <em>quantum mechanics says: take all paths; classical mechanics says: take only the stationary one.</em> Stationary phase makes that the same statement at $\hbar \to 0$.</p>
 
-<div class="widget">
+<div class="widget" id="w-figure-path-integral">
   <div class="hd"><div class="ttl">Stationary phase: $\hbar \to 0$ classical limit</div><div class="hint">Lower $\hbar$; only the path with $\delta S = 0$ (yellow) survives.</div></div>
   <div class="row">
     <label for="se-h">$\hbar$</label>
