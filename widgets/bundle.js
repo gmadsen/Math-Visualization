@@ -1819,6 +1819,32 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "expanders-vertex-expansion",
+    "family": "expanders-vertex-expansion",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "expanders-vertex-expansion widget params",
+    "description": "Bespoke widget for the vertex-expansion explorer on the expanders topic. Combines a graph-family <select> picker, an action <button> (clear selection), and a clickable SVG of a graph layout: clicking a vertex toggles it in/out of the selected set S, and the readout reports |N(S)|/|S|. The combination of select + button + click-on-SVG is unique on the page (clickable-graph has no form controls; parametric-plot has no click-on-SVG semantics) so this slug captures the gesture as one unit.",
+    "requiredParams": [
+      "widgetId",
+      "svgId",
+      "outputId",
+      "title",
+      "viewBox",
+      "svgWidth",
+      "svgHeight",
+      "pick",
+      "buttons",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the **vertex expansion explorer** (`w-expand`) on the [`expanders`](../../expanders.html) topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "grothendieck-topologies-sites-axioms-scrub",
     "family": "declarative-host",
     "dimension": "2d",

@@ -7803,6 +7803,34 @@ window.__MVConcepts = {
           "tags": [
             "classification"
           ]
+        },
+        {
+          "id": "mt-morse-smale",
+          "title": "Morse–Smale gradients and transversality",
+          "anchor": "morse-smale",
+          "prereqs": [
+            "mt-handle-decomposition",
+            "mt-morse-homology"
+          ],
+          "blurb": "A pair $(f,g)$ is Morse–Smale when stable and unstable manifolds of distinct critical points intersect transversally: $W^s(q)\\pitchfork W^u(p)$. Smale showed that for fixed Morse $f$ this holds for an open dense set of metrics. Transversality forces moduli of trajectories $\\mathcal{M}(p,q)/\\mathbb{R}$ to be smooth manifolds of dimension $\\ind(p)-\\ind(q)-1$, and broken trajectories give the Gromov-style compactification that makes $\\partial^2=0$ a counting argument.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "mt-cerf-theory",
+          "title": "Cerf theory and wall-crossing",
+          "anchor": "cerf-theory",
+          "prereqs": [
+            "mt-morse-functions",
+            "mt-handle-decomposition"
+          ],
+          "blurb": "In a generic 1-parameter family $f_t$, every $f_t$ is Morse except at a discrete set of times where two things can happen: a <em>birth-death</em> ($f_t = x^3 - tx + \\cdots$) creates or cancels an index-$k$ / index-$(k+1)$ critical pair, and an <em>independent crossing</em> swaps two critical values without changing the topology. Cerf's theorem makes the space of Morse functions a stratified manifold whose codimension-1 wall is exactly this birth-death set; this is the diff-topological foundation of $h$-cobordism, handle slides, and Kirby calculus.",
+          "tags": [
+            "classification",
+            "exact-sequence"
+          ]
         }
       ]
     },
@@ -9453,6 +9481,46 @@ window.__MVConcepts = {
             "adjoint-roots"
           ],
           "blurb": "Borcherds built the Monster Lie algebra — a generalized Kac–Moody from the moonshine VOA via Goddard–Thorn — whose Weyl–Kac denominator identity gives replication recursions that pin each Thompson series to its Conway–Norton Hauptmodul."
+        },
+        {
+          "id": "replication-formulas",
+          "title": "Replication formulas and Hauptmodul recursions",
+          "anchor": "replication",
+          "prereqs": [
+            "borcherds-proof-sketch"
+          ],
+          "blurb": "Comparing $p^m q^n$ coefficients in Borcherds' denominator identity yields explicit Faber–Mahler recursions that determine each $c(N)$ from a finite list of lower coefficients; the same recursions, with $\\dim$ replaced by $\\tr g$, force every Thompson series to coincide with its Conway–Norton Hauptmodul.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "genus-zero-moonshine-groups",
+          "title": "Genus-zero groups and Ogg's coincidence",
+          "anchor": "genus-zero",
+          "prereqs": [
+            "thompson-series",
+            "mc-genus-formula"
+          ],
+          "blurb": "The 171 commensurability classes of moonshine groups $\\Gamma_g \\le \\mathrm{SL}_2(\\mathbb{R})$ are exactly the genus-zero quotients of $\\mathcal{H}^*$ commensurable with $\\mathrm{SL}_2(\\mathbb{Z})$; the set of primes $p$ with $\\Gamma_0(p)+$ genus zero — $\\{2,3,5,7,11,13,17,19,23,29,31,41,47,59,71\\}$ — is precisely Ogg's list of supersingular primes dividing $|\\mathbb{M}|$.",
+          "tags": [
+            "classification",
+            "moduli"
+          ]
+        },
+        {
+          "id": "generalized-moonshine",
+          "title": "Generalized moonshine (Norton, Carnahan)",
+          "anchor": "generalized",
+          "prereqs": [
+            "thompson-series",
+            "voa-moonshine-module"
+          ],
+          "blurb": "Norton's generalized moonshine attaches a McKay–Thompson series $Z(g,h;\\tau)$ to each commuting pair $(g,h) \\in \\mathbb{M}\\times\\mathbb{M}$ — the graded twisted trace on a $g$-twisted module of $V^\\natural$; conjectured (Norton 1984) and proved (Carnahan 2010+) to be a Hauptmodul for some genus-zero group, with covariance $Z(g,h;\\tau) = Z(g^a h^c, g^b h^d;\\,\\frac{a\\tau+b}{c\\tau+d})$ under $\\mathrm{SL}_2(\\mathbb{Z})$.",
+          "tags": [
+            "group-action",
+            "classification"
+          ]
         }
       ]
     },
@@ -12436,11 +12504,11 @@ window.__MVConcepts = {
       "density": 0.2641509433962264
     },
     "Geometry & topology": {
-      "concepts": 97,
-      "intra": 144,
+      "concepts": 99,
+      "intra": 148,
       "crossOut": 18,
       "crossIn": 79,
-      "density": 0.18556701030927836
+      "density": 0.18181818181818182
     },
     "Number theory": {
       "concepts": 94,
@@ -12450,11 +12518,11 @@ window.__MVConcepts = {
       "density": 0.39361702127659576
     },
     "Modular forms & L-functions": {
-      "concepts": 85,
-      "intra": 112,
+      "concepts": 88,
+      "intra": 117,
       "crossOut": 52,
       "crossIn": 12,
-      "density": 0.611764705882353
+      "density": 0.5909090909090909
     },
     "Algebraic geometry": {
       "concepts": 127,
