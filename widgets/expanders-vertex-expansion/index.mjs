@@ -24,8 +24,10 @@
 // the structured `pick.options` and `buttons` fields plus its own graph
 // layouts.
 
+import { escapeHtml } from '../_shared/escape.mjs';
+
 function renderHintHtml(hint) {
-  return hint ? `<div class="hint">${hint}</div>` : '';
+  return hint ? `<div class="hint">${escapeHtml(hint)}</div>` : '';
 }
 
 function renderPickOptions(options) {
@@ -55,7 +57,7 @@ export function renderMarkup(params) {
 
   return (
     `<div class="widget" id="${widgetId}">\n` +
-    `  <div class="hd"><div class="ttl">${title}</div>${renderHintHtml(hint)}</div>\n` +
+    `  <div class="hd"><div class="ttl">${escapeHtml(title)}</div>${renderHintHtml(hint)}</div>\n` +
     `  <div class="row">\n` +
     `    <label for="${pick.id}">${pick.label}</label>\n` +
     `    <select id="${pick.id}">\n` +

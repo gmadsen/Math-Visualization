@@ -288,9 +288,15 @@ for (const file of htmlFiles) {
           // jsdom doesn't ship a canvas implementation; calling
           // `getContext('2d')` on an HTMLCanvasElement throws a "Not
           // Implemented" error. Stub a minimal 2D context so widgets that
-          // paint to canvas (e.g. julia-playground) boot cleanly. The
-          // returned context's draw calls are no-ops; we're only
-          // checking that the page boots, not that pixels match.
+          // paint to canvas (e.g. julia-playground) boot cleanly. We
+          // explicitly stub the most-common methods, then wrap the result
+          // in a Proxy so any UNLISTED method (arcTo, ellipse, clip,
+          // setLineDash, etc.) silently no-ops instead of throwing
+          // `undefined is not a function`. Property reads on unknown keys
+          // return `undefined`, which is also what a real context returns
+          // for non-method state-property gets like `lineDashOffset` if
+          // the widget doesn't set them. We're only checking that the
+          // page boots, not that pixels match.
           if (window.HTMLCanvasElement) {
             const noop = () => {};
             const mkImg = (w, h) => ({
@@ -301,7 +307,7 @@ for (const file of htmlFiles) {
             window.HTMLCanvasElement.prototype.getContext = function (kind) {
               if (kind !== '2d') return null;
               const self = this;
-              return {
+              const target = {
                 canvas: self,
                 fillStyle: '#000', strokeStyle: '#000', lineWidth: 1,
                 font: '10px sans-serif', textAlign: 'left', textBaseline: 'top',
@@ -320,6 +326,19 @@ for (const file of htmlFiles) {
                 putImageData: noop,
                 createImageData: (w, h) => mkImg(w, h),
               };
+              return new Proxy(target, {
+                get(t, key) {
+                  if (key in t) return t[key];
+                  // Default everything else to a no-op function: covers
+                  // arcTo, bezierCurveTo, quadraticCurveTo, ellipse,
+                  // roundRect, clip, isPointInPath, setLineDash, etc.
+                  return noop;
+                },
+                set(t, key, value) {
+                  t[key] = value;
+                  return true;
+                },
+              });
             };
           }
           if (typeof window.matchMedia !== 'function') {

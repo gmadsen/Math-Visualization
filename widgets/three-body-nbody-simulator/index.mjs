@@ -16,11 +16,13 @@
 // `bodyMarkup` and `bodyScript` and rebuilds the simulator from a typed
 // preset list + integrator config.
 
+import { escapeHtml } from '../_shared/escape.mjs';
+
 export function renderMarkup(params) {
   const { widgetId, title, hint, bodyMarkup } = params;
   return (
     `<div class="widget"` + (widgetId ? ` id="${widgetId}"` : "") + `>\n` +
-    `  <div class="hd"><div class="ttl">${title}</div><div class="hint">${hint}</div></div>\n` +
+    `  <div class="hd"><div class="ttl">${escapeHtml(title)}</div><div class="hint">${escapeHtml(hint)}</div></div>\n` +
     `${bodyMarkup}\n` +
     `</div>`
   );

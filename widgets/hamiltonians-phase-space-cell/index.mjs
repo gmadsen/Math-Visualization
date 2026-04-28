@@ -17,8 +17,10 @@
 // `bodyScript` and drives its own flow from {ariaLabel, buttons, outputInitial}
 // plus its own integrator.
 
+import { escapeHtml } from '../_shared/escape.mjs';
+
 function renderHintHtml(hint) {
-  return hint ? `<div class="hint">${hint}</div>` : '';
+  return hint ? `<div class="hint">${escapeHtml(hint)}</div>` : '';
 }
 
 export function renderMarkup(params) {
@@ -33,7 +35,7 @@ export function renderMarkup(params) {
   return (
     `<div class="widget"` + (widgetId ? ` id="${widgetId}"` : "") + `>\n` +
     `  <div class="hd">\n` +
-    `    <div class="ttl">${title}</div>\n` +
+    `    <div class="ttl">${escapeHtml(title)}</div>\n` +
     `    ${renderHintHtml(hint)}\n` +
     `  </div>\n` +
     `  <svg id="${svgId}" viewBox="${viewBox}" width="${svgWidth}" height="${svgHeight}" aria-label="${ariaLabel}"></svg>\n` +

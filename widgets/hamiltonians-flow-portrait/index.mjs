@@ -18,8 +18,10 @@
 // `bodyScript` and drives its own field+trajectory renderer from
 // {pick.options, buttons, ariaLabel} plus its own integrator.
 
+import { escapeHtml } from '../_shared/escape.mjs';
+
 function renderHintHtml(hint) {
-  return hint ? `<div class="hint">${hint}</div>` : '';
+  return hint ? `<div class="hint">${escapeHtml(hint)}</div>` : '';
 }
 
 function renderPickOptions(options) {
@@ -45,7 +47,7 @@ export function renderMarkup(params) {
   return (
     `<div class="widget"` + (widgetId ? ` id="${widgetId}"` : "") + `>\n` +
     `  <div class="hd">\n` +
-    `    <div class="ttl">${title}</div>\n` +
+    `    <div class="ttl">${escapeHtml(title)}</div>\n` +
     `    ${renderHintHtml(hint)}\n` +
     `  </div>\n` +
     `  <div class="row">\n` +

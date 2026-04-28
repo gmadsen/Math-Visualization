@@ -12,8 +12,10 @@
 //   renderMarkup(params) -> <div class="widget"> ... </div>
 //   renderScript(params) -> <script>\n(function(){ ... })();\n</script>
 
+import { escapeHtml } from '../_shared/escape.mjs';
+
 function renderHintHtml(hint) {
-  return hint ? `<div class="hint">${hint}</div>` : '';
+  return hint ? `<div class="hint">${escapeHtml(hint)}</div>` : '';
 }
 
 function renderSliderEntries(sliders) {
@@ -36,7 +38,7 @@ export function renderMarkup(params) {
   return (
     `<div class="widget"` + (widgetId ? ` id="${widgetId}"` : "") + `>\n` +
     `  <div class="hd">\n` +
-    `    <div class="ttl">${title}</div>\n` +
+    `    <div class="ttl">${escapeHtml(title)}</div>\n` +
     `    ${renderHintHtml(hint)}\n` +
     `  </div>\n` +
     `  <div class="row">\n` +

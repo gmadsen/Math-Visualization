@@ -30,9 +30,11 @@
 //
 // Both are pure functions of params.
 
+import { escapeHtml } from '../_shared/escape.mjs';
+
 function renderHintHtml(hint) {
   return typeof hint === 'string' && hint.length > 0
-    ? `<div class="hint">${hint}</div>`
+    ? `<div class="hint">${escapeHtml(hint)}</div>`
     : '';
 }
 
@@ -50,7 +52,7 @@ export function renderMarkup(params) {
 
   return (
     `<div class="widget"${idAttr}>\n` +
-    `  <div class="hd"><div class="ttl">${title}</div>${renderHintHtml(hint)}</div>\n` +
+    `  <div class="hd"><div class="ttl">${escapeHtml(title)}</div>${renderHintHtml(hint)}</div>\n` +
     `${middle}` +
     `${svgLine}\n` +
     `${readoutLine}\n` +
