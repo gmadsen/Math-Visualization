@@ -10,7 +10,7 @@
       "prereqs": [
         "algebraic-structures"
       ],
-      "blurb": "The adjacency matrix $A$, degree matrix $D$, and combinatorial Laplacian $L=D-A$ \u2014 the discrete analogue of $-\\Delta$, with a real spectrum $0=\\lambda_1\\le\\lambda_2\\le\\cdots\\le\\lambda_n$ and the Dirichlet energy form $f^\\top L f = \\sum_{ij\\in E}(f(i)-f(j))^2$."
+      "blurb": "The adjacency matrix $A$, degree matrix $D$, and combinatorial Laplacian $L=D-A$ — the discrete analogue of $-\\Delta$, with a real spectrum $0=\\lambda_1\\le\\lambda_2\\le\\cdots\\le\\lambda_n$ and the Dirichlet energy form $f^\\top L f = \\sum_{ij\\in E}(f(i)-f(j))^2$."
     },
     {
       "id": "kernel-and-components",
@@ -28,7 +28,7 @@
       "prereqs": [
         "kernel-and-components"
       ],
-      "blurb": "$\\lambda_2$, the algebraic connectivity, is the smoothest mean-zero Dirichlet energy on $G$. It is positive iff $G$ is connected; its eigenvector \u2014 the Fiedler vector \u2014 sorts vertices for graph bisection."
+      "blurb": "$\\lambda_2$, the algebraic connectivity, is the smoothest mean-zero Dirichlet energy on $G$. It is positive iff $G$ is connected; its eigenvector — the Fiedler vector — sorts vertices for graph bisection."
     },
     {
       "id": "cheeger-inequality",
@@ -37,7 +37,7 @@
       "prereqs": [
         "algebraic-connectivity-fiedler"
       ],
-      "blurb": "$\\lambda_2/2 \\le h(G) \\le \\sqrt{2 d \\lambda_2}$ relates the algebraic connectivity to the edge-expansion constant $h(G)$. The proof's upper bound is the spectral sweep cut \u2014 a constant-factor approximation algorithm for sparsest cut."
+      "blurb": "$\\lambda_2/2 \\le h(G) \\le \\sqrt{2 d \\lambda_2}$ relates the algebraic connectivity to the edge-expansion constant $h(G)$. The proof's upper bound is the spectral sweep cut — a constant-factor approximation algorithm for sparsest cut."
     },
     {
       "id": "random-walks-mixing",
@@ -60,7 +60,7 @@
       "prereqs": [
         "random-walks-mixing"
       ],
-      "blurb": "$G$ is bipartite iff the normalised Laplacian achieves $\\nu_n=2$. Expander families have a uniform spectral gap; Alon\u2013Boppana gives $\\liminf \\lambda_2(A) \\ge 2\\sqrt{d-1}$, with Ramanujan graphs (LPS construction via Hecke eigenvalues) saturating it.",
+      "blurb": "$G$ is bipartite iff the normalised Laplacian achieves $\\nu_n=2$. Expander families have a uniform spectral gap; Alon–Boppana gives $\\liminf \\lambda_2(A) \\ge 2\\sqrt{d-1}$, with Ramanujan graphs (LPS construction via Hecke eigenvalues) saturating it.",
       "tags": [
         "classification"
       ]

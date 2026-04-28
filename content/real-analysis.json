@@ -702,7 +702,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./real-analysis.html#power-series-real\">Real analysis</a> · Power series &amp; radius of convergence</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./analytic-number-theory.html#pnt\">Analytic number theory</a> · $\\pi(x)$ and the prime number theorem</div>\n    <div><a href=\"./real-analysis.html#power-series-real\">Real analysis</a> · Power series &amp; radius of convergence</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

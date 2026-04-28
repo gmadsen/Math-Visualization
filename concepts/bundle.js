@@ -1505,7 +1505,6 @@ window.__MVConcepts = {
           "title": "Combinatorial expansion",
           "anchor": "definition",
           "prereqs": [
-            "adjacency-and-laplacian",
             "sets-functions"
           ],
           "blurb": "A $d$-regular graph $G$ on $n$ vertices is an $(n,d,\\varepsilon)$-expander when every vertex set $S$ with $|S|\\le n/2$ has $|N(S)|\\ge(1+\\varepsilon)|S|$ — small sets always touch many new neighbours, so the graph cannot be cleanly cut.",
@@ -8672,7 +8671,8 @@ window.__MVConcepts = {
           "anchor": "pnt",
           "prereqs": [
             "real-numbers",
-            "sets-functions"
+            "sets-functions",
+            "numeric-series"
           ],
           "blurb": "The counting function $\\pi(x) = \\#\\{p \\le x : p \\text{ prime}\\}$ satisfies $\\pi(x) \\sim x/\\log x$, equivalently $\\pi(x) \\sim \\mathrm{Li}(x) = \\int_2^x dt/\\log t$; the logarithmic integral is a substantially better numerical match.",
           "tags": [
@@ -12385,7 +12385,7 @@ window.__MVConcepts = {
       "concepts": 146,
       "intra": 249,
       "crossOut": 24,
-      "crossIn": 60,
+      "crossIn": 61,
       "density": 0.1643835616438356
     },
     "Probability & statistics": {
@@ -12405,9 +12405,9 @@ window.__MVConcepts = {
     "Number theory": {
       "concepts": 90,
       "intra": 115,
-      "crossOut": 35,
+      "crossOut": 36,
       "crossIn": 24,
-      "density": 0.3888888888888889
+      "density": 0.4
     },
     "Modular forms & L-functions": {
       "concepts": 85,
@@ -12425,7 +12425,7 @@ window.__MVConcepts = {
     },
     "Combinatorics & graph theory": {
       "concepts": 51,
-      "intra": 51,
+      "intra": 50,
       "crossOut": 24,
       "crossIn": 2,
       "density": 0.47058823529411764
