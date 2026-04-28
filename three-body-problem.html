@@ -265,7 +265,7 @@ Six second-order ODEs in three dimensions: $18$-dimensional phase space. Newton 
 
 <p>The system is Hamiltonian with $H = \sum_i \tfrac{|p_i|^2}{2m_i} - G\sum_{i<j}\frac{m_im_j}{|r_i-r_j|}$, so it carries the ten classical integrals: total energy $E$, total linear momentum $P$ (3 components), centre of mass $R(t) = R_0 + Pt/M$ (3 components), and total angular momentum $L$ (3 components). After Galilean reduction the effective phase space is $8$-dimensional; in the planar problem it reduces to $4$. Bruns (1887) proved <em>no further algebraic integrals exist</em> — there is no closed-form solution.</p>
 
-<div class="widget">
+<div class="widget" id="w-tbp-sim">
   <div class="hd"><div class="ttl">Two-body & three-body simulator</div><div class="hint">orbit traces; conservation readout</div></div>
   <div class="row">
     <button id="tbp-sim-preset-2body" class="active">2-body Kepler</button>
@@ -281,242 +281,8 @@ Six second-order ODEs in three dimensions: $18$-dimensional phase space. Newton 
   <svg id="tbp-sim" viewBox="-260 -180 520 360" width="100%" style="max-width:680px;background:#0b0f16;border:1px solid var(--line);border-radius:6px"></svg>
   <div class="readout" id="tbp-sim-readout">init…</div>
   <p class="small">Energy $E$, angular momentum $L_z$, and centre of mass $R$ are conserved exactly by the equations; the readout tracks how well the leapfrog integrator preserves them. The figure-eight initial conditions (Chenciner–Montgomery) are <code>r₁=(0.97,−0.243)</code>, <code>r₃=−r₁</code>, <code>r₂=0</code>, with velocities $\dot r_2 = -2\dot r_1 = -2\dot r_3 = (-0.93, 0.864)/2$ and $G=m_i=1$.</p>
-</div>
-
-<!-- callback-auto-begin -->
-<aside class="callback">
-  <div class="ttl">See also</div>
-  <ul>
-    <li><a href="./dynamical-systems.html#orbits">Orbits, flows, and vector fields</a></li>
-  </ul>
-</aside>
-<!-- callback-auto-end --><!-- backlinks-auto-begin -->
-<aside class="related">
-  <div class="ttl">Used in</div>
-    <div><a href="./three-body-problem.html#special">The three-body problem</a> · Lagrange, Euler, and the figure-eight</div>
-    <div><a href="./three-body-problem.html#restricted">The three-body problem</a> · Restricted three-body problem &amp; Lagrange points</div>
-</aside>
-<!-- backlinks-auto-end --><div class="quiz" data-concept="tbp-newton-equations"></div>
-</section>
-
-<section id="restricted">
-<h2>2. Restricted three-body & Lagrange points</h2>
-
-<p>Drop the third mass to zero. The two primaries $m_1,m_2$ now decouple — they trace a Keplerian ellipse — and the test particle obeys</p>
-$$\ddot r \;=\; -G\,\frac{m_1(r-r_1(t))}{|r-r_1(t)|^3} \;-\; G\,\frac{m_2(r-r_2(t))}{|r-r_2(t)|^3}.$$
-<p>In the <em>circular restricted</em> case, the primaries orbit at fixed separation; passing to a frame co-rotating at angular velocity $\Omega$ pins them at constant positions and gives a time-independent <em>effective potential</em></p>
-$$U_{\mathrm{eff}}(x,y) \;=\; -\tfrac{1}{2}\Omega^2(x^2+y^2) \;-\; \frac{Gm_1}{r_1} \;-\; \frac{Gm_2}{r_2}.$$
-<p>Critical points $\nabla U_{\mathrm{eff}} = 0$ are equilibria of the full rotating-frame dynamics (the Coriolis force vanishes at zero velocity). They form Lagrange's five points: three collinear $L_1, L_2, L_3$ on the $m_1$–$m_2$ axis (saddles for every mass ratio), and two equilateral $L_4, L_5$ at the apexes of equilateral triangles on the two sides of that axis.</p>
-
-<p class="note">Routh (1875): $L_4$ and $L_5$ are linearly stable (centres) when $\frac{m_1}{m_2} > \frac{25 + 3\sqrt{69}}{2} \approx 24.96$. The Sun–Jupiter ratio is $\approx 1047$, so the equilateral wells trap the Trojans. Earth–Moon is $\approx 81$, also stable; Sun–Earth is $\approx 333{,}000$, comfortably so.</p>
-
-<div class="widget">
-  <div class="hd"><div class="ttl">Effective potential & Lagrange points</div><div class="hint">drag the slider; watch $L_1$–$L_5$ slide</div></div>
-  <div class="row">
-    <label>mass ratio $\mu = m_2/(m_1+m_2)$ <input id="tbp-l-mu" type="range" min="0.001" max="0.5" step="0.001" value="0.1"></label>
-    <span id="tbp-l-mu-readout" class="small"></span>
-  </div>
-  <div class="row">
-    <label><input type="checkbox" id="tbp-l-contours" checked> show equipotential contours</label>
-    <label><input type="checkbox" id="tbp-l-zvc"> highlight $C =$ const Hill region</label>
-  </div>
-  <svg id="tbp-l" viewBox="-200 -150 400 300" width="100%" style="max-width:680px;background:#0b0f16;border:1px solid var(--line);border-radius:6px"></svg>
-  <div class="readout" id="tbp-l-readout"></div>
-</div>
-
-<aside class="callback"><div class="ttl">Prereq</div><ul>
-<li><a href="./dynamical-systems.html#fixed">dynamical-systems — Fixed points and linearization</a> — the same Hartman–Grobman analysis classifies the Lagrange points as saddles vs centres.</li>
-</ul></aside>
-
-<!-- callback-auto-begin -->
-<aside class="callback">
-  <div class="ttl">See also</div>
-  <ul>
-    <li><a href="./dynamical-systems.html#fixed">dynamical-systems — Fixed points and linearization</a> — the same Hartman–Grobman analysis classifies the Lagrange points as saddles vs centres.</li>
-  </ul>
-</aside>
-<!-- callback-auto-end --><!-- backlinks-auto-begin -->
-<aside class="related">
-  <div class="ttl">Used in</div>
-    <div><a href="./three-body-problem.html#poincare">The three-body problem</a> · Poincaré's tangle — the birth of chaos</div>
-    <div><a href="./three-body-problem.html#applications">The three-body problem</a> · Spacecraft trajectories and Trojan asteroids</div>
-</aside>
-<!-- backlinks-auto-end --><div class="quiz" data-concept="tbp-restricted-3body"></div>
-</section>
-
-<section id="special">
-<h2>3. Lagrange, Euler, and the figure-eight</h2>
-
-<p>The full three-body problem, away from the restricted limit, admits only a thin family of explicit solutions. Three classes of <em>relative equilibria</em> — solutions that look stationary in some rotating frame — were known before 1900:</p>
-
-<ul>
-  <li><strong>Lagrange (1772) — equilateral.</strong> Place the three masses at the vertices of an equilateral triangle with side $a$. Choose velocities so the triangle rigidly rotates about the common centre of mass. The configuration stays equilateral forever; in the planar case it can also expand and contract along a Keplerian similarity (homographic motions).</li>
-  <li><strong>Euler (1767) — collinear.</strong> Three masses on a rotating line, with separations in fixed ratios determined by a quintic in $m_1,m_2,m_3$. Three orderings of masses give three Euler families.</li>
-  <li><strong>Chenciner–Montgomery (2000) — figure-eight.</strong> For three <em>equal</em> masses, there exists a planar orbit on which all three bodies trace a single curve in the shape of a lemniscate, chasing each other with equal time-spacing. Discovered numerically by Moore (1993), proved rigorously by Chenciner and Montgomery via an action minimisation on a symmetry-constrained loop space.</li>
-</ul>
-
-<div class="widget">
-  <div class="hd"><div class="ttl">Three special solutions</div><div class="hint">click a button; watch the orbit</div></div>
-  <div class="row">
-    <button id="tbp-sp-eq" class="active">Lagrange equilateral</button>
-    <button id="tbp-sp-col">Euler collinear</button>
-    <button id="tbp-sp-eight">figure-eight</button>
-  </div>
-  <svg id="tbp-sp" viewBox="-200 -150 400 300" width="100%" style="max-width:680px;background:#0b0f16;border:1px solid var(--line);border-radius:6px"></svg>
-  <div class="readout" id="tbp-sp-readout"></div>
-  <p class="small">All three are <em>choreographies</em> in a generalised sense: every mass follows a translate (or the same copy) of one curve. The figure-eight is the only currently known choreography of three equal masses on a single curve in the plane that is not a relative equilibrium.</p>
-</div>
-
-<div class="quiz" data-concept="tbp-special-solutions"></div><!-- backlinks-auto-begin -->
-<aside class="related">
-  <div class="ttl">Used in</div>
-    <div><a href="./three-body-problem.html#applications">The three-body problem</a> · Spacecraft trajectories and Trojan asteroids</div>
-</aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<section id="poincare">
-<h2>4. Poincaré's tangle and the birth of chaos</h2>
-
-<p>King Oscar II of Sweden offered a prize in 1885 for an explicit series solution to the $n$-body problem. Poincaré won in 1889 with a memoir on the restricted three-body problem — and then, while preparing the published version, he discovered an error. His correction was deeper than the original work: stable and unstable manifolds of a hyperbolic periodic orbit can intersect transversally, and once they do, they must do so infinitely often.</p>
-
-<p>Poincaré's own description (1899): <em>"When one tries to depict the figure formed by these two curves and their infinitely many intersections... one is struck by the complexity of this figure, which I shall not even attempt to draw."</em> The picture — the <strong>homoclinic tangle</strong> — is the geometric heart of chaos.</p>
-
-<p>Smale (1965) extracted a topological model: take a unit square, stretch it horizontally by a factor $\lambda > 2$, compress it vertically by $\lambda^{-1}$, fold it into a horseshoe shape, and lay it back inside the original square. The invariant set $\Lambda = \bigcap_{n\in\mathbb{Z}} f^n(Q)$ is a Cantor-like set on which the dynamics is conjugate to the full shift $\sigma$ on $\{0,1\}^{\mathbb{Z}}$:</p>
-
-$$\bigl(\Lambda, f\bigr) \;\cong\; \bigl(\{0,1\}^{\mathbb{Z}},\, \sigma\bigr).$$
-
-<p>Consequences: countably many periodic orbits of every period, a dense orbit, sensitive dependence on initial conditions, positive topological entropy. Wherever a homoclinic tangle exists, a horseshoe is embedded — and so is chaos.</p>
-
-<div class="widget">
-  <div class="hd"><div class="ttl">Smale horseshoe — symbolic itinerary</div><div class="hint">click points; read off the binary code</div></div>
-  <div class="row">
-    <button id="tbp-h-step">step $f$</button>
-    <button id="tbp-h-back">step $f^{-1}$</button>
-    <button id="tbp-h-reset">reset</button>
-    <label>iterations <input id="tbp-h-iter" type="range" min="0" max="6" value="2"></label>
-  </div>
-  <svg id="tbp-h" viewBox="-180 -150 360 300" width="100%" style="max-width:680px;background:#0b0f16;border:1px solid var(--line);border-radius:6px"></svg>
-  <div class="readout" id="tbp-h-readout"></div>
-  <p class="small">Each iteration of the horseshoe map cuts the surviving set into thinner horizontal strips. After $n$ iterations forward (and $n$ back) what remains is $2^{2n}$ rectangles indexed by length-$2n$ binary words — the symbolic itinerary $\dots a_{-2}a_{-1}.a_0a_1a_2\dots$ of the Cantor set $\Lambda$.</p>
-</div>
-
-<aside class="callback"><div class="ttl">Prereq</div><ul>
-<li><a href="./dynamical-systems.html#poincare">dynamical-systems — Poincaré sections and return maps</a> — the horseshoe lives on a Poincaré section transverse to a periodic orbit.</li>
-<li><a href="./dynamical-systems.html#chaos">dynamical-systems — Chaos and Lyapunov exponents</a> — sensitive dependence + transitivity + dense periodic orbits.</li>
-</ul></aside>
-
-<!-- callback-auto-begin -->
-<aside class="callback">
-  <div class="ttl">See also</div>
-  <ul>
-    <li><a href="./dynamical-systems.html#poincare">dynamical-systems — Poincaré sections and return maps</a> — the horseshoe lives on a Poincaré section transverse to a periodic orbit.</li>
-    <li><a href="./dynamical-systems.html#chaos">dynamical-systems — Chaos and Lyapunov exponents</a> — sensitive dependence + transitivity + dense periodic orbits.</li>
-  </ul>
-</aside>
-<!-- callback-auto-end --><!-- backlinks-auto-begin -->
-<aside class="related">
-  <div class="ttl">Used in</div>
-    <div><a href="./three-body-problem.html#kam">The three-body problem</a> · KAM theorem and stability of the solar system</div>
-</aside>
-<!-- backlinks-auto-end --><div class="quiz" data-concept="tbp-poincare-tangle"></div>
-</section>
-
-<section id="kam">
-<h2>5. KAM and the stability of the solar system</h2>
-
-<p>Poincaré's tangle is a worst-case scenario: chaos is generic. But planetary orbits have been quasi-stable for billions of years — so what saves them?</p>
-
-<p>The answer is the <strong>Kolmogorov–Arnold–Moser theorem</strong>. Start with an integrable Hamiltonian $H_0(I)$ on action-angle variables $(I,\theta)\in\mathbb{R}^n\times\mathbb{T}^n$ — the phase space is foliated by invariant tori $\{I = \mathrm{const}\}$, on each of which the flow is linear with frequency $\omega(I) = \partial H_0/\partial I$. Perturb:</p>
-$$H(I,\theta) \;=\; H_0(I) \;+\; \varepsilon\,H_1(I,\theta).$$
-
-<p>Naively, every torus could break up under arbitrarily small $\varepsilon$. KAM (Kolmogorov 1954, Arnold 1963, Moser 1962) shows otherwise: <em>most</em> tori survive, deformed but topologically intact. The survivors are exactly those whose frequencies $\omega$ are <strong>Diophantine</strong>: there exist $\gamma > 0,\ \tau > n-1$ with</p>
-$$|k\cdot\omega| \;\ge\; \frac{\gamma}{|k|^\tau} \quad\text{for all }0\ne k\in\mathbb{Z}^n.$$
-<p>The set of Diophantine $\omega$ has full Lebesgue measure as $\gamma\to 0$, and the proof uses a Newton-style super-convergent iteration to defeat the small-denominator divergences $1/(k\cdot\omega)$ that doomed the classical perturbation series.</p>
-
-<p class="note">Resonant tori (where $k\cdot\omega = 0$ for some $k$) generically dissolve into <em>Birkhoff zones</em> of alternating elliptic and hyperbolic islands. Between the surviving KAM tori, chaos can leak through (Arnold diffusion); but for $n=2$ degrees of freedom, KAM tori topologically <em>enclose</em> the chaotic regions and bound them forever.</p>
-
-<div class="widget">
-  <div class="hd"><div class="ttl">KAM: tori vs. perturbation</div><div class="hint">drag $\varepsilon$; watch resonances destroy tori first</div></div>
-  <div class="row">
-    <label>$\varepsilon$ <input id="tbp-k-eps" type="range" min="0" max="1" step="0.01" value="0"></label>
-    <span id="tbp-k-eps-readout" class="small"></span>
-  </div>
-  <svg id="tbp-k" viewBox="-200 -150 400 300" width="100%" style="max-width:680px;background:#0b0f16;border:1px solid var(--line);border-radius:6px"></svg>
-  <div class="readout" id="tbp-k-readout"></div>
-  <p class="small">Schematic: each ring is an invariant torus indexed by its rotation number $\rho = \omega_2/\omega_1$. Rational $\rho$ resonates first — the torus breaks into a Birkhoff chain of islands. Irrational $\rho$ with high Diophantine constant survive longest. The golden mean $\rho = (\sqrt{5}-1)/2$ is the most robust (Greene's residue criterion).</p>
-</div>
-
-<aside class="callback"><div class="ttl">Prereq</div><ul>
-<li><a href="./symplectic-manifolds.html#hamiltonian">symplectic-manifolds — Hamiltonian vector fields and flows</a> — KAM is a theorem about Hamiltonian perturbations of integrable systems on a symplectic manifold.</li>
-</ul></aside>
-
-<!-- callback-auto-begin -->
-<aside class="callback">
-  <div class="ttl">See also</div>
-  <ul>
-    <li><a href="./symplectic-manifolds.html#hamiltonian">symplectic-manifolds — Hamiltonian vector fields and flows</a> — KAM is a theorem about Hamiltonian perturbations of integrable systems on a symplectic manifold.</li>
-    <li><a href="./measure-theory.html#lebesgue">Lebesgue measure</a></li>
-  </ul>
-</aside>
-<!-- callback-auto-end --><div class="quiz" data-concept="tbp-kam"></div>
-</section>
-
-<section id="applications">
-<h2>6. Spacecraft, Trojans, and exoplanet stability</h2>
-
-<p>Three-body dynamics is not academic. The Lagrange points are real estate; the homoclinic web is a transit network; KAM bounds tell us which exoplanet architectures can persist.</p>
-
-<table class="plain">
-  <thead><tr><th>Mission / object</th><th>Where</th><th>Three-body role</th></tr></thead>
-  <tbody>
-    <tr><td>JWST</td><td>Sun–Earth $L_2$ halo</td><td>$L_2$ saddle exploited; passive shading from sun, earth, moon</td></tr>
-    <tr><td>SOHO, ACE, DSCOVR</td><td>Sun–Earth $L_1$</td><td>continuous solar-wind monitor between sun and earth</td></tr>
-    <tr><td>LRO, lunar gateway</td><td>Earth–Moon $L_1, L_2$</td><td>cislunar staging on near-rectilinear halo orbits</td></tr>
-    <tr><td>Voyager 1 / 2</td><td>Jupiter, Saturn flybys</td><td>gravity assists $\Rightarrow$ solar-system escape</td></tr>
-    <tr><td>Trojan asteroids</td><td>Sun–Jupiter $L_4, L_5$</td><td>$\sim 10^4$ bodies librating in equilateral wells</td></tr>
-    <tr><td>Genesis (2001)</td><td>Sun–Earth $L_1$ &amp; $L_2$</td><td>low-energy transfer along stable manifolds (Koon–Lo–Marsden–Ross)</td></tr>
-  </tbody>
-</table>
-
-<p>The <strong>interplanetary transport network</strong>, formalised by Koon, Lo, Marsden, and Ross around 2000, exploits the same homoclinic tangle Poincaré described to design near-zero-fuel transfers between planets. Trajectories ride invariant manifolds of $L_1$/$L_2$ Lyapunov orbits; intersections of stable and unstable manifolds in different three-body subsystems splice into a multi-planet itinerary.</p>
-
-<p>For exoplanets, KAM and resonance overlap criteria (Wisdom, Murray–Holman) bound which multi-planet architectures are dynamically stable on Gyr timescales. Mean-motion resonances (e.g. Trappist-1's $8\!:\!5\!:\!3\!:\!2\!:\!3\!:\!4\!:\!3$ Laplace chain) sit on the boundary between order and chaos — protected by KAM tori on one side, eaten by Arnold diffusion on the other.</p>
-
-<div class="widget">
-  <div class="hd"><div class="ttl">Halo orbit at $L_1$ / $L_2$</div><div class="hint">click a Lagrange point; integrate locally</div></div>
-  <div class="row">
-    <button id="tbp-h2-l1" class="active">$L_1$ halo</button>
-    <button id="tbp-h2-l2">$L_2$ halo</button>
-    <button id="tbp-h2-l4">$L_4$ tadpole</button>
-    <label>amplitude <input id="tbp-h2-amp" type="range" min="0.02" max="0.2" step="0.01" value="0.08"></label>
-  </div>
-  <svg id="tbp-h2" viewBox="-200 -150 400 300" width="100%" style="max-width:680px;background:#0b0f16;border:1px solid var(--line);border-radius:6px"></svg>
-  <div class="readout" id="tbp-h2-readout"></div>
-  <p class="small">Halo orbits at $L_1$/$L_2$ are 3D periodic orbits in the rotating frame; tadpole orbits at $L_4$ are large-amplitude librations. Real spacecraft halo orbits (e.g. JWST's around Sun–Earth $L_2$) have amplitudes $\sim 10^5$ km — small fractions of the Earth–Sun distance.</p>
-</div>
-
-<div class="quiz" data-concept="tbp-applications"></div>
-</section>
-
-<section id="connections">
-<h2>Connections</h2>
-
-<p>The three-body problem is unsolved in a precise sense: no algebraic first integrals beyond the classical ten exist (Bruns, Poincaré), and Sundman's 1912 convergent series — though formally giving a global solution — converges so slowly that no useful number ever emerges. The questions that remain open are surprising: <em>are all bounded planar solutions either Lagrangian, Euler, or chaotic? do new choreographies with more bodies exist generically? how thick is Arnold diffusion in the real solar system, and can it explain Mercury's marginal long-term stability?</em></p>
-
-<ul>
-  <li><a href="./dynamical-systems.html#chaos">dynamical-systems — Chaos and Lyapunov exponents</a> — the qualitative theory Poincaré invented to handle this problem.</li>
-  <li><a href="./symplectic-manifolds.html#hamiltonian">symplectic-manifolds — Hamiltonian flows</a> — the geometric stage on which KAM is proved.</li>
-  <li><a href="./symplectic-manifolds.html#poisson">symplectic-manifolds — Poisson bracket</a> — energy and angular momentum Poisson-commute, encoding the conservation laws.</li>
-  <li><a href="./hamiltonians-classical-mechanics.html#intro">hamiltonians-classical-mechanics</a> — action-angle variables and integrable systems are the backdrop KAM perturbs.</li>
-  <li><a href="./morse-theory.html#critical">morse-theory — Critical points and Morse functions</a> — the variational construction of the figure-eight is Morse theory on a constrained loop space.</li>
-</ul>
-</section>
-
-</main>
-
-<script>
-/* ========================== Widget 1: N-body simulator ========================== */
+</div><script>
+/* Widget 1: N-body simulator */
 (function(){
   const svg = document.getElementById("tbp-sim");
   const readout = document.getElementById("tbp-sim-readout");
@@ -678,8 +444,49 @@ $$|k\cdot\omega| \;\ge\; \frac{\gamma}{|k|^\tau} \quad\text{for all }0\ne k\in\m
     });
   });
 })();
+</script>
 
-/* ========================== Widget 2: Lagrange points ========================== */
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./dynamical-systems.html#orbits">Orbits, flows, and vector fields</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./three-body-problem.html#special">The three-body problem</a> · Lagrange, Euler, and the figure-eight</div>
+    <div><a href="./three-body-problem.html#restricted">The three-body problem</a> · Restricted three-body problem &amp; Lagrange points</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="tbp-newton-equations"></div>
+</section>
+
+<section id="restricted">
+<h2>2. Restricted three-body & Lagrange points</h2>
+
+<p>Drop the third mass to zero. The two primaries $m_1,m_2$ now decouple — they trace a Keplerian ellipse — and the test particle obeys</p>
+$$\ddot r \;=\; -G\,\frac{m_1(r-r_1(t))}{|r-r_1(t)|^3} \;-\; G\,\frac{m_2(r-r_2(t))}{|r-r_2(t)|^3}.$$
+<p>In the <em>circular restricted</em> case, the primaries orbit at fixed separation; passing to a frame co-rotating at angular velocity $\Omega$ pins them at constant positions and gives a time-independent <em>effective potential</em></p>
+$$U_{\mathrm{eff}}(x,y) \;=\; -\tfrac{1}{2}\Omega^2(x^2+y^2) \;-\; \frac{Gm_1}{r_1} \;-\; \frac{Gm_2}{r_2}.$$
+<p>Critical points $\nabla U_{\mathrm{eff}} = 0$ are equilibria of the full rotating-frame dynamics (the Coriolis force vanishes at zero velocity). They form Lagrange's five points: three collinear $L_1, L_2, L_3$ on the $m_1$–$m_2$ axis (saddles for every mass ratio), and two equilateral $L_4, L_5$ at the apexes of equilateral triangles on the two sides of that axis.</p>
+
+<p class="note">Routh (1875): $L_4$ and $L_5$ are linearly stable (centres) when $\frac{m_1}{m_2} > \frac{25 + 3\sqrt{69}}{2} \approx 24.96$. The Sun–Jupiter ratio is $\approx 1047$, so the equilateral wells trap the Trojans. Earth–Moon is $\approx 81$, also stable; Sun–Earth is $\approx 333{,}000$, comfortably so.</p>
+
+<div class="widget" id="w-tbp-l">
+  <div class="hd"><div class="ttl">Effective potential & Lagrange points</div><div class="hint">drag the slider; watch $L_1$–$L_5$ slide</div></div>
+  <div class="row">
+    <label>mass ratio $\mu = m_2/(m_1+m_2)$ <input id="tbp-l-mu" type="range" min="0.001" max="0.5" step="0.001" value="0.1"></label>
+    <span id="tbp-l-mu-readout" class="small"></span>
+  </div>
+  <div class="row">
+    <label><input type="checkbox" id="tbp-l-contours" checked> show equipotential contours</label>
+    <label><input type="checkbox" id="tbp-l-zvc"> highlight $C =$ const Hill region</label>
+  </div>
+  <svg id="tbp-l" viewBox="-200 -150 400 300" width="100%" style="max-width:680px;background:#0b0f16;border:1px solid var(--line);border-radius:6px"></svg>
+  <div class="readout" id="tbp-l-readout"></div>
+</div><script>
+/* Widget 2: Lagrange points */
 (function(){
   const svg = document.getElementById("tbp-l");
   const readout = document.getElementById("tbp-l-readout");
@@ -804,8 +611,51 @@ $$|k\cdot\omega| \;\ge\; \frac{\gamma}{|k|^\tau} \quad\text{for all }0\ne k\in\m
   cbZVC.addEventListener("change", draw);
   draw();
 })();
+</script>
 
-/* ========================== Widget 3: Special solutions ========================== */
+<aside class="callback"><div class="ttl">Prereq</div><ul>
+<li><a href="./dynamical-systems.html#fixed">dynamical-systems — Fixed points and linearization</a> — the same Hartman–Grobman analysis classifies the Lagrange points as saddles vs centres.</li>
+</ul></aside>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./dynamical-systems.html#fixed">dynamical-systems — Fixed points and linearization</a> — the same Hartman–Grobman analysis classifies the Lagrange points as saddles vs centres.</li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./three-body-problem.html#poincare">The three-body problem</a> · Poincaré's tangle — the birth of chaos</div>
+    <div><a href="./three-body-problem.html#applications">The three-body problem</a> · Spacecraft trajectories and Trojan asteroids</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="tbp-restricted-3body"></div>
+</section>
+
+<section id="special">
+<h2>3. Lagrange, Euler, and the figure-eight</h2>
+
+<p>The full three-body problem, away from the restricted limit, admits only a thin family of explicit solutions. Three classes of <em>relative equilibria</em> — solutions that look stationary in some rotating frame — were known before 1900:</p>
+
+<ul>
+  <li><strong>Lagrange (1772) — equilateral.</strong> Place the three masses at the vertices of an equilateral triangle with side $a$. Choose velocities so the triangle rigidly rotates about the common centre of mass. The configuration stays equilateral forever; in the planar case it can also expand and contract along a Keplerian similarity (homographic motions).</li>
+  <li><strong>Euler (1767) — collinear.</strong> Three masses on a rotating line, with separations in fixed ratios determined by a quintic in $m_1,m_2,m_3$. Three orderings of masses give three Euler families.</li>
+  <li><strong>Chenciner–Montgomery (2000) — figure-eight.</strong> For three <em>equal</em> masses, there exists a planar orbit on which all three bodies trace a single curve in the shape of a lemniscate, chasing each other with equal time-spacing. Discovered numerically by Moore (1993), proved rigorously by Chenciner and Montgomery via an action minimisation on a symmetry-constrained loop space.</li>
+</ul>
+
+<div class="widget" id="w-tbp-sp">
+  <div class="hd"><div class="ttl">Three special solutions</div><div class="hint">click a button; watch the orbit</div></div>
+  <div class="row">
+    <button id="tbp-sp-eq" class="active">Lagrange equilateral</button>
+    <button id="tbp-sp-col">Euler collinear</button>
+    <button id="tbp-sp-eight">figure-eight</button>
+  </div>
+  <svg id="tbp-sp" viewBox="-200 -150 400 300" width="100%" style="max-width:680px;background:#0b0f16;border:1px solid var(--line);border-radius:6px"></svg>
+  <div class="readout" id="tbp-sp-readout"></div>
+  <p class="small">All three are <em>choreographies</em> in a generalised sense: every mass follows a translate (or the same copy) of one curve. The figure-eight is the only currently known choreography of three equal masses on a single curve in the plane that is not a relative equilibrium.</p>
+</div><script>
+/* Widget 3: Special solutions */
 (function(){
   const svg = document.getElementById("tbp-sp");
   const readout = document.getElementById("tbp-sp-readout");
@@ -893,8 +743,42 @@ $$|k\cdot\omega| \;\ge\; \frac{\gamma}{|k|^\tau} \quad\text{for all }0\ne k\in\m
     btn.classList.add("active");
   }
 })();
+</script>
 
-/* ========================== Widget 4: Smale horseshoe ========================== */
+<div class="quiz" data-concept="tbp-special-solutions"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./three-body-problem.html#applications">The three-body problem</a> · Spacecraft trajectories and Trojan asteroids</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="poincare">
+<h2>4. Poincaré's tangle and the birth of chaos</h2>
+
+<p>King Oscar II of Sweden offered a prize in 1885 for an explicit series solution to the $n$-body problem. Poincaré won in 1889 with a memoir on the restricted three-body problem — and then, while preparing the published version, he discovered an error. His correction was deeper than the original work: stable and unstable manifolds of a hyperbolic periodic orbit can intersect transversally, and once they do, they must do so infinitely often.</p>
+
+<p>Poincaré's own description (1899): <em>"When one tries to depict the figure formed by these two curves and their infinitely many intersections... one is struck by the complexity of this figure, which I shall not even attempt to draw."</em> The picture — the <strong>homoclinic tangle</strong> — is the geometric heart of chaos.</p>
+
+<p>Smale (1965) extracted a topological model: take a unit square, stretch it horizontally by a factor $\lambda > 2$, compress it vertically by $\lambda^{-1}$, fold it into a horseshoe shape, and lay it back inside the original square. The invariant set $\Lambda = \bigcap_{n\in\mathbb{Z}} f^n(Q)$ is a Cantor-like set on which the dynamics is conjugate to the full shift $\sigma$ on $\{0,1\}^{\mathbb{Z}}$:</p>
+
+$$\bigl(\Lambda, f\bigr) \;\cong\; \bigl(\{0,1\}^{\mathbb{Z}},\, \sigma\bigr).$$
+
+<p>Consequences: countably many periodic orbits of every period, a dense orbit, sensitive dependence on initial conditions, positive topological entropy. Wherever a homoclinic tangle exists, a horseshoe is embedded — and so is chaos.</p>
+
+<div class="widget" id="w-tbp-h">
+  <div class="hd"><div class="ttl">Smale horseshoe — symbolic itinerary</div><div class="hint">click points; read off the binary code</div></div>
+  <div class="row">
+    <button id="tbp-h-step">step $f$</button>
+    <button id="tbp-h-back">step $f^{-1}$</button>
+    <button id="tbp-h-reset">reset</button>
+    <label>iterations <input id="tbp-h-iter" type="range" min="0" max="6" value="2"></label>
+  </div>
+  <svg id="tbp-h" viewBox="-180 -150 360 300" width="100%" style="max-width:680px;background:#0b0f16;border:1px solid var(--line);border-radius:6px"></svg>
+  <div class="readout" id="tbp-h-readout"></div>
+  <p class="small">Each iteration of the horseshoe map cuts the surviving set into thinner horizontal strips. After $n$ iterations forward (and $n$ back) what remains is $2^{2n}$ rectangles indexed by length-$2n$ binary words — the symbolic itinerary $\dots a_{-2}a_{-1}.a_0a_1a_2\dots$ of the Cantor set $\Lambda$.</p>
+</div><script>
+/* Widget 4: Smale horseshoe */
 (function(){
   const svg = document.getElementById("tbp-h");
   const readout = document.getElementById("tbp-h-readout");
@@ -939,8 +823,54 @@ $$|k\cdot\omega| \;\ge\; \frac{\gamma}{|k|^\tau} \quad\text{for all }0\ne k\in\m
   document.getElementById("tbp-h-reset").addEventListener("click", ()=>{ iter.value = 0; draw(); });
   draw();
 })();
+</script>
 
-/* ========================== Widget 5: KAM tori ========================== */
+<aside class="callback"><div class="ttl">Prereq</div><ul>
+<li><a href="./dynamical-systems.html#poincare">dynamical-systems — Poincaré sections and return maps</a> — the horseshoe lives on a Poincaré section transverse to a periodic orbit.</li>
+<li><a href="./dynamical-systems.html#chaos">dynamical-systems — Chaos and Lyapunov exponents</a> — sensitive dependence + transitivity + dense periodic orbits.</li>
+</ul></aside>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./dynamical-systems.html#poincare">dynamical-systems — Poincaré sections and return maps</a> — the horseshoe lives on a Poincaré section transverse to a periodic orbit.</li>
+    <li><a href="./dynamical-systems.html#chaos">dynamical-systems — Chaos and Lyapunov exponents</a> — sensitive dependence + transitivity + dense periodic orbits.</li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./three-body-problem.html#kam">The three-body problem</a> · KAM theorem and stability of the solar system</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="tbp-poincare-tangle"></div>
+</section>
+
+<section id="kam">
+<h2>5. KAM and the stability of the solar system</h2>
+
+<p>Poincaré's tangle is a worst-case scenario: chaos is generic. But planetary orbits have been quasi-stable for billions of years — so what saves them?</p>
+
+<p>The answer is the <strong>Kolmogorov–Arnold–Moser theorem</strong>. Start with an integrable Hamiltonian $H_0(I)$ on action-angle variables $(I,\theta)\in\mathbb{R}^n\times\mathbb{T}^n$ — the phase space is foliated by invariant tori $\{I = \mathrm{const}\}$, on each of which the flow is linear with frequency $\omega(I) = \partial H_0/\partial I$. Perturb:</p>
+$$H(I,\theta) \;=\; H_0(I) \;+\; \varepsilon\,H_1(I,\theta).$$
+
+<p>Naively, every torus could break up under arbitrarily small $\varepsilon$. KAM (Kolmogorov 1954, Arnold 1963, Moser 1962) shows otherwise: <em>most</em> tori survive, deformed but topologically intact. The survivors are exactly those whose frequencies $\omega$ are <strong>Diophantine</strong>: there exist $\gamma > 0,\ \tau > n-1$ with</p>
+$$|k\cdot\omega| \;\ge\; \frac{\gamma}{|k|^\tau} \quad\text{for all }0\ne k\in\mathbb{Z}^n.$$
+<p>The set of Diophantine $\omega$ has full Lebesgue measure as $\gamma\to 0$, and the proof uses a Newton-style super-convergent iteration to defeat the small-denominator divergences $1/(k\cdot\omega)$ that doomed the classical perturbation series.</p>
+
+<p class="note">Resonant tori (where $k\cdot\omega = 0$ for some $k$) generically dissolve into <em>Birkhoff zones</em> of alternating elliptic and hyperbolic islands. Between the surviving KAM tori, chaos can leak through (Arnold diffusion); but for $n=2$ degrees of freedom, KAM tori topologically <em>enclose</em> the chaotic regions and bound them forever.</p>
+
+<div class="widget" id="w-tbp-k">
+  <div class="hd"><div class="ttl">KAM: tori vs. perturbation</div><div class="hint">drag $\varepsilon$; watch resonances destroy tori first</div></div>
+  <div class="row">
+    <label>$\varepsilon$ <input id="tbp-k-eps" type="range" min="0" max="1" step="0.01" value="0"></label>
+    <span id="tbp-k-eps-readout" class="small"></span>
+  </div>
+  <svg id="tbp-k" viewBox="-200 -150 400 300" width="100%" style="max-width:680px;background:#0b0f16;border:1px solid var(--line);border-radius:6px"></svg>
+  <div class="readout" id="tbp-k-readout"></div>
+  <p class="small">Schematic: each ring is an invariant torus indexed by its rotation number $\rho = \omega_2/\omega_1$. Rational $\rho$ resonates first — the torus breaks into a Birkhoff chain of islands. Irrational $\rho$ with high Diophantine constant survive longest. The golden mean $\rho = (\sqrt{5}-1)/2$ is the most robust (Greene's residue criterion).</p>
+</div><script>
+/* Widget 5: KAM tori */
 (function(){
   const svg = document.getElementById("tbp-k");
   const readout = document.getElementById("tbp-k-readout");
@@ -1008,8 +938,57 @@ $$|k\cdot\omega| \;\ge\; \frac{\gamma}{|k|^\tau} \quad\text{for all }0\ne k\in\m
   epsSlider.addEventListener("input", draw);
   draw();
 })();
+</script>
 
-/* ========================== Widget 6: Halo orbits ========================== */
+<aside class="callback"><div class="ttl">Prereq</div><ul>
+<li><a href="./symplectic-manifolds.html#hamiltonian">symplectic-manifolds — Hamiltonian vector fields and flows</a> — KAM is a theorem about Hamiltonian perturbations of integrable systems on a symplectic manifold.</li>
+</ul></aside>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./symplectic-manifolds.html#hamiltonian">symplectic-manifolds — Hamiltonian vector fields and flows</a> — KAM is a theorem about Hamiltonian perturbations of integrable systems on a symplectic manifold.</li>
+    <li><a href="./measure-theory.html#lebesgue">Lebesgue measure</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="tbp-kam"></div>
+</section>
+
+<section id="applications">
+<h2>6. Spacecraft, Trojans, and exoplanet stability</h2>
+
+<p>Three-body dynamics is not academic. The Lagrange points are real estate; the homoclinic web is a transit network; KAM bounds tell us which exoplanet architectures can persist.</p>
+
+<table class="plain">
+  <thead><tr><th>Mission / object</th><th>Where</th><th>Three-body role</th></tr></thead>
+  <tbody>
+    <tr><td>JWST</td><td>Sun–Earth $L_2$ halo</td><td>$L_2$ saddle exploited; passive shading from sun, earth, moon</td></tr>
+    <tr><td>SOHO, ACE, DSCOVR</td><td>Sun–Earth $L_1$</td><td>continuous solar-wind monitor between sun and earth</td></tr>
+    <tr><td>LRO, lunar gateway</td><td>Earth–Moon $L_1, L_2$</td><td>cislunar staging on near-rectilinear halo orbits</td></tr>
+    <tr><td>Voyager 1 / 2</td><td>Jupiter, Saturn flybys</td><td>gravity assists $\Rightarrow$ solar-system escape</td></tr>
+    <tr><td>Trojan asteroids</td><td>Sun–Jupiter $L_4, L_5$</td><td>$\sim 10^4$ bodies librating in equilateral wells</td></tr>
+    <tr><td>Genesis (2001)</td><td>Sun–Earth $L_1$ &amp; $L_2$</td><td>low-energy transfer along stable manifolds (Koon–Lo–Marsden–Ross)</td></tr>
+  </tbody>
+</table>
+
+<p>The <strong>interplanetary transport network</strong>, formalised by Koon, Lo, Marsden, and Ross around 2000, exploits the same homoclinic tangle Poincaré described to design near-zero-fuel transfers between planets. Trajectories ride invariant manifolds of $L_1$/$L_2$ Lyapunov orbits; intersections of stable and unstable manifolds in different three-body subsystems splice into a multi-planet itinerary.</p>
+
+<p>For exoplanets, KAM and resonance overlap criteria (Wisdom, Murray–Holman) bound which multi-planet architectures are dynamically stable on Gyr timescales. Mean-motion resonances (e.g. Trappist-1's $8\!:\!5\!:\!3\!:\!2\!:\!3\!:\!4\!:\!3$ Laplace chain) sit on the boundary between order and chaos — protected by KAM tori on one side, eaten by Arnold diffusion on the other.</p>
+
+<div class="widget" id="w-tbp-h2">
+  <div class="hd"><div class="ttl">Halo orbit at $L_1$ / $L_2$</div><div class="hint">click a Lagrange point; integrate locally</div></div>
+  <div class="row">
+    <button id="tbp-h2-l1" class="active">$L_1$ halo</button>
+    <button id="tbp-h2-l2">$L_2$ halo</button>
+    <button id="tbp-h2-l4">$L_4$ tadpole</button>
+    <label>amplitude <input id="tbp-h2-amp" type="range" min="0.02" max="0.2" step="0.01" value="0.08"></label>
+  </div>
+  <svg id="tbp-h2" viewBox="-200 -150 400 300" width="100%" style="max-width:680px;background:#0b0f16;border:1px solid var(--line);border-radius:6px"></svg>
+  <div class="readout" id="tbp-h2-readout"></div>
+  <p class="small">Halo orbits at $L_1$/$L_2$ are 3D periodic orbits in the rotating frame; tadpole orbits at $L_4$ are large-amplitude librations. Real spacecraft halo orbits (e.g. JWST's around Sun–Earth $L_2$) have amplitudes $\sim 10^5$ km — small fractions of the Earth–Sun distance.</p>
+</div><script>
+/* Widget 6: Halo orbits */
 (function(){
   const svg = document.getElementById("tbp-h2");
   const readout = document.getElementById("tbp-h2-readout");
@@ -1109,6 +1088,25 @@ $$|k\cdot\omega| \;\ge\; \frac{\gamma}{|k|^\tau} \quad\text{for all }0\ne k\in\m
   }
 })();
 </script>
+
+<div class="quiz" data-concept="tbp-applications"></div>
+</section>
+
+<section id="connections">
+<h2>Connections</h2>
+
+<p>The three-body problem is unsolved in a precise sense: no algebraic first integrals beyond the classical ten exist (Bruns, Poincaré), and Sundman's 1912 convergent series — though formally giving a global solution — converges so slowly that no useful number ever emerges. The questions that remain open are surprising: <em>are all bounded planar solutions either Lagrangian, Euler, or chaotic? do new choreographies with more bodies exist generically? how thick is Arnold diffusion in the real solar system, and can it explain Mercury's marginal long-term stability?</em></p>
+
+<ul>
+  <li><a href="./dynamical-systems.html#chaos">dynamical-systems — Chaos and Lyapunov exponents</a> — the qualitative theory Poincaré invented to handle this problem.</li>
+  <li><a href="./symplectic-manifolds.html#hamiltonian">symplectic-manifolds — Hamiltonian flows</a> — the geometric stage on which KAM is proved.</li>
+  <li><a href="./symplectic-manifolds.html#poisson">symplectic-manifolds — Poisson bracket</a> — energy and angular momentum Poisson-commute, encoding the conservation laws.</li>
+  <li><a href="./hamiltonians-classical-mechanics.html#intro">hamiltonians-classical-mechanics</a> — action-angle variables and integrable systems are the backdrop KAM perturbs.</li>
+  <li><a href="./morse-theory.html#critical">morse-theory — Critical points and Morse functions</a> — the variational construction of the figure-eight is Morse theory on a constrained loop space.</li>
+</ul>
+</section>
+
+</main>
 
 <script>
 /* sidebar TOC builder + active-section highlighting */

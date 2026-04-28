@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/three-body-lagrange-points/schema.json",
+  "title": "three-body-lagrange-points widget params",
+  "description": "Bespoke widget for the §2 effective-potential / Lagrange-points illustration on the three-body-problem topic — a mass-ratio slider $\\mu = m_2/(m_1+m_2)$ with a small inline `<span class=\"small\">` readout, two checkboxes (equipotential contours, Hill-region highlight), an SVG showing the rotating-frame configuration with $L_1$–$L_5$ marked, and a textual readout listing the five Lagrange-point coordinates. The slider+span layout in one row + two checkboxes in a second row + svg + readout doesn't fit any shared slug; this slug captures it as one unit.",
+  "meta": {
+    "family": "three-body-lagrange-points",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title",
+    "hint",
+    "bodyMarkup",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\">. Required by the corpus-wide test-widget-renderers convention."
+    },
+    "title": {
+      "type": "string",
+      "description": "Header title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Header hint rendered inside .hd > .hint."
+    },
+    "bodyMarkup": {
+      "type": "string",
+      "x-artifact": "verbatim inner-body HTML; portable consumers should rebuild slider+checkboxes+svg+readout from explicit fields once a shared shape proves out",
+      "description": "ARTIFACT. Verbatim HTML emitted between the closing </div> of the .hd row and the closing </div> of the outer widget — slider row with inline span readout, checkbox row, <svg>, readout div."
+    },
+    "sectionComment": {
+      "type": "string",
+      "description": "ARTIFACT. Optional /* ... */ banner placed between the leading <script> tag and the IIFE opener."
+    },
+    "bodyScript": {
+      "type": "string",
+      "x-artifact": "script body is bespoke; portable consumers should re-implement the Lagrange-point root-finder, marching-squares contouring, and Hill-region rasterizer from scratch",
+      "description": "ARTIFACT. Verbatim JS statements that go inside `(function(){\\n…\\n})();` — wires the slider + checkboxes, computes the five Lagrange-point coordinates, draws contours and the Hill region, and updates the readout."
+    }
+  }
+}
