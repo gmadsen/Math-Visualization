@@ -241,6 +241,8 @@ function drawNode(svg, x, y, label, opts={}){
   <a href="#inequalities">4&nbsp;Morse&nbsp;inequalities</a>
   <a href="#morse-homology">5&nbsp;Morse&nbsp;homology</a>
   <a href="#applications">6&nbsp;Applications</a>
+  <a href="#morse-smale">7&nbsp;Morse–Smale&nbsp;flows</a>
+  <a href="#cerf-theory">8&nbsp;Cerf&nbsp;theory</a>
 </nav>
 <!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
 
@@ -296,6 +298,7 @@ So locally, every Morse critical point looks the same — only the index disting
 <!-- callback-auto-end --><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./morse-theory.html#cerf-theory">Morse theory</a> · Cerf theory and wall-crossing</div>
     <div><a href="./morse-theory.html#handle-decomp">Morse theory</a> · Handle decomposition via sublevel sets</div>
     <div><a href="./symplectic-manifolds.html#floer">Symplectic manifolds</a> · Floer homology — a preview</div>
 </aside>
@@ -339,7 +342,9 @@ where the $k$-handle $D^k\times D^{n-k}$ is glued along $\partial D^k\times D^{n
 <!-- callback-auto-end --><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./morse-theory.html#cerf-theory">Morse theory</a> · Cerf theory and wall-crossing</div>
     <div><a href="./morse-theory.html#cw-structure">Morse theory</a> · CW structure from a Morse function</div>
+    <div><a href="./morse-theory.html#morse-smale">Morse theory</a> · Morse–Smale gradients and transversality</div>
 </aside>
 <!-- backlinks-auto-end -->
 
@@ -448,6 +453,7 @@ $$HM_*(M) \;\cong\; H_*(M;\mathbb{Z}).$$</div>
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./morse-theory.html#applications">Morse theory</a> · Applications and generalisations</div>
+    <div><a href="./morse-theory.html#morse-smale">Morse theory</a> · Morse–Smale gradients and transversality</div>
 </aside>
 <!-- backlinks-auto-end -->
 
@@ -483,8 +489,111 @@ $$HM_*(M) \;\cong\; H_*(M;\mathbb{Z}).$$</div>
 <div class="quiz" data-concept="mt-applications"></div>
 </section>
 
+<section id="morse-smale">
+<h2>7. Morse–Smale flows and transversality</h2>
+<p>The Morse-homology section quietly invoked a <em>Morse–Smale</em> pair $(f,g)$ — a Morse function plus a Riemannian metric whose negative gradient flow has a transversality property. That assumption is the engine: it turns the abstract count of trajectories into a counting argument with finitely many isolated answers, and it forces the squared boundary $\partial^2$ to vanish for a geometric reason rather than by hand. This section opens up that machinery.</p>
+
+<p>Fix a Morse $f\colon M\to\mathbb{R}$ and a Riemannian metric $g$ defining $\nabla f$. For each critical point $p$, the <strong>stable</strong> and <strong>unstable manifolds</strong> are
+$$W^s(p) = \{x\in M : \Phi_t(x)\to p \text{ as } t\to+\infty\}, \quad W^u(p) = \{x\in M : \Phi_t(x)\to p \text{ as } t\to-\infty\},$$
+where $\Phi_t$ is the negative gradient flow. Each $W^s(p)$ is a smoothly embedded open disk of dimension $n-\ind(p)$; each $W^u(p)$ has dimension $\ind(p)$. They partition $M$:
+$$M \;=\; \bigsqcup_{p\in\mathrm{Crit}(f)} W^u(p) \;=\; \bigsqcup_{p\in\mathrm{Crit}(f)} W^s(p).$$
+A gradient trajectory from $p$ to $q$ is exactly a point of $W^u(p)\cap W^s(q)$.</p>
+
+<div class="note"><strong>Morse–Smale condition.</strong> The pair $(f,g)$ is <em>Morse–Smale</em> if for every $p,q\in\mathrm{Crit}(f)$, the stable manifold $W^s(q)$ meets the unstable manifold $W^u(p)$ <em>transversally</em>:
+$$T_xW^u(p) + T_xW^s(q) \;=\; T_xM \quad \text{at every } x\in W^u(p)\cap W^s(q).$$
+When $\ind(p) - \ind(q) = 1$, this forces $W^u(p)\cap W^s(q)$ to be a $1$-manifold; modding out the $\mathbb{R}$-action of reparametrising the trajectory leaves a discrete set $\mathcal{M}(p,q)/\mathbb{R}$ of trajectories.</div>
+
+<p>Why expect transversality? It is not automatic: stable and unstable manifolds can intersect non-transversally. But Smale proved that for any fixed Morse $f$, the set of metrics $g$ making $(f,g)$ Morse–Smale is <em>open and dense</em> in $C^\infty(M, \mathrm{Sym}^2_+ T^*M)$. So the Morse–Smale condition is generic — perturbing the metric a little if needed, we can always assume it.</p>
+
+<div class="widget" id="w-msmale">
+  <div class="hd"><span class="ttl">Widget · stable/unstable manifolds of a saddle</span><span class="hint">toggle a transverse vs degenerate metric — and a saddle-saddle pair</span></div>
+  <div class="row">
+    <button id="ms-trans" class="active">transverse $(f,g)$</button>
+    <button id="ms-deg">degenerate metric</button>
+    <button id="ms-sad">saddle–saddle</button>
+  </div>
+  <svg id="ms-svg" viewBox="0 0 760 320" width="100%"><title>Widget · stable and unstable manifolds, transverse vs degenerate</title></svg>
+  <div class="readout" id="ms-out"></div>
+  <p class="small">For a saddle $p$ of index $1$ on a surface, $W^u(p)$ is a $1$-disk (yellow) and $W^s(p)$ is a $1$-disk (cyan). On a generic metric, $W^u(p)$ meets $W^s(q)$ at a discrete set of trajectories (left); on a degenerate metric, the manifolds can overlap on a positive-dimensional locus (middle), and $\mathcal{M}(p,q)$ ceases to be a manifold. The right toggle shows a saddle–saddle: $\dim W^u(p) + \dim W^s(q) = 1+1 = 2 = \dim M$, so by transversality the intersection is $0$-dimensional — a finite set, the count of trajectories.</p>
+</div>
+
+<p>Once transversality is in place, the moduli space $\mathcal{M}(p,q)$ of <em>parameterised</em> trajectories from $p$ to $q$ is a smooth manifold of dimension $\ind(p) - \ind(q)$, and the unparameterised moduli $\mathcal{M}(p,q)/\mathbb{R}$ has dimension $\ind(p) - \ind(q) - 1$. So:</p>
+<ul>
+  <li>$\ind(p)-\ind(q) = 1$: $\mathcal{M}(p,q)/\mathbb{R}$ is $0$-dimensional — a discrete set, generically <em>finite</em> by compactness arguments. Count it. That count is the matrix entry $\langle\partial p, q\rangle$.</li>
+  <li>$\ind(p)-\ind(q) = 2$: $\mathcal{M}(p,q)/\mathbb{R}$ is $1$-dimensional. Its compactification has boundary points which are <em>broken trajectories</em> $p \to r \to q$ through an intermediate critical point of index $\ind(p) - 1$. The signed count of such boundary points is zero — and that is exactly $\langle\partial^2 p, q\rangle$.</li>
+</ul>
+
+<div class="note"><strong>Why $\partial^2 = 0$ in one line.</strong> The boundary of a compact $1$-manifold is a finite set of points, signed-counting to zero. Identify those boundary points with broken trajectories through index-$(\ind(p)-1)$ critical points: that identification is the gluing/compactness theorem for gradient flow. Each broken pair $p\to r\to q$ contributes the product $\#\mathcal{M}(p,r)\cdot\#\mathcal{M}(r,q)$, and summing over $r$ gives the matrix entry of $\partial\circ\partial$.</div>
+
+<p>This is why Morse–Smale is the right hypothesis: it makes <em>compactness</em>, <em>transversality</em>, and <em>orientability of the moduli</em> all hold simultaneously. Drop any one and the count $\partial$ is no longer well-defined as a chain map. It is the same trinity that has to be re-established for every Floer-theoretic generalisation: pick a generic almost-complex structure (transversality), prove Gromov compactness, fix coherent orientations.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./smooth-manifolds.html#flows">Smooth manifolds</a> · vector-field flows and integral curves underlie $W^s(p)$ and $W^u(p)$.</li>
+    <li><a href="./differential-geometry.html">Differential geometry</a> · Riemannian metrics and gradient construction.</li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="mt-morse-smale"></div>
+</section>
+
+<section id="cerf-theory">
+<h2>8. Cerf theory and wall-crossing</h2>
+<p>So far we have fixed a Morse function $f$ and read off topology. Now <em>vary</em> $f$. Two different Morse functions on the same $M$ both produce CW models of $M$ — but those models can have different cell counts, and translating one to the other is a non-trivial combinatorial move. Cerf theory describes the moves precisely by studying the geometry of the space $\mathcal{F}(M) = C^\infty(M,\mathbb{R})$ itself.</p>
+
+<p>Inside $\mathcal{F}(M)$, the Morse functions form an open dense subset $\mathcal{F}_{\mathrm{Morse}}\subset\mathcal{F}(M)$. Its complement is a stratified subset — the <strong>wall</strong> — and the codimension-$1$ part of the wall has two pieces:</p>
+
+<ul>
+  <li><strong>Birth–death points.</strong> Locally $f = x_1^3 + Q(x_2,\dots,x_n) + \text{const}$ where $Q$ is a non-degenerate quadratic. The point $0\in\mathbb{R}^n$ is a degenerate critical point: $df_0 = 0$ but $H_0 f$ has a one-dimensional null space. A 1-parameter perturbation $f_t = x_1^3 - t x_1 + Q + \cdots$ either creates a pair of critical points (for $t > 0$) of consecutive indices, or annihilates such a pair. This is the universal way two Morse pictures can differ.</li>
+  <li><strong>Independent crossings.</strong> Two Morse critical points $p,q$ with the same index can swap their critical values — $f(p) < f(q)$ before, $f(p) > f(q)$ after, equality at the wall — without any topological event. The handle decomposition reorders, but the cell count is unchanged.</li>
+</ul>
+
+<div class="note"><strong>Cerf's theorem.</strong> The space $\mathcal{F}(M)$ is a (Fréchet) smooth manifold. The complement of $\mathcal{F}_{\mathrm{Morse}}$ is a stratified set of codimension $\ge 1$, with the codimension-$1$ stratum exactly the union of birth–death and independent-crossing points. Generic 1-parameter families $f_t$ meet this stratum transversally and miss codimension $\ge 2$ strata.</div>
+
+<p>The simplest birth–death is on $\mathbb{R}$ itself:
+$$f_t(x) \;=\; x^3 - t x.$$
+For $t < 0$ the equation $3x^2 = t$ has no real solutions — no critical points. For $t = 0$ we have the degenerate critical point at $x=0$ (Hessian $f_0''(0) = 0$). For $t > 0$ two critical points $x = \pm\sqrt{t/3}$ are born: the right one is a minimum ($f''>0$, index $0$), the left one a maximum ($f''<0$, index $1$). The pair (index $k$, index $k+1$) appearing together is the universal birth-death signature.</p>
+
+<div class="widget" id="w-cerf">
+  <div class="hd"><span class="ttl">Widget · birth-death of a critical pair $f_t(x)=x^3-tx$</span><span class="hint">drag $t$ across $0$ to watch the pair appear</span></div>
+  <div class="row">
+    <label for="cf-t">parameter $t$</label>
+    <input type="range" id="cf-t" min="-100" max="100" value="-50" step="1">
+    <span class="pill" id="cf-t-out">$t=-1.0$</span>
+    <button id="cf-play">play</button>
+  </div>
+  <svg id="cf-svg" viewBox="0 0 760 340" width="100%"><title>Widget · birth-death of a critical pair</title></svg>
+  <div class="readout" id="cf-out"></div>
+  <p class="small">Graph of $f_t(x) = x^3 - tx$ over $x\in[-2,2]$. For $t<0$ the graph is monotone and there are no real critical points; at $t=0$ the inflection point $x=0$ is the degenerate (birth-death) critical point; for $t>0$ a min and a max appear at $x=\pm\sqrt{t/3}$, indices $0$ and $1$. The Cerf graphic at the bottom plots the critical values vs $t$ — the two branches meet in a cusp at $t=0$.</p>
+</div>
+
+<p>The graph of <em>critical values</em> as a function of $t$ — the <strong>Cerf graphic</strong> — encodes the family. A birth-death is a horizontal cusp where two branches meet; an independent crossing is a transverse intersection of two branches. Cerf's theorem implies that any two Morse functions $f_0, f_1$ on a connected $M$ are connected by a generic path $f_t$ whose Cerf graphic is a finite collection of these two events; conversely, any sequence of births, deaths, and crossings that returns to a Morse function realises an admissible move on the handle decomposition.</p>
+
+<h3>Why this is structural</h3>
+
+<p>Cerf theory is the foundation of three classical theorems:</p>
+<ol>
+  <li><strong>$h$-cobordism (Smale).</strong> A simply-connected cobordism $W^{n+1}$ between simply-connected $M_0, M_1$ with $H_*(W,M_0) = 0$ and $n\ge 5$ admits a Morse function with no critical points. The proof: start with any Morse function on $W$, and use sequences of births, deaths, and handle slides — each one a controlled wall-crossing — to cancel the critical points two at a time.</li>
+  <li><strong>Kirby calculus.</strong> The $h$-cobordism strategy in dimension $4$ (where it fails categorically — $\Sigma$-cobordism, exotic $\mathbb{R}^4$) is replaced by Kirby's diagrammatic calculus on framed link presentations of $4$-manifolds. The two Kirby moves (handle slide, handle creation/cancellation) are exactly the wall-crossings of Cerf theory.</li>
+  <li><strong>Pseudo-isotopy theory.</strong> Cerf's original motivation: classify diffeomorphisms of $M\times I$ rel boundary, equivalently understand the space of Morse functions modulo isotopy. The Cerf-graphic invariants of a generic 2-parameter family of functions are the input to the Hatcher–Wagoner theorem on $\pi_0\,\mathrm{Diff}(M^n)$ for $n$ large.</li>
+</ol>
+
+<p>The key take-away: Morse data is not a single static gadget but a <em>moduli space</em> of choices, and the rigidity of differential topology emerges from the controlled way moves on that moduli space act on the underlying combinatorics.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./smooth-manifolds.html#intro">Smooth manifolds</a> · the function space $C^\infty(M,\mathbb{R})$ that Cerf theory stratifies.</li>
+    <li><a href="./differential-forms.html">Differential forms</a> · pseudo-isotopy and the calculus of $1$-parameter families.</li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="mt-cerf-theory"></div>
+</section>
+
 <section id="outro">
-<h2>7. Connections</h2>
+<h2>9. Connections</h2>
 
 <p>Morse theory is a hinge between three different ways of looking at a smooth manifold — analysis (gradients, flow), topology (cells, homology), and combinatorics (the index data). Each thread points to a sibling page that picks up where this one stops.</p>
 
@@ -902,6 +1011,206 @@ $$HM_*(M) \;\cong\; H_*(M;\mathbb{Z}).$$</div>
   bS.addEventListener("click", () => draw("s2"));
   bR.addEventListener("click", () => draw("rp2"));
   draw("s2");
+})();
+</script>
+
+<script>
+/* § 7 Morse–Smale: stable/unstable manifolds, transverse vs degenerate */
+(function(){
+  const svg = document.getElementById("ms-svg");
+  const out = document.getElementById("ms-out");
+  const bT = document.getElementById("ms-trans");
+  const bD = document.getElementById("ms-deg");
+  const bS = document.getElementById("ms-sad");
+  if(!svg) return;
+  function draw(mode){
+    svg.innerHTML = "<title>Widget · stable and unstable manifolds, transverse vs degenerate</title>";
+    bT.classList.toggle("active", mode==="trans");
+    bD.classList.toggle("active", mode==="deg");
+    bS.classList.toggle("active", mode==="sad");
+    // ambient background panel
+    svg.appendChild(SVG("rect",{x:60,y:30,width:640,height:260,fill:"var(--panel2)",stroke:"var(--line)","stroke-width":1,rx:6}));
+    if(mode==="trans"){
+      // saddle p in middle, q to the right (lower critical value)
+      const p = {x:240, y:160};
+      const q = {x:540, y:160};
+      // W^u(p) — yellow horizontal disk through p (1-dim)
+      svg.appendChild(SVG("path",{d:`M 130 160 L 360 160`,stroke:"var(--yellow)","stroke-width":3,fill:"none"}));
+      svg.appendChild(SVG("text",{x:140,y:152,"font-size":12,fill:"var(--yellow)"})).textContent = "W^u(p)";
+      // W^s(q) — cyan vertical disk through q (1-dim)
+      svg.appendChild(SVG("path",{d:`M 540 60 L 540 260`,stroke:"var(--cyan)","stroke-width":3,fill:"none"}));
+      svg.appendChild(SVG("text",{x:548,y:74,"font-size":12,fill:"var(--cyan)"})).textContent = "W^s(q)";
+      // intersection: a single point if W^u(p) hits W^s(q)
+      // (here W^u(p) is horizontal at y=160 between x=130..360; W^s(q) is x=540 — they don't actually meet,
+      //  so we draw a curved gradient trajectory from p to q to indicate the trajectory)
+      drawArrow(svg,[p.x,p.y],[q.x,q.y],{color:"var(--green)",curve:35,markerId:"ms-tr-arr",width:2,label:"−∇f"});
+      // critical points
+      svg.appendChild(SVG("circle",{cx:p.x,cy:p.y,r:8,fill:"var(--yellow)",stroke:"#111","stroke-width":1.5}));
+      svg.appendChild(SVG("text",{x:p.x,y:p.y-14,"text-anchor":"middle","font-size":12,fill:"var(--yellow)"})).textContent = "p (ind 1)";
+      svg.appendChild(SVG("circle",{cx:q.x,cy:q.y,r:8,fill:"var(--green)",stroke:"#111","stroke-width":1.5}));
+      svg.appendChild(SVG("text",{x:q.x,y:q.y-14,"text-anchor":"middle","font-size":12,fill:"var(--green)"})).textContent = "q (ind 0)";
+      svg.appendChild(SVG("text",{x:380,y:50,"text-anchor":"middle","font-size":13,fill:"var(--ink)"})).textContent = "W^u(p) ⋔ W^s(q):  transverse intersection";
+      out.textContent = "Transverse: T_x W^u(p) + T_x W^s(q) = T_x M at every intersection. The 1-d moduli M(p,q)/ℝ has dimension ind(p)−ind(q)−1 = 1−0−1 = 0, a discrete set — finite count, ✓.";
+    } else if(mode==="deg"){
+      // degenerate: W^u(p) and W^s(q) overlap on a positive-dimensional locus
+      const p = {x:240, y:160};
+      const q = {x:540, y:160};
+      svg.appendChild(SVG("path",{d:`M 130 160 L 650 160`,stroke:"var(--yellow)","stroke-width":3,fill:"none"}));
+      svg.appendChild(SVG("text",{x:140,y:152,"font-size":12,fill:"var(--yellow)"})).textContent = "W^u(p)";
+      // W^s(q) — also horizontal — overlapping the segment from p to q (degenerate)
+      svg.appendChild(SVG("path",{d:`M 240 168 L 650 168`,stroke:"var(--cyan)","stroke-width":3,fill:"none","stroke-dasharray":"6 4"}));
+      svg.appendChild(SVG("text",{x:560,y:188,"font-size":12,fill:"var(--cyan)"})).textContent = "W^s(q) (degenerate overlap)";
+      svg.appendChild(SVG("rect",{x:240,y:152,width:300,height:18,fill:"var(--pink)","fill-opacity":0.18,stroke:"var(--pink)","stroke-width":1,"stroke-dasharray":"4 3"}));
+      // critical points
+      svg.appendChild(SVG("circle",{cx:p.x,cy:p.y,r:8,fill:"var(--yellow)",stroke:"#111","stroke-width":1.5}));
+      svg.appendChild(SVG("text",{x:p.x,y:p.y-14,"text-anchor":"middle","font-size":12,fill:"var(--yellow)"})).textContent = "p (ind 1)";
+      svg.appendChild(SVG("circle",{cx:q.x,cy:q.y,r:8,fill:"var(--green)",stroke:"#111","stroke-width":1.5}));
+      svg.appendChild(SVG("text",{x:q.x,y:q.y-14,"text-anchor":"middle","font-size":12,fill:"var(--green)"})).textContent = "q (ind 0)";
+      svg.appendChild(SVG("text",{x:380,y:50,"text-anchor":"middle","font-size":13,fill:"var(--pink)"})).textContent = "W^u(p) ⋂ W^s(q) — non-transverse: positive-dim overlap (pink)";
+      out.textContent = "Degenerate: T_x W^u(p) + T_x W^s(q) ⊊ T_x M on the overlap. The moduli M(p,q) ceases to be a manifold and the count ⟨∂p, q⟩ is ill-defined. Smale: such metrics form a closed nowhere-dense subset, ✗.";
+    } else {
+      // saddle-saddle on a surface: ind(p) = ind(q) = 1, dim W^u(p) + dim W^s(q) = 1+1 = 2 = dim M.
+      const p = {x:200, y:160};
+      const q = {x:540, y:160};
+      // W^u(p) — yellow curve
+      svg.appendChild(SVG("path",{d:`M 80 220 Q 200 160 320 100`,stroke:"var(--yellow)","stroke-width":3,fill:"none"}));
+      svg.appendChild(SVG("text",{x:80,y:240,"font-size":12,fill:"var(--yellow)"})).textContent = "W^u(p)";
+      // W^s(q) — cyan curve crossing it transversally
+      svg.appendChild(SVG("path",{d:`M 660 80 Q 540 160 380 220`,stroke:"var(--cyan)","stroke-width":3,fill:"none"}));
+      svg.appendChild(SVG("text",{x:670,y:80,"font-size":12,fill:"var(--cyan)"})).textContent = "W^s(q)";
+      // intersection points (manually picked): two points of transverse intersection
+      const ix1 = {x:300, y:120};
+      const ix2 = {x:430, y:200};
+      svg.appendChild(SVG("circle",{cx:ix1.x,cy:ix1.y,r:6,fill:"var(--pink)",stroke:"#111","stroke-width":1}));
+      svg.appendChild(SVG("circle",{cx:ix2.x,cy:ix2.y,r:6,fill:"var(--pink)",stroke:"#111","stroke-width":1}));
+      svg.appendChild(SVG("text",{x:ix1.x+10,y:ix1.y-6,"font-size":11,fill:"var(--pink)"})).textContent = "+1";
+      svg.appendChild(SVG("text",{x:ix2.x+10,y:ix2.y-6,"font-size":11,fill:"var(--pink)"})).textContent = "−1";
+      // critical points
+      svg.appendChild(SVG("circle",{cx:p.x,cy:p.y,r:8,fill:"var(--yellow)",stroke:"#111","stroke-width":1.5}));
+      svg.appendChild(SVG("text",{x:p.x,y:p.y-14,"text-anchor":"middle","font-size":12,fill:"var(--yellow)"})).textContent = "p (ind 1)";
+      svg.appendChild(SVG("circle",{cx:q.x,cy:q.y,r:8,fill:"var(--yellow)",stroke:"#111","stroke-width":1.5}));
+      svg.appendChild(SVG("text",{x:q.x,y:q.y-14,"text-anchor":"middle","font-size":12,fill:"var(--yellow)"})).textContent = "q (ind 1)";
+      svg.appendChild(SVG("text",{x:380,y:50,"text-anchor":"middle","font-size":13,fill:"var(--ink)"})).textContent = "saddle–saddle:  ind(p)=ind(q)=1,  dim M = 2";
+      out.textContent = "Saddle-saddle: dim W^u(p) + dim W^s(q) = 1+1 = 2 = dim M, so M(p,q) is 0-dimensional — here, two trajectories of opposite sign. ⟨∂p, q⟩ = +1 + (−1) = 0 over ℤ.";
+    }
+  }
+  bT.addEventListener("click", () => draw("trans"));
+  bD.addEventListener("click", () => draw("deg"));
+  bS.addEventListener("click", () => draw("sad"));
+  draw("trans");
+})();
+</script>
+
+<script>
+/* § 8 Cerf theory: birth-death of f_t(x) = x^3 - tx */
+(function(){
+  const svg = document.getElementById("cf-svg");
+  const tIn = document.getElementById("cf-t");
+  const tOut = document.getElementById("cf-t-out");
+  const out = document.getElementById("cf-out");
+  const playBtn = document.getElementById("cf-play");
+  if(!svg) return;
+  let timer = null;
+  // graph viewport: x in [-2, 2], y in [-3, 3]
+  // graph panel on the left, Cerf graphic on the right
+  function draw(){
+    svg.innerHTML = "<title>Widget · birth-death of a critical pair</title>";
+    const traw = parseFloat(tIn.value);
+    const t = traw / 50; // map slider [-100..100] to t in [-2..2]
+    tOut.textContent = `t = ${t.toFixed(2)}`;
+    // === LEFT PANEL: graph of f_t(x) = x^3 - t x ===
+    const lx0=60, ly0=40, lw=320, lh=260;
+    const xMin=-2, xMax=2, yMin=-3, yMax=3;
+    const xToPx = x => lx0 + (x - xMin)/(xMax - xMin) * lw;
+    const yToPx = y => ly0 + lh - (y - yMin)/(yMax - yMin) * lh;
+    // background panel
+    svg.appendChild(SVG("rect",{x:lx0,y:ly0,width:lw,height:lh,fill:"var(--panel2)",stroke:"var(--line)","stroke-width":1,rx:6}));
+    // axes
+    svg.appendChild(SVG("line",{x1:lx0,y1:yToPx(0),x2:lx0+lw,y2:yToPx(0),stroke:"var(--mute)","stroke-width":1}));
+    svg.appendChild(SVG("line",{x1:xToPx(0),y1:ly0,x2:xToPx(0),y2:ly0+lh,stroke:"var(--mute)","stroke-width":1}));
+    // graph of f_t
+    const N = 200;
+    let d = "";
+    for(let i=0;i<=N;i++){
+      const x = xMin + (xMax - xMin) * i / N;
+      const y = x*x*x - t*x;
+      const yClipped = Math.max(yMin, Math.min(yMax, y));
+      d += (i===0?"M":"L") + xToPx(x).toFixed(2) + " " + yToPx(yClipped).toFixed(2) + " ";
+    }
+    svg.appendChild(SVG("path",{d, stroke:"var(--blue)","stroke-width":2,fill:"none"}));
+    // critical points: x = ±sqrt(t/3) when t > 0
+    const eps = 1e-3;
+    let crits = [];
+    if(t > eps){
+      const x1 = Math.sqrt(t/3);
+      crits = [
+        {x: x1, y: x1*x1*x1 - t*x1, k:0, color:"var(--green)", label:"min"},
+        {x:-x1, y:-x1*x1*x1 + t*x1, k:1, color:"var(--pink)",  label:"max"}
+      ];
+    } else if(Math.abs(t) <= eps){
+      // birth-death moment: degenerate critical point at x=0
+      crits = [{x:0, y:0, k:"BD", color:"var(--yellow)", label:"degenerate"}];
+    }
+    for(const c of crits){
+      svg.appendChild(SVG("circle",{cx:xToPx(c.x),cy:yToPx(Math.max(yMin,Math.min(yMax,c.y))),r:7,fill:c.color,stroke:"#111","stroke-width":1.5}));
+      svg.appendChild(SVG("text",{x:xToPx(c.x)+10,y:yToPx(Math.max(yMin,Math.min(yMax,c.y)))-8,"font-size":11,fill:c.color})).textContent = `${c.label}${c.k!=="BD"?" k="+c.k:""}`;
+    }
+    svg.appendChild(SVG("text",{x:lx0+lw/2,y:ly0-6,"text-anchor":"middle","font-size":13,fill:"var(--ink)"})).textContent = `f_t(x) = x³ − t x   (t = ${t.toFixed(2)})`;
+    // === RIGHT PANEL: Cerf graphic — critical values vs t ===
+    const rx0=420, ry0=40, rw=280, rh=260;
+    svg.appendChild(SVG("rect",{x:rx0,y:ry0,width:rw,height:rh,fill:"var(--panel2)",stroke:"var(--line)","stroke-width":1,rx:6}));
+    const tMin=-2, tMax=2, vMin=-2, vMax=2;
+    const tToPx = tt => rx0 + (tt - tMin)/(tMax - tMin) * rw;
+    const vToPx = v  => ry0 + rh - (v - vMin)/(vMax - vMin) * rh;
+    // axes
+    svg.appendChild(SVG("line",{x1:rx0,y1:vToPx(0),x2:rx0+rw,y2:vToPx(0),stroke:"var(--mute)","stroke-width":1}));
+    svg.appendChild(SVG("line",{x1:tToPx(0),y1:ry0,x2:tToPx(0),y2:ry0+rh,stroke:"var(--mute)","stroke-width":1}));
+    svg.appendChild(SVG("text",{x:rx0+rw/2,y:ry0-6,"text-anchor":"middle","font-size":13,fill:"var(--ink)"})).textContent = "Cerf graphic: critical values vs t";
+    svg.appendChild(SVG("text",{x:rx0+rw-8,y:vToPx(0)-4,"text-anchor":"end","font-size":11,fill:"var(--mute)"})).textContent = "t →";
+    svg.appendChild(SVG("text",{x:tToPx(0)+8,y:ry0+12,"font-size":11,fill:"var(--mute)"})).textContent = "f_t(crit)";
+    // For t > 0: critical values are f_t(±√(t/3)) = ∓ (2/3) t √(t/3) = ∓ (2t/3) √(t/3)
+    // Two branches meeting in a cusp at t=0.
+    let dMin = "", dMax = "";
+    for(let i=0;i<=N;i++){
+      const tt = (tMax - 0) * i / N;
+      if(tt < 0) continue;
+      const xc = Math.sqrt(tt/3);
+      const v_min =  xc*xc*xc - tt*xc;  // below the t-axis
+      const v_max = -xc*xc*xc + tt*xc;  // above
+      const x = tToPx(tt);
+      dMin += (i===0?"M":"L") + x.toFixed(2) + " " + vToPx(v_min).toFixed(2) + " ";
+      dMax += (i===0?"M":"L") + x.toFixed(2) + " " + vToPx(v_max).toFixed(2) + " ";
+    }
+    svg.appendChild(SVG("path",{d:dMin, stroke:"var(--green)","stroke-width":2.5,fill:"none"}));
+    svg.appendChild(SVG("path",{d:dMax, stroke:"var(--pink)","stroke-width":2.5,fill:"none"}));
+    // current-t marker
+    svg.appendChild(SVG("line",{x1:tToPx(t),y1:ry0,x2:tToPx(t),y2:ry0+rh,stroke:"var(--cyan)","stroke-width":1.5,"stroke-dasharray":"4 4"}));
+    svg.appendChild(SVG("circle",{cx:tToPx(t),cy:vToPx(0),r:5,fill:"var(--cyan)",stroke:"#111","stroke-width":1.2}));
+    // birth-death cusp marker
+    svg.appendChild(SVG("circle",{cx:tToPx(0),cy:vToPx(0),r:6,fill:"var(--yellow)",stroke:"#111","stroke-width":1.5}));
+    svg.appendChild(SVG("text",{x:tToPx(0)+10,y:vToPx(0)-10,"font-size":11,fill:"var(--yellow)"})).textContent = "birth-death (t=0)";
+    // legend
+    svg.appendChild(SVG("text",{x:rx0+10,y:ry0+18,"font-size":11,fill:"var(--green)"})).textContent = "min branch";
+    svg.appendChild(SVG("text",{x:rx0+10,y:ry0+34,"font-size":11,fill:"var(--pink)"})).textContent = "max branch";
+    // readout
+    let label;
+    if(t > eps) label = `2 critical points (min k=0 + max k=1).  Number of critical points: 2.`;
+    else if(Math.abs(t) <= eps) label = `Birth-death moment: 1 degenerate critical point at x=0; Hessian f_0''(0)=0.`;
+    else label = `0 real critical points (f_t monotone).`;
+    out.textContent = `${label}    Cerf graphic: a cusp where the two branches v=∓(2t/3)√(t/3) meet at the origin.`;
+  }
+  tIn.addEventListener("input", draw);
+  playBtn.addEventListener("click", () => {
+    if(timer){ clearInterval(timer); timer=null; playBtn.textContent="play"; return; }
+    playBtn.textContent = "pause";
+    if(parseFloat(tIn.value) >= 100) tIn.value = -100;
+    timer = setInterval(()=>{
+      let v = parseFloat(tIn.value) + 2;
+      if(v > 100){ clearInterval(timer); timer=null; playBtn.textContent="play"; return; }
+      tIn.value = v; draw();
+    }, 60);
+  });
+  draw();
 })();
 </script>
 
