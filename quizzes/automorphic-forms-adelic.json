@@ -299,6 +299,79 @@
           "explain": "$\\mathbb{H} = \\mathrm{GL}_2(\\mathbb{R})^+ / Z \\mathrm{SO}_2$ is a special low-dimensional symmetric space; for $\\mathrm{GL}_n$ with $n \\ge 3$ the analogous symmetric space is non-Kähler and the classical theory of holomorphic modular forms breaks down. Working directly on $\\mathrm{GL}_n(\\mathbb{Q}) \\backslash \\mathrm{GL}_n(\\mathbb{A})$ avoids the issue."
         }
       ]
+    },
+    "eisenstein-spectral-decomposition": {
+      "title": "Eisenstein series and the spectral decomposition",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The right regular representation on $L^2(\\mathrm{GL}_2(\\mathbb{Q}) \\backslash \\mathrm{GL}_2(\\mathbb{A})^1)$ decomposes as:",
+          "choices": [
+            "$L^2_{\\mathrm{cusp}}$ alone — every $L^2$ automorphic function is a cusp form.",
+            "$L^2_{\\mathrm{cusp}} \\oplus L^2_{\\mathrm{res}} \\oplus L^2_{\\mathrm{cont}}$ — cuspidal $\\oplus$ residual $\\oplus$ continuous.",
+            "$L^2_{\\mathrm{cusp}} \\oplus L^2_{\\mathrm{cont}}$ — only two pieces.",
+            "An irreducible representation."
+          ],
+          "answer": 1,
+          "explain": "The full $L^2$ splits into three: cuspidal (discrete, built from cusp forms), residual (discrete, from residues of Eisenstein series), continuous (a direct integral of Eisenstein series along the unitary axis $\\Re s = 1/2$)."
+        },
+        {
+          "type": "mcq",
+          "q": "Where does the continuous spectrum of $L^2(\\mathrm{GL}_2(\\mathbb{Q}) \\backslash \\mathrm{GL}_2(\\mathbb{A})^1)$ live as a contour in the $s$-plane?",
+          "choices": [
+            "$\\Re s = 0$",
+            "$\\Re s = 1/2$ (the unitary axis)",
+            "$\\Re s = 1$",
+            "It is a discrete sum, not a contour."
+          ],
+          "answer": 1,
+          "explain": "The continuous spectrum is the direct integral $\\int_{\\Re s = 1/2}^\\oplus E(\\,\\cdot\\,, s)\\, ds$. Eisenstein series along the unitary axis are unitary (the intertwiner $M(s)$ is a unitary operator there) and exhaust the continuous part."
+        },
+        {
+          "type": "numeric",
+          "q": "For the toy Eisenstein constant term $E_0(s) = 1 + \\xi(2s-1)/\\xi(2s)$, at which real $s \\in (0, 2)$ does the residual pole sit (the one giving the residual constant in $L^2_{\\mathrm{res}}$)?",
+          "answer": 1,
+          "tol": 0.01,
+          "explain": "$\\xi(2s-1)$ acquires the simple pole of $\\zeta$ when $2s-1 = 1$, i.e. $s = 1$. The residue at $s=1$ of $E(g, s)$ is the constant function (after the unitary shift, $|\\det g|^{1/2}$), whose $L^2$-span is the one-dimensional residual spectrum."
+        }
+      ]
+    },
+    "functoriality-langlands-sketch": {
+      "title": "Functoriality and the $L$-group",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "What is the dual group $\\hat G$ of $G = \\mathrm{GL}_n$?",
+          "choices": [
+            "$\\mathrm{SL}_n(\\mathbb{C})$",
+            "$\\mathrm{GL}_n(\\mathbb{C})$",
+            "$\\mathrm{PGL}_n(\\mathbb{C})$",
+            "$\\mathrm{Sp}_{2n}(\\mathbb{C})$"
+          ],
+          "answer": 1,
+          "explain": "$\\mathrm{GL}_n$ is self-dual under root-datum duality: $\\hat{\\mathrm{GL}}_n = \\mathrm{GL}_n(\\mathbb{C})$. This makes ${}^L\\mathrm{GL}_n = \\mathrm{GL}_n(\\mathbb{C}) \\times \\Gal$ (split case)."
+        },
+        {
+          "type": "mcq",
+          "q": "Under the symmetric-power transfer $\\mathrm{Sym}^k : {}^L\\mathrm{GL}_2 \\to {}^L\\mathrm{GL}_{k+1}$, the Satake parameters $(\\alpha, \\beta)$ of $\\pi$ map to:",
+          "choices": [
+            "$(\\alpha + \\beta, \\alpha\\beta, \\dots)$ — the elementary symmetric polynomials.",
+            "$(\\alpha^k, \\alpha^{k-1}\\beta, \\alpha^{k-2}\\beta^2, \\dots, \\beta^k)$ — the $k+1$ monomials.",
+            "$(\\alpha^k, \\beta^k)$ — pairs of pure powers.",
+            "$(k\\alpha, k\\beta)$ — scaled."
+          ],
+          "answer": 1,
+          "hint": "Sym$^k \\mathbb{C}^2$ has basis $\\{e_1^k, e_1^{k-1}e_2, \\dots, e_2^k\\}$ on which $\\mathrm{diag}(\\alpha, \\beta)$ acts diagonally with eigenvalues…",
+          "explain": "$\\mathrm{Sym}^k$ on the standard 2-dim rep has eigenvalues $\\alpha^{k-i}\\beta^i$ for $i = 0, \\dots, k$ — exactly $k+1$ values, matching $\\dim \\mathrm{GL}_{k+1}$'s standard rep. This is why Sato–Tate moments need $\\mathrm{Sym}^k$ functoriality for every $k$."
+        },
+        {
+          "type": "numeric",
+          "q": "If a cuspidal $\\pi$ on $\\mathrm{GL}_2$ has Satake parameter pair $(\\alpha, \\beta) = (2, 1/2)$ at $p = 11$ (so $a_{11} = \\alpha + \\beta = 2.5$), what is the trace of $\\mathrm{Sym}^3(c(\\pi_{11}))$ on the standard 4-dim representation of $\\mathrm{GL}_4(\\mathbb{C})$ — i.e. $\\alpha^3 + \\alpha^2\\beta + \\alpha\\beta^2 + \\beta^3$?",
+          "answer": 10.625,
+          "tol": 0.01,
+          "explain": "$\\alpha\\beta = 1$ and $\\alpha + \\beta = 2.5$, so $\\alpha^2\\beta + \\alpha\\beta^2 = \\alpha\\beta(\\alpha+\\beta) = 2.5$ and $\\alpha^3 + \\beta^3 = (\\alpha+\\beta)^3 - 3\\alpha\\beta(\\alpha+\\beta) = 15.625 - 7.5 = 8.125$. Total $= 10.625$. The Sato–Tate $k$-th moment is built from such traces."
+        }
+      ]
     }
   }
 }

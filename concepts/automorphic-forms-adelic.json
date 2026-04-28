@@ -100,6 +100,34 @@
         "duality",
         "functoriality"
       ]
+    },
+    {
+      "id": "eisenstein-spectral-decomposition",
+      "title": "Eisenstein series and the spectral decomposition",
+      "anchor": "spectral",
+      "prereqs": [
+        "automorphic-form-definition",
+        "eisenstein-series-mf"
+      ],
+      "blurb": "The right regular representation on $L^2(\\mathrm{GL}_2(\\mathbb{Q}) \\backslash \\mathrm{GL}_2(\\mathbb{A}))$ splits as $L^2_{\\mathrm{cusp}} \\,\\oplus\\, L^2_{\\mathrm{res}} \\,\\oplus\\, L^2_{\\mathrm{cont}}$. The cuspidal part is a discrete sum of cuspidal representations; the residual part is built from residues of Eisenstein series; the continuous part is a direct integral $\\int_{\\Re s = 1/2}^\\oplus E(\\,\\cdot\\,, s) \\, ds$ of Eisenstein series along the critical line. Eisenstein series $E(g, s; \\phi)$ supply the non-cuspidal half of the spectrum and meromorphically continue beyond the half-plane $\\Re s > 1$.",
+      "tags": [
+        "duality",
+        "completion"
+      ]
+    },
+    {
+      "id": "functoriality-langlands-sketch",
+      "title": "Functoriality and the $L$-group",
+      "anchor": "functoriality",
+      "prereqs": [
+        "automorphic-l-function",
+        "spherical-hecke-satake"
+      ],
+      "blurb": "Every connected reductive group $G$ over $\\mathbb{Q}$ has a dual group ${}^L G$ — a complex reductive group whose root datum is dual to $G$'s. The Langlands functoriality conjecture asserts: a homomorphism $r : {}^L H \\to {}^L G$ should induce a transfer of automorphic representations $\\pi_H \\rightsquigarrow \\pi_G$ matching $L$-functions: $L(s, \\pi_G) = L(s, \\pi_H, r)$. Special cases include class field theory ($G = \\mathrm{GL}_1$), cyclic base change, and the symmetric powers $\\mathrm{Sym}^k : {}^L \\mathrm{GL}_2 \\to {}^L \\mathrm{GL}_{k+1}$ underlying Sato–Tate.",
+      "tags": [
+        "functoriality",
+        "duality"
+      ]
     }
   ]
 }
