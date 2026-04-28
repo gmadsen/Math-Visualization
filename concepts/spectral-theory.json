@@ -79,6 +79,46 @@
         "st-unbounded-operators"
       ],
       "blurb": "Observables in QM are self-adjoint operators whose spectra are measurable energies; eigenvalue problems for elliptic PDE invoke the compact spectral theorem; Fourier transform diagonalizes translation-invariant operators."
+    },
+    {
+      "id": "st-compact-fredholm",
+      "title": "Compact operators and the Fredholm alternative",
+      "anchor": "compact-fredholm",
+      "prereqs": [
+        "st-spectral-theorem-compact",
+        "compact-operators"
+      ],
+      "blurb": "Compact operators $K$ are norm-limits of finite-rank ones; for any $\\lambda\\ne 0$, $T-\\lambda I$ with $T=K$ is Fredholm of index $0$, so $\\dim\\ker(K-\\lambda I)=\\dim\\mathrm{coker}(K-\\lambda I)$ — the dichotomy \"$Kx-\\lambda x=y$ is solvable iff $y\\perp\\ker(K^*-\\bar\\lambda)$.\"",
+      "tags": [
+        "compactness",
+        "duality"
+      ]
+    },
+    {
+      "id": "st-trace-class-hilbert-schmidt",
+      "title": "Trace-class and Hilbert–Schmidt operators",
+      "anchor": "trace-class",
+      "prereqs": [
+        "st-compact-fredholm"
+      ],
+      "blurb": "Singular values $s_n(T)$ filter $B(H)$ into ideals: $\\mathcal{S}_2$ (Hilbert–Schmidt, $\\sum s_n^2<\\infty$) and $\\mathcal{S}_1$ (trace-class, $\\sum s_n<\\infty$). The trace $\\operatorname{tr}(T)=\\sum\\langle Te_n,e_n\\rangle$ is basis-independent on $\\mathcal{S}_1$, $\\mathcal{S}_2$ is itself a Hilbert space, and $\\mathcal{S}_1$ is the predual of $B(H)$.",
+      "tags": [
+        "compactness",
+        "duality"
+      ]
+    },
+    {
+      "id": "st-weyl-laplacian",
+      "title": "Weyl's law for the Laplacian",
+      "anchor": "weyl-law",
+      "prereqs": [
+        "st-unbounded-operators",
+        "pde-laplace-equation"
+      ],
+      "blurb": "For the Dirichlet Laplacian $-\\Delta$ on a bounded domain $\\Omega\\subset\\mathbb{R}^d$, the eigenvalue counting function $N(\\lambda)=\\#\\{\\lambda_n\\le\\lambda\\}$ satisfies $N(\\lambda)\\sim\\frac{\\omega_d|\\Omega|}{(2\\pi)^d}\\lambda^{d/2}$ — so the leading-order asymptotics recover the volume and dimension. \"Hearing the shape of a drum\" asks how much more the spectrum tells you.",
+      "tags": [
+        "compactness"
+      ]
     }
   ]
 }

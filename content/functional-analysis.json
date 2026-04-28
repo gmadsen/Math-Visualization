@@ -549,7 +549,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./fixed-point-theorems.html#schauder\">Fixed-point theorems</a> · Schauder fixed-point theorem</div>\n    <div><a href=\"./functional-analysis.html#spectral\">Functional analysis</a> · Spectral theorem viewpoint</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./fixed-point-theorems.html#schauder\">Fixed-point theorems</a> · Schauder fixed-point theorem</div>\n    <div><a href=\"./functional-analysis.html#spectral\">Functional analysis</a> · Spectral theorem viewpoint</div>\n    <div><a href=\"./spectral-theory.html#compact-fredholm\">Spectral theory</a> · Compact operators and the Fredholm alternative</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
