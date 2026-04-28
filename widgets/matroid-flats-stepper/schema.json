@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/matroid-flats-stepper/schema.json",
+  "title": "matroid-flats-stepper widget params",
+  "description": "Bespoke widget for the §4 flats-of-$M(K_4)$ stepper on the matroid-theory topic — prev/next buttons walking through ranks 0–3 of the geometric lattice, an SVG that highlights the flats at the current rank against $K_4$, and a readout listing them. The shape (prev/next + step indicator + SVG + readout) is bespoke (button-stepper has no SVG-redraw branch in the matroid section); this slug captures it as one unit and keeps the per-rank flat enumeration and highlight-rendering opaque in the bodyScript artifact.",
+  "meta": {
+    "family": "matroid-flats-stepper",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title",
+    "hint",
+    "bodyMarkup",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\">. Required by the corpus-wide test-widget-renderers convention."
+    },
+    "title": {
+      "type": "string",
+      "description": "Header title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Header hint rendered inside .hd > .hint."
+    },
+    "bodyMarkup": {
+      "type": "string",
+      "x-artifact": "verbatim inner-body HTML; portable consumers should rebuild the controls and SVG from explicit fields once a shared shape proves out",
+      "description": "ARTIFACT. Verbatim HTML emitted between the closing </div> of the .hd row and the closing </div> of the outer widget — prev/next buttons + step indicator span, SVG host, readout, trailing <div class=\"small\"> note."
+    },
+    "sectionComment": {
+      "type": "string",
+      "description": "ARTIFACT. Optional /* ... */ banner placed between the leading <script> tag and the IIFE opener."
+    },
+    "bodyScript": {
+      "type": "string",
+      "x-artifact": "script body is bespoke; portable consumers should re-implement the widget logic from scratch over typed inputs",
+      "description": "ARTIFACT. Verbatim JS statements that go inside `(function(){\\n…\\n})();` — maintains the current rank, redraws the SVG on prev/next with the rank-$k$ flats highlighted, updates the readout."
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/matroid-axiom-checker/schema.json",
+  "title": "matroid-axiom-checker widget params",
+  "description": "Bespoke widget for the §1 independence-axiom checker on the matroid-theory topic — a ground-set <input>, a multi-line <textarea> for the family $\\mathcal{I}$, three preset buttons (check / load $U_{2,4}$ / load broken example), and a readout that runs (I1)/(I2)/(I3) against the family. The shape (text input + textarea + button row + readout + trailing prose) is unique on the page and not absorbed by any shared slug; this slug captures it as one unit with the parser, axiom-checker, and preset wiring kept opaque in the bodyScript artifact.",
+  "meta": {
+    "family": "matroid-axiom-checker",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title",
+    "hint",
+    "bodyMarkup",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\">. Required by the corpus-wide test-widget-renderers convention."
+    },
+    "title": {
+      "type": "string",
+      "description": "Header title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Header hint rendered inside .hd > .hint."
+    },
+    "bodyMarkup": {
+      "type": "string",
+      "x-artifact": "verbatim inner-body HTML; portable consumers should rebuild ground-set input, textarea, button row, and readout from explicit fields once a shared shape proves out",
+      "description": "ARTIFACT. Verbatim HTML emitted between the closing </div> of the .hd row and the closing </div> of the outer widget — ground-set <input>, <textarea> for $\\mathcal{I}$, button row, readout, trailing <div class=\"small\"> note."
+    },
+    "sectionComment": {
+      "type": "string",
+      "description": "ARTIFACT. Optional /* ... */ banner placed between the leading <script> tag and the IIFE opener."
+    },
+    "bodyScript": {
+      "type": "string",
+      "x-artifact": "script body is bespoke; portable consumers should re-implement the (I1)/(I2)/(I3) checker from scratch over the structured family input",
+      "description": "ARTIFACT. Verbatim JS statements that go inside `(function(){\\n…\\n})();` — parses E and $\\mathcal{I}$, runs the three axiom checks, wires preset buttons, updates the readout."
+    }
+  }
+}

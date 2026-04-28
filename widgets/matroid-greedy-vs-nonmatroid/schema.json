@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/matroid-greedy-vs-nonmatroid/schema.json",
+  "title": "matroid-greedy-vs-nonmatroid widget params",
+  "description": "Bespoke widget for the §6 greedy-on-matroid-vs-non-matroid demonstration on the matroid-theory topic — six edge-weight sliders feed a comparison: greedy on $M(K_4)$ (which exhaustively matches the optimum spanning tree) vs. greedy on a curated non-matroid family $\\mathcal{F}$ (where greedy commits early and misses the bigger triple). The shape (six sliders + SVG + readout + non-matroid family annotation) is bespoke; this slug captures it as one unit and keeps the spanning-tree search and the non-matroid greedy run opaque in the bodyScript artifact.",
+  "meta": {
+    "family": "matroid-greedy-vs-nonmatroid",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title",
+    "hint",
+    "bodyMarkup",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\">. Required by the corpus-wide test-widget-renderers convention."
+    },
+    "title": {
+      "type": "string",
+      "description": "Header title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Header hint rendered inside .hd > .hint."
+    },
+    "bodyMarkup": {
+      "type": "string",
+      "x-artifact": "verbatim inner-body HTML; portable consumers should rebuild the controls and SVG from explicit fields once a shared shape proves out",
+      "description": "ARTIFACT. Verbatim HTML emitted between the closing </div> of the .hd row and the closing </div> of the outer widget — two slider rows (six edges total), SVG host for the comparison, readout, trailing <div class=\"small\"> annotation of the non-matroid family."
+    },
+    "sectionComment": {
+      "type": "string",
+      "description": "ARTIFACT. Optional /* ... */ banner placed between the leading <script> tag and the IIFE opener."
+    },
+    "bodyScript": {
+      "type": "string",
+      "x-artifact": "script body is bespoke; portable consumers should re-implement the widget logic from scratch over typed inputs",
+      "description": "ARTIFACT. Verbatim JS statements that go inside `(function(){\\n…\\n})();` — reads the six weights, runs greedy + brute-force on $M(K_4)$, runs greedy on the non-matroid $\\mathcal{F}$, draws both side by side, updates the readout."
+    }
+  }
+}
