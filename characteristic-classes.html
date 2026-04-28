@@ -240,6 +240,9 @@ function drawNode(svg, x, y, label, opts={}){
   <a href="#pontryagin">4&nbsp;Pontryagin</a>
   <a href="#euler">5&nbsp;Euler&nbsp;class</a>
   <a href="#chern-weil">6&nbsp;Chern–Weil</a>
+  <a href="#classifying-spaces">7&nbsp;Classifying&nbsp;spaces</a>
+  <a href="#signature">8&nbsp;Signature&nbsp;theorem</a>
+  <a href="#equivariant">9&nbsp;Equivariant</a>
 </nav>
 <!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
 
@@ -291,6 +294,7 @@ function drawNode(svg, x, y, label, opts={}){
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./characteristic-classes.html#chern">Characteristic classes</a> · Chern classes</div>
+    <div><a href="./characteristic-classes.html#classifying-spaces">Characteristic classes</a> · Classifying spaces $BO(n)$, $BU(n)$</div>
     <div><a href="./characteristic-classes.html#euler">Characteristic classes</a> · Euler class</div>
     <div><a href="./characteristic-classes.html#stiefel-whitney">Characteristic classes</a> · Stiefel–Whitney classes</div>
     <div><a href="./k-theory.html#vector-bundles">K-theory</a> · Topological $K^0(X)$ from vector bundles</div>
@@ -398,9 +402,11 @@ $$c(E) = \prod_{i=1}^n (1+x_i),\qquad c_k(E) = e_k(x_1,\ldots,x_n)\;(\text{$k$th
   <div class="ttl">Used in</div>
     <div><a href="./atiyah-singer-index-theorem.html#topological">The Atiyah–Singer index theorem</a> · The topological index via $\mathrm{ch}\cdot\mathrm{Td}$</div>
     <div><a href="./characteristic-classes.html#chern-weil">Characteristic classes</a> · Chern–Weil theory</div>
+    <div><a href="./characteristic-classes.html#classifying-spaces">Characteristic classes</a> · Classifying spaces $BO(n)$, $BU(n)$</div>
+    <div><a href="./characteristic-classes.html#equivariant">Characteristic classes</a> · Equivariant characteristic classes</div>
     <div><a href="./characteristic-classes.html#pontryagin">Characteristic classes</a> · Pontryagin classes</div>
     <div><a href="./intersection-theory-chow.html#chern-classes">Intersection theory and Chow groups</a> · Chern classes</div>
-    <div><a href="./k-theory.html#chern-character">K-theory</a> · Chern character</div>
+    <div class="more">… and 1 more.</div>
 </aside>
 <!-- backlinks-auto-end --><div class="quiz" data-concept="cc-chern-classes"></div>
 </section>
@@ -433,6 +439,7 @@ The total Pontryagin class is $p(E) = 1 + p_1 + p_2 + \cdots$.</p>
   <div class="ttl">Used in</div>
     <div><a href="./atiyah-singer-index-theorem.html#dirac">The Atiyah–Singer index theorem</a> · Dirac operators and the $\hat A$-genus</div>
     <div><a href="./atiyah-singer-index-theorem.html#topological">The Atiyah–Singer index theorem</a> · The topological index via $\mathrm{ch}\cdot\mathrm{Td}$</div>
+    <div><a href="./characteristic-classes.html#signature">Characteristic classes</a> · Hirzebruch signature theorem</div>
 </aside>
 <!-- backlinks-auto-end -->
 </section>
@@ -521,8 +528,150 @@ A sphere of radius $R$ has $K = 1/R^2$ and area $4\pi R^2$, so $\frac{1}{2\pi}\i
 <!-- backlinks-auto-end --><div class="quiz" data-concept="cc-chern-weil"></div>
 </section>
 
+<section id="classifying-spaces">
+<h2>7. Classifying spaces $BO(n)$, $BU(n)$</h2>
+<p>Where do characteristic classes <em>come from</em>? Every rank-$n$ vector bundle on a paracompact base $X$ is the pullback of one universal bundle. Concretely, fix the <strong>infinite Grassmannian</strong>
+$$BU(n) \;=\; \mathrm{Gr}_n(\mathbb{C}^\infty) \;=\; \mathrm{colim}_N\,\mathrm{Gr}_n(\mathbb{C}^N),$$
+whose points are $n$-dimensional complex subspaces of $\mathbb{C}^\infty$. Over it sits the <strong>tautological bundle</strong> $\gamma_n \to BU(n)$ whose fibre at a subspace $V$ is $V$ itself. The real version is $BO(n) = \mathrm{Gr}_n(\mathbb{R}^\infty)$.</p>
+
+<div class="ok"><strong>Universal property.</strong> For any paracompact $X$, the assignment
+$$[X, BU(n)] \;\xrightarrow{\sim}\; \{\text{complex rank-$n$ bundles on $X$}\}/\!\!\sim,\qquad f\mapsto f^*\gamma_n$$
+is a bijection. Bundles are classified by maps to a single space — the homotopy type of $BU(n)$ is the moduli space of rank-$n$ complex bundles.</div>
+
+<p>Cohomology of the classifying space is now the entire characteristic-class theory:
+$$H^*(BU(n);\mathbb{Z}) = \mathbb{Z}[c_1, c_2, \ldots, c_n],\qquad |c_i| = 2i,$$
+$$H^*(BO(n);\mathbb{Z}/2) = \mathbb{Z}/2[w_1, w_2, \ldots, w_n],\qquad |w_i| = i.$$
+A characteristic class for rank-$n$ bundles in degree $k$ is, by definition, a class in $H^k(BU(n))$ (or $H^k(BO(n);\mathbb{Z}/2)$). The axioms of §2 and §3 are not axioms at all — they are properties forced by this universal description: naturality is functoriality of $f^*$, the Whitney sum formula comes from the map $BU(p)\times BU(q)\to BU(p+q)$, and the normalisation is the choice of generator in $H^2(\mathbb{CP}^\infty)\cong H^2(BU(1))$.</p>
+
+<div class="note"><strong>Stable classes.</strong> The inclusions $BU(n)\hookrightarrow BU(n+1)$ have a colimit $BU = \mathrm{colim}_n\,BU(n)$, with $H^*(BU;\mathbb{Z}) = \mathbb{Z}[c_1,c_2,\ldots]$ a polynomial ring in infinitely many generators. The same construction gives $BO$. The reduced K-theory $\widetilde K^0(X) = [X, BU\times\mathbb{Z}]$ is then the Grothendieck group of stable bundles, and $H^*(BU;\mathbb{Q})$ is the target of the Chern character.</div>
+
+<div class="widget" id="w-bun">
+  <div class="hd"><div class="ttl">Bundles ↔ maps to $BU(n)$</div><div class="hint">click a bundle to see its classifying map and pulled-back generators</div></div>
+  <svg id="bun-svg" viewBox="0 0 820 320" width="820" height="320"><title>Pullback square showing a bundle on X classified by a homotopy class of maps to BU(n)</title></svg>
+  <div class="row">
+    <button class="bun-pick active" data-key="hopf" aria-pressed="true">$\mathcal{O}(1)\to S^2$</button>
+    <button class="bun-pick" data-key="trivial" aria-pressed="false">trivial $\underline{\mathbb{C}}^2\to X$</button>
+    <button class="bun-pick" data-key="cpn" aria-pressed="false">$T\mathbb{CP}^1$</button>
+    <button class="bun-pick" data-key="sumLine" aria-pressed="false">$\mathcal{O}(2)\oplus\mathcal{O}(-1)$</button>
+  </div>
+  <div class="readout" id="bun-readout" aria-live="polite">$\mathcal{O}(1)\to S^2$ is classified by the canonical inclusion $S^2\cong\mathbb{CP}^1\hookrightarrow\mathbb{CP}^\infty = BU(1)$. The pullback of $c_1\in H^2(BU(1))$ is the generator of $H^2(S^2)$; pairing with $[S^2]$ gives $1$.</div>
+</div>
+
+
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-topology.html#homotopy">Homotopy and classifying maps</a></li>
+    <li><a href="./k-theory.html#vector-bundles">K-theory and stable bundles</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./characteristic-classes.html#equivariant">Characteristic classes</a> · Equivariant characteristic classes</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="cc-classifying-spaces"></div>
+</section>
+
+<section id="signature">
+<h2>8. Hirzebruch signature theorem</h2>
+<p>For a closed oriented $4k$-manifold $M^{4k}$, Poincaré duality makes the cup-product pairing
+$$Q\colon H^{2k}(M;\mathbb{R}) \times H^{2k}(M;\mathbb{R}) \to \mathbb{R},\qquad Q(\alpha,\beta) = \langle \alpha\smile\beta,[M]\rangle$$
+symmetric and non-degenerate. Diagonalising over $\mathbb{R}$ gives $b_{2k}^+$ positive and $b_{2k}^-$ negative eigenvalues; the difference $\sigma(M) := b_{2k}^+ - b_{2k}^-\in\mathbb{Z}$ is the <strong>signature</strong> of $M$ — a homotopy invariant.</p>
+
+<p>Hirzebruch's theorem expresses this analytic invariant as an integral of curvature polynomials:</p>
+<div class="ok"><strong>Signature theorem.</strong> $\sigma(M^{4k}) \;=\; \langle L_k(p_1(TM),\ldots,p_k(TM)),\,[M]\rangle$, where the <em>$L$-genus</em> is the multiplicative sequence
+$$L(x_1,\ldots,x_n) \;=\; \prod_{i=1}^n \frac{x_i}{\tanh x_i} \;=\; 1 + L_1 + L_2 + \cdots,$$
+expressed in the Chern roots $x_i$ of $TM\otimes\mathbb{C}$, with the first few $L_k$:
+$$L_1 = \tfrac{p_1}{3},\qquad L_2 = \tfrac{7p_2 - p_1^2}{45},\qquad L_3 = \tfrac{62p_3 - 13 p_1 p_2 + 2 p_1^3}{945}.$$</div>
+
+<p>The integrality content is striking: $L_1[M] = p_1[M]/3$ is a real-cohomology pairing of curvature polynomials, yet the result is the integer $\sigma(M)$. So $p_1[M]$ is divisible by $3$ on every closed oriented $4$-manifold, and $7 p_2[M] - p_1^2[M]$ is divisible by $45$ on every $8$-manifold — divisibility constraints visible only after Hirzebruch.</p>
+
+<p>Three flagship verifications:</p>
+<table class="plain">
+  <thead><tr><th>$M^{4k}$</th><th>$\sigma(M)$</th><th>$L_k[M]$ via Pontryagin numbers</th></tr></thead>
+  <tbody>
+    <tr><td>$\mathbb{CP}^2$ ($k=1$)</td><td>$1$</td><td>$p_1[\mathbb{CP}^2]/3 = 3/3 = 1$ &check;</td></tr>
+    <tr><td>$\mathbb{CP}^2 \#\,\overline{\mathbb{CP}}^2$</td><td>$0$</td><td>$\sigma$ additive under $\#$, $L_1$ additive on $4$-manifolds</td></tr>
+    <tr><td>$\mathbb{HP}^2$ ($k=2$)</td><td>$1$</td><td>$L_2[\mathbb{HP}^2] = (7\cdot 7 - 2^2)/45 = 1$ &check;</td></tr>
+  </tbody>
+</table>
+
+<div class="note"><strong>Why $\tanh$?</strong> The signature operator $D = d + d^*$ on self-dual minus anti-self-dual forms is elliptic, and its index density via heat-kernel asymptotics produces exactly the $L$-polynomial. Atiyah–Singer makes this an instance of the master formula $\ind(D) = \int_M\mathrm{ch}(\sigma_D)\cdot\mathrm{Td}(TM_\mathbb{C})$; for the signature operator the symbol class plus the Todd correction equals $L$.</div>
+
+<div class="widget" id="w-sig">
+  <div class="hd"><div class="ttl">Signature via $L$-genus</div><div class="hint">pick a $4k$-manifold; compare $\sigma(M)$ from the intersection form with $\langle L_k, [M]\rangle$</div></div>
+  <svg id="sig-svg" viewBox="0 0 820 320" width="820" height="320"><title>Comparison of signature and L-genus for canonical 4k-manifolds</title></svg>
+  <div class="row">
+    <button class="sig-pick active" data-key="cp2" aria-pressed="true">$\mathbb{CP}^2$</button>
+    <button class="sig-pick" data-key="cp2bar" aria-pressed="false">$\mathbb{CP}^2 \# \overline{\mathbb{CP}}^2$</button>
+    <button class="sig-pick" data-key="k3" aria-pressed="false">K3 surface</button>
+    <button class="sig-pick" data-key="hp2" aria-pressed="false">$\mathbb{HP}^2$</button>
+  </div>
+  <div class="readout" id="sig-readout" aria-live="polite">$\mathbb{CP}^2$: intersection form $(1)$, signature $\sigma = 1$. Pontryagin number $p_1[\mathbb{CP}^2] = 3$, so $L_1[M] = 3/3 = 1$. Both invariants agree — Hirzebruch verified.</div>
+</div>
+
+
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./differential-forms.html#deRham">Stokes theorem and de Rham cohomology</a></li>
+    <li><a href="./atiyah-singer-index-theorem.html#cases">Classical specialisations of Atiyah–Singer</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="cc-signature-theorem"></div>
+</section>
+
+<section id="equivariant">
+<h2>9. Equivariant characteristic classes</h2>
+<p>When a compact Lie group $G$ acts on $X$, ordinary cohomology forgets the action; the right home for $G$-invariant invariants is the <strong>Borel construction</strong>. Choose a contractible space $EG$ on which $G$ acts freely (e.g. an infinite Stiefel manifold for $G = U(n)$); the quotient $BG = EG/G$ is the classifying space, and the homotopy quotient is
+$$X_G := (X\times EG)/G,\qquad H^*_G(X) := H^*(X_G;\mathbb{Z}).$$
+For $X = \mathrm{pt}$ this is $H^*(BG)$; for $G = T = (S^1)^n$ a torus, $H^*(BT) = \mathbb{Z}[t_1,\ldots,t_n]$ with $|t_i| = 2$, an honest polynomial ring.</p>
+
+<p>A <strong>$G$-equivariant bundle</strong> $E\to X$ has a lifted $G$-action covering the action on $X$. Its Borel construction $E_G \to X_G$ is a non-equivariant bundle, and we set
+$$c_i^G(E) := c_i(E_G) \;\in\; H^{2i}_G(X).$$
+When $X = \mathrm{pt}$ this gives <em>universal</em> equivariant Chern classes living in $H^*(BG)$; when $G$ is trivial it is the ordinary Chern class.</p>
+
+<div class="ok"><strong>Atiyah–Bott localisation.</strong> Let $T = S^1$ act on a closed oriented $T$-manifold $X$ with isolated fixed-point set $F = \{p_1,\ldots,p_m\}\subset X$. For an equivariant cohomology class $\alpha\in H^*_T(X)$,
+$$\int_X \alpha \;=\; \sum_{i=1}^m \frac{\iota_{p_i}^* \alpha}{e^T(\nu_{p_i})} \;\in\; \mathrm{Frac}\,H^*(BT) = \mathbb{Q}(t),$$
+where $\nu_{p_i} = T_{p_i}X$ is the normal bundle at the fixed point and $e^T$ is the equivariant Euler class. So the integral on $X$ is a finite sum over isolated fixed points — a fearsome computational shortcut.</div>
+
+<p><strong>Worked example: $X = \mathbb{CP}^n$ with the standard $T = S^1$ action.</strong> The fixed points are the $n+1$ coordinate lines $p_i = [0:\cdots:1:\cdots:0]$. The equivariant class $c_1^T(\mathcal{O}(1))$ restricts to the weight $t_i$ at $p_i$, and the equivariant Euler class of $T_{p_i}\mathbb{CP}^n$ is $\prod_{j\ne i}(t_j - t_i)$. Localisation gives
+$$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{j\ne i}(t_j - t_i)} = 1$$
+— a non-trivial polynomial identity that you can <em>verify</em> by hand for $n=1,2$ and that recovers the obvious geometric answer.</p>
+
+<div class="note"><strong>Where this leads.</strong> Localisation is the engine of equivariant K-theory, GKM theory, and modern enumerative geometry — Gromov–Witten and Donaldson–Thomas invariants are routinely computed by torus localisation on moduli spaces. The same machinery on a $G$-manifold with $G$ non-abelian reduces to the maximal torus via Weyl-group averaging.</div>
+
+<div class="widget" id="w-loc">
+  <div class="hd"><div class="ttl">Localisation on $\mathbb{CP}^n$</div><div class="hint">vary $n$ — fixed points and weights update; the sum is always $1$</div></div>
+  <svg id="loc-svg" viewBox="0 0 820 320" width="820" height="320"><title>Atiyah-Bott localisation on CP^n with the standard S^1 action: sum over fixed points equals one</title></svg>
+  <div class="row">
+    <label for="loc-n">$n$</label>
+    <input type="range" id="loc-n" min="1" max="4" step="1" value="2">
+    <span class="small" id="loc-nval"></span>
+  </div>
+  <div class="readout" id="loc-readout" aria-live="polite">$n=2$: three fixed points $p_0,p_1,p_2$ on $\mathbb{CP}^2$. Localisation of $\int c_1^2 = 1$ becomes $\sum_i t_i^2 / \prod_{j\ne i}(t_j-t_i) = 1$.</div>
+</div>
+
+
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./lie-groups.html">Compact Lie groups and tori</a></li>
+    <li><a href="./atiyah-singer-index-theorem.html#applications">Equivariant index and family versions</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="cc-equivariant"></div>
+</section>
+
 <section id="outro">
-<h2>7. Connections</h2>
+<h2>10. Connections</h2>
 
 <p>Characteristic classes are the obstruction-and-invariant theory for vector bundles. They sit at the intersection of topology, geometry, and analysis.</p>
 
@@ -1127,6 +1276,166 @@ A sphere of radius $R$ has $K = 1/R^2$ and area $4\pi R^2$, so $\frac{1}{2\pi}\i
       draw();
     });
   });
+  draw();
+})();
+</script>
+
+<script>
+/* =============================== SECTION 7: Bundles ↔ maps to BU(n) =============================== */
+(function(){
+  const svg = $("#bun-svg");
+  const readout = $("#bun-readout");
+  let cur = "hopf";
+  const data = {
+    hopf:    { src:"S^2", target:"BU(1) = ℂℙ^∞", deg:1, rk:1, classes:"c_1 ↦ generator of H^2(S^2)", blurb:"$\\mathcal{O}(1)\\to S^2$ is classified by the canonical inclusion $S^2\\cong\\mathbb{CP}^1\\hookrightarrow\\mathbb{CP}^\\infty = BU(1)$. Pulling back the universal $c_1\\in H^2(BU(1))$ recovers the generator of $H^2(S^2)$; pairing with $[S^2]$ gives $1$." },
+    trivial: { src:"X", target:"BU(2)", deg:0, rk:2, classes:"all $c_i\\mapsto 0$", blurb:"The trivial bundle $\\underline{\\mathbb{C}}^2 \\to X$ is classified by the constant map $X\\to\\{\\text{pt}\\}\\hookrightarrow BU(2)$. Every characteristic class pulls back to zero — characteristic classes vanish on trivial bundles." },
+    cpn:     { src:"ℂℙ^1", target:"BU(1)", deg:2, rk:1, classes:"c_1 = 2\\cdot[\\text{gen}]", blurb:"$T\\mathbb{CP}^1\\cong\\mathcal{O}(2)$ as complex line bundles. Classified by the squaring map $\\mathbb{CP}^1\\to\\mathbb{CP}^\\infty$, $[z_0:z_1]\\mapsto [z_0^2: z_0 z_1: z_1^2: 0:\\cdots]$ (Veronese). $c_1[T\\mathbb{CP}^1] = 2 = \\chi(S^2)$." },
+    sumLine: { src:"S^2", target:"BU(1)\\times BU(1)\\to BU(2)", deg:1, rk:2, classes:"c_1 = 2-1 = 1, c_2 = -2", blurb:"$\\mathcal{O}(2)\\oplus\\mathcal{O}(-1)$ on $S^2$ is classified by the diagonal map $S^2\\to BU(1)\\times BU(1) \\to BU(2)$, with $c_1 = 2 + (-1) = 1$ and $c_2 = (2)(-1) = -2$. Whitney sum formula at work." }
+  };
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W=820, H=320;
+    svg.appendChild(SVG("rect",{x:20,y:20,width:W-40,height:H-40,fill:"#0b0f16",stroke:"var(--line)",rx:8}));
+    const d = data[cur];
+    // pullback square
+    const x0=140, x1=480, y0=80, y1=240;
+    drawNode(svg, x0, y0, "f^*γ_n", {r:28, fill:"var(--panel2)", stroke:"var(--yellow)"});
+    drawNode(svg, x1, y0, "γ_n",     {r:28, fill:"var(--panel2)", stroke:"var(--yellow)"});
+    drawNode(svg, x0, y1, d.src,       {r:28, fill:"var(--panel2)", stroke:"var(--blue)"});
+    drawNode(svg, x1, y1, "BU("+d.rk+")", {r:34, fill:"var(--panel2)", stroke:"var(--violet)"});
+    drawArrow(svg,[x0,y0],[x1,y0],{color:"var(--yellow)",label:"~ pullback",markerId:"bun-top",pad1:30,pad2:34});
+    drawArrow(svg,[x0,y1],[x1,y1],{color:"var(--violet)",label:"f",markerId:"bun-bot",pad1:30,pad2:38});
+    drawArrow(svg,[x0,y0],[x0,y1],{color:"var(--mute)",markerId:"bun-left",pad1:30,pad2:30});
+    drawArrow(svg,[x1,y0],[x1,y1],{color:"var(--mute)",markerId:"bun-right",pad1:30,pad2:36});
+    // pulled-back classes panel
+    const px=620, py=70;
+    svg.appendChild(SVG("rect",{x:px-10,y:py-12,width:170,height:200,fill:"var(--panel2)",stroke:"var(--line)",rx:6}));
+    const t1 = SVG("text",{x:px,y:py+8,"font-size":11,fill:"var(--mute)"}); t1.textContent="target:"; svg.appendChild(t1);
+    const t2 = SVG("text",{x:px,y:py+26,"font-size":13,fill:"#fff"}); t2.textContent=d.target; svg.appendChild(t2);
+    const t3 = SVG("text",{x:px,y:py+58,"font-size":11,fill:"var(--mute)"}); t3.textContent="rank:"; svg.appendChild(t3);
+    const t4 = SVG("text",{x:px,y:py+76,"font-size":15,fill:"var(--yellow)","font-weight":600}); t4.textContent=String(d.rk); svg.appendChild(t4);
+    const t5 = SVG("text",{x:px,y:py+108,"font-size":11,fill:"var(--mute)"}); t5.textContent="classifying degree:"; svg.appendChild(t5);
+    const t6 = SVG("text",{x:px,y:py+126,"font-size":15,fill:"var(--green)","font-weight":600}); t6.textContent=String(d.deg); svg.appendChild(t6);
+    const t7 = SVG("text",{x:px,y:py+156,"font-size":11,fill:"var(--mute)"}); t7.textContent="pulled-back classes:"; svg.appendChild(t7);
+    const t8 = SVG("text",{x:px,y:py+178,"font-size":11,fill:"var(--cyan)"}); t8.textContent=d.classes; svg.appendChild(t8);
+    readout.innerHTML = d.blurb;
+    if(window.renderMathInElement){ try{ renderMathInElement(readout,{delimiters:[{left:"$",right:"$",display:false}],throwOnError:false}); }catch(e){} }
+  }
+  $$(".bun-pick").forEach(b => {
+    b.addEventListener("click", () => {
+      $$(".bun-pick").forEach(x=>{x.classList.remove("active");x.setAttribute("aria-pressed","false");});
+      b.classList.add("active");b.setAttribute("aria-pressed","true");
+      cur = b.dataset.key;
+      draw();
+    });
+  });
+  draw();
+})();
+</script>
+
+<script>
+/* =============================== SECTION 8: Hirzebruch signature theorem =============================== */
+(function(){
+  const svg = $("#sig-svg");
+  const readout = $("#sig-readout");
+  let cur = "cp2";
+  const data = {
+    cp2:    { dim:4, sig:1,  pTop:"p_1[M] = 3", L:"L_1 = p_1/3 = 1", form:"(1)", blurb:"$\\mathbb{CP}^2$: intersection form $(1)$ on $H^2$, signature $\\sigma=1$. Pontryagin number $p_1[\\mathbb{CP}^2] = 3$, so $L_1[M] = 3/3 = 1$. Hirzebruch: $\\sigma = L_1[M]$ verified." },
+    cp2bar: { dim:4, sig:0,  pTop:"p_1[M] = 0", L:"L_1 = 0/3 = 0", form:"(1)\\oplus(-1)", blurb:"$\\mathbb{CP}^2 \\#\\overline{\\mathbb{CP}}^2$: intersection form is diag($1,-1$), signature $\\sigma = 1 + (-1) = 0$. Pontryagin numbers add under connected sum, $p_1[M] = 3 + (-3) = 0$, so $L_1 = 0$. Both invariants vanish." },
+    k3:     { dim:4, sig:-16,pTop:"p_1[K3] = -48", L:"L_1 = -48/3 = -16", form:"3\\cdot(-E_8) \\oplus 3 H", blurb:"K3 surface: signature $\\sigma(K3) = -16$ (the famous lattice $3\\cdot(-E_8)\\oplus 3 H$). Pontryagin number $p_1[K3] = -48 = 3\\sigma$, in agreement with $L_1[M] = p_1/3 = -16$." },
+    hp2:    { dim:8, sig:1,  pTop:"p_1^2[M] = 4,\\, p_2[M] = 7", L:"L_2 = (7\\cdot 7 - 4)/45 = 1", form:"(1)", blurb:"$\\mathbb{HP}^2$: $8$-manifold with $\\sigma = 1$. Pontryagin numbers: $p_1^2[M] = 4$, $p_2[M] = 7$, so $L_2[M] = (7p_2 - p_1^2)/45 \\cdot [M] = (49 - 4)/45 = 1$. Hirzebruch in dimension $8$." }
+  };
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const W=820, H=320;
+    svg.appendChild(SVG("rect",{x:20,y:20,width:W-40,height:H-40,fill:"#0b0f16",stroke:"var(--line)",rx:8}));
+    const d = data[cur];
+    // left: intersection form box
+    const x0=60, y0=70, w=300, h=180;
+    svg.appendChild(SVG("rect",{x:x0,y:y0,width:w,height:h,fill:"var(--panel2)",stroke:"var(--blue)",rx:6}));
+    const t1 = SVG("text",{x:x0+w/2,y:y0+24,"text-anchor":"middle","font-size":12,fill:"var(--mute)"}); t1.textContent="intersection form on H^{2k}"; svg.appendChild(t1);
+    const t2 = SVG("text",{x:x0+w/2,y:y0+62,"text-anchor":"middle","font-size":15,fill:"#fff","font-weight":600}); t2.textContent="Q = "+d.form; svg.appendChild(t2);
+    const t3 = SVG("text",{x:x0+w/2,y:y0+102,"text-anchor":"middle","font-size":12,fill:"var(--mute)"}); t3.textContent="signature σ(M):"; svg.appendChild(t3);
+    const t4 = SVG("text",{x:x0+w/2,y:y0+132,"text-anchor":"middle","font-size":22,fill:"var(--yellow)","font-weight":700}); t4.textContent=String(d.sig); svg.appendChild(t4);
+    const t5 = SVG("text",{x:x0+w/2,y:y0+158,"text-anchor":"middle","font-size":11,fill:"var(--mute)"}); t5.textContent="dim M = "+d.dim; svg.appendChild(t5);
+    // arrow:
+    drawArrow(svg,[x0+w+10,y0+h/2],[x0+w+90,y0+h/2],{color:"var(--violet)",markerId:"sig-eq",label:"Hirzebruch",pad1:0,pad2:0});
+    // right: L-genus integral box
+    const xR=x0+w+110, yR=y0;
+    svg.appendChild(SVG("rect",{x:xR,y:yR,width:w,height:h,fill:"var(--panel2)",stroke:"var(--green)",rx:6}));
+    const r1 = SVG("text",{x:xR+w/2,y:yR+24,"text-anchor":"middle","font-size":12,fill:"var(--mute)"}); r1.textContent="Pontryagin number:"; svg.appendChild(r1);
+    const r2 = SVG("text",{x:xR+w/2,y:yR+50,"text-anchor":"middle","font-size":13,fill:"var(--cyan)"}); r2.textContent=d.pTop; svg.appendChild(r2);
+    const r3 = SVG("text",{x:xR+w/2,y:yR+88,"text-anchor":"middle","font-size":12,fill:"var(--mute)"}); r3.textContent="L-genus:"; svg.appendChild(r3);
+    const r4 = SVG("text",{x:xR+w/2,y:yR+114,"text-anchor":"middle","font-size":13,fill:"var(--cyan)"}); r4.textContent=d.L; svg.appendChild(r4);
+    const r5 = SVG("text",{x:xR+w/2,y:yR+148,"text-anchor":"middle","font-size":12,fill:"var(--mute)"}); r5.textContent="⟨L_k(p),[M]⟩:"; svg.appendChild(r5);
+    const r6 = SVG("text",{x:xR+w/2,y:yR+170,"text-anchor":"middle","font-size":22,fill:"var(--green)","font-weight":700}); r6.textContent=String(d.sig); svg.appendChild(r6);
+    readout.innerHTML = d.blurb;
+    if(window.renderMathInElement){ try{ renderMathInElement(readout,{delimiters:[{left:"$",right:"$",display:false}],throwOnError:false}); }catch(e){} }
+  }
+  $$(".sig-pick").forEach(b => {
+    b.addEventListener("click", () => {
+      $$(".sig-pick").forEach(x=>{x.classList.remove("active");x.setAttribute("aria-pressed","false");});
+      b.classList.add("active");b.setAttribute("aria-pressed","true");
+      cur = b.dataset.key;
+      draw();
+    });
+  });
+  draw();
+})();
+</script>
+
+<script>
+/* =============================== SECTION 9: Atiyah–Bott localisation on CP^n =============================== */
+(function(){
+  const svg = $("#loc-svg");
+  const slider = $("#loc-n");
+  const nval = $("#loc-nval");
+  const readout = $("#loc-readout");
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const n = parseInt(slider.value, 10);
+    nval.textContent = "n = " + n;
+    const W=820, H=320;
+    svg.appendChild(SVG("rect",{x:20,y:20,width:W-40,height:H-40,fill:"#0b0f16",stroke:"var(--line)",rx:8}));
+    // header
+    const tit = SVG("text",{x:W/2,y:48,"text-anchor":"middle","font-size":14,fill:"#fff","font-weight":600});
+    tit.textContent = "S^1 ↻ ℂℙ^"+n+":  "+(n+1)+" fixed points  p_0,…,p_"+n;
+    svg.appendChild(tit);
+    // ring of fixed points
+    const cx = 410, cy = 180, R = 100;
+    svg.appendChild(SVG("circle",{cx,cy,r:R,fill:"none",stroke:"var(--mute)","stroke-width":1,"stroke-dasharray":"3 3"}));
+    for(let i=0;i<=n;i++){
+      const theta = -Math.PI/2 + 2*Math.PI*i/(n+1);
+      const px = cx + R*Math.cos(theta);
+      const py = cy + R*Math.sin(theta);
+      svg.appendChild(SVG("circle",{cx:px,cy:py,r:14,fill:"var(--panel2)",stroke:"var(--yellow)","stroke-width":2}));
+      const t = SVG("text",{x:px,y:py+5,"text-anchor":"middle","font-size":12,fill:"var(--yellow)","font-weight":600});
+      t.textContent = "p_"+i;
+      svg.appendChild(t);
+      // weight label outside
+      const wx = cx + (R+30)*Math.cos(theta);
+      const wy = cy + (R+30)*Math.sin(theta);
+      const wt = SVG("text",{x:wx,y:wy+4,"text-anchor":"middle","font-size":11,fill:"var(--cyan)"});
+      wt.textContent = "weight t_"+i+"^"+n;
+      svg.appendChild(wt);
+    }
+    // formula at bottom
+    const f = SVG("text",{x:W/2,y:H-40,"text-anchor":"middle","font-size":13,fill:"var(--ink)","font-style":"italic"});
+    f.textContent = "∫ c_1(O(1))^"+n+" = Σ_i  t_i^"+n+" / Π_{j≠i} (t_j − t_i)  =  1";
+    svg.appendChild(f);
+    // result
+    const res = SVG("text",{x:W/2,y:H-12,"text-anchor":"middle","font-size":11,fill:"var(--mute)"});
+    res.textContent = "(verify: substitute any distinct values for the t_i — the rational sum collapses to 1)";
+    svg.appendChild(res);
+    let msg;
+    if(n===1) msg = "$n=1$: two fixed points $p_0 = [1:0],\\,p_1=[0:1]$ on $\\mathbb{CP}^1$. Localisation: $\\frac{t_0}{t_1-t_0} + \\frac{t_1}{t_0-t_1} = 1$ — a one-line identity.";
+    else if(n===2) msg = "$n=2$: three fixed points on $\\mathbb{CP}^2$. The localisation identity $\\sum_i t_i^2 / \\prod_{j\\ne i}(t_j-t_i) = 1$ holds for all choices of distinct $t_0,t_1,t_2$.";
+    else if(n===3) msg = "$n=3$: four fixed points on $\\mathbb{CP}^3$. The polynomial identity $\\sum_i t_i^3 / \\prod_{j\\ne i}(t_j-t_i) = 1$ already requires partial-fraction work to check by hand.";
+    else msg = "$n="+n+"$: "+(n+1)+" fixed points. Atiyah–Bott reduces an integral on $\\mathbb{CP}^"+n+"$ to a finite rational sum — all higher complexity is encoded in the $(n+1)\\times(n+1)$ Vandermonde-style denominator.";
+    readout.innerHTML = msg;
+    if(window.renderMathInElement){ try{ renderMathInElement(readout,{delimiters:[{left:"$",right:"$",display:false}],throwOnError:false}); }catch(e){} }
+  }
+  slider.addEventListener("input", draw);
   draw();
 })();
 </script>
