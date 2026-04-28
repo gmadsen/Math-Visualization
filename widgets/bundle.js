@@ -3279,5 +3279,131 @@ window.__MVWidgets = [
     "exampleParams": null,
     "exampleMarkup": null,
     "exampleScript": null
+  },
+  {
+    "slug": "three-body-halo-orbits",
+    "family": "three-body-halo-orbits",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "three-body-halo-orbits widget params",
+    "description": "Bespoke widget for the §6 halo-orbit / tadpole illustration on the three-body-problem topic — three preset buttons ($L_1$ halo, $L_2$ halo, $L_4$ tadpole) co-located with an amplitude slider in a single row above an SVG that animates a spacecraft on the chosen libration orbit, plus a readout reporting amplitude in km. The button-trio + slider mixed in one row + svg + readout + trailing `<p class=\"small\">` of mission provenance doesn't fit any shared slug; this slug captures it as one unit.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the §6 halo-orbit / tadpole illustration on the [`three-body-problem`](../../three-body-problem.html#applications) topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "three-body-horseshoe",
+    "family": "three-body-horseshoe",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "three-body-horseshoe widget params",
+    "description": "Bespoke widget for the §4 Smale-horseshoe symbolic-itinerary illustration on the three-body-problem topic — step / step-back / reset buttons combined with an iteration slider above an SVG showing the surviving Cantor-rectangle grid after $n$ horseshoe iterations, plus a readout that prints an example length-$n$ binary itinerary. The button-trio + slider all sharing one row + svg + readout + trailing `<p class=\"small\">` doesn't fit any shared slug; this slug captures it as one unit.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the §4 Smale-horseshoe symbolic-itinerary illustration on the [`three-body-problem`](../../three-body-problem.html#poincare) topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "three-body-kam-tori",
+    "family": "three-body-kam-tori",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "three-body-kam-tori widget params",
+    "description": "Bespoke widget for the §5 KAM tori-vs-perturbation illustration on the three-body-problem topic — a single perturbation slider $\\varepsilon$ with an inline `<span class=\"small\">` readout above an SVG of nested invariant tori, where rationally-resonant rings shatter into Birkhoff islands as $\\varepsilon$ grows and a marked golden-mean torus survives longest. Slider+span row + svg + readout + trailing `<p class=\"small\">` of Greene's-criterion provenance doesn't fit any shared slug; this slug captures it as one unit. (Distinct from `hamiltonians-kam-tori`, which is a 2-torus winding visualization driven by three sliders.)",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the §5 KAM tori-vs-perturbation illustration on the [`three-body-problem`](../../three-body-problem.html#kam) topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "three-body-lagrange-points",
+    "family": "three-body-lagrange-points",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "three-body-lagrange-points widget params",
+    "description": "Bespoke widget for the §2 effective-potential / Lagrange-points illustration on the three-body-problem topic — a mass-ratio slider $\\mu = m_2/(m_1+m_2)$ with a small inline `<span class=\"small\">` readout, two checkboxes (equipotential contours, Hill-region highlight), an SVG showing the rotating-frame configuration with $L_1$–$L_5$ marked, and a textual readout listing the five Lagrange-point coordinates. The slider+span layout in one row + two checkboxes in a second row + svg + readout doesn't fit any shared slug; this slug captures it as one unit.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the §2 effective-potential / Lagrange-points illustration on the [`three-body-problem`](../../three-body-problem.html#restricted) topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "three-body-nbody-simulator",
+    "family": "three-body-nbody-simulator",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "three-body-nbody-simulator widget params",
+    "description": "Bespoke widget for the §1 Newton-equations N-body simulator on the three-body-problem topic — preset buttons (2-body Kepler, Lagrange equilateral, figure-eight, generic 3-body) above pause/reset/speed controls, an SVG host where orbit traces accumulate, and a readout reporting energy + angular-momentum drift under a leapfrog integrator. The combination of preset row + control row + SVG + readout + a trailing `<p class=\"small\">` of provenance prose (figure-eight initial conditions credit) does not fit any shared slug; this slug captures it as one unit with the integrator, presets, and trail logic kept opaque in the bodyScript artifact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the §1 Newton-equations N-body simulator on the [`three-body-problem`](../../three-body-problem.html#newton-eq) topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "three-body-special-solutions",
+    "family": "three-body-special-solutions",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "three-body-special-solutions widget params",
+    "description": "Bespoke widget for the §3 special-solutions choreography demo on the three-body-problem topic — three preset buttons (Lagrange equilateral, Euler collinear, figure-eight) above an SVG that animates the chosen choreography forward in time, with a readout naming the current solution and a trailing `<p class=\"small\">` of provenance. The button-row + animated-SVG + readout + trailing prose layout doesn't fit any shared slug; this slug captures it as one unit.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the §3 special-solutions choreography demo on the [`three-body-problem`](../../three-body-problem.html#special) topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
   }
 ];

@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **130**, concepts: **885**
-- Widgets: **901** (registry-driven: 598, inline: 303)
-- Quizzes: **3822** (v1: 2586, hard: 1223, expert: 13)
-- Quiz types: mcq: 2565, numeric: 1017, multi-select: 96, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **148**
-- Concepts lacking a hard-tier quiz: **447**
+- Topics: **130**, concepts: **891**
+- Widgets: **910** (registry-driven: 604, inline: 306)
+- Quizzes: **3840** (v1: 2604, hard: 1223, expert: 13)
+- Quiz types: mcq: 2577, numeric: 1023, multi-select: 96, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Concepts lacking a widget in their section: **145**
+- Concepts lacking a hard-tier quiz: **453**
 
 ## Per-slug registry adoption
 
@@ -163,6 +163,12 @@ page has wired one in yet.
 | `simplicial-sets-inner-horn-filler` | button-stepper | click | 2d | 1 | simplicial-sets-and-nerve |
 | `simplicial-sets-nerve-2simplex` | clickable-diagram | click | 2d | 1 | simplicial-sets-and-nerve |
 | `simplicial-sets-realization-stepper` | button-stepper | step | 2d | 1 | simplicial-sets-and-nerve |
+| `three-body-halo-orbits` | three-body-halo-orbits | click | 2d | 1 | three-body-problem |
+| `three-body-horseshoe` | three-body-horseshoe | click | 2d | 1 | three-body-problem |
+| `three-body-kam-tori` | three-body-kam-tori | slider | 2d | 1 | three-body-problem |
+| `three-body-lagrange-points` | three-body-lagrange-points | slider | 2d | 1 | three-body-problem |
+| `three-body-nbody-simulator` | three-body-nbody-simulator | click | 2d | 1 | three-body-problem |
+| `three-body-special-solutions` | three-body-special-solutions | click | 2d | 1 | three-body-problem |
 
 ## Per-subject
 
@@ -198,13 +204,13 @@ page has wired one in yet.
 
 ### Analysis
 
-- Topics: **15**, concepts: **146**
+- Topics: **15**, concepts: **149**
 - Widgets: **107** (registry-driven: 71, inline: 36)
   - by family: button-stepper: 37, unknown: 36, clickable-diagram: 31, constraint-bifurcation-explorer: 1, recurrence-plotter: 1, julia-playground: 1
   - by dimension: 2d: 71, unknown: 36
   - by gesture: click: 68, unknown: 36, slider: 3
-- Quizzes: **561** (v1: 376, hard: 185, expert: 0)
-  - by type: mcq: 352, numeric: 139, multi-select: 15, complex: 14, matching: 14, ordering: 12, proof-completion: 9, spot-the-error: 4, construction: 1, guess-my-rule: 1
+- Quizzes: **570** (v1: 385, hard: 185, expert: 0)
+  - by type: mcq: 358, numeric: 142, multi-select: 15, complex: 14, matching: 14, ordering: 12, proof-completion: 9, spot-the-error: 4, construction: 1, guess-my-rule: 1
 
 ### Probability & statistics
 
@@ -218,13 +224,13 @@ page has wired one in yet.
 
 ### Geometry & topology
 
-- Topics: **16**, concepts: **99**
-- Widgets: **101** (registry-driven: 51, inline: 50)
-  - by family: unknown: 50, button-stepper: 34, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, counterexample-explorer: 1, proof-scrubber: 1, lattice-visualizer: 1
-  - by dimension: unknown: 50, 2d: 45, 3d: 6
-  - by gesture: unknown: 50, click: 40, drag: 6, static: 2, select: 1, timeline: 1, slider: 1
-- Quizzes: **439** (v1: 297, hard: 142, expert: 0)
-  - by type: mcq: 304, numeric: 119, complex: 7, multi-select: 4, matching: 3, ordering: 1, proof-completion: 1
+- Topics: **16**, concepts: **102**
+- Widgets: **104** (registry-driven: 51, inline: 53)
+  - by family: unknown: 53, button-stepper: 34, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, counterexample-explorer: 1, proof-scrubber: 1, lattice-visualizer: 1
+  - by dimension: unknown: 53, 2d: 45, 3d: 6
+  - by gesture: unknown: 53, click: 40, drag: 6, static: 2, select: 1, timeline: 1, slider: 1
+- Quizzes: **448** (v1: 306, hard: 142, expert: 0)
+  - by type: mcq: 310, numeric: 122, complex: 7, multi-select: 4, matching: 3, ordering: 1, proof-completion: 1
 
 ### Number theory
 
@@ -269,10 +275,10 @@ page has wired one in yet.
 ### Mathematical physics
 
 - Topics: **4**, concepts: **24**
-- Widgets: **13** (registry-driven: 13, inline: 0)
-  - by family: schrodinger-figure: 7, hamiltonians-phase-space-cell: 1, hamiltonians-flow-portrait: 1, hamiltonians-canonical-transform: 1, hamiltonians-conserved-quantity: 1, hamiltonians-kam-tori: 1, hamiltonians-kepler-orbits: 1
-  - by dimension: 2d: 13
-  - by gesture: slider: 10, button: 1, click: 1, select: 1
+- Widgets: **19** (registry-driven: 19, inline: 0)
+  - by family: schrodinger-figure: 7, hamiltonians-phase-space-cell: 1, hamiltonians-flow-portrait: 1, hamiltonians-canonical-transform: 1, hamiltonians-conserved-quantity: 1, hamiltonians-kam-tori: 1, hamiltonians-kepler-orbits: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
+  - by dimension: 2d: 19
+  - by gesture: slider: 12, click: 5, button: 1, select: 1
 - Quizzes: **72** (v1: 72, hard: 0, expert: 0)
   - by type: mcq: 62, numeric: 10
 
@@ -290,7 +296,7 @@ page has wired one in yet.
 - `resolution-of-singularities` (Algebraic geometry) — concepts=6, widgets=5 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `hamiltonians-classical-mechanics` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `general-relativity` (Mathematical physics) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
-- `three-body-problem` (Mathematical physics) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `three-body-problem` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `designs` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `expanders` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=5), quiz=18 (v1=18, hard=0, expert=0)
 - `symplectic-manifolds` (Geometry & topology) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
@@ -339,7 +345,7 @@ page has wired one in yet.
 - `harmonic-analysis-fourier` (Analysis) — concepts=8, widgets=5 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
 - `partial-differential-equations` (Analysis) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `harmonic-functions` (Analysis) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
-- `spectral-theory` (Analysis) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `spectral-theory` (Analysis) — concepts=9, widgets=0 (slug=0), quiz=27 (v1=27, hard=0, expert=0)
 - `probability-theory` (Probability & statistics) — concepts=12, widgets=10 (slug=10), quiz=73 (v1=36, hard=24, expert=13)
 - `stochastic-processes-and-martingales` (Probability & statistics) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `stochastic-calculus` (Probability & statistics) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
@@ -354,7 +360,7 @@ page has wired one in yet.
 - `riemannian-geometry` (Geometry & topology) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `lie-groups` (Geometry & topology) — concepts=7, widgets=6 (slug=6), quiz=42 (v1=21, hard=21, expert=0)
 - `riemann-surfaces` (Geometry & topology) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
-- `characteristic-classes` (Geometry & topology) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `characteristic-classes` (Geometry & topology) — concepts=9, widgets=9 (slug=0), quiz=27 (v1=27, hard=0, expert=0)
 - `morse-theory` (Geometry & topology) — concepts=8, widgets=8 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
 - `galois` (Number theory) — concepts=8, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
 - `quadratic-reciprocity` (Number theory) — concepts=6, widgets=7 (slug=7), quiz=33 (v1=18, hard=15, expert=0)
@@ -432,7 +438,7 @@ page has wired one in yet.
 - `gr-kerr-rotating` (general-relativity)
 - `gr-cosmology-flrw` (general-relativity)
 - `gr-gravitational-waves` (general-relativity)
-- `tbp-newton-equations` (three-body-problem)
+- `gcgt-presentations` (geometric-and-combinatorial-group-theory)
 
 ### Concepts missing a hard-tier quiz (top 20)
 

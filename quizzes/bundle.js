@@ -7560,6 +7560,123 @@ window.MVQuizBank = {
             "explain": "If $\\nabla_t = \\nabla + t(\\nabla' - \\nabla)$ is a path of connections, integrating $\\frac{d}{dt}P(F_{\\nabla_t})$ over $t \\in [0,1]$ produces an explicit primitive, the Chern–Simons / transgression form, so $[P(F_\\nabla)]$ is independent of $\\nabla$ in de Rham cohomology."
           }
         ]
+      },
+      "cc-classifying-spaces": {
+        "title": "Classifying spaces $BO(n)$, $BU(n)$",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What does the bijection $[X, BU(n)] \\xrightarrow{\\sim} \\{\\text{rank-}n \\text{ complex bundles on }X\\}/\\!\\sim$ send a homotopy class of maps $f$ to?",
+            "choices": [
+              "The trivial bundle of rank $n$",
+              "The pullback $f^*\\gamma_n$ of the tautological bundle",
+              "The tangent bundle of $X$",
+              "The dual bundle $f^*\\gamma_n^\\vee$"
+            ],
+            "answer": 1,
+            "hint": "$BU(n) = \\mathrm{Gr}_n(\\mathbb{C}^\\infty)$ carries a tautological rank-$n$ bundle.",
+            "explain": "The infinite Grassmannian $BU(n)$ has the tautological bundle $\\gamma_n\\to BU(n)$ whose fibre at a subspace $V$ is $V$ itself. Every rank-$n$ complex bundle on a paracompact $X$ is $f^*\\gamma_n$ for a unique homotopy class $f\\colon X\\to BU(n)$."
+          },
+          {
+            "type": "mcq",
+            "q": "What is $H^*(BU(n);\\mathbb{Z})$ as a graded ring?",
+            "choices": [
+              "$\\mathbb{Z}$ in every even degree",
+              "$\\mathbb{Z}/2[w_1,\\ldots,w_n]$",
+              "$\\mathbb{Z}[c_1,\\ldots,c_n]$ with $|c_i| = 2i$",
+              "$\\Lambda_\\mathbb{Z}(c_1,\\ldots,c_n)$ exterior"
+            ],
+            "answer": 2,
+            "hint": "Universal Chern classes generate freely in even degree.",
+            "explain": "$H^*(BU(n);\\mathbb{Z}) = \\mathbb{Z}[c_1,\\ldots,c_n]$, polynomial in the universal Chern classes $c_i$ of degree $2i$. A characteristic class is exactly a polynomial in the $c_i$. The mod-$2$ analogue $\\mathbb{Z}/2[w_1,\\ldots,w_n]$ is the cohomology of $BO(n)$."
+          },
+          {
+            "type": "numeric",
+            "q": "On $\\mathbb{CP}^1\\cong S^2$, the line bundle $\\mathcal{O}(d)$ is classified by a map $\\mathbb{CP}^1 \\to BU(1) = \\mathbb{CP}^\\infty$ of degree $d$. Compute $\\langle c_1(\\mathcal{O}(d)),[\\mathbb{CP}^1]\\rangle$ when $d = 5$.",
+            "answer": 5,
+            "tol": 0,
+            "hint": "$c_1(\\mathcal{O}(d))$ is $d$ times the generator of $H^2(\\mathbb{CP}^1;\\mathbb{Z})$.",
+            "explain": "The classifying map for $\\mathcal{O}(d)$ has degree $d$ on $H^2$, and the universal $c_1$ pulls back to $d$ times the generator. Pairing with $[\\mathbb{CP}^1]$ gives $d = 5$. Equivalently, $\\mathcal{O}(d) = \\mathcal{O}(1)^{\\otimes d}$ and $c_1$ is additive on tensor products of line bundles."
+          }
+        ]
+      },
+      "cc-signature-theorem": {
+        "title": "Hirzebruch signature theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the signature $\\sigma(M)$ of a closed oriented $4k$-manifold?",
+            "choices": [
+              "The Euler characteristic $\\chi(M)$",
+              "$b_{2k}^+ - b_{2k}^-$, the index of the cup-product pairing on $H^{2k}(M;\\mathbb{R})$",
+              "The first Pontryagin number",
+              "The total Betti number $\\sum b_i$"
+            ],
+            "answer": 1,
+            "hint": "Diagonalise the cup-product pairing on the middle cohomology.",
+            "explain": "On a closed oriented $4k$-manifold, the cup-product pairing $Q(\\alpha,\\beta) = \\langle\\alpha\\smile\\beta,[M]\\rangle$ is a symmetric non-degenerate form on $H^{2k}(M;\\mathbb{R})$. Its signature $\\sigma(M) = b_{2k}^+ - b_{2k}^-$ is the Hirzebruch signature."
+          },
+          {
+            "type": "numeric",
+            "q": "For $\\mathbb{CP}^2$ the first Pontryagin number is $p_1[\\mathbb{CP}^2] = 3$. Compute $L_1[\\mathbb{CP}^2]$, hence $\\sigma(\\mathbb{CP}^2)$ via Hirzebruch.",
+            "answer": 1,
+            "tol": 0,
+            "hint": "$L_1 = p_1/3$.",
+            "explain": "The first $L$-polynomial is $L_1 = p_1/3$, so $L_1[\\mathbb{CP}^2] = 3/3 = 1$. Hirzebruch's theorem gives $\\sigma(\\mathbb{CP}^2) = 1$, agreeing with the intersection form $(1)$ on $H^2(\\mathbb{CP}^2;\\mathbb{R})\\cong\\mathbb{R}$."
+          },
+          {
+            "type": "mcq",
+            "q": "Hirzebruch's theorem $\\sigma(M^{4k}) = \\langle L_k(p_1,\\ldots,p_k), [M]\\rangle$ has a striking integrality consequence. Which one?",
+            "choices": [
+              "Every $4k$-manifold has $\\sigma(M) = 0$",
+              "$L_k$ is a polynomial with integer coefficients",
+              "Pontryagin numbers like $p_1[M]$ on a $4$-manifold are divisible by $3$, since $\\sigma(M) = p_1[M]/3$ is an integer",
+              "Every closed $4k$-manifold has Euler characteristic divisible by $L_k$"
+            ],
+            "answer": 2,
+            "hint": "$L_1$ has a $3$ in the denominator but $\\sigma$ is always an integer.",
+            "explain": "The $L$-polynomial has rational coefficients ($L_1 = p_1/3$, $L_2 = (7p_2 - p_1^2)/45$, …), but $\\langle L_k,[M]\\rangle = \\sigma(M)\\in\\mathbb{Z}$ always. So $p_1[M]$ is divisible by $3$ on any closed oriented $4$-manifold — a non-trivial divisibility constraint forced by Hirzebruch."
+          }
+        ]
+      },
+      "cc-equivariant": {
+        "title": "Equivariant characteristic classes",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is $H^*_G(\\mathrm{pt};\\mathbb{Z})$ for $G$ a compact Lie group?",
+            "choices": [
+              "$\\mathbb{Z}$ in degree $0$ only",
+              "$H^*(BG;\\mathbb{Z})$",
+              "$H^*(G;\\mathbb{Z})$, the cohomology of the group itself",
+              "Always polynomial of rank $\\dim G$"
+            ],
+            "answer": 1,
+            "hint": "The Borel construction $X_G$ for $X = \\mathrm{pt}$ is just $BG$.",
+            "explain": "$H^*_G(X) := H^*((X\\times EG)/G;\\mathbb{Z})$, and for $X = \\mathrm{pt}$ this is $H^*(EG/G;\\mathbb{Z}) = H^*(BG;\\mathbb{Z})$. For $G = T = (S^1)^n$ this is the polynomial ring $\\mathbb{Z}[t_1,\\ldots,t_n]$ with $|t_i|=2$."
+          },
+          {
+            "type": "mcq",
+            "q": "In Atiyah–Bott $T$-localisation $\\int_X \\alpha = \\sum_{p\\in X^T} \\iota_p^*\\alpha / e^T(\\nu_p)$, what is $e^T(\\nu_p)$?",
+            "choices": [
+              "The ordinary Euler characteristic of $\\nu_p$",
+              "The equivariant Euler class of the normal bundle to the fixed-point component at $p$",
+              "The signature of $\\nu_p$",
+              "The first Chern class of $\\nu_p$"
+            ],
+            "answer": 1,
+            "hint": "Localisation pushes forward to the fixed locus; the denominator accounts for the normal directions.",
+            "explain": "$\\nu_p = T_pX$ is the (equivariant) normal bundle at the fixed point $p$, and $e^T(\\nu_p)\\in H^*(BT)$ is its equivariant Euler class — a non-zero polynomial in the $t_i$ (the weights of the $T$-action). Inverting it lives in the localised ring $\\mathrm{Frac}\\,H^*(BT)$."
+          },
+          {
+            "type": "numeric",
+            "q": "On $\\mathbb{CP}^1$ with the standard $S^1$ action, the two fixed points $p_0, p_1$ have $T$-weights $t_0, t_1$ on $T_{p_0}\\mathbb{CP}^1$ and $T_{p_1}\\mathbb{CP}^1$ given by $t_1 - t_0$ and $t_0 - t_1$ respectively. Compute the Atiyah–Bott sum $\\frac{t_0}{t_1 - t_0} + \\frac{t_1}{t_0 - t_1}$ as a rational function of $t_0,t_1$, and enter the resulting integer.",
+            "answer": -1,
+            "tol": 0,
+            "hint": "Put both fractions over the common denominator $t_1 - t_0$.",
+            "explain": "$\\frac{t_0}{t_1 - t_0} + \\frac{t_1}{t_0 - t_1} = \\frac{t_0}{t_1-t_0} - \\frac{t_1}{t_1-t_0} = \\frac{t_0 - t_1}{t_1 - t_0} = -1$. The geometric integral $\\int_{\\mathbb{CP}^1} c_1(\\mathcal{O}(1)) = 1$ uses the orientation convention where the equivariant Euler class is $e^T(\\nu_{p_i}) = t_i - t_{1-i}$ (rather than $t_{1-i} - t_i$); flipping the sign convention flips the sum from $-1$ to $+1$. The miraculous fact that the answer is a constant — independent of $t_0, t_1$ — is the entire point of Atiyah–Bott."
+          }
+        ]
       }
     }
   },
@@ -45534,6 +45651,123 @@ window.MVQuizBank = {
             "answer": 1,
             "hint": "Translation has multiplicative character $e^{-2\\pi i y\\xi}$ in the Fourier domain.",
             "explain": "Translations on $\\mathbb{R}$ form a unitary group whose Stone generator is $-i\\partial_x$. The Fourier transform $\\mathcal{F}\\colon L^2(\\mathbb{R})\\to L^2(\\hat{\\mathbb{R}})$ diagonalizes $-i\\partial_x$ as multiplication by $2\\pi\\xi$, so $T_y$ becomes multiplication by $e^{-2\\pi i y\\xi}$. This is the spectral theorem for the abelian group $\\mathbb{R}$."
+          }
+        ]
+      },
+      "st-compact-fredholm": {
+        "title": "Compact operators and the Fredholm alternative",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Fredholm alternative for a compact operator $K$ on a Hilbert space says: for $\\lambda\\ne 0$, the equation $Kx-\\lambda x = y$ is solvable for every $y$ iff:",
+            "choices": [
+              "$\\lambda$ is real",
+              "$K-\\lambda I$ is injective (equivalently, $\\lambda\\notin\\sigma_p(K)$)",
+              "$y$ has finite norm",
+              "$K$ is self-adjoint"
+            ],
+            "answer": 1,
+            "hint": "For Fredholm operators of index $0$, injectivity and surjectivity are equivalent.",
+            "explain": "$K-\\lambda I$ is Fredholm of index $0$ when $\\lambda\\ne 0$ and $K$ is compact (Riesz–Schauder). So $\\dim\\ker(K-\\lambda I)=\\dim\\mathrm{coker}(K-\\lambda I)$, and the equation is universally solvable iff the kernel is trivial. Equivalently, if $\\lambda$ is not an eigenvalue, $K-\\lambda I$ is invertible; if $\\lambda$ is an eigenvalue, the inhomogeneous equation is solvable exactly when $y\\perp\\ker(K^*-\\bar\\lambda I)$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is NOT generally true for a compact operator $K\\in B(H)$ on a separable Hilbert space?",
+            "choices": [
+              "$K$ is the norm-limit of finite-rank operators",
+              "Every non-zero $\\lambda\\in\\sigma(K)$ is an eigenvalue with finite-dimensional eigenspace",
+              "$\\sigma(K)$ accumulates only at $0$",
+              "$0\\notin\\sigma(K)$"
+            ],
+            "answer": 3,
+            "hint": "What is the spectrum of the zero operator? Of any non-invertible compact operator?",
+            "explain": "On infinite-dimensional $H$, $0\\in\\sigma(K)$ for every compact $K$: a compact operator on infinite-dimensional space cannot be invertible (its image of the unit ball is precompact, hence not the whole unit ball). The other three statements are core consequences of compactness — approximation by finite-rank, Riesz–Schauder discrete non-zero spectrum, and accumulation only at $0$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $K$ on $\\ell^2(\\mathbb{N})$ be diagonal with eigenvalues $\\lambda_n = 1/n$ for $n\\ge 1$. What is the index $\\dim\\ker(K-\\tfrac12 I)-\\dim\\mathrm{coker}(K-\\tfrac12 I)$?",
+            "answer": 0,
+            "hint": "$K$ is compact and $\\tfrac12\\ne 0$, so $K-\\tfrac12 I$ is Fredholm of index $0$.",
+            "explain": "$K$ is compact (a diagonal operator with $\\lambda_n\\to 0$). For any non-zero $\\lambda$, $K-\\lambda I$ is Fredholm of index $0$. Concretely: $\\ker(K-\\tfrac12 I)$ is spanned by $e_2$ (one-dimensional), and the cokernel is also one-dimensional (the orthogonal complement of the range, also $\\mathbb{C}\\cdot e_2$ since $K$ is self-adjoint). Index $=1-1=0$.",
+            "tol": 0
+          }
+        ]
+      },
+      "st-trace-class-hilbert-schmidt": {
+        "title": "Trace-class and Hilbert–Schmidt operators",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A bounded operator $T\\in B(H)$ is Hilbert–Schmidt iff:",
+            "choices": [
+              "$T$ is compact",
+              "$\\sum_n s_n(T) < \\infty$ where $s_n$ are the singular values",
+              "$\\sum_n s_n(T)^2 < \\infty$, equivalently $\\sum_n \\|Te_n\\|^2 < \\infty$ for some (any) ONB $(e_n)$",
+              "$T$ is bounded"
+            ],
+            "answer": 2,
+            "hint": "The Hilbert–Schmidt norm is $\\|T\\|_{HS}^2=\\sum\\|Te_n\\|^2$ — square-summable singular values.",
+            "explain": "$T\\in\\mathcal{S}_2$ iff $\\|T\\|_{HS}^2=\\sum_n\\|Te_n\\|^2<\\infty$, equivalently $\\sum_n s_n(T)^2<\\infty$. The sum is independent of the ONB. Hilbert–Schmidt $\\Rightarrow$ compact, but the converse fails (e.g. $K$ with $s_n=1/\\log(n+2)$ is compact but not HS). Trace-class $\\mathcal{S}_1$ requires the stricter $\\sum s_n<\\infty$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $K$ be the diagonal operator on $\\ell^2(\\mathbb{N})$ with eigenvalues $\\lambda_n=1/n^2$ for $n\\ge 1$. What is $\\operatorname{tr}(K)$?  (Round to 4 decimals; recall $\\sum_{n\\ge 1} 1/n^2=\\pi^2/6$.)",
+            "answer": 1.6449,
+            "hint": "Trace of a diagonal trace-class operator is the sum of eigenvalues.",
+            "explain": "$K$ is positive and trace-class because $\\sum 1/n^2 = \\pi^2/6 \\approx 1.6449$ converges. The trace is $\\operatorname{tr}(K)=\\sum_n \\langle Ke_n,e_n\\rangle = \\sum_n 1/n^2 = \\pi^2/6$. Note $K$ is also Hilbert–Schmidt with $\\|K\\|_{HS}^2=\\sum 1/n^4=\\pi^4/90$, and the inclusion $\\mathcal{S}_1\\subset\\mathcal{S}_2$ is automatic since trace-class is a stronger condition.",
+            "tol": 0.001
+          },
+          {
+            "type": "mcq",
+            "q": "The dual of $B(H)$-as-a-Banach-space identifies trace-class operators with which space, and via which pairing?",
+            "choices": [
+              "$\\mathcal{S}_1$ is the predual of $B(H)$, with $\\langle T, S\\rangle = \\operatorname{tr}(TS)$ for $T\\in\\mathcal{S}_1$, $S\\in B(H)$",
+              "$\\mathcal{S}_1 = B(H)^*$ via the operator norm",
+              "$\\mathcal{S}_2 = B(H)^*$",
+              "$\\mathcal{S}_1$ has no relation to duality on $B(H)$"
+            ],
+            "answer": 0,
+            "hint": "Schatten duality reads $(\\mathcal{S}_1)^* = B(H)$ — so $\\mathcal{S}_1$ is the predual.",
+            "explain": "Schatten–von Neumann duality: $\\mathcal{S}_1$ is the predual of $B(H)$ via $\\langle T, S\\rangle=\\operatorname{tr}(TS)$, giving $(\\mathcal{S}_1)^*\\cong B(H)$ isometrically. Equivalently $(\\mathcal{K}(H))^*=\\mathcal{S}_1$, where $\\mathcal{K}(H)$ is the compact operators. The Hilbert–Schmidt class $\\mathcal{S}_2$ is self-dual under the same pairing — it is itself a Hilbert space with inner product $\\langle T,S\\rangle_{HS}=\\operatorname{tr}(S^*T)$."
+          }
+        ]
+      },
+      "st-weyl-laplacian": {
+        "title": "Weyl's law for the Laplacian",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Weyl's law for the Dirichlet Laplacian on a bounded domain $\\Omega\\subset\\mathbb{R}^d$ asserts:",
+            "choices": [
+              "$N(\\lambda)\\sim |\\Omega|\\,\\lambda$",
+              "$N(\\lambda)\\sim\\frac{\\omega_d|\\Omega|}{(2\\pi)^d}\\lambda^{d/2}$ as $\\lambda\\to\\infty$, where $\\omega_d$ is the volume of the unit ball in $\\mathbb{R}^d$",
+              "$\\lambda_n\\to\\infty$ exponentially in $n$",
+              "$N(\\lambda)$ is exactly $|\\Omega|\\lambda^{d/2}$"
+            ],
+            "answer": 1,
+            "hint": "The leading term packs the eigenvalues with the same density as Fourier modes in a box of volume $|\\Omega|$.",
+            "explain": "Weyl's law: the eigenvalue counting function $N(\\lambda)=\\#\\{n:\\lambda_n\\le\\lambda\\}$ satisfies $N(\\lambda)\\sim\\frac{\\omega_d|\\Omega|}{(2\\pi)^d}\\lambda^{d/2}$ as $\\lambda\\to\\infty$. Equivalently $\\lambda_n\\sim\\frac{(2\\pi)^2}{(\\omega_d|\\Omega|)^{2/d}}n^{2/d}$. The two leading-order spectral invariants — dimension $d$ and volume $|\\Omega|$ — are visible in the asymptotics; subleading terms encode boundary length, curvature, etc."
+          },
+          {
+            "type": "numeric",
+            "q": "On the rectangle $\\Omega=[0,a]\\times[0,b]$, the Dirichlet Laplacian has eigenvalues $\\lambda_{m,n}=\\pi^2(m^2/a^2+n^2/b^2)$ for $m,n\\ge 1$. With $a=b=1$, what is the smallest eigenvalue $\\lambda_1$?  (Round to 4 decimals.)",
+            "answer": 19.7392,
+            "hint": "The minimum is $(m,n)=(1,1)$, giving $\\lambda=2\\pi^2$.",
+            "explain": "On the unit square, $\\lambda_{m,n}=\\pi^2(m^2+n^2)$, minimized at $(1,1)$: $\\lambda_1=2\\pi^2\\approx 19.7392$. The corresponding eigenfunction is $\\sin(\\pi x)\\sin(\\pi y)$. Weyl's law for $d=2$, $|\\Omega|=1$ predicts $N(\\lambda)\\sim\\lambda/(4\\pi)$, consistent with the lattice-point count $\\#\\{(m,n)\\in\\mathbb{Z}_{\\ge 1}^2 : m^2+n^2\\le\\lambda/\\pi^2\\}$ being a quarter-disk of radius $\\sqrt{\\lambda}/\\pi$.",
+            "tol": 0.01
+          },
+          {
+            "type": "mcq",
+            "q": "\"Can you hear the shape of a drum?\" (Kac, 1966) asks whether the Laplace spectrum determines $\\Omega$ up to isometry. The answer is:",
+            "choices": [
+              "Yes — the spectrum determines $\\Omega$ uniquely",
+              "No — Gordon, Webb, and Wolpert (1992) constructed isospectral non-isometric planar domains",
+              "Only in dimension 1",
+              "Only for convex $\\Omega$"
+            ],
+            "answer": 1,
+            "hint": "There exist explicit non-isometric drums with identical spectra.",
+            "explain": "Weyl's law shows the spectrum determines the dimension and volume of $\\Omega$, and finer asymptotics recover the boundary length (Pleijel) and the Euler characteristic of $\\Omega$ (Kac). But Gordon, Webb, and Wolpert (1992) gave explicit pairs of polygonal isospectral non-isometric planar domains — so the spectrum does NOT determine $\\Omega$ up to isometry. You can hear a great deal but not everything."
           }
         ]
       }

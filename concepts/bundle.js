@@ -6531,6 +6531,46 @@ window.__MVConcepts = {
             "st-unbounded-operators"
           ],
           "blurb": "Observables in QM are self-adjoint operators whose spectra are measurable energies; eigenvalue problems for elliptic PDE invoke the compact spectral theorem; Fourier transform diagonalizes translation-invariant operators."
+        },
+        {
+          "id": "st-compact-fredholm",
+          "title": "Compact operators and the Fredholm alternative",
+          "anchor": "compact-fredholm",
+          "prereqs": [
+            "st-spectral-theorem-compact",
+            "compact-operators"
+          ],
+          "blurb": "Compact operators $K$ are norm-limits of finite-rank ones; for any $\\lambda\\ne 0$, $T-\\lambda I$ with $T=K$ is Fredholm of index $0$, so $\\dim\\ker(K-\\lambda I)=\\dim\\mathrm{coker}(K-\\lambda I)$ — the dichotomy \"$Kx-\\lambda x=y$ is solvable iff $y\\perp\\ker(K^*-\\bar\\lambda)$.\"",
+          "tags": [
+            "compactness",
+            "duality"
+          ]
+        },
+        {
+          "id": "st-trace-class-hilbert-schmidt",
+          "title": "Trace-class and Hilbert–Schmidt operators",
+          "anchor": "trace-class",
+          "prereqs": [
+            "st-compact-fredholm"
+          ],
+          "blurb": "Singular values $s_n(T)$ filter $B(H)$ into ideals: $\\mathcal{S}_2$ (Hilbert–Schmidt, $\\sum s_n^2<\\infty$) and $\\mathcal{S}_1$ (trace-class, $\\sum s_n<\\infty$). The trace $\\operatorname{tr}(T)=\\sum\\langle Te_n,e_n\\rangle$ is basis-independent on $\\mathcal{S}_1$, $\\mathcal{S}_2$ is itself a Hilbert space, and $\\mathcal{S}_1$ is the predual of $B(H)$.",
+          "tags": [
+            "compactness",
+            "duality"
+          ]
+        },
+        {
+          "id": "st-weyl-laplacian",
+          "title": "Weyl's law for the Laplacian",
+          "anchor": "weyl-law",
+          "prereqs": [
+            "st-unbounded-operators",
+            "pde-laplace-equation"
+          ],
+          "blurb": "For the Dirichlet Laplacian $-\\Delta$ on a bounded domain $\\Omega\\subset\\mathbb{R}^d$, the eigenvalue counting function $N(\\lambda)=\\#\\{\\lambda_n\\le\\lambda\\}$ satisfies $N(\\lambda)\\sim\\frac{\\omega_d|\\Omega|}{(2\\pi)^d}\\lambda^{d/2}$ — so the leading-order asymptotics recover the volume and dimension. \"Hearing the shape of a drum\" asks how much more the spectrum tells you.",
+          "tags": [
+            "compactness"
+          ]
         }
       ]
     },
@@ -7715,6 +7755,51 @@ window.__MVConcepts = {
           "tags": [
             "cohomology",
             "functoriality"
+          ]
+        },
+        {
+          "id": "cc-classifying-spaces",
+          "title": "Classifying spaces $BO(n)$, $BU(n)$",
+          "anchor": "classifying-spaces",
+          "prereqs": [
+            "cc-vector-bundles",
+            "cc-chern-classes"
+          ],
+          "blurb": "Real (resp. complex) rank-$n$ bundles on a paracompact $X$ are classified by homotopy classes $[X, BO(n)]$ (resp. $[X, BU(n)]$) — every bundle is the pullback $f^*\\gamma_n$ of the tautological bundle along a unique map $f$. The cohomology rings are polynomial: $H^*(BO(n);\\mathbb{Z}/2) = \\mathbb{Z}/2[w_1,\\ldots,w_n]$ and $H^*(BU(n);\\mathbb{Z}) = \\mathbb{Z}[c_1,\\ldots,c_n]$. So characteristic classes are literally the cohomology of the classifying space, and naturality / Whitney sum / normalisation are just $f^*$ pulled back.",
+          "tags": [
+            "classification",
+            "functoriality",
+            "cohomology"
+          ]
+        },
+        {
+          "id": "cc-signature-theorem",
+          "title": "Hirzebruch signature theorem",
+          "anchor": "signature",
+          "prereqs": [
+            "cc-pontryagin",
+            "stokes-derham"
+          ],
+          "blurb": "On a closed oriented $4k$-manifold $M$, the symmetric intersection form on $H^{2k}(M;\\mathbb{R})$ has a signature $\\sigma(M)\\in\\mathbb{Z}$. Hirzebruch: $\\sigma(M) = \\langle L_k(p_1,\\ldots,p_k),[M]\\rangle$, where the $L$-genus $L = \\prod x_i \\tanh^{-1}(x_i) / x_i$ is the multiplicative sequence with $L_1 = p_1/3$, $L_2 = (7p_2 - p_1^2)/45$. So a real-cohomology pairing of curvature polynomials computes a purely topological integer — the prototype of an index theorem.",
+          "tags": [
+            "cohomology",
+            "duality",
+            "classification"
+          ]
+        },
+        {
+          "id": "cc-equivariant",
+          "title": "Equivariant characteristic classes",
+          "anchor": "equivariant",
+          "prereqs": [
+            "cc-chern-classes",
+            "cc-classifying-spaces"
+          ],
+          "blurb": "For a compact Lie group $G$ acting on $X$, the Borel construction $X_G = (X\\times EG)/G$ has cohomology $H^*_G(X) := H^*(X_G;\\mathbb{Z})$, and a $G$-equivariant bundle $E\\to X$ produces equivariant Chern classes $c_i^G(E)\\in H^{2i}_G(X)$. Atiyah–Bott localisation: if $X$ is a smooth $S^1$-manifold with fixed-point set $F\\subset X$, integration on $X$ reduces to a sum over $F$, $\\int_X \\alpha = \\sum_{F_i}\\int_{F_i}\\iota_i^*\\alpha / e^{S^1}(\\nu_i)$ — characteristic numbers become weighted sums at fixed points.",
+          "tags": [
+            "cohomology",
+            "group-action",
+            "duality"
           ]
         }
       ]
@@ -12532,11 +12617,11 @@ window.__MVConcepts = {
       "density": 0.5111111111111111
     },
     "Analysis": {
-      "concepts": 146,
-      "intra": 249,
+      "concepts": 149,
+      "intra": 254,
       "crossOut": 24,
       "crossIn": 62,
-      "density": 0.1643835616438356
+      "density": 0.1610738255033557
     },
     "Probability & statistics": {
       "concepts": 53,
@@ -12546,11 +12631,11 @@ window.__MVConcepts = {
       "density": 0.2641509433962264
     },
     "Geometry & topology": {
-      "concepts": 99,
-      "intra": 148,
+      "concepts": 102,
+      "intra": 154,
       "crossOut": 18,
       "crossIn": 79,
-      "density": 0.18181818181818182
+      "density": 0.17647058823529413
     },
     "Number theory": {
       "concepts": 97,
