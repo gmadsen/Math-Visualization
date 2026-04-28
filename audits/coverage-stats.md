@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **130**, concepts: **891**
-- Widgets: **910** (registry-driven: 604, inline: 306)
-- Quizzes: **3840** (v1: 2604, hard: 1223, expert: 13)
-- Quiz types: mcq: 2577, numeric: 1023, multi-select: 96, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Topics: **130**, concepts: **896**
+- Widgets: **915** (registry-driven: 611, inline: 304)
+- Quizzes: **3855** (v1: 2619, hard: 1223, expert: 13)
+- Quiz types: mcq: 2587, numeric: 1028, multi-select: 96, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **145**
-- Concepts lacking a hard-tier quiz: **453**
+- Concepts lacking a hard-tier quiz: **458**
 
 ## Per-slug registry adoption
 
@@ -155,6 +155,13 @@ page has wired one in yet.
 | `intersection-theory-chow-orbits` | parametric-plot | select | 2d | 1 | intersection-theory-chow |
 | `intersection-theory-chow-pn-ring` | parametric-plot | select | 2d | 1 | intersection-theory-chow |
 | `julia-playground` | julia-playground | slider | 2d | 1 | dynamical-systems |
+| `matroid-axiom-checker` | matroid-axiom-checker | click | 2d | 1 | matroid-theory |
+| `matroid-bases-rank-explorer` | matroid-bases-rank-explorer | slider | 2d | 1 | matroid-theory |
+| `matroid-dual-explorer` | matroid-dual-explorer | click | 2d | 1 | matroid-theory |
+| `matroid-flats-stepper` | matroid-flats-stepper | step | 2d | 1 | matroid-theory |
+| `matroid-graph-forests` | matroid-graph-forests | click | 2d | 1 | matroid-theory |
+| `matroid-greedy-vs-nonmatroid` | matroid-greedy-vs-nonmatroid | slider | 2d | 1 | matroid-theory |
+| `matroid-tutte-polynomial` | matroid-tutte-polynomial | slider | 2d | 1 | matroid-theory |
 | `natural-transformation-explorer` | naturality-square | slider+click | 2d | 1 | category-theory |
 | `recurrence-plotter` | recurrence-plotter | slider | 2d | 1 | dynamical-systems |
 | `simplicial-sets-delta-generators` | clickable-diagram | click | 2d | 1 | simplicial-sets-and-nerve |
@@ -244,13 +251,13 @@ page has wired one in yet.
 
 ### Modular forms & L-functions
 
-- Topics: **16**, concepts: **88**
-- Widgets: **122** (registry-driven: 103, inline: 19)
-  - by family: button-stepper: 92, unknown: 19, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 2
-  - by dimension: 2d: 103, unknown: 19
-  - by gesture: click: 92, unknown: 19, slider: 7, static: 4
-- Quizzes: **459** (v1: 264, hard: 195, expert: 0)
-  - by type: mcq: 302, numeric: 151, multi-select: 4, matching: 1, ordering: 1
+- Topics: **16**, concepts: **93**
+- Widgets: **127** (registry-driven: 103, inline: 24)
+  - by family: button-stepper: 92, unknown: 24, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 2
+  - by dimension: 2d: 103, unknown: 24
+  - by gesture: click: 92, unknown: 24, slider: 7, static: 4
+- Quizzes: **474** (v1: 279, hard: 195, expert: 0)
+  - by type: mcq: 312, numeric: 156, multi-select: 4, matching: 1, ordering: 1
 
 ### Algebraic geometry
 
@@ -265,10 +272,10 @@ page has wired one in yet.
 ### Combinatorics & graph theory
 
 - Topics: **8**, concepts: **51**
-- Widgets: **51** (registry-driven: 5, inline: 46)
-  - by family: unknown: 46, parametric-plot: 4, expanders-vertex-expansion: 1
-  - by dimension: unknown: 46, 2d: 5
-  - by gesture: unknown: 46, slider: 4, click: 1
+- Widgets: **51** (registry-driven: 12, inline: 39)
+  - by family: unknown: 39, parametric-plot: 4, expanders-vertex-expansion: 1, matroid-axiom-checker: 1, matroid-bases-rank-explorer: 1, matroid-graph-forests: 1, matroid-flats-stepper: 1, matroid-dual-explorer: 1, matroid-greedy-vs-nonmatroid: 1, matroid-tutte-polynomial: 1
+  - by dimension: unknown: 39, 2d: 12
+  - by gesture: unknown: 39, slider: 7, click: 4, step: 1
 - Quizzes: **153** (v1: 153, hard: 0, expert: 0)
   - by type: mcq: 112, numeric: 31, multi-select: 10
 
@@ -384,8 +391,8 @@ page has wired one in yet.
 - `L-functions` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `galois-representations` (Number theory) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `moonshine` (Modular forms & L-functions) — concepts=8, widgets=8 (slug=8), quiz=39 (v1=24, hard=15, expert=0)
-- `automorphic-forms-adelic` (Modular forms & L-functions) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
-- `modular-curves` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `automorphic-forms-adelic` (Modular forms & L-functions) — concepts=9, widgets=9 (slug=0), quiz=27 (v1=27, hard=0, expert=0)
+- `modular-curves` (Modular forms & L-functions) — concepts=9, widgets=9 (slug=0), quiz=27 (v1=27, hard=0, expert=0)
 - `projective-plane` (Algebraic geometry) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `bezout` (Algebraic geometry) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `schemes` (Algebraic geometry) — concepts=10, widgets=8 (slug=8), quiz=60 (v1=30, hard=30, expert=0)
@@ -405,7 +412,7 @@ page has wired one in yet.
 - `etale-fundamental-group` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=24 (v1=18, hard=6, expert=0)
 - `deformation-theory` (Algebraic geometry) — concepts=6, widgets=7 (slug=7), quiz=24 (v1=18, hard=6, expert=0)
 - `spectral-graph-theory` (Combinatorics & graph theory) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
-- `matroid-theory` (Combinatorics & graph theory) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
+- `matroid-theory` (Combinatorics & graph theory) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `probabilistic-method` (Combinatorics & graph theory) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
 - `extremal-combinatorics` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `simplicial-complexes-combinatorial` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)

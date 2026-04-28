@@ -5469,6 +5469,79 @@ window.MVQuizBank = {
             "explain": "$\\mathbb{H} = \\mathrm{GL}_2(\\mathbb{R})^+ / Z \\mathrm{SO}_2$ is a special low-dimensional symmetric space; for $\\mathrm{GL}_n$ with $n \\ge 3$ the analogous symmetric space is non-Kähler and the classical theory of holomorphic modular forms breaks down. Working directly on $\\mathrm{GL}_n(\\mathbb{Q}) \\backslash \\mathrm{GL}_n(\\mathbb{A})$ avoids the issue."
           }
         ]
+      },
+      "eisenstein-spectral-decomposition": {
+        "title": "Eisenstein series and the spectral decomposition",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The right regular representation on $L^2(\\mathrm{GL}_2(\\mathbb{Q}) \\backslash \\mathrm{GL}_2(\\mathbb{A})^1)$ decomposes as:",
+            "choices": [
+              "$L^2_{\\mathrm{cusp}}$ alone — every $L^2$ automorphic function is a cusp form.",
+              "$L^2_{\\mathrm{cusp}} \\oplus L^2_{\\mathrm{res}} \\oplus L^2_{\\mathrm{cont}}$ — cuspidal $\\oplus$ residual $\\oplus$ continuous.",
+              "$L^2_{\\mathrm{cusp}} \\oplus L^2_{\\mathrm{cont}}$ — only two pieces.",
+              "An irreducible representation."
+            ],
+            "answer": 1,
+            "explain": "The full $L^2$ splits into three: cuspidal (discrete, built from cusp forms), residual (discrete, from residues of Eisenstein series), continuous (a direct integral of Eisenstein series along the unitary axis $\\Re s = 1/2$)."
+          },
+          {
+            "type": "mcq",
+            "q": "Where does the continuous spectrum of $L^2(\\mathrm{GL}_2(\\mathbb{Q}) \\backslash \\mathrm{GL}_2(\\mathbb{A})^1)$ live as a contour in the $s$-plane?",
+            "choices": [
+              "$\\Re s = 0$",
+              "$\\Re s = 1/2$ (the unitary axis)",
+              "$\\Re s = 1$",
+              "It is a discrete sum, not a contour."
+            ],
+            "answer": 1,
+            "explain": "The continuous spectrum is the direct integral $\\int_{\\Re s = 1/2}^\\oplus E(\\,\\cdot\\,, s)\\, ds$. Eisenstein series along the unitary axis are unitary (the intertwiner $M(s)$ is a unitary operator there) and exhaust the continuous part."
+          },
+          {
+            "type": "numeric",
+            "q": "For the toy Eisenstein constant term $E_0(s) = 1 + \\xi(2s-1)/\\xi(2s)$, at which real $s \\in (0, 2)$ does the residual pole sit (the one giving the residual constant in $L^2_{\\mathrm{res}}$)?",
+            "answer": 1,
+            "tol": 0.01,
+            "explain": "$\\xi(2s-1)$ acquires the simple pole of $\\zeta$ when $2s-1 = 1$, i.e. $s = 1$. The residue at $s=1$ of $E(g, s)$ is the constant function (after the unitary shift, $|\\det g|^{1/2}$), whose $L^2$-span is the one-dimensional residual spectrum."
+          }
+        ]
+      },
+      "functoriality-langlands-sketch": {
+        "title": "Functoriality and the $L$-group",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the dual group $\\hat G$ of $G = \\mathrm{GL}_n$?",
+            "choices": [
+              "$\\mathrm{SL}_n(\\mathbb{C})$",
+              "$\\mathrm{GL}_n(\\mathbb{C})$",
+              "$\\mathrm{PGL}_n(\\mathbb{C})$",
+              "$\\mathrm{Sp}_{2n}(\\mathbb{C})$"
+            ],
+            "answer": 1,
+            "explain": "$\\mathrm{GL}_n$ is self-dual under root-datum duality: $\\hat{\\mathrm{GL}}_n = \\mathrm{GL}_n(\\mathbb{C})$. This makes ${}^L\\mathrm{GL}_n = \\mathrm{GL}_n(\\mathbb{C}) \\times \\Gal$ (split case)."
+          },
+          {
+            "type": "mcq",
+            "q": "Under the symmetric-power transfer $\\mathrm{Sym}^k : {}^L\\mathrm{GL}_2 \\to {}^L\\mathrm{GL}_{k+1}$, the Satake parameters $(\\alpha, \\beta)$ of $\\pi$ map to:",
+            "choices": [
+              "$(\\alpha + \\beta, \\alpha\\beta, \\dots)$ — the elementary symmetric polynomials.",
+              "$(\\alpha^k, \\alpha^{k-1}\\beta, \\alpha^{k-2}\\beta^2, \\dots, \\beta^k)$ — the $k+1$ monomials.",
+              "$(\\alpha^k, \\beta^k)$ — pairs of pure powers.",
+              "$(k\\alpha, k\\beta)$ — scaled."
+            ],
+            "answer": 1,
+            "hint": "Sym$^k \\mathbb{C}^2$ has basis $\\{e_1^k, e_1^{k-1}e_2, \\dots, e_2^k\\}$ on which $\\mathrm{diag}(\\alpha, \\beta)$ acts diagonally with eigenvalues…",
+            "explain": "$\\mathrm{Sym}^k$ on the standard 2-dim rep has eigenvalues $\\alpha^{k-i}\\beta^i$ for $i = 0, \\dots, k$ — exactly $k+1$ values, matching $\\dim \\mathrm{GL}_{k+1}$'s standard rep. This is why Sato–Tate moments need $\\mathrm{Sym}^k$ functoriality for every $k$."
+          },
+          {
+            "type": "numeric",
+            "q": "If a cuspidal $\\pi$ on $\\mathrm{GL}_2$ has Satake parameter pair $(\\alpha, \\beta) = (2, 1/2)$ at $p = 11$ (so $a_{11} = \\alpha + \\beta = 2.5$), what is the trace of $\\mathrm{Sym}^3(c(\\pi_{11}))$ on the standard 4-dim representation of $\\mathrm{GL}_4(\\mathbb{C})$ — i.e. $\\alpha^3 + \\alpha^2\\beta + \\alpha\\beta^2 + \\beta^3$?",
+            "answer": 10.625,
+            "tol": 0.01,
+            "explain": "$\\alpha\\beta = 1$ and $\\alpha + \\beta = 2.5$, so $\\alpha^2\\beta + \\alpha\\beta^2 = \\alpha\\beta(\\alpha+\\beta) = 2.5$ and $\\alpha^3 + \\beta^3 = (\\alpha+\\beta)^3 - 3\\alpha\\beta(\\alpha+\\beta) = 15.625 - 7.5 = 8.125$. Total $= 10.625$. The Sato–Tate $k$-th moment is built from such traces."
+          }
+        ]
       }
     }
   },
@@ -29469,6 +29542,123 @@ window.MVQuizBank = {
             "answer": 1,
             "hint": "$w_N$ swaps $E$ with the isogenous curve $E/C$ and replaces $C$ with the kernel of the dual isogeny.",
             "explain": "$w_N$ is the involution induced by $\\tau\\mapsto -1/(N\\tau)$ on $\\mathcal{H}$. In moduli terms it sends $(E,C)$ to $(E/C, E[N]/C)$: the dual cyclic order-$N$ subgroup of the isogenous curve. It exchanges the two rational cusps $0\\leftrightarrow \\infty$ and is the simplest of the modular involutions whose quotients $X_0(N)/w_N$ are themselves arithmetically rich curves."
+          }
+        ]
+      },
+      "mc-atkin-lehner-newforms": {
+        "title": "Atkin–Lehner & old/new",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For which divisors $d$ of $N$ does the Atkin–Lehner matrix $w_d$ define an involution on $X_0(N)$?",
+            "choices": [
+              "Every divisor $d \\mid N$",
+              "Only $d = 1$ and $d = N$",
+              "Exact divisors $d \\Vert N$, i.e. $\\gcd(d, N/d) = 1$",
+              "Only prime divisors $d \\mid N$"
+            ],
+            "answer": 2,
+            "hint": "The construction of $w_d$ requires $d$ and $N/d$ to be coprime so that the matrix can be normalized to determinant $d$ inside $\\Gamma_0(N) \\cdot w_d$.",
+            "explain": "The Atkin–Lehner involutions are indexed by exact divisors $d \\Vert N$ — those with $\\gcd(d, N/d) = 1$. For $N$ squarefree every divisor is exact, so the group of involutions has order $2^{\\omega(N)}$; for $N$ with repeated prime factors only the squarefree-coprime decompositions contribute. The involution $w_N$ (the full level) and $w_1 = \\mathrm{id}$ are always present."
+          },
+          {
+            "type": "numeric",
+            "q": "How many Atkin–Lehner involutions does $X_0(30)$ carry (including the identity $w_1$)? Recall $30 = 2\\cdot 3 \\cdot 5$ is squarefree.",
+            "answer": 8,
+            "tol": 0.001,
+            "hint": "$|\\{w_d : d \\Vert N\\}| = 2^{\\omega(N)}$ where $\\omega(N)$ is the number of distinct prime factors. For $N=30$, $\\omega(30) = 3$.",
+            "explain": "$30$ has three distinct prime factors, so $\\omega(30) = 3$ and the Atkin–Lehner group is $(\\mathbb{Z}/2)^3$ of order $8$. Its non-identity elements are $w_2, w_3, w_5, w_6, w_{10}, w_{15}, w_{30}$. They commute with each Hecke operator $T_p$ for $p \\nmid 30$, so each Hecke eigenspace decomposes further into Atkin–Lehner sign eigenspaces."
+          },
+          {
+            "type": "mcq",
+            "q": "What is an 'oldform' in $S_2(\\Gamma_0(N))$?",
+            "choices": [
+              "A form arising from Eisenstein series",
+              "A form fixed by $w_N$",
+              "A form pulled back from $S_2(\\Gamma_0(M))$ for some proper divisor $M \\mid N$, possibly via $f(\\tau) \\mapsto f(d\\tau)$",
+              "A form whose $q$-expansion has no leading coefficient"
+            ],
+            "answer": 2,
+            "hint": "Oldforms come from lower level: if $f \\in S_2(\\Gamma_0(M))$ and $M d \\mid N$, then both $f(\\tau)$ and $f(d\\tau)$ lie in $S_2(\\Gamma_0(N))$.",
+            "explain": "$S_2^{\\mathrm{old}}(\\Gamma_0(N))$ is the subspace spanned by $\\{f(d\\tau) : f \\in S_2(\\Gamma_0(M)),\\ M \\mid N,\\ M < N,\\ Md \\mid N\\}$ — forms recycled from strictly lower level. Atkin–Lehner showed the Petersson-orthogonal complement, $S_2^{\\mathrm{new}}(\\Gamma_0(N))$, has a unique basis of normalized eigenforms with multiplicity-one $q$-expansions: the newforms of level $N$, the genuine arithmetic content."
+          }
+        ]
+      },
+      "mc-heegner-points": {
+        "title": "Heegner points",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A Heegner point of discriminant $D < 0$ on $X_0(N)$ is the moduli point of a pair $(E, C)$ where:",
+            "choices": [
+              "$E$ has $j$-invariant $0$ or $1728$",
+              "$E$ has CM by an order in $\\mathbb{Q}(\\sqrt{D})$ and $C$ is compatible with that order",
+              "$E$ is defined over $\\mathbb{Q}$ with conductor dividing $D$",
+              "$E[N]$ is rational over $\\mathbb{Q}(\\sqrt{D})$"
+            ],
+            "answer": 1,
+            "hint": "The defining feature is complex multiplication: $\\mathrm{End}(E) \\otimes \\mathbb{Q} = \\mathbb{Q}(\\sqrt{D})$, and the level structure $C$ lies in the kernel of an endomorphism.",
+            "explain": "A Heegner point of discriminant $D$ on $X_0(N)$ is the class of a pair $(E, C)$ where $\\mathrm{End}(E) \\cong \\mathcal{O}_D$, the order of discriminant $D$ in $\\mathbb{Q}(\\sqrt{D})$, and $C \\subset E$ is a cyclic order-$N$ subgroup invariant under $\\mathcal{O}_D$ — equivalently $C$ is the kernel of an $\\mathcal{O}_D$-equivariant cyclic $N$-isogeny. By the theory of CM, such points are defined over the Hilbert class field $H_D$."
+          },
+          {
+            "type": "numeric",
+            "q": "The Heegner hypothesis for $(N, D)$ requires every prime $p \\mid N$ to split in $\\mathbb{Q}(\\sqrt{D})$. For $N = 11$ and $D = -7$, the prime $11$ in $\\mathbb{Q}(\\sqrt{-7})$ has $\\bigl(\\frac{-7}{11}\\bigr) = ?$ Compute this Legendre symbol (give $+1$ or $-1$).",
+            "answer": 1,
+            "tol": 0.001,
+            "hint": "$-7 \\equiv 4 \\pmod{11}$, and $4 = 2^2$ is a square modulo $11$.",
+            "explain": "$-7 \\equiv 4 \\pmod{11}$, so $\\bigl(\\frac{-7}{11}\\bigr) = \\bigl(\\frac{4}{11}\\bigr) = +1$. Hence $11$ splits in $\\mathbb{Q}(\\sqrt{-7})$ and the Heegner hypothesis is satisfied — there are Heegner points of discriminant $-7$ on $X_0(11)$ defined over the Hilbert class field of $\\mathbb{Q}(\\sqrt{-7})$, which equals $\\mathbb{Q}(\\sqrt{-7})$ itself since the class number is $1$."
+          },
+          {
+            "type": "mcq",
+            "q": "Heegner points are central to the rank-$1$ case of BSD because the Gross–Zagier formula:",
+            "choices": [
+              "Computes $L(E, 1)$ as a finite Euler product",
+              "Equates the Néron–Tate height of the trace of a Heegner point under $X_0(N) \\to E$ with $L'(E, 1)$ times an explicit period",
+              "Shows every elliptic curve over $\\mathbb{Q}$ has rank $1$",
+              "Identifies Heegner points with the cusp $0 \\in X_0(N)$"
+            ],
+            "answer": 1,
+            "hint": "Gross–Zagier relates a height of an algebraic point to a derivative of an L-function — that is the rank-$1$ analogue of BSD's leading-coefficient prediction.",
+            "explain": "Gross–Zagier (1986): for an elliptic curve $E$ with modular parametrization $\\phi : X_0(N) \\to E$ and a Heegner point $y_K \\in E(K)$ obtained as $\\mathrm{Tr}_{H_D/K}\\phi(P_D)$, the Néron–Tate height $\\hat{h}(y_K)$ equals (up to explicit periods) $L'(E/K, 1)$. Combined with Kolyvagin's Euler-system argument, this proves rank $E(\\mathbb{Q}) = 1$ whenever $L'(E, 1) \\ne 0$ — the strongest unconditional progress on BSD."
+          }
+        ]
+      },
+      "mc-mazur-torsion": {
+        "title": "Mazur's torsion theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What does the modular curve $X_1(N)$ classify?",
+            "choices": [
+              "Elliptic curves $E$ with a chosen cyclic subgroup of order $N$",
+              "Elliptic curves $E$ with a chosen point $P \\in E$ of exact order $N$",
+              "Elliptic curves with full level-$N$ structure $(E, E[N] \\cong (\\mathbb{Z}/N)^2)$",
+              "Elliptic curves with conductor exactly $N$"
+            ],
+            "answer": 1,
+            "hint": "The subscript $1$ in $\\Gamma_1(N)$ comes from the condition $a \\equiv d \\equiv 1 \\pmod N$, which rigidifies a chosen point of order $N$, not just its subgroup.",
+            "explain": "$Y_1(N) = \\mathcal{H}/\\Gamma_1(N)$ classifies pairs $(E, P)$ with $P \\in E(\\mathbb{C})$ of exact order $N$, up to isomorphism. The forgetful map $Y_1(N) \\to Y_0(N)$ remembers only the cyclic subgroup $\\langle P \\rangle$ — a $\\varphi(N)/2$-to-$1$ cover. A non-cuspidal $\\mathbb{Q}$-rational point of $X_1(N)$ corresponds to an elliptic curve $E/\\mathbb{Q}$ with a $\\mathbb{Q}$-rational point of order $N$."
+          },
+          {
+            "type": "numeric",
+            "q": "Mazur's theorem says $E(\\mathbb{Q})_{\\mathrm{tors}}$ is one of exactly $15$ finite groups: $\\mathbb{Z}/n$ for $n \\in \\{1,\\ldots,10,12\\}$ and $\\mathbb{Z}/2 \\oplus \\mathbb{Z}/2n$ for $n \\in \\{1,2,3,4\\}$. What is the largest cyclic order $n$ that can appear as a torsion subgroup $\\mathbb{Z}/n$ of an elliptic curve over $\\mathbb{Q}$?",
+            "answer": 12,
+            "tol": 0.001,
+            "hint": "The cyclic torsion list is $\\{1,2,3,4,5,6,7,8,9,10,12\\}$ — note $11$ is excluded.",
+            "explain": "The 11 cyclic groups in Mazur's list have orders $\\{1,2,\\ldots,10,12\\}$; order $11$ is conspicuously missing, and orders $\\ge 13$ never occur. The exclusion of $11$ matches the genus-$1$ curve $X_1(11)$ having only finitely many $\\mathbb{Q}$-points — Mazur showed they are all cusps."
+          },
+          {
+            "type": "mcq",
+            "q": "Mazur's strategy for proving $X_1(N)(\\mathbb{Q})$ has only cusps for the forbidden $N$ involves:",
+            "choices": [
+              "Direct enumeration of rational points by descent on each $X_1(N)$",
+              "Studying the Eisenstein quotient of $J_1(N)$ and showing its Mordell–Weil group is finite, then using a formal-immersion argument",
+              "Computing the genus of $X_1(N)$ and applying Faltings' theorem",
+              "The modularity theorem for elliptic curves"
+            ],
+            "answer": 1,
+            "hint": "The proof predates Faltings; the key tool is the Eisenstein ideal and its quotient of the Jacobian.",
+            "explain": "Mazur defined the Eisenstein ideal $I \\subset \\mathbb{T}$ in the Hecke algebra of $J_0(N)$ and studied the Eisenstein quotient $J_0(N)/IJ_0(N)$. He proved it has finite Mordell–Weil group (the rational points are essentially Eisenstein-class divisor classes). A formal-immersion lemma then forces any rational non-cuspidal point of $X_1(N)$ to reduce to a cusp at every prime, contradiction. The technique opened the entire subject of Galois deformations and ultimately fed into the proof of FLT."
           }
         ]
       }

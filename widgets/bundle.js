@@ -2923,6 +2923,153 @@ window.__MVWidgets = [
     "exampleScript": "<script>\n(function(){\n  if(!window.MVLatticeVisualizer) return;\n  MVLatticeVisualizer.init('#w-lattice-visualizer-example', {\n    title: \"Hexagonal lattice and an index-4 sublattice\",\n    hint: \"drag the v₁/v₂ sliders to deform the basis · pink dots are the sublattice\",\n    viewBox: \"0 0 360 320\",\n    basis: {\"v1\":{\"x\":1,\"y\":0},\"v2\":{\"x\":0.5,\"y\":0.866}},\n    viewWindow: {\"xRange\":[-3,3],\"yRange\":[-3,3]},\n    sublattice: {\"matrix\":[[2,0],[0,2]]},\n  });\n})();\n</script>"
   },
   {
+    "slug": "matroid-axiom-checker",
+    "family": "matroid-axiom-checker",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "matroid-axiom-checker widget params",
+    "description": "Bespoke widget for the §1 independence-axiom checker on the matroid-theory topic — a ground-set <input>, a multi-line <textarea> for the family $\\mathcal{I}$, three preset buttons (check / load $U_{2,4}$ / load broken example), and a readout that runs (I1)/(I2)/(I3) against the family. The shape (text input + textarea + button row + readout + trailing prose) is unique on the page and not absorbed by any shared slug; this slug captures it as one unit with the parser, axiom-checker, and preset wiring kept opaque in the bodyScript artifact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the §1 independence-axiom checker on the [`matroid-theory`](../../matroid-theory.html#axioms) topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "matroid-bases-rank-explorer",
+    "family": "matroid-bases-rank-explorer",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "matroid-bases-rank-explorer widget params",
+    "description": "Bespoke widget for the §2 bases & rank explorer on the matroid-theory topic — two range <input>s for $n$ and $r$ with their readout spans, a text <input> for the test subset $S$, an SVG host that draws every $r$-subset of $\\{1,\\ldots,n\\}$ as a basis, and a readout that reports $r(S) = \\min(|S|, r)$ plus submodularity witnesses. The combination of two slider rows + text-input + SVG + readout is unique on the page and not absorbed by any shared slug; this slug captures it as one unit with the basis enumeration and rank computation kept opaque in the bodyScript artifact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the §2 bases & rank on the [`matroid-theory`](../../matroid-theory.html#bases) topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "matroid-dual-explorer",
+    "family": "matroid-dual-explorer",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "matroid-dual-explorer widget params",
+    "description": "Bespoke widget for the §5 dual-matroid explorer on the matroid-theory topic — two preset buttons toggling between $U_{2,4}$ and $M(K_4)$ minus an edge, an SVG that draws the dual matroid $M^*$ for the chosen example, and a readout reporting its bases, rank, and cocircuits. The shape (preset toggle row + SVG + readout) is bespoke; this slug captures it as one unit and keeps the dual computation and SVG layout opaque in the bodyScript artifact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the §5 dual matroid on the [`matroid-theory`](../../matroid-theory.html#duality) topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "matroid-flats-stepper",
+    "family": "matroid-flats-stepper",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "exploratory",
+    "title": "matroid-flats-stepper widget params",
+    "description": "Bespoke widget for the §4 flats-of-$M(K_4)$ stepper on the matroid-theory topic — prev/next buttons walking through ranks 0–3 of the geometric lattice, an SVG that highlights the flats at the current rank against $K_4$, and a readout listing them. The shape (prev/next + step indicator + SVG + readout) is bespoke (button-stepper has no SVG-redraw branch in the matroid section); this slug captures it as one unit and keeps the per-rank flat enumeration and highlight-rendering opaque in the bodyScript artifact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the §4 flats of M(K_4) on the [`matroid-theory`](../../matroid-theory.html#closure) topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "matroid-graph-forests",
+    "family": "matroid-graph-forests",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "matroid-graph-forests widget params",
+    "description": "Bespoke widget for the §3 graphic-matroid example on the matroid-theory topic — a clickable SVG of $K_4$ whose edges toggle in/out of the user-selected set $F$, two action buttons (clear $F$ / find a spanning tree), and a readout reporting whether $F$ is independent (a forest) and its rank in $M(K_4)$. The combination of click-on-SVG-edges + button row + readout is bespoke (clickable-graph drives node-click semantics, not edge-click); this slug captures the gesture as one unit and keeps the layout, cycle detection, and spanning-tree search opaque in the bodyScript artifact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the §3 graphic matroid (K4) on the [`matroid-theory`](../../matroid-theory.html#examples) topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "matroid-greedy-vs-nonmatroid",
+    "family": "matroid-greedy-vs-nonmatroid",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "matroid-greedy-vs-nonmatroid widget params",
+    "description": "Bespoke widget for the §6 greedy-on-matroid-vs-non-matroid demonstration on the matroid-theory topic — six edge-weight sliders feed a comparison: greedy on $M(K_4)$ (which exhaustively matches the optimum spanning tree) vs. greedy on a curated non-matroid family $\\mathcal{F}$ (where greedy commits early and misses the bigger triple). The shape (six sliders + SVG + readout + non-matroid family annotation) is bespoke; this slug captures it as one unit and keeps the spanning-tree search and the non-matroid greedy run opaque in the bodyScript artifact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the §6 greedy success/failure on the [`matroid-theory`](../../matroid-theory.html#greedy) topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "matroid-tutte-polynomial",
+    "family": "matroid-tutte-polynomial",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "matroid-tutte-polynomial widget params",
+    "description": "Bespoke widget for the §7 Tutte-polynomial calculator on the matroid-theory topic — three preset buttons choose the matroid ($U_{2,4}$ / $M(K_3)$ / $M(K_4)$), two sliders set $(x,y)$, and the readout reports $T_M(x,y)$ computed directly from $\\sum_S (x-1)^{r(E)-r(S)}(y-1)^{|S|-r(S)}$ over all $2^{|E|}$ subsets, plus a table of canonical evaluations ($T(1,1)$ = number of bases, $T(2,1)$ = number of independent sets, etc.). The shape (preset row + slider row + readout) is bespoke; this slug captures it as one unit and keeps the rank-generating sum and the evaluation table opaque in the bodyScript artifact.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the §7 Tutte polynomial on the [`matroid-theory`](../../matroid-theory.html#tutte) topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "modular-arithmetic-clock",
     "family": "modular-arithmetic-clock",
     "dimension": "2d",

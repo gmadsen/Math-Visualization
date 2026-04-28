@@ -9753,6 +9753,34 @@ window.__MVConcepts = {
             "duality",
             "functoriality"
           ]
+        },
+        {
+          "id": "eisenstein-spectral-decomposition",
+          "title": "Eisenstein series and the spectral decomposition",
+          "anchor": "spectral",
+          "prereqs": [
+            "automorphic-form-definition",
+            "eisenstein-series-mf"
+          ],
+          "blurb": "The right regular representation on $L^2(\\mathrm{GL}_2(\\mathbb{Q}) \\backslash \\mathrm{GL}_2(\\mathbb{A}))$ splits as $L^2_{\\mathrm{cusp}} \\,\\oplus\\, L^2_{\\mathrm{res}} \\,\\oplus\\, L^2_{\\mathrm{cont}}$. The cuspidal part is a discrete sum of cuspidal representations; the residual part is built from residues of Eisenstein series; the continuous part is a direct integral $\\int_{\\Re s = 1/2}^\\oplus E(\\,\\cdot\\,, s) \\, ds$ of Eisenstein series along the critical line. Eisenstein series $E(g, s; \\phi)$ supply the non-cuspidal half of the spectrum and meromorphically continue beyond the half-plane $\\Re s > 1$.",
+          "tags": [
+            "duality",
+            "completion"
+          ]
+        },
+        {
+          "id": "functoriality-langlands-sketch",
+          "title": "Functoriality and the $L$-group",
+          "anchor": "functoriality",
+          "prereqs": [
+            "automorphic-l-function",
+            "spherical-hecke-satake"
+          ],
+          "blurb": "Every connected reductive group $G$ over $\\mathbb{Q}$ has a dual group ${}^L G$ — a complex reductive group whose root datum is dual to $G$'s. The Langlands functoriality conjecture asserts: a homomorphism $r : {}^L H \\to {}^L G$ should induce a transfer of automorphic representations $\\pi_H \\rightsquigarrow \\pi_G$ matching $L$-functions: $L(s, \\pi_G) = L(s, \\pi_H, r)$. Special cases include class field theory ($G = \\mathrm{GL}_1$), cyclic base change, and the symmetric powers $\\mathrm{Sym}^k : {}^L \\mathrm{GL}_2 \\to {}^L \\mathrm{GL}_{k+1}$ underlying Sato–Tate.",
+          "tags": [
+            "functoriality",
+            "duality"
+          ]
         }
       ]
     },
@@ -9842,6 +9870,48 @@ window.__MVConcepts = {
           "tags": [
             "group-action",
             "classification"
+          ]
+        },
+        {
+          "id": "mc-atkin-lehner-newforms",
+          "title": "Atkin–Lehner involutions and the old/new decomposition",
+          "anchor": "atkin-lehner",
+          "prereqs": [
+            "mc-jacobian-J0",
+            "mc-hecke-correspondences-curves"
+          ],
+          "blurb": "For each exact divisor $d \\Vert N$ (i.e. $\\gcd(d, N/d) = 1$) the matrix $w_d = \\bigl(\\begin{smallmatrix} ad & b \\\\ Nc & dD \\end{smallmatrix}\\bigr)$ with $\\det = d$ defines an involution $w_d$ on $X_0(N)$ commuting with $T_p$ for $p \\nmid N$. The $w_d$ generate a $(\\mathbb{Z}/2)^{\\omega(N)}$ acting on $S_2(\\Gamma_0(N))$, and Atkin–Lehner theory splits the space as $S_2 = S_2^{\\mathrm{old}} \\oplus S_2^{\\mathrm{new}}$ where $S_2^{\\mathrm{old}}$ is built from level-$M$ forms with $M \\mid N$, $M \\ne N$, and $S_2^{\\mathrm{new}}$ contains the genuine level-$N$ newforms.",
+          "tags": [
+            "duality",
+            "classification"
+          ]
+        },
+        {
+          "id": "mc-heegner-points",
+          "title": "Heegner points and CM",
+          "anchor": "heegner",
+          "prereqs": [
+            "mc-moduli-of-elliptic-curves",
+            "complex-multiplication"
+          ],
+          "blurb": "A Heegner point of level $N$ and discriminant $D < 0$ is a point of $X_0(N)$ whose moduli pair $(E, C)$ has $E$ a CM elliptic curve with endomorphism ring an order in $\\mathbb{Q}(\\sqrt{D})$ and $C$ a cyclic subgroup compatible with that order. By CM theory these points are defined over the Hilbert class field of $\\mathbb{Q}(\\sqrt{D})$; their traces under the modular parametrization $X_0(N) \\to E$ produce algebraic points on $E$ whose heights are computed by the Gross–Zagier formula and supply the rank-$1$ cases of BSD.",
+          "tags": [
+            "moduli",
+            "duality"
+          ]
+        },
+        {
+          "id": "mc-mazur-torsion",
+          "title": "Mazur's torsion theorem via $X_1(N)$",
+          "anchor": "mazur-torsion",
+          "prereqs": [
+            "mc-jacobian-J0",
+            "mordell-weil-ec"
+          ],
+          "blurb": "The variant modular curve $X_1(N)$, classifying pairs $(E, P)$ with $P \\in E$ of exact order $N$, has $\\mathbb{Q}$-rational non-cuspidal points iff some elliptic curve $E/\\mathbb{Q}$ admits a rational point of order $N$. Mazur (1977) proved that $X_1(N)(\\mathbb{Q})$ has no non-cuspidal rational points for $N \\in \\{11\\} \\cup \\{13,\\dots,18\\} \\cup \\{21\\}$, hence the torsion subgroup of any $E(\\mathbb{Q})$ is one of $15$ groups: $\\mathbb{Z}/n$ for $n \\in \\{1,\\ldots,10,12\\}$ or $\\mathbb{Z}/2 \\oplus \\mathbb{Z}/2n$ for $n \\in \\{1,2,3,4\\}$.",
+          "tags": [
+            "classification",
+            "moduli"
           ]
         }
       ]
@@ -12645,17 +12715,17 @@ window.__MVConcepts = {
       "density": 0.3917525773195876
     },
     "Modular forms & L-functions": {
-      "concepts": 88,
-      "intra": 117,
-      "crossOut": 52,
+      "concepts": 93,
+      "intra": 125,
+      "crossOut": 54,
       "crossIn": 12,
-      "density": 0.5909090909090909
+      "density": 0.5806451612903226
     },
     "Algebraic geometry": {
       "concepts": 127,
       "intra": 173,
       "crossOut": 55,
-      "crossIn": 16,
+      "crossIn": 18,
       "density": 0.4330708661417323
     },
     "Combinatorics & graph theory": {
