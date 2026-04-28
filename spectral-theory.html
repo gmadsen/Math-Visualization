@@ -1146,7 +1146,7 @@ $$\operatorname{tr}\bigl(e^{t\Delta}\bigr) = \sum_n e^{-\lambda_n t} \sim \frac{
       const li = document.createElement('li');
       const a = document.createElement('a');
       a.href = src.getAttribute('href');
-      a.textContent = src.textContent.replace(/ /g,' ').trim();
+      const clone=src.cloneNode(true);clone.querySelectorAll('.katex-mathml').forEach(n=>n.remove());a.textContent=clone.textContent.replace(/ /g,' ').trim();
       li.appendChild(a); ol.appendChild(li);
     });
     aside.appendChild(ol);

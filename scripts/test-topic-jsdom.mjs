@@ -380,6 +380,26 @@ for (const file of htmlFiles) {
         `aside.sidetoc has no anchors — helper script's TOC build failed (likely a script error before the build pass)`,
       );
 
+      // Regression guard for issue #39 (PR #43): the sidetoc populator
+      // must strip .katex-mathml from a clone of each nav anchor before
+      // reading textContent. Without the strip, KaTeX-rendered nav
+      // anchors leak the visible+mathml+raw LaTeX triple into the
+      // sidetoc (e.g. "5 V♮V^\naturalV♮"). A direct read of
+      // `src.textContent` re-introduces the bug — fail static-source-
+      // check if that pattern shows up. We ran our stubbed KaTeX, so
+      // the rendered structure isn't real here; this guard is a static
+      // check on the inline populator source.
+      if (/a\.textContent\s*=\s*src\.textContent\.replace/.test(html)) {
+        assert.fail(
+          `${file}: sidetoc populator reads src.textContent directly — ` +
+          `re-introduces issue #39 (KaTeX-rendered nav anchors leak ` +
+          `triple-text into sidetoc). Strip .katex-mathml on a clone ` +
+          `first: const clone=src.cloneNode(true); ` +
+          `clone.querySelectorAll('.katex-mathml').forEach(n=>n.remove()); ` +
+          `a.textContent=clone.textContent.replace(/\\u00a0/g,' ').trim();`
+        );
+      }
+
       // Nav-anchor LaTeX guard: each <a href="#…"> in nav.toc gets copied
       // verbatim into aside.sidetoc. Since we ran our stubbed
       // renderMathInElement on document.body, anything KaTeX would have

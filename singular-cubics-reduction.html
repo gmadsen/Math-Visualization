@@ -1119,7 +1119,7 @@ This is Ogg's formula and the classification on Néron's list. The conductor $N(
       const li = document.createElement('li');
       const a = document.createElement('a');
       a.href = src.getAttribute('href');
-      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      const clone=src.cloneNode(true);clone.querySelectorAll('.katex-mathml').forEach(n=>n.remove());a.textContent=clone.textContent.replace(/\u00a0/g,' ').trim();
       li.appendChild(a); ol.appendChild(li);
     });
     aside.appendChild(ol);

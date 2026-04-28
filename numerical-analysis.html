@@ -1172,7 +1172,7 @@ The $L^2$ rate is one order better, by an <strong>Aubin–Nitsche duality argume
       const li = document.createElement('li');
       const a = document.createElement('a');
       a.href = src.getAttribute('href');
-      a.textContent = src.textContent.replace(/ /g,' ').trim();
+      const clone=src.cloneNode(true);clone.querySelectorAll('.katex-mathml').forEach(n=>n.remove());a.textContent=clone.textContent.replace(/ /g,' ').trim();
       li.appendChild(a); ol.appendChild(li);
     });
     aside.appendChild(ol);

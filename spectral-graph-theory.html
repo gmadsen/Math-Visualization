@@ -1516,7 +1516,7 @@ $$\liminf_{n\to\infty} \lambda_2(A_{G_n})\;\ge\; 2\sqrt{d-1}.$$</div>
       const li = document.createElement('li');
       const a = document.createElement('a');
       a.href = src.getAttribute('href');
-      a.textContent = src.textContent.replace(/ /g,' ').trim();
+      const clone=src.cloneNode(true);clone.querySelectorAll('.katex-mathml').forEach(n=>n.remove());a.textContent=clone.textContent.replace(/ /g,' ').trim();
       li.appendChild(a); ol.appendChild(li);
     });
     aside.appendChild(ol);

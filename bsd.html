@@ -1396,7 +1396,7 @@ Cassels–Tate: if $\Sha$ is finite then its order is a perfect square. So the p
       const li = document.createElement('li');
       const a = document.createElement('a');
       a.href = src.getAttribute('href');
-      a.textContent = src.textContent.replace(/\u00a0/g,' ').trim();
+      const clone=src.cloneNode(true);clone.querySelectorAll('.katex-mathml').forEach(n=>n.remove());a.textContent=clone.textContent.replace(/\u00a0/g,' ').trim();
       li.appendChild(a); ol.appendChild(li);
     });
     aside.appendChild(ol);

@@ -1822,7 +1822,7 @@ with $d_1=(\ln(S_0/K)+(r+\sigma^2/2)T)/(\sigma\sqrt{T})$, $d_2=d_1-\sigma\sqrt{T
       const li = document.createElement('li');
       const a = document.createElement('a');
       a.href = src.getAttribute('href');
-      a.textContent = src.textContent.replace(/ /g,' ').trim();
+      const clone=src.cloneNode(true);clone.querySelectorAll('.katex-mathml').forEach(n=>n.remove());a.textContent=clone.textContent.replace(/ /g,' ').trim();
       li.appendChild(a); ol.appendChild(li);
     });
     aside.appendChild(ol);

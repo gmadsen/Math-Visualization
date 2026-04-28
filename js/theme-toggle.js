@@ -22,6 +22,25 @@
   var STORAGE_KEY = 'mvnb.theme';
   var MODES = ['dark', 'light'];
 
+  // KaTeX copy-friendliness: KaTeX renders each `$…$` block as a wrapper
+  // .katex containing both .katex-mathml (semantic, with the LaTeX source
+  // and a MathML annotation) and .katex-html (visual). The mathml subtree
+  // is `aria-hidden="true"` AND visually hidden via clip-path, but
+  // `user-select` is not constrained — so plaintext copy from a rendered
+  // page picks up `V♮V^\naturalV♮` instead of `V♮`. A one-time stylesheet
+  // injection makes the mathml subtree non-selectable, so copy/paste sees
+  // only the visible rendered text. We do this in JS rather than a static
+  // <style> block because theme-toggle.js is the one script every topic
+  // page loads in <head> — patching the corpus is a no-op here.
+  try {
+    var s = document.createElement('style');
+    s.setAttribute('data-mvnb', 'katex-copy-fix');
+    s.textContent =
+      '.katex-mathml{user-select:none;-webkit-user-select:none;' +
+      '-moz-user-select:none;-ms-user-select:none;}';
+    (document.head || document.documentElement).appendChild(s);
+  } catch (e) { /* nothing useful to do */ }
+
   function safeRead() {
     try {
       var v = window.localStorage.getItem(STORAGE_KEY);
