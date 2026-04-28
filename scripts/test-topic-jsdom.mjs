@@ -285,6 +285,43 @@ for (const file of htmlFiles) {
               disconnect() {}
             };
           }
+          // jsdom doesn't ship a canvas implementation; calling
+          // `getContext('2d')` on an HTMLCanvasElement throws a "Not
+          // Implemented" error. Stub a minimal 2D context so widgets that
+          // paint to canvas (e.g. julia-playground) boot cleanly. The
+          // returned context's draw calls are no-ops; we're only
+          // checking that the page boots, not that pixels match.
+          if (window.HTMLCanvasElement) {
+            const noop = () => {};
+            const mkImg = (w, h) => ({
+              data: new Uint8ClampedArray(w * h * 4),
+              width: w,
+              height: h,
+            });
+            window.HTMLCanvasElement.prototype.getContext = function (kind) {
+              if (kind !== '2d') return null;
+              const self = this;
+              return {
+                canvas: self,
+                fillStyle: '#000', strokeStyle: '#000', lineWidth: 1,
+                font: '10px sans-serif', textAlign: 'left', textBaseline: 'top',
+                globalAlpha: 1,
+                fillRect: noop, strokeRect: noop, clearRect: noop,
+                beginPath: noop, closePath: noop, moveTo: noop, lineTo: noop,
+                arc: noop, rect: noop, fill: noop, stroke: noop,
+                fillText: noop, strokeText: noop,
+                measureText: () => ({ width: 0 }),
+                createLinearGradient: () => ({ addColorStop: noop }),
+                createRadialGradient: () => ({ addColorStop: noop }),
+                save: noop, restore: noop, translate: noop, scale: noop, rotate: noop,
+                transform: noop, setTransform: noop, resetTransform: noop,
+                drawImage: noop,
+                getImageData: (x, y, w, h) => mkImg(w, h),
+                putImageData: noop,
+                createImageData: (w, h) => mkImg(w, h),
+              };
+            };
+          }
           if (typeof window.matchMedia !== 'function') {
             window.matchMedia = (q) => ({
               matches: false,
