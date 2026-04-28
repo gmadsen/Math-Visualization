@@ -1362,230 +1362,396 @@ reaches the trivial group in finitely many steps, where $G'=[G,G]$ is generated 
 
 <p>The real work is concentrated in <strong>$A_5$ is simple</strong> — it has no non-trivial normal subgroup. Hence $A_5$ is perfect: $[A_5,A_5]=A_5$. So the derived series of $A_5$ (and of $S_5$, after one step into $A_5$) stabilizes and never reaches $\{e\}$.</p>
 
-<div class="widget" id="w-quintic-scrub"></div>
-<script>
+<div class="widget" id="w-quintic-branching">
+  <div class="hd"><div class="ttl">The unsolvability argument — pick your tactic</div><div class="hint">three forks · arrow keys to scrub · click any visited node to jump back</div></div>
+  <svg id="w-quintic-branching-svg" viewBox="0 0 720 360" style="width:100%;max-width:720px;height:auto;display:block;background:var(--panel2);border:1px solid var(--line);border-radius:6px" aria-label="proof tree" data-current=""></svg>
+  <div class="row" id="w-quintic-branching-branches" style="flex-wrap:wrap;gap:6px;margin-top:8px;display:none"></div>
+  <div class="row" style="margin-top:8px">
+    <button id="w-quintic-branching-prev" type="button">← step</button>
+    <button id="w-quintic-branching-next" type="button">step →</button>
+    <button id="w-quintic-branching-reset" type="button" style="margin-left:auto">reset</button>
+  </div>
+  <div class="readout" id="w-quintic-branching-readout" style="min-height:3.2em"><div id="w-quintic-branching-step-title" style="color:var(--mute);font-size:.85em;margin-bottom:4px"></div><div class="prompt"></div></div>
+  <div class="note" id="w-quintic-branching-crumb" style="margin-top:6px;color:var(--mute);font-size:.85em"></div>
+</div><script>
 (function(){
-  if(!window.MVProofScrubber) return;
-  // Shared SVG helper — scoped to this widget.
-  const NS = 'http://www.w3.org/2000/svg';
-  function S(tag, attrs){ const e = document.createElementNS(NS, tag);
-    if(attrs) for(const k in attrs) e.setAttribute(k, attrs[k]); return e; }
+  var CFG = {"widgetId":"w-quintic-branching","rootId":"claim","nodes":[{"id":"claim","kind":"step","prompt":"<b>Claim.</b> The general quintic — concretely $x^5 - x - 1 \\in \\mathbb{Q}[x]$ — has no formula for its roots in terms of $+, -, \\cdot, \\div, \\sqrt[n]{\\,\\cdot\\,}$. We need a discrete invariant of $f$ that <em>distinguishes</em> \"solvable in radicals\" from \"not\".","children":["tactic-fork"]},{"id":"tactic-fork","kind":"fork","prompt":"Two natural strategies. <b>Strong</b>: prove no degree-5 polynomial has a radical formula. <b>Galois</b>: prove that this <em>specific</em> polynomial fails the Galois solvability criterion. Pick one.","children":["naive-attack","galois-attack"]},{"id":"naive-attack","kind":"step","prompt":"Suppose every degree-5 polynomial were unsolvable in radicals. Then $x^5 - 1$ should fail too. But $x^5 - 1 = (x-1)(x^4 + x^3 + x^2 + x + 1)$, and the cyclotomic $\\Phi_5(x)$ has roots $\\zeta_5^k$ — radicals of unity, by definition radical-expressible.","branchLabel":"all degree-5 unsolvable","dead":true,"children":["naive-fail"]},{"id":"naive-fail","kind":"leaf","prompt":"<b>Stuck.</b> The strong claim is false: many degree-5 polynomials <em>are</em> solvable. The right move is to single out a polynomial whose Galois group obstructs solvability — and to identify the discrete property of groups that does the obstructing.","dead":true,"children":[]},{"id":"galois-attack","kind":"step","prompt":"<b>Galois' theorem.</b> $f \\in K[x]$ is solvable by radicals iff $\\text{Gal}(L/K)$ is a <em>solvable</em> group, where $L$ is the splitting field of $f$. Reduces the polynomial question to a finite-group question.","branchLabel":"use Galois theory","children":["compute-galois"]},{"id":"compute-galois","kind":"step","prompt":"For $f(x) = x^5 - x - 1$ over $\\mathbb{Q}$: the polynomial is irreducible (rational-roots test), the discriminant is non-square ($\\Delta = 2869$, not a perfect square), and $f$ has exactly three real roots. Standard Galois-group recipe: irreducible + non-square discriminant + transitive on 5 with a transposition $\\Rightarrow$ $\\text{Gal}(f/\\mathbb{Q}) = S_5$.","children":["strategy-fork"]},{"id":"strategy-fork","kind":"fork","prompt":"Now: is $S_5$ solvable? <b>Direct</b>: build a normal series $\\{e\\} = N_0 \\triangleleft N_1 \\triangleleft \\cdots \\triangleleft S_5$ with each quotient $N_{i+1}/N_i$ abelian. <b>Derived series</b>: compute $S_5 \\supseteq S_5' \\supseteq S_5'' \\supseteq \\cdots$ and show it never reaches $\\{e\\}$. Pick one.","children":["normal-series-attempt","derived-series-attempt"]},{"id":"normal-series-attempt","kind":"step","prompt":"Try to find a chain $\\{e\\} \\triangleleft N_1 \\triangleleft \\cdots \\triangleleft S_5$ with abelian quotients. The first step requires a non-trivial proper normal subgroup of $S_5$. The only such is $A_5$ (the alternating group). So $N_{k} = A_5$ for the largest $k$ before $S_5$. Quotient $S_5 / A_5 \\cong \\mathbb{Z}/2$ — abelian, fine. Now we need a normal subgroup $N_{k-1}$ of $A_5$.","branchLabel":"find a normal series","dead":true,"children":["normal-series-fail"]},{"id":"normal-series-fail","kind":"leaf","prompt":"<b>Stuck.</b> $A_5$ has no proper non-trivial normal subgroup (we'll prove this in the other branch). So the chain has nowhere to go below $A_5$ except to $\\{e\\}$ in one jump — and the quotient $A_5 / \\{e\\} = A_5$ is non-abelian. The chain breaks. <em>This dead-end teaches the right move</em>: the issue is exactly the simplicity of $A_5$, which is what the derived-series approach exposes head-on.","dead":true,"children":[]},{"id":"derived-series-attempt","kind":"step","prompt":"Compute the derived series: $G^{(0)} = G$, $G^{(i+1)} = [G^{(i)}, G^{(i)}]$. $G$ is solvable iff this descends to $\\{e\\}$ in finitely many steps. Start with $G = S_5$.","branchLabel":"derived series","children":["s5-prime"]},{"id":"s5-prime","kind":"step","prompt":"<b>Step 1.</b> $[S_5, S_5] = A_5$. Every commutator $[\\sigma, \\tau] = \\sigma\\tau\\sigma^{-1}\\tau^{-1}$ is even (signs cancel), so $[S_5, S_5] \\subseteq A_5$. Conversely every 3-cycle $(i\\,j\\,k) = [(i\\,j), (j\\,k)]$ is a commutator, and the 3-cycles generate $A_5$. So $S_5' = A_5$.","children":["a5-question"]},{"id":"a5-question","kind":"step","prompt":"<b>Step 2.</b> Now we need $[A_5, A_5]$. If this is $\\{e\\}$, the series terminates and $S_5$ is solvable. If it equals $A_5$, the series stabilizes there forever and $S_5$ is <em>not</em> solvable. Two routes to compute it.","children":["simplicity-fork"]},{"id":"simplicity-fork","kind":"fork","prompt":"Pick the route. <b>Counting</b>: prove $A_5$ is simple via the class equation, then deduce $[A_5, A_5] = A_5$. <b>Exhibit</b>: show concrete 3-cycles in $A_5$ are commutators of even permutations, and 3-cycles generate $A_5$.","children":["counting-route","exhibit-route"]},{"id":"counting-route","kind":"step","prompt":"$|A_5| = 60$. Conjugacy-class sizes in $A_5$: $1$ (identity), $15$ (double transpositions), $20$ (3-cycles), $12 + 12$ (the two classes of 5-cycles, split because their centralizers shrink to $\\langle\\sigma\\rangle$ in $A_5$).","branchLabel":"counting argument","children":["counting-detail"]},{"id":"counting-detail","kind":"step","prompt":"A normal subgroup is a union of conjugacy classes <em>including the identity class</em>, with order dividing $60$. Possible totals: $1, 1+12=13, 1+15=16, 1+20=21, 1+12+12=25, 1+15+20=36, \\dots$. <em>None</em> of the proper unions divide $60$. So the only normal subgroups of $A_5$ are $\\{e\\}$ and $A_5$. <b>$A_5$ is simple.</b>","children":["counting-conclusion"]},{"id":"counting-conclusion","kind":"step","prompt":"$[A_5, A_5]$ is a normal subgroup of $A_5$ (commutator subgroup is always normal). It is non-trivial: e.g. $(1\\,2\\,3) = [(1\\,2\\,4), (1\\,3\\,5)]$ is a non-identity commutator. By simplicity, $[A_5, A_5] = A_5$.","children":["qed-counting"]},{"id":"qed-counting","kind":"leaf","prompt":"<b>QED.</b> The derived series of $S_5$ is $S_5 \\supseteq A_5 \\supseteq A_5 \\supseteq A_5 \\supseteq \\cdots$ — it stabilizes at $A_5 \\ne \\{e\\}$ forever. So $S_5$ is not solvable, and by Galois' theorem $x^5 - x - 1$ has no formula in radicals. Abel–Ruffini in one picture. $\\blacksquare$","children":[]},{"id":"exhibit-route","kind":"step","prompt":"Exhibit $A_5'$ directly. Compute one commutator: $[(1\\,2), (2\\,3)] = (1\\,2)(2\\,3)(1\\,2)(2\\,3) = (1\\,2\\,3)$. So the 3-cycle $(1\\,2\\,3)$ is a commutator <em>in $S_5$</em>; but $(1\\,2)$ and $(2\\,3)$ are odd, so $[(1\\,2),(2\\,3)] \\notin [A_5, A_5]$ — we need commutators of <em>even</em> permutations.","branchLabel":"exhibit commutators","children":["exhibit-detail"]},{"id":"exhibit-detail","kind":"step","prompt":"Try $[(1\\,2\\,3), (1\\,2\\,4)] = (1\\,2\\,3)(1\\,2\\,4)(1\\,3\\,2)(1\\,4\\,2)$. Compute: image of $1$ is $2$, $2 \\mapsto 3$, $3 \\mapsto 1$, others fixed. So the product equals $(1\\,2\\,3)$. Both factors are 3-cycles in $A_5$, so $(1\\,2\\,3) \\in [A_5, A_5]$.","children":["exhibit-generates"]},{"id":"exhibit-generates","kind":"step","prompt":"By symmetry every 3-cycle $(a\\,b\\,c)$ is similarly a commutator of two suitable 3-cycles in $A_5$. And the 3-cycles generate $A_5$ (a standard fact: any even permutation is a product of 3-cycles). Therefore $[A_5, A_5] \\supseteq \\langle 3\\text{-cycles} \\rangle = A_5$, and the reverse inclusion is automatic. So $[A_5, A_5] = A_5$.","children":["qed-exhibit"]},{"id":"qed-exhibit","kind":"leaf","prompt":"<b>QED.</b> $S_5' = A_5$ and $A_5' = A_5$, so the derived series stabilizes at $A_5 \\ne \\{e\\}$. $S_5$ is not solvable; Galois' theorem then says $x^5 - x - 1$ has no radical formula. $\\blacksquare$","children":[]}],"width":720,"height":360,"palette":"pink"};
+  var ROOT = document.getElementById(CFG.widgetId);
+  if (!ROOT) return;
+  var SVGNS = 'http://www.w3.org/2000/svg';
 
-  // A fixed subgroup-chain diagram we highlight differently per step:
-  //   S_5 ── A_5 ── {e}          (top row)
-  //   S_5' = A_5,  A_5' = A_5    (derived-series annotations, revealed later)
-  // Coordinates live inside a 520×180 viewBox.
-  const NODES = [
-    { key:'S5',  x: 80, y: 90, r: 26, label:'S₅',  sub:'order 120' },
-    { key:'A5',  x: 260, y: 90, r: 26, label:'A₅',  sub:'order 60' },
-    { key:'e',   x: 440, y: 90, r: 20, label:'{e}', sub:'order 1'  }
-  ];
-  const EDGES = [
-    { from:'S5', to:'A5', label:'index 2', kind:'inclusion' },
-    { from:'A5', to:'e',  label:'only possible drop',  kind:'inclusion' }
-  ];
-  function nodeOf(k){ return NODES.find(n => n.key === k); }
+  // ---- DOM refs ------------------------------------------------------
+  var svg       = document.getElementById(CFG.widgetId + '-svg');
+  var readout   = document.getElementById(CFG.widgetId + '-readout');
+  var promptEl  = readout ? readout.querySelector('.prompt') : null;
+  var titleEl   = document.getElementById(CFG.widgetId + '-step-title');
+  var crumbEl   = document.getElementById(CFG.widgetId + '-crumb');
+  var prevBtn   = document.getElementById(CFG.widgetId + '-prev');
+  var nextBtn   = document.getElementById(CFG.widgetId + '-next');
+  var resetBtn  = document.getElementById(CFG.widgetId + '-reset');
+  var branchBar = document.getElementById(CFG.widgetId + '-branches');
+  if (!svg || !readout || !promptEl) return;
 
-  function drawFrame(svg, opts){
-    const active = new Set(opts.activeNodes || []);
-    const dim = new Set(opts.dimNodes || []);
-    const activeEdges = new Set(opts.activeEdges || []);
-    const crossEdges = new Set(opts.crossEdges || []);
-    const showDerived = !!opts.showDerived;
-    const caption = opts.caption || '';
-    const accent = opts.accent || 'var(--yellow)';
+  // ---- index nodes ---------------------------------------------------
+  var byId = Object.create(null);
+  for (var i = 0; i < CFG.nodes.length; i++) {
+    var n = CFG.nodes[i];
+    byId[n.id] = n;
+  }
+  if (!byId[CFG.rootId]) return;
 
-    // Edges.
-    for(const e of EDGES){
-      const a = nodeOf(e.from), b = nodeOf(e.to);
-      const hi = activeEdges.has(e.from + '-' + e.to);
-      const cross = crossEdges.has(e.from + '-' + e.to);
-      const stroke = cross ? 'var(--pink)'
-                   : hi    ? accent
-                   :         'var(--line)';
-      const sw = hi || cross ? 2.2 : 1.4;
-      svg.appendChild(S('line', {
-        x1: a.x + a.r, y1: a.y,
-        x2: b.x - b.r, y2: b.y,
-        stroke, 'stroke-width': sw,
-        'stroke-dasharray': cross ? '6 4' : 'none'
-      }));
-      const midx = (a.x + b.x) / 2, midy = a.y - 14;
-      const t = S('text', {
-        x: midx, y: midy,
-        'text-anchor': 'middle',
-        'font-size': 12,
-        fill: cross ? 'var(--pink)' : hi ? accent : 'var(--mute)'
-      });
-      t.textContent = cross ? '✗ never' : e.label;
-      svg.appendChild(t);
+  // ---- tree layout (top-down) ---------------------------------------
+  // Walk reachable nodes from root; assign each a depth (y) and a leaf
+  // ordering (x slot).  Layout is computed once because the tree shape
+  // is static — only the highlighted path changes.
+  var layout = computeLayout();
+
+  function computeLayout() {
+    var depth = Object.create(null);
+    var leafSlot = Object.create(null);
+    var subtreeSpan = Object.create(null);
+    var nextSlot = { v: 0 };
+    var maxDepth = 0;
+
+    function visit(id, d) {
+      if (depth[id] !== undefined) return; // already visited (DAG-safe)
+      depth[id] = d;
+      if (d > maxDepth) maxDepth = d;
+      var node = byId[id];
+      if (!node) { leafSlot[id] = nextSlot.v++; subtreeSpan[id] = [leafSlot[id], leafSlot[id]]; return; }
+      var kids = node.children || [];
+      if (kids.length === 0) {
+        leafSlot[id] = nextSlot.v++;
+        subtreeSpan[id] = [leafSlot[id], leafSlot[id]];
+        return;
+      }
+      var lo = Infinity, hi = -Infinity;
+      for (var k = 0; k < kids.length; k++) {
+        visit(kids[k], d + 1);
+        var span = subtreeSpan[kids[k]] || [leafSlot[kids[k]], leafSlot[kids[k]]];
+        if (span[0] < lo) lo = span[0];
+        if (span[1] > hi) hi = span[1];
+      }
+      subtreeSpan[id] = [lo, hi];
+    }
+    visit(CFG.rootId, 0);
+
+    var totalLeaves = nextSlot.v;
+    var marginX = 24, marginY = 28;
+    var usableW = CFG.width - 2 * marginX;
+    var usableH = CFG.height - 2 * marginY;
+    var levelDy = maxDepth > 0 ? usableH / maxDepth : 0;
+    var slotDx = totalLeaves > 1 ? usableW / (totalLeaves - 1) : 0;
+
+    var pos = Object.create(null);
+    for (var id in depth) {
+      var span = subtreeSpan[id] || [leafSlot[id], leafSlot[id]];
+      var slot = (span[0] + span[1]) / 2;
+      var x = totalLeaves > 1 ? marginX + slot * slotDx : CFG.width / 2;
+      var y = marginY + depth[id] * levelDy;
+      pos[id] = { x: x, y: y, depth: depth[id] };
+    }
+    return { pos: pos, maxDepth: maxDepth, totalLeaves: totalLeaves };
+  }
+
+  // ---- state ---------------------------------------------------------
+  // history is the chain of node ids the reader has traversed so far,
+  // ending in the current node.  At a fork, the next step is unknown
+  // until the reader clicks a branch button.
+  var history = [CFG.rootId];
+
+  function currentId() { return history[history.length - 1]; }
+  function currentNode() { return byId[currentId()]; }
+
+  // ---- rendering: tree SVG ------------------------------------------
+  function el(tag, attrs) {
+    var e = document.createElementNS(SVGNS, tag);
+    if (attrs) for (var k in attrs) e.setAttribute(k, attrs[k]);
+    return e;
+  }
+  function pathOnHistory(id) {
+    return history.indexOf(id) !== -1;
+  }
+  function descendantOfHistory(id) {
+    // Was this node ever reached or could be reached on the current path?
+    // For the highlight we just check membership in history.
+    return pathOnHistory(id);
+  }
+
+  function renderTree() {
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.setAttribute('data-current', currentId());
+
+    var accent = 'var(--' + CFG.palette + ')';
+    var pos = layout.pos;
+
+    // ---- edges (drawn first so nodes overlay) -----------------------
+    var edgesGroup = el('g', { 'class': 'edges' });
+    svg.appendChild(edgesGroup);
+    for (var i = 0; i < CFG.nodes.length; i++) {
+      var n = CFG.nodes[i];
+      if (!pos[n.id]) continue;
+      var kids = n.children || [];
+      for (var k = 0; k < kids.length; k++) {
+        var childId = kids[k];
+        if (!pos[childId]) continue;
+        var p1 = pos[n.id], p2 = pos[childId];
+        var onPath = pathOnHistory(n.id) && pathOnHistory(childId)
+          && history.indexOf(childId) === history.indexOf(n.id) + 1;
+        var dead = byId[childId] && byId[childId].dead;
+        var stroke, strokeW, opacity;
+        if (onPath) { stroke = accent; strokeW = 2.2; opacity = 1; }
+        else if (dead) { stroke = 'var(--mute)'; strokeW = 1.4; opacity = 0.55; }
+        else { stroke = 'var(--line)'; strokeW = 1.2; opacity = 0.7; }
+        // S-curve so edges don't overlap with sibling rects.
+        var midY = (p1.y + p2.y) / 2;
+        var d = 'M ' + p1.x + ' ' + (p1.y + 14) +
+                ' C ' + p1.x + ' ' + midY + ', ' + p2.x + ' ' + midY + ', ' +
+                p2.x + ' ' + (p2.y - 14);
+        var pathEl = el('path', {
+          d: d, fill: 'none', stroke: stroke,
+          'stroke-width': String(strokeW),
+          opacity: String(opacity),
+        });
+        edgesGroup.appendChild(pathEl);
+      }
     }
 
-    // Derived-series annotation on the S_5 → A_5 edge.
-    if(showDerived){
-      const a = nodeOf('S5'), b = nodeOf('A5');
-      const midx = (a.x + b.x) / 2;
-      const t = S('text', {
-        x: midx, y: a.y + 26,
-        'text-anchor': 'middle',
-        'font-size': 11,
-        fill: 'var(--cyan)'
+    // ---- nodes ------------------------------------------------------
+    var nodesGroup = el('g', { 'class': 'nodes' });
+    svg.appendChild(nodesGroup);
+    var rectW = 22, rectH = 14;
+    for (var j = 0; j < CFG.nodes.length; j++) {
+      var nd = CFG.nodes[j];
+      if (!pos[nd.id]) continue;
+      var pp = pos[nd.id];
+      var isCur = nd.id === currentId();
+      var inHist = pathOnHistory(nd.id);
+      var dead = !!nd.dead;
+      var fill, stroke, strokeW, textFill, op;
+      if (isCur) {
+        fill = accent; stroke = accent; strokeW = 2.4;
+        textFill = 'var(--bg)'; op = 1;
+      } else if (inHist) {
+        fill = 'color-mix(in srgb, ' + accent + ' 30%, var(--panel2))';
+        stroke = accent; strokeW = 1.6; textFill = 'var(--ink)'; op = 1;
+      } else if (dead) {
+        fill = 'var(--panel2)'; stroke = 'var(--mute)'; strokeW = 1;
+        textFill = 'var(--mute)'; op = 0.65;
+      } else {
+        fill = 'var(--panel)'; stroke = 'var(--line)'; strokeW = 1;
+        textFill = 'var(--mute)'; op = 0.85;
+      }
+      var g = el('g', {
+        'class': 'node',
+        'data-id': nd.id,
+        'data-kind': nd.kind,
+        transform: 'translate(' + pp.x + ',' + pp.y + ')',
+        opacity: String(op),
+        style: 'cursor:pointer',
       });
-      t.textContent = "[S₅,S₅] = A₅";
-      svg.appendChild(t);
-      // And the A_5 = [A_5,A_5] loop — drawn as a small arrow that returns to A_5.
-      const bx = b.x, by = b.y;
-      const path = S('path', {
-        d: `M ${bx} ${by - b.r} C ${bx + 50} ${by - 55}, ${bx - 50} ${by - 55}, ${bx} ${by - b.r}`,
-        fill: 'none', stroke: 'var(--cyan)', 'stroke-width': 1.5
+      nodesGroup.appendChild(g);
+      var rect = el(nd.kind === 'leaf' ? 'rect' : (nd.kind === 'fork' ? 'rect' : 'rect'), {
+        x: String(-rectW), y: String(-rectH),
+        width: String(2 * rectW), height: String(2 * rectH),
+        rx: nd.kind === 'fork' ? '4' : (nd.kind === 'leaf' ? '12' : '7'),
+        ry: nd.kind === 'fork' ? '4' : (nd.kind === 'leaf' ? '12' : '7'),
+        fill: fill, stroke: stroke, 'stroke-width': String(strokeW),
       });
-      svg.appendChild(path);
-      const lp = S('text', {
-        x: bx, y: by - 58,
-        'text-anchor': 'middle',
-        'font-size': 11,
-        fill: 'var(--cyan)'
+      g.appendChild(rect);
+      // Glyph: number for steps, fork icon, leaf dot, ✗ for dead.
+      var glyph = nd.kind === 'fork' ? '◇' : (nd.kind === 'leaf' ? '∎' : '•');
+      var label = el('text', {
+        x: '0', y: '5', 'text-anchor': 'middle',
+        'font-size': '13', 'font-weight': '600', fill: textFill,
+        'pointer-events': 'none',
       });
-      lp.textContent = "[A₅,A₅] = A₅";
-      svg.appendChild(lp);
-    }
-
-    // Nodes.
-    for(const n of NODES){
-      const isAct = active.has(n.key);
-      const isDim = dim.has(n.key);
-      const stroke = isAct ? accent : 'var(--line)';
-      const fill   = isAct ? 'color-mix(in srgb, var(--yellow) 15%, var(--panel2))'
-                           : 'var(--panel2)';
-      const opacity = isDim ? 0.35 : 1;
-      const g = S('g', { opacity: String(opacity) });
-      g.appendChild(S('circle', {
-        cx: n.x, cy: n.y, r: n.r,
-        fill, stroke, 'stroke-width': isAct ? 2.2 : 1.4
-      }));
-      const t = S('text', {
-        x: n.x, y: n.y + 4,
-        'text-anchor': 'middle',
-        'font-size': 16,
-        'font-weight': 600,
-        fill: isAct ? accent : 'var(--ink)'
-      });
-      t.textContent = n.label;
+      label.textContent = glyph;
+      g.appendChild(label);
+      if (dead) {
+        // Red ✗ overlay just outside the rect, top-right corner.
+        var x = el('text', {
+          x: String(rectW - 2), y: String(-rectH + 4),
+          'text-anchor': 'end',
+          'font-size': '12', 'font-weight': '700',
+          fill: 'var(--pink)',
+          'pointer-events': 'none',
+        });
+        x.textContent = '✗';
+        g.appendChild(x);
+      }
+      // Click navigates to this node — but only if it's reachable along
+      // the current history (no teleporting across forks).
+      g.addEventListener('click', function(idLocal){
+        return function(){ tryJumpTo(idLocal); };
+      }(nd.id));
+      // Tooltip via SVG <title> for hover discoverability.
+      var t = el('title');
+      t.textContent = stripHtml(nd.prompt || '').slice(0, 140);
       g.appendChild(t);
-      const sub = S('text', {
-        x: n.x, y: n.y + n.r + 14,
-        'text-anchor': 'middle',
-        'font-size': 10,
-        fill: 'var(--mute)'
-      });
-      sub.textContent = n.sub;
-      g.appendChild(sub);
-      svg.appendChild(g);
-    }
-
-    // Caption strip.
-    if(caption){
-      const c = S('text', {
-        x: 260, y: 168,
-        'text-anchor': 'middle',
-        'font-size': 12,
-        fill: 'var(--mute)'
-      });
-      c.textContent = caption;
-      svg.appendChild(c);
     }
   }
 
-  const mount = document.querySelector('#w-quintic-scrub');
-  if(!mount) return;
-  // Keyboard affordance: left/right arrows on the mounted widget step through.
-  mount.addEventListener('keydown', ev => {
-    if(!ctrl) return;
-    if(ev.key === 'ArrowRight'){ ctrl.setStep(ctrl.step + 1); ev.preventDefault(); }
-    else if(ev.key === 'ArrowLeft'){ ctrl.setStep(ctrl.step - 1); ev.preventDefault(); }
-  });
-  mount.setAttribute('tabindex','0');
-  const ctrl = MVProofScrubber.init(mount, {
-    title: 'The unsolvability argument, step by step',
-    hint: 'drag the slider · click a number · press play',
-    viewBox: '0 0 520 180',
-    autoplayMs: 2400,
-    steps: [
-      {
-        title: 'The claim',
-        body: 'There is no universal formula expressing the roots of a degree-$5$ polynomial in its coefficients using only $+,-,\\cdot,\\div$ and $n$-th roots. We prove this by showing a specific finite group — the Galois group of the general quintic — fails a discrete property.',
-        render(svg){
-          drawFrame(svg, {
-            activeNodes:['S5','A5','e'], activeEdges:[],
-            caption: 'three players: S₅, its commutator A₅, and the identity {e}'
-          });
-        }
-      },
-      {
-        title: 'Radicals ⇔ solvable Galois group',
-        body: 'Galois\' theorem: $f\\in\\mathbb{Q}[x]$ is solvable in radicals $\\iff$ $\\Gal(L/\\mathbb{Q})$ is a <em>solvable group</em> — i.e. its derived series $G \\supseteq G\' \\supseteq G\'\' \\supseteq \\dots$ reaches $\\{e\\}$ in finitely many steps.',
-        render(svg){
-          drawFrame(svg, {
-            activeNodes:['e'], dimNodes:['S5','A5'],
-            caption: 'goal: reach {e} by repeatedly taking commutators'
-          });
-        }
-      },
-      {
-        title: 'The general quintic has Galois group $S_5$',
-        body: 'For a "generic" degree-$5$ polynomial (coefficients treated as independent transcendentals, or concretely $x^5-x-1$ over $\\mathbb{Q}$), the Galois group is the full symmetric group $S_5$ on the five roots. So we must check: is $S_5$ solvable?',
-        render(svg){
-          drawFrame(svg, {
-            activeNodes:['S5'], activeEdges:[],
-            caption: 'start: G = S₅ (order 120)'
-          });
-        }
-      },
-      {
-        title: 'First derivative: $S_5\' = A_5$',
-        body: 'The commutator subgroup $[S_5,S_5]$ is the alternating group $A_5$ (every commutator is an even permutation; conversely every 3-cycle is a commutator). So after one step the derived series has dropped from $S_5$ down to $A_5$.',
-        render(svg){
-          drawFrame(svg, {
-            activeNodes:['S5','A5'], activeEdges:['S5-A5'],
-            showDerived: false,
-            caption: '[S₅, S₅] = A₅ — one step down'
-          });
-        }
-      },
-      {
-        title: '$A_5$ is simple (§6 counting argument)',
-        body: 'A proper nontrivial normal subgroup of $A_5$ would be a union of conjugacy classes (including $\\{e\\}$) whose size divides $60$. Checking the class sizes $1,15,20,12,12$ rules every possibility out. So $A_5$ has <strong>no</strong> proper nontrivial normal subgroup.',
-        render(svg){
-          drawFrame(svg, {
-            activeNodes:['A5'],
-            caption: 'A₅ is simple: its only normal subgroups are {e} and A₅ itself'
-          });
-        }
-      },
-      {
-        title: 'So $A_5$ is perfect: $[A_5,A_5]=A_5$',
-        body: 'The commutator subgroup $[A_5,A_5]$ is normal in $A_5$ and, being generated by 3-cycles, is nontrivial. By the previous step it must equal <em>all of</em> $A_5$. The derived series of $A_5$ is the constant sequence $A_5, A_5, A_5, \\dots$ — it never shrinks.',
-        render(svg){
-          drawFrame(svg, {
-            activeNodes:['A5'], showDerived:true,
-            crossEdges:['A5-e'],
-            caption: 'the derived series stalls at A₅ forever'
-          });
-        }
-      },
-      {
-        title: 'Therefore the quintic has no radical formula',
-        body: 'The derived series of $S_5$ drops $S_5 \\to A_5$ once, then stabilizes at $A_5 \\neq \\{e\\}$. So $S_5$ is <strong>not</strong> solvable, and by step 2 the general quintic cannot be solved in radicals. Specific offender: $x^5 - x - 1$. Abel–Ruffini in one picture.',
-        render(svg){
-          drawFrame(svg, {
-            activeNodes:['S5','A5'], activeEdges:['S5-A5'],
-            showDerived:true, crossEdges:['A5-e'], accent:'var(--pink)',
-            caption: 'derived series: S₅ → A₅ → A₅ → A₅ → …  ✗ never reaches {e}'
-          });
-        }
+  function stripHtml(s) {
+    var d = document.createElement('div');
+    d.innerHTML = s;
+    return d.textContent || d.innerText || '';
+  }
+
+  // ---- rendering: prompt + branch picker + breadcrumb ---------------
+  function renderPrompt() {
+    var node = currentNode();
+    if (!node) return;
+    var kindLabel = node.kind === 'fork' ? 'fork — pick a tactic'
+                  : node.kind === 'leaf' ? (node.dead ? 'dead end' : 'QED')
+                  : 'step ' + history.length;
+    if (titleEl) titleEl.textContent = kindLabel;
+    promptEl.innerHTML = node.prompt || '';
+    // KaTeX re-typeset (only if loader is on the page).
+    if (window.renderMathInElement) {
+      try {
+        window.renderMathInElement(promptEl, {
+          delimiters: [
+            {left: '$$', right: '$$', display: true},
+            {left: '$',  right: '$',  display: false},
+            {left: '\\(', right: '\\)', display: false},
+            {left: '\\[', right: '\\]', display: true}
+          ],
+          throwOnError: false,
+        });
+      } catch (_) { /* swallow KaTeX errors so the page stays alive */ }
+    }
+  }
+
+  function renderBranches() {
+    if (!branchBar) return;
+    while (branchBar.firstChild) branchBar.removeChild(branchBar.firstChild);
+    var node = currentNode();
+    if (!node || node.kind !== 'fork') {
+      branchBar.style.display = 'none';
+      return;
+    }
+    branchBar.style.display = '';
+    var kids = node.children || [];
+    var lab = document.createElement('span');
+    lab.className = 'small';
+    lab.style.color = 'var(--mute)';
+    lab.style.marginRight = '6px';
+    lab.textContent = 'pick:';
+    branchBar.appendChild(lab);
+    for (var k = 0; k < kids.length; k++) {
+      var child = byId[kids[k]];
+      if (!child) continue;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      var label = child.branchLabel || ('branch ' + (k + 1));
+      btn.textContent = label + (child.dead ? ' ✗' : '');
+      if (child.dead) btn.style.color = 'var(--mute)';
+      (function(idLocal){
+        btn.addEventListener('click', function(){ pickBranch(idLocal); });
+      })(kids[k]);
+      branchBar.appendChild(btn);
+    }
+  }
+
+  function renderCrumb() {
+    if (!crumbEl) return;
+    var parts = [];
+    for (var i = 0; i < history.length; i++) {
+      var nd = byId[history[i]];
+      if (!nd) continue;
+      var glyph = nd.kind === 'fork' ? '◇' : nd.kind === 'leaf' ? '∎' : '•';
+      var tag;
+      if (nd.kind === 'fork' && i + 1 < history.length) {
+        var picked = byId[history[i + 1]];
+        var blab = picked && picked.branchLabel ? picked.branchLabel : 'pick';
+        tag = glyph + ' ' + blab;
+      } else {
+        tag = glyph + ' ' + nd.id;
       }
-    ]
+      parts.push(tag);
+    }
+    crumbEl.textContent = 'path: ' + parts.join(' → ');
+  }
+
+  function syncStepButtons() {
+    var node = currentNode();
+    if (prevBtn) prevBtn.disabled = history.length <= 1;
+    if (nextBtn) {
+      // disabled when at a leaf or at a fork (must pick a branch)
+      var atFork = node && node.kind === 'fork';
+      var atLeaf = !node || (node.children || []).length === 0;
+      nextBtn.disabled = atFork || atLeaf;
+    }
+  }
+
+  function renderAll() {
+    renderTree();
+    renderPrompt();
+    renderBranches();
+    renderCrumb();
+    syncStepButtons();
+  }
+
+  // ---- navigation ----------------------------------------------------
+  function step(delta) {
+    if (delta < 0) {
+      if (history.length > 1) {
+        history.pop();
+        renderAll();
+      }
+      return;
+    }
+    var node = currentNode();
+    if (!node) return;
+    if (node.kind === 'fork') return; // must pick a branch
+    var kids = node.children || [];
+    if (kids.length === 1 && byId[kids[0]]) {
+      history.push(kids[0]);
+      renderAll();
+    }
+  }
+  function pickBranch(childId) {
+    if (!byId[childId]) return;
+    var node = currentNode();
+    if (!node || node.kind !== 'fork') return;
+    if ((node.children || []).indexOf(childId) === -1) return;
+    history.push(childId);
+    renderAll();
+  }
+  function tryJumpTo(targetId) {
+    // Click on a tree node: jump to it iff it's already in history (a
+    // backward scrub) — never teleport across an unchosen fork.
+    var idx = history.indexOf(targetId);
+    if (idx === -1) return;
+    history = history.slice(0, idx + 1);
+    renderAll();
+  }
+  function reset() {
+    history = [CFG.rootId];
+    renderAll();
+  }
+
+  // ---- wiring --------------------------------------------------------
+  if (prevBtn) prevBtn.addEventListener('click', function(){ step(-1); });
+  if (nextBtn) nextBtn.addEventListener('click', function(){ step(1); });
+  if (resetBtn) resetBtn.addEventListener('click', reset);
+
+  // Keyboard: ←/→ when the widget contains focus (or is hovered).
+  ROOT.tabIndex = 0;
+  ROOT.addEventListener('keydown', function(e){
+    if (e.key === 'ArrowLeft')  { step(-1); e.preventDefault(); }
+    else if (e.key === 'ArrowRight') { step(1);  e.preventDefault(); }
+    else if (e.key === 'Home' || e.key === 'r' || e.key === 'R') { reset(); e.preventDefault(); }
   });
+
+  // Theme observer — repaint so accent colors track --bg / --ink.
+  // (We use CSS vars in attribute strings, which the SVG renderer
+  // resolves at paint time, so a no-op redraw is enough.)
+  var themeObserver = new MutationObserver(function(){ renderTree(); });
+  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+  renderAll();
 })();
 </script>
 

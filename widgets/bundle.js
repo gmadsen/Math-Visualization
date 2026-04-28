@@ -1819,24 +1819,6 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
-    "slug": "galois-quintic-unsolvability",
-    "family": "proof-scrubber",
-    "dimension": "2d",
-    "gesture": "scrub",
-    "role": "exploratory",
-    "title": "galois-quintic-unsolvability widget params",
-    "description": "Bespoke proof-scrubber-style walkthrough of the unsolvability argument for the general quintic, used in galois.html (#quintic). The widget mounts an empty host div and lets the page-global MVProofScrubber library build chrome (slider, play/pause, step chips, readout, SVG diagram) at init time. Steps render the subgroup-chain S_5 - A_5 - {e} with per-step highlights using closures over a shared drawFrame helper, so the script body is irreducibly idiosyncratic and is carried verbatim as the bodyScript ARTIFACT.",
-    "requiredParams": [
-      "widgetId",
-      "bodyScript"
-    ],
-    "readmeExcerpt": "Bespoke proof-scrubber walkthrough used in `galois.html` §6 (`#quintic`). The widget mounts an empty host div, then the page-global `MVProofScrubber` library builds the slider / play / SVG diagram / readout chrome at runtime. Each of the seven proof steps is rendered by a closure over a shared `drawFrame(svg, opts)` helper; the closures emit live SVG nodes via a scoped `S(tag, attrs)` factory rather than dropping in static SVG-fragment strings.",
-    "hasExample": false,
-    "exampleParams": null,
-    "exampleMarkup": null,
-    "exampleScript": null
-  },
-  {
     "slug": "grothendieck-topologies-sites-axioms-scrub",
     "family": "declarative-host",
     "dimension": "2d",

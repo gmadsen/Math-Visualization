@@ -48,6 +48,7 @@ page has wired one in yet.
 | `algebraic-spaces-morphisms-diagram` | clickable-diagram | click | 2d | 1 | algebraic-spaces |
 | `algebraic-spaces-scheme-stack-hierarchy` | clickable-diagram | click | 2d | 1 | algebraic-spaces |
 | `algebraic-spaces-why-scrubber` | proof-scrubber | scrub | 2d | 1 | algebraic-spaces |
+| `branching-proof-scrubber` | branching-proof-scrubber | branching-timeline | 2d | 1 | galois |
 | `class-field-theory-reciprocity-dictionary` | svg-illustration | read | 2d | 1 | class-field-theory |
 | `cocartesian-fibrations-edge-scrubber` | cocartesian-fibrations-edge-scrubber | interact | 2d | 1 | cocartesian-fibrations |
 | `cocartesian-fibrations-examples-graph` | cocartesian-fibrations-examples-graph | interact | 2d | 1 | cocartesian-fibrations |
@@ -100,7 +101,6 @@ page has wired one in yet.
 | `etale-fundamental-group-frob-clock` | declarative-host | click | 2d | 1 | etale-fundamental-group |
 | `etale-fundamental-group-galois-equiv` | declarative-host | click | 2d | 1 | etale-fundamental-group |
 | `etale-fundamental-group-pi1-construct` | declarative-host | click | 2d | 1 | etale-fundamental-group |
-| `galois-quintic-unsolvability` | proof-scrubber | scrub | 2d | 1 | galois |
 | `grothendieck-topologies-sites-axioms-scrub` | declarative-host | click | 2d | 1 | grothendieck-topologies-sites |
 | `grothendieck-topologies-sites-geom-comp` | declarative-host | click | 2d | 1 | grothendieck-topologies-sites |
 | `grothendieck-topologies-sites-giraud` | declarative-host | click | 2d | 1 | grothendieck-topologies-sites |
@@ -153,7 +153,6 @@ page has wired one in yet.
 | `simplicial-sets-inner-horn-filler` | button-stepper | click | 2d | 1 | simplicial-sets-and-nerve |
 | `simplicial-sets-nerve-2simplex` | clickable-diagram | click | 2d | 1 | simplicial-sets-and-nerve |
 | `simplicial-sets-realization-stepper` | button-stepper | step | 2d | 1 | simplicial-sets-and-nerve |
-| `branching-proof-scrubber` | branching-proof-scrubber | branching-timeline | 2d | 0 | _(none — fixture-only)_ |
 | `diagram-editor` | diagram-editor | drag-and-toggle | 2d | 0 | _(none — fixture-only)_ |
 | `julia-playground` | julia-playground | slider | 2d | 0 | _(none — fixture-only)_ |
 
@@ -223,9 +222,9 @@ page has wired one in yet.
 
 - Topics: **14**, concepts: **90**
 - Widgets: **103** (registry-driven: 84, inline: 19)
-  - by family: button-stepper: 66, unknown: 19, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, declarative-host: 2, proof-scrubber: 1, inline-code-cell: 1, clickable-graph: 1, svg-illustration: 1
+  - by family: button-stepper: 66, unknown: 19, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, declarative-host: 2, branching-proof-scrubber: 1, inline-code-cell: 1, clickable-graph: 1, svg-illustration: 1
   - by dimension: 2d: 84, unknown: 19
-  - by gesture: click: 71, unknown: 19, slider: 4, input: 4, interactive: 2, scrub: 1, edit: 1, read: 1
+  - by gesture: click: 71, unknown: 19, slider: 4, input: 4, interactive: 2, branching-timeline: 1, edit: 1, read: 1
 - Quizzes: **445** (v1: 262, hard: 183, expert: 0)
   - by type: mcq: 298, numeric: 140, complex: 3, matching: 2, ordering: 1, guess-my-rule: 1
 
