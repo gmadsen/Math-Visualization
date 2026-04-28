@@ -161,6 +161,10 @@
           "html": "\n\n<p>The smallest prime $N$ for which $X_0(N)$ has positive genus is $N = 11$, where $g = 1$ — making $X_0(11)$ itself an elliptic curve. After that, the genus tends to grow linearly: for prime $N \\ge 17$ one has $g(X_0(N)) \\approx (N+1)/12$ (the elliptic-point and cusp corrections become negligible).</p>\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./riemann-surfaces.html#intro\">Riemann surfaces as 1D complex manifolds</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->\n\n"
         },
         {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./moonshine.html#genus-zero\">Monstrous moonshine</a> · Genus-zero groups and Ogg's coincidence</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
           "type": "quiz",
           "concept": "mc-genus-formula",
           "html": "<div class=\"quiz\" data-concept=\"mc-genus-formula\"></div>"
