@@ -65,6 +65,10 @@ Phase 1 of two campaigns — the rest deferred:
 3. **Tour cards in the index grid.** `tours.html` is linked from the top nav but doesn't have a section card on the index page. Adding "Tours" as its own row (visually distinct from topic cards) would surface the narrative entry point above the fold.
 4. **Canvas stub — track if any widget hits the Proxy fallback.** PR #41's jsdom canvas stub falls back to `noop` for unstubbed methods via Proxy. This is robust but silent. If a future canvas widget breaks because it expects a method to return non-`undefined`, the boot test will pass but runtime will fail. Worth a one-time audit grep for canvas method calls outside the explicit-stub list.
 
+## Follow-ups from PR #43 (sidetoc KaTeX double-render fix)
+
+1. **Extract sidetoc populator into shared `js/sidetoc.js`.** The populator is currently inlined into every topic page's rawBodySuffix script (132 copies). Lifting it into a shared script — alongside `js/quiz.js`, `js/theme-toggle.js`, `js/breadcrumb.js` — would collapse future fixes from a 132-file diff to a one-file diff. Touchpoint: every topic's rawBodySuffix would shrink to a single `<script src="./js/sidetoc.js"></script>` loader plus a one-line init call. Per-page round-trip stays intact via the same head-injector pattern as the existing shared scripts.
+
 ## Out of scope
 
 Items the user has explicitly de-prioritized. **Don't suggest these as "what next" without prompting.**
