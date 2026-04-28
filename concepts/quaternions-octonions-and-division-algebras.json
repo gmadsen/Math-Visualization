@@ -1,0 +1,71 @@
+{
+  "topic": "quaternions-octonions-and-division-algebras",
+  "title": "Quaternions, octonions, and division algebras",
+  "page": "quaternions-octonions-and-division-algebras.html",
+  "concepts": [
+    {
+      "id": "qoda-quaternions",
+      "title": "Quaternions $\\mathbb{H}$",
+      "anchor": "quaternions",
+      "prereqs": [
+        "algebraic-structures",
+        "field-extensions-basics"
+      ],
+      "blurb": "Hamilton's $\\mathbb{H}=\\mathbb{R}\\langle 1,i,j,k\\rangle$ is the 4-dimensional real algebra with $i^2=j^2=k^2=ijk=-1$. It is associative but non-commutative, with conjugate $\\overline{q}=a-bi-cj-dk$, norm $|q|^2=q\\overline{q}=a^2+b^2+c^2+d^2$, and inverse $q^{-1}=\\overline{q}/|q|^2$ for $q\\neq 0$ — making $\\mathbb{H}\\cong\\mathbb{R}^4$ a (skew) division algebra.",
+      "tags": ["foundation", "classification"]
+    },
+    {
+      "id": "qoda-rotations",
+      "title": "Unit quaternions and $\\mathrm{SU}(2)\\to\\mathrm{SO}(3)$",
+      "anchor": "rotations",
+      "prereqs": [
+        "qoda-quaternions",
+        "la-axioms"
+      ],
+      "blurb": "The unit quaternions $\\{q:|q|=1\\}\\cong S^3$ form a Lie group $\\mathrm{Sp}(1)\\cong\\mathrm{SU}(2)$. They act on the imaginary part $\\mathrm{Im}\\,\\mathbb{H}\\cong\\mathbb{R}^3$ by conjugation $v\\mapsto qvq^{-1}$, giving the double cover $\\mathrm{SU}(2)\\to\\mathrm{SO}(3)$ (kernel $\\{\\pm 1\\}$); at the Lie-algebra level $\\mathrm{Im}\\,\\mathbb{H}\\cong\\mathfrak{so}(3)$.",
+      "tags": ["group-action", "classification"]
+    },
+    {
+      "id": "qoda-cayley-dickson",
+      "title": "The Cayley–Dickson tower",
+      "anchor": "cayley-dickson",
+      "prereqs": [
+        "qoda-quaternions"
+      ],
+      "blurb": "The Cayley–Dickson construction doubles a $*$-algebra $A$ to $A\\oplus A$ with multiplication $(a,b)(c,d)=(ac-d^*b,\\,da+bc^*)$ and conjugate $(a,b)^*=(a^*,-b)$. Iterating from $\\mathbb{R}$ produces $\\mathbb{R}\\subset\\mathbb{C}\\subset\\mathbb{H}\\subset\\mathbb{O}\\subset\\mathbb{S}$; each step doubles dimension and loses one structure (real $\\to$ complex loses self-conjugation, $\\mathbb{C}\\to\\mathbb{H}$ loses commutativity, $\\mathbb{H}\\to\\mathbb{O}$ loses associativity, $\\mathbb{O}\\to\\mathbb{S}$ loses the division-algebra property).",
+      "tags": ["classification", "foundation"]
+    },
+    {
+      "id": "qoda-octonions",
+      "title": "Octonions $\\mathbb{O}$",
+      "anchor": "octonions",
+      "prereqs": [
+        "qoda-cayley-dickson"
+      ],
+      "blurb": "$\\mathbb{O}=\\mathbb{R}^8$ with basis $\\{1,e_1,\\dots,e_7\\}$ is the 8-dimensional real division algebra obtained by doubling $\\mathbb{H}$. Multiplication is non-associative — $(e_1 e_2)e_4\\neq e_1(e_2 e_4)$ in general — but every two-element subalgebra is associative; this is the $\\textbf{alternative}$ law $x(xy)=(xx)y$ and $(yx)x=y(xx)$. Multiplication is encoded by the Fano plane: 7 oriented lines, each a copy of $\\mathbb{H}$.",
+      "tags": ["foundation", "classification"]
+    },
+    {
+      "id": "qoda-frobenius-theorem",
+      "title": "Frobenius's theorem",
+      "anchor": "frobenius",
+      "prereqs": [
+        "qoda-quaternions",
+        "field-extensions-basics"
+      ],
+      "blurb": "Frobenius (1877): the only finite-dimensional associative division algebras over $\\mathbb{R}$ are $\\mathbb{R}$, $\\mathbb{C}$, and $\\mathbb{H}$. Idea: pick $x\\notin\\mathbb{R}$; its minimal polynomial is irreducible of degree $\\le 2$, so $\\mathbb{R}[x]\\cong\\mathbb{C}$. The orthogonal complement of $\\mathbb{R}$ inside the algebra carries a negative-definite form; choosing two anticommuting unit vectors $i,j$ forces $k=ij$ and the relations of $\\mathbb{H}$.",
+      "tags": ["classification"]
+    },
+    {
+      "id": "qoda-hurwitz-theorem",
+      "title": "Hurwitz's theorem",
+      "anchor": "hurwitz",
+      "prereqs": [
+        "qoda-octonions",
+        "qoda-frobenius-theorem"
+      ],
+      "blurb": "Hurwitz (1898): the only finite-dimensional real $\\textbf{composition}$ algebras — unital algebras with a quadratic norm satisfying $|xy|=|x||y|$ — are $\\mathbb{R}$, $\\mathbb{C}$, $\\mathbb{H}$, and $\\mathbb{O}$, with dimensions $1,2,4,8$. The dimension restriction is the same that makes $\\mathbb{R}^n$ admit a continuous bilinear product without zero divisors only for $n\\in\\{1,2,4,8\\}$ (Bott–Milnor / Kervaire, via topology).",
+      "tags": ["classification"]
+    }
+  ]
+}

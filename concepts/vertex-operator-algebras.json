@@ -1,0 +1,71 @@
+{
+  "topic": "vertex-operator-algebras",
+  "title": "Vertex operator algebras",
+  "page": "vertex-operator-algebras.html",
+  "concepts": [
+    {
+      "id": "voa-vertex-operators",
+      "title": "Vertex operators and locality",
+      "anchor": "vertex-ops",
+      "prereqs": [
+        "la-axioms",
+        "q-expansions-mf"
+      ],
+      "blurb": "A vertex operator $Y(a, z) = \\sum_{n} a_n z^{-n-1}$ is a formal Laurent series of operators on a state space $V$ assigned to each $a \\in V$; the axiom of locality $(z-w)^N [Y(a,z), Y(b,w)] = 0$ for $N \\gg 0$ replaces commutativity with mutual asymptotic vanishing.",
+      "tags": ["foundation"]
+    },
+    {
+      "id": "voa-axioms",
+      "title": "VOA axioms — vacuum, translation, locality, Jacobi",
+      "anchor": "axioms",
+      "prereqs": [
+        "voa-vertex-operators"
+      ],
+      "blurb": "A vertex operator algebra is $(V, Y, \\mathbf{1}, \\omega)$ satisfying vacuum ($Y(\\mathbf{1}, z) = \\mathrm{id}$), translation ($[T, Y(a,z)] = \\partial_z Y(a,z)$), locality, and the Borcherds–Jacobi identity that ties operator-product expansion to a single equation; all four are equivalent characterisations under mild hypotheses."
+    },
+    {
+      "id": "voa-virasoro",
+      "title": "Virasoro algebra and central charge",
+      "anchor": "virasoro",
+      "prereqs": [
+        "voa-axioms",
+        "la-cartan-killing-classification"
+      ],
+      "blurb": "The conformal vector $\\omega \\in V$ produces operators $L_n$ with $[L_m, L_n] = (m-n) L_{m+n} + \\tfrac{c}{12}(m^3 - m)\\,\\delta_{m+n,0}$; the central charge $c$ is a numerical invariant of the VOA and $L_0$ supplies the integer grading that turns $V$ into a graded module.",
+      "tags": ["classification"]
+    },
+    {
+      "id": "voa-modular-invariance",
+      "title": "Modular invariance — Zhu's theorem",
+      "anchor": "modular",
+      "prereqs": [
+        "voa-virasoro",
+        "modular-form-definition"
+      ],
+      "blurb": "For a $C_2$-cofinite rational VOA, the graded character $\\mathrm{ch}_M(\\tau) = \\tr_M q^{L_0 - c/24}$ of an irreducible module is a component of a vector-valued modular form for $\\mathrm{SL}_2(\\mathbb{Z})$; Zhu's theorem (1996) is the bridge between two-dimensional CFT and modular forms.",
+      "tags": ["group-action"]
+    },
+    {
+      "id": "voa-moonshine-module",
+      "title": "The moonshine module $V^\\natural$",
+      "anchor": "moonshine-mod",
+      "prereqs": [
+        "voa-modular-invariance",
+        "characters-orthogonality",
+        "borcherds-proof-sketch"
+      ],
+      "blurb": "Frenkel–Lepowsky–Meurman constructed $V^\\natural$ — a $\\mathbb{Z}$-graded VOA of central charge $24$ whose graded dimension is $J(\\tau) = j(\\tau) - 744$ and whose automorphism group is the Monster; Borcherds' proof of Conway–Norton uses the Monster Lie algebra built from $V^\\natural$ via the Goddard–Thorn no-ghost theorem.",
+      "tags": ["group-action", "classification"]
+    },
+    {
+      "id": "voa-applications",
+      "title": "Applications — chiral CFT and chiral algebras",
+      "anchor": "applications",
+      "prereqs": [
+        "voa-modular-invariance",
+        "group-representations"
+      ],
+      "blurb": "VOAs axiomatise the chiral half of two-dimensional conformal field theory; Beilinson–Drinfeld's chiral algebras globalise the construction over algebraic curves, replacing formal power series with $\\mathcal{D}$-modules and giving the framework underlying the geometric Langlands program."
+    }
+  ]
+}

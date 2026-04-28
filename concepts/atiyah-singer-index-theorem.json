@@ -1,0 +1,102 @@
+{
+  "topic": "atiyah-singer-index-theorem",
+  "title": "The Atiyah–Singer index theorem",
+  "page": "atiyah-singer-index-theorem.html",
+  "concepts": [
+    {
+      "id": "atiyah-singer-statement",
+      "title": "The index theorem",
+      "anchor": "statement",
+      "prereqs": [
+        "k-applications",
+        "k-chern-character",
+        "cc-chern-weil"
+      ],
+      "blurb": "For an elliptic differential operator $D\\colon\\Gamma(E)\\to\\Gamma(F)$ on a closed manifold $M$, the analytic index $\\ind(D)=\\dim\\ker D-\\dim\\mathrm{coker}\\,D$ is finite and equals a topological invariant determined by the symbol class $[\\sigma(D)]\\in K^0(T^*M)$ alone. The theorem unifies Hirzebruch–Riemann–Roch, Gauss–Bonnet–Chern, and the signature theorem as instances of one cohomological pairing.",
+      "tags": [
+        "duality",
+        "cohomology",
+        "classification"
+      ]
+    },
+    {
+      "id": "as-elliptic-operators",
+      "title": "Elliptic operators and Fredholm property",
+      "anchor": "elliptic",
+      "prereqs": [
+        "pde-classification",
+        "pde-existence-and-regularity",
+        "st-spectral-theorem-bounded"
+      ],
+      "blurb": "A linear differential operator $D=\\sum_{|\\alpha|\\le m}a_\\alpha(x)\\partial^\\alpha$ has principal symbol $\\sigma_m(D)(x,\\xi)=\\sum_{|\\alpha|=m}a_\\alpha(x)(i\\xi)^\\alpha$, a bundle map $\\pi^*E\\to\\pi^*F$ on $T^*M$; ellipticity demands $\\sigma_m(D)(x,\\xi)$ invertible for $\\xi\\ne 0$. On a closed manifold, ellipticity plus elliptic regularity give a Fredholm extension between Sobolev spaces $H^s\\to H^{s-m}$ with finite-dimensional kernel and cokernel.",
+      "tags": [
+        "compactness",
+        "classification",
+        "foundation"
+      ]
+    },
+    {
+      "id": "as-topological-side",
+      "title": "The topological index via $\\mathrm{ch}\\cdot\\mathrm{Td}$",
+      "anchor": "topological",
+      "prereqs": [
+        "k-vector-bundles",
+        "k-grothendieck-group",
+        "k-bott-periodicity",
+        "cc-chern-classes",
+        "cc-pontryagin"
+      ],
+      "blurb": "The symbol of an elliptic operator defines a compactly supported K-class $[\\sigma(D)]\\in K^0(T^*M)$. The topological index is $\\ind_{\\mathrm{top}}(D)=\\bigl\\langle\\mathrm{ch}([\\sigma(D)])\\smile\\mathrm{Td}(TM\\otimes\\mathbb{C}),\\,[T^*M]\\bigr\\rangle$, where the Todd class $\\mathrm{Td}=\\prod x_i/(1-e^{-x_i})$ corrects for the non-triviality of $T^*M$ as a K-orientation. Atiyah–Singer asserts $\\ind(D)=\\ind_{\\mathrm{top}}(D)$.",
+      "tags": [
+        "cohomology",
+        "duality",
+        "functoriality"
+      ]
+    },
+    {
+      "id": "as-special-cases",
+      "title": "Classical specialisations",
+      "anchor": "cases",
+      "prereqs": [
+        "atiyah-singer-statement",
+        "cc-euler-class"
+      ],
+      "blurb": "Three flagship special cases: Gauss–Bonnet–Chern picks $D=d+d^*$ on even-vs-odd forms, computes $\\ind(D)=\\chi(M)=\\int_M e(TM)$; Hirzebruch signature picks $D$ on self-dual vs anti-self-dual forms, gives $\\sigma(M)=\\int_M L(TM)$ via the Hirzebruch $L$-genus; Hirzebruch–Riemann–Roch picks $D=\\bar\\partial$ on a holomorphic bundle $E\\to X$ over a complex manifold, yielding $\\chi(X,E)=\\int_X\\mathrm{ch}(E)\\cdot\\mathrm{Td}(TX)$.",
+      "tags": [
+        "classification",
+        "cohomology"
+      ]
+    },
+    {
+      "id": "as-dirac-operators",
+      "title": "Dirac operators and the $\\hat A$-genus",
+      "anchor": "dirac",
+      "prereqs": [
+        "atiyah-singer-statement",
+        "cc-pontryagin"
+      ],
+      "blurb": "On a spin manifold $M^{2n}$ the spin bundle splits $S=S^+\\oplus S^-$ and the Dirac operator $D\\colon\\Gamma(S^+)\\to\\Gamma(S^-)$ is elliptic. The index theorem reads $\\ind(D)=\\int_M\\hat A(TM)$, with the $\\hat A$-genus $\\hat A=\\prod (x_i/2)/\\sinh(x_i/2)$. Lichnerowicz: positive scalar curvature forces $\\ker D=0$ and hence $\\hat A(M)=0$; integrality of $\\hat A$ on spin manifolds is the first obstruction it produces.",
+      "tags": [
+        "duality",
+        "classification",
+        "group-action"
+      ]
+    },
+    {
+      "id": "as-applications",
+      "title": "Heat kernel, families, equivariant, anomalies",
+      "anchor": "applications",
+      "prereqs": [
+        "as-dirac-operators",
+        "as-special-cases"
+      ],
+      "blurb": "The McKean–Singer formula $\\ind(D)=\\tr(e^{-tD^*D})-\\tr(e^{-tDD^*})$ is independent of $t>0$; the small-$t$ asymptotics of the heat kernel produce the index density locally, giving a proof that requires no K-theory. The families version replaces an integer by a class in $K^0(B)$ when $D$ varies over a base; the equivariant version refines $\\ind(D)$ to a virtual character of a compact Lie group action; in physics, the chiral anomaly and instanton number are direct readings of Dirac indices on curved or gauged backgrounds.",
+      "tags": [
+        "duality",
+        "cohomology",
+        "group-action",
+        "moduli"
+      ]
+    }
+  ]
+}

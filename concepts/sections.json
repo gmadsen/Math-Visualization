@@ -28,7 +28,10 @@
         "derived-categories",
         "group-cohomology",
         "lie-algebras",
-        "galois-cohomology-and-brauer"
+        "galois-cohomology-and-brauer",
+        "quaternions-octonions-and-division-algebras",
+        "quantum-groups",
+        "geometric-and-combinatorial-group-theory"
       ],
       "color": "y"
     },
@@ -60,7 +63,9 @@
         "sobolev-spaces-distributions",
         "partial-differential-equations",
         "harmonic-functions",
-        "spectral-theory"
+        "spectral-theory",
+        "wavelets",
+        "schrodinger-equation"
       ],
       "color": "p"
     },
@@ -90,7 +95,12 @@
         "lie-groups",
         "riemann-surfaces",
         "characteristic-classes",
-        "morse-theory"
+        "morse-theory",
+        "k-theory",
+        "symplectic-manifolds",
+        "knot-polynomials",
+        "ricci-flow",
+        "atiyah-singer-index-theorem"
       ],
       "color": "v"
     },
@@ -109,7 +119,8 @@
         "class-field-theory",
         "galois-representations",
         "heights-arithmetic-geometry",
-        "analytic-number-theory"
+        "analytic-number-theory",
+        "mathematics-and-cryptography"
       ],
       "color": "y"
     },
@@ -131,7 +142,8 @@
         "sato-tate",
         "bsd",
         "modularity-and-flt",
-        "modular-curves"
+        "modular-curves",
+        "vertex-operator-algebras"
       ],
       "color": "c"
     },

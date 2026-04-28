@@ -1,0 +1,88 @@
+{
+  "topic": "mathematics-and-cryptography",
+  "title": "Mathematics and cryptography",
+  "page": "mathematics-and-cryptography.html",
+  "concepts": [
+    {
+      "id": "crypto-modular-arithmetic",
+      "title": "Modular arithmetic and Euler's theorem",
+      "anchor": "mod-arith",
+      "prereqs": [
+        "algebra:algebraic-structures",
+        "algebra:quotients-homomorphisms"
+      ],
+      "blurb": "Public-key cryptography lives in the multiplicative group $(\\mathbb{Z}/n)^\\times$. Its order is Euler's totient $\\phi(n)$, and Fermat–Euler gives $a^{\\phi(n)} \\equiv 1 \\pmod n$ whenever $\\gcd(a,n)=1$. When $n=p$ is prime the group is cyclic of order $p-1$ and admits a primitive root $g$; powers of $g$ enumerate every residue. This algebraic substrate — the finite cyclic group with a hard inverse — is what every classical cryptosystem rents.",
+      "tags": [
+        "foundation",
+        "group-action"
+      ]
+    },
+    {
+      "id": "crypto-rsa",
+      "title": "RSA",
+      "anchor": "rsa",
+      "prereqs": [
+        "crypto-modular-arithmetic"
+      ],
+      "blurb": "Choose primes $p,q$, set $n=pq$ and $\\phi(n)=(p-1)(q-1)$. Pick a public exponent $e$ coprime to $\\phi(n)$ and compute the private $d \\equiv e^{-1} \\pmod{\\phi(n)}$. Encryption is $c=m^e \\bmod n$, decryption $m=c^d \\bmod n$ — Fermat–Euler guarantees $(m^e)^d=m^{ed}=m^{1+k\\phi(n)}\\equiv m$. Security rests on the conjectured hardness of factoring $n$: a factoriser exposes $\\phi(n)$, hence $d$. The RSA assumption is slightly weaker — extracting $e$-th roots mod $n$ — but no separation is known.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "crypto-discrete-log",
+      "title": "Discrete logarithm and Diffie–Hellman",
+      "anchor": "dlog",
+      "prereqs": [
+        "crypto-modular-arithmetic",
+        "complexity-theory:cx-p-and-np"
+      ],
+      "blurb": "Fix a prime $p$ and primitive root $g\\in(\\mathbb{Z}/p)^\\times$. The discrete log $\\log_g h$ is the exponent $x$ with $g^x\\equiv h \\pmod p$ — easy to verify, conjecturally hard to invert. Diffie–Hellman key exchange (1976) leverages the asymmetry: Alice sends $g^a$, Bob sends $g^b$, both compute $g^{ab}$. The best classical attack is the index calculus, sub-exponential $L_p[1/3,c]$. The DLP underpins ElGamal encryption, DSA signatures, and the entire pre-elliptic public-key stack.",
+      "tags": [
+        "group-action"
+      ]
+    },
+    {
+      "id": "crypto-elliptic-curve",
+      "title": "Elliptic-curve cryptography",
+      "anchor": "ecc",
+      "prereqs": [
+        "crypto-discrete-log",
+        "elliptic-curves:elliptic-curve-definition"
+      ],
+      "blurb": "Replace $(\\mathbb{Z}/p)^\\times$ with $E(\\mathbb{F}_p)$ — points of an elliptic curve over a prime field. The chord-tangent group law gives a finite abelian group of order $\\approx p$ (Hasse bound), and on suitable curves the only known DLP attack is Pollard's $\\rho$ in $O(\\sqrt{p})$ — no index calculus. So 256-bit ECC matches 3072-bit RSA. ECDH and ECDSA are the elliptic analogues of Diffie–Hellman and DSA. Pitfalls: weak curves where the MOV attack pulls the DLP into $\\mathbb{F}_{p^k}^\\times$, or anomalous curves where the lift to $\\mathbb{Z}_p$ is linear. NIST P-256, Curve25519, and secp256k1 (Bitcoin) are the standard hardened choices.",
+      "tags": [
+        "group-action",
+        "classification"
+      ]
+    },
+    {
+      "id": "crypto-lattice-based",
+      "title": "Lattice-based and post-quantum cryptography",
+      "anchor": "lattice",
+      "prereqs": [
+        "crypto-discrete-log",
+        "complexity-theory:cx-np-completeness"
+      ],
+      "blurb": "Shor's algorithm (1994) breaks factoring and discrete log on a quantum computer in polynomial time, dragging RSA, DH, and ECC down with it. The leading replacement is lattice cryptography. The Shortest Vector Problem (SVP) and Closest Vector Problem (CVP) on a lattice $\\Lambda\\subset\\mathbb{R}^n$ are NP-hard in worst case; Regev's Learning With Errors (LWE, 2005) reduces average-case LWE to worst-case lattice problems via a quantum reduction. CRYSTALS-Kyber, the NIST PQC KEM standard (FIPS 203, 2024), is built on Module-LWE. Signatures (Dilithium / FIPS 204) follow the same blueprint: encode a secret as a short lattice vector, hide it under a noisy linear map.",
+      "tags": [
+        "classification",
+        "foundation"
+      ]
+    },
+    {
+      "id": "crypto-zero-knowledge",
+      "title": "Zero-knowledge proofs",
+      "anchor": "zk",
+      "prereqs": [
+        "crypto-discrete-log",
+        "complexity-theory:cx-np-completeness"
+      ],
+      "blurb": "An interactive proof for a language $L$ is a protocol between prover $P$ and verifier $V$ such that (a) <strong>completeness</strong>: $x\\in L$ ⇒ honest $P$ convinces $V$ with probability $\\ge 2/3$; (b) <strong>soundness</strong>: $x\\notin L$ ⇒ no $P^*$ convinces $V$ with probability $> 1/3$; (c) <strong>zero-knowledge</strong>: the verifier's transcript is simulatable from $x$ alone. Schnorr's protocol (1989) is the canonical example for the discrete-log relation. Modern zk-SNARKs (Groth16, PLONK) compile arbitrary NP statements into a few-kilobyte non-interactive proof — the engine behind Zcash, zk-Rollups, and verifiable computation.",
+      "tags": [
+        "duality",
+        "foundation"
+      ]
+    }
+  ]
+}
