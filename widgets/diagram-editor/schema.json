@@ -11,7 +11,12 @@
   },
   "type": "object",
   "additionalProperties": false,
-  "required": ["widgetId", "title", "nodes", "arrows"],
+  "required": [
+    "widgetId",
+    "title",
+    "nodes",
+    "arrows"
+  ],
   "properties": {
     "widgetId": {
       "type": "string",
@@ -42,13 +47,22 @@
     },
     "palette": {
       "type": "string",
-      "enum": ["cyan", "violet", "yellow", "pink"],
+      "enum": [
+        "cyan",
+        "violet",
+        "yellow",
+        "pink"
+      ],
       "default": "violet",
       "description": "Project accent color used for selected/active arrows and the satisfied-relation glyph. Resolved at render time via var(--<palette>) so the page theme governs hue."
     },
     "mode": {
       "type": "string",
-      "enum": ["free", "snap-grid", "fixed"],
+      "enum": [
+        "free",
+        "snap-grid",
+        "fixed"
+      ],
       "default": "snap-grid",
       "description": "Layout-edit mode. `free` lets nodes be dragged to any pixel; `snap-grid` snaps to a 6x4 grid (so a square stays square as the reader drags); `fixed` disables drag entirely (only the arrow toggles + relation evaluation remain)."
     },
@@ -59,7 +73,12 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "label", "x", "y"],
+        "required": [
+          "id",
+          "label",
+          "x",
+          "y"
+        ],
         "properties": {
           "id": {
             "type": "string",
@@ -84,7 +103,15 @@
           },
           "color": {
             "type": "string",
-            "enum": ["ink", "blue", "yellow", "green", "pink", "violet", "cyan"],
+            "enum": [
+              "ink",
+              "blue",
+              "yellow",
+              "green",
+              "pink",
+              "violet",
+              "cyan"
+            ],
             "default": "ink",
             "description": "Node label / outline accent. Resolved via var(--<color>) (or var(--ink) for `ink`)."
           }
@@ -98,7 +125,11 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "from", "to"],
+        "required": [
+          "id",
+          "from",
+          "to"
+        ],
         "properties": {
           "id": {
             "type": "string",
@@ -119,7 +150,13 @@
           },
           "kind": {
             "type": "string",
-            "enum": ["morphism", "mono", "epi", "iso", "dotted"],
+            "enum": [
+              "morphism",
+              "mono",
+              "epi",
+              "iso",
+              "dotted"
+            ],
             "default": "morphism",
             "description": "Arrow style: `morphism` plain, `mono` hooked tail (↪), `epi` double-headed (↠), `iso` ≅ glyph above, `dotted` dashed (induced)."
           },
@@ -142,23 +179,35 @@
       "description": "Declared relations the widget evaluates on every drag-end / toggle. Each relation carries a `kind` and the relevant arrow / node ids. The widget reports each relation's status as ✓ (satisfied), ✗ (violated), or ? (some referenced arrow is toggled off — indeterminate).",
       "items": {
         "type": "object",
-        "required": ["kind"],
+        "required": [
+          "kind"
+        ],
         "oneOf": [
           {
             "additionalProperties": false,
-            "required": ["kind", "lhs", "rhs"],
+            "required": [
+              "kind",
+              "lhs",
+              "rhs"
+            ],
             "properties": {
-              "kind": { "const": "commute" },
+              "kind": {
+                "const": "commute"
+              },
               "lhs": {
                 "type": "array",
                 "minItems": 1,
-                "items": { "type": "string" },
+                "items": {
+                  "type": "string"
+                },
                 "description": "Composition path (left-to-right read order: arrow ids applied in sequence). Both lhs and rhs must share start node and end node."
               },
               "rhs": {
                 "type": "array",
                 "minItems": 1,
-                "items": { "type": "string" },
+                "items": {
+                  "type": "string"
+                },
                 "description": "The other path. The relation says `lhs == rhs` as morphisms — when curated, the widget reports ✓ if all referenced arrows are present (commutativity is asserted, not solved); ✗ if endpoints disagree; ? if any arrow is toggled off."
               },
               "label": {
@@ -169,19 +218,30 @@
           },
           {
             "additionalProperties": false,
-            "required": ["kind", "lhs", "rhs", "at"],
+            "required": [
+              "kind",
+              "lhs",
+              "rhs",
+              "at"
+            ],
             "properties": {
-              "kind": { "const": "exact" },
+              "kind": {
+                "const": "exact"
+              },
               "lhs": {
                 "type": "array",
                 "minItems": 1,
-                "items": { "type": "string" },
+                "items": {
+                  "type": "string"
+                },
                 "description": "Incoming chain (arrow ids), composing into node `at`."
               },
               "rhs": {
                 "type": "array",
                 "minItems": 1,
-                "items": { "type": "string" },
+                "items": {
+                  "type": "string"
+                },
                 "description": "Outgoing chain (arrow ids), composing out of node `at`. Exactness asserts image(lhs) = ker(rhs) — curated, reported ✓ when both chains are present and the diagram still resolves to `at`; ✗ if endpoints fail; ? if any arrow is missing."
               },
               "at": {
@@ -199,7 +259,8 @@
     },
     "sectionComment": {
       "type": "string",
-      "description": "ARTIFACT. Optional banner comment preserved when migrating sources, emitted as `/* <sectionComment> */` between the leading <script> tag and the IIFE opener."
+      "description": "ARTIFACT. Optional banner comment preserved when migrating sources, emitted as `/* <sectionComment> */` between the leading <script> tag and the IIFE opener.",
+      "x-artifact": true
     }
   }
 }

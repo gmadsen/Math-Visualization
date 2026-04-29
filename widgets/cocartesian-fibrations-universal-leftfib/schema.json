@@ -23,7 +23,8 @@
     },
     "bodyMarkup": {
       "type": "string",
-      "description": "ARTIFACT. Verbatim widget host bytes (the inline `<div class=\"widget\" id=\"...\"></div>`). Carried through unchanged so the round-trip stays byte-identical."
+      "description": "ARTIFACT. Verbatim widget host bytes (the inline `<div class=\"widget\" id=\"...\"></div>`). Carried through unchanged so the round-trip stays byte-identical.",
+      "x-artifact": true
     }
   }
 }

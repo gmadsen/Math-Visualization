@@ -23,7 +23,8 @@
     },
     "bodyMarkup": {
       "type": "string",
-      "description": "ARTIFACT. Verbatim widget HTML — the entire <div class=\"widget\" id=\"…\">…</div> bytes. Preserved byte-for-byte."
+      "description": "ARTIFACT. Verbatim widget HTML — the entire <div class=\"widget\" id=\"…\">…</div> bytes. Preserved byte-for-byte.",
+      "x-artifact": true
     }
   }
 }

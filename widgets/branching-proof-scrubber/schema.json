@@ -11,7 +11,12 @@
   },
   "type": "object",
   "additionalProperties": false,
-  "required": ["widgetId", "title", "rootId", "nodes"],
+  "required": [
+    "widgetId",
+    "title",
+    "rootId",
+    "nodes"
+  ],
   "properties": {
     "widgetId": {
       "type": "string",
@@ -38,7 +43,12 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "kind", "prompt", "children"],
+        "required": [
+          "id",
+          "kind",
+          "prompt",
+          "children"
+        ],
         "properties": {
           "id": {
             "type": "string",
@@ -47,7 +57,11 @@
           },
           "kind": {
             "type": "string",
-            "enum": ["step", "fork", "leaf"],
+            "enum": [
+              "step",
+              "fork",
+              "leaf"
+            ],
             "description": "`step` = single-child sequential node. `fork` = multi-child decision point; the reader picks a child via labeled buttons. `leaf` = terminal node (QED, contradiction, or end of a case)."
           },
           "prompt": {
@@ -56,7 +70,10 @@
           },
           "children": {
             "type": "array",
-            "items": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+            },
             "description": "Ordered list of child node ids. `step` requires length 1, `fork` requires length ≥2, `leaf` requires length 0. All ids must reference entries in `nodes`."
           },
           "branchLabel": {
@@ -87,13 +104,19 @@
     },
     "palette": {
       "type": "string",
-      "enum": ["cyan", "violet", "yellow", "pink"],
+      "enum": [
+        "cyan",
+        "violet",
+        "yellow",
+        "pink"
+      ],
       "default": "cyan",
       "description": "Project accent color used to highlight the chosen path through the tree. Resolved via `var(--<palette>)` at render time so the page theme governs the actual hue."
     },
     "sectionComment": {
       "type": "string",
-      "description": "ARTIFACT. Optional banner comment preserved when migrating sources, emitted as `/* <sectionComment> */` between the leading <script> tag and the IIFE opener."
+      "description": "ARTIFACT. Optional banner comment preserved when migrating sources, emitted as `/* <sectionComment> */` between the leading <script> tag and the IIFE opener.",
+      "x-artifact": true
     }
   }
 }

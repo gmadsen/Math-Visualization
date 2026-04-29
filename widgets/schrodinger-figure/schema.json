@@ -90,7 +90,8 @@
     },
     "sectionComment": {
       "type": "string",
-      "description": "ARTIFACT. Optional /* ... */ comment placed between the leading <script> tag and the IIFE opener."
+      "description": "ARTIFACT. Optional /* ... */ comment placed between the leading <script> tag and the IIFE opener.",
+      "x-artifact": true
     }
   }
 }

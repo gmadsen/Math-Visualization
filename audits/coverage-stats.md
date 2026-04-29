@@ -23,6 +23,7 @@ page has wired one in yet.
 | `parametric-plot` | parametric-plot | slider | 2d | 11 | analytic-continuation, analytic-number-theory, expanders |
 | `schrodinger-figure` | schrodinger-figure | slider | 2d | 7 | schrodinger-equation |
 | `clickable-graph` | clickable-graph | click | 2d | 6 | adeles-and-ideles, riemannian-geometry, schemes, sheaves |
+| `hamiltonians-figure` | hamiltonians-figure | interact | 2d | 6 | hamiltonians-classical-mechanics |
 | `surface-viewer` | surface-viewer | drag | 3d | 6 | differential-geometry, lie-groups |
 | `svg-illustration` | svg-illustration | static | 2d | 6 | L-functions, riemann-surfaces |
 | `inline-code-cell` | inline-code-cell | edit | 2d | 4 | analytic-number-theory, heights-arithmetic-geometry, p-adic-numbers |
@@ -120,12 +121,6 @@ page has wired one in yet.
 | `group-schemes-mu-n-add` | modular-arithmetic-clock | drag | 2d | 1 | group-schemes |
 | `group-schemes-mu-n-clock` | modular-arithmetic-clock | drag | 2d | 1 | group-schemes |
 | `group-schemes-torsor-cases` | counterexample-explorer | click | 2d | 1 | group-schemes |
-| `hamiltonians-canonical-transform` | hamiltonians-canonical-transform | slider | 2d | 1 | hamiltonians-classical-mechanics |
-| `hamiltonians-conserved-quantity` | hamiltonians-conserved-quantity | select | 2d | 1 | hamiltonians-classical-mechanics |
-| `hamiltonians-flow-portrait` | hamiltonians-flow-portrait | click | 2d | 1 | hamiltonians-classical-mechanics |
-| `hamiltonians-kam-tori` | hamiltonians-kam-tori | slider | 2d | 1 | hamiltonians-classical-mechanics |
-| `hamiltonians-kepler-orbits` | hamiltonians-kepler-orbits | slider | 2d | 1 | hamiltonians-classical-mechanics |
-| `hamiltonians-phase-space-cell` | hamiltonians-phase-space-cell | button | 2d | 1 | hamiltonians-classical-mechanics |
 | `heyting-algebras-toposes-geometric-composition` | clickable-diagram | click | 2d | 1 | heyting-algebras-toposes |
 | `heyting-algebras-toposes-heyting-clickable` | clickable-diagram | click | 2d | 1 | heyting-algebras-toposes |
 | `heyting-algebras-toposes-internal-language-dictionary` | clickable-diagram | click | 2d | 1 | heyting-algebras-toposes |
@@ -283,9 +278,9 @@ page has wired one in yet.
 
 - Topics: **4**, concepts: **24**
 - Widgets: **19** (registry-driven: 19, inline: 0)
-  - by family: schrodinger-figure: 7, hamiltonians-phase-space-cell: 1, hamiltonians-flow-portrait: 1, hamiltonians-canonical-transform: 1, hamiltonians-conserved-quantity: 1, hamiltonians-kam-tori: 1, hamiltonians-kepler-orbits: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
+  - by family: schrodinger-figure: 7, hamiltonians-figure: 6, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
   - by dimension: 2d: 19
-  - by gesture: slider: 12, click: 5, button: 1, select: 1
+  - by gesture: slider: 9, interact: 6, click: 4
 - Quizzes: **72** (v1: 72, hard: 0, expert: 0)
   - by type: mcq: 62, numeric: 10
 

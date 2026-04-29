@@ -39,7 +39,8 @@
     },
     "sectionComment": {
       "type": "string",
-      "description": "ARTIFACT. Optional /* ... */ banner placed between the leading <script> tag and the IIFE opener."
+      "description": "ARTIFACT. Optional /* ... */ banner placed between the leading <script> tag and the IIFE opener.",
+      "x-artifact": true
     },
     "bodyScript": {
       "type": "string",

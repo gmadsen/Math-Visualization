@@ -11,7 +11,10 @@
   },
   "type": "object",
   "additionalProperties": false,
-  "required": ["widgetId", "bodyMarkup"],
+  "required": [
+    "widgetId",
+    "bodyMarkup"
+  ],
   "properties": {
     "widgetId": {
       "type": "string",
@@ -20,7 +23,9 @@
     },
     "bodyMarkup": {
       "type": "string",
-      "description": "ARTIFACT. Verbatim inner HTML for the widget body — the .hd header, the .dict grid (entries paired left/right), and the trailing .small footnote. Preserved byte-for-byte so the round-trip gate passes."
+      "description": "ARTIFACT. Verbatim inner HTML for the widget body — the .hd header, the .dict grid (entries paired left/right), and the trailing .small footnote. Preserved byte-for-byte so the round-trip gate passes.",
+      "x-artifact": true
     }
-  }
+  },
+  "x-artifact": true
 }

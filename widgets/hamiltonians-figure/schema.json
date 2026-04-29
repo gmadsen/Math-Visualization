@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/hamiltonians-figure/schema.json",
+  "title": "hamiltonians-figure widget params",
+  "description": "Shared figure shape for the 6 widgets on the hamiltonians-classical-mechanics topic. Unifies the common chrome — header, SVG host, readout, and chained input rows that may sit on either side of the SVG — and discriminates the bespoke physics into bodyScript as the only artifact field. Replaces the per-widget hamiltonians-canonical-transform / hamiltonians-conserved-quantity / hamiltonians-flow-portrait / hamiltonians-kam-tori / hamiltonians-kepler-orbits / hamiltonians-phase-space-cell slugs.",
+  "meta": {
+    "family": "hamiltonians-figure",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title",
+    "svg",
+    "output",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\">."
+    },
+    "title": {
+      "type": "string",
+      "description": "Header title text. HTML-escaped on render."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Optional header hint text. HTML-escaped on render."
+    },
+    "svg": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "viewBox", "width", "height", "ariaLabel"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "viewBox": { "type": "string" },
+        "width": { "type": ["string", "number"] },
+        "height": { "type": ["string", "number"] },
+        "ariaLabel": { "type": "string", "description": "aria-label on <svg>; the source prefers this over a <title> child." }
+      }
+    },
+    "output": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "initial"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "initial": { "type": "string", "description": "Initial readout body — may carry KaTeX delimiters." }
+      }
+    },
+    "preRows": {
+      "type": "array",
+      "default": [],
+      "description": "Control rows rendered BEFORE the SVG. Each row is one <div class=\"row\"> holding a sequence of controls.",
+      "items": { "$ref": "#/$defs/row" }
+    },
+    "postRows": {
+      "type": "array",
+      "default": [],
+      "description": "Control rows rendered AFTER the SVG and BEFORE the output readout.",
+      "items": { "$ref": "#/$defs/row" }
+    },
+    "sectionComment": {
+      "type": "string",
+      "x-artifact": true,
+      "description": "ARTIFACT. Optional /* ... */ banner inserted between the leading <script> tag and the IIFE opener."
+    },
+    "bodyScript": {
+      "type": "string",
+      "x-artifact": true,
+      "description": "ARTIFACT. Per-widget physics — integrators, draw routines, event handlers — emitted verbatim inside `(function(){\\n…\\n})();`. The 6 widgets' physics differ enough that absorbing them into structured params would be over-engineering; portable consumers must re-implement from {svg, output, preRows, postRows} plus their own integrator."
+    }
+  },
+  "$defs": {
+    "row": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["controls"],
+      "properties": {
+        "controls": {
+          "type": "array",
+          "minItems": 1,
+          "description": "Mixed-type controls, rendered in order at 4-space indent inside the <div class=\"row\">.",
+          "items": {
+            "oneOf": [
+              { "$ref": "#/$defs/pickControl" },
+              { "$ref": "#/$defs/sliderControl" },
+              { "$ref": "#/$defs/buttonControl" }
+            ]
+          }
+        },
+        "trailing": {
+          "type": "string",
+          "description": "Optional inline HTML appended to the end of the row, after the last control. Typically a <span class=\"small\">…</span>."
+        }
+      }
+    },
+    "pickControl": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id", "label", "options"],
+      "properties": {
+        "kind": { "const": "pick" },
+        "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "label": { "type": "string", "description": "<label for=ID> text. Emitted verbatim — no HTML escaping (KaTeX-bearing labels are common)." },
+        "options": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["value", "label"],
+            "properties": {
+              "value": { "type": "string" },
+              "label": { "type": "string" },
+              "selected": { "type": "boolean" },
+              "trailing": {
+                "type": "string",
+                "x-artifact": true,
+                "description": "ARTIFACT. Raw bytes inserted into the <option> open tag after the value (and selected) attributes — used to preserve a stray space the original source carries on certain options."
+              }
+            }
+          }
+        }
+      }
+    },
+    "sliderControl": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id", "label", "min", "max", "value"],
+      "properties": {
+        "kind": { "const": "slider" },
+        "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "label": { "type": "string", "description": "<label for=ID> text. Emitted verbatim." },
+        "min": { "type": ["number", "string"] },
+        "max": { "type": ["number", "string"] },
+        "value": { "type": ["number", "string"] }
+      }
+    },
+    "buttonControl": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "id", "label"],
+      "properties": {
+        "kind": { "const": "button" },
+        "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
+        "label": { "type": "string", "description": "Button visible text. Emitted verbatim (KaTeX-bearing labels are common)." }
+      }
+    }
+  }
+}

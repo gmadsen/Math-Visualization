@@ -11,80 +11,194 @@
   },
   "type": "object",
   "oneOf": [
-    { "$ref": "#/$defs/singleMode" },
-    { "$ref": "#/$defs/multiMode" }
+    {
+      "$ref": "#/$defs/singleMode"
+    },
+    {
+      "$ref": "#/$defs/multiMode"
+    }
   ],
   "$defs": {
     "slider": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "label", "min", "max", "step", "init"],
+      "required": [
+        "id",
+        "label",
+        "min",
+        "max",
+        "step",
+        "init"
+      ],
       "properties": {
-        "id":    { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
-        "outId": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$", "description": "Optional DOM id for the adjacent <span class='small'> that echoes the current value. Omit for sliders with no live echo." },
-        "label": { "type": "string", "description": "Inner HTML of the <label for=...>: may contain $…$ LaTeX." },
-        "min":   { "type": "number" },
-        "max":   { "type": "number" },
-        "step":  { "type": "number" },
-        "init":  { "type": "number" },
-        "initReadout": { "type": "string", "description": "Initial text for the <span class='small' id=outId> (e.g. 't = 0.50')." },
-        "labelWraps": { "type": "boolean", "description": "When true, the <input> nests INSIDE the <label> as `<label>labelText <input ...></label>`; the `for=` attribute is omitted. When false/absent, emits the default sibling form `<label for=id>labelText</label><input ...>`." }
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+        },
+        "outId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+          "description": "Optional DOM id for the adjacent <span class='small'> that echoes the current value. Omit for sliders with no live echo."
+        },
+        "label": {
+          "type": "string",
+          "description": "Inner HTML of the <label for=...>: may contain $…$ LaTeX."
+        },
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        },
+        "step": {
+          "type": "number"
+        },
+        "init": {
+          "type": "number"
+        },
+        "initReadout": {
+          "type": "string",
+          "description": "Initial text for the <span class='small' id=outId> (e.g. 't = 0.50')."
+        },
+        "labelWraps": {
+          "type": "boolean",
+          "description": "When true, the <input> nests INSIDE the <label> as `<label>labelText <input ...></label>`; the `for=` attribute is omitted. When false/absent, emits the default sibling form `<label for=id>labelText</label><input ...>`."
+        }
       }
     },
     "button": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "label"],
+      "required": [
+        "id",
+        "label"
+      ],
       "properties": {
-        "id":    { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
-        "label": { "type": "string" }
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+        },
+        "label": {
+          "type": "string"
+        }
       }
     },
     "option": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["value", "label"],
+      "required": [
+        "value",
+        "label"
+      ],
       "properties": {
-        "value":    { "type": "string" },
-        "label":    { "type": "string" },
-        "selected": { "type": "boolean" }
+        "value": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "selected": {
+          "type": "boolean"
+        }
       }
     },
     "singleMode": {
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "interaction", "widgetId", "svgId", "outputId",
-        "title", "viewBox", "svgWidth", "svgHeight",
-        "sliders", "bodyScript"
+        "interaction",
+        "widgetId",
+        "svgId",
+        "outputId",
+        "title",
+        "viewBox",
+        "svgWidth",
+        "svgHeight",
+        "sliders",
+        "bodyScript"
       ],
       "properties": {
-        "interaction": { "const": "single-mode" },
-        "widgetId":    { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
-        "svgId":       { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
-        "outputId":    { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
-        "title":       { "type": "string" },
-        "titleTag":    { "type": "string", "enum": ["div", "span"], "default": "div", "description": "Tag used for the .ttl header element inside .hd. Default 'div'; 'span' for the span-title layout sub-variant." },
-        "hintTag":     { "type": "string", "enum": ["div", "span"], "default": "div", "description": "Tag used for the .hint header element inside .hd. Default 'div'; 'span' pairs with titleTag='span' in the span-header layout sub-variant." },
-        "hint":        { "type": "string" },
-        "viewBox":     { "type": "string", "description": "SVG viewBox attribute value, e.g. '0 0 620 360'." },
-        "svgWidth":    { "type": ["string", "number"] },
-        "svgHeight":   { "type": ["string", "number"] },
-        "svgTitle":    { "type": "string", "description": "<title> child of the <svg>. Defaults to the widget's title if omitted." },
-        "outputInitial": { "type": "string", "description": "Initial inner HTML of the readout <div>. Defaults to '&nbsp;' to match the slider-plot convention." },
+        "interaction": {
+          "const": "single-mode"
+        },
+        "widgetId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+        },
+        "svgId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+        },
+        "outputId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+        },
+        "title": {
+          "type": "string"
+        },
+        "titleTag": {
+          "type": "string",
+          "enum": [
+            "div",
+            "span"
+          ],
+          "default": "div",
+          "description": "Tag used for the .ttl header element inside .hd. Default 'div'; 'span' for the span-title layout sub-variant."
+        },
+        "hintTag": {
+          "type": "string",
+          "enum": [
+            "div",
+            "span"
+          ],
+          "default": "div",
+          "description": "Tag used for the .hint header element inside .hd. Default 'div'; 'span' pairs with titleTag='span' in the span-header layout sub-variant."
+        },
+        "hint": {
+          "type": "string"
+        },
+        "viewBox": {
+          "type": "string",
+          "description": "SVG viewBox attribute value, e.g. '0 0 620 360'."
+        },
+        "svgWidth": {
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "svgHeight": {
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "svgTitle": {
+          "type": "string",
+          "description": "<title> child of the <svg>. Defaults to the widget's title if omitted."
+        },
+        "outputInitial": {
+          "type": "string",
+          "description": "Initial inner HTML of the readout <div>. Defaults to '&nbsp;' to match the slider-plot convention."
+        },
         "sliders": {
           "type": "array",
           "minItems": 1,
-          "items": { "$ref": "#/$defs/slider" }
+          "items": {
+            "$ref": "#/$defs/slider"
+          }
         },
         "buttons": {
           "type": "array",
           "description": "Optional action buttons rendered after the slider rows (slider-plot-actions family).",
-          "items": { "$ref": "#/$defs/button" }
+          "items": {
+            "$ref": "#/$defs/button"
+          }
         },
         "sectionComment": {
           "type": "string",
-          "description": "ARTIFACT. Raw text between the leading <script> tag and the IIFE opener, emitted as `/* <sectionComment> */`. Preserves the legacy source's /* ========== Section N: … ========== */ banners."
+          "description": "ARTIFACT. Raw text between the leading <script> tag and the IIFE opener, emitted as `/* <sectionComment> */`. Preserves the legacy source's /* ========== Section N: … ========== */ banners.",
+          "x-artifact": true
         },
         "bodyScript": {
           "type": "string",
@@ -97,7 +211,8 @@
         },
         "hdHtml": {
           "type": "string",
-          "description": "ARTIFACT. When present, overrides the default <div class=\"hd\">...</div> line builder; the renderer emits `  <div class=\"hd\">${hdHtml}</div>\\n` verbatim. Use for multi-line .hd variants that the default titleTag/hintTag + one-line template can't reproduce."
+          "description": "ARTIFACT. When present, overrides the default <div class=\"hd\">...</div> line builder; the renderer emits `  <div class=\"hd\">${hdHtml}</div>\\n` verbatim. Use for multi-line .hd variants that the default titleTag/hintTag + one-line template can't reproduce.",
+          "x-artifact": true
         }
       }
     },
@@ -105,46 +220,117 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "interaction", "widgetId", "svgId", "outputId",
-        "title", "viewBox", "svgWidth", "svgHeight",
-        "pick", "modes", "initialMode", "bodyScript"
+        "interaction",
+        "widgetId",
+        "svgId",
+        "outputId",
+        "title",
+        "viewBox",
+        "svgWidth",
+        "svgHeight",
+        "pick",
+        "modes",
+        "initialMode",
+        "bodyScript"
       ],
       "properties": {
-        "interaction": { "const": "multi-mode" },
-        "widgetId":    { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
-        "svgId":       { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
-        "outputId":    { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
-        "title":       { "type": "string" },
-        "titleTag":    { "type": "string", "enum": ["div", "span"], "default": "div", "description": "Tag used for the .ttl header element inside .hd. Default 'div'; 'span' for the span-title layout sub-variant." },
-        "hintTag":     { "type": "string", "enum": ["div", "span"], "default": "div", "description": "Tag used for the .hint header element inside .hd. Default 'div'; 'span' pairs with titleTag='span' in the span-header layout sub-variant." },
-        "hint":        { "type": "string" },
-        "viewBox":     { "type": "string" },
-        "svgWidth":    { "type": ["string", "number"] },
-        "svgHeight":   { "type": ["string", "number"] },
-        "svgTitle":    { "type": "string" },
-        "outputInitial": { "type": "string" },
+        "interaction": {
+          "const": "multi-mode"
+        },
+        "widgetId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+        },
+        "svgId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+        },
+        "outputId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+        },
+        "title": {
+          "type": "string"
+        },
+        "titleTag": {
+          "type": "string",
+          "enum": [
+            "div",
+            "span"
+          ],
+          "default": "div",
+          "description": "Tag used for the .ttl header element inside .hd. Default 'div'; 'span' for the span-title layout sub-variant."
+        },
+        "hintTag": {
+          "type": "string",
+          "enum": [
+            "div",
+            "span"
+          ],
+          "default": "div",
+          "description": "Tag used for the .hint header element inside .hd. Default 'div'; 'span' pairs with titleTag='span' in the span-header layout sub-variant."
+        },
+        "hint": {
+          "type": "string"
+        },
+        "viewBox": {
+          "type": "string"
+        },
+        "svgWidth": {
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "svgHeight": {
+          "type": [
+            "string",
+            "number"
+          ]
+        },
+        "svgTitle": {
+          "type": "string"
+        },
+        "outputInitial": {
+          "type": "string"
+        },
         "pick": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["id", "label", "options"],
+          "required": [
+            "id",
+            "label",
+            "options"
+          ],
           "properties": {
-            "id":      { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
-            "label":   { "type": "string" },
+            "id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+            },
+            "label": {
+              "type": "string"
+            },
             "options": {
               "type": "array",
               "minItems": 1,
-              "items": { "$ref": "#/$defs/option" }
+              "items": {
+                "$ref": "#/$defs/option"
+              }
             }
           }
         },
         "sliders": {
           "type": "array",
           "description": "Sliders shared across modes; each mode can override min/max/step/init via modes[value].sliderDefaults.",
-          "items": { "$ref": "#/$defs/slider" }
+          "items": {
+            "$ref": "#/$defs/slider"
+          }
         },
         "buttons": {
           "type": "array",
-          "items": { "$ref": "#/$defs/button" }
+          "items": {
+            "$ref": "#/$defs/button"
+          }
         },
         "modes": {
           "type": "object",
@@ -169,8 +355,13 @@
             }
           }
         },
-        "initialMode": { "type": "string", "description": "Option value the IIFE starts on." },
-        "sectionComment": { "type": "string" },
+        "initialMode": {
+          "type": "string",
+          "description": "Option value the IIFE starts on."
+        },
+        "sectionComment": {
+          "type": "string"
+        },
         "bodyScript": {
           "type": "string",
           "x-artifact": "script body is widget-specific; portable consumers should implement their own",
@@ -182,7 +373,8 @@
         },
         "hdHtml": {
           "type": "string",
-          "description": "ARTIFACT. When present, overrides the default <div class=\"hd\">...</div> line builder; the renderer emits `  <div class=\"hd\">${hdHtml}</div>\\n` verbatim. Use for multi-line .hd variants that the default titleTag/hintTag + one-line template can't reproduce."
+          "description": "ARTIFACT. When present, overrides the default <div class=\"hd\">...</div> line builder; the renderer emits `  <div class=\"hd\">${hdHtml}</div>\\n` verbatim. Use for multi-line .hd variants that the default titleTag/hintTag + one-line template can't reproduce.",
+          "x-artifact": true
         }
       }
     }

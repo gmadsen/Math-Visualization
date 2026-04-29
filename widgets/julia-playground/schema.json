@@ -11,7 +11,10 @@
   },
   "type": "object",
   "additionalProperties": false,
-  "required": ["widgetId", "title"],
+  "required": [
+    "widgetId",
+    "title"
+  ],
   "properties": {
     "widgetId": {
       "type": "string",
@@ -28,7 +31,10 @@
     },
     "mode": {
       "type": "string",
-      "enum": ["mandelbrot", "julia"],
+      "enum": [
+        "mandelbrot",
+        "julia"
+      ],
       "default": "mandelbrot",
       "description": "Which set to render. 'mandelbrot' iterates from z_0 = 0 with c read per pixel; 'julia' iterates from z_0 read per pixel with c held fixed at (cReal, cImag)."
     },
@@ -49,7 +55,7 @@
     },
     "xmax": {
       "type": "number",
-      "default": 1.0,
+      "default": 1,
       "description": "Initial complex-plane x window maximum."
     },
     "ymin": {
@@ -85,7 +91,12 @@
     },
     "palette": {
       "type": "string",
-      "enum": ["cyan", "violet", "yellow", "pink"],
+      "enum": [
+        "cyan",
+        "violet",
+        "yellow",
+        "pink"
+      ],
       "default": "cyan",
       "description": "Project accent color used as the warm end of the gradient. The palette is a smooth ramp from var(--bg) through var(--mute) to the chosen accent; interior points (no escape) are rendered in var(--ink)."
     },
@@ -98,12 +109,13 @@
     "maxZoomSpan": {
       "type": "number",
       "minimum": 0.1,
-      "default": 8.0,
+      "default": 8,
       "description": "Maximum allowed (xmax - xmin) span. Prevents zooming out into pure black."
     },
     "sectionComment": {
       "type": "string",
-      "description": "ARTIFACT. Optional banner comment preserved when migrating sources, emitted as `/* <sectionComment> */` between the leading <script> tag and the IIFE opener."
+      "description": "ARTIFACT. Optional banner comment preserved when migrating sources, emitted as `/* <sectionComment> */` between the leading <script> tag and the IIFE opener.",
+      "x-artifact": true
     }
   }
 }

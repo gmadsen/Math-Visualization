@@ -23,7 +23,9 @@
     },
     "bodyScript": {
       "type": "string",
-      "description": "ARTIFACT. Verbatim script bytes including the leading newline + <script> tag and trailing </script>. Preserved byte-for-byte."
+      "description": "ARTIFACT. Verbatim script bytes including the leading newline + <script> tag and trailing </script>. Preserved byte-for-byte.",
+      "x-artifact": true
     }
-  }
+  },
+  "x-artifact": true
 }
