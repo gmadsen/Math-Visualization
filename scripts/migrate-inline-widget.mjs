@@ -77,8 +77,22 @@ if (!widgetBlockRef) {
   console.error(`migrate: no inline widget block with id="${widgetId}" found in content/${topic}.json`);
   process.exit(1);
 }
+
+// Legacy `{type:"widget", id, html, script}` shape: the driver script is
+// stored on the widget block itself instead of as a separate widget-script
+// block (modular-curves, calabi-yau-manifolds, etc.). Synthesize the
+// widget-script block here so the rest of the migration is uniform.
+if (!scriptBlockRef && typeof widgetBlockRef.block.script === 'string') {
+  const inlineScript = widgetBlockRef.block.script;
+  const insertAt = widgetBlockRef.i + 1;
+  const newScriptBlock = { type: 'widget-script', forWidget: widgetId, html: inlineScript };
+  widgetBlockRef.sec.blocks.splice(insertAt, 0, newScriptBlock);
+  delete widgetBlockRef.block.script;
+  scriptBlockRef = { sec: widgetBlockRef.sec, i: insertAt, block: newScriptBlock };
+}
+
 if (!scriptBlockRef) {
-  console.error(`migrate: no widget-script block with forWidget="${widgetId}" found`);
+  console.error(`migrate: no widget-script block with forWidget="${widgetId}" found and no legacy "script" field on the widget`);
   process.exit(1);
 }
 
@@ -87,25 +101,59 @@ if (!scriptBlockRef) {
 // Expected widget html shape:
 //
 //   <div class="widget" id="WIDGETID">
-//     <div class="hd"><div class="ttl">TITLE</div><div class="hint">HINT</div></div>
+//     <TAG class="hd"><TAG class="ttl">TITLE</TAG><TAG class="hint">HINT</TAG></TAG>
 //     BODY
 //   </div>
 //
-// where BODY is everything between the .hd's closing </div> + newline and
-// the wrapper's closing </div>. The new renderer template (mirroring
-// widgets/three-body-halo-orbits/index.mjs) emits:
+// where TAG is "div" (most topics) or "span" (modular-curves, morse-theory,
+// ricci-flow, symplectic-manifolds, mathematics-and-cryptography,
+// resolution-of-singularities). The renderer must emit the same TAG. We
+// detect by trying div first, then span, and remember which.
 //
-//   `<div class="widget" id="${widgetId}">\n  <div class="hd">…</div>\n${bodyMarkup}\n</div>`
-//
-// so bodyMarkup is BODY minus the trailing "\n" before the closer.
+// For multi-line .hd headers (where ttl and hint are on their own indented
+// lines), we pre-normalize the JSON's widget html to single-line .hd. The
+// renderer always emits single-line, so the next rebuild --fix writes the
+// normalized HTML to disk; the round-trip remains stable.
 
-const widgetHtml = widgetBlockRef.block.html;
-const headerRe =
-  /^<div class="widget"(?:\s+id="([^"]+)")?>\n  <div class="hd"><div class="ttl">([\s\S]*?)<\/div><div class="hint">([\s\S]*?)<\/div><\/div>\n([\s\S]*)\n<\/div>$/;
-const m = widgetHtml.match(headerRe);
+let widgetHtml = widgetBlockRef.block.html;
+
+function normalizeMultiLineHd(html) {
+  // Match <div class="hd">[whitespace]<div/span class="ttl">…</div/span>[ws]<div/span class="hint">…</div/span>[ws]</div>
+  const reMulti =
+    /<div class="hd">\s*\n\s*<(div|span) class="ttl">([\s\S]*?)<\/\1>\s*\n\s*<(div|span) class="hint">([\s\S]*?)<\/\3>\s*\n\s*<\/div>/;
+  const m = html.match(reMulti);
+  if (!m) return { html, normalized: false };
+  const [full, t1, ttlInner, t2, hintInner] = m;
+  if (t1 !== t2) return { html, normalized: false }; // mixed tags — bail
+  const replacement = `<${t1} class="hd"><${t1} class="ttl">${ttlInner}</${t1}><${t1} class="hint">${hintInner}</${t1}></${t1}>`;
+  // Wait — the .hd wrapper itself is always <div>, only ttl/hint vary. Fix:
+  const fixed = `<div class="hd"><${t1} class="ttl">${ttlInner}</${t1}><${t1} class="hint">${hintInner}</${t1}></div>`;
+  return { html: html.replace(full, fixed), normalized: true };
+}
+
+const norm = normalizeMultiLineHd(widgetHtml);
+widgetHtml = norm.html;
+
+// Try div-tagged ttl/hint first, then span. The hd wrapper is always div.
+const HEADER_RES = [
+  {
+    tag: 'div',
+    re: /^<div class="widget"(?:\s+id="([^"]+)")?>\n  <div class="hd"><div class="ttl">([\s\S]*?)<\/div><div class="hint">([\s\S]*?)<\/div><\/div>\n([\s\S]*)\n<\/div>$/,
+  },
+  {
+    tag: 'span',
+    re: /^<div class="widget"(?:\s+id="([^"]+)")?>\n  <div class="hd"><span class="ttl">([\s\S]*?)<\/span><span class="hint">([\s\S]*?)<\/span><\/div>\n([\s\S]*)\n<\/div>$/,
+  },
+];
+let m = null;
+let headerTag = 'div';
+for (const candidate of HEADER_RES) {
+  const r = widgetHtml.match(candidate.re);
+  if (r) { m = r; headerTag = candidate.tag; break; }
+}
 if (!m) {
   console.error(`migrate: widget html for "${widgetId}" doesn't match the expected header shape; manual cleanup needed first.`);
-  console.error('  expected the standard `<div class="widget"…>\\n  <div class="hd">…</div>\\nBODY\\n</div>` shape.');
+  console.error('  expected `<div class="widget"…>\\n  <div class="hd"><TAG class="ttl">…</TAG><TAG class="hint">…</TAG></div>\\nBODY\\n</div>` with TAG = div or span.');
   process.exit(1);
 }
 const [, idCaptured, title, hint, bodyMarkup] = m;
@@ -113,6 +161,12 @@ if (idCaptured && idCaptured !== widgetId) {
   console.error(`migrate: id mismatch — header captured "${idCaptured}" but arg is "${widgetId}"`);
   process.exit(1);
 }
+
+// If we normalized the multi-line .hd, write the normalized html back to
+// the JSON-side widget block before rewriting it as slug-referenced. (The
+// rewrite below replaces the block entirely, so this is just to keep the
+// extraction-input self-consistent for downstream tooling.)
+widgetBlockRef.block.html = widgetHtml;
 
 // ----- extract sectionComment + bodyScript -----
 //
@@ -217,7 +271,7 @@ export function renderMarkup(params) {
   const { widgetId, title, hint, bodyMarkup } = params;
   return (
     \`<div class="widget"\` + (widgetId ? \` id="\${widgetId}"\` : "") + \`>\\n\` +
-    \`  <div class="hd"><div class="ttl">\${escapeHtml(title)}</div><div class="hint">\${escapeHtml(hint)}</div></div>\\n\` +
+    \`  <div class="hd"><${headerTag} class="ttl">\${escapeHtml(title)}</${headerTag}><${headerTag} class="hint">\${escapeHtml(hint)}</${headerTag}></div>\\n\` +
     \`\${bodyMarkup}\\n\` +
     \`</div>\`
   );
