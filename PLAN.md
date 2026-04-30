@@ -17,7 +17,7 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 ## Near-term tasks
 
 - **Tier 1 tagging pass — coverage tail.** ~200 of the 575 (creative-improvements–era) concepts remain untagged. The tagging agent reached 62.8 % with quality > coverage; a focused follow-up on Modular forms / L-functions / capstones could close real gaps. Number is pre–PCM-gap; recount before resuming.
-- **Inline-widget migration — wider corpus.** ~250 inline `widget` blocks (no `slug`) remain across ~40 non-PCM-gap topics. Mechanically similar to the just-finished PCM-gap promotion: run `scripts/repair-widget-scripts.mjs --topic <t>` if the scripts merged into `rawBodySuffix`, then `scripts/migrate-inline-widget.mjs <topic> <widgetId> <slug> --description ...` per widget. Each topic ~15 minutes with the helper. Lower priority than PCM-gap because these topics already render correctly; the migration is purely registry-coverage hygiene.
+- **Inline-widget migration — wider corpus.** ~250 inline `widget` blocks (no `slug`) remain across ~40 topics outside the PCM-gap band. Mechanically similar to the just-finished work: `scripts/repair-widget-scripts.mjs --topic <t>` if the scripts merged into `rawBodySuffix`, then `scripts/migrate-inline-widget.mjs <topic> <widgetId> <slug> --description ...` per widget. Each topic is ~15 minutes with the helper.
 - **Math physics has no `hard` tier and Combinatorics has no `hard` tier.** 12 topics × ~6 concepts × 2-3 questions each = ~150 missing hard-tier questions. Per "Out of scope", de-prioritized — listed here so the gap is visible, not actioned.
 
 ## Authoring polish — small
