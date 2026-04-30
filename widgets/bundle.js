@@ -2097,6 +2097,132 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "extremal-combinatorics-erdos-stone",
+    "family": "extremal-combinatorics-erdos-stone",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "exploratory",
+    "title": "extremal-combinatorics-erdos-stone widget params",
+    "description": "Bespoke Turan density vs chromatic number stepper for the Erdos-Stone theorem: step chi(H) and read off the density curve ex(n, H)/binom(n,2) -> 1 - 1/(chi(H)-1). Demonstrates that asymptotic Turan density depends only on chromatic number.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the extremal-combinatorics topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "extremal-combinatorics-kst",
+    "family": "extremal-combinatorics-kst",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "extremal-combinatorics-kst widget params",
+    "description": "Bespoke Kovari-Sos-Turan exponent 2 - 1/s visualizer: slide s and watch the upper bound on K_{s,t}-free graphs shrink toward the n^2 ceiling but never reach it. Concrete touchpoint for the bipartite extremal regime.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the extremal-combinatorics topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "extremal-combinatorics-ramsey",
+    "family": "extremal-combinatorics-ramsey",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "extremal-combinatorics-ramsey widget params",
+    "description": "Bespoke R(3, 3) = 6 edge-coloring puzzle: click edges of K_5 or K_6 to flip their colors; verify R(3,3) <= 6 by exhibiting a monochromatic K_3 in every K_6 coloring and a coloring of K_5 without one.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the extremal-combinatorics topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "extremal-combinatorics-removal",
+    "family": "extremal-combinatorics-removal",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "extremal-combinatorics-removal widget params",
+    "description": "Bespoke triangle-removal-lemma toy: slide epsilon to see the implied delta frontier; toggle 'robust' to see how supersaturation strengthens the lemma. Visualises the existential statement that delta n^3 triangles cannot all be erased by removing fewer than epsilon n^2 edges.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the extremal-combinatorics topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "extremal-combinatorics-sperner",
+    "family": "extremal-combinatorics-sperner",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "extremal-combinatorics-sperner widget params",
+    "description": "Bespoke Boolean-lattice antichain assembler for Sperner's theorem: click subsets of [n] to build an antichain; the LYM sum sum_S 1/binom(n,|S|) updates live and shows when LYM is saturated by a level.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the extremal-combinatorics topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "extremal-combinatorics-turan",
+    "family": "extremal-combinatorics-turan",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "extremal-combinatorics-turan widget params",
+    "description": "Bespoke Turan-graph T(n, r) visualizer for extremal-combinatorics: drag n and r sliders to see how parts and edges scale; the readout reports the maximum edge count (1 - 1/r) n^2/2 plus the achieving partition.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the extremal-combinatorics topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "grothendieck-topologies-sites-axioms-scrub",
     "family": "declarative-host",
     "dimension": "2d",
@@ -3383,6 +3509,153 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "probabilistic-method-alterations",
+    "family": "probabilistic-method-alterations",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "probabilistic-method-alterations widget params",
+    "description": "Bespoke alterations-method demo: draw G(n, 1/2), sample S, delete a vertex per edge; watch a true independent set emerge. Concrete instance of the 'sample then prune' alteration trick.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the probabilistic-method topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "probabilistic-method-concentration",
+    "family": "probabilistic-method-concentration",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "probabilistic-method-concentration widget params",
+    "description": "Bespoke tail-bound comparator for S_n = X_1 + ... + X_n with Bernoulli(1/2) summands: slide n and t; see Markov vs Chebyshev vs Hoeffding vs the exact tail side by side. Concrete entry into how concentration tightens with stronger hypotheses.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the probabilistic-method topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "probabilistic-method-existence",
+    "family": "probabilistic-method-existence",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "probabilistic-method-existence widget params",
+    "description": "Bespoke 'existence by averaging' demonstrator: draw random tournaments and watch the average over many trials beat the worst case. Concrete instance of the probabilistic method's central move.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the probabilistic-method topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "probabilistic-method-linearity",
+    "family": "probabilistic-method-linearity",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "probabilistic-method-linearity widget params",
+    "description": "Bespoke independence-number bound for G(n, 1/2) via linearity of expectation: slide n; find the smallest k with binom(n,k) 2^{-binom(k,2)} < 1, giving alpha(G) < k almost surely.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the probabilistic-method topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "probabilistic-method-lll",
+    "family": "probabilistic-method-lll",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "probabilistic-method-lll widget params",
+    "description": "Bespoke Lovasz Local Lemma feasibility scanner: slide k and d; the green region is where e p (d+1) <= 1 with p = 2^{-k}, so the LLL guarantees a satisfying assignment for k-SAT with d-bounded dependence.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the probabilistic-method topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "probabilistic-method-ramsey",
+    "family": "probabilistic-method-ramsey",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "probabilistic-method-ramsey widget params",
+    "description": "Bespoke Ramsey union-bound calculator: slide n and k; watch when binom(n,k) 2^{1-binom(k,2)} drops below 1, certifying R(k,k) > n. The lower-bound proof rendered as a one-slider exploration.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the probabilistic-method topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "probabilistic-method-threshold",
+    "family": "probabilistic-method-threshold",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "probabilistic-method-threshold widget params",
+    "description": "Bespoke triangle-threshold demo for G(n,p): slide np across 1; watch E[X_T] and the simulated triangle count. The np = 1 transition for triangle-existence is rendered tangibly via expectation vs. realized counts.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the probabilistic-method topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "proof-scrubber",
     "family": "proof-scrubber",
     "dimension": "2d",
@@ -3481,6 +3754,132 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke widget for the **schrodinger-equation** topic. Absorbs all six inline interactives on that page — wave-packet spreading, eigenstate superposition + animate, harmonic-oscillator energy ladder, hydrogen spectrum series picker, rectangular-barrier tunneling, and stationary-phase classical-limit explorer.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "simplicial-complexes-combinatorial-faces",
+    "family": "simplicial-complexes-combinatorial-faces",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "simplicial-complexes-combinatorial-faces widget params",
+    "description": "Bespoke face explorer for simplicial complexes: click a facet to toggle it; the complex closes downward automatically (every subset of a face is a face). Hands-on entry into the face-set definition.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the simplicial-complexes-combinatorial topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "simplicial-complexes-combinatorial-fh",
+    "family": "simplicial-complexes-combinatorial-fh",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "simplicial-complexes-combinatorial-fh widget params",
+    "description": "Bespoke f-vector to h-vector converter: pick a complex and read the h-vector. The Dehn-Sommerville symmetry h_i = h_{d-i} is the visible test for the underlying complex being a sphere.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the simplicial-complexes-combinatorial topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "simplicial-complexes-combinatorial-nerve",
+    "family": "simplicial-complexes-combinatorial-nerve",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "simplicial-complexes-combinatorial-nerve widget params",
+    "description": "Bespoke disk-cover nerve visualizer: slide r to grow disks over the plane; the nerve simplicial complex updates at the bottom. Concrete instance of the nerve theorem and a precursor to Cech complexes in topology.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the simplicial-complexes-combinatorial topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "simplicial-complexes-combinatorial-persistence",
+    "family": "simplicial-complexes-combinatorial-persistence",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "simplicial-complexes-combinatorial-persistence widget params",
+    "description": "Bespoke Vietoris-Rips persistence demo: slide r to fire faces; the H_1 persistence bar tracks the birth and death of a loop. Concrete entry into persistent homology as a multi-scale topological invariant.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the simplicial-complexes-combinatorial topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "simplicial-complexes-combinatorial-shell",
+    "family": "simplicial-complexes-combinatorial-shell",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "simplicial-complexes-combinatorial-shell widget params",
+    "description": "Bespoke shelling-order constructor: click facets in order; valid choices are highlighted (the new facet must intersect the union of previously placed facets in a pure subcomplex of one dimension lower). Concrete entry into the combinatorial-topology notion of shellability.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the simplicial-complexes-combinatorial topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "simplicial-complexes-combinatorial-sr",
+    "family": "simplicial-complexes-combinatorial-sr",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "simplicial-complexes-combinatorial-sr widget params",
+    "description": "Bespoke Stanley-Reisner ring constructor: pick facets to see I_K (the ideal of non-faces) and the surviving squarefree monomials. Bridges combinatorial complexes to commutative algebra.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the simplicial-complexes-combinatorial topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
