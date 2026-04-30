@@ -282,10 +282,7 @@ $$K_0(N) \;=\; \Bigl\{\, g \in \mathrm{GL}_2(\hat{\mathbb{Z}}) \,:\, c \equiv 0 
 $K_0(N)$ depends only on the primes $p \mid N$: away from those primes it agrees with $\mathrm{GL}_2(\mathbb{Z}_p)$.</p>
 
 <div class="widget" id="w-restricted">
-  <div class="hd">
-    <div class="ttl">Restricted-product membership tester</div>
-    <div class="hint">choose entries at each place; the widget tells you whether $(g_v)_v \in \mathrm{GL}_2(\mathbb{A})$</div>
-  </div>
+  <div class="hd"><div class="ttl">Restricted-product membership tester</div><div class="hint">choose entries at each place; the widget tells you whether $(g_v)_v \in \mathrm{GL}_2(\mathbb{A})$</div></div>
   <div class="row">
     <label for="rp-ainf">archimedean det:</label>
     <input id="rp-ainf" type="number" value="1" step="1" style="width:5em">
@@ -386,10 +383,7 @@ $$\mathrm{GL}_2(\mathbb{Q}) \backslash \mathrm{GL}_2(\mathbb{A}) / \bigl( Z(\mat
 The classical curve is a single double-coset space inside the adelic group.</p>
 
 <div class="widget" id="w-strong">
-  <div class="hd">
-    <div class="ttl">Strong-approximation decomposition stepper</div>
-    <div class="hint">step through the factorisation of an adelic element</div>
-  </div>
+  <div class="hd"><div class="ttl">Strong-approximation decomposition stepper</div><div class="hint">step through the factorisation of an adelic element</div></div>
   <div class="row">
     <button id="strong-prev">← prev</button>
     <button id="strong-next">next →</button>
@@ -510,10 +504,7 @@ $$L^2_{\mathrm{disc}}\bigl( \mathrm{GL}_2(\mathbb{Q}) \backslash \mathrm{GL}_2(\
 into a direct sum of irreducible <strong>automorphic representations</strong>. <em>Multiplicity one</em> for $\mathrm{GL}_2$ asserts $m(\pi) \in \{0, 1\}$ — and for cuspidal $\pi$ the multiplicity is exactly $1$.</p>
 
 <div class="widget" id="w-conditions">
-  <div class="hd">
-    <div class="ttl">Three conditions on $\phi$</div>
-    <div class="hint">click a row to highlight; the readout shows the consequence of dropping it</div>
-  </div>
+  <div class="hd"><div class="ttl">Three conditions on $\phi$</div><div class="hint">click a row to highlight; the readout shows the consequence of dropping it</div></div>
   <svg id="cond-svg" viewBox="0 0 660 200" width="660" height="200"><title>Three conditions on phi</title></svg>
   <div class="readout" id="cond-out">Click a row above to see what fails when that condition is dropped.</div>
 </div>
@@ -600,10 +591,7 @@ where $f|_k g$ is the weight-$k$ slash operator $(f|_k g)(\tau) = (\det g)^{k/2}
 </div>
 
 <div class="widget" id="w-dict">
-  <div class="hd">
-    <div class="ttl">Dictionary translator</div>
-    <div class="hint">pick a classical object and see its adelic counterpart</div>
-  </div>
+  <div class="hd"><div class="ttl">Dictionary translator</div><div class="hint">pick a classical object and see its adelic counterpart</div></div>
   <div class="row">
     <label for="dict-sel">classical:</label>
     <select id="dict-sel">
@@ -675,10 +663,7 @@ $$a_p \;=\; (\alpha_p + \beta_p) \cdot p^{(k-1)/2},$$
 and $\alpha_p \beta_p = p^{k-1}$ (or $1$ in the unitary normalisation), recovering the Euler factor $1 - a_p p^{-s} + p^{k-1-2s}$.</p>
 
 <div class="widget" id="w-satake">
-  <div class="hd">
-    <div class="ttl">Satake parameter explorer</div>
-    <div class="hint">slide $a_p$; see the (unique up to swap) parameters $(\alpha_p, \beta_p)$ on the unit circle</div>
-  </div>
+  <div class="hd"><div class="ttl">Satake parameter explorer</div><div class="hint">slide $a_p$; see the (unique up to swap) parameters $(\alpha_p, \beta_p)$ on the unit circle</div></div>
   <div class="row">
     <label for="sat-p">$p$ =</label>
     <select id="sat-p"><option>2</option><option>3</option><option selected>5</option><option>7</option><option>11</option><option>13</option></select>
@@ -806,10 +791,7 @@ For an irreducible admissible $\pi_v$ that is <em>generic</em> (= admits any suc
 <p>The global <strong>conductor</strong> of an automorphic representation $\pi$ is $N(\pi) = \prod_p p^{c_p}$. For $\pi$ corresponding to a classical $f \in S_k(\Gamma_0(N))$, this $N(\pi)$ matches $N$ — the level. Atkin–Lehner new-form theory and Casselman's local theorem are two sides of the same statement.</p>
 
 <div class="widget" id="w-newform">
-  <div class="hd">
-    <div class="ttl">Local conductor exponent ladder</div>
-    <div class="hint">click a level to see the dimension of $\pi_p^{K_0(p^j)}$</div>
-  </div>
+  <div class="hd"><div class="ttl">Local conductor exponent ladder</div><div class="hint">click a level to see the dimension of $\pi_p^{K_0(p^j)}$</div></div>
   <svg id="nf-svg" viewBox="0 0 660 240" width="660" height="240"><title>Local conductor exponent</title></svg>
   <div class="readout" id="nf-out">&nbsp;</div>
 </div>
@@ -895,10 +877,7 @@ $$\phi : \mathrm{GL}_n(\mathbb{Q}) \backslash \mathrm{GL}_n(\mathbb{A}) \to \mat
 makes sense for every $n$, with the same three regularity conditions and the same Euler-product $L$-function. This is the gateway to the <strong>Langlands programme</strong>: a conjectural correspondence between automorphic representations of $\mathrm{GL}_n$ and $n$-dimensional Galois representations, with matching $L$-functions on both sides.</p>
 
 <div class="widget" id="w-lfunc">
-  <div class="hd">
-    <div class="ttl">Local factor builder</div>
-    <div class="hint">build $L(s, \pi)$ place-by-place; toggle places to see partial Euler products</div>
-  </div>
+  <div class="hd"><div class="ttl">Local factor builder</div><div class="hint">build $L(s, \pi)$ place-by-place; toggle places to see partial Euler products</div></div>
   <div class="row">
     <label for="lf-s">$s$ =</label>
     <input id="lf-s" type="range" min="0.6" max="3" step="0.02" value="1.5">
@@ -1011,10 +990,7 @@ $$E_0(g, s) \;=\; \phi_s(g) + M(s)\,\phi_s(g),$$
 where $M(s)$ is the <strong>standard intertwining operator</strong>. The functional equation $M(s) M(-s) = \mathrm{id}$ and $E(g, s) = M(s) E(g, -s)$ propagate to a functional equation for $L(s, \pi)$ when $\pi$ is cuspidal — the intertwiner is what manufactures the global $\Gamma$-factor symmetry.</p>
 
 <div class="widget" id="w-spectral">
-  <div class="hd">
-    <div class="ttl">Eisenstein constant term along $\Re s = \sigma$</div>
-    <div class="hint">scrub $s$ to see the pole at $s=1$ that produces the residual spectrum</div>
-  </div>
+  <div class="hd"><div class="ttl">Eisenstein constant term along $\Re s = \sigma$</div><div class="hint">scrub $s$ to see the pole at $s=1$ that produces the residual spectrum</div></div>
   <div class="row">
     <label for="es-s">$s$ =</label>
     <input id="es-s" type="range" min="0.05" max="2" step="0.005" value="1.0">
@@ -1194,10 +1170,7 @@ $$c(\pi_{G,p}) \;=\; \rho\bigl( c(\pi_{H,p}) \bigr) \quad \text{for almost every
 and consequently $L(s, \pi_H, r \circ \rho) = L(s, \pi_G, r)$ for every $r$.</p>
 
 <div class="widget" id="w-functoriality">
-  <div class="hd">
-    <div class="ttl">Functoriality transfers — pick an $L$-group map</div>
-    <div class="hint">click a transfer arrow $\rho : {}^L H \to {}^L G$ to read its image on Satake parameters</div>
-  </div>
+  <div class="hd"><div class="ttl">Functoriality transfers — pick an $L$-group map</div><div class="hint">click a transfer arrow $\rho : {}^L H \to {}^L G$ to read its image on Satake parameters</div></div>
   <svg id="fc-svg" viewBox="0 0 660 320" width="660" height="320"><title>Three functorial transfers between L-groups</title></svg>
   <div class="readout" id="fc-out">&nbsp;</div>
 </div>

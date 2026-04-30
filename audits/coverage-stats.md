@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **130**, concepts: **896**
-- Widgets: **921** (registry-driven: 667, inline: 254)
+- Widgets: **921** (registry-driven: 694, inline: 227)
 - Quizzes: **3855** (v1: 2619, hard: 1223, expert: 13)
 - Quiz types: mcq: 2587, numeric: 1028, multi-select: 96, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **139**
@@ -53,7 +53,25 @@ page has wired one in yet.
 | `algebraic-spaces-morphisms-diagram` | clickable-diagram | click | 2d | 1 | algebraic-spaces |
 | `algebraic-spaces-scheme-stack-hierarchy` | clickable-diagram | click | 2d | 1 | algebraic-spaces |
 | `algebraic-spaces-why-scrubber` | proof-scrubber | scrub | 2d | 1 | algebraic-spaces |
+| `automorphic-conductor-ladder` | automorphic-conductor-ladder | click | 2d | 1 | automorphic-forms-adelic |
+| `automorphic-dictionary` | automorphic-dictionary | step | 2d | 1 | automorphic-forms-adelic |
+| `automorphic-eisenstein-residue` | automorphic-eisenstein-residue | slider | 2d | 1 | automorphic-forms-adelic |
+| `automorphic-functoriality-transfers` | automorphic-functoriality-transfers | click | 2d | 1 | automorphic-forms-adelic |
+| `automorphic-local-factor-builder` | automorphic-local-factor-builder | slider | 2d | 1 | automorphic-forms-adelic |
+| `automorphic-restricted-product` | automorphic-restricted-product | step | 2d | 1 | automorphic-forms-adelic |
+| `automorphic-satake-parameters` | automorphic-satake-parameters | slider | 2d | 1 | automorphic-forms-adelic |
+| `automorphic-strong-approximation` | automorphic-strong-approximation | step | 2d | 1 | automorphic-forms-adelic |
+| `automorphic-three-conditions` | automorphic-three-conditions | click | 2d | 1 | automorphic-forms-adelic |
 | `branching-proof-scrubber` | branching-proof-scrubber | branching-timeline | 2d | 1 | galois |
+| `characteristic-classes-c1-clutching` | characteristic-classes-c1-clutching | slider | 2d | 1 | characteristic-classes |
+| `characteristic-classes-classifying-map` | characteristic-classes-classifying-map | click | 2d | 1 | characteristic-classes |
+| `characteristic-classes-cpn-localisation` | characteristic-classes-cpn-localisation | slider | 2d | 1 | characteristic-classes |
+| `characteristic-classes-gauss-bonnet` | characteristic-classes-gauss-bonnet | click | 2d | 1 | characteristic-classes |
+| `characteristic-classes-mobius-vs-cylinder` | characteristic-classes-mobius-vs-cylinder | slider | 2d | 1 | characteristic-classes |
+| `characteristic-classes-poincare-hopf` | characteristic-classes-poincare-hopf | click | 2d | 1 | characteristic-classes |
+| `characteristic-classes-pontryagin-formulas` | characteristic-classes-pontryagin-formulas | click | 2d | 1 | characteristic-classes |
+| `characteristic-classes-signature-l-genus` | characteristic-classes-signature-l-genus | click | 2d | 1 | characteristic-classes |
+| `characteristic-classes-w1-surfaces` | characteristic-classes-w1-surfaces | click | 2d | 1 | characteristic-classes |
 | `class-field-theory-reciprocity-dictionary` | svg-illustration | read | 2d | 1 | class-field-theory |
 | `cocartesian-fibrations-edge-scrubber` | cocartesian-fibrations-edge-scrubber | interact | 2d | 1 | cocartesian-fibrations |
 | `cocartesian-fibrations-examples-graph` | cocartesian-fibrations-examples-graph | interact | 2d | 1 | cocartesian-fibrations |
@@ -186,6 +204,15 @@ page has wired one in yet.
 | `matroid-graph-forests` | matroid-graph-forests | click | 2d | 1 | matroid-theory |
 | `matroid-greedy-vs-nonmatroid` | matroid-greedy-vs-nonmatroid | slider | 2d | 1 | matroid-theory |
 | `matroid-tutte-polynomial` | matroid-tutte-polynomial | slider | 2d | 1 | matroid-theory |
+| `modular-curves-atkin-lehner-newforms` | modular-curves-atkin-lehner-newforms | click | 2d | 1 | modular-curves |
+| `modular-curves-cusps-and-wn` | modular-curves-cusps-and-wn | click | 2d | 1 | modular-curves |
+| `modular-curves-eichler-shimura` | modular-curves-eichler-shimura | click | 2d | 1 | modular-curves |
+| `modular-curves-fundamental-domain` | modular-curves-fundamental-domain | step | 2d | 1 | modular-curves |
+| `modular-curves-genus-growth` | modular-curves-genus-growth | slider | 2d | 1 | modular-curves |
+| `modular-curves-hecke-summands` | modular-curves-hecke-summands | step | 2d | 1 | modular-curves |
+| `modular-curves-heegner-hypothesis` | modular-curves-heegner-hypothesis | step | 2d | 1 | modular-curves |
+| `modular-curves-lattice-cyclic-subgroup` | modular-curves-lattice-cyclic-subgroup | slider | 2d | 1 | modular-curves |
+| `modular-curves-mazur-torsion` | modular-curves-mazur-torsion | click | 2d | 1 | modular-curves |
 | `natural-transformation-explorer` | naturality-square | slider+click | 2d | 1 | category-theory |
 | `probabilistic-method-alterations` | probabilistic-method-alterations | click | 2d | 1 | probabilistic-method |
 | `probabilistic-method-concentration` | probabilistic-method-concentration | slider | 2d | 1 | probabilistic-method |
@@ -283,10 +310,10 @@ page has wired one in yet.
 ### Geometry & topology
 
 - Topics: **16**, concepts: **102**
-- Widgets: **104** (registry-driven: 51, inline: 53)
-  - by family: unknown: 53, button-stepper: 34, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, counterexample-explorer: 1, proof-scrubber: 1, lattice-visualizer: 1
-  - by dimension: unknown: 53, 2d: 45, 3d: 6
-  - by gesture: unknown: 53, click: 40, drag: 6, static: 2, select: 1, timeline: 1, slider: 1
+- Widgets: **104** (registry-driven: 60, inline: 44)
+  - by family: unknown: 44, button-stepper: 34, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, counterexample-explorer: 1, proof-scrubber: 1, lattice-visualizer: 1, characteristic-classes-mobius-vs-cylinder: 1, characteristic-classes-w1-surfaces: 1, characteristic-classes-c1-clutching: 1, characteristic-classes-pontryagin-formulas: 1, characteristic-classes-poincare-hopf: 1, characteristic-classes-gauss-bonnet: 1, characteristic-classes-classifying-map: 1, characteristic-classes-signature-l-genus: 1, characteristic-classes-cpn-localisation: 1
+  - by dimension: 2d: 54, unknown: 44, 3d: 6
+  - by gesture: click: 46, unknown: 44, drag: 6, slider: 4, static: 2, select: 1, timeline: 1
 - Quizzes: **448** (v1: 306, hard: 142, expert: 0)
   - by type: mcq: 310, numeric: 122, complex: 7, multi-select: 4, matching: 3, ordering: 1, proof-completion: 1
 
@@ -303,10 +330,10 @@ page has wired one in yet.
 ### Modular forms & L-functions
 
 - Topics: **16**, concepts: **93**
-- Widgets: **127** (registry-driven: 103, inline: 24)
-  - by family: button-stepper: 92, unknown: 24, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 2
-  - by dimension: 2d: 103, unknown: 24
-  - by gesture: click: 92, unknown: 24, slider: 7, static: 4
+- Widgets: **127** (registry-driven: 121, inline: 6)
+  - by family: button-stepper: 92, unknown: 6, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 2, automorphic-restricted-product: 1, automorphic-strong-approximation: 1, automorphic-three-conditions: 1, automorphic-dictionary: 1, automorphic-satake-parameters: 1, automorphic-conductor-ladder: 1, automorphic-local-factor-builder: 1, automorphic-eisenstein-residue: 1, automorphic-functoriality-transfers: 1, modular-curves-fundamental-domain: 1, modular-curves-lattice-cyclic-subgroup: 1, modular-curves-hecke-summands: 1, modular-curves-eichler-shimura: 1, modular-curves-genus-growth: 1, modular-curves-cusps-and-wn: 1, modular-curves-atkin-lehner-newforms: 1, modular-curves-heegner-hypothesis: 1, modular-curves-mazur-torsion: 1
+  - by dimension: 2d: 121, unknown: 6
+  - by gesture: click: 99, slider: 12, unknown: 6, step: 6, static: 4
 - Quizzes: **474** (v1: 279, hard: 195, expert: 0)
   - by type: mcq: 312, numeric: 156, multi-select: 4, matching: 1, ordering: 1
 
@@ -418,7 +445,7 @@ page has wired one in yet.
 - `riemannian-geometry` (Geometry & topology) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `lie-groups` (Geometry & topology) — concepts=7, widgets=6 (slug=6), quiz=42 (v1=21, hard=21, expert=0)
 - `riemann-surfaces` (Geometry & topology) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
-- `characteristic-classes` (Geometry & topology) — concepts=9, widgets=9 (slug=0), quiz=27 (v1=27, hard=0, expert=0)
+- `characteristic-classes` (Geometry & topology) — concepts=9, widgets=9 (slug=9), quiz=27 (v1=27, hard=0, expert=0)
 - `morse-theory` (Geometry & topology) — concepts=8, widgets=8 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
 - `galois` (Number theory) — concepts=8, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
 - `quadratic-reciprocity` (Number theory) — concepts=6, widgets=7 (slug=7), quiz=33 (v1=18, hard=15, expert=0)
@@ -442,8 +469,8 @@ page has wired one in yet.
 - `L-functions` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `galois-representations` (Number theory) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `moonshine` (Modular forms & L-functions) — concepts=8, widgets=8 (slug=8), quiz=39 (v1=24, hard=15, expert=0)
-- `automorphic-forms-adelic` (Modular forms & L-functions) — concepts=9, widgets=9 (slug=0), quiz=27 (v1=27, hard=0, expert=0)
-- `modular-curves` (Modular forms & L-functions) — concepts=9, widgets=9 (slug=0), quiz=27 (v1=27, hard=0, expert=0)
+- `automorphic-forms-adelic` (Modular forms & L-functions) — concepts=9, widgets=9 (slug=9), quiz=27 (v1=27, hard=0, expert=0)
+- `modular-curves` (Modular forms & L-functions) — concepts=9, widgets=9 (slug=9), quiz=27 (v1=27, hard=0, expert=0)
 - `projective-plane` (Algebraic geometry) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `bezout` (Algebraic geometry) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `schemes` (Algebraic geometry) — concepts=10, widgets=8 (slug=8), quiz=60 (v1=30, hard=30, expert=0)

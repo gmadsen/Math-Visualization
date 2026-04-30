@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/modular-curves-genus-growth/schema.json",
+  "title": "modular-curves-genus-growth widget params",
+  "description": "Bespoke genus-formula visualizer on the modular-curves topic — a slider drags N from 1 to 50 and the SVG plots the genus g(X₀(N)) as a histogram together with the cusp/elliptic-point summands ν₂, ν₃, ν_∞ that feed Riemann–Hurwitz, with genus-zero levels highlighted. The annotated histogram with formula breakdown is too specific for a shared slug.",
+  "meta": {
+    "family": "modular-curves-genus-growth",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title",
+    "hint",
+    "bodyMarkup",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\">."
+    },
+    "title": {
+      "type": "string",
+      "description": "Header title rendered inside .hd > .ttl (rendered as <span> on this topic)."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Header hint rendered inside .hd > .hint (rendered as <span> on this topic)."
+    },
+    "bodyMarkup": {
+      "type": "string",
+      "x-artifact": "verbatim inner-body HTML; portable consumers should rebuild controls + svg + readout from explicit fields once a shared shape proves out",
+      "description": "ARTIFACT. Verbatim HTML between the closing </div> of the .hd row and the closing </div> of the outer widget wrapper."
+    },
+    "sectionComment": {
+      "type": "string",
+      "x-artifact": true,
+      "description": "ARTIFACT. Optional /* ... */ banner placed between the leading <script> tag and the IIFE opener."
+    },
+    "bodyScript": {
+      "type": "string",
+      "x-artifact": "script body is bespoke; portable consumers should re-implement the widget logic from the schema-described data fields",
+      "description": "ARTIFACT. Verbatim JS that goes inside `(function(){\\n…\\n})();` — wires the controls and updates the SVG / readout."
+    }
+  }
+}

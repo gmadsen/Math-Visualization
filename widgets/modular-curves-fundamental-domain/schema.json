@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/modular-curves-fundamental-domain/schema.json",
+  "title": "modular-curves-fundamental-domain widget params",
+  "description": "Bespoke fundamental-domain visualizer for Γ₀(N) on the modular-curves topic — a level selector picks prime N (2,3,5,7,11) and the SVG redraws the union of [SL₂(ℤ):Γ₀(N)] coset-tile copies of the canonical SL₂(ℤ) fundamental domain. The bespoke coset-tile rendering with index/cusp pills and the Cayley-graph layout of cosets don't fit any shared slug.",
+  "meta": {
+    "family": "modular-curves-fundamental-domain",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title",
+    "hint",
+    "bodyMarkup",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\">."
+    },
+    "title": {
+      "type": "string",
+      "description": "Header title rendered inside .hd > .ttl (rendered as <span> on this topic)."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Header hint rendered inside .hd > .hint (rendered as <span> on this topic)."
+    },
+    "bodyMarkup": {
+      "type": "string",
+      "x-artifact": "verbatim inner-body HTML; portable consumers should rebuild controls + svg + readout from explicit fields once a shared shape proves out",
+      "description": "ARTIFACT. Verbatim HTML between the closing </div> of the .hd row and the closing </div> of the outer widget wrapper."
+    },
+    "sectionComment": {
+      "type": "string",
+      "x-artifact": true,
+      "description": "ARTIFACT. Optional /* ... */ banner placed between the leading <script> tag and the IIFE opener."
+    },
+    "bodyScript": {
+      "type": "string",
+      "x-artifact": "script body is bespoke; portable consumers should re-implement the widget logic from the schema-described data fields",
+      "description": "ARTIFACT. Verbatim JS that goes inside `(function(){\\n…\\n})();` — wires the controls and updates the SVG / readout."
+    }
+  }
+}
