@@ -274,267 +274,7 @@ The left side is computed by counting solutions and obstructions of a PDE; the r
     <input type="range" id="ix-lam" min="-2.5" max="2.5" step="0.05" value="0">
   </div>
   <div class="readout" id="ix-readout" aria-live="polite">$D_\lambda = -i\partial_\theta+\lambda$ on $S^1$. Sliding $\lambda$ shifts the eigenvalue lattice; eigenvalues cross zero, but the analytic index of the toy chiral operator $D=\partial_x+f(x,\lambda)$ stays fixed.</div>
-</div>
-
-<p>The integer $\ind(D)$ is therefore a homotopy invariant of the symbol — exactly the kind of object K-theory was built to measure.</p>
-
-<!-- callback-auto-begin -->
-<aside class="callback">
-  <div class="ttl">See also</div>
-  <ul>
-    <li><a href="./characteristic-classes.html#chern-weil">Chern–Weil theory</a></li>
-    <li><a href="./k-theory.html#applications">Applications: index theorem & K-theory of $\mathcal{O}_F$</a></li>
-    <li><a href="./k-theory.html#chern-character">Chern character</a></li>
-  </ul>
-</aside>
-<!-- callback-auto-end --><!-- backlinks-auto-begin -->
-<aside class="related">
-  <div class="ttl">Used in</div>
-    <div><a href="./atiyah-singer-index-theorem.html#cases">The Atiyah–Singer index theorem</a> · Classical specialisations</div>
-    <div><a href="./atiyah-singer-index-theorem.html#dirac">The Atiyah–Singer index theorem</a> · Dirac operators and the $\hat A$-genus</div>
-</aside>
-<!-- backlinks-auto-end --><div class="quiz" data-concept="atiyah-singer-statement"></div>
-</section>
-
-<section id="elliptic">
-<h2>2. Elliptic operators and the Fredholm property</h2>
-<p>A linear differential operator of order $m$, locally
-$$D \;=\; \sum_{|\alpha|\le m} a_\alpha(x)\,\partial^\alpha,$$
-has <strong>principal symbol</strong> $\sigma_m(D)(x,\xi)=\sum_{|\alpha|=m}a_\alpha(x)(i\xi)^\alpha$, a polynomial in $\xi\in T_x^*M$ of degree exactly $m$. Globally $\sigma_m(D)$ is a bundle map $\pi^*E\to\pi^*F$ over $T^*M$, where $\pi\colon T^*M\to M$.</p>
-
-<p>$D$ is <strong>elliptic</strong> if $\sigma_m(D)(x,\xi)$ is invertible for every $\xi\ne 0$. Three running examples:</p>
-
-<table class="plain">
-  <thead><tr><th>operator</th><th>symbol</th><th>elliptic?</th></tr></thead>
-  <tbody>
-    <tr><td>Laplacian $-\Delta$ on $\mathbb{R}^n$</td><td>$|\xi|^2$</td><td>yes — vanishes only at $\xi=0$</td></tr>
-    <tr><td>heat operator $\partial_t-\Delta$ on $\mathbb{R}^{n+1}$</td><td>$i\tau+|\xi|^2$</td><td>no — vanishes when $\tau=0,\,\xi=0$ (parabolic)</td></tr>
-    <tr><td>Cauchy–Riemann $\bar\partial=\tfrac{1}{2}(\partial_x+i\partial_y)$</td><td>$\tfrac{i}{2}(\xi_1+i\xi_2)$</td><td>yes — non-zero off origin</td></tr>
-  </tbody>
-</table>
-
-<div class="note"><strong>Why ellipticity is Fredholm.</strong> Pseudodifferential calculus produces a <em>parametrix</em> $Q$ for any elliptic $D$: an operator with $QD=I-S$ and $DQ=I-T$ where $S,T$ are smoothing (and hence compact between any Sobolev spaces). Compactness of the error pieces is the technical core: $D\colon H^s(E)\to H^{s-m}(F)$ has finite-dimensional kernel, closed range with finite-codimensional cokernel, and so a well-defined index. Elliptic regularity then says $u\in\ker D\Rightarrow u\in C^\infty$ — kernels are smooth, not merely $L^2$.</div>
-
-<div class="widget" id="w-symbol">
-  <div class="hd"><div class="ttl">Symbol of the Laplacian on $\mathbb{R}^2$</div><div class="hint">$\sigma_2(-\Delta)(\xi)=|\xi|^2$ — vanishes only at the origin</div></div>
-  <svg id="sy-svg" viewBox="0 0 820 280" width="820" height="280"><title>Heat-map of the principal symbol of the Laplacian on the cotangent space, with the zero set highlighted</title></svg>
-  <div class="row">
-    <button class="sy-pick active" data-key="laplace" aria-pressed="true">$-\Delta$ (elliptic)</button>
-    <button class="sy-pick" data-key="dbar" aria-pressed="false">$\bar\partial$ (elliptic)</button>
-    <button class="sy-pick" data-key="wave" aria-pressed="false">$\partial_t^2-\Delta$ (hyperbolic)</button>
-  </div>
-  <div class="readout" id="sy-readout" aria-live="polite">$-\Delta$: $\sigma_2(\xi)=\xi_1^2+\xi_2^2$ — vanishes only at the origin, invertible elsewhere. The zero set in the cotangent fibre is just $\{0\}$, the canonical signature of ellipticity.</div>
-</div>
-
-<!-- callback-auto-begin -->
-<aside class="callback">
-  <div class="ttl">See also</div>
-  <ul>
-    <li><a href="./partial-differential-equations.html#classification">Classification of PDEs (elliptic / parabolic / hyperbolic)</a></li>
-    <li><a href="./partial-differential-equations.html#regularity">Lax–Milgram and elliptic regularity</a></li>
-    <li><a href="./spectral-theory.html#spectral-bounded">Spectral theorem (bounded self-adjoint)</a></li>
-  </ul>
-</aside>
-<!-- callback-auto-end -->
-
-<div class="quiz" data-concept="as-elliptic-operators"></div>
-</section>
-
-<section id="topological">
-<h2>3. The topological index via $\mathrm{ch}\cdot\mathrm{Td}$</h2>
-<p>The symbol of an elliptic operator is more than a function on $T^*M$: it is a bundle map $\sigma\colon\pi^*E\to\pi^*F$ that is an isomorphism over $T^*M\setminus 0$. Such data assemble into a <em>compactly supported</em> K-theory class
-$$[\sigma(D)] \;\in\; K^0_{\mathrm{c}}(T^*M).$$
-Outside a compact subset of $T^*M$ the bundles $\pi^*E$ and $\pi^*F$ are identified by $\sigma$, so the difference $[\pi^*E]-[\pi^*F]$ is supported on a compact piece — exactly the data $K^0_{\mathrm{c}}$ records.</p>
-
-<p>Once the symbol lives in K-theory, the topological index is constructed by a sequence of natural pushforwards. Choose a closed embedding $i\colon M\hookrightarrow\mathbb{R}^N$ (Whitney). Push forward $[\sigma(D)]$ first to $K^0_{\mathrm{c}}(T^*\mathbb{R}^N)\cong\mathbb{Z}$ via the K-theoretic Thom isomorphism, then read off the integer:</p>
-<p>$$\ind_{\mathrm{top}}(D) \;=\; \int_{T^*M}\mathrm{ch}\bigl([\sigma(D)]\bigr)\cdot\mathrm{Td}\bigl(TM\otimes\mathbb{C}\bigr).$$</p>
-
-<div class="note"><strong>Why the Todd class.</strong> The K-theory pushforward and the ordinary-cohomology pushforward (integration of the Chern character) disagree. The discrepancy is the <em>Todd genus</em> of the normal bundle of the embedding, which after some manipulation reduces to $\mathrm{Td}(TM\otimes\mathbb{C})$. Demanding that the index be a homotopy invariant of $[\sigma(D)]$ alone forces this correction term — it is the K-theoretic Riemann–Roch defect.</div>
-
-<p>The Todd polynomial in formal Chern roots $x_i$ of a complex bundle is
-$$\mathrm{Td}(E) \;=\; \prod_i \frac{x_i}{1-e^{-x_i}} \;=\; 1 + \tfrac{1}{2}c_1 + \tfrac{1}{12}(c_1^2 + c_2) + \tfrac{1}{24}c_1 c_2 + \cdots,$$
-a power series in the Chern classes with rational coefficients. The first few are revealing: for a curve $X$, $\mathrm{Td}(TX)=1+\tfrac{1}{2}c_1(TX)$, and Riemann–Roch says $\chi(X,L)=\deg L+1-g$.</p>
-
-<div class="widget" id="w-chtd">
-  <div class="hd"><div class="ttl">Components of $\mathrm{ch}(E)\cdot\mathrm{Td}(TM_\mathbb{C})$</div><div class="hint">choose dim and rank — the dimension-matching component is the index</div></div>
-  <svg id="ct-svg" viewBox="0 0 820 280" width="820" height="280"><title>Bar chart of the cohomological components of ch(E) cdot Td(TM), with the top-degree component highlighted as the index integrand</title></svg>
-  <div class="row">
-    <label for="ct-d">$\dim_\mathbb{C} M$</label>
-    <input type="range" id="ct-d" min="1" max="4" step="1" value="2">
-    <label for="ct-r">rank $E$</label>
-    <input type="range" id="ct-r" min="1" max="3" step="1" value="1">
-  </div>
-  <div class="readout" id="ct-readout" aria-live="polite">$\dim_\mathbb{C} M=2$, rank $E=1$: integrand is $\bigl[\mathrm{ch}(E)\cdot\mathrm{Td}(TM_\mathbb{C})\bigr]_4 = \tfrac{1}{12}(c_1(TM)^2+c_2(TM)) + \tfrac{1}{2}c_1(L)\,c_1(TM) + \tfrac{1}{2}c_1(L)^2$. Pair with $[M]$ to get $\chi(X,L)$.</div>
-</div>
-
-<!-- callback-auto-begin -->
-<aside class="callback">
-  <div class="ttl">See also</div>
-  <ul>
-    <li><a href="./k-theory.html#vector-bundles">Topological $K^0(X)$ from vector bundles</a></li>
-    <li><a href="./k-theory.html#grothendieck">Grothendieck group $K_0$ of an exact category</a></li>
-    <li><a href="./k-theory.html#bott">Bott periodicity</a></li>
-    <li><a href="./characteristic-classes.html#chern">Chern classes</a></li>
-    <li><a href="./characteristic-classes.html#pontryagin">Pontryagin classes</a></li>
-  </ul>
-</aside>
-<!-- callback-auto-end -->
-
-<div class="quiz" data-concept="as-topological-side"></div>
-</section>
-
-<section id="cases">
-<h2>4. Classical specialisations</h2>
-<p>The point of bundling Gauss–Bonnet, Hirzebruch–Riemann–Roch, and the signature theorem under one umbrella is that all three pick a specific elliptic operator $D$ and read off the right-hand side of $\ind(D)=\int\mathrm{ch}\cdot\mathrm{Td}$.</p>
-
-<table class="plain">
-  <thead><tr><th>$D$</th><th>$\ind(D)$</th><th>topological side</th></tr></thead>
-  <tbody>
-    <tr><td>$d+d^*\colon\Omega^{\mathrm{ev}}\to\Omega^{\mathrm{odd}}$</td><td>$\chi(M)$</td><td>$\int_M e(TM)$ — Gauss–Bonnet–Chern</td></tr>
-    <tr><td>signature operator $D_+\colon\Omega^+\to\Omega^-$</td><td>$\sigma(M)$</td><td>$\int_M L(TM)$ — Hirzebruch signature</td></tr>
-    <tr><td>$\bar\partial_E\colon\Omega^{0,\mathrm{ev}}(E)\to\Omega^{0,\mathrm{odd}}(E)$</td><td>$\chi(X,E)$</td><td>$\int_X\mathrm{ch}(E)\cdot\mathrm{Td}(TX)$ — HRR</td></tr>
-    <tr><td>Dirac on a spin manifold</td><td>$\hat A$-genus</td><td>$\int_M\hat A(TM)$ — see §5</td></tr>
-  </tbody>
-</table>
-
-<div class="ok"><strong>Gauss–Bonnet–Chern in dim 2.</strong> Take $M^2$ a closed oriented surface and $D=d+d^*$ between even and odd forms. Hodge theory gives $\dim\ker D=\dim H^0+\dim H^2$ and $\dim\mathrm{coker}\,D=\dim H^1$. So $\ind(D)=\chi(M)$, and the topological side is $\int_M e(TM)=\tfrac{1}{2\pi}\int_M K\,dA$. This is the classical Gauss–Bonnet theorem for surfaces.</div>
-
-<div class="ok"><strong>Hirzebruch signature in dim 4.</strong> Take $M^4$ closed oriented; the signature operator on $\Omega^2_+\oplus\Omega^0\oplus\Omega^4$ has index $\sigma(M)$, the signature of the intersection form on $H^2$. The right side is $\int_M L_1(TM)=\tfrac{1}{3}\langle p_1(TM),[M]\rangle$, and so $\sigma(M)=\tfrac{1}{3}p_1[M]$. This forces $p_1$ to be divisible by $3$ on closed oriented $4$-manifolds.</div>
-
-<p>Hirzebruch–Riemann–Roch deserves separate treatment: on a closed complex manifold $X$ with a holomorphic vector bundle $E\to X$, the Dolbeault operator $\bar\partial_E$ from $(0,\mathrm{even})$- to $(0,\mathrm{odd})$-forms has index equal to the holomorphic Euler characteristic $\chi(X,E)=\sum(-1)^k\dim H^k(X,E)$. Atiyah–Singer says
-$$\chi(X,E) \;=\; \int_X \mathrm{ch}(E)\cdot\mathrm{Td}(TX).$$
-For $X=\mathbb{P}^1$ and $E=\mathcal{O}(d)$ this collapses to $\chi(\mathbb{P}^1,\mathcal{O}(d))=d+1$. For a curve of genus $g$ and a line bundle $L$ of degree $d$, $\chi(L)=d+1-g$ — Riemann–Roch.</p>
-
-<div class="widget" id="w-cases">
-  <div class="hd"><div class="ttl">Classical specialisations dictionary</div><div class="hint">click an operator — see what the index theorem says about it</div></div>
-  <svg id="cs-svg" viewBox="0 0 820 280" width="820" height="280"><title>Three rows showing the operator, its analytic index, and its topological-index integrand for Gauss-Bonnet, signature, and Hirzebruch-Riemann-Roch</title></svg>
-  <div class="row">
-    <button class="cs-pick active" data-key="gb" aria-pressed="true">$d+d^*$ (Gauss–Bonnet)</button>
-    <button class="cs-pick" data-key="sig" aria-pressed="false">signature</button>
-    <button class="cs-pick" data-key="hrr" aria-pressed="false">$\bar\partial$ (HRR)</button>
-  </div>
-  <div class="readout" id="cs-readout" aria-live="polite">$d+d^*$ on a closed oriented manifold: $\ind=\chi(M)$, integrand $=e(TM)$. In dim 2, $\chi=\tfrac{1}{2\pi}\int K\,dA$ — Gauss–Bonnet.</div>
-</div>
-
-<!-- callback-auto-begin -->
-<aside class="callback">
-  <div class="ttl">See also</div>
-  <ul>
-    <li><a href="./characteristic-classes.html#euler">Euler class</a></li>
-  </ul>
-</aside>
-<!-- callback-auto-end --><!-- backlinks-auto-begin -->
-<aside class="related">
-  <div class="ttl">Used in</div>
-    <div><a href="./atiyah-singer-index-theorem.html#applications">The Atiyah–Singer index theorem</a> · Heat kernel, families, equivariant, anomalies</div>
-</aside>
-<!-- backlinks-auto-end -->
-
-<div class="quiz" data-concept="as-special-cases"></div>
-</section>
-
-<section id="dirac">
-<h2>5. Dirac operators and the $\hat A$-genus</h2>
-<p>The Dirac operator is the cleanest setting for Atiyah–Singer. On a Riemannian spin manifold $M^{2n}$ the spinor bundle $S\to M$ splits as $S=S^+\oplus S^-$, and the Dirac operator $D\colon\Gamma(S^+)\to\Gamma(S^-)$ is built from the spin connection by
-$$D \;=\; \sum_i e_i\cdot\nabla_{e_i},$$
-with $e_i\cdot$ acting by Clifford multiplication. Its principal symbol $\sigma(D)(x,\xi)=i\xi\cdot$ is invertible on $\xi\ne 0$ since Clifford multiplication squares to $-|\xi|^2$ — so $D$ is elliptic.</p>
-
-<div class="ok"><strong>The Dirac index.</strong> Atiyah–Singer says
-$$\ind(D) \;=\; \int_M \hat A(TM), \qquad \hat A \;=\; \prod_i \frac{x_i/2}{\sinh(x_i/2)} \;=\; 1 - \tfrac{1}{24}p_1 + \tfrac{1}{5760}(7p_1^2 - 4p_2) + \cdots,$$
-where $x_i$ are formal Pontryagin roots and $p_i$ are Pontryagin classes. On a closed spin $4$-manifold, $\ind(D)=-\langle p_1(TM),[M]\rangle/24$. By the signature theorem, this equals $-\sigma(M)/8$, recovering Rokhlin's $\sigma(M)\equiv 0\pmod{16}$ for spin $4$-manifolds.</div>
-
-<p>The Dirac operator's spectrum encodes geometric information directly. On the round $n$-sphere with metric of curvature $1$, $D^2=\nabla^*\nabla+\tfrac{R}{4}$ (Lichnerowicz), and the eigenvalues are explicitly
-$$\lambda_k \;=\; \pm\bigl(k+\tfrac{n}{2}\bigr), \qquad k=0,1,2,\ldots,$$
-with multiplicities given by representation-theoretic Weyl-dimension formulas. None of the eigenvalues are zero, so $\ker D=0$ and $\ind(D)=0$ — consistent with $\hat A(S^n)=0$ for $n\ge 1$.</p>
-
-<div class="bad"><strong>Lichnerowicz vanishing.</strong> If $M$ is a closed spin manifold admitting a metric with strictly positive scalar curvature, then $\ker D=0$ and so $\hat A(M)=\ind(D)=0$. This is a sharp obstruction: the K3 surface has $\hat A=2$, hence carries no positive-scalar-curvature metric — even though $K3$ is simply connected and topologically tame.</div>
-
-<div class="widget" id="w-dirac">
-  <div class="hd"><div class="ttl">Dirac spectrum on the round sphere</div><div class="hint">slide the radius — eigenvalues $\pm(k+n/2)/r$ rescale, but the index stays $0$</div></div>
-  <svg id="dr-svg" viewBox="0 0 820 280" width="820" height="280"><title>Symmetric eigenvalue spectrum of the Dirac operator on the round n-sphere, paired across zero, with index pinned at zero by the symmetry</title></svg>
-  <div class="row">
-    <label for="dr-r">radius $r$</label>
-    <input type="range" id="dr-r" min="0.5" max="2.5" step="0.05" value="1">
-    <button class="dr-pick active" data-key="2" aria-pressed="true">$S^2$</button>
-    <button class="dr-pick" data-key="3" aria-pressed="false">$S^3$</button>
-    <button class="dr-pick" data-key="4" aria-pressed="false">$S^4$</button>
-  </div>
-  <div class="readout" id="dr-readout" aria-live="polite">$D$ on $S^2$ at $r=1$: eigenvalues $\pm(k+1)$ for $k\ge 0$, multiplicities $2(k+1)$. Spectrum is symmetric about $0$, so $\dim\ker=0$ and $\ind(D)=0$, consistent with $\hat A(S^2)=0$.</div>
-</div>
-
-<!-- callback-auto-begin -->
-<aside class="callback">
-  <div class="ttl">See also</div>
-  <ul>
-    <li><a href="./characteristic-classes.html#pontryagin">Pontryagin classes</a></li>
-  </ul>
-</aside>
-<!-- callback-auto-end --><!-- backlinks-auto-begin -->
-<aside class="related">
-  <div class="ttl">Used in</div>
-    <div><a href="./atiyah-singer-index-theorem.html#applications">The Atiyah–Singer index theorem</a> · Heat kernel, families, equivariant, anomalies</div>
-</aside>
-<!-- backlinks-auto-end -->
-
-<div class="quiz" data-concept="as-dirac-operators"></div>
-</section>
-
-<section id="applications">
-<h2>6. Heat kernel, families, equivariant, anomalies</h2>
-
-<h3>The heat-kernel proof</h3>
-<p>McKean–Singer (1967): for a Dirac-type operator $D$ on a closed manifold,
-$$\ind(D) \;=\; \tr\bigl(e^{-tD^*D}\bigr) - \tr\bigl(e^{-tDD^*}\bigr), \qquad \forall\,t>0.$$
-The right-hand side is independent of $t$ because non-zero eigenvalues of $D^*D$ pair with equal eigenvalues of $DD^*$ (via $u\mapsto Du/\|Du\|$) and contribute opposite signs that cancel. Sending $t\to 0$, the heat-kernel asymptotic
-$$K_{D^2}(t,x,x) \;\sim\; \sum_{k\ge 0} t^{(k-n)/2}\,a_k(x)$$
-produces a local <em>index density</em> $a_n(x)$ whose integral over $M$ gives $\ind(D)$. After cancellation of the lower-order coefficients (a miraculous algebraic identity — Getzler's symbol calculus is the cleanest derivation), what survives is exactly $\hat A(TM)\,\mathrm{ch}(E/S)$.</p>
-
-<h3>The families index theorem</h3>
-<p>Now let $D=\{D_b\}_{b\in B}$ be a family of elliptic operators, smoothly parametrised by $b$ ranging over a compact base $B$. Naively the kernels and cokernels at different $b$ are vector spaces of varying dimension. After a small perturbation they assemble into a virtual bundle on $B$:
-$$\ind_{\text{fam}}(D) \;=\; [\ker D] - [\mathrm{coker}\,D] \;\in\; K^0(B).$$
-The families index theorem of Atiyah–Singer (1971): this class is computed by a fibre integration of $\mathrm{ch}\cdot\mathrm{Td}$ in cohomology of the total space. When $B=\mathrm{pt}$ this collapses to the single-operator theorem.</p>
-
-<h3>Equivariant index</h3>
-<p>If a compact Lie group $G$ acts on $M$ and the operator $D$ is $G$-equivariant, $\ker D$ and $\mathrm{coker}\,D$ are finite-dimensional $G$-representations. The $G$-equivariant index
-$$\ind_G(D) \;\in\; R(G)$$
-lives in the representation ring of $G$. Atiyah–Bott's fixed-point formula computes its character at $g\in G$ as a sum of contributions localised at the fixed-point set $M^g$.</p>
-
-<h3>Anomalies and instantons</h3>
-<p>In gauge theory on a closed $4$-manifold $M$, the Dirac operator coupled to a gauge connection $A$ on a vector bundle $V\to M$ has index
-$$\ind(D_A) \;=\; \int_M \hat A(TM)\,\mathrm{ch}(V) \;=\; \int_M c_2(V) - \tfrac{1}{24}\langle p_1(TM),[M]\rangle\,\mathrm{rk}(V) + \cdots.$$
-The leading $\int c_2(V)$ is the <em>instanton number</em> — the topological charge of the gauge field, classifying $\mathrm{SU}(N)$ bundles up to isomorphism. The chiral anomaly in physics literature is exactly the statement that $\ind(D_A)$ does not vanish: the symmetry between left- and right-handed fermions is broken by the topology of the gauge bundle, by an integer the index theorem computes.</p>
-
-<div class="widget" id="w-anomaly">
-  <div class="hd"><div class="ttl">Anomaly diagram: index as topological charge</div><div class="hint">slide instanton number $k$ — the chiral imbalance in the Dirac spectrum tracks $k$</div></div>
-  <svg id="an-svg" viewBox="0 0 820 280" width="820" height="280"><title>Schematic of the Dirac spectrum on a 4-manifold with k instantons: k extra zero-modes on the chiral side, accounting for the index</title></svg>
-  <div class="row">
-    <label for="an-k">instanton number $k$</label>
-    <input type="range" id="an-k" min="-3" max="3" step="1" value="1">
-  </div>
-  <div class="readout" id="an-readout" aria-live="polite">$k=1$: a single instanton on $M^4$ contributes one zero-mode of $D_A^+$ over $D_A^-$, so $\ind(D_A)=+1=\int_M c_2(V)$. The chiral anomaly: $\partial_\mu j_5^\mu = -\tfrac{1}{8\pi^2}\tr(F\wedge F)$ integrates to this index.</div>
-</div>
-
-<div class="quiz" data-concept="as-applications"></div>
-</section>
-
-<section id="connections">
-<h2>Connections</h2>
-
-<p>Atiyah–Singer is a hub theorem: it pulls together K-theory, characteristic classes, elliptic PDE, spin geometry, and gauge-theoretic physics into one accountancy. The frontier is broad — equivariant K-theory of loop spaces (Witten genus), index theory on non-compact and singular spaces (Atiyah–Patodi–Singer eta invariants and APS boundary conditions), $L^2$-index theorems for covering spaces (Atiyah–Connes), and the recent NCG / coarse-index programme (Connes–Higson–Roe) where Atiyah–Singer becomes a special case of an index in $K$-homology paired against $K$-theory.</p>
-
-<ul>
-<li><a href="./k-theory.html#applications">K-theory — applications</a> — supplies the topological-index home $K^0(T^*M)$ and the Bott periodicity that makes the construction natural.</li>
-<li><a href="./characteristic-classes.html#chern-weil">Chern–Weil theory</a> — provides the de Rham representatives $\mathrm{ch}$ and $\mathrm{Td}$ that get integrated.</li>
-<li><a href="./partial-differential-equations.html#regularity">PDE — elliptic regularity</a> — the analytic underpinning that makes $\dim\ker$ and $\dim\mathrm{coker}$ finite in the first place.</li>
-<li><a href="./differential-geometry.html">Differential geometry</a> — connections, curvature, and spin structures are the inputs to the Dirac operator.</li>
-<li><a href="./spectral-theory.html#spectral-bounded">Spectral theory</a> — Fredholm-operator framework on Hilbert spaces, the abstract setting in which the index is defined.</li>
-</ul>
-</section>
-
-</main>
-
-
-<script>
+</div><script>
 /* =============================== SECTION 1: Index of a 1-parameter family =============================== */
 (function(){
   const svg = $("#ix-svg");
@@ -600,7 +340,57 @@ The leading $\int c_2(V)$ is the <em>instanton number</em> — the topological c
   lam.addEventListener("input", update);
   update();
 })();
+</script>
 
+<p>The integer $\ind(D)$ is therefore a homotopy invariant of the symbol — exactly the kind of object K-theory was built to measure.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./characteristic-classes.html#chern-weil">Chern–Weil theory</a></li>
+    <li><a href="./k-theory.html#applications">Applications: index theorem & K-theory of $\mathcal{O}_F$</a></li>
+    <li><a href="./k-theory.html#chern-character">Chern character</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./atiyah-singer-index-theorem.html#cases">The Atiyah–Singer index theorem</a> · Classical specialisations</div>
+    <div><a href="./atiyah-singer-index-theorem.html#dirac">The Atiyah–Singer index theorem</a> · Dirac operators and the $\hat A$-genus</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="atiyah-singer-statement"></div>
+</section>
+
+<section id="elliptic">
+<h2>2. Elliptic operators and the Fredholm property</h2>
+<p>A linear differential operator of order $m$, locally
+$$D \;=\; \sum_{|\alpha|\le m} a_\alpha(x)\,\partial^\alpha,$$
+has <strong>principal symbol</strong> $\sigma_m(D)(x,\xi)=\sum_{|\alpha|=m}a_\alpha(x)(i\xi)^\alpha$, a polynomial in $\xi\in T_x^*M$ of degree exactly $m$. Globally $\sigma_m(D)$ is a bundle map $\pi^*E\to\pi^*F$ over $T^*M$, where $\pi\colon T^*M\to M$.</p>
+
+<p>$D$ is <strong>elliptic</strong> if $\sigma_m(D)(x,\xi)$ is invertible for every $\xi\ne 0$. Three running examples:</p>
+
+<table class="plain">
+  <thead><tr><th>operator</th><th>symbol</th><th>elliptic?</th></tr></thead>
+  <tbody>
+    <tr><td>Laplacian $-\Delta$ on $\mathbb{R}^n$</td><td>$|\xi|^2$</td><td>yes — vanishes only at $\xi=0$</td></tr>
+    <tr><td>heat operator $\partial_t-\Delta$ on $\mathbb{R}^{n+1}$</td><td>$i\tau+|\xi|^2$</td><td>no — vanishes when $\tau=0,\,\xi=0$ (parabolic)</td></tr>
+    <tr><td>Cauchy–Riemann $\bar\partial=\tfrac{1}{2}(\partial_x+i\partial_y)$</td><td>$\tfrac{i}{2}(\xi_1+i\xi_2)$</td><td>yes — non-zero off origin</td></tr>
+  </tbody>
+</table>
+
+<div class="note"><strong>Why ellipticity is Fredholm.</strong> Pseudodifferential calculus produces a <em>parametrix</em> $Q$ for any elliptic $D$: an operator with $QD=I-S$ and $DQ=I-T$ where $S,T$ are smoothing (and hence compact between any Sobolev spaces). Compactness of the error pieces is the technical core: $D\colon H^s(E)\to H^{s-m}(F)$ has finite-dimensional kernel, closed range with finite-codimensional cokernel, and so a well-defined index. Elliptic regularity then says $u\in\ker D\Rightarrow u\in C^\infty$ — kernels are smooth, not merely $L^2$.</div>
+
+<div class="widget" id="w-symbol">
+  <div class="hd"><div class="ttl">Symbol of the Laplacian on $\mathbb{R}^2$</div><div class="hint">$\sigma_2(-\Delta)(\xi)=|\xi|^2$ — vanishes only at the origin</div></div>
+  <svg id="sy-svg" viewBox="0 0 820 280" width="820" height="280"><title>Heat-map of the principal symbol of the Laplacian on the cotangent space, with the zero set highlighted</title></svg>
+  <div class="row">
+    <button class="sy-pick active" data-key="laplace" aria-pressed="true">$-\Delta$ (elliptic)</button>
+    <button class="sy-pick" data-key="dbar" aria-pressed="false">$\bar\partial$ (elliptic)</button>
+    <button class="sy-pick" data-key="wave" aria-pressed="false">$\partial_t^2-\Delta$ (hyperbolic)</button>
+  </div>
+  <div class="readout" id="sy-readout" aria-live="polite">$-\Delta$: $\sigma_2(\xi)=\xi_1^2+\xi_2^2$ — vanishes only at the origin, invertible elsewhere. The zero set in the cotangent fibre is just $\{0\}$, the canonical signature of ellipticity.</div>
+</div><script>
 /* =============================== SECTION 2: Symbol of operators =============================== */
 (function(){
   const svg = $("#sy-svg");
@@ -716,7 +506,48 @@ The leading $\int c_2(V)$ is the <em>instanton number</em> — the topological c
   }));
   update();
 })();
+</script>
 
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./partial-differential-equations.html#classification">Classification of PDEs (elliptic / parabolic / hyperbolic)</a></li>
+    <li><a href="./partial-differential-equations.html#regularity">Lax–Milgram and elliptic regularity</a></li>
+    <li><a href="./spectral-theory.html#spectral-bounded">Spectral theorem (bounded self-adjoint)</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+<div class="quiz" data-concept="as-elliptic-operators"></div>
+</section>
+
+<section id="topological">
+<h2>3. The topological index via $\mathrm{ch}\cdot\mathrm{Td}$</h2>
+<p>The symbol of an elliptic operator is more than a function on $T^*M$: it is a bundle map $\sigma\colon\pi^*E\to\pi^*F$ that is an isomorphism over $T^*M\setminus 0$. Such data assemble into a <em>compactly supported</em> K-theory class
+$$[\sigma(D)] \;\in\; K^0_{\mathrm{c}}(T^*M).$$
+Outside a compact subset of $T^*M$ the bundles $\pi^*E$ and $\pi^*F$ are identified by $\sigma$, so the difference $[\pi^*E]-[\pi^*F]$ is supported on a compact piece — exactly the data $K^0_{\mathrm{c}}$ records.</p>
+
+<p>Once the symbol lives in K-theory, the topological index is constructed by a sequence of natural pushforwards. Choose a closed embedding $i\colon M\hookrightarrow\mathbb{R}^N$ (Whitney). Push forward $[\sigma(D)]$ first to $K^0_{\mathrm{c}}(T^*\mathbb{R}^N)\cong\mathbb{Z}$ via the K-theoretic Thom isomorphism, then read off the integer:</p>
+<p>$$\ind_{\mathrm{top}}(D) \;=\; \int_{T^*M}\mathrm{ch}\bigl([\sigma(D)]\bigr)\cdot\mathrm{Td}\bigl(TM\otimes\mathbb{C}\bigr).$$</p>
+
+<div class="note"><strong>Why the Todd class.</strong> The K-theory pushforward and the ordinary-cohomology pushforward (integration of the Chern character) disagree. The discrepancy is the <em>Todd genus</em> of the normal bundle of the embedding, which after some manipulation reduces to $\mathrm{Td}(TM\otimes\mathbb{C})$. Demanding that the index be a homotopy invariant of $[\sigma(D)]$ alone forces this correction term — it is the K-theoretic Riemann–Roch defect.</div>
+
+<p>The Todd polynomial in formal Chern roots $x_i$ of a complex bundle is
+$$\mathrm{Td}(E) \;=\; \prod_i \frac{x_i}{1-e^{-x_i}} \;=\; 1 + \tfrac{1}{2}c_1 + \tfrac{1}{12}(c_1^2 + c_2) + \tfrac{1}{24}c_1 c_2 + \cdots,$$
+a power series in the Chern classes with rational coefficients. The first few are revealing: for a curve $X$, $\mathrm{Td}(TX)=1+\tfrac{1}{2}c_1(TX)$, and Riemann–Roch says $\chi(X,L)=\deg L+1-g$.</p>
+
+<div class="widget" id="w-chtd">
+  <div class="hd"><div class="ttl">Components of $\mathrm{ch}(E)\cdot\mathrm{Td}(TM_\mathbb{C})$</div><div class="hint">choose dim and rank — the dimension-matching component is the index</div></div>
+  <svg id="ct-svg" viewBox="0 0 820 280" width="820" height="280"><title>Bar chart of the cohomological components of ch(E) cdot Td(TM), with the top-degree component highlighted as the index integrand</title></svg>
+  <div class="row">
+    <label for="ct-d">$\dim_\mathbb{C} M$</label>
+    <input type="range" id="ct-d" min="1" max="4" step="1" value="2">
+    <label for="ct-r">rank $E$</label>
+    <input type="range" id="ct-r" min="1" max="3" step="1" value="1">
+  </div>
+  <div class="readout" id="ct-readout" aria-live="polite">$\dim_\mathbb{C} M=2$, rank $E=1$: integrand is $\bigl[\mathrm{ch}(E)\cdot\mathrm{Td}(TM_\mathbb{C})\bigr]_4 = \tfrac{1}{12}(c_1(TM)^2+c_2(TM)) + \tfrac{1}{2}c_1(L)\,c_1(TM) + \tfrac{1}{2}c_1(L)^2$. Pair with $[M]$ to get $\chi(X,L)$.</div>
+</div><script>
 /* =============================== SECTION 3: ch · Td bar chart =============================== */
 (function(){
   const svg = $("#ct-svg");
@@ -816,7 +647,56 @@ The leading $\int c_2(V)$ is the <em>instanton number</em> — the topological c
   rkSlide.addEventListener("input", update);
   update();
 })();
+</script>
 
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./k-theory.html#vector-bundles">Topological $K^0(X)$ from vector bundles</a></li>
+    <li><a href="./k-theory.html#grothendieck">Grothendieck group $K_0$ of an exact category</a></li>
+    <li><a href="./k-theory.html#bott">Bott periodicity</a></li>
+    <li><a href="./characteristic-classes.html#chern">Chern classes</a></li>
+    <li><a href="./characteristic-classes.html#pontryagin">Pontryagin classes</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+<div class="quiz" data-concept="as-topological-side"></div>
+</section>
+
+<section id="cases">
+<h2>4. Classical specialisations</h2>
+<p>The point of bundling Gauss–Bonnet, Hirzebruch–Riemann–Roch, and the signature theorem under one umbrella is that all three pick a specific elliptic operator $D$ and read off the right-hand side of $\ind(D)=\int\mathrm{ch}\cdot\mathrm{Td}$.</p>
+
+<table class="plain">
+  <thead><tr><th>$D$</th><th>$\ind(D)$</th><th>topological side</th></tr></thead>
+  <tbody>
+    <tr><td>$d+d^*\colon\Omega^{\mathrm{ev}}\to\Omega^{\mathrm{odd}}$</td><td>$\chi(M)$</td><td>$\int_M e(TM)$ — Gauss–Bonnet–Chern</td></tr>
+    <tr><td>signature operator $D_+\colon\Omega^+\to\Omega^-$</td><td>$\sigma(M)$</td><td>$\int_M L(TM)$ — Hirzebruch signature</td></tr>
+    <tr><td>$\bar\partial_E\colon\Omega^{0,\mathrm{ev}}(E)\to\Omega^{0,\mathrm{odd}}(E)$</td><td>$\chi(X,E)$</td><td>$\int_X\mathrm{ch}(E)\cdot\mathrm{Td}(TX)$ — HRR</td></tr>
+    <tr><td>Dirac on a spin manifold</td><td>$\hat A$-genus</td><td>$\int_M\hat A(TM)$ — see §5</td></tr>
+  </tbody>
+</table>
+
+<div class="ok"><strong>Gauss–Bonnet–Chern in dim 2.</strong> Take $M^2$ a closed oriented surface and $D=d+d^*$ between even and odd forms. Hodge theory gives $\dim\ker D=\dim H^0+\dim H^2$ and $\dim\mathrm{coker}\,D=\dim H^1$. So $\ind(D)=\chi(M)$, and the topological side is $\int_M e(TM)=\tfrac{1}{2\pi}\int_M K\,dA$. This is the classical Gauss–Bonnet theorem for surfaces.</div>
+
+<div class="ok"><strong>Hirzebruch signature in dim 4.</strong> Take $M^4$ closed oriented; the signature operator on $\Omega^2_+\oplus\Omega^0\oplus\Omega^4$ has index $\sigma(M)$, the signature of the intersection form on $H^2$. The right side is $\int_M L_1(TM)=\tfrac{1}{3}\langle p_1(TM),[M]\rangle$, and so $\sigma(M)=\tfrac{1}{3}p_1[M]$. This forces $p_1$ to be divisible by $3$ on closed oriented $4$-manifolds.</div>
+
+<p>Hirzebruch–Riemann–Roch deserves separate treatment: on a closed complex manifold $X$ with a holomorphic vector bundle $E\to X$, the Dolbeault operator $\bar\partial_E$ from $(0,\mathrm{even})$- to $(0,\mathrm{odd})$-forms has index equal to the holomorphic Euler characteristic $\chi(X,E)=\sum(-1)^k\dim H^k(X,E)$. Atiyah–Singer says
+$$\chi(X,E) \;=\; \int_X \mathrm{ch}(E)\cdot\mathrm{Td}(TX).$$
+For $X=\mathbb{P}^1$ and $E=\mathcal{O}(d)$ this collapses to $\chi(\mathbb{P}^1,\mathcal{O}(d))=d+1$. For a curve of genus $g$ and a line bundle $L$ of degree $d$, $\chi(L)=d+1-g$ — Riemann–Roch.</p>
+
+<div class="widget" id="w-cases">
+  <div class="hd"><div class="ttl">Classical specialisations dictionary</div><div class="hint">click an operator — see what the index theorem says about it</div></div>
+  <svg id="cs-svg" viewBox="0 0 820 280" width="820" height="280"><title>Three rows showing the operator, its analytic index, and its topological-index integrand for Gauss-Bonnet, signature, and Hirzebruch-Riemann-Roch</title></svg>
+  <div class="row">
+    <button class="cs-pick active" data-key="gb" aria-pressed="true">$d+d^*$ (Gauss–Bonnet)</button>
+    <button class="cs-pick" data-key="sig" aria-pressed="false">signature</button>
+    <button class="cs-pick" data-key="hrr" aria-pressed="false">$\bar\partial$ (HRR)</button>
+  </div>
+  <div class="readout" id="cs-readout" aria-live="polite">$d+d^*$ on a closed oriented manifold: $\ind=\chi(M)$, integrand $=e(TM)$. In dim 2, $\chi=\tfrac{1}{2\pi}\int K\,dA$ — Gauss–Bonnet.</div>
+</div><script>
 /* =============================== SECTION 4: Special-cases dictionary =============================== */
 (function(){
   const svg = $("#cs-svg");
@@ -904,7 +784,53 @@ The leading $\int c_2(V)$ is the <em>instanton number</em> — the topological c
   }));
   update();
 })();
+</script>
 
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./characteristic-classes.html#euler">Euler class</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./atiyah-singer-index-theorem.html#applications">The Atiyah–Singer index theorem</a> · Heat kernel, families, equivariant, anomalies</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+<div class="quiz" data-concept="as-special-cases"></div>
+</section>
+
+<section id="dirac">
+<h2>5. Dirac operators and the $\hat A$-genus</h2>
+<p>The Dirac operator is the cleanest setting for Atiyah–Singer. On a Riemannian spin manifold $M^{2n}$ the spinor bundle $S\to M$ splits as $S=S^+\oplus S^-$, and the Dirac operator $D\colon\Gamma(S^+)\to\Gamma(S^-)$ is built from the spin connection by
+$$D \;=\; \sum_i e_i\cdot\nabla_{e_i},$$
+with $e_i\cdot$ acting by Clifford multiplication. Its principal symbol $\sigma(D)(x,\xi)=i\xi\cdot$ is invertible on $\xi\ne 0$ since Clifford multiplication squares to $-|\xi|^2$ — so $D$ is elliptic.</p>
+
+<div class="ok"><strong>The Dirac index.</strong> Atiyah–Singer says
+$$\ind(D) \;=\; \int_M \hat A(TM), \qquad \hat A \;=\; \prod_i \frac{x_i/2}{\sinh(x_i/2)} \;=\; 1 - \tfrac{1}{24}p_1 + \tfrac{1}{5760}(7p_1^2 - 4p_2) + \cdots,$$
+where $x_i$ are formal Pontryagin roots and $p_i$ are Pontryagin classes. On a closed spin $4$-manifold, $\ind(D)=-\langle p_1(TM),[M]\rangle/24$. By the signature theorem, this equals $-\sigma(M)/8$, recovering Rokhlin's $\sigma(M)\equiv 0\pmod{16}$ for spin $4$-manifolds.</div>
+
+<p>The Dirac operator's spectrum encodes geometric information directly. On the round $n$-sphere with metric of curvature $1$, $D^2=\nabla^*\nabla+\tfrac{R}{4}$ (Lichnerowicz), and the eigenvalues are explicitly
+$$\lambda_k \;=\; \pm\bigl(k+\tfrac{n}{2}\bigr), \qquad k=0,1,2,\ldots,$$
+with multiplicities given by representation-theoretic Weyl-dimension formulas. None of the eigenvalues are zero, so $\ker D=0$ and $\ind(D)=0$ — consistent with $\hat A(S^n)=0$ for $n\ge 1$.</p>
+
+<div class="bad"><strong>Lichnerowicz vanishing.</strong> If $M$ is a closed spin manifold admitting a metric with strictly positive scalar curvature, then $\ker D=0$ and so $\hat A(M)=\ind(D)=0$. This is a sharp obstruction: the K3 surface has $\hat A=2$, hence carries no positive-scalar-curvature metric — even though $K3$ is simply connected and topologically tame.</div>
+
+<div class="widget" id="w-dirac">
+  <div class="hd"><div class="ttl">Dirac spectrum on the round sphere</div><div class="hint">slide the radius — eigenvalues $\pm(k+n/2)/r$ rescale, but the index stays $0$</div></div>
+  <svg id="dr-svg" viewBox="0 0 820 280" width="820" height="280"><title>Symmetric eigenvalue spectrum of the Dirac operator on the round n-sphere, paired across zero, with index pinned at zero by the symmetry</title></svg>
+  <div class="row">
+    <label for="dr-r">radius $r$</label>
+    <input type="range" id="dr-r" min="0.5" max="2.5" step="0.05" value="1">
+    <button class="dr-pick active" data-key="2" aria-pressed="true">$S^2$</button>
+    <button class="dr-pick" data-key="3" aria-pressed="false">$S^3$</button>
+    <button class="dr-pick" data-key="4" aria-pressed="false">$S^4$</button>
+  </div>
+  <div class="readout" id="dr-readout" aria-live="polite">$D$ on $S^2$ at $r=1$: eigenvalues $\pm(k+1)$ for $k\ge 0$, multiplicities $2(k+1)$. Spectrum is symmetric about $0$, so $\dim\ker=0$ and $\ind(D)=0$, consistent with $\hat A(S^2)=0$.</div>
+</div><script>
 /* =============================== SECTION 5: Dirac eigenvalues on round sphere =============================== */
 (function(){
   const svg = $("#dr-svg");
@@ -979,7 +905,59 @@ The leading $\int c_2(V)$ is the <em>instanton number</em> — the topological c
   }));
   update();
 })();
+</script>
 
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./characteristic-classes.html#pontryagin">Pontryagin classes</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./atiyah-singer-index-theorem.html#applications">The Atiyah–Singer index theorem</a> · Heat kernel, families, equivariant, anomalies</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+<div class="quiz" data-concept="as-dirac-operators"></div>
+</section>
+
+<section id="applications">
+<h2>6. Heat kernel, families, equivariant, anomalies</h2>
+
+<h3>The heat-kernel proof</h3>
+<p>McKean–Singer (1967): for a Dirac-type operator $D$ on a closed manifold,
+$$\ind(D) \;=\; \tr\bigl(e^{-tD^*D}\bigr) - \tr\bigl(e^{-tDD^*}\bigr), \qquad \forall\,t>0.$$
+The right-hand side is independent of $t$ because non-zero eigenvalues of $D^*D$ pair with equal eigenvalues of $DD^*$ (via $u\mapsto Du/\|Du\|$) and contribute opposite signs that cancel. Sending $t\to 0$, the heat-kernel asymptotic
+$$K_{D^2}(t,x,x) \;\sim\; \sum_{k\ge 0} t^{(k-n)/2}\,a_k(x)$$
+produces a local <em>index density</em> $a_n(x)$ whose integral over $M$ gives $\ind(D)$. After cancellation of the lower-order coefficients (a miraculous algebraic identity — Getzler's symbol calculus is the cleanest derivation), what survives is exactly $\hat A(TM)\,\mathrm{ch}(E/S)$.</p>
+
+<h3>The families index theorem</h3>
+<p>Now let $D=\{D_b\}_{b\in B}$ be a family of elliptic operators, smoothly parametrised by $b$ ranging over a compact base $B$. Naively the kernels and cokernels at different $b$ are vector spaces of varying dimension. After a small perturbation they assemble into a virtual bundle on $B$:
+$$\ind_{\text{fam}}(D) \;=\; [\ker D] - [\mathrm{coker}\,D] \;\in\; K^0(B).$$
+The families index theorem of Atiyah–Singer (1971): this class is computed by a fibre integration of $\mathrm{ch}\cdot\mathrm{Td}$ in cohomology of the total space. When $B=\mathrm{pt}$ this collapses to the single-operator theorem.</p>
+
+<h3>Equivariant index</h3>
+<p>If a compact Lie group $G$ acts on $M$ and the operator $D$ is $G$-equivariant, $\ker D$ and $\mathrm{coker}\,D$ are finite-dimensional $G$-representations. The $G$-equivariant index
+$$\ind_G(D) \;\in\; R(G)$$
+lives in the representation ring of $G$. Atiyah–Bott's fixed-point formula computes its character at $g\in G$ as a sum of contributions localised at the fixed-point set $M^g$.</p>
+
+<h3>Anomalies and instantons</h3>
+<p>In gauge theory on a closed $4$-manifold $M$, the Dirac operator coupled to a gauge connection $A$ on a vector bundle $V\to M$ has index
+$$\ind(D_A) \;=\; \int_M \hat A(TM)\,\mathrm{ch}(V) \;=\; \int_M c_2(V) - \tfrac{1}{24}\langle p_1(TM),[M]\rangle\,\mathrm{rk}(V) + \cdots.$$
+The leading $\int c_2(V)$ is the <em>instanton number</em> — the topological charge of the gauge field, classifying $\mathrm{SU}(N)$ bundles up to isomorphism. The chiral anomaly in physics literature is exactly the statement that $\ind(D_A)$ does not vanish: the symmetry between left- and right-handed fermions is broken by the topology of the gauge bundle, by an integer the index theorem computes.</p>
+
+<div class="widget" id="w-anomaly">
+  <div class="hd"><div class="ttl">Anomaly diagram: index as topological charge</div><div class="hint">slide instanton number $k$ — the chiral imbalance in the Dirac spectrum tracks $k$</div></div>
+  <svg id="an-svg" viewBox="0 0 820 280" width="820" height="280"><title>Schematic of the Dirac spectrum on a 4-manifold with k instantons: k extra zero-modes on the chiral side, accounting for the index</title></svg>
+  <div class="row">
+    <label for="an-k">instanton number $k$</label>
+    <input type="range" id="an-k" min="-3" max="3" step="1" value="1">
+  </div>
+  <div class="readout" id="an-readout" aria-live="polite">$k=1$: a single instanton on $M^4$ contributes one zero-mode of $D_A^+$ over $D_A^-$, so $\ind(D_A)=+1=\int_M c_2(V)$. The chiral anomaly: $\partial_\mu j_5^\mu = -\tfrac{1}{8\pi^2}\tr(F\wedge F)$ integrates to this index.</div>
+</div><script>
 /* =============================== SECTION 6: Anomaly / instanton diagram =============================== */
 (function(){
   const svg = $("#an-svg");
@@ -1052,6 +1030,26 @@ The leading $\int c_2(V)$ is the <em>instanton number</em> — the topological c
   update();
 })();
 </script>
+
+<div class="quiz" data-concept="as-applications"></div>
+</section>
+
+<section id="connections">
+<h2>Connections</h2>
+
+<p>Atiyah–Singer is a hub theorem: it pulls together K-theory, characteristic classes, elliptic PDE, spin geometry, and gauge-theoretic physics into one accountancy. The frontier is broad — equivariant K-theory of loop spaces (Witten genus), index theory on non-compact and singular spaces (Atiyah–Patodi–Singer eta invariants and APS boundary conditions), $L^2$-index theorems for covering spaces (Atiyah–Connes), and the recent NCG / coarse-index programme (Connes–Higson–Roe) where Atiyah–Singer becomes a special case of an index in $K$-homology paired against $K$-theory.</p>
+
+<ul>
+<li><a href="./k-theory.html#applications">K-theory — applications</a> — supplies the topological-index home $K^0(T^*M)$ and the Bott periodicity that makes the construction natural.</li>
+<li><a href="./characteristic-classes.html#chern-weil">Chern–Weil theory</a> — provides the de Rham representatives $\mathrm{ch}$ and $\mathrm{Td}$ that get integrated.</li>
+<li><a href="./partial-differential-equations.html#regularity">PDE — elliptic regularity</a> — the analytic underpinning that makes $\dim\ker$ and $\dim\mathrm{coker}$ finite in the first place.</li>
+<li><a href="./differential-geometry.html">Differential geometry</a> — connections, curvature, and spin structures are the inputs to the Dirac operator.</li>
+<li><a href="./spectral-theory.html#spectral-bounded">Spectral theory</a> — Fredholm-operator framework on Hilbert spaces, the abstract setting in which the index is defined.</li>
+</ul>
+</section>
+
+</main>
+
 
 <script>
 (function(){

@@ -507,6 +507,132 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "atiyah-singer-anomaly",
+    "family": "atiyah-singer-anomaly",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "atiyah-singer-anomaly widget params",
+    "description": "Two-column zero-mode diagram for $D_A^\\pm$ in an instanton background of charge $k$, illustrating how the index equals the topological charge $\\int c_2(V)$ via the chiral anomaly. Bespoke because the layout pairs explicit zero-mode boxes with an imbalance arrow and a hand-typeset anomaly equation specific to this physics narrative.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the atiyah-singer-index-theorem topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "atiyah-singer-cases",
+    "family": "atiyah-singer-cases",
+    "dimension": "2d",
+    "gesture": "pick",
+    "role": "exploratory",
+    "title": "atiyah-singer-cases widget params",
+    "description": "Dictionary-style switcher across the four classical specialisations of the index theorem (Gauss-Bonnet, Hirzebruch signature, Riemann-Roch, Dirac), revealing the operator, index formula, and topological side per case. Bespoke because each case has hand-formatted equation rows that don't fit a generic case-table widget.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the atiyah-singer-index-theorem topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "atiyah-singer-ch-td",
+    "family": "atiyah-singer-ch-td",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "atiyah-singer-ch-td widget params",
+    "description": "Bar-chart breakdown of $\\mathrm{ch}(E)\\cdot\\mathrm{Td}(TM_\\mathbb{C})$ by degree as the manifold dimension and bundle rank slide, isolating the top-degree contribution that integrates to the index. Bespoke because the bars carry symbolic numerator/denominator labels tied to specific Todd-class coefficients, not a generic histogram.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the atiyah-singer-index-theorem topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "atiyah-singer-dirac-sphere",
+    "family": "atiyah-singer-dirac-sphere",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "atiyah-singer-dirac-sphere widget params",
+    "description": "Plots the Dirac operator spectrum on the round sphere $S^n$, with eigenvalues $\\pm(k+n/2)/r$ as the radius slides. Bespoke because the eigenvalue ladder, multiplicity dots, and band-gap shading are tuned to the round-sphere case and don't extend to a generic spectrum widget.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the atiyah-singer-index-theorem topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "atiyah-singer-index-family",
+    "family": "atiyah-singer-index-family",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "atiyah-singer-index-family widget params",
+    "description": "Plots the eigenvalue spectrum of a 1-parameter family of $1\\times 1$ chiral operators on $S^1$, illustrating how the index counts net spectral flow across zero. Bespoke because the figure renders a discrete eigenvalue lattice on a continuous parameter axis with a custom crossing-counter readout, not a pattern reusable across the corpus.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the atiyah-singer-index-theorem topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "atiyah-singer-symbol",
+    "family": "atiyah-singer-symbol",
+    "dimension": "2d",
+    "gesture": "pick",
+    "role": "exploratory",
+    "title": "atiyah-singer-symbol widget params",
+    "description": "Visualises the principal symbol of canonical operators (Laplacian, Dirac, $\\bar\\partial$, signature) on $\\mathbb{R}^2$, with selectable operator and zero-set overlay. Bespoke because the SVG draws operator-specific level curves and zero loci that don't generalise to a shared symbol-plotter widget.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the atiyah-singer-index-theorem topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "automorphic-conductor-ladder",
     "family": "automorphic-conductor-ladder",
     "dimension": "2d",
@@ -838,6 +964,132 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Shared renderer for the `button-stepper-svg` (45 widgets) and `button-stepper-text` (~2 widgets) families — widgets with an SVG (or HTML-only) host plus one or more `<button>` elements wired to step / reset / next / prev / custom actions, with zero range sliders and zero selects. Proof-of-concept migrates three widgets from `point-set-topology.html` (`w-top`, `w-comp`, `w-sep`); subsequent passes will absorb more topics from the 28 that contain this family.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "calabi-yau-canonical-degree",
+    "family": "calabi-yau-canonical-degree",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "calabi-yau-canonical-degree widget params",
+    "description": "Visualizes the adjunction formula K_X = O(d-n-1)|_X for hypersurfaces in P^n: sliders for ambient dimension n and degree d highlight when d=n+1 makes K_X trivial. Bespoke because the diagram pairs a custom 1D bundle-degree axis with a live Calabi-Yau verdict that no shared widget renders.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the calabi-yau-manifolds topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "calabi-yau-hodge-diamond",
+    "family": "calabi-yau-hodge-diamond",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "calabi-yau-hodge-diamond widget params",
+    "description": "Renders a Calabi-Yau Hodge diamond from sliders on h^{1,1} and h^{2,1} or one-click examples (quintic, mirror quintic, K3, elliptic curve), enforcing the diamond's symmetries automatically. Bespoke because the layout combines a CY-specific corner pattern, dimension-aware row hiding, and example-button preset state that no generic table widget captures.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the calabi-yau-manifolds topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "calabi-yau-hypersurface-zoo",
+    "family": "calabi-yau-hypersurface-zoo",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "calabi-yau-hypersurface-zoo widget params",
+    "description": "Tile gallery of canonical Calabi-Yau hypersurfaces (elliptic curve, K3, quintic 3-fold, mirror quintic, CICY) where clicking a tile reveals its Hodge data, Euler number, and moduli dimension. Bespoke because the tile layout, hover affordance, and CY-specific readout fields are tightly coupled to the curated example set.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the calabi-yau-manifolds topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "calabi-yau-mirror-swap",
+    "family": "calabi-yau-mirror-swap",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "calabi-yau-mirror-swap widget params",
+    "description": "Sweeps a continuous mirror map t in [0,1] that morphs the quintic's Hodge diamond into its mirror's, swapping h^{1,1} and h^{2,1} entries continuously for visual effect. Bespoke because the side-by-side diamond morph and the interpolated central rows encode the mirror correspondence as a one-off pedagogical animation.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the calabi-yau-manifolds topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "calabi-yau-periods",
+    "family": "calabi-yau-periods",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "calabi-yau-periods widget params",
+    "description": "Animates the period integrals int_A Omega and int_B Omega over A- and B-cycles of a 1-parameter elliptic family as the modular parameter tau varies. Bespoke because the visualization fuses a parallelogram lattice, oriented A/B cycles, and live tau-dependent period readouts into a single coordinated frame.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the calabi-yau-manifolds topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "calabi-yau-syz-fibration",
+    "family": "calabi-yau-syz-fibration",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "calabi-yau-syz-fibration widget params",
+    "description": "Illustrates the SYZ picture of a Calabi-Yau as a special-Lagrangian torus fibration over a base interval, with a slider that translates the base point and redraws the fiber torus T^n. Bespoke because the fibration diagram (base interval, distinguished fiber, torus mesh) is purpose-drawn for the SYZ exposition.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the calabi-yau-manifolds topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -1485,6 +1737,132 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke registry entry for the `w-zar` widget on `commutative-algebra.html`. Carries the widget's full `<div class=\"widget\" id=\"…\">…</div>` markup and its driving `<script>` tag verbatim as artifact strings so the byte-identical round-trip gate passes. The widget closes over topic-specific data shapes that don't generalize to a shared family slug, so the bytes are preserved as-is rather than re-encoded into structured params.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "complexity-cook-levin-tableau",
+    "family": "complexity-cook-levin-tableau",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "exploratory",
+    "title": "complexity-cook-levin-tableau widget params",
+    "description": "Renders the Cook-Levin tableau showing a Turing machine's space-time grid with cell-, head-, and transition-consistency clauses lighting up as you scrub. Bespoke because the geometry of the tableau (rows = time, columns = tape) is the proof's punchline and isn't reusable elsewhere.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the complexity-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "complexity-growth-rates",
+    "family": "complexity-growth-rates",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "complexity-growth-rates widget params",
+    "description": "Plots common asymptotic growth rates on shared log-log axes so the reader can see how polynomial, exponential, and factorial curves separate. Bespoke because the visual emphasises class boundaries (P, EXP) by recoloring families of curves rather than treating them as generic plots.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the complexity-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "complexity-hierarchy-diagonal",
+    "family": "complexity-hierarchy-diagonal",
+    "dimension": "2d",
+    "gesture": "toggle",
+    "role": "exploratory",
+    "title": "complexity-hierarchy-diagonal widget params",
+    "description": "Walks through the diagonalisation argument behind the time-hierarchy theorem, showing how a faster-machine-simulator forces a strict separation between time classes. Bespoke because the table-flip animation and self-reference highlight are specific to hierarchy proofs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the complexity-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "complexity-karp-reduction",
+    "family": "complexity-karp-reduction",
+    "dimension": "2d",
+    "gesture": "graph-walk",
+    "role": "exploratory",
+    "title": "complexity-karp-reduction widget params",
+    "description": "Draws a directed graph of Karp reductions between canonical NP-complete problems (3-SAT, Clique, Vertex Cover, Hamiltonian Cycle, Subset Sum, ...) and lets the reader trace polynomial-time chains. Bespoke because the node set and edge labels are specific to NP-completeness pedagogy and not generic graph data.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the complexity-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "complexity-sat-verifier",
+    "family": "complexity-sat-verifier",
+    "dimension": "2d",
+    "gesture": "input",
+    "role": "exploratory",
+    "title": "complexity-sat-verifier widget params",
+    "description": "Lets the reader paste a 3-SAT assignment and watch a polynomial-time verifier evaluate the formula clause-by-clause. Bespoke because the readout highlights NP's verifier semantics (witness in, accept/reject in poly time) rather than a generic logic evaluator.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the complexity-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "complexity-savitch-recursion",
+    "family": "complexity-savitch-recursion",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "exploratory",
+    "title": "complexity-savitch-recursion widget params",
+    "description": "Visualises Savitch's theorem by recursively halving a path-existence query into midpoint subqueries, showing how NL's reachability fits into PSPACE via O(log^2 n) space. Bespoke because the recursion tree's midpoint splitting is the conceptual core of NL ⊆ PSPACE and not a general algorithm visualizer.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the complexity-theory topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
