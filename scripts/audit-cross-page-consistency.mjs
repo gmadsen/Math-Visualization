@@ -27,36 +27,20 @@
 //
 // Zero dependencies: regex + string checks only.
 
-import { readFileSync, readdirSync, existsSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+
+import { loadContentModel } from './lib/content-model.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..');
 
-// Pages that are not topic pages — skip them.
-//
 // Topic pages follow a strict head/body contract (KaTeX delimiter config,
 // concepts/bundle.js, breadcrumb fence, data-section/data-level on <body>,
-// progress.js for quizzes). Non-topic pages legitimately deviate: meta
-// pages (index, pathway, mindmap, search, widgets, progress) don't have
-// per-topic breadcrumb context and don't need concept-graph data; capstone
-// story pages are stand-alone narratives that load their own KaTeX
-// (in-body) and skip the bundle/breadcrumb scaffolding by design.
-const SPECIAL = new Set([
-  'index.html',
-  'pathway.html',
-  'progress.html',
-  'latex-cheatsheet.html',
-  'review.html',
-  'mindmap.html',
-  'search.html',
-  'tags.html',
-  'widgets.html',
-  'capstone-bsd-story.html',
-  'capstone-flt-story.html',
-  'capstone-satotate-story.html',
-]);
+// progress.js for quizzes). Non-topic pages (index, pathway, mindmap,
+// progress, tours, capstone-*-story) legitimately deviate, so we scope to
+// just the registered topic list from concepts/index.json.
 
 // ---- Helpers ----------------------------------------------------------------
 
@@ -137,9 +121,8 @@ function hasQuizPlaceholders(html) {
 
 // ---- Gather pages -----------------------------------------------------------
 
-const htmlFiles = readdirSync(repoRoot)
-  .filter((f) => f.endsWith('.html') && !SPECIAL.has(f))
-  .sort();
+const model = await loadContentModel();
+const htmlFiles = [...model.topicIds].map((id) => `${id}.html`).sort();
 
 // ---- Run checks -------------------------------------------------------------
 

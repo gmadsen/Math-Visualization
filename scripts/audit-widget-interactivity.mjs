@@ -26,17 +26,17 @@
 //
 // Exit 0 always (advisory — not a CI gate). Zero dependencies.
 
-import { readFileSync, readdirSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+
+import { loadContentModel } from './lib/content-model.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..');
 
 const argv = process.argv.slice(2);
 const ONLY_STATIC = argv.includes('--only-static');
-
-const SPECIAL = new Set(['index.html', 'pathway.html']);
 
 // ─────────────────────────────────────────────────────────────────────────
 // Widget extraction — depth-balanced <div class="widget"> scan.
@@ -350,9 +350,8 @@ function classifyPage(html) {
 // ─────────────────────────────────────────────────────────────────────────
 // Main.
 
-const htmlFiles = readdirSync(repoRoot)
-  .filter((f) => f.endsWith('.html') && !SPECIAL.has(f))
-  .sort();
+const model = await loadContentModel();
+const htmlFiles = [...model.topicIds].map((id) => `${id}.html`).sort();
 
 let totalInteractive = 0;
 let totalStatic = 0;
