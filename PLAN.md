@@ -22,7 +22,6 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
 ## Authoring polish — small
 
-- **`new-concept` scaffold** — adding a concept to an existing topic still means editing `concepts/<topic>.json`, the section in `<topic>.html`, the quiz bank, and re-extracting `content/<topic>.json`. A scaffold could do all four.
 - **Index-card thumb art.** `new-topic.mjs` leaves placeholder colored thumbs in `index.html`; could replace with motif-appropriate SVGs.
 
 ## Three.js / Pyodide / alt frontends (long-running)
