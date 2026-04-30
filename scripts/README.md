@@ -32,7 +32,8 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 | [`build-section-indexes.mjs`](./build-section-indexes.mjs) | Generate `sections/<id>.html` per subject group. |
 | [`extract-topic.mjs`](./extract-topic.mjs) | `<topic>.html` → `content/<topic>.json` (block decomposition, widget-script auto-pairing). |
 | [`render-topic.mjs`](./render-topic.mjs) | `content/<topic>.json` → stdout HTML (resolves widget slugs via registry). |
-| [`new-topic.mjs`](./new-topic.mjs) | Scaffold a new topic (HTML stub + concepts/ + quizzes/ + index card). |
+| [`read-prose.mjs`](./read-prose.mjs) | `content/<topic>.json` → stdout prose-only view, with widget bodies and `<script>` blocks stripped to single-line `[widget]` / `[quiz: id]` markers. Optional second arg scopes to one concept's section. Quality-pass tooling for cross-topic notation/style/blurb passes. |
+| [`new-topic.mjs`](./new-topic.mjs) | Scaffold a new topic (HTML stub + concepts/ + quizzes/ + index card + README bullet). |
 | [`new-widget.mjs`](./new-widget.mjs) | Scaffold a new `widgets/<slug>/` directory with schema + renderer + README stubs; `--force` overwrites, flags pre-fill the `meta` block. |
 | [`package-offline.mjs`](./package-offline.mjs) | Produce `math-viz-notebook.zip` for workshops. |
 
