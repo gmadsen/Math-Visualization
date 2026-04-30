@@ -381,6 +381,132 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "ant-bombieri-vinogradov",
+    "family": "ant-bombieri-vinogradov",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "ant-bombieri-vinogradov widget params",
+    "description": "Bespoke histogram of $|E(x;q,a)|$ over moduli $q$ illustrating Bombieri–Vinogradov's mean-value bound for the analytic-number-theory topic. The shaded admissible-$Q$ band against per-modulus error magnitudes is specific to BV and not a generic histogram widget.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the analytic-number-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "ant-dirichlet-residue-wheel",
+    "family": "ant-dirichlet-residue-wheel",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "ant-dirichlet-residue-wheel widget params",
+    "description": "Bespoke residue-class wheel showing primes mod $q$ distributed around a circular arrangement for the analytic-number-theory topic. The wheel layout with per-residue density readouts is specific to Dirichlet's theorem and not a generic clock or modular-arithmetic widget.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the analytic-number-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "ant-explicit-formula",
+    "family": "ant-explicit-formula",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "ant-explicit-formula widget params",
+    "description": "Bespoke truncated explicit formula visualization showing zeta zeros and the partial sum approximating $\\psi(x)$ for the analytic-number-theory topic. The dual zero-strip and oscillation panel is purpose-built for the explicit formula and not reusable as a generic plot.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the analytic-number-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "ant-pnt-comparison",
+    "family": "ant-pnt-comparison",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "ant-pnt-comparison widget params",
+    "description": "Bespoke comparison plot of $\\pi(x)$ vs $x/\\log x$ vs $\\mathrm{Li}(x)$ with a slider over $x$ for the analytic-number-theory topic. The triple overlay with sieved prime counting and live error readouts is too specific to the prime number theorem to fit any shared plotting slug.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the analytic-number-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "ant-sieve-truncation",
+    "family": "ant-sieve-truncation",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "ant-sieve-truncation widget params",
+    "description": "Bespoke comparison of truncated inclusion–exclusion against the exact sieve count for the analytic-number-theory topic. The side-by-side bar visualization with parity-of-truncation explanation is purpose-built for sieve theory pedagogy.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the analytic-number-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "ant-zero-free-region",
+    "family": "ant-zero-free-region",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "ant-zero-free-region widget params",
+    "description": "Bespoke critical strip visualization with the classical zero-free region carved out of the right half-plane for the analytic-number-theory topic. The shape of the De la Vallée Poussin region against the critical line is too specific to fit a generic complex-domain plotter.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the analytic-number-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "automorphic-conductor-ladder",
     "family": "automorphic-conductor-ladder",
     "dimension": "2d",
@@ -3402,6 +3528,153 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "heights-arakelov-decomposition",
+    "family": "heights-arakelov-decomposition",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "heights-arakelov-decomposition widget params",
+    "description": "Bespoke Arakelov local-global decomposition for the heights-arithmetic-geometry topic — two numeric inputs (rational point coordinates) plus a 'decompose' button trigger a per-place breakdown showing each finite-prime contribution -log|x|_p alongside the archimedean log max(|A|,|B|), then verifies the Artin-Whaples product formula. The per-place tabular readout with running sum check is bespoke and doesn't fit any shared widget.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the heights-arithmetic-geometry topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "heights-genus-growth",
+    "family": "heights-genus-growth",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "heights-genus-growth widget params",
+    "description": "Bespoke Faltings/genus-growth indicator for the heights-arithmetic-geometry topic — a single genus-g slider that updates a qualitative readout describing the expected rational-point behaviour (genus 0 = infinite, genus 1 = finitely generated, genus >= 2 = finite by Faltings). The slider+qualitative-prose-readout shape is bespoke and meaningfully different from numeric stepper slugs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the heights-arithmetic-geometry topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "heights-mahler-measure",
+    "family": "heights-mahler-measure",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "heights-mahler-measure widget params",
+    "description": "Bespoke Mahler-measure calculator for the heights-arithmetic-geometry topic — a single textarea-style input takes integer polynomial coefficients, and a 'compute' button triggers a multi-line readout showing the leading coefficient, the roots, and M(p) = |a_d| * prod(max(1,|alpha_i|)). The free-form coefficient-list input + root-by-root breakdown readout is bespoke and doesn't fit a shared input/readout slug.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the heights-arithmetic-geometry topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "heights-naive-calculator",
+    "family": "heights-naive-calculator",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "heights-naive-calculator widget params",
+    "description": "Bespoke naive-height reducer for the heights-arithmetic-geometry topic — three integer inputs for projective coordinates plus a 'compute' button, with a multi-line readout that shows the gcd-reduced representative and the resulting H = max(|x_i|). The mixed three-input row + readout shape with embedded gcd reasoning doesn't fit a shared slider/stepper slug.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the heights-arithmetic-geometry topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "heights-northcott-enumerator",
+    "family": "heights-northcott-enumerator",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "heights-northcott-enumerator widget params",
+    "description": "Bespoke Northcott enumeration for the heights-arithmetic-geometry topic — a single bound-N input that triggers an enumeration of all points of P^1(Q) with H <= N, displaying the count and the actual reduced fractions. The shape (one input + multi-line enumerated list readout with finiteness commentary) is bespoke and doesn't fit a shared widget.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the heights-arithmetic-geometry topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "heights-tate-averaging",
+    "family": "heights-tate-averaging",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "heights-tate-averaging widget params",
+    "description": "Bespoke Tate-averaging visualizer for the heights-arithmetic-geometry topic — two numeric inputs (point P and iteration depth N) drive an SVG plot of h_L([n]P)/n^2 across n=1..N, showing the convergence to the canonical height. The svg+two-input combo with running-quotient plot is bespoke and doesn't fit a shared parametric-plot slug because the iteration is integer-valued and discrete.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the heights-arithmetic-geometry topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "heights-weil-pullback",
+    "family": "heights-weil-pullback",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "heights-weil-pullback widget params",
+    "description": "Bespoke Weil-height pullback tracer for the heights-arithmetic-geometry topic — four numeric inputs (degree d, point P, plus parameters) feeding a multi-line readout that compares h(f(P)) to d * h(P) and shows the bounded discrepancy O(1). The four-input + comparison readout shape is one-off and doesn't fit a shared slider/stepper slug.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the heights-arithmetic-geometry topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "heyting-algebras-toposes-geometric-composition",
     "family": "clickable-diagram",
     "dimension": "2d",
@@ -5609,6 +5882,153 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke widget for the §3 special-solutions choreography demo on the [`three-body-problem`](../../three-body-problem.html#special) topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "zfc-aleph-ladder",
+    "family": "zfc-aleph-ladder",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "zfc-aleph-ladder widget params",
+    "description": "Bespoke aleph-ladder ladder display tracing aleph_0 through aleph_omega for the zfc-and-ordinals topic. Encodes the cardinal successor + limit construction at a level of granularity unique to the page.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the zfc-and-ordinals topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "zfc-choice-picker",
+    "family": "zfc-choice-picker",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "zfc-choice-picker widget params",
+    "description": "Bespoke choice-function picker illustrating the axiom of choice on a small indexed family of nonempty sets for the zfc-and-ordinals topic. Specific to the AC pedagogy and not reused elsewhere.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the zfc-and-ordinals topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "zfc-continuum-locator",
+    "family": "zfc-continuum-locator",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "zfc-continuum-locator widget params",
+    "description": "Bespoke continuum-hypothesis locator placing 2^aleph_0 on the aleph hierarchy under different model assumptions for the zfc-and-ordinals topic. Encodes CH-specific independence-result intuition not generalizable.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the zfc-and-ordinals topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "zfc-cumulative-hierarchy",
+    "family": "zfc-cumulative-hierarchy",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "exploratory",
+    "title": "zfc-cumulative-hierarchy widget params",
+    "description": "Bespoke stage-by-stage cumulative hierarchy V_alpha visualizer for the zfc-and-ordinals topic. Specific to ZFC's iterated power-set construction, with no reuse outside this page.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the zfc-and-ordinals topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "zfc-large-cardinal-tower",
+    "family": "zfc-large-cardinal-tower",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "zfc-large-cardinal-tower widget params",
+    "description": "Bespoke large-cardinal tower diagram from inaccessible up through measurable for the zfc-and-ordinals topic. The tower's specific tier labels and consistency-strength ordering are unique to this page.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the zfc-and-ordinals topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "zfc-ordinal-calculator",
+    "family": "zfc-ordinal-calculator",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "zfc-ordinal-calculator widget params",
+    "description": "Bespoke ordinal arithmetic calculator demonstrating non-commutativity of ordinal addition and multiplication for the zfc-and-ordinals topic. Encodes ordinal-specific evaluation rules not shared with cardinal arithmetic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the zfc-and-ordinals topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "zfc-ordinal-picket-fence",
+    "family": "zfc-ordinal-picket-fence",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "zfc-ordinal-picket-fence widget params",
+    "description": "Bespoke ordinal picket-fence visualization showing successor and limit ordinals up through omega^2 for the zfc-and-ordinals topic. The two-tier picket-fence layout is unique to ordinal pedagogy.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the zfc-and-ordinals topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

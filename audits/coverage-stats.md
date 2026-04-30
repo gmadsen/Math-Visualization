@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **130**, concepts: **896**
-- Widgets: **921** (registry-driven: 716, inline: 205)
+- Widgets: **921** (registry-driven: 736, inline: 185)
 - Quizzes: **3855** (v1: 2619, hard: 1223, expert: 13)
 - Quiz types: mcq: 2587, numeric: 1028, multi-select: 96, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **139**
@@ -53,6 +53,12 @@ page has wired one in yet.
 | `algebraic-spaces-morphisms-diagram` | clickable-diagram | click | 2d | 1 | algebraic-spaces |
 | `algebraic-spaces-scheme-stack-hierarchy` | clickable-diagram | click | 2d | 1 | algebraic-spaces |
 | `algebraic-spaces-why-scrubber` | proof-scrubber | scrub | 2d | 1 | algebraic-spaces |
+| `ant-bombieri-vinogradov` | ant-bombieri-vinogradov | slider | 2d | 1 | analytic-number-theory |
+| `ant-dirichlet-residue-wheel` | ant-dirichlet-residue-wheel | slider | 2d | 1 | analytic-number-theory |
+| `ant-explicit-formula` | ant-explicit-formula | slider | 2d | 1 | analytic-number-theory |
+| `ant-pnt-comparison` | ant-pnt-comparison | slider | 2d | 1 | analytic-number-theory |
+| `ant-sieve-truncation` | ant-sieve-truncation | slider | 2d | 1 | analytic-number-theory |
+| `ant-zero-free-region` | ant-zero-free-region | slider | 2d | 1 | analytic-number-theory |
 | `automorphic-conductor-ladder` | automorphic-conductor-ladder | click | 2d | 1 | automorphic-forms-adelic |
 | `automorphic-dictionary` | automorphic-dictionary | step | 2d | 1 | automorphic-forms-adelic |
 | `automorphic-eisenstein-residue` | automorphic-eisenstein-residue | slider | 2d | 1 | automorphic-forms-adelic |
@@ -182,6 +188,13 @@ page has wired one in yet.
 | `harmonic-partial-sum` | harmonic-partial-sum | slider | 2d | 1 | harmonic-analysis-fourier |
 | `harmonic-tent-transform` | harmonic-tent-transform | slider | 2d | 1 | harmonic-analysis-fourier |
 | `harmonic-uncertainty` | harmonic-uncertainty | slider | 2d | 1 | harmonic-analysis-fourier |
+| `heights-arakelov-decomposition` | heights-arakelov-decomposition | click | 2d | 1 | heights-arithmetic-geometry |
+| `heights-genus-growth` | heights-genus-growth | slider | 2d | 1 | heights-arithmetic-geometry |
+| `heights-mahler-measure` | heights-mahler-measure | click | 2d | 1 | heights-arithmetic-geometry |
+| `heights-naive-calculator` | heights-naive-calculator | click | 2d | 1 | heights-arithmetic-geometry |
+| `heights-northcott-enumerator` | heights-northcott-enumerator | slider | 2d | 1 | heights-arithmetic-geometry |
+| `heights-tate-averaging` | heights-tate-averaging | slider | 2d | 1 | heights-arithmetic-geometry |
+| `heights-weil-pullback` | heights-weil-pullback | slider | 2d | 1 | heights-arithmetic-geometry |
 | `heyting-algebras-toposes-geometric-composition` | clickable-diagram | click | 2d | 1 | heyting-algebras-toposes |
 | `heyting-algebras-toposes-heyting-clickable` | clickable-diagram | click | 2d | 1 | heyting-algebras-toposes |
 | `heyting-algebras-toposes-internal-language-dictionary` | clickable-diagram | click | 2d | 1 | heyting-algebras-toposes |
@@ -276,16 +289,23 @@ page has wired one in yet.
 | `three-body-lagrange-points` | three-body-lagrange-points | slider | 2d | 1 | three-body-problem |
 | `three-body-nbody-simulator` | three-body-nbody-simulator | click | 2d | 1 | three-body-problem |
 | `three-body-special-solutions` | three-body-special-solutions | click | 2d | 1 | three-body-problem |
+| `zfc-aleph-ladder` | zfc-aleph-ladder | slider | 2d | 1 | zfc-and-ordinals |
+| `zfc-choice-picker` | zfc-choice-picker | click | 2d | 1 | zfc-and-ordinals |
+| `zfc-continuum-locator` | zfc-continuum-locator | click | 2d | 1 | zfc-and-ordinals |
+| `zfc-cumulative-hierarchy` | zfc-cumulative-hierarchy | step | 2d | 1 | zfc-and-ordinals |
+| `zfc-large-cardinal-tower` | zfc-large-cardinal-tower | click | 2d | 1 | zfc-and-ordinals |
+| `zfc-ordinal-calculator` | zfc-ordinal-calculator | click | 2d | 1 | zfc-and-ordinals |
+| `zfc-ordinal-picket-fence` | zfc-ordinal-picket-fence | slider | 2d | 1 | zfc-and-ordinals |
 
 ## Per-subject
 
 ### Logic & Foundations
 
 - Topics: **8**, concepts: **49**
-- Widgets: **48** (registry-driven: 11, inline: 37)
-  - by family: unknown: 37, clickable-diagram: 3, button-stepper: 1, fol-term-tree: 1, fol-model-checker: 1, fol-modus-ponens-closure: 1, fol-henkin-construction: 1, fol-compactness-finite-sat: 1, fol-skolem-paradox: 1, fol-dlo-quantifier-elimination: 1
-  - by dimension: unknown: 37, 2d: 11
-  - by gesture: unknown: 37, click: 7, step: 4
+- Widgets: **48** (registry-driven: 18, inline: 30)
+  - by family: unknown: 30, clickable-diagram: 3, button-stepper: 1, fol-term-tree: 1, fol-model-checker: 1, fol-modus-ponens-closure: 1, fol-henkin-construction: 1, fol-compactness-finite-sat: 1, fol-skolem-paradox: 1, fol-dlo-quantifier-elimination: 1, zfc-cumulative-hierarchy: 1, zfc-ordinal-picket-fence: 1, zfc-ordinal-calculator: 1, zfc-aleph-ladder: 1, zfc-choice-picker: 1, zfc-continuum-locator: 1, zfc-large-cardinal-tower: 1
+  - by dimension: unknown: 30, 2d: 18
+  - by gesture: unknown: 30, click: 11, step: 5, slider: 2
 - Quizzes: **162** (v1: 147, hard: 15, expert: 0)
   - by type: mcq: 128, numeric: 34
 
@@ -342,10 +362,10 @@ page has wired one in yet.
 ### Number theory
 
 - Topics: **14**, concepts: **97**
-- Widgets: **110** (registry-driven: 91, inline: 19)
-  - by family: button-stepper: 66, unknown: 19, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, inline-code-cell: 4, declarative-host: 2, parametric-plot: 2, branching-proof-scrubber: 1, clickable-graph: 1, svg-illustration: 1, counterexample-explorer: 1, proof-scrubber: 1
-  - by dimension: 2d: 91, unknown: 19
-  - by gesture: click: 71, unknown: 19, slider: 6, input: 4, edit: 4, interactive: 2, branching-timeline: 1, read: 1, select: 1, timeline: 1
+- Widgets: **110** (registry-driven: 104, inline: 6)
+  - by family: button-stepper: 66, unknown: 6, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, inline-code-cell: 4, declarative-host: 2, parametric-plot: 2, branching-proof-scrubber: 1, clickable-graph: 1, svg-illustration: 1, heights-naive-calculator: 1, heights-northcott-enumerator: 1, heights-weil-pullback: 1, heights-tate-averaging: 1, heights-mahler-measure: 1, heights-genus-growth: 1, heights-arakelov-decomposition: 1, counterexample-explorer: 1, ant-pnt-comparison: 1, ant-explicit-formula: 1, ant-zero-free-region: 1, ant-dirichlet-residue-wheel: 1, ant-sieve-truncation: 1, ant-bombieri-vinogradov: 1, proof-scrubber: 1
+  - by dimension: 2d: 104, unknown: 6
+  - by gesture: click: 74, slider: 16, unknown: 6, input: 4, edit: 4, interactive: 2, branching-timeline: 1, read: 1, select: 1, timeline: 1
 - Quizzes: **466** (v1: 283, hard: 183, expert: 0)
   - by type: mcq: 315, numeric: 144, complex: 3, matching: 2, ordering: 1, guess-my-rule: 1
 
@@ -420,7 +440,7 @@ page has wired one in yet.
 - `atiyah-singer-index-theorem` (Geometry & topology) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `naive-set-theory` (Logic & Foundations) — concepts=5, widgets=4 (slug=4), quiz=30 (v1=15, hard=15, expert=0)
 - `first-order-logic-and-completeness` (Logic & Foundations) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
-- `zfc-and-ordinals` (Logic & Foundations) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
+- `zfc-and-ordinals` (Logic & Foundations) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `model-theory-basics` (Logic & Foundations) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `computability-and-decidability` (Logic & Foundations) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `complexity-theory` (Logic & Foundations) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
@@ -478,8 +498,8 @@ page has wired one in yet.
 - `adeles-and-ideles` (Number theory) — concepts=5, widgets=5 (slug=5), quiz=30 (v1=15, hard=15, expert=0)
 - `frobenius-and-reciprocity` (Number theory) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `class-field-theory` (Number theory) — concepts=6, widgets=8 (slug=8), quiz=36 (v1=18, hard=18, expert=0)
-- `heights-arithmetic-geometry` (Number theory) — concepts=10, widgets=10 (slug=3), quiz=30 (v1=30, hard=0, expert=0)
-- `analytic-number-theory` (Number theory) — concepts=10, widgets=10 (slug=4), quiz=30 (v1=30, hard=0, expert=0)
+- `heights-arithmetic-geometry` (Number theory) — concepts=10, widgets=10 (slug=10), quiz=30 (v1=30, hard=0, expert=0)
+- `analytic-number-theory` (Number theory) — concepts=10, widgets=10 (slug=10), quiz=30 (v1=30, hard=0, expert=0)
 - `upper-half-plane-hyperbolic` (Modular forms & L-functions) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `modular-forms` (Modular forms & L-functions) — concepts=6, widgets=8 (slug=8), quiz=33 (v1=18, hard=15, expert=0)
 - `theta-functions` (Modular forms & L-functions) — concepts=5, widgets=8 (slug=8), quiz=30 (v1=15, hard=15, expert=0)

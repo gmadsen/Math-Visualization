@@ -301,7 +301,40 @@ On $\mathbb{P}^1(\mathbb{Q})$, identifying $[a:b]$ with $a/b$ (in lowest terms),
 <!-- backlinks-auto-end --><div class="quiz" data-concept="naive-height-projective"></div>
 </section>
 
-<section id="northcott">
+<script>
+/* ============== SECTION 1 widget — naive-height reduce-and-measure ============== */
+(function(){
+  const x0 = $('#h-x0'), x1 = $('#h-x1'), x2 = $('#h-x2');
+  const out = $('#h-out'), go = $('#h-go');
+  function gcd(a,b){ a=Math.abs(a); b=Math.abs(b); while(b){ [a,b]=[b,a%b]; } return a||1; }
+  function reduce(){
+    const a = parseInt(x0.value,10);
+    const b = parseInt(x1.value,10);
+    const c = parseInt(x2.value,10);
+    if([a,b,c].some(v=>!Number.isFinite(v))){
+      out.textContent = 'enter three integers';
+      return;
+    }
+    if(a===0 && b===0 && c===0){
+      out.textContent = '[0:0:0] is not a projective point.';
+      return;
+    }
+    const g = gcd(gcd(a,b), c);
+    let A = a/g, B = b/g, C = c/g;
+    // canonicalise sign: leading nonzero positive
+    const lead = [A,B,C].find(v=>v!==0);
+    if(lead < 0){ A=-A; B=-B; C=-C; }
+    const H = Math.max(Math.abs(A), Math.abs(B), Math.abs(C));
+    out.textContent =
+      `gcd(${a},${b},${c}) = ${g}\n` +
+      `[${a}:${b}:${c}] = [${A}:${B}:${C}]   (coprime representative)\n` +
+      `H(P) = max(${Math.abs(A)}, ${Math.abs(B)}, ${Math.abs(C)}) = ${H}\n` +
+      `h(P) = log H = ${Math.log(H).toFixed(4)}`;
+  }
+  go.addEventListener('click', reduce);
+  reduce();
+})();
+</script><section id="northcott">
 <h2>2. Logarithmic height and Northcott finiteness</h2>
 <p>Logs turn multiplicative bounds into additive ones, and turn the multiplicative product formula into a sum that we can analyse term-by-term. The <strong>logarithmic height</strong> is
 $$h(P)\;=\;\log H(P).$$
@@ -343,7 +376,40 @@ is <em>finite</em>.</div>
 <!-- backlinks-auto-end --><div class="quiz" data-concept="logarithmic-height-northcott"></div>
 </section>
 
-<section id="weil">
+<script>
+/* ============== SECTION 2 widget — bounded-height enumeration on P^1(Q) ============== */
+(function(){
+  const N = $('#n-bound'), Nr = $('#n-bound-r'), out = $('#n-out');
+  function gcd(a,b){ a=Math.abs(a); b=Math.abs(b); while(b){ [a,b]=[b,a%b]; } return a||1; }
+  function update(){
+    const n = parseInt(N.value,10);
+    Nr.textContent = `N=${n}`;
+    const points = [];
+    // [0:1] and [1:0]
+    points.push('[0:1]'); points.push('[1:0]');
+    // [a:b] with gcd=1, max(|a|,|b|)<=n; identify ±
+    const seen = new Set();
+    for(let a = -n; a <= n; a++){
+      for(let b = 1; b <= n; b++){
+        if(a===0) continue;
+        if(gcd(Math.abs(a), b) !== 1) continue;
+        if(Math.max(Math.abs(a), b) > n) continue;
+        // canonical: b > 0 already; key = `${a}/${b}`
+        const key = `${a}/${b}`;
+        if(seen.has(key)) continue;
+        seen.add(key);
+        points.push(`[${a}:${b}]`);
+      }
+    }
+    points.sort();
+    out.textContent =
+      `count = ${points.length}\n\n` +
+      `${points.join('   ')}`;
+  }
+  N.addEventListener('input', update);
+  update();
+})();
+</script><section id="weil">
 <h2>3. Weil heights from line bundles</h2>
 <p>The naive height lives on $\mathbb{P}^n$ and depends on the choice of homogeneous coordinates. To do geometry we want a height on each projective variety $X$, attached to geometric data — namely a line bundle $L$ on $X$.</p>
 
@@ -382,7 +448,65 @@ $$h_{X,f^*L}\;=\;h_{Y,L}\circ f\;+\;O(1).$$</p>
 <!-- backlinks-auto-end -->
 </section>
 
-<section id="canonical">
+<script>
+/* ============== SECTION 3 widget — Weil-height pullback under z^d ============== */
+(function(){
+  const D = $('#w-d'), Dr = $('#w-d-r');
+  const A = $('#w-a'), B = $('#w-b'), Nn = $('#w-n'), Nr = $('#w-n-r');
+  const out = $('#w-out');
+  // BigInt version of gcd
+  function gcdBI(a,b){
+    a = a<0n?-a:a; b = b<0n?-b:b;
+    while(b){ [a,b]=[b,a%b]; } return a||1n;
+  }
+  function update(){
+    const d = parseInt(D.value,10); Dr.textContent = `d=${d}`;
+    const n = parseInt(Nn.value,10); Nr.textContent = `n=${n}`;
+    let a, b;
+    try { a = BigInt(A.value.trim()); b = BigInt(B.value.trim()); }
+    catch(e){ out.textContent = 'enter integers'; return; }
+    if(b === 0n){ out.textContent = 'denominator b cannot be 0'; return; }
+    // reduce
+    const g0 = gcdBI(a, b);
+    a = a/g0; b = b/g0;
+    if(b < 0n){ a = -a; b = -b; }
+    const lines = [];
+    let cur_a = a, cur_b = b;
+    function logMaxAbs(x, y){
+      const ax = x<0n?-x:x, ay = y<0n?-y:y;
+      const m = ax > ay ? ax : ay;
+      return Math.log(Number(m));
+    }
+    lines.push(`P = ${cur_a}/${cur_b}    h(P) = ${logMaxAbs(cur_a,cur_b).toFixed(4)}`);
+    for(let k=1; k<=n; k++){
+      // f^k(P) = (a/b)^(d^k); compute d^k via BigInt exp
+      let dk = 1; for(let j=0;j<k;j++) dk *= d;
+      // raise BigInts
+      let na = 1n, nb = 1n;
+      for(let j=0;j<dk;j++){ na *= cur_a; nb *= cur_b; }
+      // small numbers? we already started from cur_a/cur_b; recompute from the ORIGINAL each iter
+      // simpler: recompute from a/b
+      na = 1n; nb = 1n;
+      for(let j=0;j<dk;j++){ na *= a; nb *= b; }
+      const g = gcdBI(na, nb);
+      na = na/g; nb = nb/g;
+      if(nb < 0n){ na = -na; nb = -nb; }
+      const h = logMaxAbs(na, nb);
+      const ratio = (h / logMaxAbs(a,b)).toFixed(3);
+      // truncate display if huge
+      const sa = na.toString(), sb = nb.toString();
+      const trunc = (s) => s.length > 28 ? s.slice(0,12)+'…'+s.slice(-12)+` (${s.length} digits)` : s;
+      lines.push(`f^${k}(P) = ${trunc(sa)}/${trunc(sb)}    h = ${h.toFixed(4)}    h/h(P) = ${ratio} ≈ d^${k} = ${dk}`);
+    }
+    out.textContent = lines.join('\n');
+  }
+  D.addEventListener('input', update);
+  Nn.addEventListener('input', update);
+  A.addEventListener('input', update);
+  B.addEventListener('input', update);
+  update();
+})();
+</script><section id="canonical">
 <h2>4. The Néron–Tate canonical height</h2>
 <p>On an abelian variety $A$ over a number field $K$ with a symmetric ample line bundle $L$ (e.g. on an elliptic curve, $L=2(O)$), the multiplication map $[n]:A\to A$ acts on heights by</p>
 $$h_L([n]P)\;=\;n^2\cdot h_L(P)\;+\;O(1).$$
@@ -436,7 +560,78 @@ This is the volume of the Mordell–Weil lattice, and it is one of the factors i
 <!-- backlinks-auto-end --><div class="quiz" data-concept="neron-tate-canonical-height"></div>
 </section>
 
-<section id="mahler">
+<script>
+/* ============== SECTION 4 widget — Tate averaging ============== */
+(function(){
+  const H = $('#t-h'), Hr = $('#t-h-r');
+  const W = $('#t-w'), Wr = $('#t-w-r');
+  const svg = $('#t-svg'), out = $('#t-out');
+  // deterministic pseudo-random (so the picture is reproducible)
+  function prn(seed){ let s = seed; return () => { s = (s*9301+49297)%233280; return s/233280 - 0.5; }; }
+  function update(){
+    const h0 = parseFloat(H.value); Hr.textContent = `h=${h0.toFixed(2)}`;
+    const w  = parseFloat(W.value); Wr.textContent = `w=${w.toFixed(2)}`;
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // axes
+    const W0 = 620, H0 = 240, padL = 50, padR = 20, padT = 20, padB = 36;
+    const plotW = W0 - padL - padR, plotH = H0 - padT - padB;
+    // rendering: bars for n=1..16
+    const nMax = 16;
+    const ax = SVG('line',{x1:padL,y1:H0-padB,x2:W0-padR,y2:H0-padB,stroke:'var(--line)','stroke-width':1});
+    const ay = SVG('line',{x1:padL,y1:padT,x2:padL,y2:H0-padB,stroke:'var(--line)','stroke-width':1});
+    svg.appendChild(ax); svg.appendChild(ay);
+    // y-scale: 0..h0*2
+    const yMax = Math.max(h0*2.0, 0.1);
+    const yScale = v => (H0 - padB) - (v/yMax) * plotH;
+    // y=h0 line (target)
+    const target = SVG('line',{x1:padL,y1:yScale(h0),x2:W0-padR,y2:yScale(h0),
+      stroke:'var(--yellow)','stroke-width':1.4,'stroke-dasharray':'5 4'});
+    svg.appendChild(target);
+    const tlbl = SVG('text',{x:W0-padR-6, y:yScale(h0)-6, 'text-anchor':'end','font-size':12,fill:'var(--yellow)'});
+    tlbl.textContent = `ĥ(P) = ${h0.toFixed(2)}`;
+    svg.appendChild(tlbl);
+    // bars: simulate h_L([n]P)/n^2 = h0 + eps_n/n^2
+    const rng = prn(7919);
+    const xStep = plotW / nMax;
+    for(let n=1; n<=nMax; n++){
+      const eps = rng() * 2 * w; // bounded, scales ±w
+      const val = h0 + eps / (n*n);
+      const x = padL + (n - 0.5) * xStep;
+      const y = yScale(Math.max(0,val));
+      const bw = xStep * 0.65;
+      const fill = 'var(--blue)';
+      const r = SVG('rect',{x:x-bw/2, y:y, width:bw, height:(H0-padB)-y, fill, opacity:0.9});
+      svg.appendChild(r);
+      if(n===1 || n===2 || n===4 || n===8 || n===16){
+        const t = SVG('text',{x:x, y:H0-padB+14, 'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+        t.textContent = n;
+        svg.appendChild(t);
+      }
+    }
+    // axis labels
+    const xt = SVG('text',{x: padL+plotW/2, y: H0-4, 'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    xt.textContent = 'n';
+    svg.appendChild(xt);
+    const yt = SVG('text',{x: 12, y: padT+10, 'text-anchor':'start','font-size':11,fill:'var(--mute)'});
+    yt.textContent = 'h_L([n]P) / n²';
+    svg.appendChild(yt);
+    // readout
+    const rng2 = prn(7919);
+    let last;
+    for(let n=1;n<=nMax;n++){
+      const eps = rng2() * 2 * w;
+      last = h0 + eps/(n*n);
+    }
+    out.textContent =
+      `n=1:  h_L(P)/1 ≈ ${(h0 + (prn(7919)())*2*w).toFixed(4)}\n` +
+      `n=16: h_L([16]P)/256 ≈ ${last.toFixed(4)}\n` +
+      `ĥ(P) = lim h_L([n]P)/n² = ${h0.toFixed(4)}    (the noise telescopes — Tate's averaging)`;
+  }
+  H.addEventListener('input', update);
+  W.addEventListener('input', update);
+  update();
+})();
+</script><section id="mahler">
 <h2>5. Mahler measure and Lehmer's problem</h2>
 <p>The naive height of an algebraic number $\alpha\in\bar{\mathbb{Q}}$ is computed via its minimal polynomial, and the cleanest formula uses the <strong>Mahler measure</strong>. For
 $$f(x)=a\prod_{i=1}^{d}(x-\alpha_i)\;\in\;\mathbb{Z}[x]\qquad\text{(non-zero, primitive)},$$
@@ -470,7 +665,99 @@ and no one has found a smaller value in the ninety years since. The question is 
 <!-- backlinks-auto-end -->
 </section>
 
-<section id="mordell-faltings">
+<script>
+/* ============== SECTION 5 widget — Mahler measure ============== */
+(function(){
+  const C = $('#m-coef'), out = $('#m-out'), go = $('#m-go');
+  // Durand–Kerner root finder for real-coefficient polynomials
+  function findRoots(coeffs){
+    // coeffs[0] is leading; degree d = coeffs.length - 1
+    const d = coeffs.length - 1;
+    if(d === 0) return [];
+    if(d === 1) return [{re: -coeffs[1]/coeffs[0], im: 0}];
+    // initial guesses on circle
+    const roots = [];
+    for(let k=0; k<d; k++){
+      const ang = 2*Math.PI*k/d + 0.4;
+      const r = 0.4 + 0.05*k;
+      roots.push({re: r*Math.cos(ang), im: r*Math.sin(ang)});
+    }
+    // evaluate p(z) using Horner
+    function pAt(z){
+      let re = coeffs[0], im = 0;
+      for(let i=1; i<=d; i++){
+        const nre = re*z.re - im*z.im + coeffs[i];
+        const nim = re*z.im + im*z.re;
+        re = nre; im = nim;
+      }
+      return {re, im};
+    }
+    // Durand–Kerner iteration
+    for(let iter=0; iter<200; iter++){
+      let maxDelta = 0;
+      for(let i=0; i<d; i++){
+        const num = pAt(roots[i]);
+        let den = {re: coeffs[0], im: 0};
+        for(let j=0; j<d; j++){
+          if(i===j) continue;
+          const dx = roots[i].re - roots[j].re;
+          const dy = roots[i].im - roots[j].im;
+          const nre = den.re*dx - den.im*dy;
+          const nim = den.re*dy + den.im*dx;
+          den.re = nre; den.im = nim;
+        }
+        // num / den
+        const denMagSq = den.re*den.re + den.im*den.im;
+        if(denMagSq < 1e-30){ continue; }
+        const qre = (num.re*den.re + num.im*den.im) / denMagSq;
+        const qim = (num.im*den.re - num.re*den.im) / denMagSq;
+        roots[i].re -= qre;
+        roots[i].im -= qim;
+        const dMag = Math.hypot(qre, qim);
+        if(dMag > maxDelta) maxDelta = dMag;
+      }
+      if(maxDelta < 1e-12) break;
+    }
+    return roots;
+  }
+  function compute(){
+    const raw = C.value.trim().split(/\s+/).map(s=>parseFloat(s));
+    if(raw.some(v=>!Number.isFinite(v))){
+      out.textContent = 'enter space-separated integer coefficients (high → low)';
+      return;
+    }
+    if(raw.length < 2){
+      out.textContent = 'need degree ≥ 1';
+      return;
+    }
+    const a = raw[0];
+    if(Math.abs(a) < 1e-12){
+      out.textContent = 'leading coefficient cannot be 0';
+      return;
+    }
+    const roots = findRoots(raw);
+    const lines = [];
+    lines.push(`f(x) of degree ${raw.length - 1}, leading coefficient ${a}`);
+    let logProd = 0;
+    const rstrs = [];
+    for(const r of roots){
+      const m = Math.hypot(r.re, r.im);
+      const cap = Math.max(1, m);
+      logProd += Math.log(cap);
+      rstrs.push(`${r.re.toFixed(4)}${r.im>=0?'+':''}${r.im.toFixed(4)}i  |α|=${m.toFixed(4)}`);
+    }
+    const M = Math.abs(a) * Math.exp(logProd);
+    lines.push('roots:');
+    for(const s of rstrs) lines.push('   '+s);
+    lines.push(`M(f) = |${a}| · ∏ max(1,|αᵢ|) = ${M.toFixed(6)}`);
+    lines.push(`log M(f) = ${Math.log(M).toFixed(6)}`);
+    if(Math.abs(M - 1) < 1e-4) lines.push('M(f) ≈ 1 → cyclotomic / roots of unity (Kronecker)');
+    out.textContent = lines.join('\n');
+  }
+  go.addEventListener('click', compute);
+  compute();
+})();
+</script><section id="mordell-faltings">
 <h2>6. Heights and the Mordell conjecture</h2>
 <p>The crowning Diophantine theorem of the twentieth century is</p>
 
@@ -509,7 +796,41 @@ and no one has found a smaller value in the ninety years since. The question is 
 <!-- backlinks-auto-end -->
 </section>
 
-<section id="arakelov">
+<script>
+/* ============== SECTION 6 widget — genus growth ============== */
+(function(){
+  const G = $('#md-g'), Gr = $('#md-g-r'), out = $('#md-out');
+  function update(){
+    const g = parseInt(G.value, 10);
+    Gr.textContent = `g=${g}`;
+    let example, count, comment;
+    if(g === 0){
+      example = 'P^1, e.g. y² = 1 - x²  (rationally parametrised)';
+      count = 'infinite';
+      comment = 'Genus 0 curves with a rational point are isomorphic to P^1; rational parametrisation gives all rational points.';
+    } else if(g === 1){
+      example = 'E: y² = x³ - x + 1  (an elliptic curve)';
+      count = 'finitely generated abelian (Mordell–Weil); often infinite';
+      comment = 'For E of rank ≥ 1 (e.g. this one), E(Q) ≅ Z^r ⊕ tors with infinitely many points.';
+    } else if(g === 2){
+      example = 'C: y² = x^5 - x + 1  (smooth, hyperelliptic)';
+      count = 'finite (Faltings)';
+      comment = 'Genus 2 curves have finite C(K). Coleman–Chabauty often gives explicit upper bounds when the rank is small.';
+    } else {
+      example = 'Fermat: x^n + y^n = z^n,  n ≥ 4  (genus (n-1)(n-2)/2)';
+      count = 'finite (Faltings)';
+      comment = 'Faltings + Frey–Wiles: only the trivial points (xyz=0) for n ≥ 4. For general high-genus curves, Faltings gives finiteness with no explicit bound.';
+    }
+    out.textContent =
+      `genus = ${g}\n` +
+      `example: ${example}\n` +
+      `|C(K)| = ${count}\n\n` +
+      `${comment}`;
+  }
+  G.addEventListener('input', update);
+  update();
+})();
+</script><section id="arakelov">
 <h2>7. Arakelov heights — a glimpse</h2>
 <p>From the perspective of $\Spec\mathbb{Z}$, every prime $p$ is a finite point and there is one missing "archimedean" point at infinity. <strong>Arakelov geometry</strong> compactifies $\Spec\mathbb{Z}$ by attaching that infinite point — and the data needed to describe it turns out to be a <em>Hermitian metric</em> on each line bundle over $X(\mathbb{C})$.</p>
 
@@ -536,7 +857,64 @@ The right-hand side decomposes as a sum over places $v\in M_K$ of local heights;
 <div class="quiz" data-concept="arakelov-heights-glimpse"></div>
 </section>
 
-<section id="descent">
+<script>
+/* ============== SECTION 7 widget — Arakelov local–global decomposition ============== */
+(function(){
+  const A = $('#ar-a'), B = $('#ar-b'), out = $('#ar-out'), go = $('#ar-go');
+  function gcd(a,b){ a=Math.abs(a); b=Math.abs(b); while(b){ [a,b]=[b,a%b]; } return a||1; }
+  function factor(n){
+    n = Math.abs(n);
+    if(n <= 1) return {};
+    const f = {};
+    for(let p=2; p*p<=n; p++){
+      while(n%p===0){ f[p] = (f[p]||0)+1; n/=p; }
+    }
+    if(n > 1) f[n] = (f[n]||0)+1;
+    return f;
+  }
+  function decompose(){
+    const a = parseInt(A.value,10);
+    const b = parseInt(B.value,10);
+    if(![a,b].every(Number.isFinite) || b === 0){
+      out.textContent = 'enter integers, b ≠ 0';
+      return;
+    }
+    if(a === 0){
+      out.textContent = 'h(0) is undefined as a projective point.';
+      return;
+    }
+    const g = gcd(a, b);
+    const A0 = a/g, B0 = Math.abs(b/g);
+    const facA = factor(A0), facB = factor(B0);
+    const primes = new Set([...Object.keys(facA).map(Number), ...Object.keys(facB).map(Number)]);
+    const pList = [...primes].sort((x,y)=>x-y);
+    const lines = [];
+    lines.push(`x = ${a}/${b} = ${A0}/${B0}  (reduced)`);
+    let total = 0;
+    // archimedean place
+    const archAbs = Math.abs(A0) / Math.abs(B0); // |x|_∞
+    const archLocal = Math.log(Math.max(1, archAbs));
+    total += archLocal;
+    lines.push(`  v = ∞:  |x|_∞ = ${archAbs.toFixed(4)}    log max(1, |x|_∞) = ${archLocal.toFixed(4)}`);
+    // finite places
+    for(const p of pList){
+      const eA = facA[p] || 0;
+      const eB = facB[p] || 0;
+      const ord = eA - eB;             // ord_p(x)
+      const xv  = Math.pow(p, -ord);   // |x|_p = p^{-ord}
+      const local = Math.log(Math.max(1, xv));
+      total += local;
+      lines.push(`  v = ${p}: ord_p(x) = ${ord}, |x|_p = ${xv.toFixed(6)}    log max(1, |x|_p) = ${local.toFixed(4)}`);
+    }
+    lines.push('');
+    lines.push(`h(x) = Σ_v log max(1, |x|_v) = ${total.toFixed(4)}`);
+    lines.push(`     = log max(|${A0}|, |${B0}|) = log ${Math.max(Math.abs(A0),Math.abs(B0))} = ${Math.log(Math.max(Math.abs(A0),Math.abs(B0))).toFixed(4)}    ✓`);
+    out.textContent = lines.join('\n');
+  }
+  go.addEventListener('click', decompose);
+  decompose();
+})();
+</script><section id="descent">
 <h2>8. Mordell–Weil descent: heights into finite generation</h2>
 <p>The crown application of canonical heights is a constructive proof that $E(K)$ is finitely generated. The argument cleaves into two halves:</p>
 <ul>
@@ -818,386 +1196,6 @@ $$\max(|a|,|b|,|c|);\ll_\varepsilon;\mathrm{rad}(abc)^{\,1+\varepsilon}.$$
 </section>
 
 </main>
-
-<script>
-/* ============== SECTION 1 widget — naive-height reduce-and-measure ============== */
-(function(){
-  const x0 = $('#h-x0'), x1 = $('#h-x1'), x2 = $('#h-x2');
-  const out = $('#h-out'), go = $('#h-go');
-  function gcd(a,b){ a=Math.abs(a); b=Math.abs(b); while(b){ [a,b]=[b,a%b]; } return a||1; }
-  function reduce(){
-    const a = parseInt(x0.value,10);
-    const b = parseInt(x1.value,10);
-    const c = parseInt(x2.value,10);
-    if([a,b,c].some(v=>!Number.isFinite(v))){
-      out.textContent = 'enter three integers';
-      return;
-    }
-    if(a===0 && b===0 && c===0){
-      out.textContent = '[0:0:0] is not a projective point.';
-      return;
-    }
-    const g = gcd(gcd(a,b), c);
-    let A = a/g, B = b/g, C = c/g;
-    // canonicalise sign: leading nonzero positive
-    const lead = [A,B,C].find(v=>v!==0);
-    if(lead < 0){ A=-A; B=-B; C=-C; }
-    const H = Math.max(Math.abs(A), Math.abs(B), Math.abs(C));
-    out.textContent =
-      `gcd(${a},${b},${c}) = ${g}\n` +
-      `[${a}:${b}:${c}] = [${A}:${B}:${C}]   (coprime representative)\n` +
-      `H(P) = max(${Math.abs(A)}, ${Math.abs(B)}, ${Math.abs(C)}) = ${H}\n` +
-      `h(P) = log H = ${Math.log(H).toFixed(4)}`;
-  }
-  go.addEventListener('click', reduce);
-  reduce();
-})();
-
-/* ============== SECTION 2 widget — bounded-height enumeration on P^1(Q) ============== */
-(function(){
-  const N = $('#n-bound'), Nr = $('#n-bound-r'), out = $('#n-out');
-  function gcd(a,b){ a=Math.abs(a); b=Math.abs(b); while(b){ [a,b]=[b,a%b]; } return a||1; }
-  function update(){
-    const n = parseInt(N.value,10);
-    Nr.textContent = `N=${n}`;
-    const points = [];
-    // [0:1] and [1:0]
-    points.push('[0:1]'); points.push('[1:0]');
-    // [a:b] with gcd=1, max(|a|,|b|)<=n; identify ±
-    const seen = new Set();
-    for(let a = -n; a <= n; a++){
-      for(let b = 1; b <= n; b++){
-        if(a===0) continue;
-        if(gcd(Math.abs(a), b) !== 1) continue;
-        if(Math.max(Math.abs(a), b) > n) continue;
-        // canonical: b > 0 already; key = `${a}/${b}`
-        const key = `${a}/${b}`;
-        if(seen.has(key)) continue;
-        seen.add(key);
-        points.push(`[${a}:${b}]`);
-      }
-    }
-    points.sort();
-    out.textContent =
-      `count = ${points.length}\n\n` +
-      `${points.join('   ')}`;
-  }
-  N.addEventListener('input', update);
-  update();
-})();
-
-/* ============== SECTION 3 widget — Weil-height pullback under z^d ============== */
-(function(){
-  const D = $('#w-d'), Dr = $('#w-d-r');
-  const A = $('#w-a'), B = $('#w-b'), Nn = $('#w-n'), Nr = $('#w-n-r');
-  const out = $('#w-out');
-  // BigInt version of gcd
-  function gcdBI(a,b){
-    a = a<0n?-a:a; b = b<0n?-b:b;
-    while(b){ [a,b]=[b,a%b]; } return a||1n;
-  }
-  function update(){
-    const d = parseInt(D.value,10); Dr.textContent = `d=${d}`;
-    const n = parseInt(Nn.value,10); Nr.textContent = `n=${n}`;
-    let a, b;
-    try { a = BigInt(A.value.trim()); b = BigInt(B.value.trim()); }
-    catch(e){ out.textContent = 'enter integers'; return; }
-    if(b === 0n){ out.textContent = 'denominator b cannot be 0'; return; }
-    // reduce
-    const g0 = gcdBI(a, b);
-    a = a/g0; b = b/g0;
-    if(b < 0n){ a = -a; b = -b; }
-    const lines = [];
-    let cur_a = a, cur_b = b;
-    function logMaxAbs(x, y){
-      const ax = x<0n?-x:x, ay = y<0n?-y:y;
-      const m = ax > ay ? ax : ay;
-      return Math.log(Number(m));
-    }
-    lines.push(`P = ${cur_a}/${cur_b}    h(P) = ${logMaxAbs(cur_a,cur_b).toFixed(4)}`);
-    for(let k=1; k<=n; k++){
-      // f^k(P) = (a/b)^(d^k); compute d^k via BigInt exp
-      let dk = 1; for(let j=0;j<k;j++) dk *= d;
-      // raise BigInts
-      let na = 1n, nb = 1n;
-      for(let j=0;j<dk;j++){ na *= cur_a; nb *= cur_b; }
-      // small numbers? we already started from cur_a/cur_b; recompute from the ORIGINAL each iter
-      // simpler: recompute from a/b
-      na = 1n; nb = 1n;
-      for(let j=0;j<dk;j++){ na *= a; nb *= b; }
-      const g = gcdBI(na, nb);
-      na = na/g; nb = nb/g;
-      if(nb < 0n){ na = -na; nb = -nb; }
-      const h = logMaxAbs(na, nb);
-      const ratio = (h / logMaxAbs(a,b)).toFixed(3);
-      // truncate display if huge
-      const sa = na.toString(), sb = nb.toString();
-      const trunc = (s) => s.length > 28 ? s.slice(0,12)+'…'+s.slice(-12)+` (${s.length} digits)` : s;
-      lines.push(`f^${k}(P) = ${trunc(sa)}/${trunc(sb)}    h = ${h.toFixed(4)}    h/h(P) = ${ratio} ≈ d^${k} = ${dk}`);
-    }
-    out.textContent = lines.join('\n');
-  }
-  D.addEventListener('input', update);
-  Nn.addEventListener('input', update);
-  A.addEventListener('input', update);
-  B.addEventListener('input', update);
-  update();
-})();
-
-/* ============== SECTION 4 widget — Tate averaging ============== */
-(function(){
-  const H = $('#t-h'), Hr = $('#t-h-r');
-  const W = $('#t-w'), Wr = $('#t-w-r');
-  const svg = $('#t-svg'), out = $('#t-out');
-  // deterministic pseudo-random (so the picture is reproducible)
-  function prn(seed){ let s = seed; return () => { s = (s*9301+49297)%233280; return s/233280 - 0.5; }; }
-  function update(){
-    const h0 = parseFloat(H.value); Hr.textContent = `h=${h0.toFixed(2)}`;
-    const w  = parseFloat(W.value); Wr.textContent = `w=${w.toFixed(2)}`;
-    while(svg.firstChild) svg.removeChild(svg.firstChild);
-    // axes
-    const W0 = 620, H0 = 240, padL = 50, padR = 20, padT = 20, padB = 36;
-    const plotW = W0 - padL - padR, plotH = H0 - padT - padB;
-    // rendering: bars for n=1..16
-    const nMax = 16;
-    const ax = SVG('line',{x1:padL,y1:H0-padB,x2:W0-padR,y2:H0-padB,stroke:'var(--line)','stroke-width':1});
-    const ay = SVG('line',{x1:padL,y1:padT,x2:padL,y2:H0-padB,stroke:'var(--line)','stroke-width':1});
-    svg.appendChild(ax); svg.appendChild(ay);
-    // y-scale: 0..h0*2
-    const yMax = Math.max(h0*2.0, 0.1);
-    const yScale = v => (H0 - padB) - (v/yMax) * plotH;
-    // y=h0 line (target)
-    const target = SVG('line',{x1:padL,y1:yScale(h0),x2:W0-padR,y2:yScale(h0),
-      stroke:'var(--yellow)','stroke-width':1.4,'stroke-dasharray':'5 4'});
-    svg.appendChild(target);
-    const tlbl = SVG('text',{x:W0-padR-6, y:yScale(h0)-6, 'text-anchor':'end','font-size':12,fill:'var(--yellow)'});
-    tlbl.textContent = `ĥ(P) = ${h0.toFixed(2)}`;
-    svg.appendChild(tlbl);
-    // bars: simulate h_L([n]P)/n^2 = h0 + eps_n/n^2
-    const rng = prn(7919);
-    const xStep = plotW / nMax;
-    for(let n=1; n<=nMax; n++){
-      const eps = rng() * 2 * w; // bounded, scales ±w
-      const val = h0 + eps / (n*n);
-      const x = padL + (n - 0.5) * xStep;
-      const y = yScale(Math.max(0,val));
-      const bw = xStep * 0.65;
-      const fill = 'var(--blue)';
-      const r = SVG('rect',{x:x-bw/2, y:y, width:bw, height:(H0-padB)-y, fill, opacity:0.9});
-      svg.appendChild(r);
-      if(n===1 || n===2 || n===4 || n===8 || n===16){
-        const t = SVG('text',{x:x, y:H0-padB+14, 'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
-        t.textContent = n;
-        svg.appendChild(t);
-      }
-    }
-    // axis labels
-    const xt = SVG('text',{x: padL+plotW/2, y: H0-4, 'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
-    xt.textContent = 'n';
-    svg.appendChild(xt);
-    const yt = SVG('text',{x: 12, y: padT+10, 'text-anchor':'start','font-size':11,fill:'var(--mute)'});
-    yt.textContent = 'h_L([n]P) / n²';
-    svg.appendChild(yt);
-    // readout
-    const rng2 = prn(7919);
-    let last;
-    for(let n=1;n<=nMax;n++){
-      const eps = rng2() * 2 * w;
-      last = h0 + eps/(n*n);
-    }
-    out.textContent =
-      `n=1:  h_L(P)/1 ≈ ${(h0 + (prn(7919)())*2*w).toFixed(4)}\n` +
-      `n=16: h_L([16]P)/256 ≈ ${last.toFixed(4)}\n` +
-      `ĥ(P) = lim h_L([n]P)/n² = ${h0.toFixed(4)}    (the noise telescopes — Tate's averaging)`;
-  }
-  H.addEventListener('input', update);
-  W.addEventListener('input', update);
-  update();
-})();
-
-/* ============== SECTION 5 widget — Mahler measure ============== */
-(function(){
-  const C = $('#m-coef'), out = $('#m-out'), go = $('#m-go');
-  // Durand–Kerner root finder for real-coefficient polynomials
-  function findRoots(coeffs){
-    // coeffs[0] is leading; degree d = coeffs.length - 1
-    const d = coeffs.length - 1;
-    if(d === 0) return [];
-    if(d === 1) return [{re: -coeffs[1]/coeffs[0], im: 0}];
-    // initial guesses on circle
-    const roots = [];
-    for(let k=0; k<d; k++){
-      const ang = 2*Math.PI*k/d + 0.4;
-      const r = 0.4 + 0.05*k;
-      roots.push({re: r*Math.cos(ang), im: r*Math.sin(ang)});
-    }
-    // evaluate p(z) using Horner
-    function pAt(z){
-      let re = coeffs[0], im = 0;
-      for(let i=1; i<=d; i++){
-        const nre = re*z.re - im*z.im + coeffs[i];
-        const nim = re*z.im + im*z.re;
-        re = nre; im = nim;
-      }
-      return {re, im};
-    }
-    // Durand–Kerner iteration
-    for(let iter=0; iter<200; iter++){
-      let maxDelta = 0;
-      for(let i=0; i<d; i++){
-        const num = pAt(roots[i]);
-        let den = {re: coeffs[0], im: 0};
-        for(let j=0; j<d; j++){
-          if(i===j) continue;
-          const dx = roots[i].re - roots[j].re;
-          const dy = roots[i].im - roots[j].im;
-          const nre = den.re*dx - den.im*dy;
-          const nim = den.re*dy + den.im*dx;
-          den.re = nre; den.im = nim;
-        }
-        // num / den
-        const denMagSq = den.re*den.re + den.im*den.im;
-        if(denMagSq < 1e-30){ continue; }
-        const qre = (num.re*den.re + num.im*den.im) / denMagSq;
-        const qim = (num.im*den.re - num.re*den.im) / denMagSq;
-        roots[i].re -= qre;
-        roots[i].im -= qim;
-        const dMag = Math.hypot(qre, qim);
-        if(dMag > maxDelta) maxDelta = dMag;
-      }
-      if(maxDelta < 1e-12) break;
-    }
-    return roots;
-  }
-  function compute(){
-    const raw = C.value.trim().split(/\s+/).map(s=>parseFloat(s));
-    if(raw.some(v=>!Number.isFinite(v))){
-      out.textContent = 'enter space-separated integer coefficients (high → low)';
-      return;
-    }
-    if(raw.length < 2){
-      out.textContent = 'need degree ≥ 1';
-      return;
-    }
-    const a = raw[0];
-    if(Math.abs(a) < 1e-12){
-      out.textContent = 'leading coefficient cannot be 0';
-      return;
-    }
-    const roots = findRoots(raw);
-    const lines = [];
-    lines.push(`f(x) of degree ${raw.length - 1}, leading coefficient ${a}`);
-    let logProd = 0;
-    const rstrs = [];
-    for(const r of roots){
-      const m = Math.hypot(r.re, r.im);
-      const cap = Math.max(1, m);
-      logProd += Math.log(cap);
-      rstrs.push(`${r.re.toFixed(4)}${r.im>=0?'+':''}${r.im.toFixed(4)}i  |α|=${m.toFixed(4)}`);
-    }
-    const M = Math.abs(a) * Math.exp(logProd);
-    lines.push('roots:');
-    for(const s of rstrs) lines.push('   '+s);
-    lines.push(`M(f) = |${a}| · ∏ max(1,|αᵢ|) = ${M.toFixed(6)}`);
-    lines.push(`log M(f) = ${Math.log(M).toFixed(6)}`);
-    if(Math.abs(M - 1) < 1e-4) lines.push('M(f) ≈ 1 → cyclotomic / roots of unity (Kronecker)');
-    out.textContent = lines.join('\n');
-  }
-  go.addEventListener('click', compute);
-  compute();
-})();
-
-/* ============== SECTION 6 widget — genus growth ============== */
-(function(){
-  const G = $('#md-g'), Gr = $('#md-g-r'), out = $('#md-out');
-  function update(){
-    const g = parseInt(G.value, 10);
-    Gr.textContent = `g=${g}`;
-    let example, count, comment;
-    if(g === 0){
-      example = 'P^1, e.g. y² = 1 - x²  (rationally parametrised)';
-      count = 'infinite';
-      comment = 'Genus 0 curves with a rational point are isomorphic to P^1; rational parametrisation gives all rational points.';
-    } else if(g === 1){
-      example = 'E: y² = x³ - x + 1  (an elliptic curve)';
-      count = 'finitely generated abelian (Mordell–Weil); often infinite';
-      comment = 'For E of rank ≥ 1 (e.g. this one), E(Q) ≅ Z^r ⊕ tors with infinitely many points.';
-    } else if(g === 2){
-      example = 'C: y² = x^5 - x + 1  (smooth, hyperelliptic)';
-      count = 'finite (Faltings)';
-      comment = 'Genus 2 curves have finite C(K). Coleman–Chabauty often gives explicit upper bounds when the rank is small.';
-    } else {
-      example = 'Fermat: x^n + y^n = z^n,  n ≥ 4  (genus (n-1)(n-2)/2)';
-      count = 'finite (Faltings)';
-      comment = 'Faltings + Frey–Wiles: only the trivial points (xyz=0) for n ≥ 4. For general high-genus curves, Faltings gives finiteness with no explicit bound.';
-    }
-    out.textContent =
-      `genus = ${g}\n` +
-      `example: ${example}\n` +
-      `|C(K)| = ${count}\n\n` +
-      `${comment}`;
-  }
-  G.addEventListener('input', update);
-  update();
-})();
-
-/* ============== SECTION 7 widget — Arakelov local–global decomposition ============== */
-(function(){
-  const A = $('#ar-a'), B = $('#ar-b'), out = $('#ar-out'), go = $('#ar-go');
-  function gcd(a,b){ a=Math.abs(a); b=Math.abs(b); while(b){ [a,b]=[b,a%b]; } return a||1; }
-  function factor(n){
-    n = Math.abs(n);
-    if(n <= 1) return {};
-    const f = {};
-    for(let p=2; p*p<=n; p++){
-      while(n%p===0){ f[p] = (f[p]||0)+1; n/=p; }
-    }
-    if(n > 1) f[n] = (f[n]||0)+1;
-    return f;
-  }
-  function decompose(){
-    const a = parseInt(A.value,10);
-    const b = parseInt(B.value,10);
-    if(![a,b].every(Number.isFinite) || b === 0){
-      out.textContent = 'enter integers, b ≠ 0';
-      return;
-    }
-    if(a === 0){
-      out.textContent = 'h(0) is undefined as a projective point.';
-      return;
-    }
-    const g = gcd(a, b);
-    const A0 = a/g, B0 = Math.abs(b/g);
-    const facA = factor(A0), facB = factor(B0);
-    const primes = new Set([...Object.keys(facA).map(Number), ...Object.keys(facB).map(Number)]);
-    const pList = [...primes].sort((x,y)=>x-y);
-    const lines = [];
-    lines.push(`x = ${a}/${b} = ${A0}/${B0}  (reduced)`);
-    let total = 0;
-    // archimedean place
-    const archAbs = Math.abs(A0) / Math.abs(B0); // |x|_∞
-    const archLocal = Math.log(Math.max(1, archAbs));
-    total += archLocal;
-    lines.push(`  v = ∞:  |x|_∞ = ${archAbs.toFixed(4)}    log max(1, |x|_∞) = ${archLocal.toFixed(4)}`);
-    // finite places
-    for(const p of pList){
-      const eA = facA[p] || 0;
-      const eB = facB[p] || 0;
-      const ord = eA - eB;             // ord_p(x)
-      const xv  = Math.pow(p, -ord);   // |x|_p = p^{-ord}
-      const local = Math.log(Math.max(1, xv));
-      total += local;
-      lines.push(`  v = ${p}: ord_p(x) = ${ord}, |x|_p = ${xv.toFixed(6)}    log max(1, |x|_p) = ${local.toFixed(4)}`);
-    }
-    lines.push('');
-    lines.push(`h(x) = Σ_v log max(1, |x|_v) = ${total.toFixed(4)}`);
-    lines.push(`     = log max(|${A0}|, |${B0}|) = log ${Math.max(Math.abs(A0),Math.abs(B0))} = ${Math.log(Math.max(Math.abs(A0),Math.abs(B0))).toFixed(4)}    ✓`);
-    out.textContent = lines.join('\n');
-  }
-  go.addEventListener('click', decompose);
-  decompose();
-})();
-</script>
 
 <script>
 (function(){
