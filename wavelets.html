@@ -265,7 +265,7 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="row"><label for="mra-slider">resolution $j$ <span id="mra-j">3</span></label>
     <input id="mra-slider" type="range" min="0" max="6" value="3" step="1">
   </div>
-  <svg id="mra-svg" viewBox="0 0 760 240" width="100%" height="240"></svg>
+  <svg id="mra-svg" viewBox="0 0 760 240" width="100%" height="240"><title>MRA tower</title></svg>
   <div class="readout" id="mra-readout"></div>
 </div>
 
@@ -305,7 +305,7 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="row"><label for="haar-kslider">$k$ <span id="haar-k">3</span></label>
     <input id="haar-kslider" type="range" min="0" max="15" value="3" step="1">
   </div>
-  <svg id="haar-svg" viewBox="0 0 760 240" width="100%" height="240"></svg>
+  <svg id="haar-svg" viewBox="0 0 760 240" width="100%" height="240"><title>Haar coefficient</title></svg>
   <div class="readout" id="haar-readout"></div>
 </div>
 
@@ -343,7 +343,7 @@ function drawNode(svg, x, y, label, opts={}){
     <button data-db="3">db3</button>
     <button data-db="4">db4</button>
   </div>
-  <svg id="db-svg" viewBox="0 0 760 240" width="100%" height="240"></svg>
+  <svg id="db-svg" viewBox="0 0 760 240" width="100%" height="240"><title>Daubechies family</title></svg>
   <div class="readout" id="db-readout"></div>
 </div>
 
@@ -381,7 +381,7 @@ function drawNode(svg, x, y, label, opts={}){
     <button id="dwt-reset">reset</button>
     <span class="pill" id="dwt-level">level 0 of 4</span>
   </div>
-  <svg id="dwt-svg" viewBox="0 0 760 280" width="100%" height="280"></svg>
+  <svg id="dwt-svg" viewBox="0 0 760 280" width="100%" height="280"><title>DWT pyramid (Haar)</title></svg>
   <div class="readout" id="dwt-readout"></div>
 </div>
 
@@ -409,7 +409,7 @@ function drawNode(svg, x, y, label, opts={}){
     <button data-mode="wavelet" class="active">Wavelet (dyadic)</button>
     <button data-mode="gabor">Gabor (uniform)</button>
   </div>
-  <svg id="tile-svg" viewBox="0 0 760 320" width="100%" height="320"></svg>
+  <svg id="tile-svg" viewBox="0 0 760 320" width="100%" height="320"><title>Heisenberg tiling</title></svg>
   <div class="readout" id="tile-readout"></div>
 </div>
 
@@ -452,7 +452,7 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="row"><label for="den-lambda">threshold $\lambda$ <span id="den-l">0.30</span></label>
     <input id="den-lambda" type="range" min="0" max="100" value="30" step="1">
   </div>
-  <svg id="den-svg" viewBox="0 0 760 280" width="100%" height="280"></svg>
+  <svg id="den-svg" viewBox="0 0 760 280" width="100%" height="280"><title>Soft-threshold denoiser</title></svg>
   <div class="readout" id="den-readout"></div>
 </div>
 

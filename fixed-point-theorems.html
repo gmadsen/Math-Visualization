@@ -273,7 +273,7 @@ function drawNode(svg, x, y, label, opts={}){
     <label>$x_0$: <input type="range" id="bp-x0" min="-3" max="6" step="0.1" value="-2"></label>
     <label>steps: <input type="range" id="bp-n" min="1" max="20" step="1" value="8"></label>
   </div>
-  <svg id="bp-svg" viewBox="0 0 560 320" width="100%"></svg>
+  <svg id="bp-svg" viewBox="0 0 560 320" width="100%"><title>Picard iteration trajectory</title></svg>
   <div class="readout" id="bp-out">…</div>
   <div class="note">The cobweb diagram bounces between $y=f(x)$ and $y=x$. The horizontal step is $x_{n+1}-x_n$; the vertical step is $f(x_n)-x_n$. Slope $|f'|<1$ guarantees the spirals contract.</div>
 </div>
@@ -301,7 +301,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <div class="widget">
   <div class="hd"><div class="ttl">No-retraction lemma — the disk</div><div class="hint">Drag the test point to see the ray construction.</div></div>
-  <svg id="br-svg" viewBox="0 0 560 320" width="100%"></svg>
+  <svg id="br-svg" viewBox="0 0 560 320" width="100%"><title>No-retraction lemma — the disk</title></svg>
   <div class="readout" id="br-out">…</div>
   <div class="note">The blue dot is $x$, the violet dot is $f(x)$. The ray from $f(x)$ through $x$ hits the boundary at $r(x)$. A fixed-point-free $f$ would make $r$ continuous on all of $D^2$ — the contradiction. Drag $x$ inside the disk.</div>
 </div>
@@ -338,7 +338,7 @@ function drawNode(svg, x, y, label, opts={}){
     <button id="sc-compact" class="active">$T$ compact</button>
     <button id="sc-noncompact">$T$ non-compact</button>
   </div>
-  <svg id="sc-svg" viewBox="0 0 560 320" width="100%"></svg>
+  <svg id="sc-svg" viewBox="0 0 560 320" width="100%"><title>Compact image of a convex set</title></svg>
   <div class="readout" id="sc-out">…</div>
   <div class="note">The yellow square is $C$. The shaded region is $T(C)$. When $T$ is compact, the image is contained in a small (precompact) set inside $C$ — Schauder forces a fixed point. Without compactness the image can escape any precompact neighborhood.</div>
 </div>
@@ -378,7 +378,7 @@ If $\Lambda(f)\ne 0$, then $f$ has a fixed point. The implication is one-way: $\
       <option value="rot">rotation</option>
     </select></label>
   </div>
-  <svg id="lf-svg" viewBox="0 0 560 240" width="100%"></svg>
+  <svg id="lf-svg" viewBox="0 0 560 240" width="100%"><title>Lefschetz number computation</title></svg>
   <div class="readout" id="lf-out">…</div>
   <div class="note">$\Lambda(f)\ne 0$ forces a fixed point. The torus identity has $\Lambda=0$ but fixes everything — proof that the converse fails.</div>
 </div>
@@ -405,7 +405,7 @@ If $\Lambda(f)\ne 0$, then $f$ has a fixed point. The implication is one-way: $\
   <div class="row">
     <label>threshold $a$: <input type="range" id="kk-a" min="0" max="1" step="0.01" value="0.5"></label>
   </div>
-  <svg id="kk-svg" viewBox="0 0 560 320" width="100%"></svg>
+  <svg id="kk-svg" viewBox="0 0 560 320" width="100%"><title>Set-valued map on $[0,1]$</title></svg>
   <div class="readout" id="kk-out">…</div>
   <div class="note">$\varphi(x)=\{0\}$ for $x<a$, $\varphi(a)=[0,1]$, $\varphi(x)=\{1\}$ for $x>a$. The graph is closed, values are closed convex — Kakutani's hypotheses hold. The fixed point $x^*=a$ sits where the graph crosses the diagonal $y=x$, inside the vertical segment.</div>
 </div>
@@ -448,7 +448,7 @@ If $\Lambda(f)\ne 0$, then $f$ has a fixed point. The implication is one-way: $\
     <label>iterations: <input type="range" id="pl-k" min="0" max="6" step="1" value="3"></label>
     <label>$x_0$: <input type="range" id="pl-x0" min="-2" max="2" step="0.1" value="1"></label>
   </div>
-  <svg id="pl-svg" viewBox="0 0 560 280" width="100%"></svg>
+  <svg id="pl-svg" viewBox="0 0 560 280" width="100%"><title>Picard–Lindelöf in action</title></svg>
   <div class="readout" id="pl-out">…</div>
   <div class="note">Each iterate $\varphi_{k+1}(t)=x_0+\int_0^t f(s,\varphi_k(s))\,ds$ moves toward the unique solution, which is the contraction's fixed point.</div>
 </div>
