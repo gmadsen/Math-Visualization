@@ -5360,7 +5360,7 @@ window.__MVConcepts = {
         {
           "id": "complex-numbers",
           "title": "Complex numbers",
-          "anchor": "sphere",
+          "anchor": "complex-numbers",
           "prereqs": [],
           "tags": [
             "foundation"
@@ -5370,7 +5370,7 @@ window.__MVConcepts = {
         {
           "id": "riemann-sphere",
           "title": "Riemann sphere",
-          "anchor": "sphere",
+          "anchor": "riemann-sphere",
           "prereqs": [
             "complex-numbers"
           ],
@@ -5379,7 +5379,7 @@ window.__MVConcepts = {
         {
           "id": "mobius-transformations",
           "title": "Möbius transformations",
-          "anchor": "sphere",
+          "anchor": "mobius-transformations",
           "prereqs": [
             "riemann-sphere"
           ],
@@ -5388,7 +5388,7 @@ window.__MVConcepts = {
         {
           "id": "amplitwist",
           "title": "Amplitwist",
-          "anchor": "holo",
+          "anchor": "amplitwist",
           "prereqs": [
             "complex-numbers",
             "real-differentiation"
@@ -5398,7 +5398,7 @@ window.__MVConcepts = {
         {
           "id": "cauchy-riemann",
           "title": "Cauchy–Riemann equations",
-          "anchor": "holo",
+          "anchor": "cauchy-riemann",
           "prereqs": [
             "amplitwist"
           ],
@@ -5407,7 +5407,7 @@ window.__MVConcepts = {
         {
           "id": "holomorphic-function",
           "title": "Holomorphic functions",
-          "anchor": "holo",
+          "anchor": "holomorphic-function",
           "prereqs": [
             "cauchy-riemann"
           ],
@@ -5419,7 +5419,7 @@ window.__MVConcepts = {
         {
           "id": "domain-coloring",
           "title": "Domain coloring",
-          "anchor": "holo",
+          "anchor": "domain-coloring",
           "prereqs": [
             "holomorphic-function"
           ],
@@ -5428,7 +5428,7 @@ window.__MVConcepts = {
         {
           "id": "contour-integral",
           "title": "Contour integrals",
-          "anchor": "contour",
+          "anchor": "contour-integral",
           "prereqs": [
             "holomorphic-function",
             "paths",
@@ -5439,7 +5439,7 @@ window.__MVConcepts = {
         {
           "id": "cauchy-theorem",
           "title": "Cauchy's theorem",
-          "anchor": "contour",
+          "anchor": "cauchy-theorem",
           "prereqs": [
             "contour-integral",
             "simply-connected"
@@ -5449,7 +5449,7 @@ window.__MVConcepts = {
         {
           "id": "cauchy-integral-formula",
           "title": "Cauchy integral formula",
-          "anchor": "contour",
+          "anchor": "cauchy-integral-formula",
           "prereqs": [
             "cauchy-theorem"
           ],
@@ -5461,7 +5461,7 @@ window.__MVConcepts = {
         {
           "id": "analyticity",
           "title": "Analyticity = holomorphy",
-          "anchor": "cons",
+          "anchor": "analyticity",
           "prereqs": [
             "cauchy-integral-formula",
             "liouville",
@@ -5473,7 +5473,7 @@ window.__MVConcepts = {
         {
           "id": "liouville",
           "title": "Liouville's theorem",
-          "anchor": "cons",
+          "anchor": "liouville",
           "prereqs": [
             "cauchy-integral-formula"
           ],
@@ -5482,7 +5482,7 @@ window.__MVConcepts = {
         {
           "id": "fta",
           "title": "Fundamental theorem of algebra",
-          "anchor": "cons",
+          "anchor": "fta",
           "prereqs": [
             "liouville"
           ],
@@ -5491,7 +5491,7 @@ window.__MVConcepts = {
         {
           "id": "maximum-modulus",
           "title": "Maximum modulus principle",
-          "anchor": "cons",
+          "anchor": "maximum-modulus",
           "prereqs": [
             "cauchy-integral-formula"
           ],
@@ -5500,7 +5500,7 @@ window.__MVConcepts = {
         {
           "id": "schwarz-lemma",
           "title": "Schwarz lemma",
-          "anchor": "cons",
+          "anchor": "schwarz-lemma",
           "prereqs": [
             "maximum-modulus"
           ],
@@ -5509,7 +5509,7 @@ window.__MVConcepts = {
         {
           "id": "laurent-series",
           "title": "Laurent series",
-          "anchor": "laurent",
+          "anchor": "laurent-series",
           "prereqs": [
             "analyticity"
           ],
@@ -5518,7 +5518,7 @@ window.__MVConcepts = {
         {
           "id": "singularity-classification",
           "title": "Classification of singularities",
-          "anchor": "laurent",
+          "anchor": "singularity-classification",
           "prereqs": [
             "laurent-series"
           ],
@@ -5530,7 +5530,7 @@ window.__MVConcepts = {
         {
           "id": "residue-theorem",
           "title": "Residue theorem",
-          "anchor": "laurent",
+          "anchor": "residue-theorem",
           "prereqs": [
             "singularity-classification",
             "cauchy-theorem"
@@ -5543,7 +5543,7 @@ window.__MVConcepts = {
         {
           "id": "argument-principle",
           "title": "Argument principle",
-          "anchor": "arg",
+          "anchor": "argument-principle",
           "prereqs": [
             "residue-theorem"
           ],
@@ -5552,7 +5552,7 @@ window.__MVConcepts = {
         {
           "id": "rouche",
           "title": "Rouché's theorem",
-          "anchor": "arg",
+          "anchor": "rouche",
           "prereqs": [
             "argument-principle"
           ],
@@ -5561,7 +5561,7 @@ window.__MVConcepts = {
         {
           "id": "conformal-map",
           "title": "Conformal maps",
-          "anchor": "conf",
+          "anchor": "conformal-map",
           "prereqs": [
             "amplitwist",
             "mobius-transformations"
@@ -5571,7 +5571,7 @@ window.__MVConcepts = {
         {
           "id": "disk-automorphisms",
           "title": "Disk automorphisms",
-          "anchor": "conf",
+          "anchor": "disk-automorphisms",
           "prereqs": [
             "schwarz-lemma",
             "mobius-transformations"
@@ -5585,7 +5585,7 @@ window.__MVConcepts = {
         {
           "id": "normal-families",
           "title": "Normal families (Montel)",
-          "anchor": "conf",
+          "anchor": "normal-families",
           "prereqs": [
             "analyticity",
             "uniform-convergence",
@@ -5599,7 +5599,7 @@ window.__MVConcepts = {
         {
           "id": "riemann-mapping",
           "title": "Riemann mapping theorem",
-          "anchor": "conf",
+          "anchor": "riemann-mapping",
           "prereqs": [
             "disk-automorphisms",
             "normal-families",
@@ -5613,7 +5613,7 @@ window.__MVConcepts = {
         {
           "id": "harmonic-functions",
           "title": "Harmonic functions",
-          "anchor": "coda",
+          "anchor": "harmonic-functions",
           "prereqs": [
             "cauchy-riemann",
             "simply-connected",
@@ -5627,7 +5627,7 @@ window.__MVConcepts = {
         {
           "id": "analytic-continuation",
           "title": "Analytic continuation",
-          "anchor": "coda",
+          "anchor": "analytic-continuation",
           "prereqs": [
             "analyticity"
           ],

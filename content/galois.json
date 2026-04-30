@@ -204,6 +204,11 @@
         },
         {
           "type": "quiz",
+          "concept": "splitting-fields",
+          "html": "<div class=\"quiz\" data-concept=\"splitting-fields\"></div>"
+        },
+        {
+          "type": "quiz",
           "concept": "field-extensions-galois",
           "html": "<div class=\"quiz\" data-concept=\"field-extensions-galois\"></div>"
         },
@@ -280,6 +285,11 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "solvable-groups",
+          "html": "<div class=\"quiz\" data-concept=\"solvable-groups\"></div>"
         },
         {
           "type": "quiz",
@@ -760,6 +770,11 @@
         {
           "type": "raw",
           "html": "\n\n"
+        },
+        {
+          "type": "quiz",
+          "concept": "radical-extensions",
+          "html": "<div class=\"quiz\" data-concept=\"radical-extensions\"></div>"
         },
         {
           "type": "quiz",

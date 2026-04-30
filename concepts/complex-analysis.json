@@ -6,7 +6,7 @@
     {
       "id": "complex-numbers",
       "title": "Complex numbers",
-      "anchor": "sphere",
+      "anchor": "complex-numbers",
       "prereqs": [],
       "tags": [
         "foundation"
@@ -16,7 +16,7 @@
     {
       "id": "riemann-sphere",
       "title": "Riemann sphere",
-      "anchor": "sphere",
+      "anchor": "riemann-sphere",
       "prereqs": [
         "complex-numbers"
       ],
@@ -25,7 +25,7 @@
     {
       "id": "mobius-transformations",
       "title": "Möbius transformations",
-      "anchor": "sphere",
+      "anchor": "mobius-transformations",
       "prereqs": [
         "riemann-sphere"
       ],
@@ -34,7 +34,7 @@
     {
       "id": "amplitwist",
       "title": "Amplitwist",
-      "anchor": "holo",
+      "anchor": "amplitwist",
       "prereqs": [
         "complex-numbers",
         "real-differentiation"
@@ -44,7 +44,7 @@
     {
       "id": "cauchy-riemann",
       "title": "Cauchy–Riemann equations",
-      "anchor": "holo",
+      "anchor": "cauchy-riemann",
       "prereqs": [
         "amplitwist"
       ],
@@ -53,7 +53,7 @@
     {
       "id": "holomorphic-function",
       "title": "Holomorphic functions",
-      "anchor": "holo",
+      "anchor": "holomorphic-function",
       "prereqs": [
         "cauchy-riemann"
       ],
@@ -65,7 +65,7 @@
     {
       "id": "domain-coloring",
       "title": "Domain coloring",
-      "anchor": "holo",
+      "anchor": "domain-coloring",
       "prereqs": [
         "holomorphic-function"
       ],
@@ -74,7 +74,7 @@
     {
       "id": "contour-integral",
       "title": "Contour integrals",
-      "anchor": "contour",
+      "anchor": "contour-integral",
       "prereqs": [
         "holomorphic-function",
         "paths",
@@ -85,7 +85,7 @@
     {
       "id": "cauchy-theorem",
       "title": "Cauchy's theorem",
-      "anchor": "contour",
+      "anchor": "cauchy-theorem",
       "prereqs": [
         "contour-integral",
         "simply-connected"
@@ -95,7 +95,7 @@
     {
       "id": "cauchy-integral-formula",
       "title": "Cauchy integral formula",
-      "anchor": "contour",
+      "anchor": "cauchy-integral-formula",
       "prereqs": [
         "cauchy-theorem"
       ],
@@ -107,7 +107,7 @@
     {
       "id": "analyticity",
       "title": "Analyticity = holomorphy",
-      "anchor": "cons",
+      "anchor": "analyticity",
       "prereqs": [
         "cauchy-integral-formula",
         "liouville",
@@ -119,7 +119,7 @@
     {
       "id": "liouville",
       "title": "Liouville's theorem",
-      "anchor": "cons",
+      "anchor": "liouville",
       "prereqs": [
         "cauchy-integral-formula"
       ],
@@ -128,7 +128,7 @@
     {
       "id": "fta",
       "title": "Fundamental theorem of algebra",
-      "anchor": "cons",
+      "anchor": "fta",
       "prereqs": [
         "liouville"
       ],
@@ -137,7 +137,7 @@
     {
       "id": "maximum-modulus",
       "title": "Maximum modulus principle",
-      "anchor": "cons",
+      "anchor": "maximum-modulus",
       "prereqs": [
         "cauchy-integral-formula"
       ],
@@ -146,7 +146,7 @@
     {
       "id": "schwarz-lemma",
       "title": "Schwarz lemma",
-      "anchor": "cons",
+      "anchor": "schwarz-lemma",
       "prereqs": [
         "maximum-modulus"
       ],
@@ -155,7 +155,7 @@
     {
       "id": "laurent-series",
       "title": "Laurent series",
-      "anchor": "laurent",
+      "anchor": "laurent-series",
       "prereqs": [
         "analyticity"
       ],
@@ -164,7 +164,7 @@
     {
       "id": "singularity-classification",
       "title": "Classification of singularities",
-      "anchor": "laurent",
+      "anchor": "singularity-classification",
       "prereqs": [
         "laurent-series"
       ],
@@ -176,7 +176,7 @@
     {
       "id": "residue-theorem",
       "title": "Residue theorem",
-      "anchor": "laurent",
+      "anchor": "residue-theorem",
       "prereqs": [
         "singularity-classification",
         "cauchy-theorem"
@@ -189,7 +189,7 @@
     {
       "id": "argument-principle",
       "title": "Argument principle",
-      "anchor": "arg",
+      "anchor": "argument-principle",
       "prereqs": [
         "residue-theorem"
       ],
@@ -198,7 +198,7 @@
     {
       "id": "rouche",
       "title": "Rouché's theorem",
-      "anchor": "arg",
+      "anchor": "rouche",
       "prereqs": [
         "argument-principle"
       ],
@@ -207,7 +207,7 @@
     {
       "id": "conformal-map",
       "title": "Conformal maps",
-      "anchor": "conf",
+      "anchor": "conformal-map",
       "prereqs": [
         "amplitwist",
         "mobius-transformations"
@@ -217,7 +217,7 @@
     {
       "id": "disk-automorphisms",
       "title": "Disk automorphisms",
-      "anchor": "conf",
+      "anchor": "disk-automorphisms",
       "prereqs": [
         "schwarz-lemma",
         "mobius-transformations"
@@ -231,7 +231,7 @@
     {
       "id": "normal-families",
       "title": "Normal families (Montel)",
-      "anchor": "conf",
+      "anchor": "normal-families",
       "prereqs": [
         "analyticity",
         "uniform-convergence",
@@ -245,7 +245,7 @@
     {
       "id": "riemann-mapping",
       "title": "Riemann mapping theorem",
-      "anchor": "conf",
+      "anchor": "riemann-mapping",
       "prereqs": [
         "disk-automorphisms",
         "normal-families",
@@ -259,7 +259,7 @@
     {
       "id": "harmonic-functions",
       "title": "Harmonic functions",
-      "anchor": "coda",
+      "anchor": "harmonic-functions",
       "prereqs": [
         "cauchy-riemann",
         "simply-connected",
@@ -273,7 +273,7 @@
     {
       "id": "analytic-continuation",
       "title": "Analytic continuation",
-      "anchor": "coda",
+      "anchor": "analytic-continuation",
       "prereqs": [
         "analyticity"
       ],

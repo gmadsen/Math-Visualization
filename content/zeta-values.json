@@ -402,7 +402,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./complex-analysis.html#coda\">Analytic continuation</a></li>\n    <li><a href=\"./power-sums-bernoulli.html#bernoulli\">Bernoulli numbers and their generating function</a></li>\n    <li><a href=\"./power-sums-bernoulli.html#zeta\">Euler's formula for $\\zeta(2n)$</a></li>\n    <li><a href=\"./additive-number-theory.html#bernoulli\">Bernoulli numbers and their generating function</a></li>\n    <li><a href=\"./additive-number-theory.html#zeta\">Euler's formula for $\\zeta(2n)$</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./complex-analysis.html#coda\">Analytic continuation</a></li>\n    <li><a href=\"./power-sums-bernoulli.html#bernoulli\">Bernoulli numbers and their generating function</a></li>\n    <li><a href=\"./power-sums-bernoulli.html#zeta\">Euler's formula for $\\zeta(2n)$</a></li>\n    <li><a href=\"./additive-number-theory.html#bernoulli\">Bernoulli numbers and their generating function</a></li>\n    <li><a href=\"./additive-number-theory.html#zeta\">Euler's formula for $\\zeta(2n)$</a></li>\n    <li><a href=\"./complex-analysis.html#analytic-continuation\">Analytic continuation</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",

@@ -395,6 +395,60 @@
           "explain": "The proof: identify bad $c$ values (finitely many), choose a good $c$, set $\\theta=\\alpha+c\\beta$, recover $\\beta$ as a root of $\\gcd(m_\\alpha(\\theta-cx),m_\\beta(x))$ over $K(\\theta)$ (which must be linear since $c$ is good), then get $\\alpha=\\theta-c\\beta\\in K(\\theta)$. This shows $K(\\alpha,\\beta)\\subseteq K(\\theta)$, so $K(\\theta)=L$."
         }
       ]
+    },
+    "splitting-fields": {
+      "title": "Splitting fields",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "TODO: question stem about splitting fields.",
+          "choices": [
+            "option A",
+            "option B",
+            "option C",
+            "option D"
+          ],
+          "answer": 0,
+          "explain": "TODO: 1–2 sentence explanation.",
+          "hint": "TODO: nudge that does not give away the answer."
+        }
+      ]
+    },
+    "solvable-groups": {
+      "title": "Solvable groups",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "TODO: question stem about solvable groups.",
+          "choices": [
+            "option A",
+            "option B",
+            "option C",
+            "option D"
+          ],
+          "answer": 0,
+          "explain": "TODO: 1–2 sentence explanation.",
+          "hint": "TODO: nudge that does not give away the answer."
+        }
+      ]
+    },
+    "radical-extensions": {
+      "title": "Radical extensions",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "TODO: question stem about radical extensions.",
+          "choices": [
+            "option A",
+            "option B",
+            "option C",
+            "option D"
+          ],
+          "answer": 0,
+          "explain": "TODO: 1–2 sentence explanation.",
+          "hint": "TODO: nudge that does not give away the answer."
+        }
+      ]
     }
   }
 }

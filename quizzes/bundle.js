@@ -9969,6 +9969,384 @@ window.MVQuizBank = {
             "explain": "The standard playbook proceeds exactly in this order: (1) locate poles of the integrand and decide which are enclosed; (2) close the real axis with a large semicircle so the integral becomes a loop; (3) use Jordan's lemma or a $1/R^k$ decay estimate to kill the arc contribution as $R\\to\\infty$; (4) apply the residue theorem to the closed contour; (5) since the arc vanished, the loop integral equals the real-line integral, giving the answer."
           }
         ]
+      },
+      "riemann-sphere": {
+        "title": "Riemann sphere",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Riemann sphere.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "holomorphic-function": {
+        "title": "Holomorphic functions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Holomorphic functions.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "domain-coloring": {
+        "title": "Domain coloring",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Domain coloring.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "contour-integral": {
+        "title": "Contour integrals",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Contour integrals.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "cauchy-theorem": {
+        "title": "Cauchy's theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Cauchy's theorem.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "cauchy-integral-formula": {
+        "title": "Cauchy integral formula",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Cauchy integral formula.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "analyticity": {
+        "title": "Analyticity = holomorphy",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Analyticity = holomorphy.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "liouville": {
+        "title": "Liouville's theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Liouville's theorem.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "fta": {
+        "title": "Fundamental theorem of algebra",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Fundamental theorem of algebra.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "maximum-modulus": {
+        "title": "Maximum modulus principle",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Maximum modulus principle.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "schwarz-lemma": {
+        "title": "Schwarz lemma",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Schwarz lemma.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "laurent-series": {
+        "title": "Laurent series",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Laurent series.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "singularity-classification": {
+        "title": "Classification of singularities",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Classification of singularities.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "argument-principle": {
+        "title": "Argument principle",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Argument principle.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "rouche": {
+        "title": "Rouché's theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Rouché's theorem.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "conformal-map": {
+        "title": "Conformal maps",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Conformal maps.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "disk-automorphisms": {
+        "title": "Disk automorphisms",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Disk automorphisms.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "normal-families": {
+        "title": "Normal families (Montel)",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Normal families (Montel).",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "riemann-mapping": {
+        "title": "Riemann mapping theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Riemann mapping theorem.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "harmonic-functions": {
+        "title": "Harmonic functions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Harmonic functions.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "analytic-continuation": {
+        "title": "Analytic continuation",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Analytic continuation.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
       }
     }
   },
@@ -19396,6 +19774,60 @@ window.MVQuizBank = {
             "answer": 2,
             "hint": "Avoid bad $c$, then recover $\\alpha,\\beta$ from $\\theta$ via gcd.",
             "explain": "The proof: identify bad $c$ values (finitely many), choose a good $c$, set $\\theta=\\alpha+c\\beta$, recover $\\beta$ as a root of $\\gcd(m_\\alpha(\\theta-cx),m_\\beta(x))$ over $K(\\theta)$ (which must be linear since $c$ is good), then get $\\alpha=\\theta-c\\beta\\in K(\\theta)$. This shows $K(\\alpha,\\beta)\\subseteq K(\\theta)$, so $K(\\theta)=L$."
+          }
+        ]
+      },
+      "splitting-fields": {
+        "title": "Splitting fields",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem about splitting fields.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "solvable-groups": {
+        "title": "Solvable groups",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem about solvable groups.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "radical-extensions": {
+        "title": "Radical extensions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem about radical extensions.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
           }
         ]
       }

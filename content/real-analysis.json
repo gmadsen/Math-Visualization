@@ -222,7 +222,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./complex-analysis.html#holo\">Complex Analysis</a> · Amplitwist</div>\n    <div><a href=\"./dynamical-systems.html#orbits\">Dynamical systems</a> · Orbits, flows, and vector fields</div>\n    <div><a href=\"./functional-analysis.html#distributions\">Functional analysis</a> · Distributions and test functions</div>\n    <div><a href=\"./harmonic-functions.html#laplace-equation\">Harmonic functions</a> · Laplace's equation</div>\n    <div><a href=\"./numerical-analysis.html#rootfinding\">Numerical analysis</a> · Rootfinding: bisection &amp; Newton</div>\n    <div><a href=\"./real-analysis.html#bump-functions\">Real analysis</a> · Bump functions &amp; mollification</div>\n    <div class=\"more\">… and 4 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./complex-analysis.html#amplitwist\">Complex Analysis</a> · Amplitwist</div>\n    <div><a href=\"./dynamical-systems.html#orbits\">Dynamical systems</a> · Orbits, flows, and vector fields</div>\n    <div><a href=\"./functional-analysis.html#distributions\">Functional analysis</a> · Distributions and test functions</div>\n    <div><a href=\"./harmonic-functions.html#laplace-equation\">Harmonic functions</a> · Laplace's equation</div>\n    <div><a href=\"./numerical-analysis.html#rootfinding\">Numerical analysis</a> · Rootfinding: bisection &amp; Newton</div>\n    <div><a href=\"./real-analysis.html#bump-functions\">Real analysis</a> · Bump functions &amp; mollification</div>\n    <div class=\"more\">… and 4 more.</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -295,7 +295,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./complex-analysis.html#conf\">Complex Analysis</a> · Normal families (Montel)</div>\n    <div><a href=\"./functional-analysis.html#distributions\">Functional analysis</a> · Distributions and test functions</div>\n    <div><a href=\"./measure-theory.html#convergence\">Measure theory</a> · Monotone and dominated convergence</div>\n    <div><a href=\"./real-analysis.html#c-space-arzela\">Real analysis</a> · C[a,b] &amp; the Arzelà–Ascoli theorem</div>\n    <div><a href=\"./real-analysis.html#power-series-real\">Real analysis</a> · Power series &amp; radius of convergence</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./complex-analysis.html#normal-families\">Complex Analysis</a> · Normal families (Montel)</div>\n    <div><a href=\"./functional-analysis.html#distributions\">Functional analysis</a> · Distributions and test functions</div>\n    <div><a href=\"./measure-theory.html#convergence\">Measure theory</a> · Monotone and dominated convergence</div>\n    <div><a href=\"./real-analysis.html#c-space-arzela\">Real analysis</a> · C[a,b] &amp; the Arzelà–Ascoli theorem</div>\n    <div><a href=\"./real-analysis.html#power-series-real\">Real analysis</a> · Power series &amp; radius of convergence</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

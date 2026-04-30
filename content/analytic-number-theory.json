@@ -70,7 +70,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./complex-analysis.html#laurent\">Residue theorem</a></li>\n    <li><a href=\"./dirichlet-series-euler-products.html#perron\">Perron's formula</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./complex-analysis.html#laurent\">Residue theorem</a></li>\n    <li><a href=\"./dirichlet-series-euler-products.html#perron\">Perron's formula</a></li>\n    <li><a href=\"./complex-analysis.html#residue-theorem\">Residue theorem</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
@@ -320,7 +320,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./complex-analysis.html#contour\">Cauchy integral formula</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./complex-analysis.html#contour\">Cauchy integral formula</a></li>\n    <li><a href=\"./complex-analysis.html#cauchy-integral-formula\">Cauchy integral formula</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
