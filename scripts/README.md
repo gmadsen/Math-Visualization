@@ -93,6 +93,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 | [`audit-responsive.mjs`](./audit-responsive.mjs) | Viewport meta, fixed widths, missing `viewBox`, overflow hazards. |
 | [`audit-cross-page-consistency.mjs`](./audit-cross-page-consistency.mjs) | `<head>` + sidetoc + body-attr consistency across topic HTML. |
 | [`audit-bundle-staleness.mjs`](./audit-bundle-staleness.mjs) | Fast check of `concepts/bundle.js` + `quizzes/bundle.js` vs source. |
+| [`audit-canvas-stub.mjs`](./audit-canvas-stub.mjs) | Cross-checks canvas 2D method calls in the corpus against the explicit stub list in `test-topic-jsdom.mjs`. Flags any methods that would silently hit the Proxy noop fallback at runtime — boot test passes, but a `undefined` return from an unstubbed method can break a real widget. |
 | [`audit-draft-index-cards.mjs`](./audit-draft-index-cards.mjs) | Flags `index.html` cards still in `new-topic.mjs` placeholder state — literal "draft" text in thumb SVG, placeholder `.desc`, or unfilled TODO comment. Advisory; gates nothing. |
 | [`audit-doc-drift.mjs`](./audit-doc-drift.mjs) | `PLAN.md` / `AGENTS.md` / this `README.md` vs on-disk reality. Final rebuild step. |
 

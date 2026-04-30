@@ -62,7 +62,6 @@ Phase 1 of two campaigns — the rest deferred:
 
 1. **Inline-widget migration — remaining topics.** PR #41 covered `expanders`, `schrodinger-equation`, `hamiltonians-classical-mechanics`, `three-body-problem`, `matroid-theory`. Remaining inline-heavy topics: `complex-analysis` (19/26 inline), `harmonic-analysis-fourier`, `sobolev-spaces-distributions`, `general-relativity`, plus 6 more in Combinatorics & graph theory (`designs`, `enumerative-combinatorics`, `extremal-combinatorics`, `probabilistic-method`, `simplicial-complexes-combinatorial`, `spectral-graph-theory`). Each follows the same per-section bespoke-slug template; group of three per session is the right batch size.
 2. **Tour cards in the index grid.** `tours.html` is linked from the top nav but doesn't have a section card on the index page. Adding "Tours" as its own row (visually distinct from topic cards) would surface the narrative entry point above the fold.
-3. **Canvas stub — track if any widget hits the Proxy fallback.** PR #41's jsdom canvas stub falls back to `noop` for unstubbed methods via Proxy. This is robust but silent. If a future canvas widget breaks because it expects a method to return non-`undefined`, the boot test will pass but runtime will fail. Worth a one-time audit grep for canvas method calls outside the explicit-stub list.
 
 ## Out of scope
 
