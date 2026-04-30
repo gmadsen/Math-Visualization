@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **130**, concepts: **896**
-- Widgets: **921** (registry-driven: 694, inline: 227)
+- Widgets: **921** (registry-driven: 716, inline: 205)
 - Quizzes: **3855** (v1: 2619, hard: 1223, expert: 13)
 - Quiz types: mcq: 2587, numeric: 1028, multi-select: 96, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **139**
@@ -143,6 +143,13 @@ page has wired one in yet.
 | `extremal-combinatorics-removal` | extremal-combinatorics-removal | slider | 2d | 1 | extremal-combinatorics |
 | `extremal-combinatorics-sperner` | extremal-combinatorics-sperner | click | 2d | 1 | extremal-combinatorics |
 | `extremal-combinatorics-turan` | extremal-combinatorics-turan | slider | 2d | 1 | extremal-combinatorics |
+| `fol-compactness-finite-sat` | fol-compactness-finite-sat | step | 2d | 1 | first-order-logic-and-completeness |
+| `fol-dlo-quantifier-elimination` | fol-dlo-quantifier-elimination | step | 2d | 1 | first-order-logic-and-completeness |
+| `fol-henkin-construction` | fol-henkin-construction | step | 2d | 1 | first-order-logic-and-completeness |
+| `fol-model-checker` | fol-model-checker | click | 2d | 1 | first-order-logic-and-completeness |
+| `fol-modus-ponens-closure` | fol-modus-ponens-closure | step | 2d | 1 | first-order-logic-and-completeness |
+| `fol-skolem-paradox` | fol-skolem-paradox | click | 2d | 1 | first-order-logic-and-completeness |
+| `fol-term-tree` | fol-term-tree | click | 2d | 1 | first-order-logic-and-completeness |
 | `general-relativity-cosmology` | general-relativity-cosmology | slider | 2d | 1 | general-relativity |
 | `general-relativity-einstein` | general-relativity-einstein | click | 2d | 1 | general-relativity |
 | `general-relativity-gw` | general-relativity-gw | slider | 2d | 1 | general-relativity |
@@ -155,6 +162,13 @@ page has wired one in yet.
 | `grothendieck-topologies-sites-sheaf-cases` | declarative-host | click | 2d | 1 | grothendieck-topologies-sites |
 | `grothendieck-topologies-sites-sieves-poset` | declarative-host | click | 2d | 1 | grothendieck-topologies-sites |
 | `grothendieck-topologies-sites-sites-toggle` | declarative-host | click | 2d | 1 | grothendieck-topologies-sites |
+| `group-cohomology-brauer-cheatsheet` | group-cohomology-brauer-cheatsheet | click | 2d | 1 | group-cohomology |
+| `group-cohomology-c2-extensions` | group-cohomology-c2-extensions | click | 2d | 1 | group-cohomology |
+| `group-cohomology-coboundary-calculator` | group-cohomology-coboundary-calculator | click | 2d | 1 | group-cohomology |
+| `group-cohomology-fixed-points` | group-cohomology-fixed-points | click | 2d | 1 | group-cohomology |
+| `group-cohomology-hilbert-90` | group-cohomology-hilbert-90 | click | 2d | 1 | group-cohomology |
+| `group-cohomology-lhs-spectral` | group-cohomology-lhs-spectral | click | 2d | 1 | group-cohomology |
+| `group-cohomology-tate-periodic-table` | group-cohomology-tate-periodic-table | click | 2d | 1 | group-cohomology |
 | `group-schemes-axiom-diagrams` | clickable-diagram | click | 2d | 1 | group-schemes |
 | `group-schemes-etale-connected-decomposition` | clickable-graph | click | 2d | 1 | group-schemes |
 | `group-schemes-hopf-duality` | clickable-diagram | click | 2d | 1 | group-schemes |
@@ -213,6 +227,14 @@ page has wired one in yet.
 | `modular-curves-heegner-hypothesis` | modular-curves-heegner-hypothesis | step | 2d | 1 | modular-curves |
 | `modular-curves-lattice-cyclic-subgroup` | modular-curves-lattice-cyclic-subgroup | slider | 2d | 1 | modular-curves |
 | `modular-curves-mazur-torsion` | modular-curves-mazur-torsion | click | 2d | 1 | modular-curves |
+| `morse-betti-counts` | morse-betti-counts | slider | 2d | 1 | morse-theory |
+| `morse-cerf-birth-death` | morse-cerf-birth-death | slider | 2d | 1 | morse-theory |
+| `morse-cw-cells` | morse-cw-cells | click | 2d | 1 | morse-theory |
+| `morse-gradient-flow` | morse-gradient-flow | click | 2d | 1 | morse-theory |
+| `morse-handle-decomp` | morse-handle-decomp | slider | 2d | 1 | morse-theory |
+| `morse-smale-saddle` | morse-smale-saddle | click | 2d | 1 | morse-theory |
+| `morse-sphere-vs-rp2` | morse-sphere-vs-rp2 | click | 2d | 1 | morse-theory |
+| `morse-torus-height` | morse-torus-height | slider | 2d | 1 | morse-theory |
 | `natural-transformation-explorer` | naturality-square | slider+click | 2d | 1 | category-theory |
 | `probabilistic-method-alterations` | probabilistic-method-alterations | click | 2d | 1 | probabilistic-method |
 | `probabilistic-method-concentration` | probabilistic-method-concentration | slider | 2d | 1 | probabilistic-method |
@@ -260,20 +282,20 @@ page has wired one in yet.
 ### Logic & Foundations
 
 - Topics: **8**, concepts: **49**
-- Widgets: **48** (registry-driven: 4, inline: 44)
-  - by family: unknown: 44, clickable-diagram: 3, button-stepper: 1
-  - by dimension: unknown: 44, 2d: 4
-  - by gesture: unknown: 44, click: 4
+- Widgets: **48** (registry-driven: 11, inline: 37)
+  - by family: unknown: 37, clickable-diagram: 3, button-stepper: 1, fol-term-tree: 1, fol-model-checker: 1, fol-modus-ponens-closure: 1, fol-henkin-construction: 1, fol-compactness-finite-sat: 1, fol-skolem-paradox: 1, fol-dlo-quantifier-elimination: 1
+  - by dimension: unknown: 37, 2d: 11
+  - by gesture: unknown: 37, click: 7, step: 4
 - Quizzes: **162** (v1: 147, hard: 15, expert: 0)
   - by type: mcq: 128, numeric: 34
 
 ### Algebra & homological
 
 - Topics: **12**, concepts: **106**
-- Widgets: **105** (registry-driven: 74, inline: 31)
-  - by family: button-stepper: 38, unknown: 31, clickable-diagram: 21, parametric-plot: 9, proof-scrubber: 2, naturality-square: 1, declarative-host: 1, clickable-graph: 1, diagram-editor: 1
-  - by dimension: 2d: 74, unknown: 31
-  - by gesture: click: 60, unknown: 31, select: 9, scrub: 2, slider+click: 1, interactive: 1, drag-and-toggle: 1
+- Widgets: **105** (registry-driven: 81, inline: 24)
+  - by family: button-stepper: 38, unknown: 24, clickable-diagram: 21, parametric-plot: 9, proof-scrubber: 2, naturality-square: 1, declarative-host: 1, clickable-graph: 1, diagram-editor: 1, group-cohomology-coboundary-calculator: 1, group-cohomology-fixed-points: 1, group-cohomology-hilbert-90: 1, group-cohomology-c2-extensions: 1, group-cohomology-tate-periodic-table: 1, group-cohomology-lhs-spectral: 1, group-cohomology-brauer-cheatsheet: 1
+  - by dimension: 2d: 81, unknown: 24
+  - by gesture: click: 67, unknown: 24, select: 9, scrub: 2, slider+click: 1, interactive: 1, drag-and-toggle: 1
 - Quizzes: **505** (v1: 319, hard: 186, expert: 0)
   - by type: mcq: 318, numeric: 145, multi-select: 20, ordering: 7, matching: 5, spot-the-error: 5, proof-completion: 4, complex: 1
 
@@ -310,10 +332,10 @@ page has wired one in yet.
 ### Geometry & topology
 
 - Topics: **16**, concepts: **102**
-- Widgets: **104** (registry-driven: 60, inline: 44)
-  - by family: unknown: 44, button-stepper: 34, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, counterexample-explorer: 1, proof-scrubber: 1, lattice-visualizer: 1, characteristic-classes-mobius-vs-cylinder: 1, characteristic-classes-w1-surfaces: 1, characteristic-classes-c1-clutching: 1, characteristic-classes-pontryagin-formulas: 1, characteristic-classes-poincare-hopf: 1, characteristic-classes-gauss-bonnet: 1, characteristic-classes-classifying-map: 1, characteristic-classes-signature-l-genus: 1, characteristic-classes-cpn-localisation: 1
-  - by dimension: 2d: 54, unknown: 44, 3d: 6
-  - by gesture: click: 46, unknown: 44, drag: 6, slider: 4, static: 2, select: 1, timeline: 1
+- Widgets: **104** (registry-driven: 68, inline: 36)
+  - by family: unknown: 36, button-stepper: 34, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, counterexample-explorer: 1, proof-scrubber: 1, lattice-visualizer: 1, characteristic-classes-mobius-vs-cylinder: 1, characteristic-classes-w1-surfaces: 1, characteristic-classes-c1-clutching: 1, characteristic-classes-pontryagin-formulas: 1, characteristic-classes-poincare-hopf: 1, characteristic-classes-gauss-bonnet: 1, characteristic-classes-classifying-map: 1, characteristic-classes-signature-l-genus: 1, characteristic-classes-cpn-localisation: 1, morse-torus-height: 1, morse-handle-decomp: 1, morse-cw-cells: 1, morse-betti-counts: 1, morse-gradient-flow: 1, morse-sphere-vs-rp2: 1, morse-smale-saddle: 1, morse-cerf-birth-death: 1
+  - by dimension: 2d: 62, unknown: 36, 3d: 6
+  - by gesture: click: 50, unknown: 36, slider: 8, drag: 6, static: 2, select: 1, timeline: 1
 - Quizzes: **448** (v1: 306, hard: 142, expert: 0)
   - by type: mcq: 310, numeric: 122, complex: 7, multi-select: 4, matching: 3, ordering: 1, proof-completion: 1
 
@@ -397,7 +419,7 @@ page has wired one in yet.
 - `k-theory` (Geometry & topology) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `atiyah-singer-index-theorem` (Geometry & topology) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `naive-set-theory` (Logic & Foundations) — concepts=5, widgets=4 (slug=4), quiz=30 (v1=15, hard=15, expert=0)
-- `first-order-logic-and-completeness` (Logic & Foundations) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
+- `first-order-logic-and-completeness` (Logic & Foundations) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `zfc-and-ordinals` (Logic & Foundations) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
 - `model-theory-basics` (Logic & Foundations) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `computability-and-decidability` (Logic & Foundations) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
@@ -410,7 +432,7 @@ page has wired one in yet.
 - `commutative-algebra` (Algebra & homological) — concepts=13, widgets=13 (slug=13), quiz=75 (v1=40, hard=35, expert=0)
 - `homological` (Algebra & homological) — concepts=12, widgets=12 (slug=12), quiz=73 (v1=36, hard=37, expert=0)
 - `derived-categories` (Algebra & homological) — concepts=7, widgets=7 (slug=7), quiz=27 (v1=21, hard=6, expert=0)
-- `group-cohomology` (Algebra & homological) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
+- `group-cohomology` (Algebra & homological) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `lie-algebras` (Algebra & homological) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `galois-cohomology-and-brauer` (Algebra & homological) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `elementary-topos-theory` (Higher categories & toposes) — concepts=7, widgets=7 (slug=7), quiz=27 (v1=21, hard=6, expert=0)
@@ -446,7 +468,7 @@ page has wired one in yet.
 - `lie-groups` (Geometry & topology) — concepts=7, widgets=6 (slug=6), quiz=42 (v1=21, hard=21, expert=0)
 - `riemann-surfaces` (Geometry & topology) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `characteristic-classes` (Geometry & topology) — concepts=9, widgets=9 (slug=9), quiz=27 (v1=27, hard=0, expert=0)
-- `morse-theory` (Geometry & topology) — concepts=8, widgets=8 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
+- `morse-theory` (Geometry & topology) — concepts=8, widgets=8 (slug=8), quiz=24 (v1=24, hard=0, expert=0)
 - `galois` (Number theory) — concepts=8, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
 - `quadratic-reciprocity` (Number theory) — concepts=6, widgets=7 (slug=7), quiz=33 (v1=18, hard=15, expert=0)
 - `quadratic-forms-genus-theory` (Number theory) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
