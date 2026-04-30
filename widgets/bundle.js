@@ -4200,6 +4200,132 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "harmonic-functions-harnack-corridor",
+    "family": "harmonic-functions-harnack-corridor",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "harmonic-functions-harnack-corridor widget params",
+    "description": "Plot of a positive harmonic function with the Harnack two-point ratio bounds rendered as a corridor over a chosen compact subset. Reveals how positivity forces a uniform comparability factor depending only on the geometry.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the harmonic-functions topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "harmonic-functions-laplacian-heatmap",
+    "family": "harmonic-functions-laplacian-heatmap",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "exploratory",
+    "title": "harmonic-functions-laplacian-heatmap widget params",
+    "description": "Side-by-side heatmaps of u(x,y) and its Laplacian Δu, with a function selector. Shows that harmonic ⇔ uniformly-zero Δu heatmap.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the harmonic-functions topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "harmonic-functions-maximum-locator",
+    "family": "harmonic-functions-maximum-locator",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "harmonic-functions-maximum-locator widget params",
+    "description": "Heatmap inside a disk of radius R with running boundary-max and interior-max markers. Confirms that harmonic functions attain their max on ∂B while non-harmonic candidates can have interior maxima.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the harmonic-functions topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "harmonic-functions-mvp-circle",
+    "family": "harmonic-functions-mvp-circle",
+    "dimension": "2d",
+    "gesture": "drag",
+    "role": "exploratory",
+    "title": "harmonic-functions-mvp-circle widget params",
+    "description": "Heatmap of a candidate u with a draggable disk; reads off u at the center vs. the circle average. Demonstrates the mean value property as a numerical equality for harmonic functions.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the harmonic-functions topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "harmonic-functions-perron-supremum",
+    "family": "harmonic-functions-perron-supremum",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "exploratory",
+    "title": "harmonic-functions-perron-supremum widget params",
+    "description": "Family of subharmonic candidates inside a disk with their pointwise supremum tracked in real time. Demonstrates the Perron construction: the sup of an admissible subharmonic family solves the Dirichlet problem.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the harmonic-functions topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "harmonic-functions-poisson-extension",
+    "family": "harmonic-functions-poisson-extension",
+    "dimension": "2d",
+    "gesture": "drag",
+    "role": "exploratory",
+    "title": "harmonic-functions-poisson-extension widget params",
+    "description": "Disk with a draggable boundary point sourcing a Poisson kernel; the kernel and its harmonic extension on the disk are plotted side by side. Builds intuition that the Poisson formula reproduces boundary values smoothly inside.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the harmonic-functions topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "harmonic-heat-evolution",
     "family": "harmonic-heat-evolution",
     "dimension": "2d",
@@ -4278,6 +4404,132 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke widget for the harmonic-analysis-fourier topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "hdg-dvoretzky-section",
+    "family": "hdg-dvoretzky-section",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "hdg-dvoretzky-section widget params",
+    "description": "Bespoke widget for §2 Dvoretzky's theorem on the high-dimensional-geometry topic — slider over dimension n + resample button generate a random 2-D section of the n-dimensional cube ℓ^∞_n, drawing it in an SVG and reporting the radius spread; visually demonstrates the section becoming circular. Slider+button+svg+readout in one widget.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the high-dimensional-geometry topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "hdg-isoperimetry-tail",
+    "family": "hdg-isoperimetry-tail",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "hdg-isoperimetry-tail widget params",
+    "description": "Bespoke widget for §5 Gaussian isoperimetry on the high-dimensional-geometry topic — slider over dimension n drives an SVG comparison of the Gaussian halfspace tail Φ(-t) vs the spherical cap measure σ({x : x_1 > t}) on S^{n-1}, with a readout showing the absolute difference. Single slider + svg + readout.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the high-dimensional-geometry topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "hdg-jl-distortion-histogram",
+    "family": "hdg-jl-distortion-histogram",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "hdg-jl-distortion-histogram widget params",
+    "description": "Bespoke widget for §3 Johnson–Lindenstrauss on the high-dimensional-geometry topic — sliders over n (source dim), k (target dim), N (number of pairs) drive a histogram of pairwise distortion ratios under a random Gaussian projection. SVG + multiple sliders + histogram readout is the bespoke shape.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the high-dimensional-geometry topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "hdg-marchenko-pastur",
+    "family": "hdg-marchenko-pastur",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "hdg-marchenko-pastur widget params",
+    "description": "Bespoke widget for §6 Marchenko–Pastur on the high-dimensional-geometry topic — sliders over aspect ratio λ = p/n and dimension n + resample button drive a histogram of empirical eigenvalues of an n×n sample covariance with n samples, overlaid against the Marchenko–Pastur density on [(1-√λ)^2, (1+√λ)^2]. Two sliders + button + svg + readout.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the high-dimensional-geometry topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "hdg-sphere-concentration-band",
+    "family": "hdg-sphere-concentration-band",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "hdg-sphere-concentration-band widget params",
+    "description": "Bespoke widget for §1 sphere concentration on the high-dimensional-geometry topic — slider over dimension n drives an SVG plot of the Lévy concentration tail bound 2 exp(-(n-1) t^2 / 2) collapsing toward t=0, with a readout reporting the tail at a fixed t. The single-slider + svg + readout shape is shared by several siblings on this page but the tail-formula plot logic is bespoke.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the high-dimensional-geometry topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "hdg-talagrand-deviation",
+    "family": "hdg-talagrand-deviation",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "hdg-talagrand-deviation widget params",
+    "description": "Bespoke widget for §4 Talagrand's inequality on the high-dimensional-geometry topic — slider over n + resample button comparing Hamming-Lipschitz vs convex-Lipschitz deviation tails on the hypercube via Monte Carlo, drawn as side-by-side histograms in an SVG with a readout summary.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the high-dimensional-geometry topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -4835,6 +5087,132 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke proof-scrubber walkthrough of why the classical Whitehead theorem holds internally only in a hypercomplete $\\infty$-topos, used in §5 of infinity-topoi.html (#hypercompletion).",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "information-bsc-capacity",
+    "family": "information-bsc-capacity",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "information-bsc-capacity widget params",
+    "description": "Binary symmetric channel capacity C(p) = 1 - h(p) with probability slider.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the information-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "information-entropy",
+    "family": "information-entropy",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "information-entropy widget params",
+    "description": "Binary entropy h(p) curve with draggable probability slider.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the information-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "information-huffman-builder",
+    "family": "information-huffman-builder",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "information-huffman-builder widget params",
+    "description": "Interactive Huffman coding tree builder with merge-step controls.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the information-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "information-kl-simplex",
+    "family": "information-kl-simplex",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "information-kl-simplex widget params",
+    "description": "KL divergence heatmap on the 3-simplex of categorical distributions.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the information-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "information-mutual-info-venn",
+    "family": "information-mutual-info-venn",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "information-mutual-info-venn widget params",
+    "description": "Information Venn diagram showing H(X), H(Y), I(X;Y) with two correlation sliders.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the information-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "information-rate-distortion",
+    "family": "information-rate-distortion",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "information-rate-distortion widget params",
+    "description": "Gaussian rate-distortion curve R(D) for N(0, sigma^2) source.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the information-theory topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

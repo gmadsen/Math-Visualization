@@ -304,241 +304,6 @@ function heatColor(t){
   <svg id="lap-svg" viewBox="0 0 760 320" width="760" height="320"><title>Function and its Laplacian, side by side</title></svg>
   <div class="readout" id="lap-readout"></div>
 </div>
-
-<!-- callback-auto-begin -->
-<aside class="callback">
-  <div class="ttl">See also</div>
-  <ul>
-    <li><a href="./complex-analysis.html#holo">Cauchy–Riemann equations</a></li>
-    <li><a href="./real-analysis.html#real-differentiation">Differentiation</a></li>
-    <li><a href="./complex-analysis.html#cauchy-riemann">Cauchy–Riemann equations</a></li>
-  </ul>
-</aside>
-<!-- callback-auto-end --><!-- backlinks-auto-begin -->
-<aside class="related">
-  <div class="ttl">Used in</div>
-    <div><a href="./harmonic-functions.html#mvp">Harmonic functions</a> · Mean value property</div>
-    <div><a href="./partial-differential-equations.html#laplace">Partial differential equations</a> · Laplace equation and the Dirichlet problem</div>
-</aside>
-<!-- backlinks-auto-end --><div class="quiz" data-concept="hf-laplace-equation"></div>
-</section>
-
-<section id="mvp">
-<h2>2. The mean value property</h2>
-<p>Here is the single property that distils what "harmonic" really means. If $u$ is harmonic on $\Omega$ and the closed ball $\overline{B(x_0, r)} \subset \Omega$, then</p>
-<p>$$u(x_0) \;=\; \frac{1}{|\partial B(x_0,r)|}\int_{\partial B(x_0,r)} u\,dS \;=\; \frac{1}{|B(x_0,r)|}\int_{B(x_0,r)} u\,dV.$$</p>
-<p>The value at the center equals the spherical average — and equivalently the volume average over the ball. <strong>Harmonic = balanced.</strong></p>
-<p>The proof is one application of the divergence theorem: differentiate the average $\overline u(r) = \tfrac{1}{|\partial B(x_0,r)|}\int_{\partial B(x_0,r)} u\,dS$ with respect to $r$, get $\overline u'(r) = \tfrac{r}{n} \cdot \overline{\Delta u}(r) = 0$, so the average is independent of $r$. Sending $r \to 0$ recovers $u(x_0)$.</p>
-<div class="note"><strong>Converse — Koebe's theorem.</strong> The MVP <em>characterises</em> harmonicity. If $u$ is continuous on $\Omega$ and satisfies $u(x) = $ ball average for every admissible ball, then $u$ is harmonic — and in particular $C^\infty$. So a single integral identity, applied at every scale, forces all derivatives to exist and a PDE to hold. This is the cleanest example of <em>elliptic regularity</em>.</div>
-<p>Two consequences fall out for free:</p>
-<p>(i) <strong>Smoothing.</strong> Convolution with a radial bump, or even just averaging on small balls, takes a continuous harmonic function to itself — but for a generic $u$ it strictly improves regularity. Iterated averaging is therefore a route to constructing harmonic approximations.</p>
-<p>(ii) <strong>Real analyticity.</strong> Going further: every harmonic function on a connected open set is real-analytic. Knowing $u$ on a tiny open ball pins it down everywhere, exactly as for holomorphic functions.</p>
-
-<div class="widget" id="w-mvp">
-  <div class="hd"><div class="ttl">Center value vs. circle average</div><div class="hint">drag the center / change the radius; compare $u(x_0)$ with the boundary average</div></div>
-  <div class="row">
-    <label for="mvp-fn">$u =$</label>
-    <select id="mvp-fn">
-      <option value="harm" selected>x² − y² (harmonic)</option>
-      <option value="re_z3">x³ − 3xy² (harmonic)</option>
-      <option value="non1">x² + y² (NOT harmonic)</option>
-      <option value="non2">x² y (NOT harmonic)</option>
-    </select>
-    <label for="mvp-r">r:</label>
-    <input id="mvp-r" type="range" min="0.2" max="2.0" step="0.05" value="1.0">
-    <span class="small" id="mvp-rlabel">1.00</span>
-  </div>
-  <svg id="mvp-svg" viewBox="0 0 600 320" width="600" height="320"><title>Mean value property visualizer</title></svg>
-  <div class="readout" id="mvp-readout"></div>
-</div>
-
-<!-- callback-auto-begin -->
-<aside class="callback">
-  <div class="ttl">See also</div>
-  <ul>
-    <li><a href="./complex-analysis.html#contour">Cauchy's theorem</a></li>
-    <li><a href="./complex-analysis.html#cauchy-theorem">Cauchy's theorem</a></li>
-  </ul>
-</aside>
-<!-- callback-auto-end --><!-- backlinks-auto-begin -->
-<aside class="related">
-  <div class="ttl">Used in</div>
-    <div><a href="./harmonic-functions.html#maximum">Harmonic functions</a> · Maximum principle</div>
-    <div><a href="./harmonic-functions.html#poisson">Harmonic functions</a> · Poisson kernel</div>
-</aside>
-<!-- backlinks-auto-end --><div class="quiz" data-concept="hf-mean-value-property"></div>
-</section>
-
-<section id="maximum">
-<h2>3. The maximum principle</h2>
-<p>From the mean value property the maximum principle drops out almost for free. If $u$ takes a value at $x_0$ which is its supremum on $\Omega$, then $u(x_0) = $ the average over any small ball around $x_0$, but the average can equal the maximum only if $u$ is constant on that ball. A connectedness argument propagates the constancy.</p>
-<p><strong>Weak maximum principle.</strong> Let $u$ be harmonic on a bounded $\Omega$ and continuous on $\overline\Omega$. Then</p>
-<p>$$\max_{\overline\Omega} u \;=\; \max_{\partial\Omega} u, \qquad \min_{\overline\Omega} u \;=\; \min_{\partial\Omega} u.$$</p>
-<p><strong>Strong maximum principle.</strong> If $u$ attains its supremum at any interior point of a connected $\Omega$, then $u$ is constant on $\Omega$.</p>
-<p>The strong form sharpens the weak: not only does the boundary realise the extremes, the interior can <em>never</em> do so unless $u$ is trivial.</p>
-
-<div class="ok"><strong>Uniqueness for the Dirichlet problem.</strong> Suppose $u_1, u_2$ are both harmonic on $\Omega$ and continuous up to $\partial\Omega$, with $u_1 = u_2$ on $\partial\Omega$. The difference $w = u_1 - u_2$ is harmonic and zero on $\partial\Omega$. The weak maximum principle, applied to $\pm w$, forces $|w| \le 0$ on $\overline\Omega$. So $u_1 = u_2$. <em>Boundary values determine harmonic functions.</em></div>
-
-<div class="widget" id="w-maxp">
-  <div class="hd"><div class="ttl">Where does the max live?</div><div class="hint">isolines of harmonic vs. non-harmonic; the orange dot tracks the running max as you scan</div></div>
-  <div class="row">
-    <label for="max-fn">$u =$</label>
-    <select id="max-fn">
-      <option value="harm" selected>x² − y² (harmonic)</option>
-      <option value="re_z3">x³ − 3xy² (harmonic)</option>
-      <option value="cosex">eˣ cos y (harmonic)</option>
-      <option value="bump">x² + y² (NOT harmonic, has interior min)</option>
-      <option value="bell">−(x² + y²) (NOT harmonic, has interior max)</option>
-    </select>
-    <label for="max-r">scan radius:</label>
-    <input id="max-r" type="range" min="0.2" max="1.8" step="0.02" value="1.0">
-    <span class="small" id="max-rlabel">1.00</span>
-  </div>
-  <svg id="max-svg" viewBox="0 0 600 360" width="600" height="360"><title>Maximum principle visualizer</title></svg>
-  <div class="readout" id="max-readout"></div>
-</div>
-
-<div class="quiz" data-concept="hf-maximum-principle"></div><!-- backlinks-auto-begin -->
-<aside class="related">
-  <div class="ttl">Used in</div>
-    <div><a href="./harmonic-functions.html#subharmonic">Harmonic functions</a> · Subharmonic functions and Perron's method</div>
-    <div><a href="./partial-differential-equations.html#heat">Partial differential equations</a> · Heat equation and the heat kernel</div>
-</aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<section id="poisson">
-<h2>4. The Poisson kernel and the disk Dirichlet problem</h2>
-<p>For the <em>unit disk</em> $\mathbb{D} = \{|z| < 1\}$ the Dirichlet problem has an explicit, beautiful solution. Given continuous boundary data $g\colon \partial \mathbb{D} \to \mathbb{R}$, the unique harmonic extension is</p>
-<p>$$u(re^{i\theta}) \;=\; \frac{1}{2\pi}\int_0^{2\pi} P_r(\theta - \varphi)\,g(\varphi)\,d\varphi, \qquad P_r(\theta) \;=\; \frac{1 - r^2}{1 - 2r\cos\theta + r^2}.$$</p>
-<p>The kernel $P_r$ is the <strong>Poisson kernel</strong>. Three facts make it useful:</p>
-<p>(i) <strong>Positivity.</strong> $1 - 2r\cos\theta + r^2 = |1 - re^{i\theta}|^2 > 0$, so $P_r > 0$.<br>
-(ii) <strong>Mass one.</strong> $\frac{1}{2\pi}\int_0^{2\pi} P_r(\theta)\,d\theta = 1$ for every $r \in [0,1)$.<br>
-(iii) <strong>Concentration.</strong> As $r \to 1^-$, $P_r$ concentrates a unit mass at $\theta = 0$ — it is an <em>approximate identity</em>.</p>
-<p>So $u = P_r * g$ is convolution against an approximate identity: the values of $u$ deep in the disk are weighted averages of $g$ over the whole circle, while values close to the boundary look at nearby boundary points only.</p>
-<div class="note"><strong>Boundary recovery.</strong> Convergence to the boundary data has different flavours depending on how regular $g$ is:
-<br>• If $g$ is continuous, $u(re^{i\theta}) \to g(\theta)$ uniformly as $r \to 1^-$.
-<br>• If $g \in L^p$ for $1 \le p < \infty$, the radial limit equals $g$ <em>almost everywhere</em> — this is <strong>Fatou's theorem</strong>, the cleanest example of a measure-theoretic boundary value.
-<br>The MVP is the special case $r = 0$: $u(0) = \frac{1}{2\pi}\int g$, the simplest boundary integral.</div>
-
-<div class="widget" id="w-poisson">
-  <div class="hd"><div class="ttl">Poisson extension on the disk</div><div class="hint">paint boundary values $g(\theta)$; watch the harmonic interior light up</div></div>
-  <div class="row">
-    <label for="poi-data">$g(\theta) =$</label>
-    <select id="poi-data">
-      <option value="cos" selected>cos θ</option>
-      <option value="cos2">cos 2θ</option>
-      <option value="step">step: +1 on top, −1 on bottom</option>
-      <option value="bump">bump near θ = 0</option>
-      <option value="3cos2">2 + 3 cos 2θ</option>
-    </select>
-    <label for="poi-r">radial slice r:</label>
-    <input id="poi-r" type="range" min="0" max="0.98" step="0.01" value="0.5">
-    <span class="small" id="poi-rlabel">0.50</span>
-  </div>
-  <svg id="poi-svg" viewBox="0 0 720 360" width="720" height="360"><title>Poisson kernel disk extension</title></svg>
-  <div class="readout" id="poi-readout"></div>
-</div>
-
-<!-- callback-auto-begin -->
-<aside class="callback">
-  <div class="ttl">See also</div>
-  <ul>
-    <li><a href="./measure-theory.html#lebesgue">Lebesgue measure</a></li>
-  </ul>
-</aside>
-<!-- callback-auto-end --><!-- backlinks-auto-begin -->
-<aside class="related">
-  <div class="ttl">Used in</div>
-    <div><a href="./harmonic-functions.html#harnack">Harmonic functions</a> · Harnack's inequality</div>
-    <div><a href="./partial-differential-equations.html#laplace">Partial differential equations</a> · Laplace equation and the Dirichlet problem</div>
-</aside>
-<!-- backlinks-auto-end -->
-
-<div class="quiz" data-concept="hf-poisson-kernel"></div>
-</section>
-
-<section id="harnack">
-<h2>5. Harnack's inequality</h2>
-<p>The Poisson formula gives an <em>uniform</em> control on the oscillation of positive harmonic functions. Suppose $u \ge 0$ is harmonic on $B(0, R)$ in $\mathbb{R}^n$. Then for every $|x| = r < R$,</p>
-<p>$$\frac{R - r}{R + r}\cdot\Big(\frac{R}{R+r}\Big)^{\!n-2} u(0) \;\le\; u(x) \;\le\; \frac{R + r}{R - r}\cdot\Big(\frac{R}{R-r}\Big)^{\!n-2} u(0).$$</p>
-<p>In two dimensions this collapses to the textbook form</p>
-<p>$$\frac{R - r}{R + r}\,u(0) \;\le\; u(x) \;\le\; \frac{R + r}{R - r}\,u(0).$$</p>
-<p>The proof on the disk is one line from the Poisson kernel. For $|y| = R$ and $|x| = r$,</p>
-<p>$$P_{r/R}(\theta) \cdot \frac{1}{R^{n-2}} \;\le\; \text{Poisson kernel}(x, y) \;\le\; \text{(upper)},$$</p>
-<p>and the <em>positivity</em> of $u$ on the boundary lets us pull the bound through the integral. Without positivity the bound is meaningless: the Poisson kernel at one point can be huge, and a sign-changing $u$ can have $u(0) = 0$ while $u$ is large elsewhere.</p>
-
-<div class="ok"><strong>Liouville for harmonic functions.</strong> If $u \ge 0$ is harmonic on all of $\mathbb{R}^n$, apply Harnack on $B(0, R)$ with $r$ fixed and let $R \to \infty$. The factor $\tfrac{R-r}{R+r}$ tends to $1$, and the upper bound's $\tfrac{R+r}{R-r}$ also tends to $1$. Both bounds pinch to $u(0)$, so $u(x) = u(0)$ for every $x$ — a positive harmonic function on $\mathbb{R}^n$ is constant. The complex-analysis Liouville (bounded entire ⇒ constant) is the analogous statement for holomorphic functions; both are theorems about rigidity from a one-sided bound.</div>
-
-<div class="widget" id="w-harnack">
-  <div class="hd"><div class="ttl">Harnack bounds on positive harmonic functions</div><div class="hint">$u(0)$ pins down a corridor for $u(x)$; slide $r$, watch the corridor shrink to a point at $r = 0$</div></div>
-  <div class="row">
-    <label for="har-data">boundary mass concentration:</label>
-    <select id="har-data">
-      <option value="uniform">uniform g(θ) = 1</option>
-      <option value="bump1" selected>bump near θ = 0</option>
-      <option value="bump2">narrow bump near θ = 0</option>
-      <option value="two">two opposite bumps</option>
-    </select>
-    <label for="har-r">R = 1, r:</label>
-    <input id="har-r" type="range" min="0.01" max="0.95" step="0.01" value="0.5">
-    <span class="small" id="har-rlabel">0.50</span>
-  </div>
-  <svg id="har-svg" viewBox="0 0 720 360" width="720" height="360"><title>Harnack inequality corridor</title></svg>
-  <div class="readout" id="har-readout"></div>
-</div>
-
-<div class="quiz" data-concept="hf-harnack-inequality"></div>
-</section>
-
-<section id="subharmonic">
-<h2>6. Subharmonic functions and Perron's method</h2>
-<p>Replace $\Delta v = 0$ with the inequality $\Delta v \ge 0$ — equivalently, replace the MVP equation $v(x) = $ ball average by the inequality $v(x) \le $ ball average. The resulting class of upper semicontinuous functions is the class of <strong>subharmonic functions</strong>. (Sign convention is a coin-flip; we follow the standard "sub" = below convention, so $v$ is subharmonic when its values sit below the harmonic majorant.)</p>
-<p>Examples:</p>
-<p>• If $f$ is holomorphic, $\log|f|$ is subharmonic — the elementary proof is the Jensen formula.<br>
-• Any convex function of a harmonic function is subharmonic (Jensen's inequality at the level of averages).<br>
-• Maxima of finitely many subharmonic functions are subharmonic.</p>
-<p>The maximum principle still holds for subharmonic functions: $\sup_{\overline\Omega} v = \sup_{\partial\Omega} v$. This is the property that makes them useful — they let us <em>build</em> harmonic functions from below.</p>
-
-<h3>Perron's method</h3>
-<p>Given continuous boundary data $g$ on $\partial \Omega$, define the <em>Perron family</em></p>
-<p>$$\mathcal{S}_g \;=\; \{v\colon\Omega\to\mathbb{R} \;:\; v \text{ subharmonic},\ \limsup_{y\to\zeta} v(y) \le g(\zeta)\ \forall\zeta\in\partial\Omega\}.$$</p>
-<p>and set</p>
-<p>$$u(x) \;=\; \sup\,\{v(x) \;:\; v \in \mathcal{S}_g\}.$$</p>
-<p>Two near-miraculous facts:</p>
-<p>(i) <strong>$u$ is harmonic on $\Omega$.</strong> The proof is "harmonic lifting": on any small ball $B \subset\Omega$, replace $v$ by its Poisson integral on $B$, get a larger element of $\mathcal{S}_g$, and conclude that $u$ equals the Poisson integral of itself on every small ball.<br>
-(ii) <strong>$u$ achieves $g$ on $\partial\Omega$ at every <em>regular boundary point</em>.</strong> A boundary point $\zeta$ is regular when there is a <em>barrier</em> — a subharmonic function near $\zeta$ that vanishes at $\zeta$ and is strictly negative everywhere else. For "nice" domains (e.g. bounded with $C^1$ boundary in $\mathbb{R}^n$, or simply connected planar domains with more than one boundary point) every boundary point is regular.</p>
-
-<div class="note"><strong>The classical bad point: Lebesgue spine.</strong> In $\mathbb{R}^3$ remove a thin spike pointing into a region. The tip of the spike is a boundary point that admits no barrier — Perron's $u$ exists, but it does not achieve the boundary value at the tip. Pathologies of this kind delineate the boundary regularity theory and motivate Wiener's criterion.</div>
-
-<div class="widget" id="w-perron">
-  <div class="hd"><div class="ttl">Perron's sup of subharmonic competitors</div><div class="hint">add competing subharmonic candidates, watch the supremum approach the harmonic Poisson extension</div></div>
-  <div class="row">
-    <label for="per-data">boundary data:</label>
-    <select id="per-data">
-      <option value="cos" selected>cos θ</option>
-      <option value="cos2">cos 2θ</option>
-      <option value="step">step ±1</option>
-    </select>
-    <label for="per-n">family size:</label>
-    <input id="per-n" type="range" min="1" max="20" step="1" value="6">
-    <span class="small" id="per-nlabel">6</span>
-  </div>
-  <svg id="per-svg" viewBox="0 0 720 320" width="720" height="320"><title>Perron supremum visualizer</title></svg>
-  <div class="readout" id="per-readout"></div>
-</div>
-
-<!-- callback-auto-begin -->
-<aside class="callback">
-  <div class="ttl">See also</div>
-  <ul>
-    <li><a href="./complex-analysis.html#cons">Analyticity = holomorphy</a></li>
-    <li><a href="./complex-analysis.html#analyticity">Analyticity = holomorphy</a></li>
-  </ul>
-</aside>
-<!-- callback-auto-end --><div class="quiz" data-concept="hf-subharmonic"></div>
-</section>
-
 <script>
 /* ---------- Section 1: Laplace heatmap ---------- */
 (function(){
@@ -630,7 +395,55 @@ function heatColor(t){
   document.getElementById("lap-fn").addEventListener("change", draw);
   draw();
 })();
+</script>
 
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./complex-analysis.html#holo">Cauchy–Riemann equations</a></li>
+    <li><a href="./real-analysis.html#real-differentiation">Differentiation</a></li>
+    <li><a href="./complex-analysis.html#cauchy-riemann">Cauchy–Riemann equations</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./harmonic-functions.html#mvp">Harmonic functions</a> · Mean value property</div>
+    <div><a href="./partial-differential-equations.html#laplace">Partial differential equations</a> · Laplace equation and the Dirichlet problem</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="hf-laplace-equation"></div>
+</section>
+
+<section id="mvp">
+<h2>2. The mean value property</h2>
+<p>Here is the single property that distils what "harmonic" really means. If $u$ is harmonic on $\Omega$ and the closed ball $\overline{B(x_0, r)} \subset \Omega$, then</p>
+<p>$$u(x_0) \;=\; \frac{1}{|\partial B(x_0,r)|}\int_{\partial B(x_0,r)} u\,dS \;=\; \frac{1}{|B(x_0,r)|}\int_{B(x_0,r)} u\,dV.$$</p>
+<p>The value at the center equals the spherical average — and equivalently the volume average over the ball. <strong>Harmonic = balanced.</strong></p>
+<p>The proof is one application of the divergence theorem: differentiate the average $\overline u(r) = \tfrac{1}{|\partial B(x_0,r)|}\int_{\partial B(x_0,r)} u\,dS$ with respect to $r$, get $\overline u'(r) = \tfrac{r}{n} \cdot \overline{\Delta u}(r) = 0$, so the average is independent of $r$. Sending $r \to 0$ recovers $u(x_0)$.</p>
+<div class="note"><strong>Converse — Koebe's theorem.</strong> The MVP <em>characterises</em> harmonicity. If $u$ is continuous on $\Omega$ and satisfies $u(x) = $ ball average for every admissible ball, then $u$ is harmonic — and in particular $C^\infty$. So a single integral identity, applied at every scale, forces all derivatives to exist and a PDE to hold. This is the cleanest example of <em>elliptic regularity</em>.</div>
+<p>Two consequences fall out for free:</p>
+<p>(i) <strong>Smoothing.</strong> Convolution with a radial bump, or even just averaging on small balls, takes a continuous harmonic function to itself — but for a generic $u$ it strictly improves regularity. Iterated averaging is therefore a route to constructing harmonic approximations.</p>
+<p>(ii) <strong>Real analyticity.</strong> Going further: every harmonic function on a connected open set is real-analytic. Knowing $u$ on a tiny open ball pins it down everywhere, exactly as for holomorphic functions.</p>
+
+<div class="widget" id="w-mvp">
+  <div class="hd"><div class="ttl">Center value vs. circle average</div><div class="hint">drag the center / change the radius; compare $u(x_0)$ with the boundary average</div></div>
+  <div class="row">
+    <label for="mvp-fn">$u =$</label>
+    <select id="mvp-fn">
+      <option value="harm" selected>x² − y² (harmonic)</option>
+      <option value="re_z3">x³ − 3xy² (harmonic)</option>
+      <option value="non1">x² + y² (NOT harmonic)</option>
+      <option value="non2">x² y (NOT harmonic)</option>
+    </select>
+    <label for="mvp-r">r:</label>
+    <input id="mvp-r" type="range" min="0.2" max="2.0" step="0.05" value="1.0">
+    <span class="small" id="mvp-rlabel">1.00</span>
+  </div>
+  <svg id="mvp-svg" viewBox="0 0 600 320" width="600" height="320"><title>Mean value property visualizer</title></svg>
+  <div class="readout" id="mvp-readout"></div>
+</div>
+<script>
 /* ---------- Section 2: MVP center vs. circle average ---------- */
 (function(){
   const svg = document.getElementById("mvp-svg");
@@ -733,7 +546,54 @@ function heatColor(t){
   document.getElementById("mvp-r").addEventListener("input", plot);
   plot();
 })();
+</script>
 
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./complex-analysis.html#contour">Cauchy's theorem</a></li>
+    <li><a href="./complex-analysis.html#cauchy-theorem">Cauchy's theorem</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./harmonic-functions.html#maximum">Harmonic functions</a> · Maximum principle</div>
+    <div><a href="./harmonic-functions.html#poisson">Harmonic functions</a> · Poisson kernel</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="hf-mean-value-property"></div>
+</section>
+
+<section id="maximum">
+<h2>3. The maximum principle</h2>
+<p>From the mean value property the maximum principle drops out almost for free. If $u$ takes a value at $x_0$ which is its supremum on $\Omega$, then $u(x_0) = $ the average over any small ball around $x_0$, but the average can equal the maximum only if $u$ is constant on that ball. A connectedness argument propagates the constancy.</p>
+<p><strong>Weak maximum principle.</strong> Let $u$ be harmonic on a bounded $\Omega$ and continuous on $\overline\Omega$. Then</p>
+<p>$$\max_{\overline\Omega} u \;=\; \max_{\partial\Omega} u, \qquad \min_{\overline\Omega} u \;=\; \min_{\partial\Omega} u.$$</p>
+<p><strong>Strong maximum principle.</strong> If $u$ attains its supremum at any interior point of a connected $\Omega$, then $u$ is constant on $\Omega$.</p>
+<p>The strong form sharpens the weak: not only does the boundary realise the extremes, the interior can <em>never</em> do so unless $u$ is trivial.</p>
+
+<div class="ok"><strong>Uniqueness for the Dirichlet problem.</strong> Suppose $u_1, u_2$ are both harmonic on $\Omega$ and continuous up to $\partial\Omega$, with $u_1 = u_2$ on $\partial\Omega$. The difference $w = u_1 - u_2$ is harmonic and zero on $\partial\Omega$. The weak maximum principle, applied to $\pm w$, forces $|w| \le 0$ on $\overline\Omega$. So $u_1 = u_2$. <em>Boundary values determine harmonic functions.</em></div>
+
+<div class="widget" id="w-maxp">
+  <div class="hd"><div class="ttl">Where does the max live?</div><div class="hint">isolines of harmonic vs. non-harmonic; the orange dot tracks the running max as you scan</div></div>
+  <div class="row">
+    <label for="max-fn">$u =$</label>
+    <select id="max-fn">
+      <option value="harm" selected>x² − y² (harmonic)</option>
+      <option value="re_z3">x³ − 3xy² (harmonic)</option>
+      <option value="cosex">eˣ cos y (harmonic)</option>
+      <option value="bump">x² + y² (NOT harmonic, has interior min)</option>
+      <option value="bell">−(x² + y²) (NOT harmonic, has interior max)</option>
+    </select>
+    <label for="max-r">scan radius:</label>
+    <input id="max-r" type="range" min="0.2" max="1.8" step="0.02" value="1.0">
+    <span class="small" id="max-rlabel">1.00</span>
+  </div>
+  <svg id="max-svg" viewBox="0 0 600 360" width="600" height="360"><title>Maximum principle visualizer</title></svg>
+  <div class="readout" id="max-readout"></div>
+</div>
+<script>
 /* ---------- Section 3: Maximum principle ---------- */
 (function(){
   const svg = document.getElementById("max-svg");
@@ -843,7 +703,50 @@ function heatColor(t){
   document.getElementById("max-r").addEventListener("input", plot);
   plot();
 })();
+</script>
 
+<div class="quiz" data-concept="hf-maximum-principle"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./harmonic-functions.html#subharmonic">Harmonic functions</a> · Subharmonic functions and Perron's method</div>
+    <div><a href="./partial-differential-equations.html#heat">Partial differential equations</a> · Heat equation and the heat kernel</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="poisson">
+<h2>4. The Poisson kernel and the disk Dirichlet problem</h2>
+<p>For the <em>unit disk</em> $\mathbb{D} = \{|z| < 1\}$ the Dirichlet problem has an explicit, beautiful solution. Given continuous boundary data $g\colon \partial \mathbb{D} \to \mathbb{R}$, the unique harmonic extension is</p>
+<p>$$u(re^{i\theta}) \;=\; \frac{1}{2\pi}\int_0^{2\pi} P_r(\theta - \varphi)\,g(\varphi)\,d\varphi, \qquad P_r(\theta) \;=\; \frac{1 - r^2}{1 - 2r\cos\theta + r^2}.$$</p>
+<p>The kernel $P_r$ is the <strong>Poisson kernel</strong>. Three facts make it useful:</p>
+<p>(i) <strong>Positivity.</strong> $1 - 2r\cos\theta + r^2 = |1 - re^{i\theta}|^2 > 0$, so $P_r > 0$.<br>
+(ii) <strong>Mass one.</strong> $\frac{1}{2\pi}\int_0^{2\pi} P_r(\theta)\,d\theta = 1$ for every $r \in [0,1)$.<br>
+(iii) <strong>Concentration.</strong> As $r \to 1^-$, $P_r$ concentrates a unit mass at $\theta = 0$ — it is an <em>approximate identity</em>.</p>
+<p>So $u = P_r * g$ is convolution against an approximate identity: the values of $u$ deep in the disk are weighted averages of $g$ over the whole circle, while values close to the boundary look at nearby boundary points only.</p>
+<div class="note"><strong>Boundary recovery.</strong> Convergence to the boundary data has different flavours depending on how regular $g$ is:
+<br>• If $g$ is continuous, $u(re^{i\theta}) \to g(\theta)$ uniformly as $r \to 1^-$.
+<br>• If $g \in L^p$ for $1 \le p < \infty$, the radial limit equals $g$ <em>almost everywhere</em> — this is <strong>Fatou's theorem</strong>, the cleanest example of a measure-theoretic boundary value.
+<br>The MVP is the special case $r = 0$: $u(0) = \frac{1}{2\pi}\int g$, the simplest boundary integral.</div>
+
+<div class="widget" id="w-poisson">
+  <div class="hd"><div class="ttl">Poisson extension on the disk</div><div class="hint">paint boundary values $g(\theta)$; watch the harmonic interior light up</div></div>
+  <div class="row">
+    <label for="poi-data">$g(\theta) =$</label>
+    <select id="poi-data">
+      <option value="cos" selected>cos θ</option>
+      <option value="cos2">cos 2θ</option>
+      <option value="step">step: +1 on top, −1 on bottom</option>
+      <option value="bump">bump near θ = 0</option>
+      <option value="3cos2">2 + 3 cos 2θ</option>
+    </select>
+    <label for="poi-r">radial slice r:</label>
+    <input id="poi-r" type="range" min="0" max="0.98" step="0.01" value="0.5">
+    <span class="small" id="poi-rlabel">0.50</span>
+  </div>
+  <svg id="poi-svg" viewBox="0 0 720 360" width="720" height="360"><title>Poisson kernel disk extension</title></svg>
+  <div class="readout" id="poi-readout"></div>
+</div>
+<script>
 /* ---------- Section 4: Poisson kernel disk extension ---------- */
 (function(){
   const svg = document.getElementById("poi-svg");
@@ -957,7 +860,56 @@ function heatColor(t){
   document.getElementById("poi-r").addEventListener("input", plot);
   plot();
 })();
+</script>
 
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./measure-theory.html#lebesgue">Lebesgue measure</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./harmonic-functions.html#harnack">Harmonic functions</a> · Harnack's inequality</div>
+    <div><a href="./partial-differential-equations.html#laplace">Partial differential equations</a> · Laplace equation and the Dirichlet problem</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+<div class="quiz" data-concept="hf-poisson-kernel"></div>
+</section>
+
+<section id="harnack">
+<h2>5. Harnack's inequality</h2>
+<p>The Poisson formula gives an <em>uniform</em> control on the oscillation of positive harmonic functions. Suppose $u \ge 0$ is harmonic on $B(0, R)$ in $\mathbb{R}^n$. Then for every $|x| = r < R$,</p>
+<p>$$\frac{R - r}{R + r}\cdot\Big(\frac{R}{R+r}\Big)^{\!n-2} u(0) \;\le\; u(x) \;\le\; \frac{R + r}{R - r}\cdot\Big(\frac{R}{R-r}\Big)^{\!n-2} u(0).$$</p>
+<p>In two dimensions this collapses to the textbook form</p>
+<p>$$\frac{R - r}{R + r}\,u(0) \;\le\; u(x) \;\le\; \frac{R + r}{R - r}\,u(0).$$</p>
+<p>The proof on the disk is one line from the Poisson kernel. For $|y| = R$ and $|x| = r$,</p>
+<p>$$P_{r/R}(\theta) \cdot \frac{1}{R^{n-2}} \;\le\; \text{Poisson kernel}(x, y) \;\le\; \text{(upper)},$$</p>
+<p>and the <em>positivity</em> of $u$ on the boundary lets us pull the bound through the integral. Without positivity the bound is meaningless: the Poisson kernel at one point can be huge, and a sign-changing $u$ can have $u(0) = 0$ while $u$ is large elsewhere.</p>
+
+<div class="ok"><strong>Liouville for harmonic functions.</strong> If $u \ge 0$ is harmonic on all of $\mathbb{R}^n$, apply Harnack on $B(0, R)$ with $r$ fixed and let $R \to \infty$. The factor $\tfrac{R-r}{R+r}$ tends to $1$, and the upper bound's $\tfrac{R+r}{R-r}$ also tends to $1$. Both bounds pinch to $u(0)$, so $u(x) = u(0)$ for every $x$ — a positive harmonic function on $\mathbb{R}^n$ is constant. The complex-analysis Liouville (bounded entire ⇒ constant) is the analogous statement for holomorphic functions; both are theorems about rigidity from a one-sided bound.</div>
+
+<div class="widget" id="w-harnack">
+  <div class="hd"><div class="ttl">Harnack bounds on positive harmonic functions</div><div class="hint">$u(0)$ pins down a corridor for $u(x)$; slide $r$, watch the corridor shrink to a point at $r = 0$</div></div>
+  <div class="row">
+    <label for="har-data">boundary mass concentration:</label>
+    <select id="har-data">
+      <option value="uniform">uniform g(θ) = 1</option>
+      <option value="bump1" selected>bump near θ = 0</option>
+      <option value="bump2">narrow bump near θ = 0</option>
+      <option value="two">two opposite bumps</option>
+    </select>
+    <label for="har-r">R = 1, r:</label>
+    <input id="har-r" type="range" min="0.01" max="0.95" step="0.01" value="0.5">
+    <span class="small" id="har-rlabel">0.50</span>
+  </div>
+  <svg id="har-svg" viewBox="0 0 720 360" width="720" height="360"><title>Harnack inequality corridor</title></svg>
+  <div class="readout" id="har-readout"></div>
+</div>
+<script>
 /* ---------- Section 5: Harnack corridor ---------- */
 (function(){
   const svg = document.getElementById("har-svg");
@@ -1064,7 +1016,48 @@ function heatColor(t){
   document.getElementById("har-r").addEventListener("input", plot);
   plot();
 })();
+</script>
 
+<div class="quiz" data-concept="hf-harnack-inequality"></div>
+</section>
+
+<section id="subharmonic">
+<h2>6. Subharmonic functions and Perron's method</h2>
+<p>Replace $\Delta v = 0$ with the inequality $\Delta v \ge 0$ — equivalently, replace the MVP equation $v(x) = $ ball average by the inequality $v(x) \le $ ball average. The resulting class of upper semicontinuous functions is the class of <strong>subharmonic functions</strong>. (Sign convention is a coin-flip; we follow the standard "sub" = below convention, so $v$ is subharmonic when its values sit below the harmonic majorant.)</p>
+<p>Examples:</p>
+<p>• If $f$ is holomorphic, $\log|f|$ is subharmonic — the elementary proof is the Jensen formula.<br>
+• Any convex function of a harmonic function is subharmonic (Jensen's inequality at the level of averages).<br>
+• Maxima of finitely many subharmonic functions are subharmonic.</p>
+<p>The maximum principle still holds for subharmonic functions: $\sup_{\overline\Omega} v = \sup_{\partial\Omega} v$. This is the property that makes them useful — they let us <em>build</em> harmonic functions from below.</p>
+
+<h3>Perron's method</h3>
+<p>Given continuous boundary data $g$ on $\partial \Omega$, define the <em>Perron family</em></p>
+<p>$$\mathcal{S}_g \;=\; \{v\colon\Omega\to\mathbb{R} \;:\; v \text{ subharmonic},\ \limsup_{y\to\zeta} v(y) \le g(\zeta)\ \forall\zeta\in\partial\Omega\}.$$</p>
+<p>and set</p>
+<p>$$u(x) \;=\; \sup\,\{v(x) \;:\; v \in \mathcal{S}_g\}.$$</p>
+<p>Two near-miraculous facts:</p>
+<p>(i) <strong>$u$ is harmonic on $\Omega$.</strong> The proof is "harmonic lifting": on any small ball $B \subset\Omega$, replace $v$ by its Poisson integral on $B$, get a larger element of $\mathcal{S}_g$, and conclude that $u$ equals the Poisson integral of itself on every small ball.<br>
+(ii) <strong>$u$ achieves $g$ on $\partial\Omega$ at every <em>regular boundary point</em>.</strong> A boundary point $\zeta$ is regular when there is a <em>barrier</em> — a subharmonic function near $\zeta$ that vanishes at $\zeta$ and is strictly negative everywhere else. For "nice" domains (e.g. bounded with $C^1$ boundary in $\mathbb{R}^n$, or simply connected planar domains with more than one boundary point) every boundary point is regular.</p>
+
+<div class="note"><strong>The classical bad point: Lebesgue spine.</strong> In $\mathbb{R}^3$ remove a thin spike pointing into a region. The tip of the spike is a boundary point that admits no barrier — Perron's $u$ exists, but it does not achieve the boundary value at the tip. Pathologies of this kind delineate the boundary regularity theory and motivate Wiener's criterion.</div>
+
+<div class="widget" id="w-perron">
+  <div class="hd"><div class="ttl">Perron&#39;s sup of subharmonic competitors</div><div class="hint">add competing subharmonic candidates, watch the supremum approach the harmonic Poisson extension</div></div>
+  <div class="row">
+    <label for="per-data">boundary data:</label>
+    <select id="per-data">
+      <option value="cos" selected>cos θ</option>
+      <option value="cos2">cos 2θ</option>
+      <option value="step">step ±1</option>
+    </select>
+    <label for="per-n">family size:</label>
+    <input id="per-n" type="range" min="1" max="20" step="1" value="6">
+    <span class="small" id="per-nlabel">6</span>
+  </div>
+  <svg id="per-svg" viewBox="0 0 720 320" width="720" height="320"><title>Perron supremum visualizer</title></svg>
+  <div class="readout" id="per-readout"></div>
+</div>
+<script>
 /* ---------- Section 6: Perron supremum ---------- */
 (function(){
   const svg = document.getElementById("per-svg");
@@ -1162,6 +1155,18 @@ function heatColor(t){
   plot();
 })();
 </script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./complex-analysis.html#cons">Analyticity = holomorphy</a></li>
+    <li><a href="./complex-analysis.html#analyticity">Analyticity = holomorphy</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="hf-subharmonic"></div>
+</section>
+
 
 <section id="outro">
 <h2>7. Connections</h2>

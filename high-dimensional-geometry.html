@@ -277,256 +277,7 @@ The deviation scale is $1/\sqrt n$ — Lipschitz functionals are essentially con
     <span id="sp-n-v" class="small"></span>
   </div>
   <div class="readout" id="sp-out"></div>
-</div>
-
-<div class="quiz" data-concept="hdg-sphere-concentration"></div>
-
-<!-- callback-auto-begin -->
-<aside class="callback">
-  <div class="ttl">See also</div>
-  <ul>
-    <li><a href="./probability-theory.html#expectation">Probability theory</a> · Expectation, variance, and moments</li>
-    <li><a href="./measure-theory.html#lp-spaces">Measure theory</a> · $L^{p}$ spaces</li>
-    <li><a href="./measure-theory.html#lp">Lᵖ spaces</a></li>
-  </ul>
-</aside>
-<!-- callback-auto-end --><!-- backlinks-auto-begin -->
-<aside class="related">
-  <div class="ttl">Used in</div>
-    <div><a href="./high-dimensional-geometry.html#dvoretzky">High-dimensional geometry</a> · Dvoretzky's theorem</div>
-    <div><a href="./high-dimensional-geometry.html#isoperimetry">High-dimensional geometry</a> · Gaussian isoperimetry</div>
-    <div><a href="./high-dimensional-geometry.html#jl">High-dimensional geometry</a> · Johnson–Lindenstrauss</div>
-    <div><a href="./high-dimensional-geometry.html#talagrand">High-dimensional geometry</a> · Talagrand's inequality</div>
-</aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<section id="dvoretzky">
-<h2>2. Dvoretzky's theorem</h2>
-
-<p>Let $K\subset\mathbb{R}^{n}$ be a centred convex body with associated norm $\|\cdot\|_{K}$. <strong>Dvoretzky's theorem</strong> (1961, sharpened by Milman 1971) asserts the existence of a subspace $E\subset\mathbb{R}^{n}$ of dimension
-$$k=k(K,\varepsilon)\ge c\,\varepsilon^{2}\log n$$
-such that, for some $r>0$, every $x\in E$ satisfies
-$$r\,|x|\le\|x\|_{K}\le (1+\varepsilon)\,r\,|x|.$$
-That is, every centred convex body has an almost-Euclidean section of logarithmic dimension. The body $\ell^{\infty}_{n}$ shows the $\log n$ scaling is sharp.</p>
-
-<p><strong>Milman's proof in one paragraph.</strong> Concentration on $S^{n-1}$ shows the random variable $\|X\|_{K}$ (for $X\sim\sigma$) is concentrated within $1/\sqrt n$ of its mean $M$. So on $S^{n-1}$ the level sets $\{x:|\|x\|_{K}-M|<\varepsilon M\}$ have measure exponentially close to $1$. An $\varepsilon$-net argument over the Grassmannian $\mathrm{Gr}(k,n)$ — whose entropy is $\sim k\,n$ — combined with a union bound produces a single $k$-dim subspace $E$ on which the deviation is uniform.</p>
-
-<div class="ok"><strong>Constant for $\ell^{p}$.</strong> For $K=B_{\ell^{p}}$, the critical dimension is $k(\ell^{p},\varepsilon)\asymp\varepsilon^{2}n^{2/p}$ for $1\le p\le 2$ and $\asymp\varepsilon^{2}\log n$ for $p\ge 2$. The phase transition at $p=2$ is the boundary between "Hilbertian-already" and "non-Hilbertian-but-rescuable".</div>
-
-<div class="widget" id="w-dvor">
-  <div class="hd"><div class="ttl">$\ell^{\infty}_{n}$ unit ball — random $2$-D section</div><div class="hint">click to resample — the cross-section is approximately a regular polygon, becoming circular as $n$ grows</div></div>
-  <svg id="dvor-svg" viewBox="-160 -160 320 320" width="380" height="380"><title>Random 2-D sections of the cube look spherical for large n</title></svg>
-  <div class="row">
-    <label for="dv-n">dimension $n$</label>
-    <input id="dv-n" type="range" min="3" max="80" step="1" value="20">
-    <span id="dv-n-v" class="small"></span>
-    <button id="dv-resample">resample</button>
-  </div>
-  <div class="readout" id="dv-out"></div>
-</div>
-
-<div class="quiz" data-concept="hdg-dvoretzky"></div>
-
-<!-- callback-auto-begin -->
-<aside class="callback">
-  <div class="ttl">See also</div>
-  <ul>
-    <li><a href="./functional-analysis.html#hilbert">Functional analysis</a> · Banach and Hilbert spaces</li>
-  </ul>
-</aside>
-<!-- callback-auto-end -->
-</section>
-
-<section id="jl">
-<h2>3. Johnson–Lindenstrauss</h2>
-
-<p><strong>Johnson–Lindenstrauss lemma (1984).</strong> Given $N$ points $x_{1},\ldots,x_{N}\in\mathbb{R}^{n}$ and $\varepsilon\in(0,1)$, there is a linear map $\Phi:\mathbb{R}^{n}\to\mathbb{R}^{k}$ with
-$$k=O\!\left(\frac{\log N}{\varepsilon^{2}}\right)$$
-such that for every pair $i,j$,
-$$(1-\varepsilon)\,\|x_{i}-x_{j}\|^{2}\le\|\Phi x_{i}-\Phi x_{j}\|^{2}\le(1+\varepsilon)\,\|x_{i}-x_{j}\|^{2}.$$
-The target dimension is independent of the ambient dimension $n$. A random Gaussian matrix $\Phi=\frac{1}{\sqrt k}G$ with $G_{ij}\sim\mathcal{N}(0,1)$ does the job with high probability.</p>
-
-<p><strong>Proof sketch.</strong> For a fixed unit vector $x$, $\|\Phi x\|^{2}=\frac{1}{k}\sum_{i=1}^{k}(g_{i}\cdot x)^{2}$ is a $\chi^{2}_{k}/k$ variable; concentration gives
-$$\mathbb{P}\bigl(|\,\|\Phi x\|^{2}-1\,|>\varepsilon\bigr)\le 2e^{-c\varepsilon^{2}k}.$$
-Apply to all $\binom{N}{2}$ difference vectors $x_{i}-x_{j}$ and union-bound: choosing $k\gtrsim\log(N^{2})/\varepsilon^{2}$ makes the failure probability $<1$, so a fixed projection works.</p>
-
-<div class="widget" id="w-jl">
-  <div class="hd"><div class="ttl">JL distortion histogram</div><div class="hint">slide $k$ — distortion ratios collapse onto $1$ as $k$ increases</div></div>
-  <svg id="jl-svg" viewBox="0 0 760 320" width="760" height="320"><title>Histogram of pairwise-distance distortions under random Gaussian projection</title></svg>
-  <div class="row">
-    <label for="jl-n">ambient $n$</label>
-    <input id="jl-n" type="range" min="20" max="500" step="10" value="200">
-    <span id="jl-n-v" class="small"></span>
-  </div>
-  <div class="row">
-    <label for="jl-k">target $k$</label>
-    <input id="jl-k" type="range" min="2" max="200" step="1" value="20">
-    <span id="jl-k-v" class="small"></span>
-  </div>
-  <div class="row">
-    <label for="jl-N">point count $N$</label>
-    <input id="jl-N" type="range" min="20" max="200" step="5" value="60">
-    <span id="jl-N-v" class="small"></span>
-    <button id="jl-resample">resample</button>
-  </div>
-  <div class="readout" id="jl-out"></div>
-</div>
-
-<div class="quiz" data-concept="hdg-johnson-lindenstrauss"></div>
-
-<!-- callback-auto-begin -->
-<aside class="callback">
-  <div class="ttl">See also</div>
-  <ul>
-    <li><a href="./probability-theory.html#rv">Probability theory</a> · Random variables</li>
-  </ul>
-</aside>
-<!-- callback-auto-end --><!-- backlinks-auto-begin -->
-<aside class="related">
-  <div class="ttl">Used in</div>
-    <div><a href="./high-dimensional-geometry.html#applications">High-dimensional geometry</a> · Applications</div>
-</aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<section id="talagrand">
-<h2>4. Talagrand's inequality</h2>
-
-<p>Let $\Omega=\Omega_{1}\times\cdots\times\Omega_{n}$ be a product probability space and $A\subset\Omega$. The <strong>convex distance</strong> from $x$ to $A$ is
-$$d_{T}(x,A)=\sup_{\|\alpha\|_{2}=1}\inf_{y\in A}\sum_{i:\,x_{i}\ne y_{i}}\alpha_{i}.$$
-Talagrand's inequality (1995) says
-$$\mathbb{P}(A)\cdot\mathbb{P}(d_{T}(\cdot,A)>t)\le e^{-t^{2}/4}.$$
-For a convex $1$-Lipschitz $f:[0,1]^{n}\to\mathbb{R}$ this implies the dimension-free tail
-$$\mathbb{P}\bigl(|f(X)-\mathrm{med}\,f|>t\bigr)\le 4e^{-t^{2}/4},$$
-with no $n$ on the right-hand side. The $L^{p}$-Lipschitz cousin gives sub-Gaussian tails with constant determined by the Lipschitz norm.</p>
-
-<p><strong>Why convex distance is the right yardstick.</strong> On the Hamming cube the function $f(x)=\sum_{i}x_{i}$ is $1$-Lipschitz (in Hamming) but its standard deviation is $\sqrt n/2$, so the deviation cannot be dimension-free in Hamming. The convex distance is much smaller for "spread-out" disagreements — it absorbs the coordinatewise variability that the Hamming metric misses, and that's exactly what convex Lipschitz functionals see.</p>
-
-<div class="widget" id="w-tala">
-  <div class="hd"><div class="ttl">Hamming vs convex deviation</div><div class="hint">drag $n$ — Hamming-Lipschitz max grows as $\sqrt n$; convex-Lipschitz $f$ stays $O(1)$</div></div>
-  <svg id="tala-svg" viewBox="0 0 760 280" width="760" height="280"><title>Hamming-Lipschitz vs convex-Lipschitz deviation scaling in n</title></svg>
-  <div class="row">
-    <label for="tl-n">dimension $n$</label>
-    <input id="tl-n" type="range" min="4" max="400" step="4" value="100">
-    <span id="tl-n-v" class="small"></span>
-    <button id="tl-resample">resample</button>
-  </div>
-  <div class="readout" id="tl-out"></div>
-</div>
-
-<div class="quiz" data-concept="hdg-talagrand"></div>
-
-<!-- callback-auto-begin -->
-<aside class="callback">
-  <div class="ttl">See also</div>
-  <ul>
-    <li><a href="./probability-theory.html#conv">Probability theory</a> · Modes of convergence</li>
-  </ul>
-</aside>
-<!-- callback-auto-end --><!-- backlinks-auto-begin -->
-<aside class="related">
-  <div class="ttl">Used in</div>
-    <div><a href="./high-dimensional-geometry.html#applications">High-dimensional geometry</a> · Applications</div>
-</aside>
-<!-- backlinks-auto-end -->
-</section>
-
-<section id="isoperimetry">
-<h2>5. Gaussian isoperimetry</h2>
-
-<p>Let $\gamma_{n}$ be the standard Gaussian measure on $\mathbb{R}^{n}$. The <strong>Gaussian isoperimetric inequality</strong> (Borell, Sudakov–Tsirelson 1975) asserts: among Borel sets of equal Gaussian measure, halfspaces $H=\{x:\langle x,v\rangle\le c\}$ minimise the Gaussian boundary measure. Equivalently, for any Borel $A$ with $\gamma_{n}(A)=\Phi(a)$,
-$$\gamma_{n}(A_{t})\ge\Phi(a+t),\qquad A_{t}=\{x:d(x,A)\le t\},$$
-where $\Phi$ is the standard Gaussian CDF.</p>
-
-<p><strong>Tail consequence.</strong> If $A\subset\mathbb{R}^{n}$ has $\gamma_{n}(A)\ge 1/2$, then $\gamma_{n}(A_{t})\ge\Phi(t)\ge 1-e^{-t^{2}/2}$. Applied to $A=\{f\le M_{f}\}$ for a $1$-Lipschitz $f$: $\gamma_{n}(f>M_{f}+t)\le e^{-t^{2}/2}$ — Gaussian concentration is dimension-free, sharper than the sphere.</p>
-
-<p><strong>Sphere $\to$ Gauss limit.</strong> Project the uniform measure on $S^{n-1}(\sqrt n)$ onto the first $k$ coordinates: as $n\to\infty$, the marginal converges to $\mathcal{N}(0,I_{k})$ (Maxwell–Poincaré). Lévy's $(n-1)t^{2}/2$ tail rescales to $t^{2}/2$ — Gaussian concentration is the high-dimensional shadow of the sphere.</p>
-
-<div class="ok"><strong>Log-Sobolev (Gross 1975).</strong> For $f$ in the Gaussian Sobolev space, $\mathrm{Ent}_{\gamma}(f^{2})\le 2\int|\nabla f|^{2}\,d\gamma$. This <em>functional</em> isoperimetric inequality is dimension-free, tensorises perfectly across products, and is equivalent to hypercontractivity of the Ornstein–Uhlenbeck semigroup. Bobkov's inequality $I(\mathbb{E}f)\le\mathbb{E}\sqrt{I(f)^{2}+|\nabla f|^{2}}$ (where $I=\varphi\circ\Phi^{-1}$) is the sharp functional refinement that recovers Gaussian isoperimetry directly.</div>
-
-<div class="widget" id="w-iso">
-  <div class="hd"><div class="ttl">Gaussian halfspace tail vs sphere cap</div><div class="hint">slide $n$ — sphere cap (rescaled) approaches Gaussian tail $1-\Phi(t)$</div></div>
-  <svg id="iso-svg" viewBox="0 0 760 320" width="760" height="320"><title>Sphere cap measure rescaled to Gaussian tail comparison</title></svg>
-  <div class="row">
-    <label for="is-n">sphere dim $n$</label>
-    <input id="is-n" type="range" min="3" max="500" step="1" value="20">
-    <span id="is-n-v" class="small"></span>
-  </div>
-  <div class="readout" id="is-out"></div>
-</div>
-
-<div class="quiz" data-concept="hdg-isoperimetry"></div>
-
-<!-- callback-auto-begin -->
-<aside class="callback">
-  <div class="ttl">See also</div>
-  <ul>
-    <li><a href="./functional-analysis.html#bounded">Functional analysis</a> · Bounded operators and adjoints</li>
-  </ul>
-</aside>
-<!-- callback-auto-end -->
-</section>
-
-<section id="applications">
-<h2>6. Applications</h2>
-
-<p>Concentration of measure is the geometric backbone of high-dimensional data analysis. Four signature applications:</p>
-
-<p><strong>Compressed sensing.</strong> Candès–Romberg–Tao (2006): a $k$-sparse signal $x\in\mathbb{R}^{n}$ can be recovered exactly from $m=O(k\log(n/k))$ random linear measurements via $\ell^{1}$-minimisation. The proof rests on the <em>Restricted Isometry Property</em>: for every $k$-sparse $x$, $(1-\delta)\|x\|^{2}\le\|Ax\|^{2}\le(1+\delta)\|x\|^{2}$. JL-type concentration applied to all $\binom{n}{k}$ coordinate subspaces gives RIP with high probability.</p>
-
-<p><strong>Random matrix theory.</strong> The empirical spectral distribution of $\frac{1}{n}WW^{*}$ for $W$ an $m\times n$ matrix with i.i.d.\ centred entries (variance $1$) converges, as $m,n\to\infty$ with $m/n\to\lambda$, to the <strong>Marchenko–Pastur law</strong> on $\bigl[(1-\sqrt\lambda)^{2},(1+\sqrt\lambda)^{2}\bigr]$. Wigner's semicircle and Tracy–Widom edge fluctuations are companion phenomena. Concentration controls the operator norm: $\|W\|_{op}\le 2\sqrt n+O(1)$ for $n\times n$ Wigner.</p>
-
-<p><strong>Statistical learning (PAC).</strong> For a hypothesis class $\mathcal{H}$ of VC dimension $d$, the empirical-risk minimiser $\hat h$ on $m$ samples satisfies
-$$\mathbb{P}\!\left(\sup_{h\in\mathcal{H}}|R_{\mathrm{emp}}(h)-R(h)|>\varepsilon\right)\le 8\,m^{d}e^{-m\varepsilon^{2}/32}.$$
-The proof uses uniform concentration over $\mathcal{H}$ — Talagrand's inequality and chaining are the modern tools. Sample complexity $m=O(d/\varepsilon^{2})$.</p>
-
-<p><strong>Random tensors.</strong> An $n\times n\times n$ tensor with i.i.d.\ Gaussian entries has injective norm $\sim\sqrt{n\log n}$ — concentration at order $\sqrt n$ is much harder to establish than for matrices and is an active research frontier (Bandeira, Boedihardjo, van Handel).</p>
-
-<div class="widget" id="w-mp">
-  <div class="hd"><div class="ttl">Marchenko–Pastur spectrum</div><div class="hint">slide $\lambda=m/n$ — empirical eigenvalue histogram fits the MP density</div></div>
-  <svg id="mp-svg" viewBox="0 0 760 320" width="760" height="320"><title>Marchenko–Pastur empirical spectral distribution</title></svg>
-  <div class="row">
-    <label for="mp-l">aspect $\lambda=m/n$</label>
-    <input id="mp-l" type="range" min="0.2" max="2.5" step="0.05" value="0.6">
-    <span id="mp-l-v" class="small"></span>
-  </div>
-  <div class="row">
-    <label for="mp-n">$n$</label>
-    <input id="mp-n" type="range" min="20" max="300" step="10" value="120">
-    <span id="mp-n-v" class="small"></span>
-    <button id="mp-resample">resample</button>
-  </div>
-  <div class="readout" id="mp-out"></div>
-</div>
-
-<div class="quiz" data-concept="hdg-applications"></div>
-
-<!-- callback-auto-begin -->
-<aside class="callback">
-  <div class="ttl">See also</div>
-  <ul>
-    <li><a href="./large-deviations.html#cramer">Large deviations</a> · Cramér's theorem</li>
-  </ul>
-</aside>
-<!-- callback-auto-end -->
-</section>
-
-<section id="connections">
-<h2>Connections</h2>
-
-<p>High-dimensional geometry is where probability, geometry, and analysis meet on equal terms. The active frontier sits at <em>structured</em> high-dimensional models: matrix concentration with dependent entries (van Handel), free probability for non-commutative limits, and concentration on manifolds with Ricci curvature lower bounds (Sturm–Lott–Villani). Random tensors and the geometry of overparametrised neural-network losses are open at the research level.</p>
-
-<ul>
-  <li><a href="./probability-theory.html#expectation">Probability theory — expectation &amp; moments</a> — concentration is a quantitative law of large numbers.</li>
-  <li><a href="./large-deviations.html#cramer">Large deviations — Cramér</a> — exponential tail rates packaged as a Legendre transform; Gaussian isoperimetry is the geometric face.</li>
-  <li><a href="./functional-analysis.html#hilbert">Functional analysis — Banach &amp; Hilbert spaces</a> — Dvoretzky says every Banach space hides Hilbert geometry in $\log n$ dimensions.</li>
-  <li><a href="./information-theory.html">Information theory</a> — KL divergence is the Sanov rate function and the Gaussian log-Sobolev constant.</li>
-  <li><a href="./harmonic-analysis-fourier.html">Harmonic analysis</a> — hypercontractivity of the Ornstein–Uhlenbeck semigroup is dual to Gaussian log-Sobolev.</li>
-</ul>
-</section>
-
-<script>
+</div><script>
 /* =============================== §1 Sphere concentration =============================== */
 (function(){
   const svg = $("#sphere-svg"), out = $("#sp-out");
@@ -589,7 +340,54 @@ The proof uses uniform concentration over $\mathcal{H}$ — Talagrand's inequali
   ns.addEventListener("input", draw);
   draw();
 })();
+</script>
 
+<div class="quiz" data-concept="hdg-sphere-concentration"></div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./probability-theory.html#expectation">Probability theory</a> · Expectation, variance, and moments</li>
+    <li><a href="./measure-theory.html#lp-spaces">Measure theory</a> · $L^{p}$ spaces</li>
+    <li><a href="./measure-theory.html#lp">Lᵖ spaces</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./high-dimensional-geometry.html#dvoretzky">High-dimensional geometry</a> · Dvoretzky's theorem</div>
+    <div><a href="./high-dimensional-geometry.html#isoperimetry">High-dimensional geometry</a> · Gaussian isoperimetry</div>
+    <div><a href="./high-dimensional-geometry.html#jl">High-dimensional geometry</a> · Johnson–Lindenstrauss</div>
+    <div><a href="./high-dimensional-geometry.html#talagrand">High-dimensional geometry</a> · Talagrand's inequality</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="dvoretzky">
+<h2>2. Dvoretzky's theorem</h2>
+
+<p>Let $K\subset\mathbb{R}^{n}$ be a centred convex body with associated norm $\|\cdot\|_{K}$. <strong>Dvoretzky's theorem</strong> (1961, sharpened by Milman 1971) asserts the existence of a subspace $E\subset\mathbb{R}^{n}$ of dimension
+$$k=k(K,\varepsilon)\ge c\,\varepsilon^{2}\log n$$
+such that, for some $r>0$, every $x\in E$ satisfies
+$$r\,|x|\le\|x\|_{K}\le (1+\varepsilon)\,r\,|x|.$$
+That is, every centred convex body has an almost-Euclidean section of logarithmic dimension. The body $\ell^{\infty}_{n}$ shows the $\log n$ scaling is sharp.</p>
+
+<p><strong>Milman's proof in one paragraph.</strong> Concentration on $S^{n-1}$ shows the random variable $\|X\|_{K}$ (for $X\sim\sigma$) is concentrated within $1/\sqrt n$ of its mean $M$. So on $S^{n-1}$ the level sets $\{x:|\|x\|_{K}-M|<\varepsilon M\}$ have measure exponentially close to $1$. An $\varepsilon$-net argument over the Grassmannian $\mathrm{Gr}(k,n)$ — whose entropy is $\sim k\,n$ — combined with a union bound produces a single $k$-dim subspace $E$ on which the deviation is uniform.</p>
+
+<div class="ok"><strong>Constant for $\ell^{p}$.</strong> For $K=B_{\ell^{p}}$, the critical dimension is $k(\ell^{p},\varepsilon)\asymp\varepsilon^{2}n^{2/p}$ for $1\le p\le 2$ and $\asymp\varepsilon^{2}\log n$ for $p\ge 2$. The phase transition at $p=2$ is the boundary between "Hilbertian-already" and "non-Hilbertian-but-rescuable".</div>
+
+<div class="widget" id="w-dvor">
+  <div class="hd"><div class="ttl">$\ell^{\infty}_{n}$ unit ball — random $2$-D section</div><div class="hint">click to resample — the cross-section is approximately a regular polygon, becoming circular as $n$ grows</div></div>
+  <svg id="dvor-svg" viewBox="-160 -160 320 320" width="380" height="380"><title>Random 2-D sections of the cube look spherical for large n</title></svg>
+  <div class="row">
+    <label for="dv-n">dimension $n$</label>
+    <input id="dv-n" type="range" min="3" max="80" step="1" value="20">
+    <span id="dv-n-v" class="small"></span>
+    <button id="dv-resample">resample</button>
+  </div>
+  <div class="readout" id="dv-out"></div>
+</div><script>
 /* =============================== §2 Dvoretzky: random 2-D section of cube =============================== */
 (function(){
   const svg = $("#dvor-svg"), out = $("#dv-out");
@@ -652,7 +450,54 @@ The proof uses uniform concentration over $\mathcal{H}$ — Talagrand's inequali
   btn.addEventListener("click", ()=>{ seed = (seed*48271 + Date.now()) % 1e7 + 17; draw(); });
   draw();
 })();
+</script>
 
+<div class="quiz" data-concept="hdg-dvoretzky"></div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./functional-analysis.html#hilbert">Functional analysis</a> · Banach and Hilbert spaces</li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+</section>
+
+<section id="jl">
+<h2>3. Johnson–Lindenstrauss</h2>
+
+<p><strong>Johnson–Lindenstrauss lemma (1984).</strong> Given $N$ points $x_{1},\ldots,x_{N}\in\mathbb{R}^{n}$ and $\varepsilon\in(0,1)$, there is a linear map $\Phi:\mathbb{R}^{n}\to\mathbb{R}^{k}$ with
+$$k=O\!\left(\frac{\log N}{\varepsilon^{2}}\right)$$
+such that for every pair $i,j$,
+$$(1-\varepsilon)\,\|x_{i}-x_{j}\|^{2}\le\|\Phi x_{i}-\Phi x_{j}\|^{2}\le(1+\varepsilon)\,\|x_{i}-x_{j}\|^{2}.$$
+The target dimension is independent of the ambient dimension $n$. A random Gaussian matrix $\Phi=\frac{1}{\sqrt k}G$ with $G_{ij}\sim\mathcal{N}(0,1)$ does the job with high probability.</p>
+
+<p><strong>Proof sketch.</strong> For a fixed unit vector $x$, $\|\Phi x\|^{2}=\frac{1}{k}\sum_{i=1}^{k}(g_{i}\cdot x)^{2}$ is a $\chi^{2}_{k}/k$ variable; concentration gives
+$$\mathbb{P}\bigl(|\,\|\Phi x\|^{2}-1\,|>\varepsilon\bigr)\le 2e^{-c\varepsilon^{2}k}.$$
+Apply to all $\binom{N}{2}$ difference vectors $x_{i}-x_{j}$ and union-bound: choosing $k\gtrsim\log(N^{2})/\varepsilon^{2}$ makes the failure probability $<1$, so a fixed projection works.</p>
+
+<div class="widget" id="w-jl">
+  <div class="hd"><div class="ttl">JL distortion histogram</div><div class="hint">slide $k$ — distortion ratios collapse onto $1$ as $k$ increases</div></div>
+  <svg id="jl-svg" viewBox="0 0 760 320" width="760" height="320"><title>Histogram of pairwise-distance distortions under random Gaussian projection</title></svg>
+  <div class="row">
+    <label for="jl-n">ambient $n$</label>
+    <input id="jl-n" type="range" min="20" max="500" step="10" value="200">
+    <span id="jl-n-v" class="small"></span>
+  </div>
+  <div class="row">
+    <label for="jl-k">target $k$</label>
+    <input id="jl-k" type="range" min="2" max="200" step="1" value="20">
+    <span id="jl-k-v" class="small"></span>
+  </div>
+  <div class="row">
+    <label for="jl-N">point count $N$</label>
+    <input id="jl-N" type="range" min="20" max="200" step="5" value="60">
+    <span id="jl-N-v" class="small"></span>
+    <button id="jl-resample">resample</button>
+  </div>
+  <div class="readout" id="jl-out"></div>
+</div><script>
 /* =============================== §3 Johnson–Lindenstrauss histogram =============================== */
 (function(){
   const svg = $("#jl-svg"), out = $("#jl-out");
@@ -755,7 +600,49 @@ The proof uses uniform concentration over $\mathcal{H}$ — Talagrand's inequali
   btn.addEventListener("click", ()=>{ seed = (seed*48271 + Date.now()) % 1e7 + 17; draw(); });
   draw();
 })();
+</script>
 
+<div class="quiz" data-concept="hdg-johnson-lindenstrauss"></div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./probability-theory.html#rv">Probability theory</a> · Random variables</li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./high-dimensional-geometry.html#applications">High-dimensional geometry</a> · Applications</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="talagrand">
+<h2>4. Talagrand's inequality</h2>
+
+<p>Let $\Omega=\Omega_{1}\times\cdots\times\Omega_{n}$ be a product probability space and $A\subset\Omega$. The <strong>convex distance</strong> from $x$ to $A$ is
+$$d_{T}(x,A)=\sup_{\|\alpha\|_{2}=1}\inf_{y\in A}\sum_{i:\,x_{i}\ne y_{i}}\alpha_{i}.$$
+Talagrand's inequality (1995) says
+$$\mathbb{P}(A)\cdot\mathbb{P}(d_{T}(\cdot,A)>t)\le e^{-t^{2}/4}.$$
+For a convex $1$-Lipschitz $f:[0,1]^{n}\to\mathbb{R}$ this implies the dimension-free tail
+$$\mathbb{P}\bigl(|f(X)-\mathrm{med}\,f|>t\bigr)\le 4e^{-t^{2}/4},$$
+with no $n$ on the right-hand side. The $L^{p}$-Lipschitz cousin gives sub-Gaussian tails with constant determined by the Lipschitz norm.</p>
+
+<p><strong>Why convex distance is the right yardstick.</strong> On the Hamming cube the function $f(x)=\sum_{i}x_{i}$ is $1$-Lipschitz (in Hamming) but its standard deviation is $\sqrt n/2$, so the deviation cannot be dimension-free in Hamming. The convex distance is much smaller for "spread-out" disagreements — it absorbs the coordinatewise variability that the Hamming metric misses, and that's exactly what convex Lipschitz functionals see.</p>
+
+<div class="widget" id="w-tala">
+  <div class="hd"><div class="ttl">Hamming vs convex deviation</div><div class="hint">drag $n$ — Hamming-Lipschitz max grows as $\sqrt n$; convex-Lipschitz $f$ stays $O(1)$</div></div>
+  <svg id="tala-svg" viewBox="0 0 760 280" width="760" height="280"><title>Hamming-Lipschitz vs convex-Lipschitz deviation scaling in n</title></svg>
+  <div class="row">
+    <label for="tl-n">dimension $n$</label>
+    <input id="tl-n" type="range" min="4" max="400" step="4" value="100">
+    <span id="tl-n-v" class="small"></span>
+    <button id="tl-resample">resample</button>
+  </div>
+  <div class="readout" id="tl-out"></div>
+</div><script>
 /* =============================== §4 Talagrand: Hamming vs convex deviation =============================== */
 (function(){
   const svg = $("#tala-svg"), out = $("#tl-out");
@@ -838,7 +725,48 @@ The proof uses uniform concentration over $\mathcal{H}$ — Talagrand's inequali
   btn.addEventListener("click", ()=>{ seed = (seed*48271 + Date.now()) % 1e7 + 17; draw(); });
   draw();
 })();
+</script>
 
+<div class="quiz" data-concept="hdg-talagrand"></div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./probability-theory.html#conv">Probability theory</a> · Modes of convergence</li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./high-dimensional-geometry.html#applications">High-dimensional geometry</a> · Applications</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="isoperimetry">
+<h2>5. Gaussian isoperimetry</h2>
+
+<p>Let $\gamma_{n}$ be the standard Gaussian measure on $\mathbb{R}^{n}$. The <strong>Gaussian isoperimetric inequality</strong> (Borell, Sudakov–Tsirelson 1975) asserts: among Borel sets of equal Gaussian measure, halfspaces $H=\{x:\langle x,v\rangle\le c\}$ minimise the Gaussian boundary measure. Equivalently, for any Borel $A$ with $\gamma_{n}(A)=\Phi(a)$,
+$$\gamma_{n}(A_{t})\ge\Phi(a+t),\qquad A_{t}=\{x:d(x,A)\le t\},$$
+where $\Phi$ is the standard Gaussian CDF.</p>
+
+<p><strong>Tail consequence.</strong> If $A\subset\mathbb{R}^{n}$ has $\gamma_{n}(A)\ge 1/2$, then $\gamma_{n}(A_{t})\ge\Phi(t)\ge 1-e^{-t^{2}/2}$. Applied to $A=\{f\le M_{f}\}$ for a $1$-Lipschitz $f$: $\gamma_{n}(f>M_{f}+t)\le e^{-t^{2}/2}$ — Gaussian concentration is dimension-free, sharper than the sphere.</p>
+
+<p><strong>Sphere $\to$ Gauss limit.</strong> Project the uniform measure on $S^{n-1}(\sqrt n)$ onto the first $k$ coordinates: as $n\to\infty$, the marginal converges to $\mathcal{N}(0,I_{k})$ (Maxwell–Poincaré). Lévy's $(n-1)t^{2}/2$ tail rescales to $t^{2}/2$ — Gaussian concentration is the high-dimensional shadow of the sphere.</p>
+
+<div class="ok"><strong>Log-Sobolev (Gross 1975).</strong> For $f$ in the Gaussian Sobolev space, $\mathrm{Ent}_{\gamma}(f^{2})\le 2\int|\nabla f|^{2}\,d\gamma$. This <em>functional</em> isoperimetric inequality is dimension-free, tensorises perfectly across products, and is equivalent to hypercontractivity of the Ornstein–Uhlenbeck semigroup. Bobkov's inequality $I(\mathbb{E}f)\le\mathbb{E}\sqrt{I(f)^{2}+|\nabla f|^{2}}$ (where $I=\varphi\circ\Phi^{-1}$) is the sharp functional refinement that recovers Gaussian isoperimetry directly.</div>
+
+<div class="widget" id="w-iso">
+  <div class="hd"><div class="ttl">Gaussian halfspace tail vs sphere cap</div><div class="hint">slide $n$ — sphere cap (rescaled) approaches Gaussian tail $1-\Phi(t)$</div></div>
+  <svg id="iso-svg" viewBox="0 0 760 320" width="760" height="320"><title>Sphere cap measure rescaled to Gaussian tail comparison</title></svg>
+  <div class="row">
+    <label for="is-n">sphere dim $n$</label>
+    <input id="is-n" type="range" min="3" max="500" step="1" value="20">
+    <span id="is-n-v" class="small"></span>
+  </div>
+  <div class="readout" id="is-out"></div>
+</div><script>
 /* =============================== §5 Gaussian isoperimetry: sphere → Gauss limit =============================== */
 (function(){
   const svg = $("#iso-svg"), out = $("#is-out");
@@ -924,7 +852,51 @@ The proof uses uniform concentration over $\mathcal{H}$ — Talagrand's inequali
   nIn.addEventListener("input", draw);
   draw();
 })();
+</script>
 
+<div class="quiz" data-concept="hdg-isoperimetry"></div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./functional-analysis.html#bounded">Functional analysis</a> · Bounded operators and adjoints</li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+</section>
+
+<section id="applications">
+<h2>6. Applications</h2>
+
+<p>Concentration of measure is the geometric backbone of high-dimensional data analysis. Four signature applications:</p>
+
+<p><strong>Compressed sensing.</strong> Candès–Romberg–Tao (2006): a $k$-sparse signal $x\in\mathbb{R}^{n}$ can be recovered exactly from $m=O(k\log(n/k))$ random linear measurements via $\ell^{1}$-minimisation. The proof rests on the <em>Restricted Isometry Property</em>: for every $k$-sparse $x$, $(1-\delta)\|x\|^{2}\le\|Ax\|^{2}\le(1+\delta)\|x\|^{2}$. JL-type concentration applied to all $\binom{n}{k}$ coordinate subspaces gives RIP with high probability.</p>
+
+<p><strong>Random matrix theory.</strong> The empirical spectral distribution of $\frac{1}{n}WW^{*}$ for $W$ an $m\times n$ matrix with i.i.d.\ centred entries (variance $1$) converges, as $m,n\to\infty$ with $m/n\to\lambda$, to the <strong>Marchenko–Pastur law</strong> on $\bigl[(1-\sqrt\lambda)^{2},(1+\sqrt\lambda)^{2}\bigr]$. Wigner's semicircle and Tracy–Widom edge fluctuations are companion phenomena. Concentration controls the operator norm: $\|W\|_{op}\le 2\sqrt n+O(1)$ for $n\times n$ Wigner.</p>
+
+<p><strong>Statistical learning (PAC).</strong> For a hypothesis class $\mathcal{H}$ of VC dimension $d$, the empirical-risk minimiser $\hat h$ on $m$ samples satisfies
+$$\mathbb{P}\!\left(\sup_{h\in\mathcal{H}}|R_{\mathrm{emp}}(h)-R(h)|>\varepsilon\right)\le 8\,m^{d}e^{-m\varepsilon^{2}/32}.$$
+The proof uses uniform concentration over $\mathcal{H}$ — Talagrand's inequality and chaining are the modern tools. Sample complexity $m=O(d/\varepsilon^{2})$.</p>
+
+<p><strong>Random tensors.</strong> An $n\times n\times n$ tensor with i.i.d.\ Gaussian entries has injective norm $\sim\sqrt{n\log n}$ — concentration at order $\sqrt n$ is much harder to establish than for matrices and is an active research frontier (Bandeira, Boedihardjo, van Handel).</p>
+
+<div class="widget" id="w-mp">
+  <div class="hd"><div class="ttl">Marchenko–Pastur spectrum</div><div class="hint">slide $\lambda=m/n$ — empirical eigenvalue histogram fits the MP density</div></div>
+  <svg id="mp-svg" viewBox="0 0 760 320" width="760" height="320"><title>Marchenko–Pastur empirical spectral distribution</title></svg>
+  <div class="row">
+    <label for="mp-l">aspect $\lambda=m/n$</label>
+    <input id="mp-l" type="range" min="0.2" max="2.5" step="0.05" value="0.6">
+    <span id="mp-l-v" class="small"></span>
+  </div>
+  <div class="row">
+    <label for="mp-n">$n$</label>
+    <input id="mp-n" type="range" min="20" max="300" step="10" value="120">
+    <span id="mp-n-v" class="small"></span>
+    <button id="mp-resample">resample</button>
+  </div>
+  <div class="readout" id="mp-out"></div>
+</div><script>
 /* =============================== §6 Marchenko–Pastur =============================== */
 (function(){
   const svg = $("#mp-svg"), out = $("#mp-out");
@@ -1068,6 +1040,34 @@ The proof uses uniform concentration over $\mathcal{H}$ — Talagrand's inequali
   draw();
 })();
 </script>
+
+<div class="quiz" data-concept="hdg-applications"></div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./large-deviations.html#cramer">Large deviations</a> · Cramér's theorem</li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+</section>
+
+<section id="connections">
+<h2>Connections</h2>
+
+<p>High-dimensional geometry is where probability, geometry, and analysis meet on equal terms. The active frontier sits at <em>structured</em> high-dimensional models: matrix concentration with dependent entries (van Handel), free probability for non-commutative limits, and concentration on manifolds with Ricci curvature lower bounds (Sturm–Lott–Villani). Random tensors and the geometry of overparametrised neural-network losses are open at the research level.</p>
+
+<ul>
+  <li><a href="./probability-theory.html#expectation">Probability theory — expectation &amp; moments</a> — concentration is a quantitative law of large numbers.</li>
+  <li><a href="./large-deviations.html#cramer">Large deviations — Cramér</a> — exponential tail rates packaged as a Legendre transform; Gaussian isoperimetry is the geometric face.</li>
+  <li><a href="./functional-analysis.html#hilbert">Functional analysis — Banach &amp; Hilbert spaces</a> — Dvoretzky says every Banach space hides Hilbert geometry in $\log n$ dimensions.</li>
+  <li><a href="./information-theory.html">Information theory</a> — KL divergence is the Sanov rate function and the Gaussian log-Sobolev constant.</li>
+  <li><a href="./harmonic-analysis-fourier.html">Harmonic analysis</a> — hypercontractivity of the Ornstein–Uhlenbeck semigroup is dual to Gaussian log-Sobolev.</li>
+</ul>
+</section>
+
+
 
 </main>
 

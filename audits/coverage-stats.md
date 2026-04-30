@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **130**, concepts: **896**
-- Widgets: **921** (registry-driven: 772, inline: 149)
+- Widgets: **921** (registry-driven: 790, inline: 131)
 - Quizzes: **3879** (v1: 2643, hard: 1223, expert: 13)
 - Quiz types: mcq: 2611, numeric: 1028, multi-select: 96, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **138**
@@ -220,10 +220,22 @@ page has wired one in yet.
 | `group-schemes-mu-n-clock` | modular-arithmetic-clock | drag | 2d | 1 | group-schemes |
 | `group-schemes-torsor-cases` | counterexample-explorer | click | 2d | 1 | group-schemes |
 | `harmonic-convolution` | harmonic-convolution | slider | 2d | 1 | harmonic-analysis-fourier |
+| `harmonic-functions-harnack-corridor` | harmonic-functions-harnack-corridor | slider | 2d | 1 | harmonic-functions |
+| `harmonic-functions-laplacian-heatmap` | harmonic-functions-laplacian-heatmap | select | 2d | 1 | harmonic-functions |
+| `harmonic-functions-maximum-locator` | harmonic-functions-maximum-locator | slider | 2d | 1 | harmonic-functions |
+| `harmonic-functions-mvp-circle` | harmonic-functions-mvp-circle | drag | 2d | 1 | harmonic-functions |
+| `harmonic-functions-perron-supremum` | harmonic-functions-perron-supremum | select | 2d | 1 | harmonic-functions |
+| `harmonic-functions-poisson-extension` | harmonic-functions-poisson-extension | drag | 2d | 1 | harmonic-functions |
 | `harmonic-heat-evolution` | harmonic-heat-evolution | slider | 2d | 1 | harmonic-analysis-fourier |
 | `harmonic-partial-sum` | harmonic-partial-sum | slider | 2d | 1 | harmonic-analysis-fourier |
 | `harmonic-tent-transform` | harmonic-tent-transform | slider | 2d | 1 | harmonic-analysis-fourier |
 | `harmonic-uncertainty` | harmonic-uncertainty | slider | 2d | 1 | harmonic-analysis-fourier |
+| `hdg-dvoretzky-section` | hdg-dvoretzky-section | slider | 2d | 1 | high-dimensional-geometry |
+| `hdg-isoperimetry-tail` | hdg-isoperimetry-tail | slider | 2d | 1 | high-dimensional-geometry |
+| `hdg-jl-distortion-histogram` | hdg-jl-distortion-histogram | slider | 2d | 1 | high-dimensional-geometry |
+| `hdg-marchenko-pastur` | hdg-marchenko-pastur | slider | 2d | 1 | high-dimensional-geometry |
+| `hdg-sphere-concentration-band` | hdg-sphere-concentration-band | slider | 2d | 1 | high-dimensional-geometry |
+| `hdg-talagrand-deviation` | hdg-talagrand-deviation | slider | 2d | 1 | high-dimensional-geometry |
 | `heights-arakelov-decomposition` | heights-arakelov-decomposition | click | 2d | 1 | heights-arithmetic-geometry |
 | `heights-genus-growth` | heights-genus-growth | slider | 2d | 1 | heights-arithmetic-geometry |
 | `heights-mahler-measure` | heights-mahler-measure | click | 2d | 1 | heights-arithmetic-geometry |
@@ -253,6 +265,12 @@ page has wired one in yet.
 | `infinity-topoi-presheaf-universal` | proof-scrubber | scrub | 2d | 1 | infinity-topoi |
 | `infinity-topoi-univalent-universes` | clickable-diagram | click | 2d | 1 | infinity-topoi |
 | `infinity-topoi-whitehead-internal` | proof-scrubber | scrub | 2d | 1 | infinity-topoi |
+| `information-bsc-capacity` | information-bsc-capacity | slider | 2d | 1 | information-theory |
+| `information-entropy` | information-entropy | slider | 2d | 1 | information-theory |
+| `information-huffman-builder` | information-huffman-builder | click | 2d | 1 | information-theory |
+| `information-kl-simplex` | information-kl-simplex | click | 2d | 1 | information-theory |
+| `information-mutual-info-venn` | information-mutual-info-venn | slider | 2d | 1 | information-theory |
+| `information-rate-distortion` | information-rate-distortion | slider | 2d | 1 | information-theory |
 | `intersection-theory-chow-chern-multiplicativity` | parametric-plot | select | 2d | 1 | intersection-theory-chow |
 | `intersection-theory-chow-cycles-rational-equivalence` | clickable-diagram | click | 2d | 1 | intersection-theory-chow |
 | `intersection-theory-chow-grr-scrub` | proof-scrubber | scrub | 2d | 1 | intersection-theory-chow |
@@ -368,20 +386,20 @@ page has wired one in yet.
 ### Analysis
 
 - Topics: **15**, concepts: **149**
-- Widgets: **107** (registry-driven: 83, inline: 24)
-  - by family: button-stepper: 37, clickable-diagram: 31, unknown: 24, constraint-bifurcation-explorer: 1, recurrence-plotter: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1
-  - by dimension: 2d: 83, unknown: 24
-  - by gesture: click: 69, unknown: 24, slider: 14
+- Widgets: **107** (registry-driven: 89, inline: 18)
+  - by family: button-stepper: 37, clickable-diagram: 31, unknown: 18, constraint-bifurcation-explorer: 1, recurrence-plotter: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
+  - by dimension: 2d: 89, unknown: 18
+  - by gesture: click: 69, unknown: 18, slider: 16, select: 2, drag: 2
 - Quizzes: **591** (v1: 406, hard: 185, expert: 0)
   - by type: mcq: 379, numeric: 142, multi-select: 15, complex: 14, matching: 14, ordering: 12, proof-completion: 9, spot-the-error: 4, construction: 1, guess-my-rule: 1
 
 ### Probability & statistics
 
 - Topics: **8**, concepts: **53**
-- Widgets: **51** (registry-driven: 10, inline: 41)
-  - by family: unknown: 41, button-stepper: 10
-  - by dimension: unknown: 41, 2d: 10
-  - by gesture: unknown: 41, click: 10
+- Widgets: **51** (registry-driven: 22, inline: 29)
+  - by family: unknown: 29, button-stepper: 10, hdg-sphere-concentration-band: 1, hdg-dvoretzky-section: 1, hdg-jl-distortion-histogram: 1, hdg-talagrand-deviation: 1, hdg-isoperimetry-tail: 1, hdg-marchenko-pastur: 1, information-entropy: 1, information-mutual-info-venn: 1, information-kl-simplex: 1, information-huffman-builder: 1, information-bsc-capacity: 1, information-rate-distortion: 1
+  - by dimension: unknown: 29, 2d: 22
+  - by gesture: unknown: 29, click: 12, slider: 10
 - Quizzes: **196** (v1: 159, hard: 24, expert: 13)
   - by type: mcq: 137, numeric: 49, multi-select: 2, matching: 2, proof-completion: 2, construction: 1, complex: 1, ordering: 1, spot-the-error: 1
 
@@ -453,7 +471,7 @@ page has wired one in yet.
 - `variational-methods` (Analysis) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `fixed-point-theorems` (Analysis) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `calabi-yau-manifolds` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `high-dimensional-geometry` (Probability & statistics) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `high-dimensional-geometry` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `mirror-symmetry` (Algebraic geometry) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `mostow-rigidity` (Geometry & topology) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `resolution-of-singularities` (Algebraic geometry) — concepts=6, widgets=5 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
@@ -507,13 +525,13 @@ page has wired one in yet.
 - `sobolev-spaces-distributions` (Analysis) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `harmonic-analysis-fourier` (Analysis) — concepts=8, widgets=5 (slug=5), quiz=24 (v1=24, hard=0, expert=0)
 - `partial-differential-equations` (Analysis) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
-- `harmonic-functions` (Analysis) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `harmonic-functions` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `spectral-theory` (Analysis) — concepts=9, widgets=0 (slug=0), quiz=27 (v1=27, hard=0, expert=0)
 - `probability-theory` (Probability & statistics) — concepts=12, widgets=10 (slug=10), quiz=73 (v1=36, hard=24, expert=13)
 - `stochastic-processes-and-martingales` (Probability & statistics) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `stochastic-calculus` (Probability & statistics) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `random-walks-and-mixing` (Probability & statistics) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
-- `information-theory` (Probability & statistics) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `information-theory` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `large-deviations` (Probability & statistics) — concepts=5, widgets=5 (slug=0), quiz=15 (v1=15, hard=0, expert=0)
 - `point-set-topology` (Geometry & topology) — concepts=6, widgets=7 (slug=7), quiz=36 (v1=18, hard=18, expert=0)
 - `algebraic-topology` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=32 (v1=18, hard=14, expert=0)
