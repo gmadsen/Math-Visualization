@@ -4147,6 +4147,153 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "spectral-graph-theory-adjacency",
+    "family": "spectral-graph-theory-adjacency",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "spectral-graph-theory-adjacency widget params",
+    "description": "Bespoke A, D, L = D - A inspector for spectral-graph-theory: pick a small graph; the matrices update side by side. Concrete entry into the three matrices that govern spectral-graph machinery.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the spectral-graph-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "spectral-graph-theory-bipartite",
+    "family": "spectral-graph-theory-bipartite",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "spectral-graph-theory-bipartite widget params",
+    "description": "Bespoke bipartite-graph spectrum visualizer: a graph is bipartite iff its adjacency spectrum is symmetric about 0. Toggle bipartiteness and watch the spectrum invert/reflect.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the spectral-graph-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "spectral-graph-theory-cheeger",
+    "family": "spectral-graph-theory-cheeger",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "spectral-graph-theory-cheeger widget params",
+    "description": "Bespoke sweep-cut explorer for Cheeger's inequality: scan a threshold over the Fiedler vector; the cut conductance phi(S) is plotted, demonstrating the sweep-cut bound phi <= sqrt(2 lambda_2).",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the spectral-graph-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "spectral-graph-theory-clustering",
+    "family": "spectral-graph-theory-clustering",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "exploratory",
+    "title": "spectral-graph-theory-clustering widget params",
+    "description": "Bespoke spectral-embedding demo for spectral clustering: project graph vertices into R^k via the bottom k Laplacian eigenvectors; k-means in the embedded space recovers natural clusters.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the spectral-graph-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "spectral-graph-theory-components",
+    "family": "spectral-graph-theory-components",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "spectral-graph-theory-components widget params",
+    "description": "Bespoke Laplacian-kernel demo: drag/click bridges to disconnect; the multiplicity of L's zero eigenvalue equals the number of connected components. Builds dim ker L = c live.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the spectral-graph-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "spectral-graph-theory-fiedler",
+    "family": "spectral-graph-theory-fiedler",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "spectral-graph-theory-fiedler widget params",
+    "description": "Bespoke Fiedler-vector explorer: pick a graph; the second-smallest Laplacian eigenvector colors vertices on a continuous gradient. Heuristic for graph partitioning by sign of the Fiedler vector.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the spectral-graph-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "spectral-graph-theory-random-walk",
+    "family": "spectral-graph-theory-random-walk",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "exploratory",
+    "title": "spectral-graph-theory-random-walk widget params",
+    "description": "Bespoke random-walk mixing demo: simulate a walk on a small graph; the distribution converges at a rate governed by the spectral gap (1 - lambda_2 of the normalized adjacency). Concrete entry into Markov-chain mixing via spectral methods.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the spectral-graph-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "surface-viewer",
     "family": "surface-viewer",
     "dimension": "3d",
