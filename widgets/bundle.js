@@ -2121,6 +2121,111 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "harmonic-convolution",
+    "family": "harmonic-convolution",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "harmonic-convolution widget params",
+    "description": "Bespoke convolution-of-indicators visualizer for the convolution-theorem section. Slide t to translate the second box; the integral overlap traces out the triangular convolution. The 'sliding window' physical intuition for convolution is the section's hook.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the harmonic-analysis-fourier topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "harmonic-heat-evolution",
+    "family": "harmonic-heat-evolution",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "harmonic-heat-evolution widget params",
+    "description": "Bespoke heat-equation evolution: u(t,x) = (K_t * f)(x) where K_t is the heat kernel. Sliding t evolves an initial spike toward a Gaussian. The convolution-with-fundamental-solution motif appears throughout PDE; here it's pinned to a single concrete kernel.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the harmonic-analysis-fourier topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "harmonic-partial-sum",
+    "family": "harmonic-partial-sum",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "harmonic-partial-sum widget params",
+    "description": "Bespoke partial-Fourier-sum visualizer for the harmonic-analysis-fourier topic — target waveform <select> (square / triangle / sawtooth / smooth bump) plus an N slider drive an SVG plot of the partial sum S_N f. The discontinuous targets show the ~9% Gibbs overshoot regardless of N; the smooth bump converges exponentially. Slider+select+svg+readout combo doesn't fit a shared slug.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the harmonic-analysis-fourier topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "harmonic-tent-transform",
+    "family": "harmonic-tent-transform",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "harmonic-tent-transform widget params",
+    "description": "Bespoke f vs f-hat illustrator: drag a width slider on a tent function and watch its Fourier transform widen as the original narrows. The reciprocal scaling is the entire pedagogical point of this section. Doesn't fit parametric-plot because the dual-pane (f / hat-f) layout with shared axis cursor is bespoke.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the harmonic-analysis-fourier topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "harmonic-uncertainty",
+    "family": "harmonic-uncertainty",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "harmonic-uncertainty widget params",
+    "description": "Bespoke Gaussian-uncertainty illustrator: the dual gaussians f_a and f-hat-a satisfy sigma_f * sigma_fhat = 1/(4 pi). Sliding a narrows f and widens f-hat in lockstep — visualizing the uncertainty principle via the family of dilations of one Gaussian.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the harmonic-analysis-fourier topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "heyting-algebras-toposes-geometric-composition",
     "family": "clickable-diagram",
     "dimension": "2d",
