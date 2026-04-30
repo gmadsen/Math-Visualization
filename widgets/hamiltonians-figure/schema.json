@@ -50,7 +50,7 @@
       "required": ["id", "initial"],
       "properties": {
         "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
-        "initial": { "type": "string", "description": "Initial readout body — may carry KaTeX delimiters." }
+        "initial": { "type": "string", "description": "Initial readout body. Emitted verbatim (no HTML escape) so KaTeX delimiters survive — unlike `title` and `hint`, which are escaped." }
       }
     },
     "preRows": {
@@ -137,9 +137,9 @@
         "kind": { "const": "slider" },
         "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
         "label": { "type": "string", "description": "<label for=ID> text. Emitted verbatim." },
-        "min": { "type": ["number", "string"] },
-        "max": { "type": ["number", "string"] },
-        "value": { "type": ["number", "string"] }
+        "min": { "type": "number" },
+        "max": { "type": "number" },
+        "value": { "type": "number" }
       }
     },
     "buttonControl": {

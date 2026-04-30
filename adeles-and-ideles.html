@@ -887,37 +887,6 @@ which is exactly the functional equation $\xi(s) = \xi(1-s)$. The same argument 
   </table>
 </details>
 
-<script>
-/* Sidetoc population */
-(function(){
-  const aside = document.querySelector('aside.sidetoc');
-  if(!aside) return;
-  const secs = [...document.querySelectorAll('main section[id]')];
-  if(!secs.length) return;
-  const title = document.createElement('div');
-  title.className='sidetoc-title'; title.textContent='Contents';
-  aside.appendChild(title);
-  const ol = document.createElement('ol');
-  aside.appendChild(ol);
-  secs.forEach(sec=>{
-    const h2 = sec.querySelector('h2,h3');
-    if(!h2) return;
-    const li = document.createElement('li');
-    const a = document.createElement('a');
-    a.href='#'+sec.id;
-    a.textContent=h2.textContent.replace(/^\d+\.\s*/,'');
-    li.appendChild(a); ol.appendChild(li);
-  });
-  // active tracking
-  const io = new IntersectionObserver(entries=>{
-    entries.forEach(e=>{
-      const a=aside.querySelector(`a[href="#${e.target.id}"]`);
-      if(a) a.classList.toggle('active',e.isIntersecting);
-    });
-  },{rootMargin:'-20% 0px -70% 0px'});
-  secs.forEach(s=>io.observe(s));
-})();
-</script>
 
 <script>
 (function(){

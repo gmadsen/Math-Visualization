@@ -60,6 +60,10 @@ The shared chrome — header + SVG host + readout, with control rows on either s
 
 Controls in one `controls[]` array share a single `<div class="row">` and render in order.
 
+**Escaping rule:** `title` and `hint` (top-level header fields) are HTML-escaped; everything else — `output.initial`, all control `label` fields, `pickControl.options[].label`, `row.trailing` — is emitted verbatim so KaTeX delimiters survive.
+
+**Note on per-row arity.** The original per-widget schemas enforced specific control counts (e.g. `conserved-quantity` required exactly two `pick`s; `kepler-orbits` required exactly two sliders). Those constraints don't survive the unification — `controls[]` is just `minItems: 1`. Authors should keep an eye on visual layout when changing the control count on an existing widget.
+
 ## Why a shared slug
 
 Per `widgets/README.md` § "Structured vs. artifact-style adoption", artifact-style is the legitimate default for a one-off widget. The 6 hamiltonians widgets crossed the "family emerges" threshold: identical chrome, identical header pattern, identical IIFE wrapping, with only the input controls and the inner physics differing. Collapsing them into one slug + one renderer turns the chrome into shared documentation and shrinks the registry footprint from 6 directories to 1.
