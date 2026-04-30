@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **130**, concepts: **896**
-- Widgets: **921** (registry-driven: 754, inline: 167)
+- Widgets: **921** (registry-driven: 772, inline: 149)
 - Quizzes: **3879** (v1: 2643, hard: 1223, expert: 13)
 - Quiz types: mcq: 2611, numeric: 1028, multi-select: 96, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **138**
@@ -119,6 +119,12 @@ page has wired one in yet.
 | `complexity-sat-verifier` | complexity-sat-verifier | input | 2d | 1 | complexity-theory |
 | `complexity-savitch-recursion` | complexity-savitch-recursion | step | 2d | 1 | complexity-theory |
 | `composition-explorer` | clickable-diagram | click | 2d | 1 | category-theory |
+| `computability-godel-encoding` | computability-godel-encoding | type | 2d | 1 | computability-and-decidability |
+| `computability-halting-diagonal` | computability-halting-diagonal | click | 2d | 1 | computability-and-decidability |
+| `computability-rec-vs-re-venn` | computability-rec-vs-re-venn | click | 2d | 1 | computability-and-decidability |
+| `computability-recursion-tracer` | computability-recursion-tracer | step | 2d | 1 | computability-and-decidability |
+| `computability-reduction-graph` | computability-reduction-graph | click | 2d | 1 | computability-and-decidability |
+| `computability-turing-increment` | computability-turing-increment | step | 2d | 1 | computability-and-decidability |
 | `constraint-bifurcation-explorer` | constraint-bifurcation-explorer | slider | 2d | 1 | real-analysis |
 | `deformation-theory-cotangent-scrubber` | proof-scrubber | scrub | 2d | 1 | deformation-theory |
 | `deformation-theory-curve-sandbox` | svg-illustration | interact | 2d | 1 | deformation-theory |
@@ -174,6 +180,18 @@ page has wired one in yet.
 | `fol-modus-ponens-closure` | fol-modus-ponens-closure | step | 2d | 1 | first-order-logic-and-completeness |
 | `fol-skolem-paradox` | fol-skolem-paradox | click | 2d | 1 | first-order-logic-and-completeness |
 | `fol-term-tree` | fol-term-tree | click | 2d | 1 | first-order-logic-and-completeness |
+| `forcing-cohen-real` | forcing-cohen-real | stepper | 2d | 1 | forcing-and-independence |
+| `forcing-continuum-landing` | forcing-continuum-landing | toggle | 2d | 1 | forcing-and-independence |
+| `forcing-dependency-map` | forcing-dependency-map | diagram | 2d | 1 | forcing-and-independence |
+| `forcing-generic-filter` | forcing-generic-filter | stepper | 2d | 1 | forcing-and-independence |
+| `forcing-poset` | forcing-poset | toggle | 2d | 1 | forcing-and-independence |
+| `forcing-truth-table` | forcing-truth-table | table | 2d | 1 | forcing-and-independence |
+| `gcb-central-extension-browser` | gcb-central-extension-browser | click | 2d | 1 | galois-cohomology-and-brauer |
+| `gcb-cocycle-tester` | gcb-cocycle-tester | click | 2d | 1 | galois-cohomology-and-brauer |
+| `gcb-cyclic-algebra-tester` | gcb-cyclic-algebra-tester | click | 2d | 1 | galois-cohomology-and-brauer |
+| `gcb-hasse-counterexample-gallery` | gcb-hasse-counterexample-gallery | click | 2d | 1 | galois-cohomology-and-brauer |
+| `gcb-mu2-torsor-visualizer` | gcb-mu2-torsor-visualizer | click | 2d | 1 | galois-cohomology-and-brauer |
+| `gcb-tate-pairing-table` | gcb-tate-pairing-table | click | 2d | 1 | galois-cohomology-and-brauer |
 | `general-relativity-cosmology` | general-relativity-cosmology | slider | 2d | 1 | general-relativity |
 | `general-relativity-einstein` | general-relativity-einstein | click | 2d | 1 | general-relativity |
 | `general-relativity-gw` | general-relativity-gw | slider | 2d | 1 | general-relativity |
@@ -320,20 +338,20 @@ page has wired one in yet.
 ### Logic & Foundations
 
 - Topics: **8**, concepts: **49**
-- Widgets: **48** (registry-driven: 24, inline: 24)
-  - by family: unknown: 24, clickable-diagram: 3, button-stepper: 1, fol-term-tree: 1, fol-model-checker: 1, fol-modus-ponens-closure: 1, fol-henkin-construction: 1, fol-compactness-finite-sat: 1, fol-skolem-paradox: 1, fol-dlo-quantifier-elimination: 1, zfc-cumulative-hierarchy: 1, zfc-ordinal-picket-fence: 1, zfc-ordinal-calculator: 1, zfc-aleph-ladder: 1, zfc-choice-picker: 1, zfc-continuum-locator: 1, zfc-large-cardinal-tower: 1, complexity-growth-rates: 1, complexity-sat-verifier: 1, complexity-cook-levin-tableau: 1, complexity-karp-reduction: 1, complexity-savitch-recursion: 1, complexity-hierarchy-diagonal: 1
-  - by dimension: 2d: 24, unknown: 24
-  - by gesture: unknown: 24, click: 11, step: 7, slider: 3, input: 1, graph-walk: 1, toggle: 1
+- Widgets: **48** (registry-driven: 36, inline: 12)
+  - by family: unknown: 12, clickable-diagram: 3, button-stepper: 1, fol-term-tree: 1, fol-model-checker: 1, fol-modus-ponens-closure: 1, fol-henkin-construction: 1, fol-compactness-finite-sat: 1, fol-skolem-paradox: 1, fol-dlo-quantifier-elimination: 1, zfc-cumulative-hierarchy: 1, zfc-ordinal-picket-fence: 1, zfc-ordinal-calculator: 1, zfc-aleph-ladder: 1, zfc-choice-picker: 1, zfc-continuum-locator: 1, zfc-large-cardinal-tower: 1, computability-turing-increment: 1, computability-recursion-tracer: 1, computability-halting-diagonal: 1, computability-rec-vs-re-venn: 1, computability-reduction-graph: 1, computability-godel-encoding: 1, complexity-growth-rates: 1, complexity-sat-verifier: 1, complexity-cook-levin-tableau: 1, complexity-karp-reduction: 1, complexity-savitch-recursion: 1, complexity-hierarchy-diagonal: 1, forcing-poset: 1, forcing-generic-filter: 1, forcing-truth-table: 1, forcing-cohen-real: 1, forcing-continuum-landing: 1, forcing-dependency-map: 1
+  - by dimension: 2d: 36, unknown: 12
+  - by gesture: click: 14, unknown: 12, step: 9, slider: 3, toggle: 3, stepper: 2, type: 1, input: 1, graph-walk: 1, table: 1, diagram: 1
 - Quizzes: **162** (v1: 147, hard: 15, expert: 0)
   - by type: mcq: 128, numeric: 34
 
 ### Algebra & homological
 
 - Topics: **12**, concepts: **106**
-- Widgets: **105** (registry-driven: 81, inline: 24)
-  - by family: button-stepper: 38, unknown: 24, clickable-diagram: 21, parametric-plot: 9, proof-scrubber: 2, naturality-square: 1, declarative-host: 1, clickable-graph: 1, diagram-editor: 1, group-cohomology-coboundary-calculator: 1, group-cohomology-fixed-points: 1, group-cohomology-hilbert-90: 1, group-cohomology-c2-extensions: 1, group-cohomology-tate-periodic-table: 1, group-cohomology-lhs-spectral: 1, group-cohomology-brauer-cheatsheet: 1
-  - by dimension: 2d: 81, unknown: 24
-  - by gesture: click: 67, unknown: 24, select: 9, scrub: 2, slider+click: 1, interactive: 1, drag-and-toggle: 1
+- Widgets: **105** (registry-driven: 87, inline: 18)
+  - by family: button-stepper: 38, clickable-diagram: 21, unknown: 18, parametric-plot: 9, proof-scrubber: 2, naturality-square: 1, declarative-host: 1, clickable-graph: 1, diagram-editor: 1, group-cohomology-coboundary-calculator: 1, group-cohomology-fixed-points: 1, group-cohomology-hilbert-90: 1, group-cohomology-c2-extensions: 1, group-cohomology-tate-periodic-table: 1, group-cohomology-lhs-spectral: 1, group-cohomology-brauer-cheatsheet: 1, gcb-cocycle-tester: 1, gcb-mu2-torsor-visualizer: 1, gcb-central-extension-browser: 1, gcb-cyclic-algebra-tester: 1, gcb-tate-pairing-table: 1, gcb-hasse-counterexample-gallery: 1
+  - by dimension: 2d: 87, unknown: 18
+  - by gesture: click: 73, unknown: 18, select: 9, scrub: 2, slider+click: 1, interactive: 1, drag-and-toggle: 1
 - Quizzes: **505** (v1: 319, hard: 186, expert: 0)
   - by type: mcq: 318, numeric: 145, multi-select: 20, ordering: 7, matching: 5, spot-the-error: 5, proof-completion: 4, complex: 1
 
@@ -460,10 +478,10 @@ page has wired one in yet.
 - `first-order-logic-and-completeness` (Logic & Foundations) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `zfc-and-ordinals` (Logic & Foundations) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `model-theory-basics` (Logic & Foundations) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
-- `computability-and-decidability` (Logic & Foundations) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `computability-and-decidability` (Logic & Foundations) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `complexity-theory` (Logic & Foundations) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `type-theory-and-hott` (Logic & Foundations) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
-- `forcing-and-independence` (Logic & Foundations) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `forcing-and-independence` (Logic & Foundations) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `algebra` (Algebra & homological) — concepts=12, widgets=12 (slug=12), quiz=73 (v1=36, hard=37, expert=0)
 - `category-theory` (Algebra & homological) — concepts=12, widgets=17 (slug=17), quiz=72 (v1=36, hard=36, expert=0)
 - `representation-theory` (Algebra & homological) — concepts=13, widgets=13 (slug=13), quiz=74 (v1=39, hard=35, expert=0)
@@ -472,7 +490,7 @@ page has wired one in yet.
 - `derived-categories` (Algebra & homological) — concepts=7, widgets=7 (slug=7), quiz=27 (v1=21, hard=6, expert=0)
 - `group-cohomology` (Algebra & homological) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `lie-algebras` (Algebra & homological) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
-- `galois-cohomology-and-brauer` (Algebra & homological) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `galois-cohomology-and-brauer` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `elementary-topos-theory` (Higher categories & toposes) — concepts=7, widgets=7 (slug=7), quiz=27 (v1=21, hard=6, expert=0)
 - `heyting-algebras-toposes` (Higher categories & toposes) — concepts=6, widgets=6 (slug=6), quiz=24 (v1=18, hard=6, expert=0)
 - `grothendieck-topologies-sites` (Higher categories & toposes) — concepts=6, widgets=6 (slug=6), quiz=24 (v1=18, hard=6, expert=0)
