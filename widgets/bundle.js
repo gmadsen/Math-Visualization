@@ -2223,6 +2223,132 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "general-relativity-cosmology",
+    "family": "general-relativity-cosmology",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "general-relativity-cosmology widget params",
+    "description": "Bespoke FRW cosmology demonstrator: slide curvature k and dark-energy fraction Omega_Lambda; watch a(t) evolve as a Big Bang model with or without acceleration. Concrete entry into the Friedmann equations.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the general-relativity topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "general-relativity-einstein",
+    "family": "general-relativity-einstein",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "general-relativity-einstein widget params",
+    "description": "Bespoke Einstein-equation toy for general-relativity: pick a stress-energy ansatz (vacuum, dust, perfect fluid) and watch which side of G_{mu nu} = 8 pi T_{mu nu} drives the geometry. Concrete pedagogical scaffold for 'matter tells space how to curve.'",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the general-relativity topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "general-relativity-gw",
+    "family": "general-relativity-gw",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "general-relativity-gw widget params",
+    "description": "Bespoke gravitational-wave demonstrator: drag a binary inspiral's frequency; watch the strain h(t) chirp and a ring of test masses oscillate transversely. Concrete touch-point for the linearized GR + LIGO observation chain.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the general-relativity topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "general-relativity-kerr",
+    "family": "general-relativity-kerr",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "general-relativity-kerr widget params",
+    "description": "Bespoke Kerr-metric explorer for the spinning black hole: slide the spin parameter a; watch the inner and outer horizons (r_pm = M plus minus sqrt(M^2 - a^2)) merge at extremality and the ergosphere appear outside the outer horizon.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the general-relativity topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "general-relativity-light-cones",
+    "family": "general-relativity-light-cones",
+    "dimension": "2d",
+    "gesture": "drag",
+    "role": "exploratory",
+    "title": "general-relativity-light-cones widget params",
+    "description": "Bespoke light-cones + vector-classification visualizer for general-relativity: drag the orange tip of a 4-vector and watch its causal class (timelike / null / spacelike) flip live. Concrete tactile entry into the Lorentzian quadratic form's signature.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the general-relativity topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "general-relativity-schwarzschild",
+    "family": "general-relativity-schwarzschild",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "general-relativity-schwarzschild widget params",
+    "description": "Bespoke Schwarzschild-solution explorer: slide the Schwarzschild radius r_s; watch the metric's coordinate singularity at r = r_s and the curvature singularity at r = 0. Surfaces the geometry around a non-rotating black hole.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the general-relativity topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "grothendieck-topologies-sites-axioms-scrub",
     "family": "declarative-host",
     "dimension": "2d",

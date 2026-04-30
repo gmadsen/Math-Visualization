@@ -274,8 +274,8 @@ $$ds^2 \;=\; -\,dt^2 + dx^2 + dy^2 + dz^2.$$
 
 <p>The set of null vectors forms a double cone — the <em>light cone</em> — which encodes causal structure: information can only flow along causal (timelike or null) curves inside the future cone.</p>
 
-<div class="widget">
-  <div class="hd"><div class="ttl">Light cones &amp; vector classes</div><div class="hint">drag the vector head; classification is live</div></div>
+<div class="widget" id="w-lc">
+  <div class="hd"><div class="ttl">Light cones &amp;amp; vector classes</div><div class="hint">drag the vector head; classification is live</div></div>
   <svg id="lc-svg" viewBox="-160 -160 320 320" width="100%" height="340"><title>Light cones &amp;amp; vector classes</title></svg>
   <div class="readout" id="lc-out">drag the orange tip…</div>
 </div>
@@ -364,7 +364,7 @@ $$\boxed{\; R_{\mu\nu} \;-\; \tfrac12\,g_{\mu\nu}\,R \;+\; \Lambda\,g_{\mu\nu} \
 
 <p>The left-hand side $G_{\mu\nu}=R_{\mu\nu}-\tfrac12 g_{\mu\nu}R$ is the Einstein tensor; the contracted Bianchi identity $\nabla^\mu G_{\mu\nu}=0$ is automatic, which forces conservation $\nabla^\mu T_{\mu\nu}=0$ on the matter side. As John Wheeler put it: <em>spacetime tells matter how to move; matter tells spacetime how to curve.</em></p>
 
-<div class="widget">
+<div class="widget" id="w-ee">
   <div class="hd"><div class="ttl">Curvature ↔ matter dial</div><div class="hint">scrub the matter density and the Ricci sketch responds</div></div>
   <div class="row">
     <label>energy density $\rho$ <input type="range" id="ee-rho" min="-1" max="1" step="0.02" value="0.4"></label>
@@ -449,7 +449,7 @@ $$ds^2 \;=\; -\Big(1-\tfrac{2M}{r}\Big)dt^2 \;+\; \Big(1-\tfrac{2M}{r}\Big)^{-1}
 
 <p>The metric component $g_{tt}=-(1-2M/r)$ vanishes at $r=2M$ — the <strong>event horizon</strong>. This is a coordinate singularity (the Kretschmann scalar $R_{\mu\nu\rho\sigma}R^{\mu\nu\rho\sigma}=48 M^2/r^6$ is finite there), but a <em>causal</em> singularity: light cones tip over and inside $r<2M$ all future-directed worldlines hit $r=0$, where curvature genuinely diverges.</p>
 
-<div class="widget">
+<div class="widget" id="w-sch">
   <div class="hd"><div class="ttl">Tipping light cones</div><div class="hint">drag the slider for radius; cones flip past r = 2M</div></div>
   <div class="row"><label>r/M <input type="range" id="sch-r" min="0.6" max="6" step="0.05" value="3"></label></div>
   <svg id="sch-svg" viewBox="-220 -120 440 240" width="100%" height="260"><title>Tipping light cones</title></svg>
@@ -553,7 +553,7 @@ $$ds^2 \;=\; -\Big(1-\tfrac{2M}{r}\Big)dt^2 \;+\; \Big(1-\tfrac{2M}{r}\Big)^{-1}
 
 <p>Between them sits the <strong>ergosphere</strong>: $\partial_t$ is spacelike there, so no observer can sit at fixed $(r,\theta,\varphi)$ — frame dragging compels co-rotation with the hole. The Penrose process exploits this to extract rotational energy.</p>
 
-<div class="widget">
+<div class="widget" id="w-kerr">
   <div class="hd"><div class="ttl">Kerr horizons</div><div class="hint">slide the spin a/M from 0 (Schwarzschild) to 1 (extremal)</div></div>
   <div class="row"><label>spin a/M <input type="range" id="kerr-a" min="0" max="1" step="0.01" value="0.7"></label></div>
   <svg id="kerr-svg" viewBox="-160 -160 320 320" width="100%" height="340"><title>Kerr horizons</title></svg>
@@ -636,8 +636,8 @@ $$\left(\frac{\dot a}{a}\right)^2 = \frac{8\pi G}{3}\rho - \frac{k}{a^2} + \frac
 
 <p>Different fluids drive different expansion histories: matter ($p=0$) gives $a\propto t^{2/3}$, radiation ($p=\rho/3$) gives $a\propto t^{1/2}$, and a cosmological constant ($p=-\rho$) gives <em>exponential</em> expansion $a\propto e^{Ht}$ — the late-time accelerating universe.</p>
 
-<div class="widget">
-  <div class="hd"><div class="ttl">Scale factor a(t)</div><div class="hint">scrub the dark-energy fraction Ω<sub>Λ</sub>; matter fills the rest</div></div>
+<div class="widget" id="w-frw">
+  <div class="hd"><div class="ttl">Scale factor a(t)</div><div class="hint">scrub the dark-energy fraction Ω&lt;sub&gt;Λ&lt;/sub&gt;; matter fills the rest</div></div>
   <div class="row"><label>Ω<sub>Λ</sub> <input type="range" id="frw-l" min="0" max="1" step="0.01" value="0.7"></label></div>
   <svg id="frw-svg" viewBox="-20 -160 360 200" width="100%" height="260"><title>Scale factor a(t)</title></svg>
   <div class="readout" id="frw-out">…</div>
@@ -725,8 +725,8 @@ $$\Box\,\bar h_{\mu\nu} \;=\; -16\pi G\, T_{\mu\nu}.$$
 
 <p>Using the residual gauge freedom we land in <strong>transverse-traceless gauge</strong>, where only two physical polarisations survive: the "plus" mode $h_+$ and the "cross" mode $h_\times$. A passing wave alternately stretches one transverse direction while squeezing the other.</p>
 
-<div class="widget">
-  <div class="hd"><div class="ttl">Plus &amp; cross polarisations</div><div class="hint">choose mode and play; ring of test masses deforms</div></div>
+<div class="widget" id="w-gw">
+  <div class="hd"><div class="ttl">Plus &amp;amp; cross polarisations</div><div class="hint">choose mode and play; ring of test masses deforms</div></div>
   <div class="row">
     <button id="gw-plus" class="active">+ plus</button>
     <button id="gw-cross">× cross</button>

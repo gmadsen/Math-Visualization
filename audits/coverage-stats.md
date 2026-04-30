@@ -3,10 +3,10 @@
 ## Corpus totals
 
 - Topics: **130**, concepts: **896**
-- Widgets: **915** (registry-driven: 661, inline: 254)
+- Widgets: **921** (registry-driven: 667, inline: 254)
 - Quizzes: **3855** (v1: 2619, hard: 1223, expert: 13)
 - Quiz types: mcq: 2587, numeric: 1028, multi-select: 96, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **145**
+- Concepts lacking a widget in their section: **139**
 - Concepts lacking a hard-tier quiz: **458**
 
 ## Per-slug registry adoption
@@ -125,6 +125,12 @@ page has wired one in yet.
 | `extremal-combinatorics-removal` | extremal-combinatorics-removal | slider | 2d | 1 | extremal-combinatorics |
 | `extremal-combinatorics-sperner` | extremal-combinatorics-sperner | click | 2d | 1 | extremal-combinatorics |
 | `extremal-combinatorics-turan` | extremal-combinatorics-turan | slider | 2d | 1 | extremal-combinatorics |
+| `general-relativity-cosmology` | general-relativity-cosmology | slider | 2d | 1 | general-relativity |
+| `general-relativity-einstein` | general-relativity-einstein | click | 2d | 1 | general-relativity |
+| `general-relativity-gw` | general-relativity-gw | slider | 2d | 1 | general-relativity |
+| `general-relativity-kerr` | general-relativity-kerr | slider | 2d | 1 | general-relativity |
+| `general-relativity-light-cones` | general-relativity-light-cones | drag | 2d | 1 | general-relativity |
+| `general-relativity-schwarzschild` | general-relativity-schwarzschild | slider | 2d | 1 | general-relativity |
 | `grothendieck-topologies-sites-axioms-scrub` | declarative-host | click | 2d | 1 | grothendieck-topologies-sites |
 | `grothendieck-topologies-sites-geom-comp` | declarative-host | click | 2d | 1 | grothendieck-topologies-sites |
 | `grothendieck-topologies-sites-giraud` | declarative-host | click | 2d | 1 | grothendieck-topologies-sites |
@@ -327,10 +333,10 @@ page has wired one in yet.
 ### Mathematical physics
 
 - Topics: **4**, concepts: **24**
-- Widgets: **19** (registry-driven: 19, inline: 0)
-  - by family: schrodinger-figure: 7, hamiltonians-figure: 6, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
-  - by dimension: 2d: 19
-  - by gesture: slider: 9, interact: 6, click: 4
+- Widgets: **25** (registry-driven: 25, inline: 0)
+  - by family: schrodinger-figure: 7, hamiltonians-figure: 6, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
+  - by dimension: 2d: 25
+  - by gesture: slider: 13, interact: 6, click: 5, drag: 1
 - Quizzes: **72** (v1: 72, hard: 0, expert: 0)
   - by type: mcq: 62, numeric: 10
 
@@ -347,7 +353,7 @@ page has wired one in yet.
 - `mostow-rigidity` (Geometry & topology) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `resolution-of-singularities` (Algebraic geometry) — concepts=6, widgets=5 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `hamiltonians-classical-mechanics` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `general-relativity` (Mathematical physics) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `general-relativity` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `three-body-problem` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `designs` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `expanders` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=5), quiz=18 (v1=18, hard=0, expert=0)
@@ -484,13 +490,13 @@ page has wired one in yet.
 - `fpt-kakutani` (fixed-point-theorems)
 - `fpt-applications` (fixed-point-theorems)
 - `ros-applications` (resolution-of-singularities)
-- `gr-spacetime` (general-relativity)
-- `gr-einstein-equations` (general-relativity)
-- `gr-schwarzschild` (general-relativity)
-- `gr-kerr-rotating` (general-relativity)
-- `gr-cosmology-flrw` (general-relativity)
-- `gr-gravitational-waves` (general-relativity)
 - `gcgt-presentations` (geometric-and-combinatorial-group-theory)
+- `gcgt-cayley-graph` (geometric-and-combinatorial-group-theory)
+- `gcgt-quasi-isometry` (geometric-and-combinatorial-group-theory)
+- `gcgt-growth` (geometric-and-combinatorial-group-theory)
+- `gcgt-hyperbolic-groups` (geometric-and-combinatorial-group-theory)
+- `gcgt-applications` (geometric-and-combinatorial-group-theory)
+- `w-multiresolution` (wavelets)
 
 ### Concepts missing a hard-tier quiz (top 20)
 
