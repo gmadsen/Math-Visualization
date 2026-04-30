@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **130**, concepts: **896**
-- Widgets: **915** (registry-driven: 616, inline: 299)
+- Widgets: **915** (registry-driven: 635, inline: 280)
 - Quizzes: **3855** (v1: 2619, hard: 1223, expert: 13)
 - Quiz types: mcq: 2587, numeric: 1028, multi-select: 96, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **145**
@@ -92,6 +92,12 @@ page has wired one in yet.
 | `derived-categories-roof` | clickable-diagram | click | 2d | 1 | derived-categories |
 | `derived-categories-t-structure` | clickable-diagram | click | 2d | 1 | derived-categories |
 | `derived-categories-triangle` | clickable-diagram | click | 2d | 1 | derived-categories |
+| `designs-bibd-calculator` | designs-bibd-calculator | click | 2d | 1 | designs |
+| `designs-fano-plane` | designs-fano-plane | click | 2d | 1 | designs |
+| `designs-fisher-incidence` | designs-fisher-incidence | step | 2d | 1 | designs |
+| `designs-hamming-fano` | designs-hamming-fano | step | 2d | 1 | designs |
+| `designs-mols-construction` | designs-mols-construction | click | 2d | 1 | designs |
+| `designs-round-robin` | designs-round-robin | step | 2d | 1 | designs |
 | `diagram-editor` | diagram-editor | drag-and-toggle | 2d | 1 | homological |
 | `elementary-topos-theory-axioms-scrub` | declarative-host | click | 2d | 1 | elementary-topos-theory |
 | `elementary-topos-theory-chi-pullback` | declarative-host | click | 2d | 1 | elementary-topos-theory |
@@ -100,6 +106,12 @@ page has wired one in yet.
 | `elementary-topos-theory-omega-scrub` | declarative-host | click | 2d | 1 | elementary-topos-theory |
 | `elementary-topos-theory-power-scrub` | declarative-host | click | 2d | 1 | elementary-topos-theory |
 | `elementary-topos-theory-sieves-graph` | declarative-host | click | 2d | 1 | elementary-topos-theory |
+| `enumerative-combinatorics-bijection` | enumerative-combinatorics-bijection | step | 2d | 1 | enumerative-combinatorics |
+| `enumerative-combinatorics-genfun` | enumerative-combinatorics-genfun | slider | 2d | 1 | enumerative-combinatorics |
+| `enumerative-combinatorics-pascal` | enumerative-combinatorics-pascal | click | 2d | 1 | enumerative-combinatorics |
+| `enumerative-combinatorics-perm` | enumerative-combinatorics-perm | click | 2d | 1 | enumerative-combinatorics |
+| `enumerative-combinatorics-venn` | enumerative-combinatorics-venn | click | 2d | 1 | enumerative-combinatorics |
+| `enumerative-combinatorics-young` | enumerative-combinatorics-young | click | 2d | 1 | enumerative-combinatorics |
 | `etale-fundamental-group-cmp-square` | declarative-host | click | 2d | 1 | etale-fundamental-group |
 | `etale-fundamental-group-fet-cover` | declarative-host | click | 2d | 1 | etale-fundamental-group |
 | `etale-fundamental-group-fiber-functor` | declarative-host | click | 2d | 1 | etale-fundamental-group |
@@ -170,6 +182,13 @@ page has wired one in yet.
 | `simplicial-sets-inner-horn-filler` | button-stepper | click | 2d | 1 | simplicial-sets-and-nerve |
 | `simplicial-sets-nerve-2simplex` | clickable-diagram | click | 2d | 1 | simplicial-sets-and-nerve |
 | `simplicial-sets-realization-stepper` | button-stepper | step | 2d | 1 | simplicial-sets-and-nerve |
+| `sobolev-embedding-exponent` | sobolev-embedding-exponent | slider | 2d | 1 | sobolev-spaces-distributions |
+| `sobolev-fractional-power` | sobolev-fractional-power | slider | 2d | 1 | sobolev-spaces-distributions |
+| `sobolev-newtonian-potential` | sobolev-newtonian-potential | slider | 2d | 1 | sobolev-spaces-distributions |
+| `sobolev-pairing` | sobolev-pairing | slider | 2d | 1 | sobolev-spaces-distributions |
+| `sobolev-trace` | sobolev-trace | slider | 2d | 1 | sobolev-spaces-distributions |
+| `sobolev-variational` | sobolev-variational | slider | 2d | 1 | sobolev-spaces-distributions |
+| `sobolev-weak-derivative` | sobolev-weak-derivative | click | 2d | 1 | sobolev-spaces-distributions |
 | `three-body-halo-orbits` | three-body-halo-orbits | click | 2d | 1 | three-body-problem |
 | `three-body-horseshoe` | three-body-horseshoe | click | 2d | 1 | three-body-problem |
 | `three-body-kam-tori` | three-body-kam-tori | slider | 2d | 1 | three-body-problem |
@@ -212,10 +231,10 @@ page has wired one in yet.
 ### Analysis
 
 - Topics: **15**, concepts: **149**
-- Widgets: **107** (registry-driven: 76, inline: 31)
-  - by family: button-stepper: 37, unknown: 31, clickable-diagram: 31, constraint-bifurcation-explorer: 1, recurrence-plotter: 1, julia-playground: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1
-  - by dimension: 2d: 76, unknown: 31
-  - by gesture: click: 68, unknown: 31, slider: 8
+- Widgets: **107** (registry-driven: 83, inline: 24)
+  - by family: button-stepper: 37, clickable-diagram: 31, unknown: 24, constraint-bifurcation-explorer: 1, recurrence-plotter: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1
+  - by dimension: 2d: 83, unknown: 24
+  - by gesture: click: 69, unknown: 24, slider: 14
 - Quizzes: **570** (v1: 385, hard: 185, expert: 0)
   - by type: mcq: 358, numeric: 142, multi-select: 15, complex: 14, matching: 14, ordering: 12, proof-completion: 9, spot-the-error: 4, construction: 1, guess-my-rule: 1
 
@@ -272,10 +291,10 @@ page has wired one in yet.
 ### Combinatorics & graph theory
 
 - Topics: **8**, concepts: **51**
-- Widgets: **51** (registry-driven: 12, inline: 39)
-  - by family: unknown: 39, parametric-plot: 4, expanders-vertex-expansion: 1, matroid-axiom-checker: 1, matroid-bases-rank-explorer: 1, matroid-graph-forests: 1, matroid-flats-stepper: 1, matroid-dual-explorer: 1, matroid-greedy-vs-nonmatroid: 1, matroid-tutte-polynomial: 1
-  - by dimension: unknown: 39, 2d: 12
-  - by gesture: unknown: 39, slider: 7, click: 4, step: 1
+- Widgets: **51** (registry-driven: 24, inline: 27)
+  - by family: unknown: 27, parametric-plot: 4, designs-bibd-calculator: 1, designs-fisher-incidence: 1, designs-fano-plane: 1, designs-mols-construction: 1, designs-hamming-fano: 1, designs-round-robin: 1, expanders-vertex-expansion: 1, matroid-axiom-checker: 1, matroid-bases-rank-explorer: 1, matroid-graph-forests: 1, matroid-flats-stepper: 1, matroid-dual-explorer: 1, matroid-greedy-vs-nonmatroid: 1, matroid-tutte-polynomial: 1, enumerative-combinatorics-pascal: 1, enumerative-combinatorics-venn: 1, enumerative-combinatorics-genfun: 1, enumerative-combinatorics-perm: 1, enumerative-combinatorics-young: 1, enumerative-combinatorics-bijection: 1
+  - by dimension: unknown: 27, 2d: 24
+  - by gesture: unknown: 27, click: 11, slider: 8, step: 5
 - Quizzes: **153** (v1: 153, hard: 0, expert: 0)
   - by type: mcq: 112, numeric: 31, multi-select: 10
 
@@ -304,7 +323,7 @@ page has wired one in yet.
 - `hamiltonians-classical-mechanics` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `general-relativity` (Mathematical physics) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `three-body-problem` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `designs` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `designs` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `expanders` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=5), quiz=18 (v1=18, hard=0, expert=0)
 - `symplectic-manifolds` (Geometry & topology) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `quantum-groups` (Algebra & homological) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
@@ -348,7 +367,7 @@ page has wired one in yet.
 - `functional-analysis` (Analysis) — concepts=12, widgets=11 (slug=11), quiz=72 (v1=36, hard=36, expert=0)
 - `operator-algebras` (Analysis) — concepts=12, widgets=12 (slug=12), quiz=72 (v1=36, hard=36, expert=0)
 - `dynamical-systems` (Analysis) — concepts=13, widgets=14 (slug=14), quiz=75 (v1=39, hard=36, expert=0)
-- `sobolev-spaces-distributions` (Analysis) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
+- `sobolev-spaces-distributions` (Analysis) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `harmonic-analysis-fourier` (Analysis) — concepts=8, widgets=5 (slug=5), quiz=24 (v1=24, hard=0, expert=0)
 - `partial-differential-equations` (Analysis) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `harmonic-functions` (Analysis) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
@@ -416,7 +435,7 @@ page has wired one in yet.
 - `probabilistic-method` (Combinatorics & graph theory) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
 - `extremal-combinatorics` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `simplicial-complexes-combinatorial` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
-- `enumerative-combinatorics` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `enumerative-combinatorics` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `sato-tate` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `bsd` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `modularity-and-flt` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
