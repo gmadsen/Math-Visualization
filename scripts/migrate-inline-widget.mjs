@@ -83,12 +83,24 @@ if (!widgetBlockRef) {
 // block (modular-curves, calabi-yau-manifolds, etc.). Synthesize the
 // widget-script block here so the rest of the migration is uniform.
 if (!scriptBlockRef && typeof widgetBlockRef.block.script === 'string') {
-  const inlineScript = widgetBlockRef.block.script;
-  const insertAt = widgetBlockRef.i + 1;
-  const newScriptBlock = { type: 'widget-script', forWidget: widgetId, html: inlineScript };
-  widgetBlockRef.sec.blocks.splice(insertAt, 0, newScriptBlock);
+  // The legacy `script` field often carries a leading newline that acts as
+  // the separator between </div> (end of widget) and <script> (start of
+  // driver) in the rendered output. Trim the leading whitespace so the
+  // widget-script regex (anchored at ^<script>) matches; reattach the
+  // separator as a tiny raw block between the widget and script blocks.
+  const raw = widgetBlockRef.block.script;
+  const m = raw.match(/^(\s*)(<script\b[\s\S]*)$/);
+  const leading = m ? m[1] : '';
+  const scriptPart = m ? m[2] : raw;
+  let cursor = widgetBlockRef.i + 1;
+  if (leading) {
+    widgetBlockRef.sec.blocks.splice(cursor, 0, { type: 'raw', html: leading });
+    cursor++;
+  }
+  const newScriptBlock = { type: 'widget-script', forWidget: widgetId, html: scriptPart };
+  widgetBlockRef.sec.blocks.splice(cursor, 0, newScriptBlock);
   delete widgetBlockRef.block.script;
-  scriptBlockRef = { sec: widgetBlockRef.sec, i: insertAt, block: newScriptBlock };
+  scriptBlockRef = { sec: widgetBlockRef.sec, i: cursor, block: newScriptBlock };
 }
 
 if (!scriptBlockRef) {
