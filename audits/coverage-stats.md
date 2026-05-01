@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **130**, concepts: **896**
-- Widgets: **921** (registry-driven: 898, inline: 23)
+- Widgets: **921** (registry-driven: 915, inline: 6)
 - Quizzes: **3879** (v1: 2643, hard: 1223, expert: 13)
 - Quiz types: mcq: 2611, numeric: 1028, multi-select: 96, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **138**
@@ -296,6 +296,11 @@ page has wired one in yet.
 | `knot-polynomials-homfly` | knot-polynomials-homfly | step | 2d | 1 | knot-polynomials |
 | `knot-polynomials-reidemeister` | knot-polynomials-reidemeister | click | 2d | 1 | knot-polynomials |
 | `knot-polynomials-rmatrix` | knot-polynomials-rmatrix | slider | 2d | 1 | knot-polynomials |
+| `large-dev-cramer-tilt` | large-dev-cramer-tilt | slider | 2d | 1 | large-deviations |
+| `large-dev-gartner-ar1` | large-dev-gartner-ar1 | slider | 2d | 1 | large-deviations |
+| `large-dev-rate-gallery` | large-dev-rate-gallery | toggle | 2d | 1 | large-deviations |
+| `large-dev-sanov-kl` | large-dev-sanov-kl | click | 2d | 1 | large-deviations |
+| `large-dev-schilder-paths` | large-dev-schilder-paths | click | 2d | 1 | large-deviations |
 | `lie-algebras-adjoint-vis` | lie-algebras-adjoint-vis | click | 2d | 1 | lie-algebras |
 | `lie-algebras-bracket-table` | lie-algebras-bracket-table | click | 2d | 1 | lie-algebras |
 | `lie-algebras-derived-series` | lie-algebras-derived-series | step | 2d | 1 | lie-algebras |
@@ -451,6 +456,18 @@ page has wired one in yet.
 | `type-theory-lambda-reduction` | type-theory-lambda-reduction | click | 2d | 1 | type-theory-and-hott |
 | `type-theory-path-space` | type-theory-path-space | drag | 2d | 1 | type-theory-and-hott |
 | `type-theory-univalence-toggle` | type-theory-univalence-toggle | click | 2d | 1 | type-theory-and-hott |
+| `variational-brachistochrone` | variational-brachistochrone | click | 2d | 1 | variational-methods |
+| `variational-direct-method` | variational-direct-method | slider | 2d | 1 | variational-methods |
+| `variational-fdiff` | variational-fdiff | slider | 2d | 1 | variational-methods |
+| `variational-isoperimetric` | variational-isoperimetric | slider | 2d | 1 | variational-methods |
+| `variational-mountain-pass` | variational-mountain-pass | drag | 2d | 1 | variational-methods |
+| `variational-sphere-geodesic` | variational-sphere-geodesic | drag | 3d | 1 | variational-methods |
+| `voa-axiom-map` | voa-axiom-map | click | 2d | 1 | vertex-operator-algebras |
+| `voa-character-coeffs` | voa-character-coeffs | step | 2d | 1 | vertex-operator-algebras |
+| `voa-construction-zoo` | voa-construction-zoo | select | 2d | 1 | vertex-operator-algebras |
+| `voa-mckay-thompson` | voa-mckay-thompson | select | 2d | 1 | vertex-operator-algebras |
+| `voa-mode-bookkeeping` | voa-mode-bookkeeping | slider | 2d | 1 | vertex-operator-algebras |
+| `voa-virasoro-bracket` | voa-virasoro-bracket | step | 2d | 1 | vertex-operator-algebras |
 | `zfc-aleph-ladder` | zfc-aleph-ladder | slider | 2d | 1 | zfc-and-ordinals |
 | `zfc-choice-picker` | zfc-choice-picker | click | 2d | 1 | zfc-and-ordinals |
 | `zfc-continuum-locator` | zfc-continuum-locator | click | 2d | 1 | zfc-and-ordinals |
@@ -494,20 +511,20 @@ page has wired one in yet.
 ### Analysis
 
 - Topics: **15**, concepts: **149**
-- Widgets: **107** (registry-driven: 101, inline: 6)
-  - by family: button-stepper: 37, clickable-diagram: 31, unknown: 6, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, constraint-bifurcation-explorer: 1, recurrence-plotter: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
-  - by dimension: 2d: 101, unknown: 6
-  - by gesture: click: 69, slider: 26, unknown: 6, drag: 3, select: 2, step: 1
+- Widgets: **107** (registry-driven: 107, inline: 0)
+  - by family: button-stepper: 37, clickable-diagram: 31, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, variational-fdiff: 1, variational-brachistochrone: 1, variational-direct-method: 1, variational-mountain-pass: 1, variational-isoperimetric: 1, variational-sphere-geodesic: 1, constraint-bifurcation-explorer: 1, recurrence-plotter: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
+  - by dimension: 2d: 106, 3d: 1
+  - by gesture: click: 70, slider: 29, drag: 5, select: 2, step: 1
 - Quizzes: **591** (v1: 406, hard: 185, expert: 0)
   - by type: mcq: 379, numeric: 142, multi-select: 15, complex: 14, matching: 14, ordering: 12, proof-completion: 9, spot-the-error: 4, construction: 1, guess-my-rule: 1
 
 ### Probability & statistics
 
 - Topics: **8**, concepts: **53**
-- Widgets: **51** (registry-driven: 46, inline: 5)
-  - by family: button-stepper: 10, unknown: 5, ms-bias-variance: 1, ms-likelihood-curve: 1, ms-crlb-envelope: 1, ms-neyman-pearson: 1, ms-beta-posterior: 1, ms-wilks-theorem: 1, hdg-sphere-concentration-band: 1, hdg-dvoretzky-section: 1, hdg-jl-distortion-histogram: 1, hdg-talagrand-deviation: 1, hdg-isoperimetry-tail: 1, hdg-marchenko-pastur: 1, stoch-proc-filtration-stopping: 1, stoch-proc-random-walk-martingale: 1, stoch-proc-gamblers-ruin: 1, stoch-proc-doob-decomposition: 1, stoch-proc-convergence-regimes: 1, stoch-proc-brownian-quadratic-variation: 1, stochastic-calc-ito-riemann-sums: 1, stochastic-calc-ito-formula-bsq: 1, stochastic-calc-geometric-brownian-motion: 1, stochastic-calc-girsanov-density: 1, stochastic-calc-feynman-kac-heat: 1, stochastic-calc-binomial-black-scholes: 1, random-walks-graph-step: 1, random-walks-matrix-power: 1, random-walks-tv-distance: 1, random-walks-eigenvalue-inspector: 1, random-walks-cycle-coupling: 1, random-walks-metropolis-hastings: 1, information-entropy: 1, information-mutual-info-venn: 1, information-kl-simplex: 1, information-huffman-builder: 1, information-bsc-capacity: 1, information-rate-distortion: 1
-  - by dimension: 2d: 46, unknown: 5
-  - by gesture: slider: 26, click: 13, step: 5, unknown: 5, button: 2
+- Widgets: **51** (registry-driven: 51, inline: 0)
+  - by family: button-stepper: 10, ms-bias-variance: 1, ms-likelihood-curve: 1, ms-crlb-envelope: 1, ms-neyman-pearson: 1, ms-beta-posterior: 1, ms-wilks-theorem: 1, hdg-sphere-concentration-band: 1, hdg-dvoretzky-section: 1, hdg-jl-distortion-histogram: 1, hdg-talagrand-deviation: 1, hdg-isoperimetry-tail: 1, hdg-marchenko-pastur: 1, stoch-proc-filtration-stopping: 1, stoch-proc-random-walk-martingale: 1, stoch-proc-gamblers-ruin: 1, stoch-proc-doob-decomposition: 1, stoch-proc-convergence-regimes: 1, stoch-proc-brownian-quadratic-variation: 1, stochastic-calc-ito-riemann-sums: 1, stochastic-calc-ito-formula-bsq: 1, stochastic-calc-geometric-brownian-motion: 1, stochastic-calc-girsanov-density: 1, stochastic-calc-feynman-kac-heat: 1, stochastic-calc-binomial-black-scholes: 1, random-walks-graph-step: 1, random-walks-matrix-power: 1, random-walks-tv-distance: 1, random-walks-eigenvalue-inspector: 1, random-walks-cycle-coupling: 1, random-walks-metropolis-hastings: 1, information-entropy: 1, information-mutual-info-venn: 1, information-kl-simplex: 1, information-huffman-builder: 1, information-bsc-capacity: 1, information-rate-distortion: 1, large-dev-cramer-tilt: 1, large-dev-rate-gallery: 1, large-dev-sanov-kl: 1, large-dev-gartner-ar1: 1, large-dev-schilder-paths: 1
+  - by dimension: 2d: 51
+  - by gesture: slider: 28, click: 15, step: 5, button: 2, toggle: 1
 - Quizzes: **196** (v1: 159, hard: 24, expert: 13)
   - by type: mcq: 137, numeric: 49, multi-select: 2, matching: 2, proof-completion: 2, construction: 1, complex: 1, ordering: 1, spot-the-error: 1
 
@@ -534,10 +551,10 @@ page has wired one in yet.
 ### Modular forms & L-functions
 
 - Topics: **16**, concepts: **93**
-- Widgets: **127** (registry-driven: 121, inline: 6)
-  - by family: button-stepper: 92, unknown: 6, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 2, automorphic-restricted-product: 1, automorphic-strong-approximation: 1, automorphic-three-conditions: 1, automorphic-dictionary: 1, automorphic-satake-parameters: 1, automorphic-conductor-ladder: 1, automorphic-local-factor-builder: 1, automorphic-eisenstein-residue: 1, automorphic-functoriality-transfers: 1, modular-curves-fundamental-domain: 1, modular-curves-lattice-cyclic-subgroup: 1, modular-curves-hecke-summands: 1, modular-curves-eichler-shimura: 1, modular-curves-genus-growth: 1, modular-curves-cusps-and-wn: 1, modular-curves-atkin-lehner-newforms: 1, modular-curves-heegner-hypothesis: 1, modular-curves-mazur-torsion: 1
-  - by dimension: 2d: 121, unknown: 6
-  - by gesture: click: 99, slider: 12, unknown: 6, step: 6, static: 4
+- Widgets: **127** (registry-driven: 127, inline: 0)
+  - by family: button-stepper: 92, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 2, voa-mode-bookkeeping: 1, voa-axiom-map: 1, voa-virasoro-bracket: 1, voa-character-coeffs: 1, voa-mckay-thompson: 1, voa-construction-zoo: 1, automorphic-restricted-product: 1, automorphic-strong-approximation: 1, automorphic-three-conditions: 1, automorphic-dictionary: 1, automorphic-satake-parameters: 1, automorphic-conductor-ladder: 1, automorphic-local-factor-builder: 1, automorphic-eisenstein-residue: 1, automorphic-functoriality-transfers: 1, modular-curves-fundamental-domain: 1, modular-curves-lattice-cyclic-subgroup: 1, modular-curves-hecke-summands: 1, modular-curves-eichler-shimura: 1, modular-curves-genus-growth: 1, modular-curves-cusps-and-wn: 1, modular-curves-atkin-lehner-newforms: 1, modular-curves-heegner-hypothesis: 1, modular-curves-mazur-torsion: 1
+  - by dimension: 2d: 127
+  - by gesture: click: 100, slider: 13, step: 8, static: 4, select: 2
 - Quizzes: **474** (v1: 279, hard: 195, expert: 0)
   - by type: mcq: 312, numeric: 156, multi-select: 4, matching: 1, ordering: 1
 
@@ -576,7 +593,7 @@ page has wired one in yet.
 - `mathematical-statistics` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `numerical-analysis` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `computational-number-theory` (Number theory) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
-- `variational-methods` (Analysis) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `variational-methods` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `fixed-point-theorems` (Analysis) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `calabi-yau-manifolds` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `high-dimensional-geometry` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
@@ -593,7 +610,7 @@ page has wired one in yet.
 - `quaternions-octonions-and-division-algebras` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `geometric-and-combinatorial-group-theory` (Algebra & homological) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `wavelets` (Analysis) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
-- `vertex-operator-algebras` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `vertex-operator-algebras` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `schrodinger-equation` (Mathematical physics) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
 - `mathematics-and-cryptography` (Number theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `knot-polynomials` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
@@ -640,7 +657,7 @@ page has wired one in yet.
 - `stochastic-calculus` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `random-walks-and-mixing` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `information-theory` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `large-deviations` (Probability & statistics) — concepts=5, widgets=5 (slug=0), quiz=15 (v1=15, hard=0, expert=0)
+- `large-deviations` (Probability & statistics) — concepts=5, widgets=5 (slug=5), quiz=15 (v1=15, hard=0, expert=0)
 - `point-set-topology` (Geometry & topology) — concepts=6, widgets=7 (slug=7), quiz=36 (v1=18, hard=18, expert=0)
 - `algebraic-topology` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=32 (v1=18, hard=14, expert=0)
 - `smooth-manifolds` (Geometry & topology) — concepts=10, widgets=9 (slug=9), quiz=59 (v1=30, hard=29, expert=0)
