@@ -244,7 +244,9 @@ function drawNode(svg, x, y, label, opts={}){
   <a href="#schauder">3&nbsp;Schauder</a>
   <a href="#lefschetz">4&nbsp;Lefschetz</a>
   <a href="#kakutani">5&nbsp;Kakutani</a>
-  <a href="#applications">6&nbsp;Applications</a>
+  <a href="#caristi">6&nbsp;Caristi</a>
+  <a href="#kkm">7&nbsp;KKM</a>
+  <a href="#applications">8&nbsp;Applications</a>
 </nav>
 <!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
 
@@ -290,6 +292,7 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="ttl">Used in</div>
     <div><a href="./fixed-point-theorems.html#applications">Fixed-point theorems</a> · Applications across mathematics</div>
     <div><a href="./fixed-point-theorems.html#brouwer">Fixed-point theorems</a> · Brouwer fixed-point theorem</div>
+    <div><a href="./fixed-point-theorems.html#caristi">Fixed-point theorems</a> · Caristi's fixed-point theorem</div>
 </aside>
 <!-- backlinks-auto-end --><div class="quiz" data-concept="fpt-banach"></div>
 </section>
@@ -320,6 +323,7 @@ function drawNode(svg, x, y, label, opts={}){
   <div class="ttl">Used in</div>
     <div><a href="./fixed-point-theorems.html#applications">Fixed-point theorems</a> · Applications across mathematics</div>
     <div><a href="./fixed-point-theorems.html#kakutani">Fixed-point theorems</a> · Kakutani fixed-point theorem</div>
+    <div><a href="./fixed-point-theorems.html#kkm">Fixed-point theorems</a> · Knaster–Kuratowski–Mazurkiewicz lemma</div>
     <div><a href="./fixed-point-theorems.html#lefschetz">Fixed-point theorems</a> · Lefschetz fixed-point theorem</div>
     <div><a href="./fixed-point-theorems.html#schauder">Fixed-point theorems</a> · Schauder fixed-point theorem</div>
 </aside>
@@ -426,8 +430,65 @@ If $\Lambda(f)\ne 0$, then $f$ has a fixed point. The implication is one-way: $\
 <div class="quiz" data-concept="fpt-kakutani"></div>
 </section>
 
+<section id="caristi">
+<h2>6. Caristi's fixed-point theorem</h2>
+<p>Banach's contraction is a metric inequality between $x$ and $Tx$; Caristi's theorem replaces it with a Lyapunov-style budget. There is no Lipschitz constant and the map need not be continuous — only the existence of a non-negative weight that the orbit consumes.</p>
+
+<div class="note"><strong>Theorem (Caristi, 1976).</strong> Let $(X,d)$ be a complete metric space and $T\colon X\to X$ any map (continuity not assumed). Suppose there is a lower-semicontinuous function $\varphi\colon X\to[0,\infty)$ such that
+$$d\bigl(x,T(x)\bigr)\;\le\;\varphi(x)-\varphi\bigl(T(x)\bigr)\qquad\text{for every }x\in X.$$
+Then $T$ has a fixed point.</div>
+
+<p>Read the inequality as an accounting identity: each step of the orbit pays at least $d(x,Tx)$ out of the budget $\varphi(x)$, and $\varphi\ge 0$ caps the total expenditure. Iterating gives $\sum_{k\ge 0} d(x_k,x_{k+1})\le\varphi(x_0)<\infty$, so $\{x_k\}$ is Cauchy; completeness produces a limit $x_*$, and the lower-semicontinuity of $\varphi$ at $x_*$ forces $d(x_*,Tx_*)=0$.</p>
+
+<p><strong>Banach as a special case.</strong> If $T$ is a Lipschitz contraction with constant $L<1$, set
+$$\varphi(x)=\frac{1}{1-L}\,d\bigl(x,T(x)\bigr).$$
+A single application of the contraction inequality gives $d(Tx,T^2x)\le L\,d(x,Tx)$, hence
+$$\varphi(x)-\varphi(Tx)=\tfrac{1}{1-L}\bigl[d(x,Tx)-d(Tx,T^2x)\bigr]\ge\tfrac{1-L}{1-L}\,d(x,Tx)=d(x,Tx).$$
+Caristi's hypothesis holds and recovers Banach's fixed point. The leverage in Caristi is that $\varphi$ need not be defined as a function of $T$ — any independent Lyapunov-style weight will do.</p>
+
+<p><strong>A concrete non-contraction.</strong> Let $X=[0,1]$ with the usual metric, $T(x)=x-x^2/2$ on $(0,1]$ and $T(0)=0$. Then $T'(1)=0$ but $T'(0)=1$, so no global Lipschitz constant $L<1$ exists — Banach does not apply. Take $\varphi(x)=2x$: a quick computation yields
+$$\varphi(x)-\varphi(Tx)=2x-2(x-x^2/2)=x^2\ge x^2/2=d(x,Tx),$$
+so Caristi forces a fixed point. (Indeed $0$ is fixed; the orbit from any $x_0\in(0,1]$ decreases monotonically to $0$.)</p>
+
+<p><strong>Equivalence with Ekeland.</strong> Caristi's theorem is equivalent (logically and proof-wise) to <em>Ekeland's variational principle</em>: on a complete metric space, every lower-semicontinuous bounded-below $\varphi$ has, near any near-minimizer, a strict minimizer of a small perturbation $\varphi+\varepsilon\,d(\cdot,x_0)$. The fixed-point form follows by selecting $T(x)$ to be any point that fails Ekeland's $\varepsilon$-strict-minimum condition; the variational form follows by feeding Caristi the multivalued map $T(x)=\{y:\varphi(y)+d(x,y)\le\varphi(x)\}$. This duality makes Caristi the workhorse behind existence proofs in non-smooth optimization, viscosity solutions of Hamilton–Jacobi equations, and metric-fixed-point theory on incomplete spaces.</p>
+
+<div class="note"><strong>Why no continuity.</strong> Caristi's proof never evaluates $T$ at the limit $x_*$. It uses the inequality only to construct a Cauchy orbit and then shows $\varphi$-equality forces the displacement to vanish. The price of dropping continuity of $T$ is that the fixed point need not be unique — there can be a whole set on which $\varphi$ is locally constant.</div>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./real-analysis.html#real-continuity">Continuity on R</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="fpt-caristi"></div>
+</section>
+
+<section id="kkm">
+<h2>7. Knaster–Kuratowski–Mazurkiewicz lemma</h2>
+<p>Brouwer is topological — it speaks of continuous self-maps of a ball. The KKM lemma is its <em>covering</em> form: the same content stated as an intersection theorem for closed sets on a simplex. Out of KKM falls Brouwer, Sperner's lemma, the von Neumann minimax, and an entire fixed-point theory for set-valued maps.</p>
+
+<div class="note"><strong>KKM lemma (Knaster–Kuratowski–Mazurkiewicz, 1929).</strong> Let $\Delta_n=\mathrm{conv}\{v_0,\ldots,v_n\}$ be the standard $n$-simplex and let $C_0,\ldots,C_n\subseteq\Delta_n$ be closed sets satisfying the <em>KKM covering condition</em>:
+$$\mathrm{conv}\{v_i:i\in S\}\;\subseteq\;\bigcup_{i\in S}C_i\qquad\text{for every }S\subseteq\{0,\ldots,n\}.$$
+Then $\bigcap_{i=0}^n C_i\ne\emptyset$.</div>
+
+<p>The covering condition says every face $\Delta_S$ is covered by the $C_i$ whose vertices it contains. Specialising to $S=\{i\}$ forces $v_i\in C_i$. Specialising to the full set $S=\{0,\ldots,n\}$ forces $\Delta_n\subseteq\bigcup C_i$, but the conclusion is far stronger than this single covering — it says all $n+1$ pieces share a common point, not merely that they tile the simplex.</p>
+
+<p><strong>Sperner's lemma — the discrete sibling.</strong> Triangulate $\Delta_n$ and label every vertex of the triangulation with an integer in $\{0,\ldots,n\}$, subject to the rule that a vertex on a face $\Delta_S$ receives only labels from $S$. A small simplex of the triangulation is <em>fully labelled</em> if its vertices realise all $n+1$ labels. Sperner asserts: the number of fully labelled small simplices is odd, in particular non-zero. Letting the mesh shrink and applying compactness recovers KKM (each $C_i$ is the closure of vertices labelled $i$, the fully labelled cells condense to a common limit point), and conversely KKM implies Sperner via a generic-position argument. The combinatorial proof of Sperner is a one-page induction on dimension — making the entire Brouwer–KKM circle elementary.</p>
+
+<p><strong>KKM proves Brouwer.</strong> Given continuous $f\colon\Delta_n\to\Delta_n$, write $x=\sum_i x_i v_i$ in barycentric coordinates and set
+$$C_i\;=\;\{x\in\Delta_n:f(x)_i\le x_i\}.$$
+Each $C_i$ is closed by continuity. To check the KKM covering condition, pick any face $\Delta_S$ and any $x\in\Delta_S$ (so $x_j=0$ for $j\notin S$, and $\sum_{i\in S}x_i=1$). Since $f(x)\in\Delta_n$ also has barycentric coordinates summing to $1$, at least one index $i\in S$ must satisfy $f(x)_i\le x_i$ — otherwise every $i\in S$ would have $f(x)_i>x_i$, summing to $>1$, contradiction. So $x\in C_i$ for some $i\in S$. KKM gives a common point $x_*\in\bigcap C_i$, where $f(x_*)_i\le x_*\,_i$ for every $i$; equality of sums forces $f(x_*)=x_*$.</p>
+
+<p><strong>Fan-KKM and minimax.</strong> Ky Fan upgraded KKM to non-compact convex sets in topological vector spaces and dropped the closedness in favor of a closed-graph condition on a set-valued map $G\colon\Delta_n\rightrightarrows\Delta_n$ with $\mathrm{conv}\{v_i:i\in S\}\subseteq\bigcup_{i\in S}G(v_i)$. The conclusion is the same — non-empty intersection — and applied to the map $G(y)=\{x:f(x,y)\le f(y,y)\}$ for a continuous saddle function $f$, Fan-KKM yields the von Neumann minimax theorem. From there it is a short hop to Nash equilibrium (recovering Kakutani as a corollary) and to set-valued fixed-point theorems for upper-hemicontinuous correspondences with non-convex values via Browder's selection theorem.</p>
+
+<div class="note"><strong>Why KKM is the cleanest gateway.</strong> Brouwer needs degree theory or singular homology; KKM needs only Sperner, which is a finite combinatorial argument. Once KKM is in hand, Brouwer, Schauder (via finite-dimensional approximation), Kakutani (via the Browder selection), and the von Neumann/Nash existence proofs all fall out by short reductions. Functional analysts often cite KKM as the right starting axiom for fixed-point theory.</div>
+
+<div class="quiz" data-concept="fpt-kkm"></div>
+</section>
+
 <section id="applications">
-<h2>6. Applications across mathematics</h2>
+<h2>8. Applications across mathematics</h2>
 <p>Every theorem above shows up as the existence engine in a downstream result:</p>
 <ul>
   <li><strong>Picard–Lindelöf for ODEs</strong> — Banach contraction. The Picard operator $T(\varphi)(t)=x_0+\int_{t_0}^t f(s,\varphi(s))\,ds$ is a contraction on $C([t_0-h,t_0+h])$ when $f$ is Lipschitz in its second argument and $h$ is small.</li>

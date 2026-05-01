@@ -786,6 +786,32 @@ window.__MVConcepts = {
             "foundation",
             "classification"
           ]
+        },
+        {
+          "id": "fpt-caristi",
+          "title": "Caristi's fixed-point theorem",
+          "anchor": "caristi",
+          "prereqs": [
+            "fpt-banach",
+            "real-continuity"
+          ],
+          "blurb": "If $\\varphi\\colon X\\to[0,\\infty)$ is lower-semicontinuous on a complete metric space and $d(x,Tx)\\le\\varphi(x)-\\varphi(Tx)$, then $T$ has a fixed point — no contraction, no continuity of $T$. Equivalent to Ekeland's variational principle, generalising Banach with a Lyapunov-style weight.",
+          "tags": [
+            "completion"
+          ]
+        },
+        {
+          "id": "fpt-kkm",
+          "title": "Knaster–Kuratowski–Mazurkiewicz lemma",
+          "anchor": "kkm",
+          "prereqs": [
+            "fpt-brouwer"
+          ],
+          "blurb": "On a simplex $\\Delta_n$, closed sets $C_i$ covering each face $\\Delta_S\\subseteq\\bigcup_{i\\in S}C_i$ have non-empty intersection $\\bigcap_i C_i\\ne\\emptyset$. The combinatorial twin of Brouwer — Sperner's lemma is its discrete shadow — and the cleanest gateway to Fan-KKM minimax and set-valued fixed points.",
+          "tags": [
+            "compactness",
+            "foundation"
+          ]
         }
       ]
     },
@@ -2095,6 +2121,29 @@ window.__MVConcepts = {
             "w-wavelet-vs-fourier"
           ],
           "blurb": "JPEG2000 replaces JPEG's blocked DCT with a Cohen–Daubechies–Feauveau biorthogonal DWT, giving smooth degradation instead of blocking artefacts. Donoho–Johnstone soft-thresholding $\\hat c=\\operatorname{sgn}(c)(|c|-\\lambda)_+$ is asymptotically minimax for denoising. Vanishing moments make $\\psi_{j,k}$ near-eigenvectors of Calderón–Zygmund operators, which compresses elliptic-PDE matrices to sparse form."
+        },
+        {
+          "id": "w-lifting-scheme",
+          "title": "The lifting scheme",
+          "anchor": "lifting-scheme",
+          "prereqs": [
+            "w-multiresolution",
+            "w-haar-wavelet"
+          ],
+          "blurb": "Sweldens' (1995) lifting scheme builds wavelets by alternating <em>predict</em> and <em>update</em> steps on a split signal — no Fourier-domain factorisation, no algebraic constraints. Every step is invertible, so perfect reconstruction is automatic; the construction works in-place, runs in integer arithmetic for lossless coding, and recovers Haar from one predict + one update on the lazy split."
+        },
+        {
+          "id": "w-biorthogonal",
+          "title": "Biorthogonal wavelets",
+          "anchor": "biorthogonal",
+          "prereqs": [
+            "w-multiresolution",
+            "w-daubechies"
+          ],
+          "tags": [
+            "duality"
+          ],
+          "blurb": "Drop orthogonality, keep perfect reconstruction by using two dual bases: analysis $\\{\\tilde\\psi_{j,k}\\}$ and synthesis $\\{\\psi_{j,k}\\}$ with $\\langle\\tilde\\psi_{j,k},\\psi_{j',k'}\\rangle=\\delta_{jj'}\\delta_{kk'}$. This buys symmetric (linear-phase) wavelets — Daubechies' theorem rules out symmetry for orthogonal compactly-supported wavelets except Haar — and gives the Cohen–Daubechies–Feauveau 9/7 pair used in JPEG2000."
         }
       ]
     },
@@ -7084,6 +7133,25 @@ window.__MVConcepts = {
           "tags": [
             "duality"
           ]
+        },
+        {
+          "id": "it-aep",
+          "title": "Asymptotic equipartition property",
+          "anchor": "aep",
+          "prereqs": [
+            "it-shannon-entropy"
+          ],
+          "blurb": "For i.i.d.\\ $X_1,\\ldots,X_n\\sim p$, the law of large numbers applied to $-\\log p(X_i)$ gives $-\\tfrac{1}{n}\\log p(X_1,\\ldots,X_n)\\to H(X)$ in probability. The typical set $A_\\varepsilon^{(n)}=\\{x^n:|{-\\tfrac{1}{n}\\log p(x^n)}-H(X)|<\\varepsilon\\}$ has size $\\le 2^{n(H+\\varepsilon)}$ and probability $\\to 1$ — the operational backbone of source coding and jointly-typical decoding."
+        },
+        {
+          "id": "it-fisher-and-cramer-rao",
+          "title": "Fisher information and the Cramér–Rao bound",
+          "anchor": "fisher-cramer-rao",
+          "prereqs": [
+            "it-kl-divergence",
+            "ms-mle"
+          ],
+          "blurb": "Fisher information $I(\\theta)=-\\mathbb{E}_\\theta[\\partial_\\theta^2\\log p_\\theta(X)]=\\mathbb{E}_\\theta[(\\partial_\\theta\\log p_\\theta)^2]$ measures the curvature of the log-likelihood at $\\theta$. The Cramér–Rao bound: any unbiased estimator $\\hat\\theta$ of $\\theta$ from one sample obeys $\\mathrm{Var}_\\theta(\\hat\\theta)\\ge 1/I(\\theta)$, and de Bruijn's identity ties Fisher to differential entropy under Gaussian smoothing."
         }
       ]
     },
@@ -12769,18 +12837,18 @@ window.__MVConcepts = {
       "density": 0.5111111111111111
     },
     "Analysis": {
-      "concepts": 157,
-      "intra": 262,
+      "concepts": 161,
+      "intra": 269,
       "crossOut": 24,
       "crossIn": 62,
-      "density": 0.15286624203821655
+      "density": 0.14906832298136646
     },
     "Probability & statistics": {
-      "concepts": 53,
-      "intra": 86,
+      "concepts": 55,
+      "intra": 89,
       "crossOut": 14,
       "crossIn": 10,
-      "density": 0.2641509433962264
+      "density": 0.2545454545454545
     },
     "Geometry & topology": {
       "concepts": 102,

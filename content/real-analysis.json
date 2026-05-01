@@ -140,7 +140,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./real-analysis.html#real-differentiation\">Real analysis</a> · Differentiation</div>\n    <div><a href=\"./real-analysis.html#riemann-integral\">Real analysis</a> · Riemann integral</div>\n    <div><a href=\"./real-analysis.html#uniform-convergence\">Real analysis</a> · Uniform convergence</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./fixed-point-theorems.html#caristi\">Fixed-point theorems</a> · Caristi's fixed-point theorem</div>\n    <div><a href=\"./real-analysis.html#real-differentiation\">Real analysis</a> · Differentiation</div>\n    <div><a href=\"./real-analysis.html#riemann-integral\">Real analysis</a> · Riemann integral</div>\n    <div><a href=\"./real-analysis.html#uniform-convergence\">Real analysis</a> · Uniform convergence</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

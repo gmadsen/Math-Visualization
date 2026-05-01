@@ -17134,6 +17134,99 @@ window.MVQuizBank = {
           }
         ]
       },
+      "fpt-caristi": {
+        "title": "Caristi's fixed-point theorem",
+        "questions": [
+          {
+            "type": "multi-select",
+            "q": "Caristi's theorem $d(x,Tx)\\le\\varphi(x)-\\varphi(Tx)$ requires which of the following on the metric space $X$ and the weight $\\varphi$? (Select all that apply.)",
+            "choices": [
+              "$X$ complete",
+              "$\\varphi$ lower-semicontinuous",
+              "$\\varphi\\ge 0$ (or at least bounded below)",
+              "$T$ continuous",
+              "$T$ Lipschitz"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Caristi assumes only completeness of $X$, lower-semicontinuity of $\\varphi$, and a non-negative (equivalently bounded-below) $\\varphi$. The map $T$ need not be continuous and certainly not Lipschitz — that is the whole leverage over Banach. The proof never evaluates $T$ at the limit point; it constructs a Cauchy orbit from the inequality and uses lower-semicontinuity to conclude the displacement vanishes."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $T\\colon[0,2]\\to[0,2]$ be a contraction with Lipschitz constant $L=1/3$. To recover Banach via Caristi using $\\varphi(x)=c\\cdot d(x,Tx)$, what is the smallest constant $c$ that makes Caristi's hypothesis hold?",
+            "answer": 1.5,
+            "tol": 0.01,
+            "explain": "With $\\varphi(x)=c\\cdot d(x,Tx)$, $\\varphi(x)-\\varphi(Tx)=c[d(x,Tx)-d(Tx,T^2x)]\\ge c(1-L)d(x,Tx)$. We need this to dominate $d(x,Tx)$, i.e. $c(1-L)\\ge 1$, so $c\\ge 1/(1-L)$. With $L=1/3$ that gives $c=3/2=1.5$. This is the standard recipe: $\\varphi=d(x,Tx)/(1-L)$ recovers Banach as a Caristi corollary."
+          },
+          {
+            "type": "mcq",
+            "q": "On $X=[0,1]$ define $T(x)=x-x^2/2$ for $x\\in(0,1]$, $T(0)=0$. Why does Caristi (with $\\varphi(x)=2x$) succeed while Banach fails?",
+            "choices": [
+              "$X$ is not complete, so Banach's hypotheses do not hold",
+              "$T$ has no global Lipschitz constant $L<1$ (since $T'(0)=1$), but $\\varphi(x)-\\varphi(Tx)=x^2\\ge d(x,Tx)$ holds and Caristi has no Lipschitz requirement",
+              "$T$ is not continuous, so only Caristi applies",
+              "Banach's theorem applies — Caristi is unnecessary here"
+            ],
+            "answer": 1,
+            "explain": "$T$ is smooth and continuous, but $T'(x)=1-x$ approaches $1$ as $x\\to 0$, so no uniform $L<1$ exists — Banach's contraction hypothesis fails. With $\\varphi(x)=2x$ one computes $\\varphi(x)-\\varphi(Tx)=2x-2(x-x^2/2)=x^2$, while $d(x,Tx)=x^2/2\\le x^2$. Caristi applies and produces the fixed point $0$. This kind of weight-function gymnastics is exactly why Caristi outranks Banach in non-smooth optimization."
+          }
+        ]
+      },
+      "fpt-kkm": {
+        "title": "Knaster–Kuratowski–Mazurkiewicz lemma",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On the standard simplex $\\Delta_n=\\mathrm{conv}\\{v_0,\\ldots,v_n\\}$, the KKM covering condition for closed sets $C_0,\\ldots,C_n$ asserts that for every $S\\subseteq\\{0,\\ldots,n\\}$:",
+            "choices": [
+              "$\\bigcap_{i\\in S}C_i\\ne\\emptyset$",
+              "$\\mathrm{conv}\\{v_i:i\\in S\\}\\subseteq\\bigcup_{i\\in S}C_i$",
+              "$C_i\\cap C_j=\\emptyset$ whenever $i\\ne j$",
+              "each $C_i$ is convex"
+            ],
+            "answer": 1,
+            "explain": "The defining hypothesis of KKM: every face spanned by $\\{v_i:i\\in S\\}$ is covered by the same-indexed $C_i$. Specialising $S=\\{i\\}$ gives $v_i\\in C_i$; specialising to the full index set says the $C_i$ cover $\\Delta_n$. The conclusion — $\\bigcap_i C_i\\ne\\emptyset$ — is what makes KKM substantive."
+          },
+          {
+            "type": "matching",
+            "q": "Match each statement on the left to its discrete or topological cousin on the right.",
+            "left": [
+              "KKM lemma (closed-cover form)",
+              "Brouwer fixed-point theorem",
+              "Sperner's lemma",
+              "Fan-KKM with closed-graph $G$"
+            ],
+            "right": [
+              "Continuous self-map of $\\Delta_n$ has a fixed point",
+              "Fully-labelled small simplex in any proper labelling exists",
+              "Closed sets covering each face share a common point",
+              "Set-valued generalisation underlying von Neumann minimax"
+            ],
+            "answer": [
+              2,
+              0,
+              1,
+              3
+            ],
+            "explain": "KKM is the closed-cover / common-point statement (right index 2); Brouwer is the continuous self-map fixed-point statement (right index 0); Sperner is the discrete combinatorial sibling counting fully labelled simplices (right index 1); Fan-KKM is the set-valued / closed-graph extension that gives the minimax theorem (right index 3). The four are mutually equivalent up to short reductions."
+          },
+          {
+            "type": "mcq",
+            "q": "In the KKM-based proof of Brouwer for continuous $f\\colon\\Delta_n\\to\\Delta_n$, the sets $C_i=\\{x:f(x)_i\\le x_i\\}$ satisfy the KKM covering condition because:",
+            "choices": [
+              "$f$ is uniformly continuous",
+              "for $x\\in\\Delta_S$, the barycentric coordinates of $f(x)$ sum to 1, so at least one $i\\in S$ must have $f(x)_i\\le x_i$ — otherwise the sum would exceed 1",
+              "each $C_i$ is convex by linearity of $f$",
+              "$\\Delta_n$ is contractible"
+            ],
+            "answer": 1,
+            "explain": "If every $i\\in S$ satisfied $f(x)_i>x_i$ at some $x\\in\\Delta_S$, then $\\sum_{i\\in S}f(x)_i>\\sum_{i\\in S}x_i=1$, but $\\sum_i f(x)_i=1$ and $f(x)_j\\ge 0$ for $j\\notin S$, contradiction. So $x\\in C_i$ for some $i\\in S$. KKM then gives a point $x_*\\in\\bigcap_i C_i$ where $f(x_*)_i\\le x_{*,i}$ for every $i$, and equality of sums forces $f(x_*)=x_*$."
+          }
+        ]
+      },
       "fpt-applications": {
         "title": "Applications: ODEs, IVT, Nash, Markov chains",
         "questions": [
@@ -25851,6 +25944,95 @@ window.MVQuizBank = {
             "answer": 1,
             "hint": "Larger $D$ admits more reconstruction laws, so the minimum over a larger set is smaller.",
             "explain": "Increasing $D$ expands the feasible set $\\{p_{\\hat X\\mid X}: \\mathbb{E}[d]\\le D\\}$, so $\\min I(X;\\hat X)$ over a larger set is no larger. Hence $R$ is non-increasing in $D$."
+          }
+        ]
+      },
+      "it-aep": {
+        "title": "Asymptotic equipartition property",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The AEP for i.i.d.\\ $X_1,\\ldots,X_n\\sim p$ states that as $n\\to\\infty$, $-\\tfrac{1}{n}\\log p(X_1,\\ldots,X_n)$ converges in probability to:",
+            "choices": [
+              "$0$",
+              "$\\log n$",
+              "$H(X)$",
+              "the variance of $X$"
+            ],
+            "answer": 2,
+            "hint": "Apply the law of large numbers to the i.i.d.\\ random variables $Y_i = -\\log p(X_i)$ and note $\\mathbb{E}[Y_i] = H(X)$.",
+            "explain": "Since the $X_i$ are i.i.d., so are $Y_i = -\\log p(X_i)$, and $\\mathbb{E}[Y_i] = -\\sum_x p(x)\\log p(x) = H(X)$. The weak law of large numbers gives $-\\tfrac{1}{n}\\log p(X_1,\\ldots,X_n) = \\tfrac{1}{n}\\sum Y_i \\to H(X)$ in probability — the AEP is just LLN in the entropy regime."
+          },
+          {
+            "type": "numeric",
+            "q": "For i.i.d.\\ Bernoulli($1/4$) bits, the AEP says the typical set $A_\\varepsilon^{(n)}$ has size $\\approx 2^{nH}$. Compute $H$ in bits per symbol (round to 3 decimals).",
+            "answer": 0.811,
+            "tol": 0.005,
+            "hint": "$H = h(1/4) = -\\tfrac{1}{4}\\log_2\\tfrac{1}{4} - \\tfrac{3}{4}\\log_2\\tfrac{3}{4}$.",
+            "explain": "$h(1/4) = 0.5 + 0.75\\log_2(4/3) \\approx 0.8113$ bits. So among the $2^n$ binary strings of length $n$, only $\\approx 2^{0.811\\,n}$ are typical and they carry essentially all the probability — a vanishing fraction of the cube but the whole mass."
+          },
+          {
+            "type": "matching",
+            "q": "Match each property of the typical set $A_\\varepsilon^{(n)}$ for an i.i.d.\\ source with entropy $H$ to its precise statement.",
+            "left": [
+              "$\\Pr(A_\\varepsilon^{(n)})\\to 1$",
+              "$|A_\\varepsilon^{(n)}|\\le 2^{n(H+\\varepsilon)}$",
+              "$|A_\\varepsilon^{(n)}|\\ge (1-\\varepsilon)2^{n(H-\\varepsilon)}$",
+              "$2^{-n(H+\\varepsilon)}\\le p(x^n)\\le 2^{-n(H-\\varepsilon)}$"
+            ],
+            "right": [
+              "high probability",
+              "size upper bound",
+              "size lower bound",
+              "per-sequence probability bound"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "The AEP package: typical sequences are nearly equiprobable, fill an exponentially small fraction of the cube, and capture all the mass.",
+            "explain": "These four statements are the standard AEP package. Together they say: the typical set has $\\approx 2^{nH}$ sequences, each with probability $\\approx 2^{-nH}$, and this set captures essentially all the probability — which is why $nH$ bits suffice to index a typical sequence in source coding."
+          }
+        ]
+      },
+      "it-fisher-and-cramer-rao": {
+        "title": "Fisher information and Cramér–Rao",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "For $X\\sim\\mathcal{N}(\\theta,\\sigma^2)$ with $\\sigma^2$ known, the Fisher information about $\\theta$ from a single sample is $I(\\theta) = 1/\\sigma^2$. The sample mean $\\bar X_n$ of $n$ i.i.d.\\ samples is unbiased for $\\theta$. What is the Cramér–Rao lower bound on $\\mathrm{Var}(\\bar X_n)$ when $n=10$ and $\\sigma^2=4$ (round to 3 decimals)?",
+            "answer": 0.4,
+            "tol": 0.005,
+            "hint": "Fisher information from $n$ i.i.d.\\ samples is $n\\cdot I(\\theta)$, so the CR bound is $\\sigma^2/n$.",
+            "explain": "Fisher additivity gives $I_n(\\theta) = n/\\sigma^2$, so the CR bound is $1/I_n(\\theta) = \\sigma^2/n = 4/10 = 0.4$. The sample mean attains it exactly: $\\mathrm{Var}(\\bar X_n) = \\sigma^2/n$, so $\\bar X_n$ is the minimum-variance unbiased estimator of $\\theta$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Cramér–Rao bound for an unbiased estimator $\\hat\\theta$ of a scalar $\\theta$ from a single sample states:",
+            "choices": [
+              "$\\mathrm{Var}(\\hat\\theta) \\ge I(\\theta)$",
+              "$\\mathrm{Var}(\\hat\\theta) \\ge 1/I(\\theta)$",
+              "$\\mathrm{Var}(\\hat\\theta) = I(\\theta)$",
+              "$\\mathbb{E}[\\hat\\theta] \\ge 1/I(\\theta)$"
+            ],
+            "answer": 1,
+            "hint": "More information at $\\theta$ means tighter possible estimates, so variance is bounded below by the *reciprocal* of Fisher information.",
+            "explain": "The Cramér–Rao inequality reads $\\mathrm{Var}_\\theta(\\hat\\theta) \\ge 1/I(\\theta)$ for any unbiased estimator. The proof is a Cauchy–Schwarz on the score $\\partial_\\theta\\log p_\\theta(X)$ together with the identity $\\mathbb{E}_\\theta[\\partial_\\theta\\log p_\\theta] = 0$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which equivalent expression for Fisher information is FALSE in general?",
+            "choices": [
+              "$I(\\theta) = \\mathbb{E}_\\theta\\big[(\\partial_\\theta\\log p_\\theta(X))^2\\big]$",
+              "$I(\\theta) = -\\mathbb{E}_\\theta\\big[\\partial_\\theta^2\\log p_\\theta(X)\\big]$",
+              "$I(\\theta) = \\lim_{\\delta\\to 0} \\frac{2}{\\delta^2}\\,D(p_\\theta\\,\\|\\,p_{\\theta+\\delta})$",
+              "$I(\\theta) = \\mathbb{E}_\\theta\\big[\\partial_\\theta\\log p_\\theta(X)\\big]$"
+            ],
+            "answer": 3,
+            "hint": "The score has expectation zero under $p_\\theta$, so its mean cannot equal a positive quantity.",
+            "explain": "The score $\\partial_\\theta\\log p_\\theta(X)$ has $\\mathbb{E}_\\theta[\\partial_\\theta\\log p_\\theta] = 0$ (differentiate $\\int p_\\theta\\,dx = 1$), so the fourth identity is wrong. The other three — score-variance form, observed-information form, and the local KL expansion $D(p_\\theta\\,\\|\\,p_{\\theta+\\delta}) = \\tfrac{1}{2}I(\\theta)\\delta^2 + o(\\delta^2)$ — all hold under regularity."
           }
         ]
       }
@@ -49720,6 +49902,93 @@ window.MVQuizBank = {
             ],
             "answer": 1,
             "explain": "Taylor-expand $f$ to order $N$ at the centre and pair against $\\psi_{j,k}$: the first $N$ terms vanish by the moment conditions, leaving a remainder bounded by $\\|f^{(N)}\\|_\\infty\\cdot 2^{-j(N+1/2)}$ (the extra $1/2$ is the $L^2$ normalisation $2^{j/2}$). This is the decay engine behind wavelet compression of smooth signals."
+          }
+        ]
+      },
+      "w-lifting-scheme": {
+        "title": "The lifting scheme",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Apply one Haar lifting step to the signal $(s_0,s_1,s_2,s_3)=(8,2,4,6)$ using predictor $P(s^{(e)})_n=s_n^{(e)}$ and updater $U(d)_n=\\tfrac12 d_n$. What is $a_1$ (the coarse coefficient at index $1$)?",
+            "answer": 5,
+            "tol": 0.0001,
+            "explain": "Split: evens $s^{(e)}=(8,4)$, odds $s^{(o)}=(2,6)$. Predict: $d_0=2-8=-6$, $d_1=6-4=2$. Update: $a_0=8+\\tfrac12(-6)=5$, $a_1=4+\\tfrac12(2)=5$. So $a_1=5$ — the local average of $(4,6)$, exactly Haar's coarse coefficient (up to the orthonormal $\\sqrt 2$ rescaling, which is a separate diagonal step)."
+          },
+          {
+            "type": "ordering",
+            "q": "Order the steps of one forward Haar lifting step on a signal $(s_n)$, from first to last.",
+            "items": [
+              "Split: $a_n^{(0)}\\leftarrow s_{2n}$, $d_n^{(0)}\\leftarrow s_{2n+1}$ (lazy wavelet)",
+              "Predict: $d_n\\leftarrow d_n^{(0)} - a_n^{(0)}$",
+              "Update: $a_n\\leftarrow a_n^{(0)} + \\tfrac12 d_n$",
+              "Output the coarse stream $(a_n)$ and detail stream $(d_n)$"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Lifting always begins with the lazy split (separate evens and odds), then alternates predict and update. Predict uses the current evens to guess the odds and stores the residual as detail; update uses those residuals to correct the evens so the coarse signal still has the right average. Each step is a triangular linear map, so reversing the order with opposite signs gives the inverse — perfect reconstruction is automatic."
+          },
+          {
+            "type": "mcq",
+            "q": "Which advantage of the lifting scheme over classical Fourier-side wavelet design is FALSE?",
+            "choices": [
+              "Perfect reconstruction is automatic — no algebraic constraint to solve",
+              "It supports integer-to-integer transforms with bit-exact lossless inversion",
+              "It diagonalises every Calderón–Zygmund operator exactly",
+              "It generalises to wavelets on graphs, irregular samples, and meshes"
+            ],
+            "answer": 2,
+            "explain": "Lifting does not diagonalise CZ operators — wavelet bases (orthogonal or biorthogonal) only nearly diagonalise CZ operators (Beylkin–Coifman–Rokhlin sparsity), and lifting is a construction technique, not a spectral statement. The other three are real selling points: triangular lifting steps are invertible by inspection, integer rounding commutes with the inverse for lossless coding, and the predict/update template needs only a binary split so it transports to non-Euclidean settings."
+          }
+        ]
+      },
+      "w-biorthogonal": {
+        "title": "Biorthogonal wavelets",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why are biorthogonal wavelets used instead of orthogonal ones in JPEG2000?",
+            "choices": [
+              "They have shorter support than any orthogonal wavelet of comparable smoothness",
+              "They allow symmetric (linear-phase) filters, which orthogonal compactly-supported wavelets cannot achieve except in the Haar case",
+              "They are faster to compute via the Mallat pyramid",
+              "They give strictly better Parseval-type energy estimates"
+            ],
+            "answer": 1,
+            "explain": "Daubechies' theorem: the only real, orthogonal, compactly-supported, symmetric wavelet is Haar. Symmetric filters are linear-phase — they shift every frequency by the same amount — so reconstruction errors are not asymmetric across edges. JPEG2000 picks CDF 9/7 for exactly this reason. Orthogonal wavelets are not faster (both schemes are $O(n)$ Mallat pyramids); biorthogonal wavelets <em>do</em> lose Parseval's identity, so they cost a factor in energy estimates."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which statements about a biorthogonal wavelet pair $(\\tilde\\psi,\\psi)$ are true?",
+            "choices": [
+              "$\\langle\\tilde\\psi_{j,k},\\psi_{j',k'}\\rangle=\\delta_{jj'}\\delta_{kk'}$",
+              "$\\{\\psi_{j,k}\\}$ is an orthonormal basis of $L^2(\\mathbb{R})$",
+              "Analysis is $c_{j,k}=\\langle f,\\tilde\\psi_{j,k}\\rangle$ and synthesis is $f=\\sum c_{j,k}\\psi_{j,k}$",
+              "Both $\\tilde\\psi$ and $\\psi$ can be symmetric (linear-phase)",
+              "Parseval's identity $\\|f\\|_2^2=\\sum|c_{j,k}|^2$ holds"
+            ],
+            "answer": [
+              0,
+              2,
+              3
+            ],
+            "explain": "Biorthogonality is exactly the Kronecker pairing between dual families (1). Analysis pairs against the dual, synthesis sums against the primal — that's the whole point (3). The CDF construction shows symmetry is achievable on both sides (4). Statement (2) is false: $\\{\\psi_{j,k}\\}$ is a Riesz basis, not an orthonormal basis, in general — that is the price paid for symmetry. Statement (5) fails too: without orthogonality the energy splits as $\\|f\\|_2^2\\asymp\\sum|c_{j,k}|^2$ (norm-equivalence), not equality."
+          },
+          {
+            "type": "mcq",
+            "q": "In a biorthogonal pair, what do the analysis vanishing moments $\\int x^k\\tilde\\psi(x)\\,dx=0$ for $k<\\tilde N$ control, versus the synthesis vanishing moments $\\int x^k\\psi(x)\\,dx=0$ for $k<N$?",
+            "choices": [
+              "Both control the same thing — they always equal each other",
+              "Analysis moments control compression of smooth signals (small $c_{j,k}$); synthesis moments control the smoothness of the reconstruction",
+              "Analysis moments control symmetry; synthesis moments control compact support",
+              "Synthesis moments are always zero"
+            ],
+            "answer": 1,
+            "explain": "$c_{j,k}=\\langle f,\\tilde\\psi_{j,k}\\rangle$ is small whenever $f$ is locally polynomial of degree $<\\tilde N$, by Taylor expansion against the dual moment kill — that's what makes wavelet compression work. Reconstruction $f=\\sum c_{j,k}\\psi_{j,k}$ inherits its smoothness from $\\psi$, so synthesis moments + smoothness of $\\phi$ determine how clean the reconstructed image looks. Decoupling the two is exactly what orthogonality forbids; CDF 9/7 picks $\\tilde N=N=4$ to balance them."
           }
         ]
       },

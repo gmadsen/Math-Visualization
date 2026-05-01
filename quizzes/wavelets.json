@@ -191,6 +191,84 @@
         }
       ]
     },
+    "w-lifting-scheme": {
+      "title": "The lifting scheme",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Apply one Haar lifting step to the signal $(s_0,s_1,s_2,s_3)=(8,2,4,6)$ using predictor $P(s^{(e)})_n=s_n^{(e)}$ and updater $U(d)_n=\\tfrac12 d_n$. What is $a_1$ (the coarse coefficient at index $1$)?",
+          "answer": 5,
+          "tol": 0.0001,
+          "explain": "Split: evens $s^{(e)}=(8,4)$, odds $s^{(o)}=(2,6)$. Predict: $d_0=2-8=-6$, $d_1=6-4=2$. Update: $a_0=8+\\tfrac12(-6)=5$, $a_1=4+\\tfrac12(2)=5$. So $a_1=5$ — the local average of $(4,6)$, exactly Haar's coarse coefficient (up to the orthonormal $\\sqrt 2$ rescaling, which is a separate diagonal step)."
+        },
+        {
+          "type": "ordering",
+          "q": "Order the steps of one forward Haar lifting step on a signal $(s_n)$, from first to last.",
+          "items": [
+            "Split: $a_n^{(0)}\\leftarrow s_{2n}$, $d_n^{(0)}\\leftarrow s_{2n+1}$ (lazy wavelet)",
+            "Predict: $d_n\\leftarrow d_n^{(0)} - a_n^{(0)}$",
+            "Update: $a_n\\leftarrow a_n^{(0)} + \\tfrac12 d_n$",
+            "Output the coarse stream $(a_n)$ and detail stream $(d_n)$"
+          ],
+          "answer": [0, 1, 2, 3],
+          "explain": "Lifting always begins with the lazy split (separate evens and odds), then alternates predict and update. Predict uses the current evens to guess the odds and stores the residual as detail; update uses those residuals to correct the evens so the coarse signal still has the right average. Each step is a triangular linear map, so reversing the order with opposite signs gives the inverse — perfect reconstruction is automatic."
+        },
+        {
+          "type": "mcq",
+          "q": "Which advantage of the lifting scheme over classical Fourier-side wavelet design is FALSE?",
+          "choices": [
+            "Perfect reconstruction is automatic — no algebraic constraint to solve",
+            "It supports integer-to-integer transforms with bit-exact lossless inversion",
+            "It diagonalises every Calderón–Zygmund operator exactly",
+            "It generalises to wavelets on graphs, irregular samples, and meshes"
+          ],
+          "answer": 2,
+          "explain": "Lifting does not diagonalise CZ operators — wavelet bases (orthogonal or biorthogonal) only nearly diagonalise CZ operators (Beylkin–Coifman–Rokhlin sparsity), and lifting is a construction technique, not a spectral statement. The other three are real selling points: triangular lifting steps are invertible by inspection, integer rounding commutes with the inverse for lossless coding, and the predict/update template needs only a binary split so it transports to non-Euclidean settings."
+        }
+      ]
+    },
+    "w-biorthogonal": {
+      "title": "Biorthogonal wavelets",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Why are biorthogonal wavelets used instead of orthogonal ones in JPEG2000?",
+          "choices": [
+            "They have shorter support than any orthogonal wavelet of comparable smoothness",
+            "They allow symmetric (linear-phase) filters, which orthogonal compactly-supported wavelets cannot achieve except in the Haar case",
+            "They are faster to compute via the Mallat pyramid",
+            "They give strictly better Parseval-type energy estimates"
+          ],
+          "answer": 1,
+          "explain": "Daubechies' theorem: the only real, orthogonal, compactly-supported, symmetric wavelet is Haar. Symmetric filters are linear-phase — they shift every frequency by the same amount — so reconstruction errors are not asymmetric across edges. JPEG2000 picks CDF 9/7 for exactly this reason. Orthogonal wavelets are not faster (both schemes are $O(n)$ Mallat pyramids); biorthogonal wavelets <em>do</em> lose Parseval's identity, so they cost a factor in energy estimates."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which statements about a biorthogonal wavelet pair $(\\tilde\\psi,\\psi)$ are true?",
+          "choices": [
+            "$\\langle\\tilde\\psi_{j,k},\\psi_{j',k'}\\rangle=\\delta_{jj'}\\delta_{kk'}$",
+            "$\\{\\psi_{j,k}\\}$ is an orthonormal basis of $L^2(\\mathbb{R})$",
+            "Analysis is $c_{j,k}=\\langle f,\\tilde\\psi_{j,k}\\rangle$ and synthesis is $f=\\sum c_{j,k}\\psi_{j,k}$",
+            "Both $\\tilde\\psi$ and $\\psi$ can be symmetric (linear-phase)",
+            "Parseval's identity $\\|f\\|_2^2=\\sum|c_{j,k}|^2$ holds"
+          ],
+          "answer": [0, 2, 3],
+          "explain": "Biorthogonality is exactly the Kronecker pairing between dual families (1). Analysis pairs against the dual, synthesis sums against the primal — that's the whole point (3). The CDF construction shows symmetry is achievable on both sides (4). Statement (2) is false: $\\{\\psi_{j,k}\\}$ is a Riesz basis, not an orthonormal basis, in general — that is the price paid for symmetry. Statement (5) fails too: without orthogonality the energy splits as $\\|f\\|_2^2\\asymp\\sum|c_{j,k}|^2$ (norm-equivalence), not equality."
+        },
+        {
+          "type": "mcq",
+          "q": "In a biorthogonal pair, what do the analysis vanishing moments $\\int x^k\\tilde\\psi(x)\\,dx=0$ for $k<\\tilde N$ control, versus the synthesis vanishing moments $\\int x^k\\psi(x)\\,dx=0$ for $k<N$?",
+          "choices": [
+            "Both control the same thing — they always equal each other",
+            "Analysis moments control compression of smooth signals (small $c_{j,k}$); synthesis moments control the smoothness of the reconstruction",
+            "Analysis moments control symmetry; synthesis moments control compact support",
+            "Synthesis moments are always zero"
+          ],
+          "answer": 1,
+          "explain": "$c_{j,k}=\\langle f,\\tilde\\psi_{j,k}\\rangle$ is small whenever $f$ is locally polynomial of degree $<\\tilde N$, by Taylor expansion against the dual moment kill — that's what makes wavelet compression work. Reconstruction $f=\\sum c_{j,k}\\psi_{j,k}$ inherits its smoothness from $\\psi$, so synthesis moments + smoothness of $\\phi$ determine how clean the reconstructed image looks. Decoupling the two is exactly what orthogonality forbids; CDF 9/7 picks $\\tilde N=N=4$ to balance them."
+        }
+      ]
+    },
     "w-applications": {
       "title": "Applications",
       "questions": [

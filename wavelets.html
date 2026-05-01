@@ -282,7 +282,9 @@ function drawNode(svg, x, y, label, opts={}){
 <!-- callback-auto-end --><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./wavelets.html#biorthogonal">Wavelets</a> · Biorthogonal wavelets</div>
     <div><a href="./wavelets.html#haar">Wavelets</a> · The Haar wavelet</div>
+    <div><a href="./wavelets.html#lifting-scheme">Wavelets</a> · The lifting scheme</div>
 </aside>
 <!-- backlinks-auto-end --><div class="quiz" data-concept="w-multiresolution"></div>
 </section>
@@ -322,6 +324,7 @@ function drawNode(svg, x, y, label, opts={}){
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./wavelets.html#daubechies">Wavelets</a> · Daubechies wavelets</div>
+    <div><a href="./wavelets.html#lifting-scheme">Wavelets</a> · The lifting scheme</div>
     <div><a href="./wavelets.html#vs-fourier">Wavelets</a> · Time-frequency localisation</div>
 </aside>
 <!-- backlinks-auto-end --><div class="quiz" data-concept="w-haar-wavelet"></div>
@@ -359,6 +362,7 @@ function drawNode(svg, x, y, label, opts={}){
 <!-- callback-auto-end --><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./wavelets.html#biorthogonal">Wavelets</a> · Biorthogonal wavelets</div>
     <div><a href="./wavelets.html#dwt">Wavelets</a> · Discrete wavelet transform</div>
 </aside>
 <!-- backlinks-auto-end --><div class="quiz" data-concept="w-daubechies"></div>
@@ -461,6 +465,71 @@ function drawNode(svg, x, y, label, opts={}){
 <p>If $T$ is a Calderón–Zygmund operator (the Hilbert transform, the Riesz transforms, $-\Delta^{-1}$, and other singular-integral cousins) and $\psi$ has $N$ vanishing moments, Beylkin–Coifman–Rokhlin showed the matrix entries $\langle T\psi_{j,k},\psi_{j',k'}\rangle$ decay as $2^{-(N+1)|j-j'|}(1+|2^j k-2^{j'}k'|)^{-N-1}$. The matrix of $T$ in a wavelet basis is therefore <em>sparse</em>: only $O(n)$ entries are non-negligible. Applying $T$ to a signal in the wavelet basis costs $O(n)$ instead of $O(n^2)$ — the engine behind fast multipole and adaptive PDE solvers.</p>
 
 <div class="quiz" data-concept="w-applications"></div>
+</section>
+
+
+<section id="lifting-scheme">
+<h2>7. The lifting scheme</h2>
+
+<p>Until 1995 every wavelet construction was a Fourier-side affair: pick a quadrature mirror filter $h_n$, check that $|m_0(\xi)|^2+|m_0(\xi+1/2)|^2=1$, factor a Daubechies polynomial. The lifting scheme of <em>Wim Sweldens</em> reorganises the same arithmetic so that the Fourier domain never appears. You build a wavelet by starting from the trivial split into even and odd samples, then alternately <strong>predicting</strong> the odd samples from the evens (subtracting the prediction to get a residual) and <strong>updating</strong> the evens using those residuals (so the coarse signal still has the right average). Every step is a triangular linear map with $1$'s on the diagonal — invertible by construction — so perfect reconstruction is automatic, no algebraic constraints required.</p>
+
+<div class="note">
+<strong>One lifting step (forward):</strong> given samples $s_n$, split into $s_n^{(e)}=s_{2n}$ (evens) and $s_n^{(o)}=s_{2n+1}$ (odds). Then
+$$d_n \;=\; s_n^{(o)} - P(s^{(e)})_n,\qquad a_n \;=\; s_n^{(e)} + U(d)_n,$$
+where $P$ is a <em>predictor</em> (any linear operator on the evens) and $U$ is an <em>updater</em> (any linear operator on the residuals). The <em>inverse</em> is mechanical: $s_n^{(e)}=a_n-U(d)_n$, then $s_n^{(o)}=d_n+P(s^{(e)})_n$. Same operators, opposite signs, applied in reverse order.</div>
+
+<h3>Worked example: Haar from lazy + 1 predict + 1 update</h3>
+
+<p>Start with the <em>lazy wavelet</em> — the trivial split that does nothing but separate evens and odds, $a_n^{(0)}=s_{2n}$, $d_n^{(0)}=s_{2n+1}$. The simplest possible predictor guesses each odd from the adjacent even: $P(s^{(e)})_n=s_n^{(e)}$. The simplest updater nudges the evens by half the residual: $U(d)_n=\tfrac{1}{2}d_n$. Plugging in:</p>
+
+<p>$$d_n=s_{2n+1}-s_{2n},\qquad a_n=s_{2n}+\tfrac{1}{2}(s_{2n+1}-s_{2n})=\tfrac{s_{2n}+s_{2n+1}}{2}.$$</p>
+
+<p>That is the unnormalised Haar transform: $a_n$ is the local average, $d_n$ is the local difference. Multiplying by the diagonal scaling $\operatorname{diag}(\sqrt 2,\,1/\sqrt 2)$ recovers the orthonormal Haar pair $(s_{2n}+s_{2n+1})/\sqrt 2,\;(s_{2n+1}-s_{2n})/\sqrt 2$. The whole derivation took two integer-arithmetic steps and never invoked $L^2$.</p>
+
+<h3>Why lifting is the right framing</h3>
+
+<ul>
+  <li><strong>In-place computation.</strong> Each step writes back into the same array; lifting never doubles memory the way a polyphase convolution does.</li>
+  <li><strong>Integer-to-integer transforms.</strong> Round the prediction and the update to the nearest integer at each step — the inverse rounds the same way, so reconstruction is exact. JPEG2000's lossless mode (the <em>5/3</em> filter) is exactly $d_n=s_{2n+1}-\lfloor(s_{2n}+s_{2n+2})/2\rfloor$, $a_n=s_{2n}+\lfloor(d_{n-1}+d_n+2)/4\rfloor$.</li>
+  <li><strong>No QMF algebra.</strong> Designing biorthogonal wavelets the classical way means solving Bezout-like equations for $h,\tilde h$. Any sequence of predict/update steps automatically gives a biorthogonal pair — Daubechies–Sweldens proved every FIR wavelet filter pair factors into lifting steps, so this is no loss of generality.</li>
+  <li><strong>Generalises off the line.</strong> Lifting works on irregular samples, on graphs, on triangulated meshes, and over finite fields. The structure of the algorithm only needs a binary split + a predictor + an updater; smoothness and orthogonality come from how clever those operators are.</li>
+</ul>
+
+<p>Longer predictors and updaters give smoother wavelets. A predictor that interpolates each odd sample from four adjacent evens with the cubic interpolation weights $(-1,9,9,-1)/16$, paired with the corresponding updater, yields the <strong>Cohen–Daubechies–Feauveau 9/7 biorthogonal wavelet</strong> — JPEG2000's lossy filter. The same template covers the family from Haar (length 2/2) up.</p>
+
+<div class="quiz" data-concept="w-lifting-scheme"></div>
+</section>
+
+
+<section id="biorthogonal">
+<h2>8. Biorthogonal wavelets</h2>
+
+<p>Orthonormal wavelets are aesthetically clean — analysis and synthesis use the same basis — but they pay a price. Daubechies' theorem (1988) says the only orthogonal, compactly supported, real wavelet that is symmetric (linear-phase) is the Haar wavelet. For image coding, <em>linear phase</em> is exactly what you want: it means the filter shifts every frequency by the same amount, so reconstruction errors don't smear differently on different sides of an edge. Biorthogonal wavelets buy symmetry by giving up self-duality.</p>
+
+<p>The setup: two MRAs simultaneously. An <em>analysis</em> scaling function $\tilde\phi$ with wavelet $\tilde\psi$, and a <em>synthesis</em> scaling function $\phi$ with wavelet $\psi$. Neither pair needs to be orthonormal in itself. Instead the two families are <strong>biorthogonal</strong>:</p>
+
+<div class="note">
+<strong>Biorthogonality relations.</strong>
+$$\langle\tilde\phi(\cdot-k),\,\phi(\cdot-\ell)\rangle=\delta_{k\ell},\qquad \langle\tilde\psi_{j,k},\,\psi_{j',k'}\rangle=\delta_{jj'}\delta_{kk'},\qquad \langle\tilde\phi(\cdot-k),\,\psi_{j,\ell}\rangle=0\ \text{for } j\geq 0.$$
+Analysis: $c_{j,k}=\langle f,\tilde\psi_{j,k}\rangle$. Synthesis: $f=\sum_{j,k}c_{j,k}\,\psi_{j,k}$. The two filter banks $(h,g)$ and $(\tilde h,\tilde g)$ satisfy a perfect-reconstruction relation $m_0(\xi)\overline{\tilde m_0(\xi)}+m_0(\xi+\tfrac12)\overline{\tilde m_0(\xi+\tfrac12)}=1$ that generalises the QMF identity.</div>
+
+<h3>Why drop orthogonality?</h3>
+
+<p>Three concrete payoffs:</p>
+
+<ul>
+  <li><strong>Symmetry.</strong> Both $\phi$ and $\tilde\phi$ can be symmetric about a centre, which an orthogonal Daubechies wavelet (other than Haar) cannot. Symmetric filters mean the analysis and synthesis filters are linear-phase — essential for image processing, where humans are exquisitely sensitive to phase distortion at edges.</li>
+  <li><strong>Decoupled vanishing moments.</strong> Analysis vanishing moments ($\int x^k\tilde\psi=0$) control how well the transform compresses smooth signals; synthesis vanishing moments ($\int x^k\psi=0$) control the smoothness of the reconstruction. Tune them independently — the orthogonal case forces a single knob.</li>
+  <li><strong>Spline wavelets.</strong> Choose $\phi$ to be a B-spline of order $N$. The corresponding $\psi$ is then piecewise-polynomial, exactly representable in finite precision — handy for analytical work. Orthogonal compactly-supported spline wavelets do not exist except in the Haar case.</li>
+</ul>
+
+<h3>The CDF 9/7 wavelet</h3>
+
+<p>The Cohen–Daubechies–Feauveau (1992) construction picks the trigonometric polynomial $P(y)=1+2y+\tfrac72 y^2+\cdots$ that solves Bezout's identity at the right order, then factors it into $m_0\overline{\tilde m_0}$ — analysis filter $\tilde h$ has length $9$, synthesis $h$ has length $7$, hence the name. Both filters are symmetric. $\tilde\psi$ has 4 vanishing moments, $\psi$ has 4 vanishing moments. CDF 9/7 is the wavelet inside JPEG2000's lossy mode and inside the FBI's fingerprint-database compression. The lifting decomposition of CDF 9/7 is four short steps (two predicts, two updates, plus a scaling) — the form actually shipped in production codecs.</p>
+
+<p>The mental picture: orthogonal wavelets force one basis to do double duty. Biorthogonal wavelets split that work between two bases that are <em>dual</em> in the bilinear-form sense $\langle\tilde\psi_{j,k},\psi_{j',k'}\rangle=\delta$, exactly the way contravariant and covariant tensors split the work of an inner product into two compatible bases instead of one self-paired one.</p>
+
+<div class="quiz" data-concept="w-biorthogonal"></div>
 </section>
 
 

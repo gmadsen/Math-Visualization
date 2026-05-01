@@ -89,6 +89,32 @@
         "foundation",
         "classification"
       ]
+    },
+    {
+      "id": "fpt-caristi",
+      "title": "Caristi's fixed-point theorem",
+      "anchor": "caristi",
+      "prereqs": [
+        "fpt-banach",
+        "real-continuity"
+      ],
+      "blurb": "If $\\varphi\\colon X\\to[0,\\infty)$ is lower-semicontinuous on a complete metric space and $d(x,Tx)\\le\\varphi(x)-\\varphi(Tx)$, then $T$ has a fixed point — no contraction, no continuity of $T$. Equivalent to Ekeland's variational principle, generalising Banach with a Lyapunov-style weight.",
+      "tags": [
+        "completion"
+      ]
+    },
+    {
+      "id": "fpt-kkm",
+      "title": "Knaster–Kuratowski–Mazurkiewicz lemma",
+      "anchor": "kkm",
+      "prereqs": [
+        "fpt-brouwer"
+      ],
+      "blurb": "On a simplex $\\Delta_n$, closed sets $C_i$ covering each face $\\Delta_S\\subseteq\\bigcup_{i\\in S}C_i$ have non-empty intersection $\\bigcap_i C_i\\ne\\emptyset$. The combinatorial twin of Brouwer — Sperner's lemma is its discrete shadow — and the cleanest gateway to Fan-KKM minimax and set-valued fixed points.",
+      "tags": [
+        "compactness",
+        "foundation"
+      ]
     }
   ]
 }
