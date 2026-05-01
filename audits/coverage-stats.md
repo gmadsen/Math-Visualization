@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **130**, concepts: **896**
-- Widgets: **921** (registry-driven: 826, inline: 95)
+- Widgets: **921** (registry-driven: 844, inline: 77)
 - Quizzes: **3879** (v1: 2643, hard: 1223, expert: 13)
 - Quiz types: mcq: 2611, numeric: 1028, multi-select: 96, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **138**
@@ -315,6 +315,12 @@ page has wired one in yet.
 | `mirror-quintic-periods` | mirror-quintic-periods | slider | 2d | 1 | mirror-symmetry |
 | `mirror-stable-map` | mirror-stable-map | slider | 2d | 1 | mirror-symmetry |
 | `mirror-syz-fibration` | mirror-syz-fibration | slider | 2d | 1 | mirror-symmetry |
+| `model-theory-ax-grothendieck` | model-theory-ax-grothendieck | step | 2d | 1 | model-theory-basics |
+| `model-theory-back-and-forth` | model-theory-back-and-forth | step | 2d | 1 | model-theory-basics |
+| `model-theory-ef-games` | model-theory-ef-games | step | 2d | 1 | model-theory-basics |
+| `model-theory-equivalence-prober` | model-theory-equivalence-prober | step | 2d | 1 | model-theory-basics |
+| `model-theory-signature-explorer` | model-theory-signature-explorer | click | 2d | 1 | model-theory-basics |
+| `model-theory-types-explorer` | model-theory-types-explorer | click | 2d | 1 | model-theory-basics |
 | `modular-curves-atkin-lehner-newforms` | modular-curves-atkin-lehner-newforms | click | 2d | 1 | modular-curves |
 | `modular-curves-cusps-and-wn` | modular-curves-cusps-and-wn | click | 2d | 1 | modular-curves |
 | `modular-curves-eichler-shimura` | modular-curves-eichler-shimura | click | 2d | 1 | modular-curves |
@@ -332,6 +338,12 @@ page has wired one in yet.
 | `morse-smale-saddle` | morse-smale-saddle | click | 2d | 1 | morse-theory |
 | `morse-sphere-vs-rp2` | morse-sphere-vs-rp2 | click | 2d | 1 | morse-theory |
 | `morse-torus-height` | morse-torus-height | slider | 2d | 1 | morse-theory |
+| `mostow-boundary-extension` | mostow-boundary-extension | slider | 2d | 1 | mostow-rigidity |
+| `mostow-boundary-orbit` | mostow-boundary-orbit | step | 2d | 1 | mostow-rigidity |
+| `mostow-h3-fundamental-domain` | mostow-h3-fundamental-domain | slider | 2d | 1 | mostow-rigidity |
+| `mostow-rank-tower` | mostow-rank-tower | click | 2d | 1 | mostow-rigidity |
+| `mostow-rigidity-dial` | mostow-rigidity-dial | slider | 2d | 1 | mostow-rigidity |
+| `mostow-volume-spectrum` | mostow-volume-spectrum | click | 2d | 1 | mostow-rigidity |
 | `ms-beta-posterior` | ms-beta-posterior | slider | 2d | 1 | mathematical-statistics |
 | `ms-bias-variance` | ms-bias-variance | slider | 2d | 1 | mathematical-statistics |
 | `ms-crlb-envelope` | ms-crlb-envelope | slider | 2d | 1 | mathematical-statistics |
@@ -339,6 +351,12 @@ page has wired one in yet.
 | `ms-neyman-pearson` | ms-neyman-pearson | slider | 2d | 1 | mathematical-statistics |
 | `ms-wilks-theorem` | ms-wilks-theorem | slider | 2d | 1 | mathematical-statistics |
 | `natural-transformation-explorer` | naturality-square | slider+click | 2d | 1 | category-theory |
+| `numerical-fem-hat-basis` | numerical-fem-hat-basis | slider | 2d | 1 | numerical-analysis |
+| `numerical-fp-cancellation` | numerical-fp-cancellation | slider | 2d | 1 | numerical-analysis |
+| `numerical-ftcs-stability` | numerical-ftcs-stability | slider | 2d | 1 | numerical-analysis |
+| `numerical-hilbert-conditioning` | numerical-hilbert-conditioning | slider | 2d | 1 | numerical-analysis |
+| `numerical-newton-iteration` | numerical-newton-iteration | step | 2d | 1 | numerical-analysis |
+| `numerical-quadrature-error` | numerical-quadrature-error | slider | 2d | 1 | numerical-analysis |
 | `probabilistic-method-alterations` | probabilistic-method-alterations | click | 2d | 1 | probabilistic-method |
 | `probabilistic-method-concentration` | probabilistic-method-concentration | slider | 2d | 1 | probabilistic-method |
 | `probabilistic-method-existence` | probabilistic-method-existence | click | 2d | 1 | probabilistic-method |
@@ -392,10 +410,10 @@ page has wired one in yet.
 ### Logic & Foundations
 
 - Topics: **8**, concepts: **49**
-- Widgets: **48** (registry-driven: 36, inline: 12)
-  - by family: unknown: 12, clickable-diagram: 3, button-stepper: 1, fol-term-tree: 1, fol-model-checker: 1, fol-modus-ponens-closure: 1, fol-henkin-construction: 1, fol-compactness-finite-sat: 1, fol-skolem-paradox: 1, fol-dlo-quantifier-elimination: 1, zfc-cumulative-hierarchy: 1, zfc-ordinal-picket-fence: 1, zfc-ordinal-calculator: 1, zfc-aleph-ladder: 1, zfc-choice-picker: 1, zfc-continuum-locator: 1, zfc-large-cardinal-tower: 1, computability-turing-increment: 1, computability-recursion-tracer: 1, computability-halting-diagonal: 1, computability-rec-vs-re-venn: 1, computability-reduction-graph: 1, computability-godel-encoding: 1, complexity-growth-rates: 1, complexity-sat-verifier: 1, complexity-cook-levin-tableau: 1, complexity-karp-reduction: 1, complexity-savitch-recursion: 1, complexity-hierarchy-diagonal: 1, forcing-poset: 1, forcing-generic-filter: 1, forcing-truth-table: 1, forcing-cohen-real: 1, forcing-continuum-landing: 1, forcing-dependency-map: 1
-  - by dimension: 2d: 36, unknown: 12
-  - by gesture: click: 14, unknown: 12, step: 9, slider: 3, toggle: 3, stepper: 2, type: 1, input: 1, graph-walk: 1, table: 1, diagram: 1
+- Widgets: **48** (registry-driven: 42, inline: 6)
+  - by family: unknown: 6, clickable-diagram: 3, button-stepper: 1, fol-term-tree: 1, fol-model-checker: 1, fol-modus-ponens-closure: 1, fol-henkin-construction: 1, fol-compactness-finite-sat: 1, fol-skolem-paradox: 1, fol-dlo-quantifier-elimination: 1, zfc-cumulative-hierarchy: 1, zfc-ordinal-picket-fence: 1, zfc-ordinal-calculator: 1, zfc-aleph-ladder: 1, zfc-choice-picker: 1, zfc-continuum-locator: 1, zfc-large-cardinal-tower: 1, model-theory-signature-explorer: 1, model-theory-equivalence-prober: 1, model-theory-back-and-forth: 1, model-theory-types-explorer: 1, model-theory-ef-games: 1, model-theory-ax-grothendieck: 1, computability-turing-increment: 1, computability-recursion-tracer: 1, computability-halting-diagonal: 1, computability-rec-vs-re-venn: 1, computability-reduction-graph: 1, computability-godel-encoding: 1, complexity-growth-rates: 1, complexity-sat-verifier: 1, complexity-cook-levin-tableau: 1, complexity-karp-reduction: 1, complexity-savitch-recursion: 1, complexity-hierarchy-diagonal: 1, forcing-poset: 1, forcing-generic-filter: 1, forcing-truth-table: 1, forcing-cohen-real: 1, forcing-continuum-landing: 1, forcing-dependency-map: 1
+  - by dimension: 2d: 42, unknown: 6
+  - by gesture: click: 16, step: 13, unknown: 6, slider: 3, toggle: 3, stepper: 2, type: 1, input: 1, graph-walk: 1, table: 1, diagram: 1
 - Quizzes: **162** (v1: 147, hard: 15, expert: 0)
   - by type: mcq: 128, numeric: 34
 
@@ -422,10 +440,10 @@ page has wired one in yet.
 ### Analysis
 
 - Topics: **15**, concepts: **149**
-- Widgets: **107** (registry-driven: 89, inline: 18)
-  - by family: button-stepper: 37, clickable-diagram: 31, unknown: 18, constraint-bifurcation-explorer: 1, recurrence-plotter: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
-  - by dimension: 2d: 89, unknown: 18
-  - by gesture: click: 69, unknown: 18, slider: 16, select: 2, drag: 2
+- Widgets: **107** (registry-driven: 95, inline: 12)
+  - by family: button-stepper: 37, clickable-diagram: 31, unknown: 12, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, constraint-bifurcation-explorer: 1, recurrence-plotter: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
+  - by dimension: 2d: 95, unknown: 12
+  - by gesture: click: 69, slider: 21, unknown: 12, select: 2, drag: 2, step: 1
 - Quizzes: **591** (v1: 406, hard: 185, expert: 0)
   - by type: mcq: 379, numeric: 142, multi-select: 15, complex: 14, matching: 14, ordering: 12, proof-completion: 9, spot-the-error: 4, construction: 1, guess-my-rule: 1
 
@@ -442,10 +460,10 @@ page has wired one in yet.
 ### Geometry & topology
 
 - Topics: **16**, concepts: **102**
-- Widgets: **104** (registry-driven: 86, inline: 18)
-  - by family: button-stepper: 34, unknown: 18, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, knot-polynomials-gallery: 1, knot-polynomials-reidemeister: 1, knot-polynomials-alexander: 1, knot-polynomials-bracket: 1, knot-polynomials-homfly: 1, knot-polynomials-rmatrix: 1, k-theory-grothendieck-builder: 1, k-theory-ses-relations: 1, k-theory-bott-periodicity: 1, k-theory-chern-character: 1, k-theory-low-k-groups: 1, k-theory-index-theorem: 1, atiyah-singer-index-family: 1, atiyah-singer-symbol: 1, atiyah-singer-ch-td: 1, atiyah-singer-cases: 1, atiyah-singer-dirac-sphere: 1, atiyah-singer-anomaly: 1, counterexample-explorer: 1, proof-scrubber: 1, lattice-visualizer: 1, characteristic-classes-mobius-vs-cylinder: 1, characteristic-classes-w1-surfaces: 1, characteristic-classes-c1-clutching: 1, characteristic-classes-pontryagin-formulas: 1, characteristic-classes-poincare-hopf: 1, characteristic-classes-gauss-bonnet: 1, characteristic-classes-classifying-map: 1, characteristic-classes-signature-l-genus: 1, characteristic-classes-cpn-localisation: 1, morse-torus-height: 1, morse-handle-decomp: 1, morse-cw-cells: 1, morse-betti-counts: 1, morse-gradient-flow: 1, morse-sphere-vs-rp2: 1, morse-smale-saddle: 1, morse-cerf-birth-death: 1
-  - by dimension: 2d: 80, unknown: 18, 3d: 6
-  - by gesture: click: 57, unknown: 18, slider: 15, drag: 6, step: 2, pick: 2, static: 2, select: 1, timeline: 1
+- Widgets: **104** (registry-driven: 92, inline: 12)
+  - by family: button-stepper: 34, unknown: 12, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, mostow-rigidity-dial: 1, mostow-h3-fundamental-domain: 1, mostow-boundary-extension: 1, mostow-boundary-orbit: 1, mostow-rank-tower: 1, mostow-volume-spectrum: 1, knot-polynomials-gallery: 1, knot-polynomials-reidemeister: 1, knot-polynomials-alexander: 1, knot-polynomials-bracket: 1, knot-polynomials-homfly: 1, knot-polynomials-rmatrix: 1, k-theory-grothendieck-builder: 1, k-theory-ses-relations: 1, k-theory-bott-periodicity: 1, k-theory-chern-character: 1, k-theory-low-k-groups: 1, k-theory-index-theorem: 1, atiyah-singer-index-family: 1, atiyah-singer-symbol: 1, atiyah-singer-ch-td: 1, atiyah-singer-cases: 1, atiyah-singer-dirac-sphere: 1, atiyah-singer-anomaly: 1, counterexample-explorer: 1, proof-scrubber: 1, lattice-visualizer: 1, characteristic-classes-mobius-vs-cylinder: 1, characteristic-classes-w1-surfaces: 1, characteristic-classes-c1-clutching: 1, characteristic-classes-pontryagin-formulas: 1, characteristic-classes-poincare-hopf: 1, characteristic-classes-gauss-bonnet: 1, characteristic-classes-classifying-map: 1, characteristic-classes-signature-l-genus: 1, characteristic-classes-cpn-localisation: 1, morse-torus-height: 1, morse-handle-decomp: 1, morse-cw-cells: 1, morse-betti-counts: 1, morse-gradient-flow: 1, morse-sphere-vs-rp2: 1, morse-smale-saddle: 1, morse-cerf-birth-death: 1
+  - by dimension: 2d: 86, unknown: 12, 3d: 6
+  - by gesture: click: 59, slider: 18, unknown: 12, drag: 6, step: 3, pick: 2, static: 2, select: 1, timeline: 1
 - Quizzes: **448** (v1: 306, hard: 142, expert: 0)
   - by type: mcq: 310, numeric: 122, complex: 7, multi-select: 4, matching: 3, ordering: 1, proof-completion: 1
 
@@ -502,14 +520,14 @@ page has wired one in yet.
 ## Per-topic
 
 - `mathematical-statistics` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `numerical-analysis` (Analysis) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `numerical-analysis` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `computational-number-theory` (Number theory) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `variational-methods` (Analysis) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `fixed-point-theorems` (Analysis) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `calabi-yau-manifolds` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `high-dimensional-geometry` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `mirror-symmetry` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `mostow-rigidity` (Geometry & topology) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `mostow-rigidity` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `resolution-of-singularities` (Algebraic geometry) — concepts=6, widgets=5 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `hamiltonians-classical-mechanics` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `general-relativity` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
@@ -531,7 +549,7 @@ page has wired one in yet.
 - `naive-set-theory` (Logic & Foundations) — concepts=5, widgets=4 (slug=4), quiz=30 (v1=15, hard=15, expert=0)
 - `first-order-logic-and-completeness` (Logic & Foundations) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `zfc-and-ordinals` (Logic & Foundations) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
-- `model-theory-basics` (Logic & Foundations) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `model-theory-basics` (Logic & Foundations) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `computability-and-decidability` (Logic & Foundations) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `complexity-theory` (Logic & Foundations) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `type-theory-and-hott` (Logic & Foundations) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)

@@ -6244,6 +6244,132 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "model-theory-ax-grothendieck",
+    "family": "model-theory-ax-grothendieck",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "illustrative",
+    "title": "model-theory-ax-grothendieck widget params",
+    "description": "Ax–Grothendieck transfer widget for the model-theory-basics topic: shows the model-theoretic transfer principle from finite fields to algebraically closed fields of characteristic 0, with the reader stepping through the elementarily-equivalent ACF chain that drives the proof.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the model-theory-basics topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "model-theory-back-and-forth",
+    "family": "model-theory-back-and-forth",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "construction",
+    "title": "model-theory-back-and-forth widget params",
+    "description": "Cantor's back-and-forth widget for the model-theory-basics topic: animates round-by-round construction of a partial isomorphism between two countable dense linear orders without endpoints, the prototypical proof technique that elementary equivalence + countability + saturation forces isomorphism.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the model-theory-basics topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "model-theory-ef-games",
+    "family": "model-theory-ef-games",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "construction",
+    "title": "model-theory-ef-games widget params",
+    "description": "Ehrenfeucht–Fraïssé games widget for the model-theory-basics topic: simulates a duplicator/spoiler game on two structures over n rounds, providing the combinatorial bound on quantifier rank needed to distinguish them.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the model-theory-basics topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "model-theory-equivalence-prober",
+    "family": "model-theory-equivalence-prober",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "illustrative",
+    "title": "model-theory-equivalence-prober widget params",
+    "description": "Equivalence prober for the model-theory-basics topic: walks through example sentences distinguishing isomorphic vs elementarily equivalent structures, showing how (Q,<) and (R,<) satisfy the same first-order theory despite differing in cardinality.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the model-theory-basics topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "model-theory-signature-explorer",
+    "family": "model-theory-signature-explorer",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "model-theory-signature-explorer widget params",
+    "description": "Signature explorer for the model-theory-basics topic: lets the reader pick a signature (groups, rings, posets, graphs) and inspect its function and relation arities, illustrating how a signature determines what it means to be a structure for L.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the model-theory-basics topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "model-theory-types-explorer",
+    "family": "model-theory-types-explorer",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "model-theory-types-explorer widget params",
+    "description": "Types explorer for the model-theory-basics topic: lets the reader pick a parameter set and a candidate formula list to test whether it forms a (consistent) complete type, illustrating the Stone space of types over a model.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the model-theory-basics topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "modular-arithmetic-clock",
     "family": "modular-arithmetic-clock",
     "dimension": "2d",
@@ -6631,6 +6757,132 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "mostow-boundary-extension",
+    "family": "mostow-boundary-extension",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "mostow-boundary-extension widget params",
+    "description": "Bespoke widget for the §3 quasi-isometry → boundary map figure on the mostow-rigidity topic — a slider tunes bulk distortion and the SVG shows how the induced boundary map of the disk's circle remains quasiconformal even as the bulk wobbles.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the mostow-rigidity topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mostow-boundary-orbit",
+    "family": "mostow-boundary-orbit",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "exploratory",
+    "title": "mostow-boundary-orbit widget params",
+    "description": "Bespoke widget for the §4 boundary action and orbit density figure on the mostow-rigidity topic — a step button advances Γ-action iterates on a draggable starting point on S^{n-1}, illustrating ergodicity by orbit-closure density.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the mostow-rigidity topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mostow-h3-fundamental-domain",
+    "family": "mostow-h3-fundamental-domain",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "illustrative",
+    "title": "mostow-h3-fundamental-domain widget params",
+    "description": "Bespoke widget for the §2 H^3 fundamental-domain figure on the mostow-rigidity topic — a slider over the trace parameter deforms a Dirichlet polyhedron in the upper half-space model and the SVG shows face identifications of the resulting hyperbolic 3-manifold.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the mostow-rigidity topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mostow-rank-tower",
+    "family": "mostow-rank-tower",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "illustrative",
+    "title": "mostow-rank-tower widget params",
+    "description": "Bespoke widget for the §5 rank-vs-rigidity tower figure on the mostow-rigidity topic — a static SVG ladder showing how the rigidity statement strengthens with rank from rank-1 (Mostow) up to higher-rank (Margulis arithmeticity).",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the mostow-rigidity topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mostow-rigidity-dial",
+    "family": "mostow-rigidity-dial",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "illustrative",
+    "title": "mostow-rigidity-dial widget params",
+    "description": "Bespoke widget for the §1 rigidity-dial figure on the mostow-rigidity topic — sliders for dimension n and a deformation parameter feed an SVG that flips between rigid (n>=3) and flexible (n=2) regimes with a textual readout of where deformation can live.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the mostow-rigidity topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mostow-volume-spectrum",
+    "family": "mostow-volume-spectrum",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "illustrative",
+    "title": "mostow-volume-spectrum widget params",
+    "description": "Bespoke widget for the §6 hyperbolic volume spectrum figure on the mostow-rigidity topic — an SVG number line marks the well-ordered set of closed hyperbolic 3-manifold volumes (Weeks manifold, etc.) demonstrating that volume is a topological invariant via Mostow.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the mostow-rigidity topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "ms-beta-posterior",
     "family": "ms-beta-posterior",
     "dimension": "2d",
@@ -6796,6 +7048,132 @@ window.__MVWidgets = [
       "sliderPhiStep"
     ],
     "readmeExcerpt": "An interactive category-theory widget: renders the naturality square for $F=\\operatorname{Hom}(X,-)$, $G=\\operatorname{Hom}(Y,-)$ with $\\eta$ induced by a fixed $u\\colon Y\\to X$ sending $y\\mapsto x_1$. The four corners $\\operatorname{Hom}(X,A)$, $\\operatorname{Hom}(X,B)$, $\\operatorname{Hom}(Y,A)$, $\\operatorname{Hom}(Y,B)$ are displayed as cell grids; the reader drags two sliders (one for the morphism $f\\colon A\\to B$, one for $\\varphi\\in\\operatorname{Hom}(X,A)$) and the widget chases $\\varphi$ both ways around the square, highlighting the common endpoint in green whenever the two routes agree — which is always. First introduced on `category-theory.html` section `#nat` as `w-nat`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "numerical-fem-hat-basis",
+    "family": "numerical-fem-hat-basis",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "illustrative",
+    "title": "numerical-fem-hat-basis widget params",
+    "description": "Mesh refinement and hat-basis visualizer for 1D finite elements: shows piecewise-linear approximation as mesh resolution increases.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the numerical-analysis topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "numerical-fp-cancellation",
+    "family": "numerical-fp-cancellation",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "illustrative",
+    "title": "numerical-fp-cancellation widget params",
+    "description": "Catastrophic cancellation visualizer: shows precision loss when subtracting nearby floating-point numbers.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the numerical-analysis topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "numerical-ftcs-stability",
+    "family": "numerical-ftcs-stability",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "numerical-ftcs-stability widget params",
+    "description": "FTCS heat scheme stability explorer: visualizes stable vs. unstable regimes via the CFL parameter.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the numerical-analysis topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "numerical-hilbert-conditioning",
+    "family": "numerical-hilbert-conditioning",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "illustrative",
+    "title": "numerical-hilbert-conditioning widget params",
+    "description": "Hilbert matrix conditioning visualizer: shows how condition number grows exponentially with matrix size.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the numerical-analysis topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "numerical-newton-iteration",
+    "family": "numerical-newton-iteration",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "illustrative",
+    "title": "numerical-newton-iteration widget params",
+    "description": "Newton's iteration on f(x)=x^2-2: shows quadratic convergence as the reader steps the iteration.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the numerical-analysis topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "numerical-quadrature-error",
+    "family": "numerical-quadrature-error",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "illustrative",
+    "title": "numerical-quadrature-error widget params",
+    "description": "Quadrature error vs. number of panels: compares trapezoidal and Simpson convergence rates on a log-log plot.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the numerical-analysis topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
