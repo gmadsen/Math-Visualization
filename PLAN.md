@@ -10,14 +10,14 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
 - 130 topics, 896 concepts, 1538 prereq edges (647 cross-topic), 24 capstones
 - 160 concepts lack a widget in their owning section
-- ~250 widgets remain inline (registry-driven: 619+) — PCM-gap topics fully migrated; the remaining inline widgets are spread across ~40 non-PCM topics
+- 0 inline widget blocks corpus-wide; 464 registry slugs (every `widget` block in `content/*.json` carries `slug + params`)
 - THIN-NEW count: 13; EMPTY-prereq count: 3 (`ant-prime-counting`, `e-definition`, `adjacency-and-laplacian`)
 - Quiz tiers: v1 = 2587, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 
 ## Near-term tasks
 
 - **Tier 1 tagging pass — coverage tail.** ~200 of the 575 (creative-improvements–era) concepts remain untagged. The tagging agent reached 62.8 % with quality > coverage; a focused follow-up on Modular forms / L-functions / capstones could close real gaps. Number is pre–PCM-gap; recount before resuming.
-- **Inline-widget migration — wider corpus.** ~250 inline `widget` blocks (no `slug`) remain across ~40 topics outside the PCM-gap band. Mechanically similar to the just-finished work: `scripts/repair-widget-scripts.mjs --topic <t>` if the scripts merged into `rawBodySuffix`, then `scripts/migrate-inline-widget.mjs <topic> <widgetId> <slug> --description ...` per widget. Each topic is ~15 minutes with the helper.
+- **Graduate complex analysis — missing concepts.** `complex-analysis` materialization (this session) split the 26 concepts into 26 sections, but the topic still lacks the standard graduate sequence: Picard's theorems (little + great), Weierstrass factorization, Mittag-Leffler, Phragmén-Lindelöf, Hadamard 3-circles/3-lines, Bloch's theorem, Hardy spaces / Fatou boundary, Bergman kernels, quasiconformal maps + Beltrami equation, several complex variables. Three repair shapes considered: fatten complex-analysis (~35 concepts, dense), new `advanced-complex-analysis` topic, or topic-cluster split (`picard-bloch`, `weierstrass-mittag-leffler`, `hardy-spaces`, `qc-and-beltrami`, `several-complex-variables`).
 - **Math physics has no `hard` tier and Combinatorics has no `hard` tier.** 12 topics × ~6 concepts × 2-3 questions each = ~150 missing hard-tier questions. Per "Out of scope", de-prioritized — listed here so the gap is visible, not actioned.
 
 ## Authoring polish — small
