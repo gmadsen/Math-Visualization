@@ -2203,6 +2203,132 @@ window.__MVWidgets = [
     "exampleScript": "<script>\n(function(){\n  if(!window.MVCounterexampleExplorer) return;\n  MVCounterexampleExplorer.init('#w-counterexample-explorer-example', {\n      \"title\": \"Continuous vs. differentiable: a hypothesis tour\",\n      \"hint\": \"pick a candidate · check which hypotheses survive\",\n      \"viewBox\": \"0 0 320 160\",\n      \"hypotheses\": [\n          {\n              \"id\": \"continuous\",\n              \"label\": \"Continuous on $[-1, 1]$\"\n          },\n          {\n              \"id\": \"differentiable\",\n              \"label\": \"Differentiable on $(-1, 1)$\"\n          },\n          {\n              \"id\": \"monotonic\",\n              \"label\": \"Monotonic on $[-1, 1]$\"\n          },\n          {\n              \"id\": \"bounded\",\n              \"label\": \"Bounded on $[-1, 1]$\"\n          }\n      ],\n      \"cases\": [\n          {\n              \"name\": \"f(x) = x\",\n              \"latex\": \"f(x) = x\",\n              \"svgInner\": \"<line x1='40' y1='140' x2='280' y2='20' stroke='var(--blue)' stroke-width='2'/><line x1='40' y1='80' x2='280' y2='80' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/><line x1='160' y1='20' x2='160' y2='140' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/>\",\n              \"hypotheses\": {\n                  \"continuous\": {\n                      \"pass\": true,\n                      \"note\": \"linear, hence continuous everywhere\"\n                  },\n                  \"differentiable\": {\n                      \"pass\": true,\n                      \"note\": \"$f'(x) = 1$\"\n                  },\n                  \"monotonic\": {\n                      \"pass\": true,\n                      \"note\": \"strictly increasing\"\n                  },\n                  \"bounded\": {\n                      \"pass\": true,\n                      \"note\": \"$|f(x)| \\\\le 1$ on $[-1, 1]$\"\n                  }\n              }\n          },\n          {\n              \"name\": \"f(x) = |x|\",\n              \"latex\": \"f(x) = |x|\",\n              \"svgInner\": \"<polyline points='40,20 160,140 280,20' fill='none' stroke='var(--blue)' stroke-width='2'/><line x1='40' y1='80' x2='280' y2='80' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/><line x1='160' y1='20' x2='160' y2='140' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/><circle cx='160' cy='140' r='3' fill='var(--pink)'/>\",\n              \"hypotheses\": {\n                  \"continuous\": {\n                      \"pass\": true,\n                      \"note\": \"the corner is continuous, just not smooth\"\n                  },\n                  \"differentiable\": {\n                      \"pass\": false,\n                      \"note\": \"left and right derivatives disagree at $x = 0$\"\n                  },\n                  \"monotonic\": {\n                      \"pass\": false,\n                      \"note\": \"decreases on $[-1, 0]$, increases on $[0, 1]$\"\n                  },\n                  \"bounded\": {\n                      \"pass\": true,\n                      \"note\": \"$0 \\\\le f(x) \\\\le 1$ on $[-1, 1]$\"\n                  }\n              }\n          },\n          {\n              \"name\": \"f(x) = sin(1/x), f(0) = 0\",\n              \"latex\": \"f(x) = \\\\begin{cases} \\\\sin(1/x) & x \\\\ne 0 \\\\\\\\ 0 & x = 0 \\\\end{cases}\",\n              \"svgInner\": \"<path d='M 40 80 Q 60 30 70 80 T 90 80 T 105 80 T 118 80 T 130 80 T 140 80 T 148 80 T 154 80 T 158 80' fill='none' stroke='var(--blue)' stroke-width='1.4' opacity='0.5'/><path d='M 162 80 T 170 80 T 182 80 T 195 80 T 210 80 T 230 80 T 260 30 T 280 80' fill='none' stroke='var(--blue)' stroke-width='1.4' opacity='0.5'/><line x1='40' y1='80' x2='280' y2='80' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/><line x1='160' y1='20' x2='160' y2='140' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/><circle cx='160' cy='80' r='3' fill='var(--pink)'/>\",\n              \"hypotheses\": {\n                  \"continuous\": {\n                      \"pass\": false,\n                      \"note\": \"$\\\\lim_{x \\\\to 0} \\\\sin(1/x)$ does not exist\"\n                  },\n                  \"differentiable\": {\n                      \"pass\": false,\n                      \"note\": \"discontinuous at $0$, so not differentiable there\"\n                  },\n                  \"monotonic\": {\n                      \"pass\": false,\n                      \"note\": \"oscillates infinitely often near $0$\"\n                  },\n                  \"bounded\": {\n                      \"pass\": true,\n                      \"note\": \"$|\\\\sin(1/x)| \\\\le 1$ everywhere\"\n                  }\n              }\n          },\n          {\n              \"name\": \"Weierstrass function\",\n              \"latex\": \"W(x) = \\\\sum_{n=0}^{\\\\infty} a^n \\\\cos(b^n \\\\pi x)\",\n              \"displayLabel\": \"Weierstrass function (continuous everywhere, differentiable nowhere)\",\n              \"svgInner\": \"<path d='M 40 80 L 50 70 L 55 85 L 62 65 L 70 95 L 78 60 L 85 90 L 92 50 L 100 100 L 108 55 L 116 95 L 124 45 L 132 105 L 140 60 L 148 90 L 156 50 L 164 100 L 172 55 L 180 95 L 188 45 L 196 105 L 204 60 L 212 90 L 220 50 L 228 100 L 236 65 L 244 85 L 252 70 L 260 95 L 268 60 L 276 80' fill='none' stroke='var(--blue)' stroke-width='1.2'/><line x1='40' y1='80' x2='280' y2='80' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/><line x1='160' y1='20' x2='160' y2='140' stroke='var(--mute)' stroke-dasharray='3 3' stroke-width='0.6'/>\",\n              \"hypotheses\": {\n                  \"continuous\": {\n                      \"pass\": true,\n                      \"note\": \"uniformly convergent series of continuous functions\"\n                  },\n                  \"differentiable\": {\n                      \"pass\": false,\n                      \"note\": \"nowhere differentiable — the canonical pathology\"\n                  },\n                  \"monotonic\": {\n                      \"pass\": false,\n                      \"note\": \"wild oscillation at every scale\"\n                  },\n                  \"bounded\": {\n                      \"pass\": true,\n                      \"note\": \"$|W(x)| \\\\le \\\\sum a^n = 1/(1-a)$\"\n                  }\n              }\n          }\n      ]\n  });\n})();\n</script>"
   },
   {
+    "slug": "crypto-diffie-hellman",
+    "family": "crypto-diffie-hellman",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "crypto-diffie-hellman widget params",
+    "description": "Diffie–Hellman key exchange interactive demo",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the mathematics-and-cryptography topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "crypto-ecc-points",
+    "family": "crypto-ecc-points",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "crypto-ecc-points widget params",
+    "description": "Toy elliptic-curve point group over a small prime field",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the mathematics-and-cryptography topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "crypto-lwe-samples",
+    "family": "crypto-lwe-samples",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "crypto-lwe-samples widget params",
+    "description": "Learning-with-errors noisy linear samples explorer",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the mathematics-and-cryptography topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "crypto-rsa-toy",
+    "family": "crypto-rsa-toy",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "crypto-rsa-toy widget params",
+    "description": "Toy RSA encrypt/decrypt with small primes",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the mathematics-and-cryptography topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "crypto-schnorr-protocol",
+    "family": "crypto-schnorr-protocol",
+    "dimension": "2d",
+    "gesture": "button",
+    "role": "exploratory",
+    "title": "crypto-schnorr-protocol widget params",
+    "description": "Schnorr zero-knowledge protocol honest run",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the mathematics-and-cryptography topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "crypto-totient-units",
+    "family": "crypto-totient-units",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "crypto-totient-units widget params",
+    "description": "Euler totient and unit group explorer",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the mathematics-and-cryptography topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "declarative-host",
     "family": "declarative-host",
     "dimension": "2d",
@@ -5992,6 +6118,132 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "mirror-hms-pairing",
+    "family": "mirror-hms-pairing",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "illustrative",
+    "title": "mirror-hms-pairing widget params",
+    "description": "Homological-mirror-symmetry pairing widget: clicking a B-side coherent sheaf on a Calabi-Yau X reveals its conjectured A-side Lagrangian mirror on the dual Y, illustrating the equivalence D^bCoh(X) = Fuk(Y).",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the mirror-symmetry topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mirror-hodge-diamond",
+    "family": "mirror-hodge-diamond",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "illustrative",
+    "title": "mirror-hodge-diamond widget params",
+    "description": "Side-by-side Hodge-diamond renderer for a Calabi-Yau threefold and its mirror; selecting a CY example swaps h^{1,1} with h^{2,1} on the right-hand diamond and updates Euler-characteristic readouts.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the mirror-symmetry topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mirror-quintic-counts",
+    "family": "mirror-quintic-counts",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "illustrative",
+    "title": "mirror-quintic-counts widget params",
+    "description": "Clickable table of low-degree rational-curve counts on the quintic threefold (CdGP predictions); each row reveals provenance prose and a toggle exposes the generating-function form.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the mirror-symmetry topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mirror-quintic-periods",
+    "family": "mirror-quintic-periods",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "mirror-quintic-periods widget params",
+    "description": "Period-integral plot for the mirror quintic family; sliding the complex modulus z traces the holomorphic period Pi_0(z) and exposes the singular conifold-point behaviour.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the mirror-symmetry topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mirror-stable-map",
+    "family": "mirror-stable-map",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "illustrative",
+    "title": "mirror-stable-map widget params",
+    "description": "Schematic of a stable map from a genus-zero source (a chain of P^1s) to a Calabi-Yau threefold; a slider scales the source-curve degree and redraws both source bouquet and image-curve oscillation count.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the mirror-symmetry topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mirror-syz-fibration",
+    "family": "mirror-syz-fibration",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "illustrative",
+    "title": "mirror-syz-fibration widget params",
+    "description": "SYZ dual torus fibration explorer: dragging along the base of a special-Lagrangian T^3 fibration shows the fibre and its dual torus, illustrating the conjectural pointwise mirror construction.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the mirror-symmetry topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "modular-arithmetic-clock",
     "family": "modular-arithmetic-clock",
     "dimension": "2d",
@@ -6373,6 +6625,132 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke widget for the morse-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "ms-beta-posterior",
+    "family": "ms-beta-posterior",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "ms-beta-posterior widget params",
+    "description": "Beta posterior update from Bernoulli observations with prior controls.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the mathematical-statistics topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "ms-bias-variance",
+    "family": "ms-bias-variance",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "ms-bias-variance widget params",
+    "description": "Bias-variance tradeoff explorer with sliders over sample size and shrinkage.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the mathematical-statistics topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "ms-crlb-envelope",
+    "family": "ms-crlb-envelope",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "ms-crlb-envelope widget params",
+    "description": "Cramer-Rao lower bound envelope plotted against estimator variance.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the mathematical-statistics topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "ms-likelihood-curve",
+    "family": "ms-likelihood-curve",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "ms-likelihood-curve widget params",
+    "description": "Likelihood curve and score function with adjustable observed data.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the mathematical-statistics topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "ms-neyman-pearson",
+    "family": "ms-neyman-pearson",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "ms-neyman-pearson widget params",
+    "description": "Neyman-Pearson rejection region with adjustable threshold.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the mathematical-statistics topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "ms-wilks-theorem",
+    "family": "ms-wilks-theorem",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "ms-wilks-theorem widget params",
+    "description": "Wilks' theorem visualisation showing the chi-squared limit of the LRT statistic.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the mathematical-statistics topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

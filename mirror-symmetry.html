@@ -271,10 +271,7 @@ $$\boxed{\, h^{1,1}(X) \;=\; h^{2,1}(Y), \qquad h^{2,1}(X) \;=\; h^{1,1}(Y). \,}
 <p>The Hodge diamond of $Y$ is the Hodge diamond of $X$ <em>flipped about its vertical axis</em>. More than a numerical coincidence, the swap is the shadow of a duality between two physical theories — the type-IIA string on $X$ and the type-IIB string on $Y$ — and corresponds to interchanging the <strong>A-model</strong> (symplectic / Kähler-moduli side) with the <strong>B-model</strong> (complex / complex-structure-moduli side).</p>
 
 <div class="widget" id="hodge-swap-widget">
-  <div class="hd">
-    <div class="ttl">Hodge-diamond mirror</div>
-    <div class="hint">Pick a CY example; the right-hand diamond is its mirror.</div>
-  </div>
+  <div class="hd"><div class="ttl">Hodge-diamond mirror</div><div class="hint">Pick a CY example; the right-hand diamond is its mirror.</div></div>
   <div class="row">
     <label for="hs-pick">CY 3-fold:</label>
     <select id="hs-pick">
@@ -323,10 +320,7 @@ $$Y \;=\; \widetilde{ \{x_1^5 + x_2^5 + x_3^5 + x_4^5 + x_5^5 - 5\psi\, x_1 x_2 
 <p>$Y$ is a one-parameter family in $\psi$ — its single complex modulus matches the single Kähler modulus of $X$. <strong>Candelas, de la Ossa, Green, and Parkes (1991)</strong> computed periods on $Y$, applied the mirror map, and read off — by mirror symmetry — the genus-zero <strong>Gromov–Witten invariants</strong> $n_d$ of $X$: the (suitably weighted) number of degree-$d$ rational curves on the quintic.</p>
 
 <div class="widget" id="quintic-table-widget">
-  <div class="hd">
-    <div class="ttl">CdGP curve counts</div>
-    <div class="hint">Hover or click a row — these were predictions before they were theorems.</div>
-  </div>
+  <div class="hd"><div class="ttl">CdGP curve counts</div><div class="hint">Hover or click a row — these were predictions before they were theorems.</div></div>
   <table class="plain" id="qt-table">
     <thead>
       <tr><th>degree $d$</th><th>name</th><th>$n_d$ (CdGP)</th><th>status</th></tr>
@@ -374,10 +368,7 @@ $$\dim_{\mathrm{vir}}\, \overline{\mathcal{M}}_{0,0}(X, \beta) \;=\; \int_\beta 
 $$N_\beta \;=\; \int_{[\overline{\mathcal{M}}_{0,0}(X, \beta)]^{\mathrm{vir}}} 1 \;\in\; \mathbb{Q}.$$
 
 <div class="widget" id="gw-stable-map-widget">
-  <div class="hd">
-    <div class="ttl">Stable maps to $X$</div>
-    <div class="hint">A genus-zero source ($\mathbb{P}^1$ or a chain of $\mathbb{P}^1$s) with a curve class $\beta$ on $X$.</div>
-  </div>
+  <div class="hd"><div class="ttl">Stable maps to $X$</div><div class="hint">A genus-zero source ($\mathbb{P}^1$ or a chain of $\mathbb{P}^1$s) with a curve class $\beta$ on $X$.</div></div>
   <div class="row">
     <label for="gw-deg">degree $d$:</label>
     <input type="range" id="gw-deg" min="1" max="5" value="3" step="1" />
@@ -418,10 +409,7 @@ $$\Pi_i(t) \;=\; \int_{\gamma_i} \Omega(t)$$
 $$\mathcal{L} \;=\; \theta^4 \;-\; 5z\, (5\theta + 1)(5\theta + 2)(5\theta + 3)(5\theta + 4), \qquad \theta = z\, \tfrac{d}{dz}.$$
 
 <div class="widget" id="periods-widget">
-  <div class="hd">
-    <div class="ttl">Periods of the mirror quintic</div>
-    <div class="hint">Slide $z$ to follow $\Pi_0(z)$ around the moduli space.</div>
-  </div>
+  <div class="hd"><div class="ttl">Periods of the mirror quintic</div><div class="hint">Slide $z$ to follow $\Pi_0(z)$ around the moduli space.</div></div>
   <div class="row">
     <label for="pd-z">$z$:</label>
     <input type="range" id="pd-z" min="-2" max="2" step="0.04" value="-1.6" />
@@ -465,10 +453,7 @@ $$\boxed{\, D^b\mathrm{Coh}(X) \;\;\cong\;\; D^\pi \mathrm{Fuk}(Y) \,}$$
 $$\Hom_{\mathrm{Fuk}}(L_0, L_1) \;=\; CF^*(L_0, L_1), \quad d \;=\; \text{count of pseudo-holomorphic strips.}$$
 
 <div class="widget" id="hms-widget">
-  <div class="hd">
-    <div class="ttl">Sheaves ↔ Lagrangians</div>
-    <div class="hint">Click a B-side object to see its conjectured A-side mirror.</div>
-  </div>
+  <div class="hd"><div class="ttl">Sheaves ↔ Lagrangians</div><div class="hint">Click a B-side object to see its conjectured A-side mirror.</div></div>
   <svg id="hms-svg" viewBox="0 0 720 320" width="720" height="320" aria-label="Correspondence between B-side coherent sheaves and A-side Lagrangians"></svg>
   <div class="readout" id="hms-readout">Pick an object on the B-side (left).</div>
 </div>
@@ -500,10 +485,7 @@ $$\pi \colon X \;\to\; B$$
 $$\check\pi \colon Y \;\to\; B, \qquad Y_b \;=\; \Hom(T^3_b, U(1)) \;\cong\; \check T^3_b.$$
 
 <div class="widget" id="syz-widget">
-  <div class="hd">
-    <div class="ttl">Dual torus fibration</div>
-    <div class="hint">Drag the slider to wander along the base; watch the fibre and its dual.</div>
-  </div>
+  <div class="hd"><div class="ttl">Dual torus fibration</div><div class="hint">Drag the slider to wander along the base; watch the fibre and its dual.</div></div>
   <div class="row">
     <label for="syz-b">base point $b$:</label>
     <input type="range" id="syz-b" min="0" max="100" step="1" value="40" />
@@ -643,7 +625,8 @@ $$\check\pi \colon Y \;\to\; B, \qquad Y_b \;=\; \Hom(T^3_b, U(1)) \;\cong\; \ch
   sel.addEventListener("change", render);
   render();
 })();
-
+</script>
+<script>
 /* ── Widget 2: CdGP curve-counts table ────────────────────────────────── */
 (function(){
   const tbl = document.getElementById("qt-table");
@@ -676,7 +659,8 @@ $$\check\pi \colon Y \;\to\; B, \qquad Y_b \;=\; \Hom(T^3_b, U(1)) \;\cong\; \ch
     }
   });
 })();
-
+</script>
+<script>
 /* ── Widget 3: Stable map from genus-zero curve to X ──────────────────── */
 (function(){
   const svg = document.getElementById("gw-svg");
@@ -769,7 +753,8 @@ $$\check\pi \colon Y \;\to\; B, \qquad Y_b \;=\; \Hom(T^3_b, U(1)) \;\cong\; \ch
   slider.addEventListener("input", render);
   render();
 })();
-
+</script>
+<script>
 /* ── Widget 4: Periods of the mirror quintic ──────────────────────────── */
 (function(){
   const svg = document.getElementById("pd-svg");
@@ -894,7 +879,8 @@ $$\check\pi \colon Y \;\to\; B, \qquad Y_b \;=\; \Hom(T^3_b, U(1)) \;\cong\; \ch
   slider.addEventListener("input", render);
   render();
 })();
-
+</script>
+<script>
 /* ── Widget 5: HMS sheaf ↔ Lagrangian correspondence ──────────────────── */
 (function(){
   const svg = document.getElementById("hms-svg");
@@ -975,7 +961,8 @@ $$\check\pi \colon Y \;\to\; B, \qquad Y_b \;=\; \Hom(T^3_b, U(1)) \;\cong\; \ch
   }
   render(-1);
 })();
-
+</script>
+<script>
 /* ── Widget 6: SYZ dual T^3 fibration over a base ─────────────────────── */
 (function(){
   const svg = document.getElementById("syz-svg");

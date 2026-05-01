@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **130**, concepts: **896**
-- Widgets: **921** (registry-driven: 808, inline: 113)
+- Widgets: **921** (registry-driven: 826, inline: 95)
 - Quizzes: **3879** (v1: 2643, hard: 1223, expert: 13)
 - Quiz types: mcq: 2611, numeric: 1028, multi-select: 96, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **138**
@@ -126,6 +126,12 @@ page has wired one in yet.
 | `computability-reduction-graph` | computability-reduction-graph | click | 2d | 1 | computability-and-decidability |
 | `computability-turing-increment` | computability-turing-increment | step | 2d | 1 | computability-and-decidability |
 | `constraint-bifurcation-explorer` | constraint-bifurcation-explorer | slider | 2d | 1 | real-analysis |
+| `crypto-diffie-hellman` | crypto-diffie-hellman | slider | 2d | 1 | mathematics-and-cryptography |
+| `crypto-ecc-points` | crypto-ecc-points | slider | 2d | 1 | mathematics-and-cryptography |
+| `crypto-lwe-samples` | crypto-lwe-samples | slider | 2d | 1 | mathematics-and-cryptography |
+| `crypto-rsa-toy` | crypto-rsa-toy | slider | 2d | 1 | mathematics-and-cryptography |
+| `crypto-schnorr-protocol` | crypto-schnorr-protocol | button | 2d | 1 | mathematics-and-cryptography |
+| `crypto-totient-units` | crypto-totient-units | slider | 2d | 1 | mathematics-and-cryptography |
 | `deformation-theory-cotangent-scrubber` | proof-scrubber | scrub | 2d | 1 | deformation-theory |
 | `deformation-theory-curve-sandbox` | svg-illustration | interact | 2d | 1 | deformation-theory |
 | `deformation-theory-first-order-scrubber` | proof-scrubber | scrub | 2d | 1 | deformation-theory |
@@ -303,6 +309,12 @@ page has wired one in yet.
 | `matroid-graph-forests` | matroid-graph-forests | click | 2d | 1 | matroid-theory |
 | `matroid-greedy-vs-nonmatroid` | matroid-greedy-vs-nonmatroid | slider | 2d | 1 | matroid-theory |
 | `matroid-tutte-polynomial` | matroid-tutte-polynomial | slider | 2d | 1 | matroid-theory |
+| `mirror-hms-pairing` | mirror-hms-pairing | click | 2d | 1 | mirror-symmetry |
+| `mirror-hodge-diamond` | mirror-hodge-diamond | select | 2d | 1 | mirror-symmetry |
+| `mirror-quintic-counts` | mirror-quintic-counts | click | 2d | 1 | mirror-symmetry |
+| `mirror-quintic-periods` | mirror-quintic-periods | slider | 2d | 1 | mirror-symmetry |
+| `mirror-stable-map` | mirror-stable-map | slider | 2d | 1 | mirror-symmetry |
+| `mirror-syz-fibration` | mirror-syz-fibration | slider | 2d | 1 | mirror-symmetry |
 | `modular-curves-atkin-lehner-newforms` | modular-curves-atkin-lehner-newforms | click | 2d | 1 | modular-curves |
 | `modular-curves-cusps-and-wn` | modular-curves-cusps-and-wn | click | 2d | 1 | modular-curves |
 | `modular-curves-eichler-shimura` | modular-curves-eichler-shimura | click | 2d | 1 | modular-curves |
@@ -320,6 +332,12 @@ page has wired one in yet.
 | `morse-smale-saddle` | morse-smale-saddle | click | 2d | 1 | morse-theory |
 | `morse-sphere-vs-rp2` | morse-sphere-vs-rp2 | click | 2d | 1 | morse-theory |
 | `morse-torus-height` | morse-torus-height | slider | 2d | 1 | morse-theory |
+| `ms-beta-posterior` | ms-beta-posterior | slider | 2d | 1 | mathematical-statistics |
+| `ms-bias-variance` | ms-bias-variance | slider | 2d | 1 | mathematical-statistics |
+| `ms-crlb-envelope` | ms-crlb-envelope | slider | 2d | 1 | mathematical-statistics |
+| `ms-likelihood-curve` | ms-likelihood-curve | slider | 2d | 1 | mathematical-statistics |
+| `ms-neyman-pearson` | ms-neyman-pearson | slider | 2d | 1 | mathematical-statistics |
+| `ms-wilks-theorem` | ms-wilks-theorem | slider | 2d | 1 | mathematical-statistics |
 | `natural-transformation-explorer` | naturality-square | slider+click | 2d | 1 | category-theory |
 | `probabilistic-method-alterations` | probabilistic-method-alterations | click | 2d | 1 | probabilistic-method |
 | `probabilistic-method-concentration` | probabilistic-method-concentration | slider | 2d | 1 | probabilistic-method |
@@ -414,10 +432,10 @@ page has wired one in yet.
 ### Probability & statistics
 
 - Topics: **8**, concepts: **53**
-- Widgets: **51** (registry-driven: 22, inline: 29)
-  - by family: unknown: 29, button-stepper: 10, hdg-sphere-concentration-band: 1, hdg-dvoretzky-section: 1, hdg-jl-distortion-histogram: 1, hdg-talagrand-deviation: 1, hdg-isoperimetry-tail: 1, hdg-marchenko-pastur: 1, information-entropy: 1, information-mutual-info-venn: 1, information-kl-simplex: 1, information-huffman-builder: 1, information-bsc-capacity: 1, information-rate-distortion: 1
-  - by dimension: unknown: 29, 2d: 22
-  - by gesture: unknown: 29, click: 12, slider: 10
+- Widgets: **51** (registry-driven: 28, inline: 23)
+  - by family: unknown: 23, button-stepper: 10, ms-bias-variance: 1, ms-likelihood-curve: 1, ms-crlb-envelope: 1, ms-neyman-pearson: 1, ms-beta-posterior: 1, ms-wilks-theorem: 1, hdg-sphere-concentration-band: 1, hdg-dvoretzky-section: 1, hdg-jl-distortion-histogram: 1, hdg-talagrand-deviation: 1, hdg-isoperimetry-tail: 1, hdg-marchenko-pastur: 1, information-entropy: 1, information-mutual-info-venn: 1, information-kl-simplex: 1, information-huffman-builder: 1, information-bsc-capacity: 1, information-rate-distortion: 1
+  - by dimension: 2d: 28, unknown: 23
+  - by gesture: unknown: 23, slider: 16, click: 12
 - Quizzes: **196** (v1: 159, hard: 24, expert: 13)
   - by type: mcq: 137, numeric: 49, multi-select: 2, matching: 2, proof-completion: 2, construction: 1, complex: 1, ordering: 1, spot-the-error: 1
 
@@ -434,10 +452,10 @@ page has wired one in yet.
 ### Number theory
 
 - Topics: **14**, concepts: **97**
-- Widgets: **110** (registry-driven: 104, inline: 6)
-  - by family: button-stepper: 66, unknown: 6, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, inline-code-cell: 4, declarative-host: 2, parametric-plot: 2, branching-proof-scrubber: 1, clickable-graph: 1, svg-illustration: 1, heights-naive-calculator: 1, heights-northcott-enumerator: 1, heights-weil-pullback: 1, heights-tate-averaging: 1, heights-mahler-measure: 1, heights-genus-growth: 1, heights-arakelov-decomposition: 1, counterexample-explorer: 1, ant-pnt-comparison: 1, ant-explicit-formula: 1, ant-zero-free-region: 1, ant-dirichlet-residue-wheel: 1, ant-sieve-truncation: 1, ant-bombieri-vinogradov: 1, proof-scrubber: 1
-  - by dimension: 2d: 104, unknown: 6
-  - by gesture: click: 74, slider: 16, unknown: 6, input: 4, edit: 4, interactive: 2, branching-timeline: 1, read: 1, select: 1, timeline: 1
+- Widgets: **110** (registry-driven: 110, inline: 0)
+  - by family: button-stepper: 66, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, inline-code-cell: 4, declarative-host: 2, parametric-plot: 2, crypto-totient-units: 1, crypto-rsa-toy: 1, crypto-diffie-hellman: 1, crypto-ecc-points: 1, crypto-lwe-samples: 1, crypto-schnorr-protocol: 1, branching-proof-scrubber: 1, clickable-graph: 1, svg-illustration: 1, heights-naive-calculator: 1, heights-northcott-enumerator: 1, heights-weil-pullback: 1, heights-tate-averaging: 1, heights-mahler-measure: 1, heights-genus-growth: 1, heights-arakelov-decomposition: 1, counterexample-explorer: 1, ant-pnt-comparison: 1, ant-explicit-formula: 1, ant-zero-free-region: 1, ant-dirichlet-residue-wheel: 1, ant-sieve-truncation: 1, ant-bombieri-vinogradov: 1, proof-scrubber: 1
+  - by dimension: 2d: 110
+  - by gesture: click: 74, slider: 21, input: 4, edit: 4, interactive: 2, button: 1, branching-timeline: 1, read: 1, select: 1, timeline: 1
 - Quizzes: **469** (v1: 286, hard: 183, expert: 0)
   - by type: mcq: 318, numeric: 144, complex: 3, matching: 2, ordering: 1, guess-my-rule: 1
 
@@ -454,10 +472,10 @@ page has wired one in yet.
 ### Algebraic geometry
 
 - Topics: **22**, concepts: **127**
-- Widgets: **144** (registry-driven: 133, inline: 11)
-  - by family: button-stepper: 61, clickable-diagram: 23, unknown: 11, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, calabi-yau-canonical-degree: 1, calabi-yau-hodge-diamond: 1, calabi-yau-hypersurface-zoo: 1, calabi-yau-periods: 1, calabi-yau-mirror-swap: 1, calabi-yau-syz-fibration: 1, lattice-visualizer: 1, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, counterexample-explorer: 1
-  - by dimension: 2d: 133, unknown: 11
-  - by gesture: click: 98, interact: 15, unknown: 11, scrub: 7, slider: 6, select: 3, drag: 2, read: 1, slide: 1
+- Widgets: **144** (registry-driven: 139, inline: 5)
+  - by family: button-stepper: 61, clickable-diagram: 23, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, unknown: 5, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, calabi-yau-canonical-degree: 1, calabi-yau-hodge-diamond: 1, calabi-yau-hypersurface-zoo: 1, calabi-yau-periods: 1, calabi-yau-mirror-swap: 1, calabi-yau-syz-fibration: 1, mirror-hodge-diamond: 1, mirror-quintic-counts: 1, mirror-stable-map: 1, mirror-quintic-periods: 1, mirror-hms-pairing: 1, mirror-syz-fibration: 1, lattice-visualizer: 1, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, counterexample-explorer: 1
+  - by dimension: 2d: 139, unknown: 5
+  - by gesture: click: 100, interact: 15, slider: 9, scrub: 7, unknown: 5, select: 4, drag: 2, read: 1, slide: 1
 - Quizzes: **626** (v1: 381, hard: 245, expert: 0)
   - by type: mcq: 396, numeric: 187, multi-select: 17, matching: 11, spot-the-error: 7, ordering: 4, complex: 3, proof-completion: 1
 
@@ -483,14 +501,14 @@ page has wired one in yet.
 
 ## Per-topic
 
-- `mathematical-statistics` (Probability & statistics) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `mathematical-statistics` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `numerical-analysis` (Analysis) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `computational-number-theory` (Number theory) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `variational-methods` (Analysis) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `fixed-point-theorems` (Analysis) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `calabi-yau-manifolds` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `high-dimensional-geometry` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `mirror-symmetry` (Algebraic geometry) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `mirror-symmetry` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `mostow-rigidity` (Geometry & topology) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `resolution-of-singularities` (Algebraic geometry) — concepts=6, widgets=5 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `hamiltonians-classical-mechanics` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
@@ -505,7 +523,7 @@ page has wired one in yet.
 - `wavelets` (Analysis) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `vertex-operator-algebras` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `schrodinger-equation` (Mathematical physics) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
-- `mathematics-and-cryptography` (Number theory) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `mathematics-and-cryptography` (Number theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `knot-polynomials` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `ricci-flow` (Geometry & topology) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `k-theory` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
