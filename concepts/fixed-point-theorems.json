@@ -96,7 +96,7 @@
       "anchor": "caristi",
       "prereqs": [
         "fpt-banach",
-        "real-continuity"
+        "metric-completeness-baire"
       ],
       "blurb": "If $\\varphi\\colon X\\to[0,\\infty)$ is lower-semicontinuous on a complete metric space and $d(x,Tx)\\le\\varphi(x)-\\varphi(Tx)$, then $T$ has a fixed point — no contraction, no continuity of $T$. Equivalent to Ekeland's variational principle, generalising Banach with a Lyapunov-style weight.",
       "tags": [

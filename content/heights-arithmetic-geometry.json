@@ -245,7 +245,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./heights-arithmetic-geometry.html#bogomolov\">Heights in arithmetic geometry</a> · Bogomolov, equidistribution, and small points</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./heights-arithmetic-geometry.html#bogomolov\">Heights in arithmetic geometry</a> · Bogomolov, equidistribution, and small points</div>\n    <div><a href=\"./zeta-values.html#zeta-mahler\">Zeta values — ζ at integers</a> · Zeta values and Mahler measure</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

@@ -218,7 +218,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./harmonic-functions.html#harnack\">Harmonic functions</a> · Harnack's inequality</div>\n    <div><a href=\"./partial-differential-equations.html#laplace\">Partial differential equations</a> · Laplace equation and the Dirichlet problem</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./advanced-complex-analysis.html#hardy-spaces\">Advanced complex analysis</a> · Hardy spaces and Fatou boundary</div>\n    <div><a href=\"./harmonic-functions.html#harnack\">Harmonic functions</a> · Harnack's inequality</div>\n    <div><a href=\"./partial-differential-equations.html#laplace\">Partial differential equations</a> · Laplace equation and the Dirichlet problem</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

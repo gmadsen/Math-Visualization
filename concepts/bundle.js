@@ -307,7 +307,10 @@ window.__MVConcepts = {
           "title": "Little Picard theorem",
           "anchor": "picard-little",
           "prereqs": [
-            "liouville"
+            "liouville",
+            "covering-spaces",
+            "fundamental-group",
+            "upper-half-plane-model"
           ],
           "blurb": "A non-constant entire function omits at most one complex value. Liouville (bounded ⇒ constant) is the trivial case; little Picard is the same idea pushed to its sharpest form — even an unbounded entire map cannot avoid more than one point."
         },
@@ -317,7 +320,9 @@ window.__MVConcepts = {
           "anchor": "picard-great",
           "prereqs": [
             "aca-picard-little",
-            "singularity-classification"
+            "singularity-classification",
+            "laurent-series",
+            "schwarz-lemma"
           ],
           "blurb": "In every neighborhood of an essential singularity, $f$ takes every complex value (with at most one exception) infinitely often. This sharpens Casorati-Weierstrass dramatically — 'dense' becomes 'every value, infinitely often'."
         },
@@ -335,7 +340,8 @@ window.__MVConcepts = {
           "title": "Mittag-Leffler theorem",
           "anchor": "mittag-leffler",
           "prereqs": [
-            "aca-weierstrass-factorization"
+            "aca-weierstrass-factorization",
+            "laurent-series"
           ],
           "blurb": "Dual to Weierstrass: prescribe a discrete pole set with principal parts and there is a meromorphic function realizing them, given by a convergent series of partial fractions plus a holomorphic correction. The witness is the cotangent partial-fraction expansion $\\pi\\cot\\pi z = 1/z + \\sum_{n\\ne 0}(1/(z-n)+1/n)$."
         },
@@ -353,7 +359,8 @@ window.__MVConcepts = {
           "title": "Hadamard's three-circles theorem",
           "anchor": "hadamard-three-circles",
           "prereqs": [
-            "aca-phragmen-lindelof"
+            "aca-phragmen-lindelof",
+            "maximum-modulus"
           ],
           "blurb": "If $f$ is holomorphic on the annulus $r_1\\le|z|\\le r_3$ and $M(r) = \\max_{|z|=r}|f(z)|$, then $\\log M(r)$ is convex as a function of $\\log r$. The convex-interpolation inequality $M(r_2)^{\\log(r_3/r_1)} \\le M(r_1)^{\\log(r_3/r_2)} M(r_3)^{\\log(r_2/r_1)}$ is the standard tool for growth bounds and Hadamard-Riesz-Thorin interpolation."
         },
@@ -362,7 +369,10 @@ window.__MVConcepts = {
           "title": "Hardy spaces and Fatou boundary",
           "anchor": "hardy-spaces",
           "prereqs": [
-            "aca-mittag-leffler"
+            "aca-mittag-leffler",
+            "lp-spaces",
+            "disk-automorphisms",
+            "hf-poisson-kernel"
           ],
           "blurb": "$H^p(\\mathbb{D})$ collects holomorphic functions on the disk whose $L^p$ norm on circles $|z|=r$ stays bounded as $r\\uparrow 1$. Fatou's theorem says every $H^p$ function admits non-tangential boundary values almost everywhere, and the inner-outer factorization $f = B\\cdot S\\cdot O$ decomposes them into a Blaschke product, a singular inner factor, and an outer function."
         }
@@ -793,7 +803,7 @@ window.__MVConcepts = {
           "anchor": "caristi",
           "prereqs": [
             "fpt-banach",
-            "real-continuity"
+            "metric-completeness-baire"
           ],
           "blurb": "If $\\varphi\\colon X\\to[0,\\infty)$ is lower-semicontinuous on a complete metric space and $d(x,Tx)\\le\\varphi(x)-\\varphi(Tx)$, then $T$ has a fixed point — no contraction, no continuity of $T$. Equivalent to Ekeland's variational principle, generalising Banach with a Lyapunov-style weight.",
           "tags": [
@@ -7168,7 +7178,9 @@ window.__MVConcepts = {
           "title": "Asymptotic equipartition property",
           "anchor": "aep",
           "prereqs": [
-            "it-shannon-entropy"
+            "it-shannon-entropy",
+            "law-of-large-numbers",
+            "convergence-rv"
           ],
           "blurb": "For i.i.d.\\ $X_1,\\ldots,X_n\\sim p$, the law of large numbers applied to $-\\log p(X_i)$ gives $-\\tfrac{1}{n}\\log p(X_1,\\ldots,X_n)\\to H(X)$ in probability. The typical set $A_\\varepsilon^{(n)}=\\{x^n:|{-\\tfrac{1}{n}\\log p(x^n)}-H(X)|<\\varepsilon\\}$ has size $\\le 2^{n(H+\\varepsilon)}$ and probability $\\to 1$ — the operational backbone of source coding and jointly-typical decoding."
         },
@@ -7178,7 +7190,8 @@ window.__MVConcepts = {
           "anchor": "fisher-cramer-rao",
           "prereqs": [
             "it-kl-divergence",
-            "ms-mle"
+            "ms-mle",
+            "ms-cramer-rao"
           ],
           "blurb": "Fisher information $I(\\theta)=-\\mathbb{E}_\\theta[\\partial_\\theta^2\\log p_\\theta(X)]=\\mathbb{E}_\\theta[(\\partial_\\theta\\log p_\\theta)^2]$ measures the curvature of the log-likelihood at $\\theta$. The Cramér–Rao bound: any unbiased estimator $\\hat\\theta$ of $\\theta$ from one sample obeys $\\mathrm{Var}_\\theta(\\hat\\theta)\\ge 1/I(\\theta)$, and de Bruijn's identity ties Fisher to differential entropy under Gaussian smoothing."
         }
@@ -8631,7 +8644,8 @@ window.__MVConcepts = {
           "anchor": "newton-polygons",
           "prereqs": [
             "padic-norm-completion",
-            "hensel-lemma"
+            "hensel-lemma",
+            "field-extensions-basics"
           ],
           "blurb": "The lower convex hull of the points (i, v_p(a_i)) reads the p-adic valuations of the roots of f directly off its slopes, factoring f over Q_p by valuation strata.",
           "tags": [
@@ -8645,7 +8659,8 @@ window.__MVConcepts = {
           "prereqs": [
             "hensel-lemma",
             "newton-polygons",
-            "field-extensions-basics"
+            "field-extensions-basics",
+            "prime-ideals-factorization-ant"
           ],
           "blurb": "Every finite extension L/Q_p factors as an unramified piece (residue extension F_q/F_p of degree f) times a totally ramified piece given by an Eisenstein uniformizer (degree e), with ef = [L:Q_p]; tameness is e coprime to p, and Krasner's lemma makes the assignment polynomial→extension continuous.",
           "tags": [
@@ -9644,7 +9659,10 @@ window.__MVConcepts = {
           "title": "Zeta values and Mahler measure",
           "anchor": "zeta-mahler",
           "prereqs": [
-            "even-integer-values"
+            "even-integer-values",
+            "dirichlet-characters-lseries",
+            "analytic-continuation-lfunc",
+            "mahler-measure-lehmer"
           ],
           "blurb": "The (logarithmic) Mahler measure $m(P)=\\int_{T^n}\\log|P(z_1,\\ldots,z_n)|$ of a Laurent polynomial on the torus turns out to compute special values of $L$-functions: Smyth's $m(1+x+y)=L'(\\chi_{-3},-1)$ and Boyd's conjectures place vast families of $m(P)$ in the orbit of zeta and $L$-values, with Deninger linking them to regulators in arithmetic geometry."
         }
@@ -12901,7 +12919,7 @@ window.__MVConcepts = {
       "concepts": 106,
       "intra": 157,
       "crossOut": 16,
-      "crossIn": 73,
+      "crossIn": 74,
       "density": 0.1509433962264151
     },
     "Higher categories & toposes": {
@@ -12913,14 +12931,14 @@ window.__MVConcepts = {
     },
     "Analysis": {
       "concepts": 161,
-      "intra": 269,
-      "crossOut": 24,
+      "intra": 276,
+      "crossOut": 27,
       "crossIn": 62,
-      "density": 0.14906832298136646
+      "density": 0.16770186335403728
     },
     "Probability & statistics": {
       "concepts": 55,
-      "intra": 89,
+      "intra": 92,
       "crossOut": 14,
       "crossIn": 10,
       "density": 0.2545454545454545
@@ -12929,22 +12947,22 @@ window.__MVConcepts = {
       "concepts": 104,
       "intra": 157,
       "crossOut": 19,
-      "crossIn": 79,
+      "crossIn": 81,
       "density": 0.18269230769230768
     },
     "Number theory": {
       "concepts": 99,
-      "intra": 131,
-      "crossOut": 39,
-      "crossIn": 24,
-      "density": 0.3939393939393939
+      "intra": 132,
+      "crossOut": 40,
+      "crossIn": 25,
+      "density": 0.40404040404040403
     },
     "Modular forms & L-functions": {
       "concepts": 95,
-      "intra": 127,
-      "crossOut": 54,
-      "crossIn": 12,
-      "density": 0.5684210526315789
+      "intra": 129,
+      "crossOut": 55,
+      "crossIn": 13,
+      "density": 0.5789473684210527
     },
     "Algebraic geometry": {
       "concepts": 127,

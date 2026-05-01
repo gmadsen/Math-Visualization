@@ -120,7 +120,46 @@ function findSection(topic, rawHtml, anchor, conceptAnchors) {
   if (!anchorEl && topic.html && typeof topic.html.getElementById === 'function') {
     anchorEl = topic.html.getElementById(anchor);
   }
-  if (!anchorEl || !anchorEl.range) return null;
+  if (!anchorEl || !anchorEl.range) {
+    // Regex fallback: node-html-parser occasionally fails to register a
+    // perfectly-valid <section id="…"> element (observed for
+    // advanced-complex-analysis #mittag-leffler and model-theory-basics
+    // #elementary-equivalence — the parser is upstream-fragile under
+    // certain prefix patterns). The section IS in the raw HTML; find it
+    // by string search and synthesize the body slice.
+    const escA = anchor.replace(/[\\^$.*+?()|[\]{}]/g, '\\$&');
+    const openRe = new RegExp(`<section\\b[^>]*\\sid=["']${escA}["'][^>]*>`);
+    const om = rawHtml.match(openRe);
+    if (!om) return null;
+    const innerStart = om.index + om[0].length;
+    // Walk forward depth-balanced for matching </section>.
+    const openTagRe = /<section\b[^>]*>/gi;
+    const closeTagRe = /<\/section\s*>/gi;
+    openTagRe.lastIndex = innerStart;
+    closeTagRe.lastIndex = innerStart;
+    let depth = 1;
+    let safety = 0;
+    let innerEnd = rawHtml.length;
+    while (depth > 0) {
+      if (++safety > 100000) break;
+      const o = openTagRe.exec(rawHtml);
+      const c = closeTagRe.exec(rawHtml);
+      if (!c) break;
+      if (o && o.index < c.index) {
+        depth++;
+        closeTagRe.lastIndex = c.index;
+      } else {
+        depth--;
+        if (depth === 0) { innerEnd = c.index; break; }
+        openTagRe.lastIndex = c.index + c[0].length;
+      }
+    }
+    return {
+      innerStart,
+      innerEnd,
+      body: rawHtml.slice(innerStart, innerEnd),
+    };
+  }
 
   // 2. innerStart = position just after the element's opening tag.
   const [elStart] = anchorEl.range;

@@ -7,51 +7,76 @@
       "id": "basel-problem",
       "title": "The Basel problem: ζ(2) = π²/6",
       "anchor": "basel-problem",
-      "prereqs": ["dirichlet-series-basics"],
+      "prereqs": [
+        "dirichlet-series-basics"
+      ],
       "blurb": "Euler solved the Basel problem in 1734 by factoring $\\sin(\\pi x)/\\pi x$ as a Weierstrass product over its zeros, then matching the coefficient of $x^2$ to read off $\\sum 1/n^2 = \\pi^2/6$."
     },
     {
       "id": "even-integer-values",
       "title": "Even values ζ(2n) via Bernoulli numbers",
       "anchor": "even-integer-values",
-      "prereqs": ["basel-problem", "bernoulli-generating-function"],
+      "prereqs": [
+        "basel-problem",
+        "bernoulli-generating-function"
+      ],
       "blurb": "Every even positive-integer value satisfies $\\zeta(2n)=(-1)^{n+1}B_{2n}(2\\pi)^{2n}/(2(2n)!)$, giving an explicit rational multiple of $\\pi^{2n}$."
     },
     {
       "id": "odd-integer-values-apery",
       "title": "Odd values and Apéry's constant ζ(3)",
       "anchor": "odd-integer-values-apery",
-      "prereqs": ["even-integer-values"],
+      "prereqs": [
+        "even-integer-values"
+      ],
       "blurb": "Roger Apéry proved in 1978 that $\\zeta(3)$ is irrational; no closed form in terms of $\\pi$ is known. Whether $\\zeta(5), \\zeta(7), \\ldots$ are irrational remains one of the deepest open questions in number theory."
     },
     {
       "id": "negative-integer-values",
       "title": "Negative-integer values and trivial zeros",
       "anchor": "negative-integer-values",
-      "prereqs": ["zeta-special-values", "bernoulli-generating-function", "analytic-continuation"],
+      "prereqs": [
+        "zeta-special-values",
+        "bernoulli-generating-function",
+        "analytic-continuation"
+      ],
       "blurb": "Analytic continuation gives $\\zeta(-n)=-B_{n+1}/(n+1)$ for $n\\ge 0$; in particular $\\zeta(-2k)=0$ for $k\\ge 1$ — these are the trivial zeros. The values $\\zeta(-n)$ encode the renormalised sums familiar from physics.",
-      "tags": ["duality"]
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "functional-equation-zeta",
       "title": "The functional equation ξ(s) = ξ(1−s)",
       "anchor": "functional-equation-zeta",
-      "prereqs": ["negative-integer-values", "zeta-functional-equation-preview"],
+      "prereqs": [
+        "negative-integer-values",
+        "zeta-functional-equation-preview"
+      ],
       "blurb": "The completed zeta $\\xi(s)=\\pi^{-s/2}\\Gamma(s/2)\\zeta(s)$ satisfies $\\xi(s)=\\xi(1-s)$, linking values on the right half-plane to those on the left and forcing the symmetry $\\zeta(1-2k)=-B_{2k}/(2k)$.",
-      "tags": ["duality"]
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "multiple-zeta-values",
       "title": "Multiple zeta values and their algebra",
       "anchor": "multiple-zeta",
-      "prereqs": ["odd-integer-values-apery"],
+      "prereqs": [
+        "odd-integer-values-apery"
+      ],
       "blurb": "Multiple zeta values $\\zeta(s_1,\\ldots,s_k)=\\sum_{n_1>\\cdots>n_k\\ge 1} 1/(n_1^{s_1}\\cdots n_k^{s_k})$ extend $\\zeta$ to a graded $\\mathbb{Q}$-algebra carrying two products — shuffle (from iterated integrals) and stuffle (from sum manipulations) — whose double-shuffle relations conjecturally cut the weight-$n$ dimension to a Padovan-style recursion $d_n=d_{n-2}+d_{n-3}$."
     },
     {
       "id": "zeta-mahler-measure",
       "title": "Zeta values and Mahler measure",
       "anchor": "zeta-mahler",
-      "prereqs": ["even-integer-values"],
+      "prereqs": [
+        "even-integer-values",
+        "dirichlet-characters-lseries",
+        "analytic-continuation-lfunc",
+        "mahler-measure-lehmer"
+      ],
       "blurb": "The (logarithmic) Mahler measure $m(P)=\\int_{T^n}\\log|P(z_1,\\ldots,z_n)|$ of a Laurent polynomial on the torus turns out to compute special values of $L$-functions: Smyth's $m(1+x+y)=L'(\\chi_{-3},-1)$ and Boyd's conjectures place vast families of $m(P)$ in the orbit of zeta and $L$-values, with Deninger linking them to regulators in arithmetic geometry."
     }
   ]
