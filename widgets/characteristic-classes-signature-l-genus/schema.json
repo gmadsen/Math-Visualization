@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/characteristic-classes-signature-l-genus/schema.json",
+  "title": "characteristic-classes-signature-l-genus widget params",
+  "description": "Bespoke signature comparator for the characteristic-classes topic — preset khmtBcmanifold buttons display the intersection-form signature $\\sigma(M)$ alongside the hmtBcgenus pairing $\\langle L_k,[M]\\rangle$ to illustrate Hirzebruch's theorem. The manifold preset trio plus dual-formula readout is too domain-specific for any shared slug.",
+  "meta": {
+    "family": "characteristic-classes-signature-l-genus",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title",
+    "hint",
+    "bodyMarkup",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\">."
+    },
+    "title": {
+      "type": "string",
+      "description": "Header title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Header hint rendered inside .hd > .hint."
+    },
+    "bodyMarkup": {
+      "type": "string",
+      "x-artifact": "verbatim inner-body HTML; portable consumers should rebuild controls + svg + readout from explicit fields once a shared shape proves out",
+      "description": "ARTIFACT. Verbatim HTML between the closing </div> of the .hd row and the closing </div> of the outer widget wrapper."
+    },
+    "sectionComment": {
+      "type": "string",
+      "x-artifact": true,
+      "description": "ARTIFACT. Optional /* ... */ banner placed between the leading <script> tag and the IIFE opener."
+    },
+    "bodyScript": {
+      "type": "string",
+      "x-artifact": "script body is bespoke; portable consumers should re-implement the widget logic from the schema-described data fields",
+      "description": "ARTIFACT. Verbatim JS that goes inside `(function(){\\n…\\n})();` — wires the controls and updates the SVG / readout."
+    }
+  }
+}

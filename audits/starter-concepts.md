@@ -12,18 +12,18 @@ reach into upstream foundations or stay within their own cluster.
 | section | concepts | intra edges | cross out | cross in | density |
 |---|---:|---:|---:|---:|---:|
 | Logic & Foundations | 49 | 56 | 5 | 17 | 0.102 |
-| Algebra & homological | 106 | 157 | 16 | 71 | 0.151 |
+| Algebra & homological | 106 | 157 | 16 | 73 | 0.151 |
 | Higher categories & toposes | 45 | 68 | 23 | 2 | 0.511 |
-| Analysis | 149 | 254 | 24 | 62 | 0.161 |
-| Probability & statistics | 53 | 86 | 14 | 10 | 0.264 |
-| Geometry & topology | 102 | 154 | 18 | 79 | 0.176 |
-| Number theory | 97 | 127 | 38 | 24 | 0.392 |
-| Modular forms & L-functions | 93 | 125 | 54 | 12 | 0.581 |
+| Analysis | 161 | 269 | 24 | 62 | 0.149 |
+| Probability & statistics | 55 | 89 | 14 | 10 | 0.255 |
+| Geometry & topology | 104 | 157 | 19 | 79 | 0.183 |
+| Number theory | 99 | 131 | 39 | 24 | 0.394 |
+| Modular forms & L-functions | 95 | 127 | 54 | 12 | 0.568 |
 | Algebraic geometry | 127 | 173 | 55 | 18 | 0.433 |
 | Combinatorics & graph theory | 51 | 50 | 24 | 2 | 0.471 |
 | Mathematical physics | 24 | 22 | 26 | 0 | 1.083 |
 
-## EMPTY — concepts with no prereqs (0)
+## EMPTY — concepts with no prereqs (1)
 
 Concepts whose `prereqs` field is `[]` and whose owning topic is *not*
 a foundation/prereq topic. Almost always indicates a missing cross-
@@ -31,7 +31,9 @@ topic upstream wiring; pathway.html will surface the concept as "ready"
 at brand-new progress alongside genuine entry points like
 `sets-functions` and `algebraic-structures`.
 
-_Currently clean — no advanced concept lists `prereqs: []`._
+| topic | concept | title |
+|---|---|---|
+| advanced-complex-analysis | `aca-overview` | The graduate landscape |
 
 ## THIN-NEW — new-arc concepts with intra-topic-only prereqs (13)
 

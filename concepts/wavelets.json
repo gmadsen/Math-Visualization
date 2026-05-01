@@ -77,6 +77,29 @@
         "w-wavelet-vs-fourier"
       ],
       "blurb": "JPEG2000 replaces JPEG's blocked DCT with a Cohen–Daubechies–Feauveau biorthogonal DWT, giving smooth degradation instead of blocking artefacts. Donoho–Johnstone soft-thresholding $\\hat c=\\operatorname{sgn}(c)(|c|-\\lambda)_+$ is asymptotically minimax for denoising. Vanishing moments make $\\psi_{j,k}$ near-eigenvectors of Calderón–Zygmund operators, which compresses elliptic-PDE matrices to sparse form."
+    },
+    {
+      "id": "w-lifting-scheme",
+      "title": "The lifting scheme",
+      "anchor": "lifting-scheme",
+      "prereqs": [
+        "w-multiresolution",
+        "w-haar-wavelet"
+      ],
+      "blurb": "Sweldens' (1995) lifting scheme builds wavelets by alternating <em>predict</em> and <em>update</em> steps on a split signal — no Fourier-domain factorisation, no algebraic constraints. Every step is invertible, so perfect reconstruction is automatic; the construction works in-place, runs in integer arithmetic for lossless coding, and recovers Haar from one predict + one update on the lazy split."
+    },
+    {
+      "id": "w-biorthogonal",
+      "title": "Biorthogonal wavelets",
+      "anchor": "biorthogonal",
+      "prereqs": [
+        "w-multiresolution",
+        "w-daubechies"
+      ],
+      "tags": [
+        "duality"
+      ],
+      "blurb": "Drop orthogonality, keep perfect reconstruction by using two dual bases: analysis $\\{\\tilde\\psi_{j,k}\\}$ and synthesis $\\{\\psi_{j,k}\\}$ with $\\langle\\tilde\\psi_{j,k},\\psi_{j',k'}\\rangle=\\delta_{jj'}\\delta_{kk'}$. This buys symmetric (linear-phase) wavelets — Daubechies' theorem rules out symmetry for orthogonal compactly-supported wavelets except Haar — and gives the Cohen–Daubechies–Feauveau 9/7 pair used in JPEG2000."
     }
   ]
 }

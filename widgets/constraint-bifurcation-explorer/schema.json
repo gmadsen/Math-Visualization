@@ -11,7 +11,11 @@
   },
   "type": "object",
   "additionalProperties": false,
-  "required": ["widgetId", "title", "kind"],
+  "required": [
+    "widgetId",
+    "title",
+    "kind"
+  ],
   "properties": {
     "widgetId": {
       "type": "string",
@@ -33,7 +37,11 @@
     },
     "kind": {
       "type": "string",
-      "enum": ["circle-radius", "ellipse-eccentricity", "saddle-pitchfork"],
+      "enum": [
+        "circle-radius",
+        "ellipse-eccentricity",
+        "saddle-pitchfork"
+      ],
       "description": "Selects the constraint family. Each kind has its own slider range, default domain, and KaTeX formula documented in js/widget-constraint-bifurcation-explorer.js. New kinds are added in the library and listed here."
     },
     "params": {
@@ -56,21 +64,26 @@
           "type": "array",
           "minItems": 2,
           "maxItems": 2,
-          "items": { "type": "number" },
+          "items": {
+            "type": "number"
+          },
           "description": "[xMin, xMax] for the horizontal axis."
         },
         "yRange": {
           "type": "array",
           "minItems": 2,
           "maxItems": 2,
-          "items": { "type": "number" },
+          "items": {
+            "type": "number"
+          },
           "description": "[yMin, yMax] for the vertical axis."
         }
       }
     },
     "sectionComment": {
       "type": "string",
-      "description": "ARTIFACT. Optional banner comment preserved when migrating sources."
+      "description": "ARTIFACT. Optional banner comment preserved when migrating sources.",
+      "x-artifact": true
     }
   }
 }

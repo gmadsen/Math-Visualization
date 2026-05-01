@@ -161,18 +161,29 @@
     .section-jump a.sj-link{font-size:0.78rem;padding:0.25rem 0.55rem;
       flex-shrink:0;white-space:nowrap}
   }
-  .pathway-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;
-    background:linear-gradient(135deg,rgba(125,224,214,0.08),rgba(179,157,219,0.08));
-    border:1px solid color-mix(in srgb, var(--cyan) 38%, transparent);
-    border-radius:12px;padding:1.1rem 1.3rem;margin:0 0 2.4rem;text-decoration:none;color:inherit;
+  .start-here-rail{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 2.4rem}
+  @media (max-width:760px){.start-here-rail{grid-template-columns:1fr;gap:10px}}
+  .pathway-banner,.tours-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;
+    border-radius:12px;padding:1.1rem 1.3rem;margin:0;text-decoration:none;color:inherit;
     transition:transform 150ms ease, border-color 150ms ease}
+  .pathway-banner{
+    background:linear-gradient(135deg,rgba(125,224,214,0.08),rgba(179,157,219,0.08));
+    border:1px solid color-mix(in srgb, var(--cyan) 38%, transparent)}
+  .tours-banner{
+    background:linear-gradient(135deg,rgba(255,216,102,0.08),rgba(247,143,179,0.08));
+    border:1px solid color-mix(in srgb, var(--yellow) 38%, transparent)}
   .pathway-banner:hover{transform:translateY(-2px);border-color:var(--cyan)}
-  .pathway-banner .pb-body{flex:1;min-width:0}
-  .pathway-banner .pb-eyebrow{font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:4px}
-  .pathway-banner .pb-title{font-size:1.15rem;font-weight:600;color:#fff;margin:0 0 3px}
-  .pathway-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
-  .pathway-banner .pb-arrow{font-size:1.6rem;color:var(--cyan);flex-shrink:0}
-  @media (max-width:520px){.pathway-banner{flex-direction:column;align-items:flex-start}.pathway-banner .pb-arrow{align-self:flex-end}}
+  .tours-banner:hover{transform:translateY(-2px);border-color:var(--yellow)}
+  .pathway-banner .pb-body,.tours-banner .pb-body{flex:1;min-width:0}
+  .pathway-banner .pb-eyebrow,.tours-banner .pb-eyebrow{font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:4px}
+  .pathway-banner .pb-eyebrow{color:var(--cyan)}
+  .tours-banner .pb-eyebrow{color:var(--yellow)}
+  .pathway-banner .pb-title,.tours-banner .pb-title{font-size:1.15rem;font-weight:600;color:#fff;margin:0 0 3px}
+  .pathway-banner .pb-desc,.tours-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
+  .pathway-banner .pb-arrow,.tours-banner .pb-arrow{font-size:1.6rem;flex-shrink:0}
+  .pathway-banner .pb-arrow{color:var(--cyan)}
+  .tours-banner .pb-arrow{color:var(--yellow)}
+  @media (max-width:520px){.pathway-banner,.tours-banner{flex-direction:column;align-items:flex-start}.pathway-banner .pb-arrow,.tours-banner .pb-arrow{align-self:flex-end}}
 
   /* Featured rail: two-card row sitting between the pathway banner and the
      section-jump nav. Left card surfaces a date-seeded ready-to-master
@@ -451,9 +462,9 @@
     <h1>Interactive Mathematics Notebook</h1>
     <p class="sub">Graduate-level concepts, each a single-page interactive explainer with live widgets and worked examples.</p>
     <div class="hero-tagline" aria-label="Notebook scope">
-      <span><span class="tg-num">130</span> topics</span>
+      <span><span class="tg-num">131</span> topics</span>
       <span class="dot">&middot;</span>
-      <span><span class="tg-num">896</span> concepts</span>
+      <span><span class="tg-num">916</span> concepts</span>
       <span class="dot">&middot;</span>
       <span>pathway-graph explorer</span>
     </div>
@@ -472,14 +483,24 @@
     </div>
   </section>
 
-  <a class="pathway-banner" href="./pathway.html">
-    <div class="pb-body">
-      <div class="pb-eyebrow">Start here · Learning pathways</div>
-      <div class="pb-title">Pick a capstone, see the full prerequisite tree</div>
-      <p class="pb-desc">Choose any goal — Sato–Tate, BSD, modularity & FLT, Yoneda, solvability by radicals — and walk its dependency graph. Concepts light up locked → ready → mastered as you pass quizzes.</p>
-    </div>
-    <div class="pb-arrow">→</div>
-  </a>
+  <div class="start-here-rail">
+    <a class="pathway-banner" href="./pathway.html">
+      <div class="pb-body">
+        <div class="pb-eyebrow">Pathways · the graph view</div>
+        <div class="pb-title">Pick a capstone, see the full prerequisite tree</div>
+        <p class="pb-desc">Choose any goal — Sato–Tate, BSD, modularity & FLT, Yoneda, solvability by radicals — and walk its dependency graph. Concepts light up locked → ready → mastered as you pass quizzes.</p>
+      </div>
+      <div class="pb-arrow">→</div>
+    </a>
+    <a class="tours-banner" href="./tours.html">
+      <div class="pb-body">
+        <div class="pb-eyebrow">Tours · the narrative view</div>
+        <div class="pb-title">Hand-curated paths through the corpus</div>
+        <p class="pb-desc">A handful of 4–6-stop walks that connect topics in the order a real reader might encounter them, with bridging prose that explains why each next stop follows from the last.</p>
+      </div>
+      <div class="pb-arrow">→</div>
+    </a>
+  </div>
 
   <section class="featured-rail" id="featured-rail" aria-label="Featured concepts" hidden>
     <a class="featured-card fc-today" id="todays-card" href="#" hidden
@@ -1386,6 +1407,29 @@
         <div class="tt">Fixed point theorems</div>
         <div class="desc">Banach contraction, Brouwer fixed-point, Schauder for compact infinite-dim, Lefschetz via cohomology, Kakutani for set-valued maps; applications to ODEs, equilibria, IFT.</div>
         <span class="tag">Banach · Brouwer · Schauder · Lefschetz</span>
+      </div>
+    </a>
+
+
+    <a class="card p" href="./advanced-complex-analysis.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- essential singularity at origin: dense image punctured by one missing value -->
+        <circle cx="50" cy="40" r="26" fill="none" stroke="var(--pink)" stroke-width="1.2" stroke-dasharray="2 2"/>
+        <g fill="var(--pink)" opacity="0.85">
+          <circle cx="38" cy="28" r="1.2"/><circle cx="60" cy="22" r="1.2"/><circle cx="68" cy="36" r="1.2"/>
+          <circle cx="62" cy="54" r="1.2"/><circle cx="46" cy="58" r="1.2"/><circle cx="32" cy="50" r="1.2"/>
+          <circle cx="28" cy="36" r="1.2"/><circle cx="48" cy="46" r="1.2"/><circle cx="56" cy="32" r="1.2"/>
+          <circle cx="42" cy="38" r="1.2"/><circle cx="54" cy="44" r="1.2"/><circle cx="38" cy="48" r="1.2"/>
+        </g>
+        <circle cx="50" cy="40" r="2.4" fill="none" stroke="var(--yellow)" stroke-width="1.4"/>
+        <line x1="48.4" y1="38.4" x2="51.6" y2="41.6" stroke="var(--yellow)" stroke-width="1.2"/>
+        <line x1="51.6" y1="38.4" x2="48.4" y2="41.6" stroke="var(--yellow)" stroke-width="1.2"/>
+        <text x="50" y="74" text-anchor="middle" font-size="9" fill="var(--pink)" font-style="italic" font-family="serif">f hits every value but one</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Advanced complex analysis</div>
+        <div class="desc">Picard's theorems, Weierstrass factorization, Mittag-Leffler, Phragmén-Lindelöf, three-circles, and Hardy-space boundary behavior — the graduate sequel.</div>
+        <span class="tag">Picard · factorization · Phragmén-Lindelöf · Hardy</span>
       </div>
     </a>
 

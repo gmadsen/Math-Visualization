@@ -1,5 +1,27 @@
 {
   "topics": [
+
+
+
+
+
+    "advanced-complex-analysis",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     "mathematical-statistics",
     "numerical-analysis",
     "computational-number-theory",
@@ -175,6 +197,7 @@
     "probability-theory": "standard",
     "harmonic-analysis-fourier": "standard",
     "sobolev-spaces-distributions": "standard",
+    "advanced-complex-analysis": "advanced",
     "point-set-topology": "prereq",
     "algebraic-topology": "prereq",
     "smooth-manifolds": "standard",

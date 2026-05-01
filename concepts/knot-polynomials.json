@@ -85,6 +85,35 @@
         "group-action",
         "classification"
       ]
+    },
+    {
+      "id": "kp-vassiliev-invariants",
+      "title": "Vassiliev (finite-type) invariants",
+      "anchor": "vassiliev",
+      "prereqs": [
+        "kp-jones-polynomial",
+        "kp-homfly-polynomial"
+      ],
+      "blurb": "Extend a knot invariant $V$ to <em>singular knots</em> (immersions with finitely many transverse double points) by the skein $V(K_\\times) = V(K_+) - V(K_-)$. $V$ has <em>type $\\le n$</em> if it vanishes on knots with $\\ge n+1$ double points; the quotients $\\mathcal{V}_n / \\mathcal{V}_{n-1}$ are finite-dimensional and combinatorially controlled by chord diagrams modulo 4T relations. Coefficients of Conway, Jones, and HOMFLY (after suitable expansion in $h$) are Vassiliev. The Kontsevich integral is a universal type-finite invariant.",
+      "tags": [
+        "classification",
+        "finiteness"
+      ]
+    },
+    {
+      "id": "kp-khovanov-homology",
+      "title": "Khovanov homology",
+      "anchor": "khovanov",
+      "prereqs": [
+        "kp-jones-polynomial",
+        "chain-complexes"
+      ],
+      "blurb": "A categorification of the Jones polynomial: to each diagram $D$ of a link $L$ assign a bigraded chain complex $C^{i,j}(D)$ whose homotopy type is a link invariant. The graded Euler characteristic recovers Jones: $\\sum_{i,j} (-1)^i q^j \\dim H^{i,j}(L) = (q + q^{-1}) V_L(q^2)$. Distinguishes pairs Jones cannot, and detects the unknot (Kronheimer–Mrowka). The first link-homology theory; opens the door to Heegaard–Floer, knot Floer homology, and categorification across geometric topology.",
+      "tags": [
+        "cohomology",
+        "classification",
+        "functoriality"
+      ]
     }
   ]
 }

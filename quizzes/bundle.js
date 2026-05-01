@@ -1478,6 +1478,342 @@ window.MVQuizBank = {
       }
     }
   },
+  "advanced-complex-analysis": {
+    "topic": "advanced-complex-analysis",
+    "quizzes": {
+      "aca-overview": {
+        "title": "The graduate landscape",
+        "questions": [
+          {
+            "type": "matching",
+            "q": "Match each graduate-CA result to the question it answers.",
+            "left": [
+              "Picard's theorems",
+              "Weierstrass factorization",
+              "Phragmén-Lindelöf",
+              "Hardy spaces"
+            ],
+            "right": [
+              "How many values can a non-constant entire / essential-singularity map omit?",
+              "Can I build an entire function with prescribed zeros?",
+              "Does maximum modulus survive on an unbounded sector?",
+              "Does a holomorphic function on the disk have boundary values?"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "These are the four threads of the topic: value distribution, construction, growth control, and boundary behavior."
+          },
+          {
+            "type": "mcq",
+            "q": "Which classical result is little Picard a sharpening of?",
+            "choices": [
+              "Cauchy's integral theorem",
+              "Liouville's theorem",
+              "The residue theorem",
+              "Schwarz reflection"
+            ],
+            "answer": 1,
+            "explain": "Liouville says a bounded entire function is constant — i.e. a non-constant entire function must be unbounded. Little Picard pushes this much further: a non-constant entire function omits at most one value from $\\mathbb{C}$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which pairing correctly describes the Weierstrass / Mittag-Leffler duality?",
+            "choices": [
+              "Weierstrass prescribes poles; Mittag-Leffler prescribes zeros",
+              "Weierstrass prescribes zeros; Mittag-Leffler prescribes principal parts at poles",
+              "Both prescribe zeros — they differ only in growth rate",
+              "Mittag-Leffler is a special case of Weierstrass"
+            ],
+            "answer": 1,
+            "explain": "Weierstrass realizes any prescribed zero set as an entire function via convergent products of elementary factors. Mittag-Leffler is the dual: prescribe a discrete set of poles and principal parts, get a meromorphic function realizing them via a convergent series of partial fractions."
+          }
+        ]
+      },
+      "aca-picard-little": {
+        "title": "Little Picard theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which entire function $f:\\mathbb{C}\\to\\mathbb{C}$ shows that little Picard's bound 'at most one omitted value' is sharp?",
+            "choices": [
+              "$f(z) = z^2$",
+              "$f(z) = e^z$",
+              "$f(z) = \\sin z$",
+              "$f(z) = z + 1$"
+            ],
+            "answer": 1,
+            "explain": "$e^z$ is non-constant entire and never equals $0$ — so it omits exactly one value, showing little Picard's bound cannot be improved. Polynomials $z^2$ and $z+1$ are surjective onto $\\mathbb{C}$ (omit nothing), and $\\sin z$ is also surjective."
+          },
+          {
+            "type": "mcq",
+            "q": "True or false: a non-constant entire function $f$ omitting two distinct values $a\\ne b$ can exist if its growth is sub-polynomial.",
+            "choices": [
+              "True — growth controls value distribution",
+              "False — little Picard is unconditional"
+            ],
+            "answer": 1,
+            "explain": "Little Picard makes no growth hypothesis. Any non-constant entire function — bounded, polynomial-growth, or transcendental — omits at most one value of $\\mathbb{C}$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select the entire functions that omit a value in $\\mathbb{C}$.",
+            "choices": [
+              "$f(z) = e^z$",
+              "$f(z) = z^3 + 7$",
+              "$f(z) = \\cos z$",
+              "$f(z) = e^{e^z}$",
+              "$f(z) = \\sin z + e^z$"
+            ],
+            "answer": [
+              0,
+              3
+            ],
+            "explain": "$e^z$ omits $0$. $e^{e^z}$ also omits $0$ (the outer exponential avoids $0$). The polynomial $z^3+7$ is surjective by FTA. $\\cos z$ is surjective on $\\mathbb{C}$. $\\sin z + e^z$ is non-constant entire and by little Picard omits at most one value, but in fact it is surjective — a direct asymptotic argument shows it takes every value."
+          }
+        ]
+      },
+      "aca-picard-great": {
+        "title": "Great Picard theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Near the essential singularity at $z=0$ of $f(z) = e^{1/z}$, which set of values does $f$ take infinitely often in every punctured neighborhood?",
+            "choices": [
+              "$\\mathbb{C}$",
+              "$\\mathbb{C}\\setminus\\{0\\}$",
+              "$\\{|w|=1\\}$",
+              "$\\mathbb{R}$ only"
+            ],
+            "answer": 1,
+            "explain": "$e^{1/z}$ never equals $0$, so $0$ is the one allowed exceptional value. By great Picard, every other complex value is attained infinitely often in any punctured neighborhood of $0$."
+          },
+          {
+            "type": "mcq",
+            "q": "Great Picard sharpens which classical theorem?",
+            "choices": [
+              "Casorati-Weierstrass",
+              "Liouville",
+              "The residue theorem",
+              "The argument principle"
+            ],
+            "answer": 0,
+            "explain": "Casorati-Weierstrass says the image of any punctured neighborhood of an essential singularity is dense in $\\mathbb{C}$. Great Picard sharpens 'dense' to 'every value, infinitely often, with at most one exception'."
+          },
+          {
+            "type": "mcq",
+            "q": "Suppose $f$ has an essential singularity at $z_0$ and omits two distinct values $a\\ne b$ in some punctured neighborhood of $z_0$. What does great Picard force?",
+            "choices": [
+              "$f$ has a pole at $z_0$",
+              "This situation is impossible — great Picard forbids it",
+              "$f$ is bounded near $z_0$",
+              "$f$ is constant"
+            ],
+            "answer": 1,
+            "explain": "Great Picard says at most one value can be omitted near an essential singularity. Omitting two contradicts the hypothesis that the singularity is essential — so either the assumption was wrong (it's actually a pole or removable) or such an $f$ does not exist."
+          }
+        ]
+      },
+      "aca-weierstrass-factorization": {
+        "title": "Weierstrass factorization",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the role of the elementary factor $E_p(z) = (1-z)\\exp(z + z^2/2 + \\cdots + z^p/p)$ in Weierstrass's product?",
+            "choices": [
+              "It produces a removable singularity at $z=1$",
+              "It vanishes at $z=1$ and the exponential correction makes the infinite product converge",
+              "It is the residue of $f$ at $z=1$",
+              "It encodes the principal part of $f$"
+            ],
+            "answer": 1,
+            "explain": "$E_p$ has a simple zero at $z=1$ (from the $(1-z)$ factor) and the exponential $\\exp(\\sum_{k=1}^p z^k/k)$ is precisely the truncated Taylor series of $-\\log(1-z)$ — chosen so that $\\log E_p(z) = O(z^{p+1})$ near $0$, which is the rate of decay needed for the product $\\prod E_{p_n}(z/a_n)$ to converge."
+          },
+          {
+            "type": "mcq",
+            "q": "Which famous identity is a Weierstrass-style infinite product expressing $\\sin(\\pi z)$?",
+            "choices": [
+              "$\\sin(\\pi z) = \\pi z \\prod_{n=1}^\\infty (1 - z/n)$",
+              "$\\sin(\\pi z) = \\pi z \\prod_{n=1}^\\infty (1 - z^2/n^2)$",
+              "$\\sin(\\pi z) = \\prod_{n=1}^\\infty (z - n)$",
+              "$\\sin(\\pi z) = \\pi z \\sum_{n=1}^\\infty (-1)^n z^{2n}/(2n+1)!$"
+            ],
+            "answer": 1,
+            "explain": "The zeros of $\\sin(\\pi z)$ are exactly $\\mathbb{Z}$. Pairing $\\pm n$ gives the convergent product $\\sin(\\pi z) = \\pi z \\prod_{n\\ge 1}(1 - z^2/n^2)$. The first option is divergent without the exponential correction; the third has factors that don't go to $1$."
+          },
+          {
+            "type": "numeric",
+            "q": "Plugging $z = 1/2$ into $\\sin(\\pi z) = \\pi z \\prod_{n=1}^\\infty(1 - z^2/n^2)$ and rearranging gives $\\prod_{n=1}^\\infty (1 - 1/(4n^2)) = 2/\\pi$. Numerically, what is $2/\\pi$ to three decimals?",
+            "answer": 0.637,
+            "tol": 0.005,
+            "explain": "$\\sin(\\pi/2) = 1$, so $1 = (\\pi/2) \\prod_{n\\ge 1}(1 - 1/(4n^2))$, giving the Wallis-type product $\\prod_{n\\ge 1}(1-1/(4n^2)) = 2/\\pi \\approx 0.6366$."
+          }
+        ]
+      },
+      "aca-mittag-leffler": {
+        "title": "Mittag-Leffler theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Mittag-Leffler's theorem prescribes which data to realize as a meromorphic function?",
+            "choices": [
+              "A discrete set of zeros, with multiplicities",
+              "A discrete pole set together with each principal part",
+              "A continuous boundary value",
+              "A residue at infinity"
+            ],
+            "answer": 1,
+            "explain": "Mittag-Leffler is dual to Weierstrass: prescribe a discrete pole set $\\{a_n\\}$ together with the principal part $P_n(1/(z-a_n))$ at each, and there is a meromorphic function realizing them, given by a convergent series of partial fractions plus an entire correction."
+          },
+          {
+            "type": "mcq",
+            "q": "The classical partial-fraction expansion $\\pi\\cot\\pi z = \\frac{1}{z} + \\sum_{n\\ne 0}\\bigl(\\frac{1}{z-n}+\\frac{1}{n}\\bigr)$ realizes which prescribed data?",
+            "choices": [
+              "Simple poles at $\\mathbb{Z}$, each with residue $1$",
+              "Double poles at $\\mathbb{Z}$",
+              "Zeros at $\\mathbb{Z}$ with the cotangent factor",
+              "An essential singularity at infinity"
+            ],
+            "answer": 0,
+            "explain": "$\\pi\\cot\\pi z$ has simple poles at every integer with residue $1$. The series gives those principal parts; the constant terms $1/n$ are subtracted in pairs $\\pm n$ to make the series converge."
+          },
+          {
+            "type": "mcq",
+            "q": "Why are the convergence-correction constants (the '$+1/n$' terms in the cotangent expansion) needed?",
+            "choices": [
+              "To make each partial sum holomorphic",
+              "To make the series of principal parts converge — without them, $\\sum 1/(z-n)$ diverges",
+              "To kill the residue at $z=0$",
+              "To force the function to vanish at infinity"
+            ],
+            "answer": 1,
+            "explain": "Each principal part $1/(z-n)$ alone gives a series $\\sum 1/(z-n)$ that diverges (it behaves like the harmonic series for $z$ fixed). Subtracting $1/n$ produces $1/(z-n) + 1/n = z/(n(z-n))$, which decays like $1/n^2$ — convergent. The corrections are entire, so they don't change the principal parts."
+          }
+        ]
+      },
+      "aca-phragmen-lindelof": {
+        "title": "Phragmén-Lindelöf principle",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On the right half-plane $\\{\\operatorname{Re} z > 0\\}$, suppose $f$ is holomorphic, bounded by $M$ on the imaginary axis, and satisfies $|f(z)|\\le e^{|z|^\\beta}$ for some $\\beta < 1$. What does Phragmén-Lindelöf conclude?",
+            "choices": [
+              "$|f|\\le M$ throughout the half-plane",
+              "$f$ is identically zero",
+              "$f$ has a pole at infinity",
+              "Nothing — the half-plane is unbounded so max modulus fails"
+            ],
+            "answer": 0,
+            "explain": "The right half-plane is the sector of opening $\\pi$, i.e. $\\alpha = 1$. The hypothesis $\\beta < 1 = \\alpha$ is exactly what Phragmén-Lindelöf needs to extend max-modulus across the unbounded boundary at infinity, giving $|f|\\le M$ throughout."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the example $f(z) = e^z$ on the right half-plane not contradict Phragmén-Lindelöf?",
+            "choices": [
+              "$|e^z|$ is bounded by $1$ on the imaginary axis but grows like $e^{\\operatorname{Re} z}$ — its growth rate $\\beta = 1$ matches $\\alpha$ exactly, so the strict inequality $\\beta<\\alpha$ fails",
+              "$e^z$ is not entire",
+              "$e^z$ has a pole at infinity, which is excluded",
+              "Phragmén-Lindelöf does not apply to entire functions"
+            ],
+            "answer": 0,
+            "explain": "$|e^z| = e^{\\operatorname{Re} z}$ grows exactly like $e^{|z|^1}$ in the right half-plane — it sits at the critical exponent $\\beta = \\alpha = 1$. Phragmén-Lindelöf needs strict $\\beta < \\alpha$; the boundary case is exactly where the principle is sharp and $e^z$ is the standard witness."
+          },
+          {
+            "type": "mcq",
+            "q": "Conceptually, what is the 'extra' the growth condition buys you over plain max-modulus?",
+            "choices": [
+              "It controls $f$ on the missing arc at infinity, closing the unbounded boundary",
+              "It guarantees $f$ has no zeros",
+              "It forces $f$ to be a polynomial",
+              "It replaces holomorphy with harmonicity"
+            ],
+            "answer": 0,
+            "explain": "On a bounded domain, max-modulus uses the closed boundary. On an unbounded sector, the boundary is missing the 'arc at infinity'. The growth condition $|f|\\le e^{|z|^\\beta}$ with $\\beta<\\alpha$ forces $f$ to behave well enough out there that the missing arc doesn't ruin the conclusion."
+          }
+        ]
+      },
+      "aca-hadamard-three-circles": {
+        "title": "Hadamard's three-circles theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Hadamard's three-circles theorem says that $\\log M(r)$ is what kind of function of $\\log r$?",
+            "choices": [
+              "Linear",
+              "Convex",
+              "Concave",
+              "Periodic"
+            ],
+            "answer": 1,
+            "explain": "$\\log M(r)$ is a convex function of $\\log r$ on the annulus where $f$ is holomorphic. Convexity yields the standard interpolation inequality $M(r_2)^{\\log(r_3/r_1)} \\le M(r_1)^{\\log(r_3/r_2)} M(r_3)^{\\log(r_2/r_1)}$ for $r_1<r_2<r_3$."
+          },
+          {
+            "type": "numeric",
+            "q": "Suppose $f$ is holomorphic on $1\\le|z|\\le 4$, with $M(1) = 1$ and $M(4) = 16$. What is the best (smallest) upper bound on $M(2)$ that Hadamard's three-circles gives?",
+            "answer": 4,
+            "tol": 0.01,
+            "explain": "Convexity of $\\log M$ in $\\log r$ gives $\\log M(2) \\le \\frac{\\log 4 - \\log 2}{\\log 4 - \\log 1}\\log M(1) + \\frac{\\log 2 - \\log 1}{\\log 4 - \\log 1}\\log M(4) = \\tfrac12\\cdot 0 + \\tfrac12\\cdot \\log 16 = \\log 4$. So $M(2)\\le 4$, achieved by $f(z) = z^2$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which family of functions saturates the three-circles inequality (i.e., for which is $\\log M(r)$ exactly linear in $\\log r$)?",
+            "choices": [
+              "Polynomials",
+              "Bounded entire functions",
+              "Power functions $f(z) = z^n$",
+              "Exponential functions $e^z$"
+            ],
+            "answer": 2,
+            "explain": "For $f(z) = z^n$, $M(r) = r^n$, so $\\log M(r) = n\\log r$ — exactly linear in $\\log r$. The three-circles inequality becomes equality, showing the bound is sharp on this family."
+          }
+        ]
+      },
+      "aca-hardy-spaces": {
+        "title": "Hardy spaces and Fatou boundary",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Hardy space $H^p(\\mathbb{D})$ consists of holomorphic functions $f$ on the unit disk such that what quantity is bounded?",
+            "choices": [
+              "$\\sup_{r<1} \\int_0^{2\\pi}|f(re^{i\\theta})|^p\\,d\\theta$",
+              "$\\sup_{z\\in\\mathbb{D}}|f(z)|^p$",
+              "$\\int_{\\mathbb{D}}|f(z)|^p\\,dA$",
+              "$\\sum_{n=0}^\\infty|a_n|^p$ where $f = \\sum a_n z^n$"
+            ],
+            "answer": 0,
+            "explain": "$H^p(\\mathbb{D})$ is defined by $\\|f\\|_{H^p}^p = \\sup_{0<r<1}\\frac{1}{2\\pi}\\int_0^{2\\pi}|f(re^{i\\theta})|^p d\\theta < \\infty$. Bounded sup ($H^\\infty$) is the second option but a different space; area integrals define the Bergman space $A^p$, not Hardy."
+          },
+          {
+            "type": "mcq",
+            "q": "Fatou's boundary theorem says: every $H^p$ function admits which kind of boundary values almost everywhere on $\\partial\\mathbb{D}$?",
+            "choices": [
+              "Continuous boundary values everywhere",
+              "Non-tangential limits a.e.",
+              "Radial limits everywhere",
+              "Smooth boundary values a.e."
+            ],
+            "answer": 1,
+            "explain": "Fatou's theorem: if $f\\in H^p(\\mathbb{D})$ then for almost every $\\theta\\in[0,2\\pi)$, $\\lim_{z\\to e^{i\\theta}}f(z)$ exists when $z\\to e^{i\\theta}$ non-tangentially (within a Stolz cone). Continuous boundary values fail in general; radial limits also exist a.e. but the stronger non-tangential statement is the standard one."
+          },
+          {
+            "type": "mcq",
+            "q": "A finite Blaschke product $B(z) = \\prod_{k=1}^n \\frac{z - a_k}{1 - \\overline{a_k}z}$ with $|a_k|<1$ is an example of which kind of $H^\\infty$ function?",
+            "choices": [
+              "An outer function",
+              "An inner function (modulus $1$ a.e. on $\\partial\\mathbb{D}$)",
+              "A singular inner function",
+              "Neither inner nor outer"
+            ],
+            "answer": 1,
+            "explain": "Each factor $(z-a_k)/(1-\\overline{a_k}z)$ is a disk automorphism with modulus $1$ on $|z|=1$, so $|B(e^{i\\theta})|=1$ for all $\\theta$ — Blaschke products are inner functions. They are the 'zero-encoding' part of the inner-outer factorization $f = B\\cdot S\\cdot O$, while $S$ is the singular inner factor (no zeros, modulus 1 on the boundary) and $O$ is outer (no zero set, log-modulus is the Poisson integral of its boundary log-modulus)."
+          }
+        ]
+      }
+    }
+  },
   "algebra": {
     "topic": "algebra",
     "quizzes": {
@@ -9969,6 +10305,384 @@ window.MVQuizBank = {
             "explain": "The standard playbook proceeds exactly in this order: (1) locate poles of the integrand and decide which are enclosed; (2) close the real axis with a large semicircle so the integral becomes a loop; (3) use Jordan's lemma or a $1/R^k$ decay estimate to kill the arc contribution as $R\\to\\infty$; (4) apply the residue theorem to the closed contour; (5) since the arc vanished, the loop integral equals the real-line integral, giving the answer."
           }
         ]
+      },
+      "riemann-sphere": {
+        "title": "Riemann sphere",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Riemann sphere.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "holomorphic-function": {
+        "title": "Holomorphic functions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Holomorphic functions.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "domain-coloring": {
+        "title": "Domain coloring",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Domain coloring.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "contour-integral": {
+        "title": "Contour integrals",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Contour integrals.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "cauchy-theorem": {
+        "title": "Cauchy's theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Cauchy's theorem.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "cauchy-integral-formula": {
+        "title": "Cauchy integral formula",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Cauchy integral formula.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "analyticity": {
+        "title": "Analyticity = holomorphy",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Analyticity = holomorphy.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "liouville": {
+        "title": "Liouville's theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Liouville's theorem.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "fta": {
+        "title": "Fundamental theorem of algebra",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Fundamental theorem of algebra.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "maximum-modulus": {
+        "title": "Maximum modulus principle",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Maximum modulus principle.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "schwarz-lemma": {
+        "title": "Schwarz lemma",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Schwarz lemma.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "laurent-series": {
+        "title": "Laurent series",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Laurent series.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "singularity-classification": {
+        "title": "Classification of singularities",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Classification of singularities.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "argument-principle": {
+        "title": "Argument principle",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Argument principle.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "rouche": {
+        "title": "Rouché's theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Rouché's theorem.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "conformal-map": {
+        "title": "Conformal maps",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Conformal maps.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "disk-automorphisms": {
+        "title": "Disk automorphisms",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Disk automorphisms.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "normal-families": {
+        "title": "Normal families (Montel)",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Normal families (Montel).",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "riemann-mapping": {
+        "title": "Riemann mapping theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Riemann mapping theorem.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "harmonic-functions": {
+        "title": "Harmonic functions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Harmonic functions.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "analytic-continuation": {
+        "title": "Analytic continuation",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem for Analytic continuation.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
       }
     }
   },
@@ -16420,6 +17134,99 @@ window.MVQuizBank = {
           }
         ]
       },
+      "fpt-caristi": {
+        "title": "Caristi's fixed-point theorem",
+        "questions": [
+          {
+            "type": "multi-select",
+            "q": "Caristi's theorem $d(x,Tx)\\le\\varphi(x)-\\varphi(Tx)$ requires which of the following on the metric space $X$ and the weight $\\varphi$? (Select all that apply.)",
+            "choices": [
+              "$X$ complete",
+              "$\\varphi$ lower-semicontinuous",
+              "$\\varphi\\ge 0$ (or at least bounded below)",
+              "$T$ continuous",
+              "$T$ Lipschitz"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Caristi assumes only completeness of $X$, lower-semicontinuity of $\\varphi$, and a non-negative (equivalently bounded-below) $\\varphi$. The map $T$ need not be continuous and certainly not Lipschitz — that is the whole leverage over Banach. The proof never evaluates $T$ at the limit point; it constructs a Cauchy orbit from the inequality and uses lower-semicontinuity to conclude the displacement vanishes."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $T\\colon[0,2]\\to[0,2]$ be a contraction with Lipschitz constant $L=1/3$. To recover Banach via Caristi using $\\varphi(x)=c\\cdot d(x,Tx)$, what is the smallest constant $c$ that makes Caristi's hypothesis hold?",
+            "answer": 1.5,
+            "tol": 0.01,
+            "explain": "With $\\varphi(x)=c\\cdot d(x,Tx)$, $\\varphi(x)-\\varphi(Tx)=c[d(x,Tx)-d(Tx,T^2x)]\\ge c(1-L)d(x,Tx)$. We need this to dominate $d(x,Tx)$, i.e. $c(1-L)\\ge 1$, so $c\\ge 1/(1-L)$. With $L=1/3$ that gives $c=3/2=1.5$. This is the standard recipe: $\\varphi=d(x,Tx)/(1-L)$ recovers Banach as a Caristi corollary."
+          },
+          {
+            "type": "mcq",
+            "q": "On $X=[0,1]$ define $T(x)=x-x^2/2$ for $x\\in(0,1]$, $T(0)=0$. Why does Caristi (with $\\varphi(x)=2x$) succeed while Banach fails?",
+            "choices": [
+              "$X$ is not complete, so Banach's hypotheses do not hold",
+              "$T$ has no global Lipschitz constant $L<1$ (since $T'(0)=1$), but $\\varphi(x)-\\varphi(Tx)=x^2\\ge d(x,Tx)$ holds and Caristi has no Lipschitz requirement",
+              "$T$ is not continuous, so only Caristi applies",
+              "Banach's theorem applies — Caristi is unnecessary here"
+            ],
+            "answer": 1,
+            "explain": "$T$ is smooth and continuous, but $T'(x)=1-x$ approaches $1$ as $x\\to 0$, so no uniform $L<1$ exists — Banach's contraction hypothesis fails. With $\\varphi(x)=2x$ one computes $\\varphi(x)-\\varphi(Tx)=2x-2(x-x^2/2)=x^2$, while $d(x,Tx)=x^2/2\\le x^2$. Caristi applies and produces the fixed point $0$. This kind of weight-function gymnastics is exactly why Caristi outranks Banach in non-smooth optimization."
+          }
+        ]
+      },
+      "fpt-kkm": {
+        "title": "Knaster–Kuratowski–Mazurkiewicz lemma",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On the standard simplex $\\Delta_n=\\mathrm{conv}\\{v_0,\\ldots,v_n\\}$, the KKM covering condition for closed sets $C_0,\\ldots,C_n$ asserts that for every $S\\subseteq\\{0,\\ldots,n\\}$:",
+            "choices": [
+              "$\\bigcap_{i\\in S}C_i\\ne\\emptyset$",
+              "$\\mathrm{conv}\\{v_i:i\\in S\\}\\subseteq\\bigcup_{i\\in S}C_i$",
+              "$C_i\\cap C_j=\\emptyset$ whenever $i\\ne j$",
+              "each $C_i$ is convex"
+            ],
+            "answer": 1,
+            "explain": "The defining hypothesis of KKM: every face spanned by $\\{v_i:i\\in S\\}$ is covered by the same-indexed $C_i$. Specialising $S=\\{i\\}$ gives $v_i\\in C_i$; specialising to the full index set says the $C_i$ cover $\\Delta_n$. The conclusion — $\\bigcap_i C_i\\ne\\emptyset$ — is what makes KKM substantive."
+          },
+          {
+            "type": "matching",
+            "q": "Match each statement on the left to its discrete or topological cousin on the right.",
+            "left": [
+              "KKM lemma (closed-cover form)",
+              "Brouwer fixed-point theorem",
+              "Sperner's lemma",
+              "Fan-KKM with closed-graph $G$"
+            ],
+            "right": [
+              "Continuous self-map of $\\Delta_n$ has a fixed point",
+              "Fully-labelled small simplex in any proper labelling exists",
+              "Closed sets covering each face share a common point",
+              "Set-valued generalisation underlying von Neumann minimax"
+            ],
+            "answer": [
+              2,
+              0,
+              1,
+              3
+            ],
+            "explain": "KKM is the closed-cover / common-point statement (right index 2); Brouwer is the continuous self-map fixed-point statement (right index 0); Sperner is the discrete combinatorial sibling counting fully labelled simplices (right index 1); Fan-KKM is the set-valued / closed-graph extension that gives the minimax theorem (right index 3). The four are mutually equivalent up to short reductions."
+          },
+          {
+            "type": "mcq",
+            "q": "In the KKM-based proof of Brouwer for continuous $f\\colon\\Delta_n\\to\\Delta_n$, the sets $C_i=\\{x:f(x)_i\\le x_i\\}$ satisfy the KKM covering condition because:",
+            "choices": [
+              "$f$ is uniformly continuous",
+              "for $x\\in\\Delta_S$, the barycentric coordinates of $f(x)$ sum to 1, so at least one $i\\in S$ must have $f(x)_i\\le x_i$ — otherwise the sum would exceed 1",
+              "each $C_i$ is convex by linearity of $f$",
+              "$\\Delta_n$ is contractible"
+            ],
+            "answer": 1,
+            "explain": "If every $i\\in S$ satisfied $f(x)_i>x_i$ at some $x\\in\\Delta_S$, then $\\sum_{i\\in S}f(x)_i>\\sum_{i\\in S}x_i=1$, but $\\sum_i f(x)_i=1$ and $f(x)_j\\ge 0$ for $j\\notin S$, contradiction. So $x\\in C_i$ for some $i\\in S$. KKM then gives a point $x_*\\in\\bigcap_i C_i$ where $f(x_*)_i\\le x_{*,i}$ for every $i$, and equality of sums forces $f(x_*)=x_*$."
+          }
+        ]
+      },
       "fpt-applications": {
         "title": "Applications: ODEs, IVT, Nash, Markov chains",
         "questions": [
@@ -19396,6 +20203,60 @@ window.MVQuizBank = {
             "answer": 2,
             "hint": "Avoid bad $c$, then recover $\\alpha,\\beta$ from $\\theta$ via gcd.",
             "explain": "The proof: identify bad $c$ values (finitely many), choose a good $c$, set $\\theta=\\alpha+c\\beta$, recover $\\beta$ as a root of $\\gcd(m_\\alpha(\\theta-cx),m_\\beta(x))$ over $K(\\theta)$ (which must be linear since $c$ is good), then get $\\alpha=\\theta-c\\beta\\in K(\\theta)$. This shows $K(\\alpha,\\beta)\\subseteq K(\\theta)$, so $K(\\theta)=L$."
+          }
+        ]
+      },
+      "splitting-fields": {
+        "title": "Splitting fields",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem about splitting fields.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "solvable-groups": {
+        "title": "Solvable groups",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem about solvable groups.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
+          }
+        ]
+      },
+      "radical-extensions": {
+        "title": "Radical extensions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "TODO: question stem about radical extensions.",
+            "choices": [
+              "option A",
+              "option B",
+              "option C",
+              "option D"
+            ],
+            "answer": 0,
+            "explain": "TODO: 1–2 sentence explanation.",
+            "hint": "TODO: nudge that does not give away the answer."
           }
         ]
       }
@@ -25085,6 +25946,95 @@ window.MVQuizBank = {
             "explain": "Increasing $D$ expands the feasible set $\\{p_{\\hat X\\mid X}: \\mathbb{E}[d]\\le D\\}$, so $\\min I(X;\\hat X)$ over a larger set is no larger. Hence $R$ is non-increasing in $D$."
           }
         ]
+      },
+      "it-aep": {
+        "title": "Asymptotic equipartition property",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The AEP for i.i.d.\\ $X_1,\\ldots,X_n\\sim p$ states that as $n\\to\\infty$, $-\\tfrac{1}{n}\\log p(X_1,\\ldots,X_n)$ converges in probability to:",
+            "choices": [
+              "$0$",
+              "$\\log n$",
+              "$H(X)$",
+              "the variance of $X$"
+            ],
+            "answer": 2,
+            "hint": "Apply the law of large numbers to the i.i.d.\\ random variables $Y_i = -\\log p(X_i)$ and note $\\mathbb{E}[Y_i] = H(X)$.",
+            "explain": "Since the $X_i$ are i.i.d., so are $Y_i = -\\log p(X_i)$, and $\\mathbb{E}[Y_i] = -\\sum_x p(x)\\log p(x) = H(X)$. The weak law of large numbers gives $-\\tfrac{1}{n}\\log p(X_1,\\ldots,X_n) = \\tfrac{1}{n}\\sum Y_i \\to H(X)$ in probability — the AEP is just LLN in the entropy regime."
+          },
+          {
+            "type": "numeric",
+            "q": "For i.i.d.\\ Bernoulli($1/4$) bits, the AEP says the typical set $A_\\varepsilon^{(n)}$ has size $\\approx 2^{nH}$. Compute $H$ in bits per symbol (round to 3 decimals).",
+            "answer": 0.811,
+            "tol": 0.005,
+            "hint": "$H = h(1/4) = -\\tfrac{1}{4}\\log_2\\tfrac{1}{4} - \\tfrac{3}{4}\\log_2\\tfrac{3}{4}$.",
+            "explain": "$h(1/4) = 0.5 + 0.75\\log_2(4/3) \\approx 0.8113$ bits. So among the $2^n$ binary strings of length $n$, only $\\approx 2^{0.811\\,n}$ are typical and they carry essentially all the probability — a vanishing fraction of the cube but the whole mass."
+          },
+          {
+            "type": "matching",
+            "q": "Match each property of the typical set $A_\\varepsilon^{(n)}$ for an i.i.d.\\ source with entropy $H$ to its precise statement.",
+            "left": [
+              "$\\Pr(A_\\varepsilon^{(n)})\\to 1$",
+              "$|A_\\varepsilon^{(n)}|\\le 2^{n(H+\\varepsilon)}$",
+              "$|A_\\varepsilon^{(n)}|\\ge (1-\\varepsilon)2^{n(H-\\varepsilon)}$",
+              "$2^{-n(H+\\varepsilon)}\\le p(x^n)\\le 2^{-n(H-\\varepsilon)}$"
+            ],
+            "right": [
+              "high probability",
+              "size upper bound",
+              "size lower bound",
+              "per-sequence probability bound"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "The AEP package: typical sequences are nearly equiprobable, fill an exponentially small fraction of the cube, and capture all the mass.",
+            "explain": "These four statements are the standard AEP package. Together they say: the typical set has $\\approx 2^{nH}$ sequences, each with probability $\\approx 2^{-nH}$, and this set captures essentially all the probability — which is why $nH$ bits suffice to index a typical sequence in source coding."
+          }
+        ]
+      },
+      "it-fisher-and-cramer-rao": {
+        "title": "Fisher information and Cramér–Rao",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "For $X\\sim\\mathcal{N}(\\theta,\\sigma^2)$ with $\\sigma^2$ known, the Fisher information about $\\theta$ from a single sample is $I(\\theta) = 1/\\sigma^2$. The sample mean $\\bar X_n$ of $n$ i.i.d.\\ samples is unbiased for $\\theta$. What is the Cramér–Rao lower bound on $\\mathrm{Var}(\\bar X_n)$ when $n=10$ and $\\sigma^2=4$ (round to 3 decimals)?",
+            "answer": 0.4,
+            "tol": 0.005,
+            "hint": "Fisher information from $n$ i.i.d.\\ samples is $n\\cdot I(\\theta)$, so the CR bound is $\\sigma^2/n$.",
+            "explain": "Fisher additivity gives $I_n(\\theta) = n/\\sigma^2$, so the CR bound is $1/I_n(\\theta) = \\sigma^2/n = 4/10 = 0.4$. The sample mean attains it exactly: $\\mathrm{Var}(\\bar X_n) = \\sigma^2/n$, so $\\bar X_n$ is the minimum-variance unbiased estimator of $\\theta$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Cramér–Rao bound for an unbiased estimator $\\hat\\theta$ of a scalar $\\theta$ from a single sample states:",
+            "choices": [
+              "$\\mathrm{Var}(\\hat\\theta) \\ge I(\\theta)$",
+              "$\\mathrm{Var}(\\hat\\theta) \\ge 1/I(\\theta)$",
+              "$\\mathrm{Var}(\\hat\\theta) = I(\\theta)$",
+              "$\\mathbb{E}[\\hat\\theta] \\ge 1/I(\\theta)$"
+            ],
+            "answer": 1,
+            "hint": "More information at $\\theta$ means tighter possible estimates, so variance is bounded below by the *reciprocal* of Fisher information.",
+            "explain": "The Cramér–Rao inequality reads $\\mathrm{Var}_\\theta(\\hat\\theta) \\ge 1/I(\\theta)$ for any unbiased estimator. The proof is a Cauchy–Schwarz on the score $\\partial_\\theta\\log p_\\theta(X)$ together with the identity $\\mathbb{E}_\\theta[\\partial_\\theta\\log p_\\theta] = 0$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which equivalent expression for Fisher information is FALSE in general?",
+            "choices": [
+              "$I(\\theta) = \\mathbb{E}_\\theta\\big[(\\partial_\\theta\\log p_\\theta(X))^2\\big]$",
+              "$I(\\theta) = -\\mathbb{E}_\\theta\\big[\\partial_\\theta^2\\log p_\\theta(X)\\big]$",
+              "$I(\\theta) = \\lim_{\\delta\\to 0} \\frac{2}{\\delta^2}\\,D(p_\\theta\\,\\|\\,p_{\\theta+\\delta})$",
+              "$I(\\theta) = \\mathbb{E}_\\theta\\big[\\partial_\\theta\\log p_\\theta(X)\\big]$"
+            ],
+            "answer": 3,
+            "hint": "The score has expectation zero under $p_\\theta$, so its mean cannot equal a positive quantity.",
+            "explain": "The score $\\partial_\\theta\\log p_\\theta(X)$ has $\\mathbb{E}_\\theta[\\partial_\\theta\\log p_\\theta] = 0$ (differentiate $\\int p_\\theta\\,dx = 1$), so the fourth identity is wrong. The other three — score-variance form, observed-information form, and the local KL expansion $D(p_\\theta\\,\\|\\,p_{\\theta+\\delta}) = \\tfrac{1}{2}I(\\theta)\\delta^2 + o(\\delta^2)$ — all hold under regularity."
+          }
+        ]
       }
     }
   },
@@ -25908,6 +26858,94 @@ window.MVQuizBank = {
             ],
             "answer": 2,
             "explain": "R3 is the slide of a strand across a crossing — three braidings on three strands rearrange in two ways, and equality of the resulting compositions is exactly the Yang–Baxter equation. R2 corresponds to $R \\circ R^{-1} = \\mathrm{id}$; R1 is fixed up by the ribbon twist."
+          }
+        ]
+      },
+      "kp-vassiliev-invariants": {
+        "title": "Vassiliev (finite-type) invariants",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "An invariant $V$ of oriented knots is extended to singular knots by the Vassiliev skein $V(K_\\times) = V(K_+) - V(K_-)$, where $K_\\times$ has a transverse double point and $K_\\pm$ are its two crossing resolutions. What does it mean for $V$ to be of <em>type $\\le n$</em> (finite type of order $n$)?",
+            "choices": [
+              "$V$ is a polynomial of degree $\\le n$ in some variable",
+              "$V$ vanishes on every singular knot with at least $n+1$ double points",
+              "$V$ is unchanged by the first $n$ Reidemeister moves",
+              "$V$ takes at most $n$ distinct values on the set of all knots"
+            ],
+            "answer": 1,
+            "explain": "The defining condition is exactly the vanishing on singular knots of high enough complexity: iterating the skein $n+1$ times kills $V$. This makes $\\mathcal{V}_n$ a filtration whose successive quotients $\\mathcal{V}_n/\\mathcal{V}_{n-1}$ are finite-dimensional and computable via chord diagrams modulo the 4T relation."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are Vassiliev (finite-type) invariants of knots, after the indicated normalisation? Select all that apply.",
+            "choices": [
+              "The coefficient of $h^n$ in the Conway polynomial $\\nabla_K(h) = \\Delta_K(e^h \\!-\\! 1 \\text{ etc.})$ (suitable expansion), for each fixed $n$",
+              "The coefficient of $h^n$ in $V_K(e^h)$, where $V_K(q)$ is the Jones polynomial",
+              "The crossing number $c(K)$",
+              "The hyperbolic volume $\\mathrm{vol}(S^3 \\setminus K)$"
+            ],
+            "answer": [
+              0,
+              1
+            ],
+            "explain": "After substituting $q = e^h$ (or expanding the Conway / HOMFLY polynomial in a power series), each coefficient is a finite-type invariant of bounded order — this is Bar-Natan's theorem. Crossing number and hyperbolic volume are not finite-type: they grow without bound in ways no chord-diagram count can match (e.g. crossing number is sub-multiplicative under connect sum but not polynomial in any natural filtration)."
+          },
+          {
+            "type": "numeric",
+            "q": "The space $\\mathcal{V}_2 / \\mathcal{V}_1$ of type-$\\le 2$ invariants modulo type-$\\le 1$ is one-dimensional, spanned by the second coefficient of the Conway polynomial $a_2(K)$. Compute $a_2(\\text{unknot})$.",
+            "answer": 0,
+            "tol": 0.0001,
+            "explain": "The Conway polynomial of the unknot is $\\nabla_U(z) = 1$, so every coefficient $a_n$ for $n \\ge 1$ vanishes. In particular $a_2(U) = 0$. By contrast $a_2(3_1) = 1$ for the trefoil — already this single number distinguishes trefoil from unknot."
+          }
+        ]
+      },
+      "kp-khovanov-homology": {
+        "title": "Khovanov homology",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Khovanov homology assigns to a link diagram $D$ a bigraded chain complex $C^{i,j}(D)$ with cohomology $H^{i,j}(L)$ depending only on $L$. Which relation does its <em>graded Euler characteristic</em> satisfy?",
+            "choices": [
+              "$\\sum_{i,j} (-1)^i q^j \\dim H^{i,j}(L) = V_L(q)$ (the Jones polynomial)",
+              "$\\sum_{i,j} (-1)^i q^j \\dim H^{i,j}(L) = (q + q^{-1}) V_L(q^2)$ (the unnormalised Jones polynomial)",
+              "$\\sum_{i,j} (-1)^{i+j} \\dim H^{i,j}(L) = \\Delta_L(-1)$ (the knot determinant)",
+              "$\\sum_{i,j} \\dim H^{i,j}(L) = c(L)$ (the crossing number)"
+            ],
+            "answer": 1,
+            "explain": "Khovanov categorifies the unnormalised Jones polynomial: each $j$-graded piece of the Kauffman state sum is replaced by a vector space, the $\\pm$ signs by $(-1)^i$, and Euler characteristic recovers the original. The factor $(q+q^{-1})$ appears because Khovanov's normalisation assigns a 2-dim space to each circle in the resolution."
+          },
+          {
+            "type": "matching",
+            "q": "Match each Khovanov-homology fact to the precise statement that establishes it.",
+            "left": [
+              "Khovanov detects the unknot",
+              "Khovanov is strictly stronger than Jones",
+              "Khovanov is functorial under cobordisms"
+            ],
+            "right": [
+              "Kronheimer–Mrowka: $H^{*,*}(L) \\cong \\mathbb{Q}[X]/X^2$ iff $L$ is the unknot",
+              "There exist links with the same Jones polynomial but different Khovanov homology",
+              "An oriented surface cobordism $\\Sigma: L_0 \\to L_1$ in $\\mathbb{R}^3 \\times [0,1]$ induces $H^{*,*}(L_0) \\to H^{*,*}(L_1)$ of bidegree $(0, \\chi(\\Sigma))$"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Each fact is the textbook statement: (1) Kronheimer–Mrowka 2010 used instanton-Floer techniques to prove the unknot detection theorem for Khovanov homology — it remains <em>open</em> whether Jones detects the unknot. (2) Bar-Natan's tables give explicit pairs (e.g. certain 11-crossing pretzel knots) sharing Jones but distinguished by Khovanov. (3) Functoriality under cobordisms (up to sign) was proved by Jacobsson and refined by Bar-Natan."
+          },
+          {
+            "type": "mcq",
+            "q": "A central feature of Khovanov homology is that it is a <em>categorification</em> of $V_L(q)$. Which is the cleanest description of what categorification means here?",
+            "choices": [
+              "It expresses $V_L(q)$ as a determinant of an explicit matrix",
+              "It replaces integers in a state-sum formula by graded vector spaces, and signs by $(-1)^i$, so the Euler characteristic recovers the original polynomial",
+              "It computes $V_L(q)$ inside a quantum field theory",
+              "It is the Kauffman bracket evaluated at a categorified variable"
+            ],
+            "answer": 1,
+            "explain": "Decategorification = Euler characteristic. Khovanov's complex is built by replacing each $0$- and $1$-resolution of a crossing in the Kauffman state sum by a tensor power of a 2-dim vector space, and the alternating sum $\\sum (-1)^i q^j \\dim H^{i,j}$ recovers the polynomial. The new content is the chain-homotopy type itself — invariants that the polynomial loses by collapsing to ranks."
           }
         ]
       }
@@ -34024,6 +35062,86 @@ window.MVQuizBank = {
             "answer": 1,
             "hint": "Use Euler's criterion to test when $-1$ is a QR.",
             "explain": "By Euler's criterion, $(-1)^{(p-1)/2}\\equiv 1\\pmod p$ iff $(p-1)/2$ is even, i.e. $4\\mid p-1$, i.e. $p\\equiv 1\\pmod 4$. For such primes Hensel's lemma lifts a mod-$p$ square root of $-1$ to a genuine element of $\\mathbb{Z}_p$. For $p\\equiv 3\\pmod 4$, $-1$ is a QNR and no lift exists."
+          }
+        ]
+      },
+      "newton-polygons": {
+        "title": "Newton polygons",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For $f(x)=x^3-x-p\\in\\mathbb{Q}_p[x]$, the points $(i,v_p(a_i))$ are $(0,1),(1,0),(2,\\infty),(3,0)$. The Newton polygon (lower convex hull) has which slope sequence, read left to right?",
+            "choices": [
+              "$1,1,1$ — three roots of valuation $1$",
+              "$-1,0$ with horizontal lengths $1,2$ — one root of valuation $-1$ and two unit roots",
+              "$0,0,1$ — but ordered as horizontal lengths $1,1,1$",
+              "$1/3,1/3,1/3$ — Eisenstein, so a single slope of $1/3$"
+            ],
+            "answer": 1,
+            "explain": "Plot $(0,1),(1,0),(3,0)$ (drop the $\\infty$ point). The lower hull goes from $(0,1)$ to $(1,0)$ — slope $-1$, length $1$ — then from $(1,0)$ to $(3,0)$ — slope $0$, length $2$. By the Newton-polygon theorem this means one root of $p$-adic valuation $1$ and two roots of valuation $0$ (units). Note: when we say 'slopes equal valuations' we conventionally negate the geometric slope, so a geometric slope of $-1$ corresponds to a root valuation of $1$."
+          },
+          {
+            "type": "numeric",
+            "q": "The Eisenstein criterion is the special case of a single-slope Newton polygon. For $f(x)=x^n+p\\in\\mathbb{Q}_p[x]$, every root has $p$-adic valuation $1/n$. Compute this valuation for $f(x)=x^5+p$ as a decimal.",
+            "answer": 0.2,
+            "tol": 0.000001,
+            "explain": "The polygon has a single segment from $(0,1)$ to $(5,0)$. Its geometric slope is $-1/5$, and the corresponding root valuation is $1/5=0.2$. All five roots share this valuation; this is the Eisenstein criterion in disguise — $f$ is irreducible because no proper factor can have integer-valuation roots."
+          },
+          {
+            "type": "matching",
+            "q": "Match each polynomial in $\\mathbb{Q}_p[x]$ (with the indicated coefficients written as $(a_0,a_1,\\ldots,a_n)$ and $p=3$) to the multiset of $p$-adic valuations of its roots in $\\overline{\\mathbb{Q}_p}$.",
+            "left": [
+              "$x^2-1$  (coefficients $(-1,0,1)$, $p=3$)",
+              "$x^2-3$  (coefficients $(-3,0,1)$, $p=3$)",
+              "$x^2+3x+9$  (coefficients $(9,3,1)$, $p=3$)"
+            ],
+            "right": [
+              "$\\{0,0\\}$ — two units",
+              "$\\{1/2,1/2\\}$ — Eisenstein, both roots of valuation $1/2$",
+              "$\\{1,1\\}$ — both roots of valuation $1$"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "$x^2-1$: hull from $(0,0)$ to $(2,0)$, slope $0$, two unit roots. $x^2-3$: hull from $(0,1)$ to $(2,0)$, single slope $-1/2$, two roots of valuation $1/2$ (Eisenstein at $p=3$). $x^2+3x+9$: hull from $(0,2)$ to $(2,0)$, single slope $-1$, two roots of valuation $1$ (consistent with $f(x)=(x-3\\zeta)(x-3\\bar\\zeta)$ for a primitive cube root of unity $\\zeta$)."
+          }
+        ]
+      },
+      "padic-extensions-ramification": {
+        "title": "Extensions of $\\mathbb{Q}_p$ and ramification",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $L/\\mathbb{Q}_p$ be a finite extension with ramification index $e$ and residue degree $f$. Which identity always holds?",
+            "choices": [
+              "$e+f=[L:\\mathbb{Q}_p]$",
+              "$ef=[L:\\mathbb{Q}_p]$",
+              "$e^f=[L:\\mathbb{Q}_p]$",
+              "$\\gcd(e,f)=[L:\\mathbb{Q}_p]$"
+            ],
+            "answer": 1,
+            "explain": "For a finite extension of a local field, the fundamental identity $ef=[L:\\mathbb{Q}_p]$ holds. The unramified piece $\\mathbb{Q}_p\\subseteq L^{ur}$ has degree $f$ and corresponds to the residue extension $\\mathbb{F}_{p^f}/\\mathbb{F}_p$; the totally ramified piece $L/L^{ur}$ has degree $e$, generated by a uniformizer $\\pi$ satisfying an Eisenstein polynomial of degree $e$."
+          },
+          {
+            "type": "numeric",
+            "q": "For $L=\\mathbb{Q}_p(\\zeta_p)$ where $\\zeta_p$ is a primitive $p$-th root of unity ($p$ odd prime), the minimal polynomial of $\\pi=\\zeta_p-1$ is $\\Phi_p(1+\\pi)=\\pi^{p-1}+\\binom{p}{2}\\pi^{p-2}+\\cdots+p$, which is Eisenstein. The extension is totally ramified with $f=1$. What is the ramification index $e$? (Answer for $p=5$.)",
+            "answer": 4,
+            "tol": 0.000001,
+            "explain": "$[\\mathbb{Q}_p(\\zeta_p):\\mathbb{Q}_p]=\\deg\\Phi_p=p-1$, and the Eisenstein polynomial above shows the extension is totally ramified, so $f=1$ and $e=p-1$. For $p=5$, $e=4$. Since $p\\mid e$ would mean $p\\mid p-1$, which is false, this ramification is tame."
+          },
+          {
+            "type": "mcq",
+            "q": "Krasner's lemma: if $\\alpha\\in\\overline{\\mathbb{Q}_p}$ has conjugates $\\alpha=\\alpha_1,\\ldots,\\alpha_n$ and $\\beta\\in\\overline{\\mathbb{Q}_p}$ satisfies $|\\beta-\\alpha|<|\\alpha-\\alpha_i|$ for all $i\\ge 2$, then $\\mathbb{Q}_p(\\alpha)\\subseteq\\mathbb{Q}_p(\\beta)$. Which corollary is the standard application to Eisenstein polynomials?",
+            "choices": [
+              "Two Eisenstein polynomials of the same degree always define the same extension of $\\mathbb{Q}_p$",
+              "Two Eisenstein polynomials of the same degree with sufficiently $p$-adically close coefficients define the same extension of $\\mathbb{Q}_p$",
+              "Krasner's lemma forces every finite extension of $\\mathbb{Q}_p$ to be Galois",
+              "Krasner's lemma proves that $\\mathbb{Q}_p$ has only finitely many algebraic closures"
+            ],
+            "answer": 1,
+            "explain": "Krasner's lemma is the technical engine behind 'roots are continuous functions of coefficients' over $\\mathbb{Q}_p$: if two Eisenstein polynomials $f$ and $g$ of the same degree have $p$-adically close enough coefficients, then a root of $g$ is closer to a fixed root of $f$ than to any other conjugate of that root, so it generates the same extension. This compactness is what makes the set of extensions of $\\mathbb{Q}_p$ of a fixed degree finite."
           }
         ]
       },
@@ -48955,6 +50073,93 @@ window.MVQuizBank = {
           }
         ]
       },
+      "w-lifting-scheme": {
+        "title": "The lifting scheme",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Apply one Haar lifting step to the signal $(s_0,s_1,s_2,s_3)=(8,2,4,6)$ using predictor $P(s^{(e)})_n=s_n^{(e)}$ and updater $U(d)_n=\\tfrac12 d_n$. What is $a_1$ (the coarse coefficient at index $1$)?",
+            "answer": 5,
+            "tol": 0.0001,
+            "explain": "Split: evens $s^{(e)}=(8,4)$, odds $s^{(o)}=(2,6)$. Predict: $d_0=2-8=-6$, $d_1=6-4=2$. Update: $a_0=8+\\tfrac12(-6)=5$, $a_1=4+\\tfrac12(2)=5$. So $a_1=5$ — the local average of $(4,6)$, exactly Haar's coarse coefficient (up to the orthonormal $\\sqrt 2$ rescaling, which is a separate diagonal step)."
+          },
+          {
+            "type": "ordering",
+            "q": "Order the steps of one forward Haar lifting step on a signal $(s_n)$, from first to last.",
+            "items": [
+              "Split: $a_n^{(0)}\\leftarrow s_{2n}$, $d_n^{(0)}\\leftarrow s_{2n+1}$ (lazy wavelet)",
+              "Predict: $d_n\\leftarrow d_n^{(0)} - a_n^{(0)}$",
+              "Update: $a_n\\leftarrow a_n^{(0)} + \\tfrac12 d_n$",
+              "Output the coarse stream $(a_n)$ and detail stream $(d_n)$"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Lifting always begins with the lazy split (separate evens and odds), then alternates predict and update. Predict uses the current evens to guess the odds and stores the residual as detail; update uses those residuals to correct the evens so the coarse signal still has the right average. Each step is a triangular linear map, so reversing the order with opposite signs gives the inverse — perfect reconstruction is automatic."
+          },
+          {
+            "type": "mcq",
+            "q": "Which advantage of the lifting scheme over classical Fourier-side wavelet design is FALSE?",
+            "choices": [
+              "Perfect reconstruction is automatic — no algebraic constraint to solve",
+              "It supports integer-to-integer transforms with bit-exact lossless inversion",
+              "It diagonalises every Calderón–Zygmund operator exactly",
+              "It generalises to wavelets on graphs, irregular samples, and meshes"
+            ],
+            "answer": 2,
+            "explain": "Lifting does not diagonalise CZ operators — wavelet bases (orthogonal or biorthogonal) only nearly diagonalise CZ operators (Beylkin–Coifman–Rokhlin sparsity), and lifting is a construction technique, not a spectral statement. The other three are real selling points: triangular lifting steps are invertible by inspection, integer rounding commutes with the inverse for lossless coding, and the predict/update template needs only a binary split so it transports to non-Euclidean settings."
+          }
+        ]
+      },
+      "w-biorthogonal": {
+        "title": "Biorthogonal wavelets",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why are biorthogonal wavelets used instead of orthogonal ones in JPEG2000?",
+            "choices": [
+              "They have shorter support than any orthogonal wavelet of comparable smoothness",
+              "They allow symmetric (linear-phase) filters, which orthogonal compactly-supported wavelets cannot achieve except in the Haar case",
+              "They are faster to compute via the Mallat pyramid",
+              "They give strictly better Parseval-type energy estimates"
+            ],
+            "answer": 1,
+            "explain": "Daubechies' theorem: the only real, orthogonal, compactly-supported, symmetric wavelet is Haar. Symmetric filters are linear-phase — they shift every frequency by the same amount — so reconstruction errors are not asymmetric across edges. JPEG2000 picks CDF 9/7 for exactly this reason. Orthogonal wavelets are not faster (both schemes are $O(n)$ Mallat pyramids); biorthogonal wavelets <em>do</em> lose Parseval's identity, so they cost a factor in energy estimates."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which statements about a biorthogonal wavelet pair $(\\tilde\\psi,\\psi)$ are true?",
+            "choices": [
+              "$\\langle\\tilde\\psi_{j,k},\\psi_{j',k'}\\rangle=\\delta_{jj'}\\delta_{kk'}$",
+              "$\\{\\psi_{j,k}\\}$ is an orthonormal basis of $L^2(\\mathbb{R})$",
+              "Analysis is $c_{j,k}=\\langle f,\\tilde\\psi_{j,k}\\rangle$ and synthesis is $f=\\sum c_{j,k}\\psi_{j,k}$",
+              "Both $\\tilde\\psi$ and $\\psi$ can be symmetric (linear-phase)",
+              "Parseval's identity $\\|f\\|_2^2=\\sum|c_{j,k}|^2$ holds"
+            ],
+            "answer": [
+              0,
+              2,
+              3
+            ],
+            "explain": "Biorthogonality is exactly the Kronecker pairing between dual families (1). Analysis pairs against the dual, synthesis sums against the primal — that's the whole point (3). The CDF construction shows symmetry is achievable on both sides (4). Statement (2) is false: $\\{\\psi_{j,k}\\}$ is a Riesz basis, not an orthonormal basis, in general — that is the price paid for symmetry. Statement (5) fails too: without orthogonality the energy splits as $\\|f\\|_2^2\\asymp\\sum|c_{j,k}|^2$ (norm-equivalence), not equality."
+          },
+          {
+            "type": "mcq",
+            "q": "In a biorthogonal pair, what do the analysis vanishing moments $\\int x^k\\tilde\\psi(x)\\,dx=0$ for $k<\\tilde N$ control, versus the synthesis vanishing moments $\\int x^k\\psi(x)\\,dx=0$ for $k<N$?",
+            "choices": [
+              "Both control the same thing — they always equal each other",
+              "Analysis moments control compression of smooth signals (small $c_{j,k}$); synthesis moments control the smoothness of the reconstruction",
+              "Analysis moments control symmetry; synthesis moments control compact support",
+              "Synthesis moments are always zero"
+            ],
+            "answer": 1,
+            "explain": "$c_{j,k}=\\langle f,\\tilde\\psi_{j,k}\\rangle$ is small whenever $f$ is locally polynomial of degree $<\\tilde N$, by Taylor expansion against the dual moment kill — that's what makes wavelet compression work. Reconstruction $f=\\sum c_{j,k}\\psi_{j,k}$ inherits its smoothness from $\\psi$, so synthesis moments + smoothness of $\\phi$ determine how clean the reconstructed image looks. Decoupling the two is exactly what orthogonality forbids; CDF 9/7 picks $\\tilde N=N=4$ to balance them."
+          }
+        ]
+      },
       "w-applications": {
         "title": "Applications",
         "questions": [
@@ -49349,6 +50554,89 @@ window.MVQuizBank = {
             "tol": 0.000005,
             "hint": "Apply the reflection formula carefully, reading off $\\zeta(-3)$.",
             "explain": "$\\zeta(-3)=2(2\\pi)^{-4}\\cdot 1\\cdot 6\\cdot\\pi^4/90=2\\cdot 6\\pi^4/(90\\cdot 16\\pi^4)=12/1440=1/120\\approx 0.008333$."
+          }
+        ]
+      },
+      "multiple-zeta-values": {
+        "title": "Multiple zeta values",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Euler's identity $\\zeta(2,1)=\\zeta(3)$ says that $\\sum_{n>m\\ge 1} 1/(n^2 m)$ equals $\\sum_{n\\ge 1} 1/n^3$. Which feature of the algebra of multiple zeta values does this most directly illustrate?",
+            "choices": [
+              "An MZV of depth $2$ can equal an MZV of depth $1$ at the same weight, so depth is not a $\\mathbb{Q}$-linear invariant",
+              "Every MZV of weight $w$ equals $\\zeta(w)$",
+              "The shuffle product is commutative",
+              "Multiple zeta values are always rational"
+            ],
+            "answer": 0,
+            "explain": "Both sides have weight $3$ but different depths ($2$ versus $1$). The identity shows that the weight-$3$ $\\mathbb{Q}$-span has dimension $1$ — at least three different-looking expressions ($\\zeta(3)$, $\\zeta(2,1)$, and any rational combination) collapse to the same line — which is exactly the kind of collapse that Zagier's dimension conjecture quantifies."
+          },
+          {
+            "type": "numeric",
+            "q": "Zagier's conjecture predicts $d_n=d_{n-2}+d_{n-3}$ with $d_0=1$, $d_1=0$, $d_2=1$. Compute $d_8$.",
+            "answer": 4,
+            "tol": 0.5,
+            "explain": "Iterate: $d_3=d_1+d_0=1$, $d_4=d_2+d_1=1$, $d_5=d_3+d_2=2$, $d_6=d_4+d_3=2$, $d_7=d_5+d_4=3$, $d_8=d_6+d_5=4$. Compare with $2^{8-2}=64$: the conjecture predicts MZVs of weight $8$ collapse from $64$ formal generators to a $4$-dimensional $\\mathbb{Q}$-span."
+          },
+          {
+            "type": "matching",
+            "q": "Match each ingredient of MZV theory to its precise role.",
+            "left": [
+              "Stuffle product",
+              "Shuffle product",
+              "Double-shuffle relation",
+              "Brown's theorem"
+            ],
+            "right": [
+              "Comes from multiplying nested sums and allowing index collisions",
+              "Comes from multiplying iterated Chen integrals over $\\{0,1\\}$-words",
+              "The difference of stuffle and shuffle expansions of $\\zeta(a)\\zeta(b)$ — a non-trivial linear identity",
+              "The MZVs $\\zeta(s_1,\\ldots,s_k)$ with $s_i\\in\\{2,3\\}$ span the $\\mathbb{Q}$-algebra of MZVs"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Stuffle is the series-side product (nested sums + collisions), shuffle is the integral-side product (Chen integrals + letter shuffles). Their disagreement when computing $\\zeta(a)\\zeta(b)$ is exactly the double-shuffle relation, the engine generating MZV identities. Brown (2012) proved the spanning half of Hoffman's conjecture; linear independence is the still-open transcendence question."
+          }
+        ]
+      },
+      "zeta-mahler-measure": {
+        "title": "Zeta values and Mahler measure",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Smyth's identity $m(1+x+y) = L'(\\chi_{-3},-1)$ identifies the Mahler measure of $1+x+y$ with the derivative of an $L$-function at $s=-1$. Why does the right-hand side require analytic continuation?",
+            "choices": [
+              "Because the integral $m(1+x+y)$ is divergent",
+              "Because the Dirichlet series $\\sum_{n\\ge 1}\\chi_{-3}(n)/n^s$ defining $L(\\chi_{-3},s)$ converges only for $\\mathrm{Re}(s)>0$, so $L(\\chi_{-3},-1)$ and its derivative are not given by the series",
+              "Because the polynomial $1+x+y$ is irreducible",
+              "Because $\\chi_{-3}$ is not multiplicative"
+            ],
+            "answer": 1,
+            "explain": "Dirichlet $L$-series for non-principal characters converge for $\\mathrm{Re}(s)>0$; at $s=-1$ the defining series diverges and only the analytic continuation $L(\\chi_{-3},s)$ extending to $\\mathbb{C}$ gives a meaningful value. Smyth's identity is striking precisely because a tame Riemann integral on $T^2$ equals a quantity whose definition requires the full machinery of analytic continuation."
+          },
+          {
+            "type": "numeric",
+            "q": "Smyth showed $m(1+x+y+z) = (7/(2\\pi^2))\\,\\zeta(3)$. Using $\\zeta(3)\\approx 1.20206$ and $\\pi^2\\approx 9.8696$, compute $m(1+x+y+z)$ to four decimal places.",
+            "answer": 0.4263,
+            "tol": 0.001,
+            "explain": "$7\\cdot 1.20206/(2\\cdot 9.8696) = 8.41442/19.7392 \\approx 0.4263$. This is the laptop-checkable value Smyth matched against direct numerical integration of $\\log|1+e^{2\\pi i\\alpha}+e^{2\\pi i\\beta}+e^{2\\pi i\\gamma}|$ over $[0,1]^3$."
+          },
+          {
+            "type": "mcq",
+            "q": "Boyd's conjectures predict $m(P)\\stackrel{?}{=} r\\,L'(E,0)$ for many two-variable polynomials $P$, where $E$ is the elliptic curve $\\{P=0\\}$ and $r\\in\\mathbb{Q}^\\times$. Within which broader conjectural framework does Deninger place these identities?",
+            "choices": [
+              "The Riemann hypothesis for elliptic-curve $L$-functions",
+              "Beilinson's regulator conjectures, where $m(P)$ is a height pairing realising a regulator and hence (conjecturally) a special $L$-value up to $\\mathbb{Q}^\\times$",
+              "The Langlands functoriality conjecture",
+              "The Hodge conjecture for abelian varieties"
+            ],
+            "answer": 1,
+            "explain": "Deninger interprets $\\log|P|$ on the unit torus as a Deligne cohomology class; pairing with the torus cycle on $V=\\{P=0\\}$ realises Beilinson's regulator. Beilinson's conjecture then predicts the pairing equals $r\\cdot L'(V,0)$ for some $r\\in\\mathbb{Q}^\\times$, recovering Boyd's empirical pattern. This embeds Smyth/Boyd in the same speculative landscape as BSD and the rest of the regulator program."
           }
         ]
       }

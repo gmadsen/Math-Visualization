@@ -4,6 +4,7 @@
 window.__MVConcepts = {
   "index": {
     "topics": [
+      "advanced-complex-analysis",
       "mathematical-statistics",
       "numerical-analysis",
       "computational-number-theory",
@@ -179,6 +180,7 @@ window.__MVConcepts = {
       "probability-theory": "standard",
       "harmonic-analysis-fourier": "standard",
       "sobolev-spaces-distributions": "standard",
+      "advanced-complex-analysis": "advanced",
       "point-set-topology": "prereq",
       "algebraic-topology": "prereq",
       "smooth-manifolds": "standard",
@@ -288,6 +290,84 @@ window.__MVConcepts = {
     }
   },
   "topics": {
+    "advanced-complex-analysis": {
+      "topic": "advanced-complex-analysis",
+      "title": "Advanced complex analysis",
+      "page": "advanced-complex-analysis.html",
+      "concepts": [
+        {
+          "id": "aca-overview",
+          "title": "The graduate landscape",
+          "anchor": "overview",
+          "prereqs": [],
+          "blurb": "A map of the four threads that organize the graduate complex-analysis canon: value-distribution (Picard, Bloch), construction theorems (Weierstrass, Mittag-Leffler), growth and maximum-modulus controls (Phragmén-Lindelöf, Hadamard), and boundary behavior (Hardy, Fatou). Together they answer 'what makes entire and meromorphic functions special, and how do they behave near infinity or on the boundary?'"
+        },
+        {
+          "id": "aca-picard-little",
+          "title": "Little Picard theorem",
+          "anchor": "picard-little",
+          "prereqs": [
+            "liouville"
+          ],
+          "blurb": "A non-constant entire function omits at most one complex value. Liouville (bounded ⇒ constant) is the trivial case; little Picard is the same idea pushed to its sharpest form — even an unbounded entire map cannot avoid more than one point."
+        },
+        {
+          "id": "aca-picard-great",
+          "title": "Great Picard theorem",
+          "anchor": "picard-great",
+          "prereqs": [
+            "aca-picard-little",
+            "singularity-classification"
+          ],
+          "blurb": "In every neighborhood of an essential singularity, $f$ takes every complex value (with at most one exception) infinitely often. This sharpens Casorati-Weierstrass dramatically — 'dense' becomes 'every value, infinitely often'."
+        },
+        {
+          "id": "aca-weierstrass-factorization",
+          "title": "Weierstrass factorization",
+          "anchor": "weierstrass-factorization",
+          "prereqs": [
+            "aca-picard-little"
+          ],
+          "blurb": "Every entire function with prescribed zeros $\\{a_n\\}$ factors as $e^{g(z)}\\prod E_{p_n}(z/a_n)$, where the elementary factors $E_p$ are designed so the product converges. The construction generalizes the polynomial factorization $\\prod(z-a_k)$ to entire functions and produces the canonical $\\sin\\pi z = \\pi z\\prod(1-z^2/n^2)$."
+        },
+        {
+          "id": "aca-mittag-leffler",
+          "title": "Mittag-Leffler theorem",
+          "anchor": "mittag-leffler",
+          "prereqs": [
+            "aca-weierstrass-factorization"
+          ],
+          "blurb": "Dual to Weierstrass: prescribe a discrete pole set with principal parts and there is a meromorphic function realizing them, given by a convergent series of partial fractions plus a holomorphic correction. The witness is the cotangent partial-fraction expansion $\\pi\\cot\\pi z = 1/z + \\sum_{n\\ne 0}(1/(z-n)+1/n)$."
+        },
+        {
+          "id": "aca-phragmen-lindelof",
+          "title": "Phragmén-Lindelöf principle",
+          "anchor": "phragmen-lindelof",
+          "prereqs": [
+            "maximum-modulus"
+          ],
+          "blurb": "A maximum-modulus principle for unbounded domains, traded for a growth condition. In a sector of opening $\\pi/\\alpha$, if $f$ is bounded by $M$ on the boundary and grows no faster than $e^{|z|^\\beta}$ with $\\beta<\\alpha$, then $|f|\\le M$ throughout. The growth budget is exactly what closes the missing arc at infinity."
+        },
+        {
+          "id": "aca-hadamard-three-circles",
+          "title": "Hadamard's three-circles theorem",
+          "anchor": "hadamard-three-circles",
+          "prereqs": [
+            "aca-phragmen-lindelof"
+          ],
+          "blurb": "If $f$ is holomorphic on the annulus $r_1\\le|z|\\le r_3$ and $M(r) = \\max_{|z|=r}|f(z)|$, then $\\log M(r)$ is convex as a function of $\\log r$. The convex-interpolation inequality $M(r_2)^{\\log(r_3/r_1)} \\le M(r_1)^{\\log(r_3/r_2)} M(r_3)^{\\log(r_2/r_1)}$ is the standard tool for growth bounds and Hadamard-Riesz-Thorin interpolation."
+        },
+        {
+          "id": "aca-hardy-spaces",
+          "title": "Hardy spaces and Fatou boundary",
+          "anchor": "hardy-spaces",
+          "prereqs": [
+            "aca-mittag-leffler"
+          ],
+          "blurb": "$H^p(\\mathbb{D})$ collects holomorphic functions on the disk whose $L^p$ norm on circles $|z|=r$ stays bounded as $r\\uparrow 1$. Fatou's theorem says every $H^p$ function admits non-tangential boundary values almost everywhere, and the inner-outer factorization $f = B\\cdot S\\cdot O$ decomposes them into a Blaschke product, a singular inner factor, and an outer function."
+        }
+      ]
+    },
     "mathematical-statistics": {
       "topic": "mathematical-statistics",
       "title": "Mathematical statistics",
@@ -705,6 +785,32 @@ window.__MVConcepts = {
           "tags": [
             "foundation",
             "classification"
+          ]
+        },
+        {
+          "id": "fpt-caristi",
+          "title": "Caristi's fixed-point theorem",
+          "anchor": "caristi",
+          "prereqs": [
+            "fpt-banach",
+            "real-continuity"
+          ],
+          "blurb": "If $\\varphi\\colon X\\to[0,\\infty)$ is lower-semicontinuous on a complete metric space and $d(x,Tx)\\le\\varphi(x)-\\varphi(Tx)$, then $T$ has a fixed point — no contraction, no continuity of $T$. Equivalent to Ekeland's variational principle, generalising Banach with a Lyapunov-style weight.",
+          "tags": [
+            "completion"
+          ]
+        },
+        {
+          "id": "fpt-kkm",
+          "title": "Knaster–Kuratowski–Mazurkiewicz lemma",
+          "anchor": "kkm",
+          "prereqs": [
+            "fpt-brouwer"
+          ],
+          "blurb": "On a simplex $\\Delta_n$, closed sets $C_i$ covering each face $\\Delta_S\\subseteq\\bigcup_{i\\in S}C_i$ have non-empty intersection $\\bigcap_i C_i\\ne\\emptyset$. The combinatorial twin of Brouwer — Sperner's lemma is its discrete shadow — and the cleanest gateway to Fan-KKM minimax and set-valued fixed points.",
+          "tags": [
+            "compactness",
+            "foundation"
           ]
         }
       ]
@@ -2015,6 +2121,29 @@ window.__MVConcepts = {
             "w-wavelet-vs-fourier"
           ],
           "blurb": "JPEG2000 replaces JPEG's blocked DCT with a Cohen–Daubechies–Feauveau biorthogonal DWT, giving smooth degradation instead of blocking artefacts. Donoho–Johnstone soft-thresholding $\\hat c=\\operatorname{sgn}(c)(|c|-\\lambda)_+$ is asymptotically minimax for denoising. Vanishing moments make $\\psi_{j,k}$ near-eigenvectors of Calderón–Zygmund operators, which compresses elliptic-PDE matrices to sparse form."
+        },
+        {
+          "id": "w-lifting-scheme",
+          "title": "The lifting scheme",
+          "anchor": "lifting-scheme",
+          "prereqs": [
+            "w-multiresolution",
+            "w-haar-wavelet"
+          ],
+          "blurb": "Sweldens' (1995) lifting scheme builds wavelets by alternating <em>predict</em> and <em>update</em> steps on a split signal — no Fourier-domain factorisation, no algebraic constraints. Every step is invertible, so perfect reconstruction is automatic; the construction works in-place, runs in integer arithmetic for lossless coding, and recovers Haar from one predict + one update on the lazy split."
+        },
+        {
+          "id": "w-biorthogonal",
+          "title": "Biorthogonal wavelets",
+          "anchor": "biorthogonal",
+          "prereqs": [
+            "w-multiresolution",
+            "w-daubechies"
+          ],
+          "tags": [
+            "duality"
+          ],
+          "blurb": "Drop orthogonality, keep perfect reconstruction by using two dual bases: analysis $\\{\\tilde\\psi_{j,k}\\}$ and synthesis $\\{\\psi_{j,k}\\}$ with $\\langle\\tilde\\psi_{j,k},\\psi_{j',k'}\\rangle=\\delta_{jj'}\\delta_{kk'}$. This buys symmetric (linear-phase) wavelets — Daubechies' theorem rules out symmetry for orthogonal compactly-supported wavelets except Haar — and gives the Cohen–Daubechies–Feauveau 9/7 pair used in JPEG2000."
         }
       ]
     },
@@ -2359,6 +2488,35 @@ window.__MVConcepts = {
             "functoriality",
             "group-action",
             "classification"
+          ]
+        },
+        {
+          "id": "kp-vassiliev-invariants",
+          "title": "Vassiliev (finite-type) invariants",
+          "anchor": "vassiliev",
+          "prereqs": [
+            "kp-jones-polynomial",
+            "kp-homfly-polynomial"
+          ],
+          "blurb": "Extend a knot invariant $V$ to <em>singular knots</em> (immersions with finitely many transverse double points) by the skein $V(K_\\times) = V(K_+) - V(K_-)$. $V$ has <em>type $\\le n$</em> if it vanishes on knots with $\\ge n+1$ double points; the quotients $\\mathcal{V}_n / \\mathcal{V}_{n-1}$ are finite-dimensional and combinatorially controlled by chord diagrams modulo 4T relations. Coefficients of Conway, Jones, and HOMFLY (after suitable expansion in $h$) are Vassiliev. The Kontsevich integral is a universal type-finite invariant.",
+          "tags": [
+            "classification",
+            "finiteness"
+          ]
+        },
+        {
+          "id": "kp-khovanov-homology",
+          "title": "Khovanov homology",
+          "anchor": "khovanov",
+          "prereqs": [
+            "kp-jones-polynomial",
+            "chain-complexes"
+          ],
+          "blurb": "A categorification of the Jones polynomial: to each diagram $D$ of a link $L$ assign a bigraded chain complex $C^{i,j}(D)$ whose homotopy type is a link invariant. The graded Euler characteristic recovers Jones: $\\sum_{i,j} (-1)^i q^j \\dim H^{i,j}(L) = (q + q^{-1}) V_L(q^2)$. Distinguishes pairs Jones cannot, and detects the unknot (Kronheimer–Mrowka). The first link-homology theory; opens the door to Heegaard–Floer, knot Floer homology, and categorification across geometric topology.",
+          "tags": [
+            "cohomology",
+            "classification",
+            "functoriality"
           ]
         }
       ]
@@ -5360,7 +5518,7 @@ window.__MVConcepts = {
         {
           "id": "complex-numbers",
           "title": "Complex numbers",
-          "anchor": "sphere",
+          "anchor": "complex-numbers",
           "prereqs": [],
           "tags": [
             "foundation"
@@ -5370,7 +5528,7 @@ window.__MVConcepts = {
         {
           "id": "riemann-sphere",
           "title": "Riemann sphere",
-          "anchor": "sphere",
+          "anchor": "riemann-sphere",
           "prereqs": [
             "complex-numbers"
           ],
@@ -5379,7 +5537,7 @@ window.__MVConcepts = {
         {
           "id": "mobius-transformations",
           "title": "Möbius transformations",
-          "anchor": "sphere",
+          "anchor": "mobius-transformations",
           "prereqs": [
             "riemann-sphere"
           ],
@@ -5388,7 +5546,7 @@ window.__MVConcepts = {
         {
           "id": "amplitwist",
           "title": "Amplitwist",
-          "anchor": "holo",
+          "anchor": "amplitwist",
           "prereqs": [
             "complex-numbers",
             "real-differentiation"
@@ -5398,7 +5556,7 @@ window.__MVConcepts = {
         {
           "id": "cauchy-riemann",
           "title": "Cauchy–Riemann equations",
-          "anchor": "holo",
+          "anchor": "cauchy-riemann",
           "prereqs": [
             "amplitwist"
           ],
@@ -5407,7 +5565,7 @@ window.__MVConcepts = {
         {
           "id": "holomorphic-function",
           "title": "Holomorphic functions",
-          "anchor": "holo",
+          "anchor": "holomorphic-function",
           "prereqs": [
             "cauchy-riemann"
           ],
@@ -5419,7 +5577,7 @@ window.__MVConcepts = {
         {
           "id": "domain-coloring",
           "title": "Domain coloring",
-          "anchor": "holo",
+          "anchor": "domain-coloring",
           "prereqs": [
             "holomorphic-function"
           ],
@@ -5428,7 +5586,7 @@ window.__MVConcepts = {
         {
           "id": "contour-integral",
           "title": "Contour integrals",
-          "anchor": "contour",
+          "anchor": "contour-integral",
           "prereqs": [
             "holomorphic-function",
             "paths",
@@ -5439,7 +5597,7 @@ window.__MVConcepts = {
         {
           "id": "cauchy-theorem",
           "title": "Cauchy's theorem",
-          "anchor": "contour",
+          "anchor": "cauchy-theorem",
           "prereqs": [
             "contour-integral",
             "simply-connected"
@@ -5449,7 +5607,7 @@ window.__MVConcepts = {
         {
           "id": "cauchy-integral-formula",
           "title": "Cauchy integral formula",
-          "anchor": "contour",
+          "anchor": "cauchy-integral-formula",
           "prereqs": [
             "cauchy-theorem"
           ],
@@ -5461,7 +5619,7 @@ window.__MVConcepts = {
         {
           "id": "analyticity",
           "title": "Analyticity = holomorphy",
-          "anchor": "cons",
+          "anchor": "analyticity",
           "prereqs": [
             "cauchy-integral-formula",
             "liouville",
@@ -5473,7 +5631,7 @@ window.__MVConcepts = {
         {
           "id": "liouville",
           "title": "Liouville's theorem",
-          "anchor": "cons",
+          "anchor": "liouville",
           "prereqs": [
             "cauchy-integral-formula"
           ],
@@ -5482,7 +5640,7 @@ window.__MVConcepts = {
         {
           "id": "fta",
           "title": "Fundamental theorem of algebra",
-          "anchor": "cons",
+          "anchor": "fta",
           "prereqs": [
             "liouville"
           ],
@@ -5491,7 +5649,7 @@ window.__MVConcepts = {
         {
           "id": "maximum-modulus",
           "title": "Maximum modulus principle",
-          "anchor": "cons",
+          "anchor": "maximum-modulus",
           "prereqs": [
             "cauchy-integral-formula"
           ],
@@ -5500,7 +5658,7 @@ window.__MVConcepts = {
         {
           "id": "schwarz-lemma",
           "title": "Schwarz lemma",
-          "anchor": "cons",
+          "anchor": "schwarz-lemma",
           "prereqs": [
             "maximum-modulus"
           ],
@@ -5509,7 +5667,7 @@ window.__MVConcepts = {
         {
           "id": "laurent-series",
           "title": "Laurent series",
-          "anchor": "laurent",
+          "anchor": "laurent-series",
           "prereqs": [
             "analyticity"
           ],
@@ -5518,7 +5676,7 @@ window.__MVConcepts = {
         {
           "id": "singularity-classification",
           "title": "Classification of singularities",
-          "anchor": "laurent",
+          "anchor": "singularity-classification",
           "prereqs": [
             "laurent-series"
           ],
@@ -5530,7 +5688,7 @@ window.__MVConcepts = {
         {
           "id": "residue-theorem",
           "title": "Residue theorem",
-          "anchor": "laurent",
+          "anchor": "residue-theorem",
           "prereqs": [
             "singularity-classification",
             "cauchy-theorem"
@@ -5543,7 +5701,7 @@ window.__MVConcepts = {
         {
           "id": "argument-principle",
           "title": "Argument principle",
-          "anchor": "arg",
+          "anchor": "argument-principle",
           "prereqs": [
             "residue-theorem"
           ],
@@ -5552,7 +5710,7 @@ window.__MVConcepts = {
         {
           "id": "rouche",
           "title": "Rouché's theorem",
-          "anchor": "arg",
+          "anchor": "rouche",
           "prereqs": [
             "argument-principle"
           ],
@@ -5561,7 +5719,7 @@ window.__MVConcepts = {
         {
           "id": "conformal-map",
           "title": "Conformal maps",
-          "anchor": "conf",
+          "anchor": "conformal-map",
           "prereqs": [
             "amplitwist",
             "mobius-transformations"
@@ -5571,7 +5729,7 @@ window.__MVConcepts = {
         {
           "id": "disk-automorphisms",
           "title": "Disk automorphisms",
-          "anchor": "conf",
+          "anchor": "disk-automorphisms",
           "prereqs": [
             "schwarz-lemma",
             "mobius-transformations"
@@ -5585,7 +5743,7 @@ window.__MVConcepts = {
         {
           "id": "normal-families",
           "title": "Normal families (Montel)",
-          "anchor": "conf",
+          "anchor": "normal-families",
           "prereqs": [
             "analyticity",
             "uniform-convergence",
@@ -5599,7 +5757,7 @@ window.__MVConcepts = {
         {
           "id": "riemann-mapping",
           "title": "Riemann mapping theorem",
-          "anchor": "conf",
+          "anchor": "riemann-mapping",
           "prereqs": [
             "disk-automorphisms",
             "normal-families",
@@ -5613,7 +5771,7 @@ window.__MVConcepts = {
         {
           "id": "harmonic-functions",
           "title": "Harmonic functions",
-          "anchor": "coda",
+          "anchor": "harmonic-functions",
           "prereqs": [
             "cauchy-riemann",
             "simply-connected",
@@ -5627,7 +5785,7 @@ window.__MVConcepts = {
         {
           "id": "analytic-continuation",
           "title": "Analytic continuation",
-          "anchor": "coda",
+          "anchor": "analytic-continuation",
           "prereqs": [
             "analyticity"
           ],
@@ -7004,6 +7162,25 @@ window.__MVConcepts = {
           "tags": [
             "duality"
           ]
+        },
+        {
+          "id": "it-aep",
+          "title": "Asymptotic equipartition property",
+          "anchor": "aep",
+          "prereqs": [
+            "it-shannon-entropy"
+          ],
+          "blurb": "For i.i.d.\\ $X_1,\\ldots,X_n\\sim p$, the law of large numbers applied to $-\\log p(X_i)$ gives $-\\tfrac{1}{n}\\log p(X_1,\\ldots,X_n)\\to H(X)$ in probability. The typical set $A_\\varepsilon^{(n)}=\\{x^n:|{-\\tfrac{1}{n}\\log p(x^n)}-H(X)|<\\varepsilon\\}$ has size $\\le 2^{n(H+\\varepsilon)}$ and probability $\\to 1$ — the operational backbone of source coding and jointly-typical decoding."
+        },
+        {
+          "id": "it-fisher-and-cramer-rao",
+          "title": "Fisher information and the Cramér–Rao bound",
+          "anchor": "fisher-cramer-rao",
+          "prereqs": [
+            "it-kl-divergence",
+            "ms-mle"
+          ],
+          "blurb": "Fisher information $I(\\theta)=-\\mathbb{E}_\\theta[\\partial_\\theta^2\\log p_\\theta(X)]=\\mathbb{E}_\\theta[(\\partial_\\theta\\log p_\\theta)^2]$ measures the curvature of the log-likelihood at $\\theta$. The Cramér–Rao bound: any unbiased estimator $\\hat\\theta$ of $\\theta$ from one sample obeys $\\mathrm{Var}_\\theta(\\hat\\theta)\\ge 1/I(\\theta)$, and de Bruijn's identity ties Fisher to differential entropy under Gaussian smoothing."
         }
       ]
     },
@@ -8449,6 +8626,34 @@ window.__MVConcepts = {
           ]
         },
         {
+          "id": "newton-polygons",
+          "title": "Newton polygons",
+          "anchor": "newton-polygons",
+          "prereqs": [
+            "padic-norm-completion",
+            "hensel-lemma"
+          ],
+          "blurb": "The lower convex hull of the points (i, v_p(a_i)) reads the p-adic valuations of the roots of f directly off its slopes, factoring f over Q_p by valuation strata.",
+          "tags": [
+            "lifting"
+          ]
+        },
+        {
+          "id": "padic-extensions-ramification",
+          "title": "Extensions of Q_p and ramification",
+          "anchor": "padic-ramification",
+          "prereqs": [
+            "hensel-lemma",
+            "newton-polygons",
+            "field-extensions-basics"
+          ],
+          "blurb": "Every finite extension L/Q_p factors as an unramified piece (residue extension F_q/F_p of degree f) times a totally ramified piece given by an Eisenstein uniformizer (degree e), with ef = [L:Q_p]; tameness is e coprime to p, and Krasner's lemma makes the assignment polynomial→extension continuous.",
+          "tags": [
+            "completion",
+            "classification"
+          ]
+        },
+        {
           "id": "local-global-principle",
           "title": "Local-global (Hasse) principle",
           "anchor": "localglobal",
@@ -9424,6 +9629,24 @@ window.__MVConcepts = {
           "tags": [
             "duality"
           ]
+        },
+        {
+          "id": "multiple-zeta-values",
+          "title": "Multiple zeta values and their algebra",
+          "anchor": "multiple-zeta",
+          "prereqs": [
+            "odd-integer-values-apery"
+          ],
+          "blurb": "Multiple zeta values $\\zeta(s_1,\\ldots,s_k)=\\sum_{n_1>\\cdots>n_k\\ge 1} 1/(n_1^{s_1}\\cdots n_k^{s_k})$ extend $\\zeta$ to a graded $\\mathbb{Q}$-algebra carrying two products — shuffle (from iterated integrals) and stuffle (from sum manipulations) — whose double-shuffle relations conjecturally cut the weight-$n$ dimension to a Padovan-style recursion $d_n=d_{n-2}+d_{n-3}$."
+        },
+        {
+          "id": "zeta-mahler-measure",
+          "title": "Zeta values and Mahler measure",
+          "anchor": "zeta-mahler",
+          "prereqs": [
+            "even-integer-values"
+          ],
+          "blurb": "The (logarithmic) Mahler measure $m(P)=\\int_{T^n}\\log|P(z_1,\\ldots,z_n)|$ of a Laurent polynomial on the torus turns out to compute special values of $L$-functions: Smyth's $m(1+x+y)=L'(\\chi_{-3},-1)$ and Boyd's conjectures place vast families of $m(P)$ in the orbit of zeta and $L$-values, with Deninger linking them to regulators in arithmetic geometry."
         }
       ]
     },
@@ -12286,6 +12509,7 @@ window.__MVConcepts = {
           "dynamical-systems",
           "harmonic-analysis-fourier",
           "sobolev-spaces-distributions",
+          "advanced-complex-analysis",
           "partial-differential-equations",
           "harmonic-functions",
           "spectral-theory",
@@ -12540,6 +12764,7 @@ window.__MVConcepts = {
     "probability-theory": "standard",
     "harmonic-analysis-fourier": "standard",
     "sobolev-spaces-distributions": "standard",
+    "advanced-complex-analysis": "advanced",
     "point-set-topology": "prereq",
     "algebraic-topology": "prereq",
     "smooth-manifolds": "standard",
@@ -12676,7 +12901,7 @@ window.__MVConcepts = {
       "concepts": 106,
       "intra": 157,
       "crossOut": 16,
-      "crossIn": 71,
+      "crossIn": 73,
       "density": 0.1509433962264151
     },
     "Higher categories & toposes": {
@@ -12687,39 +12912,39 @@ window.__MVConcepts = {
       "density": 0.5111111111111111
     },
     "Analysis": {
-      "concepts": 149,
-      "intra": 254,
+      "concepts": 161,
+      "intra": 269,
       "crossOut": 24,
       "crossIn": 62,
-      "density": 0.1610738255033557
+      "density": 0.14906832298136646
     },
     "Probability & statistics": {
-      "concepts": 53,
-      "intra": 86,
+      "concepts": 55,
+      "intra": 89,
       "crossOut": 14,
       "crossIn": 10,
-      "density": 0.2641509433962264
+      "density": 0.2545454545454545
     },
     "Geometry & topology": {
-      "concepts": 102,
-      "intra": 154,
-      "crossOut": 18,
+      "concepts": 104,
+      "intra": 157,
+      "crossOut": 19,
       "crossIn": 79,
-      "density": 0.17647058823529413
+      "density": 0.18269230769230768
     },
     "Number theory": {
-      "concepts": 97,
-      "intra": 127,
-      "crossOut": 38,
+      "concepts": 99,
+      "intra": 131,
+      "crossOut": 39,
       "crossIn": 24,
-      "density": 0.3917525773195876
+      "density": 0.3939393939393939
     },
     "Modular forms & L-functions": {
-      "concepts": 93,
-      "intra": 125,
+      "concepts": 95,
+      "intra": 127,
       "crossOut": 54,
       "crossIn": 12,
-      "density": 0.5806451612903226
+      "density": 0.5684210526315789
     },
     "Algebraic geometry": {
       "concepts": 127,

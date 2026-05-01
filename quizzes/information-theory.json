@@ -224,6 +224,90 @@
           "explain": "Increasing $D$ expands the feasible set $\\{p_{\\hat X\\mid X}: \\mathbb{E}[d]\\le D\\}$, so $\\min I(X;\\hat X)$ over a larger set is no larger. Hence $R$ is non-increasing in $D$."
         }
       ]
+    },
+    "it-aep": {
+      "title": "Asymptotic equipartition property",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The AEP for i.i.d.\\ $X_1,\\ldots,X_n\\sim p$ states that as $n\\to\\infty$, $-\\tfrac{1}{n}\\log p(X_1,\\ldots,X_n)$ converges in probability to:",
+          "choices": [
+            "$0$",
+            "$\\log n$",
+            "$H(X)$",
+            "the variance of $X$"
+          ],
+          "answer": 2,
+          "hint": "Apply the law of large numbers to the i.i.d.\\ random variables $Y_i = -\\log p(X_i)$ and note $\\mathbb{E}[Y_i] = H(X)$.",
+          "explain": "Since the $X_i$ are i.i.d., so are $Y_i = -\\log p(X_i)$, and $\\mathbb{E}[Y_i] = -\\sum_x p(x)\\log p(x) = H(X)$. The weak law of large numbers gives $-\\tfrac{1}{n}\\log p(X_1,\\ldots,X_n) = \\tfrac{1}{n}\\sum Y_i \\to H(X)$ in probability — the AEP is just LLN in the entropy regime."
+        },
+        {
+          "type": "numeric",
+          "q": "For i.i.d.\\ Bernoulli($1/4$) bits, the AEP says the typical set $A_\\varepsilon^{(n)}$ has size $\\approx 2^{nH}$. Compute $H$ in bits per symbol (round to 3 decimals).",
+          "answer": 0.811,
+          "tol": 0.005,
+          "hint": "$H = h(1/4) = -\\tfrac{1}{4}\\log_2\\tfrac{1}{4} - \\tfrac{3}{4}\\log_2\\tfrac{3}{4}$.",
+          "explain": "$h(1/4) = 0.5 + 0.75\\log_2(4/3) \\approx 0.8113$ bits. So among the $2^n$ binary strings of length $n$, only $\\approx 2^{0.811\\,n}$ are typical and they carry essentially all the probability — a vanishing fraction of the cube but the whole mass."
+        },
+        {
+          "type": "matching",
+          "q": "Match each property of the typical set $A_\\varepsilon^{(n)}$ for an i.i.d.\\ source with entropy $H$ to its precise statement.",
+          "left": [
+            "$\\Pr(A_\\varepsilon^{(n)})\\to 1$",
+            "$|A_\\varepsilon^{(n)}|\\le 2^{n(H+\\varepsilon)}$",
+            "$|A_\\varepsilon^{(n)}|\\ge (1-\\varepsilon)2^{n(H-\\varepsilon)}$",
+            "$2^{-n(H+\\varepsilon)}\\le p(x^n)\\le 2^{-n(H-\\varepsilon)}$"
+          ],
+          "right": [
+            "high probability",
+            "size upper bound",
+            "size lower bound",
+            "per-sequence probability bound"
+          ],
+          "answer": [0, 1, 2, 3],
+          "hint": "The AEP package: typical sequences are nearly equiprobable, fill an exponentially small fraction of the cube, and capture all the mass.",
+          "explain": "These four statements are the standard AEP package. Together they say: the typical set has $\\approx 2^{nH}$ sequences, each with probability $\\approx 2^{-nH}$, and this set captures essentially all the probability — which is why $nH$ bits suffice to index a typical sequence in source coding."
+        }
+      ]
+    },
+    "it-fisher-and-cramer-rao": {
+      "title": "Fisher information and Cramér–Rao",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "For $X\\sim\\mathcal{N}(\\theta,\\sigma^2)$ with $\\sigma^2$ known, the Fisher information about $\\theta$ from a single sample is $I(\\theta) = 1/\\sigma^2$. The sample mean $\\bar X_n$ of $n$ i.i.d.\\ samples is unbiased for $\\theta$. What is the Cramér–Rao lower bound on $\\mathrm{Var}(\\bar X_n)$ when $n=10$ and $\\sigma^2=4$ (round to 3 decimals)?",
+          "answer": 0.4,
+          "tol": 0.005,
+          "hint": "Fisher information from $n$ i.i.d.\\ samples is $n\\cdot I(\\theta)$, so the CR bound is $\\sigma^2/n$.",
+          "explain": "Fisher additivity gives $I_n(\\theta) = n/\\sigma^2$, so the CR bound is $1/I_n(\\theta) = \\sigma^2/n = 4/10 = 0.4$. The sample mean attains it exactly: $\\mathrm{Var}(\\bar X_n) = \\sigma^2/n$, so $\\bar X_n$ is the minimum-variance unbiased estimator of $\\theta$."
+        },
+        {
+          "type": "mcq",
+          "q": "The Cramér–Rao bound for an unbiased estimator $\\hat\\theta$ of a scalar $\\theta$ from a single sample states:",
+          "choices": [
+            "$\\mathrm{Var}(\\hat\\theta) \\ge I(\\theta)$",
+            "$\\mathrm{Var}(\\hat\\theta) \\ge 1/I(\\theta)$",
+            "$\\mathrm{Var}(\\hat\\theta) = I(\\theta)$",
+            "$\\mathbb{E}[\\hat\\theta] \\ge 1/I(\\theta)$"
+          ],
+          "answer": 1,
+          "hint": "More information at $\\theta$ means tighter possible estimates, so variance is bounded below by the *reciprocal* of Fisher information.",
+          "explain": "The Cramér–Rao inequality reads $\\mathrm{Var}_\\theta(\\hat\\theta) \\ge 1/I(\\theta)$ for any unbiased estimator. The proof is a Cauchy–Schwarz on the score $\\partial_\\theta\\log p_\\theta(X)$ together with the identity $\\mathbb{E}_\\theta[\\partial_\\theta\\log p_\\theta] = 0$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which equivalent expression for Fisher information is FALSE in general?",
+          "choices": [
+            "$I(\\theta) = \\mathbb{E}_\\theta\\big[(\\partial_\\theta\\log p_\\theta(X))^2\\big]$",
+            "$I(\\theta) = -\\mathbb{E}_\\theta\\big[\\partial_\\theta^2\\log p_\\theta(X)\\big]$",
+            "$I(\\theta) = \\lim_{\\delta\\to 0} \\frac{2}{\\delta^2}\\,D(p_\\theta\\,\\|\\,p_{\\theta+\\delta})$",
+            "$I(\\theta) = \\mathbb{E}_\\theta\\big[\\partial_\\theta\\log p_\\theta(X)\\big]$"
+          ],
+          "answer": 3,
+          "hint": "The score has expectation zero under $p_\\theta$, so its mean cannot equal a positive quantity.",
+          "explain": "The score $\\partial_\\theta\\log p_\\theta(X)$ has $\\mathbb{E}_\\theta[\\partial_\\theta\\log p_\\theta] = 0$ (differentiate $\\int p_\\theta\\,dx = 1$), so the fourth identity is wrong. The other three — score-variance form, observed-information form, and the local KL expansion $D(p_\\theta\\,\\|\\,p_{\\theta+\\delta}) = \\tfrac{1}{2}I(\\theta)\\delta^2 + o(\\delta^2)$ — all hold under regularity."
+        }
+      ]
     }
   }
 }

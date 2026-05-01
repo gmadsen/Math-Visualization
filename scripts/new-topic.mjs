@@ -31,9 +31,13 @@
 //                               step with a warning and does NOT abort the
 //                               overall scaffold — the other four artifacts
 //                               are still written.
+//   6. README.md              — append a `- [Title](./<slug>.html) — blurb`
+//                               bullet under the matching `### <Section>`
+//                               header. Same soft-fail / idempotent contract
+//                               as step 5.
 //
-// Refuses to overwrite any of 1–3 if present. Safely skips step 5 on
-// unrecognized-section / malformed-markup; the user can hand-author the card.
+// Refuses to overwrite any of 1–3 if present. Safely skips steps 5 and 6 on
+// unrecognized-section / malformed-markup; the user can hand-author them.
 //
 // Zero dependencies.
 
@@ -549,6 +553,48 @@ function escapeHtml(s) {
     .replace(/"/g, '&quot;');
 }
 
+// ----- Append a `- [Title](./<slug>.html) — <blurb>` bullet under the
+// matching `### <Section>` header in README.md. Same soft-fail / idempotent
+// contract as the index.html card insertion.
+//
+// Returns { text, status, message } where status is one of:
+//   'inserted'  — bullet appended.
+//   'duplicate' — a bullet with this href already exists.
+//   'skipped'   — section header missing or markup unexpected.
+function appendBulletToReadme(raw, sectionName, newSlug, title, blurb) {
+  const headerMarker = `### ${sectionName}`;
+  const headerIdx = raw.indexOf(headerMarker);
+  if (headerIdx === -1) {
+    return { text: raw, status: 'skipped',
+             message: `could not find "### ${sectionName}" in README.md` };
+  }
+
+  // Find the end of the section: the next `### ` or `## ` header, or EOF.
+  const lineEnd = raw.indexOf('\n', headerIdx);
+  const afterHeader = lineEnd === -1 ? raw.length : lineEnd + 1;
+  const restRe = /\n(?:#{2,3}) /g;
+  restRe.lastIndex = afterHeader;
+  const next = restRe.exec(raw);
+  const sectionEnd = next ? next.index + 1 : raw.length;
+  const sectionBody = raw.slice(afterHeader, sectionEnd);
+
+  // Idempotency: bullet already present.
+  if (sectionBody.includes(`(./${newSlug}.html)`)) {
+    return { text: raw, status: 'duplicate',
+             message: `a bullet with (./${newSlug}.html) already exists under "${sectionName}"` };
+  }
+
+  // Trim trailing blank lines from the section body so the new bullet sits
+  // flush with existing siblings, then re-add a single trailing blank.
+  const trimmed = sectionBody.replace(/\n+$/, '');
+  const bullet = `- [${title}](./${newSlug}.html) — ${blurb}`;
+  const newBody = `${trimmed}\n${bullet}\n${next ? '\n' : ''}`;
+
+  const newRaw = raw.slice(0, afterHeader) + newBody + raw.slice(sectionEnd);
+  return { text: newRaw, status: 'inserted',
+           message: `bullet appended under "${sectionName}"` };
+}
+
 // Attempt the index.html insertion. Any surprise → warn and continue; never
 // abort the overall scaffold on this step.
 let indexHtmlResult = { status: 'skipped', message: 'index.html not present' };
@@ -566,6 +612,26 @@ if (existsSync(indexHtmlPath)) {
   } catch (e) {
     indexHtmlResult = { status: 'skipped',
                         message: `unexpected error: ${e.message}` };
+  }
+}
+
+// Same soft-fail pattern for README.md.
+const readmePath = join(repoRoot, 'README.md');
+let readmeResult = { status: 'skipped', message: 'README.md not present' };
+let newReadmeRaw = null;
+if (existsSync(readmePath)) {
+  try {
+    const origReadme = readFileSync(readmePath, 'utf8');
+    const placeholderBlurb = 'draft — fill in once the page has real content';
+    readmeResult = appendBulletToReadme(
+      origReadme, sectionName, slug, humanTitle, placeholderBlurb
+    );
+    if (readmeResult.status === 'inserted') {
+      newReadmeRaw = readmeResult.text;
+    }
+  } catch (e) {
+    readmeResult = { status: 'skipped',
+                     message: `unexpected error: ${e.message}` };
   }
 }
 
@@ -588,6 +654,9 @@ writeFileSync(indexPath, newIndexRaw);
 if (newIndexHtmlRaw !== null) {
   writeFileSync(indexHtmlPath, newIndexHtmlRaw);
 }
+if (newReadmeRaw !== null) {
+  writeFileSync(readmePath, newReadmeRaw);
+}
 
 // ----- Report -----
 console.log(`new-topic: scaffolded "${slug}" in section "${sectionName}".`);
@@ -602,6 +671,13 @@ if (indexHtmlResult.status === 'inserted') {
   console.log(`    index.html           (skipped — ${indexHtmlResult.message})`);
 } else {
   console.log(`    index.html           (skipped — ${indexHtmlResult.message})`);
+}
+if (readmeResult.status === 'inserted') {
+  console.log(`    README.md            (bullet appended under ${sectionName})`);
+} else if (readmeResult.status === 'duplicate') {
+  console.log(`    README.md            (skipped — ${readmeResult.message})`);
+} else {
+  console.log(`    README.md            (skipped — ${readmeResult.message})`);
 }
 console.log('');
 console.log('Next steps:');
@@ -625,4 +701,7 @@ console.log('     (bundles + validates + audits + smoke-tests everything.)');
 // logs even when stdout is muted. The script still exits 0 in this case.
 if (indexHtmlResult.status === 'skipped' && indexHtmlResult.message !== 'index.html not present') {
   console.warn(`new-topic: warning — index.html card insertion skipped (${indexHtmlResult.message}); add the card by hand.`);
+}
+if (readmeResult.status === 'skipped' && readmeResult.message !== 'README.md not present') {
+  console.warn(`new-topic: warning — README.md bullet append skipped (${readmeResult.message}); add the bullet by hand.`);
 }

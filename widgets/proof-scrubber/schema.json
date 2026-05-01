@@ -11,7 +11,11 @@
   },
   "type": "object",
   "additionalProperties": false,
-  "required": ["widgetId", "title", "steps"],
+  "required": [
+    "widgetId",
+    "title",
+    "steps"
+  ],
   "properties": {
     "widgetId": {
       "type": "string",
@@ -43,7 +47,10 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["title", "body"],
+        "required": [
+          "title",
+          "body"
+        ],
         "properties": {
           "title": {
             "type": "string",
@@ -62,7 +69,8 @@
     },
     "sectionComment": {
       "type": "string",
-      "description": "ARTIFACT. Optional comment placed between `<script>` and `(function(){` as `/* <here> */`. Lets a migrated source preserve its banner comment."
+      "description": "ARTIFACT. Optional comment placed between `<script>` and `(function(){` as `/* <here> */`. Lets a migrated source preserve its banner comment.",
+      "x-artifact": true
     }
   }
 }

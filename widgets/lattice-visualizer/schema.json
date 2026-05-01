@@ -11,7 +11,10 @@
   },
   "type": "object",
   "additionalProperties": false,
-  "required": ["widgetId", "title"],
+  "required": [
+    "widgetId",
+    "title"
+  ],
   "properties": {
     "widgetId": {
       "type": "string",
@@ -39,19 +42,33 @@
         "v1": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["x", "y"],
+          "required": [
+            "x",
+            "y"
+          ],
           "properties": {
-            "x": { "type": "number" },
-            "y": { "type": "number" }
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            }
           }
         },
         "v2": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["x", "y"],
+          "required": [
+            "x",
+            "y"
+          ],
           "properties": {
-            "x": { "type": "number" },
-            "y": { "type": "number" }
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            }
           }
         }
       }
@@ -60,7 +77,9 @@
       "type": "object",
       "additionalProperties": false,
       "description": "Optional sublattice Λ' = M·Λ rendered as larger pink dots. The 2×2 matrix M = [[m11,m12],[m21,m22]] expresses each sublattice basis vector as an integer combination of (v₁, v₂): w₁ = m11·v₁ + m21·v₂, w₂ = m12·v₁ + m22·v₂. The library reports [Λ:Λ'] = |det M|.",
-      "required": ["matrix"],
+      "required": [
+        "matrix"
+      ],
       "properties": {
         "matrix": {
           "type": "array",
@@ -70,7 +89,9 @@
             "type": "array",
             "minItems": 2,
             "maxItems": 2,
-            "items": { "type": "number" }
+            "items": {
+              "type": "number"
+            }
           }
         }
       }
@@ -84,19 +105,24 @@
           "type": "array",
           "minItems": 2,
           "maxItems": 2,
-          "items": { "type": "number" }
+          "items": {
+            "type": "number"
+          }
         },
         "yRange": {
           "type": "array",
           "minItems": 2,
           "maxItems": 2,
-          "items": { "type": "number" }
+          "items": {
+            "type": "number"
+          }
         }
       }
     },
     "sectionComment": {
       "type": "string",
-      "description": "ARTIFACT. Optional banner comment preserved when migrating sources."
+      "description": "ARTIFACT. Optional banner comment preserved when migrating sources.",
+      "x-artifact": true
     }
   }
 }

@@ -24,11 +24,13 @@
     },
     "bodyMarkup": {
       "type": "string",
-      "description": "ARTIFACT. Verbatim widget host bytes — the inline `<div class=\"widget\" id=\"...\">…</div>`. Carried through unchanged so the round-trip stays byte-identical."
+      "description": "ARTIFACT. Verbatim widget host bytes — the inline `<div class=\"widget\" id=\"...\">…</div>`. Carried through unchanged so the round-trip stays byte-identical.",
+      "x-artifact": true
     },
     "bodyScript": {
       "type": "string",
-      "description": "ARTIFACT. Verbatim driving script bytes including the leading newline + `<script>` tag and trailing `</script>`. Carries the IIFE that wires up the widget; preserved byte-for-byte."
+      "description": "ARTIFACT. Verbatim driving script bytes including the leading newline + `<script>` tag and trailing `</script>`. Carries the IIFE that wires up the widget; preserved byte-for-byte.",
+      "x-artifact": true
     }
   }
 }

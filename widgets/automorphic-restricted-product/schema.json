@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/automorphic-restricted-product/schema.json",
+  "title": "automorphic-restricted-product widget params",
+  "description": "Bespoke restricted-product membership tester for the automorphic-forms-adelic topic. Reader sets a determinant at the archimedean place and integer entries at finite places; the widget reports whether the resulting tuple lies in GL_2 of the adeles by checking that almost all entries are in GL_2(Z_p). The adelic-place-form-plus-rule-checker shape is one-off and does not fit a shared input-form slug.",
+  "meta": {
+    "family": "automorphic-restricted-product",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "exploratory"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title",
+    "hint",
+    "bodyMarkup",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the outer <div class=\"widget\">."
+    },
+    "title": {
+      "type": "string",
+      "description": "Header title rendered inside .hd > .ttl."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Header hint rendered inside .hd > .hint."
+    },
+    "bodyMarkup": {
+      "type": "string",
+      "x-artifact": "verbatim inner-body HTML; portable consumers should rebuild controls + svg + readout from explicit fields once a shared shape proves out",
+      "description": "ARTIFACT. Verbatim HTML between the closing </div> of the .hd row and the closing </div> of the outer widget wrapper."
+    },
+    "sectionComment": {
+      "type": "string",
+      "x-artifact": true,
+      "description": "ARTIFACT. Optional /* ... */ banner placed between the leading <script> tag and the IIFE opener."
+    },
+    "bodyScript": {
+      "type": "string",
+      "x-artifact": "script body is bespoke; portable consumers should re-implement the widget logic from the schema-described data fields",
+      "description": "ARTIFACT. Verbatim JS that goes inside `(function(){\\n…\\n})();` — wires the controls and updates the SVG / readout."
+    }
+  }
+}

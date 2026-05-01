@@ -36,11 +36,13 @@
     },
     "svgWidthAttr": {
       "type": "string",
-      "description": "ARTIFACT. Optional raw width attribute value on the <svg>. When present the <svg> is rendered with width=\"...\"; when absent no width attribute is emitted. Some source widgets include `width=\"820\"` and some omit it — this field preserves each original."
+      "description": "ARTIFACT. Optional raw width attribute value on the <svg>. When present the <svg> is rendered with width=\"...\"; when absent no width attribute is emitted. Some source widgets include `width=\"820\"` and some omit it — this field preserves each original.",
+      "x-artifact": true
     },
     "svgHeightAttr": {
       "type": "string",
-      "description": "ARTIFACT. Optional raw height attribute value on the <svg>. Paired with svgWidthAttr above."
+      "description": "ARTIFACT. Optional raw height attribute value on the <svg>. Paired with svgWidthAttr above.",
+      "x-artifact": true
     },
     "title": {
       "type": "string",
@@ -48,13 +50,19 @@
     },
     "titleTag": {
       "type": "string",
-      "enum": ["div", "span"],
+      "enum": [
+        "div",
+        "span"
+      ],
       "default": "div",
       "description": "Tag used for the .ttl header element inside .hd. Default 'div' emits <div class=\"ttl\">; 'span' emits <span class=\"ttl\"> (a layout sub-variant in some legacy topics)."
     },
     "hintTag": {
       "type": "string",
-      "enum": ["div", "span"],
+      "enum": [
+        "div",
+        "span"
+      ],
       "default": "div",
       "description": "Tag used for the .hint header element inside .hd. Default 'div'; 'span' pairs with titleTag='span' in the span-header layout sub-variant."
     },
@@ -68,13 +76,25 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id"],
+        "required": [
+          "id"
+        ],
         "properties": {
-          "id":    { "type": "string" },
-          "label": { "type": "string" },
-          "x":     { "type": "number" },
-          "y":     { "type": "number" },
-          "kind":  { "type": "string" }
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "number"
+          },
+          "kind": {
+            "type": "string"
+          }
         }
       }
     },
@@ -84,14 +104,29 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["src", "tgt"],
+        "required": [
+          "src",
+          "tgt"
+        ],
         "properties": {
-          "id":    { "type": "string" },
-          "src":   { "type": "string" },
-          "tgt":   { "type": "string" },
-          "label": { "type": "string" },
-          "curve": { "type": "number" },
-          "kind":  { "type": "string" }
+          "id": {
+            "type": "string"
+          },
+          "src": {
+            "type": "string"
+          },
+          "tgt": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "curve": {
+            "type": "number"
+          },
+          "kind": {
+            "type": "string"
+          }
         }
       }
     },
@@ -101,7 +136,11 @@
     },
     "clickAction": {
       "type": "string",
-      "enum": ["highlight", "toggle", "reveal"],
+      "enum": [
+        "highlight",
+        "toggle",
+        "reveal"
+      ],
       "description": "UX contract on node click: 'highlight' permanently highlights the clicked node + its dependency set; 'toggle' flips selection on/off; 'reveal' exposes extra data about the clicked node (e.g. reasoning text)."
     },
     "readoutId": {
@@ -111,20 +150,25 @@
     },
     "initialReadoutHtml": {
       "type": "string",
-      "description": "ARTIFACT. Raw HTML placed inside the readout div on initial render. Preserves inline spans / colors from the legacy source."
+      "description": "ARTIFACT. Raw HTML placed inside the readout div on initial render. Preserves inline spans / colors from the legacy source.",
+      "x-artifact": true
     },
     "readoutMap": {
       "type": "object",
       "description": "Portable data: keys are node ids from `nodes[].id` (or synthetic selection keys); values are the readout strings / HTML to display when that node is selected. A portable consumer drives its own renderer from this; the artifact bodyScript may or may not consult it.",
-      "additionalProperties": { "type": "string" }
+      "additionalProperties": {
+        "type": "string"
+      }
     },
     "bodyScript": {
       "type": "string",
-      "description": "ARTIFACT. The full body of the driving IIFE — everything between `(function(){` and `})();`. Preserves original comments, whitespace, and inline logic so renderScript can byte-match the legacy inline source. A portable consumer ignores this and reconstructs behavior from nodes/edges/readoutMap/clickAction."
+      "description": "ARTIFACT. The full body of the driving IIFE — everything between `(function(){` and `})();`. Preserves original comments, whitespace, and inline logic so renderScript can byte-match the legacy inline source. A portable consumer ignores this and reconstructs behavior from nodes/edges/readoutMap/clickAction.",
+      "x-artifact": true
     },
     "sectionComment": {
       "type": "string",
-      "description": "ARTIFACT. Optional JS block comment placed at the top of the IIFE (e.g. '=== SECTION 5: Specialization poset ==='). Lets the script byte-match its original source when one is present."
+      "description": "ARTIFACT. Optional JS block comment placed at the top of the IIFE (e.g. '=== SECTION 5: Specialization poset ==='). Lets the script byte-match its original source when one is present.",
+      "x-artifact": true
     },
     "trailingExplainer": {
       "type": "string",
@@ -132,7 +176,8 @@
     },
     "hdHtml": {
       "type": "string",
-      "description": "ARTIFACT. When present, overrides the default <div class=\"hd\">...</div> line builder; the renderer emits `  <div class=\"hd\">${hdHtml}</div>\\n` verbatim. Use for multi-line .hd variants that the default titleTag/hintTag + one-line template can't reproduce."
+      "description": "ARTIFACT. When present, overrides the default <div class=\"hd\">...</div> line builder; the renderer emits `  <div class=\"hd\">${hdHtml}</div>\\n` verbatim. Use for multi-line .hd variants that the default titleTag/hintTag + one-line template can't reproduce.",
+      "x-artifact": true
     }
   }
 }

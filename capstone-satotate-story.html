@@ -113,6 +113,7 @@
     width:8px;height:8px;border-radius:50%;background:var(--cyan)}
   .timeline .yr{color:var(--yellow);font-variant-numeric:tabular-nums;font-weight:600;margin-right:.5rem}
 </style>
+<script src="./js/sidetoc.js"></script>
 </head>
 <body>
 <nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
@@ -274,7 +275,7 @@ Call the whole thing $L(\mathrm{Sym}^n E, s)$.</p>
 
 <p>The logic: partial-summation identities turn bounds on prime averages of $\chi_n(\theta_p)$ into bounds on $\log L(\mathrm{Sym}^n E, s)$ near the edge $s=1$. Non-vanishing on $\mathrm{Re}(s)=1$ gives Weyl's criterion. Sato–Tate is thereby reduced to an <em>infinite list</em> of analytic continuations — one per symmetric power. Each is, on its face, a harder problem than the one before.</p>
 
-<p>What makes $L(\mathrm{Sym}^n E, s)$ tractable is a miracle that had been conjectured since Hasse and refined by <a href="./modularity-and-flt.html">Langlands</a>: such $L$-functions should <em>be</em> $L$-functions of automorphic forms. Concretely, there should exist a cuspidal automorphic representation $\pi_n$ of $\mathrm{GL}_{n+1}(\mathbb{A}_\mathbb{Q})$ — a generalization of a classical cusp form to the adelic world — whose standard $L$-function matches $L(\mathrm{Sym}^n E, s)$ at every place. <strong>Automorphy</strong>, if established, provides the analytic continuation and the non-vanishing on $\mathrm{Re}(s)=1$ for free, by the Rankin–Selberg method and the work of Jacquet–Shalika.</p>
+<p>What makes $L(\mathrm{Sym}^n E, s)$ tractable is a miracle that had been conjectured since Hasse and refined by <a href="./modularity-and-flt.html">Langlands</a>: such $L$-functions should <em>be</em> $L$-functions of automorphic forms. Concretely, there should exist a cuspidal automorphic representation $\pi_n$ of $\mathrm{GL}_{n+1}(\mathbb{A}_\mathbb{Q})$ — a generalization of a classical cusp form to the adelic world — whose standard $L$-function matches $L(\mathrm{Sym}^n E, s)$ at every place. <strong>Automorphy</strong>, if established, provides the <a href="./complex-analysis.html#analytic-continuation" data-auto-inline-link="1" data-concept-id="analytic-continuation" data-blurb="The identity theorem lets a holomorphic germ extend uniquely along paths; loops around branch points produce monodromy, and $\log z$ or $\sqrt z$ live naturally on a Riemann surface rather than $\mathbb{C}\setminus\{0\}$.">analytic continuation</a> and the non-vanishing on $\mathrm{Re}(s)=1$ for free, by the Rankin–Selberg method and the work of Jacquet–Shalika.</p>
 
 <p>Sato–Tate, reformulated: prove that $\mathrm{Sym}^n\rho_E$ is automorphic for every $n\ge 1$.</p>
 </section>
@@ -282,7 +283,7 @@ Call the whole thing $L(\mathrm{Sym}^n E, s)$.</p>
 <section id="automorphy">
 <h2>4. Potential automorphy</h2>
 
-<p>Automorphy is brutally hard. For $n=1$ it is the modularity theorem of Wiles–Taylor–Breuil–Conrad–Diamond, the engine that powered Fermat's Last Theorem. For $n=2$, Shimura had handled it by lifting $\mathrm{Sym}^2$ from $\mathrm{GL}_2$ to $\mathrm{GL}_3$. For $n=3,4$, Kim–Shahidi gave automorphic functorial lifts in the early 2000s. Beyond that, a case-by-case approach was dead: an infinite tower of liftings was out of reach.</p>
+<p>Automorphy is brutally hard. For $n=1$ it is the <a href="./modularity-and-flt.html#modularity" data-auto-inline-link="1" data-concept-id="modularity-theorem" data-blurb="Every elliptic curve $E/\mathbb{Q}$ of conductor $N$ corresponds to a weight-2 newform $f_E \in S_2(\Gamma_0(N))$ with matching Frobenius traces $a_p(E) = a_p(f_E)$. Wiles + Taylor–Wiles (1995) handled the semistable case; BCDT (2001) extended to all $E/\mathbb{Q}$.">modularity theorem</a> of Wiles–Taylor–Breuil–Conrad–Diamond, the engine that powered Fermat's Last Theorem. For $n=2$, Shimura had handled it by lifting $\mathrm{Sym}^2$ from $\mathrm{GL}_2$ to $\mathrm{GL}_3$. For $n=3,4$, Kim–Shahidi gave automorphic functorial lifts in the early 2000s. Beyond that, a case-by-case approach was dead: an infinite tower of liftings was out of reach.</p>
 
 <p>Richard Taylor's insight, developed with Michael Harris and several collaborators over 2003–2008, was to weaken the target. Rather than proving $\mathrm{Sym}^n\rho_E$ automorphic over $\mathbb{Q}$, prove it <em>potentially</em> automorphic — that is, automorphic after restriction to some (possibly huge) Galois extension $F/\mathbb{Q}$. For the Sato–Tate equidistribution what you actually need is meromorphic continuation and non-vanishing on $\mathrm{Re}(s)=1$, and <strong>potential automorphy is enough</strong>: Brauer's induction theorem writes the L-function over $\mathbb{Q}$ as a product of L-functions of Hecke characters over $F$ with signed exponents. Each Hecke L-function has the analytic properties you need; the product inherits meromorphic continuation and — with care — non-vanishing.</p>
 
@@ -420,49 +421,6 @@ then $\rho$ itself is automorphic. Passing to a large enough extension $F$ lets 
 </details>
 
 </main>
-
-<script>
-(function(){
-  function build(){
-    const aside = document.querySelector('aside.sidetoc');
-    if(!aside) return;
-    const sections = [...document.querySelectorAll('main > section[id]')];
-    if(!sections.length) return;
-    const title = document.createElement('div');
-    title.className = 'sidetoc-title';
-    title.textContent = 'On this page';
-    aside.appendChild(title);
-    const ol = document.createElement('ol');
-    for(const s of sections){
-      const h = s.querySelector('h1, h2');
-      if(!h) continue;
-      const li = document.createElement('li');
-      const a = document.createElement('a');
-      a.href = '#' + s.id;
-      a.textContent = h.textContent;
-      li.appendChild(a);
-      ol.appendChild(li);
-    }
-    aside.appendChild(ol);
-    const links = [...aside.querySelectorAll('a')];
-    function update(){
-      let active = null;
-      for(const s of sections){
-        const rect = s.getBoundingClientRect();
-        if(rect.top < window.innerHeight * 0.35) active = s.id;
-      }
-      for(const a of links){
-        if(active && a.getAttribute('href') === '#' + active) a.classList.add('active');
-        else a.classList.remove('active');
-      }
-    }
-    window.addEventListener('scroll', update, {passive:true});
-    update();
-  }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
-  else build();
-})();
-</script>
 
 </body>
 </html>

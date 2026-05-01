@@ -220,10 +220,19 @@ function deriveTitle(widget, section) {
 // SVG title backfill.
 //
 // Returns { changedHtml, stats: { inserted, fallback, skippedLabeled } }.
-function backfillSvgs(html) {
+//
+// `sectionsOverride` is used when processing fragments from
+// content/<topic>.json, where the <section> opener may live in a different
+// `raw` block than the widget. Caller supplies a synthetic section spanning
+// the whole fragment with the right h2 so the title fallback still works.
+function backfillSvgs(html, sectionsOverride = null) {
   const thumbs = findThumbRanges(html);
-  const widgets = findWidgets(html);
-  const sections = findSectionsWithH2(html);
+  const inert = findInertRanges(html);
+  // Drop widgets that fall inside <script>/<!-- --> ranges — those <svg>s are
+  // either commented out or template-string demos, not real DOM.
+  const widgets = findWidgets(html).filter((w) => !inRanges(w.outerStart, inert));
+  const sections =
+    sectionsOverride !== null ? sectionsOverride : findSectionsWithH2(html);
 
   // We patch from end → start so offsets don't invalidate.
   const patches = [];
@@ -288,7 +297,8 @@ function backfillSvgs(html) {
 // Audit-only variant: count naked SVGs without editing.
 function countNakedSvgs(html) {
   const thumbs = findThumbRanges(html);
-  const widgets = findWidgets(html);
+  const inert = findInertRanges(html);
+  const widgets = findWidgets(html).filter((w) => !inRanges(w.outerStart, inert));
   let n = 0;
   for (const w of widgets) {
     if (inRanges(w.outerStart, thumbs)) continue;
@@ -322,6 +332,19 @@ function countNakedSvgs(html) {
 //     closeEnd] intersects [input - 300, input + 300]; pick the closest
 //     candidate that does NOT already carry for= (unused).
 //   - Add for="<id>" to that label.
+
+// Build the set of byte ranges to ignore when searching for inputs/labels:
+// <script>…</script> blocks and <!-- … --> comments. Inputs/labels inside
+// JS template strings or commented-out demo markup are not real DOM.
+function findInertRanges(html) {
+  const ranges = [];
+  const scriptRe = /<script\b[^>]*>[\s\S]*?<\/script\s*>/gi;
+  let m;
+  while ((m = scriptRe.exec(html))) ranges.push([m.index, m.index + m[0].length]);
+  const commentRe = /<!--[\s\S]*?-->/g;
+  while ((m = commentRe.exec(html))) ranges.push([m.index, m.index + m[0].length]);
+  return ranges;
+}
 
 // Find every <label …>…</label>. Labels don't nest in this codebase but we
 // use a greedy-safe walk (no nested label support; just sequential pairs).
@@ -441,7 +464,8 @@ function pickLabelFor(input, candidates, allInputs, rowRanges) {
 }
 
 function backfillLabels(html) {
-  const labels = findLabels(html);
+  const inert = findInertRanges(html);
+  const labels = findLabels(html).filter((l) => !inRanges(l.openStart, inert));
   const rowRanges = findRowRanges(html);
   const forIds = labelForIds(labels);
   const candidates = labels.filter((l) => !l.forId);
@@ -451,6 +475,7 @@ function backfillLabels(html) {
   const allInputs = [];
   let im;
   while ((im = inputRe.exec(html))) {
+    if (inRanges(im.index, inert)) continue;
     const start = im.index;
     const end = im.index + im[0].length;
     const openTag = im[0];
@@ -533,12 +558,14 @@ function backfillLabels(html) {
 
 // Audit-only variant: count inputs the audit would flag.
 function countMissingLabels(html) {
-  const labels = findLabels(html);
+  const inert = findInertRanges(html);
+  const labels = findLabels(html).filter((l) => !inRanges(l.openStart, inert));
   const forIds = labelForIds(labels);
   const inputRe = /<input\b([^>]*)\/?>/gi;
   let n = 0;
   let im;
   while ((im = inputRe.exec(html))) {
+    if (inRanges(im.index, inert)) continue;
     const openTag = im[0];
     const type = (attr(openTag, 'type') || 'text').toLowerCase();
     if (type === 'hidden' || type === 'submit' || type === 'reset' || type === 'button') continue;
@@ -550,6 +577,123 @@ function countMissingLabels(html) {
     n++;
   }
   return n;
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// JSON-mode processing.
+//
+// Topic pages have `content/<topic>.json` as their source of truth; the
+// rebuild chain's `test-roundtrip --fix` step renders HTML from JSON, so
+// any patches applied directly to HTML get wiped on the next rebuild.
+// For topic pages we walk the JSON's html-bearing strings (rawHead,
+// rawBodyPrefix, each section's raw blocks, rawBodySuffix) and patch them
+// in place, then write the JSON back.
+//
+// Returns { changed, stats, h2 } where stats matches the HTML-mode shape.
+function patchFragment(html, sectionH2) {
+  const sectionsOverride =
+    sectionH2 != null
+      ? [{ start: 0, end: html.length, h2: sectionH2 }]
+      : null;
+  const r1 = backfillSvgs(html, sectionsOverride);
+  const r2 = backfillLabels(r1.changedHtml);
+  return {
+    newHtml: r2.changedHtml,
+    changed: r2.changedHtml !== html,
+    stats: {
+      svgInserted: r1.stats.inserted || 0,
+      svgReal: r1.stats.real || 0,
+      svgFallback: r1.stats.fallback || 0,
+      svgSkippedLabeled: r1.stats.skippedLabeled || 0,
+      labelsWired: r2.stats.wired || 0,
+      labelsNoCandidate: r2.stats.noCandidate || 0,
+    },
+  };
+}
+
+function bumpJsonStats(totals, r) {
+  totals.svgInserted += r.svgInserted;
+  totals.svgReal += r.svgReal;
+  totals.svgFallback += r.svgFallback;
+  totals.svgSkipped += r.svgSkippedLabeled;
+  totals.labelsWired += r.labelsWired;
+  totals.labelsSkipped += r.labelsNoCandidate;
+}
+
+// Pull <h2> text out of a section's raw blocks (first block usually carries
+// the <section><h2> opener). Strip the leading "1. " ordinal so the synthetic
+// title matches what findSectionsWithH2 produces.
+function extractSectionH2(blocks) {
+  for (const b of blocks) {
+    if (b.type !== 'raw' || typeof b.html !== 'string') continue;
+    const m = b.html.match(/<h2\b[^>]*>([\s\S]*?)<\/h2>/i);
+    if (m) return stripTags(m[1]).replace(/^\d+\.\s*/, '');
+  }
+  return null;
+}
+
+function processContentJson(jsonPath) {
+  const before = readFileSync(jsonPath, 'utf8');
+  const data = JSON.parse(before);
+
+  const stats = {
+    nakedBefore: 0,
+    missingBefore: 0,
+    svgInserted: 0,
+    svgReal: 0,
+    svgFallback: 0,
+    svgSkippedLabeled: 0,
+    labelsWired: 0,
+    labelsNoCandidate: 0,
+  };
+
+  const visit = (html, sectionH2) => {
+    if (typeof html !== 'string') return html;
+    stats.nakedBefore += countNakedSvgs(html);
+    stats.missingBefore += countMissingLabels(html);
+    if (!FIX) return html;
+    const r = patchFragment(html, sectionH2);
+    stats.svgInserted += r.stats.svgInserted;
+    stats.svgReal += r.stats.svgReal;
+    stats.svgFallback += r.stats.svgFallback;
+    stats.svgSkippedLabeled += r.stats.svgSkippedLabeled;
+    stats.labelsWired += r.stats.labelsWired;
+    stats.labelsNoCandidate += r.stats.labelsNoCandidate;
+    return r.newHtml;
+  };
+
+  data.rawHead = visit(data.rawHead, null);
+  data.rawBodyPrefix = visit(data.rawBodyPrefix, null);
+  if (Array.isArray(data.sections)) {
+    for (const sec of data.sections) {
+      if (!sec || !Array.isArray(sec.blocks)) continue;
+      const h2 = extractSectionH2(sec.blocks);
+      for (const block of sec.blocks) {
+        if (block.type === 'raw') {
+          block.html = visit(block.html, h2);
+        } else if (block.type === 'widget' && !block.slug && typeof block.html === 'string') {
+          // Inline (artifact-style) widget block: { type: 'widget', id, html,
+          // script } with no registry slug. The naked-SVG fix applies to its
+          // markup just like a raw block. Registry-driven widgets (with slug)
+          // are rendered by widgets/<slug>/index.mjs and need a11y fixed there
+          // instead.
+          block.html = visit(block.html, h2);
+        }
+      }
+    }
+  }
+  data.rawBodySuffix = visit(data.rawBodySuffix, null);
+
+  let touched = false;
+  if (FIX) {
+    const after = JSON.stringify(data, null, 2) + '\n';
+    if (after !== before) {
+      writeFileSync(jsonPath, after);
+      touched = true;
+    }
+  }
+
+  return { ...stats, touched };
 }
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -569,7 +713,57 @@ const totals = {
 
 const perFile = [];
 
+// Build the set of topic slugs (those with content/<topic>.json). For these,
+// patches go to the JSON; HTML is regenerated by the roundtrip step.
+const contentDir = join(repoRoot, 'content');
+const topicSlugs = new Set(
+  readdirSync(contentDir)
+    .filter((f) => f.endsWith('.json'))
+    .map((f) => f.slice(0, -'.json'.length))
+);
+
 for (const file of htmlFiles) {
+  const slug = file.slice(0, -'.html'.length);
+
+  if (topicSlugs.has(slug)) {
+    // JSON-mode: patch content/<slug>.json.
+    const jsonPath = join(contentDir, `${slug}.json`);
+    const r = processContentJson(jsonPath);
+    totals.nakedSvgs += r.nakedBefore;
+    totals.missingLabels += r.missingBefore;
+    if (FIX) {
+      bumpJsonStats(totals, r);
+      if (r.touched) totals.pagesTouched++;
+      const nakedAfter = r.nakedBefore - r.svgInserted;
+      const missingAfter = r.missingBefore - r.labelsWired;
+      if (r.nakedBefore || r.missingBefore || r.svgInserted || r.labelsWired) {
+        perFile.push({
+          file,
+          nakedBefore: r.nakedBefore,
+          nakedAfter,
+          missingBefore: r.missingBefore,
+          missingAfter,
+          svgInserted: r.svgInserted,
+          wired: r.labelsWired,
+        });
+      }
+    } else if (r.nakedBefore || r.missingBefore) {
+      perFile.push({
+        file,
+        nakedBefore: r.nakedBefore,
+        missingBefore: r.missingBefore,
+        nakedAfter: r.nakedBefore,
+        missingAfter: r.missingBefore,
+        wired: 0,
+        svgInserted: 0,
+      });
+    }
+    continue;
+  }
+
+  // HTML-mode: landing/utility pages without a content JSON (index.html,
+  // pathway.html, mindmap.html, etc.) — operate on the HTML directly. These
+  // are not part of the roundtrip set so the patches persist.
   const abs = join(repoRoot, file);
   const html = readFileSync(abs, 'utf8');
   const nakedBefore = countNakedSvgs(html);
@@ -584,7 +778,6 @@ for (const file of htmlFiles) {
     continue;
   }
 
-  // Fix mode.
   const r1 = backfillSvgs(html);
   const r2 = backfillLabels(r1.changedHtml);
   const newHtml = r2.changedHtml;

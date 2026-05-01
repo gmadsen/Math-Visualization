@@ -31,13 +31,19 @@
     },
     "titleTag": {
       "type": "string",
-      "enum": ["div", "span"],
+      "enum": [
+        "div",
+        "span"
+      ],
       "default": "div",
       "description": "Tag used for the .ttl header element inside .hd. Default 'div' emits <div class=\"ttl\">; 'span' emits <span class=\"ttl\"> (a layout sub-variant in some legacy topics)."
     },
     "hintTag": {
       "type": "string",
-      "enum": ["div", "span"],
+      "enum": [
+        "div",
+        "span"
+      ],
       "default": "div",
       "description": "Tag used for the .hint header element inside .hd. Default 'div'; 'span' pairs with titleTag='span' in the span-header layout sub-variant."
     },
@@ -52,25 +58,69 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "type"],
+        "required": [
+          "id",
+          "type"
+        ],
         "properties": {
-          "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
-          "type": { "enum": ["number", "text"] },
-          "label": { "type": "string", "description": "Optional leading <label for=id>…</label>. Omit to suppress." },
-          "labelWraps": { "type": "boolean", "description": "When true and `label` is present, the <input> nests INSIDE the <label> as `<label>labelText <input ...></label>` (the `for=` attr is omitted). When false/absent, emits the default sibling form `<label for=id>labelText</label><input ...>`." },
-          "value": { "type": "string", "description": "Raw value= attribute (string; numeric widgets still use string to preserve bytes like \"2\" vs \"2.0\")." },
-          "min": { "type": "string", "description": "Raw min= attribute (optional)." },
-          "max": { "type": "string", "description": "Raw max= attribute (optional)." },
-          "step": { "type": "string", "description": "Raw step= attribute (optional)." },
-          "placeholder": { "type": "string", "description": "Raw placeholder= attribute (optional)." },
-          "style": { "type": "string", "description": "Raw inline style attr (e.g. \"width:4em\")." },
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+          },
+          "type": {
+            "enum": [
+              "number",
+              "text"
+            ]
+          },
+          "label": {
+            "type": "string",
+            "description": "Optional leading <label for=id>…</label>. Omit to suppress."
+          },
+          "labelWraps": {
+            "type": "boolean",
+            "description": "When true and `label` is present, the <input> nests INSIDE the <label> as `<label>labelText <input ...></label>` (the `for=` attr is omitted). When false/absent, emits the default sibling form `<label for=id>labelText</label><input ...>`."
+          },
+          "value": {
+            "type": "string",
+            "description": "Raw value= attribute (string; numeric widgets still use string to preserve bytes like \"2\" vs \"2.0\")."
+          },
+          "min": {
+            "type": "string",
+            "description": "Raw min= attribute (optional)."
+          },
+          "max": {
+            "type": "string",
+            "description": "Raw max= attribute (optional)."
+          },
+          "step": {
+            "type": "string",
+            "description": "Raw step= attribute (optional)."
+          },
+          "placeholder": {
+            "type": "string",
+            "description": "Raw placeholder= attribute (optional)."
+          },
+          "style": {
+            "type": "string",
+            "description": "Raw inline style attr (e.g. \"width:4em\")."
+          },
           "trailingLabel": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["for", "text"],
+            "required": [
+              "for",
+              "text"
+            ],
             "properties": {
-              "for": { "type": "string", "description": "`for=` target id (may point at this input or an adjacent one)." },
-              "text": { "type": "string", "description": "Label text content (may include KaTeX-wrapped math)." }
+              "for": {
+                "type": "string",
+                "description": "`for=` target id (may point at this input or an adjacent one)."
+              },
+              "text": {
+                "type": "string",
+                "description": "Label text content (may include KaTeX-wrapped math)."
+              }
             },
             "description": "Optional <label for=…>…</label> rendered immediately AFTER this input, inside the same .row."
           }
@@ -80,10 +130,18 @@
     "button": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "text"],
+      "required": [
+        "id",
+        "text"
+      ],
       "properties": {
-        "id": { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
-        "text": { "type": "string" }
+        "id": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+        },
+        "text": {
+          "type": "string"
+        }
       },
       "description": "The action button that triggers the computation."
     },
@@ -119,7 +177,8 @@
     },
     "bodyScript": {
       "type": "string",
-      "description": "ARTIFACT. The verbatim IIFE body (everything between `(function(){` and `})();`) that wires up the button, reads inputs, and writes the readout / SVG. Byte-preserved so renderScript can round-trip the original inline source exactly. A portable frontend (React, etc.) ignores this field and implements compute(inputs) → readout on its own."
+      "description": "ARTIFACT. The verbatim IIFE body (everything between `(function(){` and `})();`) that wires up the button, reads inputs, and writes the readout / SVG. Byte-preserved so renderScript can round-trip the original inline source exactly. A portable frontend (React, etc.) ignores this field and implements compute(inputs) → readout on its own.",
+      "x-artifact": true
     },
     "trailingExplainer": {
       "type": "string",
@@ -127,10 +186,13 @@
     },
     "hdHtml": {
       "type": "string",
-      "description": "ARTIFACT. When present, overrides the default <div class=\"hd\">...</div> line builder; the renderer emits `  <div class=\"hd\">${hdHtml}</div>\\n` verbatim. Use for multi-line .hd variants that the default titleTag/hintTag + one-line template can't reproduce."
+      "description": "ARTIFACT. When present, overrides the default <div class=\"hd\">...</div> line builder; the renderer emits `  <div class=\"hd\">${hdHtml}</div>\\n` verbatim. Use for multi-line .hd variants that the default titleTag/hintTag + one-line template can't reproduce.",
+      "x-artifact": true
     }
   },
   "dependentRequired": {
-    "svgId": ["viewBox"]
+    "svgId": [
+      "viewBox"
+    ]
   }
 }

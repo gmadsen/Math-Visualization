@@ -47,6 +47,20 @@
       "prereqs": ["it-mutual-information", "it-source-coding"],
       "blurb": "For lossy compression with distortion measure $d$ and tolerance $D$, the rate–distortion function is $R(D)=\\min\\{I(X;\\hat X):\\mathbb{E}[d(X,\\hat X)]\\le D\\}$ — the minimum bits per symbol that still keep expected distortion under $D$. For a Gaussian source with squared-error distortion, $R(D)=\\tfrac{1}{2}\\log(\\sigma^2/D)$ on $[0,\\sigma^2]$.",
       "tags": ["duality"]
+    },
+    {
+      "id": "it-aep",
+      "title": "Asymptotic equipartition property",
+      "anchor": "aep",
+      "prereqs": ["it-shannon-entropy"],
+      "blurb": "For i.i.d.\\ $X_1,\\ldots,X_n\\sim p$, the law of large numbers applied to $-\\log p(X_i)$ gives $-\\tfrac{1}{n}\\log p(X_1,\\ldots,X_n)\\to H(X)$ in probability. The typical set $A_\\varepsilon^{(n)}=\\{x^n:|{-\\tfrac{1}{n}\\log p(x^n)}-H(X)|<\\varepsilon\\}$ has size $\\le 2^{n(H+\\varepsilon)}$ and probability $\\to 1$ — the operational backbone of source coding and jointly-typical decoding."
+    },
+    {
+      "id": "it-fisher-and-cramer-rao",
+      "title": "Fisher information and the Cramér–Rao bound",
+      "anchor": "fisher-cramer-rao",
+      "prereqs": ["it-kl-divergence", "ms-mle"],
+      "blurb": "Fisher information $I(\\theta)=-\\mathbb{E}_\\theta[\\partial_\\theta^2\\log p_\\theta(X)]=\\mathbb{E}_\\theta[(\\partial_\\theta\\log p_\\theta)^2]$ measures the curvature of the log-likelihood at $\\theta$. The Cramér–Rao bound: any unbiased estimator $\\hat\\theta$ of $\\theta$ from one sample obeys $\\mathrm{Var}_\\theta(\\hat\\theta)\\ge 1/I(\\theta)$, and de Bruijn's identity ties Fisher to differential entropy under Gaussian smoothing."
     }
   ]
 }

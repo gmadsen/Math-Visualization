@@ -105,12 +105,19 @@ Some fields exist purely to preserve byte-identical output from the current hand
 
 ### Structured vs. artifact-style adoption
 
-Two distinct levels of "registry adoption" exist in the corpus, with different portability promises:
+Two distinct levels of "registry adoption" exist in the corpus, each appropriate for different situations.
 
-- **Structured** slugs — `parametric-plot`, `clickable-graph`, `proof-scrubber`, `branching-proof-scrubber`, `julia-playground`, etc. Their schemas describe the widget's *data* (axes, steps, presets, node graphs). An alternate frontend (React, SSR) can re-render the widget purely from the params, ignoring `renderScript`. These are the registry's full payoff: schema-validated content + portable rendering.
-- **Artifact-style** bespoke slugs — `<topic>-<widgetname>` slugs whose schemas carry `bodyMarkup` and `bodyScript` as opaque verbatim strings (annotated `x-artifact: "…"`). The wrapping shell (`<div class="widget" id="…">` + `.hd` header + body) is structured, but everything inside `bodyMarkup` and the IIFE is opaque to a non-vanilla-HTML frontend. These slugs improve the *count* of registry-adopted widgets and they let the AJV schema gate at least the outer params — but a React consumer of an artifact-style slug has to re-implement the widget from scratch. They are best understood as "registered inline content" — a transitional shape, not the destination.
+- **Structured** slugs — `composition-explorer`, `declarative-host`, `natural-transformation-explorer`, etc. Their schemas describe the widget's *data* (objects, morphisms, presets, axes). An alternate frontend can re-render the widget purely from the params, ignoring `renderScript`. These are the highest-portability shape.
+- **Artifact-style** slugs — `<topic>-<widgetname>` slugs whose schemas carry `bodyMarkup` and/or `bodyScript` as opaque verbatim strings (annotated `x-artifact: true` plus a `description` explaining the rationale). The outer chrome (`<div class="widget">` + `.hd` header + widgetId) is structured, but everything inside the markup or the driving IIFE is opaque. AJV still validates the outer wrapper.
 
-When adding a new slug, prefer structured. Reach for artifact-style only when the widget's gesture genuinely doesn't fit any shared shape and authoring a sharp typed schema would block shipping. Mark every artifact field with `x-artifact` in the schema so the technical debt is visible in audits.
+**Artifact-style is the legitimate default for a one-off widget** (one slug, one topic, one gesture). The corpus today is one-off-dominated by design — most concepts get a bespoke figure, not a reused widget — and forcing every one-off into a sharp typed schema would either invent fake abstractions or block shipping. The wrapping pattern (slug + widgetId + artifact bytes) is enough to schema-gate the outer params, drive the round-trip pipeline, and surface the slug in registry audits.
+
+**Promote to structured when:**
+
+1. **A family emerges.** Multiple widgets on one topic share a clear shape (a common chrome plus a small set of input controls). Designing one shared slug with a `oneOf` over the variants collapses N schemas + N renderers into 1+1, and the unified schema starts paying off as documentation. The hamiltonians-classical-mechanics topic's 7 widgets are the current promotion example.
+2. **An outside consumer needs the data model.** Static-site generation, a different rendering target, or analytics over widget content can't read artifact bytes. Then the data the consumer needs has to come out of `bodyScript` and into structured params.
+
+If neither applies, leave the slug artifact-style and move on. **Mark every artifact field with `x-artifact: true`** so the artifact set is queryable (`grep -l 'x-artifact' widgets/*/schema.json`) and audit scripts can reason about it.
 
 ## Page-global helpers
 

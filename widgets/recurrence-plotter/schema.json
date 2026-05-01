@@ -11,7 +11,11 @@
   },
   "type": "object",
   "additionalProperties": false,
-  "required": ["widgetId", "title", "kind"],
+  "required": [
+    "widgetId",
+    "title",
+    "kind"
+  ],
   "properties": {
     "widgetId": {
       "type": "string",
@@ -33,7 +37,11 @@
     },
     "kind": {
       "type": "string",
-      "enum": ["logistic", "quadratic", "linear-2term"],
+      "enum": [
+        "logistic",
+        "quadratic",
+        "linear-2term"
+      ],
       "description": "Selects the recurrence rule. Each kind has its own slider set documented in js/widget-recurrence-plotter.js. New kinds are added in the library and listed here."
     },
     "params": {
@@ -43,7 +51,8 @@
     },
     "sectionComment": {
       "type": "string",
-      "description": "ARTIFACT. Optional banner comment preserved when migrating sources."
+      "description": "ARTIFACT. Optional banner comment preserved when migrating sources.",
+      "x-artifact": true
     }
   }
 }

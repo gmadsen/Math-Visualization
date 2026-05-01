@@ -11,7 +11,13 @@
   },
   "type": "object",
   "additionalProperties": false,
-  "required": ["widgetId", "svgId", "viewBox", "title", "svgInner"],
+  "required": [
+    "widgetId",
+    "svgId",
+    "viewBox",
+    "title",
+    "svgInner"
+  ],
   "properties": {
     "widgetId": {
       "type": "string",
@@ -38,10 +44,15 @@
     },
     "svgInner": {
       "type": "string",
-      "description": "ARTIFACT. Raw inner HTML of the SVG, excluding the inner `<title>` element (which the renderer emits automatically from `title`). Usually an empty string — the static-svg corpus overwhelmingly carries only the title element inside the SVG and lets a sibling `widget-script` block draw decoration at load time. Non-empty values preserve hand-drawn static SVG markup verbatim."
+      "description": "ARTIFACT. Raw inner HTML of the SVG, excluding the inner `<title>` element (which the renderer emits automatically from `title`). Usually an empty string — the static-svg corpus overwhelmingly carries only the title element inside the SVG and lets a sibling `widget-script` block draw decoration at load time. Non-empty values preserve hand-drawn static SVG markup verbatim.",
+      "x-artifact": true
     },
-    "caption": { "$ref": "#/$defs/afterSvg" },
-    "footer":  { "$ref": "#/$defs/afterSvg" }
+    "caption": {
+      "$ref": "#/$defs/afterSvg"
+    },
+    "footer": {
+      "$ref": "#/$defs/afterSvg"
+    }
   },
   "$defs": {
     "afterSvg": {
@@ -51,21 +62,42 @@
         {
           "type": "object",
           "additionalProperties": false,
-          "required": ["kind", "content"],
+          "required": [
+            "kind",
+            "content"
+          ],
           "properties": {
-            "kind":    { "const": "small" },
-            "content": { "type": "string" }
+            "kind": {
+              "const": "small"
+            },
+            "content": {
+              "type": "string"
+            }
           }
         },
         {
           "type": "object",
           "additionalProperties": false,
-          "required": ["kind"],
+          "required": [
+            "kind"
+          ],
           "properties": {
-            "kind":    { "const": "readout" },
-            "id":      { "type": "string", "pattern": "^[A-Za-z][A-Za-z0-9_-]*$" },
-            "style":   { "type": "string", "description": "ARTIFACT. Raw inline-style attribute value (e.g. `font-size:.85rem`). Several absorbed widgets set bespoke readout styling that the shared CSS doesn't cover." },
-            "content": { "type": "string", "description": "Raw HTML content inside the div. Defaults to the empty string when omitted." }
+            "kind": {
+              "const": "readout"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+            },
+            "style": {
+              "type": "string",
+              "description": "ARTIFACT. Raw inline-style attribute value (e.g. `font-size:.85rem`). Several absorbed widgets set bespoke readout styling that the shared CSS doesn't cover.",
+              "x-artifact": true
+            },
+            "content": {
+              "type": "string",
+              "description": "Raw HTML content inside the div. Defaults to the empty string when omitted."
+            }
           }
         }
       ]

@@ -191,6 +191,90 @@
         }
       ]
     },
+    "fpt-caristi": {
+      "title": "Caristi's fixed-point theorem",
+      "questions": [
+        {
+          "type": "multi-select",
+          "q": "Caristi's theorem $d(x,Tx)\\le\\varphi(x)-\\varphi(Tx)$ requires which of the following on the metric space $X$ and the weight $\\varphi$? (Select all that apply.)",
+          "choices": [
+            "$X$ complete",
+            "$\\varphi$ lower-semicontinuous",
+            "$\\varphi\\ge 0$ (or at least bounded below)",
+            "$T$ continuous",
+            "$T$ Lipschitz"
+          ],
+          "answer": [0, 1, 2],
+          "explain": "Caristi assumes only completeness of $X$, lower-semicontinuity of $\\varphi$, and a non-negative (equivalently bounded-below) $\\varphi$. The map $T$ need not be continuous and certainly not Lipschitz — that is the whole leverage over Banach. The proof never evaluates $T$ at the limit point; it constructs a Cauchy orbit from the inequality and uses lower-semicontinuity to conclude the displacement vanishes."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $T\\colon[0,2]\\to[0,2]$ be a contraction with Lipschitz constant $L=1/3$. To recover Banach via Caristi using $\\varphi(x)=c\\cdot d(x,Tx)$, what is the smallest constant $c$ that makes Caristi's hypothesis hold?",
+          "answer": 1.5,
+          "tol": 0.01,
+          "explain": "With $\\varphi(x)=c\\cdot d(x,Tx)$, $\\varphi(x)-\\varphi(Tx)=c[d(x,Tx)-d(Tx,T^2x)]\\ge c(1-L)d(x,Tx)$. We need this to dominate $d(x,Tx)$, i.e. $c(1-L)\\ge 1$, so $c\\ge 1/(1-L)$. With $L=1/3$ that gives $c=3/2=1.5$. This is the standard recipe: $\\varphi=d(x,Tx)/(1-L)$ recovers Banach as a Caristi corollary."
+        },
+        {
+          "type": "mcq",
+          "q": "On $X=[0,1]$ define $T(x)=x-x^2/2$ for $x\\in(0,1]$, $T(0)=0$. Why does Caristi (with $\\varphi(x)=2x$) succeed while Banach fails?",
+          "choices": [
+            "$X$ is not complete, so Banach's hypotheses do not hold",
+            "$T$ has no global Lipschitz constant $L<1$ (since $T'(0)=1$), but $\\varphi(x)-\\varphi(Tx)=x^2\\ge d(x,Tx)$ holds and Caristi has no Lipschitz requirement",
+            "$T$ is not continuous, so only Caristi applies",
+            "Banach's theorem applies — Caristi is unnecessary here"
+          ],
+          "answer": 1,
+          "explain": "$T$ is smooth and continuous, but $T'(x)=1-x$ approaches $1$ as $x\\to 0$, so no uniform $L<1$ exists — Banach's contraction hypothesis fails. With $\\varphi(x)=2x$ one computes $\\varphi(x)-\\varphi(Tx)=2x-2(x-x^2/2)=x^2$, while $d(x,Tx)=x^2/2\\le x^2$. Caristi applies and produces the fixed point $0$. This kind of weight-function gymnastics is exactly why Caristi outranks Banach in non-smooth optimization."
+        }
+      ]
+    },
+    "fpt-kkm": {
+      "title": "Knaster–Kuratowski–Mazurkiewicz lemma",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "On the standard simplex $\\Delta_n=\\mathrm{conv}\\{v_0,\\ldots,v_n\\}$, the KKM covering condition for closed sets $C_0,\\ldots,C_n$ asserts that for every $S\\subseteq\\{0,\\ldots,n\\}$:",
+          "choices": [
+            "$\\bigcap_{i\\in S}C_i\\ne\\emptyset$",
+            "$\\mathrm{conv}\\{v_i:i\\in S\\}\\subseteq\\bigcup_{i\\in S}C_i$",
+            "$C_i\\cap C_j=\\emptyset$ whenever $i\\ne j$",
+            "each $C_i$ is convex"
+          ],
+          "answer": 1,
+          "explain": "The defining hypothesis of KKM: every face spanned by $\\{v_i:i\\in S\\}$ is covered by the same-indexed $C_i$. Specialising $S=\\{i\\}$ gives $v_i\\in C_i$; specialising to the full index set says the $C_i$ cover $\\Delta_n$. The conclusion — $\\bigcap_i C_i\\ne\\emptyset$ — is what makes KKM substantive."
+        },
+        {
+          "type": "matching",
+          "q": "Match each statement on the left to its discrete or topological cousin on the right.",
+          "left": [
+            "KKM lemma (closed-cover form)",
+            "Brouwer fixed-point theorem",
+            "Sperner's lemma",
+            "Fan-KKM with closed-graph $G$"
+          ],
+          "right": [
+            "Continuous self-map of $\\Delta_n$ has a fixed point",
+            "Fully-labelled small simplex in any proper labelling exists",
+            "Closed sets covering each face share a common point",
+            "Set-valued generalisation underlying von Neumann minimax"
+          ],
+          "answer": [2, 0, 1, 3],
+          "explain": "KKM is the closed-cover / common-point statement (right index 2); Brouwer is the continuous self-map fixed-point statement (right index 0); Sperner is the discrete combinatorial sibling counting fully labelled simplices (right index 1); Fan-KKM is the set-valued / closed-graph extension that gives the minimax theorem (right index 3). The four are mutually equivalent up to short reductions."
+        },
+        {
+          "type": "mcq",
+          "q": "In the KKM-based proof of Brouwer for continuous $f\\colon\\Delta_n\\to\\Delta_n$, the sets $C_i=\\{x:f(x)_i\\le x_i\\}$ satisfy the KKM covering condition because:",
+          "choices": [
+            "$f$ is uniformly continuous",
+            "for $x\\in\\Delta_S$, the barycentric coordinates of $f(x)$ sum to 1, so at least one $i\\in S$ must have $f(x)_i\\le x_i$ — otherwise the sum would exceed 1",
+            "each $C_i$ is convex by linearity of $f$",
+            "$\\Delta_n$ is contractible"
+          ],
+          "answer": 1,
+          "explain": "If every $i\\in S$ satisfied $f(x)_i>x_i$ at some $x\\in\\Delta_S$, then $\\sum_{i\\in S}f(x)_i>\\sum_{i\\in S}x_i=1$, but $\\sum_i f(x)_i=1$ and $f(x)_j\\ge 0$ for $j\\notin S$, contradiction. So $x\\in C_i$ for some $i\\in S$. KKM then gives a point $x_*\\in\\bigcap_i C_i$ where $f(x_*)_i\\le x_{*,i}$ for every $i$, and equality of sums forces $f(x_*)=x_*$."
+        }
+      ]
+    },
     "fpt-applications": {
       "title": "Applications: ODEs, IVT, Nash, Markov chains",
       "questions": [

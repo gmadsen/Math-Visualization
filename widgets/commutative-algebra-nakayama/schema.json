@@ -24,11 +24,13 @@
     },
     "bodyMarkup": {
       "type": "string",
-      "description": "ARTIFACT. Verbatim widget HTML — the entire <div class=\"widget\" id=\"…\">…</div> bytes. Preserved byte-for-byte."
+      "description": "ARTIFACT. Verbatim widget HTML — the entire <div class=\"widget\" id=\"…\">…</div> bytes. Preserved byte-for-byte.",
+      "x-artifact": true
     },
     "bodyScript": {
       "type": "string",
-      "description": "ARTIFACT. Verbatim driving-script bytes (typically a <script>…</script> tag, may include a leading newline). Preserved byte-for-byte."
+      "description": "ARTIFACT. Verbatim driving-script bytes (typically a <script>…</script> tag, may include a leading newline). Preserved byte-for-byte.",
+      "x-artifact": true
     }
   }
 }
