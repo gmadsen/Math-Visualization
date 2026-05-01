@@ -8,11 +8,33 @@ When something ships, delete its bullet here. The full step list of `rebuild.mjs
 
 From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
-- 130 topics, 896 concepts, 1538 prereq edges (647 cross-topic), 24 capstones
+- 131 topics, 916 concepts, 1538 prereq edges (647 cross-topic), 24 capstones
 - 160 concepts lack a widget in their owning section
 - 0 inline widget blocks corpus-wide; 464 registry slugs (every `widget` block in `content/*.json` carries `slug + params`)
 - THIN-NEW count: 13; EMPTY-prereq count: 3 (`ant-prime-counting`, `e-definition`, `adjacency-and-laplacian`)
 - Quiz tiers: v1 = 2587, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
+
+## Shipped recently
+
+This branch (`refactor/sidetoc-shared-and-hamiltonians-figure`, PR #45):
+
+- **Sidetoc → shared `js/sidetoc.js`** (was inlined per topic page).
+- **`hamiltonians-figure` shared slug** absorbing 6 per-widget `hamiltonians-*` slugs via `oneOf` over input control families.
+- **Inline-widget migration corpus-wide.** 0 inline widget blocks remain (was ~250 across ~40 topics). 464 registry slugs total. 14 batches × 3 parallel agents.
+- **`fix-a11y` JSON-side migration.** Patches now stick across rebuilds — 53 SVG titles + missing labels persist.
+- **`audit-canvas-stub`** drift detection.
+- **`migrate-inline-widget`** helper (handles 4 dialects: span/div ttl/hint, multi-line `.hd`, legacy `{html, script}`, leading-newline scripts).
+- **`repair-widget-scripts --allow-drift`** for multi-IIFE-in-one-`<script>` topics.
+- **Two audits migrated to `loadContentModel()`:** audit-widget-interactivity, audit-cross-page-consistency.
+- **`new-topic.mjs` appends README bullet.**
+- **`new-concept.mjs`** scaffolder.
+- **`read-prose.mjs`** quality-pass tooling.
+- **Tours card** on index.html alongside pathway banner.
+- **Content materialization (audit-driven):** complex-analysis 8 chapters → 26 per-concept sections, galois 3 missing quiz placeholders added.
+- **9 thin concepts expanded** (8 complex-analysis + 1 representation-theory) from <500 chars to 1100–1842 chars.
+- **`advanced-complex-analysis` topic** in Analysis section: 8 grad concepts, ~22K chars (Picard little/great, Weierstrass factorization, Mittag-Leffler, Phragmén-Lindelöf, Hadamard 3-circles, Hardy spaces / Fatou boundary).
+- **+12 grad concepts across 6 topics** (~24K chars): fixed-point-theorems (Caristi, KKM), wavelets (lifting, biorthogonal/CDF), information-theory (AEP, Fisher–Cramér-Rao), zeta-values (multiple-zeta, zeta-Mahler-measure), knot-polynomials (Vassiliev, Khovanov), p-adic-numbers (Newton polygons, ramification).
+- **Stale-anchor cleanup** after complex-analysis materialization (24 callback `<li>` entries + 8 prose links).
 
 ## Near-term tasks
 

@@ -12,7 +12,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./complex-analysis.html#holo\">Holomorphic functions</a></li>\n    <li><a href=\"./smooth-manifolds.html#intro\">Smooth manifolds and atlases</a></li>\n    <li><a href=\"./complex-analysis.html#holomorphic-function\">Holomorphic functions</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./smooth-manifolds.html#intro\">Smooth manifolds and atlases</a></li>\n    <li><a href=\"./complex-analysis.html#holomorphic-function\">Holomorphic functions</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
@@ -433,7 +433,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./complex-analysis.html#holo\">Holomorphic functions</a></li>\n    <li><a href=\"./complex-analysis.html#holomorphic-function\">Holomorphic functions</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./complex-analysis.html#holomorphic-function\">Holomorphic functions</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
