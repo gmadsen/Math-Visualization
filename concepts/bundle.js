@@ -2489,6 +2489,35 @@ window.__MVConcepts = {
             "group-action",
             "classification"
           ]
+        },
+        {
+          "id": "kp-vassiliev-invariants",
+          "title": "Vassiliev (finite-type) invariants",
+          "anchor": "vassiliev",
+          "prereqs": [
+            "kp-jones-polynomial",
+            "kp-homfly-polynomial"
+          ],
+          "blurb": "Extend a knot invariant $V$ to <em>singular knots</em> (immersions with finitely many transverse double points) by the skein $V(K_\\times) = V(K_+) - V(K_-)$. $V$ has <em>type $\\le n$</em> if it vanishes on knots with $\\ge n+1$ double points; the quotients $\\mathcal{V}_n / \\mathcal{V}_{n-1}$ are finite-dimensional and combinatorially controlled by chord diagrams modulo 4T relations. Coefficients of Conway, Jones, and HOMFLY (after suitable expansion in $h$) are Vassiliev. The Kontsevich integral is a universal type-finite invariant.",
+          "tags": [
+            "classification",
+            "finiteness"
+          ]
+        },
+        {
+          "id": "kp-khovanov-homology",
+          "title": "Khovanov homology",
+          "anchor": "khovanov",
+          "prereqs": [
+            "kp-jones-polynomial",
+            "chain-complexes"
+          ],
+          "blurb": "A categorification of the Jones polynomial: to each diagram $D$ of a link $L$ assign a bigraded chain complex $C^{i,j}(D)$ whose homotopy type is a link invariant. The graded Euler characteristic recovers Jones: $\\sum_{i,j} (-1)^i q^j \\dim H^{i,j}(L) = (q + q^{-1}) V_L(q^2)$. Distinguishes pairs Jones cannot, and detects the unknot (Kronheimer–Mrowka). The first link-homology theory; opens the door to Heegaard–Floer, knot Floer homology, and categorification across geometric topology.",
+          "tags": [
+            "cohomology",
+            "classification",
+            "functoriality"
+          ]
         }
       ]
     },
@@ -8597,6 +8626,34 @@ window.__MVConcepts = {
           ]
         },
         {
+          "id": "newton-polygons",
+          "title": "Newton polygons",
+          "anchor": "newton-polygons",
+          "prereqs": [
+            "padic-norm-completion",
+            "hensel-lemma"
+          ],
+          "blurb": "The lower convex hull of the points (i, v_p(a_i)) reads the p-adic valuations of the roots of f directly off its slopes, factoring f over Q_p by valuation strata.",
+          "tags": [
+            "lifting"
+          ]
+        },
+        {
+          "id": "padic-extensions-ramification",
+          "title": "Extensions of Q_p and ramification",
+          "anchor": "padic-ramification",
+          "prereqs": [
+            "hensel-lemma",
+            "newton-polygons",
+            "field-extensions-basics"
+          ],
+          "blurb": "Every finite extension L/Q_p factors as an unramified piece (residue extension F_q/F_p of degree f) times a totally ramified piece given by an Eisenstein uniformizer (degree e), with ef = [L:Q_p]; tameness is e coprime to p, and Krasner's lemma makes the assignment polynomial→extension continuous.",
+          "tags": [
+            "completion",
+            "classification"
+          ]
+        },
+        {
           "id": "local-global-principle",
           "title": "Local-global (Hasse) principle",
           "anchor": "localglobal",
@@ -9572,6 +9629,24 @@ window.__MVConcepts = {
           "tags": [
             "duality"
           ]
+        },
+        {
+          "id": "multiple-zeta-values",
+          "title": "Multiple zeta values and their algebra",
+          "anchor": "multiple-zeta",
+          "prereqs": [
+            "odd-integer-values-apery"
+          ],
+          "blurb": "Multiple zeta values $\\zeta(s_1,\\ldots,s_k)=\\sum_{n_1>\\cdots>n_k\\ge 1} 1/(n_1^{s_1}\\cdots n_k^{s_k})$ extend $\\zeta$ to a graded $\\mathbb{Q}$-algebra carrying two products — shuffle (from iterated integrals) and stuffle (from sum manipulations) — whose double-shuffle relations conjecturally cut the weight-$n$ dimension to a Padovan-style recursion $d_n=d_{n-2}+d_{n-3}$."
+        },
+        {
+          "id": "zeta-mahler-measure",
+          "title": "Zeta values and Mahler measure",
+          "anchor": "zeta-mahler",
+          "prereqs": [
+            "even-integer-values"
+          ],
+          "blurb": "The (logarithmic) Mahler measure $m(P)=\\int_{T^n}\\log|P(z_1,\\ldots,z_n)|$ of a Laurent polynomial on the torus turns out to compute special values of $L$-functions: Smyth's $m(1+x+y)=L'(\\chi_{-3},-1)$ and Boyd's conjectures place vast families of $m(P)$ in the orbit of zeta and $L$-values, with Deninger linking them to regulators in arithmetic geometry."
         }
       ]
     },
@@ -12826,7 +12901,7 @@ window.__MVConcepts = {
       "concepts": 106,
       "intra": 157,
       "crossOut": 16,
-      "crossIn": 71,
+      "crossIn": 73,
       "density": 0.1509433962264151
     },
     "Higher categories & toposes": {
@@ -12851,25 +12926,25 @@ window.__MVConcepts = {
       "density": 0.2545454545454545
     },
     "Geometry & topology": {
-      "concepts": 102,
-      "intra": 154,
-      "crossOut": 18,
+      "concepts": 104,
+      "intra": 157,
+      "crossOut": 19,
       "crossIn": 79,
-      "density": 0.17647058823529413
+      "density": 0.18269230769230768
     },
     "Number theory": {
-      "concepts": 97,
-      "intra": 127,
-      "crossOut": 38,
+      "concepts": 99,
+      "intra": 131,
+      "crossOut": 39,
       "crossIn": 24,
-      "density": 0.3917525773195876
+      "density": 0.3939393939393939
     },
     "Modular forms & L-functions": {
-      "concepts": 93,
-      "intra": 125,
+      "concepts": 95,
+      "intra": 127,
       "crossOut": 54,
       "crossIn": 12,
-      "density": 0.5806451612903226
+      "density": 0.5684210526315789
     },
     "Algebraic geometry": {
       "concepts": 127,

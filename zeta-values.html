@@ -472,6 +472,7 @@ $$\boxed{\zeta(2n) = (-1)^{n+1}\frac{B_{2n}\,(2\pi)^{2n}}{2\,(2n)!}, \qquad n=1,
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./zeta-values.html#odd-integer-values-apery">Zeta values — ζ at integers</a> · Odd values and Apéry's constant ζ(3)</div>
+    <div><a href="./zeta-values.html#zeta-mahler">Zeta values — ζ at integers</a> · Zeta values and Mahler measure</div>
 </aside>
 <!-- backlinks-auto-end -->
 
@@ -571,7 +572,12 @@ $$\zeta(3) = \frac{5}{2}\sum_{n=1}^{\infty}\frac{(-1)^{n+1}}{n^3\binom{2n}{n}}.$
 })();
 </script>
 
-<div class="quiz" data-concept="odd-integer-values-apery"></div>
+<div class="quiz" data-concept="odd-integer-values-apery"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./zeta-values.html#multiple-zeta">Zeta values — ζ at integers</a> · Multiple zeta values and their algebra</div>
+</aside>
+<!-- backlinks-auto-end -->
 </section>
 
 <!-- ================================================================== -->
@@ -865,6 +871,86 @@ $$\zeta(1-s) = 2\,(2\pi)^{-s}\cos\!\left(\tfrac{\pi s}{2}\right)\Gamma(s)\,\zeta
 <!-- callback-auto-end -->
 
 <div class="quiz" data-concept="functional-equation-zeta"></div>
+</section>
+
+<!-- ================================================================== -->
+<section id="multiple-zeta">
+<h2>6. Multiple zeta values and their algebra</h2>
+
+<p>Nest the summation in $\zeta(s)=\sum n^{-s}$: for positive integers with $s_1\ge 2$ and $s_i\ge 1$, define the <em>multiple zeta value</em> (MZV)</p>
+
+$$\zeta(s_1,\ldots,s_k) \;=\; \sum_{n_1>\cdots>n_k\ge 1}\;\frac{1}{n_1^{s_1}\cdots n_k^{s_k}}.$$
+
+<p>$k$ is the <em>depth</em>, $w=s_1+\cdots+s_k$ the <em>weight</em>. The field opens with one Euler identity:</p>
+
+$$\zeta(2,1)\;=\;\sum_{n>m\ge 1}\frac{1}{n^2\,m}\;=\;\zeta(3).$$
+
+<p>Already at weight $3$, depth-$1$ and depth-$2$ values are tangled — and the weight-$n$ $\mathbb{Q}$-span is far smaller than the naive count of compositions.</p>
+
+<h3>Two products, two relations</h3>
+
+<p>An MZV has two representations, each giving a product on the algebra of MZVs.</p>
+
+<p><strong>Stuffle.</strong> Multiply two nested sums and interleave indices, including <em>collisions</em> where indices coincide and exponents add:</p>
+
+$$\zeta(2)\,\zeta(3) \;=\; \zeta(2,3)+\zeta(3,2)+\zeta(5).$$
+
+<p><strong>Shuffle.</strong> Each MZV is also an iterated Chen integral in $\omega_0=dt/t$, $\omega_1=dt/(1-t)$. Multiplying integrals shuffles letters:</p>
+
+$$\zeta(2)\,\zeta(3) \;=\; \zeta(2,3)+3\zeta(3,2)+6\zeta(4,1).$$
+
+<p>Subtracting kills $\zeta(2)\zeta(3)$ and yields a non-trivial linear relation among weight-$5$ MZVs — the <em>double-shuffle relation</em>. Iterating across all weights produces the rich web of identities governing the algebra.</p>
+
+<h3>Zagier's dimension conjecture</h3>
+
+<p>Let $d_n=\dim_{\mathbb{Q}}\mathcal{Z}_n$ be the weight-$n$ MZV span ($\mathcal{Z}_0=\mathbb{Q}$, $\mathcal{Z}_1=0$). Naive counts give $2^{n-2}$ generators; Zagier conjectured</p>
+
+$$d_n \;=\; d_{n-2}+d_{n-3}, \qquad d_0=1,\ d_1=0,\ d_2=1.$$
+
+<p>This recursion grows like $\rho^n$ with $\rho\approx 1.3247$ — far below $2^{n-2}$. First values: $1,0,1,1,1,2,2,3,4,5,7,9,\ldots$ Goncharov and Terasoma proved the <em>upper bound</em> via motives; equality is open. Hoffman: $\{\zeta(s_1,\ldots,s_k):s_i\in\{2,3\}\}$ is a $\mathbb{Q}$-basis. Brown (2012) proved these <em>span</em> $\mathcal{Z}_n$; independence is the open half.</p>
+
+<div class="note"><strong>Why this matters.</strong> MZVs are Feynman-integral periods, periods of the motivic $\pi_1$ of $\mathbb{P}^1\setminus\{0,1,\infty\}$, and Drinfeld-associator coefficients — the dimension conjecture is, after RH, the most accessible-looking transcendence question in number theory.</div>
+
+
+<div class="quiz" data-concept="multiple-zeta-values"></div>
+</section>
+
+<!-- ================================================================== -->
+<section id="zeta-mahler">
+<h2>7. Zeta values and Mahler measure</h2>
+
+<p>One of the strangest bridges in modern number theory connects $\zeta$ to polynomial geometry on the unit torus. For a non-zero Laurent polynomial $P\in\mathbb{C}[z_1^{\pm},\ldots,z_n^{\pm}]$, define the <em>(logarithmic) Mahler measure</em></p>
+
+$$m(P) \;=\; \int_{[0,1]^n}\log\bigl|P(e^{2\pi i\theta_1},\ldots,e^{2\pi i\theta_n})\bigr|\,d\theta_1\cdots d\theta_n.$$
+
+<p>In one variable, Jensen's formula collapses this to $m(P)=\log|a|+\sum_{|\alpha_j|>1}\log|\alpha_j|$ — purely a height. In two or more variables no elementary evaluation exists, and the surprise is what the integral computes instead.</p>
+
+<h3>Smyth's identity</h3>
+
+<p>In 1981 Christopher Smyth evaluated the simplest non-trivial case:</p>
+
+$$m(1+x+y) \;=\; \frac{3\sqrt{3}}{4\pi}\,L(\chi_{-3},2) \;=\; L'(\chi_{-3},-1),$$
+
+<p>with $\chi_{-3}$ the non-trivial Dirichlet character mod $3$ (the second equality is its functional equation). The Mahler measure of one of the simplest two-variable polynomials is a derivative of an $L$-function at a negative integer. Smyth also computed</p>
+
+$$m(1+x+y+z) \;=\; \frac{7}{2\pi^2}\,\zeta(3),$$
+
+<p>directly involving Apéry's constant: numerically $\approx 0.4263$, matching torus integration.</p>
+
+<h3>Boyd's conjectures and the regulator picture</h3>
+
+<p>Smyth's hits prompted David Boyd to compute hundreds of $m(P)$ for two-variable polynomials with small coefficients. With stunning regularity he found</p>
+
+$$m(P) \;\stackrel{?}{=}\; r\,L'(E,0)$$
+
+<p>for a rational $r$ and the elliptic curve $E$ defined by $P=0$ (when genus $1$). These <em>Boyd conjectures</em> are mostly open.</p>
+
+<p>Why should $\log|P|$ on a torus know about an $L$-value? Deninger reframed it through Beilinson's regulator: $T^n$ is a real cycle on $V=\{P=0\}$, $\log|P|$ extends to a Deligne cohomology class, and pairing cycle with class is — by Beilinson's conjecture — a rational multiple of $L'(V,0)$. In a sentence: <em>Mahler measure is a height; the height is a regulator; the regulator is a special $L$-value.</em> This places Smyth and Boyd inside the same framework as BSD.</p>
+
+<div class="note"><strong>Numerical sanity check.</strong> Direct integration: $m(1+x+y)\approx 0.32307$; $L'(\chi_{-3},-1)\approx 0.32307\ldots$ Laptop-checkable to thousands of decimals; still no proof for most of Boyd's conjectures.</div>
+
+
+<div class="quiz" data-concept="zeta-mahler-measure"></div>
 </section>
 
 <footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>

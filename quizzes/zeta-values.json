@@ -351,6 +351,84 @@
           "explain": "$\\zeta(-3)=2(2\\pi)^{-4}\\cdot 1\\cdot 6\\cdot\\pi^4/90=2\\cdot 6\\pi^4/(90\\cdot 16\\pi^4)=12/1440=1/120\\approx 0.008333$."
         }
       ]
+    },
+    "multiple-zeta-values": {
+      "title": "Multiple zeta values",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Euler's identity $\\zeta(2,1)=\\zeta(3)$ says that $\\sum_{n>m\\ge 1} 1/(n^2 m)$ equals $\\sum_{n\\ge 1} 1/n^3$. Which feature of the algebra of multiple zeta values does this most directly illustrate?",
+          "choices": [
+            "An MZV of depth $2$ can equal an MZV of depth $1$ at the same weight, so depth is not a $\\mathbb{Q}$-linear invariant",
+            "Every MZV of weight $w$ equals $\\zeta(w)$",
+            "The shuffle product is commutative",
+            "Multiple zeta values are always rational"
+          ],
+          "answer": 0,
+          "explain": "Both sides have weight $3$ but different depths ($2$ versus $1$). The identity shows that the weight-$3$ $\\mathbb{Q}$-span has dimension $1$ — at least three different-looking expressions ($\\zeta(3)$, $\\zeta(2,1)$, and any rational combination) collapse to the same line — which is exactly the kind of collapse that Zagier's dimension conjecture quantifies."
+        },
+        {
+          "type": "numeric",
+          "q": "Zagier's conjecture predicts $d_n=d_{n-2}+d_{n-3}$ with $d_0=1$, $d_1=0$, $d_2=1$. Compute $d_8$.",
+          "answer": 4,
+          "tol": 0.5,
+          "explain": "Iterate: $d_3=d_1+d_0=1$, $d_4=d_2+d_1=1$, $d_5=d_3+d_2=2$, $d_6=d_4+d_3=2$, $d_7=d_5+d_4=3$, $d_8=d_6+d_5=4$. Compare with $2^{8-2}=64$: the conjecture predicts MZVs of weight $8$ collapse from $64$ formal generators to a $4$-dimensional $\\mathbb{Q}$-span."
+        },
+        {
+          "type": "matching",
+          "q": "Match each ingredient of MZV theory to its precise role.",
+          "left": [
+            "Stuffle product",
+            "Shuffle product",
+            "Double-shuffle relation",
+            "Brown's theorem"
+          ],
+          "right": [
+            "Comes from multiplying nested sums and allowing index collisions",
+            "Comes from multiplying iterated Chen integrals over $\\{0,1\\}$-words",
+            "The difference of stuffle and shuffle expansions of $\\zeta(a)\\zeta(b)$ — a non-trivial linear identity",
+            "The MZVs $\\zeta(s_1,\\ldots,s_k)$ with $s_i\\in\\{2,3\\}$ span the $\\mathbb{Q}$-algebra of MZVs"
+          ],
+          "answer": [0, 1, 2, 3],
+          "explain": "Stuffle is the series-side product (nested sums + collisions), shuffle is the integral-side product (Chen integrals + letter shuffles). Their disagreement when computing $\\zeta(a)\\zeta(b)$ is exactly the double-shuffle relation, the engine generating MZV identities. Brown (2012) proved the spanning half of Hoffman's conjecture; linear independence is the still-open transcendence question."
+        }
+      ]
+    },
+    "zeta-mahler-measure": {
+      "title": "Zeta values and Mahler measure",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Smyth's identity $m(1+x+y) = L'(\\chi_{-3},-1)$ identifies the Mahler measure of $1+x+y$ with the derivative of an $L$-function at $s=-1$. Why does the right-hand side require analytic continuation?",
+          "choices": [
+            "Because the integral $m(1+x+y)$ is divergent",
+            "Because the Dirichlet series $\\sum_{n\\ge 1}\\chi_{-3}(n)/n^s$ defining $L(\\chi_{-3},s)$ converges only for $\\mathrm{Re}(s)>0$, so $L(\\chi_{-3},-1)$ and its derivative are not given by the series",
+            "Because the polynomial $1+x+y$ is irreducible",
+            "Because $\\chi_{-3}$ is not multiplicative"
+          ],
+          "answer": 1,
+          "explain": "Dirichlet $L$-series for non-principal characters converge for $\\mathrm{Re}(s)>0$; at $s=-1$ the defining series diverges and only the analytic continuation $L(\\chi_{-3},s)$ extending to $\\mathbb{C}$ gives a meaningful value. Smyth's identity is striking precisely because a tame Riemann integral on $T^2$ equals a quantity whose definition requires the full machinery of analytic continuation."
+        },
+        {
+          "type": "numeric",
+          "q": "Smyth showed $m(1+x+y+z) = (7/(2\\pi^2))\\,\\zeta(3)$. Using $\\zeta(3)\\approx 1.20206$ and $\\pi^2\\approx 9.8696$, compute $m(1+x+y+z)$ to four decimal places.",
+          "answer": 0.4263,
+          "tol": 0.0010,
+          "explain": "$7\\cdot 1.20206/(2\\cdot 9.8696) = 8.41442/19.7392 \\approx 0.4263$. This is the laptop-checkable value Smyth matched against direct numerical integration of $\\log|1+e^{2\\pi i\\alpha}+e^{2\\pi i\\beta}+e^{2\\pi i\\gamma}|$ over $[0,1]^3$."
+        },
+        {
+          "type": "mcq",
+          "q": "Boyd's conjectures predict $m(P)\\stackrel{?}{=} r\\,L'(E,0)$ for many two-variable polynomials $P$, where $E$ is the elliptic curve $\\{P=0\\}$ and $r\\in\\mathbb{Q}^\\times$. Within which broader conjectural framework does Deninger place these identities?",
+          "choices": [
+            "The Riemann hypothesis for elliptic-curve $L$-functions",
+            "Beilinson's regulator conjectures, where $m(P)$ is a height pairing realising a regulator and hence (conjecturally) a special $L$-value up to $\\mathbb{Q}^\\times$",
+            "The Langlands functoriality conjecture",
+            "The Hodge conjecture for abelian varieties"
+          ],
+          "answer": 1,
+          "explain": "Deninger interprets $\\log|P|$ on the unit torus as a Deligne cohomology class; pairing with the torus cycle on $V=\\{P=0\\}$ realises Beilinson's regulator. Beilinson's conjecture then predicts the pairing equals $r\\cdot L'(V,0)$ for some $r\\in\\mathbb{Q}^\\times$, recovering Boyd's empirical pattern. This embeds Smyth/Boyd in the same speculative landscape as BSD and the rest of the regulator program."
+        }
+      ]
     }
   }
 }

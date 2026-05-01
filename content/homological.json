@@ -57,7 +57,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./commutative-algebra.html#flat\">Commutative algebra</a> · Flatness and Tor</div>\n    <div><a href=\"./derived-categories.html#homotopy-category\">Derived categories</a> · The homotopy category $K(\\mathcal{A})$</div>\n    <div><a href=\"./homological.html#derived\">Homological algebra</a> · Derived functors and Ext/Tor</div>\n    <div><a href=\"./homological.html#exact\">Homological algebra</a> · Exact sequences</div>\n    <div><a href=\"./simplicial-complexes-combinatorial.html#persistence\">Simplicial complexes (combinatorial)</a> · Persistent homology and Vietoris–Rips</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./commutative-algebra.html#flat\">Commutative algebra</a> · Flatness and Tor</div>\n    <div><a href=\"./derived-categories.html#homotopy-category\">Derived categories</a> · The homotopy category $K(\\mathcal{A})$</div>\n    <div><a href=\"./homological.html#derived\">Homological algebra</a> · Derived functors and Ext/Tor</div>\n    <div><a href=\"./homological.html#exact\">Homological algebra</a> · Exact sequences</div>\n    <div><a href=\"./knot-polynomials.html#khovanov\">Knot polynomials</a> · Khovanov homology</div>\n    <div><a href=\"./simplicial-complexes-combinatorial.html#persistence\">Simplicial complexes (combinatorial)</a> · Persistent homology and Vietoris–Rips</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **131**, concepts: **910**
+- Topics: **131**, concepts: **916**
 - Widgets: **921** (registry-driven: 921, inline: 0)
-- Quizzes: **3921** (v1: 2685, hard: 1223, expert: 13)
-- Quiz types: mcq: 2640, numeric: 1034, multi-select: 99, matching: 47, ordering: 29, complex: 29, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **152**
-- Concepts lacking a hard-tier quiz: **472**
+- Quizzes: **3939** (v1: 2703, hard: 1223, expert: 13)
+- Quiz types: mcq: 2649, numeric: 1039, multi-select: 100, matching: 50, ordering: 29, complex: 29, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Concepts lacking a widget in their section: **158**
+- Concepts lacking a hard-tier quiz: **478**
 
 ## Per-slug registry adoption
 
@@ -536,33 +536,33 @@ page has wired one in yet.
 
 ### Geometry & topology
 
-- Topics: **16**, concepts: **102**
+- Topics: **16**, concepts: **104**
 - Widgets: **104** (registry-driven: 104, inline: 0)
   - by family: button-stepper: 34, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, mostow-rigidity-dial: 1, mostow-h3-fundamental-domain: 1, mostow-boundary-extension: 1, mostow-boundary-orbit: 1, mostow-rank-tower: 1, mostow-volume-spectrum: 1, symplectic-form-pairing: 1, symplectic-darboux-moser: 1, symplectic-harmonic-portrait: 1, symplectic-dirac-ladder: 1, symplectic-cotangent-lagrangians: 1, symplectic-floer-intersections: 1, knot-polynomials-gallery: 1, knot-polynomials-reidemeister: 1, knot-polynomials-alexander: 1, knot-polynomials-bracket: 1, knot-polynomials-homfly: 1, knot-polynomials-rmatrix: 1, ricci-einstein-flows: 1, ricci-deturck-trick: 1, ricci-blowup-rates: 1, ricci-soliton-zoo: 1, ricci-neckpinch-surgery: 1, ricci-extinction-timeline: 1, k-theory-grothendieck-builder: 1, k-theory-ses-relations: 1, k-theory-bott-periodicity: 1, k-theory-chern-character: 1, k-theory-low-k-groups: 1, k-theory-index-theorem: 1, atiyah-singer-index-family: 1, atiyah-singer-symbol: 1, atiyah-singer-ch-td: 1, atiyah-singer-cases: 1, atiyah-singer-dirac-sphere: 1, atiyah-singer-anomaly: 1, counterexample-explorer: 1, proof-scrubber: 1, lattice-visualizer: 1, characteristic-classes-mobius-vs-cylinder: 1, characteristic-classes-w1-surfaces: 1, characteristic-classes-c1-clutching: 1, characteristic-classes-pontryagin-formulas: 1, characteristic-classes-poincare-hopf: 1, characteristic-classes-gauss-bonnet: 1, characteristic-classes-classifying-map: 1, characteristic-classes-signature-l-genus: 1, characteristic-classes-cpn-localisation: 1, morse-torus-height: 1, morse-handle-decomp: 1, morse-cw-cells: 1, morse-betti-counts: 1, morse-gradient-flow: 1, morse-sphere-vs-rp2: 1, morse-smale-saddle: 1, morse-cerf-birth-death: 1
   - by dimension: 2d: 98, 3d: 6
   - by gesture: click: 61, slider: 20, drag: 8, button-stepper: 6, step: 3, pick: 2, static: 2, select: 1, timeline: 1
-- Quizzes: **448** (v1: 306, hard: 142, expert: 0)
-  - by type: mcq: 310, numeric: 122, complex: 7, multi-select: 4, matching: 3, ordering: 1, proof-completion: 1
+- Quizzes: **454** (v1: 312, hard: 142, expert: 0)
+  - by type: mcq: 313, numeric: 123, complex: 7, multi-select: 5, matching: 4, ordering: 1, proof-completion: 1
 
 ### Number theory
 
-- Topics: **14**, concepts: **97**
+- Topics: **14**, concepts: **99**
 - Widgets: **110** (registry-driven: 110, inline: 0)
   - by family: button-stepper: 66, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, inline-code-cell: 4, declarative-host: 2, parametric-plot: 2, crypto-totient-units: 1, crypto-rsa-toy: 1, crypto-diffie-hellman: 1, crypto-ecc-points: 1, crypto-lwe-samples: 1, crypto-schnorr-protocol: 1, branching-proof-scrubber: 1, clickable-graph: 1, svg-illustration: 1, heights-naive-calculator: 1, heights-northcott-enumerator: 1, heights-weil-pullback: 1, heights-tate-averaging: 1, heights-mahler-measure: 1, heights-genus-growth: 1, heights-arakelov-decomposition: 1, counterexample-explorer: 1, ant-pnt-comparison: 1, ant-explicit-formula: 1, ant-zero-free-region: 1, ant-dirichlet-residue-wheel: 1, ant-sieve-truncation: 1, ant-bombieri-vinogradov: 1, proof-scrubber: 1
   - by dimension: 2d: 110
   - by gesture: click: 74, slider: 21, input: 4, edit: 4, interactive: 2, button: 1, branching-timeline: 1, read: 1, select: 1, timeline: 1
-- Quizzes: **469** (v1: 286, hard: 183, expert: 0)
-  - by type: mcq: 318, numeric: 144, complex: 3, matching: 2, ordering: 1, guess-my-rule: 1
+- Quizzes: **475** (v1: 292, hard: 183, expert: 0)
+  - by type: mcq: 321, numeric: 146, complex: 3, matching: 3, ordering: 1, guess-my-rule: 1
 
 ### Modular forms & L-functions
 
-- Topics: **16**, concepts: **93**
+- Topics: **16**, concepts: **95**
 - Widgets: **127** (registry-driven: 127, inline: 0)
   - by family: button-stepper: 92, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 2, voa-mode-bookkeeping: 1, voa-axiom-map: 1, voa-virasoro-bracket: 1, voa-character-coeffs: 1, voa-mckay-thompson: 1, voa-construction-zoo: 1, automorphic-restricted-product: 1, automorphic-strong-approximation: 1, automorphic-three-conditions: 1, automorphic-dictionary: 1, automorphic-satake-parameters: 1, automorphic-conductor-ladder: 1, automorphic-local-factor-builder: 1, automorphic-eisenstein-residue: 1, automorphic-functoriality-transfers: 1, modular-curves-fundamental-domain: 1, modular-curves-lattice-cyclic-subgroup: 1, modular-curves-hecke-summands: 1, modular-curves-eichler-shimura: 1, modular-curves-genus-growth: 1, modular-curves-cusps-and-wn: 1, modular-curves-atkin-lehner-newforms: 1, modular-curves-heegner-hypothesis: 1, modular-curves-mazur-torsion: 1
   - by dimension: 2d: 127
   - by gesture: click: 100, slider: 13, step: 8, static: 4, select: 2
-- Quizzes: **474** (v1: 279, hard: 195, expert: 0)
-  - by type: mcq: 312, numeric: 156, multi-select: 4, matching: 1, ordering: 1
+- Quizzes: **480** (v1: 285, hard: 195, expert: 0)
+  - by type: mcq: 315, numeric: 158, multi-select: 4, matching: 2, ordering: 1
 
 ### Algebraic geometry
 
@@ -620,7 +620,7 @@ page has wired one in yet.
 - `vertex-operator-algebras` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `schrodinger-equation` (Mathematical physics) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
 - `mathematics-and-cryptography` (Number theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `knot-polynomials` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `knot-polynomials` (Geometry & topology) — concepts=8, widgets=6 (slug=6), quiz=24 (v1=24, hard=0, expert=0)
 - `ricci-flow` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `k-theory` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `atiyah-singer-index-theorem` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
@@ -680,7 +680,7 @@ page has wired one in yet.
 - `quadratic-forms-genus-theory` (Number theory) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
 - `additive-number-theory` (Number theory) — concepts=15, widgets=20 (slug=20), quiz=91 (v1=46, hard=45, expert=0)
 - `algebraic-number-theory` (Number theory) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
-- `p-adic-numbers` (Number theory) — concepts=5, widgets=10 (slug=10), quiz=30 (v1=15, hard=15, expert=0)
+- `p-adic-numbers` (Number theory) — concepts=7, widgets=10 (slug=10), quiz=36 (v1=21, hard=15, expert=0)
 - `adeles-and-ideles` (Number theory) — concepts=5, widgets=5 (slug=5), quiz=30 (v1=15, hard=15, expert=0)
 - `frobenius-and-reciprocity` (Number theory) — concepts=5, widgets=7 (slug=7), quiz=30 (v1=15, hard=15, expert=0)
 - `class-field-theory` (Number theory) — concepts=6, widgets=8 (slug=8), quiz=36 (v1=18, hard=18, expert=0)
@@ -693,7 +693,7 @@ page has wired one in yet.
 - `hecke-operators` (Modular forms & L-functions) — concepts=5, widgets=8 (slug=8), quiz=30 (v1=15, hard=15, expert=0)
 - `dirichlet-series-euler-products` (Modular forms & L-functions) — concepts=5, widgets=10 (slug=10), quiz=30 (v1=15, hard=15, expert=0)
 - `analytic-continuation` (Modular forms & L-functions) — concepts=5, widgets=6 (slug=6), quiz=30 (v1=15, hard=15, expert=0)
-- `zeta-values` (Modular forms & L-functions) — concepts=5, widgets=5 (slug=5), quiz=30 (v1=15, hard=15, expert=0)
+- `zeta-values` (Modular forms & L-functions) — concepts=7, widgets=5 (slug=5), quiz=36 (v1=21, hard=15, expert=0)
 - `L-functions` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `galois-representations` (Number theory) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `moonshine` (Modular forms & L-functions) — concepts=8, widgets=8 (slug=8), quiz=39 (v1=24, hard=15, expert=0)

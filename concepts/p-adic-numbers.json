@@ -44,6 +44,29 @@
       "tags": ["lifting"]
     },
     {
+      "id": "newton-polygons",
+      "title": "Newton polygons",
+      "anchor": "newton-polygons",
+      "prereqs": [
+        "padic-norm-completion",
+        "hensel-lemma"
+      ],
+      "blurb": "The lower convex hull of the points (i, v_p(a_i)) reads the p-adic valuations of the roots of f directly off its slopes, factoring f over Q_p by valuation strata.",
+      "tags": ["lifting"]
+    },
+    {
+      "id": "padic-extensions-ramification",
+      "title": "Extensions of Q_p and ramification",
+      "anchor": "padic-ramification",
+      "prereqs": [
+        "hensel-lemma",
+        "newton-polygons",
+        "field-extensions-basics"
+      ],
+      "blurb": "Every finite extension L/Q_p factors as an unramified piece (residue extension F_q/F_p of degree f) times a totally ramified piece given by an Eisenstein uniformizer (degree e), with ef = [L:Q_p]; tameness is e coprime to p, and Krasner's lemma makes the assignment polynomial→extension continuous.",
+      "tags": ["completion", "classification"]
+    },
+    {
       "id": "local-global-principle",
       "title": "Local-global (Hasse) principle",
       "anchor": "localglobal",

@@ -26860,6 +26860,94 @@ window.MVQuizBank = {
             "explain": "R3 is the slide of a strand across a crossing — three braidings on three strands rearrange in two ways, and equality of the resulting compositions is exactly the Yang–Baxter equation. R2 corresponds to $R \\circ R^{-1} = \\mathrm{id}$; R1 is fixed up by the ribbon twist."
           }
         ]
+      },
+      "kp-vassiliev-invariants": {
+        "title": "Vassiliev (finite-type) invariants",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "An invariant $V$ of oriented knots is extended to singular knots by the Vassiliev skein $V(K_\\times) = V(K_+) - V(K_-)$, where $K_\\times$ has a transverse double point and $K_\\pm$ are its two crossing resolutions. What does it mean for $V$ to be of <em>type $\\le n$</em> (finite type of order $n$)?",
+            "choices": [
+              "$V$ is a polynomial of degree $\\le n$ in some variable",
+              "$V$ vanishes on every singular knot with at least $n+1$ double points",
+              "$V$ is unchanged by the first $n$ Reidemeister moves",
+              "$V$ takes at most $n$ distinct values on the set of all knots"
+            ],
+            "answer": 1,
+            "explain": "The defining condition is exactly the vanishing on singular knots of high enough complexity: iterating the skein $n+1$ times kills $V$. This makes $\\mathcal{V}_n$ a filtration whose successive quotients $\\mathcal{V}_n/\\mathcal{V}_{n-1}$ are finite-dimensional and computable via chord diagrams modulo the 4T relation."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are Vassiliev (finite-type) invariants of knots, after the indicated normalisation? Select all that apply.",
+            "choices": [
+              "The coefficient of $h^n$ in the Conway polynomial $\\nabla_K(h) = \\Delta_K(e^h \\!-\\! 1 \\text{ etc.})$ (suitable expansion), for each fixed $n$",
+              "The coefficient of $h^n$ in $V_K(e^h)$, where $V_K(q)$ is the Jones polynomial",
+              "The crossing number $c(K)$",
+              "The hyperbolic volume $\\mathrm{vol}(S^3 \\setminus K)$"
+            ],
+            "answer": [
+              0,
+              1
+            ],
+            "explain": "After substituting $q = e^h$ (or expanding the Conway / HOMFLY polynomial in a power series), each coefficient is a finite-type invariant of bounded order — this is Bar-Natan's theorem. Crossing number and hyperbolic volume are not finite-type: they grow without bound in ways no chord-diagram count can match (e.g. crossing number is sub-multiplicative under connect sum but not polynomial in any natural filtration)."
+          },
+          {
+            "type": "numeric",
+            "q": "The space $\\mathcal{V}_2 / \\mathcal{V}_1$ of type-$\\le 2$ invariants modulo type-$\\le 1$ is one-dimensional, spanned by the second coefficient of the Conway polynomial $a_2(K)$. Compute $a_2(\\text{unknot})$.",
+            "answer": 0,
+            "tol": 0.0001,
+            "explain": "The Conway polynomial of the unknot is $\\nabla_U(z) = 1$, so every coefficient $a_n$ for $n \\ge 1$ vanishes. In particular $a_2(U) = 0$. By contrast $a_2(3_1) = 1$ for the trefoil — already this single number distinguishes trefoil from unknot."
+          }
+        ]
+      },
+      "kp-khovanov-homology": {
+        "title": "Khovanov homology",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Khovanov homology assigns to a link diagram $D$ a bigraded chain complex $C^{i,j}(D)$ with cohomology $H^{i,j}(L)$ depending only on $L$. Which relation does its <em>graded Euler characteristic</em> satisfy?",
+            "choices": [
+              "$\\sum_{i,j} (-1)^i q^j \\dim H^{i,j}(L) = V_L(q)$ (the Jones polynomial)",
+              "$\\sum_{i,j} (-1)^i q^j \\dim H^{i,j}(L) = (q + q^{-1}) V_L(q^2)$ (the unnormalised Jones polynomial)",
+              "$\\sum_{i,j} (-1)^{i+j} \\dim H^{i,j}(L) = \\Delta_L(-1)$ (the knot determinant)",
+              "$\\sum_{i,j} \\dim H^{i,j}(L) = c(L)$ (the crossing number)"
+            ],
+            "answer": 1,
+            "explain": "Khovanov categorifies the unnormalised Jones polynomial: each $j$-graded piece of the Kauffman state sum is replaced by a vector space, the $\\pm$ signs by $(-1)^i$, and Euler characteristic recovers the original. The factor $(q+q^{-1})$ appears because Khovanov's normalisation assigns a 2-dim space to each circle in the resolution."
+          },
+          {
+            "type": "matching",
+            "q": "Match each Khovanov-homology fact to the precise statement that establishes it.",
+            "left": [
+              "Khovanov detects the unknot",
+              "Khovanov is strictly stronger than Jones",
+              "Khovanov is functorial under cobordisms"
+            ],
+            "right": [
+              "Kronheimer–Mrowka: $H^{*,*}(L) \\cong \\mathbb{Q}[X]/X^2$ iff $L$ is the unknot",
+              "There exist links with the same Jones polynomial but different Khovanov homology",
+              "An oriented surface cobordism $\\Sigma: L_0 \\to L_1$ in $\\mathbb{R}^3 \\times [0,1]$ induces $H^{*,*}(L_0) \\to H^{*,*}(L_1)$ of bidegree $(0, \\chi(\\Sigma))$"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Each fact is the textbook statement: (1) Kronheimer–Mrowka 2010 used instanton-Floer techniques to prove the unknot detection theorem for Khovanov homology — it remains <em>open</em> whether Jones detects the unknot. (2) Bar-Natan's tables give explicit pairs (e.g. certain 11-crossing pretzel knots) sharing Jones but distinguished by Khovanov. (3) Functoriality under cobordisms (up to sign) was proved by Jacobsson and refined by Bar-Natan."
+          },
+          {
+            "type": "mcq",
+            "q": "A central feature of Khovanov homology is that it is a <em>categorification</em> of $V_L(q)$. Which is the cleanest description of what categorification means here?",
+            "choices": [
+              "It expresses $V_L(q)$ as a determinant of an explicit matrix",
+              "It replaces integers in a state-sum formula by graded vector spaces, and signs by $(-1)^i$, so the Euler characteristic recovers the original polynomial",
+              "It computes $V_L(q)$ inside a quantum field theory",
+              "It is the Kauffman bracket evaluated at a categorified variable"
+            ],
+            "answer": 1,
+            "explain": "Decategorification = Euler characteristic. Khovanov's complex is built by replacing each $0$- and $1$-resolution of a crossing in the Kauffman state sum by a tensor power of a 2-dim vector space, and the alternating sum $\\sum (-1)^i q^j \\dim H^{i,j}$ recovers the polynomial. The new content is the chain-homotopy type itself — invariants that the polynomial loses by collapsing to ranks."
+          }
+        ]
       }
     }
   },
@@ -34974,6 +35062,86 @@ window.MVQuizBank = {
             "answer": 1,
             "hint": "Use Euler's criterion to test when $-1$ is a QR.",
             "explain": "By Euler's criterion, $(-1)^{(p-1)/2}\\equiv 1\\pmod p$ iff $(p-1)/2$ is even, i.e. $4\\mid p-1$, i.e. $p\\equiv 1\\pmod 4$. For such primes Hensel's lemma lifts a mod-$p$ square root of $-1$ to a genuine element of $\\mathbb{Z}_p$. For $p\\equiv 3\\pmod 4$, $-1$ is a QNR and no lift exists."
+          }
+        ]
+      },
+      "newton-polygons": {
+        "title": "Newton polygons",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For $f(x)=x^3-x-p\\in\\mathbb{Q}_p[x]$, the points $(i,v_p(a_i))$ are $(0,1),(1,0),(2,\\infty),(3,0)$. The Newton polygon (lower convex hull) has which slope sequence, read left to right?",
+            "choices": [
+              "$1,1,1$ — three roots of valuation $1$",
+              "$-1,0$ with horizontal lengths $1,2$ — one root of valuation $-1$ and two unit roots",
+              "$0,0,1$ — but ordered as horizontal lengths $1,1,1$",
+              "$1/3,1/3,1/3$ — Eisenstein, so a single slope of $1/3$"
+            ],
+            "answer": 1,
+            "explain": "Plot $(0,1),(1,0),(3,0)$ (drop the $\\infty$ point). The lower hull goes from $(0,1)$ to $(1,0)$ — slope $-1$, length $1$ — then from $(1,0)$ to $(3,0)$ — slope $0$, length $2$. By the Newton-polygon theorem this means one root of $p$-adic valuation $1$ and two roots of valuation $0$ (units). Note: when we say 'slopes equal valuations' we conventionally negate the geometric slope, so a geometric slope of $-1$ corresponds to a root valuation of $1$."
+          },
+          {
+            "type": "numeric",
+            "q": "The Eisenstein criterion is the special case of a single-slope Newton polygon. For $f(x)=x^n+p\\in\\mathbb{Q}_p[x]$, every root has $p$-adic valuation $1/n$. Compute this valuation for $f(x)=x^5+p$ as a decimal.",
+            "answer": 0.2,
+            "tol": 0.000001,
+            "explain": "The polygon has a single segment from $(0,1)$ to $(5,0)$. Its geometric slope is $-1/5$, and the corresponding root valuation is $1/5=0.2$. All five roots share this valuation; this is the Eisenstein criterion in disguise — $f$ is irreducible because no proper factor can have integer-valuation roots."
+          },
+          {
+            "type": "matching",
+            "q": "Match each polynomial in $\\mathbb{Q}_p[x]$ (with the indicated coefficients written as $(a_0,a_1,\\ldots,a_n)$ and $p=3$) to the multiset of $p$-adic valuations of its roots in $\\overline{\\mathbb{Q}_p}$.",
+            "left": [
+              "$x^2-1$  (coefficients $(-1,0,1)$, $p=3$)",
+              "$x^2-3$  (coefficients $(-3,0,1)$, $p=3$)",
+              "$x^2+3x+9$  (coefficients $(9,3,1)$, $p=3$)"
+            ],
+            "right": [
+              "$\\{0,0\\}$ — two units",
+              "$\\{1/2,1/2\\}$ — Eisenstein, both roots of valuation $1/2$",
+              "$\\{1,1\\}$ — both roots of valuation $1$"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "$x^2-1$: hull from $(0,0)$ to $(2,0)$, slope $0$, two unit roots. $x^2-3$: hull from $(0,1)$ to $(2,0)$, single slope $-1/2$, two roots of valuation $1/2$ (Eisenstein at $p=3$). $x^2+3x+9$: hull from $(0,2)$ to $(2,0)$, single slope $-1$, two roots of valuation $1$ (consistent with $f(x)=(x-3\\zeta)(x-3\\bar\\zeta)$ for a primitive cube root of unity $\\zeta$)."
+          }
+        ]
+      },
+      "padic-extensions-ramification": {
+        "title": "Extensions of $\\mathbb{Q}_p$ and ramification",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $L/\\mathbb{Q}_p$ be a finite extension with ramification index $e$ and residue degree $f$. Which identity always holds?",
+            "choices": [
+              "$e+f=[L:\\mathbb{Q}_p]$",
+              "$ef=[L:\\mathbb{Q}_p]$",
+              "$e^f=[L:\\mathbb{Q}_p]$",
+              "$\\gcd(e,f)=[L:\\mathbb{Q}_p]$"
+            ],
+            "answer": 1,
+            "explain": "For a finite extension of a local field, the fundamental identity $ef=[L:\\mathbb{Q}_p]$ holds. The unramified piece $\\mathbb{Q}_p\\subseteq L^{ur}$ has degree $f$ and corresponds to the residue extension $\\mathbb{F}_{p^f}/\\mathbb{F}_p$; the totally ramified piece $L/L^{ur}$ has degree $e$, generated by a uniformizer $\\pi$ satisfying an Eisenstein polynomial of degree $e$."
+          },
+          {
+            "type": "numeric",
+            "q": "For $L=\\mathbb{Q}_p(\\zeta_p)$ where $\\zeta_p$ is a primitive $p$-th root of unity ($p$ odd prime), the minimal polynomial of $\\pi=\\zeta_p-1$ is $\\Phi_p(1+\\pi)=\\pi^{p-1}+\\binom{p}{2}\\pi^{p-2}+\\cdots+p$, which is Eisenstein. The extension is totally ramified with $f=1$. What is the ramification index $e$? (Answer for $p=5$.)",
+            "answer": 4,
+            "tol": 0.000001,
+            "explain": "$[\\mathbb{Q}_p(\\zeta_p):\\mathbb{Q}_p]=\\deg\\Phi_p=p-1$, and the Eisenstein polynomial above shows the extension is totally ramified, so $f=1$ and $e=p-1$. For $p=5$, $e=4$. Since $p\\mid e$ would mean $p\\mid p-1$, which is false, this ramification is tame."
+          },
+          {
+            "type": "mcq",
+            "q": "Krasner's lemma: if $\\alpha\\in\\overline{\\mathbb{Q}_p}$ has conjugates $\\alpha=\\alpha_1,\\ldots,\\alpha_n$ and $\\beta\\in\\overline{\\mathbb{Q}_p}$ satisfies $|\\beta-\\alpha|<|\\alpha-\\alpha_i|$ for all $i\\ge 2$, then $\\mathbb{Q}_p(\\alpha)\\subseteq\\mathbb{Q}_p(\\beta)$. Which corollary is the standard application to Eisenstein polynomials?",
+            "choices": [
+              "Two Eisenstein polynomials of the same degree always define the same extension of $\\mathbb{Q}_p$",
+              "Two Eisenstein polynomials of the same degree with sufficiently $p$-adically close coefficients define the same extension of $\\mathbb{Q}_p$",
+              "Krasner's lemma forces every finite extension of $\\mathbb{Q}_p$ to be Galois",
+              "Krasner's lemma proves that $\\mathbb{Q}_p$ has only finitely many algebraic closures"
+            ],
+            "answer": 1,
+            "explain": "Krasner's lemma is the technical engine behind 'roots are continuous functions of coefficients' over $\\mathbb{Q}_p$: if two Eisenstein polynomials $f$ and $g$ of the same degree have $p$-adically close enough coefficients, then a root of $g$ is closer to a fixed root of $f$ than to any other conjugate of that root, so it generates the same extension. This compactness is what makes the set of extensions of $\\mathbb{Q}_p$ of a fixed degree finite."
           }
         ]
       },
@@ -50386,6 +50554,89 @@ window.MVQuizBank = {
             "tol": 0.000005,
             "hint": "Apply the reflection formula carefully, reading off $\\zeta(-3)$.",
             "explain": "$\\zeta(-3)=2(2\\pi)^{-4}\\cdot 1\\cdot 6\\cdot\\pi^4/90=2\\cdot 6\\pi^4/(90\\cdot 16\\pi^4)=12/1440=1/120\\approx 0.008333$."
+          }
+        ]
+      },
+      "multiple-zeta-values": {
+        "title": "Multiple zeta values",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Euler's identity $\\zeta(2,1)=\\zeta(3)$ says that $\\sum_{n>m\\ge 1} 1/(n^2 m)$ equals $\\sum_{n\\ge 1} 1/n^3$. Which feature of the algebra of multiple zeta values does this most directly illustrate?",
+            "choices": [
+              "An MZV of depth $2$ can equal an MZV of depth $1$ at the same weight, so depth is not a $\\mathbb{Q}$-linear invariant",
+              "Every MZV of weight $w$ equals $\\zeta(w)$",
+              "The shuffle product is commutative",
+              "Multiple zeta values are always rational"
+            ],
+            "answer": 0,
+            "explain": "Both sides have weight $3$ but different depths ($2$ versus $1$). The identity shows that the weight-$3$ $\\mathbb{Q}$-span has dimension $1$ — at least three different-looking expressions ($\\zeta(3)$, $\\zeta(2,1)$, and any rational combination) collapse to the same line — which is exactly the kind of collapse that Zagier's dimension conjecture quantifies."
+          },
+          {
+            "type": "numeric",
+            "q": "Zagier's conjecture predicts $d_n=d_{n-2}+d_{n-3}$ with $d_0=1$, $d_1=0$, $d_2=1$. Compute $d_8$.",
+            "answer": 4,
+            "tol": 0.5,
+            "explain": "Iterate: $d_3=d_1+d_0=1$, $d_4=d_2+d_1=1$, $d_5=d_3+d_2=2$, $d_6=d_4+d_3=2$, $d_7=d_5+d_4=3$, $d_8=d_6+d_5=4$. Compare with $2^{8-2}=64$: the conjecture predicts MZVs of weight $8$ collapse from $64$ formal generators to a $4$-dimensional $\\mathbb{Q}$-span."
+          },
+          {
+            "type": "matching",
+            "q": "Match each ingredient of MZV theory to its precise role.",
+            "left": [
+              "Stuffle product",
+              "Shuffle product",
+              "Double-shuffle relation",
+              "Brown's theorem"
+            ],
+            "right": [
+              "Comes from multiplying nested sums and allowing index collisions",
+              "Comes from multiplying iterated Chen integrals over $\\{0,1\\}$-words",
+              "The difference of stuffle and shuffle expansions of $\\zeta(a)\\zeta(b)$ — a non-trivial linear identity",
+              "The MZVs $\\zeta(s_1,\\ldots,s_k)$ with $s_i\\in\\{2,3\\}$ span the $\\mathbb{Q}$-algebra of MZVs"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Stuffle is the series-side product (nested sums + collisions), shuffle is the integral-side product (Chen integrals + letter shuffles). Their disagreement when computing $\\zeta(a)\\zeta(b)$ is exactly the double-shuffle relation, the engine generating MZV identities. Brown (2012) proved the spanning half of Hoffman's conjecture; linear independence is the still-open transcendence question."
+          }
+        ]
+      },
+      "zeta-mahler-measure": {
+        "title": "Zeta values and Mahler measure",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Smyth's identity $m(1+x+y) = L'(\\chi_{-3},-1)$ identifies the Mahler measure of $1+x+y$ with the derivative of an $L$-function at $s=-1$. Why does the right-hand side require analytic continuation?",
+            "choices": [
+              "Because the integral $m(1+x+y)$ is divergent",
+              "Because the Dirichlet series $\\sum_{n\\ge 1}\\chi_{-3}(n)/n^s$ defining $L(\\chi_{-3},s)$ converges only for $\\mathrm{Re}(s)>0$, so $L(\\chi_{-3},-1)$ and its derivative are not given by the series",
+              "Because the polynomial $1+x+y$ is irreducible",
+              "Because $\\chi_{-3}$ is not multiplicative"
+            ],
+            "answer": 1,
+            "explain": "Dirichlet $L$-series for non-principal characters converge for $\\mathrm{Re}(s)>0$; at $s=-1$ the defining series diverges and only the analytic continuation $L(\\chi_{-3},s)$ extending to $\\mathbb{C}$ gives a meaningful value. Smyth's identity is striking precisely because a tame Riemann integral on $T^2$ equals a quantity whose definition requires the full machinery of analytic continuation."
+          },
+          {
+            "type": "numeric",
+            "q": "Smyth showed $m(1+x+y+z) = (7/(2\\pi^2))\\,\\zeta(3)$. Using $\\zeta(3)\\approx 1.20206$ and $\\pi^2\\approx 9.8696$, compute $m(1+x+y+z)$ to four decimal places.",
+            "answer": 0.4263,
+            "tol": 0.001,
+            "explain": "$7\\cdot 1.20206/(2\\cdot 9.8696) = 8.41442/19.7392 \\approx 0.4263$. This is the laptop-checkable value Smyth matched against direct numerical integration of $\\log|1+e^{2\\pi i\\alpha}+e^{2\\pi i\\beta}+e^{2\\pi i\\gamma}|$ over $[0,1]^3$."
+          },
+          {
+            "type": "mcq",
+            "q": "Boyd's conjectures predict $m(P)\\stackrel{?}{=} r\\,L'(E,0)$ for many two-variable polynomials $P$, where $E$ is the elliptic curve $\\{P=0\\}$ and $r\\in\\mathbb{Q}^\\times$. Within which broader conjectural framework does Deninger place these identities?",
+            "choices": [
+              "The Riemann hypothesis for elliptic-curve $L$-functions",
+              "Beilinson's regulator conjectures, where $m(P)$ is a height pairing realising a regulator and hence (conjecturally) a special $L$-value up to $\\mathbb{Q}^\\times$",
+              "The Langlands functoriality conjecture",
+              "The Hodge conjecture for abelian varieties"
+            ],
+            "answer": 1,
+            "explain": "Deninger interprets $\\log|P|$ on the unit torus as a Deligne cohomology class; pairing with the torus cycle on $V=\\{P=0\\}$ realises Beilinson's regulator. Beilinson's conjecture then predicts the pairing equals $r\\cdot L'(V,0)$ for some $r\\in\\mathbb{Q}^\\times$, recovering Boyd's empirical pattern. This embeds Smyth/Boyd in the same speculative landscape as BSD and the rest of the regulator program."
           }
         ]
       }

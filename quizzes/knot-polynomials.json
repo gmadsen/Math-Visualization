@@ -221,6 +221,94 @@
           "explain": "R3 is the slide of a strand across a crossing — three braidings on three strands rearrange in two ways, and equality of the resulting compositions is exactly the Yang–Baxter equation. R2 corresponds to $R \\circ R^{-1} = \\mathrm{id}$; R1 is fixed up by the ribbon twist."
         }
       ]
+    },
+    "kp-vassiliev-invariants": {
+      "title": "Vassiliev (finite-type) invariants",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "An invariant $V$ of oriented knots is extended to singular knots by the Vassiliev skein $V(K_\\times) = V(K_+) - V(K_-)$, where $K_\\times$ has a transverse double point and $K_\\pm$ are its two crossing resolutions. What does it mean for $V$ to be of <em>type $\\le n$</em> (finite type of order $n$)?",
+          "choices": [
+            "$V$ is a polynomial of degree $\\le n$ in some variable",
+            "$V$ vanishes on every singular knot with at least $n+1$ double points",
+            "$V$ is unchanged by the first $n$ Reidemeister moves",
+            "$V$ takes at most $n$ distinct values on the set of all knots"
+          ],
+          "answer": 1,
+          "explain": "The defining condition is exactly the vanishing on singular knots of high enough complexity: iterating the skein $n+1$ times kills $V$. This makes $\\mathcal{V}_n$ a filtration whose successive quotients $\\mathcal{V}_n/\\mathcal{V}_{n-1}$ are finite-dimensional and computable via chord diagrams modulo the 4T relation."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following are Vassiliev (finite-type) invariants of knots, after the indicated normalisation? Select all that apply.",
+          "choices": [
+            "The coefficient of $h^n$ in the Conway polynomial $\\nabla_K(h) = \\Delta_K(e^h \\!-\\! 1 \\text{ etc.})$ (suitable expansion), for each fixed $n$",
+            "The coefficient of $h^n$ in $V_K(e^h)$, where $V_K(q)$ is the Jones polynomial",
+            "The crossing number $c(K)$",
+            "The hyperbolic volume $\\mathrm{vol}(S^3 \\setminus K)$"
+          ],
+          "answer": [
+            0,
+            1
+          ],
+          "explain": "After substituting $q = e^h$ (or expanding the Conway / HOMFLY polynomial in a power series), each coefficient is a finite-type invariant of bounded order — this is Bar-Natan's theorem. Crossing number and hyperbolic volume are not finite-type: they grow without bound in ways no chord-diagram count can match (e.g. crossing number is sub-multiplicative under connect sum but not polynomial in any natural filtration)."
+        },
+        {
+          "type": "numeric",
+          "q": "The space $\\mathcal{V}_2 / \\mathcal{V}_1$ of type-$\\le 2$ invariants modulo type-$\\le 1$ is one-dimensional, spanned by the second coefficient of the Conway polynomial $a_2(K)$. Compute $a_2(\\text{unknot})$.",
+          "answer": 0,
+          "tol": 0.0001,
+          "explain": "The Conway polynomial of the unknot is $\\nabla_U(z) = 1$, so every coefficient $a_n$ for $n \\ge 1$ vanishes. In particular $a_2(U) = 0$. By contrast $a_2(3_1) = 1$ for the trefoil — already this single number distinguishes trefoil from unknot."
+        }
+      ]
+    },
+    "kp-khovanov-homology": {
+      "title": "Khovanov homology",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Khovanov homology assigns to a link diagram $D$ a bigraded chain complex $C^{i,j}(D)$ with cohomology $H^{i,j}(L)$ depending only on $L$. Which relation does its <em>graded Euler characteristic</em> satisfy?",
+          "choices": [
+            "$\\sum_{i,j} (-1)^i q^j \\dim H^{i,j}(L) = V_L(q)$ (the Jones polynomial)",
+            "$\\sum_{i,j} (-1)^i q^j \\dim H^{i,j}(L) = (q + q^{-1}) V_L(q^2)$ (the unnormalised Jones polynomial)",
+            "$\\sum_{i,j} (-1)^{i+j} \\dim H^{i,j}(L) = \\Delta_L(-1)$ (the knot determinant)",
+            "$\\sum_{i,j} \\dim H^{i,j}(L) = c(L)$ (the crossing number)"
+          ],
+          "answer": 1,
+          "explain": "Khovanov categorifies the unnormalised Jones polynomial: each $j$-graded piece of the Kauffman state sum is replaced by a vector space, the $\\pm$ signs by $(-1)^i$, and Euler characteristic recovers the original. The factor $(q+q^{-1})$ appears because Khovanov's normalisation assigns a 2-dim space to each circle in the resolution."
+        },
+        {
+          "type": "matching",
+          "q": "Match each Khovanov-homology fact to the precise statement that establishes it.",
+          "left": [
+            "Khovanov detects the unknot",
+            "Khovanov is strictly stronger than Jones",
+            "Khovanov is functorial under cobordisms"
+          ],
+          "right": [
+            "Kronheimer–Mrowka: $H^{*,*}(L) \\cong \\mathbb{Q}[X]/X^2$ iff $L$ is the unknot",
+            "There exist links with the same Jones polynomial but different Khovanov homology",
+            "An oriented surface cobordism $\\Sigma: L_0 \\to L_1$ in $\\mathbb{R}^3 \\times [0,1]$ induces $H^{*,*}(L_0) \\to H^{*,*}(L_1)$ of bidegree $(0, \\chi(\\Sigma))$"
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explain": "Each fact is the textbook statement: (1) Kronheimer–Mrowka 2010 used instanton-Floer techniques to prove the unknot detection theorem for Khovanov homology — it remains <em>open</em> whether Jones detects the unknot. (2) Bar-Natan's tables give explicit pairs (e.g. certain 11-crossing pretzel knots) sharing Jones but distinguished by Khovanov. (3) Functoriality under cobordisms (up to sign) was proved by Jacobsson and refined by Bar-Natan."
+        },
+        {
+          "type": "mcq",
+          "q": "A central feature of Khovanov homology is that it is a <em>categorification</em> of $V_L(q)$. Which is the cleanest description of what categorification means here?",
+          "choices": [
+            "It expresses $V_L(q)$ as a determinant of an explicit matrix",
+            "It replaces integers in a state-sum formula by graded vector spaces, and signs by $(-1)^i$, so the Euler characteristic recovers the original polynomial",
+            "It computes $V_L(q)$ inside a quantum field theory",
+            "It is the Kauffman bracket evaluated at a categorified variable"
+          ],
+          "answer": 1,
+          "explain": "Decategorification = Euler characteristic. Khovanov's complex is built by replacing each $0$- and $1$-resolution of a crossing in the Kauffman state sum by a tensor power of a 2-dim vector space, and the alternating sum $\\sum (-1)^i q^j \\dim H^{i,j}$ recovers the polynomial. The new content is the chain-homotopy type itself — invariants that the polynomial loses by collapsing to ranks."
+        }
+      ]
     }
   }
 }

@@ -244,6 +244,8 @@ function drawNode(svg, x, y, label, opts={}){
   <a href="#jones">4&nbsp;Jones</a>
   <a href="#homfly">5&nbsp;HOMFLY</a>
   <a href="#quantum">6&nbsp;Quantum&nbsp;invariants</a>
+  <a href="#vassiliev">7&nbsp;Vassiliev&nbsp;invariants</a>
+  <a href="#khovanov">8&nbsp;Khovanov&nbsp;homology</a>
 </nav>
 <!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
 
@@ -424,7 +426,9 @@ function drawNode(svg, x, y, label, opts={}){
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./knot-polynomials.html#homfly">Knot polynomials</a> · HOMFLY polynomial</div>
+    <div><a href="./knot-polynomials.html#khovanov">Knot polynomials</a> · Khovanov homology</div>
     <div><a href="./knot-polynomials.html#quantum">Knot polynomials</a> · Quantum invariants</div>
+    <div><a href="./knot-polynomials.html#vassiliev">Knot polynomials</a> · Vassiliev (finite-type) invariants</div>
 </aside>
 <!-- backlinks-auto-end -->
 
@@ -463,7 +467,12 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>Why two variables? The skein relation has three terms, and after fixing the value on the unknot, one variable's worth of freedom remains. This freedom is exactly what is needed to remember whether you are sitting in the $\mathfrak{sl}_n$ representation theory for varying $n$ — see the next section.</p>
 
-<div class="quiz" data-concept="kp-homfly-polynomial"></div>
+<div class="quiz" data-concept="kp-homfly-polynomial"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./knot-polynomials.html#vassiliev">Knot polynomials</a> · Vassiliev (finite-type) invariants</div>
+</aside>
+<!-- backlinks-auto-end -->
 </section>
 
 <section id="quantum">
@@ -514,6 +523,72 @@ function drawNode(svg, x, y, label, opts={}){
 <p>This is the grand unification: knot polynomials, statistical-mechanics partition functions, and 3-dimensional topological quantum field theories are facets of one combinatorial-categorical object. Witten's interpretation makes them path integrals for Chern–Simons theory; Reshetikhin–Turaev makes them honest combinatorial invariants. The volume conjecture relates the $N \to \infty$ asymptotics of the colored Jones polynomial to the hyperbolic volume of the knot complement — a still-open bridge between quantum and hyperbolic topology.</p>
 
 <div class="quiz" data-concept="kp-quantum-invariants"></div>
+</section>
+
+<section id="vassiliev">
+<h2>7. Vassiliev (finite-type) invariants</h2>
+<p>So far every invariant has been valued on actual knots. Vassiliev's idea (1990) is to <em>extend</em> any such invariant $V$ to <em>singular knots</em>: smooth immersions $S^1 \looparrowright S^3$ with finitely many transverse double points. The extension is forced by the local rule</p>
+
+<p>$$V(K_\times) \;=\; V(K_+) \;-\; V(K_-),$$</p>
+
+<p>where $K_\times$ has one specified double point and $K_\pm$ are its two crossing resolutions. Iterating replaces an $n$-fold singular knot by an alternating sum of $2^n$ ordinary knots — values at the singular end behave as <em>derivatives</em> of $V$.</p>
+
+<p>Say $V$ is of <strong>finite type of order $\le n$</strong> if it vanishes on every singular knot with $\ge n+1$ double points. Let $\mathcal{V}_n$ be the $\mathbb{Q}$-space of all such invariants. Then $\mathcal{V}_0 \subset \mathcal{V}_1 \subset \mathcal{V}_2 \subset \cdots$ is an exhaustive filtration, and each quotient $\mathcal{V}_n / \mathcal{V}_{n-1}$ is finite-dimensional.</p>
+
+<div class="note"><strong>Why finite-dimensional?</strong> A type-$n$ invariant on a singular knot with exactly $n$ double points depends only on the underlying <em>chord diagram</em>: the circle $S^1$ with $n$ unordered chords pairing double-point preimages. Chord diagrams modulo the <em>4T relation</em> (a four-term identity forced by sliding a chord across a strand) form a finite-dimensional space in each order, and $\mathcal{V}_n / \mathcal{V}_{n-1}$ embeds into its dual.</div>
+
+<p>The connection to existing invariants is striking. Substitute $q = e^h$ in the Jones polynomial and expand:</p>
+
+<p>$$V_K(e^h) \;=\; \sum_{n\ge 0} v_n(K)\, h^n.$$</p>
+
+<p>Each $v_n: \{\text{knots}\} \to \mathbb{Q}$ is a Vassiliev invariant of order $\le n$ (Bar-Natan). The same holds for Conway $\nabla_K(z)$ and HOMFLY. So Vassiliev's filtration <em>contains</em> the polynomial invariants — and conjecturally separates all knots (the open <strong>Vassiliev conjecture</strong>).</p>
+
+<table class="plain">
+  <thead><tr><th>order $n$</th><th>$\dim \mathcal{V}_n / \mathcal{V}_{n-1}$</th><th>basis (sample)</th></tr></thead>
+  <tbody>
+    <tr><td>0</td><td>1</td><td>constants</td></tr>
+    <tr><td>1</td><td>0</td><td>—</td></tr>
+    <tr><td>2</td><td>1</td><td>$a_2$ (Casson invariant)</td></tr>
+    <tr><td>3</td><td>1</td><td>third Jones coefficient $j_3$</td></tr>
+    <tr><td>4</td><td>3</td><td>$a_2^2,\ a_4,\ j_4$</td></tr>
+  </tbody>
+</table>
+
+<p>The crowning result is the <strong>Kontsevich integral</strong> $Z(K)$, a power series in chord diagrams that is a <em>universal</em> finite-type invariant: every Vassiliev invariant factors through $Z$. It realises the formal duality between knots and the algebra of chord diagrams via an iterated integral cousin to the KZ connection.</p>
+
+<div class="quiz" data-concept="kp-vassiliev-invariants"></div>
+</section>
+
+<section id="khovanov">
+<h2>8. Khovanov homology</h2>
+<p>The Jones polynomial $V_L(q)$ assigns an integer to each power of $q$. Khovanov's idea (1999) is to upgrade those integers to <em>vector spaces</em> and the formal $\pm$ signs in the Kauffman state sum to a <em>differential</em>, producing a bigraded chain complex whose chain-homotopy type is a link invariant. Decategorifying — taking graded Euler characteristic — recovers Jones, but the upgrade is strict: Khovanov sees pairs of links Jones cannot.</p>
+
+<p>Fix an oriented diagram $D$ with $n_+$ positive and $n_-$ negative crossings. Each crossing has a <em>$0$-smoothing</em> and a <em>$1$-smoothing</em>; picking one at every crossing gives a <em>state</em> $s \in \{0,1\}^n$ whose smoothed diagram is a union of $c(s)$ circles. Replace each circle by a 2-dim graded space $A = \mathbb{Q}\langle 1, X\rangle$ with $\deg(1) = 1$, $\deg(X) = -1$:</p>
+
+<p>$$\widetilde{C}^{i,j}(D) \;=\; \bigoplus_{|s| - n_- = i} A^{\otimes c(s)}\{j - i + n_+ - 2n_-\}.$$</p>
+
+<p>The differential $d: C^{i,j} \to C^{i+1,j}$ comes from flipping one $0$ to a $1$: a merge of two circles uses multiplication $A \otimes A \to A$ (with $X^2 = 0$); a split uses comultiplication $A \to A \otimes A$. Then $d^2 = 0$, and $H^{i,j}(L)$ is invariant under R1, R2, R3 up to bigraded chain-homotopy equivalence.</p>
+
+<div class="ok"><strong>Decategorification.</strong> $\sum_{i,j} (-1)^i q^j \dim H^{i,j}(L) = (q + q^{-1})\, V_L(q^2)$, the unnormalised Jones polynomial. Each graded slice of the state sum has been replaced by a vector space; the $\pm 1$ signs by $(-1)^i$.</div>
+
+<p>What does categorification gain? Three headline applications:</p>
+
+<ul>
+  <li><strong>Strictly stronger than Jones.</strong> Bar-Natan's tables exhibit pairs of knots with identical $V_L(q)$ but different $H^{*,*}(L)$.</li>
+  <li><strong>Unknot detection (Kronheimer–Mrowka, 2010).</strong> $H^{*,*}(L) \cong \mathbb{Q}[X]/X^2$ iff $L$ is the unknot. Whether Jones detects the unknot remains a celebrated open problem; Khovanov resolves it.</li>
+  <li><strong>Functoriality under cobordism.</strong> An oriented surface cobordism $\Sigma: L_0 \to L_1 \subset \mathbb{R}^3 \times [0,1]$ induces a map $H^{*,*}(L_0) \to H^{*,*}(L_1)$ of bidegree $(0, \chi(\Sigma))$, well-defined up to sign. Jones has no such 4-dimensional refinement.</li>
+</ul>
+
+<p>Khovanov homology was the first <em>link homology</em> and the start of a flood: Lee homology and Rasmussen's $s$-invariant (a combinatorial proof of the Milnor torus-knot conjecture), knot Floer homology, $\mathfrak{sl}_n$ Khovanov–Rozansky theories, HOMFLY homology. The slogan is <strong>every quantum invariant should be the Euler characteristic of a homology theory</strong> — categorification (Crane–Frenkel) lifts polynomial invariants to functors out of a cobordism category.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./homological.html#complexes">Chain complexes</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="kp-khovanov-homology"></div>
 </section>
 
 </main>
