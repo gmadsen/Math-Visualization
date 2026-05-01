@@ -3231,6 +3231,27 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "expanders-zigzag-product",
+    "family": "expanders-zigzag-product",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "expanders-zigzag-product widget params",
+    "description": "Bespoke schematic of the zigzag product G zig zag H for the expanders topic. Click presets to switch between the inner graph H and watch the resulting expander graph G zig zag H form via the H-cloud + outer-edge construction; readout reports vertex/edge counts.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the expanders topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "extremal-combinatorics-erdos-stone",
     "family": "extremal-combinatorics-erdos-stone",
     "dimension": "2d",
@@ -8041,6 +8062,111 @@ window.__MVWidgets = [
     },
     "exampleMarkup": "<div class=\"widget\" id=\"w-logistic-map-example\"></div>",
     "exampleScript": "<script>\n(function(){\n  if(!window.MVRecurrencePlotter) return;\n  MVRecurrencePlotter.init('#w-logistic-map-example', {\n    kind: \"logistic\",\n    title: \"Logistic map: x_{n+1} = r·x_n·(1 − x_n)\",\n    hint: \"drag r through the period-doubling cascade · cobweb on left · trajectory on right\",\n    viewBox: \"0 0 480 220\",\n    params: {\"r\":3.5,\"x0\":0.4,\"n\":80},\n  });\n})();\n</script>"
+  },
+  {
+    "slug": "resolution-ade-dynkin",
+    "family": "resolution-ade-dynkin",
+    "dimension": "2d",
+    "gesture": "inspect",
+    "role": "exploratory",
+    "title": "resolution-ade-dynkin widget params",
+    "description": "ADE Dynkin types of surface du Val singularities — pick A_n/D_n/E_6/E_7/E_8 and view its dual graph",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the resolution-of-singularities topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "resolution-curve-normalization",
+    "family": "resolution-curve-normalization",
+    "dimension": "2d",
+    "gesture": "inspect",
+    "role": "exploratory",
+    "title": "resolution-curve-normalization widget params",
+    "description": "Curve singularities and their normalizations — pick a singular plane curve and view its normalization",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the resolution-of-singularities topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "resolution-cusp-node-visualizer",
+    "family": "resolution-cusp-node-visualizer",
+    "dimension": "2d",
+    "gesture": "inspect",
+    "role": "exploratory",
+    "title": "resolution-cusp-node-visualizer widget params",
+    "description": "Cusp/node visualizer for plane curve singularities — toggles between cusp y^2=x^3 and node y^2=x^2(x+1) with Jacobian readout",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the resolution-of-singularities topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "resolution-cuspidal-blowup",
+    "family": "resolution-cuspidal-blowup",
+    "dimension": "2d",
+    "gesture": "inspect",
+    "role": "exploratory",
+    "title": "resolution-cuspidal-blowup widget params",
+    "description": "Blow-up of cuspidal cubic y^2=x^3 — shows strict transform on standard affine charts of the blow-up",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the resolution-of-singularities topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "resolution-tower-of-blowups",
+    "family": "resolution-tower-of-blowups",
+    "dimension": "2d",
+    "gesture": "inspect",
+    "role": "exploratory",
+    "title": "resolution-tower-of-blowups widget params",
+    "description": "Resolution as an iterated tower of blow-ups — steps through successive blow-ups until smooth",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the resolution-of-singularities topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
   },
   {
     "slug": "ricci-blowup-rates",

@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **130**, concepts: **896**
-- Widgets: **921** (registry-driven: 915, inline: 6)
+- Widgets: **921** (registry-driven: 921, inline: 0)
 - Quizzes: **3879** (v1: 2643, hard: 1223, expert: 13)
 - Quiz types: mcq: 2611, numeric: 1028, multi-select: 96, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **138**
@@ -173,6 +173,7 @@ page has wired one in yet.
 | `etale-fundamental-group-galois-equiv` | declarative-host | click | 2d | 1 | etale-fundamental-group |
 | `etale-fundamental-group-pi1-construct` | declarative-host | click | 2d | 1 | etale-fundamental-group |
 | `expanders-vertex-expansion` | expanders-vertex-expansion | click | 2d | 1 | expanders |
+| `expanders-zigzag-product` | expanders-zigzag-product | click | 2d | 1 | expanders |
 | `extremal-combinatorics-erdos-stone` | extremal-combinatorics-erdos-stone | step | 2d | 1 | extremal-combinatorics |
 | `extremal-combinatorics-kst` | extremal-combinatorics-kst | slider | 2d | 1 | extremal-combinatorics |
 | `extremal-combinatorics-ramsey` | extremal-combinatorics-ramsey | click | 2d | 1 | extremal-combinatorics |
@@ -394,6 +395,11 @@ page has wired one in yet.
 | `random-walks-metropolis-hastings` | random-walks-metropolis-hastings | slider | 2d | 1 | random-walks-and-mixing |
 | `random-walks-tv-distance` | random-walks-tv-distance | slider | 2d | 1 | random-walks-and-mixing |
 | `recurrence-plotter` | recurrence-plotter | slider | 2d | 1 | dynamical-systems |
+| `resolution-ade-dynkin` | resolution-ade-dynkin | inspect | 2d | 1 | resolution-of-singularities |
+| `resolution-curve-normalization` | resolution-curve-normalization | inspect | 2d | 1 | resolution-of-singularities |
+| `resolution-cusp-node-visualizer` | resolution-cusp-node-visualizer | inspect | 2d | 1 | resolution-of-singularities |
+| `resolution-cuspidal-blowup` | resolution-cuspidal-blowup | inspect | 2d | 1 | resolution-of-singularities |
+| `resolution-tower-of-blowups` | resolution-tower-of-blowups | inspect | 2d | 1 | resolution-of-singularities |
 | `ricci-blowup-rates` | ricci-blowup-rates | button-stepper | 2d | 1 | ricci-flow |
 | `ricci-deturck-trick` | ricci-deturck-trick | button-stepper | 2d | 1 | ricci-flow |
 | `ricci-einstein-flows` | ricci-einstein-flows | button-stepper | 2d | 1 | ricci-flow |
@@ -561,20 +567,20 @@ page has wired one in yet.
 ### Algebraic geometry
 
 - Topics: **22**, concepts: **127**
-- Widgets: **144** (registry-driven: 139, inline: 5)
-  - by family: button-stepper: 61, clickable-diagram: 23, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, unknown: 5, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, calabi-yau-canonical-degree: 1, calabi-yau-hodge-diamond: 1, calabi-yau-hypersurface-zoo: 1, calabi-yau-periods: 1, calabi-yau-mirror-swap: 1, calabi-yau-syz-fibration: 1, mirror-hodge-diamond: 1, mirror-quintic-counts: 1, mirror-stable-map: 1, mirror-quintic-periods: 1, mirror-hms-pairing: 1, mirror-syz-fibration: 1, lattice-visualizer: 1, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, counterexample-explorer: 1
-  - by dimension: 2d: 139, unknown: 5
-  - by gesture: click: 100, interact: 15, slider: 9, scrub: 7, unknown: 5, select: 4, drag: 2, read: 1, slide: 1
+- Widgets: **144** (registry-driven: 144, inline: 0)
+  - by family: button-stepper: 61, clickable-diagram: 23, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, calabi-yau-canonical-degree: 1, calabi-yau-hodge-diamond: 1, calabi-yau-hypersurface-zoo: 1, calabi-yau-periods: 1, calabi-yau-mirror-swap: 1, calabi-yau-syz-fibration: 1, mirror-hodge-diamond: 1, mirror-quintic-counts: 1, mirror-stable-map: 1, mirror-quintic-periods: 1, mirror-hms-pairing: 1, mirror-syz-fibration: 1, resolution-cusp-node-visualizer: 1, resolution-cuspidal-blowup: 1, resolution-tower-of-blowups: 1, resolution-curve-normalization: 1, resolution-ade-dynkin: 1, lattice-visualizer: 1, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, counterexample-explorer: 1
+  - by dimension: 2d: 144
+  - by gesture: click: 100, interact: 15, slider: 9, scrub: 7, inspect: 5, select: 4, drag: 2, read: 1, slide: 1
 - Quizzes: **626** (v1: 381, hard: 245, expert: 0)
   - by type: mcq: 396, numeric: 187, multi-select: 17, matching: 11, spot-the-error: 7, ordering: 4, complex: 3, proof-completion: 1
 
 ### Combinatorics & graph theory
 
 - Topics: **8**, concepts: **51**
-- Widgets: **51** (registry-driven: 50, inline: 1)
-  - by family: parametric-plot: 4, designs-bibd-calculator: 1, designs-fisher-incidence: 1, designs-fano-plane: 1, designs-mols-construction: 1, designs-hamming-fano: 1, designs-round-robin: 1, expanders-vertex-expansion: 1, unknown: 1, spectral-graph-theory-adjacency: 1, spectral-graph-theory-components: 1, spectral-graph-theory-fiedler: 1, spectral-graph-theory-cheeger: 1, spectral-graph-theory-random-walk: 1, spectral-graph-theory-bipartite: 1, spectral-graph-theory-clustering: 1, matroid-axiom-checker: 1, matroid-bases-rank-explorer: 1, matroid-graph-forests: 1, matroid-flats-stepper: 1, matroid-dual-explorer: 1, matroid-greedy-vs-nonmatroid: 1, matroid-tutte-polynomial: 1, probabilistic-method-existence: 1, probabilistic-method-ramsey: 1, probabilistic-method-linearity: 1, probabilistic-method-alterations: 1, probabilistic-method-lll: 1, probabilistic-method-threshold: 1, probabilistic-method-concentration: 1, extremal-combinatorics-turan: 1, extremal-combinatorics-kst: 1, extremal-combinatorics-erdos-stone: 1, extremal-combinatorics-ramsey: 1, extremal-combinatorics-sperner: 1, extremal-combinatorics-removal: 1, simplicial-complexes-combinatorial-faces: 1, simplicial-complexes-combinatorial-fh: 1, simplicial-complexes-combinatorial-nerve: 1, simplicial-complexes-combinatorial-shell: 1, simplicial-complexes-combinatorial-sr: 1, simplicial-complexes-combinatorial-persistence: 1, enumerative-combinatorics-pascal: 1, enumerative-combinatorics-venn: 1, enumerative-combinatorics-genfun: 1, enumerative-combinatorics-perm: 1, enumerative-combinatorics-young: 1, enumerative-combinatorics-bijection: 1
-  - by dimension: 2d: 50, unknown: 1
-  - by gesture: click: 23, slider: 19, step: 8, unknown: 1
+- Widgets: **51** (registry-driven: 51, inline: 0)
+  - by family: parametric-plot: 4, designs-bibd-calculator: 1, designs-fisher-incidence: 1, designs-fano-plane: 1, designs-mols-construction: 1, designs-hamming-fano: 1, designs-round-robin: 1, expanders-vertex-expansion: 1, expanders-zigzag-product: 1, spectral-graph-theory-adjacency: 1, spectral-graph-theory-components: 1, spectral-graph-theory-fiedler: 1, spectral-graph-theory-cheeger: 1, spectral-graph-theory-random-walk: 1, spectral-graph-theory-bipartite: 1, spectral-graph-theory-clustering: 1, matroid-axiom-checker: 1, matroid-bases-rank-explorer: 1, matroid-graph-forests: 1, matroid-flats-stepper: 1, matroid-dual-explorer: 1, matroid-greedy-vs-nonmatroid: 1, matroid-tutte-polynomial: 1, probabilistic-method-existence: 1, probabilistic-method-ramsey: 1, probabilistic-method-linearity: 1, probabilistic-method-alterations: 1, probabilistic-method-lll: 1, probabilistic-method-threshold: 1, probabilistic-method-concentration: 1, extremal-combinatorics-turan: 1, extremal-combinatorics-kst: 1, extremal-combinatorics-erdos-stone: 1, extremal-combinatorics-ramsey: 1, extremal-combinatorics-sperner: 1, extremal-combinatorics-removal: 1, simplicial-complexes-combinatorial-faces: 1, simplicial-complexes-combinatorial-fh: 1, simplicial-complexes-combinatorial-nerve: 1, simplicial-complexes-combinatorial-shell: 1, simplicial-complexes-combinatorial-sr: 1, simplicial-complexes-combinatorial-persistence: 1, enumerative-combinatorics-pascal: 1, enumerative-combinatorics-venn: 1, enumerative-combinatorics-genfun: 1, enumerative-combinatorics-perm: 1, enumerative-combinatorics-young: 1, enumerative-combinatorics-bijection: 1
+  - by dimension: 2d: 51
+  - by gesture: click: 24, slider: 19, step: 8
 - Quizzes: **153** (v1: 153, hard: 0, expert: 0)
   - by type: mcq: 112, numeric: 31, multi-select: 10
 
@@ -599,12 +605,12 @@ page has wired one in yet.
 - `high-dimensional-geometry` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `mirror-symmetry` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `mostow-rigidity` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `resolution-of-singularities` (Algebraic geometry) — concepts=6, widgets=5 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `resolution-of-singularities` (Algebraic geometry) — concepts=6, widgets=5 (slug=5), quiz=18 (v1=18, hard=0, expert=0)
 - `hamiltonians-classical-mechanics` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `general-relativity` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `three-body-problem` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `designs` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `expanders` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=5), quiz=18 (v1=18, hard=0, expert=0)
+- `expanders` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `symplectic-manifolds` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `quantum-groups` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `quaternions-octonions-and-division-algebras` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
