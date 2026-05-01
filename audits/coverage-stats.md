@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **130**, concepts: **896**
-- Widgets: **921** (registry-driven: 844, inline: 77)
+- Widgets: **921** (registry-driven: 862, inline: 59)
 - Quizzes: **3879** (v1: 2643, hard: 1223, expert: 13)
 - Quiz types: mcq: 2611, numeric: 1028, multi-select: 96, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **138**
@@ -357,6 +357,12 @@ page has wired one in yet.
 | `numerical-hilbert-conditioning` | numerical-hilbert-conditioning | slider | 2d | 1 | numerical-analysis |
 | `numerical-newton-iteration` | numerical-newton-iteration | step | 2d | 1 | numerical-analysis |
 | `numerical-quadrature-error` | numerical-quadrature-error | slider | 2d | 1 | numerical-analysis |
+| `pde-classifier` | pde-classifier | slider | 2d | 1 | partial-differential-equations |
+| `pde-heat-kernel` | pde-heat-kernel | slider | 2d | 1 | partial-differential-equations |
+| `pde-poisson-disk` | pde-poisson-disk | drag | 2d | 1 | partial-differential-equations |
+| `pde-sobolev-embedding` | pde-sobolev-embedding | slider | 2d | 1 | partial-differential-equations |
+| `pde-wave-dalembert` | pde-wave-dalembert | slider | 2d | 1 | partial-differential-equations |
+| `pde-weak-test` | pde-weak-test | slider | 2d | 1 | partial-differential-equations |
 | `probabilistic-method-alterations` | probabilistic-method-alterations | click | 2d | 1 | probabilistic-method |
 | `probabilistic-method-concentration` | probabilistic-method-concentration | slider | 2d | 1 | probabilistic-method |
 | `probabilistic-method-existence` | probabilistic-method-existence | click | 2d | 1 | probabilistic-method |
@@ -364,6 +370,18 @@ page has wired one in yet.
 | `probabilistic-method-lll` | probabilistic-method-lll | slider | 2d | 1 | probabilistic-method |
 | `probabilistic-method-ramsey` | probabilistic-method-ramsey | slider | 2d | 1 | probabilistic-method |
 | `probabilistic-method-threshold` | probabilistic-method-threshold | slider | 2d | 1 | probabilistic-method |
+| `quantum-groups-applications-map` | quantum-groups-applications-map | inspect | 2d | 1 | quantum-groups |
+| `quantum-groups-crystal-tensor-product` | quantum-groups-crystal-tensor-product | inspect | 2d | 1 | quantum-groups |
+| `quantum-groups-hopf-axioms-inspector` | quantum-groups-hopf-axioms-inspector | inspect | 2d | 1 | quantum-groups |
+| `quantum-groups-qsl2-deformation-slider` | quantum-groups-qsl2-deformation-slider | slider | 2d | 1 | quantum-groups |
+| `quantum-groups-reshetikhin-turaev-knots` | quantum-groups-reshetikhin-turaev-knots | toggle | 2d | 1 | quantum-groups |
+| `quantum-groups-yang-baxter-reidemeister` | quantum-groups-yang-baxter-reidemeister | toggle | 2d | 1 | quantum-groups |
+| `quaternions-cayley-dickson-ladder` | quaternions-cayley-dickson-ladder | click | 2d | 1 | quaternions-octonions-and-division-algebras |
+| `quaternions-fano-plane-oracle` | quaternions-fano-plane-oracle | click | 2d | 1 | quaternions-octonions-and-division-algebras |
+| `quaternions-frobenius-case-tree` | quaternions-frobenius-case-tree | click | 2d | 1 | quaternions-octonions-and-division-algebras |
+| `quaternions-hurwitz-tower-bar` | quaternions-hurwitz-tower-bar | click | 2d | 1 | quaternions-octonions-and-division-algebras |
+| `quaternions-multiplication-tester` | quaternions-multiplication-tester | input | 2d | 1 | quaternions-octonions-and-division-algebras |
+| `quaternions-rotation-visualizer` | quaternions-rotation-visualizer | slider | 3d | 1 | quaternions-octonions-and-division-algebras |
 | `recurrence-plotter` | recurrence-plotter | slider | 2d | 1 | dynamical-systems |
 | `simplicial-complexes-combinatorial-faces` | simplicial-complexes-combinatorial-faces | click | 2d | 1 | simplicial-complexes-combinatorial |
 | `simplicial-complexes-combinatorial-fh` | simplicial-complexes-combinatorial-fh | click | 2d | 1 | simplicial-complexes-combinatorial |
@@ -420,10 +438,10 @@ page has wired one in yet.
 ### Algebra & homological
 
 - Topics: **12**, concepts: **106**
-- Widgets: **105** (registry-driven: 93, inline: 12)
-  - by family: button-stepper: 38, clickable-diagram: 21, unknown: 12, parametric-plot: 9, proof-scrubber: 2, naturality-square: 1, declarative-host: 1, clickable-graph: 1, diagram-editor: 1, group-cohomology-coboundary-calculator: 1, group-cohomology-fixed-points: 1, group-cohomology-hilbert-90: 1, group-cohomology-c2-extensions: 1, group-cohomology-tate-periodic-table: 1, group-cohomology-lhs-spectral: 1, group-cohomology-brauer-cheatsheet: 1, lie-algebras-bracket-table: 1, lie-algebras-adjoint-vis: 1, lie-algebras-derived-series: 1, lie-algebras-root-vis: 1, lie-algebras-weight-diagram: 1, lie-algebras-dynkin-gallery: 1, gcb-cocycle-tester: 1, gcb-mu2-torsor-visualizer: 1, gcb-central-extension-browser: 1, gcb-cyclic-algebra-tester: 1, gcb-tate-pairing-table: 1, gcb-hasse-counterexample-gallery: 1
-  - by dimension: 2d: 93, unknown: 12
-  - by gesture: click: 77, unknown: 12, select: 9, scrub: 2, slider+click: 1, interactive: 1, drag-and-toggle: 1, step: 1, slider: 1
+- Widgets: **105** (registry-driven: 105, inline: 0)
+  - by family: button-stepper: 38, clickable-diagram: 21, parametric-plot: 9, proof-scrubber: 2, quantum-groups-hopf-axioms-inspector: 1, quantum-groups-qsl2-deformation-slider: 1, quantum-groups-yang-baxter-reidemeister: 1, quantum-groups-crystal-tensor-product: 1, quantum-groups-reshetikhin-turaev-knots: 1, quantum-groups-applications-map: 1, quaternions-multiplication-tester: 1, quaternions-rotation-visualizer: 1, quaternions-cayley-dickson-ladder: 1, quaternions-fano-plane-oracle: 1, quaternions-frobenius-case-tree: 1, quaternions-hurwitz-tower-bar: 1, naturality-square: 1, declarative-host: 1, clickable-graph: 1, diagram-editor: 1, group-cohomology-coboundary-calculator: 1, group-cohomology-fixed-points: 1, group-cohomology-hilbert-90: 1, group-cohomology-c2-extensions: 1, group-cohomology-tate-periodic-table: 1, group-cohomology-lhs-spectral: 1, group-cohomology-brauer-cheatsheet: 1, lie-algebras-bracket-table: 1, lie-algebras-adjoint-vis: 1, lie-algebras-derived-series: 1, lie-algebras-root-vis: 1, lie-algebras-weight-diagram: 1, lie-algebras-dynkin-gallery: 1, gcb-cocycle-tester: 1, gcb-mu2-torsor-visualizer: 1, gcb-central-extension-browser: 1, gcb-cyclic-algebra-tester: 1, gcb-tate-pairing-table: 1, gcb-hasse-counterexample-gallery: 1
+  - by dimension: 2d: 104, 3d: 1
+  - by gesture: click: 81, select: 9, inspect: 3, slider: 3, toggle: 2, scrub: 2, input: 1, slider+click: 1, interactive: 1, drag-and-toggle: 1, step: 1
 - Quizzes: **505** (v1: 319, hard: 186, expert: 0)
   - by type: mcq: 318, numeric: 145, multi-select: 20, ordering: 7, matching: 5, spot-the-error: 5, proof-completion: 4, complex: 1
 
@@ -440,10 +458,10 @@ page has wired one in yet.
 ### Analysis
 
 - Topics: **15**, concepts: **149**
-- Widgets: **107** (registry-driven: 95, inline: 12)
-  - by family: button-stepper: 37, clickable-diagram: 31, unknown: 12, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, constraint-bifurcation-explorer: 1, recurrence-plotter: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
-  - by dimension: 2d: 95, unknown: 12
-  - by gesture: click: 69, slider: 21, unknown: 12, select: 2, drag: 2, step: 1
+- Widgets: **107** (registry-driven: 101, inline: 6)
+  - by family: button-stepper: 37, clickable-diagram: 31, unknown: 6, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, constraint-bifurcation-explorer: 1, recurrence-plotter: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
+  - by dimension: 2d: 101, unknown: 6
+  - by gesture: click: 69, slider: 26, unknown: 6, drag: 3, select: 2, step: 1
 - Quizzes: **591** (v1: 406, hard: 185, expert: 0)
   - by type: mcq: 379, numeric: 142, multi-select: 15, complex: 14, matching: 14, ordering: 12, proof-completion: 9, spot-the-error: 4, construction: 1, guess-my-rule: 1
 
@@ -535,8 +553,8 @@ page has wired one in yet.
 - `designs` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `expanders` (Combinatorics & graph theory) — concepts=6, widgets=6 (slug=5), quiz=18 (v1=18, hard=0, expert=0)
 - `symplectic-manifolds` (Geometry & topology) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
-- `quantum-groups` (Algebra & homological) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
-- `quaternions-octonions-and-division-algebras` (Algebra & homological) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `quantum-groups` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `quaternions-octonions-and-division-algebras` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `geometric-and-combinatorial-group-theory` (Algebra & homological) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `wavelets` (Analysis) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `vertex-operator-algebras` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
@@ -578,7 +596,7 @@ page has wired one in yet.
 - `dynamical-systems` (Analysis) — concepts=13, widgets=14 (slug=14), quiz=75 (v1=39, hard=36, expert=0)
 - `sobolev-spaces-distributions` (Analysis) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `harmonic-analysis-fourier` (Analysis) — concepts=8, widgets=5 (slug=5), quiz=24 (v1=24, hard=0, expert=0)
-- `partial-differential-equations` (Analysis) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `partial-differential-equations` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `harmonic-functions` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `spectral-theory` (Analysis) — concepts=9, widgets=0 (slug=0), quiz=27 (v1=27, hard=0, expert=0)
 - `probability-theory` (Probability & statistics) — concepts=12, widgets=10 (slug=10), quiz=73 (v1=36, hard=24, expert=13)

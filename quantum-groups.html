@@ -275,10 +275,7 @@ function drawNode(svg, x, y, label, opts={}){
 <p>extended as algebra maps. Both are cocommutative — quantization will break this.</p>
 
 <div class="widget" id="hopf-axioms">
-  <div class="hd">
-    <div class="ttl">Hopf axiom inspector</div>
-    <div class="hint">pick an axiom; see the commutative square it asserts</div>
-  </div>
+  <div class="hd"><div class="ttl">Hopf axiom inspector</div><div class="hint">pick an axiom; see the commutative square it asserts</div></div>
   <div class="row">
     <button data-ax="assoc" class="active">associativity</button>
     <button data-ax="coassoc">coassociativity</button>
@@ -425,10 +422,7 @@ function drawNode(svg, x, y, label, opts={}){
 <p>which to first order is $[H,E]=2E$. Similarly $[E,F] = (K-K^{-1})/(q-q^{-1}) \to H$ in the limit. So $U_q(\mathfrak{sl}_2)\rightsquigarrow U(\mathfrak{sl}_2)$ as $q\to 1$ — a smooth deformation of the classical relations.</p>
 
 <div class="widget" id="qsl2-deform">
-  <div class="hd">
-    <div class="ttl">$q$-deformation slider</div>
-    <div class="hint">watch $[E,F]$ interpolate between the quantum and classical bracket</div>
-  </div>
+  <div class="hd"><div class="ttl">$q$-deformation slider</div><div class="hint">watch $[E,F]$ interpolate between the quantum and classical bracket</div></div>
   <div class="row">
     <label>$q =$ <input type="range" id="q-slider" min="0.50" max="1.50" step="0.01" value="1.20"></label>
     <span class="readout" id="q-val" style="display:inline-block;min-width:120px"></span>
@@ -550,10 +544,7 @@ function drawNode(svg, x, y, label, opts={}){
 <p>Read each $R_{ij}$ as a positive crossing of strands $i$ and $j$. The Yang–Baxter relation is then exactly Reidemeister III, the move that allows sliding a strand across a crossing. So $R$ furnishes a representation of the braid group $B_n$ on $V^{\otimes n}$.</p>
 
 <div class="widget" id="ybe-vis">
-  <div class="hd">
-    <div class="ttl">Yang–Baxter as Reidemeister III</div>
-    <div class="hint">flip the side: both sides equal $R_{12}R_{13}R_{23} = R_{23}R_{13}R_{12}$</div>
-  </div>
+  <div class="hd"><div class="ttl">Yang–Baxter as Reidemeister III</div><div class="hint">flip the side: both sides equal $R_{12}R_{13}R_{23} = R_{23}R_{13}R_{12}$</div></div>
   <div class="row">
     <button id="ybe-left" class="active">left side: $R_{12}R_{13}R_{23}$</button>
     <button id="ybe-right">right side: $R_{23}R_{13}R_{12}$</button>
@@ -704,10 +695,7 @@ function drawNode(svg, x, y, label, opts={}){
 <p>Kashiwara's crystal basis $B(V_n)$ for $V_n$ is the set $\{v_n, v_{n-2}, \dots, v_{-n}\}$ regarded as the vertices of a coloured graph with one $F$-arrow between consecutive weight vectors. Tensor products of crystals are computed by an explicit combinatorial rule on pairs of arrow strings: irreducible components match irreducible factors of the quantum tensor product.</p>
 
 <div class="widget" id="crystal-vis">
-  <div class="hd">
-    <div class="ttl">Crystal-graph tensor product for $\mathfrak{sl}_2$</div>
-    <div class="hint">pick highest weights — see $V_m\otimes V_n$ decompose into a sum of crystals</div>
-  </div>
+  <div class="hd"><div class="ttl">Crystal-graph tensor product for $\mathfrak{sl}_2$</div><div class="hint">pick highest weights — see $V_m\otimes V_n$ decompose into a sum of crystals</div></div>
   <div class="row">
     <label>$m =$ <input type="number" id="cr-m" min="1" max="5" value="2" style="width:60px"></label>
     <label>$n =$ <input type="number" id="cr-n" min="1" max="5" value="3" style="width:60px"></label>
@@ -816,10 +804,7 @@ function drawNode(svg, x, y, label, opts={}){
 </table>
 
 <div class="widget" id="rt-vis">
-  <div class="hd">
-    <div class="ttl">Reshetikhin–Turaev on Hopf-link / trefoil</div>
-    <div class="hint">step through the assignment crossing $\mapsto R$, cap $\mapsto$ ev</div>
-  </div>
+  <div class="hd"><div class="ttl">Reshetikhin–Turaev on Hopf-link / trefoil</div><div class="hint">step through the assignment crossing $\mapsto R$, cap $\mapsto$ ev</div></div>
   <div class="row">
     <button data-knot="hopf" class="active">Hopf link</button>
     <button data-knot="trefoil">Trefoil $3_1$</button>
@@ -953,10 +938,7 @@ function drawNode(svg, x, y, label, opts={}){
 <p>Khovanov–Lauda–Rouquier (KLR) constructed a graded 2-category $\mathcal U$ whose Grothendieck group is $U_q(\mathfrak g)_{\mathbb Z[q,q^{-1}]}$. Each $q^k$ becomes a grading shift; multiplication becomes composition of 1-morphisms; canonical-basis elements lift to indecomposable 1-morphisms. Khovanov homology categorifies the Jones polynomial: $V_K(q)$ becomes the Euler characteristic of a bigraded chain complex $\mathrm{Kh}^{\bullet,\bullet}(K)$, and the latter is a strictly stronger invariant (it detects the unknot).</p>
 
 <div class="widget" id="application-map">
-  <div class="hd">
-    <div class="ttl">Where quantum groups appear</div>
-    <div class="hint">click a node — read where the $R$-matrix shows up</div>
-  </div>
+  <div class="hd"><div class="ttl">Where quantum groups appear</div><div class="hint">click a node — read where the $R$-matrix shows up</div></div>
   <svg id="app-svg" viewBox="0 0 720 320" width="720" height="320" aria-label="quantum group applications map"></svg>
   <div class="readout" id="app-out">Click a node.</div>
 </div>

@@ -7205,6 +7205,132 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "pde-classifier",
+    "family": "pde-classifier",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "pde-classifier widget params",
+    "description": "Bespoke discriminant calculator for the §1 classification figure on the partial-differential-equations topic — sliders for second-order PDE coefficients (A, B, C) feed a discriminant readout that classifies the equation as elliptic / parabolic / hyperbolic, with a small SVG diagramming characteristic curves. The slider-trio + classifier readout + characteristic-curve sketch combination doesn't fit any shared slug.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the partial-differential-equations topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "pde-heat-kernel",
+    "family": "pde-heat-kernel",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "pde-heat-kernel widget params",
+    "description": "Bespoke heat-kernel evolution illustration for the §2 heat equation section on the partial-differential-equations topic — a time slider drives Gaussian-kernel convolution against a piecewise initial datum and the SVG renders the resulting smoothed profile. The initial-data picker + time slider + curve plot doesn't fit a shared slug.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the partial-differential-equations topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "pde-poisson-disk",
+    "family": "pde-poisson-disk",
+    "dimension": "2d",
+    "gesture": "drag",
+    "role": "exploratory",
+    "title": "pde-poisson-disk widget params",
+    "description": "Bespoke Dirichlet-problem-on-the-disk illustration for the §4 Laplace equation section on the partial-differential-equations topic — boundary data is set on the unit circle and the Poisson kernel reconstructs the harmonic interior, visualized as a colored disk SVG. The boundary-data input + Poisson-kernel evaluation + heatmap render doesn't fit a shared slug.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the partial-differential-equations topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "pde-sobolev-embedding",
+    "family": "pde-sobolev-embedding",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "illustrative",
+    "title": "pde-sobolev-embedding widget params",
+    "description": "Bespoke Sobolev-embedding chart for the §6 regularity section on the partial-differential-equations topic — k, p, n sliders drive a chart locating W^{k,p}(R^n) inside continuous / Holder / L^q regimes per the embedding theorems. The exponent-slider trio plus regime-coloring chart doesn't fit a shared slug.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the partial-differential-equations topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "pde-wave-dalembert",
+    "family": "pde-wave-dalembert",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "pde-wave-dalembert widget params",
+    "description": "Bespoke d'Alembert decomposition illustration for the §3 wave equation section on the partial-differential-equations topic — a time slider advances two counter-propagating wave packets that recompose into the full solution u(x,t)=½(f(x-ct)+f(x+ct)) plus an integrated g term. The split-traveling-waves visualization with synced packets doesn't fit a shared slug.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the partial-differential-equations topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "pde-weak-test",
+    "family": "pde-weak-test",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "illustrative",
+    "title": "pde-weak-test widget params",
+    "description": "Bespoke weak-solution illustration for the §5 weak solutions section on the partial-differential-equations topic — slider-controlled test function phi is integrated against a candidate solution u, with classical-vs-weak comparison readouts. The test-function picker + classical/weak comparison panel doesn't fit a shared slug.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the partial-differential-equations topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "probabilistic-method-alterations",
     "family": "probabilistic-method-alterations",
     "dimension": "2d",
@@ -7402,6 +7528,258 @@ window.__MVWidgets = [
     },
     "exampleMarkup": "<div class=\"widget\" id=\"w-proof-scrubber-example\"></div>",
     "exampleScript": "<script>\n(function(){\n  if(!window.MVProofScrubber) return;\n  MVProofScrubber.init('#w-proof-scrubber-example', {\n    title: \"Pythagorean theorem — geometric proof\",\n    hint: \"drag the slider · or press play\",\n    viewBox: \"0 0 240 240\",\n    autoplayMs: 2000,\n    steps: [\n      {\n        title: \"The claim\",\n        body: \"For a right triangle with legs $a$, $b$ and hypotenuse $c$: $a^2 + b^2 = c^2$.\",\n        svgInner: \"<polygon points='40,200 200,200 200,40' fill='var(--panel2)' stroke='var(--ink)' stroke-width='1.5'/><text x='115' y='220' text-anchor='middle' font-size='14' fill='var(--mute)'>a</text><text x='215' y='125' text-anchor='middle' font-size='14' fill='var(--mute)'>b</text><text x='100' y='110' text-anchor='middle' font-size='14' fill='var(--yellow)'>c</text>\",\n      },\n      {\n        title: \"Tile a square of side $a+b$ two ways\",\n        body: \"Take a big square of side length $a+b$ and place four copies of the right triangle in two arrangements. The leftover area must agree across both arrangements.\",\n        svgInner: \"<rect x='40' y='40' width='160' height='160' fill='none' stroke='var(--ink)' stroke-width='1.5'/><line x1='40' y1='80' x2='200' y2='80' stroke='var(--mute)' stroke-dasharray='4 3'/><line x1='160' y1='40' x2='160' y2='200' stroke='var(--mute)' stroke-dasharray='4 3'/>\",\n      },\n      {\n        title: \"Arrangement A: two squares $a^2 + b^2$\",\n        body: \"In the first arrangement the leftover region is a square of side $a$ plus a square of side $b$ — total area $a^2 + b^2$.\",\n        svgInner: \"<rect x='40' y='40' width='40' height='40' fill='color-mix(in srgb, var(--blue) 25%, var(--panel2))' stroke='var(--blue)'/><rect x='80' y='80' width='120' height='120' fill='color-mix(in srgb, var(--green) 25%, var(--panel2))' stroke='var(--green)'/><text x='60' y='65' text-anchor='middle' font-size='14' fill='var(--ink)'>a²</text><text x='140' y='145' text-anchor='middle' font-size='14' fill='var(--ink)'>b²</text>\",\n      },\n      {\n        title: \"Arrangement B: one square $c^2$\",\n        body: \"In the second arrangement the leftover region is a single tilted square whose side is the hypotenuse $c$ — total area $c^2$.\",\n        svgInner: \"<polygon points='80,40 200,80 160,200 40,160' fill='color-mix(in srgb, var(--yellow) 25%, var(--panel2))' stroke='var(--yellow)' stroke-width='1.5'/><text x='120' y='128' text-anchor='middle' font-size='16' fill='var(--ink)'>c²</text>\",\n      },\n      {\n        title: \"Equate\",\n        body: \"Both arrangements have the same total area $(a+b)^2$ and the same four triangles removed, so the leftover regions are equal: $a^2 + b^2 = c^2$.\",\n        svgInner: \"<text x='120' y='130' text-anchor='middle' font-size='22' fill='var(--yellow)' font-weight='600'>a² + b² = c²</text>\",\n      },\n    ],\n  });\n})();\n</script>"
+  },
+  {
+    "slug": "quantum-groups-applications-map",
+    "family": "quantum-groups-applications-map",
+    "dimension": "2d",
+    "gesture": "inspect",
+    "role": "exploratory",
+    "title": "quantum-groups-applications-map widget params",
+    "description": "Map of where quantum groups appear across mathematics",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the quantum-groups topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "quantum-groups-crystal-tensor-product",
+    "family": "quantum-groups-crystal-tensor-product",
+    "dimension": "2d",
+    "gesture": "inspect",
+    "role": "exploratory",
+    "title": "quantum-groups-crystal-tensor-product widget params",
+    "description": "Crystal-graph tensor product visualization for sl_2",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the quantum-groups topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "quantum-groups-hopf-axioms-inspector",
+    "family": "quantum-groups-hopf-axioms-inspector",
+    "dimension": "2d",
+    "gesture": "inspect",
+    "role": "exploratory",
+    "title": "quantum-groups-hopf-axioms-inspector widget params",
+    "description": "Hopf axiom inspector for quantum groups",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the quantum-groups topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "quantum-groups-qsl2-deformation-slider",
+    "family": "quantum-groups-qsl2-deformation-slider",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "quantum-groups-qsl2-deformation-slider widget params",
+    "description": "q-deformation slider for U_q(sl_2)",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the quantum-groups topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "quantum-groups-reshetikhin-turaev-knots",
+    "family": "quantum-groups-reshetikhin-turaev-knots",
+    "dimension": "2d",
+    "gesture": "toggle",
+    "role": "exploratory",
+    "title": "quantum-groups-reshetikhin-turaev-knots widget params",
+    "description": "Reshetikhin-Turaev invariants on Hopf link and trefoil",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the quantum-groups topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "quantum-groups-yang-baxter-reidemeister",
+    "family": "quantum-groups-yang-baxter-reidemeister",
+    "dimension": "2d",
+    "gesture": "toggle",
+    "role": "exploratory",
+    "title": "quantum-groups-yang-baxter-reidemeister widget params",
+    "description": "Yang-Baxter equation as Reidemeister III move",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the quantum-groups topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "quaternions-cayley-dickson-ladder",
+    "family": "quaternions-cayley-dickson-ladder",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "illustrative",
+    "title": "quaternions-cayley-dickson-ladder widget params",
+    "description": "Click-through ladder of the Cayley-Dickson tower (R, C, H, O, S, ...) showing which algebraic property each step sacrifices.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the quaternions-octonions-and-division-algebras topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "quaternions-fano-plane-oracle",
+    "family": "quaternions-fano-plane-oracle",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "quaternions-fano-plane-oracle widget params",
+    "description": "Fano plane multiplication oracle: click two basis vectors among e1..e7; the oracle highlights the unique line through them and reads off the product (with sign).",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the quaternions-octonions-and-division-algebras topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "quaternions-frobenius-case-tree",
+    "family": "quaternions-frobenius-case-tree",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "illustrative",
+    "title": "quaternions-frobenius-case-tree widget params",
+    "description": "Click-through case tree for Frobenius's classification of finite-dimensional real division algebras: each leaf names the obstruction that rules out a fourth unit imaginary.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the quaternions-octonions-and-division-algebras topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "quaternions-hurwitz-tower-bar",
+    "family": "quaternions-hurwitz-tower-bar",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "illustrative",
+    "title": "quaternions-hurwitz-tower-bar widget params",
+    "description": "Click an algebra (R, C, H, O, M_2(R), ...) to see which classification (Frobenius, Hurwitz, Wedderburn, ...) it sits inside.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the quaternions-octonions-and-division-algebras topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "quaternions-multiplication-tester",
+    "family": "quaternions-multiplication-tester",
+    "dimension": "2d",
+    "gesture": "input",
+    "role": "exploratory",
+    "title": "quaternions-multiplication-tester widget params",
+    "description": "Two-quaternion product calculator: parse p, q from text inputs, display pq, qp, commutator, and the |pq|=|p||q| check. Specific to the quaternions topic page.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the quaternions-octonions-and-division-algebras topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "quaternions-rotation-visualizer",
+    "family": "quaternions-rotation-visualizer",
+    "dimension": "3d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "quaternions-rotation-visualizer widget params",
+    "description": "Interactive 3D cube rotated by the quaternion sandwich rho_q(v)=qvq^{-1} about a chosen axis (i, j, k, or diagonal). Slider scrubs the rotation angle.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the quaternions-octonions-and-division-algebras topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
   },
   {
     "slug": "recurrence-plotter",
