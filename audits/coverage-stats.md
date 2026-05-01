@@ -3,7 +3,7 @@
 ## Corpus totals
 
 - Topics: **130**, concepts: **896**
-- Widgets: **921** (registry-driven: 862, inline: 59)
+- Widgets: **921** (registry-driven: 880, inline: 41)
 - Quizzes: **3879** (v1: 2643, hard: 1223, expert: 13)
 - Quiz types: mcq: 2611, numeric: 1028, multi-select: 96, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **138**
@@ -382,7 +382,19 @@ page has wired one in yet.
 | `quaternions-hurwitz-tower-bar` | quaternions-hurwitz-tower-bar | click | 2d | 1 | quaternions-octonions-and-division-algebras |
 | `quaternions-multiplication-tester` | quaternions-multiplication-tester | input | 2d | 1 | quaternions-octonions-and-division-algebras |
 | `quaternions-rotation-visualizer` | quaternions-rotation-visualizer | slider | 3d | 1 | quaternions-octonions-and-division-algebras |
+| `random-walks-cycle-coupling` | random-walks-cycle-coupling | step | 2d | 1 | random-walks-and-mixing |
+| `random-walks-eigenvalue-inspector` | random-walks-eigenvalue-inspector | click | 2d | 1 | random-walks-and-mixing |
+| `random-walks-graph-step` | random-walks-graph-step | step | 2d | 1 | random-walks-and-mixing |
+| `random-walks-matrix-power` | random-walks-matrix-power | step | 2d | 1 | random-walks-and-mixing |
+| `random-walks-metropolis-hastings` | random-walks-metropolis-hastings | slider | 2d | 1 | random-walks-and-mixing |
+| `random-walks-tv-distance` | random-walks-tv-distance | slider | 2d | 1 | random-walks-and-mixing |
 | `recurrence-plotter` | recurrence-plotter | slider | 2d | 1 | dynamical-systems |
+| `ricci-blowup-rates` | ricci-blowup-rates | button-stepper | 2d | 1 | ricci-flow |
+| `ricci-deturck-trick` | ricci-deturck-trick | button-stepper | 2d | 1 | ricci-flow |
+| `ricci-einstein-flows` | ricci-einstein-flows | button-stepper | 2d | 1 | ricci-flow |
+| `ricci-extinction-timeline` | ricci-extinction-timeline | button-stepper | 2d | 1 | ricci-flow |
+| `ricci-neckpinch-surgery` | ricci-neckpinch-surgery | button-stepper | 2d | 1 | ricci-flow |
+| `ricci-soliton-zoo` | ricci-soliton-zoo | button-stepper | 2d | 1 | ricci-flow |
 | `simplicial-complexes-combinatorial-faces` | simplicial-complexes-combinatorial-faces | click | 2d | 1 | simplicial-complexes-combinatorial |
 | `simplicial-complexes-combinatorial-fh` | simplicial-complexes-combinatorial-fh | click | 2d | 1 | simplicial-complexes-combinatorial |
 | `simplicial-complexes-combinatorial-nerve` | simplicial-complexes-combinatorial-nerve | slider | 2d | 1 | simplicial-complexes-combinatorial |
@@ -409,6 +421,12 @@ page has wired one in yet.
 | `spectral-graph-theory-components` | spectral-graph-theory-components | click | 2d | 1 | spectral-graph-theory |
 | `spectral-graph-theory-fiedler` | spectral-graph-theory-fiedler | click | 2d | 1 | spectral-graph-theory |
 | `spectral-graph-theory-random-walk` | spectral-graph-theory-random-walk | step | 2d | 1 | spectral-graph-theory |
+| `stochastic-calc-binomial-black-scholes` | stochastic-calc-binomial-black-scholes | slider | 2d | 1 | stochastic-calculus |
+| `stochastic-calc-feynman-kac-heat` | stochastic-calc-feynman-kac-heat | button | 2d | 1 | stochastic-calculus |
+| `stochastic-calc-geometric-brownian-motion` | stochastic-calc-geometric-brownian-motion | slider | 2d | 1 | stochastic-calculus |
+| `stochastic-calc-girsanov-density` | stochastic-calc-girsanov-density | slider | 2d | 1 | stochastic-calculus |
+| `stochastic-calc-ito-formula-bsq` | stochastic-calc-ito-formula-bsq | button | 2d | 1 | stochastic-calculus |
+| `stochastic-calc-ito-riemann-sums` | stochastic-calc-ito-riemann-sums | slider | 2d | 1 | stochastic-calculus |
 | `three-body-halo-orbits` | three-body-halo-orbits | click | 2d | 1 | three-body-problem |
 | `three-body-horseshoe` | three-body-horseshoe | click | 2d | 1 | three-body-problem |
 | `three-body-kam-tori` | three-body-kam-tori | slider | 2d | 1 | three-body-problem |
@@ -468,20 +486,20 @@ page has wired one in yet.
 ### Probability & statistics
 
 - Topics: **8**, concepts: **53**
-- Widgets: **51** (registry-driven: 28, inline: 23)
-  - by family: unknown: 23, button-stepper: 10, ms-bias-variance: 1, ms-likelihood-curve: 1, ms-crlb-envelope: 1, ms-neyman-pearson: 1, ms-beta-posterior: 1, ms-wilks-theorem: 1, hdg-sphere-concentration-band: 1, hdg-dvoretzky-section: 1, hdg-jl-distortion-histogram: 1, hdg-talagrand-deviation: 1, hdg-isoperimetry-tail: 1, hdg-marchenko-pastur: 1, information-entropy: 1, information-mutual-info-venn: 1, information-kl-simplex: 1, information-huffman-builder: 1, information-bsc-capacity: 1, information-rate-distortion: 1
-  - by dimension: 2d: 28, unknown: 23
-  - by gesture: unknown: 23, slider: 16, click: 12
+- Widgets: **51** (registry-driven: 40, inline: 11)
+  - by family: unknown: 11, button-stepper: 10, ms-bias-variance: 1, ms-likelihood-curve: 1, ms-crlb-envelope: 1, ms-neyman-pearson: 1, ms-beta-posterior: 1, ms-wilks-theorem: 1, hdg-sphere-concentration-band: 1, hdg-dvoretzky-section: 1, hdg-jl-distortion-histogram: 1, hdg-talagrand-deviation: 1, hdg-isoperimetry-tail: 1, hdg-marchenko-pastur: 1, stochastic-calc-ito-riemann-sums: 1, stochastic-calc-ito-formula-bsq: 1, stochastic-calc-geometric-brownian-motion: 1, stochastic-calc-girsanov-density: 1, stochastic-calc-feynman-kac-heat: 1, stochastic-calc-binomial-black-scholes: 1, random-walks-graph-step: 1, random-walks-matrix-power: 1, random-walks-tv-distance: 1, random-walks-eigenvalue-inspector: 1, random-walks-cycle-coupling: 1, random-walks-metropolis-hastings: 1, information-entropy: 1, information-mutual-info-venn: 1, information-kl-simplex: 1, information-huffman-builder: 1, information-bsc-capacity: 1, information-rate-distortion: 1
+  - by dimension: 2d: 40, unknown: 11
+  - by gesture: slider: 22, click: 13, unknown: 11, step: 3, button: 2
 - Quizzes: **196** (v1: 159, hard: 24, expert: 13)
   - by type: mcq: 137, numeric: 49, multi-select: 2, matching: 2, proof-completion: 2, construction: 1, complex: 1, ordering: 1, spot-the-error: 1
 
 ### Geometry & topology
 
 - Topics: **16**, concepts: **102**
-- Widgets: **104** (registry-driven: 92, inline: 12)
-  - by family: button-stepper: 34, unknown: 12, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, mostow-rigidity-dial: 1, mostow-h3-fundamental-domain: 1, mostow-boundary-extension: 1, mostow-boundary-orbit: 1, mostow-rank-tower: 1, mostow-volume-spectrum: 1, knot-polynomials-gallery: 1, knot-polynomials-reidemeister: 1, knot-polynomials-alexander: 1, knot-polynomials-bracket: 1, knot-polynomials-homfly: 1, knot-polynomials-rmatrix: 1, k-theory-grothendieck-builder: 1, k-theory-ses-relations: 1, k-theory-bott-periodicity: 1, k-theory-chern-character: 1, k-theory-low-k-groups: 1, k-theory-index-theorem: 1, atiyah-singer-index-family: 1, atiyah-singer-symbol: 1, atiyah-singer-ch-td: 1, atiyah-singer-cases: 1, atiyah-singer-dirac-sphere: 1, atiyah-singer-anomaly: 1, counterexample-explorer: 1, proof-scrubber: 1, lattice-visualizer: 1, characteristic-classes-mobius-vs-cylinder: 1, characteristic-classes-w1-surfaces: 1, characteristic-classes-c1-clutching: 1, characteristic-classes-pontryagin-formulas: 1, characteristic-classes-poincare-hopf: 1, characteristic-classes-gauss-bonnet: 1, characteristic-classes-classifying-map: 1, characteristic-classes-signature-l-genus: 1, characteristic-classes-cpn-localisation: 1, morse-torus-height: 1, morse-handle-decomp: 1, morse-cw-cells: 1, morse-betti-counts: 1, morse-gradient-flow: 1, morse-sphere-vs-rp2: 1, morse-smale-saddle: 1, morse-cerf-birth-death: 1
-  - by dimension: 2d: 86, unknown: 12, 3d: 6
-  - by gesture: click: 59, slider: 18, unknown: 12, drag: 6, step: 3, pick: 2, static: 2, select: 1, timeline: 1
+- Widgets: **104** (registry-driven: 98, inline: 6)
+  - by family: button-stepper: 34, unknown: 6, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, mostow-rigidity-dial: 1, mostow-h3-fundamental-domain: 1, mostow-boundary-extension: 1, mostow-boundary-orbit: 1, mostow-rank-tower: 1, mostow-volume-spectrum: 1, knot-polynomials-gallery: 1, knot-polynomials-reidemeister: 1, knot-polynomials-alexander: 1, knot-polynomials-bracket: 1, knot-polynomials-homfly: 1, knot-polynomials-rmatrix: 1, ricci-einstein-flows: 1, ricci-deturck-trick: 1, ricci-blowup-rates: 1, ricci-soliton-zoo: 1, ricci-neckpinch-surgery: 1, ricci-extinction-timeline: 1, k-theory-grothendieck-builder: 1, k-theory-ses-relations: 1, k-theory-bott-periodicity: 1, k-theory-chern-character: 1, k-theory-low-k-groups: 1, k-theory-index-theorem: 1, atiyah-singer-index-family: 1, atiyah-singer-symbol: 1, atiyah-singer-ch-td: 1, atiyah-singer-cases: 1, atiyah-singer-dirac-sphere: 1, atiyah-singer-anomaly: 1, counterexample-explorer: 1, proof-scrubber: 1, lattice-visualizer: 1, characteristic-classes-mobius-vs-cylinder: 1, characteristic-classes-w1-surfaces: 1, characteristic-classes-c1-clutching: 1, characteristic-classes-pontryagin-formulas: 1, characteristic-classes-poincare-hopf: 1, characteristic-classes-gauss-bonnet: 1, characteristic-classes-classifying-map: 1, characteristic-classes-signature-l-genus: 1, characteristic-classes-cpn-localisation: 1, morse-torus-height: 1, morse-handle-decomp: 1, morse-cw-cells: 1, morse-betti-counts: 1, morse-gradient-flow: 1, morse-sphere-vs-rp2: 1, morse-smale-saddle: 1, morse-cerf-birth-death: 1
+  - by dimension: 2d: 92, unknown: 6, 3d: 6
+  - by gesture: click: 59, slider: 18, unknown: 6, button-stepper: 6, drag: 6, step: 3, pick: 2, static: 2, select: 1, timeline: 1
 - Quizzes: **448** (v1: 306, hard: 142, expert: 0)
   - by type: mcq: 310, numeric: 122, complex: 7, multi-select: 4, matching: 3, ordering: 1, proof-completion: 1
 
@@ -561,7 +579,7 @@ page has wired one in yet.
 - `schrodinger-equation` (Mathematical physics) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
 - `mathematics-and-cryptography` (Number theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `knot-polynomials` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `ricci-flow` (Geometry & topology) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `ricci-flow` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `k-theory` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `atiyah-singer-index-theorem` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `naive-set-theory` (Logic & Foundations) — concepts=5, widgets=4 (slug=4), quiz=30 (v1=15, hard=15, expert=0)
@@ -601,8 +619,8 @@ page has wired one in yet.
 - `spectral-theory` (Analysis) — concepts=9, widgets=0 (slug=0), quiz=27 (v1=27, hard=0, expert=0)
 - `probability-theory` (Probability & statistics) — concepts=12, widgets=10 (slug=10), quiz=73 (v1=36, hard=24, expert=13)
 - `stochastic-processes-and-martingales` (Probability & statistics) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
-- `stochastic-calculus` (Probability & statistics) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
-- `random-walks-and-mixing` (Probability & statistics) — concepts=6, widgets=6 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
+- `stochastic-calculus` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `random-walks-and-mixing` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `information-theory` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `large-deviations` (Probability & statistics) — concepts=5, widgets=5 (slug=0), quiz=15 (v1=15, hard=0, expert=0)
 - `point-set-topology` (Geometry & topology) — concepts=6, widgets=7 (slug=7), quiz=36 (v1=18, hard=18, expert=0)

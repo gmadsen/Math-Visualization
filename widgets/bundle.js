@@ -7782,6 +7782,132 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "random-walks-cycle-coupling",
+    "family": "random-walks-cycle-coupling",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "exploratory",
+    "title": "random-walks-cycle-coupling widget params",
+    "description": "Run two coupled random walks on a cycle; their meeting time bounds total-variation mixing via the coupling inequality.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the random-walks-and-mixing topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "random-walks-eigenvalue-inspector",
+    "family": "random-walks-eigenvalue-inspector",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "illustrative",
+    "title": "random-walks-eigenvalue-inspector widget params",
+    "description": "Inspect the spectrum of a transition matrix; the second-largest eigenvalue controls the spectral gap and mixing rate.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the random-walks-and-mixing topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "random-walks-graph-step",
+    "family": "random-walks-graph-step",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "exploratory",
+    "title": "random-walks-graph-step widget params",
+    "description": "Step a random walker around a small graph and watch the visit-count histogram converge to the stationary distribution.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the random-walks-and-mixing topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "random-walks-matrix-power",
+    "family": "random-walks-matrix-power",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "illustrative",
+    "title": "random-walks-matrix-power widget params",
+    "description": "Animate iterated multiplication of a stochastic matrix and watch every row converge to the stationary row vector.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the random-walks-and-mixing topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "random-walks-metropolis-hastings",
+    "family": "random-walks-metropolis-hastings",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "random-walks-metropolis-hastings widget params",
+    "description": "Sample a bimodal target with Metropolis-Hastings and watch the histogram approach the target as proposal width and step count vary.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the random-walks-and-mixing topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "random-walks-tv-distance",
+    "family": "random-walks-tv-distance",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "illustrative",
+    "title": "random-walks-tv-distance widget params",
+    "description": "Plot total-variation distance from the stationary distribution as a function of step count to see exponential decay.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the random-walks-and-mixing topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "recurrence-plotter",
     "family": "recurrence-plotter",
     "dimension": "2d",
@@ -7810,6 +7936,132 @@ window.__MVWidgets = [
     },
     "exampleMarkup": "<div class=\"widget\" id=\"w-logistic-map-example\"></div>",
     "exampleScript": "<script>\n(function(){\n  if(!window.MVRecurrencePlotter) return;\n  MVRecurrencePlotter.init('#w-logistic-map-example', {\n    kind: \"logistic\",\n    title: \"Logistic map: x_{n+1} = r·x_n·(1 − x_n)\",\n    hint: \"drag r through the period-doubling cascade · cobweb on left · trajectory on right\",\n    viewBox: \"0 0 480 220\",\n    params: {\"r\":3.5,\"x0\":0.4,\"n\":80},\n  });\n})();\n</script>"
+  },
+  {
+    "slug": "ricci-blowup-rates",
+    "family": "ricci-blowup-rates",
+    "dimension": "2d",
+    "gesture": "button-stepper",
+    "role": "exploratory",
+    "title": "ricci-blowup-rates widget params",
+    "description": "Curvature blow-up rates",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the ricci-flow topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "ricci-deturck-trick",
+    "family": "ricci-deturck-trick",
+    "dimension": "2d",
+    "gesture": "button-stepper",
+    "role": "exploratory",
+    "title": "ricci-deturck-trick widget params",
+    "description": "DeTurck trick gauge fixing",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the ricci-flow topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "ricci-einstein-flows",
+    "family": "ricci-einstein-flows",
+    "dimension": "2d",
+    "gesture": "button-stepper",
+    "role": "exploratory",
+    "title": "ricci-einstein-flows widget params",
+    "description": "Einstein flows by sign of lambda",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the ricci-flow topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "ricci-extinction-timeline",
+    "family": "ricci-extinction-timeline",
+    "dimension": "2d",
+    "gesture": "button-stepper",
+    "role": "exploratory",
+    "title": "ricci-extinction-timeline widget params",
+    "description": "Extinction timeline",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the ricci-flow topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "ricci-neckpinch-surgery",
+    "family": "ricci-neckpinch-surgery",
+    "dimension": "2d",
+    "gesture": "button-stepper",
+    "role": "exploratory",
+    "title": "ricci-neckpinch-surgery widget params",
+    "description": "Neckpinch and surgery",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the ricci-flow topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "ricci-soliton-zoo",
+    "family": "ricci-soliton-zoo",
+    "dimension": "2d",
+    "gesture": "button-stepper",
+    "role": "exploratory",
+    "title": "ricci-soliton-zoo widget params",
+    "description": "The soliton zoo",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the ricci-flow topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
   },
   {
     "slug": "schrodinger-figure",
@@ -8362,6 +8614,132 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke widget for the spectral-graph-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "stochastic-calc-binomial-black-scholes",
+    "family": "stochastic-calc-binomial-black-scholes",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "stochastic-calc-binomial-black-scholes widget params",
+    "description": "Binomial-tree option price converging to Black-Scholes as the number of time-steps grows.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the stochastic-calculus topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "stochastic-calc-feynman-kac-heat",
+    "family": "stochastic-calc-feynman-kac-heat",
+    "dimension": "2d",
+    "gesture": "button",
+    "role": "exploratory",
+    "title": "stochastic-calc-feynman-kac-heat widget params",
+    "description": "Heat-equation solution as a Brownian-motion expectation: Monte-Carlo estimate vs analytic Gaussian.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the stochastic-calculus topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "stochastic-calc-geometric-brownian-motion",
+    "family": "stochastic-calc-geometric-brownian-motion",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "stochastic-calc-geometric-brownian-motion widget params",
+    "description": "Simulate geometric Brownian motion paths for chosen drift mu and volatility sigma.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the stochastic-calculus topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "stochastic-calc-girsanov-density",
+    "family": "stochastic-calc-girsanov-density",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "stochastic-calc-girsanov-density widget params",
+    "description": "Visualize Girsanov change of measure: density of B_T under P versus Q for chosen drift theta.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the stochastic-calculus topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "stochastic-calc-ito-formula-bsq",
+    "family": "stochastic-calc-ito-formula-bsq",
+    "dimension": "2d",
+    "gesture": "button",
+    "role": "exploratory",
+    "title": "stochastic-calc-ito-formula-bsq widget params",
+    "description": "Compare B_t^2 and the naive 2 integral B dB to expose the missing dt drift from Ito's formula.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the stochastic-calculus topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "stochastic-calc-ito-riemann-sums",
+    "family": "stochastic-calc-ito-riemann-sums",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "stochastic-calc-ito-riemann-sums widget params",
+    "description": "Riemann sums for the Ito integral of B dB; choose left, midpoint, or right sample point and watch convergence.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the stochastic-calculus topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
