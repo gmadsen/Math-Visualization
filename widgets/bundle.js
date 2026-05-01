@@ -8620,6 +8620,132 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "stoch-proc-brownian-quadratic-variation",
+    "family": "stoch-proc-brownian-quadratic-variation",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "illustrative",
+    "title": "stoch-proc-brownian-quadratic-variation widget params",
+    "description": "Brownian motion sample path with quadratic variation accumulator showing [B]_t = t.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the stochastic-processes-and-martingales topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "stoch-proc-convergence-regimes",
+    "family": "stoch-proc-convergence-regimes",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "illustrative",
+    "title": "stoch-proc-convergence-regimes widget params",
+    "description": "Two convergence regimes for martingales: bounded-in-L^1 a.s. convergence vs. L^2-bounded L^2 convergence.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the stochastic-processes-and-martingales topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "stoch-proc-doob-decomposition",
+    "family": "stoch-proc-doob-decomposition",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "illustrative",
+    "title": "stoch-proc-doob-decomposition widget params",
+    "description": "Doob decomposition of S_n^2 into a martingale plus a predictable increasing process. Reader steps the walk and watches the two pieces separate.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the stochastic-processes-and-martingales topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "stoch-proc-filtration-stopping",
+    "family": "stoch-proc-filtration-stopping",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "illustrative",
+    "title": "stoch-proc-filtration-stopping widget params",
+    "description": "Filtration & stopping-time visualization for the stochastic-processes-and-martingales topic. Reader scrubs through a path and watches the filtration grow plus a stopping-time indicator fire.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the stochastic-processes-and-martingales topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "stoch-proc-gamblers-ruin",
+    "family": "stoch-proc-gamblers-ruin",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "illustrative",
+    "title": "stoch-proc-gamblers-ruin widget params",
+    "description": "Gambler's ruin / optional-stopping illustration. Reader picks parameters and watches the stopping-time distribution and exit probabilities accumulate.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the stochastic-processes-and-martingales topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "stoch-proc-random-walk-martingale",
+    "family": "stoch-proc-random-walk-martingale",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "illustrative",
+    "title": "stoch-proc-random-walk-martingale widget params",
+    "description": "Random-walk martingale demo for the discrete-martingales section. Reader steps a simple random walk and watches conditional-expectation flatness.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the stochastic-processes-and-martingales topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "stochastic-calc-binomial-black-scholes",
     "family": "stochastic-calc-binomial-black-scholes",
     "dimension": "2d",
@@ -8786,6 +8912,132 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "symplectic-cotangent-lagrangians",
+    "family": "symplectic-cotangent-lagrangians",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "illustrative",
+    "title": "symplectic-cotangent-lagrangians widget params",
+    "description": "Click closed 1-forms on the cotangent bundle of the circle to render their graphs as Lagrangian curves wrapping the cylinder, illustrating that closed 1-forms parametrize Lagrangian sections of T*S^1.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the symplectic-manifolds topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "symplectic-darboux-moser",
+    "family": "symplectic-darboux-moser",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "illustrative",
+    "title": "symplectic-darboux-moser widget params",
+    "description": "Slider drives a Moser deformation interpolating between two symplectic forms on the same disk; readout reports area and shows that the same coordinates serve every form along the path, illustrating Darboux's theorem.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the symplectic-manifolds topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "symplectic-dirac-ladder",
+    "family": "symplectic-dirac-ladder",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "illustrative",
+    "title": "symplectic-dirac-ladder widget params",
+    "description": "Click rows in a side-by-side table to highlight matched classical Poisson brackets and quantum commutators, illustrating the Dirac correspondence between Poisson algebras and operator algebras.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the symplectic-manifolds topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "symplectic-floer-intersections",
+    "family": "symplectic-floer-intersections",
+    "dimension": "2d",
+    "gesture": "drag",
+    "role": "exploratory",
+    "title": "symplectic-floer-intersections widget params",
+    "description": "Drag a Lagrangian circle around the torus and count intersections with a fixed reference circle, comparing the actual count to the homological lower bound enforced by Floer theory under Hamiltonian isotopy.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the symplectic-manifolds topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "symplectic-form-pairing",
+    "family": "symplectic-form-pairing",
+    "dimension": "2d",
+    "gesture": "drag",
+    "role": "exploratory",
+    "title": "symplectic-form-pairing widget params",
+    "description": "Drag two vectors to compare an alternating 2-form to a symmetric inner product. The alternating reading sweeps signed parallelogram area while the symmetric reading sums squared lengths, isolating the algebraic feature that distinguishes a symplectic form.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the symplectic-manifolds topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "symplectic-harmonic-portrait",
+    "family": "symplectic-harmonic-portrait",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "illustrative",
+    "title": "symplectic-harmonic-portrait widget params",
+    "description": "Energy slider sweeps level sets of the harmonic-oscillator Hamiltonian, stacking phase-portrait ellipses to show how Hamiltonian flow preserves H and traces nested closed orbits.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the symplectic-manifolds topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "three-body-halo-orbits",
     "family": "three-body-halo-orbits",
     "dimension": "2d",
@@ -8906,6 +9158,132 @@ window.__MVWidgets = [
       "bodyScript"
     ],
     "readmeExcerpt": "Bespoke widget for the §3 special-solutions choreography demo on the [`three-body-problem`](../../three-body-problem.html#special) topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "type-theory-circle-winding",
+    "family": "type-theory-circle-winding",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "type-theory-circle-winding widget params",
+    "description": "Bespoke widget for the §5 circle as a HIT figure on the type-theory-and-hott topic. Reader clicks +/− to wind around the higher inductive S¹; readout shows the resulting element of π₁(S¹) ≅ ℤ. The winding-counter button pair + π₁ readout + animated arc doesn't fit a shared slug.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the type-theory-and-hott topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "type-theory-context-builder",
+    "family": "type-theory-context-builder",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "type-theory-context-builder widget params",
+    "description": "Bespoke widget for the §1 context builder on the type-theory-and-hott topic. Reader clicks 'Add variable' / 'Pop' to extend or shrink a typing context Γ; readout shows the rendered judgment Γ ⊢ A type as variables and dependencies accumulate. The buttons + readout + dynamic LaTeX-rendered context shape doesn't fit a shared slug.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the type-theory-and-hott topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "type-theory-infty-groupoid",
+    "family": "type-theory-infty-groupoid",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "illustrative",
+    "title": "type-theory-infty-groupoid widget params",
+    "description": "Bespoke widget for the §6 type ↦ ∞-groupoid figure on the type-theory-and-hott topic. Reader cycles through dimensions: 0-cells (points), 1-cells (paths), 2-cells (homotopies); the SVG accumulates higher cells with each click. The dimension-stepper + layered SVG cell rendering doesn't fit a shared slug.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the type-theory-and-hott topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "type-theory-lambda-reduction",
+    "family": "type-theory-lambda-reduction",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "type-theory-lambda-reduction widget params",
+    "description": "Bespoke widget for the §2 λ-reduction stepper on the type-theory-and-hott topic. Reader clicks Step / Reset to advance β-reduction in a small λ-term, with a free-variables readout updating each step. The bespoke term selector + step button + free-variable badge readout doesn't fit a shared slug.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the type-theory-and-hott topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "type-theory-path-space",
+    "family": "type-theory-path-space",
+    "dimension": "2d",
+    "gesture": "drag",
+    "role": "exploratory",
+    "title": "type-theory-path-space widget params",
+    "description": "Bespoke widget for the §3 path space Id_A(a,b) figure on the type-theory-and-hott topic. Reader drags endpoints a or b on a 2D canvas; the displayed path stretches between them and the refl loop appears when a = b. The drag-on-svg gesture combined with the special-case refl rendering doesn't fit a shared slug.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the type-theory-and-hott topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "type-theory-univalence-toggle",
+    "family": "type-theory-univalence-toggle",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "illustrative",
+    "title": "type-theory-univalence-toggle widget params",
+    "description": "Bespoke widget for the §4 univalence toggle on the type-theory-and-hott topic. Reader cycles between two equivalences B → B (identity vs swap) to see two distinct identifications B = B materialize as different paths in the universe. The two-state cycle plus dual-path SVG rendering doesn't fit a shared slug.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the type-theory-and-hott topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

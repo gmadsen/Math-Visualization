@@ -279,7 +279,7 @@ At time $n$, looking only at the data so far, you can decide whether stopping ha
 <p><strong>Worked example: hitting times of a random walk.</strong> Let $S_n$ be symmetric simple random walk on $\mathbb{Z}$ with $S_0=0$, and $\mathcal{F}_n=\sigma(S_0,\ldots,S_n)$. Then $\tau_a=\inf\{n:S_n=a\}$ is a stopping time: $\{\tau_a\le n\}=\bigcup_{k\le n}\{S_k=a\}\in\mathcal{F}_n$. The widget below lets you set bounds $a<0<b$, watch the walk evolve, and observe at which step the stopping rule fires.</p>
 
 <div class="widget" id="w-filtration">
-  <div class="hd"><div class="ttl">Filtration & stopping time</div><div class="hint">$\sigma$-algebras grow · $\tau$ fires when $S_n\in\{a,b\}$</div></div>
+  <div class="hd"><div class="ttl">Filtration &amp; stopping time</div><div class="hint">$\sigma$-algebras grow · $\tau$ fires when $S_n\in\{a,b\}$</div></div>
   <svg id="filt-svg" viewBox="0 0 760 280" width="760" height="280"><title>Filtration as expanding information; stopping time as first-hit of a boundary</title></svg>
   <div class="row">
     <button id="filt-step">step</button>
@@ -562,7 +562,7 @@ $$0=\mathbb{E}[S_\tau^2-\tau]=p\,b^2+(1-p)\,a^2-\mathbb{E}[\tau]\quad\Rightarrow
 <p><strong>Wald's identity</strong> follows the same template. For i.i.d. $X_i$ with mean $\mu$ and a stopping time $\tau$ with $\mathbb{E}\tau<\infty$, optional stopping on $S_n-n\mu$ gives $\mathbb{E}[S_\tau]=\mu\,\mathbb{E}[\tau]$. Both gambler's ruin and Wald are one-line corollaries of optional stopping applied to the right martingale.</p>
 
 <div class="widget" id="w-gambler">
-  <div class="hd"><div class="ttl">Gambler's ruin</div><div class="hint">slide $a,b$ — empirical hitting probability vs. $-a/(b-a)$</div></div>
+  <div class="hd"><div class="ttl">Gambler&#39;s ruin</div><div class="hint">slide $a,b$ — empirical hitting probability vs. $-a/(b-a)$</div></div>
   <svg id="gr-svg" viewBox="0 0 760 320" width="760" height="320"><title>Gambler's ruin: hitting probabilities and exit times</title></svg>
   <div class="row">
     <label for="gr-a">$a$ (lower)</label>
@@ -985,7 +985,7 @@ BDG converts maximal-norm estimates of a martingale into estimates of its quadra
 <p><strong>Worked example: Brownian quadratic variation.</strong> Simulate $W$ on $[0,1]$ with mesh $1/N$. Compute $Q_N=\sum_{k=0}^{N-1}(W_{(k+1)/N}-W_{k/N})^2$. As $N$ grows, $Q_N\to 1=t$ in probability — and the variance of the approximation is $\mathrm{Var}(Q_N)=2t^2/N$ by direct calculation (Gaussian fourth moments). The widget plots $Q_N$ as a running sum alongside the constant line at $t$, so you watch the path's quadratic variation accumulate.</p>
 
 <div class="widget" id="w-bm">
-  <div class="hd"><div class="ttl">Brownian motion & quadratic variation</div><div class="hint">$W_t$ on $[0,1]$ · running $\sum(\Delta W)^2$ tracks $t$</div></div>
+  <div class="hd"><div class="ttl">Brownian motion &amp; quadratic variation</div><div class="hint">$W_t$ on $[0,1]$ · running $\sum(\Delta W)^2$ tracks $t$</div></div>
   <svg id="bm-svg" viewBox="0 0 760 360" width="760" height="360"><title>Brownian path and its accumulating quadratic variation</title></svg>
   <div class="row">
     <button id="bm-new">new path</button>
