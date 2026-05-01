@@ -45,6 +45,8 @@ import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 
+import { findScripts, referencedIdsInScript } from './lib/script-scan.mjs';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const repoRoot = resolve(__dirname, '..');
@@ -86,47 +88,9 @@ function collectParamIds(obj, out) {
 
 // Find every <script>...</script> inside an html string. Returns
 // [{start, end, tagEnd, full, inner}].
-function findScripts(html) {
-  const out = [];
-  const OPEN = '<script';
-  const OPEN_CLOSE = '</script>';
-  let i = 0;
-  while (i < html.length) {
-    const o = html.indexOf(OPEN, i);
-    if (o === -1) break;
-    const after = html.charCodeAt(o + OPEN.length);
-    if (!(after === 32 || after === 9 || after === 10 || after === 13 || after === 62)) {
-      i = o + OPEN.length;
-      continue;
-    }
-    const tagEnd = html.indexOf('>', o);
-    if (tagEnd === -1) break;
-    const close = html.indexOf(OPEN_CLOSE, tagEnd + 1);
-    if (close === -1) break;
-    const end = close + OPEN_CLOSE.length;
-    out.push({
-      start: o,
-      end,
-      tagEnd,
-      full: html.slice(o, end),
-      inner: html.slice(tagEnd + 1, close),
-    });
-    i = end;
-  }
-  return out;
-}
-
-function referencedIdsInScript(scriptInner) {
-  const ids = new Set();
-  const dollarRe = /\$\(\s*['"]#([A-Za-z_][\w-]*)['"]/g;
-  const gebRe = /getElementById\(\s*['"]([A-Za-z_][\w-]*)['"]/g;
-  const qsRe = /querySelector(?:All)?\(\s*['"]#([A-Za-z_][\w-]*)/g;
-  let m;
-  while ((m = dollarRe.exec(scriptInner)) !== null) ids.add(m[1]);
-  while ((m = gebRe.exec(scriptInner)) !== null) ids.add(m[1]);
-  while ((m = qsRe.exec(scriptInner)) !== null) ids.add(m[1]);
-  return ids;
-}
+// Locate every <script>…</script> on a page; identify the ids each script
+// references. Implementations live in scripts/lib/script-scan.mjs (shared
+// with extract-topic.mjs).
 
 // Try to split a script body that wraps multiple per-widget IIFEs (a pattern
 // seen in older topics: `<script>\n/* SECTION 1 */\n(function(){…})();\n

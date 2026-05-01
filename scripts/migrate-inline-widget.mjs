@@ -130,15 +130,14 @@ if (!scriptBlockRef) {
 let widgetHtml = widgetBlockRef.block.html;
 
 function normalizeMultiLineHd(html) {
-  // Match <div class="hd">[whitespace]<div/span class="ttl">…</div/span>[ws]<div/span class="hint">…</div/span>[ws]</div>
+  // Match <div class="hd">[ws]<div/span class="ttl">…</div/span>[ws]<div/span class="hint">…</div/span>[ws]</div>
+  // The .hd wrapper is always <div>; ttl/hint inside vary between div and span.
   const reMulti =
     /<div class="hd">\s*\n\s*<(div|span) class="ttl">([\s\S]*?)<\/\1>\s*\n\s*<(div|span) class="hint">([\s\S]*?)<\/\3>\s*\n\s*<\/div>/;
   const m = html.match(reMulti);
   if (!m) return { html, normalized: false };
   const [full, t1, ttlInner, t2, hintInner] = m;
   if (t1 !== t2) return { html, normalized: false }; // mixed tags — bail
-  const replacement = `<${t1} class="hd"><${t1} class="ttl">${ttlInner}</${t1}><${t1} class="hint">${hintInner}</${t1}></${t1}>`;
-  // Wait — the .hd wrapper itself is always <div>, only ttl/hint vary. Fix:
   const fixed = `<div class="hd"><${t1} class="ttl">${ttlInner}</${t1}><${t1} class="hint">${hintInner}</${t1}></div>`;
   return { html: html.replace(full, fixed), normalized: true };
 }
@@ -269,21 +268,37 @@ const schemaJson = {
 };
 writeFileSync(join(slugDir, 'schema.json'), JSON.stringify(schemaJson, null, 2) + '\n');
 
+// Detect whether the captured title/hint carries inline HTML markup (e.g.
+// <em>…</em>, <code>…</code>, &-entity references). Such hints round-trip
+// only if interpolated raw — escapeHtml(hint) would mangle them. ~16
+// generated index.mjs files needed manual patches in PR #45 because the
+// generator escaped unconditionally; auto-detect and pick the right
+// interpolation up front.
+const TITLE_HAS_HTML = /<[a-z][\w-]*\b|&[a-z]+;|&#\d+;/i.test(title);
+const HINT_HAS_HTML = /<[a-z][\w-]*\b|&[a-z]+;|&#\d+;/i.test(hint);
+const titleExpr = TITLE_HAS_HTML ? '${title}' : '${escapeHtml(title)}';
+const hintExpr = HINT_HAS_HTML ? '${hint}' : '${escapeHtml(hint)}';
+const escapeImport = (TITLE_HAS_HTML && HINT_HAS_HTML)
+  ? ''
+  : `\nimport { escapeHtml } from '../_shared/escape.mjs';`;
+const escapeNote = (TITLE_HAS_HTML || HINT_HAS_HTML)
+  ? `\n//\n// Note: ${TITLE_HAS_HTML ? 'title' : ''}${TITLE_HAS_HTML && HINT_HAS_HTML ? ' and ' : ''}${HINT_HAS_HTML ? 'hint' : ''} carry${(TITLE_HAS_HTML && HINT_HAS_HTML) ? '' : 's'} inline HTML; interpolated raw rather than\n// escaped, matching the original handwritten markup.`
+  : '';
+
 const indexMjs = `// ${newSlug} widget — bespoke registry entry.
 //
-// ${description.replace(/\n/g, '\n// ')}
+// ${description.replace(/\n/g, '\n// ')}${escapeNote}
 //
 // Exports:
 //   renderMarkup(params) -> <div class="widget"> ... </div>
 //   renderScript(params) -> <script>\\n(function(){ ... })();\\n</script>
-
-import { escapeHtml } from '../_shared/escape.mjs';
+${escapeImport}
 
 export function renderMarkup(params) {
   const { widgetId, title, hint, bodyMarkup } = params;
   return (
     \`<div class="widget"\` + (widgetId ? \` id="\${widgetId}"\` : "") + \`>\\n\` +
-    \`  <div class="hd"><${headerTag} class="ttl">\${escapeHtml(title)}</${headerTag}><${headerTag} class="hint">\${escapeHtml(hint)}</${headerTag}></div>\\n\` +
+    \`  <div class="hd"><${headerTag} class="ttl">${titleExpr}</${headerTag}><${headerTag} class="hint">${hintExpr}</${headerTag}></div>\\n\` +
     \`\${bodyMarkup}\\n\` +
     \`</div>\`
   );

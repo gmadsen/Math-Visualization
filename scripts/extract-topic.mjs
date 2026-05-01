@@ -32,6 +32,8 @@ import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { findScripts, referencedIdsInScript } from './lib/script-scan.mjs';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const repoRoot = resolve(__dirname, '..');
@@ -169,56 +171,9 @@ function widgetIdSet(widgetBlock) {
 // [{ start, end, inner, full }] where `start`/`end` are byte offsets in the
 // input, `full` is the slice including the tags, and `inner` is the script
 // body (used for selector scanning).
-function findScripts(html) {
-  const out = [];
-  let i = 0;
-  const OPEN = '<script';
-  const OPEN_CLOSE = '</script>';
-  while (i < html.length) {
-    const o = html.indexOf(OPEN, i);
-    if (o === -1) break;
-    // Make sure this is a script TAG, not just the substring (e.g. "<scriptish").
-    const after = html.charCodeAt(o + OPEN.length);
-    // valid chars following <script: space, tab, newline, > (no attrs case)
-    if (!(after === 32 || after === 9 || after === 10 || after === 13 || after === 62)) {
-      i = o + OPEN.length;
-      continue;
-    }
-    // Find the opening tag's '>'.
-    const tagEnd = html.indexOf('>', o);
-    if (tagEnd === -1) break;
-    // Closing </script>.
-    const close = html.indexOf(OPEN_CLOSE, tagEnd + 1);
-    if (close === -1) break;
-    const end = close + OPEN_CLOSE.length;
-    out.push({
-      start: o,
-      end,
-      full: html.slice(o, end),
-      inner: html.slice(tagEnd + 1, close),
-    });
-    i = end;
-  }
-  return out;
-}
-
-// Scan a script body for id selectors and return the set of referenced ids.
-// Handles `$('#id')`, `$("#id")`, `document.getElementById('id')`,
-// `querySelector('#id')`, `querySelectorAll('#id')`.
-function referencedIdsInScript(scriptInner) {
-  const ids = new Set();
-  // $('#id') or $("#id") — optional whitespace.
-  const dollarRe = /\$\(\s*['"]#([A-Za-z_][\w-]*)['"]/g;
-  // getElementById('id') — no leading '#'.
-  const gebRe = /getElementById\(\s*['"]([A-Za-z_][\w-]*)['"]/g;
-  // querySelector / querySelectorAll('#id...') — we only grab the leading #id token.
-  const qsRe = /querySelector(?:All)?\(\s*['"]#([A-Za-z_][\w-]*)/g;
-  let m;
-  while ((m = dollarRe.exec(scriptInner)) !== null) ids.add(m[1]);
-  while ((m = gebRe.exec(scriptInner)) !== null) ids.add(m[1]);
-  while ((m = qsRe.exec(scriptInner)) !== null) ids.add(m[1]);
-  return ids;
-}
+// Locate every <script>…</script> on a page; identify the ids each script
+// references. Implementations live in scripts/lib/script-scan.mjs (shared
+// with repair-widget-scripts.mjs).
 
 // Walk all sections' blocks. For every raw block, detect scripts that target
 // a specific widget; when exactly one script references exactly one widget,
