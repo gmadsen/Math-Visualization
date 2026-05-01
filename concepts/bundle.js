@@ -4,6 +4,7 @@
 window.__MVConcepts = {
   "index": {
     "topics": [
+      "advanced-complex-analysis",
       "mathematical-statistics",
       "numerical-analysis",
       "computational-number-theory",
@@ -179,6 +180,7 @@ window.__MVConcepts = {
       "probability-theory": "standard",
       "harmonic-analysis-fourier": "standard",
       "sobolev-spaces-distributions": "standard",
+      "advanced-complex-analysis": "advanced",
       "point-set-topology": "prereq",
       "algebraic-topology": "prereq",
       "smooth-manifolds": "standard",
@@ -288,6 +290,84 @@ window.__MVConcepts = {
     }
   },
   "topics": {
+    "advanced-complex-analysis": {
+      "topic": "advanced-complex-analysis",
+      "title": "Advanced complex analysis",
+      "page": "advanced-complex-analysis.html",
+      "concepts": [
+        {
+          "id": "aca-overview",
+          "title": "The graduate landscape",
+          "anchor": "overview",
+          "prereqs": [],
+          "blurb": "A map of the four threads that organize the graduate complex-analysis canon: value-distribution (Picard, Bloch), construction theorems (Weierstrass, Mittag-Leffler), growth and maximum-modulus controls (Phragmén-Lindelöf, Hadamard), and boundary behavior (Hardy, Fatou). Together they answer 'what makes entire and meromorphic functions special, and how do they behave near infinity or on the boundary?'"
+        },
+        {
+          "id": "aca-picard-little",
+          "title": "Little Picard theorem",
+          "anchor": "picard-little",
+          "prereqs": [
+            "liouville"
+          ],
+          "blurb": "A non-constant entire function omits at most one complex value. Liouville (bounded ⇒ constant) is the trivial case; little Picard is the same idea pushed to its sharpest form — even an unbounded entire map cannot avoid more than one point."
+        },
+        {
+          "id": "aca-picard-great",
+          "title": "Great Picard theorem",
+          "anchor": "picard-great",
+          "prereqs": [
+            "aca-picard-little",
+            "singularity-classification"
+          ],
+          "blurb": "In every neighborhood of an essential singularity, $f$ takes every complex value (with at most one exception) infinitely often. This sharpens Casorati-Weierstrass dramatically — 'dense' becomes 'every value, infinitely often'."
+        },
+        {
+          "id": "aca-weierstrass-factorization",
+          "title": "Weierstrass factorization",
+          "anchor": "weierstrass-factorization",
+          "prereqs": [
+            "aca-picard-little"
+          ],
+          "blurb": "Every entire function with prescribed zeros $\\{a_n\\}$ factors as $e^{g(z)}\\prod E_{p_n}(z/a_n)$, where the elementary factors $E_p$ are designed so the product converges. The construction generalizes the polynomial factorization $\\prod(z-a_k)$ to entire functions and produces the canonical $\\sin\\pi z = \\pi z\\prod(1-z^2/n^2)$."
+        },
+        {
+          "id": "aca-mittag-leffler",
+          "title": "Mittag-Leffler theorem",
+          "anchor": "mittag-leffler",
+          "prereqs": [
+            "aca-weierstrass-factorization"
+          ],
+          "blurb": "Dual to Weierstrass: prescribe a discrete pole set with principal parts and there is a meromorphic function realizing them, given by a convergent series of partial fractions plus a holomorphic correction. The witness is the cotangent partial-fraction expansion $\\pi\\cot\\pi z = 1/z + \\sum_{n\\ne 0}(1/(z-n)+1/n)$."
+        },
+        {
+          "id": "aca-phragmen-lindelof",
+          "title": "Phragmén-Lindelöf principle",
+          "anchor": "phragmen-lindelof",
+          "prereqs": [
+            "maximum-modulus"
+          ],
+          "blurb": "A maximum-modulus principle for unbounded domains, traded for a growth condition. In a sector of opening $\\pi/\\alpha$, if $f$ is bounded by $M$ on the boundary and grows no faster than $e^{|z|^\\beta}$ with $\\beta<\\alpha$, then $|f|\\le M$ throughout. The growth budget is exactly what closes the missing arc at infinity."
+        },
+        {
+          "id": "aca-hadamard-three-circles",
+          "title": "Hadamard's three-circles theorem",
+          "anchor": "hadamard-three-circles",
+          "prereqs": [
+            "aca-phragmen-lindelof"
+          ],
+          "blurb": "If $f$ is holomorphic on the annulus $r_1\\le|z|\\le r_3$ and $M(r) = \\max_{|z|=r}|f(z)|$, then $\\log M(r)$ is convex as a function of $\\log r$. The convex-interpolation inequality $M(r_2)^{\\log(r_3/r_1)} \\le M(r_1)^{\\log(r_3/r_2)} M(r_3)^{\\log(r_2/r_1)}$ is the standard tool for growth bounds and Hadamard-Riesz-Thorin interpolation."
+        },
+        {
+          "id": "aca-hardy-spaces",
+          "title": "Hardy spaces and Fatou boundary",
+          "anchor": "hardy-spaces",
+          "prereqs": [
+            "aca-mittag-leffler"
+          ],
+          "blurb": "$H^p(\\mathbb{D})$ collects holomorphic functions on the disk whose $L^p$ norm on circles $|z|=r$ stays bounded as $r\\uparrow 1$. Fatou's theorem says every $H^p$ function admits non-tangential boundary values almost everywhere, and the inner-outer factorization $f = B\\cdot S\\cdot O$ decomposes them into a Blaschke product, a singular inner factor, and an outer function."
+        }
+      ]
+    },
     "mathematical-statistics": {
       "topic": "mathematical-statistics",
       "title": "Mathematical statistics",
@@ -12286,6 +12366,7 @@ window.__MVConcepts = {
           "dynamical-systems",
           "harmonic-analysis-fourier",
           "sobolev-spaces-distributions",
+          "advanced-complex-analysis",
           "partial-differential-equations",
           "harmonic-functions",
           "spectral-theory",
@@ -12540,6 +12621,7 @@ window.__MVConcepts = {
     "probability-theory": "standard",
     "harmonic-analysis-fourier": "standard",
     "sobolev-spaces-distributions": "standard",
+    "advanced-complex-analysis": "advanced",
     "point-set-topology": "prereq",
     "algebraic-topology": "prereq",
     "smooth-manifolds": "standard",
@@ -12687,11 +12769,11 @@ window.__MVConcepts = {
       "density": 0.5111111111111111
     },
     "Analysis": {
-      "concepts": 149,
-      "intra": 254,
+      "concepts": 157,
+      "intra": 262,
       "crossOut": 24,
       "crossIn": 62,
-      "density": 0.1610738255033557
+      "density": 0.15286624203821655
     },
     "Probability & statistics": {
       "concepts": 53,

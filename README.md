@@ -59,6 +59,7 @@ Each concept carries two quiz tiers — v1 (required) and hard (unlocked after v
 - [Dynamical systems](./dynamical-systems.html) — flows, invariant sets, ergodicity teasers
 - [Harmonic analysis & Fourier theory](./harmonic-analysis-fourier.html) — Fourier series + transform, Plancherel, convolution, Schwartz space, uncertainty, Poisson summation, Pontryagin duality
 - [Sobolev spaces & distributions](./sobolev-spaces-distributions.html) — test functions, $\mathcal{D}'$, weak derivatives, $W^{k,p}$ embeddings, traces, fundamental solutions, variational $-\Delta u = f$
+- [Advanced complex analysis](./advanced-complex-analysis.html) — graduate sequel: Picard's theorems, Weierstrass factorization, Mittag-Leffler, Phragmén-Lindelöf, Hadamard three-circles, Hardy spaces and Fatou boundary behavior
 
 ### Probability & statistics
 - [Probability theory](./probability-theory.html) — measure-theoretic foundations, expectation, independence, limit theorems, characteristic functions

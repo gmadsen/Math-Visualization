@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **130**, concepts: **896**
+- Topics: **131**, concepts: **904**
 - Widgets: **921** (registry-driven: 921, inline: 0)
-- Quizzes: **3879** (v1: 2643, hard: 1223, expert: 13)
-- Quiz types: mcq: 2611, numeric: 1028, multi-select: 96, matching: 44, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **138**
-- Concepts lacking a hard-tier quiz: **458**
+- Quizzes: **3903** (v1: 2667, hard: 1223, expert: 13)
+- Quiz types: mcq: 2631, numeric: 1030, multi-select: 97, matching: 45, complex: 29, ordering: 28, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Concepts lacking a widget in their section: **146**
+- Concepts lacking a hard-tier quiz: **466**
 
 ## Per-slug registry adoption
 
@@ -516,13 +516,13 @@ page has wired one in yet.
 
 ### Analysis
 
-- Topics: **15**, concepts: **149**
+- Topics: **16**, concepts: **157**
 - Widgets: **107** (registry-driven: 107, inline: 0)
   - by family: button-stepper: 37, clickable-diagram: 31, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, variational-fdiff: 1, variational-brachistochrone: 1, variational-direct-method: 1, variational-mountain-pass: 1, variational-isoperimetric: 1, variational-sphere-geodesic: 1, constraint-bifurcation-explorer: 1, recurrence-plotter: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
   - by dimension: 2d: 106, 3d: 1
   - by gesture: click: 70, slider: 29, drag: 5, select: 2, step: 1
-- Quizzes: **591** (v1: 406, hard: 185, expert: 0)
-  - by type: mcq: 379, numeric: 142, multi-select: 15, complex: 14, matching: 14, ordering: 12, proof-completion: 9, spot-the-error: 4, construction: 1, guess-my-rule: 1
+- Quizzes: **615** (v1: 430, hard: 185, expert: 0)
+  - by type: mcq: 399, numeric: 144, multi-select: 16, matching: 15, complex: 14, ordering: 12, proof-completion: 9, spot-the-error: 4, construction: 1, guess-my-rule: 1
 
 ### Probability & statistics
 
@@ -596,6 +596,7 @@ page has wired one in yet.
 
 ## Per-topic
 
+- `advanced-complex-analysis` (Analysis) — concepts=8, widgets=0 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
 - `mathematical-statistics` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `numerical-analysis` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `computational-number-theory` (Number theory) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
@@ -731,6 +732,14 @@ page has wired one in yet.
 
 ### Concepts missing a widget in their owning section (top 20)
 
+- `aca-overview` (advanced-complex-analysis)
+- `aca-picard-little` (advanced-complex-analysis)
+- `aca-picard-great` (advanced-complex-analysis)
+- `aca-weierstrass-factorization` (advanced-complex-analysis)
+- `aca-mittag-leffler` (advanced-complex-analysis)
+- `aca-phragmen-lindelof` (advanced-complex-analysis)
+- `aca-hadamard-three-circles` (advanced-complex-analysis)
+- `aca-hardy-spaces` (advanced-complex-analysis)
 - `cnt-primality` (computational-number-theory)
 - `cnt-factoring` (computational-number-theory)
 - `cnt-lattice-reduction` (computational-number-theory)
@@ -743,17 +752,17 @@ page has wired one in yet.
 - `fpt-lefschetz` (fixed-point-theorems)
 - `fpt-kakutani` (fixed-point-theorems)
 - `fpt-applications` (fixed-point-theorems)
-- `ros-applications` (resolution-of-singularities)
-- `gcgt-presentations` (geometric-and-combinatorial-group-theory)
-- `gcgt-cayley-graph` (geometric-and-combinatorial-group-theory)
-- `gcgt-quasi-isometry` (geometric-and-combinatorial-group-theory)
-- `gcgt-growth` (geometric-and-combinatorial-group-theory)
-- `gcgt-hyperbolic-groups` (geometric-and-combinatorial-group-theory)
-- `gcgt-applications` (geometric-and-combinatorial-group-theory)
-- `w-multiresolution` (wavelets)
 
 ### Concepts missing a hard-tier quiz (top 20)
 
+- `aca-overview` (advanced-complex-analysis)
+- `aca-picard-little` (advanced-complex-analysis)
+- `aca-picard-great` (advanced-complex-analysis)
+- `aca-weierstrass-factorization` (advanced-complex-analysis)
+- `aca-mittag-leffler` (advanced-complex-analysis)
+- `aca-phragmen-lindelof` (advanced-complex-analysis)
+- `aca-hadamard-three-circles` (advanced-complex-analysis)
+- `aca-hardy-spaces` (advanced-complex-analysis)
 - `ms-estimators` (mathematical-statistics)
 - `ms-mle` (mathematical-statistics)
 - `ms-cramer-rao` (mathematical-statistics)
@@ -766,11 +775,3 @@ page has wired one in yet.
 - `na-linear-systems` (numerical-analysis)
 - `na-finite-differences` (numerical-analysis)
 - `na-finite-elements` (numerical-analysis)
-- `cnt-primality` (computational-number-theory)
-- `cnt-factoring` (computational-number-theory)
-- `cnt-lattice-reduction` (computational-number-theory)
-- `cnt-modular-arithmetic-algorithms` (computational-number-theory)
-- `cnt-elliptic-curves-computation` (computational-number-theory)
-- `cnt-class-group-computation` (computational-number-theory)
-- `vm-functional-derivative` (variational-methods)
-- `vm-euler-lagrange` (variational-methods)

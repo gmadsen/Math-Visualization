@@ -1478,6 +1478,342 @@ window.MVQuizBank = {
       }
     }
   },
+  "advanced-complex-analysis": {
+    "topic": "advanced-complex-analysis",
+    "quizzes": {
+      "aca-overview": {
+        "title": "The graduate landscape",
+        "questions": [
+          {
+            "type": "matching",
+            "q": "Match each graduate-CA result to the question it answers.",
+            "left": [
+              "Picard's theorems",
+              "Weierstrass factorization",
+              "Phragmén-Lindelöf",
+              "Hardy spaces"
+            ],
+            "right": [
+              "How many values can a non-constant entire / essential-singularity map omit?",
+              "Can I build an entire function with prescribed zeros?",
+              "Does maximum modulus survive on an unbounded sector?",
+              "Does a holomorphic function on the disk have boundary values?"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "These are the four threads of the topic: value distribution, construction, growth control, and boundary behavior."
+          },
+          {
+            "type": "mcq",
+            "q": "Which classical result is little Picard a sharpening of?",
+            "choices": [
+              "Cauchy's integral theorem",
+              "Liouville's theorem",
+              "The residue theorem",
+              "Schwarz reflection"
+            ],
+            "answer": 1,
+            "explain": "Liouville says a bounded entire function is constant — i.e. a non-constant entire function must be unbounded. Little Picard pushes this much further: a non-constant entire function omits at most one value from $\\mathbb{C}$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which pairing correctly describes the Weierstrass / Mittag-Leffler duality?",
+            "choices": [
+              "Weierstrass prescribes poles; Mittag-Leffler prescribes zeros",
+              "Weierstrass prescribes zeros; Mittag-Leffler prescribes principal parts at poles",
+              "Both prescribe zeros — they differ only in growth rate",
+              "Mittag-Leffler is a special case of Weierstrass"
+            ],
+            "answer": 1,
+            "explain": "Weierstrass realizes any prescribed zero set as an entire function via convergent products of elementary factors. Mittag-Leffler is the dual: prescribe a discrete set of poles and principal parts, get a meromorphic function realizing them via a convergent series of partial fractions."
+          }
+        ]
+      },
+      "aca-picard-little": {
+        "title": "Little Picard theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which entire function $f:\\mathbb{C}\\to\\mathbb{C}$ shows that little Picard's bound 'at most one omitted value' is sharp?",
+            "choices": [
+              "$f(z) = z^2$",
+              "$f(z) = e^z$",
+              "$f(z) = \\sin z$",
+              "$f(z) = z + 1$"
+            ],
+            "answer": 1,
+            "explain": "$e^z$ is non-constant entire and never equals $0$ — so it omits exactly one value, showing little Picard's bound cannot be improved. Polynomials $z^2$ and $z+1$ are surjective onto $\\mathbb{C}$ (omit nothing), and $\\sin z$ is also surjective."
+          },
+          {
+            "type": "mcq",
+            "q": "True or false: a non-constant entire function $f$ omitting two distinct values $a\\ne b$ can exist if its growth is sub-polynomial.",
+            "choices": [
+              "True — growth controls value distribution",
+              "False — little Picard is unconditional"
+            ],
+            "answer": 1,
+            "explain": "Little Picard makes no growth hypothesis. Any non-constant entire function — bounded, polynomial-growth, or transcendental — omits at most one value of $\\mathbb{C}$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select the entire functions that omit a value in $\\mathbb{C}$.",
+            "choices": [
+              "$f(z) = e^z$",
+              "$f(z) = z^3 + 7$",
+              "$f(z) = \\cos z$",
+              "$f(z) = e^{e^z}$",
+              "$f(z) = \\sin z + e^z$"
+            ],
+            "answer": [
+              0,
+              3
+            ],
+            "explain": "$e^z$ omits $0$. $e^{e^z}$ also omits $0$ (the outer exponential avoids $0$). The polynomial $z^3+7$ is surjective by FTA. $\\cos z$ is surjective on $\\mathbb{C}$. $\\sin z + e^z$ is non-constant entire and by little Picard omits at most one value, but in fact it is surjective — a direct asymptotic argument shows it takes every value."
+          }
+        ]
+      },
+      "aca-picard-great": {
+        "title": "Great Picard theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Near the essential singularity at $z=0$ of $f(z) = e^{1/z}$, which set of values does $f$ take infinitely often in every punctured neighborhood?",
+            "choices": [
+              "$\\mathbb{C}$",
+              "$\\mathbb{C}\\setminus\\{0\\}$",
+              "$\\{|w|=1\\}$",
+              "$\\mathbb{R}$ only"
+            ],
+            "answer": 1,
+            "explain": "$e^{1/z}$ never equals $0$, so $0$ is the one allowed exceptional value. By great Picard, every other complex value is attained infinitely often in any punctured neighborhood of $0$."
+          },
+          {
+            "type": "mcq",
+            "q": "Great Picard sharpens which classical theorem?",
+            "choices": [
+              "Casorati-Weierstrass",
+              "Liouville",
+              "The residue theorem",
+              "The argument principle"
+            ],
+            "answer": 0,
+            "explain": "Casorati-Weierstrass says the image of any punctured neighborhood of an essential singularity is dense in $\\mathbb{C}$. Great Picard sharpens 'dense' to 'every value, infinitely often, with at most one exception'."
+          },
+          {
+            "type": "mcq",
+            "q": "Suppose $f$ has an essential singularity at $z_0$ and omits two distinct values $a\\ne b$ in some punctured neighborhood of $z_0$. What does great Picard force?",
+            "choices": [
+              "$f$ has a pole at $z_0$",
+              "This situation is impossible — great Picard forbids it",
+              "$f$ is bounded near $z_0$",
+              "$f$ is constant"
+            ],
+            "answer": 1,
+            "explain": "Great Picard says at most one value can be omitted near an essential singularity. Omitting two contradicts the hypothesis that the singularity is essential — so either the assumption was wrong (it's actually a pole or removable) or such an $f$ does not exist."
+          }
+        ]
+      },
+      "aca-weierstrass-factorization": {
+        "title": "Weierstrass factorization",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the role of the elementary factor $E_p(z) = (1-z)\\exp(z + z^2/2 + \\cdots + z^p/p)$ in Weierstrass's product?",
+            "choices": [
+              "It produces a removable singularity at $z=1$",
+              "It vanishes at $z=1$ and the exponential correction makes the infinite product converge",
+              "It is the residue of $f$ at $z=1$",
+              "It encodes the principal part of $f$"
+            ],
+            "answer": 1,
+            "explain": "$E_p$ has a simple zero at $z=1$ (from the $(1-z)$ factor) and the exponential $\\exp(\\sum_{k=1}^p z^k/k)$ is precisely the truncated Taylor series of $-\\log(1-z)$ — chosen so that $\\log E_p(z) = O(z^{p+1})$ near $0$, which is the rate of decay needed for the product $\\prod E_{p_n}(z/a_n)$ to converge."
+          },
+          {
+            "type": "mcq",
+            "q": "Which famous identity is a Weierstrass-style infinite product expressing $\\sin(\\pi z)$?",
+            "choices": [
+              "$\\sin(\\pi z) = \\pi z \\prod_{n=1}^\\infty (1 - z/n)$",
+              "$\\sin(\\pi z) = \\pi z \\prod_{n=1}^\\infty (1 - z^2/n^2)$",
+              "$\\sin(\\pi z) = \\prod_{n=1}^\\infty (z - n)$",
+              "$\\sin(\\pi z) = \\pi z \\sum_{n=1}^\\infty (-1)^n z^{2n}/(2n+1)!$"
+            ],
+            "answer": 1,
+            "explain": "The zeros of $\\sin(\\pi z)$ are exactly $\\mathbb{Z}$. Pairing $\\pm n$ gives the convergent product $\\sin(\\pi z) = \\pi z \\prod_{n\\ge 1}(1 - z^2/n^2)$. The first option is divergent without the exponential correction; the third has factors that don't go to $1$."
+          },
+          {
+            "type": "numeric",
+            "q": "Plugging $z = 1/2$ into $\\sin(\\pi z) = \\pi z \\prod_{n=1}^\\infty(1 - z^2/n^2)$ and rearranging gives $\\prod_{n=1}^\\infty (1 - 1/(4n^2)) = 2/\\pi$. Numerically, what is $2/\\pi$ to three decimals?",
+            "answer": 0.637,
+            "tol": 0.005,
+            "explain": "$\\sin(\\pi/2) = 1$, so $1 = (\\pi/2) \\prod_{n\\ge 1}(1 - 1/(4n^2))$, giving the Wallis-type product $\\prod_{n\\ge 1}(1-1/(4n^2)) = 2/\\pi \\approx 0.6366$."
+          }
+        ]
+      },
+      "aca-mittag-leffler": {
+        "title": "Mittag-Leffler theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Mittag-Leffler's theorem prescribes which data to realize as a meromorphic function?",
+            "choices": [
+              "A discrete set of zeros, with multiplicities",
+              "A discrete pole set together with each principal part",
+              "A continuous boundary value",
+              "A residue at infinity"
+            ],
+            "answer": 1,
+            "explain": "Mittag-Leffler is dual to Weierstrass: prescribe a discrete pole set $\\{a_n\\}$ together with the principal part $P_n(1/(z-a_n))$ at each, and there is a meromorphic function realizing them, given by a convergent series of partial fractions plus an entire correction."
+          },
+          {
+            "type": "mcq",
+            "q": "The classical partial-fraction expansion $\\pi\\cot\\pi z = \\frac{1}{z} + \\sum_{n\\ne 0}\\bigl(\\frac{1}{z-n}+\\frac{1}{n}\\bigr)$ realizes which prescribed data?",
+            "choices": [
+              "Simple poles at $\\mathbb{Z}$, each with residue $1$",
+              "Double poles at $\\mathbb{Z}$",
+              "Zeros at $\\mathbb{Z}$ with the cotangent factor",
+              "An essential singularity at infinity"
+            ],
+            "answer": 0,
+            "explain": "$\\pi\\cot\\pi z$ has simple poles at every integer with residue $1$. The series gives those principal parts; the constant terms $1/n$ are subtracted in pairs $\\pm n$ to make the series converge."
+          },
+          {
+            "type": "mcq",
+            "q": "Why are the convergence-correction constants (the '$+1/n$' terms in the cotangent expansion) needed?",
+            "choices": [
+              "To make each partial sum holomorphic",
+              "To make the series of principal parts converge — without them, $\\sum 1/(z-n)$ diverges",
+              "To kill the residue at $z=0$",
+              "To force the function to vanish at infinity"
+            ],
+            "answer": 1,
+            "explain": "Each principal part $1/(z-n)$ alone gives a series $\\sum 1/(z-n)$ that diverges (it behaves like the harmonic series for $z$ fixed). Subtracting $1/n$ produces $1/(z-n) + 1/n = z/(n(z-n))$, which decays like $1/n^2$ — convergent. The corrections are entire, so they don't change the principal parts."
+          }
+        ]
+      },
+      "aca-phragmen-lindelof": {
+        "title": "Phragmén-Lindelöf principle",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On the right half-plane $\\{\\operatorname{Re} z > 0\\}$, suppose $f$ is holomorphic, bounded by $M$ on the imaginary axis, and satisfies $|f(z)|\\le e^{|z|^\\beta}$ for some $\\beta < 1$. What does Phragmén-Lindelöf conclude?",
+            "choices": [
+              "$|f|\\le M$ throughout the half-plane",
+              "$f$ is identically zero",
+              "$f$ has a pole at infinity",
+              "Nothing — the half-plane is unbounded so max modulus fails"
+            ],
+            "answer": 0,
+            "explain": "The right half-plane is the sector of opening $\\pi$, i.e. $\\alpha = 1$. The hypothesis $\\beta < 1 = \\alpha$ is exactly what Phragmén-Lindelöf needs to extend max-modulus across the unbounded boundary at infinity, giving $|f|\\le M$ throughout."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the example $f(z) = e^z$ on the right half-plane not contradict Phragmén-Lindelöf?",
+            "choices": [
+              "$|e^z|$ is bounded by $1$ on the imaginary axis but grows like $e^{\\operatorname{Re} z}$ — its growth rate $\\beta = 1$ matches $\\alpha$ exactly, so the strict inequality $\\beta<\\alpha$ fails",
+              "$e^z$ is not entire",
+              "$e^z$ has a pole at infinity, which is excluded",
+              "Phragmén-Lindelöf does not apply to entire functions"
+            ],
+            "answer": 0,
+            "explain": "$|e^z| = e^{\\operatorname{Re} z}$ grows exactly like $e^{|z|^1}$ in the right half-plane — it sits at the critical exponent $\\beta = \\alpha = 1$. Phragmén-Lindelöf needs strict $\\beta < \\alpha$; the boundary case is exactly where the principle is sharp and $e^z$ is the standard witness."
+          },
+          {
+            "type": "mcq",
+            "q": "Conceptually, what is the 'extra' the growth condition buys you over plain max-modulus?",
+            "choices": [
+              "It controls $f$ on the missing arc at infinity, closing the unbounded boundary",
+              "It guarantees $f$ has no zeros",
+              "It forces $f$ to be a polynomial",
+              "It replaces holomorphy with harmonicity"
+            ],
+            "answer": 0,
+            "explain": "On a bounded domain, max-modulus uses the closed boundary. On an unbounded sector, the boundary is missing the 'arc at infinity'. The growth condition $|f|\\le e^{|z|^\\beta}$ with $\\beta<\\alpha$ forces $f$ to behave well enough out there that the missing arc doesn't ruin the conclusion."
+          }
+        ]
+      },
+      "aca-hadamard-three-circles": {
+        "title": "Hadamard's three-circles theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Hadamard's three-circles theorem says that $\\log M(r)$ is what kind of function of $\\log r$?",
+            "choices": [
+              "Linear",
+              "Convex",
+              "Concave",
+              "Periodic"
+            ],
+            "answer": 1,
+            "explain": "$\\log M(r)$ is a convex function of $\\log r$ on the annulus where $f$ is holomorphic. Convexity yields the standard interpolation inequality $M(r_2)^{\\log(r_3/r_1)} \\le M(r_1)^{\\log(r_3/r_2)} M(r_3)^{\\log(r_2/r_1)}$ for $r_1<r_2<r_3$."
+          },
+          {
+            "type": "numeric",
+            "q": "Suppose $f$ is holomorphic on $1\\le|z|\\le 4$, with $M(1) = 1$ and $M(4) = 16$. What is the best (smallest) upper bound on $M(2)$ that Hadamard's three-circles gives?",
+            "answer": 4,
+            "tol": 0.01,
+            "explain": "Convexity of $\\log M$ in $\\log r$ gives $\\log M(2) \\le \\frac{\\log 4 - \\log 2}{\\log 4 - \\log 1}\\log M(1) + \\frac{\\log 2 - \\log 1}{\\log 4 - \\log 1}\\log M(4) = \\tfrac12\\cdot 0 + \\tfrac12\\cdot \\log 16 = \\log 4$. So $M(2)\\le 4$, achieved by $f(z) = z^2$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which family of functions saturates the three-circles inequality (i.e., for which is $\\log M(r)$ exactly linear in $\\log r$)?",
+            "choices": [
+              "Polynomials",
+              "Bounded entire functions",
+              "Power functions $f(z) = z^n$",
+              "Exponential functions $e^z$"
+            ],
+            "answer": 2,
+            "explain": "For $f(z) = z^n$, $M(r) = r^n$, so $\\log M(r) = n\\log r$ — exactly linear in $\\log r$. The three-circles inequality becomes equality, showing the bound is sharp on this family."
+          }
+        ]
+      },
+      "aca-hardy-spaces": {
+        "title": "Hardy spaces and Fatou boundary",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Hardy space $H^p(\\mathbb{D})$ consists of holomorphic functions $f$ on the unit disk such that what quantity is bounded?",
+            "choices": [
+              "$\\sup_{r<1} \\int_0^{2\\pi}|f(re^{i\\theta})|^p\\,d\\theta$",
+              "$\\sup_{z\\in\\mathbb{D}}|f(z)|^p$",
+              "$\\int_{\\mathbb{D}}|f(z)|^p\\,dA$",
+              "$\\sum_{n=0}^\\infty|a_n|^p$ where $f = \\sum a_n z^n$"
+            ],
+            "answer": 0,
+            "explain": "$H^p(\\mathbb{D})$ is defined by $\\|f\\|_{H^p}^p = \\sup_{0<r<1}\\frac{1}{2\\pi}\\int_0^{2\\pi}|f(re^{i\\theta})|^p d\\theta < \\infty$. Bounded sup ($H^\\infty$) is the second option but a different space; area integrals define the Bergman space $A^p$, not Hardy."
+          },
+          {
+            "type": "mcq",
+            "q": "Fatou's boundary theorem says: every $H^p$ function admits which kind of boundary values almost everywhere on $\\partial\\mathbb{D}$?",
+            "choices": [
+              "Continuous boundary values everywhere",
+              "Non-tangential limits a.e.",
+              "Radial limits everywhere",
+              "Smooth boundary values a.e."
+            ],
+            "answer": 1,
+            "explain": "Fatou's theorem: if $f\\in H^p(\\mathbb{D})$ then for almost every $\\theta\\in[0,2\\pi)$, $\\lim_{z\\to e^{i\\theta}}f(z)$ exists when $z\\to e^{i\\theta}$ non-tangentially (within a Stolz cone). Continuous boundary values fail in general; radial limits also exist a.e. but the stronger non-tangential statement is the standard one."
+          },
+          {
+            "type": "mcq",
+            "q": "A finite Blaschke product $B(z) = \\prod_{k=1}^n \\frac{z - a_k}{1 - \\overline{a_k}z}$ with $|a_k|<1$ is an example of which kind of $H^\\infty$ function?",
+            "choices": [
+              "An outer function",
+              "An inner function (modulus $1$ a.e. on $\\partial\\mathbb{D}$)",
+              "A singular inner function",
+              "Neither inner nor outer"
+            ],
+            "answer": 1,
+            "explain": "Each factor $(z-a_k)/(1-\\overline{a_k}z)$ is a disk automorphism with modulus $1$ on $|z|=1$, so $|B(e^{i\\theta})|=1$ for all $\\theta$ — Blaschke products are inner functions. They are the 'zero-encoding' part of the inner-outer factorization $f = B\\cdot S\\cdot O$, while $S$ is the singular inner factor (no zeros, modulus 1 on the boundary) and $O$ is outer (no zero set, log-modulus is the Poisson integral of its boundary log-modulus)."
+          }
+        ]
+      }
+    }
+  },
   "algebra": {
     "topic": "algebra",
     "quizzes": {
