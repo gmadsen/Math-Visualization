@@ -5412,6 +5412,258 @@ window.__MVWidgets = [
     "exampleScript": "<script>\n(function(){\n  var CFG = {\"widgetId\":\"w-julia-playground-example\",\"mode\":\"mandelbrot\",\"cReal\":-0.7,\"cImag\":0.27015,\"xmin\":-2.2,\"xmax\":1,\"ymin\":-1.4,\"ymax\":1.4,\"maxIterations\":80,\"width\":480,\"height\":320,\"palette\":\"cyan\",\"minZoomSpan\":0.01,\"maxZoomSpan\":8};\n  var ROOT = document.getElementById(CFG.widgetId);\n  if (!ROOT) return;\n  var canvas = document.getElementById(CFG.widgetId + '-canvas');\n  if (!canvas || !canvas.getContext) return;\n  var ctx = canvas.getContext('2d');\n  if (!ctx) return;\n  var readout = document.getElementById(CFG.widgetId + '-readout');\n  var cRIn = document.getElementById(CFG.widgetId + '-cR');\n  var cIIn = document.getElementById(CFG.widgetId + '-cI');\n  var iterIn = document.getElementById(CFG.widgetId + '-iter');\n  var cROut = document.getElementById(CFG.widgetId + '-cR-out');\n  var cIOut = document.getElementById(CFG.widgetId + '-cI-out');\n  var iterOut = document.getElementById(CFG.widgetId + '-iter-out');\n  var resetBtn = document.getElementById(CFG.widgetId + '-reset');\n\n  // ---- view + state -------------------------------------------------\n  var view = { xmin: CFG.xmin, xmax: CFG.xmax, ymin: CFG.ymin, ymax: CFG.ymax };\n  var iterMax = CFG.maxIterations;\n  var cR = CFG.cReal, cI = CFG.cImag;\n  var renderToken = 0;   // monotone — increment to cancel an in-flight render\n  var img = null;        // ImageData scratch\n\n  // ---- palette ------------------------------------------------------\n  // Resolve the project accent CSS variable to an [r,g,b] triple at\n  // render time so theme toggles refresh without a page reload.\n  function cssRGB(varName, fallback) {\n    var raw = getComputedStyle(document.documentElement).getPropertyValue(varName).trim();\n    var m = raw.match(/^#([0-9a-fA-F]{3,6})$/);\n    if (m) {\n      var hex = m[1];\n      if (hex.length === 3) hex = hex.split('').map(function(c){return c+c;}).join('');\n      return [parseInt(hex.slice(0,2),16), parseInt(hex.slice(2,4),16), parseInt(hex.slice(4,6),16)];\n    }\n    var rgbm = raw.match(/rgb\\(\\s*(\\d+)\\s*,\\s*(\\d+)\\s*,\\s*(\\d+)/);\n    if (rgbm) return [+rgbm[1], +rgbm[2], +rgbm[3]];\n    return fallback;\n  }\n  function paletteRGB() {\n    var accentVar = '--' + CFG.palette;\n    var bg   = cssRGB('--bg',    [15, 18, 24]);\n    var mute = cssRGB('--mute',  [134, 145, 168]);\n    var ink  = cssRGB('--ink',   [232, 234, 240]);\n    var hot  = cssRGB(accentVar, [125, 224, 214]);\n    return { bg: bg, mute: mute, ink: ink, hot: hot };\n  }\n  function lerpRGB(a, b, t) {\n    return [\n      Math.round(a[0] + (b[0] - a[0]) * t),\n      Math.round(a[1] + (b[1] - a[1]) * t),\n      Math.round(a[2] + (b[2] - a[2]) * t)\n    ];\n  }\n  function colorize(mu, pal) {\n    // mu in [0,1]: smooth-normalized escape time. Two-stop ramp through\n    // mute to the chosen accent.\n    if (mu <= 0.5) return lerpRGB(pal.bg, pal.mute, mu * 2);\n    return lerpRGB(pal.mute, pal.hot, (mu - 0.5) * 2);\n  }\n\n  // ---- iteration core ----------------------------------------------\n  // Returns smooth-iteration count in [0, iterMax]. -1 means \"did not\n  // escape\" (interior point); plotted as ink color.\n  function escapeFrom(zx0, zy0, cx, cy, iterMax) {\n    var x = zx0, y = zy0;\n    for (var i = 0; i < iterMax; i++) {\n      var x2 = x*x, y2 = y*y;\n      if (x2 + y2 > 256) {\n        // Smooth iteration count: i + 1 - log_2(log(|z|))\n        var logZn = Math.log(x2 + y2) / 2;\n        var nu = Math.log(logZn / Math.LN2) / Math.LN2;\n        return i + 1 - nu;\n      }\n      var xn = x2 - y2 + cx;\n      y = 2*x*y + cy;\n      x = xn;\n    }\n    return -1;\n  }\n\n  // ---- palette cache ------------------------------------------------\n  // Resolve the project accent vars once at init; refresh on theme flip\n  // (MutationObserver below). Saves four getComputedStyle(:root) calls\n  // per slider tick during a drag (60-120 Hz).\n  var pal = paletteRGB();\n\n  // ---- render scheduling --------------------------------------------\n  // Slider/wheel/pan all want a fresh render. Coalesce back-to-back\n  // events into a single rAF — the renderToken cancellation already\n  // handles the race, this just stops kicking off renders that will be\n  // immediately superseded.\n  var renderQueued = false;\n  function queueRender() {\n    if (renderQueued) return;\n    renderQueued = true;\n    requestAnimationFrame(function() { renderQueued = false; startRender(); });\n  }\n\n  // ---- render loop --------------------------------------------------\n  function startRender() {\n    renderToken++;\n    var token = renderToken;\n    var W = CFG.width, H = CFG.height;\n    if (!img || img.width !== W || img.height !== H) img = ctx.createImageData(W, H);\n    var data = img.data;\n    var dx = (view.xmax - view.xmin) / W;\n    var dy = (view.ymax - view.ymin) / H;\n    var isM = CFG.mode === 'mandelbrot';\n    var iter = iterMax;\n    var rowsPerSlice = Math.max(8, Math.floor(40 - Math.log2(W * H) + 24));\n    if (rowsPerSlice > H) rowsPerSlice = H;\n\n    function renderSlice(yStart) {\n      if (token !== renderToken) return;   // newer render superseded us\n      var yEnd = Math.min(yStart + rowsPerSlice, H);\n      for (var py = yStart; py < yEnd; py++) {\n        var ya = view.ymax - py * dy;     // flip y so +i is up\n        for (var px = 0; px < W; px++) {\n          var xa = view.xmin + px * dx;\n          var n;\n          if (isM) n = escapeFrom(0, 0, xa, ya, iter);\n          else     n = escapeFrom(xa, ya, cR, cI, iter);\n          var rgb;\n          if (n < 0) {\n            rgb = pal.ink;\n          } else {\n            var mu = Math.max(0, Math.min(1, n / iter));\n            // Sharpen the gradient near the boundary; sqrt redistributes\n            // resolution toward the rapidly-escaping band.\n            mu = Math.sqrt(mu);\n            rgb = colorize(mu, pal);\n          }\n          var off = (py * W + px) * 4;\n          data[off    ] = rgb[0];\n          data[off + 1] = rgb[1];\n          data[off + 2] = rgb[2];\n          data[off + 3] = 255;\n        }\n      }\n      ctx.putImageData(img, 0, 0);\n      if (yEnd < H) {\n        // Yield to the event loop so sliders / pan / zoom stay responsive.\n        if (typeof requestAnimationFrame === 'function') {\n          requestAnimationFrame(function(){ renderSlice(yEnd); });\n        } else {\n          setTimeout(function(){ renderSlice(yEnd); }, 0);\n        }\n      }\n    }\n    renderSlice(0);\n  }\n\n  // ---- readout ------------------------------------------------------\n  function fmt(x) { return (Math.round(x * 1000) / 1000).toString(); }\n  function updateReadout() {\n    var span = view.xmax - view.xmin;\n    var center = '(' + fmt((view.xmin + view.xmax) / 2) + ', ' + fmt((view.ymin + view.ymax) / 2) + ')';\n    var line = 'view ' + center + ' · span ' + fmt(span) + ' · iter ' + iterMax;\n    if (CFG.mode === 'julia') line += ' · c = ' + fmt(cR) + (cI >= 0 ? ' + ' : ' − ') + fmt(Math.abs(cI)) + 'i';\n    if (readout) readout.textContent = line;\n  }\n\n  // ---- input wiring -------------------------------------------------\n  function pixelToPlane(px, py) {\n    var rect = canvas.getBoundingClientRect();\n    var sx = canvas.width / rect.width;\n    var sy = canvas.height / rect.height;\n    var cx = px * sx;\n    var cy = py * sy;\n    return {\n      x: view.xmin + (cx / canvas.width) * (view.xmax - view.xmin),\n      y: view.ymax - (cy / canvas.height) * (view.ymax - view.ymin)\n    };\n  }\n  function clampSpan() {\n    var span = view.xmax - view.xmin;\n    if (span < CFG.minZoomSpan) {\n      var cx = (view.xmin + view.xmax) / 2;\n      var cy = (view.ymin + view.ymax) / 2;\n      var s = CFG.minZoomSpan / 2;\n      var sH = s * (CFG.height / CFG.width);\n      view.xmin = cx - s; view.xmax = cx + s;\n      view.ymin = cy - sH; view.ymax = cy + sH;\n    } else if (span > CFG.maxZoomSpan) {\n      var cx2 = (view.xmin + view.xmax) / 2;\n      var cy2 = (view.ymin + view.ymax) / 2;\n      var s2 = CFG.maxZoomSpan / 2;\n      var sH2 = s2 * (CFG.height / CFG.width);\n      view.xmin = cx2 - s2; view.xmax = cx2 + s2;\n      view.ymin = cy2 - sH2; view.ymax = cy2 + sH2;\n    }\n  }\n\n  var dragging = false, lastX = 0, lastY = 0, dragMoved = false;\n  canvas.addEventListener('pointerdown', function(e) {\n    if (e.shiftKey && CFG.mode === 'julia') {\n      var p = pixelToPlane(e.offsetX, e.offsetY);\n      cR = p.x; cI = p.y;\n      if (cRIn) cRIn.value = String(cR);\n      if (cIIn) cIIn.value = String(cI);\n      if (cROut) cROut.textContent = fmt(cR);\n      if (cIOut) cIOut.textContent = fmt(cI);\n      updateReadout();\n      queueRender();\n      return;\n    }\n    dragging = true; dragMoved = false;\n    lastX = e.clientX; lastY = e.clientY;\n    if (canvas.setPointerCapture) try { canvas.setPointerCapture(e.pointerId); } catch (_) {}\n  });\n  canvas.addEventListener('pointermove', function(e) {\n    if (!dragging) return;\n    var rect = canvas.getBoundingClientRect();\n    var dx = (e.clientX - lastX) / rect.width  * (view.xmax - view.xmin);\n    var dy = (e.clientY - lastY) / rect.height * (view.ymax - view.ymin);\n    if (Math.abs(e.clientX - lastX) + Math.abs(e.clientY - lastY) > 2) dragMoved = true;\n    view.xmin -= dx; view.xmax -= dx;\n    view.ymin += dy; view.ymax += dy;\n    lastX = e.clientX; lastY = e.clientY;\n    clampSpan();\n    updateReadout();\n    queueRender();\n  });\n  function endDrag() { dragging = false; }\n  canvas.addEventListener('pointerup', endDrag);\n  canvas.addEventListener('pointercancel', endDrag);\n  canvas.addEventListener('pointerleave', endDrag);\n\n  canvas.addEventListener('wheel', function(e) {\n    e.preventDefault();\n    var p = pixelToPlane(e.offsetX, e.offsetY);\n    var k = e.deltaY > 0 ? 1.2 : 1 / 1.2;\n    view.xmin = p.x + (view.xmin - p.x) * k;\n    view.xmax = p.x + (view.xmax - p.x) * k;\n    view.ymin = p.y + (view.ymin - p.y) * k;\n    view.ymax = p.y + (view.ymax - p.y) * k;\n    clampSpan();\n    updateReadout();\n    queueRender();\n  }, { passive: false });\n\n  if (cRIn) cRIn.addEventListener('input', function() {\n    cR = parseFloat(cRIn.value);\n    if (cROut) cROut.textContent = fmt(cR);\n    updateReadout();\n    queueRender();\n  });\n  if (cIIn) cIIn.addEventListener('input', function() {\n    cI = parseFloat(cIIn.value);\n    if (cIOut) cIOut.textContent = fmt(cI);\n    updateReadout();\n    queueRender();\n  });\n  if (iterIn) iterIn.addEventListener('input', function() {\n    iterMax = parseInt(iterIn.value, 10);\n    if (iterOut) iterOut.textContent = String(iterMax);\n    updateReadout();\n    queueRender();\n  });\n  if (resetBtn) resetBtn.addEventListener('click', function() {\n    view.xmin = CFG.xmin; view.xmax = CFG.xmax;\n    view.ymin = CFG.ymin; view.ymax = CFG.ymax;\n    iterMax = CFG.maxIterations;\n    cR = CFG.cReal; cI = CFG.cImag;\n    if (cRIn) cRIn.value = String(cR);\n    if (cIIn) cIIn.value = String(cI);\n    if (iterIn) iterIn.value = String(iterMax);\n    if (cROut) cROut.textContent = fmt(cR);\n    if (cIOut) cIOut.textContent = fmt(cI);\n    if (iterOut) iterOut.textContent = String(iterMax);\n    updateReadout();\n    startRender();\n  });\n\n  // Repaint on theme change so the palette tracks --bg / --ink / accent.\n  // Refresh the cached pal first, then kick a render.\n  var themeObserver = new MutationObserver(function() { pal = paletteRGB(); startRender(); });\n  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });\n\n  updateReadout();\n  startRender();\n})();\n</script>"
   },
   {
+    "slug": "k-theory-bott-periodicity",
+    "family": "k-theory-bott-periodicity",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "illustrative",
+    "title": "k-theory-bott-periodicity widget params",
+    "description": "Scrub n through the period-2 pattern of homotopy groups pi_n(U) and period-8 pattern of pi_n(O), making Bott periodicity tactile.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the k-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "k-theory-chern-character",
+    "family": "k-theory-chern-character",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "k-theory-chern-character widget params",
+    "description": "Slide d and n to read off the Chern character ch(O(d)) on CP^n, showing the ring isomorphism K(CP^n) tensor Q ≅ H^*(CP^n; Q).",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the k-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "k-theory-grothendieck-builder",
+    "family": "k-theory-grothendieck-builder",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "construction",
+    "title": "k-theory-grothendieck-builder widget params",
+    "description": "Reader builds elements of K^0(X) by adding/subtracting line bundles on a curve, P^1, or P^2 — interactive Grothendieck-group construction.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the k-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "k-theory-index-theorem",
+    "family": "k-theory-index-theorem",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "illustrative",
+    "title": "k-theory-index-theorem widget params",
+    "description": "Pick an elliptic operator (Dirac, signature, Dolbeault) and read the Atiyah-Singer index pairing visualized as an integral on the manifold.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the k-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "k-theory-low-k-groups",
+    "family": "k-theory-low-k-groups",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "k-theory-low-k-groups widget params",
+    "description": "Choose a sample ring (Z, F_q, fields) and inspect K_0, K_1, K_2 — concrete low K-groups via Quillen's plus construction.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the k-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "k-theory-ses-relations",
+    "family": "k-theory-ses-relations",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "illustrative",
+    "title": "k-theory-ses-relations widget params",
+    "description": "Pick a short exact sequence of bundles on P^1 and watch the K_0 relation [B] = [A] + [C] play out, illustrating how SES define the Grothendieck group.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the k-theory topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "knot-polynomials-alexander",
+    "family": "knot-polynomials-alexander",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "knot-polynomials-alexander widget params",
+    "description": "Catalog viewer that displays factored Laurent-form Alexander polynomials for selected knots (unknot, trefoil, figure-eight, 5_1, 5_2). One-off because the polynomial labels are typeset KaTeX strings keyed to each knot.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the knot-polynomials topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "knot-polynomials-bracket",
+    "family": "knot-polynomials-bracket",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "exploratory",
+    "title": "knot-polynomials-bracket widget params",
+    "description": "Step-through walkthrough of the Kauffman bracket state sum on the trefoil — eight states with running A/B-smoothing total. One-off because each state's circle configuration is hardcoded geometry.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the knot-polynomials topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "knot-polynomials-gallery",
+    "family": "knot-polynomials-gallery",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "knot-polynomials-gallery widget params",
+    "description": "Click-through gallery of canonical knot diagrams (unknot, right trefoil, figure-eight, Hopf link). One-off because the diagrams are hand-drawn SVG paths with crossing under-strands hardcoded per knot.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the knot-polynomials topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "knot-polynomials-homfly",
+    "family": "knot-polynomials-homfly",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "exploratory",
+    "title": "knot-polynomials-homfly widget params",
+    "description": "Skein-tree expansion of the trefoil under the HOMFLY skein relation, resolving one crossing per click into an L_- / L_0 linear combination. One-off because the tree topology and per-node diagrams are bespoke.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the knot-polynomials topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "knot-polynomials-reidemeister",
+    "family": "knot-polynomials-reidemeister",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "knot-polynomials-reidemeister widget params",
+    "description": "Before/after comparison of the three Reidemeister moves (R1 twist, R2 poke, R3 slide). One-off because each move's pre/post diagrams are hand-tuned SVG with specific crossing geometry.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the knot-polynomials topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "knot-polynomials-rmatrix",
+    "family": "knot-polynomials-rmatrix",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "knot-polynomials-rmatrix widget params",
+    "description": "Live readout of the U_q(sl_2) R-matrix on the standard 2-dim rep as q varies along a slider. One-off because the 4x4 entry layout and q-dependence are specific to this quantum group.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the knot-polynomials topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "lattice-visualizer",
     "family": "lattice-visualizer",
     "dimension": "2d",
@@ -5465,6 +5717,132 @@ window.__MVWidgets = [
     },
     "exampleMarkup": "<div class=\"widget\" id=\"w-lattice-visualizer-example\"></div>",
     "exampleScript": "<script>\n(function(){\n  if(!window.MVLatticeVisualizer) return;\n  MVLatticeVisualizer.init('#w-lattice-visualizer-example', {\n    title: \"Hexagonal lattice and an index-4 sublattice\",\n    hint: \"drag the v₁/v₂ sliders to deform the basis · pink dots are the sublattice\",\n    viewBox: \"0 0 360 320\",\n    basis: {\"v1\":{\"x\":1,\"y\":0},\"v2\":{\"x\":0.5,\"y\":0.866}},\n    viewWindow: {\"xRange\":[-3,3],\"yRange\":[-3,3]},\n    sublattice: {\"matrix\":[[2,0],[0,2]]},\n  });\n})();\n</script>"
+  },
+  {
+    "slug": "lie-algebras-adjoint-vis",
+    "family": "lie-algebras-adjoint-vis",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "lie-algebras-adjoint-vis widget params",
+    "description": "Bespoke visualization of the adjoint action ad(x) on sl_2: pick x in {e,h,f} from a select and watch arrows redraw to the basis images while the eigenvalues update. Bespoke because the diagram pairs three named basis vectors with a custom arrow-overlay no shared slug provides.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the lie-algebras topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "lie-algebras-bracket-table",
+    "family": "lie-algebras-bracket-table",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "lie-algebras-bracket-table widget params",
+    "description": "Bespoke 3x3 click-to-evaluate bracket table for the standard sl_2 basis {e,h,f}, displaying [X,Y] for the chosen pair next to a matrix-form reminder. Bespoke because no shared widget renders a Lie-bracket Cayley grid keyed to a fixed three-element basis.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the lie-algebras topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "lie-algebras-derived-series",
+    "family": "lie-algebras-derived-series",
+    "dimension": "2d",
+    "gesture": "step",
+    "role": "exploratory",
+    "title": "lie-algebras-derived-series widget params",
+    "description": "Bespoke step-through of the derived series g^(0) >= g^(1) >= ... for three concrete sample algebras (Borel b_2, Heisenberg n_3, sl_2), letting the reader watch which collapse to zero (solvable) and which stabilize. Bespoke because no shared slug renders a labelled descending-chain animation tied to specific Lie-algebra examples.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the lie-algebras topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "lie-algebras-dynkin-gallery",
+    "family": "lie-algebras-dynkin-gallery",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "lie-algebras-dynkin-gallery widget params",
+    "description": "Bespoke clickable gallery of Dynkin diagrams covering the four classical series A_n, B_n, C_n, D_n plus the five exceptions E_6, E_7, E_8, F_4, G_2, with a readout giving each algebra's name and rank/dimension. Bespoke because the gallery is a fixed enumerated classification that no shared widget can synthesize.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the lie-algebras topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "lie-algebras-root-vis",
+    "family": "lie-algebras-root-vis",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "lie-algebras-root-vis widget params",
+    "description": "Bespoke gallery toggling among the three rank-2 irreducible root systems A_2, B_2, G_2, drawing roots and Weyl chambers in the plane with annotations for each system's identification (sl_3, so_5, exceptional). Bespoke because the diagram is a classification-fixed three-button switch no shared slug encodes.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the lie-algebras topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "lie-algebras-weight-diagram",
+    "family": "lie-algebras-weight-diagram",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "lie-algebras-weight-diagram widget params",
+    "description": "Bespoke weight-diagram explorer for the irreducible sl_2 representation V_n: a slider sets n in 0..8, and clicking a weight reveals the e/f raising-lowering action plus the Casimir scalar n(n+2)/2. Bespoke because the layout is a one-dimensional weight string with bespoke click-to-explain action arrows tied to sl_2 specifically.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the lie-algebras topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
   },
   {
     "slug": "matroid-axiom-checker",

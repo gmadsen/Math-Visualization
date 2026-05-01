@@ -176,6 +176,9 @@ function splitMultiIife(scriptInner) {
     }
     if (depth !== 0) return { kind: 'noop' }; // unbalanced
     // After the closing `}` we expect `)();` (allowing whitespace).
+    // When we exit the loop with depth=0, `cursor` points one past the
+    // matching `}`, so `cursor - 1` IS the `}` — the IIFE body should END
+    // BEFORE that brace. bodyEnd is exclusive-end of body slice.
     const tail = scriptInner.slice(cursor).match(/^\s*\)\s*\(\s*\)\s*;/);
     if (!tail) {
       // not an IIFE — skip past this `(function(){` and keep looking
@@ -197,7 +200,11 @@ function splitMultiIife(scriptInner) {
     const between = scriptInner.slice(prevEnd, x.openIdx);
     const cm = between.match(/\/\*\s*([\s\S]*?)\s*\*\//);
     const comment = cm ? cm[1] : null;
-    const body = scriptInner.slice(x.bodyStart, x.bodyEnd + 1);
+    // bodyEnd is the position of the closing `}` — slice up-to-but-not-
+    // including so the extracted body has balanced braces. Trim leading
+    // and trailing whitespace lines so the per-IIFE wrapper produces a
+    // clean (function(){\nBODY\n})(); shape.
+    const body = scriptInner.slice(x.bodyStart, x.bodyEnd).replace(/^\n|\n$/g, '');
     chunks.push({ comment, body });
     prevEnd = x.closeEnd;
   }

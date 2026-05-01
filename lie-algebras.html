@@ -283,10 +283,7 @@ function drawNode(svg, x, y, label, opts={}){
 <p>Each defining condition is preserved by $[X,Y]=XY-YX$: differentiating the group equation $g\in G$ at $g=I$ along $g(t)=I+tX+\cdots$ gives the linear equation cutting out $\mathfrak{g}\subset\mathfrak{gl}_n$.</p>
 
 <div class="widget" id="bracket-table">
-  <div class="hd">
-    <div class="ttl">Bracket-table inspector — $\mathfrak{sl}_2$</div>
-    <div class="hint">click a cell to see $[X,Y]$ for the standard basis $\{e,h,f\}$</div>
-  </div>
+  <div class="hd"><div class="ttl">Bracket-table inspector — $\mathfrak{sl}_2$</div><div class="hint">click a cell to see $[X,Y]$ for the standard basis $\{e,h,f\}$</div></div>
   <div class="row">
     <div id="bt-table"></div>
     <div style="margin-left:auto;min-width:240px">
@@ -385,10 +382,7 @@ function drawNode(svg, x, y, label, opts={}){
 <p>is symmetric, bilinear, and $\mathfrak{g}$-invariant: $B([z,x],y)+B(x,[z,y])=0$. It is canonical — the only such form up to scalar on a simple Lie algebra.</p>
 
 <div class="widget" id="adjoint-vis">
-  <div class="hd">
-    <div class="ttl">Adjoint action on $\mathfrak{sl}_2$</div>
-    <div class="hint">choose $x\in\{e,h,f\}$ and watch where $\ad(x)$ sends each basis vector</div>
-  </div>
+  <div class="hd"><div class="ttl">Adjoint action on $\mathfrak{sl}_2$</div><div class="hint">choose $x\in\{e,h,f\}$ and watch where $\ad(x)$ sends each basis vector</div></div>
   <div class="row">
     <label>$x =$
       <select id="adj-x">
@@ -512,10 +506,7 @@ function drawNode(svg, x, y, label, opts={}){
 </ul>
 
 <div class="widget" id="derived-series">
-  <div class="hd">
-    <div class="ttl">Derived-series collapse</div>
-    <div class="hint">step through $\mathfrak{g}^{(0)}\supseteq\mathfrak{g}^{(1)}\supseteq\cdots$ for three sample algebras</div>
-  </div>
+  <div class="hd"><div class="ttl">Derived-series collapse</div><div class="hint">step through $\mathfrak{g}^{(0)}\supseteq\mathfrak{g}^{(1)}\supseteq\cdots$ for three sample algebras</div></div>
   <div class="row">
     <label>algebra:
       <select id="ds-which">
@@ -615,10 +606,7 @@ function drawNode(svg, x, y, label, opts={}){
 <p>The nonzero linear functionals $\alpha\in\mathfrak{h}^*$ that show up form a finite set $\Phi\subset\mathfrak{h}^*$ — the <strong>root system</strong>. It is symmetric ($\Phi=-\Phi$), spans $\mathfrak{h}^*$, and satisfies the integrality conditions that make it one of the rank-$n$ <em>root systems</em>.</p>
 
 <div class="widget" id="root-vis">
-  <div class="hd">
-    <div class="ttl">Rank-2 root systems</div>
-    <div class="hint">switch among $A_2$, $B_2$, $G_2$ — the three irreducible options in dimension $2$</div>
-  </div>
+  <div class="hd"><div class="ttl">Rank-2 root systems</div><div class="hint">switch among $A_2$, $B_2$, $G_2$ — the three irreducible options in dimension $2$</div></div>
   <div class="row">
     <button type="button" data-rs="A2" class="active">A₂ — sl₃</button>
     <button type="button" data-rs="B2">B₂ — so₅ ≅ sp₄</button>
@@ -724,10 +712,7 @@ function drawNode(svg, x, y, label, opts={}){
 <p>each with multiplicity $1$. The action of $e$ raises by $2$, the action of $f$ lowers by $2$.</p>
 
 <div class="widget" id="weight-diagram">
-  <div class="hd">
-    <div class="ttl">Weight diagram of $V_n$</div>
-    <div class="hint">drag the slider; click a weight to see the $e/f$ action</div>
-  </div>
+  <div class="hd"><div class="ttl">Weight diagram of $V_n$</div><div class="hint">drag the slider; click a weight to see the $e/f$ action</div></div>
   <div class="row">
     <label>$n=$ <input type="range" id="wd-n" min="0" max="8" step="1" value="4"></label>
     <span class="readout" id="wd-info" style="display:inline-block;min-width:260px"></span>
@@ -822,10 +807,7 @@ function drawNode(svg, x, y, label, opts={}){
 <p>or one of the five exceptions $G_2,\ F_4,\ E_6,\ E_7,\ E_8$. The combinatorial fingerprint is the connected <strong>Dynkin diagram</strong>: nodes are simple roots, bonds encode angles ($1$ bond $= 120^\circ$ equal length, $2$ bonds $=135^\circ$ length-ratio $\sqrt{2}$, $3$ bonds $=150^\circ$ length-ratio $\sqrt{3}$), and the arrow on a multiple bond points from long to short root.</p>
 
 <div class="widget" id="dynkin-gallery">
-  <div class="hd">
-    <div class="ttl">Dynkin-diagram gallery</div>
-    <div class="hint">classical series + the five exceptions</div>
-  </div>
+  <div class="hd"><div class="ttl">Dynkin-diagram gallery</div><div class="hint">classical series + the five exceptions</div></div>
   <div class="gallery" id="dg-grid"></div>
   <div class="readout" id="dg-out">Click a diagram for details.</div>
 </div>

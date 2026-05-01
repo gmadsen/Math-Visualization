@@ -580,6 +580,7 @@ The $n=1$ entry is Dirichlet's unit theorem; the higher-degree entries refine it
 <script>
 /* =============================== SECTION 1: Building K^0 elements =============================== */
 (function(){
+
   const svg = $("#kg-svg");
   if(!svg) return;
   const W = 820, H = 280;
@@ -655,9 +656,11 @@ The $n=1$ entry is Dirichlet's unit theorem; the higher-degree entries refine it
   });
   update();
 })();
-
+</script>
+<script>
 /* =============================== SECTION 2: SES relations =============================== */
 (function(){
+
   const svg = $("#ex-svg");
   if(!svg) return;
   const readout = $("#ex-readout");
@@ -702,9 +705,11 @@ The $n=1$ entry is Dirichlet's unit theorem; the higher-degree entries refine it
   });
   draw("split");
 })();
-
+</script>
+<script>
 /* =============================== SECTION 3: Bott periodicity =============================== */
 (function(){
+
   const svg = $("#bp-svg");
   if(!svg) return;
   const slider = $("#bp-n");
@@ -765,9 +770,11 @@ The $n=1$ entry is Dirichlet's unit theorem; the higher-degree entries refine it
   });
   draw();
 })();
-
+</script>
+<script>
 /* =============================== SECTION 4: Chern character =============================== */
 (function(){
+
   const svg = $("#ch-svg");
   if(!svg) return;
   const dSlider = $("#ch-d");
@@ -842,9 +849,11 @@ The $n=1$ entry is Dirichlet's unit theorem; the higher-degree entries refine it
   nSlider.addEventListener("input", draw);
   draw();
 })();
-
+</script>
+<script>
 /* =============================== SECTION 5: Low K-groups =============================== */
 (function(){
+
   const svg = $("#qk-svg");
   if(!svg) return;
   const readout = $("#qk-readout");
@@ -914,9 +923,11 @@ The $n=1$ entry is Dirichlet's unit theorem; the higher-degree entries refine it
   });
   draw("Z");
 })();
-
+</script>
+<script>
 /* =============================== SECTION 6: Index theorem =============================== */
 (function(){
+
   const svg = $("#ai-svg");
   if(!svg) return;
   const readout = $("#ai-readout");
