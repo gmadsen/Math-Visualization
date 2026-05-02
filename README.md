@@ -2,7 +2,7 @@
 
 A library of single-page, interactive explainers for graduate-level mathematics. Each topic is a self-contained HTML file with a dark 3Blue1Brown-style aesthetic, KaTeX for math, and hand-written SVG + JavaScript widgets.
 
-Topics are grouped into seven sections: Foundations · Algebra · Analysis · Geometry & topology · Number theory · Modular forms & L-functions · Algebraic geometry. Open [`index.html`](./index.html) in any modern browser and start wherever you like.
+Topics are grouped into eleven sections: Logic & Foundations · Algebra & homological · Higher categories & toposes · Analysis · Probability & statistics · Geometry & topology · Number theory · Modular forms & L-functions · Algebraic geometry · Combinatorics & graph theory · Mathematical physics. Open [`index.html`](./index.html) in any modern browser and start wherever you like.
 
 Vanilla HTML/CSS/JS — no build step, no framework, no install.
 
@@ -23,14 +23,21 @@ Alongside each handwritten `<topic>.html`, the repo also carries a structured `c
 
 ## Learning pathways
 
-Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 23 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 505-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the seven sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
+Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 24 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 916-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the eleven sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
 
-Each concept carries two quiz tiers — v1 (required) and hard (unlocked after v1). Mastery is tracked in `localStorage` and lights up downstream concepts `locked → ready → mastered`, Brilliant-style. Topic cards on the index may carry a level badge: `prereq`, `advanced`, or `capstone`.
+Each concept carries up to three quiz tiers — v1 (required), hard (unlocked after v1), and expert (unlocked after hard). Mastery is tracked in `localStorage` and lights up downstream concepts `locked → ready → mastered`, Brilliant-style. Topic cards on the index may carry a level badge: `prereq`, `advanced`, or `capstone`.
 
 ## Contents
 
 ### Logic & Foundations
 - [Naive set theory](./naive-set-theory.html) — sets, functions, equivalence relations, quotients, countability, Cantor's diagonal
+- [First-order logic and completeness](./first-order-logic-and-completeness.html) — formal deductions, Gödel completeness, compactness, Löwenheim–Skolem
+- [ZFC and ordinals](./zfc-and-ordinals.html) — axioms, well-ordering, transfinite recursion, the cumulative hierarchy
+- [Model theory](./model-theory-basics.html) — structures, elementary equivalence, types, $\omega$-stable theories
+- [Computability theory](./computability-and-decidability.html) — Turing machines, halting problem, recursion theorem, $m$-degrees
+- [Complexity theory](./complexity-theory.html) — P, NP, polynomial reductions, oracles, P vs NP barriers
+- [Type theory and HoTT](./type-theory-and-hott.html) — Martin-Löf types, identity, univalence, propositions-as-types
+- [Forcing and independence](./forcing-and-independence.html) — generic filters, CH and AC independence, large cardinals
 
 ### Algebra & homological
 - [Abstract algebra](./algebra.html) — groups, rings, fields
@@ -40,6 +47,11 @@ Each concept carries two quiz tiers — v1 (required) and hard (unlocked after v
 - [Homological algebra](./homological.html) — chain complexes, Ext, Tor, spectral sequences
 - [Derived categories](./derived-categories.html) — $K(\mathcal{A}) \to D(\mathcal{A})$, triangulated structure, derived functors, $t$-structures
 - [Group cohomology](./group-cohomology.html) — bar resolution, $H^0=M^G$ → $H^1$ crossed homs (Hilbert 90) → $H^2$ extensions; Galois cohomology + Brauer
+- [Lie algebras](./lie-algebras.html) — Lie brackets, Killing form, Cartan subalgebras, root systems, Dynkin classification
+- [Galois cohomology and Brauer groups](./galois-cohomology-and-brauer.html) — $H^1$ cocycles, Brauer $\mathrm{Br}(k)$, Skolem–Noether, central simple algebras
+- [Quaternions, octonions, and division algebras](./quaternions-octonions-and-division-algebras.html) — $\mathbb{H}$, $\mathbb{O}$, Hurwitz's theorem, composition algebras
+- [Quantum groups](./quantum-groups.html) — Drinfeld–Jimbo $U_q(\mathfrak{g})$, $R$-matrices, $q$-Yang–Baxter, ribbon categories
+- [Geometric and combinatorial group theory](./geometric-and-combinatorial-group-theory.html) — Cayley graphs, growth, hyperbolic groups, ends, quasi-isometry
 
 ### Higher categories & toposes
 - [Elementary topos theory](./elementary-topos-theory.html) — finitely complete cartesian closed + subobject classifier $\Omega$
@@ -60,9 +72,23 @@ Each concept carries two quiz tiers — v1 (required) and hard (unlocked after v
 - [Harmonic analysis & Fourier theory](./harmonic-analysis-fourier.html) — Fourier series + transform, Plancherel, convolution, Schwartz space, uncertainty, Poisson summation, Pontryagin duality
 - [Sobolev spaces & distributions](./sobolev-spaces-distributions.html) — test functions, $\mathcal{D}'$, weak derivatives, $W^{k,p}$ embeddings, traces, fundamental solutions, variational $-\Delta u = f$
 - [Advanced complex analysis](./advanced-complex-analysis.html) — graduate sequel: Picard's theorems, Weierstrass factorization, Mittag-Leffler, Phragmén-Lindelöf, Hadamard three-circles, Hardy spaces and Fatou boundary behavior
+- [Partial differential equations](./partial-differential-equations.html) — heat / wave / Laplace, characteristics, weak solutions, energy methods
+- [Harmonic functions](./harmonic-functions.html) — mean-value, maximum principle, Harnack, Poisson integral, capacity
+- [Spectral theory](./spectral-theory.html) — bounded vs unbounded operators, spectrum, Stone's theorem, functional calculus
+- [Wavelets](./wavelets.html) — multiresolution, Haar / Daubechies / CDF, lifting, fast wavelet transform
+- [Numerical analysis](./numerical-analysis.html) — floating point, conditioning, finite differences, quadrature, iterative solvers
+- [Variational methods](./variational-methods.html) — Euler–Lagrange, direct method, $\Gamma$-convergence, mountain-pass
+- [Fixed-point theorems](./fixed-point-theorems.html) — Banach, Brouwer, Schauder, Kakutani, Caristi, KKM
 
 ### Probability & statistics
 - [Probability theory](./probability-theory.html) — measure-theoretic foundations, expectation, independence, limit theorems, characteristic functions
+- [Stochastic processes and martingales](./stochastic-processes-and-martingales.html) — filtrations, Markov chains, martingale convergence, optional stopping
+- [Stochastic calculus](./stochastic-calculus.html) — Brownian motion, Itô integral, SDEs, Girsanov, Feynman–Kac
+- [Random walks and mixing](./random-walks-and-mixing.html) — recurrence, return times, mixing time, spectral gap, expander mixing
+- [Information theory](./information-theory.html) — entropy, KL divergence, mutual information, Shannon coding, AEP, Fisher–Cramér–Rao
+- [Large deviations](./large-deviations.html) — Cramér, Sanov, Varadhan's lemma, rate functions
+- [Mathematical statistics](./mathematical-statistics.html) — sufficiency, MLE, Cramér–Rao, asymptotic normality, hypothesis tests
+- [High-dimensional geometry](./high-dimensional-geometry.html) — concentration of measure, Johnson–Lindenstrauss, isoperimetry, random projections
 
 ### Geometry & topology
 - [Point-set topology](./point-set-topology.html) — metric spaces, open sets, continuity, compactness, connectedness, separation axioms
@@ -73,20 +99,29 @@ Each concept carries two quiz tiers — v1 (required) and hard (unlocked after v
 - [Riemannian geometry](./riemannian-geometry.html) — metric, connection, curvature, geodesics
 - [Lie groups & algebras](./lie-groups.html) — matrix groups, exponential map, root systems
 - [Riemann surfaces](./riemann-surfaces.html) — branched covers, uniformization
+- [Characteristic classes](./characteristic-classes.html) — Stiefel–Whitney, Chern, Pontryagin, Euler; obstruction theory
+- [Morse theory](./morse-theory.html) — critical points, gradient flows, handle decompositions, Morse inequalities
+- [K-theory](./k-theory.html) — topological $K^0/K^1$, Bott periodicity, $K$-homology, Atiyah index pairing
+- [Symplectic manifolds](./symplectic-manifolds.html) — Darboux, Hamiltonian vector fields, Lagrangian submanifolds, Floer hints
+- [Knot polynomials](./knot-polynomials.html) — Alexander, Jones, HOMFLY, Vassiliev invariants, Khovanov categorification
+- [Ricci flow](./ricci-flow.html) — Hamilton's equation, neckpinches, Perelman entropy, geometrization
+- [Atiyah–Singer index theorem](./atiyah-singer-index-theorem.html) — Dirac operators, analytic vs topological index, heat-kernel proof
+- [Mostow rigidity](./mostow-rigidity.html) — hyperbolic $n\ge 3$ lattices are rigid; quasiconformal maps on the boundary
 
 ### Number theory
 - [Galois theory & the quintic](./galois.html) — constructibility, correspondence, unsolvability
 - [Quadratic reciprocity](./quadratic-reciprocity.html) — Legendre symbols and reciprocity law
 - [Quadratic forms & genus theory](./quadratic-forms-genus-theory.html) — binary forms, genus classes, representation of primes
-- [Sums of squares](./sums-of-squares.html) — two/four-square theorems and theta previews
-- [Power sums & Bernoulli numbers](./power-sums-bernoulli.html) — Faulhaber, Bernoulli generating function, $\zeta(-n)$
-- [Waring's problem](./waring.html) — $g(k)$ and $G(k)$, Hilbert–Waring, circle-method preview
 - [Algebraic number theory](./algebraic-number-theory.html) — rings of integers, class groups, Minkowski
 - [p-adic numbers](./p-adic-numbers.html) — inverse limits, Hensel lifting, p-adic metrics
 - [Adèles & idèles](./adeles-and-ideles.html) — restricted products, strong approximation, Tate's thesis sketch
 - [Frobenius & reciprocity](./frobenius-and-reciprocity.html) — splitting types, Frobenius classes, reciprocity dictionary
 - [Class field theory](./class-field-theory.html) — Artin reciprocity, ideles, abelian extensions
 - [Heights in arithmetic geometry](./heights-arithmetic-geometry.html) — naive & Weil heights, Northcott finiteness, Néron–Tate canonical $\hat h$, Mahler measure, Mordell–Faltings via heights
+- [Additive number theory](./additive-number-theory.html) — Schnirelmann / Erdős densities, sumsets, Plünnecke, Freiman, Goldbach-style problems
+- [Analytic number theory](./analytic-number-theory.html) — prime counting, Dirichlet's theorem, sieves, $\zeta$-zeros, prime number theorem
+- [Mathematics and cryptography](./mathematics-and-cryptography.html) — RSA, elliptic-curve cryptography, lattice-based / post-quantum schemes
+- [Computational number theory](./computational-number-theory.html) — primality testing, factorization, $L^3$ lattice reduction, point-counting
 
 ### Modular forms & L-functions
 - [Upper half-plane](./upper-half-plane-hyperbolic.html) — hyperbolic geometry and Möbius action
@@ -103,6 +138,9 @@ Each concept carries two quiz tiers — v1 (required) and hard (unlocked after v
 - [Sato–Tate](./sato-tate.html) — Frobenius angles, the semicircular measure, symmetric-power $L$-functions
 - [Birch & Swinnerton-Dyer](./bsd.html) — Mordell–Weil, $L$-function order of vanishing, rank equality
 - [Modularity & FLT](./modularity-and-flt.html) — Frey curve, Ribet's level lowering, Taylor–Wiles
+- [Modular curves](./modular-curves.html) — $X(N)$, $X_0(N)$, $Y_1(N)$, moduli of elliptic curves with level structure
+- [Automorphic forms (adelic)](./automorphic-forms-adelic.html) — $\mathrm{GL}_2$ over adèles, automorphic representations, Tate's thesis full sketch
+- [Vertex operator algebras](./vertex-operator-algebras.html) — chiral algebras, the Monster VOA, Borcherds proof of moonshine
 
 ### Algebraic geometry
 - [Projective plane](./projective-plane.html) — homogeneous coordinates, points at infinity, affine patches
@@ -124,6 +162,9 @@ Each concept carries two quiz tiers — v1 (required) and hard (unlocked after v
 - [Group schemes](./group-schemes.html) — $\mathbb{G}_a, \mathbb{G}_m, \mu_n, \alpha_p$, Hopf algebras, étale-vs-connected, $\mathrm{Lie}(G)$, torsors
 - [Deformation theory](./deformation-theory.html) — first-order $H^1(T)$, obstructions $H^2(T)$, Schlessinger, cotangent complex
 - [Algebraic de Rham cohomology](./algebraic-de-rham-cohomology.html) — Kähler differentials, $H^*_{dR}$, Hodge filtration, Hodge diamond
+- [Calabi–Yau manifolds](./calabi-yau-manifolds.html) — Ricci-flat Kähler, holonomy $\mathrm{SU}(n)$, mirror pairs, string compactifications
+- [Mirror symmetry](./mirror-symmetry.html) — A- and B-models, SYZ, homological mirror symmetry
+- [Resolution of singularities](./resolution-of-singularities.html) — Hironaka in characteristic 0, blowups, log resolution
 
 ### Combinatorics & graph theory
 - [Spectral graph theory](./spectral-graph-theory.html) — adjacency, Laplacian, Cheeger inequality, expanders — graphs as discrete differential geometry
@@ -131,6 +172,15 @@ Each concept carries two quiz tiers — v1 (required) and hard (unlocked after v
 - [Probabilistic method](./probabilistic-method.html) — existence by expectation, Ramsey lower bounds, Lovász Local Lemma, $G(n,p)$ thresholds, concentration
 - [Extremal combinatorics](./extremal-combinatorics.html) — Turán's theorem, Kővári–Sós–Turán, Erdős–Stone, Ramsey numbers, Sperner & LYM, removal lemma
 - [Simplicial complexes (combinatorial)](./simplicial-complexes-combinatorial.html) — abstract complexes, $f$/$h$-vectors, Dehn–Sommerville, Stanley–Reisner ring, persistent homology
+- [Enumerative combinatorics](./enumerative-combinatorics.html) — generating functions, the twelvefold way, species, exponential structures
+- [Designs](./designs.html) — block designs, Steiner systems, projective planes, Latin squares, Bruck–Ryser–Chowla
+- [Expanders](./expanders.html) — spectral expansion, Cheeger inequality, zigzag product, Ramanujan graphs
+
+### Mathematical physics
+- [Schrödinger equation](./schrodinger-equation.html) — wave functions, eigenstates, harmonic oscillator, hydrogen atom, scattering
+- [Hamiltonians and classical mechanics](./hamiltonians-classical-mechanics.html) — symplectic phase space, Liouville's theorem, integrability, action-angle
+- [General relativity](./general-relativity.html) — Einstein field equations, Schwarzschild, black holes, gravitational waves
+- [The three-body problem](./three-body-problem.html) — Lagrange points, restricted three-body, KAM tori, chaos
 
 ## Resetting progress
 

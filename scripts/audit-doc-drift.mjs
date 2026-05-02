@@ -51,6 +51,14 @@
 //      Mirror of check 2 against scripts/README.md. Every .mjs should appear
 //      in a table row; every table row name should exist on disk.
 //
+//   6. Corpus-snapshot numbers vs. on-disk reality.
+//      PLAN.md, README.md, and AGENTS.md carry hard-coded counts (topic
+//      count, concept count, prereq edges, capstones, section count, quiz
+//      tier counts). These rotted in PR #47 — 24 numerical claims drifted
+//      silently because nothing gated them. This check derives ground truth
+//      from `concepts/`, `quizzes/`, and reports any disagreement. It does
+//      NOT auto-fix; the user updates the prose.
+//
 // CLI:
 //   node scripts/audit-doc-drift.mjs            — default report.
 //   node scripts/audit-doc-drift.mjs --verbose  — extra per-finding context
@@ -438,12 +446,135 @@ function checkScriptsReadme() {
 }
 
 // ─────────────────────────────────────────────────────────────────────────
+// Check 6: corpus-snapshot numbers vs on-disk reality.
+
+function computeCorpusTruth() {
+  const truth = {
+    topics: 0,
+    sections: 0,
+    capstones: 0,
+    concepts: 0,
+    prereqs: 0,
+    crossTopic: 0,
+    v1: 0,
+    hard: 0,
+    expert: 0,
+    lackingHard: 0,
+  };
+  const idxPath = join(repoRoot, 'concepts', 'index.json');
+  const sectionsPath = join(repoRoot, 'concepts', 'sections.json');
+  const capstonesPath = join(repoRoot, 'concepts', 'capstones.json');
+  if (!existsSync(idxPath) || !existsSync(sectionsPath) || !existsSync(capstonesPath)) {
+    return null;
+  }
+  const idx = JSON.parse(readFileSync(idxPath, 'utf8'));
+  const sectionsJson = JSON.parse(readFileSync(sectionsPath, 'utf8'));
+  const capstonesJson = JSON.parse(readFileSync(capstonesPath, 'utf8'));
+  const topics = (idx.topics || []).map((t) => (typeof t === 'string' ? t : t.slug));
+  truth.topics = topics.length;
+  truth.sections = (sectionsJson.sections || []).length;
+  truth.capstones = (capstonesJson.capstones || []).length;
+
+  const ownerOf = new Map();
+  const conceptsByTopic = new Map();
+  for (const slug of topics) {
+    const path = join(repoRoot, 'concepts', `${slug}.json`);
+    if (!existsSync(path)) continue;
+    const j = JSON.parse(readFileSync(path, 'utf8'));
+    conceptsByTopic.set(slug, j.concepts || []);
+    for (const c of j.concepts || []) {
+      truth.concepts++;
+      if (c && c.id) ownerOf.set(c.id, slug);
+      truth.prereqs += (c && Array.isArray(c.prereqs) ? c.prereqs.length : 0);
+    }
+  }
+  for (const slug of topics) {
+    for (const c of conceptsByTopic.get(slug) || []) {
+      for (const p of (c && c.prereqs) || []) {
+        if (ownerOf.has(p) && ownerOf.get(p) !== slug) truth.crossTopic++;
+      }
+    }
+  }
+  // Quiz tiers + lacking-hard count.
+  const conceptsWithHard = new Set();
+  for (const slug of topics) {
+    const path = join(repoRoot, 'quizzes', `${slug}.json`);
+    if (!existsSync(path)) continue;
+    const bank = JSON.parse(readFileSync(path, 'utf8'));
+    const qs = (bank && bank.quizzes) || {};
+    for (const [cid, e] of Object.entries(qs)) {
+      if (!e) continue;
+      truth.v1     += Array.isArray(e.questions) ? e.questions.length : 0;
+      truth.hard   += Array.isArray(e.hard)      ? e.hard.length      : 0;
+      truth.expert += Array.isArray(e.expert)    ? e.expert.length    : 0;
+      if (Array.isArray(e.hard) && e.hard.length > 0) conceptsWithHard.add(cid);
+    }
+  }
+  truth.lackingHard = truth.concepts - conceptsWithHard.size;
+  return truth;
+}
+
+function checkCorpusSnapshot() {
+  const truth = computeCorpusTruth();
+  if (!truth) {
+    push('corpus', 'warn', 'concepts/{index,sections,capstones}.json missing — skipping snapshot check');
+    return;
+  }
+  const cmp = (file, label, claim, expected) => {
+    if (Number(claim) !== expected) {
+      push(file, 'fail',
+        `${label} drift: prose says ${claim}, disk has ${expected}`);
+    }
+  };
+
+  // PLAN.md combined snapshot line.
+  const plan = readOrNull(join(repoRoot, 'PLAN.md'));
+  if (plan) {
+    const m = plan.match(
+      /(\d+) topics, (\d+) concepts, (\d+) prereq edges \((\d+) cross-topic\), (\d+) capstones/
+    );
+    if (m) {
+      cmp('PLAN.md', 'topic count',       m[1], truth.topics);
+      cmp('PLAN.md', 'concept count',     m[2], truth.concepts);
+      cmp('PLAN.md', 'prereq edges',      m[3], truth.prereqs);
+      cmp('PLAN.md', 'cross-topic edges', m[4], truth.crossTopic);
+      cmp('PLAN.md', 'capstone count',    m[5], truth.capstones);
+    }
+    const tm = plan.match(/Quiz tiers: v1 = (\d+), hard = (\d+), expert = (\d+)/);
+    if (tm) {
+      cmp('PLAN.md', 'v1 quiz count',     tm[1], truth.v1);
+      cmp('PLAN.md', 'hard quiz count',   tm[2], truth.hard);
+      cmp('PLAN.md', 'expert quiz count', tm[3], truth.expert);
+    }
+    const lm = plan.match(/\((\d+) concepts lack hard tier\)/);
+    if (lm) cmp('PLAN.md', 'concepts lacking hard tier', lm[1], truth.lackingHard);
+  }
+
+  // README.md.
+  const readme = readOrNull(join(repoRoot, 'README.md'));
+  if (readme) {
+    const cm = readme.match(/(\d+) capstones/);
+    if (cm) cmp('README.md', 'capstone count', cm[1], truth.capstones);
+    const gm = readme.match(/(\d+)-concept graph/);
+    if (gm) cmp('README.md', 'concept-graph size', gm[1], truth.concepts);
+  }
+
+  // AGENTS.md (= CLAUDE.md symlink).
+  const agents = readOrNull(join(repoRoot, 'AGENTS.md'));
+  if (agents) {
+    const sm = agents.match(/The (\d+) sections:/);
+    if (sm) cmp('AGENTS.md', 'section count', sm[1], truth.sections);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────
 // Run all checks.
 
 checkPlanVsGit();
 checkAgentsVsScripts();
 checkRebuildStepList();
 checkScriptsReadme();
+checkCorpusSnapshot();
 
 // ─────────────────────────────────────────────────────────────────────────
 // Report.

@@ -31,23 +31,20 @@ const repoRoot = resolve(dirname(__filename), '..');
 const indexPath = join(repoRoot, 'index.html');
 const sectionsDir = join(repoRoot, 'sections');
 
-// ----- 1-sentence description per section (keyed by display title) -----
-const SECTION_BLURBS = {
-  'Foundations':
-    'Sets, functions, quotients, countability — the common background for everything else.',
-  'Algebra':
-    'Groups, rings, fields, categories, and the homological machinery that connects them.',
-  'Analysis':
-    'Limits, convergence, measure, Banach/Hilbert spaces, and operator-algebraic traces.',
-  'Geometry & topology':
-    'From metric spaces and the fundamental group to Riemannian curvature and Lie groups.',
-  'Number theory':
-    'Reciprocity laws, p-adic completions, local/global duality, and the road to class field theory.',
-  'Modular forms & L-functions':
-    'Automorphic forms on the upper half-plane, Hecke algebras, L-function continuation, Galois representations, and the automorphic–arithmetic dictionary.',
-  'Algebraic geometry':
-    'Projective varieties, schemes, sheaves, moduli spaces, and the arithmetic capstones that tie it all together.',
-};
+// ----- 1-sentence description per section (sourced from sections.json) -----
+// Each entry in concepts/sections.json carries a `description` field; we
+// build a lookup keyed by display title. Sections without a description
+// surface a build-time warning rather than a hard error so a new section
+// can be wired in without blocking the build on prose.
+const sectionsJsonPath = join(repoRoot, 'concepts', 'sections.json');
+const SECTION_BLURBS = (() => {
+  const data = JSON.parse(readFileSync(sectionsJsonPath, 'utf8'));
+  const out = Object.create(null);
+  for (const sec of data.sections || []) {
+    if (sec && sec.title) out[sec.title] = sec.description || '';
+  }
+  return out;
+})();
 
 // ----- Utilities -----
 function slugify(title) {

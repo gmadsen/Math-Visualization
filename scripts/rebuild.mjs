@@ -57,10 +57,14 @@ const STEPS = [
   { name: 'quizzes',    script: 'build-quizzes-bundle.mjs',     fix: false },
   { name: 'widgets-bundle', script: 'build-widgets-bundle.mjs', fix: false },
   { name: 'search',     script: 'build-search-index.mjs',       fix: false },
+  { name: 'section-indexes', script: 'build-section-indexes.mjs', fix: false },
   { name: 'schema',     script: 'validate-schema.mjs',          fix: false },
   { name: 'widget-params', script: 'validate-widget-params.mjs', fix: false },
   { name: 'widget-renderers', script: 'test-widget-renderers.mjs', fix: false },
   { name: 'widget-hydration', script: 'test-widget-hydration.mjs', fix: false },
+  { name: 'multi-iife-split', script: 'test-multi-iife-split.mjs', fix: false },
+  { name: 'html-walk',  script: 'test-html-walk.mjs',           fix: false },
+  { name: 'find-matching-div', script: 'test-find-matching-div.mjs', fix: false },
   { name: 'validate',   script: 'validate-concepts.mjs',        fix: false },
   { name: 'concept-latex', script: 'audit-concept-latex.mjs',   fix: false },
   { name: 'katex',      script: 'validate-katex.mjs',           fix: false },
@@ -69,6 +73,7 @@ const STEPS = [
   { name: 'breadcrumb', script: 'inject-breadcrumb.mjs',        fix: true  },
   { name: 'display-prefs', script: 'inject-display-prefs.mjs',  fix: true  },
   { name: 'index-stats', script: 'inject-index-stats.mjs',      fix: true  },
+  { name: 'page-metadata', script: 'inject-page-metadata.mjs',  fix: true  },
   // Note: inject-changelog-footer.mjs is deliberately NOT in the chain —
   // its output references "most recent commit", but the commit that *adds*
   // the refreshed changelog can't reference itself, so every post-commit
@@ -85,6 +90,7 @@ const STEPS = [
   { name: 'smoke',      script: 'smoke-test.mjs',               fix: false },
   { name: 'topic-jsdom', script: 'test-topic-jsdom.mjs',        fix: false },
   { name: 'stats',      script: 'stats-coverage.mjs',           fix: false },
+  { name: 'notation',   script: 'audit-notation.mjs',           fix: false },
   { name: 'draft-cards', script: 'audit-draft-index-cards.mjs', fix: false },
   { name: 'starter',    script: 'audit-starter-concepts.mjs',   fix: false },
   { name: 'doc-drift',  script: 'audit-doc-drift.mjs',          fix: false },

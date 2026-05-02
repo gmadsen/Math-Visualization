@@ -40,6 +40,7 @@ import { join, resolve } from 'node:path';
 import { parse as parseHtml } from 'node-html-parser';
 import { escapeRe } from './lib/audit-utils.mjs';
 import { loadContentModel } from './lib/content-model.mjs';
+import { matchClose } from './lib/html-walk.mjs';
 import {
   loadTopicContent,
   saveTopicContent,
@@ -141,28 +142,14 @@ function findSection(topic, rawHtml, anchor, conceptAnchors) {
     const om = rawHtml.match(openRe);
     if (!om) return null;
     const innerStart = om.index + om[0].length;
-    // Walk forward depth-balanced for matching </section>.
-    const openTagRe = /<section\b[^>]*>/gi;
-    const closeTagRe = /<\/section\s*>/gi;
-    openTagRe.lastIndex = innerStart;
-    closeTagRe.lastIndex = innerStart;
-    let depth = 1;
-    let safety = 0;
-    let innerEnd = rawHtml.length;
-    while (depth > 0) {
-      if (++safety > 100000) break;
-      const o = openTagRe.exec(rawHtml);
-      const c = closeTagRe.exec(rawHtml);
-      if (!c) break;
-      if (o && o.index < c.index) {
-        depth++;
-        closeTagRe.lastIndex = c.index;
-      } else {
-        depth--;
-        if (depth === 0) { innerEnd = c.index; break; }
-        openTagRe.lastIndex = c.index + c[0].length;
-      }
-    }
+    // matchClose() advances closeRe.lastIndex past the matched close on each
+    // iteration; the prior in-tree implementation rewound it to c.index, which
+    // safety-counter-bailed on nested sections rather than balancing them.
+    // The two known-fragile sections (mittag-leffler, elementary-equivalence)
+    // don't nest, so corpus output is unchanged — but the migration is also a
+    // latent-bug fix.
+    const close = matchClose(rawHtml, innerStart, 'section');
+    const innerEnd = close ? close.closeStart : rawHtml.length;
     return {
       innerStart,
       innerEnd,

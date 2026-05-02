@@ -23,7 +23,11 @@
 //   3. Save back via `saveTopicContent` (write-if-changed).
 //
 // Flags:
-//   --dry-run   Print what would change, don't write.
+//   --fix       Write JSON updates. Without --fix the script reports what
+//               would change and exits 0 (audit mode). Convention matches
+//               the other inject-*.mjs scripts in the rebuild chain.
+//   --dry-run   Alias for audit mode (kept for backward compatibility with
+//               older invocations; equivalent to running without --fix).
 //
 // Exits:
 //   0 on success (even if some topics were skipped with warnings).
@@ -43,7 +47,8 @@ const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..');
 
 const argv = process.argv.slice(2);
-const DRY_RUN = argv.includes('--dry-run');
+const FIX = argv.includes('--fix');
+const DRY_RUN = !FIX;
 
 // ----- Helpers -----
 function kebabSection(raw) {
@@ -181,7 +186,7 @@ for (const slug of topics) {
 }
 
 // ----- Report -----
-console.log(`inject-page-metadata: ${topics.length} topic(s) processed${DRY_RUN ? ' (dry-run)' : ''}`);
+console.log(`inject-page-metadata: ${topics.length} topic(s) processed${DRY_RUN ? ' (audit-only — pass --fix to write)' : ''}`);
 console.log(`  topic JSONs touched: ${touched}`);
 console.log(`  topic JSONs skipped (no change): ${skipped}`);
 console.log(`  topics missing from index.html: ${missingFromIndex.length}`);

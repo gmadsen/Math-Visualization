@@ -12465,11 +12465,12 @@ window.__MVConcepts = {
     ]
   },
   "sections": {
-    "_description": "Canonical topic -> subject mapping. Every registered topic in concepts/index.json must appear in exactly one section's topics array. Section ids match the filenames under sections/<id>.html. Each section also carries a `color` letter from the six accent palette (b=blue, y=yellow, p=pink, v=violet, g=green, c=cyan) — single source of truth used by index.html section headers + section-jump pills, tags.html detail-panel section-group accents, and any future viewer. Loaded via scripts/lib/content-model.mjs; exposed as model.sectionOf(topicId).",
+    "_description": "Canonical topic -> subject mapping. Every registered topic in concepts/index.json must appear in exactly one section's topics array. Section ids match the filenames under sections/<id>.html. Each section also carries a `color` letter from the six accent palette (b=blue, y=yellow, p=pink, v=violet, g=green, c=cyan) — single source of truth used by index.html section headers + section-jump pills, tags.html detail-panel section-group accents, and any future viewer. Loaded via scripts/lib/content-model.mjs; exposed as model.sectionOf(topicId). The `description` field is the one-sentence blurb used by scripts/build-section-indexes.mjs when generating sections/<id>.html — keep it short (a single sentence).",
     "sections": [
       {
         "id": "logic-and-foundations",
         "title": "Logic & Foundations",
+        "description": "Sets, formal proofs, models, computability, complexity, type theory, and the limits of provability.",
         "topics": [
           "naive-set-theory",
           "first-order-logic-and-completeness",
@@ -12485,6 +12486,7 @@ window.__MVConcepts = {
       {
         "id": "algebra",
         "title": "Algebra & homological",
+        "description": "Groups, rings, fields, categories, and the homological machinery that connects them — derived categories, group cohomology, Lie algebras, division algebras, quantum groups.",
         "topics": [
           "algebra",
           "category-theory",
@@ -12504,6 +12506,7 @@ window.__MVConcepts = {
       {
         "id": "higher-categories-and-toposes",
         "title": "Higher categories & toposes",
+        "description": "Topoi, Grothendieck sites, simplicial sets, ∞-categories and ∞-topoi — the homotopical refinement of structure-preserving language.",
         "topics": [
           "elementary-topos-theory",
           "heyting-algebras-toposes",
@@ -12518,6 +12521,7 @@ window.__MVConcepts = {
       {
         "id": "analysis",
         "title": "Analysis",
+        "description": "Limits, convergence, measure, Banach/Hilbert spaces, operator algebras, harmonic and Sobolev theory.",
         "topics": [
           "real-analysis",
           "measure-theory",
@@ -12541,6 +12545,7 @@ window.__MVConcepts = {
       {
         "id": "probability-and-statistics",
         "title": "Probability & statistics",
+        "description": "Measure-theoretic probability, martingales, stochastic calculus, mixing, information theory, statistical inference, and high-dimensional concentration.",
         "topics": [
           "probability-theory",
           "stochastic-processes-and-martingales",
@@ -12556,6 +12561,7 @@ window.__MVConcepts = {
       {
         "id": "geometry-and-topology",
         "title": "Geometry & topology",
+        "description": "From metric spaces and the fundamental group to Riemannian curvature, characteristic classes, the index theorem, and Ricci flow.",
         "topics": [
           "point-set-topology",
           "algebraic-topology",
@@ -12579,6 +12585,7 @@ window.__MVConcepts = {
       {
         "id": "number-theory",
         "title": "Number theory",
+        "description": "Reciprocity laws, p-adic completions, local/global duality, sieves and analytic methods, and the road to class field theory.",
         "topics": [
           "galois",
           "quadratic-reciprocity",
@@ -12600,6 +12607,7 @@ window.__MVConcepts = {
       {
         "id": "modular-forms-and-l-functions",
         "title": "Modular forms & L-functions",
+        "description": "Automorphic forms on the upper half-plane, Hecke algebras, L-function continuation, Galois representations, and the automorphic–arithmetic dictionary.",
         "topics": [
           "upper-half-plane-hyperbolic",
           "modular-forms",
@@ -12623,6 +12631,7 @@ window.__MVConcepts = {
       {
         "id": "algebraic-geometry",
         "title": "Algebraic geometry",
+        "description": "Projective varieties, schemes, sheaves, moduli spaces, and the arithmetic capstones that tie it all together.",
         "topics": [
           "projective-plane",
           "bezout",
@@ -12652,6 +12661,7 @@ window.__MVConcepts = {
       {
         "id": "combinatorics-and-graph-theory",
         "title": "Combinatorics & graph theory",
+        "description": "Spectral and extremal combinatorics, the probabilistic method, matroids, designs, and expanders.",
         "topics": [
           "spectral-graph-theory",
           "matroid-theory",
@@ -12665,15 +12675,16 @@ window.__MVConcepts = {
         "color": "v"
       },
       {
+        "id": "mathematical-physics",
         "title": "Mathematical physics",
-        "color": "p",
+        "description": "Symplectic mechanics, the Schrödinger equation, general relativity, and the few-body / chaotic dynamics that test classical predictability.",
         "topics": [
           "schrodinger-equation",
           "hamiltonians-classical-mechanics",
           "general-relativity",
           "three-body-problem"
         ],
-        "id": "mathematical-physics"
+        "color": "p"
       }
     ]
   },

@@ -23,8 +23,7 @@ import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import Ajv2020 from 'ajv/dist/2020.js';
-import addFormats from 'ajv-formats';
+import { makeAjv } from './lib/ajv.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const scriptsDir = dirname(__filename);
@@ -43,8 +42,7 @@ function readJson(absPath) {
 // Ajv setup — strict:false so widget schemas can carry annotation-only
 // keywords like top-level `meta` (family / dimension / gesture / role) without
 // compile rejection.
-const ajv = new Ajv2020({ allErrors: true, strict: false });
-addFormats(ajv);
+const ajv = makeAjv({ strict: false });
 
 // Cache of compiled validators, keyed by slug. `null` means the slug is known
 // bad (missing or uncompilable schema) and we've already reported it.

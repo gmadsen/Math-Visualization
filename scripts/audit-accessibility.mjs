@@ -19,6 +19,10 @@
 //   7. Viewport meta  — flag if <meta name="viewport" …> missing.
 //   8. Color-only prose — flag prose substrings like "the green line" that
 //                         lean on color alone; rough heuristic.
+//   9. SVG viewBox     — non-thumb, non-marker, non-icon <svg> without a
+//                       viewBox attribute won't scale on narrow viewports.
+//                       Skips <defs>…</defs> arrow markers and tiny icon SVGs
+//                       (both width and height ≤ 24).
 //
 // CLI: node scripts/audit-accessibility.mjs
 // Exit: 0 always.
@@ -367,12 +371,54 @@ function checkColorOnly(html) {
   return violations;
 }
 
+function checkSvgViewbox(html) {
+  const violations = [];
+  const thumbs = findThumbRanges(html);
+  const defsRanges = [];
+  const defsRe = /<defs\b[^>]*>[\s\S]*?<\/defs>/gi;
+  let dm;
+  while ((dm = defsRe.exec(html))) {
+    defsRanges.push([dm.index, dm.index + dm[0].length]);
+  }
+  // SVG markup inside <script>, <pre>, or HTML comments is JS source / docs, not live SVG.
+  const skipRanges = [];
+  const pairRangesLocal = (openRe, closeStr) => {
+    let m;
+    while ((m = openRe.exec(html))) {
+      const end = html.indexOf(closeStr, m.index + m[0].length);
+      if (end === -1) break;
+      skipRanges.push([m.index, end + closeStr.length]);
+    }
+  };
+  pairRangesLocal(/<!--/g, '-->');
+  pairRangesLocal(/<script\b[^>]*>/gi, '</script>');
+  pairRangesLocal(/<pre\b[^>]*>/gi, '</pre>');
+  const svgRe = /<svg\b[^>]*>/gi;
+  let m;
+  while ((m = svgRe.exec(html))) {
+    if (inRanges(m.index, thumbs)) continue;
+    if (inRanges(m.index, defsRanges)) continue;
+    if (inRanges(m.index, skipRanges)) continue;
+    const tag = m[0];
+    if (/\bviewBox\s*=/i.test(tag)) continue;
+    const w = (tag.match(/\bwidth\s*=\s*["']?(\d+)/i) || [])[1];
+    const h = (tag.match(/\bheight\s*=\s*["']?(\d+)/i) || [])[1];
+    if (w && h && parseInt(w, 10) <= 24 && parseInt(h, 10) <= 24) continue;
+    violations.push({
+      msg: '<svg> without viewBox — will not scale responsively',
+      excerpt: snippet(html, m.index, 80),
+    });
+  }
+  return violations;
+}
+
 // ────────────────────────────────────────────────────────────────────────────
 // Orchestration.
 
 const CHECKS = [
   { key: 'heading-order',  label: 'Heading order',        fn: checkHeadingOrder },
   { key: 'svg-labeling',   label: 'SVG labeling',         fn: checkSvgLabeling  },
+  { key: 'svg-viewbox',    label: 'SVG viewBox',          fn: checkSvgViewbox   },
   { key: 'buttons',        label: 'Button accessible name', fn: checkButtons    },
   { key: 'inputs',         label: 'Input label',          fn: checkInputs       },
   { key: 'images',         label: 'Image alt',            fn: checkImages       },

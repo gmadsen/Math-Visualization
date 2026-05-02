@@ -1,7 +1,9 @@
 // scripts/lib/audit-utils.mjs
 //
-// Shared helpers for the audit scripts. Zero runtime dependencies beyond
-// `node:` built-ins.
+// Shared helpers for the audit scripts.
+
+import { parse as parseHtml } from 'node-html-parser';
+import { matchClose } from './html-walk.mjs';
 //
 // Consolidates the following previously-duplicated pieces:
 //   - escapeRe(s)
@@ -355,4 +357,109 @@ export function buildSectionMap(html) {
     }
   }
   return sections;
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Topic-HTML parser with regex section fallback.
+
+/**
+ * Parse topic HTML and surface every `<section id="…">` as a SectionInfo,
+ * even when node-html-parser drops the element silently.
+ *
+ * **Why:** node-html-parser's `blockTextElements` state machine
+ * occasionally fails to register a perfectly-valid `<section id="…">`
+ * (observed for `advanced-complex-analysis#mittag-leffler` and
+ * `model-theory-basics#elementary-equivalence` — the trigger appears to be
+ * `</script>` or HTML comments closing immediately before `</section>`,
+ * combined with KaTeX `$$…$$` inside the prior section). Naïve callers
+ * that walk the parsed tree silently miss content from those sections.
+ *
+ * Returns `{ root, sections, missingIds, present }`:
+ *   - `root` — the parsed tree from `node-html-parser`.
+ *   - `sections` — `Map<id, SectionInfo>` for every `<section id>` in the
+ *     raw HTML. Entries are ordered by document offset.
+ *   - `missingIds` — section ids whose `getElementById` returned null.
+ *   - `present(id)` — convenience: `getElementById(id) !== null`.
+ *
+ * SectionInfo:
+ *   - `id` (string)
+ *   - `node` (parsed node | null)
+ *   - `openStart`, `innerStart`, `innerEnd`, `outerEnd` (offsets into raw HTML)
+ *   - `body` (raw HTML between innerStart and innerEnd)
+ *
+ * Re-parsing `body` in isolation does not trigger the bug (the offending
+ * pattern needs surrounding context), so callers that need `<p>`-level
+ * access inside a dropped section can do `parseHtml(info.body, opts)` and
+ * translate child ranges by `+innerStart`.
+ */
+export function parseTopicHtmlSafe(html, parseOptions = {}) {
+  const root = parseHtml(html, parseOptions);
+  const sections = new Map();
+  const missingIds = [];
+  const openRe = /<section\b([^>]*)\sid=["']([^"']+)["'][^>]*>/gi;
+  let m;
+  while ((m = openRe.exec(html))) {
+    const id = m[2];
+    if (sections.has(id)) continue; // duplicate id (rare; first wins)
+    const openStart = m.index;
+    const innerStart = m.index + m[0].length;
+    const close = matchClose(html, innerStart, 'section');
+    const innerEnd = close ? close.closeStart : html.length;
+    const outerEnd = close ? close.closeEnd : html.length;
+    const node = root.getElementById ? root.getElementById(id) : null;
+    if (!node) missingIds.push(id);
+    sections.set(id, {
+      id,
+      node: node || null,
+      openStart,
+      innerStart,
+      innerEnd,
+      outerEnd,
+      body: html.slice(innerStart, innerEnd),
+    });
+  }
+  return {
+    root,
+    sections,
+    missingIds,
+    present(id) {
+      const info = sections.get(id);
+      return info ? info.node !== null : false;
+    },
+  };
+}
+
+/**
+ * Recover descendant nodes of `<section>` elements that the parser dropped.
+ *
+ * For each section in `parseResult.missingIds`, re-parses its body in
+ * isolation (the parser bug requires surrounding context, so the isolated
+ * subtree parses cleanly) and walks the sub-tree, translating every
+ * `node.range` by the section's `innerStart` so callers can treat the
+ * recovered nodes interchangeably with the main tree's nodes.
+ *
+ * `selector` is a CSS selector run via `querySelectorAll` on each recovered
+ * sub-root (default `'p'`). Returns the concatenated, range-translated
+ * matches across all missing sections.
+ *
+ * Pass the same `parseOptions` used for the original parse so the sub-trees
+ * see the same `blockTextElements` configuration.
+ */
+export function recoverDroppedNodes(parseResult, selector = 'p', parseOptions = {}) {
+  const out = [];
+  if (!parseResult || !parseResult.missingIds || parseResult.missingIds.length === 0) return out;
+  for (const id of parseResult.missingIds) {
+    const info = parseResult.sections.get(id);
+    if (!info) continue;
+    const subRoot = parseHtml(info.body, parseOptions);
+    const offset = info.innerStart;
+    const walk = (n) => {
+      if (n && n.range) n.range = [n.range[0] + offset, n.range[1] + offset];
+      const children = (n && n.childNodes) || [];
+      for (const c of children) walk(c);
+    };
+    walk(subRoot);
+    for (const node of subRoot.querySelectorAll(selector)) out.push(node);
+  }
+  return out;
 }

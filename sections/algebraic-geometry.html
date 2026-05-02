@@ -161,18 +161,29 @@
     .section-jump a.sj-link{font-size:0.78rem;padding:0.25rem 0.55rem;
       flex-shrink:0;white-space:nowrap}
   }
-  .pathway-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;
-    background:linear-gradient(135deg,rgba(125,224,214,0.08),rgba(179,157,219,0.08));
-    border:1px solid color-mix(in srgb, var(--cyan) 38%, transparent);
-    border-radius:12px;padding:1.1rem 1.3rem;margin:0 0 2.4rem;text-decoration:none;color:inherit;
+  .start-here-rail{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 2.4rem}
+  @media (max-width:760px){.start-here-rail{grid-template-columns:1fr;gap:10px}}
+  .pathway-banner,.tours-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;
+    border-radius:12px;padding:1.1rem 1.3rem;margin:0;text-decoration:none;color:inherit;
     transition:transform 150ms ease, border-color 150ms ease}
+  .pathway-banner{
+    background:linear-gradient(135deg,rgba(125,224,214,0.08),rgba(179,157,219,0.08));
+    border:1px solid color-mix(in srgb, var(--cyan) 38%, transparent)}
+  .tours-banner{
+    background:linear-gradient(135deg,rgba(255,216,102,0.08),rgba(247,143,179,0.08));
+    border:1px solid color-mix(in srgb, var(--yellow) 38%, transparent)}
   .pathway-banner:hover{transform:translateY(-2px);border-color:var(--cyan)}
-  .pathway-banner .pb-body{flex:1;min-width:0}
-  .pathway-banner .pb-eyebrow{font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:4px}
-  .pathway-banner .pb-title{font-size:1.15rem;font-weight:600;color:#fff;margin:0 0 3px}
-  .pathway-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
-  .pathway-banner .pb-arrow{font-size:1.6rem;color:var(--cyan);flex-shrink:0}
-  @media (max-width:520px){.pathway-banner{flex-direction:column;align-items:flex-start}.pathway-banner .pb-arrow{align-self:flex-end}}
+  .tours-banner:hover{transform:translateY(-2px);border-color:var(--yellow)}
+  .pathway-banner .pb-body,.tours-banner .pb-body{flex:1;min-width:0}
+  .pathway-banner .pb-eyebrow,.tours-banner .pb-eyebrow{font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:4px}
+  .pathway-banner .pb-eyebrow{color:var(--cyan)}
+  .tours-banner .pb-eyebrow{color:var(--yellow)}
+  .pathway-banner .pb-title,.tours-banner .pb-title{font-size:1.15rem;font-weight:600;color:#fff;margin:0 0 3px}
+  .pathway-banner .pb-desc,.tours-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
+  .pathway-banner .pb-arrow,.tours-banner .pb-arrow{font-size:1.6rem;flex-shrink:0}
+  .pathway-banner .pb-arrow{color:var(--cyan)}
+  .tours-banner .pb-arrow{color:var(--yellow)}
+  @media (max-width:520px){.pathway-banner,.tours-banner{flex-direction:column;align-items:flex-start}.pathway-banner .pb-arrow,.tours-banner .pb-arrow{align-self:flex-end}}
 
   /* Featured rail: two-card row sitting between the pathway banner and the
      section-jump nav. Left card surfaces a date-seeded ready-to-master
@@ -864,42 +875,63 @@
 
     <a class="card g" href="../calabi-yau-manifolds.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
-        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--green)" stroke-width="1.4"/>
-        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--green)" font-style="italic" font-family="serif">draft</text>
+<g fill="var(--green)" font-family="serif" font-size="9" text-anchor="middle">
+          <text x="50" y="20">1</text>
+          <text x="40" y="34">0</text><text x="60" y="34">0</text>
+          <text x="30" y="48">1</text><text x="50" y="48">101</text><text x="70" y="48">1</text>
+          <text x="40" y="62">0</text><text x="60" y="62">0</text>
+          <text x="50" y="76">1</text>
+        </g>
       </svg></div>
       <div class="body">
         <div class="tt">Calabi yau manifolds</div>
-        <div class="desc">Draft — fill in once the page has real content.</div>
-        <span class="tag">Algebraic geometry</span>
+        <div class="desc">Kähler manifolds with $c_1 = 0$ (Yau-Calabi), Ricci-flat metrics, the Hodge diamond and its mirror symmetry, examples: elliptic curves, K3, the quintic threefold.</div>
+        <span class="tag">c₁ = 0 · Hodge · K3 · quintic · SYZ</span>
       </div>
     </a>
 
 
     <a class="card g" href="../mirror-symmetry.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
-        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--green)" stroke-width="1.4"/>
-        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--green)" font-style="italic" font-family="serif">draft</text>
+<g stroke="var(--green)" stroke-width="1.4" fill="none">
+          <rect x="14" y="22" width="32" height="36" rx="3"/>
+          <rect x="54" y="22" width="32" height="36" rx="3"/>
+          <path d="M 46 40 L 54 40" stroke-dasharray="2 2"/>
+          <path d="M 46 40 L 54 40" marker-end="" stroke-width="1.5"/>
+        </g>
+        <g fill="var(--green)" font-family="serif" font-size="10" text-anchor="middle">
+          <text x="30" y="36">X</text>
+          <text x="30" y="50" font-size="8" font-style="italic">A</text>
+          <text x="70" y="36">Y</text>
+          <text x="70" y="50" font-size="8" font-style="italic">B</text>
+        </g>
+        <text x="50" y="74" text-anchor="middle" font-family="serif" font-size="9" font-style="italic" fill="var(--green)">h¹·¹↔h²·¹</text>
       </svg></div>
       <div class="body">
         <div class="tt">Mirror symmetry</div>
-        <div class="desc">Draft — fill in once the page has real content.</div>
-        <span class="tag">Algebraic geometry</span>
+        <div class="desc">Mirror Calabi-Yau pairs swap Hodge numbers $h^{1,1}\leftrightarrow h^{2,1}$; A-model = symplectic, B-model = complex; quintic predictions, HMS, SYZ as $T^3$-fibration.</div>
+        <span class="tag">A↔B · HMS · GW · quintic</span>
       </div>
     </a>
 
 
     <a class="card g" href="../resolution-of-singularities.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
-        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--green)" stroke-width="1.4"/>
-        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--green)" font-style="italic" font-family="serif">draft</text>
+<g stroke="var(--green)" stroke-width="1.4" fill="none">
+          <path d="M 24 60 Q 36 30 48 60"/>
+          <line x1="62" y1="20" x2="62" y2="60"/>
+          <line x1="50" y1="60" x2="74" y2="60"/>
+          <ellipse cx="62" cy="20" rx="14" ry="4"/>
+        </g>
+        <g fill="var(--green)">
+          <text x="36" y="76" text-anchor="middle" font-family="serif" font-size="9">cusp</text>
+          <text x="62" y="76" text-anchor="middle" font-family="serif" font-size="9">blow-up</text>
+        </g>
       </svg></div>
       <div class="body">
         <div class="tt">Resolution of singularities</div>
-        <div class="desc">Draft — fill in once the page has real content.</div>
-        <span class="tag">Algebraic geometry</span>
+        <div class="desc">Hironaka's theorem: birational $\widetilde X \to X$ resolving singularities in characteristic 0; blow-ups, Newton-Puiseux for curves, ADE for surface singularities.</div>
+        <span class="tag">blow-up · Hironaka · ADE</span>
       </div>
     </a>
   </div>

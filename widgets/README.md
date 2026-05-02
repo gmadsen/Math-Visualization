@@ -15,7 +15,9 @@ widgets/
 
 Both `renderMarkup` and `renderScript` are **pure functions of params**. They produce exactly the bytes that would appear in a handwritten topic HTML file if the widget were inlined there. The current vanilla-HTML site uses these functions via `scripts/render-topic.mjs`; a React consumer ignores `index.mjs` entirely and renders its own component from the schema + params (see `examples/react-consumer/`).
 
-## Current entries
+## Shared and bespoke generic slugs
+
+The table below covers the registry's **shared** modules (one renderer for many widgets via a `oneOf` on `interaction`) and the **bespoke generic** modules (one renderer for one widget that's deliberately reusable). Topic-specific artifact slugs — one renderer per concrete widget on a single topic page, named like `algebraic-curves-jacobian-lattice` — are the long tail and aren't enumerated here. The full per-slug instance count is in [`audits/coverage-stats.md`](../audits/coverage-stats.md) § "Per-slug registry adoption" (466 directories on disk, 463 in active use across 921 widget blocks). Authors choosing a widget for a new section should pick from this table first; reach for an artifact slug only when the gesture genuinely doesn't fit any of the shared families.
 
 | slug | kind | what it covers |
 |---|---|---|
@@ -83,7 +85,7 @@ slugs at zero are infrastructure waiting for content.
 - **Bespoke** (`composition-explorer`, `natural-transformation-explorer`): one module per widget. Cheap to write, schema matches one widget's shape, no cross-widget abstraction. Use when the widget is irreducibly idiosyncratic.
 - **Shared** (everything else): one module driving multiple widgets via a `oneOf` on an `interaction` param. Higher upfront design cost; pays off when three or more widgets share structure. The shared module's schema must fit every absorbed widget, with artifact fields (`bodyScript`, `bodyMarkup`, `sectionComment`) carrying per-widget bytes that don't generalize.
 
-Empirical rule of thumb after Phase B+C+D: most of the 452 inline widgets fall into roughly eight shared families; the remaining bespoke-only widgets are genuinely domain-heavy (randomized-functor tables, sets-and-maps blob renderers, custom group-theory arithmetic) and belong in per-widget modules if they get registered at all.
+Empirical rule of thumb post-migration: every `widget` block in `content/*.json` now carries a `slug + params` pointing at a `widgets/<slug>/` registry entry — 0 inline widget blocks remain corpus-wide as of PR #45. The corpus skews hard toward `button-stepper` (~340 instances); slug variety beyond that is concentrated in roughly eight shared families (`clickable-diagram`, `parametric-plot`, `surface-viewer`, `lattice-visualizer`, `modular-arithmetic-clock`, `recurrence-plotter`, `counterexample-explorer`, `inline-code-cell`). Bespoke-per-topic slugs (artifact-style, exact byte preservation of one widget) make up the long tail; see `audits/coverage-stats.md` § "Per-slug registry adoption" for the full per-slug instance count.
 
 ## Adding a widget
 

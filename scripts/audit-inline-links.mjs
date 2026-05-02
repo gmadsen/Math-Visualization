@@ -51,7 +51,6 @@
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { parse } from 'node-html-parser';
 import {
   loadContentModel,
   forEachSectionProse,
@@ -62,6 +61,8 @@ import {
   buildTitleRegex,
   buildSkipMask,
   buildSectionMap,
+  parseTopicHtmlSafe,
+  recoverDroppedNodes,
 } from './lib/audit-utils.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -173,14 +174,23 @@ function sectionForOffset(sections, offset) {
 }
 
 function* findCandidatesInPage(html, pageTopic) {
-  const root = parse(html, {
+  const parseOptions = {
     blockTextElements: {
       script: true,
       noscript: true,
       style: true,
       pre: true,
     },
-  });
+  };
+  const parseResult = parseTopicHtmlSafe(html, parseOptions);
+  const root = parseResult.root;
+  if (parseResult.missingIds.length > 0) {
+    console.warn(
+      `  note: parser dropped ${parseResult.missingIds.length} section(s) ` +
+      `(${parseResult.missingIds.join(', ')}); recovering via subtree re-parse.`
+    );
+  }
+  const recoveredParagraphs = recoverDroppedNodes(parseResult, 'p', parseOptions);
   const { mask } = buildSkipMask(html);
   const sections = buildSectionMap(html);
 
@@ -204,7 +214,7 @@ function* findCandidatesInPage(html, pageTopic) {
   // visited via forEachSectionProse (which prunes skip-class and skip-tag
   // subtrees). We keep a per-<p> local mask so a shorter title cannot wrap
   // text already claimed by a longer title in the same paragraph.
-  const paragraphs = root.querySelectorAll('p');
+  const paragraphs = [...root.querySelectorAll('p'), ...recoveredParagraphs];
 
   for (const p of paragraphs) {
     if (!p || !p.range) continue;
