@@ -26,7 +26,7 @@ Items below come out of the algebra/analysis comparative audit shipped in PR #49
 
 Listed for the long view; each is a multi-session lift.
 
-- **Algebra side:** `groebner-bases / computational-commutative-algebra` (algebra has no computational outlet); `algebraic-K-theory-foundations` (homological cluster currently stops at derived categories); `model-categories` (bridge to higher-categories).
+- **Algebra side:** `algebraic-K-theory-foundations` (homological cluster currently stops at derived categories); `model-categories` (bridge to higher-categories).
 - **Analysis side:** `microlocal-analysis` (wavefront sets, pseudodifferential operators — natural sequel to `sobolev-spaces-distributions` + `pde`); `geometric-measure-theory` (BV, sets of finite perimeter, rectifiability, area-coarea); `semigroup-theory-evolution-equations` (Hille-Yosida, analytic semigroups).
 
 ## Authoring polish — small
