@@ -71,6 +71,11 @@ const STEPS = [
   { name: 'validate',   script: 'validate-concepts.mjs',        fix: false },
   { name: 'concept-latex', script: 'audit-concept-latex.mjs',   fix: false },
   { name: 'katex',      script: 'validate-katex.mjs',           fix: false },
+  // Strict gate against regression: any inline `<div class="widget">` in
+  // a topic's raw HTML beyond the grandfathered baseline fails CI. The
+  // baseline lives at audits/inline-widgets-baseline.json and locks in
+  // pre-existing legacy widgets so they don't keep accumulating.
+  { name: 'no-inline-widgets', script: 'audit-no-inline-widgets.mjs', fix: false },
   { name: 'callbacks',  script: 'audit-callbacks.mjs',          fix: true  },
   { name: 'backlinks',  script: 'inject-used-in-backlinks.mjs', fix: true  },
   { name: 'breadcrumb', script: 'inject-breadcrumb.mjs',        fix: true  },
