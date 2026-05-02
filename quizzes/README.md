@@ -2,7 +2,7 @@
 
 Each topic page has a quiz bank under `quizzes/<topic>.json`. Banks are loaded by `js/quiz.js` (via `quizzes/bundle.js` for `file://` and a `fetch()` fallback for dev servers) and wired into the page by an `MVQuiz.init('<topic>')` call at the bottom of the topic HTML.
 
-This file documents the bank schema, the eight question types, the three-tier mastery model, and the integration touchpoints. CLAUDE.md only carries the operational checklist — full reference lives here.
+This file documents the bank schema, the ten question types, the three-tier mastery model, and the integration touchpoints. CLAUDE.md only carries the operational checklist — full reference lives here.
 
 ## Page wiring
 

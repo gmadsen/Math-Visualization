@@ -161,18 +161,29 @@
     .section-jump a.sj-link{font-size:0.78rem;padding:0.25rem 0.55rem;
       flex-shrink:0;white-space:nowrap}
   }
-  .pathway-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;
-    background:linear-gradient(135deg,rgba(125,224,214,0.08),rgba(179,157,219,0.08));
-    border:1px solid color-mix(in srgb, var(--cyan) 38%, transparent);
-    border-radius:12px;padding:1.1rem 1.3rem;margin:0 0 2.4rem;text-decoration:none;color:inherit;
+  .start-here-rail{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 2.4rem}
+  @media (max-width:760px){.start-here-rail{grid-template-columns:1fr;gap:10px}}
+  .pathway-banner,.tours-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;
+    border-radius:12px;padding:1.1rem 1.3rem;margin:0;text-decoration:none;color:inherit;
     transition:transform 150ms ease, border-color 150ms ease}
+  .pathway-banner{
+    background:linear-gradient(135deg,rgba(125,224,214,0.08),rgba(179,157,219,0.08));
+    border:1px solid color-mix(in srgb, var(--cyan) 38%, transparent)}
+  .tours-banner{
+    background:linear-gradient(135deg,rgba(255,216,102,0.08),rgba(247,143,179,0.08));
+    border:1px solid color-mix(in srgb, var(--yellow) 38%, transparent)}
   .pathway-banner:hover{transform:translateY(-2px);border-color:var(--cyan)}
-  .pathway-banner .pb-body{flex:1;min-width:0}
-  .pathway-banner .pb-eyebrow{font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:4px}
-  .pathway-banner .pb-title{font-size:1.15rem;font-weight:600;color:#fff;margin:0 0 3px}
-  .pathway-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
-  .pathway-banner .pb-arrow{font-size:1.6rem;color:var(--cyan);flex-shrink:0}
-  @media (max-width:520px){.pathway-banner{flex-direction:column;align-items:flex-start}.pathway-banner .pb-arrow{align-self:flex-end}}
+  .tours-banner:hover{transform:translateY(-2px);border-color:var(--yellow)}
+  .pathway-banner .pb-body,.tours-banner .pb-body{flex:1;min-width:0}
+  .pathway-banner .pb-eyebrow,.tours-banner .pb-eyebrow{font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:4px}
+  .pathway-banner .pb-eyebrow{color:var(--cyan)}
+  .tours-banner .pb-eyebrow{color:var(--yellow)}
+  .pathway-banner .pb-title,.tours-banner .pb-title{font-size:1.15rem;font-weight:600;color:#fff;margin:0 0 3px}
+  .pathway-banner .pb-desc,.tours-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
+  .pathway-banner .pb-arrow,.tours-banner .pb-arrow{font-size:1.6rem;flex-shrink:0}
+  .pathway-banner .pb-arrow{color:var(--cyan)}
+  .tours-banner .pb-arrow{color:var(--yellow)}
+  @media (max-width:520px){.pathway-banner,.tours-banner{flex-direction:column;align-items:flex-start}.pathway-banner .pb-arrow,.tours-banner .pb-arrow{align-self:flex-end}}
 
   /* Featured rail: two-card row sitting between the pathway banner and the
      section-jump nav. Left card surfaces a date-seeded ready-to-master
@@ -440,7 +451,7 @@
   </nav>
   <section class="hero">
     <h1>Mathematical physics</h1>
-    <p class="sub"></p>
+    <p class="sub">Symplectic mechanics, the Schrödinger equation, general relativity, and the few-body / chaotic dynamics that test classical predictability.</p>
   </section>
 
   <div class="sec">Mathematical physics</div>
@@ -448,26 +459,38 @@
 
   <a class="card p" href="../three-body-problem.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
-        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--pink)" stroke-width="1.4"/>
-        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--pink)" font-style="italic" font-family="serif">draft</text>
+<g fill="var(--pink)">
+          <circle cx="40" cy="48" r="5"/>
+          <circle cx="62" cy="48" r="3"/>
+          <circle cx="50" cy="22" r="2.5"/>
+        </g>
+        <g stroke="var(--pink)" stroke-width="1" fill="none" stroke-dasharray="2 2">
+          <ellipse cx="51" cy="48" rx="11" ry="11"/>
+          <path d="M 50 22 Q 70 36 62 48"/>
+        </g>
+        <text x="50" y="76" text-anchor="middle" font-family="serif" font-size="10" font-style="italic" fill="var(--pink)">L₄, L₅</text>
       </svg></div>
       <div class="body">
         <div class="tt">The three-body problem</div>
-        <div class="desc">Classical chaos: Newton's equations for three masses, Lagrange and Euler's collinear/equilateral solutions, KAM tori, Sundman's series, Poincaré's homoclinic tangle.</div>
-        <span class="tag">Mathematical physics</span>
+        <div class="desc">Newton's gravitational equations for three masses, Lagrange and Euler's special solutions, Lagrange points $L_1$–$L_5$, Smale horseshoe and KAM tori, modern spacecraft applications.</div>
+        <span class="tag">Newton · Lagrange points · KAM</span>
       </div>
     </a>
   <a class="card p" href="../hamiltonians-classical-mechanics.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
-        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--pink)" stroke-width="1.4"/>
-        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--pink)" font-style="italic" font-family="serif">draft</text>
+<g stroke="var(--pink)" stroke-width="1.4" fill="none">
+          <ellipse cx="50" cy="40" rx="28" ry="14"/>
+          <ellipse cx="50" cy="40" rx="20" ry="10"/>
+          <ellipse cx="50" cy="40" rx="12" ry="6"/>
+        </g>
+        <g fill="var(--pink)"><circle cx="50" cy="40" r="2.5"/></g>
+        <text x="14" y="14" font-family="serif" font-size="11" font-style="italic" fill="var(--pink)">p</text>
+        <text x="86" y="74" text-anchor="end" font-family="serif" font-size="11" font-style="italic" fill="var(--pink)">q</text>
       </svg></div>
       <div class="body">
         <div class="tt">Hamiltonians & classical mechanics</div>
-        <div class="desc">Symplectic phase space, Hamilton's equations, Legendre transform, action principle, Liouville's theorem on conservation of phase volume.</div>
-        <span class="tag">Mathematical physics</span>
+        <div class="desc">Symplectic phase space, Hamilton's equations, canonical transformations, Hamilton–Jacobi, Noether's theorem, Liouville integrability and KAM.</div>
+        <span class="tag">phase space · Noether · KAM</span>
       </div>
     </a>
 
@@ -477,28 +500,39 @@
     
   <a class="card p" href="../general-relativity.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
-        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--pink)" stroke-width="1.4"/>
-        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--pink)" font-style="italic" font-family="serif">draft</text>
+<g stroke="var(--pink)" stroke-width="1.2" fill="none">
+          <line x1="14" y1="22" x2="86" y2="22"/>
+          <line x1="14" y1="34" x2="86" y2="34"/>
+          <path d="M 14 46 Q 50 60 86 46"/>
+          <path d="M 14 58 Q 50 78 86 58"/>
+          <line x1="22" y1="14" x2="22" y2="60"/>
+          <line x1="38" y1="14" x2="50" y2="62"/>
+          <line x1="62" y1="14" x2="50" y2="62"/>
+          <line x1="78" y1="14" x2="78" y2="60"/>
+        </g>
+        <g fill="var(--pink)"><circle cx="50" cy="56" r="3"/></g>
+        <text x="50" y="76" text-anchor="middle" font-family="serif" font-size="10" font-style="italic" fill="var(--pink)">Gμν = 8πTμν</text>
       </svg></div>
       <div class="body">
         <div class="tt">General relativity & Einstein equations</div>
-        <div class="desc">Pseudo-Riemannian manifold, Einstein field equations $R_{mu
-u} - 	frac{1}{2}g_{mu
-u}R = 8pi G T_{mu
-u}$, Schwarzschild and Kerr, geodesic completion.</div>
-        <span class="tag">Mathematical physics</span>
+        <div class="desc">Pseudo-Riemannian 4-manifold, Einstein field equations $R_{\mu\nu} - \tfrac{1}{2} g_{\mu\nu} R = 8\pi G T_{\mu\nu}$, Schwarzschild and Kerr, FLRW cosmology, gravitational waves.</div>
+        <span class="tag">spacetime · Einstein · Schwarzschild · GW</span>
       </div>
     </a><a class="card p" href="../schrodinger-equation.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
-        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--pink)" stroke-width="1.4"/>
-        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--pink)" font-style="italic" font-family="serif">draft</text>
+        <g stroke="var(--pink)" stroke-width="1.2" fill="none">
+          <line x1="10" y1="58" x2="90" y2="58"/>
+          <path d="M 10 58 Q 30 56 38 50 Q 46 38 50 22 Q 54 38 62 50 Q 70 56 90 58"/>
+          <path d="M 10 58 Q 26 57 32 53 Q 40 46 50 30 Q 60 46 68 53 Q 74 57 90 58" opacity="0.55" stroke-dasharray="2 2"/>
+          <path d="M 10 58 Q 24 58 30 55 Q 40 50 50 38 Q 60 50 70 55 Q 76 58 90 58" opacity="0.3" stroke-dasharray="1 2"/>
+        </g>
+        <g fill="var(--pink)"><circle cx="50" cy="22" r="2"/></g>
+        <text x="50" y="74" text-anchor="middle" font-family="serif" font-size="10" font-style="italic" fill="var(--pink)">|ψ(x,t)|²</text>
       </svg></div>
       <div class="body">
-        <div class="tt">Schrodinger equation</div>
-        <div class="desc">Draft — fill in once the page has real content.</div>
-        <span class="tag">Analysis</span>
+        <div class="tt">Schrödinger equation</div>
+        <div class="desc">The state of a quantum particle is a unit vector in $L^2$, evolving by a one-parameter unitary group generated by the Hamiltonian. Stationary states, harmonic oscillator and hydrogen, scattering, and the path integral.</div>
+        <span class="tag">unitary evolution · stationary states · scattering · path integral</span>
       </div>
     </a>
   </div>

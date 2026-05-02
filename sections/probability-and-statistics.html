@@ -161,18 +161,29 @@
     .section-jump a.sj-link{font-size:0.78rem;padding:0.25rem 0.55rem;
       flex-shrink:0;white-space:nowrap}
   }
-  .pathway-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;
-    background:linear-gradient(135deg,rgba(125,224,214,0.08),rgba(179,157,219,0.08));
-    border:1px solid color-mix(in srgb, var(--cyan) 38%, transparent);
-    border-radius:12px;padding:1.1rem 1.3rem;margin:0 0 2.4rem;text-decoration:none;color:inherit;
+  .start-here-rail{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 2.4rem}
+  @media (max-width:760px){.start-here-rail{grid-template-columns:1fr;gap:10px}}
+  .pathway-banner,.tours-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;
+    border-radius:12px;padding:1.1rem 1.3rem;margin:0;text-decoration:none;color:inherit;
     transition:transform 150ms ease, border-color 150ms ease}
+  .pathway-banner{
+    background:linear-gradient(135deg,rgba(125,224,214,0.08),rgba(179,157,219,0.08));
+    border:1px solid color-mix(in srgb, var(--cyan) 38%, transparent)}
+  .tours-banner{
+    background:linear-gradient(135deg,rgba(255,216,102,0.08),rgba(247,143,179,0.08));
+    border:1px solid color-mix(in srgb, var(--yellow) 38%, transparent)}
   .pathway-banner:hover{transform:translateY(-2px);border-color:var(--cyan)}
-  .pathway-banner .pb-body{flex:1;min-width:0}
-  .pathway-banner .pb-eyebrow{font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:4px}
-  .pathway-banner .pb-title{font-size:1.15rem;font-weight:600;color:#fff;margin:0 0 3px}
-  .pathway-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
-  .pathway-banner .pb-arrow{font-size:1.6rem;color:var(--cyan);flex-shrink:0}
-  @media (max-width:520px){.pathway-banner{flex-direction:column;align-items:flex-start}.pathway-banner .pb-arrow{align-self:flex-end}}
+  .tours-banner:hover{transform:translateY(-2px);border-color:var(--yellow)}
+  .pathway-banner .pb-body,.tours-banner .pb-body{flex:1;min-width:0}
+  .pathway-banner .pb-eyebrow,.tours-banner .pb-eyebrow{font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:4px}
+  .pathway-banner .pb-eyebrow{color:var(--cyan)}
+  .tours-banner .pb-eyebrow{color:var(--yellow)}
+  .pathway-banner .pb-title,.tours-banner .pb-title{font-size:1.15rem;font-weight:600;color:#fff;margin:0 0 3px}
+  .pathway-banner .pb-desc,.tours-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
+  .pathway-banner .pb-arrow,.tours-banner .pb-arrow{font-size:1.6rem;flex-shrink:0}
+  .pathway-banner .pb-arrow{color:var(--cyan)}
+  .tours-banner .pb-arrow{color:var(--yellow)}
+  @media (max-width:520px){.pathway-banner,.tours-banner{flex-direction:column;align-items:flex-start}.pathway-banner .pb-arrow,.tours-banner .pb-arrow{align-self:flex-end}}
 
   /* Featured rail: two-card row sitting between the pathway banner and the
      section-jump nav. Left card surfaces a date-seeded ready-to-master
@@ -440,7 +451,7 @@
   </nav>
   <section class="hero">
     <h1>Probability & statistics</h1>
-    <p class="sub"></p>
+    <p class="sub">Measure-theoretic probability, martingales, stochastic calculus, mixing, information theory, statistical inference, and high-dimensional concentration.</p>
   </section>
 
   <div class="sec">Probability & statistics</div>
@@ -549,28 +560,33 @@
 
     <a class="card g" href="../mathematical-statistics.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
-        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--green)" stroke-width="1.4"/>
-        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--green)" font-style="italic" font-family="serif">draft</text>
+<path d="M 14 60 Q 30 14 50 14 Q 70 14 86 60" stroke="var(--green)" stroke-width="1.5" fill="none"/>
+        <line x1="50" y1="14" x2="50" y2="60" stroke="var(--green)" stroke-width="1" stroke-dasharray="2 2"/>
+        <g fill="var(--green)"><circle cx="50" cy="14" r="3"/></g>
+        <text x="50" y="74" text-anchor="middle" font-family="serif" font-size="11" font-style="italic" fill="var(--green)">L(θ̂)</text>
       </svg></div>
       <div class="body">
         <div class="tt">Mathematical statistics</div>
-        <div class="desc">Draft — fill in once the page has real content.</div>
-        <span class="tag">Probability &amp; statistics</span>
+        <div class="desc">Estimators, MLE and the score equation, Cramér–Rao lower bound, Neyman–Pearson hypothesis testing, Bayesian inference and posterior asymptotics, Wilks' theorem.</div>
+        <span class="tag">MLE · CRLB · NP · Bayes · Wilks</span>
       </div>
     </a>
 
 
     <a class="card g" href="../high-dimensional-geometry.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
-        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--green)" stroke-width="1.4"/>
-        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--green)" font-style="italic" font-family="serif">draft</text>
+<circle cx="50" cy="40" r="26" stroke="var(--green)" stroke-width="1.4" fill="none"/>
+        <g fill="var(--green)" opacity="0.85">
+          <ellipse cx="50" cy="40" rx="24" ry="3" opacity="0.5"/>
+          <ellipse cx="50" cy="40" rx="22" ry="2"/>
+          <ellipse cx="50" cy="40" rx="18" ry="1.4"/>
+        </g>
+        <text x="50" y="74" text-anchor="middle" font-family="serif" font-size="10" font-style="italic" fill="var(--green)">S^{n−1}</text>
       </svg></div>
       <div class="body">
         <div class="tt">High dimensional geometry</div>
-        <div class="desc">Draft — fill in once the page has real content.</div>
-        <span class="tag">Probability &amp; statistics</span>
+        <div class="desc">Concentration of measure on $S^{n-1}$, Dvoretzky almost-spherical sections, Johnson–Lindenstrauss, Talagrand, Gaussian isoperimetry, applications to ML and compressed sensing.</div>
+        <span class="tag">concentration · Dvoretzky · JL · Talagrand</span>
       </div>
     </a>
   </div>

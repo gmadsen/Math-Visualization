@@ -161,18 +161,29 @@
     .section-jump a.sj-link{font-size:0.78rem;padding:0.25rem 0.55rem;
       flex-shrink:0;white-space:nowrap}
   }
-  .pathway-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;
-    background:linear-gradient(135deg,rgba(125,224,214,0.08),rgba(179,157,219,0.08));
-    border:1px solid color-mix(in srgb, var(--cyan) 38%, transparent);
-    border-radius:12px;padding:1.1rem 1.3rem;margin:0 0 2.4rem;text-decoration:none;color:inherit;
+  .start-here-rail{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 2.4rem}
+  @media (max-width:760px){.start-here-rail{grid-template-columns:1fr;gap:10px}}
+  .pathway-banner,.tours-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;
+    border-radius:12px;padding:1.1rem 1.3rem;margin:0;text-decoration:none;color:inherit;
     transition:transform 150ms ease, border-color 150ms ease}
+  .pathway-banner{
+    background:linear-gradient(135deg,rgba(125,224,214,0.08),rgba(179,157,219,0.08));
+    border:1px solid color-mix(in srgb, var(--cyan) 38%, transparent)}
+  .tours-banner{
+    background:linear-gradient(135deg,rgba(255,216,102,0.08),rgba(247,143,179,0.08));
+    border:1px solid color-mix(in srgb, var(--yellow) 38%, transparent)}
   .pathway-banner:hover{transform:translateY(-2px);border-color:var(--cyan)}
-  .pathway-banner .pb-body{flex:1;min-width:0}
-  .pathway-banner .pb-eyebrow{font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:4px}
-  .pathway-banner .pb-title{font-size:1.15rem;font-weight:600;color:#fff;margin:0 0 3px}
-  .pathway-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
-  .pathway-banner .pb-arrow{font-size:1.6rem;color:var(--cyan);flex-shrink:0}
-  @media (max-width:520px){.pathway-banner{flex-direction:column;align-items:flex-start}.pathway-banner .pb-arrow{align-self:flex-end}}
+  .tours-banner:hover{transform:translateY(-2px);border-color:var(--yellow)}
+  .pathway-banner .pb-body,.tours-banner .pb-body{flex:1;min-width:0}
+  .pathway-banner .pb-eyebrow,.tours-banner .pb-eyebrow{font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:4px}
+  .pathway-banner .pb-eyebrow{color:var(--cyan)}
+  .tours-banner .pb-eyebrow{color:var(--yellow)}
+  .pathway-banner .pb-title,.tours-banner .pb-title{font-size:1.15rem;font-weight:600;color:#fff;margin:0 0 3px}
+  .pathway-banner .pb-desc,.tours-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
+  .pathway-banner .pb-arrow,.tours-banner .pb-arrow{font-size:1.6rem;flex-shrink:0}
+  .pathway-banner .pb-arrow{color:var(--cyan)}
+  .tours-banner .pb-arrow{color:var(--yellow)}
+  @media (max-width:520px){.pathway-banner,.tours-banner{flex-direction:column;align-items:flex-start}.pathway-banner .pb-arrow,.tours-banner .pb-arrow{align-self:flex-end}}
 
   /* Featured rail: two-card row sitting between the pathway banner and the
      section-jump nav. Left card surfaces a date-seeded ready-to-master
@@ -440,7 +451,7 @@
   </nav>
   <section class="hero">
     <h1>Algebra & homological</h1>
-    <p class="sub"></p>
+    <p class="sub">Groups, rings, fields, categories, and the homological machinery that connects them — derived categories, group cohomology, Lie algebras, division algebras, quantum groups.</p>
   </section>
 
   <div class="sec">Algebra & homological</div>
@@ -641,42 +652,71 @@
 
     <a class="card y" href="../quantum-groups.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
-        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--yellow)" stroke-width="1.4"/>
-        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--yellow)" font-style="italic" font-family="serif">draft</text>
+<g stroke="var(--yellow)" stroke-width="1.5" fill="none">
+          <line x1="16" y1="20" x2="56" y2="60"/>
+          <line x1="36" y1="20" x2="76" y2="60"/>
+          <line x1="56" y1="20" x2="16" y2="60"/>
+          <line x1="76" y1="20" x2="36" y2="60"/>
+        </g>
+        <g fill="var(--yellow)" font-family="serif" font-size="11" font-style="italic">
+          <text x="46" y="40" text-anchor="middle">R</text>
+        </g>
+        <text x="50" y="74" text-anchor="middle" font-family="serif" font-size="10" fill="var(--yellow)">R₁₂R₁₃R₂₃ = R₂₃R₁₃R₁₂</text>
       </svg></div>
       <div class="body">
         <div class="tt">Quantum groups</div>
-        <div class="desc">Draft — fill in once the page has real content.</div>
-        <span class="tag">Algebra &amp; homological</span>
+        <div class="desc">Hopf-algebra deformations $U_q(\mathfrak{g})$, Drinfeld–Jimbo R-matrices satisfying Yang–Baxter, knot invariants via Reshetikhin–Turaev.</div>
+        <span class="tag">U_q · R-matrix · Yang–Baxter · canonical basis</span>
       </div>
     </a>
 
 
     <a class="card y" href="../quaternions-octonions-and-division-algebras.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
-        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--yellow)" stroke-width="1.4"/>
-        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--yellow)" font-style="italic" font-family="serif">draft</text>
+<g stroke="var(--yellow)" stroke-width="1.4" fill="none">
+          <circle cx="22" cy="40" r="6"/>
+          <circle cx="40" cy="40" r="9"/>
+          <circle cx="58" cy="40" r="12"/>
+          <circle cx="78" cy="40" r="14"/>
+        </g>
+        <g fill="var(--yellow)" font-family="serif" font-size="10" font-style="italic" text-anchor="middle">
+          <text x="22" y="44">ℝ</text>
+          <text x="40" y="44">ℂ</text>
+          <text x="58" y="44">ℍ</text>
+          <text x="78" y="44">𝕆</text>
+        </g>
+        <text x="50" y="74" text-anchor="middle" font-family="serif" font-size="9" fill="var(--mute)">dim 1, 2, 4, 8</text>
       </svg></div>
       <div class="body">
         <div class="tt">Quaternions octonions and division algebras</div>
-        <div class="desc">Draft — fill in once the page has real content.</div>
-        <span class="tag">Algebra &amp; homological</span>
+        <div class="desc">$\mathbb{R} \subset \mathbb{C} \subset \mathbb{H} \subset \mathbb{O}$: Cayley–Dickson doubling loses one structure at each step. Frobenius and Hurwitz close the list at $\mathbb{O}$.</div>
+        <span class="tag">ℍ · 𝕆 · Cayley–Dickson · Frobenius</span>
       </div>
     </a>
 
 
     <a class="card y" href="../geometric-and-combinatorial-group-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
-        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--yellow)" stroke-width="1.4"/>
-        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--yellow)" font-style="italic" font-family="serif">draft</text>
+<g fill="var(--yellow)">
+          <circle cx="50" cy="14" r="2.5"/>
+          <circle cx="76" cy="32" r="2.5"/>
+          <circle cx="68" cy="58" r="2.5"/>
+          <circle cx="32" cy="58" r="2.5"/>
+          <circle cx="24" cy="32" r="2.5"/>
+        </g>
+        <g stroke="var(--yellow)" stroke-width="1.2" fill="none">
+          <polygon points="50,14 76,32 68,58 32,58 24,32"/>
+          <line x1="50" y1="14" x2="68" y2="58"/>
+          <line x1="50" y1="14" x2="32" y2="58"/>
+          <line x1="76" y1="32" x2="32" y2="58"/>
+          <line x1="24" y1="32" x2="68" y2="58"/>
+        </g>
+        <text x="50" y="76" text-anchor="middle" font-family="serif" font-size="10" font-style="italic" fill="var(--yellow)">Cay(G,S)</text>
       </svg></div>
       <div class="body">
         <div class="tt">Geometric and combinatorial group theory</div>
-        <div class="desc">Draft — fill in once the page has real content.</div>
-        <span class="tag">Algebra &amp; homological</span>
+        <div class="desc">Cayley graphs, quasi-isometry, Gromov polynomial-growth theorem, hyperbolic groups, decision problems in finitely-presented groups.</div>
+        <span class="tag">Cayley · quasi-isometry · hyperbolic · word problem</span>
       </div>
     </a>
   </div>

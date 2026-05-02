@@ -38,7 +38,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const repoRoot = resolve(__dirname, '..');
 
-function findMatchingDivEnd(text, startAfterOpenTag) {
+// Exported for scripts/test-find-matching-div.mjs.
+export function findMatchingDivEnd(text, startAfterOpenTag) {
   // text[startAfterOpenTag] is the first byte AFTER the opening <div ...> tag.
   // Walk forward, counting nested <div ...> and </div>, return byte offset
   // of the byte JUST AFTER the matching </div>.
@@ -365,4 +366,10 @@ function main() {
   );
 }
 
-main();
+// Run main only when invoked as a script — leaves findMatchingDivEnd
+// importable for scripts/test-find-matching-div.mjs. Path-equality (rather
+// than URL-string equality) sidesteps the URL-encoding mismatch on paths
+// containing spaces.
+if (process.argv[1] === __filename) {
+  main();
+}

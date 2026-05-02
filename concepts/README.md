@@ -14,7 +14,7 @@ Every entry in `concepts/<topic>.json`'s `concepts` array must carry exactly the
 - **`prereqs`** — array of concept ids (may reference concepts from other topic files). Drives the `locked → ready → mastered` state machine on `pathway.html`. Cycles are a hard validation failure.
 - **`blurb`** — 1–2 sentence summary, rendered in the pathway detail panel.
 
-JSON Schema lives at `schemas/concepts.json` and is enforced by `scripts/validate-schema.mjs`.
+JSON Schema lives at `schemas/concept.schema.json` and is enforced by `scripts/validate-schema.mjs`.
 
 ## Anchor contract
 
@@ -40,9 +40,9 @@ Common pitfall: when renaming an HTML section, the `id` attribute and the JSON `
 A new topic file must be registered in two places:
 
 - **`concepts/index.json`** — the master list of topics. Drives bundle generation, `pathway.html`, and `search.html`.
-- **`concepts/sections.json`** — maps each topic to one of the 7 subjects (Foundations, Algebra, Analysis, Geometry & topology, Number theory, Modular forms & L-functions, Algebraic geometry). `validate-concepts.mjs` fails if a registered topic is missing from `sections.json`.
+- **`concepts/sections.json`** — maps each topic to one of the 11 subjects (Logic & Foundations, Algebra & homological, Higher categories & toposes, Analysis, Probability & statistics, Geometry & topology, Number theory, Modular forms & L-functions, Algebraic geometry, Combinatorics & graph theory, Mathematical physics). `validate-concepts.mjs` fails if a registered topic is missing from `sections.json`.
 
-If the new page is a **capstone**, also extend `concepts/capstones.json` with a capstone entry. Each capstone entry needs a `section` field (one of the 7 subject names) — `pathway.html` uses it to group the capstone dropdown via `<optgroup>`.
+If the new page is a **capstone**, also extend `concepts/capstones.json` with a capstone entry. Each capstone entry needs a `section` field (one of the 11 subject names) — `pathway.html` uses it to group the capstone dropdown via `<optgroup>`.
 
 ## After editing anything under `concepts/`
 
@@ -54,7 +54,7 @@ node scripts/validate-concepts.mjs       # duplicate ids, broken prereqs, cycles
 node scripts/smoke-test.mjs              # anchor contract — every concept's anchor resolves on its topic page
 ```
 
-Or just run `node scripts/rebuild.mjs`, which subsumes all three (and 17 other steps). The bundle rebuild is critical for the `file://` flow — `pathway.html` falls back to `fetch()` under a dev server but breaks silently on double-click if the bundle is stale.
+Or just run `node scripts/rebuild.mjs`, which subsumes all three (and 30 other steps). The bundle rebuild is critical for the `file://` flow — `pathway.html` falls back to `fetch()` under a dev server but breaks silently on double-click if the bundle is stale.
 
 ## Why a separate bundle?
 

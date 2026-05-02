@@ -24,8 +24,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import Ajv2020 from 'ajv/dist/2020.js';
-import addFormats from 'ajv-formats';
+import { makeAjv } from './lib/ajv.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const scriptsDir = dirname(__filename);
@@ -92,8 +91,7 @@ function loadInstancesPerSlug() {
 
 const slugs = listSlugs();
 const instancesPerSlug = loadInstancesPerSlug();
-const ajv = new Ajv2020({ strict: false, allErrors: true });
-addFormats.default ? addFormats.default(ajv) : addFormats(ajv);
+const ajv = makeAjv({ strict: false });
 
 for (const slug of slugs) {
   describe(`widget: ${slug}`, () => {

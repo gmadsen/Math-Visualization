@@ -8,11 +8,11 @@ When something ships, delete its bullet here. The full step list of `rebuild.mjs
 
 From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
-- 131 topics, 916 concepts, 1538 prereq edges (647 cross-topic), 24 capstones
-- 160 concepts lack a widget in their owning section
-- 0 inline widget blocks corpus-wide; 464 registry slugs (every `widget` block in `content/*.json` carries `slug + params`)
-- THIN-NEW count: 13; EMPTY-prereq count: 3 (`ant-prime-counting`, `e-definition`, `adjacency-and-laplacian`)
-- Quiz tiers: v1 = 2587, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
+- 131 topics, 916 concepts, 1634 prereq edges (687 cross-topic), 24 capstones
+- 158 concepts lack a widget in their owning section
+- 0 inline widget blocks corpus-wide; 464 registry slug directories (463 in active use; every `widget` block in `content/*.json` carries `slug + params`)
+- THIN-NEW count: 13; EMPTY-prereq count: 1 (`aca-overview`)
+- Quiz tiers: v1 = 2703, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 
 ## Shipped recently
 
@@ -20,10 +20,20 @@ PRs #45 and #46 (merged 2026-05-01):
 
 - **Sidetoc → shared `js/sidetoc.js`** (was inlined per topic page).
 - **`hamiltonians-figure` shared slug** absorbing 6 per-widget `hamiltonians-*` slugs via `oneOf` over input control families.
-- **Inline-widget migration corpus-wide.** 0 inline widget blocks remain (was ~250 across ~40 topics). 464 registry slugs total. 14 batches × 3 parallel agents.
+- **Inline-widget migration corpus-wide.** 0 inline widget blocks remain (was ~250 across ~40 topics). 464 registry slug directories. 14 batches × 3 parallel agents.
 - **`fix-a11y` JSON-side migration.** Patches now stick across rebuilds — 53 SVG titles + missing labels persist.
 - **`audit-canvas-stub`** drift detection (now backed by hand-maintained `STUBBED_MEMBERS` set + asymmetric sync check).
-- **`migrate-inline-widget`** helper (handles 4 dialects: span/div ttl/hint, multi-line `.hd`, legacy `{html, script}`, leading-newline scripts; auto-detects inline HTML in title/hint and emits raw vs `escapeHtml(...)` accordingly).
+
+PR #48 (merged, infra round):
+
+- **`scripts/lib/html-walk.mjs`** — `matchClose`, `balancedRange`. Replaces 6 bespoke depth-balancing variants in `fix-a11y`, `audit-callbacks`, etc.
+- **`scripts/lib/audit-utils.mjs`** — added `parseTopicHtmlSafe()` and `recoverDroppedNodes()` to recover from node-html-parser silent drops; `audit-inline-links` migrated.
+- **`scripts/lib/ajv.mjs`** — `makeAjv()` factory; 3 callers consolidated.
+- **`audit-doc-drift.mjs:checkCorpusSnapshot()`** — corpus-snapshot CI gate (exits 1 on numeric drift).
+- **`build-section-indexes.mjs`** wired into rebuild; `inject-page-metadata.mjs` flag inverted to `--fix` and wired in too; `audit-notation.mjs` wired as advisory.
+- **3 new fixture tests** for previously-untested helpers (`splitMultiIife`, `findMatchingDivEnd`, `matchClose` + `parseTopicHtmlSafe`); 3 follow-up fixture tests addressing review comments (`makeAjv`, `checkCorpusSnapshot`, `checkSvgViewbox`).
+- **24 doc-drift numerical claims fixed** + structural prevention layer added.
+- **Deleted** `migrate-inline-widget.mjs`, `audit-responsive.mjs`. `svg-no-viewbox` check folded into `audit-accessibility.mjs`.
 - **`repair-widget-scripts --allow-drift`** for multi-IIFE-in-one-`<script>` topics.
 - **Two audits migrated to `loadContentModel()`:** audit-widget-interactivity, audit-cross-page-consistency.
 - **`scripts/lib/script-scan.mjs`** extracted (was duplicated in extract-topic + repair-widget-scripts).
@@ -41,7 +51,7 @@ PRs #45 and #46 (merged 2026-05-01):
 
 ## Near-term tasks
 
-- **Tier 1 tagging pass — coverage tail.** ~200 of the 575 (creative-improvements–era) concepts remain untagged. The tagging agent reached 62.8 % with quality > coverage; a focused follow-up on Modular forms / L-functions / capstones could close real gaps. Recount before resuming — concept count has grown to 916.
+- **Tier 1 tagging pass — coverage tail.** A meaningful number of concepts remain untagged. The tagging agent reached 62.8 % with quality > coverage; a focused follow-up on Modular forms / L-functions / capstones could close real gaps. Recount once the pass resumes — concept count is now 916.
 - **Expand `advanced-complex-analysis`.** The topic shipped with 8 graduate concepts. Still absent and worth adding: Bloch's theorem (mentioned in the Connections list, no own section), Nevanlinna theory + characteristic function $T(r,f)$, Bergman kernels, quasiconformal maps + Beltrami equation, several complex variables. Each is a natural section of comparable scope to the existing 8.
 - **Math physics has no `hard` tier and Combinatorics has no `hard` tier.** 12 topics × ~6 concepts × 2-3 questions each = ~150 missing hard-tier questions. Per "Out of scope", de-prioritized — listed here so the gap is visible, not actioned.
 
@@ -59,11 +69,8 @@ PRs #45 and #46 (merged 2026-05-01):
 
 `scripts/` carries 50+ entries; items still worth reviewing:
 
-- **Candidates to merge or drop:** `audit-responsive.mjs` overlaps with `audit-accessibility.mjs`; `audit-notation.mjs`, `audit-worked-examples.mjs`, `audit-blurb-question-alignment.mjs` — low-usage, confirm signal value.
+- **Low-usage audits — confirm signal value:** `audit-worked-examples.mjs`, `audit-blurb-question-alignment.mjs`. Each has actionable output but isn't part of the rebuild chain or any current workflow. Decide whether to wire one in or document a quality-pass cadence for running them. (`audit-notation.mjs` shipped as advisory step 30 in PR #48.)
 - **Consolidation candidates:** `validate-concepts.mjs` still reads `index.json` directly because the validator is the gate before the loader runs — circular dependency that's intentional, leave it. `audit-widget-interactivity.mjs` and `audit-cross-page-consistency.mjs` were migrated to `loadContentModel()`.
-- **Hoist depth-balanced div/section walkers into `lib/html-walk.mjs`.** `matchDivClose` (fix-a11y), `findScripts` (already in `lib/script-scan.mjs`), the section regex-fallback in audit-callbacks, and the inline div-balancers in `read-prose.mjs` + `audit-widget-interactivity.mjs` + `audit-utils.mjs` are subtly different copies of the same depth-balancing logic. One shared helper avoids future drift.
-- **`splitMultiIife` (repair-widget-scripts.mjs) needs a fixture test.** The off-by-one fix in PR #45 commit a208609 shipped 6 broken bodyScripts before being caught; a small `scripts/test-*` fixture asserting the per-IIFE chunk contents would have surfaced it pre-merge.
-- **Refactor `migrate-inline-widget.mjs` dialect dispatch into a declarative pipeline.** Today's 4 dialects (span/div ttl/hint, multi-line `.hd`, legacy `script` field, leading whitespace in legacy scripts) are handled by procedural cascade. A `extractWidgetShape(block, scriptBlock) → { title, hint, bodyMarkup, bodyScript, sectionComment, headerTag }` function with internal try-each-dialect would separate "what's the inline form" from "what gets written to disk."
 - **Unify `fix-a11y` JSON-mode and HTML-mode pipelines.** The two parallel paths (JSON for topic pages with `content/<slug>.json`, HTML for landing/utility pages) build per-block deltas vs before/after counters in two places. A common `applyA11yToText(html, opts) → {newHtml, stats}` would halve the report-bookkeeping code.
 
 ## NPM packages — candidates worth evaluating
@@ -85,7 +92,7 @@ Items raised by the review-team agents that were deferred at merge time. **All q
 
 Items the user has explicitly de-prioritized. **Don't suggest these as "what next" without prompting.**
 
-- **Hard-tier quiz authoring** (67 concepts lack hard tier).
+- **Hard-tier quiz authoring** (478 concepts lack hard tier).
 - **Expert-tier authoring** (13 questions corpus-wide).
 
 These are real coverage gaps but not where the user wants to spend time. Per-session feedback memory: lowest-leverage direction, structural/architectural improvements come first.

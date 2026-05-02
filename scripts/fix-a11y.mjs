@@ -31,6 +31,7 @@
 import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { matchClose } from './lib/html-walk.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..');
@@ -76,34 +77,12 @@ function stripTags(s) {
   return s.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
 }
 
-// Depth-balanced <div class="..."> extractor. Given `html`, the index of an
-// already-matched opening tag (at `openStart`, tag ends at `openEnd`), returns
-// the position of the matching </div> (start of the closer). Returns -1 on
-// runaway.
+// Depth-balanced <div> matcher: returns the offset of the `<` of the matching
+// </div>, or -1 on runaway. Thin shim over scripts/lib/html-walk.mjs's
+// matchClose() preserved for the call-site shape (returns offset, not range).
 function matchDivClose(html, openEnd) {
-  const divOpenRe = /<div\b[^>]*>/gi;
-  const divCloseRe = /<\/div\s*>/gi;
-  divOpenRe.lastIndex = openEnd;
-  divCloseRe.lastIndex = openEnd;
-  let depth = 1;
-  let safety = 0;
-  while (depth > 0) {
-    if (++safety > 100000) return -1;
-    const savedOpen = divOpenRe.lastIndex;
-    const savedClose = divCloseRe.lastIndex;
-    const o = divOpenRe.exec(html);
-    const c = divCloseRe.exec(html);
-    if (!c) return -1;
-    if (o && o.index < c.index) {
-      depth++;
-      divCloseRe.lastIndex = Math.max(savedClose, o.index + o[0].length);
-    } else {
-      depth--;
-      if (depth === 0) return c.index;
-      divOpenRe.lastIndex = Math.max(savedOpen, c.index + c[0].length);
-    }
-  }
-  return -1;
+  const r = matchClose(html, openEnd, 'div');
+  return r ? r.closeStart : -1;
 }
 
 // Return array of { outerStart, outerEnd, openEnd, innerEnd, body } for every
@@ -151,8 +130,8 @@ function inRanges(idx, ranges) {
 }
 
 // Find every <section id="..."> on the page. Returns array of { start, end, h2 }
-// where `end` is the position of the matching </section>, and `h2` is the
-// inner text of the section's first <h2>, or "".
+// where `end` is one past the matching </section>, and `h2` is the inner text
+// of the section's first <h2>, or "".
 function findSectionsWithH2(html) {
   const out = [];
   const re = /<section\b([^>]*)>/gi;
@@ -160,36 +139,14 @@ function findSectionsWithH2(html) {
   while ((m = re.exec(html))) {
     const openStart = m.index;
     const openEnd = m.index + m[0].length;
-    // Find matching </section>. Sections don't nest in this codebase but
-    // we use a depth-balanced walk anyway.
-    const openRe = /<section\b[^>]*>/gi;
-    const closeRe = /<\/section\s*>/gi;
-    openRe.lastIndex = openEnd;
-    closeRe.lastIndex = openEnd;
-    let depth = 1;
-    let safety = 0;
-    let end = html.length;
-    while (depth > 0) {
-      if (++safety > 100000) break;
-      const savedOpen = openRe.lastIndex;
-      const savedClose = closeRe.lastIndex;
-      const o = openRe.exec(html);
-      const c = closeRe.exec(html);
-      if (!c) break;
-      if (o && o.index < c.index) {
-        depth++;
-        closeRe.lastIndex = Math.max(savedClose, o.index + o[0].length);
-      } else {
-        depth--;
-        if (depth === 0) { end = c.index; break; }
-        openRe.lastIndex = Math.max(savedOpen, c.index + c[0].length);
-      }
-    }
-    const body = html.slice(openEnd, end);
+    const close = matchClose(html, openEnd, 'section');
+    const innerEnd = close ? close.closeStart : html.length;
+    const outerEnd = close ? close.closeEnd : html.length;
+    const body = html.slice(openEnd, innerEnd);
     const h2m = body.match(/<h2\b[^>]*>([\s\S]*?)<\/h2>/i);
     const h2 = h2m ? stripTags(h2m[1]) : '';
-    out.push({ start: openStart, end: end + '</section>'.length, h2 });
-    re.lastIndex = end + '</section>'.length;
+    out.push({ start: openStart, end: outerEnd, h2 });
+    re.lastIndex = outerEnd;
   }
   return out;
 }

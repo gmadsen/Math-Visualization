@@ -161,18 +161,29 @@
     .section-jump a.sj-link{font-size:0.78rem;padding:0.25rem 0.55rem;
       flex-shrink:0;white-space:nowrap}
   }
-  .pathway-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;
-    background:linear-gradient(135deg,rgba(125,224,214,0.08),rgba(179,157,219,0.08));
-    border:1px solid color-mix(in srgb, var(--cyan) 38%, transparent);
-    border-radius:12px;padding:1.1rem 1.3rem;margin:0 0 2.4rem;text-decoration:none;color:inherit;
+  .start-here-rail{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 2.4rem}
+  @media (max-width:760px){.start-here-rail{grid-template-columns:1fr;gap:10px}}
+  .pathway-banner,.tours-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;
+    border-radius:12px;padding:1.1rem 1.3rem;margin:0;text-decoration:none;color:inherit;
     transition:transform 150ms ease, border-color 150ms ease}
+  .pathway-banner{
+    background:linear-gradient(135deg,rgba(125,224,214,0.08),rgba(179,157,219,0.08));
+    border:1px solid color-mix(in srgb, var(--cyan) 38%, transparent)}
+  .tours-banner{
+    background:linear-gradient(135deg,rgba(255,216,102,0.08),rgba(247,143,179,0.08));
+    border:1px solid color-mix(in srgb, var(--yellow) 38%, transparent)}
   .pathway-banner:hover{transform:translateY(-2px);border-color:var(--cyan)}
-  .pathway-banner .pb-body{flex:1;min-width:0}
-  .pathway-banner .pb-eyebrow{font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:4px}
-  .pathway-banner .pb-title{font-size:1.15rem;font-weight:600;color:#fff;margin:0 0 3px}
-  .pathway-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
-  .pathway-banner .pb-arrow{font-size:1.6rem;color:var(--cyan);flex-shrink:0}
-  @media (max-width:520px){.pathway-banner{flex-direction:column;align-items:flex-start}.pathway-banner .pb-arrow{align-self:flex-end}}
+  .tours-banner:hover{transform:translateY(-2px);border-color:var(--yellow)}
+  .pathway-banner .pb-body,.tours-banner .pb-body{flex:1;min-width:0}
+  .pathway-banner .pb-eyebrow,.tours-banner .pb-eyebrow{font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:4px}
+  .pathway-banner .pb-eyebrow{color:var(--cyan)}
+  .tours-banner .pb-eyebrow{color:var(--yellow)}
+  .pathway-banner .pb-title,.tours-banner .pb-title{font-size:1.15rem;font-weight:600;color:#fff;margin:0 0 3px}
+  .pathway-banner .pb-desc,.tours-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
+  .pathway-banner .pb-arrow,.tours-banner .pb-arrow{font-size:1.6rem;flex-shrink:0}
+  .pathway-banner .pb-arrow{color:var(--cyan)}
+  .tours-banner .pb-arrow{color:var(--yellow)}
+  @media (max-width:520px){.pathway-banner,.tours-banner{flex-direction:column;align-items:flex-start}.pathway-banner .pb-arrow,.tours-banner .pb-arrow{align-self:flex-end}}
 
   /* Featured rail: two-card row sitting between the pathway banner and the
      section-jump nav. Left card surfaces a date-seeded ready-to-master
@@ -440,7 +451,7 @@
   </nav>
   <section class="hero">
     <h1>Analysis</h1>
-    <p class="sub">Limits, convergence, measure, Banach/Hilbert spaces, and operator-algebraic traces.</p>
+    <p class="sub">Limits, convergence, measure, Banach/Hilbert spaces, operator algebras, harmonic and Sobolev theory.</p>
   </section>
 
   <div class="sec">Analysis</div>
@@ -670,25 +681,40 @@
 
     <a class="card p" href="../wavelets.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
-        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--pink)" stroke-width="1.4"/>
-        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--pink)" font-style="italic" font-family="serif">draft</text>
+<g stroke="var(--pink)" stroke-width="1.4" fill="none">
+          <path d="M 14 40 L 22 40 L 22 24 L 30 24 L 30 56 L 38 56 L 38 40 L 50 40"/>
+          <path d="M 50 40 L 56 40 L 56 30 L 60 30 L 60 50 L 64 50 L 64 38 L 68 38 L 68 42 L 72 42 L 72 38 L 86 38" opacity="0.7"/>
+        </g>
+        <g stroke="var(--pink)" stroke-width="0.8" stroke-dasharray="2 2" opacity="0.4">
+          <line x1="14" y1="40" x2="86" y2="40"/>
+        </g>
+        <text x="50" y="74" text-anchor="middle" font-family="serif" font-size="10" font-style="italic" fill="var(--pink)">ψ(t)</text>
       </svg></div>
       <div class="body">
         <div class="tt">Wavelets</div>
-        <div class="desc">Draft — fill in once the page has real content.</div>
-        <span class="tag">Analysis</span>
+        <div class="desc">Multiresolution analysis on $L^2(\mathbb{R})$, Haar and Daubechies bases, fast pyramid transform, time–frequency localisation, image-compression and denoising.</div>
+        <span class="tag">multiresolution · Haar · DWT · time-freq</span>
       </div>
     </a>
 
 
     <a class="card p" href="../numerical-analysis.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
-        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--pink)" stroke-width="1.4"/>
-        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--pink)" font-style="italic" font-family="serif">draft</text>
+<path d="M 14 60 C 30 60, 36 14, 50 40 C 60 60, 70 30, 86 30" stroke="var(--pink)" stroke-width="1.4" fill="none"/>
+        <g fill="var(--pink)">
+          <circle cx="14" cy="60" r="3"/>
+          <circle cx="34" cy="42" r="3"/>
+          <circle cx="44" cy="38" r="3"/>
+          <circle cx="48" cy="38" r="3"/>
+        </g>
+        <line x1="14" y1="60" x2="34" y2="42" stroke="var(--pink)" stroke-width="0.8" stroke-dasharray="2 2"/>
+        <line x1="34" y1="42" x2="44" y2="38" stroke="var(--pink)" stroke-width="0.8" stroke-dasharray="2 2"/>
+        <text x="50" y="74" text-anchor="middle" font-family="serif" font-size="10" font-style="italic" fill="var(--pink)">x_{n+1} = x_n − f/f'</text>
       </svg></div>
       <div class="body">
+        <div class="tt">Schrodinger equation</div>
+        <div class="desc">Floating-point and conditioning, root-finding (Newton, bisection), quadrature (trapezoid, Simpson, Gauss), linear systems (LU, CG), finite differences and finite elements.</div>
+        <span class="tag">IEEE · Newton · CG · FEM</span>
         <div class="tt">Numerical analysis</div>
         <div class="desc">Draft — fill in once the page has real content.</div>
         <span class="tag">Analysis</span>
@@ -698,28 +724,54 @@
 
     <a class="card p" href="../variational-methods.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
-        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--pink)" stroke-width="1.4"/>
-        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--pink)" font-style="italic" font-family="serif">draft</text>
+<path d="M 14 60 C 25 60, 30 18, 50 18 C 70 18, 75 60, 86 60" stroke="var(--pink)" stroke-width="1.4" fill="none" opacity="0.6"/>
+        <path d="M 14 60 C 26 60, 38 28, 50 28 C 62 28, 74 60, 86 60" stroke="var(--pink)" stroke-width="1.4" fill="none"/>
+        <g fill="var(--pink)"><circle cx="50" cy="28" r="2.5"/></g>
+        <text x="50" y="74" text-anchor="middle" font-family="serif" font-size="11" font-style="italic" fill="var(--pink)">δJ = 0</text>
       </svg></div>
       <div class="body">
         <div class="tt">Variational methods</div>
-        <div class="desc">Draft — fill in once the page has real content.</div>
-        <span class="tag">Analysis</span>
+        <div class="desc">Functional derivatives, Euler–Lagrange equations, Tonelli's direct method, mountain-pass theorem, isoperimetric inequalities, geodesics and minimal surfaces.</div>
+        <span class="tag">δJ/δu · Euler–Lagrange · mountain-pass</span>
       </div>
     </a>
 
 
     <a class="card p" href="../fixed-point-theorems.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
-        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--pink)" stroke-width="1.4"/>
-        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--pink)" font-style="italic" font-family="serif">draft</text>
+<line x1="14" y1="60" x2="86" y2="60" stroke="var(--pink)" stroke-width="1.2"/>
+        <line x1="14" y1="14" x2="86" y2="60" stroke="var(--pink)" stroke-width="0.9" stroke-dasharray="2 2"/>
+        <path d="M 14 60 L 26 50 L 26 32 L 38 32 L 38 26 L 50 26 L 50 24" stroke="var(--pink)" stroke-width="1.5" fill="none"/>
+        <g fill="var(--pink)"><circle cx="50" cy="24" r="3"/></g>
+        <text x="50" y="74" text-anchor="middle" font-family="serif" font-size="11" font-style="italic" fill="var(--pink)">f(x*) = x*</text>
       </svg></div>
       <div class="body">
         <div class="tt">Fixed point theorems</div>
-        <div class="desc">Draft — fill in once the page has real content.</div>
-        <span class="tag">Analysis</span>
+        <div class="desc">Banach contraction, Brouwer fixed-point, Schauder for compact infinite-dim, Lefschetz via cohomology, Kakutani for set-valued maps; applications to ODEs, equilibria, IFT.</div>
+        <span class="tag">Banach · Brouwer · Schauder · Lefschetz</span>
+      </div>
+    </a>
+
+
+    <a class="card p" href="../advanced-complex-analysis.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- essential singularity at origin: dense image punctured by one missing value -->
+        <circle cx="50" cy="40" r="26" fill="none" stroke="var(--pink)" stroke-width="1.2" stroke-dasharray="2 2"/>
+        <g fill="var(--pink)" opacity="0.85">
+          <circle cx="38" cy="28" r="1.2"/><circle cx="60" cy="22" r="1.2"/><circle cx="68" cy="36" r="1.2"/>
+          <circle cx="62" cy="54" r="1.2"/><circle cx="46" cy="58" r="1.2"/><circle cx="32" cy="50" r="1.2"/>
+          <circle cx="28" cy="36" r="1.2"/><circle cx="48" cy="46" r="1.2"/><circle cx="56" cy="32" r="1.2"/>
+          <circle cx="42" cy="38" r="1.2"/><circle cx="54" cy="44" r="1.2"/><circle cx="38" cy="48" r="1.2"/>
+        </g>
+        <circle cx="50" cy="40" r="2.4" fill="none" stroke="var(--yellow)" stroke-width="1.4"/>
+        <line x1="48.4" y1="38.4" x2="51.6" y2="41.6" stroke="var(--yellow)" stroke-width="1.2"/>
+        <line x1="51.6" y1="38.4" x2="48.4" y2="41.6" stroke="var(--yellow)" stroke-width="1.2"/>
+        <text x="50" y="74" text-anchor="middle" font-size="9" fill="var(--pink)" font-style="italic" font-family="serif">f hits every value but one</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Advanced complex analysis</div>
+        <div class="desc">Picard's theorems, Weierstrass factorization, Mittag-Leffler, Phragmén-Lindelöf, three-circles, and Hardy-space boundary behavior — the graduate sequel.</div>
+        <span class="tag">Picard · factorization · Phragmén-Lindelöf · Hardy</span>
       </div>
     </a>
   </div>

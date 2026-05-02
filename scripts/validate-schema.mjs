@@ -17,8 +17,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import Ajv2020 from 'ajv/dist/2020.js';
-import addFormats from 'ajv-formats';
+import { makeAjv } from './lib/ajv.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const scriptsDir = dirname(__filename);
@@ -36,8 +35,7 @@ function readJson(absPath) {
 }
 
 // Ajv setup — same options the schema-authoring agent verified clean.
-const ajv = new Ajv2020({ allErrors: true, strict: true });
-addFormats(ajv);
+const ajv = makeAjv();
 
 let validateConcept;
 let validateQuiz;

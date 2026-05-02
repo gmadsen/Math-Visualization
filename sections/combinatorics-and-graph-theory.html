@@ -161,18 +161,29 @@
     .section-jump a.sj-link{font-size:0.78rem;padding:0.25rem 0.55rem;
       flex-shrink:0;white-space:nowrap}
   }
-  .pathway-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;
-    background:linear-gradient(135deg,rgba(125,224,214,0.08),rgba(179,157,219,0.08));
-    border:1px solid color-mix(in srgb, var(--cyan) 38%, transparent);
-    border-radius:12px;padding:1.1rem 1.3rem;margin:0 0 2.4rem;text-decoration:none;color:inherit;
+  .start-here-rail{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 2.4rem}
+  @media (max-width:760px){.start-here-rail{grid-template-columns:1fr;gap:10px}}
+  .pathway-banner,.tours-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;
+    border-radius:12px;padding:1.1rem 1.3rem;margin:0;text-decoration:none;color:inherit;
     transition:transform 150ms ease, border-color 150ms ease}
+  .pathway-banner{
+    background:linear-gradient(135deg,rgba(125,224,214,0.08),rgba(179,157,219,0.08));
+    border:1px solid color-mix(in srgb, var(--cyan) 38%, transparent)}
+  .tours-banner{
+    background:linear-gradient(135deg,rgba(255,216,102,0.08),rgba(247,143,179,0.08));
+    border:1px solid color-mix(in srgb, var(--yellow) 38%, transparent)}
   .pathway-banner:hover{transform:translateY(-2px);border-color:var(--cyan)}
-  .pathway-banner .pb-body{flex:1;min-width:0}
-  .pathway-banner .pb-eyebrow{font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--cyan);margin-bottom:4px}
-  .pathway-banner .pb-title{font-size:1.15rem;font-weight:600;color:#fff;margin:0 0 3px}
-  .pathway-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
-  .pathway-banner .pb-arrow{font-size:1.6rem;color:var(--cyan);flex-shrink:0}
-  @media (max-width:520px){.pathway-banner{flex-direction:column;align-items:flex-start}.pathway-banner .pb-arrow{align-self:flex-end}}
+  .tours-banner:hover{transform:translateY(-2px);border-color:var(--yellow)}
+  .pathway-banner .pb-body,.tours-banner .pb-body{flex:1;min-width:0}
+  .pathway-banner .pb-eyebrow,.tours-banner .pb-eyebrow{font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:4px}
+  .pathway-banner .pb-eyebrow{color:var(--cyan)}
+  .tours-banner .pb-eyebrow{color:var(--yellow)}
+  .pathway-banner .pb-title,.tours-banner .pb-title{font-size:1.15rem;font-weight:600;color:#fff;margin:0 0 3px}
+  .pathway-banner .pb-desc,.tours-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
+  .pathway-banner .pb-arrow,.tours-banner .pb-arrow{font-size:1.6rem;flex-shrink:0}
+  .pathway-banner .pb-arrow{color:var(--cyan)}
+  .tours-banner .pb-arrow{color:var(--yellow)}
+  @media (max-width:520px){.pathway-banner,.tours-banner{flex-direction:column;align-items:flex-start}.pathway-banner .pb-arrow,.tours-banner .pb-arrow{align-self:flex-end}}
 
   /* Featured rail: two-card row sitting between the pathway banner and the
      section-jump nav. Left card surfaces a date-seeded ready-to-master
@@ -440,7 +451,7 @@
   </nav>
   <section class="hero">
     <h1>Combinatorics & graph theory</h1>
-    <p class="sub"></p>
+    <p class="sub">Spectral and extremal combinatorics, the probabilistic method, matroids, designs, and expanders.</p>
   </section>
 
   <div class="sec">Combinatorics & graph theory</div>
@@ -573,28 +584,47 @@
 
     <a class="card v" href="../designs.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
-        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--violet)" stroke-width="1.4"/>
-        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--violet)" font-style="italic" font-family="serif">draft</text>
+<g fill="none" stroke="var(--violet)" stroke-width="1.3">
+          <circle cx="50" cy="40" r="22"/>
+          <line x1="28" y1="40" x2="72" y2="40"/>
+          <line x1="38" y1="20" x2="62" y2="60"/>
+          <line x1="62" y1="20" x2="38" y2="60"/>
+          <circle cx="50" cy="40" r="9"/>
+        </g>
+        <g fill="var(--violet)">
+          <circle cx="50" cy="18" r="2.2"/><circle cx="50" cy="62" r="2.2"/>
+          <circle cx="32" cy="40" r="2.2"/><circle cx="68" cy="40" r="2.2"/>
+          <circle cx="40" cy="28" r="2.2"/><circle cx="60" cy="28" r="2.2"/>
+          <circle cx="50" cy="40" r="2.2"/>
+        </g>
       </svg></div>
       <div class="body">
         <div class="tt">Designs</div>
-        <div class="desc">Draft — fill in once the page has real content.</div>
-        <span class="tag">Combinatorics &amp; graph theory</span>
+        <div class="desc">Block designs (BIBD), Fisher inequality, finite projective planes (Bruck–Ryser), Latin squares, error-correcting codes, applications to experimental design and coding.</div>
+        <span class="tag">BIBD · Fano · MOLS · Steiner</span>
       </div>
     </a>
 
 
     <a class="card v" href="../expanders.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- TODO: replace this placeholder thumb with a motif evocative of the topic. -->
-        <rect x="18" y="18" width="64" height="44" rx="6" fill="none" stroke="var(--violet)" stroke-width="1.4"/>
-        <text x="50" y="46" text-anchor="middle" font-size="10" fill="var(--violet)" font-style="italic" font-family="serif">draft</text>
+<g fill="var(--violet)">
+          <circle cx="22" cy="22" r="2.5"/><circle cx="50" cy="14" r="2.5"/><circle cx="78" cy="22" r="2.5"/>
+          <circle cx="14" cy="50" r="2.5"/><circle cx="86" cy="50" r="2.5"/>
+          <circle cx="32" cy="62" r="2.5"/><circle cx="68" cy="62" r="2.5"/>
+        </g>
+        <g stroke="var(--violet)" stroke-width="1.1" fill="none">
+          <line x1="22" y1="22" x2="50" y2="14"/><line x1="50" y1="14" x2="78" y2="22"/>
+          <line x1="22" y1="22" x2="86" y2="50"/><line x1="78" y1="22" x2="14" y2="50"/>
+          <line x1="14" y1="50" x2="68" y2="62"/><line x1="86" y1="50" x2="32" y2="62"/>
+          <line x1="22" y1="22" x2="32" y2="62"/><line x1="78" y1="22" x2="68" y2="62"/>
+          <line x1="50" y1="14" x2="14" y2="50"/><line x1="50" y1="14" x2="86" y2="50"/>
+        </g>
       </svg></div>
       <div class="body">
         <div class="tt">Expanders</div>
-        <div class="desc">Draft — fill in once the page has real content.</div>
-        <span class="tag">Combinatorics &amp; graph theory</span>
+        <div class="desc">Sparse highly-connected graphs: spectral gap, Cheeger inequality, Margulis–Ramanujan constructions, zigzag product, applications to coding, derandomisation, mixing.</div>
+        <span class="tag">expansion · spectral gap · Ramanujan</span>
       </div>
     </a>
   </div>

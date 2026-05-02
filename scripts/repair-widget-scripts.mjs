@@ -103,7 +103,9 @@ function collectParamIds(obj, out) {
 // `(function(){\n` and `\n})();`. Re-rendering with the migration helper's
 // per-widget renderScript template wraps each chunk back into a standalone
 // <script> tag.
-function splitMultiIife(scriptInner) {
+//
+// Exported for scripts/test-multi-iife-split.mjs.
+export function splitMultiIife(scriptInner) {
   // Match `(function(){…})();` blocks. JS regexes don't balance braces, so
   // we walk the string character-by-character looking for a `(function(){`
   // opener at top level (depth 0), then balance braces until the matching
@@ -459,4 +461,12 @@ function main() {
   if (dry) console.log('(dry run; no files written)');
 }
 
-main();
+// Run main only when invoked as a script — leaves splitMultiIife importable
+// for scripts/test-multi-iife-split.mjs without firing the corpus-wide repair.
+// `__filename` is a resolved absolute path; `process.argv[1]` is the resolved
+// path Node was launched with. Comparing them avoids the URL-encoding
+// pitfalls of the `file://${argv1}` string form (paths with spaces produce a
+// false negative because the URL form isn't percent-encoded).
+if (process.argv[1] === __filename) {
+  main();
+}

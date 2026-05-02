@@ -49,13 +49,9 @@ content/                      per-topic block-level JSON (raw / widget / widget-
 widgets/                      widget registry: schema.json + index.mjs + README.md per slug
 schemas/                      JSON Schemas for concept graph + quiz banks
 audits/                       generated graph-health reports (TSV + Markdown summary)
-js/progress.js                mastery store (localStorage)
-js/quiz.js                    quiz widget
-js/katex-select.js            LaTeX-in-<option> shim
-js/theme-toggle.js            dark/light theme toggle
-js/display-prefs.js           reader-side widget/quiz hide toggle
+js/                           progress + quiz core (progress.js, quiz.js) plus per-page UX modules (sidetoc, theme-toggle, display-prefs, katex-select, breadcrumb, glossary-popover, onboarding, topic-hotkeys, topic-lineage) and per-widget runtime libraries (widget-*.js)
 scripts/                      validators, audits, bundle builders, packaging
-scripts/lib/                  shared loader (content-model.mjs) + audit-utils.mjs
+scripts/lib/                  shared libs: content-model, audit-utils (incl. parseTopicHtmlSafe), html-walk, ajv, script-scan, json-block-writer, html-injector
 .github/workflows/verify.yml  CI entry point
 AGENTS.md                     this file
 PLAN.md                       forward priorities and next tasks
@@ -65,18 +61,18 @@ Vanilla HTML/CSS/JS, no framework. `scripts/` is the "build system": small Node 
 
 **Full script catalog: [`scripts/README.md`](./scripts/README.md)** — one row per `.mjs`, grouped by role (orchestration, builders, repair tools, injectors, validators, advisory audits, tests). The categories at a glance:
 
-- **Quality gates** (`validate-concepts`, `validate-katex`, `validate-schema`, `validate-widget-params`, `test-widget-renderers`, `smoke-test`, `test-roundtrip`, `audit-callbacks`) — non-zero on failure; CI fails.
-- **Injectors / fixers** that mutate HTML idempotently (`audit-callbacks --fix`, `inject-used-in-backlinks --fix`, `inject-breadcrumb --fix`, `inject-display-prefs --fix`, `inject-index-stats --fix`, `inject-changelog-footer`, `fix-a11y --fix`, `color-vars --fix`, `wire-katex-select --fix`, `repair-widget-scripts`).
+- **Quality gates** (`validate-concepts`, `validate-katex`, `validate-schema`, `validate-widget-params`, `audit-concept-latex`, `test-widget-renderers`, `test-widget-hydration`, `smoke-test`, `test-roundtrip`, `audit-callbacks`, `audit-starter-concepts`) — non-zero on failure; CI fails.
+- **Injectors / fixers** that mutate content idempotently (`audit-callbacks --fix`, `inject-used-in-backlinks --fix`, `inject-breadcrumb --fix`, `inject-display-prefs --fix`, `inject-index-stats --fix`, `inject-changelog-footer`, `fix-a11y --fix`, `color-vars --fix`, `wire-katex-select --fix`, `repair-widget-scripts`).
 - **Builders** that produce derived files (`build-concepts-bundle`, `build-quizzes-bundle`, `build-widgets-bundle`, `build-search-index`, `build-section-indexes`, `extract-topic`, `render-topic`, `package-offline`, `new-topic`, `new-widget`).
-- **Advisory audits** that exit 0 and write `audits/*.md` (`stats-coverage`, `audit-graph-health`, `audit-stale-blurbs`, `audit-blurb-question-alignment`, `audit-worked-examples`, `audit-cross-topic-prereqs`, `audit-inline-links`, `audit-backlinks`, `audit-notation`, `audit-widget-interactivity`, `audit-accessibility`, `audit-responsive`, `audit-cross-page-consistency`, `audit-bundle-staleness`, `audit-draft-index-cards`, `audit-doc-drift`).
+- **Advisory audits** that exit 0 (most print to stdout; `stats-coverage`, `audit-graph-health`, and `audit-starter-concepts` also write under `audits/`): `audit-stale-blurbs`, `audit-blurb-question-alignment`, `audit-worked-examples`, `audit-cross-topic-prereqs`, `audit-inline-links`, `audit-backlinks`, `audit-notation`, `audit-widget-interactivity`, `audit-accessibility` (now also covers SVG `viewBox`), `audit-cross-page-consistency`, `audit-bundle-staleness`, `audit-draft-index-cards`, `audit-doc-drift`, `audit-canvas-stub`, `audit-slug-flavored-titles`.
 - **Tests** (`test-offline-bundle`, `test-mobile-perf`).
-- **Shared libraries** in `scripts/lib/` — [`content-model.mjs`](./scripts/lib/content-model.mjs) (`loadContentModel()` returns memoized `concepts`, `quizBanks`, `byPrereq`, `crossTopicEdges`, `ownerOf`, etc.) + [`audit-utils.mjs`](./scripts/lib/audit-utils.mjs). New audits import these rather than re-parsing JSON.
+- **Shared libraries** in `scripts/lib/` — [`content-model.mjs`](./scripts/lib/content-model.mjs) (`loadContentModel()` returns memoized `concepts`, `quizBanks`, `byPrereq`, `crossTopicEdges`, `ownerOf`, etc.); [`audit-utils.mjs`](./scripts/lib/audit-utils.mjs) (regex helpers + `parseTopicHtmlSafe()` and `recoverDroppedNodes()` for the parser silent-drop workaround); [`html-walk.mjs`](./scripts/lib/html-walk.mjs) (`matchClose`, `balancedRange`); [`ajv.mjs`](./scripts/lib/ajv.mjs) (`makeAjv()`); plus `script-scan.mjs`, `json-block-writer.mjs`, `html-injector.mjs`. New audits import these rather than re-parsing JSON.
 
 One CLI front door: `node scripts/cli.mjs <space-separated-command>` routes by longest-prefix match (`cli.mjs audit backlinks` → `scripts/audit-backlinks.mjs`). Individual scripts remain directly callable; `rebuild.mjs` doesn't go through the CLI so CI stays dependency-free.
 
 ## Structured content pipeline
 
-Alongside the handwritten topic HTML, every topic now has a structured counterpart under `content/<topic>.json`. This is a block-level decomposition of the page — an ordered array of `raw`, `widget`, `widget-script`, and `quiz` blocks. `raw` blocks are HTML strings copied verbatim; `widget` blocks reference an entry in the widget registry by `slug` and carry a `params` object; `widget-script` blocks hold the `<script>` tail that wires a widget up; `quiz` blocks name the concept id whose quiz placeholder belongs at that position. All 58 registered topics are extracted.
+Alongside the handwritten topic HTML, every topic now has a structured counterpart under `content/<topic>.json`. This is a block-level decomposition of the page — an ordered array of `raw`, `widget`, `widget-script`, and `quiz` blocks. `raw` blocks are HTML strings copied verbatim; `widget` blocks reference an entry in the widget registry by `slug` and carry a `params` object; `widget-script` blocks hold the `<script>` tail that wires a widget up; `quiz` blocks name the concept id whose quiz placeholder belongs at that position. All 131 registered topics are extracted.
 
 Two scripts round-trip between HTML and JSON:
 
@@ -99,9 +95,7 @@ See [`widgets/README.md`](./widgets/README.md) for the current registry and the 
 
 When a widget's driving `<script>` is inlined in a trailing `rawBodySuffix` block rather than in an adjacent `widget-script` block, [`scripts/repair-widget-scripts.mjs`](./scripts/repair-widget-scripts.mjs) splits it back out by DOM-id reference matching (bail-out safe: only acts when the script references exactly one widget's ids). This preserves byte-identity while exposing the widget ↔ script pairing to the migration pipeline, without the destructive wholesale re-extract.
 
-One CLI front door: [`scripts/cli.mjs`](./scripts/cli.mjs) routes `node scripts/cli.mjs <space-separated-command>` to any script under `scripts/` by longest-prefix match (`cli.mjs audit backlinks` → `scripts/audit-backlinks.mjs`). Individual scripts remain directly callable; `rebuild.mjs` does not go through the CLI so CI stays dependency-free.
-
-The canonical way for audit scripts to read content is [`scripts/lib/content-model.mjs`](./scripts/lib/content-model.mjs). A single `loadContentModel()` call returns a memoized normalized model: `concepts`, `quizBanks`, `byPrereq`, `crossTopicEdges`, `ownerOf`, parsed topic HTML, and more. Shared helpers live in [`scripts/lib/audit-utils.mjs`](./scripts/lib/audit-utils.mjs). New audits should consume these rather than re-parsing JSON or HTML.
+The canonical way for audit scripts to read content is [`scripts/lib/content-model.mjs`](./scripts/lib/content-model.mjs). A single `loadContentModel()` call returns a memoized normalized model: `concepts`, `quizBanks`, `byPrereq`, `crossTopicEdges`, `ownerOf`, parsed topic HTML, and more. Shared helpers live in [`scripts/lib/audit-utils.mjs`](./scripts/lib/audit-utils.mjs). When walking topic HTML by `<section id>`, prefer `parseTopicHtmlSafe()` over `parseHtml()` directly — `node-html-parser` silently drops two known sections, and the helper plus `recoverDroppedNodes()` close the gap. New audits should consume these rather than re-parsing JSON or HTML.
 
 ## Style reference — always read first
 
@@ -146,14 +140,18 @@ Recurring gotchas collected from real fan-outs. Skim this list before editing; r
 - **Storage**: permitted `localStorage` keys are `mvnb.progress.v1` (mastery, `MVProgress`), `mvnb.theme` (dark/light), and `mvnb.display` (reader widget/quiz hide). Don't add other ad-hoc keys, cookies, or IndexedDB — anything else goes in memory for the session.
 - **Reader display preferences**: `js/display-prefs.js` exposes `window.MVDisplay.toggleWidgets()`, `toggleQuizzes()`, `showAll()`, `current()`. Preference surfaces on `<html>` as `data-hide-widgets` / `data-hide-quizzes`. A `📖` button next to the theme toggle: click = widgets, shift-click = quizzes, Escape = restore all. Cross-tab sync via the `storage` event.
 - **Hero-tagline counts in `index.html`**: the two `<span class="tg-num">` values (topics, concepts) are owned by `scripts/inject-index-stats.mjs`. Don't hand-edit — run the script (or just `node scripts/rebuild.mjs`) and the numbers will match the live corpus.
-- **Index sections**: the canonical topic → subject mapping is `concepts/sections.json`. `validate-concepts` fails if a registered topic is missing from it. The 7 sections:
-  1. **Foundations** (blue) — naive set theory.
-  2. **Algebra** (yellow/pink/violet mix) — abstract algebra, category theory, representation theory, commutative algebra, homological algebra.
-  3. **Analysis** (pink/cyan) — real analysis, measure theory, complex analysis, functional analysis, operator algebras.
-  4. **Geometry & topology** (violet/green) — point-set topology, algebraic topology, smooth manifolds, differential forms, differential geometry, Riemannian geometry, Lie groups, Riemann surfaces.
-  5. **Number theory** (yellow/pink) — Galois, quadratic reciprocity, sums of squares, algebraic number theory, p-adics, Frobenius & reciprocity, class field theory.
-  6. **Modular forms & L-functions** (cyan/pink) — upper half-plane, modular forms, theta functions, Hecke operators, Dirichlet series, L-functions, Galois representations.
-  7. **Algebraic geometry** (green/cyan/violet) — projective plane, Bézout, schemes, sheaves, morphisms & fiber products, functor of points, elliptic curves, singular cubics, moduli spaces, sheaf cohomology, stacks.
+- **Index sections**: the canonical topic → subject mapping is `concepts/sections.json`. `validate-concepts` fails if a registered topic is missing from it. The 11 sections:
+  1. **Logic & Foundations** (blue) — naive set theory, model theory, computability, proof theory.
+  2. **Algebra & homological** (yellow/pink/violet) — abstract algebra, category theory, representation theory, commutative/homological algebra, derived categories, group cohomology.
+  3. **Higher categories & toposes** (violet) — elementary topoi, Heyting algebras, Grothendieck sites, simplicial sets, ∞-categories, cocartesian fibrations, ∞-topoi.
+  4. **Analysis** (pink/cyan) — real analysis, measure theory, complex analysis (+ advanced sequel), functional analysis, operator algebras, harmonic, Sobolev, dynamical systems, fixed-point theorems, wavelets.
+  5. **Probability & statistics** (cyan) — probability theory, mathematical statistics, stochastic processes/calculus, large deviations, random walks, information theory.
+  6. **Geometry & topology** (violet/green) — point-set, algebraic topology, smooth manifolds, differential forms/geometry, Riemannian geometry, Lie groups, Riemann surfaces, K-theory, index theorem, Calabi–Yau, Ricci flow, mirror symmetry.
+  7. **Number theory** (yellow/pink) — Galois, quadratic reciprocity, sums of squares, algebraic number theory, p-adics, adèles, Frobenius & reciprocity, class field theory, heights, analytic NT.
+  8. **Modular forms & L-functions** (cyan/pink) — upper half-plane, modular forms, theta, Hecke, Dirichlet/Euler products, analytic continuation, zeta values, L-functions, Galois reps, moonshine, Sato–Tate, BSD, modularity & FLT.
+  9. **Algebraic geometry** (green/cyan/violet) — projective plane, Bézout, schemes, sheaves, morphisms, functor of points, elliptic curves, singular cubics, moduli, sheaf cohomology, stacks, étale cohomology, algebraic spaces, Chow, π₁ét, higher-genus curves, group schemes, deformation theory, algebraic de Rham.
+  10. **Combinatorics & graph theory** (yellow/green) — spectral graphs, matroids, probabilistic method, extremal, simplicial complexes, expanders, Ramsey, additive NT, knot polynomials.
+  11. **Mathematical physics** (pink/violet) — classical Hamiltonians, statistical mechanics, Schrödinger, gauge theory.
 - **Card color palette**: each card uses one of the six accent colors via the `.y`, `.b`, `.p`, `.g`, `.c`, `.v` classes on its thumb SVG. Pick a color that harmonizes with the section rather than strictly matching — variety inside a section is fine.
 - **Cross-page callbacks**: when a concept's `prereqs` reference an id owned by another topic, the section ends with an `<aside class="callback">` listing "See also" links to the target anchors. Insertions are mechanical — run `node scripts/audit-callbacks.mjs --fix` after editing any `concepts/*.json` prereqs. The companion audit (`node scripts/audit-callbacks.mjs`, no flag) and a light smoke-test guard both enforce coverage.
 - **Per-page changelog footers**: every topic HTML ends with a `<details class="changelog">` block seeded from `git log`. New content PRs that touch a topic page should prepend a changelog row via re-running `scripts/inject-changelog-footer.mjs` — it rebuilds the block in place, picking up any new commits to the page.
@@ -166,7 +164,7 @@ Every topic page has a 2D helper block (`$`, `$$`, `SVG`, `drawArrow`, `drawNode
 
 ## Quiz + progression (Brilliant-style)
 
-Every new topic ships with a `quizzes/<topic>.json` bank. **Full reference: [`quizzes/README.md`](./quizzes/README.md)** — bank schema, the eight question types (`mcq`, `numeric`, `complex`, `multi-select`, `ordering`, `proof-completion`, `matching`, `spot-the-error`, `construction`, `guess-my-rule`), three-tier mastery model, and the quiz widget's behaviour.
+Every new topic ships with a `quizzes/<topic>.json` bank. **Full reference: [`quizzes/README.md`](./quizzes/README.md)** — bank schema, the ten question types (`mcq`, `numeric`, `complex`, `multi-select`, `ordering`, `proof-completion`, `matching`, `spot-the-error`, `construction`, `guess-my-rule`), three-tier mastery model, and the quiz widget's behaviour.
 
 The minimum operational checklist:
 
@@ -205,9 +203,9 @@ Use the scaffolder: **`node scripts/new-topic.mjs <slug> <section>`**. It create
 After scaffolding, you still need to:
 
 1. **Replace the draft index card** — the scaffolder leaves literal "draft" text in the thumb SVG and a placeholder `.desc`. Both are flagged by `audit-draft-index-cards.mjs`. Replace with: (a) a motif SVG matching one of the topic's central diagrams, (b) a 1–2 sentence `.desc`, (c) a `.tag` with 3–4 dot-separated keywords. See `category-theory`'s card as the template.
-2. Add a bullet to [`README.md`](./README.md) under the matching `###` section.
+2. Confirm the README bullet — `new-topic.mjs` auto-appends one under the matching `###` section in [`README.md`](./README.md); revise the description if the auto-stub is too thin.
 3. If it's a capstone, add an entry (with `section` field) to [`concepts/capstones.json`](./concepts/capstones.json).
-4. **Run `node scripts/rebuild.mjs`** — the full 20-step chain. Bundles are rebuilt, validators run, HTML is rendered from JSON, and any drift is surfaced. **Step list + `--only` enumeration: [`scripts/README.md`](./scripts/README.md) § "All-in-one verification".**
+4. **Run `node scripts/rebuild.mjs`** — the full 33-step chain. Bundles are rebuilt, validators run, HTML is rendered from JSON, and any drift is surfaced. **Step list + `--only` enumeration: [`scripts/README.md`](./scripts/README.md) § "All-in-one verification".**
 
 `rebuild.mjs --no-fix` mirrors CI (read-only). `inject-changelog-footer.mjs` is intentionally outside the chain — run it manually before publishing.
 
