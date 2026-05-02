@@ -255,7 +255,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 </div>
 
 <div class="note">
-<p style="margin:.2rem 0"><strong>Normal subgroup detector.</strong> A subgroup $H\leq G$ is <em>normal</em> iff left cosets equal right cosets, i.e. $gH=Hg$ for all $g$. Visually: the coset coloring is the same whether you look at the rows of $H$ or the columns of $H$. When $H\tr{}ianglelefteq G$ you can form the quotient $G/H$.</p>
+<p style="margin:.2rem 0"><strong>Normal subgroup detector.</strong> A subgroup $H\leq G$ is <em>normal</em> iff left cosets equal right cosets, i.e. $gH=Hg$ for all $g$. Visually: the coset coloring is the same whether you look at the rows of $H$ or the columns of $H$. When $H\trianglelefteq G$ you can form the quotient $G/H$.</p>
 </div>
 <div class="quiz" data-concept="cayley-tables"></div>
 <!-- backlinks-auto-begin -->
@@ -1624,11 +1624,11 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 </section>
 <section id="quotients-iso">
 <h2>10. Quotient groups and isomorphism theorems</h2>
-<p>When $N\tr{}ianglelefteq G$, the set of cosets $G/N$ carries a well-defined multiplication $(aN)(bN)=(ab)N$ — well-defined precisely because $N$ is normal, so the choice of representatives doesn't matter. The map $\pi:G\to G/N$, $g\mapsto gN$, is a surjective homomorphism with kernel $N$, and every surjection of $G$ arises this way.</p>
+<p>When $N\trianglelefteq G$, the set of cosets $G/N$ carries a well-defined multiplication $(aN)(bN)=(ab)N$ — well-defined precisely because $N$ is normal, so the choice of representatives doesn't matter. The map $\pi:G\to G/N$, $g\mapsto gN$, is a surjective homomorphism with kernel $N$, and every surjection of $G$ arises this way.</p>
 <p>The <strong>three isomorphism theorems</strong> then organize homomorphism arithmetic:</p>
 <p><span class="pill">I</span> $G/\ker\varphi\cong\mathrm{im}\,\varphi$ for any homomorphism $\varphi:G\to H$.</p>
-<p><span class="pill">II</span> For $H\leq G$ and $N\tr{}ianglelefteq G$: $HN/N\cong H/(H\cap N)$.</p>
-<p><span class="pill">III</span> For $N\tr{}ianglelefteq M\tr{}ianglelefteq G$ with $N\tr{}ianglelefteq G$: $(G/N)/(M/N)\cong G/M$.</p>
+<p><span class="pill">II</span> For $H\leq G$ and $N\trianglelefteq G$: $HN/N\cong H/(H\cap N)$.</p>
+<p><span class="pill">III</span> For $N\trianglelefteq M\trianglelefteq G$ with $N\trianglelefteq G$: $(G/N)/(M/N)\cong G/M$.</p>
 
 <div class="widget" id="w-quot">
   <div class="hd"><div class="ttl">Quotient builder</div><div class="hint">pick G, pick normal N · see G/N as a table</div></div>
@@ -2408,7 +2408,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 </section>
 <section id="semidirect">
 <h2>15. Semidirect products and short exact sequences</h2>
-<p>A <strong>short exact sequence</strong> of groups is a chain $1\to N\xrightarrow{\iota} G\xrightarrow{\pi} H\to 1$ with $\iota$ injective, $\pi$ surjective, and $\mathrm{im}\,\iota=\ker\pi$. So $N\tr{}ianglelefteq G$ and $G/N\cong H$. The sequence <em>splits</em> when $\pi$ admits a homomorphism section $s:H\to G$; equivalently $G$ is isomorphic to a <strong>semidirect product</strong> $N\rtimes_\varphi H$, where $\varphi:H\to\mathrm{Aut}(N)$, $\varphi(h)(n)=s(h)\,n\,s(h)^{-1}$.</p>
+<p>A <strong>short exact sequence</strong> of groups is a chain $1\to N\xrightarrow{\iota} G\xrightarrow{\pi} H\to 1$ with $\iota$ injective, $\pi$ surjective, and $\mathrm{im}\,\iota=\ker\pi$. So $N\trianglelefteq G$ and $G/N\cong H$. The sequence <em>splits</em> when $\pi$ admits a homomorphism section $s:H\to G$; equivalently $G$ is isomorphic to a <strong>semidirect product</strong> $N\rtimes_\varphi H$, where $\varphi:H\to\mathrm{Aut}(N)$, $\varphi(h)(n)=s(h)\,n\,s(h)^{-1}$.</p>
 <p>Multiplication in $N\rtimes_\varphi H$ is $(n_1,h_1)(n_2,h_2)=(n_1\varphi_{h_1}(n_2),\,h_1 h_2)$. When $\varphi$ is the trivial homomorphism, this collapses to the direct product $N\times H$. For a nontrivial twist, the resulting $G$ is non-abelian (assuming $N$ is).</p>
 <p>Below, fix $N=\mathbb{Z}/n\mathbb{Z}$ and $H=\mathbb{Z}/2\mathbb{Z}$, and toggle $\varphi$ between the trivial map and inversion $a\mapsto -a$. The two choices reproduce $\mathbb{Z}/n\times\mathbb{Z}/2$ and $D_n$ respectively.</p>
 
@@ -2511,8 +2511,10 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 
 <section id="composition-series-jordan-holder">
 <h2>16. Composition series &amp; Jordan–Hölder</h2>
-<p>A <strong>composition series</strong> for $G$ is a chain of subgroups $1 = G_0 \tr{}iangleleft G_1 \tr{}iangleleft \cdots \tr{}iangleleft G_n = G$ in which every successive quotient $G_i/G_{i-1}$ is a <em>simple</em> group — no further normal subdivision possible. Refining further would force a non-trivial normal subgroup of a simple group, which by definition does not exist.</p>
-<p>Composition series are generally not unique: $\mathbb{Z}/12\mathbb{Z}$ has $0 \tr{}iangleleft \langle 6\rangle \tr{}iangleleft \langle 3\rangle \tr{}iangleleft \mathbb{Z}/12$ with factors $(\mathbb{Z}/2,\mathbb{Z}/2,\mathbb{Z}/3)$ and also $0 \tr{}iangleleft \langle 4\rangle \tr{}iangleleft \langle 2\rangle \tr{}iangleleft \mathbb{Z}/12$ with factors $(\mathbb{Z}/3,\mathbb{Z}/2,\mathbb{Z}/2)$. The <strong>Jordan–Hölder theorem</strong> says the multiset of simple factors is the same — order may differ but the census is invariant. Those simple factors are the building blocks downstream classification machinery (solvable, nilpotent, simple) reads off.</p>
+<p>A <strong>composition series</strong> for $G$ is a chain of subgroups $\{e\} = G_0 \triangleleft G_1 \triangleleft \cdots \triangleleft G_n = G$ in which every successive quotient $G_i/G_{i-1}$ is a <em>simple</em> group — no further normal subdivision possible. Refining further would force a non-trivial normal subgroup of a simple group, which by definition does not exist.</p>
+<p>Composition series are generally not unique: $\mathbb{Z}/12\mathbb{Z}$ has $0 \triangleleft \langle 6\rangle \triangleleft \langle 3\rangle \triangleleft \mathbb{Z}/12$ with factors $(\mathbb{Z}/2,\mathbb{Z}/2,\mathbb{Z}/3)$ and also $0 \triangleleft \langle 4\rangle \triangleleft \langle 2\rangle \triangleleft \mathbb{Z}/12$ with factors $(\mathbb{Z}/3,\mathbb{Z}/2,\mathbb{Z}/2)$. The <strong>Jordan–Hölder theorem</strong> says the multiset of simple factors is the same — order may differ but the census is invariant. Those simple factors are the building blocks downstream classification machinery (solvable, nilpotent, simple) reads off.</p>
+
+<p>A non-abelian example sharpens the picture: $S_4$ admits the composition series $\{e\} \triangleleft \langle (12)(34)\rangle \triangleleft V_4 \triangleleft A_4 \triangleleft S_4$ with simple-factor multiset $(\mathbb{Z}/2, \mathbb{Z}/2, \mathbb{Z}/3, \mathbb{Z}/2)$. Picking either of the other two two-element subgroups of $V_4$ for the second rung gives a different chain through different intermediate subgroups, yet the multiset $\{\mathbb{Z}/2, \mathbb{Z}/2, \mathbb{Z}/2, \mathbb{Z}/3\}$ is invariant. Cyclic groups can never demonstrate this non-uniqueness because their lattice of subgroups is itself cyclic.</p>
 
 <div class="widget" id="w-jh">
   <div class="hd"><div class="ttl">Composition series browser</div><div class="hint">pick G · toggle between two series · compare factor multisets</div></div>
@@ -2612,7 +2614,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
       html += `<div style="background:color-mix(in srgb, ${color} 12%, transparent);border:1px solid ${color};color:${color};padding:.3rem .9rem;border-radius:6px;font-family:ui-monospace,monospace;font-size:.92rem;min-width:9rem;text-align:center">${name} <span style="color:var(--mute);font-size:.78rem">|·| = ${ord}</span></div>`;
       if(i>0){
         const factor = S.factors[i-1];
-        html += `<div style="display:flex;align-items:center;gap:.5rem;color:var(--green);font-family:ui-monospace,monospace;font-size:.85rem;margin:.18rem 0"><span>↓</span><span style="background:rgba(131,193,103,.12);padding:.1rem .5rem;border-radius:4px">factor: ${factor}</span></div>`;
+        html += `<div style="display:flex;align-items:center;gap:.5rem;color:var(--green);font-family:ui-monospace,monospace;font-size:.85rem;margin:.18rem 0"><span>↓</span><span style="background:color-mix(in srgb, var(--green) 12%, transparent);padding:.1rem .5rem;border-radius:4px">factor: ${factor}</span></div>`;
       }
     }
     html += '</div>';
@@ -2635,7 +2637,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
     const allSame = G.series.every(T=>multisetEqual(T.factors, G.series[0].factors));
     ro.innerHTML = `Composition length n = ${S.chain.length-1}. Factor multiset (sorted) = {${baseSorted.join(', ')}}. ` +
       (allSame
-        ? `<span style="color:var(--green)">All ${G.series.length} catalogued series share the same multiset of simple factors</span> — Jordan–Hölder confirmed.`
+        ? `<span style="color:var(--green)">The ${G.series.length} catalogued series share the same multiset of simple factors</span> — as Jordan–Hölder predicts.`
         : `<span style="color:var(--pink)">Multisets disagree — that would contradict Jordan–Hölder!</span>`);
   }
 
@@ -2839,8 +2841,8 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 <section id="free-groups-presentations">
 <h2>19. Free groups &amp; presentations</h2>
 <p>The <strong>free group</strong> $F_S$ on a set $S$ is the group of <em>reduced words</em> in $S \cup S^{-1}$: finite strings with no adjacent $x x^{-1}$ or $x^{-1} x$. Multiplication is concatenation followed by reduction. The universal property: any function $f : S \to G$ to any group extends uniquely to a homomorphism $\tilde f : F_S \to G$. So free groups are the &ldquo;maximally non-committal&rdquo; — no relations beyond what the axioms force.</p>
-<p>Every group is a quotient $F_S / \langle\langle R \rangle\rangle$ where $\langle\langle R \rangle\rangle$ is the normal closure of a set $R$ of <em>relators</em>. The notation $G = \langle S \mid R \rangle$ packages this. Examples: $\mathbb{Z}/n = \langle a \mid a^n \rangle$, $\mathbb{Z}^2 = \langle a,b \mid aba^{-1}b^{-1} \rangle$, $D_n = \langle r,s \mid r^n, s^2, srsr \rangle$.</p>
-<p>Presentations open hard questions: the <strong>word problem</strong> — given a word, decide if it equals the identity in $G$ — is undecidable in general (Novikov 1955, Boone 1958). On the bright side, <strong>Nielsen–Schreier</strong> says every subgroup of a free group is itself free, the entry point to geometric and combinatorial group theory.</p>
+<p>Every group is a quotient $F_S / \langle\langle R \rangle\rangle$ where $\langle\langle R \rangle\rangle$ is the normal closure of a set $R$ of <em>relators</em>. The notation $G = \langle S \mid R \rangle$ packages this. Examples: $\mathbb{Z}/n = \langle a \mid a^n \rangle$, $\mathbb{Z}^2 = \langle a,b \mid aba^{-1}b^{-1} \rangle$, $D_n = \langle r,s \mid r^n, s^2, srsr \rangle$ (the relator $srsr = e$ is the same as $srs = r^{-1}$, i.e. reflection inverts rotation).</p>
+<p>Presentations open hard questions: the <strong>word problem</strong> — given a word, decide if it equals the identity in $G$ — is undecidable in general (Novikov 1955, Boone 1958). On the bright side, <strong>Nielsen–Schreier</strong> says every subgroup of a free group is itself free, the entry point to <a href="./geometric-and-combinatorial-group-theory.html">geometric and combinatorial group theory</a>.</p>
 
 <div class="widget" id="w-free">
   <div class="hd"><div class="ttl">Word reduction in F₂</div><div class="hint">type a word in {a, b, A=a⁻¹, B=b⁻¹} · step through cancellations</div></div>
@@ -2907,7 +2909,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
   function letterSpan(ch, opts={}){
     const c = (ch==='a'||ch==='A') ? 'var(--yellow)' : 'var(--cyan)';
     const isInv = (ch==='A'||ch==='B');
-    const bg = opts.cancel ? 'rgba(224,122,95,0.32)' : `color-mix(in srgb, ${c} 14%, transparent)`;
+    const bg = opts.cancel ? 'color-mix(in srgb, var(--pink) 32%, transparent)' : `color-mix(in srgb, ${c} 14%, transparent)`;
     const border = opts.cancel ? 'var(--pink)' : c;
     return `<span style="display:inline-block;background:${bg};border:1px solid ${border};color:${isInv?c:c};padding:.15rem .45rem;margin:.05rem;border-radius:5px;font-family:ui-monospace,monospace;font-size:.95rem">${PRETTY[ch]}</span>`;
   }
@@ -2956,7 +2958,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 </script>
 
 <div class="note">
-<p style="margin:.2rem 0"><strong>Cayley graph of $F_2$.</strong> $F_2$ acts freely on its Cayley graph, which is the infinite $4$-regular tree. The boundary of this tree (visualized at increasing depth) is exactly where geometric group theory begins: word metric, growth rate, hyperbolicity.</p>
+<p style="margin:.2rem 0"><strong>Cayley graph of $F_2$.</strong> $F_2$ acts freely on its Cayley graph, which is the infinite $4$-regular tree. The boundary of this tree (visualized at increasing depth) is exactly where <a href="./geometric-and-combinatorial-group-theory.html">geometric group theory</a> begins: word metric, growth rate, hyperbolicity.</p>
 </div>
 <div class="quiz" data-concept="free-groups-presentations"></div>
 

@@ -934,9 +934,9 @@
           "q": "Arrange the implications between regularity classes on $[a,b]$, from STRONGEST to weakest.",
           "items": [
             "Lipschitz",
+            "Hölder $C^{0,\\alpha}$ ($0<\\alpha<1$)",
             "Absolutely continuous (AC)",
-            "Bounded variation (BV)",
-            "Continuous"
+            "Bounded variation (BV)"
           ],
           "answer": [
             0,
@@ -944,8 +944,8 @@
             2,
             3
           ],
-          "hint": "Each step strictly drops a property: an AC bound on disjoint intervals; a uniform Lipschitz constant; the existence of a finite total variation.",
-          "explain": "Lipschitz $\\Rightarrow$ AC: $|f(b_k)-f(a_k)|\\le L(b_k-a_k)$ controls the AC sum by $L\\delta$. AC $\\Rightarrow$ BV (and continuous). BV $\\not\\Rightarrow$ continuous (step functions); continuous $\\not\\Rightarrow$ BV (e.g. $x\\sin(1/x)$). The Cantor function shows continuous + BV is still weaker than AC."
+          "hint": "Each step strictly drops a property: a uniform Lipschitz constant; an exponent in the Hölder bound; the AC inequality on disjoint intervals.",
+          "explain": "Lipschitz is Hölder with $\\alpha=1$, strictly stronger than $\\alpha<1$. Hölder $C^{0,\\alpha}$ on a compact interval implies uniform continuity and AC: cover the AC test windows by $\\le \\sum (b_k-a_k)^\\alpha \\le N^{1-\\alpha}\\delta^\\alpha$ which $\\to 0$ as $\\delta\\to 0$. AC $\\Rightarrow$ BV always (the AC bound forces finite total variation). The reverse implications all fail: BV $\\not\\Rightarrow$ AC (Cantor function), AC $\\not\\Rightarrow$ Hölder for any specific $\\alpha$, and Hölder $\\alpha<1$ $\\not\\Rightarrow$ Lipschitz. Continuous is omitted from this chain because it is incomparable with BV (a step function is BV but not continuous; $x\\sin(1/x)$ is continuous but not BV)."
         }
       ]
     },
@@ -985,7 +985,7 @@
             0,
             1
           ],
-          "explain": "Vitali underwrites the a.e. differentiability of monotone functions (the upper/lower derivative comparison reduces to a Vitali-style covering of \"bad\" Dini-derivative sets) and the Lebesgue differentiation theorem (controlling $|\\{x:Mf(x)>\\lambda\\}|$). Choice 3 is incoherent: Vitali asserts existence of an almost-covering disjoint family. Choice 4 confuses Vitali with compactness; Vitali says nothing about finite subcovers."
+          "explain": "Vitali underwrites the a.e. differentiability of monotone functions (the upper/lower derivative comparison reduces to a Vitali-style covering of \"bad\" Dini-derivative sets) and the Lebesgue differentiation theorem (controlling $|\\{x:Mf(x)>\\lambda\\}|$). The third option is incoherent: Vitali asserts the *existence* of an almost-covering disjoint family, not a counterexample to it. The fourth option confuses Vitali with compactness; Vitali says nothing about finite subcovers."
         }
       ]
     },
@@ -1026,7 +1026,7 @@
             2,
             3
           ],
-          "explain": "(0) Lebesgue differentiation, applied to the derivative of a monotone function, gives a.e. differentiability. (2) Apply LDT to $f=\\mathbf 1_E$: the average over $[x-r,x+r]$ is $|E\\cap[x-r,x+r]|/(2r)$, converging to $1$ at a.e. point of $E$. (3) Differentiate $F(x)=\\int_a^x f$: $F'=f$ a.e. by LDT, and $F\\equiv 0$ forces $F'=0$ a.e., i.e. $f=0$ a.e. (2) is the wrong claim — being $L^1_{\\mathrm{loc}}$ does NOT imply continuity a.e. (e.g., $\\mathbf 1_{\\mathbb Q}$ is in $L^1_{\\mathrm{loc}}$ and is discontinuous everywhere)."
+          "explain": "(0) Lebesgue differentiation, applied to the derivative of a monotone function, gives a.e. differentiability. (2) Apply LDT to $f=\\mathbf 1_E$: the average over $[x-r,x+r]$ is $|E\\cap[x-r,x+r]|/(2r)$, converging to $1$ at a.e. point of $E$. (3) Differentiate $F(x)=\\int_a^x f$: $F'=f$ a.e. by LDT, and $F\\equiv 0$ forces $F'=0$ a.e., i.e. $f=0$ a.e. The remaining option (\"every $f\\in L^1_{\\mathrm{loc}}$ is continuous a.e.\") is false — e.g. $\\mathbf 1_{\\mathbb Q}\\in L^1_{\\mathrm{loc}}$ is discontinuous everywhere — so it is not part of LDT's content."
         }
       ]
     }

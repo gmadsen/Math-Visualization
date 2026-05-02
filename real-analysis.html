@@ -2221,7 +2221,7 @@ $$ V_a^b(f) \;=\; \sup_{P} V(f,P), $$
     // readout
     const verdict = fn.expectedFinite
       ? `   bounded — TV stabilizes near a finite limit${fn.refTV!==null?` (≈ ${fn.refTV.toFixed(3)})`:''}.`
-      : `   unbounded — TV grows like $\\log n$ as $n\\to\\infty$; no finite TV.`;
+      : `   unbounded — TV grows without bound as n → ∞; no finite TV.`;
     out.textContent =
       `function   :  ${name}   on   [${a}, ${b}]\n`+
       `partition  :  uniform, n = ${n}\n`+
@@ -2412,9 +2412,9 @@ $$ \text{Lipschitz} \;\subsetneq\; \mathrm{AC} \;\subsetneq\; \mathrm{BV}\cap C 
 
 <p><strong>Definition.</strong> A family $\mathcal V$ of nondegenerate closed intervals in $\mathbb{R}$ is a <strong>Vitali cover</strong> of $E\subseteq\mathbb{R}$ if for every $x\in E$ and every $\varepsilon>0$ there is some $I\in\mathcal V$ with $x\in I$ and $|I|<\varepsilon$.</p>
 
-<p><strong>Vitali covering lemma (finite form).</strong> Given any finite family $\{I_1,\dots,I_N\}$ of closed intervals in $\mathbb{R}$, there is a disjoint subcollection $\{I_{j_1},\dots,I_{j_m}\}$ such that the triples $\{3I_{j_1},\dots,3I_{j_m}\}$ (each $I_{j}$ scaled by $3$ about its center) cover $\bigcup_i I_i$. In particular, the disjoint subcollection has total length at least $\tfrac{1}{3}|\bigcup_i I_i|$.</p>
+<p><strong>Vitali's 3-times covering lemma (finite form).</strong> Given any finite family $\{I_1,\dots,I_N\}$ of closed intervals in $\mathbb{R}$, there is a disjoint subcollection $\{I_{j_1},\dots,I_{j_m}\}$ such that the triples $\{3I_{j_1},\dots,3I_{j_m}\}$ (each $I_{j}$ scaled by $3$ about its center) cover $\bigcup_i I_i$. In particular, the disjoint subcollection has total length at least $\tfrac{1}{3}|\bigcup_i I_i|$.</p>
 
-<p>The proof is greedy: at each stage, pick the longest remaining interval, discard any that overlaps it, repeat. Because the picked interval is the longest, any discarded $I$ overlapping it lies inside the triple expansion $3I$.</p>
+<p>The proof is greedy: at each stage, pick the longest remaining interval, discard any that overlaps it, repeat. Because the picked interval is the longest, any discarded $I$ overlapping it lies inside the triple expansion $3I$. The constant $3$ is a 1-dimensional convenience; the analogous statement for closed balls in $\mathbb{R}^n$ uses the constant $5$ (the Vitali $5r$-covering lemma).</p>
 
 <div class="widget" id="w-vitali">
   <div class="hd"><div class="ttl">Greedy Vitali extraction</div><div class="hint">click <em>extract step</em> to grab the longest remaining interval and discard its overlappers</div></div>
@@ -2531,7 +2531,7 @@ $$ \text{Lipschitz} \;\subsetneq\; \mathrm{AC} \;\subsetneq\; \mathrm{BV}\cap C 
 })();
 </script>
 
-<p>The strong form (Vitali) starts with a Vitali cover of $E$ with $|E|<\infty$ and produces a <em>countable</em> disjoint subfamily $\{I_k\}$ such that $|E \setminus \bigcup_k I_k| = 0$. The proof iterates the finite extraction at decreasing length scales, using that arbitrarily small intervals through every leftover point still exist.</p>
+<p>The <strong>Vitali covering theorem (a.e. form)</strong> starts with a Vitali cover of $E$ with $|E|<\infty$ and produces a <em>countable</em> disjoint subfamily $\{I_k\}$ such that $|E \setminus \bigcup_k I_k| = 0$. The proof iterates the finite extraction at decreasing length scales, using that arbitrarily small intervals through every leftover point still exist.</p>
 
 <div class="note"><strong>Where this gets used.</strong> Most differentiation theorems on $\mathbb{R}$ need a covering tool to upgrade pointwise control to almost-everywhere control: a maximal-function bound on $\{Mf>\lambda\}$ via Vitali, the a.e. existence of $\lim_{r\to 0}\tfrac{1}{|B_r|}\int_{B_r} f$ in the Lebesgue differentiation theorem (§18), and Lebesgue's a.e. differentiability of monotone functions all rest on Vitali-style coverings.</div>
 

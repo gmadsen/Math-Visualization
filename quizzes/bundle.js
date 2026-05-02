@@ -2945,15 +2945,16 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "What is the precise statement of the Jordan–Hölder theorem?",
+            "q": "Two composition series of $G = \\mathbb{Z}/30\\mathbb{Z}$ are<br>(A) $\\{0\\} \\triangleleft \\langle 15 \\rangle \\triangleleft \\langle 3 \\rangle \\triangleleft \\mathbb{Z}/30$<br>(B) $\\{0\\} \\triangleleft \\langle 10 \\rangle \\triangleleft \\langle 2 \\rangle \\triangleleft \\mathbb{Z}/30$.<br>What does Jordan–Hölder predict about their factor multisets?",
             "choices": [
-              "Any two composition series of $G$ have the same length and the same multiset of simple factors, up to permutation and isomorphism.",
-              "Every group has a unique composition series.",
-              "The composition factors of $G$ are always abelian.",
-              "Every finite group has exactly one simple factor."
+              "They are equal as multisets: both are $\\{\\mathbb{Z}/2,\\mathbb{Z}/3,\\mathbb{Z}/5\\}$.",
+              "They differ — (A) gives $\\{\\mathbb{Z}/2,\\mathbb{Z}/3,\\mathbb{Z}/5\\}$ but (B) gives $\\{\\mathbb{Z}/3,\\mathbb{Z}/5,\\mathbb{Z}/2\\}$ in a different order.",
+              "They are isomorphic as chains, with the same intermediate subgroups in matched positions.",
+              "They have the same length but possibly different factor multisets."
             ],
             "answer": 0,
-            "explain": "Jordan–Hölder asserts that the multiset of composition factors $\\{G_i/G_{i-1}\\}$ is an invariant of $G$, even though the chain itself is not. Distinct composition series can interleave through different intermediate subgroups while still producing the same simple-factor census."
+            "hint": "Compute each successive quotient. The multiset is unordered — $\\{a,b,c\\} = \\{b,c,a\\}$ as multisets.",
+            "explain": "Series (A) factors: $\\langle 15\\rangle/\\{0\\}\\cong\\mathbb{Z}/2$, $\\langle 3\\rangle/\\langle 15\\rangle\\cong\\mathbb{Z}/5$, $\\mathbb{Z}/30/\\langle 3\\rangle\\cong\\mathbb{Z}/3$. Series (B) factors: $\\langle 10\\rangle/\\{0\\}\\cong\\mathbb{Z}/3$, $\\langle 2\\rangle/\\langle 10\\rangle\\cong\\mathbb{Z}/5$, $\\mathbb{Z}/30/\\langle 2\\rangle\\cong\\mathbb{Z}/2$. As multisets both are $\\{\\mathbb{Z}/2,\\mathbb{Z}/3,\\mathbb{Z}/5\\}$ — identical. Option 1 misreads multisets as ordered tuples; Jordan–Hölder gives multiset (unordered) equality, not chain isomorphism (option 2) — distinct chains routinely pass through different intermediate subgroups."
           },
           {
             "type": "numeric",
@@ -2995,7 +2996,7 @@ window.MVQuizBank = {
               "$G$ has prime order."
             ],
             "answer": 0,
-            "explain": "A finite group is solvable iff its composition factors are all cyclic of prime order, iff the derived series terminates at $\\{e\\}$, iff there is a subnormal abelian-factor series. Abelian groups are solvable but the converse fails (e.g. $S_3$)."
+            "explain": "A finite group is solvable iff its composition factors are all cyclic of prime order, iff the derived series terminates at $\\{e\\}$, iff there is a subnormal abelian-factor series — these are equivalent characterizations. Abelian (option B) is sufficient but not necessary: $S_3$ is solvable but not abelian. \"Normal Sylow for every $p$\" (option C) is the *nilpotent* condition, strictly stronger than solvable (covered in §18). Prime order (option D) is far stronger still — every cyclic-of-prime-order group is abelian and trivially solvable, but most solvable groups aren't of prime order."
           },
           {
             "type": "ordering",
@@ -3076,16 +3077,12 @@ window.MVQuizBank = {
         "title": "Free groups & presentations",
         "questions": [
           {
-            "type": "mcq",
-            "q": "What is the universal property of the free group $F_S$ on a set $S$?",
-            "choices": [
-              "Every set map $S \\to G$ extends uniquely to a homomorphism $F_S \\to G$.",
-              "$F_S$ is the smallest group containing $S$.",
-              "$F_S$ is the largest abelian group on $S$.",
-              "$F_S$ is the kernel of every quotient map of any group containing $S$."
-            ],
-            "answer": 0,
-            "explain": "The universal property is: for any group $G$ and any function $f: S \\to G$, there is a unique homomorphism $\\tilde{f}: F_S \\to G$ extending $f$. This is what makes $F_S$ free — no relations beyond those forced by the group axioms. As a consequence, every group is a quotient $F_S / N$ for some choice of $S$ and normal subgroup $N$."
+            "type": "numeric",
+            "q": "Let $F_2 = \\langle a, b \\rangle$ be the free group on two generators, and let $G = S_3$. How many distinct homomorphisms $\\varphi: F_2 \\to S_3$ are there?",
+            "answer": 36,
+            "tol": 1e-9,
+            "hint": "By the universal property, a homomorphism $F_2 \\to G$ is uniquely determined by where the generators go.",
+            "explain": "The universal property of $F_S$: any function $S \\to G$ extends to a unique homomorphism $F_S \\to G$. So a homomorphism $F_2 \\to S_3$ is uniquely specified by the pair $(\\varphi(a), \\varphi(b)) \\in S_3 \\times S_3$, with no constraints (since $F_2$ has no nontrivial relations). The count is $|S_3|^2 = 6\\times 6 = 36$. Contrast with $\\mathrm{Hom}(\\mathbb{Z}/n,G)$: there the relation $a^n = e$ cuts the count down to elements of $G$ whose order divides $n$."
           },
           {
             "type": "mcq",
@@ -40700,9 +40697,9 @@ window.MVQuizBank = {
             "q": "Arrange the implications between regularity classes on $[a,b]$, from STRONGEST to weakest.",
             "items": [
               "Lipschitz",
+              "Hölder $C^{0,\\alpha}$ ($0<\\alpha<1$)",
               "Absolutely continuous (AC)",
-              "Bounded variation (BV)",
-              "Continuous"
+              "Bounded variation (BV)"
             ],
             "answer": [
               0,
@@ -40710,8 +40707,8 @@ window.MVQuizBank = {
               2,
               3
             ],
-            "hint": "Each step strictly drops a property: an AC bound on disjoint intervals; a uniform Lipschitz constant; the existence of a finite total variation.",
-            "explain": "Lipschitz $\\Rightarrow$ AC: $|f(b_k)-f(a_k)|\\le L(b_k-a_k)$ controls the AC sum by $L\\delta$. AC $\\Rightarrow$ BV (and continuous). BV $\\not\\Rightarrow$ continuous (step functions); continuous $\\not\\Rightarrow$ BV (e.g. $x\\sin(1/x)$). The Cantor function shows continuous + BV is still weaker than AC."
+            "hint": "Each step strictly drops a property: a uniform Lipschitz constant; an exponent in the Hölder bound; the AC inequality on disjoint intervals.",
+            "explain": "Lipschitz is Hölder with $\\alpha=1$, strictly stronger than $\\alpha<1$. Hölder $C^{0,\\alpha}$ on a compact interval implies uniform continuity and AC: cover the AC test windows by $\\le \\sum (b_k-a_k)^\\alpha \\le N^{1-\\alpha}\\delta^\\alpha$ which $\\to 0$ as $\\delta\\to 0$. AC $\\Rightarrow$ BV always (the AC bound forces finite total variation). The reverse implications all fail: BV $\\not\\Rightarrow$ AC (Cantor function), AC $\\not\\Rightarrow$ Hölder for any specific $\\alpha$, and Hölder $\\alpha<1$ $\\not\\Rightarrow$ Lipschitz. Continuous is omitted from this chain because it is incomparable with BV (a step function is BV but not continuous; $x\\sin(1/x)$ is continuous but not BV)."
           }
         ]
       },
@@ -40751,7 +40748,7 @@ window.MVQuizBank = {
               0,
               1
             ],
-            "explain": "Vitali underwrites the a.e. differentiability of monotone functions (the upper/lower derivative comparison reduces to a Vitali-style covering of \"bad\" Dini-derivative sets) and the Lebesgue differentiation theorem (controlling $|\\{x:Mf(x)>\\lambda\\}|$). Choice 3 is incoherent: Vitali asserts existence of an almost-covering disjoint family. Choice 4 confuses Vitali with compactness; Vitali says nothing about finite subcovers."
+            "explain": "Vitali underwrites the a.e. differentiability of monotone functions (the upper/lower derivative comparison reduces to a Vitali-style covering of \"bad\" Dini-derivative sets) and the Lebesgue differentiation theorem (controlling $|\\{x:Mf(x)>\\lambda\\}|$). The third option is incoherent: Vitali asserts the *existence* of an almost-covering disjoint family, not a counterexample to it. The fourth option confuses Vitali with compactness; Vitali says nothing about finite subcovers."
           }
         ]
       },
@@ -40792,7 +40789,7 @@ window.MVQuizBank = {
               2,
               3
             ],
-            "explain": "(0) Lebesgue differentiation, applied to the derivative of a monotone function, gives a.e. differentiability. (2) Apply LDT to $f=\\mathbf 1_E$: the average over $[x-r,x+r]$ is $|E\\cap[x-r,x+r]|/(2r)$, converging to $1$ at a.e. point of $E$. (3) Differentiate $F(x)=\\int_a^x f$: $F'=f$ a.e. by LDT, and $F\\equiv 0$ forces $F'=0$ a.e., i.e. $f=0$ a.e. (2) is the wrong claim — being $L^1_{\\mathrm{loc}}$ does NOT imply continuity a.e. (e.g., $\\mathbf 1_{\\mathbb Q}$ is in $L^1_{\\mathrm{loc}}$ and is discontinuous everywhere)."
+            "explain": "(0) Lebesgue differentiation, applied to the derivative of a monotone function, gives a.e. differentiability. (2) Apply LDT to $f=\\mathbf 1_E$: the average over $[x-r,x+r]$ is $|E\\cap[x-r,x+r]|/(2r)$, converging to $1$ at a.e. point of $E$. (3) Differentiate $F(x)=\\int_a^x f$: $F'=f$ a.e. by LDT, and $F\\equiv 0$ forces $F'=0$ a.e., i.e. $f=0$ a.e. The remaining option (\"every $f\\in L^1_{\\mathrm{loc}}$ is continuous a.e.\") is false — e.g. $\\mathbf 1_{\\mathbb Q}\\in L^1_{\\mathrm{loc}}$ is discontinuous everywhere — so it is not part of LDT's content."
           }
         ]
       }

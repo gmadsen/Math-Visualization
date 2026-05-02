@@ -3685,7 +3685,7 @@ window.__MVConcepts = {
           "prereqs": [
             "quotient-groups-iso-theorems"
           ],
-          "blurb": "A composition series is a maximal chain $1 = G_0 \\triangleleft G_1 \\triangleleft \\cdots \\triangleleft G_n = G$ with simple factors $G_i/G_{i-1}$. Jordan–Hölder says any two composition series of $G$ have the same multiset of simple factors up to permutation and isomorphism, so those factors are isomorphism invariants — the foundation for solvable, nilpotent, and simple-group classifications downstream.",
+          "blurb": "A composition series is a maximal chain $\\{e\\} = G_0 \\triangleleft G_1 \\triangleleft \\cdots \\triangleleft G_n = G$ with simple factors $G_i/G_{i-1}$. Jordan–Hölder says any two composition series of $G$ have the same multiset of simple factors up to permutation and isomorphism, so those factors are isomorphism invariants — the foundation for solvable, nilpotent, and simple-group classifications downstream.",
           "tags": [
             "classification",
             "exact-sequence"

@@ -5,7 +5,7 @@
 - Topics: **131**, concepts: **928**
 - Widgets: **934** (registry-driven: 934, inline: 0)
 - Quizzes: **3977** (v1: 2741, hard: 1223, expert: 13)
-- Quiz types: mcq: 2664, numeric: 1048, multi-select: 109, matching: 52, ordering: 31, complex: 29, spot-the-error: 23, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Quiz types: mcq: 2663, numeric: 1049, multi-select: 109, matching: 52, ordering: 31, complex: 29, spot-the-error: 23, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **157**
 - Concepts lacking a hard-tier quiz: **490**
 
@@ -507,7 +507,7 @@ page has wired one in yet.
   - by dimension: 2d: 108, 3d: 1
   - by gesture: click: 85, select: 9, inspect: 3, slider: 3, toggle: 2, scrub: 2, input: 1, slider+click: 1, interactive: 1, drag-and-toggle: 1, step: 1
 - Quizzes: **517** (v1: 331, hard: 186, expert: 0)
-  - by type: mcq: 324, numeric: 147, multi-select: 23, ordering: 8, matching: 5, spot-the-error: 5, proof-completion: 4, complex: 1
+  - by type: mcq: 323, numeric: 148, multi-select: 23, ordering: 8, matching: 5, spot-the-error: 5, proof-completion: 4, complex: 1
 
 ### Higher categories & toposes
 
