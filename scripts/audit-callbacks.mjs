@@ -127,6 +127,15 @@ function findSection(topic, rawHtml, anchor, conceptAnchors) {
     // #elementary-equivalence — the parser is upstream-fragile under
     // certain prefix patterns). The section IS in the raw HTML; find it
     // by string search and synthesize the body slice.
+    //
+    // TODO: this fallback returns the FULL section body (up to </section>),
+    // skipping the primary path's "next concept-boundary heading" trim.
+    // For the two known affected sections that's fine — both are last-in-
+    // section. If the parser fragility ever bites a non-terminal section,
+    // downstream concepts would leak into this body, possibly muddying the
+    // missing-link check (since hrefs from the next concept's prose would
+    // count as "present"). At that point, mirror the primary path's
+    // boundary scan (concept-anchor heading inside the slice, then trim).
     const escA = anchor.replace(/[\\^$.*+?()|[\]{}]/g, '\\$&');
     const openRe = new RegExp(`<section\\b[^>]*\\sid=["']${escA}["'][^>]*>`);
     const om = rawHtml.match(openRe);
