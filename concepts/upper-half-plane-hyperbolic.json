@@ -11,7 +11,10 @@
         "complex-numbers",
         "continuity-topology"
       ],
-      "blurb": "The domain H={x+iy:y>0} is the basic stage for hyperbolic geometry and modular forms."
+      "blurb": "The domain H={x+iy:y>0} is the basic stage for hyperbolic geometry and modular forms.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "hyperbolic-metric",

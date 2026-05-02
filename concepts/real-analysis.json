@@ -35,7 +35,10 @@
       "prereqs": [
         "real-continuity"
       ],
-      "blurb": "The derivative as best linear approximation, chain rule, mean value theorem, and Taylor's theorem with remainder."
+      "blurb": "The derivative as best linear approximation, chain rule, mean value theorem, and Taylor's theorem with remainder.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "uniform-convergence",
@@ -44,7 +47,10 @@
       "prereqs": [
         "real-continuity"
       ],
-      "blurb": "Uniform vs pointwise convergence of function sequences, Weierstrass M-test, and why uniform limits preserve continuity and integrability."
+      "blurb": "Uniform vs pointwise convergence of function sequences, Weierstrass M-test, and why uniform limits preserve continuity and integrability.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "riemann-integral",
@@ -54,7 +60,10 @@
         "real-continuity",
         "real-differentiation"
       ],
-      "blurb": "Upper/lower sums, the fundamental theorem of calculus, and the failure modes that motivate measure theory."
+      "blurb": "Upper/lower sums, the fundamental theorem of calculus, and the failure modes that motivate measure theory.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "multivariable-differentiation",
@@ -63,7 +72,10 @@
       "prereqs": [
         "real-differentiation"
       ],
-      "blurb": "Partial derivatives, total derivative as Jacobian, chain rule for vector-valued maps, gradients and directional derivatives."
+      "blurb": "Partial derivatives, total derivative as Jacobian, chain rule for vector-valued maps, gradients and directional derivatives.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "multivariable-integration",
@@ -73,7 +85,10 @@
         "riemann-integral",
         "multivariable-differentiation"
       ],
-      "blurb": "Iterated integrals, Fubini's theorem, Jacobian determinant and the change-of-variables formula on R^n."
+      "blurb": "Iterated integrals, Fubini's theorem, Jacobian determinant and the change-of-variables formula on R^n.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "inverse-function-theorem",
@@ -94,7 +109,10 @@
       "prereqs": [
         "real-numbers"
       ],
-      "blurb": "Absolute vs conditional convergence; ratio, root, comparison, and integral tests; Abel and Dirichlet criteria for conditional sums."
+      "blurb": "Absolute vs conditional convergence; ratio, root, comparison, and integral tests; Abel and Dirichlet criteria for conditional sums.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "power-series-real",
@@ -104,7 +122,10 @@
         "numeric-series",
         "uniform-convergence"
       ],
-      "blurb": "Cauchy–Hadamard 1/R = limsup |a_n|^{1/n}; uniform convergence on compact subsets of the disk; term-by-term differentiation and the bridge to real-analytic functions."
+      "blurb": "Cauchy–Hadamard 1/R = limsup |a_n|^{1/n}; uniform convergence on compact subsets of the disk; term-by-term differentiation and the bridge to real-analytic functions.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "metric-completeness-baire",
@@ -127,7 +148,10 @@
         "riemann-integral",
         "real-differentiation"
       ],
-      "blurb": "Part I: F(x)=∫_a^x f gives F'=f when f is continuous. Part II: ∫_a^b F'=F(b)-F(a) for F differentiable with F' integrable; absolute continuity as the right class for Lebesgue."
+      "blurb": "Part I: F(x)=∫_a^x f gives F'=f when f is continuous. Part II: ∫_a^b F'=F(b)-F(a) for F differentiable with F' integrable; absolute continuity as the right class for Lebesgue.",
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "bump-functions",
@@ -136,7 +160,10 @@
       "prereqs": [
         "real-differentiation"
       ],
-      "blurb": "The model bump exp(-1/(1-x^2)) is C^∞ with compact support; convolution with mollifiers smooths any locally integrable function and yields smooth partitions of unity."
+      "blurb": "The model bump exp(-1/(1-x^2)) is C^∞ with compact support; convolution with mollifiers smooths any locally integrable function and yields smooth partitions of unity.",
+      "tags": [
+        "compactness"
+      ]
     },
     {
       "id": "c-space-arzela",

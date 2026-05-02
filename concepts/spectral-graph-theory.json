@@ -10,7 +10,10 @@
       "prereqs": [
         "algebraic-structures"
       ],
-      "blurb": "The adjacency matrix $A$, degree matrix $D$, and combinatorial Laplacian $L=D-A$ — the discrete analogue of $-\\Delta$, with a real spectrum $0=\\lambda_1\\le\\lambda_2\\le\\cdots\\le\\lambda_n$ and the Dirichlet energy form $f^\\top L f = \\sum_{ij\\in E}(f(i)-f(j))^2$."
+      "blurb": "The adjacency matrix $A$, degree matrix $D$, and combinatorial Laplacian $L=D-A$ — the discrete analogue of $-\\Delta$, with a real spectrum $0=\\lambda_1\\le\\lambda_2\\le\\cdots\\le\\lambda_n$ and the Dirichlet energy form $f^\\top L f = \\sum_{ij\\in E}(f(i)-f(j))^2$.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "kernel-and-components",
@@ -19,7 +22,10 @@
       "prereqs": [
         "adjacency-and-laplacian"
       ],
-      "blurb": "The dimension of $\\ker L$ equals the number of connected components of $G$. Indicator vectors of components span the kernel; conversely $f^\\top L f = 0$ forces $f$ constant on each component."
+      "blurb": "The dimension of $\\ker L$ equals the number of connected components of $G$. Indicator vectors of components span the kernel; conversely $f^\\top L f = 0$ forces $f$ constant on each component.",
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "algebraic-connectivity-fiedler",
@@ -37,7 +43,10 @@
       "prereqs": [
         "algebraic-connectivity-fiedler"
       ],
-      "blurb": "$\\lambda_2/2 \\le h(G) \\le \\sqrt{2 d \\lambda_2}$ relates the algebraic connectivity to the edge-expansion constant $h(G)$. The proof's upper bound is the spectral sweep cut — a constant-factor approximation algorithm for sparsest cut."
+      "blurb": "$\\lambda_2/2 \\le h(G) \\le \\sqrt{2 d \\lambda_2}$ relates the algebraic connectivity to the edge-expansion constant $h(G)$. The proof's upper bound is the spectral sweep cut — a constant-factor approximation algorithm for sparsest cut.",
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "random-walks-mixing",

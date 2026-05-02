@@ -8,7 +8,7 @@
       "title": "The graduate landscape",
       "anchor": "overview",
       "prereqs": [],
-      "blurb": "A map of the four threads that organize the graduate complex-analysis canon: value-distribution (Picard, Bloch), construction theorems (Weierstrass, Mittag-Leffler), growth and maximum-modulus controls (Phragmén-Lindelöf, Hadamard), and boundary behavior (Hardy, Fatou). Together they answer 'what makes entire and meromorphic functions special, and how do they behave near infinity or on the boundary?'"
+      "blurb": "A map of the four threads that organize the graduate complex-analysis canon: value-distribution (Picard, Bloch, Nevanlinna), construction theorems (Weierstrass, Mittag-Leffler), growth and maximum-modulus controls (Phragmén-Lindelöf, Hadamard), and boundary behavior (Hardy, Fatou). Together they answer 'what makes entire and meromorphic functions special, and how do they behave near infinity or on the boundary?'"
     },
     {
       "id": "aca-picard-little",
@@ -83,6 +83,65 @@
         "hf-poisson-kernel"
       ],
       "blurb": "$H^p(\\mathbb{D})$ collects holomorphic functions on the disk whose $L^p$ norm on circles $|z|=r$ stays bounded as $r\\uparrow 1$. Fatou's theorem says every $H^p$ function admits non-tangential boundary values almost everywhere, and the inner-outer factorization $f = B\\cdot S\\cdot O$ decomposes them into a Blaschke product, a singular inner factor, and an outer function."
+    },
+    {
+      "id": "aca-bloch-theorem",
+      "title": "Bloch's theorem",
+      "anchor": "bloch",
+      "prereqs": [
+        "aca-picard-little",
+        "schwarz-lemma",
+        "normal-families"
+      ],
+      "tags": ["compactness"],
+      "blurb": "If $f$ is holomorphic on the unit disk with $f(0)=0$ and $f'(0)=1$, then $f(\\mathbb{D})$ contains a univalent (one-sheeted) sub-disk of universal radius $B \\ge \\sqrt{3}/4$. The Bloch constant $B$ and its companion the Landau constant $L$ make the Picard-style 'cannot avoid much' phenomenon quantitative — every normalized holomorphic function on the disk geometrically covers a chunk of the plane no smaller than a fixed lower bound."
+    },
+    {
+      "id": "aca-nevanlinna-theory",
+      "title": "Nevanlinna theory",
+      "anchor": "nevanlinna",
+      "prereqs": [
+        "aca-picard-great",
+        "aca-hadamard-three-circles"
+      ],
+      "tags": ["classification"],
+      "blurb": "A quantitative refinement of Picard for meromorphic functions: the Nevanlinna characteristic $T(r,f) = m(r,\\infty) + N(r,\\infty)$ measures growth as a sum of a proximity term $m(r,a)$ (how close $f$ comes to $a$ on $|z|=r$) and a counting term $N(r,a)$ (the integrated count of $a$-points). The first main theorem says $m(r,a) + N(r,a) = T(r,f) + O(1)$ is independent of $a$; the second main theorem and the defect relation $\\sum_a \\delta(a) \\le 2$ recover Picard as a corollary — at most two values can have defect $\\delta(a) = 1$."
+    },
+    {
+      "id": "aca-bergman-kernel",
+      "title": "Bergman kernels",
+      "anchor": "bergman",
+      "prereqs": [
+        "banach-hilbert-spaces",
+        "lp-spaces"
+      ],
+      "tags": ["duality"],
+      "blurb": "The Bergman space $A^2(\\Omega)$ is the Hilbert space of holomorphic functions on a bounded domain $\\Omega \\subset \\mathbb{C}$ that are square-integrable for area measure. Point evaluation is bounded, so by Riesz representation there is a reproducing kernel $K_\\Omega(z,w)$ — the Bergman kernel — characterized by $f(w) = \\int_\\Omega K(z,w) f(z)\\, dA$. The kernel transforms covariantly under biholomorphisms ($K_{\\phi(\\Omega)}(\\phi(z),\\phi(w)) = K_\\Omega(z,w)/(\\phi'(z)\\overline{\\phi'(w)})$) and its log Hessian $\\partial\\bar\\partial \\log K(z,z)$ gives the Bergman metric — on the unit disk this recovers the standard Poincaré metric of constant Gaussian curvature $-1$."
+    },
+    {
+      "id": "aca-quasiconformal-beltrami",
+      "title": "Quasiconformal maps and the Beltrami equation",
+      "anchor": "quasiconformal",
+      "prereqs": [
+        "conformal-map",
+        "cauchy-riemann",
+        "sobolev-spaces-wkp"
+      ],
+      "tags": ["moduli", "lifting"],
+      "blurb": "A $K$-quasiconformal map $f$ is a homeomorphism of planar domains whose distributional derivatives satisfy the Beltrami equation $\\partial_{\\bar z} f = \\mu\\, \\partial_z f$ with $\\|\\mu\\|_\\infty \\le k = (K-1)/(K+1) < 1$. The dilatation $\\mu_f$ measures how far $f$ is from conformal — infinitesimally it sends round disks to ellipses of bounded eccentricity. The measurable Riemann mapping theorem (Morrey-Ahlfors-Bers) inverts this: any measurable $\\mu$ with $\\|\\mu\\|_\\infty < 1$ is the dilatation of a unique normalized quasiconformal homeomorphism, the cornerstone of Teichmüller theory and Thurston-style hyperbolic geometrization."
+    },
+    {
+      "id": "aca-several-complex-variables",
+      "title": "Several complex variables",
+      "anchor": "scv",
+      "prereqs": [
+        "holomorphic-function",
+        "cauchy-integral-formula",
+        "hf-subharmonic",
+        "sobolev-spaces-wkp"
+      ],
+      "tags": ["cohomology"],
+      "blurb": "Holomorphic functions of $n\\ge 2$ variables behave qualitatively unlike the $n=1$ case. The Hartogs phenomenon forces extension across compact holes: any holomorphic $f$ on a Hartogs figure (a polydisk shell) extends uniquely to the full polydisk — there are no isolated singularities in $\\mathbb{C}^n$ for $n\\ge 2$. A domain $\\Omega \\subset \\mathbb{C}^n$ is a domain of holomorphy iff it is pseudoconvex (Levi's problem), characterized by the existence of a plurisubharmonic exhaustion. The $\\bar\\partial$-Neumann problem solves $\\bar\\partial u = f$ for $\\bar\\partial$-closed $f$ on pseudoconvex domains and is the analytic engine driving the rest of the theory."
     }
   ]
 }

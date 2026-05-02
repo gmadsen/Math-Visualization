@@ -33,7 +33,8 @@
         "banach-spectrum",
         "bounded-operators-fa"
       ],
-      "blurb": "For a normal element $a$ of a unital $C^*$-algebra, $C(\\sigma(a))\\cong C^*(a,1)$ via $f\\mapsto f(a)$, upgrading Riesz–Dunford to an isometric $*$-isomorphism and powering the spectral theorem."
+      "blurb": "For a normal element $a$ of a unital $C^*$-algebra, $C(\\sigma(a))\\cong C^*(a,1)$ via $f\\mapsto f(a)$, upgrading Riesz–Dunford to an isometric $*$-isomorphism and powering the spectral theorem.",
+      "tags": ["duality", "functoriality"]
     },
     {
       "id": "gelfand-duality-oa",
@@ -67,7 +68,8 @@
         "banach-hilbert-spaces",
         "weak-topology"
       ],
-      "blurb": "A unital $*$-subalgebra $M\\subseteq B(H)$ is a von Neumann algebra iff $M=M''$ (double-commutant theorem); equivalently it is closed in the strong/weak operator topologies."
+      "blurb": "A unital $*$-subalgebra $M\\subseteq B(H)$ is a von Neumann algebra iff $M=M''$ (double-commutant theorem); equivalently it is closed in the strong/weak operator topologies.",
+      "tags": ["foundation", "duality"]
     },
     {
       "id": "factors-types",
@@ -86,7 +88,8 @@
       "prereqs": [
         "factors-types"
       ],
-      "blurb": "Projections $p\\sim q$ in $M$ iff there is $v\\in M$ with $v^*v=p$, $vv^*=q$; on a II$_1$ factor this yields a continuous dimension function $d\\colon \\mathrm{Proj}(M)\\to[0,1]$."
+      "blurb": "Projections $p\\sim q$ in $M$ iff there is $v\\in M$ with $v^*v=p$, $vv^*=q$; on a II$_1$ factor this yields a continuous dimension function $d\\colon \\mathrm{Proj}(M)\\to[0,1]$.",
+      "tags": ["classification"]
     },
     {
       "id": "positive-elements",
@@ -95,7 +98,8 @@
       "prereqs": [
         "spectrum-of-element"
       ],
-      "blurb": "Positive elements $a=b^*b$ form a closed cone, detected by $a=a^*$ with $\\sigma(a)\\subseteq[0,\\infty)$, and induce the partial order $a\\le b\\iff b-a\\ge 0$ (pointwise in $C(X)$, Löwner in $B(H)$)."
+      "blurb": "Positive elements $a=b^*b$ form a closed cone, detected by $a=a^*$ with $\\sigma(a)\\subseteq[0,\\infty)$, and induce the partial order $a\\le b\\iff b-a\\ge 0$ (pointwise in $C(X)$, Löwner in $B(H)$).",
+      "tags": ["foundation"]
     },
     {
       "id": "states-pure-states",
@@ -106,7 +110,8 @@
         "riesz-representation",
         "lebesgue-integral"
       ],
-      "blurb": "A state is a positive linear functional with $\\phi(1)=1$; the state space $S(A)$ is weak-$*$ compact convex, and its extreme points — the pure states — play the role of points (Borel probability measures on $X$ when $A=C(X)$)."
+      "blurb": "A state is a positive linear functional with $\\phi(1)=1$; the state space $S(A)$ is weak-$*$ compact convex, and its extreme points — the pure states — play the role of points (Borel probability measures on $X$ when $A=C(X)$).",
+      "tags": ["compactness", "duality"]
     },
     {
       "id": "gns-construction",
@@ -116,7 +121,8 @@
         "states-pure-states",
         "banach-hilbert-spaces"
       ],
-      "blurb": "From a state $\\omega$ on $A$ build $(\\pi_\\omega, H_\\omega, \\Omega_\\omega)$: take $\\langle a,b\\rangle=\\omega(b^*a)$, quotient the null ideal, complete, and let $A$ act by left multiplication; $\\omega(a)=\\langle\\Omega_\\omega,\\pi_\\omega(a)\\Omega_\\omega\\rangle$."
+      "blurb": "From a state $\\omega$ on $A$ build $(\\pi_\\omega, H_\\omega, \\Omega_\\omega)$: take $\\langle a,b\\rangle=\\omega(b^*a)$, quotient the null ideal, complete, and let $A$ act by left multiplication; $\\omega(a)=\\langle\\Omega_\\omega,\\pi_\\omega(a)\\Omega_\\omega\\rangle$.",
+      "tags": ["functoriality", "universal-property"]
     },
     {
       "id": "approximate-units-amenability",
@@ -126,7 +132,8 @@
         "cstar-basics",
         "positive-elements"
       ],
-      "blurb": "Every $C^*$-algebra has an approximate unit $(e_\\lambda)$ with $e_\\lambda\\ge 0$, $\\|e_\\lambda\\|\\le 1$, and $e_\\lambda a\\to a$; nuclearity and amenability refine this by asking for finite-dimensional approximations."
+      "blurb": "Every $C^*$-algebra has an approximate unit $(e_\\lambda)$ with $e_\\lambda\\ge 0$, $\\|e_\\lambda\\|\\le 1$, and $e_\\lambda a\\to a$; nuclearity and amenability refine this by asking for finite-dimensional approximations.",
+      "tags": ["finiteness"]
     }
   ]
 }

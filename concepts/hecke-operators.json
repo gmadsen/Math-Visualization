@@ -32,7 +32,10 @@
         "hecke-q-expansion-action",
         "characters-orthogonality"
       ],
-      "blurb": "The operators T_n commute and generate a commutative algebra, enabling simultaneous diagonalization."
+      "blurb": "The operators T_n commute and generate a commutative algebra, enabling simultaneous diagonalization.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "eigenforms-and-euler-factors",
@@ -54,7 +57,10 @@
         "hecke-algebra-commuting",
         "petersson-inner-product"
       ],
-      "blurb": "Under the Petersson inner product, the Hecke operators $T_p$ (for $p\\nmid N$) are self-adjoint; combined with commutativity, the spectral theorem yields an orthogonal basis of Hecke eigenforms on $S_k$."
+      "blurb": "Under the Petersson inner product, the Hecke operators $T_p$ (for $p\\nmid N$) are self-adjoint; combined with commutativity, the spectral theorem yields an orthogonal basis of Hecke eigenforms on $S_k$.",
+      "tags": [
+        "classification"
+      ]
     }
   ]
 }

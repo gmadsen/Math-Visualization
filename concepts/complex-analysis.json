@@ -20,7 +20,10 @@
       "prereqs": [
         "complex-numbers"
       ],
-      "blurb": "Stereographic projection; ∞ as a point; circles/lines unified."
+      "blurb": "Stereographic projection; ∞ as a point; circles/lines unified.",
+      "tags": [
+        "compactness"
+      ]
     },
     {
       "id": "mobius-transformations",
@@ -29,7 +32,10 @@
       "prereqs": [
         "riemann-sphere"
       ],
-      "blurb": "Linear-fractional maps, cross-ratio, automorphisms of Ĉ."
+      "blurb": "Linear-fractional maps, cross-ratio, automorphisms of Ĉ.",
+      "tags": [
+        "group-action"
+      ]
     },
     {
       "id": "amplitwist",
@@ -39,7 +45,10 @@
         "complex-numbers",
         "real-differentiation"
       ],
-      "blurb": "Needham's picture: a holomorphic $f$ acts on infinitesimal vectors at $z_0$ as rotation by $\\arg f'(z_0)$ and scaling by $|f'(z_0)|$; the Jacobian is a similarity matrix."
+      "blurb": "Needham's picture: a holomorphic $f$ acts on infinitesimal vectors at $z_0$ as rotation by $\\arg f'(z_0)$ and scaling by $|f'(z_0)|$; the Jacobian is a similarity matrix.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "cauchy-riemann",
@@ -48,7 +57,10 @@
       "prereqs": [
         "amplitwist"
       ],
-      "blurb": "A complex-differentiable $f = u + iv$ must have Jacobian commuting with multiplication by $i$; equivalently $u_x = v_y$, $u_y = -v_x$, i.e. $\\bar\\partial f = 0$."
+      "blurb": "A complex-differentiable $f = u + iv$ must have Jacobian commuting with multiplication by $i$; equivalently $u_x = v_y$, $u_y = -v_x$, i.e. $\\bar\\partial f = 0$.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "holomorphic-function",
@@ -80,7 +92,10 @@
         "paths",
         "cauchy-riemann"
       ],
-      "blurb": "Integrate $f\\,dz$ along a piecewise smooth $\\gamma$; the real 1-forms $u\\,dx - v\\,dy$ and $v\\,dx + u\\,dy$ are closed exactly when $f$ is holomorphic."
+      "blurb": "Integrate $f\\,dz$ along a piecewise smooth $\\gamma$; the real 1-forms $u\\,dx - v\\,dy$ and $v\\,dx + u\\,dy$ are closed exactly when $f$ is holomorphic.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "cauchy-theorem",
@@ -90,7 +105,10 @@
         "contour-integral",
         "simply-connected"
       ],
-      "blurb": "∫_γ f dz = 0 on simply connected domains."
+      "blurb": "∫_γ f dz = 0 on simply connected domains.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "cauchy-integral-formula",
@@ -114,7 +132,10 @@
         "fta",
         "schwarz-lemma"
       ],
-      "blurb": "Every holomorphic function is locally a convergent power series."
+      "blurb": "Every holomorphic function is locally a convergent power series.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "liouville",
@@ -159,7 +180,10 @@
       "prereqs": [
         "analyticity"
       ],
-      "blurb": "Expansions on annuli; principal part captures singular behavior."
+      "blurb": "Expansions on annuli; principal part captures singular behavior.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "singularity-classification",
@@ -193,7 +217,10 @@
       "prereqs": [
         "residue-theorem"
       ],
-      "blurb": "(1/2πi) ∮ f′/f = Z − P; winding of f(γ) counts zeros minus poles."
+      "blurb": "(1/2πi) ∮ f′/f = Z − P; winding of f(γ) counts zeros minus poles.",
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "rouche",
@@ -212,7 +239,10 @@
         "amplitwist",
         "mobius-transformations"
       ],
-      "blurb": "Angle-preserving, orientation-preserving; locally holomorphic with f′ ≠ 0."
+      "blurb": "Angle-preserving, orientation-preserving; locally holomorphic with f′ ≠ 0.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "disk-automorphisms",
@@ -268,7 +298,10 @@
         "analytic-continuation",
         "contour-integral"
       ],
-      "blurb": "If $f = u + iv$ is holomorphic then $u$ and $v$ satisfy Laplace's equation $\\Delta u = 0$; on simply connected domains every harmonic $u$ has a harmonic conjugate recovering a holomorphic lift."
+      "blurb": "If $f = u + iv$ is holomorphic then $u$ and $v$ satisfy Laplace's equation $\\Delta u = 0$; on simply connected domains every harmonic $u$ has a harmonic conjugate recovering a holomorphic lift.",
+      "tags": [
+        "lifting"
+      ]
     },
     {
       "id": "analytic-continuation",

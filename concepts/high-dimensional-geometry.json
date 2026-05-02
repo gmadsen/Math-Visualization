@@ -24,7 +24,8 @@
       "title": "Johnson–Lindenstrauss",
       "anchor": "jl",
       "prereqs": ["hdg-sphere-concentration", "random-variables"],
-      "blurb": "Any $N$ points in $\\mathbb{R}^n$ embed into $\\mathbb{R}^k$ with $k=O(\\varepsilon^{-2}\\log N)$ via a random Gaussian projection while preserving every pairwise distance up to $1\\pm\\varepsilon$ — the workhorse dimension reduction of high-D ML."
+      "blurb": "Any $N$ points in $\\mathbb{R}^n$ embed into $\\mathbb{R}^k$ with $k=O(\\varepsilon^{-2}\\log N)$ via a random Gaussian projection while preserving every pairwise distance up to $1\\pm\\varepsilon$ — the workhorse dimension reduction of high-D ML.",
+      "tags": ["finiteness"]
     },
     {
       "id": "hdg-talagrand",

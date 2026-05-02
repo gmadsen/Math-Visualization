@@ -23,7 +23,11 @@
       "prereqs": [
         "banach-hilbert-spaces"
       ],
-      "blurb": "B(X,Y) is Banach under the operator norm; for linear maps bounded = continuous = Lipschitz, and the norm is the largest singular value in the matrix case."
+      "blurb": "B(X,Y) is Banach under the operator norm; for linear maps bounded = continuous = Lipschitz, and the norm is the largest singular value in the matrix case.",
+      "tags": [
+        "foundation",
+        "completion"
+      ]
     },
     {
       "id": "bounded-operators-fa",
@@ -34,7 +38,10 @@
         "banach-hilbert-spaces",
         "algebraic-structures"
       ],
-      "blurb": "Linear operators on Hilbert spaces admit operator norms, adjoints, and projection geometry."
+      "blurb": "Linear operators on Hilbert spaces admit operator norms, adjoints, and projection geometry.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "adjoint-hilbert",
@@ -56,7 +63,10 @@
       "prereqs": [
         "bounded-operators-fa"
       ],
-      "blurb": "Hahn–Banach, Open Mapping, Closed Graph, and Banach–Steinhaus organize Banach-space analysis via Baire category and Zorn's lemma."
+      "blurb": "Hahn–Banach, Open Mapping, Closed Graph, and Banach–Steinhaus organize Banach-space analysis via Baire category and Zorn's lemma.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "compact-operators",

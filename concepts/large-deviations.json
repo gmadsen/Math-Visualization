@@ -24,14 +24,16 @@
       "title": "Sanov's theorem",
       "anchor": "sanov",
       "prereqs": ["ld-rate-function"],
-      "blurb": "The empirical distribution $L_n=\\tfrac{1}{n}\\sum\\delta_{X_i}$ of i.i.d.\\ samples from $\\mu$ satisfies an LDP on the space of probability measures with rate $H(\\nu\\,\\|\\,\\mu)=\\int\\log(d\\nu/d\\mu)\\,d\\nu$ — Kullback–Leibler divergence is the canonical rate function."
+      "blurb": "The empirical distribution $L_n=\\tfrac{1}{n}\\sum\\delta_{X_i}$ of i.i.d.\\ samples from $\\mu$ satisfies an LDP on the space of probability measures with rate $H(\\nu\\,\\|\\,\\mu)=\\int\\log(d\\nu/d\\mu)\\,d\\nu$ — Kullback–Leibler divergence is the canonical rate function.",
+      "tags": ["duality"]
     },
     {
       "id": "ld-gartner-ellis",
       "title": "Gärtner–Ellis theorem",
       "anchor": "gartner-ellis",
       "prereqs": ["ld-rate-function", "convergence-rv"],
-      "blurb": "When $\\Lambda(\\theta)=\\lim_n\\tfrac{1}{n}\\log\\mathbb{E}[e^{n\\theta\\bar X_n}]$ exists, is finite, and is essentially smooth, the LDP holds with rate $I=\\Lambda^*$ — the Legendre transform extends Cramér beyond the i.i.d.\\ case to weakly dependent and Markov sums."
+      "blurb": "When $\\Lambda(\\theta)=\\lim_n\\tfrac{1}{n}\\log\\mathbb{E}[e^{n\\theta\\bar X_n}]$ exists, is finite, and is essentially smooth, the LDP holds with rate $I=\\Lambda^*$ — the Legendre transform extends Cramér beyond the i.i.d.\\ case to weakly dependent and Markov sums.",
+      "tags": ["duality"]
     },
     {
       "id": "ld-applications",

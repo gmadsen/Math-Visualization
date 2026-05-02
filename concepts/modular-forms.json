@@ -48,7 +48,10 @@
       "prereqs": [
         "modular-form-definition"
       ],
-      "blurb": "The series E4 and E6 are explicit modular forms that generate much of the level-1 ring structure."
+      "blurb": "The series E4 and E6 are explicit modular forms that generate much of the level-1 ring structure.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "q-expansions-mf",
@@ -58,7 +61,10 @@
         "modular-form-definition",
         "eisenstein-series-mf"
       ],
-      "blurb": "Fourier expansions f(τ)=Σa_n q^n encode modular forms in coefficients and feed Hecke/L-function constructions."
+      "blurb": "Fourier expansions f(τ)=Σa_n q^n encode modular forms in coefficients and feed Hecke/L-function constructions.",
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "petersson-inner-product",
@@ -67,7 +73,10 @@
       "prereqs": [
         "q-expansions-mf"
       ],
-      "blurb": "The Petersson product ⟨f,g⟩=∫_{Γ\\H} f(τ)·conj(g(τ))·y^{k−2} dx dy turns S_k into a Hilbert space where Hecke eigenforms are orthogonal."
+      "blurb": "The Petersson product ⟨f,g⟩=∫_{Γ\\H} f(τ)·conj(g(τ))·y^{k−2} dx dy turns S_k into a Hilbert space where Hecke eigenforms are orthogonal.",
+      "tags": [
+        "completion"
+      ]
     }
   ]
 }

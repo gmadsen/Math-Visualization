@@ -35,7 +35,8 @@
         "arithmetic-data-lfunctions",
         "euler-product-structure"
       ],
-      "blurb": "The conjecture: ord_{s=1} L(E, s) = rank E(Q). Sharper form predicts the leading Taylor coefficient in terms of regulator, Sha, periods, torsion."
+      "blurb": "The conjecture: ord_{s=1} L(E, s) = rank E(Q). Sharper form predicts the leading Taylor coefficient in terms of regulator, Sha, periods, torsion.",
+      "tags": ["duality"]
     },
     {
       "id": "regulator",

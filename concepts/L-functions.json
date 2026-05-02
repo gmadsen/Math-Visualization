@@ -10,7 +10,11 @@
       "prereqs": [
         "dirichlet-characters-lseries"
       ],
-      "blurb": "Riemann, Dirichlet, modular, and elliptic L-functions share a common analytic template."
+      "blurb": "Riemann, Dirichlet, modular, and elliptic L-functions share a common analytic template.",
+      "tags": [
+        "foundation",
+        "classification"
+      ]
     },
     {
       "id": "functional-equation-completion",
@@ -32,7 +36,10 @@
         "functional-equation-completion",
         "eigenforms-and-euler-factors"
       ],
-      "blurb": "Euler factors and coefficients reflect geometric or representation-theoretic invariants."
+      "blurb": "Euler factors and coefficients reflect geometric or representation-theoretic invariants.",
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "analytic-continuation-lfunc",
@@ -42,7 +49,10 @@
         "functional-equation-completion",
         "dirichlet-series-basics"
       ],
-      "blurb": "Mellin transforms of modular forms and theta identities promote Dirichlet series from a half-plane to meromorphic functions on all of $\\mathbb{C}$."
+      "blurb": "Mellin transforms of modular forms and theta identities promote Dirichlet series from a half-plane to meromorphic functions on all of $\\mathbb{C}$.",
+      "tags": [
+        "completion"
+      ]
     },
     {
       "id": "special-values-lfunc",
@@ -52,7 +62,10 @@
         "functional-equation-completion",
         "arithmetic-data-lfunctions"
       ],
-      "blurb": "Values of $L$ at integers in the critical strip carry deep arithmetic: class numbers, regulators, and the order of vanishing at the center (BSD)."
+      "blurb": "Values of $L$ at integers in the critical strip carry deep arithmetic: class numbers, regulators, and the order of vanishing at the center (BSD).",
+      "tags": [
+        "duality"
+      ]
     }
   ]
 }
