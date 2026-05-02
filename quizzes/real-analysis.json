@@ -864,6 +864,171 @@
           "explain": "The argument pulls back an arbitrary open cover of $f(K)$, uses continuity to turn it into an open cover of $K$, uses compactness of $K$ to extract a finite subcover, and pushes the finite subcover forward. Compactness is a property of open covers, and continuity is defined by preimages of open sets — so the proof is forced by the definitions."
         }
       ]
+    },
+    "bounded-variation": {
+      "title": "Bounded variation",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Compute the total variation $V_0^{2\\pi}(f)$ of $f(x)=\\sin x$ on $[0,2\\pi]$. (Hint: $\\sin$ is monotone on $[0,\\pi/2]$, $[\\pi/2,3\\pi/2]$, and $[3\\pi/2,2\\pi]$.)",
+          "answer": 4,
+          "tol": 0.000001,
+          "explain": "On a piecewise-monotone function, total variation equals the sum of $|f|$-changes on each monotone piece: $|f(\\pi/2)-f(0)|+|f(3\\pi/2)-f(\\pi/2)|+|f(2\\pi)-f(3\\pi/2)| = 1+2+1 = 4$."
+        },
+        {
+          "type": "mcq",
+          "q": "Which function on $[0,1]$ has $V_0^1(f) = +\\infty$?",
+          "choices": [
+            "$f(x)=x^2$",
+            "$f(x)=|x-1/2|$",
+            "$f(x)=x\\sin(1/x)$ for $x>0$, $f(0)=0$",
+            "Any monotone function"
+          ],
+          "answer": 2,
+          "hint": "Look for a function whose oscillations on $(0,1]$ have summable amplitudes — or not.",
+          "explain": "On the partition $x_k=2/((2k+1)\\pi)$, $|f(x_k)-f(x_{k+1})|\\sim 2/((2k+1)\\pi)$, and $\\sum 1/(2k+1)$ diverges. So $V_0^1(f)=\\infty$ even though $f$ is continuous. Both $x^2$ and $|x-1/2|$ are piecewise monotone with finite TV; monotone functions on $[a,b]$ always have $V=|f(b)-f(a)|<\\infty$."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select every TRUE statement about a BV function $f\\colon[a,b]\\to\\mathbb{R}$.",
+          "choices": [
+            "$f$ can be written as a difference of two nondecreasing functions (Jordan decomposition).",
+            "$f$ is differentiable almost everywhere.",
+            "$f$ must be continuous.",
+            "$f$ has at most countably many discontinuities, all of jump type."
+          ],
+          "answer": [
+            0,
+            1,
+            3
+          ],
+          "explain": "Jordan: $f = g_1 - g_2$ with $g_i$ monotone nondecreasing (e.g. $g_1(x)=V_a^x(f)$). Monotone functions are differentiable a.e. (Lebesgue), so BV functions inherit the same. Monotone (hence BV) functions have at most countably many discontinuities, each a jump. Continuity is NOT required: a step function on $[0,1]$ has finite total variation but jumps."
+        }
+      ]
+    },
+    "absolute-continuity": {
+      "title": "Absolute continuity",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which property defines $f\\colon[a,b]\\to\\mathbb{R}$ being absolutely continuous?",
+          "choices": [
+            "$f$ is continuous and BV.",
+            "For every $\\varepsilon>0$ there is $\\delta>0$ such that for any finite collection of disjoint intervals $(a_k,b_k)$ with $\\sum(b_k-a_k)<\\delta$, $\\sum|f(b_k)-f(a_k)|<\\varepsilon$.",
+            "$f$ is differentiable everywhere with $f'$ continuous.",
+            "$f$ is Lipschitz."
+          ],
+          "answer": 1,
+          "hint": "AC strengthens uniform continuity from \"one interval\" to \"finitely many disjoint intervals of small total length\".",
+          "explain": "AC is uniform continuity upgraded to disjoint unions: small total length forces small total variation. Lipschitz $\\Rightarrow$ AC $\\Rightarrow$ BV $\\cap$ continuous, but neither converse holds. The Cantor function is continuous + BV but not AC."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $c\\colon[0,1]\\to[0,1]$ be the Cantor function (continuous, nondecreasing, $c(0)=0$, $c(1)=1$, with $c'=0$ a.e.). Compute $\\int_0^1 c'(x)\\,dx$ in the Lebesgue sense.",
+          "answer": 0,
+          "tol": 0.000001,
+          "explain": "$c'=0$ outside the Cantor set, which has measure $1$, so $c'=0$ a.e. and the Lebesgue integral is $0$. Yet $c(1)-c(0)=1$, so FTC Part II ($\\int_a^b f' = f(b)-f(a)$) fails for $c$. This is the canonical witness that continuity + BV is strictly weaker than AC."
+        },
+        {
+          "type": "ordering",
+          "q": "Arrange the implications between regularity classes on $[a,b]$, from STRONGEST to weakest.",
+          "items": [
+            "Lipschitz",
+            "Absolutely continuous (AC)",
+            "Bounded variation (BV)",
+            "Continuous"
+          ],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "hint": "Each step strictly drops a property: an AC bound on disjoint intervals; a uniform Lipschitz constant; the existence of a finite total variation.",
+          "explain": "Lipschitz $\\Rightarrow$ AC: $|f(b_k)-f(a_k)|\\le L(b_k-a_k)$ controls the AC sum by $L\\delta$. AC $\\Rightarrow$ BV (and continuous). BV $\\not\\Rightarrow$ continuous (step functions); continuous $\\not\\Rightarrow$ BV (e.g. $x\\sin(1/x)$). The Cantor function shows continuous + BV is still weaker than AC."
+        }
+      ]
+    },
+    "vitali-covering": {
+      "title": "Vitali covering lemma",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A collection $\\mathcal V$ of closed intervals is a <em>Vitali cover</em> of $E\\subseteq\\mathbb{R}$ when:",
+          "choices": [
+            "$\\mathcal V$ is finite and covers $E$.",
+            "Every $x\\in E$ belongs to some interval of $\\mathcal V$.",
+            "For every $x\\in E$ and every $\\varepsilon>0$ there is an interval $I\\in\\mathcal V$ with $x\\in I$ and $|I|<\\varepsilon$.",
+            "All intervals of $\\mathcal V$ have the same length."
+          ],
+          "answer": 2,
+          "hint": "The defining feature is \"arbitrarily small intervals through every point\".",
+          "explain": "Vitali requires that every point of $E$ lie in intervals of $\\mathcal V$ of arbitrarily small length. This is what makes the disjoint-extraction argument work: at each stage one can find an interval avoiding what's already been picked."
+        },
+        {
+          "type": "numeric",
+          "q": "Vitali covering lemma (finite form): given a finite family of intervals in $\\mathbb{R}$ with union $U$, one can pick a disjoint subfamily whose triples (intervals tripled in length about their centers) cover $U$. If the disjoint subfamily has total length $L$, what is the largest possible value of $|U|/L$?",
+          "answer": 3,
+          "tol": 0.000001,
+          "explain": "The greedy Vitali construction picks the longest remaining interval at each step. Tripling each chosen interval covers everything that overlapped it. So $|U|\\le 3L$, and the bound is sharp: the ratio $|U|/L$ tops out at $3$ (e.g., when overlaps cluster two equal-length intervals on each side of a chosen one)."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which uses of the Vitali covering lemma are CORRECT?",
+          "choices": [
+            "Showing that monotone functions on $[a,b]$ are differentiable a.e.",
+            "Proving the Lebesgue differentiation theorem for $L^1_{\\mathrm{loc}}$ functions.",
+            "Constructing a covering with no disjoint subcover (counterexample to Heine–Borel).",
+            "Replacing a measure-zero set's cover by a finite subcover."
+          ],
+          "answer": [
+            0,
+            1
+          ],
+          "explain": "Vitali underwrites the a.e. differentiability of monotone functions (the upper/lower derivative comparison reduces to a Vitali-style covering of \"bad\" Dini-derivative sets) and the Lebesgue differentiation theorem (controlling $|\\{x:Mf(x)>\\lambda\\}|$). Choice 3 is incoherent: Vitali asserts existence of an almost-covering disjoint family. Choice 4 confuses Vitali with compactness; Vitali says nothing about finite subcovers."
+        }
+      ]
+    },
+    "lebesgue-differentiation": {
+      "title": "Lebesgue differentiation theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Lebesgue differentiation theorem states: for $f\\in L^1_{\\mathrm{loc}}(\\mathbb{R})$,",
+          "choices": [
+            "$\\lim_{r\\to 0}\\frac{1}{2r}\\int_{x-r}^{x+r} f(t)\\,dt = f(x)$ for every $x\\in\\mathbb{R}$.",
+            "$\\lim_{r\\to 0}\\frac{1}{2r}\\int_{x-r}^{x+r} f(t)\\,dt = f(x)$ for almost every $x\\in\\mathbb{R}$.",
+            "$\\lim_{r\\to 0}\\frac{1}{2r}\\int_{x-r}^{x+r} f(t)\\,dt$ exists at every $x$ but need not equal $f(x)$.",
+            "The averages converge to the essential supremum of $f$ near $x$."
+          ],
+          "answer": 1,
+          "explain": "The conclusion holds at almost every $x$ (the Lebesgue points), not everywhere. For $f$ continuous it holds at every $x$; for general $L^1_{\\mathrm{loc}}$ one cannot improve beyond \"almost every\" — at points of essential discontinuity the average can fail to track $f(x)$."
+        },
+        {
+          "type": "numeric",
+          "q": "Let $f = \\mathbf{1}_{[0,1]}$ (the indicator of $[0,1]$). Compute the limit $\\lim_{r\\to 0}\\tfrac{1}{2r}\\int_{x-r}^{x+r} f$ at $x=1$.",
+          "answer": 0.5,
+          "tol": 0.000001,
+          "hint": "For small $r>0$, the integral counts the length of $[x-r,x+r]\\cap[0,1]$.",
+          "explain": "For $0<r<1$, $[1-r,1+r]\\cap[0,1] = [1-r,1]$ has length $r$, so the average is $r/(2r) = 1/2$. The point $x=1$ is therefore NOT a Lebesgue point of $f$ (the average converges to $1/2$, not to the value $f(1)=1$). The set of non-Lebesgue points has measure zero — here it is just $\\{0,1\\}$."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select all statements that follow from the Lebesgue differentiation theorem.",
+          "choices": [
+            "Monotone functions on $[a,b]$ are differentiable almost everywhere.",
+            "Every $f\\in L^1_{\\mathrm{loc}}$ is continuous almost everywhere.",
+            "Almost every point of a measurable set $E\\subseteq\\mathbb{R}$ is a density point: $\\lim_{r\\to 0} |E\\cap[x-r,x+r]|/(2r) = 1$ for a.e. $x\\in E$.",
+            "If $\\int_a^x f = 0$ for every $x$, then $f=0$ almost everywhere."
+          ],
+          "answer": [
+            0,
+            2,
+            3
+          ],
+          "explain": "(0) Lebesgue differentiation, applied to the derivative of a monotone function, gives a.e. differentiability. (2) Apply LDT to $f=\\mathbf 1_E$: the average over $[x-r,x+r]$ is $|E\\cap[x-r,x+r]|/(2r)$, converging to $1$ at a.e. point of $E$. (3) Differentiate $F(x)=\\int_a^x f$: $F'=f$ a.e. by LDT, and $F\\equiv 0$ forces $F'=0$ a.e., i.e. $f=0$ a.e. (2) is the wrong claim — being $L^1_{\\mathrm{loc}}$ does NOT imply continuity a.e. (e.g., $\\mathbf 1_{\\mathbb Q}$ is in $L^1_{\\mathrm{loc}}$ and is discontinuous everywhere)."
+        }
+      ]
     }
   }
 }

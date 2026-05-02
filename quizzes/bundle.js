@@ -2939,6 +2939,187 @@ window.MVQuizBank = {
             "explain": "Homomorphisms $\\mathbb{Z}/3\\to\\mathrm{Aut}(\\mathbb{Z}/7)\\cong\\mathbb{Z}/6$ correspond to elements of order dividing $3$ in $\\mathbb{Z}/6$, which form the unique subgroup of order $3$. So there are $3$ homomorphisms, but two of the nontrivial ones give isomorphic semidirect products (they differ by an automorphism of $\\mathbb{Z}/3$). Thus there are $2$ isomorphism classes: the trivial one ($\\mathbb{Z}/21$) and the nonabelian one (order $21$)."
           }
         ]
+      },
+      "composition-series-jordan-holder": {
+        "title": "Composition series & Jordan–Hölder",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the precise statement of the Jordan–Hölder theorem?",
+            "choices": [
+              "Any two composition series of $G$ have the same length and the same multiset of simple factors, up to permutation and isomorphism.",
+              "Every group has a unique composition series.",
+              "The composition factors of $G$ are always abelian.",
+              "Every finite group has exactly one simple factor."
+            ],
+            "answer": 0,
+            "explain": "Jordan–Hölder asserts that the multiset of composition factors $\\{G_i/G_{i-1}\\}$ is an invariant of $G$, even though the chain itself is not. Distinct composition series can interleave through different intermediate subgroups while still producing the same simple-factor census."
+          },
+          {
+            "type": "numeric",
+            "q": "How many composition factors (counted with multiplicity) does $\\mathbb{Z}/12\\mathbb{Z}$ have?",
+            "answer": 3,
+            "tol": 1e-9,
+            "hint": "Factor $12 = 2^2 \\cdot 3$. Each prime factor of $|G|$ contributes one cyclic-of-prime-order composition factor per occurrence.",
+            "explain": "Any composition series of $\\mathbb{Z}/12\\mathbb{Z}$ has factors $\\mathbb{Z}/2,\\mathbb{Z}/2,\\mathbb{Z}/3$ in some order — three simple factors total. For instance $0 \\triangleleft \\langle 6 \\rangle \\triangleleft \\langle 3 \\rangle \\triangleleft \\mathbb{Z}/12$ gives factors of orders $2, 2, 3$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select <em>all</em> groups whose composition factors include a non-abelian simple group.",
+            "choices": [
+              "$S_5$",
+              "$A_5$",
+              "$\\mathbb{Z}/60\\mathbb{Z}$",
+              "$D_{30}$ (dihedral of order $60$)",
+              "$S_3 \\times \\mathbb{Z}/10\\mathbb{Z}$"
+            ],
+            "answer": [
+              0,
+              1
+            ],
+            "hint": "$A_5$ is the smallest non-abelian simple group. Which groups in the list contain $A_5$ as a quotient or subgroup contributing to a composition series?",
+            "explain": "$A_5$ itself is non-abelian simple, so its only composition series is $\\{e\\} \\triangleleft A_5$. $S_5$ has composition series $\\{e\\} \\triangleleft A_5 \\triangleleft S_5$ with factors $A_5$ and $\\mathbb{Z}/2$. The other three are solvable (cyclic, dihedral, or a product of solvable groups), so all their composition factors are cyclic of prime order."
+          }
+        ]
+      },
+      "solvable-groups": {
+        "title": "Solvable groups",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which characterization of solvability is <em>equivalent</em> to the derived series $G \\supseteq G' \\supseteq G'' \\supseteq \\cdots$ terminating at $\\{e\\}$?",
+            "choices": [
+              "Every composition factor of $G$ is cyclic of prime order.",
+              "$G$ is abelian.",
+              "$G$ has a normal Sylow $p$-subgroup for every prime $p \\mid |G|$.",
+              "$G$ has prime order."
+            ],
+            "answer": 0,
+            "explain": "A finite group is solvable iff its composition factors are all cyclic of prime order, iff the derived series terminates at $\\{e\\}$, iff there is a subnormal abelian-factor series. Abelian groups are solvable but the converse fails (e.g. $S_3$)."
+          },
+          {
+            "type": "ordering",
+            "q": "Order these groups by length of their derived series (shortest first; if two share a length, their relative order is given). Use $\\ell(G) = $ smallest $n$ with $G^{(n)} = \\{e\\}$, with $\\ell(G) = \\infty$ when the series stalls.",
+            "items": [
+              "$\\mathbb{Z}/12\\mathbb{Z}$ (abelian)",
+              "$S_3$ (derived series $S_3 \\triangleright A_3 \\triangleright \\{e\\}$)",
+              "$S_4$ (derived series $S_4 \\triangleright A_4 \\triangleright V_4 \\triangleright \\{e\\}$)",
+              "$A_5$ (perfect, $A_5' = A_5$)"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "Abelian groups have $\\ell = 1$. $A_5$ is perfect, so its derived series stalls and $\\ell = \\infty$.",
+            "explain": "$\\ell(\\mathbb{Z}/12) = 1$, $\\ell(S_3) = 2$, $\\ell(S_4) = 3$, $\\ell(A_5) = \\infty$. The Abel–Ruffini theorem follows: $S_5$ contains $A_5$, so $S_5$ is unsolvable, and a generic quintic with Galois group $S_5$ has no solution by radicals."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does Abel–Ruffini imply the generic quintic is not solvable by radicals?",
+            "choices": [
+              "Solvability by radicals corresponds to solvability of the Galois group, and $S_5 \\supseteq A_5$ has $A_5$ perfect, so $S_5$ is not solvable.",
+              "Quintic polynomials have too many roots.",
+              "$\\mathbb{Q}$ is not algebraically closed.",
+              "The discriminant of a generic quintic is irrational."
+            ],
+            "answer": 0,
+            "explain": "Galois theory gives a bijection between radical extensions and solvable Galois groups. A generic quintic has Galois group $S_5$, whose derived series is $S_5 \\triangleright A_5 \\triangleright A_5 \\triangleright \\cdots$ — it never reaches $\\{e\\}$ because $A_5$ is perfect (its commutator subgroup equals itself). Hence no radical formula exists."
+          }
+        ]
+      },
+      "nilpotent-groups": {
+        "title": "Nilpotent groups",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which of the following is equivalent to a finite group $G$ being nilpotent?",
+            "choices": [
+              "$G$ is the direct product of its Sylow subgroups.",
+              "$G$ is solvable.",
+              "$G$ is abelian.",
+              "$G$ has a normal subgroup of prime order."
+            ],
+            "answer": 0,
+            "explain": "For finite groups, nilpotent is equivalent to: every Sylow subgroup is normal, equivalently $G \\cong \\prod_p P_p$ is the internal direct product of its Sylow subgroups. Solvability is strictly weaker (e.g. $S_3$ is solvable but not nilpotent)."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select <em>all</em> groups that are nilpotent.",
+            "choices": [
+              "$\\mathbb{Z}/12\\mathbb{Z}$",
+              "$S_3$",
+              "$D_4$ (dihedral, order $8$)",
+              "$Q_8$ (quaternion, order $8$)",
+              "$S_4$"
+            ],
+            "answer": [
+              0,
+              2,
+              3
+            ],
+            "hint": "Every finite $p$-group is nilpotent. $S_3$ has Sylow-$3$ subgroup $A_3$ that's normal but Sylow-$2$ subgroups $\\langle (12)\\rangle$, $\\langle (13)\\rangle$, $\\langle (23)\\rangle$ are conjugate (so not normal).",
+            "explain": "$\\mathbb{Z}/12 \\cong \\mathbb{Z}/4 \\times \\mathbb{Z}/3$ is a product of Sylow subgroups. $D_4$ and $Q_8$ are $2$-groups, hence nilpotent. $S_3$ has three Sylow-$2$ subgroups (none normal), and $S_4$ similarly fails — both are solvable but not nilpotent."
+          },
+          {
+            "type": "numeric",
+            "q": "What is the nilpotency class (length of the lower central series minus $1$) of $D_4$? That is, the smallest $c$ with $\\gamma_{c+1}(D_4) = \\{e\\}$, where $\\gamma_1 = G$, $\\gamma_{i+1} = [\\gamma_i, G]$.",
+            "answer": 2,
+            "tol": 1e-9,
+            "hint": "$D_4 = \\langle r,s \\mid r^4 = s^2 = e, srs = r^{-1}\\rangle$. Compute $[D_4, D_4]$ first; it's the subgroup generated by commutators $[r,s] = r^{-1}s^{-1}rs$.",
+            "explain": "$\\gamma_2(D_4) = [D_4, D_4] = \\langle r^2 \\rangle$, of order $2$ and central in $D_4$. Then $\\gamma_3 = [\\langle r^2\\rangle, D_4] = \\{e\\}$ since $r^2$ is central. So the chain is $D_4 \\triangleright \\langle r^2 \\rangle \\triangleright \\{e\\}$, giving nilpotency class $2$."
+          }
+        ]
+      },
+      "free-groups-presentations": {
+        "title": "Free groups & presentations",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the universal property of the free group $F_S$ on a set $S$?",
+            "choices": [
+              "Every set map $S \\to G$ extends uniquely to a homomorphism $F_S \\to G$.",
+              "$F_S$ is the smallest group containing $S$.",
+              "$F_S$ is the largest abelian group on $S$.",
+              "$F_S$ is the kernel of every quotient map of any group containing $S$."
+            ],
+            "answer": 0,
+            "explain": "The universal property is: for any group $G$ and any function $f: S \\to G$, there is a unique homomorphism $\\tilde{f}: F_S \\to G$ extending $f$. This is what makes $F_S$ free — no relations beyond those forced by the group axioms. As a consequence, every group is a quotient $F_S / N$ for some choice of $S$ and normal subgroup $N$."
+          },
+          {
+            "type": "mcq",
+            "q": "Reduce the word $a b b^{-1} a^{-1} a b a a^{-1} b^{-1}$ in the free group $F_2 = \\langle a, b\\rangle$. The reduced form is:",
+            "choices": [
+              "$e$ (the identity)",
+              "$ab$",
+              "$a$",
+              "$ab^{-1}$"
+            ],
+            "answer": 2,
+            "hint": "Cancel adjacent inverse pairs $xx^{-1}$ or $x^{-1}x$ repeatedly until no cancellation remains. Cancellations can cascade.",
+            "explain": "Cancellations cascade: $abb^{-1}a^{-1}abaa^{-1}b^{-1} \\to aa^{-1}abaa^{-1}b^{-1}$ (cancel $bb^{-1}$) $\\to abaa^{-1}b^{-1}$ (cancel $aa^{-1}$) $\\to abb^{-1}$ (cancel $aa^{-1}$) $\\to a$ (cancel $bb^{-1}$). The reduced word is $a$ — distinct from the identity in $F_2$, since reduced words are unique."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select <em>all</em> true statements about presentations $G = \\langle S \\mid R\\rangle$.",
+            "choices": [
+              "Every group has a presentation.",
+              "The word problem (deciding if a word in $S$ represents the identity in $G$) is decidable for all finitely-presented $G$.",
+              "Every subgroup of a free group is itself free (Nielsen–Schreier).",
+              "$\\langle a, b \\mid aba^{-1}b^{-1}\\rangle \\cong \\mathbb{Z} \\times \\mathbb{Z}$.",
+              "$\\langle a \\mid a^n\\rangle \\cong \\mathbb{Z}/n\\mathbb{Z}$."
+            ],
+            "answer": [
+              0,
+              2,
+              3,
+              4
+            ],
+            "hint": "Novikov–Boone constructed finitely-presented groups with undecidable word problem.",
+            "explain": "Every group has a presentation (take $S = G$, $R$ = multiplication table). Nielsen–Schreier is correct. The relation $aba^{-1}b^{-1} = e$ is exactly $ab = ba$, giving $\\mathbb{Z}^2$. $\\langle a \\mid a^n\\rangle$ is cyclic of order $n$. The word problem, however, is <em>undecidable</em> in general (Novikov 1955, Boone 1958), even for finitely-presented groups — that's the content of the only false option."
+          }
+        ]
       }
     }
   },
@@ -20453,24 +20634,6 @@ window.MVQuizBank = {
           {
             "type": "mcq",
             "q": "TODO: question stem about splitting fields.",
-            "choices": [
-              "option A",
-              "option B",
-              "option C",
-              "option D"
-            ],
-            "answer": 0,
-            "explain": "TODO: 1–2 sentence explanation.",
-            "hint": "TODO: nudge that does not give away the answer."
-          }
-        ]
-      },
-      "solvable-groups": {
-        "title": "Solvable groups",
-        "questions": [
-          {
-            "type": "mcq",
-            "q": "TODO: question stem about solvable groups.",
             "choices": [
               "option A",
               "option B",
@@ -40465,6 +40628,171 @@ window.MVQuizBank = {
               4
             ],
             "explain": "The argument pulls back an arbitrary open cover of $f(K)$, uses continuity to turn it into an open cover of $K$, uses compactness of $K$ to extract a finite subcover, and pushes the finite subcover forward. Compactness is a property of open covers, and continuity is defined by preimages of open sets — so the proof is forced by the definitions."
+          }
+        ]
+      },
+      "bounded-variation": {
+        "title": "Bounded variation",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Compute the total variation $V_0^{2\\pi}(f)$ of $f(x)=\\sin x$ on $[0,2\\pi]$. (Hint: $\\sin$ is monotone on $[0,\\pi/2]$, $[\\pi/2,3\\pi/2]$, and $[3\\pi/2,2\\pi]$.)",
+            "answer": 4,
+            "tol": 0.000001,
+            "explain": "On a piecewise-monotone function, total variation equals the sum of $|f|$-changes on each monotone piece: $|f(\\pi/2)-f(0)|+|f(3\\pi/2)-f(\\pi/2)|+|f(2\\pi)-f(3\\pi/2)| = 1+2+1 = 4$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which function on $[0,1]$ has $V_0^1(f) = +\\infty$?",
+            "choices": [
+              "$f(x)=x^2$",
+              "$f(x)=|x-1/2|$",
+              "$f(x)=x\\sin(1/x)$ for $x>0$, $f(0)=0$",
+              "Any monotone function"
+            ],
+            "answer": 2,
+            "hint": "Look for a function whose oscillations on $(0,1]$ have summable amplitudes — or not.",
+            "explain": "On the partition $x_k=2/((2k+1)\\pi)$, $|f(x_k)-f(x_{k+1})|\\sim 2/((2k+1)\\pi)$, and $\\sum 1/(2k+1)$ diverges. So $V_0^1(f)=\\infty$ even though $f$ is continuous. Both $x^2$ and $|x-1/2|$ are piecewise monotone with finite TV; monotone functions on $[a,b]$ always have $V=|f(b)-f(a)|<\\infty$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select every TRUE statement about a BV function $f\\colon[a,b]\\to\\mathbb{R}$.",
+            "choices": [
+              "$f$ can be written as a difference of two nondecreasing functions (Jordan decomposition).",
+              "$f$ is differentiable almost everywhere.",
+              "$f$ must be continuous.",
+              "$f$ has at most countably many discontinuities, all of jump type."
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "explain": "Jordan: $f = g_1 - g_2$ with $g_i$ monotone nondecreasing (e.g. $g_1(x)=V_a^x(f)$). Monotone functions are differentiable a.e. (Lebesgue), so BV functions inherit the same. Monotone (hence BV) functions have at most countably many discontinuities, each a jump. Continuity is NOT required: a step function on $[0,1]$ has finite total variation but jumps."
+          }
+        ]
+      },
+      "absolute-continuity": {
+        "title": "Absolute continuity",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which property defines $f\\colon[a,b]\\to\\mathbb{R}$ being absolutely continuous?",
+            "choices": [
+              "$f$ is continuous and BV.",
+              "For every $\\varepsilon>0$ there is $\\delta>0$ such that for any finite collection of disjoint intervals $(a_k,b_k)$ with $\\sum(b_k-a_k)<\\delta$, $\\sum|f(b_k)-f(a_k)|<\\varepsilon$.",
+              "$f$ is differentiable everywhere with $f'$ continuous.",
+              "$f$ is Lipschitz."
+            ],
+            "answer": 1,
+            "hint": "AC strengthens uniform continuity from \"one interval\" to \"finitely many disjoint intervals of small total length\".",
+            "explain": "AC is uniform continuity upgraded to disjoint unions: small total length forces small total variation. Lipschitz $\\Rightarrow$ AC $\\Rightarrow$ BV $\\cap$ continuous, but neither converse holds. The Cantor function is continuous + BV but not AC."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $c\\colon[0,1]\\to[0,1]$ be the Cantor function (continuous, nondecreasing, $c(0)=0$, $c(1)=1$, with $c'=0$ a.e.). Compute $\\int_0^1 c'(x)\\,dx$ in the Lebesgue sense.",
+            "answer": 0,
+            "tol": 0.000001,
+            "explain": "$c'=0$ outside the Cantor set, which has measure $1$, so $c'=0$ a.e. and the Lebesgue integral is $0$. Yet $c(1)-c(0)=1$, so FTC Part II ($\\int_a^b f' = f(b)-f(a)$) fails for $c$. This is the canonical witness that continuity + BV is strictly weaker than AC."
+          },
+          {
+            "type": "ordering",
+            "q": "Arrange the implications between regularity classes on $[a,b]$, from STRONGEST to weakest.",
+            "items": [
+              "Lipschitz",
+              "Absolutely continuous (AC)",
+              "Bounded variation (BV)",
+              "Continuous"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "Each step strictly drops a property: an AC bound on disjoint intervals; a uniform Lipschitz constant; the existence of a finite total variation.",
+            "explain": "Lipschitz $\\Rightarrow$ AC: $|f(b_k)-f(a_k)|\\le L(b_k-a_k)$ controls the AC sum by $L\\delta$. AC $\\Rightarrow$ BV (and continuous). BV $\\not\\Rightarrow$ continuous (step functions); continuous $\\not\\Rightarrow$ BV (e.g. $x\\sin(1/x)$). The Cantor function shows continuous + BV is still weaker than AC."
+          }
+        ]
+      },
+      "vitali-covering": {
+        "title": "Vitali covering lemma",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A collection $\\mathcal V$ of closed intervals is a <em>Vitali cover</em> of $E\\subseteq\\mathbb{R}$ when:",
+            "choices": [
+              "$\\mathcal V$ is finite and covers $E$.",
+              "Every $x\\in E$ belongs to some interval of $\\mathcal V$.",
+              "For every $x\\in E$ and every $\\varepsilon>0$ there is an interval $I\\in\\mathcal V$ with $x\\in I$ and $|I|<\\varepsilon$.",
+              "All intervals of $\\mathcal V$ have the same length."
+            ],
+            "answer": 2,
+            "hint": "The defining feature is \"arbitrarily small intervals through every point\".",
+            "explain": "Vitali requires that every point of $E$ lie in intervals of $\\mathcal V$ of arbitrarily small length. This is what makes the disjoint-extraction argument work: at each stage one can find an interval avoiding what's already been picked."
+          },
+          {
+            "type": "numeric",
+            "q": "Vitali covering lemma (finite form): given a finite family of intervals in $\\mathbb{R}$ with union $U$, one can pick a disjoint subfamily whose triples (intervals tripled in length about their centers) cover $U$. If the disjoint subfamily has total length $L$, what is the largest possible value of $|U|/L$?",
+            "answer": 3,
+            "tol": 0.000001,
+            "explain": "The greedy Vitali construction picks the longest remaining interval at each step. Tripling each chosen interval covers everything that overlapped it. So $|U|\\le 3L$, and the bound is sharp: the ratio $|U|/L$ tops out at $3$ (e.g., when overlaps cluster two equal-length intervals on each side of a chosen one)."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which uses of the Vitali covering lemma are CORRECT?",
+            "choices": [
+              "Showing that monotone functions on $[a,b]$ are differentiable a.e.",
+              "Proving the Lebesgue differentiation theorem for $L^1_{\\mathrm{loc}}$ functions.",
+              "Constructing a covering with no disjoint subcover (counterexample to Heine–Borel).",
+              "Replacing a measure-zero set's cover by a finite subcover."
+            ],
+            "answer": [
+              0,
+              1
+            ],
+            "explain": "Vitali underwrites the a.e. differentiability of monotone functions (the upper/lower derivative comparison reduces to a Vitali-style covering of \"bad\" Dini-derivative sets) and the Lebesgue differentiation theorem (controlling $|\\{x:Mf(x)>\\lambda\\}|$). Choice 3 is incoherent: Vitali asserts existence of an almost-covering disjoint family. Choice 4 confuses Vitali with compactness; Vitali says nothing about finite subcovers."
+          }
+        ]
+      },
+      "lebesgue-differentiation": {
+        "title": "Lebesgue differentiation theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Lebesgue differentiation theorem states: for $f\\in L^1_{\\mathrm{loc}}(\\mathbb{R})$,",
+            "choices": [
+              "$\\lim_{r\\to 0}\\frac{1}{2r}\\int_{x-r}^{x+r} f(t)\\,dt = f(x)$ for every $x\\in\\mathbb{R}$.",
+              "$\\lim_{r\\to 0}\\frac{1}{2r}\\int_{x-r}^{x+r} f(t)\\,dt = f(x)$ for almost every $x\\in\\mathbb{R}$.",
+              "$\\lim_{r\\to 0}\\frac{1}{2r}\\int_{x-r}^{x+r} f(t)\\,dt$ exists at every $x$ but need not equal $f(x)$.",
+              "The averages converge to the essential supremum of $f$ near $x$."
+            ],
+            "answer": 1,
+            "explain": "The conclusion holds at almost every $x$ (the Lebesgue points), not everywhere. For $f$ continuous it holds at every $x$; for general $L^1_{\\mathrm{loc}}$ one cannot improve beyond \"almost every\" — at points of essential discontinuity the average can fail to track $f(x)$."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $f = \\mathbf{1}_{[0,1]}$ (the indicator of $[0,1]$). Compute the limit $\\lim_{r\\to 0}\\tfrac{1}{2r}\\int_{x-r}^{x+r} f$ at $x=1$.",
+            "answer": 0.5,
+            "tol": 0.000001,
+            "hint": "For small $r>0$, the integral counts the length of $[x-r,x+r]\\cap[0,1]$.",
+            "explain": "For $0<r<1$, $[1-r,1+r]\\cap[0,1] = [1-r,1]$ has length $r$, so the average is $r/(2r) = 1/2$. The point $x=1$ is therefore NOT a Lebesgue point of $f$ (the average converges to $1/2$, not to the value $f(1)=1$). The set of non-Lebesgue points has measure zero — here it is just $\\{0,1\\}$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all statements that follow from the Lebesgue differentiation theorem.",
+            "choices": [
+              "Monotone functions on $[a,b]$ are differentiable almost everywhere.",
+              "Every $f\\in L^1_{\\mathrm{loc}}$ is continuous almost everywhere.",
+              "Almost every point of a measurable set $E\\subseteq\\mathbb{R}$ is a density point: $\\lim_{r\\to 0} |E\\cap[x-r,x+r]|/(2r) = 1$ for a.e. $x\\in E$.",
+              "If $\\int_a^x f = 0$ for every $x$, then $f=0$ almost everywhere."
+            ],
+            "answer": [
+              0,
+              2,
+              3
+            ],
+            "explain": "(0) Lebesgue differentiation, applied to the derivative of a monotone function, gives a.e. differentiability. (2) Apply LDT to $f=\\mathbf 1_E$: the average over $[x-r,x+r]$ is $|E\\cap[x-r,x+r]|/(2r)$, converging to $1$ at a.e. point of $E$. (3) Differentiate $F(x)=\\int_a^x f$: $F'=f$ a.e. by LDT, and $F\\equiv 0$ forces $F'=0$ a.e., i.e. $f=0$ a.e. (2) is the wrong claim — being $L^1_{\\mathrm{loc}}$ does NOT imply continuity a.e. (e.g., $\\mathbf 1_{\\mathbb Q}$ is in $L^1_{\\mathrm{loc}}$ and is discontinuous everywhere)."
           }
         ]
       }

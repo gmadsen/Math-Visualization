@@ -8,10 +8,10 @@ When something ships, delete its bullet here. Don't keep a "Shipped recently" lo
 
 From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
-- 131 topics, 921 concepts, 1648 prereq edges (698 cross-topic), 24 capstones
+- 131 topics, 928 concepts, 1659 prereq edges (698 cross-topic), 24 capstones
 - 158 concepts lack a widget in their owning section
-- 0 inline widget blocks corpus-wide; 468 registry slug directories (every `widget` block in `content/*.json` carries `slug + params`)
-- Quiz tiers: v1 = 2718, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
+- 0 inline widget blocks corpus-wide; 471 registry slug directories (every `widget` block in `content/*.json` carries `slug + params`)
+- Quiz tiers: v1 = 2741, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 - Tag coverage: ~80%. Worst remaining sections: number-theory 63%, higher-categories 71%, logic-and-foundations 76%, geometry-and-topology 78%, algebraic-geometry 78%. (Analysis/probability/modular-forms/combinatorics closed to 85–93% in PR #49.)
 
 ## Near-term tasks
@@ -22,7 +22,7 @@ Items below come out of the algebra/analysis comparative audit shipped in PR #49
 - **Within-topic concept backfill on prereq-tier `real-analysis` and `algebra`.** Both gate large downstream sections; missing standard concepts cause silent prereq-graph gaps. Real-analysis: bounded variation, absolute continuity, Lebesgue points / differentiation theorem, Vitali covering. Algebra: Jordan-Hölder / composition series, nilpotent groups (lower central series), solvable groups (derived series), free groups / presentations (back-reference from `geometric-and-combinatorial-group-theory`).
 - **Within-topic concept backfill on `complex-analysis`, `functional-analysis`, `commutative-algebra`, `homological`.** Named-theorem level: open-mapping (named), Phragmén-Lindelöf bridge, subharmonic backref; Banach-Alaoglu (named), Krein-Milman; completion, DVRs/Dedekind domains, Koszul complex; double complexes, Tor symmetry, Cartan-Eilenberg.
 - **Tagging tail — remaining sections.** PR #49 closed the four worst (analysis 56→91%, probability 45→93%, modular-forms 51→85%, combinatorics 49→86%). Mid-tier follow-up: number-theory (63%), higher-categories (71%), logic-and-foundations (76%), geometry-and-topology and algebraic-geometry (78% each).
-- **Math physics has no `hard` tier and Combinatorics has no `hard` tier.** 483 concepts lack a hard tier corpus-wide; 12 topics in those two sections × ~6 concepts × 2-3 questions each ≈ ~150 of the missing questions. Per "Out of scope", de-prioritized — listed here so the gap is visible, not actioned.
+- **Math physics has no `hard` tier and Combinatorics has no `hard` tier.** 490 concepts lack a hard tier corpus-wide; 12 topics in those two sections × ~6 concepts × 2-3 questions each ≈ ~150 of the missing questions. Per "Out of scope", de-prioritized — listed here so the gap is visible, not actioned.
 
 ## Bigger missing-topic candidates (from the comparative audit)
 
@@ -78,7 +78,7 @@ Items raised by the review-team agents that were deferred at merge time. **All q
 
 Items the user has explicitly de-prioritized. **Don't suggest these as "what next" without prompting.**
 
-- **Hard-tier quiz authoring** (483 concepts lack hard tier).
+- **Hard-tier quiz authoring** (490 concepts lack hard tier).
 - **Expert-tier authoring** (13 questions corpus-wide).
 
 These are real coverage gaps but not where the user wants to spend time. Per-session feedback memory: lowest-leverage direction, structural/architectural improvements come first.
