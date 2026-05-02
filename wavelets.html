@@ -846,21 +846,24 @@ Analysis: $c_{j,k}=\langle f,\tilde\psi_{j,k}\rangle$. Synthesis: $f=\sum_{j,k}c
   if(!svg) return;
   const W = 760, H = 260;
   const N = 256;
+  // Haar has M = 1 vanishing moment, so decay rate of its coefficients on a C^α signal saturates at min(α, M) + 1/2 = min(α + 1/2, 1.5).
+  // We cap displayed slopes at the Haar bound and explain the saturation in the readout for the high-α (smooth) case.
+  const HAAR_MOMENTS = 1;
   const sigs = {
-    jump:   { fn: x => (x < 0.5 ? 0.0 : 1.0),
-              label: "step (Heaviside-like jump)",
+    jump:   { fn: x => (x < (1/Math.PI) ? 0.0 : 1.0),  // jump at 1/π ≈ 0.318, deliberately off all dyadic grids
+              label: "step (jump at x = 1/π)",
               alpha: 0,
-              note: "discontinuity ⇒ |⟨f, ψ_{j,k}⟩| ~ 2^{-j/2}: only the few atoms straddling the jump pick up energy, but they decay slowly. Compression sees O(j) significant coefficients per level."
+              note: "Discontinuity ⇒ a small set of finest-level Haar atoms straddles the jump and picks up O(1) energy. Coefficient decay is slow: log₂|d_{j,k}| ~ −j(α+½) = −j/2. Compression is poor — every level still has significant coefficients near the jump."
             },
     lin:    { fn: x => Math.abs(x - 0.5),
               label: "|x − 1/2| (Lipschitz, kink)",
               alpha: 1,
-              note: "Lipschitz with one kink ⇒ |⟨f, ψ_{j,k}⟩| ~ 2^{-3j/2} near kink, faster away.  Effective decay rate α = 1."
+              note: "Lipschitz with one kink ⇒ |⟨f, ψ_{j,k}⟩| ~ 2^{−3j/2} near the kink. Effective decay rate α = 1, so log₂|d| has slope α + ½ = 1.5 — exactly the Haar limit. Compression is good: only the few atoms adjacent to the kink matter."
             },
     smooth: { fn: x => Math.exp(-30*(x-0.5)*(x-0.5)),
               label: "Gaussian bump (C^∞)",
               alpha: 5,
-              note: "C^∞ ⇒ |⟨f, ψ_{j,k}⟩| decays faster than any polynomial in 2^{-j}. Plot saturates at numerical precision; only a handful of coefficients are non-negligible."
+              note: "C^∞ regularity would predict slope α + ½ = 5.5, but Haar has only 1 vanishing moment, so its coefficient decay saturates at slope min(α + ½, M + ½) = 1.5. The dashed yellow line is drawn at the *Haar* limit; with db4 (4 moments) we would see slope up to 4.5 here. This is why orthogonal wavelet families with more vanishing moments are preferred for smooth signals."
             }
   };
   // Haar full DWT on length-N samples
@@ -891,16 +894,13 @@ Analysis: $c_{j,k}=\langle f,\tilde\psi_{j,k}\rangle$. Synthesis: $f=\sum_{j,k}c
     const maxAbs = levels.map(D => D.reduce((m,v)=> Math.max(m, Math.abs(v)), 0));
     const J = maxAbs.length;
     const padL = 60, padR = 30, padT = 30, padB = 50;
-    // Plot: x = level j (0=finest, J-1=coarsest), y = log2(maxAbs)
     const yLog = maxAbs.map(v => v <= 1e-12 ? -40 : Math.log2(v));
     let yMin = -16, yMax = 2;
     for(const v of yLog){ if(v < yMin && v > -40) yMin = Math.floor(v)-1; if(v > yMax) yMax = Math.ceil(v)+1; }
     const xs = (j)=> padL + (j/(J-1))*(W-padL-padR);
     const ys = (v)=> padT + (yMax-v)/(yMax-yMin)*(H-padT-padB);
-    // axes
     svg.appendChild(SVG("line",{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:"var(--line)"}));
     svg.appendChild(SVG("line",{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:"var(--line)"}));
-    // axis labels
     const xt = SVG("text",{x: (W+padL-padR)/2, y: H-12, "font-size":11, "text-anchor":"middle", fill:"var(--mute)"});
     xt.textContent = "scale level (0 = finest, " + (J-1) + " = coarsest)";
     svg.appendChild(xt);
@@ -912,9 +912,8 @@ Analysis: $c_{j,k}=\langle f,\tilde\psi_{j,k}\rangle$. Synthesis: $f=\sum_{j,k}c
     for(let j=0;j<J;j++){
       if(yLog[j] <= -40) continue;
       const cx = xs(j), cy = ys(yLog[j]);
-      svg.appendChild(SVG("circle",{cx, cy, r:4, fill:"var(--cyan)", stroke:"#0b0f16","stroke-width":1}));
+      svg.appendChild(SVG("circle",{cx, cy, r:4, fill:"var(--cyan)", stroke:"var(--bg)","stroke-width":1}));
     }
-    // Connect points
     let dPath = "";
     for(let j=0;j<J;j++){
       if(yLog[j] <= -40) continue;
@@ -922,19 +921,48 @@ Analysis: $c_{j,k}=\langle f,\tilde\psi_{j,k}\rangle$. Synthesis: $f=\sum_{j,k}c
       dPath += (dPath===""?"M":"L")+cx+" "+cy+" ";
     }
     svg.appendChild(SVG("path",{d:dPath, fill:"none", stroke:"var(--cyan)","stroke-width":1.5,"stroke-opacity":"0.6"}));
-    // Theoretical slope: |d| ~ 2^{-j(α+1/2)}, so log2|d| ~ -(α+1/2) j + C, with j here = level index counted from coarse.
-    // In our indexing j=0 is finest; finest level corresponds to highest scale 2^J. Predicted slope vs our level index is +(α+1/2).
-    const slope = sig.alpha + 0.5;
-    if(yLog[0] > -40){
-      const c0 = yLog[0];
-      const x0p = xs(0), y0p = ys(c0);
-      const x1p = xs(J-1), y1p = ys(c0 + slope*(J-1));
-      svg.appendChild(SVG("line",{x1:x0p,y1:y0p,x2:x1p,y2:y1p,stroke:"var(--yellow)","stroke-width":1.4,"stroke-dasharray":"6 4"}));
-      const lab = SVG("text",{x:x1p-8, y:y1p-6, "font-size":11, "text-anchor":"end", fill:"var(--yellow)"});
-      lab.textContent = "predicted slope (α+½) = " + slope.toFixed(1);
-      svg.appendChild(lab);
+    // Theoretical slope, capped at the Haar bound:
+    const idealSlope = sig.alpha + 0.5;
+    const haarLimit  = HAAR_MOMENTS + 0.5;     // = 1.5
+    const slope = Math.min(idealSlope, haarLimit);
+    const isCapped = idealSlope > haarLimit + 1e-9;
+    // Anchor the slope line at the median of the data (more robust than the finest point)
+    if(J >= 3){
+      const valid = yLog.map((v,j)=> ({j, v})).filter(o=>o.v > -40);
+      if(valid.length >= 2){
+        // Find a good anchor: use the second-finest level (often more representative for high-α signals)
+        const anchorIdx = Math.min(2, valid.length-1);
+        const anchor = valid[anchorIdx];
+        const c0 = anchor.v - slope*anchor.j;  // log2|d_0| extrapolation
+        const x0p = xs(0), y0p = ys(c0);
+        const x1p = xs(J-1), y1p = ys(c0 + slope*(J-1));
+        // Clip to the SVG viewport (predicted line might exit)
+        const yClipMin = padT, yClipMax = H - padB;
+        function clip(x0, y0, x1, y1){
+          // Clip line segment to [yClipMin, yClipMax]
+          if(y0 >= yClipMin && y0 <= yClipMax && y1 >= yClipMin && y1 <= yClipMax) return [x0,y0,x1,y1];
+          // Simple clip: skip drawing if both endpoints out
+          if((y0 < yClipMin && y1 < yClipMin) || (y0 > yClipMax && y1 > yClipMax)) return null;
+          // Clip from y > yClipMax (off-bottom)
+          let nx0=x0, ny0=y0, nx1=x1, ny1=y1;
+          if(ny0 > yClipMax){ nx0 = x0 + (yClipMax-y0)*(x1-x0)/(y1-y0); ny0 = yClipMax; }
+          if(ny1 > yClipMax){ nx1 = x0 + (yClipMax-y0)*(x1-x0)/(y1-y0); ny1 = yClipMax; }
+          if(ny0 < yClipMin){ nx0 = x0 + (yClipMin-y0)*(x1-x0)/(y1-y0); ny0 = yClipMin; }
+          if(ny1 < yClipMin){ nx1 = x0 + (yClipMin-y0)*(x1-x0)/(y1-y0); ny1 = yClipMin; }
+          return [nx0,ny0,nx1,ny1];
+        }
+        const clipped = clip(x0p,y0p,x1p,y1p);
+        if(clipped){
+          const [cx0,cy0,cx1,cy1] = clipped;
+          svg.appendChild(SVG("line",{x1:cx0,y1:cy0,x2:cx1,y2:cy1,stroke:"var(--yellow)","stroke-width":1.4,"stroke-dasharray":"6 4"}));
+          const lab = SVG("text",{x:cx1-8, y:cy1-6, "font-size":11, "text-anchor":"end", fill:"var(--yellow)"});
+          lab.textContent = isCapped
+            ? "Haar-limited slope = " + slope.toFixed(1) + " (saturated; ideal α+½ = " + idealSlope.toFixed(1) + ")"
+            : "predicted slope (α+½) = " + slope.toFixed(1);
+          svg.appendChild(lab);
+        }
+      }
     }
-    // Header
     const hdr = SVG("text",{x: W/2, y: 18, "text-anchor":"middle","font-size":12, fill:"var(--ink)"});
     hdr.textContent = sig.label + "   →   Haar wavelet coefficient decay";
     svg.appendChild(hdr);
@@ -947,7 +975,9 @@ Analysis: $c_{j,k}=\langle f,\tilde\psi_{j,k}\rangle$. Synthesis: $f=\sum_{j,k}c
       draw(b.dataset.sig);
     });
   });
-  draw("jump");
+  // Default to "lin" — the cleanest pedagogical pairing (slope exactly matches the Haar limit at 1.5).
+  buttons.forEach(b=>{ if(b.dataset.sig==="lin") b.classList.add("active"); });
+  draw("lin");
 })();
 </script>
 

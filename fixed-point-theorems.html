@@ -493,7 +493,7 @@ so Caristi forces a fixed point. (Indeed $0$ is fixed; the orbit from any $x_0\i
     // phi(x) = 2x
     svg.appendChild(SVG("line",{x1:xS(0),y1:yS(0),x2:xS(1),y2:yS(2),stroke:"var(--yellow)","stroke-width":2}));
     const tphi = SVG("text",{x:xS(0.85),y:yS(1.78),"font-size":12,fill:"var(--yellow)"});
-    tphi.textContent = "varphi(x)=2x"; svg.appendChild(tphi);
+    tphi.textContent = "φ(x)=2x"; svg.appendChild(tphi);
     // T(x) on [0,1]
     let dT = "";
     for(let i=0;i<=120;i++){
@@ -531,8 +531,8 @@ so Caristi forces a fixed point. (Indeed $0$ is fixed; the orbit from any $x_0\i
     // legend
     const lg1 = SVG("text",{x:xS(0.45),y:yS(1.95),"font-size":11,fill:"var(--cyan)"}); lg1.textContent="T(x) = x - x^2/2"; svg.appendChild(lg1);
     const lg2 = SVG("text",{x:xS(0.45),y:yS(1.78),"font-size":11,fill:"var(--pink)"}); lg2.textContent="pink = orbit displacement on axis"; svg.appendChild(lg2);
-    const lg3 = SVG("text",{x:xS(0.45),y:yS(1.61),"font-size":11,fill:"var(--violet)"}); lg3.textContent="violet bars = budget varphi(x_k)"; svg.appendChild(lg3);
-    out.textContent = `x_0=${x0.toFixed(3)} · sum_k |x_k - x_{k+1}| over 8 steps = ${totalDisp.toFixed(4)} · varphi(x_0)=${phi(x0).toFixed(3)} (caps the entire tail). Inequality d(x,Tx) <= varphi(x) - varphi(Tx) holds: at x, x - Tx = x^2/2 <= 2x - 2(x - x^2/2) = x^2.`;
+    const lg3 = SVG("text",{x:xS(0.45),y:yS(1.61),"font-size":11,fill:"var(--violet)"}); lg3.textContent="violet bars = budget φ(x_k)"; svg.appendChild(lg3);
+    out.textContent = `x_0=${x0.toFixed(3)} · sum_k |x_k - x_{k+1}| over 8 steps = ${totalDisp.toFixed(4)} · φ(x_0)=${phi(x0).toFixed(3)} (caps the entire tail). Inequality d(x,Tx) <= φ(x) - φ(Tx) holds: at x, x - Tx = x^2/2 <= 2x - 2(x - x^2/2) = x^2.`;
   }
   document.getElementById("cs-x0").addEventListener("input", draw);
   draw();
@@ -560,7 +560,8 @@ Each $C_i$ is closed by continuity. To check the KKM covering condition, pick an
 
 <div class="note"><strong>Why KKM is the cleanest gateway.</strong> Brouwer needs degree theory or singular homology; KKM needs only Sperner, which is a finite combinatorial argument. Once KKM is in hand, Brouwer, Schauder (via finite-dimensional approximation), Kakutani (via the Browder selection), and the von Neumann/Nash existence proofs all fall out by short reductions. Functional analysts often cite KKM as the right starting axiom for fixed-point theory.</div>
 
-<p>The two widgets below realise both faces of KKM. The first shows the closed-cover form: three closed stars $A_i = \{x\in\Delta : x_i\ge t_i\}$ around each vertex. KKM's covering condition is satisfied iff $\max_i t_i \le 1/3$, and the conclusion — non-empty common intersection — is the green sub-triangle. The second is Sperner's discrete sibling: a triangulation, a Sperner labelling (vertex on face $\Delta_S$ uses only labels from $S$), and the count of fully-labelled small triangles is always odd.</p>
+<h3>Closed-star cover</h3>
+<p>The first widget realises the closed-cover form. Three closed stars $A_i = \{x\in\Delta : x_i\ge t_i\}$ around each vertex. The KKM covering condition (every face $\Delta_S$ covered by indexed $A_i$ for $i \in S$) reduces, in this closed-star formulation, to the single inequality $\sum_i t_i \le 1$ — and KKM's conclusion is then exactly $\bigcap_i A_i \ne \emptyset$, the green sub-triangle. The intersection contracts to a point as $\sum t_i \to 1$, and goes empty the moment the cover hypothesis fails: in this formulation cover and intersection are governed by the same condition, gating one another via KKM.</p>
 
 <div class="widget" id="w-kkm">
   <div class="hd"><div class="ttl">KKM cover on the 2-simplex</div><div class="hint">Three closed stars $A_i = \{x_i \ge t_i\}$; intersection is the green sub-triangle.</div></div>
@@ -581,9 +582,9 @@ Each $C_i$ is closed by continuity. To check the KKM covering condition, pick an
   const cx = W/2, cy = H/2 + 30;
   const R = 130;
   const V = [
-    {x: cx,            y: cy - R},        // v0 (top)
-    {x: cx - R*0.866,  y: cy + R*0.5},    // v1 (bottom-left)
-    {x: cx + R*0.866,  y: cy + R*0.5}     // v2 (bottom-right)
+    {x: cx,            y: cy - R},        // v_0 (top)
+    {x: cx - R*0.866,  y: cy + R*0.5},    // v_1 (bottom-left)
+    {x: cx + R*0.866,  y: cy + R*0.5}     // v_2 (bottom-right)
   ];
   function bary(b){
     return {
@@ -591,9 +592,14 @@ Each $C_i$ is closed by continuity. To check the KKM covering condition, pick an
       y: b[0]*V[0].y + b[1]*V[1].y + b[2]*V[2].y
     };
   }
-  // closed set A_i = { x in Delta : x_i >= t_i } -- closed star around v_i.
-  // KKM covering condition holds iff max t_i <= 1/3 (every face covered by sets at its vertices).
-  // Intersection non-empty iff t_0+t_1+t_2 <= 1.
+  // Closed-star formulation: A_i = { x in Δ : x_i ≥ t_i }, the closed star at v_i.
+  // KKM cover-by-indexed-faces hypothesis:
+  //   • each face conv{v_i : i ∈ S} is covered by ⋃_{i ∈ S} A_i
+  //   • for the full simplex (S = {0,1,2}): Σ t_i ≤ 1
+  //   • for each edge (pair S = {i,j}): t_i + t_j ≤ 1  (implied by Σ ≤ 1 when t ≥ 0)
+  //   • for singletons: t_i ≤ 1 (automatic in slider range [0, 0.6])
+  // So the *single* governing condition is Σ t_i ≤ 1.
+  // KKM then concludes ⋂ A_i ≠ ∅, which directly is { x_i ≥ t_i ∀i } ≠ ∅, also ⟺ Σ t_i ≤ 1.
   function draw(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     const t0 = parseFloat(document.getElementById("km-t0").value);
@@ -603,10 +609,10 @@ Each $C_i$ is closed by continuity. To check the KKM covering condition, pick an
     // outer triangle
     svg.appendChild(SVG("polygon",{
       points: V.map(p => p.x+","+p.y).join(" "),
-      fill:"rgba(255,255,255,0.02)", stroke:"var(--ink)","stroke-width":1.6
+      fill:"color-mix(in srgb, var(--ink) 2%, transparent)", stroke:"var(--ink)","stroke-width":1.6
     }));
     const colors = ["var(--cyan)","var(--yellow)","var(--pink)"];
-    // each A_i is the small triangle with vertex v_i and base x_i = t_i
+    // each A_i = closed star, drawn as the triangle with vertex v_i and opposite edge x_i = t_i
     for(let i=0;i<3;i++){
       const ti = ts[i];
       const j = (i+1)%3, k = (i+2)%3;
@@ -619,7 +625,7 @@ Each $C_i$ is closed by continuity. To check the KKM covering condition, pick an
         fill: colors[i], "fill-opacity":0.22, stroke: colors[i], "stroke-width":1.4
       }));
     }
-    // intersection of A_i
+    // intersection ⋂ A_i = { x_i ≥ t_i ∀i }
     const tsum = t0+t1+t2;
     const inter_ok = tsum <= 1 + 1e-9;
     if(inter_ok){
@@ -632,10 +638,10 @@ Each $C_i$ is closed by continuity. To check the KKM covering condition, pick an
         fill:"var(--green)","fill-opacity":0.6, stroke:"var(--green)","stroke-width":1.6
       }));
       const ccx = (p0.x+p1.x+p2.x)/3, ccy = (p0.y+p1.y+p2.y)/3;
-      svg.appendChild(SVG("circle",{cx:ccx,cy:ccy,r:5,fill:"var(--green)",stroke:"#111","stroke-width":1.2}));
+      svg.appendChild(SVG("circle",{cx:ccx,cy:ccy,r:5,fill:"var(--green)",stroke:"var(--bg)","stroke-width":1.2}));
     }
     // vertex labels
-    const lbls = ["v_0","v_1","v_2"];
+    const lbls = ["v₀","v₁","v₂"];
     for(let i=0;i<3;i++){
       const offX = (i===0?0:(i===1?-16:16));
       const offY = (i===0?-12:20);
@@ -644,31 +650,28 @@ Each $C_i$ is closed by continuity. To check the KKM covering condition, pick an
     }
     // legend
     const lg = [
-      `A_0 = { x_0 >= ${t0.toFixed(2)} }`,
-      `A_1 = { x_1 >= ${t1.toFixed(2)} }`,
-      `A_2 = { x_2 >= ${t2.toFixed(2)} }`
+      `A₀ = { x₀ ≥ ${t0.toFixed(2)} }`,
+      `A₁ = { x₁ ≥ ${t1.toFixed(2)} }`,
+      `A₂ = { x₂ ≥ ${t2.toFixed(2)} }`
     ];
     for(let i=0;i<3;i++){
       const tt = SVG("text",{x:20,y:24+i*18,"font-size":12,fill:colors[i]});
       tt.textContent = lg[i]; svg.appendChild(tt);
     }
-    const tmax = Math.max(t0,t1,t2);
-    const cover_ok = tmax <= 1/3 + 1e-9;
+    const cover_ok = inter_ok; // same condition for closed-star formulation
     const v1 = SVG("text",{x:20,y:24+3*18+6,"font-size":12,fill: cover_ok?"var(--green)":"var(--pink)"});
     v1.textContent = cover_ok
-      ? `KKM covering: max t_i = ${tmax.toFixed(2)} <= 1/3 (holds)`
-      : `KKM covering FAILS: max t_i = ${tmax.toFixed(2)} > 1/3`;
+      ? `KKM hypothesis: every face is covered by indexed A_i ✓  (Σ tᵢ = ${tsum.toFixed(2)} ≤ 1)`
+      : `KKM hypothesis FAILS: Σ tᵢ = ${tsum.toFixed(2)} > 1, the inner triangle x_i < t_i is uncovered`;
     svg.appendChild(v1);
     const v2 = SVG("text",{x:20,y:24+4*18+4,"font-size":12,fill: inter_ok?"var(--green)":"var(--pink)"});
     v2.textContent = inter_ok
-      ? `intersection non-empty (sum = ${tsum.toFixed(2)} <= 1)`
-      : `intersection EMPTY (sum = ${tsum.toFixed(2)} > 1)`;
+      ? `intersection ⋂ Aᵢ non-empty ✓  (the green sub-triangle of side 1 − Σ tᵢ)`
+      : `intersection ⋂ Aᵢ EMPTY  (no point satisfies all three xᵢ ≥ tᵢ when Σ tᵢ > 1)`;
     svg.appendChild(v2);
-    out.textContent = cover_ok
-      ? `KKM hypothesis holds: every face is covered by A_i indexed by its own vertices. Conclusion: bigcap A_i is non-empty (green sub-triangle; shrinks to a point when sum t_i = 1).`
-      : (inter_ok
-          ? `Covering FAILS but intersection still non-empty here -- KKM gives a sufficient, not necessary, condition.`
-          : `Both covering and intersection fail: when max t_i > 1/3 and sum > 1, the A_i miss part of an edge AND have empty common point.`);
+    out.textContent = inter_ok
+      ? `KKM hypothesis (Σ tᵢ ≤ ${tsum.toFixed(2)} ≤ 1) holds: closed stars cover every face. Conclusion: ⋂ Aᵢ ≠ ∅ — the green sub-triangle, which contracts to a point as Σ tᵢ → 1.`
+      : `Σ tᵢ = ${tsum.toFixed(2)} > 1: the inner triangle {x_i < t_i ∀ i} is non-empty, so the Aᵢ fail to cover Δ — and the intersection is also empty. (Both are governed by the single condition Σ tᵢ ≤ 1 in this closed-star formulation; they go non-empty together.)`;
   }
   ["km-t0","km-t1","km-t2"].forEach(id => {
     document.getElementById(id).addEventListener("input", draw);
@@ -676,6 +679,9 @@ Each $C_i$ is closed by continuity. To check the KKM covering condition, pick an
   draw();
 })();
 </script>
+
+<h3>Sperner — discrete sibling</h3>
+<p>The combinatorial mirror image: triangulate $\Delta$ at depth $n$, apply a Sperner labelling (vertex on face $\Delta_S$ uses only labels from $S$), and count the rainbow sub-triangles. Sperner asserts the count is always <em>odd</em> — in particular non-zero — by a one-page parity argument on edge counts. As $n\to\infty$, by compactness the rainbow cells condense to a Brouwer fixed point of any continuous map represented by the labelling: this is precisely how §2 Brouwer falls out of the discrete combinatorics, with no degree theory or homology.</p>
 
 <div class="widget" id="w-sperner">
   <div class="hd"><div class="ttl">Sperner's lemma — count the rainbow triangles</div><div class="hint">Sperner labelling on a triangulation of mesh $n$. Count is always odd.</div></div>
@@ -783,14 +789,14 @@ Each $C_i$ is closed by continuity. To check the KKM covering condition, pick an
       const k = n-i-j;
       const p = bary([i/n,j/n,k/n]);
       const L = lab[`${i}_${j}_${k}`];
-      svg.appendChild(SVG("circle",{cx:p.x,cy:p.y,r:5.5,fill:labelColors[L],stroke:"#111","stroke-width":1}));
-      const t = SVG("text",{x:p.x,y:p.y+3.5,"text-anchor":"middle","font-size":9,fill:"#111","font-weight":700});
+      svg.appendChild(SVG("circle",{cx:p.x,cy:p.y,r:5.5,fill:labelColors[L],stroke:"var(--bg)","stroke-width":1}));
+      const t = SVG("text",{x:p.x,y:p.y+3.5,"text-anchor":"middle","font-size":9,fill:"var(--bg)","font-weight":700});
       t.textContent = L; svg.appendChild(t);
     }
     // legend
     const tags = ["label 0 (corner v_0)","label 1 (corner v_1)","label 2 (corner v_2)"];
     for(let i=0;i<3;i++){
-      svg.appendChild(SVG("circle",{cx:30,cy:24+i*18,r:5,fill:labelColors[i],stroke:"#111","stroke-width":1}));
+      svg.appendChild(SVG("circle",{cx:30,cy:24+i*18,r:5,fill:labelColors[i],stroke:"var(--bg)","stroke-width":1}));
       const t = SVG("text",{x:42,y:28+i*18,"font-size":12,fill:labelColors[i]});
       t.textContent = tags[i]; svg.appendChild(t);
     }
