@@ -28,7 +28,7 @@
       a.href = href;
       const clone = src.cloneNode(true);
       clone.querySelectorAll('.katex-mathml').forEach(n => n.remove());
-      a.textContent = clone.textContent.replace(/ /g, ' ').trim();
+      a.textContent = clone.textContent.replace(/[\u00a0]/g, ' ').replace(/\s+/g, ' ').trim();
       li.appendChild(a);
       ol.appendChild(li);
       sectionEntries.push({a, s: target});
