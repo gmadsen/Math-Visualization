@@ -125,8 +125,18 @@ function buildTocEntries(sections) {
   const entries = [];
   let n = 0;
   const errors = [];
+  // Defense-in-depth: duplicate section ids produce broken anchor links
+  // (only the first match is reachable via "#id" in HTML). Catch them here
+  // even though they'd technically pass smoke-test today — this script is
+  // already walking sections[], so the check is free.
+  const seenIds = new Set();
   for (const section of sections) {
     if (!section.id) continue;
+    if (seenIds.has(section.id)) {
+      errors.push(`duplicate section id "${section.id}" — anchor links to the second occurrence are unreachable`);
+      continue;
+    }
+    seenIds.add(section.id);
     const found = getSectionLabel(section);
     if (!found) {
       errors.push(`section #${section.id} has no <h2> or <h3> heading`);
