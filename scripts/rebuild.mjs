@@ -77,6 +77,11 @@ const STEPS = [
   { name: 'display-prefs', script: 'inject-display-prefs.mjs',  fix: true  },
   { name: 'index-stats', script: 'inject-index-stats.mjs',      fix: true  },
   { name: 'page-metadata', script: 'inject-page-metadata.mjs',  fix: true  },
+  // toc must run AFTER any step that mutates section structure (none currently
+  // do, but this leaves room) and BEFORE roundtrip so the regenerated TOC
+  // propagates to HTML. In --no-fix mode the audit fails the moment a topic's
+  // TOC diverges from the auto-generated form, making drift impossible.
+  { name: 'toc',         script: 'inject-toc.mjs',              fix: true  },
   // Note: inject-changelog-footer.mjs is deliberately NOT in the chain —
   // its output references "most recent commit", but the commit that *adds*
   // the refreshed changelog can't reference itself, so every post-commit

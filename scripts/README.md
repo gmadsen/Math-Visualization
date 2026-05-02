@@ -56,6 +56,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 | [`inject-display-prefs.mjs`](./inject-display-prefs.mjs) | `<script src="./js/display-prefs.js">` + CSS for widget/quiz hide toggle. |
 | [`inject-index-stats.mjs`](./inject-index-stats.mjs) | Keep `index.html` hero-tagline topic/concept counts live. |
 | [`inject-page-metadata.mjs`](./inject-page-metadata.mjs) | `data-section` / `data-level` attributes on `<body>` (mutates `content/<topic>.json`'s `rawBodyPrefix`). Source of truth = `index.html` card section/level mapping. Default = audit-only; `--fix` writes. Wired into the rebuild chain so the `audit-cross-page-consistency.mjs` body-attr invariant stays satisfied automatically. |
+| [`inject-toc.mjs`](./inject-toc.mjs) | Auto-rebuild `<nav class="toc">` from each topic's `sections[]`. Labels are derived from `<h2>` (or `<h3>` for appendix-style sections), with `$…$` KaTeX preserved. The auto-generated entries are fenced with `<!-- toc-auto-{begin,end} -->`. Default = strict audit (exits 1 on any drift); `--fix` rewrites. Wired into the rebuild chain BEFORE roundtrip; CI's `--no-fix` mirror catches any hand-edit immediately. |
 | [`fix-a11y.mjs`](./fix-a11y.mjs) | Backfill SVG `<title>` + `<label for=>` wiring. |
 | [`color-vars.mjs`](./color-vars.mjs) | Audit (default, exits 1 on hits) + `--fix` rewrite for hex in paint attrs; `--fix --pattern '<regex>'` also covers hex inside `<style>` blocks. |
 | [`wire-katex-select.mjs`](./wire-katex-select.mjs) | Wire `js/katex-select.js` into pages with LaTeX-in-`<option>`. |
@@ -167,18 +168,19 @@ CI ([`.github/workflows/verify.yml`](../.github/workflows/verify.yml)) runs `reb
 22. `inject-display-prefs.mjs --fix`
 23. `inject-index-stats.mjs --fix`
 24. `inject-page-metadata.mjs --fix`
-25. `fix-a11y.mjs --fix`
-26. `test-roundtrip.mjs --fix`
-27. `smoke-test.mjs`
-28. `test-topic-jsdom.mjs`
-29. `stats-coverage.mjs`
-30. `audit-notation.mjs`
-31. `audit-draft-index-cards.mjs`
-32. `audit-starter-concepts.mjs`
-33. `audit-doc-drift.mjs`
+25. `inject-toc.mjs --fix`
+26. `fix-a11y.mjs --fix`
+27. `test-roundtrip.mjs --fix`
+28. `smoke-test.mjs`
+29. `test-topic-jsdom.mjs`
+30. `stats-coverage.mjs`
+31. `audit-notation.mjs`
+32. `audit-draft-index-cards.mjs`
+33. `audit-starter-concepts.mjs`
+34. `audit-doc-drift.mjs`
 
 Round-trip is intentionally first among the post-injector steps so that smoke and topic-jsdom check the regenerated HTML, not stale on-disk HTML — otherwise a content/json edit that broke a topic page would pass its first rebuild and only fail the next one.
 
-`--only <step>` runs one step. Valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `section-indexes`, `schema`, `widget-params`, `widget-renderers`, `widget-hydration`, `multi-iife-split`, `html-walk`, `find-matching-div`, `ajv`, `doc-drift-unit`, `a11y-unit`, `validate`, `concept-latex`, `katex`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `page-metadata`, `a11y`, `roundtrip`, `smoke`, `topic-jsdom`, `stats`, `notation`, `draft-cards`, `starter`, `doc-drift`.
+`--only <step>` runs one step. Valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `section-indexes`, `schema`, `widget-params`, `widget-renderers`, `widget-hydration`, `multi-iife-split`, `html-walk`, `find-matching-div`, `ajv`, `doc-drift-unit`, `a11y-unit`, `validate`, `concept-latex`, `katex`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `page-metadata`, `toc`, `a11y`, `roundtrip`, `smoke`, `topic-jsdom`, `stats`, `notation`, `draft-cards`, `starter`, `doc-drift`.
 
 `inject-changelog-footer.mjs` is intentionally **not** in the rebuild chain — its output references "latest commit touching this page", but the commit that refreshes the changelog can't reference itself, so every post-commit audit would flag one-commit-behind drift forever. Run it manually (`node scripts/inject-changelog-footer.mjs`) before publishing or cutting a release; `--audit` mode reports stale pages without writing.
