@@ -9,8 +9,8 @@ When something ships, delete its bullet here. Don't keep a "Shipped recently" lo
 From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
 - 135 topics, 957 concepts, 1700 prereq edges (714 cross-topic), 28 capstones
-- 158 concepts lack a widget in their owning section
-- 0 inline widget blocks corpus-wide; 471 registry slug directories (every `widget` block in `content/*.json` carries `slug + params`)
+- 153 concepts lack a widget in their owning section
+- 47 inline widget blocks (in three Mathematical-physics capstones from PR #55, authored before content/*.json round-trip stabilized); 469 registry slug directories
 - Quiz tiers: v1 = 2828, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 - Tag coverage: ~80%. Worst remaining sections: number-theory 63%, higher-categories 71%, logic-and-foundations 76%, geometry-and-topology 78%, algebraic-geometry 78%. (Analysis/probability/modular-forms/combinatorics closed to 85–93% in PR #49.)
 
@@ -32,10 +32,10 @@ Listed for the long view; each is a multi-session lift.
 ## Authoring polish — small
 
 - **Index-card thumb art.** `new-topic.mjs` leaves placeholder colored thumbs in `index.html`; could replace with motif-appropriate SVGs.
+- **Migrate 47 inline widgets in `statistical-mechanics`/`gauge-theory`/`string-theory` to registry slugs.** PR #55 shipped these three topics with inline `<div class="widget">` markup + per-page `<script>` tails because the parallel agents authored against the HTML directly. Round-trip via `extract-topic.mjs` preserved the inline form. Each could become a new `widgets/<slug>/` entry (schema + index.mjs) so `validate-widget-params.mjs` and the future React frontend can see them. ~21 widgets across the three pages; defer to a dedicated infra PR.
 
 ## Three.js / Pyodide / alt frontends (long-running)
 
-- **Full-topic React frontend.** `examples/react-consumer/` renders one widget; next is rendering a whole topic from `content/<topic>.json` + the registry. All 131 topics are JSON-source-of-truth and 0 inline widget blocks remain corpus-wide, so this is a clean target.
 - **Three.js adoption decision.** `examples/threejs-prototype/` validates the ceiling-raise for 3D-heavy topics. Would converge with `surface-viewer`. Requires AGENTS.md amendment on dependency policy.
 - **Inline code cells for live examples.** `inline-code-cell` is a Web Worker JS sandbox; could be extended to Pyodide for sieves / sympy demos at the cost of a ~10MB CDN load.
 
