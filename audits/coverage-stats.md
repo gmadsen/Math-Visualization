@@ -3,10 +3,10 @@
 ## Corpus totals
 
 - Topics: **132**, concepts: **936**
-- Widgets: **942** (registry-driven: 934, inline: 8)
+- Widgets: **948** (registry-driven: 940, inline: 8)
 - Quizzes: **4001** (v1: 2765, hard: 1223, expert: 13)
 - Quiz types: mcq: 2678, numeric: 1050, multi-select: 113, matching: 52, ordering: 34, complex: 29, spot-the-error: 24, proof-completion: 17, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **157**
+- Concepts lacking a widget in their section: **153**
 - Concepts lacking a hard-tier quiz: **498**
 
 ## Per-slug registry adoption
@@ -19,7 +19,7 @@ page has wired one in yet.
 | slug | family | gesture | dimension | instances | topics |
 |---|---|---|---|---:|---|
 | `button-stepper` | button-stepper | click | 2d | 343 | L-functions, additive-number-theory, adeles-and-ideles, algebra, algebraic-number-theory, algebraic-topology, analytic-continuation, bezout, bsd, category-theory, class-field-theory, complex-analysis, differential-geometry, dirichlet-series-euler-products, dynamical-systems, etale-cohomology, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, galois-representations, hecke-operators, homological, lie-groups, measure-theory, modular-forms, modularity-and-flt, moduli-spaces, moonshine, morphisms-fiber-products, naive-set-theory, operator-algebras, p-adic-numbers, partitions-generating-functions, point-set-topology, probability-theory, projective-plane, quadratic-forms-genus-theory, quadratic-reciprocity, representation-theory, riemann-surfaces, riemannian-geometry, sato-tate, schemes, sheaf-cohomology, sheaves, singular-cubics-reduction, smooth-manifolds, stacks, theta-functions, upper-half-plane-hyperbolic, zeta-values |
-| `clickable-diagram` | clickable-diagram | click | 2d | 73 | algebra, algebraic-number-theory, algebraic-topology, bezout, category-theory, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, homological, measure-theory, morphisms-fiber-products, naive-set-theory, operator-algebras, quadratic-reciprocity, real-analysis, riemannian-geometry, schemes, sheaves, stacks |
+| `clickable-diagram` | clickable-diagram | click | 2d | 79 | algebra, algebraic-number-theory, algebraic-topology, bezout, category-theory, fixed-point-theorems, frobenius-and-reciprocity, functional-analysis, functor-of-points, galois, homological, measure-theory, morphisms-fiber-products, naive-set-theory, operator-algebras, quadratic-reciprocity, real-analysis, riemannian-geometry, schemes, sheaves, stacks, wavelets |
 | `parametric-plot` | parametric-plot | slider | 2d | 11 | analytic-continuation, analytic-number-theory, expanders |
 | `schrodinger-figure` | schrodinger-figure | slider | 2d | 7 | schrodinger-equation |
 | `clickable-graph` | clickable-graph | click | 2d | 6 | adeles-and-ideles, riemannian-geometry, schemes, sheaves |
@@ -522,10 +522,10 @@ page has wired one in yet.
 ### Analysis
 
 - Topics: **16**, concepts: **170**
-- Widgets: **116** (registry-driven: 116, inline: 0)
-  - by family: button-stepper: 37, clickable-diagram: 35, aca-figure: 5, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, variational-fdiff: 1, variational-brachistochrone: 1, variational-direct-method: 1, variational-mountain-pass: 1, variational-isoperimetric: 1, variational-sphere-geodesic: 1, constraint-bifurcation-explorer: 1, recurrence-plotter: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
-  - by dimension: 2d: 115, 3d: 1
-  - by gesture: click: 75, slider: 33, drag: 5, select: 2, step: 1
+- Widgets: **122** (registry-driven: 122, inline: 0)
+  - by family: clickable-diagram: 41, button-stepper: 37, aca-figure: 5, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, variational-fdiff: 1, variational-brachistochrone: 1, variational-direct-method: 1, variational-mountain-pass: 1, variational-isoperimetric: 1, variational-sphere-geodesic: 1, constraint-bifurcation-explorer: 1, recurrence-plotter: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
+  - by dimension: 2d: 121, 3d: 1
+  - by gesture: click: 81, slider: 33, drag: 5, select: 2, step: 1
 - Quizzes: **654** (v1: 469, hard: 185, expert: 0)
   - by type: mcq: 415, numeric: 153, multi-select: 24, matching: 18, ordering: 14, complex: 14, proof-completion: 9, spot-the-error: 5, construction: 1, guess-my-rule: 1
 
@@ -607,7 +607,7 @@ page has wired one in yet.
 - `numerical-analysis` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `computational-number-theory` (Number theory) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `variational-methods` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
-- `fixed-point-theorems` (Analysis) — concepts=8, widgets=0 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
+- `fixed-point-theorems` (Analysis) — concepts=8, widgets=3 (slug=3), quiz=24 (v1=24, hard=0, expert=0)
 - `calabi-yau-manifolds` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `high-dimensional-geometry` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `mirror-symmetry` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
@@ -622,7 +622,7 @@ page has wired one in yet.
 - `quantum-groups` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `quaternions-octonions-and-division-algebras` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `geometric-and-combinatorial-group-theory` (Algebra & homological) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
-- `wavelets` (Analysis) — concepts=8, widgets=0 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
+- `wavelets` (Analysis) — concepts=8, widgets=3 (slug=3), quiz=24 (v1=24, hard=0, expert=0)
 - `vertex-operator-algebras` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `schrodinger-equation` (Mathematical physics) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
 - `mathematics-and-cryptography` (Number theory) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)

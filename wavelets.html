@@ -497,6 +497,174 @@ where $P$ is a <em>predictor</em> (any linear operator on the evens) and $U$ is 
 
 <p>Longer predictors and updaters give smoother wavelets. A predictor that interpolates each odd sample from four adjacent evens with the cubic interpolation weights $(-1,9,9,-1)/16$, paired with the corresponding updater, yields the <strong>Cohen–Daubechies–Feauveau 9/7 biorthogonal wavelet</strong> — JPEG2000's lossy filter. The same template covers the family from Haar (length 2/2) up.</p>
 
+<p>Walk through the lazy → predict → update derivation step by step:</p>
+
+<div class="widget" id="w-lift">
+  <div class="hd"><div class="ttl">Lifting: Haar from lazy + 1 predict + 1 update</div><div class="hint">click step to walk through split → predict → update</div></div>
+  <div class="row">
+    <button id="lift-step">step ▶</button>
+    <button id="lift-reset">reset</button>
+    <span class="pill" id="lift-phase">phase 0 of 4 — initial signal</span>
+  </div>
+  <svg id="lift-svg" viewBox="0 0 760 260" width="100%" height="260"><title>Lifting: Haar from lazy + 1 predict + 1 update</title></svg>
+  <div class="readout" id="lift-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = document.getElementById("lift-svg");
+  const stepBtn = document.getElementById("lift-step");
+  const resetBtn = document.getElementById("lift-reset");
+  const phaseLabel = document.getElementById("lift-phase");
+  const out = document.getElementById("lift-out");
+  if(!svg) return;
+  const W = 760, H = 260;
+  const initial = [4, 8, 3, 5, 9, 1, 6, 2];
+  const phaseNames = [
+    "0 of 4 — initial signal s_n",
+    "1 of 4 — split into evens / odds",
+    "2 of 4 — predict: d_n = s^(o)_n − s^(e)_n",
+    "3 of 4 — update: a_n = s^(e)_n + d_n / 2",
+    "4 of 4 — done (Haar pair (a, d))"
+  ];
+  let phase = 0;
+  function evens(){ return initial.filter((_,i)=> i%2===0); }
+  function odds(){ return initial.filter((_,i)=> i%2===1); }
+  function details(){
+    const e = evens(), o = odds();
+    return o.map((v,i)=> v - e[i]);
+  }
+  function approxes(){
+    const e = evens(), d = details();
+    return e.map((v,i)=> v + d[i]/2);
+  }
+  function chip(x, y, val, color, label){
+    svg.appendChild(SVG("rect",{
+      x: x-22, y: y-16, width:44, height:32, rx:6,
+      fill: color, "fill-opacity":"0.18", stroke: color, "stroke-width":1.4
+    }));
+    const t = SVG("text",{x, y: y+5, "text-anchor":"middle","font-size":13, fill:"var(--ink)","font-weight":600});
+    t.textContent = (typeof val === "number") ? (Number.isInteger(val)? val.toFixed(0) : val.toFixed(2)) : String(val);
+    svg.appendChild(t);
+    if(label){
+      const lab = SVG("text",{x, y: y-22, "text-anchor":"middle","font-size":10, fill:"var(--mute)"});
+      lab.textContent = label;
+      svg.appendChild(lab);
+    }
+  }
+  function arrow(x1,y1,x2,y2,color){
+    drawArrow(svg,[x1,y1],[x2,y2],{color, width:1.2, pad1:6, pad2:8, markerId:"lift-arr-"+color.replace(/[^a-z]/gi,"")});
+  }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    phaseLabel.textContent = "phase " + phaseNames[phase];
+    const padL = 60, padR = 30;
+    const N = initial.length;
+    const span = (W-padL-padR);
+    const dx = span / N;
+    // Row labels
+    function rowLabel(y, txt, col){
+      const t = SVG("text",{x: padL-12, y: y+5, "text-anchor":"end","font-size":12, fill: col || "var(--mute)"});
+      t.textContent = txt;
+      svg.appendChild(t);
+    }
+    if(phase === 0){
+      rowLabel(60, "input s", "var(--ink)");
+      for(let i=0;i<N;i++){
+        chip(padL + (i+0.5)*dx, 60, initial[i], "var(--blue)", "s_"+i);
+      }
+      out.textContent = "Input signal of length " + N + ".  Click \"step\" to apply lazy split → predict → update.";
+    }
+    else if(phase >= 1){
+      // Top row: input
+      rowLabel(45, "input s", "var(--mute)");
+      for(let i=0;i<N;i++){
+        chip(padL + (i+0.5)*dx, 45, initial[i], "var(--mute)", null);
+      }
+      // Mid row: evens (left half), odds (right half)
+      const half = N/2;
+      const e = evens(), o = odds();
+      rowLabel(120, "evens s^(e)", "var(--cyan)");
+      for(let i=0;i<half;i++){
+        chip(padL + (i+0.5)*(span/2)/half * 1, 120, e[i], "var(--cyan)", "i="+i);
+      }
+      rowLabel(120, "  ", "var(--mute)");
+      const oddsX0 = padL + span/2 + 10;
+      const oddsW = span/2 - 10;
+      // separate "odds" label
+      const lab2 = SVG("text",{x: oddsX0 - 20, y: 125, "text-anchor":"end","font-size":12, fill:"var(--yellow)"});
+      lab2.textContent = "odds s^(o)";
+      svg.appendChild(lab2);
+      for(let i=0;i<half;i++){
+        chip(oddsX0 + (i+0.5)*oddsW/half, 120, o[i], "var(--yellow)", "i="+i);
+      }
+      // Arrows from input to split
+      if(phase === 1){
+        for(let i=0;i<N;i++){
+          const sx = padL + (i+0.5)*dx, sy = 45+18;
+          if(i%2===0){
+            const tx = padL + (i/2+0.5)*(span/2)/half, ty = 120-18;
+            arrow(sx, sy, tx, ty, "var(--cyan)");
+          } else {
+            const tx = oddsX0 + (((i-1)/2)+0.5)*oddsW/half, ty = 120-18;
+            arrow(sx, sy, tx, ty, "var(--yellow)");
+          }
+        }
+        out.textContent = "Lazy split — interleave done.  Even-indexed s_{2n} go to s^(e); odd-indexed s_{2n+1} go to s^(o). Same numbers, just rearranged.";
+      }
+      // Bottom row: details (after predict) and/or approxes (after update)
+      if(phase >= 2){
+        const d = details();
+        const a = (phase >= 3) ? approxes() : null;
+        rowLabel(200, "details d", "var(--pink)");
+        for(let i=0;i<half;i++){
+          chip(padL + (i+0.5)*(span/2)/half, 200, d[i], "var(--pink)", "n="+i);
+        }
+        if(phase >= 3){
+          const lab3 = SVG("text",{x: oddsX0 - 20, y: 205, "text-anchor":"end","font-size":12, fill:"var(--green)"});
+          lab3.textContent = "approx a";
+          svg.appendChild(lab3);
+          for(let i=0;i<half;i++){
+            chip(oddsX0 + (i+0.5)*oddsW/half, 200, a[i], "var(--green)", "n="+i);
+          }
+        }
+        if(phase === 2){
+          // arrows: o_n minus e_n -> d_n
+          for(let i=0;i<half;i++){
+            const ex = padL + (i+0.5)*(span/2)/half, ey = 120+18;
+            const ox = oddsX0 + (i+0.5)*oddsW/half, oy = 120+18;
+            const tx = padL + (i+0.5)*(span/2)/half, ty = 200-18;
+            arrow(ex, ey, tx, ty, "var(--mute)");
+            arrow(ox, oy, tx, ty, "var(--pink)");
+          }
+          out.textContent = "Predict step — d_n = s^(o)_n − s^(e)_n  (each odd minus its left neighbour).  d = [" + d.join(", ") + "].  d is now the residual the predictor missed.";
+        } else if(phase === 3){
+          // arrows: e_n + d_n/2 -> a_n
+          for(let i=0;i<half;i++){
+            const ex = padL + (i+0.5)*(span/2)/half, ey = 120+18;
+            const dx2 = padL + (i+0.5)*(span/2)/half, dy2 = 200-18;
+            const tx = oddsX0 + (i+0.5)*oddsW/half, ty = 200-18;
+            arrow(ex, ey, tx, ty, "var(--mute)");
+            arrow(dx2, dy2 - 6, tx, ty, "var(--green)");
+          }
+          out.textContent = "Update step — a_n = s^(e)_n + ½ d_n = (s_{2n} + s_{2n+1})/2.  a = [" + a.map(x=>x.toFixed(2)).join(", ") + "].  Local averages (low-pass).";
+        } else if(phase === 4){
+          out.textContent = "Forward Haar via lifting complete.  a = [" + a.map(x=>x.toFixed(2)).join(", ") + "]  (averages).  d = [" + d.join(", ") + "]  (differences).  Inverse: undo update first (s^(e) = a − d/2), then undo predict (s^(o) = s^(e) + d).";
+        }
+      }
+    }
+  }
+  stepBtn.addEventListener("click", ()=>{
+    phase = Math.min(4, phase+1);
+    draw();
+  });
+  resetBtn.addEventListener("click", ()=>{
+    phase = 0;
+    draw();
+  });
+  draw();
+})();
+</script>
 <div class="quiz" data-concept="w-lifting-scheme"></div>
 </section>
 
@@ -529,6 +697,117 @@ Analysis: $c_{j,k}=\langle f,\tilde\psi_{j,k}\rangle$. Synthesis: $f=\sum_{j,k}c
 
 <p>The mental picture: orthogonal wavelets force one basis to do double duty. Biorthogonal wavelets split that work between two bases that are <em>dual</em> in the bilinear-form sense $\langle\tilde\psi_{j,k},\psi_{j',k'}\rangle=\delta$, exactly the way contravariant and covariant tensors split the work of an inner product into two compatible bases instead of one self-paired one.</p>
 
+<p>Compare an orthogonal Daubechies pair (where analysis = synthesis exactly) to two biorthogonal CDF pairs (where the two filters differ but each is symmetric):</p>
+
+<div class="widget" id="w-biortho">
+  <div class="hd"><div class="ttl">Analysis vs synthesis filter</div><div class="hint">compare orthogonal (db4) vs biorthogonal (CDF) filter pairs</div></div>
+  <div class="row">
+    <button data-bio="db4" class="active">db4 (orthogonal)</button>
+    <button data-bio="cdf53">CDF 5/3 (biorthogonal)</button>
+    <button data-bio="cdf97">CDF 9/7 (biorthogonal)</button>
+  </div>
+  <svg id="bio-svg" viewBox="0 0 760 260" width="100%" height="260"><title>Analysis vs synthesis filter</title></svg>
+  <div class="readout" id="bio-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = document.getElementById("bio-svg");
+  const buttons = svg.parentElement.querySelectorAll("button[data-bio]");
+  const out = document.getElementById("bio-out");
+  if(!svg) return;
+  const W = 760, H = 260;
+  // Filters as { analysis: [...], synthesis: [...], symmetric, vmA, vmS, name }
+  const families = {
+    db4: {
+      analysis: [0.2303778133088964, 0.7148465705529154, 0.6308807679298587,
+        -0.0279837694168599, -0.1870348117190931, 0.0308413818355607,
+         0.0328830116668852, -0.0105974017850690],
+      synthesis: [0.2303778133088964, 0.7148465705529154, 0.6308807679298587,
+        -0.0279837694168599, -0.1870348117190931, 0.0308413818355607,
+         0.0328830116668852, -0.0105974017850690],
+      symmetric: false,
+      vmA: 4, vmS: 4,
+      lengthA: 8, lengthS: 8,
+      name: "db4 (Daubechies 4)",
+      note: "orthogonal: analysis = synthesis exactly (h̃ = h). Asymmetric — Daubechies' theorem forbids symmetric orthogonal compactly-supported wavelets except Haar."
+    },
+    cdf53: {
+      // CDF 5/3 (LeGall). Analysis low-pass length 5, synthesis length 3.
+      analysis: [-0.125, 0.25, 0.75, 0.25, -0.125],
+      synthesis: [0.25, 0.5, 0.25],
+      // Multiplied by sqrt(2) for L2 norm; here we just plot the filter taps as listed.
+      symmetric: true,
+      vmA: 2, vmS: 2,
+      lengthA: 5, lengthS: 3,
+      name: "CDF 5/3 (JPEG2000 lossless)",
+      note: "biorthogonal: analysis ≠ synthesis. Both filters symmetric about centre — linear-phase. Integer-friendly: lifting form gives lossless reconstruction with floor-divisions only."
+    },
+    cdf97: {
+      analysis: [0.0378284555, -0.0238494650, -0.1106244044, 0.3774028557,
+                 0.8526986790, 0.3774028557, -0.1106244044, -0.0238494650, 0.0378284555],
+      synthesis: [-0.0645388826, -0.0406894176, 0.4180922732, 0.7884856164,
+                   0.4180922732, -0.0406894176, -0.0645388826],
+      symmetric: true,
+      vmA: 4, vmS: 4,
+      lengthA: 9, lengthS: 7,
+      name: "CDF 9/7 (JPEG2000 lossy)",
+      note: "biorthogonal: analysis length 9, synthesis length 7. Both symmetric (linear-phase). Inside the FBI fingerprint codec and JPEG2000's lossy mode."
+    }
+  };
+  function plot(filter, x0, x1, y0, y1, color, label){
+    const n = filter.length;
+    let yMax = 0;
+    for(const v of filter) if(Math.abs(v) > yMax) yMax = Math.abs(v);
+    yMax = Math.max(yMax, 0.5) * 1.1;
+    const yMid = (y0+y1)/2;
+    const xs = (i)=> x0 + (i+0.5)*(x1-x0)/n;
+    const ys = (v)=> yMid - v/yMax * (y1-y0)/2 * 0.85;
+    // box
+    svg.appendChild(SVG("rect",{x:x0,y:y0,width:x1-x0,height:y1-y0,fill:"transparent",stroke:"var(--line)","stroke-width":1}));
+    // zero axis
+    svg.appendChild(SVG("line",{x1:x0,y1:yMid,x2:x1,y2:yMid,stroke:"var(--line)","stroke-width":1,"stroke-dasharray":"3 3"}));
+    // stems
+    for(let i=0;i<n;i++){
+      const xi = xs(i), yi = ys(filter[i]);
+      svg.appendChild(SVG("line",{x1:xi,y1:yMid,x2:xi,y2:yi,stroke:color,"stroke-width":1.5}));
+      svg.appendChild(SVG("circle",{cx:xi,cy:yi,r:3.5,fill:color,stroke:"#0b0f16","stroke-width":1}));
+    }
+    // label
+    const t = SVG("text",{x: x0+8, y: y0+14, "font-size":12, fill: color});
+    t.textContent = label;
+    svg.appendChild(t);
+    // n label
+    const t2 = SVG("text",{x: x1-8, y: y0+14, "font-size":11, fill: "var(--mute)", "text-anchor":"end"});
+    t2.textContent = "length " + n;
+    svg.appendChild(t2);
+  }
+  function draw(key){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const f = families[key];
+    const padL = 30, padR = 30, padT = 30, padB = 30, gap = 30;
+    const colW = (W - padL - padR - gap)/2;
+    const rowH = (H - padT - padB);
+    plot(f.analysis, padL, padL+colW, padT, padT+rowH, "var(--cyan)", "analysis  h̃[n]");
+    plot(f.synthesis, padL+colW+gap, padL+colW+gap+colW, padT, padT+rowH, "var(--yellow)", "synthesis  h[n]");
+    // Title
+    const title = SVG("text",{x: W/2, y: 18, "text-anchor":"middle","font-size":12, fill:"var(--ink)"});
+    title.textContent = f.name + "  ·  " + (f.symmetric ? "symmetric (linear-phase)" : "asymmetric");
+    svg.appendChild(title);
+    out.textContent = "analysis length " + f.lengthA + ", synthesis length " + f.lengthS +
+      "  ·  vanishing moments: ψ̃ has " + f.vmA + ", ψ has " + f.vmS +
+      "\n" + f.note;
+  }
+  buttons.forEach(b=>{
+    b.addEventListener("click", ()=>{
+      buttons.forEach(x=>x.classList.remove("active"));
+      b.classList.add("active");
+      draw(b.dataset.bio);
+    });
+  });
+  draw("db4");
+})();
+</script>
 <div class="quiz" data-concept="w-biorthogonal"></div>
 </section>
 
@@ -545,6 +824,132 @@ Analysis: $c_{j,k}=\langle f,\tilde\psi_{j,k}\rangle$. Synthesis: $f=\sum_{j,k}c
   <li><a href="./functional-analysis.html#hilbert-bases">Functional analysis — orthonormal bases</a> — the wavelet expansion theorem is a Hilbert basis statement.</li>
   <li><a href="./partial-differential-equations.html">PDE</a> — adaptive wavelet methods solve elliptic problems with optimal $N\log N$ complexity by exploiting CZ-operator sparsity.</li>
 </ul>
+
+<p>Because of the vanishing-moment payoff $|\langle f,\psi_{j,k}\rangle|\lesssim 2^{-j(\alpha+1/2)}$, smooth signals concentrate energy at coarse scales. Pick a regularity class and watch the empirical decay match the predicted slope:</p>
+
+<div class="widget" id="w-decay">
+  <div class="hd"><div class="ttl">Smoothness ↔ wavelet coefficient decay</div><div class="hint">regularity α controls the slope (α + ½)</div></div>
+  <div class="row">
+    <button data-sig="jump" class="active">step (jump)</button>
+    <button data-sig="lin">piecewise linear</button>
+    <button data-sig="smooth">smooth bump</button>
+  </div>
+  <svg id="dec-svg" viewBox="0 0 760 260" width="100%" height="260"><title>Smoothness vs wavelet coefficient decay</title></svg>
+  <div class="readout" id="dec-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg = document.getElementById("dec-svg");
+  const buttons = svg.parentElement.querySelectorAll("button[data-sig]");
+  const out = document.getElementById("dec-out");
+  if(!svg) return;
+  const W = 760, H = 260;
+  const N = 256;
+  const sigs = {
+    jump:   { fn: x => (x < 0.5 ? 0.0 : 1.0),
+              label: "step (Heaviside-like jump)",
+              alpha: 0,
+              note: "discontinuity ⇒ |⟨f, ψ_{j,k}⟩| ~ 2^{-j/2}: only the few atoms straddling the jump pick up energy, but they decay slowly. Compression sees O(j) significant coefficients per level."
+            },
+    lin:    { fn: x => Math.abs(x - 0.5),
+              label: "|x − 1/2| (Lipschitz, kink)",
+              alpha: 1,
+              note: "Lipschitz with one kink ⇒ |⟨f, ψ_{j,k}⟩| ~ 2^{-3j/2} near kink, faster away.  Effective decay rate α = 1."
+            },
+    smooth: { fn: x => Math.exp(-30*(x-0.5)*(x-0.5)),
+              label: "Gaussian bump (C^∞)",
+              alpha: 5,
+              note: "C^∞ ⇒ |⟨f, ψ_{j,k}⟩| decays faster than any polynomial in 2^{-j}. Plot saturates at numerical precision; only a handful of coefficients are non-negligible."
+            }
+  };
+  // Haar full DWT on length-N samples
+  function haarDWT(a){
+    const levels = [];
+    let cur = a.slice();
+    while(cur.length > 1){
+      const n = cur.length;
+      const A = new Array(n/2), D = new Array(n/2);
+      for(let k=0;k<n/2;k++){
+        A[k] = (cur[2*k]+cur[2*k+1])/Math.SQRT2;
+        D[k] = (cur[2*k]-cur[2*k+1])/Math.SQRT2;
+      }
+      levels.push(D);  // index 0 is finest
+      cur = A;
+    }
+    return {levels, finalA: cur[0]};
+  }
+  function draw(key){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const sig = sigs[key];
+    const samples = [];
+    for(let i=0;i<N;i++){
+      samples.push(sig.fn((i+0.5)/N));
+    }
+    const {levels} = haarDWT(samples);
+    // Compute max |D_j| at each level j (j=0 finest)
+    const maxAbs = levels.map(D => D.reduce((m,v)=> Math.max(m, Math.abs(v)), 0));
+    const J = maxAbs.length;
+    const padL = 60, padR = 30, padT = 30, padB = 50;
+    // Plot: x = level j (0=finest, J-1=coarsest), y = log2(maxAbs)
+    const yLog = maxAbs.map(v => v <= 1e-12 ? -40 : Math.log2(v));
+    let yMin = -16, yMax = 2;
+    for(const v of yLog){ if(v < yMin && v > -40) yMin = Math.floor(v)-1; if(v > yMax) yMax = Math.ceil(v)+1; }
+    const xs = (j)=> padL + (j/(J-1))*(W-padL-padR);
+    const ys = (v)=> padT + (yMax-v)/(yMax-yMin)*(H-padT-padB);
+    // axes
+    svg.appendChild(SVG("line",{x1:padL,y1:H-padB,x2:W-padR,y2:H-padB,stroke:"var(--line)"}));
+    svg.appendChild(SVG("line",{x1:padL,y1:padT,x2:padL,y2:H-padB,stroke:"var(--line)"}));
+    // axis labels
+    const xt = SVG("text",{x: (W+padL-padR)/2, y: H-12, "font-size":11, "text-anchor":"middle", fill:"var(--mute)"});
+    xt.textContent = "scale level (0 = finest, " + (J-1) + " = coarsest)";
+    svg.appendChild(xt);
+    const yt = SVG("text",{x: 14, y: (H+padT-padB)/2, "font-size":11, "text-anchor":"middle", fill:"var(--mute)",
+      transform:"rotate(-90 14 "+((H+padT-padB)/2)+")"});
+    yt.textContent = "log₂ max |d_{j,k}|";
+    svg.appendChild(yt);
+    // Empirical points
+    for(let j=0;j<J;j++){
+      if(yLog[j] <= -40) continue;
+      const cx = xs(j), cy = ys(yLog[j]);
+      svg.appendChild(SVG("circle",{cx, cy, r:4, fill:"var(--cyan)", stroke:"#0b0f16","stroke-width":1}));
+    }
+    // Connect points
+    let dPath = "";
+    for(let j=0;j<J;j++){
+      if(yLog[j] <= -40) continue;
+      const cx = xs(j), cy = ys(yLog[j]);
+      dPath += (dPath===""?"M":"L")+cx+" "+cy+" ";
+    }
+    svg.appendChild(SVG("path",{d:dPath, fill:"none", stroke:"var(--cyan)","stroke-width":1.5,"stroke-opacity":"0.6"}));
+    // Theoretical slope: |d| ~ 2^{-j(α+1/2)}, so log2|d| ~ -(α+1/2) j + C, with j here = level index counted from coarse.
+    // In our indexing j=0 is finest; finest level corresponds to highest scale 2^J. Predicted slope vs our level index is +(α+1/2).
+    const slope = sig.alpha + 0.5;
+    if(yLog[0] > -40){
+      const c0 = yLog[0];
+      const x0p = xs(0), y0p = ys(c0);
+      const x1p = xs(J-1), y1p = ys(c0 + slope*(J-1));
+      svg.appendChild(SVG("line",{x1:x0p,y1:y0p,x2:x1p,y2:y1p,stroke:"var(--yellow)","stroke-width":1.4,"stroke-dasharray":"6 4"}));
+      const lab = SVG("text",{x:x1p-8, y:y1p-6, "font-size":11, "text-anchor":"end", fill:"var(--yellow)"});
+      lab.textContent = "predicted slope (α+½) = " + slope.toFixed(1);
+      svg.appendChild(lab);
+    }
+    // Header
+    const hdr = SVG("text",{x: W/2, y: 18, "text-anchor":"middle","font-size":12, fill:"var(--ink)"});
+    hdr.textContent = sig.label + "   →   Haar wavelet coefficient decay";
+    svg.appendChild(hdr);
+    out.textContent = sig.note;
+  }
+  buttons.forEach(b=>{
+    b.addEventListener("click", ()=>{
+      buttons.forEach(x=>x.classList.remove("active"));
+      b.classList.add("active");
+      draw(b.dataset.sig);
+    });
+  });
+  draw("jump");
+})();
+</script>
 
 </section>
 
