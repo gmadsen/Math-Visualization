@@ -155,7 +155,7 @@
       '  margin:0.8rem auto 1.2rem;padding:0.7rem 1.5rem;',
       '  background:var(--panel);border:1px solid var(--line);',
       '  border-radius:8px;display:grid;',
-      '  grid-template-columns:1fr auto 1fr auto 1fr;gap:0.6rem 0.9rem;',
+      '  grid-template-columns:1fr auto 1fr;gap:0.6rem 0.9rem;',
       '  align-items:start;font-size:0.86rem;line-height:1.35}',
       '.lineage-strip[hidden]{display:none}',
       '.lineage-strip .col{min-width:0}',
@@ -257,9 +257,13 @@
     // Clear any previous render.
     while (mount.firstChild) mount.removeChild(mount.firstChild);
 
+    // The middle "This topic" column duplicated the page's TOC and was
+    // dropped per user feedback (the at-a-glance value was concentrated in
+    // the prereqs/consumers context, which lives only here). The mid-arrow
+    // is dropped with it. `own` is kept computed because computeLineage
+    // uses it to filter out edges that stay inside the topic.
+    void own;  // referenced for clarity that the value is intentionally unused
     mount.appendChild(renderColumn('Prereqs', lineage.prereqs));
-    mount.appendChild(arrowCell());
-    mount.appendChild(renderColumn('This topic', own, { inert: true }));
     mount.appendChild(arrowCell());
     mount.appendChild(renderColumn('Consumers', lineage.consumers));
 
