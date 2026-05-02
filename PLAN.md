@@ -4,24 +4,24 @@ Forward-looking priorities for the notebook. Daily-workflow commands, one-time s
 
 When something ships, delete its bullet here. Don't keep a "Shipped recently" log — `git log` is the audit trail. The full step list of `rebuild.mjs` is in `scripts/rebuild.mjs` — refer to it rather than restating step names here.
 
-## Corpus snapshot (2026-05-01)
+## Corpus snapshot (2026-05-02)
 
 From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
 - 131 topics, 921 concepts, 1648 prereq edges (698 cross-topic), 24 capstones
 - 158 concepts lack a widget in their owning section
-- 0 inline widget blocks corpus-wide; 469 registry slug directories (every `widget` block in `content/*.json` carries `slug + params`)
+- 0 inline widget blocks corpus-wide; 468 registry slug directories (every `widget` block in `content/*.json` carries `slug + params`)
 - Quiz tiers: v1 = 2718, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
-- Tag coverage: ~80% (worst remaining sections are number-theory 63%, higher-categories 71%; the four worst — analysis/probability/modular-forms/combinatorics — were closed in this session)
+- Tag coverage: ~80%. Worst remaining sections: number-theory 63%, higher-categories 71%, logic-and-foundations 76%, geometry-and-topology 78%, algebraic-geometry 78%. (Analysis/probability/modular-forms/combinatorics closed to 85–93% in PR #49.)
 
 ## Near-term tasks
 
-Items below come out of an algebra/analysis comparative audit run this session.
+Items below come out of the algebra/analysis comparative audit shipped in PR #49.
 
 - **Add widgets to the 3 widget-zero analysis topics.** `spectral-theory`, `wavelets`, `fixed-point-theorems` each have v1 quiz banks (24/27/24/24) but no interactive material — atypical for the notebook. (`advanced-complex-analysis` was widget-zero but now ships 5 bespoke widgets.) Likely registry fits per `widgets/README.md`: `parametric-plot` for spectral / wavelet generators, `surface-viewer` for spectral surfaces, possibly bespoke `banach-fixed-point-iterator` for the contraction-mapping animation.
 - **Within-topic concept backfill on prereq-tier `real-analysis` and `algebra`.** Both gate large downstream sections; missing standard concepts cause silent prereq-graph gaps. Real-analysis: bounded variation, absolute continuity, Lebesgue points / differentiation theorem, Vitali covering. Algebra: Jordan-Hölder / composition series, nilpotent groups (lower central series), solvable groups (derived series), free groups / presentations (back-reference from `geometric-and-combinatorial-group-theory`).
 - **Within-topic concept backfill on `complex-analysis`, `functional-analysis`, `commutative-algebra`, `homological`.** Named-theorem level: open-mapping (named), Phragmén-Lindelöf bridge, subharmonic backref; Banach-Alaoglu (named), Krein-Milman; completion, DVRs/Dedekind domains, Koszul complex; double complexes, Tor symmetry, Cartan-Eilenberg.
-- **Tagging tail — remaining sections.** The four worst sections were closed (analysis 56→91%, probability 45→93%, modular-forms 51→85%, combinatorics 49→86%). Mid-tier follow-up: number-theory (63%), higher-categories (71%), logic-and-foundations (76%), geometry-and-topology and algebraic-geometry (78% each).
+- **Tagging tail — remaining sections.** PR #49 closed the four worst (analysis 56→91%, probability 45→93%, modular-forms 51→85%, combinatorics 49→86%). Mid-tier follow-up: number-theory (63%), higher-categories (71%), logic-and-foundations (76%), geometry-and-topology and algebraic-geometry (78% each).
 - **Math physics has no `hard` tier and Combinatorics has no `hard` tier.** 483 concepts lack a hard tier corpus-wide; 12 topics in those two sections × ~6 concepts × 2-3 questions each ≈ ~150 of the missing questions. Per "Out of scope", de-prioritized — listed here so the gap is visible, not actioned.
 
 ## Bigger missing-topic candidates (from the comparative audit)
@@ -53,6 +53,16 @@ Listed for the long view; each is a multi-session lift.
 
 - **`cheerio`** over `node-html-parser` — richer for DOM manipulation in `inject-*`/`fix-*` scripts.
 - **`katex` as a dependency** — would let `validate-katex.mjs` do real rendering instead of heuristic checks.
+
+## Follow-ups from PR #49 review
+
+Items raised by review-team agents on the ACA-expansion / tagging-tail PR that were declined or deferred at merge time.
+
+- **Stub-thin widget READMEs on the 5 new aca-* entries.** The README files just point at `schema.json` rather than describing the gesture / failure modes / readout meaning. Same pattern across most older registry entries; collapsing into a uniform README quality bar is its own polish pass.
+- **Schema iteration to dedupe widget vs widget-script params.** Today both `widget` and `widget-script` blocks carry the same `params` (including `bodyMarkup` and `bodyScript`), duplicating ~12 KB per topic. Architectural change touching every existing widget pair; defer to a dedicated infra PR. Recorded in code-review thread on `content/advanced-complex-analysis.json:265`.
+- **Hartogs widget pedagogically-meaningful slider.** Currently the inner-shell-radius slider only resizes the inner pink rectangle. Adding a numeric tied to the Hartogs phenomenon (e.g. a vanishing Bochner-Martinelli boundary integral, or the inner-shell volume ratio) would tie the gesture to the math. Low-priority polish.
+- **Hardcoded `#0b0f16` sweep across older widgets.** PR #49 fixed the 5 new `aca-*` bodyScripts to use `var(--bg)` for canvas backdrops, but the same pattern appears in `characteristic-classes`, `mostow-rigidity`, `knot-polynomials`, etc. Theme-toggle correctness improves uniformly with a corpus-wide sweep.
+- **Schwarz-Pick → Ahlfors-Schwarz pointer (§9 Bloch).** One-liner adding a "(generalized to comparison with curvature ≤ −1 metrics by Ahlfors-Schwarz)" parenthetical to help readers chase the proof technique. Cosmetic.
 
 ## Follow-ups from PR #36 / #37 review
 
