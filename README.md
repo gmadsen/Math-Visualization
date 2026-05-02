@@ -23,7 +23,7 @@ Alongside each handwritten `<topic>.html`, the repo also carries a structured `c
 
 ## Learning pathways
 
-Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 25 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 936-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the eleven sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
+Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 28 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 957-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the eleven sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
 
 Each concept carries up to three quiz tiers — v1 (required), hard (unlocked after v1), and expert (unlocked after hard). Mastery is tracked in `localStorage` and lights up downstream concepts `locked → ready → mastered`, Brilliant-style. Topic cards on the index may carry a level badge: `prereq`, `advanced`, or `capstone`.
 
@@ -182,6 +182,7 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Hamiltonians and classical mechanics](./hamiltonians-classical-mechanics.html) — symplectic phase space, Liouville's theorem, integrability, action-angle
 - [General relativity](./general-relativity.html) — Einstein field equations, Schwarzschild, black holes, gravitational waves
 - [The three-body problem](./three-body-problem.html) — Lagrange points, restricted three-body, KAM tori, chaos
+- [Statistical mechanics](./statistical-mechanics.html) — draft — fill in once the page has real content
 
 ## Resetting progress
 

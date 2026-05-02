@@ -1,0 +1,95 @@
+{
+  "topic": "statistical-mechanics",
+  "title": "Statistical mechanics",
+  "page": "statistical-mechanics.html",
+  "concepts": [
+    {
+      "id": "microstates-ensembles",
+      "title": "Microstates and ensembles",
+      "anchor": "microstates-ensembles",
+      "prereqs": [
+        "random-variables",
+        "hcm-hamilton-equations"
+      ],
+      "blurb": "A microstate is a point in phase space; an ensemble is a probability measure on it. Liouville's theorem makes the symplectic volume invariant under Hamiltonian flow, and the microcanonical ensemble is the uniform measure on the energy shell $H = E$.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "boltzmann-canonical",
+      "title": "Boltzmann distribution and the canonical ensemble",
+      "anchor": "boltzmann-canonical",
+      "prereqs": [
+        "microstates-ensembles"
+      ],
+      "blurb": "Coupling a system to a heat bath at temperature $T = 1/(k_B\\beta)$ gives $\\rho \\propto e^{-\\beta H}$. The partition function $Z(\\beta) = \\tr\\,e^{-\\beta H}$ generates thermodynamics: $F = -\\beta^{-1}\\log Z$, $\\langle E\\rangle = -\\partial_\\beta\\log Z$.",
+      "tags": [
+        "foundation",
+        "duality"
+      ]
+    },
+    {
+      "id": "entropy-gibbs",
+      "title": "Entropy and the Gibbs distribution",
+      "anchor": "entropy-gibbs",
+      "prereqs": [
+        "boltzmann-canonical",
+        "it-shannon-entropy"
+      ],
+      "blurb": "Gibbs entropy $S = -k_B\\sum p_i\\log p_i$ is maximized at fixed mean energy by exactly the Boltzmann distribution, with $\\beta$ as Lagrange multiplier. In the microcanonical limit it reduces to Boltzmann's $S = k_B\\log\\Omega$, and the second law is monotonicity of $S$ under Hamiltonian coupling.",
+      "tags": []
+    },
+    {
+      "id": "grand-canonical",
+      "title": "Grand canonical ensemble and chemical potential",
+      "anchor": "grand-canonical",
+      "prereqs": [
+        "boltzmann-canonical"
+      ],
+      "blurb": "Allowing particle exchange with a reservoir gives $\\rho\\propto e^{-\\beta(H-\\mu N)}$, with grand partition function $\\Xi(\\beta,\\mu)$. In the thermodynamic limit ensembles agree on intensive quantities; ideal gases give Fermi-Dirac, Bose-Einstein, and Maxwell-Boltzmann occupations.",
+      "tags": [
+        "foundation",
+        "finiteness"
+      ]
+    },
+    {
+      "id": "ising-phase-transitions",
+      "title": "The Ising model and phase transitions",
+      "anchor": "ising-phase-transitions",
+      "prereqs": [
+        "boltzmann-canonical"
+      ],
+      "blurb": "Spins $\\sigma_i\\in\\{\\pm 1\\}$ on a lattice with nearest-neighbor coupling $-J\\sum_{\\langle ij\\rangle}\\sigma_i\\sigma_j$. Mean field predicts a transition at $T_c = qJ/k_B$; Onsager solved $d=2$ exactly with $T_c/J = 2/\\log(1+\\sqrt 2)$ and $\\beta = 1/8$.",
+      "tags": []
+    },
+    {
+      "id": "renormalization-group",
+      "title": "The renormalization group",
+      "anchor": "renormalization-group",
+      "prereqs": [
+        "ising-phase-transitions"
+      ],
+      "blurb": "Coarse-grain and rescale: a flow on the space of couplings whose fixed points govern long-distance physics. Universality means the critical exponents depend only on the basin of attraction; relevant operators flow away, irrelevant ones flow in. The Wilson-Fisher fixed point lives at $\\epsilon = 4 - d$.",
+      "tags": [
+        "foundation",
+        "classification"
+      ]
+    },
+    {
+      "id": "large-deviations-equilibrium",
+      "title": "Large deviations and equilibrium fluctuations",
+      "anchor": "large-deviations-equilibrium",
+      "prereqs": [
+        "boltzmann-canonical",
+        "ld-cramer-theorem"
+      ],
+      "blurb": "Cramér's theorem gives $P(\\bar X_n\\approx x)\\asymp e^{-nI(x)}$ with rate $I$ a Legendre transform of the cumulant. In thermodynamics, free energy and entropy are exactly such Legendre dual rates; Kubo's formulas tie linear response to equilibrium correlations.",
+      "tags": [
+        "finiteness",
+        "duality",
+        "classification"
+      ]
+    }
+  ]
+}

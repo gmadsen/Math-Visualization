@@ -20663,6 +20663,328 @@ window.MVQuizBank = {
       }
     }
   },
+  "gauge-theory": {
+    "topic": "gauge-theory",
+    "quizzes": {
+      "principal-bundles-connections": {
+        "title": "Principal bundles and connections",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which equivariance condition characterizes a connection 1-form $A\\in\\Omega^1(P;\\mathfrak{g})$ on a principal $G$-bundle?",
+            "choices": [
+              "$R_g^* A = A$ for every $g\\in G$.",
+              "$R_g^* A = \\mathrm{Ad}(g^{-1})A$ for every $g\\in G$, and $A(\\xi^*) = \\xi$ for every $\\xi\\in\\mathfrak{g}$.",
+              "$R_g^* A = g^{-1}Ag + g^{-1}dg$ for every $g\\in G$.",
+              "$dA = 0$ and $A$ is fiberwise constant."
+            ],
+            "answer": 1,
+            "explain": "A connection is a $\\mathfrak{g}$-valued 1-form on the total space $P$ satisfying two axioms: (i) $G$-equivariance under right translation, $R_g^* A = \\mathrm{Ad}(g^{-1})A$, and (ii) reproducing fundamental vector fields, $A(\\xi^*) = \\xi$ for $\\xi\\in\\mathfrak{g}$. Choice (a) drops the adjoint twist that makes the equivariance compatible with the fiber action. Choice (c) is the *gauge-transformation* law for the pulled-back connection on the base via a section, not the equivariance condition on $P$ itself.",
+            "hint": "There are two axioms — equivariance under $R_g$ and a normalization on vertical vectors."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which statements are equivalent characterizations of a connection on a principal $G$-bundle $P\\to M$?",
+            "choices": [
+              "A $G$-equivariant horizontal complement $H\\subset TP$ to the vertical bundle $V = \\ker d\\pi$.",
+              "A $\\mathfrak{g}$-valued 1-form $A$ on $P$ satisfying $R_g^* A = \\mathrm{Ad}(g^{-1})A$ and $A(\\xi^*) = \\xi$.",
+              "A choice of metric on $P$.",
+              "A $G$-invariant section of $\\pi\\colon P\\to M$."
+            ],
+            "answer": [
+              0,
+              1
+            ],
+            "explain": "A connection is equivalently: (i) an equivariant horizontal distribution complementary to the vertical, or (ii) a $\\mathfrak{g}$-valued 1-form with the equivariance/normalization axioms — kernel of the form is the horizontal subspace. A metric on $P$ would *induce* a connection (by orthogonal complement), but is extra data. A $G$-invariant section is an isomorphism with the trivial bundle and need not exist (most bundles are nontrivial)."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is parallel transport along a smooth path $\\gamma\\colon [0,1]\\to M$ well-defined on a principal $G$-bundle equipped with a connection?",
+            "choices": [
+              "Because $G$ is a Lie group and any smooth path on $M$ canonically lifts to $P$.",
+              "Because the horizontal lift problem is a linear ODE in $G$-coordinates, so existence and uniqueness of solutions determines a unique horizontal lift starting at any prescribed point.",
+              "Because every principal bundle is locally trivial, so paths can be lifted by choosing a section.",
+              "Because the connection 1-form is closed."
+            ],
+            "answer": 1,
+            "explain": "Parallel transport solves $\\dot{\\tilde\\gamma}\\in H_{\\tilde\\gamma}$ with prescribed initial point — equivalent to a first-order ODE in the fiber direction. ODE existence/uniqueness gives a unique horizontal lift $\\tilde\\gamma$, hence a diffeomorphism $\\pi^{-1}(\\gamma(0))\\to\\pi^{-1}(\\gamma(1))$ of fibers. Local triviality (c) is *needed* but not sufficient; you also need horizontality, which is the connection. The connection is generally not closed (d): its failure is curvature.",
+            "hint": "Horizontal lift is an ODE with prescribed initial condition."
+          }
+        ]
+      },
+      "curvature-yang-mills": {
+        "title": "Curvature and the Yang-Mills action",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the curvature 2-form $F$ of a connection $A$ in matrix-Lie-algebra notation?",
+            "choices": [
+              "$F = dA$",
+              "$F = dA + A\\wedge A$",
+              "$F = dA - A\\wedge A$",
+              "$F = d^*A$"
+            ],
+            "answer": 1,
+            "explain": "In matrix Lie algebras (where the bracket is the matrix commutator), $F = dA + A\\wedge A$, equivalent to $F = dA + \\tfrac{1}{2}[A\\wedge A]$. The wedge $A\\wedge A$ does not vanish for non-abelian $G$ because both factors are matrix-valued and the wedge mixes form indices with matrix multiplication. For abelian gauge theory ($G = U(1)$), $A\\wedge A = 0$ and the curvature reduces to $F = dA$ — Maxwell's $F_{\\mu\\nu}$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which properties of the curvature 2-form $F = dA + A\\wedge A$ hold for any connection on a principal $G$-bundle?",
+            "choices": [
+              "The Bianchi identity $dF + [A, F] = 0$ holds automatically (no equations of motion needed).",
+              "Under a gauge transformation $A\\mapsto g^{-1}Ag + g^{-1}dg$, the curvature transforms tensorially as $F\\mapsto g^{-1}Fg$.",
+              "$F$ vanishes if and only if the connection is flat, which is equivalent to local triviality of the parallel-transport functor on the fundamental groupoid.",
+              "$F$ always satisfies $d^* F = 0$ off-shell (i.e. without using the Yang-Mills equations)."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "(a) Bianchi follows from $d^2 = 0$ and the structure equations. (b) The inhomogeneous gauge term $g^{-1}dg$ is killed in $F$ — that is the design. (c) Flatness is curvature zero; the holonomy then depends only on homotopy class of loops. (d) is false: $d^*F = 0$ is the Yang-Mills equation of motion, which extremizes the action — it does not hold for arbitrary $A$.",
+            "hint": "Three of these are universal truths; one is on-shell only."
+          },
+          {
+            "type": "numeric",
+            "q": "On a 4-manifold, the Yang-Mills action of an anti-self-dual connection ($*F = -F$) saturates the Bogomolny bound $S_{YM} = 8\\pi^2|k|$ in topological sector $k$. Compute $S_{YM}/\\pi^2$ for $k = 1$.",
+            "answer": 8,
+            "tol": 0.01,
+            "explain": "For ASD connections, $*F = -F$ and the action saturates the Bogomolny bound $S_{YM}\\ge 8\\pi^2|k|$ in the topological sector $k$. So for $k = 1$, $S_{YM} = 8\\pi^2$, hence $S_{YM}/\\pi^2 = 8$. This is the action of a single BPST instanton on $S^4$ — independent of the size parameter $\\rho$, a manifestation of conformal invariance of the ASD equations on a conformally flat 4-manifold.",
+            "hint": "When $*F = -F$, the action equals (up to sign) the topological charge density."
+          }
+        ]
+      },
+      "gauge-transformations-holonomy": {
+        "title": "Gauge transformations and holonomy",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Under a gauge transformation $g\\colon U\\to G$, how does the local connection 1-form $A$ transform?",
+            "choices": [
+              "$A\\mapsto g^{-1}Ag$",
+              "$A\\mapsto gAg^{-1}$",
+              "$A\\mapsto g^{-1}Ag + g^{-1}dg$",
+              "$A\\mapsto A + g^{-1}dg$"
+            ],
+            "answer": 2,
+            "explain": "The inhomogeneous transformation law $A\\mapsto g^{-1}Ag + g^{-1}dg$ is forced by the requirement that horizontal subspaces (defined by $\\ker A$) transform compatibly under $G$-equivariance of the bundle. The pure conjugation $A\\mapsto g^{-1}Ag$ would be the law for an *ad-valued tensor* (like $F$), but $A$ is not a tensor — it is a connection. Choice (d) is the abelian-gauge-theory ($U(1)$, electromagnetism) special case where $g^{-1}Ag = A$ since the group is commutative.",
+            "hint": "$A$ is not a tensor; $F$ is. Compare both transformation laws."
+          },
+          {
+            "type": "mcq",
+            "q": "For a $U(1)$ connection $A$ on $\\mathbb{R}^2$ with magnetic flux $\\Phi = \\int_D F$ enclosed by a loop $\\gamma = \\partial D$, what is the holonomy $\\mathrm{Hol}_A(\\gamma)\\in U(1)$?",
+            "choices": [
+              "$\\mathrm{Hol}_A(\\gamma) = 1$ — abelian holonomy is always trivial.",
+              "$\\mathrm{Hol}_A(\\gamma) = e^{i\\Phi}$ by Stokes' theorem applied to $\\oint_\\gamma A = \\int_D dA = \\int_D F$.",
+              "$\\mathrm{Hol}_A(\\gamma) = e^{i\\oint_\\gamma A^2}$.",
+              "$\\mathrm{Hol}_A(\\gamma) = \\Phi$."
+            ],
+            "answer": 1,
+            "explain": "For abelian gauge theory, parallel transport gives $\\mathrm{Hol}_A(\\gamma) = \\exp(i\\oint_\\gamma A)$. Stokes' theorem on a disk $D$ with $\\partial D = \\gamma$ gives $\\oint_\\gamma A = \\int_D dA = \\int_D F = \\Phi$, so $\\mathrm{Hol}_A(\\gamma) = e^{i\\Phi}$. This is the Aharonov-Bohm phase: a quantum particle encircling a region of magnetic flux acquires an observable phase $e^{i\\Phi}$ even though the field $F$ vanishes on its trajectory — gauge potentials are physically detectable through holonomy.",
+            "hint": "Stokes' theorem turns the holonomy line integral into a flux surface integral."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Find the flaw in this argument that the trace of the holonomy is gauge-invariant for a $U(1)$ connection.",
+            "steps": [
+              "Under a gauge transformation $g\\colon M\\to U(1)$, a connection transforms as $A\\mapsto A' = A + g^{-1}dg$ (since $U(1)$ is abelian).",
+              "Parallel transport along a path satisfies $\\frac{d}{dt}\\mathrm{Hol}_A(\\gamma|_{[0,t]}) = -iA(\\dot\\gamma)\\cdot\\mathrm{Hol}_A(\\gamma|_{[0,t]})$.",
+              "Under the gauge change, $\\mathrm{Hol}_{A'}(\\gamma) = g(\\gamma(1))^{-1}\\mathrm{Hol}_A(\\gamma)g(\\gamma(0))$.",
+              "Taking the trace, $\\tr\\mathrm{Hol}_{A'}(\\gamma) = \\tr\\mathrm{Hol}_A(\\gamma)$ by cyclicity, so the trace is always gauge-invariant — for any path $\\gamma$, open or closed."
+            ],
+            "answer": 3,
+            "explain": "The cyclicity-of-trace argument requires the path to be closed: only then does $\\gamma(0) = \\gamma(1)$ make $g(\\gamma(0)) = g(\\gamma(1))$ cancel under the trace. For an open path, $\\tr\\mathrm{Hol}_{A'}(\\gamma) = \\tr(g(\\gamma(1))^{-1}\\mathrm{Hol}_A(\\gamma)g(\\gamma(0)))$ does *not* equal $\\tr\\mathrm{Hol}_A(\\gamma)$ in general because $g(\\gamma(0))$ and $g(\\gamma(1))$ are independent group elements. Wilson lines (open path) are gauge-covariant; only Wilson loops (closed path) are gauge-invariant. Steps 1-3 are correct."
+          }
+        ]
+      },
+      "instantons-selfdual": {
+        "title": "Self-dual connections and instantons",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On an oriented Riemannian 4-manifold, why does the Hodge star $*$ act as an involution on $\\Omega^2(M)$?",
+            "choices": [
+              "Because $*$ commutes with $d$.",
+              "Because on a $k$-form on an oriented Riemannian $n$-manifold, $*^2 = (-1)^{k(n-k)+s}$ where $s$ is the signature; with $n=4$, $k=2$, Riemannian ($s=0$), this gives $(-1)^{4} = 1$.",
+              "Because the metric is Riemannian, so $*^2 = 1$ for forms of any degree.",
+              "Because $*$ is the duality operator on de Rham cohomology."
+            ],
+            "answer": 1,
+            "explain": "The general rule on an oriented pseudo-Riemannian $n$-manifold is $*^2 = (-1)^{k(n-k) + s}$ on $k$-forms, where $s$ counts negative-signature directions. For $n = 4$, $k = 2$, Riemannian ($s = 0$): $*^2 = (-1)^{2\\cdot 2} = 1$. This $\\mathbb{Z}/2$-grading of $\\Omega^2$ into self-dual ($+1$ eigenspace) and anti-self-dual ($-1$) summands is special to dimension 4 — and underwrites the entire Donaldson program. In Lorentzian signature, $*^2 = -1$ on 2-forms.",
+            "hint": "Apply the general $*^2$ formula with $n = 4$, $k = 2$, Riemannian metric."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does an anti-self-dual connection ($*F = -F$) automatically satisfy the Yang-Mills equations $d_A^* F = 0$?",
+            "choices": [
+              "Because $d_A^*$ is the formal adjoint of $d_A$, and $d_A F = 0$ is Bianchi.",
+              "Because anti-self-duality plus the Bianchi identity $d_A F = 0$ together imply $d_A^* F = -*\\,d_A * F = -*\\,d_A(-F) = *\\,d_A F = 0$.",
+              "Because instantons are critical points of the action.",
+              "Because in 4D the Bianchi identity coincides with the equations of motion."
+            ],
+            "answer": 1,
+            "explain": "The covariant codifferential is $d_A^* = -*\\,d_A *$ on 2-forms in 4D Riemannian signature. If $*F = -F$ (ASD), then $d_A^* F = -*\\,d_A * F = -*\\,d_A(-F) = *\\,d_A F = 0$ by Bianchi. So ASD $\\Rightarrow$ Yang-Mills, but the converse fails: there are Yang-Mills connections that are neither SD nor ASD. ASD configurations are global minimizers of the YM action in their topological sector, saturating the Bogomolny bound."
+          },
+          {
+            "type": "ordering",
+            "q": "Order the steps to construct the BPST instanton on $\\mathbb{R}^4$ (then extended to $S^4$ by stereographic compactification).",
+            "items": [
+              "Set $A = \\mathrm{Im}(\\bar q\\,dq) / (|q|^2 + \\rho^2)$, viewing $q\\in\\mathbb{H}\\cong\\mathbb{R}^4$ as a quaternion and $\\rho>0$ as the size parameter.",
+              "Identify $\\mathbb{R}^4 = \\mathbb{H}$ and $SU(2) = \\{q\\in\\mathbb{H} : |q|=1\\}$ as the unit quaternions.",
+              "Verify by direct computation that $F = dA + A\\wedge A$ satisfies $*F = -F$ (anti-self-dual).",
+              "Compute $\\int_{\\mathbb{R}^4}\\tr(F\\wedge F) = -8\\pi^2$, identifying instanton number $k = 1$."
+            ],
+            "answer": [
+              1,
+              0,
+              2,
+              3
+            ],
+            "explain": "The construction (Belavin-Polyakov-Schwartz-Tyupkin, 1975): identify $\\mathbb{R}^4 \\cong \\mathbb{H}$, write down the gauge field with parameter $\\rho$, verify ASD, then compute the topological charge. The resulting moduli space of gauge-equivalence classes of charge-1 instantons on $S^4$ is 5-dimensional: 4 translations (center $x_0\\in\\mathbb{R}^4$) plus the scale $\\rho>0$. This 5-dimensional moduli space is the seed for Donaldson's smooth 4-manifold invariants."
+          }
+        ]
+      },
+      "chern-simons": {
+        "title": "Chern-Simons theory",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Chern-Simons 3-form is $\\omega_{CS}(A) = \\tr(A\\wedge dA + \\tfrac{2}{3}A\\wedge A\\wedge A)$. What is its exterior derivative?",
+            "choices": [
+              "$d\\omega_{CS} = 0$",
+              "$d\\omega_{CS} = \\tr(F\\wedge F)$",
+              "$d\\omega_{CS} = \\tr(A\\wedge F)$",
+              "$d\\omega_{CS} = \\tr(F)$"
+            ],
+            "answer": 1,
+            "explain": "Direct computation: $d\\omega_{CS} = \\tr(dA\\wedge dA + 2 dA\\wedge A\\wedge A) = \\tr((dA + A\\wedge A)\\wedge(dA + A\\wedge A)) = \\tr(F\\wedge F)$, using $\\tr(A^4) = 0$ on a 4-form and cyclicity. So $\\omega_{CS}$ is a 'Chern-Simons primitive' for the second Chern character $\\tr(F\\wedge F)$ — not a closed form on $M^3$, but its exterior derivative is the topological density on $M^4$. This is exactly why Chern-Simons is well-defined on closed 3-manifolds modulo $2\\pi\\mathbb{Z}$.",
+            "hint": "Try $d\\omega_{CS} = \\tr(F\\wedge F)$ — show it via the structure equation."
+          },
+          {
+            "type": "mcq",
+            "q": "Why must the Chern-Simons level $k$ be an integer for $S_{CS}(A) = \\tfrac{k}{4\\pi}\\int_M\\omega_{CS}(A)$ to define a sensible quantum theory on a closed 3-manifold?",
+            "choices": [
+              "Because $G = SU(N)$ is compact.",
+              "Because under a 'large' gauge transformation $g\\colon M\\to G$ that is not homotopic to the identity, $\\omega_{CS}$ shifts by a closed 3-form whose integral over $M$ is $8\\pi^2$ times an integer, forcing $\\frac{k}{4\\pi} \\cdot 8\\pi^2 = 2\\pi k$ to be a multiple of $2\\pi$ for $e^{iS_{CS}}$ to be invariant.",
+              "Because the Chern classes are integral.",
+              "Because the action must be real."
+            ],
+            "answer": 1,
+            "explain": "Under a gauge transformation by $g\\colon M^3\\to SU(2)$, the change in $\\omega_{CS}$ contains an exact piece (which integrates to zero on closed $M$) plus the WZW 3-form $\\tfrac{1}{3}\\tr(g^{-1}dg)^3$. The integral of the latter over $M$ is $8\\pi^2$ times the winding number $\\deg(g)\\in\\pi_3(SU(2)) = \\mathbb{Z}$. So $S_{CS}\\to S_{CS} + 2\\pi k\\,\\deg(g)$, and $e^{iS_{CS}}$ is single-valued iff $k\\in\\mathbb{Z}$. The resulting $\\mathbb{Z}$-graded family of theories is the Witten-Reshetikhin-Turaev TQFT, indexed by the level."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which features of $SU(2)$ Chern-Simons theory make it a topological quantum field theory yielding 3-manifold invariants?",
+            "choices": [
+              "The action $S_{CS}$ depends on the connection $A$ but not on any background metric on $M$.",
+              "Wilson loops in irreducible representations $V_j$ of $SU(2)$ provide observables labeled by knots in $M$ together with a label.",
+              "The partition function $Z(M) = \\int\\mathcal{D}A\\,e^{iS_{CS}(A)}$ depends only on the smooth structure of $M$.",
+              "Gauge transformations form an abelian group, simplifying the path integral."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "(a) Metric independence: $\\omega_{CS}$ uses only $\\wedge$ and $d$, no $*$ — pure topological action. (b) Wilson loops $W_j(\\gamma) = \\tr_{V_j}\\mathrm{Hol}_A(\\gamma)$ recover the colored Jones polynomial when computed in CS at level $k$ — Witten's 1989 derivation. (c) Diffeomorphism-invariance is automatic: there's no metric, so any diffeomorphism is a symmetry. (d) is false: the gauge group $\\mathcal{G}$ acts by $A\\mapsto g^{-1}Ag + g^{-1}dg$ (non-abelian) — that is precisely what makes the theory rich; if it were abelian we'd just get linking numbers."
+          }
+        ]
+      },
+      "lattice-gauge": {
+        "title": "Lattice gauge theory",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On a hypercubic lattice with link variables $U_{xy}\\in G$, the Wilson plaquette $U_p$ around an elementary square with vertices $x\\to x+\\hat\\mu\\to x+\\hat\\mu+\\hat\\nu\\to x+\\hat\\nu\\to x$ is:",
+            "choices": [
+              "$U_p = U_{x,x+\\hat\\mu} + U_{x+\\hat\\mu, x+\\hat\\mu+\\hat\\nu} + U_{x+\\hat\\mu+\\hat\\nu, x+\\hat\\nu} + U_{x+\\hat\\nu, x}$",
+              "$U_p = U_{x,x+\\hat\\mu}\\,U_{x+\\hat\\mu, x+\\hat\\mu+\\hat\\nu}\\,U_{x+\\hat\\mu+\\hat\\nu, x+\\hat\\nu}\\,U_{x+\\hat\\nu, x}$",
+              "$U_p = \\det(U_{x,x+\\hat\\mu})$",
+              "$U_p = U_{x,x+\\hat\\mu}^{-1}$"
+            ],
+            "answer": 1,
+            "explain": "Link variables are interpreted as parallel-transport operators along edges, so composition along a closed path is given by ordered group multiplication. The Wilson plaquette $U_p$ is the holonomy around the elementary square; its trace $\\mathrm{Re}\\tr(U_p)$ enters the action. Under a continuum limit $U_{xy}\\approx \\exp(a A_\\mu(x))$ with lattice spacing $a$, $U_p\\approx \\exp(a^2 F_{\\mu\\nu}(x) + O(a^4))$ — this Baker-Campbell-Hausdorff expansion is what recovers $\\tr(F^2)$ in the action."
+          },
+          {
+            "type": "mcq",
+            "q": "The Wilson criterion for confinement is that the expectation value of a large rectangular Wilson loop $\\langle W(\\gamma)\\rangle$ falls off as which function of the loop size?",
+            "choices": [
+              "$\\langle W(\\gamma)\\rangle \\sim e^{-\\mu P(\\gamma)}$ where $P$ is the perimeter — perimeter law.",
+              "$\\langle W(\\gamma)\\rangle \\sim e^{-\\sigma A(\\gamma)}$ where $A$ is the enclosed area — area law.",
+              "$\\langle W(\\gamma)\\rangle \\sim 1$ at large loops — no decay.",
+              "$\\langle W(\\gamma)\\rangle \\sim 1/A(\\gamma)$ — power-law decay."
+            ],
+            "answer": 1,
+            "explain": "An area law $\\langle W\\rangle\\sim e^{-\\sigma A}$ for a rectangular $T\\times R$ loop translates, in the large-$T$ limit, to a quark-antiquark static potential $V(R) = \\sigma R$ — linearly rising, hence confining. The slope $\\sigma$ is the *string tension*. A perimeter law $\\langle W\\rangle\\sim e^{-\\mu P}$ would give $V(R)\\to\\mathrm{const}$ at large $R$ — Coulomb-like, deconfined. Strong-coupling expansion (large $\\beta^{-1}$) gives a clean area law, but the continuum limit ($\\beta\\to\\infty$) requires nonperturbative confirmation; for $SU(3)$, lattice Monte Carlo simulations are the empirical evidence.",
+            "hint": "Area law $\\Leftrightarrow$ linear confining potential."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which features of the Wilson plaquette action $S_W = \\beta\\sum_p \\mathrm{Re}\\tr(\\mathbb{1} - U_p)$ make it the standard discretization of Yang-Mills?",
+            "choices": [
+              "Gauge invariance is exact at finite lattice spacing — $S_W$ is invariant under $U_{xy}\\mapsto g_x^{-1} U_{xy} g_y$ for any local $g\\colon\\mathrm{vertices}\\to G$.",
+              "In the continuum limit $a\\to 0$, $S_W\\to \\tfrac{1}{2g^2}\\int\\tr(F\\wedge *F)$ with $\\beta = 2N/g^2$ for $SU(N)$.",
+              "The Haar measure on $G$ provides a canonical gauge-invariant integration measure, no gauge fixing needed.",
+              "$S_W$ is exactly equal to the continuum Yang-Mills action at any nonzero lattice spacing $a$."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Wilson's choice has three killer features: (a) exact gauge invariance for any $a > 0$ (no gauge fixing during simulation), (b) the right continuum limit, (c) compact group $\\Rightarrow$ finite Haar measure on each link, no Faddeev-Popov ghosts. The cost: lattice violates Lorentz invariance and must be recovered as $a\\to 0$. Choice (d) is false — the action receives $O(a^2)$ corrections from the BCH expansion of the plaquette, an issue addressed by 'Symanzik improvement' programs."
+          }
+        ]
+      },
+      "donaldson-sw-invariants": {
+        "title": "Donaldson and Seiberg-Witten invariants",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Donaldson's polynomial invariants of a smooth oriented 4-manifold $X$ are constructed from:",
+            "choices": [
+              "The cohomology ring $H^*(X;\\mathbb{Z})$.",
+              "Intersection numbers on the moduli space $\\mathcal{M}_k(X)$ of anti-self-dual $SU(2)$ connections of charge $k$, against cycles built from $H_2(X)$.",
+              "The Euler characteristic and signature of $X$.",
+              "The fundamental group $\\pi_1(X)$."
+            ],
+            "answer": 1,
+            "explain": "Donaldson (1983, 1986): for a closed oriented simply-connected 4-manifold $X$ with $b_2^+(X) > 1$, the moduli space $\\mathcal{M}_k$ of charge-$k$ ASD $SU(2)$ instantons is a finite-dimensional manifold of expected dimension $8k - 3(1 + b_2^+(X))$. Cohomology classes on $\\mathcal{M}_k$ obtained from $\\mu\\colon H_2(X)\\to H^2(\\mathcal{M}_k)$ pair against the fundamental class of $\\mathcal{M}_k$ (after suitable compactification) to produce numerical invariants $D_X(\\alpha_1,\\dots,\\alpha_d)\\in\\mathbb{Q}$ that distinguish smooth structures. (a), (c), and (d) are *homotopy* invariants (or quotients thereof) and don't see exotic smooth structures.",
+            "hint": "It is essential that the construction uses the smooth structure (via gauge theory), not just topology."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which statements compare Donaldson and Seiberg-Witten invariants?",
+            "choices": [
+              "SW invariants come from a moduli space of solutions to abelian (Spin$^c$) monopole equations, while Donaldson uses the non-abelian $SU(2)$ ASD equations.",
+              "SW moduli spaces are typically compact without compactification, whereas Donaldson moduli spaces require a delicate Uhlenbeck compactification.",
+              "Witten's conjecture (1994; proven for many cases) relates SW basic classes to Donaldson polynomials by an explicit universal formula.",
+              "Donaldson invariants vanish for any 4-manifold of $b_2^+ \\ge 2$, whereas SW invariants are always nonzero."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "(a) The two theories trade non-abelian complexity for abelian simplicity: SW couples a $U(1)$ connection $A$ on the determinant of a Spin$^c$ structure to a positive spinor $\\phi$, with two coupled equations $D_A\\phi = 0$ and $F_A^+ = \\sigma(\\phi)$. (b) The mass term in the spinor equation forbids bubbling, so SW moduli are typically compact zero-dimensional manifolds (signed point counts). (c) Witten's relation reduces Donaldson computations to SW. (d) is false: many simply-connected 4-manifolds with $b_2^+\\ge 2$ have nonzero Donaldson invariants — that is what makes them useful."
+          },
+          {
+            "type": "mcq",
+            "q": "What does the existence of exotic smooth structures on $\\mathbb{R}^4$ — uncountably many, by Taubes (1987) building on Donaldson and Freedman — show that classical topology cannot detect?",
+            "choices": [
+              "That $\\mathbb{R}^4$ is non-compact.",
+              "That homeomorphism and diffeomorphism agree in dimension 4 but disagree in higher dimensions.",
+              "That smooth structures in dimension 4 are *not* determined by topological / homotopy data — there exist smooth manifolds homeomorphic but not diffeomorphic to standard $\\mathbb{R}^4$, distinguishable only by gauge-theoretic invariants.",
+              "That gauge theory is unnecessary for understanding 4-manifolds."
+            ],
+            "answer": 2,
+            "explain": "Freedman (1982) classified topological 4-manifolds by intersection form + Kirby-Siebenmann invariant; Donaldson (1983) showed many of these don't carry the smooth structures Freedman's theorem permits. The gap between Freedman and Donaldson: there exist closed 4-manifolds with the same topological type but different smooth types, and (Taubes 1987) uncountably many smooth structures on $\\mathbb{R}^4$ — none diffeomorphic to standard. Dimension 4 is uniquely pathological: in every other dimension $\\ne 4$, smooth and topological classification coincide for $\\mathbb{R}^n$. Gauge theory is exactly what reveals this — a fact with no analogue in any other dimension.",
+            "hint": "Freedman's topological classification + Donaldson's smooth obstructions = gap."
+          }
+        ]
+      }
+    }
+  },
   "general-relativity": {
     "topic": "general-relativity",
     "quizzes": {
@@ -48377,6 +48699,325 @@ window.MVQuizBank = {
       }
     }
   },
+  "statistical-mechanics": {
+    "topic": "statistical-mechanics",
+    "quizzes": {
+      "microstates-ensembles": {
+        "title": "Microstates and ensembles",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Liouville's theorem says that for a Hamiltonian system, the flow on phase space:",
+            "choices": [
+              "Contracts toward a fixed point in the long-time limit.",
+              "Preserves the symplectic volume form $dq\\,dp$ — phase-space density is conserved along trajectories.",
+              "Conserves the Hamiltonian $H$ but not the volume.",
+              "Is ergodic on every energy shell."
+            ],
+            "answer": 1,
+            "explain": "Liouville's theorem: the flow generated by a Hamiltonian $H$ on phase space $(q, p)$ preserves the Lebesgue/symplectic measure $\\prod dq_i\\,dp_i$. Equivalently, the divergence of the velocity field $(\\partial H/\\partial p, -\\partial H/\\partial q)$ is identically zero. Choice (a) is the dissipative case (not Hamiltonian). Choice (c) confuses energy conservation (true) with volume conservation (the actual content of Liouville). Choice (d) is the ergodic hypothesis, an *additional* assumption that does not follow from Liouville alone — it requires the flow to mix transitively on the energy shell.",
+            "hint": "What does the divergence of $(\\dot q, \\dot p) = (\\partial_p H, -\\partial_q H)$ equal?"
+          },
+          {
+            "type": "multi-select",
+            "q": "Which statements correctly characterize the microcanonical ensemble for a system with Hamiltonian $H$ and fixed energy $E$?",
+            "choices": [
+              "Its probability density is the uniform measure on the energy shell $\\{H = E\\}$ (more precisely, the Liouville measure restricted to a thin shell $E \\le H \\le E + \\Delta E$).",
+              "Its number of accessible microstates is $\\Omega(E)$, and the Boltzmann entropy is $S(E) = k_B\\log\\Omega(E)$.",
+              "It assumes the system is coupled to a heat bath at temperature $T$.",
+              "Its temperature is defined intrinsically by $1/T = \\partial S/\\partial E$."
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "explain": "The microcanonical ensemble is the uniform measure on the energy shell — the maximum-entropy distribution at fixed $E$. The number of accessible states $\\Omega(E)$ defines the Boltzmann entropy $S = k_B\\log\\Omega$, and temperature emerges as the conjugate variable $1/T = \\partial S/\\partial E$. Choice (c) describes the *canonical* ensemble (heat-bath coupling) — a different ensemble entirely, related to microcanonical by a Laplace transform in $\\beta$."
+          },
+          {
+            "type": "mcq",
+            "q": "For one mole of an ideal monatomic gas in a box, the phase space has dimension:",
+            "choices": [
+              "$3$ (one for each spatial direction)",
+              "$6$ (position and momentum in three dimensions)",
+              "$6 N_A$ where $N_A$ is Avogadro's number — three position and three momentum coordinates per particle",
+              "Infinite, because the energy is unbounded."
+            ],
+            "answer": 2,
+            "explain": "Phase space for $N$ classical particles in 3D is $\\mathbb{R}^{6N}$: three position and three momentum coordinates per particle. For one mole, $N = N_A \\approx 6\\times 10^{23}$, giving roughly $3.6\\times 10^{24}$-dimensional phase space. The huge dimension is precisely what makes statistical mechanics unavoidable — direct ODE integration is impossible, and we must replace deterministic trajectories by probability measures.",
+            "hint": "Each particle in 3D contributes 6 phase-space coordinates."
+          }
+        ]
+      },
+      "boltzmann-canonical": {
+        "title": "Boltzmann distribution and canonical ensemble",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The canonical partition function for a system with energy levels $E_i$ at inverse temperature $\\beta = 1/(k_BT)$ is:",
+            "choices": [
+              "$Z = \\sum_i E_i\\, e^{-\\beta E_i}$",
+              "$Z = \\sum_i e^{-\\beta E_i}$",
+              "$Z = \\prod_i e^{-\\beta E_i}$",
+              "$Z = \\sum_i e^{\\beta E_i}/i!$"
+            ],
+            "answer": 1,
+            "explain": "By definition $Z(\\beta) = \\sum_i e^{-\\beta E_i}$ — the normalization that makes $p_i = e^{-\\beta E_i}/Z$ a probability distribution. Choice 0 is $-\\partial Z/\\partial\\beta$, which equals $\\langle E\\rangle Z$ (the numerator of the mean-energy formula), not $Z$ itself. Choice 2 (product) would be wrong dimensionally — partition functions are sums over states, not products. Choice 3 has a wrong sign and an unmotivated factorial."
+          },
+          {
+            "type": "numeric",
+            "q": "A two-level atom has ground-state energy $E_0 = 0$ and excited-state energy $E_1 = \\Delta$. At inverse temperature $\\beta\\Delta = \\log 3$, what is the probability of being in the excited state $p_1 = e^{-\\beta\\Delta}/Z$? Give to three decimal places.",
+            "answer": 0.25,
+            "tol": 0.005,
+            "explain": "$Z = e^0 + e^{-\\beta\\Delta} = 1 + e^{-\\log 3} = 1 + 1/3 = 4/3$. So $p_1 = (1/3)/(4/3) = 1/4 = 0.25$. The Boltzmann factor $e^{-\\beta\\Delta} = 1/3$ says the excited state is three times less likely than the ground state — a direct readout of the energy gap in units of $k_BT$.",
+            "hint": "$e^{-\\log 3} = 1/3$. Then normalize the two-state distribution."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which thermodynamic identities follow from $Z(\\beta) = \\tr\\,e^{-\\beta H}$ by direct differentiation?",
+            "choices": [
+              "$\\langle E\\rangle = -\\partial_\\beta \\log Z$.",
+              "Helmholtz free energy $F = -\\beta^{-1}\\log Z$.",
+              "Heat capacity $C_V = k_B\\beta^2\\,\\mathrm{Var}(E)$ — proportional to the variance of energy fluctuations.",
+              "Entropy $S = k_B\\log Z$."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Differentiating $\\log Z$ once gives $-\\langle E\\rangle$; twice gives $\\mathrm{Var}(E) = \\langle E^2\\rangle - \\langle E\\rangle^2$, hence $C_V = \\partial\\langle E\\rangle/\\partial T = k_B\\beta^2\\mathrm{Var}(E)$ — the fluctuation-response identity. The free-energy formula is the definition. Choice (d) is wrong: the correct entropy is $S = k_B(\\log Z + \\beta\\langle E\\rangle) = -\\partial F/\\partial T$, not $k_B\\log Z$ alone."
+          }
+        ]
+      },
+      "entropy-gibbs": {
+        "title": "Entropy and the Gibbs distribution",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Maximizing the Gibbs entropy $S = -k_B\\sum_i p_i\\log p_i$ subject to $\\sum p_i = 1$ and $\\sum p_i E_i = U$ yields:",
+            "choices": [
+              "The uniform distribution $p_i = 1/N$.",
+              "The Boltzmann distribution $p_i = e^{-\\beta E_i}/Z$, with $\\beta$ the Lagrange multiplier conjugate to $U$.",
+              "A Gaussian centered at $U$.",
+              "A delta function at the mode of the spectrum."
+            ],
+            "answer": 1,
+            "explain": "Lagrangian $\\mathcal{L} = -\\sum p_i\\log p_i - \\alpha(\\sum p_i - 1) - \\beta(\\sum p_i E_i - U)$; setting $\\partial\\mathcal{L}/\\partial p_i = 0$ gives $-\\log p_i - 1 - \\alpha - \\beta E_i = 0$, so $p_i \\propto e^{-\\beta E_i}$. The constraint normalizes; the constraint conjugate to $U$ supplies $\\beta$. This *derives* the canonical ensemble from a maximum-entropy principle (Jaynes). Choice 0 is the unconstrained maximum (no energy constraint). Choice 3 is the *minimum*-entropy distribution.",
+            "hint": "Add Lagrange multipliers for normalization and for mean energy; differentiate."
+          },
+          {
+            "type": "numeric",
+            "q": "A four-level system has Boltzmann probabilities $(p_1, p_2, p_3, p_4) = (1/2, 1/4, 1/8, 1/8)$. Compute the Shannon entropy in bits, $H_2 = -\\sum p_i \\log_2 p_i$.",
+            "answer": 1.75,
+            "tol": 0.01,
+            "explain": "$H_2 = \\tfrac{1}{2}\\cdot 1 + \\tfrac{1}{4}\\cdot 2 + \\tfrac{1}{8}\\cdot 3 + \\tfrac{1}{8}\\cdot 3 = 0.5 + 0.5 + 0.375 + 0.375 = 1.75$ bits. Equivalently, this is the optimal expected codeword length for these symbols under Huffman coding — entropy is the irreducible information content of the distribution, regardless of the energy ladder that produced it.",
+            "hint": "$-\\log_2(1/2) = 1$, $-\\log_2(1/4) = 2$, $-\\log_2(1/8) = 3$. Then weight by probabilities."
+          },
+          {
+            "type": "mcq",
+            "q": "In the microcanonical limit, Gibbs entropy reduces to:",
+            "choices": [
+              "$S = -k_B\\log\\Omega(E)$ (with a minus sign).",
+              "$S = k_B\\log\\Omega(E)$, Boltzmann's tombstone formula.",
+              "$S = k_B \\Omega(E)$.",
+              "$S = k_B/\\Omega(E)$."
+            ],
+            "answer": 1,
+            "explain": "The microcanonical distribution is uniform on $\\Omega(E)$ accessible states: $p_i = 1/\\Omega$ for each. Then $S = -k_B\\sum (1/\\Omega)\\log(1/\\Omega) = k_B\\log\\Omega$. The other choices are dimensionally or sign-wrong: entropy is positive, extensive in $\\log N$, and increases with $\\Omega$."
+          }
+        ]
+      },
+      "grand-canonical": {
+        "title": "Grand canonical ensemble and chemical potential",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The grand canonical density operator for a system exchanging energy and particles with a reservoir at $(\\beta, \\mu)$ is:",
+            "choices": [
+              "$\\rho \\propto e^{-\\beta H}$",
+              "$\\rho \\propto e^{-\\beta(H - \\mu N)}$",
+              "$\\rho \\propto e^{-\\beta H + \\mu}$",
+              "$\\rho \\propto e^{-\\beta H/\\mu}$"
+            ],
+            "answer": 1,
+            "explain": "The reservoir fixes intensive variables $T = 1/(k_B\\beta)$ and $\\mu$ (chemical potential). Maximizing entropy at fixed $\\langle E\\rangle$ and $\\langle N\\rangle$ gives a Boltzmann factor with two Lagrange multipliers: $\\rho \\propto e^{-\\beta H + \\beta\\mu N} = e^{-\\beta(H-\\mu N)}$. The grand partition function is $\\Xi(\\beta,\\mu) = \\tr\\,e^{-\\beta(H-\\mu N)}$ with grand potential $\\Omega = -\\beta^{-1}\\log\\Xi$.",
+            "hint": "Two Lagrange multipliers, one for each conserved expectation."
+          },
+          {
+            "type": "mcq",
+            "q": "The Fermi-Dirac and Bose-Einstein occupation numbers for a single-particle energy level $\\epsilon$ are:",
+            "choices": [
+              "$\\bar n_{\\rm FD} = 1/(e^{\\beta(\\epsilon-\\mu)} + 1)$ and $\\bar n_{\\rm BE} = 1/(e^{\\beta(\\epsilon-\\mu)} - 1)$.",
+              "$\\bar n_{\\rm FD} = e^{-\\beta(\\epsilon-\\mu)}$ for both.",
+              "$\\bar n_{\\rm FD} = 1/(e^{\\beta\\epsilon} + 1)$, $\\bar n_{\\rm BE} = 1/(e^{\\beta\\epsilon} - 1)$ — chemical potential drops out.",
+              "$\\bar n_{\\rm FD} = 1/(e^{\\beta(\\epsilon-\\mu)} - 1)$ and $\\bar n_{\\rm BE} = 1/(e^{\\beta(\\epsilon-\\mu)} + 1)$ (signs swapped)."
+            ],
+            "answer": 0,
+            "explain": "Sum the grand partition function over allowed occupancies: fermions allow $n\\in\\{0,1\\}$ giving $\\Xi_\\epsilon = 1 + e^{-\\beta(\\epsilon-\\mu)}$, hence $\\bar n = e^{-\\beta(\\epsilon-\\mu)}/(1 + e^{-\\beta(\\epsilon-\\mu)}) = 1/(e^{\\beta(\\epsilon-\\mu)}+1)$. Bosons allow $n\\in\\{0,1,2,\\dots\\}$ giving $\\Xi_\\epsilon = 1/(1 - e^{-\\beta(\\epsilon-\\mu)})$, hence $\\bar n = 1/(e^{\\beta(\\epsilon-\\mu)}-1)$. The Maxwell-Boltzmann limit $\\bar n \\approx e^{-\\beta(\\epsilon-\\mu)}$ recovers the classical regime when $\\mu$ is far below all $\\epsilon$. Choice 3 has the signs swapped, which would make Bose-Einstein numbers bounded above — exactly backwards: bosons can pile up arbitrarily many in one state, fermions cannot."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which statements about the thermodynamic limit are correct?",
+            "choices": [
+              "Microcanonical, canonical, and grand canonical ensembles all give the same intensive thermodynamic quantities (energy density, entropy density, etc.) in the thermodynamic limit $N\\to\\infty$ with $N/V$ fixed.",
+              "Fluctuations of extensive quantities scale as $\\sqrt{N}$, so relative fluctuations vanish like $1/\\sqrt N$.",
+              "The chemical potential $\\mu$ in the grand canonical ensemble equals the partial derivative $\\mu = (\\partial F/\\partial N)_{T,V}$ of the canonical free energy.",
+              "Ensemble equivalence holds for every system, including those with long-range interactions like 3D self-gravitating gas."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Ensemble equivalence in the thermodynamic limit is a foundational theorem (proved rigorously for short-range interactions by Ruelle, van Hove, Lanford). $\\sqrt N$-scaling of fluctuations is a CLT/Gaussian-fluctuation statement. The chemical-potential identity follows from Legendre-transforming free energy in $N$. The fourth claim is FALSE: long-range interacting systems (like 3D gravity, where the energy is non-extensive) violate ensemble equivalence — the canonical and microcanonical specific heats can have opposite signs.",
+            "hint": "Three are textbook truths under short-range interactions; one fails for gravity."
+          }
+        ]
+      },
+      "ising-phase-transitions": {
+        "title": "The Ising model and phase transitions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The mean-field critical temperature for the Ising model on a lattice with coordination number $q$ (each spin has $q$ neighbors) is:",
+            "choices": [
+              "$k_B T_c = J$ (independent of $q$)",
+              "$k_B T_c = qJ$",
+              "$k_B T_c = J/q$",
+              "$k_B T_c = q^2 J$"
+            ],
+            "answer": 1,
+            "explain": "The mean-field self-consistency $m = \\tanh(\\beta q J m)$ has a nonzero solution iff $\\beta q J > 1$, i.e. $k_B T < qJ$. So $k_B T_c^{\\rm MF} = qJ$. For the 2D square lattice $q = 4$, mean field predicts $k_B T_c = 4J$; the *exact* Onsager value is $k_B T_c = 2J/\\log(1+\\sqrt 2)\\approx 2.27J$ — mean field overestimates by 76%, because it ignores fluctuations that destabilize order in low dimensions.",
+            "hint": "Linearize $m = \\tanh(\\beta q J m)$ and find when the trivial solution becomes unstable."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which statements about the 2D Ising model are correct?",
+            "choices": [
+              "Onsager (1944) computed the exact partition function on the square lattice in the thermodynamic limit, with $\\sinh(2\\beta J)\\sinh(2\\beta J^*) = 1$ defining the duality fixed point $T_c$.",
+              "The exact magnetization exponent is $\\beta = 1/8$, smaller than the mean-field value $1/2$.",
+              "The 2D Ising model has a continuous (second-order) phase transition with diverging correlation length.",
+              "In 1D with finite-range interactions, the Ising model also has a phase transition at finite temperature."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Onsager's tour de force: the planar Ising partition function reduces to a free-fermion system; duality $\\sinh(2\\beta J)\\sinh(2\\beta J^*)=1$ pins $T_c$. The magnetization vanishes as $m\\sim(T_c-T)^{1/8}$ — a critical exponent in the universality class of the 2D Ising CFT. Choice (d) is famously FALSE: the 1D Ising model has *no* phase transition at any positive $T$ (the celebrated Peierls argument: a single domain wall costs constant energy but contributes $\\log L$ entropy, so domain walls always proliferate). Phase transitions in the Ising model start at $d=2$.",
+            "hint": "Three are correct; one contradicts the famous Peierls argument."
+          },
+          {
+            "type": "mcq",
+            "q": "In zero external field $h=0$, the 2D Ising model on $\\mathbb{Z}^2$ exhibits spontaneous magnetization below the critical temperature. What is the symmetry being spontaneously broken at the transition?",
+            "choices": [
+              "$\\mathbb{Z}/2$, the spin-flip symmetry $s_i \\mapsto -s_i$",
+              "$U(1)$, a continuous rotation in the spin plane",
+              "$O(3)$, the rotation group of three-dimensional space",
+              "Translation invariance of the lattice"
+            ],
+            "answer": 0,
+            "explain": "The Ising Hamiltonian $H = -J\\sum s_i s_j$ is invariant under flipping every spin simultaneously, $s_i \\mapsto -s_i$ — a $\\mathbb{Z}/2$ symmetry. Above $T_c$ the equilibrium distribution is $\\mathbb{Z}/2$-symmetric (mean magnetization is zero). Below $T_c$ the equilibrium chooses one of two phases (positive or negative magnetization) and the symmetry is broken in the thermodynamic limit. Continuous symmetries cannot be broken in 2D (Mermin-Wagner) — choices B and C are wrong because Ising's symmetry is discrete. Translation invariance is preserved by a uniform magnetization, ruling out D."
+          }
+        ]
+      },
+      "renormalization-group": {
+        "title": "The renormalization group",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In RG language, an operator $\\mathcal{O}$ is called *relevant* near a fixed point $K^*$ if:",
+            "choices": [
+              "Its eigenvalue under the linearized RG flow is positive (its coupling grows under coarse-graining).",
+              "Its eigenvalue is negative (it dies out under flow).",
+              "Its scaling dimension equals the spacetime dimension.",
+              "It commutes with the Hamiltonian."
+            ],
+            "answer": 0,
+            "explain": "Linearizing the RG transformation at the fixed point gives a matrix; a relevant operator has positive eigenvalue, so a small perturbation grows under coarse-graining and drives the flow off the critical surface. Irrelevant operators (negative eigenvalue) die out — their numerical value at long distance is universal. Marginal operators (zero eigenvalue) require higher-order analysis and produce log corrections. Universality of critical exponents follows: the irrelevant operators flow into the fixed point, so any UV detail that is irrelevant disappears.",
+            "hint": "Eigenvalues of the linearized flow distinguish relevant / irrelevant / marginal."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which statements about the Wilson-Fisher fixed point and the $\\epsilon$-expansion are correct?",
+            "choices": [
+              "It is a nontrivial fixed point of the $\\phi^4$ theory at $d = 4 - \\epsilon$, accessible perturbatively in $\\epsilon$.",
+              "Its critical exponents agree (to leading order in $\\epsilon$) with the 3D Ising universality class when one extrapolates to $\\epsilon = 1$.",
+              "At $d = 4$ the Wilson-Fisher fixed point merges with the Gaussian fixed point — pure $\\phi^4$ becomes free above 4D.",
+              "It is the only fixed point of $\\phi^4$ theory in any dimension."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Wilson and Fisher (1972): perturbing about $d=4$ where $\\phi^4$ is marginal, a nontrivial fixed point appears at $g^* = O(\\epsilon)$. Setting $\\epsilon = 1$ gives surprisingly accurate 3D Ising exponents (e.g. $\\nu \\approx 0.63$ vs Monte Carlo $0.6299$). At $d \\ge 4$ the only IR-stable fixed point is Gaussian — interactions are irrelevant. Choice 4 is wrong: there are at minimum two ($\\phi^4$ has Gaussian + Wilson-Fisher in $d < 4$), plus more in modified theories."
+          },
+          {
+            "type": "ordering",
+            "q": "Order the conceptual steps of a Wilsonian RG analysis.",
+            "items": [
+              "Coarse-grain: integrate out short-distance modes with momenta $\\Lambda/b < |k| < \\Lambda$.",
+              "Identify a fixed point $K^*$ of the flow on coupling space.",
+              "Rescale coordinates and fields so the cutoff returns to $\\Lambda$.",
+              "Linearize the flow at $K^*$ and read critical exponents from the eigenvalues."
+            ],
+            "answer": [
+              0,
+              2,
+              1,
+              3
+            ],
+            "explain": "Coarse-grain → rescale to restore the cutoff (these two together are *one* RG step) → repeat until the flow lands on a fixed point → linearize at that fixed point → critical exponents are inverse eigenvalues of the linearized flow. The fixed-point analysis is the universal structure: any UV theory in the same basin gives identical long-distance physics. This is the technical content of universality."
+          }
+        ]
+      },
+      "large-deviations-equilibrium": {
+        "title": "Large deviations and equilibrium fluctuations",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Cramér's theorem states that for i.i.d. real-valued $X_1,\\dots,X_n$ with finite cumulant generating function $\\Lambda(\\theta) = \\log\\mathbb{E}[e^{\\theta X_1}]$, the empirical mean satisfies a large-deviation principle with rate function:",
+            "choices": [
+              "$I(x) = \\Lambda(x)$",
+              "$I(x) = \\Lambda^*(x) = \\sup_\\theta(\\theta x - \\Lambda(\\theta))$ — the Legendre transform of the cumulant generating function.",
+              "$I(x) = -\\Lambda(x)$",
+              "$I(x) = \\sigma^{-2}(x - \\mu)^2$ — Gaussian regardless of distribution."
+            ],
+            "answer": 1,
+            "explain": "Cramér's theorem: $P(\\bar X_n \\approx x)\\asymp e^{-nI(x)}$ where $I = \\Lambda^*$ is the Legendre transform of $\\Lambda$. The rate is convex, vanishes at the mean, and recovers Gaussian behaviour $I(x) \\approx (x-\\mu)^2/(2\\sigma^2)$ near the mean (which is choice (d) — correct only locally). Far from the mean the tail is exponential, not Gaussian: large deviations are dominated by the *most likely improbable path*, not by the central-limit fluctuations.",
+            "hint": "Tilted-measure / saddle-point trick: $P(\\bar X_n\\ge x) \\approx \\inf_\\theta e^{-n\\theta x}\\mathbb{E}[e^{\\theta X_1}]^n$."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Find the flaw in this 'derivation' that the Boltzmann distribution is just the Gaussian central-limit approximation to a microcanonical fluctuation.",
+            "steps": [
+              "By the central limit theorem, the energy of one subsystem in equilibrium with a large bath has approximately Gaussian fluctuations around its mean.",
+              "The Gaussian density is $\\rho(E) \\propto e^{-(E-\\langle E\\rangle)^2/(2\\sigma^2)}$.",
+              "Expanding $-(E-\\langle E\\rangle)^2/(2\\sigma^2)$ to first order in $E$ gives a linear exponent $-\\beta E + \\text{const}$.",
+              "Therefore the canonical density is $\\rho(E)\\propto e^{-\\beta E}$, which is the Boltzmann distribution."
+            ],
+            "answer": 2,
+            "explain": "The error is in step 3. A first-order Taylor expansion of a quadratic function in $E$ around $\\langle E\\rangle$ does NOT capture the canonical density. The correct derivation uses large deviations / saddle-point: the bath has many more degrees of freedom than the subsystem, and the subsystem's microcanonical entropy expansion $S_{\\rm bath}(E_{\\rm tot} - E) \\approx S_{\\rm bath}(E_{\\rm tot}) - \\beta E$ — the linear-in-$E$ correction is exact in the bath-large limit because higher derivatives are suppressed by $1/N_{\\rm bath}$. So the Boltzmann factor $e^{-\\beta E}$ comes from the *exact* expansion of bath entropy, not from a Gaussian approximation. The Gaussian only describes the *fluctuation* of $\\bar E$ for large subsystems — a different, downstream statement."
+          },
+          {
+            "type": "mcq",
+            "q": "The fluctuation-dissipation theorem in classical equilibrium relates:",
+            "choices": [
+              "The thermal noise of an unperturbed system to the linear response coefficient under an external perturbation.",
+              "The energy gap to the Boltzmann factor.",
+              "The chemical potential to the particle number.",
+              "The entropy to the heat capacity."
+            ],
+            "answer": 0,
+            "explain": "FDT: the response of $\\langle A\\rangle$ to a perturbation that couples to $B$ equals (up to factors of $\\beta$) the equilibrium correlation $\\langle A(t) B(0)\\rangle$ in the unperturbed system. Concretely, $\\chi_{AB}(\\omega)$ has imaginary part $\\beta\\omega/2$ times the Fourier transform of $\\langle\\{A(t),B(0)\\}\\rangle$. Kubo formulas are particular cases: conductivity equals current-current correlation, susceptibility equals magnetization-magnetization correlation. Equilibrium fluctuations *are* the response — no perturbation needed to measure them.",
+            "hint": "Linear response = equilibrium correlations. The slogan 'noise = response' is the FDT."
+          }
+        ]
+      }
+    }
+  },
   "stochastic-calculus": {
     "topic": "stochastic-calculus",
     "quizzes": {
@@ -48890,6 +49531,335 @@ window.MVQuizBank = {
             "tol": 0.001,
             "hint": "$[W]_t=t$ a.s.\\ — quadratic variation along any sequence of partitions with mesh $\\to 0$ converges in probability to $t$.",
             "explain": "$\\sum_k(W_{t_{k+1}}-W_{t_k})^2\\to t$ in probability as the mesh shrinks; at $t=T=2$ this equals $2$. This is the signature of Brownian paths: finite quadratic variation, infinite total variation."
+          }
+        ]
+      }
+    }
+  },
+  "string-theory": {
+    "topic": "string-theory",
+    "quizzes": {
+      "worldsheet-action": {
+        "title": "The world-sheet action",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why is the Polyakov action $S_P = -\\tfrac{T}{2}\\int \\sqrt{-h}\\,h^{ab}\\partial_a X^\\mu \\partial_b X_\\mu\\,d^2\\sigma$ usually preferred over the Nambu–Goto area action $S_{NG} = -T\\int\\sqrt{-\\det h_{ab}}\\,d^2\\sigma$ for quantization?",
+            "choices": [
+              "$S_P$ describes a different physical theory whose classical limit gives $S_{NG}$.",
+              "$S_P$ is polynomial in the embedding fields $X^\\mu$ — eliminating $h_{ab}$ via its equation of motion recovers $S_{NG}$, but the polynomial form admits a standard path-integral quantization.",
+              "$S_{NG}$ is not Lorentz-invariant in the target space, while $S_P$ is.",
+              "$S_P$ uses a target-space metric while $S_{NG}$ uses only the world-sheet metric."
+            ],
+            "answer": 1,
+            "explain": "$S_{NG}$ has a square root of $X$-derivatives, which is awkward to quantize. The Polyakov form introduces an auxiliary world-sheet metric $h_{ab}$; varying $h_{ab}$ recovers $S_{NG}$, but with $h_{ab}$ kept independent the action is quadratic in $X^\\mu$ and admits standard 2D field-theory quantization. Both actions describe the same physics; only the quantization route differs.",
+            "hint": "Think about which action has a square root of derivatives of $X$, and which is polynomial."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which symmetries does the Polyakov action enjoy on a flat target spacetime?",
+            "choices": [
+              "Target-space Poincaré invariance ($X^\\mu$ transforming as a vector).",
+              "World-sheet diffeomorphism (reparametrization) invariance.",
+              "World-sheet Weyl rescaling $h_{ab} \\mapsto e^{2\\omega(\\sigma)} h_{ab}$.",
+              "Target-space conformal invariance $X^\\mu \\mapsto e^{\\omega} X^\\mu$."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Poincaré is a target-space rigid symmetry; diffeomorphism and Weyl are local world-sheet symmetries that together let one fix the conformal gauge $h_{ab} = \\eta_{ab}$. Target-space conformal rescaling of the embedding $X^\\mu$ is *not* a symmetry — it would change the spacetime distances $X^\\mu$ measures."
+          },
+          {
+            "type": "ordering",
+            "q": "Order the steps that take the world-sheet action from its geometric Nambu–Goto form to a free 2D field theory.",
+            "items": [
+              "Write the Nambu–Goto action $S_{NG} = -T\\int\\sqrt{-\\det(\\partial_a X\\cdot\\partial_b X)}\\,d^2\\sigma$ as the area swept out.",
+              "Introduce an independent world-sheet metric $h_{ab}$ and the Polyakov action; check classical equivalence.",
+              "Use diffeomorphism + Weyl invariance to fix conformal gauge $h_{ab} = \\eta_{ab}$.",
+              "Read off the equations of motion: free 2D wave equations $\\partial_a\\partial^a X^\\mu = 0$ plus Virasoro constraints from the residual gauge symmetry."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "The standard chain: (1) area action, (2) introduce auxiliary metric (Polyakov), (3) fix conformal gauge using the local symmetries, (4) the gauge-fixed action is a 2D free field theory; the constraints that survive are the Virasoro constraints, the world-sheet stress tensor."
+          }
+        ]
+      },
+      "worldsheet-cft": {
+        "title": "Conformal field theory on the world-sheet",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Virasoro algebra reads $[L_m, L_n] = (m-n)L_{m+n} + \\tfrac{c}{12}(m^3 - m)\\delta_{m+n,0}$. What does the central charge $c$ measure?",
+            "choices": [
+              "The total energy of the world-sheet vacuum.",
+              "The number of free boson fields $X^\\mu$ on the world-sheet (always equal to spacetime dimension $D$).",
+              "The conformal anomaly: how the classical Weyl symmetry fails quantum-mechanically.",
+              "The eigenvalue of $L_0$ on the ground state."
+            ],
+            "answer": 2,
+            "explain": "$c$ is the conformal anomaly. Classically, $h_{ab}$ can be rescaled freely; quantum-mechanically, the trace of the stress tensor $\\langle T^a{}_a\\rangle$ is proportional to $c$ times the world-sheet curvature. Cancelling this anomaly fixes the spacetime dimension. While $c = D$ for $D$ free bosons, $c$ is more general — fermions, ghosts, and curved backgrounds all contribute. The $L_0$ eigenvalue is the conformal weight, a different number.",
+            "hint": "The $c$-term breaks the centerless Witt algebra; that breakage is the quantum anomaly."
+          },
+          {
+            "type": "mcq",
+            "q": "A primary field $\\phi$ of conformal weight $h$ has OPE $T(z)\\phi(w) \\sim \\tfrac{h\\,\\phi(w)}{(z-w)^2} + \\tfrac{\\partial\\phi(w)}{z-w}$ with the holomorphic stress tensor. What does the leading $1/(z-w)^2$ coefficient encode?",
+            "choices": [
+              "The mass of the corresponding spacetime particle.",
+              "The conformal weight $h$, i.e. the eigenvalue of $L_0$ on the state $|\\phi\\rangle = \\phi(0)|0\\rangle$.",
+              "The central charge $c$ of the CFT.",
+              "The spin of $\\phi$ in spacetime."
+            ],
+            "answer": 1,
+            "explain": "The OPE encodes how $\\phi$ transforms under conformal maps. The $1/(z-w)^2$ piece carries the rescaling weight $h$: under $z \\mapsto \\lambda z$, $\\phi(z) \\mapsto \\lambda^{-h}\\phi(\\lambda z)$. By state-operator correspondence $|\\phi\\rangle = \\phi(0)|0\\rangle$ is then an $L_0$ eigenstate with eigenvalue $h$. The $1/(z-w)$ piece is the translation $\\partial\\phi$. The central charge appears in the $T(z)T(w)$ OPE, not the $T(z)\\phi(w)$ OPE for $\\phi$ a primary."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which statements about Virasoro generators $L_n$ acting on the CFT Hilbert space are correct?",
+            "choices": [
+              "$L_0$ is the world-sheet Hamiltonian (up to a shift); its eigenvalues are the conformal weights $h$.",
+              "A highest-weight (primary) state $|h\\rangle$ satisfies $L_n|h\\rangle = 0$ for all $n > 0$.",
+              "The subalgebra generated by $L_{-1}, L_0, L_1$ closes without central extension and integrates to the global $\\mathrm{PSL}(2,\\mathbb{R})$ Möbius group.",
+              "The central term $\\tfrac{c}{12}(m^3-m)\\delta_{m+n,0}$ vanishes for $|m|,|n| \\le 1$, so it does not affect the global conformal subalgebra."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "All four are standard. $L_0$ generates dilations, hence is the Hamiltonian on the cylinder. Primaries are annihilated by positive modes — the highest-weight condition. The $\\mathrm{sl}_2$ subalgebra $\\{L_{-1},L_0,L_1\\}$ exponentiates to global Möbius transformations. The central term is proportional to $m^3-m$, which has roots at $m=0,\\pm 1$, so the Möbius subalgebra is genuinely central-charge-blind."
+          }
+        ]
+      },
+      "bosonic-strings-critical": {
+        "title": "Bosonic strings & the critical dimension",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "In what spacetime dimension $D$ is the bosonic string consistent? (i.e. the value at which conformal-anomaly cancellation between the $D$ scalar fields $X^\\mu$ and the reparametrization ghosts forces a unique answer)",
+            "answer": 26,
+            "explain": "Each free boson $X^\\mu$ contributes $c=1$ to the matter central charge; the $bc$ ghost system from gauge-fixing diffeomorphisms contributes $c_{gh} = -26$. Total anomaly cancellation $D \\cdot 1 + (-26) = 0$ forces $D = 26$. Equivalently, the light-cone-quantization derivation reproduces the same number from requiring Lorentz invariance after the normal-ordering shift $a = 1$.",
+            "tol": 0
+          },
+          {
+            "type": "mcq",
+            "q": "The light-cone open-string mass formula reads $\\alpha' M^2 = N - a$, where $N$ is the number operator on transverse oscillators and $a$ is the normal-ordering constant fixed by Lorentz invariance. Lorentz fixes $a = 1$ when $D = 26$. What is the mass-squared of the lightest state ($N = 0$)?",
+            "choices": [
+              "$\\alpha' M^2 = 0$ — the ground state is massless.",
+              "$\\alpha' M^2 = -1$ — the ground state is tachyonic.",
+              "$\\alpha' M^2 = +1$ — the ground state is the lightest massive level.",
+              "$\\alpha' M^2$ is undefined for $N = 0$."
+            ],
+            "answer": 1,
+            "explain": "Plug $N = 0$, $a = 1$: $\\alpha' M^2 = -1 < 0$. The ground state has imaginary mass — a tachyon. This signals an unstable vacuum and is the central physical pathology of the bosonic string. The first excited level $N = 1$ gives $\\alpha' M^2 = 0$ (massless states: photon for the open string, graviton for the closed string), which is the level relevant for low-energy physics.",
+            "hint": "Substitute the values directly and read off the sign."
+          },
+          {
+            "type": "ordering",
+            "q": "Order the steps in the derivation that the bosonic string requires $D = 26$ via light-cone quantization.",
+            "items": [
+              "Gauge-fix world-sheet diffeomorphisms by setting $X^+ = x^+ + p^+ \\tau$.",
+              "Solve the constraint $T_{ab} = 0$ to express the longitudinal $X^-$ oscillators in terms of the transverse $X^i$.",
+              "Compute the normal-ordering shift in $L_0$ from the zero-point energy of $D-2$ transverse oscillators: $a = (D-2)/24$.",
+              "Demand Lorentz invariance of the spectrum (closure of $[J^{i-},J^{j-}]$); this forces $a = 1$, hence $D = 26$."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Light-cone gauge eliminates the $X^\\pm$ oscillators in favor of transverse $X^i$. The transverse zero-point energies sum to $(D-2)/24$ (using $\\zeta(-1) = -1/12$). Lorentz invariance — visible only in light-cone gauge through $J^{i-}$ closure — forces this shift to equal $1$, giving $D-2 = 24$, i.e. $D = 26$. The same number reappears from BRST anomaly cancellation in covariant quantization."
+          }
+        ]
+      },
+      "superstrings-susy": {
+        "title": "Superstrings & supersymmetry",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "What is the critical spacetime dimension $D$ of a consistent superstring theory? (the value forced by world-sheet supersymmetry plus anomaly cancellation, replacing the $D=26$ of the bosonic string)",
+            "answer": 10,
+            "explain": "Adding world-sheet fermions $\\psi^\\mu$ partners up the bosons $X^\\mu$ in $\\mathcal{N}=1$ super-multiplets. The matter central charge becomes $c = D + D/2 = 3D/2$; the super-reparametrization ghosts contribute $c_{gh} = -15$. Cancellation gives $3D/2 = 15$, hence $D = 10$. Equivalently the GSO-projected normal-ordering condition is $a_{\\mathrm{NS}} = 1/2$, leading to the same answer.",
+            "tol": 0
+          },
+          {
+            "type": "multi-select",
+            "q": "Which features distinguish the superstring from the bosonic string?",
+            "choices": [
+              "Spacetime fermions appear in the spectrum (after the GSO projection on the Ramond sector).",
+              "The tachyonic ground state of the NS sector is removed by the GSO projection.",
+              "The critical dimension drops from $D=26$ to $D=10$.",
+              "The Polyakov action is replaced by an action with no local symmetries."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "World-sheet fermions plus GSO produce target-space fermions and remove the NS tachyon — the ground state $|0\\rangle_{\\mathrm{NS}}$ is GSO-projected out, and the lightest physical NS state becomes the massless spacetime gauge boson / graviton. The critical dimension is indeed $D=10$. The action gains *more* local symmetry — local world-sheet supersymmetry — not less; gauge-fixing it produces super-conformal ghosts."
+          },
+          {
+            "type": "mcq",
+            "q": "Which list correctly enumerates the five consistent perturbative superstring theories in 10D?",
+            "choices": [
+              "Type I, type II, type III, $E_6\\times E_6$ heterotic, $\\mathrm{Spin}(10)$ heterotic.",
+              "Type IIA, type IIB, type IIC, $E_8\\times E_8$ heterotic, $\\mathrm{SO}(32)$ heterotic.",
+              "Type I, type IIA, type IIB, $E_8\\times E_8$ heterotic, $\\mathrm{Spin}(32)/\\mathbb{Z}_2$ heterotic.",
+              "Type I, type IIA, type IIB, type IIC, $E_8\\times E_8$ heterotic."
+            ],
+            "answer": 2,
+            "explain": "The five superstrings: type I (open + closed, $\\mathrm{SO}(32)$ gauge group), type IIA (closed, non-chiral), type IIB (closed, chiral), heterotic $E_8\\times E_8$, and heterotic $\\mathrm{Spin}(32)/\\mathbb{Z}_2$. The two heterotic gauge groups are picked out by lattice anomaly cancellation. M-theory in 11D unifies them via web of dualities — these five vacua are different limits of a single underlying theory."
+          }
+        ]
+      },
+      "compactification-cy": {
+        "title": "Compactification & Calabi–Yau manifolds",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why does preserving $\\mathcal{N}=1$ spacetime supersymmetry in a 4D compactification of the heterotic string require the internal 6-manifold $X$ to be Calabi–Yau?",
+            "choices": [
+              "Because $X$ must be flat to support a covariantly constant metric.",
+              "Because the surviving 4D supercharges are in 1–1 correspondence with covariantly constant spinors on $X$, and their existence forces holonomy reduction from $SO(6)$ to $SU(3)$ — equivalently, $X$ is Kähler with vanishing first Chern class.",
+              "Because $X$ must be a Riemann surface lifted to six dimensions.",
+              "Because the volume of $X$ must be finite."
+            ],
+            "answer": 1,
+            "explain": "A 10D Majorana–Weyl supercharge restricted to $\\mathbb{R}^{1,3}\\times X$ decomposes by the holonomy of $X$. The number of unbroken 4D supercharges equals the number of covariantly constant spinors on $X$. Generic $SO(6)$ holonomy kills all of them; $SU(3)$ holonomy preserves exactly one — a single $\\mathcal{N}=1$ supercharge. By Berger's classification + Yau's theorem, $SU(3)$-holonomy Kähler 6-manifolds are exactly the Ricci-flat Kähler 3-folds, i.e. Calabi–Yaus.",
+            "hint": "Count covariantly constant spinors and link to the holonomy group."
+          },
+          {
+            "type": "mcq",
+            "q": "On a Calabi–Yau 3-fold $X$ the only independent Hodge numbers are $h^{1,1}(X)$ and $h^{2,1}(X)$. Which 4D effective-theory data do they count?",
+            "choices": [
+              "Spacetime gauge couplings ($h^{1,1}$) and Yukawa couplings ($h^{2,1}$).",
+              "Kähler (size) moduli ($h^{1,1}$) and complex-structure (shape) moduli ($h^{2,1}$).",
+              "Bosonic ($h^{1,1}$) and fermionic ($h^{2,1}$) zero-modes.",
+              "Open-string ($h^{1,1}$) and closed-string ($h^{2,1}$) states."
+            ],
+            "answer": 1,
+            "explain": "Deformations of the Kähler form $\\omega \\in H^{1,1}(X,\\mathbb{R})$ change sizes/areas; their complex extensions ($\\omega + iB$ for the $B$-field) are counted by $h^{1,1}$. Deformations of the complex structure are counted by $H^1(X, T_X) \\cong H^{2,1}(X)$ via the holomorphic 3-form. Both moduli appear as massless scalar fields in the 4D effective theory — the source of the moduli-stabilization problem."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which statements about the so-called 'string landscape' of Calabi–Yau compactifications are accurate?",
+            "choices": [
+              "The frequently quoted estimate $\\sim 10^{500}$ flux vacua is a heuristic count obtained by combining choices of CY 3-fold with discrete fluxes through its 3-cycles, not a rigorous theorem.",
+              "Each choice of $X$ (and flux configuration) produces a different 4D effective theory with different physical constants.",
+              "The landscape proves there is exactly one consistent 4D physics emerging from string theory.",
+              "Most known constructions leave the moduli unstabilized; producing 4D vacua with no massless moduli requires additional ingredients (fluxes, branes, non-perturbative effects)."
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "explain": "The $10^{500}$ figure is heuristic — Bousso–Polchinski / KKLT-style flux counting. Different $(X, \\text{flux})$ give different effective theories. The landscape is the *opposite* of a uniqueness statement (option 2 is wrong). And moduli stabilization is a real obstruction: bare CY compactifications give a continuous family of vacua; flux + non-perturbative effects are needed to lift the moduli."
+          }
+        ]
+      },
+      "string-dualities": {
+        "title": "T-duality & mirror symmetry",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "T-duality on a circle of radius $R$ identifies the closed-string spectrum at $R$ with the spectrum at what dual radius?",
+            "choices": [
+              "$R' = R$.",
+              "$R' = \\alpha'/R$.",
+              "$R' = R/\\alpha'$.",
+              "$R' = \\alpha'^2 / R$."
+            ],
+            "answer": 1,
+            "explain": "T-duality sends $R \\leftrightarrow \\alpha'/R$, exchanging momentum modes $p_n = n/R$ with winding modes $w_m = mR/\\alpha'$. The mass spectrum $M^2 = (n/R)^2 + (mR/\\alpha')^2 + \\text{osc}$ is invariant under $(R,n,m) \\mapsto (\\alpha'/R, m, n)$ — momentum and winding swap. The fixed point $R = \\sqrt{\\alpha'}$ is the self-dual radius."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which relations between Hodge numbers $h^{p,q}$ of mirror Calabi–Yau 3-folds $(X,Y)$ hold?",
+            "choices": [
+              "$h^{1,1}(X) = h^{2,1}(Y)$ — the Kähler moduli of $X$ count complex-structure moduli of $Y$.",
+              "$h^{2,1}(X) = h^{1,1}(Y)$ — and vice versa.",
+              "The Euler characteristic flips sign: $\\chi(X) = -\\chi(Y)$.",
+              "$h^{p,q}(X) = h^{p,q}(Y)$ — the diamonds are identical, not reflected."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "The diamond reflects: $(1,1) \\leftrightarrow (2,1)$, etc. Since $\\chi(X) = 2(h^{1,1}-h^{2,1})$ for a CY 3-fold and the swap inverts this difference, $\\chi$ does flip sign — exact for mirror pairs. Choice 3 is the *opposite* of mirror symmetry; if the diamonds were identical, the conjecture would be vacuous."
+          },
+          {
+            "type": "mcq",
+            "q": "The Strominger–Yau–Zaslow (SYZ) picture realizes mirror symmetry as a fibrewise duality. Which structure on $X$ does it require, and which operation produces $Y$?",
+            "choices": [
+              "A holomorphic elliptic fibration $X \\to B$; replace each elliptic fibre by its Jacobian.",
+              "A special-Lagrangian $T^3$-fibration $X \\to B$; replace each torus fibre $T^3_b$ by its dual torus $\\check T^3_b = \\mathrm{Hom}(T^3_b, U(1))$.",
+              "A Lefschetz pencil $X \\to \\mathbb{P}^1$; take the dual Lefschetz pencil.",
+              "A Kähler structure; take the conjugate complex structure."
+            ],
+            "answer": 1,
+            "explain": "SYZ: a CY 3-fold should fibre over a 3-real-dimensional base $B$ in special-Lagrangian $T^3$ fibres; the mirror is the dual fibration, replacing each fibre by its Pontryagin dual torus. T-duality on the three torus fibres is what swaps A-model (symplectic, Gromov–Witten) data with B-model (complex, period) data — making mirror symmetry a higher-dimensional avatar of T-duality. The other choices describe different fibrations and don't reproduce mirror Hodge swaps.",
+            "hint": "Mirror symmetry is supposed to *be* T-duality on internal fibres."
+          }
+        ]
+      },
+      "branes-string-math": {
+        "title": "Branes & string-math output",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Polchinski's 1995 identification of D-branes resolved a tension in earlier perturbative string theory. What is a D$p$-brane, in one sentence?",
+            "choices": [
+              "A $(p+1)$-dimensional submanifold of spacetime on which open strings end (Dirichlet boundary conditions in $9-p$ transverse directions), and which Polchinski showed carries the previously puzzling Ramond–Ramond charge.",
+              "A perturbative excitation of the closed string with spin $p$.",
+              "A topological defect in the world-sheet CFT of dimension $p$.",
+              "An open-string state of mass $1/p$ in string units."
+            ],
+            "answer": 0,
+            "explain": "D-branes were originally introduced as boundary conditions for open strings — Dirichlet ('D') in $9-p$ directions. Polchinski (1995) showed they are dynamical solitonic objects that carry the Ramond–Ramond gauge charges that closed-string theory had predicted but no perturbative state had supplied. This made non-perturbative string theory possible and is the foundation of AdS/CFT and brane-engineered gauge theory."
+          },
+          {
+            "type": "mcq",
+            "q": "A stack of $N$ coincident D$p$-branes supports a world-volume gauge theory. Which gauge group?",
+            "choices": [
+              "$U(1)^N$ — one Abelian factor per brane.",
+              "$U(N)$, with the $N^2$ gauge bosons coming from open strings stretched between branes (including string endpoints on the same brane).",
+              "$SU(N)$ — the trace-$U(1)$ decouples in 4D.",
+              "$O(N)$ — orientation-reversal of the open-string endpoint."
+            ],
+            "answer": 1,
+            "explain": "Open strings stretched from brane $i$ to brane $j$ carry a Chan–Paton matrix index $(i,j)$ with $1 \\le i,j \\le N$, giving $N^2$ massless vector states — the adjoint of $U(N)$. The diagonal $U(1)$ is the centre-of-mass mode. Type-I orientifold projections produce $SO$ or $Sp$ gauge groups instead, but a generic stack of D-branes in type II gives $U(N)$; this 'brane engineering' is how string theory generates non-Abelian gauge theories from geometry."
+          },
+          {
+            "type": "matching",
+            "q": "Match each piece of pure-mathematical output to the string-theoretic mechanism that produced or organized it.",
+            "left": [
+              "Counts of rational curves on the quintic 3-fold (e.g. $317{,}206{,}375$ twisted cubics)",
+              "Coefficients of the modular function $j(\\tau)$ as sums of Monster irrep dimensions",
+              "Equivalence $D^b\\mathrm{Coh}(X) \\cong D^\\pi\\mathrm{Fuk}(Y)$ for mirror CY 3-folds $(X,Y)$",
+              "Geometric Langlands as $S$-duality of $\\mathcal{N}=4$ super-Yang–Mills"
+            ],
+            "right": [
+              "Mirror symmetry: A-model Gromov–Witten on $X$ = B-model period integrals on the mirror $Y$",
+              "Monstrous moonshine from a chiral CFT (the Monster vertex algebra)",
+              "Kontsevich's homological mirror symmetry conjecture",
+              "Kapustin–Witten reduction of 4D gauge theory on a Riemann surface"
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "explain": "Each pairing is the historically attested route. Candelas–de la Ossa–Green–Parkes used mirror symmetry on the quintic to compute genus-zero GW counts via period integrals on the mirror. Frenkel–Lepowsky–Meurman + Borcherds organized moonshine through a vertex operator algebra realized as a chiral CFT. Kontsevich proposed HMS at ICM 1994. Kapustin–Witten (2007) derived geometric Langlands as the dimensional reduction of $\\mathcal{N}=4$ SYM $S$-duality on a Riemann surface — these results stand independently of whether nature is described by string theory."
           }
         ]
       }

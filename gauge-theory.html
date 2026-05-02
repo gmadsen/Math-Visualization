@@ -1,0 +1,1150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Gauge theory — connections, curvature, and 4-manifold invariants</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="mathematical-physics" data-level="capstone">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#principal-bundles-connections">1&nbsp;Principal&nbsp;bundles&nbsp;&amp;&nbsp;connections</a>
+  <a href="#curvature-yang-mills">2&nbsp;Curvature&nbsp;&amp;&nbsp;Yang-Mills</a>
+  <a href="#gauge-transformations-holonomy">3&nbsp;Gauge&nbsp;transformations&nbsp;&amp;&nbsp;holonomy</a>
+  <a href="#instantons-selfdual">4&nbsp;Self-dual&nbsp;connections&nbsp;&amp;&nbsp;instantons</a>
+  <a href="#chern-simons">5&nbsp;Chern-Simons&nbsp;theory</a>
+  <a href="#lattice-gauge">6&nbsp;Lattice&nbsp;gauge&nbsp;theory</a>
+  <a href="#donaldson-sw-invariants">7&nbsp;Donaldson&nbsp;&amp;&nbsp;Seiberg-Witten</a>
+  <a href="#connections">8&nbsp;Connections</a>
+</nav>
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Gauge theory</h1>
+  <p class="sub">Connections on principal bundles, curvature as the obstruction to flatness, and the Yang-Mills action whose critical points are the gauge fields of fundamental physics. From holonomy and Wilson loops to instantons, Chern-Simons, lattice discretization, and the Donaldson / Seiberg-Witten invariants that detect exotic smooth structures in dimension four.</p>
+</section>
+
+<!-- =============================================================== -->
+<section id="principal-bundles-connections">
+<h2>1. Principal bundles and connections</h2>
+
+<p>A <strong>principal $G$-bundle</strong> is a smooth fiber bundle $\pi\colon P\to M$ together with a smooth right action of a Lie group $G$ on $P$ that is free, fiber-preserving, and transitive on each fiber. Local triviality says every $x\in M$ has a neighborhood $U$ with a $G$-equivariant diffeomorphism $\pi^{-1}(U)\cong U\times G$; transition functions on overlaps are smooth maps $g_{\alpha\beta}\colon U_\alpha\cap U_\beta\to G$ acting by left multiplication. The bundle is determined up to isomorphism by its cocycle $\{g_{\alpha\beta}\}$.</p>
+
+<p>The fundamental fields make the Lie algebra $\mathfrak{g}$ visible inside $TP$. For each $\xi\in\mathfrak{g}$ define the <em>fundamental vector field</em> $\xi^*$ on $P$ by $\xi^*_p = \tfrac{d}{dt}\big|_{t=0}\,p\cdot\exp(t\xi)$. Its image at every $p$ spans the <strong>vertical subspace</strong> $V_p P = \ker d\pi_p \subset T_pP$ — the directions tangent to the fiber.</p>
+
+<div class="note"><strong>What we still need.</strong> The vertical bundle $V\subset TP$ is canonical (it sees only the fiber action). To talk about <em>parallel transport</em> we need a choice of horizontal complement: a $G$-equivariant subbundle $H\subset TP$ with $V\oplus H = TP$. This choice is a <em>connection</em>.</div>
+
+<p>The cleanest packaging is a $\mathfrak{g}$-valued 1-form on $P$:</p>
+
+<div class="note">A <strong>connection 1-form</strong> on $P$ is $A\in\Omega^1(P;\mathfrak{g})$ such that:
+<ul>
+  <li><strong>Verticality</strong>: $A(\xi^*) = \xi$ for every $\xi\in\mathfrak{g}$ — the form recovers the Lie-algebra direction of fundamental fields.</li>
+  <li><strong>Equivariance</strong>: $R_g^* A = \mathrm{Ad}(g^{-1})A$ for every $g\in G$ — translating along the fiber adjoint-twists the form.</li>
+</ul>
+The horizontal subspace at $p$ is then $H_p = \ker A_p$.</div>
+
+<p>Picking a local section $\sigma\colon U\to P$ produces a <strong>local gauge potential</strong> $A^\sigma = \sigma^*A\in\Omega^1(U;\mathfrak{g})$ — the physicist's $A_\mu$. On a triviality patch with coordinates $x^\mu$, $A^\sigma = A_\mu(x)\,dx^\mu$ where each $A_\mu$ is matrix-valued ($A_\mu\in\mathfrak{g}$). Two sections $\sigma$ and $\sigma\cdot g$ give potentials related by the gauge transformation law (§3); the bundle picture is the geometry that makes that law forced.</p>
+
+<p>Given a smooth path $\gamma\colon [0,1]\to M$ and an initial point $\tilde p_0\in\pi^{-1}(\gamma(0))$, the <strong>horizontal lift</strong> is the unique path $\tilde\gamma\colon [0,1]\to P$ with $\pi\circ\tilde\gamma = \gamma$, $\tilde\gamma(0) = \tilde p_0$, and $\dot{\tilde\gamma}\in H_{\tilde\gamma}$ at every time. This is an ODE of the form $\dot{\tilde\gamma} = -A(\dot\gamma)\cdot\tilde\gamma$ in local coordinates — a first-order linear equation in $G$ — so existence and uniqueness are automatic. <strong>Parallel transport</strong> $P_\gamma\colon\pi^{-1}(\gamma(0))\to\pi^{-1}(\gamma(1))$ is the resulting fiber map.</p>
+
+<div class="widget" id="w-hopf">
+  <div class="hd"><div class="ttl">$U(1)$ bundle: horizontal lift of a circle</div><div class="hint">slide the connection strength — the lifted path tilts</div></div>
+  <svg id="hopf-svg" viewBox="-180 -180 360 360" width="100%" height="360"><title>Horizontal lift on a U(1) bundle</title></svg>
+  <div class="row">
+    <label for="hopf-A">connection strength $A_0$:</label>
+    <input id="hopf-A" type="range" min="-2" max="2" step="0.05" value="1.0" />
+    <span id="hopf-Aval" class="small">1.00</span>
+  </div>
+  <div class="readout" id="hopf-out">drag to tilt the connection…</div>
+</div>
+<p class="small">Below is a base loop $\gamma\subset M$ (the projected ellipse). Each gray vertical line is a fiber circle $G = U(1)$, drawn edge-on so we see only the lift's height. The yellow path is the horizontal lift of $\gamma$ under $A = A_0\,d\theta$ — when $A_0\ne 0$ the lift fails to close up, and the vertical gap is the holonomy phase $e^{i\oint_\gamma A}$.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./lie-groups.html#exp">Lie algebra and exponential map</a></li>
+    <li><a href="./smooth-manifolds.html#tangent">Tangent spaces</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="principal-bundles-connections"></div>
+
+<script>
+(function(){
+  const svg = document.getElementById('hopf-svg');
+  const out = document.getElementById('hopf-out');
+  const slider = document.getElementById('hopf-A');
+  const valLabel = document.getElementById('hopf-Aval');
+  function render(){
+    const A0 = parseFloat(slider.value);
+    valLabel.textContent = A0.toFixed(2);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const base = SVG('ellipse',{cx:0,cy:80,rx:140,ry:30,
+      fill:'none',stroke:'var(--mute)','stroke-width':1.2,'stroke-dasharray':'4 3'});
+    svg.appendChild(base);
+    const loop = SVG('ellipse',{cx:0,cy:80,rx:90,ry:18,
+      fill:'none',stroke:'var(--blue)','stroke-width':1.8});
+    svg.appendChild(loop);
+    const lblBase = SVG('text',{x:0,y:128,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    lblBase.textContent='base loop γ ⊂ M'; svg.appendChild(lblBase);
+    const N = 24;
+    for(let i=0; i<N; i++){
+      const t = i/N * 2*Math.PI;
+      const bx = 90*Math.cos(t), by = 80 + 18*Math.sin(t);
+      svg.appendChild(SVG('line',{x1:bx,y1:by,x2:bx,y2:by-110,
+        stroke:'var(--line)','stroke-width':0.6}));
+    }
+    let pts = [];
+    const STEPS = 200;
+    for(let k=0; k<=STEPS; k++){
+      const t = k/STEPS * 2*Math.PI;
+      const bx = 90*Math.cos(t), by = 80 + 18*Math.sin(t);
+      const integrand = A0 * (t + 0.5*Math.sin(t));
+      const h = -integrand * 16;
+      const yTop = by + h - 30;
+      pts.push([bx, yTop]);
+    }
+    const d = 'M' + pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' L');
+    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2.2}));
+    const start = pts[0], end = pts[pts.length-1];
+    svg.appendChild(SVG('circle',{cx:start[0],cy:start[1],r:4,fill:'var(--yellow)'}));
+    svg.appendChild(SVG('circle',{cx:end[0],cy:end[1],r:4,fill:'var(--pink)'}));
+    if(Math.abs(end[1]-start[1]) > 2){
+      svg.appendChild(SVG('line',{x1:start[0],y1:start[1],x2:end[0],y2:end[1],
+        stroke:'var(--pink)','stroke-width':1.4,'stroke-dasharray':'3 3'}));
+      const tx = SVG('text',{x:start[0]+10, y:(start[1]+end[1])/2, 'font-size':12, fill:'var(--pink)','font-style':'italic'});
+      tx.textContent = 'holonomy gap';
+      svg.appendChild(tx);
+    }
+    const lblTotal = SVG('text',{x:0,y:-150,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    lblTotal.textContent='total space P (fiber direction up)'; svg.appendChild(lblTotal);
+    const phase = -A0 * 2*Math.PI;
+    out.textContent =
+      `connection: A = A₀ dθ on the U(1)-bundle, with A₀ = ${A0.toFixed(2)}\n` +
+      `holonomy phase ∮γ A = ${phase.toFixed(3)} rad   (= ${(phase/Math.PI).toFixed(3)} π)\n` +
+      `lift fails to close iff A₀ ≠ 0 — the gap measures curvature integrated over the disk γ bounds.`;
+  }
+  slider.addEventListener('input', render);
+  render();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="curvature-yang-mills">
+<h2>2. Curvature and the Yang-Mills action</h2>
+
+<p>Given a connection $A$ on a principal $G$-bundle $P\to M$, its <strong>curvature</strong> is the $\mathfrak{g}$-valued 2-form</p>
+
+$$F_A \;=\; dA + \tfrac{1}{2}[A\wedge A] \;=\; dA + A\wedge A,$$
+
+<p>where the second equality holds in matrix-Lie-algebra notation (the wedge $A\wedge A$ uses both the antisymmetric form product and matrix multiplication). Equivalently $F_A$ is the $\mathfrak{g}$-valued horizontal 2-form on $P$ measuring the failure of horizontal subspaces to be Frobenius-integrable: $F_A(X, Y) = -A([X^h, Y^h])$ on horizontal lifts. The connection is <em>flat</em> when $F_A = 0$.</p>
+
+<p>The curvature obeys two universal identities:</p>
+
+<div class="note">
+<ul>
+  <li><strong>Bianchi identity</strong>: $d_A F_A = dF_A + [A, F_A] = 0$, automatic from $d^2 = 0$ and the structure equation. No equation of motion is invoked.</li>
+  <li><strong>Tensoriality under gauge change</strong>: $A\to g^{-1}Ag + g^{-1}dg$ implies $F_A\to g^{-1}F_A g$. The inhomogeneous shift in $A$ is absorbed by the wedge term in $F$; this is the design of the curvature.</li>
+</ul>
+</div>
+
+<p>Pick an $\mathrm{Ad}$-invariant inner product on $\mathfrak{g}$ (e.g. $\langle X, Y\rangle = -\tr(XY)$ for $\mathfrak{su}(N)$) and a Riemannian metric on $M$. The <strong>Yang-Mills action</strong> is</p>
+
+$$S_{YM}(A) \;=\; \tfrac{1}{2}\int_M \langle F_A\wedge *F_A\rangle.$$
+
+<p>Varying with respect to $A$ gives the <strong>Yang-Mills equations</strong></p>
+
+$$d_A^* F_A \;=\; 0, \qquad d_A F_A \;=\; 0\;(\text{Bianchi}),$$
+
+<p>where $d_A^* = -*d_A*$ is the formal adjoint. The pair is the non-abelian generalization of Maxwell: for $G = U(1)$, $\mathfrak{g} = \mathbb{R}$, all brackets vanish, $F = dA$ becomes a closed 2-form, and the equations reduce to $dF = 0$ (no magnetic monopoles) and $d^*F = 0$ (no electric sources) in vacuum. For non-abelian $G$, the wedge term $A\wedge A$ makes Yang-Mills <em>nonlinear</em> — and the source of the rich non-perturbative phenomenology of QCD.</p>
+
+<div class="widget" id="w-curv">
+  <div class="hd"><div class="ttl">Abelian curvature density on a square</div><div class="hint">choose a profile; see $F = dA$ and the action density</div></div>
+  <div class="row">
+    <label for="curv-prof">profile:</label>
+    <select id="curv-prof">
+      <option value="solenoid">solenoidal: $A = (-y, x)/(x^2+y^2+\epsilon)$</option>
+      <option value="constB">uniform $B$: $A = (-y/2, x/2)$</option>
+      <option value="dipole">oscillating: $A_x = -y\sin(0.6 x),\; A_y = 0$</option>
+    </select>
+  </div>
+  <svg id="curv-svg" viewBox="-180 -120 360 240" width="100%" height="260"><title>Curvature density of a 2D vector potential</title></svg>
+  <div class="readout" id="curv-out">choose a profile…</div>
+</div>
+<p class="small">Color encodes $F_{xy} = \partial_x A_y - \partial_y A_x$: cyan is positive flux density, pink negative, dim is near zero. The arrows show the vector field $(A_x, A_y)$ itself. The total $S_{YM} \propto \int|F|^2$ is summed over the visible window.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./differential-forms.html#d">Exterior derivative</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="curvature-yang-mills"></div>
+
+<script>
+(function(){
+  const svg = document.getElementById('curv-svg');
+  const out = document.getElementById('curv-out');
+  const sel = document.getElementById('curv-prof');
+  function profile(name, x, y){
+    if(name === 'solenoid'){
+      const r2 = x*x + y*y + 0.05;
+      return [-y/r2, x/r2];
+    } else if(name === 'constB'){
+      return [-y*0.5, x*0.5];
+    } else {
+      return [-y*Math.sin(x*0.6), 0];
+    }
+  }
+  function curlF(name, x, y){
+    const h = 0.01;
+    const Apx = profile(name, x+h, y);
+    const Amx = profile(name, x-h, y);
+    const Apy = profile(name, x, y+h);
+    const Amy = profile(name, x, y-h);
+    return (Apx[1] - Amx[1])/(2*h) - (Apy[0] - Amy[0])/(2*h);
+  }
+  function paint(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const name = sel.value;
+    const W = 12, H = 8, scale = 28;
+    let totalF2 = 0, count = 0;
+    for(let i=-W; i<=W; i++){
+      for(let j=-H; j<=H; j++){
+        const x = i/3, y = j/3;
+        if(Math.abs(x)>4 || Math.abs(y)>2.5) continue;
+        const F = curlF(name, x, y);
+        totalF2 += F*F;
+        count++;
+        const c = Math.max(-1, Math.min(1, F/2));
+        const fill = c > 0 ?
+          `rgba(125,224,214,${(0.15 + 0.55*c).toFixed(3)})` :
+          `rgba(224,122,95,${(0.15 + 0.55*(-c)).toFixed(3)})`;
+        svg.appendChild(SVG('rect',{x:i*scale-scale/2, y:-j*scale-scale/2,
+          width:scale, height:scale, fill, stroke:'none'}));
+      }
+    }
+    for(let i=-W+1; i<=W; i+=3){
+      for(let j=-H+1; j<=H; j+=2){
+        const x = i/3, y = j/3;
+        if(Math.abs(x)>4 || Math.abs(y)>2.5) continue;
+        const A = profile(name, x, y);
+        const Lmag = Math.hypot(A[0], A[1]) + 1e-9;
+        const len = Math.min(15, Lmag*7);
+        const ux = A[0]/Lmag, uy = A[1]/Lmag;
+        const x1 = i*scale, y1 = -j*scale;
+        const x2 = x1 + ux*len, y2 = y1 - uy*len;
+        ensureArrow(svg, 'arr-curv', 'var(--ink)');
+        svg.appendChild(SVG('line',{x1,y1,x2,y2,stroke:'var(--ink)',
+          'stroke-width':1.1,'marker-end':'url(#arr-curv)','opacity':0.55}));
+      }
+    }
+    svg.appendChild(SVG('rect',{x:-160,y:-100,width:320,height:200,
+      fill:'none',stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'3 3'}));
+    const avg = totalF2/Math.max(1,count);
+    const total = avg * 16;
+    out.textContent =
+      `profile: ${name}\n` +
+      `mean |F_xy|² over sample = ${avg.toFixed(3)}\n` +
+      `S_YM ∝ ∫|F|² ≈ ${total.toFixed(2)} (window-integrated)\n` +
+      (name === 'constB' ? 'F = const ⇒ uniform magnetic field; S_YM grows linearly with area.' :
+       name === 'solenoid' ? 'F concentrates near origin; finite total flux despite ⟨A⟩ ≠ 0 outside.' :
+       'F oscillates; mixed positive/negative regions integrate to zero net flux.');
+  }
+  sel.addEventListener('change', paint);
+  paint();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="gauge-transformations-holonomy">
+<h2>3. Gauge transformations and holonomy</h2>
+
+<p>The <strong>gauge group</strong> is $\mathcal{G} = \Gamma(P\times_{\mathrm{Ad}} G)$ — sections of the associated bundle whose fiber is $G$ acting on itself by conjugation. Concretely, after a local trivialization, $\mathcal{G}$ consists of smooth $G$-valued functions $g\colon U\to G$ identified across overlaps via $g_\beta = h_{\alpha\beta}^{-1} g_\alpha h_{\alpha\beta}$ where $\{h_{\alpha\beta}\}$ are the bundle's transition functions.</p>
+
+<p>An element $g\in\mathcal{G}$ acts on a connection $A$ (locally) by</p>
+
+$$A \;\longmapsto\; A^g \;=\; g^{-1}\,A\,g \;+\; g^{-1}\,dg.$$
+
+<p>The conjugation $g^{-1}Ag$ rotates $A$ in the Lie-algebra fiber; the inhomogeneous Maurer-Cartan tail $g^{-1}dg$ is what makes the transformation respect <em>changes of section</em> rather than tensor changes of frame. Curvature transforms tensorially, $F_A\to g^{-1}F_A g$ — the inhomogeneous tail evaporates because $F$ is built to compensate. So $\tr(F_A^k)$ and $\langle F_A\wedge *F_A\rangle$ are gauge-invariant; $A$ alone is not.</p>
+
+<div class="note"><strong>Holonomy.</strong> Parallel transport (§1) along a closed loop $\gamma$ based at $x\in M$ produces a fiber automorphism $P_\gamma\colon\pi^{-1}(x)\to\pi^{-1}(x)$, which after a choice of base-point is encoded as an element $\mathrm{Hol}_A(\gamma; p_0)\in G$. Changing the base-point by $h\in G$ conjugates: $\mathrm{Hol}_A(\gamma; p_0\cdot h) = h^{-1}\mathrm{Hol}_A(\gamma; p_0)h$. So $\mathrm{Hol}$ is well-defined as a conjugacy class. Under a gauge transformation $g$, $\mathrm{Hol}_{A^g}(\gamma) = g(x)^{-1}\mathrm{Hol}_A(\gamma)g(x)$ — also conjugation.</div>
+
+<p>The conjugation-equivariance kills the gauge dependence inside an invariant function of the holonomy. The <strong>Wilson loop</strong> in representation $R\colon G\to GL(V)$ is</p>
+
+$$W_R(\gamma) \;=\; \tr_V\bigl(R(\mathrm{Hol}_A(\gamma))\bigr),$$
+
+<p>and is gauge-invariant (cyclicity of trace cancels the conjugation). Wilson loops generate the algebra of gauge-invariant local-and-non-local observables and are the object of choice for confinement diagnostics (§6) and Chern-Simons knot invariants (§5).</p>
+
+<p>For the abelian case $G = U(1)$, the noncommuting matrix structure disappears: $\mathrm{Hol}_A(\gamma) = \exp\bigl(i\oint_\gamma A\bigr)\in U(1)$. Stokes' theorem on a bounding disk $D$ gives $\oint_\gamma A = \int_D F$, so the holonomy is just the exponential of enclosed flux — the <em>Aharonov-Bohm phase</em>.</p>
+
+<div class="widget" id="w-wilson">
+  <div class="hd"><div class="ttl">$U(1)$ Wilson loop around a flux tube</div><div class="hint">drag the loop to enclose more or less flux</div></div>
+  <svg id="wilson-svg" viewBox="-180 -120 360 240" width="100%" height="260"><title>Wilson loop encircling a magnetic flux tube</title></svg>
+  <div class="row">
+    <label for="wilson-radius">loop radius:</label>
+    <input id="wilson-radius" type="range" min="20" max="140" step="1" value="80" />
+    <label for="wilson-cx">center x:</label>
+    <input id="wilson-cx" type="range" min="-100" max="100" step="1" value="0" />
+  </div>
+  <div class="readout" id="wilson-out">drag sliders to adjust the loop…</div>
+</div>
+<p class="small">The pink disk is a localized region of constant magnetic flux $F = B\,dx\wedge dy$. The blue circle is the Wilson loop $\gamma$. The holonomy phase is $e^{i\Phi}$ where $\Phi$ is the flux through the part of the disk enclosed by $\gamma$ — when the loop misses the flux tube the phase is $1$; when it fully encloses the tube the phase is $e^{i\Phi_{\rm total}}$.</p>
+
+<div class="quiz" data-concept="gauge-transformations-holonomy"></div>
+
+<script>
+(function(){
+  const svg = document.getElementById('wilson-svg');
+  const out = document.getElementById('wilson-out');
+  const sR = document.getElementById('wilson-radius');
+  const sC = document.getElementById('wilson-cx');
+  const fluxR = 35, fluxX = 0, fluxY = 0;
+  const B = 1.0;
+  function intersectArea(R, cx, cy, r, ox, oy){
+    const d = Math.hypot(cx-ox, cy-oy);
+    if(d >= R + r) return 0;
+    if(d + r <= R) return Math.PI*r*r;
+    if(d + R <= r) return Math.PI*R*R;
+    const a1 = R*R*Math.acos((d*d + R*R - r*r)/(2*d*R));
+    const a2 = r*r*Math.acos((d*d + r*r - R*R)/(2*d*r));
+    const a3 = 0.5*Math.sqrt((-d+R+r)*(d+R-r)*(d-R+r)*(d+R+r));
+    return a1 + a2 - a3;
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    for(let i=-150; i<=150; i+=30){
+      svg.appendChild(SVG('line',{x1:i,y1:-100,x2:i,y2:100,stroke:'var(--line)','stroke-width':0.5}));
+      if(i>=-100 && i<=100)
+        svg.appendChild(SVG('line',{x1:-150,y1:i,x2:150,y2:i,stroke:'var(--line)','stroke-width':0.5}));
+    }
+    svg.appendChild(SVG('circle',{cx:fluxX,cy:fluxY,r:fluxR,fill:'rgba(224,122,95,0.25)',
+      stroke:'var(--pink)','stroke-width':1.5}));
+    const lab1 = SVG('text',{x:fluxX,y:fluxY+5,'text-anchor':'middle','font-size':12,fill:'var(--pink)'});
+    lab1.textContent='flux tube'; svg.appendChild(lab1);
+    const R = parseFloat(sR.value), cx = parseFloat(sC.value), cy = 0;
+    svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'none',stroke:'var(--blue)','stroke-width':2}));
+    ensureArrow(svg,'arr-wil','var(--blue)');
+    const at = 0.4*Math.PI;
+    const ax = cx + R*Math.cos(at), ay = cy - R*Math.sin(at);
+    const tx = -R*Math.sin(at), ty = -R*Math.cos(at);
+    svg.appendChild(SVG('line',{x1:ax,y1:ay,x2:ax+tx*0.1,y2:ay+ty*0.1,
+      stroke:'var(--blue)','stroke-width':2,'marker-end':'url(#arr-wil)'}));
+    const A = intersectArea(R, cx, cy, fluxR, fluxX, fluxY);
+    const phi = B * A * 0.001;
+    const fullPhi = B * Math.PI * fluxR*fluxR * 0.001;
+    out.textContent =
+      `loop: center (${cx.toFixed(0)}, 0), radius ${R.toFixed(0)}\n` +
+      `enclosed flux Φ = B · area-overlap = ${phi.toFixed(3)} (in units of 2π)\n` +
+      `holonomy: Hol(γ) = exp(2πi · Φ) = exp(${(2*Math.PI*phi).toFixed(2)} i)\n` +
+      `total flux of the tube: Φ_total = ${fullPhi.toFixed(3)} · 2π\n` +
+      (A < 1 ? '⇒ loop misses the flux entirely; holonomy ≈ 1.' :
+       A > Math.PI*fluxR*fluxR - 1 ? '⇒ loop fully encloses the tube; holonomy = exp(2πi Φ_total).' :
+       '⇒ partial overlap; phase changes continuously.');
+  }
+  sR.addEventListener('input', render);
+  sC.addEventListener('input', render);
+  render();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="instantons-selfdual">
+<h2>4. Self-dual connections and instantons</h2>
+
+<p>On an oriented Riemannian 4-manifold $(M, g)$, the Hodge star $*\colon\Omega^k\to\Omega^{4-k}$ takes a special form on 2-forms: $*\colon\Omega^2(M)\to\Omega^2(M)$ with $*^2 = +1$. This involution is the structural seed of all of 4D gauge theory — it splits</p>
+
+$$\Omega^2(M) \;=\; \Omega^2_+(M) \oplus \Omega^2_-(M),$$
+
+<p>the <strong>self-dual</strong> ($+1$ eigenspace) and <strong>anti-self-dual</strong> ($-1$ eigenspace) summands. Curvature also splits: $F_A = F_A^+ + F_A^-$.</p>
+
+<div class="note"><strong>Bogomolny bound.</strong> For any connection on a closed Riemannian 4-manifold,
+$$S_{YM}(A) \;=\; \tfrac{1}{2}\int |F_A|^2 \;=\; \tfrac{1}{2}\int(|F_A^+|^2 + |F_A^-|^2) \;\ge\; \bigl|\tfrac{1}{2}\int(|F_A^+|^2 - |F_A^-|^2)\bigr| \;=\; 8\pi^2|k|,$$
+where $k = \tfrac{1}{8\pi^2}\int\tr(F_A\wedge F_A)\in\mathbb{Z}$ is the second Chern number (instanton charge). Equality holds iff $F_A^+ = 0$ (anti-self-dual) or $F_A^- = 0$ (self-dual).</div>
+
+<p>So <strong>(anti-)self-dual connections</strong> ($*F_A = \pm F_A$) are the <em>absolute minima</em> of Yang-Mills in their topological class. They automatically solve the Yang-Mills equations: if $*F_A = -F_A$ then $d_A^* F_A = -*\,d_A * F_A = -*\,d_A(-F_A) = *\,d_A F_A = 0$ by the Bianchi identity. The full ASD condition is a <em>first-order</em> nonlinear PDE — far more tractable than the second-order YM equations — and the seed of Donaldson's program (§7).</p>
+
+<p>The <strong>BPST instanton</strong> (Belavin-Polyakov-Schwartz-Tyupkin, 1975) is the explicit charge-1 ASD $SU(2)$ connection on $\mathbb{R}^4 = \mathbb{H}$ given (in 't Hooft form) by</p>
+
+$$A \;=\; \mathrm{Im}\!\left(\frac{\bar q\,dq}{|q|^2 + \rho^2}\right) \;\in\; \Omega^1(\mathbb{R}^4;\mathfrak{su}(2)),$$
+
+<p>where $q\in\mathbb{H}\cong\mathbb{R}^4$ and $\rho > 0$ is the <strong>size parameter</strong>. The curvature density is</p>
+
+$$|F|^2(x) \;=\; \frac{96\,\rho^4}{(|x|^2 + \rho^2)^4},$$
+
+<p>concentrated within a region of radius $\sim\rho$ around the origin. Translating gives the 4-parameter family $A_{x_0,\rho}$. After conformal compactification $\mathbb{R}^4\cup\{\infty\}\cong S^4$, the gauge field extends smoothly: the BPST instanton lives on $S^4$.</p>
+
+<p>The space of charge-1 BPST instantons on $S^4$ modulo gauge is parametrized by $(x_0, \rho)\in\mathbb{R}^4\times\mathbb{R}_{>0}$ — a 5-dimensional <strong>moduli space</strong> $\mathcal{M}_1$. For higher charge $k$, $\dim\mathcal{M}_k = 8k - 3$. Donaldson's invariants (§7) come from intersection theory on $\mathcal{M}_k(X)$ when the base is replaced by a general 4-manifold $X$.</p>
+
+<div class="widget" id="w-bpst">
+  <div class="hd"><div class="ttl">BPST instanton density</div><div class="hint">slide $\rho$ — the lump localizes or spreads</div></div>
+  <svg id="bpst-svg" viewBox="-180 -120 360 240" width="100%" height="260"><title>BPST instanton energy density</title></svg>
+  <div class="row">
+    <label for="bpst-rho">size $\rho$:</label>
+    <input id="bpst-rho" type="range" min="0.3" max="3.0" step="0.05" value="1.0" />
+    <span id="bpst-rval" class="small">1.00</span>
+  </div>
+  <div class="readout" id="bpst-out">slide $\rho$ to change the instanton size…</div>
+</div>
+<p class="small">The radial profile $|F|^2(r) = 96\rho^4/(r^2+\rho^2)^4$ is plotted along a slice through the center. The total $\int|F|^2 = 8\pi^2\cdot 6 = 48\pi^2$ is independent of $\rho$ — a characteristic feature of conformal field configurations: the instanton has the same total action whether it's a tight spike or a broad shoulder.</p>
+
+<div class="quiz" data-concept="instantons-selfdual"></div>
+
+<script>
+(function(){
+  const svg = document.getElementById('bpst-svg');
+  const out = document.getElementById('bpst-out');
+  const sl = document.getElementById('bpst-rho');
+  const lbl = document.getElementById('bpst-rval');
+  function render(){
+    const rho = parseFloat(sl.value);
+    lbl.textContent = rho.toFixed(2);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('line',{x1:-160,y1:80,x2:160,y2:80,stroke:'var(--mute)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:0,y1:-100,x2:0,y2:80,stroke:'var(--mute)','stroke-width':1}));
+    const lx = SVG('text',{x:155,y:74,'font-size':11,fill:'var(--mute)'});
+    lx.textContent='r'; svg.appendChild(lx);
+    const ly = SVG('text',{x:6,y:-92,'font-size':11,fill:'var(--mute)'});
+    ly.textContent='|F|²'; svg.appendChild(ly);
+    const fmax = 96/(Math.pow(rho,4));
+    const pts = [];
+    for(let i=-160; i<=160; i+=2){
+      const r = i/30;
+      const f = 96*Math.pow(rho,4)/Math.pow(r*r + rho*rho, 4);
+      const y = 80 - 160*Math.min(1, f/fmax);
+      pts.push([i, y]);
+    }
+    const d = 'M' + pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' L');
+    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2.4}));
+    svg.appendChild(SVG('path',{d:d + ` L160,80 L-160,80 Z`,fill:'rgba(255,216,102,0.15)',stroke:'none'}));
+    const xTick = rho*30;
+    svg.appendChild(SVG('line',{x1:xTick,y1:75,x2:xTick,y2:85,stroke:'var(--cyan)','stroke-width':1.5}));
+    const lbl2 = SVG('text',{x:xTick,y:98,'text-anchor':'middle','font-size':11,fill:'var(--cyan)'});
+    lbl2.textContent='ρ'; svg.appendChild(lbl2);
+    out.textContent =
+      `ρ = ${rho.toFixed(2)}\n` +
+      `peak |F(0)|² = 96/ρ⁴ = ${(96/Math.pow(rho,4)).toFixed(2)}\n` +
+      `concentration radius ~ ρ;  half-max at r ≈ ρ\n` +
+      `total ∫|F|² d⁴x = 8π²·k = 8π² (k=1) — independent of ρ (conformal invariance)`;
+  }
+  sl.addEventListener('input', render);
+  render();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="chern-simons">
+<h2>5. Chern-Simons theory</h2>
+
+<p>On a closed oriented 3-manifold $M$, define the <strong>Chern-Simons 3-form</strong> of a connection $A$ on a $G$-bundle (locally / for trivial bundles)</p>
+
+$$\omega_{CS}(A) \;=\; \tr\!\left(A\wedge dA \;+\; \tfrac{2}{3}\,A\wedge A\wedge A\right).$$
+
+<p>A direct computation using the structure equation $F = dA + A\wedge A$ gives the <em>transgression</em></p>
+
+$$d\omega_{CS}(A) \;=\; \tr(F\wedge F),$$
+
+<p>so $\omega_{CS}$ is a primitive on $M^3$ for the second Chern character living naturally on a 4-dimensional bulk. The <strong>Chern-Simons action</strong> at level $k\in\mathbb{Z}$ is</p>
+
+$$S_{CS}(A) \;=\; \tfrac{k}{4\pi}\int_M \omega_{CS}(A).$$
+
+<p>Two miracles:</p>
+
+<div class="note"><strong>Metric independence.</strong> $\omega_{CS}$ uses only $\wedge$ and $d$ — there is no Hodge $*$, no metric. So $S_{CS}$ is a smooth-structure invariant of $(M, A)$. Diffeomorphisms act trivially on the action (modulo the gauge-orbit subtlety below).</div>
+
+<div class="note"><strong>Level quantization.</strong> Under a 'large' gauge transformation $g\colon M\to G$ (not homotopic to the identity), one finds $S_{CS}(A^g) - S_{CS}(A) = 2\pi k\cdot\deg(g)$, where $\deg(g)\in\pi_3(G) = \mathbb{Z}$ for simply-connected simple $G$. So $e^{iS_{CS}}$ is well-defined as a function on the quotient by gauge transformations only when $k\in\mathbb{Z}$ — the <em>level</em> is quantized.</div>
+
+<p>Witten (1989) showed that the path integral $Z(M) = \int\mathcal{D}A\,e^{iS_{CS}(A)}$ over the gauge orbits computes a topological invariant of the 3-manifold $M$. Inserting Wilson loops $W_R(\gamma) = \tr_R\,\mathrm{Hol}_A(\gamma)$ for a knot $\gamma\subset M$ in representation $R$ produces the <strong>colored Jones polynomial</strong> of the knot $(\gamma, R)$ — at level $k$ for $G = SU(2)$ and the fundamental rep, the result is the Jones polynomial evaluated at $q = e^{2\pi i/(k+2)}$.</p>
+
+<p>This was the first interpretation of a knot invariant as a <em>quantum field theory</em> expectation value, and the founding example of a <strong>topological quantum field theory</strong> (Atiyah-Segal axiomatization) producing 3-manifold invariants by cutting along surfaces.</p>
+
+<div class="widget" id="w-cs">
+  <div class="hd"><div class="ttl">Chern-Simons knots: Jones polynomial of small knots</div><div class="hint">click a knot — see its Jones polynomial $V(t)$ at $t = e^{2\pi i/(k+2)}$</div></div>
+  <div class="row">
+    <button data-knot="unknot" class="active">unknot</button>
+    <button data-knot="trefoil">trefoil $3_1$</button>
+    <button data-knot="figure8">figure-8 $4_1$</button>
+    <button data-knot="cinquefoil">cinquefoil $5_1$</button>
+    <label for="cs-k" style="margin-left:1em">level $k$:</label>
+    <input id="cs-k" type="range" min="1" max="10" step="1" value="3" />
+    <span id="cs-kval" class="small">3</span>
+  </div>
+  <svg id="cs-svg" viewBox="-180 -100 360 200" width="100%" height="220"><title>Knot diagram</title></svg>
+  <div class="readout" id="cs-out">click a knot above…</div>
+</div>
+<p class="small">The Jones polynomial $V(t)\in\mathbb{Z}[t^{\pm 1/2}]$ is a knot invariant computable by the Kauffman bracket and Reidemeister moves. In Chern-Simons theory at level $k$ for $G = SU(2)$ in the fundamental rep, $\langle W(\gamma)\rangle$ on $S^3$ equals $V_\gamma(e^{2\pi i/(k+2)})$ up to a framing-dependent prefactor — closing the loop between QFT and knot theory.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./characteristic-classes.html#chern-weil">Chern–Weil theory</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="chern-simons"></div>
+
+<script>
+(function(){
+  const svg = document.getElementById('cs-svg');
+  const out = document.getElementById('cs-out');
+  const buttons = document.querySelectorAll('#w-cs button[data-knot]');
+  const sk = document.getElementById('cs-k');
+  const skLab = document.getElementById('cs-kval');
+  const KNOTS = {
+    unknot: {
+      name: 'unknot $0_1$',
+      latex: 'V(t) = 1',
+      draw: () => {
+        svg.appendChild(SVG('circle',{cx:0,cy:0,r:60,fill:'none',
+          stroke:'var(--blue)','stroke-width':3}));
+      }
+    },
+    trefoil: {
+      name: 'trefoil $3_1$',
+      latex: 'V(t) = -t^{-4} + t^{-3} + t^{-1}',
+      draw: () => {
+        const R = 50;
+        for(let i=0; i<3; i++){
+          const a = i*2*Math.PI/3;
+          const x = R*Math.cos(a), y = R*Math.sin(a);
+          svg.appendChild(SVG('circle',{cx:x,cy:y,r:36,fill:'none',
+            stroke:'var(--blue)','stroke-width':3}));
+        }
+        for(let i=0; i<3; i++){
+          const a = i*2*Math.PI/3 + Math.PI/3;
+          const x = 0.6*R*Math.cos(a), y = 0.6*R*Math.sin(a);
+          svg.appendChild(SVG('circle',{cx:x,cy:y,r:5,fill:'var(--panel)','stroke':'none'}));
+        }
+      }
+    },
+    figure8: {
+      name: 'figure-8 $4_1$',
+      latex: 'V(t) = t^{-2} - t^{-1} + 1 - t + t^{2}',
+      draw: () => {
+        const N = 200;
+        const pts = [];
+        for(let i=0; i<=N; i++){
+          const u = i/N * 2*Math.PI;
+          const r = 70 / (1 + Math.sin(u)*Math.sin(u));
+          const x = r*Math.cos(u);
+          const y = r*Math.sin(u)*Math.cos(u);
+          pts.push([x, y]);
+        }
+        const d = 'M' + pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' L');
+        svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--blue)','stroke-width':3}));
+        svg.appendChild(SVG('circle',{cx:0,cy:0,r:6,fill:'var(--panel)','stroke':'none'}));
+      }
+    },
+    cinquefoil: {
+      name: 'cinquefoil $5_1$',
+      latex: 'V(t) = -t^{-7} + t^{-6} - t^{-5} + t^{-4} + t^{-2}',
+      draw: () => {
+        const N = 200, R = 60, r = 25;
+        const pts = [];
+        for(let i=0; i<=N; i++){
+          const u = i/N * 2*Math.PI;
+          const x = (R + r*Math.cos(5*u))*Math.cos(2*u);
+          const y = (R + r*Math.cos(5*u))*Math.sin(2*u);
+          pts.push([x*0.7, y*0.7]);
+        }
+        const d = 'M' + pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' L');
+        svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--blue)','stroke-width':2.8}));
+      }
+    }
+  };
+  let active = 'unknot';
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    KNOTS[active].draw();
+    const k = parseInt(sk.value, 10);
+    skLab.textContent = String(k);
+    let val;
+    if(active === 'unknot'){ val = 1; }
+    else {
+      const theta = 2*Math.PI/(k+2);
+      const cos = n => Math.cos(n*theta);
+      if(active === 'trefoil') val = -cos(-4) + cos(-3) + cos(-1);
+      else if(active === 'figure8') val = cos(-2) - cos(-1) + 1 - cos(1) + cos(2);
+      else if(active === 'cinquefoil') val = -cos(-7) + cos(-6) - cos(-5) + cos(-4) + cos(-2);
+    }
+    out.textContent =
+      `knot: ${KNOTS[active].name}\n` +
+      `Jones polynomial: ${KNOTS[active].latex}\n` +
+      `at level k = ${k}, evaluated at t = exp(2πi/${k+2}):\n` +
+      `Re V(t) = ${val.toFixed(4)}\n` +
+      `Witten: ⟨W(γ)⟩_{CS,k} = V_γ(e^{2πi/(k+2)}) up to framing prefactor.`;
+  }
+  buttons.forEach(b => b.addEventListener('click', () => {
+    buttons.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    active = b.getAttribute('data-knot');
+    render();
+  }));
+  sk.addEventListener('input', render);
+  render();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="lattice-gauge">
+<h2>6. Lattice gauge theory</h2>
+
+<p>To make the Yang-Mills path integral $Z = \int\mathcal{D}A\,e^{-S_{YM}(A)}$ rigorously well-defined and amenable to Monte Carlo simulation, Wilson (1974) discretized to a hypercubic lattice $\Lambda = a\mathbb{Z}^4$ with spacing $a$. The trick: replace the connection $A_\mu(x)$ by <strong>link variables</strong> $U_{xy}\in G$ on each oriented edge $\langle x, y\rangle$, interpreted as the parallel transport from $x$ to $y$. In the continuum limit,</p>
+
+$$U_{x, x+a\hat\mu} \;\approx\; \exp\!\bigl(a\, A_\mu(x)\bigr).$$
+
+<p>Around each elementary square (<strong>plaquette</strong>) bounded by four links, the holonomy is the ordered product</p>
+
+$$U_p \;=\; U_{x, x+a\hat\mu}\, U_{x+a\hat\mu, x+a\hat\mu+a\hat\nu}\, U_{x+a\hat\mu+a\hat\nu, x+a\hat\nu}\, U_{x+a\hat\nu, x}.$$
+
+<p>The Baker-Campbell-Hausdorff expansion gives $U_p \approx \exp(a^2 F_{\mu\nu}(x) + O(a^4))$, identifying the plaquette as the discretized field strength.</p>
+
+<p>The <strong>Wilson plaquette action</strong> is</p>
+
+$$S_W \;=\; \beta\sum_p\,\mathrm{Re}\,\tr(\mathbb{1} - U_p)\;\approx\;\frac{\beta a^4}{2}\sum_p\,\tr(F_{\mu\nu}^2(x)) + O(a^6),$$
+
+<p>recovering the continuum action with $\beta = 2N/g^2$ for $G = SU(N)$. The win:</p>
+
+<div class="note">
+<ul>
+  <li><strong>Exact gauge invariance at finite $a$</strong>: under $U_{xy}\mapsto g_x^{-1}U_{xy}g_y$, every closed-loop product is conjugated, hence its real-part trace is unchanged. No gauge fixing during simulation.</li>
+  <li><strong>Compact group $\Rightarrow$ canonical Haar measure</strong>: $\int dU\,f(U)$ is well-defined for finite link-variable count, no Faddeev-Popov ghosts, no functional measure issues.</li>
+  <li><strong>Monte Carlo accessible</strong>: the partition function $Z = \int\prod dU_{xy}\,e^{-S_W}$ at finite lattice volume is a finite-dimensional integral simulable by Metropolis-Hastings, heat-bath, or hybrid Monte Carlo updates of one link at a time.</li>
+</ul>
+</div>
+
+<p>The decisive observable is the <strong>Wilson loop</strong>: for a closed lattice path $\gamma$, $W(\gamma) = \tr\bigl(\prod_{\langle x,y\rangle\in\gamma}U_{xy}\bigr)$. The expectation value $\langle W(\gamma)\rangle$ on a large rectangular $T\times R$ loop encodes the static quark-antiquark potential. Two regimes:</p>
+
+<table class="plain">
+<thead><tr><th>regime</th><th>$\langle W\rangle$ scaling</th><th>$V(R)$ at large $R$</th><th>physics</th></tr></thead>
+<tbody>
+<tr><td><strong>strong coupling</strong> ($\beta\to 0$)</td><td>$\sim e^{-\sigma A(\gamma)}$ — area law</td><td>$V(R) = \sigma R$ — linear</td><td>confinement; quarks bound by a string of tension $\sigma$</td></tr>
+<tr><td><strong>weak coupling</strong> ($\beta\to\infty$)</td><td>$\sim e^{-\mu P(\gamma)}$ — perimeter law</td><td>$V(R)\to\mathrm{const}$</td><td>Coulombic / deconfined phase</td></tr>
+</tbody>
+</table>
+
+<p>For non-abelian gauge theories with the right matter content (e.g. $SU(3)$ with a few quark flavors — i.e. QCD), lattice Monte Carlo provides the only first-principles evidence that $\sigma > 0$ at all $\beta$, hence permanent confinement.</p>
+
+<div class="widget" id="w-lattice">
+  <div class="hd"><div class="ttl">2D $U(1)$ lattice gauge — Metropolis Monte Carlo</div><div class="hint">click "step" to evolve; raise $\beta$ to drive ordering</div></div>
+  <svg id="lat-svg" viewBox="-180 -120 360 240" width="100%" height="280"><title>2D U(1) lattice with link phases and plaquette colors</title></svg>
+  <div class="row">
+    <label for="lat-beta">$\beta$:</label>
+    <input id="lat-beta" type="range" min="0.1" max="6" step="0.1" value="2.0" />
+    <span id="lat-bval" class="small">2.0</span>
+    <button id="lat-step">step ×500</button>
+    <button id="lat-reset">reset</button>
+  </div>
+  <div class="readout" id="lat-out">click step to run Metropolis…</div>
+</div>
+<p class="small">Each link carries a $U(1)$ phase $\theta_{xy}\in[-\pi,\pi)$ ($U_{xy} = e^{i\theta_{xy}}$). Plaquette holonomy is the sum of phases around the square; cell color encodes $\cos(\theta_p)$ (cyan = ordered, near $1$; pink = disordered, near $0$ or $-1$). Metropolis updates a random link with $\Delta\theta\sim\mathcal{U}(-\pi/4,\pi/4)$, accepting with probability $\min(1, e^{-\beta\Delta S})$.</p>
+
+<div class="quiz" data-concept="lattice-gauge"></div>
+
+<script>
+(function(){
+  const svg = document.getElementById('lat-svg');
+  const out = document.getElementById('lat-out');
+  const sb = document.getElementById('lat-beta');
+  const bval = document.getElementById('lat-bval');
+  const btn = document.getElementById('lat-step');
+  const reset = document.getElementById('lat-reset');
+  const Lx = 12, Ly = 8;
+  function init(){
+    const t = [];
+    for(let i=0; i<Lx; i++){
+      t.push([]);
+      for(let j=0; j<Ly; j++){
+        t[i].push([0, 0]);
+      }
+    }
+    return t;
+  }
+  let theta = init();
+  function plaquette(x, y){
+    return theta[x][y][0] + theta[(x+1)%Lx][y][1]
+         - theta[x][(y+1)%Ly][0] - theta[x][y][1];
+  }
+  function actionLink(x, y, dir){
+    let S = 0;
+    if(dir === 0){
+      S += -Math.cos(plaquette(x, y));
+      S += -Math.cos(plaquette(x, (y-1+Ly)%Ly));
+    } else {
+      S += -Math.cos(plaquette(x, y));
+      S += -Math.cos(plaquette((x-1+Lx)%Lx, y));
+    }
+    return S;
+  }
+  function metropolis(beta){
+    const x = Math.floor(Math.random()*Lx);
+    const y = Math.floor(Math.random()*Ly);
+    const dir = Math.random() < 0.5 ? 0 : 1;
+    const dt = (Math.random()-0.5)*Math.PI*0.5;
+    const Sold = actionLink(x, y, dir);
+    theta[x][y][dir] += dt;
+    const Snew = actionLink(x, y, dir);
+    const dS = Snew - Sold;
+    if(dS > 0 && Math.random() > Math.exp(-beta*dS)){
+      theta[x][y][dir] -= dt;
+      return false;
+    }
+    return true;
+  }
+  function step500(){
+    const beta = parseFloat(sb.value);
+    let acc = 0;
+    for(let i=0; i<500; i++) if(metropolis(beta)) acc++;
+    return acc/500;
+  }
+  function avgPlaq(){
+    let s = 0;
+    for(let x=0; x<Lx; x++) for(let y=0; y<Ly; y++) s += Math.cos(plaquette(x, y));
+    return s/(Lx*Ly);
+  }
+  function render(rate){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const cell = 24;
+    const x0 = -cell*Lx/2, y0 = -cell*Ly/2;
+    for(let x=0; x<Lx; x++){
+      for(let y=0; y<Ly; y++){
+        const c = Math.cos(plaquette(x, y));
+        const fill = c > 0 ?
+          `rgba(125,224,214,${(0.05 + 0.6*Math.max(0,c)).toFixed(3)})` :
+          `rgba(224,122,95,${(0.05 + 0.6*Math.max(0,-c)).toFixed(3)})`;
+        svg.appendChild(SVG('rect',{x:x0+x*cell, y:y0+y*cell, width:cell, height:cell,
+          fill, stroke:'none'}));
+      }
+    }
+    for(let x=0; x<=Lx; x++){
+      svg.appendChild(SVG('line',{x1:x0+x*cell, y1:y0, x2:x0+x*cell, y2:y0+Ly*cell,
+        stroke:'var(--line)','stroke-width':0.6}));
+    }
+    for(let y=0; y<=Ly; y++){
+      svg.appendChild(SVG('line',{x1:x0, y1:y0+y*cell, x2:x0+Lx*cell, y2:y0+y*cell,
+        stroke:'var(--line)','stroke-width':0.6}));
+    }
+    const beta = parseFloat(sb.value);
+    bval.textContent = beta.toFixed(1);
+    out.textContent =
+      `β = ${beta.toFixed(2)}    L = ${Lx}×${Ly}    ⟨cos θ_p⟩ = ${avgPlaq().toFixed(4)}` +
+      (rate !== undefined ? `    accept rate ≈ ${(100*rate).toFixed(0)}%\n` : '\n') +
+      `strong coupling (β→0): plaquettes random ⇒ ⟨cos θ_p⟩ → 0; confinement.\n` +
+      `weak coupling (β→∞): plaquettes ordered ⇒ ⟨cos θ_p⟩ → 1; deconfined.`;
+  }
+  btn.addEventListener('click', () => {
+    const r = step500();
+    render(r);
+  });
+  reset.addEventListener('click', () => { theta = init(); render(); });
+  sb.addEventListener('input', () => render());
+  render();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="donaldson-sw-invariants">
+<h2>7. Donaldson and Seiberg-Witten invariants</h2>
+
+<p>Dimension 4 is uniquely strange. Freedman (1982) classified <em>topological</em> simply-connected 4-manifolds: each is determined by its intersection form on $H^2$ together with the Kirby-Siebenmann obstruction. Donaldson (1983) showed that this topological classification radically <em>over</em>counts smooth 4-manifolds: many of Freedman's topological types admit no smooth structure, and many that do admit several inequivalent ones. The discriminator is gauge theory.</p>
+
+<p><strong>Donaldson's program.</strong> Fix a closed oriented simply-connected 4-manifold $X$ with $b_2^+(X)\ge 1$. Equip it with a Riemannian metric $g$ and consider the <strong>moduli space</strong></p>
+
+$$\mathcal{M}_k(X, g) \;=\; \{A \in \mathcal{A}_k\;:\;F_A^+ = 0\}\,/\,\mathcal{G},$$
+
+<p>of charge-$k$ ASD $SU(2)$ connections modulo gauge. For generic $g$, $\mathcal{M}_k$ is a smooth manifold of expected dimension $8k - 3(1 + b_2^+(X))$. A natural map $\mu\colon H_2(X;\mathbb{Z})\to H^2(\mathcal{M}_k;\mathbb{Z})$ produces cohomology on the moduli space from cycles on $X$. Donaldson's polynomial invariants are intersection numbers</p>
+
+$$D_X(\alpha_1,\dots,\alpha_d) \;=\; \int_{\bar{\mathcal{M}}_k}\mu(\alpha_1)\smile\cdots\smile\mu(\alpha_d),$$
+
+<p>where $\bar{\mathcal{M}}_k$ is the Uhlenbeck compactification (allowing instantons to "bubble off" at points). These intersection numbers depend only on the smooth structure on $X$ — and they distinguish exotic 4-manifolds.</p>
+
+<p><strong>Seiberg-Witten (1994).</strong> A decade later, Seiberg and Witten extracted from string-theory dualities a far simpler abelian moduli problem. Pick a <em>Spin$^c$ structure</em> $\mathfrak{s}$ on $X$ (always exists when $X$ is simply-connected and almost-complex; classified by $H^2(X;\mathbb{Z})$). Couple a $U(1)$ connection $A$ on the determinant line $L_\mathfrak{s}$ to a section $\phi$ of the positive spinor bundle $W_\mathfrak{s}^+$. The SW equations are</p>
+
+$$F_A^+ \;=\; \sigma(\phi),\qquad D_A\phi \;=\; 0,$$
+
+<p>where $D_A$ is the Spin$^c$ Dirac operator and $\sigma(\phi)$ is the trace-free part of $\phi\otimes\phi^*$. The crucial features:</p>
+
+<div class="note">
+<ul>
+  <li><strong>Compact moduli space</strong>: the spinor mass term forbids bubbling, so $\mathcal{M}_{SW}(\mathfrak{s})$ is compact <em>without</em> Uhlenbeck compactification. Generically it is a finite collection of points.</li>
+  <li><strong>Signed point counts</strong>: the SW invariant $\mathrm{SW}(\mathfrak{s})\in\mathbb{Z}$ is the algebraic count of points in $\mathcal{M}_{SW}(\mathfrak{s})$. Only finitely many $\mathfrak{s}$ have $\mathrm{SW}(\mathfrak{s})\ne 0$ — the <em>basic classes</em>.</li>
+  <li><strong>Witten's relation</strong>: there is a universal formula expressing Donaldson polynomials in terms of SW invariants and basic classes — the Donaldson moduli's hard non-abelian analysis is (conjecturally, proved in many cases) equivalent to the abelian SW computation.</li>
+</ul>
+</div>
+
+<p>Some SW invariants:</p>
+
+<table class="plain">
+<thead><tr><th>4-manifold</th><th>$b_2^+$</th><th>basic classes</th><th>$\mathrm{SW}$ values</th></tr></thead>
+<tbody>
+<tr><td>$S^4$, $\mathbb{CP}^2$</td><td>$0$ or $1$</td><td>(SW invariants undefined — $b_2^+\le 1$ excluded)</td><td>—</td></tr>
+<tr><td>K3</td><td>$3$</td><td>$\mathfrak{s}_0$ (canonical Spin)</td><td>$\mathrm{SW}(\mathfrak{s}_0) = 1$</td></tr>
+<tr><td>elliptic surface $E(n)$</td><td>$2n-1$</td><td>$(2k - n)F$, $|k|\le n-2$</td><td>$\binom{n-2}{k-1}\cdot(\pm 1)$</td></tr>
+<tr><td>K3 $\#\overline{\mathbb{CP}^2}$ (blow-up)</td><td>$3$</td><td>$\pm E$, $E$ exceptional</td><td>$\pm 1$ (blow-up formula)</td></tr>
+</tbody>
+</table>
+
+<p><strong>Exotic $\mathbb{R}^4$.</strong> Combining Freedman's topological theorem with Donaldson's "Diagonalizability Theorem" (intersection forms of smooth simply-connected 4-manifolds with $b_2^+ = 0$ must be diagonalizable over $\mathbb{Z}$), Taubes (1987) constructed uncountably many smooth 4-manifolds homeomorphic but not diffeomorphic to standard $\mathbb{R}^4$. They are distinguished by gauge-theoretic invariants of compact pieces — there is no analogue of this phenomenon in any other dimension.</p>
+
+<div class="widget" id="w-sw">
+  <div class="hd"><div class="ttl">SW invariants of small 4-manifolds (curated table)</div><div class="hint">click a manifold to see its basic classes</div></div>
+  <div class="row">
+    <button data-mfd="K3" class="active">K3</button>
+    <button data-mfd="E3">$E(3)$</button>
+    <button data-mfd="K3blow">K3 $\#\overline{\mathbb{CP}^2}$</button>
+    <button data-mfd="dolgachev">Dolgachev $E(1)_{2,3}$</button>
+  </div>
+  <svg id="sw-svg" viewBox="-180 -100 360 200" width="100%" height="200"><title>Lattice of basic classes for the chosen 4-manifold</title></svg>
+  <div class="readout" id="sw-out">click a manifold above…</div>
+</div>
+<p class="small">Each dot is a basic class $c\in H^2(X;\mathbb{Z})$ (an integer cohomology class for which $\mathrm{SW}(\mathfrak{s}_c)\ne 0$); the integer next to it is $\mathrm{SW}$. The diagram is a curated, hard-coded slice — actual computations involve gluing formulas, surgery sequences, and (for elliptic surfaces) the Fintushel-Stern fiber-sum formula.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./characteristic-classes.html#chern">Chern classes</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="donaldson-sw-invariants"></div>
+
+<script>
+(function(){
+  const svg = document.getElementById('sw-svg');
+  const out = document.getElementById('sw-out');
+  const buttons = document.querySelectorAll('#w-sw button[data-mfd]');
+  const DATA = {
+    K3: {
+      name: 'K3 surface (b₂⁺=3, b₂⁻=19, σ = -16)',
+      basic: [{x:0, y:0, sw:1, label:'0'}],
+      note: 'Single basic class at 0 ∈ H²(K3); SW = 1. The K3 is "minimal" — no exceptional spheres to sum over.'
+    },
+    E3: {
+      name: 'E(3) elliptic surface (b₂⁺ = 5)',
+      basic: [
+        {x:-60, y:0, sw:-1, label:'-F'},
+        {x:60, y:0, sw:1, label:'+F'}
+      ],
+      note: 'Basic classes (2k - 3)F with |k| ≤ 1 ⇒ k ∈ {1, 2} ⇒ classes -F, +F with SW = ±C(1,k-1) = ±1.'
+    },
+    K3blow: {
+      name: 'K3 # CP²-bar (one blow-up; b₂⁺ = 3)',
+      basic: [
+        {x:-50, y:0, sw:1, label:'-E'},
+        {x:50, y:0, sw:-1, label:'+E'}
+      ],
+      note: 'Blow-up formula: SW basic classes of X#CP²-bar are c±E for each basic c of X. K3 has c=0, so the new basics are ±E.'
+    },
+    dolgachev: {
+      name: 'Dolgachev surface E(1)_{2,3}',
+      basic: [{x:0, y:0, sw:1, label:'log-tr class'}],
+      note: 'Homeomorphic to CP² # 9 CP²-bar but not diffeomorphic; the SW-nonzero log-transform class detects the exotic smooth structure. (E(1) has b₂⁺ = 1 — strictly speaking on the boundary of the SW domain; treated via wall-crossing.)'
+    }
+  };
+  let active = 'K3';
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('line',{x1:-160,y1:0,x2:160,y2:0,stroke:'var(--mute)','stroke-width':0.8,'stroke-dasharray':'3 3'}));
+    svg.appendChild(SVG('line',{x1:0,y1:-80,x2:0,y2:80,stroke:'var(--mute)','stroke-width':0.8,'stroke-dasharray':'3 3'}));
+    const lblax = SVG('text',{x:155,y:-6,'font-size':10,fill:'var(--mute)'});
+    lblax.textContent='H²(X;ℝ)'; svg.appendChild(lblax);
+    const data = DATA[active];
+    for(const b of data.basic){
+      const fill = b.sw > 0 ? 'var(--cyan)' : 'var(--pink)';
+      svg.appendChild(SVG('circle',{cx:b.x,cy:b.y,r:12,fill,'stroke':'var(--ink)','stroke-width':1}));
+      const t = SVG('text',{x:b.x,y:b.y+5,'text-anchor':'middle','font-size':12,fill:'var(--bg)','font-weight':600});
+      t.textContent = (b.sw > 0 ? '+' : '') + b.sw; svg.appendChild(t);
+      const lt = SVG('text',{x:b.x,y:b.y+30,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      lt.textContent = b.label; svg.appendChild(lt);
+    }
+    out.textContent =
+      `${data.name}\n` +
+      `basic classes: ${data.basic.length}\n` +
+      data.basic.map(b => `  ${b.label}:  SW = ${b.sw}`).join('\n') + '\n\n' +
+      data.note;
+  }
+  buttons.forEach(b => b.addEventListener('click', () => {
+    buttons.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    active = b.getAttribute('data-mfd');
+    render();
+  }));
+  render();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="connections">
+<h2>8. Connections</h2>
+
+<p>Gauge theory sits at a crossroads. The same Yang-Mills functional whose moduli detect smooth 4-manifold structures is the action of the Standard Model gauge fields; the Chern-Simons functional whose level quantization gives knot polynomials is also the boundary action of a 4D topological field theory; lattice gauge theory feeds Monte Carlo back into hadron mass calculations. Active research includes the geometric Langlands correspondence (gauge theory on Riemann surfaces $\Leftrightarrow$ representation theory of $\pi_1$), Kapustin-Witten 4D twists, Floer homologies for low-dimensional topology, and conjectural extensions of SW theory to non-abelian groups.</p>
+
+<ul>
+  <li><a href="./differential-geometry.html#geodesics">Differential geometry — geodesics and parallel transport</a> — the metric-compatible Levi-Civita connection is the special case where $G = O(n)$ and $A$ comes from the metric; gauge theory abstracts the principle.</li>
+  <li><a href="./lie-groups.html#exp">Lie groups and the exponential map</a> — every value $\exp(A)$ takes is a parallel-transport element along an infinitesimal step.</li>
+  <li><a href="./characteristic-classes.html#chern-weil">Chern-Weil theory</a> — characteristic classes are differential-form polynomials in the curvature; Chern-Simons is the secondary class that lives on a bounding 3-manifold.</li>
+  <li><a href="./atiyah-singer-index-theorem.html#statement">Atiyah-Singer index theorem</a> — the Dirac operator coupled to a gauge field has analytic index computed by characteristic numbers; this powers Witten's TQFT computations.</li>
+  <li><a href="./knot-polynomials.html#jones">Knot polynomials</a> — Wilson loops in Chern-Simons reproduce Jones, HOMFLY, and Kauffman polynomials, putting knot theory inside QFT.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('gauge-theory'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-02</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>
