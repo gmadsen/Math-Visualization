@@ -4,7 +4,7 @@
 window.__MVWidgets = [
   {
     "slug": "aca-bergman-kernel-disk",
-    "family": "aca-bergman-kernel-disk",
+    "family": "aca-figure",
     "dimension": "2d",
     "gesture": "click",
     "role": "exploratory",
@@ -25,7 +25,7 @@ window.__MVWidgets = [
   },
   {
     "slug": "aca-bloch-disk",
-    "family": "aca-bloch-disk",
+    "family": "aca-figure",
     "dimension": "2d",
     "gesture": "slider",
     "role": "illustrative",
@@ -46,7 +46,7 @@ window.__MVWidgets = [
   },
   {
     "slug": "aca-hartogs-shell",
-    "family": "aca-hartogs-shell",
+    "family": "aca-figure",
     "dimension": "2d",
     "gesture": "slider",
     "role": "illustrative",
@@ -67,7 +67,7 @@ window.__MVWidgets = [
   },
   {
     "slug": "aca-nevanlinna-characteristic",
-    "family": "aca-nevanlinna-characteristic",
+    "family": "aca-figure",
     "dimension": "2d",
     "gesture": "slider",
     "role": "illustrative",
@@ -88,7 +88,7 @@ window.__MVWidgets = [
   },
   {
     "slug": "aca-quasiconformal-warp",
-    "family": "aca-quasiconformal-warp",
+    "family": "aca-figure",
     "dimension": "2d",
     "gesture": "slider",
     "role": "exploratory",

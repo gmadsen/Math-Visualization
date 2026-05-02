@@ -4,7 +4,7 @@
   "title": "aca-bergman-kernel-disk widget params",
   "description": "Bespoke widget for the §11 Bergman kernel figure on the advanced-complex-analysis topic — click inside the unit disk to set the source point w; the SVG visualizes |K(z,w)|^2 = 1/(pi*|1 - conj(w) z|^4) as a heatmap, with a readout of the Bergman-metric ds^2 at w.",
   "meta": {
-    "family": "aca-bergman-kernel-disk",
+    "family": "aca-figure",
     "dimension": "2d",
     "gesture": "click",
     "role": "exploratory"

@@ -4,7 +4,7 @@
   "title": "aca-bloch-disk widget params",
   "description": "Bespoke widget for the §9 Bloch theorem figure on the advanced-complex-analysis topic — drag a candidate radius slider over a holomorphic image of the unit disk and watch the largest univalent (one-sheeted) sub-disk light up, with a readout comparing to Bloch's universal lower bound B >= sqrt(3)/4.",
   "meta": {
-    "family": "aca-bloch-disk",
+    "family": "aca-figure",
     "dimension": "2d",
     "gesture": "slider",
     "role": "illustrative"

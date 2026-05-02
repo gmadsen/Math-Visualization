@@ -4,7 +4,7 @@
   "title": "aca-nevanlinna-characteristic widget params",
   "description": "Bespoke widget for the §10 Nevanlinna theory figure on the advanced-complex-analysis topic — slide an order parameter rho controlling the growth of an entire / meromorphic test function and watch the Nevanlinna characteristic T(r,f) split into stacked counting (N) and proximity (m) bars, with a defect readout.",
   "meta": {
-    "family": "aca-nevanlinna-characteristic",
+    "family": "aca-figure",
     "dimension": "2d",
     "gesture": "slider",
     "role": "illustrative"

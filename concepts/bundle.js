@@ -385,6 +385,9 @@ window.__MVConcepts = {
             "schwarz-lemma",
             "normal-families"
           ],
+          "tags": [
+            "compactness"
+          ],
           "blurb": "If $f$ is holomorphic on the unit disk with $f(0)=0$ and $f'(0)=1$, then $f(\\mathbb{D})$ contains a univalent (one-sheeted) sub-disk of universal radius $B \\ge \\sqrt{3}/4$. The Bloch constant $B$ and its companion the Landau constant $L$ make the Picard-style 'cannot avoid much' phenomenon quantitative — every normalized holomorphic function on the disk geometrically covers a chunk of the plane no smaller than a fixed lower bound."
         },
         {
@@ -393,8 +396,10 @@ window.__MVConcepts = {
           "anchor": "nevanlinna",
           "prereqs": [
             "aca-picard-great",
-            "aca-hadamard-three-circles",
-            "lp-spaces"
+            "aca-hadamard-three-circles"
+          ],
+          "tags": [
+            "classification"
           ],
           "blurb": "A quantitative refinement of Picard for meromorphic functions: the Nevanlinna characteristic $T(r,f) = m(r,\\infty) + N(r,\\infty)$ measures growth as a sum of a proximity term $m(r,a)$ (how close $f$ comes to $a$ on $|z|=r$) and a counting term $N(r,a)$ (the integrated count of $a$-points). The first main theorem says $m(r,a) + N(r,a) = T(r,f) + O(1)$ is independent of $a$; the second main theorem and the defect relation $\\sum_a \\delta(a) \\le 2$ recover Picard as a corollary — at most two values can have defect $\\delta(a) = 1$."
         },
@@ -403,11 +408,13 @@ window.__MVConcepts = {
           "title": "Bergman kernels",
           "anchor": "bergman",
           "prereqs": [
-            "aca-hardy-spaces",
             "banach-hilbert-spaces",
             "lp-spaces"
           ],
-          "blurb": "The Bergman space $A^2(\\Omega)$ is the Hilbert space of holomorphic functions on a bounded domain $\\Omega \\subset \\mathbb{C}$ that are square-integrable for area measure. Point evaluation is bounded, so by Riesz representation there is a reproducing kernel $K_\\Omega(z,w)$ — the Bergman kernel — characterized by $f(w) = \\int_\\Omega K(z,w) f(z)\\, dA$. The kernel transforms covariantly under biholomorphisms ($K_{\\phi(\\Omega)}(\\phi(z),\\phi(w)) = K_\\Omega(z,w)/(\\phi'(z)\\overline{\\phi'(w)})$) and its log-determinant Hessian gives the Bergman metric, on the unit disk recovering the hyperbolic metric of curvature $-4$."
+          "tags": [
+            "duality"
+          ],
+          "blurb": "The Bergman space $A^2(\\Omega)$ is the Hilbert space of holomorphic functions on a bounded domain $\\Omega \\subset \\mathbb{C}$ that are square-integrable for area measure. Point evaluation is bounded, so by Riesz representation there is a reproducing kernel $K_\\Omega(z,w)$ — the Bergman kernel — characterized by $f(w) = \\int_\\Omega K(z,w) f(z)\\, dA$. The kernel transforms covariantly under biholomorphisms ($K_{\\phi(\\Omega)}(\\phi(z),\\phi(w)) = K_\\Omega(z,w)/(\\phi'(z)\\overline{\\phi'(w)})$) and its log Hessian $\\partial\\bar\\partial \\log K(z,z)$ gives the Bergman metric — on the unit disk this recovers the standard Poincaré metric of constant Gaussian curvature $-1$."
         },
         {
           "id": "aca-quasiconformal-beltrami",
@@ -418,6 +425,10 @@ window.__MVConcepts = {
             "cauchy-riemann",
             "sobolev-spaces-wkp"
           ],
+          "tags": [
+            "moduli",
+            "lifting"
+          ],
           "blurb": "A $K$-quasiconformal map $f$ is a homeomorphism of planar domains whose distributional derivatives satisfy the Beltrami equation $\\partial_{\\bar z} f = \\mu\\, \\partial_z f$ with $\\|\\mu\\|_\\infty \\le k = (K-1)/(K+1) < 1$. The dilatation $\\mu_f$ measures how far $f$ is from conformal — infinitesimally it sends round disks to ellipses of bounded eccentricity. The measurable Riemann mapping theorem (Morrey-Ahlfors-Bers) inverts this: any measurable $\\mu$ with $\\|\\mu\\|_\\infty < 1$ is the dilatation of a unique normalized quasiconformal homeomorphism, the cornerstone of Teichmüller theory and Thurston-style hyperbolic geometrization."
         },
         {
@@ -427,7 +438,11 @@ window.__MVConcepts = {
           "prereqs": [
             "holomorphic-function",
             "cauchy-integral-formula",
-            "hf-subharmonic"
+            "hf-subharmonic",
+            "sobolev-spaces-wkp"
+          ],
+          "tags": [
+            "cohomology"
           ],
           "blurb": "Holomorphic functions of $n\\ge 2$ variables behave qualitatively unlike the $n=1$ case. The Hartogs phenomenon forces extension across compact holes: any holomorphic $f$ on a Hartogs figure (a polydisk shell) extends uniquely to the full polydisk — there are no isolated singularities in $\\mathbb{C}^n$ for $n\\ge 2$. A domain $\\Omega \\subset \\mathbb{C}^n$ is a domain of holomorphy iff it is pseudoconvex (Levi's problem), characterized by the existence of a plurisubharmonic exhaustion. The $\\bar\\partial$-Neumann problem solves $\\bar\\partial u = f$ for $\\bar\\partial$-closed $f$ on pseudoconvex domains and is the analytic engine driving the rest of the theory."
         }
@@ -7069,7 +7084,7 @@ window.__MVConcepts = {
           ],
           "blurb": "For i.i.d.\\ integrable $X_n$ with mean $\\mu$, $\\bar X_N\\to\\mu$ — weakly by Chebyshev (WLLN), strongly by Kolmogorov (SLLN).",
           "tags": [
-            "foundation"
+            "completion"
           ]
         },
         {
@@ -7082,7 +7097,7 @@ window.__MVConcepts = {
           ],
           "blurb": "For i.i.d.\\ $X_n$ with variance $\\sigma^2<\\infty$, $\\sqrt N(\\bar X_N-\\mu)/\\sigma$ converges in distribution to $\\mathcal{N}(0,1)$.",
           "tags": [
-            "foundation"
+            "completion"
           ]
         },
         {
@@ -7095,7 +7110,7 @@ window.__MVConcepts = {
           ],
           "blurb": "A memoryless stochastic process on a state space; transition matrices compose as a semigroup, and under irreducibility-plus-aperiodicity converge to a unique stationary distribution.",
           "tags": [
-            "foundation"
+            "classification"
           ]
         },
         {
@@ -7311,7 +7326,7 @@ window.__MVConcepts = {
           ],
           "blurb": "A discrete-time Markov chain on a finite or countable state space is encoded by a row-stochastic transition matrix $P$; the $n$-step law is $P^n$, and stationary distributions satisfy $\\pi P=\\pi$.",
           "tags": [
-            "foundation"
+            "classification"
           ]
         },
         {
@@ -7334,10 +7349,7 @@ window.__MVConcepts = {
           "prereqs": [
             "rw-stationary-distribution"
           ],
-          "blurb": "$d(t)=\\max_x \\|P^t(x,\\cdot)-\\pi\\|_{\\mathrm{TV}}$ measures distance to stationarity; the mixing time $t_{\\mathrm{mix}}(\\varepsilon)=\\min\\{t:d(t)\\le\\varepsilon\\}$ is the standard quantitative cost of forgetting the start.",
-          "tags": [
-            "completion"
-          ]
+          "blurb": "$d(t)=\\max_x \\|P^t(x,\\cdot)-\\pi\\|_{\\mathrm{TV}}$ measures distance to stationarity; the mixing time $t_{\\mathrm{mix}}(\\varepsilon)=\\min\\{t:d(t)\\le\\varepsilon\\}$ is the standard quantitative cost of forgetting the start."
         },
         {
           "id": "rw-spectral-gap",
@@ -7349,7 +7361,7 @@ window.__MVConcepts = {
           ],
           "blurb": "For reversible chains the second eigenvalue $\\lambda_2$ of $P$ controls mixing: $t_{\\mathrm{mix}}(\\varepsilon)\\le \\frac{1}{1-\\lambda_2}\\log\\frac{1}{\\pi_{\\min}\\varepsilon}$ (and a matching lower bound up to constants).",
           "tags": [
-            "duality"
+            "compactness"
           ]
         },
         {
@@ -7465,7 +7477,7 @@ window.__MVConcepts = {
           ],
           "blurb": "For i.i.d.\\ $X_1,\\ldots,X_n\\sim p$, the law of large numbers applied to $-\\log p(X_i)$ gives $-\\tfrac{1}{n}\\log p(X_1,\\ldots,X_n)\\to H(X)$ in probability. The typical set $A_\\varepsilon^{(n)}=\\{x^n:|{-\\tfrac{1}{n}\\log p(x^n)}-H(X)|<\\varepsilon\\}$ has size $\\le 2^{n(H+\\varepsilon)}$ and probability $\\to 1$ — the operational backbone of source coding and jointly-typical decoding.",
           "tags": [
-            "completion"
+            "compactness"
           ]
         },
         {
@@ -11969,10 +11981,7 @@ window.__MVConcepts = {
           "prereqs": [
             "kernel-and-components"
           ],
-          "blurb": "$\\lambda_2$, the algebraic connectivity, is the smoothest mean-zero Dirichlet energy on $G$. It is positive iff $G$ is connected; its eigenvector — the Fiedler vector — sorts vertices for graph bisection.",
-          "tags": [
-            "duality"
-          ]
+          "blurb": "$\\lambda_2$, the algebraic connectivity, is the smoothest mean-zero Dirichlet energy on $G$. It is positive iff $G$ is connected; its eigenvector — the Fiedler vector — sorts vertices for graph bisection."
         },
         {
           "id": "cheeger-inequality",
@@ -13391,7 +13400,7 @@ window.__MVConcepts = {
     },
     "Analysis": {
       "concepts": 166,
-      "intra": 291,
+      "intra": 290,
       "crossOut": 27,
       "crossIn": 62,
       "density": 0.16265060240963855

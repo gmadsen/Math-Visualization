@@ -4,7 +4,7 @@
   "title": "aca-quasiconformal-warp widget params",
   "description": "Bespoke widget for the §12 quasiconformal-maps figure on the advanced-complex-analysis topic — sliders for the Beltrami coefficient mu = mu_re + i*mu_im warp a circle into an ellipse and a square grid into a sheared lattice, with a readout for the dilatation K = (1+|mu|)/(1-|mu|).",
   "meta": {
-    "family": "aca-quasiconformal-warp",
+    "family": "aca-figure",
     "dimension": "2d",
     "gesture": "slider",
     "role": "exploratory"

@@ -90,7 +90,7 @@
       ],
       "blurb": "For i.i.d.\\ $X_1,\\ldots,X_n\\sim p$, the law of large numbers applied to $-\\log p(X_i)$ gives $-\\tfrac{1}{n}\\log p(X_1,\\ldots,X_n)\\to H(X)$ in probability. The typical set $A_\\varepsilon^{(n)}=\\{x^n:|{-\\tfrac{1}{n}\\log p(x^n)}-H(X)|<\\varepsilon\\}$ has size $\\le 2^{n(H+\\varepsilon)}$ and probability $\\to 1$ — the operational backbone of source coding and jointly-typical decoding.",
       "tags": [
-        "completion"
+        "compactness"
       ]
     },
     {

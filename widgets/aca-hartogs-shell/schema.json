@@ -4,7 +4,7 @@
   "title": "aca-hartogs-shell widget params",
   "description": "Bespoke widget for the §13 several-complex-variables figure on the advanced-complex-analysis topic — a 2D schematic of the Hartogs figure (an n=2 polydisk minus an inner sub-polydisk), with a slider for the inner-shell radius; an overlay shades 'forced extension region' to illustrate that any holomorphic f on the shell extends to the full polydisk.",
   "meta": {
-    "family": "aca-hartogs-shell",
+    "family": "aca-figure",
     "dimension": "2d",
     "gesture": "slider",
     "role": "illustrative"
