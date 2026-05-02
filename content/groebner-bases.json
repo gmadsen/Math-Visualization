@@ -18,7 +18,15 @@
         },
         {
           "type": "raw",
-          "html": "\n<p class=\"small\">Each dot is a monomial $x^a y^b$ at lattice point $(a,b)$. The polyline connects them in the chosen order, smallest to largest; the leading monomial is the last node, highlighted yellow.</p>\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebra.html#polyrings\">Polynomial rings and irreducibility</a></li>\n    <li><a href=\"./commutative-algebra.html#ideals\">Ideals and quotient rings</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end --><!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./groebner-bases.html#multivariable-division\">Gröbner bases</a> · The multivariable division algorithm</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "\n<p class=\"small\">Each dot is a monomial $x^a y^b$ at lattice point $(a,b)$. The polyline connects them in the chosen order, smallest to largest; the leading monomial is the last node, highlighted yellow.</p>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./algebra.html#polyrings\">Polynomial rings and irreducibility</a></li>\n    <li><a href=\"./commutative-algebra.html#ideals\">Ideals and quotient rings</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./groebner-bases.html#multivariable-division\">Gröbner bases</a> · The multivariable division algorithm</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",
@@ -64,7 +72,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./groebner-bases.html#groebner-basis-definition\">Gröbner bases</a> · Gröbner bases: definition</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./groebner-bases.html#groebner-basis-definition\">Gröbner bases</a> · Gröbner bases: definition</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "widget-script",
@@ -92,7 +104,15 @@
         },
         {
           "type": "raw",
-          "html": "\n<p class=\"small\">The shaded region is $\\langle\\mathrm{LT}(I)\\rangle$ — every monomial it contains. The unshaded region (below the staircase) is the set of <strong>standard monomials</strong>, which form a $k$-basis of the quotient $k[x,y]/I$ when $I$ is the original ideal. Vector-space dimension $\\dim_k k[x,y]/I$ equals the count of standard monomials — finite iff the staircase reaches both axes (zero-dimensional ideal).</p>\n\n<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./commutative-algebra.html#noetherian\">Noetherian rings and Hilbert basis</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end --><!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./groebner-bases.html#s-polynomials-buchberger\">Gröbner bases</a> · S-polynomials &amp; Buchberger's criterion</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "\n<p class=\"small\">The shaded region is $\\langle\\mathrm{LT}(I)\\rangle$ — every monomial it contains. The unshaded region (below the staircase) is the set of <strong>standard monomials</strong>, which form a $k$-basis of the quotient $k[x,y]/I$ when $I$ is the original ideal. Vector-space dimension $\\dim_k k[x,y]/I$ equals the count of standard monomials — finite iff the staircase reaches both axes (zero-dimensional ideal).</p>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./commutative-algebra.html#noetherian\">Noetherian rings and Hilbert basis</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./groebner-bases.html#s-polynomials-buchberger\">Gröbner bases</a> · S-polynomials &amp; Buchberger's criterion</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",
@@ -138,7 +158,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./groebner-bases.html#buchberger-algorithm\">Gröbner bases</a> · Buchberger's algorithm</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./groebner-bases.html#buchberger-algorithm\">Gröbner bases</a> · Buchberger's algorithm</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "widget-script",
@@ -175,7 +199,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./groebner-bases.html#reduced-groebner-basis\">Gröbner bases</a> · Reduced Gröbner bases</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./groebner-bases.html#reduced-groebner-basis\">Gröbner bases</a> · Reduced Gröbner bases</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "widget-script",
@@ -212,7 +240,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./groebner-bases.html#elimination-ideals\">Gröbner bases</a> · Elimination ideals</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./groebner-bases.html#elimination-ideals\">Gröbner bases</a> · Elimination ideals</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "widget-script",
@@ -249,7 +281,11 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./groebner-bases.html#solving-polynomial-systems\">Gröbner bases</a> · Solving polynomial systems &amp; implicitization</div>\n</aside>\n<!-- backlinks-auto-end -->\n\n"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./groebner-bases.html#solving-polynomial-systems\">Gröbner bases</a> · Solving polynomial systems &amp; implicitization</div>\n</aside>\n<!-- backlinks-auto-end -->"
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "widget-script",

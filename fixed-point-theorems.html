@@ -462,7 +462,82 @@ so Caristi forces a fixed point. (Indeed $0$ is fixed; the orbit from any $x_0\i
     <li><a href="./real-analysis.html#metric-completeness-baire">Metric completeness & Baire category</a></li>
   </ul>
 </aside>
-<!-- callback-auto-end --><div class="quiz" data-concept="fpt-caristi"></div>
+<!-- callback-auto-end --><p>The widget below makes the budget concrete on $T(x)=x-x^2/2$ with $\varphi(x)=2x$. The yellow line is the budget; violet bars mark $\varphi(x_k)$ at each iterate; pink segments on the axis show the displacement $|x_k-x_{k+1}|=x_k^2/2$ consumed at each step. Total displacement over the tail is bounded by $\varphi(x_0)$ — that is the Caristi inequality, integrated.</p>
+
+<div class="widget" id="w-caristi">
+  <div class="hd"><div class="ttl">Caristi: Lyapunov budget</div><div class="hint">Slide x_0; orbit displacement is capped by varphi.</div></div>
+  <div class="row">
+    <label for="cs-x0">$x_0$: <input type="range" id="cs-x0" min="0.05" max="1" step="0.01" value="0.7"></label>
+  </div>
+  <svg id="cs-svg" viewBox="0 0 560 320" width="100%" height="320"><title>Caristi: Lyapunov budget</title></svg>
+  <div class="readout" id="cs-out"></div>
+</div><script>
+/* === Caristi: Lyapunov budget === */
+(function(){
+  const svg = document.getElementById("cs-svg");
+  const out = document.getElementById("cs-out");
+  if(!svg) return;
+  const W=560, H=320, P=40;
+  const xmin=0, xmax=1, ymin=0, ymax=2.1;
+  const xS = x => P + (x-xmin)/(xmax-xmin)*(W-2*P);
+  const yS = y => H-P - (y-ymin)/(ymax-ymin)*(H-2*P);
+  // T(x) = x - x^2/2 on [0,1], phi(x) = 2x, fixed point at 0.
+  const Tmap = x => x - 0.5*x*x;
+  const phi  = x => 2*x;
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const x0 = parseFloat(document.getElementById("cs-x0").value);
+    // axes
+    svg.appendChild(SVG("line",{x1:xS(0),y1:yS(0),x2:xS(1),y2:yS(0),stroke:"var(--mute)"}));
+    svg.appendChild(SVG("line",{x1:xS(0),y1:yS(0),x2:xS(0),y2:yS(2),stroke:"var(--mute)"}));
+    // phi(x) = 2x
+    svg.appendChild(SVG("line",{x1:xS(0),y1:yS(0),x2:xS(1),y2:yS(2),stroke:"var(--yellow)","stroke-width":2}));
+    const tphi = SVG("text",{x:xS(0.85),y:yS(1.78),"font-size":12,fill:"var(--yellow)"});
+    tphi.textContent = "φ(x)=2x"; svg.appendChild(tphi);
+    // T(x) on [0,1]
+    let dT = "";
+    for(let i=0;i<=120;i++){
+      const x = xmin + (xmax-xmin)*i/120;
+      const y = Tmap(x);
+      dT += (i===0?"M":"L") + xS(x) + " " + yS(y) + " ";
+    }
+    svg.appendChild(SVG("path",{d:dT, fill:"none", stroke:"var(--cyan)","stroke-width":1.6,"stroke-dasharray":"3 3"}));
+    // y=x
+    svg.appendChild(SVG("line",{x1:xS(0),y1:yS(0),x2:xS(1),y2:yS(1),stroke:"var(--mute)","stroke-dasharray":"2 4"}));
+    // orbit and budget bars
+    let x = x0;
+    const N = 8;
+    let totalDisp = 0;
+    for(let k=0;k<N;k++){
+      const Tx = Tmap(x);
+      const disp = Math.abs(x - Tx);
+      const drop = phi(x) - phi(Tx);
+      totalDisp += disp;
+      // budget bar: vertical segment at x from y=0 to y=phi(x)
+      svg.appendChild(SVG("line",{x1:xS(x),y1:yS(0),x2:xS(x),y2:yS(phi(x)),stroke:"var(--violet)","stroke-width":1,"stroke-opacity":0.45}));
+      // displacement segment along x-axis
+      svg.appendChild(SVG("line",{x1:xS(Tx),y1:yS(-0.05),x2:xS(x),y2:yS(-0.05),stroke:"var(--pink)","stroke-width":3}));
+      // dot at (x, phi(x))
+      svg.appendChild(SVG("circle",{cx:xS(x),cy:yS(phi(x)),r:3.5,fill:"var(--violet)"}));
+      x = Tx;
+    }
+    // fixed point at 0
+    svg.appendChild(SVG("circle",{cx:xS(0),cy:yS(0),r:6,fill:"var(--green)"}));
+    const tfp = SVG("text",{x:xS(0)+10,y:yS(0)-8,"font-size":12,fill:"var(--green)"});
+    tfp.textContent = "x* = 0"; svg.appendChild(tfp);
+    // axis labels
+    const ax1 = SVG("text",{x:xS(1)+4,y:yS(0)+4,"font-size":12,fill:"var(--mute)"}); ax1.textContent="x"; svg.appendChild(ax1);
+    const ax2 = SVG("text",{x:xS(0)-14,y:yS(2)+4,"font-size":12,fill:"var(--mute)"}); ax2.textContent="varphi"; svg.appendChild(ax2);
+    // legend
+    const lg1 = SVG("text",{x:xS(0.45),y:yS(1.95),"font-size":11,fill:"var(--cyan)"}); lg1.textContent="T(x) = x - x^2/2"; svg.appendChild(lg1);
+    const lg2 = SVG("text",{x:xS(0.45),y:yS(1.78),"font-size":11,fill:"var(--pink)"}); lg2.textContent="pink = orbit displacement on axis"; svg.appendChild(lg2);
+    const lg3 = SVG("text",{x:xS(0.45),y:yS(1.61),"font-size":11,fill:"var(--violet)"}); lg3.textContent="violet bars = budget φ(x_k)"; svg.appendChild(lg3);
+    out.textContent = `x_0=${x0.toFixed(3)} · sum_k |x_k - x_{k+1}| over 8 steps = ${totalDisp.toFixed(4)} · φ(x_0)=${phi(x0).toFixed(3)} (caps the entire tail). Inequality d(x,Tx) <= φ(x) - φ(Tx) holds: at x, x - Tx = x^2/2 <= 2x - 2(x - x^2/2) = x^2.`;
+  }
+  document.getElementById("cs-x0").addEventListener("input", draw);
+  draw();
+})();
+</script><div class="quiz" data-concept="fpt-caristi"></div>
 </section>
 
 <section id="kkm">
@@ -485,7 +560,259 @@ Each $C_i$ is closed by continuity. To check the KKM covering condition, pick an
 
 <div class="note"><strong>Why KKM is the cleanest gateway.</strong> Brouwer needs degree theory or singular homology; KKM needs only Sperner, which is a finite combinatorial argument. Once KKM is in hand, Brouwer, Schauder (via finite-dimensional approximation), Kakutani (via the Browder selection), and the von Neumann/Nash existence proofs all fall out by short reductions. Functional analysts often cite KKM as the right starting axiom for fixed-point theory.</div>
 
-<div class="quiz" data-concept="fpt-kkm"></div>
+<h3>Closed-star cover</h3>
+<p>The first widget realises the closed-cover form. Three closed stars $A_i = \{x\in\Delta : x_i\ge t_i\}$ around each vertex. The KKM covering condition (every face $\Delta_S$ covered by indexed $A_i$ for $i \in S$) reduces, in this closed-star formulation, to the single inequality $\sum_i t_i \le 1$ — and KKM's conclusion is then exactly $\bigcap_i A_i \ne \emptyset$, the green sub-triangle. The intersection contracts to a point as $\sum t_i \to 1$, and goes empty the moment the cover hypothesis fails: in this formulation cover and intersection are governed by the same condition, gating one another via KKM.</p>
+
+<div class="widget" id="w-kkm">
+  <div class="hd"><div class="ttl">KKM cover on the 2-simplex</div><div class="hint">Three closed stars $A_i = \{x_i \ge t_i\}$; intersection is the green sub-triangle.</div></div>
+  <div class="row">
+    <label for="km-t0">$t_0$: <input type="range" id="km-t0" min="0" max="0.6" step="0.01" value="0.2"></label>
+    <label for="km-t1">$t_1$: <input type="range" id="km-t1" min="0" max="0.6" step="0.01" value="0.25"></label>
+    <label for="km-t2">$t_2$: <input type="range" id="km-t2" min="0" max="0.6" step="0.01" value="0.3"></label>
+  </div>
+  <svg id="km-svg" viewBox="0 0 560 380" width="100%" height="380"><title>KKM cover on the 2-simplex</title></svg>
+  <div class="readout" id="km-out"></div>
+</div><script>
+/* === KKM lemma cover on the 2-simplex === */
+(function(){
+  const svg = document.getElementById("km-svg");
+  const out = document.getElementById("km-out");
+  if(!svg) return;
+  const W=560, H=380;
+  const cx = W/2, cy = H/2 + 30;
+  const R = 130;
+  const V = [
+    {x: cx,            y: cy - R},        // v_0 (top)
+    {x: cx - R*0.866,  y: cy + R*0.5},    // v_1 (bottom-left)
+    {x: cx + R*0.866,  y: cy + R*0.5}     // v_2 (bottom-right)
+  ];
+  function bary(b){
+    return {
+      x: b[0]*V[0].x + b[1]*V[1].x + b[2]*V[2].x,
+      y: b[0]*V[0].y + b[1]*V[1].y + b[2]*V[2].y
+    };
+  }
+  // Closed-star formulation: A_i = { x in Δ : x_i ≥ t_i }, the closed star at v_i.
+  // KKM cover-by-indexed-faces hypothesis:
+  //   • each face conv{v_i : i ∈ S} is covered by ⋃_{i ∈ S} A_i
+  //   • for the full simplex (S = {0,1,2}): Σ t_i ≤ 1
+  //   • for each edge (pair S = {i,j}): t_i + t_j ≤ 1  (implied by Σ ≤ 1 when t ≥ 0)
+  //   • for singletons: t_i ≤ 1 (automatic in slider range [0, 0.6])
+  // So the *single* governing condition is Σ t_i ≤ 1.
+  // KKM then concludes ⋂ A_i ≠ ∅, which directly is { x_i ≥ t_i ∀i } ≠ ∅, also ⟺ Σ t_i ≤ 1.
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const t0 = parseFloat(document.getElementById("km-t0").value);
+    const t1 = parseFloat(document.getElementById("km-t1").value);
+    const t2 = parseFloat(document.getElementById("km-t2").value);
+    const ts = [t0, t1, t2];
+    // outer triangle
+    svg.appendChild(SVG("polygon",{
+      points: V.map(p => p.x+","+p.y).join(" "),
+      fill:"color-mix(in srgb, var(--ink) 2%, transparent)", stroke:"var(--ink)","stroke-width":1.6
+    }));
+    const colors = ["var(--cyan)","var(--yellow)","var(--pink)"];
+    // each A_i = closed star, drawn as the triangle with vertex v_i and opposite edge x_i = t_i
+    for(let i=0;i<3;i++){
+      const ti = ts[i];
+      const j = (i+1)%3, k = (i+2)%3;
+      const a = [0,0,0]; a[i]=1;
+      const b = [0,0,0]; b[i]=ti; b[j]=1-ti;
+      const c = [0,0,0]; c[i]=ti; c[k]=1-ti;
+      const pa = bary(a), pb = bary(b), pc = bary(c);
+      svg.appendChild(SVG("polygon",{
+        points: `${pa.x},${pa.y} ${pb.x},${pb.y} ${pc.x},${pc.y}`,
+        fill: colors[i], "fill-opacity":0.22, stroke: colors[i], "stroke-width":1.4
+      }));
+    }
+    // intersection ⋂ A_i = { x_i ≥ t_i ∀i }
+    const tsum = t0+t1+t2;
+    const inter_ok = tsum <= 1 + 1e-9;
+    if(inter_ok){
+      const s = 1 - tsum;
+      const p0 = bary([t0+s, t1, t2]);
+      const p1 = bary([t0, t1+s, t2]);
+      const p2 = bary([t0, t1, t2+s]);
+      svg.appendChild(SVG("polygon",{
+        points: `${p0.x},${p0.y} ${p1.x},${p1.y} ${p2.x},${p2.y}`,
+        fill:"var(--green)","fill-opacity":0.6, stroke:"var(--green)","stroke-width":1.6
+      }));
+      const ccx = (p0.x+p1.x+p2.x)/3, ccy = (p0.y+p1.y+p2.y)/3;
+      svg.appendChild(SVG("circle",{cx:ccx,cy:ccy,r:5,fill:"var(--green)",stroke:"var(--bg)","stroke-width":1.2}));
+    }
+    // vertex labels
+    const lbls = ["v₀","v₁","v₂"];
+    for(let i=0;i<3;i++){
+      const offX = (i===0?0:(i===1?-16:16));
+      const offY = (i===0?-12:20);
+      const t = SVG("text",{x:V[i].x+offX,y:V[i].y+offY,"font-size":13,fill:colors[i],"font-weight":700,"text-anchor":(i===0?"middle":(i===1?"end":"start"))});
+      t.textContent = lbls[i]; svg.appendChild(t);
+    }
+    // legend
+    const lg = [
+      `A₀ = { x₀ ≥ ${t0.toFixed(2)} }`,
+      `A₁ = { x₁ ≥ ${t1.toFixed(2)} }`,
+      `A₂ = { x₂ ≥ ${t2.toFixed(2)} }`
+    ];
+    for(let i=0;i<3;i++){
+      const tt = SVG("text",{x:20,y:24+i*18,"font-size":12,fill:colors[i]});
+      tt.textContent = lg[i]; svg.appendChild(tt);
+    }
+    const cover_ok = inter_ok; // same condition for closed-star formulation
+    const v1 = SVG("text",{x:20,y:24+3*18+6,"font-size":12,fill: cover_ok?"var(--green)":"var(--pink)"});
+    v1.textContent = cover_ok
+      ? `KKM hypothesis: every face is covered by indexed A_i ✓  (Σ tᵢ = ${tsum.toFixed(2)} ≤ 1)`
+      : `KKM hypothesis FAILS: Σ tᵢ = ${tsum.toFixed(2)} > 1, the inner triangle x_i < t_i is uncovered`;
+    svg.appendChild(v1);
+    const v2 = SVG("text",{x:20,y:24+4*18+4,"font-size":12,fill: inter_ok?"var(--green)":"var(--pink)"});
+    v2.textContent = inter_ok
+      ? `intersection ⋂ Aᵢ non-empty ✓  (the green sub-triangle of side 1 − Σ tᵢ)`
+      : `intersection ⋂ Aᵢ EMPTY  (no point satisfies all three xᵢ ≥ tᵢ when Σ tᵢ > 1)`;
+    svg.appendChild(v2);
+    out.textContent = inter_ok
+      ? `KKM hypothesis (Σ tᵢ ≤ ${tsum.toFixed(2)} ≤ 1) holds: closed stars cover every face. Conclusion: ⋂ Aᵢ ≠ ∅ — the green sub-triangle, which contracts to a point as Σ tᵢ → 1.`
+      : `Σ tᵢ = ${tsum.toFixed(2)} > 1: the inner triangle {x_i < t_i ∀ i} is non-empty, so the Aᵢ fail to cover Δ — and the intersection is also empty. (Both are governed by the single condition Σ tᵢ ≤ 1 in this closed-star formulation; they go non-empty together.)`;
+  }
+  ["km-t0","km-t1","km-t2"].forEach(id => {
+    document.getElementById(id).addEventListener("input", draw);
+  });
+  draw();
+})();
+</script>
+
+<h3>Sperner — discrete sibling</h3>
+<p>The combinatorial mirror image: triangulate $\Delta$ at depth $n$, apply a Sperner labelling (vertex on face $\Delta_S$ uses only labels from $S$), and count the rainbow sub-triangles. Sperner asserts the count is always <em>odd</em> — in particular non-zero — by a one-page parity argument on edge counts. As $n\to\infty$, by compactness the rainbow cells condense to a Brouwer fixed point of any continuous map represented by the labelling: this is precisely how §2 Brouwer falls out of the discrete combinatorics, with no degree theory or homology.</p>
+
+<div class="widget" id="w-sperner">
+  <div class="hd"><div class="ttl">Sperner's lemma — count the rainbow triangles</div><div class="hint">Sperner labelling on a triangulation of mesh $n$. Count is always odd.</div></div>
+  <div class="row">
+    <label for="sp-n">mesh $n$: <input type="range" id="sp-n" min="2" max="8" step="1" value="5"></label>
+    <label for="sp-seed">seed: <input type="range" id="sp-seed" min="1" max="50" step="1" value="7"></label>
+  </div>
+  <svg id="sp-svg" viewBox="0 0 560 380" width="100%" height="380"><title>Sperner's lemma — count the rainbow triangles</title></svg>
+  <div class="readout" id="sp-out"></div>
+</div><script>
+/* === Sperner's lemma on a triangulated 2-simplex === */
+(function(){
+  const svg = document.getElementById("sp-svg");
+  const out = document.getElementById("sp-out");
+  if(!svg) return;
+  const W=560, H=380;
+  const cx = W/2, cy = H/2 + 30;
+  const R = 130;
+  // 2-simplex vertices
+  const V0 = {x: cx,            y: cy - R};
+  const V1 = {x: cx - R*0.866,  y: cy + R*0.5};
+  const V2 = {x: cx + R*0.866,  y: cy + R*0.5};
+  // build triangulation of given depth n: vertices at barycentric (i/n, j/n, k/n) with i+j+k=n
+  function bary(b){
+    return {
+      x: b[0]*V0.x + b[1]*V1.x + b[2]*V2.x,
+      y: b[0]*V0.y + b[1]*V1.y + b[2]*V2.y
+    };
+  }
+  // deterministic pseudo-random label seeded by (i,j,k,seed)
+  // Constraint: vertex on face Delta_S only gets labels from S.
+  // S-membership: vertex (i,j,k)/n on face S iff coord at index notin S is 0.
+  function pickLabel(i,j,k,n,seed){
+    // allowed labels: indices c in {0,1,2} such that the c-th coord >0 OR coord-at-(other-than-c) being 0 doesn't matter --
+    // Sperner rule is: a vertex with coord_c = 0 may NOT receive label c.
+    // So allowed = { c : (i,j,k)[c] > 0 }.
+    const coords = [i,j,k];
+    const allowed = [];
+    for(let c=0;c<3;c++) if(coords[c] > 0) allowed.push(c);
+    // hash
+    let h = (i*73856093) ^ (j*19349663) ^ (k*83492791) ^ (seed*2654435761);
+    h = (h>>>0);
+    return allowed[h % allowed.length];
+  }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const n = parseInt(document.getElementById("sp-n").value, 10);
+    const seed = parseInt(document.getElementById("sp-seed").value, 10);
+    // outer triangle
+    svg.appendChild(SVG("polygon",{
+      points: `${V0.x},${V0.y} ${V1.x},${V1.y} ${V2.x},${V2.y}`,
+      fill:"rgba(255,255,255,0.02)", stroke:"var(--ink)","stroke-width":1.6
+    }));
+    const labelColors = ["var(--cyan)","var(--yellow)","var(--pink)"];
+    // collect labels at each lattice point
+    const lab = {};
+    for(let i=0;i<=n;i++) for(let j=0;j<=n-i;j++){
+      const k = n - i - j;
+      // forced labels at the corners
+      let L;
+      if(i===n) L = 0;
+      else if(j===n) L = 1;
+      else if(k===n) L = 2;
+      else L = pickLabel(i,j,k,n,seed);
+      lab[`${i}_${j}_${k}`] = L;
+    }
+    // draw small triangles
+    let fullCount = 0;
+    let fullTris = [];
+    for(let i=0;i<n;i++) for(let j=0;j<n-i;j++){
+      const k = n-i-j;
+      // upward triangle: (i+1,j,k-1), (i,j+1,k-1), (i,j,k)
+      const A = [i+1,j,k-1], B = [i,j+1,k-1], C = [i,j,k];
+      const pa = bary([A[0]/n,A[1]/n,A[2]/n]);
+      const pb = bary([B[0]/n,B[1]/n,B[2]/n]);
+      const pc = bary([C[0]/n,C[1]/n,C[2]/n]);
+      const lA = lab[`${A[0]}_${A[1]}_${A[2]}`];
+      const lB = lab[`${B[0]}_${B[1]}_${B[2]}`];
+      const lC = lab[`${C[0]}_${C[1]}_${C[2]}`];
+      const labels = new Set([lA,lB,lC]);
+      const isFull = labels.size === 3;
+      if(isFull){ fullCount++; fullTris.push([pa,pb,pc]); }
+      svg.appendChild(SVG("polygon",{
+        points: `${pa.x},${pa.y} ${pb.x},${pb.y} ${pc.x},${pc.y}`,
+        fill: isFull?"var(--green)":"none", "fill-opacity": isFull?0.45:0,
+        stroke:"var(--line)", "stroke-width":0.7
+      }));
+      // downward triangle: (i+1,j,k-1), (i+1,j+1,k-2)... only when k>=2
+      if(k>=2){
+        const D = [i+1,j+1,k-2];
+        const pd = bary([D[0]/n,D[1]/n,D[2]/n]);
+        const lD = lab[`${D[0]}_${D[1]}_${D[2]}`];
+        const labs2 = new Set([lA,lB,lD]);
+        const isFull2 = labs2.size === 3;
+        if(isFull2){ fullCount++; fullTris.push([pa,pb,pd]); }
+        svg.appendChild(SVG("polygon",{
+          points: `${pa.x},${pa.y} ${pb.x},${pb.y} ${pd.x},${pd.y}`,
+          fill: isFull2?"var(--green)":"none", "fill-opacity": isFull2?0.45:0,
+          stroke:"var(--line)", "stroke-width":0.7
+        }));
+      }
+    }
+    // draw labelled vertex dots
+    for(let i=0;i<=n;i++) for(let j=0;j<=n-i;j++){
+      const k = n-i-j;
+      const p = bary([i/n,j/n,k/n]);
+      const L = lab[`${i}_${j}_${k}`];
+      svg.appendChild(SVG("circle",{cx:p.x,cy:p.y,r:5.5,fill:labelColors[L],stroke:"var(--bg)","stroke-width":1}));
+      const t = SVG("text",{x:p.x,y:p.y+3.5,"text-anchor":"middle","font-size":9,fill:"var(--bg)","font-weight":700});
+      t.textContent = L; svg.appendChild(t);
+    }
+    // legend
+    const tags = ["label 0 (corner v_0)","label 1 (corner v_1)","label 2 (corner v_2)"];
+    for(let i=0;i<3;i++){
+      svg.appendChild(SVG("circle",{cx:30,cy:24+i*18,r:5,fill:labelColors[i],stroke:"var(--bg)","stroke-width":1}));
+      const t = SVG("text",{x:42,y:28+i*18,"font-size":12,fill:labelColors[i]});
+      t.textContent = tags[i]; svg.appendChild(t);
+    }
+    // verdict
+    const odd = fullCount % 2 === 1;
+    const v = SVG("text",{x:20,y:H-20,"font-size":13,fill: odd?"var(--green)":"var(--pink)","font-weight":600});
+    v.textContent = `fully-labelled triangles: ${fullCount} (${odd?"odd -- Sperner holds":"even -- check labelling, should be impossible"})`;
+    svg.appendChild(v);
+    out.textContent = `n=${n} (mesh), seed=${seed}: ${fullCount} fully-labelled small triangle(s) -- Sperner's lemma asserts the count is always odd, in particular nonzero. Shrinking the mesh and applying compactness recovers Brouwer; the constraint that a vertex on face Delta_S receives only labels in S is enforced.`;
+  }
+  ["sp-n","sp-seed"].forEach(id => {
+    document.getElementById(id).addEventListener("input", draw);
+  });
+  draw();
+})();
+</script><div class="quiz" data-concept="fpt-kkm"></div>
 </section>
 
 <section id="applications">
