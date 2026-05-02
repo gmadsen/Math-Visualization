@@ -11,7 +11,10 @@
         "metric-spaces"
       ],
       "blurb": "The p-adic absolute value yields an ultrametric completion Q_p.",
-      "tags": ["completion", "foundation"]
+      "tags": [
+        "completion",
+        "foundation"
+      ]
     },
     {
       "id": "ultrametric-topology",
@@ -31,7 +34,9 @@
         "padic-norm-completion"
       ],
       "blurb": "Series expansions encode arithmetic with non-Archimedean convergence.",
-      "tags": ["completion"]
+      "tags": [
+        "completion"
+      ]
     },
     {
       "id": "hensel-lemma",
@@ -41,7 +46,9 @@
         "padic-expansions"
       ],
       "blurb": "Approximate roots modulo p lift to genuine p-adic roots under derivative conditions.",
-      "tags": ["lifting"]
+      "tags": [
+        "lifting"
+      ]
     },
     {
       "id": "newton-polygons",
@@ -49,10 +56,13 @@
       "anchor": "newton-polygons",
       "prereqs": [
         "padic-norm-completion",
-        "hensel-lemma"
+        "hensel-lemma",
+        "field-extensions-basics"
       ],
       "blurb": "The lower convex hull of the points (i, v_p(a_i)) reads the p-adic valuations of the roots of f directly off its slopes, factoring f over Q_p by valuation strata.",
-      "tags": ["lifting"]
+      "tags": [
+        "lifting"
+      ]
     },
     {
       "id": "padic-extensions-ramification",
@@ -61,10 +71,14 @@
       "prereqs": [
         "hensel-lemma",
         "newton-polygons",
-        "field-extensions-basics"
+        "field-extensions-basics",
+        "prime-ideals-factorization-ant"
       ],
       "blurb": "Every finite extension L/Q_p factors as an unramified piece (residue extension F_q/F_p of degree f) times a totally ramified piece given by an Eisenstein uniformizer (degree e), with ef = [L:Q_p]; tameness is e coprime to p, and Krasner's lemma makes the assignment polynomial→extension continuous.",
-      "tags": ["completion", "classification"]
+      "tags": [
+        "completion",
+        "classification"
+      ]
     },
     {
       "id": "local-global-principle",
@@ -75,7 +89,9 @@
         "prime-ideals-factorization-ant"
       ],
       "blurb": "A Diophantine problem over Q is studied by solving it over R and every Q_p; for quadratic forms this local data is sufficient, while failures for higher-degree forms are measured by Brauer and Tate-Shafarevich groups.",
-      "tags": ["descent"]
+      "tags": [
+        "descent"
+      ]
     }
   ]
 }

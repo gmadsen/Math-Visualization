@@ -54,10 +54,14 @@ This branch (`refactor/sidetoc-shared-and-hamiltonians-figure`, PR #45):
 
 ## Script audit — overlap to assess
 
-50 scripts in `scripts/` after this session. Items still worth reviewing:
+50+ scripts in `scripts/` after this session. Items still worth reviewing:
 
 - **Candidates to merge or drop:** `audit-responsive.mjs` overlaps with `audit-accessibility.mjs`; `audit-notation.mjs`, `audit-worked-examples.mjs`, `audit-blurb-question-alignment.mjs` — low-usage, confirm signal value.
 - **Consolidation candidates:** `validate-concepts.mjs` still reads `index.json` directly because the validator is the gate before the loader runs — circular dependency that's intentional, leave it. `audit-widget-interactivity.mjs` and `audit-cross-page-consistency.mjs` were migrated to `loadContentModel()`.
+- **Hoist depth-balanced div/section walkers into `lib/html-walk.mjs`.** `matchDivClose` (fix-a11y), `findScripts` (already in `lib/script-scan.mjs`), the section regex-fallback in audit-callbacks, and the inline div-balancers in `read-prose.mjs` + `audit-widget-interactivity.mjs` + `audit-utils.mjs` are subtly different copies of the same depth-balancing logic. One shared helper avoids future drift.
+- **`splitMultiIife` (repair-widget-scripts.mjs) needs a fixture test.** The off-by-one fix in PR #45 commit a208609 shipped 6 broken bodyScripts before being caught; a small `scripts/test-*` fixture asserting the per-IIFE chunk contents would have surfaced it pre-merge.
+- **Refactor `migrate-inline-widget.mjs` dialect dispatch into a declarative pipeline.** Today's 4 dialects (span/div ttl/hint, multi-line `.hd`, legacy `script` field, leading whitespace in legacy scripts) are handled by procedural cascade. A `extractWidgetShape(block, scriptBlock) → { title, hint, bodyMarkup, bodyScript, sectionComment, headerTag }` function with internal try-each-dialect would separate "what's the inline form" from "what gets written to disk."
+- **Unify `fix-a11y` JSON-mode and HTML-mode pipelines.** The two parallel paths (JSON for topic pages with `content/<slug>.json`, HTML for landing/utility pages) build per-block deltas vs before/after counters in two places. A common `applyA11yToText(html, opts) → {newHtml, stats}` would halve the report-bookkeeping code.
 
 ## NPM packages — candidates worth evaluating
 

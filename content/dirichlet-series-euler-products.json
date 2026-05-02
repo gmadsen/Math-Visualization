@@ -859,7 +859,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./analytic-number-theory.html#dirichlet\">Analytic number theory</a> · Dirichlet's theorem on primes in AP</div>\n    <div><a href=\"./L-functions.html#unified\">L-functions</a> · Prototype L-functions</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./analytic-number-theory.html#dirichlet\">Analytic number theory</a> · Dirichlet's theorem on primes in AP</div>\n    <div><a href=\"./L-functions.html#unified\">L-functions</a> · Prototype L-functions</div>\n    <div><a href=\"./zeta-values.html#zeta-mahler\">Zeta values — ζ at integers</a> · Zeta values and Mahler measure</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
