@@ -182,7 +182,9 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Hamiltonians and classical mechanics](./hamiltonians-classical-mechanics.html) — symplectic phase space, Liouville's theorem, integrability, action-angle
 - [General relativity](./general-relativity.html) — Einstein field equations, Schwarzschild, black holes, gravitational waves
 - [The three-body problem](./three-body-problem.html) — Lagrange points, restricted three-body, KAM tori, chaos
-- [Statistical mechanics](./statistical-mechanics.html) — draft — fill in once the page has real content
+- [Statistical mechanics](./statistical-mechanics.html) — capstone of equilibrium statistical mechanics: phase-space ensembles, the Boltzmann/Gibbs distribution, free energy from $\log Z$, the grand canonical with chemical potential, Ising phase transitions and the renormalization group, large-deviations fluctuations and the Legendre bridge to thermodynamics.
+- [Gauge theory](./gauge-theory.html) — capstone of differential gauge theory: connections on principal bundles, curvature and Yang-Mills, gauge transformations and Wilson loops, BPST instantons and Chern-Simons, lattice gauge theory and confinement, the Donaldson and Seiberg-Witten 4-manifold invariants.
+- [String theory](./string-theory.html) — capstone of mathematical string theory: world-sheet action and 2D CFT, bosonic critical dimension $D=26$, superstrings in $D=10$, Calabi-Yau compactification, T-duality and mirror symmetry, branes and AdS/CFT, and the math output (mirror symmetry, monstrous moonshine, geometric Langlands).
 
 ## Resetting progress
 

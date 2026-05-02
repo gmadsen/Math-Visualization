@@ -147,10 +147,10 @@
           "type": "mcq",
           "q": "The Fermi-Dirac and Bose-Einstein occupation numbers for a single-particle energy level $\\epsilon$ are:",
           "choices": [
-            "$\\bar n_{\\rm FD} = 1/(e^{\\beta(\\epsilon-\\mu)} + 1)$ and $\\bar n_{\\rm BE} = 1/(e^{\\beta(\\epsilon-\\mu)} - 1)$.",
-            "$\\bar n_{\\rm FD} = e^{-\\beta(\\epsilon-\\mu)}$ for both.",
-            "$\\bar n_{\\rm FD} = 1/(e^{\\beta\\epsilon} + 1)$, $\\bar n_{\\rm BE} = 1/(e^{\\beta\\epsilon} - 1)$ — chemical potential drops out.",
-            "$\\bar n_{\\rm FD} = 1/(e^{\\beta(\\epsilon-\\mu)} - 1)$ and $\\bar n_{\\rm BE} = 1/(e^{\\beta(\\epsilon-\\mu)} + 1)$ (signs swapped)."
+            "$\\bar n_{\\mathrm FD} = 1/(e^{\\beta(\\epsilon-\\mu)} + 1)$ and $\\bar n_{\\mathrm BE} = 1/(e^{\\beta(\\epsilon-\\mu)} - 1)$.",
+            "$\\bar n_{\\mathrm FD} = e^{-\\beta(\\epsilon-\\mu)}$ for both.",
+            "$\\bar n_{\\mathrm FD} = 1/(e^{\\beta\\epsilon} + 1)$, $\\bar n_{\\mathrm BE} = 1/(e^{\\beta\\epsilon} - 1)$ — chemical potential drops out.",
+            "$\\bar n_{\\mathrm FD} = 1/(e^{\\beta(\\epsilon-\\mu)} - 1)$ and $\\bar n_{\\mathrm BE} = 1/(e^{\\beta(\\epsilon-\\mu)} + 1)$ (signs swapped)."
           ],
           "answer": 0,
           "explain": "Sum the grand partition function over allowed occupancies: fermions allow $n\\in\\{0,1\\}$ giving $\\Xi_\\epsilon = 1 + e^{-\\beta(\\epsilon-\\mu)}$, hence $\\bar n = e^{-\\beta(\\epsilon-\\mu)}/(1 + e^{-\\beta(\\epsilon-\\mu)}) = 1/(e^{\\beta(\\epsilon-\\mu)}+1)$. Bosons allow $n\\in\\{0,1,2,\\dots\\}$ giving $\\Xi_\\epsilon = 1/(1 - e^{-\\beta(\\epsilon-\\mu)})$, hence $\\bar n = 1/(e^{\\beta(\\epsilon-\\mu)}-1)$. The Maxwell-Boltzmann limit $\\bar n \\approx e^{-\\beta(\\epsilon-\\mu)}$ recovers the classical regime when $\\mu$ is far below all $\\epsilon$. Choice 3 has the signs swapped, which would make Bose-Einstein numbers bounded above — exactly backwards: bosons can pile up arbitrarily many in one state, fermions cannot."
@@ -187,7 +187,7 @@
             "$k_B T_c = q^2 J$"
           ],
           "answer": 1,
-          "explain": "The mean-field self-consistency $m = \\tanh(\\beta q J m)$ has a nonzero solution iff $\\beta q J > 1$, i.e. $k_B T < qJ$. So $k_B T_c^{\\rm MF} = qJ$. For the 2D square lattice $q = 4$, mean field predicts $k_B T_c = 4J$; the *exact* Onsager value is $k_B T_c = 2J/\\log(1+\\sqrt 2)\\approx 2.27J$ — mean field overestimates by 76%, because it ignores fluctuations that destabilize order in low dimensions.",
+          "explain": "The mean-field self-consistency $m = \\tanh(\\beta q J m)$ has a nonzero solution iff $\\beta q J > 1$, i.e. $k_B T < qJ$. So $k_B T_c^{\\mathrm MF} = qJ$. For the 2D square lattice $q = 4$, mean field predicts $k_B T_c = 4J$; the *exact* Onsager value is $k_B T_c = 2J/\\log(1+\\sqrt 2)\\approx 2.27J$ — mean field overestimates by 76%, because it ignores fluctuations that destabilize order in low dimensions.",
           "hint": "Linearize $m = \\tanh(\\beta q J m)$ and find when the trivial solution becomes unstable."
         },
         {
@@ -298,7 +298,7 @@
             "Therefore the canonical density is $\\rho(E)\\propto e^{-\\beta E}$, which is the Boltzmann distribution."
           ],
           "answer": 2,
-          "explain": "The error is in step 3. A first-order Taylor expansion of a quadratic function in $E$ around $\\langle E\\rangle$ does NOT capture the canonical density. The correct derivation uses large deviations / saddle-point: the bath has many more degrees of freedom than the subsystem, and the subsystem's microcanonical entropy expansion $S_{\\rm bath}(E_{\\rm tot} - E) \\approx S_{\\rm bath}(E_{\\rm tot}) - \\beta E$ — the linear-in-$E$ correction is exact in the bath-large limit because higher derivatives are suppressed by $1/N_{\\rm bath}$. So the Boltzmann factor $e^{-\\beta E}$ comes from the *exact* expansion of bath entropy, not from a Gaussian approximation. The Gaussian only describes the *fluctuation* of $\\bar E$ for large subsystems — a different, downstream statement."
+          "explain": "The error is in step 3. A first-order Taylor expansion of a quadratic function in $E$ around $\\langle E\\rangle$ does NOT capture the canonical density. The correct derivation uses large deviations / saddle-point: the bath has many more degrees of freedom than the subsystem, and the subsystem's microcanonical entropy expansion $S_{\\mathrm bath}(E_{\\mathrm tot} - E) \\approx S_{\\mathrm bath}(E_{\\mathrm tot}) - \\beta E$ — the linear-in-$E$ correction is exact in the bath-large limit because higher derivatives are suppressed by $1/N_{\\mathrm bath}$. So the Boltzmann factor $e^{-\\beta E}$ comes from the *exact* expansion of bath entropy, not from a Gaussian approximation. The Gaussian only describes the *fluctuation* of $\\bar E$ for large subsystems — a different, downstream statement."
         },
         {
           "type": "mcq",
