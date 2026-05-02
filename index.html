@@ -115,55 +115,77 @@
      scroll to the matching #section anchor on this same page. Sits between
      the pathway banner and Recently Updated so the whole seven-section map
      is visible without scrolling past a thousand lines of cards. */
-  .section-jump{display:flex;flex-wrap:wrap;gap:6px;align-items:center;
-    padding:0.75rem 0.9rem;margin:0 0 2rem;
-    border:1px solid var(--line);border-radius:10px;
+  .section-jump{display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+    padding:0.85rem 1rem;margin:0 0 2rem;
+    border:1px solid color-mix(in srgb, var(--line) 70%, transparent);
+    border-radius:14px;
     position:sticky;top:0;z-index:10;
-    backdrop-filter:blur(8px);
-    background:color-mix(in srgb, var(--panel) 88%, transparent);
-    transition:box-shadow 160ms ease, border-color 160ms ease}
-  .section-jump.stuck{box-shadow:0 6px 18px rgba(0,0,0,0.32);
-    border-color:color-mix(in srgb, var(--cyan) 30%, var(--line))}
+    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+    background:color-mix(in srgb, var(--bg) 70%, transparent);
+    transition:box-shadow 200ms ease, border-color 200ms ease}
+  .section-jump.stuck{
+    box-shadow:0 4px 24px color-mix(in srgb, var(--bg) 60%, transparent),
+               0 1px 0 color-mix(in srgb, var(--line) 50%, transparent);
+    border-color:color-mix(in srgb, var(--line) 100%, transparent)}
   /* Sentinel one pixel above the bar — when it scrolls out of view, the bar is
      stuck. IntersectionObserver in the script block at the bottom of body adds
      .stuck to .section-jump so the shadow/accent kicks in only when sticky. */
   .sj-sentinel{height:1px;margin-top:-1px}
-  .section-jump .sj-label{font-size:0.7rem;letter-spacing:0.16em;
-    text-transform:uppercase;color:var(--mute);font-family:ui-monospace,Menlo,monospace;
-    margin-right:0.5rem;white-space:nowrap}
-  .section-jump a.sj-link{display:inline-flex;align-items:center;gap:6px;
-    padding:0.3rem 0.7rem;border-radius:999px;text-decoration:none;
-    font-size:0.85rem;color:var(--ink);
-    background:var(--panel2);border:1px solid var(--line);
-    transition:border-color 150ms ease, background 150ms ease, color 150ms ease}
-  .section-jump a.sj-link:hover{border-color:var(--cyan);color:var(--cyan)}
-  .section-jump a.sj-link .sj-dot{width:8px;height:8px;border-radius:50%;
-    background:var(--mute);flex-shrink:0;
-    transition:transform 150ms ease}
-  .section-jump a.sj-link:hover .sj-dot{transform:scale(1.25)}
-  .section-jump a.sj-link.s-b .sj-dot{background:var(--blue)}
-  .section-jump a.sj-link.s-y .sj-dot{background:var(--yellow)}
-  .section-jump a.sj-link.s-p .sj-dot{background:var(--pink)}
-  .section-jump a.sj-link.s-v .sj-dot{background:var(--violet)}
-  .section-jump a.sj-link.s-g .sj-dot{background:var(--green)}
-  .section-jump a.sj-link.s-c .sj-dot{background:var(--cyan)}
-  .section-jump a.sj-link.s-b:hover{border-color:var(--blue);color:var(--blue)}
-  .section-jump a.sj-link.s-y:hover{border-color:var(--yellow);color:var(--yellow)}
-  .section-jump a.sj-link.s-p:hover{border-color:var(--pink);color:var(--pink)}
-  .section-jump a.sj-link.s-v:hover{border-color:var(--violet);color:var(--violet)}
-  .section-jump a.sj-link.s-g:hover{border-color:var(--green);color:var(--green)}
-  .section-jump a.sj-link.s-c:hover{border-color:var(--cyan);color:var(--cyan)}
+  .section-jump .sj-label{font-size:0.66rem;letter-spacing:0.18em;
+    text-transform:uppercase;color:var(--mute);
+    font-family:ui-monospace,Menlo,monospace;font-weight:500;
+    margin-right:0.6rem;white-space:nowrap;opacity:0.75}
+  /* Modern chip: transparent at rest, accent left-bar (3px) for at-rest section
+     identity, full accent border + lift on hover. The :before pseudo-element is
+     the colored stripe; it scales to fill the chip on hover for a subtle wash. */
+  .section-jump a.sj-link{position:relative;display:inline-flex;align-items:center;
+    padding:0.42rem 0.85rem 0.42rem 1rem;border-radius:8px;
+    text-decoration:none;font-size:0.85rem;font-weight:450;
+    color:color-mix(in srgb, var(--ink) 92%, transparent);
+    background:transparent;
+    border:1px solid color-mix(in srgb, var(--line) 60%, transparent);
+    transition:transform 180ms cubic-bezier(0.4,0,0.2,1),
+               border-color 180ms ease, color 180ms ease,
+               background 180ms ease, box-shadow 180ms ease;
+    overflow:hidden}
+  .section-jump a.sj-link::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+    background:var(--mute);
+    transition:width 220ms cubic-bezier(0.4,0,0.2,1), opacity 180ms ease;
+    opacity:0.85}
+  .section-jump a.sj-link:hover{
+    color:var(--ink);
+    transform:translateY(-1px);
+    border-color:color-mix(in srgb, var(--accent, var(--cyan)) 55%, var(--line));
+    background:color-mix(in srgb, var(--accent, var(--cyan)) 10%, transparent);
+    box-shadow:0 2px 8px color-mix(in srgb, var(--accent, var(--cyan)) 18%, transparent)}
+  .section-jump a.sj-link:hover::before{width:100%;opacity:0.14}
+  .section-jump a.sj-link:active{transform:translateY(0)}
+  /* Set the per-chip accent custom property so the generic --accent-driven
+     hover/border rules above pick it up. The .sj-dot span is no longer rendered
+     (left-bar replaces it) but kept in markup for backward compat. */
+  .section-jump a.sj-link .sj-dot{display:none}
+  .section-jump a.sj-link.s-b{--accent:var(--blue)}
+  .section-jump a.sj-link.s-y{--accent:var(--yellow)}
+  .section-jump a.sj-link.s-p{--accent:var(--pink)}
+  .section-jump a.sj-link.s-v{--accent:var(--violet)}
+  .section-jump a.sj-link.s-g{--accent:var(--green)}
+  .section-jump a.sj-link.s-c{--accent:var(--cyan)}
+  .section-jump a.sj-link.s-b::before{background:var(--blue)}
+  .section-jump a.sj-link.s-y::before{background:var(--yellow)}
+  .section-jump a.sj-link.s-p::before{background:var(--pink)}
+  .section-jump a.sj-link.s-v::before{background:var(--violet)}
+  .section-jump a.sj-link.s-g::before{background:var(--green)}
+  .section-jump a.sj-link.s-c::before{background:var(--cyan)}
   @media (max-width:520px){
-    .section-jump{padding:0.65rem 0.7rem;
+    .section-jump{padding:0.7rem 0.8rem;
       flex-wrap:nowrap;overflow-x:auto;
       scrollbar-width:thin;-webkit-overflow-scrolling:touch;
-      /* Right-edge fade — affordance that more chips are off-screen.
-         Pure CSS mask, scrolls with content so the fade always shows
-         the trailing edge of the visible region. */
+      /* Right-edge fade — affordance that more chips are off-screen. */
       mask-image:linear-gradient(to right, #000 0, #000 calc(100% - 28px), transparent);
       -webkit-mask-image:linear-gradient(to right, #000 0, #000 calc(100% - 28px), transparent)}
     .section-jump .sj-label{display:none}
-    .section-jump a.sj-link{font-size:0.78rem;padding:0.25rem 0.55rem;
+    .section-jump a.sj-link{font-size:0.78rem;padding:0.32rem 0.65rem 0.32rem 0.85rem;
       flex-shrink:0;white-space:nowrap}
   }
   .start-here-rail{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 2.4rem}
@@ -236,7 +258,25 @@
     border-left:3px solid var(--line);border-bottom:1px solid var(--line);
     display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
     font-size:1.18rem;font-weight:600;color:#fff;letter-spacing:-0.005em;
-    text-transform:none;scroll-margin-top:1.2rem}
+    text-transform:none;scroll-margin-top:1.2rem;
+    /* Click target for collapse/expand — pointer + subtle hover feedback. */
+    cursor:pointer;user-select:none;
+    transition:border-bottom-color 180ms ease, padding-left 180ms ease}
+  .sec:hover{border-bottom-color:color-mix(in srgb, currentColor 50%, var(--line))}
+  /* Chevron prefix — rotates when collapsed. Sits inside the heading text
+     just before the section name; renders via ::before so the section-index
+     builder regex still matches the bare text node. */
+  .sec::before{
+    content:"";display:inline-block;width:8px;height:8px;margin-right:0.55rem;
+    border-right:2px solid currentColor;border-bottom:2px solid currentColor;
+    transform:rotate(45deg) translateY(-2px);
+    transition:transform 220ms cubic-bezier(0.4,0,0.2,1);
+    opacity:0.7}
+  .sec.is-collapsed::before{transform:rotate(-45deg) translateY(0)}
+  .sec.is-collapsed{margin-bottom:0.4rem;border-bottom-color:transparent}
+  /* Collapsed state — hide the next .grid sibling and the section-end
+     spacing. Use display:none so the page actually shrinks. */
+  .sec.is-collapsed + .grid{display:none}
   .sec .sec-count{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;
     color:var(--mute);font-family:ui-monospace,Menlo,monospace;font-weight:500;
     white-space:nowrap}
@@ -3532,6 +3572,48 @@
           sec.appendChild(stats);
         }
       }
+      // Make section header click-toggle its grid. State persisted per-section
+      // in localStorage under "mvnb.collapsedSections.v1" so visitors don't
+      // re-collapse on every reload.
+      sec.setAttribute('role', 'button');
+      sec.setAttribute('tabindex', '0');
+      sec.setAttribute('aria-expanded', 'true');
+      var collapsed = (function(){
+        try {
+          var raw = localStorage.getItem('mvnb.collapsedSections.v1');
+          if(!raw) return {};
+          return JSON.parse(raw) || {};
+        } catch(e) { return {}; }
+      })();
+      if(collapsed[sec.id]){
+        sec.classList.add('is-collapsed');
+        sec.setAttribute('aria-expanded', 'false');
+      }
+      (function(s){
+        function toggle(){
+          var nowCollapsed = !s.classList.contains('is-collapsed');
+          s.classList.toggle('is-collapsed', nowCollapsed);
+          s.setAttribute('aria-expanded', nowCollapsed ? 'false' : 'true');
+          try {
+            var raw = localStorage.getItem('mvnb.collapsedSections.v1');
+            var state = raw ? (JSON.parse(raw) || {}) : {};
+            if(nowCollapsed) state[s.id] = 1; else delete state[s.id];
+            localStorage.setItem('mvnb.collapsedSections.v1', JSON.stringify(state));
+          } catch(e) {}
+        }
+        s.addEventListener('click', function(ev){
+          // Only toggle if the click wasn't on a child link/button (defensive,
+          // though .sec children today are all spans).
+          if(ev.target.closest('a, button')) return;
+          toggle();
+        });
+        s.addEventListener('keydown', function(ev){
+          if(ev.key === 'Enter' || ev.key === ' '){
+            ev.preventDefault();
+            toggle();
+          }
+        });
+      })(sec);
     }
   }
   function makeRing(sec, cards){
