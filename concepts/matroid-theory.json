@@ -10,7 +10,10 @@
       "prereqs": [
         "algebraic-structures"
       ],
-      "blurb": "Whitney's axioms: a non-empty hereditary family $\\mathcal{I} \\subseteq 2^E$ on a finite set, plus the exchange axiom (I3). Hereditary alone gives a simplicial complex; (I3) is what makes the family a matroid."
+      "blurb": "Whitney's axioms: a non-empty hereditary family $\\mathcal{I} \\subseteq 2^E$ on a finite set, plus the exchange axiom (I3). Hereditary alone gives a simplicial complex; (I3) is what makes the family a matroid.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "matroid-bases-rank",

@@ -24,7 +24,10 @@
       "prereqs": [
         "dirichlet-series-basics"
       ],
-      "blurb": "Multiplicative coefficients factor series over primes and encode arithmetic independence."
+      "blurb": "Multiplicative coefficients factor series over primes and encode arithmetic independence.",
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "dirichlet-characters-lseries",
@@ -34,7 +37,10 @@
         "euler-product-structure",
         "legendre-symbol"
       ],
-      "blurb": "Characters twist Euler products and prove arithmetic distribution results."
+      "blurb": "Characters twist Euler products and prove arithmetic distribution results.",
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "mellin-transform-dirichlet",
@@ -58,7 +64,10 @@
         "mellin-transform-dirichlet",
         "residue-theorem"
       ],
-      "blurb": "A contour integral of $D(s) x^s/s$ recovers the summatory function $\\sum_{n\\le x} a_n$ from the Dirichlet series, turning coefficient asymptotics into residue calculations."
+      "blurb": "A contour integral of $D(s) x^s/s$ recovers the summatory function $\\sum_{n\\le x} a_n$ from the Dirichlet series, turning coefficient asymptotics into residue calculations.",
+      "tags": [
+        "duality"
+      ]
     }
   ]
 }

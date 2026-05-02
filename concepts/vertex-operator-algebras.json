@@ -21,7 +21,8 @@
       "prereqs": [
         "voa-vertex-operators"
       ],
-      "blurb": "A vertex operator algebra is $(V, Y, \\mathbf{1}, \\omega)$ satisfying vacuum ($Y(\\mathbf{1}, z) = \\mathrm{id}$), translation ($[T, Y(a,z)] = \\partial_z Y(a,z)$), locality, and the Borcherds–Jacobi identity that ties operator-product expansion to a single equation; all four are equivalent characterisations under mild hypotheses."
+      "blurb": "A vertex operator algebra is $(V, Y, \\mathbf{1}, \\omega)$ satisfying vacuum ($Y(\\mathbf{1}, z) = \\mathrm{id}$), translation ($[T, Y(a,z)] = \\partial_z Y(a,z)$), locality, and the Borcherds–Jacobi identity that ties operator-product expansion to a single equation; all four are equivalent characterisations under mild hypotheses.",
+      "tags": ["foundation"]
     },
     {
       "id": "voa-virasoro",

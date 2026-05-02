@@ -3,6 +3,111 @@
 // Source of truth: widgets/<slug>/schema.json, README.md, optional example.json.
 window.__MVWidgets = [
   {
+    "slug": "aca-bergman-kernel-disk",
+    "family": "aca-bergman-kernel-disk",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "exploratory",
+    "title": "aca-bergman-kernel-disk widget params",
+    "description": "Bespoke widget for the §11 Bergman kernel figure on the advanced-complex-analysis topic — click inside the unit disk to set the source point w; the SVG visualizes |K(z,w)|^2 = 1/(pi*|1 - conj(w) z|^4) as a heatmap, with a readout of the Bergman-metric ds^2 at w.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the advanced-complex-analysis topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "aca-bloch-disk",
+    "family": "aca-bloch-disk",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "illustrative",
+    "title": "aca-bloch-disk widget params",
+    "description": "Bespoke widget for the §9 Bloch theorem figure on the advanced-complex-analysis topic — drag a candidate radius slider over a holomorphic image of the unit disk and watch the largest univalent (one-sheeted) sub-disk light up, with a readout comparing to Bloch's universal lower bound B >= sqrt(3)/4.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the advanced-complex-analysis topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "aca-hartogs-shell",
+    "family": "aca-hartogs-shell",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "illustrative",
+    "title": "aca-hartogs-shell widget params",
+    "description": "Bespoke widget for the §13 several-complex-variables figure on the advanced-complex-analysis topic — a 2D schematic of the Hartogs figure (an n=2 polydisk minus an inner sub-polydisk), with a slider for the inner-shell radius; an overlay shades 'forced extension region' to illustrate that any holomorphic f on the shell extends to the full polydisk.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the advanced-complex-analysis topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "aca-nevanlinna-characteristic",
+    "family": "aca-nevanlinna-characteristic",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "illustrative",
+    "title": "aca-nevanlinna-characteristic widget params",
+    "description": "Bespoke widget for the §10 Nevanlinna theory figure on the advanced-complex-analysis topic — slide an order parameter rho controlling the growth of an entire / meromorphic test function and watch the Nevanlinna characteristic T(r,f) split into stacked counting (N) and proximity (m) bars, with a defect readout.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the advanced-complex-analysis topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "aca-quasiconformal-warp",
+    "family": "aca-quasiconformal-warp",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "exploratory",
+    "title": "aca-quasiconformal-warp widget params",
+    "description": "Bespoke widget for the §12 quasiconformal-maps figure on the advanced-complex-analysis topic — sliders for the Beltrami coefficient mu = mu_re + i*mu_im warp a circle into an ellipse and a square grid into a sheared lattice, with a readout for the dilatation K = (1+|mu|)/(1-|mu|).",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke widget for the advanced-complex-analysis topic.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "algebraic-curves-canonical-embedding-scrubber",
     "family": "algebraic-curves-canonical-embedding-scrubber",
     "dimension": "2d",

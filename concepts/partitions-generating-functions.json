@@ -10,7 +10,10 @@
       "prereqs": [
         "algebraic-structures"
       ],
-      "blurb": "p(n) counts the unordered ways to write n as a sum of positive integers; the first values 1,2,3,5,7,11,15,22,30,42 already hint at subtle arithmetic."
+      "blurb": "p(n) counts the unordered ways to write n as a sum of positive integers; the first values 1,2,3,5,7,11,15,22,30,42 already hint at subtle arithmetic.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "euler-partition-product",
@@ -19,7 +22,10 @@
       "prereqs": [
         "partition-function-pn"
       ],
-      "blurb": "Expanding ∏ 1/(1−q^n) as a geometric series in each factor gives Σ p(n) q^n; one product encodes every partition count at once."
+      "blurb": "Expanding ∏ 1/(1−q^n) as a geometric series in each factor gives Σ p(n) q^n; one product encodes every partition count at once.",
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "pentagonal-number-theorem",
@@ -51,7 +57,10 @@
         "modular-form-definition",
         "jacobi-triple-product"
       ],
-      "blurb": "η(τ)=q^{1/24}∏(1−q^n) is a weight-1/2 modular form; its 24th power is the discriminant Δ, tying partition combinatorics to the modular world."
+      "blurb": "η(τ)=q^{1/24}∏(1−q^n) is a weight-1/2 modular form; its 24th power is the discriminant Δ, tying partition combinatorics to the modular world.",
+      "tags": [
+        "duality"
+      ]
     }
   ]
 }

@@ -24,7 +24,10 @@
         "hf-laplace-equation",
         "cauchy-theorem"
       ],
-      "blurb": "A continuous $u$ is harmonic iff for every closed ball $\\overline{B(x,r)}\\subset\\Omega$ the value $u(x)$ equals the average over the sphere (and equivalently over the ball). The MVP characterises harmonicity and forces $u\\in C^\\infty$."
+      "blurb": "A continuous $u$ is harmonic iff for every closed ball $\\overline{B(x,r)}\\subset\\Omega$ the value $u(x)$ equals the average over the sphere (and equivalently over the ball). The MVP characterises harmonicity and forces $u\\in C^\\infty$.",
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "hf-maximum-principle",
@@ -33,7 +36,10 @@
       "prereqs": [
         "hf-mean-value-property"
       ],
-      "blurb": "Weak form: a harmonic $u$ on a bounded $\\Omega$ attains $\\sup u$ on $\\partial\\Omega$. Strong form: an interior maximum forces $u$ to be constant on the connected component. Together they yield uniqueness for the Dirichlet problem."
+      "blurb": "Weak form: a harmonic $u$ on a bounded $\\Omega$ attains $\\sup u$ on $\\partial\\Omega$. Strong form: an interior maximum forces $u$ to be constant on the connected component. Together they yield uniqueness for the Dirichlet problem.",
+      "tags": [
+        "compactness"
+      ]
     },
     {
       "id": "hf-poisson-kernel",
@@ -43,7 +49,10 @@
         "hf-mean-value-property",
         "lebesgue-measure"
       ],
-      "blurb": "The disk's Dirichlet problem has the explicit solution $u(re^{i\\theta}) = \\tfrac{1}{2\\pi}\\int_0^{2\\pi} P_r(\\theta-\\varphi)\\,g(\\varphi)\\,d\\varphi$ with $P_r(\\theta) = \\tfrac{1-r^2}{1-2r\\cos\\theta+r^2}$. Boundary values are recovered $L^p$-a.e. by Fatou's theorem."
+      "blurb": "The disk's Dirichlet problem has the explicit solution $u(re^{i\\theta}) = \\tfrac{1}{2\\pi}\\int_0^{2\\pi} P_r(\\theta-\\varphi)\\,g(\\varphi)\\,d\\varphi$ with $P_r(\\theta) = \\tfrac{1-r^2}{1-2r\\cos\\theta+r^2}$. Boundary values are recovered $L^p$-a.e. by Fatou's theorem.",
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "hf-harnack-inequality",

@@ -25,7 +25,10 @@
         "expectation-moments",
         "martingales"
       ],
-      "blurb": "An adapted $L^1$ process $(M_n)$ is a martingale when $\\mathbb{E}[M_{n+1}\\mid\\mathcal{F}_n]=M_n$; mean-zero random walk and Doob martingales $\\mathbb{E}[Z\\mid\\mathcal{F}_n]$ are the canonical examples."
+      "blurb": "An adapted $L^1$ process $(M_n)$ is a martingale when $\\mathbb{E}[M_{n+1}\\mid\\mathcal{F}_n]=M_n$; mean-zero random walk and Doob martingales $\\mathbb{E}[Z\\mid\\mathcal{F}_n]$ are the canonical examples.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "sp-optional-stopping",
@@ -62,7 +65,10 @@
         "convergence-rv",
         "martingales"
       ],
-      "blurb": "If $\\sup_n\\mathbb{E}|M_n|<\\infty$ then $M_n\\to M_\\infty$ a.s. for some $M_\\infty\\in L^1$ (Doob); uniform integrability upgrades the convergence to $L^1$, while $L^1$-bounded-without-UI examples like the doubling product $\\prod X_i$ collapse to $0$ even with $\\mathbb{E}[M_n]=1$."
+      "blurb": "If $\\sup_n\\mathbb{E}|M_n|<\\infty$ then $M_n\\to M_\\infty$ a.s. for some $M_\\infty\\in L^1$ (Doob); uniform integrability upgrades the convergence to $L^1$, while $L^1$-bounded-without-UI examples like the doubling product $\\prod X_i$ collapse to $0$ even with $\\mathbb{E}[M_n]=1$.",
+      "tags": [
+        "completion"
+      ]
     },
     {
       "id": "sp-continuous-martingales",
@@ -72,7 +78,10 @@
         "sp-martingale-convergence",
         "brownian-motion"
       ],
-      "blurb": "Brownian motion $W_t$ is the canonical continuous martingale, with $W_t^2-t$ a martingale and quadratic variation $[W]_t=t$ a.s.; Burkholder–Davis–Gundy ties $L^p$ norms of $\\sup_{s\\le t}M_s$ to $[M]_t$, setting up Itô calculus."
+      "blurb": "Brownian motion $W_t$ is the canonical continuous martingale, with $W_t^2-t$ a martingale and quadratic variation $[W]_t=t$ a.s.; Burkholder–Davis–Gundy ties $L^p$ norms of $\\sup_{s\\le t}M_s$ to $[M]_t$, setting up Itô calculus.",
+      "tags": [
+        "completion"
+      ]
     }
   ]
 }

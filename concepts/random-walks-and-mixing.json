@@ -24,14 +24,16 @@
       "title": "Mixing time",
       "anchor": "mixing",
       "prereqs": ["rw-stationary-distribution"],
-      "blurb": "$d(t)=\\max_x \\|P^t(x,\\cdot)-\\pi\\|_{\\mathrm{TV}}$ measures distance to stationarity; the mixing time $t_{\\mathrm{mix}}(\\varepsilon)=\\min\\{t:d(t)\\le\\varepsilon\\}$ is the standard quantitative cost of forgetting the start."
+      "blurb": "$d(t)=\\max_x \\|P^t(x,\\cdot)-\\pi\\|_{\\mathrm{TV}}$ measures distance to stationarity; the mixing time $t_{\\mathrm{mix}}(\\varepsilon)=\\min\\{t:d(t)\\le\\varepsilon\\}$ is the standard quantitative cost of forgetting the start.",
+      "tags": ["completion"]
     },
     {
       "id": "rw-spectral-gap",
       "title": "Spectral gap and rapid mixing",
       "anchor": "spectral",
       "prereqs": ["rw-mixing-time", "adjacency-and-laplacian"],
-      "blurb": "For reversible chains the second eigenvalue $\\lambda_2$ of $P$ controls mixing: $t_{\\mathrm{mix}}(\\varepsilon)\\le \\frac{1}{1-\\lambda_2}\\log\\frac{1}{\\pi_{\\min}\\varepsilon}$ (and a matching lower bound up to constants)."
+      "blurb": "For reversible chains the second eigenvalue $\\lambda_2$ of $P$ controls mixing: $t_{\\mathrm{mix}}(\\varepsilon)\\le \\frac{1}{1-\\lambda_2}\\log\\frac{1}{\\pi_{\\min}\\varepsilon}$ (and a matching lower bound up to constants).",
+      "tags": ["duality"]
     },
     {
       "id": "rw-coupling-method",

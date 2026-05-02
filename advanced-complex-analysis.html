@@ -247,6 +247,11 @@ function drawNode(svg, x, y, label, opts={}){
   <a href="#phragmen-lindelof">6&nbsp;Phragmén-Lindelöf</a>
   <a href="#hadamard-three-circles">7&nbsp;Three circles</a>
   <a href="#hardy-spaces">8&nbsp;Hardy</a>
+  <a href="#bloch">9&nbsp;Bloch</a>
+  <a href="#nevanlinna">10&nbsp;Nevanlinna</a>
+  <a href="#bergman">11&nbsp;Bergman</a>
+  <a href="#quasiconformal">12&nbsp;Quasiconformal</a>
+  <a href="#scv">13&nbsp;Several&nbsp;variables</a>
 </nav>
 <!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
 
@@ -256,7 +261,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <section class="hero">
   <h1>Advanced complex analysis</h1>
-  <p class="sub">Picard's theorems, Weierstrass and Mittag-Leffler construction, Phragmén-Lindelöf, Hadamard three-circles, and Hardy-space boundary behavior — the graduate sequel to <a href="./complex-analysis.html">complex analysis</a>.</p>
+  <p class="sub">Picard's theorems, Weierstrass and Mittag-Leffler construction, Phragmén-Lindelöf, Hadamard three-circles, Hardy-space boundary behavior, Bloch and Nevanlinna value distribution, Bergman kernels, quasiconformal maps with the Beltrami equation, and several complex variables — the graduate sequel to <a href="./complex-analysis.html">complex analysis</a>.</p>
 </section>
 
 <section id="overview">
@@ -312,6 +317,7 @@ function drawNode(svg, x, y, label, opts={}){
 <!-- callback-auto-end --><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./advanced-complex-analysis.html#bloch">Advanced complex analysis</a> · Bloch's theorem</div>
     <div><a href="./advanced-complex-analysis.html#picard-great">Advanced complex analysis</a> · Great Picard theorem</div>
     <div><a href="./advanced-complex-analysis.html#weierstrass-factorization">Advanced complex analysis</a> · Weierstrass factorization</div>
 </aside>
@@ -347,7 +353,12 @@ function drawNode(svg, x, y, label, opts={}){
     <li><a href="./complex-analysis.html#schwarz-lemma">Schwarz lemma</a></li>
   </ul>
 </aside>
-<!-- callback-auto-end --><div class="quiz" data-concept="aca-picard-great"></div>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./advanced-complex-analysis.html#nevanlinna">Advanced complex analysis</a> · Nevanlinna theory</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="aca-picard-great"></div>
 </section>
 
 <section id="weierstrass-factorization">
@@ -504,7 +515,12 @@ $$M(r_2)^{\log(r_3/r_1)} \;\le\; M(r_1)^{\log(r_3/r_2)}\,M(r_3)^{\log(r_2/r_1)}.
     <li><a href="./complex-analysis.html#maximum-modulus">Maximum modulus principle</a></li>
   </ul>
 </aside>
-<!-- callback-auto-end --><div class="quiz" data-concept="aca-hadamard-three-circles"></div>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./advanced-complex-analysis.html#nevanlinna">Advanced complex analysis</a> · Nevanlinna theory</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="aca-hadamard-three-circles"></div>
 </section>
 
 <section id="hardy-spaces">
@@ -547,7 +563,613 @@ $B$ and $S$ are <em>inner functions</em>: holomorphic on $\mathbb{D}$ with $|f^*
     <li><a href="./measure-theory.html#lp">Lᵖ spaces</a></li>
   </ul>
 </aside>
-<!-- callback-auto-end --><div class="quiz" data-concept="aca-hardy-spaces"></div>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./advanced-complex-analysis.html#bergman">Advanced complex analysis</a> · Bergman kernels</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="aca-hardy-spaces"></div>
+</section>
+
+<section id="bloch">
+<h2>9. Bloch's theorem</h2>
+<p>Picard's theorems are <em>qualitative</em>: a non-constant entire map omits at most one value, an essential singularity attains every value (with one exception) infinitely often. <strong>Bloch's theorem</strong> upgrades the value-distribution thread to a <em>quantitative geometric</em> statement on the disk: every normalized holomorphic function contains a univalent disk of universal radius in its image.</p>
+
+<div class="note"><strong>Bloch's theorem.</strong> Let $f:\mathbb{D}\to\mathbb{C}$ be holomorphic with $f(0)=0$ and $f'(0)=1$. Then $f(\mathbb{D})$ contains an open disk on which $f$ is one-to-one (a univalent sub-disk), of radius at least the Bloch constant $B>0$. The known lower bound is $B\ge \sqrt{3}/4 \approx 0.4330$; the conjectured exact value (Ahlfors-Grunsky) is $B \approx 0.4719$.</div>
+
+<p>Two clauses of the conclusion are independent and worth separating:</p>
+
+<ul>
+<li><strong>The image $f(\mathbb{D})$ is large.</strong> The Landau constant $L$ is the analogous universal lower bound on the radius of <em>any</em> open disk in $f(\mathbb{D})$ (not necessarily univalent). $L\ge B$, with the sharp lower bound $L\ge 1/2$.</li>
+<li><strong>$f$ is univalent on a sub-disk.</strong> Bloch's actual statement is the stronger: there is a sub-disk of $\mathbb{D}$ on which $f$ is one-to-one, mapping it bijectively onto a disk of radius $\ge B$ in the image. The univalent sub-disk is what makes the theorem nontrivial — without it, an injective sub-region of the image is not guaranteed.</li>
+</ul>
+
+<h3>Why this is in the value-distribution thread</h3>
+<p>Picard says that an unbounded entire function cannot omit two values; effectively, the image must be 'almost all' of $\mathbb{C}$. Bloch on the disk says that even with the unit-disk domain restriction, the image must contain at least a disk of universal radius — the holomorphic function is forced to 'cover' a chunk of the plane. The same theme: holomorphic constraints + a normalization make the image geometrically large. Bloch is the disk-side, quantitative cousin of Picard.</p>
+
+<p>The Bloch constant has a beautiful extremal characterization. Any holomorphic $f$ with $f(0)=0, f'(0)=1$ defines a Riemann surface $f(\mathbb{D})$ (with branch points where $f'=0$), and the question is: what is the largest disk that fits as a univalent sheet of this surface? The Bloch lower bound $\sqrt{3}/4$ was proved by Ahlfors (1938) using the Schwarz-Pick lemma in the metric of constant negative curvature; the upper bound $0.4719$ comes from a candidate extremal function with a triangular symmetry.</p>
+
+<h3>The Schottky-Landau-Bloch chain</h3>
+<p>A family of related universal bounds organizes the quantitative side of value distribution. <strong>Schottky's theorem</strong>: any holomorphic $f:\mathbb{D}\to\mathbb{C}\setminus\{0,1\}$ has $|f(z)|$ bounded above by a universal function of $|z|$ and $|f(0)|$, even though $f$ depends on infinitely many parameters. Schottky implies <strong>Montel's theorem</strong>: holomorphic functions $\mathbb{D}\to\mathbb{C}\setminus\{0,1\}$ form a normal family. Both feed into the modern proof of Picard's theorems via normal families. Bloch sits at the geometric end of the same arsenal — a universal lower bound on image size rather than an upper bound on $|f|$.</p>
+
+<p>Quantitative Picard (Bloch) and qualitative Picard (omitting two values) are now both consequences of the same circle of ideas: normalization + holomorphy + the modular function $\lambda$ on $\mathbb{H}$ produce universal bounds.</p>
+
+<div class="widget" id="w-bloch-disk">
+  <div class="hd"><div class="ttl">Bloch&#39;s universal disk</div><div class="hint">slide the candidate radius; watch the bound vs $\sqrt{3}/4$</div></div>
+  <div class="row">
+    <label for="bloch-r">candidate radius $r$ in $f(\mathbb{D})$:</label>
+    <input type="range" id="bloch-r" min="0.05" max="0.95" step="0.01" value="0.43" />
+    <span class="readout" id="bloch-r-out" style="min-width:3em;display:inline-block">0.43</span>
+  </div>
+  <svg id="bloch-svg" viewBox="0 0 620 260" width="620" height="260"><title>Bloch univalent sub-disk radius vs universal lower bound</title></svg>
+  <div class="readout" id="bloch-out"></div>
+</div><script>
+(function(){
+  const svg = $('#bloch-svg'), r = $('#bloch-r'), rOut = $('#bloch-r-out'), out = $('#bloch-out');
+  const W = 620, H = 260;
+  const B = Math.sqrt(3) / 4;
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG("rect",{x:0,y:0,width:W,height:H,fill:"#0b0f16"}));
+    const cR = +r.value;
+    rOut.textContent = cR.toFixed(2);
+    // axis: log-radius bar
+    const x0 = 60, x1 = W - 30, yc = 130;
+    svg.appendChild(SVG("line",{x1:x0,y1:yc,x2:x1,y2:yc,stroke:"var(--mute)","stroke-width":1.2}));
+    function xOf(v){ return x0 + v * (x1 - x0); }
+    // tick marks
+    for(let v = 0; v <= 1.001; v += 0.1){
+      const xx = xOf(v);
+      svg.appendChild(SVG("line",{x1:xx,y1:yc-5,x2:xx,y2:yc+5,stroke:"var(--mute)"}));
+      const t = SVG("text",{x:xx,y:yc+22,"text-anchor":"middle","font-size":11,fill:"var(--mute)"});
+      t.textContent = v.toFixed(1);
+      svg.appendChild(t);
+    }
+    // Bloch lower bound marker (cyan)
+    const xb = xOf(B);
+    svg.appendChild(SVG("line",{x1:xb,y1:yc-50,x2:xb,y2:yc+50,stroke:"var(--cyan)","stroke-width":2,"stroke-dasharray":"4 3"}));
+    const lb = SVG("text",{x:xb,y:yc-60,"text-anchor":"middle","font-size":12,fill:"var(--cyan)","font-weight":600});
+    lb.textContent = "B \u2265 \u221A3/4 \u2248 0.433";
+    svg.appendChild(lb);
+    // candidate marker
+    const xa = xOf(cR);
+    const above = cR >= B;
+    const col = above ? "var(--green)" : "var(--pink)";
+    svg.appendChild(SVG("circle",{cx:xa,cy:yc,r:8,fill:col,stroke:"var(--ink)","stroke-width":1.5}));
+    const cand = SVG("text",{x:xa,y:yc-14,"text-anchor":"middle","font-size":12,fill:col,"font-weight":600});
+    cand.textContent = "r = " + cR.toFixed(2);
+    svg.appendChild(cand);
+    // schematic: f(D) silhouette with candidate sub-disk
+    const cx = 145, cy = 200, R = 38;
+    svg.appendChild(SVG("circle",{cx:cx,cy:cy,r:R,fill:"none",stroke:"var(--violet)","stroke-width":1.3,"stroke-dasharray":"3 3"}));
+    const lab = SVG("text",{x:cx,y:cy+R+16,"text-anchor":"middle","font-size":11,fill:"var(--violet)"});
+    lab.textContent = "image f(\u{1D53B})";
+    svg.appendChild(lab);
+    svg.appendChild(SVG("circle",{cx:cx-6,cy:cy-3,r:R*cR,fill:col,opacity:0.30,stroke:col,"stroke-width":1.3}));
+    const lab2 = SVG("text",{x:cx-6,y:cy-3,"text-anchor":"middle","font-size":11,fill:"var(--ink)"});
+    lab2.textContent = "univalent sub-disk";
+    svg.appendChild(lab2);
+    // header
+    const hd = SVG("text",{x:x0,y:30,"font-size":13,fill:"var(--ink)"});
+    hd.textContent = "Univalent sub-disk radius in f(\u{1D53B}) for normalized f(0)=0, f\u2032(0)=1";
+    svg.appendChild(hd);
+    // verdict
+    out.textContent = above
+      ? "r = " + cR.toFixed(2) + "  \u2265  \u221A3/4  \u2248  0.433  \u2192  consistent with Bloch's bound"
+      : "r = " + cR.toFixed(2) + "  <  \u221A3/4  \u2248  0.433  \u2192  some normalized f reaches at least r = \u221A3/4 in its image, more than this candidate";
+  }
+  r.addEventListener("input", render);
+  render();
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./complex-analysis.html#normal-families">Normal families (Montel)</a></li>
+    <li><a href="./complex-analysis.html#schwarz-lemma">Schwarz lemma</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="aca-bloch-theorem"></div>
+</section>
+
+<section id="nevanlinna">
+<h2>10. Nevanlinna theory</h2>
+<p>Picard's theorems are sharp <em>in count</em>: a meromorphic function on $\mathbb{C}$ omits at most two values from $\hat{\mathbb{C}}$. But Picard says nothing about which values are <em>almost</em> omitted, or how the rate at which $f$ takes a value $a$ compares to the rate at which it grows. <strong>Nevanlinna theory</strong> (Rolf Nevanlinna, 1925) supplies the missing quantitative theory of value distribution for meromorphic functions.</p>
+
+<h3>The characteristic function $T(r,f)$</h3>
+<p>The central object is the <strong>Nevanlinna characteristic</strong></p>
+<p>$$T(r,f) \;=\; m(r,\infty) \;+\; N(r,\infty),$$</p>
+<p>a sum of two pieces:</p>
+<ul>
+<li><span class="pill" style="color:var(--cyan)">proximity</span> $m(r,a) = \frac{1}{2\pi}\int_0^{2\pi} \log^+\bigl|\frac{1}{f(re^{i\theta}) - a}\bigr|\,d\theta$ — the average of $\log^+ \frac{1}{|f-a|}$ on the circle $|z|=r$, measuring how often and how closely $f$ approaches $a$.</li>
+<li><span class="pill" style="color:var(--yellow)">counting</span> $N(r,a) = \int_0^r \frac{n(t,a) - n(0,a)}{t}\,dt + n(0,a)\log r$, the integrated number of times $f$ takes the value $a$ in $\{|z|\le t\}$ (with multiplicity), where $n(t,a)$ is the unweighted count.</li>
+</ul>
+<p>For $a = \infty$ the proximity uses $\log^+|f|$ instead of $\log^+ 1/|f-a|$; the counting counts poles. The convention $\log^+ x = \max(\log x, 0)$ keeps the integrand nonnegative.</p>
+
+<h3>First main theorem</h3>
+<div class="note"><strong>First main theorem.</strong> For every $a \in \hat{\mathbb{C}}$ and every meromorphic $f$,
+$$m(r,a) + N(r,a) \;=\; T(r,f) + O(1)\quad\text{as } r \to \infty.$$
+</div>
+<p>This is a remarkable conservation law: the total 'mass' $m + N$ for any value $a$ equals $T(r,f) + O(1)$, independent of $a$. In particular, the <strong>order</strong> $\rho(f) = \limsup_{r\to\infty}\log T(r,f)/\log r$ is intrinsic to $f$ and measures growth on a logarithmic scale.</p>
+
+<h3>Second main theorem and the defect relation</h3>
+<p>Picard says $f$ omits at most two values. Nevanlinna's <strong>second main theorem</strong> upgrades this to a quantitative inequality involving any finite set of distinct values $a_1,\ldots,a_q\in\hat{\mathbb{C}}$:</p>
+<p>$$(q-2)\,T(r,f) \;\le\; \sum_{j=1}^q N_1(r,a_j) \;+\; S(r,f),$$</p>
+<p>where $N_1$ counts $a_j$-points without multiplicity and $S(r,f)$ is a small remainder ($S(r,f) = O(\log T(r,f) + \log r)$ outside an exceptional set of finite Lebesgue measure). Defining the <strong>defect</strong> $\delta(a) = \liminf_{r\to\infty} m(r,a)/T(r,f)$ — the asymptotic share of the characteristic concentrated in the proximity term at $a$ — the second main theorem gives the <strong>defect relation</strong>:</p>
+<div class="note"><strong>Defect relation.</strong> $\sum_{a\in\hat{\mathbb{C}}} \delta(a) \;\le\; 2$, with summation over all values $a$ at which $\delta$ is nonzero.</div>
+
+<h3>Picard recovered as a corollary</h3>
+<p>If $f$ omits $a$, then $N(r,a) = 0$, and the first main theorem forces $m(r,a) = T(r,f) + O(1)$, so $\delta(a) = 1$. The defect relation $\sum \delta(a) \le 2$ then says at most two values can have $\delta(a) = 1$ — at most two values can be omitted by a meromorphic function. For entire $f$ (no poles), $\delta(\infty) = 1$ already, leaving at most one more omitted value: little Picard.</p>
+
+<p>The same defect relation gives finer information than Picard. For example, for $f(z) = e^z$ the defects are $\delta(0) = 1, \delta(\infty) = 1$, summing exactly to $2$ — the bound is saturated. For $f = \wp$ (the Weierstrass $\wp$-function), no value has $\delta(a) = 1$, but the values where $\wp$ takes critical points have $\delta(a) = 1/2$, and the four such values sum to $2$. The defect relation organizes all these examples into one principle.</p>
+
+<div class="widget" id="w-nevanlinna">
+  <div class="hd"><div class="ttl">Nevanlinna characteristic decomposition</div><div class="hint">slide the order $\rho$; watch $T = m + N$ split</div></div>
+  <div class="row">
+    <label for="nev-rho">order $\rho$ of test function:</label>
+    <input type="range" id="nev-rho" min="0" max="3" step="0.05" value="1" />
+    <span class="readout" id="nev-rho-out" style="min-width:2.4em;display:inline-block">1.00</span>
+  </div>
+  <div class="row">
+    <label for="nev-r">radius $r$:</label>
+    <input type="range" id="nev-r" min="1" max="40" step="0.5" value="10" />
+    <span class="readout" id="nev-r-out" style="min-width:2.4em;display:inline-block">10</span>
+  </div>
+  <svg id="nev-svg" viewBox="0 0 620 260" width="620" height="260"><title>Nevanlinna characteristic T(r,f) as stacked m + N</title></svg>
+  <div class="readout" id="nev-out"></div>
+</div><script>
+(function(){
+  const svg = $('#nev-svg'), rho = $('#nev-rho'), rhoOut = $('#nev-rho-out'),
+        rIn = $('#nev-r'), rOut = $('#nev-r-out'), out = $('#nev-out');
+  const W = 620, H = 260;
+  // Toy model: T(r) ~ r^rho.  Split T = m + N with shares depending on rho:
+  //   rho ~ 1 (e^z-like):  m dominates at infinity (defect at 0 and infinity).
+  //   rho large (polynomial-like growth in counting): N dominates.
+  // We use a smooth interpolation.
+  function shares(r){
+    const p = +rho.value;
+    // share of N: small for low rho, tends to 1 for very high rho.
+    const sN = 1 - Math.exp(-Math.max(0, p - 0.4) * 1.4);
+    return { sN, sM: 1 - sN };
+  }
+  function Tval(r){
+    const p = +rho.value;
+    return Math.pow(r, p);
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG("rect",{x:0,y:0,width:W,height:H,fill:"#0b0f16"}));
+    rhoOut.textContent = (+rho.value).toFixed(2);
+    rOut.textContent = (+rIn.value).toFixed(1);
+    // axis
+    const x0 = 60, x1 = W - 40, yBase = 220, yTop = 40;
+    svg.appendChild(SVG("line",{x1:x0,y1:yBase,x2:x1,y2:yBase,stroke:"var(--mute)"}));
+    svg.appendChild(SVG("line",{x1:x0,y1:yBase,x2:x0,y2:yTop,stroke:"var(--mute)"}));
+    // sample radii
+    const radii = [];
+    for(let r = 1; r <= 40; r += 1) radii.push(r);
+    const Tmax = Math.max(...radii.map(Tval));
+    function xOf(r){ return x0 + (r - 1) * (x1 - x0) / 39; }
+    function yOf(v){ return yBase - (v / Tmax) * (yBase - yTop); }
+    // bars for m + N (stacked) at sampled radii
+    const step = Math.max(1, Math.floor(radii.length / 28));
+    for(let i = 0; i < radii.length; i += step){
+      const r = radii[i];
+      const T = Tval(r);
+      const { sN, sM } = shares(r);
+      const xx = xOf(r) - 5;
+      const w = Math.max(2, (x1 - x0) / 40 - 1);
+      const yT = yOf(T);
+      const ySplit = yOf(T * sN);
+      // N (yellow) bottom, m (cyan) top stacked
+      svg.appendChild(SVG("rect",{x:xx, y:ySplit, width:w, height:yBase - ySplit, fill:"var(--yellow)", opacity:0.78}));
+      svg.appendChild(SVG("rect",{x:xx, y:yT, width:w, height:ySplit - yT, fill:"var(--cyan)", opacity:0.78}));
+    }
+    // axis labels
+    const xl = SVG("text",{x:x1, y:yBase+22, "text-anchor":"end","font-size":11,fill:"var(--mute)"}); xl.textContent = "r"; svg.appendChild(xl);
+    const yl = SVG("text",{x:x0-10, y:yTop+10, "text-anchor":"end","font-size":11,fill:"var(--mute)"}); yl.textContent = "T(r,f)"; svg.appendChild(yl);
+    // legend
+    svg.appendChild(SVG("rect",{x:x0+8, y:yTop-16, width:14, height:10, fill:"var(--cyan)", opacity:0.78}));
+    const l1 = SVG("text",{x:x0+28, y:yTop-7, "font-size":12, fill:"var(--ink)"}); l1.textContent = "m(r,\u221E)  proximity"; svg.appendChild(l1);
+    svg.appendChild(SVG("rect",{x:x0+170, y:yTop-16, width:14, height:10, fill:"var(--yellow)", opacity:0.78}));
+    const l2 = SVG("text",{x:x0+190, y:yTop-7, "font-size":12, fill:"var(--ink)"}); l2.textContent = "N(r,\u221E)  counting"; svg.appendChild(l2);
+    // current radius marker
+    const r = +rIn.value;
+    const xm = xOf(r);
+    const T = Tval(r), { sN, sM } = shares(r);
+    svg.appendChild(SVG("line",{x1:xm, y1:yBase, x2:xm, y2:yOf(T)-5, stroke:"var(--yellow)", "stroke-dasharray":"3 3", "stroke-width":1.5}));
+    out.textContent = "\u03C1 = " + (+rho.value).toFixed(2)
+      + "   r = " + r.toFixed(1)
+      + "   T(r,f) \u2248 " + T.toFixed(2)
+      + "   m \u2248 " + (T*sM).toFixed(2)
+      + "   N \u2248 " + (T*sN).toFixed(2)
+      + "   defect \u03B4(\u221E) \u2248 " + sM.toFixed(2);
+  }
+  rho.addEventListener("input", render);
+  rIn.addEventListener("input", render);
+  render();
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./measure-theory.html#lp">Lᵖ spaces</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="aca-nevanlinna-theory"></div>
+</section>
+
+<section id="bergman">
+<h2>11. Bergman kernels</h2>
+<p>For a bounded domain $\Omega \subset \mathbb{C}$, the <strong>Bergman space</strong> $A^2(\Omega)$ is the Hilbert space of holomorphic functions on $\Omega$ that are square-integrable for Lebesgue area measure $dA$:</p>
+<p>$$A^2(\Omega) \;=\; \bigl\{f:\Omega\to\mathbb{C}\ \text{holomorphic}\ \big|\ \int_\Omega |f|^2\,dA < \infty\bigr\},\qquad \langle f,g\rangle = \int_\Omega f\bar g\,dA.$$</p>
+<p>Boundedness of $\Omega$ is essential: on $\mathbb{C}$, the only $A^2$ function is $0$ (any $L^2$ holomorphic function on $\mathbb{C}$ vanishes by a maximum-modulus argument).</p>
+
+<h3>Reproducing kernel</h3>
+<p>The deciding feature: <em>point evaluation</em> $f \mapsto f(w)$ is bounded on $A^2(\Omega)$. To see this, the mean-value property gives $|f(w)| \le \frac{1}{\pi r^2} \int_{D_r(w)}|f|\,dA \le C_w \|f\|_{A^2}$ for any disk $D_r(w)\subset\Omega$. Boundedness of point evaluation is the defining feature of a <strong>reproducing kernel Hilbert space</strong> (RKHS); by Riesz representation there is a unique $K_w\in A^2(\Omega)$ with $f(w) = \langle f, K_w\rangle$ for all $f\in A^2(\Omega)$.</p>
+
+<div class="note"><strong>Bergman kernel.</strong> Set $K_\Omega(z,w) = \overline{K_w(z)}$. It is holomorphic in $z$, anti-holomorphic in $w$, conjugate-symmetric ($\overline{K(z,w)} = K(w,z)$), and satisfies the <em>reproducing identity</em>
+$$f(w) \;=\; \int_\Omega K_\Omega(z,w)\, f(z)\,dA(z)\qquad \forall f\in A^2(\Omega).$$
+In an orthonormal basis $\{\phi_n\}$ of $A^2(\Omega)$, $K_\Omega(z,w) = \sum_n \phi_n(z)\overline{\phi_n(w)}$.</div>
+
+<h3>The disk kernel</h3>
+<p>On the unit disk $\mathbb{D}$, the orthonormal basis is $\phi_n(z) = \sqrt{(n+1)/\pi}\, z^n$ ($n\ge 0$). The kernel sums to a closed form:</p>
+<p>$$K_{\mathbb{D}}(z,w) \;=\; \frac{1}{\pi}\sum_{n=0}^\infty (n+1)(z\bar w)^n \;=\; \frac{1}{\pi(1-z\bar w)^2}.$$</p>
+<p>The diagonal $K(z,z) = \frac{1}{\pi(1-|z|^2)^2}$ blows up as $z\to\partial\mathbb{D}$ — the kernel encodes the geometry of the disk's boundary.</p>
+
+<h3>Transformation under biholomorphisms</h3>
+<p>The pull-back map $f\mapsto (f\circ\phi)\phi'$ is a unitary isomorphism $A^2(\Omega_2)\to A^2(\Omega_1)$ for any biholomorphism $\phi:\Omega_1\to\Omega_2$ — the Jacobian factor $|\phi'|^2$ is what makes the area integral transform correctly. From this:</p>
+<div class="note"><strong>Transformation rule.</strong> $K_{\Omega_2}\bigl(\phi(z),\phi(w)\bigr)\,\phi'(z)\,\overline{\phi'(w)} \;=\; K_{\Omega_1}(z,w).$</div>
+<p>The kernel itself is not biholomorphism-invariant; the Jacobian factors carry the conformal scaling. But $\partial\bar\partial \log K(z,z)$ is invariant, because the extra factors $\log\phi'(z) + \log\overline{\phi'(w)}$ are pluriharmonic and $\partial\bar\partial$ kills them.</p>
+
+<h3>The Bergman metric</h3>
+<p>The <strong>Bergman metric</strong> on $\Omega$ is the Kähler metric with potential $\log K(z,z)$:</p>
+<p>$$g_{\Omega} \;=\; \partial_z\partial_{\bar z}\log K(z,z)\, dz\,d\bar z.$$</p>
+<p>By the transformation rule, this is biholomorphism-invariant. On $\mathbb{D}$:</p>
+<p>$$\log K_{\mathbb{D}}(z,z) \;=\; -\log\pi - 2\log(1-|z|^2),\qquad g_{\mathbb{D}} \;=\; \frac{2}{(1-|z|^2)^2}\,dz\,d\bar z,$$</p>
+<p>which is the Poincaré metric (twice the curvature-$-1$ form, up to scale). The Bergman metric on $\mathbb{D}$ has constant Gaussian curvature $-4$.</p>
+
+<p>This yields a slogan: <em>the Bergman kernel encodes the conformal geometry of $\Omega$</em>. On the disk, the kernel pins down the hyperbolic metric. On a more complicated bounded domain, the Bergman metric is a canonical invariant Kähler metric — well-defined, biholomorphism-invariant, and computable in principle from the kernel. Bergman kernels are also the prototype of reproducing kernel Hilbert spaces in functional analysis and the source of techniques in harmonic analysis on domains, signal processing, and machine learning.</p>
+
+<div class="widget" id="w-bergman">
+  <div class="hd"><div class="ttl">Bergman kernel on the unit disk</div><div class="hint">click to set $w$; heatmap shows $|K(z,w)|^2$</div></div>
+  <svg id="berg-svg" viewBox="0 0 620 320" width="620" height="320"><title>Bergman kernel |K(z,w)|^2 on the unit disk for movable source point w</title></svg>
+  <div class="readout" id="berg-out"></div>
+</div><script>
+(function(){
+  const svg = $('#berg-svg'), out = $('#berg-out');
+  const W = 620, H = 320;
+  const cx = W/2, cy = H/2, R = 130;
+  // state: w in unit-disk coordinates
+  let wRe = 0.3, wIm = 0.0;
+  function pixelToDisk(px, py){
+    return [(px - cx) / R, -(py - cy) / R];
+  }
+  function diskToPixel(x, y){
+    return [cx + x * R, cy - y * R];
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG("rect",{x:0,y:0,width:W,height:H,fill:"#0b0f16"}));
+    // sample a grid inside the unit disk and shade by |K(z,w)|^2 = 1/(pi^2 |1 - conj(w) z|^4)
+    const N = 56;
+    const wAbs = Math.hypot(wRe, wIm);
+    let kmax = 1 / Math.pow(Math.PI * Math.pow(1 - wAbs*wAbs, 2), 2);
+    if(!isFinite(kmax) || kmax <= 0) kmax = 1;
+    for(let i = 0; i < N; i++){
+      for(let j = 0; j < N; j++){
+        const x = -1 + (2*i + 1)/N;
+        const y = -1 + (2*j + 1)/N;
+        if(x*x + y*y > 0.99) continue;
+        // 1 - conj(w) z = (1 - wRe*x - wIm*y) + i(wRe*y - wIm*x)
+        const ar = 1 - wRe*x - wIm*y;
+        const ai = wRe*y - wIm*x;
+        const denom = Math.pow(ar*ar + ai*ai, 2);
+        const k = 1 / (Math.PI * Math.PI * denom);
+        const norm = Math.min(1, Math.log(1 + 30*k/kmax) / Math.log(31));
+        // map norm -> color in cyan->yellow ramp
+        const r = Math.round(255 * Math.pow(norm, 0.7));
+        const g = Math.round(180 * Math.pow(norm, 0.5) + 60);
+        const b = Math.round(220 * (1 - norm) + 30);
+        const [px, py] = diskToPixel(x, y);
+        const cell = (2*R)/N;
+        svg.appendChild(SVG("rect",{x:px - cell/2 + 0.5, y:py - cell/2 + 0.5, width:cell, height:cell, fill:`rgb(${r},${g},${b})`, opacity:0.85, "shape-rendering":"crispEdges"}));
+      }
+    }
+    // unit disk boundary
+    svg.appendChild(SVG("circle",{cx, cy, r:R, fill:"none", stroke:"var(--mute)", "stroke-width":1.4}));
+    // axes
+    svg.appendChild(SVG("line",{x1:cx-R-10, y1:cy, x2:cx+R+10, y2:cy, stroke:"var(--mute)", opacity:0.5}));
+    svg.appendChild(SVG("line",{x1:cx, y1:cy-R-10, x2:cx, y2:cy+R+10, stroke:"var(--mute)", opacity:0.5}));
+    // w marker
+    const [wpx, wpy] = diskToPixel(wRe, wIm);
+    svg.appendChild(SVG("circle",{cx:wpx, cy:wpy, r:6, fill:"var(--yellow)", stroke:"var(--ink)", "stroke-width":1.5}));
+    const wl = SVG("text",{x:wpx+10, y:wpy-8, "font-size":12, fill:"var(--yellow)", "font-weight":600});
+    wl.textContent = "w";
+    svg.appendChild(wl);
+    // header
+    const hd = SVG("text",{x:30, y:28, "font-size":13, fill:"var(--ink)"});
+    hd.textContent = "|K(z,w)|^2 = 1/(\u03C0\u00B2 |1 \u2212 w\u0304 z|\u2074)  on  \u{1D53B}";
+    svg.appendChild(hd);
+    // Bergman metric ds^2 at w
+    const denom = (1 - wAbs*wAbs);
+    const ds2 = 2 / (denom * denom);
+    out.textContent = "w = " + wRe.toFixed(3) + " + " + wIm.toFixed(3) + "i,   |w| = " + wAbs.toFixed(3)
+      + "   K(w,w) = " + (1/(Math.PI * denom * denom)).toFixed(3)
+      + "   Bergman ds\u00B2 = " + ds2.toFixed(3) + " (=2 \u2192 \u221E as |w|\u21921)";
+  }
+  svg.addEventListener('click', e => {
+    const rect = svg.getBoundingClientRect();
+    const px = (e.clientX - rect.left) * (W/rect.width);
+    const py = (e.clientY - rect.top)  * (H/rect.height);
+    const [x, y] = pixelToDisk(px, py);
+    if(x*x + y*y < 0.93*0.93){ wRe = x; wIm = y; render(); }
+  });
+  render();
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./functional-analysis.html#hilbert">Banach and Hilbert spaces</a></li>
+    <li><a href="./measure-theory.html#lp">Lᵖ spaces</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="aca-bergman-kernel"></div>
+</section>
+
+<section id="quasiconformal">
+<h2>12. Quasiconformal maps and the Beltrami equation</h2>
+<p>A conformal map preserves angles infinitesimally — its derivative is a positive multiple of a rotation, so round disks go to round disks under $df$. <strong>Quasiconformal</strong> maps relax this to a controlled bounded eccentricity: round disks go to ellipses of bounded axis ratio, the bound being uniform across the domain.</p>
+
+<h3>The dilatation and the Beltrami coefficient</h3>
+<p>Write $\partial_z = \frac{1}{2}(\partial_x - i\partial_y)$ and $\partial_{\bar z} = \frac{1}{2}(\partial_x + i\partial_y)$. For a smooth function $f$, the Cauchy-Riemann equation is $\partial_{\bar z}f = 0$ — exactly the holomorphy condition. The amount by which $\partial_{\bar z}f$ fails to vanish is the <strong>Beltrami coefficient</strong></p>
+<p>$$\mu_f \;=\; \frac{\partial_{\bar z} f}{\partial_z f}\qquad\text{wherever }\partial_z f\ne 0.$$</p>
+<p>The infinitesimal map $df$ sends a unit disk to an ellipse with eccentricity $K = \frac{1+|\mu_f|}{1 - |\mu_f|}$, the <strong>dilatation</strong>. Conformal $\Leftrightarrow \mu = 0 \Leftrightarrow K = 1$.</p>
+
+<div class="note"><strong>Quasiconformal map.</strong> A homeomorphism $f:\Omega\to\Omega'$ between planar domains is $K$-quasiconformal if it has locally $L^2$ distributional partial derivatives and $\|\mu_f\|_\infty \le k = (K-1)/(K+1) < 1$, equivalently the dilatation is essentially bounded by $K$.</div>
+
+<p>Because the bound is on $\|\mu_f\|_\infty$ — not on $\mu_f$ pointwise everywhere — quasiconformal maps need not be smooth. The right setting is Sobolev: $f\in W_{\rm loc}^{1,2}$ with the Beltrami equation holding distributionally.</p>
+
+<h3>The Beltrami equation</h3>
+<p>Solving $\partial_{\bar z}f = \mu\,\partial_z f$ for a given measurable $\mu$ is the <strong>Beltrami equation</strong>. The pioneering result is:</p>
+<div class="note"><strong>Measurable Riemann mapping theorem (Morrey 1938; Ahlfors-Bers 1960).</strong> For any measurable $\mu:\mathbb{C}\to\mathbb{C}$ with $\|\mu\|_\infty < 1$, there is a unique homeomorphism $f^\mu:\hat{\mathbb{C}}\to\hat{\mathbb{C}}$, normalized to fix $0,1,\infty$, with $\partial_{\bar z}f^\mu = \mu\,\partial_z f^\mu$ holding distributionally. $f^\mu$ is quasiconformal, depends holomorphically on $\mu$ in a precise sense, and reduces to the Riemann mapping theorem when $\mu = 0$ on a domain.</div>
+
+<p>The 'measurable' in the name is the killer feature: $\mu$ need only be a bounded measurable function, with no continuity. The proof goes through the Beurling transform $\mathcal{T}: L^p \to L^p$ (a singular integral operator that intertwines $\partial_z$ and $\partial_{\bar z}$) and a Neumann series, all on Sobolev spaces. The output $f^\mu$ is automatically Hölder continuous.</p>
+
+<h3>Why this is structurally useful</h3>
+<p>Conformal maps are rigid: a holomorphic homeomorphism is determined by three boundary points. Quasiconformal maps are the right setting for <em>deformation</em>:</p>
+<ul>
+<li><strong>Teichmüller space.</strong> The space of marked complex structures on a compact surface $\Sigma_g$ ($g\ge 1$) is parametrized by Beltrami coefficients modulo the action of the diffeomorphism group. The measurable Riemann mapping theorem produces, for each $\mu$ with $\|\mu\|_\infty < 1$, a quasiconformal deformation of the standard structure on $\Sigma_g$. The Teichmüller space $\mathcal{T}_g$ has dimension $6g - 6$ for $g\ge 2$.</li>
+<li><strong>Mostow rigidity.</strong> The proof of Mostow rigidity for closed hyperbolic 3-manifolds runs through quasiconformal maps on the boundary sphere $S^2 = \partial \mathbb{H}^3$: ergodicity forces the dilatation of the boundary extension to be constant a.e., and a quasiconformal map with constant dilatation $0$ is conformal — hence Möbius — hence comes from an ambient isometry.</li>
+<li><strong>Thurston's geometrization.</strong> Quasiconformal surgery is the technical engine in Thurston's geometrization program for 3-manifolds and the parametrization of Kleinian groups.</li>
+</ul>
+
+<p>Conformal-and-rigid $\to$ quasiconformal-and-flexible is the theme. The Beltrami equation is the bookkeeping device that makes 'small angle distortion' a precise and computable invariant.</p>
+
+<div class="widget" id="w-qc-warp">
+  <div class="hd"><div class="ttl">Beltrami warp</div><div class="hint">slide $\mu = \mu_{\rm re} + i\mu_{\rm im}$; watch the dilatation $K$</div></div>
+  <div class="row">
+    <label for="qc-mre">$\mu_{\rm re}$:</label>
+    <input type="range" id="qc-mre" min="-0.7" max="0.7" step="0.02" value="0.4" />
+    <span class="readout" id="qc-mre-out" style="min-width:3em;display:inline-block">0.40</span>
+  </div>
+  <div class="row">
+    <label for="qc-mim">$\mu_{\rm im}$:</label>
+    <input type="range" id="qc-mim" min="-0.7" max="0.7" step="0.02" value="0.0" />
+    <span class="readout" id="qc-mim-out" style="min-width:3em;display:inline-block">0.00</span>
+  </div>
+  <svg id="qc-svg" viewBox="0 0 620 280" width="620" height="280"><title>Quasiconformal warp: a circle and grid mapped by f(z) = z + mu*conj(z)</title></svg>
+  <div class="readout" id="qc-out"></div>
+</div><script>
+(function(){
+  const svg = $('#qc-svg'), mre = $('#qc-mre'), mim = $('#qc-mim'),
+        mreOut = $('#qc-mre-out'), mimOut = $('#qc-mim-out'), out = $('#qc-out');
+  const W = 620, H = 280;
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG("rect",{x:0,y:0,width:W,height:H,fill:"#0b0f16"}));
+    const mr = +mre.value, mi = +mim.value;
+    mreOut.textContent = mr.toFixed(2);
+    mimOut.textContent = mi.toFixed(2);
+    const mAbs = Math.hypot(mr, mi);
+    const K = (1 + mAbs) / Math.max(1e-9, 1 - mAbs);
+    // pre-image: small circle and grid centered at (155, 140)
+    const cxL = 155, cyL = 140, scale = 90;
+    // post-image: warped versions centered at (465, 140)
+    const cxR = 465, cyR = 140;
+    function warp(x, y){
+      // f(z) = z + mu * conj(z): real(f) = x + mr*x + mi*y;  imag(f) = y - mr*y + mi*x  (since conj(z)=x-iy, mu*conj(z) = (mr+i*mi)(x-iy) = (mr*x+mi*y) + i(mi*x - mr*y))
+      const fx = x + mr*x + mi*y;
+      const fy = y - mr*y + mi*x;
+      return [fx, fy];
+    }
+    // grid (left)
+    for(let g = -1; g <= 1; g += 0.25){
+      const path1 = SVG("path",{d:`M ${cxL + (-1)*scale} ${cyL + g*scale} L ${cxL + 1*scale} ${cyL + g*scale}`, stroke:"var(--mute)", "stroke-width":0.7, fill:"none"});
+      svg.appendChild(path1);
+      const path2 = SVG("path",{d:`M ${cxL + g*scale} ${cyL + (-1)*scale} L ${cxL + g*scale} ${cyL + 1*scale}`, stroke:"var(--mute)", "stroke-width":0.7, fill:"none"});
+      svg.appendChild(path2);
+    }
+    // grid (right, warped)
+    for(let g = -1; g <= 1; g += 0.25){
+      // horizontal line y = g*scale, x in [-1,1]*scale
+      let d = '';
+      for(let i = 0; i <= 24; i++){
+        const x = -1 + (i/12);
+        const [fx, fy] = warp(x, g);
+        d += (i === 0 ? 'M ' : 'L ') + (cxR + fx*scale) + ' ' + (cyR - fy*scale) + ' ';
+      }
+      svg.appendChild(SVG("path",{d, stroke:"var(--cyan)", "stroke-width":0.9, fill:"none", opacity:0.7}));
+      let d2 = '';
+      for(let i = 0; i <= 24; i++){
+        const y = -1 + (i/12);
+        const [fx, fy] = warp(g, y);
+        d2 += (i === 0 ? 'M ' : 'L ') + (cxR + fx*scale) + ' ' + (cyR - fy*scale) + ' ';
+      }
+      svg.appendChild(SVG("path",{d:d2, stroke:"var(--cyan)", "stroke-width":0.9, fill:"none", opacity:0.7}));
+    }
+    // circle (left)
+    svg.appendChild(SVG("circle",{cx:cxL, cy:cyL, r:scale*0.6, fill:"none", stroke:"var(--yellow)", "stroke-width":2.0}));
+    // circle warped (right)
+    let d = '';
+    for(let i = 0; i <= 80; i++){
+      const t = (i/80) * 2 * Math.PI;
+      const x = 0.6*Math.cos(t), y = 0.6*Math.sin(t);
+      const [fx, fy] = warp(x, y);
+      d += (i === 0 ? 'M ' : 'L ') + (cxR + fx*scale) + ' ' + (cyR - fy*scale) + ' ';
+    }
+    svg.appendChild(SVG("path",{d, fill:"none", stroke:"var(--yellow)", "stroke-width":2.0}));
+    // labels
+    const lL = SVG("text",{x:cxL, y:cyL - scale - 18, "text-anchor":"middle", "font-size":13, fill:"var(--ink)"}); lL.textContent = "pre-image"; svg.appendChild(lL);
+    const lR = SVG("text",{x:cxR, y:cyR - scale - 18, "text-anchor":"middle", "font-size":13, fill:"var(--ink)"}); lR.textContent = "f(z) = z + \u03BC \u00B7 z\u0304"; svg.appendChild(lR);
+    const arr = SVG("path",{d:`M ${cxL + scale + 18} ${cyL} L ${cxR - scale - 18} ${cyL}`, stroke:"var(--violet)", "stroke-width":1.5, fill:"none", "marker-end":"url(#qc-arrow)"});
+    let defs = SVG("defs");
+    const m = SVG("marker",{id:"qc-arrow", viewBox:"0 0 10 10", refX:9, refY:5, markerWidth:6, markerHeight:6, orient:"auto"});
+    m.appendChild(SVG("path",{d:"M0,0 L10,5 L0,10 z", fill:"var(--violet)"}));
+    defs.appendChild(m); svg.appendChild(defs);
+    svg.appendChild(arr);
+    // verdict
+    const status = mAbs < 1
+      ? `K = (1+|\u03BC|)/(1\u2212|\u03BC|) = ${K.toFixed(2)}  \u2192  ${K.toFixed(2)}-quasiconformal`
+      : 'NOT quasiconformal: |\u03BC| \u2265 1 makes f orientation-reversing or singular';
+    out.textContent = `\u03BC = ${mr.toFixed(2)} + ${mi.toFixed(2)}i,  |\u03BC| = ${mAbs.toFixed(3)}.  ${status}.`;
+  }
+  mre.addEventListener("input", render);
+  mim.addEventListener("input", render);
+  render();
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./complex-analysis.html#cauchy-riemann">Cauchy–Riemann equations</a></li>
+    <li><a href="./complex-analysis.html#conformal-map">Conformal maps</a></li>
+    <li><a href="./sobolev-spaces-distributions.html#sobolev">Sobolev spaces $W^{k,p}$ and $H^s$</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="aca-quasiconformal-beltrami"></div>
+</section>
+
+<section id="scv">
+<h2>13. Several complex variables</h2>
+<p>Holomorphic functions of one variable are governed by Cauchy's integral formula, the residue calculus, and the Riemann mapping theorem. In <em>several</em> complex variables — $\mathbb{C}^n$ with $n\ge 2$ — every one of these results either fails outright or holds in a much more delicate form. The reason is essentially topological: the unit ball and the bidisk in $\mathbb{C}^2$ are <em>not</em> biholomorphic (Poincaré 1907), so the Riemann mapping theorem fails. New phenomena take its place.</p>
+
+<h3>The Hartogs phenomenon: extension is forced</h3>
+<p>In one variable, an isolated singularity can be removable, a pole, or essential — and the third option is genuinely there ($e^{1/z}$ at $0$). In several variables, isolated singularities <em>cannot exist</em>:</p>
+
+<div class="note"><strong>Hartogs's extension theorem.</strong> Let $\Omega\subset\mathbb{C}^n$ ($n\ge 2$) be a domain and $K\subset\Omega$ a compact set such that $\Omega\setminus K$ is connected. Then every holomorphic function on $\Omega\setminus K$ extends uniquely to a holomorphic function on all of $\Omega$.</div>
+
+<p>The standard test case is the <strong>Hartogs figure</strong>: a polydisk $\mathbb{D}^2$ minus a smaller inner closed polydisk. Hartogs proves any holomorphic $f$ on the shell extends to the full polydisk. Iterating across nested compact 'holes' rules out isolated singularities for any $n\ge 2$. The proof is concrete: write $f$ as a Laurent series in one variable at fixed values of the other; the Hartogs hypothesis on connectivity forces all negative-power coefficients to vanish.</p>
+
+<h3>Domains of holomorphy and pseudoconvexity</h3>
+<p>Some domains $\Omega \subset \mathbb{C}^n$ are 'maximal' for holomorphy: there is a holomorphic function on $\Omega$ that does not extend to any larger domain. These are <strong>domains of holomorphy</strong>. The Hartogs phenomenon shows that not every domain is one — most polydisks-with-holes are not.</p>
+
+<p>The intrinsic geometric condition turns out to be <strong>pseudoconvexity</strong>: $\Omega$ admits a plurisubharmonic exhaustion $\rho:\Omega\to\mathbb{R}$, $\rho\to+\infty$ at $\partial\Omega$. Plurisubharmonicity (PSH) is the right $n$-variable analog of subharmonicity — pulling $\rho$ back to a complex line gives a subharmonic function. Pseudoconvexity at the boundary level says the Levi form of $\partial\Omega$ is positive semi-definite on the holomorphic tangent space.</p>
+
+<div class="note"><strong>Levi's problem (Oka 1942 + Bremermann/Norguet 1954).</strong> A domain $\Omega \subset \mathbb{C}^n$ is a domain of holomorphy if and only if it is pseudoconvex.</div>
+
+<p>This is the SCV analog of the Riemann mapping theorem: every domain of holomorphy is pseudoconvex, and conversely. The 'shape' of the boundary determines whether it can host a maximally-extended holomorphic function. The disk in one variable is automatically a domain of holomorphy because every $\Omega\subseteq\mathbb{C}$ is.</p>
+
+<h3>The $\bar\partial$-problem and the $\bar\partial$-Neumann problem</h3>
+<p>The constraint $\bar\partial f = 0$ defines holomorphy. To probe the structure, ask the inhomogeneous question: given a $\bar\partial$-closed $(0,1)$-form $\alpha = \sum \alpha_j\, d\bar z_j$ on $\Omega$, when can we solve $\bar\partial u = \alpha$ for some scalar $u$?</p>
+<ul>
+<li>On a domain of holomorphy (pseudoconvex), the answer is <strong>always</strong> — and one can choose $u$ with explicit $L^2$ bounds via the <strong>Hörmander estimate</strong> $\int_\Omega |u|^2 e^{-\phi}\,dV \le C \int_\Omega |\alpha|^2 e^{-\phi}\,dV$ for any plurisubharmonic weight $\phi$.</li>
+<li>The associated minimization problem (find the $u$ of minimum norm orthogonal to holomorphic functions) is the <strong>$\bar\partial$-Neumann problem</strong>: solve $\Box u = (\bar\partial \bar\partial^* + \bar\partial^*\bar\partial)u = \alpha$ with prescribed boundary conditions. Its analytic regularity theory (Kohn-Spencer) is the engine driving SCV at the technical level.</li>
+</ul>
+<p>The $\bar\partial$-Neumann theory connects SCV to elliptic PDE theory, harmonic analysis, and the index theorem (the $\bar\partial$-complex on a complex manifold computes Dolbeault cohomology, and its index is a topological invariant by Atiyah-Singer).</p>
+
+<h3>What's lost in passing to $n\ge 2$</h3>
+<table class="plain">
+<thead><tr><th>One variable</th><th>$n\ge 2$ variables</th></tr></thead>
+<tbody>
+<tr><td>Riemann mapping: $\Omega \simeq \mathbb{D}$ if simply connected $\subsetneq \mathbb{C}$.</td><td><strong>Fails.</strong> Even ball and bidisk in $\mathbb{C}^2$ are not biholomorphic.</td></tr>
+<tr><td>Isolated singularities exist (essential, polar, removable).</td><td><strong>Forbidden by Hartogs.</strong> Holomorphic functions on $\Omega\setminus K$ extend across $K$.</td></tr>
+<tr><td>Every $\Omega\subseteq\mathbb{C}$ is a domain of holomorphy.</td><td>Domains of holomorphy = pseudoconvex (Levi's problem).</td></tr>
+<tr><td>$\bar\partial u = \alpha$ trivially solvable on planar domains.</td><td>$\bar\partial$-Neumann problem with subtle regularity, controlled by Hörmander/Kohn-Spencer.</td></tr>
+</tbody>
+</table>
+
+<p>The slogan for SCV: <em>topology constrains analysis</em>. Two-dimensional disk-and-bidisk inequivalence, Hartogs's extension, the equivalence of holomorphy-domains with pseudoconvexity — all reflect the much richer interplay between holomorphy and the underlying $\mathbb{R}^{2n}$ geometry. SCV connects to algebraic geometry (Stein manifolds, GAGA), CR geometry (boundaries of domains), and complex differential geometry (Kähler manifolds, the $\partial\bar\partial$-lemma).</p>
+
+<div class="widget" id="w-hartogs">
+  <div class="hd"><div class="ttl">Hartogs figure</div><div class="hint">slide the inner shell radius; the green region is forced extension</div></div>
+  <div class="row">
+    <label for="hg-r">inner shell radius $r$:</label>
+    <input type="range" id="hg-r" min="0.05" max="0.85" step="0.02" value="0.45" />
+    <span class="readout" id="hg-r-out" style="min-width:3em;display:inline-block">0.45</span>
+  </div>
+  <svg id="hg-svg" viewBox="0 0 620 320" width="620" height="320"><title>Hartogs figure: shell of polydisk and the forced-extension interior</title></svg>
+  <div class="readout" id="hg-out"></div>
+</div><script>
+(function(){
+  const svg = $('#hg-svg'), rIn = $('#hg-r'), rOut = $('#hg-r-out'), out = $('#hg-out');
+  const W = 620, H = 320;
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG("rect",{x:0,y:0,width:W,height:H,fill:"#0b0f16"}));
+    const r = +rIn.value;
+    rOut.textContent = r.toFixed(2);
+    // header
+    const hd = SVG("text",{x:30, y:32, "font-size":14, fill:"var(--ink)"});
+    hd.textContent = "Hartogs figure in \u2102\u00B2: 2D schematic of the polydisk slice";
+    svg.appendChild(hd);
+    // outer square
+    const cx = W/2, cy = 180, S = 110;
+    svg.appendChild(SVG("rect",{x:cx-S, y:cy-S, width:2*S, height:2*S, fill:"none", stroke:"var(--mute)", "stroke-width":1.5, "stroke-dasharray":"5 4"}));
+    const olbl = SVG("text",{x:cx-S, y:cy-S-8, "font-size":12, fill:"var(--mute)"});
+    olbl.textContent = "polydisk \u{1D53B}\u00B2 (full domain)";
+    svg.appendChild(olbl);
+    // inner square (the 'hole', a smaller polydisk)
+    const s = S * r;
+    // forced-extension fill (full square minus hole) is the cyan "shell"
+    // shell: full square covered, hole appears as the inner cutout
+    svg.appendChild(SVG("rect",{x:cx-S, y:cy-S, width:2*S, height:2*S, fill:"var(--cyan)", opacity:0.18}));
+    // hole: emphasize it as the place where data is GIVEN -> we know f everywhere outside this in the polydisk
+    // Actually conventional Hartogs figure is the shell |z_1|<1, r<|z_2|<1 union r<|z_1|<1, |z_2|<1 etc.
+    // We shade: shell = green (data given); hole = pink (forced extension target).
+    // Shell uses the cyan we just painted; remove cyan from the hole and paint hole pink.
+    svg.appendChild(SVG("rect",{x:cx-s, y:cy-s, width:2*s, height:2*s, fill:"#0b0f16"}));
+    svg.appendChild(SVG("rect",{x:cx-s, y:cy-s, width:2*s, height:2*s, fill:"var(--pink)", opacity:0.32, stroke:"var(--pink)", "stroke-width":1.5, "stroke-dasharray":"4 3"}));
+    // ring outline
+    svg.appendChild(SVG("rect",{x:cx-S, y:cy-S, width:2*S, height:2*S, fill:"none", stroke:"var(--cyan)", "stroke-width":1.6}));
+    // legend
+    svg.appendChild(SVG("rect",{x:30, y:280, width:14, height:10, fill:"var(--cyan)", opacity:0.5}));
+    const l1 = SVG("text",{x:50, y:289, "font-size":12, fill:"var(--ink)"}); l1.textContent = "shell: f given holomorphic"; svg.appendChild(l1);
+    svg.appendChild(SVG("rect",{x:240, y:280, width:14, height:10, fill:"var(--pink)", opacity:0.5}));
+    const l2 = SVG("text",{x:260, y:289, "font-size":12, fill:"var(--ink)"}); l2.textContent = "hole: extension forced (Hartogs)"; svg.appendChild(l2);
+    // arrow from shell into hole
+    const arr = SVG("path",{d:`M ${cx + s + 16} ${cy} L ${cx + s - 8} ${cy}`, stroke:"var(--yellow)", "stroke-width":1.6, fill:"none", "marker-end":"url(#hg-arrow)"});
+    let defs = SVG("defs");
+    const m = SVG("marker",{id:"hg-arrow", viewBox:"0 0 10 10", refX:9, refY:5, markerWidth:6, markerHeight:6, orient:"auto"});
+    m.appendChild(SVG("path",{d:"M0,0 L10,5 L0,10 z", fill:"var(--yellow)"}));
+    defs.appendChild(m); svg.appendChild(defs);
+    svg.appendChild(arr);
+    out.textContent = `inner radius r = ${r.toFixed(2)}.  Any holomorphic f on the cyan shell extends uniquely to the pink hole \u2014 isolated singularities are forbidden in \u2102\u00B2.`;
+  }
+  rIn.addEventListener("input", render);
+  render();
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./complex-analysis.html#cauchy-integral-formula">Cauchy integral formula</a></li>
+    <li><a href="./complex-analysis.html#holomorphic-function">Holomorphic functions</a></li>
+    <li><a href="./harmonic-functions.html#subharmonic">Subharmonic functions and Perron's method</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="aca-several-complex-variables"></div>
 </section>
 
 <section id="connections">

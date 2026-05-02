@@ -33,7 +33,8 @@
         "modularity-theorem",
         "modularity-and-deformations"
       ],
-      "blurb": "Ribet's $\\varepsilon$-theorem: if $\\overline\\rho_{E,p}$ is modular of level $Np$ and unramified at $p$, it is modular at level $N$. Applied to the Frey curve this collapses the level to $2$, where $S_2(\\Gamma_0(2)) = 0$ contradicts the Fermat solution."
+      "blurb": "Ribet's $\\varepsilon$-theorem: if $\\overline\\rho_{E,p}$ is modular of level $Np$ and unramified at $p$, it is modular at level $N$. Applied to the Frey curve this collapses the level to $2$, where $S_2(\\Gamma_0(2)) = 0$ contradicts the Fermat solution.",
+      "tags": ["lifting"]
     },
     {
       "id": "deformation-rings",

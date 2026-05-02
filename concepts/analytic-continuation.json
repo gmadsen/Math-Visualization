@@ -11,7 +11,10 @@
         "analyticity",
         "analytic-continuation"
       ],
-      "blurb": "A holomorphic germ at $a$ is a convergent power series $\\sum c_n(z-a)^n$; its disk of convergence has radius $1/\\limsup|c_n|^{1/n}$, and the identity theorem makes any two overlapping germs unique on their intersection."
+      "blurb": "A holomorphic germ at $a$ is a convergent power series $\\sum c_n(z-a)^n$; its disk of convergence has radius $1/\\limsup|c_n|^{1/n}$, and the identity theorem makes any two overlapping germs unique on their intersection.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "continuation-along-path",
@@ -21,7 +24,10 @@
         "power-series-radius-analytic",
         "paths"
       ],
-      "blurb": "A chain of overlapping disks along an arc $\\gamma$ propagates a germ uniquely; Weierstrass' disk-chaining extends $f$ as far as the coefficients' radius of convergence permits."
+      "blurb": "A chain of overlapping disks along an arc $\\gamma$ propagates a germ uniquely; Weierstrass' disk-chaining extends $f$ as far as the coefficients' radius of convergence permits.",
+      "tags": [
+        "lifting"
+      ]
     },
     {
       "id": "monodromy-theorem",

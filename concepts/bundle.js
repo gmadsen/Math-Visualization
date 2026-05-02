@@ -300,7 +300,7 @@ window.__MVConcepts = {
           "title": "The graduate landscape",
           "anchor": "overview",
           "prereqs": [],
-          "blurb": "A map of the four threads that organize the graduate complex-analysis canon: value-distribution (Picard, Bloch), construction theorems (Weierstrass, Mittag-Leffler), growth and maximum-modulus controls (Phragmén-Lindelöf, Hadamard), and boundary behavior (Hardy, Fatou). Together they answer 'what makes entire and meromorphic functions special, and how do they behave near infinity or on the boundary?'"
+          "blurb": "A map of the four threads that organize the graduate complex-analysis canon: value-distribution (Picard, Bloch, Nevanlinna), construction theorems (Weierstrass, Mittag-Leffler), growth and maximum-modulus controls (Phragmén-Lindelöf, Hadamard), and boundary behavior (Hardy, Fatou). Together they answer 'what makes entire and meromorphic functions special, and how do they behave near infinity or on the boundary?'"
         },
         {
           "id": "aca-picard-little",
@@ -375,6 +375,61 @@ window.__MVConcepts = {
             "hf-poisson-kernel"
           ],
           "blurb": "$H^p(\\mathbb{D})$ collects holomorphic functions on the disk whose $L^p$ norm on circles $|z|=r$ stays bounded as $r\\uparrow 1$. Fatou's theorem says every $H^p$ function admits non-tangential boundary values almost everywhere, and the inner-outer factorization $f = B\\cdot S\\cdot O$ decomposes them into a Blaschke product, a singular inner factor, and an outer function."
+        },
+        {
+          "id": "aca-bloch-theorem",
+          "title": "Bloch's theorem",
+          "anchor": "bloch",
+          "prereqs": [
+            "aca-picard-little",
+            "schwarz-lemma",
+            "normal-families"
+          ],
+          "blurb": "If $f$ is holomorphic on the unit disk with $f(0)=0$ and $f'(0)=1$, then $f(\\mathbb{D})$ contains a univalent (one-sheeted) sub-disk of universal radius $B \\ge \\sqrt{3}/4$. The Bloch constant $B$ and its companion the Landau constant $L$ make the Picard-style 'cannot avoid much' phenomenon quantitative — every normalized holomorphic function on the disk geometrically covers a chunk of the plane no smaller than a fixed lower bound."
+        },
+        {
+          "id": "aca-nevanlinna-theory",
+          "title": "Nevanlinna theory",
+          "anchor": "nevanlinna",
+          "prereqs": [
+            "aca-picard-great",
+            "aca-hadamard-three-circles",
+            "lp-spaces"
+          ],
+          "blurb": "A quantitative refinement of Picard for meromorphic functions: the Nevanlinna characteristic $T(r,f) = m(r,\\infty) + N(r,\\infty)$ measures growth as a sum of a proximity term $m(r,a)$ (how close $f$ comes to $a$ on $|z|=r$) and a counting term $N(r,a)$ (the integrated count of $a$-points). The first main theorem says $m(r,a) + N(r,a) = T(r,f) + O(1)$ is independent of $a$; the second main theorem and the defect relation $\\sum_a \\delta(a) \\le 2$ recover Picard as a corollary — at most two values can have defect $\\delta(a) = 1$."
+        },
+        {
+          "id": "aca-bergman-kernel",
+          "title": "Bergman kernels",
+          "anchor": "bergman",
+          "prereqs": [
+            "aca-hardy-spaces",
+            "banach-hilbert-spaces",
+            "lp-spaces"
+          ],
+          "blurb": "The Bergman space $A^2(\\Omega)$ is the Hilbert space of holomorphic functions on a bounded domain $\\Omega \\subset \\mathbb{C}$ that are square-integrable for area measure. Point evaluation is bounded, so by Riesz representation there is a reproducing kernel $K_\\Omega(z,w)$ — the Bergman kernel — characterized by $f(w) = \\int_\\Omega K(z,w) f(z)\\, dA$. The kernel transforms covariantly under biholomorphisms ($K_{\\phi(\\Omega)}(\\phi(z),\\phi(w)) = K_\\Omega(z,w)/(\\phi'(z)\\overline{\\phi'(w)})$) and its log-determinant Hessian gives the Bergman metric, on the unit disk recovering the hyperbolic metric of curvature $-4$."
+        },
+        {
+          "id": "aca-quasiconformal-beltrami",
+          "title": "Quasiconformal maps and the Beltrami equation",
+          "anchor": "quasiconformal",
+          "prereqs": [
+            "conformal-map",
+            "cauchy-riemann",
+            "sobolev-spaces-wkp"
+          ],
+          "blurb": "A $K$-quasiconformal map $f$ is a homeomorphism of planar domains whose distributional derivatives satisfy the Beltrami equation $\\partial_{\\bar z} f = \\mu\\, \\partial_z f$ with $\\|\\mu\\|_\\infty \\le k = (K-1)/(K+1) < 1$. The dilatation $\\mu_f$ measures how far $f$ is from conformal — infinitesimally it sends round disks to ellipses of bounded eccentricity. The measurable Riemann mapping theorem (Morrey-Ahlfors-Bers) inverts this: any measurable $\\mu$ with $\\|\\mu\\|_\\infty < 1$ is the dilatation of a unique normalized quasiconformal homeomorphism, the cornerstone of Teichmüller theory and Thurston-style hyperbolic geometrization."
+        },
+        {
+          "id": "aca-several-complex-variables",
+          "title": "Several complex variables",
+          "anchor": "scv",
+          "prereqs": [
+            "holomorphic-function",
+            "cauchy-integral-formula",
+            "hf-subharmonic"
+          ],
+          "blurb": "Holomorphic functions of $n\\ge 2$ variables behave qualitatively unlike the $n=1$ case. The Hartogs phenomenon forces extension across compact holes: any holomorphic $f$ on a Hartogs figure (a polydisk shell) extends uniquely to the full polydisk — there are no isolated singularities in $\\mathbb{C}^n$ for $n\\ge 2$. A domain $\\Omega \\subset \\mathbb{C}^n$ is a domain of holomorphy iff it is pseudoconvex (Levi's problem), characterized by the existence of a plurisubharmonic exhaustion. The $\\bar\\partial$-Neumann problem solves $\\bar\\partial u = f$ for $\\bar\\partial$-closed $f$ on pseudoconvex domains and is the analytic engine driving the rest of the theory."
         }
       ]
     },
@@ -404,7 +459,10 @@ window.__MVConcepts = {
             "ms-estimators",
             "it-kl-divergence"
           ],
-          "blurb": "The MLE maximises $\\ell(\\theta)=\\sum_i\\log f(X_i;\\theta)$, equivalently solves the score equation $\\partial_\\theta\\ell=0$. Under regularity, $\\hat\\theta_{\\mathrm{MLE}}$ is consistent and asymptotically normal: $\\sqrt n(\\hat\\theta_n-\\theta)\\xrightarrow{d}\\mathcal{N}(0,\\,1/I(\\theta))$ where $I(\\theta)=\\mathbb{E}_\\theta[(\\partial_\\theta\\log f)^2]$ is Fisher information. MLE minimises empirical KL to the true law, so it is the statistical mirror of $D(p\\,\\|\\,q)$."
+          "blurb": "The MLE maximises $\\ell(\\theta)=\\sum_i\\log f(X_i;\\theta)$, equivalently solves the score equation $\\partial_\\theta\\ell=0$. Under regularity, $\\hat\\theta_{\\mathrm{MLE}}$ is consistent and asymptotically normal: $\\sqrt n(\\hat\\theta_n-\\theta)\\xrightarrow{d}\\mathcal{N}(0,\\,1/I(\\theta))$ where $I(\\theta)=\\mathbb{E}_\\theta[(\\partial_\\theta\\log f)^2]$ is Fisher information. MLE minimises empirical KL to the true law, so it is the statistical mirror of $D(p\\,\\|\\,q)$.",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "ms-cramer-rao",
@@ -426,7 +484,10 @@ window.__MVConcepts = {
           "prereqs": [
             "ms-mle"
           ],
-          "blurb": "A test of $H_0:\\theta\\in\\Theta_0$ vs $H_1:\\theta\\in\\Theta_1$ partitions the sample space into rejection / acceptance; size $\\alpha=\\sup_{\\Theta_0}\\mathbb{P}_\\theta(\\text{reject})$ is type-I error, power $1-\\beta=\\mathbb{P}_{\\theta_1}(\\text{reject})$. Neyman–Pearson lemma: for simple-vs-simple, the likelihood ratio test $\\Lambda(x)=L(\\theta_1;x)/L(\\theta_0;x)\\gtrless k$ is uniformly most powerful at every level. The $p$-value is the smallest $\\alpha$ at which the observed data would have rejected."
+          "blurb": "A test of $H_0:\\theta\\in\\Theta_0$ vs $H_1:\\theta\\in\\Theta_1$ partitions the sample space into rejection / acceptance; size $\\alpha=\\sup_{\\Theta_0}\\mathbb{P}_\\theta(\\text{reject})$ is type-I error, power $1-\\beta=\\mathbb{P}_{\\theta_1}(\\text{reject})$. Neyman–Pearson lemma: for simple-vs-simple, the likelihood ratio test $\\Lambda(x)=L(\\theta_1;x)/L(\\theta_0;x)\\gtrless k$ is uniformly most powerful at every level. The $p$-value is the smallest $\\alpha$ at which the observed data would have rejected.",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "ms-bayesian",
@@ -481,7 +542,10 @@ window.__MVConcepts = {
             "na-floating-point",
             "real-differentiation"
           ],
-          "blurb": "Bisection halves an interval $[a,b]$ with $f(a)f(b)<0$, converging linearly with rate $1/2$. Newton's iteration $x_{n+1}=x_n-f(x_n)/f'(x_n)$ converges quadratically near a simple root: $|e_{n+1}|\\le C|e_n|^2$. The order $p$ of convergence is the supremum with $|e_{n+1}|\\le C|e_n|^p$; secant gives the golden ratio $p=(1+\\sqrt5)/2$."
+          "blurb": "Bisection halves an interval $[a,b]$ with $f(a)f(b)<0$, converging linearly with rate $1/2$. Newton's iteration $x_{n+1}=x_n-f(x_n)/f'(x_n)$ converges quadratically near a simple root: $|e_{n+1}|\\le C|e_n|^2$. The order $p$ of convergence is the supremum with $|e_{n+1}|\\le C|e_n|^p$; secant gives the golden ratio $p=(1+\\sqrt5)/2$.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "na-quadrature",
@@ -491,7 +555,10 @@ window.__MVConcepts = {
             "riemann-integral",
             "na-floating-point"
           ],
-          "blurb": "Composite trapezoid on $n$ panels has error $-\\tfrac{(b-a)h^2}{12}f''(\\xi)$ with $h=(b-a)/n$; Simpson's rule integrates cubics exactly with error $O(h^4)$; Gauss–Legendre with $n$ nodes integrates polynomials up to degree $2n-1$ exactly by choosing nodes as zeros of Legendre polynomials. The exponent of $h$ is the order of accuracy."
+          "blurb": "Composite trapezoid on $n$ panels has error $-\\tfrac{(b-a)h^2}{12}f''(\\xi)$ with $h=(b-a)/n$; Simpson's rule integrates cubics exactly with error $O(h^4)$; Gauss–Legendre with $n$ nodes integrates polynomials up to degree $2n-1$ exactly by choosing nodes as zeros of Legendre polynomials. The exponent of $h$ is the order of accuracy.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "na-linear-systems",
@@ -954,7 +1021,10 @@ window.__MVConcepts = {
             "hdg-sphere-concentration",
             "random-variables"
           ],
-          "blurb": "Any $N$ points in $\\mathbb{R}^n$ embed into $\\mathbb{R}^k$ with $k=O(\\varepsilon^{-2}\\log N)$ via a random Gaussian projection while preserving every pairwise distance up to $1\\pm\\varepsilon$ — the workhorse dimension reduction of high-D ML."
+          "blurb": "Any $N$ points in $\\mathbb{R}^n$ embed into $\\mathbb{R}^k$ with $k=O(\\varepsilon^{-2}\\log N)$ via a random Gaussian projection while preserving every pairwise distance up to $1\\pm\\varepsilon$ — the workhorse dimension reduction of high-D ML.",
+          "tags": [
+            "finiteness"
+          ]
         },
         {
           "id": "hdg-talagrand",
@@ -2182,7 +2252,10 @@ window.__MVConcepts = {
           "prereqs": [
             "voa-vertex-operators"
           ],
-          "blurb": "A vertex operator algebra is $(V, Y, \\mathbf{1}, \\omega)$ satisfying vacuum ($Y(\\mathbf{1}, z) = \\mathrm{id}$), translation ($[T, Y(a,z)] = \\partial_z Y(a,z)$), locality, and the Borcherds–Jacobi identity that ties operator-product expansion to a single equation; all four are equivalent characterisations under mild hypotheses."
+          "blurb": "A vertex operator algebra is $(V, Y, \\mathbf{1}, \\omega)$ satisfying vacuum ($Y(\\mathbf{1}, z) = \\mathrm{id}$), translation ($[T, Y(a,z)] = \\partial_z Y(a,z)$), locality, and the Borcherds–Jacobi identity that ties operator-product expansion to a single equation; all four are equivalent characterisations under mild hypotheses.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "voa-virasoro",
@@ -5263,7 +5336,10 @@ window.__MVConcepts = {
           "prereqs": [
             "real-continuity"
           ],
-          "blurb": "The derivative as best linear approximation, chain rule, mean value theorem, and Taylor's theorem with remainder."
+          "blurb": "The derivative as best linear approximation, chain rule, mean value theorem, and Taylor's theorem with remainder.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "uniform-convergence",
@@ -5272,7 +5348,10 @@ window.__MVConcepts = {
           "prereqs": [
             "real-continuity"
           ],
-          "blurb": "Uniform vs pointwise convergence of function sequences, Weierstrass M-test, and why uniform limits preserve continuity and integrability."
+          "blurb": "Uniform vs pointwise convergence of function sequences, Weierstrass M-test, and why uniform limits preserve continuity and integrability.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "riemann-integral",
@@ -5282,7 +5361,10 @@ window.__MVConcepts = {
             "real-continuity",
             "real-differentiation"
           ],
-          "blurb": "Upper/lower sums, the fundamental theorem of calculus, and the failure modes that motivate measure theory."
+          "blurb": "Upper/lower sums, the fundamental theorem of calculus, and the failure modes that motivate measure theory.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "multivariable-differentiation",
@@ -5291,7 +5373,10 @@ window.__MVConcepts = {
           "prereqs": [
             "real-differentiation"
           ],
-          "blurb": "Partial derivatives, total derivative as Jacobian, chain rule for vector-valued maps, gradients and directional derivatives."
+          "blurb": "Partial derivatives, total derivative as Jacobian, chain rule for vector-valued maps, gradients and directional derivatives.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "multivariable-integration",
@@ -5301,7 +5386,10 @@ window.__MVConcepts = {
             "riemann-integral",
             "multivariable-differentiation"
           ],
-          "blurb": "Iterated integrals, Fubini's theorem, Jacobian determinant and the change-of-variables formula on R^n."
+          "blurb": "Iterated integrals, Fubini's theorem, Jacobian determinant and the change-of-variables formula on R^n.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "inverse-function-theorem",
@@ -5322,7 +5410,10 @@ window.__MVConcepts = {
           "prereqs": [
             "real-numbers"
           ],
-          "blurb": "Absolute vs conditional convergence; ratio, root, comparison, and integral tests; Abel and Dirichlet criteria for conditional sums."
+          "blurb": "Absolute vs conditional convergence; ratio, root, comparison, and integral tests; Abel and Dirichlet criteria for conditional sums.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "power-series-real",
@@ -5332,7 +5423,10 @@ window.__MVConcepts = {
             "numeric-series",
             "uniform-convergence"
           ],
-          "blurb": "Cauchy–Hadamard 1/R = limsup |a_n|^{1/n}; uniform convergence on compact subsets of the disk; term-by-term differentiation and the bridge to real-analytic functions."
+          "blurb": "Cauchy–Hadamard 1/R = limsup |a_n|^{1/n}; uniform convergence on compact subsets of the disk; term-by-term differentiation and the bridge to real-analytic functions.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "metric-completeness-baire",
@@ -5355,7 +5449,10 @@ window.__MVConcepts = {
             "riemann-integral",
             "real-differentiation"
           ],
-          "blurb": "Part I: F(x)=∫_a^x f gives F'=f when f is continuous. Part II: ∫_a^b F'=F(b)-F(a) for F differentiable with F' integrable; absolute continuity as the right class for Lebesgue."
+          "blurb": "Part I: F(x)=∫_a^x f gives F'=f when f is continuous. Part II: ∫_a^b F'=F(b)-F(a) for F differentiable with F' integrable; absolute continuity as the right class for Lebesgue.",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "bump-functions",
@@ -5364,7 +5461,10 @@ window.__MVConcepts = {
           "prereqs": [
             "real-differentiation"
           ],
-          "blurb": "The model bump exp(-1/(1-x^2)) is C^∞ with compact support; convolution with mollifiers smooths any locally integrable function and yields smooth partitions of unity."
+          "blurb": "The model bump exp(-1/(1-x^2)) is C^∞ with compact support; convolution with mollifiers smooths any locally integrable function and yields smooth partitions of unity.",
+          "tags": [
+            "compactness"
+          ]
         },
         {
           "id": "c-space-arzela",
@@ -5405,7 +5505,10 @@ window.__MVConcepts = {
           "prereqs": [
             "sigma-algebras"
           ],
-          "blurb": "Extend a premeasure on an algebra to an outer measure on all subsets; the Carathéodory additivity test picks out the σ-algebra on which the extension restricts to a countably additive measure."
+          "blurb": "Extend a premeasure on an algebra to an outer measure on all subsets; the Carathéodory additivity test picks out the σ-algebra on which the extension restricts to a countably additive measure.",
+          "tags": [
+            "completion"
+          ]
         },
         {
           "id": "lebesgue-measure",
@@ -5426,7 +5529,10 @@ window.__MVConcepts = {
           "prereqs": [
             "sigma-algebras"
           ],
-          "blurb": "f measurable iff preimages of Borel sets are measurable; simple functions approximate measurable functions from below."
+          "blurb": "f measurable iff preimages of Borel sets are measurable; simple functions approximate measurable functions from below.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "lebesgue-integral",
@@ -5436,7 +5542,10 @@ window.__MVConcepts = {
             "lebesgue-measure",
             "measurable-functions"
           ],
-          "blurb": "Integrate by partitioning the range, not the domain; agrees with Riemann when Riemann exists, but handles far more functions."
+          "blurb": "Integrate by partitioning the range, not the domain; agrees with Riemann when Riemann exists, but handles far more functions.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "convergence-theorems",
@@ -5448,7 +5557,10 @@ window.__MVConcepts = {
             "measurable-functions",
             "lebesgue-measure"
           ],
-          "blurb": "MCT and DCT let you swap limit and integral under mild hypotheses — the machine behind most measure-theoretic arguments."
+          "blurb": "MCT and DCT let you swap limit and integral under mild hypotheses — the machine behind most measure-theoretic arguments.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "lp-spaces",
@@ -5471,7 +5583,10 @@ window.__MVConcepts = {
           "prereqs": [
             "lebesgue-measure"
           ],
-          "blurb": "On σ-finite spaces the product σ-algebra carries a unique product measure satisfying μ⊗ν(A×B)=μ(A)ν(B); σ-finiteness is exactly what rescues uniqueness in Carathéodory's extension."
+          "blurb": "On σ-finite spaces the product σ-algebra carries a unique product measure satisfying μ⊗ν(A×B)=μ(A)ν(B); σ-finiteness is exactly what rescues uniqueness in Carathéodory's extension.",
+          "tags": [
+            "finiteness"
+          ]
         },
         {
           "id": "fubini-tonelli",
@@ -5481,7 +5596,10 @@ window.__MVConcepts = {
             "product-measures",
             "convergence-theorems"
           ],
-          "blurb": "Tonelli swaps iterated integrals for nonnegative measurable f (no integrability needed); Fubini extends this to complex-valued f ∈ L¹(μ⊗ν). Without absolute integrability the iterated integrals can disagree."
+          "blurb": "Tonelli swaps iterated integrals for nonnegative measurable f (no integrability needed); Fubini extends this to complex-valued f ∈ L¹(μ⊗ν). Without absolute integrability the iterated integrals can disagree.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "signed-measures-radon-nikodym",
@@ -5516,7 +5634,10 @@ window.__MVConcepts = {
           "prereqs": [
             "outer-measure-caratheodory"
           ],
-          "blurb": "s-dimensional Hausdorff measure H^s counts size by Σ diam(U_i)^s over δ-covers; the unique s at which H^s jumps from ∞ to 0 is the Hausdorff dimension — the Cantor set has dim = log 2 / log 3."
+          "blurb": "s-dimensional Hausdorff measure H^s counts size by Σ diam(U_i)^s over δ-covers; the unique s at which H^s jumps from ∞ to 0 is the Hausdorff dimension — the Cantor set has dim = log 2 / log 3.",
+          "tags": [
+            "classification"
+          ]
         }
       ]
     },
@@ -5542,7 +5663,10 @@ window.__MVConcepts = {
           "prereqs": [
             "complex-numbers"
           ],
-          "blurb": "Stereographic projection; ∞ as a point; circles/lines unified."
+          "blurb": "Stereographic projection; ∞ as a point; circles/lines unified.",
+          "tags": [
+            "compactness"
+          ]
         },
         {
           "id": "mobius-transformations",
@@ -5551,7 +5675,10 @@ window.__MVConcepts = {
           "prereqs": [
             "riemann-sphere"
           ],
-          "blurb": "Linear-fractional maps, cross-ratio, automorphisms of Ĉ."
+          "blurb": "Linear-fractional maps, cross-ratio, automorphisms of Ĉ.",
+          "tags": [
+            "group-action"
+          ]
         },
         {
           "id": "amplitwist",
@@ -5561,7 +5688,10 @@ window.__MVConcepts = {
             "complex-numbers",
             "real-differentiation"
           ],
-          "blurb": "Needham's picture: a holomorphic $f$ acts on infinitesimal vectors at $z_0$ as rotation by $\\arg f'(z_0)$ and scaling by $|f'(z_0)|$; the Jacobian is a similarity matrix."
+          "blurb": "Needham's picture: a holomorphic $f$ acts on infinitesimal vectors at $z_0$ as rotation by $\\arg f'(z_0)$ and scaling by $|f'(z_0)|$; the Jacobian is a similarity matrix.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "cauchy-riemann",
@@ -5570,7 +5700,10 @@ window.__MVConcepts = {
           "prereqs": [
             "amplitwist"
           ],
-          "blurb": "A complex-differentiable $f = u + iv$ must have Jacobian commuting with multiplication by $i$; equivalently $u_x = v_y$, $u_y = -v_x$, i.e. $\\bar\\partial f = 0$."
+          "blurb": "A complex-differentiable $f = u + iv$ must have Jacobian commuting with multiplication by $i$; equivalently $u_x = v_y$, $u_y = -v_x$, i.e. $\\bar\\partial f = 0$.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "holomorphic-function",
@@ -5602,7 +5735,10 @@ window.__MVConcepts = {
             "paths",
             "cauchy-riemann"
           ],
-          "blurb": "Integrate $f\\,dz$ along a piecewise smooth $\\gamma$; the real 1-forms $u\\,dx - v\\,dy$ and $v\\,dx + u\\,dy$ are closed exactly when $f$ is holomorphic."
+          "blurb": "Integrate $f\\,dz$ along a piecewise smooth $\\gamma$; the real 1-forms $u\\,dx - v\\,dy$ and $v\\,dx + u\\,dy$ are closed exactly when $f$ is holomorphic.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "cauchy-theorem",
@@ -5612,7 +5748,10 @@ window.__MVConcepts = {
             "contour-integral",
             "simply-connected"
           ],
-          "blurb": "∫_γ f dz = 0 on simply connected domains."
+          "blurb": "∫_γ f dz = 0 on simply connected domains.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "cauchy-integral-formula",
@@ -5636,7 +5775,10 @@ window.__MVConcepts = {
             "fta",
             "schwarz-lemma"
           ],
-          "blurb": "Every holomorphic function is locally a convergent power series."
+          "blurb": "Every holomorphic function is locally a convergent power series.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "liouville",
@@ -5681,7 +5823,10 @@ window.__MVConcepts = {
           "prereqs": [
             "analyticity"
           ],
-          "blurb": "Expansions on annuli; principal part captures singular behavior."
+          "blurb": "Expansions on annuli; principal part captures singular behavior.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "singularity-classification",
@@ -5715,7 +5860,10 @@ window.__MVConcepts = {
           "prereqs": [
             "residue-theorem"
           ],
-          "blurb": "(1/2πi) ∮ f′/f = Z − P; winding of f(γ) counts zeros minus poles."
+          "blurb": "(1/2πi) ∮ f′/f = Z − P; winding of f(γ) counts zeros minus poles.",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "rouche",
@@ -5734,7 +5882,10 @@ window.__MVConcepts = {
             "amplitwist",
             "mobius-transformations"
           ],
-          "blurb": "Angle-preserving, orientation-preserving; locally holomorphic with f′ ≠ 0."
+          "blurb": "Angle-preserving, orientation-preserving; locally holomorphic with f′ ≠ 0.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "disk-automorphisms",
@@ -5790,7 +5941,10 @@ window.__MVConcepts = {
             "analytic-continuation",
             "contour-integral"
           ],
-          "blurb": "If $f = u + iv$ is holomorphic then $u$ and $v$ satisfy Laplace's equation $\\Delta u = 0$; on simply connected domains every harmonic $u$ has a harmonic conjugate recovering a holomorphic lift."
+          "blurb": "If $f = u + iv$ is holomorphic then $u$ and $v$ satisfy Laplace's equation $\\Delta u = 0$; on simply connected domains every harmonic $u$ has a harmonic conjugate recovering a holomorphic lift.",
+          "tags": [
+            "lifting"
+          ]
         },
         {
           "id": "analytic-continuation",
@@ -5831,7 +5985,11 @@ window.__MVConcepts = {
           "prereqs": [
             "banach-hilbert-spaces"
           ],
-          "blurb": "B(X,Y) is Banach under the operator norm; for linear maps bounded = continuous = Lipschitz, and the norm is the largest singular value in the matrix case."
+          "blurb": "B(X,Y) is Banach under the operator norm; for linear maps bounded = continuous = Lipschitz, and the norm is the largest singular value in the matrix case.",
+          "tags": [
+            "foundation",
+            "completion"
+          ]
         },
         {
           "id": "bounded-operators-fa",
@@ -5842,7 +6000,10 @@ window.__MVConcepts = {
             "banach-hilbert-spaces",
             "algebraic-structures"
           ],
-          "blurb": "Linear operators on Hilbert spaces admit operator norms, adjoints, and projection geometry."
+          "blurb": "Linear operators on Hilbert spaces admit operator norms, adjoints, and projection geometry.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "adjoint-hilbert",
@@ -5864,7 +6025,10 @@ window.__MVConcepts = {
           "prereqs": [
             "bounded-operators-fa"
           ],
-          "blurb": "Hahn–Banach, Open Mapping, Closed Graph, and Banach–Steinhaus organize Banach-space analysis via Baire category and Zorn's lemma."
+          "blurb": "Hahn–Banach, Open Mapping, Closed Graph, and Banach–Steinhaus organize Banach-space analysis via Baire category and Zorn's lemma.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "compact-operators",
@@ -6002,7 +6166,11 @@ window.__MVConcepts = {
             "banach-spectrum",
             "bounded-operators-fa"
           ],
-          "blurb": "For a normal element $a$ of a unital $C^*$-algebra, $C(\\sigma(a))\\cong C^*(a,1)$ via $f\\mapsto f(a)$, upgrading Riesz–Dunford to an isometric $*$-isomorphism and powering the spectral theorem."
+          "blurb": "For a normal element $a$ of a unital $C^*$-algebra, $C(\\sigma(a))\\cong C^*(a,1)$ via $f\\mapsto f(a)$, upgrading Riesz–Dunford to an isometric $*$-isomorphism and powering the spectral theorem.",
+          "tags": [
+            "duality",
+            "functoriality"
+          ]
         },
         {
           "id": "gelfand-duality-oa",
@@ -6041,7 +6209,11 @@ window.__MVConcepts = {
             "banach-hilbert-spaces",
             "weak-topology"
           ],
-          "blurb": "A unital $*$-subalgebra $M\\subseteq B(H)$ is a von Neumann algebra iff $M=M''$ (double-commutant theorem); equivalently it is closed in the strong/weak operator topologies."
+          "blurb": "A unital $*$-subalgebra $M\\subseteq B(H)$ is a von Neumann algebra iff $M=M''$ (double-commutant theorem); equivalently it is closed in the strong/weak operator topologies.",
+          "tags": [
+            "foundation",
+            "duality"
+          ]
         },
         {
           "id": "factors-types",
@@ -6062,7 +6234,10 @@ window.__MVConcepts = {
           "prereqs": [
             "factors-types"
           ],
-          "blurb": "Projections $p\\sim q$ in $M$ iff there is $v\\in M$ with $v^*v=p$, $vv^*=q$; on a II$_1$ factor this yields a continuous dimension function $d\\colon \\mathrm{Proj}(M)\\to[0,1]$."
+          "blurb": "Projections $p\\sim q$ in $M$ iff there is $v\\in M$ with $v^*v=p$, $vv^*=q$; on a II$_1$ factor this yields a continuous dimension function $d\\colon \\mathrm{Proj}(M)\\to[0,1]$.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "positive-elements",
@@ -6071,7 +6246,10 @@ window.__MVConcepts = {
           "prereqs": [
             "spectrum-of-element"
           ],
-          "blurb": "Positive elements $a=b^*b$ form a closed cone, detected by $a=a^*$ with $\\sigma(a)\\subseteq[0,\\infty)$, and induce the partial order $a\\le b\\iff b-a\\ge 0$ (pointwise in $C(X)$, Löwner in $B(H)$)."
+          "blurb": "Positive elements $a=b^*b$ form a closed cone, detected by $a=a^*$ with $\\sigma(a)\\subseteq[0,\\infty)$, and induce the partial order $a\\le b\\iff b-a\\ge 0$ (pointwise in $C(X)$, Löwner in $B(H)$).",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "states-pure-states",
@@ -6082,7 +6260,11 @@ window.__MVConcepts = {
             "riesz-representation",
             "lebesgue-integral"
           ],
-          "blurb": "A state is a positive linear functional with $\\phi(1)=1$; the state space $S(A)$ is weak-$*$ compact convex, and its extreme points — the pure states — play the role of points (Borel probability measures on $X$ when $A=C(X)$)."
+          "blurb": "A state is a positive linear functional with $\\phi(1)=1$; the state space $S(A)$ is weak-$*$ compact convex, and its extreme points — the pure states — play the role of points (Borel probability measures on $X$ when $A=C(X)$).",
+          "tags": [
+            "compactness",
+            "duality"
+          ]
         },
         {
           "id": "gns-construction",
@@ -6092,7 +6274,11 @@ window.__MVConcepts = {
             "states-pure-states",
             "banach-hilbert-spaces"
           ],
-          "blurb": "From a state $\\omega$ on $A$ build $(\\pi_\\omega, H_\\omega, \\Omega_\\omega)$: take $\\langle a,b\\rangle=\\omega(b^*a)$, quotient the null ideal, complete, and let $A$ act by left multiplication; $\\omega(a)=\\langle\\Omega_\\omega,\\pi_\\omega(a)\\Omega_\\omega\\rangle$."
+          "blurb": "From a state $\\omega$ on $A$ build $(\\pi_\\omega, H_\\omega, \\Omega_\\omega)$: take $\\langle a,b\\rangle=\\omega(b^*a)$, quotient the null ideal, complete, and let $A$ act by left multiplication; $\\omega(a)=\\langle\\Omega_\\omega,\\pi_\\omega(a)\\Omega_\\omega\\rangle$.",
+          "tags": [
+            "functoriality",
+            "universal-property"
+          ]
         },
         {
           "id": "approximate-units-amenability",
@@ -6102,7 +6288,10 @@ window.__MVConcepts = {
             "cstar-basics",
             "positive-elements"
           ],
-          "blurb": "Every $C^*$-algebra has an approximate unit $(e_\\lambda)$ with $e_\\lambda\\ge 0$, $\\|e_\\lambda\\|\\le 1$, and $e_\\lambda a\\to a$; nuclearity and amenability refine this by asking for finite-dimensional approximations."
+          "blurb": "Every $C^*$-algebra has an approximate unit $(e_\\lambda)$ with $e_\\lambda\\ge 0$, $\\|e_\\lambda\\|\\le 1$, and $e_\\lambda a\\to a$; nuclearity and amenability refine this by asking for finite-dimensional approximations.",
+          "tags": [
+            "finiteness"
+          ]
         }
       ]
     },
@@ -6168,7 +6357,10 @@ window.__MVConcepts = {
           "prereqs": [
             "dyn-orbits-flows"
           ],
-          "blurb": "A discrete system is a map $f\\colon X\\to X$ with orbit $x,f(x),f^2(x),\\ldots$; the logistic family $f_r(x)=rx(1-x)$ is the canonical one-parameter showcase of fixed points, cycles, and chaos."
+          "blurb": "A discrete system is a map $f\\colon X\\to X$ with orbit $x,f(x),f^2(x),\\ldots$; the logistic family $f_r(x)=rx(1-x)$ is the canonical one-parameter showcase of fixed points, cycles, and chaos.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "period-doubling-cascade",
@@ -6177,7 +6369,10 @@ window.__MVConcepts = {
           "prereqs": [
             "dyn-iterated-maps"
           ],
-          "blurb": "The logistic map $x_{n+1} = r\\,x_n(1-x_n)$ encodes how a single nonlinear feedback gives rise to chaos. As $r$ increases through $[3, 3.57]$ the attractor period-doubles ($1\\to 2\\to 4\\to 8\\to\\cdots$) at geometric rate $\\delta\\approx 4.6692$ — the Feigenbaum constant — and at $r\\approx 3.5699$ the orbit becomes chaotic, with periodic windows (e.g. period $3$ at $r\\approx 3.83$) interleaved."
+          "blurb": "The logistic map $x_{n+1} = r\\,x_n(1-x_n)$ encodes how a single nonlinear feedback gives rise to chaos. As $r$ increases through $[3, 3.57]$ the attractor period-doubles ($1\\to 2\\to 4\\to 8\\to\\cdots$) at geometric rate $\\delta\\approx 4.6692$ — the Feigenbaum constant — and at $r\\approx 3.5699$ the orbit becomes chaotic, with periodic windows (e.g. period $3$ at $r\\approx 3.83$) interleaved.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "dyn-bifurcations",
@@ -6200,7 +6395,10 @@ window.__MVConcepts = {
             "dyn-bifurcations",
             "dyn-iterated-maps"
           ],
-          "blurb": "Chaos = sensitive dependence on initial conditions + topological transitivity + dense periodic orbits. The Lyapunov exponent $\\lambda=\\lim \\tfrac{1}{N}\\sum \\log|f'(x_i)|$ quantifies the average rate of separation; $\\lambda>0$ is the quantitative signature."
+          "blurb": "Chaos = sensitive dependence on initial conditions + topological transitivity + dense periodic orbits. The Lyapunov exponent $\\lambda=\\lim \\tfrac{1}{N}\\sum \\log|f'(x_i)|$ quantifies the average rate of separation; $\\lambda>0$ is the quantitative signature.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "dyn-conservative-dissipative",
@@ -6211,7 +6409,10 @@ window.__MVConcepts = {
             "forms-and-wedge",
             "sm-hamiltonian-flow"
           ],
-          "blurb": "Liouville: $\\tfrac{d}{dt}\\mathrm{vol}(\\Phi_t(U)) = \\int_U \\operatorname{div}X\\,d\\mathrm{vol}$. Conservative flows preserve a volume form ($\\operatorname{div}X=0$); dissipative ones contract phase-space volume ($\\operatorname{div}X<0$), forcing attractors to have zero volume."
+          "blurb": "Liouville: $\\tfrac{d}{dt}\\mathrm{vol}(\\Phi_t(U)) = \\int_U \\operatorname{div}X\\,d\\mathrm{vol}$. Conservative flows preserve a volume form ($\\operatorname{div}X=0$); dissipative ones contract phase-space volume ($\\operatorname{div}X<0$), forcing attractors to have zero volume.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "dyn-poincare-section",
@@ -6230,7 +6431,10 @@ window.__MVConcepts = {
           "prereqs": [
             "dyn-chaos"
           ],
-          "blurb": "Partition state space into labelled cells $\\{A_0,\\ldots,A_{k-1}\\}$; the itinerary $\\sigma(x)=(a_0,a_1,\\ldots)$ conjugates the dynamics to the shift on a sequence space $\\{0,\\ldots,k-1\\}^{\\mathbb{N}}$. The doubling map is conjugate to the full 2-shift."
+          "blurb": "Partition state space into labelled cells $\\{A_0,\\ldots,A_{k-1}\\}$; the itinerary $\\sigma(x)=(a_0,a_1,\\ldots)$ conjugates the dynamics to the shift on a sequence space $\\{0,\\ldots,k-1\\}^{\\mathbb{N}}$. The doubling map is conjugate to the full 2-shift.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "dyn-ergodicity",
@@ -6253,7 +6457,10 @@ window.__MVConcepts = {
             "dyn-chaos",
             "dyn-poincare-section"
           ],
-          "blurb": "A strange attractor is an invariant set that attracts a positive-volume basin, has sensitive dependence, and fractal (non-integer) dimension. The Lorenz attractor, with $(\\sigma,\\beta,\\rho)=(10,8/3,28)$, is the canonical example."
+          "blurb": "A strange attractor is an invariant set that attracts a positive-volume basin, has sensitive dependence, and fractal (non-integer) dimension. The Lorenz attractor, with $(\\sigma,\\beta,\\rho)=(10,8/3,28)$, is the canonical example.",
+          "tags": [
+            "classification"
+          ]
         }
       ]
     },
@@ -6422,7 +6629,10 @@ window.__MVConcepts = {
             "fourier-transform-real-line",
             "schwartz-space-distributions"
           ],
-          "blurb": "$\\|x f\\|_2\\,\\|\\xi\\hat f\\|_2 \\ge \\|f\\|_2^2/(4\\pi)$, with equality only for Gaussians. Localization in space and frequency are quantitatively incompatible — a hard constraint behind Plancherel theorems on locally compact abelian groups."
+          "blurb": "$\\|x f\\|_2\\,\\|\\xi\\hat f\\|_2 \\ge \\|f\\|_2^2/(4\\pi)$, with equality only for Gaussians. Localization in space and frequency are quantitatively incompatible — a hard constraint behind Plancherel theorems on locally compact abelian groups.",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "poisson-summation",
@@ -6446,7 +6656,10 @@ window.__MVConcepts = {
             "fourier-transform-real-line",
             "convolution-theorem"
           ],
-          "blurb": "$\\widehat{e^{-\\pi x^2}} = e^{-\\pi \\xi^2}$: the Gaussian is its own Fourier transform. Convolution with the heat kernel $K_t(x) = (4\\pi t)^{-1/2}e^{-x^2/4t}$ solves $\\partial_t u = \\partial_x^2 u$, and on the Fourier side this is multiplication by $e^{-4\\pi^2 t \\xi^2}$."
+          "blurb": "$\\widehat{e^{-\\pi x^2}} = e^{-\\pi \\xi^2}$: the Gaussian is its own Fourier transform. Convolution with the heat kernel $K_t(x) = (4\\pi t)^{-1/2}e^{-x^2/4t}$ solves $\\partial_t u = \\partial_x^2 u$, and on the Fourier side this is multiplication by $e^{-4\\pi^2 t \\xi^2}$.",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "pontryagin-duality",
@@ -6576,7 +6789,10 @@ window.__MVConcepts = {
             "hf-laplace-equation",
             "cauchy-theorem"
           ],
-          "blurb": "A continuous $u$ is harmonic iff for every closed ball $\\overline{B(x,r)}\\subset\\Omega$ the value $u(x)$ equals the average over the sphere (and equivalently over the ball). The MVP characterises harmonicity and forces $u\\in C^\\infty$."
+          "blurb": "A continuous $u$ is harmonic iff for every closed ball $\\overline{B(x,r)}\\subset\\Omega$ the value $u(x)$ equals the average over the sphere (and equivalently over the ball). The MVP characterises harmonicity and forces $u\\in C^\\infty$.",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "hf-maximum-principle",
@@ -6585,7 +6801,10 @@ window.__MVConcepts = {
           "prereqs": [
             "hf-mean-value-property"
           ],
-          "blurb": "Weak form: a harmonic $u$ on a bounded $\\Omega$ attains $\\sup u$ on $\\partial\\Omega$. Strong form: an interior maximum forces $u$ to be constant on the connected component. Together they yield uniqueness for the Dirichlet problem."
+          "blurb": "Weak form: a harmonic $u$ on a bounded $\\Omega$ attains $\\sup u$ on $\\partial\\Omega$. Strong form: an interior maximum forces $u$ to be constant on the connected component. Together they yield uniqueness for the Dirichlet problem.",
+          "tags": [
+            "compactness"
+          ]
         },
         {
           "id": "hf-poisson-kernel",
@@ -6595,7 +6814,10 @@ window.__MVConcepts = {
             "hf-mean-value-property",
             "lebesgue-measure"
           ],
-          "blurb": "The disk's Dirichlet problem has the explicit solution $u(re^{i\\theta}) = \\tfrac{1}{2\\pi}\\int_0^{2\\pi} P_r(\\theta-\\varphi)\\,g(\\varphi)\\,d\\varphi$ with $P_r(\\theta) = \\tfrac{1-r^2}{1-2r\\cos\\theta+r^2}$. Boundary values are recovered $L^p$-a.e. by Fatou's theorem."
+          "blurb": "The disk's Dirichlet problem has the explicit solution $u(re^{i\\theta}) = \\tfrac{1}{2\\pi}\\int_0^{2\\pi} P_r(\\theta-\\varphi)\\,g(\\varphi)\\,d\\varphi$ with $P_r(\\theta) = \\tfrac{1-r^2}{1-2r\\cos\\theta+r^2}$. Boundary values are recovered $L^p$-a.e. by Fatou's theorem.",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "hf-harnack-inequality",
@@ -6767,7 +6989,10 @@ window.__MVConcepts = {
           "prereqs": [
             "sample-spaces-events"
           ],
-          "blurb": "$\\mathbb{P}(A\\mid B)=\\mathbb{P}(A\\cap B)/\\mathbb{P}(B)$, independence as product-factorization, and Bayes' rule as the engine of statistical inference."
+          "blurb": "$\\mathbb{P}(A\\mid B)=\\mathbb{P}(A\\cap B)/\\mathbb{P}(B)$, independence as product-factorization, and Bayes' rule as the engine of statistical inference.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "random-variables",
@@ -6777,7 +7002,11 @@ window.__MVConcepts = {
             "sample-spaces-events",
             "measurable-functions"
           ],
-          "blurb": "A random variable is a measurable function $X:\\Omega\\to\\mathbb{R}$; its law $\\mathbb{P}_X$ is the push-forward measure on $(\\mathbb{R},\\mathcal{B})$."
+          "blurb": "A random variable is a measurable function $X:\\Omega\\to\\mathbb{R}$; its law $\\mathbb{P}_X$ is the push-forward measure on $(\\mathbb{R},\\mathcal{B})$.",
+          "tags": [
+            "foundation",
+            "functoriality"
+          ]
         },
         {
           "id": "supports-distributions",
@@ -6800,7 +7029,10 @@ window.__MVConcepts = {
             "lebesgue-integral",
             "lp-spaces"
           ],
-          "blurb": "$\\mathbb{E}[X]=\\int_\\Omega X\\,d\\mathbb{P}$ is the centre of mass of the law; variance, covariance, and higher moments live in $L^p$."
+          "blurb": "$\\mathbb{E}[X]=\\int_\\Omega X\\,d\\mathbb{P}$ is the centre of mass of the law; variance, covariance, and higher moments live in $L^p$.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "generating-functions",
@@ -6835,7 +7067,10 @@ window.__MVConcepts = {
             "convergence-rv",
             "expectation-moments"
           ],
-          "blurb": "For i.i.d.\\ integrable $X_n$ with mean $\\mu$, $\\bar X_N\\to\\mu$ — weakly by Chebyshev (WLLN), strongly by Kolmogorov (SLLN)."
+          "blurb": "For i.i.d.\\ integrable $X_n$ with mean $\\mu$, $\\bar X_N\\to\\mu$ — weakly by Chebyshev (WLLN), strongly by Kolmogorov (SLLN).",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "central-limit-theorem",
@@ -6845,7 +7080,10 @@ window.__MVConcepts = {
             "convergence-rv",
             "generating-functions"
           ],
-          "blurb": "For i.i.d.\\ $X_n$ with variance $\\sigma^2<\\infty$, $\\sqrt N(\\bar X_N-\\mu)/\\sigma$ converges in distribution to $\\mathcal{N}(0,1)$."
+          "blurb": "For i.i.d.\\ $X_n$ with variance $\\sigma^2<\\infty$, $\\sqrt N(\\bar X_N-\\mu)/\\sigma$ converges in distribution to $\\mathcal{N}(0,1)$.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "markov-chains",
@@ -6855,7 +7093,10 @@ window.__MVConcepts = {
             "conditional-bayes",
             "algebraic-structures"
           ],
-          "blurb": "A memoryless stochastic process on a state space; transition matrices compose as a semigroup, and under irreducibility-plus-aperiodicity converge to a unique stationary distribution."
+          "blurb": "A memoryless stochastic process on a state space; transition matrices compose as a semigroup, and under irreducibility-plus-aperiodicity converge to a unique stationary distribution.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "martingales",
@@ -6865,7 +7106,10 @@ window.__MVConcepts = {
             "conditional-bayes",
             "convergence-rv"
           ],
-          "blurb": "A process $(M_n)$ with $\\mathbb{E}[M_{n+1}\\mid\\mathcal{F}_n]=M_n$; Doob's optional-stopping and convergence theorems make martingales the backbone of modern probability."
+          "blurb": "A process $(M_n)$ with $\\mathbb{E}[M_{n+1}\\mid\\mathcal{F}_n]=M_n$; Doob's optional-stopping and convergence theorems make martingales the backbone of modern probability.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "brownian-motion",
@@ -6875,7 +7119,11 @@ window.__MVConcepts = {
             "central-limit-theorem",
             "martingales"
           ],
-          "blurb": "The continuous-time Gaussian process $(W_t)_{t\\ge 0}$ with independent stationary increments $W_t-W_s\\sim\\mathcal{N}(0,t-s)$ — the scaling limit of random walks and the fundamental stochastic process."
+          "blurb": "The continuous-time Gaussian process $(W_t)_{t\\ge 0}$ with independent stationary increments $W_t-W_s\\sim\\mathcal{N}(0,t-s)$ — the scaling limit of random walks and the fundamental stochastic process.",
+          "tags": [
+            "foundation",
+            "completion"
+          ]
         }
       ]
     },
@@ -6906,7 +7154,10 @@ window.__MVConcepts = {
             "expectation-moments",
             "martingales"
           ],
-          "blurb": "An adapted $L^1$ process $(M_n)$ is a martingale when $\\mathbb{E}[M_{n+1}\\mid\\mathcal{F}_n]=M_n$; mean-zero random walk and Doob martingales $\\mathbb{E}[Z\\mid\\mathcal{F}_n]$ are the canonical examples."
+          "blurb": "An adapted $L^1$ process $(M_n)$ is a martingale when $\\mathbb{E}[M_{n+1}\\mid\\mathcal{F}_n]=M_n$; mean-zero random walk and Doob martingales $\\mathbb{E}[Z\\mid\\mathcal{F}_n]$ are the canonical examples.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "sp-optional-stopping",
@@ -6943,7 +7194,10 @@ window.__MVConcepts = {
             "convergence-rv",
             "martingales"
           ],
-          "blurb": "If $\\sup_n\\mathbb{E}|M_n|<\\infty$ then $M_n\\to M_\\infty$ a.s. for some $M_\\infty\\in L^1$ (Doob); uniform integrability upgrades the convergence to $L^1$, while $L^1$-bounded-without-UI examples like the doubling product $\\prod X_i$ collapse to $0$ even with $\\mathbb{E}[M_n]=1$."
+          "blurb": "If $\\sup_n\\mathbb{E}|M_n|<\\infty$ then $M_n\\to M_\\infty$ a.s. for some $M_\\infty\\in L^1$ (Doob); uniform integrability upgrades the convergence to $L^1$, while $L^1$-bounded-without-UI examples like the doubling product $\\prod X_i$ collapse to $0$ even with $\\mathbb{E}[M_n]=1$.",
+          "tags": [
+            "completion"
+          ]
         },
         {
           "id": "sp-continuous-martingales",
@@ -6953,7 +7207,10 @@ window.__MVConcepts = {
             "sp-martingale-convergence",
             "brownian-motion"
           ],
-          "blurb": "Brownian motion $W_t$ is the canonical continuous martingale, with $W_t^2-t$ a martingale and quadratic variation $[W]_t=t$ a.s.; Burkholder–Davis–Gundy ties $L^p$ norms of $\\sup_{s\\le t}M_s$ to $[M]_t$, setting up Itô calculus."
+          "blurb": "Brownian motion $W_t$ is the canonical continuous martingale, with $W_t^2-t$ a martingale and quadratic variation $[W]_t=t$ a.s.; Burkholder–Davis–Gundy ties $L^p$ norms of $\\sup_{s\\le t}M_s$ to $[M]_t$, setting up Itô calculus.",
+          "tags": [
+            "completion"
+          ]
         }
       ]
     },
@@ -6983,7 +7240,10 @@ window.__MVConcepts = {
             "sc-ito-integral",
             "sp-doob-decomposition"
           ],
-          "blurb": "For $C^2$ functions and Itô process $X_t$, $df(X_t)=f'(X_t)\\,dX_t+\\tfrac{1}{2}f''(X_t)\\,(dX_t)^2$ — the chain rule corrected by the quadratic-variation term that classical calculus misses; equivalently $f(B_t)=f(0)+\\int_0^t f'(B_s)\\,dB_s+\\tfrac{1}{2}\\int_0^t f''(B_s)\\,ds$."
+          "blurb": "For $C^2$ functions and Itô process $X_t$, $df(X_t)=f'(X_t)\\,dX_t+\\tfrac{1}{2}f''(X_t)\\,(dX_t)^2$ — the chain rule corrected by the quadratic-variation term that classical calculus misses; equivalently $f(B_t)=f(0)+\\int_0^t f'(B_s)\\,dB_s+\\tfrac{1}{2}\\int_0^t f''(B_s)\\,ds$.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "sc-sde-existence",
@@ -6993,7 +7253,10 @@ window.__MVConcepts = {
             "sc-ito-integral",
             "sc-ito-formula"
           ],
-          "blurb": "For Lipschitz coefficients $b,\\sigma$, the SDE $dX_t=b(X_t)\\,dt+\\sigma(X_t)\\,dB_t$ has a unique strong solution by Picard iteration; weak solutions match a target law without fixing the driving Brownian motion, and geometric Brownian motion $dX_t=\\mu X_t\\,dt+\\sigma X_t\\,dB_t$ is the canonical multiplicative example."
+          "blurb": "For Lipschitz coefficients $b,\\sigma$, the SDE $dX_t=b(X_t)\\,dt+\\sigma(X_t)\\,dB_t$ has a unique strong solution by Picard iteration; weak solutions match a target law without fixing the driving Brownian motion, and geometric Brownian motion $dX_t=\\mu X_t\\,dt+\\sigma X_t\\,dB_t$ is the canonical multiplicative example.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "sc-girsanov",
@@ -7017,7 +7280,10 @@ window.__MVConcepts = {
             "sc-sde-existence",
             "pde-heat-equation"
           ],
-          "blurb": "The solution of the heat-type PDE $\\partial_t u+\\tfrac{1}{2}\\sigma^2\\partial_{xx}u+b\\,\\partial_x u-ru=0$ with terminal data $u(T,x)=g(x)$ equals $\\mathbb{E}[e^{-r(T-t)}g(X_T)\\mid X_t=x]$ — Brownian expectations solve linear parabolic PDEs and conversely."
+          "blurb": "The solution of the heat-type PDE $\\partial_t u+\\tfrac{1}{2}\\sigma^2\\partial_{xx}u+b\\,\\partial_x u-ru=0$ with terminal data $u(T,x)=g(x)$ equals $\\mathbb{E}[e^{-r(T-t)}g(X_T)\\mid X_t=x]$ — Brownian expectations solve linear parabolic PDEs and conversely.",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "sc-applications",
@@ -7068,7 +7334,10 @@ window.__MVConcepts = {
           "prereqs": [
             "rw-stationary-distribution"
           ],
-          "blurb": "$d(t)=\\max_x \\|P^t(x,\\cdot)-\\pi\\|_{\\mathrm{TV}}$ measures distance to stationarity; the mixing time $t_{\\mathrm{mix}}(\\varepsilon)=\\min\\{t:d(t)\\le\\varepsilon\\}$ is the standard quantitative cost of forgetting the start."
+          "blurb": "$d(t)=\\max_x \\|P^t(x,\\cdot)-\\pi\\|_{\\mathrm{TV}}$ measures distance to stationarity; the mixing time $t_{\\mathrm{mix}}(\\varepsilon)=\\min\\{t:d(t)\\le\\varepsilon\\}$ is the standard quantitative cost of forgetting the start.",
+          "tags": [
+            "completion"
+          ]
         },
         {
           "id": "rw-spectral-gap",
@@ -7078,7 +7347,10 @@ window.__MVConcepts = {
             "rw-mixing-time",
             "adjacency-and-laplacian"
           ],
-          "blurb": "For reversible chains the second eigenvalue $\\lambda_2$ of $P$ controls mixing: $t_{\\mathrm{mix}}(\\varepsilon)\\le \\frac{1}{1-\\lambda_2}\\log\\frac{1}{\\pi_{\\min}\\varepsilon}$ (and a matching lower bound up to constants)."
+          "blurb": "For reversible chains the second eigenvalue $\\lambda_2$ of $P$ controls mixing: $t_{\\mathrm{mix}}(\\varepsilon)\\le \\frac{1}{1-\\lambda_2}\\log\\frac{1}{\\pi_{\\min}\\varepsilon}$ (and a matching lower bound up to constants).",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "rw-coupling-method",
@@ -7140,7 +7412,10 @@ window.__MVConcepts = {
             "it-shannon-entropy",
             "ld-sanov-theorem"
           ],
-          "blurb": "$D(p\\,\\|\\,q)=\\sum_i p_i\\log(p_i/q_i)$ measures the inefficiency of coding $p$-distributed data with a $q$-tuned codebook; Gibbs' inequality gives $D(p\\,\\|\\,q)\\ge 0$ with equality iff $p=q$, and $D$ is the canonical rate function of Sanov's theorem."
+          "blurb": "$D(p\\,\\|\\,q)=\\sum_i p_i\\log(p_i/q_i)$ measures the inefficiency of coding $p$-distributed data with a $q$-tuned codebook; Gibbs' inequality gives $D(p\\,\\|\\,q)\\ge 0$ with equality iff $p=q$, and $D$ is the canonical rate function of Sanov's theorem.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "it-source-coding",
@@ -7149,7 +7424,10 @@ window.__MVConcepts = {
           "prereqs": [
             "it-shannon-entropy"
           ],
-          "blurb": "Shannon's source-coding theorem: $H(X)$ is the asymptotic minimum bits-per-symbol for lossless compression. Huffman coding achieves prefix-free codes with average length within one bit of $H(X)$; the asymptotic equipartition property (AEP) explains why typical sequences fill a set of size $\\approx 2^{nH(X)}$."
+          "blurb": "Shannon's source-coding theorem: $H(X)$ is the asymptotic minimum bits-per-symbol for lossless compression. Huffman coding achieves prefix-free codes with average length within one bit of $H(X)$; the asymptotic equipartition property (AEP) explains why typical sequences fill a set of size $\\approx 2^{nH(X)}$.",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "it-channel-coding",
@@ -7158,7 +7436,10 @@ window.__MVConcepts = {
           "prereqs": [
             "it-mutual-information"
           ],
-          "blurb": "The capacity of a discrete memoryless channel is $C=\\max_{p_X}I(X;Y)$. Shannon's noisy-channel theorem: any rate $R<C$ admits codes with vanishing error as block length grows, and any $R>C$ has error bounded away from $0$ — capacity is the sharp threshold."
+          "blurb": "The capacity of a discrete memoryless channel is $C=\\max_{p_X}I(X;Y)$. Shannon's noisy-channel theorem: any rate $R<C$ admits codes with vanishing error as block length grows, and any $R>C$ has error bounded away from $0$ — capacity is the sharp threshold.",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "it-rate-distortion",
@@ -7182,7 +7463,10 @@ window.__MVConcepts = {
             "law-of-large-numbers",
             "convergence-rv"
           ],
-          "blurb": "For i.i.d.\\ $X_1,\\ldots,X_n\\sim p$, the law of large numbers applied to $-\\log p(X_i)$ gives $-\\tfrac{1}{n}\\log p(X_1,\\ldots,X_n)\\to H(X)$ in probability. The typical set $A_\\varepsilon^{(n)}=\\{x^n:|{-\\tfrac{1}{n}\\log p(x^n)}-H(X)|<\\varepsilon\\}$ has size $\\le 2^{n(H+\\varepsilon)}$ and probability $\\to 1$ — the operational backbone of source coding and jointly-typical decoding."
+          "blurb": "For i.i.d.\\ $X_1,\\ldots,X_n\\sim p$, the law of large numbers applied to $-\\log p(X_i)$ gives $-\\tfrac{1}{n}\\log p(X_1,\\ldots,X_n)\\to H(X)$ in probability. The typical set $A_\\varepsilon^{(n)}=\\{x^n:|{-\\tfrac{1}{n}\\log p(x^n)}-H(X)|<\\varepsilon\\}$ has size $\\le 2^{n(H+\\varepsilon)}$ and probability $\\to 1$ — the operational backbone of source coding and jointly-typical decoding.",
+          "tags": [
+            "completion"
+          ]
         },
         {
           "id": "it-fisher-and-cramer-rao",
@@ -7193,7 +7477,10 @@ window.__MVConcepts = {
             "ms-mle",
             "ms-cramer-rao"
           ],
-          "blurb": "Fisher information $I(\\theta)=-\\mathbb{E}_\\theta[\\partial_\\theta^2\\log p_\\theta(X)]=\\mathbb{E}_\\theta[(\\partial_\\theta\\log p_\\theta)^2]$ measures the curvature of the log-likelihood at $\\theta$. The Cramér–Rao bound: any unbiased estimator $\\hat\\theta$ of $\\theta$ from one sample obeys $\\mathrm{Var}_\\theta(\\hat\\theta)\\ge 1/I(\\theta)$, and de Bruijn's identity ties Fisher to differential entropy under Gaussian smoothing."
+          "blurb": "Fisher information $I(\\theta)=-\\mathbb{E}_\\theta[\\partial_\\theta^2\\log p_\\theta(X)]=\\mathbb{E}_\\theta[(\\partial_\\theta\\log p_\\theta)^2]$ measures the curvature of the log-likelihood at $\\theta$. The Cramér–Rao bound: any unbiased estimator $\\hat\\theta$ of $\\theta$ from one sample obeys $\\mathrm{Var}_\\theta(\\hat\\theta)\\ge 1/I(\\theta)$, and de Bruijn's identity ties Fisher to differential entropy under Gaussian smoothing.",
+          "tags": [
+            "duality"
+          ]
         }
       ]
     },
@@ -7234,7 +7521,10 @@ window.__MVConcepts = {
           "prereqs": [
             "ld-rate-function"
           ],
-          "blurb": "The empirical distribution $L_n=\\tfrac{1}{n}\\sum\\delta_{X_i}$ of i.i.d.\\ samples from $\\mu$ satisfies an LDP on the space of probability measures with rate $H(\\nu\\,\\|\\,\\mu)=\\int\\log(d\\nu/d\\mu)\\,d\\nu$ — Kullback–Leibler divergence is the canonical rate function."
+          "blurb": "The empirical distribution $L_n=\\tfrac{1}{n}\\sum\\delta_{X_i}$ of i.i.d.\\ samples from $\\mu$ satisfies an LDP on the space of probability measures with rate $H(\\nu\\,\\|\\,\\mu)=\\int\\log(d\\nu/d\\mu)\\,d\\nu$ — Kullback–Leibler divergence is the canonical rate function.",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "ld-gartner-ellis",
@@ -7244,7 +7534,10 @@ window.__MVConcepts = {
             "ld-rate-function",
             "convergence-rv"
           ],
-          "blurb": "When $\\Lambda(\\theta)=\\lim_n\\tfrac{1}{n}\\log\\mathbb{E}[e^{n\\theta\\bar X_n}]$ exists, is finite, and is essentially smooth, the LDP holds with rate $I=\\Lambda^*$ — the Legendre transform extends Cramér beyond the i.i.d.\\ case to weakly dependent and Markov sums."
+          "blurb": "When $\\Lambda(\\theta)=\\lim_n\\tfrac{1}{n}\\log\\mathbb{E}[e^{n\\theta\\bar X_n}]$ exists, is finite, and is essentially smooth, the LDP holds with rate $I=\\Lambda^*$ — the Legendre transform extends Cramér beyond the i.i.d.\\ case to weakly dependent and Markov sums.",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "ld-applications",
@@ -9162,7 +9455,10 @@ window.__MVConcepts = {
             "complex-numbers",
             "continuity-topology"
           ],
-          "blurb": "The domain H={x+iy:y>0} is the basic stage for hyperbolic geometry and modular forms."
+          "blurb": "The domain H={x+iy:y>0} is the basic stage for hyperbolic geometry and modular forms.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "hyperbolic-metric",
@@ -9260,7 +9556,10 @@ window.__MVConcepts = {
           "prereqs": [
             "modular-form-definition"
           ],
-          "blurb": "The series E4 and E6 are explicit modular forms that generate much of the level-1 ring structure."
+          "blurb": "The series E4 and E6 are explicit modular forms that generate much of the level-1 ring structure.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "q-expansions-mf",
@@ -9270,7 +9569,10 @@ window.__MVConcepts = {
             "modular-form-definition",
             "eisenstein-series-mf"
           ],
-          "blurb": "Fourier expansions f(τ)=Σa_n q^n encode modular forms in coefficients and feed Hecke/L-function constructions."
+          "blurb": "Fourier expansions f(τ)=Σa_n q^n encode modular forms in coefficients and feed Hecke/L-function constructions.",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "petersson-inner-product",
@@ -9279,7 +9581,10 @@ window.__MVConcepts = {
           "prereqs": [
             "q-expansions-mf"
           ],
-          "blurb": "The Petersson product ⟨f,g⟩=∫_{Γ\\H} f(τ)·conj(g(τ))·y^{k−2} dx dy turns S_k into a Hilbert space where Hecke eigenforms are orthogonal."
+          "blurb": "The Petersson product ⟨f,g⟩=∫_{Γ\\H} f(τ)·conj(g(τ))·y^{k−2} dx dy turns S_k into a Hilbert space where Hecke eigenforms are orthogonal.",
+          "tags": [
+            "completion"
+          ]
         }
       ]
     },
@@ -9295,7 +9600,10 @@ window.__MVConcepts = {
           "prereqs": [
             "modular-form-definition"
           ],
-          "blurb": "Theta series encode lattice counts and often produce modular forms."
+          "blurb": "Theta series encode lattice counts and often produce modular forms.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "theta-q-expansion",
@@ -9335,7 +9643,10 @@ window.__MVConcepts = {
           "prereqs": [
             "dedekind-eta-theta"
           ],
-          "blurb": "Product-sum identities connect partitions, q-series, and modular phenomena."
+          "blurb": "Product-sum identities connect partitions, q-series, and modular phenomena.",
+          "tags": [
+            "duality"
+          ]
         }
       ]
     },
@@ -9351,7 +9662,10 @@ window.__MVConcepts = {
           "prereqs": [
             "algebraic-structures"
           ],
-          "blurb": "p(n) counts the unordered ways to write n as a sum of positive integers; the first values 1,2,3,5,7,11,15,22,30,42 already hint at subtle arithmetic."
+          "blurb": "p(n) counts the unordered ways to write n as a sum of positive integers; the first values 1,2,3,5,7,11,15,22,30,42 already hint at subtle arithmetic.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "euler-partition-product",
@@ -9360,7 +9674,10 @@ window.__MVConcepts = {
           "prereqs": [
             "partition-function-pn"
           ],
-          "blurb": "Expanding ∏ 1/(1−q^n) as a geometric series in each factor gives Σ p(n) q^n; one product encodes every partition count at once."
+          "blurb": "Expanding ∏ 1/(1−q^n) as a geometric series in each factor gives Σ p(n) q^n; one product encodes every partition count at once.",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "pentagonal-number-theorem",
@@ -9392,7 +9709,10 @@ window.__MVConcepts = {
             "modular-form-definition",
             "jacobi-triple-product"
           ],
-          "blurb": "η(τ)=q^{1/24}∏(1−q^n) is a weight-1/2 modular form; its 24th power is the discriminant Δ, tying partition combinatorics to the modular world."
+          "blurb": "η(τ)=q^{1/24}∏(1−q^n) is a weight-1/2 modular form; its 24th power is the discriminant Δ, tying partition combinatorics to the modular world.",
+          "tags": [
+            "duality"
+          ]
         }
       ]
     },
@@ -9430,7 +9750,10 @@ window.__MVConcepts = {
             "hecke-q-expansion-action",
             "characters-orthogonality"
           ],
-          "blurb": "The operators T_n commute and generate a commutative algebra, enabling simultaneous diagonalization."
+          "blurb": "The operators T_n commute and generate a commutative algebra, enabling simultaneous diagonalization.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "eigenforms-and-euler-factors",
@@ -9452,7 +9775,10 @@ window.__MVConcepts = {
             "hecke-algebra-commuting",
             "petersson-inner-product"
           ],
-          "blurb": "Under the Petersson inner product, the Hecke operators $T_p$ (for $p\\nmid N$) are self-adjoint; combined with commutativity, the spectral theorem yields an orthogonal basis of Hecke eigenforms on $S_k$."
+          "blurb": "Under the Petersson inner product, the Hecke operators $T_p$ (for $p\\nmid N$) are self-adjoint; combined with commutativity, the spectral theorem yields an orthogonal basis of Hecke eigenforms on $S_k$.",
+          "tags": [
+            "classification"
+          ]
         }
       ]
     },
@@ -9482,7 +9808,10 @@ window.__MVConcepts = {
           "prereqs": [
             "dirichlet-series-basics"
           ],
-          "blurb": "Multiplicative coefficients factor series over primes and encode arithmetic independence."
+          "blurb": "Multiplicative coefficients factor series over primes and encode arithmetic independence.",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "dirichlet-characters-lseries",
@@ -9492,7 +9821,10 @@ window.__MVConcepts = {
             "euler-product-structure",
             "legendre-symbol"
           ],
-          "blurb": "Characters twist Euler products and prove arithmetic distribution results."
+          "blurb": "Characters twist Euler products and prove arithmetic distribution results.",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "mellin-transform-dirichlet",
@@ -9516,7 +9848,10 @@ window.__MVConcepts = {
             "mellin-transform-dirichlet",
             "residue-theorem"
           ],
-          "blurb": "A contour integral of $D(s) x^s/s$ recovers the summatory function $\\sum_{n\\le x} a_n$ from the Dirichlet series, turning coefficient asymptotics into residue calculations."
+          "blurb": "A contour integral of $D(s) x^s/s$ recovers the summatory function $\\sum_{n\\le x} a_n$ from the Dirichlet series, turning coefficient asymptotics into residue calculations.",
+          "tags": [
+            "duality"
+          ]
         }
       ]
     },
@@ -9533,7 +9868,10 @@ window.__MVConcepts = {
             "analyticity",
             "analytic-continuation"
           ],
-          "blurb": "A holomorphic germ at $a$ is a convergent power series $\\sum c_n(z-a)^n$; its disk of convergence has radius $1/\\limsup|c_n|^{1/n}$, and the identity theorem makes any two overlapping germs unique on their intersection."
+          "blurb": "A holomorphic germ at $a$ is a convergent power series $\\sum c_n(z-a)^n$; its disk of convergence has radius $1/\\limsup|c_n|^{1/n}$, and the identity theorem makes any two overlapping germs unique on their intersection.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "continuation-along-path",
@@ -9543,7 +9881,10 @@ window.__MVConcepts = {
             "power-series-radius-analytic",
             "paths"
           ],
-          "blurb": "A chain of overlapping disks along an arc $\\gamma$ propagates a germ uniquely; Weierstrass' disk-chaining extends $f$ as far as the coefficients' radius of convergence permits."
+          "blurb": "A chain of overlapping disks along an arc $\\gamma$ propagates a germ uniquely; Weierstrass' disk-chaining extends $f$ as far as the coefficients' radius of convergence permits.",
+          "tags": [
+            "lifting"
+          ]
         },
         {
           "id": "monodromy-theorem",
@@ -9597,7 +9938,10 @@ window.__MVConcepts = {
           "prereqs": [
             "dirichlet-series-basics"
           ],
-          "blurb": "Euler solved the Basel problem in 1734 by factoring $\\sin(\\pi x)/\\pi x$ as a Weierstrass product over its zeros, then matching the coefficient of $x^2$ to read off $\\sum 1/n^2 = \\pi^2/6$."
+          "blurb": "Euler solved the Basel problem in 1734 by factoring $\\sin(\\pi x)/\\pi x$ as a Weierstrass product over its zeros, then matching the coefficient of $x^2$ to read off $\\sum 1/n^2 = \\pi^2/6$.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "even-integer-values",
@@ -9607,7 +9951,10 @@ window.__MVConcepts = {
             "basel-problem",
             "bernoulli-generating-function"
           ],
-          "blurb": "Every even positive-integer value satisfies $\\zeta(2n)=(-1)^{n+1}B_{2n}(2\\pi)^{2n}/(2(2n)!)$, giving an explicit rational multiple of $\\pi^{2n}$."
+          "blurb": "Every even positive-integer value satisfies $\\zeta(2n)=(-1)^{n+1}B_{2n}(2\\pi)^{2n}/(2(2n)!)$, giving an explicit rational multiple of $\\pi^{2n}$.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "odd-integer-values-apery",
@@ -9652,7 +9999,10 @@ window.__MVConcepts = {
           "prereqs": [
             "odd-integer-values-apery"
           ],
-          "blurb": "Multiple zeta values $\\zeta(s_1,\\ldots,s_k)=\\sum_{n_1>\\cdots>n_k\\ge 1} 1/(n_1^{s_1}\\cdots n_k^{s_k})$ extend $\\zeta$ to a graded $\\mathbb{Q}$-algebra carrying two products — shuffle (from iterated integrals) and stuffle (from sum manipulations) — whose double-shuffle relations conjecturally cut the weight-$n$ dimension to a Padovan-style recursion $d_n=d_{n-2}+d_{n-3}$."
+          "blurb": "Multiple zeta values $\\zeta(s_1,\\ldots,s_k)=\\sum_{n_1>\\cdots>n_k\\ge 1} 1/(n_1^{s_1}\\cdots n_k^{s_k})$ extend $\\zeta$ to a graded $\\mathbb{Q}$-algebra carrying two products — shuffle (from iterated integrals) and stuffle (from sum manipulations) — whose double-shuffle relations conjecturally cut the weight-$n$ dimension to a Padovan-style recursion $d_n=d_{n-2}+d_{n-3}$.",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "zeta-mahler-measure",
@@ -9680,7 +10030,11 @@ window.__MVConcepts = {
           "prereqs": [
             "dirichlet-characters-lseries"
           ],
-          "blurb": "Riemann, Dirichlet, modular, and elliptic L-functions share a common analytic template."
+          "blurb": "Riemann, Dirichlet, modular, and elliptic L-functions share a common analytic template.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
         },
         {
           "id": "functional-equation-completion",
@@ -9702,7 +10056,10 @@ window.__MVConcepts = {
             "functional-equation-completion",
             "eigenforms-and-euler-factors"
           ],
-          "blurb": "Euler factors and coefficients reflect geometric or representation-theoretic invariants."
+          "blurb": "Euler factors and coefficients reflect geometric or representation-theoretic invariants.",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "analytic-continuation-lfunc",
@@ -9712,7 +10069,10 @@ window.__MVConcepts = {
             "functional-equation-completion",
             "dirichlet-series-basics"
           ],
-          "blurb": "Mellin transforms of modular forms and theta identities promote Dirichlet series from a half-plane to meromorphic functions on all of $\\mathbb{C}$."
+          "blurb": "Mellin transforms of modular forms and theta identities promote Dirichlet series from a half-plane to meromorphic functions on all of $\\mathbb{C}$.",
+          "tags": [
+            "completion"
+          ]
         },
         {
           "id": "special-values-lfunc",
@@ -9722,7 +10082,10 @@ window.__MVConcepts = {
             "functional-equation-completion",
             "arithmetic-data-lfunctions"
           ],
-          "blurb": "Values of $L$ at integers in the critical strip carry deep arithmetic: class numbers, regulators, and the order of vanishing at the center (BSD)."
+          "blurb": "Values of $L$ at integers in the critical strip carry deep arithmetic: class numbers, regulators, and the order of vanishing at the center (BSD).",
+          "tags": [
+            "duality"
+          ]
         }
       ]
     },
@@ -9806,7 +10169,10 @@ window.__MVConcepts = {
           "prereqs": [
             "modular-form-definition"
           ],
-          "blurb": "The SL_2(Z)-invariant j(tau) has Fourier expansion q^{-1} + 744 + 196884 q + 21493760 q^2 + ... — a short list of large integers that turned out to hide a finite simple group."
+          "blurb": "The SL_2(Z)-invariant j(tau) has Fourier expansion q^{-1} + 744 + 196884 q + 21493760 q^2 + ... — a short list of large integers that turned out to hide a finite simple group.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "monster-group-structure",
@@ -9828,7 +10194,10 @@ window.__MVConcepts = {
             "j-invariant-q-expansion",
             "monster-group-structure"
           ],
-          "blurb": "196884 = 196883 + 1 and 21493760 = 21296876 + 196883 + 1 — each j-coefficient is a non-negative integer combination of Monster irreducible dimensions, forcing a graded M-module V-natural with graded dim = j."
+          "blurb": "196884 = 196883 + 1 and 21493760 = 21296876 + 196883 + 1 — each j-coefficient is a non-negative integer combination of Monster irreducible dimensions, forcing a graded M-module V-natural with graded dim = j.",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "thompson-series",
@@ -9838,7 +10207,10 @@ window.__MVConcepts = {
             "mckay-observation",
             "eigenforms-and-euler-factors"
           ],
-          "blurb": "For each g in M, T_g(tau) = sum tr(g | V^natural_n) q^n is conjectured (Conway–Norton) to be the Hauptmodul of a genus-zero subgroup of SL_2(R) commensurable with SL_2(Z)."
+          "blurb": "For each g in M, T_g(tau) = sum tr(g | V^natural_n) q^n is conjectured (Conway–Norton) to be the Hauptmodul of a genus-zero subgroup of SL_2(R) commensurable with SL_2(Z).",
+          "tags": [
+            "group-action"
+          ]
         },
         {
           "id": "borcherds-proof-sketch",
@@ -11573,7 +11945,10 @@ window.__MVConcepts = {
           "prereqs": [
             "algebraic-structures"
           ],
-          "blurb": "The adjacency matrix $A$, degree matrix $D$, and combinatorial Laplacian $L=D-A$ — the discrete analogue of $-\\Delta$, with a real spectrum $0=\\lambda_1\\le\\lambda_2\\le\\cdots\\le\\lambda_n$ and the Dirichlet energy form $f^\\top L f = \\sum_{ij\\in E}(f(i)-f(j))^2$."
+          "blurb": "The adjacency matrix $A$, degree matrix $D$, and combinatorial Laplacian $L=D-A$ — the discrete analogue of $-\\Delta$, with a real spectrum $0=\\lambda_1\\le\\lambda_2\\le\\cdots\\le\\lambda_n$ and the Dirichlet energy form $f^\\top L f = \\sum_{ij\\in E}(f(i)-f(j))^2$.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "kernel-and-components",
@@ -11582,7 +11957,10 @@ window.__MVConcepts = {
           "prereqs": [
             "adjacency-and-laplacian"
           ],
-          "blurb": "The dimension of $\\ker L$ equals the number of connected components of $G$. Indicator vectors of components span the kernel; conversely $f^\\top L f = 0$ forces $f$ constant on each component."
+          "blurb": "The dimension of $\\ker L$ equals the number of connected components of $G$. Indicator vectors of components span the kernel; conversely $f^\\top L f = 0$ forces $f$ constant on each component.",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "algebraic-connectivity-fiedler",
@@ -11591,7 +11969,10 @@ window.__MVConcepts = {
           "prereqs": [
             "kernel-and-components"
           ],
-          "blurb": "$\\lambda_2$, the algebraic connectivity, is the smoothest mean-zero Dirichlet energy on $G$. It is positive iff $G$ is connected; its eigenvector — the Fiedler vector — sorts vertices for graph bisection."
+          "blurb": "$\\lambda_2$, the algebraic connectivity, is the smoothest mean-zero Dirichlet energy on $G$. It is positive iff $G$ is connected; its eigenvector — the Fiedler vector — sorts vertices for graph bisection.",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "cheeger-inequality",
@@ -11600,7 +11981,10 @@ window.__MVConcepts = {
           "prereqs": [
             "algebraic-connectivity-fiedler"
           ],
-          "blurb": "$\\lambda_2/2 \\le h(G) \\le \\sqrt{2 d \\lambda_2}$ relates the algebraic connectivity to the edge-expansion constant $h(G)$. The proof's upper bound is the spectral sweep cut — a constant-factor approximation algorithm for sparsest cut."
+          "blurb": "$\\lambda_2/2 \\le h(G) \\le \\sqrt{2 d \\lambda_2}$ relates the algebraic connectivity to the edge-expansion constant $h(G)$. The proof's upper bound is the spectral sweep cut — a constant-factor approximation algorithm for sparsest cut.",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "random-walks-mixing",
@@ -11652,7 +12036,10 @@ window.__MVConcepts = {
           "prereqs": [
             "algebraic-structures"
           ],
-          "blurb": "Whitney's axioms: a non-empty hereditary family $\\mathcal{I} \\subseteq 2^E$ on a finite set, plus the exchange axiom (I3). Hereditary alone gives a simplicial complex; (I3) is what makes the family a matroid."
+          "blurb": "Whitney's axioms: a non-empty hereditary family $\\mathcal{I} \\subseteq 2^E$ on a finite set, plus the exchange axiom (I3). Hereditary alone gives a simplicial complex; (I3) is what makes the family a matroid.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "matroid-bases-rank",
@@ -11764,7 +12151,10 @@ window.__MVConcepts = {
             "existence-by-expectation",
             "expectation-moments"
           ],
-          "blurb": "$\\mathbb{E}[X_1+\\cdots+X_m]=\\mathbb{E}[X_1]+\\cdots+\\mathbb{E}[X_m]$ holds without independence. It bounds $\\alpha(G(n,1/2)) \\le 2\\log_2 n$ via $\\mathbb{E}[\\#\\{k\\text{-indep sets}\\}]=\\binom{n}{k}2^{-\\binom{k}{2}}$, and is the engine of Erdős's high-girth high-chromatic-number theorem."
+          "blurb": "$\\mathbb{E}[X_1+\\cdots+X_m]=\\mathbb{E}[X_1]+\\cdots+\\mathbb{E}[X_m]$ holds without independence. It bounds $\\alpha(G(n,1/2)) \\le 2\\log_2 n$ via $\\mathbb{E}[\\#\\{k\\text{-indep sets}\\}]=\\binom{n}{k}2^{-\\binom{k}{2}}$, and is the engine of Erdős's high-girth high-chromatic-number theorem.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "alteration-method",
@@ -11802,7 +12192,10 @@ window.__MVConcepts = {
             "expectation-moments",
             "martingales"
           ],
-          "blurb": "Tail bounds from one moment (Markov), two (Chebyshev), the MGF (Chernoff–Hoeffding), and martingale differences (Azuma). Shamir–Spencer: vertex-exposure martingale on $\\chi(G(n,p))$ has bounded differences $\\le 1$, giving $\\mathbb{P}(|\\chi-\\mathbb{E}\\chi|\\ge t)\\le 2e^{-t^2/(2n)}$."
+          "blurb": "Tail bounds from one moment (Markov), two (Chebyshev), the MGF (Chernoff–Hoeffding), and martingale differences (Azuma). Shamir–Spencer: vertex-exposure martingale on $\\chi(G(n,p))$ has bounded differences $\\le 1$, giving $\\mathbb{P}(|\\chi-\\mathbb{E}\\chi|\\ge t)\\le 2e^{-t^2/(2n)}$.",
+          "tags": [
+            "classification"
+          ]
         }
       ]
     },
@@ -11830,7 +12223,10 @@ window.__MVConcepts = {
           "prereqs": [
             "turan-theorem"
           ],
-          "blurb": "$\\mathrm{ex}(n, K_{s,t}) = O(n^{2-1/s})$ via a double-counting (cherries / Jensen) argument. The bipartite Zarankiewicz problem asks for $0/1$-matrices avoiding all-ones $s\\times t$ blocks; the Erdős–Rényi polarity construction matches KST up to constants for $s=t=2$."
+          "blurb": "$\\mathrm{ex}(n, K_{s,t}) = O(n^{2-1/s})$ via a double-counting (cherries / Jensen) argument. The bipartite Zarankiewicz problem asks for $0/1$-matrices avoiding all-ones $s\\times t$ blocks; the Erdős–Rényi polarity construction matches KST up to constants for $s=t=2$.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "erdos-stone-simonovits",
@@ -11852,7 +12248,10 @@ window.__MVConcepts = {
           "prereqs": [
             "sample-spaces-events"
           ],
-          "blurb": "$R(k,\\ell)$: smallest $n$ such that every $2$-edge-coloring of $K_n$ contains a monochromatic $K_k$ or $K_\\ell$. Pigeonhole gives $R(3,3)=6$; Erdős's probabilistic lower bound gives $R(k,k)\\ge \\sqrt{2}^k$, $4^k$ above. Schur's theorem on sum-free partitions is an arithmetic Ramsey corollary."
+          "blurb": "$R(k,\\ell)$: smallest $n$ such that every $2$-edge-coloring of $K_n$ contains a monochromatic $K_k$ or $K_\\ell$. Pigeonhole gives $R(3,3)=6$; Erdős's probabilistic lower bound gives $R(k,k)\\ge \\sqrt{2}^k$, $4^k$ above. Schur's theorem on sum-free partitions is an arithmetic Ramsey corollary.",
+          "tags": [
+            "finiteness"
+          ]
         },
         {
           "id": "sperner-lym",
@@ -11861,7 +12260,10 @@ window.__MVConcepts = {
           "prereqs": [
             "sets-functions"
           ],
-          "blurb": "An antichain in the Boolean lattice $2^{[n]}$ has size at most $\\binom{n}{\\lfloor n/2\\rfloor}$, attained by the middle layer. Proof via the LYM inequality $\\sum_{F\\in\\mathcal{F}} 1/\\binom{n}{|F|}\\le 1$, by counting maximal chains."
+          "blurb": "An antichain in the Boolean lattice $2^{[n]}$ has size at most $\\binom{n}{\\lfloor n/2\\rfloor}$, attained by the middle layer. Proof via the LYM inequality $\\sum_{F\\in\\mathcal{F}} 1/\\binom{n}{|F|}\\le 1$, by counting maximal chains.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "triangle-removal-regularity",
@@ -11911,7 +12313,10 @@ window.__MVConcepts = {
             "abstract-simplicial-complex",
             "singular-homology"
           ],
-          "blurb": "$|K|$ glues a standard $k$-simplex per $k$-face; simplicial homology of $K$ equals singular homology of $|K|$. The nerve $\\mathcal{N}(\\mathcal{U})$ of a cover has a face per non-empty finite intersection; the Borsuk–Leray nerve theorem says good covers recover homotopy type."
+          "blurb": "$|K|$ glues a standard $k$-simplex per $k$-face; simplicial homology of $K$ equals singular homology of $|K|$. The nerve $\\mathcal{N}(\\mathcal{U})$ of a cover has a face per non-empty finite intersection; the Borsuk–Leray nerve theorem says good covers recover homotopy type.",
+          "tags": [
+            "functoriality"
+          ]
         },
         {
           "id": "shellable-cohen-macaulay",
@@ -11921,7 +12326,10 @@ window.__MVConcepts = {
             "f-vector-h-vector",
             "noetherian-hilbert-ca"
           ],
-          "blurb": "A pure complex is shellable when its facets can be ordered so each new facet meets the previous union along a pure codim-$1$ subcomplex of its boundary; shellable $\\Rightarrow$ Cohen–Macaulay. Reisner's criterion: $K$ is CM/$k$ iff $\\widetilde{H}_i(\\mathrm{lk}_K(\\sigma);k)=0$ for $i<\\dim\\mathrm{lk}_K(\\sigma)$, every $\\sigma$."
+          "blurb": "A pure complex is shellable when its facets can be ordered so each new facet meets the previous union along a pure codim-$1$ subcomplex of its boundary; shellable $\\Rightarrow$ Cohen–Macaulay. Reisner's criterion: $K$ is CM/$k$ iff $\\widetilde{H}_i(\\mathrm{lk}_K(\\sigma);k)=0$ for $i<\\dim\\mathrm{lk}_K(\\sigma)$, every $\\sigma$.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "stanley-reisner-ring",
@@ -11931,7 +12339,11 @@ window.__MVConcepts = {
             "abstract-simplicial-complex",
             "ideals-quotients-ca"
           ],
-          "blurb": "$k[K] = k[x_1,\\dots,x_n]/I_K$ where $I_K$ is generated by squarefree monomials $\\prod_{i\\in\\sigma} x_i$ for the minimal non-faces $\\sigma\\notin K$. Squarefree monomial ideals $\\leftrightarrow$ simplicial complexes is a bijection; CM, Gorenstein, Buchsbaum properties of $k[K]$ become topological conditions on $K$."
+          "blurb": "$k[K] = k[x_1,\\dots,x_n]/I_K$ where $I_K$ is generated by squarefree monomials $\\prod_{i\\in\\sigma} x_i$ for the minimal non-faces $\\sigma\\notin K$. Squarefree monomial ideals $\\leftrightarrow$ simplicial complexes is a bijection; CM, Gorenstein, Buchsbaum properties of $k[K]$ become topological conditions on $K$.",
+          "tags": [
+            "duality",
+            "functoriality"
+          ]
         },
         {
           "id": "persistent-homology-combinatorial",
@@ -11941,7 +12353,10 @@ window.__MVConcepts = {
             "geometric-realization-nerve",
             "chain-complexes"
           ],
-          "blurb": "Filter a point cloud by Vietoris–Rips complexes $\\mathrm{VR}_r(X) = \\{\\sigma : \\mathrm{diam}(\\sigma)\\le 2r\\}$. The induced sequence of homologies decomposes uniquely into bars $[b_i, d_i)$ — the barcode. Cohen-Steiner–Edelsbrunner–Harer stability bounds bottleneck distance by Hausdorff distance, making barcodes a robust statistic."
+          "blurb": "Filter a point cloud by Vietoris–Rips complexes $\\mathrm{VR}_r(X) = \\{\\sigma : \\mathrm{diam}(\\sigma)\\le 2r\\}$. The induced sequence of homologies decomposes uniquely into bars $[b_i, d_i)$ — the barcode. Cohen-Steiner–Edelsbrunner–Harer stability bounds bottleneck distance by Hausdorff distance, making barcodes a robust statistic.",
+          "tags": [
+            "classification"
+          ]
         }
       ]
     },
@@ -11957,7 +12372,10 @@ window.__MVConcepts = {
           "prereqs": [
             "sets-functions"
           ],
-          "blurb": "$\\binom{n}{k}$ counts $k$-subsets of $[n]$; the multinomial $\\binom{n}{k_1,\\ldots,k_r}$ counts ordered partitions into bins of sizes $k_i$. Stars-and-bars: weak compositions of $n$ into $r$ parts are counted by $\\binom{n+r-1}{r-1}$, the canonical bijection between non-negative integer solutions and binary strings."
+          "blurb": "$\\binom{n}{k}$ counts $k$-subsets of $[n]$; the multinomial $\\binom{n}{k_1,\\ldots,k_r}$ counts ordered partitions into bins of sizes $k_i$. Stars-and-bars: weak compositions of $n$ into $r$ parts are counted by $\\binom{n+r-1}{r-1}$, the canonical bijection between non-negative integer solutions and binary strings.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "ec-inclusion-exclusion",
@@ -11966,7 +12384,10 @@ window.__MVConcepts = {
           "prereqs": [
             "ec-binomial-and-stars-bars"
           ],
-          "blurb": "$|A_1\\cup\\cdots\\cup A_n| = \\sum |A_i| - \\sum |A_i\\cap A_j| + \\cdots + (-1)^{n+1}|A_1\\cap\\cdots\\cap A_n|$. Applied to permutations avoiding fixed points gives the derangement count $D_n = n!\\sum_{k=0}^n (-1)^k/k!$, with $D_n/n! \\to 1/e$."
+          "blurb": "$|A_1\\cup\\cdots\\cup A_n| = \\sum |A_i| - \\sum |A_i\\cap A_j| + \\cdots + (-1)^{n+1}|A_1\\cap\\cdots\\cap A_n|$. Applied to permutations avoiding fixed points gives the derangement count $D_n = n!\\sum_{k=0}^n (-1)^k/k!$, with $D_n/n! \\to 1/e$.",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "ec-recurrences-and-gen-fun",
@@ -11975,7 +12396,10 @@ window.__MVConcepts = {
           "prereqs": [
             "ec-binomial-and-stars-bars"
           ],
-          "blurb": "Encode a sequence $a_n$ as either an ordinary generating function $A(x)=\\sum a_n x^n$ or an exponential one $\\hat A(x)=\\sum a_n x^n/n!$. Recurrences become functional equations; the Catalan recurrence $C_{n+1}=\\sum C_k C_{n-k}$ becomes $C(x)=1+xC(x)^2$, solved to $C(x)=(1-\\sqrt{1-4x})/(2x)$ giving $C_n=\\frac{1}{n+1}\\binom{2n}{n}$."
+          "blurb": "Encode a sequence $a_n$ as either an ordinary generating function $A(x)=\\sum a_n x^n$ or an exponential one $\\hat A(x)=\\sum a_n x^n/n!$. Recurrences become functional equations; the Catalan recurrence $C_{n+1}=\\sum C_k C_{n-k}$ becomes $C(x)=1+xC(x)^2$, solved to $C(x)=(1-\\sqrt{1-4x})/(2x)$ giving $C_n=\\frac{1}{n+1}\\binom{2n}{n}$.",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "ec-permutation-statistics",
@@ -11996,7 +12420,10 @@ window.__MVConcepts = {
           "prereqs": [
             "ec-recurrences-and-gen-fun"
           ],
-          "blurb": "$p(n)$ counts ways to write $n=\\lambda_1+\\cdots+\\lambda_r$ with $\\lambda_1\\ge\\cdots\\ge\\lambda_r\\ge 1$. Euler's product $\\sum p(n) q^n = \\prod_{k\\ge 1}(1-q^k)^{-1}$ is the generating-function identity that bootstraps everything. Rogers–Ramanujan: partitions with parts differing by at least $2$ are equinumerous with partitions into parts $\\equiv \\pm 1\\pmod 5$."
+          "blurb": "$p(n)$ counts ways to write $n=\\lambda_1+\\cdots+\\lambda_r$ with $\\lambda_1\\ge\\cdots\\ge\\lambda_r\\ge 1$. Euler's product $\\sum p(n) q^n = \\prod_{k\\ge 1}(1-q^k)^{-1}$ is the generating-function identity that bootstraps everything. Rogers–Ramanujan: partitions with parts differing by at least $2$ are equinumerous with partitions into parts $\\equiv \\pm 1\\pmod 5$.",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "ec-bijective-proofs",
@@ -12006,7 +12433,10 @@ window.__MVConcepts = {
             "ec-partition-theory",
             "ec-permutation-statistics"
           ],
-          "blurb": "When two sequences agree, find a bijection. Catalan-counted families — Dyck paths, triangulations of an $(n{+}2)$-gon, binary trees, non-crossing partitions — all carry explicit bijections. Stirling's formula $n!\\sim \\sqrt{2\\pi n}(n/e)^n$ has a bijective shadow via lattice-path arguments. The RSK correspondence biject ions matrices with pairs of standard Young tableaux of the same shape, the bedrock of symmetric-function combinatorics."
+          "blurb": "When two sequences agree, find a bijection. Catalan-counted families — Dyck paths, triangulations of an $(n{+}2)$-gon, binary trees, non-crossing partitions — all carry explicit bijections. Stirling's formula $n!\\sim \\sqrt{2\\pi n}(n/e)^n$ has a bijective shadow via lattice-path arguments. The RSK correspondence biject ions matrices with pairs of standard Young tableaux of the same shape, the bedrock of symmetric-function combinatorics.",
+          "tags": [
+            "duality"
+          ]
         }
       ]
     },
@@ -12023,7 +12453,10 @@ window.__MVConcepts = {
             "complex-numbers",
             "elliptic-curve-definition"
           ],
-          "blurb": "For E/Q with good reduction at p, write a_p = 2√p · cos θ_p with θ_p ∈ [0, π]. The Frobenius eigenvalues are e^{±iθ_p}√p on the unit circle (after rescaling)."
+          "blurb": "For E/Q with good reduction at p, write a_p = 2√p · cos θ_p with θ_p ∈ [0, π]. The Frobenius eigenvalues are e^{±iθ_p}√p on the unit circle (after rescaling).",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "equidistribution-weyl",
@@ -12033,7 +12466,11 @@ window.__MVConcepts = {
             "hasse-bound-angle",
             "chebotarev-density"
           ],
-          "blurb": "A sequence on a compact space equidistributes with respect to a measure μ iff prime-averaged characters of every non-trivial irreducible tend to 0 — the Weyl/Wiener–Ikehara framework that Sato–Tate fits into."
+          "blurb": "A sequence on a compact space equidistributes with respect to a measure μ iff prime-averaged characters of every non-trivial irreducible tend to 0 — the Weyl/Wiener–Ikehara framework that Sato–Tate fits into.",
+          "tags": [
+            "compactness",
+            "duality"
+          ]
         },
         {
           "id": "sato-tate-measure",
@@ -12045,7 +12482,10 @@ window.__MVConcepts = {
             "equidistribution-weyl",
             "legendre-symbol"
           ],
-          "blurb": "For non-CM E, the angles θ_p equidistribute on [0, π] with respect to the semicircular density (2/π) sin²θ dθ."
+          "blurb": "For non-CM E, the angles θ_p equidistribute on [0, π] with respect to the semicircular density (2/π) sin²θ dθ.",
+          "tags": [
+            "compactness"
+          ]
         },
         {
           "id": "cm-vs-non-cm-sato-tate",
@@ -12072,7 +12512,10 @@ window.__MVConcepts = {
             "modular-form-definition",
             "equidistribution-weyl"
           ],
-          "blurb": "Sato–Tate is equivalent to non-vanishing and holomorphy of L(Sym^n E, s) on Re(s) ≥ 1 for every n ≥ 1."
+          "blurb": "Sato–Tate is equivalent to non-vanishing and holomorphy of L(Sym^n E, s) on Re(s) ≥ 1 for every n ≥ 1.",
+          "tags": [
+            "duality"
+          ]
         }
       ]
     },
@@ -12115,7 +12558,10 @@ window.__MVConcepts = {
             "arithmetic-data-lfunctions",
             "euler-product-structure"
           ],
-          "blurb": "The conjecture: ord_{s=1} L(E, s) = rank E(Q). Sharper form predicts the leading Taylor coefficient in terms of regulator, Sha, periods, torsion."
+          "blurb": "The conjecture: ord_{s=1} L(E, s) = rank E(Q). Sharper form predicts the leading Taylor coefficient in terms of regulator, Sha, periods, torsion.",
+          "tags": [
+            "duality"
+          ]
         },
         {
           "id": "regulator",
@@ -12184,7 +12630,10 @@ window.__MVConcepts = {
             "modularity-theorem",
             "modularity-and-deformations"
           ],
-          "blurb": "Ribet's $\\varepsilon$-theorem: if $\\overline\\rho_{E,p}$ is modular of level $Np$ and unramified at $p$, it is modular at level $N$. Applied to the Frey curve this collapses the level to $2$, where $S_2(\\Gamma_0(2)) = 0$ contradicts the Fermat solution."
+          "blurb": "Ribet's $\\varepsilon$-theorem: if $\\overline\\rho_{E,p}$ is modular of level $Np$ and unramified at $p$, it is modular at level $N$. Applied to the Frey curve this collapses the level to $2$, where $S_2(\\Gamma_0(2)) = 0$ contradicts the Fermat solution.",
+          "tags": [
+            "lifting"
+          ]
         },
         {
           "id": "deformation-rings",
@@ -12941,11 +13390,11 @@ window.__MVConcepts = {
       "density": 0.5111111111111111
     },
     "Analysis": {
-      "concepts": 161,
-      "intra": 276,
+      "concepts": 166,
+      "intra": 291,
       "crossOut": 27,
       "crossIn": 62,
-      "density": 0.16770186335403728
+      "density": 0.16265060240963855
     },
     "Probability & statistics": {
       "concepts": 55,

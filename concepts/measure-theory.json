@@ -23,7 +23,10 @@
       "prereqs": [
         "sigma-algebras"
       ],
-      "blurb": "Extend a premeasure on an algebra to an outer measure on all subsets; the Carathéodory additivity test picks out the σ-algebra on which the extension restricts to a countably additive measure."
+      "blurb": "Extend a premeasure on an algebra to an outer measure on all subsets; the Carathéodory additivity test picks out the σ-algebra on which the extension restricts to a countably additive measure.",
+      "tags": [
+        "completion"
+      ]
     },
     {
       "id": "lebesgue-measure",
@@ -44,7 +47,10 @@
       "prereqs": [
         "sigma-algebras"
       ],
-      "blurb": "f measurable iff preimages of Borel sets are measurable; simple functions approximate measurable functions from below."
+      "blurb": "f measurable iff preimages of Borel sets are measurable; simple functions approximate measurable functions from below.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "lebesgue-integral",
@@ -54,7 +60,10 @@
         "lebesgue-measure",
         "measurable-functions"
       ],
-      "blurb": "Integrate by partitioning the range, not the domain; agrees with Riemann when Riemann exists, but handles far more functions."
+      "blurb": "Integrate by partitioning the range, not the domain; agrees with Riemann when Riemann exists, but handles far more functions.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "convergence-theorems",
@@ -66,7 +75,10 @@
         "measurable-functions",
         "lebesgue-measure"
       ],
-      "blurb": "MCT and DCT let you swap limit and integral under mild hypotheses — the machine behind most measure-theoretic arguments."
+      "blurb": "MCT and DCT let you swap limit and integral under mild hypotheses — the machine behind most measure-theoretic arguments.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "lp-spaces",
@@ -89,7 +101,10 @@
       "prereqs": [
         "lebesgue-measure"
       ],
-      "blurb": "On σ-finite spaces the product σ-algebra carries a unique product measure satisfying μ⊗ν(A×B)=μ(A)ν(B); σ-finiteness is exactly what rescues uniqueness in Carathéodory's extension."
+      "blurb": "On σ-finite spaces the product σ-algebra carries a unique product measure satisfying μ⊗ν(A×B)=μ(A)ν(B); σ-finiteness is exactly what rescues uniqueness in Carathéodory's extension.",
+      "tags": [
+        "finiteness"
+      ]
     },
     {
       "id": "fubini-tonelli",
@@ -99,7 +114,10 @@
         "product-measures",
         "convergence-theorems"
       ],
-      "blurb": "Tonelli swaps iterated integrals for nonnegative measurable f (no integrability needed); Fubini extends this to complex-valued f ∈ L¹(μ⊗ν). Without absolute integrability the iterated integrals can disagree."
+      "blurb": "Tonelli swaps iterated integrals for nonnegative measurable f (no integrability needed); Fubini extends this to complex-valued f ∈ L¹(μ⊗ν). Without absolute integrability the iterated integrals can disagree.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "signed-measures-radon-nikodym",
@@ -134,7 +152,10 @@
       "prereqs": [
         "outer-measure-caratheodory"
       ],
-      "blurb": "s-dimensional Hausdorff measure H^s counts size by Σ diam(U_i)^s over δ-covers; the unique s at which H^s jumps from ∞ to 0 is the Hausdorff dimension — the Cantor set has dim = log 2 / log 3."
+      "blurb": "s-dimensional Hausdorff measure H^s counts size by Σ diam(U_i)^s over δ-covers; the unique s at which H^s jumps from ∞ to 0 is the Hausdorff dimension — the Cantor set has dim = log 2 / log 3.",
+      "tags": [
+        "classification"
+      ]
     }
   ]
 }

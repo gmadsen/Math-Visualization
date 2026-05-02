@@ -10,7 +10,10 @@
       "prereqs": [
         "dirichlet-series-basics"
       ],
-      "blurb": "Euler solved the Basel problem in 1734 by factoring $\\sin(\\pi x)/\\pi x$ as a Weierstrass product over its zeros, then matching the coefficient of $x^2$ to read off $\\sum 1/n^2 = \\pi^2/6$."
+      "blurb": "Euler solved the Basel problem in 1734 by factoring $\\sin(\\pi x)/\\pi x$ as a Weierstrass product over its zeros, then matching the coefficient of $x^2$ to read off $\\sum 1/n^2 = \\pi^2/6$.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "even-integer-values",
@@ -20,7 +23,10 @@
         "basel-problem",
         "bernoulli-generating-function"
       ],
-      "blurb": "Every even positive-integer value satisfies $\\zeta(2n)=(-1)^{n+1}B_{2n}(2\\pi)^{2n}/(2(2n)!)$, giving an explicit rational multiple of $\\pi^{2n}$."
+      "blurb": "Every even positive-integer value satisfies $\\zeta(2n)=(-1)^{n+1}B_{2n}(2\\pi)^{2n}/(2(2n)!)$, giving an explicit rational multiple of $\\pi^{2n}$.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "odd-integer-values-apery",
@@ -65,7 +71,10 @@
       "prereqs": [
         "odd-integer-values-apery"
       ],
-      "blurb": "Multiple zeta values $\\zeta(s_1,\\ldots,s_k)=\\sum_{n_1>\\cdots>n_k\\ge 1} 1/(n_1^{s_1}\\cdots n_k^{s_k})$ extend $\\zeta$ to a graded $\\mathbb{Q}$-algebra carrying two products — shuffle (from iterated integrals) and stuffle (from sum manipulations) — whose double-shuffle relations conjecturally cut the weight-$n$ dimension to a Padovan-style recursion $d_n=d_{n-2}+d_{n-3}$."
+      "blurb": "Multiple zeta values $\\zeta(s_1,\\ldots,s_k)=\\sum_{n_1>\\cdots>n_k\\ge 1} 1/(n_1^{s_1}\\cdots n_k^{s_k})$ extend $\\zeta$ to a graded $\\mathbb{Q}$-algebra carrying two products — shuffle (from iterated integrals) and stuffle (from sum manipulations) — whose double-shuffle relations conjecturally cut the weight-$n$ dimension to a Padovan-style recursion $d_n=d_{n-2}+d_{n-3}$.",
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "zeta-mahler-measure",

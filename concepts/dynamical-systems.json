@@ -60,7 +60,10 @@
       "prereqs": [
         "dyn-orbits-flows"
       ],
-      "blurb": "A discrete system is a map $f\\colon X\\to X$ with orbit $x,f(x),f^2(x),\\ldots$; the logistic family $f_r(x)=rx(1-x)$ is the canonical one-parameter showcase of fixed points, cycles, and chaos."
+      "blurb": "A discrete system is a map $f\\colon X\\to X$ with orbit $x,f(x),f^2(x),\\ldots$; the logistic family $f_r(x)=rx(1-x)$ is the canonical one-parameter showcase of fixed points, cycles, and chaos.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "period-doubling-cascade",
@@ -69,7 +72,10 @@
       "prereqs": [
         "dyn-iterated-maps"
       ],
-      "blurb": "The logistic map $x_{n+1} = r\\,x_n(1-x_n)$ encodes how a single nonlinear feedback gives rise to chaos. As $r$ increases through $[3, 3.57]$ the attractor period-doubles ($1\\to 2\\to 4\\to 8\\to\\cdots$) at geometric rate $\\delta\\approx 4.6692$ — the Feigenbaum constant — and at $r\\approx 3.5699$ the orbit becomes chaotic, with periodic windows (e.g. period $3$ at $r\\approx 3.83$) interleaved."
+      "blurb": "The logistic map $x_{n+1} = r\\,x_n(1-x_n)$ encodes how a single nonlinear feedback gives rise to chaos. As $r$ increases through $[3, 3.57]$ the attractor period-doubles ($1\\to 2\\to 4\\to 8\\to\\cdots$) at geometric rate $\\delta\\approx 4.6692$ — the Feigenbaum constant — and at $r\\approx 3.5699$ the orbit becomes chaotic, with periodic windows (e.g. period $3$ at $r\\approx 3.83$) interleaved.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "dyn-bifurcations",
@@ -92,7 +98,10 @@
         "dyn-bifurcations",
         "dyn-iterated-maps"
       ],
-      "blurb": "Chaos = sensitive dependence on initial conditions + topological transitivity + dense periodic orbits. The Lyapunov exponent $\\lambda=\\lim \\tfrac{1}{N}\\sum \\log|f'(x_i)|$ quantifies the average rate of separation; $\\lambda>0$ is the quantitative signature."
+      "blurb": "Chaos = sensitive dependence on initial conditions + topological transitivity + dense periodic orbits. The Lyapunov exponent $\\lambda=\\lim \\tfrac{1}{N}\\sum \\log|f'(x_i)|$ quantifies the average rate of separation; $\\lambda>0$ is the quantitative signature.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "dyn-conservative-dissipative",
@@ -103,7 +112,10 @@
         "forms-and-wedge",
         "sm-hamiltonian-flow"
       ],
-      "blurb": "Liouville: $\\tfrac{d}{dt}\\mathrm{vol}(\\Phi_t(U)) = \\int_U \\operatorname{div}X\\,d\\mathrm{vol}$. Conservative flows preserve a volume form ($\\operatorname{div}X=0$); dissipative ones contract phase-space volume ($\\operatorname{div}X<0$), forcing attractors to have zero volume."
+      "blurb": "Liouville: $\\tfrac{d}{dt}\\mathrm{vol}(\\Phi_t(U)) = \\int_U \\operatorname{div}X\\,d\\mathrm{vol}$. Conservative flows preserve a volume form ($\\operatorname{div}X=0$); dissipative ones contract phase-space volume ($\\operatorname{div}X<0$), forcing attractors to have zero volume.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "dyn-poincare-section",
@@ -122,7 +134,10 @@
       "prereqs": [
         "dyn-chaos"
       ],
-      "blurb": "Partition state space into labelled cells $\\{A_0,\\ldots,A_{k-1}\\}$; the itinerary $\\sigma(x)=(a_0,a_1,\\ldots)$ conjugates the dynamics to the shift on a sequence space $\\{0,\\ldots,k-1\\}^{\\mathbb{N}}$. The doubling map is conjugate to the full 2-shift."
+      "blurb": "Partition state space into labelled cells $\\{A_0,\\ldots,A_{k-1}\\}$; the itinerary $\\sigma(x)=(a_0,a_1,\\ldots)$ conjugates the dynamics to the shift on a sequence space $\\{0,\\ldots,k-1\\}^{\\mathbb{N}}$. The doubling map is conjugate to the full 2-shift.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "dyn-ergodicity",
@@ -145,7 +160,10 @@
         "dyn-chaos",
         "dyn-poincare-section"
       ],
-      "blurb": "A strange attractor is an invariant set that attracts a positive-volume basin, has sensitive dependence, and fractal (non-integer) dimension. The Lorenz attractor, with $(\\sigma,\\beta,\\rho)=(10,8/3,28)$, is the canonical example."
+      "blurb": "A strange attractor is an invariant set that attracts a positive-volume basin, has sensitive dependence, and fractal (non-integer) dimension. The Lorenz attractor, with $(\\sigma,\\beta,\\rho)=(10,8/3,28)$, is the canonical example.",
+      "tags": [
+        "classification"
+      ]
     }
   ]
 }

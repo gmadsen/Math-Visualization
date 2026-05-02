@@ -24,7 +24,10 @@
         "sc-ito-integral",
         "sp-doob-decomposition"
       ],
-      "blurb": "For $C^2$ functions and Itô process $X_t$, $df(X_t)=f'(X_t)\\,dX_t+\\tfrac{1}{2}f''(X_t)\\,(dX_t)^2$ — the chain rule corrected by the quadratic-variation term that classical calculus misses; equivalently $f(B_t)=f(0)+\\int_0^t f'(B_s)\\,dB_s+\\tfrac{1}{2}\\int_0^t f''(B_s)\\,ds$."
+      "blurb": "For $C^2$ functions and Itô process $X_t$, $df(X_t)=f'(X_t)\\,dX_t+\\tfrac{1}{2}f''(X_t)\\,(dX_t)^2$ — the chain rule corrected by the quadratic-variation term that classical calculus misses; equivalently $f(B_t)=f(0)+\\int_0^t f'(B_s)\\,dB_s+\\tfrac{1}{2}\\int_0^t f''(B_s)\\,ds$.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "sc-sde-existence",
@@ -34,7 +37,10 @@
         "sc-ito-integral",
         "sc-ito-formula"
       ],
-      "blurb": "For Lipschitz coefficients $b,\\sigma$, the SDE $dX_t=b(X_t)\\,dt+\\sigma(X_t)\\,dB_t$ has a unique strong solution by Picard iteration; weak solutions match a target law without fixing the driving Brownian motion, and geometric Brownian motion $dX_t=\\mu X_t\\,dt+\\sigma X_t\\,dB_t$ is the canonical multiplicative example."
+      "blurb": "For Lipschitz coefficients $b,\\sigma$, the SDE $dX_t=b(X_t)\\,dt+\\sigma(X_t)\\,dB_t$ has a unique strong solution by Picard iteration; weak solutions match a target law without fixing the driving Brownian motion, and geometric Brownian motion $dX_t=\\mu X_t\\,dt+\\sigma X_t\\,dB_t$ is the canonical multiplicative example.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "sc-girsanov",
@@ -58,7 +64,10 @@
         "sc-sde-existence",
         "pde-heat-equation"
       ],
-      "blurb": "The solution of the heat-type PDE $\\partial_t u+\\tfrac{1}{2}\\sigma^2\\partial_{xx}u+b\\,\\partial_x u-ru=0$ with terminal data $u(T,x)=g(x)$ equals $\\mathbb{E}[e^{-r(T-t)}g(X_T)\\mid X_t=x]$ — Brownian expectations solve linear parabolic PDEs and conversely."
+      "blurb": "The solution of the heat-type PDE $\\partial_t u+\\tfrac{1}{2}\\sigma^2\\partial_{xx}u+b\\,\\partial_x u-ru=0$ with terminal data $u(T,x)=g(x)$ equals $\\mathbb{E}[e^{-r(T-t)}g(X_T)\\mid X_t=x]$ — Brownian expectations solve linear parabolic PDEs and conversely.",
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "sc-applications",

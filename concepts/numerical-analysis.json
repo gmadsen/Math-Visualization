@@ -23,7 +23,10 @@
         "na-floating-point",
         "real-differentiation"
       ],
-      "blurb": "Bisection halves an interval $[a,b]$ with $f(a)f(b)<0$, converging linearly with rate $1/2$. Newton's iteration $x_{n+1}=x_n-f(x_n)/f'(x_n)$ converges quadratically near a simple root: $|e_{n+1}|\\le C|e_n|^2$. The order $p$ of convergence is the supremum with $|e_{n+1}|\\le C|e_n|^p$; secant gives the golden ratio $p=(1+\\sqrt5)/2$."
+      "blurb": "Bisection halves an interval $[a,b]$ with $f(a)f(b)<0$, converging linearly with rate $1/2$. Newton's iteration $x_{n+1}=x_n-f(x_n)/f'(x_n)$ converges quadratically near a simple root: $|e_{n+1}|\\le C|e_n|^2$. The order $p$ of convergence is the supremum with $|e_{n+1}|\\le C|e_n|^p$; secant gives the golden ratio $p=(1+\\sqrt5)/2$.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "na-quadrature",
@@ -33,7 +36,10 @@
         "riemann-integral",
         "na-floating-point"
       ],
-      "blurb": "Composite trapezoid on $n$ panels has error $-\\tfrac{(b-a)h^2}{12}f''(\\xi)$ with $h=(b-a)/n$; Simpson's rule integrates cubics exactly with error $O(h^4)$; Gauss–Legendre with $n$ nodes integrates polynomials up to degree $2n-1$ exactly by choosing nodes as zeros of Legendre polynomials. The exponent of $h$ is the order of accuracy."
+      "blurb": "Composite trapezoid on $n$ panels has error $-\\tfrac{(b-a)h^2}{12}f''(\\xi)$ with $h=(b-a)/n$; Simpson's rule integrates cubics exactly with error $O(h^4)$; Gauss–Legendre with $n$ nodes integrates polynomials up to degree $2n-1$ exactly by choosing nodes as zeros of Legendre polynomials. The exponent of $h$ is the order of accuracy.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "na-linear-systems",

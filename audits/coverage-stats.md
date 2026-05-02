@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **131**, concepts: **916**
-- Widgets: **921** (registry-driven: 921, inline: 0)
-- Quizzes: **3939** (v1: 2703, hard: 1223, expert: 13)
-- Quiz types: mcq: 2649, numeric: 1039, multi-select: 100, matching: 50, ordering: 29, complex: 29, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Topics: **131**, concepts: **921**
+- Widgets: **926** (registry-driven: 926, inline: 0)
+- Quizzes: **3954** (v1: 2718, hard: 1223, expert: 13)
+- Quiz types: mcq: 2661, numeric: 1041, multi-select: 101, matching: 50, ordering: 29, complex: 29, spot-the-error: 22, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **158**
-- Concepts lacking a hard-tier quiz: **478**
+- Concepts lacking a hard-tier quiz: **483**
 
 ## Per-slug registry adoption
 
@@ -33,6 +33,11 @@ page has wired one in yet.
 | `declarative-host` | declarative-host | interactive | 2d | 3 | additive-number-theory, category-theory |
 | `counterexample-explorer` | counterexample-explorer | select | 2d | 2 | heights-arithmetic-geometry, point-set-topology |
 | `proof-scrubber` | proof-scrubber | timeline | 2d | 2 | algebraic-topology, analytic-number-theory |
+| `aca-bergman-kernel-disk` | aca-bergman-kernel-disk | click | 2d | 1 | advanced-complex-analysis |
+| `aca-bloch-disk` | aca-bloch-disk | slider | 2d | 1 | advanced-complex-analysis |
+| `aca-hartogs-shell` | aca-hartogs-shell | slider | 2d | 1 | advanced-complex-analysis |
+| `aca-nevanlinna-characteristic` | aca-nevanlinna-characteristic | slider | 2d | 1 | advanced-complex-analysis |
+| `aca-quasiconformal-warp` | aca-quasiconformal-warp | slider | 2d | 1 | advanced-complex-analysis |
 | `algebraic-curves-canonical-embedding-scrubber` | algebraic-curves-canonical-embedding-scrubber | interact | 2d | 1 | algebraic-curves-higher-genus |
 | `algebraic-curves-hyperelliptic-cover` | algebraic-curves-hyperelliptic-cover | interact | 2d | 1 | algebraic-curves-higher-genus |
 | `algebraic-curves-jacobian-lattice` | algebraic-curves-jacobian-lattice | interact | 2d | 1 | algebraic-curves-higher-genus |
@@ -516,13 +521,13 @@ page has wired one in yet.
 
 ### Analysis
 
-- Topics: **16**, concepts: **161**
-- Widgets: **107** (registry-driven: 107, inline: 0)
-  - by family: button-stepper: 37, clickable-diagram: 31, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, variational-fdiff: 1, variational-brachistochrone: 1, variational-direct-method: 1, variational-mountain-pass: 1, variational-isoperimetric: 1, variational-sphere-geodesic: 1, constraint-bifurcation-explorer: 1, recurrence-plotter: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
-  - by dimension: 2d: 106, 3d: 1
-  - by gesture: click: 70, slider: 29, drag: 5, select: 2, step: 1
-- Quizzes: **627** (v1: 442, hard: 185, expert: 0)
-  - by type: mcq: 405, numeric: 146, multi-select: 18, matching: 16, complex: 14, ordering: 13, proof-completion: 9, spot-the-error: 4, construction: 1, guess-my-rule: 1
+- Topics: **16**, concepts: **166**
+- Widgets: **112** (registry-driven: 112, inline: 0)
+  - by family: button-stepper: 37, clickable-diagram: 31, aca-bloch-disk: 1, aca-nevanlinna-characteristic: 1, aca-bergman-kernel-disk: 1, aca-quasiconformal-warp: 1, aca-hartogs-shell: 1, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, variational-fdiff: 1, variational-brachistochrone: 1, variational-direct-method: 1, variational-mountain-pass: 1, variational-isoperimetric: 1, variational-sphere-geodesic: 1, constraint-bifurcation-explorer: 1, recurrence-plotter: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
+  - by dimension: 2d: 111, 3d: 1
+  - by gesture: click: 71, slider: 33, drag: 5, select: 2, step: 1
+- Quizzes: **642** (v1: 457, hard: 185, expert: 0)
+  - by type: mcq: 417, numeric: 148, multi-select: 19, matching: 16, complex: 14, ordering: 13, proof-completion: 9, spot-the-error: 4, construction: 1, guess-my-rule: 1
 
 ### Probability & statistics
 
@@ -596,7 +601,7 @@ page has wired one in yet.
 
 ## Per-topic
 
-- `advanced-complex-analysis` (Analysis) — concepts=8, widgets=0 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
+- `advanced-complex-analysis` (Analysis) — concepts=13, widgets=5 (slug=5), quiz=39 (v1=39, hard=0, expert=0)
 - `mathematical-statistics` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `numerical-analysis` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `computational-number-theory` (Number theory) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
@@ -763,6 +768,11 @@ page has wired one in yet.
 - `aca-phragmen-lindelof` (advanced-complex-analysis)
 - `aca-hadamard-three-circles` (advanced-complex-analysis)
 - `aca-hardy-spaces` (advanced-complex-analysis)
+- `aca-bloch-theorem` (advanced-complex-analysis)
+- `aca-nevanlinna-theory` (advanced-complex-analysis)
+- `aca-bergman-kernel` (advanced-complex-analysis)
+- `aca-quasiconformal-beltrami` (advanced-complex-analysis)
+- `aca-several-complex-variables` (advanced-complex-analysis)
 - `ms-estimators` (mathematical-statistics)
 - `ms-mle` (mathematical-statistics)
 - `ms-cramer-rao` (mathematical-statistics)
@@ -770,8 +780,3 @@ page has wired one in yet.
 - `ms-bayesian` (mathematical-statistics)
 - `ms-asymptotics` (mathematical-statistics)
 - `na-floating-point` (numerical-analysis)
-- `na-rootfinding` (numerical-analysis)
-- `na-quadrature` (numerical-analysis)
-- `na-linear-systems` (numerical-analysis)
-- `na-finite-differences` (numerical-analysis)
-- `na-finite-elements` (numerical-analysis)

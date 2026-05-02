@@ -1811,6 +1811,204 @@ window.MVQuizBank = {
             "explain": "Each factor $(z-a_k)/(1-\\overline{a_k}z)$ is a disk automorphism with modulus $1$ on $|z|=1$, so $|B(e^{i\\theta})|=1$ for all $\\theta$ — Blaschke products are inner functions. They are the 'zero-encoding' part of the inner-outer factorization $f = B\\cdot S\\cdot O$, while $S$ is the singular inner factor (no zeros, modulus 1 on the boundary) and $O$ is outer (no zero set, log-modulus is the Poisson integral of its boundary log-modulus)."
           }
         ]
+      },
+      "aca-bloch-theorem": {
+        "title": "Bloch's theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Bloch's theorem says that for every holomorphic $f:\\mathbb{D}\\to\\mathbb{C}$ with $f(0)=0$ and $f'(0)=1$, the image $f(\\mathbb{D})$ contains what?",
+            "choices": [
+              "An open disk on which $f$ is one-to-one, of universal radius $\\ge B>0$",
+              "The entire complex plane",
+              "An annulus of fixed inner and outer radius",
+              "A neighborhood of $0$ of radius exactly $1$"
+            ],
+            "answer": 0,
+            "explain": "Bloch's theorem: under the normalization $f(0)=0$, $f'(0)=1$, the image $f(\\mathbb{D})$ contains a univalent (one-sheeted) sub-disk of radius at least the Bloch constant $B \\ge \\sqrt 3/4$, and the supremum of such radii over all normalized $f$ is the Bloch constant. The point is that the lower bound is universal — independent of $f$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is Bloch's theorem considered a 'quantitative' relative of Picard's theorems?",
+            "choices": [
+              "It uses only the residue theorem to prove",
+              "It produces a universal lower bound on a geometric quantity (the radius of a univalent disk in the image), where Picard only gives qualitative omitted-value statements",
+              "It is a special case of the great Picard theorem",
+              "It bounds the number of zeros of $f$"
+            ],
+            "answer": 1,
+            "explain": "Picard says 'a non-constant entire function omits at most one value' — qualitative. Bloch upgrades this to a quantitative geometric statement: every normalized holomorphic function on the disk contains a univalent disk of radius $\\ge B$ in its image. The constant $B$ is universal, independent of $f$. This is the same value-distribution thread, made effective."
+          },
+          {
+            "type": "numeric",
+            "q": "What is the standard explicit lower bound for the Bloch constant $B$? Give the bound $\\sqrt{3}/4$ to three decimal places.",
+            "answer": 0.433,
+            "tol": 0.005,
+            "explain": "$\\sqrt{3}/4 \\approx 0.4330$. The classical proof gives $B \\ge \\sqrt{3}/4$; the exact value is open and conjectured to be $B = \\sqrt{3-\\sqrt{6}/3}\\cdot\\Gamma(1/3)\\Gamma(11/12)/\\Gamma(1/4) \\approx 0.4719$ (Ahlfors-Grunsky), but the Ahlfors lower bound $\\sqrt{3}/4$ is what's typically quoted in graduate texts."
+          }
+        ]
+      },
+      "aca-nevanlinna-theory": {
+        "title": "Nevanlinna theory",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Nevanlinna characteristic $T(r,f) = m(r,\\infty) + N(r,\\infty)$ decomposes which kind of growth into a sum of which two pieces?",
+            "choices": [
+              "$L^2$ growth into Fourier coefficients and a remainder",
+              "Logarithmic growth into a proximity term $m(r,a)$ (how often $f$ is close to $a$ on $|z|=r$) and a counting term $N(r,a)$ (the integrated count of $a$-points)",
+              "Polynomial growth into degree and leading coefficient",
+              "Exponential growth into amplitude and frequency"
+            ],
+            "answer": 1,
+            "explain": "$T(r,f)$ is the canonical Nevanlinna height function for meromorphic $f$. It splits as $m + N$: $m(r,a)$ measures how close $f$ comes to $a$ on the circle $|z|=r$ (proximity), and $N(r,a)$ counts the $a$-points up to radius $r$ with multiplicity (the integrated counting function). The first main theorem says $m(r,a) + N(r,a) = T(r,f) + O(1)$ is the same for every value $a \\in \\hat{\\mathbb{C}}$."
+          },
+          {
+            "type": "mcq",
+            "q": "Nevanlinna's defect relation states that the sum of defects $\\delta(a) = \\liminf_{r\\to\\infty} m(r,a)/T(r,f)$ over all values $a \\in \\hat{\\mathbb{C}}$ is bounded by what?",
+            "choices": [
+              "$0$",
+              "$1$",
+              "$2$",
+              "$\\infty$"
+            ],
+            "answer": 2,
+            "explain": "$\\sum_a \\delta(a) \\le 2$ for any non-constant meromorphic $f$. A defect $\\delta(a)=1$ means $f$ takes the value $a$ much less often than 'expected' — essentially, omitted from $f$ in the asymptotic sense. The bound $2$ recovers Picard: at most two values can have $\\delta=1$, hence at most two omitted values for a meromorphic $f$ on $\\mathbb{C}$ (for entire $f$ this further reduces to one)."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the Nevanlinna 'order' $\\rho(f)$ of an entire / meromorphic function $f$, and what does $\\rho(e^z)$ equal?",
+            "choices": [
+              "$\\rho(f) = \\limsup_{r\\to\\infty}\\log T(r,f)/\\log r$; for $f(z)=e^z$, $\\rho = 1$",
+              "$\\rho(f)$ is the degree of $f$; for $e^z$, $\\rho = 0$",
+              "$\\rho(f)$ counts zeros of $f$; for $e^z$, $\\rho = \\infty$",
+              "$\\rho(f) = \\sup_z |f'(z)|$; for $e^z$, $\\rho$ is undefined"
+            ],
+            "answer": 0,
+            "explain": "The order is $\\rho(f) = \\limsup_{r\\to\\infty}\\log T(r,f)/\\log r$, measuring how fast $T$ grows on a logarithmic scale. For $f(z) = e^z$, $T(r,e^z) \\sim r/\\pi$ so $\\rho = 1$. Polynomials have order $0$; $e^{e^z}$ has order $\\infty$. Order is the Nevanlinna analog of the degree of a polynomial — it controls how many $a$-points can crowd in radius $r$."
+          }
+        ]
+      },
+      "aca-bergman-kernel": {
+        "title": "Bergman kernels",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Bergman space $A^2(\\Omega)$ on a bounded domain $\\Omega\\subset\\mathbb{C}$ is a Hilbert space because point evaluation $f \\mapsto f(w)$ is bounded for each $w\\in\\Omega$. What does the Riesz representation theorem then produce?",
+            "choices": [
+              "A boundary trace operator",
+              "A reproducing kernel $K(z,w)$ such that $f(w) = \\int_\\Omega K(z,w) f(z)\\, dA(z)$ for all $f\\in A^2(\\Omega)$",
+              "An orthonormal basis of monomials",
+              "A spectral decomposition of the Laplacian"
+            ],
+            "answer": 1,
+            "explain": "Since point evaluation at $w$ is a bounded linear functional on $A^2(\\Omega)$, by Riesz representation it is given by inner product with some $K_w \\in A^2(\\Omega)$. Setting $K(z,w) = \\overline{K_w(z)}$ gives the reproducing-kernel identity $f(w) = \\langle f, K_w\\rangle = \\int_\\Omega K(z,w) f(z)\\,dA(z)$. $K$ is conjugate-symmetric, holomorphic in $z$, anti-holomorphic in $w$."
+          },
+          {
+            "type": "mcq",
+            "q": "On the unit disk $\\mathbb{D}$, the Bergman kernel is $K_{\\mathbb{D}}(z,w) = \\frac{1}{\\pi}\\frac{1}{(1 - z\\bar w)^2}$. The associated Bergman metric on $\\mathbb{D}$ recovers which classical metric?",
+            "choices": [
+              "The Euclidean metric",
+              "The Poincaré (hyperbolic) metric",
+              "The spherical metric",
+              "The Apollonian metric"
+            ],
+            "answer": 1,
+            "explain": "The Bergman metric $g_{\\mathbb{D}} = \\partial\\bar\\partial \\log K(z,z)\\, dz\\,d\\bar z$ on the disk recovers (a multiple of) the Poincaré metric of constant negative curvature. This is no accident: the Bergman metric is invariant under biholomorphisms by construction, and on a domain biholomorphic to $\\mathbb{D}$ it must agree with the unique (up to scale) negatively-curved invariant metric."
+          },
+          {
+            "type": "mcq",
+            "q": "Under a biholomorphism $\\phi:\\Omega_1 \\to \\Omega_2$, the Bergman kernels of the two domains are related by which transformation rule?",
+            "choices": [
+              "$K_{\\Omega_2}(\\phi(z),\\phi(w)) = K_{\\Omega_1}(z,w)$ (kernel is biholomorphism-invariant)",
+              "$K_{\\Omega_2}(\\phi(z),\\phi(w))\\,\\phi'(z)\\overline{\\phi'(w)} = K_{\\Omega_1}(z,w)$ (kernel transforms with Jacobian factors)",
+              "$K_{\\Omega_2}(\\phi(z),\\phi(w)) = K_{\\Omega_1}(z,w) \\cdot |\\phi'(z)|^2$",
+              "$K_{\\Omega_2}(\\phi(z),\\phi(w)) = K_{\\Omega_1}(z,w) + \\log\\phi'(z)$"
+            ],
+            "answer": 1,
+            "explain": "Pull-back of holomorphic functions $f \\mapsto (f\\circ\\phi)\\phi'$ is the unitary that intertwines $A^2(\\Omega_1)$ and $A^2(\\Omega_2)$ — the Jacobian factor is needed because area measure transforms as $|\\phi'|^2$. Applying the unitary to the reproducing identity yields $K_{\\Omega_2}(\\phi(z),\\phi(w))\\phi'(z)\\overline{\\phi'(w)} = K_{\\Omega_1}(z,w)$. The kernel itself is NOT biholomorphism-invariant — but the associated Bergman metric (built from $\\partial\\bar\\partial \\log K(z,z)$) IS, because the Jacobian factors contribute exact terms that vanish under $\\partial\\bar\\partial \\log$."
+          }
+        ]
+      },
+      "aca-quasiconformal-beltrami": {
+        "title": "Quasiconformal maps and the Beltrami equation",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A homeomorphism $f:\\Omega\\to\\Omega'$ between planar domains is $K$-quasiconformal if its distributional derivatives satisfy the Beltrami equation $\\partial_{\\bar z} f = \\mu\\, \\partial_z f$ for some measurable $\\mu$ with what bound?",
+            "choices": [
+              "$\\|\\mu\\|_\\infty < \\infty$",
+              "$\\|\\mu\\|_\\infty \\le k$ for some $k = (K-1)/(K+1) < 1$",
+              "$\\|\\mu\\|_\\infty = 0$ (so $f$ is conformal)",
+              "$\\|\\mu\\|_2 < 1$"
+            ],
+            "answer": 1,
+            "explain": "$K$-quasiconformal means $\\|\\mu\\|_\\infty \\le k = (K-1)/(K+1) < 1$. The dilatation $\\mu_f = \\partial_{\\bar z}f/\\partial_z f$ is the Beltrami coefficient; its essential sup norm bounds the eccentricity of the infinitesimal ellipses $df$ sends round disks to. $K=1$ recovers conformality ($\\mu = 0$); $K\\to\\infty$ corresponds to $\\|\\mu\\|_\\infty\\to 1$, the breakdown of quasiconformality."
+          },
+          {
+            "type": "mcq",
+            "q": "The measurable Riemann mapping theorem (Morrey-Ahlfors-Bers) inverts the Beltrami equation. Given any measurable $\\mu$ on $\\mathbb{C}$ with $\\|\\mu\\|_\\infty < 1$, what does it produce?",
+            "choices": [
+              "A unique conformal map of the upper half-plane to $\\mathbb{C}$",
+              "A unique normalized quasiconformal homeomorphism $f^\\mu:\\hat{\\mathbb{C}}\\to\\hat{\\mathbb{C}}$ whose dilatation equals $\\mu$ a.e.",
+              "A holomorphic embedding of $\\mathbb{C}$ into $\\mathbb{C}^2$",
+              "A discrete subgroup of $\\mathrm{PSL}_2(\\mathbb{R})$"
+            ],
+            "answer": 1,
+            "explain": "The measurable Riemann mapping theorem produces a unique normalized (e.g. fixing $0,1,\\infty$) quasiconformal homeomorphism $f^\\mu:\\hat{\\mathbb{C}}\\to\\hat{\\mathbb{C}}$ realizing any prescribed measurable $\\mu$ with $\\|\\mu\\|_\\infty<1$ as its Beltrami coefficient. This is the cornerstone of Teichmüller theory: deformations of complex structure are parametrized by $\\mu$'s, and the theorem provides a bijection between Beltrami coefficients and quasiconformal deformations."
+          },
+          {
+            "type": "numeric",
+            "q": "If a $K$-quasiconformal map has dilatation $K = 3$, what is the corresponding bound $\\|\\mu\\|_\\infty \\le k = (K-1)/(K+1)$? Give to two decimal places.",
+            "answer": 0.5,
+            "tol": 0.01,
+            "explain": "$k = (K-1)/(K+1) = 2/4 = 0.5$. The Beltrami coefficient is bounded by $0.5$ in $L^\\infty$ — infinitesimally the map sends round disks to ellipses of eccentricity at most $K=3$ (ratio of axes)."
+          }
+        ]
+      },
+      "aca-several-complex-variables": {
+        "title": "Several complex variables",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Hartogs phenomenon (in $\\mathbb{C}^n$ for $n \\ge 2$) says that any holomorphic function on a Hartogs figure (a polydisk shell) extends to what?",
+            "choices": [
+              "A continuous but generally non-holomorphic function on the full polydisk",
+              "A holomorphic function on the full polydisk, uniquely",
+              "A meromorphic function with a pole on the inner shell",
+              "An entire function on $\\mathbb{C}^n$"
+            ],
+            "answer": 1,
+            "explain": "Hartogs's theorem: in $\\mathbb{C}^n$ with $n\\ge 2$, any holomorphic function on a polydisk shell (a polydisk minus a smaller inner polydisk) extends uniquely to a holomorphic function on the full polydisk. This is in stark contrast to $n=1$: the Laurent expansion lets a function on an annulus genuinely have poles or essential singularities at the inner boundary. For $n\\ge 2$, isolated singularities of holomorphic functions are forbidden."
+          },
+          {
+            "type": "mcq",
+            "q": "A domain $\\Omega \\subset \\mathbb{C}^n$ is a 'domain of holomorphy' if there is no proper holomorphic extension. By the solution to Levi's problem, this is equivalent to which intrinsic geometric condition?",
+            "choices": [
+              "$\\Omega$ is convex in the Euclidean sense",
+              "$\\Omega$ is bounded",
+              "$\\Omega$ is pseudoconvex (admits a plurisubharmonic exhaustion function)",
+              "$\\Omega$ has smooth boundary"
+            ],
+            "answer": 2,
+            "explain": "Levi's problem (solved by Oka, Bremermann, Norguet): a domain $\\Omega\\subset\\mathbb{C}^n$ is a domain of holomorphy iff it is pseudoconvex, equivalently iff it admits a plurisubharmonic exhaustion function $\\rho:\\Omega\\to\\mathbb{R}$ with $\\rho\\to+\\infty$ at $\\partial\\Omega$. Convexity is sufficient but not necessary; boundedness is irrelevant; smooth boundary is neither sufficient nor necessary."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select the statements that are TRUE in $\\mathbb{C}^n$ for $n\\ge 2$ but FAIL in $n=1$.",
+            "choices": [
+              "Any holomorphic function on a polydisk shell extends to the full polydisk (Hartogs)",
+              "Holomorphic functions cannot have isolated singularities",
+              "Every simply connected proper domain is biholomorphic to the unit ball",
+              "The Riemann mapping theorem holds"
+            ],
+            "answer": [
+              0,
+              1
+            ],
+            "explain": "In $\\mathbb{C}^n$ with $n\\ge 2$: (a) Hartogs forces extension across compact holes; (b) consequently, holomorphic functions cannot have isolated singularities. The Riemann mapping theorem FAILS for $n\\ge 2$ — the bidisk and the ball in $\\mathbb{C}^2$ are simply connected, biholomorphic to neither each other nor to any other domain (Poincaré 1907). So the third statement fails for $n\\ge 2$ (it holds for $n=1$), and the fourth statement fails for $n\\ge 2$."
+          }
+        ]
       }
     }
   },

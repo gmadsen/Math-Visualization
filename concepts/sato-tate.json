@@ -11,7 +11,10 @@
         "complex-numbers",
         "elliptic-curve-definition"
       ],
-      "blurb": "For E/Q with good reduction at p, write a_p = 2√p · cos θ_p with θ_p ∈ [0, π]. The Frobenius eigenvalues are e^{±iθ_p}√p on the unit circle (after rescaling)."
+      "blurb": "For E/Q with good reduction at p, write a_p = 2√p · cos θ_p with θ_p ∈ [0, π]. The Frobenius eigenvalues are e^{±iθ_p}√p on the unit circle (after rescaling).",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "equidistribution-weyl",
@@ -21,7 +24,11 @@
         "hasse-bound-angle",
         "chebotarev-density"
       ],
-      "blurb": "A sequence on a compact space equidistributes with respect to a measure μ iff prime-averaged characters of every non-trivial irreducible tend to 0 — the Weyl/Wiener–Ikehara framework that Sato–Tate fits into."
+      "blurb": "A sequence on a compact space equidistributes with respect to a measure μ iff prime-averaged characters of every non-trivial irreducible tend to 0 — the Weyl/Wiener–Ikehara framework that Sato–Tate fits into.",
+      "tags": [
+        "compactness",
+        "duality"
+      ]
     },
     {
       "id": "sato-tate-measure",
@@ -33,7 +40,10 @@
         "equidistribution-weyl",
         "legendre-symbol"
       ],
-      "blurb": "For non-CM E, the angles θ_p equidistribute on [0, π] with respect to the semicircular density (2/π) sin²θ dθ."
+      "blurb": "For non-CM E, the angles θ_p equidistribute on [0, π] with respect to the semicircular density (2/π) sin²θ dθ.",
+      "tags": [
+        "compactness"
+      ]
     },
     {
       "id": "cm-vs-non-cm-sato-tate",
@@ -60,7 +70,10 @@
         "modular-form-definition",
         "equidistribution-weyl"
       ],
-      "blurb": "Sato–Tate is equivalent to non-vanishing and holomorphy of L(Sym^n E, s) on Re(s) ≥ 1 for every n ≥ 1."
+      "blurb": "Sato–Tate is equivalent to non-vanishing and holomorphy of L(Sym^n E, s) on Re(s) ≥ 1 for every n ≥ 1.",
+      "tags": [
+        "duality"
+      ]
     }
   ]
 }

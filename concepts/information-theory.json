@@ -37,7 +37,10 @@
         "it-shannon-entropy",
         "ld-sanov-theorem"
       ],
-      "blurb": "$D(p\\,\\|\\,q)=\\sum_i p_i\\log(p_i/q_i)$ measures the inefficiency of coding $p$-distributed data with a $q$-tuned codebook; Gibbs' inequality gives $D(p\\,\\|\\,q)\\ge 0$ with equality iff $p=q$, and $D$ is the canonical rate function of Sanov's theorem."
+      "blurb": "$D(p\\,\\|\\,q)=\\sum_i p_i\\log(p_i/q_i)$ measures the inefficiency of coding $p$-distributed data with a $q$-tuned codebook; Gibbs' inequality gives $D(p\\,\\|\\,q)\\ge 0$ with equality iff $p=q$, and $D$ is the canonical rate function of Sanov's theorem.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "it-source-coding",
@@ -46,7 +49,10 @@
       "prereqs": [
         "it-shannon-entropy"
       ],
-      "blurb": "Shannon's source-coding theorem: $H(X)$ is the asymptotic minimum bits-per-symbol for lossless compression. Huffman coding achieves prefix-free codes with average length within one bit of $H(X)$; the asymptotic equipartition property (AEP) explains why typical sequences fill a set of size $\\approx 2^{nH(X)}$."
+      "blurb": "Shannon's source-coding theorem: $H(X)$ is the asymptotic minimum bits-per-symbol for lossless compression. Huffman coding achieves prefix-free codes with average length within one bit of $H(X)$; the asymptotic equipartition property (AEP) explains why typical sequences fill a set of size $\\approx 2^{nH(X)}$.",
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "it-channel-coding",
@@ -55,7 +61,10 @@
       "prereqs": [
         "it-mutual-information"
       ],
-      "blurb": "The capacity of a discrete memoryless channel is $C=\\max_{p_X}I(X;Y)$. Shannon's noisy-channel theorem: any rate $R<C$ admits codes with vanishing error as block length grows, and any $R>C$ has error bounded away from $0$ — capacity is the sharp threshold."
+      "blurb": "The capacity of a discrete memoryless channel is $C=\\max_{p_X}I(X;Y)$. Shannon's noisy-channel theorem: any rate $R<C$ admits codes with vanishing error as block length grows, and any $R>C$ has error bounded away from $0$ — capacity is the sharp threshold.",
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "it-rate-distortion",
@@ -79,7 +88,10 @@
         "law-of-large-numbers",
         "convergence-rv"
       ],
-      "blurb": "For i.i.d.\\ $X_1,\\ldots,X_n\\sim p$, the law of large numbers applied to $-\\log p(X_i)$ gives $-\\tfrac{1}{n}\\log p(X_1,\\ldots,X_n)\\to H(X)$ in probability. The typical set $A_\\varepsilon^{(n)}=\\{x^n:|{-\\tfrac{1}{n}\\log p(x^n)}-H(X)|<\\varepsilon\\}$ has size $\\le 2^{n(H+\\varepsilon)}$ and probability $\\to 1$ — the operational backbone of source coding and jointly-typical decoding."
+      "blurb": "For i.i.d.\\ $X_1,\\ldots,X_n\\sim p$, the law of large numbers applied to $-\\log p(X_i)$ gives $-\\tfrac{1}{n}\\log p(X_1,\\ldots,X_n)\\to H(X)$ in probability. The typical set $A_\\varepsilon^{(n)}=\\{x^n:|{-\\tfrac{1}{n}\\log p(x^n)}-H(X)|<\\varepsilon\\}$ has size $\\le 2^{n(H+\\varepsilon)}$ and probability $\\to 1$ — the operational backbone of source coding and jointly-typical decoding.",
+      "tags": [
+        "completion"
+      ]
     },
     {
       "id": "it-fisher-and-cramer-rao",
@@ -90,7 +102,10 @@
         "ms-mle",
         "ms-cramer-rao"
       ],
-      "blurb": "Fisher information $I(\\theta)=-\\mathbb{E}_\\theta[\\partial_\\theta^2\\log p_\\theta(X)]=\\mathbb{E}_\\theta[(\\partial_\\theta\\log p_\\theta)^2]$ measures the curvature of the log-likelihood at $\\theta$. The Cramér–Rao bound: any unbiased estimator $\\hat\\theta$ of $\\theta$ from one sample obeys $\\mathrm{Var}_\\theta(\\hat\\theta)\\ge 1/I(\\theta)$, and de Bruijn's identity ties Fisher to differential entropy under Gaussian smoothing."
+      "blurb": "Fisher information $I(\\theta)=-\\mathbb{E}_\\theta[\\partial_\\theta^2\\log p_\\theta(X)]=\\mathbb{E}_\\theta[(\\partial_\\theta\\log p_\\theta)^2]$ measures the curvature of the log-likelihood at $\\theta$. The Cramér–Rao bound: any unbiased estimator $\\hat\\theta$ of $\\theta$ from one sample obeys $\\mathrm{Var}_\\theta(\\hat\\theta)\\ge 1/I(\\theta)$, and de Bruijn's identity ties Fisher to differential entropy under Gaussian smoothing.",
+      "tags": [
+        "duality"
+      ]
     }
   ]
 }

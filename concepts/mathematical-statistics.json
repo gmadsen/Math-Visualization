@@ -16,7 +16,8 @@
       "title": "Maximum likelihood and the score equation",
       "anchor": "mle",
       "prereqs": ["ms-estimators", "it-kl-divergence"],
-      "blurb": "The MLE maximises $\\ell(\\theta)=\\sum_i\\log f(X_i;\\theta)$, equivalently solves the score equation $\\partial_\\theta\\ell=0$. Under regularity, $\\hat\\theta_{\\mathrm{MLE}}$ is consistent and asymptotically normal: $\\sqrt n(\\hat\\theta_n-\\theta)\\xrightarrow{d}\\mathcal{N}(0,\\,1/I(\\theta))$ where $I(\\theta)=\\mathbb{E}_\\theta[(\\partial_\\theta\\log f)^2]$ is Fisher information. MLE minimises empirical KL to the true law, so it is the statistical mirror of $D(p\\,\\|\\,q)$."
+      "blurb": "The MLE maximises $\\ell(\\theta)=\\sum_i\\log f(X_i;\\theta)$, equivalently solves the score equation $\\partial_\\theta\\ell=0$. Under regularity, $\\hat\\theta_{\\mathrm{MLE}}$ is consistent and asymptotically normal: $\\sqrt n(\\hat\\theta_n-\\theta)\\xrightarrow{d}\\mathcal{N}(0,\\,1/I(\\theta))$ where $I(\\theta)=\\mathbb{E}_\\theta[(\\partial_\\theta\\log f)^2]$ is Fisher information. MLE minimises empirical KL to the true law, so it is the statistical mirror of $D(p\\,\\|\\,q)$.",
+      "tags": ["duality"]
     },
     {
       "id": "ms-cramer-rao",
@@ -31,7 +32,8 @@
       "title": "Hypothesis testing: Neyman–Pearson and likelihood ratios",
       "anchor": "testing",
       "prereqs": ["ms-mle"],
-      "blurb": "A test of $H_0:\\theta\\in\\Theta_0$ vs $H_1:\\theta\\in\\Theta_1$ partitions the sample space into rejection / acceptance; size $\\alpha=\\sup_{\\Theta_0}\\mathbb{P}_\\theta(\\text{reject})$ is type-I error, power $1-\\beta=\\mathbb{P}_{\\theta_1}(\\text{reject})$. Neyman–Pearson lemma: for simple-vs-simple, the likelihood ratio test $\\Lambda(x)=L(\\theta_1;x)/L(\\theta_0;x)\\gtrless k$ is uniformly most powerful at every level. The $p$-value is the smallest $\\alpha$ at which the observed data would have rejected."
+      "blurb": "A test of $H_0:\\theta\\in\\Theta_0$ vs $H_1:\\theta\\in\\Theta_1$ partitions the sample space into rejection / acceptance; size $\\alpha=\\sup_{\\Theta_0}\\mathbb{P}_\\theta(\\text{reject})$ is type-I error, power $1-\\beta=\\mathbb{P}_{\\theta_1}(\\text{reject})$. Neyman–Pearson lemma: for simple-vs-simple, the likelihood ratio test $\\Lambda(x)=L(\\theta_1;x)/L(\\theta_0;x)\\gtrless k$ is uniformly most powerful at every level. The $p$-value is the smallest $\\alpha$ at which the observed data would have rejected.",
+      "tags": ["duality"]
     },
     {
       "id": "ms-bayesian",
