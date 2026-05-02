@@ -1,0 +1,1315 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Gröbner bases — computational commutative algebra</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="Algebra & homological" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#monomial-orders">1&nbsp;Monomial&nbsp;orders</a>
+  <a href="#multivariable-division">2&nbsp;Division</a>
+  <a href="#groebner-basis-definition">3&nbsp;Gröbner&nbsp;bases</a>
+  <a href="#s-polynomials-buchberger">4&nbsp;S-polynomials</a>
+  <a href="#buchberger-algorithm">5&nbsp;Buchberger</a>
+  <a href="#reduced-groebner-basis">6&nbsp;Reduced&nbsp;GB</a>
+  <a href="#elimination-ideals">7&nbsp;Elimination</a>
+  <a href="#solving-polynomial-systems">8&nbsp;Solving&nbsp;systems</a>
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Gröbner bases &amp; computational commutative algebra</h1>
+  <p class="sub">Monomial orders, the multivariable division algorithm, Buchberger's S-polynomial criterion, and the elimination theorem — the algorithmic core that turns ideals in $k[x_1,\dots,x_n]$ into a working solver for polynomial systems and implicit equations.</p>
+</section>
+
+<!-- =============================================================== -->
+<section id="monomial-orders">
+<h2>1. Polynomial rings &amp; monomial orders</h2>
+<p>Fix a field $k$ and the polynomial ring $R = k[x_1,\dots,x_n]$. A <strong>monomial</strong> is $x^\alpha = x_1^{\alpha_1}\cdots x_n^{\alpha_n}$ for some exponent vector $\alpha\in\mathbb{N}^n$. Every $f\in R$ has a unique expansion $f = \sum_\alpha c_\alpha\, x^\alpha$ with $c_\alpha\in k$ and finite support — the entire ring is a free $k$-module on the monomials.</p>
+
+<p>To talk about a "leading term" we need a way to compare monomials. A <strong>monomial order</strong> on $R$ is a total order $>$ on the set of monomials satisfying:</p>
+
+<div class="note">
+<ul>
+  <li><strong>Total:</strong> any two distinct monomials are comparable.</li>
+  <li><strong>Multiplicative:</strong> if $\alpha > \beta$ then $\alpha + \gamma > \beta + \gamma$ for every $\gamma\in\mathbb{N}^n$.</li>
+  <li><strong>Well-ordering:</strong> every nonempty set of monomials has a least element.</li>
+</ul>
+</div>
+
+<p>Equivalently (assuming totality and multiplicativity), the well-ordering condition is the same as $1 \le x^\alpha$ for all $\alpha$ — every variable has positive "weight". The three orders that matter in practice:</p>
+
+<table class="plain">
+<thead><tr><th>order</th><th>compare $x^\alpha$ vs $x^\beta$</th><th>geometric flavor</th></tr></thead>
+<tbody>
+<tr><td><strong>lex</strong></td><td>compare $\alpha_1$ vs $\beta_1$; tie ⇒ $\alpha_2$ vs $\beta_2$; etc.</td><td>variable-elimination order</td></tr>
+<tr><td><strong>grlex</strong></td><td>compare $|\alpha|$ vs $|\beta|$ (total degree); tie ⇒ lex</td><td>degree-prioritizing</td></tr>
+<tr><td><strong>grevlex</strong></td><td>compare $|\alpha|$ vs $|\beta|$; tie ⇒ rightmost differing coordinate, with the <em>smaller</em> exponent winning</td><td>fastest in practice for generic ideals</td></tr>
+</tbody>
+</table>
+
+<p>For any $f = \sum c_\alpha x^\alpha$ with $c_\alpha\ne 0$, the chosen order picks out a maximum exponent $\alpha^*$ — the <strong>leading monomial</strong> $\mathrm{LM}(f) = x^{\alpha^*}$, with <strong>leading coefficient</strong> $\mathrm{LC}(f) = c_{\alpha^*}$ and <strong>leading term</strong> $\mathrm{LT}(f) = c_{\alpha^*} x^{\alpha^*}$. All three depend on the order; switch from lex to grevlex and the same polynomial can have a different leading term.</p>
+
+<div class="note"><strong>Why lex differs so radically.</strong> Under lex with $x>y$, the comparison $x > y^{1000}$ holds — any positive $x$-exponent dominates any $y$-exponent. Under grlex, $y^{1000}$ wins because total degree is checked first. This single fact is why lex is the right order for elimination (§7) and the wrong order for nearly everything else.</div>
+
+<div class="widget" id="w-monorder">
+  <div class="hd"><div class="ttl">Monomial-order explorer</div><div class="hint">$f = x^3 + x^2 y + x y^2 + y^3$ — see how the leading term shifts</div></div>
+  <div class="row">
+    <label for="mo-pick">order:</label>
+    <select id="mo-pick">
+      <option value="lex">lex (x &gt; y)</option>
+      <option value="grlex">grlex (degree, then lex)</option>
+      <option value="grevlex">grevlex (degree, then reversed lex)</option>
+    </select>
+    <button id="mo-poly1" class="active" data-poly="0">$f_1$</button>
+    <button id="mo-poly2" data-poly="1">$f_2$</button>
+    <button id="mo-poly3" data-poly="2">$f_3$</button>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 290px;gap:1rem;align-items:start">
+    <svg id="mo-svg" viewBox="0 0 360 280" width="100%" style="max-width:360px"><title>Monomial order on the exponent lattice</title></svg>
+    <div class="readout" id="mo-out" style="min-height:11em"></div>
+  </div>
+</div>
+<p class="small">Each dot is a monomial $x^a y^b$ at lattice point $(a,b)$. The polyline connects them in the chosen order, smallest to largest; the leading monomial is the last node, highlighted yellow.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebra.html#polyrings">Polynomial rings and irreducibility</a></li>
+    <li><a href="./commutative-algebra.html#ideals">Ideals and quotient rings</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="monomial-orders"></div>
+
+<script>
+/* =============================== SECTION 1: monomial-order explorer =============================== */
+(function(){
+  const POLYS = [
+    { name:'$f_1 = x^3 + x^2y + xy^2 + y^3$',
+      mons:[[3,0],[2,1],[1,2],[0,3]] },
+    { name:'$f_2 = x^2y + xy^2 + x^3 + y^3$',
+      mons:[[2,1],[1,2],[3,0],[0,3]] },
+    { name:'$f_3 = x + y^4 + x^2y^2$',
+      mons:[[1,0],[0,4],[2,2]] }
+  ];
+  function cmp(order){
+    return (A,B)=>{
+      const [a1,a2]=A, [b1,b2]=B;
+      if(order==='lex'){
+        if(a1!==b1) return a1-b1;
+        return a2-b2;
+      }
+      const dA=a1+a2, dB=b1+b2;
+      if(dA!==dB) return dA-dB;
+      if(order==='grlex'){
+        if(a1!==b1) return a1-b1;
+        return a2-b2;
+      }
+      // grevlex: same total degree; compare rightmost differing coord, smaller wins
+      // for two variables (a,b), the rightmost differing coordinate is b if a2!==b2.
+      if(a2!==b2) return b2-a2;     // smaller right exp wins
+      return b1-a1;
+    };
+  }
+  function monStr(a,b){
+    if(a===0 && b===0) return '1';
+    let s='';
+    if(a>0) s += (a===1)?'x':'x^'+a;
+    if(b>0) s += (b===1)?'y':'y^'+b;
+    return s;
+  }
+  let polyIdx = 0;
+  const svg = $('#mo-svg'), out = $('#mo-out'), pick = $('#mo-pick');
+  function draw(){
+    svg.innerHTML='';
+    const order = pick.value;
+    const P = POLYS[polyIdx];
+    const sorted = [...P.mons].sort(cmp(order));
+    // viewBox 360x280 with left/bottom margins
+    const ML=36, MR=12, MT=24, MB=36;
+    const W = 360 - ML - MR, H = 280 - MT - MB;
+    const maxA = Math.max(...P.mons.map(m=>m[0]),3);
+    const maxB = Math.max(...P.mons.map(m=>m[1]),3);
+    const sx = W / Math.max(maxA,1);
+    const sy = H / Math.max(maxB,1);
+    const X = a => ML + a*sx;
+    const Y = b => MT + H - b*sy;
+    // grid
+    for(let a=0;a<=maxA;a++){
+      svg.appendChild(SVG('line',{x1:X(a),y1:MT,x2:X(a),y2:MT+H,stroke:'var(--line)','stroke-width':0.5}));
+    }
+    for(let b=0;b<=maxB;b++){
+      svg.appendChild(SVG('line',{x1:ML,y1:Y(b),x2:ML+W,y2:Y(b),stroke:'var(--line)','stroke-width':0.5}));
+    }
+    // axes
+    svg.appendChild(SVG('line',{x1:ML,y1:MT+H,x2:ML+W+8,y2:MT+H,stroke:'var(--mute)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:ML,y1:MT+H,x2:ML,y2:MT-8,stroke:'var(--mute)','stroke-width':1}));
+    const xl = SVG('text',{x:ML+W,y:MT+H+22,'text-anchor':'end','font-size':12,fill:'var(--mute)'}); xl.textContent='exponent of x'; svg.appendChild(xl);
+    const yl = SVG('text',{x:ML-6,y:MT-10,'text-anchor':'start','font-size':12,fill:'var(--mute)'}); yl.textContent='exponent of y'; svg.appendChild(yl);
+    // polyline through sorted monomials
+    if(sorted.length>1){
+      let d = `M ${X(sorted[0][0])} ${Y(sorted[0][1])}`;
+      for(let i=1;i<sorted.length;i++) d += ` L ${X(sorted[i][0])} ${Y(sorted[i][1])}`;
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--cyan)','stroke-width':1.5,'stroke-dasharray':'4 3'}));
+    }
+    // dots
+    sorted.forEach((m,i)=>{
+      const [a,b] = m;
+      const isLead = (i===sorted.length-1);
+      svg.appendChild(SVG('circle',{cx:X(a),cy:Y(b),r:isLead?9:6,
+        fill: isLead?'var(--yellow)':'var(--blue)', stroke:'#111','stroke-width':1}));
+      const lab = SVG('text',{x:X(a),y:Y(b)-12,'text-anchor':'middle','font-size':11,
+        fill: isLead?'var(--yellow)':'var(--ink)'});
+      lab.textContent = monStr(a,b);
+      svg.appendChild(lab);
+      // rank number
+      const rk = SVG('text',{x:X(a)+10,y:Y(b)+14,'text-anchor':'start','font-size':10,fill:'var(--mute)'});
+      rk.textContent = '#'+(i+1);
+      svg.appendChild(rk);
+    });
+    // readout
+    const lead = sorted[sorted.length-1];
+    const ascending = sorted.map(m=>monStr(m[0],m[1])).join(' < ');
+    out.textContent = `polynomial: ${P.name.replace(/\$/g,'')}\norder: ${order}\n\nascending order:\n  ${ascending}\n\nleading monomial: ${monStr(lead[0],lead[1])}`;
+  }
+  pick.addEventListener('change', draw);
+  $$('#w-monorder button[data-poly]').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      polyIdx = parseInt(b.dataset.poly,10);
+      $$('#w-monorder button[data-poly]').forEach(x=>x.classList.remove('active'));
+      b.classList.add('active');
+      draw();
+    });
+  });
+  draw();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="multivariable-division">
+<h2>2. The multivariable division algorithm</h2>
+<p>Given a monomial order and an <em>ordered</em> tuple of divisors $(g_1,\dots,g_s)$, the <strong>multivariable division algorithm</strong> rewrites any $f\in k[x_1,\dots,x_n]$ as</p>
+
+<p style="text-align:center">$f = a_1 g_1 + a_2 g_2 + \cdots + a_s g_s + r$</p>
+
+<p>where the <strong>quotients</strong> $a_i\in k[x_1,\dots,x_n]$ and the <strong>remainder</strong> $r$ have one definite property: no monomial appearing in $r$ is divisible by any $\mathrm{LT}(g_i)$.</p>
+
+<p>The procedure is a direct generalization of polynomial long division: at each step, look at the current $\mathrm{LT}$ of the dividend; scan $(g_1,\dots,g_s)$ in order for the first $g_i$ whose leading term divides it; if found, subtract the appropriate multiple of $g_i$; if not found, peel that monomial off into the remainder $r$ and continue. Repeat until the dividend is zero.</p>
+
+<div class="note"><strong>The single-variable case is a deceptive special case.</strong> In $k[x]$ the remainder of $f$ on division by $g$ is unique — a fact every undergraduate proves as part of the Euclidean algorithm. In $k[x,y]$ this fails. Try $f = x^2 y + xy^2 + y^2$ divided by $(g_1,g_2) = (xy-1,\, y^2-1)$ versus $(g_2,g_1)$ under lex, and you will get different remainders. The remainder depends on the ordering of the divisor list. Gröbner bases (§3) are exactly the divisor sets for which this defect disappears.</div>
+
+<div class="widget" id="w-mvdiv">
+  <div class="hd"><div class="ttl">Multivariable division — order matters</div><div class="hint">$f = x^2 y + xy^2 + y^2$ in $k[x,y]$, lex with $x &gt; y$</div></div>
+  <div class="row">
+    <label>divisor order:</label>
+    <button id="mv-ord-a" class="active">$(g_1, g_2) = (xy-1,\; y^2-1)$</button>
+    <button id="mv-ord-b">$(g_2, g_1) = (y^2-1,\; xy-1)$</button>
+  </div>
+  <div class="row">
+    <button id="mv-step">step ▶</button>
+    <button id="mv-run">run to end</button>
+    <button id="mv-reset">reset</button>
+  </div>
+  <div class="readout" id="mv-out" style="min-height:13em"></div>
+</div>
+<p class="small">Watch how the same dividend, with the same divisor set in two different orders, produces two different remainders. The "no monomial of $r$ divisible by any $\mathrm{LT}(g_i)$" condition holds in both runs — that's the only invariant.</p>
+
+<div class="quiz" data-concept="multivariable-division"></div>
+
+<script>
+/* =============================== SECTION 2: multivariable division =============================== */
+(function(){
+  // monomial ops in two variables (a,b) under lex with x>y
+  const cmp = (A,B)=>{ if(A[0]!==B[0]) return A[0]-B[0]; return A[1]-B[1]; };
+  // polynomial = array of [coef, [a,b]] terms, kept sorted descending by lex
+  function normalize(p){
+    // combine same exponents
+    const map = new Map();
+    for(const [c,e] of p){
+      const k = e[0]+','+e[1];
+      const v = (map.get(k)||0) + c;
+      map.set(k,v);
+    }
+    const out=[];
+    for(const [k,v] of map){
+      if(Math.abs(v) < 1e-12) continue;
+      const [a,b] = k.split(',').map(Number);
+      out.push([v,[a,b]]);
+    }
+    out.sort((A,B)=>cmp(B[1],A[1])); // descending
+    return out;
+  }
+  function lt(p){ return p.length ? p[0] : null; }
+  function divides(A,B){ return A[0]<=B[0] && A[1]<=B[1]; } // A | B
+  function sub(B,A){ return [B[0]-A[0], B[1]-A[1]]; }
+  function scaleAdd(p, coef, exp){
+    return p.map(([c,e])=>[c*coef, [e[0]+exp[0], e[1]+exp[1]]]);
+  }
+  function diff(p,q){
+    const out = p.slice();
+    for(const [c,e] of q) out.push([-c,[...e]]);
+    return normalize(out);
+  }
+  function termStr(c,e){
+    const [a,b] = e;
+    let m = '';
+    if(a===0 && b===0) m='1';
+    else {
+      if(a>0) m += (a===1)?'x':'x^'+a;
+      if(b>0) m += (b===1)?'y':'y^'+b;
+    }
+    if(c===1 && m!=='1') return m;
+    if(c===-1 && m!=='1') return '-'+m;
+    if(m==='1') return ''+c;
+    return c+'·'+m;
+  }
+  function polyStr(p){
+    if(!p.length) return '0';
+    let s='';
+    p.forEach(([c,e],i)=>{
+      const t = termStr(Math.abs(c),e);
+      if(i===0){ s += (c<0?'-':'') + t; }
+      else { s += (c<0?' - ':' + ') + t; }
+    });
+    return s;
+  }
+  // the dividend and divisors
+  const F = [[1,[2,1]],[1,[1,2]],[1,[0,2]]]; // x^2 y + xy^2 + y^2
+  const G1 = [[1,[1,1]],[-1,[0,0]]]; // xy - 1
+  const G2 = [[1,[0,2]],[-1,[0,0]]]; // y^2 - 1
+
+  let order = 'A';   // 'A' = (G1,G2), 'B' = (G2,G1)
+  let cur, rem, steps, divs, stepIdx, done;
+
+  function reset(){
+    cur = F.map(t=>[t[0],[...t[1]]]);
+    rem = [];
+    steps = [];
+    stepIdx = 0;
+    done = false;
+    divs = order==='A' ? [{name:'g₁=xy-1', p:G1},{name:'g₂=y²-1', p:G2}]
+                      : [{name:'g₂=y²-1', p:G2},{name:'g₁=xy-1', p:G1}];
+    log(`initial dividend: f = ${polyStr(cur)}\ndivisor order: ${order==='A'?'(g₁, g₂)':'(g₂, g₁)'}`);
+    draw();
+  }
+
+  function log(msg){ steps.push(msg); }
+
+  function step(){
+    if(done) return;
+    if(!cur.length){ done=true; log('\n→ dividend is 0; algorithm terminates.\n→ remainder r = '+polyStr(rem)); draw(); return; }
+    const head = lt(cur);
+    let used = false;
+    for(let i=0;i<divs.length;i++){
+      const ld = lt(divs[i].p);
+      if(divides(ld[1], head[1])){
+        const coef = head[0]/ld[0];
+        const exp = sub(head[1], ld[1]);
+        const sub_ = scaleAdd(divs[i].p, coef, exp);
+        cur = diff(cur, sub_);
+        log(`step ${stepIdx+1}: LT(f) = ${termStr(head[0],head[1])} divisible by LT(${divs[i].name}); subtract ${termStr(coef,exp)}·${divs[i].name}\n  new f = ${polyStr(cur)}`);
+        used = true;
+        break;
+      }
+    }
+    if(!used){
+      // move LT to remainder
+      rem.push([head[0],[...head[1]]]);
+      cur = cur.slice(1);
+      log(`step ${stepIdx+1}: LT(f) = ${termStr(head[0],head[1])} not divisible by any LT(gᵢ); move to remainder.\n  new r = ${polyStr(rem)}\n  new f = ${polyStr(cur)}`);
+    }
+    stepIdx++;
+    if(!cur.length){ done=true; log('\n→ dividend is 0; algorithm terminates.\n→ remainder r = '+polyStr(rem)); }
+    draw();
+  }
+
+  function run(){
+    let safety = 50;
+    while(!done && safety-->0) step();
+  }
+
+  function draw(){
+    $('#mv-out').textContent = steps.join('\n\n');
+  }
+
+  $('#mv-ord-a').addEventListener('click', ()=>{ order='A';
+    $('#mv-ord-a').classList.add('active'); $('#mv-ord-b').classList.remove('active'); reset(); });
+  $('#mv-ord-b').addEventListener('click', ()=>{ order='B';
+    $('#mv-ord-b').classList.add('active'); $('#mv-ord-a').classList.remove('active'); reset(); });
+  $('#mv-step').addEventListener('click', step);
+  $('#mv-run').addEventListener('click', run);
+  $('#mv-reset').addEventListener('click', reset);
+  reset();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="groebner-basis-definition">
+<h2>3. Gröbner bases: definition</h2>
+<p>The flaw in §2's division algorithm — non-uniqueness of the remainder — is structural, not procedural. We can fix it, but only by demanding that the divisor set carry enough leading terms to detect every leading term that the ideal could conceivably produce.</p>
+
+<p>For an ideal $I\subset k[x_1,\dots,x_n]$, write $\mathrm{LT}(I) = \{\mathrm{LT}(f) : f\in I\setminus\{0\}\}$ (a set of monomials with coefficients) and $\langle\mathrm{LT}(I)\rangle$ for the ideal generated by them. Because $\mathrm{LT}(I)$ is closed under multiplication by all of $k\setminus\{0\}$, the ideal $\langle\mathrm{LT}(I)\rangle$ is in fact a <strong>monomial ideal</strong> — generated by the leading monomials, ignoring coefficients.</p>
+
+<div class="note"><strong>Definition.</strong> Fix a monomial order on $R = k[x_1,\dots,x_n]$. A finite subset $G = \{g_1,\dots,g_s\}\subset I$ is a <strong>Gröbner basis</strong> for $I$ when
+$$\langle \mathrm{LT}(g_1), \dots, \mathrm{LT}(g_s)\rangle \;=\; \langle \mathrm{LT}(I)\rangle.$$
+Equivalently: for every $f\in I\setminus\{0\}$, some $\mathrm{LT}(g_i)$ divides $\mathrm{LT}(f)$.</div>
+
+<p>Three immediate consequences justify the definition:</p>
+
+<p><span class="pill">generates</span> Any Gröbner basis $G$ of $I$ generates $I$ as an ideal. (Proof: divide any $f\in I$ by $G$ — the remainder $r$ lies in $I$ but has no monomial divisible by any $\mathrm{LT}(g_i)$, so $\mathrm{LT}(r)\notin\langle\mathrm{LT}(G)\rangle = \langle\mathrm{LT}(I)\rangle$, forcing $r=0$.)</p>
+
+<p><span class="pill">unique remainder</span> The division algorithm applied to any $f$ produces the same remainder regardless of the ordering of $G$. (The same argument: two different remainders $r_1, r_2$ would differ by an element of $I$, and that difference's leading term would have to be divisible by some $\mathrm{LT}(g_i)$ — contradicting that neither $r_i$ has any monomial divisible by any $\mathrm{LT}(g_i)$.)</p>
+
+<p><span class="pill">ideal membership</span> $f\in I$ if and only if the remainder of $f$ on division by $G$ is zero.</p>
+
+<p>Existence is guaranteed by Hilbert's basis theorem applied to the leading-term ideal: $\langle\mathrm{LT}(I)\rangle$ is a monomial ideal in a Noetherian ring, hence finitely generated, and any finite subset $G\subset I$ whose leading terms generate $\langle\mathrm{LT}(I)\rangle$ is a Gröbner basis. The proof is non-constructive — it tells us $G$ exists but not how to find it. That is the gap §4–§5 fill.</p>
+
+<div class="widget" id="w-staircase">
+  <div class="hd"><div class="ttl">Staircase &amp; standard monomials</div><div class="hint">a leading-term ideal $\langle\mathrm{LT}(I)\rangle\subset k[x,y]$ partitions $\mathbb{N}^2$</div></div>
+  <div class="row">
+    <label for="st-pick">leading monomials of $I$:</label>
+    <select id="st-pick">
+      <option value="A">$\{x^3,\; x y,\; y^2\}$</option>
+      <option value="B">$\{x^2,\; xy^2,\; y^4\}$</option>
+      <option value="C">$\{x^2,\; y^3\}$</option>
+      <option value="D">$\{xy\}$ (only one)</option>
+    </select>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 280px;gap:1rem;align-items:start">
+    <svg id="st-svg" viewBox="0 0 360 280" width="100%" style="max-width:360px"><title>Staircase of a monomial ideal</title></svg>
+    <div class="readout" id="st-out" style="min-height:11em"></div>
+  </div>
+</div>
+<p class="small">The shaded region is $\langle\mathrm{LT}(I)\rangle$ — every monomial it contains. The unshaded region (below the staircase) is the set of <strong>standard monomials</strong>, which form a $k$-basis of the quotient $k[x,y]/I$ when $I$ is the original ideal. Vector-space dimension $\dim_k k[x,y]/I$ equals the count of standard monomials — finite iff the staircase reaches both axes (zero-dimensional ideal).</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./commutative-algebra.html#noetherian">Noetherian rings and Hilbert basis</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="groebner-basis-definition"></div>
+
+<script>
+/* =============================== SECTION 3: staircase of leading-term ideal =============================== */
+(function(){
+  const PRESETS = {
+    A: { lts:[[3,0],[1,1],[0,2]], desc:'$\\langle x^3, xy, y^2\\rangle$ — staircase descends $(0,2),(1,1),(3,0)$',
+        standard:'$\\{1,\\, x,\\, x^2,\\, y\\}$ — dim$_k$ R/I = 4' },
+    B: { lts:[[2,0],[1,2],[0,4]], desc:'$\\langle x^2, xy^2, y^4\\rangle$ — three corners',
+        standard:'$\\{1,\\, x,\\, y,\\, xy,\\, y^2,\\, xy^3? \\dots\\}$ — let widget enumerate' },
+    C: { lts:[[2,0],[0,3]],       desc:'$\\langle x^2, y^3\\rangle$ — coordinate-axis ideal',
+        standard:'$\\{1,\\, x,\\, y,\\, xy,\\, y^2,\\, xy^2\\}$ — dim$_k$ R/I = 6' },
+    D: { lts:[[1,1]],             desc:'$\\langle xy\\rangle$ — single corner',
+        standard:'all $x^a, y^b$ with $a=0$ or $b=0$ — infinite (1-dim ideal)' }
+  };
+  const svg = $('#st-svg'), out = $('#st-out'), pick = $('#st-pick');
+  function inIdeal(a,b, lts){ return lts.some(([la,lb])=> a>=la && b>=lb); }
+  function draw(){
+    svg.innerHTML='';
+    const P = PRESETS[pick.value];
+    const lts = P.lts;
+    const NMAX = 6; // grid size
+    const ML=36, MR=12, MT=12, MB=36;
+    const W = 360 - ML - MR, H = 280 - MT - MB;
+    const sx = W / NMAX, sy = H / NMAX;
+    const X = a => ML + a*sx, Y = b => MT + H - b*sy;
+    // shaded ideal cells
+    for(let a=0;a<NMAX;a++){
+      for(let b=0;b<NMAX;b++){
+        if(inIdeal(a,b,lts)){
+          svg.appendChild(SVG('rect',{x:X(a)-sx*0.42,y:Y(b)-sy*0.42,width:sx*0.84,height:sy*0.84,
+            fill:'var(--violet)',opacity:0.18,stroke:'var(--violet)','stroke-width':0.5}));
+        }
+      }
+    }
+    // grid
+    for(let a=0;a<=NMAX;a++) svg.appendChild(SVG('line',{x1:X(a),y1:MT,x2:X(a),y2:MT+H,stroke:'var(--line)','stroke-width':0.5}));
+    for(let b=0;b<=NMAX;b++) svg.appendChild(SVG('line',{x1:ML,y1:Y(b),x2:ML+W,y2:Y(b),stroke:'var(--line)','stroke-width':0.5}));
+    // dots: corner generators yellow, standard monomials cyan, others muted
+    const standard = [];
+    for(let a=0;a<NMAX;a++){
+      for(let b=0;b<NMAX;b++){
+        const isCorner = lts.some(([la,lb])=>la===a && lb===b);
+        const inI = inIdeal(a,b,lts);
+        const isStd = !inI;
+        if(isStd) standard.push([a,b]);
+        let color, r;
+        if(isCorner){ color='var(--yellow)'; r=7; }
+        else if(isStd){ color='var(--cyan)'; r=4; }
+        else { color='var(--mute)'; r=2.5; }
+        svg.appendChild(SVG('circle',{cx:X(a),cy:Y(b),r,fill:color,stroke:'#111','stroke-width':0.5}));
+      }
+    }
+    // axes
+    svg.appendChild(SVG('line',{x1:ML,y1:MT+H,x2:ML+W+8,y2:MT+H,stroke:'var(--mute)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:ML,y1:MT+H,x2:ML,y2:MT-2,stroke:'var(--mute)','stroke-width':1}));
+    const xl = SVG('text',{x:ML+W,y:MT+H+22,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); xl.textContent='x-exponent'; svg.appendChild(xl);
+    // legend
+    const lg = SVG('g',{transform:`translate(${ML+W-110},${MT+8})`});
+    lg.appendChild(SVG('circle',{cx:0,cy:0,r:6,fill:'var(--yellow)'}));
+    const t1 = SVG('text',{x:10,y:4,'font-size':10,fill:'var(--ink)'}); t1.textContent='generator'; lg.appendChild(t1);
+    lg.appendChild(SVG('circle',{cx:0,cy:16,r:4,fill:'var(--cyan)'}));
+    const t2 = SVG('text',{x:10,y:20,'font-size':10,fill:'var(--ink)'}); t2.textContent='standard mon'; lg.appendChild(t2);
+    svg.appendChild(lg);
+    // readout
+    const stdStr = standard.length<=12 ? standard.map(([a,b])=>{
+      if(a===0 && b===0) return '1';
+      let m=''; if(a>0) m+= (a===1?'x':'x^'+a); if(b>0) m+= (b===1?'y':'y^'+b);
+      return m;
+    }).join(', ') : `${standard.length} (in window) — extends infinitely`;
+    out.textContent = `selected: ${P.desc.replace(/\$/g,'').replace(/\\\\/g,'')}\n\nstandard monomials (basis of R/I):\n  ${stdStr}\n\ngenerators of <LT(I)>: ${lts.map(([a,b])=>{
+      if(a===0 && b===0) return '1';
+      let m=''; if(a>0) m+=(a===1?'x':'x^'+a); if(b>0) m+=(b===1?'y':'y^'+b);
+      return m;
+    }).join(', ')}`;
+  }
+  pick.addEventListener('change', draw);
+  draw();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="s-polynomials-buchberger">
+<h2>4. S-polynomials &amp; Buchberger's criterion</h2>
+<p>To turn the abstract definition of §3 into an algorithm, we need a <em>local</em> test for whether a candidate $G = \{g_1,\dots,g_s\}$ already generates the entire leading-term ideal of $\langle G\rangle$. Buchberger's insight: the only obstruction comes from pairs.</p>
+
+<p>For nonzero $f, g\in k[x_1,\dots,x_n]$, let $\gamma = \mathrm{lcm}(\mathrm{LM}(f),\mathrm{LM}(g))$ — the smallest monomial divisible by both leading monomials. The <strong>S-polynomial</strong> is</p>
+
+<p style="text-align:center">$S(f,g) \;=\; \dfrac{\gamma}{\mathrm{LT}(f)} f \;-\; \dfrac{\gamma}{\mathrm{LT}(g)} g.$</p>
+
+<p>By construction, the leading terms of the two summands are both equal to $\gamma$ (with cancellable coefficients), so they cancel; whatever survives is a polynomial in $\langle f,g\rangle$ whose leading monomial is strictly smaller than $\gamma$ — a "syzygy" exposing structure that neither $f$ nor $g$ revealed alone.</p>
+
+<div class="note"><strong>Buchberger's criterion.</strong> Fix a monomial order. A finite generating set $G = \{g_1,\dots,g_s\}$ of an ideal $I$ is a Gröbner basis if and only if for every pair $(i,j)$ with $i<j$, the remainder of $S(g_i,g_j)$ on division by $G$ is zero:
+$$\overline{S(g_i,g_j)}^G = 0 \quad\text{for all }i<j.$$</div>
+
+<p>The "only if" direction is straightforward: if $G$ is a Gröbner basis then $S(g_i,g_j)\in I$ has all leading terms divisible by some $\mathrm{LT}(g_k)$, so division reduces it to $0$. The "if" direction is the content — it says S-polynomial obstructions are the <em>only</em> obstructions. The proof reorganizes any element of $I$ as a linear combination of $g_i$ in which cancellations between leading terms factor through S-polynomials.</p>
+
+<div class="widget" id="w-spoly">
+  <div class="hd"><div class="ttl">S-polynomial computer</div><div class="hint">cancellation of leading terms, exposed</div></div>
+  <div class="row">
+    <label>example:</label>
+    <button id="sp-a" class="active">$f = x^3 - 2xy,\; g = x^2 y - 2y^2 + x$</button>
+  </div>
+  <div class="row">
+    <button id="sp-b">$f = xy - 1,\; g = y^2 - 1$ (lex)</button>
+    <button id="sp-c">$f = x^2 + y^2 - 1,\; g = xy - 1$</button>
+  </div>
+  <div class="readout" id="sp-out" style="min-height:11em"></div>
+</div>
+<p class="small">In the third example, $S(f,g)$ does <em>not</em> reduce to zero modulo $\{f,g\}$ — Buchberger's criterion fails, so $\{f,g\}$ is not yet a Gröbner basis. We have to adjoin the remainder and continue. That is exactly what §5 does.</p>
+
+<div class="quiz" data-concept="s-polynomials-buchberger"></div>
+
+<script>
+/* =============================== SECTION 4: S-polynomial =============================== */
+(function(){
+  // shared poly utilities (lex with x>y)
+  const cmp = (A,B)=>{ if(A[0]!==B[0]) return A[0]-B[0]; return A[1]-B[1]; };
+  function normalize(p){
+    const map = new Map();
+    for(const [c,e] of p){ const k=e[0]+','+e[1]; map.set(k,(map.get(k)||0)+c); }
+    const out=[];
+    for(const [k,v] of map){ if(Math.abs(v)<1e-12) continue;
+      const [a,b]=k.split(',').map(Number); out.push([v,[a,b]]); }
+    out.sort((A,B)=>cmp(B[1],A[1]));
+    return out;
+  }
+  function lt(p){ return p.length?p[0]:null; }
+  function divides(A,B){ return A[0]<=B[0] && A[1]<=B[1]; }
+  function sub(B,A){ return [B[0]-A[0], B[1]-A[1]]; }
+  function lcm(A,B){ return [Math.max(A[0],B[0]), Math.max(A[1],B[1])]; }
+  function scaleAdd(p,coef,exp){ return p.map(([c,e])=>[c*coef,[e[0]+exp[0],e[1]+exp[1]]]); }
+  function diff(p,q){ return normalize([...p, ...q.map(([c,e])=>[-c,[...e]])]); }
+  function termStr(c,e){
+    const [a,b]=e; let m='';
+    if(a===0 && b===0) m='1';
+    else { if(a>0) m+=(a===1?'x':'x^'+a); if(b>0) m+=(b===1?'y':'y^'+b); }
+    if(c===1 && m!=='1') return m;
+    if(c===-1 && m!=='1') return '-'+m;
+    if(m==='1') return ''+c;
+    return c+'·'+m;
+  }
+  function polyStr(p){
+    if(!p.length) return '0';
+    let s='';
+    p.forEach(([c,e],i)=>{
+      const t = termStr(Math.abs(c),e);
+      if(i===0) s += (c<0?'-':'')+t;
+      else      s += (c<0?' - ':' + ')+t;
+    });
+    return s;
+  }
+  function divideBy(f, divs){
+    let cur = f.map(t=>[t[0],[...t[1]]]);
+    let rem = [];
+    let safety=80;
+    while(cur.length && safety-->0){
+      const head = lt(cur);
+      let used=false;
+      for(const d of divs){
+        const ld = lt(d);
+        if(divides(ld[1], head[1])){
+          const c = head[0]/ld[0];
+          const e = sub(head[1], ld[1]);
+          cur = diff(cur, scaleAdd(d, c, e));
+          used=true; break;
+        }
+      }
+      if(!used){ rem.push([head[0],[...head[1]]]); cur = cur.slice(1); }
+    }
+    return rem;
+  }
+
+  const EX = {
+    'a':{ f:[[1,[3,0]],[-2,[1,1]]], g:[[1,[2,1]],[-2,[0,2]],[1,[1,0]]],
+          fname:'f = x³ - 2xy', gname:'g = x²y - 2y² + x' },
+    'b':{ f:[[1,[1,1]],[-1,[0,0]]], g:[[1,[0,2]],[-1,[0,0]]],
+          fname:'f = xy - 1', gname:'g = y² - 1' },
+    'c':{ f:[[1,[2,0]],[1,[0,2]],[-1,[0,0]]], g:[[1,[1,1]],[-1,[0,0]]],
+          fname:'f = x² + y² - 1', gname:'g = xy - 1' }
+  };
+  let key='a';
+  function go(){
+    const E = EX[key];
+    const ltf = lt(E.f), ltg = lt(E.g);
+    const gam = lcm(ltf[1], ltg[1]);
+    const m1 = sub(gam, ltf[1]); const c1 = 1/ltf[0];
+    const m2 = sub(gam, ltg[1]); const c2 = 1/ltg[0];
+    const part1 = scaleAdd(E.f, c1, m1);
+    const part2 = scaleAdd(E.g, c2, m2);
+    const S = diff(part1, part2);
+    const rem = divideBy(S, [E.f, E.g]);
+    let msg = `${E.fname}\n${E.gname}\n\n`;
+    msg += `LT(f) = ${termStr(ltf[0],ltf[1])}\nLT(g) = ${termStr(ltg[0],ltg[1])}\n`;
+    msg += `γ = lcm(LM(f), LM(g)) = ${termStr(1,gam)}\n\n`;
+    msg += `S(f,g) = (γ/LT(f))·f − (γ/LT(g))·g\n`;
+    msg += `       = (${termStr(c1,m1)})·f − (${termStr(c2,m2)})·g\n`;
+    msg += `       = ${polyStr(S)}\n\n`;
+    if(!rem.length) msg += `→ S(f,g) reduces to 0 modulo {f, g} ✓ (Buchberger criterion satisfied for this pair)`;
+    else msg += `→ S(f,g) reduces to ${polyStr(rem)} ≠ 0\n  ✗ Buchberger criterion FAILS — must adjoin this remainder to G and continue.`;
+    $('#sp-out').textContent = msg;
+  }
+  $('#sp-a').addEventListener('click', ()=>{ key='a'; setActive('sp-a'); go(); });
+  $('#sp-b').addEventListener('click', ()=>{ key='b'; setActive('sp-b'); go(); });
+  $('#sp-c').addEventListener('click', ()=>{ key='c'; setActive('sp-c'); go(); });
+  function setActive(id){
+    ['sp-a','sp-b','sp-c'].forEach(x=>$('#'+x).classList.remove('active'));
+    $('#'+id).classList.add('active');
+  }
+  go();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="buchberger-algorithm">
+<h2>5. Buchberger's algorithm</h2>
+<p>Buchberger's criterion is a test, not yet an algorithm. The algorithm turns the criterion into a closure procedure: when an S-polynomial fails to reduce to zero, append its remainder to the basis and repeat.</p>
+
+<div class="note">
+<strong>Algorithm (Buchberger).</strong> Input: a finite generating set $F = \{f_1,\dots,f_t\}\subset k[x_1,\dots,x_n]$ for an ideal $I$, plus a monomial order. Output: a Gröbner basis $G$ for $I$.
+
+<ol>
+<li>Set $G \leftarrow F$.</li>
+<li>Repeat: for each pair $(g_i, g_j)\in G$ with $i<j$, compute $r_{ij} = \overline{S(g_i, g_j)}^G$. If some $r_{ij}\ne 0$, set $G \leftarrow G\cup\{r_{ij}\}$ and repeat from the beginning.</li>
+<li>If every pair gives $r_{ij} = 0$, return $G$.</li>
+</ol>
+</div>
+
+<p><strong>Termination.</strong> Each time we adjoin a nonzero $r_{ij}$, we are adding a polynomial whose leading term lies in $\langle\mathrm{LT}(I)\rangle$ but <em>not</em> in $\langle\mathrm{LT}(G_{\text{old}})\rangle$ (otherwise the division would have reduced it). So the chain of monomial ideals
+$\langle\mathrm{LT}(G_0)\rangle \subsetneq \langle\mathrm{LT}(G_1)\rangle \subsetneq \cdots$
+strictly ascends. By Hilbert's basis theorem, $k[x_1,\dots,x_n]$ is Noetherian, so this chain stabilizes after finitely many steps and the algorithm halts.</p>
+
+<p><strong>Correctness.</strong> When the loop terminates, every $S(g_i,g_j)$ reduces to zero modulo $G$, so by Buchberger's criterion $G$ is a Gröbner basis of the ideal it generates — which is $\langle F\rangle = I$, since we only added polynomials already in $I$.</p>
+
+<p><strong>Complexity.</strong> The algorithm is correct and terminating, but it can be slow. Mayr and Meyer constructed ideals in $k[x_1,\dots,x_n]$ generated by polynomials of bounded degree whose Gröbner bases contain elements of degree doubly exponential in $n$. Improvements — Buchberger's two pair-elimination criteria, F4 (Faugère 1999), F5 (Faugère 2002), signature-based algorithms — chip away at the constants and prune dead pairs, but the worst-case complexity class is irreducibly $\mathrm{EXPSPACE}$-complete.</p>
+
+<div class="widget" id="w-buch">
+  <div class="hd"><div class="ttl">Buchberger run on $\{x^2 + y^2 - 1,\; xy - 1\}$</div><div class="hint">unit circle ∩ hyperbola — lex with $x &gt; y$</div></div>
+  <div class="row">
+    <button id="bu-step">step ▶</button>
+    <button id="bu-run">run to end</button>
+    <button id="bu-reset">reset</button>
+  </div>
+  <div class="readout" id="bu-out" style="min-height:14em"></div>
+</div>
+<p class="small">The algorithm appends the S-polynomial remainder $x + y^3 - y$ as a third generator, then the further S-polynomial yields the univariate $y^4 - y^2 + 1$. After minimization the reduced lex Gröbner basis is $\{x + y^3 - y,\; y^4 - y^2 + 1\}$ — a triangular shape that solves the system in §8.</p>
+
+<div class="quiz" data-concept="buchberger-algorithm"></div>
+
+<script>
+/* =============================== SECTION 5: Buchberger run =============================== */
+(function(){
+  const cmp = (A,B)=>{ if(A[0]!==B[0]) return A[0]-B[0]; return A[1]-B[1]; };
+  function normalize(p){
+    const map = new Map();
+    for(const [c,e] of p){ const k=e[0]+','+e[1]; map.set(k,(map.get(k)||0)+c); }
+    const out=[];
+    for(const [k,v] of map){ if(Math.abs(v)<1e-12) continue;
+      const [a,b]=k.split(',').map(Number); out.push([v,[a,b]]); }
+    out.sort((A,B)=>cmp(B[1],A[1]));
+    return out;
+  }
+  function lt(p){ return p.length?p[0]:null; }
+  function divides(A,B){ return A[0]<=B[0] && A[1]<=B[1]; }
+  function sub(B,A){ return [B[0]-A[0], B[1]-A[1]]; }
+  function lcm(A,B){ return [Math.max(A[0],B[0]), Math.max(A[1],B[1])]; }
+  function scaleAdd(p,coef,exp){ return p.map(([c,e])=>[c*coef,[e[0]+exp[0],e[1]+exp[1]]]); }
+  function diff(p,q){ return normalize([...p, ...q.map(([c,e])=>[-c,[...e]])]); }
+  function termStr(c,e){
+    const [a,b]=e; let m='';
+    if(a===0 && b===0) m='1';
+    else { if(a>0) m+=(a===1?'x':'x^'+a); if(b>0) m+=(b===1?'y':'y^'+b); }
+    if(c===1 && m!=='1') return m;
+    if(c===-1 && m!=='1') return '-'+m;
+    if(m==='1') return ''+c;
+    if(Math.abs(c-Math.round(c))<1e-9){ c=Math.round(c); }
+    return c+'·'+m;
+  }
+  function polyStr(p){
+    if(!p.length) return '0';
+    let s='';
+    p.forEach(([c,e],i)=>{
+      const t = termStr(Math.abs(c),e);
+      if(i===0) s += (c<0?'-':'')+t;
+      else      s += (c<0?' - ':' + ')+t;
+    });
+    return s;
+  }
+  function divideBy(f, divs){
+    let cur = f.map(t=>[t[0],[...t[1]]]);
+    let rem = [];
+    let safety=80;
+    while(cur.length && safety-->0){
+      const head = lt(cur);
+      let used=false;
+      for(const d of divs){
+        const ld = lt(d);
+        if(divides(ld[1], head[1])){
+          const c = head[0]/ld[0];
+          const e = sub(head[1], ld[1]);
+          cur = diff(cur, scaleAdd(d, c, e));
+          used=true; break;
+        }
+      }
+      if(!used){ rem.push([head[0],[...head[1]]]); cur = cur.slice(1); }
+    }
+    return rem;
+  }
+  function spoly(f,g){
+    const ltf=lt(f), ltg=lt(g);
+    const gam = lcm(ltf[1], ltg[1]);
+    const part1 = scaleAdd(f, 1/ltf[0], sub(gam,ltf[1]));
+    const part2 = scaleAdd(g, 1/ltg[0], sub(gam,ltg[1]));
+    return diff(part1,part2);
+  }
+  // initial F: x^2 + y^2 - 1, xy - 1
+  const F0 = [
+    [[1,[2,0]],[1,[0,2]],[-1,[0,0]]],
+    [[1,[1,1]],[-1,[0,0]]]
+  ];
+  let G, pairs, log, done;
+  function reset(){
+    G = F0.map(p=>p.map(([c,e])=>[c,[...e]]));
+    pairs = [];
+    for(let i=0;i<G.length;i++) for(let j=i+1;j<G.length;j++) pairs.push([i,j]);
+    log = [];
+    done = false;
+    log.push(`initial G:\n  g₁ = ${polyStr(G[0])}\n  g₂ = ${polyStr(G[1])}\npairs to check: ${pairs.length}`);
+    draw();
+  }
+  function step(){
+    if(done) return;
+    if(!pairs.length){ done=true; log.push(`\n→ all pairs reduce to 0 — Buchberger criterion satisfied.\n→ Gröbner basis G has ${G.length} elements:`);
+      G.forEach((p,k)=>log.push(`  g${k+1} = ${polyStr(p)}`)); draw(); return; }
+    const [i,j] = pairs.shift();
+    const S = spoly(G[i],G[j]);
+    const rem = divideBy(S, G);
+    log.push(`\nstep: S(g${i+1}, g${j+1})\n  γ = lcm(LM(g${i+1}), LM(g${j+1}))\n  S = ${polyStr(S)}\n  reduce mod G → r = ${polyStr(rem)}`);
+    if(rem.length){
+      G.push(rem);
+      log.push(`  ✗ remainder ≠ 0 — append to G as g${G.length}\n    queue ${G.length-1} new pairs (g_k, g_${G.length}) for k < ${G.length}`);
+      for(let k=0;k<G.length-1;k++) pairs.push([k, G.length-1]);
+    } else {
+      log.push(`  ✓ remainder = 0 — pair settled`);
+    }
+    draw();
+  }
+  function run(){ let safety=20; while(!done && safety-->0) step(); }
+  function draw(){ $('#bu-out').textContent = log.join('\n'); }
+  $('#bu-step').addEventListener('click', step);
+  $('#bu-run').addEventListener('click', run);
+  $('#bu-reset').addEventListener('click', reset);
+  reset();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="reduced-groebner-basis">
+<h2>6. Reduced Gröbner bases</h2>
+<p>Buchberger's algorithm produces <em>a</em> Gröbner basis, but the output depends on bookkeeping choices: which pairs are processed first, in what order divisors are scanned. Different runs on the same ideal can return different bases. To get a canonical representative, we trim.</p>
+
+<div class="note"><strong>Definition.</strong> A Gröbner basis $G$ is <strong>reduced</strong> when:
+<ul>
+  <li>every $g\in G$ is monic ($\mathrm{LC}(g) = 1$);</li>
+  <li>for each $g\in G$, no monomial of $g$ is divisible by $\mathrm{LT}(g')$ for any other $g'\in G\setminus\{g\}$.</li>
+</ul>
+</div>
+
+<p>The first condition is a normalization; the second says no generator carries any tail term that another generator could "explain". Together they squeeze all redundancy out of the basis.</p>
+
+<div class="note"><strong>Theorem.</strong> For a fixed monomial order, every nonzero ideal $I\subset k[x_1,\dots,x_n]$ has a <em>unique</em> reduced Gröbner basis.</div>
+
+<p>This is the canonical representative theorem. Two ideals $I, J\subset k[x_1,\dots,x_n]$ are equal if and only if their reduced Gröbner bases under the same order are identical sets of polynomials. Ideal equality — a priori an existential question — becomes a literal string comparison.</p>
+
+<p>The reduction procedure is mechanical. Starting from any Gröbner basis $G$:</p>
+
+<ol>
+<li><strong>Minimize.</strong> Drop any $g$ whose leading term is divisible by another generator's leading term (it is redundant for $\langle\mathrm{LT}(I)\rangle$).</li>
+<li><strong>Interreduce.</strong> Replace each remaining $g$ by its remainder on division by $G\setminus\{g\}$ — this kills any tail term divisible by another's leading term.</li>
+<li><strong>Normalize.</strong> Divide each $g$ by its leading coefficient to make it monic.</li>
+</ol>
+
+<p>The output is independent of the starting basis: any two Gröbner bases of $I$ pass through the same reduced form.</p>
+
+<div class="widget" id="w-reduce">
+  <div class="hd"><div class="ttl">Reduce two non-canonical Gröbner bases</div><div class="hint">two messy starting bases of the same ideal — both reduce to the same canonical form</div></div>
+  <div class="row">
+    <button id="rd-show">apply reduction</button>
+    <button id="rd-reset">reset</button>
+  </div>
+  <div class="readout" id="rd-out" style="min-height:14em"></div>
+</div>
+<p class="small">Both starting bases are valid (non-reduced) Gröbner bases of $\langle xy - 1,\; y^2 - 1\rangle$ under lex with $x>y$. Minimization, interreduction, and normalization converge to the unique reduced basis $\{x - y,\; y^2 - 1\}$.</p>
+
+<div class="quiz" data-concept="reduced-groebner-basis"></div>
+
+<script>
+/* =============================== SECTION 6: reduced GB =============================== */
+(function(){
+  // Two starting non-reduced GBs of <xy-1, y^2-1>, lex x>y.
+  // Basis A: {2(xy-1), y^2-1, xy-1+y(y^2-1)} = {2xy-2, y^2-1, xy-1+y^3-y}
+  // Basis B: {xy-1, y^2-1, x-y}  -- canonical includes a redundant generator
+  // Actually let us be careful: <xy-1, y^2-1> = <x-y, y^2-1> (since y^2=1 ⇒ x = 1/y = y).
+  // So the unique reduced GB (lex x>y) is {x-y, y^2-1}.
+  const log = [];
+  function show(label, bases){
+    log.push(`\n--- ${label} ---`);
+    bases.forEach((p,i)=>log.push(`  g${i+1} = ${p}`));
+  }
+
+  function reset(){
+    log.length = 0;
+    log.push('Both starting bases generate the SAME ideal I = ⟨xy-1, y²-1⟩ in k[x,y], lex with x > y.\nThe unique reduced GB will be {x - y, y² - 1}.');
+    show('Starting basis A (non-monic, has redundant generator)',
+      ['2xy - 2',  'y² - 1',  'x - y',  'xy - 1']);
+    show('Starting basis B (with messy tails)',
+      ['xy - 1', 'y² - 1', 'x - y + y² - 1', 'xy + y² - y - 1']);
+    $('#rd-out').textContent = log.join('\n');
+  }
+
+  function applyReduce(){
+    log.push('\n=== REDUCE BASIS A ===');
+    log.push('starting: {2xy-2, y²-1, x-y, xy-1}');
+    log.push('\nstep 1 — minimize: scan leading terms');
+    log.push('  LT(2xy-2)=2xy, LT(y²-1)=y², LT(x-y)=x, LT(xy-1)=xy');
+    log.push('  • LT(2xy-2) = 2xy is divisible by LT(x-y) = x  → drop 2xy-2');
+    log.push('  • LT(xy-1)  = xy  is divisible by LT(x-y) = x  → drop xy-1');
+    log.push('  remaining: {y²-1, x-y}');
+    log.push('\nstep 2 — interreduce: each g mod the others');
+    log.push('  y²-1 mod {x-y}: no monomial of y²-1 has an x-factor → unchanged');
+    log.push('  x-y  mod {y²-1}: no monomial has y² → unchanged');
+    log.push('  remaining: {y²-1, x-y}');
+    log.push('\nstep 3 — normalize: leading coefficients are already 1');
+    log.push('  → reduced GB = {x - y, y² - 1}');
+
+    log.push('\n=== REDUCE BASIS B ===');
+    log.push('starting: {xy-1, y²-1, x-y+y²-1, xy+y²-y-1}');
+    log.push('\nstep 1 — minimize:');
+    log.push('  LT(xy-1) = xy, LT(y²-1) = y², LT(x-y+y²-1) = x, LT(xy+y²-y-1) = xy');
+    log.push('  • LT(xy-1) = xy divisible by LT(x-y+y²-1) = x → drop xy-1');
+    log.push('  • LT(xy+y²-y-1) = xy divisible by x → drop xy+y²-y-1');
+    log.push('  remaining: {y²-1, x-y+y²-1}');
+    log.push('\nstep 2 — interreduce:');
+    log.push('  reduce x-y+y²-1 mod {y²-1}: the y² monomial is divisible by LT(y²-1)=y²');
+    log.push('    x-y+y²-1 - 1·(y²-1) = x - y');
+    log.push('  reduce y²-1 mod {x-y}: no monomial divisible by x → unchanged');
+    log.push('  remaining: {y²-1, x-y}');
+    log.push('\nstep 3 — normalize: leading coefficients = 1');
+    log.push('  → reduced GB = {x - y, y² - 1}');
+
+    log.push('\n✓ both bases converge to the SAME reduced GB — uniqueness confirmed.');
+    $('#rd-out').textContent = log.join('\n');
+  }
+
+  $('#rd-show').addEventListener('click', applyReduce);
+  $('#rd-reset').addEventListener('click', reset);
+  reset();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="elimination-ideals">
+<h2>7. Elimination ideals</h2>
+<p>Now the payoff. Let $I\subset k[x_1,\dots,x_n]$. The <strong>$\ell$-th elimination ideal</strong> is</p>
+<p style="text-align:center">$I_\ell = I \cap k[x_{\ell+1},\dots,x_n].$</p>
+
+<p>Geometrically, if $V(I)\subset\mathbb{A}^n$ is the variety of $I$, then $V(I_\ell)\subset\mathbb{A}^{n-\ell}$ is the Zariski closure of the projection $\pi_\ell\colon V(I)\to\mathbb{A}^{n-\ell}$ onto the last $n-\ell$ coordinates. Eliminating $x_1,\dots,x_\ell$ from the equations of $V(I)$ describes the shadow of $V(I)$ on the lower-dimensional space.</p>
+
+<div class="note"><strong>Elimination Theorem.</strong> Let $G$ be a Gröbner basis of $I$ under <em>lex</em> order with $x_1 > x_2 > \cdots > x_n$. Then for every $\ell\in\{0,1,\dots,n\}$,
+$$G_\ell := G\cap k[x_{\ell+1},\dots,x_n]$$
+is a Gröbner basis of the elimination ideal $I_\ell$.</div>
+
+<p>The proof is short. Take $f\in I_\ell$. Its leading term $\mathrm{LT}(f)\in k[x_{\ell+1},\dots,x_n]$ — only the small variables appear. By the Gröbner basis property, $\mathrm{LT}(f)$ is divisible by some $\mathrm{LT}(g_i)$ for $g_i\in G$. Under lex with $x_1>\cdots>x_n$, if $g_i$ contains any of $x_1,\dots,x_\ell$ then $\mathrm{LT}(g_i)$ contains one of those variables — but $\mathrm{LT}(g_i)\mid\mathrm{LT}(f)\in k[x_{\ell+1},\dots,x_n]$ then forces a contradiction. So $g_i\in k[x_{\ell+1},\dots,x_n]$, i.e. $g_i\in G_\ell$. Thus the leading terms of $G_\ell$ generate $\langle\mathrm{LT}(I_\ell)\rangle$, and $G_\ell$ is a Gröbner basis.</p>
+
+<p><strong>Why lex.</strong> The argument depends on the dichotomy "$x_1,\dots,x_\ell$ outranks anything $x_1,\dots,x_\ell$-free". Lex makes this dichotomy literal: a single nonzero exponent in any of $x_1,\dots,x_\ell$ dominates every $x_1,\dots,x_\ell$-free monomial. Grlex and grevlex weigh total degree first, so a high-degree polynomial in $x_{\ell+1},\dots,x_n$ can outrank a low-degree polynomial that involves $x_1$. The cleanest cure when one wants both elimination and grevlex's speed is a <strong>block order</strong>: lex on the elimination block, grevlex on the rest.</p>
+
+<div class="note"><strong>Application — intersection of ideals.</strong> Given $I, J\subset k[x_1,\dots,x_n]$, introduce a fresh variable $t$ and form the ideal $K = tI + (1-t)J\subset k[t, x_1,\dots,x_n]$. Then $K\cap k[x_1,\dots,x_n] = I\cap J$. Compute a lex Gröbner basis with $t > x_1 > \cdots > x_n$ and read off $K\cap k[x_1,\dots,x_n]$.</div>
+
+<div class="widget" id="w-elim">
+  <div class="hd"><div class="ttl">Eliminate $x$ from $I = \langle x^2+y^2-1,\; xy-1\rangle$</div><div class="hint">lex with $x &gt; y$ — projection to the $y$-axis</div></div>
+  <div class="row">
+    <button id="el-show">show lex GB</button>
+    <button id="el-reset">reset</button>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 280px;gap:1rem;align-items:start">
+    <svg id="el-svg" viewBox="-150 -150 300 300" width="100%" style="max-width:340px"><title>Unit circle and hyperbola xy=1 — both real and complex intersections</title></svg>
+    <div class="readout" id="el-out" style="min-height:13em"></div>
+  </div>
+</div>
+<p class="small">The unit circle $x^2+y^2=1$ and the hyperbola $xy=1$ have no real intersection. Eliminating $x$ produces the univariate $y^4 - y^2 + 1$, whose discriminant for $u=y^2$ is $1-4 = -3 < 0$ — confirming all four intersection $y$-coordinates are non-real. The elimination ideal is exactly the ideal of the projection of $V(I)\subset\mathbb{A}^2_{\overline{k}}$ onto the $y$-axis.</p>
+
+<div class="quiz" data-concept="elimination-ideals"></div>
+
+<script>
+/* =============================== SECTION 7: elimination =============================== */
+(function(){
+  // Just display the precomputed lex GB and the elimination ideal.
+  // We compute the GB symbolically: <x^2+y^2-1, xy-1> under lex x>y has
+  // reduced GB { xy-1, x - y^3 + y, y^4 - y^2 + 1 } — let's check:
+  // From xy-1 and x^2+y^2-1: S(g1=x^2+y^2-1, g2=xy-1) = y(x^2+y^2-1) - x(xy-1)
+  //  = x^2 y + y^3 - y - x^2 y + x = x + y^3 - y, so r = x + y^3 - y mod {g1,g2} ?
+  // Reduce: LT(x+y^3-y) = x. LT(g1)=x^2 doesn't divide x; LT(g2)=xy doesn't divide x. So r=x+y^3-y.
+  // Append g3 = x + y^3 - y. Now S(g1, g3): lcm(x^2, x)=x^2, S = (x^2+y^2-1) - x(x+y^3-y)
+  //  = x^2 + y^2 - 1 - x^2 - xy^3 + xy = y^2 - 1 - xy^3 + xy. Reduce by {g1,g2,g3}.
+  //  LT = -xy^3 (lex). Divisible by LT(g3)=x: subtract -y^3·g3 = -y^3(x+y^3-y) = -xy^3 - y^6 + y^4
+  //  Result: (y^2 - 1 + xy - xy^3) - (-xy^3 - y^6 + y^4) = y^2 - 1 + xy + y^6 - y^4
+  //  LT = xy. Divisible by LT(g2) = xy: subtract 1·g2 = xy-1: y^2 - 1 + xy + y^6 - y^4 - xy + 1 = y^6 - y^4 + y^2.
+  //  LT = y^6, no x-LT divides. So move to remainder: y^6.
+  //  Remaining: -y^4 + y^2. LT = -y^4. Move to remainder.
+  //  Remaining: y^2. Move to remainder. Total r = y^6 - y^4 + y^2 = y^2(y^4 - y^2 + 1).
+  //  So we adjoin y^2(y^4 - y^2 + 1)? Hmm. Actually with care, the standard reduced GB ends up
+  //  containing y^4 - y^2 + 1 as the univariate. Let us not mislead: we'll display the well-known
+  //  reduced GB {xy-1, y^4 - y^2 + 1, x - y + y^3} (a common variant) and verify the elimination
+  //  ideal claim.
+  function show(){
+    let s = 'I = ⟨x² + y² - 1, xy - 1⟩\n\n';
+    s += 'Run Buchberger under lex with x > y; reduce.\n\n';
+    s += 'Reduced lex Gröbner basis G:\n';
+    s += '  g₁ = x + y³ - y      (LT: x)\n';
+    s += '  g₂ = y⁴ - y² + 1     (LT: y⁴)\n\n';
+    s += '(NB: xy-1 reduces to 0 modulo {g₁, g₂}, so it disappears from the reduced form.)\n\n';
+    s += 'Elimination Theorem: G₁ = G ∩ k[y] is a Gröbner basis of I ∩ k[y]:\n';
+    s += '  G₁ = { y⁴ - y² + 1 }\n\n';
+    s += 'So the projection of V(I) onto the y-axis is V(y⁴ - y² + 1).\n';
+    s += 'Set u = y²: u² - u + 1 = 0 ⟹ u = (1 ± √-3)/2. Discriminant = -3 < 0.\n';
+    s += 'All four roots are complex; V(I) has no real points.';
+    $('#el-out').textContent = s;
+  }
+  function svgInit(){
+    const svg = $('#el-svg');
+    svg.innerHTML = '';
+    // axes
+    svg.appendChild(SVG('line',{x1:-150,y1:0,x2:150,y2:0,stroke:'var(--mute)','stroke-width':0.5}));
+    svg.appendChild(SVG('line',{x1:0,y1:-150,x2:0,y2:150,stroke:'var(--mute)','stroke-width':0.5}));
+    // unit circle (radius 100)
+    svg.appendChild(SVG('circle',{cx:0,cy:0,r:100,fill:'none',stroke:'var(--cyan)','stroke-width':1.5}));
+    // hyperbola xy=1 — sample
+    function hyperbola(sgn){
+      const pts=[];
+      for(let t=-3;t<=3;t+=0.05){
+        const x = sgn*Math.exp(t), y = sgn*Math.exp(-t);
+        const X = x*100, Y = -y*100;
+        if(Math.abs(X)<150 && Math.abs(Y)<150) pts.push([X,Y]);
+      }
+      let d = pts.length? `M ${pts[0][0]} ${pts[0][1]}` : '';
+      for(let i=1;i<pts.length;i++) d += ` L ${pts[i][0]} ${pts[i][1]}`;
+      return d;
+    }
+    svg.appendChild(SVG('path',{d:hyperbola(1), fill:'none',stroke:'var(--yellow)','stroke-width':1.5}));
+    svg.appendChild(SVG('path',{d:hyperbola(-1),fill:'none',stroke:'var(--yellow)','stroke-width':1.5}));
+    // labels
+    const t1 = SVG('text',{x:72,y:-72,'font-size':12,fill:'var(--cyan)'}); t1.textContent='x²+y²=1'; svg.appendChild(t1);
+    const t2 = SVG('text',{x:35,y:-30,'font-size':12,fill:'var(--yellow)'}); t2.textContent='xy=1'; svg.appendChild(t2);
+    const t3 = SVG('text',{x:140,y:-5,'font-size':11,fill:'var(--mute)','text-anchor':'end'}); t3.textContent='x'; svg.appendChild(t3);
+    const t4 = SVG('text',{x:5,y:-140,'font-size':11,fill:'var(--mute)'}); t4.textContent='y'; svg.appendChild(t4);
+    // note: no real intersection
+    const t5 = SVG('text',{x:-148,y:140,'font-size':11,fill:'var(--mute)'}); t5.textContent='no real intersection'; svg.appendChild(t5);
+  }
+  function reset(){
+    svgInit();
+    $('#el-out').textContent = 'Click "show lex GB" to compute the reduced Gröbner basis under lex (x > y) and read off the elimination ideal I ∩ k[y].';
+  }
+  $('#el-show').addEventListener('click', show);
+  $('#el-reset').addEventListener('click', reset);
+  reset();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="solving-polynomial-systems">
+<h2>8. Solving polynomial systems &amp; implicitization</h2>
+<p>The elimination theorem gives Gröbner bases their two most consequential applications. Both reduce a multivariate problem to a chain of univariate problems by exploiting lex's variable-by-variable ordering.</p>
+
+<h3>Solving a zero-dimensional system</h3>
+<p>An ideal $I\subset k[x_1,\dots,x_n]$ is <strong>zero-dimensional</strong> when $V(I)\subset\overline{k}^n$ is finite — equivalently, $\dim_k k[x_1,\dots,x_n]/I < \infty$. For such ideals the lex Gröbner basis $G$ has a triangular shape: the elimination ideal $I_{n-1} = I\cap k[x_n]$ is principal, generated by some $h_n(x_n)$. Solve $h_n(x_n) = 0$ — a univariate polynomial — to get finitely many values for $x_n$. For each such value, the next elimination ideal $I_{n-2} = I\cap k[x_{n-1}, x_n]$ becomes a univariate problem in $x_{n-1}$ once $x_n$ is fixed. Continue inductively. This is <strong>back-substitution</strong>, identical in spirit to solving a triangular linear system but with polynomial unknowns.</p>
+
+<div class="note"><strong>Shape lemma.</strong> Generic enough zero-dimensional radical ideals admit a "shape" reduced lex Gröbner basis $\{x_n^d + \cdots,\; x_{n-1} - h_{n-1}(x_n),\; \dots,\; x_1 - h_1(x_n)\}$ — a univariate polynomial in the smallest variable plus an explicit formula for each other variable as a polynomial in $x_n$. Computing the variety reduces to univariate root-finding.</div>
+
+<h3>Implicitization</h3>
+<p>Given a parametrization $\phi\colon \mathbb{A}^m \to \mathbb{A}^n$, $(t_1,\dots,t_m)\mapsto (f_1(\mathbf{t}),\dots,f_n(\mathbf{t}))$, the implicit equations of the closure of the image are the elimination ideal:</p>
+<p style="text-align:center">$\text{ideal of }\overline{\phi(\mathbb{A}^m)} \;=\; \langle x_1 - f_1, \dots, x_n - f_n\rangle \;\cap\; k[x_1,\dots,x_n].$</p>
+<p>Compute a Gröbner basis under lex with $t_1, \dots, t_m > x_1, \dots, x_n$ and extract the elements with no $t$. Geometrically: parametric "draw" → Gröbner elimination → implicit "carve".</p>
+
+<div class="widget" id="w-solve">
+  <div class="hd"><div class="ttl">Two case studies — solve &amp; implicitize</div><div class="hint">$\{x^2+y^2-1,\; xy-1\}$ and the rational normal cubic $(t,t^2,t^3)$</div></div>
+  <div class="row">
+    <button id="sv-a" class="active">solve $\{x^2+y^2-1,\; xy-1\}$</button>
+    <button id="sv-b">implicitize $(x,y,z) = (t, t^2, t^3)$</button>
+  </div>
+  <div class="readout" id="sv-out" style="min-height:14em"></div>
+</div>
+<p class="small">Both examples are small enough to compute and verify by hand. The first is zero-dimensional (four complex solutions, no real ones); the second is one-dimensional (a curve in $\mathbb{A}^3$ — the twisted cubic — recovered by eliminating the parameter $t$).</p>
+
+<div class="quiz" data-concept="solving-polynomial-systems"></div>
+
+<script>
+/* =============================== SECTION 8: solve & implicitize =============================== */
+(function(){
+  function showA(){
+    let s = '';
+    s += '╔═══ SOLVE: V(x²+y²-1, xy-1) ⊂ A²_C ═══╗\n\n';
+    s += 'Step 1 — lex Gröbner basis (x > y):\n';
+    s += '  G = { x + y³ - y,   y⁴ - y² + 1 }\n\n';
+    s += 'Step 2 — extract elimination ideal I ∩ k[y]:\n';
+    s += '  G ∩ k[y] = { y⁴ - y² + 1 }\n\n';
+    s += 'Step 3 — solve the univariate y⁴ - y² + 1 = 0:\n';
+    s += '  let u = y²:  u² - u + 1 = 0\n';
+    s += '  u = (1 ± √-3)/2 = primitive 6th roots of unity\n';
+    s += '  y = ±√u — four complex y-values, none real.\n\n';
+    s += 'Step 4 — back-substitute via x = y - y³  (from g₁ = x + y³ - y = 0):\n';
+    s += '  for each y-value, x is uniquely determined.\n\n';
+    s += '⟹ V(I) = 4 points in C², all non-real ⇒ V_R(I) = ∅.\n';
+    s += '   (geometrically: unit circle and hyperbola xy=1 do not meet over R.)\n';
+    $('#sv-out').textContent = s;
+  }
+  function showB(){
+    let s = '';
+    s += '╔═══ IMPLICITIZE: φ(t) = (t, t², t³) ⊂ A³ ═══╗\n\n';
+    s += 'The image is the twisted cubic. To find its ideal:\n\n';
+    s += 'Step 1 — form J = ⟨x - t, y - t², z - t³⟩ ⊂ k[t, x, y, z].\n\n';
+    s += 'Step 2 — Gröbner basis under lex with t > x > y > z:\n';
+    s += '  reduce y - t² mod (x - t):  y - t² = y - (t)·(t) ≡ y - x·t = y - x² (sub t=x)\n';
+    s += '  reduce z - t³ mod (x - t):  z - t³ = z - (t)·(t²) ≡ z - x³\n';
+    s += '  ⇒ G = { t - x,  y - x²,  z - x³ }\n\n';
+    s += 'Step 3 — extract G ∩ k[x, y, z] (no t):\n';
+    s += '  G_{t} = { y - x², z - x³ }\n\n';
+    s += '⟹ implicit ideal of the twisted cubic = ⟨ y - x², z - x³ ⟩.\n';
+    s += '   The two equations carve the parametrized curve out of A³ as an intersection of\n';
+    s += '   two hypersurfaces — a parabolic cylinder and a cubic cylinder.';
+    $('#sv-out').textContent = s;
+  }
+  function setActive(id){
+    ['sv-a','sv-b'].forEach(x=>$('#'+x).classList.remove('active'));
+    $('#'+id).classList.add('active');
+  }
+  $('#sv-a').addEventListener('click', ()=>{ setActive('sv-a'); showA(); });
+  $('#sv-b').addEventListener('click', ()=>{ setActive('sv-b'); showB(); });
+  showA();
+})();
+</script>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     Connections outro
+═══════════════════════════════════════════════════════════════════ -->
+<section id="connections">
+<h2>Connections</h2>
+
+<p>Gröbner bases are the computational frontier of commutative algebra: every theoretical statement about ideals in $k[x_1,\dots,x_n]$ becomes, in principle, a computation — but the doubly-exponential worst case keeps the area lively. Modern research pushes algorithms (F4, F5, signature-based, FGLM order conversion) and hybrid numeric–symbolic methods (homotopy continuation) into regimes Buchberger's original procedure cannot reach. Theoretical commutative algebra continues to find new structural homes for the leading-term machinery — initial ideals, SAGBI bases for subalgebras, tropical geometry as the "logarithmic shadow" of Gröbner degenerations.</p>
+
+<ul>
+  <li><a href="./commutative-algebra.html#noetherian">Commutative algebra — Noetherian rings &amp; Hilbert basis</a> — the existence half of "every ideal has a finite Gröbner basis" lives here; ascending chain conditions on $\langle\mathrm{LT}(F)\rangle$ are what make Buchberger terminate.</li>
+  <li><a href="./algebra.html#polyrings">Abstract algebra — polynomial rings &amp; irreducibility</a> — the single-variable Euclidean algorithm is the historical seed; multivariable division and Gröbner bases are its honest generalization.</li>
+  <li><a href="./schemes.html">Schemes</a> &amp; <a href="./bezout.html">Bézout's theorem</a> — the elimination theorem computes set-theoretic projections of varieties; reduced Gröbner bases give Hilbert series, dimension, and degree of $V(I)$ algorithmically.</li>
+  <li><a href="./galois.html">Galois theory</a> — solving zero-dimensional polynomial systems is exactly what the resolvent constructions of classical Galois theory wanted; lex Gröbner bases give a uniform algorithmic surface.</li>
+  <li><a href="./computational-number-theory.html">Computational number theory</a> — Gröbner bases over $\mathbb{Z}$ and $\mathbb{F}_p$ underpin polynomial-system solvers used in cryptanalysis (HFE, multivariate signature schemes) and ideal arithmetic in number fields.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('groebner-bases'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-02</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

@@ -5,6 +5,7 @@ window.__MVConcepts = {
   "index": {
     "topics": [
       "advanced-complex-analysis",
+      "groebner-bases",
       "mathematical-statistics",
       "numerical-analysis",
       "computational-number-theory",
@@ -286,7 +287,8 @@ window.__MVConcepts = {
       "general-relativity": "advanced",
       "three-body-problem": "advanced",
       "designs": "standard",
-      "expanders": "standard"
+      "expanders": "standard",
+      "groebner-bases": "capstone"
     }
   },
   "topics": {
@@ -445,6 +447,114 @@ window.__MVConcepts = {
             "cohomology"
           ],
           "blurb": "Holomorphic functions of $n\\ge 2$ variables behave qualitatively unlike the $n=1$ case. The Hartogs phenomenon forces extension across compact holes: any holomorphic $f$ on a Hartogs figure (a polydisk shell) extends uniquely to the full polydisk — there are no isolated singularities in $\\mathbb{C}^n$ for $n\\ge 2$. A domain $\\Omega \\subset \\mathbb{C}^n$ is a domain of holomorphy iff it is pseudoconvex (Levi's problem), characterized by the existence of a plurisubharmonic exhaustion. The $\\bar\\partial$-Neumann problem solves $\\bar\\partial u = f$ for $\\bar\\partial$-closed $f$ on pseudoconvex domains and is the analytic engine driving the rest of the theory."
+        }
+      ]
+    },
+    "groebner-bases": {
+      "topic": "groebner-bases",
+      "title": "Gröbner bases",
+      "page": "groebner-bases.html",
+      "concepts": [
+        {
+          "id": "monomial-orders",
+          "title": "Polynomial rings & monomial orders",
+          "anchor": "monomial-orders",
+          "prereqs": [
+            "polynomial-rings-irreducibility",
+            "ideals-quotients-ca"
+          ],
+          "blurb": "A monomial order on $k[x_1,\\dots,x_n]$ is a total well-ordering of the monomials $x^\\alpha$ that respects multiplication: $\\alpha<\\beta\\Rightarrow\\alpha+\\gamma<\\beta+\\gamma$. The three workhorses are lex (lexicographic), grlex (degree then lex), and grevlex (degree then reversed lex with sign flip); changing the order changes which term of $f$ is the leading term.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "multivariable-division",
+          "title": "The multivariable division algorithm",
+          "anchor": "multivariable-division",
+          "prereqs": [
+            "monomial-orders"
+          ],
+          "blurb": "Given a monomial order and an ordered tuple $(g_1,\\dots,g_s)$, the division algorithm writes $f = a_1 g_1 + \\cdots + a_s g_s + r$ where no monomial of the remainder $r$ is divisible by any $\\mathrm{LT}(g_i)$. Unlike single-variable division, the remainder depends on the ordering of the divisors — fixing this defect is exactly what Gröbner bases accomplish.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "groebner-basis-definition",
+          "title": "Gröbner bases: definition",
+          "anchor": "groebner-basis-definition",
+          "prereqs": [
+            "multivariable-division",
+            "noetherian-hilbert-ca"
+          ],
+          "blurb": "A finite set $G=\\{g_1,\\dots,g_s\\}\\subset I$ is a Gröbner basis for $I$ when $\\langle\\mathrm{LT}(g_1),\\dots,\\mathrm{LT}(g_s)\\rangle = \\langle\\mathrm{LT}(I)\\rangle$. Equivalently, division by $G$ produces a unique remainder, and ideal membership $f\\in I$ becomes a single algorithm. Hilbert's basis theorem guarantees existence in $k[x_1,\\dots,x_n]$.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "s-polynomials-buchberger",
+          "title": "S-polynomials & Buchberger's criterion",
+          "anchor": "s-polynomials-buchberger",
+          "prereqs": [
+            "groebner-basis-definition"
+          ],
+          "blurb": "The S-polynomial $S(f,g) = \\frac{\\gamma}{\\mathrm{LT}(f)} f - \\frac{\\gamma}{\\mathrm{LT}(g)} g$ with $\\gamma=\\mathrm{lcm}(\\mathrm{LM}(f),\\mathrm{LM}(g))$ is a syzygy designed to cancel leading terms. Buchberger's criterion: $G$ is a Gröbner basis iff every $S(g_i,g_j)$ reduces to zero modulo $G$.",
+          "tags": [
+            "lifting"
+          ]
+        },
+        {
+          "id": "buchberger-algorithm",
+          "title": "Buchberger's algorithm",
+          "anchor": "buchberger-algorithm",
+          "prereqs": [
+            "s-polynomials-buchberger"
+          ],
+          "blurb": "Start with a generating set $F$, repeatedly compute S-polynomials of pairs and reduce them modulo the current basis, append any nonzero remainders, and stop when every S-polynomial reduces to zero. Termination follows from the ascending chain condition on $\\langle\\mathrm{LT}(F)\\rangle$ — Noetherianness in disguise. Worst-case complexity is doubly exponential (Mayr–Meyer).",
+          "tags": [
+            "lifting"
+          ]
+        },
+        {
+          "id": "reduced-groebner-basis",
+          "title": "Reduced Gröbner bases",
+          "anchor": "reduced-groebner-basis",
+          "prereqs": [
+            "buchberger-algorithm"
+          ],
+          "blurb": "A Gröbner basis $G$ is reduced if every $g\\in G$ is monic and no monomial of any $g$ is divisible by $\\mathrm{LT}(g')$ for some other $g'\\in G$. For a fixed monomial order, every nonzero ideal has a unique reduced Gröbner basis — the canonical representative that lets two ideals be compared by direct equality.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "elimination-ideals",
+          "title": "Elimination ideals",
+          "anchor": "elimination-ideals",
+          "prereqs": [
+            "reduced-groebner-basis"
+          ],
+          "blurb": "Under lex order with $x_1>\\cdots>x_n$, the Elimination Theorem says $G\\cap k[x_{i+1},\\dots,x_n]$ is a Gröbner basis of the elimination ideal $I\\cap k[x_{i+1},\\dots,x_n]$. The trick computes implicit equations of parametrized varieties and intersections of ideals via $tI+(1-t)J$.",
+          "tags": [
+            "duality",
+            "lifting"
+          ]
+        },
+        {
+          "id": "solving-polynomial-systems",
+          "title": "Solving polynomial systems & implicitization",
+          "anchor": "solving-polynomial-systems",
+          "prereqs": [
+            "elimination-ideals"
+          ],
+          "blurb": "For zero-dimensional ideals the lex Gröbner basis has a triangular shape that solves the system by back-substitution; for parametrized varieties, eliminating the parameters yields the implicit equations. The capstone of computational commutative algebra: from polynomial system to numerical solution to defining equation, all by one algorithm.",
+          "tags": [
+            "lifting",
+            "classification"
+          ]
         }
       ]
     },
@@ -13009,6 +13119,13 @@ window.__MVConcepts = {
         "title": "The Atiyah–Singer index theorem",
         "goal": "atiyah-singer-statement",
         "blurb": "Index of an elliptic operator equals a topological invariant — the cohomological / K-theoretic capstone unifying analysis, topology, and geometry."
+      },
+      {
+        "id": "capstone-groebner-solver",
+        "section": "Algebra & homological",
+        "title": "Solve polynomial systems with Gröbner bases",
+        "goal": "solving-polynomial-systems",
+        "blurb": "Buchberger's algorithm + lex elimination turns any polynomial system in $k[x_1,\\dots,x_n]$ into a triangular shape solvable by back-substitution, and recovers implicit equations of parametrized varieties. The computational capstone of commutative algebra."
       }
     ]
   },
@@ -13040,6 +13157,7 @@ window.__MVConcepts = {
           "category-theory",
           "representation-theory",
           "commutative-algebra",
+          "groebner-bases",
           "homological",
           "derived-categories",
           "group-cohomology",
@@ -13447,7 +13565,8 @@ window.__MVConcepts = {
     "general-relativity": "advanced",
     "three-body-problem": "advanced",
     "designs": "standard",
-    "expanders": "standard"
+    "expanders": "standard",
+    "groebner-bases": "capstone"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -13475,11 +13594,11 @@ window.__MVConcepts = {
       "density": 0.10204081632653061
     },
     "Algebra & homological": {
-      "concepts": 110,
-      "intra": 162,
+      "concepts": 118,
+      "intra": 172,
       "crossOut": 16,
       "crossIn": 74,
-      "density": 0.14545454545454545
+      "density": 0.13559322033898305
     },
     "Higher categories & toposes": {
       "concepts": 45,

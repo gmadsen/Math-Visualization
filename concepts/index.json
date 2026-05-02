@@ -1,27 +1,7 @@
 {
   "topics": [
-
-
-
-
-
     "advanced-complex-analysis",
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    "groebner-bases",
     "mathematical-statistics",
     "numerical-analysis",
     "computational-number-theory",
@@ -303,6 +283,7 @@
     "general-relativity": "advanced",
     "three-body-problem": "advanced",
     "designs": "standard",
-    "expanders": "standard"
+    "expanders": "standard",
+    "groebner-bases": "capstone"
   }
 }
