@@ -4,7 +4,7 @@ Forward-looking priorities for the notebook. Daily-workflow commands, one-time s
 
 When something ships, delete its bullet here. The full step list of `rebuild.mjs` is in `scripts/rebuild.mjs` — refer to it rather than restating step names here.
 
-## Corpus snapshot (2026-04-30)
+## Corpus snapshot (2026-05-01)
 
 From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
@@ -16,16 +16,17 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
 ## Shipped recently
 
-This branch (`refactor/sidetoc-shared-and-hamiltonians-figure`, PR #45):
+PRs #45 and #46 (merged 2026-05-01):
 
 - **Sidetoc → shared `js/sidetoc.js`** (was inlined per topic page).
 - **`hamiltonians-figure` shared slug** absorbing 6 per-widget `hamiltonians-*` slugs via `oneOf` over input control families.
 - **Inline-widget migration corpus-wide.** 0 inline widget blocks remain (was ~250 across ~40 topics). 464 registry slugs total. 14 batches × 3 parallel agents.
 - **`fix-a11y` JSON-side migration.** Patches now stick across rebuilds — 53 SVG titles + missing labels persist.
-- **`audit-canvas-stub`** drift detection.
-- **`migrate-inline-widget`** helper (handles 4 dialects: span/div ttl/hint, multi-line `.hd`, legacy `{html, script}`, leading-newline scripts).
+- **`audit-canvas-stub`** drift detection (now backed by hand-maintained `STUBBED_MEMBERS` set + asymmetric sync check).
+- **`migrate-inline-widget`** helper (handles 4 dialects: span/div ttl/hint, multi-line `.hd`, legacy `{html, script}`, leading-newline scripts; auto-detects inline HTML in title/hint and emits raw vs `escapeHtml(...)` accordingly).
 - **`repair-widget-scripts --allow-drift`** for multi-IIFE-in-one-`<script>` topics.
 - **Two audits migrated to `loadContentModel()`:** audit-widget-interactivity, audit-cross-page-consistency.
+- **`scripts/lib/script-scan.mjs`** extracted (was duplicated in extract-topic + repair-widget-scripts).
 - **`new-topic.mjs` appends README bullet.**
 - **`new-concept.mjs`** scaffolder.
 - **`read-prose.mjs`** quality-pass tooling.
@@ -34,12 +35,14 @@ This branch (`refactor/sidetoc-shared-and-hamiltonians-figure`, PR #45):
 - **9 thin concepts expanded** (8 complex-analysis + 1 representation-theory) from <500 chars to 1100–1842 chars.
 - **`advanced-complex-analysis` topic** in Analysis section: 8 grad concepts, ~22K chars (Picard little/great, Weierstrass factorization, Mittag-Leffler, Phragmén-Lindelöf, Hadamard 3-circles, Hardy spaces / Fatou boundary).
 - **+12 grad concepts across 6 topics** (~24K chars): fixed-point-theorems (Caristi, KKM), wavelets (lifting, biorthogonal/CDF), information-theory (AEP, Fisher–Cramér-Rao), zeta-values (multiple-zeta, zeta-Mahler-measure), knot-polynomials (Vassiliev, Khovanov), p-adic-numbers (Newton polygons, ramification).
+- **+19 cross-topic prereq edges** + 1 weak-edge replacement (acted on prereq-recommender's PR #45 review). Auto-injected callbacks + reverse-direction backlinks landed on rebuild.
 - **Stale-anchor cleanup** after complex-analysis materialization (24 callback `<li>` entries + 8 prose links).
+- **`audit-callbacks` regex fallback** for two corpus sections that node-html-parser silently misses (`advanced-complex-analysis#mittag-leffler`, `model-theory-basics#elementary-equivalence`).
 
 ## Near-term tasks
 
-- **Tier 1 tagging pass — coverage tail.** ~200 of the 575 (creative-improvements–era) concepts remain untagged. The tagging agent reached 62.8 % with quality > coverage; a focused follow-up on Modular forms / L-functions / capstones could close real gaps. Number is pre–PCM-gap; recount before resuming.
-- **Graduate complex analysis — missing concepts.** `complex-analysis` materialization (this session) split the 26 concepts into 26 sections, but the topic still lacks the standard graduate sequence: Picard's theorems (little + great), Weierstrass factorization, Mittag-Leffler, Phragmén-Lindelöf, Hadamard 3-circles/3-lines, Bloch's theorem, Hardy spaces / Fatou boundary, Bergman kernels, quasiconformal maps + Beltrami equation, several complex variables. Three repair shapes considered: fatten complex-analysis (~35 concepts, dense), new `advanced-complex-analysis` topic, or topic-cluster split (`picard-bloch`, `weierstrass-mittag-leffler`, `hardy-spaces`, `qc-and-beltrami`, `several-complex-variables`).
+- **Tier 1 tagging pass — coverage tail.** ~200 of the 575 (creative-improvements–era) concepts remain untagged. The tagging agent reached 62.8 % with quality > coverage; a focused follow-up on Modular forms / L-functions / capstones could close real gaps. Recount before resuming — concept count has grown to 916.
+- **Expand `advanced-complex-analysis`.** The topic shipped with 8 graduate concepts. Still absent and worth adding: Bloch's theorem (mentioned in the Connections list, no own section), Nevanlinna theory + characteristic function $T(r,f)$, Bergman kernels, quasiconformal maps + Beltrami equation, several complex variables. Each is a natural section of comparable scope to the existing 8.
 - **Math physics has no `hard` tier and Combinatorics has no `hard` tier.** 12 topics × ~6 concepts × 2-3 questions each = ~150 missing hard-tier questions. Per "Out of scope", de-prioritized — listed here so the gap is visible, not actioned.
 
 ## Authoring polish — small
@@ -48,13 +51,13 @@ This branch (`refactor/sidetoc-shared-and-hamiltonians-figure`, PR #45):
 
 ## Three.js / Pyodide / alt frontends (long-running)
 
-- **Full-topic React frontend.** `examples/react-consumer/` renders one widget; next is rendering a whole topic from `content/<topic>.json` + the registry. Now that all 73 topics are JSON-source-of-truth, this becomes a clean target.
+- **Full-topic React frontend.** `examples/react-consumer/` renders one widget; next is rendering a whole topic from `content/<topic>.json` + the registry. All 131 topics are JSON-source-of-truth and 0 inline widget blocks remain corpus-wide, so this is a clean target.
 - **Three.js adoption decision.** `examples/threejs-prototype/` validates the ceiling-raise for 3D-heavy topics. Would converge with `surface-viewer`. Requires AGENTS.md amendment on dependency policy.
 - **Inline code cells for live examples.** `inline-code-cell` is a Web Worker JS sandbox; could be extended to Pyodide for sieves / sympy demos at the cost of a ~10MB CDN load.
 
 ## Script audit — overlap to assess
 
-50+ scripts in `scripts/` after this session. Items still worth reviewing:
+`scripts/` carries 50+ entries; items still worth reviewing:
 
 - **Candidates to merge or drop:** `audit-responsive.mjs` overlaps with `audit-accessibility.mjs`; `audit-notation.mjs`, `audit-worked-examples.mjs`, `audit-blurb-question-alignment.mjs` — low-usage, confirm signal value.
 - **Consolidation candidates:** `validate-concepts.mjs` still reads `index.json` directly because the validator is the gate before the loader runs — circular dependency that's intentional, leave it. `audit-widget-interactivity.mjs` and `audit-cross-page-consistency.mjs` were migrated to `loadContentModel()`.
