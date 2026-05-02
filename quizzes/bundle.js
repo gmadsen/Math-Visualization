@@ -21140,6 +21140,374 @@ window.MVQuizBank = {
       }
     }
   },
+  "groebner-bases": {
+    "topic": "groebner-bases",
+    "quizzes": {
+      "monomial-orders": {
+        "title": "Polynomial rings & monomial orders",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Under lex order with $x>y$, what is $\\mathrm{LM}(f)$ for $f = 3x y^2 + 5 x^2 + 7 y^5$?",
+            "choices": [
+              "$y^5$",
+              "$x^2$",
+              "$x y^2$",
+              "$5 x^2$"
+            ],
+            "answer": 1,
+            "explain": "Under lex with $x > y$, monomials are compared by exponent of $x$ first. $x^2$ has $x$-exponent $2$; $xy^2$ and $y^5$ have $x$-exponents $1$ and $0$. So $\\mathrm{LM}(f) = x^2$. Choice 0 ($y^5$) confuses lex with grlex (which orders by total degree). Choice 2 ($xy^2$) is just second in line. Choice 3 ($5x^2$) confuses leading **term** (coefficient × monomial) with leading **monomial** — the LM is the monomial $x^2$, and the LT is $5 x^2$.",
+            "hint": "Lex sorts by the exponent of the first variable, breaking ties with the next."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which conditions must a monomial order $>$ on $k[x_1,\\dots,x_n]$ satisfy?",
+            "choices": [
+              "It is a total order on the set of monomials.",
+              "$\\alpha > \\beta \\;\\Rightarrow\\; \\alpha + \\gamma > \\beta + \\gamma$ for all $\\gamma\\in\\mathbb{N}^n$.",
+              "It is a well-ordering: every nonempty set of monomials has a least element.",
+              "It refines the usual ordering by total degree."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "A monomial order is total, multiplicative ($\\alpha+\\gamma$ comparison preserved), and a well-ordering. Refining total degree is an extra property — grlex and grevlex have it, but lex does not (e.g. $x > y^{100}$ in lex)."
+          },
+          {
+            "type": "mcq",
+            "q": "Compare the monomials $x^2 y^2$ and $x y^4$ under grevlex with $x > y$.",
+            "choices": [
+              "$x^2 y^2 > x y^4$ because $x^2 y^2$ has a higher power of $x$.",
+              "$x y^4 > x^2 y^2$ because the total degrees differ in favor of $x y^4$.",
+              "$x y^4 > x^2 y^2$: same total degree $5$; grevlex breaks ties by smallest right-most exponent winning, and $x y^4$ has the larger $y$-exponent.",
+              "They are equal under grevlex."
+            ],
+            "answer": 1,
+            "explain": "$x^2 y^2$ has total degree $4$; $xy^4$ has total degree $5$. Grlex and grevlex both order by total degree first, so $xy^4 > x^2 y^2$ — the higher-degree monomial wins outright. The grevlex tie-breaker (right-most exponent) only applies when total degrees agree, which they don't here. Choice 0 confuses grevlex with lex (lex would compare $x$-exponent first). Choice 2 invokes the tie-break rule but the degrees aren't tied. Choice 3 is just wrong — distinct monomials are never equal under any monomial order (orders are total).",
+            "hint": "Compute the total degree of each monomial first; if they differ under grlex/grevlex, that's already decisive."
+          }
+        ]
+      },
+      "multivariable-division": {
+        "title": "The multivariable division algorithm",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why does the remainder produced by the multivariable division algorithm depend on the order in which the divisors are listed?",
+            "choices": [
+              "Because polynomial multiplication in $k[x_1,\\dots,x_n]$ is non-commutative when $n\\ge 2$.",
+              "Because at each step the algorithm picks the first $g_i$ whose leading term divides the current leading term, so different orderings consume different intermediate monomials.",
+              "Because the leading term of $f$ changes when the divisor list is reordered.",
+              "It actually doesn't — like single-variable division, the remainder is always unique."
+            ],
+            "answer": 1,
+            "explain": "The standard algorithm scans $(g_1,\\dots,g_s)$ in order and reduces by the first divisor whose leading term divides; reordering changes which generator gets used at each step, and hence the trailing remainder. Non-uniqueness is the failure that Gröbner bases repair."
+          },
+          {
+            "type": "ordering",
+            "q": "Order the steps of the standard multivariable division algorithm at one iteration.",
+            "items": [
+              "Replace $f$ by $f - (\\mathrm{LT}(f)/\\mathrm{LT}(g_i)) g_i$.",
+              "Identify the leading term $\\mathrm{LT}(f)$ under the chosen monomial order.",
+              "Scan $(g_1,\\dots,g_s)$ for the first $g_i$ with $\\mathrm{LT}(g_i)\\mid\\mathrm{LT}(f)$.",
+              "If no such $g_i$ exists, move $\\mathrm{LT}(f)$ to the remainder $r$ and subtract it from $f$."
+            ],
+            "answer": [
+              1,
+              2,
+              0,
+              3
+            ],
+            "explain": "Each iteration: (1) find the leading term, (2) scan divisors for the first that divides it, (3) if found, subtract the appropriate multiple of $g_i$, (4) if not, push the leading term into the remainder."
+          },
+          {
+            "type": "mcq",
+            "q": "Divide $f = x^2 y + 1$ by $g_1 = xy + 1$ and $g_2 = y + 1$ under lex with $x > y$, in the divisor order $(g_1, g_2)$. What is the remainder?",
+            "choices": [
+              "$0$",
+              "$-x + 1$",
+              "$x + 1$",
+              "$2$"
+            ],
+            "answer": 1,
+            "explain": "Step 1: $\\mathrm{LT}(f) = x^2 y$ is divisible by $\\mathrm{LT}(g_1) = xy$ with multiplier $x$, so $f - x g_1 = x^2 y + 1 - (x^2 y + x) = -x + 1$. Step 2: now $\\mathrm{LT}(-x+1) = -x$, not divisible by $xy$ or $y$, so $-x$ moves to the remainder. Step 3: $\\mathrm{LT}(1) = 1$, also not divisible, so $1$ joins the remainder. Final remainder $r = -x + 1$.",
+            "hint": "Watch the cancellation: $x \\cdot g_1 = x^2 y + x$, so $f - x g_1 = 1 - x$."
+          }
+        ]
+      },
+      "groebner-basis-definition": {
+        "title": "Gröbner bases — definition",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $I\\subset k[x,y]$ be a nonzero ideal and fix a monomial order. Which statement is the definition of a Gröbner basis $G=\\{g_1,\\dots,g_s\\}$ for $I$?",
+            "choices": [
+              "$G$ generates $I$ as an ideal.",
+              "$G\\subset I$ and $\\langle\\mathrm{LT}(g_1),\\dots,\\mathrm{LT}(g_s)\\rangle = \\langle\\mathrm{LT}(I)\\rangle$.",
+              "$G$ generates $I$ and every $g_i$ is monic.",
+              "$\\mathrm{LT}(g_i)$ are pairwise coprime."
+            ],
+            "answer": 1,
+            "explain": "The defining condition is that the leading terms of $G$ generate the entire leading-term ideal $\\langle\\mathrm{LT}(I)\\rangle$. Together with $G\\subset I$ this forces $G$ to generate $I$ (an easy consequence of the division algorithm), so generation is automatic — but the converse fails: an arbitrary generating set need not be a Gröbner basis."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which properties hold for any Gröbner basis $G$ of $I$ under a fixed monomial order?",
+            "choices": [
+              "Division of $f\\in k[x_1,\\dots,x_n]$ by $G$ produces a unique remainder, regardless of how the elements of $G$ are ordered.",
+              "$f\\in I$ iff the remainder of $f$ on division by $G$ is $0$.",
+              "$G$ is automatically a generating set for $I$ as an ideal.",
+              "Every monomial of every $g\\in G$ is a standard monomial (not in $\\langle\\mathrm{LT}(I)\\rangle$)."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Uniqueness of remainder, the ideal-membership algorithm, and generation of $I$ are all standard consequences of the GB property. The fourth claim is false: $\\mathrm{LT}(g)$ itself is by definition not a standard monomial — it lies in $\\langle\\mathrm{LT}(I)\\rangle$.",
+            "hint": "Three of these are theorems; one confuses leading terms with standard monomials."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the existence of a finite Gröbner basis for every ideal $I\\subset k[x_1,\\dots,x_n]$ guaranteed?",
+            "choices": [
+              "Because $k$ is a field, so $I$ is principal.",
+              "Because the leading-term ideal $\\langle\\mathrm{LT}(I)\\rangle$ is monomial, hence finitely generated by Dickson's lemma — equivalently, $k[x_1,\\dots,x_n]$ is Noetherian by Hilbert's basis theorem.",
+              "Because Buchberger's algorithm always terminates after $n$ steps.",
+              "It is not guaranteed in general; only for principal ideals."
+            ],
+            "answer": 1,
+            "explain": "Existence is non-constructive: $\\langle\\mathrm{LT}(I)\\rangle$ is a monomial ideal, and Dickson's lemma says monomial ideals are finitely generated. Pick polynomials in $I$ whose leading terms generate $\\langle\\mathrm{LT}(I)\\rangle$; that finite set is a Gröbner basis. Choice 0 is wrong because $k$ being a field doesn't make $I$ principal once $n \\ge 2$ — e.g. $\\langle x, y\\rangle\\subset k[x,y]$ is not principal. Choice 2 is wrong: Buchberger has no $n$-step bound — Mayr–Meyer shows the running time is doubly exponential in $n$. Choice 3 is just false (the theorem is for *all* ideals, not only principal ones)."
+          }
+        ]
+      },
+      "s-polynomials-buchberger": {
+        "title": "S-polynomials & Buchberger's criterion",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For $f = x^2 y + x$ and $g = x y^2 + y$ in $k[x,y]$ with lex order $x>y$, what is $S(f,g)$?",
+            "choices": [
+              "$x^2 y^2 + x y - x^2 y^2 - x y = 0$",
+              "$x\\cdot f - y\\cdot g = x(x^2 y + x) - y(xy^2 + y) = x^3 y + x^2 - xy^3 - y^2$  (multipliers swapped)",
+              "$y\\cdot f - x\\cdot g = y(x^2 y + x) - x(x y^2 + y) = x y - x y = 0$",
+              "$y\\cdot f - x\\cdot g = y \\cdot x - x \\cdot y = 0$"
+            ],
+            "answer": 2,
+            "explain": "$\\mathrm{LM}(f)=x^2 y$, $\\mathrm{LM}(g)=x y^2$, $\\gamma = \\mathrm{lcm} = x^2 y^2$, multipliers $\\gamma/\\mathrm{LT}(f) = y$ and $\\gamma/\\mathrm{LT}(g) = x$. So $S(f,g) = y(x^2 y + x) - x(x y^2 + y) = (x^2 y^2 + xy) - (x^2 y^2 + xy) = 0$. The leading terms cancel by construction; here so does everything else, so $S(f,g)=0$ — Buchberger's criterion is automatic for this pair. Choice 0 shows the right cancellation arithmetic but omits the multipliers. Choice 1 swaps the multipliers ($x\\cdot f$ vs $y\\cdot g$) and gets a nonzero polynomial — testing whether the student internalized $\\gamma/\\mathrm{LT}(f)$ vs $\\gamma/\\mathrm{LT}(g)$. Choice 3 multiplies by single variables instead of the lcm-quotient, missing the design entirely.",
+            "hint": "Compute $\\mathrm{lcm}$ of the leading monomials, divide, multiply, subtract."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Find the flaw in this proof that $G=\\{xy-1, y^2-1\\}\\subset k[x,y]$ (lex, $x>y$) is a Gröbner basis.",
+            "steps": [
+              "$\\mathrm{LM}(g_1) = xy$ and $\\mathrm{LM}(g_2) = y^2$.",
+              "$\\mathrm{lcm}(xy, y^2) = xy^2$, so $S(g_1,g_2) = y \\cdot g_1 - x \\cdot g_2 = (xy^2 - y) - (xy^2 - x) = x - y$.",
+              "Since neither $\\mathrm{LM}(g_1) = xy$ nor $\\mathrm{LM}(g_2) = y^2$ divides any monomial of $x - y$, the remainder $x - y$ is fully reduced modulo $G$.",
+              "Therefore the S-polynomial reduces to $x-y \\ne 0$, so by Buchberger's criterion $G$ is a Gröbner basis."
+            ],
+            "answer": 3,
+            "explain": "Buchberger's criterion says $G$ is a Gröbner basis iff every $S(g_i, g_j)$ reduces to ZERO modulo $G$. A nonzero remainder means $G$ is *not* yet a Gröbner basis — the correct conclusion is the opposite of what step 4 claims. We must adjoin $x - y$ to $G$ and continue Buchberger. (Steps 1–3 are correct: the leading monomials, the S-polynomial computation, and the irreducibility of the remainder are all sound.)"
+          },
+          {
+            "type": "mcq",
+            "q": "What is the design principle behind the S-polynomial $S(f,g)$?",
+            "choices": [
+              "It computes the GCD of $f$ and $g$ in $k[x_1,\\dots,x_n]$.",
+              "It is the unique smallest polynomial in the ideal $(f,g)$.",
+              "Its construction forces the leading terms of $f$ and $g$ to cancel, exposing whatever new leading term lies hidden in the syzygy module.",
+              "It is the resultant of $f$ and $g$ with respect to the largest variable."
+            ],
+            "answer": 2,
+            "explain": "Multiplying $f$ by $\\gamma/\\mathrm{LT}(f)$ and $g$ by $\\gamma/\\mathrm{LT}(g)$ rescales both polynomials so that they share the leading monomial $\\gamma$; subtracting kills it. Whatever survives is a polynomial in $I$ whose leading monomial was previously invisible — the obstruction to $G$ being a Gröbner basis."
+          }
+        ]
+      },
+      "buchberger-algorithm": {
+        "title": "Buchberger's algorithm",
+        "questions": [
+          {
+            "type": "ordering",
+            "q": "Arrange the inner-loop steps of Buchberger's algorithm.",
+            "items": [
+              "Replace $G$ by $G\\cup\\{r\\}$ and re-enter the pair loop.",
+              "Pick a pair $(g_i, g_j)$ from $G$ that has not yet been processed.",
+              "Compute the S-polynomial $S(g_i, g_j)$.",
+              "Reduce $S(g_i, g_j)$ modulo $G$ to a remainder $r$; if $r=0$, mark the pair done.",
+              "If every pair reduces to $0$, output $G$ as a Gröbner basis and halt."
+            ],
+            "answer": [
+              1,
+              2,
+              3,
+              0,
+              4
+            ],
+            "explain": "Pick a pair, compute the S-polynomial, reduce it, and either discard (zero remainder) or append (nonzero remainder) — repeat until all pairs are clean."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does Buchberger's algorithm terminate?",
+            "choices": [
+              "Because the S-polynomials shrink in degree at every step.",
+              "Because the leading-term ideals form a strictly ascending chain $\\langle\\mathrm{LT}(G_0)\\rangle\\subsetneq\\langle\\mathrm{LT}(G_1)\\rangle\\subsetneq\\cdots$ in the Noetherian ring $k[x_1,\\dots,x_n]$, which must stabilize.",
+              "Because the algorithm bounds the number of pairs by $\\binom{|F|}{2}$ at the start.",
+              "Because the field $k$ is finite."
+            ],
+            "answer": 1,
+            "explain": "Each time a nonzero remainder $r$ is appended, $\\mathrm{LT}(r)\\notin\\langle\\mathrm{LT}(G)\\rangle$ (otherwise $r$ would have reduced further), so the chain of leading-term ideals strictly grows. By the Noetherian property of $k[x_1,\\dots,x_n]$ (Hilbert basis theorem), this chain must terminate. Termination has nothing to do with pair-count or field cardinality."
+          },
+          {
+            "type": "numeric",
+            "q": "The Mayr–Meyer construction shows that the worst-case running time of Buchberger's algorithm is bounded by $d^{2^{cn}}$ for some constant $c$ and inputs of degree $\\le d$ in $n$ variables. With $d = 2$ and $c = 1$, by what factor does this worst-case bound grow when $n$ increases from 4 to 5?",
+            "answer": 65536,
+            "tol": 0.5,
+            "explain": "With $d=2$ and $c=1$, the bound at $n$ is $2^{2^n}$. At $n=4$: $2^{16}$. At $n=5$: $2^{32}$. Ratio: $2^{32}/2^{16} = 2^{16} = 65536$. This is the doubly-exponential blowup: each extra variable *squares* the bound. The takeaway is that Buchberger's worst case is impractical for large $n$ — actual implementations use heuristics (signature-based algorithms like F4/F5, sugar-cube selection, etc.) to stay tractable on instances that arise in practice.",
+            "hint": "Compute the ratio $2^{2^5} / 2^{2^4} = 2^{32-16}$. The exponent doubles each step."
+          }
+        ]
+      },
+      "reduced-groebner-basis": {
+        "title": "Reduced Gröbner bases",
+        "questions": [
+          {
+            "type": "multi-select",
+            "q": "A Gröbner basis $G$ is reduced when which conditions hold?",
+            "choices": [
+              "Every $g\\in G$ is monic (leading coefficient $1$).",
+              "For each $g\\in G$, no monomial of $g$ is divisible by $\\mathrm{LT}(g')$ for any other $g'\\in G$.",
+              "Every $g\\in G$ has degree $\\le \\deg I$.",
+              "The number of elements of $G$ is minimal among all Gröbner bases."
+            ],
+            "answer": [
+              0,
+              1
+            ],
+            "explain": "Reducedness is exactly: monic + no monomial in any $g$ is dividable by another generator's leading term. Minimality (no redundant generators) follows automatically — a reduced Gröbner basis has the smallest possible cardinality — but it is not the defining condition. Degree bounds are not part of the definition."
+          },
+          {
+            "type": "mcq",
+            "q": "The reduced Gröbner basis under a fixed monomial order is:",
+            "choices": [
+              "Unique, providing a canonical computational representative for each ideal.",
+              "Defined only up to multiplication by units.",
+              "Unique only when the ideal is principal.",
+              "Dependent on the choice of generators used to start Buchberger's algorithm."
+            ],
+            "answer": 0,
+            "explain": "For a fixed monomial order, every nonzero ideal $I\\subset k[x_1,\\dots,x_n]$ has a unique reduced Gröbner basis. This is the canonical normal form: two ideals are equal iff their reduced Gröbner bases under the same order are literally identical sets of polynomials. Changing the monomial order can change the basis (sometimes dramatically), but the reduced GB itself is order-determined."
+          },
+          {
+            "type": "mcq",
+            "q": "You compute Buchberger's algorithm on $\\{f_1, f_2\\}$ and obtain a Gröbner basis $G = \\{g_1, g_2, g_3\\}$ with $\\mathrm{LT}(g_1) = x^2$, $\\mathrm{LT}(g_2) = x y$, $\\mathrm{LT}(g_3) = x^3$. What is the first reduction step?",
+            "choices": [
+              "Drop $g_3$ because $\\mathrm{LT}(g_3) = x^3 = x\\cdot\\mathrm{LT}(g_1)$, so $g_3$ contributes nothing to $\\langle\\mathrm{LT}(I)\\rangle$.",
+              "Drop $g_1$ because $\\mathrm{LT}(g_1)$ is the smallest leading monomial.",
+              "Multiply $g_1$ by $y$ to make $\\mathrm{LT}(g_1)$ match $\\mathrm{LT}(g_2)$.",
+              "Replace $g_2$ by $g_2 - g_1$."
+            ],
+            "answer": 0,
+            "explain": "Minimization: drop any generator whose leading term is divisible by another's. Here $\\mathrm{LT}(g_3) = x^3$ is divisible by $\\mathrm{LT}(g_1) = x^2$, so $g_3$ is redundant — its leading term contributes no new generator to $\\langle\\mathrm{LT}(I)\\rangle$. After this minimization, the second step (interreduction) replaces each remaining $g_i$ by its remainder modulo the others, then normalizes leading coefficients to $1$. Choice (b) is backwards — minimization keeps the smallest leading-monomial generator and drops the redundant larger ones, not the other way around. Choice (c) is impossible: monomial orders are total, so two distinct monomials cannot become equal under any rescaling. Choice (d) confuses minimization with interreduction — replacing $g_2$ by $g_2 - g_1$ is the second-phase concern (interreduction), not minimization.",
+            "hint": "Reduction has two phases: minimize (drop redundant generators) then interreduce (clean tails)."
+          }
+        ]
+      },
+      "elimination-ideals": {
+        "title": "Elimination ideals",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $I\\subset k[x,y,z]$ and let $G$ be a Gröbner basis of $I$ under lex order with $x>y>z$. Which subset of $G$ is a Gröbner basis of $I\\cap k[y,z]$?",
+            "choices": [
+              "All elements $g\\in G$ with $\\deg_x(g) = 0$ (i.e. $x$ does not appear in $g$).",
+              "All elements $g\\in G$ with $\\deg_x(g) > 0$.",
+              "The first half of $G$ in lex order.",
+              "The reduced normal forms of all $g\\in G$."
+            ],
+            "answer": 0,
+            "explain": "The Elimination Theorem: under lex with $x>y>z$, $G\\cap k[y,z] = \\{g\\in G : x\\text{ does not appear in }g\\}$ is a Gröbner basis of the elimination ideal $I\\cap k[y,z]$. The lex order is essential — an arbitrary monomial order won't have this property; only orders that 'eliminate $x$' (lex, or block orders putting $x$ first) work."
+          },
+          {
+            "type": "ordering",
+            "q": "Given two ideals $I, J\\subset k[x_1,\\dots,x_n]$, arrange the steps to compute $I\\cap J$ via elimination.",
+            "items": [
+              "Compute a Gröbner basis of $K$ under lex with $t > x_1 > \\cdots > x_n$.",
+              "Form the ideal $K = t I + (1-t) J\\subset k[t, x_1,\\dots,x_n]$.",
+              "Extract the elements of the Gröbner basis with $\\deg_t = 0$.",
+              "Those elements form a Gröbner basis (in lex on $x_1,\\dots,x_n$) of $I\\cap J$."
+            ],
+            "answer": [
+              1,
+              0,
+              2,
+              3
+            ],
+            "explain": "The trick: a polynomial $f$ lies in $I\\cap J$ iff $tf \\in tI$ and $(1-t)f\\in (1-t)J$, hence $f = tf + (1-t)f \\in tI + (1-t)J$. Conversely $K\\cap k[x_1,\\dots,x_n] = I\\cap J$. So intersection becomes elimination of $t$, and the Elimination Theorem under lex extracts it."
+          },
+          {
+            "type": "mcq",
+            "q": "Why do grlex and grevlex generally fail to have the elimination property that lex enjoys?",
+            "choices": [
+              "Because they are not well-orderings.",
+              "Because under grlex/grevlex, total degree dominates: a low-degree polynomial in $k[y,z]$ may be hidden behind higher-degree polynomials involving $x$, so the leading-term subset doesn't isolate $x$-free elements.",
+              "Because grlex and grevlex don't respect multiplication.",
+              "They actually do — the Elimination Theorem holds for every monomial order."
+            ],
+            "answer": 1,
+            "explain": "Lex separates variables strictly by 'most significant' — anything with $x$ outranks everything without $x$, so leading terms cleanly partition $G$ into 'has $x$' and 'doesn't have $x$'. Under grlex and grevlex, total degree is checked first; an $x$-free polynomial of high degree can dominate an $x$-bearing polynomial of low degree, breaking the partition. Block orders (e.g. lex on $\\{x\\} \\cup_{\\text{block}}$ grevlex on $\\{y,z\\}$) restore the elimination property without paying lex's full price."
+          }
+        ]
+      },
+      "solving-polynomial-systems": {
+        "title": "Solving polynomial systems & implicitization",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $I = \\langle x^2 + y^2 - 1,\\; x y - 1\\rangle\\subset \\mathbb{Q}[x,y]$. Under lex with $x>y$, the reduced Gröbner basis is $\\{x + y^3 - y,\\; y^4 - y^2 + 1\\}$. How many solutions does $V(I)\\subset\\overline{\\mathbb{Q}}^2$ have, counted with multiplicity?",
+            "choices": [
+              "1",
+              "2",
+              "4",
+              "8"
+            ],
+            "answer": 2,
+            "explain": "Under lex, the elimination ideal $I\\cap k[y]$ is generated by $y^4 - y^2 + 1$, a degree-4 polynomial. By the elimination theorem its roots are exactly the $y$-coordinates of $V(I)$, and each $y$-root determines a unique $x$ via $x = y - y^3$ (from the first generator $x + y^3 - y = 0$). So $|V(I)| = 4$ counted with multiplicity in $\\overline{\\mathbb{Q}}$. Geometrically these are the four intersection points of the unit circle and the hyperbola $xy=1$ — none of them are real (set $u = y^2$; then $u^2 - u + 1 = 0$ has discriminant $1 - 4 = -3 < 0$), so $V_{\\mathbb{R}}(I) = \\emptyset$.",
+            "hint": "Count the roots of the univariate polynomial in $y$; each one back-substitutes to a unique $x$ via the first generator."
+          },
+          {
+            "type": "mcq",
+            "q": "Implicitize the parametrization $\\phi: t \\mapsto (t,\\, t^2,\\, t^3)$ in $\\mathbb{A}^3$ — i.e. find the ideal of the curve in $k[x,y,z]$.",
+            "choices": [
+              "$\\langle y - x^2,\\; z - x^3 \\rangle$",
+              "$\\langle x - t,\\; y - t^2,\\; z - t^3 \\rangle$",
+              "$\\langle x z - y^2,\\; y^3 - z^2 \\rangle$",
+              "$\\langle y - x^2,\\; xz - y^2\\rangle$"
+            ],
+            "answer": 0,
+            "explain": "Take $J = \\langle x - t,\\; y - t^2,\\; z - t^3\\rangle\\subset k[t,x,y,z]$ and eliminate $t$ under lex with $t > x > y > z$. The reduced Gröbner basis is $\\{t-x,\\; y-x^2,\\; z-x^3\\}$; the elements without $t$ are $\\{y - x^2,\\; z - x^3\\}$, which is the twisted-cubic ideal. The other distractors: choice 1 is $J$ itself (in $k[t,x,y,z]$, not yet eliminated). Choice 2 $\\langle xz - y^2,\\; y^3 - z^2\\rangle$ vanishes on the twisted cubic but defines a different variety — its zero set is a cone-like surface containing the cubic, not the cubic itself. Choice 3 $\\langle y - x^2,\\; xz - y^2\\rangle$ vanishes on the twisted cubic, but $V$ of this ideal is the twisted cubic *together with the $z$-axis* $\\{x=y=0\\}$ (since at $x=0,\\; y=0$ both generators vanish for any $z$); so the elimination ideal is strictly larger than this."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which features of the lex Gröbner basis make zero-dimensional polynomial systems solvable by back-substitution?",
+            "choices": [
+              "The basis contains a univariate polynomial in the smallest variable, whose roots can be found numerically.",
+              "Each subsequent generator introduces exactly one more variable, so each step is a polynomial equation in one unknown given the others.",
+              "Every generator is linear in the variables.",
+              "The basis is automatically of size $n$ in $n$ variables."
+            ],
+            "answer": [
+              0,
+              1
+            ],
+            "explain": "For zero-dimensional ideals, the lex Gröbner basis has the 'shape lemma' form (in good position): the smallest variable's elimination ideal is principal in $k[x_n]$, and as we step back through the variables each generator is polynomial in one new variable with coefficients in the previously-solved ones. Triangularity in this sense — not linearity — is what enables back-substitution. The basis size and degrees depend on the geometry of $V(I)$.",
+            "hint": "Triangularity over the chain of elimination ideals — not linear, but resolvable one variable at a time."
+          }
+        ]
+      }
+    }
+  },
   "grothendieck-topologies-sites": {
     "topic": "grothendieck-topologies-sites",
     "quizzes": {

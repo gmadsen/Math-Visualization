@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **131**, concepts: **928**
-- Widgets: **934** (registry-driven: 934, inline: 0)
-- Quizzes: **3977** (v1: 2741, hard: 1223, expert: 13)
-- Quiz types: mcq: 2663, numeric: 1049, multi-select: 109, matching: 52, ordering: 31, complex: 29, spot-the-error: 23, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Topics: **132**, concepts: **936**
+- Widgets: **942** (registry-driven: 934, inline: 8)
+- Quizzes: **4001** (v1: 2765, hard: 1223, expert: 13)
+- Quiz types: mcq: 2678, numeric: 1050, multi-select: 113, matching: 52, ordering: 34, complex: 29, spot-the-error: 24, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **157**
-- Concepts lacking a hard-tier quiz: **490**
+- Concepts lacking a hard-tier quiz: **498**
 
 ## Per-slug registry adoption
 
@@ -501,13 +501,13 @@ page has wired one in yet.
 
 ### Algebra & homological
 
-- Topics: **12**, concepts: **110**
-- Widgets: **109** (registry-driven: 109, inline: 0)
-  - by family: button-stepper: 42, clickable-diagram: 21, parametric-plot: 9, proof-scrubber: 2, quantum-groups-hopf-axioms-inspector: 1, quantum-groups-qsl2-deformation-slider: 1, quantum-groups-yang-baxter-reidemeister: 1, quantum-groups-crystal-tensor-product: 1, quantum-groups-reshetikhin-turaev-knots: 1, quantum-groups-applications-map: 1, quaternions-multiplication-tester: 1, quaternions-rotation-visualizer: 1, quaternions-cayley-dickson-ladder: 1, quaternions-fano-plane-oracle: 1, quaternions-frobenius-case-tree: 1, quaternions-hurwitz-tower-bar: 1, naturality-square: 1, declarative-host: 1, clickable-graph: 1, diagram-editor: 1, group-cohomology-coboundary-calculator: 1, group-cohomology-fixed-points: 1, group-cohomology-hilbert-90: 1, group-cohomology-c2-extensions: 1, group-cohomology-tate-periodic-table: 1, group-cohomology-lhs-spectral: 1, group-cohomology-brauer-cheatsheet: 1, lie-algebras-bracket-table: 1, lie-algebras-adjoint-vis: 1, lie-algebras-derived-series: 1, lie-algebras-root-vis: 1, lie-algebras-weight-diagram: 1, lie-algebras-dynkin-gallery: 1, gcb-cocycle-tester: 1, gcb-mu2-torsor-visualizer: 1, gcb-central-extension-browser: 1, gcb-cyclic-algebra-tester: 1, gcb-tate-pairing-table: 1, gcb-hasse-counterexample-gallery: 1
-  - by dimension: 2d: 108, 3d: 1
-  - by gesture: click: 85, select: 9, inspect: 3, slider: 3, toggle: 2, scrub: 2, input: 1, slider+click: 1, interactive: 1, drag-and-toggle: 1, step: 1
-- Quizzes: **517** (v1: 331, hard: 186, expert: 0)
-  - by type: mcq: 323, numeric: 148, multi-select: 23, ordering: 8, matching: 5, spot-the-error: 5, proof-completion: 4, complex: 1
+- Topics: **13**, concepts: **118**
+- Widgets: **117** (registry-driven: 109, inline: 8)
+  - by family: button-stepper: 42, clickable-diagram: 21, parametric-plot: 9, unknown: 8, proof-scrubber: 2, quantum-groups-hopf-axioms-inspector: 1, quantum-groups-qsl2-deformation-slider: 1, quantum-groups-yang-baxter-reidemeister: 1, quantum-groups-crystal-tensor-product: 1, quantum-groups-reshetikhin-turaev-knots: 1, quantum-groups-applications-map: 1, quaternions-multiplication-tester: 1, quaternions-rotation-visualizer: 1, quaternions-cayley-dickson-ladder: 1, quaternions-fano-plane-oracle: 1, quaternions-frobenius-case-tree: 1, quaternions-hurwitz-tower-bar: 1, naturality-square: 1, declarative-host: 1, clickable-graph: 1, diagram-editor: 1, group-cohomology-coboundary-calculator: 1, group-cohomology-fixed-points: 1, group-cohomology-hilbert-90: 1, group-cohomology-c2-extensions: 1, group-cohomology-tate-periodic-table: 1, group-cohomology-lhs-spectral: 1, group-cohomology-brauer-cheatsheet: 1, lie-algebras-bracket-table: 1, lie-algebras-adjoint-vis: 1, lie-algebras-derived-series: 1, lie-algebras-root-vis: 1, lie-algebras-weight-diagram: 1, lie-algebras-dynkin-gallery: 1, gcb-cocycle-tester: 1, gcb-mu2-torsor-visualizer: 1, gcb-central-extension-browser: 1, gcb-cyclic-algebra-tester: 1, gcb-tate-pairing-table: 1, gcb-hasse-counterexample-gallery: 1
+  - by dimension: 2d: 108, unknown: 8, 3d: 1
+  - by gesture: click: 85, select: 9, unknown: 8, inspect: 3, slider: 3, toggle: 2, scrub: 2, input: 1, slider+click: 1, interactive: 1, drag-and-toggle: 1, step: 1
+- Quizzes: **541** (v1: 355, hard: 186, expert: 0)
+  - by type: mcq: 338, numeric: 149, multi-select: 27, ordering: 11, spot-the-error: 6, matching: 5, proof-completion: 4, complex: 1
 
 ### Higher categories & toposes
 
@@ -602,6 +602,7 @@ page has wired one in yet.
 ## Per-topic
 
 - `advanced-complex-analysis` (Analysis) — concepts=13, widgets=5 (slug=5), quiz=39 (v1=39, hard=0, expert=0)
+- `groebner-bases` (Algebra & homological) — concepts=8, widgets=8 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
 - `mathematical-statistics` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `numerical-analysis` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `computational-number-theory` (Number theory) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
@@ -773,10 +774,10 @@ page has wired one in yet.
 - `aca-bergman-kernel` (advanced-complex-analysis)
 - `aca-quasiconformal-beltrami` (advanced-complex-analysis)
 - `aca-several-complex-variables` (advanced-complex-analysis)
-- `ms-estimators` (mathematical-statistics)
-- `ms-mle` (mathematical-statistics)
-- `ms-cramer-rao` (mathematical-statistics)
-- `ms-hypothesis-testing` (mathematical-statistics)
-- `ms-bayesian` (mathematical-statistics)
-- `ms-asymptotics` (mathematical-statistics)
-- `na-floating-point` (numerical-analysis)
+- `monomial-orders` (groebner-bases)
+- `multivariable-division` (groebner-bases)
+- `groebner-basis-definition` (groebner-bases)
+- `s-polynomials-buchberger` (groebner-bases)
+- `buchberger-algorithm` (groebner-bases)
+- `reduced-groebner-basis` (groebner-bases)
+- `elimination-ideals` (groebner-bases)

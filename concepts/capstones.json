@@ -167,6 +167,13 @@
       "title": "The Atiyah–Singer index theorem",
       "goal": "atiyah-singer-statement",
       "blurb": "Index of an elliptic operator equals a topological invariant — the cohomological / K-theoretic capstone unifying analysis, topology, and geometry."
+    },
+    {
+      "id": "capstone-groebner-solver",
+      "section": "Algebra & homological",
+      "title": "Solve polynomial systems with Gröbner bases",
+      "goal": "solving-polynomial-systems",
+      "blurb": "Buchberger's algorithm + lex elimination turns any polynomial system in $k[x_1,\\dots,x_n]$ into a triangular shape solvable by back-substitution, and recovers implicit equations of parametrized varieties. The computational capstone of commutative algebra."
     }
   ]
 }

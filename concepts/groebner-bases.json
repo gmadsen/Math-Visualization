@@ -1,0 +1,108 @@
+{
+  "topic": "groebner-bases",
+  "title": "Gröbner bases",
+  "page": "groebner-bases.html",
+  "concepts": [
+    {
+      "id": "monomial-orders",
+      "title": "Polynomial rings & monomial orders",
+      "anchor": "monomial-orders",
+      "prereqs": [
+        "polynomial-rings-irreducibility",
+        "ideals-quotients-ca"
+      ],
+      "blurb": "A monomial order on $k[x_1,\\dots,x_n]$ is a total well-ordering of monomials respecting multiplication. The three workhorses — lex, grlex, grevlex — pick out different leading terms of the same polynomial; changing the order changes the leading term.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "multivariable-division",
+      "title": "The multivariable division algorithm",
+      "anchor": "multivariable-division",
+      "prereqs": [
+        "monomial-orders"
+      ],
+      "blurb": "Given a monomial order and an ordered tuple $(g_1,\\dots,g_s)$, division writes $f = \\sum a_i g_i + r$ where no monomial of $r$ is divisible by $\\mathrm{LT}(g_i)$. Unlike single-variable division, $r$ depends on the divisor order — the defect Gröbner bases fix.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "groebner-basis-definition",
+      "title": "Gröbner bases: definition",
+      "anchor": "groebner-basis-definition",
+      "prereqs": [
+        "multivariable-division",
+        "noetherian-hilbert-ca"
+      ],
+      "blurb": "A finite $G\\subset I$ is a Gröbner basis when $\\langle\\mathrm{LT}(g_i)\\rangle = \\langle\\mathrm{LT}(I)\\rangle$. Then division by $G$ has a unique remainder and ideal membership becomes a single algorithm. Hilbert's basis theorem guarantees existence in $k[x_1,\\dots,x_n]$.",
+      "tags": [
+        "classification",
+        "foundation"
+      ]
+    },
+    {
+      "id": "s-polynomials-buchberger",
+      "title": "S-polynomials & Buchberger's criterion",
+      "anchor": "s-polynomials-buchberger",
+      "prereqs": [
+        "groebner-basis-definition"
+      ],
+      "blurb": "The S-polynomial $S(f,g) = (\\gamma/\\mathrm{LT}(f))f - (\\gamma/\\mathrm{LT}(g))g$, $\\gamma=\\mathrm{lcm}(\\mathrm{LM}(f),\\mathrm{LM}(g))$, is a syzygy that cancels leading terms. Buchberger: $G$ is a Gröbner basis iff every $S(g_i,g_j)$ reduces to zero modulo $G$.",
+      "tags": [
+        "lifting"
+      ]
+    },
+    {
+      "id": "buchberger-algorithm",
+      "title": "Buchberger's algorithm",
+      "anchor": "buchberger-algorithm",
+      "prereqs": [
+        "s-polynomials-buchberger"
+      ],
+      "blurb": "Repeatedly compute S-polynomials of pairs, reduce modulo the current basis, and append nonzero remainders until every S-polynomial reduces to zero. Termination by the ACC on $\\langle\\mathrm{LT}(F)\\rangle$. Worst case is doubly exponential (Mayr–Meyer).",
+      "tags": [
+        "lifting"
+      ]
+    },
+    {
+      "id": "reduced-groebner-basis",
+      "title": "Reduced Gröbner bases",
+      "anchor": "reduced-groebner-basis",
+      "prereqs": [
+        "buchberger-algorithm"
+      ],
+      "blurb": "$G$ is reduced when each element is monic and no monomial of any $g$ is divisible by $\\mathrm{LT}(g')$ for $g'\\ne g$. For a fixed monomial order, every nonzero ideal has a *unique* reduced Gröbner basis — the canonical computational representative.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "elimination-ideals",
+      "title": "Elimination ideals",
+      "anchor": "elimination-ideals",
+      "prereqs": [
+        "reduced-groebner-basis"
+      ],
+      "blurb": "Under lex with $x_1>\\cdots>x_n$, the Elimination Theorem says $G\\cap k[x_{i+1},\\dots,x_n]$ is a Gröbner basis of $I\\cap k[x_{i+1},\\dots,x_n]$. Computes implicit equations of parametrized varieties and intersections of ideals via $tI+(1-t)J$.",
+      "tags": [
+        "duality",
+        "lifting"
+      ]
+    },
+    {
+      "id": "solving-polynomial-systems",
+      "title": "Solving polynomial systems & implicitization",
+      "anchor": "solving-polynomial-systems",
+      "prereqs": [
+        "elimination-ideals"
+      ],
+      "blurb": "Zero-dimensional ideals have a triangular lex Gröbner basis that solves systems by back-substitution; parametric varieties yield implicit equations by eliminating parameters. The capstone of computational commutative algebra: ideal → algorithm → numerical or geometric answer.",
+      "tags": [
+        "lifting",
+        "classification"
+      ]
+    }
+  ]
+}
