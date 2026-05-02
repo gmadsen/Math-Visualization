@@ -120,13 +120,38 @@
     border:1px solid color-mix(in srgb, var(--line) 70%, transparent);
     border-radius:14px;
     position:sticky;top:0;z-index:10;
-    backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-    background:color-mix(in srgb, var(--bg) 70%, transparent);
-    transition:box-shadow 200ms ease, border-color 200ms ease}
+    /* Opaque background — was translucent over content (looked cheap when
+       page content scrolled behind the sticky bar). Keep a faint backdrop-
+       blur for browsers that support it, but the base bg is now opaque
+       panel color so content never bleeds through. */
+    background:var(--panel);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    transition:box-shadow 200ms ease, border-color 200ms ease,
+               padding 220ms cubic-bezier(0.4,0,0.2,1)}
   .section-jump.stuck{
     box-shadow:0 4px 24px color-mix(in srgb, var(--bg) 60%, transparent),
                0 1px 0 color-mix(in srgb, var(--line) 50%, transparent);
     border-color:color-mix(in srgb, var(--line) 100%, transparent)}
+  /* Minimize toggle on the right side of the bar. Click to collapse the
+     chip row down to a thin "Jump to ▾" header; click again to expand.
+     State persisted under localStorage.mvnb.jumpBarCollapsed.v1 so the
+     visitor's choice sticks across reloads. */
+  .section-jump .sj-toggle{
+    margin-left:auto;background:transparent;border:none;cursor:pointer;
+    color:var(--mute);font-size:0.78rem;font-weight:500;
+    font-family:ui-monospace,Menlo,monospace;letter-spacing:0.12em;
+    text-transform:uppercase;padding:0.25rem 0.5rem;border-radius:6px;
+    display:inline-flex;align-items:center;gap:6px;
+    transition:color 150ms ease, background 150ms ease}
+  .section-jump .sj-toggle:hover{color:var(--ink);background:color-mix(in srgb, var(--ink) 6%, transparent)}
+  .section-jump .sj-toggle::after{
+    content:"";width:7px;height:7px;
+    border-right:2px solid currentColor;border-bottom:2px solid currentColor;
+    transform:rotate(45deg) translateY(-1px);
+    transition:transform 200ms cubic-bezier(0.4,0,0.2,1)}
+  .section-jump.is-collapsed{padding:0.5rem 1rem}
+  .section-jump.is-collapsed .sj-link, .section-jump.is-collapsed .sj-label{display:none}
+  .section-jump.is-collapsed .sj-toggle::after{transform:rotate(-45deg) translateY(0)}
   /* Sentinel one pixel above the bar — when it scrolls out of view, the bar is
      stuck. IntersectionObserver in the script block at the bottom of body adds
      .stuck to .section-jump so the shadow/accent kicks in only when sticky. */
@@ -542,6 +567,7 @@
     <a class="sj-link s-g" href="#algebraic-geometry"><span class="sj-dot"></span>Algebraic geometry</a>
     <a class="sj-link s-v" href="#combinatorics-and-graph-theory"><span class="sj-dot"></span>Combinatorics &amp; graph theory</a>
     <a class="sj-link s-p" href="#mathematical-physics"><span class="sj-dot"></span>Mathematical physics</a>
+    <button class="sj-toggle" type="button" aria-label="Collapse jump-to bar" aria-expanded="true">Hide</button>
   </nav>
 
   <div class="start-here-rail">
@@ -4093,16 +4119,41 @@
 // in the markup; an IntersectionObserver fires when it crosses the top.
 // Falls back to a no-op when IntersectionObserver isn't available.
 (function(){
+  var STORAGE_KEY = 'mvnb.jumpBarCollapsed.v1';
   function init(){
     var bar = document.querySelector('.section-jump');
     var sentinel = document.querySelector('.sj-sentinel');
-    if(!bar || !sentinel || typeof IntersectionObserver !== 'function') return;
-    var io = new IntersectionObserver(function(entries){
-      for(var i=0;i<entries.length;i++){
-        bar.classList.toggle('stuck', !entries[i].isIntersecting);
-      }
-    }, { threshold: [0, 1] });
-    io.observe(sentinel);
+    if(!bar) return;
+    // Sticky-state observer.
+    if(sentinel && typeof IntersectionObserver === 'function'){
+      var io = new IntersectionObserver(function(entries){
+        for(var i=0;i<entries.length;i++){
+          bar.classList.toggle('stuck', !entries[i].isIntersecting);
+        }
+      }, { threshold: [0, 1] });
+      io.observe(sentinel);
+    }
+    // Collapse toggle.
+    var toggle = bar.querySelector('.sj-toggle');
+    if(!toggle) return;
+    function applyCollapsed(collapsed){
+      bar.classList.toggle('is-collapsed', collapsed);
+      toggle.setAttribute('aria-expanded', collapsed ? 'false' : 'true');
+      toggle.textContent = collapsed ? 'Show' : 'Hide';
+    }
+    var initial = false;
+    try {
+      initial = localStorage.getItem(STORAGE_KEY) === '1';
+    } catch(e) {}
+    applyCollapsed(initial);
+    toggle.addEventListener('click', function(){
+      var nextState = !bar.classList.contains('is-collapsed');
+      applyCollapsed(nextState);
+      try {
+        if(nextState) localStorage.setItem(STORAGE_KEY, '1');
+        else localStorage.removeItem(STORAGE_KEY);
+      } catch(e) {}
+    });
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
