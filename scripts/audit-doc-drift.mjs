@@ -127,18 +127,12 @@ function checkPlanVsGit() {
   const openHeading = open[1];
   const openBody = open[2];
 
-  // Slice out "## Shipped recently". This is the hand-curated list of things
-  // the author has explicitly declared done. Drift = a title appearing in
-  // *both* the open list and the shipped list.
+  // Slice out "## Shipped recently". Older PLAN.md style; the project no
+  // longer maintains it (git log is the audit trail). When the section is
+  // absent, the open-vs-shipped cross-check has nothing to compare against —
+  // skip silently rather than warn.
   const shipped = plan.match(/##\s+Shipped recently\s*\n([\s\S]*?)(?=\n##\s|$)/);
-  if (!shipped) {
-    push(
-      'PLAN.md',
-      'warn',
-      'no "## Shipped recently" section found — cannot cross-check open items'
-    );
-    return;
-  }
+  if (!shipped) return;
   const shippedBody = shipped[1];
 
   // Parse open-list bullets. Historically `- [ ] **Title.** body`; current

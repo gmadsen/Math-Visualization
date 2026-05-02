@@ -2,7 +2,7 @@
 
 Forward-looking priorities for the notebook. Daily-workflow commands, one-time setup, architecture, conventions, and the full quiz/progression/callback story all live in [`AGENTS.md`](./AGENTS.md) — especially § "Common pitfalls". Project overview is in [`README.md`](./README.md).
 
-When something ships, delete its bullet here. The full step list of `rebuild.mjs` is in `scripts/rebuild.mjs` — refer to it rather than restating step names here.
+When something ships, delete its bullet here. Don't keep a "Shipped recently" log — `git log` is the audit trail. The full step list of `rebuild.mjs` is in `scripts/rebuild.mjs` — refer to it rather than restating step names here.
 
 ## Corpus snapshot (2026-05-01)
 
@@ -13,41 +13,6 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 - 0 inline widget blocks corpus-wide; 464 registry slug directories (463 in active use; every `widget` block in `content/*.json` carries `slug + params`)
 - THIN-NEW count: 13; EMPTY-prereq count: 1 (`aca-overview`)
 - Quiz tiers: v1 = 2703, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
-
-## Shipped recently
-
-PRs #45 and #46 (merged 2026-05-01):
-
-- **Sidetoc → shared `js/sidetoc.js`** (was inlined per topic page).
-- **`hamiltonians-figure` shared slug** absorbing 6 per-widget `hamiltonians-*` slugs via `oneOf` over input control families.
-- **Inline-widget migration corpus-wide.** 0 inline widget blocks remain (was ~250 across ~40 topics). 464 registry slug directories. 14 batches × 3 parallel agents.
-- **`fix-a11y` JSON-side migration.** Patches now stick across rebuilds — 53 SVG titles + missing labels persist.
-- **`audit-canvas-stub`** drift detection (now backed by hand-maintained `STUBBED_MEMBERS` set + asymmetric sync check).
-
-PR #48 (merged, infra round):
-
-- **`scripts/lib/html-walk.mjs`** — `matchClose`, `balancedRange`. Replaces 6 bespoke depth-balancing variants in `fix-a11y`, `audit-callbacks`, etc.
-- **`scripts/lib/audit-utils.mjs`** — added `parseTopicHtmlSafe()` and `recoverDroppedNodes()` to recover from node-html-parser silent drops; `audit-inline-links` migrated.
-- **`scripts/lib/ajv.mjs`** — `makeAjv()` factory; 3 callers consolidated.
-- **`audit-doc-drift.mjs:checkCorpusSnapshot()`** — corpus-snapshot CI gate (exits 1 on numeric drift).
-- **`build-section-indexes.mjs`** wired into rebuild; `inject-page-metadata.mjs` flag inverted to `--fix` and wired in too; `audit-notation.mjs` wired as advisory.
-- **3 new fixture tests** for previously-untested helpers (`splitMultiIife`, `findMatchingDivEnd`, `matchClose` + `parseTopicHtmlSafe`); 3 follow-up fixture tests addressing review comments (`makeAjv`, `checkCorpusSnapshot`, `checkSvgViewbox`).
-- **24 doc-drift numerical claims fixed** + structural prevention layer added.
-- **Deleted** `migrate-inline-widget.mjs`, `audit-responsive.mjs`. `svg-no-viewbox` check folded into `audit-accessibility.mjs`.
-- **`repair-widget-scripts --allow-drift`** for multi-IIFE-in-one-`<script>` topics.
-- **Two audits migrated to `loadContentModel()`:** audit-widget-interactivity, audit-cross-page-consistency.
-- **`scripts/lib/script-scan.mjs`** extracted (was duplicated in extract-topic + repair-widget-scripts).
-- **`new-topic.mjs` appends README bullet.**
-- **`new-concept.mjs`** scaffolder.
-- **`read-prose.mjs`** quality-pass tooling.
-- **Tours card** on index.html alongside pathway banner.
-- **Content materialization (audit-driven):** complex-analysis 8 chapters → 26 per-concept sections, galois 3 missing quiz placeholders added.
-- **9 thin concepts expanded** (8 complex-analysis + 1 representation-theory) from <500 chars to 1100–1842 chars.
-- **`advanced-complex-analysis` topic** in Analysis section: 8 grad concepts, ~22K chars (Picard little/great, Weierstrass factorization, Mittag-Leffler, Phragmén-Lindelöf, Hadamard 3-circles, Hardy spaces / Fatou boundary).
-- **+12 grad concepts across 6 topics** (~24K chars): fixed-point-theorems (Caristi, KKM), wavelets (lifting, biorthogonal/CDF), information-theory (AEP, Fisher–Cramér-Rao), zeta-values (multiple-zeta, zeta-Mahler-measure), knot-polynomials (Vassiliev, Khovanov), p-adic-numbers (Newton polygons, ramification).
-- **+19 cross-topic prereq edges** + 1 weak-edge replacement (acted on prereq-recommender's PR #45 review). Auto-injected callbacks + reverse-direction backlinks landed on rebuild.
-- **Stale-anchor cleanup** after complex-analysis materialization (24 callback `<li>` entries + 8 prose links).
-- **`audit-callbacks` regex fallback** for two corpus sections that node-html-parser silently misses (`advanced-complex-analysis#mittag-leffler`, `model-theory-basics#elementary-equivalence`).
 
 ## Near-term tasks
 
