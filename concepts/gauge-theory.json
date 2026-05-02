@@ -1,0 +1,101 @@
+{
+  "topic": "gauge-theory",
+  "title": "Gauge theory",
+  "page": "gauge-theory.html",
+  "concepts": [
+    {
+      "id": "principal-bundles-connections",
+      "title": "Principal bundles and connections",
+      "anchor": "principal-bundles-connections",
+      "prereqs": [
+        "lie-algebra-and-exp",
+        "tangent-space-manifolds"
+      ],
+      "blurb": "A principal $G$-bundle $P\\to M$ is a smooth fiber bundle with free transitive right $G$-action. A connection is a $\\mathfrak{g}$-valued 1-form $A\\in\\Omega^1(P;\\mathfrak{g})$ on the total space, equivariant ($R_g^* A = \\mathrm{Ad}(g^{-1})A$) and reproducing the fundamental vertical fields, splitting $TP$ into vertical and horizontal subspaces.",
+      "tags": [
+        "foundation",
+        "fibration"
+      ]
+    },
+    {
+      "id": "curvature-yang-mills",
+      "title": "Curvature and the Yang-Mills action",
+      "anchor": "curvature-yang-mills",
+      "prereqs": [
+        "principal-bundles-connections",
+        "exterior-derivative"
+      ],
+      "blurb": "Curvature $F = dA + \\tfrac{1}{2}[A\\wedge A]$ measures the failure of horizontal subspaces to integrate. It satisfies the Bianchi identity $dF + [A, F] = 0$ automatically; the Yang-Mills action $S_{YM} = \\tfrac{1}{2}\\int_M \\langle F\\wedge *F\\rangle$ has Euler-Lagrange equations $d_A^* F = 0$ — the nonlinear generalization of Maxwell.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "gauge-transformations-holonomy",
+      "title": "Gauge transformations and holonomy",
+      "anchor": "gauge-transformations-holonomy",
+      "prereqs": [
+        "principal-bundles-connections"
+      ],
+      "blurb": "The gauge group $\\mathcal{G} = \\Gamma(P\\times_{\\mathrm{Ad}} G)$ acts on connections by $A\\mapsto g^{-1}Ag + g^{-1}dg$. Parallel transport around a loop $\\gamma$ defines holonomy $\\mathrm{Hol}_A(\\gamma)\\in G$, conjugation-equivariant under $\\mathcal{G}$; Wilson loops $W_R(\\gamma) = \\tr_R\\mathrm{Hol}_A(\\gamma)$ are the gauge-invariant observables.",
+      "tags": [
+        "group-action",
+        "duality"
+      ]
+    },
+    {
+      "id": "instantons-selfdual",
+      "title": "Self-dual connections and instantons",
+      "anchor": "instantons-selfdual",
+      "prereqs": [
+        "curvature-yang-mills"
+      ],
+      "blurb": "On an oriented Riemannian 4-manifold, the Hodge star $*\\colon\\Omega^2\\to\\Omega^2$ squares to $1$, splitting $F = F^+ + F^-$. (Anti-)self-dual connections ($*F = \\pm F$) automatically solve Yang-Mills and minimize the action in their topological class; the BPST instanton on $S^4$ realizes charge $1$ in $SU(2)$ gauge theory.",
+      "tags": [
+        "duality",
+        "classification"
+      ]
+    },
+    {
+      "id": "chern-simons",
+      "title": "Chern-Simons theory",
+      "anchor": "chern-simons",
+      "prereqs": [
+        "curvature-yang-mills",
+        "cc-chern-weil"
+      ],
+      "blurb": "On a 3-manifold the Chern-Simons functional $S_{CS}(A) = \\tfrac{k}{4\\pi}\\int_M \\tr(A\\wedge dA + \\tfrac{2}{3}A\\wedge A\\wedge A)$ is gauge-invariant only modulo $2\\pi k\\mathbb{Z}$, forcing the level $k$ to be an integer. Wilson loops in $S_{CS}$ at level $k$ for $SU(2)$ produce the Jones polynomial of knots — Witten's 1989 topological-quantum-field-theory bridge.",
+      "tags": [
+        "cohomology",
+        "duality"
+      ]
+    },
+    {
+      "id": "lattice-gauge",
+      "title": "Lattice gauge theory",
+      "anchor": "lattice-gauge",
+      "prereqs": [
+        "gauge-transformations-holonomy"
+      ],
+      "blurb": "Discretize spacetime to a hypercubic lattice and place link variables $U_{xy}\\in G$ on edges, interpreted as parallel transports. The Wilson plaquette action $S_W = \\beta\\sum_p \\mathrm{Re}\\tr(1 - U_p)$ recovers Yang-Mills as $a\\to 0$. Wilson loops obey an area law $\\langle W(\\gamma)\\rangle \\sim e^{-\\sigma A(\\gamma)}$ in the strong-coupling regime — the order parameter for confinement.",
+      "tags": [
+        "duality"
+      ]
+    },
+    {
+      "id": "donaldson-sw-invariants",
+      "title": "Donaldson and Seiberg-Witten invariants",
+      "anchor": "donaldson-sw-invariants",
+      "prereqs": [
+        "instantons-selfdual",
+        "cc-chern-classes"
+      ],
+      "blurb": "Donaldson (1983) extracts smooth-4-manifold invariants from intersection numbers on the moduli space of anti-self-dual $SU(2)$ connections; Seiberg-Witten (1994) abelianizes the construction, replacing the unstable nonlinear instanton problem with coupled monopole equations. Together they distinguish exotic smooth structures on $\\mathbb{R}^4$ and pin down the Donaldson-Floer / SW correspondence at the heart of geometric Langlands.",
+      "tags": [
+        "classification",
+        "cohomology",
+        "duality"
+      ]
+    }
+  ]
+}

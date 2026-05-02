@@ -23,7 +23,7 @@ Alongside each handwritten `<topic>.html`, the repo also carries a structured `c
 
 ## Learning pathways
 
-Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 25 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 936-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the eleven sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
+Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 28 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 957-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the eleven sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
 
 Each concept carries up to three quiz tiers — v1 (required), hard (unlocked after v1), and expert (unlocked after hard). Mastery is tracked in `localStorage` and lights up downstream concepts `locked → ready → mastered`, Brilliant-style. Topic cards on the index may carry a level badge: `prereq`, `advanced`, or `capstone`.
 
@@ -182,6 +182,9 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Hamiltonians and classical mechanics](./hamiltonians-classical-mechanics.html) — symplectic phase space, Liouville's theorem, integrability, action-angle
 - [General relativity](./general-relativity.html) — Einstein field equations, Schwarzschild, black holes, gravitational waves
 - [The three-body problem](./three-body-problem.html) — Lagrange points, restricted three-body, KAM tori, chaos
+- [Statistical mechanics](./statistical-mechanics.html) — capstone of equilibrium statistical mechanics: phase-space ensembles, the Boltzmann/Gibbs distribution, free energy from $\log Z$, the grand canonical with chemical potential, Ising phase transitions and the renormalization group, large-deviations fluctuations and the Legendre bridge to thermodynamics.
+- [Gauge theory](./gauge-theory.html) — capstone of differential gauge theory: connections on principal bundles, curvature and Yang-Mills, gauge transformations and Wilson loops, BPST instantons and Chern-Simons, lattice gauge theory and confinement, the Donaldson and Seiberg-Witten 4-manifold invariants.
+- [String theory](./string-theory.html) — capstone of mathematical string theory: world-sheet action and 2D CFT, bosonic critical dimension $D=26$, superstrings in $D=10$, Calabi-Yau compactification, T-duality and mirror symmetry, branes and AdS/CFT, and the math output (mirror symmetry, monstrous moonshine, geometric Langlands).
 
 ## Resetting progress
 

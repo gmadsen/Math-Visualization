@@ -1,5 +1,6 @@
 {
   "topics": [
+    "statistical-mechanics",
     "advanced-complex-analysis",
     "groebner-bases",
     "mathematical-statistics",
@@ -131,7 +132,9 @@
     "sato-tate",
     "bsd",
     "modularity-and-flt",
-    "etale-cohomology"
+    "etale-cohomology",
+    "gauge-theory",
+    "string-theory"
   ],
   "_newArc_doc": "Topics scaffolded recently with thin / known-incomplete cross-topic prereqs (capstone arc + Stacks-Project arc + cocartesian-fibrations). Distinct from `levels` — the property here is 'just-scaffolded, prereqs-not-yet-wired', not the 'prereq/standard/advanced/capstone' difficulty axis. Read by audit-starter-concepts.mjs to drive its THIN-NEW pass (concepts whose prereqs all stay intra-topic, where cross-topic wiring is known-incomplete). This list is meant to *shrink to zero* as the THIN-NEW backfill completes; once empty, the field (and the THIN-NEW pass) can be removed entirely. validate-concepts.mjs guards drift: every entry must be a registered topic.",
   "newArc": [
@@ -284,6 +287,9 @@
     "three-body-problem": "advanced",
     "designs": "standard",
     "expanders": "standard",
-    "groebner-bases": "capstone"
+    "groebner-bases": "capstone",
+    "statistical-mechanics": "capstone",
+    "gauge-theory": "capstone",
+    "string-theory": "capstone"
   }
 }

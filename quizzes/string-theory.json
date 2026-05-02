@@ -1,0 +1,329 @@
+{
+  "topic": "string-theory",
+  "quizzes": {
+    "worldsheet-action": {
+      "title": "The world-sheet action",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Why is the Polyakov action $S_P = -\\tfrac{T}{2}\\int \\sqrt{-h}\\,h^{ab}\\partial_a X^\\mu \\partial_b X_\\mu\\,d^2\\sigma$ usually preferred over the Nambu–Goto area action $S_{NG} = -T\\int\\sqrt{-\\det h_{ab}}\\,d^2\\sigma$ for quantization?",
+          "choices": [
+            "$S_P$ describes a different physical theory whose classical limit gives $S_{NG}$.",
+            "$S_P$ is polynomial in the embedding fields $X^\\mu$ — eliminating $h_{ab}$ via its equation of motion recovers $S_{NG}$, but the polynomial form admits a standard path-integral quantization.",
+            "$S_{NG}$ is not Lorentz-invariant in the target space, while $S_P$ is.",
+            "$S_P$ uses a target-space metric while $S_{NG}$ uses only the world-sheet metric."
+          ],
+          "answer": 1,
+          "explain": "$S_{NG}$ has a square root of $X$-derivatives, which is awkward to quantize. The Polyakov form introduces an auxiliary world-sheet metric $h_{ab}$; varying $h_{ab}$ recovers $S_{NG}$, but with $h_{ab}$ kept independent the action is quadratic in $X^\\mu$ and admits standard 2D field-theory quantization. Both actions describe the same physics; only the quantization route differs.",
+          "hint": "Think about which action has a square root of derivatives of $X$, and which is polynomial."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which symmetries does the Polyakov action enjoy on a flat target spacetime?",
+          "choices": [
+            "Target-space Poincaré invariance ($X^\\mu$ transforming as a vector).",
+            "World-sheet diffeomorphism (reparametrization) invariance.",
+            "World-sheet Weyl rescaling $h_{ab} \\mapsto e^{2\\omega(\\sigma)} h_{ab}$.",
+            "Target-space conformal invariance $X^\\mu \\mapsto e^{\\omega} X^\\mu$."
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explain": "Poincaré is a target-space rigid symmetry; diffeomorphism and Weyl are local world-sheet symmetries that together let one fix the conformal gauge $h_{ab} = \\eta_{ab}$. Target-space conformal rescaling of the embedding $X^\\mu$ is *not* a symmetry — it would change the spacetime distances $X^\\mu$ measures."
+        },
+        {
+          "type": "ordering",
+          "q": "Order the steps that take the world-sheet action from its geometric Nambu–Goto form to a free 2D field theory.",
+          "items": [
+            "Write the Nambu–Goto action $S_{NG} = -T\\int\\sqrt{-\\det(\\partial_a X\\cdot\\partial_b X)}\\,d^2\\sigma$ as the area swept out.",
+            "Introduce an independent world-sheet metric $h_{ab}$ and the Polyakov action; check classical equivalence.",
+            "Use diffeomorphism + Weyl invariance to fix conformal gauge $h_{ab} = \\eta_{ab}$.",
+            "Read off the equations of motion: free 2D wave equations $\\partial_a\\partial^a X^\\mu = 0$ plus Virasoro constraints from the residual gauge symmetry."
+          ],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "explain": "The standard chain: (1) area action, (2) introduce auxiliary metric (Polyakov), (3) fix conformal gauge using the local symmetries, (4) the gauge-fixed action is a 2D free field theory; the constraints that survive are the Virasoro constraints, the world-sheet stress tensor."
+        }
+      ]
+    },
+    "worldsheet-cft": {
+      "title": "Conformal field theory on the world-sheet",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Virasoro algebra reads $[L_m, L_n] = (m-n)L_{m+n} + \\tfrac{c}{12}(m^3 - m)\\delta_{m+n,0}$. What does the central charge $c$ measure?",
+          "choices": [
+            "The total energy of the world-sheet vacuum.",
+            "The number of free boson fields $X^\\mu$ on the world-sheet (always equal to spacetime dimension $D$).",
+            "The conformal anomaly: how the classical Weyl symmetry fails quantum-mechanically.",
+            "The eigenvalue of $L_0$ on the ground state."
+          ],
+          "answer": 2,
+          "explain": "$c$ is the conformal anomaly. Classically, $h_{ab}$ can be rescaled freely; quantum-mechanically, the trace of the stress tensor $\\langle T^a{}_a\\rangle$ is proportional to $c$ times the world-sheet curvature. Cancelling this anomaly fixes the spacetime dimension. While $c = D$ for $D$ free bosons, $c$ is more general — fermions, ghosts, and curved backgrounds all contribute. The $L_0$ eigenvalue is the conformal weight, a different number.",
+          "hint": "The $c$-term breaks the centerless Witt algebra; that breakage is the quantum anomaly."
+        },
+        {
+          "type": "mcq",
+          "q": "A primary field $\\phi$ of conformal weight $h$ has OPE $T(z)\\phi(w) \\sim \\tfrac{h\\,\\phi(w)}{(z-w)^2} + \\tfrac{\\partial\\phi(w)}{z-w}$ with the holomorphic stress tensor. What does the leading $1/(z-w)^2$ coefficient encode?",
+          "choices": [
+            "The mass of the corresponding spacetime particle.",
+            "The conformal weight $h$, i.e. the eigenvalue of $L_0$ on the state $|\\phi\\rangle = \\phi(0)|0\\rangle$.",
+            "The central charge $c$ of the CFT.",
+            "The spin of $\\phi$ in spacetime."
+          ],
+          "answer": 1,
+          "explain": "The OPE encodes how $\\phi$ transforms under conformal maps. The $1/(z-w)^2$ piece carries the rescaling weight $h$: under $z \\mapsto \\lambda z$, $\\phi(z) \\mapsto \\lambda^{-h}\\phi(\\lambda z)$. By state-operator correspondence $|\\phi\\rangle = \\phi(0)|0\\rangle$ is then an $L_0$ eigenstate with eigenvalue $h$. The $1/(z-w)$ piece is the translation $\\partial\\phi$. The central charge appears in the $T(z)T(w)$ OPE, not the $T(z)\\phi(w)$ OPE for $\\phi$ a primary."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which statements about Virasoro generators $L_n$ acting on the CFT Hilbert space are correct?",
+          "choices": [
+            "$L_0$ is the world-sheet Hamiltonian (up to a shift); its eigenvalues are the conformal weights $h$.",
+            "A highest-weight (primary) state $|h\\rangle$ satisfies $L_n|h\\rangle = 0$ for all $n > 0$.",
+            "The subalgebra generated by $L_{-1}, L_0, L_1$ closes without central extension and integrates to the global $\\mathrm{PSL}(2,\\mathbb{R})$ Möbius group.",
+            "The central term $\\tfrac{c}{12}(m^3-m)\\delta_{m+n,0}$ vanishes for $|m|,|n| \\le 1$, so it does not affect the global conformal subalgebra."
+          ],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "explain": "All four are standard. $L_0$ generates dilations, hence is the Hamiltonian on the cylinder. Primaries are annihilated by positive modes — the highest-weight condition. The $\\mathrm{sl}_2$ subalgebra $\\{L_{-1},L_0,L_1\\}$ exponentiates to global Möbius transformations. The central term is proportional to $m^3-m$, which has roots at $m=0,\\pm 1$, so the Möbius subalgebra is genuinely central-charge-blind."
+        }
+      ]
+    },
+    "bosonic-strings-critical": {
+      "title": "Bosonic strings & the critical dimension",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "In what spacetime dimension $D$ is the bosonic string consistent? (i.e. the value at which conformal-anomaly cancellation between the $D$ scalar fields $X^\\mu$ and the reparametrization ghosts forces a unique answer)",
+          "answer": 26,
+          "explain": "Each free boson $X^\\mu$ contributes $c=1$ to the matter central charge; the $bc$ ghost system from gauge-fixing diffeomorphisms contributes $c_{gh} = -26$. Total anomaly cancellation $D \\cdot 1 + (-26) = 0$ forces $D = 26$. Equivalently, the light-cone-quantization derivation reproduces the same number from requiring Lorentz invariance after the normal-ordering shift $a = 1$.",
+          "tol": 0
+        },
+        {
+          "type": "mcq",
+          "q": "The light-cone open-string mass formula reads $\\alpha' M^2 = N - a$, where $N$ is the number operator on transverse oscillators and $a$ is the normal-ordering constant fixed by Lorentz invariance. Lorentz fixes $a = 1$ when $D = 26$. What is the mass-squared of the lightest state ($N = 0$)?",
+          "choices": [
+            "$\\alpha' M^2 = 0$ — the ground state is massless.",
+            "$\\alpha' M^2 = -1$ — the ground state is tachyonic.",
+            "$\\alpha' M^2 = +1$ — the ground state is the lightest massive level.",
+            "$\\alpha' M^2$ is undefined for $N = 0$."
+          ],
+          "answer": 1,
+          "explain": "Plug $N = 0$, $a = 1$: $\\alpha' M^2 = -1 < 0$. The ground state has imaginary mass — a tachyon. This signals an unstable vacuum and is the central physical pathology of the bosonic string. The first excited level $N = 1$ gives $\\alpha' M^2 = 0$ (massless states: photon for the open string, graviton for the closed string), which is the level relevant for low-energy physics.",
+          "hint": "Substitute the values directly and read off the sign."
+        },
+        {
+          "type": "ordering",
+          "q": "Order the steps in the derivation that the bosonic string requires $D = 26$ via light-cone quantization.",
+          "items": [
+            "Gauge-fix world-sheet diffeomorphisms by setting $X^+ = x^+ + p^+ \\tau$.",
+            "Solve the constraint $T_{ab} = 0$ to express the longitudinal $X^-$ oscillators in terms of the transverse $X^i$.",
+            "Compute the normal-ordering shift in $L_0$ from the zero-point energy of $D-2$ transverse oscillators: $a = (D-2)/24$.",
+            "Demand Lorentz invariance of the spectrum (closure of $[J^{i-},J^{j-}]$); this forces $a = 1$, hence $D = 26$."
+          ],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "explain": "Light-cone gauge eliminates the $X^\\pm$ oscillators in favor of transverse $X^i$. The transverse zero-point energies sum to $(D-2)/24$ (using $\\zeta(-1) = -1/12$). Lorentz invariance — visible only in light-cone gauge through $J^{i-}$ closure — forces this shift to equal $1$, giving $D-2 = 24$, i.e. $D = 26$. The same number reappears from BRST anomaly cancellation in covariant quantization."
+        }
+      ]
+    },
+    "superstrings-susy": {
+      "title": "Superstrings & supersymmetry",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "What is the critical spacetime dimension $D$ of a consistent superstring theory? (the value forced by world-sheet supersymmetry plus anomaly cancellation, replacing the $D=26$ of the bosonic string)",
+          "answer": 10,
+          "explain": "Adding world-sheet fermions $\\psi^\\mu$ partners up the bosons $X^\\mu$ in $\\mathcal{N}=1$ super-multiplets. The matter central charge becomes $c = D + D/2 = 3D/2$; the super-reparametrization ghosts contribute $c_{gh} = -15$. Cancellation gives $3D/2 = 15$, hence $D = 10$. Equivalently the GSO-projected normal-ordering condition is $a_{\\mathrm{NS}} = 1/2$, leading to the same answer.",
+          "tol": 0
+        },
+        {
+          "type": "multi-select",
+          "q": "Which features distinguish the superstring from the bosonic string?",
+          "choices": [
+            "Spacetime fermions appear in the spectrum (after the GSO projection on the Ramond sector).",
+            "The tachyonic ground state of the NS sector is removed by the GSO projection.",
+            "The critical dimension drops from $D=26$ to $D=10$.",
+            "The Polyakov action is replaced by an action with no local symmetries."
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explain": "World-sheet fermions plus GSO produce target-space fermions and remove the NS tachyon — the ground state $|0\\rangle_{\\mathrm{NS}}$ is GSO-projected out, and the lightest physical NS state becomes the massless spacetime gauge boson / graviton. The critical dimension is indeed $D=10$. The action gains *more* local symmetry — local world-sheet supersymmetry — not less; gauge-fixing it produces super-conformal ghosts."
+        },
+        {
+          "type": "mcq",
+          "q": "Which list correctly enumerates the five consistent perturbative superstring theories in 10D?",
+          "choices": [
+            "Type I, type II, type III, $E_6\\times E_6$ heterotic, $\\mathrm{Spin}(10)$ heterotic.",
+            "Type IIA, type IIB, type IIC, $E_8\\times E_8$ heterotic, $\\mathrm{SO}(32)$ heterotic.",
+            "Type I, type IIA, type IIB, $E_8\\times E_8$ heterotic, $\\mathrm{Spin}(32)/\\mathbb{Z}_2$ heterotic.",
+            "Type I, type IIA, type IIB, type IIC, $E_8\\times E_8$ heterotic."
+          ],
+          "answer": 2,
+          "explain": "The five superstrings: type I (open + closed, $\\mathrm{SO}(32)$ gauge group), type IIA (closed, non-chiral), type IIB (closed, chiral), heterotic $E_8\\times E_8$, and heterotic $\\mathrm{Spin}(32)/\\mathbb{Z}_2$. The two heterotic gauge groups are picked out by lattice anomaly cancellation. M-theory in 11D unifies them via web of dualities — these five vacua are different limits of a single underlying theory."
+        }
+      ]
+    },
+    "compactification-cy": {
+      "title": "Compactification & Calabi–Yau manifolds",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Why does preserving $\\mathcal{N}=1$ spacetime supersymmetry in a 4D compactification of the heterotic string require the internal 6-manifold $X$ to be Calabi–Yau?",
+          "choices": [
+            "Because $X$ must be flat to support a covariantly constant metric.",
+            "Because the surviving 4D supercharges are in 1–1 correspondence with covariantly constant spinors on $X$, and their existence forces holonomy reduction from $SO(6)$ to $SU(3)$ — equivalently, $X$ is Kähler with vanishing first Chern class.",
+            "Because $X$ must be a Riemann surface lifted to six dimensions.",
+            "Because the volume of $X$ must be finite."
+          ],
+          "answer": 1,
+          "explain": "A 10D Majorana–Weyl supercharge restricted to $\\mathbb{R}^{1,3}\\times X$ decomposes by the holonomy of $X$. The number of unbroken 4D supercharges equals the number of covariantly constant spinors on $X$. Generic $SO(6)$ holonomy kills all of them; $SU(3)$ holonomy preserves exactly one — a single $\\mathcal{N}=1$ supercharge. By Berger's classification + Yau's theorem, $SU(3)$-holonomy Kähler 6-manifolds are exactly the Ricci-flat Kähler 3-folds, i.e. Calabi–Yaus.",
+          "hint": "Count covariantly constant spinors and link to the holonomy group."
+        },
+        {
+          "type": "mcq",
+          "q": "On a Calabi–Yau 3-fold $X$ the only independent Hodge numbers are $h^{1,1}(X)$ and $h^{2,1}(X)$. Which 4D effective-theory data do they count?",
+          "choices": [
+            "Spacetime gauge couplings ($h^{1,1}$) and Yukawa couplings ($h^{2,1}$).",
+            "Kähler (size) moduli ($h^{1,1}$) and complex-structure (shape) moduli ($h^{2,1}$).",
+            "Bosonic ($h^{1,1}$) and fermionic ($h^{2,1}$) zero-modes.",
+            "Open-string ($h^{1,1}$) and closed-string ($h^{2,1}$) states."
+          ],
+          "answer": 1,
+          "explain": "Deformations of the Kähler form $\\omega \\in H^{1,1}(X,\\mathbb{R})$ change sizes/areas; their complex extensions ($\\omega + iB$ for the $B$-field) are counted by $h^{1,1}$. Deformations of the complex structure are counted by $H^1(X, T_X) \\cong H^{2,1}(X)$ via the holomorphic 3-form. Both moduli appear as massless scalar fields in the 4D effective theory — the source of the moduli-stabilization problem."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which statements about the so-called 'string landscape' of Calabi–Yau compactifications are accurate?",
+          "choices": [
+            "The frequently quoted estimate $\\sim 10^{500}$ flux vacua is a heuristic count obtained by combining choices of CY 3-fold with discrete fluxes through its 3-cycles, not a rigorous theorem.",
+            "Each choice of $X$ (and flux configuration) produces a different 4D effective theory with different physical constants.",
+            "The landscape proves there is exactly one consistent 4D physics emerging from string theory.",
+            "Most known constructions leave the moduli unstabilized; producing 4D vacua with no massless moduli requires additional ingredients (fluxes, branes, non-perturbative effects)."
+          ],
+          "answer": [
+            0,
+            1,
+            3
+          ],
+          "explain": "The $10^{500}$ figure is heuristic — Bousso–Polchinski / KKLT-style flux counting. Different $(X, \\text{flux})$ give different effective theories. The landscape is the *opposite* of a uniqueness statement (option 2 is wrong). And moduli stabilization is a real obstruction: bare CY compactifications give a continuous family of vacua; flux + non-perturbative effects are needed to lift the moduli."
+        }
+      ]
+    },
+    "string-dualities": {
+      "title": "T-duality & mirror symmetry",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "T-duality on a circle of radius $R$ identifies the closed-string spectrum at $R$ with the spectrum at what dual radius?",
+          "choices": [
+            "$R' = R$.",
+            "$R' = \\alpha'/R$.",
+            "$R' = R/\\alpha'$.",
+            "$R' = \\alpha'^2 / R$."
+          ],
+          "answer": 1,
+          "explain": "T-duality sends $R \\leftrightarrow \\alpha'/R$, exchanging momentum modes $p_n = n/R$ with winding modes $w_m = mR/\\alpha'$. The mass spectrum $M^2 = (n/R)^2 + (mR/\\alpha')^2 + \\text{osc}$ is invariant under $(R,n,m) \\mapsto (\\alpha'/R, m, n)$ — momentum and winding swap. The fixed point $R = \\sqrt{\\alpha'}$ is the self-dual radius."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which relations between Hodge numbers $h^{p,q}$ of mirror Calabi–Yau 3-folds $(X,Y)$ hold?",
+          "choices": [
+            "$h^{1,1}(X) = h^{2,1}(Y)$ — the Kähler moduli of $X$ count complex-structure moduli of $Y$.",
+            "$h^{2,1}(X) = h^{1,1}(Y)$ — and vice versa.",
+            "The Euler characteristic flips sign: $\\chi(X) = -\\chi(Y)$.",
+            "$h^{p,q}(X) = h^{p,q}(Y)$ — the diamonds are identical, not reflected."
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "explain": "The diamond reflects: $(1,1) \\leftrightarrow (2,1)$, etc. Since $\\chi(X) = 2(h^{1,1}-h^{2,1})$ for a CY 3-fold and the swap inverts this difference, $\\chi$ does flip sign — exact for mirror pairs. Choice 3 is the *opposite* of mirror symmetry; if the diamonds were identical, the conjecture would be vacuous."
+        },
+        {
+          "type": "mcq",
+          "q": "The Strominger–Yau–Zaslow (SYZ) picture realizes mirror symmetry as a fibrewise duality. Which structure on $X$ does it require, and which operation produces $Y$?",
+          "choices": [
+            "A holomorphic elliptic fibration $X \\to B$; replace each elliptic fibre by its Jacobian.",
+            "A special-Lagrangian $T^3$-fibration $X \\to B$; replace each torus fibre $T^3_b$ by its dual torus $\\check T^3_b = \\mathrm{Hom}(T^3_b, U(1))$.",
+            "A Lefschetz pencil $X \\to \\mathbb{P}^1$; take the dual Lefschetz pencil.",
+            "A Kähler structure; take the conjugate complex structure."
+          ],
+          "answer": 1,
+          "explain": "SYZ: a CY 3-fold should fibre over a 3-real-dimensional base $B$ in special-Lagrangian $T^3$ fibres; the mirror is the dual fibration, replacing each fibre by its Pontryagin dual torus. T-duality on the three torus fibres is what swaps A-model (symplectic, Gromov–Witten) data with B-model (complex, period) data — making mirror symmetry a higher-dimensional avatar of T-duality. The other choices describe different fibrations and don't reproduce mirror Hodge swaps.",
+          "hint": "Mirror symmetry is supposed to *be* T-duality on internal fibres."
+        }
+      ]
+    },
+    "branes-string-math": {
+      "title": "Branes & string-math output",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Polchinski's 1995 identification of D-branes resolved a tension in earlier perturbative string theory. What is a D$p$-brane, in one sentence?",
+          "choices": [
+            "A $(p+1)$-dimensional submanifold of spacetime on which open strings end (Dirichlet boundary conditions in $9-p$ transverse directions), and which Polchinski showed carries the previously puzzling Ramond–Ramond charge.",
+            "A perturbative excitation of the closed string with spin $p$.",
+            "A topological defect in the world-sheet CFT of dimension $p$.",
+            "An open-string state of mass $1/p$ in string units."
+          ],
+          "answer": 0,
+          "explain": "D-branes were originally introduced as boundary conditions for open strings — Dirichlet ('D') in $9-p$ directions. Polchinski (1995) showed they are dynamical solitonic objects that carry the Ramond–Ramond gauge charges that closed-string theory had predicted but no perturbative state had supplied. This made non-perturbative string theory possible and is the foundation of AdS/CFT and brane-engineered gauge theory."
+        },
+        {
+          "type": "mcq",
+          "q": "A stack of $N$ coincident D$p$-branes supports a world-volume gauge theory. Which gauge group?",
+          "choices": [
+            "$U(1)^N$ — one Abelian factor per brane.",
+            "$U(N)$, with the $N^2$ gauge bosons coming from open strings stretched between branes (including string endpoints on the same brane).",
+            "$SU(N)$ — the trace-$U(1)$ decouples in 4D.",
+            "$O(N)$ — orientation-reversal of the open-string endpoint."
+          ],
+          "answer": 1,
+          "explain": "Open strings stretched from brane $i$ to brane $j$ carry a Chan–Paton matrix index $(i,j)$ with $1 \\le i,j \\le N$, giving $N^2$ massless vector states — the adjoint of $U(N)$. The diagonal $U(1)$ is the centre-of-mass mode. Type-I orientifold projections produce $SO$ or $Sp$ gauge groups instead, but a generic stack of D-branes in type II gives $U(N)$; this 'brane engineering' is how string theory generates non-Abelian gauge theories from geometry."
+        },
+        {
+          "type": "matching",
+          "q": "Match each piece of pure-mathematical output to the string-theoretic mechanism that produced or organized it.",
+          "left": [
+            "Counts of rational curves on the quintic 3-fold (e.g. $317{,}206{,}375$ twisted cubics)",
+            "Coefficients of the modular function $j(\\tau)$ as sums of Monster irrep dimensions",
+            "Equivalence $D^b\\mathrm{Coh}(X) \\cong D^\\pi\\mathrm{Fuk}(Y)$ for mirror CY 3-folds $(X,Y)$",
+            "Geometric Langlands as $S$-duality of $\\mathcal{N}=4$ super-Yang–Mills"
+          ],
+          "right": [
+            "Mirror symmetry: A-model Gromov–Witten on $X$ = B-model period integrals on the mirror $Y$",
+            "Monstrous moonshine from a chiral CFT (the Monster vertex algebra)",
+            "Kontsevich's homological mirror symmetry conjecture",
+            "Kapustin–Witten reduction of 4D gauge theory on a Riemann surface"
+          ],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "explain": "Each pairing is the historically attested route. Candelas–de la Ossa–Green–Parkes used mirror symmetry on the quintic to compute genus-zero GW counts via period integrals on the mirror. Frenkel–Lepowsky–Meurman + Borcherds organized moonshine through a vertex operator algebra realized as a chiral CFT. Kontsevich proposed HMS at ICM 1994. Kapustin–Witten (2007) derived geometric Langlands as the dimensional reduction of $\\mathcal{N}=4$ SYM $S$-duality on a Riemann surface — these results stand independently of whether nature is described by string theory."
+        }
+      ]
+    }
+  }
+}

@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **132**, concepts: **936**
-- Widgets: **948** (registry-driven: 940, inline: 8)
-- Quizzes: **4001** (v1: 2765, hard: 1223, expert: 13)
-- Quiz types: mcq: 2678, numeric: 1050, multi-select: 113, matching: 52, ordering: 34, complex: 29, spot-the-error: 24, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Topics: **135**, concepts: **957**
+- Widgets: **969** (registry-driven: 940, inline: 29)
+- Quizzes: **4064** (v1: 2828, hard: 1223, expert: 13)
+- Quiz types: mcq: 2714, numeric: 1055, multi-select: 128, matching: 53, ordering: 38, complex: 29, spot-the-error: 26, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **153**
-- Concepts lacking a hard-tier quiz: **498**
+- Concepts lacking a hard-tier quiz: **519**
 
 ## Per-slug registry adoption
 
@@ -591,16 +591,17 @@ page has wired one in yet.
 
 ### Mathematical physics
 
-- Topics: **4**, concepts: **24**
-- Widgets: **25** (registry-driven: 25, inline: 0)
-  - by family: schrodinger-figure: 7, hamiltonians-figure: 6, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
-  - by dimension: 2d: 25
-  - by gesture: slider: 13, interact: 6, click: 5, drag: 1
-- Quizzes: **72** (v1: 72, hard: 0, expert: 0)
-  - by type: mcq: 62, numeric: 10
+- Topics: **7**, concepts: **45**
+- Widgets: **46** (registry-driven: 25, inline: 21)
+  - by family: unknown: 21, schrodinger-figure: 7, hamiltonians-figure: 6, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
+  - by dimension: 2d: 25, unknown: 21
+  - by gesture: unknown: 21, slider: 13, interact: 6, click: 5, drag: 1
+- Quizzes: **135** (v1: 135, hard: 0, expert: 0)
+  - by type: mcq: 98, multi-select: 15, numeric: 15, ordering: 4, spot-the-error: 2, matching: 1
 
 ## Per-topic
 
+- `statistical-mechanics` (Mathematical physics) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
 - `advanced-complex-analysis` (Analysis) — concepts=13, widgets=5 (slug=5), quiz=39 (v1=39, hard=0, expert=0)
 - `groebner-bases` (Algebra & homological) — concepts=8, widgets=8 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
 - `mathematical-statistics` (Probability & statistics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
@@ -733,6 +734,8 @@ page has wired one in yet.
 - `bsd` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `modularity-and-flt` (Modular forms & L-functions) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
 - `etale-cohomology` (Algebraic geometry) — concepts=5, widgets=9 (slug=9), quiz=30 (v1=15, hard=15, expert=0)
+- `gauge-theory` (Mathematical physics) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
+- `string-theory` (Mathematical physics) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
 
 ## Coverage gaps
 
@@ -761,6 +764,13 @@ page has wired one in yet.
 
 ### Concepts missing a hard-tier quiz (top 20)
 
+- `microstates-ensembles` (statistical-mechanics)
+- `boltzmann-canonical` (statistical-mechanics)
+- `entropy-gibbs` (statistical-mechanics)
+- `grand-canonical` (statistical-mechanics)
+- `ising-phase-transitions` (statistical-mechanics)
+- `renormalization-group` (statistical-mechanics)
+- `large-deviations-equilibrium` (statistical-mechanics)
 - `aca-overview` (advanced-complex-analysis)
 - `aca-picard-little` (advanced-complex-analysis)
 - `aca-picard-great` (advanced-complex-analysis)
@@ -774,10 +784,3 @@ page has wired one in yet.
 - `aca-bergman-kernel` (advanced-complex-analysis)
 - `aca-quasiconformal-beltrami` (advanced-complex-analysis)
 - `aca-several-complex-variables` (advanced-complex-analysis)
-- `monomial-orders` (groebner-bases)
-- `multivariable-division` (groebner-bases)
-- `groebner-basis-definition` (groebner-bases)
-- `s-polynomials-buchberger` (groebner-bases)
-- `buchberger-algorithm` (groebner-bases)
-- `reduced-groebner-basis` (groebner-bases)
-- `elimination-ideals` (groebner-bases)

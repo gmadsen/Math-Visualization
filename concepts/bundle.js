@@ -4,6 +4,7 @@
 window.__MVConcepts = {
   "index": {
     "topics": [
+      "statistical-mechanics",
       "advanced-complex-analysis",
       "groebner-bases",
       "mathematical-statistics",
@@ -135,7 +136,9 @@ window.__MVConcepts = {
       "sato-tate",
       "bsd",
       "modularity-and-flt",
-      "etale-cohomology"
+      "etale-cohomology",
+      "gauge-theory",
+      "string-theory"
     ],
     "_newArc_doc": "Topics scaffolded recently with thin / known-incomplete cross-topic prereqs (capstone arc + Stacks-Project arc + cocartesian-fibrations). Distinct from `levels` — the property here is 'just-scaffolded, prereqs-not-yet-wired', not the 'prereq/standard/advanced/capstone' difficulty axis. Read by audit-starter-concepts.mjs to drive its THIN-NEW pass (concepts whose prereqs all stay intra-topic, where cross-topic wiring is known-incomplete). This list is meant to *shrink to zero* as the THIN-NEW backfill completes; once empty, the field (and the THIN-NEW pass) can be removed entirely. validate-concepts.mjs guards drift: every entry must be a registered topic.",
     "newArc": [
@@ -288,10 +291,108 @@ window.__MVConcepts = {
       "three-body-problem": "advanced",
       "designs": "standard",
       "expanders": "standard",
-      "groebner-bases": "capstone"
+      "groebner-bases": "capstone",
+      "statistical-mechanics": "capstone",
+      "gauge-theory": "capstone",
+      "string-theory": "capstone"
     }
   },
   "topics": {
+    "statistical-mechanics": {
+      "topic": "statistical-mechanics",
+      "title": "Statistical mechanics",
+      "page": "statistical-mechanics.html",
+      "concepts": [
+        {
+          "id": "microstates-ensembles",
+          "title": "Microstates and ensembles",
+          "anchor": "microstates-ensembles",
+          "prereqs": [
+            "random-variables",
+            "hcm-hamilton-equations"
+          ],
+          "blurb": "A microstate is a point in phase space; an ensemble is a probability measure on it. Liouville's theorem makes the symplectic volume invariant under Hamiltonian flow, and the microcanonical ensemble is the uniform measure on the energy shell $H = E$.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "boltzmann-canonical",
+          "title": "Boltzmann distribution and the canonical ensemble",
+          "anchor": "boltzmann-canonical",
+          "prereqs": [
+            "microstates-ensembles"
+          ],
+          "blurb": "Coupling a system to a heat bath at temperature $T = 1/(k_B\\beta)$ gives $\\rho \\propto e^{-\\beta H}$. The partition function $Z(\\beta) = \\tr\\,e^{-\\beta H}$ generates thermodynamics: $F = -\\beta^{-1}\\log Z$, $\\langle E\\rangle = -\\partial_\\beta\\log Z$.",
+          "tags": [
+            "foundation",
+            "duality"
+          ]
+        },
+        {
+          "id": "entropy-gibbs",
+          "title": "Entropy and the Gibbs distribution",
+          "anchor": "entropy-gibbs",
+          "prereqs": [
+            "boltzmann-canonical",
+            "it-shannon-entropy"
+          ],
+          "blurb": "Gibbs entropy $S = -k_B\\sum p_i\\log p_i$ is maximized at fixed mean energy by exactly the Boltzmann distribution, with $\\beta$ as Lagrange multiplier. In the microcanonical limit it reduces to Boltzmann's $S = k_B\\log\\Omega$, and the second law is monotonicity of $S$ under Hamiltonian coupling.",
+          "tags": []
+        },
+        {
+          "id": "grand-canonical",
+          "title": "Grand canonical ensemble and chemical potential",
+          "anchor": "grand-canonical",
+          "prereqs": [
+            "boltzmann-canonical"
+          ],
+          "blurb": "Allowing particle exchange with a reservoir gives $\\rho\\propto e^{-\\beta(H-\\mu N)}$, with grand partition function $\\Xi(\\beta,\\mu)$. In the thermodynamic limit ensembles agree on intensive quantities; ideal gases give Fermi-Dirac, Bose-Einstein, and Maxwell-Boltzmann occupations.",
+          "tags": [
+            "foundation",
+            "finiteness"
+          ]
+        },
+        {
+          "id": "ising-phase-transitions",
+          "title": "The Ising model and phase transitions",
+          "anchor": "ising-phase-transitions",
+          "prereqs": [
+            "boltzmann-canonical"
+          ],
+          "blurb": "Spins $\\sigma_i\\in\\{\\pm 1\\}$ on a lattice with nearest-neighbor coupling $-J\\sum_{\\langle ij\\rangle}\\sigma_i\\sigma_j$. Mean field predicts a transition at $T_c = qJ/k_B$; Onsager solved $d=2$ exactly with $T_c/J = 2/\\log(1+\\sqrt 2)$ and $\\beta = 1/8$.",
+          "tags": []
+        },
+        {
+          "id": "renormalization-group",
+          "title": "The renormalization group",
+          "anchor": "renormalization-group",
+          "prereqs": [
+            "ising-phase-transitions"
+          ],
+          "blurb": "Coarse-grain and rescale: a flow on the space of couplings whose fixed points govern long-distance physics. Universality means the critical exponents depend only on the basin of attraction; relevant operators flow away, irrelevant ones flow in. The Wilson-Fisher fixed point lives at $\\epsilon = 4 - d$.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "large-deviations-equilibrium",
+          "title": "Large deviations and equilibrium fluctuations",
+          "anchor": "large-deviations-equilibrium",
+          "prereqs": [
+            "boltzmann-canonical",
+            "ld-cramer-theorem"
+          ],
+          "blurb": "Cramér's theorem gives $P(\\bar X_n\\approx x)\\asymp e^{-nI(x)}$ with rate $I$ a Legendre transform of the cumulant. In thermodynamics, free energy and entropy are exactly such Legendre dual rates; Kubo's formulas tie linear response to equilibrium correlations.",
+          "tags": [
+            "finiteness",
+            "duality",
+            "classification"
+          ]
+        }
+      ]
+    },
     "advanced-complex-analysis": {
       "topic": "advanced-complex-analysis",
       "title": "Advanced complex analysis",
@@ -12948,6 +13049,204 @@ window.__MVConcepts = {
           ]
         }
       ]
+    },
+    "gauge-theory": {
+      "topic": "gauge-theory",
+      "title": "Gauge theory",
+      "page": "gauge-theory.html",
+      "concepts": [
+        {
+          "id": "principal-bundles-connections",
+          "title": "Principal bundles and connections",
+          "anchor": "principal-bundles-connections",
+          "prereqs": [
+            "lie-algebra-and-exp",
+            "tangent-space-manifolds"
+          ],
+          "blurb": "A principal $G$-bundle $P\\to M$ is a smooth fiber bundle with free transitive right $G$-action. A connection is a $\\mathfrak{g}$-valued 1-form $A\\in\\Omega^1(P;\\mathfrak{g})$ on the total space, equivariant ($R_g^* A = \\mathrm{Ad}(g^{-1})A$) and reproducing the fundamental vertical fields, splitting $TP$ into vertical and horizontal subspaces.",
+          "tags": [
+            "foundation",
+            "fibration"
+          ]
+        },
+        {
+          "id": "curvature-yang-mills",
+          "title": "Curvature and the Yang-Mills action",
+          "anchor": "curvature-yang-mills",
+          "prereqs": [
+            "principal-bundles-connections",
+            "exterior-derivative"
+          ],
+          "blurb": "Curvature $F = dA + \\tfrac{1}{2}[A\\wedge A]$ measures the failure of horizontal subspaces to integrate. It satisfies the Bianchi identity $dF + [A, F] = 0$ automatically; the Yang-Mills action $S_{YM} = \\tfrac{1}{2}\\int_M \\langle F\\wedge *F\\rangle$ has Euler-Lagrange equations $d_A^* F = 0$ — the nonlinear generalization of Maxwell.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "gauge-transformations-holonomy",
+          "title": "Gauge transformations and holonomy",
+          "anchor": "gauge-transformations-holonomy",
+          "prereqs": [
+            "principal-bundles-connections"
+          ],
+          "blurb": "The gauge group $\\mathcal{G} = \\Gamma(P\\times_{\\mathrm{Ad}} G)$ acts on connections by $A\\mapsto g^{-1}Ag + g^{-1}dg$. Parallel transport around a loop $\\gamma$ defines holonomy $\\mathrm{Hol}_A(\\gamma)\\in G$, conjugation-equivariant under $\\mathcal{G}$; Wilson loops $W_R(\\gamma) = \\tr_R\\mathrm{Hol}_A(\\gamma)$ are the gauge-invariant observables.",
+          "tags": [
+            "group-action",
+            "duality"
+          ]
+        },
+        {
+          "id": "instantons-selfdual",
+          "title": "Self-dual connections and instantons",
+          "anchor": "instantons-selfdual",
+          "prereqs": [
+            "curvature-yang-mills"
+          ],
+          "blurb": "On an oriented Riemannian 4-manifold, the Hodge star $*\\colon\\Omega^2\\to\\Omega^2$ squares to $1$, splitting $F = F^+ + F^-$. (Anti-)self-dual connections ($*F = \\pm F$) automatically solve Yang-Mills and minimize the action in their topological class; the BPST instanton on $S^4$ realizes charge $1$ in $SU(2)$ gauge theory.",
+          "tags": [
+            "duality",
+            "classification"
+          ]
+        },
+        {
+          "id": "chern-simons",
+          "title": "Chern-Simons theory",
+          "anchor": "chern-simons",
+          "prereqs": [
+            "curvature-yang-mills",
+            "cc-chern-weil"
+          ],
+          "blurb": "On a 3-manifold the Chern-Simons functional $S_{CS}(A) = \\tfrac{k}{4\\pi}\\int_M \\tr(A\\wedge dA + \\tfrac{2}{3}A\\wedge A\\wedge A)$ is gauge-invariant only modulo $2\\pi k\\mathbb{Z}$, forcing the level $k$ to be an integer. Wilson loops in $S_{CS}$ at level $k$ for $SU(2)$ produce the Jones polynomial of knots — Witten's 1989 topological-quantum-field-theory bridge.",
+          "tags": [
+            "cohomology",
+            "duality"
+          ]
+        },
+        {
+          "id": "lattice-gauge",
+          "title": "Lattice gauge theory",
+          "anchor": "lattice-gauge",
+          "prereqs": [
+            "gauge-transformations-holonomy"
+          ],
+          "blurb": "Discretize spacetime to a hypercubic lattice and place link variables $U_{xy}\\in G$ on edges, interpreted as parallel transports. The Wilson plaquette action $S_W = \\beta\\sum_p \\mathrm{Re}\\tr(1 - U_p)$ recovers Yang-Mills as $a\\to 0$. Wilson loops obey an area law $\\langle W(\\gamma)\\rangle \\sim e^{-\\sigma A(\\gamma)}$ in the strong-coupling regime — the order parameter for confinement.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "donaldson-sw-invariants",
+          "title": "Donaldson and Seiberg-Witten invariants",
+          "anchor": "donaldson-sw-invariants",
+          "prereqs": [
+            "instantons-selfdual",
+            "cc-chern-classes"
+          ],
+          "blurb": "Donaldson (1983) extracts smooth-4-manifold invariants from intersection numbers on the moduli space of anti-self-dual $SU(2)$ connections; Seiberg-Witten (1994) abelianizes the construction, replacing the unstable nonlinear instanton problem with coupled monopole equations. Together they distinguish exotic smooth structures on $\\mathbb{R}^4$ and pin down the Donaldson-Floer / SW correspondence at the heart of geometric Langlands.",
+          "tags": [
+            "classification",
+            "cohomology",
+            "duality"
+          ]
+        }
+      ]
+    },
+    "string-theory": {
+      "topic": "string-theory",
+      "title": "String theory",
+      "page": "string-theory.html",
+      "concepts": [
+        {
+          "id": "worldsheet-action",
+          "title": "The world-sheet action",
+          "anchor": "worldsheet-action",
+          "prereqs": [
+            "gr-spacetime",
+            "riemannian-metrics"
+          ],
+          "blurb": "A relativistic string sweeps out a 2D world-sheet. The Nambu–Goto action $S_{NG} = -T\\int \\sqrt{-\\det h_{ab}}\\,d^2\\sigma$ measures its area; the classically equivalent Polyakov form $S_P = -\\tfrac{T}{2}\\int \\sqrt{-h}\\,h^{ab}\\partial_a X^\\mu \\partial_b X_\\mu\\,d^2\\sigma$ is polynomial in $X^\\mu$ and Weyl-invariant. Conformal gauge $h_{ab}=\\eta_{ab}$ reduces dynamics to a 2D free-field theory.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "worldsheet-cft",
+          "title": "Conformal field theory on the world-sheet",
+          "anchor": "worldsheet-cft",
+          "prereqs": [
+            "worldsheet-action"
+          ],
+          "blurb": "After gauge-fixing, the world-sheet is a 2D conformal field theory: primary operators, operator-product expansions, and a Virasoro algebra $[L_m,L_n] = (m-n)L_{m+n} + \\tfrac{c}{12}(m^3-m)\\delta_{m+n,0}$ generated by the stress tensor. The central charge $c$ measures the conformal anomaly and dictates which spacetime backgrounds are consistent.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "bosonic-strings-critical",
+          "title": "Bosonic strings and the critical dimension",
+          "anchor": "bosonic-strings-critical",
+          "prereqs": [
+            "worldsheet-cft"
+          ],
+          "blurb": "Light-cone quantization of $D$ free bosons $X^\\mu$ on the world-sheet gives a mass spectrum $\\alpha' M^2 = N - 1$ for the open string with normal-ordering shift fixed by Lorentz invariance. Cancelling the conformal anomaly forces $D = 26$. The ground state is tachyonic ($M^2 < 0$) — the bosonic string is mathematically clean but physically unstable.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "superstrings-susy",
+          "title": "Superstrings and supersymmetry",
+          "anchor": "superstrings-susy",
+          "prereqs": [
+            "bosonic-strings-critical"
+          ],
+          "blurb": "Adding world-sheet fermions $\\psi^\\mu$ and gauging local supersymmetry (RNS formulation) plus the GSO projection yields a tachyon-free theory whose massless spectrum contains a graviton, dilaton, gauge bosons, and spacetime fermions. Anomaly cancellation now requires $D = 10$. Five consistent superstring theories — type I, IIA, IIB, $E_8\\times E_8$ heterotic, $\\mathrm{Spin}(32)/\\mathbb{Z}_2$ heterotic — exhaust the spectrum.",
+          "tags": [
+            "classification",
+            "lifting"
+          ]
+        },
+        {
+          "id": "compactification-cy",
+          "title": "Compactification and Calabi–Yau manifolds",
+          "anchor": "compactification-cy",
+          "prereqs": [
+            "superstrings-susy",
+            "cy-definition"
+          ],
+          "blurb": "To recover 4D physics from a 10D superstring, six dimensions are taken to be a small compact internal manifold $X$. Preserving $\\mathcal{N}=1$ spacetime supersymmetry forces $X$ to have $SU(3)$ holonomy — a Calabi–Yau 3-fold. The Hodge numbers $h^{1,1}(X)$ and $h^{2,1}(X)$ count Kähler and complex-structure moduli of the 4D effective theory, and the discrete choice of $X$ is the source of the (non-uniquely estimated) $\\sim 10^{500}$ ‘string landscape’ of vacua.",
+          "tags": [
+            "moduli",
+            "lifting"
+          ]
+        },
+        {
+          "id": "string-dualities",
+          "title": "Dualities: T-duality and mirror symmetry",
+          "anchor": "string-dualities",
+          "prereqs": [
+            "compactification-cy",
+            "ms-mirror-pair-statement"
+          ],
+          "blurb": "On a circle of radius $R$, T-duality $R \\leftrightarrow \\alpha'/R$ exchanges momentum modes $p_n = n/R$ with winding modes $w_m = m R/\\alpha'$ — a small circle is physically the same as a large one, and type IIA on a circle becomes type IIB on the dual circle. Fibrewise T-duality on a special-Lagrangian $T^3$-fibration of a Calabi–Yau is the Strominger–Yau–Zaslow picture of mirror symmetry, identifying $h^{p,q}(X)$ with $h^{n-p,q}(Y)$ and turning Gromov–Witten counts into period integrals.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "branes-string-math",
+          "title": "Branes and the math output of string theory",
+          "anchor": "branes-string-math",
+          "prereqs": [
+            "string-dualities"
+          ],
+          "blurb": "D$p$-branes are $(p{+}1)$-dimensional submanifolds where open strings end; Polchinski (1995) identified them as the dynamical objects carrying Ramond–Ramond charge. A stack of $N$ coincident branes supports a $U(N)$ gauge theory in its world-volume, and the AdS/CFT correspondence makes this duality precise. Mathematically, string theory has predicted Gromov–Witten counts on Calabi–Yau 3-folds, organized monstrous moonshine, motivated geometric Langlands, and produced derived/Fukaya-categorical equivalences — outputs that survive on their own terms regardless of the theory's physical status.",
+          "tags": [
+            "duality",
+            "lifting"
+          ]
+        }
+      ]
     }
   },
   "capstones": {
@@ -13126,6 +13425,27 @@ window.__MVConcepts = {
         "title": "Solve polynomial systems with Gröbner bases",
         "goal": "solving-polynomial-systems",
         "blurb": "Buchberger's algorithm + lex elimination turns any polynomial system in $k[x_1,\\dots,x_n]$ into a triangular shape solvable by back-substitution, and recovers implicit equations of parametrized varieties. The computational capstone of commutative algebra."
+      },
+      {
+        "id": "capstone-branes-string-math",
+        "section": "Mathematical physics",
+        "title": "Branes and the math output of string theory",
+        "goal": "branes-string-math",
+        "blurb": "D-branes as boundary conditions for open strings carry Ramond–Ramond charge and host gauge theories on their world-volumes; string dualities (T-duality, mirror symmetry, AdS/CFT) have fed back enumerative-geometry counts on Calabi–Yau 3-folds, organized monstrous moonshine, and motivated geometric Langlands — mathematical output that stands on its own."
+      },
+      {
+        "id": "capstone-donaldson-sw",
+        "section": "Mathematical physics",
+        "title": "Donaldson and Seiberg-Witten invariants",
+        "goal": "donaldson-sw-invariants",
+        "blurb": "Smooth 4-manifold invariants from intersection theory on instanton moduli (Donaldson, 1983) and from the abelianized monopole equations (Seiberg-Witten, 1994). Together they expose exotic smooth structures undetectable by classical topology — the capstone of gauge theory."
+      },
+      {
+        "id": "capstone-large-deviations-equilibrium",
+        "section": "Mathematical physics",
+        "title": "Large deviations and equilibrium fluctuations",
+        "goal": "large-deviations-equilibrium",
+        "blurb": "Cramér + Gärtner-Ellis: equilibrium thermodynamic potentials are Legendre transforms of large-deviation rate functions. Free energy and entropy are dual rates, fluctuation-dissipation ties Kubo response to equilibrium correlations — the modern probabilistic capstone of statistical mechanics."
       }
     ]
   },
@@ -13348,7 +13668,10 @@ window.__MVConcepts = {
           "schrodinger-equation",
           "hamiltonians-classical-mechanics",
           "general-relativity",
-          "three-body-problem"
+          "three-body-problem",
+          "statistical-mechanics",
+          "gauge-theory",
+          "string-theory"
         ],
         "color": "p"
       }
@@ -13566,7 +13889,10 @@ window.__MVConcepts = {
     "three-body-problem": "advanced",
     "designs": "standard",
     "expanders": "standard",
-    "groebner-bases": "capstone"
+    "groebner-bases": "capstone",
+    "statistical-mechanics": "capstone",
+    "gauge-theory": "capstone",
+    "string-theory": "capstone"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -13618,14 +13944,14 @@ window.__MVConcepts = {
       "concepts": 55,
       "intra": 92,
       "crossOut": 14,
-      "crossIn": 10,
+      "crossIn": 13,
       "density": 0.2545454545454545
     },
     "Geometry & topology": {
       "concepts": 104,
       "intra": 157,
       "crossOut": 19,
-      "crossIn": 81,
+      "crossIn": 87,
       "density": 0.18269230769230768
     },
     "Number theory": {
@@ -13646,7 +13972,7 @@ window.__MVConcepts = {
       "concepts": 127,
       "intra": 173,
       "crossOut": 55,
-      "crossIn": 18,
+      "crossIn": 20,
       "density": 0.4330708661417323
     },
     "Combinatorics & graph theory": {
@@ -13657,11 +13983,11 @@ window.__MVConcepts = {
       "density": 0.47058823529411764
     },
     "Mathematical physics": {
-      "concepts": 24,
-      "intra": 22,
-      "crossOut": 26,
+      "concepts": 45,
+      "intra": 42,
+      "crossOut": 37,
       "crossIn": 0,
-      "density": 1.0833333333333333
+      "density": 0.8222222222222222
     }
   }
 };

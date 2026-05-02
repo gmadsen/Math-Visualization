@@ -217,7 +217,10 @@
         "schrodinger-equation",
         "hamiltonians-classical-mechanics",
         "general-relativity",
-        "three-body-problem"
+        "three-body-problem",
+        "statistical-mechanics",
+        "gauge-theory",
+        "string-theory"
       ],
       "color": "p"
     }

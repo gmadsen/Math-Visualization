@@ -1,0 +1,1136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>String theory — world-sheets, dualities, and the math output</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"automorphic-forms-adelic","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"additive-number-theory":{"next":"quadratic-forms-genus-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"advanced-complex-analysis":{"next":null,"prev":"fixed-point-theorems","section":"Analysis","title":"Advanced complex analysis"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"moduli-spaces","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"mathematics-and-cryptography","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"mostow-rigidity","prev":"k-theory","section":"Geometry & topology","title":"Atiyah singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"etale-cohomology","section":"Algebraic geometry","title":"Calabi yau manifolds"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-topoi","prev":"infinity-categories","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":null,"prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"deformation-theory":{"next":"etale-cohomology","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"group-cohomology","prev":"homological","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"expanders","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"harmonic-analysis-fourier","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":null,"section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":"calabi-yau-manifolds","prev":"deformation-theory","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"deformation-theory","prev":"group-schemes","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":null,"prev":"designs","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"naive-set-theory","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":"advanced-complex-analysis","prev":"variational-methods","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"type-theory-and-hott","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"quantum-groups","prev":"lie-algebras","section":"Algebra & homological","title":"Galois cohomology and brauer"},"galois-representations":{"next":"heights-arithmetic-geometry","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"gauge-theory":{"next":"string-theory","prev":"statistical-mechanics","section":"Mathematical physics","title":"Gauge theory"},"general-relativity":{"next":"schrodinger-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":"groebner-bases","prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"groebner-bases":{"next":null,"prev":"geometric-and-combinatorial-group-theory","section":"Algebra & homological","title":"Gröbner bases"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"lie-algebras","prev":"derived-categories","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"etale-fundamental-group","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"hamiltonians-classical-mechanics":{"next":"general-relativity","prev":"three-body-problem","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"spectral-theory","prev":"partial-differential-equations","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"analytic-number-theory","prev":"galois-representations","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":null,"prev":"mathematical-statistics","section":"Probability & statistics","title":"High dimensional geometry"},"homological":{"next":"derived-categories","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"cocartesian-fibrations","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-topoi (Lurie)"},"information-theory":{"next":"large-deviations","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"stacks","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"ricci-flow","section":"Geometry & topology","title":"K theory"},"knot-polynomials":{"next":"ricci-flow","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Knot polynomials"},"large-deviations":{"next":"mathematical-statistics","prev":"information-theory","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"galois-cohomology-and-brauer","prev":"group-cohomology","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"mathematical-statistics":{"next":"high-dimensional-geometry","prev":"large-deviations","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"mirror-symmetry":{"next":"resolution-of-singularities","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"model-theory-basics":{"next":"computability-and-decidability","prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"modular-curves","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"algebraic-spaces","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"characteristic-classes","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":null,"prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Mostow rigidity"},"naive-set-theory":{"next":"first-order-logic-and-completeness","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"wavelets","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"harmonic-functions","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"stochastic-processes-and-martingales","prev":null,"section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"additive-number-theory","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"additive-number-theory","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"quantum-groups":{"next":"quaternions-octonions-and-division-algebras","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"quantum-groups","section":"Algebra & homological","title":"Quaternions octonions and division algebras"},"random-walks-and-mixing":{"next":"information-theory","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":null,"prev":"mirror-symmetry","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"k-theory","prev":"knot-polynomials","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"characteristic-classes","prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":"statistical-mechanics","prev":"general-relativity","section":"Mathematical physics","title":"Schrödinger equation"},"sheaf-cohomology":{"next":"algebraic-de-rham-cohomology","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"algebraic-curves-higher-genus","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Sobolev spaces & distributions"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"wavelets","prev":"harmonic-functions","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"intersection-theory-chow","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"statistical-mechanics":{"next":"gauge-theory","prev":"schrodinger-equation","section":"Mathematical physics","title":"Statistical mechanics"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":"probability-theory","section":"Probability & statistics","title":"Stochastic processes and martingales"},"string-theory":{"next":null,"prev":"gauge-theory","section":"Mathematical physics","title":"String theory"},"symplectic-manifolds":{"next":"knot-polynomials","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"hamiltonians-classical-mechanics","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"type-theory-and-hott":{"next":"forcing-and-independence","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and hott"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"fixed-point-theorems","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":null,"prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"numerical-analysis","prev":"spectral-theory","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"model-theory-basics","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"Zfc and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="mathematical-physics" data-level="capstone">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#worldsheet-action">1&nbsp;The&nbsp;world-sheet&nbsp;action</a>
+  <a href="#worldsheet-cft">2&nbsp;Conformal&nbsp;field&nbsp;theory&nbsp;on&nbsp;the&nbsp;world-sheet</a>
+  <a href="#bosonic-strings-critical">3&nbsp;Bosonic&nbsp;strings&nbsp;and&nbsp;the&nbsp;critical&nbsp;dimension&nbsp;$D=26$</a>
+  <a href="#superstrings-susy">4&nbsp;Superstrings&nbsp;and&nbsp;the&nbsp;critical&nbsp;dimension&nbsp;$D=10$</a>
+  <a href="#compactification-cy">5&nbsp;Compactification&nbsp;and&nbsp;Calabi–Yau&nbsp;manifolds</a>
+  <a href="#string-dualities">6&nbsp;Dualities:&nbsp;T-duality&nbsp;and&nbsp;mirror&nbsp;symmetry</a>
+  <a href="#branes-string-math">7&nbsp;Branes&nbsp;and&nbsp;the&nbsp;math&nbsp;output&nbsp;of&nbsp;string&nbsp;theory</a>
+  <a href="#connections">8&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>String theory</h1>
+  <p class="sub">A relativistic string sweeps out a 2D world-sheet; quantizing it forces a critical spacetime dimension, and curling six of those dimensions into a Calabi–Yau 3-fold connects 10D physics to 4D effective theory. Dualities — T-duality, mirror symmetry, AdS/CFT — have produced mathematics that survives independently of whether nature is stringy.</p>
+</section>
+
+<div class="note"><strong>Honest framing.</strong> String theory is currently <em>unverified</em> as a description of nature: no experiment has detected a stringy signature, and no preferred 4D vacuum has been singled out from the landscape. What this page tracks is the mathematical structure — actions, quantizations, dualities, theorems — and the substantial body of pure math the framework has fed back into geometry, number theory, and representation theory. Treat the physics claims here as conditional; treat the math output (mirror symmetry, moonshine, Langlands) as established.</div>
+
+<!-- =============================================================== -->
+<section id="worldsheet-action">
+<h2>1. The world-sheet action</h2>
+<p>A point particle traces out a 1D world-line; its action is proportional to the proper length of that line. Replace the particle by a 1-dimensional <em>string</em> and you get a 2D <strong>world-sheet</strong> $\Sigma$ embedded in $D$-dimensional spacetime via $X^\mu(\tau,\sigma)$, $\mu = 0,\dots,D-1$. The natural geometric action is the <strong>Nambu–Goto</strong> area:</p>
+
+<p style="text-align:center">$S_{NG} = -T\int_\Sigma \sqrt{-\det h_{ab}}\,d^2\sigma,\qquad h_{ab} = \partial_a X^\mu\, \partial_b X_\mu$</p>
+
+<p>where $T = 1/(2\pi\alpha')$ is the string tension and $h_{ab}$ is the induced (pullback) metric on $\Sigma$. The square root makes quantization awkward. Polyakov's trick: introduce an independent world-sheet metric $h_{ab}(\tau,\sigma)$ as an auxiliary field and write</p>
+
+<p style="text-align:center">$S_P = -\dfrac{T}{2}\int_\Sigma \sqrt{-h}\, h^{ab}\, \partial_a X^\mu\, \partial_b X_\mu\, d^2\sigma.$</p>
+
+<p>Varying $h^{ab}$ algebraically and substituting back recovers $S_{NG}$, so the two actions are <em>classically equivalent</em>. But $S_P$ is polynomial in the $X^\mu$ — the gauge-fixed theory is a free 2D field theory. The action has three local symmetries:</p>
+
+<table class="plain">
+<thead><tr><th>symmetry</th><th>transformation</th><th>parameters</th></tr></thead>
+<tbody>
+<tr><td>target Poincaré</td><td>$X^\mu \mapsto \Lambda^\mu{}_\nu X^\nu + a^\mu$</td><td>rigid</td></tr>
+<tr><td>world-sheet diff.</td><td>$\sigma^a \mapsto \sigma'^a(\sigma)$</td><td>2 functions $\xi^a(\sigma)$</td></tr>
+<tr><td>Weyl rescaling</td><td>$h_{ab} \mapsto e^{2\omega(\sigma)} h_{ab}$</td><td>1 function $\omega(\sigma)$</td></tr>
+</tbody>
+</table>
+
+<p>Three local parameters can fix the three components of $h_{ab}$. The standard choice is <strong>conformal gauge</strong> $h_{ab} = \eta_{ab} = \mathrm{diag}(-1,+1)$. In that gauge the equations of motion are simply $\partial_a\partial^a X^\mu = 0$ — free 2D wave equations — supplemented by the constraints $T_{ab} = 0$ that survive as residual gauge fixing.</p>
+
+<div class="widget" id="w-worldsheet">
+  <div class="hd"><div class="ttl">World-sheet of an open string</div><div class="hint">drag time slider; toggle animation</div></div>
+  <svg id="ws-svg" viewBox="0 0 620 320" width="620" height="320"><title>World-sheet swept out by an open string in 3D embedding space</title></svg>
+  <div class="row">
+    <label for="ws-tau">time $\tau$:</label>
+    <input type="range" id="ws-tau" min="0" max="100" value="60">
+    <button id="ws-play">▶ animate</button>
+    <button id="ws-mode" data-mode="open">open string</button>
+  </div>
+  <div class="readout" id="ws-out"></div>
+</div>
+<p class="small">The open string (endpoints free) sweeps out a 2D strip; the closed string (endpoints joined) sweeps out a tube. In either case it is a 2D surface $\Sigma$ embedded in spacetime. The Polyakov action computes the (signed) area of $\Sigma$ using its own intrinsic metric.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./general-relativity.html#spacetime">Spacetime as a Lorentzian manifold</a></li>
+    <li><a href="./riemannian-geometry.html#metric">Riemannian metrics</a></li>
+  </ul>
+</aside>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./general-relativity.html#spacetime">Spacetime as a Lorentzian manifold</a></li>
+    <li><a href="./riemannian-geometry.html#metric">Riemannian metrics</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./string-theory.html#worldsheet-cft">String theory</a> · Conformal field theory on the world-sheet</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="worldsheet-action"></div>
+<script>
+(function(){
+  const svg = $('#ws-svg'), out = $('#ws-out');
+  const tauIn = $('#ws-tau'), playBtn = $('#ws-play'), modeBtn = $('#ws-mode');
+  let tau = 0.6, playing = false, mode = 'open', raf = null;
+
+  function project(p){ return [p[0] - 0.45*p[2], p[1] - 0.30*p[2]]; }
+  function stringPoints(t, m){
+    const out = [];
+    if(m === 'open'){
+      for(let i=0;i<=40;i++){
+        const s = i/40;
+        const y = 50 * Math.sin(Math.PI*s) * Math.cos(2*Math.PI*t);
+        const x = 240 + 220*s - 110;
+        out.push([x, 160 + y, 0]);
+      }
+    } else {
+      const R = 70;
+      for(let i=0;i<=60;i++){
+        const phi = 2*Math.PI*i/60;
+        const r = R + 10*Math.sin(2*phi + 2*Math.PI*t);
+        const x = 240 + r*Math.cos(phi);
+        const y = 160 + 0.55*r*Math.sin(phi);
+        const z = 25*Math.sin(phi + 2*Math.PI*t);
+        out.push([x, y, z]);
+      }
+    }
+    return out;
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const O = project([60, 270, 0]);
+    const X = project([200, 270, 0]);
+    const Y = project([60, 100, 0]);
+    const Z = project([60, 270, 200]);
+    drawArrow(svg, O, X, {color:'var(--mute)', markerId:'ws-ax-x', width:1, pad1:0, pad2:6});
+    drawArrow(svg, O, Y, {color:'var(--mute)', markerId:'ws-ax-y', width:1, pad1:0, pad2:6});
+    drawArrow(svg, O, Z, {color:'var(--mute)', markerId:'ws-ax-z', width:1, pad1:0, pad2:6});
+    const xl = SVG('text',{x:X[0]+8, y:X[1]+4, 'font-size':12, fill:'var(--mute)'}); xl.textContent = 'X¹'; svg.appendChild(xl);
+    const yl = SVG('text',{x:Y[0]-4, y:Y[1]-6, 'font-size':12, fill:'var(--mute)'}); yl.textContent = 'X²'; svg.appendChild(yl);
+    const zl = SVG('text',{x:Z[0]+6, y:Z[1]+4, 'font-size':12, fill:'var(--mute)'}); zl.textContent = 'X⁰ (time)'; svg.appendChild(zl);
+
+    const NT = 28;
+    for(let k=0;k<NT;k++){
+      const tk = (k/(NT-1)) * tau;
+      const pts = stringPoints(tk, mode).map(p => project([p[0], p[1], p[2] + 180*tk]));
+      const d = pts.map((p,i)=> (i===0?'M':'L') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+      const alpha = 0.08 + 0.55 * (k/(NT-1));
+      const color = (mode === 'open') ? 'var(--cyan)' : 'var(--violet)';
+      svg.appendChild(SVG('path',{d, fill:'none', stroke:color, 'stroke-width':1, 'stroke-opacity':alpha.toFixed(2)}));
+    }
+    const now = stringPoints(tau, mode).map(p => project([p[0], p[1], p[2] + 180*tau]));
+    const dnow = now.map((p,i)=> (i===0?'M':'L') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+    svg.appendChild(SVG('path',{d:dnow, fill:'none', stroke:'var(--yellow)', 'stroke-width':2.4}));
+    if(mode === 'open'){
+      svg.appendChild(SVG('circle',{cx:now[0][0],cy:now[0][1],r:3.5,fill:'var(--yellow)'}));
+      svg.appendChild(SVG('circle',{cx:now[now.length-1][0],cy:now[now.length-1][1],r:3.5,fill:'var(--yellow)'}));
+    }
+    out.textContent =
+      `mode: ${mode === 'open' ? 'open string (free endpoints)' : 'closed string (loop)'}\n` +
+      `world-sheet τ ∈ [0, ${tau.toFixed(2)}]   (yellow = string at τ = ${tau.toFixed(2)})\n` +
+      `the surface swept out is the 2D world-sheet Σ; the Polyakov action computes its (intrinsic) area.`;
+  }
+  function tick(){
+    if(!playing) return;
+    tau += 0.006;
+    if(tau >= 1) tau = 0;
+    tauIn.value = Math.round(tau*100);
+    render();
+    raf = requestAnimationFrame(tick);
+  }
+  tauIn.addEventListener('input', ()=>{ tau = parseInt(tauIn.value,10)/100; render(); });
+  playBtn.addEventListener('click', ()=>{
+    playing = !playing;
+    playBtn.textContent = playing ? '⏸ pause' : '▶ animate';
+    playBtn.classList.toggle('active', playing);
+    if(playing) tick(); else if(raf){ cancelAnimationFrame(raf); raf = null; }
+  });
+  modeBtn.addEventListener('click', ()=>{
+    mode = (mode === 'open') ? 'closed' : 'open';
+    modeBtn.textContent = mode + ' string';
+    render();
+  });
+  render();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="worldsheet-cft">
+<h2>2. Conformal field theory on the world-sheet</h2>
+<p>After fixing conformal gauge $h_{ab} = \eta_{ab}$, the Polyakov action becomes a <em>free 2D field theory</em> of $D$ scalar fields $X^\mu(\tau,\sigma)$. But the gauge fixing leaves a residual symmetry: any conformal transformation of the world-sheet (any holomorphic + antiholomorphic reparametrization of $z = \sigma^1 + i\sigma^2$) preserves the gauge condition up to a Weyl rescaling. The world-sheet theory is thus a <strong>conformal field theory</strong>.</p>
+
+<p>The key data: the holomorphic stress tensor $T(z)$ generates conformal transformations. Mode-expand $T(z) = \sum_n L_n\, z^{-n-2}$. The modes $L_n$ satisfy the <strong>Virasoro algebra</strong>:</p>
+
+<p style="text-align:center">$[L_m, L_n] = (m-n)\,L_{m+n} + \dfrac{c}{12}\,(m^3 - m)\,\delta_{m+n,0}.$</p>
+
+<p>The number $c$ is the <strong>central charge</strong> — the conformal anomaly, measuring how the classical Weyl symmetry fails to survive quantization. Each free boson $X^\mu$ contributes $c = 1$. The reparametrization ghosts (from gauge-fixing $h_{ab}$) contribute $c_{gh} = -26$. Anomaly cancellation $D + (-26) = 0$ forces $D = 26$ for the bosonic string — a derivation we revisit in §3.</p>
+
+<div class="note"><strong>Primary fields and OPE.</strong> An operator $\phi(z)$ of conformal weight $h$ has the OPE $T(z)\phi(w) \sim \frac{h\,\phi(w)}{(z-w)^2} + \frac{\partial\phi(w)}{z-w}$ — the leading singular pieces of the product as $z\to w$. The state $|\phi\rangle = \phi(0)|0\rangle$ is then an $L_0$ eigenstate with eigenvalue $h$. State-operator correspondence is the bridge between operator language (CFT on the plane) and Hilbert-space language (CFT on the cylinder).</div>
+
+<p>The subalgebra spanned by $L_{-1}, L_0, L_1$ closes <em>without</em> central extension and integrates to the global Möbius group $\mathrm{PSL}(2,\mathbb{R})$ acting on the boundary of the upper half-plane. This is the part of the conformal symmetry that is non-anomalous regardless of $c$.</p>
+
+<div class="widget" id="w-virasoro">
+  <div class="hd"><div class="ttl">Virasoro spectrum & states at level $N$</div><div class="hint">$L_0$-eigenvalue ladder; click level for a state count</div></div>
+  <div class="row">
+    <label for="vir-c">central charge $c$:</label>
+    <input type="range" id="vir-c" min="1" max="30" value="26" step="1">
+    <span id="vir-cval" class="readout" style="display:inline-block;min-width:5em;padding:.25rem .5rem;min-height:0">c = 26</span>
+  </div>
+  <div class="row">
+    <label for="vir-N">level $N = L_0$ eigenvalue:</label>
+    <input type="range" id="vir-N" min="0" max="6" value="2" step="1">
+    <span id="vir-Nval" class="readout" style="display:inline-block;min-width:4em;padding:.25rem .5rem;min-height:0">N = 2</span>
+  </div>
+  <svg id="vir-svg" viewBox="0 0 620 280" width="620" height="280"><title>Virasoro state ladder; the $L_{-n}$ creation modes build states at level $N$</title></svg>
+  <div class="readout" id="vir-out"></div>
+</div>
+<p class="small">States at level $N$ are linear combinations of $L_{-n_1} L_{-n_2} \cdots |h\rangle$ with $\sum n_i = N$. The number of such partitions is the <em>partition function</em> $p(N)$ — the same combinatorics as for modular forms.</p>
+
+<div class="quiz" data-concept="worldsheet-cft"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./string-theory.html#bosonic-strings-critical">String theory</a> · Bosonic strings and the critical dimension</div>
+</aside>
+<!-- backlinks-auto-end -->
+<script>
+(function(){
+  const cIn = $('#vir-c'), cVal = $('#vir-cval');
+  const NIn = $('#vir-N'), NVal = $('#vir-Nval');
+  const svg = $('#vir-svg'), out = $('#vir-out');
+  const PN = [1,1,2,3,5,7,11];
+  function partitions(N){
+    const out = [];
+    function rec(rem, max, acc){
+      if(rem === 0){ out.push([...acc]); return; }
+      for(let k = Math.min(max, rem); k >= 1; k--){
+        acc.push(k); rec(rem - k, k, acc); acc.pop();
+      }
+    }
+    rec(N, N, []);
+    return out;
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const c = parseInt(cIn.value, 10);
+    const N = parseInt(NIn.value, 10);
+    cVal.textContent = `c = ${c}`;
+    NVal.textContent = `N = ${N}`;
+    const W = 620, H = 280;
+    const x0 = 60, dx = (W - x0 - 30) / 6;
+    for(let k=0;k<=6;k++){
+      const x = x0 + k*dx;
+      svg.appendChild(SVG('line',{x1:x, y1:30, x2:x, y2:H-30, stroke:'var(--line)','stroke-width':0.5,'stroke-dasharray':'2 4'}));
+      const lt = SVG('text',{x:x, y:H-12, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+      lt.textContent = 'N='+k;
+      svg.appendChild(lt);
+    }
+    const COL_HL = N;
+    for(let k=0;k<=6;k++){
+      const x = x0 + k*dx;
+      const count = PN[k];
+      for(let i=0;i<count;i++){
+        const y = (H-50) - i*22;
+        const fill = (k === COL_HL) ? 'var(--yellow)' : 'var(--cyan)';
+        const stroke = (k === COL_HL) ? 'var(--yellow)' : 'var(--blue)';
+        svg.appendChild(SVG('circle',{cx:x, cy:y, r:6, fill, stroke, 'stroke-width':1.2, 'fill-opacity':0.65}));
+      }
+      const ct = SVG('text',{x:x, y:24, 'text-anchor':'middle','font-size':12, fill:(k===COL_HL?'var(--yellow)':'var(--mute)')});
+      ct.textContent = `p(${k}) = ${count}`;
+      svg.appendChild(ct);
+    }
+    const parts = partitions(N);
+    const stateList = parts.map(p => {
+      const ops = p.map(k => `L_{-${k}}`).join(' ');
+      return `${ops} |h⟩`;
+    });
+    const cAnomalyTerm = (n => (c/12)*(n*n*n - n));
+    out.textContent =
+      `Virasoro at central charge c = ${c}\n` +
+      `level N = ${N}: ${parts.length} state${parts.length===1?'':'s'} = ${PN[N]} (matches p(${N}))\n` +
+      `basis (descendants of primary |h⟩):\n  ` + stateList.join('\n  ') + '\n' +
+      `anomaly contribution at this mode: (c/12)(N³−N) = ${cAnomalyTerm(N).toFixed(3)}`;
+  }
+  cIn.addEventListener('input', render);
+  NIn.addEventListener('input', render);
+  render();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="bosonic-strings-critical">
+<h2>3. Bosonic strings and the critical dimension $D=26$</h2>
+<p>Now quantize. In <strong>light-cone gauge</strong> one fixes the residual conformal symmetry by setting $X^+(\tau,\sigma) = x^+ + p^+\tau$. The constraints $T_{ab} = 0$ then determine the longitudinal $X^-$ in terms of the $D-2$ <em>transverse</em> oscillators $X^i$ ($i = 1,\dots,D-2$). The mass spectrum of the open string becomes</p>
+
+<p style="text-align:center">$\alpha'\, M^2 = N - a,\qquad N = \sum_{n\ge 1}\sum_i \alpha^i_{-n}\alpha^i_n,\qquad a = \dfrac{D-2}{24}.$</p>
+
+<p>The constant $a$ is the normal-ordering shift: the zero-point energy of the $D-2$ transverse oscillator towers, formally $\sum_{n\ge 1} n = -1/12$ per direction (by zeta regularization), summed over $D-2$ transverse directions and divided by $2$. <em>Lorentz invariance</em> — visible in light-cone gauge through closure of the $J^{i-}$ commutators — forces $a = 1$, hence:</p>
+
+<p style="text-align:center">$\dfrac{D-2}{24} = 1\quad\Longrightarrow\quad D = 26.$</p>
+
+<p>This is one of the most striking results in physics: an apparently free choice (spacetime dimension) is fixed by the consistency of the quantum theory. The same number reappears via BRST anomaly cancellation: $c_{\mathrm{matter}} + c_{\mathrm{ghost}} = D + (-26) = 0$.</p>
+
+<div class="bad"><strong>Tachyon.</strong> At $N = 0$ (the ground state) we get $\alpha' M^2 = -1 < 0$ — the bosonic string ground state has imaginary mass. Tachyons signal that we have expanded around an unstable vacuum. The <em>first excited level</em> $N = 1$ gives $M^2 = 0$: massless states (a photon for the open string, the graviton for the closed string). The bosonic string is mathematically the cleanest version of the theory but physically untenable.</div>
+
+<div class="widget" id="w-critdim">
+  <div class="hd"><div class="ttl">Mass spectrum at varying $D$</div><div class="hint">find the $D$ that puts $M^2 = 0$ at level 1</div></div>
+  <div class="row">
+    <label for="cd-D">spacetime dim $D$:</label>
+    <input type="range" id="cd-D" min="4" max="40" value="26" step="1">
+    <span id="cd-Dval" class="readout" style="display:inline-block;min-width:6em;padding:.25rem .5rem;min-height:0">D = 26</span>
+  </div>
+  <svg id="cd-svg" viewBox="0 0 620 300" width="620" height="300"><title>Open-string $\alpha' M^2 = N - (D-2)/24$ for the lowest few levels</title></svg>
+  <div class="readout" id="cd-out"></div>
+</div>
+<p class="small">The yellow horizontal at $\alpha'M^2 = 0$ is the massless line; for the lightest <em>massless</em> level to occur exactly at $N=1$ (the level holding the gauge boson / graviton) you need $a = 1$, i.e. $D = 26$. At any other $D$ the spectrum is either tachyonic at $N=1$ or massless at the wrong level.</p>
+
+<div class="quiz" data-concept="bosonic-strings-critical"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./string-theory.html#superstrings-susy">String theory</a> · Superstrings and supersymmetry</div>
+</aside>
+<!-- backlinks-auto-end -->
+<script>
+(function(){
+  const DIn = $('#cd-D'), DVal = $('#cd-Dval');
+  const svg = $('#cd-svg'), out = $('#cd-out');
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const D = parseInt(DIn.value, 10);
+    DVal.textContent = `D = ${D}`;
+    const a = (D - 2) / 24;
+    const W = 620, H = 300;
+    const ML = 60, MR = 30, MT = 30, MB = 50;
+    const maxN = 5;
+    const Mmin = -2.0, Mmax = 4.0;
+    const px = n => ML + n * ((W - ML - MR) / maxN);
+    const py = m => MT + (Mmax - m) / (Mmax - Mmin) * (H - MT - MB);
+    svg.appendChild(SVG('line',{x1:ML, y1:py(Mmin), x2:W-MR, y2:py(Mmin), stroke:'var(--mute)', 'stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:ML, y1:py(Mmax), x2:ML, y2:py(Mmin), stroke:'var(--mute)', 'stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:ML, y1:py(0), x2:W-MR, y2:py(0), stroke:'var(--yellow)', 'stroke-width':1.2, 'stroke-dasharray':'5 4'}));
+    const m0 = SVG('text',{x:W-MR-4, y:py(0)-6, 'text-anchor':'end', 'font-size':12, fill:'var(--yellow)'});
+    m0.textContent = 'α′M² = 0 (massless)';
+    svg.appendChild(m0);
+    const xl = SVG('text',{x:(ML+W-MR)/2, y:H-12, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    xl.textContent = 'oscillator level N';
+    svg.appendChild(xl);
+    const yl = SVG('text',{x:ML-44, y:py((Mmin+Mmax)/2), 'text-anchor':'middle','font-size':12,fill:'var(--mute)','transform':`rotate(-90 ${ML-44} ${py((Mmin+Mmax)/2)})`});
+    yl.textContent = 'α′M²';
+    svg.appendChild(yl);
+    for(let n=0;n<=maxN;n++){
+      svg.appendChild(SVG('line',{x1:px(n), y1:py(Mmin)-3, x2:px(n), y2:py(Mmin)+3, stroke:'var(--mute)','stroke-width':1}));
+      const t = SVG('text',{x:px(n), y:py(Mmin)+18, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+      t.textContent = String(n);
+      svg.appendChild(t);
+    }
+    for(let m=Math.ceil(Mmin); m<=Math.floor(Mmax); m++){
+      const y = py(m);
+      svg.appendChild(SVG('line',{x1:ML-3, y1:y, x2:ML+3, y2:y, stroke:'var(--mute)','stroke-width':1}));
+      const t = SVG('text',{x:ML-8, y:y+4, 'text-anchor':'end', 'font-size':12, fill:'var(--mute)'});
+      t.textContent = String(m);
+      svg.appendChild(t);
+    }
+    const isCritical = (Math.abs(a - 1) < 1e-6);
+    for(let n=0;n<=maxN;n++){
+      const m2 = n - a;
+      const x = px(n), y = py(Math.max(Mmin, Math.min(Mmax, m2)));
+      let color = 'var(--cyan)';
+      let label = '';
+      if(n === 0){
+        color = (m2 < 0) ? 'var(--pink)' : ((m2 === 0) ? 'var(--yellow)' : 'var(--cyan)');
+        label = (m2 < 0) ? 'tachyon' : ((m2 === 0) ? 'massless' : '');
+      }
+      if(n === 1 && Math.abs(m2) < 1e-6){
+        color = 'var(--green)';
+        label = 'photon/graviton';
+      }
+      svg.appendChild(SVG('circle',{cx:x, cy:y, r:7, fill:color, stroke:'#000', 'stroke-width':0.6}));
+      if(label){
+        const t = SVG('text',{x:x+10, y:y+4, 'font-size':11, fill:color});
+        t.textContent = label;
+        svg.appendChild(t);
+      }
+    }
+    const m2_0 = -a, m2_1 = 1 - a;
+    let summary = `D = ${D}, a = (D−2)/24 = ${a.toFixed(3)}\n`;
+    summary += `α′M² at N=0:  ${m2_0.toFixed(3)}   ` + (m2_0 < 0 ? '(tachyon)' : (m2_0 === 0 ? '(massless)' : '(massive)')) + '\n';
+    summary += `α′M² at N=1:  ${m2_1.toFixed(3)}   ` + (Math.abs(m2_1) < 1e-6 ? '✓ massless gauge boson / graviton level' : '');
+    if(isCritical) summary += '\n→ Lorentz invariance is consistent: D = 26 is the bosonic critical dimension.';
+    else summary += `\n→ Lorentz NOT preserved at this D; need D = 26.`;
+    out.textContent = summary;
+  }
+  DIn.addEventListener('input', render);
+  render();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="superstrings-susy">
+<h2>4. Superstrings and the critical dimension $D=10$</h2>
+<p>Adding world-sheet fermions $\psi^\mu(\tau,\sigma)$ partnered to each $X^\mu$, plus a local supersymmetry on the world-sheet, produces the <strong>RNS superstring</strong>. The boson-fermion match upgrades the matter central charge to $c_{\mathrm{matter}} = D + D/2 = 3D/2$; super-conformal ghosts contribute $c_{\mathrm{ghost}} = -15$. Cancellation gives:</p>
+
+<p style="text-align:center">$\dfrac{3D}{2} - 15 = 0 \quad\Longrightarrow\quad D = 10.$</p>
+
+<p>The fermions $\psi^\mu$ admit two boundary conditions on the closed string: <strong>Ramond</strong> (R, periodic, gives spacetime fermions) and <strong>Neveu–Schwarz</strong> (NS, antiperiodic, gives spacetime bosons). The NS sector still has a tachyonic ground state — but the <strong>GSO projection</strong> $(-1)^F = +1$ keeps only states with even fermion number, removing it. After GSO the lightest NS state is the massless gauge boson / graviton.</p>
+
+<table class="plain">
+<thead><tr><th>theory</th><th>open?</th><th>SUSY in 10D</th><th>massless content sketch</th></tr></thead>
+<tbody>
+<tr><td>type I</td><td>yes (with $\mathrm{SO}(32)$)</td><td>$\mathcal{N}=1$</td><td>graviton, gauge boson, gauginos, RR 2-form</td></tr>
+<tr><td>type IIA</td><td>no (closed only)</td><td>$\mathcal{N}=2$, non-chiral</td><td>graviton, dilaton, RR 1- and 3-forms</td></tr>
+<tr><td>type IIB</td><td>no (closed only)</td><td>$\mathcal{N}=2$, chiral</td><td>graviton, dilaton, RR 0-, 2-, 4-forms</td></tr>
+<tr><td>heterotic $E_8\times E_8$</td><td>no</td><td>$\mathcal{N}=1$</td><td>graviton, $E_8\times E_8$ gauge bosons</td></tr>
+<tr><td>heterotic $\mathrm{Spin}(32)/\mathbb{Z}_2$</td><td>no</td><td>$\mathcal{N}=1$</td><td>graviton, $\mathrm{Spin}(32)/\mathbb{Z}_2$ gauge bosons</td></tr>
+</tbody>
+</table>
+
+<p>These five 10D theories are connected by a web of dualities (S-duality, T-duality, M-theory at strong coupling) and are believed to be different limits of one underlying 11-dimensional theory.</p>
+
+<div class="widget" id="w-critdim-super">
+  <div class="hd"><div class="ttl">Bosonic vs superstring anomaly cancellation</div><div class="hint">slide $D$; the line that hits zero is the critical dimension</div></div>
+  <div class="row">
+    <label for="sd-D">spacetime dim $D$:</label>
+    <input type="range" id="sd-D" min="2" max="32" value="10" step="1">
+    <span id="sd-Dval" class="readout" style="display:inline-block;min-width:6em;padding:.25rem .5rem;min-height:0">D = 10</span>
+  </div>
+  <svg id="sd-svg" viewBox="0 0 620 280" width="620" height="280"><title>Total central charge $c_{\mathrm{matter}} + c_{\mathrm{ghost}}$ vs $D$ for bosonic and super strings</title></svg>
+  <div class="readout" id="sd-out"></div>
+</div>
+
+<div class="quiz" data-concept="superstrings-susy"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./string-theory.html#compactification-cy">String theory</a> · Compactification and Calabi–Yau manifolds</div>
+</aside>
+<!-- backlinks-auto-end -->
+<script>
+(function(){
+  const DIn = $('#sd-D'), DVal = $('#sd-Dval');
+  const svg = $('#sd-svg'), out = $('#sd-out');
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const D = parseInt(DIn.value, 10);
+    DVal.textContent = `D = ${D}`;
+    const W = 620, H = 280;
+    const ML = 60, MR = 30, MT = 30, MB = 50;
+    const Dmin = 2, Dmax = 32;
+    const Cmin = -28, Cmax = 28;
+    const px = d => ML + (d - Dmin) / (Dmax - Dmin) * (W - ML - MR);
+    const py = c => MT + (Cmax - c) / (Cmax - Cmin) * (H - MT - MB);
+    svg.appendChild(SVG('line',{x1:ML, y1:py(Cmin), x2:W-MR, y2:py(Cmin), stroke:'var(--mute)', 'stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:ML, y1:MT, x2:ML, y2:py(Cmin), stroke:'var(--mute)', 'stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:ML, y1:py(0), x2:W-MR, y2:py(0), stroke:'var(--yellow)', 'stroke-width':1.4, 'stroke-dasharray':'5 4'}));
+    const m0 = SVG('text',{x:W-MR-4, y:py(0)-6, 'text-anchor':'end', 'font-size':12, fill:'var(--yellow)'});
+    m0.textContent = 'anomaly = 0';
+    svg.appendChild(m0);
+    const xl = SVG('text',{x:(ML+W-MR)/2, y:H-12, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    xl.textContent = 'spacetime dimension D';
+    svg.appendChild(xl);
+    const yl = SVG('text',{x:ML-44, y:py(0), 'text-anchor':'middle','font-size':12,fill:'var(--mute)','transform':`rotate(-90 ${ML-44} ${py(0)})`});
+    yl.textContent = 'total central charge';
+    svg.appendChild(yl);
+    for(let d=2;d<=32;d+=2){
+      svg.appendChild(SVG('line',{x1:px(d), y1:py(Cmin)-3, x2:px(d), y2:py(Cmin)+3, stroke:'var(--mute)','stroke-width':1}));
+      if(d % 4 === 2 || d === 10 || d === 26){
+        const t = SVG('text',{x:px(d), y:py(Cmin)+18, 'text-anchor':'middle','font-size':12, fill:(d===10||d===26?'var(--yellow)':'var(--mute)')});
+        t.textContent = String(d);
+        svg.appendChild(t);
+      }
+    }
+    const bosPath = [];
+    const susPath = [];
+    for(let d=Dmin; d<=Dmax; d++){
+      bosPath.push([px(d), py(d - 26)]);
+      susPath.push([px(d), py(1.5*d - 15)]);
+    }
+    const dBos = bosPath.map((p,i)=> (i===0?'M':'L') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+    const dSus = susPath.map((p,i)=> (i===0?'M':'L') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+    svg.appendChild(SVG('path',{d:dBos, fill:'none', stroke:'var(--cyan)', 'stroke-width':2}));
+    svg.appendChild(SVG('path',{d:dSus, fill:'none', stroke:'var(--violet)', 'stroke-width':2}));
+    const lg = SVG('g',{transform:'translate(370, 50)'});
+    lg.appendChild(SVG('line',{x1:0,y1:0,x2:24,y2:0,stroke:'var(--cyan)','stroke-width':2}));
+    const tlb = SVG('text',{x:30,y:5,'font-size':12,fill:'var(--cyan)'}); tlb.textContent='bosonic: D − 26'; lg.appendChild(tlb);
+    lg.appendChild(SVG('line',{x1:0,y1:18,x2:24,y2:18,stroke:'var(--violet)','stroke-width':2}));
+    const tls = SVG('text',{x:30,y:23,'font-size':12,fill:'var(--violet)'}); tls.textContent='super: 3D/2 − 15'; lg.appendChild(tls);
+    svg.appendChild(lg);
+    const cBos = D - 26, cSus = 1.5*D - 15;
+    svg.appendChild(SVG('line',{x1:px(D), y1:MT, x2:px(D), y2:py(Cmin), stroke:'var(--mute)', 'stroke-width':1, 'stroke-dasharray':'2 3'}));
+    svg.appendChild(SVG('circle',{cx:px(D), cy:py(cBos), r:5, fill:'var(--cyan)'}));
+    svg.appendChild(SVG('circle',{cx:px(D), cy:py(cSus), r:5, fill:'var(--violet)'}));
+    out.textContent =
+      `D = ${D}\n` +
+      `bosonic anomaly: c_matter + c_ghost = D − 26 = ${cBos}\n` +
+      `super anomaly:   c_matter + c_ghost = 3D/2 − 15 = ${cSus.toFixed(1)}\n` +
+      (cBos === 0 ? '✓ bosonic critical dim.' : '') + (cSus === 0 ? '\n✓ super critical dim.' : '') +
+      ((cBos !== 0 && cSus !== 0) ? '\n(neither line crosses zero here — try D = 10 or D = 26)' : '');
+  }
+  DIn.addEventListener('input', render);
+  render();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="compactification-cy">
+<h2>5. Compactification and Calabi–Yau manifolds</h2>
+<p>The superstring lives in 10 spacetime dimensions; we observe four. The Kaluza–Klein resolution: assume spacetime is $\mathbb{R}^{1,3} \times X$, where $X$ is a small compact 6-manifold. Six is exactly $10 - 4$. The geometry of $X$ then determines the 4D effective theory: its isometries become 4D gauge symmetries, its harmonic forms become 4D scalar moduli, and its size sets a Kaluza–Klein scale.</p>
+
+<p>To preserve $\mathcal{N}=1$ supersymmetry in 4D — the minimal amount that makes the theory both physically interesting and mathematically tractable — count covariantly constant spinors on $X$. A 10D Majorana–Weyl supercharge restricted to $\mathbb{R}^{1,3}\times X$ decomposes as a sum over the holonomy representations of $X$. Generic $\mathrm{SO}(6)$ holonomy preserves no spinor; $\mathrm{SU}(3) \subset \mathrm{SO}(6)$ holonomy preserves <em>exactly one</em>. By Berger's classification + Yau's theorem (the proof of the Calabi conjecture), $\mathrm{SU}(3)$-holonomy compact Kähler 6-manifolds are exactly <strong>Calabi–Yau 3-folds</strong>: compact Kähler with vanishing first Chern class $c_1(X) = 0$, equivalently with trivial canonical bundle, equivalently admitting a global non-vanishing holomorphic 3-form $\Omega$.</p>
+
+<div class="note"><strong>The full Hodge diamond of a CY 3-fold</strong>:
+$$\begin{array}{ccccccc}
+ & & & 1 & & & \\
+ & & 0 & & 0 & & \\
+ & 0 & & h^{1,1} & & 0 & \\
+1 & & h^{2,1} & & h^{2,1} & & 1 \\
+ & 0 & & h^{1,1} & & 0 & \\
+ & & 0 & & 0 & & \\
+ & & & 1 & & &
+\end{array}$$
+The two non-trivial entries are $h^{1,1}(X)$ (Kähler / size moduli) and $h^{2,1}(X)$ (complex-structure / shape moduli). For the quintic 3-fold $\{f_5(x_0,\dots,x_4) = 0\}\subset \mathbb{P}^4$, $h^{1,1} = 1$ and $h^{2,1} = 101$.
+</div>
+
+<p>The 4D effective theory inherits massless scalar fields — one per harmonic form — called <strong>moduli</strong>. Their unfixed values are the famous moduli problem: bare CY compactification has a continuous family of vacua. Adding fluxes through 3-cycles, branes, and non-perturbative effects can lift these, leading to the <em>landscape</em>. Heuristic counts of flux vacua produce the often-quoted figure $\sim 10^{500}$, which is not a theorem but a back-of-envelope dimensional estimate.</p>
+
+<div class="widget" id="w-cy-moduli">
+  <div class="hd"><div class="ttl">Calabi–Yau moduli counter</div><div class="hint">pick Hodge numbers and read off the 4D moduli content</div></div>
+  <div class="row">
+    <label for="cy-h11">$h^{1,1}$ (Kähler):</label>
+    <input type="range" id="cy-h11" min="1" max="80" value="1" step="1">
+    <span id="cy-h11val" class="readout" style="display:inline-block;min-width:5em;padding:.25rem .5rem;min-height:0">1</span>
+  </div>
+  <div class="row">
+    <label for="cy-h21">$h^{2,1}$ (complex):</label>
+    <input type="range" id="cy-h21" min="0" max="200" value="101" step="1">
+    <span id="cy-h21val" class="readout" style="display:inline-block;min-width:5em;padding:.25rem .5rem;min-height:0">101</span>
+  </div>
+  <div class="row">
+    <button data-preset="quintic">quintic (1, 101)</button>
+    <button data-preset="bicubic">bicubic (2, 83)</button>
+    <button data-preset="schoen">Schoen (19, 19)</button>
+    <button data-preset="self-mirror">self-mirror (?, ?)</button>
+  </div>
+  <svg id="cy-svg" viewBox="0 0 620 300" width="620" height="300"><title>Hodge diamond of a Calabi–Yau 3-fold; the slider sets $h^{1,1}$ and $h^{2,1}$</title></svg>
+  <div class="readout" id="cy-out"></div>
+</div>
+<p class="small">For self-mirror compactifications $h^{1,1} = h^{2,1}$ ⟹ Euler characteristic $\chi = 0$. The Schoen 3-fold (1988) is a famous example with $h^{1,1} = h^{2,1} = 19$.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./calabi-yau-manifolds.html#definition">Definition: Ricci-flat Kähler manifolds</a></li>
+  </ul>
+</aside>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./calabi-yau-manifolds.html#definition">Definition: Ricci-flat Kähler manifolds</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./string-theory.html#string-dualities">String theory</a> · Dualities: T-duality and mirror symmetry</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="compactification-cy"></div>
+<script>
+(function(){
+  const h11In = $('#cy-h11'), h11Val = $('#cy-h11val');
+  const h21In = $('#cy-h21'), h21Val = $('#cy-h21val');
+  const svg = $('#cy-svg'), out = $('#cy-out');
+  const PRESETS = {
+    'quintic': [1, 101], 'bicubic': [2, 83],
+    'schoen': [19, 19], 'self-mirror': [11, 11]
+  };
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const h11 = parseInt(h11In.value, 10);
+    const h21 = parseInt(h21In.value, 10);
+    h11Val.textContent = String(h11);
+    h21Val.textContent = String(h21);
+    const cx = 310, cy = 150;
+    const dx = 56, dy = 32;
+    function h(p,q){
+      if(p<0||q<0||p>3||q>3) return null;
+      if((p===0&&q===0)||(p===3&&q===3)||(p===0&&q===3)||(p===3&&q===0)) return 1;
+      if((p===1&&q===0)||(p===0&&q===1)||(p===2&&q===3)||(p===3&&q===2)) return 0;
+      if((p===2&&q===0)||(p===0&&q===2)||(p===1&&q===3)||(p===3&&q===1)) return 0;
+      if((p===1&&q===1)||(p===2&&q===2)) return h11;
+      if((p===2&&q===1)||(p===1&&q===2)) return h21;
+      return null;
+    }
+    for(let p=0;p<=3;p++){
+      for(let q=0;q<=3;q++){
+        const v = h(p,q);
+        const x = cx + (p - q) * dx;
+        const y = cy + ((p + q) - 3) * dy;
+        const isFree = ((p===1&&q===1)||(p===2&&q===2)||(p===2&&q===1)||(p===1&&q===2));
+        const fill = isFree ? 'var(--panel2)' : '#0b0f16';
+        const stroke = isFree ? (((p===1&&q===1)||(p===2&&q===2)) ? 'var(--blue)' : 'var(--violet)') : 'var(--line)';
+        svg.appendChild(SVG('rect',{x:x-22, y:y-12, width:44, height:24, rx:6, ry:6, fill, stroke, 'stroke-width':1.2}));
+        const t = SVG('text',{x, y:y+5, 'text-anchor':'middle','font-size':12, fill:'#fff'});
+        t.textContent = String(v);
+        svg.appendChild(t);
+      }
+    }
+    const lg = SVG('g',{transform:'translate(40, 30)'});
+    lg.appendChild(SVG('rect',{x:0,y:0,width:14,height:10,fill:'var(--panel2)',stroke:'var(--blue)'}));
+    const t1 = SVG('text',{x:20,y:9,'font-size':12,fill:'var(--blue)'}); t1.textContent='h^{1,1} — Kähler moduli'; lg.appendChild(t1);
+    lg.appendChild(SVG('rect',{x:0,y:18,width:14,height:10,fill:'var(--panel2)',stroke:'var(--violet)'}));
+    const t2 = SVG('text',{x:20,y:27,'font-size':12,fill:'var(--violet)'}); t2.textContent='h^{2,1} — complex-structure moduli'; lg.appendChild(t2);
+    svg.appendChild(lg);
+    const chi = 2 * (h11 - h21);
+    const total4dModuli = h11 + h21;
+    const mirror = `mirror Y has h^{1,1} = ${h21}, h^{2,1} = ${h11}`;
+    out.textContent =
+      `Hodge numbers of CY 3-fold X: h^{1,1} = ${h11}, h^{2,1} = ${h21}\n` +
+      `Euler characteristic χ(X) = 2(h^{1,1} − h^{2,1}) = ${chi}\n` +
+      `4D massless scalar moduli count (complexified): ${total4dModuli}\n` +
+      mirror + (h11 === h21 ? '   (self-mirror, χ = 0)' : '');
+  }
+  h11In.addEventListener('input', render);
+  h21In.addEventListener('input', render);
+  $$('button[data-preset]').forEach(b => b.addEventListener('click', () => {
+    const p = b.getAttribute('data-preset');
+    if(PRESETS[p]){
+      h11In.value = PRESETS[p][0];
+      h21In.value = PRESETS[p][1];
+      render();
+    }
+  }));
+  render();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="string-dualities">
+<h2>6. Dualities: T-duality and mirror symmetry</h2>
+<p>String theory enjoys a remarkable web of <strong>dualities</strong>: equivalences between theories at different parameter values, often relating a strong-coupling regime of one theory to a weak-coupling regime of another. The cleanest example is <strong>T-duality</strong> on a circle.</p>
+
+<h3>T-duality on a circle</h3>
+<p>Compactify one direction $X^{25}$ on a circle of radius $R$. The closed string spectrum receives two integer quantum numbers: <em>momentum</em> $n \in \mathbb{Z}$ (from periodicity) and <em>winding</em> $m \in \mathbb{Z}$ (the string can wrap the circle $m$ times). The mass formula is</p>
+
+<p style="text-align:center">$M^2(n,m,R) = \left(\dfrac{n}{R}\right)^2 + \left(\dfrac{mR}{\alpha'}\right)^2 + \dfrac{2}{\alpha'}(N + \tilde N - 2)$</p>
+
+<p>and is invariant under $(R, n, m) \mapsto (\alpha'/R, m, n)$: shrinking the circle to $\alpha'/R$ is physically the same as expanding to $R$, while exchanging momentum and winding. The fixed point $R = \sqrt{\alpha'}$ — the <em>self-dual radius</em> — is special: at that point an enhanced $\mathrm{SU}(2)\times\mathrm{SU}(2)$ gauge symmetry appears.</p>
+
+<p>T-duality on type IIA exchanges it with type IIB. Apply T-duality once and you have swapped the two type-II theories; this also swaps even-dimensional and odd-dimensional D-branes (§7).</p>
+
+<h3>Mirror symmetry as fibrewise T-duality</h3>
+<p>Strominger–Yau–Zaslow (1996) proposed that the geometric mechanism behind mirror symmetry is T-duality on a special-Lagrangian $T^3$-fibration. A Calabi–Yau 3-fold $X$ should admit a fibration $X \to B$ over a real 3-base $B$ whose generic fibres are $T^3$ tori carrying special-Lagrangian structure. The mirror $Y \to B$ is the dual fibration: replace each torus fibre $T^3_b$ by its Pontryagin dual $\check T^3_b = \mathrm{Hom}(T^3_b, U(1))$. Fibrewise T-duality swaps</p>
+
+<ul>
+  <li>the Kähler moduli of $X$ ($h^{1,1}$ in number) with the complex-structure moduli of $Y$ ($h^{2,1}$ in number);</li>
+  <li>the A-model on $X$ (symplectic; counts pseudo-holomorphic curves; Gromov–Witten invariants) with the B-model on $Y$ (complex; period integrals of the holomorphic 3-form);</li>
+  <li>type IIA on $X$ with type IIB on $Y$.</li>
+</ul>
+
+<p>Concretely, Candelas–de la Ossa–Green–Parkes (1991) computed the Picard–Fuchs equation governing periods on the mirror of the quintic and read off — under the mirror map — Gromov–Witten counts of rational curves on the quintic: $2{,}875$ lines, $609{,}250$ conics, $317{,}206{,}375$ twisted cubics, $\dots$ Givental and Lian–Liu–Yau later proved these to all orders.</p>
+
+<div class="widget" id="w-tduality">
+  <div class="hd"><div class="ttl">T-duality on a circle: momentum vs winding</div><div class="hint">slide the radius and watch which mode is light</div></div>
+  <div class="row">
+    <label for="td-R">radius $R / \sqrt{\alpha'}$:</label>
+    <input type="range" id="td-R" min="20" max="500" value="100" step="1">
+    <span id="td-Rval" class="readout" style="display:inline-block;min-width:7em;padding:.25rem .5rem;min-height:0">R = 1.00</span>
+  </div>
+  <svg id="td-svg" viewBox="0 0 620 300" width="620" height="300"><title>Closed-string Kaluza–Klein spectrum on a circle: momentum modes ($n/R$) and winding modes ($mR/\alpha'$)</title></svg>
+  <div class="readout" id="td-out"></div>
+</div>
+<p class="small">Cyan dots: pure-momentum states $n/R$. Pink dots: pure-winding states $mR/\alpha'$. As $R$ shrinks below $\sqrt{\alpha'}$ the momentum tower gets heavy and the winding tower gets light — physically equivalent to a large dual circle. The two towers cross at $R = \sqrt{\alpha'}$.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./mirror-symmetry.html#statement">The mirror pair statement</a></li>
+  </ul>
+</aside>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./mirror-symmetry.html#statement">The mirror pair statement</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./string-theory.html#branes-string-math">String theory</a> · Branes and the math output of string theory</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="string-dualities"></div>
+<script>
+(function(){
+  const RIn = $('#td-R'), RVal = $('#td-Rval');
+  const svg = $('#td-svg'), out = $('#td-out');
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const R = parseInt(RIn.value, 10) / 100;
+    RVal.textContent = `R = ${R.toFixed(2)}`;
+    const W = 620, H = 300;
+    const ML = 50, MR = 30, MT = 30, MB = 50;
+    const Mmin = 0, Mmax = 6;
+    const px = lvl => ML + lvl * (W - ML - MR) / 6;
+    const py = m => MT + (Mmax - m) / (Mmax - Mmin) * (H - MT - MB);
+    svg.appendChild(SVG('line',{x1:ML, y1:py(Mmin), x2:W-MR, y2:py(Mmin), stroke:'var(--mute)', 'stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:ML, y1:py(Mmax), x2:ML, y2:py(Mmin), stroke:'var(--mute)', 'stroke-width':1}));
+    const xl = SVG('text',{x:(ML+W-MR)/2, y:H-12, 'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    xl.textContent = 'mode quantum number n or m';
+    svg.appendChild(xl);
+    const yl = SVG('text',{x:ML-30, y:py((Mmin+Mmax)/2), 'text-anchor':'middle','font-size':12,fill:'var(--mute)','transform':`rotate(-90 ${ML-30} ${py((Mmin+Mmax)/2)})`});
+    yl.textContent = 'mass / (1/√α′)';
+    svg.appendChild(yl);
+    for(let m=0;m<=Mmax;m++){
+      const y = py(m);
+      svg.appendChild(SVG('line',{x1:ML-3, y1:y, x2:ML+3, y2:y, stroke:'var(--mute)','stroke-width':1}));
+      const t = SVG('text',{x:ML-8, y:y+4, 'text-anchor':'end', 'font-size':12, fill:'var(--mute)'});
+      t.textContent = String(m);
+      svg.appendChild(t);
+    }
+    for(let k=0;k<=6;k++){
+      svg.appendChild(SVG('line',{x1:px(k), y1:py(0)-3, x2:px(k), y2:py(0)+3, stroke:'var(--mute)','stroke-width':1}));
+      const t = SVG('text',{x:px(k), y:py(0)+18, 'text-anchor':'middle','font-size':12, fill:'var(--mute)'});
+      t.textContent = String(k);
+      svg.appendChild(t);
+    }
+    for(let k=1;k<=6;k++){
+      const mP = k / R;
+      const mW = k * R;
+      if(mP <= Mmax){
+        svg.appendChild(SVG('circle',{cx:px(k), cy:py(mP), r:6, fill:'var(--cyan)', stroke:'var(--blue)','stroke-width':1.2}));
+      }
+      if(mW <= Mmax){
+        svg.appendChild(SVG('circle',{cx:px(k), cy:py(mW), r:6, fill:'var(--pink)', stroke:'var(--pink)','stroke-width':1.2,'fill-opacity':0.6}));
+      }
+    }
+    if(Math.abs(R - 1) < 0.02){
+      const t = SVG('text',{x:(ML+W-MR)/2, y:MT+14, 'text-anchor':'middle','font-size':12,fill:'var(--yellow)'});
+      t.textContent = '✦ self-dual radius R = √α′ — momentum & winding spectra coincide';
+      svg.appendChild(t);
+    }
+    const lg = SVG('g',{transform:'translate(420, 50)'});
+    lg.appendChild(SVG('circle',{cx:6,cy:5,r:5,fill:'var(--cyan)',stroke:'var(--blue)'}));
+    const tl1 = SVG('text',{x:18,y:9,'font-size':12,fill:'var(--cyan)'}); tl1.textContent='momentum n/R'; lg.appendChild(tl1);
+    lg.appendChild(SVG('circle',{cx:6,cy:23,r:5,fill:'var(--pink)','fill-opacity':0.6,stroke:'var(--pink)'}));
+    const tl2 = SVG('text',{x:18,y:27,'font-size':12,fill:'var(--pink)'}); tl2.textContent='winding mR/α′'; lg.appendChild(tl2);
+    svg.appendChild(lg);
+    out.textContent =
+      `R = ${R.toFixed(2)} √α′\n` +
+      `T-dual radius α′/R = ${(1/R).toFixed(2)} √α′\n` +
+      `lightest momentum mode mass: ${(1/R).toFixed(3)} / √α′\n` +
+      `lightest winding mode mass:  ${R.toFixed(3)} / √α′\n` +
+      `under R → α′/R, momentum and winding swap; the spectrum is invariant.`;
+  }
+  RIn.addEventListener('input', render);
+  render();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="branes-string-math">
+<h2>7. Branes and the math output of string theory</h2>
+<p>Type-II superstring theories contain non-perturbative <strong>D-branes</strong>: $(p+1)$-dimensional submanifolds where open strings are allowed to end (Dirichlet boundary conditions in $9-p$ transverse directions). For a long time D-branes were just a useful boundary condition. Polchinski (1995) showed they are physical, dynamical objects carrying <strong>Ramond–Ramond charge</strong> — exactly the charges that closed-string theory had predicted but no perturbative state had supplied. Suddenly non-perturbative string theory had its missing solitons.</p>
+
+<p>A stack of $N$ coincident D-branes supports a $U(N)$ gauge theory in its world-volume: open strings stretching from brane $i$ to brane $j$ provide $N^2$ massless gauge bosons (the adjoint of $U(N)$). This is <em>brane engineering</em>: 4D (or other-dimension) gauge theories built from geometry. The <strong>AdS/CFT correspondence</strong> (Maldacena 1997) takes this to its limit: a stack of $N$ D3-branes at low energy is dual to type-IIB string theory on $\mathrm{AdS}_5 \times S^5$, identifying $\mathcal{N} = 4$ super-Yang–Mills with a gravitational theory in one higher dimension.</p>
+
+<p>The <em>physics</em> of string theory remains experimentally untested. Its <em>mathematical output</em>, however, is established and substantial. Below is a curated gallery of duality-driven theorems that have entered pure mathematics on their own terms.</p>
+
+<div class="widget" id="w-string-math">
+  <div class="hd"><div class="ttl">String-math gallery: pick a duality</div><div class="hint">click a row to see the math statement on each side and the bridge</div></div>
+  <div class="row">
+    <button class="active" data-bridge="ms">mirror symmetry</button>
+    <button data-bridge="ads">AdS/CFT</button>
+    <button data-bridge="moonshine">monstrous moonshine</button>
+    <button data-bridge="langlands">geometric Langlands</button>
+  </div>
+  <svg id="sm-svg" viewBox="0 0 620 280" width="620" height="280"><title>Two boxes joined by an arrow: math statement on each side and the duality bridge</title></svg>
+  <div class="readout" id="sm-out"></div>
+</div>
+
+<div class="quiz" data-concept="branes-string-math"></div>
+<script>
+(function(){
+  const svg = $('#sm-svg'), out = $('#sm-out');
+  const buttons = $$('button[data-bridge]');
+  const BRIDGES = {
+    'ms': {
+      leftTitle: 'A-model on X (symplectic)',
+      leftBody: 'Calabi–Yau 3-fold X, symplectic form ω.\nCount pseudo-holomorphic curves:\nGromov–Witten invariants N_β.\n\nE.g. on the quintic in P^4:\n  degree 1 (lines): 2,875\n  degree 2 (conics): 609,250\n  degree 3: 317,206,375',
+      rightTitle: 'B-model on Y (complex)',
+      rightBody: 'Mirror Calabi–Yau Y, complex structure.\nIntegrate holomorphic 3-form Ω(t):\nperiod integrals Π_γ(t).\nThey satisfy a Picard–Fuchs ODE.\nFor the quintic mirror this is a\nhypergeometric ₄F₃ equation.',
+      bridge: 'Candelas–de la Ossa–Green–Parkes (1991): apply the mirror map t ↦ q to the period integrals → predicts every Gromov–Witten count.',
+      proof: 'Givental (1996), Lian–Liu–Yau (1997): rigorous mathematical proof to all orders.',
+      math: 'Pure math: rational-curve counts on Calabi–Yaus, derived/Fukaya category equivalence (HMS, Kontsevich 1994).'
+    },
+    'ads': {
+      leftTitle: 'Boundary CFT',
+      leftBody: '4D N=4 super-Yang–Mills with gauge\ngroup U(N), \'t Hooft coupling λ = g²N.\nA conformal field theory with no\nintrinsic length scale.',
+      rightTitle: 'Bulk gravity',
+      rightBody: 'Type-IIB string theory on\nAdS₅ × S⁵ with N units of 5-form flux.\nClassical 10D gravity in the\nλ → ∞, N → ∞ limit.',
+      bridge: 'Maldacena 1997: stack of N D3-branes at low energy IS this gauge theory; its near-horizon geometry IS AdS₅×S⁵. The two are different descriptions of the same physics.',
+      proof: 'Many computational tests: integrability of planar N=4 SYM, agreement of anomalous dimensions with bulk string spectrum, BPS state matching.',
+      math: 'Pure-math output: holographic entanglement (Ryu–Takayanagi → minimal surfaces), exact spectra via Bethe-ansatz integrability, conformal-bootstrap rigor.'
+    },
+    'moonshine': {
+      leftTitle: 'Monster group M',
+      leftBody: 'Largest sporadic finite simple group,\norder ≈ 8 × 10⁵³.\nIts irreducible representations have\ndimensions 1, 196,883, 21,296,876, …',
+      rightTitle: 'Modular j-function',
+      rightBody: 'j(τ) = q⁻¹ + 744 + 196,884 q + …\nwith q = e^(2πiτ).\nA modular function for SL(2,Z)\non the upper half-plane.',
+      bridge: 'McKay–Conway–Norton (1979): the j-coefficients are sums of Monster irrep dimensions:\n  196,884 = 1 + 196,883;\n  21,493,760 = 1 + 196,883 + 21,296,876.',
+      proof: 'Borcherds 1992 (Fields medal): construct a chiral CFT — the Monster vertex algebra — whose Hilbert space is a Monster representation and whose graded character is j(τ) − 744.',
+      math: 'Pure-math output: vertex operator algebras, generalized Kac–Moody Lie algebras, no-ghost theorem in 26D bosonic string used directly.'
+    },
+    'langlands': {
+      leftTitle: 'Galois side / B-model',
+      leftBody: 'Local systems on a Riemann\nsurface C: representations\nπ_1(C) → ᴸG (Langlands dual).\nCategorify: D^b Coh(Loc_ᴸG(C)).',
+      rightTitle: 'Automorphic side / A-model',
+      rightBody: 'D-modules on the moduli\nstack Bun_G(C) of G-bundles.\nCategory: D^b D-mod(Bun_G(C)).\nHecke functors on this side\ncorrespond to local systems.',
+      bridge: 'Kapustin–Witten 2007: dimensional reduction of 4D N=4 super-Yang–Mills on C × Σ. The 4D S-duality G ↔ ᴸG of N=4 SYM, applied to this geometry, IS geometric Langlands.',
+      proof: 'Many cases proven; full statement (Beilinson–Drinfeld) framed independently of physics, but its physical interpretation reframed expectations and methods.',
+      math: 'Pure-math output: derived geometric Langlands (Arinkin–Gaitsgory), integrable systems / Hitchin moduli spaces, reframing of Langlands via QFT.'
+    }
+  };
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const which = buttons.find(b => b.classList.contains('active')).getAttribute('data-bridge');
+    const D = BRIDGES[which];
+    const boxL = {x:30, y:60, w:230, h:160};
+    const boxR = {x:360, y:60, w:230, h:160};
+    svg.appendChild(SVG('rect',{x:boxL.x,y:boxL.y,width:boxL.w,height:boxL.h,rx:8,ry:8,
+      fill:'rgba(125,224,214,0.05)', stroke:'var(--cyan)','stroke-width':1.4}));
+    svg.appendChild(SVG('rect',{x:boxR.x,y:boxR.y,width:boxR.w,height:boxR.h,rx:8,ry:8,
+      fill:'rgba(255,216,102,0.05)', stroke:'var(--yellow)','stroke-width':1.4}));
+    const tlL = SVG('text',{x:boxL.x+boxL.w/2, y:boxL.y-10, 'text-anchor':'middle','font-size':13, fill:'var(--cyan)','font-weight':600});
+    tlL.textContent = D.leftTitle; svg.appendChild(tlL);
+    const tlR = SVG('text',{x:boxR.x+boxR.w/2, y:boxR.y-10, 'text-anchor':'middle','font-size':13, fill:'var(--yellow)','font-weight':600});
+    tlR.textContent = D.rightTitle; svg.appendChild(tlR);
+    drawArrow(svg, [boxL.x+boxL.w, 140], [boxR.x, 140], {color:'var(--violet)', markerId:'sm-arr', label:'duality', curve:0, width:2, pad1:6, pad2:6});
+    drawArrow(svg, [boxR.x, 150], [boxL.x+boxL.w, 150], {color:'var(--violet)', markerId:'sm-arr2', curve:0, width:2, pad1:6, pad2:6});
+    function placeText(box, text, color){
+      const lines = text.split('\n');
+      lines.forEach((ln, i) => {
+        const t = SVG('text',{x:box.x+12, y:box.y+24 + i*16, 'font-size':11, fill:color || 'var(--ink)','font-family':'ui-monospace,monospace'});
+        t.textContent = ln;
+        svg.appendChild(t);
+      });
+    }
+    placeText(boxL, D.leftBody, 'var(--ink)');
+    placeText(boxR, D.rightBody, 'var(--ink)');
+    out.textContent =
+      `BRIDGE — ${D.bridge}\n\n` +
+      `STATUS — ${D.proof}\n\n` +
+      `MATH OUTPUT — ${D.math}`;
+  }
+  buttons.forEach(b => b.addEventListener('click', () => {
+    buttons.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    render();
+  }));
+  render();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="connections">
+<h2>8. Connections</h2>
+
+<p>String theory is the largest single bridge between graduate-level pure mathematics and theoretical physics. Its physical status is debated; its mathematical output is not. The <em>mathematics</em> entered the literature through six routes that are largely independent of the physics: Calabi–Yau geometry as the natural target for $\mathrm{SU}(3)$-holonomy, mirror symmetry as a categorical equivalence and as enumerative-geometry organizer, Kac–Moody and vertex operator algebras as moonshine machinery, derived/Fukaya categories as homological mirror symmetry, the Hitchin moduli space and geometric Langlands as $\mathcal{N}=4$ SYM $S$-duality, and AdS/CFT-derived integrable structures inside conformal-bootstrap data. Open frontiers: a non-perturbative formulation of M-theory; a derivation of the Standard Model from a specific geometric compactification; a rigorous mathematical foundation for the Fukaya category in full generality; and the moduli-stabilization problem of producing a controlled 4D vacuum without unphysical light scalars.</p>
+
+<ul>
+  <li><a href="./calabi-yau-manifolds.html#applications">Calabi–Yau manifolds — string compactifications, DT, SYZ</a> — the geometric input that makes §5 work.</li>
+  <li><a href="./mirror-symmetry.html#hms">Mirror symmetry — homological mirror symmetry (Kontsevich)</a> — the derived-categorical formulation of §6.</li>
+  <li><a href="./moonshine.html#monster-vertex-algebra">Monstrous moonshine — the Monster vertex algebra</a> — chiral 26D bosonic CFT explains the McKay–Thompson series.</li>
+  <li><a href="./vertex-operator-algebras.html#voa-axioms">Vertex operator algebras — the formal axioms</a> — the rigorous algebraic framing of a chiral 2D CFT, born from string theory.</li>
+  <li><a href="./general-relativity.html#einstein-equations">General relativity — Einstein's equations</a> — the IR limit that the closed-string graviton is supposed to reproduce.</li>
+  <li><a href="./gauge-theory.html">Gauge theory</a> — the 4D effective theories living on D-brane stacks; AdS/CFT runs in the opposite direction.</li>
+  <li><a href="./symplectic-manifolds.html">Symplectic manifolds</a> — A-model targets; the Fukaya category sits over them.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('string-theory'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-02</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

@@ -1,0 +1,1252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Statistical mechanics</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"automorphic-forms-adelic","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"additive-number-theory":{"next":"quadratic-forms-genus-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"advanced-complex-analysis":{"next":null,"prev":"fixed-point-theorems","section":"Analysis","title":"Advanced complex analysis"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"moduli-spaces","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"mathematics-and-cryptography","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"mostow-rigidity","prev":"k-theory","section":"Geometry & topology","title":"Atiyah singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"etale-cohomology","section":"Algebraic geometry","title":"Calabi yau manifolds"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-topoi","prev":"infinity-categories","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":null,"prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"deformation-theory":{"next":"etale-cohomology","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"group-cohomology","prev":"homological","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"expanders","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"harmonic-analysis-fourier","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":null,"section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":"calabi-yau-manifolds","prev":"deformation-theory","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"deformation-theory","prev":"group-schemes","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":null,"prev":"designs","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"naive-set-theory","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":"advanced-complex-analysis","prev":"variational-methods","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"type-theory-and-hott","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"quantum-groups","prev":"lie-algebras","section":"Algebra & homological","title":"Galois cohomology and brauer"},"galois-representations":{"next":"heights-arithmetic-geometry","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"gauge-theory":{"next":"string-theory","prev":"statistical-mechanics","section":"Mathematical physics","title":"Gauge theory"},"general-relativity":{"next":"schrodinger-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":"groebner-bases","prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"groebner-bases":{"next":null,"prev":"geometric-and-combinatorial-group-theory","section":"Algebra & homological","title":"Gröbner bases"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"lie-algebras","prev":"derived-categories","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"etale-fundamental-group","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"hamiltonians-classical-mechanics":{"next":"general-relativity","prev":"three-body-problem","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"spectral-theory","prev":"partial-differential-equations","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"analytic-number-theory","prev":"galois-representations","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":null,"prev":"mathematical-statistics","section":"Probability & statistics","title":"High dimensional geometry"},"homological":{"next":"derived-categories","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"cocartesian-fibrations","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-topoi (Lurie)"},"information-theory":{"next":"large-deviations","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"stacks","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"ricci-flow","section":"Geometry & topology","title":"K theory"},"knot-polynomials":{"next":"ricci-flow","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Knot polynomials"},"large-deviations":{"next":"mathematical-statistics","prev":"information-theory","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"galois-cohomology-and-brauer","prev":"group-cohomology","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"mathematical-statistics":{"next":"high-dimensional-geometry","prev":"large-deviations","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"mirror-symmetry":{"next":"resolution-of-singularities","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"model-theory-basics":{"next":"computability-and-decidability","prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"modular-curves","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"algebraic-spaces","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"characteristic-classes","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":null,"prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Mostow rigidity"},"naive-set-theory":{"next":"first-order-logic-and-completeness","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"wavelets","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"harmonic-functions","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"stochastic-processes-and-martingales","prev":null,"section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"additive-number-theory","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"additive-number-theory","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"quantum-groups":{"next":"quaternions-octonions-and-division-algebras","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"quantum-groups","section":"Algebra & homological","title":"Quaternions octonions and division algebras"},"random-walks-and-mixing":{"next":"information-theory","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":null,"prev":"mirror-symmetry","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"k-theory","prev":"knot-polynomials","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"characteristic-classes","prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":"statistical-mechanics","prev":"general-relativity","section":"Mathematical physics","title":"Schrödinger equation"},"sheaf-cohomology":{"next":"algebraic-de-rham-cohomology","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"algebraic-curves-higher-genus","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Sobolev spaces & distributions"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"wavelets","prev":"harmonic-functions","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"intersection-theory-chow","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"statistical-mechanics":{"next":"gauge-theory","prev":"schrodinger-equation","section":"Mathematical physics","title":"Statistical mechanics"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":"probability-theory","section":"Probability & statistics","title":"Stochastic processes and martingales"},"string-theory":{"next":null,"prev":"gauge-theory","section":"Mathematical physics","title":"String theory"},"symplectic-manifolds":{"next":"knot-polynomials","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"hamiltonians-classical-mechanics","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"type-theory-and-hott":{"next":"forcing-and-independence","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and hott"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"fixed-point-theorems","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":null,"prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"numerical-analysis","prev":"spectral-theory","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"model-theory-basics","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"Zfc and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="mathematical-physics" data-level="capstone">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#microstates-ensembles">1&nbsp;Microstates&nbsp;and&nbsp;ensembles</a>
+  <a href="#boltzmann-canonical">2&nbsp;Boltzmann&nbsp;distribution&nbsp;and&nbsp;the&nbsp;canonical&nbsp;ensemble</a>
+  <a href="#entropy-gibbs">3&nbsp;Entropy&nbsp;and&nbsp;the&nbsp;Gibbs&nbsp;distribution</a>
+  <a href="#grand-canonical">4&nbsp;Grand&nbsp;canonical&nbsp;ensemble&nbsp;and&nbsp;chemical&nbsp;potential</a>
+  <a href="#ising-phase-transitions">5&nbsp;The&nbsp;Ising&nbsp;model&nbsp;and&nbsp;phase&nbsp;transitions</a>
+  <a href="#renormalization-group">6&nbsp;The&nbsp;renormalization&nbsp;group</a>
+  <a href="#large-deviations-equilibrium">7&nbsp;Large&nbsp;deviations&nbsp;and&nbsp;equilibrium&nbsp;fluctuations</a>
+  <a href="#connections">8&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Statistical mechanics</h1>
+  <p class="sub">From a Hamiltonian to a probability measure on phase space: microstates, the Boltzmann distribution, and the partition function. Entropy as the variational principle that picks out canonical equilibrium; the Ising model and the renormalization group as the route from microscopic spins to universal critical exponents; large deviations as the modern probabilistic skeleton of equilibrium thermodynamics.</p>
+</section>
+
+<!-- =============================================================== -->
+<section id="microstates-ensembles">
+<h2>1. Microstates and ensembles</h2>
+
+<p>A classical mechanical system with $N$ particles in three dimensions has phase space $\Gamma = \mathbb{R}^{6N}$ — three position and three momentum coordinates per particle. A <strong>microstate</strong> is a single point $(q, p)\in\Gamma$. The Hamiltonian $H(q, p)$ generates the deterministic flow</p>
+
+$$\dot q_i = \frac{\partial H}{\partial p_i}, \qquad \dot p_i = -\frac{\partial H}{\partial q_i}.$$
+
+<p>For one mole of gas $N \approx 6\times 10^{23}$, so $\Gamma$ has $\sim 10^{24}$ dimensions. Direct integration of the trajectory is hopeless — and unnecessary, because the macroscopic observables we measure (pressure, temperature, density) are averages over enormous numbers of microstates. Statistical mechanics replaces the deterministic trajectory by a <strong>probability measure</strong> on $\Gamma$, called an <em>ensemble</em>.</p>
+
+<div class="note"><strong>Liouville's theorem.</strong> The Hamiltonian flow on $\Gamma$ preserves the symplectic volume $d\Gamma = \prod_i dq_i\,dp_i$. Equivalently, the velocity field $V = (\partial H/\partial p, -\partial H/\partial q)$ is divergence-free:
+$$\nabla\cdot V \;=\; \sum_i\!\left(\frac{\partial^2 H}{\partial q_i\partial p_i} - \frac{\partial^2 H}{\partial p_i\partial q_i}\right) \;=\; 0.$$
+A probability density $\rho(q, p, t)$ carried by the flow satisfies the <em>Liouville equation</em> $\partial_t\rho + \{\rho, H\} = 0$; in particular, any density $\rho = \rho(H)$ that depends only on conserved quantities is stationary.</div>
+
+<p>The simplest stationary density is the one supported on a single energy shell — the <strong>microcanonical ensemble</strong>. Fix energy $E$ (and possibly other conserved quantities like total momentum) and put the uniform Liouville measure on a thin shell $\{E \le H(q,p) \le E + \Delta E\}$:</p>
+
+$$\rho_{\mathrm mc}(q, p) \;=\; \frac{\mathbf{1}\{E \le H \le E + \Delta E\}}{\Omega(E)\,\Delta E}, \qquad \Omega(E) = \int_\Gamma \delta(H(q, p) - E)\, d\Gamma.$$
+
+<p>Boltzmann's <strong>tombstone formula</strong> defines entropy from this microstate count:</p>
+
+$$S(E) \;=\; k_B \log\Omega(E),$$
+
+<p>and inverse temperature emerges as the conjugate variable</p>
+
+$$\frac{1}{T} \;=\; \frac{\partial S}{\partial E}.$$
+
+<p>This is a <em>derivation</em>, not a postulate: temperature is the rate at which microstate count grows with energy, and two systems brought into thermal contact equilibrate at common $\partial S/\partial E$ because the joint $\Omega_1(E_1)\Omega_2(E - E_1)$ is dominated by the saddle point that equates the two slopes.</p>
+
+<div class="note"><strong>Ergodic hypothesis.</strong> The microcanonical ensemble is the right ensemble at fixed $E$ if the dynamics is <em>ergodic</em>: time averages along a typical trajectory converge to ensemble averages over the energy shell,
+$$\lim_{T\to\infty}\frac{1}{T}\int_0^T f(\Phi_t(q_0, p_0))\,dt \;=\; \int_{\{H=E\}} f\, d\rho_{\mathrm mc} \quad \text{for $\rho_{\mathrm mc}$-a.e. $(q_0, p_0)$}.$$
+Ergodicity is delicate (KAM theory shows that integrable Hamiltonians are <em>not</em> ergodic — invariant tori block phase-space mixing), but the laboratory observation that macroscopic systems do reach thermal equilibrium suggests it is generically a good approximation, and the maximum-entropy derivation in §3 sidesteps this issue entirely.</div>
+
+<div class="widget" id="w-phase">
+  <div class="hd"><div class="ttl">Phase portrait of a harmonic oscillator</div><div class="hint">slide energy — the shell is an ellipse</div></div>
+  <svg id="phase-svg" viewBox="-180 -130 360 260" width="100%" height="260"><title>Phase-space ellipses of constant energy for a harmonic oscillator</title></svg>
+  <div class="row">
+    <label for="phase-E">energy $E$:</label>
+    <input id="phase-E" type="range" min="0.1" max="3" step="0.05" value="1.0" />
+    <span id="phase-Eval" class="small">1.00</span>
+  </div>
+  <div class="readout" id="phase-out">slide $E$ to change the energy shell…</div>
+</div>
+<p class="small">For $H = \tfrac{1}{2}p^2 + \tfrac{1}{2}\omega^2 q^2$, energy shells are ellipses; the flow rotates points around the origin at angular frequency $\omega$, preserving area (Liouville). The microcanonical ensemble at energy $E$ is the uniform measure on the shell — a 1D circle in this 2D phase space. Density $\Omega(E)$ grows linearly with $E$ here; for $N$ oscillators it grows as $E^{N-1}/(N-1)!$, giving $S(E) = N k_B(\log(E/N\hbar\omega) + 1)$ in the thermodynamic limit.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./hamiltonians-classical-mechanics.html#hamilton-eq">Hamilton's equations</a></li>
+    <li><a href="./probability-theory.html#rv">Random variables</a></li>
+  </ul>
+</aside>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./hamiltonians-classical-mechanics.html#hamilton-eq">Hamilton's equations</a></li>
+    <li><a href="./probability-theory.html#rv">Random variables</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./statistical-mechanics.html#boltzmann-canonical">Statistical mechanics</a> · Boltzmann distribution and the canonical ensemble</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="microstates-ensembles"></div>
+
+<script>
+/* =============================== SECTION 1 widget =============================== */
+(function(){
+  const svg = document.getElementById('phase-svg');
+  const out = document.getElementById('phase-out');
+  const slider = document.getElementById('phase-E');
+  const lbl = document.getElementById('phase-Eval');
+  const omega = 1.0;
+  function render(){
+    const E = parseFloat(slider.value);
+    lbl.textContent = E.toFixed(2);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // axes
+    svg.appendChild(SVG('line',{x1:-160,y1:0,x2:160,y2:0,stroke:'var(--mute)','stroke-width':0.8,'stroke-dasharray':'3 3'}));
+    svg.appendChild(SVG('line',{x1:0,y1:-110,x2:0,y2:110,stroke:'var(--mute)','stroke-width':0.8,'stroke-dasharray':'3 3'}));
+    const xl = SVG('text',{x:155,y:-6,'font-size':11,fill:'var(--mute)'}); xl.textContent='q'; svg.appendChild(xl);
+    const yl = SVG('text',{x:6,y:-100,'font-size':11,fill:'var(--mute)'}); yl.textContent='p'; svg.appendChild(yl);
+    // draw a few faint shells (constant energy contours)
+    for(let k=1; k<=5; k++){
+      const Ek = k*0.5;
+      const a = 60*Math.sqrt(2*Ek/omega/omega);
+      const b = 60*Math.sqrt(2*Ek);
+      svg.appendChild(SVG('ellipse',{cx:0,cy:0,rx:a,ry:b,
+        fill:'none',stroke:'var(--line)','stroke-width':0.7}));
+    }
+    // active shell (energy E) highlighted
+    const a0 = 60*Math.sqrt(2*E/omega/omega);
+    const b0 = 60*Math.sqrt(2*E);
+    svg.appendChild(SVG('ellipse',{cx:0,cy:0,rx:a0,ry:b0,
+      fill:'rgba(255,216,102,0.10)',stroke:'var(--yellow)','stroke-width':2.2}));
+    // 12 evenly spaced points on the active shell — uniform in the angle parameter
+    // (the actual Liouville-uniform measure for the harmonic oscillator).
+    for(let i=0; i<12; i++){
+      const t = i/12 * 2*Math.PI;
+      const q = a0*Math.cos(t), p = b0*Math.sin(t);
+      svg.appendChild(SVG('circle',{cx:q,cy:-p,r:3,fill:'var(--cyan)'}));
+    }
+    // tiny arrow indicating the flow direction
+    ensureArrow(svg, 'arr-phase', 'var(--pink)');
+    const t1 = Math.PI/4, dt = 0.06;
+    const q1 = a0*Math.cos(t1), p1 = b0*Math.sin(t1);
+    const q2 = a0*Math.cos(t1+dt), p2 = b0*Math.sin(t1+dt);
+    svg.appendChild(SVG('line',{x1:q1,y1:-p1,x2:q2,y2:-p2,
+      stroke:'var(--pink)','stroke-width':2,'marker-end':'url(#arr-phase)'}));
+    const Omega = 2*Math.PI*Math.sqrt(2*E/omega/omega)*Math.sqrt(2*E)*0.5;
+    out.textContent =
+      `H = ½ p² + ½ ω²q²,  ω = ${omega.toFixed(2)},  E = ${E.toFixed(2)}\n` +
+      `shell: ellipse with semi-axes a = √(2E)/ω = ${(Math.sqrt(2*E)/omega).toFixed(3)}, b = √(2E) = ${Math.sqrt(2*E).toFixed(3)}\n` +
+      `enclosed area = πab = 2πE/ω = ${(2*Math.PI*E/omega).toFixed(3)}\n` +
+      `Ω(E) = (2π/ω) — energy-shell volume per unit dE; for the harmonic oscillator it is constant in E.\n` +
+      `Liouville: the flow rotates (q, p) at angular speed ω, preserving the ellipse.`;
+  }
+  slider.addEventListener('input', render);
+  render();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="boltzmann-canonical">
+<h2>2. Boltzmann distribution and the canonical ensemble</h2>
+
+<p>The microcanonical ensemble fixes the total energy of an isolated system. In the laboratory we more often hold the <em>temperature</em> fixed by coupling the system to a much larger heat bath. The corresponding ensemble is the <strong>canonical ensemble</strong>, and its derivation is one of the cleanest arguments in physics.</p>
+
+<p>Take a system $S$ with Hamiltonian $H_S$ in contact with a bath $B$ with Hamiltonian $H_B$, the combined system isolated and at total energy $E_{\mathrm tot}$. Assume the coupling is weak so the joint Hamiltonian decomposes as $H_S + H_B$. The probability that $S$ is in microstate $i$ with energy $E_i$ is proportional to the number of bath microstates compatible with that condition:</p>
+
+$$P_i \;\propto\; \Omega_B(E_{\mathrm tot} - E_i) \;=\; \exp\!\bigl(S_B(E_{\mathrm tot} - E_i)/k_B\bigr).$$
+
+<p>For a large bath, $E_i \ll E_{\mathrm tot}$ and we can Taylor-expand:</p>
+
+$$S_B(E_{\mathrm tot} - E_i) \;\approx\; S_B(E_{\mathrm tot}) - E_i\,\frac{\partial S_B}{\partial E}\bigg|_{E_{\mathrm tot}} \;=\; S_B(E_{\mathrm tot}) - E_i/T.$$
+
+<p>Higher-order corrections are suppressed by powers of $1/N_{\mathrm bath}$, so they vanish exactly in the thermodynamic limit. Substituting and absorbing the bath-only term into the normalization:</p>
+
+<div class="note"><strong>Boltzmann distribution.</strong> A system in contact with a heat bath at temperature $T = 1/(k_B\beta)$ is described by the canonical density operator
+$$\rho \;=\; \frac{e^{-\beta H}}{Z(\beta)}, \qquad Z(\beta) = \tr\,e^{-\beta H},$$
+where the partition function $Z$ is the normalization. For a discrete spectrum, $p_i = e^{-\beta E_i}/Z$.</div>
+
+<p>The <strong>partition function</strong> $Z(\beta)$ is the central object — its logarithm is a generating function for thermodynamic averages. Direct differentiation gives:</p>
+
+<table class="plain">
+<thead><tr><th>quantity</th><th>formula</th></tr></thead>
+<tbody>
+<tr><td>mean energy</td><td>$\langle E\rangle = -\partial_\beta\log Z$</td></tr>
+<tr><td>energy variance</td><td>$\mathrm{Var}(E) = \partial_\beta^2\log Z$</td></tr>
+<tr><td>Helmholtz free energy</td><td>$F = -k_B T\log Z$</td></tr>
+<tr><td>entropy</td><td>$S = -\partial F/\partial T$</td></tr>
+<tr><td>heat capacity</td><td>$C_V = k_B\beta^2\,\mathrm{Var}(E)$</td></tr>
+</tbody>
+</table>
+
+<p>The last identity is the first <strong>fluctuation-response</strong> relation we meet: the heat capacity, an apparently dynamical quantity (how much energy you need to add to raise temperature by a degree), equals an equilibrium fluctuation (the variance of energy). All linear-response coefficients have this structure (§7).</p>
+
+<div class="note"><strong>Worked example: two-level system.</strong> A spin in a magnetic field has energies $E_\pm = \pm\Delta/2$. Then $Z = e^{\beta\Delta/2} + e^{-\beta\Delta/2} = 2\cosh(\beta\Delta/2)$, $\langle E\rangle = -\tfrac{\Delta}{2}\tanh(\beta\Delta/2)$, $C_V = k_B(\beta\Delta/2)^2\mathrm{sech}^2(\beta\Delta/2)$ — the <em>Schottky anomaly</em>: a peak in $C_V$ at $k_BT \approx \Delta/2.4$, with $C_V\to 0$ in both the low-$T$ (gap freezes out fluctuations) and high-$T$ (Boltzmann factors saturate at $1/2$) limits.</div>
+
+<div class="widget" id="w-boltz">
+  <div class="hd"><div class="ttl">Boltzmann distribution on a 4-level system</div><div class="hint">slide $\beta$ — populations redistribute</div></div>
+  <svg id="boltz-svg" viewBox="0 0 360 220" width="100%" height="220"><title>Bar chart of Boltzmann probabilities at varying temperature</title></svg>
+  <div class="row">
+    <label for="boltz-beta">$\beta$ ($1/k_BT$):</label>
+    <input id="boltz-beta" type="range" min="0.05" max="3" step="0.05" value="1.0" />
+    <span id="boltz-bval" class="small">1.00</span>
+  </div>
+  <div class="readout" id="boltz-out">slide $\beta$…</div>
+</div>
+<p class="small">The four levels have energies $E = (0, 1, 2, 3)$ in arbitrary units. At $\beta\to 0$ (high $T$) all populations equalize; at $\beta\to\infty$ (low $T$) the system collapses into the ground state. The crossover $\beta\sim 1/\Delta E$ is where energy gaps first matter — the Schottky regime.</p>
+
+<div class="quiz" data-concept="boltzmann-canonical"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./statistical-mechanics.html#entropy-gibbs">Statistical mechanics</a> · Entropy and the Gibbs distribution</div>
+    <div><a href="./statistical-mechanics.html#grand-canonical">Statistical mechanics</a> · Grand canonical ensemble and chemical potential</div>
+    <div><a href="./statistical-mechanics.html#large-deviations-equilibrium">Statistical mechanics</a> · Large deviations and equilibrium fluctuations</div>
+    <div><a href="./statistical-mechanics.html#ising-phase-transitions">Statistical mechanics</a> · The Ising model and phase transitions</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+<script>
+(function(){
+  const svg = document.getElementById('boltz-svg');
+  const out = document.getElementById('boltz-out');
+  const slider = document.getElementById('boltz-beta');
+  const lbl = document.getElementById('boltz-bval');
+  const E = [0, 1, 2, 3];
+  function render(){
+    const beta = parseFloat(slider.value);
+    lbl.textContent = beta.toFixed(2);
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const __vb = (svg.getAttribute("viewBox") || "0 0 100 100").split(/\s+/);
+    const w = parseFloat(__vb[2]) || 100, h = parseFloat(__vb[3]) || 100;
+    const padL = 50, padR = 20, padT = 20, padB = 40;
+    const W = w - padL - padR, H = h - padT - padB;
+    const N = E.length;
+    const bw = W/(N+1);
+    // axes
+    svg.appendChild(SVG('line',{x1:padL,y1:padT+H,x2:padL+W,y2:padT+H,stroke:'var(--mute)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:padT+H,stroke:'var(--mute)','stroke-width':1}));
+    // axis labels
+    const xl = SVG('text',{x:padL+W/2,y:padT+H+30,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    xl.textContent = 'energy level Eᵢ'; svg.appendChild(xl);
+    const yl = SVG('text',{x:padL-30,y:padT-6,'font-size':11,fill:'var(--mute)'});
+    yl.textContent = 'pᵢ'; svg.appendChild(yl);
+    // probabilities
+    const w_i = E.map(e=>Math.exp(-beta*e));
+    const Z = w_i.reduce((a,b)=>a+b, 0);
+    const p = w_i.map(x=>x/Z);
+    const meanE = E.reduce((a,e,i)=>a+e*p[i],0);
+    const varE = E.reduce((a,e,i)=>a+(e-meanE)*(e-meanE)*p[i],0);
+    // bars
+    const colors = ['var(--cyan)','var(--blue)','var(--violet)','var(--pink)'];
+    for(let i=0;i<N;i++){
+      const x = padL + (i+0.5)*bw;
+      const bh = p[i]*H;
+      svg.appendChild(SVG('rect',{x:x, y:padT+H-bh, width:bw*0.7, height:bh,
+        fill:colors[i], stroke:'var(--ink)','stroke-width':0.7}));
+      const t = SVG('text',{x:x+bw*0.35,y:padT+H+18,'text-anchor':'middle','font-size':11,fill:'var(--ink)'});
+      t.textContent = 'E='+E[i]; svg.appendChild(t);
+      const pl = SVG('text',{x:x+bw*0.35,y:padT+H-bh-4,'text-anchor':'middle','font-size':10,fill:colors[i]});
+      pl.textContent = p[i].toFixed(3); svg.appendChild(pl);
+    }
+    // y-tick at p=0.5
+    svg.appendChild(SVG('line',{x1:padL-3,y1:padT+H/2,x2:padL,y2:padT+H/2,stroke:'var(--mute)','stroke-width':1}));
+    const ytk = SVG('text',{x:padL-6,y:padT+H/2+3,'text-anchor':'end','font-size':10,fill:'var(--mute)'});
+    ytk.textContent='0.5'; svg.appendChild(ytk);
+    // readout
+    out.textContent =
+      `β = ${beta.toFixed(2)}     T = 1/(k_B·β) ∝ ${(1/beta).toFixed(2)}\n` +
+      `Z(β) = Σ e^{-β Eᵢ} = ${Z.toFixed(3)}\n` +
+      `pᵢ = (${p.map(x=>x.toFixed(3)).join(', ')})\n` +
+      `⟨E⟩ = ${meanE.toFixed(3)},  Var(E) = ${varE.toFixed(3)},  C_V/k_B = β²·Var(E) = ${(beta*beta*varE).toFixed(3)}\n` +
+      `F = -log(Z)/β = ${(-Math.log(Z)/beta).toFixed(3)}`;
+  }
+  slider.addEventListener('input', render);
+  render();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="entropy-gibbs">
+<h2>3. Entropy and the Gibbs distribution</h2>
+
+<p>The Boltzmann distribution can also be derived without ever mentioning a heat bath. It is the unique distribution that <em>maximizes entropy</em> at fixed mean energy — a variational characterization that makes statistical mechanics a special case of information theory.</p>
+
+<div class="note"><strong>Gibbs entropy.</strong> For a probability distribution $\{p_i\}$ on a discrete set of microstates,
+$$S(\{p_i\}) \;=\; -k_B \sum_i p_i \log p_i.$$
+For a continuous density $\rho(q,p)$ on phase space (with $h$ a reference scale, classically the Planck constant), $S = -k_B\int \rho\log(\rho h^{3N}/N!)\, d\Gamma$ — the same formula relative to a measure.</div>
+
+<p>The entropy is concave in $\{p_i\}$, vanishes for any deterministic $p_i = \delta_{i,k}$, and achieves its global maximum $k_B\log N$ at the uniform distribution. To find the maximum subject to constraints we use Lagrange multipliers.</p>
+
+<div class="note"><strong>Theorem (Gibbs/Jaynes).</strong> Among all distributions $\{p_i\}$ on $\{E_i\}$ satisfying $\sum p_i = 1$ and $\sum p_i E_i = U$, the unique maximizer of Gibbs entropy is the Boltzmann distribution
+$$p_i^* \;=\; \frac{e^{-\beta E_i}}{Z(\beta)},$$
+where $\beta$ is the Lagrange multiplier conjugate to $U$, determined implicitly by $-\partial_\beta\log Z = U$.</div>
+
+<p><em>Proof sketch.</em> The Lagrangian $\mathcal{L} = -k_B\sum p_i\log p_i - k_B\alpha(\sum p_i - 1) - k_B\beta(\sum p_i E_i - U)$ has stationary points where $-\log p_i - 1 - \alpha - \beta E_i = 0$, so $p_i \propto e^{-\beta E_i}$; normalization fixes the proportionality constant. Concavity of $-x\log x$ guarantees this is the unique global maximum. $\square$</p>
+
+<p>This derivation is operationally identical to the heat-bath argument of §2 but conceptually different: it does not require physical contact with anything. The Boltzmann distribution is the <em>least biased</em> distribution consistent with knowledge of the mean energy alone — Jaynes's <em>maximum-entropy principle</em>. The same principle, applied to other constraints, generates the grand canonical ensemble (§4), the maximum-entropy distributions of mathematical statistics, and prior selection in Bayesian inference.</p>
+
+<div class="note"><strong>Boltzmann's $S = k_B\log\Omega$ as a special case.</strong> The microcanonical ensemble is uniform on $\Omega$ accessible states, $p_i = 1/\Omega$. Then $S = -k_B\sum (1/\Omega)\log(1/\Omega) = k_B\log\Omega$ — the tombstone formula recovered. Boltzmann and Gibbs entropies agree whenever the microcanonical distribution is approximately uniform on the energy shell, which is exactly the ergodic regime.</div>
+
+<p>The <strong>second law</strong>, in the form most relevant to statistical mechanics, becomes a precise statement: when two systems initially in canonical equilibrium at different $\beta$ are coupled and allowed to relax to a new equilibrium, the total Gibbs entropy is non-decreasing. The proof uses the Klein inequality for relative entropy: $D(\rho\|\sigma) = \tr\,\rho(\log\rho - \log\sigma)\ge 0$ with equality iff $\rho = \sigma$. Setting $\sigma$ equal to the equilibrium state of the joint system gives entropy non-decrease. This is the same Kullback-Leibler divergence that drives information theory and statistical inference — yet another bridge.</p>
+
+<div class="widget" id="w-gibbs">
+  <div class="hd"><div class="ttl">Maximum-entropy fitting</div><div class="hint">slide a 4-bin distribution; entropy and the implied $\beta$ update live</div></div>
+  <div class="row">
+    <label for="g-p1">$p_1$ (E=0):</label>
+    <input id="g-p1" type="range" min="0.01" max="0.97" step="0.01" value="0.4" />
+    <span id="g-p1v" class="small">0.40</span>
+  </div>
+  <div class="row">
+    <label for="g-p2">$p_2$ (E=1):</label>
+    <input id="g-p2" type="range" min="0.01" max="0.97" step="0.01" value="0.3" />
+    <span id="g-p2v" class="small">0.30</span>
+  </div>
+  <div class="row">
+    <label for="g-p3">$p_3$ (E=2):</label>
+    <input id="g-p3" type="range" min="0.01" max="0.97" step="0.01" value="0.2" />
+    <span id="g-p3v" class="small">0.20</span>
+  </div>
+  <svg id="g-svg" viewBox="0 0 360 200" width="100%" height="200"><title>Probability bars compared with the canonical distribution at the matching β</title></svg>
+  <div class="readout" id="g-out">adjust the sliders…</div>
+</div>
+<p class="small">The orange bars are your distribution $\{p_i\}$ (the slider for $p_4$ is forced by normalization). The thin yellow bars overlay the canonical distribution at the unique $\beta$ matching your $\langle E\rangle$. The bigger the gap between the two, the further your distribution is from the maximum-entropy fit at the same mean energy.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./information-theory.html#entropy">Shannon entropy</a></li>
+  </ul>
+</aside>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./information-theory.html#entropy">Shannon entropy</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="entropy-gibbs"></div>
+
+<script>
+(function(){
+  const sliders = ['g-p1','g-p2','g-p3'].map(id=>document.getElementById(id));
+  const labels = ['g-p1v','g-p2v','g-p3v'].map(id=>document.getElementById(id));
+  const svg = document.getElementById('g-svg');
+  const out = document.getElementById('g-out');
+  const E = [0,1,2,3];
+  function render(){
+    let p = sliders.map(s=>parseFloat(s.value));
+    let s = p[0]+p[1]+p[2];
+    if(s > 0.99){ const r = 0.99/s; p = p.map(x=>x*r); s = 0.99; }
+    p.push(1 - s);
+    sliders.forEach((sl,i)=>labels[i].textContent = p[i].toFixed(2));
+    // mean energy
+    const meanE = p.reduce((a,pi,i)=>a+pi*E[i],0);
+    // Gibbs entropy
+    const Sg = -p.reduce((a,pi)=>a+(pi>1e-12?pi*Math.log(pi):0),0);
+    // find β so that ⟨E⟩_can(β) = meanE  via bisection on β
+    function meanCan(beta){
+      const w = E.map(e=>Math.exp(-beta*e));
+      const Z = w.reduce((a,b)=>a+b,0);
+      return E.reduce((a,e,i)=>a+e*w[i]/Z,0);
+    }
+    // bracket β: meanCan is decreasing in β; β=-10 → near max E (=3), β=+10 → near 0
+    let lo=-10, hi=10;
+    for(let k=0;k<60;k++){
+      const mid=(lo+hi)/2;
+      if(meanCan(mid) > meanE) lo = mid;
+      else hi = mid;
+    }
+    const beta = (lo+hi)/2;
+    // canonical p
+    const w = E.map(e=>Math.exp(-beta*e));
+    const Z = w.reduce((a,b)=>a+b,0);
+    const pcan = w.map(x=>x/Z);
+    const Smax = -pcan.reduce((a,pi)=>a+(pi>1e-12?pi*Math.log(pi):0),0);
+    // draw
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const __vb = (svg.getAttribute("viewBox") || "0 0 100 100").split(/\s+/);
+    const W = parseFloat(__vb[2]) || 100, H = parseFloat(__vb[3]) || 100;
+    const padL=44, padR=14, padT=14, padB=36;
+    const Wp = W-padL-padR, Hp = H-padT-padB;
+    svg.appendChild(SVG('line',{x1:padL,y1:padT+Hp,x2:padL+Wp,y2:padT+Hp,stroke:'var(--mute)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:padT+Hp,stroke:'var(--mute)','stroke-width':1}));
+    const N = 4, bw = Wp/(N+1);
+    for(let i=0;i<N;i++){
+      const x = padL + (i+0.4)*bw;
+      const h1 = p[i]*Hp;
+      const h2 = pcan[i]*Hp;
+      svg.appendChild(SVG('rect',{x:x, y:padT+Hp-h1, width:bw*0.45, height:h1,
+        fill:'var(--pink)', opacity:0.85}));
+      svg.appendChild(SVG('rect',{x:x+bw*0.5, y:padT+Hp-h2, width:bw*0.45, height:h2,
+        fill:'var(--yellow)', opacity:0.85}));
+      const t = SVG('text',{x:x+bw*0.45,y:padT+Hp+16,'text-anchor':'middle','font-size':11,fill:'var(--ink)'});
+      t.textContent = 'E='+E[i]; svg.appendChild(t);
+    }
+    // legend
+    svg.appendChild(SVG('rect',{x:padL+Wp-110,y:padT,width:10,height:10,fill:'var(--pink)'}));
+    const lt1 = SVG('text',{x:padL+Wp-95,y:padT+9,'font-size':10,fill:'var(--ink)'}); lt1.textContent='your pᵢ'; svg.appendChild(lt1);
+    svg.appendChild(SVG('rect',{x:padL+Wp-110,y:padT+14,width:10,height:10,fill:'var(--yellow)'}));
+    const lt2 = SVG('text',{x:padL+Wp-95,y:padT+23,'font-size':10,fill:'var(--ink)'}); lt2.textContent='canonical'; svg.appendChild(lt2);
+    out.textContent =
+      `your distribution: (${p.map(x=>x.toFixed(2)).join(', ')})\n` +
+      `⟨E⟩ = ${meanE.toFixed(3)}\n` +
+      `Gibbs entropy S/k_B = -Σ pᵢ log pᵢ = ${Sg.toFixed(3)}\n` +
+      `matching canonical β = ${beta.toFixed(3)}  ${Math.abs(beta) < 0.005 ? '(β ≈ 0 — uniform / infinite-T limit)' : ('(T ∝ ' + (1/Math.abs(beta)).toFixed(2) + ', sign: ' + (beta>0?'positive':'negative — population inversion') + ')')}\n` +
+      `canonical entropy at this β: S/k_B = ${Smax.toFixed(3)}\n` +
+      `entropy gap (your S < max S): ${(Smax-Sg).toFixed(3)}`;
+  }
+  sliders.forEach(s=>s.addEventListener('input',render));
+  render();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="grand-canonical">
+<h2>4. Grand canonical ensemble and chemical potential</h2>
+
+<p>The canonical ensemble fixes the particle number $N$. To describe systems that exchange particles with a reservoir — gas in contact with a vapor, electrons in a wire connected to a battery — we relax that constraint. The reservoir fixes both temperature and a new intensive variable, the <strong>chemical potential</strong> $\mu$, which acts as a Lagrange multiplier conjugate to $N$.</p>
+
+<p>Repeating the heat-bath argument (or the maximum-entropy derivation) at fixed $\langle E\rangle$ <em>and</em> fixed $\langle N\rangle$ gives the <strong>grand canonical density operator</strong></p>
+
+$$\rho \;=\; \frac{e^{-\beta(H - \mu N)}}{\Xi(\beta, \mu)}, \qquad \Xi(\beta, \mu) = \tr\,e^{-\beta(H - \mu N)}.$$
+
+<p>The <strong>grand partition function</strong> $\Xi$ generates a new free energy, the <strong>grand potential</strong></p>
+
+$$\Omega(\beta, \mu) \;=\; -k_B T\log\Xi \;=\; F - \mu N \;=\; -PV.$$
+
+<p>The last equality $\Omega = -PV$ is a thermodynamic identity for a homogeneous system, derived by Euler's relation: in the thermodynamic limit, $\Omega$ is extensive and depends only on the intensive variables $T, \mu$ (and $V$ as the size), so $\Omega = -PV$ where $P$ is the pressure.</p>
+
+<p>For a single-species ideal gas of non-interacting particles in single-particle eigenstates of energy $\epsilon_k$, the grand partition function factorizes over modes:</p>
+
+$$\Xi \;=\; \prod_k \Xi_k, \qquad \Xi_k = \sum_{n=0}^{n_{\max}} e^{-\beta(\epsilon_k - \mu)n}.$$
+
+<p>The sum depends on quantum statistics:</p>
+
+<table class="plain">
+<thead><tr><th>statistics</th><th>$n_{\max}$</th><th>$\Xi_k$</th><th>$\bar n_k$</th></tr></thead>
+<tbody>
+<tr><td>Fermi-Dirac (fermions)</td><td>$1$</td><td>$1 + e^{-\beta(\epsilon_k-\mu)}$</td><td>$\dfrac{1}{e^{\beta(\epsilon_k-\mu)}+1}$</td></tr>
+<tr><td>Bose-Einstein (bosons)</td><td>$\infty$</td><td>$\dfrac{1}{1 - e^{-\beta(\epsilon_k-\mu)}}$</td><td>$\dfrac{1}{e^{\beta(\epsilon_k-\mu)}-1}$</td></tr>
+<tr><td>Maxwell-Boltzmann (classical)</td><td>—</td><td>$e^{e^{-\beta(\epsilon_k-\mu)}}$</td><td>$e^{-\beta(\epsilon_k-\mu)}$</td></tr>
+</tbody>
+</table>
+
+<p>For bosons, $\mu < \min_k \epsilon_k$ is required for convergence; pushing $\mu\to\min_k\epsilon_k$ from below at low $T$ produces <em>Bose-Einstein condensation</em> — a macroscopic occupancy of the ground state. For fermions, the low-$T$ limit forces $\bar n_k \to \mathbf{1}\{\epsilon_k < \mu\}$ — the Fermi sea, with $\mu_{T=0} = \epsilon_F$ (the Fermi energy). The classical limit recovers Maxwell-Boltzmann when $e^{\beta\mu}\ll 1$ (low density / high temperature).</p>
+
+<div class="note"><strong>Ensemble equivalence.</strong> Microcanonical, canonical, and grand canonical descriptions differ by which extensive variables they hold strictly fixed. In the thermodynamic limit, intensive thermodynamic quantities (energy density, pressure, magnetization per spin) computed from any of the three coincide — for short-range interactions. Long-range interactions (3D self-gravitating gas, mean-field models) violate equivalence, so canonical and microcanonical specific heats can have <em>opposite signs</em>. The reason: ensemble equivalence requires concavity of $S(E)$, which can fail when the energy is non-extensive.</div>
+
+<div class="widget" id="w-occ">
+  <div class="hd"><div class="ttl">Ideal-gas occupation curves</div><div class="hint">slide $T$ and $\mu$ — Fermi/Bose/MB compared</div></div>
+  <svg id="occ-svg" viewBox="0 0 360 220" width="100%" height="240"><title>Fermi, Bose, and Maxwell-Boltzmann occupation as a function of energy</title></svg>
+  <div class="row">
+    <label for="occ-T">$T$:</label>
+    <input id="occ-T" type="range" min="0.05" max="2" step="0.02" value="0.3" />
+    <span id="occ-Tval" class="small">0.30</span>
+    <label for="occ-mu">$\mu$:</label>
+    <input id="occ-mu" type="range" min="-2" max="2" step="0.02" value="0.5" />
+    <span id="occ-muval" class="small">0.50</span>
+  </div>
+  <div class="readout" id="occ-out">slide…</div>
+</div>
+<p class="small">Cyan: Fermi-Dirac, capped at $1$. Pink: Bose-Einstein, divergent as $\epsilon\to\mu^+$. Yellow: Maxwell-Boltzmann, $e^{-\beta(\epsilon-\mu)}$. The three converge at $\epsilon\gg\mu+k_BT$ (classical limit). The Fermi distribution sharpens to a step function as $T\to 0$; the Bose-Einstein distribution diverges at $\mu$.</p>
+
+<div class="quiz" data-concept="grand-canonical"></div>
+
+<script>
+(function(){
+  const svg = document.getElementById('occ-svg');
+  const out = document.getElementById('occ-out');
+  const sT = document.getElementById('occ-T'), sMu = document.getElementById('occ-mu');
+  const lT = document.getElementById('occ-Tval'), lMu = document.getElementById('occ-muval');
+  function render(){
+    const T = parseFloat(sT.value), mu = parseFloat(sMu.value);
+    lT.textContent = T.toFixed(2); lMu.textContent = mu.toFixed(2);
+    const beta = 1/T;
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const __vb = (svg.getAttribute("viewBox") || "0 0 100 100").split(/\s+/);
+    const W = parseFloat(__vb[2]) || 100, H = parseFloat(__vb[3]) || 100;
+    const padL=44, padR=14, padT=14, padB=36;
+    const Wp = W-padL-padR, Hp = H-padT-padB;
+    const xMin = -2, xMax = 4;
+    const yMax = 2.5;
+    const X = e => padL + (e - xMin)/(xMax - xMin)*Wp;
+    const Y = n => padT + Hp - Math.min(n, yMax)/yMax*Hp;
+    // axes
+    svg.appendChild(SVG('line',{x1:padL,y1:padT+Hp,x2:padL+Wp,y2:padT+Hp,stroke:'var(--mute)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:padT+Hp,stroke:'var(--mute)','stroke-width':1}));
+    // x ticks
+    for(let v = -2; v <= 4; v++){
+      svg.appendChild(SVG('line',{x1:X(v),y1:padT+Hp,x2:X(v),y2:padT+Hp+3,stroke:'var(--mute)','stroke-width':1}));
+      const t = SVG('text',{x:X(v),y:padT+Hp+16,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      t.textContent = v.toString(); svg.appendChild(t);
+    }
+    const xl = SVG('text',{x:padL+Wp,y:padT+Hp+30,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+    xl.textContent = 'energy ε'; svg.appendChild(xl);
+    // y ticks at 1, 2
+    for(const yv of [0.5, 1, 1.5, 2]){
+      svg.appendChild(SVG('line',{x1:padL-3,y1:Y(yv),x2:padL,y2:Y(yv),stroke:'var(--mute)','stroke-width':1}));
+      const t = SVG('text',{x:padL-6,y:Y(yv)+3,'text-anchor':'end','font-size':10,fill:'var(--mute)'});
+      t.textContent = yv.toString(); svg.appendChild(t);
+    }
+    // chemical potential marker
+    if(mu >= xMin && mu <= xMax){
+      svg.appendChild(SVG('line',{x1:X(mu),y1:padT,x2:X(mu),y2:padT+Hp,stroke:'var(--violet)','stroke-width':1,'stroke-dasharray':'3 2'}));
+      const t = SVG('text',{x:X(mu)+4,y:padT+10,'font-size':10,fill:'var(--violet)'});
+      t.textContent = 'μ'; svg.appendChild(t);
+    }
+    // y=1
+    svg.appendChild(SVG('line',{x1:padL,y1:Y(1),x2:padL+Wp,y2:Y(1),stroke:'var(--line)','stroke-width':0.5,'stroke-dasharray':'3 2'}));
+    // curves
+    function plot(fn, color, label, yLab){
+      const pts = [];
+      for(let i=0;i<=200;i++){
+        const e = xMin + (xMax-xMin)*i/200;
+        let n = fn(e);
+        if(!isFinite(n) || n < 0) continue;
+        if(n > yMax) n = yMax;
+        pts.push([X(e), Y(n)]);
+      }
+      if(pts.length<2) return;
+      const d = 'M' + pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' L');
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:color,'stroke-width':2}));
+      const lab = SVG('text',{x:X(xMax)-6,y:yLab,'text-anchor':'end','font-size':11,fill:color,'font-weight':600});
+      lab.textContent = label; svg.appendChild(lab);
+    }
+    plot(e=>1/(Math.exp(beta*(e-mu))+1), 'var(--cyan)', 'Fermi-Dirac', padT+18);
+    plot(e=> e>mu+1e-3 ? 1/(Math.exp(beta*(e-mu))-1) : NaN, 'var(--pink)', 'Bose-Einstein', padT+34);
+    plot(e=>Math.exp(-beta*(e-mu)), 'var(--yellow)', 'Maxwell-Boltzmann', padT+50);
+    out.textContent =
+      `T = ${T.toFixed(2)},  β = ${beta.toFixed(2)},  μ = ${mu.toFixed(2)}\n` +
+      `at ε = μ:\n` +
+      `  Fermi:  n = 1/(e⁰+1) = 0.500\n` +
+      `  Bose:   n = 1/(e⁰-1) → ∞   (BEC threshold at μ → εmin from below)\n` +
+      `  MB:     n = e⁰ = 1.000\n` +
+      `at ε = μ + 5T:  all three within ${(Math.exp(-5)*100).toFixed(2)}% of each other (classical limit)`;
+  }
+  sT.addEventListener('input', render);
+  sMu.addEventListener('input', render);
+  render();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="ising-phase-transitions">
+<h2>5. The Ising model and phase transitions</h2>
+
+<p>So far the canonical formalism has been general but abstract. The <strong>Ising model</strong> is the simplest concrete arena where the canonical machinery produces a sharp <em>phase transition</em> — a discontinuity (or non-analyticity) in thermodynamic quantities as a function of intensive variables.</p>
+
+<p>Place a spin $\sigma_i\in\{+1, -1\}$ at each site $i$ of a $d$-dimensional lattice. The Hamiltonian is</p>
+
+$$H \;=\; -J\sum_{\langle i, j\rangle}\sigma_i\sigma_j \;-\; h\sum_i \sigma_i,$$
+
+<p>where $\langle i, j\rangle$ runs over nearest-neighbor pairs, $J > 0$ is the ferromagnetic coupling (parallel spins lower energy), and $h$ is an external field. The partition function is a sum over all $2^N$ spin configurations:</p>
+
+$$Z(\beta, h) \;=\; \sum_{\{\sigma\}} e^{-\beta H(\sigma)}.$$
+
+<p>The <strong>order parameter</strong> is the magnetization per spin $m = \langle\sigma_i\rangle$. At high temperature ($\beta J\ll 1$), thermal fluctuations destroy alignment and $m\to 0$; at low temperature ($\beta J\gg 1$), the energetic preference for aligned spins wins and $|m|\to 1$. Somewhere in between is a <strong>critical point</strong> $T_c$ separating the two regimes.</p>
+
+<div class="note"><strong>Mean-field theory.</strong> Replace each neighbor of $\sigma_i$ by its average $\langle\sigma\rangle = m$. The effective single-spin Hamiltonian is $H_i = -(qJm + h)\sigma_i$ with $q$ the coordination number; thermal averaging gives the self-consistency
+$$m \;=\; \tanh\bigl(\beta(qJm + h)\bigr).$$
+At $h = 0$, this has only the trivial solution $m = 0$ for $\beta qJ \le 1$, but bifurcates to $m = \pm m_0(\beta)\ne 0$ for $\beta qJ > 1$. The mean-field critical temperature is $k_BT_c^{\mathrm MF} = qJ$, with critical exponent $m\sim(T_c-T)^{1/2}$ near the transition.</div>
+
+<p>Mean-field theory is exact in <em>infinite</em> dimensions and increasingly accurate as $d$ grows, but in low dimensions it overestimates $T_c$ and gets the critical exponents wrong because it ignores fluctuations. The classical results:</p>
+
+<table class="plain">
+<thead><tr><th>dimension</th><th>$T_c/J$</th><th>magnetization exponent $\beta$</th><th>method</th></tr></thead>
+<tbody>
+<tr><td>$d = 1$</td><td>$0$ (no transition)</td><td>—</td><td>Peierls argument</td></tr>
+<tr><td>$d = 2$ (square)</td><td>$2/\log(1+\sqrt 2)\approx 2.27$</td><td>$1/8$</td><td>Onsager 1944</td></tr>
+<tr><td>$d = 3$</td><td>$\approx 4.51$</td><td>$\approx 0.326$</td><td>Monte Carlo, $\epsilon$-expansion</td></tr>
+<tr><td>$d \ge 4$</td><td>—</td><td>$1/2$ (mean-field)</td><td>Wilson-Fisher trivial above $4D$</td></tr>
+</tbody>
+</table>
+
+<p>The 1D Ising model has <em>no phase transition</em> at any positive $T$: a single domain wall costs constant energy $2J$ but contributes $k_B\log L$ entropy from its position, so $\Delta F = 2J - k_BT\log L\to -\infty$ for any $T > 0$ as $L\to\infty$. Domain walls always proliferate (Peierls). In $d\ge 2$ the wall energy scales with the wall <em>length</em>, beating the entropy at low temperature — and a phase transition is possible.</p>
+
+<p>Onsager's 1944 exact solution of the 2D Ising model on the square lattice was a tour de force: the partition function reduces to a free-fermion problem, and <em>Kramers-Wannier duality</em> $\sinh(2\beta J)\sinh(2\beta J^*) = 1$ pins the critical temperature self-dually. The exact magnetization $m\sim(T_c-T)^{1/8}$ is one of the most-quoted critical exponents in physics, and 2D Ising is the prototype of the broader class of two-dimensional <em>conformal field theories</em> classified by Belavin-Polyakov-Zamolodchikov.</p>
+
+<div class="widget" id="w-ising">
+  <div class="hd"><div class="ttl">2D Ising — Metropolis</div><div class="hint">slide $T$ — domains form below $T_c\approx 2.27 J$</div></div>
+  <svg id="ising-svg" viewBox="0 0 320 320" width="100%" height="320"><title>Live 24×24 Ising lattice with magnetization readout</title></svg>
+  <div class="row">
+    <label for="ising-T">$T/J$:</label>
+    <input id="ising-T" type="range" min="0.5" max="5" step="0.05" value="2.27" />
+    <span id="ising-Tval" class="small">2.27</span>
+    <button id="ising-reset">randomize</button>
+    <button id="ising-pause">pause</button>
+  </div>
+  <div class="readout" id="ising-out">running…</div>
+</div>
+<p class="small">A $24\times 24$ square lattice with periodic boundary conditions, $J = 1$, $h = 0$. Each frame performs $\sim N$ Metropolis updates. Below $T_c\approx 2.27$ the system spontaneously magnetizes — large monochrome domains form. Above $T_c$ the spins look uncorrelated. Watch the magnetization fluctuate near $T_c$ — those critical fluctuations are what mean-field misses.</p>
+
+<div class="quiz" data-concept="ising-phase-transitions"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./statistical-mechanics.html#renormalization-group">Statistical mechanics</a> · The renormalization group</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+<script>
+(function(){
+  const svg = document.getElementById('ising-svg');
+  const out = document.getElementById('ising-out');
+  const sT = document.getElementById('ising-T');
+  const lT = document.getElementById('ising-Tval');
+  const btnR = document.getElementById('ising-reset');
+  const btnP = document.getElementById('ising-pause');
+  const N = 24;
+  let s = new Int8Array(N*N);
+  // Start paused so jsdom and headless tests don't loop forever; user clicks "resume" to play.
+  let paused = true;
+  function init(){
+    for(let i=0;i<N*N;i++) s[i] = Math.random()<0.5 ? 1 : -1;
+  }
+  init();
+  function nbr_sum(x,y){
+    return s[((x+1)%N)*N + y] + s[((x-1+N)%N)*N + y] + s[x*N + (y+1)%N] + s[x*N + (y-1+N)%N];
+  }
+  function step(){
+    const T = parseFloat(sT.value);
+    lT.textContent = T.toFixed(2);
+    const beta = 1/T;
+    for(let k=0;k<N*N;k++){
+      const x = (Math.random()*N)|0, y = (Math.random()*N)|0;
+      const idx = x*N+y;
+      const dE = 2*s[idx]*nbr_sum(x,y);
+      if(dE <= 0 || Math.random() < Math.exp(-beta*dE)) s[idx] = -s[idx];
+    }
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // Parse viewBox via attribute (jsdom doesn't populate svg.viewBox.baseVal).
+    const vb = (svg.getAttribute('viewBox') || '0 0 360 360').split(/\s+/);
+    const W = parseFloat(vb[2]) || 360;
+    const cell = W/N;
+    let m = 0;
+    for(let x=0;x<N;x++){
+      for(let y=0;y<N;y++){
+        m += s[x*N+y];
+        const fill = s[x*N+y]>0 ? 'var(--cyan)' : 'var(--pink)';
+        svg.appendChild(SVG('rect',{x:x*cell,y:y*cell,width:cell,height:cell,fill,stroke:'none'}));
+      }
+    }
+    m /= N*N;
+    let E = 0;
+    for(let x=0;x<N;x++) for(let y=0;y<N;y++)
+      E -= s[x*N+y]*(s[((x+1)%N)*N+y] + s[x*N+(y+1)%N]);
+    E /= N*N;
+    out.textContent =
+      `T = ${parseFloat(sT.value).toFixed(2)} J/k_B    (T_c ≈ 2.27 J/k_B)\n` +
+      `magnetization m = ⟨σ⟩ = ${m.toFixed(3)}\n` +
+      `energy density E/N = ${E.toFixed(3)} J\n` +
+      (parseFloat(sT.value) < 1.8 && Math.abs(m) < 0.4 ? '→ ordered phase, slowly equilibrating (try "reset" + give it 30s).' :
+       Math.abs(m) > 0.4 ? '→ ordered phase (broken symmetry, m ≠ 0).' :
+       parseFloat(sT.value) > 2.6 ? '→ disordered (paramagnet) with finite-size noise.' :
+       Math.abs(m) < 0.1 ? '→ disordered phase (paramagnet, m ≈ 0).' :
+       '→ near criticality — large fluctuations.');
+  }
+  // Lazy-start the loop on first "resume" click so the page is quiescent on
+  // initial paint (no battery / CPU spin until the user opts in).
+  let timer = null;
+  function ensureTimer(){
+    if(timer) return;
+    timer = setInterval(()=>{ if(!paused){ step(); render(); }}, 80);
+  }
+  sT.addEventListener('input', ()=>{ render(); });
+  btnR.addEventListener('click', ()=>{ init(); render(); });
+  btnP.addEventListener('click', ()=>{
+    paused = !paused;
+    btnP.textContent = paused?'resume':'pause';
+    if(!paused) ensureTimer();
+  });
+  // Initial paint shows the random configuration; nothing animates until user clicks.
+  if(btnP) btnP.textContent = 'resume';
+  render();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="renormalization-group">
+<h2>6. The renormalization group</h2>
+
+<p>How can two systems with completely different microscopic Hamiltonians — say, the 3D Ising model and the liquid-vapor transition in water at the critical density — share <em>identical</em> critical exponents? This empirical fact, called <strong>universality</strong>, is the central puzzle of critical phenomena. The answer is the <strong>renormalization group</strong> (RG), Kadanoff and Wilson's Nobel-winning reformulation of statistical mechanics from a flow on the space of theories.</p>
+
+<p>The basic move is <em>coarse-graining</em> followed by <em>rescaling</em>. Given a lattice theory at scale $a$ with couplings $K = (K_1, K_2, \dots)$:</p>
+
+<ol>
+<li><strong>Coarse-grain.</strong> Group spins into blocks of side $b$, replacing each block with a representative (e.g. majority spin, sum, average — the choice doesn't matter for the universal output). The effective theory describes the block variables.</li>
+<li><strong>Rescale.</strong> Measure all distances in units of the new lattice spacing $a' = ba$, restoring the original cutoff. Couplings update accordingly: $K\mapsto K' = R_b(K)$.</li>
+</ol>
+
+<p>Iterating gives a <strong>discrete dynamical system</strong> on coupling space. <em>Fixed points</em> $K^* = R_b(K^*)$ are scale-invariant theories — exactly the critical theories. Linearizing near $K^*$,</p>
+
+$$K' - K^* \;=\; M(K - K^*) + O((K-K^*)^2), \qquad M_{ij} = \frac{\partial K'_i}{\partial K_j}\bigg|_{K^*},$$
+
+<p>and the eigenvalues $\lambda_a = b^{y_a}$ classify directions of flow:</p>
+
+<table class="plain">
+<thead><tr><th>$y_a$</th><th>direction</th><th>flow behaviour</th><th>physical meaning</th></tr></thead>
+<tbody>
+<tr><td>$y_a > 0$</td><td>relevant</td><td>grows under iteration</td><td>tunes you off criticality (e.g. $T - T_c$, magnetic field)</td></tr>
+<tr><td>$y_a < 0$</td><td>irrelevant</td><td>flows into $K^*$</td><td>microscopic detail that washes out at long distances</td></tr>
+<tr><td>$y_a = 0$</td><td>marginal</td><td>logarithmic flow</td><td>requires nonlinear analysis (e.g. Kosterlitz-Thouless)</td></tr>
+</tbody>
+</table>
+
+<p><strong>Universality is automatic:</strong> any two theories that flow to the same fixed point have identical long-distance behaviour, because the irrelevant differences die out under iteration. The set of all theories flowing to a given fixed point is its <em>universality class</em>; its critical exponents are determined by the relevant eigenvalues alone.</p>
+
+<div class="note"><strong>Critical exponents from eigenvalues.</strong> For Ising-type theories with two relevant directions (temperature and field), one shows
+$$\nu = \frac{1}{y_t}, \qquad \beta = \frac{d - y_h}{y_t}, \qquad \gamma = \frac{2 y_h - d}{y_t}, \qquad \eta = d + 2 - 2 y_h$$
+in $d$ dimensions. The exponents satisfy two scaling relations $\alpha + 2\beta + \gamma = 2$ (Rushbrooke) and $\gamma = \nu(2-\eta)$ (Fisher), reducing six exponents to two independent ones — exactly $y_t$ and $y_h$. This explains why measurements of any two exponents determine the rest.</div>
+
+<p><strong>Wilson-Fisher fixed point.</strong> For the $\phi^4$ scalar field theory, $\phi^4$ is marginal at $d = 4$ (its eigenvalue is exactly zero in mean-field). Wilson and Fisher (1972) noticed that perturbing about $d = 4$ — formally treating $\epsilon = 4 - d$ as a small parameter — gives a new fixed point at coupling $g^* = O(\epsilon)$, away from the Gaussian fixed point. Critical exponents have an $\epsilon$-expansion:</p>
+
+$$\nu \;=\; \tfrac{1}{2} + \tfrac{1}{12}\epsilon + O(\epsilon^2), \qquad \eta \;=\; \tfrac{1}{54}\epsilon^2 + O(\epsilon^3).$$
+
+<p>Setting $\epsilon = 1$ (so $d = 3$) gives $\nu \approx 0.5833$, surprisingly close to the Monte Carlo value $\nu \approx 0.6299$ for the 3D Ising universality class. Higher orders bring the perturbative answer into agreement with Monte Carlo to several decimal places, even though the series is asymptotic and divergent. This is the technical bridge from statistical mechanics to <em>quantum field theory</em>: the same machinery, applied to coupling constants of QFT, becomes the renormalization of QED or QCD.</p>
+
+<div class="widget" id="w-rg">
+  <div class="hd"><div class="ttl">RG flow on a 2-coupling plane</div><div class="hint">click to drop a starting point — flow renders</div></div>
+  <svg id="rg-svg" viewBox="-180 -130 360 260" width="100%" height="260"><title>Schematic RG flow with Gaussian and Wilson-Fisher fixed points</title></svg>
+  <div class="row">
+    <button id="rg-clear">clear trajectories</button>
+    <span class="small">Click on the diagram to launch a flow.</span>
+  </div>
+  <div class="readout" id="rg-out">click anywhere on the plot…</div>
+</div>
+<p class="small">The horizontal axis is the temperature-like coupling $t$; the vertical axis is the quartic coupling $u$. The Gaussian fixed point is at the origin; the Wilson-Fisher fixed point sits at $(0, u^*)$ for $\epsilon = 4-d > 0$. The basin of attraction of WF is the critical surface $t = 0$; trajectories with $t \ne 0$ flow away to high or low temperature. Each iteration of the schematic flow is one RG step.</p>
+
+<div class="quiz" data-concept="renormalization-group"></div>
+
+<script>
+(function(){
+  const svg = document.getElementById('rg-svg');
+  const out = document.getElementById('rg-out');
+  const btn = document.getElementById('rg-clear');
+  // simple toy flow: dt/dl = 2 t,    du/dl = ε u - 3 u² (Wilson-Fisher with ε > 0)
+  const eps = 0.5;
+  // scale axes: pixels per unit
+  const px = 40;
+  const trajs = [];
+  function drawAxes(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('line',{x1:-160,y1:0,x2:160,y2:0,stroke:'var(--mute)','stroke-width':0.7,'stroke-dasharray':'3 3'}));
+    svg.appendChild(SVG('line',{x1:0,y1:-110,x2:0,y2:110,stroke:'var(--mute)','stroke-width':0.7,'stroke-dasharray':'3 3'}));
+    const xl = SVG('text',{x:155,y:-6,'font-size':11,fill:'var(--mute)'}); xl.textContent='t (relevant)'; svg.appendChild(xl);
+    const yl = SVG('text',{x:6,y:-100,'font-size':11,fill:'var(--mute)'}); yl.textContent='u'; svg.appendChild(yl);
+    // Gaussian FP
+    svg.appendChild(SVG('circle',{cx:0,cy:0,r:5,fill:'var(--pink)','stroke':'var(--ink)','stroke-width':1}));
+    const gl = SVG('text',{x:8,y:14,'font-size':10,fill:'var(--pink)'}); gl.textContent='Gaussian'; svg.appendChild(gl);
+    // Wilson-Fisher FP at (0, ε/3)
+    const uw = eps/3;
+    svg.appendChild(SVG('circle',{cx:0,cy:-uw*px*4,r:6,fill:'var(--yellow)','stroke':'var(--ink)','stroke-width':1}));
+    const wl = SVG('text',{x:8,y:-uw*px*4,'font-size':10,fill:'var(--yellow)'}); wl.textContent='Wilson-Fisher'; svg.appendChild(wl);
+    // critical surface (t=0 axis) highlighted faintly
+    svg.appendChild(SVG('line',{x1:0,y1:-110,x2:0,y2:110,stroke:'var(--cyan)','stroke-width':1.2,opacity:0.4}));
+    // arrow markers (background flow field)
+    ensureArrow(svg,'arr-rg','var(--mute)');
+    for(let xi = -3.5; xi <= 3.5; xi += 1){
+      for(let yi = 0.3; yi <= 2.0; yi += 0.5){
+        const t = xi*0.7, u = yi*0.4;
+        const dt = 2*t, du = eps*u - 3*u*u;
+        const L = Math.hypot(dt,du)+1e-9;
+        const ux = dt/L, uy = -du/L;
+        const x1 = t*px*0.5, y1 = -u*px*4;
+        const x2 = x1 + ux*8, y2 = y1 + uy*8;
+        svg.appendChild(SVG('line',{x1,y1,x2,y2,stroke:'var(--mute)','stroke-width':0.8,opacity:0.4,'marker-end':'url(#arr-rg)'}));
+      }
+    }
+    // re-render trajectories
+    for(const T of trajs) drawTraj(T);
+  }
+  function flow(t0, u0){
+    const dl = 0.04; const N = 200;
+    const pts = [[t0, u0]];
+    let t = t0, u = u0;
+    for(let i=0;i<N;i++){
+      const dt = 2*t, du = eps*u - 3*u*u;
+      t += dt*dl; u += du*dl;
+      if(Math.abs(t) > 5 || u < -1 || u > 5) break;
+      pts.push([t, u]);
+    }
+    return pts;
+  }
+  function drawTraj(pts){
+    if(pts.length<2) return;
+    const d = 'M' + pts.map(p=>(p[0]*px*0.5).toFixed(1)+','+(-p[1]*px*4).toFixed(1)).join(' L');
+    svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--cyan)','stroke-width':1.6}));
+    const last = pts[pts.length-1];
+    svg.appendChild(SVG('circle',{cx:last[0]*px*0.5,cy:-last[1]*px*4,r:3,fill:'var(--blue)'}));
+    const start = pts[0];
+    svg.appendChild(SVG('circle',{cx:start[0]*px*0.5,cy:-start[1]*px*4,r:3,fill:'var(--green)'}));
+  }
+  svg.addEventListener('click', (e)=>{
+    const rect = svg.getBoundingClientRect();
+    const xS = (e.clientX - rect.left) / rect.width * 360 - 180;
+    const yS = (e.clientY - rect.top) / rect.height * 260 - 130;
+    const t0 = xS/(px*0.5);
+    const u0 = -yS/(px*4);
+    const pts = flow(t0, u0);
+    trajs.push(pts);
+    drawAxes();
+    const last = pts[pts.length-1];
+    out.textContent =
+      `start: (t, u) = (${t0.toFixed(3)}, ${u0.toFixed(3)})\n` +
+      `end:   (t, u) = (${last[0].toFixed(3)}, ${last[1].toFixed(3)})\n` +
+      (Math.abs(last[0])<0.05 && Math.abs(last[1] - eps/3)<0.05 ?
+        '→ flowed to Wilson-Fisher fixed point (critical).' :
+       Math.abs(last[0]) > 2 ?
+        '→ flowed away to high/low T (off-critical).' :
+       Math.abs(last[1]) < 0.05 && Math.abs(last[0]) < 0.05 ?
+        '→ stuck near Gaussian FP (unstable in u when ε > 0).' :
+        '→ still flowing.');
+  });
+  btn.addEventListener('click', ()=>{ trajs.length = 0; drawAxes(); out.textContent = 'cleared.'; });
+  drawAxes();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="large-deviations-equilibrium">
+<h2>7. Large deviations and equilibrium fluctuations</h2>
+
+<p>The thermodynamic potentials of §2-§4 — entropy $S(E)$, free energy $F(\beta)$, grand potential $\Omega(\beta,\mu)$ — are linked by Legendre transforms. From a probabilistic standpoint, this Legendre structure is exactly the structure of <strong>large-deviation rate functions</strong>. Modern mathematical statistical mechanics begins from this observation.</p>
+
+<p>Let $X_1, X_2, \dots$ be i.i.d. real-valued random variables with cumulant generating function $\Lambda(\theta) = \log\mathbb{E}[e^{\theta X_1}]$, finite on a neighborhood of $0$. The <strong>Cramér-Chernoff theorem</strong> says: the empirical mean $\bar X_n = \frac{1}{n}\sum_{i=1}^n X_i$ satisfies a large-deviation principle,</p>
+
+$$\frac{1}{n}\log P(\bar X_n \approx x) \;\xrightarrow{n\to\infty}\; -I(x),$$
+
+<p>where the <strong>rate function</strong> $I$ is the Legendre transform of $\Lambda$:</p>
+
+$$I(x) \;=\; \Lambda^*(x) \;=\; \sup_{\theta\in\mathbb{R}}\bigl(\theta x - \Lambda(\theta)\bigr).$$
+
+<p>The rate is convex, vanishes at $\mu = \mathbb{E}[X_1]$, and recovers Gaussian behaviour $I(x)\approx (x-\mu)^2/(2\sigma^2)$ near the mean (the central limit theorem). Far from the mean it is exponentially decaying with a non-Gaussian shape — large deviations are dominated by the <em>most likely improbable path</em> rather than by the typical fluctuation.</p>
+
+<div class="note"><strong>Gärtner-Ellis theorem.</strong> The Cramér theorem extends from i.i.d. sums to general dependent sequences whenever the limit
+$$\Lambda(\theta) \;=\; \lim_{n\to\infty}\frac{1}{n}\log\mathbb{E}\bigl[e^{n\theta\,Y_n}\bigr]$$
+exists and is differentiable. Then $Y_n$ satisfies a large-deviation principle with rate $I = \Lambda^*$. This is the workhorse of equilibrium statistical mechanics: in the canonical ensemble, the empirical mean energy $\bar E_n$ has CGF $\Lambda(\theta) = -\beta f(\beta - \theta) + \beta f(\beta)$ where $f$ is the free energy density, and the rate function is the <em>entropy density</em> as a function of energy. Free energy and entropy are Legendre dual rate functions.</div>
+
+<p>The bridge to thermodynamics is now sharp:</p>
+
+<table class="plain">
+<thead><tr><th>statistical mechanics</th><th>large deviations</th></tr></thead>
+<tbody>
+<tr><td>free energy $\beta f(\beta)$</td><td>cumulant generating function $\Lambda(\theta)$</td></tr>
+<tr><td>entropy density $s(\epsilon)$</td><td>rate function $I(x)$</td></tr>
+<tr><td>Legendre relation $\beta f = \beta\epsilon - s$</td><td>Legendre relation $\Lambda = (\Lambda^*)^* = I^*$</td></tr>
+<tr><td>$\partial s/\partial\epsilon = \beta$ defines temperature</td><td>$I'(x) = \theta^*(x)$ defines the conjugate variable</td></tr>
+<tr><td>concavity of $s(\epsilon)$ &amp; $\Leftrightarrow$ ensemble equivalence</td><td>convex duality $I = \Lambda^*$ requires concave $s$</td></tr>
+</tbody>
+</table>
+
+<p>Phase transitions are non-analyticities of $\beta f(\beta)$ — equivalently, breakdowns of Legendre duality between $\Lambda$ and $I$. When $s(\epsilon)$ has a flat segment (latent heat), the dual $\Lambda$ has a corner; ensemble inequivalence appears in exactly this regime.</p>
+
+<p><strong>Fluctuation-dissipation.</strong> A second triumph of the formalism: equilibrium fluctuations encode the <em>response</em> of the system to small external perturbations. Consider a system with Hamiltonian $H$ perturbed to $H - hB$ for small $h$. To linear order the change in the equilibrium average of $A$ is</p>
+
+$$\delta\langle A\rangle \;=\; h\,\beta\bigl(\langle AB\rangle_0 - \langle A\rangle_0\langle B\rangle_0\bigr) \;+\; O(h^2),$$
+
+<p>where averages with subscript $0$ are computed in the unperturbed Gibbs measure. The <strong>response coefficient</strong> $\chi_{AB} = \beta\,\mathrm{Cov}(A, B)$ is exactly an equilibrium fluctuation. Specializing: heat capacity = energy-energy variance, magnetic susceptibility = magnetization-magnetization variance, conductivity = current-current correlation (Kubo). The slogan: <em>noise equals response</em>.</p>
+
+<div class="widget" id="w-cramer">
+  <div class="hd"><div class="ttl">Cramér rate function for Bernoulli($p=1/2$)</div><div class="hint">slide $n$ — histogram concentrates at the mean</div></div>
+  <svg id="cramer-svg" viewBox="0 0 360 230" width="100%" height="230"><title>Empirical mean of n Bernoulli(1/2) draws vs Cramér rate function</title></svg>
+  <div class="row">
+    <label for="cramer-n">$n$:</label>
+    <input id="cramer-n" type="range" min="2" max="200" step="1" value="20" />
+    <span id="cramer-nval" class="small">20</span>
+    <button id="cramer-resample">resample 5000</button>
+  </div>
+  <div class="readout" id="cramer-out">slide $n$…</div>
+</div>
+<p class="small">5000 samples of $\bar X_n$, the empirical mean of $n$ Bernoulli$(1/2)$ draws. The cyan histogram is the empirical distribution of $\bar X_n$; the yellow curve is the Cramér prediction $\propto e^{-n I(x)}$ with $I(x) = x\log(2x) + (1-x)\log(2(1-x))$ (the entropy of a $\mathrm{Ber}(x)$ relative to $\mathrm{Ber}(1/2)$). Near the mean $1/2$ the histogram is approximately Gaussian; in the tails the Cramér rate dominates.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./large-deviations.html#cramer">Cramér's theorem</a></li>
+  </ul>
+</aside>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./large-deviations.html#cramer">Cramér's theorem</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="large-deviations-equilibrium"></div>
+
+<script>
+(function(){
+  const svg = document.getElementById('cramer-svg');
+  const out = document.getElementById('cramer-out');
+  const sN = document.getElementById('cramer-n');
+  const lN = document.getElementById('cramer-nval');
+  const btn = document.getElementById('cramer-resample');
+  let samples = [];
+  function resample(){
+    const n = parseInt(sN.value, 10);
+    samples = [];
+    for(let i=0;i<5000;i++){
+      let s = 0;
+      for(let k=0;k<n;k++) s += (Math.random()<0.5 ? 1 : 0);
+      samples.push(s/n);
+    }
+  }
+  function I(x){
+    if(x <= 0 || x >= 1) return Infinity;
+    return x*Math.log(2*x) + (1-x)*Math.log(2*(1-x));
+  }
+  function render(){
+    const n = parseInt(sN.value, 10);
+    lN.textContent = n.toString();
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const __vb = (svg.getAttribute("viewBox") || "0 0 100 100").split(/\s+/);
+    const W = parseFloat(__vb[2]) || 100, H = parseFloat(__vb[3]) || 100;
+    const padL=40, padR=14, padT=14, padB=36;
+    const Wp = W-padL-padR, Hp = H-padT-padB;
+    const X = x => padL + x*Wp;
+    const NB = 30;
+    const counts = new Array(NB).fill(0);
+    for(const v of samples){
+      const b = Math.min(NB-1, Math.floor(v*NB));
+      counts[b]++;
+    }
+    const maxC = Math.max(1, ...counts);
+    // axes
+    svg.appendChild(SVG('line',{x1:padL,y1:padT+Hp,x2:padL+Wp,y2:padT+Hp,stroke:'var(--mute)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:padL,y1:padT,x2:padL,y2:padT+Hp,stroke:'var(--mute)','stroke-width':1}));
+    // x ticks
+    for(const xv of [0,0.25,0.5,0.75,1]){
+      svg.appendChild(SVG('line',{x1:X(xv),y1:padT+Hp,x2:X(xv),y2:padT+Hp+3,stroke:'var(--mute)','stroke-width':1}));
+      const t = SVG('text',{x:X(xv),y:padT+Hp+16,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      t.textContent = xv.toString(); svg.appendChild(t);
+    }
+    const xl = SVG('text',{x:padL+Wp,y:padT+Hp+30,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+    xl.textContent = 'X̄_n'; svg.appendChild(xl);
+    // histogram
+    for(let b=0;b<NB;b++){
+      const x0 = X(b/NB), x1 = X((b+1)/NB);
+      const h = counts[b]/maxC*Hp;
+      svg.appendChild(SVG('rect',{x:x0,y:padT+Hp-h,width:(x1-x0)*0.95,height:h,fill:'var(--cyan)',opacity:0.5}));
+    }
+    // Cramér theory curve
+    // density ∝ e^{-n I(x)}, normalize peak to 1
+    const pts = [];
+    let yMax = 0;
+    const xs = [];
+    for(let i=0;i<=200;i++){
+      const x = i/200;
+      const r = Math.exp(-n*I(x));
+      xs.push([x, r]);
+      if(r>yMax) yMax = r;
+    }
+    if(yMax > 0){
+      for(const [x, r] of xs){
+        const yPx = padT + Hp - (r/yMax)*Hp;
+        pts.push([X(x), yPx]);
+      }
+      const d = 'M' + pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' L');
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':2}));
+    }
+    // mean line
+    svg.appendChild(SVG('line',{x1:X(0.5),y1:padT,x2:X(0.5),y2:padT+Hp,stroke:'var(--violet)','stroke-width':1,'stroke-dasharray':'3 2'}));
+    // sample stats
+    const meanS = samples.reduce((a,b)=>a+b,0)/samples.length;
+    const varS = samples.reduce((a,b)=>a+(b-meanS)*(b-meanS),0)/samples.length;
+    const sdS = Math.sqrt(varS);
+    out.textContent =
+      `n = ${n}\nsample mean = ${meanS.toFixed(4)}  (theoretical: 0.5)\nsample sd = ${sdS.toFixed(4)}  (CLT: 1/(2√n) = ${(0.5/Math.sqrt(n)).toFixed(4)})\n` +
+      `tail at X̄ = 0.7: theory rate -log P/n ≈ I(0.7) = ${I(0.7).toFixed(4)}\n` +
+      `→ Cramér: P(X̄_n ≥ 0.7) ≈ exp(-n · ${I(0.7).toFixed(3)}) = ${Math.exp(-n*I(0.7)).toExponential(2)}`;
+  }
+  function refresh(){ resample(); render(); }
+  sN.addEventListener('input', refresh);
+  btn.addEventListener('click', refresh);
+  refresh();
+})();
+</script>
+</section>
+
+<!-- =============================================================== -->
+<section id="connections">
+<h2>8. Connections</h2>
+
+<p>Statistical mechanics is unusual among graduate subjects: it is at once a settled body of techniques (canonical ensemble, partition functions, mean-field), a still-active research area (ensemble inequivalence in long-range systems, glasses, non-equilibrium steady states, fluctuation theorems), and a continuous source of mathematical structures absorbed by adjacent fields. The renormalization group propagated from criticality into quantum field theory; large deviations migrated from rare-event analysis into Donsker-Varadhan theory of Markov chains and KPZ universality; the Ising-CFT bridge motivates entire programs in conformal bootstrap and integrable systems.</p>
+
+<ul>
+<li><a href="./hamiltonians-classical-mechanics.html#liouville-flow">Hamiltonians &amp; classical mechanics — Liouville's theorem</a> — the volume-preservation property that makes the microcanonical ensemble dynamically consistent.</li>
+<li><a href="./information-theory.html#entropy">Information theory — Shannon entropy</a> — the same $-\sum p_i\log p_i$ as Gibbs entropy; statistical mechanics is the maximum-entropy formalism applied to fixed mean energy.</li>
+<li><a href="./large-deviations.html#cramer-theorem">Large deviations — Cramér's theorem</a> — the rigorous probabilistic backbone of equilibrium thermodynamic potentials as Legendre transforms of cumulant generating functions.</li>
+<li><a href="./gauge-theory.html#lattice-gauge">Gauge theory — lattice gauge theory</a> — Wilson's lattice formulation borrows the partition-function language wholesale; confinement is a phase transition of the lattice theory.</li>
+<li><a href="./stochastic-calculus.html#sde">Stochastic calculus — Langevin and Fokker-Planck</a> — non-equilibrium statistical mechanics adds white noise to Hamiltonian flow; equilibrium recovers Boltzmann from the fluctuation-dissipation balance.</li>
+<li><a href="./dynamical-systems.html#ergodic">Dynamical systems — ergodic theory</a> — the rigorous ergodic hypothesis that justifies the microcanonical assumption is a question of mixing on the energy shell.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('statistical-mechanics'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-02</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>
