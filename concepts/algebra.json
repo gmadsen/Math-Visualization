@@ -134,6 +134,58 @@
         "exact-sequence",
         "group-action"
       ]
+    },
+    {
+      "id": "composition-series-jordan-holder",
+      "title": "Composition series & Jordan–Hölder",
+      "anchor": "composition-series-jordan-holder",
+      "prereqs": [
+        "quotient-groups-iso-theorems"
+      ],
+      "blurb": "A composition series is a maximal chain $\\{e\\} = G_0 \\triangleleft G_1 \\triangleleft \\cdots \\triangleleft G_n = G$ with simple factors $G_i/G_{i-1}$. Jordan–Hölder says any two composition series of $G$ have the same multiset of simple factors up to permutation and isomorphism, so those factors are isomorphism invariants — the foundation for solvable, nilpotent, and simple-group classifications downstream.",
+      "tags": [
+        "classification",
+        "exact-sequence"
+      ]
+    },
+    {
+      "id": "solvable-groups",
+      "title": "Solvable groups",
+      "anchor": "solvable-groups",
+      "prereqs": [
+        "composition-series-jordan-holder"
+      ],
+      "blurb": "$G$ is solvable iff its derived series $G \\supseteq G' \\supseteq G'' \\supseteq \\cdots$ terminates at $\\{e\\}$, equivalently iff every composition factor is cyclic of prime order. Galois solvability of $f(x) = 0$ by radicals corresponds exactly to solvability of the Galois group; $S_n$ for $n \\ge 5$ is unsolvable, the heart of Abel–Ruffini for the quintic.",
+      "tags": [
+        "classification",
+        "exact-sequence"
+      ]
+    },
+    {
+      "id": "nilpotent-groups",
+      "title": "Nilpotent groups",
+      "anchor": "nilpotent-groups",
+      "prereqs": [
+        "composition-series-jordan-holder",
+        "sylow-theorems"
+      ],
+      "blurb": "$G$ is nilpotent iff its lower central series $G \\supseteq [G,G] \\supseteq [[G,G],G] \\supseteq \\cdots$ terminates at $\\{e\\}$, equivalently iff $G$ is the direct product of its Sylow subgroups. Nilpotent ⫋ solvable, and every finite $p$-group is nilpotent — the key structural input for $p$-group cohomology and Lie-algebra analogues.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "free-groups-presentations",
+      "title": "Free groups & presentations",
+      "anchor": "free-groups-presentations",
+      "prereqs": [
+        "subgroups-cosets-lagrange"
+      ],
+      "blurb": "The free group $F_S$ on a set $S$ has reduced words in $S \\cup S^{-1}$ as elements; every group is a quotient $F_S / \\langle\\langle R\\rangle\\rangle$ for some normal closure of relators, written $G = \\langle S \\mid R\\rangle$. The word problem is undecidable in general (Novikov–Boone), and subgroups of free groups are free (Nielsen–Schreier) — the entry point to geometric and combinatorial group theory.",
+      "tags": [
+        "foundation",
+        "lifting"
+      ]
     }
   ]
 }

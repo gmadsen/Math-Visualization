@@ -3677,6 +3677,58 @@ window.__MVConcepts = {
             "exact-sequence",
             "group-action"
           ]
+        },
+        {
+          "id": "composition-series-jordan-holder",
+          "title": "Composition series & Jordan–Hölder",
+          "anchor": "composition-series-jordan-holder",
+          "prereqs": [
+            "quotient-groups-iso-theorems"
+          ],
+          "blurb": "A composition series is a maximal chain $\\{e\\} = G_0 \\triangleleft G_1 \\triangleleft \\cdots \\triangleleft G_n = G$ with simple factors $G_i/G_{i-1}$. Jordan–Hölder says any two composition series of $G$ have the same multiset of simple factors up to permutation and isomorphism, so those factors are isomorphism invariants — the foundation for solvable, nilpotent, and simple-group classifications downstream.",
+          "tags": [
+            "classification",
+            "exact-sequence"
+          ]
+        },
+        {
+          "id": "solvable-groups",
+          "title": "Solvable groups",
+          "anchor": "solvable-groups",
+          "prereqs": [
+            "composition-series-jordan-holder"
+          ],
+          "blurb": "$G$ is solvable iff its derived series $G \\supseteq G' \\supseteq G'' \\supseteq \\cdots$ terminates at $\\{e\\}$, equivalently iff every composition factor is cyclic of prime order. Galois solvability of $f(x) = 0$ by radicals corresponds exactly to solvability of the Galois group; $S_n$ for $n \\ge 5$ is unsolvable, the heart of Abel–Ruffini for the quintic.",
+          "tags": [
+            "classification",
+            "exact-sequence"
+          ]
+        },
+        {
+          "id": "nilpotent-groups",
+          "title": "Nilpotent groups",
+          "anchor": "nilpotent-groups",
+          "prereqs": [
+            "composition-series-jordan-holder",
+            "sylow-theorems"
+          ],
+          "blurb": "$G$ is nilpotent iff its lower central series $G \\supseteq [G,G] \\supseteq [[G,G],G] \\supseteq \\cdots$ terminates at $\\{e\\}$, equivalently iff $G$ is the direct product of its Sylow subgroups. Nilpotent ⫋ solvable, and every finite $p$-group is nilpotent — the key structural input for $p$-group cohomology and Lie-algebra analogues.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "free-groups-presentations",
+          "title": "Free groups & presentations",
+          "anchor": "free-groups-presentations",
+          "prereqs": [
+            "subgroups-cosets-lagrange"
+          ],
+          "blurb": "The free group $F_S$ on a set $S$ has reduced words in $S \\cup S^{-1}$ as elements; every group is a quotient $F_S / \\langle\\langle R\\rangle\\rangle$ for some normal closure of relators, written $G = \\langle S \\mid R\\rangle$. The word problem is undecidable in general (Novikov–Boone), and subgroups of free groups are free (Nielsen–Schreier) — the entry point to geometric and combinatorial group theory.",
+          "tags": [
+            "foundation",
+            "lifting"
+          ]
         }
       ]
     },
@@ -5491,6 +5543,58 @@ window.__MVConcepts = {
           "blurb": "C[a,b] with the uniform norm is Banach; a family has uniformly convergent subsequences iff it is pointwise bounded and equicontinuous (Arzelà–Ascoli).",
           "tags": [
             "compactness"
+          ]
+        },
+        {
+          "id": "bounded-variation",
+          "title": "Bounded variation",
+          "anchor": "bounded-variation",
+          "prereqs": [
+            "real-differentiation",
+            "riemann-integral"
+          ],
+          "blurb": "$V_a^b(f)=\\sup\\sum|f(x_i)-f(x_{i-1})|$ measures total oscillation; Jordan's theorem decomposes any BV function as a difference of two monotone functions, and monotone functions are differentiable almost everywhere.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "absolute-continuity",
+          "title": "Absolute continuity",
+          "anchor": "absolute-continuity",
+          "prereqs": [
+            "bounded-variation",
+            "ftc-both-parts"
+          ],
+          "blurb": "AC is the right class for the Lebesgue FTC: $f$ is AC iff $f(x)=f(a)+\\int_a^x f'(t)\\,dt$ with $f'\\in L^1$. AC ⫋ BV, with the Cantor function as the canonical BV-but-not-AC counterexample.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "vitali-covering",
+          "title": "Vitali covering lemma",
+          "anchor": "vitali-covering",
+          "prereqs": [
+            "real-numbers",
+            "real-continuity"
+          ],
+          "blurb": "From any Vitali cover — a family of intervals where every point is contained in arbitrarily short ones — one can extract a disjoint subcollection whose union covers almost every point. This is the technical lemma behind Lebesgue's differentiation theorem.",
+          "tags": [
+            "compactness"
+          ]
+        },
+        {
+          "id": "lebesgue-differentiation",
+          "title": "Lebesgue differentiation theorem",
+          "anchor": "lebesgue-differentiation",
+          "prereqs": [
+            "vitali-covering",
+            "ftc-both-parts"
+          ],
+          "blurb": "For $f\\in L^1_{\\mathrm{loc}}(\\mathbb{R})$, $\\lim_{r\\to 0}\\tfrac{1}{2r}\\int_{x-r}^{x+r} f = f(x)$ at almost every $x$ (the Lebesgue points). Equivalently, monotone functions are differentiable a.e.",
+          "tags": [
+            "duality"
           ]
         }
       ]
@@ -8458,20 +8562,6 @@ window.__MVConcepts = {
           "blurb": "Intermediate fields correspond contravariantly to subgroups of the Galois group.",
           "tags": [
             "duality",
-            "classification",
-            "group-action"
-          ]
-        },
-        {
-          "id": "solvable-groups",
-          "title": "Solvable groups",
-          "anchor": "solvable",
-          "prereqs": [
-            "subgroups-cosets-lagrange",
-            "quotient-groups-iso-theorems"
-          ],
-          "blurb": "$G$ is solvable iff its derived series $G \\tr{}iangleright G' \\tr{}iangleright G'' \\tr{}iangleright \\cdots$ terminates at $\\{e\\}$. Equivalently, $G$ admits a normal series with abelian quotients. Examples: $S_3, S_4$ are solvable; $S_n$ for $n \\geq 5$ is not.",
-          "tags": [
             "classification",
             "group-action"
           ]
@@ -13385,11 +13475,11 @@ window.__MVConcepts = {
       "density": 0.10204081632653061
     },
     "Algebra & homological": {
-      "concepts": 106,
-      "intra": 157,
+      "concepts": 110,
+      "intra": 162,
       "crossOut": 16,
       "crossIn": 74,
-      "density": 0.1509433962264151
+      "density": 0.14545454545454545
     },
     "Higher categories & toposes": {
       "concepts": 45,
@@ -13399,11 +13489,11 @@ window.__MVConcepts = {
       "density": 0.5111111111111111
     },
     "Analysis": {
-      "concepts": 166,
-      "intra": 290,
+      "concepts": 170,
+      "intra": 298,
       "crossOut": 27,
       "crossIn": 62,
-      "density": 0.16265060240963855
+      "density": 0.1588235294117647
     },
     "Probability & statistics": {
       "concepts": 55,
@@ -13420,11 +13510,11 @@ window.__MVConcepts = {
       "density": 0.18269230769230768
     },
     "Number theory": {
-      "concepts": 99,
-      "intra": 132,
+      "concepts": 98,
+      "intra": 130,
       "crossOut": 40,
       "crossIn": 25,
-      "density": 0.40404040404040403
+      "density": 0.40816326530612246
     },
     "Modular forms & L-functions": {
       "concepts": 95,

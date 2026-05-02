@@ -250,6 +250,10 @@ function drawNode(svg, x, y, label, opts={}){
   <a href="#ftc-both-parts">12&nbsp;FTC</a>
   <a href="#bump-functions">13&nbsp;Bump&nbsp;functions</a>
   <a href="#c-space-arzela">14&nbsp;Arzelà–Ascoli</a>
+  <a href="#bounded-variation">15&nbsp;BV</a>
+  <a href="#absolute-continuity">16&nbsp;AC</a>
+  <a href="#vitali-covering">17&nbsp;Vitali</a>
+  <a href="#lebesgue-differentiation">18&nbsp;Lebesgue&nbsp;diff</a>
 </nav>
 <!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
 
@@ -371,6 +375,7 @@ function drawNode(svg, x, y, label, opts={}){
     <div><a href="./real-analysis.html#real-continuity">Real analysis</a> · Continuity on R</div>
     <div><a href="./real-analysis.html#metric-completeness-baire">Real analysis</a> · Metric completeness &amp; Baire category</div>
     <div><a href="./real-analysis.html#numeric-series">Real analysis</a> · Numeric series &amp; convergence tests</div>
+    <div class="more">… and 1 more.</div>
 </aside>
 <!-- backlinks-auto-end -->
 
@@ -481,6 +486,7 @@ $$ |x-a|<\delta \;\Longrightarrow\; |f(x)-f(a)|<\varepsilon. $$
     <div><a href="./real-analysis.html#real-differentiation">Real analysis</a> · Differentiation</div>
     <div><a href="./real-analysis.html#riemann-integral">Real analysis</a> · Riemann integral</div>
     <div><a href="./real-analysis.html#uniform-convergence">Real analysis</a> · Uniform convergence</div>
+    <div><a href="./real-analysis.html#vitali-covering">Real analysis</a> · Vitali covering lemma</div>
 </aside>
 <!-- backlinks-auto-end -->
 
@@ -618,8 +624,8 @@ $$ f(x)=\sum_{k=0}^{n}\frac{f^{(k)}(a)}{k!}(x-a)^k \;+\; \frac{f^{(n+1)}(\xi)}{(
     <div><a href="./functional-analysis.html#distributions">Functional analysis</a> · Distributions and test functions</div>
     <div><a href="./harmonic-functions.html#laplace-equation">Harmonic functions</a> · Laplace's equation</div>
     <div><a href="./numerical-analysis.html#rootfinding">Numerical analysis</a> · Rootfinding: bisection &amp; Newton</div>
-    <div><a href="./real-analysis.html#bump-functions">Real analysis</a> · Bump functions &amp; mollification</div>
-    <div class="more">… and 4 more.</div>
+    <div><a href="./real-analysis.html#bounded-variation">Real analysis</a> · Bounded variation</div>
+    <div class="more">… and 5 more.</div>
 </aside>
 <!-- backlinks-auto-end -->
 
@@ -884,8 +890,9 @@ $$ U(f,P)=\sum_{k=1}^n \Big(\sup_{[x_{k-1},x_k]} f\Big)(x_k-x_{k-1}),\qquad L(f,
     <div><a href="./dirichlet-series-euler-products.html#series">Dirichlet series and Euler products</a> · Dirichlet series basics</div>
     <div><a href="./measure-theory.html#sigma">Measure theory</a> · σ-algebras and measures</div>
     <div><a href="./numerical-analysis.html#quadrature">Numerical analysis</a> · Quadrature: trapezoid, Simpson, Gauss</div>
+    <div><a href="./real-analysis.html#bounded-variation">Real analysis</a> · Bounded variation</div>
     <div><a href="./real-analysis.html#ftc-both-parts">Real analysis</a> · Fundamental theorem of calculus (both parts)</div>
-    <div><a href="./real-analysis.html#multivariable-integration">Real analysis</a> · Multivariable integration</div>
+    <div class="more">… and 1 more.</div>
 </aside>
 <!-- backlinks-auto-end -->
 
@@ -1814,7 +1821,13 @@ $$ \frac{1}{R} = \limsup_{n\to\infty} |c_n|^{1/n}. $$
 
 <div class="note"><strong>The Cantor function counterexample.</strong> Let $c\colon[0,1]\to[0,1]$ be the Cantor staircase: continuous, nondecreasing, $c(0)=0$, $c(1)=1$, and $c'(x)=0$ for every $x$ in the complement of the Cantor set (which has full measure). Then $\int_0^1 c'\,dx = 0$ in the Lebesgue sense, yet $c(1)-c(0)=1$. FTC Part II fails because $c$ is not absolutely continuous — it moves "by jumps on a null set," which AC forbids.</div>
 
-<div class="quiz" data-concept="ftc-both-parts"></div>
+<div class="quiz" data-concept="ftc-both-parts"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./real-analysis.html#absolute-continuity">Real analysis</a> · Absolute continuity</div>
+    <div><a href="./real-analysis.html#lebesgue-differentiation">Real analysis</a> · Lebesgue differentiation theorem</div>
+</aside>
+<!-- backlinks-auto-end -->
 
 
 
@@ -2080,6 +2093,585 @@ $$ f_\varepsilon(x) = (f * \eta_\varepsilon)(x) = \int f(y)\,\eta_\varepsilon(x-
 
 
 
+
+</section>
+
+<!-- =============================== §15 BOUNDED VARIATION =============================== -->
+<section id="bounded-variation">
+<h2>15. Bounded variation</h2>
+
+<p>For $f\colon[a,b]\to\mathbb{R}$ and a partition $P\colon a=x_0<x_1<\cdots<x_n=b$, the <em>variation along $P$</em> is</p>
+$$ V(f,P) \;=\; \sum_{i=1}^{n} |f(x_i)-f(x_{i-1})|. $$
+<p>The <strong>total variation</strong> of $f$ on $[a,b]$ is</p>
+$$ V_a^b(f) \;=\; \sup_{P} V(f,P), $$
+<p>and $f$ is <strong>of bounded variation</strong> ($f\in\mathrm{BV}[a,b]$) when this supremum is finite. Geometrically, $V_a^b(f)$ is the total length of vertical travel: how far a pen tracing the graph moves up and down, ignoring horizontal motion. Refining a partition can only increase the sum (triangle inequality), so the sup is the limit of finer and finer partitions.</p>
+
+<div class="note"><strong>Examples.</strong> Monotone functions are BV with $V_a^b(f)=|f(b)-f(a)|$. Piecewise monotone functions on $[a,b]$ are BV: TV is the sum over each monotone piece. The poster child for BV failure is $f(x) = x\sin(1/x)$ on $(0,1]$ (with $f(0)=0$): continuous, but the tightening oscillations near $0$ have amplitudes summing like $\sum 1/k = \infty$.</div>
+
+<div class="widget" id="w-bv">
+  <div class="hd"><div class="ttl">Total variation: refining the partition</div><div class="hint">switch functions; raise $n$ — finite TV stabilizes, infinite TV blows up</div></div>
+  <svg id="bv-svg" viewBox="0 0 640 320" width="640" height="320"><title>Total variation accumulating along a uniform partition</title></svg>
+  <div class="row">
+    <label for="bv-fam">function</label>
+    <select id="bv-fam">
+      <option value="smooth" selected>$f(x)=x^2$ on $[0,1]$  (finite TV)</option>
+      <option value="sin1x">$f(x)=x\sin(1/x)$ on $(0,1]$  (infinite TV)</option>
+      <option value="step">step function (finite TV, discontinuous)</option>
+    </select>
+    <label for="bv-n">partition size $n$</label>
+    <input type="range" id="bv-n" min="4" max="600" value="40" step="1">
+    <span class="pill" id="bv-nval">n = 40</span>
+  </div>
+  <div class="readout" id="bv-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg=$('#bv-svg'), out=$('#bv-out');
+  const fam=$('#bv-fam'), sn=$('#bv-n'), nL=$('#bv-nval');
+  const W=640, H=320, pl=44, pr=22, pt=22, pb=44;
+  function pickFun(){
+    if(fam.value==='smooth') return {f:x=>x*x, a:0, b:1, name:'x²', expectedFinite:true, refTV:1};
+    if(fam.value==='sin1x') return {f:x=>x===0?0:x*Math.sin(1/x), a:0, b:1, name:'x·sin(1/x)', expectedFinite:false, refTV:null};
+    return {f:x=>x<0.3?0.1:(x<0.7?0.8:0.4), a:0, b:1, name:'step(0.1,0.8,0.4)', expectedFinite:true, refTV:1.1};
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const n = +sn.value; nL.textContent = `n = ${n}`;
+    const fn = pickFun();
+    const {f,a,b,name} = fn;
+    let ymin=Infinity, ymax=-Infinity;
+    for(let i=0;i<=400;i++){
+      const x = a + (b-a)*i/400;
+      const y = f(x);
+      if(y<ymin) ymin=y; if(y>ymax) ymax=y;
+    }
+    const pad = 0.15*(ymax-ymin || 1);
+    ymin -= pad; ymax += pad;
+    function X(v){ return pl + (v-a)/(b-a)*(W-pl-pr); }
+    function Y(v){ return H-pb - (v-ymin)/(ymax-ymin)*(H-pt-pb); }
+    // axes
+    svg.appendChild(SVG('line',{x1:pl,y1:Y(0),x2:W-pr,y2:Y(0),stroke:'var(--line)'}));
+    svg.appendChild(SVG('line',{x1:X(a),y1:pt,x2:X(a),y2:H-pb,stroke:'var(--line)'}));
+    // function curve (dense)
+    const curvePts=[];
+    for(let i=0;i<=400;i++){
+      const x = a+(b-a)*i/400;
+      curvePts.push(`${X(x)},${Y(f(x))}`);
+    }
+    svg.appendChild(SVG('polyline',{points:curvePts.join(' '),fill:'none',stroke:'var(--mute)','stroke-width':1.2,'opacity':0.6}));
+    // partition + accumulating TV
+    let tv = 0; let prev = f(a);
+    const accumPts = [`${X(a)},${Y(0)}`];
+    let runningPts = [];
+    for(let i=1;i<=n;i++){
+      const x = a + (b-a)*i/n;
+      const y = f(x);
+      tv += Math.abs(y - prev);
+      prev = y;
+    }
+    // re-walk to draw the V_a^x accumulation
+    let acc = 0; prev = f(a);
+    const accMax = Math.max(tv, 1e-9);
+    runningPts.push(`${X(a)},${Y(ymin) - 0}`);
+    const yAccBase = H - pb + 24; // unused: accumulation drawn in main panel
+    // partition vertical ticks + chord segments connecting (x_{i-1}, f(x_{i-1})) to (x_i, f(x_i))
+    let prevX = a, prevY = f(a);
+    for(let i=1;i<=n;i++){
+      const x = a + (b-a)*i/n;
+      const y = f(x);
+      // chord (yellow)
+      svg.appendChild(SVG('line',{x1:X(prevX),y1:Y(prevY),x2:X(x),y2:Y(y),stroke:'var(--yellow)','stroke-width':1.4,'opacity':0.85}));
+      prevX = x; prevY = y;
+    }
+    // partition vertical ticks (light)
+    if(n<=80){
+      for(let i=0;i<=n;i++){
+        const x = a + (b-a)*i/n;
+        svg.appendChild(SVG('line',{x1:X(x),y1:H-pb,x2:X(x),y2:H-pb+5,stroke:'var(--mute)','stroke-width':1}));
+      }
+    }
+    // labels
+    const lab1=SVG('text',{x:X(a)-6,y:Y(ymax)-2,'text-anchor':'end','font-size':12,fill:'var(--mute)'});
+    lab1.textContent='f'; svg.appendChild(lab1);
+    const lab2=SVG('text',{x:W-pr-6,y:pt+12,'text-anchor':'end','font-size':12,fill:'var(--yellow)'});
+    lab2.textContent=`Σ|Δf| chords (n=${n})`; svg.appendChild(lab2);
+    // V_a^x accumulation curve, drawn as inset bar at bottom right
+    const ix=W-pr-160, iy=pt+18, iw=140, ih=70;
+    svg.appendChild(SVG('rect',{x:ix,y:iy,width:iw,height:ih,fill:'#0b0f16',stroke:'var(--line)','stroke-width':1}));
+    const titleI=SVG('text',{x:ix+iw/2,y:iy-4,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    titleI.textContent='V_a^x(f) along x'; svg.appendChild(titleI);
+    let accV = 0; prevY = f(a);
+    const cumPts=[`${ix},${iy+ih}`];
+    const accVals=[];
+    for(let i=1;i<=n;i++){
+      const x = a + (b-a)*i/n;
+      const y = f(x);
+      accV += Math.abs(y - prevY);
+      accVals.push(accV);
+      prevY = y;
+    }
+    const accCap = Math.max(accV, 1e-9);
+    for(let i=0;i<accVals.length;i++){
+      const xi = ix + iw*(i+1)/n;
+      const yi = iy + ih - ih*(accVals[i]/accCap);
+      cumPts.push(`${xi},${yi}`);
+    }
+    svg.appendChild(SVG('polyline',{points:cumPts.join(' '),fill:'none',stroke:'var(--cyan)','stroke-width':1.5}));
+    // readout
+    const verdict = fn.expectedFinite
+      ? `   bounded — TV stabilizes near a finite limit${fn.refTV!==null?` (≈ ${fn.refTV.toFixed(3)})`:''}.`
+      : `   unbounded — TV grows without bound as n → ∞; no finite TV.`;
+    out.textContent =
+      `function   :  ${name}   on   [${a}, ${b}]\n`+
+      `partition  :  uniform, n = ${n}\n`+
+      `Σ |f(x_i) − f(x_{i-1})|  ≈  ${tv.toFixed(4)}\n`+
+      verdict;
+  }
+  fam.addEventListener('change',render); sn.addEventListener('input',render);
+  render();
+})();
+</script>
+
+<h3>Jordan decomposition</h3>
+
+<p><strong>Theorem (Jordan).</strong> $f\in\mathrm{BV}[a,b]$ if and only if $f = g_1 - g_2$ where $g_1, g_2\colon[a,b]\to\mathbb{R}$ are nondecreasing.</p>
+
+<p>The canonical decomposition is via the variation function itself: set $g_1(x) = V_a^x(f)$ and $g_2(x) = g_1(x) - f(x)$. Both are nondecreasing because refining a partition only increases $V$, and the difference $g_2$ inherits monotonicity from the upper-bound estimate $|f(x+h)-f(x)|\le V_x^{x+h}(f)$.</p>
+
+<div class="note"><strong>Why this matters.</strong> Lebesgue's theorem says monotone functions on $[a,b]$ are differentiable almost everywhere. Jordan's decomposition transfers a.e. differentiability to <em>every</em> BV function: $f' = g_1' - g_2'$ exists a.e. with $f'\in L^1[a,b]$. This is the bridge from "BV" to "FTC for Lebesgue", picked up in §16.</div>
+
+<div class="quiz" data-concept="bounded-variation"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./real-analysis.html#absolute-continuity">Real analysis</a> · Absolute continuity</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<!-- =============================== §16 ABSOLUTE CONTINUITY =============================== -->
+<section id="absolute-continuity">
+<h2>16. Absolute continuity</h2>
+
+<p>The Riemann FTC (§12) requires $f$ to be differentiable with $f'$ Riemann-integrable. To extend FTC to the Lebesgue setting one needs a class of functions strictly between BV and "differentiable everywhere" — namely the absolutely continuous functions.</p>
+
+<p><strong>Definition.</strong> $f\colon[a,b]\to\mathbb{R}$ is <strong>absolutely continuous</strong> if for every $\varepsilon>0$ there is $\delta>0$ such that, for any finite collection of pairwise disjoint open intervals $(a_k,b_k)\subseteq[a,b]$,</p>
+$$ \sum_k (b_k - a_k) < \delta \;\Longrightarrow\; \sum_k |f(b_k) - f(a_k)| < \varepsilon. $$
+
+<p>Compare with uniform continuity: that is the case of <em>one</em> interval. Absolute continuity strengthens this to <em>any finite disjoint family</em> of small total length. The strengthening is consequential: AC functions are exactly those for which the Lebesgue FTC holds.</p>
+
+<div class="note"><strong>Theorem (Lebesgue's FTC).</strong> $f\colon[a,b]\to\mathbb{R}$ is absolutely continuous if and only if $f'$ exists almost everywhere, $f'\in L^1[a,b]$, and $$f(x) = f(a) + \int_a^x f'(t)\,dt \qquad\text{for every } x\in[a,b].$$</div>
+
+<p>Containment chain on $[a,b]$:</p>
+$$ \text{Lipschitz} \;\subsetneq\; \mathrm{AC} \;\subsetneq\; \mathrm{BV}\cap C \;\subsetneq\; \mathrm{BV}. $$
+<p>Each containment is strict. Lipschitz $\Rightarrow$ AC because the AC sum is bounded by $L\sum(b_k-a_k)$. AC $\Rightarrow$ BV because the AC sum at any one tolerance bounds the variation in chunks. The strict gap between AC and BV $\cap\,C$ is exhibited by a single famous function.</p>
+
+<div class="widget" id="w-cantor">
+  <div class="hd"><div class="ttl">Cantor function: continuous + BV, NOT absolutely continuous</div><div class="hint">shrink $\delta$ on the slider — the Cantor function refuses to make the AC sum shrink</div></div>
+  <svg id="cantor-svg" viewBox="0 0 640 360" width="640" height="360"><title>Devil's staircase with AC test</title></svg>
+  <div class="row">
+    <label for="cantor-iter">iteration depth $k$</label>
+    <input type="range" id="cantor-iter" min="1" max="8" value="6" step="1">
+    <span class="pill" id="cantor-iterval">k = 6</span>
+    <label for="cantor-delta">AC test: total length $\delta$</label>
+    <input type="range" id="cantor-delta" min="-3" max="-0.3" value="-1" step="0.05">
+    <span class="pill" id="cantor-deltaval">δ = 0.100</span>
+  </div>
+  <div class="readout" id="cantor-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg=$('#cantor-svg'), out=$('#cantor-out');
+  const sIter=$('#cantor-iter'), iL=$('#cantor-iterval');
+  const sDelta=$('#cantor-delta'), dL=$('#cantor-deltaval');
+  const W=640, H=360, pl=46, pr=22, pt=24, pb=46;
+  // The Cantor function: c(x) on [0,1]. Build piecewise via base-3 expansion truncated at depth k.
+  function cantor(x, k){
+    if(x<=0) return 0; if(x>=1) return 1;
+    let lo=0, hi=1, vlo=0, vhi=1;
+    for(let i=0;i<k;i++){
+      const t1 = lo + (hi-lo)/3, t2 = lo + 2*(hi-lo)/3;
+      const vmid = (vlo+vhi)/2;
+      if(x < t1){ hi=t1; vhi=vmid; }
+      else if(x > t2){ lo=t2; vlo=vmid; }
+      else { return vmid; } // middle third — flat at vmid
+    }
+    return (vlo+vhi)/2;
+  }
+  // Removed-third intervals up to depth k: each level removes the middle third of every remaining interval.
+  function removedAtDepth(k){
+    let intervals = [[0,1]];
+    const removed=[];
+    for(let i=0;i<k;i++){
+      const next=[];
+      for(const [a,b] of intervals){
+        const t1 = a + (b-a)/3, t2 = a + 2*(b-a)/3;
+        removed.push([t1,t2,i]);
+        next.push([a,t1]); next.push([t2,b]);
+      }
+      intervals=next;
+    }
+    return {removed, kept:intervals};
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const k = +sIter.value; iL.textContent=`k = ${k}`;
+    const delta = Math.pow(10, +sDelta.value); dL.textContent=`δ = ${delta.toFixed(3)}`;
+    function X(v){ return pl + v*(W-pl-pr); }
+    function Y(v){ return H-pb - v*(H-pt-pb); }
+    // axes box
+    svg.appendChild(SVG('rect',{x:pl,y:pt,width:W-pl-pr,height:H-pt-pb,fill:'#0b0f16',stroke:'var(--line)'}));
+    // tick labels at 0, 1/3, 2/3, 1
+    [0, 1/3, 2/3, 1].forEach(t=>{
+      svg.appendChild(SVG('line',{x1:X(t),y1:H-pb,x2:X(t),y2:H-pb+4,stroke:'var(--mute)'}));
+      const lab=SVG('text',{x:X(t),y:H-pb+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      lab.textContent = (t===0?'0':t===1?'1':(t===1/3?'1/3':'2/3'));
+      svg.appendChild(lab);
+    });
+    [0, 0.25, 0.5, 0.75, 1].forEach(t=>{
+      svg.appendChild(SVG('line',{x1:pl-4,y1:Y(t),x2:pl,y2:Y(t),stroke:'var(--mute)'}));
+      const lab=SVG('text',{x:pl-7,y:Y(t)+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      lab.textContent = t.toFixed(2);
+      svg.appendChild(lab);
+    });
+    // shade removed (middle-thirds) intervals at depth k
+    const {removed, kept} = removedAtDepth(k);
+    for(const [a,b,depth] of removed){
+      const op = 0.10 + 0.04*depth;
+      svg.appendChild(SVG('rect',{x:X(a),y:pt,width:X(b)-X(a),height:H-pt-pb,fill:'var(--violet)','opacity':op}));
+    }
+    // draw the staircase: dense sample
+    const N=900; const pts=[];
+    for(let i=0;i<=N;i++){
+      const x=i/N; pts.push(`${X(x)},${Y(cantor(x,k))}`);
+    }
+    svg.appendChild(SVG('polyline',{points:pts.join(' '),fill:'none',stroke:'var(--yellow)','stroke-width':1.6}));
+    // AC test: pick disjoint open intervals around each removed-third boundary up to total length ≤ δ.
+    // Greedy: start from kept-interval endpoints (these flank constant pieces of c), pair them.
+    // Each kept interval at depth k has length 3^{-k}; c jumps by 2^{-k} across each removed third.
+    // We instead place tiny intervals straddling each removed-third boundary: c(b) - c(a) ≈ Δc across a span ε.
+    // Simpler: take the 2^k kept intervals, walk left-to-right, place a thin window of width δ_i centered on each boundary point until total length budget exhausted.
+    let budget = delta;
+    let acSum = 0; let usedLen = 0; let wins=0;
+    // boundaries: between consecutive kept intervals, c jumps by 2^{-k}.
+    const jumpBoundaries = [];
+    for(let i=0;i<kept.length-1;i++){
+      const right = kept[i][1], left = kept[i+1][0]; // adjacent, with a removed third between them
+      const mid = (right+left)/2;
+      jumpBoundaries.push({right, left, mid, jump: 1/Math.pow(2,k)});
+    }
+    // sort by jump descending (here all equal, keep order)
+    for(const b of jumpBoundaries){
+      const w = Math.min(0.3*budget, (b.left-b.right)*0.95);
+      if(w<=1e-6) break;
+      // window straddling the gap from right - w/2 to left + w/2 minus the gap itself? simpler: pick (right - w/2, right) ∪ (left, left + w/2): two disjoint pieces. But picking inside the gap straddling mid gives c(b)-c(a)=jump.
+      // Use a single interval (right - w/2, left + w/2) but the part inside the gap doesn't contribute (c flat there)
+      // The contribution is c(left + w/2) - c(right - w/2) = jump (since c is constant on each kept side at boundary values)
+      const segLen = (b.left - b.right) + w;
+      if(usedLen + segLen > delta) break;
+      usedLen += segLen;
+      acSum  += b.jump;
+      wins++;
+      // draw the window
+      svg.appendChild(SVG('rect',{x:X(b.right - w/2), y:pt, width:X(b.left + w/2)-X(b.right - w/2), height:H-pt-pb, fill:'var(--pink)','opacity':0.18}));
+    }
+    // legend
+    const lab=SVG('text',{x:W-pr-8,y:pt+14,'text-anchor':'end','font-size':12,fill:'var(--mute)'});
+    lab.textContent=`devil's staircase, k=${k} iterations`;
+    svg.appendChild(lab);
+    out.textContent =
+      `Cantor function c(x), iteration depth k = ${k}.\n`+
+      `AC test: pick disjoint intervals with total length ≤ ${delta.toFixed(4)}.\n`+
+      `  windows used                    :  ${wins}  (each straddling a Cantor jump)\n`+
+      `  Σ (lengths) of intervals        :  ${usedLen.toFixed(4)}    (≤ δ)\n`+
+      `  Σ |c(b_i) − c(a_i)|             :  ${acSum.toFixed(4)}\n\n`+
+      (acSum > 0.5
+        ? `✗ Even with total length only ${usedLen.toFixed(3)}, the variation Σ|c(b_i)-c(a_i)| ≈ ${acSum.toFixed(3)}.\n  No δ → 0 will force this sum to 0 — c fails the AC condition.`
+        : `at this depth the windows haven't yet captured many jumps; raise k to see the AC sum stay near 1 even as δ shrinks.`);
+  }
+  sIter.addEventListener('input',render); sDelta.addEventListener('input',render);
+  render();
+})();
+</script>
+
+<p>The Cantor function $c\colon[0,1]\to[0,1]$ is continuous, nondecreasing, $c(0)=0$, $c(1)=1$, and (since $c'=0$ on the complement of the measure-zero Cantor set) $c'=0$ almost everywhere. So $\int_0^1 c'(x)\,dx = 0\ne 1 = c(1)-c(0)$ in the Lebesgue sense — FTC Part II <em>fails</em> for $c$. The widget above quantifies why: even with total interval length $\delta\to 0$, the AC sum stays near $1$, since each removed-third boundary contributes a fixed jump.</p>
+
+<div class="note"><strong>Bridge to <a href="./measure-theory.html">measure theory</a>.</strong> AC functions correspond exactly to indefinite integrals of $L^1$ functions. The Radon–Nikodym theorem extends this: if $\mu\ll\lambda$ on $\mathbb{R}$, then $\mu(E)=\int_E f\,d\lambda$ for some $f\in L^1$, and the distribution function of $\mu$ is precisely AC. The Cantor function carries a singular continuous measure — finite, atomless, but living on a measure-zero set — orthogonal to Lebesgue.</div>
+
+<div class="quiz" data-concept="absolute-continuity"></div>
+
+</section>
+
+<!-- =============================== §17 VITALI COVERING =============================== -->
+<section id="vitali-covering">
+<h2>17. Vitali covering lemma</h2>
+
+<p>Compactness produces finite subcovers from open covers, but for differentiation arguments one wants something more delicate: a <em>disjoint</em> subcollection that almost covers a target set, drawn from a family of intervals shrinking to every point. This is the Vitali covering lemma.</p>
+
+<p><strong>Definition.</strong> A family $\mathcal V$ of nondegenerate closed intervals in $\mathbb{R}$ is a <strong>Vitali cover</strong> of $E\subseteq\mathbb{R}$ if for every $x\in E$ and every $\varepsilon>0$ there is some $I\in\mathcal V$ with $x\in I$ and $|I|<\varepsilon$.</p>
+
+<p><strong>Vitali's 3-times covering lemma (finite form).</strong> Given any finite family $\{I_1,\dots,I_N\}$ of closed intervals in $\mathbb{R}$, there is a disjoint subcollection $\{I_{j_1},\dots,I_{j_m}\}$ such that the triples $\{3I_{j_1},\dots,3I_{j_m}\}$ (each $I_{j}$ scaled by $3$ about its center) cover $\bigcup_i I_i$. In particular, the disjoint subcollection has total length at least $\tfrac{1}{3}|\bigcup_i I_i|$.</p>
+
+<p>The proof is greedy: at each stage, pick the longest remaining interval, discard any that overlaps it, repeat. Because the picked interval is the longest, any discarded $I$ overlapping it lies inside the triple expansion $3I$. The constant $3$ is a 1-dimensional convenience; the analogous statement for closed balls in $\mathbb{R}^n$ uses the constant $5$ (the Vitali $5r$-covering lemma).</p>
+
+<div class="widget" id="w-vitali">
+  <div class="hd"><div class="ttl">Greedy Vitali extraction</div><div class="hint">click <em>extract step</em> to grab the longest remaining interval and discard its overlappers</div></div>
+  <svg id="vitali-svg" viewBox="0 0 640 360" width="640" height="360"><title>Greedy Vitali extraction from a forest of intervals</title></svg>
+  <div class="row">
+    <button id="vitali-step">extract step</button>
+    <button id="vitali-all">extract all</button>
+    <button id="vitali-reset">reset</button>
+    <label for="vitali-seed">seed</label>
+    <input type="range" id="vitali-seed" min="0" max="24" value="3" step="1">
+    <span class="pill" id="vitali-seedval">seed = 3</span>
+  </div>
+  <div class="readout" id="vitali-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg=$('#vitali-svg'), out=$('#vitali-out');
+  const bStep=$('#vitali-step'), bAll=$('#vitali-all'), bReset=$('#vitali-reset');
+  const sSeed=$('#vitali-seed'), sL=$('#vitali-seedval');
+  const W=640, H=360, pl=44, pr=22, pt=22, pb=44;
+  function rng(seed){ let s=(seed*9301+49297)%233280; return ()=>{ s=(s*9301+49297)%233280; return s/233280; }; }
+  let intervals = [];
+  let chosen = [];      // disjoint picks
+  let discarded = [];   // discarded due to overlap with a pick
+  let pool = [];        // active candidates
+  function generate(){
+    const r = rng(+sSeed.value+1);
+    intervals = [];
+    const N = 26;
+    for(let i=0;i<N;i++){
+      const cx = 0.05 + 0.9*r();
+      const len = 0.02 + 0.18*r()*r();
+      const a = Math.max(0, cx - len/2);
+      const b = Math.min(1, cx + len/2);
+      intervals.push({a,b,id:i});
+    }
+    pool = intervals.slice();
+    chosen = []; discarded = [];
+  }
+  function step(){
+    if(pool.length===0) return;
+    // pick longest
+    pool.sort((p,q) => (q.b-q.a) - (p.b-p.a));
+    const pick = pool.shift();
+    chosen.push(pick);
+    // discard overlappers
+    const next=[];
+    for(const I of pool){
+      if(I.b < pick.a || I.a > pick.b){ next.push(I); }
+      else { discarded.push({...I, hit:pick.id}); }
+    }
+    pool = next;
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    sL.textContent=`seed = ${sSeed.value}`;
+    function X(v){ return pl + v*(W-pl-pr); }
+    // axis line
+    svg.appendChild(SVG('line',{x1:pl,y1:H-pb-50,x2:W-pr,y2:H-pb-50,stroke:'var(--line)','stroke-width':1.2}));
+    // ticks
+    for(let t=0;t<=1;t+=0.1){
+      svg.appendChild(SVG('line',{x1:X(t),y1:H-pb-50,x2:X(t),y2:H-pb-46,stroke:'var(--mute)'}));
+      const lab=SVG('text',{x:X(t),y:H-pb-32,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      lab.textContent=t.toFixed(1); svg.appendChild(lab);
+    }
+    // top: original intervals (gray) — sorted by length descending so layout matches the next pick order
+    const sortedAll = intervals.slice().sort((p,q)=>(q.b-q.a)-(p.b-p.a));
+    sortedAll.forEach((I,row)=>{
+      const y = pt + row*8;
+      const stroke = chosen.find(c=>c.id===I.id)? 'var(--yellow)' : (discarded.find(d=>d.id===I.id) ? 'var(--pink)' : 'var(--mute)');
+      const opacity = chosen.find(c=>c.id===I.id)? 1 : (discarded.find(d=>d.id===I.id) ? 0.5 : 0.7);
+      svg.appendChild(SVG('line',{x1:X(I.a),y1:y,x2:X(I.b),y2:y,stroke,'stroke-width':3,'stroke-linecap':'round','opacity':opacity}));
+    });
+    // bottom: chosen disjoint family on the axis
+    chosen.forEach(I => {
+      svg.appendChild(SVG('rect',{x:X(I.a),y:H-pb-58,width:X(I.b)-X(I.a),height:16,fill:'var(--yellow)','opacity':0.85,stroke:'#0b0f16'}));
+    });
+    // legend
+    const ly = H-pb-12;
+    svg.appendChild(SVG('rect',{x:pl,y:ly,width:14,height:8,fill:'var(--yellow)'}));
+    const lab1=SVG('text',{x:pl+20,y:ly+8,'font-size':11,fill:'var(--mute)'}); lab1.textContent='disjoint pick'; svg.appendChild(lab1);
+    svg.appendChild(SVG('line',{x1:pl+110,y1:ly+4,x2:pl+128,y2:ly+4,stroke:'var(--pink)','stroke-width':3}));
+    const lab2=SVG('text',{x:pl+135,y:ly+8,'font-size':11,fill:'var(--mute)'}); lab2.textContent='discarded (overlap)'; svg.appendChild(lab2);
+    svg.appendChild(SVG('line',{x1:pl+260,y1:ly+4,x2:pl+278,y2:ly+4,stroke:'var(--mute)','stroke-width':3}));
+    const lab3=SVG('text',{x:pl+285,y:ly+8,'font-size':11,fill:'var(--mute)'}); lab3.textContent='still in pool'; svg.appendChild(lab3);
+    // readout
+    const totUnion = unionLength(intervals);
+    const totChosen = chosen.reduce((s,I)=>s+(I.b-I.a),0);
+    const cov = totUnion>0 ? totChosen/totUnion : 0;
+    out.textContent =
+      `intervals : ${intervals.length}    chosen : ${chosen.length}    discarded : ${discarded.length}    pool : ${pool.length}\n`+
+      `|⋃ I_i|                              ≈  ${totUnion.toFixed(4)}\n`+
+      `Σ |I_j| over disjoint chosen family   ≈  ${totChosen.toFixed(4)}\n`+
+      `coverage ratio  Σ|I_j| / |⋃ I_i|      ≈  ${(cov*100).toFixed(1)}%   (Vitali guarantees ≥ 33.3%)\n`+
+      (pool.length===0 ? `\n✓ extraction complete — disjoint subcollection picked.` : `\n  pool still contains ${pool.length} candidates; click <strong>extract step</strong> to continue.`);
+  }
+  function unionLength(arr){
+    if(arr.length===0) return 0;
+    const sorted = arr.slice().sort((p,q)=>p.a-q.a);
+    let total=0, curA=sorted[0].a, curB=sorted[0].b;
+    for(let i=1;i<sorted.length;i++){
+      if(sorted[i].a <= curB) curB = Math.max(curB, sorted[i].b);
+      else { total += curB-curA; curA=sorted[i].a; curB=sorted[i].b; }
+    }
+    total += curB-curA;
+    return total;
+  }
+  bStep.addEventListener('click', ()=>{ step(); render(); });
+  bAll.addEventListener('click', ()=>{ while(pool.length) step(); render(); });
+  bReset.addEventListener('click', ()=>{ generate(); render(); });
+  sSeed.addEventListener('input', ()=>{ generate(); render(); });
+  generate(); render();
+})();
+</script>
+
+<p>The <strong>Vitali covering theorem (a.e. form)</strong> starts with a Vitali cover of $E$ with $|E|<\infty$ and produces a <em>countable</em> disjoint subfamily $\{I_k\}$ such that $|E \setminus \bigcup_k I_k| = 0$. The proof iterates the finite extraction at decreasing length scales, using that arbitrarily small intervals through every leftover point still exist.</p>
+
+<div class="note"><strong>Where this gets used.</strong> Most differentiation theorems on $\mathbb{R}$ need a covering tool to upgrade pointwise control to almost-everywhere control: a maximal-function bound on $\{Mf>\lambda\}$ via Vitali, the a.e. existence of $\lim_{r\to 0}\tfrac{1}{|B_r|}\int_{B_r} f$ in the Lebesgue differentiation theorem (§18), and Lebesgue's a.e. differentiability of monotone functions all rest on Vitali-style coverings.</div>
+
+<div class="quiz" data-concept="vitali-covering"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./real-analysis.html#lebesgue-differentiation">Real analysis</a> · Lebesgue differentiation theorem</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<!-- =============================== §18 LEBESGUE DIFFERENTIATION =============================== -->
+<section id="lebesgue-differentiation">
+<h2>18. Lebesgue differentiation theorem</h2>
+
+<p>For continuous $f$, the average over a shrinking ball converges to $f(x)$ at every $x$ — that is just continuity. The remarkable fact is that this remains true almost everywhere for any locally integrable $f$, with no continuity assumption.</p>
+
+<p><strong>Theorem (Lebesgue).</strong> Let $f\in L^1_{\mathrm{loc}}(\mathbb{R})$. Then</p>
+$$ \lim_{r\to 0^+}\; \frac{1}{2r}\int_{x-r}^{x+r} f(t)\,dt \;=\; f(x) $$
+<p>for almost every $x\in\mathbb{R}$. The points where the limit holds are called <strong>Lebesgue points</strong>; the exceptional set has Lebesgue measure zero.</p>
+
+<p>The proof routes through the Hardy–Littlewood maximal function $Mf(x) = \sup_{r>0}\tfrac{1}{2r}\int_{x-r}^{x+r} |f|$ and a weak-$L^1$ bound</p>
+$$ |\{x : Mf(x) > \lambda\}| \;\le\; \frac{C}{\lambda}\|f\|_{L^1}, $$
+<p>established by Vitali (§17) on the level sets of $Mf$. The rest is approximation by continuous functions, where convergence everywhere holds, plus the maximal bound to control the bad set.</p>
+
+<div class="widget" id="w-ldt">
+  <div class="hd"><div class="ttl">Averages converge: Lebesgue differentiation theorem</div><div class="hint">shrink $r$ — averages converge to $f(x)$ except at jumps</div></div>
+  <svg id="ldt-svg" viewBox="0 0 640 360" width="640" height="360"><title>Sliding-window averages of f converging to f as r shrinks</title></svg>
+  <div class="row">
+    <label for="ldt-fam">function $f$</label>
+    <select id="ldt-fam">
+      <option value="step" selected>step: $f = \mathbf{1}_{[0.3,0.7]}$ (jumps at $0.3, 0.7$)</option>
+      <option value="bump">smooth bump centered at $0.5$</option>
+      <option value="sawtooth">sawtooth (BV with corners)</option>
+    </select>
+    <label for="ldt-r">averaging radius $r$ (log)</label>
+    <input type="range" id="ldt-r" min="-3" max="-0.4" value="-1.2" step="0.05">
+    <span class="pill" id="ldt-rval">r = 0.063</span>
+  </div>
+  <div class="readout" id="ldt-out"></div>
+</div>
+
+<script>
+(function(){
+  const svg=$('#ldt-svg'), out=$('#ldt-out');
+  const fam=$('#ldt-fam'), sR=$('#ldt-r'), rL=$('#ldt-rval');
+  const W=640, H=360, pl=44, pr=22, pt=22, pb=44;
+  function pickFun(){
+    if(fam.value==='step') return {f:x => (x>=0.3 && x<=0.7) ? 1 : 0, name:'1_[0.3,0.7]', jumpsAt:[0.3,0.7], jumpVal:0.5};
+    if(fam.value==='bump') return {f:x => Math.exp(-Math.pow((x-0.5)*8,2)), name:'exp(-(8(x-0.5))²)', jumpsAt:[], jumpVal:null};
+    return {f:x => { const t = x*4 % 1; return t<0.5 ? 2*t : 2-2*t; }, name:'sawtooth', jumpsAt:[], jumpVal:null};
+  }
+  // Riemann-sum average of f over [x-r, x+r]
+  function avg(f, x, r){
+    const M = Math.max(20, Math.ceil(200*r));
+    const a = Math.max(0, x-r), b = Math.min(1, x+r);
+    if(b<=a) return f(x);
+    let s=0;
+    for(let i=0;i<M;i++){
+      const t = a + (b-a)*(i+0.5)/M;
+      s += f(t);
+    }
+    return s/M;
+  }
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const r = Math.pow(10, +sR.value); rL.textContent=`r = ${r.toFixed(3)}`;
+    const fn = pickFun();
+    function X(v){ return pl + v*(W-pl-pr); }
+    function Y(v){ return H-pb - (v+0.1)/(1.3)*(H-pt-pb); }
+    // axes
+    svg.appendChild(SVG('rect',{x:pl,y:pt,width:W-pl-pr,height:H-pt-pb,fill:'#0b0f16',stroke:'var(--line)'}));
+    [0,0.25,0.5,0.75,1].forEach(t=>{
+      svg.appendChild(SVG('line',{x1:X(t),y1:H-pb,x2:X(t),y2:H-pb+4,stroke:'var(--mute)'}));
+      const lab=SVG('text',{x:X(t),y:H-pb+18,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      lab.textContent=t.toFixed(2); svg.appendChild(lab);
+    });
+    [0,0.5,1].forEach(t=>{
+      svg.appendChild(SVG('line',{x1:pl-4,y1:Y(t),x2:pl,y2:Y(t),stroke:'var(--mute)'}));
+      const lab=SVG('text',{x:pl-7,y:Y(t)+4,'text-anchor':'end','font-size':11,fill:'var(--mute)'});
+      lab.textContent=t.toFixed(1); svg.appendChild(lab);
+    });
+    // f (cyan)
+    const N=400;
+    const fpts=[];
+    for(let i=0;i<=N;i++){
+      const x=i/N; fpts.push(`${X(x)},${Y(fn.f(x))}`);
+    }
+    svg.appendChild(SVG('polyline',{points:fpts.join(' '),fill:'none',stroke:'var(--cyan)','stroke-width':1.7}));
+    // A_r f (yellow)
+    const apts=[];
+    let maxDev = 0; let nonLeb=null;
+    for(let i=0;i<=N;i++){
+      const x=i/N;
+      const A = avg(fn.f, x, r);
+      apts.push(`${X(x)},${Y(A)}`);
+      const dev = Math.abs(A - fn.f(x));
+      if(dev > maxDev){ maxDev = dev; }
+    }
+    svg.appendChild(SVG('polyline',{points:apts.join(' '),fill:'none',stroke:'var(--yellow)','stroke-width':1.5,'opacity':0.9}));
+    // mark jumps in pink
+    for(const j of fn.jumpsAt){
+      svg.appendChild(SVG('line',{x1:X(j),y1:pt,x2:X(j),y2:H-pb,stroke:'var(--pink)','stroke-width':1.2,'stroke-dasharray':'4 3','opacity':0.7}));
+      const A = avg(fn.f, j, r);
+      svg.appendChild(SVG('circle',{cx:X(j),cy:Y(A),r:4,fill:'var(--pink)',stroke:'#0b0f16','stroke-width':1.5}));
+    }
+    // legend
+    svg.appendChild(SVG('line',{x1:W-pr-150,y1:pt+10,x2:W-pr-130,y2:pt+10,stroke:'var(--cyan)','stroke-width':1.7}));
+    const l1=SVG('text',{x:W-pr-126,y:pt+14,'font-size':11,fill:'var(--mute)'}); l1.textContent='f(x)'; svg.appendChild(l1);
+    svg.appendChild(SVG('line',{x1:W-pr-150,y1:pt+26,x2:W-pr-130,y2:pt+26,stroke:'var(--yellow)','stroke-width':1.7}));
+    const l2=SVG('text',{x:W-pr-126,y:pt+30,'font-size':11,fill:'var(--mute)'}); l2.textContent='A_r f(x) = (1/2r)∫_{x-r}^{x+r} f'; svg.appendChild(l2);
+    // readout
+    const jumpNote = fn.jumpsAt.length===0 ?
+      `every $x\\in(0,1)$ is a Lebesgue point — averages converge uniformly` :
+      `at jumps ${fn.jumpsAt.join(', ')}: A_r f → ${fn.jumpVal} (the midpoint), not f(x); these are NOT Lebesgue points`;
+    out.textContent =
+      `function   :  ${fn.name}\n`+
+      `radius     :  r = ${r.toFixed(4)}\n`+
+      `max |A_r f − f|  ≈  ${maxDev.toFixed(4)}     (→ 0 at every Lebesgue point as r → 0)\n\n`+
+      `${jumpNote}.\nThe set of non-Lebesgue points has measure zero.`;
+  }
+  fam.addEventListener('change',render); sR.addEventListener('input',render);
+  render();
+})();
+</script>
+
+<h3>Equivalent forms</h3>
+
+<ul>
+  <li><strong>Density.</strong> For any measurable $E\subseteq\mathbb{R}$, almost every $x\in E$ is a <em>density point</em>: $\lim_{r\to 0} |E\cap[x-r,x+r]|/(2r) = 1$.</li>
+  <li><strong>Monotone differentiability (Lebesgue).</strong> Every monotone $g\colon[a,b]\to\mathbb{R}$ is differentiable almost everywhere, and $g'\in L^1[a,b]$ with $\int_a^b g'\,d\lambda \le g(b) - g(a)$ (with equality iff $g$ is AC).</li>
+  <li><strong>Strong Lebesgue points.</strong> At a.e. $x$, $\lim_{r\to 0}\tfrac{1}{2r}\int_{x-r}^{x+r} |f(t)-f(x)|\,dt = 0$ — the average of the deviation, not just the average of $f$, vanishes.</li>
+</ul>
+
+<div class="note"><strong>Why "almost everywhere" can't be improved.</strong> Take $f = \mathbf 1_E$ for a measurable set $E$ with $|E\cap I|/|I| \in (0,1)$ for every interval $I$ (a fat Cantor-like set). At any $x$ in the boundary of $E$ in this density sense, the averages oscillate. The set of such bad points has measure zero — exactly the threshold the theorem advertises.</div>
+
+<div class="note"><strong>Bridge to <a href="./measure-theory.html">measure theory</a> and beyond.</strong> The same shrinking-ball technique extends to $\mathbb{R}^n$ via Vitali-type covering on balls and to abstract metric measure spaces with a <em>doubling</em> hypothesis. Lebesgue points underlie the construction of derivatives of measures (Radon–Nikodym), Sobolev space pointwise representatives, and the theory of singular integrals.</div>
+
+<div class="quiz" data-concept="lebesgue-differentiation"></div>
 
 </section>
 

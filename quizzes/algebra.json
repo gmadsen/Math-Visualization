@@ -882,6 +882,184 @@
           "explain": "Homomorphisms $\\mathbb{Z}/3\\to\\mathrm{Aut}(\\mathbb{Z}/7)\\cong\\mathbb{Z}/6$ correspond to elements of order dividing $3$ in $\\mathbb{Z}/6$, which form the unique subgroup of order $3$. So there are $3$ homomorphisms, but two of the nontrivial ones give isomorphic semidirect products (they differ by an automorphism of $\\mathbb{Z}/3$). Thus there are $2$ isomorphism classes: the trivial one ($\\mathbb{Z}/21$) and the nonabelian one (order $21$)."
         }
       ]
+    },
+    "composition-series-jordan-holder": {
+      "title": "Composition series & Jordan–Hölder",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Two composition series of $G = \\mathbb{Z}/30\\mathbb{Z}$ are<br>(A) $\\{0\\} \\triangleleft \\langle 15 \\rangle \\triangleleft \\langle 3 \\rangle \\triangleleft \\mathbb{Z}/30$<br>(B) $\\{0\\} \\triangleleft \\langle 10 \\rangle \\triangleleft \\langle 2 \\rangle \\triangleleft \\mathbb{Z}/30$.<br>What does Jordan–Hölder predict about their factor multisets?",
+          "choices": [
+            "They are equal as multisets: both are $\\{\\mathbb{Z}/2,\\mathbb{Z}/3,\\mathbb{Z}/5\\}$.",
+            "They differ — (A) gives $\\{\\mathbb{Z}/2,\\mathbb{Z}/3,\\mathbb{Z}/5\\}$ but (B) gives $\\{\\mathbb{Z}/3,\\mathbb{Z}/5,\\mathbb{Z}/2\\}$ in a different order.",
+            "They are isomorphic as chains, with the same intermediate subgroups in matched positions.",
+            "They have the same length but possibly different factor multisets."
+          ],
+          "answer": 0,
+          "hint": "Compute each successive quotient. The multiset is unordered — $\\{a,b,c\\} = \\{b,c,a\\}$ as multisets.",
+          "explain": "Series (A) factors: $\\langle 15\\rangle/\\{0\\}\\cong\\mathbb{Z}/2$, $\\langle 3\\rangle/\\langle 15\\rangle\\cong\\mathbb{Z}/5$, $\\mathbb{Z}/30/\\langle 3\\rangle\\cong\\mathbb{Z}/3$. Series (B) factors: $\\langle 10\\rangle/\\{0\\}\\cong\\mathbb{Z}/3$, $\\langle 2\\rangle/\\langle 10\\rangle\\cong\\mathbb{Z}/5$, $\\mathbb{Z}/30/\\langle 2\\rangle\\cong\\mathbb{Z}/2$. As multisets both are $\\{\\mathbb{Z}/2,\\mathbb{Z}/3,\\mathbb{Z}/5\\}$ — identical. Option 1 misreads multisets as ordered tuples; Jordan–Hölder gives multiset (unordered) equality, not chain isomorphism (option 2) — distinct chains routinely pass through different intermediate subgroups."
+        },
+        {
+          "type": "numeric",
+          "q": "How many composition factors (counted with multiplicity) does $\\mathbb{Z}/12\\mathbb{Z}$ have?",
+          "answer": 3,
+          "tol": 1e-9,
+          "hint": "Factor $12 = 2^2 \\cdot 3$. Each prime factor of $|G|$ contributes one cyclic-of-prime-order composition factor per occurrence.",
+          "explain": "Any composition series of $\\mathbb{Z}/12\\mathbb{Z}$ has factors $\\mathbb{Z}/2,\\mathbb{Z}/2,\\mathbb{Z}/3$ in some order — three simple factors total. For instance $0 \\triangleleft \\langle 6 \\rangle \\triangleleft \\langle 3 \\rangle \\triangleleft \\mathbb{Z}/12$ gives factors of orders $2, 2, 3$."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select <em>all</em> groups whose composition factors include a non-abelian simple group.",
+          "choices": [
+            "$S_5$",
+            "$A_5$",
+            "$\\mathbb{Z}/60\\mathbb{Z}$",
+            "$D_{30}$ (dihedral of order $60$)",
+            "$S_3 \\times \\mathbb{Z}/10\\mathbb{Z}$"
+          ],
+          "answer": [
+            0,
+            1
+          ],
+          "hint": "$A_5$ is the smallest non-abelian simple group. Which groups in the list contain $A_5$ as a quotient or subgroup contributing to a composition series?",
+          "explain": "$A_5$ itself is non-abelian simple, so its only composition series is $\\{e\\} \\triangleleft A_5$. $S_5$ has composition series $\\{e\\} \\triangleleft A_5 \\triangleleft S_5$ with factors $A_5$ and $\\mathbb{Z}/2$. The other three are solvable (cyclic, dihedral, or a product of solvable groups), so all their composition factors are cyclic of prime order."
+        }
+      ]
+    },
+    "solvable-groups": {
+      "title": "Solvable groups",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which characterization of solvability is <em>equivalent</em> to the derived series $G \\supseteq G' \\supseteq G'' \\supseteq \\cdots$ terminating at $\\{e\\}$?",
+          "choices": [
+            "Every composition factor of $G$ is cyclic of prime order.",
+            "$G$ is abelian.",
+            "$G$ has a normal Sylow $p$-subgroup for every prime $p \\mid |G|$.",
+            "$G$ has prime order."
+          ],
+          "answer": 0,
+          "explain": "A finite group is solvable iff its composition factors are all cyclic of prime order, iff the derived series terminates at $\\{e\\}$, iff there is a subnormal abelian-factor series — these are equivalent characterizations. Abelian (option B) is sufficient but not necessary: $S_3$ is solvable but not abelian. \"Normal Sylow for every $p$\" (option C) is the *nilpotent* condition, strictly stronger than solvable (covered in §18). Prime order (option D) is far stronger still — every cyclic-of-prime-order group is abelian and trivially solvable, but most solvable groups aren't of prime order."
+        },
+        {
+          "type": "ordering",
+          "q": "Order these groups by length of their derived series (shortest first; if two share a length, their relative order is given). Use $\\ell(G) = $ smallest $n$ with $G^{(n)} = \\{e\\}$, with $\\ell(G) = \\infty$ when the series stalls.",
+          "items": [
+            "$\\mathbb{Z}/12\\mathbb{Z}$ (abelian)",
+            "$S_3$ (derived series $S_3 \\triangleright A_3 \\triangleright \\{e\\}$)",
+            "$S_4$ (derived series $S_4 \\triangleright A_4 \\triangleright V_4 \\triangleright \\{e\\}$)",
+            "$A_5$ (perfect, $A_5' = A_5$)"
+          ],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "hint": "Abelian groups have $\\ell = 1$. $A_5$ is perfect, so its derived series stalls and $\\ell = \\infty$.",
+          "explain": "$\\ell(\\mathbb{Z}/12) = 1$, $\\ell(S_3) = 2$, $\\ell(S_4) = 3$, $\\ell(A_5) = \\infty$. The Abel–Ruffini theorem follows: $S_5$ contains $A_5$, so $S_5$ is unsolvable, and a generic quintic with Galois group $S_5$ has no solution by radicals."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does Abel–Ruffini imply the generic quintic is not solvable by radicals?",
+          "choices": [
+            "Solvability by radicals corresponds to solvability of the Galois group, and $S_5 \\supseteq A_5$ has $A_5$ perfect, so $S_5$ is not solvable.",
+            "Quintic polynomials have too many roots.",
+            "$\\mathbb{Q}$ is not algebraically closed.",
+            "The discriminant of a generic quintic is irrational."
+          ],
+          "answer": 0,
+          "explain": "Galois theory gives a bijection between radical extensions and solvable Galois groups. A generic quintic has Galois group $S_5$, whose derived series is $S_5 \\triangleright A_5 \\triangleright A_5 \\triangleright \\cdots$ — it never reaches $\\{e\\}$ because $A_5$ is perfect (its commutator subgroup equals itself). Hence no radical formula exists."
+        }
+      ]
+    },
+    "nilpotent-groups": {
+      "title": "Nilpotent groups",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Which of the following is equivalent to a finite group $G$ being nilpotent?",
+          "choices": [
+            "$G$ is the direct product of its Sylow subgroups.",
+            "$G$ is solvable.",
+            "$G$ is abelian.",
+            "$G$ has a normal subgroup of prime order."
+          ],
+          "answer": 0,
+          "explain": "For finite groups, nilpotent is equivalent to: every Sylow subgroup is normal, equivalently $G \\cong \\prod_p P_p$ is the internal direct product of its Sylow subgroups. Solvability is strictly weaker (e.g. $S_3$ is solvable but not nilpotent)."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select <em>all</em> groups that are nilpotent.",
+          "choices": [
+            "$\\mathbb{Z}/12\\mathbb{Z}$",
+            "$S_3$",
+            "$D_4$ (dihedral, order $8$)",
+            "$Q_8$ (quaternion, order $8$)",
+            "$S_4$"
+          ],
+          "answer": [
+            0,
+            2,
+            3
+          ],
+          "hint": "Every finite $p$-group is nilpotent. $S_3$ has Sylow-$3$ subgroup $A_3$ that's normal but Sylow-$2$ subgroups $\\langle (12)\\rangle$, $\\langle (13)\\rangle$, $\\langle (23)\\rangle$ are conjugate (so not normal).",
+          "explain": "$\\mathbb{Z}/12 \\cong \\mathbb{Z}/4 \\times \\mathbb{Z}/3$ is a product of Sylow subgroups. $D_4$ and $Q_8$ are $2$-groups, hence nilpotent. $S_3$ has three Sylow-$2$ subgroups (none normal), and $S_4$ similarly fails — both are solvable but not nilpotent."
+        },
+        {
+          "type": "numeric",
+          "q": "What is the nilpotency class (length of the lower central series minus $1$) of $D_4$? That is, the smallest $c$ with $\\gamma_{c+1}(D_4) = \\{e\\}$, where $\\gamma_1 = G$, $\\gamma_{i+1} = [\\gamma_i, G]$.",
+          "answer": 2,
+          "tol": 1e-9,
+          "hint": "$D_4 = \\langle r,s \\mid r^4 = s^2 = e, srs = r^{-1}\\rangle$. Compute $[D_4, D_4]$ first; it's the subgroup generated by commutators $[r,s] = r^{-1}s^{-1}rs$.",
+          "explain": "$\\gamma_2(D_4) = [D_4, D_4] = \\langle r^2 \\rangle$, of order $2$ and central in $D_4$. Then $\\gamma_3 = [\\langle r^2\\rangle, D_4] = \\{e\\}$ since $r^2$ is central. So the chain is $D_4 \\triangleright \\langle r^2 \\rangle \\triangleright \\{e\\}$, giving nilpotency class $2$."
+        }
+      ]
+    },
+    "free-groups-presentations": {
+      "title": "Free groups & presentations",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Let $F_2 = \\langle a, b \\rangle$ be the free group on two generators, and let $G = S_3$. How many distinct homomorphisms $\\varphi: F_2 \\to S_3$ are there?",
+          "answer": 36,
+          "tol": 1e-9,
+          "hint": "By the universal property, a homomorphism $F_2 \\to G$ is uniquely determined by where the generators go.",
+          "explain": "The universal property of $F_S$: any function $S \\to G$ extends to a unique homomorphism $F_S \\to G$. So a homomorphism $F_2 \\to S_3$ is uniquely specified by the pair $(\\varphi(a), \\varphi(b)) \\in S_3 \\times S_3$, with no constraints (since $F_2$ has no nontrivial relations). The count is $|S_3|^2 = 6\\times 6 = 36$. Contrast with $\\mathrm{Hom}(\\mathbb{Z}/n,G)$: there the relation $a^n = e$ cuts the count down to elements of $G$ whose order divides $n$."
+        },
+        {
+          "type": "mcq",
+          "q": "Reduce the word $a b b^{-1} a^{-1} a b a a^{-1} b^{-1}$ in the free group $F_2 = \\langle a, b\\rangle$. The reduced form is:",
+          "choices": [
+            "$e$ (the identity)",
+            "$ab$",
+            "$a$",
+            "$ab^{-1}$"
+          ],
+          "answer": 2,
+          "hint": "Cancel adjacent inverse pairs $xx^{-1}$ or $x^{-1}x$ repeatedly until no cancellation remains. Cancellations can cascade.",
+          "explain": "Cancellations cascade: $abb^{-1}a^{-1}abaa^{-1}b^{-1} \\to aa^{-1}abaa^{-1}b^{-1}$ (cancel $bb^{-1}$) $\\to abaa^{-1}b^{-1}$ (cancel $aa^{-1}$) $\\to abb^{-1}$ (cancel $aa^{-1}$) $\\to a$ (cancel $bb^{-1}$). The reduced word is $a$ — distinct from the identity in $F_2$, since reduced words are unique."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select <em>all</em> true statements about presentations $G = \\langle S \\mid R\\rangle$.",
+          "choices": [
+            "Every group has a presentation.",
+            "The word problem (deciding if a word in $S$ represents the identity in $G$) is decidable for all finitely-presented $G$.",
+            "Every subgroup of a free group is itself free (Nielsen–Schreier).",
+            "$\\langle a, b \\mid aba^{-1}b^{-1}\\rangle \\cong \\mathbb{Z} \\times \\mathbb{Z}$.",
+            "$\\langle a \\mid a^n\\rangle \\cong \\mathbb{Z}/n\\mathbb{Z}$."
+          ],
+          "answer": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "hint": "Novikov–Boone constructed finitely-presented groups with undecidable word problem.",
+          "explain": "Every group has a presentation (take $S = G$, $R$ = multiplication table). Nielsen–Schreier is correct. The relation $aba^{-1}b^{-1} = e$ is exactly $ab = ba$, giving $\\mathbb{Z}^2$. $\\langle a \\mid a^n\\rangle$ is cyclic of order $n$. The word problem, however, is <em>undecidable</em> in general (Novikov 1955, Boone 1958), even for finitely-presented groups — that's the content of the only false option."
+        }
+      ]
     }
   }
 }

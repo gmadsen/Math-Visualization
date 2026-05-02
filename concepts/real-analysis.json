@@ -176,6 +176,58 @@
       "tags": [
         "compactness"
       ]
+    },
+    {
+      "id": "bounded-variation",
+      "title": "Bounded variation",
+      "anchor": "bounded-variation",
+      "prereqs": [
+        "real-differentiation",
+        "riemann-integral"
+      ],
+      "blurb": "$V_a^b(f)=\\sup\\sum|f(x_i)-f(x_{i-1})|$ measures total oscillation; Jordan's theorem decomposes any BV function as a difference of two monotone functions, and monotone functions are differentiable almost everywhere.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "absolute-continuity",
+      "title": "Absolute continuity",
+      "anchor": "absolute-continuity",
+      "prereqs": [
+        "bounded-variation",
+        "ftc-both-parts"
+      ],
+      "blurb": "AC is the right class for the Lebesgue FTC: $f$ is AC iff $f(x)=f(a)+\\int_a^x f'(t)\\,dt$ with $f'\\in L^1$. AC ⫋ BV, with the Cantor function as the canonical BV-but-not-AC counterexample.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "vitali-covering",
+      "title": "Vitali covering lemma",
+      "anchor": "vitali-covering",
+      "prereqs": [
+        "real-numbers",
+        "real-continuity"
+      ],
+      "blurb": "From any Vitali cover — a family of intervals where every point is contained in arbitrarily short ones — one can extract a disjoint subcollection whose union covers almost every point. This is the technical lemma behind Lebesgue's differentiation theorem.",
+      "tags": [
+        "compactness"
+      ]
+    },
+    {
+      "id": "lebesgue-differentiation",
+      "title": "Lebesgue differentiation theorem",
+      "anchor": "lebesgue-differentiation",
+      "prereqs": [
+        "vitali-covering",
+        "ftc-both-parts"
+      ],
+      "blurb": "For $f\\in L^1_{\\mathrm{loc}}(\\mathbb{R})$, $\\lim_{r\\to 0}\\tfrac{1}{2r}\\int_{x-r}^{x+r} f = f(x)$ at almost every $x$ (the Lebesgue points). Equivalently, monotone functions are differentiable a.e.",
+      "tags": [
+        "duality"
+      ]
     }
   ]
 }

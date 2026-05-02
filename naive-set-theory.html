@@ -271,7 +271,7 @@ function drawNode(svg, x, y, label, opts={}){
 <tr><td>union</td><td>$A\cup B$</td><td>$\{x : x\in A \text{ or } x\in B\}$</td></tr>
 <tr><td>intersection</td><td>$A\cap B$</td><td>$\{x : x\in A \text{ and } x\in B\}$</td></tr>
 <tr><td>difference</td><td>$A\setminus B$</td><td>$\{x : x\in A \text{ and } x\notin B\}$</td></tr>
-<tr><td>symmetric difference</td><td>$A\tr{}iangle B$</td><td>$(A\setminus B)\cup(B\setminus A) = (A\cup B)\setminus(A\cap B)$</td></tr>
+<tr><td>symmetric difference</td><td>$A\triangle B$</td><td>$(A\setminus B)\cup(B\setminus A) = (A\cup B)\setminus(A\cap B)$</td></tr>
 <tr><td>complement (in $U$)</td><td>$A^c$</td><td>$U\setminus A$</td></tr>
 <tr><td>power set</td><td>$\mathcal{P}(A)$</td><td>$\{S : S\subseteq A\}$</td></tr>
 <tr><td>Cartesian product</td><td>$A\times B$</td><td>$\{(a,b) : a\in A, b\in B\}$</td></tr>
@@ -280,7 +280,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <p>Two foundational counting facts we'll use over and over:</p>
 
-<div class="ok"><strong>Inclusion–exclusion (two sets).</strong> For finite sets, $|A\cup B| = |A| + |B| - |A\cap B|$. Equivalently, $|A\tr{}iangle B| = |A| + |B| - 2|A\cap B|$.</div>
+<div class="ok"><strong>Inclusion–exclusion (two sets).</strong> For finite sets, $|A\cup B| = |A| + |B| - |A\cap B|$. Equivalently, $|A\triangle B| = |A| + |B| - 2|A\cap B|$.</div>
 
 <div class="ok"><strong>Power-set size.</strong> If $|A|=n$ is finite then $|\mathcal{P}(A)| = 2^n$: each element is independently in or out of a subset, giving $2^n$ independent binary choices.</div>
 

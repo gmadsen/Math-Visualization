@@ -187,6 +187,10 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
   <a href="#abelian">13&nbsp;Finite&nbsp;abelian</a>
   <a href="#polyrings">14&nbsp;Polynomial&nbsp;rings</a>
   <a href="#semidirect">15&nbsp;Semidirect&nbsp;&amp;&nbsp;SES</a>
+  <a href="#composition-series-jordan-holder">16&nbsp;Composition&nbsp;series</a>
+  <a href="#solvable-groups">17&nbsp;Solvable&nbsp;groups</a>
+  <a href="#nilpotent-groups">18&nbsp;Nilpotent&nbsp;groups</a>
+  <a href="#free-groups-presentations">19&nbsp;Free&nbsp;groups&nbsp;&amp;&nbsp;presentations</a>
 </nav>
 <!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -251,7 +255,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 </div>
 
 <div class="note">
-<p style="margin:.2rem 0"><strong>Normal subgroup detector.</strong> A subgroup $H\leq G$ is <em>normal</em> iff left cosets equal right cosets, i.e. $gH=Hg$ for all $g$. Visually: the coset coloring is the same whether you look at the rows of $H$ or the columns of $H$. When $H\tr{}ianglelefteq G$ you can form the quotient $G/H$.</p>
+<p style="margin:.2rem 0"><strong>Normal subgroup detector.</strong> A subgroup $H\leq G$ is <em>normal</em> iff left cosets equal right cosets, i.e. $gH=Hg$ for all $g$. Visually: the coset coloring is the same whether you look at the rows of $H$ or the columns of $H$. When $H\trianglelefteq G$ you can form the quotient $G/H$.</p>
 </div>
 <div class="quiz" data-concept="cayley-tables"></div>
 <!-- backlinks-auto-begin -->
@@ -1453,10 +1457,10 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 <!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./algebra.html#free-groups-presentations">Abstract algebra</a> · Free groups &amp; presentations</div>
     <div><a href="./algebra.html#orbits">Abstract algebra</a> · Group actions, orbits, and Burnside</div>
     <div><a href="./algebra.html#quotients-iso">Abstract algebra</a> · Quotient groups and isomorphism theorems</div>
     <div><a href="./algebra.html#sylow">Abstract algebra</a> · Sylow theorems</div>
-    <div><a href="./galois.html#solvable">Galois theory</a> · Solvable groups</div>
     <div><a href="./geometric-and-combinatorial-group-theory.html#cayley">Geometric and combinatorial group theory</a> · Cayley graphs and the word metric</div>
 </aside>
 <!-- backlinks-auto-end --><script>
@@ -1620,11 +1624,11 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 </section>
 <section id="quotients-iso">
 <h2>10. Quotient groups and isomorphism theorems</h2>
-<p>When $N\tr{}ianglelefteq G$, the set of cosets $G/N$ carries a well-defined multiplication $(aN)(bN)=(ab)N$ — well-defined precisely because $N$ is normal, so the choice of representatives doesn't matter. The map $\pi:G\to G/N$, $g\mapsto gN$, is a surjective homomorphism with kernel $N$, and every surjection of $G$ arises this way.</p>
+<p>When $N\trianglelefteq G$, the set of cosets $G/N$ carries a well-defined multiplication $(aN)(bN)=(ab)N$ — well-defined precisely because $N$ is normal, so the choice of representatives doesn't matter. The map $\pi:G\to G/N$, $g\mapsto gN$, is a surjective homomorphism with kernel $N$, and every surjection of $G$ arises this way.</p>
 <p>The <strong>three isomorphism theorems</strong> then organize homomorphism arithmetic:</p>
 <p><span class="pill">I</span> $G/\ker\varphi\cong\mathrm{im}\,\varphi$ for any homomorphism $\varphi:G\to H$.</p>
-<p><span class="pill">II</span> For $H\leq G$ and $N\tr{}ianglelefteq G$: $HN/N\cong H/(H\cap N)$.</p>
-<p><span class="pill">III</span> For $N\tr{}ianglelefteq M\tr{}ianglelefteq G$ with $N\tr{}ianglelefteq G$: $(G/N)/(M/N)\cong G/M$.</p>
+<p><span class="pill">II</span> For $H\leq G$ and $N\trianglelefteq G$: $HN/N\cong H/(H\cap N)$.</p>
+<p><span class="pill">III</span> For $N\trianglelefteq M\trianglelefteq G$ with $N\trianglelefteq G$: $(G/N)/(M/N)\cong G/M$.</p>
 
 <div class="widget" id="w-quot">
   <div class="hd"><div class="ttl">Quotient builder</div><div class="hint">pick G, pick normal N · see G/N as a table</div></div>
@@ -1648,9 +1652,9 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 <!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./algebra.html#composition-series-jordan-holder">Abstract algebra</a> · Composition series &amp; Jordan–Hölder</div>
     <div><a href="./algebra.html#abelian">Abstract algebra</a> · Finite abelian groups</div>
     <div><a href="./algebra.html#semidirect">Abstract algebra</a> · Semidirect products and short exact sequences</div>
-    <div><a href="./galois.html#solvable">Galois theory</a> · Solvable groups</div>
 </aside>
 <!-- backlinks-auto-end --><script>
 /* =============================== SECTION 10: Quotients =============================== */
@@ -1999,7 +2003,12 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
   <div id="sy-out"></div>
   <div class="readout" id="sy-readout"></div>
 </div>
-<div class="quiz" data-concept="sylow-theorems"></div><script>
+<div class="quiz" data-concept="sylow-theorems"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./algebra.html#nilpotent-groups">Abstract algebra</a> · Nilpotent groups</div>
+</aside>
+<!-- backlinks-auto-end --><script>
 /* =============================== SECTION 12: Sylow =============================== */
 (function(){
   function factor(n){
@@ -2399,7 +2408,7 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
 </section>
 <section id="semidirect">
 <h2>15. Semidirect products and short exact sequences</h2>
-<p>A <strong>short exact sequence</strong> of groups is a chain $1\to N\xrightarrow{\iota} G\xrightarrow{\pi} H\to 1$ with $\iota$ injective, $\pi$ surjective, and $\mathrm{im}\,\iota=\ker\pi$. So $N\tr{}ianglelefteq G$ and $G/N\cong H$. The sequence <em>splits</em> when $\pi$ admits a homomorphism section $s:H\to G$; equivalently $G$ is isomorphic to a <strong>semidirect product</strong> $N\rtimes_\varphi H$, where $\varphi:H\to\mathrm{Aut}(N)$, $\varphi(h)(n)=s(h)\,n\,s(h)^{-1}$.</p>
+<p>A <strong>short exact sequence</strong> of groups is a chain $1\to N\xrightarrow{\iota} G\xrightarrow{\pi} H\to 1$ with $\iota$ injective, $\pi$ surjective, and $\mathrm{im}\,\iota=\ker\pi$. So $N\trianglelefteq G$ and $G/N\cong H$. The sequence <em>splits</em> when $\pi$ admits a homomorphism section $s:H\to G$; equivalently $G$ is isomorphic to a <strong>semidirect product</strong> $N\rtimes_\varphi H$, where $\varphi:H\to\mathrm{Aut}(N)$, $\varphi(h)(n)=s(h)\,n\,s(h)^{-1}$.</p>
 <p>Multiplication in $N\rtimes_\varphi H$ is $(n_1,h_1)(n_2,h_2)=(n_1\varphi_{h_1}(n_2),\,h_1 h_2)$. When $\varphi$ is the trivial homomorphism, this collapses to the direct product $N\times H$. For a nontrivial twist, the resulting $G$ is non-abelian (assuming $N$ is).</p>
 <p>Below, fix $N=\mathbb{Z}/n\mathbb{Z}$ and $H=\mathbb{Z}/2\mathbb{Z}$, and toggle $\varphi$ between the trivial map and inversion $a\mapsto -a$. The two choices reproduce $\mathbb{Z}/n\times\mathbb{Z}/2$ and $D_n$ respectively.</p>
 
@@ -2496,6 +2505,462 @@ function euler(n){let c=0;for(let i=1;i<n;i++) if(gcd(i,n)===1) c++;return c}
   draw();
 })();
 </script>
+
+
+</section>
+
+<section id="composition-series-jordan-holder">
+<h2>16. Composition series &amp; Jordan–Hölder</h2>
+<p>A <strong>composition series</strong> for $G$ is a chain of subgroups $\{e\} = G_0 \triangleleft G_1 \triangleleft \cdots \triangleleft G_n = G$ in which every successive quotient $G_i/G_{i-1}$ is a <em>simple</em> group — no further normal subdivision possible. Refining further would force a non-trivial normal subgroup of a simple group, which by definition does not exist.</p>
+<p>Composition series are generally not unique: $\mathbb{Z}/12\mathbb{Z}$ has $0 \triangleleft \langle 6\rangle \triangleleft \langle 3\rangle \triangleleft \mathbb{Z}/12$ with factors $(\mathbb{Z}/2,\mathbb{Z}/2,\mathbb{Z}/3)$ and also $0 \triangleleft \langle 4\rangle \triangleleft \langle 2\rangle \triangleleft \mathbb{Z}/12$ with factors $(\mathbb{Z}/3,\mathbb{Z}/2,\mathbb{Z}/2)$. The <strong>Jordan–Hölder theorem</strong> says the multiset of simple factors is the same — order may differ but the census is invariant. Those simple factors are the building blocks downstream classification machinery (solvable, nilpotent, simple) reads off.</p>
+
+<p>A non-abelian example sharpens the picture: $S_4$ admits the composition series $\{e\} \triangleleft \langle (12)(34)\rangle \triangleleft V_4 \triangleleft A_4 \triangleleft S_4$ with simple-factor multiset $(\mathbb{Z}/2, \mathbb{Z}/2, \mathbb{Z}/3, \mathbb{Z}/2)$. Picking either of the other two two-element subgroups of $V_4$ for the second rung gives a different chain through different intermediate subgroups, yet the multiset $\{\mathbb{Z}/2, \mathbb{Z}/2, \mathbb{Z}/2, \mathbb{Z}/3\}$ is invariant. Cyclic groups can never demonstrate this non-uniqueness because their lattice of subgroups is itself cyclic.</p>
+
+<div class="widget" id="w-jh">
+  <div class="hd"><div class="ttl">Composition series browser</div><div class="hint">pick G · toggle between two series · compare factor multisets</div></div>
+  <div class="row">
+    <label for="jh-group">G =</label>
+    <select id="jh-group">
+      <option value="Z12" selected>ℤ/12ℤ</option>
+      <option value="Z30">ℤ/30ℤ</option>
+      <option value="S3">S₃</option>
+      <option value="S4">S₄</option>
+      <option value="D4">D₄</option>
+    </select>
+    <label for="jh-series" style="margin-left:1rem">series:</label>
+    <select id="jh-series"></select>
+    <span class="small" id="jh-info"></span>
+  </div>
+  <div id="jh-out"></div>
+  <div class="readout" id="jh-readout"></div>
+</div><script>
+/* =============================== SECTION 16: Jordan–Hölder =============================== */
+(function(){
+  // Catalog: each group has |G|, two distinct composition series each as ordered list
+  // of (subgroup-name, subgroup-order). Factors are simple = cyclic of prime order in each example.
+  const CATALOG = {
+    Z12: {
+      name: 'ℤ/12ℤ',
+      order: 12,
+      series: [
+        { name: 'series A', chain: [['1',1],['⟨6⟩',2],['⟨3⟩',4],['ℤ/12',12]], factors:['ℤ/2','ℤ/2','ℤ/3'] },
+        { name: 'series B', chain: [['1',1],['⟨4⟩',3],['⟨2⟩',6],['ℤ/12',12]], factors:['ℤ/3','ℤ/2','ℤ/2'] },
+      ],
+    },
+    Z30: {
+      name: 'ℤ/30ℤ',
+      order: 30,
+      series: [
+        { name: 'series A', chain: [['1',1],['⟨15⟩',2],['⟨5⟩',6],['ℤ/30',30]], factors:['ℤ/2','ℤ/3','ℤ/5'] },
+        { name: 'series B', chain: [['1',1],['⟨10⟩',3],['⟨2⟩',15],['ℤ/30',30]], factors:['ℤ/3','ℤ/5','ℤ/2'] },
+      ],
+    },
+    S3: {
+      name: 'S₃',
+      order: 6,
+      series: [
+        { name: 'unique', chain: [['1',1],['A₃',3],['S₃',6]], factors:['ℤ/3','ℤ/2'] },
+      ],
+    },
+    S4: {
+      name: 'S₄',
+      order: 24,
+      series: [
+        { name: 'standard', chain: [['1',1],['⟨(12)(34)⟩',2],['V₄',4],['A₄',12],['S₄',24]], factors:['ℤ/2','ℤ/2','ℤ/3','ℤ/2'] },
+        { name: 'alternate', chain: [['1',1],['⟨(13)(24)⟩',2],['V₄',4],['A₄',12],['S₄',24]], factors:['ℤ/2','ℤ/2','ℤ/3','ℤ/2'] },
+      ],
+    },
+    D4: {
+      name: 'D₄',
+      order: 8,
+      series: [
+        { name: 'via ⟨r⟩', chain: [['1',1],['⟨r²⟩',2],['⟨r⟩',4],['D₄',8]], factors:['ℤ/2','ℤ/2','ℤ/2'] },
+        { name: 'via ⟨s,r²⟩', chain: [['1',1],['⟨r²⟩',2],['⟨s,r²⟩',4],['D₄',8]], factors:['ℤ/2','ℤ/2','ℤ/2'] },
+      ],
+    },
+  };
+
+  const gSel = $('#jh-group'), sSel = $('#jh-series'), out = $('#jh-out'), ro = $('#jh-readout'), info = $('#jh-info');
+
+  function renderSeriesOpts(){
+    const G = CATALOG[gSel.value];
+    sSel.innerHTML = '';
+    for(let i=0;i<G.series.length;i++){
+      const o = document.createElement('option');
+      o.value = i; o.textContent = G.series[i].name;
+      sSel.appendChild(o);
+    }
+    sSel.value = 0;
+  }
+
+  function multisetEqual(a,b){
+    if(a.length!==b.length) return false;
+    const sa = [...a].sort().join('|');
+    const sb = [...b].sort().join('|');
+    return sa===sb;
+  }
+
+  function draw(){
+    const G = CATALOG[gSel.value];
+    const S = G.series[+sSel.value || 0];
+    info.innerHTML = `|G| = ${G.order} · ${G.series.length} series catalogued`;
+
+    // Render the chain as a vertical stack with simple-factor labels between rungs
+    let html = '<div style="display:flex;flex-direction:column;align-items:center;gap:0;margin:.6rem 0">';
+    for(let i=S.chain.length-1; i>=0; i--){
+      const [name,ord] = S.chain[i];
+      const isTop = i===S.chain.length-1, isBot = i===0;
+      const color = isTop ? 'var(--yellow)' : (isBot ? 'var(--mute)' : 'var(--blue)');
+      html += `<div style="background:color-mix(in srgb, ${color} 12%, transparent);border:1px solid ${color};color:${color};padding:.3rem .9rem;border-radius:6px;font-family:ui-monospace,monospace;font-size:.92rem;min-width:9rem;text-align:center">${name} <span style="color:var(--mute);font-size:.78rem">|·| = ${ord}</span></div>`;
+      if(i>0){
+        const factor = S.factors[i-1];
+        html += `<div style="display:flex;align-items:center;gap:.5rem;color:var(--green);font-family:ui-monospace,monospace;font-size:.85rem;margin:.18rem 0"><span>↓</span><span style="background:color-mix(in srgb, var(--green) 12%, transparent);padding:.1rem .5rem;border-radius:4px">factor: ${factor}</span></div>`;
+      }
+    }
+    html += '</div>';
+
+    // Show factor multiset for ALL series, side-by-side, to visualize Jordan–Hölder
+    html += '<div class="small" style="color:var(--mute);margin:.6rem 0 .2rem">Factor multisets (Jordan–Hölder check):</div>';
+    html += '<div style="display:flex;flex-wrap:wrap;gap:.6rem">';
+    const baseSorted = [...G.series[0].factors].sort();
+    for(let i=0;i<G.series.length;i++){
+      const T = G.series[i];
+      const same = multisetEqual(T.factors, G.series[0].factors);
+      const c = same ? 'var(--green)' : 'var(--pink)';
+      const sortedShow = [...T.factors].sort().join(' + ');
+      html += `<div style="border:1px solid ${c};background:color-mix(in srgb,${c} 8%,transparent);color:${c};padding:.3rem .6rem;border-radius:6px;font-family:ui-monospace,monospace;font-size:.85rem">${T.name}: ${T.factors.join(', ')} <span style="color:var(--mute)">(sorted: ${sortedShow})</span></div>`;
+    }
+    html += '</div>';
+
+    out.innerHTML = html;
+
+    const allSame = G.series.every(T=>multisetEqual(T.factors, G.series[0].factors));
+    ro.innerHTML = `Composition length n = ${S.chain.length-1}. Factor multiset (sorted) = {${baseSorted.join(', ')}}. ` +
+      (allSame
+        ? `<span style="color:var(--green)">The ${G.series.length} catalogued series share the same multiset of simple factors</span> — as Jordan–Hölder predicts.`
+        : `<span style="color:var(--pink)">Multisets disagree — that would contradict Jordan–Hölder!</span>`);
+  }
+
+  gSel.addEventListener('change',()=>{renderSeriesOpts();draw();});
+  sSel.addEventListener('change',draw);
+  renderSeriesOpts(); draw();
+})();
+</script>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Krull–Schmidt analogue.</strong> The same uniqueness phenomenon for direct-sum decompositions of finite groups (and modules of finite length) is the Krull–Schmidt theorem: any two direct decompositions into indecomposable summands have the same multiset of summands up to isomorphism.</p>
+</div>
+<div class="quiz" data-concept="composition-series-jordan-holder"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./algebra.html#nilpotent-groups">Abstract algebra</a> · Nilpotent groups</div>
+    <div><a href="./algebra.html#solvable-groups">Abstract algebra</a> · Solvable groups</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="solvable-groups">
+<h2>17. Solvable groups</h2>
+<p>The <strong>derived subgroup</strong> $G' = [G,G]$ is the subgroup generated by all commutators $[a,b] = a^{-1}b^{-1}ab$. It's the smallest normal subgroup of $G$ whose quotient is abelian: $G/G'$ is the <em>abelianization</em>, the largest abelian quotient.</p>
+<p>Iterating gives the <strong>derived series</strong> $G \supseteq G' \supseteq G'' \supseteq \cdots$ with $G^{(k+1)} = [G^{(k)}, G^{(k)}]$. The group $G$ is <strong>solvable</strong> when this chain hits $\{e\}$ in finitely many steps. Equivalently: every composition factor (§16) is cyclic of prime order — no non-abelian simple groups appear.</p>
+<p>Galois recasts solvability of $f(x) = 0$ by radicals as solvability of its Galois group. The smallest non-abelian simple group is $A_5$, of order $60$, and $S_5 \supseteq A_5$ inherits its non-solvability — that's the conceptual core of <strong>Abel–Ruffini</strong>: the generic quintic has no radical formula.</p>
+
+<div class="widget" id="w-solv">
+  <div class="hd"><div class="ttl">Derived series viewer</div><div class="hint">pick G · watch G ⊇ G' ⊇ G'' ⊇ … terminate or stall</div></div>
+  <div class="row">
+    <label for="sv-group">G =</label>
+    <select id="sv-group">
+      <option value="Z12">ℤ/12ℤ (abelian)</option>
+      <option value="S3" selected>S₃</option>
+      <option value="D4">D₄</option>
+      <option value="S4">S₄</option>
+      <option value="A4">A₄</option>
+      <option value="A5">A₅ (perfect, simple)</option>
+      <option value="S5">S₅</option>
+    </select>
+    <span class="small" id="sv-info"></span>
+  </div>
+  <div id="sv-out"></div>
+  <div class="readout" id="sv-readout"></div>
+</div><script>
+/* =============================== SECTION 17: Solvable =============================== */
+(function(){
+  // For each group we encode the derived series as a list of (name, order) tuples.
+  // Series stalls when a perfect subgroup G^(k) = G^(k+1) ≠ {e} appears.
+  const SERIES = {
+    Z12: { name:'ℤ/12ℤ', chain:[['ℤ/12ℤ',12],['{e}',1]], stalls:false, solvable:true },
+    S3:  { name:'S₃',    chain:[['S₃',6],['A₃',3],['{e}',1]], stalls:false, solvable:true },
+    D4:  { name:'D₄',    chain:[['D₄',8],['⟨r²⟩',2],['{e}',1]], stalls:false, solvable:true },
+    S4:  { name:'S₄',    chain:[['S₄',24],['A₄',12],['V₄',4],['{e}',1]], stalls:false, solvable:true },
+    A4:  { name:'A₄',    chain:[['A₄',12],['V₄',4],['{e}',1]], stalls:false, solvable:true },
+    A5:  { name:'A₅',    chain:[['A₅',60],['A₅',60]], stalls:true, solvable:false, stallNote:'A₅ is perfect: A₅\' = A₅' },
+    S5:  { name:'S₅',    chain:[['S₅',120],['A₅',60],['A₅',60]], stalls:true, solvable:false, stallNote:'A₅ is perfect — chain stalls at A₅' },
+  };
+
+  const gSel = $('#sv-group'), out = $('#sv-out'), ro = $('#sv-readout'), info = $('#sv-info');
+
+  function draw(){
+    const S = SERIES[gSel.value];
+    info.innerHTML = `|G| = ${S.chain[0][1]} · ${S.solvable ? '<span style="color:var(--green)">solvable</span>' : '<span style="color:var(--pink)">not solvable</span>'}`;
+
+    let html = '<div style="display:flex;flex-direction:column;align-items:center;gap:0;margin:.6rem 0">';
+    for(let i=0;i<S.chain.length;i++){
+      const [name,ord] = S.chain[i];
+      const isStallRepeat = S.stalls && i>0 && S.chain[i][0]===S.chain[i-1][0];
+      const color = i===0 ? 'var(--yellow)' : (isStallRepeat ? 'var(--pink)' : (ord===1 ? 'var(--green)' : 'var(--blue)'));
+      const label = `G<sup>(${i})</sup> = ${name}`;
+      html += `<div style="background:color-mix(in srgb, ${color} 12%, transparent);border:1px solid ${color};color:${color};padding:.3rem .9rem;border-radius:6px;font-family:ui-monospace,monospace;font-size:.92rem;min-width:11rem;text-align:center">${label} <span style="color:var(--mute);font-size:.78rem">|·| = ${ord}</span></div>`;
+      if(i<S.chain.length-1){
+        const arrow = isStallRepeat || (i+1<S.chain.length && S.stalls && S.chain[i+1][0]===S.chain[i][0]) ? '↺ stalls' : '⊇ commutator';
+        const ac = arrow.startsWith('↺') ? 'var(--pink)' : 'var(--mute)';
+        html += `<div style="color:${ac};font-family:ui-monospace,monospace;font-size:.78rem;margin:.18rem 0">${arrow}</div>`;
+      }
+    }
+    html += '</div>';
+
+    if(S.stalls){
+      html += `<div class="small" style="color:var(--pink);text-align:center">${S.stallNote}</div>`;
+    }
+
+    out.innerHTML = html;
+
+    const len = S.solvable ? S.chain.length-1 : '∞';
+    ro.innerHTML = S.solvable
+      ? `Derived length ℓ(G) = ${len}. <span style="color:var(--green)">Series terminates</span>, every composition factor is cyclic of prime order.`
+      : `Derived series <span style="color:var(--pink)">never reaches {e}</span> — G is not solvable. By Galois, polynomials with this Galois group are not solvable by radicals.`;
+  }
+
+  gSel.addEventListener('change',draw);
+  draw();
+})();
+</script>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Why $A_5$ blocks Abel–Ruffini.</strong> Solvability is closed under subgroups, quotients, and extensions. So if any Galois group contains a non-abelian simple subgroup like $A_5$, the whole group is non-solvable. The generic quintic has Galois group $S_5 \supseteq A_5$, hence is unsolvable by radicals.</p>
+</div>
+<div class="quiz" data-concept="solvable-groups"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./galois.html#quintic">Galois theory</a> · Radical extensions</div>
+    <div><a href="./galois.html#quintic">Galois theory</a> · Solvability by radicals</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="nilpotent-groups">
+<h2>18. Nilpotent groups</h2>
+<p>The <strong>lower central series</strong> is the descending chain $\gamma_1 G = G \supseteq \gamma_2 G = [G,G] \supseteq \gamma_3 G = [\gamma_2 G, G] \supseteq \cdots$ with $\gamma_{i+1} G = [\gamma_i G, G]$. The group is <strong>nilpotent</strong> of class $c$ when $\gamma_{c+1} G = \{e\}$ but $\gamma_c G \ne \{e\}$. (Compare §17: solvability iterates the commutator inside $G^{(i)}$, while nilpotency commutes against the whole $G$ — strictly stronger.)</p>
+<p>For finite $G$, nilpotent is equivalent to: $G$ is the internal direct product $G \cong \prod_{p \mid |G|} \mathrm{Syl}_p(G)$ of its (necessarily unique, hence normal) Sylow subgroups. In particular every finite $p$-group is nilpotent. The hierarchy is strict: <em>abelian</em> $\subset$ <em>nilpotent</em> $\subset$ <em>solvable</em> $\subset$ <em>all groups</em>; $S_3$ shows the second containment is proper, and $A_5$ shows the third.</p>
+
+<div class="widget" id="w-nil">
+  <div class="hd"><div class="ttl">Lower central series + Sylow decomposition</div><div class="hint">pick G · watch γ_i G terminate (nilpotent) or stall (non-nilpotent)</div></div>
+  <div class="row">
+    <label for="nl-group">G =</label>
+    <select id="nl-group">
+      <option value="Z12">ℤ/12ℤ</option>
+      <option value="D4" selected>D₄</option>
+      <option value="Q8">Q₈</option>
+      <option value="S3">S₃</option>
+      <option value="S4">S₄</option>
+      <option value="A4">A₄</option>
+    </select>
+    <span class="small" id="nl-info"></span>
+  </div>
+  <div id="nl-out"></div>
+  <div class="readout" id="nl-readout"></div>
+</div><script>
+/* =============================== SECTION 18: Nilpotent =============================== */
+(function(){
+  // Each entry: lower central series as (name, order) and Sylow decomposition.
+  // nilpotent ⟺ chain terminates at {e} ⟺ G is direct product of its Sylow subgroups.
+  const DATA = {
+    Z12: { name:'ℤ/12ℤ', order:12, lcs:[['ℤ/12ℤ',12],['{e}',1]], sylows:[['Syl₂',4,'ℤ/4'],['Syl₃',3,'ℤ/3']], directProduct:true, nilpotent:true },
+    D4:  { name:'D₄',    order:8,  lcs:[['D₄',8],['⟨r²⟩',2],['{e}',1]], sylows:[['Syl₂',8,'D₄ itself']], directProduct:true, nilpotent:true },
+    Q8:  { name:'Q₈',    order:8,  lcs:[['Q₈',8],['{±1}',2],['{e}',1]], sylows:[['Syl₂',8,'Q₈ itself']], directProduct:true, nilpotent:true },
+    S3:  { name:'S₃',    order:6,  lcs:[['S₃',6],['A₃',3],['A₃',3]], sylows:[['Syl₂',2,'⟨(12)⟩, ⟨(13)⟩, ⟨(23)⟩ — three copies, none normal'],['Syl₃',3,'A₃ (unique, normal)']], directProduct:false, nilpotent:false, stallNote:'γ_i S₃ stabilizes at A₃ ≠ {e}' },
+    S4:  { name:'S₄',    order:24, lcs:[['S₄',24],['A₄',12],['V₄',4],['V₄',4]], sylows:[['Syl₂',8,'three conjugate D₄ copies'],['Syl₃',3,'four conjugate ℤ/3 copies']], directProduct:false, nilpotent:false, stallNote:'γ_i S₄ stabilizes at V₄ ≠ {e}' },
+    A4:  { name:'A₄',    order:12, lcs:[['A₄',12],['V₄',4],['V₄',4]], sylows:[['Syl₂',4,'V₄ (unique, normal)'],['Syl₃',3,'four conjugate ℤ/3 copies — not normal']], directProduct:false, nilpotent:false, stallNote:'γ_i A₄ stabilizes at V₄ ≠ {e}' },
+  };
+
+  const gSel = $('#nl-group'), out = $('#nl-out'), ro = $('#nl-readout'), info = $('#nl-info');
+
+  function draw(){
+    const D = DATA[gSel.value];
+    info.innerHTML = `|G| = ${D.order} · ${D.nilpotent ? '<span style="color:var(--green)">nilpotent</span>' : '<span style="color:var(--pink)">not nilpotent</span>'}`;
+
+    // Lower central chain
+    let html = '<div class="small" style="color:var(--mute);margin:.4rem 0 .2rem">Lower central series γ_i G:</div>';
+    html += '<div style="display:flex;flex-direction:column;align-items:center;gap:0;margin:.3rem 0 .8rem">';
+    for(let i=0;i<D.lcs.length;i++){
+      const [name,ord] = D.lcs[i];
+      const stallRepeat = !D.nilpotent && i>0 && D.lcs[i][0]===D.lcs[i-1][0];
+      const color = i===0 ? 'var(--yellow)' : (stallRepeat ? 'var(--pink)' : (ord===1 ? 'var(--green)' : 'var(--blue)'));
+      html += `<div style="background:color-mix(in srgb, ${color} 12%, transparent);border:1px solid ${color};color:${color};padding:.28rem .8rem;border-radius:6px;font-family:ui-monospace,monospace;font-size:.9rem;min-width:11rem;text-align:center">γ<sub>${i+1}</sub> G = ${name} <span style="color:var(--mute);font-size:.78rem">|·| = ${ord}</span></div>`;
+      if(i<D.lcs.length-1){
+        const stallHere = !D.nilpotent && D.lcs[i+1][0]===D.lcs[i][0];
+        const arrow = stallHere ? '↺ stalls' : '[·, G]';
+        const ac = stallHere ? 'var(--pink)' : 'var(--mute)';
+        html += `<div style="color:${ac};font-family:ui-monospace,monospace;font-size:.78rem;margin:.16rem 0">${arrow}</div>`;
+      }
+    }
+    html += '</div>';
+    if(D.stallNote){
+      html += `<div class="small" style="color:var(--pink);text-align:center;margin-bottom:.6rem">${D.stallNote}</div>`;
+    }
+
+    // Sylow decomposition
+    html += '<div class="small" style="color:var(--mute);margin:.6rem 0 .2rem">Sylow subgroups:</div>';
+    html += '<div style="display:flex;flex-wrap:wrap;gap:.45rem;justify-content:center">';
+    for(const [tag,ord,note] of D.sylows){
+      const c = D.directProduct ? 'var(--green)' : 'var(--pink)';
+      html += `<div style="border:1px solid ${c};background:color-mix(in srgb,${c} 8%,transparent);color:${c};padding:.25rem .55rem;border-radius:6px;font-family:ui-monospace,monospace;font-size:.82rem">${tag} (order ${ord}): <span style="color:var(--mute)">${note}</span></div>`;
+    }
+    html += '</div>';
+
+    out.innerHTML = html;
+
+    if(D.nilpotent){
+      const cls = D.lcs.length-1;
+      ro.innerHTML = `Nilpotent of class ${cls}. <span style="color:var(--green)">G is the direct product of its Sylow subgroups</span>, ${D.sylows.map(s=>`|Syl| = ${s[1]}`).join(' · ')}. ${D.order===D.sylows[0][1] ? 'A single-prime case (every p-group is nilpotent).' : ''}`;
+    } else {
+      ro.innerHTML = `<span style="color:var(--pink)">Not nilpotent</span> — at least one Sylow subgroup is not normal, so G is not the direct product of its Sylow subgroups.`;
+    }
+  }
+
+  gSel.addEventListener('change',draw);
+  draw();
+})();
+</script>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Hierarchy.</strong> $\text{abelian} \subsetneq \text{nilpotent} \subsetneq \text{solvable}$. The first containment fails for $D_4$ (nilpotent class $2$, non-abelian); the second fails for $S_3$ (solvable, not nilpotent because Sylow-$2$ is not normal).</p>
+</div>
+<div class="quiz" data-concept="nilpotent-groups"></div>
+</section>
+
+<section id="free-groups-presentations">
+<h2>19. Free groups &amp; presentations</h2>
+<p>The <strong>free group</strong> $F_S$ on a set $S$ is the group of <em>reduced words</em> in $S \cup S^{-1}$: finite strings with no adjacent $x x^{-1}$ or $x^{-1} x$. Multiplication is concatenation followed by reduction. The universal property: any function $f : S \to G$ to any group extends uniquely to a homomorphism $\tilde f : F_S \to G$. So free groups are the &ldquo;maximally non-committal&rdquo; — no relations beyond what the axioms force.</p>
+<p>Every group is a quotient $F_S / \langle\langle R \rangle\rangle$ where $\langle\langle R \rangle\rangle$ is the normal closure of a set $R$ of <em>relators</em>. The notation $G = \langle S \mid R \rangle$ packages this. Examples: $\mathbb{Z}/n = \langle a \mid a^n \rangle$, $\mathbb{Z}^2 = \langle a,b \mid aba^{-1}b^{-1} \rangle$, $D_n = \langle r,s \mid r^n, s^2, srsr \rangle$ (the relator $srsr = e$ is the same as $srs = r^{-1}$, i.e. reflection inverts rotation).</p>
+<p>Presentations open hard questions: the <strong>word problem</strong> — given a word, decide if it equals the identity in $G$ — is undecidable in general (Novikov 1955, Boone 1958). On the bright side, <strong>Nielsen–Schreier</strong> says every subgroup of a free group is itself free, the entry point to <a href="./geometric-and-combinatorial-group-theory.html">geometric and combinatorial group theory</a>.</p>
+
+<div class="widget" id="w-free">
+  <div class="hd"><div class="ttl">Word reduction in F₂</div><div class="hint">type a word in {a, b, A=a⁻¹, B=b⁻¹} · step through cancellations</div></div>
+  <div class="row">
+    <label for="fr-word">word:</label>
+    <input type="text" id="fr-word" value="abBAabaAB" style="width:18rem;font-family:ui-monospace,monospace" />
+    <button id="fr-step">step</button>
+    <button id="fr-reset">reset</button>
+    <button id="fr-full">reduce fully</button>
+    <span class="small" id="fr-info" style="margin-left:.5rem"></span>
+  </div>
+  <div class="small" style="color:var(--mute);margin:.2rem 0">Letters: lowercase a, b for generators; uppercase A, B for inverses a⁻¹, b⁻¹.</div>
+  <div id="fr-out"></div>
+  <div class="readout" id="fr-readout"></div>
+</div><script>
+/* =============================== SECTION 19: Free groups =============================== */
+(function(){
+  const wIn = $('#fr-word'), bStep = $('#fr-step'), bReset = $('#fr-reset'), bFull = $('#fr-full');
+  const out = $('#fr-out'), ro = $('#fr-readout'), info = $('#fr-info');
+
+  // Internal model: array of letters drawn from {a,b,A,B}.
+  // Inverse map: a↔A, b↔B.
+  const INV = {a:'A',b:'B',A:'a',B:'b'};
+  const PRETTY = {a:'a', b:'b', A:'a⁻¹', B:'b⁻¹'};
+
+  let original = '';   // raw input parsed
+  let history = [];    // list of states; history[history.length-1] is current
+
+  function parse(s){
+    const letters = [];
+    for(const ch of s){
+      if(ch==='a'||ch==='b'||ch==='A'||ch==='B') letters.push(ch);
+    }
+    return letters;
+  }
+
+  function findCancel(letters){
+    for(let i=0;i<letters.length-1;i++){
+      if(INV[letters[i]] === letters[i+1]) return i;
+    }
+    return -1;
+  }
+
+  function stepOnce(){
+    const cur = history[history.length-1];
+    const i = findCancel(cur);
+    if(i<0) return false;
+    const next = cur.slice(0,i).concat(cur.slice(i+2));
+    history.push({letters:next, cancelAt:i, prev:cur});
+    return true;
+  }
+
+  function reduceFully(){
+    let safety = 1000;
+    while(stepOnce() && safety-->0){}
+  }
+
+  function reset(){
+    original = parse(wIn.value);
+    history = [{letters:original.slice(), cancelAt:-1, prev:null}];
+    draw();
+  }
+
+  function letterSpan(ch, opts={}){
+    const c = (ch==='a'||ch==='A') ? 'var(--yellow)' : 'var(--cyan)';
+    const isInv = (ch==='A'||ch==='B');
+    const bg = opts.cancel ? 'color-mix(in srgb, var(--pink) 32%, transparent)' : `color-mix(in srgb, ${c} 14%, transparent)`;
+    const border = opts.cancel ? 'var(--pink)' : c;
+    return `<span style="display:inline-block;background:${bg};border:1px solid ${border};color:${isInv?c:c};padding:.15rem .45rem;margin:.05rem;border-radius:5px;font-family:ui-monospace,monospace;font-size:.95rem">${PRETTY[ch]}</span>`;
+  }
+
+  function draw(){
+    const cur = history[history.length-1];
+    const reduced = findCancel(cur.letters)<0;
+    info.innerHTML = `original length ${original.length} · current length ${cur.letters.length} · ${reduced?'<span style="color:var(--green)">reduced</span>':'<span style="color:var(--yellow)">not reduced</span>'}`;
+
+    let html = '<div class="small" style="color:var(--mute);margin:.4rem 0 .2rem">History (each step cancels one inverse pair):</div>';
+    html += '<div style="display:flex;flex-direction:column;gap:.35rem">';
+    for(let h=0;h<history.length;h++){
+      const state = history[h];
+      let row = `<div style="display:flex;align-items:center;gap:.3rem;flex-wrap:wrap"><span style="color:var(--mute);font-family:ui-monospace,monospace;font-size:.78rem;min-width:3.5rem">step ${h}:</span>`;
+      if(state.letters.length===0){
+        row += '<span style="color:var(--green);font-style:italic">e (identity)</span>';
+      } else {
+        // For previous-step row: show cancellation positions highlighted in pink
+        const nextState = history[h+1];
+        const ci = nextState ? nextState.cancelAt : -1;
+        for(let i=0;i<state.letters.length;i++){
+          row += letterSpan(state.letters[i], {cancel: (ci>=0 && (i===ci||i===ci+1))});
+        }
+      }
+      row += '</div>';
+      html += row;
+    }
+    html += '</div>';
+
+    out.innerHTML = html;
+
+    const finalWord = cur.letters.length===0 ? 'e' : cur.letters.map(c=>PRETTY[c]).join('');
+    ro.innerHTML = reduced
+      ? `Reduced form: <b style="color:var(--yellow)">${finalWord}</b>. ${cur.letters.length===0 ? 'The word represents the identity in F₂.' : 'Distinct reduced words represent distinct elements of F₂ (no further relations to apply).'}`
+      : `Cancellation pending — click <b>step</b> or <b>reduce fully</b>. The leftmost inverse pair is at position ${findCancel(cur.letters)+1}.`;
+  }
+
+  bStep.addEventListener('click',()=>{ if(stepOnce()) draw(); });
+  bFull.addEventListener('click',()=>{ reduceFully(); draw(); });
+  bReset.addEventListener('click',reset);
+  wIn.addEventListener('change',reset);
+  wIn.addEventListener('input',reset);
+
+  reset();
+})();
+</script>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Cayley graph of $F_2$.</strong> $F_2$ acts freely on its Cayley graph, which is the infinite $4$-regular tree. The boundary of this tree (visualized at increasing depth) is exactly where <a href="./geometric-and-combinatorial-group-theory.html">geometric group theory</a> begins: word metric, growth rate, hyperbolicity.</p>
+</div>
+<div class="quiz" data-concept="free-groups-presentations"></div>
 
 <div id="sections-end"></div>
 
