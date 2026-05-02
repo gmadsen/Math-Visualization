@@ -156,7 +156,12 @@
   @media (max-width:520px){
     .section-jump{padding:0.65rem 0.7rem;
       flex-wrap:nowrap;overflow-x:auto;
-      scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+      scrollbar-width:thin;-webkit-overflow-scrolling:touch;
+      /* Right-edge fade — affordance that more chips are off-screen.
+         Pure CSS mask, scrolls with content so the fade always shows
+         the trailing edge of the visible region. */
+      mask-image:linear-gradient(to right, #000 0, #000 calc(100% - 28px), transparent);
+      -webkit-mask-image:linear-gradient(to right, #000 0, #000 calc(100% - 28px), transparent)}
     .section-jump .sj-label{display:none}
     .section-jump a.sj-link{font-size:0.78rem;padding:0.25rem 0.55rem;
       flex-shrink:0;white-space:nowrap}
@@ -483,6 +488,22 @@
     </div>
   </section>
 
+  <div class="sj-sentinel" aria-hidden="true"></div>
+  <nav class="section-jump" role="navigation" aria-label="Jump to section">
+    <span class="sj-label">Jump to</span>
+    <a class="sj-link s-b" href="#logic-and-foundations"><span class="sj-dot"></span>Logic &amp; Foundations</a>
+    <a class="sj-link s-y" href="#algebra"><span class="sj-dot"></span>Algebra &amp; homological</a>
+    <a class="sj-link s-c" href="#higher-categories-and-toposes"><span class="sj-dot"></span>Higher categories &amp; toposes</a>
+    <a class="sj-link s-p" href="#analysis"><span class="sj-dot"></span>Analysis</a>
+    <a class="sj-link s-g" href="#probability-and-statistics"><span class="sj-dot"></span>Probability &amp; statistics</a>
+    <a class="sj-link s-v" href="#geometry-and-topology"><span class="sj-dot"></span>Geometry &amp; topology</a>
+    <a class="sj-link s-y" href="#number-theory"><span class="sj-dot"></span>Number theory</a>
+    <a class="sj-link s-c" href="#modular-forms-and-l-functions"><span class="sj-dot"></span>Modular forms &amp; L-functions</a>
+    <a class="sj-link s-g" href="#algebraic-geometry"><span class="sj-dot"></span>Algebraic geometry</a>
+    <a class="sj-link s-v" href="#combinatorics-and-graph-theory"><span class="sj-dot"></span>Combinatorics &amp; graph theory</a>
+    <a class="sj-link s-p" href="#mathematical-physics"><span class="sj-dot"></span>Mathematical physics</a>
+  </nav>
+
   <div class="start-here-rail">
     <a class="pathway-banner" href="./pathway.html">
       <div class="pb-body">
@@ -518,21 +539,6 @@
       <div class="fc-foot"><span id="continue-stats"></span><span class="fc-arrow">→</span></div>
     </a>
   </section>
-
-  <div class="sj-sentinel" aria-hidden="true"></div>
-  <nav class="section-jump" role="navigation" aria-label="Jump to section">
-    <span class="sj-label">Jump to</span>
-    <a class="sj-link s-b" href="#logic-and-foundations"><span class="sj-dot"></span>Logic &amp; Foundations</a>
-    <a class="sj-link s-y" href="#algebra"><span class="sj-dot"></span>Algebra &amp; homological</a>
-    <a class="sj-link s-c" href="#higher-categories-and-toposes"><span class="sj-dot"></span>Higher categories &amp; toposes</a>
-    <a class="sj-link s-p" href="#analysis"><span class="sj-dot"></span>Analysis</a>
-    <a class="sj-link s-g" href="#probability-and-statistics"><span class="sj-dot"></span>Probability &amp; statistics</a>
-    <a class="sj-link s-v" href="#geometry-and-topology"><span class="sj-dot"></span>Geometry &amp; topology</a>
-    <a class="sj-link s-y" href="#number-theory"><span class="sj-dot"></span>Number theory</a>
-    <a class="sj-link s-c" href="#modular-forms-and-l-functions"><span class="sj-dot"></span>Modular forms &amp; L-functions</a>
-    <a class="sj-link s-g" href="#algebraic-geometry"><span class="sj-dot"></span>Algebraic geometry</a>
-    <a class="sj-link s-v" href="#combinatorics-and-graph-theory"><span class="sj-dot"></span>Combinatorics &amp; graph theory</a>
-  </nav>
 
   <section id="recently-updated" aria-label="Recently updated topics">
     <h2 class="ru-head">Recently updated</h2>
@@ -3435,6 +3441,7 @@
       'Modular forms & L-functions':  { id: 'modular-forms-and-l-functions',   color: 'c' },
       'Algebraic geometry':           { id: 'algebraic-geometry',              color: 'g' },
       'Combinatorics & graph theory': { id: 'combinatorics-and-graph-theory',  color: 'v' },
+      'Mathematical physics':         { id: 'mathematical-physics',            color: 'p' },
     };
   })();
   function init(){

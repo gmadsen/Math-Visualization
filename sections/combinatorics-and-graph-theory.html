@@ -156,7 +156,12 @@
   @media (max-width:520px){
     .section-jump{padding:0.65rem 0.7rem;
       flex-wrap:nowrap;overflow-x:auto;
-      scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+      scrollbar-width:thin;-webkit-overflow-scrolling:touch;
+      /* Right-edge fade — affordance that more chips are off-screen.
+         Pure CSS mask, scrolls with content so the fade always shows
+         the trailing edge of the visible region. */
+      mask-image:linear-gradient(to right, #000 0, #000 calc(100% - 28px), transparent);
+      -webkit-mask-image:linear-gradient(to right, #000 0, #000 calc(100% - 28px), transparent)}
     .section-jump .sj-label{display:none}
     .section-jump a.sj-link{font-size:0.78rem;padding:0.25rem 0.55rem;
       flex-shrink:0;white-space:nowrap}
