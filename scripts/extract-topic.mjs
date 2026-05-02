@@ -367,7 +367,9 @@ function main() {
 }
 
 // Run main only when invoked as a script — leaves findMatchingDivEnd
-// importable for scripts/test-find-matching-div.mjs.
-if (import.meta.url === `file://${process.argv[1]}` || process.argv[1] === __filename) {
+// importable for scripts/test-find-matching-div.mjs. Path-equality (rather
+// than URL-string equality) sidesteps the URL-encoding mismatch on paths
+// containing spaces.
+if (process.argv[1] === __filename) {
   main();
 }

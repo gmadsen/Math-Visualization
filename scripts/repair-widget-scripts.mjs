@@ -463,6 +463,10 @@ function main() {
 
 // Run main only when invoked as a script — leaves splitMultiIife importable
 // for scripts/test-multi-iife-split.mjs without firing the corpus-wide repair.
-if (import.meta.url === `file://${process.argv[1]}` || process.argv[1] === __filename) {
+// `__filename` is a resolved absolute path; `process.argv[1]` is the resolved
+// path Node was launched with. Comparing them avoids the URL-encoding
+// pitfalls of the `file://${argv1}` string form (paths with spaces produce a
+// false negative because the URL form isn't percent-encoded).
+if (process.argv[1] === __filename) {
   main();
 }

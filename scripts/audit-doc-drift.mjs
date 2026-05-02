@@ -65,8 +65,11 @@
 //                                                 (matched commit subjects,
 //                                                 step-list diff detail).
 //
-// Always exits 0 — this is advisory, not a gate. CI wiring is orchestrator's
-// job.
+// Exit codes: 0 if no `level: 'fail'` findings exist in the `corpus` group
+// (the load-bearing structural-prevention layer for PLAN.md / README.md /
+// AGENTS.md numerical drift), otherwise 1. Advisory checks 1–5 keep the
+// historical exit-0 contract — they're meant for editorial drift, not CI
+// gating. Only the corpus-snapshot gate (check 6) fails the build.
 //
 // Zero external dependencies. Falls back gracefully if `git` is unavailable.
 
@@ -448,7 +451,8 @@ function checkScriptsReadme() {
 // ─────────────────────────────────────────────────────────────────────────
 // Check 6: corpus-snapshot numbers vs on-disk reality.
 
-function computeCorpusTruth() {
+// Exported for scripts/test-doc-drift.mjs.
+export function computeCorpusTruth(rootDir = repoRoot) {
   const truth = {
     topics: 0,
     sections: 0,
@@ -461,9 +465,9 @@ function computeCorpusTruth() {
     expert: 0,
     lackingHard: 0,
   };
-  const idxPath = join(repoRoot, 'concepts', 'index.json');
-  const sectionsPath = join(repoRoot, 'concepts', 'sections.json');
-  const capstonesPath = join(repoRoot, 'concepts', 'capstones.json');
+  const idxPath = join(rootDir, 'concepts', 'index.json');
+  const sectionsPath = join(rootDir, 'concepts', 'sections.json');
+  const capstonesPath = join(rootDir, 'concepts', 'capstones.json');
   if (!existsSync(idxPath) || !existsSync(sectionsPath) || !existsSync(capstonesPath)) {
     return null;
   }
@@ -478,7 +482,7 @@ function computeCorpusTruth() {
   const ownerOf = new Map();
   const conceptsByTopic = new Map();
   for (const slug of topics) {
-    const path = join(repoRoot, 'concepts', `${slug}.json`);
+    const path = join(rootDir, 'concepts', `${slug}.json`);
     if (!existsSync(path)) continue;
     const j = JSON.parse(readFileSync(path, 'utf8'));
     conceptsByTopic.set(slug, j.concepts || []);
@@ -498,7 +502,7 @@ function computeCorpusTruth() {
   // Quiz tiers + lacking-hard count.
   const conceptsWithHard = new Set();
   for (const slug of topics) {
-    const path = join(repoRoot, 'quizzes', `${slug}.json`);
+    const path = join(rootDir, 'quizzes', `${slug}.json`);
     if (!existsSync(path)) continue;
     const bank = JSON.parse(readFileSync(path, 'utf8'));
     const qs = (bank && bank.quizzes) || {};
@@ -514,23 +518,17 @@ function computeCorpusTruth() {
   return truth;
 }
 
-function checkCorpusSnapshot() {
-  const truth = computeCorpusTruth();
-  if (!truth) {
-    push('corpus', 'warn', 'concepts/{index,sections,capstones}.json missing — skipping snapshot check');
-    return;
-  }
+// Pure regex-matching layer. Exposed for tests so the snapshot regexes can
+// be exercised against synthetic doc strings without a tmpdir corpus.
+// Returns an array of { file, label, claim, expected } entries for each
+// numeric drift detected. Empty array = no drift.
+export function detectSnapshotDrift({ planText, readmeText, agentsText, truth }) {
+  const out = [];
   const cmp = (file, label, claim, expected) => {
-    if (Number(claim) !== expected) {
-      push(file, 'fail',
-        `${label} drift: prose says ${claim}, disk has ${expected}`);
-    }
+    if (Number(claim) !== expected) out.push({ file, label, claim, expected });
   };
-
-  // PLAN.md combined snapshot line.
-  const plan = readOrNull(join(repoRoot, 'PLAN.md'));
-  if (plan) {
-    const m = plan.match(
+  if (planText) {
+    const m = planText.match(
       /(\d+) topics, (\d+) concepts, (\d+) prereq edges \((\d+) cross-topic\), (\d+) capstones/
     );
     if (m) {
@@ -540,36 +538,56 @@ function checkCorpusSnapshot() {
       cmp('PLAN.md', 'cross-topic edges', m[4], truth.crossTopic);
       cmp('PLAN.md', 'capstone count',    m[5], truth.capstones);
     }
-    const tm = plan.match(/Quiz tiers: v1 = (\d+), hard = (\d+), expert = (\d+)/);
+    const tm = planText.match(/Quiz tiers: v1 = (\d+), hard = (\d+), expert = (\d+)/);
     if (tm) {
       cmp('PLAN.md', 'v1 quiz count',     tm[1], truth.v1);
       cmp('PLAN.md', 'hard quiz count',   tm[2], truth.hard);
       cmp('PLAN.md', 'expert quiz count', tm[3], truth.expert);
     }
-    const lm = plan.match(/\((\d+) concepts lack hard tier\)/);
+    const lm = planText.match(/\((\d+) concepts lack hard tier\)/);
     if (lm) cmp('PLAN.md', 'concepts lacking hard tier', lm[1], truth.lackingHard);
   }
-
-  // README.md.
-  const readme = readOrNull(join(repoRoot, 'README.md'));
-  if (readme) {
-    const cm = readme.match(/(\d+) capstones/);
+  if (readmeText) {
+    const cm = readmeText.match(/(\d+) capstones/);
     if (cm) cmp('README.md', 'capstone count', cm[1], truth.capstones);
-    const gm = readme.match(/(\d+)-concept graph/);
+    const gm = readmeText.match(/(\d+)-concept graph/);
     if (gm) cmp('README.md', 'concept-graph size', gm[1], truth.concepts);
   }
-
-  // AGENTS.md (= CLAUDE.md symlink).
-  const agents = readOrNull(join(repoRoot, 'AGENTS.md'));
-  if (agents) {
-    const sm = agents.match(/The (\d+) sections:/);
+  if (agentsText) {
+    const sm = agentsText.match(/The (\d+) sections:/);
     if (sm) cmp('AGENTS.md', 'section count', sm[1], truth.sections);
+  }
+  return out;
+}
+
+function checkCorpusSnapshot() {
+  const truth = computeCorpusTruth();
+  if (!truth) {
+    push('corpus', 'warn', 'concepts/{index,sections,capstones}.json missing — skipping snapshot check');
+    return;
+  }
+  const drifts = detectSnapshotDrift({
+    planText: readOrNull(join(repoRoot, 'PLAN.md')),
+    readmeText: readOrNull(join(repoRoot, 'README.md')),
+    agentsText: readOrNull(join(repoRoot, 'AGENTS.md')),
+    truth,
+  });
+  for (const d of drifts) {
+    push(d.file, 'fail',
+      `${d.label} drift: prose says ${d.claim}, disk has ${d.expected}`);
   }
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// Run all checks.
+// Run all checks. Guarded so test imports of computeCorpusTruth /
+// detectSnapshotDrift don't fire the side effects + process.exit.
 
+const __filename_doc_drift = fileURLToPath(import.meta.url);
+if (process.argv[1] === __filename_doc_drift) {
+  runMain();
+}
+
+function runMain() {
 checkPlanVsGit();
 checkAgentsVsScripts();
 checkRebuildStepList();
@@ -607,5 +625,16 @@ for (const [group, items] of byGroup) {
   }
 }
 
-console.log('\n(advisory; always exits 0)');
+// Gate only the corpus-snapshot group; everything else stays advisory.
+const corpusFailures = findings.filter((f) => f.group === 'corpus' && f.level === 'fail');
+const prosaFailures = findings.filter(
+  (f) => f.level === 'fail' && f.group !== 'corpus' && f.msg && f.msg.includes('drift:')
+);
+const gating = [...corpusFailures, ...prosaFailures];
+if (gating.length > 0) {
+  console.log(`\n(${gating.length} numerical-drift finding(s) — exiting 1)`);
+  process.exit(1);
+}
+console.log('\n(other findings advisory; exits 0 unless corpus-snapshot drifts)');
 process.exit(0);
+}  // end runMain

@@ -198,6 +198,47 @@ function check(name, cond, detail) {
   }
 }
 
+// recoverDroppedNodes — multi-section synthetic. Pin that the loop iterates
+// over every entry in missingIds, not just the first.
+
+{
+  const html =
+    '<section id="alpha"><p>alpha-one</p></section>' +
+    'middle' +
+    '<section id="beta"><p>beta-one</p><p>beta-two</p></section>' +
+    'tail';
+  const aOpen = html.indexOf('<section id="alpha">');
+  const aInner = aOpen + '<section id="alpha">'.length;
+  const aInnerEnd = html.indexOf('</section>', aInner);
+  const bOpen = html.indexOf('<section id="beta">');
+  const bInner = bOpen + '<section id="beta">'.length;
+  const bInnerEnd = html.indexOf('</section>', bInner);
+  const fakeParseResult = {
+    root: null,
+    sections: new Map([
+      ['alpha', { id: 'alpha', node: null, openStart: aOpen, innerStart: aInner, innerEnd: aInnerEnd,
+                  outerEnd: aInnerEnd + '</section>'.length, body: html.slice(aInner, aInnerEnd) }],
+      ['beta',  { id: 'beta',  node: null, openStart: bOpen, innerStart: bInner, innerEnd: bInnerEnd,
+                  outerEnd: bInnerEnd + '</section>'.length, body: html.slice(bInner, bInnerEnd) }],
+    ]),
+    missingIds: ['alpha', 'beta'],
+    present(){ return false; },
+  };
+  const recovered = recoverDroppedNodes(fakeParseResult, 'p', {});
+  check('multi-section: 1 + 2 = 3 <p> nodes recovered',
+    recovered.length === 3, `length=${recovered.length}`);
+  // All ranges should be inside the html and in document order.
+  if (recovered.length === 3) {
+    const ranges = recovered.map((p) => p.range[0]);
+    check('multi-section: ranges sorted in document order',
+      ranges[0] < ranges[1] && ranges[1] < ranges[2],
+      JSON.stringify(ranges));
+    check('multi-section: alpha <p> recovered first',
+      html.slice(ranges[0], ranges[0] + '<p>alpha-one</p>'.length) === '<p>alpha-one</p>',
+      html.slice(ranges[0], ranges[0] + 20));
+  }
+}
+
 // ─────────────────────────────────────────────────────────────────────────
 // parseTopicHtmlSafe — corpus regression on the two known-fragile sections.
 
@@ -243,20 +284,22 @@ const parseOpts = {
 {
   const r = parseTopicHtmlSafe(ADVANCED_HTML, parseOpts);
   const recoveredP = recoverDroppedNodes(r, 'p', parseOpts);
-  // The corpus is known to reproduce the parser-drop bug at mittag-leffler;
-  // require unconditional recovery to make sure the recovery path actually
-  // exercises (a silent regression to no-op should fail the test).
-  check('corpus: recoverDroppedNodes recovers at least one <p>',
-    recoveredP.length >= 1,
-    `length=${recoveredP.length}, missingIds=${JSON.stringify(r.missingIds)}`);
+  // Corpus assertion: the section must be reachable (parsed-or-recovered),
+  // matching the header comment's contract. The synthetic test in the
+  // previous block is the load-bearing assertion that exercises the recovery
+  // PATH; this corpus block just confirms the section is discoverable.
+  // If a future node-html-parser version fixes the silent drop upstream,
+  // missingIds becomes empty and recoveredP becomes []; that's a fix, not a
+  // regression, so this block must not fail.
+  check('corpus: recoverDroppedNodes returns array',
+    Array.isArray(recoveredP),
+    typeof recoveredP);
   if (recoveredP.length >= 1) {
     const p = recoveredP[0];
-    check('recovered <p> range is plausible inside raw HTML',
-      p.range && p.range[0] >= 0 && p.range[1] <= ADVANCED_HTML.length && p.range[1] > p.range[0],
-      JSON.stringify(p.range));
-    check('recovered <p>\'s slice from raw HTML starts with "<p"',
-      ADVANCED_HTML.slice(p.range[0], p.range[0] + 2) === '<p',
-      ADVANCED_HTML.slice(p.range[0], p.range[0] + 6));
+    const slice = ADVANCED_HTML.slice(p.range[0], p.range[1]);
+    check('recovered <p> range translated end-to-end',
+      p.range && slice.startsWith('<p') && slice.endsWith('</p>'),
+      `range=${JSON.stringify(p.range)} slice=${slice.slice(0, 40)}…${slice.slice(-10)}`);
   }
 }
 

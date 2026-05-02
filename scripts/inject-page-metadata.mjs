@@ -49,6 +49,12 @@ const repoRoot = resolve(dirname(__filename), '..');
 const argv = process.argv.slice(2);
 const FIX = argv.includes('--fix');
 const DRY_RUN = !FIX;
+if (argv.includes('--dry-run')) {
+  console.log(
+    'inject-page-metadata: --dry-run is now the default; pass --fix to write. ' +
+    'This message means the flag was accepted (audit-only mode) but is no longer needed.'
+  );
+}
 
 // ----- Helpers -----
 function kebabSection(raw) {

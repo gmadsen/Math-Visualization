@@ -148,6 +148,15 @@ function findSection(topic, rawHtml, anchor, conceptAnchors) {
     // The two known-fragile sections (mittag-leffler, elementary-equivalence)
     // don't nest, so corpus output is unchanged — but the migration is also a
     // latent-bug fix.
+    //
+    // LIMITATION: matchClose runs on raw HTML and treats `</section>` inside
+    // HTML comments and <script>/<pre> string literals as real closers. The
+    // corpus today has neither pattern in any section body, but a future
+    // hand-edit that adds `<!-- TODO: replace this </section> -->` would
+    // truncate the slice early. If you suspect the fallback returned a too-
+    // short body, look first for stray closers in comments before re-checking
+    // node-html-parser's behaviour. (For audits that need comment-aware
+    // skipping, use lib/audit-utils.mjs:buildSkipMask.)
     const close = matchClose(rawHtml, innerStart, 'section');
     const innerEnd = close ? close.closeStart : rawHtml.length;
     return {

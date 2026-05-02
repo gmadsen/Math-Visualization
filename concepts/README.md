@@ -54,7 +54,7 @@ node scripts/validate-concepts.mjs       # duplicate ids, broken prereqs, cycles
 node scripts/smoke-test.mjs              # anchor contract — every concept's anchor resolves on its topic page
 ```
 
-Or just run `node scripts/rebuild.mjs`, which subsumes all three (and 27 other steps). The bundle rebuild is critical for the `file://` flow — `pathway.html` falls back to `fetch()` under a dev server but breaks silently on double-click if the bundle is stale.
+Or just run `node scripts/rebuild.mjs`, which subsumes all three (and 30 other steps). The bundle rebuild is critical for the `file://` flow — `pathway.html` falls back to `fetch()` under a dev server but breaks silently on double-click if the bundle is stale.
 
 ## Why a separate bundle?
 

@@ -51,7 +51,7 @@ schemas/                      JSON Schemas for concept graph + quiz banks
 audits/                       generated graph-health reports (TSV + Markdown summary)
 js/                           progress + quiz core (progress.js, quiz.js) plus per-page UX modules (sidetoc, theme-toggle, display-prefs, katex-select, breadcrumb, glossary-popover, onboarding, topic-hotkeys, topic-lineage) and per-widget runtime libraries (widget-*.js)
 scripts/                      validators, audits, bundle builders, packaging
-scripts/lib/                  shared loader (content-model.mjs) + audit-utils.mjs
+scripts/lib/                  shared libs: content-model, audit-utils (incl. parseTopicHtmlSafe), html-walk, ajv, script-scan, json-block-writer, html-injector
 .github/workflows/verify.yml  CI entry point
 AGENTS.md                     this file
 PLAN.md                       forward priorities and next tasks
@@ -66,7 +66,7 @@ Vanilla HTML/CSS/JS, no framework. `scripts/` is the "build system": small Node 
 - **Builders** that produce derived files (`build-concepts-bundle`, `build-quizzes-bundle`, `build-widgets-bundle`, `build-search-index`, `build-section-indexes`, `extract-topic`, `render-topic`, `package-offline`, `new-topic`, `new-widget`).
 - **Advisory audits** that exit 0 (most print to stdout; `stats-coverage`, `audit-graph-health`, and `audit-starter-concepts` also write under `audits/`): `audit-stale-blurbs`, `audit-blurb-question-alignment`, `audit-worked-examples`, `audit-cross-topic-prereqs`, `audit-inline-links`, `audit-backlinks`, `audit-notation`, `audit-widget-interactivity`, `audit-accessibility` (now also covers SVG `viewBox`), `audit-cross-page-consistency`, `audit-bundle-staleness`, `audit-draft-index-cards`, `audit-doc-drift`, `audit-canvas-stub`, `audit-slug-flavored-titles`.
 - **Tests** (`test-offline-bundle`, `test-mobile-perf`).
-- **Shared libraries** in `scripts/lib/` — [`content-model.mjs`](./scripts/lib/content-model.mjs) (`loadContentModel()` returns memoized `concepts`, `quizBanks`, `byPrereq`, `crossTopicEdges`, `ownerOf`, etc.) + [`audit-utils.mjs`](./scripts/lib/audit-utils.mjs). New audits import these rather than re-parsing JSON.
+- **Shared libraries** in `scripts/lib/` — [`content-model.mjs`](./scripts/lib/content-model.mjs) (`loadContentModel()` returns memoized `concepts`, `quizBanks`, `byPrereq`, `crossTopicEdges`, `ownerOf`, etc.); [`audit-utils.mjs`](./scripts/lib/audit-utils.mjs) (regex helpers + `parseTopicHtmlSafe()` and `recoverDroppedNodes()` for the parser silent-drop workaround); [`html-walk.mjs`](./scripts/lib/html-walk.mjs) (`matchClose`, `balancedRange`); [`ajv.mjs`](./scripts/lib/ajv.mjs) (`makeAjv()`); plus `script-scan.mjs`, `json-block-writer.mjs`, `html-injector.mjs`. New audits import these rather than re-parsing JSON.
 
 One CLI front door: `node scripts/cli.mjs <space-separated-command>` routes by longest-prefix match (`cli.mjs audit backlinks` → `scripts/audit-backlinks.mjs`). Individual scripts remain directly callable; `rebuild.mjs` doesn't go through the CLI so CI stays dependency-free.
 
@@ -95,7 +95,7 @@ See [`widgets/README.md`](./widgets/README.md) for the current registry and the 
 
 When a widget's driving `<script>` is inlined in a trailing `rawBodySuffix` block rather than in an adjacent `widget-script` block, [`scripts/repair-widget-scripts.mjs`](./scripts/repair-widget-scripts.mjs) splits it back out by DOM-id reference matching (bail-out safe: only acts when the script references exactly one widget's ids). This preserves byte-identity while exposing the widget ↔ script pairing to the migration pipeline, without the destructive wholesale re-extract.
 
-The canonical way for audit scripts to read content is [`scripts/lib/content-model.mjs`](./scripts/lib/content-model.mjs). A single `loadContentModel()` call returns a memoized normalized model: `concepts`, `quizBanks`, `byPrereq`, `crossTopicEdges`, `ownerOf`, parsed topic HTML, and more. Shared helpers live in [`scripts/lib/audit-utils.mjs`](./scripts/lib/audit-utils.mjs). New audits should consume these rather than re-parsing JSON or HTML.
+The canonical way for audit scripts to read content is [`scripts/lib/content-model.mjs`](./scripts/lib/content-model.mjs). A single `loadContentModel()` call returns a memoized normalized model: `concepts`, `quizBanks`, `byPrereq`, `crossTopicEdges`, `ownerOf`, parsed topic HTML, and more. Shared helpers live in [`scripts/lib/audit-utils.mjs`](./scripts/lib/audit-utils.mjs). When walking topic HTML by `<section id>`, prefer `parseTopicHtmlSafe()` over `parseHtml()` directly — `node-html-parser` silently drops two known sections, and the helper plus `recoverDroppedNodes()` close the gap. New audits should consume these rather than re-parsing JSON or HTML.
 
 ## Style reference — always read first
 
@@ -205,7 +205,7 @@ After scaffolding, you still need to:
 1. **Replace the draft index card** — the scaffolder leaves literal "draft" text in the thumb SVG and a placeholder `.desc`. Both are flagged by `audit-draft-index-cards.mjs`. Replace with: (a) a motif SVG matching one of the topic's central diagrams, (b) a 1–2 sentence `.desc`, (c) a `.tag` with 3–4 dot-separated keywords. See `category-theory`'s card as the template.
 2. Confirm the README bullet — `new-topic.mjs` auto-appends one under the matching `###` section in [`README.md`](./README.md); revise the description if the auto-stub is too thin.
 3. If it's a capstone, add an entry (with `section` field) to [`concepts/capstones.json`](./concepts/capstones.json).
-4. **Run `node scripts/rebuild.mjs`** — the full 30-step chain. Bundles are rebuilt, validators run, HTML is rendered from JSON, and any drift is surfaced. **Step list + `--only` enumeration: [`scripts/README.md`](./scripts/README.md) § "All-in-one verification".**
+4. **Run `node scripts/rebuild.mjs`** — the full 33-step chain. Bundles are rebuilt, validators run, HTML is rendered from JSON, and any drift is surfaced. **Step list + `--only` enumeration: [`scripts/README.md`](./scripts/README.md) § "All-in-one verification".**
 
 `rebuild.mjs --no-fix` mirrors CI (read-only). `inject-changelog-footer.mjs` is intentionally outside the chain — run it manually before publishing.
 

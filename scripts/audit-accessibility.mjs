@@ -371,7 +371,8 @@ function checkColorOnly(html) {
   return violations;
 }
 
-function checkSvgViewbox(html) {
+// Exported for scripts/test-audit-accessibility.mjs.
+export function checkSvgViewbox(html) {
   const violations = [];
   const thumbs = findThumbRanges(html);
   const defsRanges = [];
@@ -428,6 +429,14 @@ const CHECKS = [
   { key: 'color-only',     label: 'Color-only prose',     fn: checkColorOnly    },
 ];
 
+// Run the side-effect audit only when invoked as a CLI; under `import`
+// (e.g. scripts/test-audit-accessibility.mjs) we want the named exports
+// without triggering a corpus scan or process.exit.
+if (process.argv[1] !== __filename) {
+  // Module imported — skip audit run.
+} else { runAudit(); }
+
+function runAudit() {
 const htmlFiles = readdirSync(repoRoot)
   .filter((f) => f.endsWith('.html'))
   .sort();
@@ -494,3 +503,4 @@ console.log(`  ${'─'.repeat(maxLabel)}  ${'─'.repeat(5)}`);
 console.log(`  ${'TOTAL'.padEnd(maxLabel)}  ${String(grand).padStart(5)}`);
 console.log('\n(advisory — exit 0)');
 process.exit(0);
+}  // end runAudit

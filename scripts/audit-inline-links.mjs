@@ -214,7 +214,12 @@ function* findCandidatesInPage(html, pageTopic) {
   // visited via forEachSectionProse (which prunes skip-class and skip-tag
   // subtrees). We keep a per-<p> local mask so a shorter title cannot wrap
   // text already claimed by a longer title in the same paragraph.
-  const paragraphs = [...root.querySelectorAll('p'), ...recoveredParagraphs];
+  // Recovered paragraphs (from parser-dropped sections) are merged in source
+  // order so the rest of the file's "document-order" convention holds even
+  // when a dropped section sits mid-document.
+  const paragraphs = [...root.querySelectorAll('p'), ...recoveredParagraphs]
+    .filter((p) => p && p.range)
+    .sort((a, b) => a.range[0] - b.range[0]);
 
   for (const p of paragraphs) {
     if (!p || !p.range) continue;

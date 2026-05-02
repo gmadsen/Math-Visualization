@@ -38,7 +38,16 @@ const sectionsDir = join(repoRoot, 'sections');
 // can be wired in without blocking the build on prose.
 const sectionsJsonPath = join(repoRoot, 'concepts', 'sections.json');
 const SECTION_BLURBS = (() => {
-  const data = JSON.parse(readFileSync(sectionsJsonPath, 'utf8'));
+  let data;
+  try {
+    data = JSON.parse(readFileSync(sectionsJsonPath, 'utf8'));
+  } catch (e) {
+    console.error(
+      `build-section-indexes: failed to read concepts/sections.json — ${e.message}.\n` +
+      `  Run \`node scripts/validate-schema.mjs\` first for a schema-aware error.`
+    );
+    process.exit(1);
+  }
   const out = Object.create(null);
   for (const sec of data.sections || []) {
     if (sec && sec.title) out[sec.title] = sec.description || '';

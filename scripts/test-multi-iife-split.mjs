@@ -52,6 +52,8 @@ function check(name, cond, detail) {
   check('two clean IIFEs → 2 chunks', r.kind === 'split' && r.chunks.length === 2,
     r.kind === 'split' ? `got ${r.chunks.length} chunks` : '');
   if (r.kind === 'split') {
+    check('two-clean: chunks.length === 2',
+      r.chunks.length === 2, `got ${r.chunks.length}`);
     check('chunk[0] body has `const a = 1;`', r.chunks[0].body.includes('const a = 1;'));
     check('chunk[1] body has `const b = 2;`', r.chunks[1].body.includes('const b = 2;'));
     check('chunk[0] body excludes `const b`', !r.chunks[0].body.includes('const b'));
@@ -166,11 +168,38 @@ function check(name, cond, detail) {
   const r = splitMultiIife(input);
   check('empty-body IIFEs → split', r.kind === 'split');
   if (r.kind === 'split') {
+    check('empty-body: chunks.length === 2',
+      r.chunks.length === 2, `got ${r.chunks.length}`);
     check('chunk[0].body === ""', r.chunks[0].body === '',
       JSON.stringify(r.chunks[0].body));
     check('chunk[1].body === ""', r.chunks[1].body === '',
       JSON.stringify(r.chunks[1].body));
   }
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Fixture 7b — malformed input: unterminated string literal. The state
+// machine returns 'noop' on `depth !== 0`, not throw.
+
+{
+  const unterminated = '(function(){const a = "never closes';
+  const r = splitMultiIife(unterminated);
+  check('unterminated string → noop (no throw)',
+    r.kind === 'noop',
+    JSON.stringify(r));
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// Fixture 7c — leading `(function(){` with no matching `)();`. The fall-
+// through path at line 150 sets `i = bodyStart` and continues looking;
+// a second `(function(){` with proper close should still be picked up.
+
+{
+  // Just one bogus opener — no real IIFEs found, returns noop.
+  const justOpener = `(function(){const a = 1;`;
+  const r = splitMultiIife(justOpener);
+  check('opener without close → noop', r.kind === 'noop',
+    JSON.stringify(r));
 }
 
 // ─────────────────────────────────────────────────────────────────────────

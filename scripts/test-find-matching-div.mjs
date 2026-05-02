@@ -87,8 +87,11 @@ function check(name, cond, detail) {
   const html = '<div><div/>x</div>';
   let threw = null;
   try { findMatchingDivEnd(html, 5); } catch (e) { threw = e; }
-  check('unbalanced <div/> sentinel throws',
-    threw !== null && /Unbalanced|Failed to balance/.test(threw.message),
+  // Self-closing `<div/>` is treated as a non-closing <div> per HTML5; with
+  // only one </div>, depth 2→1 at the close, then the loop exits with
+  // `Failed to balance` (depth still > 0 at end of input).
+  check('unbalanced <div/> sentinel throws "Failed to balance"',
+    threw !== null && threw.message.startsWith('Failed to balance'),
     threw ? threw.message : 'no throw');
 }
 
@@ -99,8 +102,10 @@ function check(name, cond, detail) {
   const html = '<div>nothing closes';
   let threw = null;
   try { findMatchingDivEnd(html, 5); } catch (e) { threw = e; }
+  // No closing `</div>` exists — the inner `indexOf('</div>')` returns -1
+  // and the function throws "Unbalanced <div>: no closing </div> after byte ..."
   check('runaway throws "Unbalanced"',
-    threw !== null && threw.message.includes('Unbalanced'),
+    threw !== null && threw.message.startsWith('Unbalanced <div>:'),
     threw ? threw.message : 'no throw');
 }
 

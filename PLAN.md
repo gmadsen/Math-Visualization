@@ -10,7 +10,7 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
 - 131 topics, 916 concepts, 1634 prereq edges (687 cross-topic), 24 capstones
 - 158 concepts lack a widget in their owning section
-- 0 inline widget blocks corpus-wide; 466 registry slug directories (463 in active use; every `widget` block in `content/*.json` carries `slug + params`)
+- 0 inline widget blocks corpus-wide; 464 registry slug directories (463 in active use; every `widget` block in `content/*.json` carries `slug + params`)
 - THIN-NEW count: 13; EMPTY-prereq count: 1 (`aca-overview`)
 - Quiz tiers: v1 = 2703, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 
@@ -20,9 +20,20 @@ PRs #45 and #46 (merged 2026-05-01):
 
 - **Sidetoc → shared `js/sidetoc.js`** (was inlined per topic page).
 - **`hamiltonians-figure` shared slug** absorbing 6 per-widget `hamiltonians-*` slugs via `oneOf` over input control families.
-- **Inline-widget migration corpus-wide.** 0 inline widget blocks remain (was ~250 across ~40 topics). 466 registry slug directories. 14 batches × 3 parallel agents.
+- **Inline-widget migration corpus-wide.** 0 inline widget blocks remain (was ~250 across ~40 topics). 464 registry slug directories. 14 batches × 3 parallel agents.
 - **`fix-a11y` JSON-side migration.** Patches now stick across rebuilds — 53 SVG titles + missing labels persist.
 - **`audit-canvas-stub`** drift detection (now backed by hand-maintained `STUBBED_MEMBERS` set + asymmetric sync check).
+
+PR #48 (merged, infra round):
+
+- **`scripts/lib/html-walk.mjs`** — `matchClose`, `balancedRange`. Replaces 6 bespoke depth-balancing variants in `fix-a11y`, `audit-callbacks`, etc.
+- **`scripts/lib/audit-utils.mjs`** — added `parseTopicHtmlSafe()` and `recoverDroppedNodes()` to recover from node-html-parser silent drops; `audit-inline-links` migrated.
+- **`scripts/lib/ajv.mjs`** — `makeAjv()` factory; 3 callers consolidated.
+- **`audit-doc-drift.mjs:checkCorpusSnapshot()`** — corpus-snapshot CI gate (exits 1 on numeric drift).
+- **`build-section-indexes.mjs`** wired into rebuild; `inject-page-metadata.mjs` flag inverted to `--fix` and wired in too; `audit-notation.mjs` wired as advisory.
+- **3 new fixture tests** for previously-untested helpers (`splitMultiIife`, `findMatchingDivEnd`, `matchClose` + `parseTopicHtmlSafe`); 3 follow-up fixture tests addressing review comments (`makeAjv`, `checkCorpusSnapshot`, `checkSvgViewbox`).
+- **24 doc-drift numerical claims fixed** + structural prevention layer added.
+- **Deleted** `migrate-inline-widget.mjs`, `audit-responsive.mjs`. `svg-no-viewbox` check folded into `audit-accessibility.mjs`.
 - **`repair-widget-scripts --allow-drift`** for multi-IIFE-in-one-`<script>` topics.
 - **Two audits migrated to `loadContentModel()`:** audit-widget-interactivity, audit-cross-page-consistency.
 - **`scripts/lib/script-scan.mjs`** extracted (was duplicated in extract-topic + repair-widget-scripts).
@@ -58,11 +69,9 @@ PRs #45 and #46 (merged 2026-05-01):
 
 `scripts/` carries 50+ entries; items still worth reviewing:
 
-- **Low-usage audits — confirm signal value:** `audit-notation.mjs`, `audit-worked-examples.mjs`, `audit-blurb-question-alignment.mjs`. Each has actionable output but isn't part of the rebuild chain or any current workflow. Decide whether to wire one in or document a quality-pass cadence for running them.
+- **Low-usage audits — confirm signal value:** `audit-worked-examples.mjs`, `audit-blurb-question-alignment.mjs`. Each has actionable output but isn't part of the rebuild chain or any current workflow. Decide whether to wire one in or document a quality-pass cadence for running them. (`audit-notation.mjs` shipped as advisory step 30 in PR #48.)
 - **Consolidation candidates:** `validate-concepts.mjs` still reads `index.json` directly because the validator is the gate before the loader runs — circular dependency that's intentional, leave it. `audit-widget-interactivity.mjs` and `audit-cross-page-consistency.mjs` were migrated to `loadContentModel()`.
-- **`extract-topic.mjs:findMatchingDivEnd` needs a fixture test.** The bespoke byte-class checks (`32, 62, 9, 10, 13, 47`) at L59 are tested only transitively via `test-roundtrip.mjs`; a small unit test on synthetic `<div>text<divider>...</divider></div>` inputs would catch boundary-condition regressions pre-merge.
 - **Unify `fix-a11y` JSON-mode and HTML-mode pipelines.** The two parallel paths (JSON for topic pages with `content/<slug>.json`, HTML for landing/utility pages) build per-block deltas vs before/after counters in two places. A common `applyA11yToText(html, opts) → {newHtml, stats}` would halve the report-bookkeeping code.
-- **Extend `audit-doc-drift.mjs` to gate corpus-snapshot numbers.** Today it only checks the rebuild step list and shipped-vs-open titles. The 24 numerical claims fixed in PR #47 (topic count, section count, capstone count, quiz tier counts) drifted silently because nothing gated them. A snapshot-style assertion against `concepts/index.json` + `concepts/sections.json` + `concepts/capstones.json` + a quick quiz-bank scan would surface drift in CI.
 
 ## NPM packages — candidates worth evaluating
 
