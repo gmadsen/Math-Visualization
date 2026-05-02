@@ -97,6 +97,117 @@
   .small{font-size:.88rem;color:var(--mute)}
   footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
 
+  /* Sticky jump-to chip-bar (mirrors index.html). */
+  .section-jump{display:flex;flex-wrap:wrap;gap:8px;align-items:center;
+    padding:0.85rem 1rem;margin:0 0 2rem;
+    border:1px solid color-mix(in srgb, var(--line) 70%, transparent);
+    border-radius:14px;
+    position:sticky;top:0;z-index:10;
+    background:var(--panel);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    transition:box-shadow 200ms ease, border-color 200ms ease,
+               padding 220ms cubic-bezier(0.4,0,0.2,1)}
+  .section-jump.stuck{
+    box-shadow:0 4px 24px color-mix(in srgb, var(--bg) 60%, transparent),
+               0 1px 0 color-mix(in srgb, var(--line) 50%, transparent)}
+  .sj-sentinel{height:1px;margin-top:-1px}
+  .section-jump .sj-label{font-size:0.66rem;letter-spacing:0.18em;
+    text-transform:uppercase;color:var(--mute);
+    font-family:ui-monospace,Menlo,monospace;font-weight:500;
+    margin-right:0.6rem;white-space:nowrap;opacity:0.75}
+  .section-jump a.sj-link{position:relative;display:inline-flex;align-items:center;
+    padding:0.42rem 0.85rem 0.42rem 1rem;border-radius:8px;
+    text-decoration:none;font-size:0.85rem;font-weight:450;
+    color:color-mix(in srgb, var(--ink) 92%, transparent);
+    background:transparent;
+    border:1px solid color-mix(in srgb, var(--line) 60%, transparent);
+    transition:transform 180ms cubic-bezier(0.4,0,0.2,1),
+               border-color 180ms ease, color 180ms ease,
+               background 180ms ease, box-shadow 180ms ease;
+    overflow:hidden}
+  .section-jump a.sj-link::before{
+    content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+    background:var(--mute);
+    transition:width 220ms cubic-bezier(0.4,0,0.2,1), opacity 180ms ease;
+    opacity:0.85}
+  .section-jump a.sj-link:hover{
+    color:var(--ink);
+    transform:translateY(-1px);
+    border-color:color-mix(in srgb, var(--accent, var(--cyan)) 55%, var(--line));
+    background:color-mix(in srgb, var(--accent, var(--cyan)) 10%, transparent);
+    box-shadow:0 2px 8px color-mix(in srgb, var(--accent, var(--cyan)) 18%, transparent)}
+  .section-jump a.sj-link:hover::before{width:100%;opacity:0.14}
+  .section-jump a.sj-link.s-b{--accent:var(--blue)}
+  .section-jump a.sj-link.s-y{--accent:var(--yellow)}
+  .section-jump a.sj-link.s-p{--accent:var(--pink)}
+  .section-jump a.sj-link.s-v{--accent:var(--violet)}
+  .section-jump a.sj-link.s-g{--accent:var(--green)}
+  .section-jump a.sj-link.s-c{--accent:var(--cyan)}
+  .section-jump a.sj-link.s-b::before{background:var(--blue)}
+  .section-jump a.sj-link.s-y::before{background:var(--yellow)}
+  .section-jump a.sj-link.s-p::before{background:var(--pink)}
+  .section-jump a.sj-link.s-v::before{background:var(--violet)}
+  .section-jump a.sj-link.s-g::before{background:var(--green)}
+  .section-jump a.sj-link.s-c::before{background:var(--cyan)}
+  .section-jump .sj-toggle{margin-left:auto;background:transparent;border:none;
+    cursor:pointer;color:var(--mute);font-size:0.78rem;font-weight:500;
+    font-family:ui-monospace,Menlo,monospace;letter-spacing:0.12em;
+    text-transform:uppercase;padding:0.25rem 0.5rem;border-radius:6px;
+    display:inline-flex;align-items:center;gap:6px;
+    transition:color 150ms ease, background 150ms ease}
+  .section-jump .sj-toggle:hover{color:var(--ink);background:color-mix(in srgb, var(--ink) 6%, transparent)}
+  .section-jump .sj-toggle::after{content:"";width:7px;height:7px;
+    border-right:2px solid currentColor;border-bottom:2px solid currentColor;
+    transform:rotate(45deg) translateY(-1px);
+    transition:transform 200ms cubic-bezier(0.4,0,0.2,1)}
+  .section-jump.is-collapsed{padding:0.5rem 1rem}
+  .section-jump.is-collapsed .sj-link, .section-jump.is-collapsed .sj-label{display:none}
+  .section-jump.is-collapsed .sj-toggle::after{transform:rotate(-45deg) translateY(0)}
+  @media (max-width:520px){
+    .section-jump{flex-wrap:nowrap;overflow-x:auto;
+      padding:0.7rem 0.8rem;
+      mask-image:linear-gradient(to right, #000 0, #000 calc(100% - 28px), transparent);
+      -webkit-mask-image:linear-gradient(to right, #000 0, #000 calc(100% - 28px), transparent)}
+    .section-jump .sj-label{display:none}
+    .section-jump a.sj-link{font-size:0.78rem;padding:0.32rem 0.65rem 0.32rem 0.85rem;
+      flex-shrink:0;white-space:nowrap}
+  }
+
+  /* Tour summary cards: 2-column grid above the long-form tours. */
+  .tour-cards{display:grid;grid-template-columns:repeat(2, 1fr);
+    gap:14px;margin:0 0 3rem}
+  @media (max-width:720px){.tour-cards{grid-template-columns:1fr}}
+  .tour-card{display:flex;gap:14px;align-items:flex-start;
+    padding:1rem 1.1rem;background:var(--panel);
+    border:1px solid color-mix(in srgb, var(--line) 80%, transparent);
+    border-radius:10px;text-decoration:none;color:inherit;
+    transition:transform 200ms cubic-bezier(0.4,0,0.2,1),
+               border-color 200ms ease, box-shadow 200ms ease}
+  .tour-card:hover{transform:translateY(-1px);
+    border-color:color-mix(in srgb, var(--accent, var(--cyan)) 55%, var(--line));
+    box-shadow:0 4px 18px color-mix(in srgb, var(--accent, var(--cyan)) 18%, transparent)}
+  .tour-card[data-color="cyan"]{--accent:var(--cyan)}
+  .tour-card[data-color="yellow"]{--accent:var(--yellow)}
+  .tour-card[data-color="pink"]{--accent:var(--pink)}
+  .tour-card[data-color="violet"]{--accent:var(--violet)}
+  .tour-card[data-color="green"]{--accent:var(--green)}
+  .tour-card[data-color="blue"]{--accent:var(--blue)}
+  .tour-card .tc-num{flex-shrink:0;width:36px;height:36px;border-radius:50%;
+    background:color-mix(in srgb, var(--accent) 18%, transparent);
+    border:1px solid color-mix(in srgb, var(--accent) 55%, var(--line));
+    color:var(--accent);font-family:ui-monospace,Menlo,monospace;
+    font-weight:600;font-size:0.92rem;
+    display:flex;align-items:center;justify-content:center}
+  .tour-card .tc-body{min-width:0;flex:1}
+  .tour-card .tc-title{font-weight:600;color:#fff;font-size:1.02rem;
+    margin-bottom:0.32rem;line-height:1.3}
+  .tour-card .tc-goal{color:var(--ink);font-size:0.88rem;line-height:1.5;
+    opacity:0.85;margin-bottom:0.5rem}
+  .tour-card .tc-meta{font-size:0.76rem;color:var(--mute);
+    font-family:ui-monospace,Menlo,monospace;letter-spacing:0.04em}
+  .tour-card .tc-stops{color:var(--accent);font-weight:500}
+  .tour-card .tc-end{color:color-mix(in srgb, var(--ink) 90%, transparent)}
+
   /* Tour-specific styling */
   .tour-goal{color:var(--cyan);font-style:italic;margin:.4rem 0 1rem;font-size:1.02rem}
   ol.tour{list-style:none;padding:0;margin:1rem 0;counter-reset:stop}
@@ -192,18 +303,67 @@ const SVG = (tag,attrs={})=>{
   <p class="sub">Each tour is a sequence of links into existing topic pages — usually 4–6 stops, ending at a capstone or a deep theorem. Read the bridging prose, click into the topic, come back when ready. The tours overlap; that's intentional. Cohomology shows up in three of them.</p>
 </section>
 
-<div class="widget" id="w-tour-filter">
-  <div class="hd"><div class="ttl">Tour filter</div><div class="hint">click to spotlight one tour, or "all" to see them together</div></div>
-  <div class="row" id="tour-filter-buttons">
-    <button class="tf-btn active" data-tour="all">all tours</button>
-    <button class="tf-btn" data-tour="bsd-road">BSD</button>
-    <button class="tf-btn" data-tour="flt-proof">FLT</button>
-    <button class="tf-btn" data-tour="cohomology">cohomology</button>
-    <button class="tf-btn" data-tour="sets-to-topoi">sets → ∞-topoi</button>
-    <button class="tf-btn" data-tour="sound-to-wavelets">wavelets</button>
-    <button class="tf-btn" data-tour="local-global">local/global</button>
-  </div>
-  <div class="readout" id="tour-filter-readout">All six tours visible. Pick one to dim the others — anchors still work; this is a focus aid, not a hide.</div>
+<div class="sj-sentinel" aria-hidden="true"></div>
+<nav class="section-jump" role="navigation" aria-label="Jump to tour">
+  <span class="sj-label">Jump to</span>
+  <a class="sj-link s-c" href="#bsd-road">1. BSD</a>
+  <a class="sj-link s-y" href="#flt-proof">2. FLT</a>
+  <a class="sj-link s-v" href="#cohomology">3. Cohomology</a>
+  <a class="sj-link s-g" href="#sets-to-topoi">4. Sets → ∞-topoi</a>
+  <a class="sj-link s-p" href="#sound-to-wavelets">5. Sound → wavelets</a>
+  <a class="sj-link s-b" href="#local-global">6. Local–global</a>
+  <button class="sj-toggle" type="button" aria-label="Collapse jump-to bar" aria-expanded="true">Hide</button>
+</nav>
+
+<div class="tour-cards" aria-label="Tour overview cards">
+  <a class="tour-card" data-color="cyan" href="#bsd-road">
+    <div class="tc-num">1</div>
+    <div class="tc-body">
+      <div class="tc-title">The road to BSD</div>
+      <div class="tc-goal">Why a Clay Millennium prize is offered for a single equality between an analytic order of vanishing and an algebraic rank.</div>
+      <div class="tc-meta"><span class="tc-stops">5 stops</span> · ends at <span class="tc-end">BSD</span></div>
+    </div>
+  </a>
+  <a class="tour-card" data-color="yellow" href="#flt-proof">
+    <div class="tc-num">2</div>
+    <div class="tc-body">
+      <div class="tc-title">How Fermat's Last Theorem was proved</div>
+      <div class="tc-goal">Trace Frey curve → Ribet's level-lowering → Wiles's modularity → contradiction.</div>
+      <div class="tc-meta"><span class="tc-stops">5 stops</span> · ends at <span class="tc-end">Modularity &amp; FLT</span></div>
+    </div>
+  </a>
+  <a class="tour-card" data-color="violet" href="#cohomology">
+    <div class="tc-num">3</div>
+    <div class="tc-body">
+      <div class="tc-title">What is cohomology?</div>
+      <div class="tc-goal">"Cohomology" as one idea — the systematic measurement of obstructions — wearing five very different costumes.</div>
+      <div class="tc-meta"><span class="tc-stops">5 stops</span> · ends at <span class="tc-end">étale cohomology</span></div>
+    </div>
+  </a>
+  <a class="tour-card" data-color="green" href="#sets-to-topoi">
+    <div class="tc-num">4</div>
+    <div class="tc-body">
+      <div class="tc-title">From naive sets to ∞-topoi</div>
+      <div class="tc-goal">Walk from the membership relation $\in$ to the categorical universes that house all of derived algebraic geometry.</div>
+      <div class="tc-meta"><span class="tc-stops">6 stops</span> · ends at <span class="tc-end">∞-topoi</span></div>
+    </div>
+  </a>
+  <a class="tour-card" data-color="pink" href="#sound-to-wavelets">
+    <div class="tc-num">5</div>
+    <div class="tc-body">
+      <div class="tc-title">From sound to wavelets</div>
+      <div class="tc-goal">Why decomposing a signal into pure frequencies is sometimes the wrong thing to do.</div>
+      <div class="tc-meta"><span class="tc-stops">4 stops</span> · ends at <span class="tc-end">wavelets</span></div>
+    </div>
+  </a>
+  <a class="tour-card" data-color="blue" href="#local-global">
+    <div class="tc-num">6</div>
+    <div class="tc-body">
+      <div class="tc-title">The local–global principle</div>
+      <div class="tc-goal">"$x \in \mathbb{Q}$" as "$x$ in $\mathbb{Q}_p$ for every $p$ and $\mathbb{R}$, with no obstruction".</div>
+      <div class="tc-meta"><span class="tc-stops">5 stops</span> · ends at <span class="tc-end">class field theory</span></div>
+    </div>
+  </a>
 </div>
 
 <section class="tour" id="bsd-road" data-color="cyan">
@@ -470,33 +630,37 @@ const SVG = (tag,attrs={})=>{
 </main>
 
 <script>
-/* ---------- Tour filter widget ---------- */
+/* ---------- Sticky chip-bar: show-stuck shadow + collapse toggle ---------- */
 (function(){
-  const buttons = $$('.tf-btn');
-  const readout = $('#tour-filter-readout');
-  const tours = $$('section.tour');
-  const TITLES = {
-    'all':'all six tours',
-    'bsd-road':'The road to BSD',
-    'flt-proof':'How Fermat’s Last Theorem was proved',
-    'cohomology':'What is cohomology?',
-    'sets-to-topoi':'From naive sets to ∞-topoi',
-    'sound-to-wavelets':'From sound to wavelets',
-    'local-global':'The local–global principle'
-  };
-  function pick(key){
-    buttons.forEach(b => b.classList.toggle('active', b.dataset.tour === key));
-    if(key === 'all'){
-      tours.forEach(t => t.classList.remove('dim'));
-      readout.textContent = 'All six tours visible. Pick one to dim the others — anchors still work; this is a focus aid, not a hide.';
-    } else {
-      tours.forEach(t => t.classList.toggle('dim', t.id !== key));
-      const target = document.getElementById(key);
-      const stops = target ? target.querySelectorAll('ol.tour > li').length : 0;
-      readout.textContent = `Spotlighting: ${TITLES[key] || key} (${stops} stops). Other tours are dimmed but still scrollable. Click "all tours" to restore.`;
+  const STORAGE_KEY = 'mvnb.toursJumpBarCollapsed.v1';
+  function init(){
+    const bar = document.querySelector('.section-jump');
+    const sentinel = document.querySelector('.sj-sentinel');
+    if(!bar) return;
+    if(sentinel && typeof IntersectionObserver === 'function'){
+      const io = new IntersectionObserver(entries => {
+        for(const e of entries) bar.classList.toggle('stuck', !e.isIntersecting);
+      }, { threshold: [0, 1] });
+      io.observe(sentinel);
     }
+    const toggle = bar.querySelector('.sj-toggle');
+    if(!toggle) return;
+    function applyCollapsed(c){
+      bar.classList.toggle('is-collapsed', c);
+      toggle.setAttribute('aria-expanded', c ? 'false' : 'true');
+      toggle.textContent = c ? 'Show' : 'Hide';
+    }
+    let initial = false;
+    try { initial = localStorage.getItem(STORAGE_KEY) === '1'; } catch(_){}
+    applyCollapsed(initial);
+    toggle.addEventListener('click', () => {
+      const next = !bar.classList.contains('is-collapsed');
+      applyCollapsed(next);
+      try { next ? localStorage.setItem(STORAGE_KEY,'1') : localStorage.removeItem(STORAGE_KEY); } catch(_){}
+    });
   }
-  buttons.forEach(b => b.addEventListener('click', () => pick(b.dataset.tour)));
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
 })();
 </script>
 
