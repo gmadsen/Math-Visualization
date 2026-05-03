@@ -736,7 +736,7 @@ function drawNode(svg, x, y, label, opts={}){
 
   function clear(){ while(svg.firstChild) svg.removeChild(svg.firstChild); }
   function panel(x, y, label){
-    svg.appendChild(SVG("rect",{x, y, width:280, height:200, fill:"#0b0f16", stroke:"var(--line)", rx:8}));
+    svg.appendChild(SVG("rect",{x, y, width:280, height:200, fill:"var(--bg)", stroke:"var(--line)", rx:8}));
     const t = SVG("text",{x:x+140, y:y+20, "text-anchor":"middle", "font-size":12, fill:"var(--mute)"});
     t.textContent = label;
     svg.appendChild(t);
@@ -831,7 +831,7 @@ function drawNode(svg, x, y, label, opts={}){
   function render(k){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     const W = 680, H = 200;
-    svg.appendChild(SVG("rect",{x:20, y:20, width:W-40, height:H-40, fill:"#0b0f16", stroke:"var(--line)", rx:8}));
+    svg.appendChild(SVG("rect",{x:20, y:20, width:W-40, height:H-40, fill:"var(--bg)", stroke:"var(--line)", rx:8}));
     const polyText = SVG("text",{x:W/2, y:80, "text-anchor":"middle", "font-size":24, fill:"var(--yellow)", "font-family":"ui-monospace,monospace"});
     polyText.textContent = data[k].poly;
     svg.appendChild(polyText);
@@ -880,7 +880,7 @@ function drawNode(svg, x, y, label, opts={}){
   function render(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     const W = 700, H = 280;
-    svg.appendChild(SVG("rect",{x:20, y:20, width:W-40, height:H-40, fill:"#0b0f16", stroke:"var(--line)", rx:8}));
+    svg.appendChild(SVG("rect",{x:20, y:20, width:W-40, height:H-40, fill:"var(--bg)", stroke:"var(--line)", rx:8}));
     const s = states[idx];
     const big = SVG("text",{x:W/2, y:90, "text-anchor":"middle", "font-size":26, fill:"var(--yellow)", "font-family":"ui-monospace,monospace"});
     big.textContent = "smoothings: " + s.bits;
@@ -933,7 +933,7 @@ function drawNode(svg, x, y, label, opts={}){
   function render(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     const W = 700, H = 280;
-    svg.appendChild(SVG("rect",{x:20, y:20, width:W-40, height:H-40, fill:"#0b0f16", stroke:"var(--line)", rx:8}));
+    svg.appendChild(SVG("rect",{x:20, y:20, width:W-40, height:H-40, fill:"var(--bg)", stroke:"var(--line)", rx:8}));
     const s = stages[depth];
     const big = SVG("text",{x:W/2, y:120, "text-anchor":"middle", "font-size":18, fill:"var(--yellow)", "font-family":"ui-monospace,monospace"});
     big.textContent = s.tex;
@@ -971,7 +971,7 @@ function drawNode(svg, x, y, label, opts={}){
   function render(q){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     const W = 680, H = 240;
-    svg.appendChild(SVG("rect",{x:20, y:20, width:W-40, height:H-40, fill:"#0b0f16", stroke:"var(--line)", rx:8}));
+    svg.appendChild(SVG("rect",{x:20, y:20, width:W-40, height:H-40, fill:"var(--bg)", stroke:"var(--line)", rx:8}));
     // U_q(sl_2) R-matrix on V ⊗ V where V = C^2 with basis (e_0, e_1)
     // R = q^{1/2} (E_{00,00} + E_{11,11}) + (q^{1/2} - q^{-1/2}) E_{01,10}/0?? -- conventions vary; we just show the standard 4x4
     // We use (in basis 00,01,10,11):
@@ -988,7 +988,7 @@ function drawNode(svg, x, y, label, opts={}){
     const x0 = 240, y0 = 60, cell = 50;
     for(let i=0;i<4;i++){
       for(let j=0;j<4;j++){
-        svg.appendChild(SVG("rect",{x:x0+j*cell, y:y0+i*cell, width:cell, height:cell, fill:"#0b0f16", stroke:"var(--line)"}));
+        svg.appendChild(SVG("rect",{x:x0+j*cell, y:y0+i*cell, width:cell, height:cell, fill:"var(--bg)", stroke:"var(--line)"}));
       }
     }
     // entries (only non-zero)
