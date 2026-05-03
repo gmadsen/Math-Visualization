@@ -578,7 +578,9 @@ $$u_n = v_n - \sum_{k<n}\langle v_n, e_k\rangle e_k,\qquad e_n = u_n/\|u_n\|.$$
       const h = SVG('circle',{cx:px,cy:py,r:7,fill:v.color,stroke:'#fff','stroke-width':1.5, style:'cursor:grab'});
       h.addEventListener('pointerdown', ev=>{
         ev.preventDefault();
-        h.setPointerCapture(ev.pointerId);
+        // Listen on document, not h — render() rebuilds svg.innerHTML each
+        // frame and orphans any handler attached to h, killing the drag
+        // mid-gesture (PR fix for the Gram–Schmidt-style drag bug).
         const move = e=>{
           const rect = svg.getBoundingClientRect();
           const sx = (e.clientX-rect.left)*W/rect.width;
@@ -588,8 +590,9 @@ $$u_n = v_n - \sum_{k<n}\langle v_n, e_k\rangle e_k,\qquad e_n = u_n/\|u_n\|.$$
           vs[i].y = Math.max(-3,Math.min(3,p.y));
           render();
         };
-        h.addEventListener('pointermove', move);
-        h.addEventListener('pointerup', ()=>{ h.removeEventListener('pointermove', move); }, {once:true});
+        function up(){ document.removeEventListener('pointermove', move); document.removeEventListener('pointerup', up); }
+        document.addEventListener('pointermove', move);
+        document.addEventListener('pointerup', up, {once:true});
       });
       svg.appendChild(h);
     });
@@ -706,7 +709,6 @@ $$u_n = v_n - \sum_{k<n}\langle v_n, e_k\rangle e_k,\qquad e_n = u_n/\|u_n\|.$$
     const h = SVG('circle',{cx:Vp[0],cy:Vp[1],r:7,fill:'var(--blue)',stroke:'#fff','stroke-width':1.5, style:'cursor:grab'});
     h.addEventListener('pointerdown', ev=>{
       ev.preventDefault();
-      h.setPointerCapture(ev.pointerId);
       const startX = ev.clientX, startY = ev.clientY;
       const v0 = v.slice();
       const rect = svg.getBoundingClientRect();
@@ -717,8 +719,9 @@ $$u_n = v_n - \sum_{k<n}\langle v_n, e_k\rangle e_k,\qquad e_n = u_n/\|u_n\|.$$
         v = [v0[0]+dx, v0[1], v0[2]-dy];
         render();
       };
-      h.addEventListener('pointermove', move);
-      h.addEventListener('pointerup', ()=>h.removeEventListener('pointermove', move), {once:true});
+      function up(){ document.removeEventListener('pointermove', move); document.removeEventListener('pointerup', up); }
+      document.addEventListener('pointermove', move);
+      document.addEventListener('pointerup', up, {once:true});
     });
     svg.appendChild(h);
 

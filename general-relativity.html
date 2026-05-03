@@ -322,18 +322,27 @@ $$ds^2 \;=\; -\,dt^2 + dx^2 + dy^2 + dz^2.$$
     const h = SVG('circle',{cx:x2,cy:y2,r:8,fill:color,stroke:'var(--ink)','stroke-width':1.2,style:'cursor:grab'});
     svg.appendChild(h);
     h.addEventListener('pointerdown', e => {
-      e.preventDefault(); h.setPointerCapture(e.pointerId); h.style.cursor='grabbing';
-    });
-    h.addEventListener('pointermove', e => {
-      if(!h.hasPointerCapture(e.pointerId)) return;
+      e.preventDefault();
+      h.style.cursor = 'grabbing';
+      // Listen on document, not h — draw() rebuilds the SVG and orphans
+      // any handler attached to h, killing the drag mid-gesture.
       const r = svg.getBoundingClientRect();
-      const sx = (e.clientX - r.left)/r.width * 320 - 160;
-      const sy = (e.clientY - r.top)/r.height * 320 - 160;
-      vx = Math.max(-W+8, Math.min(W-8, sx));
-      vt = -Math.max(-W+8, Math.min(W-8, sy));
-      draw();
+      function move(ev){
+        const sx = (ev.clientX - r.left)/r.width * 320 - 160;
+        const sy = (ev.clientY - r.top)/r.height * 320 - 160;
+        vx = Math.max(-W+8, Math.min(W-8, sx));
+        vt = -Math.max(-W+8, Math.min(W-8, sy));
+        draw();
+      }
+      function up(){
+        document.removeEventListener('pointermove', move);
+        document.removeEventListener('pointerup', up);
+        // h was rebuilt inside draw(), so don't try to re-style it; the
+        // newly-rendered handle uses the default cursor:grab from its inline style.
+      }
+      document.addEventListener('pointermove', move);
+      document.addEventListener('pointerup', up, {once:true});
     });
-    h.addEventListener('pointerup', e => { h.releasePointerCapture(e.pointerId); h.style.cursor='grab'; });
     out.textContent = `v = (Δt=${vt.toFixed(0)}, Δx=${vx.toFixed(0)})    g(v,v) = Δx² − Δt² = ${inner.toFixed(0)}    ⇒  ${kind}`;
   }
   draw();
