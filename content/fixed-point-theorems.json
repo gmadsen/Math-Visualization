@@ -8,7 +8,22 @@
       "blocks": [
         {
           "type": "raw",
-          "html": "<section id=\"banach\">\n<h2>1. Banach contraction principle</h2>\n<p>If $(X,d)$ is a <em>complete</em> metric space and $f\\colon X\\to X$ satisfies a uniform Lipschitz bound $d(f(x),f(y))\\le L\\,d(x,y)$ with $L<1$, then $f$ has exactly one fixed point. The proof is constructive: pick any $x_0$, iterate $x_{n+1}=f(x_n)$, and the sequence is Cauchy with geometric decay $d(x_n,x_*) \\le \\tfrac{L^n}{1-L}d(x_0,x_1)$.</p>\n<p>The two hypotheses are tight. Drop completeness and the iteration may flee the space; relax $L<1$ to $L\\le 1$ (or even $|f'(x)|<1$ pointwise) and a fixed point can fail to exist — try $f(x)=x+e^{-x}$ on $\\mathbb{R}$.</p>\n\n<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">Picard iteration trajectory</div><div class=\"hint\">Pick a contraction; watch $x_{n+1}=f(x_n)$ converge.</div></div>\n  <div class=\"row\">\n    <label>map: <select id=\"bp-map\">\n      <option value=\"half\">$f(x)=\\tfrac{1}{2}x+1$ &nbsp; ($L=1/2$, fp $=2$)</option>\n      <option value=\"cos\">$f(x)=\\cos(x)$ &nbsp; ($L\\approx 0.84$ near fp)</option>\n      <option value=\"quart\">$f(x)=\\tfrac{1}{4}x+3$ &nbsp; ($L=1/4$, fp $=4$)</option>\n    </select></label>\n    <label>$x_0$: <input type=\"range\" id=\"bp-x0\" min=\"-3\" max=\"6\" step=\"0.1\" value=\"-2\"></label>\n    <label>steps: <input type=\"range\" id=\"bp-n\" min=\"1\" max=\"20\" step=\"1\" value=\"8\"></label>\n  </div>\n  <svg id=\"bp-svg\" viewBox=\"0 0 560 320\" width=\"100%\"><title>Picard iteration trajectory</title></svg>\n  <div class=\"readout\" id=\"bp-out\">…</div>\n  <div class=\"note\">The cobweb diagram bounces between $y=f(x)$ and $y=x$. The horizontal step is $x_{n+1}-x_n$; the vertical step is $f(x_n)-x_n$. Slope $|f'|<1$ guarantees the spirals contract.</div>\n</div>\n\n"
+          "html": "<section id=\"banach\">\n<h2>1. Banach contraction principle</h2>\n<p>If $(X,d)$ is a <em>complete</em> metric space and $f\\colon X\\to X$ satisfies a uniform Lipschitz bound $d(f(x),f(y))\\le L\\,d(x,y)$ with $L<1$, then $f$ has exactly one fixed point. The proof is constructive: pick any $x_0$, iterate $x_{n+1}=f(x_n)$, and the sequence is Cauchy with geometric decay $d(x_n,x_*) \\le \\tfrac{L^n}{1-L}d(x_0,x_1)$.</p>\n<p>The two hypotheses are tight. Drop completeness and the iteration may flee the space; relax $L<1$ to $L\\le 1$ (or even $|f'(x)|<1$ pointwise) and a fixed point can fail to exist — try $f(x)=x+e^{-x}$ on $\\mathbb{R}$.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "fpt-bp",
+          "params": {
+            "widgetId": "bp",
+            "title": "Picard iteration trajectory",
+            "hint": "Pick a contraction; watch $x_{n+1}=f(x_n)$ converge.",
+            "bodyMarkup": "<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">Picard iteration trajectory</div><div class=\"hint\">Pick a contraction; watch $x_{n+1}=f(x_n)$ converge.</div></div>\n  <div class=\"row\">\n    <label>map: <select id=\"bp-map\">\n      <option value=\"half\">$f(x)=\\tfrac{1}{2}x+1$ &nbsp; ($L=1/2$, fp $=2$)</option>\n      <option value=\"cos\">$f(x)=\\cos(x)$ &nbsp; ($L\\approx 0.84$ near fp)</option>\n      <option value=\"quart\">$f(x)=\\tfrac{1}{4}x+3$ &nbsp; ($L=1/4$, fp $=4$)</option>\n    </select></label>\n    <label>$x_0$: <input type=\"range\" id=\"bp-x0\" min=\"-3\" max=\"6\" step=\"0.1\" value=\"-2\"></label>\n    <label>steps: <input type=\"range\" id=\"bp-n\" min=\"1\" max=\"20\" step=\"1\" value=\"8\"></label>\n  </div>\n  <svg id=\"bp-svg\" viewBox=\"0 0 560 320\" width=\"100%\"><title>Picard iteration trajectory</title></svg>\n  <div class=\"readout\" id=\"bp-out\">…</div>\n  <div class=\"note\">The cobweb diagram bounces between $y=f(x)$ and $y=x$. The horizontal step is $x_{n+1}-x_n$; the vertical step is $f(x_n)-x_n$. Slope $|f'|<1$ guarantees the spirals contract.</div>\n</div>",
+            "bodyScript": ""
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "raw",
@@ -34,7 +49,22 @@
       "blocks": [
         {
           "type": "raw",
-          "html": "<section id=\"brouwer\">\n<h2>2. Brouwer fixed-point theorem</h2>\n<p>Every continuous map $f\\colon D^n\\to D^n$ from the closed $n$-ball to itself has a fixed point. Equivalently, every continuous self-map of a non-empty compact convex subset of $\\mathbb{R}^n$ has a fixed point. The theorem fails on the circle $S^1$ (antipodal map) and on the open ball (translation toward the boundary), so both compactness and contractibility matter.</p>\n<p>The standard proof is a contradiction: if $f$ had no fixed point, the ray from $f(x)$ through $x$ would meet the boundary at a point $r(x)\\in S^{n-1}$, defining a continuous retraction $r\\colon D^n\\to S^{n-1}$. But $H_{n-1}(D^n)=0$ while $H_{n-1}(S^{n-1})=\\mathbb{Z}$, so the composition $S^{n-1}\\hookrightarrow D^n\\xrightarrow{r}S^{n-1}$ cannot be the identity — contradiction.</p>\n\n<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">No-retraction lemma — the disk</div><div class=\"hint\">Drag the test point to see the ray construction.</div></div>\n  <svg id=\"br-svg\" viewBox=\"0 0 560 320\" width=\"100%\"><title>No-retraction lemma — the disk</title></svg>\n  <div class=\"readout\" id=\"br-out\">…</div>\n  <div class=\"note\">The blue dot is $x$, the violet dot is $f(x)$. The ray from $f(x)$ through $x$ hits the boundary at $r(x)$. A fixed-point-free $f$ would make $r$ continuous on all of $D^2$ — the contradiction. Drag $x$ inside the disk.</div>\n</div>\n\n"
+          "html": "<section id=\"brouwer\">\n<h2>2. Brouwer fixed-point theorem</h2>\n<p>Every continuous map $f\\colon D^n\\to D^n$ from the closed $n$-ball to itself has a fixed point. Equivalently, every continuous self-map of a non-empty compact convex subset of $\\mathbb{R}^n$ has a fixed point. The theorem fails on the circle $S^1$ (antipodal map) and on the open ball (translation toward the boundary), so both compactness and contractibility matter.</p>\n<p>The standard proof is a contradiction: if $f$ had no fixed point, the ray from $f(x)$ through $x$ would meet the boundary at a point $r(x)\\in S^{n-1}$, defining a continuous retraction $r\\colon D^n\\to S^{n-1}$. But $H_{n-1}(D^n)=0$ while $H_{n-1}(S^{n-1})=\\mathbb{Z}$, so the composition $S^{n-1}\\hookrightarrow D^n\\xrightarrow{r}S^{n-1}$ cannot be the identity — contradiction.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "fpt-br",
+          "params": {
+            "widgetId": "br",
+            "title": "No-retraction lemma — the disk",
+            "hint": "Drag the test point to see the ray construction.",
+            "bodyMarkup": "<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">No-retraction lemma — the disk</div><div class=\"hint\">Drag the test point to see the ray construction.</div></div>\n  <svg id=\"br-svg\" viewBox=\"0 0 560 320\" width=\"100%\"><title>No-retraction lemma — the disk</title></svg>\n  <div class=\"readout\" id=\"br-out\">…</div>\n  <div class=\"note\">The blue dot is $x$, the violet dot is $f(x)$. The ray from $f(x)$ through $x$ hits the boundary at $r(x)$. A fixed-point-free $f$ would make $r$ continuous on all of $D^2$ — the contradiction. Drag $x$ inside the disk.</div>\n</div>",
+            "bodyScript": ""
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "raw",
@@ -64,7 +94,22 @@
       "blocks": [
         {
           "type": "raw",
-          "html": "<section id=\"schauder\">\n<h2>3. Schauder fixed-point theorem</h2>\n<p>The infinite-dimensional generalisation: if $C$ is a non-empty closed convex subset of a Banach space $X$ and $T\\colon C\\to C$ is continuous with $T(C)$ contained in a compact set, then $T$ has a fixed point. The variant most used in PDE: a compact operator $T$ mapping a closed bounded convex set into itself has a fixed point.</p>\n<p>Why compactness can't be dropped: in any infinite-dimensional Banach space the closed unit ball is non-compact (Riesz's lemma), and one can construct fixed-point-free continuous self-maps of it — Kakutani's example $T(x_1,x_2,\\ldots) = (\\sqrt{1-\\|x\\|^2},x_1,x_2,\\ldots)$ on the closed unit ball of $\\ell^2$ is the textbook witness.</p>\n\n<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">Compact image of a convex set</div><div class=\"hint\">Toggle whether $T$ is compact; watch the image shrink.</div></div>\n  <div class=\"row\">\n    <button id=\"sc-compact\" class=\"active\">$T$ compact</button>\n    <button id=\"sc-noncompact\">$T$ non-compact</button>\n  </div>\n  <svg id=\"sc-svg\" viewBox=\"0 0 560 320\" width=\"100%\"><title>Compact image of a convex set</title></svg>\n  <div class=\"readout\" id=\"sc-out\">…</div>\n  <div class=\"note\">The yellow square is $C$. The shaded region is $T(C)$. When $T$ is compact, the image is contained in a small (precompact) set inside $C$ — Schauder forces a fixed point. Without compactness the image can escape any precompact neighborhood.</div>\n</div>\n\n"
+          "html": "<section id=\"schauder\">\n<h2>3. Schauder fixed-point theorem</h2>\n<p>The infinite-dimensional generalisation: if $C$ is a non-empty closed convex subset of a Banach space $X$ and $T\\colon C\\to C$ is continuous with $T(C)$ contained in a compact set, then $T$ has a fixed point. The variant most used in PDE: a compact operator $T$ mapping a closed bounded convex set into itself has a fixed point.</p>\n<p>Why compactness can't be dropped: in any infinite-dimensional Banach space the closed unit ball is non-compact (Riesz's lemma), and one can construct fixed-point-free continuous self-maps of it — Kakutani's example $T(x_1,x_2,\\ldots) = (\\sqrt{1-\\|x\\|^2},x_1,x_2,\\ldots)$ on the closed unit ball of $\\ell^2$ is the textbook witness.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "fpt-sc",
+          "params": {
+            "widgetId": "sc",
+            "title": "Compact image of a convex set",
+            "hint": "Toggle whether $T$ is compact; watch the image shrink.",
+            "bodyMarkup": "<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">Compact image of a convex set</div><div class=\"hint\">Toggle whether $T$ is compact; watch the image shrink.</div></div>\n  <div class=\"row\">\n    <button id=\"sc-compact\" class=\"active\">$T$ compact</button>\n    <button id=\"sc-noncompact\">$T$ non-compact</button>\n  </div>\n  <svg id=\"sc-svg\" viewBox=\"0 0 560 320\" width=\"100%\"><title>Compact image of a convex set</title></svg>\n  <div class=\"readout\" id=\"sc-out\">…</div>\n  <div class=\"note\">The yellow square is $C$. The shaded region is $T(C)$. When $T$ is compact, the image is contained in a small (precompact) set inside $C$ — Schauder forces a fixed point. Without compactness the image can escape any precompact neighborhood.</div>\n</div>",
+            "bodyScript": ""
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "raw",
@@ -90,7 +135,22 @@
       "blocks": [
         {
           "type": "raw",
-          "html": "<section id=\"lefschetz\">\n<h2>4. Lefschetz fixed-point theorem</h2>\n<p>Let $X$ be a compact triangulable space and $f\\colon X\\to X$ continuous. The <em>Lefschetz number</em> is\n$$\\Lambda(f) = \\sum_{k\\ge 0} (-1)^k\\,\\tr\\bigl(f_*\\colon H_k(X;\\mathbb{Q})\\to H_k(X;\\mathbb{Q})\\bigr).$$\nIf $\\Lambda(f)\\ne 0$, then $f$ has a fixed point. The implication is one-way: $\\Lambda(f)=0$ is silent. For $f=\\mathrm{id}$ the trace on $H_k$ is $b_k$, so $\\Lambda(\\mathrm{id})=\\chi(X)$, the Euler characteristic — Lefschetz recovers the fact that a non-zero Euler characteristic forbids a fixed-point-free self-homeomorphism homotopic to the identity.</p>\n<p>Brouwer is the contractible special case: on $D^n$ all higher homology vanishes, so $\\Lambda(f)=\\tr(f_*\\colon H_0\\to H_0)=1\\ne 0$.</p>\n\n<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">Lefschetz number computation</div><div class=\"hint\">Pick a space and a self-map; read off $\\Lambda(f)$.</div></div>\n  <div class=\"row\">\n    <label>space: <select id=\"lf-space\">\n      <option value=\"point\">point &nbsp; ($H_0=\\mathbb{Z}$)</option>\n      <option value=\"disk\">$D^2$ &nbsp; ($H_0=\\mathbb{Z}$)</option>\n      <option value=\"sphere\">$S^2$ &nbsp; ($H_0=H_2=\\mathbb{Z}$)</option>\n      <option value=\"torus\">$T^2$ &nbsp; (Betti $1,2,1$)</option>\n    </select></label>\n    <label>map: <select id=\"lf-map\">\n      <option value=\"id\">identity</option>\n      <option value=\"const\">constant</option>\n      <option value=\"antipode\">antipode (degree $\\pm 1$)</option>\n      <option value=\"rot\">rotation</option>\n    </select></label>\n  </div>\n  <svg id=\"lf-svg\" viewBox=\"0 0 560 240\" width=\"100%\"><title>Lefschetz number computation</title></svg>\n  <div class=\"readout\" id=\"lf-out\">…</div>\n  <div class=\"note\">$\\Lambda(f)\\ne 0$ forces a fixed point. The torus identity has $\\Lambda=0$ but fixes everything — proof that the converse fails.</div>\n</div>\n\n"
+          "html": "<section id=\"lefschetz\">\n<h2>4. Lefschetz fixed-point theorem</h2>\n<p>Let $X$ be a compact triangulable space and $f\\colon X\\to X$ continuous. The <em>Lefschetz number</em> is\n$$\\Lambda(f) = \\sum_{k\\ge 0} (-1)^k\\,\\tr\\bigl(f_*\\colon H_k(X;\\mathbb{Q})\\to H_k(X;\\mathbb{Q})\\bigr).$$\nIf $\\Lambda(f)\\ne 0$, then $f$ has a fixed point. The implication is one-way: $\\Lambda(f)=0$ is silent. For $f=\\mathrm{id}$ the trace on $H_k$ is $b_k$, so $\\Lambda(\\mathrm{id})=\\chi(X)$, the Euler characteristic — Lefschetz recovers the fact that a non-zero Euler characteristic forbids a fixed-point-free self-homeomorphism homotopic to the identity.</p>\n<p>Brouwer is the contractible special case: on $D^n$ all higher homology vanishes, so $\\Lambda(f)=\\tr(f_*\\colon H_0\\to H_0)=1\\ne 0$.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "fpt-lf",
+          "params": {
+            "widgetId": "lf",
+            "title": "Lefschetz number computation",
+            "hint": "Pick a space and a self-map; read off $\\Lambda(f)$.",
+            "bodyMarkup": "<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">Lefschetz number computation</div><div class=\"hint\">Pick a space and a self-map; read off $\\Lambda(f)$.</div></div>\n  <div class=\"row\">\n    <label>space: <select id=\"lf-space\">\n      <option value=\"point\">point &nbsp; ($H_0=\\mathbb{Z}$)</option>\n      <option value=\"disk\">$D^2$ &nbsp; ($H_0=\\mathbb{Z}$)</option>\n      <option value=\"sphere\">$S^2$ &nbsp; ($H_0=H_2=\\mathbb{Z}$)</option>\n      <option value=\"torus\">$T^2$ &nbsp; (Betti $1,2,1$)</option>\n    </select></label>\n    <label>map: <select id=\"lf-map\">\n      <option value=\"id\">identity</option>\n      <option value=\"const\">constant</option>\n      <option value=\"antipode\">antipode (degree $\\pm 1$)</option>\n      <option value=\"rot\">rotation</option>\n    </select></label>\n  </div>\n  <svg id=\"lf-svg\" viewBox=\"0 0 560 240\" width=\"100%\"><title>Lefschetz number computation</title></svg>\n  <div class=\"readout\" id=\"lf-out\">…</div>\n  <div class=\"note\">$\\Lambda(f)\\ne 0$ forces a fixed point. The torus identity has $\\Lambda=0$ but fixes everything — proof that the converse fails.</div>\n</div>",
+            "bodyScript": ""
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "raw",
@@ -116,7 +176,22 @@
       "blocks": [
         {
           "type": "raw",
-          "html": "<section id=\"kakutani\">\n<h2>5. Kakutani fixed-point theorem</h2>\n<p>Replace single-valued continuous $f$ with a <em>set-valued</em> map $\\varphi\\colon C\\rightrightarrows C$ assigning to each $x\\in C$ a non-empty closed convex subset $\\varphi(x)\\subseteq C$. If $C$ is non-empty compact convex (in $\\mathbb{R}^n$) and $\\varphi$ has closed graph, then there exists $x^*\\in C$ with $x^*\\in\\varphi(x^*)$.</p>\n<p>The motivating example is Nash's existence proof: in a finite game each player's best-response set $B_i(\\sigma_{-i})$ is non-empty compact convex but typically not a singleton when ties occur. The product correspondence $\\sigma\\mapsto\\prod_i B_i(\\sigma_{-i})$ on the product of mixed-strategy simplices satisfies Kakutani's hypotheses, so a fixed point — a Nash equilibrium — exists.</p>\n\n<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">Set-valued map on $[0,1]$</div><div class=\"hint\">Drag the threshold; the graph is a closed convex set.</div></div>\n  <div class=\"row\">\n    <label>threshold $a$: <input type=\"range\" id=\"kk-a\" min=\"0\" max=\"1\" step=\"0.01\" value=\"0.5\"></label>\n  </div>\n  <svg id=\"kk-svg\" viewBox=\"0 0 560 320\" width=\"100%\"><title>Set-valued map on $[0,1]$</title></svg>\n  <div class=\"readout\" id=\"kk-out\">…</div>\n  <div class=\"note\">$\\varphi(x)=\\{0\\}$ for $x<a$, $\\varphi(a)=[0,1]$, $\\varphi(x)=\\{1\\}$ for $x>a$. The graph is closed, values are closed convex — Kakutani's hypotheses hold. The fixed point $x^*=a$ sits where the graph crosses the diagonal $y=x$, inside the vertical segment.</div>\n</div>\n\n"
+          "html": "<section id=\"kakutani\">\n<h2>5. Kakutani fixed-point theorem</h2>\n<p>Replace single-valued continuous $f$ with a <em>set-valued</em> map $\\varphi\\colon C\\rightrightarrows C$ assigning to each $x\\in C$ a non-empty closed convex subset $\\varphi(x)\\subseteq C$. If $C$ is non-empty compact convex (in $\\mathbb{R}^n$) and $\\varphi$ has closed graph, then there exists $x^*\\in C$ with $x^*\\in\\varphi(x^*)$.</p>\n<p>The motivating example is Nash's existence proof: in a finite game each player's best-response set $B_i(\\sigma_{-i})$ is non-empty compact convex but typically not a singleton when ties occur. The product correspondence $\\sigma\\mapsto\\prod_i B_i(\\sigma_{-i})$ on the product of mixed-strategy simplices satisfies Kakutani's hypotheses, so a fixed point — a Nash equilibrium — exists.</p>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "fpt-kk",
+          "params": {
+            "widgetId": "kk",
+            "title": "Set-valued map on $[0,1]$",
+            "hint": "Drag the threshold; the graph is a closed convex set.",
+            "bodyMarkup": "<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">Set-valued map on $[0,1]$</div><div class=\"hint\">Drag the threshold; the graph is a closed convex set.</div></div>\n  <div class=\"row\">\n    <label>threshold $a$: <input type=\"range\" id=\"kk-a\" min=\"0\" max=\"1\" step=\"0.01\" value=\"0.5\"></label>\n  </div>\n  <svg id=\"kk-svg\" viewBox=\"0 0 560 320\" width=\"100%\"><title>Set-valued map on $[0,1]$</title></svg>\n  <div class=\"readout\" id=\"kk-out\">…</div>\n  <div class=\"note\">$\\varphi(x)=\\{0\\}$ for $x<a$, $\\varphi(a)=[0,1]$, $\\varphi(x)=\\{1\\}$ for $x>a$. The graph is closed, values are closed convex — Kakutani's hypotheses hold. The fixed point $x^*=a$ sits where the graph crosses the diagonal $y=x$, inside the vertical segment.</div>\n</div>",
+            "bodyScript": ""
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "raw",
@@ -316,7 +391,22 @@
       "blocks": [
         {
           "type": "raw",
-          "html": "<section id=\"applications\">\n<h2>8. Applications across mathematics</h2>\n<p>Every theorem above shows up as the existence engine in a downstream result:</p>\n<ul>\n  <li><strong>Picard–Lindelöf for ODEs</strong> — Banach contraction. The Picard operator $T(\\varphi)(t)=x_0+\\int_{t_0}^t f(s,\\varphi(s))\\,ds$ is a contraction on $C([t_0-h,t_0+h])$ when $f$ is Lipschitz in its second argument and $h$ is small.</li>\n  <li><strong>Implicit function theorem</strong> — Banach contraction. A Newton-style operator $y\\mapsto y-D_yF(x_0,y_0)^{-1}F(x,y)$ is a contraction on a small ball, and its fixed point is the implicit solution $y=g(x)$.</li>\n  <li><strong>Markov-chain stationary distribution</strong> — Brouwer. The simplex $\\Delta\\subset\\mathbb{R}^n$ is non-empty compact convex; $\\pi\\mapsto\\pi P$ is continuous; a stationary $\\pi^*$ exists for any stochastic $P$.</li>\n  <li><strong>Existence of solutions to nonlinear elliptic PDEs</strong> — Schauder. A compact solution operator on a closed bounded set in a function space provides existence without uniqueness.</li>\n  <li><strong>Nash equilibrium</strong> — Kakutani. The best-response correspondence on the product simplex satisfies the hypotheses; its fixed point is the equilibrium.</li>\n</ul>\n\n<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">Picard–Lindelöf in action</div><div class=\"hint\">Iterate the Picard operator on $\\dot{x}=f(t,x)$, $x(0)=x_0$.</div></div>\n  <div class=\"row\">\n    <label>$f(t,x)$: <select id=\"pl-f\">\n      <option value=\"x\">$f=x$ &nbsp; (true: $x_0 e^{t}$)</option>\n      <option value=\"tx\">$f=tx$ &nbsp; (true: $x_0 e^{t^2/2}$)</option>\n      <option value=\"sin\">$f=\\sin(x)$</option>\n    </select></label>\n    <label>iterations: <input type=\"range\" id=\"pl-k\" min=\"0\" max=\"6\" step=\"1\" value=\"3\"></label>\n    <label>$x_0$: <input type=\"range\" id=\"pl-x0\" min=\"-2\" max=\"2\" step=\"0.1\" value=\"1\"></label>\n  </div>\n  <svg id=\"pl-svg\" viewBox=\"0 0 560 280\" width=\"100%\"><title>Picard–Lindelöf in action</title></svg>\n  <div class=\"readout\" id=\"pl-out\">…</div>\n  <div class=\"note\">Each iterate $\\varphi_{k+1}(t)=x_0+\\int_0^t f(s,\\varphi_k(s))\\,ds$ moves toward the unique solution, which is the contraction's fixed point.</div>\n</div>\n\n"
+          "html": "<section id=\"applications\">\n<h2>8. Applications across mathematics</h2>\n<p>Every theorem above shows up as the existence engine in a downstream result:</p>\n<ul>\n  <li><strong>Picard–Lindelöf for ODEs</strong> — Banach contraction. The Picard operator $T(\\varphi)(t)=x_0+\\int_{t_0}^t f(s,\\varphi(s))\\,ds$ is a contraction on $C([t_0-h,t_0+h])$ when $f$ is Lipschitz in its second argument and $h$ is small.</li>\n  <li><strong>Implicit function theorem</strong> — Banach contraction. A Newton-style operator $y\\mapsto y-D_yF(x_0,y_0)^{-1}F(x,y)$ is a contraction on a small ball, and its fixed point is the implicit solution $y=g(x)$.</li>\n  <li><strong>Markov-chain stationary distribution</strong> — Brouwer. The simplex $\\Delta\\subset\\mathbb{R}^n$ is non-empty compact convex; $\\pi\\mapsto\\pi P$ is continuous; a stationary $\\pi^*$ exists for any stochastic $P$.</li>\n  <li><strong>Existence of solutions to nonlinear elliptic PDEs</strong> — Schauder. A compact solution operator on a closed bounded set in a function space provides existence without uniqueness.</li>\n  <li><strong>Nash equilibrium</strong> — Kakutani. The best-response correspondence on the product simplex satisfies the hypotheses; its fixed point is the equilibrium.</li>\n</ul>\n\n"
+        },
+        {
+          "type": "widget",
+          "slug": "fpt-pl",
+          "params": {
+            "widgetId": "pl",
+            "title": "Picard–Lindelöf in action",
+            "hint": "Iterate the Picard operator on $\\dot{x}=f(t,x)$, $x(0)=x_0$.",
+            "bodyMarkup": "<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">Picard–Lindelöf in action</div><div class=\"hint\">Iterate the Picard operator on $\\dot{x}=f(t,x)$, $x(0)=x_0$.</div></div>\n  <div class=\"row\">\n    <label>$f(t,x)$: <select id=\"pl-f\">\n      <option value=\"x\">$f=x$ &nbsp; (true: $x_0 e^{t}$)</option>\n      <option value=\"tx\">$f=tx$ &nbsp; (true: $x_0 e^{t^2/2}$)</option>\n      <option value=\"sin\">$f=\\sin(x)$</option>\n    </select></label>\n    <label>iterations: <input type=\"range\" id=\"pl-k\" min=\"0\" max=\"6\" step=\"1\" value=\"3\"></label>\n    <label>$x_0$: <input type=\"range\" id=\"pl-x0\" min=\"-2\" max=\"2\" step=\"0.1\" value=\"1\"></label>\n  </div>\n  <svg id=\"pl-svg\" viewBox=\"0 0 560 280\" width=\"100%\"><title>Picard–Lindelöf in action</title></svg>\n  <div class=\"readout\" id=\"pl-out\">…</div>\n  <div class=\"note\">Each iterate $\\varphi_{k+1}(t)=x_0+\\int_0^t f(s,\\varphi_k(s))\\,ds$ moves toward the unique solution, which is the contraction's fixed point.</div>\n</div>",
+            "bodyScript": ""
+          }
+        },
+        {
+          "type": "raw",
+          "html": "\n\n"
         },
         {
           "type": "quiz",

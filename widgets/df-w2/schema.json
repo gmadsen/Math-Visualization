@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/df-w2/schema.json",
+  "title": "df-w2 widget params",
+  "description": "Bespoke verbatim-renderer slug for the \"df-w2\" widget on the differential-forms topic. Carries opaque bodyMarkup + bodyScript strings; migrated from a Type-A inline widget by scripts/migrate-inline-widgets-typea.mjs.",
+  "meta": {
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "interact",
+    "role": "interactive"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title",
+    "hint",
+    "bodyMarkup",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "description": "DOM id for the widget root, or empty string when the original markup carried no id."
+    },
+    "title": {
+      "type": "string",
+      "description": "Header title (rendered inside .hd > .ttl by the original markup)."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Header hint (rendered inside .hd > .hint)."
+    },
+    "bodyMarkup": {
+      "type": "string",
+      "description": "Verbatim markup for the widget — the full `<div class=\"widget\">…</div>` block as it appears in the source HTML."
+    },
+    "bodyScript": {
+      "type": "string",
+      "description": "Verbatim driving `<script>…</script>` block, or empty string when the widget has no driving script."
+    }
+  }
+}
