@@ -823,27 +823,30 @@
     return out;
   }
 
-  function renderNextUp(hostEl, justMasteredId){
+  function renderJustUnlocked(hostEl, justMasteredId){
+    if(!hostEl) return;
     hostEl.innerHTML = '';
     const nexts = computeNextUp(justMasteredId);
     if(nexts.length === 0) return;
-    const items = nexts.map(info => {
-      const href = `./${info.topicPage}#${info.c.anchor || ''}`;
-      return `<li style="margin:.2rem 0">
-        <a href="${href}" style="color:var(--cyan);text-decoration:none">
-          <b>${info.c.title}</b></a>
-        <span style="color:var(--mute);font-size:.85rem"> · ${info.topicTitle}</span>
-      </li>`;
-    }).join('');
+    // Cap at 3 link entries — past that we summarise. Keeps the line short
+    // and stops a wall-of-cyan when several capstones unlock at once.
+    const VISIBLE = 3;
+    const visible = nexts.slice(0, VISIBLE);
+    const overflow = nexts.length - visible.length;
+    const links = visible.map(info => {
+      // Drop a trailing `#` when a concept has no anchor — `topic.html#`
+      // is a no-op fragment that just appends `#` to the URL on click.
+      const anchor = info.c.anchor;
+      const href = anchor ? `./${info.topicPage}#${anchor}` : `./${info.topicPage}`;
+      return `<a href="${href}" style="text-decoration:none;border-bottom:1px dashed currentColor">${info.c.title}</a>`;
+    }).join(', ');
+    const tail = overflow > 0 ? `, +${overflow} more` : '';
+    // aria-live=polite announces the list to screen readers when mastery
+    // toggles. role=status carries equivalent semantics on older AT.
     hostEl.innerHTML = `
-      <div class="nextup" style="margin-top:.8rem;padding:.6rem .85rem;
-        border:1px solid var(--line);border-radius:8px;
-        background:color-mix(in srgb, var(--cyan) 6%, transparent)">
-        <div style="color:var(--cyan);font-weight:600;margin-bottom:.25rem">Next up</div>
-        <div style="color:var(--mute);font-size:.85rem;margin-bottom:.35rem">
-          These concepts just unlocked.
-        </div>
-        <ul style="list-style:disc;padding-left:1.2rem;margin:.2rem 0">${items}</ul>
+      <div class="just-unlocked" role="status" aria-live="polite"
+           style="margin-top:.25rem;color:var(--mute);font-size:.88rem">
+        <span style="color:var(--cyan);font-weight:500">Just unlocked:</span> ${links}${tail}
       </div>
     `;
     typeset(hostEl);
@@ -856,6 +859,7 @@
         <div class="ttl">Quiz · ${quiz.title}</div>
         <div class="hint" data-role="badge"></div>
       </div>
+      <div data-role="just-unlocked"></div>
       <div data-role="v1-tier"></div>
       <div data-role="hard-gate" style="margin-top:1rem"></div>
       <div data-role="hard-tier" class="hard" style="display:none;margin-top:.4rem;
@@ -865,7 +869,6 @@
       <div data-role="expert-tier" class="expert" style="display:none;margin-top:.4rem;
         border:1px solid var(--pink);border-radius:8px;padding:.6rem .8rem;
         background:color-mix(in srgb, var(--pink) 8%, transparent)"></div>
-      <div data-role="nextup"></div>
     `;
 
     // Quiz titles can carry KaTeX (e.g. "The de Rham complex $\\Omega^\\bullet$").
@@ -879,7 +882,7 @@
     const hardHost     = host.querySelector('[data-role="hard-tier"]');
     const expertGate   = host.querySelector('[data-role="expert-gate"]');
     const expertHost   = host.querySelector('[data-role="expert-tier"]');
-    const nextupHost   = host.querySelector('[data-role="nextup"]');
+    const justUnlockedHost = host.querySelector('[data-role="just-unlocked"]');
     const hasHard      = Array.isArray(quiz.hard)   && quiz.hard.length > 0;
     const hasExpert    = Array.isArray(quiz.expert) && quiz.expert.length > 0;
 
@@ -997,19 +1000,21 @@
     }
 
     // Render v1 tier.
+    const v1AlreadyAtMount = !!(global.MVProgress && global.MVProgress.isMastered(conceptId, 'v1'));
     renderTier(v1Host, conceptId, 'v1', quiz.questions, () => {
+      // Detect transition: only render "Just unlocked" if v1 was NOT already
+      // mastered when this quiz was mounted.
+      const isTransition = !v1AlreadyAtMount;
       if(global.MVProgress) global.MVProgress.setMastered(conceptId, 'v1', true);
       setBadge();
       mountHardGate();
-      renderNextUp(nextupHost, conceptId);
+      if(isTransition) renderJustUnlocked(justUnlockedHost, conceptId);
     });
 
-    // If v1 is already mastered from a prior session, expose the hard gate
-    // and show the "next up" block.
-    const v1Already = !!(global.MVProgress && global.MVProgress.isMastered(conceptId, 'v1'));
-    if(v1Already){
+    // If v1 is already mastered from a prior session, expose the hard gate.
+    // No "Just unlocked" line on already-mastered (no transition this session).
+    if(v1AlreadyAtMount){
       mountHardGate();
-      renderNextUp(nextupHost, conceptId);
     }
     setBadge();
   }
@@ -1048,5 +1053,6 @@
     _guessMyRuleFeedback: guessMyRuleFeedback,
     _firstSentence: firstSentence,
     _hintTextOf: hintTextOf,
-    _computeNextUp: computeNextUp };
+    _computeNextUp: computeNextUp,
+    _renderJustUnlocked: renderJustUnlocked };
 })(window);

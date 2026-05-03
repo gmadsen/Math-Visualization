@@ -160,13 +160,15 @@
     text-transform:uppercase;color:var(--mute);
     font-family:ui-monospace,Menlo,monospace;font-weight:500;
     margin-right:0.6rem;white-space:nowrap;opacity:0.75}
-  /* Modern chip: transparent at rest, accent left-bar (3px) for at-rest section
-     identity, full accent border + lift on hover. The :before pseudo-element is
-     the colored stripe; it scales to fill the chip on hover for a subtle wash. */
+  /* Modern chip: muted ink at rest (no accent paint — too much chromatic load
+     when 11 chips compete with 130+ colored cards), accent border + glow + wash
+     and the colored left-bar stripe only on hover/focus. The :before pseudo-
+     element is the colored stripe; it stays hidden at rest and slides in to
+     fill the chip on hover for a subtle wash. */
   .section-jump a.sj-link{position:relative;display:inline-flex;align-items:center;
     padding:0.42rem 0.85rem 0.42rem 1rem;border-radius:8px;
     text-decoration:none;font-size:0.85rem;font-weight:450;
-    color:color-mix(in srgb, var(--ink) 92%, transparent);
+    color:var(--ink);
     background:transparent;
     border:1px solid color-mix(in srgb, var(--line) 60%, transparent);
     transition:transform 180ms cubic-bezier(0.4,0,0.2,1),
@@ -175,20 +177,27 @@
     overflow:hidden}
   .section-jump a.sj-link::before{
     content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
-    background:var(--mute);
+    background:var(--accent, var(--mute));
     transition:width 220ms cubic-bezier(0.4,0,0.2,1), opacity 180ms ease;
-    opacity:0.85}
-  .section-jump a.sj-link:hover{
+    /* Low-opacity stripe at rest — restores the section-color signal the
+     * audit's ink-only treatment had stripped, without re-introducing the
+     * full saturated paint. Hover fades it up to 0.85. */
+    opacity:0.45}
+  .section-jump a.sj-link:hover,
+  .section-jump a.sj-link:focus-visible{
     color:var(--ink);
     transform:translateY(-1px);
     border-color:color-mix(in srgb, var(--accent, var(--cyan)) 55%, var(--line));
     background:color-mix(in srgb, var(--accent, var(--cyan)) 10%, transparent);
-    box-shadow:0 2px 8px color-mix(in srgb, var(--accent, var(--cyan)) 18%, transparent)}
-  .section-jump a.sj-link:hover::before{width:100%;opacity:0.14}
+    box-shadow:0 2px 8px color-mix(in srgb, var(--accent, var(--cyan)) 18%, transparent);
+    outline:none}
+  .section-jump a.sj-link:hover::before,
+  .section-jump a.sj-link:focus-visible::before{opacity:0.85}
   .section-jump a.sj-link:active{transform:translateY(0)}
   /* Set the per-chip accent custom property so the generic --accent-driven
-     hover/border rules above pick it up. The .sj-dot span is no longer rendered
-     (left-bar replaces it) but kept in markup for backward compat. */
+     hover/border rules above pick it up. The accent paints only on hover; at
+     rest the chip is muted ink. The .sj-dot span is no longer rendered (left-
+     bar replaces it on hover) but kept in markup for backward compat. */
   .section-jump a.sj-link .sj-dot{display:none}
   .section-jump a.sj-link.s-b{--accent:var(--blue)}
   .section-jump a.sj-link.s-y{--accent:var(--yellow)}
@@ -196,12 +205,6 @@
   .section-jump a.sj-link.s-v{--accent:var(--violet)}
   .section-jump a.sj-link.s-g{--accent:var(--green)}
   .section-jump a.sj-link.s-c{--accent:var(--cyan)}
-  .section-jump a.sj-link.s-b::before{background:var(--blue)}
-  .section-jump a.sj-link.s-y::before{background:var(--yellow)}
-  .section-jump a.sj-link.s-p::before{background:var(--pink)}
-  .section-jump a.sj-link.s-v::before{background:var(--violet)}
-  .section-jump a.sj-link.s-g::before{background:var(--green)}
-  .section-jump a.sj-link.s-c::before{background:var(--cyan)}
   @media (max-width:520px){
     .section-jump{padding:0.7rem 0.8rem;
       flex-wrap:nowrap;overflow-x:auto;
@@ -215,6 +218,39 @@
   }
   .start-here-rail{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 2.4rem}
   @media (max-width:760px){.start-here-rail{grid-template-columns:1fr;gap:10px}}
+
+  /* Capstone-stories strip — surfaces the long-form narrative pages
+   * (capstone-{bsd,flt,satotate}-story.html) that previously were only
+   * reachable by drilling into bsd / modularity-and-flt / sato-tate. */
+  .capstone-stories{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+    margin:-1rem 0 2.4rem}
+  .capstone-stories .cs-header{grid-column:1/-1;margin-bottom:0.4rem}
+  .capstone-stories .cs-eyebrow{font-size:0.66rem;letter-spacing:0.18em;
+    text-transform:uppercase;color:var(--mute);
+    font-family:ui-monospace,Menlo,monospace;font-weight:500}
+  @media (max-width:720px){.capstone-stories{grid-template-columns:1fr;gap:8px}}
+  .capstone-stories a.cs-card{display:flex;gap:0.6rem;align-items:flex-start;
+    padding:0.85rem 1rem;background:var(--panel);
+    border:1px solid color-mix(in srgb, var(--line) 80%, transparent);
+    border-radius:10px;text-decoration:none;color:inherit;
+    transition:transform 200ms cubic-bezier(0.4,0,0.2,1),
+               border-color 200ms ease, box-shadow 200ms ease, background 200ms ease}
+  .capstone-stories a.cs-card:hover, .capstone-stories a.cs-card:focus-visible{
+    transform:translateY(-1px);
+    border-color:color-mix(in srgb, var(--accent, var(--cyan)) 55%, var(--line));
+    background:color-mix(in srgb, var(--accent, var(--cyan)) 4%, var(--panel));
+    box-shadow:0 4px 14px color-mix(in srgb, var(--accent, var(--cyan)) 16%, transparent);
+    outline:none}
+  .capstone-stories a.cs-card[data-c="cyan"]{--accent:var(--cyan)}
+  .capstone-stories a.cs-card[data-c="yellow"]{--accent:var(--yellow)}
+  .capstone-stories .cs-body{flex:1;min-width:0}
+  .capstone-stories .cs-title{font-weight:600;color:var(--ink);font-size:0.97rem;
+    margin-bottom:0.25rem;line-height:1.3}
+  .capstone-stories .cs-teaser{color:var(--mute);font-size:0.84rem;line-height:1.5}
+  .capstone-stories .cs-arrow{flex-shrink:0;color:var(--accent, var(--cyan));
+    font-size:1.05rem;line-height:1.4;
+    transition:transform 200ms cubic-bezier(0.4,0,0.2,1)}
+  .capstone-stories a.cs-card:hover .cs-arrow{transform:translateX(2px)}
   .pathway-banner,.tours-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;
     border-radius:12px;padding:1.1rem 1.3rem;margin:0;text-decoration:none;color:inherit;
     transition:transform 150ms ease, border-color 150ms ease}
@@ -305,18 +341,15 @@
   .sec .sec-count{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;
     color:var(--mute);font-family:ui-monospace,Menlo,monospace;font-weight:500;
     white-space:nowrap}
-  /* Right-aligned stats group: mastery donut + topic count. The donut's
-     stroke colour inherits via currentColor so it picks up the section's
-     accent (set by data-color on .sec); empty rings stay neutral via the
-     .ring-empty class. */
+  /* Right-aligned stats group: topic count only. The 18px mastery ring used
+     to live here too but was too small to register and added chromatic
+     clutter on top of 130+ colored card thumbs; it was removed in the
+     audit-driven palette pass. The full mastery picture lives on
+     pathway.html. The .sec-ring rules are retained as no-ops so any
+     previously cached SVG attached at runtime stays invisible rather
+     than breaking layout. */
   .sec .sec-stats{display:inline-flex;align-items:center;gap:8px;flex-shrink:0}
-  .sec .sec-ring{width:18px;height:18px;flex-shrink:0;display:block}
-  .sec .sec-ring circle{fill:none;stroke-width:2.6}
-  .sec .sec-ring .ring-track{stroke:var(--line)}
-  .sec .sec-ring .ring-fill{stroke:currentColor;stroke-linecap:round;
-    transform:rotate(-90deg);transform-origin:center;
-    transition:stroke-dasharray 280ms ease}
-  .sec .sec-ring.ring-empty .ring-fill{stroke:var(--line)}
+  .sec .sec-ring{display:none}
   /* Section accent via data-color attribute (not a class) so the class
      attribute stays exactly "sec" and the section-index builder's regex
      keeps matching. */
@@ -350,17 +383,20 @@
     border:1px solid var(--line);border-radius:6px;
     display:flex;align-items:center;justify-content:center;overflow:hidden}
   .body{flex:1;min-width:0;display:flex;flex-direction:column}
-  .tt{font-weight:600;margin:0 0 4px;font-size:1.04rem;color:#fff}
+  .tt{font-weight:600;margin:0 0 4px;font-size:1.04rem;color:var(--ink)}
   .desc{color:var(--mute);font-size:0.88rem;margin:0 0 8px;line-height:1.5;flex:1}
   .tag{font-size:0.72rem;padding:1px 8px;border-radius:999px;
     background:var(--panel2);color:var(--mute);border:1px solid var(--line);
     letter-spacing:0.02em;align-self:flex-start;font-family:ui-monospace,Menlo,monospace}
-  .card.y .tt{color:var(--yellow)} .card.y:hover{border-color:var(--yellow)}
-  .card.b .tt{color:var(--blue)}   .card.b:hover{border-color:var(--blue)}
-  .card.g .tt{color:var(--green)}  .card.g:hover{border-color:var(--green)}
-  .card.p .tt{color:var(--pink)}   .card.p:hover{border-color:var(--pink)}
-  .card.v .tt{color:var(--violet)} .card.v:hover{border-color:var(--violet)}
-  .card.c .tt{color:var(--cyan)}   .card.c:hover{border-color:var(--cyan)}
+  /* Card titles stay ink at rest — the accent is carried by the .thumb SVG.
+     Title tints in only on hover, paired with the colored border + glow. */
+  .card .tt{transition:color 160ms ease}
+  .card.y:hover{border-color:var(--yellow)} .card.y:hover .tt{color:var(--yellow)}
+  .card.b:hover{border-color:var(--blue)}   .card.b:hover .tt{color:var(--blue)}
+  .card.g:hover{border-color:var(--green)}  .card.g:hover .tt{color:var(--green)}
+  .card.p:hover{border-color:var(--pink)}   .card.p:hover .tt{color:var(--pink)}
+  .card.v:hover{border-color:var(--violet)} .card.v:hover .tt{color:var(--violet)}
+  .card.c:hover{border-color:var(--cyan)}   .card.c:hover .tt{color:var(--cyan)}
   svg{display:block}
   .level{font-size:0.66rem;padding:1px 7px;border-radius:999px;margin-left:8px;vertical-align:middle;
     border:1px solid transparent;text-transform:uppercase;letter-spacing:0.04em;font-family:ui-monospace,Menlo,monospace}
@@ -713,7 +749,7 @@
         <text x="50" y="48" text-anchor="middle" font-family="serif" font-size="11" font-style="italic" fill="var(--yellow)">σ·τ</text>
       </svg></div>
       <div class="body">
-        <div class="tt">Galois cohomology and brauer</div>
+        <div class="tt">Galois cohomology and Brauer groups</div>
         <div class="desc">Hⁱ(G, M) cocycles, H¹ classifies torsors, H² classifies extensions, the Brauer group as H²(Gal, K̄ˣ), Tate duality, Hasse principle.</div>
         <span class="tag">cocycles · Brauer · Hasse</span>
       </div>
@@ -758,7 +794,7 @@
         <text x="50" y="74" text-anchor="middle" font-family="serif" font-size="9" fill="var(--mute)">dim 1, 2, 4, 8</text>
       </svg></div>
       <div class="body">
-        <div class="tt">Quaternions octonions and division algebras</div>
+        <div class="tt">Quaternions, octonions, and division algebras</div>
         <div class="desc">$\mathbb{R} \subset \mathbb{C} \subset \mathbb{H} \subset \mathbb{O}$: Cayley–Dickson doubling loses one structure at each step. Frobenius and Hurwitz close the list at $\mathbb{O}$.</div>
         <span class="tag">ℍ · 𝕆 · Cayley–Dickson · Frobenius</span>
       </div>

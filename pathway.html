@@ -102,6 +102,15 @@
   .nodebox:hover rect.node-bg{fill:#242c3e}
   .nodebox.match rect.node-bg{filter:drop-shadow(0 0 8px var(--yellow))}
   .nodebox.dim{opacity:.25}
+  /* Keyboard focus ring for nodebox elements (a11y: nodes are tabindex=0
+     role=button so Tab order reaches the DAG and Enter/Space activates a
+     node, mirroring a click). The ring is layered as a separate :focus-visible
+     border (no shadow leak into adjacent nodes) and avoids compounding with
+     `.match`'s drop-shadow or `.goal`'s stroke. */
+  .nodebox:focus{outline:none}
+  .nodebox:focus-visible rect.node-bg{
+    stroke:var(--cyan);stroke-width:2;stroke-dasharray:4 2;
+  }
   @keyframes nodepulse{
     0%   { transform: scale(1); }
     30%  { transform: scale(1.05); }
@@ -877,7 +886,17 @@
 
     // nodes
     for(const [id,n] of currentLayout.nodesById){
-      const g = el('g', {class: 'nodebox', transform: `translate(${n.x},${n.y})`, 'data-id': id});
+      // a11y: tabindex=0 + role=button + aria-label make each node keyboard-
+      // reachable and announceable. Enter/Space activate via the keydown
+      // handler below, which forwards to the existing click code path.
+      const g = el('g', {
+        class: 'nodebox',
+        transform: `translate(${n.x},${n.y})`,
+        'data-id': id,
+        tabindex: '0',
+        role: 'button',
+        'aria-label': n.node.title,
+      });
       const info = MVProgress.stateOf(id, conceptsMap);
       g.classList.add(info.state);
       if(info.hard) g.classList.add('hard');
@@ -958,6 +977,26 @@
           hideLockTip();
           lockTipTapArmed = null;
         }
+        selectNode(id);
+      });
+      // a11y: Enter/Space on a focused node fires the same logic as a click.
+      // Inline the click branches rather than dispatching a synthetic
+      // MouseEvent — that would have undefined `pointerType` and skip the
+      // touch-locked-node branch in subtle ways.
+      g.addEventListener('keydown', (ev)=>{
+        if(ev.key !== 'Enter' && ev.key !== ' ') return;
+        ev.preventDefault();
+        if(ev.metaKey || ev.ctrlKey){
+          if(ev.shiftKey){
+            MVProgress.setMastered(id, 'hard', !MVProgress.isMastered(id, 'hard'));
+          } else {
+            MVProgress.setMastered(id, 'v1', !MVProgress.isMastered(id, 'v1'));
+          }
+          render(currentGoal);
+          return;
+        }
+        // Keyboard activation never fires the touch locked-tap UX (it has no
+        // notion of pointerType=touch); just navigate.
         selectNode(id);
       });
       // F4: Hover-card on every node (desktop only — touch uses click-to-select).

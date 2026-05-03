@@ -79,9 +79,104 @@
       activeLink.classList.add('active');
     }
     update();
-    window.addEventListener('scroll', update, {passive: true});
-    window.addEventListener('resize', update);
+    let raf = 0;
+    function schedule(){
+      if(raf) return;
+      raf = requestAnimationFrame(() => { raf = 0; update(); });
+    }
+    window.addEventListener('scroll', schedule, {passive: true});
+    window.addEventListener('resize', schedule, {passive: true});
+
+    // Below 1180px viewport, per-page CSS hides aside.sidetoc and lets the
+    // top-nav inline anchor list take over. That flood is unusable on
+    // long topics. notebook.css promotes the sidetoc to a slide-in drawer;
+    // we wire the toggle here so any topic page picks it up automatically.
+    setupDrawer(aside);
   }
+
+  function setupDrawer(aside){
+    const topnav = document.querySelector('nav.toc');
+    if(!topnav) return;
+
+    // Inject the toggle button. Anchored to the right of nav.toc; CSS keeps
+    // it hidden above 1180px.
+    let toggle = topnav.querySelector('.sidetoc-drawer-toggle');
+    if(!toggle){
+      toggle = document.createElement('button');
+      toggle.type = 'button';
+      toggle.className = 'sidetoc-drawer-toggle';
+      toggle.setAttribute('aria-label', 'Open sections');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-controls', aside.id || 'sidetoc-aside');
+      if(!aside.id) aside.id = 'sidetoc-aside';
+      toggle.textContent = 'Sections';
+      topnav.appendChild(toggle);
+    }
+
+    // Backdrop element shared with the drawer.
+    let backdrop = document.querySelector('.sidetoc-backdrop');
+    if(!backdrop){
+      backdrop = document.createElement('div');
+      backdrop.className = 'sidetoc-backdrop';
+      document.body.appendChild(backdrop);
+    }
+
+    let lastFocused = null;
+    function open(){
+      lastFocused = document.activeElement;
+      aside.classList.add('is-drawer-open');
+      backdrop.classList.add('is-active');
+      document.body.classList.add('sidetoc-locked');
+      toggle.setAttribute('aria-expanded', 'true');
+      // Focus into the drawer so SR / keyboard users land inside the panel.
+      const firstLink = aside.querySelector('a');
+      if(firstLink){ try { firstLink.focus({preventScroll: true}); } catch(_) {} }
+    }
+    function close(){
+      aside.classList.remove('is-drawer-open');
+      backdrop.classList.remove('is-active');
+      document.body.classList.remove('sidetoc-locked');
+      toggle.setAttribute('aria-expanded', 'false');
+      // Restore focus to the toggle so keyboard tab order resumes naturally.
+      if(lastFocused && typeof lastFocused.focus === 'function'){
+        try { lastFocused.focus({preventScroll: true}); } catch(_) {}
+      } else {
+        try { toggle.focus({preventScroll: true}); } catch(_) {}
+      }
+      lastFocused = null;
+    }
+    function isOpen(){ return aside.classList.contains('is-drawer-open'); }
+
+    toggle.addEventListener('click', () => {
+      if(isOpen()) close(); else open();
+    });
+    backdrop.addEventListener('click', close);
+    aside.addEventListener('click', (e) => {
+      // Close after the user picks a section so they're not staring at the drawer.
+      if(e.target && e.target.tagName === 'A') close();
+    });
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape' && isOpen()) close();
+    });
+    // Crossing the breakpoint upward: reset drawer state. Always clear the
+    // body lock — even if isOpen() reads false, a stale `sidetoc-locked` from
+    // any other code path (or a disrupted close) shouldn't leave the page
+    // un-scrollable. Reuses the same rAF schedule() throttle as the scroll
+    // handler.
+    let resizeRaf = 0;
+    function onResize(){
+      if(resizeRaf) return;
+      resizeRaf = requestAnimationFrame(() => {
+        resizeRaf = 0;
+        if(window.innerWidth > 1180){
+          if(isOpen()) close();
+          document.body.classList.remove('sidetoc-locked');
+        }
+      });
+    }
+    window.addEventListener('resize', onResize, {passive: true});
+  }
+
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
 })();

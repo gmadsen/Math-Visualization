@@ -14,7 +14,12 @@
  *
  * Higher specificity than :root: we use html[data-theme="light"] { ... } so
  * it wins over the per-page :root block.
+ *
+ * This file also imports notebook.css (global typography / focus / slider
+ * polish) so a single <link> drag in 143 of 148 pages picks both up.
  */
+
+@import url('./notebook.css');
 
 html[data-theme="light"] {
   /* Structural tokens — warm paper instead of inky navy. */

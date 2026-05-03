@@ -172,7 +172,25 @@
   }
 
   // --------------------------------------------------------------------------
-  // 4. Expose API.
+  // 4. KaTeX FOUC mitigation. Synchronously add the `katex-pending` class so
+  //    css/notebook.css's `html.katex-pending main { opacity:0 }` rule kicks
+  //    in before first paint — must happen here, not in an async sub-script.
+  //    The reveal logic (MutationObserver waiting for the first .katex node,
+  //    window.load fallback, 1500ms safety) lives in js/katex-fouc.js, which
+  //    we load as a sibling so the per-page footprint stays at one <script>.
+  // --------------------------------------------------------------------------
+  try { document.documentElement.classList.add('katex-pending'); } catch (_) {}
+  try {
+    var foucScript = document.createElement('script');
+    foucScript.src = './js/katex-fouc.js';
+    foucScript.async = false;
+    (document.head || document.documentElement).appendChild(foucScript);
+  } catch (_) { /* defensive — FOUC is a polish layer, not load-bearing */
+    try { document.documentElement.classList.remove('katex-pending'); } catch (_) {}
+  }
+
+  // --------------------------------------------------------------------------
+  // 5. Expose API.
   // --------------------------------------------------------------------------
   window.MVTheme = {
     get: get,
