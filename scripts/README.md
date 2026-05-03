@@ -88,6 +88,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 | [`test-audit-accessibility.mjs`](./test-audit-accessibility.mjs) | Unit tests for `audit-accessibility.mjs:checkSvgViewbox()` — bare-svg violation, viewBox skip, tiny-icon skip, `<defs>`/thumb skip, `<script>`/`<pre>`/comment skip, mixed, unbalanced-`<script>` boundary. |
 | [`audit-starter-concepts.mjs`](./audit-starter-concepts.mjs) | Advisory audit: lists concepts with empty `prereqs` outside the foundation/prereq topic set (`naive-set-theory`, `algebra`, `real-analysis`, `complex-analysis`, `point-set-topology`, `algebraic-topology`, `projective-plane`) plus new-arc concepts whose prereqs all stay intra-topic. Both signal incomplete cross-topic upstream wiring. Always exits 0. |
 | [`audit-callbacks.mjs`](./audit-callbacks.mjs) | Cross-topic prereqs surface as `<aside class="callback">`. |
+| [`audit-history-links.mjs`](./audit-history-links.mjs) | Advisory audit for the cross-link map between `history.html` and the technical corpus. Reports broken anchors, dead slugs, and topic pages with zero inbound from history. Output → `audits/history-link-coverage.md`. Always exits 0. |
 | [`audit-slug-flavored-titles.mjs`](./audit-slug-flavored-titles.mjs) | Detects `<title>` / `<h1>` that look slug-derived (e.g. "Algebraic de rham cohomology"). Heuristic + curated whitelist; exits 1 on any hit. |
 
 ## Advisory audits (exit 0; write to `audits/`)

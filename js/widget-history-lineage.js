@@ -329,10 +329,27 @@
         g.appendChild(yr);
         nodeLayer.appendChild(g);
 
-        const select = () => showPerson(n);
+        const select = () => {
+          showPerson(n);
+          if(window.MVHistoryBus) window.MVHistoryBus.selectPerson(n.id);
+        };
         g.addEventListener('click', select);
         g.addEventListener('keydown', e => {
           if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); select(); }
+        });
+      });
+    }
+
+    // Cross-widget bus listener — registered once at init, queries the
+    // current SVG fresh each fire so it works after tab switches re-render
+    // the lineage. Without lifting this out of renderLineage we'd register
+    // a new listener per render (one per tab click) which is wasteful.
+    if(window.MVHistoryBus){
+      window.MVHistoryBus.on('select-person', e => {
+        const id = e.detail && e.detail.id;
+        [...svg.querySelectorAll('.lnode')].forEach(node => {
+          const matches = id && node.dataset.id === id;
+          node.classList.toggle('bus-highlight', !!matches);
         });
       });
     }
