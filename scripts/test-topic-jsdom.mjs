@@ -639,12 +639,18 @@ if (RUN_EXTRAS) describe('pathway.html jsdom', () => {
 
 // ---------- mindmap.html ----------
 //
-// mindmap.html was merged into pathway.html's `?goal=none` mode (audit #4)
-// and is now a small redirect stub. The original force-directed-layout suite
-// is preserved below behind a `false &&` guard for archival reference; no
-// active gate runs against it. If the redirect ever needs its own assertion
-// (e.g. that the stub really redirects), add a small check here.
-if (false && RUN_EXTRAS) describe('mindmap.html jsdom', () => {
+// mindmap.html is a free-explore counterpart to pathway.html: section-clustered
+// force-directed layout of all 505 concepts. Like pathway it has its own
+// structural shape (no sidetoc, no <section>s, no quizzes) so the generic
+// topic boot test would mis-fire. Targeted regression checks:
+//   - boots without script errors
+//   - all 505 nodes render
+//   - per-section stats table populates with 7 section rows
+//   - gap-list orphan + capstone panels populate
+//   - depth slider's input/change events update focusDepth (it must be live
+//     before the user clicks anything, since clicking with depth=2 vs depth=4
+//     should produce different keep-set sizes)
+if (RUN_EXTRAS) describe('mindmap.html jsdom', () => {
   test('boots, layout completes, section-stats and gap-list populate', async () => {
     const file = 'mindmap.html';
     const abs = join(repoRoot, file);

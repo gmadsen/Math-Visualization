@@ -4,8 +4,12 @@
  * Loaded via @import from theme-light.css (which is linked on 143 of 148 pages),
  * and via direct <link> on the five pages that don't load theme-light.css.
  *
- * Rules in here sit *after* the per-page <style> blocks in cascade order, so
- * same-specificity selectors (e.g. `body`, `h3`) win without !important.
+ * Cascade-order note: 99 of 142 topic pages load this stylesheet AFTER the
+ * inline <style>; on the other 44 (algebra, algebraic-topology, bsd, …) the
+ * order is reversed. So same-specificity overrides are NOT safe — selectors
+ * that need to win regardless of cascade order use a leading `html` to bump
+ * specificity from (0,0,1) to (0,0,2). Bare `body`/`h3` etc. rules tolerate
+ * the cascade tie because per-page CSS doesn't fight them.
  *
  * Implements audit findings:
  *   #1  prose serif + display sans (KaTeX's CM-serif harmonizes with body)
@@ -61,36 +65,25 @@ h3 {
   font-size: 1rem;
 }
 
-/* h2 underline picks up the page's section accent. The body[data-section]
- * attribute is set by every topic page; topic pages wired by content/*.json
- * already carry it. The eleven canonical sections — see CLAUDE.md. */
-body[data-section="logic-and-foundations"]      h2 { border-bottom-color: color-mix(in srgb, var(--blue)   60%, var(--line)); }
-body[data-section="algebra-and-homological"]    h2 { border-bottom-color: color-mix(in srgb, var(--yellow) 60%, var(--line)); }
-body[data-section="higher-categories-and-toposes"] h2 { border-bottom-color: color-mix(in srgb, var(--violet) 60%, var(--line)); }
-body[data-section="analysis"]                   h2 { border-bottom-color: color-mix(in srgb, var(--pink)   60%, var(--line)); }
-body[data-section="probability-and-statistics"] h2 { border-bottom-color: color-mix(in srgb, var(--cyan)   60%, var(--line)); }
-body[data-section="geometry-and-topology"]      h2 { border-bottom-color: color-mix(in srgb, var(--green)  60%, var(--line)); }
-body[data-section="number-theory"]              h2 { border-bottom-color: color-mix(in srgb, var(--yellow) 60%, var(--line)); }
-body[data-section="modular-forms-and-l-functions"] h2 { border-bottom-color: color-mix(in srgb, var(--cyan)   60%, var(--line)); }
-body[data-section="algebraic-geometry"]         h2 { border-bottom-color: color-mix(in srgb, var(--green)  60%, var(--line)); }
-body[data-section="combinatorics-and-graph-theory"] h2 { border-bottom-color: color-mix(in srgb, var(--green) 60%, var(--line)); }
-body[data-section="mathematical-physics"]       h2 { border-bottom-color: color-mix(in srgb, var(--pink)   60%, var(--line)); }
+/* h2 underline coloring intentionally NOT set per-section in this file —
+ * `concepts/sections.json` is the canonical section→color map and duplicating
+ * 11 entries here invites drift (and an earlier draft did drift on 4 of 11).
+ * Per-page CSS keeps its existing neutral border-bottom; the section accent
+ * shows up on cards, lineage strip, callbacks, and other surfaces that read
+ * from the data model rather than from a parallel CSS dictionary. */
 
 
 /* ---------- 11. Global :focus-visible ring + skip link ---------- */
 
-:focus-visible {
+/* Wrapped in :where() so the rule has zero specificity. Any per-component
+ * :focus-visible styling — `.mv-theme-toggle`, `.sj-link`, `.tour-card`,
+ * `.nodebox`, etc. — wins over this fallback rather than stacking on top
+ * of it (the bare global rule produced doubled rings for components with
+ * their own focus treatment). */
+:where(:focus-visible) {
   outline: 2px solid var(--cyan);
   outline-offset: 2px;
   border-radius: 4px;
-}
-
-/* Cards already lift on hover; let the ring sit slightly outside their hit-area
- * so focus and hover don't crowd one another. */
-.tour-card:focus-visible,
-a.card:focus-visible,
-.card:focus-visible {
-  outline-offset: 4px;
 }
 
 /* Skip-to-content for keyboard users. Hidden until focused. Pages can place
@@ -167,6 +160,13 @@ input[type="range"]:focus-visible::-moz-range-thumb {
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--cyan) 45%, transparent);
 }
 
+/* Touch devices need a larger tap target — WCAG 2.5.5 minimum is 24×24,
+ * Apple HIG / Material both call for 44×44. Bump thumb on coarse pointers. */
+@media (pointer: coarse) {
+  input[type="range"]::-webkit-slider-thumb { width: 24px; height: 24px; }
+  input[type="range"]::-moz-range-thumb     { width: 22px; height: 22px; }
+}
+
 
 /* ---------- 7. Mobile TOC drawer (≤1180px) ---------- */
 
@@ -181,13 +181,16 @@ input[type="range"]:focus-visible::-moz-range-thumb {
 .sidetoc-drawer-toggle { display: none; }
 
 @media (max-width: 1180px) {
-  /* Hide the inline anchor flood entirely at small widths. */
-  nav.toc a[href^="#"] { display: none; }
+  /* Hide the inline anchor flood entirely at small widths. The `html` prefix
+   * bumps specificity from (0,0,1) to (0,0,2) so this wins over the per-page
+   * rule regardless of cascade order — 44 of 142 topic pages load
+   * theme-light.css BEFORE their inline <style> block. */
+  html nav.toc a[href^="#"] { display: none; }
 
-  /* Promote the sidetoc into a slide-in drawer. We override the per-page
-   * `display:none` from the same media query — same specificity, later in
-   * cascade order (this file is loaded after inline <style>). */
-  aside.sidetoc {
+  /* Promote the sidetoc into a slide-in drawer. The `html` prefix beats the
+   * per-page `aside.sidetoc { display: none }` even when notebook.css is
+   * loaded earlier than the inline block (specificity 0,0,2 > 0,0,1). */
+  html aside.sidetoc {
     display: block;
     position: fixed;
     top: 0;
@@ -207,7 +210,7 @@ input[type="range"]:focus-visible::-moz-range-thumb {
     /* Re-establish dimensions in case per-page CSS sized it for desktop. */
     left: auto;
   }
-  aside.sidetoc.is-drawer-open {
+  html aside.sidetoc.is-drawer-open {
     transform: translateX(0);
   }
 
@@ -268,17 +271,18 @@ input[type="range"]:focus-visible::-moz-range-thumb {
 
 /* ---------- 9. KaTeX FOUC mitigation ---------- */
 
-/* The `katex-pending` class is added by js/theme-toggle.js (or an inline stub
- * on the five pages that don't load it) immediately on script execution, and
- * removed after window.load fires (KaTeX auto-render runs on DOMContentLoaded;
- * by `load` it has settled). If JS fails entirely, no class is ever added,
- * so the page renders normally — no risk of a permanently-blank document. */
+/* The `katex-pending` class is added synchronously by js/katex-fouc.js (loaded
+ * via theme-toggle.js, or as a sibling <script> on the five non-theme-toggle
+ * pages) and removed once KaTeX has rendered — driven by a MutationObserver
+ * that waits for the first .katex element to appear, with a 1500ms safety
+ * timer as fallback. If JS fails entirely, no class is ever added, so the
+ * page renders normally — no risk of a permanently-blank document. */
 html.katex-pending main,
 html.katex-pending section.hero {
   opacity: 0;
 }
 main, section.hero {
-  transition: opacity 220ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 160ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 @media (prefers-reduced-motion: reduce) {
   main, section.hero { transition: none; }

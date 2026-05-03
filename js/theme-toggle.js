@@ -172,32 +172,20 @@
   }
 
   // --------------------------------------------------------------------------
-  // 4. KaTeX FOUC mitigation: hide <main> + .hero until KaTeX has rendered.
-  //    notebook.css fades opacity:0 → 1 only when html.katex-pending is set.
-  //    Adding the class synchronously here (before paint) prevents the flash
-  //    of raw `$…$` text. Removal is keyed off window.load with a 3s safety
-  //    timeout — KaTeX auto-render runs on DOMContentLoaded so by `load` it
-  //    is finished. If KaTeX fails or is blocked, the safety timer reveals
-  //    the page rather than leaving it blank.
+  // 4. KaTeX FOUC mitigation. Synchronously add the `katex-pending` class so
+  //    css/notebook.css's `html.katex-pending main { opacity:0 }` rule kicks
+  //    in before first paint — must happen here, not in an async sub-script.
+  //    The reveal logic (MutationObserver waiting for the first .katex node,
+  //    window.load fallback, 1500ms safety) lives in js/katex-fouc.js, which
+  //    we load as a sibling so the per-page footprint stays at one <script>.
   // --------------------------------------------------------------------------
+  try { document.documentElement.classList.add('katex-pending'); } catch (_) {}
   try {
-    document.documentElement.classList.add('katex-pending');
-    var revealed = false;
-    function reveal() {
-      if (revealed) return;
-      revealed = true;
-      document.documentElement.classList.remove('katex-pending');
-    }
-    if (document.readyState === 'complete') {
-      requestAnimationFrame(reveal);
-    } else {
-      window.addEventListener('load', function () {
-        requestAnimationFrame(reveal);
-      });
-    }
-    setTimeout(reveal, 3000);
-  } catch (e) {
-    // Defensive — never let FOUC code prevent the page from being shown.
+    var foucScript = document.createElement('script');
+    foucScript.src = './js/katex-fouc.js';
+    foucScript.async = false;
+    (document.head || document.documentElement).appendChild(foucScript);
+  } catch (_) { /* defensive — FOUC is a polish layer, not load-bearing */
     try { document.documentElement.classList.remove('katex-pending'); } catch (_) {}
   }
 

@@ -131,23 +131,37 @@ function ensureChangelogCss(html) {
 // indices into `s`. Counts nested <details> correctly — the new buildBlock
 // embeds a `<details class="changelog-rest">` inside the outer block, and a
 // non-greedy regex match would stop at the inner closing tag.
+//
+// Both the open and close scans use word-boundary regexes (rather than bare
+// substring search) so a stray `<details>` literal sitting inside an attribute
+// value or JS template string can't desync the depth counter — the close
+// regex requires `</details>` followed by `>` or whitespace, and the open
+// regex requires `<details` to be followed by `>` or whitespace too.
 function findChangelogBlock(s) {
   const startRe = /<details\s+class=["']changelog["'][^>]*>/i;
   const m = startRe.exec(s);
   if (!m) return null;
   const start = m.index;
+  const openRe = /<details(?=[\s/>])/gi;
+  const closeRe = /<\/details(?=[\s/>])/gi;
   let i = start + m[0].length;
   let depth = 1;
   while (i < s.length && depth > 0) {
-    const nextOpen = s.indexOf('<details', i);
-    const nextClose = s.indexOf('</details>', i);
-    if (nextClose === -1) return null;
-    if (nextOpen !== -1 && nextOpen < nextClose) {
+    openRe.lastIndex = i;
+    closeRe.lastIndex = i;
+    const nextOpen = openRe.exec(s);
+    const nextClose = closeRe.exec(s);
+    if (!nextClose) return null;
+    if (nextOpen && nextOpen.index < nextClose.index) {
       depth++;
-      i = nextOpen + '<details'.length;
+      i = nextOpen.index + nextOpen[0].length;
     } else {
       depth--;
-      i = nextClose + '</details>'.length;
+      // Advance past the literal `</details>` (closeRe matches up through
+      // the `s` of `</details`, so push past the closing `>` plus any
+      // trailing whitespace).
+      const tagEnd = s.indexOf('>', nextClose.index);
+      i = tagEnd === -1 ? s.length : tagEnd + 1;
     }
   }
   if (depth !== 0) return null;
@@ -217,6 +231,40 @@ function syncJsonChangelog(slug, block) {
   return false;
 }
 
+// Audit-mode helper: would syncJsonChangelog write anything? Mirrors the
+// container-search logic without mutating disk.
+function jsonChangelogIsStale(slug, block) {
+  const jsonPath = join(repoRoot, 'content', `${slug}.json`);
+  if (!existsSync(jsonPath)) return false;
+  let data;
+  try {
+    data = JSON.parse(readFileSync(jsonPath, 'utf8'));
+  } catch {
+    return false;
+  }
+  if (typeof data.rawBodySuffix === 'string') {
+    const found = findChangelogBlock(data.rawBodySuffix);
+    if (found) {
+      const next =
+        data.rawBodySuffix.slice(0, found.start) + block + data.rawBodySuffix.slice(found.end);
+      return next !== data.rawBodySuffix;
+    }
+  }
+  if (Array.isArray(data.sections)) {
+    for (const section of data.sections) {
+      if (!Array.isArray(section.blocks)) continue;
+      for (const blk of section.blocks) {
+        if (typeof blk.html !== 'string') continue;
+        const found = findChangelogBlock(blk.html);
+        if (!found) continue;
+        const next = blk.html.slice(0, found.start) + block + blk.html.slice(found.end);
+        return next !== blk.html;
+      }
+    }
+  }
+  return false;
+}
+
 // ----- Main -----
 const files = readdirSync(repoRoot)
   .filter((f) => f.endsWith('.html') && !SKIP.has(f))
@@ -227,6 +275,7 @@ let jsonsTouched = 0;
 let seededRows = 0;
 let placeholderPages = 0;
 const stalePages = [];
+const staleJsons = [];
 
 for (const f of files) {
   const p = join(repoRoot, f);
@@ -244,6 +293,7 @@ for (const f of files) {
   html = ensureChangelogCss(html);
   html = insertOrReplaceBlock(html, block);
 
+  const slug = f.replace(/\.html$/, '');
   if (html !== before) {
     if (AUDIT) stalePages.push(f);
     else if (writeIfChanged(p, before, html)) {
@@ -251,21 +301,23 @@ for (const f of files) {
     }
   }
 
-  if (!AUDIT) {
-    const slug = f.replace(/\.html$/, '');
+  if (AUDIT) {
+    if (jsonChangelogIsStale(slug, block)) staleJsons.push(`content/${slug}.json`);
+  } else {
     if (syncJsonChangelog(slug, block)) jsonsTouched++;
   }
 }
 
 if (AUDIT) {
-  if (stalePages.length) {
+  if (stalePages.length || staleJsons.length) {
     for (const f of stalePages) console.error(`  ${f}: changelog stale vs git log`);
+    for (const j of staleJsons) console.error(`  ${j}: changelog stale vs git log (content JSON)`);
     console.error(
-      `insert-changelog-footer: ${stalePages.length} page(s) have stale changelog footers — re-run without --audit to refresh`
+      `insert-changelog-footer: ${stalePages.length} HTML + ${staleJsons.length} JSON page(s) have stale changelog footers — re-run without --audit to refresh`
     );
     process.exit(1);
   }
-  console.log(`insert-changelog-footer: ${files.length} page(s) — all changelog footers in sync`);
+  console.log(`insert-changelog-footer: ${files.length} page(s) (HTML + JSON) — all changelog footers in sync`);
   process.exit(0);
 }
 

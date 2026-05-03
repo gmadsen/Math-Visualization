@@ -828,13 +828,25 @@
     hostEl.innerHTML = '';
     const nexts = computeNextUp(justMasteredId);
     if(nexts.length === 0) return;
-    const links = nexts.map(info => {
-      const href = `./${info.topicPage}#${info.c.anchor || ''}`;
-      return `<a href="${href}" style="color:var(--cyan);text-decoration:none">${info.c.title}</a>`;
+    // Cap at 3 link entries — past that we summarise. Keeps the line short
+    // and stops a wall-of-cyan when several capstones unlock at once.
+    const VISIBLE = 3;
+    const visible = nexts.slice(0, VISIBLE);
+    const overflow = nexts.length - visible.length;
+    const links = visible.map(info => {
+      // Drop a trailing `#` when a concept has no anchor — `topic.html#`
+      // is a no-op fragment that just appends `#` to the URL on click.
+      const anchor = info.c.anchor;
+      const href = anchor ? `./${info.topicPage}#${anchor}` : `./${info.topicPage}`;
+      return `<a href="${href}" style="text-decoration:none;border-bottom:1px dashed currentColor">${info.c.title}</a>`;
     }).join(', ');
+    const tail = overflow > 0 ? `, +${overflow} more` : '';
+    // aria-live=polite announces the list to screen readers when mastery
+    // toggles. role=status carries equivalent semantics on older AT.
     hostEl.innerHTML = `
-      <div class="just-unlocked" style="margin-top:.25rem;color:var(--mute);font-size:.88rem">
-        <span style="color:var(--cyan)">Just unlocked:</span> ${links}
+      <div class="just-unlocked" role="status" aria-live="polite"
+           style="margin-top:.25rem;color:var(--mute);font-size:.88rem">
+        <span style="color:var(--cyan);font-weight:500">Just unlocked:</span> ${links}${tail}
       </div>
     `;
     typeset(hostEl);

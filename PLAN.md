@@ -29,6 +29,22 @@ Listed for the long view; each is a multi-session lift.
 - **Algebra side:** `algebraic-K-theory-foundations` (homological cluster currently stops at derived categories); `model-categories` (bridge to higher-categories).
 - **Analysis side:** `microlocal-analysis` (wavefront sets, pseudodifferential operators — natural sequel to `sobolev-spaces-distributions` + `pde`); `geometric-measure-theory` (BV, sets of finite perimeter, rectifiability, area-coarea); `semigroup-theory-evolution-equations` (Hille-Yosida, analytic semigroups).
 
+## Follow-up: cohomology-fanout capstones (motives, Langlands, Hodge)
+
+The corpus climbs the cohomology fanout (étale, sheaf, algebraic de Rham) and the modular-forms / Galois-rep / L-function tower, but stops one level short of the integration points where the modern arithmetic/geometric story actually lives. Three new capstone topics + three tours that thread through them, in priority order:
+
+1. **`motives` (algebraic-geometry capstone).** Tate motives, Tannakian categories, the motivic Galois group, realizations (Betti / de Rham / ℓ-adic / crystalline), the standard conjectures. Caps the chain ending today at étale-cohomology / algebraic-de-Rham. Hooks: every existing cohomology topic, `etale-fundamental-group`, `galois-representations`, `L-functions`.
+2. **`hodge-theory` (algebraic-geometry deep / capstone).** Pure Hodge decomposition for smooth projective varieties, the Hodge filtration in its own right, mixed Hodge structures (Deligne), period domains, the Hodge conjecture. The Hodge filtration appears as a sub-section in `algebraic-de-rham-cohomology` today; this promotes it. May want `kahler-manifolds` as a small companion prereq topic.
+3. **`langlands-program` (modular-forms-and-L-functions capstone).** Reciprocity for GL_n: Galois representations ↔ automorphic forms via L-function matching. Hooks: `galois-representations`, `modular-forms`, `automorphic-forms-adelic`, `L-functions`, `frobenius-and-reciprocity`, `modularity-and-flt`, `sato-tate`.
+
+### Matching tours
+
+- **Tour 7 — "Solvability across mathematics."** Galois solvability → group cohomology classifying H² extensions → Postnikov towers (algebraic topology) → ∞-groupoids = homotopy types → motives capstone. Pedagogical bridges already drafted in a long external chat thread; harvest as the source for stop bridges.
+- **Tour 8 — "What is Hodge theory?"** (~4–5 stops) algebraic-de-Rham → Kähler / complex differentials → Hodge decomposition → mixed Hodge → Hodge capstone.
+- **Tour 9 — "Langlands philosophy."** galois-representations → modular-forms → L-functions → frobenius-and-reciprocity → automorphic-forms-adelic → Langlands capstone.
+
+Sequencing: motives first (caps an existing chain and unlocks Tour 7); Hodge second (smaller scope, connects motives to de Rham); Langlands third (biggest, deserves its own focused PR with the matching tour). Each is its own PR with the new tour landing alongside the new capstone.
+
 ## Authoring polish — small
 
 - **Index-card thumb art.** `new-topic.mjs` leaves placeholder colored thumbs in `index.html`; could replace with motif-appropriate SVGs.

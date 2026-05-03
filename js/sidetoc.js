@@ -121,17 +121,29 @@
       document.body.appendChild(backdrop);
     }
 
+    let lastFocused = null;
     function open(){
+      lastFocused = document.activeElement;
       aside.classList.add('is-drawer-open');
       backdrop.classList.add('is-active');
       document.body.classList.add('sidetoc-locked');
       toggle.setAttribute('aria-expanded', 'true');
+      // Focus into the drawer so SR / keyboard users land inside the panel.
+      const firstLink = aside.querySelector('a');
+      if(firstLink){ try { firstLink.focus({preventScroll: true}); } catch(_) {} }
     }
     function close(){
       aside.classList.remove('is-drawer-open');
       backdrop.classList.remove('is-active');
       document.body.classList.remove('sidetoc-locked');
       toggle.setAttribute('aria-expanded', 'false');
+      // Restore focus to the toggle so keyboard tab order resumes naturally.
+      if(lastFocused && typeof lastFocused.focus === 'function'){
+        try { lastFocused.focus({preventScroll: true}); } catch(_) {}
+      } else {
+        try { toggle.focus({preventScroll: true}); } catch(_) {}
+      }
+      lastFocused = null;
     }
     function isOpen(){ return aside.classList.contains('is-drawer-open'); }
 
@@ -146,10 +158,23 @@
     document.addEventListener('keydown', (e) => {
       if(e.key === 'Escape' && isOpen()) close();
     });
-    // Resize back above breakpoint: reset state cleanly.
-    window.addEventListener('resize', () => {
-      if(window.innerWidth > 1180 && isOpen()) close();
-    }, {passive: true});
+    // Crossing the breakpoint upward: reset drawer state. Always clear the
+    // body lock — even if isOpen() reads false, a stale `sidetoc-locked` from
+    // any other code path (or a disrupted close) shouldn't leave the page
+    // un-scrollable. Reuses the same rAF schedule() throttle as the scroll
+    // handler.
+    let resizeRaf = 0;
+    function onResize(){
+      if(resizeRaf) return;
+      resizeRaf = requestAnimationFrame(() => {
+        resizeRaf = 0;
+        if(window.innerWidth > 1180){
+          if(isOpen()) close();
+          document.body.classList.remove('sidetoc-locked');
+        }
+      });
+    }
+    window.addEventListener('resize', onResize, {passive: true});
   }
 
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);

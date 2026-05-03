@@ -50,14 +50,14 @@
     background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
   main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
   h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
-  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:var(--ink);border-bottom:1px solid var(--line);padding-bottom:.4rem}
   h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
   p{margin:0.7rem 0}
   .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
   .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
     padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
   .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
-  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .ttl{font-weight:600;color:var(--ink);font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
   .widget .hd .hint{color:var(--mute);font-size:.85rem}
   .row{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
   .row label{color:var(--mute);font-size:.88rem}
@@ -127,7 +127,7 @@
     font-weight:600;font-size:0.92rem;
     display:flex;align-items:center;justify-content:center}
   .tour-card .tc-body{min-width:0;flex:1}
-  .tour-card .tc-title{font-weight:600;color:#fff;font-size:1.02rem;
+  .tour-card .tc-title{font-weight:600;color:var(--ink);font-size:1.02rem;
     margin-bottom:0.32rem;line-height:1.3}
   .tour-card .tc-goal{color:var(--ink);font-size:0.88rem;line-height:1.5;
     opacity:0.85;margin-bottom:0.5rem}
@@ -147,8 +147,8 @@
     display:flex;align-items:center;justify-content:center;font-weight:600;font-size:.9rem}
   ol.tour > li:last-child{border-left-color:transparent}
   ol.tour > li.endpoint::before{background:var(--yellow);color:#111;border-color:var(--yellow)}
-  ol.tour .stop-title{font-weight:600;color:#fff;font-size:1.05rem;margin:0 0 .15rem;display:block}
-  ol.tour .stop-title a{color:#fff;text-decoration:none;border-bottom:1px dashed var(--blue)}
+  ol.tour .stop-title{font-weight:600;color:var(--ink);font-size:1.05rem;margin:0 0 .15rem;display:block}
+  ol.tour .stop-title a{color:var(--ink);text-decoration:none;border-bottom:1px dashed var(--blue)}
   ol.tour .stop-title a:hover{color:var(--yellow);border-bottom-color:var(--yellow)}
   ol.tour .stop-section{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;
     color:var(--mute);margin-bottom:.4rem}
@@ -156,7 +156,7 @@
   ol.tour .bridge em{color:var(--cyan);font-style:normal}
 
   /* Tour-card heading colors */
-  section.tour h2{color:#fff}
+  section.tour h2{color:var(--ink)}
   section.tour[data-color="cyan"] h2{border-bottom-color:color-mix(in srgb, var(--cyan) 50%, var(--line))}
   section.tour[data-color="yellow"] h2{border-bottom-color:color-mix(in srgb, var(--yellow) 50%, var(--line))}
   section.tour[data-color="violet"] h2{border-bottom-color:color-mix(in srgb, var(--violet) 50%, var(--line))}
@@ -216,7 +216,7 @@
   .figure-card[data-c="green"]{--accent:var(--green)}
   .figure-card[data-c="blue"]{--accent:var(--blue)}
   .figure-card .fc-body{min-width:0;flex:1}
-  .figure-card .fc-name{font-weight:600;color:#fff;font-size:0.94rem;margin-bottom:0.05rem}
+  .figure-card .fc-name{font-weight:600;color:var(--ink);font-size:0.94rem;margin-bottom:0.05rem}
   .figure-card .fc-dates{font-family:ui-monospace,Menlo,monospace;
     color:var(--mute);font-size:0.74rem;letter-spacing:0.04em;margin-bottom:0.35rem}
   .figure-card .fc-contrib{margin:0;color:color-mix(in srgb, var(--ink) 92%, transparent);
@@ -240,6 +240,31 @@
     color:color-mix(in srgb, var(--ink) 88%, transparent);font-style:italic}
   aside.context blockquote cite{display:block;margin-top:0.3rem;font-style:normal;
     font-size:0.82rem;color:var(--mute);font-family:ui-monospace,Menlo,monospace}
+
+  /* "Deep dive" callout that points from a tour endpoint to its long-form
+   * capstone story page (capstone-{bsd,flt,satotate}-story.html). Visually
+   * heavier than .callback so it reads as the primary follow-up. */
+  aside.deep-dive{
+    margin:1.5rem 0 1rem;padding:0.9rem 1.1rem;
+    display:flex;gap:0.85rem;align-items:flex-start;flex-wrap:wrap;
+    background:color-mix(in srgb, var(--accent, var(--cyan)) 10%, var(--panel));
+    border:1px solid color-mix(in srgb, var(--accent, var(--cyan)) 45%, var(--line));
+    border-radius:10px;
+    font-size:0.95rem;line-height:1.5}
+  aside.deep-dive[data-c="cyan"]{--accent:var(--cyan)}
+  aside.deep-dive[data-c="yellow"]{--accent:var(--yellow)}
+  aside.deep-dive[data-c="violet"]{--accent:var(--violet)}
+  aside.deep-dive[data-c="green"]{--accent:var(--green)}
+  aside.deep-dive[data-c="pink"]{--accent:var(--pink)}
+  aside.deep-dive[data-c="blue"]{--accent:var(--blue)}
+  aside.deep-dive .dd-label{flex-shrink:0;font-family:ui-monospace,Menlo,monospace;
+    font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;
+    color:color-mix(in srgb, var(--accent) 70%, var(--ink));font-weight:600;
+    padding-top:0.15rem}
+  aside.deep-dive .dd-body{flex:1;min-width:0}
+  aside.deep-dive a.dd-link{color:var(--ink);text-decoration:none;
+    border-bottom:1px dashed var(--accent);font-weight:500}
+  aside.deep-dive a.dd-link:hover{color:var(--accent)}
 
   aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
@@ -365,7 +390,7 @@ const SVG = (tag,attrs={})=>{
     <p class="bridge">Start where every BSD discussion starts: a smooth Weierstrass cubic $E\colon y^2 = x^3 + ax + b$ over $\mathbb{Q}$, with the marvellous fact that its rational points form an abelian group under chord–tangent addition. The identity is the point at infinity; the inverse of $(x,y)$ is $(x,-y)$; and the sum of two points $P, Q$ is the third intersection of $\overline{PQ}$ with $E$, reflected through the $x$-axis. Mordell's theorem says $E(\mathbb{Q}) \cong \mathbb{Z}^r \oplus T$ with $T$ a finite torsion subgroup. The integer $r$ — the <em>rank</em> — is the algebraic side of BSD, and it has no known algorithm: producing a rank-$28$ generator is a hand-tuned hunt. To even formulate the conjecture we need an analytic shadow that we <em>can</em> compute: counting points modulo each prime $p$ and packaging the counts into a generating function.</p>
     <div class="figure-row">
       <div class="figure-card" data-c="cyan">
-        <div class="fc-portrait">MO</div>
+        <div class="fc-portrait" aria-hidden="true">MO</div>
         <div class="fc-body">
           <div class="fc-name">Louis Mordell</div>
           <div class="fc-dates">1888–1972</div>
@@ -373,7 +398,7 @@ const SVG = (tag,attrs={})=>{
         </div>
       </div>
       <div class="figure-card" data-c="cyan">
-        <div class="fc-portrait">WL</div>
+        <div class="fc-portrait" aria-hidden="true">WL</div>
         <div class="fc-body">
           <div class="fc-name">André Weil</div>
           <div class="fc-dates">1906–1998</div>
@@ -398,7 +423,7 @@ const SVG = (tag,attrs={})=>{
     <p class="bridge">The Modularity Theorem (Wiles, Taylor–Wiles, Breuil–Conrad–Diamond–Taylor) says exactly that: for every $E/\mathbb{Q}$ there is a weight-$2$ newform $f$ of level $N = $ conductor of $E$ such that $a_p(E) = a_p(f)$ for all primes. The conductor records the bad reduction of $E$ — small primes where the Weierstrass model goes singular — and it determines the level of $f$. Modularity is what gives $L(E,s)$ its analytic continuation and functional equation: both are <em>inherited</em> from the modular world, where the Mellin transform $L(f,s) = (2\pi)^s \Gamma(s)^{-1} \int_0^\infty f(it) t^{s-1}\,dt$ makes them automatic from the transformation law of $f$. With analytic continuation in hand, the order of vanishing $\mathrm{ord}_{s=1} L(E,s)$ is now a well-defined non-negative integer, called the <em>analytic rank</em>. Two integers, both attached to $E$, both meaningful — and the conjecture is that they're the same one.</p>
     <div class="figure-row">
       <div class="figure-card" data-c="cyan">
-        <div class="fc-portrait">WI</div>
+        <div class="fc-portrait" aria-hidden="true">WI</div>
         <div class="fc-body">
           <div class="fc-name">Andrew Wiles</div>
           <div class="fc-dates">b. 1953</div>
@@ -406,7 +431,7 @@ const SVG = (tag,attrs={})=>{
         </div>
       </div>
       <div class="figure-card" data-c="cyan">
-        <div class="fc-portrait">TA</div>
+        <div class="fc-portrait" aria-hidden="true">TA</div>
         <div class="fc-body">
           <div class="fc-name">Richard Taylor</div>
           <div class="fc-dates">b. 1962</div>
@@ -421,7 +446,7 @@ const SVG = (tag,attrs={})=>{
     <p class="bridge">The conjecture: $\mathrm{ord}_{s=1} L(E,s) = \mathrm{rank}\, E(\mathbb{Q})$. Equality of two integers, one defined by a Taylor expansion of a complex-analytic function and the other by counting independent rational points on a cubic curve. The refined version pins the <em>leading</em> Taylor coefficient to a product of period $\Omega_E$, regulator $R$, Tamagawa numbers $c_p$, torsion order $|E(\mathbb{Q})_{\mathrm{tors}}|^2$, and the order of the Tate–Shafarevich group $\Sha(E/\mathbb{Q})$ — five disparate quantities, four of them computable, $\Sha$ conjecturally finite. Known in rank $0$ and $1$ (Gross–Zagier–Kolyvagin); wide open in higher rank. Every step of this tour was a layer of scaffolding that even <em>states</em> the conjecture rigorously: without modularity, $L(E,s)$ has no value at $s=1$ to take an order of vanishing of.</p>
     <div class="figure-row">
       <div class="figure-card" data-c="cyan">
-        <div class="fc-portrait">BI</div>
+        <div class="fc-portrait" aria-hidden="true">BI</div>
         <div class="fc-body">
           <div class="fc-name">Bryan Birch</div>
           <div class="fc-dates">b. 1931</div>
@@ -429,7 +454,7 @@ const SVG = (tag,attrs={})=>{
         </div>
       </div>
       <div class="figure-card" data-c="cyan">
-        <div class="fc-portrait">SD</div>
+        <div class="fc-portrait" aria-hidden="true">SD</div>
         <div class="fc-body">
           <div class="fc-name">Peter Swinnerton-Dyer</div>
           <div class="fc-dates">1927–2018</div>
@@ -443,6 +468,11 @@ const SVG = (tag,attrs={})=>{
     </aside>
   </li>
 </ol>
+
+<aside class="deep-dive" data-c="cyan">
+  <span class="dd-label">Deep dive →</span>
+  <span class="dd-body">Same arc as a single long-form essay: <a class="dd-link" href="./capstone-bsd-story.html">The BSD story — a million-dollar zero at $s=1$</a>.</span>
+</aside>
 
 <aside class="callback">
   <div class="ttl">Diverges into</div>
@@ -485,7 +515,7 @@ const SVG = (tag,attrs={})=>{
     <p class="bridge">Given $E/\mathbb{Q}$ and a prime $\ell$, the $\ell$-adic Tate module $T_\ell E = \varprojlim E[\ell^n]$ carries a continuous action of $\Gal(\overline{\mathbb{Q}}/\mathbb{Q})$, giving a representation $\rho_{E,\ell}\colon G_\mathbb{Q} \to \mathrm{GL}_2(\mathbb{Z}_\ell)$. Reducing mod $\ell$ gives a residual representation $\bar\rho$ valued in $\mathrm{GL}_2(\mathbb{F}_\ell)$. Now Frey's idea, sharpened by Ribet: if $a^p + b^p = c^p$ with $p \geq 5$, the curve $E_{a,b,c}\colon y^2 = x(x-a^p)(x+b^p)$ has a residual representation $\bar\rho$ at $\ell = p$ which is unramified outside $2$ and $p$, finite at $p$, and absolutely irreducible. <em>Ribet's level-lowering theorem</em> then says: if $\bar\rho$ is modular of any level, it must be modular of level $2$.</p>
     <div class="figure-row">
       <div class="figure-card" data-c="yellow">
-        <div class="fc-portrait">FR</div>
+        <div class="fc-portrait" aria-hidden="true">FR</div>
         <div class="fc-body">
           <div class="fc-name">Gerhard Frey</div>
           <div class="fc-dates">b. 1944</div>
@@ -493,7 +523,7 @@ const SVG = (tag,attrs={})=>{
         </div>
       </div>
       <div class="figure-card" data-c="yellow">
-        <div class="fc-portrait">RI</div>
+        <div class="fc-portrait" aria-hidden="true">RI</div>
         <div class="fc-body">
           <div class="fc-name">Kenneth Ribet</div>
           <div class="fc-dates">b. 1948</div>
@@ -512,6 +542,11 @@ const SVG = (tag,attrs={})=>{
     </aside>
   </li>
 </ol>
+
+<aside class="deep-dive" data-c="yellow">
+  <span class="dd-label">Deep dive →</span>
+  <span class="dd-body">Same arc as a single long-form essay: <a class="dd-link" href="./capstone-flt-story.html">Three ideas, one proof — the FLT story</a>.</span>
+</aside>
 
 <aside class="callback">
   <div class="ttl">Diverges into</div>
@@ -533,7 +568,7 @@ const SVG = (tag,attrs={})=>{
     <p class="bridge">The cleanest first sighting of cohomology. Given a group $G$ and a $G$-module $M$, the bar cochain complex $C^n(G, M) = \mathrm{Hom}_{\mathsf{Set}}(G^n, M)$ with differential $(d\varphi)(g_0, \ldots, g_n) = g_0 \varphi(g_1, \ldots, g_n) - \varphi(g_0 g_1, g_2, \ldots, g_n) + \cdots$ has cohomology $H^n(G, M)$. The interpretations are concrete: $H^0(G,M) = M^G$ is invariants, $H^1$ classifies crossed homomorphisms (derivations) modulo principal ones — Galois-cohomologically, this is torsors for $M$. $H^2$ classifies central extensions $1 \to M \to \tilde G \to G \to 1$ up to equivalence. <em>Cohomology measures things that almost split but don't.</em> Hold onto that phrase — it survives every change of context in this tour, even when "split" turns into "is locally trivial" or "lifts to characteristic zero."</p>
     <div class="figure-row">
       <div class="figure-card" data-c="violet">
-        <div class="fc-portrait">EI</div>
+        <div class="fc-portrait" aria-hidden="true">EI</div>
         <div class="fc-body">
           <div class="fc-name">Samuel Eilenberg</div>
           <div class="fc-dates">1913–1998</div>
@@ -541,7 +576,7 @@ const SVG = (tag,attrs={})=>{
         </div>
       </div>
       <div class="figure-card" data-c="violet">
-        <div class="fc-portrait">ML</div>
+        <div class="fc-portrait" aria-hidden="true">ML</div>
         <div class="fc-body">
           <div class="fc-name">Saunders Mac Lane</div>
           <div class="fc-dates">1909–2005</div>
@@ -571,7 +606,7 @@ const SVG = (tag,attrs={})=>{
     <p class="bridge">In characteristic $p$ there's no ambient $\mathbb{C}$ to compare to, and Zariski-open covers are too coarse to see torsion phenomena like $\ell$-th roots of unity (any constant sheaf $\underline{\mathbb{Z}/\ell}$ is acyclic on an irreducible variety). Grothendieck's solution: replace "open cover" by "étale cover" — a flat unramified cover, the algebraic analogue of a local homeomorphism — and define $H^i_{\mathrm{\acute{e}t}}(X, \mathbb{Z}_\ell)$ via the same derived-functor pattern on the new site. The payoff is enormous. Étale cohomology is a Weil cohomology theory for varieties over $\mathbb{F}_q$: a Lefschetz fixed-point formula computes $\#X(\mathbb{F}_{q^n})$ as alternating Frobenius traces, and Deligne's Riemann hypothesis pins the eigenvalues to absolute value $q^{i/2}$. <em>Cohomology was the obstruction-counting machine the whole time; étale cohomology is what happens when you're allowed to count obstructions in a Galois-equivariant way.</em></p>
     <div class="figure-row">
       <div class="figure-card" data-c="violet">
-        <div class="fc-portrait">GR</div>
+        <div class="fc-portrait" aria-hidden="true">GR</div>
         <div class="fc-body">
           <div class="fc-name">Alexander Grothendieck</div>
           <div class="fc-dates">1928–2014</div>
@@ -579,7 +614,7 @@ const SVG = (tag,attrs={})=>{
         </div>
       </div>
       <div class="figure-card" data-c="violet">
-        <div class="fc-portrait">DE</div>
+        <div class="fc-portrait" aria-hidden="true">DE</div>
         <div class="fc-body">
           <div class="fc-name">Pierre Deligne</div>
           <div class="fc-dates">b. 1944</div>
@@ -587,7 +622,7 @@ const SVG = (tag,attrs={})=>{
         </div>
       </div>
       <div class="figure-card" data-c="violet">
-        <div class="fc-portrait">PO</div>
+        <div class="fc-portrait" aria-hidden="true">PO</div>
         <div class="fc-body">
           <div class="fc-name">Henri Poincaré</div>
           <div class="fc-dates">1854–1912</div>
@@ -627,7 +662,7 @@ const SVG = (tag,attrs={})=>{
     <p class="bridge">A category is what you get when you keep track of <em>arrows between things</em> rather than elements within things. Sets and functions, groups and homomorphisms, topological spaces and continuous maps — all categories. A functor preserves the arrow structure; a natural transformation is an arrow between functors. The whole subject is the disciplined unfolding of these three definitions. Yoneda's lemma is the punchline: an object $X$ is completely determined by the functor $\Hom(-, X)$, i.e. by the pattern of arrows into it from every other object. The functor $X \mapsto \Hom(-,X)$ embeds $\mathcal{C}$ fully faithfully into the functor category $[\mathcal{C}^{\mathrm{op}}, \mathsf{Set}]$. This is the philosophical lever that makes the rest of the tour possible — every later "topos" will be a category of sheaves, i.e. a particular kind of functor category, and Yoneda is what makes that reduction bite.</p>
     <div class="figure-row">
       <div class="figure-card" data-c="green">
-        <div class="fc-portrait">CA</div>
+        <div class="fc-portrait" aria-hidden="true">CA</div>
         <div class="fc-body">
           <div class="fc-name">Georg Cantor</div>
           <div class="fc-dates">1845–1918</div>
@@ -635,7 +670,7 @@ const SVG = (tag,attrs={})=>{
         </div>
       </div>
       <div class="figure-card" data-c="green">
-        <div class="fc-portrait">YO</div>
+        <div class="fc-portrait" aria-hidden="true">YO</div>
         <div class="fc-body">
           <div class="fc-name">Nobuo Yoneda</div>
           <div class="fc-dates">1930–1996</div>
@@ -665,7 +700,7 @@ const SVG = (tag,attrs={})=>{
     <p class="bridge">An $\infty$-topos is an accessible left-exact localization of the presheaf $\infty$-category $\mathcal{P}(C) = \mathrm{Fun}(C^{\mathrm{op}}, \mathcal{S})$, where $\mathcal{S}$ is the $\infty$-category of spaces. The $\infty$-Giraud axioms characterize them intrinsically: small colimits exist, are universal, sums are disjoint, and groupoid objects are effective. Their internal logic is homotopy type theory (Voevodsky's univalence axiom is the topos-theoretic statement that equivalence equals identity in the universe). Their geometric examples — the étale, pro-étale, fppf $\infty$-topoi of a scheme — are the natural home of derived algebraic geometry, where descent for sheaves of spectra is automatic and cohomology is just hom. We started by asking what a set was; we end with the universe in which every modern descent and gluing statement becomes a one-line triviality.</p>
     <div class="figure-row">
       <div class="figure-card" data-c="green">
-        <div class="fc-portrait">LA</div>
+        <div class="fc-portrait" aria-hidden="true">LA</div>
         <div class="fc-body">
           <div class="fc-name">F. William Lawvere</div>
           <div class="fc-dates">1937–2023</div>
@@ -673,7 +708,7 @@ const SVG = (tag,attrs={})=>{
         </div>
       </div>
       <div class="figure-card" data-c="green">
-        <div class="fc-portrait">JO</div>
+        <div class="fc-portrait" aria-hidden="true">JO</div>
         <div class="fc-body">
           <div class="fc-name">André Joyal</div>
           <div class="fc-dates">b. 1943</div>
@@ -681,7 +716,7 @@ const SVG = (tag,attrs={})=>{
         </div>
       </div>
       <div class="figure-card" data-c="green">
-        <div class="fc-portrait">LU</div>
+        <div class="fc-portrait" aria-hidden="true">LU</div>
         <div class="fc-body">
           <div class="fc-name">Jacob Lurie</div>
           <div class="fc-dates">b. 1977</div>
@@ -712,7 +747,7 @@ const SVG = (tag,attrs={})=>{
     <p class="bridge">A periodic signal is a sum of sines and cosines (Fourier series); an aperiodic signal on $\mathbb{R}$ is an integral over a continuum of frequencies. The Fourier transform $\hat f(\xi) = \int_{\mathbb{R}^n} f(x) e^{-2\pi i x\cdot\xi}\,dx$ exchanges convolution $f * g$ for multiplication $\hat f \cdot \hat g$, derivative $\partial_j$ for multiplication by $2\pi i \xi_j$, translation for modulation, and the Gaussian for the Gaussian. It's the right basis for any system whose dynamics commute with translation — the heat equation, the wave equation, the Laplacian on $\mathbb{R}^n$, anything diagonalized by plane waves $e^{2\pi i x\cdot\xi}$. Two limitations show up immediately: Fourier doesn't see <em>where</em> a feature lives in time (only its frequency content), and many functions of physical interest — $\delta$, the constant $1$, $H(x)$ — aren't even integrable. The next stop fixes the second problem.</p>
     <div class="figure-row">
       <div class="figure-card" data-c="pink">
-        <div class="fc-portrait">FO</div>
+        <div class="fc-portrait" aria-hidden="true">FO</div>
         <div class="fc-body">
           <div class="fc-name">Joseph Fourier</div>
           <div class="fc-dates">1768–1830</div>
@@ -742,7 +777,7 @@ const SVG = (tag,attrs={})=>{
     <p class="bridge">For signals with sharp edges or transients — images, speech, financial time series — Fourier is wasteful: a localized feature spreads across all frequencies, since a delta has constant transform. A wavelet basis is built from a single mother wavelet $\psi$ via dyadic dilations and integer translations $\psi_{j,k}(x) = 2^{j/2}\psi(2^j x - k)$. Each basis element is localized in <em>both</em> time and frequency, at a resolution that scales with $j$. Multiresolution analysis builds these from a nested family $V_0 \subset V_1 \subset V_2 \subset \cdots$ of approximation spaces with $V_{j+1} = V_j \oplus W_j$. The Haar wavelet is the simplest example; Daubechies's compactly-supported orthonormal wavelets came later and changed signal processing — JPEG 2000 is a wavelet codec. <em>Same Hilbert space $L^2(\mathbb{R})$, smarter basis, chosen to match the actual structure of the data.</em></p>
     <div class="figure-row">
       <div class="figure-card" data-c="pink">
-        <div class="fc-portrait">SC</div>
+        <div class="fc-portrait" aria-hidden="true">SC</div>
         <div class="fc-body">
           <div class="fc-name">Laurent Schwartz</div>
           <div class="fc-dates">1915–2002</div>
@@ -750,7 +785,7 @@ const SVG = (tag,attrs={})=>{
         </div>
       </div>
       <div class="figure-card" data-c="pink">
-        <div class="fc-portrait">DA</div>
+        <div class="fc-portrait" aria-hidden="true">DA</div>
         <div class="fc-body">
           <div class="fc-name">Ingrid Daubechies</div>
           <div class="fc-dates">b. 1954</div>
@@ -790,7 +825,7 @@ const SVG = (tag,attrs={})=>{
     <p class="bridge">Localize. The completion $\mathbb{Q}_p$ at each prime $p$ — built from $\mathbb{Q}$ the way $\mathbb{R}$ is built, but with the absolute value $|p^k(a/b)|_p = p^{-k}$ in place of the usual one — is a complete field with its own non-archimedean topology. Inside it sits the ring of integers $\mathbb{Z}_p$, the closed unit ball. Hensel's lemma turns approximate solutions into exact ones the same way Newton's method does over $\mathbb{R}$: if $f(\bar a) \equiv 0 \pmod{p}$ and $f'(\bar a) \not\equiv 0 \pmod{p}$, then $\bar a$ lifts uniquely to a root in $\mathbb{Z}_p$. So solving an equation in $\mathbb{Q}_p$ is genuinely <em>easier</em> than in $\mathbb{Q}$. Hasse's local–global principle says: for a quadratic form $Q$, the equation $Q = 0$ has a nontrivial solution in $\mathbb{Q}$ iff it has one in $\mathbb{R}$ <em>and</em> in every $\mathbb{Q}_p$. The principle fails for cubics and higher, but the failures themselves become arithmetic invariants — the Tate–Shafarevich group $\Sha(E/\mathbb{Q})$ is precisely the failure for elliptic curves.</p>
     <div class="figure-row">
       <div class="figure-card" data-c="blue">
-        <div class="fc-portrait">HE</div>
+        <div class="fc-portrait" aria-hidden="true">HE</div>
         <div class="fc-body">
           <div class="fc-name">Kurt Hensel</div>
           <div class="fc-dates">1861–1941</div>
@@ -798,7 +833,7 @@ const SVG = (tag,attrs={})=>{
         </div>
       </div>
       <div class="figure-card" data-c="blue">
-        <div class="fc-portrait">HA</div>
+        <div class="fc-portrait" aria-hidden="true">HA</div>
         <div class="fc-body">
           <div class="fc-name">Helmut Hasse</div>
           <div class="fc-dates">1898–1979</div>
@@ -813,7 +848,7 @@ const SVG = (tag,attrs={})=>{
     <p class="bridge">Rather than juggle each $\mathbb{Q}_p$ and $\mathbb{R}$ separately, package them into the adèle ring $\mathbb{A}_\mathbb{Q} = \mathbb{R} \times \prod_p' \mathbb{Q}_p$, the <em>restricted</em> product in which almost every component sits in $\mathbb{Z}_p$ (else the product wouldn't be locally compact). The diagonal embedding $\mathbb{Q} \hookrightarrow \mathbb{A}_\mathbb{Q}$ is discrete with compact quotient $\mathbb{A}_\mathbb{Q}/\mathbb{Q}$ — the structural fact, an analogue of $\mathbb{Z} \hookrightarrow \mathbb{R}$ being discrete with compact quotient $\mathbb{R}/\mathbb{Z}$. This is what powers Tate's thesis: integration over $\mathbb{A}_\mathbb{Q}$ gives a single zeta integral whose decomposition place-by-place reproduces the Euler product. The idèles $\mathbb{A}_\mathbb{Q}^\times$ are the multiplicative version; their quotient $\mathbb{A}_\mathbb{Q}^\times/\mathbb{Q}^\times$ is the idèle class group, and its continuous characters are exactly Hecke characters — the right linear coefficients for $L$-functions of arithmetic type.</p>
     <div class="figure-row">
       <div class="figure-card" data-c="blue">
-        <div class="fc-portrait">TT</div>
+        <div class="fc-portrait" aria-hidden="true">TT</div>
         <div class="fc-body">
           <div class="fc-name">John Tate</div>
           <div class="fc-dates">1925–2019</div>
@@ -821,7 +856,7 @@ const SVG = (tag,attrs={})=>{
         </div>
       </div>
       <div class="figure-card" data-c="blue">
-        <div class="fc-portrait">CB</div>
+        <div class="fc-portrait" aria-hidden="true">CB</div>
         <div class="fc-body">
           <div class="fc-name">Nikolai Chebotarev</div>
           <div class="fc-dates">1894–1947</div>
@@ -884,7 +919,10 @@ const SVG = (tag,attrs={})=>{
     'bsd-road':'cyan','flt-proof':'yellow','cohomology':'violet',
     'sets-to-topoi':'green','sound-to-wavelets':'pink','local-global':'blue'
   };
-  function showTour(id, opts){
+  // History strategy: pushState on user-driven navigation (card click, back
+  // button) so the browser back arrow returns to the prior view; replaceState
+  // only for hash-sync side-effects (popstate, hashchange echo).
+  function applyState(id){
     const valid = id && VALID.has(id);
     document.querySelectorAll('section.tour').forEach(s => {
       s.classList.toggle('is-active', valid && s.id === id);
@@ -897,15 +935,18 @@ const SVG = (tag,attrs={})=>{
         crumb.style.setProperty('--accent', `var(--${colorMap[id]})`);
         crumb.style.color = `var(--${colorMap[id]})`;
       }
-      if(!opts || opts.updateHash !== false){
-        history.replaceState(null,'','#'+id);
-      }
-      window.scrollTo({top:0, behavior:'instant'});
-    } else {
-      if(!opts || opts.updateHash !== false){
-        history.replaceState(null,'',location.pathname);
-      }
-      window.scrollTo({top:0, behavior:'instant'});
+    }
+    // Smooth scroll feels less jarring than 'instant' when the page swaps
+    // between two long sections; reduced-motion is auto-honored by the UA.
+    try { window.scrollTo({top:0, behavior:'smooth'}); }
+    catch(_) { window.scrollTo(0, 0); }
+  }
+  function showTour(id, opts){
+    applyState(id);
+    if(opts && opts.replaceUrl){
+      try { history.replaceState(null,'', id ? '#'+id : location.pathname); } catch(_) {}
+    } else if(!opts || opts.pushUrl !== false){
+      try { history.pushState({tour:id||null}, '', id ? '#'+id : location.pathname); } catch(_) {}
     }
   }
   function init(){
@@ -918,12 +959,13 @@ const SVG = (tag,attrs={})=>{
     });
     const back = document.querySelector('#tour-back .back-btn');
     if(back) back.addEventListener('click', () => showTour(null));
+    // Initial render reflects the URL but doesn't push — the page just loaded.
     const initial = (location.hash || '').replace(/^#/,'');
-    if(initial && VALID.has(initial)) showTour(initial, {updateHash:false});
-    window.addEventListener('hashchange', () => {
+    if(initial && VALID.has(initial)) showTour(initial, {replaceUrl: true});
+    // Browser back/forward: re-apply state from the URL without pushing again.
+    window.addEventListener('popstate', () => {
       const h = (location.hash || '').replace(/^#/,'');
-      if(VALID.has(h)) showTour(h, {updateHash:false});
-      else showTour(null, {updateHash:false});
+      applyState(VALID.has(h) ? h : null);
     });
     document.addEventListener('keydown', e => {
       if(e.key === 'Escape' && document.body.classList.contains('tour-active')){
@@ -940,6 +982,7 @@ const SVG = (tag,attrs={})=>{
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-05-02</td><td>Tours: cards-as-switcher + mathematician asides; remove jump-to bar</td></tr>
       <tr><td>2026-05-02</td><td>Cheatsheet nav demote + tours page redesign with chip-bar + summary cards (#59)</td></tr>
       <tr><td>2026-05-01</td><td>Refactor + corpus expansion: sidetoc, hamiltonians-figure, inline-widget migration, content materialization, graduate CA, +12 grad concepts (#45)</td></tr>
       <tr><td>2026-04-28</td><td>Fix sidetoc KaTeX double-render (closes #39, #42; partial #38) (#43)</td></tr>
