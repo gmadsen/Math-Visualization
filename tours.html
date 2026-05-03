@@ -97,95 +97,23 @@
   .small{font-size:.88rem;color:var(--mute)}
   footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
 
-  /* Sticky jump-to chip-bar (mirrors index.html). */
-  .section-jump{display:flex;flex-wrap:wrap;gap:8px;align-items:center;
-    padding:0.85rem 1rem;margin:0 0 2rem;
-    border:1px solid color-mix(in srgb, var(--line) 70%, transparent);
-    border-radius:14px;
-    position:sticky;top:0;z-index:10;
-    background:var(--panel);
-    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
-    transition:box-shadow 200ms ease, border-color 200ms ease,
-               padding 220ms cubic-bezier(0.4,0,0.2,1)}
-  .section-jump.stuck{
-    box-shadow:0 4px 24px color-mix(in srgb, var(--bg) 60%, transparent),
-               0 1px 0 color-mix(in srgb, var(--line) 50%, transparent)}
-  .sj-sentinel{height:1px;margin-top:-1px}
-  .section-jump .sj-label{font-size:0.66rem;letter-spacing:0.18em;
-    text-transform:uppercase;color:var(--mute);
-    font-family:ui-monospace,Menlo,monospace;font-weight:500;
-    margin-right:0.6rem;white-space:nowrap;opacity:0.75}
-  .section-jump a.sj-link{position:relative;display:inline-flex;align-items:center;
-    padding:0.42rem 0.85rem 0.42rem 1rem;border-radius:8px;
-    text-decoration:none;font-size:0.85rem;font-weight:450;
-    color:color-mix(in srgb, var(--ink) 92%, transparent);
-    background:transparent;
-    border:1px solid color-mix(in srgb, var(--line) 60%, transparent);
-    transition:transform 180ms cubic-bezier(0.4,0,0.2,1),
-               border-color 180ms ease, color 180ms ease,
-               background 180ms ease, box-shadow 180ms ease;
-    overflow:hidden}
-  .section-jump a.sj-link::before{
-    content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
-    background:var(--mute);
-    transition:width 220ms cubic-bezier(0.4,0,0.2,1), opacity 180ms ease;
-    opacity:0.85}
-  .section-jump a.sj-link:hover{
-    color:var(--ink);
-    transform:translateY(-1px);
-    border-color:color-mix(in srgb, var(--accent, var(--cyan)) 55%, var(--line));
-    background:color-mix(in srgb, var(--accent, var(--cyan)) 10%, transparent);
-    box-shadow:0 2px 8px color-mix(in srgb, var(--accent, var(--cyan)) 18%, transparent)}
-  .section-jump a.sj-link:hover::before{width:100%;opacity:0.14}
-  .section-jump a.sj-link.s-b{--accent:var(--blue)}
-  .section-jump a.sj-link.s-y{--accent:var(--yellow)}
-  .section-jump a.sj-link.s-p{--accent:var(--pink)}
-  .section-jump a.sj-link.s-v{--accent:var(--violet)}
-  .section-jump a.sj-link.s-g{--accent:var(--green)}
-  .section-jump a.sj-link.s-c{--accent:var(--cyan)}
-  .section-jump a.sj-link.s-b::before{background:var(--blue)}
-  .section-jump a.sj-link.s-y::before{background:var(--yellow)}
-  .section-jump a.sj-link.s-p::before{background:var(--pink)}
-  .section-jump a.sj-link.s-v::before{background:var(--violet)}
-  .section-jump a.sj-link.s-g::before{background:var(--green)}
-  .section-jump a.sj-link.s-c::before{background:var(--cyan)}
-  .section-jump .sj-toggle{margin-left:auto;background:transparent;border:none;
-    cursor:pointer;color:var(--mute);font-size:0.78rem;font-weight:500;
-    font-family:ui-monospace,Menlo,monospace;letter-spacing:0.12em;
-    text-transform:uppercase;padding:0.25rem 0.5rem;border-radius:6px;
-    display:inline-flex;align-items:center;gap:6px;
-    transition:color 150ms ease, background 150ms ease}
-  .section-jump .sj-toggle:hover{color:var(--ink);background:color-mix(in srgb, var(--ink) 6%, transparent)}
-  .section-jump .sj-toggle::after{content:"";width:7px;height:7px;
-    border-right:2px solid currentColor;border-bottom:2px solid currentColor;
-    transform:rotate(45deg) translateY(-1px);
-    transition:transform 200ms cubic-bezier(0.4,0,0.2,1)}
-  .section-jump.is-collapsed{padding:0.5rem 1rem}
-  .section-jump.is-collapsed .sj-link, .section-jump.is-collapsed .sj-label{display:none}
-  .section-jump.is-collapsed .sj-toggle::after{transform:rotate(-45deg) translateY(0)}
-  @media (max-width:520px){
-    .section-jump{flex-wrap:nowrap;overflow-x:auto;
-      padding:0.7rem 0.8rem;
-      mask-image:linear-gradient(to right, #000 0, #000 calc(100% - 28px), transparent);
-      -webkit-mask-image:linear-gradient(to right, #000 0, #000 calc(100% - 28px), transparent)}
-    .section-jump .sj-label{display:none}
-    .section-jump a.sj-link{font-size:0.78rem;padding:0.32rem 0.65rem 0.32rem 0.85rem;
-      flex-shrink:0;white-space:nowrap}
-  }
-
-  /* Tour summary cards: 2-column grid above the long-form tours. */
+  /* Tour summary cards: 2-column grid that becomes the primary navigator. */
   .tour-cards{display:grid;grid-template-columns:repeat(2, 1fr);
     gap:14px;margin:0 0 3rem}
   @media (max-width:720px){.tour-cards{grid-template-columns:1fr}}
   .tour-card{display:flex;gap:14px;align-items:flex-start;
-    padding:1rem 1.1rem;background:var(--panel);
+    padding:1.05rem 1.15rem;background:var(--panel);
     border:1px solid color-mix(in srgb, var(--line) 80%, transparent);
-    border-radius:10px;text-decoration:none;color:inherit;
+    border-radius:10px;text-decoration:none;color:inherit;cursor:pointer;
+    font:inherit;text-align:left;width:100%;
     transition:transform 200ms cubic-bezier(0.4,0,0.2,1),
-               border-color 200ms ease, box-shadow 200ms ease}
-  .tour-card:hover{transform:translateY(-1px);
+               border-color 200ms ease, box-shadow 200ms ease,
+               background 200ms ease}
+  .tour-card:hover, .tour-card:focus-visible{transform:translateY(-1px);
     border-color:color-mix(in srgb, var(--accent, var(--cyan)) 55%, var(--line));
-    box-shadow:0 4px 18px color-mix(in srgb, var(--accent, var(--cyan)) 18%, transparent)}
+    box-shadow:0 4px 18px color-mix(in srgb, var(--accent, var(--cyan)) 18%, transparent);
+    background:color-mix(in srgb, var(--accent, var(--cyan)) 4%, var(--panel));
+    outline:none}
   .tour-card[data-color="cyan"]{--accent:var(--cyan)}
   .tour-card[data-color="yellow"]{--accent:var(--yellow)}
   .tour-card[data-color="pink"]{--accent:var(--pink)}
@@ -236,9 +164,82 @@
   section.tour[data-color="pink"] h2{border-bottom-color:color-mix(in srgb, var(--pink) 50%, var(--line))}
   section.tour[data-color="blue"] h2{border-bottom-color:color-mix(in srgb, var(--blue) 50%, var(--line))}
 
-  /* Filtered-out tours fade and collapse — purely visual, anchors still work */
-  section.tour.dim{opacity:.25;filter:saturate(.4)}
-  section.tour.dim:hover{opacity:.5}
+  /* Tour-switcher: cards on overview, single tour when one is active. */
+  section.tour, #more-tours{display:none}
+  body.tour-active section.tour.is-active,
+  body.tour-active #tour-back{display:block}
+  body:not(.tour-active) section.tour.is-active,
+  body:not(.tour-active) #tour-back{display:none}
+  body:not(.tour-active) .hero,
+  body:not(.tour-active) .tour-cards,
+  body:not(.tour-active) #more-tours{display:block}
+  body.tour-active .hero,
+  body.tour-active .tour-cards{display:none}
+  /* "← All tours" sticky pill at the top of an active tour. */
+  #tour-back{position:sticky;top:0;z-index:8;
+    margin:-1.5rem -1.5rem 1.5rem;padding:0.85rem 1.5rem;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+    display:flex;align-items:center;gap:0.8rem;flex-wrap:wrap}
+  #tour-back .back-btn{display:inline-flex;align-items:center;gap:0.4rem;
+    background:transparent;border:1px solid var(--line);
+    color:var(--ink);padding:0.4rem 0.85rem;border-radius:8px;
+    font-size:0.85rem;cursor:pointer;
+    transition:border-color 180ms ease, color 180ms ease, background 180ms ease}
+  #tour-back .back-btn:hover{border-color:var(--cyan);color:var(--cyan);
+    background:color-mix(in srgb, var(--cyan) 8%, transparent)}
+  #tour-back .back-btn::before{content:"←";font-size:1rem;line-height:1}
+  #tour-back .crumb{font-size:0.78rem;color:var(--mute);
+    font-family:ui-monospace,Menlo,monospace;letter-spacing:0.08em;
+    text-transform:uppercase}
+  #tour-back .crumb-active{color:var(--accent, var(--cyan));font-weight:500}
+
+  /* Mathematician + historical figure cards inside tours. */
+  .figure-row{display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+    gap:0.75rem;margin:1.2rem 0 1.6rem}
+  .figure-card{display:flex;gap:0.7rem;align-items:flex-start;
+    padding:0.7rem 0.85rem;
+    background:color-mix(in srgb, var(--panel) 80%, transparent);
+    border:1px solid color-mix(in srgb, var(--line) 65%, transparent);
+    border-radius:8px;font-size:0.86rem;line-height:1.45}
+  .figure-card .fc-portrait{flex-shrink:0;width:42px;height:42px;
+    border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-family:ui-monospace,Menlo,monospace;font-weight:600;font-size:0.84rem;
+    background:color-mix(in srgb, var(--accent, var(--cyan)) 18%, transparent);
+    color:var(--accent, var(--cyan));
+    border:1px solid color-mix(in srgb, var(--accent, var(--cyan)) 45%, var(--line))}
+  .figure-card[data-c="cyan"]{--accent:var(--cyan)}
+  .figure-card[data-c="yellow"]{--accent:var(--yellow)}
+  .figure-card[data-c="pink"]{--accent:var(--pink)}
+  .figure-card[data-c="violet"]{--accent:var(--violet)}
+  .figure-card[data-c="green"]{--accent:var(--green)}
+  .figure-card[data-c="blue"]{--accent:var(--blue)}
+  .figure-card .fc-body{min-width:0;flex:1}
+  .figure-card .fc-name{font-weight:600;color:#fff;font-size:0.94rem;margin-bottom:0.05rem}
+  .figure-card .fc-dates{font-family:ui-monospace,Menlo,monospace;
+    color:var(--mute);font-size:0.74rem;letter-spacing:0.04em;margin-bottom:0.35rem}
+  .figure-card .fc-contrib{margin:0;color:color-mix(in srgb, var(--ink) 92%, transparent);
+    font-size:0.84rem;line-height:1.5}
+  /* "Did you know" / historical context note */
+  aside.context{margin:1rem 0 1.4rem;padding:0.75rem 1rem;
+    border-left:3px solid color-mix(in srgb, var(--accent, var(--yellow)) 70%, transparent);
+    background:color-mix(in srgb, var(--accent, var(--yellow)) 6%, transparent);
+    border-radius:0 6px 6px 0;font-size:0.92rem;line-height:1.55}
+  aside.context[data-c="cyan"]{--accent:var(--cyan)}
+  aside.context[data-c="yellow"]{--accent:var(--yellow)}
+  aside.context[data-c="pink"]{--accent:var(--pink)}
+  aside.context[data-c="violet"]{--accent:var(--violet)}
+  aside.context[data-c="green"]{--accent:var(--green)}
+  aside.context[data-c="blue"]{--accent:var(--blue)}
+  aside.context .ctx-label{font-size:0.66rem;letter-spacing:0.16em;
+    text-transform:uppercase;color:var(--mute);font-weight:600;
+    font-family:ui-monospace,Menlo,monospace;margin-bottom:0.25rem;display:block}
+  aside.context blockquote{margin:0.4rem 0 0;padding-left:0.8rem;
+    border-left:2px solid color-mix(in srgb, var(--mute) 50%, transparent);
+    color:color-mix(in srgb, var(--ink) 88%, transparent);font-style:italic}
+  aside.context blockquote cite{display:block;margin-top:0.3rem;font-style:normal;
+    font-size:0.82rem;color:var(--mute);font-family:ui-monospace,Menlo,monospace}
 
   aside.callback{
     margin:1.2rem 0;padding:.7rem 1rem;
@@ -285,15 +286,9 @@ const SVG = (tag,attrs={})=>{
 </script>
 
 <nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
-  <a href="#bsd-road">1&nbsp;Road&nbsp;to&nbsp;BSD</a>
-  <a href="#flt-proof">2&nbsp;How&nbsp;FLT&nbsp;was&nbsp;proved</a>
-  <a href="#cohomology">3&nbsp;What&nbsp;is&nbsp;cohomology?</a>
-  <a href="#sets-to-topoi">4&nbsp;Naive&nbsp;sets&nbsp;to&nbsp;∞-topoi</a>
-  <a href="#sound-to-wavelets">5&nbsp;From&nbsp;sound&nbsp;to&nbsp;wavelets</a>
-  <a href="#local-global">6&nbsp;Local&nbsp;and&nbsp;global</a>
+  <a href="./pathway.html">Pathway explorer</a>
+  <a href="./cheatsheet.html">Cheatsheet</a>
 </nav>
-
-<aside class="sidetoc" aria-label="Table of contents" data-title="Tours"></aside>
 
 <main>
 
@@ -303,67 +298,60 @@ const SVG = (tag,attrs={})=>{
   <p class="sub">Each tour is a sequence of links into existing topic pages — usually 4–6 stops, ending at a capstone or a deep theorem. Read the bridging prose, click into the topic, come back when ready. The tours overlap; that's intentional. Cohomology shows up in three of them.</p>
 </section>
 
-<div class="sj-sentinel" aria-hidden="true"></div>
-<nav class="section-jump" role="navigation" aria-label="Jump to tour">
-  <span class="sj-label">Jump to</span>
-  <a class="sj-link s-c" href="#bsd-road">1. BSD</a>
-  <a class="sj-link s-y" href="#flt-proof">2. FLT</a>
-  <a class="sj-link s-v" href="#cohomology">3. Cohomology</a>
-  <a class="sj-link s-g" href="#sets-to-topoi">4. Sets → ∞-topoi</a>
-  <a class="sj-link s-p" href="#sound-to-wavelets">5. Sound → wavelets</a>
-  <a class="sj-link s-b" href="#local-global">6. Local–global</a>
-  <button class="sj-toggle" type="button" aria-label="Collapse jump-to bar" aria-expanded="true">Hide</button>
-</nav>
+<div id="tour-back" role="navigation" aria-label="Tour navigation">
+  <button class="back-btn" type="button" data-action="overview">All tours</button>
+  <span class="crumb">You're reading <span class="crumb-active" id="crumb-title">—</span></span>
+</div>
 
 <div class="tour-cards" aria-label="Tour overview cards">
-  <a class="tour-card" data-color="cyan" href="#bsd-road">
+  <button class="tour-card" data-color="cyan" data-tour="bsd-road" type="button">
     <div class="tc-num">1</div>
     <div class="tc-body">
       <div class="tc-title">The road to BSD</div>
       <div class="tc-goal">Why a Clay Millennium prize is offered for a single equality between an analytic order of vanishing and an algebraic rank.</div>
       <div class="tc-meta"><span class="tc-stops">5 stops</span> · ends at <span class="tc-end">BSD</span></div>
     </div>
-  </a>
-  <a class="tour-card" data-color="yellow" href="#flt-proof">
+  </button>
+  <button class="tour-card" data-color="yellow" data-tour="flt-proof" type="button">
     <div class="tc-num">2</div>
     <div class="tc-body">
       <div class="tc-title">How Fermat's Last Theorem was proved</div>
       <div class="tc-goal">Trace Frey curve → Ribet's level-lowering → Wiles's modularity → contradiction.</div>
       <div class="tc-meta"><span class="tc-stops">5 stops</span> · ends at <span class="tc-end">Modularity &amp; FLT</span></div>
     </div>
-  </a>
-  <a class="tour-card" data-color="violet" href="#cohomology">
+  </button>
+  <button class="tour-card" data-color="violet" data-tour="cohomology" type="button">
     <div class="tc-num">3</div>
     <div class="tc-body">
       <div class="tc-title">What is cohomology?</div>
       <div class="tc-goal">"Cohomology" as one idea — the systematic measurement of obstructions — wearing five very different costumes.</div>
       <div class="tc-meta"><span class="tc-stops">5 stops</span> · ends at <span class="tc-end">étale cohomology</span></div>
     </div>
-  </a>
-  <a class="tour-card" data-color="green" href="#sets-to-topoi">
+  </button>
+  <button class="tour-card" data-color="green" data-tour="sets-to-topoi" type="button">
     <div class="tc-num">4</div>
     <div class="tc-body">
       <div class="tc-title">From naive sets to ∞-topoi</div>
       <div class="tc-goal">Walk from the membership relation $\in$ to the categorical universes that house all of derived algebraic geometry.</div>
       <div class="tc-meta"><span class="tc-stops">6 stops</span> · ends at <span class="tc-end">∞-topoi</span></div>
     </div>
-  </a>
-  <a class="tour-card" data-color="pink" href="#sound-to-wavelets">
+  </button>
+  <button class="tour-card" data-color="pink" data-tour="sound-to-wavelets" type="button">
     <div class="tc-num">5</div>
     <div class="tc-body">
       <div class="tc-title">From sound to wavelets</div>
       <div class="tc-goal">Why decomposing a signal into pure frequencies is sometimes the wrong thing to do.</div>
       <div class="tc-meta"><span class="tc-stops">4 stops</span> · ends at <span class="tc-end">wavelets</span></div>
     </div>
-  </a>
-  <a class="tour-card" data-color="blue" href="#local-global">
+  </button>
+  <button class="tour-card" data-color="blue" data-tour="local-global" type="button">
     <div class="tc-num">6</div>
     <div class="tc-body">
       <div class="tc-title">The local–global principle</div>
       <div class="tc-goal">"$x \in \mathbb{Q}$" as "$x$ in $\mathbb{Q}_p$ for every $p$ and $\mathbb{R}$, with no obstruction".</div>
       <div class="tc-meta"><span class="tc-stops">5 stops</span> · ends at <span class="tc-end">class field theory</span></div>
     </div>
-  </a>
+  </button>
 </div>
 
 <section class="tour" id="bsd-road" data-color="cyan">
@@ -375,6 +363,24 @@ const SVG = (tag,attrs={})=>{
     <span class="stop-section">Algebraic geometry</span>
     <span class="stop-title"><a href="./elliptic-curves.html#group">Elliptic curves and the chord–tangent group law</a></span>
     <p class="bridge">Start where every BSD discussion starts: a smooth Weierstrass cubic $E\colon y^2 = x^3 + ax + b$ over $\mathbb{Q}$, with the marvellous fact that its rational points form an abelian group under chord–tangent addition. The identity is the point at infinity; the inverse of $(x,y)$ is $(x,-y)$; and the sum of two points $P, Q$ is the third intersection of $\overline{PQ}$ with $E$, reflected through the $x$-axis. Mordell's theorem says $E(\mathbb{Q}) \cong \mathbb{Z}^r \oplus T$ with $T$ a finite torsion subgroup. The integer $r$ — the <em>rank</em> — is the algebraic side of BSD, and it has no known algorithm: producing a rank-$28$ generator is a hand-tuned hunt. To even formulate the conjecture we need an analytic shadow that we <em>can</em> compute: counting points modulo each prime $p$ and packaging the counts into a generating function.</p>
+    <div class="figure-row">
+      <div class="figure-card" data-c="cyan">
+        <div class="fc-portrait">MO</div>
+        <div class="fc-body">
+          <div class="fc-name">Louis Mordell</div>
+          <div class="fc-dates">1888–1972</div>
+          <p class="fc-contrib">Proved (1922) that $E(\mathbb{Q})$ is finitely generated. The rank $r$ is the integer his theorem makes meaningful — and the integer BSD claims to predict.</p>
+        </div>
+      </div>
+      <div class="figure-card" data-c="cyan">
+        <div class="fc-portrait">WL</div>
+        <div class="fc-body">
+          <div class="fc-name">André Weil</div>
+          <div class="fc-dates">1906–1998</div>
+          <p class="fc-contrib">Generalized Mordell's theorem to abelian varieties of any dimension; built the conceptual machinery (Weil conjectures, heights, zeta functions) underwriting most of modern arithmetic geometry.</p>
+        </div>
+      </div>
+    </div>
   </li>
   <li>
     <span class="stop-section">Modular forms &amp; L-functions</span>
@@ -390,11 +396,51 @@ const SVG = (tag,attrs={})=>{
     <span class="stop-section">Modular forms &amp; L-functions</span>
     <span class="stop-title"><a href="./modularity-and-flt.html#modularity">Modularity: every elliptic curve over $\mathbb{Q}$ is a modular form</a></span>
     <p class="bridge">The Modularity Theorem (Wiles, Taylor–Wiles, Breuil–Conrad–Diamond–Taylor) says exactly that: for every $E/\mathbb{Q}$ there is a weight-$2$ newform $f$ of level $N = $ conductor of $E$ such that $a_p(E) = a_p(f)$ for all primes. The conductor records the bad reduction of $E$ — small primes where the Weierstrass model goes singular — and it determines the level of $f$. Modularity is what gives $L(E,s)$ its analytic continuation and functional equation: both are <em>inherited</em> from the modular world, where the Mellin transform $L(f,s) = (2\pi)^s \Gamma(s)^{-1} \int_0^\infty f(it) t^{s-1}\,dt$ makes them automatic from the transformation law of $f$. With analytic continuation in hand, the order of vanishing $\mathrm{ord}_{s=1} L(E,s)$ is now a well-defined non-negative integer, called the <em>analytic rank</em>. Two integers, both attached to $E$, both meaningful — and the conjecture is that they're the same one.</p>
+    <div class="figure-row">
+      <div class="figure-card" data-c="cyan">
+        <div class="fc-portrait">WI</div>
+        <div class="fc-body">
+          <div class="fc-name">Andrew Wiles</div>
+          <div class="fc-dates">b. 1953</div>
+          <p class="fc-contrib">Proved (1995) modularity for semistable elliptic curves, establishing Fermat's Last Theorem and the modular hypothesis BSD's framework rests on. Worked seven years in attic-secrecy at Princeton.</p>
+        </div>
+      </div>
+      <div class="figure-card" data-c="cyan">
+        <div class="fc-portrait">TA</div>
+        <div class="fc-body">
+          <div class="fc-name">Richard Taylor</div>
+          <div class="fc-dates">b. 1962</div>
+          <p class="fc-contrib">Wiles's former student and co-author of the patching argument that closed the 1993 gap. Later (with Breuil–Conrad–Diamond) extended modularity to <em>all</em> elliptic curves over $\mathbb{Q}$.</p>
+        </div>
+      </div>
+    </div>
   </li>
   <li class="endpoint">
     <span class="stop-section">Modular forms &amp; L-functions · capstone</span>
     <span class="stop-title"><a href="./bsd.html#bsd-rank-equality">Birch &amp; Swinnerton-Dyer: analytic rank = algebraic rank</a></span>
     <p class="bridge">The conjecture: $\mathrm{ord}_{s=1} L(E,s) = \mathrm{rank}\, E(\mathbb{Q})$. Equality of two integers, one defined by a Taylor expansion of a complex-analytic function and the other by counting independent rational points on a cubic curve. The refined version pins the <em>leading</em> Taylor coefficient to a product of period $\Omega_E$, regulator $R$, Tamagawa numbers $c_p$, torsion order $|E(\mathbb{Q})_{\mathrm{tors}}|^2$, and the order of the Tate–Shafarevich group $\Sha(E/\mathbb{Q})$ — five disparate quantities, four of them computable, $\Sha$ conjecturally finite. Known in rank $0$ and $1$ (Gross–Zagier–Kolyvagin); wide open in higher rank. Every step of this tour was a layer of scaffolding that even <em>states</em> the conjecture rigorously: without modularity, $L(E,s)$ has no value at $s=1$ to take an order of vanishing of.</p>
+    <div class="figure-row">
+      <div class="figure-card" data-c="cyan">
+        <div class="fc-portrait">BI</div>
+        <div class="fc-body">
+          <div class="fc-name">Bryan Birch</div>
+          <div class="fc-dates">b. 1931</div>
+          <p class="fc-contrib">Co-formulator. Spent the early 1960s at Cambridge running EDSAC II computations on hundreds of elliptic curves — the empirical pattern in the resulting tables is the conjecture.</p>
+        </div>
+      </div>
+      <div class="figure-card" data-c="cyan">
+        <div class="fc-portrait">SD</div>
+        <div class="fc-body">
+          <div class="fc-name">Peter Swinnerton-Dyer</div>
+          <div class="fc-dates">1927–2018</div>
+          <p class="fc-contrib">Co-formulator. The other half of the punch-card era partnership; later turned the experimental observation into the precise statement involving $L$-functions and ranks.</p>
+        </div>
+      </div>
+    </div>
+    <aside class="context" data-c="cyan">
+      <span class="ctx-label">Historical note</span>
+      The conjecture began as numerics. Birch and Swinnerton-Dyer fed elliptic curves into EDSAC II and watched the partial Euler products $\prod_{p \leq X}(N_p/p)$ — bigger when $E(\mathbb{Q})$ has high rank, smaller when not. They noticed the size of that product correlated with rank, then made the asymptotic precise. The Clay Mathematics Institute lists BSD as one of seven Millennium Prize Problems; only one (Poincaré) has been solved.
+    </aside>
   </li>
 </ol>
 
@@ -416,6 +462,12 @@ const SVG = (tag,attrs={})=>{
     <span class="stop-section">Number theory</span>
     <span class="stop-title"><a href="./galois.html#solvable">Galois theory and solvable extensions</a></span>
     <p class="bridge">The classical setting: a polynomial $f \in \mathbb{Q}[x]$ has a splitting field $L \supset \mathbb{Q}$, the Galois group $\Gal(L/\mathbb{Q})$ acts faithfully on the roots, and "solvable by radicals" translates to a structural condition — solvability of the group. FLT — does $a^p + b^p = c^p$ have nonzero integer solutions for prime $p \geq 3$? — looks like it should belong here, and for $300$ years people <em>tried</em> to settle it with cyclotomic Galois theory (Kummer's regular primes, Iwasawa towers, the Vandiver conjecture). The strategy that finally worked is wildly different: instead of factoring $a^p + b^p$ in a cyclotomic ring of integers, attach a geometric object — an elliptic curve — to a hypothetical solution and study the Galois <em>representations</em> coming from it. Galois theory survives, but it acts on étale cohomology rather than on roots of polynomials.</p>
+    <aside class="context" data-c="yellow">
+      <span class="ctx-label">1637 · Margin of Diophantus</span>
+      Pierre de Fermat penned the original claim in his copy of Diophantus's <em>Arithmetica</em>: <em>"Cubum autem in duos cubos, aut quadratoquadratum in duos quadratoquadratos … in infinitum ultra quadratum potestatem in duos eiusdem nominis fas est dividere; cuius rei demonstrationem mirabilem sane detexi. Hanc marginis exiguitas non caperet."</em>
+      <blockquote>I have discovered a truly marvellous proof of this, which this margin is too narrow to contain.<cite>— Fermat, c. 1637</cite></blockquote>
+      Whatever proof he thought he had, it cannot have used étale cohomology, deformation rings, or modular curves of level $2$. Most historians believe he found a flaw in his own argument and never crossed out the marginal note.
+    </aside>
   </li>
   <li>
     <span class="stop-section">Modular forms &amp; L-functions</span>
@@ -431,11 +483,33 @@ const SVG = (tag,attrs={})=>{
     <span class="stop-section">Number theory</span>
     <span class="stop-title"><a href="./galois-representations.html#tate">Galois representations from the Tate module</a></span>
     <p class="bridge">Given $E/\mathbb{Q}$ and a prime $\ell$, the $\ell$-adic Tate module $T_\ell E = \varprojlim E[\ell^n]$ carries a continuous action of $\Gal(\overline{\mathbb{Q}}/\mathbb{Q})$, giving a representation $\rho_{E,\ell}\colon G_\mathbb{Q} \to \mathrm{GL}_2(\mathbb{Z}_\ell)$. Reducing mod $\ell$ gives a residual representation $\bar\rho$ valued in $\mathrm{GL}_2(\mathbb{F}_\ell)$. Now Frey's idea, sharpened by Ribet: if $a^p + b^p = c^p$ with $p \geq 5$, the curve $E_{a,b,c}\colon y^2 = x(x-a^p)(x+b^p)$ has a residual representation $\bar\rho$ at $\ell = p$ which is unramified outside $2$ and $p$, finite at $p$, and absolutely irreducible. <em>Ribet's level-lowering theorem</em> then says: if $\bar\rho$ is modular of any level, it must be modular of level $2$.</p>
+    <div class="figure-row">
+      <div class="figure-card" data-c="yellow">
+        <div class="fc-portrait">FR</div>
+        <div class="fc-body">
+          <div class="fc-name">Gerhard Frey</div>
+          <div class="fc-dates">b. 1944</div>
+          <p class="fc-contrib">Observed (1985) that a hypothetical solution $a^p + b^p = c^p$ would yield a semistable elliptic curve so unusual it could not exist if modularity held. The bridge from arithmetic to geometry.</p>
+        </div>
+      </div>
+      <div class="figure-card" data-c="yellow">
+        <div class="fc-portrait">RI</div>
+        <div class="fc-body">
+          <div class="fc-name">Kenneth Ribet</div>
+          <div class="fc-dates">b. 1948</div>
+          <p class="fc-contrib">Proved (1986) the level-lowering theorem (Serre's $\varepsilon$-conjecture): if Frey's curve were modular, it would correspond to a weight-$2$ form of level $2$. None exist.</p>
+        </div>
+      </div>
+    </div>
   </li>
   <li class="endpoint">
     <span class="stop-section">Modular forms &amp; L-functions · capstone</span>
     <span class="stop-title"><a href="./modularity-and-flt.html#ribet">Ribet + Wiles ⇒ FLT</a></span>
     <p class="bridge">Wiles (with Taylor) proves: every semistable elliptic curve over $\mathbb{Q}$ is modular, by way of the now-famous deformation-theoretic identity $R_\Sigma = T_\Sigma$ between a universal deformation ring and a Hecke algebra. The Frey curve $E_{a,b,c}$ is semistable when $p \geq 5$, so its associated $\bar\rho$ <em>is</em> modular by Wiles. Ribet says any modular $\bar\rho$ with the ramification properties of $\bar\rho_{E_{a,b,c}}$ must come from a level-$2$ newform. But $\dim S_2(\Gamma_0(2)) = 0$. Contradiction — so no Frey curve, hence no nontrivial solution to $a^p + b^p = c^p$ for $p \geq 5$. (The cases $p = 3, 4$ are classical Fermat–Euler.) The proof reduces a Diophantine question to an existence statement about modular forms of a particular level, then exhibits a vector space whose dimension you can <em>just compute</em> and find to be zero.</p>
+    <aside class="context" data-c="yellow">
+      <span class="ctx-label">May 1995 · Annals of Mathematics</span>
+      Wiles announced the proof at the Newton Institute in June 1993 to a hushed lecture hall — three boards of arithmetic ending in "and so we have proved Fermat's Last Theorem." A gap was discovered that fall in the Euler-system step. With Richard Taylor he repaired it through 1994. The final paper (with Taylor's sequel) ran 130 pages across two issues of <em>Annals of Mathematics</em>, vol. 142, May 1995. Fermat's marginal note had stood for $358$ years.
+    </aside>
   </li>
 </ol>
 
@@ -457,6 +531,24 @@ const SVG = (tag,attrs={})=>{
     <span class="stop-section">Algebra &amp; homological</span>
     <span class="stop-title"><a href="./group-cohomology.html#h2">Group cohomology and $H^2$ as central extensions</a></span>
     <p class="bridge">The cleanest first sighting of cohomology. Given a group $G$ and a $G$-module $M$, the bar cochain complex $C^n(G, M) = \mathrm{Hom}_{\mathsf{Set}}(G^n, M)$ with differential $(d\varphi)(g_0, \ldots, g_n) = g_0 \varphi(g_1, \ldots, g_n) - \varphi(g_0 g_1, g_2, \ldots, g_n) + \cdots$ has cohomology $H^n(G, M)$. The interpretations are concrete: $H^0(G,M) = M^G$ is invariants, $H^1$ classifies crossed homomorphisms (derivations) modulo principal ones — Galois-cohomologically, this is torsors for $M$. $H^2$ classifies central extensions $1 \to M \to \tilde G \to G \to 1$ up to equivalence. <em>Cohomology measures things that almost split but don't.</em> Hold onto that phrase — it survives every change of context in this tour, even when "split" turns into "is locally trivial" or "lifts to characteristic zero."</p>
+    <div class="figure-row">
+      <div class="figure-card" data-c="violet">
+        <div class="fc-portrait">EI</div>
+        <div class="fc-body">
+          <div class="fc-name">Samuel Eilenberg</div>
+          <div class="fc-dates">1913–1998</div>
+          <p class="fc-contrib">Co-invented (with Mac Lane) group cohomology in the 1940s and the bar resolution that computes it. Later co-founded category theory and homological algebra wholesale.</p>
+        </div>
+      </div>
+      <div class="figure-card" data-c="violet">
+        <div class="fc-portrait">ML</div>
+        <div class="fc-body">
+          <div class="fc-name">Saunders Mac Lane</div>
+          <div class="fc-dates">1909–2005</div>
+          <p class="fc-contrib">Eilenberg's collaborator. The Eilenberg–Mac Lane spaces $K(G,n)$ are the topological avatars of $H^n(-,G)$ — the unification of group cohomology and topology in one geometric package.</p>
+        </div>
+      </div>
+    </div>
   </li>
   <li>
     <span class="stop-section">Geometry &amp; topology</span>
@@ -477,6 +569,36 @@ const SVG = (tag,attrs={})=>{
     <span class="stop-section">Algebraic geometry · capstone</span>
     <span class="stop-title"><a href="./etale-cohomology.html#weil">Étale cohomology and the Weil conjectures</a></span>
     <p class="bridge">In characteristic $p$ there's no ambient $\mathbb{C}$ to compare to, and Zariski-open covers are too coarse to see torsion phenomena like $\ell$-th roots of unity (any constant sheaf $\underline{\mathbb{Z}/\ell}$ is acyclic on an irreducible variety). Grothendieck's solution: replace "open cover" by "étale cover" — a flat unramified cover, the algebraic analogue of a local homeomorphism — and define $H^i_{\mathrm{\acute{e}t}}(X, \mathbb{Z}_\ell)$ via the same derived-functor pattern on the new site. The payoff is enormous. Étale cohomology is a Weil cohomology theory for varieties over $\mathbb{F}_q$: a Lefschetz fixed-point formula computes $\#X(\mathbb{F}_{q^n})$ as alternating Frobenius traces, and Deligne's Riemann hypothesis pins the eigenvalues to absolute value $q^{i/2}$. <em>Cohomology was the obstruction-counting machine the whole time; étale cohomology is what happens when you're allowed to count obstructions in a Galois-equivariant way.</em></p>
+    <div class="figure-row">
+      <div class="figure-card" data-c="violet">
+        <div class="fc-portrait">GR</div>
+        <div class="fc-body">
+          <div class="fc-name">Alexander Grothendieck</div>
+          <div class="fc-dates">1928–2014</div>
+          <p class="fc-contrib">Reformulated algebraic geometry around schemes, sites, and topoi; invented étale cohomology to attack the Weil conjectures. Step-by-step recoverer of the entire subject in the seminars at IHÉS, 1958–1970.</p>
+        </div>
+      </div>
+      <div class="figure-card" data-c="violet">
+        <div class="fc-portrait">DE</div>
+        <div class="fc-body">
+          <div class="fc-name">Pierre Deligne</div>
+          <div class="fc-dates">b. 1944</div>
+          <p class="fc-contrib">Grothendieck's student. Proved the last and deepest of the Weil conjectures (1973) — the Riemann hypothesis for varieties over finite fields — pinning Frobenius eigenvalues to $|q^{i/2}|$.</p>
+        </div>
+      </div>
+      <div class="figure-card" data-c="violet">
+        <div class="fc-portrait">PO</div>
+        <div class="fc-body">
+          <div class="fc-name">Henri Poincaré</div>
+          <div class="fc-dates">1854–1912</div>
+          <p class="fc-contrib">Founded algebraic topology in <em>Analysis Situs</em> (1895) — the first cohomology of a space, and the first articulation that "shape" can be a homological invariant.</p>
+        </div>
+      </div>
+    </div>
+    <aside class="context" data-c="violet">
+      <span class="ctx-label">Grothendieck on cohomology</span>
+      <blockquote>The introduction of the cipher 0 or the group concept was general nonsense too, and mathematics was more or less stagnating for thousands of years because nobody was around to take such childish steps.<cite>— Alexander Grothendieck, letter to Ronald Brown, 1983</cite></blockquote>
+    </aside>
   </li>
 </ol>
 
@@ -503,6 +625,24 @@ const SVG = (tag,attrs={})=>{
     <span class="stop-section">Algebra &amp; homological</span>
     <span class="stop-title"><a href="./category-theory.html#yoneda">Categories, functors, Yoneda</a></span>
     <p class="bridge">A category is what you get when you keep track of <em>arrows between things</em> rather than elements within things. Sets and functions, groups and homomorphisms, topological spaces and continuous maps — all categories. A functor preserves the arrow structure; a natural transformation is an arrow between functors. The whole subject is the disciplined unfolding of these three definitions. Yoneda's lemma is the punchline: an object $X$ is completely determined by the functor $\Hom(-, X)$, i.e. by the pattern of arrows into it from every other object. The functor $X \mapsto \Hom(-,X)$ embeds $\mathcal{C}$ fully faithfully into the functor category $[\mathcal{C}^{\mathrm{op}}, \mathsf{Set}]$. This is the philosophical lever that makes the rest of the tour possible — every later "topos" will be a category of sheaves, i.e. a particular kind of functor category, and Yoneda is what makes that reduction bite.</p>
+    <div class="figure-row">
+      <div class="figure-card" data-c="green">
+        <div class="fc-portrait">CA</div>
+        <div class="fc-body">
+          <div class="fc-name">Georg Cantor</div>
+          <div class="fc-dates">1845–1918</div>
+          <p class="fc-contrib">Invented set theory, transfinite ordinals, and the diagonal argument. Settled the question of comparing infinities; founded the basis from which every later abstraction in this tour starts.</p>
+        </div>
+      </div>
+      <div class="figure-card" data-c="green">
+        <div class="fc-portrait">YO</div>
+        <div class="fc-body">
+          <div class="fc-name">Nobuo Yoneda</div>
+          <div class="fc-dates">1930–1996</div>
+          <p class="fc-contrib">Gave the lemma that bears his name (told to Mac Lane at the Gare du Nord, 1954): an object is determined by the functor of arrows <em>into</em> it. The conceptual gateway from sets to higher-categorical thinking.</p>
+        </div>
+      </div>
+    </div>
   </li>
   <li>
     <span class="stop-section">Higher categories &amp; toposes</span>
@@ -523,6 +663,32 @@ const SVG = (tag,attrs={})=>{
     <span class="stop-section">Higher categories &amp; toposes · capstone</span>
     <span class="stop-title"><a href="./infinity-topoi.html#infty-topos-definition">$\infty$-topoi and Lurie's higher topos theory</a></span>
     <p class="bridge">An $\infty$-topos is an accessible left-exact localization of the presheaf $\infty$-category $\mathcal{P}(C) = \mathrm{Fun}(C^{\mathrm{op}}, \mathcal{S})$, where $\mathcal{S}$ is the $\infty$-category of spaces. The $\infty$-Giraud axioms characterize them intrinsically: small colimits exist, are universal, sums are disjoint, and groupoid objects are effective. Their internal logic is homotopy type theory (Voevodsky's univalence axiom is the topos-theoretic statement that equivalence equals identity in the universe). Their geometric examples — the étale, pro-étale, fppf $\infty$-topoi of a scheme — are the natural home of derived algebraic geometry, where descent for sheaves of spectra is automatic and cohomology is just hom. We started by asking what a set was; we end with the universe in which every modern descent and gluing statement becomes a one-line triviality.</p>
+    <div class="figure-row">
+      <div class="figure-card" data-c="green">
+        <div class="fc-portrait">LA</div>
+        <div class="fc-body">
+          <div class="fc-name">F. William Lawvere</div>
+          <div class="fc-dates">1937–2023</div>
+          <p class="fc-contrib">Reformulated set theory categorically (ETCS, 1964) and, with Tierney, defined the elementary topos. The first to insist that mathematics is best founded on functions and arrows, not membership.</p>
+        </div>
+      </div>
+      <div class="figure-card" data-c="green">
+        <div class="fc-portrait">JO</div>
+        <div class="fc-body">
+          <div class="fc-name">André Joyal</div>
+          <div class="fc-dates">b. 1943</div>
+          <p class="fc-contrib">Introduced quasi-categories as the working model of $\infty$-categories (1980s) and proved the existence of their model structure. Without his "fillers without uniqueness" trick the next stop wouldn't exist.</p>
+        </div>
+      </div>
+      <div class="figure-card" data-c="green">
+        <div class="fc-portrait">LU</div>
+        <div class="fc-body">
+          <div class="fc-name">Jacob Lurie</div>
+          <div class="fc-dates">b. 1977</div>
+          <p class="fc-contrib">Wrote the 940-page <em>Higher Topos Theory</em> (2009), turning Joyal's machinery into the operating system of derived algebraic geometry. The endpoint of this tour <em>is</em> chapter 6 of his book.</p>
+        </div>
+      </div>
+    </div>
   </li>
 </ol>
 
@@ -544,6 +710,21 @@ const SVG = (tag,attrs={})=>{
     <span class="stop-section">Analysis</span>
     <span class="stop-title"><a href="./harmonic-analysis-fourier.html#fourier-transform">Fourier series and the Fourier transform</a></span>
     <p class="bridge">A periodic signal is a sum of sines and cosines (Fourier series); an aperiodic signal on $\mathbb{R}$ is an integral over a continuum of frequencies. The Fourier transform $\hat f(\xi) = \int_{\mathbb{R}^n} f(x) e^{-2\pi i x\cdot\xi}\,dx$ exchanges convolution $f * g$ for multiplication $\hat f \cdot \hat g$, derivative $\partial_j$ for multiplication by $2\pi i \xi_j$, translation for modulation, and the Gaussian for the Gaussian. It's the right basis for any system whose dynamics commute with translation — the heat equation, the wave equation, the Laplacian on $\mathbb{R}^n$, anything diagonalized by plane waves $e^{2\pi i x\cdot\xi}$. Two limitations show up immediately: Fourier doesn't see <em>where</em> a feature lives in time (only its frequency content), and many functions of physical interest — $\delta$, the constant $1$, $H(x)$ — aren't even integrable. The next stop fixes the second problem.</p>
+    <div class="figure-row">
+      <div class="figure-card" data-c="pink">
+        <div class="fc-portrait">FO</div>
+        <div class="fc-body">
+          <div class="fc-name">Joseph Fourier</div>
+          <div class="fc-dates">1768–1830</div>
+          <p class="fc-contrib">Wrote <em>Théorie analytique de la chaleur</em> (1822). Modeled heat propagation by writing temperature as $\sum a_n \cos(n\pi x/L)$ — a step the establishment derided as not-quite-rigorous, and that founded an entire branch of analysis.</p>
+        </div>
+      </div>
+    </div>
+    <aside class="context" data-c="pink">
+      <span class="ctx-label">1822 · An idea ahead of its rigour</span>
+      <blockquote>The deep study of nature is the most fertile source of mathematical discoveries.<cite>— Fourier, preface to <em>Théorie analytique de la chaleur</em></cite></blockquote>
+      Lagrange found the series convergence claim "unrigorous." Cauchy and Dirichlet later supplied the technical foundations. Schwartz's distributions (next stop) finally gave Fourier a setting where every claim he wrote down is true.
+    </aside>
   </li>
   <li>
     <span class="stop-section">Analysis</span>
@@ -559,6 +740,28 @@ const SVG = (tag,attrs={})=>{
     <span class="stop-section">Analysis</span>
     <span class="stop-title"><a href="./wavelets.html#multiresolution">Wavelets and multiresolution analysis</a></span>
     <p class="bridge">For signals with sharp edges or transients — images, speech, financial time series — Fourier is wasteful: a localized feature spreads across all frequencies, since a delta has constant transform. A wavelet basis is built from a single mother wavelet $\psi$ via dyadic dilations and integer translations $\psi_{j,k}(x) = 2^{j/2}\psi(2^j x - k)$. Each basis element is localized in <em>both</em> time and frequency, at a resolution that scales with $j$. Multiresolution analysis builds these from a nested family $V_0 \subset V_1 \subset V_2 \subset \cdots$ of approximation spaces with $V_{j+1} = V_j \oplus W_j$. The Haar wavelet is the simplest example; Daubechies's compactly-supported orthonormal wavelets came later and changed signal processing — JPEG 2000 is a wavelet codec. <em>Same Hilbert space $L^2(\mathbb{R})$, smarter basis, chosen to match the actual structure of the data.</em></p>
+    <div class="figure-row">
+      <div class="figure-card" data-c="pink">
+        <div class="fc-portrait">SC</div>
+        <div class="fc-body">
+          <div class="fc-name">Laurent Schwartz</div>
+          <div class="fc-dates">1915–2002</div>
+          <p class="fc-contrib">Created the theory of distributions (1945–50), Fields Medal 1950. Made $\delta$ a legal mathematical object and gave Fourier a function class large enough to hold every example physicists actually use.</p>
+        </div>
+      </div>
+      <div class="figure-card" data-c="pink">
+        <div class="fc-portrait">DA</div>
+        <div class="fc-body">
+          <div class="fc-name">Ingrid Daubechies</div>
+          <div class="fc-dates">b. 1954</div>
+          <p class="fc-contrib">Constructed (1988) the first compactly-supported, orthonormal, smooth wavelets — the family that makes JPEG 2000 and modern medical-image compression work. Bridged pure analysis and engineering practice.</p>
+        </div>
+      </div>
+    </div>
+    <aside class="context" data-c="pink">
+      <span class="ctx-label">Where it ended up</span>
+      JPEG 2000 (the wavelet successor to JPEG's discrete-cosine codec), digital cinema (DCI uses a Daubechies-based wavelet transform per frame), and the FBI's 1994 standard for compressed fingerprints all run on wavelet bases. Fourier still rules anything translation-invariant; wavelets rule anything edge-shaped.
+    </aside>
   </li>
 </ol>
 
@@ -585,11 +788,47 @@ const SVG = (tag,attrs={})=>{
     <span class="stop-section">Number theory</span>
     <span class="stop-title"><a href="./p-adic-numbers.html#qp">$p$-adic numbers and Hensel's lemma</a></span>
     <p class="bridge">Localize. The completion $\mathbb{Q}_p$ at each prime $p$ — built from $\mathbb{Q}$ the way $\mathbb{R}$ is built, but with the absolute value $|p^k(a/b)|_p = p^{-k}$ in place of the usual one — is a complete field with its own non-archimedean topology. Inside it sits the ring of integers $\mathbb{Z}_p$, the closed unit ball. Hensel's lemma turns approximate solutions into exact ones the same way Newton's method does over $\mathbb{R}$: if $f(\bar a) \equiv 0 \pmod{p}$ and $f'(\bar a) \not\equiv 0 \pmod{p}$, then $\bar a$ lifts uniquely to a root in $\mathbb{Z}_p$. So solving an equation in $\mathbb{Q}_p$ is genuinely <em>easier</em> than in $\mathbb{Q}$. Hasse's local–global principle says: for a quadratic form $Q$, the equation $Q = 0$ has a nontrivial solution in $\mathbb{Q}$ iff it has one in $\mathbb{R}$ <em>and</em> in every $\mathbb{Q}_p$. The principle fails for cubics and higher, but the failures themselves become arithmetic invariants — the Tate–Shafarevich group $\Sha(E/\mathbb{Q})$ is precisely the failure for elliptic curves.</p>
+    <div class="figure-row">
+      <div class="figure-card" data-c="blue">
+        <div class="fc-portrait">HE</div>
+        <div class="fc-body">
+          <div class="fc-name">Kurt Hensel</div>
+          <div class="fc-dates">1861–1941</div>
+          <p class="fc-contrib">Introduced the $p$-adic numbers (1897) and the lemma that bears his name. The idea was so foreign that Hilbert reportedly told him "this will never amount to anything" — at present every modern number theorist disagrees.</p>
+        </div>
+      </div>
+      <div class="figure-card" data-c="blue">
+        <div class="fc-portrait">HA</div>
+        <div class="fc-body">
+          <div class="fc-name">Helmut Hasse</div>
+          <div class="fc-dates">1898–1979</div>
+          <p class="fc-contrib">Proved the Hasse–Minkowski theorem (1923): a rational quadratic form has a nontrivial zero iff it has one in every completion $\mathbb{Q}_p$ and in $\mathbb{R}$. The local–global principle in its purest form.</p>
+        </div>
+      </div>
+    </div>
   </li>
   <li>
     <span class="stop-section">Number theory</span>
     <span class="stop-title"><a href="./adeles-and-ideles.html#adeles">Adèles and idèles: all places at once</a></span>
     <p class="bridge">Rather than juggle each $\mathbb{Q}_p$ and $\mathbb{R}$ separately, package them into the adèle ring $\mathbb{A}_\mathbb{Q} = \mathbb{R} \times \prod_p' \mathbb{Q}_p$, the <em>restricted</em> product in which almost every component sits in $\mathbb{Z}_p$ (else the product wouldn't be locally compact). The diagonal embedding $\mathbb{Q} \hookrightarrow \mathbb{A}_\mathbb{Q}$ is discrete with compact quotient $\mathbb{A}_\mathbb{Q}/\mathbb{Q}$ — the structural fact, an analogue of $\mathbb{Z} \hookrightarrow \mathbb{R}$ being discrete with compact quotient $\mathbb{R}/\mathbb{Z}$. This is what powers Tate's thesis: integration over $\mathbb{A}_\mathbb{Q}$ gives a single zeta integral whose decomposition place-by-place reproduces the Euler product. The idèles $\mathbb{A}_\mathbb{Q}^\times$ are the multiplicative version; their quotient $\mathbb{A}_\mathbb{Q}^\times/\mathbb{Q}^\times$ is the idèle class group, and its continuous characters are exactly Hecke characters — the right linear coefficients for $L$-functions of arithmetic type.</p>
+    <div class="figure-row">
+      <div class="figure-card" data-c="blue">
+        <div class="fc-portrait">TT</div>
+        <div class="fc-body">
+          <div class="fc-name">John Tate</div>
+          <div class="fc-dates">1925–2019</div>
+          <p class="fc-contrib">His 1950 Princeton thesis (under Artin) reframed Hecke's $L$-functions as Fourier analysis on $\mathbb{A}_\mathbb{Q}$. Single integral, Poisson summation, every analytic property of the Riemann zeta function — falls out place by place.</p>
+        </div>
+      </div>
+      <div class="figure-card" data-c="blue">
+        <div class="fc-portrait">CB</div>
+        <div class="fc-body">
+          <div class="fc-name">Nikolai Chebotarev</div>
+          <div class="fc-dates">1894–1947</div>
+          <p class="fc-contrib">Proved (1922) that Frobenius conjugacy classes equidistribute over $\Gal(L/K)$ as primes vary — the statistical local-to-global statement underwriting every modern density argument.</p>
+        </div>
+      </div>
+    </div>
   </li>
   <li>
     <span class="stop-section">Number theory</span>
@@ -612,7 +851,7 @@ const SVG = (tag,attrs={})=>{
 </aside>
 </section>
 
-<section>
+<section id="more-tours">
 <h2>More tours coming</h2>
 <p>These six are a starting set, not a full atlas. Natural next routes — not yet written:</p>
 <ul>
@@ -630,33 +869,66 @@ const SVG = (tag,attrs={})=>{
 </main>
 
 <script>
-/* ---------- Sticky chip-bar: show-stuck shadow + collapse toggle ---------- */
+/* Tour switcher: cards toggle one tour on at a time; URL hash mirrors state. */
 (function(){
-  const STORAGE_KEY = 'mvnb.toursJumpBarCollapsed.v1';
+  const VALID = new Set(['bsd-road','flt-proof','cohomology','sets-to-topoi','sound-to-wavelets','local-global']);
+  const titleMap = {
+    'bsd-road':'1. The road to BSD',
+    'flt-proof':"2. How Fermat's Last Theorem was proved",
+    'cohomology':'3. What is cohomology?',
+    'sets-to-topoi':'4. From naive sets to ∞-topoi',
+    'sound-to-wavelets':'5. From sound to wavelets',
+    'local-global':'6. The local–global principle'
+  };
+  const colorMap = {
+    'bsd-road':'cyan','flt-proof':'yellow','cohomology':'violet',
+    'sets-to-topoi':'green','sound-to-wavelets':'pink','local-global':'blue'
+  };
+  function showTour(id, opts){
+    const valid = id && VALID.has(id);
+    document.querySelectorAll('section.tour').forEach(s => {
+      s.classList.toggle('is-active', valid && s.id === id);
+    });
+    document.body.classList.toggle('tour-active', valid);
+    if(valid){
+      const crumb = document.getElementById('crumb-title');
+      if(crumb){
+        crumb.textContent = titleMap[id] || id;
+        crumb.style.setProperty('--accent', `var(--${colorMap[id]})`);
+        crumb.style.color = `var(--${colorMap[id]})`;
+      }
+      if(!opts || opts.updateHash !== false){
+        history.replaceState(null,'','#'+id);
+      }
+      window.scrollTo({top:0, behavior:'instant'});
+    } else {
+      if(!opts || opts.updateHash !== false){
+        history.replaceState(null,'',location.pathname);
+      }
+      window.scrollTo({top:0, behavior:'instant'});
+    }
+  }
   function init(){
-    const bar = document.querySelector('.section-jump');
-    const sentinel = document.querySelector('.sj-sentinel');
-    if(!bar) return;
-    if(sentinel && typeof IntersectionObserver === 'function'){
-      const io = new IntersectionObserver(entries => {
-        for(const e of entries) bar.classList.toggle('stuck', !e.isIntersecting);
-      }, { threshold: [0, 1] });
-      io.observe(sentinel);
-    }
-    const toggle = bar.querySelector('.sj-toggle');
-    if(!toggle) return;
-    function applyCollapsed(c){
-      bar.classList.toggle('is-collapsed', c);
-      toggle.setAttribute('aria-expanded', c ? 'false' : 'true');
-      toggle.textContent = c ? 'Show' : 'Hide';
-    }
-    let initial = false;
-    try { initial = localStorage.getItem(STORAGE_KEY) === '1'; } catch(_){}
-    applyCollapsed(initial);
-    toggle.addEventListener('click', () => {
-      const next = !bar.classList.contains('is-collapsed');
-      applyCollapsed(next);
-      try { next ? localStorage.setItem(STORAGE_KEY,'1') : localStorage.removeItem(STORAGE_KEY); } catch(_){}
+    document.querySelectorAll('.tour-card').forEach(card => {
+      card.addEventListener('click', e => {
+        e.preventDefault();
+        const id = card.dataset.tour;
+        if(id) showTour(id);
+      });
+    });
+    const back = document.querySelector('#tour-back .back-btn');
+    if(back) back.addEventListener('click', () => showTour(null));
+    const initial = (location.hash || '').replace(/^#/,'');
+    if(initial && VALID.has(initial)) showTour(initial, {updateHash:false});
+    window.addEventListener('hashchange', () => {
+      const h = (location.hash || '').replace(/^#/,'');
+      if(VALID.has(h)) showTour(h, {updateHash:false});
+      else showTour(null, {updateHash:false});
+    });
+    document.addEventListener('keydown', e => {
+      if(e.key === 'Escape' && document.body.classList.contains('tour-active')){
+        showTour(null);
+      }
     });
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
@@ -668,7 +940,10 @@ const SVG = (tag,attrs={})=>{
   <summary>changelog</summary>
   <table>
     <tbody>
-      <tr><td>2026-04-27</td><td>initial version</td></tr>
+      <tr><td>2026-05-02</td><td>Cheatsheet nav demote + tours page redesign with chip-bar + summary cards (#59)</td></tr>
+      <tr><td>2026-05-01</td><td>Refactor + corpus expansion: sidetoc, hamiltonians-figure, inline-widget migration, content materialization, graduate CA, +12 grad concepts (#45)</td></tr>
+      <tr><td>2026-04-28</td><td>Fix sidetoc KaTeX double-render (closes #39, #42; partial #38) (#43)</td></tr>
+      <tr><td>2026-04-27</td><td>Sweep: build-time speedup, compass+quintic polish, tours, slug adoptions, hub growth, capstone fattening, inline migration (#41)</td></tr>
     </tbody>
   </table>
 </details>
