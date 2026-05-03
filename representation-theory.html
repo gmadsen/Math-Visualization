@@ -1554,7 +1554,7 @@ function innerProd(group, chiA, chiB){
     c.pts.forEach(([x,y],i)=>{
       const g = SVG('g',{style:'cursor:pointer'});
       const circ = SVG('circle',{cx:x,cy:y,r:18, fill:'var(--panel2)', stroke:c.color[i],'stroke-width':1.8});
-      const t = SVG('text',{x,y:y+5,'text-anchor':'middle','font-size':12,fill:'#fff','font-weight':600});
+      const t = SVG('text',{x,y:y+5,'text-anchor':'middle','font-size':12,fill:'var(--ink)','font-weight':600});
       t.textContent = c.labels[i];
       g.appendChild(circ); g.appendChild(t);
       g.addEventListener('click',()=>{
@@ -1597,7 +1597,7 @@ function innerProd(group, chiA, chiB){
     for(let i=0;i<N;i++){
       for(let j=0;j<N;j++){
         svg.appendChild(SVG('rect',{x:x0+i*cellSize, y:y0+j*cellSize, width:cellSize, height:cellSize,
-          fill:'#0b0f16', stroke:'var(--line)','stroke-width':0.5}));
+          fill:'var(--bg)', stroke:'var(--line)','stroke-width':0.5}));
       }
     }
     // Block-diagonal view: one block of size (dim V_λ)·(dim V_λ) repeated dim V_λ times for each λ
@@ -1705,7 +1705,7 @@ function innerProd(group, chiA, chiB){
     let prod = 1;
     for(let i=0;i<rows;i++){
       for(let j=0;j<lam[i];j++){
-        svg.appendChild(SVG('rect',{x:6+j*sz,y:6+i*sz,width:sz,height:sz,fill:'#0b0f16',stroke:'var(--line)','stroke-width':1}));
+        svg.appendChild(SVG('rect',{x:6+j*sz,y:6+i*sz,width:sz,height:sz,fill:'var(--bg)',stroke:'var(--line)','stroke-width':1}));
         const h = hook(lam,i,j);
         const t = SVG('text',{x:6+j*sz+sz/2,y:6+i*sz+sz/2+5,'text-anchor':'middle','font-size':14,fill:'var(--green)'});
         t.textContent = h; prod *= h;
@@ -1723,7 +1723,7 @@ function innerProd(group, chiA, chiB){
     const svg = SVG('svg',{viewBox:`0 0 ${W} ${H}`, width:W, height:H});
     for(let i=0;i<rows;i++){
       for(let j=0;j<lam[i];j++){
-        svg.appendChild(SVG('rect',{x:3+j*sz,y:3+i*sz,width:sz,height:sz,fill:'#0b0f16',stroke:'var(--line)','stroke-width':1}));
+        svg.appendChild(SVG('rect',{x:3+j*sz,y:3+i*sz,width:sz,height:sz,fill:'var(--bg)',stroke:'var(--line)','stroke-width':1}));
         const t = SVG('text',{x:3+j*sz+sz/2,y:3+i*sz+sz/2+5,'text-anchor':'middle','font-size':13,fill:'var(--yellow)','font-weight':600});
         t.textContent = filling[i][j];
         svg.appendChild(t);

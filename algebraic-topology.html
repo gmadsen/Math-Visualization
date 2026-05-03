@@ -379,7 +379,7 @@ function matMul(A,B){
   function draw(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     // left pane: gridded square
-    svg.appendChild(SVG('rect',{x:20,y:30,width:400,height:300,fill:'#0b0f16',stroke:'var(--line)',rx:8}));
+    svg.appendChild(SVG('rect',{x:20,y:30,width:400,height:300,fill:'var(--bg)',stroke:'var(--line)',rx:8}));
     // circle
     svg.appendChild(SVG('circle',{cx:cxL,cy:cyL,r:R,fill:'none',stroke:'var(--blue)','stroke-width':2,'stroke-opacity':0.7}));
     // basepoint
@@ -389,7 +389,7 @@ function matMul(A,B){
     svg.appendChild(SVG('line',{x1:cxL,y1:30,x2:cxL,y2:330,stroke:'#1c2230'}));
 
     // right pane
-    svg.appendChild(SVG('rect',{x:xR0,y:30,width:xR1-xR0,height:300,fill:'#0b0f16',stroke:'var(--line)',rx:8}));
+    svg.appendChild(SVG('rect',{x:xR0,y:30,width:xR1-xR0,height:300,fill:'var(--bg)',stroke:'var(--line)',rx:8}));
     // horizontal grid lines at integer values of θ/(2π): -3..3
     for(let k=-3;k<=3;k++){
       const y = yRmid - k*yRscale;
@@ -400,8 +400,8 @@ function matMul(A,B){
       svg.appendChild(lab);
     }
     // titles
-    const t1 = SVG('text',{x:30,y:22,'font-size':13,fill:'#fff','font-weight':600}); t1.textContent='path on S¹ (drag to draw)'; svg.appendChild(t1);
-    const t2 = SVG('text',{x:xR0+10,y:22,'font-size':13,fill:'#fff','font-weight':600}); t2.textContent='continuous lift θ/2π to ℝ'; svg.appendChild(t2);
+    const t1 = SVG('text',{x:30,y:22,'font-size':13,fill:'var(--ink)','font-weight':600}); t1.textContent='path on S¹ (drag to draw)'; svg.appendChild(t1);
+    const t2 = SVG('text',{x:xR0+10,y:22,'font-size':13,fill:'var(--ink)','font-weight':600}); t2.textContent='continuous lift θ/2π to ℝ'; svg.appendChild(t2);
 
     if(pts.length<2){
       const hint = SVG('text',{x:220,y:cyL+170,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
@@ -648,7 +648,7 @@ function matMul(A,B){
     const ang = 2*Math.PI*t;
     const px = cxL + Rc*Math.cos(ang), py = cyL - Rc*Math.sin(ang);
     svg.appendChild(SVG('circle',{cx:px,cy:py,r:7,fill:'var(--pink)',stroke:'#111','stroke-width':1.5}));
-    const lbl1 = SVG('text',{x:cxL,y:cyL+Rc+30,'text-anchor':'middle','font-size':13,fill:'#fff'}); lbl1.textContent='S¹ = ℝ/ℤ'; svg.appendChild(lbl1);
+    const lbl1 = SVG('text',{x:cxL,y:cyL+Rc+30,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}); lbl1.textContent='S¹ = ℝ/ℤ'; svg.appendChild(lbl1);
 
     // arrow between panes
     const arrow = SVG('text',{x:360,y:cyL+4,'font-size':20,fill:'var(--mute)','text-anchor':'middle'}); arrow.textContent='← p'; svg.appendChild(arrow);
@@ -680,7 +680,7 @@ function matMul(A,B){
       lb.textContent = `${n}`;
       svg.appendChild(lb);
     }
-    const lblR = SVG('text',{x:helixCx-helixRad-30,y:yTop-10,'text-anchor':'end','font-size':13,fill:'#fff'}); lblR.textContent='ℝ'; svg.appendChild(lblR);
+    const lblR = SVG('text',{x:helixCx-helixRad-30,y:yTop-10,'text-anchor':'end','font-size':13,fill:'var(--ink)'}); lblR.textContent='ℝ'; svg.appendChild(lblR);
 
     // helix path
     let d='';
@@ -726,7 +726,7 @@ function matMul(A,B){
     // labels a, b
     const la = SVG('text',{x:cxA-rA+6,y:cyA-rA-6,'font-size':14,fill:'var(--blue)','font-weight':700}); la.textContent='a'; svg.appendChild(la);
     const lb = SVG('text',{x:cxB+rB-14,y:cyA-rA-6,'font-size':14,fill:'var(--pink)','font-weight':700}); lb.textContent='b'; svg.appendChild(lb);
-    const lf = SVG('text',{x:cxA+rA,y:cyA+rA+24,'text-anchor':'middle','font-size':13,fill:'#fff'}); lf.textContent='S¹ ∨ S¹'; svg.appendChild(lf);
+    const lf = SVG('text',{x:cxA+rA,y:cyA+rA+24,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}); lf.textContent='S¹ ∨ S¹'; svg.appendChild(lf);
 
     // Right pane: infinite 4-valent tree (Cayley graph of F_2)
     // root at (cx, cy), 4 children labeled a, a^{-1}, b, b^{-1}
@@ -756,7 +756,7 @@ function matMul(A,B){
     // center marker
     svg.appendChild(SVG('circle',{cx:cxT,cy:cyT,r:6,fill:'var(--yellow)',stroke:'#111','stroke-width':1.5}));
     drawNode(cxT,cyT,depth,null,baseLen);
-    const lblT = SVG('text',{x:cxT,y:35,'text-anchor':'middle','font-size':13,fill:'#fff'}); lblT.textContent='universal cover = 4-valent tree'; svg.appendChild(lblT);
+    const lblT = SVG('text',{x:cxT,y:35,'text-anchor':'middle','font-size':13,fill:'var(--ink)'}); lblT.textContent='universal cover = 4-valent tree'; svg.appendChild(lblT);
 
     // arrow
     const arrow = SVG('text',{x:340,y:cyA+4,'font-size':20,fill:'var(--mute)','text-anchor':'middle'}); arrow.textContent='← p'; svg.appendChild(arrow);
@@ -990,7 +990,7 @@ function matMul(A,B){
 
   function draw(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
-    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'#0b0f16'}));
+    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'var(--bg)'}));
     // faces
     for(const [a,b,c] of F){
       const [xa,ya]=V[a], [xb,yb]=V[b], [xc,yc]=V[c];
@@ -1310,7 +1310,7 @@ The left side is a local analytic invariant (curvature integrated); the right si
 
   function drawShape(k,S,chi){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
-    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'#0b0f16'}));
+    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'var(--bg)'}));
     // left half: schematic picture; right half: bar chart of V, E, F
     const cxL=200, cyL=H/2;
 
@@ -1341,7 +1341,7 @@ The left side is a local analytic invariant (curvature integrated); the right si
       svg.appendChild(SVG('rect',{x:bx,y:Math.min(baseY,baseY-bh),width:barW,height:Math.abs(bh),fill:v.col,'fill-opacity':0.75}));
       const lab = SVG('text',{x:bx+barW/2,y:baseY+20,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});
       lab.textContent=v.lab; svg.appendChild(lab);
-      const valT = SVG('text',{x:bx+barW/2,y:(bh<0?baseY-bh+16:baseY-bh-5),'text-anchor':'middle','font-size':13,fill:'#fff','font-weight':600});
+      const valT = SVG('text',{x:bx+barW/2,y:(bh<0?baseY-bh+16:baseY-bh-5),'text-anchor':'middle','font-size':13,fill:'var(--ink)','font-weight':600});
       valT.textContent=v.val; svg.appendChild(valT);
     }
     // axis

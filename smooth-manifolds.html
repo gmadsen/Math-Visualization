@@ -352,7 +352,7 @@ $$\varphi_\beta\circ\varphi_\alpha^{-1}\colon \varphi_\alpha(U_\alpha\cap U_\bet
     // left panel: sphere
     const cx1=140, cy1=160, R=110;
     // axonometric ellipse hint for sphere
-    svg.appendChild(SVG('circle',{cx:cx1,cy:cy1,r:R,fill:'#0b0f16',stroke:'var(--line)','stroke-width':1.5}));
+    svg.appendChild(SVG('circle',{cx:cx1,cy:cy1,r:R,fill:'var(--bg)',stroke:'var(--line)','stroke-width':1.5}));
     svg.appendChild(SVG('ellipse',{cx:cx1,cy:cy1,rx:R,ry:R*0.32,fill:'none',stroke:'var(--line)','stroke-dasharray':'3 4'}));
     svg.appendChild(SVG('ellipse',{cx:cx1,cy:cy1,rx:R*0.7,ry:R*0.22,fill:'none',stroke:'var(--line)','stroke-dasharray':'3 4'}));
     svg.appendChild(SVG('ellipse',{cx:cx1,cy:cy1,rx:R*0.4,ry:R*0.12,fill:'none',stroke:'var(--line)','stroke-dasharray':'3 4'}));
@@ -381,7 +381,7 @@ $$\varphi_\beta\circ\varphi_\alpha^{-1}\colon \varphi_\alpha(U_\alpha\cap U_\bet
 
     // middle panel: north chart disk
     const cx2=440, cy2=160, Rc=100;
-    svg.appendChild(SVG('rect',{x:cx2-Rc-10,y:cy2-Rc-10,width:(Rc+10)*2,height:(Rc+10)*2,fill:'#0b0f16',stroke:'var(--line)',rx:6}));
+    svg.appendChild(SVG('rect',{x:cx2-Rc-10,y:cy2-Rc-10,width:(Rc+10)*2,height:(Rc+10)*2,fill:'var(--bg)',stroke:'var(--line)',rx:6}));
     svg.appendChild(SVG('circle',{cx:cx2,cy:cy2,r:Rc,fill:'none',stroke:'var(--line)','stroke-dasharray':'2 4'}));
     // crosshair
     svg.appendChild(SVG('line',{x1:cx2-Rc-4,y1:cy2,x2:cx2+Rc+4,y2:cy2,stroke:'var(--line)'}));
@@ -407,7 +407,7 @@ $$\varphi_\beta\circ\varphi_\alpha^{-1}\colon \varphi_\alpha(U_\alpha\cap U_\bet
 
     // right panel: south chart
     const cx3=720, cy3=160;
-    svg.appendChild(SVG('rect',{x:cx3-Rc-10,y:cy3-Rc-10,width:(Rc+10)*2,height:(Rc+10)*2,fill:'#0b0f16',stroke:'var(--line)',rx:6}));
+    svg.appendChild(SVG('rect',{x:cx3-Rc-10,y:cy3-Rc-10,width:(Rc+10)*2,height:(Rc+10)*2,fill:'var(--bg)',stroke:'var(--line)',rx:6}));
     svg.appendChild(SVG('circle',{cx:cx3,cy:cy3,r:Rc,fill:'none',stroke:'var(--line)','stroke-dasharray':'2 4'}));
     svg.appendChild(SVG('line',{x1:cx3-Rc-4,y1:cy3,x2:cx3+Rc+4,y2:cy3,stroke:'var(--line)'}));
     svg.appendChild(SVG('line',{x1:cx3,y1:cy3-Rc-4,x2:cx3,y2:cy3+Rc+4,stroke:'var(--line)'}));
@@ -553,7 +553,7 @@ $$df_p\colon T_pM\to T_{f(p)}N,\qquad df_p(v) = \text{"$v$ pushed through $f$"}.
     const F = FUN[key];
     // domain panel
     const dx=40, dy=30, dw=340, dh=300;
-    svg.appendChild(SVG('rect',{x:dx,y:dy,width:dw,height:dh,fill:'#0b0f16',stroke:'var(--line)',rx:6}));
+    svg.appendChild(SVG('rect',{x:dx,y:dy,width:dw,height:dh,fill:'var(--bg)',stroke:'var(--line)',rx:6}));
     const cx=dx+dw/2, cy=dy+dh/2, S=dw/4.2; // scale so x,y in [-2,2]
     // axes
     svg.appendChild(SVG('line',{x1:dx,y1:cy,x2:dx+dw,y2:cy,stroke:'var(--line)'}));
@@ -572,7 +572,7 @@ $$df_p\colon T_pM\to T_{f(p)}N,\qquad df_p(v) = \text{"$v$ pushed through $f$"}.
     }
     // image panel
     const rx=dx+dw+40, ry=dy, rw=340, rh=300;
-    svg.appendChild(SVG('rect',{x:rx,y:ry,width:rw,height:rh,fill:'#0b0f16',stroke:'var(--line)',rx:6}));
+    svg.appendChild(SVG('rect',{x:rx,y:ry,width:rw,height:rh,fill:'var(--bg)',stroke:'var(--line)',rx:6}));
     const rcx=rx+rw/2, rcy=ry+rh/2, RS=rw/8.5;
     svg.appendChild(SVG('line',{x1:rx,y1:rcy,x2:rx+rw,y2:rcy,stroke:'var(--line)'}));
     svg.appendChild(SVG('line',{x1:rcx,y1:ry,x2:rcx,y2:ry+rh,stroke:'var(--line)'}));
@@ -909,7 +909,7 @@ $$X = X^i(x)\,\frac{\partial}{\partial x^i},$$
     svg.innerHTML = '';
     const cx=400, cy=190, R=140;
     // sphere outline
-    svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'#0b0f16',stroke:'var(--line)'}));
+    svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'var(--bg)',stroke:'var(--line)'}));
     // latitude lines
     for(let phi=-60; phi<=60; phi+=30){
       const ph = phi*Math.PI/180;
@@ -1089,7 +1089,7 @@ $$X_p = \frac{d}{dt}\bigg|_{t=0}\Phi_t(p) \in T_pM.$$
     const t = +tSl.value / 50; // [−2, 2]
     tLbl.textContent = `t = ${fmt(t)}`;
     const dx=40, dy=30, dw=440, dh=300;
-    svg.appendChild(SVG('rect',{x:dx,y:dy,width:dw,height:dh,fill:'#0b0f16',stroke:'var(--line)',rx:6}));
+    svg.appendChild(SVG('rect',{x:dx,y:dy,width:dw,height:dh,fill:'var(--bg)',stroke:'var(--line)',rx:6}));
     const cx=dx+dw/2, cy=dy+dh/2, S=70;
     svg.appendChild(SVG('line',{x1:dx,y1:cy,x2:dx+dw,y2:cy,stroke:'var(--line)'}));
     svg.appendChild(SVG('line',{x1:cx,y1:dy,x2:cx,y2:dy+dh,stroke:'var(--line)'}));
@@ -1237,7 +1237,7 @@ $$\Phi^{-Y}_t\circ\Phi^{-X}_t\circ\Phi^Y_t\circ\Phi^X_t(p) \;=\; p + t^2\,[X,Y]_
     svg.innerHTML = '';
     const t = +tSl.value / 50; // t in [0.1, 1.9]
     const dx=60, dy=30, dw=440, dh=300;
-    svg.appendChild(SVG('rect',{x:dx,y:dy,width:dw,height:dh,fill:'#0b0f16',stroke:'var(--line)',rx:6}));
+    svg.appendChild(SVG('rect',{x:dx,y:dy,width:dw,height:dh,fill:'var(--bg)',stroke:'var(--line)',rx:6}));
     const cx=dx+dw/2, cy=dy+dh/2, S=70;
     svg.appendChild(SVG('line',{x1:dx,y1:cy,x2:dx+dw,y2:cy,stroke:'var(--line)'}));
     svg.appendChild(SVG('line',{x1:cx,y1:dy,x2:cx,y2:dy+dh,stroke:'var(--line)'}));
@@ -1385,7 +1385,7 @@ $$\Phi^{-Y}_t\circ\Phi^{-X}_t\circ\Phi^Y_t\circ\Phi^X_t(p) \;=\; p + t^2\,[X,Y]_
 /* § immersions/embedding widget */
 (function(){
   function mkAxes(svg){
-    svg.appendChild(SVG('rect',{x:6,y:6,width:228,height:188,fill:'#0b0f16',stroke:'var(--line)',rx:6}));
+    svg.appendChild(SVG('rect',{x:6,y:6,width:228,height:188,fill:'var(--bg)',stroke:'var(--line)',rx:6}));
     svg.appendChild(SVG('line',{x1:6,y1:100,x2:234,y2:100,stroke:'var(--line)','stroke-dasharray':'2 4'}));
     svg.appendChild(SVG('line',{x1:120,y1:6,x2:120,y2:194,stroke:'var(--line)','stroke-dasharray':'2 4'}));
   }
@@ -1495,7 +1495,7 @@ $$b(x) = \begin{cases} e^{-1/(1-\|x\|^2)} & \|x\|<1,\\ 0 & \|x\|\ge 1,\end{cases
   function draw(){
     svg.innerHTML = '';
     const dx=40, dy=20, dw=740, dh=240;
-    svg.appendChild(SVG('rect',{x:dx, y:dy, width:dw, height:dh, fill:'#0b0f16', stroke:'var(--line)', rx:6}));
+    svg.appendChild(SVG('rect',{x:dx, y:dy, width:dw, height:dh, fill:'var(--bg)', stroke:'var(--line)', rx:6}));
     // axes: x ∈ [-2, 2], y ∈ [0, 1.2]
     const xmin=-2, xmax=2, ymin=0, ymax=1.25;
     const X = x => dx + (x - xmin)/(xmax - xmin) * dw;
@@ -1627,7 +1627,7 @@ $$b(x) = \begin{cases} e^{-1/(1-\|x\|^2)} & \|x\|<1,\\ 0 & \|x\|\ge 1,\end{cases
     svg.innerHTML = '';
     const w=380, h=260, cx=w/2, cy=h/2, R=80;
     // background
-    svg.appendChild(SVG('rect',{x:4, y:4, width:w-8, height:h-8, fill:'#0b0f16', stroke:'var(--line)', rx:6}));
+    svg.appendChild(SVG('rect',{x:4, y:4, width:w-8, height:h-8, fill:'var(--bg)', stroke:'var(--line)', rx:6}));
     // core circle (isometric ellipse)
     svg.appendChild(SVG('ellipse',{cx, cy, rx:R, ry:R*0.38, fill:'none', stroke:'var(--line)', 'stroke-dasharray':'3 5'}));
     // strip outline: two curves at s=+1 and s=-1 (for cylinder); for möbius, s=+1 and s=-1 swap over a twist

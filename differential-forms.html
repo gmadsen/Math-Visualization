@@ -729,7 +729,7 @@ function drawNode(svg, x, y, label, opts={}){
       const y = -1.5 + (j+0.5)*(3/ny);
       const sx = i*cellW, sy = (ny-1-j)*cellH;
       if(pick.value==='angle' && Math.hypot(x,y)<0.15){
-        svg.appendChild(SVG('rect',{x:sx,y:sy,width:cellW,height:cellH,fill:'#0b0f16',stroke:'#2a3242'}));
+        svg.appendChild(SVG('rect',{x:sx,y:sy,width:cellW,height:cellH,fill:'var(--bg)',stroke:'#2a3242'}));
         continue;
       }
       const v = F.dcoef(x,y);

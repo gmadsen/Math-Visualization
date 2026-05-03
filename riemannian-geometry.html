@@ -390,7 +390,7 @@ The inverse matrix is written $g^{ij}$ and used to raise indices; $(g_{ij})$ and
     const kind = sel.value;
     const dom = domainOf(kind);
     // background
-    const bg = SVG('rect',{x:0,y:0,width:W,height:H,fill:'#0b0f16'});
+    const bg = SVG('rect',{x:0,y:0,width:W,height:H,fill:'var(--bg)'});
     svg.appendChild(bg);
     // draw grid points as small ellipses representing the unit ball of g
     // base step in each coordinate
@@ -643,7 +643,7 @@ This is a linear first-order ODE in the components of $V$; given $V(0)\in T_{\ga
   function render(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     // sphere disk
-    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'#0b0f16'}));
+    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'var(--bg)'}));
     svg.appendChild(SVG('circle',{cx:CX,cy:CY,r:R,fill:'rgba(88,196,221,0.06)',stroke:'var(--line)','stroke-width':1}));
     // latitude lines for decoration
     for(let k=1;k<6;k++){
@@ -907,7 +907,7 @@ This is a local diffeomorphism from a neighbourhood of $0\in T_p M$ onto a neigh
   // ---------- RENDER ----------
   function clearSvg(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
-    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'#0b0f16'}));
+    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'var(--bg)'}));
   }
 
   function drawSphereBg(){
@@ -1222,7 +1222,7 @@ This depends only on $\Pi$, not the chosen basis. In dimension $2$, $K$ equals t
   const W=620, H=220;
   function render(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
-    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'#0b0f16'}));
+    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'var(--bg)'}));
     const uA = (+ua.value)*Math.PI/180, vA = (+va.value)*Math.PI/180;
     const CX=180, CY=110, RR=72;
     // tangent plane illustration
@@ -1481,7 +1481,7 @@ In particular, on a constant-curvature surface with $K = \kappa$, the <em>excess
   let drag = null;
   function clearSvg(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
-    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'#0b0f16'}));
+    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'var(--bg)'}));
   }
   function render(){
     clearSvg();
@@ -1679,7 +1679,7 @@ Positive curvature gives sinusoidal behaviour &mdash; neighbours <em>refocus</em
   }
   function render(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
-    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'#0b0f16'}));
+    svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'var(--bg)'}));
     const d = +dEl.value;
     dVv.textContent = `δ = ${d.toFixed(2)} rad`;
     // sphere
@@ -1829,7 +1829,7 @@ for some $\kappa>0$, then $M$ is compact, and $\operatorname{diam}(M)\le \pi/\sq
   const W=660, H=260;
   const PW = W/3;
   while(svg.firstChild) svg.removeChild(svg.firstChild);
-  svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'#0b0f16'}));
+  svg.appendChild(SVG('rect',{x:0,y:0,width:W,height:H,fill:'var(--bg)'}));
   for(let k=1;k<3;k++){
     svg.appendChild(SVG('line',{x1:k*PW, y1:10, x2:k*PW, y2:H-10, stroke:'var(--line)'}));
   }

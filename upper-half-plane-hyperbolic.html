@@ -298,7 +298,7 @@ function ensureArrow(svg, id, color){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     // background
     svg.appendChild(SVG('rect',{x:padL,y:padT,width:W-padL-padR,height:H-padT-padB,
-      fill:'#0b0f16',stroke:'var(--line)'}));
+      fill:'var(--bg)',stroke:'var(--line)'}));
     // axes
     const ax = SVG('line',{x1:padL,x2:W-padR,y1:Y(yMin),y2:Y(yMin),stroke:'var(--pink)','stroke-width':2});
     svg.appendChild(ax);
@@ -407,7 +407,7 @@ function ensureArrow(svg, id, color){
   function drawBg(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     svg.appendChild(SVG('rect',{x:padL,y:padT,width:plotW,height:plotH,
-      fill:'#0b0f16',stroke:'var(--line)'}));
+      fill:'var(--bg)',stroke:'var(--line)'}));
     // real axis
     svg.appendChild(SVG('line',{x1:padL,x2:W-padR,y1:Y(0),y2:Y(0),stroke:'var(--pink)','stroke-width':2}));
     // grid
@@ -561,7 +561,7 @@ function ensureArrow(svg, id, color){
   function draw(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     svg.appendChild(SVG('rect',{x:padL,y:padT,width:plotW,height:plotH,
-      fill:'#0b0f16',stroke:'var(--line)'}));
+      fill:'var(--bg)',stroke:'var(--line)'}));
     svg.appendChild(SVG('line',{x1:padL,x2:W-padR,y1:Y(0),y2:Y(0),
       stroke:'var(--pink)','stroke-width':2}));
     for(let gx=-3;gx<=3;gx++) svg.appendChild(SVG('line',{x1:X(gx),x2:X(gx),y1:padT,y2:Y(0),
@@ -705,7 +705,7 @@ function ensureArrow(svg, id, color){
   function draw(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     svg.appendChild(SVG('rect',{x:padL,y:padT,width:plotW,height:plotH,
-      fill:'#0b0f16',stroke:'var(--line)'}));
+      fill:'var(--bg)',stroke:'var(--line)'}));
     svg.appendChild(SVG('line',{x1:padL,x2:W-padR,y1:Y(0),y2:Y(0),stroke:'var(--pink)','stroke-width':2}));
 
     const u = parseFloat(par.value);
@@ -882,7 +882,7 @@ $\operatorname{area}(\Delta) \;=\; \pi - (\alpha + \beta + \gamma).$</div>
   function draw(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     svg.appendChild(SVG('rect',{x:padL,y:padT,width:plotW,height:plotH,
-      fill:'#0b0f16',stroke:'var(--line)'}));
+      fill:'var(--bg)',stroke:'var(--line)'}));
     svg.appendChild(SVG('line',{x1:padL,x2:W-padR,y1:Y(0),y2:Y(0),stroke:'var(--pink)','stroke-width':2}));
 
     // complete geodesics (dashed)
@@ -1185,7 +1185,7 @@ are called <strong>modular forms of weight $k$</strong>. They descend to section
   function draw(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     svg.appendChild(SVG('rect',{x:padL,y:padT,width:plotW,height:plotH,
-      fill:'#0b0f16',stroke:'var(--line)'}));
+      fill:'var(--bg)',stroke:'var(--line)'}));
     svg.appendChild(SVG('line',{x1:padL,x2:W-padR,y1:Y(0),y2:Y(0),stroke:'var(--pink)','stroke-width':2}));
     // unit circle (reference)
     const N=100;

@@ -508,7 +508,7 @@ where $U_{i_0 \cdots i_n} := U_{i_0} \cap \cdots \cap U_{i_n}$. For a sheaf, the
       const ok = P.v[0]===P.v[1];
       if(!ok){ anyBad = true; issues.push(`${P.lab}: ${P.v[0]} ≠ ${P.v[1]}`); }
       const c = ok? 'var(--green)' : 'var(--pink)';
-      svg.appendChild(SVG('circle',{cx:P.pos[0],cy:P.pos[1],r:14,fill:'#0b0f16',stroke:c,'stroke-width':2}));
+      svg.appendChild(SVG('circle',{cx:P.pos[0],cy:P.pos[1],r:14,fill:'var(--bg)',stroke:c,'stroke-width':2}));
       const t = SVG('text',{x:P.pos[0],y:P.pos[1]+5,'text-anchor':'middle','font-size':13,fill:c,'font-weight':700});
       t.textContent = ok? '✓' : '✗';
       svg.appendChild(t);
@@ -1244,9 +1244,9 @@ On $X = \mathbb{C}^\times$, the coboundary $\mathcal{O}_X^\times(X) \to H^1(X, \
   // Disc on the left
   function drawPanel(cx, label, ok, caption){
     // box
-    svg.appendChild(SVG('rect',{x:cx-130,y:30,width:260,height:160,fill:'#0b0f16',stroke:'var(--line)','stroke-width':1,rx:6}));
+    svg.appendChild(SVG('rect',{x:cx-130,y:30,width:260,height:160,fill:'var(--bg)',stroke:'var(--line)','stroke-width':1,rx:6}));
     // header
-    const t = SVG('text',{x:cx,y:22,'text-anchor':'middle','font-size':13,fill:'#fff','font-weight':600});
+    const t = SVG('text',{x:cx,y:22,'text-anchor':'middle','font-size':13,fill:'var(--ink)','font-weight':600});
     t.textContent = label;
     svg.appendChild(t);
     // exp arrow
@@ -1395,7 +1395,7 @@ A section over $U$ is a choice of germ at each point that is locally represented
       svg.appendChild(t);
     });
     // X = U ⊔ V label
-    const xt = SVG('text',{x:310,y:30,'text-anchor':'middle','font-size':13,fill:'#fff','font-weight':600});
+    const xt = SVG('text',{x:310,y:30,'text-anchor':'middle','font-size':13,fill:'var(--ink)','font-weight':600});
     xt.textContent = 'X = U ⊔ V';
     svg.appendChild(xt);
 

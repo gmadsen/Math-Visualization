@@ -653,7 +653,7 @@ $$F \text{ representable by } \Spec A \quad\Longleftrightarrow\quad F(R) \cong \
     svg.appendChild(SVG('rect',{x,y,width:w,height:h,rx:10,fill:'#11151d',stroke:'var(--line)'}));
     // ring node
     svg.appendChild(SVG('circle',{cx:x+w/2, cy:y+55, r:22, fill:'var(--panel2)',stroke:'var(--blue)'}));
-    const t = SVG('text',{x:x+w/2, y:y+60,'text-anchor':'middle','font-size':15,fill:'#fff'});
+    const t = SVG('text',{x:x+w/2, y:y+60,'text-anchor':'middle','font-size':15,fill:'var(--ink)'});
     t.textContent = R.name; svg.appendChild(t);
     const lab = SVG('text',{x:x+w/2, y:y+95,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
     lab.textContent = 'ring'; svg.appendChild(lab);

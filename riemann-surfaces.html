@@ -351,7 +351,7 @@ function drawNode(svg, x, y, label, opts={}){
 
   // plane frame
   const planeBox = SVG('rect',{x:planeCX-planeR-10,y:planeCY-planeR-10,width:2*planeR+20,height:2*planeR+20,
-    fill:'#0b0f16',stroke:'var(--line)','stroke-width':1,rx:6});
+    fill:'var(--bg)',stroke:'var(--line)','stroke-width':1,rx:6});
   svg.appendChild(planeBox);
   // axes
   svg.appendChild(SVG('line',{x1:planeCX-planeR,y1:planeCY,x2:planeCX+planeR,y2:planeCY,stroke:'var(--line)'}));
@@ -477,9 +477,9 @@ function drawNode(svg, x, y, label, opts={}){
   const hBaseY = hCY + 80; // real axis
   // frames
   svg.appendChild(SVG('rect',{x:cCX-cR-10,y:cCY-cR-10,width:2*cR+20,height:2*cR+20,
-    fill:'#0b0f16',stroke:'var(--line)',rx:6}));
+    fill:'var(--bg)',stroke:'var(--line)',rx:6}));
   svg.appendChild(SVG('rect',{x:hCX-hW,y:hCY-120,width:2*hW,height:200,
-    fill:'#0b0f16',stroke:'var(--line)',rx:6}));
+    fill:'var(--bg)',stroke:'var(--line)',rx:6}));
   // axes on left
   svg.appendChild(SVG('line',{x1:cCX-cR,y1:cCY,x2:cCX+cR,y2:cCY,stroke:'var(--line)'}));
   svg.appendChild(SVG('line',{x1:cCX,y1:cCY-cR,x2:cCX,y2:cCY+cR,stroke:'var(--line)'}));
@@ -690,7 +690,7 @@ function drawNode(svg, x, y, label, opts={}){
     svg.innerHTML = '';
     // frame
     svg.appendChild(SVG('rect',{x:cx-280,y:cy-120,width:560,height:260,
-      fill:'#0b0f16',stroke:'var(--line)',rx:6}));
+      fill:'var(--bg)',stroke:'var(--line)',rx:6}));
     // axes
     svg.appendChild(SVG('line',{x1:cx-260,y1:cy,x2:cx+260,y2:cy,stroke:'var(--line)'}));
     svg.appendChild(SVG('line',{x1:cx,y1:cy-110,x2:cx,y2:cy+110,stroke:'var(--line)'}));
@@ -1121,7 +1121,7 @@ Hence every Riemann surface $X$ is a quotient $\widetilde X / \Gamma$ where $\Ga
   const cx = 380, cy = 130, R = 80;
   // draw a torus-shape outline: big ellipse with inner hole ellipse (top-down)
   svg.appendChild(SVG('ellipse',{cx,cy,rx:R*2.1,ry:R*0.85,fill:'#101722',stroke:'var(--violet)','stroke-width':1.3}));
-  svg.appendChild(SVG('ellipse',{cx,cy,rx:R*0.85,ry:R*0.28,fill:'#0b0f16',stroke:'var(--violet)','stroke-width':1.0,'stroke-dasharray':'3 3'}));
+  svg.appendChild(SVG('ellipse',{cx,cy,rx:R*0.85,ry:R*0.28,fill:'var(--bg)',stroke:'var(--violet)','stroke-width':1.0,'stroke-dasharray':'3 3'}));
   const title = SVG('text',{x:cx,y:cy-R*0.92-8,'text-anchor':'middle','font-size':13,fill:'var(--mute)'});
   title.textContent = 'a compact Riemann surface (genus 1, top view)';
   svg.appendChild(title);
