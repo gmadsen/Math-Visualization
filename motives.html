@@ -1,0 +1,607 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Motives — universal cohomology and the Grothendieck dream</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\Corr':'\\operatorname{Corr}',
+        '\\CH':'\\operatorname{CH}',
+        '\\Mot':'\\mathsf{Mot}',
+        '\\dR':'\\mathrm{dR}',
+        '\\et':'\\text{ét}',
+        '\\cris':'\\mathrm{cris}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"automorphic-forms-adelic","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"additive-number-theory":{"next":"quadratic-forms-genus-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"advanced-complex-analysis":{"next":null,"prev":"fixed-point-theorems","section":"Analysis","title":"Advanced complex analysis"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"moduli-spaces","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"mathematics-and-cryptography","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"mostow-rigidity","prev":"k-theory","section":"Geometry & topology","title":"Atiyah–Singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"etale-cohomology","section":"Algebraic geometry","title":"Calabi–Yau manifolds"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-topoi","prev":"infinity-categories","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":null,"prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"deformation-theory":{"next":"etale-cohomology","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"group-cohomology","prev":"homological","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"expanders","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"harmonic-analysis-fourier","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":null,"section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":"calabi-yau-manifolds","prev":"deformation-theory","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"deformation-theory","prev":"group-schemes","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":null,"prev":"designs","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"naive-set-theory","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":"advanced-complex-analysis","prev":"variational-methods","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"type-theory-and-hott","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"quantum-groups","prev":"lie-algebras","section":"Algebra & homological","title":"Galois cohomology and Brauer groups"},"galois-representations":{"next":"heights-arithmetic-geometry","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"gauge-theory":{"next":"string-theory","prev":"statistical-mechanics","section":"Mathematical physics","title":"Gauge theory"},"general-relativity":{"next":"schrodinger-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":"groebner-bases","prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"groebner-bases":{"next":null,"prev":"geometric-and-combinatorial-group-theory","section":"Algebra & homological","title":"Gröbner bases"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"lie-algebras","prev":"derived-categories","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"etale-fundamental-group","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"hamiltonians-classical-mechanics":{"next":"general-relativity","prev":"three-body-problem","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"spectral-theory","prev":"partial-differential-equations","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"analytic-number-theory","prev":"galois-representations","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":null,"prev":"mathematical-statistics","section":"Probability & statistics","title":"High dimensional geometry"},"homological":{"next":"derived-categories","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"cocartesian-fibrations","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-topoi (Lurie)"},"information-theory":{"next":"large-deviations","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"stacks","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"ricci-flow","section":"Geometry & topology","title":"K-theory"},"knot-polynomials":{"next":"ricci-flow","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Knot polynomials"},"large-deviations":{"next":"mathematical-statistics","prev":"information-theory","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"galois-cohomology-and-brauer","prev":"group-cohomology","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"mathematical-statistics":{"next":"high-dimensional-geometry","prev":"large-deviations","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"mirror-symmetry":{"next":"resolution-of-singularities","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"model-theory-basics":{"next":"computability-and-decidability","prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"modular-curves","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"algebraic-spaces","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"characteristic-classes","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":null,"prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Mostow rigidity"},"motives":{"next":null,"prev":"resolution-of-singularities","section":"Algebraic geometry","title":"Motives"},"naive-set-theory":{"next":"first-order-logic-and-completeness","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"wavelets","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"harmonic-functions","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"stochastic-processes-and-martingales","prev":null,"section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"additive-number-theory","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"additive-number-theory","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"quantum-groups":{"next":"quaternions-octonions-and-division-algebras","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"quantum-groups","section":"Algebra & homological","title":"Quaternions, octonions, and division algebras"},"random-walks-and-mixing":{"next":"information-theory","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":"motives","prev":"mirror-symmetry","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"k-theory","prev":"knot-polynomials","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"characteristic-classes","prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":"statistical-mechanics","prev":"general-relativity","section":"Mathematical physics","title":"Schrödinger equation"},"sheaf-cohomology":{"next":"algebraic-de-rham-cohomology","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"algebraic-curves-higher-genus","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Sobolev spaces & distributions"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"wavelets","prev":"harmonic-functions","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"intersection-theory-chow","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"statistical-mechanics":{"next":"gauge-theory","prev":"schrodinger-equation","section":"Mathematical physics","title":"Statistical mechanics"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":"probability-theory","section":"Probability & statistics","title":"Stochastic processes and martingales"},"string-theory":{"next":null,"prev":"gauge-theory","section":"Mathematical physics","title":"String theory"},"symplectic-manifolds":{"next":"knot-polynomials","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"hamiltonians-classical-mechanics","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"type-theory-and-hott":{"next":"forcing-and-independence","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and HoTT"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"fixed-point-theorems","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":null,"prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"numerical-analysis","prev":"spectral-theory","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"model-theory-basics","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"ZFC and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="algebraic-geometry" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#cohomology-zoo">1&nbsp;The&nbsp;cohomology&nbsp;zoo&nbsp;and&nbsp;the&nbsp;realization&nbsp;problem</a>
+  <a href="#correspondences">2&nbsp;Correspondences&nbsp;as&nbsp;morphisms</a>
+  <a href="#chow-motives">3&nbsp;Pure&nbsp;Chow&nbsp;motives</a>
+  <a href="#tate-twist">4&nbsp;The&nbsp;Tate&nbsp;twist&nbsp;$\mathbb{Q}(n)$</a>
+  <a href="#tannakian">5&nbsp;Tannakian&nbsp;categories&nbsp;—&nbsp;representations&nbsp;of&nbsp;an&nbsp;invisible&nbsp;group</a>
+  <a href="#motivic-galois">6&nbsp;The&nbsp;motivic&nbsp;Galois&nbsp;group</a>
+  <a href="#realizations">7&nbsp;Realizations:&nbsp;how&nbsp;Betti,&nbsp;de&nbsp;Rham,&nbsp;ℓ-adic,&nbsp;crystalline&nbsp;all&nbsp;come&nbsp;from&nbsp;one&nbsp;motive</a>
+  <a href="#standard-conjectures">8&nbsp;The&nbsp;standard&nbsp;conjectures&nbsp;and&nbsp;the&nbsp;road&nbsp;forward</a>
+  <a href="#connections">9&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Motives</h1>
+  <p class="sub">Algebraic geometry has many cohomology theories — Betti, de Rham, $\ell$-adic étale, crystalline — that compute different invariants of the same variety yet share an uncannily parallel formal structure. Motives are Grothendieck's conjectural answer to <em>why</em>: a universal cohomology that all the rest are realizations of, with a Galois group acting on it that subsumes the classical $\Gal(\overline{\mathbb{Q}}/\mathbb{Q})$. Half conjecture, half organising principle, the framework underwrites the Hodge conjecture, the Tate conjecture, and large stretches of the Langlands program.</p>
+</section>
+
+<section id="cohomology-zoo">
+<h2>1. The cohomology zoo and the realization problem</h2>
+
+<p>Pick a smooth projective variety $X$ over $\mathbb{Q}$. Several apparently-unrelated machines compute "cohomology of $X$":</p>
+
+<ul>
+  <li><b>Betti</b>: $H^*_B(X(\mathbb{C}); \mathbb{Q})$ — singular cohomology of the underlying topological space (after base change to $\mathbb{C}$). Pure transcendental invariant; depends on the embedding $\mathbb{Q} \hookrightarrow \mathbb{C}$.</li>
+  <li><b>Algebraic de Rham</b>: $H^*_{\dR}(X/\mathbb{Q})$ — derived from the algebraic Kähler-differentials complex $\Omega^\bullet_{X/\mathbb{Q}}$ (specifically, the <em>hypercohomology</em> $\mathbb{H}^*$, which is sheaf cohomology of a complex rather than a single sheaf — see <a href="./algebraic-de-rham-cohomology.html#hypercohomology" data-blurb="Sheaf cohomology of a complex of sheaves: derived functor of global sections applied to a complex, computed by a double Čech complex.">algebraic de Rham</a>). Defined purely algebraically; carries a Hodge filtration $F^\bullet$.</li>
+  <li><b>$\ell$-adic étale</b>: $H^*_{\et}(X_{\overline{\mathbb{Q}}}; \mathbb{Q}_\ell)$ — derived functors on the étale site. Carries a continuous action of $\Gal(\overline{\mathbb{Q}}/\mathbb{Q})$ for each prime $\ell$.</li>
+  <li><b>Crystalline</b>: $H^*_{\mathrm{cris}}(X_{\mathbb{F}_p}/W(\mathbb{F}_p))$ — for the reduction of $X$ mod $p$, in characteristic-$p$ Witt vectors. Carries a Frobenius $\varphi$ and a connection.</li>
+</ul>
+
+<p>These take values in genuinely different categories — $\mathbb{Q}$-vector spaces, filtered $\mathbb{Q}$-vector spaces, $\mathbb{Q}_\ell$-vector spaces with Galois action, $W(\mathbb{F}_p)$-modules with Frobenius — yet for any fixed $X$ they produce numerically the same Betti numbers, satisfy parallel Künneth and Poincaré-duality formulas, both have cycle-class maps from $\mathrm{CH}^*(X)$, and all admit a Lefschetz fixed-point theorem.</p>
+
+<aside class="note"><b>Slogan.</b> Each cohomology theory is a different orchestration of the same underlying motive. Just as a musical motif appears in strings, brass, and woodwinds with different timbre but the same melodic skeleton, a variety has one motive that the four realization functors play on different instruments.</aside>
+
+<p>Grothendieck's vision: there should exist a $\mathbb{Q}$-linear category $\mathsf{Mot}_k$ of <em>motives over $k$</em> together with a universal cohomology functor $h\colon \mathsf{SmProj}_k \to \mathsf{Mot}_k$, such that every "reasonable" cohomology theory factors uniquely as $h$ followed by a <em>realization functor</em>:</p>
+
+<svg viewBox="0 0 580 220" width="580" height="220" style="margin:1rem auto" role="img" aria-labelledby="zoo-svg-title zoo-svg-desc">
+  <title id="zoo-svg-title">Realization functors on motives</title>
+  <desc id="zoo-svg-desc">A category of smooth projective varieties maps via the universal cohomology functor h to the category Mot(k); from there four dashed arrows lead to Betti, de Rham, ℓ-adic, and crystalline cohomology — each a separate target category that the motivic data factors through.</desc>
+  <defs>
+    <marker id="arr-zoo" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/>
+    </marker>
+  </defs>
+  <rect x="20" y="86" width="148" height="48" rx="8" fill="var(--panel2)" stroke="var(--blue)"/>
+  <text x="94" y="108" text-anchor="middle" font-size="13" font-weight="600">SmProj/k</text>
+  <text x="94" y="125" text-anchor="middle" font-size="11" fill="var(--mute)">smooth projective varieties</text>
+
+  <rect x="216" y="86" width="148" height="48" rx="8" fill="var(--panel2)" stroke="var(--violet)"/>
+  <text x="290" y="108" text-anchor="middle" font-size="13" font-weight="600" fill="var(--violet)">Mot(k)</text>
+  <text x="290" y="125" text-anchor="middle" font-size="11" fill="var(--mute)">category of motives</text>
+
+  <line x1="172" y1="110" x2="212" y2="110" stroke="var(--ink)" stroke-width="1.5" marker-end="url(#arr-zoo)"/>
+  <text x="192" y="100" text-anchor="middle" font-size="11" fill="var(--ink)" font-style="italic">h</text>
+
+  <rect x="412" y="14" width="148" height="34" rx="6" fill="var(--panel2)" stroke="var(--cyan)" stroke-width="1"/>
+  <text x="486" y="36" text-anchor="middle" font-size="12" fill="var(--cyan)">Betti  H_B*(X(ℂ); ℚ)</text>
+
+  <rect x="412" y="62" width="148" height="34" rx="6" fill="var(--panel2)" stroke="var(--green)" stroke-width="1"/>
+  <text x="486" y="84" text-anchor="middle" font-size="12" fill="var(--green)">de Rham  H_dR*(X/k)</text>
+
+  <rect x="412" y="110" width="148" height="34" rx="6" fill="var(--panel2)" stroke="var(--pink)" stroke-width="1"/>
+  <text x="486" y="132" text-anchor="middle" font-size="12" fill="var(--pink)">ℓ-adic  H_ét*(X̄; ℚ_ℓ)</text>
+
+  <rect x="412" y="158" width="148" height="34" rx="6" fill="var(--panel2)" stroke="var(--yellow)" stroke-width="1"/>
+  <text x="486" y="180" text-anchor="middle" font-size="12" fill="var(--yellow)">crystalline  H_cris*</text>
+
+  <line x1="368" y1="100" x2="408" y2="32"  stroke="var(--cyan)"   stroke-width="1.3" stroke-dasharray="3 2" marker-end="url(#arr-zoo)"/>
+  <line x1="368" y1="106" x2="408" y2="80"  stroke="var(--green)"  stroke-width="1.3" stroke-dasharray="3 2" marker-end="url(#arr-zoo)"/>
+  <line x1="368" y1="118" x2="408" y2="128" stroke="var(--pink)"   stroke-width="1.3" stroke-dasharray="3 2" marker-end="url(#arr-zoo)"/>
+  <line x1="368" y1="124" x2="408" y2="176" stroke="var(--yellow)" stroke-width="1.3" stroke-dasharray="3 2" marker-end="url(#arr-zoo)"/>
+  <text x="372" y="206" font-size="11" fill="var(--mute)" font-style="italic">realizations factor through Mot(k)</text>
+</svg>
+
+<p>The dashed arrows are realization functors; the goal of the next several sections is to make the middle box rigorous. The unifying observation is that <em>every cohomology theory people care about (ordinary, $K$-theory, cobordism, étale, motivic) fits this template, with the Eilenberg–MacLane spectrum replaced by some other ring spectrum.</em> Motives are the universal target.</p>
+
+<div class="quiz" data-concept="cohomology-zoo"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./motives.html#correspondences">Motives</a> · Correspondences as morphisms</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="correspondences">
+<h2>2. Correspondences as morphisms</h2>
+
+<p>The first hard idea is that morphisms in $\mathsf{Mot}_k$ are not the regular morphisms of varieties — they are <em>algebraic correspondences</em>: formal $\mathbb{Q}$-linear combinations of subvarieties of products.</p>
+
+<p>For smooth projective varieties $X$ and $Y$ over $k$ of dimensions $d_X$ and $d_Y$, an algebraic correspondence of degree $r$ from $X$ to $Y$ is an element of</p>
+
+$$\mathrm{Corr}^r(X, Y) := \mathrm{CH}^{d_X + r}(X \times Y) \otimes \mathbb{Q},$$
+
+<p>where $\mathrm{CH}^*$ is the Chow group — algebraic cycles modulo rational equivalence. Composition is a pushforward / pullback formula on triple products: for $\alpha \in \mathrm{Corr}(X, Y)$ and $\beta \in \mathrm{Corr}(Y, Z)$,</p>
+
+$$\beta \circ \alpha := (p_{XZ})_*\bigl((p_{XY})^*\alpha \cdot (p_{YZ})^*\beta\bigr) \in \mathrm{Corr}(X, Z),$$
+
+<p>where the $p_{ij}$ are the projections from $X \times Y \times Z$ and "$\cdot$" is intersection product on $\mathrm{CH}^*$.</p>
+
+<p>Two correspondences worth seeing concretely:</p>
+
+<ul>
+  <li><b>Graphs of morphisms.</b> Any regular morphism $f\colon X \to Y$ has a graph $\Gamma_f \subset X \times Y$, which is a degree-$0$ correspondence. Composition of graphs is the graph of the composition: $\Gamma_g \circ \Gamma_f = \Gamma_{g \circ f}$. So the category of varieties embeds into the category of correspondences.</li>
+  <li><b>The transposed identity.</b> The diagonal $\Delta_X \subset X \times X$ is the identity correspondence on $X$. Its <em>transpose</em> $\Delta_X^t$ — viewed as a map $X \to X$ — is also $\Delta_X$, but viewed in $\mathrm{Corr}^*(X, X)$ in the opposite direction. The transpose operation is what makes $\mathsf{Mot}_k$ a category with duals.</li>
+</ul>
+
+<p>The crucial generalisation over morphisms: every cohomology theory turns a correspondence $\alpha \in \mathrm{Corr}^r(X, Y)$ into a linear map $\alpha_*\colon H^*(X) \to H^{*+2r}(Y)$ by $\alpha_*(\xi) = (p_Y)_*(\mathrm{cl}(\alpha) \cdot p_X^*\xi)$ where $\mathrm{cl}$ is the cycle-class map. <em>That</em> is what motives need: a class of "morphisms" each cohomology theory can interpret consistently.</p>
+
+<div class="quiz" data-concept="algebraic-correspondences"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./motives.html#chow-motives">Motives</a> · Pure Chow motives</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="chow-motives">
+<h2>3. Pure Chow motives</h2>
+
+<p>With correspondences as morphisms, the category of <b>pure Chow motives</b> $\mathsf{Mot}_k^{\mathrm{Chow}}$ is built in three steps.</p>
+
+<p><b>Step 1.</b> Take the category whose objects are smooth projective varieties over $k$ and whose morphisms are degree-$0$ correspondences modulo rational equivalence. This is already a $\mathbb{Q}$-linear additive category.</p>
+
+<p><b>Step 2 — pseudo-abelian envelope.</b> Add the data of <em>idempotent splittings</em>: an object is now a pair $(X, p)$ where $p \in \Corr^0(X, X)$ satisfies $p^2 = p$, with morphisms $(X, p) \to (Y, q)$ being correspondences $\alpha$ such that $q \alpha p = \alpha$. A motive is now a "piece" of a variety cut out by a projector. Example: the diagonal of $\mathbb{P}^1$ decomposes as $\Delta = e_0 + e_2$ where $e_0 = \mathbb{P}^1 \times \mathrm{pt}$ (the projector onto the $H^0$ piece) and $e_2 = \mathrm{pt} \times \mathbb{P}^1$ (onto the $H^2$ piece) — orthogonal idempotents whose sum is $\Delta$. This splits $h(\mathbb{P}^1) = (\mathbb{P}^1, e_0) \oplus (\mathbb{P}^1, e_2) = \mathbf{1} \oplus \mathbb{L}$.</p>
+
+<p><b>Step 3 — Tate twists.</b> Formally invert tensoring with the <em>Lefschetz motive</em> $\mathbb{L}$. Objects become triples $(X, p, n)$ with $n \in \mathbb{Z}$; the integer $n$ shifts cohomological degree by $2n$. (We meet $\mathbb{L}$ properly in the next section.)</p>
+
+<p>The choice of equivalence relation on cycles produces different categories:</p>
+
+<table class="plain">
+  <thead><tr><th>Equivalence</th><th>Category</th><th>Status</th></tr></thead>
+  <tbody>
+    <tr><td>Rational</td><td>$\mathsf{Mot}_k^{\mathrm{Chow}}$ (Chow motives)</td><td>Largest; conjecturally Tannakian</td></tr>
+    <tr><td>Homological</td><td>$\mathsf{Mot}_k^{\mathrm{hom}}$ (homological motives)</td><td>Depends on choice of $H^*$; conjecturally indep.</td></tr>
+    <tr><td>Numerical</td><td>$\mathsf{Mot}_k^{\mathrm{num}}$ (numerical motives)</td><td>Smallest; semisimple (Jannsen)</td></tr>
+  </tbody>
+</table>
+
+<p>Whether these three categories actually coincide is the content of the <em>standard conjectures</em>; we return to this below.</p>
+
+<div class="quiz" data-concept="pure-chow-motives"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./motives.html#tate-twist">Motives</a> · The Tate twist Q(n)</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="tate-twist">
+<h2>4. The Tate twist $\mathbb{Q}(n)$</h2>
+
+<p>The simplest non-trivial motive after $\mathbf{1}$ (the motive of a point) is the <b>Lefschetz motive</b> $\mathbb{L} = h^2(\mathbb{P}^1)$ — the "top piece" of the projective line. Its inverse is the <b>Tate motive</b> $\mathbb{Q}(1) := \mathbb{L}^{-1}$. Iterating, we have $\mathbb{Q}(n) := \mathbb{Q}(1)^{\otimes n}$ for $n \in \mathbb{Z}$.</p>
+
+<p>Tate motives are the <em>building blocks</em> of all "Tate-type" structure in cohomology. Their realizations are:</p>
+
+<table class="plain">
+  <thead><tr><th>Realization</th><th>$\mathbb{Q}(1)$ becomes</th></tr></thead>
+  <tbody>
+    <tr><td>Betti</td><td>$2\pi i \cdot \mathbb{Q} \subset \mathbb{C}$ — a rank-1 $\mathbb{Q}$-Hodge structure of weight $-2$, type $(-1, -1)$</td></tr>
+    <tr><td>de Rham</td><td>$\mathbb{Q}$, with Hodge filtration $F^{-1} = $ everything, $F^0 = 0$</td></tr>
+    <tr><td>$\ell$-adic</td><td>$\mathbb{Q}_\ell(1) = \varprojlim \mu_{\ell^n}$, the cyclotomic character $\chi_\ell\colon G_\mathbb{Q} \to \mathbb{Z}_\ell^\times$</td></tr>
+    <tr><td>Crystalline</td><td>$\mathbb{Q}_p \cdot \tfrac{1}{p}$, with Frobenius $\varphi$ acting by $\tfrac{1}{p}$</td></tr>
+  </tbody>
+</table>
+
+<p>That last column hides the punchline: <em>every cohomology theory has its own incarnation of "$2\pi i$" and they all agree as motives, even though their realizations are scattered across vector spaces, Galois reps, and Frobenius modules.</em> The number $2\pi i$ is the period integral $\int_{S^1} dz/z$ that pairs the Betti and de Rham realizations of $\mathbb{Q}(1)$ — and it is transcendental over $\mathbb{Q}$ (Hermite–Lindemann).</p>
+
+<aside class="note"><b>Periods of $\mathbb{Q}(n)$.</b> The <b>period matrix</b> of $\mathbb{Q}(n)$ in the Betti-vs-de-Rham comparison is the scalar $(2\pi i)^n$. Multiple zeta values $\zeta(n_1, \ldots, n_r)$ are periods of mixed Tate motives over $\mathbb{Z}$ (Goncharov, Brown) — and the conjectural motivic Galois group of that subcategory acts on them, predicting every relation among MZVs from representation theory alone.</aside>
+
+<div class="quiz" data-concept="tate-twist"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./motives.html#motivic-galois">Motives</a> · The motivic Galois group</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="tannakian">
+<h2>5. Tannakian categories — representations of an invisible group</h2>
+
+<p>The structural payoff of motives requires one more piece of category theory: the <em>Tannakian formalism</em>. A neutral Tannakian category over $k$ is a $k$-linear rigid abelian symmetric monoidal category $\mathcal{T}$ together with a faithful exact tensor functor $\omega\colon \mathcal{T} \to \mathsf{Vect}_k$ (the "fiber functor"), satisfying enough axioms that $\mathcal{T}$ is equivalent to the category of finite-dimensional representations of an affine group scheme:</p>
+
+$$\mathcal{T} \;\simeq\; \mathsf{Rep}_k\bigl(\underline{\mathrm{Aut}}^\otimes(\omega)\bigr).$$
+
+<p>The right-hand side names the group $G = \underline{\mathrm{Aut}}^\otimes(\omega)$ — the <em>Tannakian fundamental group</em> — as the automorphism scheme of the fiber functor: it remembers everything about $\mathcal{T}$ as the symmetries of one realization. Choose a different fiber functor and you get an isomorphic group; choose two fiber functors and you get a torsor between the corresponding groups.</p>
+
+<aside class="note"><b>Slogan (rephrased).</b> A Tannakian category is "the category of representations of a group you haven't computed yet." Solving the category $\Leftrightarrow$ solving the group.</aside>
+
+<p>Examples:</p>
+<ul>
+  <li>$\mathsf{Vect}_k$ itself — Tannakian with $G = 1$.</li>
+  <li>Finite-dimensional $\mathbb{Q}$-Hodge structures — Tannakian, with $G$ the <b>Mumford-Tate group</b>.</li>
+  <li>Finite-dimensional $\mathbb{Q}_\ell$-representations of $\Gal(\overline{\mathbb{Q}}/\mathbb{Q})$ — Tannakian, with $G$ a quotient of $G_\mathbb{Q}$ itself (after $\ell$-adic completion).</li>
+  <li>Finite-dimensional $D$-modules with regular singularities on a complex variety — Tannakian, with $G$ a differential-Galois group.</li>
+</ul>
+
+<div class="quiz" data-concept="tannakian-categories"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./motives.html#motivic-galois">Motives</a> · The motivic Galois group</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="motivic-galois">
+<h2>6. The motivic Galois group</h2>
+
+<p>Now the climax. The category $\mathsf{Mot}_k^{\mathrm{num}}$ of <em>numerical</em> pure motives is, by Jannsen's theorem (1992), $\mathbb{Q}$-linear, abelian, and semisimple. Modulo the standard conjectures, it is also Tannakian; pick the Betti realization as a fiber functor (when $k \subset \mathbb{C}$) and the resulting Tannakian fundamental group is the <b>motivic Galois group</b>:</p>
+
+$$G_{\mathrm{mot}}(k) \;:=\; \underline{\mathrm{Aut}}^\otimes(\omega_B).$$
+
+<p>Concretely, $G_{\mathrm{mot}}(k)$ is a pro-reductive group scheme over $\mathbb{Q}$ (subject to the conjectures), and motives over $k$ are <em>the same thing as</em> finite-dimensional $\mathbb{Q}$-representations of $G_{\mathrm{mot}}(k)$.</p>
+
+<svg viewBox="0 0 580 240" width="580" height="240" style="margin:1rem auto" role="img" aria-labelledby="mgal-svg-title mgal-svg-desc">
+  <title id="mgal-svg-title">The motivic Galois group as universal symmetry</title>
+  <desc id="mgal-svg-desc">G_mot(Q) is shown as a large central node from which three quotient arrows descend: to the classical absolute Galois group of Q (étale realization), to the Mumford–Tate group (Hodge realization), and to a Frobenius scheme (crystalline realization). The three classical groups are the realization-quotients of one universal symmetry.</desc>
+  <defs>
+    <marker id="arr-mg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="var(--ink)"/>
+    </marker>
+  </defs>
+  <text x="290" y="22" text-anchor="middle" font-size="13" fill="var(--mute)" font-style="italic">
+    The motivic Galois group is the universal symmetry of cohomology
+  </text>
+
+  <ellipse cx="290" cy="100" rx="84" ry="36" fill="var(--panel2)" stroke="var(--violet)" stroke-width="1.6"/>
+  <text x="290" y="96" text-anchor="middle" font-size="14" font-weight="600" fill="var(--violet)">G_mot(ℚ)</text>
+  <text x="290" y="114" text-anchor="middle" font-size="11" fill="var(--mute)">motivic Galois group</text>
+
+  <ellipse cx="92" cy="200" rx="78" ry="26" fill="var(--panel2)" stroke="var(--pink)" stroke-width="1.4"/>
+  <text x="92" y="196" text-anchor="middle" font-size="12" fill="var(--pink)">Gal(ℚ̄/ℚ)</text>
+  <text x="92" y="212" text-anchor="middle" font-size="10" fill="var(--mute)">classical Galois</text>
+
+  <ellipse cx="290" cy="200" rx="78" ry="26" fill="var(--panel2)" stroke="var(--cyan)" stroke-width="1.4"/>
+  <text x="290" y="196" text-anchor="middle" font-size="12" fill="var(--cyan)">MT (Mumford–Tate)</text>
+  <text x="290" y="212" text-anchor="middle" font-size="10" fill="var(--mute)">Hodge realization</text>
+
+  <ellipse cx="488" cy="200" rx="78" ry="26" fill="var(--panel2)" stroke="var(--yellow)" stroke-width="1.4"/>
+  <text x="488" y="196" text-anchor="middle" font-size="12" fill="var(--yellow)">Frobenius scheme</text>
+  <text x="488" y="212" text-anchor="middle" font-size="10" fill="var(--mute)">crystalline realization</text>
+
+  <line x1="226" y1="128" x2="124" y2="178" stroke="var(--ink)" stroke-width="1.3" marker-end="url(#arr-mg)"/>
+  <line x1="290" y1="138" x2="290" y2="174" stroke="var(--ink)" stroke-width="1.3" marker-end="url(#arr-mg)"/>
+  <line x1="354" y1="128" x2="456" y2="178" stroke="var(--ink)" stroke-width="1.3" marker-end="url(#arr-mg)"/>
+
+  <text x="170" y="142" text-anchor="middle" font-size="10" fill="var(--mute)" font-style="italic">ℓ-adic realization</text>
+</svg>
+
+<p>The diagram is the motivic version of "every classical group acting on cohomology comes from a single bigger group acting on the universal motive." Concretely:</p>
+
+<ul>
+  <li>The étale realization $G_{\mathrm{mot}}(\mathbb{Q}) \to \Gal(\overline{\mathbb{Q}}/\mathbb{Q})$ sends a motivic representation to its $\ell$-adic Galois representation. <em>This is how classical Galois theory is recovered.</em></li>
+  <li>The Hodge realization $G_{\mathrm{mot}}(\mathbb{Q}) \to \mathrm{MT}(X)$ recovers Mumford-Tate groups; the Hodge conjecture asks whether the Hodge realization is full.</li>
+  <li>The crystalline realization recovers the Newton-and-Hodge polygons of the variety mod $p$.</li>
+</ul>
+
+<p>The motivic Galois group is to varieties what the Galois group $\Gal(\overline{\mathbb{Q}}/\mathbb{Q})$ is to fields — but one categorical level up. Where classical Galois theory studied the symmetries of <em>algebraic numbers</em>, motivic Galois theory studies the symmetries of <em>algebraic-geometric cohomology in all theories at once</em>.</p>
+
+<div class="quiz" data-concept="motivic-galois-group"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./motives.html#realizations">Motives</a> · Realizations: how Betti, de Rham, ℓ-adic, crystalline all come from one motive</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="realizations">
+<h2>7. Realizations: how Betti, de Rham, ℓ-adic, crystalline all come from one motive</h2>
+
+<p>A <b>realization functor</b> on $\mathsf{Mot}_k$ is a tensor functor $R\colon \mathsf{Mot}_k \to \mathcal{C}$ for some target category $\mathcal{C}$ (depending on the realization). Each of the four cohomology theories from §1 is, conjecturally, such a functor:</p>
+
+<table class="plain">
+  <thead><tr><th>Realization</th><th>Target category</th><th>Extra structure on $h(X)$</th></tr></thead>
+  <tbody>
+    <tr><td>Betti $\omega_B$</td><td>$\mathbb{Q}$-vector spaces</td><td>$H^*_B(X(\mathbb{C}); \mathbb{Q})$ — a graded $\mathbb{Q}$-vector space</td></tr>
+    <tr><td>de Rham $\omega_{\mathrm{dR}}$</td><td>filtered $k$-vector spaces</td><td>$H^*_{\mathrm{dR}}(X/k)$ with Hodge filtration $F^\bullet$</td></tr>
+    <tr><td>$\ell$-adic $\omega_\ell$</td><td>$\mathbb{Q}_\ell[\![G_k]\!]$-modules</td><td>Galois representation; Frobenius eigenvalues at unramified primes</td></tr>
+    <tr><td>Crystalline $\omega_{\mathrm{cris}}$</td><td>filtered $\varphi$-modules over $W(\mathbb{F}_q)$</td><td>$H^*_{\mathrm{cris}}(X_{\mathbb{F}_q}/W)$ with Frobenius and connection</td></tr>
+  </tbody>
+</table>
+
+<p>The <b>comparison isomorphisms</b> tie them together. For $X / \mathbb{Q}$ with $X_\mathbb{C}$ smooth projective:</p>
+
+$$H^*_{\mathrm{dR}}(X/\mathbb{Q}) \otimes_\mathbb{Q} \mathbb{C} \;\cong\; H^*_B(X(\mathbb{C}); \mathbb{Q}) \otimes_\mathbb{Q} \mathbb{C} \quad(\text{Grothendieck's comparison theorem}),$$
+
+<p>and the $\ell$-adic Tate-comparison $H^*_B(X(\mathbb{C}); \mathbb{Q}) \otimes \mathbb{Q}_\ell \cong H^*_{\et}(X_{\overline{\mathbb{Q}}}; \mathbb{Q}_\ell)$ (Artin), and Fontaine's $p$-adic comparison $B_{\mathrm{cris}} \otimes H^*_{\mathrm{cris}} \cong B_{\mathrm{cris}} \otimes H^*_{\et}(X; \mathbb{Q}_p)$ for varieties with good reduction at $p$.</p>
+
+<p>Whatever your favorite cohomology theory is, it factors through the same motivic data; the realizations are the windows you observe it through.</p>
+
+<div class="quiz" data-concept="realization-functors"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./motives.html#standard-conjectures">Motives</a> · The standard conjectures and the road forward</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="standard-conjectures">
+<h2>8. The standard conjectures and the road forward</h2>
+
+<p>Many of the structural assertions used above are <em>still conjectures</em>. The <b>standard conjectures on algebraic cycles</b> (Grothendieck, 1968) are the technical specifications motives need; they are open in general and have been for sixty years.</p>
+
+<p>The classical formulation is in three pieces:</p>
+<ul>
+  <li><b>Lefschetz standard conjecture (B).</b> For $X$ smooth projective, the inverse of the Hard Lefschetz isomorphism $L^{n-i}\colon H^i \to H^{2n-i}$ is induced by an algebraic correspondence.</li>
+  <li><b>Künneth standard conjecture (C).</b> The Künneth components of the diagonal in $H^*(X \times X)$ are algebraic.</li>
+  <li><b>Hodge standard conjecture (I).</b> The bilinear form on the primitive part of $H^*(X; \mathbb{Q})$ is positive-definite — a "polarisation" property.</li>
+</ul>
+
+<p>Modulo (B) + (C), homological and numerical equivalence agree, $\mathsf{Mot}_k^{\mathrm{hom}}$ becomes Tannakian, and the motivic Galois group exists in the form described in §6. Without (B) + (C), the picture survives as a robust framework but the formalism is conjectural.</p>
+
+<aside class="bad"><b>Open since 1968.</b> Lefschetz (B), Künneth (C), Hodge (I) are all known in characteristic 0 only for very specific classes — abelian varieties, surfaces, complete intersections of small degree. Even in characteristic $p$, the picture is fragmentary. Nobody has proven the standard conjectures in full generality, and "we don't know how to prove the standard conjectures" is the common one-line summary of why motives remain conjectural.</aside>
+
+<p><b>What's known unconditionally?</b> A surprising amount.</p>
+<ul>
+  <li><b>Numerical motives are abelian semisimple</b> (Jannsen, 1992) — without standard conjectures.</li>
+  <li><b>Mixed Tate motives over $\mathbb{Z}$</b> have a fully-realised motivic Galois group, computed by Deligne–Goncharov + Brown. Periods include $\zeta(n)$ for $n \geq 2$ and all multiple zeta values; the Galois action is explicit.</li>
+  <li><b>Mixed Hodge structures</b> form an unconditionally Tannakian category over $\mathbb{Q}$ — Deligne (1971-74). Their motivic Galois group is the Mumford-Tate group of all-of-Hodge-theory, computed for many varieties.</li>
+  <li><b>Voevodsky's triangulated category $\mathsf{DM}(k)$</b> (early 2000s) gives a robust mixed-motives theory, sufficient to prove the Bloch–Kato conjecture (Fields Medal work).</li>
+  <li><b>$\mathbb{A}^1$-homotopy theory</b> (Morel–Voevodsky) embeds motives into a homotopical setting; motivic spectra carry $K$-theory, motivic cobordism, motivic cohomology as objects of one $\infty$-category.</li>
+</ul>
+
+<div class="quiz" data-concept="standard-conjectures"></div>
+</section>
+
+<section id="connections">
+<h2>Connections</h2>
+
+<p>Motives sit at the intersection of nearly every modern arithmetic-geometric program. The standard conjectures remain open, but the framework already organizes the L-functions of arithmetic geometry, predicts every cohomology-theoretic identity that has ever been observed, and is conjecturally the correct setting for the Langlands philosophy and the Hodge / Tate conjectures.</p>
+
+<ul>
+  <li><a href="./etale-cohomology.html">Étale cohomology</a> — the $\ell$-adic realization. The Weil conjectures are the first place where the motivic picture cashed out concretely.</li>
+  <li><a href="./algebraic-de-rham-cohomology.html#comparison-betti">Algebraic de Rham + Hodge filtration</a> — the de Rham realization; the Hodge filtration is part of the data that pure motives carry.</li>
+  <li><a href="./galois-representations.html">Galois representations</a> — the $\ell$-adic realization of motives gives the Galois reps of arithmetic geometry; the Langlands program pairs these with automorphic forms.</li>
+  <li><a href="./L-functions.html">L-functions</a> — every motive has an $L$-function $L(M, s) := \prod_p \det(1 - \mathrm{Frob}_p \cdot p^{-s} \mid M_\ell^{I_p})^{-1}$; the analytic-continuation + functional-equation properties are conjecturally automatic from the motivic data (Hasse-Weil).</li>
+  <li><a href="./category-theory.html#yoneda">Tannakian formalism</a> — the foundational tool: a category equivalent to representations of an invisible group.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('motives'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-03</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

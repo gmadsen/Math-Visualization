@@ -155,6 +155,13 @@
       "blurb": "$\\overline{\\mathcal{M}}_g$ — the Deligne–Mumford compactification via stable curves. Automorphisms force a stack, not a scheme; dimension $3g-3$ for $g\\ge 2$."
     },
     {
+      "id": "capstone-motives",
+      "section": "Algebraic geometry",
+      "title": "Motives — universal cohomology and the motivic Galois group",
+      "goal": "motivic-galois-group",
+      "blurb": "Grothendieck's universal cohomology: a category $\\mathsf{Mot}_k$ through which every realization (Betti, de Rham, $\\ell$-adic, crystalline) factors, with a Tannakian fundamental group $G_{\\mathrm{mot}}(k)$ that subsumes classical $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ as its étale-realization quotient."
+    },
+    {
       "id": "capstone-infinity-topoi",
       "section": "Higher categories & toposes",
       "title": "$\\infty$-topoi (Lurie's higher topos theory)",

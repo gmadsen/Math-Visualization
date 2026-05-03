@@ -4,6 +4,7 @@
 window.__MVConcepts = {
   "index": {
     "topics": [
+      "motives",
       "statistical-mechanics",
       "advanced-complex-analysis",
       "groebner-bases",
@@ -294,10 +295,96 @@ window.__MVConcepts = {
       "groebner-bases": "capstone",
       "statistical-mechanics": "capstone",
       "gauge-theory": "capstone",
-      "string-theory": "capstone"
+      "string-theory": "capstone",
+      "motives": "capstone"
     }
   },
   "topics": {
+    "motives": {
+      "topic": "motives",
+      "title": "Motives",
+      "page": "motives.html",
+      "concepts": [
+        {
+          "id": "cohomology-zoo",
+          "title": "The cohomology zoo and the realization problem",
+          "anchor": "cohomology-zoo",
+          "blurb": "Betti, de Rham, ℓ-adic, and crystalline cohomology take values in different categories yet share parallel Künneth, Poincaré-duality, and Lefschetz formulas. Grothendieck's vision: a universal h: SmProj/k → Mot(k) through which every realization factors.",
+          "prereqs": [
+            "etale-cohomology:l-adic-cohomology",
+            "algebraic-de-rham-cohomology:comparison-betti"
+          ]
+        },
+        {
+          "id": "algebraic-correspondences",
+          "title": "Correspondences as morphisms",
+          "anchor": "correspondences",
+          "blurb": "Morphisms in Mot(k) are elements of CH*(X×Y) ⊗ Q — algebraic cycles modulo rational equivalence — composed via pushforward/pullback on the triple product. Graphs of morphisms embed varieties; the diagonal acts as identity.",
+          "prereqs": [
+            "cohomology-zoo",
+            "intersection-theory-chow:chow-groups"
+          ]
+        },
+        {
+          "id": "pure-chow-motives",
+          "title": "Pure Chow motives",
+          "anchor": "chow-motives",
+          "blurb": "Objects (X, p, n) with p an idempotent correspondence and n a Tate twist; morphisms compatible correspondences. Pseudo-abelian envelope of varieties + correspondences, then formally invert the Lefschetz motive. Three flavors — Chow, homological, numerical — by equivalence relation.",
+          "prereqs": [
+            "algebraic-correspondences"
+          ]
+        },
+        {
+          "id": "tate-twist",
+          "title": "The Tate twist Q(n)",
+          "anchor": "tate-twist",
+          "blurb": "Q(1) = inverse of the Lefschetz motive h^2(P^1). Realizes as 2πi·Q (Betti, weight −2), shifted Hodge filtration (de Rham), the cyclotomic character (ℓ-adic), Frobenius=1/p (crystalline). Periods include (2πi)^n; mixed Tate motives over Z control multiple zeta values.",
+          "prereqs": [
+            "pure-chow-motives"
+          ]
+        },
+        {
+          "id": "tannakian-categories",
+          "title": "Tannakian categories — representations of an invisible group",
+          "anchor": "tannakian",
+          "blurb": "A neutral Tannakian category T over k is k-linear rigid abelian symmetric monoidal with a faithful exact tensor fiber functor ω: T → Vect_k, such that T ≃ Rep_k(Aut⊗(ω)). Solving the category = solving the group.",
+          "prereqs": [
+            "category-theory:functors-natural-transformations",
+            "category-theory:monoidal-categories",
+            "representation-theory:group-representations"
+          ]
+        },
+        {
+          "id": "motivic-galois-group",
+          "title": "The motivic Galois group",
+          "anchor": "motivic-galois",
+          "blurb": "Jannsen (1992) — unconditional. Modulo the standard conjectures, numerical motives are Tannakian with fundamental group G_mot(k) = Aut⊗(ω_B). Realizations recover Gal(Q̄/Q) (étale), Mumford-Tate (Hodge), and a Frobenius scheme (crystalline) as quotients.",
+          "prereqs": [
+            "tannakian-categories",
+            "tate-twist",
+            "galois-representations:galois-rep-definition"
+          ]
+        },
+        {
+          "id": "realization-functors",
+          "title": "Realizations: how Betti, de Rham, ℓ-adic, crystalline all come from one motive",
+          "anchor": "realizations",
+          "blurb": "Each cohomology theory is a tensor functor R: Mot(k) → C_R. Comparison isomorphisms tie them: Grothendieck (Betti↔dR over C), Artin (Betti↔ℓ-adic), Fontaine (crystalline↔ℓ-adic via B_cris).",
+          "prereqs": [
+            "motivic-galois-group"
+          ]
+        },
+        {
+          "id": "standard-conjectures",
+          "title": "The standard conjectures and the road forward",
+          "anchor": "standard-conjectures",
+          "blurb": "Grothendieck (1968): Lefschetz (B), Künneth (C), Hodge (I). Open in general since 1968; modulo (B)+(C) homological = numerical and Mot_hom is Tannakian. Unconditional: Jannsen, mixed Hodge (Deligne), mixed Tate over Z (Deligne-Goncharov-Brown), Voevodsky's DM(k).",
+          "prereqs": [
+            "realization-functors"
+          ]
+        }
+      ]
+    },
     "statistical-mechanics": {
       "topic": "statistical-mechanics",
       "title": "Statistical mechanics",
@@ -13406,6 +13493,13 @@ window.__MVConcepts = {
         "blurb": "$\\overline{\\mathcal{M}}_g$ — the Deligne–Mumford compactification via stable curves. Automorphisms force a stack, not a scheme; dimension $3g-3$ for $g\\ge 2$."
       },
       {
+        "id": "capstone-motives",
+        "section": "Algebraic geometry",
+        "title": "Motives — universal cohomology and the motivic Galois group",
+        "goal": "motivic-galois-group",
+        "blurb": "Grothendieck's universal cohomology: a category $\\mathsf{Mot}_k$ through which every realization (Betti, de Rham, $\\ell$-adic, crystalline) factors, with a Tannakian fundamental group $G_{\\mathrm{mot}}(k)$ that subsumes classical $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ as its étale-realization quotient."
+      },
+      {
         "id": "capstone-infinity-topoi",
         "section": "Higher categories & toposes",
         "title": "$\\infty$-topoi (Lurie's higher topos theory)",
@@ -13640,7 +13734,8 @@ window.__MVConcepts = {
           "etale-cohomology",
           "calabi-yau-manifolds",
           "mirror-symmetry",
-          "resolution-of-singularities"
+          "resolution-of-singularities",
+          "motives"
         ],
         "color": "g"
       },
@@ -13892,7 +13987,8 @@ window.__MVConcepts = {
     "groebner-bases": "capstone",
     "statistical-mechanics": "capstone",
     "gauge-theory": "capstone",
-    "string-theory": "capstone"
+    "string-theory": "capstone",
+    "motives": "capstone"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -13969,11 +14065,11 @@ window.__MVConcepts = {
       "density": 0.5789473684210527
     },
     "Algebraic geometry": {
-      "concepts": 127,
-      "intra": 173,
+      "concepts": 135,
+      "intra": 180,
       "crossOut": 55,
       "crossIn": 20,
-      "density": 0.4330708661417323
+      "density": 0.4074074074074074
     },
     "Combinatorics & graph theory": {
       "concepts": 51,
