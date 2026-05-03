@@ -113,6 +113,10 @@ const WHITELIST = new Set([
   'Waring',
   'The projective plane',
   'Model theory basics',
+  'Additive number theory',
+  'Advanced complex analysis',
+  'Computational number theory',
+  'Vertex operator algebras',
 ]);
 
 function looksSlugFlavored(title) {
