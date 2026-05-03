@@ -25,6 +25,7 @@ import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { makeAjv } from './lib/ajv.mjs';
+import * as verbatimRenderer from '../widgets/_shared/verbatim-renderer.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const scriptsDir = dirname(__filename);
@@ -162,6 +163,16 @@ for (const slug of slugs) {
         test('renderMarkup returns non-empty string containing widgetId', () => {
           const out = mod.renderMarkup(params);
           assert.equal(typeof out, 'string');
+          // Verbatim slugs (those re-exporting from _shared/verbatim-renderer.mjs)
+          // emit pre-built bodyMarkup directly, so the widgetId-in-output check
+          // doesn't apply — the markup is finalized before the renderer sees it.
+          // We detect verbatim by module-identity reference rather than by
+          // trusting `meta.family`, which is a self-attested string anyone can
+          // copy onto a non-verbatim slug.
+          if (mod.renderMarkup === verbatimRenderer.renderMarkup) {
+            assert.ok(out.length > 0, 'renderMarkup must return non-empty output');
+            return;
+          }
           assert.ok(out.length > 0, 'renderMarkup must return non-empty output');
           assert.ok(
             out.includes(params.widgetId),
