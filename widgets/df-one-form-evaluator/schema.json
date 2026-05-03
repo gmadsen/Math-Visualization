@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://math-vis.local/widgets/spec-frd/schema.json",
-  "title": "spec-frd widget params",
-  "description": "Bespoke verbatim-renderer slug for the \"Truncating compact $K$ to rank $r$\" widget on the spectral-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
+  "$id": "https://math-vis.local/widgets/df-one-form-evaluator/schema.json",
+  "title": "df-one-form-evaluator widget params",
+  "description": "Bespoke verbatim-renderer slug for the \"Widget · 1-form evaluator\" widget on the differential-forms topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
   "meta": {
     "family": "verbatim",
     "dimension": "2d",

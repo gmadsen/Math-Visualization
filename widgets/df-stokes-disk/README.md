@@ -1,6 +1,6 @@
-# `df-w3`
+# `df-stokes-disk`
 
-Bespoke verbatim slug for the "df-w3" widget on `differential-forms`.
+Bespoke verbatim slug for the "Widget · Stokes on a disk" widget on `differential-forms`.
 
 Migrated from inline `<div class="widget">` markup (Type A: raw HTML buried in a `raw` block) by `scripts/migrate-inline-widgets-typea.mjs`. Uses the shared renderer at `widgets/_shared/verbatim-renderer.mjs` — `bodyMarkup` and `bodyScript` are emitted verbatim. See `schema.json` for the param shape.
 

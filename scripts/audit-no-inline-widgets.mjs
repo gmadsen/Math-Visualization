@@ -52,12 +52,18 @@ function countInlineMarkup(doc) {
 
 // Count `type:"widget"` blocks lacking a `slug` — Type B unstructured widgets.
 //
-// We only check `widget` blocks here, not `widget-script`. When a widget's slug
-// renderer intentionally returns an empty script (e.g. `svg-illustration`),
-// its driving script lives in a sibling `widget-script` block with a
-// `forWidget` back-reference and no `slug`. That is a documented pattern, not
-// a registry bypass — the widget side IS registered, and render-topic.mjs
-// emits the verbatim script untouched.
+// We only check `widget` blocks here, not `widget-script`. The widget side
+// is the audit gate: when it carries a `slug`, the widget is registered.
+// `widget-script` blocks paired by `forWidget` back-reference but no own
+// `slug` are downstream content (page-bottom decorating script, supplementary
+// state population, etc.) emitted verbatim by render-topic.mjs. This shows
+// up across the corpus in two scenarios:
+//   1. Slugs whose `renderScript` returns empty by design (e.g. `svg-illustration`).
+//   2. Slugs whose own `renderScript` emits gesture-handling boilerplate, paired
+//      with a separate page-bottom verbatim script that supplies extra state
+//      (e.g. `button-stepper` instances in `L-functions.json`).
+// A future tightening could require every `widget-script` block to carry its
+// own slug + verbatim params; that's a separate refactor (see PLAN.md).
 function countUnslugged(doc) {
   let n = 0;
   for (const sec of doc.sections || []) {

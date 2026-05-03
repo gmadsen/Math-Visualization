@@ -2,11 +2,11 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://math-vis.local/widgets/gcg-qi/schema.json",
   "title": "gcg-qi widget params",
-  "description": "Bespoke verbatim-renderer slug for the \"Quasi-isometry checker\" widget on the geometric-and-combinatorial-group-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from a Type-A inline widget by scripts/migrate-inline-widgets-typea.mjs.",
+  "description": "Bespoke verbatim-renderer slug for the \"Quasi-isometry checker\" widget on the geometric-and-combinatorial-group-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
   "meta": {
     "family": "verbatim",
     "dimension": "2d",
-    "gesture": "interact",
+    "gesture": "slider",
     "role": "interactive"
   },
   "type": "object",
@@ -21,6 +21,7 @@
   "properties": {
     "widgetId": {
       "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
       "description": "DOM id for the widget root, or empty string when the original markup carried no id."
     },
     "title": {
@@ -33,11 +34,13 @@
     },
     "bodyMarkup": {
       "type": "string",
-      "description": "Verbatim markup for the widget — the full `<div class=\"widget\">…</div>` block as it appears in the source HTML."
+      "description": "Verbatim markup for the widget — the full `<div class=\"widget\">…</div>` block as it appears in the source HTML.",
+      "x-artifact": true
     },
     "bodyScript": {
       "type": "string",
-      "description": "Verbatim driving `<script>…</script>` block, or empty string when the widget has no driving script."
+      "description": "Verbatim driving `<script>…</script>` block, or empty string when the widget has no driving script.",
+      "x-artifact": true
     }
   }
 }

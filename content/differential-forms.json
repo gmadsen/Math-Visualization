@@ -21,7 +21,7 @@
         },
         {
           "type": "widget",
-          "slug": "df-w1",
+          "slug": "df-one-form-evaluator",
           "params": {
             "widgetId": "w1",
             "title": "",
@@ -45,7 +45,7 @@
         },
         {
           "type": "widget",
-          "slug": "df-w2",
+          "slug": "df-two-form-parallelogram",
           "params": {
             "widgetId": "w2",
             "title": "",
@@ -94,7 +94,7 @@
         },
         {
           "type": "widget",
-          "slug": "df-w3",
+          "slug": "df-exterior-derivative",
           "params": {
             "widgetId": "w3",
             "title": "",
@@ -203,7 +203,7 @@
         },
         {
           "type": "widget",
-          "slug": "df-w4",
+          "slug": "df-stokes-disk",
           "params": {
             "widgetId": "w4",
             "title": "",
@@ -227,7 +227,7 @@
         },
         {
           "type": "widget",
-          "slug": "df-w5",
+          "slug": "df-closed-not-exact",
           "params": {
             "widgetId": "w5",
             "title": "",

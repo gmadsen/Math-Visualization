@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://math-vis.local/widgets/gb-monorder/schema.json",
-  "title": "gb-monorder widget params",
-  "description": "Bespoke verbatim-renderer slug for the \"Monomial-order explorer\" widget on the groebner-bases topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
+  "$id": "https://math-vis.local/widgets/df-exterior-derivative/schema.json",
+  "title": "df-exterior-derivative widget params",
+  "description": "Bespoke verbatim-renderer slug for the \"Widget · exterior derivative calculator\" widget on the differential-forms topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
   "meta": {
     "family": "verbatim",
     "dimension": "2d",
@@ -22,7 +22,7 @@
     "widgetId": {
       "type": "string",
       "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
-      "description": "DOM id for the widget root (matches the `id` of the original inline `<div class=\"widget\">`)."
+      "description": "DOM id for the widget root, or empty string when the original markup carried no id."
     },
     "title": {
       "type": "string",
@@ -34,12 +34,12 @@
     },
     "bodyMarkup": {
       "type": "string",
-      "description": "Verbatim markup for the widget — full `<div class=\"widget\">…</div>` block as it appears in the source HTML.",
+      "description": "Verbatim markup for the widget — the full `<div class=\"widget\">…</div>` block as it appears in the source HTML.",
       "x-artifact": true
     },
     "bodyScript": {
       "type": "string",
-      "description": "Verbatim driving `<script>…</script>` block.",
+      "description": "Verbatim driving `<script>…</script>` block, or empty string when the widget has no driving script.",
       "x-artifact": true
     }
   }

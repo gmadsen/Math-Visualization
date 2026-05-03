@@ -2,11 +2,11 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://math-vis.local/widgets/st-virasoro/schema.json",
   "title": "st-virasoro widget params",
-  "description": "Bespoke verbatim-renderer slug for the \"Virasoro spectrum & states at level $N$\" widget on the string-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from a Type-B inline widget by scripts/migrate-inline-widgets-typeb.mjs.",
+  "description": "Bespoke verbatim-renderer slug for the \"Virasoro spectrum & states at level $N$\" widget on the string-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs and re-derived meta by scripts/fixup-verbatim-widget-meta.mjs.",
   "meta": {
     "family": "verbatim",
     "dimension": "2d",
-    "gesture": "interact",
+    "gesture": "slider",
     "role": "interactive"
   },
   "type": "object",
@@ -34,11 +34,13 @@
     },
     "bodyMarkup": {
       "type": "string",
-      "description": "Verbatim markup for the widget — full `<div class=\"widget\">…</div>` block as it appears in the source HTML."
+      "description": "Verbatim markup for the widget — full `<div class=\"widget\">…</div>` block as it appears in the source HTML.",
+      "x-artifact": true
     },
     "bodyScript": {
       "type": "string",
-      "description": "Verbatim driving `<script>…</script>` block."
+      "description": "Verbatim driving `<script>…</script>` block.",
+      "x-artifact": true
     }
   }
 }

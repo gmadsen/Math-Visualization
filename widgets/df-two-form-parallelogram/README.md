@@ -1,6 +1,6 @@
-# `gal-w1`
+# `df-two-form-parallelogram`
 
-Bespoke verbatim slug for the "The three classical impossibilities" widget on `galois`.
+Bespoke verbatim slug for the "Widget · 2-form on a parallelogram" widget on `differential-forms`.
 
 Migrated from inline `<div class="widget">` markup (Type A: raw HTML buried in a `raw` block) by `scripts/migrate-inline-widgets-typea.mjs`. Uses the shared renderer at `widgets/_shared/verbatim-renderer.mjs` — `bodyMarkup` and `bodyScript` are emitted verbatim. See `schema.json` for the param shape.
 

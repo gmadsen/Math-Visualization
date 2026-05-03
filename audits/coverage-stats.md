@@ -96,12 +96,12 @@ page has wired one in yet.
 | `characteristic-classes-signature-l-genus` | characteristic-classes-signature-l-genus | click | 2d | 1 | characteristic-classes |
 | `characteristic-classes-w1-surfaces` | characteristic-classes-w1-surfaces | click | 2d | 1 | characteristic-classes |
 | `class-field-theory-reciprocity-dictionary` | svg-illustration | read | 2d | 1 | class-field-theory |
-| `cnt-bu` | verbatim | interact | 2d | 1 | computational-number-theory |
-| `cnt-exp` | verbatim | interact | 2d | 1 | computational-number-theory |
-| `cnt-lll` | verbatim | interact | 2d | 1 | computational-number-theory |
-| `cnt-mr` | verbatim | interact | 2d | 1 | computational-number-theory |
-| `cnt-rho` | verbatim | interact | 2d | 1 | computational-number-theory |
-| `cnt-sch` | verbatim | interact | 2d | 1 | computational-number-theory |
+| `cnt-bu` | verbatim | click | 2d | 1 | computational-number-theory |
+| `cnt-exp` | verbatim | input | 2d | 1 | computational-number-theory |
+| `cnt-lll` | verbatim | slider | 2d | 1 | computational-number-theory |
+| `cnt-mr` | verbatim | input | 2d | 1 | computational-number-theory |
+| `cnt-rho` | verbatim | input | 2d | 1 | computational-number-theory |
+| `cnt-sch` | verbatim | input | 2d | 1 | computational-number-theory |
 | `cocartesian-fibrations-edge-scrubber` | cocartesian-fibrations-edge-scrubber | interact | 2d | 1 | cocartesian-fibrations |
 | `cocartesian-fibrations-examples-graph` | cocartesian-fibrations-examples-graph | interact | 2d | 1 | cocartesian-fibrations |
 | `cocartesian-fibrations-fibration-clickable` | cocartesian-fibrations-fibration-clickable | interact | 2d | 1 | cocartesian-fibrations |
@@ -163,19 +163,19 @@ page has wired one in yet.
 | `designs-hamming-fano` | designs-hamming-fano | step | 2d | 1 | designs |
 | `designs-mols-construction` | designs-mols-construction | click | 2d | 1 | designs |
 | `designs-round-robin` | designs-round-robin | step | 2d | 1 | designs |
-| `df-w1` | verbatim | interact | 2d | 1 | differential-forms |
-| `df-w2` | verbatim | interact | 2d | 1 | differential-forms |
-| `df-w3` | verbatim | interact | 2d | 1 | differential-forms |
-| `df-w4` | verbatim | interact | 2d | 1 | differential-forms |
-| `df-w5` | verbatim | interact | 2d | 1 | differential-forms |
+| `df-closed-not-exact` | verbatim | slider | 2d | 1 | differential-forms |
+| `df-exterior-derivative` | verbatim | select | 2d | 1 | differential-forms |
+| `df-one-form-evaluator` | verbatim | slider | 2d | 1 | differential-forms |
+| `df-stokes-disk` | verbatim | slider | 2d | 1 | differential-forms |
+| `df-two-form-parallelogram` | verbatim | select | 2d | 1 | differential-forms |
 | `diagram-editor` | diagram-editor | drag-and-toggle | 2d | 1 | homological |
-| `ec-disc` | verbatim | interact | 2d | 1 | elliptic-curves |
-| `ec-gl` | verbatim | interact | 2d | 1 | elliptic-curves |
-| `ec-j` | verbatim | interact | 2d | 1 | elliptic-curves |
+| `ec-disc` | verbatim | slider | 2d | 1 | elliptic-curves |
+| `ec-gl` | verbatim | slider | 2d | 1 | elliptic-curves |
+| `ec-j` | verbatim | slider | 2d | 1 | elliptic-curves |
 | `ec-lat` | verbatim | interact | 2d | 1 | elliptic-curves |
-| `ec-mw` | verbatim | interact | 2d | 1 | elliptic-curves |
-| `ec-rep` | verbatim | interact | 2d | 1 | elliptic-curves |
-| `ec-tf` | verbatim | interact | 2d | 1 | elliptic-curves |
+| `ec-mw` | verbatim | select | 2d | 1 | elliptic-curves |
+| `ec-rep` | verbatim | slider | 2d | 1 | elliptic-curves |
+| `ec-tf` | verbatim | select | 2d | 1 | elliptic-curves |
 | `elementary-topos-theory-axioms-scrub` | declarative-host | click | 2d | 1 | elementary-topos-theory |
 | `elementary-topos-theory-chi-pullback` | declarative-host | click | 2d | 1 | elementary-topos-theory |
 | `elementary-topos-theory-geom-graph` | declarative-host | click | 2d | 1 | elementary-topos-theory |
@@ -216,35 +216,35 @@ page has wired one in yet.
 | `forcing-generic-filter` | forcing-generic-filter | stepper | 2d | 1 | forcing-and-independence |
 | `forcing-poset` | forcing-poset | toggle | 2d | 1 | forcing-and-independence |
 | `forcing-truth-table` | forcing-truth-table | table | 2d | 1 | forcing-and-independence |
-| `fpt-bp` | verbatim | interact | 2d | 1 | fixed-point-theorems |
-| `fpt-br` | verbatim | interact | 2d | 1 | fixed-point-theorems |
-| `fpt-kk` | verbatim | interact | 2d | 1 | fixed-point-theorems |
-| `fpt-lf` | verbatim | interact | 2d | 1 | fixed-point-theorems |
-| `fpt-pl` | verbatim | interact | 2d | 1 | fixed-point-theorems |
-| `fpt-sc` | verbatim | interact | 2d | 1 | fixed-point-theorems |
+| `fpt-bp` | verbatim | slider | 2d | 1 | fixed-point-theorems |
+| `fpt-br` | verbatim | static | 2d | 1 | fixed-point-theorems |
+| `fpt-kk` | verbatim | slider | 2d | 1 | fixed-point-theorems |
+| `fpt-lf` | verbatim | select | 2d | 1 | fixed-point-theorems |
+| `fpt-pl` | verbatim | slider | 2d | 1 | fixed-point-theorems |
+| `fpt-sc` | verbatim | click | 2d | 1 | fixed-point-theorems |
 | `fr-dict` | verbatim | interact | 2d | 1 | frobenius-and-reciprocity |
 | `fr-tower` | verbatim | interact | 2d | 1 | frobenius-and-reciprocity |
-| `gal-w1` | verbatim | interact | 2d | 1 | galois |
-| `gb-buch` | verbatim | interact | 2d | 1 | groebner-bases |
-| `gb-elim` | verbatim | interact | 2d | 1 | groebner-bases |
-| `gb-monorder` | verbatim | interact | 2d | 1 | groebner-bases |
-| `gb-mvdiv` | verbatim | interact | 2d | 1 | groebner-bases |
-| `gb-reduce` | verbatim | interact | 2d | 1 | groebner-bases |
-| `gb-solve` | verbatim | interact | 2d | 1 | groebner-bases |
-| `gb-spoly` | verbatim | interact | 2d | 1 | groebner-bases |
-| `gb-staircase` | verbatim | interact | 2d | 1 | groebner-bases |
+| `gal-three-impossibilities` | verbatim | static | 2d | 1 | galois |
+| `gb-buch` | verbatim | click | 2d | 1 | groebner-bases |
+| `gb-elim` | verbatim | click | 2d | 1 | groebner-bases |
+| `gb-monorder` | verbatim | select | 2d | 1 | groebner-bases |
+| `gb-mvdiv` | verbatim | click | 2d | 1 | groebner-bases |
+| `gb-reduce` | verbatim | click | 2d | 1 | groebner-bases |
+| `gb-solve` | verbatim | click | 2d | 1 | groebner-bases |
+| `gb-spoly` | verbatim | click | 2d | 1 | groebner-bases |
+| `gb-staircase` | verbatim | select | 2d | 1 | groebner-bases |
 | `gcb-central-extension-browser` | gcb-central-extension-browser | click | 2d | 1 | galois-cohomology-and-brauer |
 | `gcb-cocycle-tester` | gcb-cocycle-tester | click | 2d | 1 | galois-cohomology-and-brauer |
 | `gcb-cyclic-algebra-tester` | gcb-cyclic-algebra-tester | click | 2d | 1 | galois-cohomology-and-brauer |
 | `gcb-hasse-counterexample-gallery` | gcb-hasse-counterexample-gallery | click | 2d | 1 | galois-cohomology-and-brauer |
 | `gcb-mu2-torsor-visualizer` | gcb-mu2-torsor-visualizer | click | 2d | 1 | galois-cohomology-and-brauer |
 | `gcb-tate-pairing-table` | gcb-tate-pairing-table | click | 2d | 1 | galois-cohomology-and-brauer |
-| `gcg-cay` | verbatim | interact | 2d | 1 | geometric-and-combinatorial-group-theory |
-| `gcg-dec` | verbatim | interact | 2d | 1 | geometric-and-combinatorial-group-theory |
-| `gcg-grow` | verbatim | interact | 2d | 1 | geometric-and-combinatorial-group-theory |
-| `gcg-hyp` | verbatim | interact | 2d | 1 | geometric-and-combinatorial-group-theory |
-| `gcg-pres` | verbatim | interact | 2d | 1 | geometric-and-combinatorial-group-theory |
-| `gcg-qi` | verbatim | interact | 2d | 1 | geometric-and-combinatorial-group-theory |
+| `gcg-cay` | verbatim | click | 2d | 1 | geometric-and-combinatorial-group-theory |
+| `gcg-dec` | verbatim | click | 2d | 1 | geometric-and-combinatorial-group-theory |
+| `gcg-grow` | verbatim | slider | 2d | 1 | geometric-and-combinatorial-group-theory |
+| `gcg-hyp` | verbatim | slider | 2d | 1 | geometric-and-combinatorial-group-theory |
+| `gcg-pres` | verbatim | select | 2d | 1 | geometric-and-combinatorial-group-theory |
+| `gcg-qi` | verbatim | slider | 2d | 1 | geometric-and-combinatorial-group-theory |
 | `general-relativity-cosmology` | general-relativity-cosmology | slider | 2d | 1 | general-relativity |
 | `general-relativity-einstein` | general-relativity-einstein | click | 2d | 1 | general-relativity |
 | `general-relativity-gw` | general-relativity-gw | slider | 2d | 1 | general-relativity |
@@ -272,13 +272,13 @@ page has wired one in yet.
 | `group-schemes-mu-n-add` | modular-arithmetic-clock | drag | 2d | 1 | group-schemes |
 | `group-schemes-mu-n-clock` | modular-arithmetic-clock | drag | 2d | 1 | group-schemes |
 | `group-schemes-torsor-cases` | counterexample-explorer | click | 2d | 1 | group-schemes |
-| `gt-bpst` | verbatim | interact | 2d | 1 | gauge-theory |
-| `gt-cs` | verbatim | interact | 2d | 1 | gauge-theory |
-| `gt-curv` | verbatim | interact | 2d | 1 | gauge-theory |
-| `gt-hopf` | verbatim | interact | 2d | 1 | gauge-theory |
-| `gt-lattice` | verbatim | interact | 2d | 1 | gauge-theory |
-| `gt-sw` | verbatim | interact | 2d | 1 | gauge-theory |
-| `gt-wilson` | verbatim | interact | 2d | 1 | gauge-theory |
+| `gt-bpst` | verbatim | slider | 2d | 1 | gauge-theory |
+| `gt-cs` | verbatim | slider | 2d | 1 | gauge-theory |
+| `gt-curv` | verbatim | select | 2d | 1 | gauge-theory |
+| `gt-hopf` | verbatim | slider | 2d | 1 | gauge-theory |
+| `gt-lattice` | verbatim | slider | 2d | 1 | gauge-theory |
+| `gt-sw` | verbatim | click | 2d | 1 | gauge-theory |
+| `gt-wilson` | verbatim | slider | 2d | 1 | gauge-theory |
 | `harmonic-convolution` | harmonic-convolution | slider | 2d | 1 | harmonic-analysis-fourier |
 | `harmonic-functions-harnack-corridor` | harmonic-functions-harnack-corridor | slider | 2d | 1 | harmonic-functions |
 | `harmonic-functions-laplacian-heatmap` | harmonic-functions-laplacian-heatmap | select | 2d | 1 | harmonic-functions |
@@ -471,13 +471,13 @@ page has wired one in yet.
 | `simplicial-sets-inner-horn-filler` | button-stepper | click | 2d | 1 | simplicial-sets-and-nerve |
 | `simplicial-sets-nerve-2simplex` | clickable-diagram | click | 2d | 1 | simplicial-sets-and-nerve |
 | `simplicial-sets-realization-stepper` | button-stepper | step | 2d | 1 | simplicial-sets-and-nerve |
-| `sm-boltz` | verbatim | interact | 2d | 1 | statistical-mechanics |
-| `sm-cramer` | verbatim | interact | 2d | 1 | statistical-mechanics |
-| `sm-gibbs` | verbatim | interact | 2d | 1 | statistical-mechanics |
-| `sm-ising` | verbatim | interact | 2d | 1 | statistical-mechanics |
-| `sm-occ` | verbatim | interact | 2d | 1 | statistical-mechanics |
-| `sm-phase` | verbatim | interact | 2d | 1 | statistical-mechanics |
-| `sm-rg` | verbatim | interact | 2d | 1 | statistical-mechanics |
+| `sm-boltz` | verbatim | slider | 2d | 1 | statistical-mechanics |
+| `sm-cramer` | verbatim | slider | 2d | 1 | statistical-mechanics |
+| `sm-gibbs` | verbatim | slider | 2d | 1 | statistical-mechanics |
+| `sm-ising` | verbatim | slider | 2d | 1 | statistical-mechanics |
+| `sm-occ` | verbatim | slider | 2d | 1 | statistical-mechanics |
+| `sm-phase` | verbatim | slider | 2d | 1 | statistical-mechanics |
+| `sm-rg` | verbatim | click | 2d | 1 | statistical-mechanics |
 | `sobolev-embedding-exponent` | sobolev-embedding-exponent | slider | 2d | 1 | sobolev-spaces-distributions |
 | `sobolev-fractional-power` | sobolev-fractional-power | slider | 2d | 1 | sobolev-spaces-distributions |
 | `sobolev-newtonian-potential` | sobolev-newtonian-potential | slider | 2d | 1 | sobolev-spaces-distributions |
@@ -485,15 +485,15 @@ page has wired one in yet.
 | `sobolev-trace` | sobolev-trace | slider | 2d | 1 | sobolev-spaces-distributions |
 | `sobolev-variational` | sobolev-variational | slider | 2d | 1 | sobolev-spaces-distributions |
 | `sobolev-weak-derivative` | sobolev-weak-derivative | click | 2d | 1 | sobolev-spaces-distributions |
-| `spec-frd` | verbatim | interact | 2d | 1 | spectral-theory |
-| `spec-herm` | verbatim | interact | 2d | 1 | spectral-theory |
-| `spec-lap` | verbatim | interact | 2d | 1 | spectral-theory |
-| `spec-n` | verbatim | interact | 2d | 1 | spectral-theory |
-| `spec-op` | verbatim | interact | 2d | 1 | spectral-theory |
-| `spec-osc` | verbatim | interact | 2d | 1 | spectral-theory |
-| `spec-pvm` | verbatim | interact | 2d | 1 | spectral-theory |
-| `spec-sch` | verbatim | interact | 2d | 1 | spectral-theory |
-| `spec-wl` | verbatim | interact | 2d | 1 | spectral-theory |
+| `spec-frd` | verbatim | slider | 2d | 1 | spectral-theory |
+| `spec-herm` | verbatim | click | 2d | 1 | spectral-theory |
+| `spec-lap` | verbatim | slider | 2d | 1 | spectral-theory |
+| `spec-n` | verbatim | slider | 2d | 1 | spectral-theory |
+| `spec-op` | verbatim | click | 2d | 1 | spectral-theory |
+| `spec-osc` | verbatim | slider | 2d | 1 | spectral-theory |
+| `spec-pvm` | verbatim | slider | 2d | 1 | spectral-theory |
+| `spec-sch` | verbatim | slider | 2d | 1 | spectral-theory |
+| `spec-wl` | verbatim | slider | 2d | 1 | spectral-theory |
 | `spectral-graph-theory-adjacency` | spectral-graph-theory-adjacency | click | 2d | 1 | spectral-graph-theory |
 | `spectral-graph-theory-bipartite` | spectral-graph-theory-bipartite | click | 2d | 1 | spectral-graph-theory |
 | `spectral-graph-theory-cheeger` | spectral-graph-theory-cheeger | slider | 2d | 1 | spectral-graph-theory |
@@ -501,13 +501,13 @@ page has wired one in yet.
 | `spectral-graph-theory-components` | spectral-graph-theory-components | click | 2d | 1 | spectral-graph-theory |
 | `spectral-graph-theory-fiedler` | spectral-graph-theory-fiedler | click | 2d | 1 | spectral-graph-theory |
 | `spectral-graph-theory-random-walk` | spectral-graph-theory-random-walk | step | 2d | 1 | spectral-graph-theory |
-| `st-critdim` | verbatim | interact | 2d | 1 | string-theory |
-| `st-critdim-super` | verbatim | interact | 2d | 1 | string-theory |
-| `st-cy-moduli` | verbatim | interact | 2d | 1 | string-theory |
-| `st-string-math` | verbatim | interact | 2d | 1 | string-theory |
-| `st-tduality` | verbatim | interact | 2d | 1 | string-theory |
-| `st-virasoro` | verbatim | interact | 2d | 1 | string-theory |
-| `st-worldsheet` | verbatim | interact | 2d | 1 | string-theory |
+| `st-critdim` | verbatim | slider | 2d | 1 | string-theory |
+| `st-critdim-super` | verbatim | slider | 2d | 1 | string-theory |
+| `st-cy-moduli` | verbatim | slider | 2d | 1 | string-theory |
+| `st-string-math` | verbatim | click | 2d | 1 | string-theory |
+| `st-tduality` | verbatim | slider | 2d | 1 | string-theory |
+| `st-virasoro` | verbatim | slider | 2d | 1 | string-theory |
+| `st-worldsheet` | verbatim | slider | 2d | 1 | string-theory |
 | `stoch-proc-brownian-quadratic-variation` | stoch-proc-brownian-quadratic-variation | slider | 2d | 1 | stochastic-processes-and-martingales |
 | `stoch-proc-convergence-regimes` | stoch-proc-convergence-regimes | slider | 2d | 1 | stochastic-processes-and-martingales |
 | `stoch-proc-doob-decomposition` | stoch-proc-doob-decomposition | step | 2d | 1 | stochastic-processes-and-martingales |
@@ -550,12 +550,12 @@ page has wired one in yet.
 | `voa-mckay-thompson` | voa-mckay-thompson | select | 2d | 1 | vertex-operator-algebras |
 | `voa-mode-bookkeeping` | voa-mode-bookkeeping | slider | 2d | 1 | vertex-operator-algebras |
 | `voa-virasoro-bracket` | voa-virasoro-bracket | step | 2d | 1 | vertex-operator-algebras |
-| `wav-db` | verbatim | interact | 2d | 1 | wavelets |
-| `wav-den` | verbatim | interact | 2d | 1 | wavelets |
-| `wav-dwt` | verbatim | interact | 2d | 1 | wavelets |
-| `wav-haar` | verbatim | interact | 2d | 1 | wavelets |
-| `wav-mra` | verbatim | interact | 2d | 1 | wavelets |
-| `wav-tile` | verbatim | interact | 2d | 1 | wavelets |
+| `wav-db` | verbatim | click | 2d | 1 | wavelets |
+| `wav-den` | verbatim | slider | 2d | 1 | wavelets |
+| `wav-dwt` | verbatim | click | 2d | 1 | wavelets |
+| `wav-haar` | verbatim | slider | 2d | 1 | wavelets |
+| `wav-mra` | verbatim | slider | 2d | 1 | wavelets |
+| `wav-tile` | verbatim | click | 2d | 1 | wavelets |
 | `zfc-aleph-ladder` | zfc-aleph-ladder | slider | 2d | 1 | zfc-and-ordinals |
 | `zfc-choice-picker` | zfc-choice-picker | click | 2d | 1 | zfc-and-ordinals |
 | `zfc-continuum-locator` | zfc-continuum-locator | click | 2d | 1 | zfc-and-ordinals |
@@ -582,7 +582,7 @@ page has wired one in yet.
 - Widgets: **123** (registry-driven: 123, inline: 0)
   - by family: button-stepper: 42, clickable-diagram: 21, verbatim: 14, parametric-plot: 9, proof-scrubber: 2, quantum-groups-hopf-axioms-inspector: 1, quantum-groups-qsl2-deformation-slider: 1, quantum-groups-yang-baxter-reidemeister: 1, quantum-groups-crystal-tensor-product: 1, quantum-groups-reshetikhin-turaev-knots: 1, quantum-groups-applications-map: 1, quaternions-multiplication-tester: 1, quaternions-rotation-visualizer: 1, quaternions-cayley-dickson-ladder: 1, quaternions-fano-plane-oracle: 1, quaternions-frobenius-case-tree: 1, quaternions-hurwitz-tower-bar: 1, naturality-square: 1, declarative-host: 1, clickable-graph: 1, diagram-editor: 1, group-cohomology-coboundary-calculator: 1, group-cohomology-fixed-points: 1, group-cohomology-hilbert-90: 1, group-cohomology-c2-extensions: 1, group-cohomology-tate-periodic-table: 1, group-cohomology-lhs-spectral: 1, group-cohomology-brauer-cheatsheet: 1, lie-algebras-bracket-table: 1, lie-algebras-adjoint-vis: 1, lie-algebras-derived-series: 1, lie-algebras-root-vis: 1, lie-algebras-weight-diagram: 1, lie-algebras-dynkin-gallery: 1, gcb-cocycle-tester: 1, gcb-mu2-torsor-visualizer: 1, gcb-central-extension-browser: 1, gcb-cyclic-algebra-tester: 1, gcb-tate-pairing-table: 1, gcb-hasse-counterexample-gallery: 1
   - by dimension: 2d: 122, 3d: 1
-  - by gesture: click: 85, interact: 14, select: 9, inspect: 3, slider: 3, toggle: 2, scrub: 2, input: 1, slider+click: 1, interactive: 1, drag-and-toggle: 1, step: 1
+  - by gesture: click: 93, select: 12, slider: 6, inspect: 3, toggle: 2, scrub: 2, input: 1, slider+click: 1, interactive: 1, drag-and-toggle: 1, step: 1
 - Quizzes: **541** (v1: 355, hard: 186, expert: 0)
   - by type: mcq: 338, numeric: 149, multi-select: 27, ordering: 11, spot-the-error: 6, matching: 5, proof-completion: 4, complex: 1
 
@@ -602,7 +602,7 @@ page has wired one in yet.
 - Widgets: **143** (registry-driven: 143, inline: 0)
   - by family: clickable-diagram: 41, button-stepper: 37, verbatim: 21, aca-figure: 5, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, variational-fdiff: 1, variational-brachistochrone: 1, variational-direct-method: 1, variational-mountain-pass: 1, variational-isoperimetric: 1, variational-sphere-geodesic: 1, constraint-bifurcation-explorer: 1, recurrence-plotter: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
   - by dimension: 2d: 142, 3d: 1
-  - by gesture: click: 81, slider: 33, interact: 21, drag: 5, select: 2, step: 1
+  - by gesture: click: 87, slider: 46, drag: 5, select: 3, step: 1, static: 1
 - Quizzes: **654** (v1: 469, hard: 185, expert: 0)
   - by type: mcq: 415, numeric: 153, multi-select: 24, matching: 18, ordering: 14, complex: 14, proof-completion: 9, spot-the-error: 5, construction: 1, guess-my-rule: 1
 
@@ -622,7 +622,7 @@ page has wired one in yet.
 - Widgets: **109** (registry-driven: 109, inline: 0)
   - by family: button-stepper: 34, surface-viewer: 6, verbatim: 5, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, mostow-rigidity-dial: 1, mostow-h3-fundamental-domain: 1, mostow-boundary-extension: 1, mostow-boundary-orbit: 1, mostow-rank-tower: 1, mostow-volume-spectrum: 1, symplectic-form-pairing: 1, symplectic-darboux-moser: 1, symplectic-harmonic-portrait: 1, symplectic-dirac-ladder: 1, symplectic-cotangent-lagrangians: 1, symplectic-floer-intersections: 1, knot-polynomials-gallery: 1, knot-polynomials-reidemeister: 1, knot-polynomials-alexander: 1, knot-polynomials-bracket: 1, knot-polynomials-homfly: 1, knot-polynomials-rmatrix: 1, ricci-einstein-flows: 1, ricci-deturck-trick: 1, ricci-blowup-rates: 1, ricci-soliton-zoo: 1, ricci-neckpinch-surgery: 1, ricci-extinction-timeline: 1, k-theory-grothendieck-builder: 1, k-theory-ses-relations: 1, k-theory-bott-periodicity: 1, k-theory-chern-character: 1, k-theory-low-k-groups: 1, k-theory-index-theorem: 1, atiyah-singer-index-family: 1, atiyah-singer-symbol: 1, atiyah-singer-ch-td: 1, atiyah-singer-cases: 1, atiyah-singer-dirac-sphere: 1, atiyah-singer-anomaly: 1, counterexample-explorer: 1, proof-scrubber: 1, lattice-visualizer: 1, characteristic-classes-mobius-vs-cylinder: 1, characteristic-classes-w1-surfaces: 1, characteristic-classes-c1-clutching: 1, characteristic-classes-pontryagin-formulas: 1, characteristic-classes-poincare-hopf: 1, characteristic-classes-gauss-bonnet: 1, characteristic-classes-classifying-map: 1, characteristic-classes-signature-l-genus: 1, characteristic-classes-cpn-localisation: 1, morse-torus-height: 1, morse-handle-decomp: 1, morse-cw-cells: 1, morse-betti-counts: 1, morse-gradient-flow: 1, morse-sphere-vs-rp2: 1, morse-smale-saddle: 1, morse-cerf-birth-death: 1
   - by dimension: 2d: 103, 3d: 6
-  - by gesture: click: 61, slider: 20, drag: 8, button-stepper: 6, interact: 5, step: 3, pick: 2, static: 2, select: 1, timeline: 1
+  - by gesture: click: 61, slider: 23, drag: 8, button-stepper: 6, step: 3, select: 3, pick: 2, static: 2, timeline: 1
 - Quizzes: **454** (v1: 312, hard: 142, expert: 0)
   - by type: mcq: 313, numeric: 123, complex: 7, multi-select: 5, matching: 4, ordering: 1, proof-completion: 1
 
@@ -632,7 +632,7 @@ page has wired one in yet.
 - Widgets: **119** (registry-driven: 119, inline: 0)
   - by family: button-stepper: 66, verbatim: 9, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, inline-code-cell: 4, declarative-host: 2, parametric-plot: 2, crypto-totient-units: 1, crypto-rsa-toy: 1, crypto-diffie-hellman: 1, crypto-ecc-points: 1, crypto-lwe-samples: 1, crypto-schnorr-protocol: 1, branching-proof-scrubber: 1, clickable-graph: 1, svg-illustration: 1, heights-naive-calculator: 1, heights-northcott-enumerator: 1, heights-weil-pullback: 1, heights-tate-averaging: 1, heights-mahler-measure: 1, heights-genus-growth: 1, heights-arakelov-decomposition: 1, counterexample-explorer: 1, ant-pnt-comparison: 1, ant-explicit-formula: 1, ant-zero-free-region: 1, ant-dirichlet-residue-wheel: 1, ant-sieve-truncation: 1, ant-bombieri-vinogradov: 1, proof-scrubber: 1
   - by dimension: 2d: 119
-  - by gesture: click: 74, slider: 21, interact: 9, input: 4, edit: 4, interactive: 2, button: 1, branching-timeline: 1, read: 1, select: 1, timeline: 1
+  - by gesture: click: 75, slider: 22, input: 8, edit: 4, interactive: 2, interact: 2, button: 1, static: 1, branching-timeline: 1, read: 1, select: 1, timeline: 1
 - Quizzes: **474** (v1: 291, hard: 183, expert: 0)
   - by type: mcq: 320, numeric: 146, complex: 3, matching: 3, ordering: 1, guess-my-rule: 1
 
@@ -652,7 +652,7 @@ page has wired one in yet.
 - Widgets: **151** (registry-driven: 151, inline: 0)
   - by family: button-stepper: 61, clickable-diagram: 23, verbatim: 7, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, calabi-yau-canonical-degree: 1, calabi-yau-hodge-diamond: 1, calabi-yau-hypersurface-zoo: 1, calabi-yau-periods: 1, calabi-yau-mirror-swap: 1, calabi-yau-syz-fibration: 1, mirror-hodge-diamond: 1, mirror-quintic-counts: 1, mirror-stable-map: 1, mirror-quintic-periods: 1, mirror-hms-pairing: 1, mirror-syz-fibration: 1, resolution-cusp-node-visualizer: 1, resolution-cuspidal-blowup: 1, resolution-tower-of-blowups: 1, resolution-curve-normalization: 1, resolution-ade-dynkin: 1, lattice-visualizer: 1, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, counterexample-explorer: 1
   - by dimension: 2d: 151
-  - by gesture: click: 100, interact: 22, slider: 9, scrub: 7, inspect: 5, select: 4, drag: 2, read: 1, slide: 1
+  - by gesture: click: 100, interact: 16, slider: 13, scrub: 7, select: 6, inspect: 5, drag: 2, read: 1, slide: 1
 - Quizzes: **674** (v1: 429, hard: 245, expert: 0)
   - by type: mcq: 438, numeric: 188, multi-select: 19, matching: 14, spot-the-error: 7, ordering: 4, complex: 3, proof-completion: 1
 
@@ -672,7 +672,7 @@ page has wired one in yet.
 - Widgets: **46** (registry-driven: 46, inline: 0)
   - by family: verbatim: 21, schrodinger-figure: 7, hamiltonians-figure: 6, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
   - by dimension: 2d: 46
-  - by gesture: interact: 27, slider: 13, click: 5, drag: 1
+  - by gesture: slider: 30, click: 8, interact: 6, drag: 1, select: 1
 - Quizzes: **135** (v1: 135, hard: 0, expert: 0)
   - by type: mcq: 98, multi-select: 15, numeric: 15, ordering: 4, spot-the-error: 2, matching: 1
 

@@ -13,9 +13,11 @@
 // Idempotent on already-migrated topics (no `<div class="widget"` in raw blocks
 // → no-op).
 
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+
+import { extractTitleAndHint, writeVerbatimSlug } from './lib/verbatim-slug-writer.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const repoRoot = resolve(dirname(__filename), '..');
@@ -106,61 +108,8 @@ function deriveWidgetIdFromInnerIds(markup, topicPrefix, fallbackIndex) {
   return `${topicPrefix}-w${fallbackIndex}`;
 }
 
-function extractTitleAndHint(html) {
-  const titleMatch = html.match(/<div class="ttl">([\s\S]*?)<\/div>/);
-  const hintMatch = html.match(/<div class="hint">([\s\S]*?)<\/div>/);
-  return {
-    title: titleMatch ? titleMatch[1] : '',
-    hint: hintMatch ? hintMatch[1] : '',
-  };
-}
-
-function writeSlugFiles(slug, topic, info, hasScript) {
-  const slugDir = join(repoRoot, 'widgets', slug);
-  if (!existsSync(slugDir)) mkdirSync(slugDir, { recursive: true });
-
-  const schemaPath = join(slugDir, 'schema.json');
-  if (!existsSync(schemaPath)) {
-    const schema = {
-      "$schema": "https://json-schema.org/draft/2020-12/schema",
-      "$id": `https://math-vis.local/widgets/${slug}/schema.json`,
-      "title": `${slug} widget params`,
-      "description": `Bespoke verbatim-renderer slug for the "${info.title || slug}" widget on the ${topic} topic. Carries opaque bodyMarkup + bodyScript strings; migrated from a Type-A inline widget by scripts/migrate-inline-widgets-typea.mjs.`,
-      "meta": {
-        "family": "verbatim",
-        "dimension": "2d",
-        "gesture": "interact",
-        "role": "interactive",
-      },
-      "type": "object",
-      "additionalProperties": false,
-      "required": ["widgetId", "title", "hint", "bodyMarkup", "bodyScript"],
-      "properties": {
-        "widgetId": {
-          "type": "string",
-          "description": "DOM id for the widget root, or empty string when the original markup carried no id.",
-        },
-        "title": { "type": "string", "description": "Header title (rendered inside .hd > .ttl by the original markup)." },
-        "hint": { "type": "string", "description": "Header hint (rendered inside .hd > .hint)." },
-        "bodyMarkup": { "type": "string", "description": "Verbatim markup for the widget — the full `<div class=\"widget\">…</div>` block as it appears in the source HTML." },
-        "bodyScript": { "type": "string", "description": "Verbatim driving `<script>…</script>` block, or empty string when the widget has no driving script." },
-      },
-    };
-    writeFileSync(schemaPath, JSON.stringify(schema, null, 2) + '\n');
-  }
-
-  const indexPath = join(slugDir, 'index.mjs');
-  if (!existsSync(indexPath)) {
-    const indexContent = `// ${slug} widget — migrated from inline ${topic} widget by\n// scripts/migrate-inline-widgets-typea.mjs. Uses the shared verbatim renderer\n// (widgets/_shared/verbatim-renderer.mjs) so byte-identical round-trip is\n// preserved while clearing the inline-widget audit.\n\nexport { renderMarkup, renderScript } from '../_shared/verbatim-renderer.mjs';\n`;
-    writeFileSync(indexPath, indexContent);
-  }
-
-  const readmePath = join(slugDir, 'README.md');
-  if (!existsSync(readmePath)) {
-    const readmeContent = `# \`${slug}\`\n\nBespoke verbatim slug for the "${info.title || slug}" widget on \`${topic}\`.\n\nMigrated from inline \`<div class="widget">\` markup (Type A: raw HTML buried in a \`raw\` block) by \`scripts/migrate-inline-widgets-typea.mjs\`. Uses the shared renderer at \`widgets/_shared/verbatim-renderer.mjs\` — \`bodyMarkup\` and \`bodyScript\` are emitted verbatim. See \`schema.json\` for the param shape.\n\nA future deeper migration could hoist this widget's semantic params (slider ranges, etc.) out of the opaque body strings into typed schema fields.\n`;
-    writeFileSync(readmePath, readmeContent);
-  }
-}
+// Helpers for extracting title/hint and scaffolding a verbatim slug directory
+// live in scripts/lib/verbatim-slug-writer.mjs (shared with Type B migration).
 
 function migrateTopic(topic) {
   const topicPrefix = TYPE_A_TOPICS[topic];
@@ -179,10 +128,17 @@ function migrateTopic(topic) {
       }
 
       // This raw block contains one or more inline widgets. Walk it.
+      // The opening-tag regex matches the same shapes the audit flags
+      // (multi-space, multi-class, single-quoted forms — see
+      // scripts/audit-no-inline-widgets.mjs:46), so the migration cannot
+      // miss a widget the audit would later flag as drift.
+      const WIDGET_OPEN_RE = /<div\s+class="widget(?:\s|"|\s+[^"]*")/g;
       let html = b.html;
       let cursor = 0;
       while (cursor < html.length) {
-        const widgetIdx = html.indexOf('<div class="widget', cursor);
+        WIDGET_OPEN_RE.lastIndex = cursor;
+        const m = WIDGET_OPEN_RE.exec(html);
+        const widgetIdx = m ? m.index : -1;
         if (widgetIdx < 0) {
           // No more widgets — emit remainder as raw
           if (cursor < html.length) {
@@ -302,7 +258,12 @@ function migrateTopic(topic) {
           cursorAfter = widgetEnd;
         }
 
-        writeSlugFiles(slug, topic, info, !!scriptInfo);
+        writeVerbatimSlug({
+          repoRoot, slug, topic,
+          title: info.title, hint: info.hint,
+          bodyMarkup: widgetMarkup,
+          bodyScript: scriptBytes,
+        });
         migrated++;
         cursor = cursorAfter;
       }
