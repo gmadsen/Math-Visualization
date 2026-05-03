@@ -182,8 +182,33 @@
   try { document.documentElement.classList.add('katex-pending'); } catch (_) {}
   try {
     var foucScript = document.createElement('script');
-    foucScript.src = './js/katex-fouc.js';
+    // Resolve katex-fouc.js as a sibling of this script's own URL, so pages
+    // nested one directory deeper (sections/, examples/) still load it
+    // correctly. A previous hard-coded `./js/katex-fouc.js` left the
+    // section/*.html pages stuck behind the FOUC opacity:0 forever.
+    // Prefer document.currentScript (set during synchronous script execution).
+    // Fall back to scanning <script> tags for theme-toggle.js so we still get
+    // the right relative URL if currentScript is unavailable for any reason
+    // (e.g. older cached bundle injecting this script dynamically).
+    var ownSrc = (document.currentScript && document.currentScript.src) || '';
+    if (!ownSrc) {
+      var scripts = document.getElementsByTagName('script');
+      for (var i = 0; i < scripts.length; i++) {
+        var s = scripts[i].src || '';
+        if (/theme-toggle\.js(?:\?|$)/.test(s)) { ownSrc = s; break; }
+      }
+    }
+    foucScript.src = ownSrc
+      ? ownSrc.replace(/[^\/]+$/, 'katex-fouc.js')
+      : './js/katex-fouc.js';
     foucScript.async = false;
+    // Belt-and-suspenders: if the FOUC-reveal script ever 404s for any reason
+    // (path-resolution miss, deploy mid-flight, CDN drop), don't leave the
+    // page wedged at opacity:0 forever. This soft-fallback cost is one
+    // extra event listener per page load.
+    foucScript.onerror = function () {
+      try { document.documentElement.classList.remove('katex-pending'); } catch (__) {}
+    };
     (document.head || document.documentElement).appendChild(foucScript);
   } catch (_) { /* defensive — FOUC is a polish layer, not load-bearing */
     try { document.documentElement.classList.remove('katex-pending'); } catch (_) {}

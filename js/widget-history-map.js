@@ -157,7 +157,7 @@
     host.innerHTML = '';
     const hd = document.createElement('div');
     hd.className = 'hd';
-    hd.innerHTML = '<div class="ttl">World map of mathematical breakthroughs</div><div class="hint">Click a pin · color = era</div>';
+    hd.innerHTML = '<div class="ttl">World map of mathematical breakthroughs</div><div class="hint">Click a pin · multi-event clusters fan their rings by era, oldest at the centre</div>';
     host.appendChild(hd);
 
     // chip row
@@ -247,11 +247,14 @@
     const clusters = clusterEvents(events);
     const pinNodes = [];
     clusters.forEach((cl, i) => {
-      // cluster era = era of most recent event in the cluster
-      const sorted = cl.events.slice().sort((a,b) => b.year - a.year);
-      const dominantEra = sorted[0].era;
-      const era = eraById.get(dominantEra);
-      const eraColor = era ? era.color : 'var(--mute)';
+      // Sort cluster events oldest → newest. Concentric arcs from inside
+      // out: oldest event sits in the centre, newest takes the outer ring.
+      // Cluster's "selected" colour (used for outline + filter logic) =
+      // the era of the most recent event.
+      const oldestFirst = cl.events.slice().sort((a,b) => a.year - b.year);
+      const newestEra = oldestFirst[oldestFirst.length - 1].era;
+      const newestEraObj = eraById.get(newestEra);
+      const newestColor = newestEraObj ? newestEraObj.color : 'var(--mute)';
       const [x, y] = project(cl.lng, cl.lat);
       const g = el('g', {
         'class':'pin',
@@ -261,16 +264,39 @@
         'aria-label':`${cl.city||'Unknown'}: ${cl.events.length} event${cl.events.length>1?'s':''}`
       });
       g.dataset.idx = i;
-      g.style.setProperty('--era-color', eraColor);
-      const r = Math.min(8, 4 + Math.sqrt(cl.events.length) * 1.5);
-      g.appendChild(el('circle', {
-        r: r, cx: 0, cy: 0,
-        fill: eraColor
-      }));
-      // tiny inner stripe if 2+ events
+      g.style.setProperty('--era-color', newestColor);
+      // Pin size: scales with sqrt(count), capped at 11px outer radius.
+      const rOuter = Math.min(11, 4.5 + Math.sqrt(cl.events.length) * 1.6);
+      if(cl.events.length === 1){
+        // Single-event cluster: one filled disc, classic pin look.
+        g.appendChild(el('circle', { r: rOuter, cx: 0, cy: 0, fill: newestColor }));
+      } else {
+        // Multi-event cluster: render concentric discs, oldest era at the
+        // centre, each newer event painted as a slightly larger ring.
+        // Distinct eras only — duplicates (e.g. Paris with 4 enlightenment
+        // events) collapse to one band so the pin shows era diversity not
+        // event count.
+        const distinctEras = [];
+        for(const ev of oldestFirst){
+          if(!distinctEras.length || distinctEras[distinctEras.length-1] !== ev.era){
+            distinctEras.push(ev.era);
+          }
+        }
+        // Map each era to a radius growing from the centre outward.
+        const rInnerMin = 2.2;
+        const step = (rOuter - rInnerMin) / Math.max(1, distinctEras.length);
+        // Render outermost ring first (largest disc) so inner discs paint on top.
+        for(let k = distinctEras.length - 1; k >= 0; k--){
+          const eraObj = eraById.get(distinctEras[k]);
+          const c = eraObj ? eraObj.color : 'var(--mute)';
+          const r = rInnerMin + step * (k + 1);
+          g.appendChild(el('circle', { r: r, cx: 0, cy: 0, fill: c }));
+        }
+      }
+      // tiny event-count badge under multi-event clusters
       if(cl.events.length > 1){
         g.appendChild(el('text', {
-          x:0, y:r + 11, 'text-anchor':'middle',
+          x:0, y:rOuter + 11, 'text-anchor':'middle',
           'font-size':9, fill:'var(--ink)',
           'paint-order':'stroke', stroke:'#0b0f16', 'stroke-width':2.5
         })).textContent = String(cl.events.length);
@@ -362,12 +388,58 @@
       const select = () => {
         state.selectedIdx = (state.selectedIdx === i) ? -1 : i;
         applyState();
+        // Cross-widget broadcast: if the cluster has a single primary person
+        // or every event shares a person, highlight them on other surfaces.
+        if(window.MVHistoryBus){
+          if(state.selectedIdx === i){
+            const cl = clusters[i];
+            const personSet = new Set();
+            cl.events.forEach(ev => (ev.who||[]).forEach(p => personSet.add(p)));
+            // Just emit the most-recent event's first person, if any.
+            const sorted = cl.events.slice().sort((a,b) => b.year - a.year);
+            const primary = (sorted[0].who || [])[0] || null;
+            if(primary) window.MVHistoryBus.selectPerson(primary);
+            else window.MVHistoryBus.clearSelection();
+          } else {
+            window.MVHistoryBus.clearSelection();
+          }
+        }
       };
       g.addEventListener('click', select);
       g.addEventListener('keydown', e => {
         if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); select(); }
       });
     });
+
+    // Listen for cross-widget selections — pulse any pin whose cluster
+    // contains an event involving the selected person.
+    if(window.MVHistoryBus){
+      window.MVHistoryBus.on('select-person', e => {
+        const id = e.detail && e.detail.id;
+        pinNodes.forEach((p, i) => {
+          const cl = clusters[i];
+          const matches = id && cl.events.some(ev => (ev.who || []).indexOf(id) >= 0);
+          p.classList.toggle('bus-highlight', !!matches);
+        });
+      });
+
+      // Scrub-year: fade pins to 18% opacity unless their cluster contains
+      // an event within ±SCRUB_WINDOW years of the cursor. year=null
+      // restores everything.
+      const SCRUB_WINDOW = 60;
+      window.MVHistoryBus.on('scrub-year', e => {
+        const yr = e.detail && e.detail.year;
+        pinNodes.forEach((p, i) => {
+          if(yr == null){
+            p.classList.remove('scrub-out');
+            return;
+          }
+          const cl = clusters[i];
+          const hit = cl.events.some(ev => Math.abs(ev.year - yr) <= SCRUB_WINDOW);
+          p.classList.toggle('scrub-out', !hit);
+        });
+      });
+    }
     eraChips.forEach((c, id) => {
       c.addEventListener('click', () => {
         if(state.activeEras.has(id)) state.activeEras.delete(id);

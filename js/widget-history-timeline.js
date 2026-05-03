@@ -45,6 +45,21 @@
       return plotLeft + frac * plotW;
     };
   }
+  // Inverse: given a pixel position, return the year. Piecewise solve.
+  function makeInverseScale(plotLeft, plotW){
+    return function xToYear(x){
+      const targetFrac = Math.max(0, Math.min(1, (x - plotLeft) / plotW));
+      let frac = 0;
+      for(const [a, b, w] of SEGMENTS){
+        if(targetFrac <= frac + w){
+          const localFrac = (targetFrac - frac) / w;
+          return Math.round(a + localFrac * (b - a));
+        }
+        frac += w;
+      }
+      return SEGMENTS[SEGMENTS.length - 1][1];
+    };
+  }
 
   // axis tick marks: hand-picked so prehistory and modern both get coverage
   const AXIS_TICKS = [
@@ -140,6 +155,7 @@
     const PLOT_BOTTOM = AXIS_Y - 14;
 
     const yearToX = makeScale(PLOT_LEFT, PLOT_W);
+    const xToYear = makeInverseScale(PLOT_LEFT, PLOT_W);
 
     // ----- header / hint row -----
     host.innerHTML = '';
@@ -248,6 +264,111 @@
       'class':'axis-zero',
       x1:xZero, y1:PLOT_TOP-4, x2:xZero, y2:AXIS_Y
     }));
+
+    // ===== scrubber =====
+    // A draggable vertical line that the reader can sweep along the year
+    // axis. The current year shows above it; the map widget listens on the
+    // bus and fades out pins outside ±50 years of the cursor.
+    const SCRUB_INIT_YEAR = 1500;
+    let scrubYearState = SCRUB_INIT_YEAR;
+    const scrubGroup = el('g', {
+      'class':'tl-scrubber',
+      tabindex: 0,
+      role: 'slider',
+      'aria-label': 'Year scrubber — drag or use ← / → / Home / End to filter the world map by year',
+      'aria-valuemin': SEGMENTS[0][0],
+      'aria-valuemax': SEGMENTS[SEGMENTS.length-1][1],
+      'aria-valuenow': SCRUB_INIT_YEAR
+    });
+    const scrubLine = el('line', {
+      x1: 0, y1: ERA_BAND_TOP, x2: 0, y2: AXIS_Y,
+      stroke: 'var(--yellow)', 'stroke-width': 1.4,
+      'stroke-dasharray': '4 3',
+      opacity: 0.55,
+      'pointer-events': 'none'
+    });
+    const scrubGrip = el('rect', {
+      x: -8, y: ERA_BAND_TOP - 4, width: 16, height: 12, rx: 3, ry: 3,
+      fill: 'var(--yellow)', stroke: '#0b0f16', 'stroke-width': 1.2,
+      cursor: 'ew-resize'
+    });
+    const scrubLabel = el('text', {
+      x: 0, y: ERA_BAND_TOP - 8,
+      'text-anchor':'middle', 'font-size': 11,
+      'font-variant-numeric':'tabular-nums', 'font-weight': 600,
+      fill: 'var(--yellow)',
+      'paint-order': 'stroke', stroke: '#0b0f16', 'stroke-width': 3,
+      'pointer-events': 'none'
+    });
+    scrubGroup.appendChild(scrubLine);
+    scrubGroup.appendChild(scrubGrip);
+    scrubGroup.appendChild(scrubLabel);
+    svg.appendChild(scrubGroup);
+    function setScrubYear(year){
+      const cy = Math.max(SEGMENTS[0][0], Math.min(SEGMENTS[SEGMENTS.length-1][1], year));
+      const x = yearToX(cy);
+      scrubLine.setAttribute('x1', x);
+      scrubLine.setAttribute('x2', x);
+      scrubGrip.setAttribute('x', x - 8);
+      scrubLabel.setAttribute('x', x);
+      scrubLabel.textContent = fmtYear(cy);
+      scrubGroup.setAttribute('aria-valuenow', cy);
+      scrubGroup.setAttribute('aria-valuetext', fmtYear(cy));
+      scrubYearState = cy;
+      // Throttle bus emissions: only re-broadcast when the integer year
+      // changes. Pointer-move can fire 60+/s; without this every map pin
+      // would have its classList toggled at that rate.
+      if(window.MVHistoryBus && cy !== lastEmitYear){
+        lastEmitYear = cy;
+        window.MVHistoryBus.scrubYear(cy);
+      }
+    }
+    // Initial scrub-year emit happens after the current macrotask so the
+    // map widget's bus listener has a chance to register first (timeline
+    // init runs before map init in the bootstrapper). Without the
+    // setTimeout we'd emit while map listeners don't exist yet.
+    setTimeout(() => setScrubYear(SCRUB_INIT_YEAR), 0);
+    let dragging = false;
+    let lastEmitYear = null;
+    function pointerToYear(e){
+      const rect = svg.getBoundingClientRect();
+      const xCss = e.clientX - rect.left;
+      // SVG viewBox is VIEW_W wide rendered into rect.width css pixels
+      const xSvg = xCss * (VIEW_W / rect.width);
+      return xToYear(xSvg);
+    }
+    scrubGrip.addEventListener('pointerdown', e => {
+      dragging = true;
+      scrubGrip.setPointerCapture(e.pointerId);
+      e.preventDefault();
+    });
+    scrubGroup.addEventListener('pointermove', e => {
+      if(!dragging) return;
+      setScrubYear(pointerToYear(e));
+    });
+    function endDrag(){ dragging = false; }
+    scrubGrip.addEventListener('pointerup', endDrag);
+    scrubGrip.addEventListener('pointercancel', endDrag);
+    scrubGroup.addEventListener('keydown', e => {
+      // Coarse step keys: ← / →. Fine: shift+arrow. Home/End jump to bounds.
+      const fine = e.shiftKey ? 10 : 50;
+      if(e.key === 'ArrowLeft'){ setScrubYear(scrubYearState - fine); e.preventDefault(); }
+      else if(e.key === 'ArrowRight'){ setScrubYear(scrubYearState + fine); e.preventDefault(); }
+      else if(e.key === 'Home'){ setScrubYear(SEGMENTS[0][0]); e.preventDefault(); }
+      else if(e.key === 'End'){ setScrubYear(SEGMENTS[SEGMENTS.length-1][1]); e.preventDefault(); }
+    });
+    // Click on the scrubber background also jumps the cursor.
+    svg.addEventListener('click', e => {
+      // Don't interfere with dot clicks — those already toggle selection.
+      if(e.target.closest('.event-dot')) return;
+      if(e.target.closest('.tl-scrubber')) return;
+      // Only react to clicks within the band area (not the axis/labels).
+      const rect = svg.getBoundingClientRect();
+      const yCss = e.clientY - rect.top;
+      const ySvg = yCss * (VIEW_H / rect.height);
+      if(ySvg > AXIS_Y - 14 || ySvg < ERA_BAND_TOP) return;
+      setScrubYear(pointerToYear(e));
+    });
 
     // ===== pack and render event dots =====
     const placements = packLanes(
@@ -363,15 +484,36 @@
 
     // ===== handlers =====
     dotNodes.forEach((g, i) => {
+      const ev = events[i];
       const select = () => {
         state.selectedIdx = (state.selectedIdx === i) ? -1 : i;
         applyState();
+        // Announce the first associated person (if any) on the cross-widget
+        // bus so the map and lineage widgets can highlight matching surfaces.
+        const firstPerson = (ev.who || [])[0] || null;
+        if(window.MVHistoryBus){
+          if(state.selectedIdx === i && firstPerson) window.MVHistoryBus.selectPerson(firstPerson);
+          else window.MVHistoryBus.clearSelection();
+        }
       };
       g.addEventListener('click', select);
       g.addEventListener('keydown', e => {
         if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); select(); }
       });
     });
+
+    // Listen for cross-widget selections — pulse any dot whose event
+    // includes the selected person.
+    if(window.MVHistoryBus){
+      window.MVHistoryBus.on('select-person', e => {
+        const id = e.detail && e.detail.id;
+        events.forEach((ev, i) => {
+          const dot = dotNodes[i];
+          const matches = id && (ev.who || []).indexOf(id) >= 0;
+          dot.classList.toggle('bus-highlight', !!matches);
+        });
+      });
+    }
     eraChips.forEach((c, id) => {
       c.addEventListener('click', () => {
         if(state.activeEras.has(id)) state.activeEras.delete(id);

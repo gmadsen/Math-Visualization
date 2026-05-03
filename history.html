@@ -46,6 +46,30 @@
     --era-19c:#89b482;
     --era-20c:#7daea3;
     --era-modern:#c8a5d4;
+    /* Set by the era-scroll-wash IIFE: tracks the era currently in view.
+       Sidetoc highlight + the body::before stripe pick up this color so the
+       page's accent follows the reader through the chronology. Default
+       (yellow) shows when the reader is above any era (hero / timeline / map)
+       or below the last (lineage / further). */
+    --current-era-color: var(--yellow);
+  }
+  /* The 4-px left stripe under the body that picks up --current-era-color.
+     Scoped to the era sections; we don't bleed the wash into hero / further. */
+  body::before{
+    content:"";position:fixed;left:0;top:0;bottom:0;width:4px;
+    background:var(--current-era-color);
+    transition:background 800ms ease;
+    pointer-events:none;z-index:1;
+    opacity:.55;
+  }
+  /* Sidetoc active link follows the wash. Falls back to yellow when nothing
+     is active so the empty state is unchanged. */
+  aside.sidetoc a.active{
+    color:var(--current-era-color, var(--yellow));
+    border-left-color:var(--current-era-color, var(--yellow));
+  }
+  @media (prefers-reduced-motion: reduce){
+    body::before{ transition:none }
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
@@ -128,14 +152,81 @@
   .era-card h2{margin:.1rem 0 .4rem;border-bottom:none;padding-bottom:0}
   .era-card .era-blurb{color:var(--mute);font-size:.95rem;margin:.3rem 0 .5rem}
 
+  /* === Collapsible-era container ===
+     Each era's narrative is wrapped in <details class="era"> with the
+     era-card as the <summary>. Default closed so first-time readers see
+     a tight overview rather than a 12,000-word wall. The expand-all /
+     collapse-all controls below the world map give one-click access to
+     the long-form view. */
+  details.era{margin:0;padding:0}
+  details.era > summary{list-style:none;cursor:pointer;outline:none}
+  details.era > summary::-webkit-details-marker{display:none}
+  details.era > summary::marker{display:none}
+  details.era > summary > .era-card{position:relative;margin:1rem 0 1rem;
+    transition:border-color 150ms ease, background 150ms ease}
+  details.era > summary > .era-card::after{
+    content:"▾";position:absolute;right:1rem;top:1rem;
+    color:var(--era-color, var(--mute));font-size:1rem;line-height:1;
+    transition:transform 200ms ease;
+    -webkit-user-select:none;user-select:none;
+  }
+  details.era[open] > summary > .era-card::after{transform:rotate(180deg)}
+  details.era:not([open]) > summary > .era-card .era-blurb{margin-bottom:.2rem}
+  details.era > summary:focus-visible > .era-card{
+    outline:2px solid var(--cyan);outline-offset:2px}
+  details.era[open] > summary > .era-card{
+    border-bottom-left-radius:0;border-bottom-right-radius:0;
+    margin-bottom:0;border-bottom:1px dashed var(--line)}
+  details.era > .era-body{
+    background:color-mix(in srgb, var(--era-color, var(--panel)) 4%, var(--bg));
+    border:1px solid var(--line);border-top:none;border-left:4px solid var(--era-color, var(--mute));
+    border-radius:0 0 10px 10px;padding:.6rem 1.1rem 1rem;margin-bottom:1.4rem}
+  /* Expand-all / collapse-all rail */
+  .era-controls{display:flex;gap:.5rem;align-items:center;margin:1rem 0 .5rem;
+    flex-wrap:wrap;color:var(--mute);font-size:.88rem}
+  .era-controls .small-hint{margin-right:auto}
+  .era-controls button{background:var(--panel2);border:1px solid var(--line);
+    color:var(--ink);border-radius:6px;padding:.32rem .7rem;font-size:.85rem;cursor:pointer;
+    -webkit-user-select:none;user-select:none}
+  .era-controls button:hover{background:#242c3e}
+  .era-controls button:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+
+  /* === Cross-widget selection halo (bus-highlight) ===
+     Triggered when any surface dispatches MVHistoryBus.selectPerson(id).
+     Pulses the matching event-dot, pin, lineage node, and inline person
+     card — so a click on any one surface glows the same person across all
+     four. Animation is keyed to be brief (1.6s, 2 cycles) so it reads as
+     "look here" rather than as a permanent style. */
+  @keyframes bus-pulse {
+    0%   { filter: drop-shadow(0 0 0 var(--yellow)); }
+    50%  { filter: drop-shadow(0 0 8px var(--yellow)) drop-shadow(0 0 14px var(--yellow)); }
+    100% { filter: drop-shadow(0 0 0 var(--yellow)); }
+  }
+  .bus-highlight{ animation: bus-pulse 0.8s ease-in-out 2; }
+  .bus-highlight circle{ stroke: var(--yellow) !important; stroke-width: 2 !important; }
+  .bus-highlight rect { stroke: var(--yellow) !important; stroke-width: 2.4 !important; }
+  @media (prefers-reduced-motion: reduce){
+    .bus-highlight{ animation: none }
+  }
+
   /* mathematician inline card */
   .person{display:grid;grid-template-columns:auto 1fr;gap:.7rem 1rem;align-items:start;
     background:var(--panel);border:1px solid var(--line);border-radius:8px;
-    padding:.7rem .9rem;margin:.8rem 0}
+    padding:.7rem .9rem;margin:.8rem 0;
+    cursor:default}
+  .person[data-person-id]{cursor:pointer;transition:border-color 150ms ease, transform 150ms ease}
+  .person[data-person-id]:hover{border-color:var(--accent, var(--yellow));transform:translateY(-1px)}
+  .person.bus-highlight{
+    border-color: var(--yellow);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--yellow) 40%, transparent);
+  }
   .person .glyph{width:46px;height:46px;border-radius:50%;
     background:var(--panel2);border:1px solid var(--line);
     display:flex;align-items:center;justify-content:center;
-    font-weight:600;color:var(--accent, var(--yellow));font-size:.95rem;letter-spacing:.02em}
+    font-weight:600;color:var(--accent, var(--yellow));font-size:.95rem;letter-spacing:.02em;
+    flex-shrink:0;overflow:hidden}
+  .person .glyph svg{width:30px;height:30px;color:var(--accent, var(--yellow))}
+  .person .glyph svg text{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
   .person .pinfo .pname{font-weight:600;color:var(--ink)}
   .person .pinfo .pmeta{color:var(--mute);font-size:.85rem;font-variant-numeric:tabular-nums}
   .person .pinfo .pblurb{margin-top:.3rem;color:var(--ink);font-size:.93rem;line-height:1.5}
@@ -211,6 +302,12 @@
     stroke-dasharray:3 2;filter:drop-shadow(0 0 6px var(--cyan))}
   .map .pin.selected circle{stroke:var(--yellow);stroke-width:2}
   .map .pin.dim{opacity:.18}
+  .map .pin.scrub-out{opacity:.28;transition:opacity 200ms ease}
+  .map .pin{transition:opacity 200ms ease}
+  /* Scrubber styling */
+  .tl .tl-scrubber{cursor:ew-resize}
+  .tl .tl-scrubber rect{transition:fill 120ms ease}
+  .tl .tl-scrubber:hover rect{fill:#fff09a}
   .map .pin-label{font-size:10px;fill:var(--ink);pointer-events:none;
     text-shadow:0 0 4px #0b0f16, 0 0 4px #0b0f16}
   .map-legend{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.5rem;color:var(--mute);font-size:.78rem}
@@ -292,19 +389,19 @@ const SVG = (tag,attrs={})=>{
 <nav class="toc">
   <a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
   <span class="mv-theme-slot"></span>
-  <a href="#timeline">timeline</a>
-  <a href="#map">world map</a>
-  <a href="#prehistory">prehistory</a>
-  <a href="#ancient">ancient</a>
-  <a href="#classical">classical</a>
-  <a href="#asian-islamic">asian &amp; islamic</a>
-  <a href="#medieval">medieval</a>
-  <a href="#renaissance">renaissance</a>
+  <a href="#timeline">Timeline</a>
+  <a href="#map">World map</a>
+  <a href="#prehistory">Prehistory</a>
+  <a href="#ancient">Ancient</a>
+  <a href="#classical">Classical</a>
+  <a href="#asian-islamic">Asian &amp; Islamic</a>
+  <a href="#medieval">Medieval</a>
+  <a href="#renaissance">Renaissance</a>
   <a href="#enlightenment">18th–19th C</a>
   <a href="#twentieth">20th C</a>
   <a href="#modern">21st C</a>
-  <a href="#lineage">lineages</a>
-  <a href="#further">further</a>
+  <a href="#lineage">Lineages</a>
+  <a href="#further">Further</a>
 </nav>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -329,18 +426,27 @@ const SVG = (tag,attrs={})=>{
   <div class="widget map-wrap" id="map-widget"></div>
 </section>
 
+<div class="era-controls" role="group" aria-label="Era expand controls">
+  <span class="small-hint">Each era below opens to a long-form essay; click a card to expand it.</span>
+  <button type="button" id="era-expand-all">Expand all</button>
+  <button type="button" id="era-collapse-all">Collapse all</button>
+</div>
+
 <section id="prehistory">
-  <div class="era-card" style="--era-color:var(--era-prehistory)">
+  <details class="era" id="era-prehistory">
+    <summary>
+      <div class="era-card" style="--era-color:var(--era-prehistory)">
     <div class="era-eyebrow">Era 1<span class="era-range">~50,000 – 3000 BCE</span></div>
     <h2>3. Prehistory: marks on bone</h2>
     <p class="era-blurb">Before writing, before number words even, our ancestors made tally marks on bones. These are not yet "mathematics" the way Euclid is mathematics — but they are the first surviving artifacts of a human keeping track.</p>
   </div>
-  <div data-era-narrative="prehistory">
+    </summary>
+    <div class="era-body" data-era-narrative="prehistory">
 <p>A baboon's leg bone, twenty-nine notches cut into one edge, dug out of a rock shelter in the Lebombo Mountains on the border of Eswatini and South Africa. The carbon date came back at roughly 35,000 BCE — older than agriculture, older than pottery, older than the cave paintings at Lascaux by twenty millennia. Someone, in the late Pleistocene, sat down with a sharp flake and counted to twenty-nine. We don't know what they were counting. We don't know if they considered themselves to be counting. We don't even know if "twenty-nine" was a number in their head, or just the result of stopping when the bone ran out.</p>
 
 <p>This is where any honest history of mathematics has to begin, and where it has to start hedging. The <strong>Lebombo bone</strong> is the oldest surviving artefact that looks like a record of quantity. The <strong>Ishango bone</strong>, found near the source of the Nile in what is now the Democratic Republic of the Congo and dated to roughly 20,000 BCE, has three columns of marks whose totals — 60, 48, and 60 — are tantalising. One column lists 11, 13, 17, 19: every prime between 10 and 20. Another lists 11, 21, 19, 9: pairs that average to ten. Patterns or coincidence? The literature on this is, charitably, divided.</p>
 
-<div class="person">
+<div class="person" data-person-id="lebombo">
   <div class="glyph">LB</div>
   <div class="pinfo">
     <div class="pname">Lebombo bone (anonymous)</div>
@@ -364,16 +470,21 @@ const SVG = (tag,attrs={})=>{
 <p>What the prehistoric record gives us, then, is a baseline. Before any civilisation we recognise had fields to survey or temples to align, human beings were already making one-to-one correspondences between marks and things. By the time the Sumerians invent place-value notation around 3000 BCE — which is where the next era picks up — they are not inventing the idea of recording quantity. They are inventing a clever <em>compression</em> of an idea their species has been carrying around for at least thirty thousand years. The discrete count is the seed; <a href="./additive-number-theory.html">additive number theory</a> is the eventual harvest, twenty thousand years later, and that distance ought to inspire some humility about how slowly the species learns.</p>
 
 <p>None of this is mathematics in the sense that the rest of the notebook means it. There are no theorems on the Lebombo bone, no proofs, no $\varepsilon$ and $\delta$. But there is the first abstraction every mathematician makes without thinking: that quantity is a thing, and you can write it down.</p>
+<div class="widget era-toy" data-era-toy="prehistory"></div>
 </div>
+  </details>
 </section>
 
 <section id="ancient">
-  <div class="era-card" style="--era-color:var(--era-ancient)">
+  <details class="era" id="era-ancient">
+    <summary>
+      <div class="era-card" style="--era-color:var(--era-ancient)">
     <div class="era-eyebrow">Era 2<span class="era-range">3000 – 500 BCE</span></div>
     <h2>4. Ancient: rope, clay, papyrus</h2>
     <p class="era-blurb">Egypt and Mesopotamia: the first civilisations to write down arithmetic for taxes, calendars, and field-measurement. They had quadratic equations, Pythagorean triples, and a sexagesimal place-value system — a thousand years before the Greeks would call any of it geometry.</p>
   </div>
-  <div data-era-narrative="ancient">
+    </summary>
+    <div class="era-body" data-era-narrative="ancient">
 <p>In 1922 a New York publisher named George Arthur Plimpton bought a clay tablet from a dealer for ten dollars, donated it to Columbia University, and gave the world its single most consequential piece of evidence about Babylonian mathematics. <strong>Plimpton 322</strong> is a fragment of fired clay, roughly the size of a postcard, dated to about 1800 BCE. It has fifteen rows and four columns of cuneiform numerals. The columns, once decoded, list Pythagorean triples — integer solutions to $a^2 + b^2 = c^2$ — twelve hundred years before Pythagoras was born. Row eleven gives 45, 60, 75. Row four gives 12709, 13500, 18541. The scribe who carved this tablet had a method, and the method was not "guess and check."</p>
 
 <p>This is the era when mathematics goes from "tally on a bone" to "written tradition you can teach." Three civilisations laid the foundations between 3000 and 500 BCE, and they did it more or less independently: Mesopotamia, Egypt, and Vedic India. The Greeks would later receive everything they wrote and rebuild it as proof-driven geometry, but the substrate the Greeks inherited was already two thousand years deep.</p>
@@ -397,7 +508,7 @@ const SVG = (tag,attrs={})=>{
 
 <p>The <strong>Rhind Mathematical Papyrus</strong>, copied by the scribe Ahmes around 1650 BCE from a source two centuries older, contains 84 worked problems on fractions, slopes of pyramids, areas of fields, and the volume of a cylindrical granary. The Egyptian convention was that every fraction must be written as a sum of distinct unit fractions: $\frac{2}{5} = \frac{1}{3} + \frac{1}{15}$, $\frac{3}{4} = \frac{1}{2} + \frac{1}{4}$. There is no obvious mathematical reason for this restriction; it appears to be a notational convention that hardened into doctrine. The papyrus opens with a long table of $2/n$ decompositions for odd $n$ from 5 to 101 — the look-up table that made the rest of the tradition feasible.</p>
 
-<div class="person">
+<div class="person" data-person-id="ahmes">
   <div class="glyph">Ah</div>
   <div class="pinfo">
     <div class="pname">Ahmes</div>
@@ -415,16 +526,21 @@ const SVG = (tag,attrs={})=>{
 <aside class="ok"><strong>What unifies the three traditions.</strong> All three cultures discovered Pythagorean triples; all three had algorithms for square roots; all three were doing what we would later call <a href="./projective-plane.html">geometry</a> at the level of measurement and area. None of them, on the evidence we have, distinguished between "this works in every case I can compute" and "this is necessarily true." That distinction would have to wait for the Greeks.</aside>
 
 <p>By 500 BCE the toolkit that Thales and Pythagoras would inherit was already in place: a working sexagesimal arithmetic, a quadratic-equation tradition, several independent proofs (in the practical sense) of the relation $a^2 + b^2 = c^2$, accurate approximations to $\pi$ and $\sqrt{2}$, and a body of surveying technique sufficient to align temples and pyramids to within minutes of arc. What was missing was the meta-level question — the question of <em>why</em> any of this was true, and what would count as an answer. That is the next era.</p>
+<div class="widget era-toy" data-era-toy="ancient"></div>
 </div>
+  </details>
 </section>
 
 <section id="classical">
-  <div class="era-card" style="--era-color:var(--era-classical)">
+  <details class="era" id="era-classical">
+    <summary>
+      <div class="era-card" style="--era-color:var(--era-classical)">
     <div class="era-eyebrow">Era 3<span class="era-range">600 BCE – 400 CE</span></div>
     <h2>5. Classical: the Greek invention of proof</h2>
     <p class="era-blurb">From Thales' eclipse to Diophantus' equations, the Greeks didn't invent arithmetic — they invented the <em>argument that arithmetic facts must be true</em>. Euclid's <em>Elements</em> would be the model for what mathematics is for the next two thousand years.</p>
   </div>
-  <div data-era-narrative="classical">
+    </summary>
+    <div class="era-body" data-era-narrative="classical">
 <p>In 212 BCE a Roman soldier broke into the home of an old man in Syracuse and killed him over a geometric diagram. The old man was Archimedes; the soldier had not understood the request to wait. What gets remembered is the indignity. What gets forgotten is what the diagram was for. Archimedes had asked, in <em>On the Sphere and Cylinder</em>, for a particular figure to be carved on his tomb: a sphere snug inside a cylinder of the same diameter and height. The point was not the picture. The point was the equation it certified — $V_{\text{sphere}} = \tfrac{2}{3}\, V_{\text{cylinder}}$ — and the fact that he could prove it.</p>
 
 <p>The Greek innovation, the thing that distinguishes 600 BCE Ionia from every prior arithmetic culture, is not a particular result. The Babylonians had Pythagorean triples a thousand years before Pythagoras (the tablet <em>Plimpton 322</em>, c. 1800 BCE, lists fifteen of them in sorted order). Egyptian rope-stretchers had been laying out right angles since the Old Kingdom. What the Greeks added was a new species of sentence: <em>and here is why it must be true</em>. Procedure became proof.</p>
@@ -435,7 +551,7 @@ const SVG = (tag,attrs={})=>{
 
 <p><strong>Zeno of Elea</strong> sharpened the knife. His paradoxes — Achilles and the tortoise, the arrow that cannot move, the dichotomy that prevents motion altogether — are not riddles to be solved with cleverness. They are demonstrations that the naive notion of "infinitely many things added up" cannot be left undefined. Twenty-four centuries later, when Cauchy and Weierstrass finally make the limit definition rigorous, they are answering Zeno.</p>
 
-<div class="person">
+<div class="person" data-person-id="eudoxus">
   <div class="glyph">EU</div>
   <div class="pinfo">
     <div class="pname">Eudoxus of Cnidus</div>
@@ -444,7 +560,7 @@ const SVG = (tag,attrs={})=>{
   </div>
 </div>
 
-<div class="person">
+<div class="person" data-person-id="archimedes">
   <div class="glyph">AR</div>
   <div class="pinfo">
     <div class="pname">Archimedes of Syracuse</div>
@@ -471,19 +587,24 @@ const SVG = (tag,attrs={})=>{
 
 <p>The standard story has the Greek tradition collapsing around 400 CE and Europe entering the dark. The reality is more specific and more chastening. <strong>Hypatia</strong> was teaching mathematics in Alexandria in 410 CE — Neoplatonist philosophy, commentaries on Apollonius and Diophantus, astronomy. In March 415 she was dragged from her chariot by a Christian mob led by partisans of the patriarch Cyril, taken to a church, and killed. Mathematics in Alexandria did not end that day, but the institutional culture that had nurtured it for seven hundred years did not recover. The last serious commentator on Diophantus was Hypatia herself.</p>
 
-<div class="person"><div class="glyph">HY</div><div class="pinfo"><div class="pname">Hypatia</div><div class="pmeta">c. 355 – 415 CE · Alexandria</div><div class="pblurb">Daughter of Theon, head of the Neoplatonist school in Alexandria. Edited and commented on Apollonius's <em>Conics</em>, Diophantus's <em>Arithmetica</em>, and Ptolemy's <em>Almagest</em>. Built astrolabes; taught a mixed pagan-and-Christian elite. Her death in 415 was a political assassination dressed as religious frenzy; the mathematical loss was incidental but real.</div></div></div>
+<div class="person" data-person-id="hypatia"><div class="glyph">HY</div><div class="pinfo"><div class="pname">Hypatia</div><div class="pmeta">c. 355 – 415 CE · Alexandria</div><div class="pblurb">Daughter of Theon, head of the Neoplatonist school in Alexandria. Edited and commented on Apollonius's <em>Conics</em>, Diophantus's <em>Arithmetica</em>, and Ptolemy's <em>Almagest</em>. Built astrolabes; taught a mixed pagan-and-Christian elite. Her death in 415 was a political assassination dressed as religious frenzy; the mathematical loss was incidental but real.</div></div></div>
 
 <p>What the Greeks left was an enormous corpus, an unimprovable definition of what counted as a proof, and an attitude — that the right response to a mathematical claim is to ask why it is true. Every page of this notebook inherits it. The next chapter belongs to mathematicians who, on Greek foundations they read in translation, did things the Greeks would not have recognised: place-value arithmetic, symbolic algebra, infinite series.</p>
+<div class="widget era-toy" data-era-toy="classical"></div>
 </div>
+  </details>
 </section>
 
 <section id="asian-islamic">
-  <div class="era-card" style="--era-color:var(--era-asian-islamic)">
+  <details class="era" id="era-asian-islamic">
+    <summary>
+      <div class="era-card" style="--era-color:var(--era-asian-islamic)">
     <div class="era-eyebrow">Era 4<span class="era-range">200 – 1300 CE</span></div>
     <h2>6. Asian and Islamic mathematics</h2>
     <p class="era-blurb">While European libraries were burning, Indian mathematicians invented the decimal place-value system and the symbol for zero; Chinese astronomers solved cubic equations numerically; the House of Wisdom in Baghdad gave us "algebra" and "algorithm" — both literally Arabic words.</p>
   </div>
-  <div data-era-narrative="asian-islamic">
+    </summary>
+    <div class="era-body" data-era-narrative="asian-islamic">
 <p>Around 628 CE, an astronomer in the Rajput city of Bhillamāla wrote down rules for arithmetic with debts and fortunes. "A debt minus a debt is a debt; a fortune minus a fortune is a fortune; a debt subtracted from zero is a fortune." He defined zero by what it does — a number plus zero is itself, a number times zero is zero — and treated negative quantities as legitimate answers with the interpretation that owing money is real. The astronomer was <strong>Brahmagupta</strong>, the book the <em>Brāhmasphuṭasiddhānta</em>, and several of his rules are what a fourteen-year-old today learns under the name "the integers". European mathematics waited six hundred years to take negative numbers seriously, a thousand to stop calling them "false roots".</p>
 
 <p>The Eurocentric framing — that Asian and Islamic mathematicians "preserved" the Greek inheritance and handed it back unscathed — gets the story almost exactly backwards. Greek mathematics was translated and commented on, certainly. But the substantive work from <strong>Liu Hui</strong>'s commentary on the <em>Nine Chapters</em> in 263 CE through the Kerala school in 1400 CE is not custodianship. It is original mathematics in territory the Greeks had barely entered: numerical algorithms, place-value arithmetic, symbolic algebra, cubic equations, infinite series. By the time Latin Europe received this material in the twelfth century, it was already a finished technology.</p>
@@ -492,7 +613,7 @@ const SVG = (tag,attrs={})=>{
 
 <p>The single most consequential mathematical invention of the millennium 200–1300 CE is the decimal place-value system with a symbol for zero. By "consequential" I mean: try multiplying $738 \times 412$ in Roman numerals. Place-value arithmetic was developed in northern India between roughly 200 and 600 CE, with the symbol for zero — first a dot, then the open circle that migrated west — formalised in that window. <strong>Āryabhaṭa</strong>'s <em>Āryabhaṭīya</em> of 499 CE is the earliest surviving text to use it as standard notation; he gives a sine table at $3.75°$ intervals, computes $\pi \approx 3.1416$, and remarks in passing that the Earth rotates daily (the apparent motion of the heavens, he says, is like trees seen from a moving boat). For the next eleven centuries, "to compute" meant this system.</p>
 
-<div class="person">
+<div class="person" data-person-id="brahmagupta">
   <div class="glyph">BR</div>
   <div class="pinfo">
     <div class="pname">Brahmagupta</div>
@@ -509,7 +630,7 @@ const SVG = (tag,attrs={})=>{
 
 <p>The <em>Algebra</em> contains the systematic solution of linear and quadratic equations in six canonical forms (since al-Khwārizmī did not write with negative coefficients, $x^2 + bx = c$ and $x^2 = bx + c$ counted as different problems). Each is solved by a procedure and justified by a geometric figure — completing the square as an actual square. By the standards of <a href="./algebra.html">modern algebra</a> the manipulation is verbose: no $x$, no $+$, everything in prose. But the moves are the moves.</p>
 
-<div class="person">
+<div class="person" data-person-id="al-khwarizmi">
   <div class="glyph">AK</div>
   <div class="pinfo">
     <div class="pname">al-Khwārizmī</div>
@@ -535,16 +656,21 @@ $$\arctan x = x - \frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{7} + \cdots$$
 <p>which at $x=1$ gives the series $\pi/4 = 1 - 1/3 + 1/5 - \cdots$ now usually called Leibniz's. Mādhava found it two and a half centuries before Leibniz, and gave a more rapidly convergent variant that computes $\pi$ to eleven places. He had the corresponding series for sine and cosine. The proofs, preserved in the <em>Yuktibhāṣā</em> of Jyeṣṭhadeva (c. 1530), use a summation argument that anticipates the limit of a Riemann sum — a piece of <a href="./real-analysis.html">real analysis</a> done four hundred years before the European discipline. Whether the work reached Europe in time to influence Newton or Leibniz, perhaps through Jesuit missionaries in Cochin from the 1540s, remains a live debate.</p>
 
 <p>What this period leaves to the next is, almost literally, everything. Place value, zero, the negatives, symbolic algebra, the cubic, infinite series, trigonometry as a stand-alone discipline — for almost every subject in the rest of this notebook, the bedrock was laid here. When Fibonacci returns to Pisa in 1202 with a copy of al-Khwārizmī, he is not importing Greek mathematics. He is importing a thousand years of original work in Sanskrit, Chinese, and Arabic, that Europe is about to receive, mistranslate, and call its own.</p>
+<div class="widget era-toy" data-era-toy="asian-islamic"></div>
 </div>
+  </details>
 </section>
 
 <section id="medieval">
-  <div class="era-card" style="--era-color:var(--era-medieval)">
+  <details class="era" id="era-medieval">
+    <summary>
+      <div class="era-card" style="--era-color:var(--era-medieval)">
     <div class="era-eyebrow">Era 5<span class="era-range">1100 – 1500 CE</span></div>
     <h2>7. Medieval Europe and early Renaissance</h2>
     <p class="era-blurb">A merchant's son from Pisa carries Hindu–Arabic numerals across the Alps; Oxford masters draw the first time-velocity graphs; Italian abacus schools rediscover the cubic. The slow re-importation of classical and Islamic mathematics into Latin Europe.</p>
   </div>
-  <div data-era-narrative="medieval">
+    </summary>
+    <div class="era-body" data-era-narrative="medieval">
 <p>Latin Europe spent the early middle ages doing arithmetic with Roman numerals and a borrowed abacus, and the result was about what you would expect: tax rolls, dim astronomy, and almost no original mathematics for half a millennium. The interesting story of this era is not what Europe produced from a standing start — it is how Europe slowly absorbed what the Islamic world, India, and the surviving Greek tradition had already worked out, and then, with that scaffolding in place, took its first cautious steps of its own.</p>
 
 <p>The translation centers were Toledo, Sicily, and the Iberian frontier — places where Christian, Muslim, and Jewish scholars worked in proximity and where Arabic manuscripts had not been burned or lost. By the twelfth century, Gerard of Cremona alone had rendered something like seventy mathematical and astronomical works from Arabic into Latin, including al-Khwārizmī's algebra and Ptolemy's <em>Almagest</em>. The Latin word <em>algorism</em> is just al-Khwārizmī with the vowels worn off; <em>algebra</em> is from <em>al-jabr</em>, "the restoration." The vocabulary itself records the debt.</p>
@@ -555,7 +681,7 @@ $$\arctan x = x - \frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{7} + \cdots$$
 
 <p>Leonardo of Pisa — Fibonacci to the textbooks — is the canonical example of the borrowed inheritance becoming a living tradition. His father was a Pisan customs official posted to Bugia in North Africa, and Leonardo grew up doing arithmetic alongside Maghrebi merchants who had been using positional numerals for centuries. When he came home and wrote <em>Liber Abaci</em> in 1202, he was not "discovering" the Hindu–Arabic system; he was campaigning to make Italian merchants drop the Roman-numeral abacus and adopt what their trading partners had been using all along. The book is a 459-page commercial-arithmetic manual: currency conversion, alloying ratios, weights, simple and compound interest, and partnership accounting. The rabbits are an exercise on page 283.</p>
 
-<div class="person"><div class="glyph">LP</div><div class="pinfo"><div class="pname">Leonardo of Pisa (Fibonacci)</div><div class="pmeta">c. 1170 – c. 1250 · Pisa</div><div class="pblurb"><em>Liber Abaci</em> (1202) re-imports the Hindu–Arabic numeral system into European commerce. The famous sequence $1, 1, 2, 3, 5, 8, 13, \ldots$ is one chapter-XII puzzle; the rest of the book made double-entry bookkeeping possible.</div></div></div>
+<div class="person" data-person-id="fibonacci"><div class="glyph">LP</div><div class="pinfo"><div class="pname">Leonardo of Pisa (Fibonacci)</div><div class="pmeta">c. 1170 – c. 1250 · Pisa</div><div class="pblurb"><em>Liber Abaci</em> (1202) re-imports the Hindu–Arabic numeral system into European commerce. The famous sequence $1, 1, 2, 3, 5, 8, 13, \ldots$ is one chapter-XII puzzle; the rest of the book made double-entry bookkeeping possible.</div></div></div>
 
 <p>Adoption was glacial. Italian merchants liked the new digits; Italian universities and city governments were slower, and the abacus and counting-board persisted into the 1500s. The rivalry between <em>abbacisti</em> (positional numerals, written calculation) and <em>algoristi</em> (older counting-board methods) is the medieval equivalent of a software-platform war. The abbacisti won, but only after about three centuries of bookkeeping and a lot of arguing about whether $0$ was a real number.</p>
 
@@ -565,7 +691,7 @@ $$\arctan x = x - \frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{7} + \cdots$$
 
 <p>At Paris, Nicole Oresme took the Mertonian theorem and did something even more striking: he drew it. In <em>Tractatus de configurationibus qualitatum et motuum</em> (~1370) he plotted the intensity of a quality — speed, in the running example — against an extended quantity such as time. The horizontal axis he called <em>longitudo</em>, the vertical <em>latitudo</em>, and the area under the resulting figure represented the total quantity accumulated. This is, in every meaningful sense, the first graph of a function. Descartes was born 226 years later.</p>
 
-<div class="person"><div class="glyph">NO</div><div class="pinfo"><div class="pname">Nicole Oresme</div><div class="pmeta">c. 1320 – 1382 · Paris / Lisieux</div><div class="pblurb">Drew the first known graphs of a function (latitudo-against-longitudo, ~1370), proved the harmonic series $\sum 1/n$ diverges by grouping terms in dyadic blocks, and defended the rotation of the Earth on epistemic grounds — none of which prevented him from becoming a bishop.</div></div></div>
+<div class="person" data-person-id="oresme"><div class="glyph">NO</div><div class="pinfo"><div class="pname">Nicole Oresme</div><div class="pmeta">c. 1320 – 1382 · Paris / Lisieux</div><div class="pblurb">Drew the first known graphs of a function (latitudo-against-longitudo, ~1370), proved the harmonic series $\sum 1/n$ diverges by grouping terms in dyadic blocks, and defended the rotation of the Earth on epistemic grounds — none of which prevented him from becoming a bishop.</div></div></div>
 
 <p>Oresme's divergence proof is the cleanest piece of mathematics in this era and worth writing down. Group the terms of the harmonic series in blocks of $1, 2, 4, 8, \ldots$ consecutive entries:</p>
 
@@ -579,26 +705,31 @@ $$1 + \underbrace{\tfrac{1}{2}}_{\geq 1/2} + \underbrace{\tfrac{1}{3}+\tfrac{1}{
 
 <p>The other engine of change was bottom-up. From roughly 1300 onward, Italian cities supported <em>scuole d'abaco</em> — vernacular arithmetic schools where merchants' sons learned commercial calculation, mensuration, and a smattering of <a href="./algebra.html">algebra</a> in Italian rather than Latin. The teachers (the <em>maestri d'abaco</em>) wrote textbooks in the local dialect, posed competition problems against rival schools, and treated mathematics as a craft. Out of this milieu came incremental advances on the cubic equation: Master Dardi of Pisa solved several special cubic forms in 1344; the Florentine tradition kept refining tricks for $x^3 + px = q$ for two centuries. By 1500 the general cubic was the standing open problem of the Italian abacus tradition, and the stage was set for Cardano.</p>
 
-<div class="person"><div class="glyph">RM</div><div class="pinfo"><div class="pname">Regiomontanus</div><div class="pmeta">1436 – 1476 · Königsberg / Nuremberg</div><div class="pblurb"><em>De triangulis omnimodis</em> (composed 1464, printed 1533): the first systematic Western trigonometry textbook, treating plane and spherical triangles as a coherent subject. Without it, Copernicus and Tycho Brahe have nothing to stand on.</div></div></div>
+<div class="person" data-person-id="regiomontanus"><div class="glyph">RM</div><div class="pinfo"><div class="pname">Regiomontanus</div><div class="pmeta">1436 – 1476 · Königsberg / Nuremberg</div><div class="pblurb"><em>De triangulis omnimodis</em> (composed 1464, printed 1533): the first systematic Western trigonometry textbook, treating plane and spherical triangles as a coherent subject. Without it, Copernicus and Tycho Brahe have nothing to stand on.</div></div></div>
 
 <p>The other late-medieval acceleration was trigonometry. Spherical trig had been a working tool of Islamic astronomy since the ninth century — Abū al-Wafāʾ tabulated sines to fifteen decimal places, al-Bīrūnī derived the addition formulas — and by the time Regiomontanus systematized the subject in Latin in 1464 he was, again, mostly translating and consolidating. But consolidation matters: <em>De triangulis omnimodis</em> gave Renaissance astronomers a uniform language for triangle calculations on the sphere, which is what they needed to make Copernicus's heliocentric proposal computationally honest. By the time the book finally went to press in 1533, the transition out of the medieval period was already underway: Cardano was thirty-two, Viète was not yet born, and Latin Europe was about to discover that it could do mathematics of its own.</p>
+<div class="widget era-toy" data-era-toy="medieval"></div>
 </div>
+  </details>
 </section>
 
 <section id="renaissance">
-  <div class="era-card" style="--era-color:var(--era-renaissance)">
+  <details class="era" id="era-renaissance">
+    <summary>
+      <div class="era-card" style="--era-color:var(--era-renaissance)">
     <div class="era-eyebrow">Era 6<span class="era-range">1500 – 1700 CE</span></div>
     <h2>8. Renaissance and Scientific Revolution</h2>
     <p class="era-blurb">Symbolic algebra, decimals, logarithms, analytic geometry, probability, and finally the calculus — a single century takes mathematics from "art of calculation" to "language of nature." Newton and Leibniz independently invent the same machine for taming change.</p>
   </div>
-  <div data-era-narrative="renaissance">
+    </summary>
+    <div class="era-body" data-era-narrative="renaissance">
 <p>Two hundred years separate Cardano's <em>Ars Magna</em> from Newton's <em>Principia</em>, and across that span mathematics stopped being a clever extension of arithmetic and became the working language of natural philosophy. Symbolic algebra, decimals, logarithms, analytic geometry, probability, and finally the calculus all arrived in a span shorter than a single human lifetime. The same century that watched the Thirty Years' War and burned witches in Salem also computed the orbit of Mars to arc-second precision. The intellectual energy was extraordinary; the priorities were peculiar.</p>
 
 <h3>Cardano, the cubic, and the first imaginary number</h3>
 
 <p>The cubic is a Renaissance soap opera. Scipione del Ferro, a Bolognese professor, found a method for $x^3 + px = q$ around 1515 and told no one but a student. That student dueled Niccolò Fontana — nicknamed Tartaglia, "the stammerer," after a French soldier slashed his face as a child — in a 1535 problem-solving contest; Tartaglia rederived the method overnight and won. Gerolamo Cardano then pried the formula out of Tartaglia under oath of secrecy, broke the oath in 1545 by publishing it in <em>Ars Magna</em> alongside his student Ferrari's quartic solution, and Tartaglia spent the rest of his life writing furious pamphlets. Mathematics moved on.</p>
 
-<div class="person"><div class="glyph">GC</div><div class="pinfo"><div class="pname">Gerolamo Cardano</div><div class="pmeta">1501 – 1576 · Milan / Bologna</div><div class="pblurb"><em>Ars Magna</em> (1545) gave the cubic and quartic formulas to Latin Europe and contained the first written confrontation with $\sqrt{-1}$. Also wrote the first systematic treatise on games of chance, three decades before Pascal and Fermat would do it again with better notation.</div></div></div>
+<div class="person" data-person-id="cardano"><div class="glyph">GC</div><div class="pinfo"><div class="pname">Gerolamo Cardano</div><div class="pmeta">1501 – 1576 · Milan / Bologna</div><div class="pblurb"><em>Ars Magna</em> (1545) gave the cubic and quartic formulas to Latin Europe and contained the first written confrontation with $\sqrt{-1}$. Also wrote the first systematic treatise on games of chance, three decades before Pascal and Fermat would do it again with better notation.</div></div></div>
 
 <p>The really uncomfortable thing in <em>Ars Magna</em> was not the cubic formula. It was Cardano's "absurd" problem: divide $10$ into two parts whose product is $40$. The answer, by his own algebra, is $5 + \sqrt{-15}$ and $5 - \sqrt{-15}$ — two quantities he multiplied to get $25-(-15)=40$ and then declined to discuss further. Bombelli, reading the book twenty-five years later, noticed something stranger: in the <em>casus irreducibilis</em> of the cubic, where all three roots are real, Cardano's formula forces you through expressions like $\sqrt[3]{2 + \sqrt{-121}}$ to land on an honest real number. Imaginaries were not a curiosity at the boundary; they were the obligatory bridge between two real shores. <a href="./complex-analysis.html">Complex analysis</a> as a discipline would wait for Cauchy and Riemann, but the door was now open.</p>
 
@@ -608,7 +739,7 @@ $$1 + \underbrace{\tfrac{1}{2}}_{\geq 1/2} + \underbrace{\tfrac{1}{3}+\tfrac{1}{
 
 <p>That ontological shift is François Viète's contribution. In <em>In Artem Analyticen Isagoge</em> (1591), Viète proposed a small, devastating notational reform: use vowels for unknowns, consonants for parameters. Suddenly an equation looked like an equation, not a sentence. The convention drifted — Descartes would replace Viète's vowels with the end-of-alphabet $x, y, z$ — but the principle was Viète's. Algebra became the discipline in which symbols stand for symbols, and you can move them around without thinking about what they mean. Without that move, <a href="./galois.html">Galois theory</a> is unthinkable.</p>
 
-<div class="person"><div class="glyph">FV</div><div class="pinfo"><div class="pname">François Viète</div><div class="pmeta">1540 – 1603 · Fontenay-le-Comte / Paris</div><div class="pblurb">A lawyer and royal cryptographer who broke a Spanish cipher so thoroughly that Philip II accused him of witchcraft. His symbolic algebra reform turned equations into objects you can manipulate by rule rather than narrate by hand.</div></div></div>
+<div class="person" data-person-id="viete"><div class="glyph">FV</div><div class="pinfo"><div class="pname">François Viète</div><div class="pmeta">1540 – 1603 · Fontenay-le-Comte / Paris</div><div class="pblurb">A lawyer and royal cryptographer who broke a Spanish cipher so thoroughly that Philip II accused him of witchcraft. His symbolic algebra reform turned equations into objects you can manipulate by rule rather than narrate by hand.</div></div></div>
 
 <p>Napier's logarithms (1614) solved a different bottleneck. By the early seventeenth century European astronomers had Tycho's planetary observations, Kepler's three laws in the wings, and a navigation industry that needed to multiply six-digit numbers all day. Napier's idea is one of the most useful equations ever published:</p>
 
@@ -616,7 +747,7 @@ $$\log(xy) = \log x + \log y.$$
 
 <p>That single identity turns every multiplication into an addition. With a logarithm table at hand, Kepler's calculations on the orbit of Mars — roughly a thousand pages of arithmetic — collapsed to a fraction of the labor. Laplace later said logarithms "doubled the life of the astronomer." They are also, viewed in the right light, the first instance of a group homomorphism $(\mathbb{R}_{>0},\,\cdot\,) \to (\mathbb{R},\,+)$ — though nobody noticed until the nineteenth century.</p>
 
-<div class="person"><div class="glyph">JN</div><div class="pinfo"><div class="pname">John Napier</div><div class="pmeta">1550 – 1617 · Edinburgh</div><div class="pblurb">Scottish laird, Calvinist polemicist, and inventor of logarithms (<em>Mirifici logarithmorum canonis descriptio</em>, 1614). Also designed a multiplication device made of bone rods (Napier's bones) and predicted the apocalypse for 1688 — wrong, but a much better mathematician than theologian.</div></div></div>
+<div class="person" data-person-id="napier"><div class="glyph">JN</div><div class="pinfo"><div class="pname">John Napier</div><div class="pmeta">1550 – 1617 · Edinburgh</div><div class="pblurb">Scottish laird, Calvinist polemicist, and inventor of logarithms (<em>Mirifici logarithmorum canonis descriptio</em>, 1614). Also designed a multiplication device made of bone rods (Napier's bones) and predicted the apocalypse for 1688 — wrong, but a much better mathematician than theologian.</div></div></div>
 
 <h3>Descartes, Fermat, and the marriage of algebra and geometry</h3>
 
@@ -624,7 +755,7 @@ $$\log(xy) = \log x + \log y.$$
 
 <p>Pierre de Fermat, working independently in Toulouse, had reached most of the same ideas a few years earlier and not bothered to publish. Fermat is the classical case of the consequential amateur: a magistrate by profession, a number-theorist on weekends, who corresponded with the entire mathematical world and left almost nothing in print. The marginal annotation in his copy of Diophantus — "I have discovered a truly marvelous proof of this, which this margin is too narrow to contain" — claimed that $a^n + b^n = c^n$ has no positive integer solutions for $n > 2$. The truly marvellous proof was missing for 358 years; the eventual <a href="./modularity-and-flt.html">proof via the modularity theorem</a> required machinery Fermat could not have imagined.</p>
 
-<div class="person"><div class="glyph">PF</div><div class="pinfo"><div class="pname">Pierre de Fermat</div><div class="pmeta">1607 – 1665 · Toulouse</div><div class="pblurb">Magistrate, polyglot, and the most consequential amateur in mathematical history. Co-founded probability theory in correspondence with Pascal, laid the foundations of analytic geometry independently of Descartes, and seeded a thousand future PhDs with marginal notes in his Diophantus.</div></div></div>
+<div class="person" data-person-id="fermat"><div class="glyph">PF</div><div class="pinfo"><div class="pname">Pierre de Fermat</div><div class="pmeta">1607 – 1665 · Toulouse</div><div class="pblurb">Magistrate, polyglot, and the most consequential amateur in mathematical history. Co-founded probability theory in correspondence with Pascal, laid the foundations of analytic geometry independently of Descartes, and seeded a thousand future PhDs with marginal notes in his Diophantus.</div></div></div>
 
 <p>The other Fermat–Pascal collaboration is their 1654 correspondence on how to fairly divide stakes when a game is interrupted. Their letters worked out expectations, conditional probabilities, and the binomial coefficients of Pascal's triangle. <a href="./probability-theory.html">Probability theory</a> as a discipline starts here; Huygens read the letters, wrote them up as <em>De ratiociniis in ludo aleae</em> (1657), and gave Europe its first textbook.</p>
 
@@ -637,23 +768,28 @@ $$\log(xy) = \log x + \log y.$$
 $$\frac{d}{dx}\int_a^x f(t)\,dt = f(x).$$
 
 <p>Newton used his fluxions to derive Kepler's laws from inverse-square gravitation and lay out the program of mathematical physics that would dominate the next two centuries — see <a href="./hamiltonians-classical-mechanics.html">classical mechanics</a> for what the eighteenth century did once it had Newton's framework. Leibniz, more philosophically inclined, gave us the notation we still use, the term "function," and a vision of the calculus as a universal symbolic art. Both were, by modern standards of rigor, doing analysis on faith; the infinitesimals would not be made honest until Cauchy and Weierstrass two centuries later. By then the conquest was already complete.</p>
+<div class="widget era-toy" data-era-toy="renaissance"></div>
 </div>
+  </details>
 </section>
 
 <section id="enlightenment">
-  <div class="era-card" style="--era-color:var(--era-enlightenment)">
+  <details class="era" id="era-enlightenment">
+    <summary>
+      <div class="era-card" style="--era-color:var(--era-enlightenment)">
     <div class="era-eyebrow">Era 7<span class="era-range">1700 – 1900 CE</span></div>
     <h2>9. The 18th and 19th centuries</h2>
     <p class="era-blurb">Euler does everything; Gauss does it more rigorously; Galois invents groups at twenty and dies in a duel; Cauchy and Weierstrass make analysis honest; Riemann opens up curved geometry; Cantor learns to count infinity. By 1900 mathematics is large enough that no one can know all of it.</p>
   </div>
-  <div data-era-narrative="enlightenment">
+    </summary>
+    <div class="era-body" data-era-narrative="enlightenment">
 <p>If the Renaissance gave mathematics the calculus, the two centuries that followed gave it everything else. The eighteenth century lived inside the calculus, expanding it recklessly; the nineteenth came back with a mop and a list of pointed questions. By 1900 the corpus had outgrown what any one person could survey — a state of affairs Hilbert addressed at the Paris ICM by issuing 23 problems and effectively saying, "fine, divide it up among yourselves."</p>
 
 <h3>Euler, and the explosion of analysis</h3>
 
 <p>Leonhard Euler is the throughput problem of mathematical history. Roughly 850 papers and books — 25,000 manuscript pages — across mechanics, optics, fluid dynamics, number theory, graph theory, and every corner of analysis. He fathered thirteen children and reportedly wrote his best papers with one on his lap. He went blind in the right eye in 1738 and lost the left to cataracts in 1771; the productivity rate <em>increased</em>. He dictated to scribes from a head full of formulas. Saint Petersburg was still publishing his backlog fifty years after his death.</p>
 
-<div class="person"><div class="glyph">LE</div><div class="pinfo"><div class="pname">Leonhard Euler</div><div class="pmeta">1707 – 1783 · Basel / St. Petersburg / Berlin</div><div class="pblurb">Solved the <a href="./zeta-values.html">Basel problem</a> in 1735 by computing $\zeta(2)=\pi^2/6$ via a daring product expansion of $\sin x$. Cracked the Königsberg bridges in 1736 by inventing graph theory on the spot. Published $e^{i\pi}+1=0$ in <em>Introductio in analysin infinitorum</em> (1748). Wrote the textbooks the next century learned from.</div></div></div>
+<div class="person" data-person-id="euler"><div class="glyph">LE</div><div class="pinfo"><div class="pname">Leonhard Euler</div><div class="pmeta">1707 – 1783 · Basel / St. Petersburg / Berlin</div><div class="pblurb">Solved the <a href="./zeta-values.html">Basel problem</a> in 1735 by computing $\zeta(2)=\pi^2/6$ via a daring product expansion of $\sin x$. Cracked the Königsberg bridges in 1736 by inventing graph theory on the spot. Published $e^{i\pi}+1=0$ in <em>Introductio in analysin infinitorum</em> (1748). Wrote the textbooks the next century learned from.</div></div></div>
 
 <p>Two Euler results deserve their reputations. The first is his evaluation of the Basel problem, which had defeated the Bernoullis for decades:</p>
 
@@ -675,7 +811,7 @@ $$e^{i\pi} + 1 = 0,$$
 
 <p>Then Gauss arrived, and the temperature dropped. Carl Friedrich Gauss — <em>Princeps Mathematicorum</em> — at 19 proved the regular 17-gon is straightedge-and-compass constructible (the first such advance since the Greeks) and asked for a heptadecagon on his tombstone. The stonemason refused, on the grounds that he could not distinguish it from a circle. At 24, Gauss published <em>Disquisitiones Arithmeticae</em> (1801), which gave us modular arithmetic in its modern form, the first complete proof of <a href="./quadratic-reciprocity.html">quadratic reciprocity</a> (Gauss wrote eight different proofs), and a revolution in <a href="./additive-number-theory.html">number theory</a>.</p>
 
-<div class="person"><div class="glyph">GG</div><div class="pinfo"><div class="pname">Carl Friedrich Gauss</div><div class="pmeta">1777 – 1855 · Brunswick / Göttingen</div><div class="pblurb"><em>Disquisitiones</em> at 24, the heliotrope and least-squares orbit determination at 30, intrinsic curvature in <em>Disquisitiones generales circa superficies curvas</em> (1827) — the founding theorem of <a href="./differential-geometry.html">differential geometry</a>. Sat on his discovery of non-Euclidean geometry for forty years for fear of the "uproar from the Boeotians." His personal motto was <em>pauca sed matura</em>: few, but ripe.</div></div></div>
+<div class="person" data-person-id="gauss"><div class="glyph">GG</div><div class="pinfo"><div class="pname">Carl Friedrich Gauss</div><div class="pmeta">1777 – 1855 · Brunswick / Göttingen</div><div class="pblurb"><em>Disquisitiones</em> at 24, the heliotrope and least-squares orbit determination at 30, intrinsic curvature in <em>Disquisitiones generales circa superficies curvas</em> (1827) — the founding theorem of <a href="./differential-geometry.html">differential geometry</a>. Sat on his discovery of non-Euclidean geometry for forty years for fear of the "uproar from the Boeotians." His personal motto was <em>pauca sed matura</em>: few, but ripe.</div></div></div>
 
 <p>Gauss's <em>Theorema Egregium</em> said that the curvature of a surface can be computed from measurements made entirely <em>on</em> the surface, without reference to how it sits in space. Pull a flat sheet onto a sphere and you must crumple it: the sphere has positive Gaussian curvature, the sheet zero. This is the seed of <a href="./riemannian-geometry.html">Riemannian geometry</a> and, sixty years later, of general relativity — which is what happens when a physicist needs a geometry that already exists.</p>
 
@@ -691,11 +827,11 @@ $$\forall \varepsilon > 0\ \exists \delta > 0\ : \ |x-x_0|<\delta \implies |f(x)
 
 <p>Évariste Galois compressed a research program into the last sleepless night of his life. On the night of 29 May 1832, age 20, he wrote out a manuscript explaining when polynomial equations are solvable by radicals — solvability of the equation reduces to solvability of an attached group — and at dawn was shot in a duel. Liouville published the manuscript in 1846. The whole of <a href="./galois.html">Galois theory</a>, plus the seed of group theory itself, fits in 60 pages of feverish handwriting. <a href="./algebra.html">Abstract algebra</a> begins here.</p>
 
-<div class="person"><div class="glyph">EG</div><div class="pinfo"><div class="pname">Évariste Galois</div><div class="pmeta">1811 – 1832 · Paris</div><div class="pblurb">Twice rejected from the École Polytechnique, twice imprisoned for republican agitation. Wrote out the foundations of group theory and the solvability criterion for polynomials the night before a duel. Died at 20, leaving a margin note: "Je n'ai pas le temps." There was, however, time enough.</div></div></div>
+<div class="person" data-person-id="galois"><div class="glyph">EG</div><div class="pinfo"><div class="pname">Évariste Galois</div><div class="pmeta">1811 – 1832 · Paris</div><div class="pblurb">Twice rejected from the École Polytechnique, twice imprisoned for republican agitation. Wrote out the foundations of group theory and the solvability criterion for polynomials the night before a duel. Died at 20, leaving a margin note: "Je n'ai pas le temps." There was, however, time enough.</div></div></div>
 
 <p><strong>Sophie Germain</strong>, working in Paris a generation earlier, made the first general result on Fermat's Last Theorem after Euler. Excluded from the École Polytechnique because she was a woman, she corresponded with Lagrange, Legendre, and Gauss under the pseudonym <em>M. LeBlanc</em>; Gauss only learned her real identity when, during the Napoleonic occupation of Hanover in 1807, she wrote to a French general asking him to ensure the safety of one of Europe's foremost mathematicians. (She was, the historian Mary Gray notes, the only person who paid Gauss this courtesy.) Germain proved that for primes $p$ such that $2p+1$ is also prime — what we now call <em>Germain primes</em> — the first case of <a href="./modularity-and-flt.html">Fermat's equation</a> $a^p + b^p = c^p$ has no solutions with $p \nmid abc$. Her work on elasticity, which won the Paris Academy prize in 1816, was no less original.</p>
 
-<div class="person"><div class="glyph">SG</div><div class="pinfo"><div class="pname">Sophie Germain</div><div class="pmeta">1776 – 1831 · Paris</div><div class="pblurb">Self-taught from the family library after the storming of the Bastille made it dangerous to leave the house. First general theorem on FLT (Case I, for Germain primes). Her elasticity work — vibrational modes of a thin plate — won the 1816 Paris Academy prize after three submissions; the prize lecture was read by a colleague because women could not attend the Academy.</div></div></div>
+<div class="person" data-person-id="germain"><div class="glyph">SG</div><div class="pinfo"><div class="pname">Sophie Germain</div><div class="pmeta">1776 – 1831 · Paris</div><div class="pblurb">Self-taught from the family library after the storming of the Bastille made it dangerous to leave the house. First general theorem on FLT (Case I, for Germain primes). Her elasticity work — vibrational modes of a thin plate — won the 1816 Paris Academy prize after three submissions; the prize lecture was read by a colleague because women could not attend the Academy.</div></div></div>
 
 <p>Riemann's habilitation lecture of 1854 laid out, in a single afternoon, the framework of $n$-dimensional manifolds equipped with a metric tensor — the apparatus that would furnish Einstein with general relativity sixty years later. Gauss in the front row called it "deep and original" (he died nine months later). His 1859 paper then gave us the explicit formula linking $\pi(x)$ to the zeros of $\zeta(s)$ and the conjecture — still open — that those zeros all lie on $\Re(s)=1/2$. He wrote one paper on number theory in his life. It was enough. <a href="./riemann-surfaces.html">Riemann surfaces</a>, the multi-sheeted complex domains he introduced for many-valued functions, are the geometric foundation of modern algebraic geometry.</p>
 
@@ -717,32 +853,37 @@ $$\text{Given any list } f:\mathbb{N}\to\mathbb{R},\ \text{set } x_n = \begin{ca
 
 <p>Poincaré's <em>Analysis Situs</em> (1895) named and founded <a href="./algebraic-topology.html">algebraic topology</a>, introducing the fundamental group, homology, and the 3-sphere conjecture that would not be settled until Perelman in 2003. Poincaré was the late century's closest thing to Euler in breadth, and identified in his work on the three-body problem the chaotic sensitivity to initial conditions that became the founding observation of dynamical systems.</p>
 
-<div class="person"><div class="glyph">DH</div><div class="pinfo"><div class="pname">David Hilbert</div><div class="pmeta">1862 – 1943 · Königsberg / Göttingen</div><div class="pblurb">Closed the Hilbert basis theorem with a non-constructive proof so audacious that Gordan reportedly said "this is not mathematics, this is theology" — and then, three years later, conceded. The 1900 Paris ICM lecture announcing 23 problems set the agenda for the twentieth century. Built Göttingen into the center of mathematical gravity until 1933.</div></div></div>
+<div class="person" data-person-id="hilbert"><div class="glyph">DH</div><div class="pinfo"><div class="pname">David Hilbert</div><div class="pmeta">1862 – 1943 · Königsberg / Göttingen</div><div class="pblurb">Closed the Hilbert basis theorem with a non-constructive proof so audacious that Gordan reportedly said "this is not mathematics, this is theology" — and then, three years later, conceded. The 1900 Paris ICM lecture announcing 23 problems set the agenda for the twentieth century. Built Göttingen into the center of mathematical gravity until 1933.</div></div></div>
 
 <p>Hilbert closes the era and opens the next. On 8 August 1900, at the Paris ICM, he read out 23 unsolved problems chosen to "lift the veil behind which the future lies hidden." Some — the Riemann Hypothesis (problem 8), the Continuum Hypothesis (problem 1) — remain open. Others — Gödel's second incompleteness theorem (a negative answer to problem 2), Matiyasevich's resolution of the 10th (with Davis, Putnam, and Robinson) — became foundational results in their own right. A single lecture drew the map for a century of work, and it largely held. The two hundred years from Euler's <em>Introductio</em> to Hilbert's address are when mathematics became too large for any one mind to hold and discovered, in compensation, that this was fine.</p>
+<div class="widget era-toy" data-era-toy="enlightenment"></div>
 </div>
+  </details>
 </section>
 
 <section id="twentieth">
-  <div class="era-card" style="--era-color:var(--era-20c)">
+  <details class="era" id="era-twentieth">
+    <summary>
+      <div class="era-card" style="--era-color:var(--era-20c)">
     <div class="era-eyebrow">Era 8<span class="era-range">1900 – 2000 CE</span></div>
     <h2>10. The 20th century</h2>
     <p class="era-blurb">Hilbert's program; Russell's paradox; Gödel's incompleteness; Turing's machine; Bourbaki's structures; Grothendieck's schemes; Atiyah and Singer; Wiles and Fermat. The century that mechanized proof, formalized everything, and revealed that mathematics has limits — and then quietly proved more theorems than the previous five thousand years combined.</p>
   </div>
-  <div data-era-narrative="twentieth">
+    </summary>
+    <div class="era-body" data-era-narrative="twentieth">
 <p>Hilbert's 23 problems (the previous era's closing scene) were a confident map of the future. The surprising thing was which problems surrendered and which fought back. The first — Cantor's continuum hypothesis — received an answer Hilbert had not anticipated: <em>neither yes nor no</em>. The second — to prove arithmetic consistent by finitary means — was shown impossible. The tenth — a uniform algorithm for diophantine equations — was shown undecidable. The century Hilbert opened in confidence ended with a careful map of the territory mathematics cannot reach. It also produced more theorems than the previous five thousand years combined.</p>
 
 <h3>The foundations crisis</h3>
 
 <p>The trouble began almost immediately. In 1901 Bertrand Russell wrote to Gottlob Frege with a brief, devastating observation about Frege's freshly published <em>Grundgesetze der Arithmetik</em>. Consider $R = \{x : x \notin x\}$. Is $R \in R$? If yes, then $R \notin R$; if no, then $R \in R$. The contradiction is two lines long and demolishes naive comprehension. Frege added a stricken postscript: "A scientist can hardly meet with anything more undesirable than to have the foundation give way just as the work is finished." See <a href="./naive-set-theory.html">naive set theory</a> for the technical wreckage and the ZFC patch. Hilbert's response was the <em>Hilbertprogramm</em>: encode all of mathematics in a finite formal system, then prove — by finitary string manipulation — that the system is consistent and complete. The bet was that the metatheory would be safer than the theory. In 1931 a 25-year-old logician in Vienna disposed of it in a single paper.</p>
 
-<div class="person"><div class="glyph">KG</div><div class="pinfo"><div class="pname">Kurt Gödel</div><div class="pmeta">1906 – 1978 · Vienna / Princeton</div><div class="pblurb">The incompleteness theorems (1931); the constructible universe $L$; consistency of the continuum hypothesis. Walked to lunch with Einstein at the IAS for two decades. Refused food prepared by anyone but his wife, and starved when she was hospitalised.</div></div></div>
+<div class="person" data-person-id="godel"><div class="glyph">KG</div><div class="pinfo"><div class="pname">Kurt Gödel</div><div class="pmeta">1906 – 1978 · Vienna / Princeton</div><div class="pblurb">The incompleteness theorems (1931); the constructible universe $L$; consistency of the continuum hypothesis. Walked to lunch with Einstein at the IAS for two decades. Refused food prepared by anyone but his wife, and starved when she was hospitalised.</div></div></div>
 
 <p>Gödel's trick was to make a formal system talk about itself. Each formula gets a numerical code; provability becomes an arithmetical relation; one can then write down a sentence $G$ that says, in the system's own language, "this sentence has no proof." If the system is consistent, $G$ is true and unprovable. The second theorem twists the knife: any consistent system rich enough for arithmetic cannot prove its own consistency. Hilbert's program, in the strong form, is dead. Five years later, Alan Turing supplied the missing piece. Hilbert's <em>Entscheidungsproblem</em> asked: is there a mechanical procedure that decides whether any first-order sentence is provable? To say "no," Turing first had to define what a "mechanical procedure" is. His 1936 paper <em>On Computable Numbers</em> introduced the abstract machine that now bears his name — a tape, a head, a finite state table — and proved its halting problem undecidable. As a corollary the <em>Entscheidungsproblem</em> falls. As an unintended consequence, <a href="./computability-and-decidability.html">computer science</a> is born.</p>
 
 <aside class="bad"><strong>What incompleteness is not.</strong> It is not the claim that mathematics is "subjective" or that "anything goes." Most working theorems are provable from ZFC and that is not changing. Incompleteness is a precise statement about the gap between formal provability and arithmetic truth; mathematicians went on proving theorems the next morning.</aside>
 
-<div class="person"><div class="glyph">AT</div><div class="pinfo"><div class="pname">Alan Turing</div><div class="pmeta">1912 – 1954 · Cambridge / Bletchley / Manchester</div><div class="pblurb">The Turing machine and the halting problem (1936); broke German naval Enigma at Bletchley Park; the Turing test; reaction-diffusion equations. Prosecuted for homosexuality in 1952, chemically castrated, dead in 1954 from cyanide at 41. Pardoned posthumously in 2013.</div></div></div>
+<div class="person" data-person-id="turing"><div class="glyph">AT</div><div class="pinfo"><div class="pname">Alan Turing</div><div class="pmeta">1912 – 1954 · Cambridge / Bletchley / Manchester</div><div class="pblurb">The Turing machine and the halting problem (1936); broke German naval Enigma at Bletchley Park; the Turing test; reaction-diffusion equations. Prosecuted for homosexuality in 1952, chemically castrated, dead in 1954 from cyanide at 41. Pardoned posthumously in 2013.</div></div></div>
 
 <p>The third blow to set-theoretic certainty arrived in 1963 from a 29-year-old at Stanford. Paul Cohen invented <a href="./forcing-and-independence.html">forcing</a> — a method for building new models of ZFC by adjoining "generic" sets the way one adjoins transcendentals to a field — and proved the continuum hypothesis independent of ZFC. Combined with Gödel's earlier consistency result, the verdict is final: the size of the continuum is a degree of freedom of the universe of sets, not a fact about it. Cohen received the 1966 Fields Medal — the only one ever awarded in pure logic.</p>
 
@@ -750,7 +891,7 @@ $$\text{Given any list } f:\mathbb{N}\to\mathbb{R},\ \text{set } x_n = \begin{ca
 
 <p>While the foundations were burning, Emmy Noether in Göttingen was inventing the algebraic worldview that would dominate the century. Her 1921 paper on ideals in commutative rings introduced the chain conditions and the structural style — define a property, study the morphisms that preserve it, find the universal example — that everyone now uses without thinking. Her 1918 theorem, written as a service to Hilbert and Klein on conservation laws in the freshly published general relativity, was vastly more general than its commission: every continuous symmetry of a Lagrangian system gives a conservation law. Time-translation gives energy; spatial translation gives momentum; rotation gives angular momentum; gauge invariance gives charge. The whole of <a href="./gauge-theory.html">gauge theory</a> is downstream of this one observation.</p>
 
-<div class="person"><div class="glyph">EN</div><div class="pinfo"><div class="pname">Emmy Noether</div><div class="pmeta">1882 – 1935 · Erlangen / Göttingen / Bryn Mawr</div><div class="pblurb">Noether's theorem (1918); the founding figure of modern abstract algebra. Lectured at Göttingen for years without pay because the faculty refused to admit a woman to the Habilitation. Hilbert, when challenged, replied: "I do not see that the sex of the candidate is an argument against her admission. We are a university, not a bathing establishment."</div></div></div>
+<div class="person" data-person-id="emmy-noether"><div class="glyph">EN</div><div class="pinfo"><div class="pname">Emmy Noether</div><div class="pmeta">1882 – 1935 · Erlangen / Göttingen / Bryn Mawr</div><div class="pblurb">Noether's theorem (1918); the founding figure of modern abstract algebra. Lectured at Göttingen for years without pay because the faculty refused to admit a woman to the Habilitation. Hilbert, when challenged, replied: "I do not see that the sex of the candidate is an argument against her admission. We are a university, not a bathing establishment."</div></div></div>
 
 <p>Noether's students and Bourbaki — the pseudonymous French collective founded in 1935 by André Weil and friends to fix the unreadable analysis textbooks of the day — exported the structural style across mathematics. By 1960 every undergraduate definition was a triple $(X, +, \cdot)$ with axioms; every theorem a functor; every proof a diagram chase. It is easy to mock Bourbaki for what it leaves out (no pictures, no examples, no acknowledgment of the reader); it is harder to imagine what mathematics would now look like without it.</p>
 
@@ -758,7 +899,7 @@ $$\text{Given any list } f:\mathbb{N}\to\mathbb{R},\ \text{set } x_n = \begin{ca
 
 <p>If the first half of the century belonged to logic and algebra, the second belonged to one man and his program for algebraic geometry. Alexander Grothendieck arrived at the IHÉS in Bures-sur-Yvette in 1959 and over twelve years rebuilt the field from the ground up. Varieties became <a href="./schemes.html">schemes</a> — locally ringed spaces glued from $\operatorname{Spec}$ of arbitrary commutative rings, nilpotents included — and <a href="./etale-cohomology.html">étale cohomology</a> gave geometers a Weil-style theory adequate to prove the Weil conjectures, the deepest of which (the Riemann hypothesis over finite fields) was settled by Pierre Deligne in 1973. Topoi appeared as a byproduct: a category with the formal properties of "sheaves on a space" turns out to be a perfectly good replacement for the space. A great deal of <a href="./category-theory.html">category theory</a> as now practiced was developed at IHÉS as scaffolding.</p>
 
-<div class="person"><div class="glyph">AG</div><div class="pinfo"><div class="pname">Alexander Grothendieck</div><div class="pmeta">1928 – 2014 · IHÉS (Bures-sur-Yvette)</div><div class="pblurb">Schemes, étale cohomology, topoi, motives, the entire categorical reformulation of algebraic geometry. Stateless until middle age (his German father died in Auschwitz). Resigned from the IHÉS in 1970 over military funding and by 1991 had retreated to a Pyrenean village to write 20,000 pages of meditations on consciousness and meaning. Died refusing to see almost anyone.</div></div></div>
+<div class="person" data-person-id="grothendieck"><div class="glyph">AG</div><div class="pinfo"><div class="pname">Alexander Grothendieck</div><div class="pmeta">1928 – 2014 · IHÉS (Bures-sur-Yvette)</div><div class="pblurb">Schemes, étale cohomology, topoi, motives, the entire categorical reformulation of algebraic geometry. Stateless until middle age (his German father died in Auschwitz). Resigned from the IHÉS in 1970 over military funding and by 1991 had retreated to a Pyrenean village to write 20,000 pages of meditations on consciousness and meaning. Died refusing to see almost anyone.</div></div></div>
 
 <aside class="note"><strong>How "abstract" was it really?</strong> Grothendieck's reputation for stratospheric abstraction is half deserved. Schemes do let $\operatorname{Spec}(\mathbb{Z})$ sit alongside curves over $\mathbb{F}_p$ and over $\mathbb{C}$ as objects of one category — that is the whole point. But each of his big constructions was driven by a concrete target: the Weil conjectures, Riemann–Roch, the étale fundamental group. He was building exactly the machinery his targets demanded, and not a comma more.</aside>
 
@@ -774,21 +915,26 @@ $$\operatorname{ind}_a(D) \;=\; \operatorname{ind}_t(D).$$
 
 <p>The century closed with a 358-year-old itch finally scratched. Fermat's marginal note about $a^n + b^n = c^n$ had survived every attempt since 1637, and by the 1980s number theorists treated it as a curiosity not worth a career. The breakthrough was indirect. In 1955 Yutaka Taniyama and Goro Shimura had conjectured that every elliptic curve over $\mathbb{Q}$ is <em>modular</em>: its $L$-function matches that of a weight-2 cusp form. Three decades later Ken Ribet, building on a 1985 idea of Gerhard Frey, proved that a counterexample to Fermat would yield a non-modular elliptic curve. Modularity therefore implies Fermat. Andrew Wiles, who had wanted to prove Fermat since age 10, retreated to his attic for seven years and emerged in 1993 with a proof of modularity for semistable elliptic curves — exactly the slice required. A gap surfaced; a year later, Wiles and his former student Richard Taylor patched it. See <a href="./modularity-and-flt.html">modularity and FLT</a> for the strategy.</p>
 
-<div class="person"><div class="glyph">AW</div><div class="pinfo"><div class="pname">Andrew Wiles</div><div class="pmeta">b. 1953 · Princeton / Oxford</div><div class="pblurb">Proved Taniyama–Shimura for semistable elliptic curves (1994/95) and with it Fermat's Last Theorem. Worked alone in his attic for nearly seven years, confiding only in one collaborator. Too old (just) for a Fields Medal; received instead a special IMU plaque in 1998 and the Abel Prize in 2016.</div></div></div>
+<div class="person" data-person-id="wiles"><div class="glyph">AW</div><div class="pinfo"><div class="pname">Andrew Wiles</div><div class="pmeta">b. 1953 · Princeton / Oxford</div><div class="pblurb">Proved Taniyama–Shimura for semistable elliptic curves (1994/95) and with it Fermat's Last Theorem. Worked alone in his attic for nearly seven years, confiding only in one collaborator. Too old (just) for a Fields Medal; received instead a special IMU plaque in 1998 and the Abel Prize in 2016.</div></div></div>
 
 <aside class="ok"><strong>What Wiles actually did.</strong> The proof is not "Fermat's." It is a modularity result for a class of elliptic curves over $\mathbb{Q}$, derived by a deformation-theoretic argument about the two-dimensional $\ell$-adic Galois representations attached to those curves; the central technical move is the Taylor–Wiles patching system. Fermat falls out as a corollary because Frey curves cannot be modular. Almost none of this would have been intelligible to anyone before 1970.</aside>
 
 <p>By the time Wiles received his medal, the framework around the proof had absorbed Fermat as one case of a much larger correspondence between Galois representations and automorphic forms. The 21st century would inherit a mathematics larger, more abstract, and more uncertain about its own foundations than at any time in its history. It was also, by any serious accounting, more alive.</p>
+<div class="widget era-toy" data-era-toy="twentieth"></div>
 </div>
+  </details>
 </section>
 
 <section id="modern">
-  <div class="era-card" style="--era-color:var(--era-modern)">
+  <details class="era" id="era-modern">
+    <summary>
+      <div class="era-card" style="--era-color:var(--era-modern)">
     <div class="era-eyebrow">Era 9<span class="era-range">2000 – present</span></div>
     <h2>11. Into the 21st century</h2>
     <p class="era-blurb">Perelman's solitary proof of the Poincaré conjecture; the Langlands program continuing to absorb everything; condensed mathematics; machine-checked proofs; the rise of computer-assisted theorem proving and AI as collaborator. The story is still being written.</p>
   </div>
-  <div data-era-narrative="modern">
+    </summary>
+    <div class="era-body" data-era-narrative="modern">
 <p>Wiles closed the door on the nineteenth century's most famous open problem in 1994; the twenty-first opened with a different kind of event entirely. On 11 November 2002, a researcher in St Petersburg uploaded an arXiv preprint titled "The entropy formula for the Ricci flow and its geometric applications," followed by two more in March and July of 2003. There was no journal submission, no press release, no lecture tour. The three papers, totalling sixty-eight pages, claimed to settle Thurston's geometrization conjecture — and as a corollary, the Poincaré conjecture, the only one of the seven Clay Millennium Problems to be solved so far. The author was Grigori Perelman, and the way he chose to publish set the tone for the era.</p>
 
 <h3>Perelman, Ricci flow, and walking away</h3>
@@ -799,7 +945,7 @@ $$\partial_t g_{ij} = -2 R_{ij},$$
 
 <p>where $R_{ij}$ is the Ricci curvature. The flow smooths out lumps; in good cases the manifold settles into one of Thurston's eight model geometries. The catch is that singularities form — necks pinch off, curvature blows up — and Hamilton's program stalled on how to keep going past them. Perelman's contribution was a monotonicity formula (the entropy of the title), a pointwise non-collapsing theorem, and a procedure called <em>Ricci flow with surgery</em> that excises a singular neck, caps the resulting boundary, and continues the flow. After finite time only the canonical pieces remain. <a href="./ricci-flow.html">Ricci flow</a> went from a tool people hoped might work to one that demonstrably did.</p>
 
-<div class="person"><div class="glyph">GP</div><div class="pinfo"><div class="pname">Grigori Perelman</div><div class="pmeta">b. 1966 · St Petersburg</div><div class="pblurb">Three arXiv preprints (2002–03) proved the Poincaré conjecture via Hamilton's Ricci flow. Declined the Fields Medal in 2006, declined the Clay Millennium Prize in 2010, withdrew from research mathematics. Lives quietly with his mother. The proof was checked, line by line, by three independent teams over several years; it holds.</div></div></div>
+<div class="person" data-person-id="perelman"><div class="glyph">GP</div><div class="pinfo"><div class="pname">Grigori Perelman</div><div class="pmeta">b. 1966 · St Petersburg</div><div class="pblurb">Three arXiv preprints (2002–03) proved the Poincaré conjecture via Hamilton's Ricci flow. Declined the Fields Medal in 2006, declined the Clay Millennium Prize in 2010, withdrew from research mathematics. Lives quietly with his mother. The proof was checked, line by line, by three independent teams over several years; it holds.</div></div></div>
 
 <aside class="note"><strong>What "decline a Fields Medal" means.</strong> Perelman's stated reasons varied across the few interviews he gave — he objected to the politics of credit, to ethical compromises he saw in the discipline, to being made a public figure at all. The point is not that the prizes corrupt mathematics; the point is that one of the most important proofs of the century reached the world without any of the institutional machinery prizes are meant to reward, and its author preferred it that way.</aside>
 
@@ -807,24 +953,26 @@ $$\partial_t g_{ij} = -2 R_{ij},$$
 
 <p>Two years later, Ben Green and Terence Tao posted a paper proving that the primes contain arbitrarily long arithmetic progressions: for every $k$, there exist $a$ and $d$ with $a, a+d, a+2d, \ldots, a+(k-1)d$ all prime. The result had been conjectured for decades and resisted every classical approach. The Green–Tao argument worked by showing that the primes, despite their thinness, look "pseudo-random" enough inside a slightly larger set that Szemerédi's theorem on dense sets — itself proved by Furstenberg via ergodic theory — can be transported across. <a href="./additive-number-theory.html">Additive number theory</a> absorbed the technique within a few years. The cultural lesson was that the productive boundaries of the century were going to be between subjects, not inside them.</p>
 
-<div class="person"><div class="glyph">TT</div><div class="pinfo"><div class="pname">Terence Tao</div><div class="pmeta">b. 1975 · Adelaide / UCLA</div><div class="pblurb">Fields Medal 2006. Has published roughly three hundred papers across analytic number theory, harmonic analysis, partial differential equations, random matrix theory, and combinatorics. Maintains a blog that doubles as a graduate textbook and an early instance of mathematics-as-public-conversation.</div></div></div>
+<div class="person" data-person-id="tao"><div class="glyph">TT</div><div class="pinfo"><div class="pname">Terence Tao</div><div class="pmeta">b. 1975 · Adelaide / UCLA</div><div class="pblurb">Fields Medal 2006. Has published roughly three hundred papers across analytic number theory, harmonic analysis, partial differential equations, random matrix theory, and combinatorics. Maintains a blog that doubles as a graduate textbook and an early instance of mathematics-as-public-conversation.</div></div></div>
 
 <h3>Scholze, perfectoid spaces, and the abc problem</h3>
 
 <p>If the early 2000s belonged to Perelman and Tao, the 2010s belonged to Peter Scholze. As a graduate student in Bonn he introduced <em>perfectoid spaces</em> — a class of analytic spaces over $p$-adic fields engineered so that characteristic-$0$ and characteristic-$p$ phenomena become two views of the same object. The technical heart is a "tilting" equivalence that turns a perfectoid space over $\mathbb{Q}_p$ into one over $\mathbb{F}_p((t))$ and back. Conjectures that had been open for decades — the weight-monodromy conjecture in many cases, the Langlands correspondence for $\mathrm{GL}_n$ over local fields of equal characteristic — began to fall. By 2018 Scholze had a Fields Medal and was midway through, with Dustin Clausen, a much more ambitious project: <em>condensed mathematics</em>, an attempt to redo the foundations of analytic geometry so that topological structure becomes a categorical decoration rather than a parallel theory. The relevant pages here are <a href="./p-adic-numbers.html">$p$-adic numbers</a> and <a href="./moduli-spaces.html">moduli spaces</a>; both are downstream.</p>
 
-<div class="person"><div class="glyph">PS</div><div class="pinfo"><div class="pname">Peter Scholze</div><div class="pmeta">b. 1987 · Bonn</div><div class="pblurb">Perfectoid spaces (2011); Fields Medal 2018; condensed mathematics with Dustin Clausen (ongoing). Director at the Max Planck Institute for Mathematics in Bonn at age 30. The papers are dense; the lectures are unhurried.</div></div></div>
+<div class="person" data-person-id="scholze"><div class="glyph">PS</div><div class="pinfo"><div class="pname">Peter Scholze</div><div class="pmeta">b. 1987 · Bonn</div><div class="pblurb">Perfectoid spaces (2011); Fields Medal 2018; condensed mathematics with Dustin Clausen (ongoing). Director at the Max Planck Institute for Mathematics in Bonn at age 30. The papers are dense; the lectures are unhurried.</div></div></div>
 
 <p>Around the same time, Shinichi Mochizuki at RIMS Kyoto released a four-paper series titled <em>Inter-universal Teichmüller Theory</em>, claiming a proof of the abc conjecture — that for any $\varepsilon > 0$, the inequality $c < \mathrm{rad}(abc)^{1+\varepsilon}$ holds for all but finitely many coprime triples $a + b = c$. The conjecture is one of the spine-pieces of <a href="./heights-arithmetic-geometry.html">heights and arithmetic geometry</a>. The IUT papers were eventually published in 2021 in a journal Mochizuki himself edits; the broader number-theoretic community has not been able to verify the central inequality. Scholze and Jakob Stix flew to Kyoto in 2018, came away unconvinced, and posted a written objection that Mochizuki rejected. The episode is unprecedented — a published proof of a major conjecture that the field at large does not yet accept — and is probably going to be studied as much by sociologists as by number theorists.</p>
 
 <p>Maryam Mirzakhani's work on the dynamics of geodesics on moduli spaces of Riemann surfaces — counting simple closed geodesics, classifying $\mathrm{SL}_2(\mathbb{R})$-orbit closures with Eskin and Mohammadi — earned her the 2014 Fields Medal, the first awarded to a woman. She died of cancer at forty in 2017. From 1936 through 2010, every Fields Medal went to a man; since 2014, Mirzakhani and Maryna Viazovska (2022, sphere packing in dimensions 8 and 24) have begun to change the roster.</p>
 
-<div class="person"><div class="glyph">MM</div><div class="pinfo"><div class="pname">Maryam Mirzakhani</div><div class="pmeta">1977 – 2017 · Tehran / Stanford</div><div class="pblurb">Won the Iranian national math olympiad as a teenager; PhD at Harvard under McMullen; built a theory of dynamics on $\mathcal{M}_g$, the moduli space of genus-$g$ Riemann surfaces, that connected hyperbolic geometry, ergodic theory, and counting problems.</div></div></div>
+<div class="person" data-person-id="mirzakhani"><div class="glyph">MM</div><div class="pinfo"><div class="pname">Maryam Mirzakhani</div><div class="pmeta">1977 – 2017 · Tehran / Stanford</div><div class="pblurb">Won the Iranian national math olympiad as a teenager; PhD at Harvard under McMullen; built a theory of dynamics on $\mathcal{M}_g$, the moduli space of genus-$g$ Riemann surfaces, that connected hyperbolic geometry, ergodic theory, and counting problems.</div></div></div>
 
 <aside class="ok"><strong>The proof assistants arrive.</strong> In 2014 Thomas Hales completed Flyspeck, a fully formal verification of his earlier proof of the Kepler conjecture — the densest packing of equal spheres in $\mathbb{R}^3$ is the obvious one — in HOL Light and Isabelle. The original 1998 proof had taken referees four years to mostly-but-not-completely check; the formal version closed every gap. In 2020 Scholze posed the <em>Liquid Tensor Experiment</em>: could anyone formalize a key recent theorem of his and Clausen's in Lean? A community led by Johan Commelin finished it in mid-2022 and reported the full result in 2023. The relevance is subtle. Formal verification is no longer a stunt for theorems we already trust; it is becoming a genuine option for results active researchers are unsure of.</aside>
 
 <p>Three other developments belong on the running ledger. The arXiv has effectively replaced the journal as the medium of first publication — a Perelman-style dump is now ordinary. Large collaborative projects (the Polymath problems, Mathlib, the Stacks Project) have shown that asynchronous, internet-mediated mathematics produces results no individual would attempt alone. And machine-learning systems have started doing useful mathematical work: AlphaGeometry solving olympiad problems, copilots suggesting Lean tactics, language models conjecturing patterns in knot invariants that humans then prove. The shape of the mathematician's role twenty years from now is unclear. The shape of the last twenty has been: tools changed, open questions <a href="./modularity-and-flt.html">stayed deep</a>, and the discipline kept absorbing new <a href="./category-theory.html">categorical</a> machinery faster than any individual could read it.</p>
+<div class="widget era-toy" data-era-toy="modern"></div>
 </div>
+  </details>
 </section>
 
 <section id="lineage">
@@ -915,6 +1063,23 @@ $$\partial_t g_{ij} = -2 R_{ij},$$
     { "id":"galois",       "name":"Évariste Galois",           "birth":1811,  "death":1832,  "era":"enlightenment","place":"Paris",                              "blurb":"At 20, the night before a duel that killed him, wrote down the theory of groups and the criterion for solvability of polynomials." },
     { "id":"germain",      "name":"Sophie Germain",            "birth":1776,  "death":1831,  "era":"enlightenment","place":"Paris",                              "blurb":"Self-taught; corresponded with Gauss under the pseudonym M. LeBlanc. First general theorem on Fermat's Last Theorem (Case I, for primes $p$ where $2p+1$ is prime). Won the 1816 Paris Academy prize for her work on the vibrational modes of an elastic plate." },
     { "id":"mazur",        "name":"Barry Mazur",               "birth":1937,  "death":null,  "era":"twentieth", "place":"Harvard",                              "blurb":"Galois deformation theory, Mazur's torsion theorem on rational points of elliptic curves, and the conceptual machinery Wiles needed to attack modularity. Wiles's PhD advisor." },
+    { "id":"demoivre",     "name":"Abraham de Moivre",         "birth":1667,  "death":1754,  "era":"renaissance","place":"London (in exile from France)",        "blurb":"The Doctrine of Chances (1718) — the first textbook on probability. Discovered the normal distribution as the limit of binomial via the de Moivre–Laplace theorem, two generations before Laplace finished it." },
+    { "id":"chebyshev",    "name":"Pafnuty Chebyshev",         "birth":1821,  "death":1894,  "era":"enlightenment","place":"St Petersburg",                      "blurb":"Founder of the St. Petersburg school. Chebyshev's inequality, Bertrand's postulate, the Chebyshev bias in the prime-number distribution. Markov was his student." },
+    { "id":"markov",       "name":"Andrey Markov",             "birth":1856,  "death":1922,  "era":"enlightenment","place":"St Petersburg",                      "blurb":"Markov chains (1906); studied texts statistically and applied the chains to Pushkin. The first theory of dependent random sequences." },
+    { "id":"kolmogorov",   "name":"Andrey Kolmogorov",         "birth":1903,  "death":1987,  "era":"twentieth", "place":"Moscow",                               "blurb":"Foundations of Probability (1933) put probability on measure-theoretic axioms. Plus KAM theory, complexity, turbulence, dynamical systems, and ergodic theory. The 20th century's most consequential probabilist." },
+    { "id":"doob",         "name":"Joseph Doob",               "birth":1910,  "death":2004,  "era":"twentieth", "place":"Urbana–Champaign",                     "blurb":"Stochastic Processes (1953) — the textbook that synthesized martingale theory, Markov processes, and continuous-time stochastic analysis into a single discipline." },
+    { "id":"ito",          "name":"Kiyoshi Itō",               "birth":1915,  "death":2008,  "era":"twentieth", "place":"Kyoto",                                "blurb":"Itō calculus (1944, 1951) — stochastic differential equations, the Itō integral, the lemma every quant lives by. Built the bridge from Brownian motion to modern financial mathematics, decades before Black–Scholes." },
+    { "id":"seki-takakazu","name":"Seki Takakazu",             "birth":1642,  "death":1708,  "era":"renaissance","place":"Edo",                                "blurb":"Founder of the wasan tradition. Independently discovered determinants in 1683 (the same year as Leibniz's letter to L'Hôpital — neither knew of the other); tabulated Bernoulli numbers before Bernoulli; methods for elimination of variables. The 17th-century Edo school developed in parallel with European calculus and mostly without contact." },
+    { "id":"frobenius",    "name":"Ferdinand Georg Frobenius", "birth":1849,  "death":1917,  "era":"enlightenment","place":"Berlin",                            "blurb":"Founded representation theory of finite groups (character tables, 1896). Independently discovered the Cayley–Hamilton theorem; the Frobenius automorphism in number theory; matrix theory." },
+    { "id":"hausdorff",    "name":"Felix Hausdorff",           "birth":1868,  "death":1942,  "era":"twentieth", "place":"Bonn",                                 "blurb":"Grundzüge der Mengenlehre (1914) — the textbook that defined topology, separation axioms, metric spaces, ordered sets, and Hausdorff dimension. Took his own life in 1942 to avoid the Nazi camps." },
+    { "id":"fisher",       "name":"Ronald A. Fisher",          "birth":1890,  "death":1962,  "era":"twentieth", "place":"Rothamsted / Cambridge",               "blurb":"Statistical Methods for Research Workers (1925) — the textbook that gave us p-values, ANOVA, design of experiments, maximum likelihood, and Fisher information. Also a controversial eugenicist whose statistical innovations are inseparable from a darker political legacy." },
+    { "id":"tarski",       "name":"Alfred Tarski",             "birth":1901,  "death":1983,  "era":"twentieth", "place":"Warsaw / Berkeley",                    "blurb":"Semantic theory of truth (1933): the formal definition of \"X is true in M\" that lets us prove things about mathematical theories from outside. Decision procedure for elementary algebra/geometry; Banach–Tarski paradox (1924)." },
+    { "id":"maclane",      "name":"Saunders Mac Lane",         "birth":1909,  "death":2005,  "era":"twentieth", "place":"Chicago",                              "blurb":"With Eilenberg invented category theory (1945) to formalise \"naturality.\" Categories for the Working Mathematician (1971) is still the textbook. Pushed the categorical perspective into homological algebra and geometry." },
+    { "id":"eilenberg",    "name":"Samuel Eilenberg",          "birth":1913,  "death":1998,  "era":"twentieth", "place":"Warsaw / Columbia",                    "blurb":"With Mac Lane founded category theory; with Steenrod axiomatised algebraic topology; with Cartan wrote the field's first systematic treatment of homological algebra." },
+    { "id":"robinson-julia","name":"Julia Robinson",           "birth":1919,  "death":1985,  "era":"twentieth", "place":"Berkeley",                             "blurb":"With Davis and Putnam reduced Hilbert's 10th problem to the existence of a Diophantine relation of exponential growth — the \"J. R. hypothesis.\" Matiyasevich finished the case in 1970. First woman elected to the National Academy of Sciences in mathematics." },
+    { "id":"conway",       "name":"John Horton Conway",        "birth":1937,  "death":2020,  "era":"twentieth", "place":"Cambridge / Princeton",                "blurb":"Game of Life; surreal numbers; Conway groups (sporadic finite simple groups, classification ingredient); monstrous moonshine (with Norton); knot polynomials; the free will theorem." },
+    { "id":"lawvere",      "name":"F. William Lawvere",        "birth":1937,  "death":2023,  "era":"twentieth", "place":"Buffalo",                              "blurb":"Functorial semantics: a theory is a category, a model is a functor (1963 thesis). Elementary topos theory (with Tierney, 1970): a topos is a generalised universe of sets, internally a higher-order intuitionistic logic." },
+    { "id":"faltings",     "name":"Gerd Faltings",             "birth":1954,  "death":null,  "era":"twentieth", "place":"Bonn (MPIM)",                          "blurb":"Proof of the Mordell conjecture (1983): a curve of genus ≥ 2 has only finitely many rational points. Fields Medal 1986. Later: $p$-adic Hodge theory, almost mathematics, foundational input to Wiles." },
     { "id":"weierstrass",  "name":"Karl Weierstrass",          "birth":1815,  "death":1897,  "era":"enlightenment","place":"Berlin",                             "blurb":"The 'father of modern analysis': $\\varepsilon$-$\\delta$ definitions made standard, uniform convergence, the Weierstrass function." },
     { "id":"riemann",      "name":"Bernhard Riemann",          "birth":1826,  "death":1866,  "era":"enlightenment","place":"Göttingen",                          "blurb":"Riemann surfaces; the Riemann integral; the metric tensor; the zeta function and its zeros." },
     { "id":"dedekind",     "name":"Richard Dedekind",          "birth":1831,  "death":1916,  "era":"enlightenment","place":"Braunschweig",                       "blurb":"Dedekind cuts (a real number = a partition of the rationals); ideals; one of the founders of abstract algebra." },
@@ -983,6 +1148,7 @@ $$\partial_t g_{ij} = -2 R_{ij},$$
     { "year":1637, "era":"renaissance","title":"Descartes's Géométrie","who":["descartes"],"city":"Leiden","region":"Dutch Republic","lat":52.16,"lng":4.49,"summary":"An appendix to the Discourse on Method: algebra and geometry fused. Curves become equations.","topicAnchor":"./projective-plane.html" },
     { "year":1637, "era":"renaissance","title":"Fermat's Last Theorem (margin)","who":["fermat"],"city":"Toulouse","region":"France","lat":43.60,"lng":1.44,"summary":"In the margin of Diophantus, Fermat claims $a^n + b^n = c^n$ has no positive integer solutions for $n>2$. The truly marvellous proof is missing for 358 years.","topicAnchor":"./modularity-and-flt.html" },
     { "year":1654, "era":"renaissance","title":"Pascal–Fermat correspondence","who":["pascal","fermat"],"city":"Paris","region":"France","lat":48.86,"lng":2.35,"summary":"Letters about a gambling problem invent probability theory. Pascal's triangle gets its modern presentation.","topicAnchor":"./probability-theory.html" },
+    { "year":1683, "era":"renaissance","title":"Seki's determinants and wasan","who":["seki-takakazu"],"city":"Edo","region":"Tokugawa Japan","lat":35.68,"lng":139.69,"summary":"Seki Takakazu's manuscript on solving systems of equations introduces what we now call determinants — independently, in the same year as Leibniz's first determinant letter. The Japanese wasan tradition develops calculus-adjacent techniques in near-total isolation from Europe.","topicAnchor":null },
     { "year":1684, "era":"renaissance","title":"Leibniz's calculus","who":["leibniz"],"city":"Leipzig","region":"Holy Roman Empire","lat":51.34,"lng":12.37,"summary":"Nova Methodus pro Maximis et Minimis: differentials $dx$, $dy$, the integral sign. Notation that survives to today.","topicAnchor":"./real-analysis.html" },
     { "year":1687, "era":"renaissance","title":"Newton's Principia","who":["newton"],"city":"Cambridge","region":"England","lat":52.20,"lng":0.12,"summary":"Philosophiæ Naturalis Principia Mathematica: laws of motion and universal gravitation, derived from the calculus of fluxions.","topicAnchor":"./hamiltonians-classical-mechanics.html" },
     { "year":1713, "era":"enlightenment","title":"Bernoulli's law of large numbers","who":["bernoulli-jakob"],"city":"Basel","region":"Swiss Confederacy","lat":47.56,"lng":7.59,"summary":"Ars Conjectandi (posthumous) — the first proof of a law of large numbers, the bedrock of statistics.","topicAnchor":"./probability-theory.html" },
@@ -1003,10 +1169,12 @@ $$\partial_t g_{ij} = -2 R_{ij},$$
     { "year":1874, "era":"enlightenment","title":"Cantor's diagonal argument","who":["cantor"],"city":"Halle","region":"German Empire","lat":51.48,"lng":11.97,"summary":"Two sizes of infinity: the rationals are countable, the reals are not. Set theory is born.","topicAnchor":"./naive-set-theory.html" },
     { "year":1882, "era":"enlightenment","title":"π is transcendental","who":[],"city":"Munich","region":"German Empire","lat":48.14,"lng":11.58,"summary":"Lindemann proves $\\pi$ is transcendental — settling the 2,000-year-old problem of squaring the circle in the negative." },
     { "year":1895, "era":"enlightenment","title":"Poincaré's Analysis Situs","who":["poincare"],"city":"Paris","region":"France","lat":48.86,"lng":2.35,"summary":"The founding paper of algebraic topology; fundamental group, homology, the Poincaré conjecture posed in 1904.","topicAnchor":"./algebraic-topology.html" },
-    { "year":1900, "era":"twentieth","title":"Hilbert's 23 problems","who":["hilbert"],"city":"Paris","region":"France","lat":48.86,"lng":2.35,"summary":"At the International Congress, Hilbert poses 23 problems that frame the agenda of 20th-century mathematics.","topicAnchor":"./bsd.html" },
+    { "year":1896, "era":"enlightenment","title":"Frobenius's character theory","who":["frobenius"],"city":"Berlin","region":"German Empire","lat":52.52,"lng":13.40,"summary":"Frobenius's papers on group characters and irreducible representations of finite groups — the systematic foundation of representation theory.","topicAnchor":"./representation-theory.html" },
+    { "year":1900, "era":"twentieth","title":"Hilbert's 23 problems","who":["hilbert"],"city":"Paris","region":"France","lat":48.86,"lng":2.35,"summary":"At the International Congress, Hilbert poses 23 problems that frame the agenda of 20th-century mathematics.","topicAnchor":"./computability-and-decidability.html" },
     { "year":1901, "era":"twentieth","title":"Russell's paradox","who":[],"city":"Cambridge","region":"England","lat":52.20,"lng":0.12,"summary":"The set of all sets that don't contain themselves: a paradox that ends naive set theory and opens the foundations crisis.","topicAnchor":"./naive-set-theory.html" },
     { "year":1905, "era":"twentieth","title":"Lebesgue's integral","who":[],"city":"Paris","region":"France","lat":48.86,"lng":2.35,"summary":"Lebesgue's measure-theoretic integral: the right framework for probability, harmonic analysis, and functional analysis.","topicAnchor":"./measure-theory.html" },
     { "year":1907, "era":"twentieth","title":"Brouwer's fixed-point theorem","who":[],"city":"Amsterdam","region":"Netherlands","lat":52.37,"lng":4.90,"summary":"Every continuous self-map of a closed disk has a fixed point. The seed of topological methods in analysis and economics.","topicAnchor":"./fixed-point-theorems.html" },
+    { "year":1914, "era":"twentieth","title":"Hausdorff's Grundzüge","who":["hausdorff"],"city":"Bonn","region":"German Empire","lat":50.74,"lng":7.10,"summary":"Grundzüge der Mengenlehre defines topological spaces via the four separation axioms, formalises metric spaces and ordered sets, and effectively invents general topology as a discipline.","topicAnchor":"./point-set-topology.html" },
     { "year":1915, "era":"twentieth","title":"Einstein's general relativity","who":[],"city":"Berlin","region":"German Empire","lat":52.52,"lng":13.40,"summary":"Gravity as the curvature of a Riemannian (pseudo-Riemannian) manifold — Riemann's 1854 metric tensor finds its physical meaning.","topicAnchor":"./general-relativity.html" },
     { "year":1918, "era":"twentieth","title":"Noether's theorem","who":["emmy-noether"],"city":"Göttingen","region":"German Empire","lat":51.53,"lng":9.93,"summary":"Every continuous symmetry of a physical system gives a conservation law. The hidden engine of every modern physics calculation.","topicAnchor":"./gauge-theory.html" },
     { "year":1918, "era":"twentieth","title":"Hardy–Ramanujan partitions","who":["hardy","ramanujan"],"city":"Cambridge","region":"England","lat":52.20,"lng":0.12,"summary":"The asymptotic formula for $p(n)$, the number of integer partitions: a tour de force of analytic number theory.","topicAnchor":"./partitions-generating-functions.html" },
@@ -1015,15 +1183,20 @@ $$\partial_t g_{ij} = -2 R_{ij},$$
     { "year":1935, "era":"twentieth","title":"Bourbaki begins","who":["weil"],"city":"Paris","region":"France","lat":48.86,"lng":2.35,"summary":"A young French collective (André Weil et al.) starts to rewrite all of mathematics from set-theoretic structures upward." },
     { "year":1936, "era":"twentieth","title":"Turing machines","who":["turing"],"city":"Cambridge","region":"England","lat":52.20,"lng":0.12,"summary":"On Computable Numbers: a precise mathematical model of an idealized computing machine. The halting problem is undecidable.","topicAnchor":"./computability-and-decidability.html" },
     { "year":1944, "era":"twentieth","title":"Theory of games","who":["vonneumann"],"city":"Princeton","region":"USA","lat":40.35,"lng":-74.66,"summary":"Theory of Games and Economic Behavior (with Morgenstern) founds modern game theory.","topicAnchor":"./probabilistic-method.html" },
+    { "year":1945, "era":"twentieth","title":"Eilenberg–Mac Lane: category theory","who":["eilenberg","maclane"],"city":"Bloomington","region":"USA","lat":39.17,"lng":-86.53,"summary":"\"General Theory of Natural Equivalences\" formalises naturality and introduces categories, functors, and natural transformations. The ambient language of structural mathematics from this point on.","topicAnchor":"./category-theory.html" },
     { "year":1948, "era":"twentieth","title":"Shannon's information theory","who":["shannon"],"city":"Murray Hill","region":"USA","lat":40.69,"lng":-74.40,"summary":"A Mathematical Theory of Communication: entropy, channel capacity, the founding paper of information theory.","topicAnchor":"./information-theory.html" },
     { "year":1955, "era":"twentieth","title":"Taniyama–Shimura conjecture","who":[],"city":"Tokyo","region":"Japan","lat":35.68,"lng":139.69,"summary":"Every elliptic curve over $\\mathbb{Q}$ is modular. A wild conjecture from the Tokyo–Nikkō conference; key to FLT.","topicAnchor":"./modularity-and-flt.html" },
+    { "year":1956, "era":"twentieth","title":"Cartan–Eilenberg: homological algebra","who":["eilenberg"],"city":"Princeton","region":"USA","lat":40.35,"lng":-74.66,"summary":"Cartan–Eilenberg's Homological Algebra synthesises Tor, Ext, derived functors, and the long exact sequence machinery into a single textbook. The discipline gets its name and its standard apparatus.","topicAnchor":"./homological.html" },
     { "year":1960, "era":"twentieth","title":"Grothendieck's schemes","who":["grothendieck"],"city":"Bures-sur-Yvette","region":"France","lat":48.70,"lng":2.16,"summary":"Éléments de Géométrie Algébrique: algebraic geometry rebuilt on the foundation of schemes and functor of points.","topicAnchor":"./schemes.html" },
     { "year":1963, "era":"twentieth","title":"Cohen's forcing","who":["cohen"],"city":"Stanford","region":"USA","lat":37.43,"lng":-122.17,"summary":"The continuum hypothesis is independent of ZFC. Forcing — a way to build models of set theory à la carte.","topicAnchor":"./forcing-and-independence.html" },
     { "year":1963, "era":"twentieth","title":"Atiyah–Singer index theorem","who":["atiyah"],"city":"Oxford","region":"England","lat":51.75,"lng":-1.25,"summary":"The analytic index of an elliptic operator equals its topological index. The unification of analysis, topology, and geometry.","topicAnchor":"./atiyah-singer-index-theorem.html" },
     { "year":1966, "era":"twentieth","title":"Étale cohomology","who":["grothendieck"],"city":"Bures-sur-Yvette","region":"France","lat":48.70,"lng":2.16,"summary":"Grothendieck and his students build étale cohomology — a Weil-cohomology that proves the Weil conjectures (Deligne, 1973).","topicAnchor":"./etale-cohomology.html" },
+    { "year":1967, "era":"twentieth","title":"Langlands's letter to Weil","who":[],"city":"Princeton","region":"USA","lat":40.35,"lng":-74.66,"summary":"Robert Langlands writes a 17-page letter to André Weil sketching a vast web of conjectures linking Galois representations to automorphic forms — what is now called the Langlands program.","topicAnchor":"./langlands-program.html" },
+    { "year":1970, "era":"twentieth","title":"Hilbert's 10th resolved (DPRM)","who":["robinson-julia"],"city":"Leningrad","region":"USSR","lat":59.94,"lng":30.31,"summary":"Davis, Putnam, J. Robinson, and Matiyasevich: there is no algorithm to decide whether an integer Diophantine equation has solutions. Recursively enumerable = Diophantine.","topicAnchor":"./computability-and-decidability.html" },
     { "year":1973, "era":"twentieth","title":"Deligne proves Weil III","who":[],"city":"Bures-sur-Yvette","region":"France","lat":48.70,"lng":2.16,"summary":"Pierre Deligne's proof of the Riemann Hypothesis for varieties over finite fields — the deepest of the Weil conjectures.","topicAnchor":"./etale-cohomology.html" },
     { "year":1976, "era":"twentieth","title":"Four-color theorem","who":[],"city":"Urbana","region":"USA","lat":40.11,"lng":-88.21,"summary":"Appel and Haken prove the four-color theorem with significant computer assistance — a turning point for computer-aided proof." },
     { "year":1982, "era":"twentieth","title":"Thurston's geometrization conjecture","who":["thurston"],"city":"Princeton","region":"USA","lat":40.35,"lng":-74.66,"summary":"Every 3-manifold can be cut into pieces with one of eight geometric structures. The general framework that contained Poincaré." },
+    { "year":1983, "era":"twentieth","title":"Faltings proves Mordell","who":["faltings"],"city":"Wuppertal","region":"West Germany","lat":51.26,"lng":7.18,"summary":"A curve over $\\mathbb{Q}$ of genus $\\geq 2$ has only finitely many rational points. The first deep result on rational points of higher-genus curves; Fields Medal 1986.","topicAnchor":"./heights-arithmetic-geometry.html" },
     { "year":1994, "era":"twentieth","title":"Wiles proves Fermat","who":["wiles"],"city":"Cambridge","region":"England","lat":52.20,"lng":0.12,"summary":"Andrew Wiles announces a proof of the modularity theorem for semistable elliptic curves, completing the path to FLT.","topicAnchor":"./modularity-and-flt.html" },
     { "year":1998, "era":"twentieth","title":"Hales's Kepler conjecture","who":["hales"],"city":"Pittsburgh","region":"USA","lat":40.44,"lng":-79.99,"summary":"The face-centred-cubic packing is the densest sphere packing in 3D — a 400-year-old conjecture, settled with computer assistance." },
     { "year":2002, "era":"modern","title":"Perelman's preprints","who":["perelman"],"city":"St Petersburg","region":"Russia","lat":59.94,"lng":30.31,"summary":"Three arXiv preprints prove Thurston's geometrization conjecture, and with it the Poincaré conjecture — using Hamilton's Ricci flow.","topicAnchor":"./ricci-flow.html" },
@@ -1111,6 +1284,20 @@ $$\partial_t g_{ij} = -2 R_{ij},$$
         { "id":"mazur",     "y":1989, "label":"Mazur (deformation)","to":["wiles"] },
         { "id":"wiles",     "y":1995, "label":"Wiles + Taylor","to":[] }
       ]
+    },
+    { "id":"probability", "title":"Probability theory", "rootIds":["kolmogorov"],
+      "tree": [
+        { "id":"pascal",    "y":1654, "label":"Pascal–Fermat letters","to":["huygens","bernoulli-jakob"] },
+        { "id":"huygens",   "y":1657, "label":"Huygens (De ratiociniis)","to":["bernoulli-jakob","demoivre"] },
+        { "id":"bernoulli-jakob","y":1713,"label":"Jakob Bernoulli (LLN)","to":["demoivre","laplace"] },
+        { "id":"demoivre",  "y":1733, "label":"de Moivre (CLT seed)","to":["laplace"] },
+        { "id":"laplace",   "y":1812, "label":"Laplace (Théorie analytique)","to":["chebyshev"] },
+        { "id":"chebyshev", "y":1867, "label":"Chebyshev (inequality)","to":["markov"] },
+        { "id":"markov",    "y":1906, "label":"Markov (chains)","to":["kolmogorov"] },
+        { "id":"kolmogorov","y":1933, "label":"Kolmogorov (axioms)","to":["doob","ito"] },
+        { "id":"doob",      "y":1953, "label":"Doob (martingales)","to":[] },
+        { "id":"ito",       "y":1944, "label":"Itō (stochastic calc.)","to":[] }
+      ]
     }
   ],
 
@@ -1138,6 +1325,9 @@ $$\partial_t g_{ij} = -2 R_{ij},$$
 </script>
 
 <!-- bootstrapper: hands the JSON to each widget renderer -->
+<script src="./js/widget-history-bus.js" defer></script>
+<script src="./js/widget-history-icons.js" defer></script>
+<script src="./js/widget-history-era-toys.js" defer></script>
 <script src="./js/widget-history-timeline.js" defer></script>
 <script src="./js/widget-history-map.js" defer></script>
 <script src="./js/widget-history-lineage.js" defer></script>
@@ -1166,6 +1356,160 @@ document.addEventListener('DOMContentLoaded', function(){
       fg.appendChild(a);
     }
   }
+
+  // ===== Per-era inline toys =====
+  // Each era-body contains <div class="widget era-toy" data-era-toy="<id>">
+  // — hand it to the toys factory for init. Failures are localised: a
+  // broken toy in one era doesn't kill the rest.
+  if(window.MVHistoryToys){
+    document.querySelectorAll('.era-toy').forEach(host => {
+      window.MVHistoryToys.init(host);
+    });
+  }
+
+  // ===== Person-card sub-icons =====
+  // For ids that have an entry in MVHistoryIcons, swap the 2-letter
+  // monogram out for a hand-drawn SVG glyph. Other cards keep the
+  // monogram fallback. Each card also picks up its mathematician's era
+  // color via --accent, so the glyph + bus-highlight inherit the right
+  // tint instead of falling back to yellow for everyone.
+  const personById = new Map((data.people || []).map(p => [p.id, p]));
+  const eraColorMap = new Map((data.eras || []).map(e => [e.id, e.color]));
+  document.querySelectorAll('.person[data-person-id]').forEach(el => {
+    const id = el.dataset.personId;
+    const person = personById.get(id);
+    if(person){
+      const era = person.era;
+      const color = eraColorMap.get(era);
+      if(color) el.style.setProperty('--accent', color);
+    }
+    if(window.MVHistoryIcons){
+      const svg = window.MVHistoryIcons.get(id);
+      if(svg){
+        const glyph = el.querySelector('.glyph');
+        if(glyph) glyph.innerHTML = svg;
+      }
+    }
+  });
+
+  // ===== Inline `.person` card → cross-widget bus =====
+  // Each `.person[data-person-id]` card is clickable. Wire them to the bus
+  // so clicking a card in the prose pulses the same person on the timeline /
+  // map / lineage. Non-id cards (e.g. Plimpton 322 anonymous) stay inert.
+  document.querySelectorAll('.person[data-person-id]').forEach(el => {
+    const id = el.dataset.personId;
+    const fire = () => {
+      if(window.MVHistoryBus) window.MVHistoryBus.selectPerson(id);
+    };
+    el.addEventListener('click', e => {
+      // Don't hijack inner-link navigation. Without this guard a click on an
+      // `<a href="./topic.html">` inside the card would fire the bus AND
+      // navigate, briefly pulsing siblings before the page changes.
+      if(e.target.closest('a')) return;
+      fire();
+    });
+    el.tabIndex = 0;
+    // Use role=group rather than button — the card already contains
+    // anchor children, and ARIA forbids button > link nesting.
+    el.setAttribute('role', 'group');
+    el.setAttribute('aria-label', 'Card for ' + (el.querySelector('.pname')?.textContent || id) + ' — Enter or click to highlight on the timeline, map, and lineage');
+    el.addEventListener('keydown', e => {
+      // Don't intercept key events that originated inside an <a> child.
+      if(e.target.closest('a')) return;
+      if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); fire(); }
+    });
+  });
+  if(window.MVHistoryBus){
+    window.MVHistoryBus.on('select-person', e => {
+      const id = e.detail && e.detail.id;
+      document.querySelectorAll('.person[data-person-id]').forEach(card => {
+        const matches = id && card.dataset.personId === id;
+        card.classList.toggle('bus-highlight', !!matches);
+      });
+    });
+  }
+
+  // ===== Era-color scroll wash =====
+  // As the reader scrolls into each era section, set --current-era-color on
+  // the documentElement to that era's color. The body::before stripe and
+  // sidetoc .active link both inherit the variable, so the page's accent
+  // travels with the reader through the chronology.
+  const eraColorById = new Map((data.eras||[]).map(e => [e.id, e.color]));
+  const eraSectionEls = (data.eras||[])
+    .map(e => ({ id: e.id, el: document.getElementById(e.id) }))
+    .filter(x => x.el);
+  if(eraSectionEls.length && 'IntersectionObserver' in window){
+    const visible = new Set();
+    const lastByY = () => {
+      // Pick the topmost visible era section (smallest top y value still on screen)
+      let best = null, bestTop = Infinity;
+      visible.forEach(id => {
+        const x = eraSectionEls.find(s => s.id === id);
+        if(!x) return;
+        const t = x.el.getBoundingClientRect().top;
+        if(t < bestTop){ bestTop = t; best = id; }
+      });
+      return best;
+    };
+    const obs = new IntersectionObserver(entries => {
+      for(const ent of entries){
+        const id = ent.target.id;
+        if(ent.isIntersecting) visible.add(id);
+        else visible.delete(id);
+      }
+      const active = lastByY();
+      const color = active ? eraColorById.get(active) : null;
+      document.documentElement.style.setProperty(
+        '--current-era-color',
+        color || 'var(--yellow)'
+      );
+    }, { rootMargin: '-30% 0px -50% 0px', threshold: 0 });
+    eraSectionEls.forEach(s => obs.observe(s.el));
+  }
+
+  // ===== Collapsible-era controls =====
+  // Each era is wrapped in <details class="era">. Default state: closed.
+  // (a) "Expand all" / "Collapse all" buttons toggle every era.
+  // (b) When the URL hash points at a section that contains a collapsed
+  //     era — either the section itself or any deep anchor inside the era's
+  //     narrative — auto-open the relevant <details>. This makes both the
+  //     sidetoc links ("#prehistory") and external deep-links land on a
+  //     visible target rather than a closed card.
+  const eraDetails = [...document.querySelectorAll('details.era')];
+  const expandAllBtn = document.getElementById('era-expand-all');
+  const collapseAllBtn = document.getElementById('era-collapse-all');
+  if(expandAllBtn){
+    expandAllBtn.addEventListener('click', () => {
+      eraDetails.forEach(d => { d.open = true; });
+    });
+  }
+  if(collapseAllBtn){
+    collapseAllBtn.addEventListener('click', () => {
+      eraDetails.forEach(d => { d.open = false; });
+    });
+  }
+  function openEraForHash(){
+    const hash = (location.hash || '').replace(/^#/, '');
+    if(!hash) return;
+    // Direct section id (#prehistory, #ancient, ...)
+    const direct = document.getElementById(hash);
+    if(!direct) return;
+    // If the target is itself a <details class="era"> or contains/is contained
+    // by one, open it. closest('details.era') walks up; the section element
+    // can also have an inner details we should open.
+    const ownDetails = direct.closest('details.era');
+    if(ownDetails){ ownDetails.open = true; return; }
+    const innerDetails = direct.querySelector('details.era');
+    if(innerDetails) innerDetails.open = true;
+  }
+  openEraForHash();
+  window.addEventListener('hashchange', () => {
+    openEraForHash();
+    // After expanding, scroll the target into view (browsers don't re-scroll
+    // when the target was hidden at the moment of hashchange).
+    const t = document.getElementById((location.hash || '').replace(/^#/, ''));
+    if(t) requestAnimationFrame(() => t.scrollIntoView({block:'start', behavior:'smooth'}));
+  });
 });
 </script>
 <details class="changelog">
