@@ -102,6 +102,14 @@
   .nodebox:hover rect.node-bg{fill:#242c3e}
   .nodebox.match rect.node-bg{filter:drop-shadow(0 0 8px var(--yellow))}
   .nodebox.dim{opacity:.25}
+  /* Keyboard focus ring for nodebox elements (a11y: nodes are tabindex=0
+     role=button so Tab order reaches the DAG and Enter/Space activates a
+     node, mirroring a click). */
+  .nodebox:focus{outline:none}
+  .nodebox:focus-visible rect.node-bg{
+    stroke:var(--cyan);stroke-width:3;
+    filter:drop-shadow(0 0 6px color-mix(in srgb, var(--cyan) 60%, transparent));
+  }
   @keyframes nodepulse{
     0%   { transform: scale(1); }
     30%  { transform: scale(1.05); }
@@ -313,7 +321,7 @@
   <a class="back" href="./index.html">← Notebook</a>
   <span class="mv-theme-slot" style="margin-left:.6rem"></span>
   <h1>Concept pathways</h1>
-  <p class="sub">Pick a capstone goal. The DAG shows every concept you need, layered by prerequisite depth. Click a node to jump to the page; ⌘/ctrl-click toggles mastery; hover a node for a quick blurb. Use <b>filters</b> to slice by section, state, or level, and <kbd>/</kbd> to search. For free exploration of the whole concept graph (no goal), see <a href="./mindmap.html">mindmap</a>.</p>
+  <p class="sub">Pick a capstone goal — or choose <em>No goal</em> for free exploration of the whole concept graph. The DAG shows every concept you need, layered by prerequisite depth. Click a node to jump to the page; ⌘/ctrl-click toggles mastery; hover a node for a quick blurb. Use <b>filters</b> to slice by section, state, or level, and <kbd>/</kbd> to search.</p>
 
   <div class="bar">
     <label for="goal-select">Goal:</label>
@@ -538,7 +546,12 @@
   })();
 
   // ---------- subgraph for a goal ----------
+  // Sentinel "none" (and null/undefined) returns the full concept set —
+  // free-exploration mode merged in from the former mindmap.html.
   function ancestors(goalId){
+    if(!goalId || goalId === 'none'){
+      return new Set(byId.keys());
+    }
     const keep = new Set();
     (function walk(id){
       if(keep.has(id)) return;
@@ -877,7 +890,17 @@
 
     // nodes
     for(const [id,n] of currentLayout.nodesById){
-      const g = el('g', {class: 'nodebox', transform: `translate(${n.x},${n.y})`, 'data-id': id});
+      // a11y: tabindex=0 + role=button + aria-label make each node keyboard-
+      // reachable and announceable. Enter/Space activate via the keydown
+      // handler below, which forwards to the existing click code path.
+      const g = el('g', {
+        class: 'nodebox',
+        transform: `translate(${n.x},${n.y})`,
+        'data-id': id,
+        tabindex: '0',
+        role: 'button',
+        'aria-label': n.node.title,
+      });
       const info = MVProgress.stateOf(id, conceptsMap);
       g.classList.add(info.state);
       if(info.hard) g.classList.add('hard');
@@ -959,6 +982,18 @@
           lockTipTapArmed = null;
         }
         selectNode(id);
+      });
+      // a11y: Enter/Space on a focused node fires the same code path as a
+      // click. We dispatch a synthetic MouseEvent so cmd/ctrl/shift modifiers
+      // (mastery toggles) still work via keyboard if the user holds them.
+      g.addEventListener('keydown', (ev)=>{
+        if(ev.key === 'Enter' || ev.key === ' '){
+          ev.preventDefault();
+          g.dispatchEvent(new MouseEvent('click', {
+            bubbles: true,
+            ctrlKey: ev.ctrlKey, metaKey: ev.metaKey, shiftKey: ev.shiftKey,
+          }));
+        }
       });
       // F4: Hover-card on every node (desktop only — touch uses click-to-select).
       // Uses a shorter delay than the locked-tap tooltip (100ms) since this is
@@ -1902,6 +1937,11 @@
     if(!bySection.has(s)) bySection.set(s, []);
     bySection.get(s).push(cap);
   }
+  // First option is the no-goal "free exploration" mode (formerly mindmap.html).
+  const noneOpt = document.createElement('option');
+  noneOpt.value = 'none';
+  noneOpt.textContent = 'No goal — show full graph';
+  goalSel.appendChild(noneOpt);
   for(const [section, caps] of bySection){
     const group = document.createElement('optgroup');
     group.label = section;
