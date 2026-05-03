@@ -34369,6 +34369,351 @@ window.MVQuizBank = {
       }
     }
   },
+  "motives": {
+    "topic": "motives",
+    "quizzes": {
+      "cohomology-zoo": {
+        "title": "The cohomology zoo",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why are Betti, de Rham, ℓ-adic, and crystalline cohomology often described as 'the same theory in different costumes'?",
+            "choices": [
+              "They take values in the same target category",
+              "They produce numerically the same Betti numbers and satisfy parallel Künneth, Poincaré-duality, Lefschetz formulas",
+              "They are all defined for the same class of varieties using the same construction",
+              "They are pairwise isomorphic functors"
+            ],
+            "answer": 1,
+            "explain": "They take values in genuinely different categories ($\\mathbb{Q}$-vector spaces / filtered vector spaces / $\\mathbb{Q}_\\ell$-Galois reps / $\\varphi$-modules), yet for any fixed $X$ they yield the same dimensions and satisfy the same formal identities — the unifying signal that motivates motives as their common source."
+          },
+          {
+            "type": "mcq",
+            "q": "The motivic functor $h\\colon\\mathsf{SmProj}_k\\to\\mathsf{Mot}_k$ is supposed to be 'universal' in the sense that:",
+            "choices": [
+              "it is fully faithful",
+              "every cohomology functor on smooth projective varieties factors through $h$ (composed with a realization functor)",
+              "it sends every variety to a point",
+              "it is the unique additive functor on $\\mathsf{SmProj}_k$"
+            ],
+            "answer": 1,
+            "explain": "The defining property: realization functors $\\mathsf{Mot}_k \\to \\mathcal{C}_R$ recover Betti / de Rham / ℓ-adic / crystalline by post-composing with $h$. Universality is on the realization side — every reasonable cohomology theory factors uniquely through the motivic data."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of the following are extra structures carried by *some* but not *all* of the four classical realizations of $h(X)$?",
+            "choices": [
+              "An action of $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})$",
+              "A Hodge filtration $F^\\bullet$",
+              "A finite-dimensional underlying $\\mathbb{Q}$-vector space",
+              "A Frobenius automorphism on a Witt-vector module"
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "explain": "Galois action is special to ℓ-adic; Hodge filtration to de Rham (over $\\mathbb{C}$); Frobenius on Witt vectors to crystalline. All four eventually take values in finite-dimensional vector spaces over different fields — that's the *common* feature, not the discriminating one."
+          }
+        ]
+      },
+      "algebraic-correspondences": {
+        "title": "Correspondences as morphisms",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "An algebraic correspondence of degree $0$ from $X$ to $Y$ (smooth projective of dimensions $d_X, d_Y$) is an element of:",
+            "choices": [
+              "$\\mathrm{Hom}(X, Y)$",
+              "$\\mathrm{CH}^{d_X}(X \\times Y) \\otimes \\mathbb{Q}$",
+              "$\\mathrm{CH}^*(X) \\otimes \\mathrm{CH}^*(Y)$",
+              "$H^*(X \\times Y)$"
+            ],
+            "answer": 1,
+            "explain": "Correspondences live in $\\mathrm{CH}^{d_X+r}(X\\times Y)\\otimes\\mathbb{Q}$ where $r$ is the degree; degree $0$ pins it to codimension equal to $\\dim X$ in the product. The graph $\\Gamma_f$ of any morphism $f\\colon X\\to Y$ is one canonical degree-$0$ class."
+          },
+          {
+            "type": "mcq",
+            "q": "Composition of correspondences $\\beta\\circ\\alpha$ is defined as:",
+            "choices": [
+              "$\\alpha\\cup\\beta$ on the product",
+              "$(p_{XZ})_*((p_{XY})^*\\alpha\\cdot(p_{YZ})^*\\beta)$ on the triple product $X\\times Y\\times Z$",
+              "intersection $\\alpha\\cap\\beta$ on $X\\times Z$",
+              "tensor product of cohomology classes"
+            ],
+            "answer": 1,
+            "explain": "Composition pulls $\\alpha$ and $\\beta$ back to the triple product, intersects them, and pushes forward to $X\\times Z$. The graph identity $\\Gamma_g\\circ\\Gamma_f=\\Gamma_{g\\circ f}$ is the sanity check — composition of correspondences specialises to composition of morphisms via graphs."
+          },
+          {
+            "type": "mcq",
+            "q": "Which correspondence is the identity on the motive $h(X)$?",
+            "choices": [
+              "the empty cycle",
+              "the diagonal $\\Delta_X \\subset X \\times X$",
+              "$X \\times X$ itself",
+              "the projector onto $H^0(X)$"
+            ],
+            "answer": 1,
+            "explain": "The diagonal $\\Delta_X$, viewed in $\\mathrm{Corr}^0(X,X)=\\mathrm{CH}^{\\dim X}(X\\times X)\\otimes\\mathbb{Q}$, acts as the identity under composition. Its decomposition into Künneth components $\\Delta = \\sum \\pi_i$ — when those components are algebraic — yields the projectors $(X,\\pi_i)$ that split $h(X)$ by cohomological degree."
+          }
+        ]
+      },
+      "pure-chow-motives": {
+        "title": "Pure Chow motives",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "An object of $\\mathsf{Mot}_k^{\\mathrm{Chow}}$ is which of the following data?",
+            "choices": [
+              "a smooth projective variety $X$",
+              "a triple $(X, p, n)$ with $X$ smooth projective, $p\\in\\mathrm{Corr}^0(X,X)$ idempotent, and $n\\in\\mathbb{Z}$",
+              "a coherent sheaf",
+              "a Galois representation"
+            ],
+            "answer": 1,
+            "explain": "After taking the pseudo-abelian envelope (to split idempotents) and inverting the Lefschetz motive (the $n$ Tate-twist parameter), motives are triples $(X,p,n)$. Plain varieties live inside as $(X,\\Delta,0)$ — the diagonal projector and trivial twist."
+          },
+          {
+            "type": "mcq",
+            "q": "The motive of the projective line $\\mathbb{P}^1$ decomposes as:",
+            "choices": [
+              "$h(\\mathbb{P}^1) = \\mathbf{1}$",
+              "$h(\\mathbb{P}^1) = \\mathbf{1}\\oplus\\mathbb{L}$ where $\\mathbb{L}$ is the Lefschetz motive",
+              "$h(\\mathbb{P}^1) = \\mathbb{L}\\otimes\\mathbb{L}$",
+              "$h(\\mathbb{P}^1)$ is simple (no decomposition)"
+            ],
+            "answer": 1,
+            "explain": "The diagonal $\\Delta = e_0 + e_2$ where $e_0 = \\mathbb{P}^1\\times\\{\\mathrm{pt}\\}$, $e_2 = \\{\\mathrm{pt}\\}\\times\\mathbb{P}^1$ are orthogonal idempotents projecting onto $H^0$ and $H^2$. So $h(\\mathbb{P}^1) = (\\mathbb{P}^1,e_0,0)\\oplus(\\mathbb{P}^1,e_2,0) = \\mathbf{1}\\oplus\\mathbb{L}$."
+          },
+          {
+            "type": "mcq",
+            "q": "Three flavors of pure motives — Chow, homological, numerical — differ in:",
+            "choices": [
+              "the underlying field $k$",
+              "the equivalence relation imposed on algebraic cycles in correspondence groups",
+              "the dimension of the varieties allowed",
+              "the choice of cohomology theory"
+            ],
+            "answer": 1,
+            "explain": "All three use $\\mathrm{CH}^*(X\\times Y)\\otimes\\mathbb{Q}$ but quotient by different equivalence relations: rational (Chow, finest), homological (mod a chosen $H^*$), numerical (coarsest, two cycles equivalent if they intersect every other cycle the same number of times). Standard conjectures predict they collapse to one."
+          }
+        ]
+      },
+      "tate-twist": {
+        "title": "The Tate twist Q(n)",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "$\\mathbb{Q}(1)$ is defined as:",
+            "choices": [
+              "the motive of a point",
+              "the inverse of the Lefschetz motive $\\mathbb{L} = h^2(\\mathbb{P}^1)$",
+              "the unit object in $\\mathsf{Mot}_k$",
+              "the motive of $\\mathbb{Q}$ as an algebraic variety"
+            ],
+            "answer": 1,
+            "explain": "$\\mathbb{Q}(1) := \\mathbb{L}^{-1}$. Tensoring with $\\mathbb{Q}(n)$ shifts cohomological degree by $-2n$ in every realization; this is the formal mechanism by which Tate-twists track 'how many factors of $2\\pi i$' a class has."
+          },
+          {
+            "type": "mcq",
+            "q": "In Betti realization, $\\mathbb{Q}(1)$ is which Hodge structure?",
+            "choices": [
+              "rank-1, weight $0$, type $(0,0)$",
+              "rank-1, weight $-2$, type $(-1,-1)$",
+              "rank-2, weight $0$",
+              "trivial"
+            ],
+            "answer": 1,
+            "explain": "$\\mathbb{Q}(1)$ realizes as $2\\pi i\\cdot\\mathbb{Q}\\subset\\mathbb{C}$, a rank-1 $\\mathbb{Q}$-Hodge structure of weight $-2$ pure of Hodge type $(-1,-1)$. The shift to weight $-2$ is the source of the 'shift by $-2$ in cohomological degree' under Tate-twist."
+          },
+          {
+            "type": "mcq",
+            "q": "What controls multiple zeta values $\\zeta(n_1,\\ldots,n_r)$ from a motivic standpoint?",
+            "choices": [
+              "the motivic Galois group of pure abelian varieties",
+              "the motivic Galois group of mixed Tate motives over $\\mathbb{Z}$",
+              "the étale fundamental group of $\\mathbb{P}^1$",
+              "no motivic structure — they are just analytic"
+            ],
+            "answer": 1,
+            "explain": "Deligne–Goncharov–Brown: MZVs are periods of mixed Tate motives over $\\mathbb{Z}$. The motivic Galois group of that subcategory acts on the periods; predicted relations among MZVs are reps-of-the-group statements. This is a rare case where the motivic framework is fully unconditional."
+          }
+        ]
+      },
+      "tannakian-categories": {
+        "title": "Tannakian categories",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A neutral Tannakian category over $k$ comes with a faithful exact tensor functor $\\omega\\colon\\mathcal{T}\\to\\mathsf{Vect}_k$ (a fiber functor). Why is $\\omega$ called 'neutral'?",
+            "choices": [
+              "its image is the zero object",
+              "its target is just vector spaces over the base field $k$ (as opposed to a category of $L$-vector spaces for $L\\supsetneq k$)",
+              "it is full",
+              "it is the identity on objects"
+            ],
+            "answer": 1,
+            "explain": "'Neutral' means the fiber functor lands in $\\mathsf{Vect}_k$ over the very same field. Non-neutral Tannakian categories have a fiber functor only after extending scalars to a field $L\\supsetneq k$ — and the resulting affine scheme is a torsor (gerbe) rather than a group."
+          },
+          {
+            "type": "mcq",
+            "q": "For a neutral Tannakian category $\\mathcal{T}$ with fiber functor $\\omega$, the Tannakian theorem identifies $\\mathcal{T}$ with:",
+            "choices": [
+              "$\\mathsf{Set}$",
+              "$\\mathsf{Rep}_k(G)$ for $G = \\underline{\\mathrm{Aut}}^\\otimes(\\omega)$, the affine group scheme of tensor-automorphisms of $\\omega$",
+              "the opposite category of itself",
+              "$\\mathsf{Vect}_k$"
+            ],
+            "answer": 1,
+            "explain": "$\\mathcal{T}\\simeq\\mathsf{Rep}_k(G)$ where $G=\\underline{\\mathrm{Aut}}^\\otimes(\\omega)$ encodes the natural tensor-automorphisms of $\\omega$. The slogan 'a Tannakian category is the representations of an invisible group' is literal — the group is reconstructed from $(\\mathcal{T},\\omega)$."
+          },
+          {
+            "type": "matching",
+            "q": "Match each Tannakian category with the group it is equivalent to representations of:",
+            "left": [
+              "$\\mathbb{Q}$-Hodge structures",
+              "$\\mathbb{Q}_\\ell$-Galois representations of $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})$",
+              "regular-singular $D$-modules on a complex variety"
+            ],
+            "right": [
+              "Mumford-Tate group",
+              "(an $\\ell$-adic completion of) $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})$",
+              "differential-Galois group"
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "explain": "Each is a textbook Tannakian-category-with-named-group: Hodge structures see Mumford-Tate; Galois reps see the Galois group itself; regular $D$-modules see the differential Galois group. The motivic story is the union — one Tannakian category housing all three."
+          }
+        ]
+      },
+      "motivic-galois-group": {
+        "title": "The motivic Galois group",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Jannsen's theorem (1992) shows that — *unconditionally* — the category of numerical motives over $k$ is:",
+            "choices": [
+              "Tannakian",
+              "$\\mathbb{Q}$-linear, abelian, and semisimple",
+              "trivial",
+              "equivalent to $\\mathsf{Vect}_\\mathbb{Q}$"
+            ],
+            "answer": 1,
+            "explain": "Jannsen proved $\\mathsf{Mot}_k^{\\mathrm{num}}$ is $\\mathbb{Q}$-linear, abelian, and semisimple — without any standard conjecture. Tannakianness on top of that requires the standard conjectures (so the category has a fiber functor compatible with the tensor structure)."
+          },
+          {
+            "type": "mcq",
+            "q": "Modulo the standard conjectures, the motivic Galois group $G_{\\mathrm{mot}}(k) = \\underline{\\mathrm{Aut}}^\\otimes(\\omega_B)$ is a:",
+            "choices": [
+              "finite group",
+              "pro-reductive affine group scheme over $\\mathbb{Q}$",
+              "topological group with no algebraic structure",
+              "compact Lie group"
+            ],
+            "answer": 1,
+            "explain": "Pro-reductive (each finite-dim representation is semisimple) and pro-algebraic (limit of affine algebraic groups), reflecting that motives are pieces of varieties ranging over all dimensions. Classical $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ — a profinite group — is recovered as the étale-realization quotient of $G_{\\mathrm{mot}}(\\mathbb{Q})$."
+          },
+          {
+            "type": "mcq",
+            "q": "The Hodge realization gives a homomorphism $G_{\\mathrm{mot}}(\\mathbb{Q}) \\to \\mathrm{MT}(X)$ for each variety $X$. The Hodge conjecture asks whether:",
+            "choices": [
+              "the homomorphism is injective",
+              "the image is full — every Hodge cycle on $X$ is algebraic",
+              "$\\mathrm{MT}(X)$ is finite",
+              "the homomorphism is trivial"
+            ],
+            "answer": 1,
+            "explain": "Hodge cycles are classes in $H^*(X;\\mathbb{Q})$ of Hodge type $(p,p)$. The Hodge conjecture predicts every such class is the cycle class of an algebraic correspondence — equivalently, that the Hodge realization is faithful enough to characterize Mumford-Tate as a quotient of $G_{\\mathrm{mot}}$."
+          }
+        ]
+      },
+      "realization-functors": {
+        "title": "Realizations",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Grothendieck's comparison theorem (1966) says that for $X$ smooth projective over a subfield $k\\subset\\mathbb{C}$:",
+            "choices": [
+              "$H^*_B(X(\\mathbb{C});\\mathbb{Q}) = H^*_{\\mathrm{dR}}(X/k)$ as $\\mathbb{Q}$-vector spaces",
+              "$H^*_{\\mathrm{dR}}(X/k)\\otimes_k\\mathbb{C} \\cong H^*_B(X(\\mathbb{C});\\mathbb{C})$ — algebraic de Rham equals topological after tensoring with $\\mathbb{C}$",
+              "$H^*_{\\mathrm{dR}}(X/k)$ is always zero",
+              "$H^*_{\\mathrm{dR}}(X/k)$ depends on $\\ell$"
+            ],
+            "answer": 1,
+            "explain": "After tensoring up to $\\mathbb{C}$ — i.e. after evaluating both realizations at the same Hodge-de-Rham fiber functor — they become canonically isomorphic. Periods $(2\\pi i)^n$ etc. record the discrepancy *before* tensoring, since the comparison is not defined over $\\mathbb{Q}$."
+          },
+          {
+            "type": "mcq",
+            "q": "Fontaine's $p$-adic comparison theorem ties:",
+            "choices": [
+              "Betti and de Rham",
+              "$\\ell$-adic étale ($\\ell\\neq p$) and de Rham",
+              "$p$-adic étale and crystalline (via the period ring $B_{\\mathrm{cris}}$)",
+              "numerical and homological motives"
+            ],
+            "answer": 2,
+            "explain": "The $p$-adic Hodge theory of Fontaine produces an isomorphism $B_{\\mathrm{cris}}\\otimes H^*_{\\mathrm{cris}}(X_{\\mathbb{F}_p}/W)\\cong B_{\\mathrm{cris}}\\otimes H^*_{\\mathrm{\\acute{e}t}}(X_{\\overline{\\mathbb{Q}}_p};\\mathbb{Q}_p)$ for varieties of good reduction. This lets the $p$-adic Galois rep be read off the crystalline data."
+          },
+          {
+            "type": "mcq",
+            "q": "Why are realizations described as functors $\\mathsf{Mot}_k\\to\\mathcal{C}_R$ rather than as cohomology functors directly on varieties?",
+            "choices": [
+              "convention",
+              "factoring through motives bakes in the formal identities (Künneth, duality, Lefschetz) once and for all, instead of re-proving them per cohomology theory",
+              "varieties are too small a category",
+              "to avoid the Yoneda embedding"
+            ],
+            "answer": 1,
+            "explain": "The motivic factoring is the *point*: every formal identity of cohomology is reduced to an identity in $\\mathsf{Mot}_k$, which all realizations then inherit automatically. It's the same labour-saving move as deriving operations once on a free module and inheriting them on every quotient."
+          }
+        ]
+      },
+      "standard-conjectures": {
+        "title": "The standard conjectures",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Lefschetz standard conjecture (B) asserts that:",
+            "choices": [
+              "Hard Lefschetz holds for every smooth projective variety",
+              "the inverse of the Hard Lefschetz isomorphism $L^{n-i}\\colon H^i\\to H^{2n-i}$ is induced by an algebraic correspondence",
+              "every variety has an even Euler characteristic",
+              "every cohomology class is algebraic"
+            ],
+            "answer": 1,
+            "explain": "Hard Lefschetz itself is a theorem (over $\\mathbb{C}$); (B) asks that its inverse is algebraic — i.e. comes from a class in $\\mathrm{CH}^*(X\\times X)\\otimes\\mathbb{Q}$. (B) plus (C) imply numerical and homological equivalence agree, unblocking Tannakianness of $\\mathsf{Mot}_k^{\\mathrm{hom}}$."
+          },
+          {
+            "type": "mcq",
+            "q": "Voevodsky's contribution to the motivic story (early 2000s, Fields Medal) was:",
+            "choices": [
+              "proving the standard conjectures",
+              "constructing a triangulated category $\\mathsf{DM}(k)$ of mixed motives that is robust enough to prove the Bloch–Kato conjecture",
+              "computing all Mumford-Tate groups",
+              "disproving the Hodge conjecture"
+            ],
+            "answer": 1,
+            "explain": "Voevodsky built $\\mathsf{DM}(k)$ — a triangulated category encompassing both pure and mixed motives — as a substitute for the still-conjectural abelian category of mixed motives. The Milnor and Bloch-Kato conjectures (motivic-cohomology computations) were proved using this machinery. The standard conjectures themselves remain open."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is the *unconditionally true* version of the Tannakian motivic picture?",
+            "choices": [
+              "Pure Chow motives over $\\overline{\\mathbb{Q}}$",
+              "Mixed Tate motives over $\\mathbb{Z}$ (Deligne-Goncharov-Brown)",
+              "Mixed motives in characteristic $p$",
+              "All of the above"
+            ],
+            "answer": 1,
+            "explain": "Mixed Tate motives over $\\mathbb{Z}$ are fully constructed unconditionally and have an explicit motivic Galois group acting on multiple zeta values. The other two require some form of the standard conjectures (still open in general) to be Tannakian."
+          }
+        ]
+      }
+    }
+  },
   "naive-set-theory": {
     "topic": "naive-set-theory",
     "quizzes": {

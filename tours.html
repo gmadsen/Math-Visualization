@@ -377,6 +377,14 @@ const SVG = (tag,attrs={})=>{
       <div class="tc-meta"><span class="tc-stops">5 stops</span> · ends at <span class="tc-end">class field theory</span></div>
     </div>
   </button>
+  <button class="tour-card" data-color="violet" data-tour="solvability-arc" type="button">
+    <div class="tc-num">7</div>
+    <div class="tc-body">
+      <div class="tc-title">Solvability across mathematics</div>
+      <div class="tc-goal">"Abelian-in-stages" as one structural pattern, traced from the solvable-group / radical tower up to the motivic Galois group.</div>
+      <div class="tc-meta"><span class="tc-stops">5 stops</span> · ends at <span class="tc-end">motives</span></div>
+    </div>
+  </button>
 </div>
 
 <section class="tour" id="bsd-road" data-color="cyan">
@@ -886,13 +894,96 @@ const SVG = (tag,attrs={})=>{
 </aside>
 </section>
 
+<section class="tour" id="solvability-arc" data-color="violet">
+<h2>7. Solvability across mathematics</h2>
+<p class="tour-goal">Goal: see "abelian-in-stages" as one structural pattern, traceable from Galois groups through cohomology and topology up to the motivic Galois group — the same idea wearing four costumes, the way cohomology did in Tour 3.</p>
+
+<ol class="tour">
+  <li>
+    <span class="stop-section">Number theory</span>
+    <span class="stop-title"><a href="./galois.html#quintic">Galois solvability and why the quintic resists radicals</a></span>
+    <p class="bridge">A polynomial $f \in \mathbb{Q}[x]$ is solvable by radicals iff its Galois group $G = \Gal(L/\mathbb{Q})$ is a <em>solvable group</em> — admits a chain $\{e\} \trianglelefteq G_1 \trianglelefteq \cdots \trianglelefteq G_n = G$ with abelian successive quotients $G_{i+1}/G_i$. For finite groups, this is equivalent to a chain whose successive quotients are cyclic of prime order, which is exactly what a tower of radical extensions builds on the field side. The chain bottoms out at $\{e\}$ for $n \leq 4$ — quadratic, cubic, quartic — but at $n = 5$ the alternating group $A_5$ is simple and non-abelian; no further chain is possible, so $S_5$ doesn't admit an abelian-quotient decomposition, and $a^{1/5}$-style closed forms cannot exist for the generic quintic. <em>Cohomology measures things that almost split but don't</em> — and this tour follows the same structural pattern as it grows up.</p>
+  </li>
+  <li>
+    <span class="stop-section">Algebra &amp; homological</span>
+    <span class="stop-title"><a href="./group-cohomology.html#h2">Group cohomology: $H^2$ classifies central extensions</a></span>
+    <p class="bridge">A central extension $1 \to A \to \tilde G \to G \to 1$ — exactly the kind of step that builds a solvability chain — is classified up to equivalence by an element of the second cohomology group $H^2(G, A)$. Two extensions agree iff their classifying classes do; the trivial class $0 \in H^2$ corresponds to the split (semidirect-product) extension. So the question "is the chain $G_1 \subset G_2 \subset \cdots \subset G$ <em>just</em> a sequence of split products, or does it have nontrivial twisting?" is encoded entirely in cohomology. The same bar complex that compute $H^*(G, A)$ underwrites every later cohomology this tour visits — same complex pattern $\partial^2 = 0$, every time, with a different module category.</p>
+    <div class="figure-row">
+      <div class="figure-card" data-c="violet">
+        <div class="fc-portrait" aria-hidden="true">EI</div>
+        <div class="fc-body">
+          <div class="fc-name">Samuel Eilenberg</div>
+          <div class="fc-dates">1913–1998</div>
+          <p class="fc-contrib">Co-invented (with Mac Lane) group cohomology in the 1940s and the bar resolution. Later co-founded category theory and homological algebra wholesale.</p>
+        </div>
+      </div>
+      <div class="figure-card" data-c="violet">
+        <div class="fc-portrait" aria-hidden="true">ML</div>
+        <div class="fc-body">
+          <div class="fc-name">Saunders Mac Lane</div>
+          <div class="fc-dates">1909–2005</div>
+          <p class="fc-contrib">The Eilenberg–Mac Lane spaces $K(G,n)$ are the topological avatars of $H^n(-,G)$ — the unification of group cohomology and topology in one geometric package.</p>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li>
+    <span class="stop-section">Geometry &amp; topology</span>
+    <span class="stop-title"><a href="./algebraic-topology.html#homology">Singular homology and the chain-complex pattern</a></span>
+    <p class="bridge">Same bookkeeping, geometric incarnation. To a topological space $X$ assign the singular chain complex $C_n(X) = \mathbb{Z}\langle \sigma\colon \Delta^n \to X\rangle$ with boundary $\partial \sigma = \sum (-1)^i \sigma|_{\text{face}_i}$, and dualize to cochains. $H^n(X; \mathbb{Z})$ is a topological invariant detecting "shape obstructions": $H^1(S^1) = \mathbb{Z}$ counts loops that can't contract; $H^2(S^2) = \mathbb{Z}$ counts the sphere that can't be filled. Homotopy-theoretically, every space $X$ has a <em>Postnikov tower</em> $\cdots \to X_3 \to X_2 \to X_1$ of truncations, where each map has fiber an Eilenberg–MacLane space $K(\pi_n X, n)$ — abelian "pieces" glued by cohomology classes. <em>That is exactly the solvability chain, run in homotopy types instead of groups</em>: the gluing $k$-invariants live in $H^{n+1}(X_{n-1}; \pi_n X)$, the same group cohomology you saw at the previous stop.</p>
+  </li>
+  <li>
+    <span class="stop-section">Higher categories &amp; toposes</span>
+    <span class="stop-title"><a href="./infinity-categories.html#quasi-category">∞-categories: spaces ARE ∞-groupoids</a></span>
+    <p class="bridge">The conceptual lever is the <em>homotopy hypothesis</em>: spaces (up to homotopy equivalence) are the same data as $\infty$-groupoids — gadgets with objects, paths, paths-between-paths, all the way up, every morphism invertible at every level. Group theory is then a slice: a group is an $\infty$-groupoid with one object and trivial higher data. The Postnikov tower of a space is the truncation tower of its $\infty$-groupoid; the <em>solvable</em> spaces are exactly those whose tower terminates in finitely many abelian layers. Solvability isn't a special property of groups, it turns out — it's a property of homotopy types, with groups as the 1-truncated case. Quasi-categories (Joyal, Lurie) are the working model: simplicial sets where every inner horn admits a not-necessarily-unique filler, encoding "composition up to coherent homotopy."</p>
+  </li>
+  <li class="endpoint">
+    <span class="stop-section">Algebraic geometry · capstone</span>
+    <span class="stop-title"><a href="./motives.html#motivic-galois">Motives: the universal Galois group of cohomology</a></span>
+    <p class="bridge">The motivic Galois group $G_{\mathrm{mot}}(\mathbb{Q})$ is the Tannakian fundamental group of the category of motives — a pro-reductive group whose finite-dimensional $\mathbb{Q}$-representations are exactly motives over $\mathbb{Q}$. Its étale-realization quotient is classical $\Gal(\overline{\mathbb{Q}}/\mathbb{Q})$ from stop 1; its Hodge-realization quotient is the Mumford–Tate group governing variations of Hodge structure; the standard conjectures predict the rest of its structure. <em>Solvability of $S_5$, $H^2$ classification of extensions, Postnikov-finiteness of homotopy types, and the motivic Galois group are the same idea at four scales</em>: each says "this object is built from abelian pieces in stages, and the gluing is cohomological." Galois theory in dimension zero, group cohomology in dimension one, homotopy types in all dimensions at once, motives in all dimensions and all cohomology theories at once.</p>
+    <div class="figure-row">
+      <div class="figure-card" data-c="violet">
+        <div class="fc-portrait" aria-hidden="true">GR</div>
+        <div class="fc-body">
+          <div class="fc-name">Alexander Grothendieck</div>
+          <div class="fc-dates">1928–2014</div>
+          <p class="fc-contrib">Articulated the motivic vision in the 1960s — every cohomology theory should factor through one universal target. The standard conjectures (1968) state the technical specifications motives need; they remain open after sixty years.</p>
+        </div>
+      </div>
+      <div class="figure-card" data-c="violet">
+        <div class="fc-portrait" aria-hidden="true">JA</div>
+        <div class="fc-body">
+          <div class="fc-name">Uwe Jannsen</div>
+          <div class="fc-dates">b. 1954</div>
+          <p class="fc-contrib">Proved (1992) that numerical motives form an abelian semisimple category — unconditionally. The strongest motivic structure theorem that doesn't depend on the standard conjectures, and the gateway to the motivic Galois group as a pro-reductive group scheme.</p>
+        </div>
+      </div>
+    </div>
+  </li>
+</ol>
+
+<aside class="context" data-c="violet">
+  <span class="ctx-label">Slogan</span>
+  <blockquote>Abelian groups are the atoms of commutative algebra. Simple groups are the atoms of group theory. Solvable groups are the molecules you can build using only abelian atoms — and they're exactly the groups where non-commutativity is a finite, manageable phenomenon rather than an irreducible one.<cite>— harvested from the chat thread that motivated this tour</cite></blockquote>
+</aside>
+
+<aside class="callback">
+  <div class="ttl">Diverges into</div>
+  <ul>
+    <li>Tour 3 (cohomology) shares the homological-algebra spine but follows the cohomology side, where this tour follows the group / homotopy-type / motive side.</li>
+    <li>Tour 4 (sets → ∞-topoi) shares the ∞-groupoids stop and continues into Lurie's higher topos theory; this tour pivots into arithmetic geometry instead.</li>
+    <li>Type theory and HoTT recover this same story as a foundation: <a href="./type-theory-and-hott.html#univalence">univalence</a> is the formal version of "spaces are ∞-groupoids."</li>
+  </ul>
+</aside>
+</section>
+
 <section id="more-tours">
 <h2>More tours coming</h2>
-<p>These six are a starting set, not a full atlas. Natural next routes — not yet written:</p>
+<p>These seven are a starting set, not a full atlas. Natural next routes — drafted in <a href="https://github.com/gmadsen/Math-Visualization/blob/main/PLAN.md"><code>PLAN.md</code></a>, not yet written:</p>
 <ul>
+  <li><strong>Tour 8 — What is Hodge theory?</strong> de Rham → Kähler / complex differentials → Hodge decomposition → mixed Hodge structures → Hodge conjecture.</li>
+  <li><strong>Tour 9 — Langlands philosophy.</strong> galois representations → modular forms → L-functions → Frobenius &amp; reciprocity → automorphic forms (adelic) → Langlands.</li>
   <li><strong>Riemannian geometry to general relativity</strong> — smooth manifolds, the Levi-Civita connection, curvature tensors, Einstein's equations.</li>
-  <li><strong>The geometric Langlands program</strong> — sheaves on $\mathrm{Bun}_G$, geometric Satake, the function-sheaf dictionary.</li>
-  <li><strong>Why categorify?</strong> — from set, to group, to category, to $\infty$-category, with one running example (vector spaces vs. 2-vector spaces).</li>
   <li><strong>How probability became measure theory</strong> — Lebesgue, $\sigma$-algebras, the Kolmogorov axioms, Brownian motion as a measure on path space.</li>
   <li><strong>Curves over fields, from $\mathbb{R}$ to $\mathbb{F}_q$ to $\mathbb{Z}$</strong> — Riemann surfaces, algebraic curves of higher genus, point-counting in characteristic $p$, arithmetic surfaces.</li>
 </ul>
@@ -906,18 +997,20 @@ const SVG = (tag,attrs={})=>{
 <script>
 /* Tour switcher: cards toggle one tour on at a time; URL hash mirrors state. */
 (function(){
-  const VALID = new Set(['bsd-road','flt-proof','cohomology','sets-to-topoi','sound-to-wavelets','local-global']);
+  const VALID = new Set(['bsd-road','flt-proof','cohomology','sets-to-topoi','sound-to-wavelets','local-global','solvability-arc']);
   const titleMap = {
     'bsd-road':'1. The road to BSD',
     'flt-proof':"2. How Fermat's Last Theorem was proved",
     'cohomology':'3. What is cohomology?',
     'sets-to-topoi':'4. From naive sets to ∞-topoi',
     'sound-to-wavelets':'5. From sound to wavelets',
-    'local-global':'6. The local–global principle'
+    'local-global':'6. The local–global principle',
+    'solvability-arc':'7. Solvability across mathematics'
   };
   const colorMap = {
     'bsd-road':'cyan','flt-proof':'yellow','cohomology':'violet',
-    'sets-to-topoi':'green','sound-to-wavelets':'pink','local-global':'blue'
+    'sets-to-topoi':'green','sound-to-wavelets':'pink','local-global':'blue',
+    'solvability-arc':'violet'
   };
   // History strategy: pushState on user-driven navigation (card click, back
   // button) so the browser back arrow returns to the prior view; replaceState
