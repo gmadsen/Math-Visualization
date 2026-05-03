@@ -142,7 +142,7 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Modular curves](./modular-curves.html) — $X(N)$, $X_0(N)$, $Y_1(N)$, moduli of elliptic curves with level structure
 - [Automorphic forms (adelic)](./automorphic-forms-adelic.html) — $\mathrm{GL}_2$ over adèles, automorphic representations, Tate's thesis full sketch
 - [Vertex operator algebras](./vertex-operator-algebras.html) — chiral algebras, the Monster VOA, Borcherds proof of moonshine
-- [Langlands program](./langlands-program.html) — draft — fill in once the page has real content
+- [Langlands program](./langlands-program.html) — capstone of modular forms / L-functions: arithmetic side (Galois reps from cohomology) and analytic side (cuspidal automorphic reps of $\mathrm{GL}_n$) bridged by L-function matching. CFT as the proven $\mathrm{GL}_1$ case, modularity + Sato-Tate as proven $\mathrm{GL}_2$ corners, functoriality and the Langlands group $L_F$, universal reciprocity
 
 ### Algebraic geometry
 - [Projective plane](./projective-plane.html) — homogeneous coordinates, points at infinity, affine patches
@@ -167,8 +167,8 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Calabi–Yau manifolds](./calabi-yau-manifolds.html) — Ricci-flat Kähler, holonomy $\mathrm{SU}(n)$, mirror pairs, string compactifications
 - [Mirror symmetry](./mirror-symmetry.html) — A- and B-models, SYZ, homological mirror symmetry
 - [Resolution of singularities](./resolution-of-singularities.html) — Hironaka in characteristic 0, blowups, log resolution
-- [Motives](./motives.html) — draft — fill in once the page has real content
-- [Hodge theory](./hodge-theory.html) — draft — fill in once the page has real content
+- [Motives](./motives.html) — capstone of cohomology fanout: Tannakian categories, the motivic Galois group, realizations (Betti / de Rham / $\ell$-adic / crystalline), Tate twists, the standard conjectures and how Grothendieck's vision unifies the cohomology theories
+- [Hodge theory](./hodge-theory.html) — capstone of complex algebraic geometry: pure Hodge decomposition for smooth projective varieties, the Hodge filtration as a structure in its own right, mixed Hodge structures (Deligne), period domains, the Hodge conjecture
 
 ### Combinatorics & graph theory
 - [Spectral graph theory](./spectral-graph-theory.html) — adjacency, Laplacian, Cheeger inequality, expanders — graphs as discrete differential geometry
