@@ -169,6 +169,13 @@
       "blurb": "Every rational class of pure Hodge type $(p,p)$ on a smooth projective $X/\\mathbb{C}$ is the cycle class of an algebraic codimension-$p$ cycle. Open since 1950; Clay Millennium prize. Tannakianly, the Hodge realization $G_{\\mathrm{mot}}(\\mathbb{Q}) \\twoheadrightarrow \\mathrm{MT}(X)$ is surjective."
     },
     {
+      "id": "capstone-langlands-program",
+      "section": "Modular forms & L-functions",
+      "title": "Universal reciprocity (the Langlands program)",
+      "goal": "universal-reciprocity",
+      "blurb": "Conjectural bijection between $n$-dim Galois representations and cuspidal automorphic representations of $\\GL_n(\\mathbb{A}_F)$, mediated by L-function matching. Class field theory ($n=1$) and modularity of elliptic curves ($n=2$ over $\\mathbb{Q}$) are the proven cases; the conjectural Langlands group $L_F$ would be the universal Tannakian symmetry of the entire framework."
+    },
+    {
       "id": "capstone-infinity-topoi",
       "section": "Higher categories & toposes",
       "title": "$\\infty$-topoi (Lurie's higher topos theory)",

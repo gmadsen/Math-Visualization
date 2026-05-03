@@ -6,6 +6,7 @@ window.__MVConcepts = {
     "topics": [
       "motives",
       "hodge-theory",
+      "langlands-program",
       "statistical-mechanics",
       "advanced-complex-analysis",
       "groebner-bases",
@@ -298,7 +299,8 @@ window.__MVConcepts = {
       "gauge-theory": "capstone",
       "string-theory": "capstone",
       "motives": "capstone",
-      "hodge-theory": "capstone"
+      "hodge-theory": "capstone",
+      "langlands-program": "capstone"
     }
   },
   "topics": {
@@ -471,6 +473,94 @@ window.__MVConcepts = {
             "hodge-conjecture",
             "motives:realization-functors",
             "motives:motivic-galois-group"
+          ]
+        }
+      ]
+    },
+    "langlands-program": {
+      "topic": "langlands-program",
+      "title": "The Langlands program",
+      "page": "langlands-program.html",
+      "concepts": [
+        {
+          "id": "langlands-philosophy",
+          "title": "The philosophy: arithmetic on one side, analytic on the other",
+          "anchor": "philosophy",
+          "blurb": "Two columns. Arithmetic side: $n$-dim Galois reps $\\rho\\colon \\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q}) \\to \\GL_n(\\mathbb{Q}_\\ell)$ from cohomology of varieties. Analytic side: cuspidal automorphic reps $\\pi$ of $\\GL_n(\\mathbb{A}_\\mathbb{Q})$. The conjecture: bijection mediated by L-functions, $L(\\rho,s) = L(\\pi,s)$.",
+          "prereqs": [
+            "galois-representations:galois-rep-definition",
+            "automorphic-forms-adelic:automorphic-form-definition"
+          ]
+        },
+        {
+          "id": "l-functions-langlands-bridge",
+          "title": "L-functions: the bridge",
+          "anchor": "l-bridge",
+          "blurb": "Both sides produce L-functions. From Galois rep: Euler product over Frobenius char polynomials. From automorphic rep: Euler product over Satake parameters. Matching is testable: Jacquet-Shalika strong multiplicity one + automatic functional equations on the automorphic side.",
+          "prereqs": [
+            "langlands-philosophy",
+            "L-functions:lfunction-prototype",
+            "L-functions:functional-equation-completion"
+          ]
+        },
+        {
+          "id": "local-langlands-gl-n",
+          "title": "Local Langlands for GL_n",
+          "anchor": "local",
+          "blurb": "Bijection between $n$-dim Frobenius-semisimple Weil-Deligne reps of $W_{\\mathbb{Q}_v}$ and irreducible smooth admissible reps of $\\GL_n(\\mathbb{Q}_v)$. Proven for $p$-adic places (Harris-Taylor, Henniart 2001) and archimedean (Langlands 1973).",
+          "prereqs": [
+            "langlands-philosophy"
+          ]
+        },
+        {
+          "id": "global-langlands-gl-n",
+          "title": "Global Langlands for GL_n",
+          "anchor": "global",
+          "blurb": "Bijection between geometric $n$-dim Galois reps and algebraic cuspidal automorphic reps of $\\GL_n(\\mathbb{A}_\\mathbb{Q})$, compatible with local Langlands at each place. Proven for $n=1$ (CFT) and substantially for $n=2$ (modular elliptic curves + Serre's conjecture).",
+          "prereqs": [
+            "local-langlands-gl-n",
+            "l-functions-langlands-bridge"
+          ]
+        },
+        {
+          "id": "cft-as-langlands",
+          "title": "Class field theory as Langlands for GL_1",
+          "anchor": "cft-as-gl1",
+          "blurb": "The abelian case. $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}} \\cong \\widehat{\\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times}$. Galois characters $\\leftrightarrow$ Hecke characters; Artin L-functions = Hecke L-functions. Historical prototype Langlands generalised.",
+          "prereqs": [
+            "global-langlands-gl-n",
+            "class-field-theory:artin-map-cft"
+          ]
+        },
+        {
+          "id": "gl2-modularity",
+          "title": "Modularity: the proven GL_2 case",
+          "anchor": "modularity",
+          "blurb": "Wiles + Taylor-Wiles + BCDT: every elliptic curve $E/\\mathbb{Q}$ has $L(E,s) = L(f,s)$ for a weight-2 cusp form $f$ of level $\\mathrm{cond}(E)$. Khare-Wintenberger (Serre's conjecture): every odd irreducible mod-$\\ell$ Galois rep is modular.",
+          "prereqs": [
+            "global-langlands-gl-n",
+            "modularity-and-flt:modularity-theorem"
+          ]
+        },
+        {
+          "id": "functoriality-langlands-group",
+          "title": "Functoriality and the Langlands group",
+          "anchor": "functoriality",
+          "blurb": "Predicted lifting maps between automorphic reps of different groups, mediated by homomorphisms of L-groups. Symmetric power, base change, endoscopic transfer. The conjectural Langlands group $L_F$: universal Tannakian symmetry whose representations are automorphic.",
+          "prereqs": [
+            "global-langlands-gl-n"
+          ]
+        },
+        {
+          "id": "universal-reciprocity",
+          "title": "Universal reciprocity — the philosophy realised",
+          "anchor": "capstone",
+          "blurb": "Langlands unifies CFT, modularity of elliptic curves, Sato-Tate, GRH for automorphic L-functions, and predicted compatibility with the motivic Galois group. Geometric Langlands (Drinfeld, Beilinson) is the function-field mirror, fully proven for $\\GL_2$.",
+          "prereqs": [
+            "functoriality-langlands-group",
+            "gl2-modularity",
+            "cft-as-langlands",
+            "sato-tate:symmetric-power-l-functions"
           ]
         }
       ]
@@ -13597,6 +13687,13 @@ window.__MVConcepts = {
         "blurb": "Every rational class of pure Hodge type $(p,p)$ on a smooth projective $X/\\mathbb{C}$ is the cycle class of an algebraic codimension-$p$ cycle. Open since 1950; Clay Millennium prize. Tannakianly, the Hodge realization $G_{\\mathrm{mot}}(\\mathbb{Q}) \\twoheadrightarrow \\mathrm{MT}(X)$ is surjective."
       },
       {
+        "id": "capstone-langlands-program",
+        "section": "Modular forms & L-functions",
+        "title": "Universal reciprocity (the Langlands program)",
+        "goal": "universal-reciprocity",
+        "blurb": "Conjectural bijection between $n$-dim Galois representations and cuspidal automorphic representations of $\\GL_n(\\mathbb{A}_F)$, mediated by L-function matching. Class field theory ($n=1$) and modularity of elliptic curves ($n=2$ over $\\mathbb{Q}$) are the proven cases; the conjectural Langlands group $L_F$ would be the universal Tannakian symmetry of the entire framework."
+      },
+      {
         "id": "capstone-infinity-topoi",
         "section": "Higher categories & toposes",
         "title": "$\\infty$-topoi (Lurie's higher topos theory)",
@@ -13801,7 +13898,8 @@ window.__MVConcepts = {
           "bsd",
           "modularity-and-flt",
           "modular-curves",
-          "vertex-operator-algebras"
+          "vertex-operator-algebras",
+          "langlands-program"
         ],
         "color": "c"
       },
@@ -14087,7 +14185,8 @@ window.__MVConcepts = {
     "gauge-theory": "capstone",
     "string-theory": "capstone",
     "motives": "capstone",
-    "hodge-theory": "capstone"
+    "hodge-theory": "capstone",
+    "langlands-program": "capstone"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -14157,11 +14256,11 @@ window.__MVConcepts = {
       "density": 0.40816326530612246
     },
     "Modular forms & L-functions": {
-      "concepts": 95,
-      "intra": 129,
+      "concepts": 103,
+      "intra": 139,
       "crossOut": 55,
       "crossIn": 13,
-      "density": 0.5789473684210527
+      "density": 0.5339805825242718
     },
     "Algebraic geometry": {
       "concepts": 143,

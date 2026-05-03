@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **137**, concepts: **973**
+- Topics: **138**, concepts: **981**
 - Widgets: **969** (registry-driven: 940, inline: 29)
-- Quizzes: **4112** (v1: 2876, hard: 1223, expert: 13)
-- Quiz types: mcq: 2756, numeric: 1056, multi-select: 130, matching: 56, ordering: 38, complex: 29, spot-the-error: 26, proof-completion: 17, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **169**
-- Concepts lacking a hard-tier quiz: **535**
+- Quizzes: **4136** (v1: 2900, hard: 1223, expert: 13)
+- Quiz types: mcq: 2777, numeric: 1056, multi-select: 132, matching: 57, ordering: 38, complex: 29, spot-the-error: 26, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Concepts lacking a widget in their section: **177**
+- Concepts lacking a hard-tier quiz: **543**
 
 ## Per-slug registry adoption
 
@@ -561,13 +561,13 @@ page has wired one in yet.
 
 ### Modular forms & L-functions
 
-- Topics: **16**, concepts: **95**
+- Topics: **17**, concepts: **103**
 - Widgets: **127** (registry-driven: 127, inline: 0)
   - by family: button-stepper: 92, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 2, voa-mode-bookkeeping: 1, voa-axiom-map: 1, voa-virasoro-bracket: 1, voa-character-coeffs: 1, voa-mckay-thompson: 1, voa-construction-zoo: 1, automorphic-restricted-product: 1, automorphic-strong-approximation: 1, automorphic-three-conditions: 1, automorphic-dictionary: 1, automorphic-satake-parameters: 1, automorphic-conductor-ladder: 1, automorphic-local-factor-builder: 1, automorphic-eisenstein-residue: 1, automorphic-functoriality-transfers: 1, modular-curves-fundamental-domain: 1, modular-curves-lattice-cyclic-subgroup: 1, modular-curves-hecke-summands: 1, modular-curves-eichler-shimura: 1, modular-curves-genus-growth: 1, modular-curves-cusps-and-wn: 1, modular-curves-atkin-lehner-newforms: 1, modular-curves-heegner-hypothesis: 1, modular-curves-mazur-torsion: 1
   - by dimension: 2d: 127
   - by gesture: click: 100, slider: 13, step: 8, static: 4, select: 2
-- Quizzes: **480** (v1: 285, hard: 195, expert: 0)
-  - by type: mcq: 315, numeric: 158, multi-select: 4, matching: 2, ordering: 1
+- Quizzes: **504** (v1: 309, hard: 195, expert: 0)
+  - by type: mcq: 336, numeric: 158, multi-select: 6, matching: 3, ordering: 1
 
 ### Algebraic geometry
 
@@ -603,6 +603,7 @@ page has wired one in yet.
 
 - `motives` (Algebraic geometry) — concepts=8, widgets=0 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
 - `hodge-theory` (Algebraic geometry) — concepts=8, widgets=0 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
+- `langlands-program` (Modular forms & L-functions) — concepts=8, widgets=0 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
 - `statistical-mechanics` (Mathematical physics) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
 - `advanced-complex-analysis` (Analysis) — concepts=13, widgets=5 (slug=5), quiz=39 (v1=39, hard=0, expert=0)
 - `groebner-bases` (Algebra & homological) — concepts=8, widgets=8 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
@@ -759,10 +760,10 @@ page has wired one in yet.
 - `hodge-conjecture` (hodge-theory)
 - `period-domains-vhs` (hodge-theory)
 - `hodge-as-realization` (hodge-theory)
-- `aca-overview` (advanced-complex-analysis)
-- `aca-picard-little` (advanced-complex-analysis)
-- `aca-picard-great` (advanced-complex-analysis)
-- `aca-weierstrass-factorization` (advanced-complex-analysis)
+- `langlands-philosophy` (langlands-program)
+- `l-functions-langlands-bridge` (langlands-program)
+- `local-langlands-gl-n` (langlands-program)
+- `global-langlands-gl-n` (langlands-program)
 
 ### Concepts missing a hard-tier quiz (top 20)
 
@@ -782,7 +783,7 @@ page has wired one in yet.
 - `hodge-conjecture` (hodge-theory)
 - `period-domains-vhs` (hodge-theory)
 - `hodge-as-realization` (hodge-theory)
-- `microstates-ensembles` (statistical-mechanics)
-- `boltzmann-canonical` (statistical-mechanics)
-- `entropy-gibbs` (statistical-mechanics)
-- `grand-canonical` (statistical-mechanics)
+- `langlands-philosophy` (langlands-program)
+- `l-functions-langlands-bridge` (langlands-program)
+- `local-langlands-gl-n` (langlands-program)
+- `global-langlands-gl-n` (langlands-program)

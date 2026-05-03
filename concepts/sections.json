@@ -159,7 +159,8 @@
         "bsd",
         "modularity-and-flt",
         "modular-curves",
-        "vertex-operator-algebras"
+        "vertex-operator-algebras",
+        "langlands-program"
       ],
       "color": "c"
     },
