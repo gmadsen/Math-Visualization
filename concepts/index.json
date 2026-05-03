@@ -3,19 +3,19 @@
 
     "motives",
 
-
-
-
-
-
-
-
-
-
-
-
-
     "hodge-theory",
+
+
+
+
+
+
+
+
+
+    "langlands-program",
+
+
 
 
 
@@ -313,6 +313,7 @@
     "gauge-theory": "capstone",
     "string-theory": "capstone",
     "motives": "capstone",
-    "hodge-theory": "capstone"
+    "hodge-theory": "capstone",
+    "langlands-program": "capstone"
   }
 }

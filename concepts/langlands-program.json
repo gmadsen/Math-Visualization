@@ -1,0 +1,88 @@
+{
+  "topic": "langlands-program",
+  "title": "The Langlands program",
+  "page": "langlands-program.html",
+  "concepts": [
+    {
+      "id": "langlands-philosophy",
+      "title": "Philosophy: arithmetic vs. analytic columns",
+      "anchor": "philosophy",
+      "blurb": "Two columns. Arithmetic: $n$-dim Galois reps from cohomology of varieties. Analytic: cuspidal automorphic reps of $\\GL_n(\\mathbb{A}_\\mathbb{Q})$. Conjecture: bijection mediated by L-functions, $L(\\rho,s) = L(\\pi,s)$.",
+      "prereqs": [
+        "galois-representations:galois-rep-definition",
+        "automorphic-forms-adelic:automorphic-form-definition"
+      ]
+    },
+    {
+      "id": "l-functions-langlands-bridge",
+      "title": "L-functions: the bridge",
+      "anchor": "l-bridge",
+      "blurb": "Both sides produce L-functions. From Galois rep: Euler product over Frobenius char polynomials. From automorphic rep: Euler product over Satake parameters. Matching is testable: Jacquet-Shalika strong multiplicity one + automatic functional equations on the automorphic side.",
+      "prereqs": [
+        "langlands-philosophy",
+        "L-functions:lfunction-prototype",
+        "L-functions:functional-equation-completion"
+      ]
+    },
+    {
+      "id": "local-langlands-gl-n",
+      "title": "Local Langlands for $\\GL_n$",
+      "anchor": "local",
+      "blurb": "Bijection between $n$-dim Frobenius-semisimple Weil-Deligne reps of $W_{\\mathbb{Q}_v}$ and irreducible smooth admissible reps of $\\GL_n(\\mathbb{Q}_v)$. Proven for $p$-adic places (Harris-Taylor, Henniart 2001) and archimedean (Langlands 1973).",
+      "prereqs": [
+        "langlands-philosophy"
+      ]
+    },
+    {
+      "id": "global-langlands-gl-n",
+      "title": "Global Langlands for $\\GL_n$",
+      "anchor": "global",
+      "blurb": "Bijection between geometric $n$-dim Galois reps and algebraic cuspidal automorphic reps of $\\GL_n(\\mathbb{A}_\\mathbb{Q})$, compatible with local Langlands at each place. Proven for $n=1$ (CFT) and substantially for $n=2$ (modular elliptic curves + Serre's conjecture).",
+      "prereqs": [
+        "local-langlands-gl-n",
+        "l-functions-langlands-bridge"
+      ]
+    },
+    {
+      "id": "cft-as-langlands",
+      "title": "Class field theory as Langlands for $\\GL_1$",
+      "anchor": "cft-as-gl1",
+      "blurb": "The abelian case. Artin reciprocity gives a continuous surjection $\\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times \\twoheadrightarrow \\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}}$. Galois characters $\\leftrightarrow$ Hecke characters; Artin L-functions = Hecke L-functions. Historical prototype Langlands generalised.",
+      "prereqs": [
+        "global-langlands-gl-n",
+        "class-field-theory:artin-map-cft"
+      ]
+    },
+    {
+      "id": "gl2-modularity",
+      "title": "Modularity: the proven $\\GL_2$ case",
+      "anchor": "modularity",
+      "blurb": "Wiles + Taylor-Wiles + BCDT: every elliptic curve $E/\\mathbb{Q}$ has $L(E,s) = L(f,s)$ for a weight-2 cusp form $f$ of level $\\mathrm{cond}(E)$. Khare-Wintenberger (Serre's conjecture): every odd irreducible mod-$\\ell$ Galois rep is modular.",
+      "prereqs": [
+        "global-langlands-gl-n",
+        "modularity-and-flt:modularity-theorem"
+      ]
+    },
+    {
+      "id": "functoriality-langlands-group",
+      "title": "Functoriality and the Langlands group",
+      "anchor": "functoriality",
+      "blurb": "Predicted lifting maps between automorphic reps of different groups, mediated by homomorphisms of L-groups. Symmetric power, base change, endoscopic transfer. The conjectural Langlands group $L_F$ is the unifying object whose finite-dim representations correspond to automorphic reps.",
+      "prereqs": [
+        "global-langlands-gl-n"
+      ]
+    },
+    {
+      "id": "universal-reciprocity",
+      "title": "Universal reciprocity — the philosophy realised",
+      "anchor": "capstone",
+      "blurb": "Langlands unifies CFT, modularity of elliptic curves, Sato-Tate, GRH for automorphic L-functions, and predicted compatibility with the motivic Galois group. Geometric Langlands (Drinfeld, Beilinson) is the function-field mirror, fully proven for $\\GL_2$.",
+      "prereqs": [
+        "functoriality-langlands-group",
+        "gl2-modularity",
+        "cft-as-langlands",
+        "sato-tate:symmetric-power-l-functions"
+      ]
+    }
+  ]
+}

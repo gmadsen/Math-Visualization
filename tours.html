@@ -393,6 +393,14 @@ const SVG = (tag,attrs={})=>{
       <div class="tc-meta"><span class="tc-stops">5 stops</span> · ends at <span class="tc-end">Hodge conjecture</span></div>
     </div>
   </button>
+  <button class="tour-card" data-color="cyan" data-tour="langlands-arc" type="button">
+    <div class="tc-num">9</div>
+    <div class="tc-body">
+      <div class="tc-title">Langlands philosophy</div>
+      <div class="tc-goal">Reciprocity laws as L-function matchings: Galois representations on one side, automorphic representations of $\GL_n(\mathbb{A})$ on the other.</div>
+      <div class="tc-meta"><span class="tc-stops">5 stops</span> · ends at <span class="tc-end">Langlands program</span></div>
+    </div>
+  </button>
 </div>
 
 <section class="tour" id="bsd-road" data-color="cyan">
@@ -1049,11 +1057,94 @@ const SVG = (tag,attrs={})=>{
 </aside>
 </section>
 
+<section class="tour" id="langlands-arc" data-color="cyan">
+<h2>9. Langlands philosophy</h2>
+<p class="tour-goal">Goal: see reciprocity as L-function matching — Galois representations on one side, automorphic representations of $\GL_n(\mathbb{A})$ on the other, joined by Euler products that agree factor-by-factor.</p>
+
+<ol class="tour">
+  <li>
+    <span class="stop-section">Number theory</span>
+    <span class="stop-title"><a href="./galois-representations.html#rep">Galois representations</a></span>
+    <p class="bridge">A Galois representation is a continuous homomorphism $\rho\colon \Gal(\overline{\mathbb{Q}}/\mathbb{Q}) \to \GL_n(\mathbb{Q}_\ell)$. The most important examples come from étale cohomology of varieties over $\mathbb{Q}$: an elliptic curve $E$ gives a 2-dim $\rho_{E,\ell}$ via $V_\ell E = T_\ell E \otimes \mathbb{Q}_\ell$; a smooth projective variety $X$ gives $H^i_{\mathrm{\acute{e}t}}(X_{\overline{\mathbb{Q}}}; \mathbb{Q}_\ell)$ as a Galois module. Each such $\rho$ has an L-function: at unramified primes $p$, $L_p(\rho, s) = \det(I_n - \rho(\Frob_p) p^{-s})^{-1}$, and the global Euler product $L(\rho, s) = \prod_p L_p$ is conjecturally meromorphic on $\mathbb{C}$ with a functional equation. Until you can match $\rho$ to something on the analytic side, all of this is conjecture; but the Galois reps themselves are concrete and well-defined.</p>
+  </li>
+  <li>
+    <span class="stop-section">Modular forms &amp; L-functions</span>
+    <span class="stop-title"><a href="./modular-forms.html#forms">Modular forms and Hecke eigenforms</a></span>
+    <p class="bridge">A modular form $f$ is a holomorphic function on the upper half-plane $\mathbb{H}$ transforming predictably under a congruence subgroup $\Gamma_0(N) \subset \mathrm{SL}_2(\mathbb{Z})$, with bounded growth at the cusps. Hecke operators $T_p$ act on $S_k(\Gamma_0(N))$, and a <em>Hecke eigenform</em> is a simultaneous eigenvector for all $T_p$. The eigenvalues $a_p(f)$ satisfy beautiful arithmetic relations and assemble into the L-function $L(f, s) = \sum a_n n^{-s}$ with Euler product $L(f, s) = \prod_p (1 - a_p p^{-s} + p^{k-1-2s})^{-1}$. Modular forms are the classical, hands-on shadow of automorphic representations of $\GL_2(\mathbb{A}_\mathbb{Q})$. The classical-to-adelic dictionary makes the connection precise.</p>
+  </li>
+  <li>
+    <span class="stop-section">Modular forms &amp; L-functions</span>
+    <span class="stop-title"><a href="./L-functions.html#unified">L-functions: Euler products and functional equations</a></span>
+    <p class="bridge">Both sides of the Langlands picture produce L-functions in the same shape: a Dirichlet series $\sum a_n n^{-s}$ that factors as an Euler product $\prod_p L_p(s)$, with each local factor coming from local data (Frobenius eigenvalues on the Galois side; Satake parameters on the automorphic side). The completed L-function $\Lambda(s) = \Gamma\text{-factor}(s) \cdot L(s)$ is conjectured to extend meromorphically to $\mathbb{C}$ and satisfy $\Lambda(s) = \varepsilon \cdot \Lambda(k - s)$ for some sign / weight $k$. On the automorphic side, this is automatic from the transformation law of $\pi$ (Tate's thesis pattern, Godement-Jacquet). On the Galois side, it's conjectural until you've matched $\rho$ to an automorphic counterpart — and matching means agreement of these L-functions term by term.</p>
+  </li>
+  <li>
+    <span class="stop-section">Number theory</span>
+    <span class="stop-title"><a href="./class-field-theory.html#artin">Class field theory: Langlands for $\GL_1$</a></span>
+    <p class="bridge">The proven prototype, in the language Langlands generalises. Class field theory says continuous characters of $\Gal(\overline{\mathbb{Q}}/\mathbb{Q})^{\mathrm{ab}}$ correspond bijectively to continuous characters of the idèle class group $\mathbb{A}_\mathbb{Q}^\times / \mathbb{Q}^\times$. Translated: 1-dim Galois representations $\leftrightarrow$ Hecke characters $\leftrightarrow$ automorphic representations of $\GL_1(\mathbb{A}_\mathbb{Q})$. The L-functions match: an Artin L-function for an abelian Galois character equals the Hecke L-function of the corresponding Hecke character. <em>This is exactly Langlands at $n=1$.</em> The whole program is about generalising this matching to $\GL_n$ for all $n$.</p>
+    <div class="figure-row">
+      <div class="figure-card" data-c="cyan">
+        <div class="fc-portrait" aria-hidden="true">EA</div>
+        <div class="fc-body">
+          <div class="fc-name">Emil Artin</div>
+          <div class="fc-dates">1898–1962</div>
+          <p class="fc-contrib">Proved the reciprocity isomorphism $\Gal(\overline{\mathbb{Q}}/\mathbb{Q})^{\mathrm{ab}} \cong \widehat{\mathbb{A}_\mathbb{Q}^\times / \mathbb{Q}^\times}$ in the 1920s, building on Hilbert and Takagi. Without his bridge, the abelian half of the Langlands picture would still be open.</p>
+        </div>
+      </div>
+      <div class="figure-card" data-c="cyan">
+        <div class="fc-portrait" aria-hidden="true">RL</div>
+        <div class="fc-body">
+          <div class="fc-name">Robert Langlands</div>
+          <div class="fc-dates">b. 1936</div>
+          <p class="fc-contrib">Sketched the program in a 1967 letter to André Weil — a 17-page handwritten conjecture proposing that all of class field theory generalises non-abelianly to $\GL_n$ via L-function matching. Wolf Prize 1995–96, Abel Prize 2018.</p>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li class="endpoint">
+    <span class="stop-section">Modular forms &amp; L-functions · capstone</span>
+    <span class="stop-title"><a href="./langlands-program.html#capstone">The Langlands program — universal reciprocity</a></span>
+    <p class="bridge">Modularity (the proven $n=2$ case for elliptic curves over $\mathbb{Q}$) and Sato-Tate (the symmetric-power consequence) are the visible tip of the iceberg. The full program predicts: every $n$-dim "geometric" Galois representation comes from a cuspidal automorphic representation of $\GL_n(\mathbb{A})$, with matching L-functions; functoriality lifts (Sym, base change, endoscopic transfer) extend the picture; and conjecturally a single universal Tannakian fundamental group $L_F$ — the <em>Langlands group</em> — has the cuspidal automorphic reps of $\GL_n$ as its $n$-dim representations. Compatibility with the motivic Galois group from Tour 7 is the deepest layer: every Galois rep arising from étale cohomology should be modular. Partially proven, mostly conjectural; the largest open program in modern number theory.</p>
+    <div class="figure-row">
+      <div class="figure-card" data-c="cyan">
+        <div class="fc-portrait" aria-hidden="true">WI</div>
+        <div class="fc-body">
+          <div class="fc-name">Andrew Wiles</div>
+          <div class="fc-dates">b. 1953</div>
+          <p class="fc-contrib">Proved (1995, with Taylor for the patching) modularity for semistable elliptic curves over $\mathbb{Q}$ — the proven $\GL_2$ case of the Langlands program. The deformation-theoretic $R = T$ identity is the engine.</p>
+        </div>
+      </div>
+      <div class="figure-card" data-c="cyan">
+        <div class="fc-portrait" aria-hidden="true">KW</div>
+        <div class="fc-body">
+          <div class="fc-name">Khare–Wintenberger</div>
+          <div class="fc-dates">2009</div>
+          <p class="fc-contrib">Proved Serre's conjecture: every odd irreducible mod-$\ell$ Galois rep is modular. The mod-$\ell$ analogue of Langlands for $\GL_2$ — and a building block for downstream automorphy lifting.</p>
+        </div>
+      </div>
+    </div>
+  </li>
+</ol>
+
+<aside class="context" data-c="cyan">
+  <span class="ctx-label">A 17-page letter</span>
+  <blockquote>I am writing to you about a number of points concerning automorphic forms and number theory which puzzle me. … I will state my conjectures in fact in such generality as to render them virtually meaningless without further restrictions on the groups in question.<cite>— Robert Langlands to André Weil, January 1967</cite></blockquote>
+  Langlands closed the letter offering: "If you are willing to read it with this in mind, I would be grateful." Weil read it. Six decades later, the program it sketched remains the largest open enterprise in number theory.
+</aside>
+
+<aside class="callback">
+  <div class="ttl">Diverges into</div>
+  <ul>
+    <li>Tour 1 (BSD road) and Tour 2 (FLT proof) walk the proven $\GL_2$ corner: BSD pinpoints the analytic-rank-equals-algebraic-rank statement that modularity makes meaningful; FLT uses Ribet + Wiles + Khare-Wintenberger as ingredients.</li>
+    <li>Tour 7 (solvability across mathematics) ends at the motivic Galois group $G_{\mathrm{mot}}$; the conjectural compatibility with the Langlands group $L_F$ is the deepest rung of the picture.</li>
+    <li>Tour 8 (Hodge theory) ends at the Hodge conjecture; the Tannakian rephrasing surjectivity-of-the-Hodge-realization is the analytic mirror of the Langlands compatibility predicted on the étale side.</li>
+  </ul>
+</aside>
+</section>
+
 <section id="more-tours">
 <h2>More tours coming</h2>
-<p>These eight are a starting set, not a full atlas. Natural next routes — drafted in <a href="https://github.com/gmadsen/Math-Visualization/blob/main/PLAN.md"><code>PLAN.md</code></a>, not yet written:</p>
+<p>These nine are a starting set, not a full atlas. Natural next routes — drafted in <a href="https://github.com/gmadsen/Math-Visualization/blob/main/PLAN.md"><code>PLAN.md</code></a>, not yet written:</p>
 <ul>
-  <li><strong>Tour 9 — Langlands philosophy.</strong> galois representations → modular forms → L-functions → Frobenius &amp; reciprocity → automorphic forms (adelic) → Langlands.</li>
   <li><strong>Riemannian geometry to general relativity</strong> — smooth manifolds, the Levi-Civita connection, curvature tensors, Einstein's equations.</li>
   <li><strong>How probability became measure theory</strong> — Lebesgue, $\sigma$-algebras, the Kolmogorov axioms, Brownian motion as a measure on path space.</li>
   <li><strong>Curves over fields, from $\mathbb{R}$ to $\mathbb{F}_q$ to $\mathbb{Z}$</strong> — Riemann surfaces, algebraic curves of higher genus, point-counting in characteristic $p$, arithmetic surfaces.</li>
@@ -1068,7 +1159,7 @@ const SVG = (tag,attrs={})=>{
 <script>
 /* Tour switcher: cards toggle one tour on at a time; URL hash mirrors state. */
 (function(){
-  const VALID = new Set(['bsd-road','flt-proof','cohomology','sets-to-topoi','sound-to-wavelets','local-global','solvability-arc','hodge-arc']);
+  const VALID = new Set(['bsd-road','flt-proof','cohomology','sets-to-topoi','sound-to-wavelets','local-global','solvability-arc','hodge-arc','langlands-arc']);
   const titleMap = {
     'bsd-road':'1. The road to BSD',
     'flt-proof':"2. How Fermat's Last Theorem was proved",
@@ -1077,12 +1168,13 @@ const SVG = (tag,attrs={})=>{
     'sound-to-wavelets':'5. From sound to wavelets',
     'local-global':'6. The local–global principle',
     'solvability-arc':'7. Solvability across mathematics',
-    'hodge-arc':'8. What is Hodge theory?'
+    'hodge-arc':'8. What is Hodge theory?',
+    'langlands-arc':'9. Langlands philosophy'
   };
   const colorMap = {
     'bsd-road':'cyan','flt-proof':'yellow','cohomology':'violet',
     'sets-to-topoi':'green','sound-to-wavelets':'pink','local-global':'blue',
-    'solvability-arc':'violet','hodge-arc':'green'
+    'solvability-arc':'violet','hodge-arc':'green','langlands-arc':'cyan'
   };
   // History strategy: pushState on user-driven navigation (card click, back
   // button) so the browser back arrow returns to the prior view; replaceState
