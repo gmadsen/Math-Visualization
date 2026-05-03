@@ -48,7 +48,7 @@
       transition-duration:0.001ms !important;
       scroll-behavior:auto !important;
     }
-    .card:hover,.featured-card:hover,.pathway-banner:hover,
+    .card:hover,.featured-card:hover,.pathway-banner:hover,.tours-banner:hover,.history-banner:hover,
     .ru-card:hover,.tag-card:hover,.tag-card.active{transform:none}
   }
   html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
@@ -216,8 +216,9 @@
     .section-jump a.sj-link{font-size:0.78rem;padding:0.32rem 0.65rem 0.32rem 0.85rem;
       flex-shrink:0;white-space:nowrap}
   }
-  .start-here-rail{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:0 0 2.4rem}
-  @media (max-width:760px){.start-here-rail{grid-template-columns:1fr;gap:10px}}
+  .start-here-rail{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 2.4rem}
+  @media (max-width:980px){.start-here-rail{grid-template-columns:1fr 1fr}}
+  @media (max-width:620px){.start-here-rail{grid-template-columns:1fr;gap:10px}}
 
   /* Capstone-stories strip — surfaces the long-form narrative pages
    * (capstone-{bsd,flt,satotate}-story.html) that previously were only
@@ -251,7 +252,7 @@
     font-size:1.05rem;line-height:1.4;
     transition:transform 200ms cubic-bezier(0.4,0,0.2,1)}
   .capstone-stories a.cs-card:hover .cs-arrow{transform:translateX(2px)}
-  .pathway-banner,.tours-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;
+  .pathway-banner,.tours-banner,.history-banner{display:flex;gap:16px;align-items:center;justify-content:space-between;
     border-radius:12px;padding:1.1rem 1.3rem;margin:0;text-decoration:none;color:inherit;
     transition:transform 150ms ease, border-color 150ms ease}
   .pathway-banner{
@@ -260,18 +261,24 @@
   .tours-banner{
     background:linear-gradient(135deg,rgba(255,216,102,0.08),rgba(247,143,179,0.08));
     border:1px solid color-mix(in srgb, var(--yellow) 38%, transparent)}
+  .history-banner{
+    background:linear-gradient(135deg,rgba(179,157,219,0.08),rgba(125,224,214,0.08));
+    border:1px solid color-mix(in srgb, var(--violet) 38%, transparent)}
   .pathway-banner:hover{transform:translateY(-2px);border-color:var(--cyan)}
   .tours-banner:hover{transform:translateY(-2px);border-color:var(--yellow)}
-  .pathway-banner .pb-body,.tours-banner .pb-body{flex:1;min-width:0}
-  .pathway-banner .pb-eyebrow,.tours-banner .pb-eyebrow{font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:4px}
+  .history-banner:hover{transform:translateY(-2px);border-color:var(--violet)}
+  .pathway-banner .pb-body,.tours-banner .pb-body,.history-banner .pb-body{flex:1;min-width:0}
+  .pathway-banner .pb-eyebrow,.tours-banner .pb-eyebrow,.history-banner .pb-eyebrow{font-size:0.72rem;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:4px}
   .pathway-banner .pb-eyebrow{color:var(--cyan)}
   .tours-banner .pb-eyebrow{color:var(--yellow)}
-  .pathway-banner .pb-title,.tours-banner .pb-title{font-size:1.15rem;font-weight:600;color:#fff;margin:0 0 3px}
-  .pathway-banner .pb-desc,.tours-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
-  .pathway-banner .pb-arrow,.tours-banner .pb-arrow{font-size:1.6rem;flex-shrink:0}
+  .history-banner .pb-eyebrow{color:var(--violet)}
+  .pathway-banner .pb-title,.tours-banner .pb-title,.history-banner .pb-title{font-size:1.15rem;font-weight:600;color:#fff;margin:0 0 3px}
+  .pathway-banner .pb-desc,.tours-banner .pb-desc,.history-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
+  .pathway-banner .pb-arrow,.tours-banner .pb-arrow,.history-banner .pb-arrow{font-size:1.6rem;flex-shrink:0}
   .pathway-banner .pb-arrow{color:var(--cyan)}
   .tours-banner .pb-arrow{color:var(--yellow)}
-  @media (max-width:520px){.pathway-banner,.tours-banner{flex-direction:column;align-items:flex-start}.pathway-banner .pb-arrow,.tours-banner .pb-arrow{align-self:flex-end}}
+  .history-banner .pb-arrow{color:var(--violet)}
+  @media (max-width:520px){.pathway-banner,.tours-banner,.history-banner{flex-direction:column;align-items:flex-start}.pathway-banner .pb-arrow,.tours-banner .pb-arrow,.history-banner .pb-arrow{align-self:flex-end}}
 
   /* Featured rail: two-card row sitting between the pathway banner and the
      section-jump nav. Left card surfaces a date-seeded ready-to-master
@@ -618,6 +625,14 @@
         <div class="pb-eyebrow">Tours · the narrative view</div>
         <div class="pb-title">Hand-curated paths through the corpus</div>
         <p class="pb-desc">A handful of 4–6-stop walks that connect topics in the order a real reader might encounter them, with bridging prose that explains why each next stop follows from the last.</p>
+      </div>
+      <div class="pb-arrow">→</div>
+    </a>
+    <a class="history-banner" href="./history.html">
+      <div class="pb-body">
+        <div class="pb-eyebrow">History · the chronological view</div>
+        <div class="pb-title">Five thousand years of mathematics</div>
+        <p class="pb-desc">From a tally bone in the Lebombo Mountains to Scholze's perfectoid spaces — a scrubbable timeline, a world map of breakthroughs, and the lineages connecting Eudoxus to Newton, Galois to Grothendieck.</p>
       </div>
       <div class="pb-arrow">→</div>
     </a>

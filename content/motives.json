@@ -185,5 +185,5 @@
       ]
     }
   ],
-  "rawBodySuffix": "</main>\n\n<script>\n(function(){\n  function start(){ if(window.MVQuiz) MVQuiz.init('motives'); }\n  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);\n  else start();\n})();\n</script>\n<details class=\"changelog\">\n  <summary>changelog</summary>\n  <table>\n    <tbody>\n      <tr><td>2026-05-03</td><td>initial version</td></tr>\n    </tbody>\n  </table>\n</details>\n\n</body>\n</html>\n"
+  "rawBodySuffix": "</main>\n\n<script>\n(function(){\n  function start(){ if(window.MVQuiz) MVQuiz.init('motives'); }\n  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);\n  else start();\n})();\n</script>\n<details class=\"changelog\">\n  <summary>changelog</summary>\n  <table>\n    <tbody>\n      <tr><td>2026-05-02</td><td>Langlands capstone (modular-forms-and-l-functions) + Tour 9 &quot;Langlands philosophy&quot; (#68)</td></tr>\n      <tr><td>2026-05-02</td><td>Hodge capstone (algebraic-geometry) + Tour 8 &quot;What is Hodge theory?&quot; (#67)</td></tr>\n      <tr><td>2026-05-02</td><td>Motives capstone (algebraic-geometry) + Tour 7 &quot;Solvability across mathematics&quot; (#64)</td></tr>\n    </tbody>\n  </table>\n</details>\n\n</body>\n</html>\n"
 }
