@@ -262,7 +262,6 @@
       });
       g.dataset.idx = i;
       g.style.setProperty('--era-color', eraColor);
-      g.dataset.eras = JSON.stringify(cl.events.map(e => e.era));
       const r = Math.min(8, 4 + Math.sqrt(cl.events.length) * 1.5);
       g.appendChild(el('circle', {
         r: r, cx: 0, cy: 0,
@@ -293,9 +292,12 @@
     host.appendChild(legend);
 
     // === state ===
-    const state = { activeEras: new Set(), selectedIdx: -1 };
+    const state = { activeEras: new Set(), selectedIdx: -1, _renderedIdx: -2 };
 
     function renderDetail(){
+      // gate: only re-render when the selection has actually changed.
+      if(state._renderedIdx === state.selectedIdx) return;
+      state._renderedIdx = state.selectedIdx;
       if(state.selectedIdx < 0){
         detail.innerHTML = '<div class="empty">Pick a pin above. Each pin colors itself by the era of the most recent breakthrough at that city.</div>';
         return;

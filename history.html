@@ -167,15 +167,21 @@
   .tl .axis-tick line{stroke:var(--line)}
   .tl .axis-tick text{fill:var(--mute);font-size:11px;font-variant-numeric:tabular-nums}
   .tl .axis-zero line{stroke:var(--mute);stroke-dasharray:3 3}
-  .tl .event-dot{cursor:pointer;transition:transform 120ms ease}
+  .tl .event-dot{cursor:pointer;transition:transform 120ms ease;outline:none}
   .tl .event-dot circle{stroke:#0b0f16;stroke-width:1.4;transition:r 120ms ease,filter 120ms ease}
   .tl .event-dot:hover circle{filter:drop-shadow(0 0 6px var(--era-color,var(--yellow)))}
+  .tl .event-dot:focus-visible circle{stroke:var(--cyan);stroke-width:2.2;
+    stroke-dasharray:3 2;filter:drop-shadow(0 0 6px var(--cyan))}
   .tl .event-dot.selected circle{stroke:var(--yellow);stroke-width:2}
   .tl .event-dot.match circle{filter:drop-shadow(0 0 8px var(--yellow))}
   .tl .event-dot.dim{opacity:.18}
   .tl .event-dot text{font-size:10.5px;fill:var(--ink);pointer-events:none}
+  /* Detail card: deliberately keeps the dark hardcoded background even in
+     light theme — adjacent to the dark SVG viewport, lets era-coloured pills
+     read at the same contrast as the dots. The `color:#fff` text inside is
+     paired with that fixed-dark background, not the page --bg. */
   .tl-detail{margin-top:.7rem;background:#0b0f16;border:1px solid var(--line);border-radius:8px;
-    padding:.7rem .9rem;min-height:4.4em;font-size:.93rem}
+    padding:.7rem .9rem;min-height:4.4em;font-size:.93rem;color:#e8ecf1}
   .tl-detail .empty{color:var(--mute);font-style:italic}
   .tl-detail .ev-title{font-weight:600;color:#fff;margin-left:.6rem}
   .tl-detail .ev-year{color:var(--era-color,var(--yellow));font-variant-numeric:tabular-nums;font-weight:600;
@@ -197,10 +203,12 @@
   .map .equator{stroke:var(--mute);stroke-dasharray:3 3;stroke-width:.6;opacity:.5}
   .map .continent{fill:var(--panel2);stroke:var(--line);stroke-width:.7;
     transition:fill 200ms ease}
-  .map .pin{cursor:pointer;transition:transform 120ms ease}
+  .map .pin{cursor:pointer;transition:transform 120ms ease;outline:none}
   .map .pin circle{stroke:#0b0f16;stroke-width:1.4;
     transition:r 120ms ease,filter 120ms ease}
   .map .pin:hover circle{filter:drop-shadow(0 0 6px var(--era-color,var(--yellow)))}
+  .map .pin:focus-visible circle{stroke:var(--cyan);stroke-width:2.2;
+    stroke-dasharray:3 2;filter:drop-shadow(0 0 6px var(--cyan))}
   .map .pin.selected circle{stroke:var(--yellow);stroke-width:2}
   .map .pin.dim{opacity:.18}
   .map .pin-label{font-size:10px;fill:var(--ink);pointer-events:none;
@@ -221,9 +229,12 @@
   .lineage-svg-wrap{background:#0b0f16;border:1px solid var(--line);border-radius:8px;overflow-x:auto}
   svg.lineage{display:block;min-width:760px}
   .lineage .ledge{fill:none;stroke:color-mix(in srgb, var(--line) 60%, var(--ink) 40%);stroke-width:1.2;opacity:.85}
+  .lineage .lnode{outline:none}
   .lineage .lnode rect{stroke-width:1.5;cursor:pointer;
     transition:stroke 150ms ease,fill 150ms ease}
   .lineage .lnode:hover rect{filter:drop-shadow(0 0 8px var(--accent, var(--yellow)))}
+  .lineage .lnode:focus-visible rect{stroke:var(--cyan);stroke-width:2.5;
+    stroke-dasharray:4 2;filter:drop-shadow(0 0 8px var(--cyan))}
   .lineage .lnode .lname{font-size:12.5px;font-weight:600;fill:#fff;pointer-events:none}
   .lineage .lnode .lyear{font-size:10.5px;fill:var(--mute);font-variant-numeric:tabular-nums;pointer-events:none}
   .lineage .lroot rect{fill:rgba(255,216,102,0.14);stroke:var(--yellow);stroke-width:2}
@@ -267,7 +278,7 @@
   details.changelog details.changelog-rest[open] > summary::before{transform:rotate(90deg);content:"▸ "}
 </style>
 </head>
-<body data-page="history">
+<body>
 <script>
 const $ = (s,r=document)=>r.querySelector(s);
 const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
@@ -309,13 +320,13 @@ const SVG = (tag,attrs={})=>{
 <section id="timeline">
   <h2>1. The timeline</h2>
   <p>The whole story compressed onto one strip. Each dot is a breakthrough, colored by era; click for a short card with people, place, and a link to wherever the idea is unpacked elsewhere. Filter the chip row to isolate an era, or type into the search box to find a name or a keyword.</p>
-  <div class="widget timeline-wrap" id="tl-widget" data-widget="history-timeline"></div>
+  <div class="widget timeline-wrap" id="tl-widget"></div>
 </section>
 
 <section id="map">
   <h2>2. The world map of breakthroughs</h2>
   <p>Mathematics is a universal subject practiced in particular places. The map pins every event from the timeline at the city it's most strongly associated with — Alexandria for Euclid, Baghdad for al-Khwarizmi, Göttingen for Riemann, Princeton for Gödel and Nash. Use the era chips below the map to color-filter; hover a pin for the headline.</p>
-  <div class="widget map-wrap" id="map-widget" data-widget="history-map"></div>
+  <div class="widget map-wrap" id="map-widget"></div>
 </section>
 
 <section id="prehistory">
@@ -369,16 +380,16 @@ const SVG = (tag,attrs={})=>{
 
 <h3>Mesopotamia: the place-value civilisation</h3>
 
-<p>The Sumerians, sometime around 3000 BCE, invented a base-60 place-value numeral system. Sixty was a clever choice — it factors as $2^2 \cdot 3 \cdot 5$, divisible by 1, 2, 3, 4, 5, 6, 10, 12, 15, 20, and 30 — which makes most everyday fractions terminate. The civilisation kept it. We still keep it: 60 minutes in an hour, 60 seconds in a minute, 360 degrees in a circle, all sexagesimal residue. Where the Babylonians fell short of a full place-value system was the absence (until late) of a zero placeholder, leaving readings like "1 30" ambiguous between $1\cdot60 + 30 = 90$ and $1\cdot 60^2 + 30\cdot 60 = 5400$. Context disambiguated.</p>
+<p>Sumerian counting in proto-cuneiform appears around 3000 BCE in bundle-additive form; the full <em>place-value</em> sexagesimal system that we now think of as "Babylonian arithmetic" was consolidated by the Old Babylonian period, roughly 2000 BCE. Sixty is a clever choice — it factors as $2^2 \cdot 3 \cdot 5$, divisible by 1, 2, 3, 4, 5, 6, 10, 12, 15, 20, and 30 — which makes most everyday fractions terminate. The civilisation kept it. We still keep it: 60 minutes in an hour, 60 seconds in a minute, 360 degrees in a circle, all sexagesimal residue. Where the Babylonians fell short of a full place-value system was the absence (until late) of a zero placeholder, leaving readings like "1 30" ambiguous between $1\cdot60 + 30 = 90$ and $1\cdot 60^2 + 30\cdot 60 = 5400$. Context disambiguated.</p>
 
-<p>The same scribal schools that taught sexagesimal arithmetic also taught what we would now call <a href="./algebra.html#fields">algebra</a>: systematic procedures for solving linear and quadratic equations in one or two unknowns. A typical problem from the Old Babylonian period reads, in modern paraphrase: "I added the area and the side of my square: $0;45$" — that is, $x^2 + x = 3/4$. The scribe writes out the steps, $x = 1/2$, with no symbolic notation but a recognisable algorithm. The geometric language ("square", "side") suggests they thought of the operation as cutting and rearranging a literal square; the moderns call this technique <em>completing the square</em>, and it is the same technique your high school algebra teacher uses.</p>
+<p>The same scribal schools that taught sexagesimal arithmetic also taught what we would now call <a href="./algebra.html">algebra</a>: systematic procedures for solving linear and quadratic equations in one or two unknowns. A typical problem from the Old Babylonian period reads, in modern paraphrase: "I added the area and the side of my square: $0;45$" — that is, $x^2 + x = 3/4$. The scribe writes out the steps, $x = 1/2$, with no symbolic notation but a recognisable algorithm. The geometric language ("square", "side") suggests they thought of the operation as cutting and rearranging a literal square; the moderns call this technique <em>completing the square</em>, and it is the same technique your high school algebra teacher uses.</p>
 
 <div class="person">
   <div class="glyph">P3</div>
   <div class="pinfo">
     <div class="pname">Plimpton 322 (anonymous scribe)</div>
     <div class="pmeta">c. 1800 BCE · Larsa, Mesopotamia</div>
-    <div class="pblurb">Fifteen rows of <a href="./additive-number-theory.html#pythagorean-triples">Pythagorean triples</a> $(a, b, c)$ with $a^2 + b^2 = c^2$, listed in order of decreasing ratio $b/a$. Whether the scribe generated them via the parametric family $a = p^2 - q^2$, $b = 2pq$, $c = p^2 + q^2$ or via reciprocal pairs in a sexagesimal table is still actively argued. Either way: they had a system.</div>
+    <div class="pblurb">Fifteen rows of <a href="./additive-number-theory.html#fermat">Pythagorean triples</a> $(a, b, c)$ with $a^2 + b^2 = c^2$, listed in order of decreasing ratio $b/a$. Whether the scribe generated them via the parametric family $a = p^2 - q^2$, $b = 2pq$, $c = p^2 + q^2$ or via reciprocal pairs in a sexagesimal table is still actively argued. Either way: they had a system.</div>
   </div>
 </div>
 
@@ -390,7 +401,7 @@ const SVG = (tag,attrs={})=>{
   <div class="glyph">Ah</div>
   <div class="pinfo">
     <div class="pname">Ahmes</div>
-    <div class="pmeta">c. 1680 – c. 1620 BCE · Egypt</div>
+    <div class="pmeta">fl. c. 1650 BCE · Egypt</div>
     <div class="pblurb">The scribe whose name we have on the Rhind Papyrus — a copy, by his own admission, of an older lost text from the Middle Kingdom. He is the earliest mathematician in human history we know by name, which is more an accident of preservation than a sign of unusual greatness. The problems he chose to copy are practical: how to share nine loaves between ten men, how to compute the slope of a pyramid face, how big a granary you need to store $n$ bushels.</div>
   </div>
 </div>
@@ -429,7 +440,7 @@ const SVG = (tag,attrs={})=>{
   <div class="pinfo">
     <div class="pname">Eudoxus of Cnidus</div>
     <div class="pmeta">c. 408 – 355 BCE · Cnidus and Athens</div>
-    <div class="pblurb">The mathematician we know least about who matters most. Eudoxus's <em>method of exhaustion</em> trapped an unknown area between sequences of polygonal approximations from inside and out, then argued that anything strictly between the two must equal the area. It is integration without the limit notation: every $\varepsilon$ in modern <a href="./real-analysis.html#limits">real analysis</a> is doing a job Eudoxus invented.</div>
+    <div class="pblurb">The mathematician we know least about who matters most. Eudoxus's <em>method of exhaustion</em> trapped an unknown area between sequences of polygonal approximations from inside and out, then argued that anything strictly between the two must equal the area. It is integration without the limit notation: every $\varepsilon$ in modern <a href="./real-analysis.html#real-continuity">real analysis</a> is doing a job Eudoxus invented.</div>
   </div>
 </div>
 
@@ -448,9 +459,9 @@ const SVG = (tag,attrs={})=>{
 
 <aside class="note"><strong>What "compiled" means.</strong> Books I–IV of the <em>Elements</em> are mostly Pythagorean material; Book V on proportion is essentially Eudoxus; the number-theory books VII–IX are older still. Euclid's contribution is curation, axiomatic discipline, and dependency order. This is not a complaint. Building a coherent foundation from three centuries of disparate work is its own kind of genius — see anyone who has tried to write a textbook.</aside>
 
-<p>Half a century after Euclid, <strong>Apollonius of Perga</strong> wrote eight books titled <em>Conics</em> — a thousand pages on what happens when you slice a cone at different angles. He named the curves we still use: <em>parabola</em>, <em>ellipse</em>, <em>hyperbola</em>. He gave the focus-directrix property, the reflection law, the diameter constructions. None of this had any application Apollonius could see. It was geometry for the sake of geometry. Eighteen centuries later, when Kepler needed to fit Tycho Brahe's Mars data, the curve that worked was an ellipse, and the relevant theorems had been sitting in Apollonius's text the entire time. The <a href="./projective-plane.html#conics">unification of these three curves into a single object</a> would wait until the seventeenth century, but Apollonius had already noticed that they belonged together.</p>
+<p>Half a century after Euclid, <strong>Apollonius of Perga</strong> wrote eight books titled <em>Conics</em> — a thousand pages on what happens when you slice a cone at different angles. He named the curves we still use: <em>parabola</em>, <em>ellipse</em>, <em>hyperbola</em>. He gave the focus-directrix property, the reflection law, the diameter constructions. None of this had any application Apollonius could see. It was geometry for the sake of geometry. Eighteen centuries later, when Kepler needed to fit Tycho Brahe's Mars data, the curve that worked was an ellipse, and the relevant theorems had been sitting in Apollonius's text the entire time. The <a href="./projective-plane.html#charts">unification of these three curves into a single object</a> would wait until the seventeenth century, but Apollonius had already noticed that they belonged together.</p>
 
-<p>The other Alexandrian giant came much later. <strong>Diophantus</strong>, working around 250 CE, wrote the <em>Arithmetica</em>: thirteen books of which six survive in Greek and four more in an Arabic translation rediscovered in 1968. The <em>Arithmetica</em> is a sequence of problems — find rational $x, y, z$ such that $x^2 + y^2 = z^2$ and $y - x$ is a square, and so on — solved by an idiosyncratic stew of substitution and parameter-dragging. Diophantus is the godparent of <a href="./additive-number-theory.html">number theory</a>: not the rigorous discipline, which waited for Fermat and Gauss, but the tradition of caring about integer and rational solutions of polynomial equations. In 1637 Fermat would scribble in the margin of his copy that he had a marvellous proof for $a^n + b^n = c^n$ having no positive integer solutions when $n > 2$, but the margin was too narrow. The <a href="./modularity-and-flt.html">marginal note that haunted mathematics for 358 years</a> was written in a Diophantus.</p>
+<p>The other Alexandrian giant came much later. <strong>Diophantus</strong>, working around 250 CE, wrote the <em>Arithmetica</em>: thirteen books of which six survive in Greek and four more in an Arabic translation discovered in 1971 (in a 1198 Iranian manuscript). The <em>Arithmetica</em> is a sequence of problems — find rational $x, y, z$ such that $x^2 + y^2 = z^2$ and $y - x$ is a square, and so on — solved by an idiosyncratic stew of substitution and parameter-dragging. Diophantus is the godparent of <a href="./additive-number-theory.html">number theory</a>: not the rigorous discipline, which waited for Fermat and Gauss, but the tradition of caring about integer and rational solutions of polynomial equations. In 1637 Fermat would scribble in the margin of his copy that he had a marvellous proof for $a^n + b^n = c^n$ having no positive integer solutions when $n > 2$, but the margin was too narrow. The <a href="./modularity-and-flt.html">marginal note that haunted mathematics for 358 years</a> was written in a Diophantus.</p>
 
 <h3>Hipparchus, Hero, Ptolemy, Hypatia: the long working day</h3>
 
@@ -459,6 +470,8 @@ const SVG = (tag,attrs={})=>{
 <aside class="bad"><strong>Roman engineering produced no theorems.</strong> Rome built aqueducts, road networks, dome architecture; Rome did not produce a single mathematician of note. Surveying a road and proving a theorem are different cognitive activities, and a culture that values one does not automatically value the other. The mathematicians of the Roman Empire were almost without exception working in Greek, in cities the empire had inherited rather than built.</aside>
 
 <p>The standard story has the Greek tradition collapsing around 400 CE and Europe entering the dark. The reality is more specific and more chastening. <strong>Hypatia</strong> was teaching mathematics in Alexandria in 410 CE — Neoplatonist philosophy, commentaries on Apollonius and Diophantus, astronomy. In March 415 she was dragged from her chariot by a Christian mob led by partisans of the patriarch Cyril, taken to a church, and killed. Mathematics in Alexandria did not end that day, but the institutional culture that had nurtured it for seven hundred years did not recover. The last serious commentator on Diophantus was Hypatia herself.</p>
+
+<div class="person"><div class="glyph">HY</div><div class="pinfo"><div class="pname">Hypatia</div><div class="pmeta">c. 355 – 415 CE · Alexandria</div><div class="pblurb">Daughter of Theon, head of the Neoplatonist school in Alexandria. Edited and commented on Apollonius's <em>Conics</em>, Diophantus's <em>Arithmetica</em>, and Ptolemy's <em>Almagest</em>. Built astrolabes; taught a mixed pagan-and-Christian elite. Her death in 415 was a political assassination dressed as religious frenzy; the mathematical loss was incidental but real.</div></div></div>
 
 <p>What the Greeks left was an enormous corpus, an unimprovable definition of what counted as a proof, and an attitude — that the right response to a mathematical claim is to ask why it is true. Every page of this notebook inherits it. The next chapter belongs to mathematicians who, on Greek foundations they read in translation, did things the Greeks would not have recognised: place-value arithmetic, symbolic algebra, infinite series.</p>
 </div>
@@ -513,7 +526,7 @@ const SVG = (tag,attrs={})=>{
 
 <p>By the twelfth century in Ujjain, <strong>Bhāskara II</strong> was writing what is essentially a modern algebra textbook. The <em>Lilāvatī</em> (named for his daughter) is arithmetic; the <em>Bījagaṇita</em> is the algebra. Bhāskara has the quadratic formula, signed numbers, the Pell equation $x^2 - Ny^2 = 1$ solved by the <em>chakravala</em> ("cyclic") method (a result later central to <a href="./additive-number-theory.html">additive number theory</a>), and — most surprisingly — an instantaneous-rate-of-change calculation for planetary position, using a difference quotient $\sin(\theta + \delta) - \sin\theta$ for small $\delta$. Whether this counts as proto-calculus is a fight historians will continue to have; the manipulation is striking either way.</p>
 
-<aside class="note"><strong>The Tūsī couple.</strong> <strong>Naṣīr al-Dīn al-Ṭūsī</strong> (1201–1274), at the Maragha observatory in Ilkhanid Persia, devised a kinematic gadget — two circles, the smaller rolling inside the larger at half the radius, traces a straight diameter — that decomposes non-uniform circular motion into uniform components. Three centuries later, when Copernicus rebuilt astronomy in <em>De Revolutionibus</em> (1543), he used the same construction without attribution. The citation path is now well-documented: a "European" innovation pre-built and quietly imported.</aside>
+<aside class="note"><strong>The Tūsī couple.</strong> <strong>Naṣīr al-Dīn al-Ṭūsī</strong> (1201–1274), at the Maragha observatory in Ilkhanid Persia, devised a kinematic gadget — two circles, the smaller rolling inside the larger at half the radius, traces a straight diameter — that decomposes non-uniform circular motion into uniform components. Three centuries later, when Copernicus rebuilt astronomy in <em>De Revolutionibus</em> (1543), he used the same construction without attribution. The reception path is increasingly well-documented: a "European" innovation pre-built and quietly imported.</aside>
 
 <p>The deepest and least-known result of the era belongs to the Kerala school of southwestern India. <strong>Mādhava of Sangamagrāma</strong>, working around 1400, wrote down the power series</p>
 
@@ -619,7 +632,7 @@ $$\log(xy) = \log x + \log y.$$
 
 <h3>Newton, Leibniz, and the calculus</h3>
 
-<p>The calculus arrived twice. Newton developed his "method of fluxions" during the plague years of 1665–1666 in Cambridge, but did not publish the foundations until the geometric version appeared in the <em>Principia</em> in 1687. Leibniz, working independently in Paris from Pascal and Barrow, arrived at differentials by a different route and published in <em>Acta Eruditorum</em> in 1684 — three years earlier. Each had, in modern language, a working version of the fundamental theorem:</p>
+<p>The calculus arrived twice. Newton developed his "method of fluxions" during the plague years of 1665–1666 (Cambridge had closed; he was at the family farm at Woolsthorpe), but did not publish the foundations until the geometric version appeared in the <em>Principia</em> in 1687. Leibniz, working independently in Paris from Pascal and Barrow, arrived at differentials by a different route and published in <em>Acta Eruditorum</em> in 1684 — three years earlier. Each had, in modern language, a working version of the fundamental theorem:</p>
 
 $$\frac{d}{dx}\int_a^x f(t)\,dt = f(x).$$
 
@@ -676,11 +689,15 @@ $$\forall \varepsilon > 0\ \exists \delta > 0\ : \ |x-x_0|<\delta \implies |f(x)
 
 <aside class="ok"><strong>Why the rigorization happened when it did.</strong> Fourier had announced in 1822 that any function could be expanded in trigonometric series, and the Paris mathematicians noticed this was either false or required much more care about what "function" meant. Dirichlet, Riemann, and Cantor each took a turn; the eventual <a href="./harmonic-analysis-fourier.html">theory of Fourier series</a> needed measure theory to state cleanly.</aside>
 
-<p>Évariste Galois compressed a research program into the last sleepless night of his life. On 30 May 1832, age 20, he wrote out a manuscript explaining when polynomial equations are solvable by radicals — solvability of the equation reduces to solvability of an attached group — and the next morning was shot in a duel. Liouville published the manuscript in 1846. The whole of <a href="./galois.html">Galois theory</a>, plus the seed of group theory itself, fits in 60 pages of feverish handwriting. <a href="./algebra.html">Abstract algebra</a> begins here.</p>
+<p>Évariste Galois compressed a research program into the last sleepless night of his life. On the night of 29 May 1832, age 20, he wrote out a manuscript explaining when polynomial equations are solvable by radicals — solvability of the equation reduces to solvability of an attached group — and at dawn was shot in a duel. Liouville published the manuscript in 1846. The whole of <a href="./galois.html">Galois theory</a>, plus the seed of group theory itself, fits in 60 pages of feverish handwriting. <a href="./algebra.html">Abstract algebra</a> begins here.</p>
 
 <div class="person"><div class="glyph">EG</div><div class="pinfo"><div class="pname">Évariste Galois</div><div class="pmeta">1811 – 1832 · Paris</div><div class="pblurb">Twice rejected from the École Polytechnique, twice imprisoned for republican agitation. Wrote out the foundations of group theory and the solvability criterion for polynomials the night before a duel. Died at 20, leaving a margin note: "Je n'ai pas le temps." There was, however, time enough.</div></div></div>
 
-<p>Riemann's habilitation lecture of 1854 laid out, in a single afternoon, the framework of $n$-dimensional manifolds equipped with a metric tensor — the apparatus that would furnish Einstein with general relativity sixty years later. Gauss, dying in the front row, called it "deep and original." His 1859 paper then gave us the explicit formula linking $\pi(x)$ to the zeros of $\zeta(s)$ and the conjecture — still open — that those zeros all lie on $\Re(s)=1/2$. He wrote one paper on number theory in his life. It was enough. <a href="./riemann-surfaces.html">Riemann surfaces</a>, the multi-sheeted complex domains he introduced for many-valued functions, are the geometric foundation of modern algebraic geometry.</p>
+<p><strong>Sophie Germain</strong>, working in Paris a generation earlier, made the first general result on Fermat's Last Theorem after Euler. Excluded from the École Polytechnique because she was a woman, she corresponded with Lagrange, Legendre, and Gauss under the pseudonym <em>M. LeBlanc</em>; Gauss only learned her real identity when, during the Napoleonic occupation of Hanover in 1807, she wrote to a French general asking him to ensure the safety of one of Europe's foremost mathematicians. (She was, the historian Mary Gray notes, the only person who paid Gauss this courtesy.) Germain proved that for primes $p$ such that $2p+1$ is also prime — what we now call <em>Germain primes</em> — the first case of <a href="./modularity-and-flt.html">Fermat's equation</a> $a^p + b^p = c^p$ has no solutions with $p \nmid abc$. Her work on elasticity, which won the Paris Academy prize in 1816, was no less original.</p>
+
+<div class="person"><div class="glyph">SG</div><div class="pinfo"><div class="pname">Sophie Germain</div><div class="pmeta">1776 – 1831 · Paris</div><div class="pblurb">Self-taught from the family library after the storming of the Bastille made it dangerous to leave the house. First general theorem on FLT (Case I, for Germain primes). Her elasticity work — vibrational modes of a thin plate — won the 1816 Paris Academy prize after three submissions; the prize lecture was read by a colleague because women could not attend the Academy.</div></div></div>
+
+<p>Riemann's habilitation lecture of 1854 laid out, in a single afternoon, the framework of $n$-dimensional manifolds equipped with a metric tensor — the apparatus that would furnish Einstein with general relativity sixty years later. Gauss in the front row called it "deep and original" (he died nine months later). His 1859 paper then gave us the explicit formula linking $\pi(x)$ to the zeros of $\zeta(s)$ and the conjecture — still open — that those zeros all lie on $\Re(s)=1/2$. He wrote one paper on number theory in his life. It was enough. <a href="./riemann-surfaces.html">Riemann surfaces</a>, the multi-sheeted complex domains he introduced for many-valued functions, are the geometric foundation of modern algebraic geometry.</p>
 
 <h3>Foundations and infinity at century's end</h3>
 
@@ -688,7 +705,7 @@ $$\forall \varepsilon > 0\ \exists \delta > 0\ : \ |x-x_0|<\delta \implies |f(x)
 
 <p>The same year, Dedekind defined the reals as cuts in the rationals — a partition of $\mathbb{Q}$ into a lower set with no greatest element and an upper set. It was the first construction of $\mathbb{R}$ from anything, and it set the template the next century would weaponize.</p>
 
-<p>Then Cantor, working in Halle, asked a question nobody had thought to ask: are all infinities the same size? The 1874 diagonal argument said no.</p>
+<p>Then Cantor, working in Halle, asked a question nobody had thought to ask: are all infinities the same size? His 1874 paper said no — by a nested-interval argument; the more famous diagonal version (1891) is what the textbooks now teach.</p>
 
 $$\text{Given any list } f:\mathbb{N}\to\mathbb{R},\ \text{set } x_n = \begin{cases} 5 & \text{if the } n\text{th digit of } f(n) \neq 5 \\ 6 & \text{otherwise.} \end{cases}$$
 
@@ -702,7 +719,7 @@ $$\text{Given any list } f:\mathbb{N}\to\mathbb{R},\ \text{set } x_n = \begin{ca
 
 <div class="person"><div class="glyph">DH</div><div class="pinfo"><div class="pname">David Hilbert</div><div class="pmeta">1862 – 1943 · Königsberg / Göttingen</div><div class="pblurb">Closed the Hilbert basis theorem with a non-constructive proof so audacious that Gordan reportedly said "this is not mathematics, this is theology" — and then, three years later, conceded. The 1900 Paris ICM lecture announcing 23 problems set the agenda for the twentieth century. Built Göttingen into the center of mathematical gravity until 1933.</div></div></div>
 
-<p>Hilbert closes the era and opens the next. On 8 August 1900, at the Paris ICM, he read out 23 unsolved problems chosen to "lift the veil behind which the future lies hidden." Some — the Riemann Hypothesis (problem 8), the Continuum Hypothesis (problem 1) — remain open. Others — Gödel's incompleteness theorem (problem 2's negative answer), Matiyasevich on the 10th — became foundational results in their own right. A single lecture drew the map for a century of work, and it largely held. The two hundred years from Euler's <em>Introductio</em> to Hilbert's address are when mathematics became too large for any one mind to hold and discovered, in compensation, that this was fine.</p>
+<p>Hilbert closes the era and opens the next. On 8 August 1900, at the Paris ICM, he read out 23 unsolved problems chosen to "lift the veil behind which the future lies hidden." Some — the Riemann Hypothesis (problem 8), the Continuum Hypothesis (problem 1) — remain open. Others — Gödel's second incompleteness theorem (a negative answer to problem 2), Matiyasevich's resolution of the 10th (with Davis, Putnam, and Robinson) — became foundational results in their own right. A single lecture drew the map for a century of work, and it largely held. The two hundred years from Euler's <em>Introductio</em> to Hilbert's address are when mathematics became too large for any one mind to hold and discovered, in compensation, that this was fine.</p>
 </div>
 </section>
 
@@ -713,7 +730,7 @@ $$\text{Given any list } f:\mathbb{N}\to\mathbb{R},\ \text{set } x_n = \begin{ca
     <p class="era-blurb">Hilbert's program; Russell's paradox; Gödel's incompleteness; Turing's machine; Bourbaki's structures; Grothendieck's schemes; Atiyah and Singer; Wiles and Fermat. The century that mechanized proof, formalized everything, and revealed that mathematics has limits — and then quietly proved more theorems than the previous five thousand years combined.</p>
   </div>
   <div data-era-narrative="twentieth">
-<p>On August 8, 1900, David Hilbert read out a list of 23 problems at the International Congress in Paris that, he proposed, would shape the next hundred years of mathematics. He was almost right; the surprising thing is which surrendered and which fought back. The first — Cantor's continuum hypothesis — would receive an answer he had not anticipated: <em>neither yes nor no</em>. The second — to prove arithmetic consistent by finitary means — would be shown impossible. The tenth — a uniform algorithm for diophantine equations — would be shown undecidable. The century Hilbert opened in confidence ended with a careful map of the territory mathematics cannot reach. It also produced more theorems than the previous five thousand years combined.</p>
+<p>Hilbert's 23 problems (the previous era's closing scene) were a confident map of the future. The surprising thing was which problems surrendered and which fought back. The first — Cantor's continuum hypothesis — received an answer Hilbert had not anticipated: <em>neither yes nor no</em>. The second — to prove arithmetic consistent by finitary means — was shown impossible. The tenth — a uniform algorithm for diophantine equations — was shown undecidable. The century Hilbert opened in confidence ended with a careful map of the territory mathematics cannot reach. It also produced more theorems than the previous five thousand years combined.</p>
 
 <h3>The foundations crisis</h3>
 
@@ -813,7 +830,7 @@ $$\partial_t g_{ij} = -2 R_{ij},$$
 <section id="lineage">
   <h2>12. Lineages: how an idea grows</h2>
   <p>Big mathematical ideas rarely arrive whole. They accumulate over decades or centuries through chains of teachers, rivals, and successors. Pick an idea below to trace its lineage of contributors — the names you'll see linking together are the ones whose pages elsewhere in the notebook will reward you for clicking.</p>
-  <div class="widget lineage-wrap" id="lineage-widget" data-widget="history-lineage"></div>
+  <div class="widget lineage-wrap" id="lineage-widget"></div>
 </section>
 
 <section id="further">
@@ -896,6 +913,8 @@ $$\partial_t g_{ij} = -2 R_{ij},$$
     { "id":"abel",         "name":"Niels Henrik Abel",         "birth":1802,  "death":1829,  "era":"enlightenment","place":"Christiania (Oslo) / Paris",          "blurb":"Proved the quintic has no general solution by radicals; foundational work on elliptic functions. Dead at 26." },
     { "id":"bolyai",       "name":"János Bolyai",              "birth":1802,  "death":1860,  "era":"enlightenment","place":"Kolozsvár (Cluj)",                    "blurb":"Independent discoverer of hyperbolic geometry. 'Out of nothing I have created a strange new universe.'" },
     { "id":"galois",       "name":"Évariste Galois",           "birth":1811,  "death":1832,  "era":"enlightenment","place":"Paris",                              "blurb":"At 20, the night before a duel that killed him, wrote down the theory of groups and the criterion for solvability of polynomials." },
+    { "id":"germain",      "name":"Sophie Germain",            "birth":1776,  "death":1831,  "era":"enlightenment","place":"Paris",                              "blurb":"Self-taught; corresponded with Gauss under the pseudonym M. LeBlanc. First general theorem on Fermat's Last Theorem (Case I, for primes $p$ where $2p+1$ is prime). Won the 1816 Paris Academy prize for her work on the vibrational modes of an elastic plate." },
+    { "id":"mazur",        "name":"Barry Mazur",               "birth":1937,  "death":null,  "era":"twentieth", "place":"Harvard",                              "blurb":"Galois deformation theory, Mazur's torsion theorem on rational points of elliptic curves, and the conceptual machinery Wiles needed to attack modularity. Wiles's PhD advisor." },
     { "id":"weierstrass",  "name":"Karl Weierstrass",          "birth":1815,  "death":1897,  "era":"enlightenment","place":"Berlin",                             "blurb":"The 'father of modern analysis': $\\varepsilon$-$\\delta$ definitions made standard, uniform convergence, the Weierstrass function." },
     { "id":"riemann",      "name":"Bernhard Riemann",          "birth":1826,  "death":1866,  "era":"enlightenment","place":"Göttingen",                          "blurb":"Riemann surfaces; the Riemann integral; the metric tensor; the zeta function and its zeros." },
     { "id":"dedekind",     "name":"Richard Dedekind",          "birth":1831,  "death":1916,  "era":"enlightenment","place":"Braunschweig",                       "blurb":"Dedekind cuts (a real number = a partition of the rationals); ideals; one of the founders of abstract algebra." },
@@ -990,7 +1009,7 @@ $$\partial_t g_{ij} = -2 R_{ij},$$
     { "year":1907, "era":"twentieth","title":"Brouwer's fixed-point theorem","who":[],"city":"Amsterdam","region":"Netherlands","lat":52.37,"lng":4.90,"summary":"Every continuous self-map of a closed disk has a fixed point. The seed of topological methods in analysis and economics.","topicAnchor":"./fixed-point-theorems.html" },
     { "year":1915, "era":"twentieth","title":"Einstein's general relativity","who":[],"city":"Berlin","region":"German Empire","lat":52.52,"lng":13.40,"summary":"Gravity as the curvature of a Riemannian (pseudo-Riemannian) manifold — Riemann's 1854 metric tensor finds its physical meaning.","topicAnchor":"./general-relativity.html" },
     { "year":1918, "era":"twentieth","title":"Noether's theorem","who":["emmy-noether"],"city":"Göttingen","region":"German Empire","lat":51.53,"lng":9.93,"summary":"Every continuous symmetry of a physical system gives a conservation law. The hidden engine of every modern physics calculation.","topicAnchor":"./gauge-theory.html" },
-    { "year":1928, "era":"twentieth","title":"Hardy–Ramanujan partitions","who":["hardy","ramanujan"],"city":"Cambridge","region":"England","lat":52.20,"lng":0.12,"summary":"The asymptotic formula for $p(n)$, the number of integer partitions: a tour de force of analytic number theory.","topicAnchor":"./partitions-generating-functions.html" },
+    { "year":1918, "era":"twentieth","title":"Hardy–Ramanujan partitions","who":["hardy","ramanujan"],"city":"Cambridge","region":"England","lat":52.20,"lng":0.12,"summary":"The asymptotic formula for $p(n)$, the number of integer partitions: a tour de force of analytic number theory.","topicAnchor":"./partitions-generating-functions.html" },
     { "year":1931, "era":"twentieth","title":"Gödel's incompleteness theorems","who":["godel"],"city":"Vienna","region":"Austria","lat":48.21,"lng":16.37,"summary":"Any consistent formal system rich enough for arithmetic contains true statements it cannot prove. Hilbert's program is forever changed.","topicAnchor":"./computability-and-decidability.html" },
     { "year":1933, "era":"twentieth","title":"Kolmogorov's axioms","who":[],"city":"Moscow","region":"USSR","lat":55.75,"lng":37.62,"summary":"Probability theory placed on measure-theoretic foundations — random variables become measurable functions.","topicAnchor":"./probability-theory.html" },
     { "year":1935, "era":"twentieth","title":"Bourbaki begins","who":["weil"],"city":"Paris","region":"France","lat":48.86,"lng":2.35,"summary":"A young French collective (André Weil et al.) starts to rewrite all of mathematics from set-theoretic structures upward." },
@@ -1081,13 +1100,15 @@ $$\partial_t g_{ij} = -2 R_{ij},$$
       "tree": [
         { "id":"diophantus","y":250,  "label":"Diophantus",   "to":["fermat"] },
         { "id":"fermat",    "y":1637, "label":"Fermat (margin)","to":["euler"] },
-        { "id":"euler",     "y":1770, "label":"Euler ($n=3$)","to":["legendre"] },
-        { "id":"legendre",  "y":1825, "label":"Legendre ($n=5$)","to":["dirichlet"] },
-        { "id":"dirichlet", "y":1828, "label":"Dirichlet ($n=5,14$)","to":["kummer"] },
+        { "id":"euler",     "y":1770, "label":"Euler (n=3)","to":["legendre","germain"] },
+        { "id":"germain",   "y":1820, "label":"S. Germain (Case I)","to":["dirichlet","kummer"] },
+        { "id":"legendre",  "y":1825, "label":"Legendre (n=5)","to":["dirichlet"] },
+        { "id":"dirichlet", "y":1828, "label":"Dirichlet (n=5,14)","to":["kummer"] },
         { "id":"kummer",    "y":1850, "label":"Kummer (regular primes)","to":["frey"] },
         { "id":"taniyama",  "y":1955, "label":"Taniyama–Shimura","to":["frey","ribet"] },
         { "id":"frey",      "y":1985, "label":"Frey curve",   "to":["ribet","wiles"] },
-        { "id":"ribet",     "y":1986, "label":"Ribet (level lowering)","to":["wiles"] },
+        { "id":"ribet",     "y":1986, "label":"Ribet (level lowering)","to":["wiles","mazur"] },
+        { "id":"mazur",     "y":1989, "label":"Mazur (deformation)","to":["wiles"] },
         { "id":"wiles",     "y":1995, "label":"Wiles + Taylor","to":[] }
       ]
     }

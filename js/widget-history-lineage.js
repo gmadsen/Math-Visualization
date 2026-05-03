@@ -51,7 +51,10 @@
     const rank = new Map();
     function computeRank(id, seen){
       if(rank.has(id)) return rank.get(id);
-      if(seen.has(id)) return 0; // cycle guard
+      if(seen.has(id)){
+        console.warn('[history-lineage] cycle detected through node "' + id + '" — topology will degrade');
+        return 0;
+      }
       seen.add(id);
       const ps = parents.get(id);
       let r = 0;
@@ -186,6 +189,7 @@
       b.className = 'lineage-pick';
       b.textContent = ln.title;
       b.dataset.lid = ln.id;
+      b.setAttribute('aria-pressed', 'false');
       buttons.set(ln.id, b);
       pickrow.appendChild(b);
     }
@@ -303,6 +307,8 @@
         });
         g.style.setProperty('--accent', accent);
         g.dataset.id = n.id;
+        // <title> for native hover tooltip parity with timeline + map
+        g.appendChild(el('title')).textContent = `${n.label} (${fmtYear(n.y)})`;
         const rect = el('rect', {
           x, y, width: w, height: h, rx: 6, ry: 6,
           fill: isRoot.has(n.id) ? 'rgba(255,216,102,0.10)' : 'var(--panel)',
@@ -346,7 +352,7 @@
         `<div><span class="ev-year" style="color:${eraColor};border-color:${eraColor}">${htmlEscape(range)}</span>`+
         `<span class="ev-title">${htmlEscape(person.name)}</span></div>`+
         `<div class="ev-meta"><span class="pill">${htmlEscape(person.place || '')}</span>${era ? `<span class="pill" style="border-color:${eraColor};color:${eraColor}">${htmlEscape(era.label)}</span>` : ''}</div>`+
-        `<div class="ev-summary">${person.blurb || ''}</div>`;
+        `<div class="ev-summary">${htmlEscape(person.blurb || '')}</div>`;
       if(typeof window.renderMathInElement === 'function'){
         window.renderMathInElement(detail, {
           delimiters:[
@@ -362,7 +368,11 @@
 
     function setActive(id){
       activeId = id;
-      buttons.forEach((b, k) => b.classList.toggle('active', k === id));
+      buttons.forEach((b, k) => {
+        const on = k === id;
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
       detail.innerHTML = '<div class="empty">Click a node above to learn about that mathematician.</div>';
       renderLineage();
     }

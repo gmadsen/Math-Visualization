@@ -280,10 +280,17 @@
     const state = {
       activeEras: new Set(),  // empty = all visible
       query: '',
-      selectedIdx: -1
+      selectedIdx: -1,
+      _renderedIdx: -2          // track last selectedIdx the detail was rendered for
     };
+    // Cache the era-band node list once — was being re-queried on every keystroke.
+    const bandNodes = [...svg.querySelectorAll('rect.era-band')];
 
     function renderDetail(){
+      // gate: only re-render when the selection has actually changed; saves a
+      // KaTeX walk on every chip toggle and keystroke.
+      if(state._renderedIdx === state.selectedIdx) return;
+      state._renderedIdx = state.selectedIdx;
       if(state.selectedIdx < 0){
         detail.innerHTML = '<div class="empty">Pick a dot above. Use the chips to filter by era; type a name in the search box to spotlight matches.</div>';
         return;
@@ -304,7 +311,7 @@
         `<div><span class="ev-year" style="color:${eraColor}">${htmlEscape(ev.display || fmtYear(ev.year))}</span>` +
         `<span class="ev-title">${htmlEscape(ev.title)}</span></div>` +
         `<div class="ev-meta">${place ? `<span>${place}</span>`:''}${peopleHtml ? `<span>${peopleHtml}</span>`:''}</div>` +
-        `<div class="ev-summary">${ev.summary || ''}</div>` +
+        `<div class="ev-summary">${htmlEscape(ev.summary || '')}</div>` +
         linkHtml;
       // re-render KaTeX inside the detail
       if(typeof window.renderMathInElement === 'function'){
@@ -338,7 +345,7 @@
         dot.classList.toggle('selected', i === state.selectedIdx);
       });
       // band dimming: only highlight active eras when filters are on
-      $$bands().forEach(r => {
+      bandNodes.forEach(r => {
         const id = r.dataset.era;
         const dim = filterActive && !state.activeEras.has(id);
         r.classList.toggle('dim', dim);
@@ -352,9 +359,6 @@
       allBtn.classList.toggle('active', state.activeEras.size === 0);
       allBtn.setAttribute('aria-pressed', state.activeEras.size === 0 ? 'true' : 'false');
       renderDetail();
-    }
-    function $$bands(){
-      return [...svg.querySelectorAll('rect.era-band')];
     }
 
     // ===== handlers =====
