@@ -16,7 +16,37 @@
  *   #2  drop loud yellow on h3, color h2 underline by section instead
  *   #11 global :focus-visible ring + skip link
  *   #12 polished range slider thumb (cursor:grab, scale on hover, focus ring)
+ *
+ * Bug fixes:
+ *   • mv-theme-slot gap (theme-toggle button abutting display-toggles wrap)
+ *   • data-hide-widgets shouldn't sweep quiz hosts (which also carry .widget)
  */
+
+/* ---------- 0. Top-nav slot layout ---------- */
+
+/* The mv-theme-slot ends up containing both the theme-toggle button AND the
+ * display-prefs wrap (when no separate .mv-display-slot exists — the typical
+ * case on topic pages). Without an inline-flex gap, those two elements abut
+ * with zero space between them — the icons read as if they're overlapping.
+ * Promote the slot to inline-flex with a small gap to match the
+ * .mv-display-toggles internal gap. */
+.mv-theme-slot {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* The widget-hide toggle (📖) sets html[data-hide-widgets], and per-page CSS
+ * declares `html[data-hide-widgets] .widget { display: none !important; }`.
+ * Quiz hosts get the .widget class added by js/quiz.js's renderQuiz so they
+ * inherit the widget chrome — but that means hiding widgets ALSO hides every
+ * rendered quiz, which is wrong (quizzes are toggled separately). Restore
+ * quiz visibility unconditionally; data-hide-quizzes still controls them
+ * via the `.quiz` rule. */
+html[data-hide-widgets] .widget.quiz {
+  display: block !important;
+}
+
 
 /* ---------- 1. Typography ---------- */
 
