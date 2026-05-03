@@ -385,6 +385,14 @@ const SVG = (tag,attrs={})=>{
       <div class="tc-meta"><span class="tc-stops">5 stops</span> · ends at <span class="tc-end">motives</span></div>
     </div>
   </button>
+  <button class="tour-card" data-color="green" data-tour="hodge-arc" type="button">
+    <div class="tc-num">8</div>
+    <div class="tc-body">
+      <div class="tc-title">What is Hodge theory?</div>
+      <div class="tc-goal">How complex structure refines cohomology — from holomorphic forms through the Hodge decomposition and mixed Hodge structures to the Hodge conjecture.</div>
+      <div class="tc-meta"><span class="tc-stops">5 stops</span> · ends at <span class="tc-end">Hodge conjecture</span></div>
+    </div>
+  </button>
 </div>
 
 <section class="tour" id="bsd-road" data-color="cyan">
@@ -977,11 +985,74 @@ const SVG = (tag,attrs={})=>{
 </aside>
 </section>
 
+<section class="tour" id="hodge-arc" data-color="green">
+<h2>8. What is Hodge theory?</h2>
+<p class="tour-goal">Goal: see how complex structure refines cohomology — from holomorphic forms on a complex manifold through the Hodge decomposition theorem and Deligne's mixed structures, ending at the still-open Hodge conjecture.</p>
+
+<ol class="tour">
+  <li>
+    <span class="stop-section">Analysis</span>
+    <span class="stop-title"><a href="./complex-analysis.html#holomorphic-function">Holomorphic functions and the Cauchy–Riemann equations</a></span>
+    <p class="bridge">Start from the analytic side. A function $f\colon U \to \mathbb{C}$ is holomorphic iff it satisfies the Cauchy–Riemann equations $\partial f / \partial \bar z = 0$ — equivalently, $f$ is complex-differentiable at every point of $U$. The miracle is that complex differentiability once forces complex differentiability infinitely many times: holomorphic = analytic. Lift this to manifolds: a complex manifold is a smooth manifold with a holomorphic atlas, and a holomorphic $p$-form is locally a section of $\Omega^p_X = \Lambda^p T^{*1,0}X$ — the bundle of $(p,0)$-forms. These holomorphic $p$-forms will, in the next stops, slice cohomology into bidegree pieces $(p,q)$ that the underlying real manifold cannot see.</p>
+  </li>
+  <li>
+    <span class="stop-section">Algebraic geometry</span>
+    <span class="stop-title"><a href="./algebraic-de-rham-cohomology.html#de-rham-complex">The de Rham complex $\Omega^\bullet_{X/k}$ and its hypercohomology</a></span>
+    <p class="bridge">Algebraic Kähler differentials $\Omega^p_{X/k}$ assemble into a complex $\mathcal{O}_X \to \Omega^1 \to \Omega^2 \to \cdots$ with the exterior derivative $d$. <em>Hypercohomology</em> $\mathbb{H}^*(X, \Omega^\bullet_{X/k})$ is the right-derived functor of global sections applied to the whole complex (rather than to a single sheaf) — computed in practice by a double Čech complex. This is <em>algebraic de Rham cohomology</em> $H^*_{\mathrm{dR}}(X/k)$, defined for any smooth scheme over any field. Over $\mathbb{C}$ it agrees with the topological de Rham cohomology after $\otimes \mathbb{C}$ (Grothendieck's comparison theorem). The crucial extra structure: the "stupid" filtration $\sigma^{\ge p} \Omega^\bullet$ — kill everything in degree $< p$ — induces a filtration $F^\bullet$ on $H^*_{\mathrm{dR}}(X/k)$. That filtration is the Hodge filtration, and the next stop says what it computes.</p>
+  </li>
+  <li>
+    <span class="stop-section">Algebraic geometry</span>
+    <span class="stop-title"><a href="./hodge-theory.html#decomposition">The Hodge decomposition theorem</a></span>
+    <p class="bridge">For $X$ smooth projective over $\mathbb{C}$ (in particular, Kähler), Hodge's theorem says</p>
+    <p class="bridge">$$H^n(X; \mathbb{C}) = \bigoplus_{p+q=n} H^q(X, \Omega^p_X), \qquad \overline{H^{p,q}} = H^{q,p}.$$</p>
+    <p class="bridge">The proof goes via Riemannian Hodge theory: harmonic forms compute cohomology, and on a Kähler manifold the Laplacian preserves the bidegree decomposition $\Omega^k_\mathbb{C} = \bigoplus \Omega^{p,q}$, so harmonic forms decompose by type. The Hodge filtration $F^p H^n$ is exactly $\bigoplus_{p' \ge p} H^{p', n-p'}$ — the algebraic input matches the analytic decomposition, with complex conjugation supplying the missing piece. The Hodge numbers $h^{p,q}$ fit a diamond with two symmetries: Hodge symmetry from conjugation, Poincaré duality across the diamond. Surprisingly little input — just compactness, Kähler, smoothness — controls a lot of cohomological structure.</p>
+    <div class="figure-row">
+      <div class="figure-card" data-c="green">
+        <div class="fc-portrait" aria-hidden="true">HG</div>
+        <div class="fc-body">
+          <div class="fc-name">W. V. D. Hodge</div>
+          <div class="fc-dates">1903–1975</div>
+          <p class="fc-contrib">Proved the decomposition theorem (1941) via harmonic forms on Riemannian manifolds. Posed the Hodge conjecture in 1950 — still open and one of the seven Clay Millennium Prize Problems.</p>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li>
+    <span class="stop-section">Algebraic geometry</span>
+    <span class="stop-title"><a href="./hodge-theory.html#mixed-hodge">Mixed Hodge structures (Deligne)</a></span>
+    <p class="bridge">Pure Hodge structure works for compact + smooth + Kähler. For everyone else — open subvarieties, singular varieties, schemes over $\mathbb{Q}$ — the cohomology is not pure: weights mix. Deligne (1971-74) shows that <em>every</em> complex variety has a canonical <b>mixed Hodge structure</b> on its cohomology: an increasing weight filtration $W_\bullet$ on $V_\mathbb{Q}$ together with a Hodge filtration $F^\bullet$ on $V_\mathbb{C}$, such that each graded piece $\mathrm{gr}^W_n$ is pure of weight $n$. Construction: take a Hironaka resolution, build a simplicial scheme, run a spectral sequence. The resulting MHS is canonical, functorial, and the pure case (compact + smooth) is recovered when the weight filtration collapses to one weight. Mixed Hodge structures form a Tannakian category $\mathsf{MHS}_\mathbb{Q}$ — and the motivic story (next stop) factors through it.</p>
+    <div class="figure-row">
+      <div class="figure-card" data-c="green">
+        <div class="fc-portrait" aria-hidden="true">DE</div>
+        <div class="fc-body">
+          <div class="fc-name">Pierre Deligne</div>
+          <div class="fc-dates">b. 1944</div>
+          <p class="fc-contrib">Built the theory of mixed Hodge structures across three Publications IHÉS papers (1971, 1974, 1974). Same author who proved the Weil conjectures via étale cohomology — which sit on the parallel arithmetic side of the motivic story.</p>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li class="endpoint">
+    <span class="stop-section">Algebraic geometry · capstone</span>
+    <span class="stop-title"><a href="./hodge-theory.html#hodge-conjecture">The Hodge conjecture</a></span>
+    <p class="bridge">For $X$ smooth projective over $\mathbb{C}$, the cycle-class map $\mathrm{cl}\colon \mathrm{CH}^p(X) \otimes \mathbb{Q} \to H^{2p}(X; \mathbb{Q})$ has image inside the <em>Hodge classes</em> $\mathrm{Hdg}^p(X) := H^{2p}(X; \mathbb{Q}) \cap H^{p,p}(X)$. The Hodge conjecture (1950) says equality: every rational class of pure type $(p,p)$ is the cycle class of an algebraic codimension-$p$ cycle. Known unconditionally for $p = 1$ (Lefschetz $(1,1)$-theorem; uses the exponential sequence). Open in general. Equivalent Tannakian rephrasing: the Hodge realization $G_{\mathrm{mot}}(\mathbb{Q}) \twoheadrightarrow \mathrm{MT}(X)$ is surjective — every Mumford-Tate symmetry of cohomology lifts to a motivic one. Tour 7's motivic Galois group is the structural backdrop; Hodge conjecture is the specific assertion about its Hodge-realization quotient.</p>
+  </li>
+</ol>
+
+<aside class="callback">
+  <div class="ttl">Diverges into</div>
+  <ul>
+    <li>Tour 7 (solvability across mathematics) ends at the motivic Galois group; the Hodge conjecture is the specific surjectivity statement about that group's Hodge quotient.</li>
+    <li>Tour 1 (BSD road) and Tour 2 (FLT proof) follow the parallel arithmetic-geometric path through étale cohomology / modular forms / L-functions; the Hodge realization is the complex-analytic mirror.</li>
+    <li>For variations of Hodge structure in families and the period map, see <a href="./moduli-spaces.html">moduli spaces</a> and <a href="./calabi-yau-manifolds.html">Calabi-Yau manifolds</a>.</li>
+  </ul>
+</aside>
+</section>
+
 <section id="more-tours">
 <h2>More tours coming</h2>
-<p>These seven are a starting set, not a full atlas. Natural next routes — drafted in <a href="https://github.com/gmadsen/Math-Visualization/blob/main/PLAN.md"><code>PLAN.md</code></a>, not yet written:</p>
+<p>These eight are a starting set, not a full atlas. Natural next routes — drafted in <a href="https://github.com/gmadsen/Math-Visualization/blob/main/PLAN.md"><code>PLAN.md</code></a>, not yet written:</p>
 <ul>
-  <li><strong>Tour 8 — What is Hodge theory?</strong> de Rham → Kähler / complex differentials → Hodge decomposition → mixed Hodge structures → Hodge conjecture.</li>
   <li><strong>Tour 9 — Langlands philosophy.</strong> galois representations → modular forms → L-functions → Frobenius &amp; reciprocity → automorphic forms (adelic) → Langlands.</li>
   <li><strong>Riemannian geometry to general relativity</strong> — smooth manifolds, the Levi-Civita connection, curvature tensors, Einstein's equations.</li>
   <li><strong>How probability became measure theory</strong> — Lebesgue, $\sigma$-algebras, the Kolmogorov axioms, Brownian motion as a measure on path space.</li>
@@ -997,7 +1068,7 @@ const SVG = (tag,attrs={})=>{
 <script>
 /* Tour switcher: cards toggle one tour on at a time; URL hash mirrors state. */
 (function(){
-  const VALID = new Set(['bsd-road','flt-proof','cohomology','sets-to-topoi','sound-to-wavelets','local-global','solvability-arc']);
+  const VALID = new Set(['bsd-road','flt-proof','cohomology','sets-to-topoi','sound-to-wavelets','local-global','solvability-arc','hodge-arc']);
   const titleMap = {
     'bsd-road':'1. The road to BSD',
     'flt-proof':"2. How Fermat's Last Theorem was proved",
@@ -1005,12 +1076,13 @@ const SVG = (tag,attrs={})=>{
     'sets-to-topoi':'4. From naive sets to ∞-topoi',
     'sound-to-wavelets':'5. From sound to wavelets',
     'local-global':'6. The local–global principle',
-    'solvability-arc':'7. Solvability across mathematics'
+    'solvability-arc':'7. Solvability across mathematics',
+    'hodge-arc':'8. What is Hodge theory?'
   };
   const colorMap = {
     'bsd-road':'cyan','flt-proof':'yellow','cohomology':'violet',
     'sets-to-topoi':'green','sound-to-wavelets':'pink','local-global':'blue',
-    'solvability-arc':'violet'
+    'solvability-arc':'violet','hodge-arc':'green'
   };
   // History strategy: pushState on user-driven navigation (card click, back
   // button) so the browser back arrow returns to the prior view; replaceState

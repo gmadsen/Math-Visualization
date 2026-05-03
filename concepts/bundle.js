@@ -5,6 +5,7 @@ window.__MVConcepts = {
   "index": {
     "topics": [
       "motives",
+      "hodge-theory",
       "statistical-mechanics",
       "advanced-complex-analysis",
       "groebner-bases",
@@ -296,7 +297,8 @@ window.__MVConcepts = {
       "statistical-mechanics": "capstone",
       "gauge-theory": "capstone",
       "string-theory": "capstone",
-      "motives": "capstone"
+      "motives": "capstone",
+      "hodge-theory": "capstone"
     }
   },
   "topics": {
@@ -381,6 +383,91 @@ window.__MVConcepts = {
           "blurb": "Grothendieck (1968): Lefschetz (B), Künneth (C), Hodge (I). Open in general since 1968; modulo (B)+(C) homological = numerical and Mot_hom is Tannakian. Unconditional: Jannsen, mixed Hodge (Deligne), mixed Tate over Z (Deligne-Goncharov-Brown), Voevodsky's DM(k).",
           "prereqs": [
             "realization-functors"
+          ]
+        }
+      ]
+    },
+    "hodge-theory": {
+      "topic": "hodge-theory",
+      "title": "Hodge theory",
+      "page": "hodge-theory.html",
+      "concepts": [
+        {
+          "id": "why-hodge",
+          "title": "Why Hodge structures? — cohomology gets refinement from complex structure",
+          "anchor": "why-hodge",
+          "blurb": "For a smooth projective $X/\\mathbb{C}$, $H^n(X;\\mathbb{Q})$ is a $\\mathbb{Q}$-vector space, but Kähler structure refines it: harmonic forms decompose by type. The pair (rational vector space + Hodge decomposition of its complexification) is what we abstract into a Hodge structure.",
+          "prereqs": [
+            "complex-analysis:holomorphic-function",
+            "algebraic-de-rham-cohomology:de-rham-complex"
+          ]
+        },
+        {
+          "id": "hodge-decomposition",
+          "title": "The Hodge decomposition theorem",
+          "anchor": "decomposition",
+          "blurb": "Hodge (1941): for $X$ compact Kähler of dimension $d$, $H^n(X;\\mathbb{C}) = \\bigoplus_{p+q=n} H^q(X,\\Omega^p_X)$ with $\\overline{H^{p,q}} = H^{q,p}$. Hodge numbers $h^{p,q}$ fill the Hodge diamond; Hodge symmetry + Poincaré duality halve the independent invariants.",
+          "prereqs": [
+            "why-hodge"
+          ]
+        },
+        {
+          "id": "hodge-filtration-structure",
+          "title": "The Hodge filtration F^• — algebraic incarnation",
+          "anchor": "filtration",
+          "blurb": "$F^p H^n = \\bigoplus_{p' \\ge p} H^{p',n-p'}$. Decreasing filtration; $H^n_\\mathbb{C} = F^p \\oplus \\overline{F^{n-p+1}}$ recovers the decomposition. Algebraic via the stupid filtration on $\\Omega^\\bullet$ + the $E_1$-degeneration of Hodge-to-de-Rham.",
+          "prereqs": [
+            "hodge-decomposition",
+            "algebraic-de-rham-cohomology:hodge-filtration"
+          ]
+        },
+        {
+          "id": "pure-hodge-structure",
+          "title": "Pure Hodge structures as a category",
+          "anchor": "pure-hodge",
+          "blurb": "A pure $\\mathbb{Q}$-Hodge structure of weight $n$ is $V_\\mathbb{Q}$ + a decomposition $V_\\mathbb{C} = \\bigoplus_{p+q=n} V^{p,q}$ with $\\overline{V^{p,q}} = V^{q,p}$. Polarised HS form a semisimple Tannakian category; Tate twist $\\mathbb{Q}(1)$ has weight $-2$.",
+          "prereqs": [
+            "hodge-filtration-structure"
+          ]
+        },
+        {
+          "id": "mixed-hodge-structure",
+          "title": "Mixed Hodge structures (Deligne)",
+          "anchor": "mixed-hodge",
+          "blurb": "Deligne (1971-74): every complex variety — open or singular — has a canonical mixed Hodge structure. Data: a weight filtration $W_\\bullet$ + a Hodge filtration $F^\\bullet$ such that each $\\mathrm{gr}^W_n$ is pure of weight $n$.",
+          "prereqs": [
+            "pure-hodge-structure"
+          ]
+        },
+        {
+          "id": "hodge-conjecture",
+          "title": "The Hodge conjecture",
+          "anchor": "hodge-conjecture",
+          "blurb": "Every rational class of pure Hodge type $(p,p)$ on a smooth projective $X/\\mathbb{C}$ is the cycle class of an algebraic codim-$p$ cycle. Open since 1950, Clay Millennium prize. Known for $p=1$ (Lefschetz $(1,1)$) and on abelian varieties of dim $\\le 4$.",
+          "prereqs": [
+            "mixed-hodge-structure",
+            "intersection-theory-chow:chow-groups"
+          ]
+        },
+        {
+          "id": "period-domains-vhs",
+          "title": "Period domains and variations of Hodge structure",
+          "anchor": "period-domains",
+          "blurb": "A family $\\mathcal{X} \\to S$ produces a variation of Hodge structure: flat $\\mathbb{Q}$-bundle + holomorphically-varying Hodge filtration mapped to a period domain $D$. Griffiths transversality: $\\nabla F^p \\subset F^{p-1} \\otimes \\Omega^1_S$. Drives Torelli theorems.",
+          "prereqs": [
+            "pure-hodge-structure",
+            "moduli-spaces:moduli-problem"
+          ]
+        },
+        {
+          "id": "hodge-as-realization",
+          "title": "Hodge as a motivic realization",
+          "anchor": "motivic-realization",
+          "blurb": "The Hodge realization $R_\\mathrm{Hdg}\\colon \\mathsf{Mot}_\\mathbb{Q} \\to \\mathsf{HS}_\\mathbb{Q}$ is one of the four classical realizations of motives. Hodge conjecture rephrases as surjectivity of $G_\\mathrm{mot}(\\mathbb{Q}) \\twoheadrightarrow \\mathrm{MT}(X)$. Mixed Tate Hodge unconditionally captures multiple zeta values.",
+          "prereqs": [
+            "hodge-conjecture",
+            "motives:realization-functors",
+            "motives:motivic-galois-group"
           ]
         }
       ]
@@ -13500,6 +13587,13 @@ window.__MVConcepts = {
         "blurb": "Grothendieck's universal cohomology: a category $\\mathsf{Mot}_k$ through which every realization (Betti, de Rham, $\\ell$-adic, crystalline) factors, with a Tannakian fundamental group $G_{\\mathrm{mot}}(k)$ that subsumes classical $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ as its étale-realization quotient."
       },
       {
+        "id": "capstone-hodge-conjecture",
+        "section": "Algebraic geometry",
+        "title": "The Hodge conjecture",
+        "goal": "hodge-conjecture",
+        "blurb": "Every rational class of pure Hodge type $(p,p)$ on a smooth projective $X/\\mathbb{C}$ is the cycle class of an algebraic codimension-$p$ cycle. Open since 1950; Clay Millennium prize. Tannakianly, the Hodge realization $G_{\\mathrm{mot}}(\\mathbb{Q}) \\twoheadrightarrow \\mathrm{MT}(X)$ is surjective."
+      },
+      {
         "id": "capstone-infinity-topoi",
         "section": "Higher categories & toposes",
         "title": "$\\infty$-topoi (Lurie's higher topos theory)",
@@ -13735,7 +13829,8 @@ window.__MVConcepts = {
           "calabi-yau-manifolds",
           "mirror-symmetry",
           "resolution-of-singularities",
-          "motives"
+          "motives",
+          "hodge-theory"
         ],
         "color": "g"
       },
@@ -13988,7 +14083,8 @@ window.__MVConcepts = {
     "statistical-mechanics": "capstone",
     "gauge-theory": "capstone",
     "string-theory": "capstone",
-    "motives": "capstone"
+    "motives": "capstone",
+    "hodge-theory": "capstone"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -14065,11 +14161,11 @@ window.__MVConcepts = {
       "density": 0.5789473684210527
     },
     "Algebraic geometry": {
-      "concepts": 135,
-      "intra": 180,
+      "concepts": 143,
+      "intra": 187,
       "crossOut": 55,
       "crossIn": 20,
-      "density": 0.4074074074074074
+      "density": 0.38461538461538464
     },
     "Combinatorics & graph theory": {
       "concepts": 51,

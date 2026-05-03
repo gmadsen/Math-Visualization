@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **136**, concepts: **965**
+- Topics: **137**, concepts: **973**
 - Widgets: **969** (registry-driven: 940, inline: 29)
-- Quizzes: **4088** (v1: 2852, hard: 1223, expert: 13)
-- Quiz types: mcq: 2735, numeric: 1055, multi-select: 129, matching: 55, ordering: 38, complex: 29, spot-the-error: 26, proof-completion: 17, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **161**
-- Concepts lacking a hard-tier quiz: **527**
+- Quizzes: **4112** (v1: 2876, hard: 1223, expert: 13)
+- Quiz types: mcq: 2756, numeric: 1056, multi-select: 130, matching: 56, ordering: 38, complex: 29, spot-the-error: 26, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Concepts lacking a widget in their section: **169**
+- Concepts lacking a hard-tier quiz: **535**
 
 ## Per-slug registry adoption
 
@@ -571,13 +571,13 @@ page has wired one in yet.
 
 ### Algebraic geometry
 
-- Topics: **23**, concepts: **135**
+- Topics: **24**, concepts: **143**
 - Widgets: **144** (registry-driven: 144, inline: 0)
   - by family: button-stepper: 61, clickable-diagram: 23, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, calabi-yau-canonical-degree: 1, calabi-yau-hodge-diamond: 1, calabi-yau-hypersurface-zoo: 1, calabi-yau-periods: 1, calabi-yau-mirror-swap: 1, calabi-yau-syz-fibration: 1, mirror-hodge-diamond: 1, mirror-quintic-counts: 1, mirror-stable-map: 1, mirror-quintic-periods: 1, mirror-hms-pairing: 1, mirror-syz-fibration: 1, resolution-cusp-node-visualizer: 1, resolution-cuspidal-blowup: 1, resolution-tower-of-blowups: 1, resolution-curve-normalization: 1, resolution-ade-dynkin: 1, lattice-visualizer: 1, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, counterexample-explorer: 1
   - by dimension: 2d: 144
   - by gesture: click: 100, interact: 15, slider: 9, scrub: 7, inspect: 5, select: 4, drag: 2, read: 1, slide: 1
-- Quizzes: **650** (v1: 405, hard: 245, expert: 0)
-  - by type: mcq: 417, numeric: 187, multi-select: 18, matching: 13, spot-the-error: 7, ordering: 4, complex: 3, proof-completion: 1
+- Quizzes: **674** (v1: 429, hard: 245, expert: 0)
+  - by type: mcq: 438, numeric: 188, multi-select: 19, matching: 14, spot-the-error: 7, ordering: 4, complex: 3, proof-completion: 1
 
 ### Combinatorics & graph theory
 
@@ -602,6 +602,7 @@ page has wired one in yet.
 ## Per-topic
 
 - `motives` (Algebraic geometry) — concepts=8, widgets=0 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
+- `hodge-theory` (Algebraic geometry) — concepts=8, widgets=0 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
 - `statistical-mechanics` (Mathematical physics) — concepts=7, widgets=7 (slug=0), quiz=21 (v1=21, hard=0, expert=0)
 - `advanced-complex-analysis` (Analysis) — concepts=13, widgets=5 (slug=5), quiz=39 (v1=39, hard=0, expert=0)
 - `groebner-bases` (Algebra & homological) — concepts=8, widgets=8 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
@@ -750,18 +751,18 @@ page has wired one in yet.
 - `motivic-galois-group` (motives)
 - `realization-functors` (motives)
 - `standard-conjectures` (motives)
+- `why-hodge` (hodge-theory)
+- `hodge-decomposition` (hodge-theory)
+- `hodge-filtration-structure` (hodge-theory)
+- `pure-hodge-structure` (hodge-theory)
+- `mixed-hodge-structure` (hodge-theory)
+- `hodge-conjecture` (hodge-theory)
+- `period-domains-vhs` (hodge-theory)
+- `hodge-as-realization` (hodge-theory)
 - `aca-overview` (advanced-complex-analysis)
 - `aca-picard-little` (advanced-complex-analysis)
 - `aca-picard-great` (advanced-complex-analysis)
 - `aca-weierstrass-factorization` (advanced-complex-analysis)
-- `aca-mittag-leffler` (advanced-complex-analysis)
-- `aca-phragmen-lindelof` (advanced-complex-analysis)
-- `aca-hadamard-three-circles` (advanced-complex-analysis)
-- `aca-hardy-spaces` (advanced-complex-analysis)
-- `cnt-primality` (computational-number-theory)
-- `cnt-factoring` (computational-number-theory)
-- `cnt-lattice-reduction` (computational-number-theory)
-- `cnt-modular-arithmetic-algorithms` (computational-number-theory)
 
 ### Concepts missing a hard-tier quiz (top 20)
 
@@ -773,15 +774,15 @@ page has wired one in yet.
 - `motivic-galois-group` (motives)
 - `realization-functors` (motives)
 - `standard-conjectures` (motives)
+- `why-hodge` (hodge-theory)
+- `hodge-decomposition` (hodge-theory)
+- `hodge-filtration-structure` (hodge-theory)
+- `pure-hodge-structure` (hodge-theory)
+- `mixed-hodge-structure` (hodge-theory)
+- `hodge-conjecture` (hodge-theory)
+- `period-domains-vhs` (hodge-theory)
+- `hodge-as-realization` (hodge-theory)
 - `microstates-ensembles` (statistical-mechanics)
 - `boltzmann-canonical` (statistical-mechanics)
 - `entropy-gibbs` (statistical-mechanics)
 - `grand-canonical` (statistical-mechanics)
-- `ising-phase-transitions` (statistical-mechanics)
-- `renormalization-group` (statistical-mechanics)
-- `large-deviations-equilibrium` (statistical-mechanics)
-- `aca-overview` (advanced-complex-analysis)
-- `aca-picard-little` (advanced-complex-analysis)
-- `aca-picard-great` (advanced-complex-analysis)
-- `aca-weierstrass-factorization` (advanced-complex-analysis)
-- `aca-mittag-leffler` (advanced-complex-analysis)
