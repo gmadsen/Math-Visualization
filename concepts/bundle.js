@@ -546,7 +546,7 @@ window.__MVConcepts = {
           "id": "functoriality-langlands-group",
           "title": "Functoriality and the Langlands group",
           "anchor": "functoriality",
-          "blurb": "Predicted lifting maps between automorphic reps of different groups, mediated by homomorphisms of L-groups. Symmetric power, base change, endoscopic transfer. The conjectural Langlands group $L_F$: universal Tannakian symmetry whose representations are automorphic.",
+          "blurb": "Predicted lifting maps between automorphic reps of different groups, mediated by homomorphisms of L-groups. Symmetric power, base change, endoscopic transfer. The conjectural Langlands group $L_F$ is the unifying object whose finite-dim representations correspond to automorphic reps.",
           "prereqs": [
             "global-langlands-gl-n"
           ]
