@@ -58,7 +58,7 @@
     // ===== 1. Prehistory: tally counter =====
     prehistory(host){
       const { body, readout } = shell(host, 'Tally counter · subitizing wall',
-        'Click the slate to add notches. Try to count without thinking.');
+        'Click the slate to add notches. Try to count without thinking — most people stop subitizing at 3–4.');
       let n = 0;
       const slate = svgEl('svg', { viewBox:'0 0 360 80', width:'100%' });
       slate.style.cursor = 'pointer';
@@ -79,8 +79,9 @@
           });
           slate.appendChild(ln);
         }
-        const subitize = n <= 4;
-        readout.textContent = `n = ${n} · ${subitize ? 'subitized: counted at a glance' : 'requires explicit count — language territory'}`;
+        // 3–4 is the standard subitizing limit in cognitive psychology
+        const subitize = n <= 3;
+        readout.textContent = `n = ${n} · ${subitize ? 'subitized: counted at a glance' : (n <= 4 ? 'borderline subitizing — most people need to glance twice' : 'requires explicit count — language territory')}`;
       }
       slate.addEventListener('click', () => { if(n < 30) { n++; redraw(); } });
       reset.addEventListener('click', () => { n = 0; redraw(); });
@@ -239,7 +240,7 @@
       const { body, readout } = shell(host, "Cardano's cubic · $x^3 + px = q$",
         'Cardano\'s formula. Note the $\\sqrt{-1}$ that appears when $\\Delta < 0$.');
       const ctl = document.createElement('div'); ctl.className = 'row';
-      ctl.innerHTML = '<label>p <input type="range" id="cc-p" min="-12" max="12" step="0.5" value="-15"></label>' +
+      ctl.innerHTML = '<label>p <input type="range" id="cc-p" min="-12" max="12" step="0.5" value="-6"></label>' +
                       '<label>q <input type="range" id="cc-q" min="-20" max="20" step="0.5" value="4"></label>';
       body.appendChild(ctl);
       const fig = svgEl('svg', { viewBox:'-10 -40 220 80', width:'100%' });
@@ -303,7 +304,7 @@
         }
         fig.appendChild(svgEl('polyline', { points: truePts, fill:'none', stroke:'var(--cyan)', 'stroke-width':1.4, opacity:0.85 }));
         fig.appendChild(svgEl('polyline', { points: prodPts, fill:'none', stroke:'var(--yellow)', 'stroke-width':1.4 }));
-        readout.innerHTML = `Partial $\\zeta(2) \\approx \\pi^2/6 \\cdot (1 - \\text{tail}) = ${zetaSum.toFixed(5)}$ (target $\\pi^2/6 \\approx ${(Math.PI**2/6).toFixed(5)}$). Cyan = $\\sin x / x$; yellow = product through $N=${N}$.`;
+        readout.innerHTML = `Partial sum $\\sum_{n=1}^{${N}} 1/n^2 = ${zetaSum.toFixed(5)}$ (target $\\zeta(2)=\\pi^2/6 \\approx ${(Math.PI**2/6).toFixed(5)}$). Equating $x^2$ coefficients on both sides of the product expansion of $\\sin(x)/x$ gives Euler's identity. Cyan = $\\sin x / x$; yellow = product through $N=${N}$.`;
         renderKatex(readout);
       }
       ctl.querySelector('input').addEventListener('input', update);
@@ -343,10 +344,10 @@
       update();
     },
 
-    // ===== 9. Modern: Ricci flow blob =====
+    // ===== 9. Modern: curve-shortening flow (the 1D analog of Ricci flow) =====
     modern(host){
-      const { body, readout } = shell(host, 'Ricci flow · curvature smooths a blob',
-        'Animate $\\partial_t g_{ij} = -2 R_{ij}$ on a closed curve. Bumps shrink, the curve circularises.');
+      const { body, readout } = shell(host, 'Curve-shortening flow · the 1D analog of Ricci',
+        'On a 1D curve the right object is curve-shortening flow ($\\partial_t \\gamma = \\kappa \\mathbf{n}$); on surfaces it becomes Ricci. Both smooth bumps and circularise.');
       const fig = svgEl('svg', { viewBox:'0 0 320 200', width:'100%', style:'background:#0a0d12;border-radius:6px' });
       body.appendChild(fig);
       const btn = document.createElement('button');

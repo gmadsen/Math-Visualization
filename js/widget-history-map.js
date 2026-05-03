@@ -157,7 +157,7 @@
     host.innerHTML = '';
     const hd = document.createElement('div');
     hd.className = 'hd';
-    hd.innerHTML = '<div class="ttl">World map of mathematical breakthroughs</div><div class="hint">Click a pin · color = era</div>';
+    hd.innerHTML = '<div class="ttl">World map of mathematical breakthroughs</div><div class="hint">Click a pin · multi-event clusters fan their rings by era, oldest at the centre</div>';
     host.appendChild(hd);
 
     // chip row

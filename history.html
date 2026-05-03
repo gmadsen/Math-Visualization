@@ -302,7 +302,7 @@
     stroke-dasharray:3 2;filter:drop-shadow(0 0 6px var(--cyan))}
   .map .pin.selected circle{stroke:var(--yellow);stroke-width:2}
   .map .pin.dim{opacity:.18}
-  .map .pin.scrub-out{opacity:.12;transition:opacity 200ms ease}
+  .map .pin.scrub-out{opacity:.28;transition:opacity 200ms ease}
   .map .pin{transition:opacity 200ms ease}
   /* Scrubber styling */
   .tl .tl-scrubber{cursor:ew-resize}
@@ -1069,7 +1069,7 @@ $$\partial_t g_{ij} = -2 R_{ij},$$
     { "id":"kolmogorov",   "name":"Andrey Kolmogorov",         "birth":1903,  "death":1987,  "era":"twentieth", "place":"Moscow",                               "blurb":"Foundations of Probability (1933) put probability on measure-theoretic axioms. Plus KAM theory, complexity, turbulence, dynamical systems, and ergodic theory. The 20th century's most consequential probabilist." },
     { "id":"doob",         "name":"Joseph Doob",               "birth":1910,  "death":2004,  "era":"twentieth", "place":"Urbana–Champaign",                     "blurb":"Stochastic Processes (1953) — the textbook that synthesized martingale theory, Markov processes, and continuous-time stochastic analysis into a single discipline." },
     { "id":"ito",          "name":"Kiyoshi Itō",               "birth":1915,  "death":2008,  "era":"twentieth", "place":"Kyoto",                                "blurb":"Itō calculus (1944, 1951) — stochastic differential equations, the Itō integral, the lemma every quant lives by. Built the bridge from Brownian motion to modern financial mathematics, decades before Black–Scholes." },
-    { "id":"seki-takakazu","name":"Seki Takakazu",             "birth":1642,  "death":1708,  "era":"renaissance","place":"Edo",                                "blurb":"Founder of the wasan tradition. Discovered determinants ten years before Leibniz; tabulated Bernoulli numbers before Bernoulli; methods for elimination of variables. The 17th-century Edo school developed in parallel with European calculus and mostly without contact." },
+    { "id":"seki-takakazu","name":"Seki Takakazu",             "birth":1642,  "death":1708,  "era":"renaissance","place":"Edo",                                "blurb":"Founder of the wasan tradition. Independently discovered determinants in 1683 (the same year as Leibniz's letter to L'Hôpital — neither knew of the other); tabulated Bernoulli numbers before Bernoulli; methods for elimination of variables. The 17th-century Edo school developed in parallel with European calculus and mostly without contact." },
     { "id":"frobenius",    "name":"Ferdinand Georg Frobenius", "birth":1849,  "death":1917,  "era":"enlightenment","place":"Berlin",                            "blurb":"Founded representation theory of finite groups (character tables, 1896). Independently discovered the Cayley–Hamilton theorem; the Frobenius automorphism in number theory; matrix theory." },
     { "id":"hausdorff",    "name":"Felix Hausdorff",           "birth":1868,  "death":1942,  "era":"twentieth", "place":"Bonn",                                 "blurb":"Grundzüge der Mengenlehre (1914) — the textbook that defined topology, separation axioms, metric spaces, ordered sets, and Hausdorff dimension. Took his own life in 1942 to avoid the Nazi camps." },
     { "id":"fisher",       "name":"Ronald A. Fisher",          "birth":1890,  "death":1962,  "era":"twentieth", "place":"Rothamsted / Cambridge",               "blurb":"Statistical Methods for Research Workers (1925) — the textbook that gave us p-values, ANOVA, design of experiments, maximum likelihood, and Fisher information. Also a controversial eugenicist whose statistical innovations are inseparable from a darker political legacy." },
@@ -1148,7 +1148,7 @@ $$\partial_t g_{ij} = -2 R_{ij},$$
     { "year":1637, "era":"renaissance","title":"Descartes's Géométrie","who":["descartes"],"city":"Leiden","region":"Dutch Republic","lat":52.16,"lng":4.49,"summary":"An appendix to the Discourse on Method: algebra and geometry fused. Curves become equations.","topicAnchor":"./projective-plane.html" },
     { "year":1637, "era":"renaissance","title":"Fermat's Last Theorem (margin)","who":["fermat"],"city":"Toulouse","region":"France","lat":43.60,"lng":1.44,"summary":"In the margin of Diophantus, Fermat claims $a^n + b^n = c^n$ has no positive integer solutions for $n>2$. The truly marvellous proof is missing for 358 years.","topicAnchor":"./modularity-and-flt.html" },
     { "year":1654, "era":"renaissance","title":"Pascal–Fermat correspondence","who":["pascal","fermat"],"city":"Paris","region":"France","lat":48.86,"lng":2.35,"summary":"Letters about a gambling problem invent probability theory. Pascal's triangle gets its modern presentation.","topicAnchor":"./probability-theory.html" },
-    { "year":1683, "era":"renaissance","title":"Seki's determinants and wasan","who":["seki-takakazu"],"city":"Edo","region":"Tokugawa Japan","lat":35.68,"lng":139.69,"summary":"Seki Takakazu publishes a method for solving systems of equations via what we now call determinants — a decade before Leibniz independently rediscovers them. The Japanese wasan tradition develops calculus-adjacent techniques in near-total isolation from Europe.","topicAnchor":null },
+    { "year":1683, "era":"renaissance","title":"Seki's determinants and wasan","who":["seki-takakazu"],"city":"Edo","region":"Tokugawa Japan","lat":35.68,"lng":139.69,"summary":"Seki Takakazu's manuscript on solving systems of equations introduces what we now call determinants — independently, in the same year as Leibniz's first determinant letter. The Japanese wasan tradition develops calculus-adjacent techniques in near-total isolation from Europe.","topicAnchor":null },
     { "year":1684, "era":"renaissance","title":"Leibniz's calculus","who":["leibniz"],"city":"Leipzig","region":"Holy Roman Empire","lat":51.34,"lng":12.37,"summary":"Nova Methodus pro Maximis et Minimis: differentials $dx$, $dy$, the integral sign. Notation that survives to today.","topicAnchor":"./real-analysis.html" },
     { "year":1687, "era":"renaissance","title":"Newton's Principia","who":["newton"],"city":"Cambridge","region":"England","lat":52.20,"lng":0.12,"summary":"Philosophiæ Naturalis Principia Mathematica: laws of motion and universal gravitation, derived from the calculus of fluxions.","topicAnchor":"./hamiltonians-classical-mechanics.html" },
     { "year":1713, "era":"enlightenment","title":"Bernoulli's law of large numbers","who":["bernoulli-jakob"],"city":"Basel","region":"Swiss Confederacy","lat":47.56,"lng":7.59,"summary":"Ars Conjectandi (posthumous) — the first proof of a law of large numbers, the bedrock of statistics.","topicAnchor":"./probability-theory.html" },
@@ -1370,16 +1370,27 @@ document.addEventListener('DOMContentLoaded', function(){
   // ===== Person-card sub-icons =====
   // For ids that have an entry in MVHistoryIcons, swap the 2-letter
   // monogram out for a hand-drawn SVG glyph. Other cards keep the
-  // monogram fallback.
-  if(window.MVHistoryIcons){
-    document.querySelectorAll('.person[data-person-id]').forEach(el => {
-      const id = el.dataset.personId;
+  // monogram fallback. Each card also picks up its mathematician's era
+  // color via --accent, so the glyph + bus-highlight inherit the right
+  // tint instead of falling back to yellow for everyone.
+  const personById = new Map((data.people || []).map(p => [p.id, p]));
+  const eraColorMap = new Map((data.eras || []).map(e => [e.id, e.color]));
+  document.querySelectorAll('.person[data-person-id]').forEach(el => {
+    const id = el.dataset.personId;
+    const person = personById.get(id);
+    if(person){
+      const era = person.era;
+      const color = eraColorMap.get(era);
+      if(color) el.style.setProperty('--accent', color);
+    }
+    if(window.MVHistoryIcons){
       const svg = window.MVHistoryIcons.get(id);
-      if(!svg) return;
-      const glyph = el.querySelector('.glyph');
-      if(glyph) glyph.innerHTML = svg;
-    });
-  }
+      if(svg){
+        const glyph = el.querySelector('.glyph');
+        if(glyph) glyph.innerHTML = svg;
+      }
+    }
+  });
 
   // ===== Inline `.person` card → cross-widget bus =====
   // Each `.person[data-person-id]` card is clickable. Wire them to the bus
@@ -1390,11 +1401,21 @@ document.addEventListener('DOMContentLoaded', function(){
     const fire = () => {
       if(window.MVHistoryBus) window.MVHistoryBus.selectPerson(id);
     };
-    el.addEventListener('click', fire);
+    el.addEventListener('click', e => {
+      // Don't hijack inner-link navigation. Without this guard a click on an
+      // `<a href="./topic.html">` inside the card would fire the bus AND
+      // navigate, briefly pulsing siblings before the page changes.
+      if(e.target.closest('a')) return;
+      fire();
+    });
     el.tabIndex = 0;
-    el.setAttribute('role', 'button');
-    el.setAttribute('aria-label', 'Highlight ' + (el.querySelector('.pname')?.textContent || id) + ' on the timeline, map, and lineage');
+    // Use role=group rather than button — the card already contains
+    // anchor children, and ARIA forbids button > link nesting.
+    el.setAttribute('role', 'group');
+    el.setAttribute('aria-label', 'Card for ' + (el.querySelector('.pname')?.textContent || id) + ' — Enter or click to highlight on the timeline, map, and lineage');
     el.addEventListener('keydown', e => {
+      // Don't intercept key events that originated inside an <a> child.
+      if(e.target.closest('a')) return;
       if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); fire(); }
     });
   });

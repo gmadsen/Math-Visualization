@@ -270,7 +270,16 @@
     // axis. The current year shows above it; the map widget listens on the
     // bus and fades out pins outside ±50 years of the cursor.
     const SCRUB_INIT_YEAR = 1500;
-    const scrubGroup = el('g', { 'class':'tl-scrubber', 'aria-hidden':'true' });
+    let scrubYearState = SCRUB_INIT_YEAR;
+    const scrubGroup = el('g', {
+      'class':'tl-scrubber',
+      tabindex: 0,
+      role: 'slider',
+      'aria-label': 'Year scrubber — drag or use ← / → / Home / End to filter the world map by year',
+      'aria-valuemin': SEGMENTS[0][0],
+      'aria-valuemax': SEGMENTS[SEGMENTS.length-1][1],
+      'aria-valuenow': SCRUB_INIT_YEAR
+    });
     const scrubLine = el('line', {
       x1: 0, y1: ERA_BAND_TOP, x2: 0, y2: AXIS_Y,
       stroke: 'var(--yellow)', 'stroke-width': 1.4,
@@ -303,10 +312,24 @@
       scrubGrip.setAttribute('x', x - 8);
       scrubLabel.setAttribute('x', x);
       scrubLabel.textContent = fmtYear(cy);
-      if(window.MVHistoryBus) window.MVHistoryBus.scrubYear(cy);
+      scrubGroup.setAttribute('aria-valuenow', cy);
+      scrubGroup.setAttribute('aria-valuetext', fmtYear(cy));
+      scrubYearState = cy;
+      // Throttle bus emissions: only re-broadcast when the integer year
+      // changes. Pointer-move can fire 60+/s; without this every map pin
+      // would have its classList toggled at that rate.
+      if(window.MVHistoryBus && cy !== lastEmitYear){
+        lastEmitYear = cy;
+        window.MVHistoryBus.scrubYear(cy);
+      }
     }
-    setScrubYear(SCRUB_INIT_YEAR);
+    // Initial scrub-year emit happens after the current macrotask so the
+    // map widget's bus listener has a chance to register first (timeline
+    // init runs before map init in the bootstrapper). Without the
+    // setTimeout we'd emit while map listeners don't exist yet.
+    setTimeout(() => setScrubYear(SCRUB_INIT_YEAR), 0);
     let dragging = false;
+    let lastEmitYear = null;
     function pointerToYear(e){
       const rect = svg.getBoundingClientRect();
       const xCss = e.clientX - rect.left;
@@ -326,6 +349,14 @@
     function endDrag(){ dragging = false; }
     scrubGrip.addEventListener('pointerup', endDrag);
     scrubGrip.addEventListener('pointercancel', endDrag);
+    scrubGroup.addEventListener('keydown', e => {
+      // Coarse step keys: ← / →. Fine: shift+arrow. Home/End jump to bounds.
+      const fine = e.shiftKey ? 10 : 50;
+      if(e.key === 'ArrowLeft'){ setScrubYear(scrubYearState - fine); e.preventDefault(); }
+      else if(e.key === 'ArrowRight'){ setScrubYear(scrubYearState + fine); e.preventDefault(); }
+      else if(e.key === 'Home'){ setScrubYear(SEGMENTS[0][0]); e.preventDefault(); }
+      else if(e.key === 'End'){ setScrubYear(SEGMENTS[SEGMENTS.length-1][1]); e.preventDefault(); }
+    });
     // Click on the scrubber background also jumps the cursor.
     svg.addEventListener('click', e => {
       // Don't interfere with dot clicks — those already toggle selection.
