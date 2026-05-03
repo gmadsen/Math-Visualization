@@ -22,7 +22,16 @@
 (function () {
   try {
     var html = document.documentElement;
-    if (html.classList.contains('katex-pending')) return; // idempotent
+    // The pending class is normally added synchronously by js/theme-toggle.js
+    // BEFORE this script loads — that's the whole point: get opacity:0 onto
+    // <html> before first paint. classList.add is idempotent, so re-adding
+    // here is a no-op for the common case and a safety net for pages that
+    // load this script directly without theme-toggle.
+    //
+    // An earlier version returned early when the class was already present;
+    // that skipped the reveal triggers below and left every theme-toggle.js
+    // page stuck at opacity:0 forever (only the top-nav was visible, since
+    // <main> + section.hero are hidden by the FOUC rule). Don't reinstate.
     html.classList.add('katex-pending');
 
     var revealed = false;
