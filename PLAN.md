@@ -14,70 +14,41 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 - Quiz tiers: v1 = 2900, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 - Tag coverage: ~80%. Worst remaining sections: number-theory 63%, higher-categories 71%, logic-and-foundations 76%, geometry-and-topology 78%, algebraic-geometry 78%. (Analysis/probability/modular-forms/combinatorics closed to 85–93% in PR #49.)
 
-## History page expansion (in flight on `history-feature-batch`)
+## History page follow-ups
 
-Distillate of three review-agent proposal reports run after the history.html
-ship (PRs #71, #72). Goal: turn the page from a "good first cut" into the
-site highlight the user wants. Items are ordered roughly by dependency, not
-by impact; the bigger UX moments (#7, #8, #9) build on the smaller content +
-infrastructure additions ahead of them. Delete bullets as they ship.
+Items deferred from the multi-agent review of PRs #71, #72, #73. Not blocking;
+land them when adjacent work brings the file open.
 
-1. **Probability lineage tree.** Add a 6th lineage to `lineages[]`:
-   Pascal/Fermat → Huygens → J. Bernoulli → de Moivre → Laplace →
-   Chebyshev → Markov → Kolmogorov → Doob → Itō. Pure JSON.
-2. **Concentric era rings on busy map clusters.** Today a cluster pin uses
-   the era of its most recent event, hiding the multi-era depth of cities
-   like Alexandria (4 events spanning 600 years). Replace the single circle
-   in `widget-history-map.js` with concentric arcs colored by event era,
-   sorted by year (innermost = oldest).
-3. **Era-color scroll wash.** Tie a `--current-era-color` CSS variable to
-   the era section currently in the viewport (via `IntersectionObserver`).
-   A 3-px left stripe and the sidetoc `.active` color both follow that
-   variable so prose, sidetoc, and visible widgets share a coordinated tint
-   per era.
-4. **Content gaps — missing people, events, lineage nodes.** Add JSON
-   `people[]` entries for Mac Lane, Eilenberg, Kolmogorov, Faltings,
-   Tarski, Julia Robinson, Conway, Seki Takakazu (wasan), Sophie Germain
-   (already added narrative; ensure event coverage), Lawvere. Add events
-   with `topicAnchor` for: Frobenius 1896 (representation theory),
-   Hausdorff 1914 (point-set topology), Fisher 1925 (mathematical
-   statistics), Cartan-Eilenberg 1956 (homological algebra), Langlands
-   1967 (Langlands program). Each event closes a "zero-inbound" gap
-   between an existing topic page and the history hub.
-5. **Cross-widget selection bus.** Tiny `MVHistoryBus` (CustomEvent or
-   shared dispatcher) wired through all three widget `init()` calls.
-   Selecting a person on any surface (timeline dot, map pin, lineage
-   node, inline `.person` card) highlights the same person across the
-   other surfaces and the inline narrative anchor. Inline person cards
-   gain `data-person-id` so they hook in. Foundation for #6 below.
-6. **Timeline scrubber driving the map.** A vertical line over the
-   timeline you can drag along the year axis; map pins fade to 10%
-   outside ±50 years of the cursor, year readout floats above. The
-   single most kinetic-delight change for the page's polish ceiling.
-7. **Person-card sub-icons.** Replace the 2-letter glyph monogram for
-   ~12–15 of the densest figures with a small (24×24) hand-drawn SVG
-   icon: $\zeta$ for Riemann, Cantor-set strip for Cantor, $\partial$
-   for Grothendieck, etc. Stored alongside `person.icon` in the JSON;
-   render in `.person .glyph` when present, fall back to monogram.
-8. **Per-era inline interactives.** One small widget per era (≤80 lines
-   of inline JS each, no registry promotion):
-   - Prehistory: tally counter (subitizing demo)
-   - Ancient: Plimpton-322 triple generator $(p^2-q^2, 2pq, p^2+q^2)$
-   - Classical: Euclid Book I prop. 1 animator (compass-arc construction)
-   - Asian-Islamic: al-Khwārizmī completing-the-square slider
-   - Medieval: Oresme harmonic-series dyadic-grouping visualiser
-   - Renaissance: Cardano cubic dial $x^3 + px = q$ (with $\Delta<0$
-     branch into imaginary)
-   - Enlightenment: Euler's $\sin(x)/x$ partial-product convergence to
-     $\zeta(2)=\pi^2/6$
-   - 20th C: Gödel-numbering encoder
-   - 21st C: Ricci flow on a 2D blob
-9. **`audit-history-links.mjs` advisory script.** Walks every outbound
-   `<a href="./*.html…">` and `events[].topicAnchor` in `history.html`,
-   cross-references against the on-disk topic-page slug roster + per-page
-   `id="…"` anchors, reports broken anchors / dead slugs / topic pages
-   with zero inbound from history. Output to `audits/`. Without it the
-   cross-link map silently rots as new pages ship.
+- **Bio-light lineage nodes.** 14 nodes across the calculus / groups /
+  foundations / FLT lineages still resolve to "no further bio in the dataset"
+  on click (cavalieri, jordan, lie, frege, peano, russell, zermelo, gentzen,
+  hamilton, dirichlet, kummer, taniyama, frey, ribet). Each needs a
+  one-paragraph `people[]` entry — purely additive.
+- **Plimpton-322 toy primitive-conditions caveat.** The triple generator
+  produces all primitive Pythagorean triples only when `gcd(p,q)=1` and `p,q`
+  have opposite parity. The current readout doesn't say so. Add a one-line
+  caveat or a small "primitive only ✓" indicator.
+- **Gödel-numbering toy disclaimer.** The toy demonstrates *a* Gödel
+  numbering, not Gödel's original (which encoded formula structure, not raw
+  codepoints). Add a one-line caveat to the readout.
+- **Era-toy CSS harmonisation.** The 9 inline toys were each scratch-styled.
+  Promote a shared `.era-toy` ruleset (panel chrome, slider widths, readout
+  spacing) so they read as one feature instead of nine.
+- **Light-theme audit on the 4 dark-bg toys.** Euclid I.1, Ricci/curve-shortening,
+  Plimpton-322, and a couple of others hardcode `#0a0d12` on the inner SVG
+  for contrast with the bright stroke colours. In light theme the dark
+  rectangle floats inside the white panel; either harmonize with `.tl-detail`'s
+  always-dark pattern or theme-track the inner backgrounds.
+- **Audit `history-link-coverage.md` zero-inbound list grouping.** 95-item
+  flat list overwhelms. Group by `concepts/sections.json` so the report
+  surfaces "every Probability & statistics page is zero-inbound" rather than
+  scattering them through alphabetical order.
+- **Scrubber discoverability.** The `aria-label` and keyboard nav land for
+  AT users; sighted users still get only a static yellow grip. Consider a
+  one-time animated "← drag me →" hint that fades after first interaction.
+- **Eilenberg–Mac Lane 1945 location.** The event lists Bloomington as the
+  city. Both authors had moved by 1945; verify against the actual paper's
+  affiliation and update.
 
 ## Near-term tasks
 
