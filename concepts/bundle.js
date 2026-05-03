@@ -484,9 +484,9 @@ window.__MVConcepts = {
       "concepts": [
         {
           "id": "langlands-philosophy",
-          "title": "The philosophy: arithmetic on one side, analytic on the other",
+          "title": "Philosophy: arithmetic vs. analytic columns",
           "anchor": "philosophy",
-          "blurb": "Two columns. Arithmetic side: $n$-dim Galois reps $\\rho\\colon \\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q}) \\to \\GL_n(\\mathbb{Q}_\\ell)$ from cohomology of varieties. Analytic side: cuspidal automorphic reps $\\pi$ of $\\GL_n(\\mathbb{A}_\\mathbb{Q})$. The conjecture: bijection mediated by L-functions, $L(\\rho,s) = L(\\pi,s)$.",
+          "blurb": "Two columns. Arithmetic: $n$-dim Galois reps from cohomology of varieties. Analytic: cuspidal automorphic reps of $\\GL_n(\\mathbb{A}_\\mathbb{Q})$. Conjecture: bijection mediated by L-functions, $L(\\rho,s) = L(\\pi,s)$.",
           "prereqs": [
             "galois-representations:galois-rep-definition",
             "automorphic-forms-adelic:automorphic-form-definition"
@@ -505,7 +505,7 @@ window.__MVConcepts = {
         },
         {
           "id": "local-langlands-gl-n",
-          "title": "Local Langlands for GL_n",
+          "title": "Local Langlands for $\\GL_n$",
           "anchor": "local",
           "blurb": "Bijection between $n$-dim Frobenius-semisimple Weil-Deligne reps of $W_{\\mathbb{Q}_v}$ and irreducible smooth admissible reps of $\\GL_n(\\mathbb{Q}_v)$. Proven for $p$-adic places (Harris-Taylor, Henniart 2001) and archimedean (Langlands 1973).",
           "prereqs": [
@@ -514,7 +514,7 @@ window.__MVConcepts = {
         },
         {
           "id": "global-langlands-gl-n",
-          "title": "Global Langlands for GL_n",
+          "title": "Global Langlands for $\\GL_n$",
           "anchor": "global",
           "blurb": "Bijection between geometric $n$-dim Galois reps and algebraic cuspidal automorphic reps of $\\GL_n(\\mathbb{A}_\\mathbb{Q})$, compatible with local Langlands at each place. Proven for $n=1$ (CFT) and substantially for $n=2$ (modular elliptic curves + Serre's conjecture).",
           "prereqs": [
@@ -524,9 +524,9 @@ window.__MVConcepts = {
         },
         {
           "id": "cft-as-langlands",
-          "title": "Class field theory as Langlands for GL_1",
+          "title": "Class field theory as Langlands for $\\GL_1$",
           "anchor": "cft-as-gl1",
-          "blurb": "The abelian case. $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}} \\cong \\widehat{\\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times}$. Galois characters $\\leftrightarrow$ Hecke characters; Artin L-functions = Hecke L-functions. Historical prototype Langlands generalised.",
+          "blurb": "The abelian case. Artin reciprocity gives a continuous surjection $\\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times \\twoheadrightarrow \\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}}$. Galois characters $\\leftrightarrow$ Hecke characters; Artin L-functions = Hecke L-functions. Historical prototype Langlands generalised.",
           "prereqs": [
             "global-langlands-gl-n",
             "class-field-theory:artin-map-cft"
@@ -534,7 +534,7 @@ window.__MVConcepts = {
         },
         {
           "id": "gl2-modularity",
-          "title": "Modularity: the proven GL_2 case",
+          "title": "Modularity: the proven $\\GL_2$ case",
           "anchor": "modularity",
           "blurb": "Wiles + Taylor-Wiles + BCDT: every elliptic curve $E/\\mathbb{Q}$ has $L(E,s) = L(f,s)$ for a weight-2 cusp form $f$ of level $\\mathrm{cond}(E)$. Khare-Wintenberger (Serre's conjecture): every odd irreducible mod-$\\ell$ Galois rep is modular.",
           "prereqs": [

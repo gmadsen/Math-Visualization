@@ -17,7 +17,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./langlands-program.html#l-bridge\">The Langlands program</a> · L-functions: the bridge</div>\n    <div><a href=\"./langlands-program.html#local\">The Langlands program</a> · Local Langlands for GL_n</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./langlands-program.html#l-bridge\">The Langlands program</a> · L-functions: the bridge</div>\n    <div><a href=\"./langlands-program.html#local\">The Langlands program</a> · Local Langlands for $\\GL_n$</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -39,7 +39,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./langlands-program.html#global\">The Langlands program</a> · Global Langlands for GL_n</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./langlands-program.html#global\">The Langlands program</a> · Global Langlands for $\\GL_n$</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -61,7 +61,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./langlands-program.html#global\">The Langlands program</a> · Global Langlands for GL_n</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./langlands-program.html#global\">The Langlands program</a> · Global Langlands for $\\GL_n$</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",
@@ -83,7 +83,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./langlands-program.html#cft-as-gl1\">The Langlands program</a> · Class field theory as Langlands for GL_1</div>\n    <div><a href=\"./langlands-program.html#functoriality\">The Langlands program</a> · Functoriality and the Langlands group</div>\n    <div><a href=\"./langlands-program.html#modularity\">The Langlands program</a> · Modularity: the proven GL_2 case</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./langlands-program.html#cft-as-gl1\">The Langlands program</a> · Class field theory as Langlands for $\\GL_1$</div>\n    <div><a href=\"./langlands-program.html#functoriality\">The Langlands program</a> · Functoriality and the Langlands group</div>\n    <div><a href=\"./langlands-program.html#modularity\">The Langlands program</a> · Modularity: the proven $\\GL_2$ case</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

@@ -28849,12 +28849,12 @@ window.MVQuizBank = {
             "q": "What does the monodromy operator $N$ in a Weil-Deligne representation $(\\rho, N)$ encode?",
             "choices": [
               "the determinant of $\\rho$",
-              "the unipotent action of inertia: $N$ records the part of inertia not visible to the Frobenius-semisimple Weil rep $\\rho$",
+              "the unipotent action of inertia — the piece of $\\Gal$-action that is missing from the Weil-rep factor $\\rho$ when inertia acts non-trivially through unipotent matrices",
               "the residue field characteristic",
               "the trace of $\\rho(\\Frob)$"
             ],
             "answer": 1,
-            "explain": "Inertia $I_v$ acts unipotently in many cases of interest (e.g. cuspidal Galois reps of conductor exactly $p$). The Weil rep $\\rho$ is Frobenius-semisimple by construction; $N$ logs the unipotent inertia action. Together $(\\rho, N)$ recover the full local Galois rep up to isomorphism."
+            "explain": "Concrete example: the Steinberg representation of an elliptic curve with multiplicative reduction at $p$ has $\\rho$ unramified (action on the inertia-invariants is just multiplication by Frobenius eigenvalues) but the full local Galois rep also acts non-trivially through inertia via a unipotent matrix; $N = \\log$ of that unipotent piece. Together, $(\\rho, N)$ recover the full local Galois rep up to isomorphism. The 'Frobenius-semisimple' adjective is a separate condition imposed on $\\rho$ (it's not automatic from the construction)."
           },
           {
             "type": "mcq",
@@ -28887,26 +28887,29 @@ window.MVQuizBank = {
           },
           {
             "type": "matching",
-            "q": "Match each proven case to the team that proved it:",
+            "q": "Match each proven case to the team(s) that proved it:",
             "left": [
-              "Class field theory (Langlands for GL_1)",
-              "Modularity for semistable elliptic curves over $\\mathbb{Q}$",
-              "Local Langlands for GL_n over $p$-adic fields",
+              "Class field theory (Langlands for $\\GL_1$)",
+              "Modularity for <em>semistable</em> elliptic curves over $\\mathbb{Q}$",
+              "Modularity for <em>all</em> elliptic curves over $\\mathbb{Q}$",
+              "Local Langlands for $\\GL_n$ over $p$-adic fields",
               "Serre's conjecture (mod-$\\ell$ Langlands for $\\GL_2$)"
             ],
             "right": [
               "Wiles + Taylor-Wiles (1995)",
-              "Khare-Wintenberger (2009)",
+              "Breuil-Conrad-Diamond-Taylor (2001)",
+              "Khare-Wintenberger (2008-09)",
               "Artin and others (1920s, building on Hilbert + Takagi)",
               "Harris-Taylor + Henniart (2001)"
             ],
             "answer": [
-              2,
-              0,
               3,
-              1
+              0,
+              1,
+              4,
+              2
             ],
-            "explain": "Each case corresponds to a specific $n$ or local-vs-global half of the program. Together they map out which corners of the Langlands picture are unconditional and which remain conjectural."
+            "explain": "The semistable / general split for modularity is historically important: Wiles + Taylor-Wiles (1995) proved modularity in the semistable case (sufficient for FLT). The full statement — every elliptic curve over $\\mathbb{Q}$ is modular — required additional ramification cases handled by Breuil-Conrad-Diamond-Taylor (2001), now usually shortened to BCDT. Together they map out which corners of the Langlands picture are unconditional and which remain conjectural."
           },
           {
             "type": "mcq",
@@ -28939,15 +28942,15 @@ window.MVQuizBank = {
           },
           {
             "type": "mcq",
-            "q": "Artin's reciprocity isomorphism (the heart of CFT) is:",
+            "q": "The Artin reciprocity map (the heart of CFT) is:",
             "choices": [
-              "$\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q}) = \\mathbb{Q}^\\times$",
-              "$\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}} \\cong \\widehat{\\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times}$ — abelian Galois group is the Pontryagin dual of the idèle class group",
-              "$\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ is finite",
-              "every Galois rep is 1-dimensional"
+              "an isomorphism $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q}) \\cong \\mathbb{Q}^\\times$",
+              "a continuous surjection $\\theta\\colon \\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times \\twoheadrightarrow \\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}}$, with kernel = connected component of the identity in the idèle class group; passing to profinite completion gives an isomorphism",
+              "a finite-index inclusion of the absolute Galois group into the idèles",
+              "the statement that every Galois rep is 1-dimensional"
             ],
             "answer": 1,
-            "explain": "The continuous characters of $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}}$ form a discrete group isomorphic to the Pontryagin dual of the idèle class group. Equivalently: every continuous character of $\\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times$ corresponds to a character of $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}}$."
+            "explain": "Artin's reciprocity is the surjection $\\theta\\colon C_\\mathbb{Q} := \\mathbb{A}_\\mathbb{Q}^\\times / \\mathbb{Q}^\\times \\twoheadrightarrow \\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})^{\\mathrm{ab}}$. It is the heart of CFT in its surjective-with-kernel-known form — the kernel is the connected component of the identity in $C_\\mathbb{Q}$ (the archimedean part). After profinite completion of $C_\\mathbb{Q} / (\\mathrm{conn. comp.})$, $\\theta$ becomes an isomorphism. Pontryagin duality then gives: characters of $\\Gal^{\\mathrm{ab}}$ ↔ characters of $C_\\mathbb{Q}$ trivial on connected component, equivalently Hecke characters."
           },
           {
             "type": "mcq",
@@ -28968,7 +28971,7 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "The Modularity Theorem says: for every elliptic curve $E/\\mathbb{Q}$, there exists a weight-2 cusp form $f$ of level $N = \\mathrm{cond}(E)$ with which property?",
+            "q": "The Modularity Theorem says: for every elliptic curve $E/\\mathbb{Q}$, there exists a unique normalised newform $f \\in S_2^{\\mathrm{new}}(\\Gamma_0(N))$ where $N = \\mathrm{cond}(E)$, with which property?",
             "choices": [
               "$f$ has the same conductor",
               "$L(E, s) = L(f, s)$ — the L-functions agree",
@@ -28976,7 +28979,7 @@ window.MVQuizBank = {
               "$f$ vanishes at $\\infty$"
             ],
             "answer": 1,
-            "explain": "Equality of L-functions is the content. Equivalently: the $\\ell$-adic Galois representation $\\rho_{E,\\ell}$ (from the Tate module of $E$) is isomorphic to the Galois representation $\\rho_{f,\\ell}$ associated to the modular form $f$ (Eichler-Shimura)."
+            "explain": "Equality of L-functions is the content. The 'newform' qualification matters: $f$ must be a normalised Hecke eigenform <em>not</em> coming from a strictly lower level — otherwise the matching $a_p(E) = a_p(f)$ would only hold up to twist by an oldform. Eichler-Shimura's earlier theorem constructs $\\rho_{f,\\ell}$ for any weight-2 newform; modularity is the stronger reverse direction (every $\\rho_{E,\\ell}$ comes from such an $f$)."
           },
           {
             "type": "mcq",
@@ -29009,15 +29012,15 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "mcq",
-            "q": "Functoriality predicts: given a homomorphism ${}^L H \\to {}^L G$ between Langlands dual groups, every automorphic representation $\\pi$ of $H(\\mathbb{A}_\\mathbb{Q})$ lifts to one of $G(\\mathbb{A}_\\mathbb{Q})$. Symmetric-power liftings $\\Sym^k$ from $\\GL_2$ to $\\GL_{k+1}$ are unconditionally known up to which $k$?",
+            "q": "For a *general* cuspidal automorphic $\\pi$ on $\\GL_2(\\mathbb{A}_\\mathbb{Q})$ (not necessarily from a modular form), symmetric-power lifts $\\Sym^k \\pi$ to $\\GL_{k+1}(\\mathbb{A}_\\mathbb{Q})$ are *unconditionally* known up to which $k$?",
             "choices": [
-              "$k = 1$",
-              "$k = 4$ (Kim 2003), with all symmetric powers proven for cuspidal modular forms by Newton-Thorne (2020)",
-              "$k = \\infty$",
+              "$k = 1$ (trivial lift only)",
+              "$k = 4$ (Kim-Shahidi 2002 for $k = 3$; Kim 2003 for $k = 4$)",
+              "$k = \\infty$ (all $k$ unconditionally for any $\\pi$)",
               "$k = 100$"
             ],
             "answer": 1,
-            "explain": "Kim-Shahidi (2002) proved $\\Sym^3$ functoriality from $\\GL_2$ to $\\GL_4$; Kim (2003) extended to $\\Sym^4$ (i.e. $\\GL_5$). Newton-Thorne (2020) proved all symmetric power liftings unconditionally for cuspidal modular forms. These liftings are what yields concrete automorphic L-functions $L(\\Sym^k \\rho, s)$ — necessary for, e.g., Sato-Tate."
+            "explain": "For *general* cuspidal $\\pi$, the proven cases are Sym$^3$ (Kim-Shahidi 2002) and Sym$^4$ (Kim 2003). The stronger Newton-Thorne (2020) theorem extends to *all* $k$ but only when $\\pi$ comes from a cuspidal modular form (the more restricted cases that suffice for Sato-Tate's symmetric-power consequences). General-case $\\Sym^5$ and beyond remain open."
           },
           {
             "type": "mcq",
@@ -29050,12 +29053,12 @@ window.MVQuizBank = {
         "questions": [
           {
             "type": "multi-select",
-            "q": "Which of the following are statements that the Langlands program (in some form) unifies?",
+            "q": "Which of the following does the Langlands program (in some form) <em>unify or directly predict</em> — as opposed to merely sit alongside?",
             "choices": [
-              "Class field theory",
-              "Modularity of elliptic curves and the Sato-Tate conjecture",
-              "The Riemann hypothesis for automorphic L-functions (GRH)",
-              "The Hodge conjecture and the Tate conjecture"
+              "Class field theory (proved as Langlands for $\\GL_1$)",
+              "Modularity of elliptic curves over $\\mathbb{Q}$ and the Sato-Tate conjecture (consequences of $\\GL_2$ Langlands + symmetric-power lifting)",
+              "The generalized Riemann hypothesis for automorphic L-functions (predicted by — but not implied by — automorphy)",
+              "The Tate conjecture (sits on the conjectural $G_\\mathrm{mot} \\to L_F$ compatibility)"
             ],
             "answer": [
               0,
@@ -29063,19 +29066,19 @@ window.MVQuizBank = {
               2,
               3
             ],
-            "explain": "All four. CFT is Langlands at $n=1$; modularity is Langlands for $\\GL_2$ over $\\mathbb{Q}$; Sato-Tate is the Sym-power lifting consequence; GRH is conjectured for L-functions of automorphic reps; Hodge / Tate conjectures sit on the predicted compatibility map between $G_{\\mathrm{mot}}$ and $L_F$. The Langlands program is the conjectural unifying framework for all of these."
+            "explain": "All four, with the relationships disentangled: (0) CFT is the case $n = 1$ — proved (Artin reciprocity + Tate's thesis). (1) Modularity for $E/\\mathbb{Q}$ and Sato-Tate are consequences of $\\GL_2$-automorphy plus Sym$^k$-functoriality (Newton-Thorne 2020 finished the symmetric powers). (2) GRH for automorphic L-functions is <em>predicted</em> by Langlands' framework but is independent: the dictionary doesn't imply zeros lie on $\\Re s = 1/2$. (3) The Tate conjecture sits on the conjectural compatibility of the motivic Galois group with $L_F$; the Hodge conjecture itself is more directly a statement about complex geometry, so the link to automorphy is via motives rather than direct."
           },
           {
             "type": "mcq",
-            "q": "Geometric Langlands (Drinfeld, Beilinson, Mukai) replaces the field $\\mathbb{Q}$ with what?",
+            "q": "Geometric Langlands (Drinfeld for $\\GL_2$ in the 1980s; Laumon, Beilinson-Drinfeld, Lafforgue, Frenkel-Gaitsgory, Gaitsgory et al. since) replaces $\\mathbb{Q}$ with what?",
             "choices": [
               "the field $\\mathbb{C}$",
-              "the function field $\\mathbb{F}_q(C)$ of a smooth projective curve $C/\\mathbb{F}_q$",
+              "the function field $\\mathbb{F}_q(C)$ of a smooth projective curve $C/\\mathbb{F}_q$ — equivalently, the curve itself",
               "the rationals over $\\mathbb{R}$",
               "the surreal numbers"
             ],
             "answer": 1,
-            "explain": "Geometric Langlands works over function fields, with the curve $C$ replacing $\\mathrm{Spec}\\,\\mathbb{Z}$. The correspondence becomes: $\\ell$-adic local systems on $C$ ↔ Hecke eigensheaves on the moduli of $G$-bundles $\\mathrm{Bun}_G(C)$. Drinfeld proved this for $\\GL_2$; substantial general progress since (Frenkel-Gaitsgory-Vilonen, Lafforgue, Gaitsgory et al.)."
+            "explain": "Geometric Langlands works over function fields, with the curve $C$ replacing $\\mathrm{Spec}\\,\\mathbb{Z}$. The correspondence becomes: $\\ell$-adic local systems on $C$ ↔ Hecke eigensheaves on the moduli of $G$-bundles $\\mathrm{Bun}_G(C)$. Drinfeld proved $\\GL_2$ in the 1980s; Lafforgue extended to $\\GL_n$ (Fields Medal 2002, function-field analogue); the parallel sheaf-theoretic geometric formulation has been developed by Beilinson-Drinfeld, Frenkel-Gaitsgory, and Gaitsgory and collaborators."
           },
           {
             "type": "mcq",

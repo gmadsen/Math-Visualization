@@ -1064,22 +1064,22 @@ const SVG = (tag,attrs={})=>{
 <ol class="tour">
   <li>
     <span class="stop-section">Number theory</span>
-    <span class="stop-title"><a href="./galois-representations.html#galois-rep-definition">Galois representations</a></span>
+    <span class="stop-title"><a href="./galois-representations.html#rep">Galois representations</a></span>
     <p class="bridge">A Galois representation is a continuous homomorphism $\rho\colon \Gal(\overline{\mathbb{Q}}/\mathbb{Q}) \to \GL_n(\mathbb{Q}_\ell)$. The most important examples come from étale cohomology of varieties over $\mathbb{Q}$: an elliptic curve $E$ gives a 2-dim $\rho_{E,\ell}$ via $V_\ell E = T_\ell E \otimes \mathbb{Q}_\ell$; a smooth projective variety $X$ gives $H^i_{\mathrm{\acute{e}t}}(X_{\overline{\mathbb{Q}}}; \mathbb{Q}_\ell)$ as a Galois module. Each such $\rho$ has an L-function: at unramified primes $p$, $L_p(\rho, s) = \det(I_n - \rho(\Frob_p) p^{-s})^{-1}$, and the global Euler product $L(\rho, s) = \prod_p L_p$ is conjecturally meromorphic on $\mathbb{C}$ with a functional equation. Until you can match $\rho$ to something on the analytic side, all of this is conjecture; but the Galois reps themselves are concrete and well-defined.</p>
   </li>
   <li>
     <span class="stop-section">Modular forms &amp; L-functions</span>
-    <span class="stop-title"><a href="./modular-forms.html#modular-form-definition">Modular forms and Hecke eigenforms</a></span>
+    <span class="stop-title"><a href="./modular-forms.html#forms">Modular forms and Hecke eigenforms</a></span>
     <p class="bridge">A modular form $f$ is a holomorphic function on the upper half-plane $\mathbb{H}$ transforming predictably under a congruence subgroup $\Gamma_0(N) \subset \mathrm{SL}_2(\mathbb{Z})$, with bounded growth at the cusps. Hecke operators $T_p$ act on $S_k(\Gamma_0(N))$, and a <em>Hecke eigenform</em> is a simultaneous eigenvector for all $T_p$. The eigenvalues $a_p(f)$ satisfy beautiful arithmetic relations and assemble into the L-function $L(f, s) = \sum a_n n^{-s}$ with Euler product $L(f, s) = \prod_p (1 - a_p p^{-s} + p^{k-1-2s})^{-1}$. Modular forms are the classical, hands-on shadow of automorphic representations of $\GL_2(\mathbb{A}_\mathbb{Q})$. The classical-to-adelic dictionary makes the connection precise.</p>
   </li>
   <li>
     <span class="stop-section">Modular forms &amp; L-functions</span>
-    <span class="stop-title"><a href="./L-functions.html#lfunction-prototype">L-functions: Euler products and functional equations</a></span>
+    <span class="stop-title"><a href="./L-functions.html#unified">L-functions: Euler products and functional equations</a></span>
     <p class="bridge">Both sides of the Langlands picture produce L-functions in the same shape: a Dirichlet series $\sum a_n n^{-s}$ that factors as an Euler product $\prod_p L_p(s)$, with each local factor coming from local data (Frobenius eigenvalues on the Galois side; Satake parameters on the automorphic side). The completed L-function $\Lambda(s) = \Gamma\text{-factor}(s) \cdot L(s)$ is conjectured to extend meromorphically to $\mathbb{C}$ and satisfy $\Lambda(s) = \varepsilon \cdot \Lambda(k - s)$ for some sign / weight $k$. On the automorphic side, this is automatic from the transformation law of $\pi$ (Tate's thesis pattern, Godement-Jacquet). On the Galois side, it's conjectural until you've matched $\rho$ to an automorphic counterpart — and matching means agreement of these L-functions term by term.</p>
   </li>
   <li>
     <span class="stop-section">Number theory</span>
-    <span class="stop-title"><a href="./class-field-theory.html#artin-map-cft">Class field theory: Langlands for $\GL_1$</a></span>
+    <span class="stop-title"><a href="./class-field-theory.html#artin">Class field theory: Langlands for $\GL_1$</a></span>
     <p class="bridge">The proven prototype, in the language Langlands generalises. Class field theory says continuous characters of $\Gal(\overline{\mathbb{Q}}/\mathbb{Q})^{\mathrm{ab}}$ correspond bijectively to continuous characters of the idèle class group $\mathbb{A}_\mathbb{Q}^\times / \mathbb{Q}^\times$. Translated: 1-dim Galois representations $\leftrightarrow$ Hecke characters $\leftrightarrow$ automorphic representations of $\GL_1(\mathbb{A}_\mathbb{Q})$. The L-functions match: an Artin L-function for an abelian Galois character equals the Hecke L-function of the corresponding Hecke character. <em>This is exactly Langlands at $n=1$.</em> The whole program is about generalising this matching to $\GL_n$ for all $n$.</p>
     <div class="figure-row">
       <div class="figure-card" data-c="cyan">
