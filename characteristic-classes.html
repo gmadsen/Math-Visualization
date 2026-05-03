@@ -721,7 +721,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
     const px = cxL + R*Math.cos(theta);
     const py = cyL - R*Math.sin(theta);
     svg.appendChild(SVG("circle",{cx:px,cy:py,r:5,fill:"var(--yellow)"}));
-    const baseLabel = SVG("text",{x:cxL,y:30,"text-anchor":"middle","font-size":13,fill:"#fff","font-weight":600});
+    const baseLabel = SVG("text",{x:cxL,y:30,"text-anchor":"middle","font-size":13,fill:"var(--ink)","font-weight":600});
     baseLabel.textContent = "base $S^1$ (t ∈ [0,1])";
     svg.appendChild(baseLabel);
     const tlab = SVG("text",{x:cxL,y:cyL+R+30,"text-anchor":"middle","font-size":12,fill:"var(--mute)"});
@@ -756,7 +756,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
     svg.appendChild(SVG("line",{x1:cxM,y1:y0+h/2,x2:cxM,y2:(y0+h/2) - 60*signNow,stroke:"var(--yellow)","stroke-width":3}));
     svg.appendChild(SVG("circle",{cx:cxM,cy:(y0+h/2) - 60*signNow,r:6,fill:"var(--yellow)"}));
 
-    const titleR = SVG("text",{x:x0+w/2,y:y0-22,"text-anchor":"middle","font-size":13,fill:"#fff","font-weight":600});
+    const titleR = SVG("text",{x:x0+w/2,y:y0-22,"text-anchor":"middle","font-size":13,fill:"var(--ink)","font-weight":600});
     titleR.textContent = isMobius ? "Möbius line bundle: w_1 ≠ 0" : "Trivial line bundle (cylinder): w_1 = 0";
     svg.appendChild(titleR);
 
@@ -813,7 +813,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
         drawArrow(svg,[cx-42,cy],[cx-26,cy],{color:"var(--violet)",markerId:"rp-arr1",pad1:0,pad2:0});
         drawArrow(svg,[cx+26,cy],[cx+42,cy],{color:"var(--violet)",markerId:"rp-arr2",pad1:0,pad2:0});
       }
-      const t1 = SVG("text",{x:cx,y:y+24,"text-anchor":"middle","font-size":14,fill:"#fff","font-weight":600});
+      const t1 = SVG("text",{x:cx,y:y+24,"text-anchor":"middle","font-size":14,fill:"var(--ink)","font-weight":600});
       t1.textContent = data[k].label;
       svg.appendChild(t1);
       const w1 = data[k].w1 ? "w_1 ≠ 0" : "w_1 = 0";
@@ -857,7 +857,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
     const cxL=180, cyL=160, R=110;
     svg.appendChild(SVG("rect",{x:20,y:20,width:340,height:280,fill:"var(--bg)",stroke:"var(--line)",rx:8}));
     svg.appendChild(SVG("circle",{cx:cxL,cy:cyL,r:R,fill:"none",stroke:"var(--mute)","stroke-width":1.5}));
-    const lab1 = SVG("text",{x:cxL,y:36,"text-anchor":"middle","font-size":13,fill:"#fff","font-weight":600});
+    const lab1 = SVG("text",{x:cxL,y:36,"text-anchor":"middle","font-size":13,fill:"var(--ink)","font-weight":600});
     lab1.textContent = "clutching e^{i d θ} on equator";
     svg.appendChild(lab1);
     const N = 24;
@@ -877,7 +877,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
     // right: the integer line + selected dot
     const x0 = 420, y0 = 60, w = 380, h = 200;
     svg.appendChild(SVG("rect",{x:x0,y:y0,width:w,height:h,fill:"var(--bg)",stroke:"var(--line)",rx:8}));
-    const lab2 = SVG("text",{x:x0+w/2,y:y0-22,"text-anchor":"middle","font-size":13,fill:"#fff","font-weight":600});
+    const lab2 = SVG("text",{x:x0+w/2,y:y0-22,"text-anchor":"middle","font-size":13,fill:"var(--ink)","font-weight":600});
     lab2.textContent = "Pic(ℂℙ^1) = H^2(S^2; ℤ) = ℤ";
     svg.appendChild(lab2);
     const yMid = y0 + h/2;
@@ -946,7 +946,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
 
     const d = data[cur];
     // top row: Chern roots of E⊗C
-    const t1 = SVG("text",{x:60,y:55,"font-size":13,fill:"#fff","font-weight":600});
+    const t1 = SVG("text",{x:60,y:55,"font-size":13,fill:"var(--ink)","font-weight":600});
     t1.textContent = "Chern roots of E⊗ℂ:";
     svg.appendChild(t1);
     d.roots.forEach((r,i)=>{
@@ -958,7 +958,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
     });
 
     // middle row: Chern classes c_i
-    const t2 = SVG("text",{x:60,y:135,"font-size":13,fill:"#fff","font-weight":600});
+    const t2 = SVG("text",{x:60,y:135,"font-size":13,fill:"var(--ink)","font-weight":600});
     t2.textContent = "Chern classes c_i = e_i(roots):";
     svg.appendChild(t2);
     d.chern.forEach((c,i)=>{
@@ -971,7 +971,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
     });
 
     // bottom row: Pontryagin
-    const t3 = SVG("text",{x:60,y:225,"font-size":13,fill:"#fff","font-weight":600});
+    const t3 = SVG("text",{x:60,y:225,"font-size":13,fill:"var(--ink)","font-weight":600});
     t3.textContent = "Pontryagin p_i = (-1)^i c_{2i}:";
     svg.appendChild(t3);
     d.pont.forEach((p,i)=>{
@@ -1037,7 +1037,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
       const t1 = SVG("text",{x:cx+14,y:cy-R+4,"font-size":12,fill:"var(--pink)","font-weight":600}); t1.textContent="ind = +1";
       const t2 = SVG("text",{x:cx+14,y:cy+R+4,"font-size":12,fill:"var(--pink)","font-weight":600}); t2.textContent="ind = +1";
       svg.appendChild(t1); svg.appendChild(t2);
-      const tit = SVG("text",{x:cx,y:50,"text-anchor":"middle","font-size":14,fill:"#fff","font-weight":600});
+      const tit = SVG("text",{x:cx,y:50,"text-anchor":"middle","font-size":14,fill:"var(--ink)","font-weight":600});
       tit.textContent = "S^2 with axial spin field: Σ ind = 2 = χ(S^2)";
       svg.appendChild(tit);
       readout.innerHTML = "$S^2$ with rotation field: zeros at the north and south poles, each of index $+1$, giving $\\sum\\ind = 2 = \\chi(S^2) = \\langle e(TS^2),[S^2]\\rangle$.";
@@ -1058,7 +1058,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
           drawArrow(svg,[sx,sy],[sx+22,sy],{color:"var(--cyan)",markerId:"t2-"+r+"-"+c,pad1:0,pad2:2,width:1});
         }
       }
-      const tit = SVG("text",{x:410,y:50,"text-anchor":"middle","font-size":14,fill:"#fff","font-weight":600});
+      const tit = SVG("text",{x:410,y:50,"text-anchor":"middle","font-size":14,fill:"var(--ink)","font-weight":600});
       tit.textContent = "T^2 with constant field ∂/∂θ₁: no zeros, χ(T^2) = 0";
       svg.appendChild(tit);
       readout.innerHTML = "$T^2$ with the constant field $\\partial/\\partial\\theta_1$: no zeros, so $\\sum\\ind = 0 = \\chi(T^2)$. The Euler class $e(TT^2) = 0$ because the bundle is parallelisable.";
@@ -1086,7 +1086,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
       const t1 = SVG("text",{x:cx+14,y:cy-R+4,"font-size":12,fill:"var(--green)","font-weight":600}); t1.textContent="source: +1";
       const t2 = SVG("text",{x:cx+14,y:cy+R+4,"font-size":12,fill:"var(--green)","font-weight":600}); t2.textContent="sink: +1";
       svg.appendChild(t1); svg.appendChild(t2);
-      const tit = SVG("text",{x:cx,y:50,"text-anchor":"middle","font-size":14,fill:"#fff","font-weight":600});
+      const tit = SVG("text",{x:cx,y:50,"text-anchor":"middle","font-size":14,fill:"var(--ink)","font-weight":600});
       tit.textContent = "S^2 dipole field: Σ ind = +1 + 1 = 2 = χ(S^2)";
       svg.appendChild(tit);
       readout.innerHTML = "Dipole field on $S^2$: a source at the north pole (index $+1$) and a sink at the south pole (index $+1$). Different vector field, same total index — Poincaré–Hopf is field-independent.";
@@ -1243,14 +1243,14 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
     const t1 = SVG("text",{x:x0+w+8,y:y0+8,"font-size":11,fill:"var(--mute)"}); t1.textContent = "K = " + kmax.toFixed(2);
     const t2 = SVG("text",{x:x0+w+8,y:y0+h,"font-size":11,fill:"var(--mute)"}); t2.textContent = "K = " + kmin.toFixed(2);
     svg.appendChild(t1); svg.appendChild(t2);
-    const lbl = SVG("text",{x:x0-4,y:y0-10,"text-anchor":"start","font-size":12,fill:"#fff","font-weight":600}); lbl.textContent = "K";
+    const lbl = SVG("text",{x:x0-4,y:y0-10,"text-anchor":"start","font-size":12,fill:"var(--ink)","font-weight":600}); lbl.textContent = "K";
     svg.appendChild(lbl);
 
     // results panel
     const px0=620, py0=80;
     svg.appendChild(SVG("rect",{x:px0-8,y:py0-12,width:180,height:200,fill:"var(--panel2)",stroke:"var(--line)",rx:6}));
     const r1 = SVG("text",{x:px0,y:py0+8,"font-size":12,fill:"var(--mute)"}); r1.textContent = "surface:"; svg.appendChild(r1);
-    const r2 = SVG("text",{x:px0,y:py0+26,"font-size":13,fill:"#fff","font-weight":600}); r2.textContent = label; svg.appendChild(r2);
+    const r2 = SVG("text",{x:px0,y:py0+26,"font-size":13,fill:"var(--ink)","font-weight":600}); r2.textContent = label; svg.appendChild(r2);
     const r3 = SVG("text",{x:px0,y:py0+58,"font-size":12,fill:"var(--mute)"}); r3.textContent = "χ(Σ) ="; svg.appendChild(r3);
     const r4 = SVG("text",{x:px0,y:py0+78,"font-size":15,fill:"var(--yellow)","font-weight":600}); r4.textContent = String(chi); svg.appendChild(r4);
     const r5 = SVG("text",{x:px0,y:py0+108,"font-size":12,fill:"var(--mute)"}); r5.textContent = "∫ K dA / 2π ≈"; svg.appendChild(r5);
@@ -1316,7 +1316,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
     const px=620, py=70;
     svg.appendChild(SVG("rect",{x:px-10,y:py-12,width:170,height:200,fill:"var(--panel2)",stroke:"var(--line)",rx:6}));
     const t1 = SVG("text",{x:px,y:py+8,"font-size":11,fill:"var(--mute)"}); t1.textContent="target:"; svg.appendChild(t1);
-    const t2 = SVG("text",{x:px,y:py+26,"font-size":13,fill:"#fff"}); t2.textContent=d.target; svg.appendChild(t2);
+    const t2 = SVG("text",{x:px,y:py+26,"font-size":13,fill:"var(--ink)"}); t2.textContent=d.target; svg.appendChild(t2);
     const t3 = SVG("text",{x:px,y:py+58,"font-size":11,fill:"var(--mute)"}); t3.textContent="rank:"; svg.appendChild(t3);
     const t4 = SVG("text",{x:px,y:py+76,"font-size":15,fill:"var(--yellow)","font-weight":600}); t4.textContent=String(d.rk); svg.appendChild(t4);
     const t5 = SVG("text",{x:px,y:py+108,"font-size":11,fill:"var(--mute)"}); t5.textContent="classifying degree:"; svg.appendChild(t5);
@@ -1359,7 +1359,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
     const x0=60, y0=70, w=300, h=180;
     svg.appendChild(SVG("rect",{x:x0,y:y0,width:w,height:h,fill:"var(--panel2)",stroke:"var(--blue)",rx:6}));
     const t1 = SVG("text",{x:x0+w/2,y:y0+24,"text-anchor":"middle","font-size":12,fill:"var(--mute)"}); t1.textContent="intersection form on H^{2k}"; svg.appendChild(t1);
-    const t2 = SVG("text",{x:x0+w/2,y:y0+62,"text-anchor":"middle","font-size":15,fill:"#fff","font-weight":600}); t2.textContent="Q = "+d.form; svg.appendChild(t2);
+    const t2 = SVG("text",{x:x0+w/2,y:y0+62,"text-anchor":"middle","font-size":15,fill:"var(--ink)","font-weight":600}); t2.textContent="Q = "+d.form; svg.appendChild(t2);
     const t3 = SVG("text",{x:x0+w/2,y:y0+102,"text-anchor":"middle","font-size":12,fill:"var(--mute)"}); t3.textContent="signature σ(M):"; svg.appendChild(t3);
     const t4 = SVG("text",{x:x0+w/2,y:y0+132,"text-anchor":"middle","font-size":22,fill:"var(--yellow)","font-weight":700}); t4.textContent=String(d.sig); svg.appendChild(t4);
     const t5 = SVG("text",{x:x0+w/2,y:y0+158,"text-anchor":"middle","font-size":11,fill:"var(--mute)"}); t5.textContent="dim M = "+d.dim; svg.appendChild(t5);
@@ -1403,7 +1403,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
     const W=820, H=320;
     svg.appendChild(SVG("rect",{x:20,y:20,width:W-40,height:H-40,fill:"var(--bg)",stroke:"var(--line)",rx:8}));
     // header
-    const tit = SVG("text",{x:W/2,y:48,"text-anchor":"middle","font-size":14,fill:"#fff","font-weight":600});
+    const tit = SVG("text",{x:W/2,y:48,"text-anchor":"middle","font-size":14,fill:"var(--ink)","font-weight":600});
     tit.textContent = "S^1 ↻ ℂℙ^"+n+":  "+(n+1)+" fixed points  p_0,…,p_"+n;
     svg.appendChild(tit);
     // ring of fixed points
