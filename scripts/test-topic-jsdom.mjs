@@ -35,7 +35,7 @@ import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { availableParallelism } from 'node:os';
+import { availableParallelism, freemem, totalmem } from 'node:os';
 
 const __filename = fileURLToPath(import.meta.url);
 const scriptsDir = dirname(__filename);
@@ -95,13 +95,39 @@ if (isDriver) {
   const allFiles = readdirSync(repoRoot)
     .filter((f) => f.endsWith('.html') && !SKIP.has(f))
     .sort();
+  // Each jsdom worker peaks around 1.2 GiB resident during the heaviest
+  // topic boots (mindmap suite + KaTeX-stubbed re-renders). On an 8-CPU /
+  // 8-GiB-RAM machine the historic default of 8 parallel workers OOMs the
+  // node host (exit 137 = SIGKILL). Cap by available memory so the
+  // topic-jsdom step doesn't crash under memory pressure.
+  //
+  // Order of precedence:
+  //   1. explicit env var TOPIC_JSDOM_CONCURRENCY (operator override),
+  //   2. CPU count (availableParallelism),
+  //   3. memory budget: floor(freemem / per-worker-budget).
+  //
+  // Falls through to 1 if all signals are zero/missing.
+  const PER_WORKER_BUDGET_GIB = 1.2;
+  const memBudget = Math.max(
+    1,
+    Math.floor(freemem() / (PER_WORKER_BUDGET_GIB * 1024 * 1024 * 1024)),
+  );
+  const explicit = Number(process.env.TOPIC_JSDOM_CONCURRENCY) || 0;
   const N = Math.max(
     1,
-    Math.min(
-      Number(process.env.TOPIC_JSDOM_CONCURRENCY) || 8,
-      availableParallelism(),
-    ),
+    explicit > 0
+      ? Math.min(explicit, availableParallelism())
+      : Math.min(8, availableParallelism(), memBudget),
   );
+  if (process.env.TOPIC_JSDOM_DEBUG === '1') {
+    console.error(
+      `[topic-jsdom] N=${N} (explicit=${explicit || 'unset'} ` +
+      `cpus=${availableParallelism()} ` +
+      `freemem=${(freemem() / 1024 / 1024 / 1024).toFixed(2)}GiB ` +
+      `totalmem=${(totalmem() / 1024 / 1024 / 1024).toFixed(2)}GiB ` +
+      `memBudget=${memBudget})`,
+    );
+  }
   const buckets = Array.from({ length: N }, () => []);
   allFiles.forEach((f, i) => buckets[i % N].push(f));
 
