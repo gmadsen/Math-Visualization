@@ -13,99 +13,132 @@ _None_
 ## Topic pages with zero inbound from history
 _Cross-link opportunities. Consider adding an event or narrative link in a relevant era._
 
-- `L-functions.html`
-- `adeles-and-ideles.html`
-- `advanced-complex-analysis.html`
+### Algebraic geometry (19/24)
+
 - `algebraic-curves-higher-genus.html`
 - `algebraic-de-rham-cohomology.html`
-- `algebraic-number-theory.html`
 - `algebraic-spaces.html`
+- `calabi-yau-manifolds.html`
+- `deformation-theory.html`
+- `elliptic-curves.html`
+- `etale-fundamental-group.html`
+- `functor-of-points.html`
+- `group-schemes.html`
+- `hodge-theory.html`
+- `intersection-theory-chow.html`
+- `mirror-symmetry.html`
+- `morphisms-fiber-products.html`
+- `motives.html`
+- `resolution-of-singularities.html`
+- `sheaf-cohomology.html`
+- `sheaves.html`
+- `singular-cubics-reduction.html`
+- `stacks.html`
+
+### Modular forms & L-functions (13/17)
+
+- `L-functions.html`
 - `analytic-continuation.html`
 - `automorphic-forms-adelic.html`
 - `bsd.html`
-- `calabi-yau-manifolds.html`
-- `characteristic-classes.html`
-- `class-field-theory.html`
-- `cocartesian-fibrations.html`
-- `commutative-algebra.html`
-- `complexity-theory.html`
-- `computational-number-theory.html`
-- `deformation-theory.html`
-- `derived-categories.html`
-- `designs.html`
-- `differential-forms.html`
 - `dirichlet-series-euler-products.html`
-- `dynamical-systems.html`
-- `elementary-topos-theory.html`
-- `elliptic-curves.html`
-- `enumerative-combinatorics.html`
-- `etale-fundamental-group.html`
-- `expanders.html`
-- `extremal-combinatorics.html`
-- `first-order-logic-and-completeness.html`
-- `frobenius-and-reciprocity.html`
-- `functional-analysis.html`
-- `functor-of-points.html`
-- `galois-cohomology-and-brauer.html`
-- `galois-representations.html`
-- `geometric-and-combinatorial-group-theory.html`
-- `groebner-bases.html`
-- `grothendieck-topologies-sites.html`
-- `group-cohomology.html`
-- `group-schemes.html`
-- `harmonic-functions.html`
 - `hecke-operators.html`
-- `heyting-algebras-toposes.html`
-- `high-dimensional-geometry.html`
-- `hodge-theory.html`
-- `infinity-categories.html`
-- `infinity-topoi.html`
-- `intersection-theory-chow.html`
-- `k-theory.html`
-- `knot-polynomials.html`
-- `large-deviations.html`
-- `lie-algebras.html`
-- `mathematical-statistics.html`
-- `mathematics-and-cryptography.html`
-- `matroid-theory.html`
-- `mirror-symmetry.html`
-- `model-theory-basics.html`
 - `modular-curves.html`
 - `modular-forms.html`
 - `moonshine.html`
-- `morphisms-fiber-products.html`
-- `morse-theory.html`
-- `mostow-rigidity.html`
-- `motives.html`
+- `sato-tate.html`
+- `theta-functions.html`
+- `upper-half-plane-hyperbolic.html`
+- `vertex-operator-algebras.html`
+
+### Analysis (11/16)
+
+- `advanced-complex-analysis.html`
+- `dynamical-systems.html`
+- `functional-analysis.html`
+- `harmonic-functions.html`
 - `numerical-analysis.html`
 - `operator-algebras.html`
 - `partial-differential-equations.html`
-- `quadratic-forms-genus-theory.html`
-- `quantum-groups.html`
-- `quaternions-octonions-and-division-algebras.html`
-- `random-walks-and-mixing.html`
-- `resolution-of-singularities.html`
-- `sato-tate.html`
-- `schrodinger-equation.html`
-- `sheaf-cohomology.html`
-- `sheaves.html`
-- `simplicial-complexes-combinatorial.html`
-- `simplicial-sets-and-nerve.html`
-- `singular-cubics-reduction.html`
-- `smooth-manifolds.html`
 - `sobolev-spaces-distributions.html`
 - `spectral-theory.html`
-- `stacks.html`
-- `statistical-mechanics.html`
+- `variational-methods.html`
+- `wavelets.html`
+
+### Algebra & homological (9/13)
+
+- `commutative-algebra.html`
+- `derived-categories.html`
+- `galois-cohomology-and-brauer.html`
+- `geometric-and-combinatorial-group-theory.html`
+- `groebner-bases.html`
+- `group-cohomology.html`
+- `lie-algebras.html`
+- `quantum-groups.html`
+- `quaternions-octonions-and-division-algebras.html`
+
+### Number theory (8/14)
+
+- `adeles-and-ideles.html`
+- `algebraic-number-theory.html`
+- `class-field-theory.html`
+- `computational-number-theory.html`
+- `frobenius-and-reciprocity.html`
+- `galois-representations.html`
+- `mathematics-and-cryptography.html`
+- `quadratic-forms-genus-theory.html`
+
+### Geometry & topology (8/16)
+
+- `characteristic-classes.html`
+- `differential-forms.html`
+- `k-theory.html`
+- `knot-polynomials.html`
+- `morse-theory.html`
+- `mostow-rigidity.html`
+- `smooth-manifolds.html`
+- `symplectic-manifolds.html`
+
+### Higher categories & toposes (7/7)
+
+- `cocartesian-fibrations.html`
+- `elementary-topos-theory.html`
+- `grothendieck-topologies-sites.html`
+- `heyting-algebras-toposes.html`
+- `infinity-categories.html`
+- `infinity-topoi.html`
+- `simplicial-sets-and-nerve.html`
+
+### Combinatorics & graph theory (6/8)
+
+- `designs.html`
+- `enumerative-combinatorics.html`
+- `expanders.html`
+- `extremal-combinatorics.html`
+- `matroid-theory.html`
+- `simplicial-complexes-combinatorial.html`
+
+### Probability & statistics (6/8)
+
+- `high-dimensional-geometry.html`
+- `large-deviations.html`
+- `mathematical-statistics.html`
+- `random-walks-and-mixing.html`
 - `stochastic-calculus.html`
 - `stochastic-processes-and-martingales.html`
-- `string-theory.html`
-- `symplectic-manifolds.html`
-- `theta-functions.html`
-- `three-body-problem.html`
+
+### Logic & Foundations (4/8)
+
+- `complexity-theory.html`
+- `first-order-logic-and-completeness.html`
+- `model-theory-basics.html`
 - `type-theory-and-hott.html`
-- `upper-half-plane-hyperbolic.html`
-- `variational-methods.html`
-- `vertex-operator-algebras.html`
-- `wavelets.html`
+
+### Mathematical physics (4/7)
+
+- `schrodinger-equation.html`
+- `statistical-mechanics.html`
+- `string-theory.html`
+- `three-body-problem.html`
+
 

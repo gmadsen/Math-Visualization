@@ -14,42 +14,6 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 - Quiz tiers: v1 = 2900, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 - Tag coverage: ~80%. Worst remaining sections: number-theory 63%, higher-categories 71%, logic-and-foundations 76%, geometry-and-topology 78%, algebraic-geometry 78%. (Analysis/probability/modular-forms/combinatorics closed to 85–93% in PR #49.)
 
-## History page follow-ups
-
-Items deferred from the multi-agent review of PRs #71, #72, #73. Not blocking;
-land them when adjacent work brings the file open.
-
-- **Bio-light lineage nodes.** 14 nodes across the calculus / groups /
-  foundations / FLT lineages still resolve to "no further bio in the dataset"
-  on click (cavalieri, jordan, lie, frege, peano, russell, zermelo, gentzen,
-  hamilton, dirichlet, kummer, taniyama, frey, ribet). Each needs a
-  one-paragraph `people[]` entry — purely additive.
-- **Plimpton-322 toy primitive-conditions caveat.** The triple generator
-  produces all primitive Pythagorean triples only when `gcd(p,q)=1` and `p,q`
-  have opposite parity. The current readout doesn't say so. Add a one-line
-  caveat or a small "primitive only ✓" indicator.
-- **Gödel-numbering toy disclaimer.** The toy demonstrates *a* Gödel
-  numbering, not Gödel's original (which encoded formula structure, not raw
-  codepoints). Add a one-line caveat to the readout.
-- **Era-toy CSS harmonisation.** The 9 inline toys were each scratch-styled.
-  Promote a shared `.era-toy` ruleset (panel chrome, slider widths, readout
-  spacing) so they read as one feature instead of nine.
-- **Light-theme audit on the 4 dark-bg toys.** Euclid I.1, Ricci/curve-shortening,
-  Plimpton-322, and a couple of others hardcode `#0a0d12` on the inner SVG
-  for contrast with the bright stroke colours. In light theme the dark
-  rectangle floats inside the white panel; either harmonize with `.tl-detail`'s
-  always-dark pattern or theme-track the inner backgrounds.
-- **Audit `history-link-coverage.md` zero-inbound list grouping.** 95-item
-  flat list overwhelms. Group by `concepts/sections.json` so the report
-  surfaces "every Probability & statistics page is zero-inbound" rather than
-  scattering them through alphabetical order.
-- **Scrubber discoverability.** The `aria-label` and keyboard nav land for
-  AT users; sighted users still get only a static yellow grip. Consider a
-  one-time animated "← drag me →" hint that fades after first interaction.
-- **Eilenberg–Mac Lane 1945 location.** The event lists Bloomington as the
-  city. Both authors had moved by 1945; verify against the actual paper's
-  affiliation and update.
-
 ## Near-term tasks
 
 Items below come out of the algebra/analysis comparative audit shipped in PR #49.

@@ -19,6 +19,7 @@
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loadContentModel } from './lib/content-model.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -31,12 +32,15 @@ function loadHistory() {
   if (!m) throw new Error('history-data JSON block not found');
   const data = JSON.parse(m[1]);
   // Extract narrative <a href="./...html..."> from history.html.
-  // Skip the JSON block (we already have the structured anchors there).
-  const html_no_json = html.replace(/<script id="history-data"[\s\S]*?<\/script>/, '');
+  // Strip every <script> block first — they may contain JS comments with
+  // example link strings that the regex would otherwise mis-classify as
+  // dead slugs (e.g. a comment that quotes `<a href="./topic.html">` to
+  // explain why the click handler bails on inner-link navigation).
+  const html_no_scripts = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, '');
   const linkRe = /href="(\.\/[^"]+\.html(?:#[^"]+)?)"/g;
   const narrativeLinks = [];
   let lm;
-  while ((lm = linkRe.exec(html_no_json)) !== null) {
+  while ((lm = linkRe.exec(html_no_scripts)) !== null) {
     narrativeLinks.push(lm[1]);
   }
   return { data, narrativeLinks };
@@ -68,7 +72,7 @@ function parseHref(href) {
   return { slug: m[1], anchor: m[2] || null };
 }
 
-function main() {
+async function main() {
   const { data, narrativeLinks } = loadHistory();
   const anchors = loadTopicAnchors();
 
@@ -156,7 +160,42 @@ function main() {
   lines.push('');
   if (!zeroInbound.length) lines.push('_None — every topic page has at least one inbound link._');
   else {
-    for (const slug of zeroInbound) lines.push(`- \`${slug}.html\``);
+    // Group by concepts/sections.json so the report surfaces section-level
+    // gaps (e.g. "every Probability & statistics page is zero-inbound")
+    // instead of a flat alphabetical wall.
+    const model = await loadContentModel();
+    const grouped = new Map(); // sectionTitle → slug[]
+    const sectionTotals = new Map(); // sectionTitle → registered topic count
+    for (const topicId of model.topics.keys()) {
+      const s = model.sectionOf(topicId);
+      if (s) sectionTotals.set(s.title, (sectionTotals.get(s.title) || 0) + 1);
+    }
+    const unsectioned = [];
+    for (const slug of zeroInbound) {
+      const s = model.sectionOf(slug);
+      if (s) {
+        if (!grouped.has(s.title)) grouped.set(s.title, []);
+        grouped.get(s.title).push(slug);
+      } else {
+        unsectioned.push(slug);
+      }
+    }
+    // Order sections by descending count — highest-leverage gaps first.
+    const ordered = [...grouped.entries()].sort((a, b) => b[1].length - a[1].length);
+    for (const [section, slugs] of ordered) {
+      const total = sectionTotals.get(section);
+      const ratio = total ? ` (${slugs.length}/${total})` : '';
+      lines.push(`### ${section}${ratio}`);
+      lines.push('');
+      for (const slug of slugs.sort()) lines.push(`- \`${slug}.html\``);
+      lines.push('');
+    }
+    if (unsectioned.length) {
+      lines.push('### (unsectioned)');
+      lines.push('');
+      for (const slug of unsectioned.sort()) lines.push(`- \`${slug}.html\``);
+      lines.push('');
+    }
   }
   lines.push('');
 

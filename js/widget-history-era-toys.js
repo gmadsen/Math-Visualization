@@ -62,8 +62,6 @@
       let n = 0;
       const slate = svgEl('svg', { viewBox:'0 0 360 80', width:'100%' });
       slate.style.cursor = 'pointer';
-      slate.style.background = '#1a1a18';
-      slate.style.borderRadius = '6px';
       const reset = document.createElement('button');
       reset.textContent = 'reset';
       reset.style.marginTop = '.4rem';
@@ -93,7 +91,7 @@
     // ===== 2. Ancient: Plimpton-322 triple generator =====
     ancient(host){
       const { body, readout } = shell(host, 'Babylonian triples · $a^2+b^2=c^2$',
-        'Move the (p,q) sliders to generate $(p^2-q^2,\\ 2pq,\\ p^2+q^2)$.');
+        'Move the (p,q) sliders to generate $(p^2-q^2,\\ 2pq,\\ p^2+q^2)$. Primitive when $\\gcd(p,q)=1$ and $p,q$ have opposite parity.');
       const ctl = document.createElement('div'); ctl.className = 'row';
       ctl.innerHTML =
         '<label>p <input type="range" id="t-p" min="2" max="12" value="5" step="1"></label>' +
@@ -101,6 +99,7 @@
       body.appendChild(ctl);
       const fig = svgEl('svg', { viewBox:'0 0 320 200', width:'100%' });
       body.appendChild(fig);
+      function gcd(a, b){ a = Math.abs(a); b = Math.abs(b); while(b){ [a, b] = [b, a % b]; } return a; }
       function update(){
         const p = +ctl.querySelector('#t-p').value;
         let q = +ctl.querySelector('#t-q').value;
@@ -122,7 +121,13 @@
         lab(ox + a*sx/2, oy + 14, `a = ${a}`, 'var(--cyan)');
         lab(ox - 24, oy - b*sx/2, `b = ${b}`, 'var(--green)');
         lab(ox + a*sx/2 + 6, oy - b*sx/2 - 6, `c = ${c}`, 'var(--pink)');
-        readout.textContent = `(${a}, ${b}, ${c}) · check: ${a*a} + ${b*b} = ${c*c}`;
+        const coprime = gcd(p, q) === 1;
+        const oppositeParity = ((p ^ q) & 1) === 1;
+        const primitive = coprime && oppositeParity;
+        const status = primitive
+          ? '<span style="color:var(--green)">primitive ✓</span>'
+          : `<span style="color:var(--mute)">non-primitive (${coprime ? '' : 'gcd>1'}${coprime || oppositeParity ? '' : ', '}${oppositeParity ? '' : 'same parity'}) — divide out by ${gcd(a, gcd(b, c))}</span>`;
+        readout.innerHTML = `(${a}, ${b}, ${c}) · ${a*a} + ${b*b} = ${c*c} · ${status}`;
       }
       ctl.querySelectorAll('input').forEach(el => el.addEventListener('input', update));
       update();
@@ -132,7 +137,7 @@
     classical(host){
       const { body, readout } = shell(host, 'Euclid I.1 · equilateral from a segment',
         'Step through the construction: two arcs, one apex.');
-      const fig = svgEl('svg', { viewBox:'0 0 320 200', width:'100%', style:'background:#0a0d12;border-radius:6px' });
+      const fig = svgEl('svg', { viewBox:'0 0 320 200', width:'100%' });
       body.appendChild(fig);
       const btn = document.createElement('button');
       btn.textContent = 'step ▶';
@@ -282,7 +287,7 @@
       const ctl = document.createElement('div'); ctl.className = 'row';
       ctl.innerHTML = '<label>terms N <input type="range" id="eu-n" min="1" max="20" step="1" value="3"></label>';
       body.appendChild(ctl);
-      const fig = svgEl('svg', { viewBox:'0 0 360 180', width:'100%', style:'background:#0a0d12;border-radius:6px' });
+      const fig = svgEl('svg', { viewBox:'0 0 360 180', width:'100%' });
       body.appendChild(fig);
       function update(){
         const N = +ctl.querySelector('#eu-n').value;
@@ -314,9 +319,9 @@
     // ===== 8. 20th C: Gödel-numbering encoder =====
     twentieth(host){
       const { body, readout } = shell(host, 'Gödel-number a string',
-        'Each character → its Unicode codepoint mod 256 → exponent of the next prime. Truncated to 8 chars.');
+        'Each character → its Unicode codepoint mod 256 → exponent of the next prime. Truncated to 8 chars. Demonstrates *a* Gödel-style numbering — Gödel\'s original encoded formula syntax (symbols → integers via fixed code, then primes^codes), not raw codepoints; the prime-power trick is the same.');
       const ctl = document.createElement('div'); ctl.className = 'row';
-      ctl.innerHTML = '<label>string <input type="text" id="gn-s" value="0=0" maxlength="8" style="width:140px"></label>';
+      ctl.innerHTML = '<label>string <input type="text" id="gn-s" value="0=0" maxlength="8"></label>';
       body.appendChild(ctl);
       function nthPrime(n){
         const primes = [2,3,5,7,11,13,17,19];
@@ -337,7 +342,7 @@
           readout.textContent = '(empty string → 1)';
           return;
         }
-        readout.innerHTML = `Gödel number $G = ${parts.join(' \\cdot ')}$ — about $10^{${(approxLog/Math.LN10).toFixed(1)}}$ digits.`;
+        readout.innerHTML = `Gödel number $G = ${parts.join(' \\cdot ')}$ — about $10^{${(approxLog/Math.LN10).toFixed(1)}}$ digits. <span style="color:var(--mute);font-size:.85em">(toy: codepoints, not the original formula-symbol code).</span>`;
         renderKatex(readout);
       }
       ctl.querySelector('input').addEventListener('input', update);
@@ -348,7 +353,7 @@
     modern(host){
       const { body, readout } = shell(host, 'Curve-shortening flow · the 1D analog of Ricci',
         'On a 1D curve the right object is curve-shortening flow ($\\partial_t \\gamma = \\kappa \\mathbf{n}$); on surfaces it becomes Ricci. Both smooth bumps and circularise.');
-      const fig = svgEl('svg', { viewBox:'0 0 320 200', width:'100%', style:'background:#0a0d12;border-radius:6px' });
+      const fig = svgEl('svg', { viewBox:'0 0 320 200', width:'100%' });
       body.appendChild(fig);
       const btn = document.createElement('button');
       btn.textContent = 'step';
