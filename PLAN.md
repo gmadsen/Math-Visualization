@@ -10,7 +10,7 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
 - 138 topics, 981 concepts, 31 capstones
 - 177 concepts lack a widget in their owning section
-- 29 inline widget blocks (down from 47 at PR #55 — the three Mathematical-physics capstones authored before round-trip stabilized still account for the residual); 940 registry-driven widgets across the corpus
+- 1017 widgets, 100% registry-driven (PR #70 zero-baseline sweep — `audit-no-inline-widgets` now hard-fails on any non-registry widget)
 - Quiz tiers: v1 = 2900, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 - Tag coverage: ~80%. Worst remaining sections: number-theory 63%, higher-categories 71%, logic-and-foundations 76%, geometry-and-topology 78%, algebraic-geometry 78%. (Analysis/probability/modular-forms/combinatorics closed to 85–93% in PR #49.)
 
@@ -32,7 +32,7 @@ Listed for the long view; each is a multi-session lift.
 ## Authoring polish — small
 
 - **Index-card thumb art.** `new-topic.mjs` leaves placeholder colored thumbs in `index.html`; could replace with motif-appropriate SVGs.
-- **Migrate the residual 29 inline widgets in `statistical-mechanics`/`gauge-theory`/`string-theory` to registry slugs.** PR #55 shipped these three topics with inline `<div class="widget">` markup + per-page `<script>` tails because the parallel agents authored against the HTML directly. Round-trip via `extract-topic.mjs` preserved the inline form. Each could become a new `widgets/<slug>/` entry (schema + index.mjs) so `validate-widget-params.mjs` and the future React frontend can see them. Defer to a dedicated infra PR.
+- **Hoist semantic params out of verbatim slugs.** PR #70 banked the inline-widget zero-baseline by minting 77 per-widget verbatim slugs that share `widgets/_shared/verbatim-renderer.mjs` — schemas just carry opaque `bodyMarkup`/`bodyScript` strings. The deeper migration is to convert these to bespoke renderers with semantic params (slider ranges, color tokens, etc.) so AJV validation and the React frontend can actually inspect each widget. Worth doing in batches by topic rather than corpus-wide.
 
 ## Three.js / Pyodide / alt frontends (long-running)
 
