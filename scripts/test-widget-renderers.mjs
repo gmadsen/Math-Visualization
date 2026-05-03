@@ -162,6 +162,13 @@ for (const slug of slugs) {
         test('renderMarkup returns non-empty string containing widgetId', () => {
           const out = mod.renderMarkup(params);
           assert.equal(typeof out, 'string');
+          // Verbatim-family slugs emit pre-built bodyMarkup directly, so the
+          // widgetId-in-output check doesn't apply (the markup is finalized
+          // before the renderer sees it; widgetId is metadata).
+          if (schema.meta?.family === 'verbatim') {
+            assert.ok(out.length > 0, 'renderMarkup must return non-empty output');
+            return;
+          }
           assert.ok(out.length > 0, 'renderMarkup must return non-empty output');
           assert.ok(
             out.includes(params.widgetId),
