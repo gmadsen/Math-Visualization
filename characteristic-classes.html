@@ -714,7 +714,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     // left: base circle with moving point
     const cxL = 200, cyL = 160, R = 90;
-    svg.appendChild(SVG("rect",{x:20,y:20,width:360,height:280,fill:"#0b0f16",stroke:"var(--line)",rx:8}));
+    svg.appendChild(SVG("rect",{x:20,y:20,width:360,height:280,fill:"var(--bg)",stroke:"var(--line)",rx:8}));
     svg.appendChild(SVG("circle",{cx:cxL,cy:cyL,r:R,fill:"none",stroke:"var(--mute)","stroke-width":1.5,"stroke-dasharray":"4 4"}));
     const t = parseFloat(slider.value);
     const theta = 2*Math.PI*t;
@@ -730,7 +730,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
 
     // right: total space rendered as a rectangle that closes with or without flip
     const x0 = 420, y0 = 50, w = 380, h = 220;
-    svg.appendChild(SVG("rect",{x:x0,y:y0,width:w,height:h,fill:"#0b0f16",stroke:"var(--line)",rx:8}));
+    svg.appendChild(SVG("rect",{x:x0,y:y0,width:w,height:h,fill:"var(--bg)",stroke:"var(--line)",rx:8}));
     // base axis
     svg.appendChild(SVG("line",{x1:x0+10,y1:y0+h/2,x2:x0+w-10,y2:y0+h/2,stroke:"var(--mute)","stroke-width":1.2}));
     // gluing instruction at right edge
@@ -795,7 +795,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
     keys.forEach((k,i)=>{
       const x = px(i), y = 40, w = pw, h = 200;
       const isCur = (k === cur);
-      svg.appendChild(SVG("rect",{x,y,width:w,height:h,fill:"#0b0f16",stroke:isCur?"var(--yellow)":"var(--line)","stroke-width":isCur?2:1,rx:8}));
+      svg.appendChild(SVG("rect",{x,y,width:w,height:h,fill:"var(--bg)",stroke:isCur?"var(--yellow)":"var(--line)","stroke-width":isCur?2:1,rx:8}));
       // central icon
       const cx = x + w/2, cy = y + h/2 - 10;
       if(k==="S2"){
@@ -855,7 +855,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
     const W=820, H=320;
     // left: equator with a U(1)-valued clutching, drawn as colour-rotated arrows around the circle
     const cxL=180, cyL=160, R=110;
-    svg.appendChild(SVG("rect",{x:20,y:20,width:340,height:280,fill:"#0b0f16",stroke:"var(--line)",rx:8}));
+    svg.appendChild(SVG("rect",{x:20,y:20,width:340,height:280,fill:"var(--bg)",stroke:"var(--line)",rx:8}));
     svg.appendChild(SVG("circle",{cx:cxL,cy:cyL,r:R,fill:"none",stroke:"var(--mute)","stroke-width":1.5}));
     const lab1 = SVG("text",{x:cxL,y:36,"text-anchor":"middle","font-size":13,fill:"#fff","font-weight":600});
     lab1.textContent = "clutching e^{i d θ} on equator";
@@ -876,7 +876,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
 
     // right: the integer line + selected dot
     const x0 = 420, y0 = 60, w = 380, h = 200;
-    svg.appendChild(SVG("rect",{x:x0,y:y0,width:w,height:h,fill:"#0b0f16",stroke:"var(--line)",rx:8}));
+    svg.appendChild(SVG("rect",{x:x0,y:y0,width:w,height:h,fill:"var(--bg)",stroke:"var(--line)",rx:8}));
     const lab2 = SVG("text",{x:x0+w/2,y:y0-22,"text-anchor":"middle","font-size":13,fill:"#fff","font-weight":600});
     lab2.textContent = "Pic(ℂℙ^1) = H^2(S^2; ℤ) = ℤ";
     svg.appendChild(lab2);
@@ -942,7 +942,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
   function draw(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     const W=820, H=320;
-    svg.appendChild(SVG("rect",{x:20,y:20,width:W-40,height:H-40,fill:"#0b0f16",stroke:"var(--line)",rx:8}));
+    svg.appendChild(SVG("rect",{x:20,y:20,width:W-40,height:H-40,fill:"var(--bg)",stroke:"var(--line)",rx:8}));
 
     const d = data[cur];
     // top row: Chern roots of E⊗C
@@ -1012,7 +1012,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
   function draw(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     const W=820, H=320;
-    svg.appendChild(SVG("rect",{x:20,y:20,width:W-40,height:H-40,fill:"#0b0f16",stroke:"var(--line)",rx:8}));
+    svg.appendChild(SVG("rect",{x:20,y:20,width:W-40,height:H-40,fill:"var(--bg)",stroke:"var(--line)",rx:8}));
 
     if(cur === "S2"){
       // sphere with rotation field: streamlines wrap around poles; two zeros at poles
@@ -1138,7 +1138,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
   function draw(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     const W=820, H=360;
-    svg.appendChild(SVG("rect",{x:20,y:20,width:W-40,height:H-40,fill:"#0b0f16",stroke:"var(--line)",rx:8}));
+    svg.appendChild(SVG("rect",{x:20,y:20,width:W-40,height:H-40,fill:"var(--bg)",stroke:"var(--line)",rx:8}));
 
     // surface meshing as quads in (u,v); compute a curvature K(u,v) heuristic per surface
     const NU = 36, NV = 24;
@@ -1300,7 +1300,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
   function draw(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     const W=820, H=320;
-    svg.appendChild(SVG("rect",{x:20,y:20,width:W-40,height:H-40,fill:"#0b0f16",stroke:"var(--line)",rx:8}));
+    svg.appendChild(SVG("rect",{x:20,y:20,width:W-40,height:H-40,fill:"var(--bg)",stroke:"var(--line)",rx:8}));
     const d = data[cur];
     // pullback square
     const x0=140, x1=480, y0=80, y1=240;
@@ -1353,7 +1353,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
   function draw(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     const W=820, H=320;
-    svg.appendChild(SVG("rect",{x:20,y:20,width:W-40,height:H-40,fill:"#0b0f16",stroke:"var(--line)",rx:8}));
+    svg.appendChild(SVG("rect",{x:20,y:20,width:W-40,height:H-40,fill:"var(--bg)",stroke:"var(--line)",rx:8}));
     const d = data[cur];
     // left: intersection form box
     const x0=60, y0=70, w=300, h=180;
@@ -1401,7 +1401,7 @@ $$\int_{\mathbb{CP}^n} c_1(\mathcal{O}(1))^n = \sum_{i=0}^n \frac{t_i^n}{\prod_{
     const n = parseInt(slider.value, 10);
     nval.textContent = "n = " + n;
     const W=820, H=320;
-    svg.appendChild(SVG("rect",{x:20,y:20,width:W-40,height:H-40,fill:"#0b0f16",stroke:"var(--line)",rx:8}));
+    svg.appendChild(SVG("rect",{x:20,y:20,width:W-40,height:H-40,fill:"var(--bg)",stroke:"var(--line)",rx:8}));
     // header
     const tit = SVG("text",{x:W/2,y:48,"text-anchor":"middle","font-size":14,fill:"#fff","font-weight":600});
     tit.textContent = "S^1 ↻ ℂℙ^"+n+":  "+(n+1)+" fixed points  p_0,…,p_"+n;

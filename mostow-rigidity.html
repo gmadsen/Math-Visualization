@@ -320,7 +320,7 @@ function drawNode(svg, x, y, label, opts={}){
   function dimOf(k){ return k === 2 ? "$6g-6$ (Teichmüller)" : "0 (rigid)"; }
   function render(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
-    svg.appendChild(SVG("rect",{x:0,y:0,width:W,height:H,fill:"#0b0f16"}));
+    svg.appendChild(SVG("rect",{x:0,y:0,width:W,height:H,fill:"var(--bg)"}));
     const k = +n.value;
     nOut.textContent = String(k);
     // axis
@@ -407,7 +407,7 @@ $$ \mathrm{Isom}^+(\mathbb{H}^3) \;\cong\; \mathrm{PSL}_2(\mathbb{C}), $$
   const W = 620, H = 360;
   function render(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
-    svg.appendChild(SVG("rect",{x:0,y:0,width:W,height:H,fill:"#0b0f16"}));
+    svg.appendChild(SVG("rect",{x:0,y:0,width:W,height:H,fill:"var(--bg)"}));
     const t = +tau.value;
     tauOut.textContent = t.toFixed(2);
     // boundary R^2 (drawn as horizontal line, y=0 of half-space)
@@ -505,7 +505,7 @@ $$ \tfrac{1}{K}\, d(x,y) - C \;\le\; d(\widetilde f(x), \widetilde f(y)) \;\le\;
   const W = 620, H = 320;
   function render(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
-    svg.appendChild(SVG("rect",{x:0,y:0,width:W,height:H,fill:"#0b0f16"}));
+    svg.appendChild(SVG("rect",{x:0,y:0,width:W,height:H,fill:"var(--bg)"}));
     const K = +kIn.value;
     kOut.textContent = K.toFixed(2);
     // Two disks side by side: bulk H^n (Poincaré disk) and boundary S^{n-1}
@@ -635,7 +635,7 @@ $$ \mu(x) \;=\; \frac{D\partial\widetilde f(x) \, [D\partial\widetilde f(x)]^T}{
   let cur = {x: 0.4, y: 0.2};
   function render(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
-    svg.appendChild(SVG("rect",{x:0,y:0,width:W,height:H,fill:"#0b0f16"}));
+    svg.appendChild(SVG("rect",{x:0,y:0,width:W,height:H,fill:"var(--bg)"}));
     // boundary circle
     svg.appendChild(SVG("circle",{cx:cx,cy:cy,r:R,fill:"none",stroke:"var(--violet)","stroke-width":2}));
     svg.appendChild(SVG("circle",{cx:cx,cy:cy,r:R,fill:"rgba(125,224,214,0.04)",stroke:"none"}));
@@ -707,7 +707,7 @@ $$ \mu(x) \;=\; \frac{D\partial\widetilde f(x) \, [D\partial\widetilde f(x)]^T}{
   const svg = $("#rk-svg");
   const W = 620, H = 240;
   while(svg.firstChild) svg.removeChild(svg.firstChild);
-  svg.appendChild(SVG("rect",{x:0,y:0,width:W,height:H,fill:"#0b0f16"}));
+  svg.appendChild(SVG("rect",{x:0,y:0,width:W,height:H,fill:"var(--bg)"}));
   const rows = [
     {y: 60,  rank:"rank 0", desc:"e.g. compact $G$",         concl:"trivial — $\\Gamma$ finite",                color:"var(--mute)"},
     {y: 110, rank:"rank 1", desc:"$\\mathbb{H}^n$, $n\\ge 3$", concl:"Mostow: isometric uniqueness",            color:"var(--cyan)"},
@@ -782,7 +782,7 @@ where $v_n$ is the volume of a regular ideal hyperbolic $n$-simplex. So simplici
   const svg = $("#vol-svg");
   const W = 620, H = 280;
   while(svg.firstChild) svg.removeChild(svg.firstChild);
-  svg.appendChild(SVG("rect",{x:0,y:0,width:W,height:H,fill:"#0b0f16"}));
+  svg.appendChild(SVG("rect",{x:0,y:0,width:W,height:H,fill:"var(--bg)"}));
   // Selected closed hyperbolic 3-manifolds with approximate volumes
   const data = [
     {name:"Weeks",       vol:0.9427},
