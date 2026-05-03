@@ -315,12 +315,16 @@
     });
     // Place the hint just below the era bands and above the first dot
     // row — above y=ERA_BAND_TOP would be clipped by the SVG viewBox
-    // (top=0), and dots start at PLOT_TOP. Halo via paint-order so the
-    // text reads cleanly across the dashed scrubber line and dots.
+    // (top=0), and dots start at PLOT_TOP. Fill uses var(--yellow) to
+    // mirror the scrubber label and stay legible against the timeline's
+    // always-dark inset in either theme; var(--ink) would resolve to
+    // near-black in light theme (dark text on dark bg = invisible).
+    // Halo via paint-order so the text reads cleanly across the dashed
+    // scrubber line and dots.
     const scrubHintText = el('text', {
       x: 0, y: PLOT_TOP - 6,
       'text-anchor':'middle', 'font-size': 10.5,
-      'font-weight': 500, fill: 'var(--ink)',
+      'font-weight': 500, fill: 'var(--yellow)',
       'paint-order': 'stroke', stroke: '#0b0f16', 'stroke-width': 3.5
     });
     scrubHintText.textContent = '← drag me →';

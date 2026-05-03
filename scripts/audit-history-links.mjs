@@ -19,24 +19,11 @@
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loadContentModel } from './lib/content-model.mjs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const REPO = resolve(__dirname, '..');
-
-function loadSectionsBySlug() {
-  // Map: slug → { sectionId, sectionTitle }
-  const sectionsPath = join(REPO, 'concepts', 'sections.json');
-  if (!existsSync(sectionsPath)) return new Map();
-  const data = JSON.parse(readFileSync(sectionsPath, 'utf8'));
-  const out = new Map();
-  for (const sec of data.sections || []) {
-    for (const slug of sec.topics || []) {
-      out.set(slug, { sectionId: sec.id, sectionTitle: sec.title });
-    }
-  }
-  return out;
-}
 
 function loadHistory() {
   const html = readFileSync(join(REPO, 'history.html'), 'utf8');
@@ -85,7 +72,7 @@ function parseHref(href) {
   return { slug: m[1], anchor: m[2] || null };
 }
 
-function main() {
+async function main() {
   const { data, narrativeLinks } = loadHistory();
   const anchors = loadTopicAnchors();
 
@@ -176,14 +163,19 @@ function main() {
     // Group by concepts/sections.json so the report surfaces section-level
     // gaps (e.g. "every Probability & statistics page is zero-inbound")
     // instead of a flat alphabetical wall.
-    const sectionsBySlug = loadSectionsBySlug();
+    const model = await loadContentModel();
     const grouped = new Map(); // sectionTitle → slug[]
+    const sectionTotals = new Map(); // sectionTitle → registered topic count
+    for (const topicId of model.topics.keys()) {
+      const s = model.sectionOf(topicId);
+      if (s) sectionTotals.set(s.title, (sectionTotals.get(s.title) || 0) + 1);
+    }
     const unsectioned = [];
     for (const slug of zeroInbound) {
-      const s = sectionsBySlug.get(slug);
+      const s = model.sectionOf(slug);
       if (s) {
-        if (!grouped.has(s.sectionTitle)) grouped.set(s.sectionTitle, []);
-        grouped.get(s.sectionTitle).push(slug);
+        if (!grouped.has(s.title)) grouped.set(s.title, []);
+        grouped.get(s.title).push(slug);
       } else {
         unsectioned.push(slug);
       }
@@ -191,9 +183,7 @@ function main() {
     // Order sections by descending count — highest-leverage gaps first.
     const ordered = [...grouped.entries()].sort((a, b) => b[1].length - a[1].length);
     for (const [section, slugs] of ordered) {
-      const total = sectionsBySlug.size > 0
-        ? [...sectionsBySlug.values()].filter(v => v.sectionTitle === section).length
-        : null;
+      const total = sectionTotals.get(section);
       const ratio = total ? ` (${slugs.length}/${total})` : '';
       lines.push(`### ${section}${ratio}`);
       lines.push('');
