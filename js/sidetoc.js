@@ -79,9 +79,79 @@
       activeLink.classList.add('active');
     }
     update();
-    window.addEventListener('scroll', update, {passive: true});
-    window.addEventListener('resize', update);
+    let raf = 0;
+    function schedule(){
+      if(raf) return;
+      raf = requestAnimationFrame(() => { raf = 0; update(); });
+    }
+    window.addEventListener('scroll', schedule, {passive: true});
+    window.addEventListener('resize', schedule, {passive: true});
+
+    // Below 1180px viewport, per-page CSS hides aside.sidetoc and lets the
+    // top-nav inline anchor list take over. That flood is unusable on
+    // long topics. notebook.css promotes the sidetoc to a slide-in drawer;
+    // we wire the toggle here so any topic page picks it up automatically.
+    setupDrawer(aside);
   }
+
+  function setupDrawer(aside){
+    const topnav = document.querySelector('nav.toc');
+    if(!topnav) return;
+
+    // Inject the toggle button. Anchored to the right of nav.toc; CSS keeps
+    // it hidden above 1180px.
+    let toggle = topnav.querySelector('.sidetoc-drawer-toggle');
+    if(!toggle){
+      toggle = document.createElement('button');
+      toggle.type = 'button';
+      toggle.className = 'sidetoc-drawer-toggle';
+      toggle.setAttribute('aria-label', 'Open sections');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-controls', aside.id || 'sidetoc-aside');
+      if(!aside.id) aside.id = 'sidetoc-aside';
+      toggle.textContent = 'Sections';
+      topnav.appendChild(toggle);
+    }
+
+    // Backdrop element shared with the drawer.
+    let backdrop = document.querySelector('.sidetoc-backdrop');
+    if(!backdrop){
+      backdrop = document.createElement('div');
+      backdrop.className = 'sidetoc-backdrop';
+      document.body.appendChild(backdrop);
+    }
+
+    function open(){
+      aside.classList.add('is-drawer-open');
+      backdrop.classList.add('is-active');
+      document.body.classList.add('sidetoc-locked');
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+    function close(){
+      aside.classList.remove('is-drawer-open');
+      backdrop.classList.remove('is-active');
+      document.body.classList.remove('sidetoc-locked');
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+    function isOpen(){ return aside.classList.contains('is-drawer-open'); }
+
+    toggle.addEventListener('click', () => {
+      if(isOpen()) close(); else open();
+    });
+    backdrop.addEventListener('click', close);
+    aside.addEventListener('click', (e) => {
+      // Close after the user picks a section so they're not staring at the drawer.
+      if(e.target && e.target.tagName === 'A') close();
+    });
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape' && isOpen()) close();
+    });
+    // Resize back above breakpoint: reset state cleanly.
+    window.addEventListener('resize', () => {
+      if(window.innerWidth > 1180 && isOpen()) close();
+    }, {passive: true});
+  }
+
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', build);
   else build();
 })();
