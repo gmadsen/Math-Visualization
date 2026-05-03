@@ -190,7 +190,8 @@
         "calabi-yau-manifolds",
         "mirror-symmetry",
         "resolution-of-singularities",
-        "motives"
+        "motives",
+        "hodge-theory"
       ],
       "color": "g"
     },

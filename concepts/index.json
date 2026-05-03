@@ -1,22 +1,21 @@
 {
   "topics": [
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     "motives",
 
+
+
+
+
+
+
+
+
+
+
+
+
+    "hodge-theory",
 
 
 
@@ -313,6 +312,7 @@
     "statistical-mechanics": "capstone",
     "gauge-theory": "capstone",
     "string-theory": "capstone",
-    "motives": "capstone"
+    "motives": "capstone",
+    "hodge-theory": "capstone"
   }
 }

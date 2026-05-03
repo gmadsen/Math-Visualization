@@ -25079,6 +25079,345 @@ window.MVQuizBank = {
       }
     }
   },
+  "hodge-theory": {
+    "topic": "hodge-theory",
+    "quizzes": {
+      "why-hodge": {
+        "title": "Why Hodge structures?",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On a compact Kähler manifold, what allows the type decomposition of harmonic forms (and hence of cohomology)?",
+            "choices": [
+              "the Riemannian metric alone",
+              "the Laplacian commuting with the bidegree decomposition $\\Omega^k_\\mathbb{C} = \\bigoplus_{p+q=k} \\Omega^{p,q}$",
+              "the symplectic form being closed",
+              "compactness alone"
+            ],
+            "answer": 1,
+            "explain": "On a Kähler manifold, the Laplacian preserves bidegree, so harmonic forms decompose by type. Compactness gives us harmonic = cohomology (Hodge theorem on Riemannian manifolds), and the Kähler condition then forces the type decomposition on cohomology. Without Kähler the decomposition can fail (general almost-complex manifolds, non-Kähler complex surfaces)."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following carries the same data as the Hodge decomposition $H^n_\\mathbb{C} = \\bigoplus_{p+q=n} H^{p,q}$ with conjugation symmetry?",
+            "choices": [
+              "the Betti numbers $b_n = \\dim H^n_\\mathbb{Q}$",
+              "the Hodge filtration $F^\\bullet$ on $H^n_\\mathbb{C}$ together with complex conjugation against $H^n_\\mathbb{R}$",
+              "the cup product structure on $H^*$",
+              "the rational vector space $H^n_\\mathbb{Q}$ alone"
+            ],
+            "answer": 1,
+            "explain": "Filtration + conjugation = decomposition: $H^n_\\mathbb{C} = F^p \\oplus \\overline{F^{n-p+1}}$ recovers the splitting. The Hodge filtration is the algebraically defined object; the conjugation comes from the rational structure. Either the decomposition or the filtered-real package is the standard data."
+          },
+          {
+            "type": "multi-select",
+            "q": "Which of these 'extra structures' on cohomology come from the complex structure of $X$ (not just its underlying real-manifold topology)?",
+            "choices": [
+              "the rank $b_n = \\dim_\\mathbb{Q} H^n(X;\\mathbb{Q})$",
+              "the bidegree decomposition $H^n_\\mathbb{C} = \\bigoplus_{p+q=n} H^{p,q}$",
+              "the cup product $H^p \\otimes H^q \\to H^{p+q}$",
+              "the Hodge symmetry $h^{p,q} = h^{q,p}$"
+            ],
+            "answer": [
+              1,
+              3
+            ],
+            "explain": "Bidegree decomposition and Hodge symmetry are both from complex structure. The Betti rank is a topological invariant (does not depend on complex structure). The cup product is also topological — it lives in singular cohomology with no need for complex geometry. Hodge theory's power is precisely that it adds nontrivial data beyond the topological."
+          }
+        ]
+      },
+      "hodge-decomposition": {
+        "title": "The Hodge decomposition theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a smooth projective variety $X$ of complex dimension $d$, the Hodge symmetry $h^{p,q} = h^{q,p}$ comes from:",
+            "choices": [
+              "Poincaré duality",
+              "complex conjugation acting on $H^n(X;\\mathbb{C})$ via the rational structure",
+              "Serre duality",
+              "the Kähler condition"
+            ],
+            "answer": 1,
+            "explain": "Hodge symmetry is the conjugation symmetry $\\overline{H^{p,q}} = H^{q,p}$, which uses the rational (in fact real) structure on cohomology to define conjugation. Poincaré duality gives the *other* symmetry $h^{p,q} = h^{d-p,d-q}$ (vertical reflection of the Hodge diamond)."
+          },
+          {
+            "type": "numeric",
+            "q": "For an elliptic curve $E$ (a smooth projective curve of genus 1), $h^{1,0}(E) = ?$",
+            "answer": 1,
+            "tol": 0.01,
+            "explain": "$h^{1,0}(E) = \\dim H^0(E, \\Omega^1_E) =$ number of holomorphic 1-forms = $g$ (genus) $= 1$. The full diamond is $h^{0,0}=h^{1,1}=1$, $h^{1,0}=h^{0,1}=1$, so total $b_1 = 2$ as expected."
+          },
+          {
+            "type": "mcq",
+            "q": "For a K3 surface $X$ (smooth projective, simply connected, $K_X = 0$, dim 2), the Hodge diamond has $h^{1,0} = ?, h^{2,0} = ?, h^{1,1} = ?$",
+            "choices": [
+              "$0, 1, 20$",
+              "$1, 1, 19$",
+              "$0, 0, 22$",
+              "$1, 0, 21$"
+            ],
+            "answer": 0,
+            "explain": "K3: $h^{1,0} = 0$ (no holomorphic 1-forms — irregularity vanishes), $h^{2,0} = 1$ (a unique holomorphic 2-form, since $K_X = 0$ gives a trivial canonical bundle so $\\Omega^2 \\cong \\mathcal{O}_X$ has $H^0 = \\mathbb{C}$), $h^{1,1} = 20$ (the second Betti number is 22 = $h^{2,0} + h^{1,1} + h^{0,2} = 1 + 20 + 1$)."
+          }
+        ]
+      },
+      "hodge-filtration-structure": {
+        "title": "The Hodge filtration",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "$F^p H^n(X;\\mathbb{C})$ is defined as:",
+            "choices": [
+              "$H^p(X, \\Omega^{n-p}_X)$ alone",
+              "$\\bigoplus_{p' \\ge p} H^{p', n-p'}(X)$",
+              "the kernel of multiplication by the Kähler class",
+              "the orthogonal complement of $\\overline{F^{n-p}}$"
+            ],
+            "answer": 1,
+            "explain": "Definition: $F^p$ collects all Hodge pieces with first index at least $p$. Decreasing in $p$, with $F^0 = H^n_\\mathbb{C}$ at the bottom and $F^{n+1} = 0$ at the top. The relation $H^n_\\mathbb{C} = F^p \\oplus \\overline{F^{n-p+1}}$ is what makes filtration + conjugation equivalent to the decomposition."
+          },
+          {
+            "type": "mcq",
+            "q": "The Hodge-to-de-Rham spectral sequence $E_1^{p,q} = H^q(X, \\Omega^p_X) \\Rightarrow H^{p+q}_{\\mathrm{dR}}(X)$ degenerates at $E_1$ for smooth projective $X/\\mathbb{C}$. What does this mean concretely?",
+            "choices": [
+              "the spectral sequence is identically zero",
+              "every differential $d_r$ for $r \\ge 1$ vanishes, so $E_\\infty^{p,q} = E_1^{p,q}$",
+              "the spectral sequence converges in finitely many pages",
+              "$X$ is a single point"
+            ],
+            "answer": 1,
+            "explain": "Degeneration at $E_1$ means all higher differentials are zero — equivalently, the associated graded of the Hodge filtration on $H^n_\\mathrm{dR}(X)$ is exactly $\\bigoplus_{p+q=n} H^q(X, \\Omega^p_X)$. This is the algebraic content of the Hodge decomposition: it says the filtered de Rham picture sees the same dimensions as the bidegree picture."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the Hodge filtration considered 'algebraic' while the Hodge decomposition is not?",
+            "choices": [
+              "the filtration is defined over any field, the decomposition needs complex coefficients to even state",
+              "the filtration descends from a filtration on the algebraic de Rham complex (the stupid filtration on $\\Omega^\\bullet$); the decomposition uses complex conjugation, which is transcendental",
+              "the filtration only uses $\\mathbb{Q}$, the decomposition uses $\\mathbb{C}$",
+              "the filtration has fewer pieces"
+            ],
+            "answer": 1,
+            "explain": "The Hodge filtration is induced by the $\\sigma^{\\ge p}$ stupid filtration on the algebraic de Rham complex $\\Omega^\\bullet_{X/k}$, valid over any field $k$. The decomposition uses the complex conjugation on $H^n_\\mathbb{C}$ relative to the real structure — that's not algebraic information; it's transcendental. Two filtrations $F^\\bullet, \\overline{F^\\bullet}$ are needed to recover the decomposition, and only one of them is intrinsic."
+          }
+        ]
+      },
+      "pure-hodge-structure": {
+        "title": "Pure Hodge structures",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A pure $\\mathbb{Q}$-Hodge structure of weight $n$ has the property that $V^{p,q}$ is nonzero only for:",
+            "choices": [
+              "$p, q \\ge 0$",
+              "$p + q = n$ and $p, q \\ge 0$",
+              "$p + q = n$ (no positivity constraint)",
+              "$p \\le q$"
+            ],
+            "answer": 2,
+            "explain": "Pure of weight $n$ means $V_\\mathbb{C} = \\bigoplus_{p+q=n} V^{p,q}$ — the constraint is on the sum of indices. There is *no* positivity constraint: e.g. the Tate twist $\\mathbb{Q}(1)$ is pure of weight $-2$ with the unique nonzero piece $V^{-1,-1}$. The geometric examples (cohomology of varieties) are pure of weight $n \\ge 0$, but the abstract category allows arbitrary integer weight."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is true of the category of polarisable pure $\\mathbb{Q}$-Hodge structures?",
+            "choices": [
+              "it is abelian but not semisimple",
+              "it is semisimple — every short exact sequence splits",
+              "it is not abelian",
+              "it has only finitely many objects up to isomorphism"
+            ],
+            "answer": 1,
+            "explain": "Polarisable pure HS form a semisimple category — short exact sequences split because polarisation gives an orthogonal direct-sum complement. This is what makes pure Hodge theory tractable; the wild behavior moves into the *mixed* setting, where extensions of pure pieces across weights are non-trivial."
+          },
+          {
+            "type": "matching",
+            "q": "Match the operation on Hodge structures with its weight effect:",
+            "left": [
+              "$V \\otimes W$ where $V$ has weight $m$, $W$ has weight $n$",
+              "$V^\\vee$ where $V$ has weight $n$",
+              "$V \\otimes \\mathbb{Q}(k)$"
+            ],
+            "right": [
+              "weight is shifted by $-2k$",
+              "weight is $-n$",
+              "weight is $m+n$"
+            ],
+            "answer": [
+              2,
+              1,
+              0
+            ],
+            "explain": "Tensor product adds weights ($m + n$); duality negates ($-n$); twisting by $\\mathbb{Q}(k)$ shifts by $-2k$ (since $\\mathbb{Q}(1)$ has weight $-2$ and weights are additive under tensor). These three operations generate the symmetric monoidal closed structure on $\\mathsf{HS}_\\mathbb{Q}$."
+          }
+        ]
+      },
+      "mixed-hodge-structure": {
+        "title": "Mixed Hodge structures",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A mixed $\\mathbb{Q}$-Hodge structure on $V_\\mathbb{Q}$ consists of:",
+            "choices": [
+              "a Hodge filtration $F^\\bullet$ on $V_\\mathbb{C}$ alone",
+              "an increasing weight filtration $W_\\bullet$ on $V_\\mathbb{Q}$ + a decreasing Hodge filtration $F^\\bullet$ on $V_\\mathbb{C}$ such that each $\\mathrm{gr}^W_n$ is pure of weight $n$",
+              "a single decomposition $V_\\mathbb{C} = \\bigoplus V^{p,q}$",
+              "a sequence of extensions $0 \\to V_n \\to V \\to V/V_n \\to 0$"
+            ],
+            "answer": 1,
+            "explain": "Three pieces of data: $V_\\mathbb{Q}$ (rational), $W_\\bullet$ (weight filtration on $V_\\mathbb{Q}$), $F^\\bullet$ (Hodge filtration on $V_\\mathbb{C}$). The compatibility is that the induced filtrations on each $\\mathrm{gr}^W_n V$ make it a pure Hodge structure of weight $n$. So a mixed Hodge structure is 'pure pieces glued by extensions across weights.'"
+          },
+          {
+            "type": "mcq",
+            "q": "What is the mixed Hodge structure on $H^1(\\mathbb{C}^*; \\mathbb{Q})$?",
+            "choices": [
+              "pure of weight 0",
+              "pure of weight 1",
+              "$\\mathbb{Q}(-1)$ — pure of weight $+2$, type $(1,1)$",
+              "an extension of $\\mathbb{Q}$ by $\\mathbb{Q}(-1)$ (truly mixed, not pure)"
+            ],
+            "answer": 2,
+            "explain": "$H^1(\\mathbb{C}^*;\\mathbb{Q}) \\cong \\mathbb{Q}$ (one generator: the class of $dz/z$). On this 1-dimensional rational vector space the mixed Hodge structure happens to be pure — concentrated in weight $+2$ — because $\\mathbb{C}^*$ is an open Kähler manifold whose $H^1$ tracks a single residue. The class is of pure Hodge type $(1,1)$, i.e. the Tate twist $\\mathbb{Q}(-1)$. Distractor (D) describes the structure on $H^1$ of a punctured curve of higher genus — genuinely mixed; here the variety is too simple for that."
+          },
+          {
+            "type": "mcq",
+            "q": "Deligne's theorem on mixed Hodge structures says:",
+            "choices": [
+              "every algebraic variety is smooth and projective",
+              "every complex variety carries a canonical mixed Hodge structure on its cohomology, functorial in the variety",
+              "mixed Hodge structures are equivalent to motives",
+              "only smooth projective varieties have Hodge structures"
+            ],
+            "answer": 1,
+            "explain": "Deligne 1971-74: every complex variety — open or compact, smooth or singular — has a canonical mixed Hodge structure on $H^*(X;\\mathbb{Q})$, functorial in $X$. The construction (via simplicial resolutions or Hironaka resolution + log-de-Rham) is canonical despite the choices in the resolution. The pure case (smooth + projective) recovers the classical Hodge decomposition, with weight filtration trivial."
+          }
+        ]
+      },
+      "hodge-conjecture": {
+        "title": "The Hodge conjecture",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Hodge conjecture predicts that the cycle-class map $\\mathrm{cl}\\colon \\mathrm{CH}^p(X) \\otimes \\mathbb{Q} \\to H^{2p}(X;\\mathbb{Q})$ has image equal to:",
+            "choices": [
+              "all of $H^{2p}(X;\\mathbb{Q})$",
+              "the Hodge classes $\\mathrm{Hdg}^p(X) := H^{2p}(X;\\mathbb{Q}) \\cap H^{p,p}(X)$",
+              "the algebraic classes alone",
+              "$H^{p,p}(X) \\cap H^{2p}(X;\\mathbb{Z})$"
+            ],
+            "answer": 1,
+            "explain": "Hodge cycles are rational classes of pure type $(p,p)$. The Hodge conjecture asks every Hodge class is in the image of the cycle-class map. The integral version (cycle classes vs $H^{p,p} \\cap H^{2p}(X;\\mathbb{Z})$) is *false* in general (Atiyah-Hirzebruch); the rational version is the open problem."
+          },
+          {
+            "type": "mcq",
+            "q": "The Hodge conjecture is known unconditionally for which case?",
+            "choices": [
+              "all smooth projective varieties — open problem solved",
+              "$p = 1$ — the Lefschetz $(1,1)$-theorem",
+              "abelian varieties of arbitrary dimension",
+              "all Calabi-Yau threefolds"
+            ],
+            "answer": 1,
+            "explain": "The Lefschetz $(1,1)$-theorem proves the Hodge conjecture for $p=1$ via the exponential exact sequence: every integral $(1,1)$-class is the first Chern class of a holomorphic line bundle, hence the cycle class of a divisor. For $p \\ge 2$ the rational Hodge conjecture remains open in general — partial results for abelian varieties (e.g. Deligne's theorem that absolute Hodge classes on abelian varieties are algebraic), but no general proof. (A) is the dream — still open."
+          },
+          {
+            "type": "mcq",
+            "q": "The Tannakian rephrasing of the Hodge conjecture asks which property of the Hodge realization $G_{\\mathrm{mot}}(\\mathbb{Q}) \\to \\mathrm{MT}(X)$?",
+            "choices": [
+              "injectivity",
+              "surjectivity (i.e. every Mumford-Tate symmetry of cohomology lifts to a motivic symmetry)",
+              "the kernel is a torus",
+              "the image is finite"
+            ],
+            "answer": 1,
+            "explain": "Surjectivity. Equivalently: every Hodge cycle (= every fixed vector under the Mumford-Tate group) is the realization of a motivic class. Failure of surjectivity would mean some Hodge class is not in the image of the cycle-class map, contradicting the Hodge conjecture."
+          }
+        ]
+      },
+      "period-domains-vhs": {
+        "title": "Period domains and VHS",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Griffiths transversality is the constraint on the period map $\\Phi\\colon S \\to D$ that:",
+            "choices": [
+              "$\\Phi$ is surjective",
+              "$\\nabla F^p \\subset F^{p-1} \\otimes \\Omega^1_S$ — the Hodge filtration drops at most one step under the connection",
+              "$\\Phi$ is locally injective",
+              "the period domain is Hermitian symmetric"
+            ],
+            "answer": 1,
+            "explain": "Griffiths transversality says the derivative of the period map respects the Hodge filtration up to one shift. The period map's image lies in a *horizontal* slice of the period domain — strictly smaller than $D$ in general. This is what makes the period map locally well-behaved and what underlies Torelli theorems for many classes of varieties."
+          },
+          {
+            "type": "mcq",
+            "q": "For weight-$1$ polarised Hodge structures of dimension $2g$ with the standard symplectic polarisation, the period domain is:",
+            "choices": [
+              "the Riemann sphere $\\mathbb{P}^1$",
+              "$g$-dimensional complex projective space",
+              "the Siegel upper half-space $\\mathfrak{H}_g$ — the space of complex symmetric $g \\times g$ matrices with positive imaginary part",
+              "an arbitrary complex manifold"
+            ],
+            "answer": 2,
+            "explain": "$\\mathfrak{H}_g$ parametrises polarised abelian varieties of dimension $g$ — equivalently, polarised pure HS of weight 1 with the symplectic polarisation. For $g=1$ it's the upper half-plane. The quotient $\\mathfrak{H}_g / \\mathrm{Sp}_{2g}(\\mathbb{Z})$ is $\\mathcal{A}_g$, the moduli space of principally polarised abelian varieties."
+          },
+          {
+            "type": "mcq",
+            "q": "The Torelli theorem for K3 surfaces says:",
+            "choices": [
+              "every K3 surface is a complete intersection",
+              "the period map for K3s is a local isomorphism (everywhere on the moduli space, not just generically) — a K3 is determined by its Hodge structure on $H^2$",
+              "K3 surfaces have trivial Hodge structure",
+              "the moduli of K3s is one-dimensional"
+            ],
+            "answer": 1,
+            "explain": "K3 Torelli (Pjateckii-Šapiro–Šafarevič 1971, refined by Burns–Rapoport, Looijenga–Peters): the period map is a local isomorphism *everywhere* on the (20-dim) coarse moduli of K3s — a K3 is determined by the Hodge structure on its $H^2(X;\\mathbb{Z})$. (Strong Torelli identifies the global image precisely, modulo the action of the lattice's monodromy group.) Higher-dimensional Calabi-Yau analogues are partial / active research."
+          }
+        ]
+      },
+      "hodge-as-realization": {
+        "title": "Hodge as a motivic realization",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Hodge realization of motives is a tensor functor $R_\\mathrm{Hdg}\\colon \\mathsf{Mot}_\\mathbb{Q} \\to ?$",
+            "choices": [
+              "$\\mathsf{Vect}_\\mathbb{Q}$",
+              "$\\mathsf{HS}_\\mathbb{Q}$ (pure Hodge structures over $\\mathbb{Q}$)",
+              "the category of Galois representations",
+              "the category of $\\varphi$-modules"
+            ],
+            "answer": 1,
+            "explain": "The Hodge realization sends a motive over $\\mathbb{Q}$ (or over a subfield of $\\mathbb{C}$) to its Hodge structure. The four classical realizations of motives are: Betti (vector spaces), de Rham (filtered), $\\ell$-adic (Galois reps), crystalline ($\\varphi$-modules) — and Hodge sits as a refinement of Betti+de-Rham."
+          },
+          {
+            "type": "mcq",
+            "q": "Mixed Tate Hodge structures over $\\mathbb{Z}$ are studied because they:",
+            "choices": [
+              "are easy to compute",
+              "host periods that compute multiple zeta values; the motivic Galois group of mixed Tate motives over $\\mathbb{Z}$ is unconditionally constructed (Deligne–Goncharov, Brown)",
+              "have trivial Galois action",
+              "form a finite category"
+            ],
+            "answer": 1,
+            "explain": "Mixed Tate motives over $\\mathbb{Z}$ are the concrete unconditional success of motivic Galois theory: their motivic Galois group is computed, multiple zeta values $\\zeta(n_1, \\ldots, n_r)$ are periods of these motives, and predicted relations among MZVs follow from representation theory of the Galois group. The Hodge realization restricted to this subcategory is conjecturally an equivalence onto the mixed Tate sub-category of $\\mathsf{MHS}_\\mathbb{Q}$ — and is unconditionally a faithful functor capturing the periods, even where full equivalence remains open."
+          },
+          {
+            "type": "mcq",
+            "q": "Voevodsky's $\\mathsf{DM}(\\mathbb{Q})$ has a Hodge realization (Huber, Bondarko, ...) landing in $D^b(\\mathsf{MHS}_\\mathbb{Q})$. What is the conceptual content of this?",
+            "choices": [
+              "every variety has Hodge structure (already known classically)",
+              "even mixed motives in their triangulated avatar factor through mixed Hodge structures, unconditional on the standard conjectures",
+              "$\\mathsf{DM}(\\mathbb{Q})$ is finite-dimensional",
+              "the standard conjectures are proved"
+            ],
+            "answer": 1,
+            "explain": "$\\mathsf{DM}(\\mathbb{Q})$ is Voevodsky's *unconditional* triangulated category of mixed motives. The Hodge realization $\\mathsf{DM}(\\mathbb{Q}) \\to D^b(\\mathsf{MHS}_\\mathbb{Q})$ exists without standard conjectures — so even the mixed-motive picture, in its triangulated form, factors through Deligne's mixed Hodge structures. The *abelian* category of mixed motives remains conjectural, but the triangulated version + its Hodge realization are real."
+          }
+        ]
+      }
+    }
+  },
   "homological": {
     "topic": "homological",
     "quizzes": {

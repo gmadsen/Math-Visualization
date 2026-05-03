@@ -162,6 +162,13 @@
       "blurb": "Grothendieck's universal cohomology: a category $\\mathsf{Mot}_k$ through which every realization (Betti, de Rham, $\\ell$-adic, crystalline) factors, with a Tannakian fundamental group $G_{\\mathrm{mot}}(k)$ that subsumes classical $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ as its étale-realization quotient."
     },
     {
+      "id": "capstone-hodge-conjecture",
+      "section": "Algebraic geometry",
+      "title": "The Hodge conjecture",
+      "goal": "hodge-conjecture",
+      "blurb": "Every rational class of pure Hodge type $(p,p)$ on a smooth projective $X/\\mathbb{C}$ is the cycle class of an algebraic codimension-$p$ cycle. Open since 1950; Clay Millennium prize. Tannakianly, the Hodge realization $G_{\\mathrm{mot}}(\\mathbb{Q}) \\twoheadrightarrow \\mathrm{MT}(X)$ is surjective."
+    },
+    {
       "id": "capstone-infinity-topoi",
       "section": "Higher categories & toposes",
       "title": "$\\infty$-topoi (Lurie's higher topos theory)",
