@@ -30,15 +30,15 @@
         },
         {
           "type": "multi-select",
-          "q": "Which of the following are extra structures carried by *some* but not *all* of the four classical realizations of $h(X)$?",
+          "q": "Which of the following extra structures distinguish a *single* one of the four realizations from the other three?",
           "choices": [
-            "An action of $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})$",
-            "A Hodge filtration $F^\\bullet$",
-            "A finite-dimensional underlying $\\mathbb{Q}$-vector space",
-            "A Frobenius automorphism on a Witt-vector module"
+            "A continuous action of $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})$",
+            "A finite-dimensional underlying vector space",
+            "A Frobenius automorphism on a Witt-vector module",
+            "Eigenvalues of Frobenius pinned to absolute value $q^{i/2}$ on weight $i$"
           ],
-          "answer": [0, 1, 3],
-          "explain": "Galois action is special to ℓ-adic; Hodge filtration to de Rham (over $\\mathbb{C}$); Frobenius on Witt vectors to crystalline. All four eventually take values in finite-dimensional vector spaces over different fields — that's the *common* feature, not the discriminating one."
+          "answer": [0, 2],
+          "explain": "Galois action is special to ℓ-adic — none of the others carry a continuous $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})$ action. Frobenius-on-Witt-vectors is special to crystalline. The other two are not single-realization markers: every realization takes values in finite-dimensional vector spaces (Betti over $\\mathbb{Q}$, dR over $k$, ℓ-adic over $\\mathbb{Q}_\\ell$, crystalline over $W(k)\\otimes\\mathbb{Q}$), and the Riemann hypothesis on Frobenius eigenvalues holds in *both* ℓ-adic and crystalline by Deligne / Katz–Messing, so it doesn't pick out one."
         }
       ]
     },
@@ -128,16 +128,22 @@
       "title": "The Tate twist Q(n)",
       "questions": [
         {
-          "type": "mcq",
-          "q": "$\\mathbb{Q}(1)$ is defined as:",
-          "choices": [
-            "the motive of a point",
-            "the inverse of the Lefschetz motive $\\mathbb{L} = h^2(\\mathbb{P}^1)$",
-            "the unit object in $\\mathsf{Mot}_k$",
-            "the motive of $\\mathbb{Q}$ as an algebraic variety"
+          "type": "matching",
+          "q": "Match the realization of $\\mathbb{Q}(1)$ to its underlying object:",
+          "left": [
+            "Betti realization",
+            "de Rham realization",
+            "$\\ell$-adic realization",
+            "Crystalline realization"
           ],
-          "answer": 1,
-          "explain": "$\\mathbb{Q}(1) := \\mathbb{L}^{-1}$. Tensoring with $\\mathbb{Q}(n)$ shifts cohomological degree by $-2n$ in every realization; this is the formal mechanism by which Tate-twists track 'how many factors of $2\\pi i$' a class has."
+          "right": [
+            "the cyclotomic character $\\chi_\\ell\\colon G_\\mathbb{Q} \\to \\mathbb{Z}_\\ell^\\times$, equivalently $\\varprojlim_n \\mu_{\\ell^n}$",
+            "$\\mathbb{Q}_p$ with Frobenius $\\varphi$ acting by multiplication by $\\frac{1}{p}$",
+            "$2\\pi i \\cdot \\mathbb{Q} \\subset \\mathbb{C}$ — a rank-1 $\\mathbb{Q}$-Hodge structure of weight $-2$, type $(-1,-1)$",
+            "$\\mathbb{Q}$ with Hodge filtration shifted: $F^{-1}$ everything, $F^0 = 0$"
+          ],
+          "answer": [2, 3, 0, 1],
+          "explain": "Each realization carries its own incarnation of $\\mathbb{Q}(1)$ — Betti as $2\\pi i\\,\\mathbb{Q}$, de Rham as a 1-dim space with shifted filtration, ℓ-adic as the cyclotomic character, crystalline as a $\\varphi$-module with $\\varphi = 1/p$. The fact that *all four objects describe the same motive* — and that $(2\\pi i)^n$ is the period matrix tying Betti and de Rham — is the punchline of §4."
         },
         {
           "type": "mcq",
@@ -194,18 +200,18 @@
         },
         {
           "type": "matching",
-          "q": "Match each Tannakian category with the group it is equivalent to representations of:",
+          "q": "Match each Tannakian category with the group whose finite-dim representations it is equivalent to:",
           "left": [
             "$\\mathbb{Q}$-Hodge structures",
             "$\\mathbb{Q}_\\ell$-Galois representations of $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})$",
             "regular-singular $D$-modules on a complex variety"
           ],
           "right": [
+            "differential-Galois group",
             "Mumford-Tate group",
-            "(an $\\ell$-adic completion of) $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})$",
-            "differential-Galois group"
+            "(an $\\ell$-adic completion of) $\\Gal(\\overline{\\mathbb{Q}}/\\mathbb{Q})$"
           ],
-          "answer": [0, 1, 2],
+          "answer": [1, 2, 0],
           "explain": "Each is a textbook Tannakian-category-with-named-group: Hodge structures see Mumford-Tate; Galois reps see the Galois group itself; regular $D$-modules see the differential Galois group. The motivic story is the union — one Tannakian category housing all three."
         }
       ]
@@ -239,15 +245,15 @@
         },
         {
           "type": "mcq",
-          "q": "The Hodge realization gives a homomorphism $G_{\\mathrm{mot}}(\\mathbb{Q}) \\to \\mathrm{MT}(X)$ for each variety $X$. The Hodge conjecture asks whether:",
+          "q": "The Hodge realization gives a homomorphism $G_{\\mathrm{mot}}(\\mathbb{Q}) \\twoheadrightarrow \\mathrm{MT}(X)$. The Hodge conjecture is equivalent to which property of this map?",
           "choices": [
-            "the homomorphism is injective",
-            "the image is full — every Hodge cycle on $X$ is algebraic",
-            "$\\mathrm{MT}(X)$ is finite",
-            "the homomorphism is trivial"
+            "injectivity",
+            "surjectivity — i.e. every Hodge cycle on $X$ is algebraic",
+            "$\\mathrm{MT}(X)$ being finite",
+            "the kernel being a torus"
           ],
           "answer": 1,
-          "explain": "Hodge cycles are classes in $H^*(X;\\mathbb{Q})$ of Hodge type $(p,p)$. The Hodge conjecture predicts every such class is the cycle class of an algebraic correspondence — equivalently, that the Hodge realization is faithful enough to characterize Mumford-Tate as a quotient of $G_{\\mathrm{mot}}$."
+          "explain": "A Hodge cycle is a class in $H^{2p}(X;\\mathbb{Q})$ of pure Hodge type $(p,p)$. The Hodge conjecture predicts every such class is the cycle class of an algebraic correspondence — i.e. comes from $\\mathrm{CH}^p(X)\\otimes\\mathbb{Q}$ via the cycle-class map. Equivalent reformulation in the Tannakian language: the Hodge realization $G_{\\mathrm{mot}}(\\mathbb{Q}) \\to \\mathrm{MT}(X)$ is *surjective* — the Mumford-Tate group is a literal quotient of the motivic Galois group, not a proper subquotient."
         }
       ]
     },
@@ -280,15 +286,15 @@
         },
         {
           "type": "mcq",
-          "q": "Why are realizations described as functors $\\mathsf{Mot}_k\\to\\mathcal{C}_R$ rather than as cohomology functors directly on varieties?",
+          "q": "Artin's comparison theorem identifies which two realizations of a smooth projective variety $X / \\mathbb{Q}$ after a base change?",
           "choices": [
-            "convention",
-            "factoring through motives bakes in the formal identities (Künneth, duality, Lefschetz) once and for all, instead of re-proving them per cohomology theory",
-            "varieties are too small a category",
-            "to avoid the Yoneda embedding"
+            "Betti $H^*_B(X(\\mathbb{C});\\mathbb{Q})$ and de Rham $H^*_{\\dR}(X/\\mathbb{Q})$ after $\\otimes_\\mathbb{Q} \\mathbb{C}$",
+            "Betti $H^*_B(X(\\mathbb{C});\\mathbb{Q})$ and ℓ-adic $H^*_{\\et}(X_{\\overline{\\mathbb{Q}}};\\mathbb{Q}_\\ell)$ after $\\otimes_\\mathbb{Q} \\mathbb{Q}_\\ell$",
+            "$\\ell$-adic and crystalline via the period ring $B_{\\mathrm{cris}}$",
+            "de Rham and crystalline via the de Rham–Witt complex"
           ],
           "answer": 1,
-          "explain": "The motivic factoring is the *point*: every formal identity of cohomology is reduced to an identity in $\\mathsf{Mot}_k$, which all realizations then inherit automatically. It's the same labour-saving move as deriving operations once on a free module and inheriting them on every quotient."
+          "explain": "Artin's comparison: $H^*_B(X(\\mathbb{C});\\mathbb{Q}) \\otimes_\\mathbb{Q} \\mathbb{Q}_\\ell \\cong H^*_{\\et}(X_{\\overline{\\mathbb{Q}}};\\mathbb{Q}_\\ell)$. Choice (A) is Grothendieck's comparison (Betti↔dR over $\\mathbb{C}$). Choice (C) is Fontaine's $p$-adic comparison theorem (crystalline ↔ $p$-adic étale via $B_{\\mathrm{cris}}$). Choice (D) is Bloch–Illusie / Berthelot–Ogus (de Rham–Witt). Each comparison theorem is a non-trivial bridge between two realizations of the *same* motive."
         }
       ]
     },
@@ -309,15 +315,15 @@
         },
         {
           "type": "mcq",
-          "q": "Voevodsky's contribution to the motivic story (early 2000s, Fields Medal) was:",
+          "q": "Voevodsky's triangulated category $\\mathsf{DM}(k)$ functions as a substitute for the still-conjectural abelian category of mixed motives. What concrete role does it play in the proof of the Bloch–Kato conjecture?",
           "choices": [
-            "proving the standard conjectures",
-            "constructing a triangulated category $\\mathsf{DM}(k)$ of mixed motives that is robust enough to prove the Bloch–Kato conjecture",
-            "computing all Mumford-Tate groups",
-            "disproving the Hodge conjecture"
+            "$\\mathsf{DM}(k)$ collapses the standard conjectures to a single statement, which the proof verifies",
+            "Motivic cohomology $H^{p,q}_{\\mathrm{mot}}(X;\\mathbb{Z})$ is computed as $\\Hom_{\\mathsf{DM}(k)}(M(X), \\mathbb{Z}(q)[p])$ — a Hom-formula in $\\mathsf{DM}(k)$ that turns Bloch–Kato (a statement about mod-$\\ell$ Galois cohomology vs. Milnor K-theory) into a comparison of realization functors",
+            "$\\mathsf{DM}(k)$ is equivalent to the category of Galois representations, reducing Bloch–Kato to a Galois computation",
+            "$\\mathsf{DM}(k)$ is finite-dimensional, enabling a brute-force enumeration"
           ],
           "answer": 1,
-          "explain": "Voevodsky built $\\mathsf{DM}(k)$ — a triangulated category encompassing both pure and mixed motives — as a substitute for the still-conjectural abelian category of mixed motives. The Milnor and Bloch-Kato conjectures (motivic-cohomology computations) were proved using this machinery. The standard conjectures themselves remain open."
+          "explain": "The technical role of $\\mathsf{DM}(k)$ in Voevodsky's program is the Hom-formula: motivic cohomology is intrinsically defined as Hom-groups in $\\mathsf{DM}(k)$ between the motive $M(X)$ and Tate-twist shifts $\\mathbb{Z}(q)[p]$. Bloch–Kato (Milnor K-theory mod $\\ell$ ≅ Galois cohomology with $\\mu_\\ell^{\\otimes *}$ coefficients) becomes a statement comparing two realizations of motivic cohomology: a Galois realization on one side, a Milnor-K realization on the other. The standard conjectures stay open."
         },
         {
           "type": "mcq",

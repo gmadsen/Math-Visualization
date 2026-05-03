@@ -309,18 +309,17 @@ window.__MVConcepts = {
           "id": "cohomology-zoo",
           "title": "The cohomology zoo and the realization problem",
           "anchor": "cohomology-zoo",
-          "blurb": "Algebraic geometry has many cohomology theories — Betti, de Rham, ℓ-adic, crystalline — that take values in different categories yet share parallel formal structure. Grothendieck's vision: a universal cohomology h: SmProj/k → Mot(k) through which every realization factors.",
+          "blurb": "Betti, de Rham, ℓ-adic, and crystalline cohomology take values in different categories yet share parallel Künneth, Poincaré-duality, and Lefschetz formulas. Grothendieck's vision: a universal h: SmProj/k → Mot(k) through which every realization factors.",
           "prereqs": [
             "etale-cohomology:l-adic-cohomology",
-            "algebraic-de-rham-cohomology:comparison-betti",
-            "sheaf-cohomology:cech-cohomology"
+            "algebraic-de-rham-cohomology:comparison-betti"
           ]
         },
         {
           "id": "algebraic-correspondences",
           "title": "Correspondences as morphisms",
           "anchor": "correspondences",
-          "blurb": "Morphisms in Mot(k) are not maps of varieties but elements of CH*(X×Y) ⊗ Q — algebraic cycles modulo rational equivalence. Composition is pushforward/pullback through the triple-product diagram. Graphs of morphisms embed varieties into correspondences; the diagonal becomes the identity.",
+          "blurb": "Morphisms in Mot(k) are elements of CH*(X×Y) ⊗ Q — algebraic cycles modulo rational equivalence — composed via pushforward/pullback on the triple product. Graphs of morphisms embed varieties; the diagonal acts as identity.",
           "prereqs": [
             "cohomology-zoo",
             "intersection-theory-chow:chow-groups"
@@ -330,7 +329,7 @@ window.__MVConcepts = {
           "id": "pure-chow-motives",
           "title": "Pure Chow motives",
           "anchor": "chow-motives",
-          "blurb": "The category Mot_Chow(k): objects (X, p, n) with p an idempotent correspondence and n a Tate twist; morphisms compatible correspondences. Pseudo-abelian envelope of varieties + correspondences, then formally invert the Lefschetz motive. Three flavors — Chow, homological, numerical — depending on the equivalence relation.",
+          "blurb": "Objects (X, p, n) with p an idempotent correspondence and n a Tate twist; morphisms compatible correspondences. Pseudo-abelian envelope of varieties + correspondences, then formally invert the Lefschetz motive. Three flavors — Chow, homological, numerical — by equivalence relation.",
           "prereqs": [
             "algebraic-correspondences"
           ]
@@ -339,16 +338,16 @@ window.__MVConcepts = {
           "id": "tate-twist",
           "title": "The Tate twist Q(n)",
           "anchor": "tate-twist",
-          "blurb": "Q(1) = inverse of the Lefschetz motive h^2(P^1). Realizations: 2πi·Q in Betti, Q with shifted Hodge filtration in de Rham, the cyclotomic character in ℓ-adic, Frobenius=1/p in crystalline. Periods of Q(n) include (2πi)^n; mixed Tate motives over Z control multiple zeta values.",
+          "blurb": "Q(1) = inverse of the Lefschetz motive h^2(P^1). Realizes as 2πi·Q (Betti, weight −2), shifted Hodge filtration (de Rham), the cyclotomic character (ℓ-adic), Frobenius=1/p (crystalline). Periods include (2πi)^n; mixed Tate motives over Z control multiple zeta values.",
           "prereqs": [
             "pure-chow-motives"
           ]
         },
         {
           "id": "tannakian-categories",
-          "title": "Tannakian categories: representations of an invisible group",
+          "title": "Tannakian categories — representations of an invisible group",
           "anchor": "tannakian",
-          "blurb": "A neutral Tannakian category T over k is a k-linear rigid abelian symmetric monoidal category with a faithful exact tensor functor (fiber functor) ω: T → Vect_k, such that T ≃ Rep_k(Aut⊗(ω)). Solving the category equals solving the group. Examples: Hodge structures (Mumford–Tate), Galois reps, regular D-modules.",
+          "blurb": "A neutral Tannakian category T over k is k-linear rigid abelian symmetric monoidal with a faithful exact tensor fiber functor ω: T → Vect_k, such that T ≃ Rep_k(Aut⊗(ω)). Solving the category = solving the group.",
           "prereqs": [
             "category-theory:functors-natural-transformations",
             "category-theory:monoidal-categories",
@@ -359,7 +358,7 @@ window.__MVConcepts = {
           "id": "motivic-galois-group",
           "title": "The motivic Galois group",
           "anchor": "motivic-galois",
-          "blurb": "By Jannsen's theorem (1992) numerical motives are abelian semisimple; modulo the standard conjectures they are Tannakian, with fundamental group G_mot(k) = Aut⊗(ω_B). Motives are equivalent to finite-dim Q-representations of G_mot(k). Realizations recover Gal(Q̄/Q) (étale), Mumford-Tate (Hodge), Frobenius scheme (crystalline).",
+          "blurb": "Jannsen (1992) — unconditional. Modulo the standard conjectures, numerical motives are Tannakian with fundamental group G_mot(k) = Aut⊗(ω_B). Realizations recover Gal(Q̄/Q) (étale), Mumford-Tate (Hodge), and a Frobenius scheme (crystalline) as quotients.",
           "prereqs": [
             "tannakian-categories",
             "tate-twist",
@@ -368,9 +367,9 @@ window.__MVConcepts = {
         },
         {
           "id": "realization-functors",
-          "title": "Realizations: Betti, de Rham, ℓ-adic, crystalline",
+          "title": "Realizations: how Betti, de Rham, ℓ-adic, crystalline all come from one motive",
           "anchor": "realizations",
-          "blurb": "Each cohomology theory is a tensor functor R: Mot(k) → C_R. Comparison isomorphisms tie them: Grothendieck (Betti↔dR over C), Artin (Betti↔ℓ-adic), Fontaine (crystalline↔ℓ-adic via B_cris). Whatever your favorite cohomology theory is, it factors through the same motivic data.",
+          "blurb": "Each cohomology theory is a tensor functor R: Mot(k) → C_R. Comparison isomorphisms tie them: Grothendieck (Betti↔dR over C), Artin (Betti↔ℓ-adic), Fontaine (crystalline↔ℓ-adic via B_cris).",
           "prereqs": [
             "motivic-galois-group"
           ]
@@ -379,7 +378,7 @@ window.__MVConcepts = {
           "id": "standard-conjectures",
           "title": "The standard conjectures and the road forward",
           "anchor": "standard-conjectures",
-          "blurb": "Grothendieck (1968): the Lefschetz (B), Künneth (C), and Hodge (I) standard conjectures are the technical specifications motives need. Open since 1968 in general; modulo (B)+(C) homological=numerical and Mot_hom is Tannakian. Known: Jannsen, Voevodsky's DM(k), mixed Hodge (Deligne), mixed Tate over Z (Deligne-Goncharov-Brown).",
+          "blurb": "Grothendieck (1968): Lefschetz (B), Künneth (C), Hodge (I). Open in general since 1968; modulo (B)+(C) homological = numerical and Mot_hom is Tannakian. Unconditional: Jannsen, mixed Hodge (Deligne), mixed Tate over Z (Deligne-Goncharov-Brown), Voevodsky's DM(k).",
           "prereqs": [
             "realization-functors"
           ]

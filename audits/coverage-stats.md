@@ -5,7 +5,7 @@
 - Topics: **136**, concepts: **965**
 - Widgets: **969** (registry-driven: 940, inline: 29)
 - Quizzes: **4088** (v1: 2852, hard: 1223, expert: 13)
-- Quiz types: mcq: 2736, numeric: 1055, multi-select: 129, matching: 54, ordering: 38, complex: 29, spot-the-error: 26, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Quiz types: mcq: 2735, numeric: 1055, multi-select: 129, matching: 55, ordering: 38, complex: 29, spot-the-error: 26, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **161**
 - Concepts lacking a hard-tier quiz: **527**
 
@@ -577,7 +577,7 @@ page has wired one in yet.
   - by dimension: 2d: 144
   - by gesture: click: 100, interact: 15, slider: 9, scrub: 7, inspect: 5, select: 4, drag: 2, read: 1, slide: 1
 - Quizzes: **650** (v1: 405, hard: 245, expert: 0)
-  - by type: mcq: 418, numeric: 187, multi-select: 18, matching: 12, spot-the-error: 7, ordering: 4, complex: 3, proof-completion: 1
+  - by type: mcq: 417, numeric: 187, multi-select: 18, matching: 13, spot-the-error: 7, ordering: 4, complex: 3, proof-completion: 1
 
 ### Combinatorics & graph theory
 
