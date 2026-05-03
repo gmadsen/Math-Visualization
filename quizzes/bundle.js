@@ -25273,11 +25273,11 @@ window.MVQuizBank = {
             "choices": [
               "pure of weight 0",
               "pure of weight 1",
-              "pure of weight 2",
-              "$\\mathbb{Q}(-1)$ — i.e. pure of weight 2"
+              "$\\mathbb{Q}(-1)$ — pure of weight $+2$, type $(1,1)$",
+              "an extension of $\\mathbb{Q}$ by $\\mathbb{Q}(-1)$ (truly mixed, not pure)"
             ],
-            "answer": 3,
-            "explain": "$H^1(\\mathbb{C}^*;\\mathbb{Q}) \\cong \\mathbb{Q}$ (one generator: the class of $dz/z$). Open variety, so the mixed Hodge structure can be impure. The weight is 2 (not 1 as one might naively expect from a 1-dimensional variety) — this is one of the diagnostic mixed examples. Equivalently: $\\mathbb{Q}(-1)$, the Tate twist with weight $+2$."
+            "answer": 2,
+            "explain": "$H^1(\\mathbb{C}^*;\\mathbb{Q}) \\cong \\mathbb{Q}$ (one generator: the class of $dz/z$). On this 1-dimensional rational vector space the mixed Hodge structure happens to be pure — concentrated in weight $+2$ — because $\\mathbb{C}^*$ is an open Kähler manifold whose $H^1$ tracks a single residue. The class is of pure Hodge type $(1,1)$, i.e. the Tate twist $\\mathbb{Q}(-1)$. Distractor (D) describes the structure on $H^1$ of a punctured curve of higher genus — genuinely mixed; here the variety is too simple for that."
           },
           {
             "type": "mcq",
@@ -25312,13 +25312,13 @@ window.MVQuizBank = {
             "type": "mcq",
             "q": "The Hodge conjecture is known unconditionally for which case?",
             "choices": [
-              "all smooth projective varieties (Deligne, 1985)",
+              "all smooth projective varieties — open problem solved",
               "$p = 1$ — the Lefschetz $(1,1)$-theorem",
               "abelian varieties of arbitrary dimension",
-              "Calabi-Yau threefolds"
+              "all Calabi-Yau threefolds"
             ],
             "answer": 1,
-            "explain": "The Lefschetz $(1,1)$-theorem (1924) proves the Hodge conjecture for $p=1$ via the exponential exact sequence: every integral $(1,1)$-class is the first Chern class of a holomorphic line bundle, hence the cycle class of a divisor. For $p \\ge 2$ the conjecture remains open in general — partial results for abelian varieties of dim $\\le 4$ (André), low-dimensional moduli, but no general proof."
+            "explain": "The Lefschetz $(1,1)$-theorem proves the Hodge conjecture for $p=1$ via the exponential exact sequence: every integral $(1,1)$-class is the first Chern class of a holomorphic line bundle, hence the cycle class of a divisor. For $p \\ge 2$ the rational Hodge conjecture remains open in general — partial results for abelian varieties (e.g. Deligne's theorem that absolute Hodge classes on abelian varieties are algebraic), but no general proof. (A) is the dream — still open."
           },
           {
             "type": "mcq",
@@ -25366,12 +25366,12 @@ window.MVQuizBank = {
             "q": "The Torelli theorem for K3 surfaces says:",
             "choices": [
               "every K3 surface is a complete intersection",
-              "the period map for K3s is generically a local isomorphism — a K3 is determined by its Hodge structure on $H^2$",
+              "the period map for K3s is a local isomorphism (everywhere on the moduli space, not just generically) — a K3 is determined by its Hodge structure on $H^2$",
               "K3 surfaces have trivial Hodge structure",
               "the moduli of K3s is one-dimensional"
             ],
             "answer": 1,
-            "explain": "K3 Torelli (Burns, Rapoport, Pjateckii-Šapiro–Šafarevič): the period map sending a K3 to its Hodge structure on $H^2(X;\\mathbb{Z})$ is an isomorphism onto its image (an 'open-and-dense' part of a 20-dim period domain). So a K3 is determined by its Hodge structure — the deepest non-trivial Torelli theorem. Higher-dimensional Calabi-Yau Torellis are still active research."
+            "explain": "K3 Torelli (Pjateckii-Šapiro–Šafarevič 1971, refined by Burns–Rapoport, Looijenga–Peters): the period map is a local isomorphism *everywhere* on the (20-dim) coarse moduli of K3s — a K3 is determined by the Hodge structure on its $H^2(X;\\mathbb{Z})$. (Strong Torelli identifies the global image precisely, modulo the action of the lattice's monodromy group.) Higher-dimensional Calabi-Yau analogues are partial / active research."
           }
         ]
       },
@@ -25400,7 +25400,7 @@ window.MVQuizBank = {
               "form a finite category"
             ],
             "answer": 1,
-            "explain": "Mixed Tate motives over $\\mathbb{Z}$ are the concrete unconditional success of motivic Galois theory: their motivic Galois group is computed, multiple zeta values $\\zeta(n_1, \\ldots, n_r)$ are periods of these motives, and predicted relations among MZVs follow from representation theory of the Galois group. Mixed Tate Hodge realization is the essential bridge — a fully faithful functor from this subcategory of motives to mixed Hodge structures."
+            "explain": "Mixed Tate motives over $\\mathbb{Z}$ are the concrete unconditional success of motivic Galois theory: their motivic Galois group is computed, multiple zeta values $\\zeta(n_1, \\ldots, n_r)$ are periods of these motives, and predicted relations among MZVs follow from representation theory of the Galois group. The Hodge realization restricted to this subcategory is conjecturally an equivalence onto the mixed Tate sub-category of $\\mathsf{MHS}_\\mathbb{Q}$ — and is unconditionally a faithful functor capturing the periods, even where full equivalence remains open."
           },
           {
             "type": "mcq",

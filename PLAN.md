@@ -8,7 +8,7 @@ When something ships, delete its bullet here. Don't keep a "Shipped recently" lo
 
 From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
-- 137 topics, 973 concepts, 1728 prereq edges (714 cross-topic), 30 capstones
+- 137 topics, 973 concepts, 1731 prereq edges (714 cross-topic), 30 capstones
 - 153 concepts lack a widget in their owning section
 - 47 inline widget blocks (in three Mathematical-physics capstones from PR #55, authored before content/*.json round-trip stabilized); 469 registry slug directories
 - Quiz tiers: v1 = 2876, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")

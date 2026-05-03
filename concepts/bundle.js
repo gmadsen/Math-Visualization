@@ -413,7 +413,7 @@ window.__MVConcepts = {
         },
         {
           "id": "hodge-filtration-structure",
-          "title": "The Hodge filtration F^• — algebraic incarnation",
+          "title": "The Hodge filtration $F^\\bullet$ — algebraic incarnation",
           "anchor": "filtration",
           "blurb": "$F^p H^n = \\bigoplus_{p' \\ge p} H^{p',n-p'}$. Decreasing filtration; $H^n_\\mathbb{C} = F^p \\oplus \\overline{F^{n-p+1}}$ recovers the decomposition. Algebraic via the stupid filtration on $\\Omega^\\bullet$ + the $E_1$-degeneration of Hodge-to-de-Rham.",
           "prereqs": [
@@ -427,7 +427,8 @@ window.__MVConcepts = {
           "anchor": "pure-hodge",
           "blurb": "A pure $\\mathbb{Q}$-Hodge structure of weight $n$ is $V_\\mathbb{Q}$ + a decomposition $V_\\mathbb{C} = \\bigoplus_{p+q=n} V^{p,q}$ with $\\overline{V^{p,q}} = V^{q,p}$. Polarised HS form a semisimple Tannakian category; Tate twist $\\mathbb{Q}(1)$ has weight $-2$.",
           "prereqs": [
-            "hodge-filtration-structure"
+            "hodge-filtration-structure",
+            "motives:tannakian-categories"
           ]
         },
         {
@@ -446,7 +447,9 @@ window.__MVConcepts = {
           "blurb": "Every rational class of pure Hodge type $(p,p)$ on a smooth projective $X/\\mathbb{C}$ is the cycle class of an algebraic codim-$p$ cycle. Open since 1950, Clay Millennium prize. Known for $p=1$ (Lefschetz $(1,1)$) and on abelian varieties of dim $\\le 4$.",
           "prereqs": [
             "mixed-hodge-structure",
-            "intersection-theory-chow:chow-groups"
+            "intersection-theory-chow:chow-groups",
+            "motives:motivic-galois-group",
+            "motives:realization-functors"
           ]
         },
         {
