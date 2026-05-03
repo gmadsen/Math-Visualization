@@ -128,6 +128,45 @@
   .era-card h2{margin:.1rem 0 .4rem;border-bottom:none;padding-bottom:0}
   .era-card .era-blurb{color:var(--mute);font-size:.95rem;margin:.3rem 0 .5rem}
 
+  /* === Collapsible-era container ===
+     Each era's narrative is wrapped in <details class="era"> with the
+     era-card as the <summary>. Default closed so first-time readers see
+     a tight overview rather than a 12,000-word wall. The expand-all /
+     collapse-all controls below the world map give one-click access to
+     the long-form view. */
+  details.era{margin:0;padding:0}
+  details.era > summary{list-style:none;cursor:pointer;outline:none}
+  details.era > summary::-webkit-details-marker{display:none}
+  details.era > summary::marker{display:none}
+  details.era > summary > .era-card{position:relative;margin:1rem 0 1rem;
+    transition:border-color 150ms ease, background 150ms ease}
+  details.era > summary > .era-card::after{
+    content:"▾";position:absolute;right:1rem;top:1rem;
+    color:var(--era-color, var(--mute));font-size:1rem;line-height:1;
+    transition:transform 200ms ease;
+    -webkit-user-select:none;user-select:none;
+  }
+  details.era[open] > summary > .era-card::after{transform:rotate(180deg)}
+  details.era:not([open]) > summary > .era-card .era-blurb{margin-bottom:.2rem}
+  details.era > summary:focus-visible > .era-card{
+    outline:2px solid var(--cyan);outline-offset:2px}
+  details.era[open] > summary > .era-card{
+    border-bottom-left-radius:0;border-bottom-right-radius:0;
+    margin-bottom:0;border-bottom:1px dashed var(--line)}
+  details.era > .era-body{
+    background:color-mix(in srgb, var(--era-color, var(--panel)) 4%, var(--bg));
+    border:1px solid var(--line);border-top:none;border-left:4px solid var(--era-color, var(--mute));
+    border-radius:0 0 10px 10px;padding:.6rem 1.1rem 1rem;margin-bottom:1.4rem}
+  /* Expand-all / collapse-all rail */
+  .era-controls{display:flex;gap:.5rem;align-items:center;margin:1rem 0 .5rem;
+    flex-wrap:wrap;color:var(--mute);font-size:.88rem}
+  .era-controls .small-hint{margin-right:auto}
+  .era-controls button{background:var(--panel2);border:1px solid var(--line);
+    color:var(--ink);border-radius:6px;padding:.32rem .7rem;font-size:.85rem;cursor:pointer;
+    -webkit-user-select:none;user-select:none}
+  .era-controls button:hover{background:#242c3e}
+  .era-controls button:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+
   /* mathematician inline card */
   .person{display:grid;grid-template-columns:auto 1fr;gap:.7rem 1rem;align-items:start;
     background:var(--panel);border:1px solid var(--line);border-radius:8px;
@@ -292,19 +331,19 @@ const SVG = (tag,attrs={})=>{
 <nav class="toc">
   <a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
   <span class="mv-theme-slot"></span>
-  <a href="#timeline">timeline</a>
-  <a href="#map">world map</a>
-  <a href="#prehistory">prehistory</a>
-  <a href="#ancient">ancient</a>
-  <a href="#classical">classical</a>
-  <a href="#asian-islamic">asian &amp; islamic</a>
-  <a href="#medieval">medieval</a>
-  <a href="#renaissance">renaissance</a>
+  <a href="#timeline">Timeline</a>
+  <a href="#map">World map</a>
+  <a href="#prehistory">Prehistory</a>
+  <a href="#ancient">Ancient</a>
+  <a href="#classical">Classical</a>
+  <a href="#asian-islamic">Asian &amp; Islamic</a>
+  <a href="#medieval">Medieval</a>
+  <a href="#renaissance">Renaissance</a>
   <a href="#enlightenment">18th–19th C</a>
   <a href="#twentieth">20th C</a>
   <a href="#modern">21st C</a>
-  <a href="#lineage">lineages</a>
-  <a href="#further">further</a>
+  <a href="#lineage">Lineages</a>
+  <a href="#further">Further</a>
 </nav>
 
 <aside class="sidetoc" aria-label="Table of contents"></aside>
@@ -329,13 +368,22 @@ const SVG = (tag,attrs={})=>{
   <div class="widget map-wrap" id="map-widget"></div>
 </section>
 
+<div class="era-controls" role="group" aria-label="Era expand controls">
+  <span class="small-hint">Each era below opens to a long-form essay; click a card to expand it.</span>
+  <button type="button" id="era-expand-all">Expand all</button>
+  <button type="button" id="era-collapse-all">Collapse all</button>
+</div>
+
 <section id="prehistory">
-  <div class="era-card" style="--era-color:var(--era-prehistory)">
+  <details class="era" id="era-prehistory">
+    <summary>
+      <div class="era-card" style="--era-color:var(--era-prehistory)">
     <div class="era-eyebrow">Era 1<span class="era-range">~50,000 – 3000 BCE</span></div>
     <h2>3. Prehistory: marks on bone</h2>
     <p class="era-blurb">Before writing, before number words even, our ancestors made tally marks on bones. These are not yet "mathematics" the way Euclid is mathematics — but they are the first surviving artifacts of a human keeping track.</p>
   </div>
-  <div data-era-narrative="prehistory">
+    </summary>
+    <div class="era-body" data-era-narrative="prehistory">
 <p>A baboon's leg bone, twenty-nine notches cut into one edge, dug out of a rock shelter in the Lebombo Mountains on the border of Eswatini and South Africa. The carbon date came back at roughly 35,000 BCE — older than agriculture, older than pottery, older than the cave paintings at Lascaux by twenty millennia. Someone, in the late Pleistocene, sat down with a sharp flake and counted to twenty-nine. We don't know what they were counting. We don't know if they considered themselves to be counting. We don't even know if "twenty-nine" was a number in their head, or just the result of stopping when the bone ran out.</p>
 
 <p>This is where any honest history of mathematics has to begin, and where it has to start hedging. The <strong>Lebombo bone</strong> is the oldest surviving artefact that looks like a record of quantity. The <strong>Ishango bone</strong>, found near the source of the Nile in what is now the Democratic Republic of the Congo and dated to roughly 20,000 BCE, has three columns of marks whose totals — 60, 48, and 60 — are tantalising. One column lists 11, 13, 17, 19: every prime between 10 and 20. Another lists 11, 21, 19, 9: pairs that average to ten. Patterns or coincidence? The literature on this is, charitably, divided.</p>
@@ -365,15 +413,19 @@ const SVG = (tag,attrs={})=>{
 
 <p>None of this is mathematics in the sense that the rest of the notebook means it. There are no theorems on the Lebombo bone, no proofs, no $\varepsilon$ and $\delta$. But there is the first abstraction every mathematician makes without thinking: that quantity is a thing, and you can write it down.</p>
 </div>
+  </details>
 </section>
 
 <section id="ancient">
-  <div class="era-card" style="--era-color:var(--era-ancient)">
+  <details class="era" id="era-ancient">
+    <summary>
+      <div class="era-card" style="--era-color:var(--era-ancient)">
     <div class="era-eyebrow">Era 2<span class="era-range">3000 – 500 BCE</span></div>
     <h2>4. Ancient: rope, clay, papyrus</h2>
     <p class="era-blurb">Egypt and Mesopotamia: the first civilisations to write down arithmetic for taxes, calendars, and field-measurement. They had quadratic equations, Pythagorean triples, and a sexagesimal place-value system — a thousand years before the Greeks would call any of it geometry.</p>
   </div>
-  <div data-era-narrative="ancient">
+    </summary>
+    <div class="era-body" data-era-narrative="ancient">
 <p>In 1922 a New York publisher named George Arthur Plimpton bought a clay tablet from a dealer for ten dollars, donated it to Columbia University, and gave the world its single most consequential piece of evidence about Babylonian mathematics. <strong>Plimpton 322</strong> is a fragment of fired clay, roughly the size of a postcard, dated to about 1800 BCE. It has fifteen rows and four columns of cuneiform numerals. The columns, once decoded, list Pythagorean triples — integer solutions to $a^2 + b^2 = c^2$ — twelve hundred years before Pythagoras was born. Row eleven gives 45, 60, 75. Row four gives 12709, 13500, 18541. The scribe who carved this tablet had a method, and the method was not "guess and check."</p>
 
 <p>This is the era when mathematics goes from "tally on a bone" to "written tradition you can teach." Three civilisations laid the foundations between 3000 and 500 BCE, and they did it more or less independently: Mesopotamia, Egypt, and Vedic India. The Greeks would later receive everything they wrote and rebuild it as proof-driven geometry, but the substrate the Greeks inherited was already two thousand years deep.</p>
@@ -416,15 +468,19 @@ const SVG = (tag,attrs={})=>{
 
 <p>By 500 BCE the toolkit that Thales and Pythagoras would inherit was already in place: a working sexagesimal arithmetic, a quadratic-equation tradition, several independent proofs (in the practical sense) of the relation $a^2 + b^2 = c^2$, accurate approximations to $\pi$ and $\sqrt{2}$, and a body of surveying technique sufficient to align temples and pyramids to within minutes of arc. What was missing was the meta-level question — the question of <em>why</em> any of this was true, and what would count as an answer. That is the next era.</p>
 </div>
+  </details>
 </section>
 
 <section id="classical">
-  <div class="era-card" style="--era-color:var(--era-classical)">
+  <details class="era" id="era-classical">
+    <summary>
+      <div class="era-card" style="--era-color:var(--era-classical)">
     <div class="era-eyebrow">Era 3<span class="era-range">600 BCE – 400 CE</span></div>
     <h2>5. Classical: the Greek invention of proof</h2>
     <p class="era-blurb">From Thales' eclipse to Diophantus' equations, the Greeks didn't invent arithmetic — they invented the <em>argument that arithmetic facts must be true</em>. Euclid's <em>Elements</em> would be the model for what mathematics is for the next two thousand years.</p>
   </div>
-  <div data-era-narrative="classical">
+    </summary>
+    <div class="era-body" data-era-narrative="classical">
 <p>In 212 BCE a Roman soldier broke into the home of an old man in Syracuse and killed him over a geometric diagram. The old man was Archimedes; the soldier had not understood the request to wait. What gets remembered is the indignity. What gets forgotten is what the diagram was for. Archimedes had asked, in <em>On the Sphere and Cylinder</em>, for a particular figure to be carved on his tomb: a sphere snug inside a cylinder of the same diameter and height. The point was not the picture. The point was the equation it certified — $V_{\text{sphere}} = \tfrac{2}{3}\, V_{\text{cylinder}}$ — and the fact that he could prove it.</p>
 
 <p>The Greek innovation, the thing that distinguishes 600 BCE Ionia from every prior arithmetic culture, is not a particular result. The Babylonians had Pythagorean triples a thousand years before Pythagoras (the tablet <em>Plimpton 322</em>, c. 1800 BCE, lists fifteen of them in sorted order). Egyptian rope-stretchers had been laying out right angles since the Old Kingdom. What the Greeks added was a new species of sentence: <em>and here is why it must be true</em>. Procedure became proof.</p>
@@ -475,15 +531,19 @@ const SVG = (tag,attrs={})=>{
 
 <p>What the Greeks left was an enormous corpus, an unimprovable definition of what counted as a proof, and an attitude — that the right response to a mathematical claim is to ask why it is true. Every page of this notebook inherits it. The next chapter belongs to mathematicians who, on Greek foundations they read in translation, did things the Greeks would not have recognised: place-value arithmetic, symbolic algebra, infinite series.</p>
 </div>
+  </details>
 </section>
 
 <section id="asian-islamic">
-  <div class="era-card" style="--era-color:var(--era-asian-islamic)">
+  <details class="era" id="era-asian-islamic">
+    <summary>
+      <div class="era-card" style="--era-color:var(--era-asian-islamic)">
     <div class="era-eyebrow">Era 4<span class="era-range">200 – 1300 CE</span></div>
     <h2>6. Asian and Islamic mathematics</h2>
     <p class="era-blurb">While European libraries were burning, Indian mathematicians invented the decimal place-value system and the symbol for zero; Chinese astronomers solved cubic equations numerically; the House of Wisdom in Baghdad gave us "algebra" and "algorithm" — both literally Arabic words.</p>
   </div>
-  <div data-era-narrative="asian-islamic">
+    </summary>
+    <div class="era-body" data-era-narrative="asian-islamic">
 <p>Around 628 CE, an astronomer in the Rajput city of Bhillamāla wrote down rules for arithmetic with debts and fortunes. "A debt minus a debt is a debt; a fortune minus a fortune is a fortune; a debt subtracted from zero is a fortune." He defined zero by what it does — a number plus zero is itself, a number times zero is zero — and treated negative quantities as legitimate answers with the interpretation that owing money is real. The astronomer was <strong>Brahmagupta</strong>, the book the <em>Brāhmasphuṭasiddhānta</em>, and several of his rules are what a fourteen-year-old today learns under the name "the integers". European mathematics waited six hundred years to take negative numbers seriously, a thousand to stop calling them "false roots".</p>
 
 <p>The Eurocentric framing — that Asian and Islamic mathematicians "preserved" the Greek inheritance and handed it back unscathed — gets the story almost exactly backwards. Greek mathematics was translated and commented on, certainly. But the substantive work from <strong>Liu Hui</strong>'s commentary on the <em>Nine Chapters</em> in 263 CE through the Kerala school in 1400 CE is not custodianship. It is original mathematics in territory the Greeks had barely entered: numerical algorithms, place-value arithmetic, symbolic algebra, cubic equations, infinite series. By the time Latin Europe received this material in the twelfth century, it was already a finished technology.</p>
@@ -536,15 +596,19 @@ $$\arctan x = x - \frac{x^3}{3} + \frac{x^5}{5} - \frac{x^7}{7} + \cdots$$
 
 <p>What this period leaves to the next is, almost literally, everything. Place value, zero, the negatives, symbolic algebra, the cubic, infinite series, trigonometry as a stand-alone discipline — for almost every subject in the rest of this notebook, the bedrock was laid here. When Fibonacci returns to Pisa in 1202 with a copy of al-Khwārizmī, he is not importing Greek mathematics. He is importing a thousand years of original work in Sanskrit, Chinese, and Arabic, that Europe is about to receive, mistranslate, and call its own.</p>
 </div>
+  </details>
 </section>
 
 <section id="medieval">
-  <div class="era-card" style="--era-color:var(--era-medieval)">
+  <details class="era" id="era-medieval">
+    <summary>
+      <div class="era-card" style="--era-color:var(--era-medieval)">
     <div class="era-eyebrow">Era 5<span class="era-range">1100 – 1500 CE</span></div>
     <h2>7. Medieval Europe and early Renaissance</h2>
     <p class="era-blurb">A merchant's son from Pisa carries Hindu–Arabic numerals across the Alps; Oxford masters draw the first time-velocity graphs; Italian abacus schools rediscover the cubic. The slow re-importation of classical and Islamic mathematics into Latin Europe.</p>
   </div>
-  <div data-era-narrative="medieval">
+    </summary>
+    <div class="era-body" data-era-narrative="medieval">
 <p>Latin Europe spent the early middle ages doing arithmetic with Roman numerals and a borrowed abacus, and the result was about what you would expect: tax rolls, dim astronomy, and almost no original mathematics for half a millennium. The interesting story of this era is not what Europe produced from a standing start — it is how Europe slowly absorbed what the Islamic world, India, and the surviving Greek tradition had already worked out, and then, with that scaffolding in place, took its first cautious steps of its own.</p>
 
 <p>The translation centers were Toledo, Sicily, and the Iberian frontier — places where Christian, Muslim, and Jewish scholars worked in proximity and where Arabic manuscripts had not been burned or lost. By the twelfth century, Gerard of Cremona alone had rendered something like seventy mathematical and astronomical works from Arabic into Latin, including al-Khwārizmī's algebra and Ptolemy's <em>Almagest</em>. The Latin word <em>algorism</em> is just al-Khwārizmī with the vowels worn off; <em>algebra</em> is from <em>al-jabr</em>, "the restoration." The vocabulary itself records the debt.</p>
@@ -583,15 +647,19 @@ $$1 + \underbrace{\tfrac{1}{2}}_{\geq 1/2} + \underbrace{\tfrac{1}{3}+\tfrac{1}{
 
 <p>The other late-medieval acceleration was trigonometry. Spherical trig had been a working tool of Islamic astronomy since the ninth century — Abū al-Wafāʾ tabulated sines to fifteen decimal places, al-Bīrūnī derived the addition formulas — and by the time Regiomontanus systematized the subject in Latin in 1464 he was, again, mostly translating and consolidating. But consolidation matters: <em>De triangulis omnimodis</em> gave Renaissance astronomers a uniform language for triangle calculations on the sphere, which is what they needed to make Copernicus's heliocentric proposal computationally honest. By the time the book finally went to press in 1533, the transition out of the medieval period was already underway: Cardano was thirty-two, Viète was not yet born, and Latin Europe was about to discover that it could do mathematics of its own.</p>
 </div>
+  </details>
 </section>
 
 <section id="renaissance">
-  <div class="era-card" style="--era-color:var(--era-renaissance)">
+  <details class="era" id="era-renaissance">
+    <summary>
+      <div class="era-card" style="--era-color:var(--era-renaissance)">
     <div class="era-eyebrow">Era 6<span class="era-range">1500 – 1700 CE</span></div>
     <h2>8. Renaissance and Scientific Revolution</h2>
     <p class="era-blurb">Symbolic algebra, decimals, logarithms, analytic geometry, probability, and finally the calculus — a single century takes mathematics from "art of calculation" to "language of nature." Newton and Leibniz independently invent the same machine for taming change.</p>
   </div>
-  <div data-era-narrative="renaissance">
+    </summary>
+    <div class="era-body" data-era-narrative="renaissance">
 <p>Two hundred years separate Cardano's <em>Ars Magna</em> from Newton's <em>Principia</em>, and across that span mathematics stopped being a clever extension of arithmetic and became the working language of natural philosophy. Symbolic algebra, decimals, logarithms, analytic geometry, probability, and finally the calculus all arrived in a span shorter than a single human lifetime. The same century that watched the Thirty Years' War and burned witches in Salem also computed the orbit of Mars to arc-second precision. The intellectual energy was extraordinary; the priorities were peculiar.</p>
 
 <h3>Cardano, the cubic, and the first imaginary number</h3>
@@ -638,15 +706,19 @@ $$\frac{d}{dx}\int_a^x f(t)\,dt = f(x).$$
 
 <p>Newton used his fluxions to derive Kepler's laws from inverse-square gravitation and lay out the program of mathematical physics that would dominate the next two centuries — see <a href="./hamiltonians-classical-mechanics.html">classical mechanics</a> for what the eighteenth century did once it had Newton's framework. Leibniz, more philosophically inclined, gave us the notation we still use, the term "function," and a vision of the calculus as a universal symbolic art. Both were, by modern standards of rigor, doing analysis on faith; the infinitesimals would not be made honest until Cauchy and Weierstrass two centuries later. By then the conquest was already complete.</p>
 </div>
+  </details>
 </section>
 
 <section id="enlightenment">
-  <div class="era-card" style="--era-color:var(--era-enlightenment)">
+  <details class="era" id="era-enlightenment">
+    <summary>
+      <div class="era-card" style="--era-color:var(--era-enlightenment)">
     <div class="era-eyebrow">Era 7<span class="era-range">1700 – 1900 CE</span></div>
     <h2>9. The 18th and 19th centuries</h2>
     <p class="era-blurb">Euler does everything; Gauss does it more rigorously; Galois invents groups at twenty and dies in a duel; Cauchy and Weierstrass make analysis honest; Riemann opens up curved geometry; Cantor learns to count infinity. By 1900 mathematics is large enough that no one can know all of it.</p>
   </div>
-  <div data-era-narrative="enlightenment">
+    </summary>
+    <div class="era-body" data-era-narrative="enlightenment">
 <p>If the Renaissance gave mathematics the calculus, the two centuries that followed gave it everything else. The eighteenth century lived inside the calculus, expanding it recklessly; the nineteenth came back with a mop and a list of pointed questions. By 1900 the corpus had outgrown what any one person could survey — a state of affairs Hilbert addressed at the Paris ICM by issuing 23 problems and effectively saying, "fine, divide it up among yourselves."</p>
 
 <h3>Euler, and the explosion of analysis</h3>
@@ -721,15 +793,19 @@ $$\text{Given any list } f:\mathbb{N}\to\mathbb{R},\ \text{set } x_n = \begin{ca
 
 <p>Hilbert closes the era and opens the next. On 8 August 1900, at the Paris ICM, he read out 23 unsolved problems chosen to "lift the veil behind which the future lies hidden." Some — the Riemann Hypothesis (problem 8), the Continuum Hypothesis (problem 1) — remain open. Others — Gödel's second incompleteness theorem (a negative answer to problem 2), Matiyasevich's resolution of the 10th (with Davis, Putnam, and Robinson) — became foundational results in their own right. A single lecture drew the map for a century of work, and it largely held. The two hundred years from Euler's <em>Introductio</em> to Hilbert's address are when mathematics became too large for any one mind to hold and discovered, in compensation, that this was fine.</p>
 </div>
+  </details>
 </section>
 
 <section id="twentieth">
-  <div class="era-card" style="--era-color:var(--era-20c)">
+  <details class="era" id="era-twentieth">
+    <summary>
+      <div class="era-card" style="--era-color:var(--era-20c)">
     <div class="era-eyebrow">Era 8<span class="era-range">1900 – 2000 CE</span></div>
     <h2>10. The 20th century</h2>
     <p class="era-blurb">Hilbert's program; Russell's paradox; Gödel's incompleteness; Turing's machine; Bourbaki's structures; Grothendieck's schemes; Atiyah and Singer; Wiles and Fermat. The century that mechanized proof, formalized everything, and revealed that mathematics has limits — and then quietly proved more theorems than the previous five thousand years combined.</p>
   </div>
-  <div data-era-narrative="twentieth">
+    </summary>
+    <div class="era-body" data-era-narrative="twentieth">
 <p>Hilbert's 23 problems (the previous era's closing scene) were a confident map of the future. The surprising thing was which problems surrendered and which fought back. The first — Cantor's continuum hypothesis — received an answer Hilbert had not anticipated: <em>neither yes nor no</em>. The second — to prove arithmetic consistent by finitary means — was shown impossible. The tenth — a uniform algorithm for diophantine equations — was shown undecidable. The century Hilbert opened in confidence ended with a careful map of the territory mathematics cannot reach. It also produced more theorems than the previous five thousand years combined.</p>
 
 <h3>The foundations crisis</h3>
@@ -780,15 +856,19 @@ $$\operatorname{ind}_a(D) \;=\; \operatorname{ind}_t(D).$$
 
 <p>By the time Wiles received his medal, the framework around the proof had absorbed Fermat as one case of a much larger correspondence between Galois representations and automorphic forms. The 21st century would inherit a mathematics larger, more abstract, and more uncertain about its own foundations than at any time in its history. It was also, by any serious accounting, more alive.</p>
 </div>
+  </details>
 </section>
 
 <section id="modern">
-  <div class="era-card" style="--era-color:var(--era-modern)">
+  <details class="era" id="era-modern">
+    <summary>
+      <div class="era-card" style="--era-color:var(--era-modern)">
     <div class="era-eyebrow">Era 9<span class="era-range">2000 – present</span></div>
     <h2>11. Into the 21st century</h2>
     <p class="era-blurb">Perelman's solitary proof of the Poincaré conjecture; the Langlands program continuing to absorb everything; condensed mathematics; machine-checked proofs; the rise of computer-assisted theorem proving and AI as collaborator. The story is still being written.</p>
   </div>
-  <div data-era-narrative="modern">
+    </summary>
+    <div class="era-body" data-era-narrative="modern">
 <p>Wiles closed the door on the nineteenth century's most famous open problem in 1994; the twenty-first opened with a different kind of event entirely. On 11 November 2002, a researcher in St Petersburg uploaded an arXiv preprint titled "The entropy formula for the Ricci flow and its geometric applications," followed by two more in March and July of 2003. There was no journal submission, no press release, no lecture tour. The three papers, totalling sixty-eight pages, claimed to settle Thurston's geometrization conjecture — and as a corollary, the Poincaré conjecture, the only one of the seven Clay Millennium Problems to be solved so far. The author was Grigori Perelman, and the way he chose to publish set the tone for the era.</p>
 
 <h3>Perelman, Ricci flow, and walking away</h3>
@@ -825,6 +905,7 @@ $$\partial_t g_{ij} = -2 R_{ij},$$
 
 <p>Three other developments belong on the running ledger. The arXiv has effectively replaced the journal as the medium of first publication — a Perelman-style dump is now ordinary. Large collaborative projects (the Polymath problems, Mathlib, the Stacks Project) have shown that asynchronous, internet-mediated mathematics produces results no individual would attempt alone. And machine-learning systems have started doing useful mathematical work: AlphaGeometry solving olympiad problems, copilots suggesting Lean tactics, language models conjecturing patterns in knot invariants that humans then prove. The shape of the mathematician's role twenty years from now is unclear. The shape of the last twenty has been: tools changed, open questions <a href="./modularity-and-flt.html">stayed deep</a>, and the discipline kept absorbing new <a href="./category-theory.html">categorical</a> machinery faster than any individual could read it.</p>
 </div>
+  </details>
 </section>
 
 <section id="lineage">
@@ -1166,6 +1247,50 @@ document.addEventListener('DOMContentLoaded', function(){
       fg.appendChild(a);
     }
   }
+
+  // ===== Collapsible-era controls =====
+  // Each era is wrapped in <details class="era">. Default state: closed.
+  // (a) "Expand all" / "Collapse all" buttons toggle every era.
+  // (b) When the URL hash points at a section that contains a collapsed
+  //     era — either the section itself or any deep anchor inside the era's
+  //     narrative — auto-open the relevant <details>. This makes both the
+  //     sidetoc links ("#prehistory") and external deep-links land on a
+  //     visible target rather than a closed card.
+  const eraDetails = [...document.querySelectorAll('details.era')];
+  const expandAllBtn = document.getElementById('era-expand-all');
+  const collapseAllBtn = document.getElementById('era-collapse-all');
+  if(expandAllBtn){
+    expandAllBtn.addEventListener('click', () => {
+      eraDetails.forEach(d => { d.open = true; });
+    });
+  }
+  if(collapseAllBtn){
+    collapseAllBtn.addEventListener('click', () => {
+      eraDetails.forEach(d => { d.open = false; });
+    });
+  }
+  function openEraForHash(){
+    const hash = (location.hash || '').replace(/^#/, '');
+    if(!hash) return;
+    // Direct section id (#prehistory, #ancient, ...)
+    const direct = document.getElementById(hash);
+    if(!direct) return;
+    // If the target is itself a <details class="era"> or contains/is contained
+    // by one, open it. closest('details.era') walks up; the section element
+    // can also have an inner details we should open.
+    const ownDetails = direct.closest('details.era');
+    if(ownDetails){ ownDetails.open = true; return; }
+    const innerDetails = direct.querySelector('details.era');
+    if(innerDetails) innerDetails.open = true;
+  }
+  openEraForHash();
+  window.addEventListener('hashchange', () => {
+    openEraForHash();
+    // After expanding, scroll the target into view (browsers don't re-scroll
+    // when the target was hidden at the moment of hashchange).
+    const t = document.getElementById((location.hash || '').replace(/^#/, ''));
+    if(t) requestAnimationFrame(() => t.scrollIntoView({block:'start', behavior:'smooth'}));
+  });
 });
 </script>
 <details class="changelog">
