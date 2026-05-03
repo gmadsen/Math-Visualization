@@ -304,6 +304,34 @@
     scrubGroup.appendChild(scrubGrip);
     scrubGroup.appendChild(scrubLabel);
     svg.appendChild(scrubGroup);
+    // One-time discoverability hint: a softly pulsing "← drag me →" label
+    // that follows the grip until the first interaction. The aria-label
+    // already covers AT users; this is for sighted readers who otherwise
+    // see only a static yellow rectangle.
+    const scrubHint = el('g', {
+      'class':'tl-scrubber-hint',
+      'aria-hidden':'true',
+      'pointer-events':'none'
+    });
+    // Place the hint just below the era bands and above the first dot
+    // row — above y=ERA_BAND_TOP would be clipped by the SVG viewBox
+    // (top=0), and dots start at PLOT_TOP. Halo via paint-order so the
+    // text reads cleanly across the dashed scrubber line and dots.
+    const scrubHintText = el('text', {
+      x: 0, y: PLOT_TOP - 6,
+      'text-anchor':'middle', 'font-size': 10.5,
+      'font-weight': 500, fill: 'var(--ink)',
+      'paint-order': 'stroke', stroke: '#0b0f16', 'stroke-width': 3.5
+    });
+    scrubHintText.textContent = '← drag me →';
+    scrubHint.appendChild(scrubHintText);
+    svg.appendChild(scrubHint);
+    let scrubInteracted = false;
+    function dismissScrubHint(){
+      if(scrubInteracted) return;
+      scrubInteracted = true;
+      scrubHint.classList.add('dismissed');
+    }
     function setScrubYear(year){
       const cy = Math.max(SEGMENTS[0][0], Math.min(SEGMENTS[SEGMENTS.length-1][1], year));
       const x = yearToX(cy);
@@ -311,6 +339,7 @@
       scrubLine.setAttribute('x2', x);
       scrubGrip.setAttribute('x', x - 8);
       scrubLabel.setAttribute('x', x);
+      scrubHintText.setAttribute('x', x);
       scrubLabel.textContent = fmtYear(cy);
       scrubGroup.setAttribute('aria-valuenow', cy);
       scrubGroup.setAttribute('aria-valuetext', fmtYear(cy));
@@ -340,6 +369,7 @@
     scrubGrip.addEventListener('pointerdown', e => {
       dragging = true;
       scrubGrip.setPointerCapture(e.pointerId);
+      dismissScrubHint();
       e.preventDefault();
     });
     scrubGroup.addEventListener('pointermove', e => {
@@ -352,10 +382,10 @@
     scrubGroup.addEventListener('keydown', e => {
       // Coarse step keys: ← / →. Fine: shift+arrow. Home/End jump to bounds.
       const fine = e.shiftKey ? 10 : 50;
-      if(e.key === 'ArrowLeft'){ setScrubYear(scrubYearState - fine); e.preventDefault(); }
-      else if(e.key === 'ArrowRight'){ setScrubYear(scrubYearState + fine); e.preventDefault(); }
-      else if(e.key === 'Home'){ setScrubYear(SEGMENTS[0][0]); e.preventDefault(); }
-      else if(e.key === 'End'){ setScrubYear(SEGMENTS[SEGMENTS.length-1][1]); e.preventDefault(); }
+      if(e.key === 'ArrowLeft'){ setScrubYear(scrubYearState - fine); dismissScrubHint(); e.preventDefault(); }
+      else if(e.key === 'ArrowRight'){ setScrubYear(scrubYearState + fine); dismissScrubHint(); e.preventDefault(); }
+      else if(e.key === 'Home'){ setScrubYear(SEGMENTS[0][0]); dismissScrubHint(); e.preventDefault(); }
+      else if(e.key === 'End'){ setScrubYear(SEGMENTS[SEGMENTS.length-1][1]); dismissScrubHint(); e.preventDefault(); }
     });
     // Click on the scrubber background also jumps the cursor.
     svg.addEventListener('click', e => {
@@ -368,6 +398,7 @@
       const ySvg = yCss * (VIEW_H / rect.height);
       if(ySvg > AXIS_Y - 14 || ySvg < ERA_BAND_TOP) return;
       setScrubYear(pointerToYear(e));
+      dismissScrubHint();
     });
 
     // ===== pack and render event dots =====

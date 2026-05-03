@@ -308,6 +308,21 @@
   .tl .tl-scrubber{cursor:ew-resize}
   .tl .tl-scrubber rect{transition:fill 120ms ease}
   .tl .tl-scrubber:hover rect{fill:#fff09a}
+  /* One-time discoverability hint that follows the scrubber until the
+     reader interacts with it. Fades on dismiss so the page doesn't
+     keep nagging once the gesture has been learned. */
+  .tl .tl-scrubber-hint text{
+    animation: tl-scrub-hint-pulse 1.6s ease-in-out infinite;
+    transition: opacity 350ms ease;
+  }
+  .tl .tl-scrubber-hint.dismissed text{ opacity:0; animation:none }
+  @keyframes tl-scrub-hint-pulse{
+    0%, 100% { opacity:.55 }
+    50%      { opacity:1 }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .tl .tl-scrubber-hint text{ animation:none; opacity:.7 }
+  }
   .map .pin-label{font-size:10px;fill:var(--ink);pointer-events:none;
     text-shadow:0 0 4px #0b0f16, 0 0 4px #0b0f16}
   .map-legend{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.5rem;color:var(--mute);font-size:.78rem}
@@ -335,6 +350,24 @@
   .lineage .lnode .lname{font-size:12.5px;font-weight:600;fill:#fff;pointer-events:none}
   .lineage .lnode .lyear{font-size:10.5px;fill:var(--mute);font-variant-numeric:tabular-nums;pointer-events:none}
   .lineage .lroot rect{fill:rgba(255,216,102,0.14);stroke:var(--yellow);stroke-width:2}
+
+  /* === Era toys (the 9 inline interactives in era-bodies) ===
+     Promoted from per-toy scratch styling so the row reads as one
+     feature. The inner SVG canvas is theme-tracked (var(--panel2)) so
+     SVG text labels — which use var(--ink) — stay legible against the
+     surface in both dark and light themes. The .tl-detail / .map-svg-wrap
+     / .lineage-svg-wrap "always-dark" pattern used elsewhere on this
+     page is intentionally avoided here because the toy text is
+     theme-coloured. */
+  .era-toy .era-toy-body{display:flex;flex-direction:column;gap:.55rem}
+  .era-toy .era-toy-body .row{gap:.8rem;margin:.2rem 0}
+  .era-toy .era-toy-body input[type="range"]{max-width:220px}
+  .era-toy .era-toy-body input[type="text"],
+  .era-toy .era-toy-body input[type="number"]{width:140px}
+  .era-toy .era-toy-body svg{
+    background:var(--panel2);border:1px solid var(--line);border-radius:6px}
+  .era-toy .era-toy-body button{margin-top:.1rem}
+  .era-toy .era-toy-readout{margin-top:.5rem}
 
   /* outbound cross-link garden */
   .crosslinks{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.6rem;margin-top:1rem}
@@ -1107,7 +1140,21 @@ $$\partial_t g_{ij} = -2 R_{ij},$$
     { "id":"mochizuki",    "name":"Shinichi Mochizuki",        "birth":1969,  "death":null,  "era":"modern",    "place":"RIMS Kyoto",                           "blurb":"Inter-universal Teichmüller theory and a still-controversial proof of the abc conjecture (2012)." },
     { "id":"scholze",      "name":"Peter Scholze",             "birth":1987,  "death":null,  "era":"modern",    "place":"Bonn",                                 "blurb":"Perfectoid spaces; condensed mathematics; Fields Medal 2018. A new foundation that bridges algebraic and analytic geometry." },
     { "id":"mirzakhani",   "name":"Maryam Mirzakhani",         "birth":1977,  "death":2017,  "era":"modern",    "place":"Tehran / Stanford",                    "blurb":"Dynamics on moduli spaces of Riemann surfaces; first woman Fields Medal (2014)." },
-    { "id":"hales",        "name":"Thomas Hales",              "birth":1958,  "death":null,  "era":"modern",    "place":"Pittsburgh",                           "blurb":"Proved the Kepler conjecture on sphere packing (1998); led the Flyspeck project to formally verify the proof in HOL Light/Isabelle (2014)." }
+    { "id":"hales",        "name":"Thomas Hales",              "birth":1958,  "death":null,  "era":"modern",    "place":"Pittsburgh",                           "blurb":"Proved the Kepler conjecture on sphere packing (1998); led the Flyspeck project to formally verify the proof in HOL Light/Isabelle (2014)." },
+    { "id":"cavalieri",    "name":"Bonaventura Cavalieri",     "birth":1598,  "death":1647,  "era":"renaissance","place":"Milan / Bologna",                     "blurb":"Geometria indivisibilibus continuorum (1635). Cavalieri's principle — solids of equal cross-sectional area at every height have equal volume — gave 17th-century geometers a way to compute integrals without limits, and was the most direct ancestor of Newton's and Leibniz's calculus." },
+    { "id":"dirichlet",    "name":"Peter Gustav Lejeune Dirichlet", "birth":1805, "death":1859, "era":"enlightenment","place":"Berlin / Göttingen",              "blurb":"Dirichlet's theorem on primes in arithmetic progressions (1837), the founding paper of analytic number theory; the modern (function-theoretic) definition of a function; the Dirichlet principle in potential theory; FLT for $n=5$ (with Legendre, 1825) and $n=14$ (1832). Succeeded Gauss at Göttingen." },
+    { "id":"kummer",       "name":"Ernst Kummer",              "birth":1810,  "death":1893,  "era":"enlightenment","place":"Berlin",                            "blurb":"Discovered that unique factorisation fails in cyclotomic integers and invented \"ideal numbers\" (1847) to repair it — the prehistory of Dedekind's ideals. Proved FLT for all regular primes; the irregular primes that defeated him forced 20th-century number theorists to deeper machinery." },
+    { "id":"jordan",       "name":"Camille Jordan",            "birth":1838,  "death":1922,  "era":"enlightenment","place":"Paris",                              "blurb":"Traité des substitutions et des équations algébriques (1870) — the first systematic exposition of Galois theory and the source of \"Jordan normal form,\" \"Jordan curve theorem,\" and \"Jordan–Hölder.\" Made finite group theory a standalone discipline." },
+    { "id":"lie",          "name":"Sophus Lie",                "birth":1842,  "death":1899,  "era":"enlightenment","place":"Christiania (Oslo) / Leipzig",        "blurb":"Theorie der Transformationsgruppen (1888–93). Continuous groups of symmetries of differential equations — what we now call Lie groups and Lie algebras — became one of the central organising concepts of 20th-century geometry and physics." },
+    { "id":"frege",        "name":"Gottlob Frege",             "birth":1848,  "death":1925,  "era":"enlightenment","place":"Jena",                                "blurb":"Begriffsschrift (1879) invented modern predicate logic — quantifiers, bound variables, formal proof — and Grundgesetze der Arithmetik attempted to derive arithmetic from logic alone. Russell's 1902 letter pointing out the paradox in Volume II's Basic Law V arrived as Volume II was at press." },
+    { "id":"peano",        "name":"Giuseppe Peano",            "birth":1858,  "death":1932,  "era":"enlightenment","place":"Turin",                              "blurb":"The Peano axioms for the natural numbers (Arithmetices principia, 1889); the Peano space-filling curve (1890); the symbolic notation $\\in$, $\\cup$, $\\cap$ that survives unchanged. Tireless campaigner for a constructed international auxiliary language." },
+    { "id":"zermelo",      "name":"Ernst Zermelo",             "birth":1871,  "death":1953,  "era":"twentieth", "place":"Göttingen / Freiburg",                 "blurb":"The Zermelo axiomatisation of set theory (1908) and the well-ordering theorem (1904) — both responses to Russell's paradox. Fraenkel and Skolem's later refinements give the ZF(C) of today's foundations." },
+    { "id":"russell",      "name":"Bertrand Russell",          "birth":1872,  "death":1970,  "era":"twentieth", "place":"Cambridge",                            "blurb":"Russell's paradox (1901), addressed to Frege. Principia Mathematica (1910–13, with Whitehead) attempted to derive all of mathematics from logic and a theory of types — a 2,000-page project later eclipsed by Gödel's incompleteness theorems. Nobel Prize in Literature (1950) for his philosophical writing." },
+    { "id":"hamilton",     "name":"Richard S. Hamilton",       "birth":1943,  "death":2024,  "era":"twentieth", "place":"Cornell / Columbia",                   "blurb":"Introduced Ricci flow in 1982 as a tool for proving Thurston's geometrization conjecture, and over two decades developed the analytic apparatus — short-time existence, curvature evolution, the maximum principle for tensors — that Perelman would extend with surgery to close the case." },
+    { "id":"gentzen",      "name":"Gerhard Gentzen",           "birth":1909,  "death":1945,  "era":"twentieth", "place":"Göttingen",                            "blurb":"Natural deduction and the sequent calculus (1934–35) — the proof systems that proof theory still uses. Proved the consistency of Peano arithmetic (1936) using transfinite induction up to $\\varepsilon_0$, threading the needle that Gödel's second incompleteness theorem leaves. Died of starvation in a Czech POW camp in 1945." },
+    { "id":"taniyama",     "name":"Yutaka Taniyama",           "birth":1927,  "death":1958,  "era":"twentieth", "place":"Tokyo",                                "blurb":"At the 1955 Tokyo–Nikkō conference, posed (with Goro Shimura) the conjecture that every elliptic curve over $\\mathbb{Q}$ comes from a modular form. Refined into the modularity theorem; proved for semistable curves by Wiles–Taylor (1995) and in full by Breuil–Conrad–Diamond–Taylor (2001). Took his own life at 31." },
+    { "id":"frey",         "name":"Gerhard Frey",              "birth":1944,  "death":null,  "era":"twentieth", "place":"Saarbrücken / Essen",                  "blurb":"Pointed out (1985) that a hypothetical FLT counterexample $a^p+b^p=c^p$ would yield an elliptic curve $y^2 = x(x-a^p)(x+b^p)$ — the Frey curve — whose properties contradict the Taniyama–Shimura modularity conjecture. The reduction that gave Wiles his target." },
+    { "id":"ribet",        "name":"Ken Ribet",                 "birth":1948,  "death":null,  "era":"twentieth", "place":"Berkeley",                             "blurb":"The 1986 level-lowering theorem (Serre's $\\varepsilon$-conjecture): if a Frey curve were modular, it would force a non-existent modular form of level 2 and weight 2. Closed the link Frey opened — modularity for semistable curves now implies FLT." }
   ],
 
   "events": [
@@ -1183,7 +1230,7 @@ $$\partial_t g_{ij} = -2 R_{ij},$$
     { "year":1935, "era":"twentieth","title":"Bourbaki begins","who":["weil"],"city":"Paris","region":"France","lat":48.86,"lng":2.35,"summary":"A young French collective (André Weil et al.) starts to rewrite all of mathematics from set-theoretic structures upward." },
     { "year":1936, "era":"twentieth","title":"Turing machines","who":["turing"],"city":"Cambridge","region":"England","lat":52.20,"lng":0.12,"summary":"On Computable Numbers: a precise mathematical model of an idealized computing machine. The halting problem is undecidable.","topicAnchor":"./computability-and-decidability.html" },
     { "year":1944, "era":"twentieth","title":"Theory of games","who":["vonneumann"],"city":"Princeton","region":"USA","lat":40.35,"lng":-74.66,"summary":"Theory of Games and Economic Behavior (with Morgenstern) founds modern game theory.","topicAnchor":"./probabilistic-method.html" },
-    { "year":1945, "era":"twentieth","title":"Eilenberg–Mac Lane: category theory","who":["eilenberg","maclane"],"city":"Bloomington","region":"USA","lat":39.17,"lng":-86.53,"summary":"\"General Theory of Natural Equivalences\" formalises naturality and introduces categories, functors, and natural transformations. The ambient language of structural mathematics from this point on.","topicAnchor":"./category-theory.html" },
+    { "year":1945, "era":"twentieth","title":"Eilenberg–Mac Lane: category theory","who":["eilenberg","maclane"],"city":"Bloomington / Cambridge","region":"USA","lat":39.17,"lng":-86.53,"summary":"\"General Theory of Natural Equivalences\" formalises naturality and introduces categories, functors, and natural transformations. Authored from Eilenberg's Indiana University (Bloomington) and Mac Lane's Harvard. The ambient language of structural mathematics from this point on.","topicAnchor":"./category-theory.html" },
     { "year":1948, "era":"twentieth","title":"Shannon's information theory","who":["shannon"],"city":"Murray Hill","region":"USA","lat":40.69,"lng":-74.40,"summary":"A Mathematical Theory of Communication: entropy, channel capacity, the founding paper of information theory.","topicAnchor":"./information-theory.html" },
     { "year":1955, "era":"twentieth","title":"Taniyama–Shimura conjecture","who":[],"city":"Tokyo","region":"Japan","lat":35.68,"lng":139.69,"summary":"Every elliptic curve over $\\mathbb{Q}$ is modular. A wild conjecture from the Tokyo–Nikkō conference; key to FLT.","topicAnchor":"./modularity-and-flt.html" },
     { "year":1956, "era":"twentieth","title":"Cartan–Eilenberg: homological algebra","who":["eilenberg"],"city":"Princeton","region":"USA","lat":40.35,"lng":-74.66,"summary":"Cartan–Eilenberg's Homological Algebra synthesises Tor, Ext, derived functors, and the long exact sequence machinery into a single textbook. The discipline gets its name and its standard apparatus.","topicAnchor":"./homological.html" },

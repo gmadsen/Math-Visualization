@@ -24,6 +24,20 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const REPO = resolve(__dirname, '..');
 
+function loadSectionsBySlug() {
+  // Map: slug → { sectionId, sectionTitle }
+  const sectionsPath = join(REPO, 'concepts', 'sections.json');
+  if (!existsSync(sectionsPath)) return new Map();
+  const data = JSON.parse(readFileSync(sectionsPath, 'utf8'));
+  const out = new Map();
+  for (const sec of data.sections || []) {
+    for (const slug of sec.topics || []) {
+      out.set(slug, { sectionId: sec.id, sectionTitle: sec.title });
+    }
+  }
+  return out;
+}
+
 function loadHistory() {
   const html = readFileSync(join(REPO, 'history.html'), 'utf8');
   // Extract events[].topicAnchor from the inline JSON block.
@@ -31,12 +45,15 @@ function loadHistory() {
   if (!m) throw new Error('history-data JSON block not found');
   const data = JSON.parse(m[1]);
   // Extract narrative <a href="./...html..."> from history.html.
-  // Skip the JSON block (we already have the structured anchors there).
-  const html_no_json = html.replace(/<script id="history-data"[\s\S]*?<\/script>/, '');
+  // Strip every <script> block first — they may contain JS comments with
+  // example link strings that the regex would otherwise mis-classify as
+  // dead slugs (e.g. a comment that quotes `<a href="./topic.html">` to
+  // explain why the click handler bails on inner-link navigation).
+  const html_no_scripts = html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/g, '');
   const linkRe = /href="(\.\/[^"]+\.html(?:#[^"]+)?)"/g;
   const narrativeLinks = [];
   let lm;
-  while ((lm = linkRe.exec(html_no_json)) !== null) {
+  while ((lm = linkRe.exec(html_no_scripts)) !== null) {
     narrativeLinks.push(lm[1]);
   }
   return { data, narrativeLinks };
@@ -156,7 +173,39 @@ function main() {
   lines.push('');
   if (!zeroInbound.length) lines.push('_None — every topic page has at least one inbound link._');
   else {
-    for (const slug of zeroInbound) lines.push(`- \`${slug}.html\``);
+    // Group by concepts/sections.json so the report surfaces section-level
+    // gaps (e.g. "every Probability & statistics page is zero-inbound")
+    // instead of a flat alphabetical wall.
+    const sectionsBySlug = loadSectionsBySlug();
+    const grouped = new Map(); // sectionTitle → slug[]
+    const unsectioned = [];
+    for (const slug of zeroInbound) {
+      const s = sectionsBySlug.get(slug);
+      if (s) {
+        if (!grouped.has(s.sectionTitle)) grouped.set(s.sectionTitle, []);
+        grouped.get(s.sectionTitle).push(slug);
+      } else {
+        unsectioned.push(slug);
+      }
+    }
+    // Order sections by descending count — highest-leverage gaps first.
+    const ordered = [...grouped.entries()].sort((a, b) => b[1].length - a[1].length);
+    for (const [section, slugs] of ordered) {
+      const total = sectionsBySlug.size > 0
+        ? [...sectionsBySlug.values()].filter(v => v.sectionTitle === section).length
+        : null;
+      const ratio = total ? ` (${slugs.length}/${total})` : '';
+      lines.push(`### ${section}${ratio}`);
+      lines.push('');
+      for (const slug of slugs.sort()) lines.push(`- \`${slug}.html\``);
+      lines.push('');
+    }
+    if (unsectioned.length) {
+      lines.push('### (unsectioned)');
+      lines.push('');
+      for (const slug of unsectioned.sort()) lines.push(`- \`${slug}.html\``);
+      lines.push('');
+    }
   }
   lines.push('');
 
