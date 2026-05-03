@@ -172,7 +172,37 @@
   }
 
   // --------------------------------------------------------------------------
-  // 4. Expose API.
+  // 4. KaTeX FOUC mitigation: hide <main> + .hero until KaTeX has rendered.
+  //    notebook.css fades opacity:0 → 1 only when html.katex-pending is set.
+  //    Adding the class synchronously here (before paint) prevents the flash
+  //    of raw `$…$` text. Removal is keyed off window.load with a 3s safety
+  //    timeout — KaTeX auto-render runs on DOMContentLoaded so by `load` it
+  //    is finished. If KaTeX fails or is blocked, the safety timer reveals
+  //    the page rather than leaving it blank.
+  // --------------------------------------------------------------------------
+  try {
+    document.documentElement.classList.add('katex-pending');
+    var revealed = false;
+    function reveal() {
+      if (revealed) return;
+      revealed = true;
+      document.documentElement.classList.remove('katex-pending');
+    }
+    if (document.readyState === 'complete') {
+      requestAnimationFrame(reveal);
+    } else {
+      window.addEventListener('load', function () {
+        requestAnimationFrame(reveal);
+      });
+    }
+    setTimeout(reveal, 3000);
+  } catch (e) {
+    // Defensive — never let FOUC code prevent the page from being shown.
+    try { document.documentElement.classList.remove('katex-pending'); } catch (_) {}
+  }
+
+  // --------------------------------------------------------------------------
+  // 5. Expose API.
   // --------------------------------------------------------------------------
   window.MVTheme = {
     get: get,

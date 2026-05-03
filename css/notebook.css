@@ -1,0 +1,285 @@
+/*
+ * notebook.css — global typography + interaction polish, shared by every page.
+ *
+ * Loaded via @import from theme-light.css (which is linked on 143 of 148 pages),
+ * and via direct <link> on the five pages that don't load theme-light.css.
+ *
+ * Rules in here sit *after* the per-page <style> blocks in cascade order, so
+ * same-specificity selectors (e.g. `body`, `h3`) win without !important.
+ *
+ * Implements audit findings:
+ *   #1  prose serif + display sans (KaTeX's CM-serif harmonizes with body)
+ *   #2  drop loud yellow on h3, color h2 underline by section instead
+ *   #11 global :focus-visible ring + skip link
+ *   #12 polished range slider thumb (cursor:grab, scale on hover, focus ring)
+ */
+
+/* ---------- 1. Typography ---------- */
+
+:root {
+  --font-body:    'Iowan Old Style', 'Charter', 'Source Serif 4', 'Source Serif Pro', Georgia, 'Times New Roman', serif;
+  --font-display: system-ui, -apple-system, BlinkMacSystemFont, 'Inter', 'Inter Tight', 'Segoe UI', Roboto, sans-serif;
+  --font-mono:    ui-monospace, SFMono-Regular, Menlo, Consolas, 'Cascadia Mono', monospace;
+}
+
+body {
+  font-family: var(--font-body);
+  font-feature-settings: "kern", "liga", "onum";
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+/* KaTeX's CM-serif glyphs sit slightly small against most body serifs; nudge
+ * up a hair so $x$ stops feeling tucked. */
+.katex { font-size: 1.04em; }
+
+/* Code / monospace inline retains the existing mono stack. */
+code, pre, kbd, samp, .readout {
+  font-family: var(--font-mono);
+}
+
+
+/* ---------- 2. Heading hierarchy fix ---------- */
+
+/* Per-page CSS sets `h3 { color: var(--yellow); }`, which outshouts white h2.
+ * Restore the order: h2 = section accent + line, h3 = ink with weight only. */
+h3 {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* The widget title's ALL-CAPS label was reading like SaaS chrome. Sentence
+ * case + display sans + heavier weight reads as a real caption. */
+.widget .hd .ttl {
+  text-transform: none;
+  letter-spacing: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+/* h2 underline picks up the page's section accent. The body[data-section]
+ * attribute is set by every topic page; topic pages wired by content/*.json
+ * already carry it. The eleven canonical sections — see CLAUDE.md. */
+body[data-section="logic-and-foundations"]      h2 { border-bottom-color: color-mix(in srgb, var(--blue)   60%, var(--line)); }
+body[data-section="algebra-and-homological"]    h2 { border-bottom-color: color-mix(in srgb, var(--yellow) 60%, var(--line)); }
+body[data-section="higher-categories-and-toposes"] h2 { border-bottom-color: color-mix(in srgb, var(--violet) 60%, var(--line)); }
+body[data-section="analysis"]                   h2 { border-bottom-color: color-mix(in srgb, var(--pink)   60%, var(--line)); }
+body[data-section="probability-and-statistics"] h2 { border-bottom-color: color-mix(in srgb, var(--cyan)   60%, var(--line)); }
+body[data-section="geometry-and-topology"]      h2 { border-bottom-color: color-mix(in srgb, var(--green)  60%, var(--line)); }
+body[data-section="number-theory"]              h2 { border-bottom-color: color-mix(in srgb, var(--yellow) 60%, var(--line)); }
+body[data-section="modular-forms-and-l-functions"] h2 { border-bottom-color: color-mix(in srgb, var(--cyan)   60%, var(--line)); }
+body[data-section="algebraic-geometry"]         h2 { border-bottom-color: color-mix(in srgb, var(--green)  60%, var(--line)); }
+body[data-section="combinatorics-and-graph-theory"] h2 { border-bottom-color: color-mix(in srgb, var(--green) 60%, var(--line)); }
+body[data-section="mathematical-physics"]       h2 { border-bottom-color: color-mix(in srgb, var(--pink)   60%, var(--line)); }
+
+
+/* ---------- 11. Global :focus-visible ring + skip link ---------- */
+
+:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Cards already lift on hover; let the ring sit slightly outside their hit-area
+ * so focus and hover don't crowd one another. */
+.tour-card:focus-visible,
+a.card:focus-visible,
+.card:focus-visible {
+  outline-offset: 4px;
+}
+
+/* Skip-to-content for keyboard users. Hidden until focused. Pages can place
+ *   <a class="skip-link" href="#main">Skip to content</a>
+ * as the first <body> child; the existing `<main id="main">` host already
+ * exists on most pages. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  padding: 0.5rem 0.9rem;
+  background: var(--panel);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  z-index: 1000;
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-weight: 500;
+}
+.skip-link:focus {
+  left: 0.5rem;
+  top: 0.5rem;
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+
+
+/* ---------- 12. Range slider thumb polish ---------- */
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  background: color-mix(in srgb, var(--line) 80%, transparent);
+  border-radius: 2px;
+  cursor: grab;
+  outline: none;
+  margin: 0.5rem 0;
+}
+input[type="range"]:active { cursor: grabbing; }
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--yellow);
+  border: 2px solid var(--bg);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink) 25%, transparent);
+  cursor: grab;
+  transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 150ms ease;
+}
+input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--yellow);
+  border: 2px solid var(--bg);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--ink) 25%, transparent);
+  cursor: grab;
+  transition: transform 150ms cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 150ms ease;
+}
+input[type="range"]:hover::-webkit-slider-thumb { transform: scale(1.2); }
+input[type="range"]:hover::-moz-range-thumb     { transform: scale(1.2); }
+input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.05); cursor: grabbing; }
+input[type="range"]:active::-moz-range-thumb     { transform: scale(1.05); cursor: grabbing; }
+input[type="range"]:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--cyan) 45%, transparent);
+}
+input[type="range"]:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--cyan) 45%, transparent);
+}
+
+
+/* ---------- 7. Mobile TOC drawer (≤1180px) ---------- */
+
+/* Above 1180px: existing per-page CSS shows aside.sidetoc as a fixed left rail
+ * and hides the in-page-anchor links from nav.toc. Drawer chrome stays out of
+ * the way.
+ *
+ * At ≤1180px: per-page CSS hides aside.sidetoc and surfaces the in-page
+ * anchors inline in nav.toc — which becomes a 4-5-line wall on long topic
+ * pages. Replace that with a drawer triggered by a hamburger button. */
+
+.sidetoc-drawer-toggle { display: none; }
+
+@media (max-width: 1180px) {
+  /* Hide the inline anchor flood entirely at small widths. */
+  nav.toc a[href^="#"] { display: none; }
+
+  /* Promote the sidetoc into a slide-in drawer. We override the per-page
+   * `display:none` from the same media query — same specificity, later in
+   * cascade order (this file is loaded after inline <style>). */
+  aside.sidetoc {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(340px, 88vw);
+    max-height: 100vh;
+    padding: 1.5rem 1rem 1.2rem;
+    background: var(--panel);
+    border-left: 1px solid var(--line);
+    box-shadow: -12px 0 36px rgba(0, 0, 0, 0.35);
+    transform: translateX(100%);
+    transition: transform 240ms cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 110;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    /* Re-establish dimensions in case per-page CSS sized it for desktop. */
+    left: auto;
+  }
+  aside.sidetoc.is-drawer-open {
+    transform: translateX(0);
+  }
+
+  /* Backdrop. */
+  .sidetoc-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 105;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 240ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .sidetoc-backdrop.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Toggle button injected by js/sidetoc.js into nav.toc. */
+  .sidetoc-drawer-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-left: auto;
+    background: var(--panel2);
+    color: var(--mute);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 0.3rem 0.7rem;
+    font: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+    line-height: 1.2;
+    transition: color 150ms ease, background 150ms ease, border-color 150ms ease;
+  }
+  .sidetoc-drawer-toggle::before {
+    content: "≡";
+    font-size: 1.15rem;
+    line-height: 1;
+  }
+  .sidetoc-drawer-toggle:hover,
+  .sidetoc-drawer-toggle:focus-visible {
+    color: var(--ink);
+    border-color: var(--mute);
+  }
+
+  /* When drawer open, prevent body scroll-bleed. */
+  body.sidetoc-locked {
+    overflow: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  aside.sidetoc { transition: none; }
+  .sidetoc-backdrop { transition: none; }
+}
+
+
+/* ---------- 9. KaTeX FOUC mitigation ---------- */
+
+/* The `katex-pending` class is added by js/theme-toggle.js (or an inline stub
+ * on the five pages that don't load it) immediately on script execution, and
+ * removed after window.load fires (KaTeX auto-render runs on DOMContentLoaded;
+ * by `load` it has settled). If JS fails entirely, no class is ever added,
+ * so the page renders normally — no risk of a permanently-blank document. */
+html.katex-pending main,
+html.katex-pending section.hero {
+  opacity: 0;
+}
+main, section.hero {
+  transition: opacity 220ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  main, section.hero { transition: none; }
+}
