@@ -8,10 +8,7 @@
       "title": "The graduate landscape",
       "anchor": "overview",
       "prereqs": [],
-      "blurb": "A map of the four threads that organize the graduate complex-analysis canon: value-distribution (Picard, Bloch, Nevanlinna), construction theorems (Weierstrass, Mittag-Leffler), growth and maximum-modulus controls (Phragmén-Lindelöf, Hadamard), and boundary behavior (Hardy, Fatou). Together they answer 'what makes entire and meromorphic functions special, and how do they behave near infinity or on the boundary?'",
-      "tags": [
-        "foundation"
-      ]
+      "blurb": "A map of the four threads that organize the graduate complex-analysis canon: value-distribution (Picard, Bloch, Nevanlinna), construction theorems (Weierstrass, Mittag-Leffler), growth and maximum-modulus controls (Phragmén-Lindelöf, Hadamard), and boundary behavior (Hardy, Fatou). Together they answer 'what makes entire and meromorphic functions special, and how do they behave near infinity or on the boundary?'"
     },
     {
       "id": "aca-picard-little",
@@ -25,7 +22,7 @@
       ],
       "blurb": "A non-constant entire function omits at most one complex value. Liouville (bounded ⇒ constant) is the trivial case; little Picard is the same idea pushed to its sharpest form — even an unbounded entire map cannot avoid more than one point.",
       "tags": [
-        "classification"
+        "foundation"
       ]
     },
     {
@@ -40,7 +37,7 @@
       ],
       "blurb": "In every neighborhood of an essential singularity, $f$ takes every complex value (with at most one exception) infinitely often. This sharpens Casorati-Weierstrass dramatically — 'dense' becomes 'every value, infinitely often'.",
       "tags": [
-        "classification"
+        "foundation"
       ]
     },
     {

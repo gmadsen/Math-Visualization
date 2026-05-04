@@ -719,10 +719,7 @@ window.__MVConcepts = {
           "title": "The graduate landscape",
           "anchor": "overview",
           "prereqs": [],
-          "blurb": "A map of the four threads that organize the graduate complex-analysis canon: value-distribution (Picard, Bloch, Nevanlinna), construction theorems (Weierstrass, Mittag-Leffler), growth and maximum-modulus controls (Phragmén-Lindelöf, Hadamard), and boundary behavior (Hardy, Fatou). Together they answer 'what makes entire and meromorphic functions special, and how do they behave near infinity or on the boundary?'",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "A map of the four threads that organize the graduate complex-analysis canon: value-distribution (Picard, Bloch, Nevanlinna), construction theorems (Weierstrass, Mittag-Leffler), growth and maximum-modulus controls (Phragmén-Lindelöf, Hadamard), and boundary behavior (Hardy, Fatou). Together they answer 'what makes entire and meromorphic functions special, and how do they behave near infinity or on the boundary?'"
         },
         {
           "id": "aca-picard-little",
@@ -736,7 +733,7 @@ window.__MVConcepts = {
           ],
           "blurb": "A non-constant entire function omits at most one complex value. Liouville (bounded ⇒ constant) is the trivial case; little Picard is the same idea pushed to its sharpest form — even an unbounded entire map cannot avoid more than one point.",
           "tags": [
-            "classification"
+            "foundation"
           ]
         },
         {
@@ -751,7 +748,7 @@ window.__MVConcepts = {
           ],
           "blurb": "In every neighborhood of an essential singularity, $f$ takes every complex value (with at most one exception) infinitely often. This sharpens Casorati-Weierstrass dramatically — 'dense' becomes 'every value, infinitely often'.",
           "tags": [
-            "classification"
+            "foundation"
           ]
         },
         {
@@ -2773,10 +2770,7 @@ window.__MVConcepts = {
             "w-discrete-transform",
             "w-wavelet-vs-fourier"
           ],
-          "blurb": "JPEG2000 replaces JPEG's blocked DCT with a Cohen–Daubechies–Feauveau biorthogonal DWT, giving smooth degradation instead of blocking artefacts. Donoho–Johnstone soft-thresholding $\\hat c=\\operatorname{sgn}(c)(|c|-\\lambda)_+$ is asymptotically minimax for denoising. Vanishing moments make $\\psi_{j,k}$ near-eigenvectors of Calderón–Zygmund operators, which compresses elliptic-PDE matrices to sparse form.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "JPEG2000 replaces JPEG's blocked DCT with a Cohen–Daubechies–Feauveau biorthogonal DWT, giving smooth degradation instead of blocking artefacts. Donoho–Johnstone soft-thresholding $\\hat c=\\operatorname{sgn}(c)(|c|-\\lambda)_+$ is asymptotically minimax for denoising. Vanishing moments make $\\psi_{j,k}$ near-eigenvectors of Calderón–Zygmund operators, which compresses elliptic-PDE matrices to sparse form."
         },
         {
           "id": "w-lifting-scheme",
@@ -6642,7 +6636,7 @@ window.__MVConcepts = {
           ],
           "blurb": "Bounded entire ⇒ constant.",
           "tags": [
-            "classification"
+            "foundation"
           ]
         },
         {
@@ -6654,7 +6648,7 @@ window.__MVConcepts = {
           ],
           "blurb": "Every non-constant polynomial over $\\mathbb{C}$ has a root; Liouville's argument applied to $1/p(z)$ makes this a corollary of complex boundedness.",
           "tags": [
-            "classification"
+            "foundation"
           ]
         },
         {
@@ -7839,10 +7833,7 @@ window.__MVConcepts = {
           "prereqs": [
             "st-unbounded-operators"
           ],
-          "blurb": "Observables in QM are self-adjoint operators whose spectra are measurable energies; eigenvalue problems for elliptic PDE invoke the compact spectral theorem; Fourier transform diagonalizes translation-invariant operators.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "Observables in QM are self-adjoint operators whose spectra are measurable energies; eigenvalue problems for elliptic PDE invoke the compact spectral theorem; Fourier transform diagonalizes translation-invariant operators."
         },
         {
           "id": "st-compact-fredholm",

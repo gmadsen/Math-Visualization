@@ -76,10 +76,7 @@
         "w-discrete-transform",
         "w-wavelet-vs-fourier"
       ],
-      "blurb": "JPEG2000 replaces JPEG's blocked DCT with a Cohen–Daubechies–Feauveau biorthogonal DWT, giving smooth degradation instead of blocking artefacts. Donoho–Johnstone soft-thresholding $\\hat c=\\operatorname{sgn}(c)(|c|-\\lambda)_+$ is asymptotically minimax for denoising. Vanishing moments make $\\psi_{j,k}$ near-eigenvectors of Calderón–Zygmund operators, which compresses elliptic-PDE matrices to sparse form.",
-      "tags": [
-        "foundation"
-      ]
+      "blurb": "JPEG2000 replaces JPEG's blocked DCT with a Cohen–Daubechies–Feauveau biorthogonal DWT, giving smooth degradation instead of blocking artefacts. Donoho–Johnstone soft-thresholding $\\hat c=\\operatorname{sgn}(c)(|c|-\\lambda)_+$ is asymptotically minimax for denoising. Vanishing moments make $\\psi_{j,k}$ near-eigenvectors of Calderón–Zygmund operators, which compresses elliptic-PDE matrices to sparse form."
     },
     {
       "id": "w-lifting-scheme",

@@ -149,7 +149,7 @@
       ],
       "blurb": "Bounded entire ⇒ constant.",
       "tags": [
-        "classification"
+        "foundation"
       ]
     },
     {
@@ -161,7 +161,7 @@
       ],
       "blurb": "Every non-constant polynomial over $\\mathbb{C}$ has a root; Liouville's argument applied to $1/p(z)$ makes this a corollary of complex boundedness.",
       "tags": [
-        "classification"
+        "foundation"
       ]
     },
     {
