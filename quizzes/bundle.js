@@ -26317,6 +26317,129 @@ window.MVQuizBank = {
             "explain": "Degeneration gives $H^n(E)\\cong\\bigoplus_{p+q=n}H^p(B)\\otimes H^q(F)$. For $n=2$: $(p,q)=(2,0)$ contributes $H^2(S^2)\\otimes H^0(S^2)=\\mathbb{Q}$, and $(0,2)$ contributes $H^0(S^2)\\otimes H^2(S^2)=\\mathbb{Q}$. Total $\\dim=2$."
           }
         ]
+      },
+      "double-complex-ha": {
+        "title": "Double complexes",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A double complex $C^{\\bullet,\\bullet}$ has two differentials $d^h, d^v$ satisfying:",
+            "choices": [
+              "$d^h \\circ d^v = d^v \\circ d^h$ (commutativity)",
+              "$d^h \\circ d^v + d^v \\circ d^h = 0$ (anticommutativity)",
+              "$d^h = d^v$",
+              "$d^h \\circ d^v = 0$"
+            ],
+            "answer": 1,
+            "explain": "Anticommutativity. The total differential $d = d^h + d^v$ then satisfies $d^2 = (d^h)^2 + (d^h d^v + d^v d^h) + (d^v)^2 = 0$."
+          },
+          {
+            "type": "mcq",
+            "q": "The total complex of a double complex is defined by:",
+            "choices": [
+              "$\\mathrm{Tot}^n = C^{n,n}$",
+              "$\\mathrm{Tot}^n = \\bigoplus_{p+q=n} C^{p,q}$",
+              "$\\mathrm{Tot}^n = \\prod_p C^{p,n}$",
+              "$\\mathrm{Tot}^n = C^{0,n}$"
+            ],
+            "answer": 1,
+            "explain": "Direct sum along the anti-diagonal $p+q = n$. The differential is $d^h + d^v$."
+          },
+          {
+            "type": "mcq",
+            "q": "How many spectral sequences does a (bounded) double complex naturally produce?",
+            "choices": [
+              "One",
+              "Two",
+              "Infinitely many",
+              "Zero — they require additional structure"
+            ],
+            "answer": 1,
+            "explain": "Filtering by columns first then rows, vs rows first then columns, gives two spectral sequences, both converging to the same total cohomology. The 'two ways to compute' identity drives Tor balancing, Grothendieck spectral sequence, etc."
+          }
+        ]
+      },
+      "tor-symmetry-ha": {
+        "title": "Symmetry of Tor",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Symmetry of Tor is the canonical isomorphism:",
+            "choices": [
+              "$\\mathrm{Tor}^R_n(M,N) \\cong \\mathrm{Hom}(M,N)$",
+              "$\\mathrm{Tor}^R_n(M,N) \\cong \\mathrm{Tor}^R_n(N,M)$",
+              "$\\mathrm{Tor}^R_n(M,N) \\cong \\mathrm{Ext}^n_R(M,N)$",
+              "$\\mathrm{Tor}^R_n(M,N) \\cong M \\otimes_R N$ for all $n$"
+            ],
+            "answer": 1,
+            "explain": "Resolving either side computes the same Tor. The isomorphism is natural in both arguments."
+          },
+          {
+            "type": "mcq",
+            "q": "The standard proof of Tor symmetry uses:",
+            "choices": [
+              "The five lemma",
+              "The double complex $P_\\bullet \\otimes Q_\\bullet$ with two spectral sequences",
+              "Nakayama's lemma",
+              "Localization"
+            ],
+            "answer": 1,
+            "explain": "Take projective resolutions $P_\\bullet \\to M$ and $Q_\\bullet \\to N$, form $P_\\bullet \\otimes Q_\\bullet$, compute the total cohomology two ways."
+          },
+          {
+            "type": "mcq",
+            "q": "Tor symmetry is a special case of which broader principle?",
+            "choices": [
+              "Cohomology equals homology",
+              "$\\otimes_R$ is a balanced derived bifunctor",
+              "Right-exactness of $\\otimes$",
+              "Tor vanishes for flat modules"
+            ],
+            "answer": 1,
+            "explain": "\"Balanced\" means: the derived functor of a bifunctor right-exact in each argument can be computed by resolving either slot. Same logic gives Ext-symmetry: $\\mathrm{Ext}$ via projective resolution of first arg = injective resolution of second arg."
+          }
+        ]
+      },
+      "cartan-eilenberg-ha": {
+        "title": "Cartan–Eilenberg resolutions",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A Cartan–Eilenberg resolution of a chain complex $C^\\bullet$ is:",
+            "choices": [
+              "A single resolution of $\\bigoplus_p C^p$",
+              "A double complex $P^{\\bullet,\\bullet}$ with rowwise projective resolutions of each $C^p$ and induced resolutions of cycles, boundaries, homology",
+              "An injective resolution of $C^\\bullet$",
+              "A free resolution"
+            ],
+            "answer": 1,
+            "explain": "All three of: rowwise projective resolutions, plus the horizontal cycles/boundaries/homology of $P^{\\bullet,\\bullet}$ resolve those of $C^\\bullet$. The third condition is what distinguishes a CE resolution from a mere rowwise resolution."
+          },
+          {
+            "type": "mcq",
+            "q": "Cartan–Eilenberg resolutions exist for every complex bounded below. Are two such resolutions of the same complex equivalent?",
+            "choices": [
+              "Only if the original complex is contractible",
+              "Yes, any two are chain-homotopy equivalent as double complexes",
+              "No — they can be inequivalent",
+              "Only up to total cohomology"
+            ],
+            "answer": 1,
+            "explain": "Existence + uniqueness up to chain-homotopy of double complexes. This is what makes hyper-derived functors well-defined."
+          },
+          {
+            "type": "mcq",
+            "q": "The Grothendieck spectral sequence $\\mathbb{R}^p G(\\mathbb{R}^q F(A)) \\Rightarrow \\mathbb{R}^{p+q}(GF)(A)$ is constructed by:",
+            "choices": [
+              "Applying $G$ to an injective resolution of $A$",
+              "Applying $G$ to a Cartan–Eilenberg resolution of $F$-acyclics",
+              "Cup product",
+              "The five lemma"
+            ],
+            "answer": 1,
+            "explain": "Replace $A$ by an $F$-acyclic resolution; apply $F$ to get a complex; take a CE resolution of that and apply $G$. The resulting double complex's two spectral sequences give the Grothendieck spectral sequence."
+          }
+        ]
       }
     }
   },

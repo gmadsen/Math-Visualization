@@ -4933,6 +4933,47 @@ window.__MVConcepts = {
             "cohomology",
             "exact-sequence"
           ]
+        },
+        {
+          "id": "double-complex-ha",
+          "title": "Double complexes and total complexes",
+          "anchor": "double-complex",
+          "prereqs": [
+            "chain-complexes"
+          ],
+          "blurb": "$\\mathbb{Z}^2$-graded objects with two anticommuting differentials. The total complex assembles them into a single chain complex; spectral sequences are the natural machinery for unpacking its cohomology row-by-column.",
+          "tags": [
+            "foundation",
+            "exact-sequence"
+          ]
+        },
+        {
+          "id": "tor-symmetry-ha",
+          "title": "Symmetry of Tor",
+          "anchor": "tor-symmetry",
+          "prereqs": [
+            "derived-functors",
+            "flat-modules"
+          ],
+          "blurb": "$\\mathrm{Tor}^R_n(M, N) \\cong \\mathrm{Tor}^R_n(N, M)$ — the canonical symmetry that makes Tor balanced. Proved by computing both sides as the cohomology of $P_\\bullet \\otimes Q_\\bullet$ via projective resolutions $P_\\bullet \\to M$ and $Q_\\bullet \\to N$.",
+          "tags": [
+            "functoriality",
+            "exact-sequence"
+          ]
+        },
+        {
+          "id": "cartan-eilenberg-ha",
+          "title": "Cartan–Eilenberg resolutions",
+          "anchor": "cartan-eilenberg",
+          "prereqs": [
+            "resolutions-ha",
+            "spectral-sequences-ha"
+          ],
+          "blurb": "A double-complex resolution of a chain complex: each row is a projective (or injective) resolution of one term, with columns assembling into a resolution of the original complex. The technical engine for hyper-derived functors and the two spectral sequences of a double complex.",
+          "tags": [
+            "foundation",
+            "exact-sequence"
+          ]
         }
       ]
     },
@@ -14622,11 +14663,11 @@ window.__MVConcepts = {
       "density": 0.10204081632653061
     },
     "Algebra & homological": {
-      "concepts": 118,
-      "intra": 172,
+      "concepts": 121,
+      "intra": 177,
       "crossOut": 16,
       "crossIn": 74,
-      "density": 0.13559322033898305
+      "density": 0.1322314049586777
     },
     "Higher categories & toposes": {
       "concepts": 45,

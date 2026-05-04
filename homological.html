@@ -371,8 +371,11 @@ function zmoduleFromSmith(invariants, extraFree){
   <a href="#derived">9&nbsp;Derived&nbsp;functors,&nbsp;Ext&nbsp;and&nbsp;Tor</a>
   <a href="#resolutions">10&nbsp;Resolutions:&nbsp;projective,&nbsp;injective,&nbsp;flat</a>
   <a href="#spectral">11&nbsp;Spectral&nbsp;sequences&nbsp;(a&nbsp;gentle&nbsp;taste)</a>
-  <a href="#abelian">12&nbsp;Abelian&nbsp;categories&nbsp;and&nbsp;a&nbsp;triangulated&nbsp;preview</a>
-  <a href="#outro">13&nbsp;Where&nbsp;this&nbsp;goes&nbsp;next</a>
+  <a href="#double-complex">12&nbsp;Double&nbsp;complexes&nbsp;and&nbsp;total&nbsp;complexes</a>
+  <a href="#tor-symmetry">13&nbsp;Symmetry&nbsp;of&nbsp;Tor</a>
+  <a href="#cartan-eilenberg">14&nbsp;Cartan–Eilenberg&nbsp;resolutions</a>
+  <a href="#abelian">15&nbsp;Abelian&nbsp;categories&nbsp;and&nbsp;a&nbsp;triangulated&nbsp;preview</a>
+  <a href="#outro">16&nbsp;Where&nbsp;this&nbsp;goes&nbsp;next</a>
 <!-- toc-auto-end -->
 </nav>
 <!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
@@ -440,9 +443,10 @@ function zmoduleFromSmith(invariants, extraFree){
     <div><a href="./commutative-algebra.html#flat">Commutative algebra</a> · Flatness and Tor</div>
     <div><a href="./derived-categories.html#homotopy-category">Derived categories</a> · The homotopy category $K(\mathcal{A})$</div>
     <div><a href="./homological.html#derived">Homological algebra</a> · Derived functors and Ext/Tor</div>
+    <div><a href="./homological.html#double-complex">Homological algebra</a> · Double complexes and total complexes</div>
     <div><a href="./homological.html#exact">Homological algebra</a> · Exact sequences</div>
     <div><a href="./knot-polynomials.html#khovanov">Knot polynomials</a> · Khovanov homology</div>
-    <div><a href="./simplicial-complexes-combinatorial.html#persistence">Simplicial complexes (combinatorial)</a> · Persistent homology and Vietoris–Rips</div>
+    <div class="more">… and 1 more.</div>
 </aside>
 <!-- backlinks-auto-end -->
 
@@ -2038,6 +2042,7 @@ $\begin{array}{ccc}
   <div class="ttl">Used in</div>
     <div><a href="./deformation-theory.html#first-order-deformation">Deformation theory</a> · First-order deformations</div>
     <div><a href="./homological.html#resolutions">Homological algebra</a> · Resolutions: projective, injective, flat</div>
+    <div><a href="./homological.html#tor-symmetry">Homological algebra</a> · Symmetry of Tor</div>
 </aside>
 <!-- backlinks-auto-end --><script>
 /* =============================== SECTION 8: Flat modules =============================== */
@@ -2156,6 +2161,7 @@ $\begin{array}{ccc}
     <div><a href="./group-cohomology.html#bar">Group cohomology</a> · The bar resolution and $H^n(G,M)$</div>
     <div><a href="./homological.html#resolutions">Homological algebra</a> · Resolutions: projective, injective, flat</div>
     <div><a href="./homological.html#spectral">Homological algebra</a> · Spectral sequences</div>
+    <div><a href="./homological.html#tor-symmetry">Homological algebra</a> · Symmetry of Tor</div>
     <div><a href="./sheaf-cohomology.html#derived">Sheaf cohomology</a> · Derived functor sheaf cohomology</div>
 </aside>
 <!-- backlinks-auto-end --><script>
@@ -2431,6 +2437,7 @@ $\begin{array}{ccc}
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./derived-categories.html#derived-functors-triangulated">Derived categories</a> · Derived functors $RF, LF$</div>
+    <div><a href="./homological.html#cartan-eilenberg">Homological algebra</a> · Cartan–Eilenberg resolutions</div>
 </aside>
 <!-- backlinks-auto-end --><script>
 /* =============================== SECTION 5: Free resolution builder =============================== */
@@ -2537,6 +2544,7 @@ $\begin{array}{ccc}
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./group-cohomology.html#infres">Group cohomology</a> · Inflation–restriction and Lyndon–Hochschild–Serre</div>
+    <div><a href="./homological.html#cartan-eilenberg">Homological algebra</a> · Cartan–Eilenberg resolutions</div>
 </aside>
 <!-- backlinks-auto-end --><script>
 /* =============================== SECTION 6: Spectral sequence viewer =============================== */
@@ -2701,8 +2709,98 @@ $\begin{array}{ccc}
 
 
 </section>
+<section id="double-complex">
+<h2>12. Double complexes and total complexes</h2>
+
+<p>A <strong>double complex</strong> $C^{\bullet,\bullet}$ in an abelian category is a $\mathbb{Z}^2$-graded object $\{C^{p,q}\}$ equipped with two differentials</p>
+
+$$d^h\colon C^{p,q} \to C^{p+1,q}, \qquad d^v\colon C^{p,q} \to C^{p,q+1},$$
+
+<p>satisfying $d^h\circ d^h = 0$, $d^v\circ d^v = 0$, and the <em>anticommutativity</em> $d^h\circ d^v + d^v\circ d^h = 0$. The grid stares at you like a torus of $C^{p,q}$ entries with horizontal and vertical exact-sequence-style arrows that fail to commute, on purpose.</p>
+
+<p>The <strong>total complex</strong> $\mathrm{Tot}(C^{\bullet,\bullet})$ is the single chain complex with</p>
+
+$$\mathrm{Tot}^n = \bigoplus_{p+q=n} C^{p,q}, \qquad d = d^h + d^v.$$
+
+<p>The anticommutativity condition is exactly what makes $d^2 = 0$ on the total. Cohomology of the total complex is the cohomology of the double complex.</p>
+
+<div class="ok"><strong>Two spectral sequences.</strong> Filtering $\mathrm{Tot}(C^{\bullet,\bullet})$ first by columns (then by rows, or vice versa) gives two spectral sequences, both abutting to the same total cohomology:
+<ul>
+<li>$E_2^{p,q} = H^p_h(H^q_v(C^{\bullet,\bullet})) \;\Rightarrow\; H^{p+q}(\mathrm{Tot})$</li>
+<li>$E_2^{p,q} = H^q_v(H^p_h(C^{\bullet,\bullet})) \;\Rightarrow\; H^{p+q}(\mathrm{Tot})$</li>
+</ul>
+The "two ways to compute the same answer" is the workhorse identity behind balanced Tor, hypercohomology, the Grothendieck spectral sequence for composed functors, and the Hodge–de Rham spectral sequence.</div>
+
+<p><strong>Examples to keep in mind.</strong></p>
+<ul>
+<li>$P_\bullet \otimes Q_\bullet$ — the tensor of two projective resolutions. Its total complex computes $\mathrm{Tor}^R_*$ from either side, which is what makes Tor balanced.</li>
+<li>$\mathrm{Hom}(P_\bullet, I_\bullet)$ — for a projective resolution $P_\bullet \to A$ and an injective resolution $B \to I_\bullet$. Computes $\mathrm{Ext}^*_R(A, B)$ from either argument.</li>
+<li>The Čech–Cartan double complex used to prove independence of cover in sheaf cohomology.</li>
+</ul>
+
+<p>Double complexes are the technical universal donor: any time you encounter "compute $X$ in two different ways and compare," there's a double complex underneath.</p>
+
+<div class="quiz" data-concept="double-complex-ha"></div>
+
+</section>
+
+<section id="tor-symmetry">
+<h2>13. Symmetry of Tor</h2>
+
+<p>The first nontrivial structural fact about derived functors: $\mathrm{Tor}$ doesn't care which argument you resolve.</p>
+
+<div class="ok"><strong>Symmetry of Tor.</strong> For $R$-modules $M, N$ and all $n \ge 0$,
+$$\mathrm{Tor}^R_n(M, N) \;\cong\; \mathrm{Tor}^R_n(N, M).$$
+The isomorphism is canonical and natural in both arguments.</div>
+
+<p><strong>Proof via double complex.</strong> Choose projective resolutions $P_\bullet \to M$ and $Q_\bullet \to N$. Form the double complex $P_\bullet \otimes_R Q_\bullet$ and compute its total cohomology in two ways via the spectral sequences of <a href="#double-complex">§13</a>.</p>
+
+<ul>
+<li>Filter by $P_\bullet$-columns first: each row $H_q^v(P_\bullet \otimes Q_\bullet) = P_\bullet \otimes H_q(Q_\bullet)$. Since $Q_\bullet \to N$ is a resolution, $H_0(Q_\bullet) = N$ and $H_q(Q_\bullet) = 0$ for $q > 0$. So the spectral sequence collapses to $H_p(P_\bullet \otimes N) = \mathrm{Tor}^R_p(M, N)$.</li>
+<li>Filter by $Q_\bullet$-rows first: by symmetric argument, the spectral sequence collapses to $\mathrm{Tor}^R_p(N, M)$.</li>
+</ul>
+
+<p>Both spectral sequences abut to the same total cohomology, so $\mathrm{Tor}^R_*(M, N) \cong \mathrm{Tor}^R_*(N, M)$.</p>
+
+<p><strong>Why the symmetry is structural.</strong> This isn't just a calculation trick — it's why $\otimes_R$ is a <em>balanced</em> functor: the derived functor of an additive bifunctor that's right-exact in each argument separately can be computed by resolving either slot, and the two answers agree.</p>
+
+<p>The same balanced-functor argument shows $\mathrm{Ext}^n_R(M, N) \cong \mathrm{Ext}^n_R(M, N)$ — both projective resolution of $M$ and injective resolution of $N$ compute it. Tor and Ext are the canonical examples of balanced derived functors.</p>
+
+<div class="quiz" data-concept="tor-symmetry-ha"></div>
+
+</section>
+
+<section id="cartan-eilenberg">
+<h2>14. Cartan–Eilenberg resolutions</h2>
+
+<p>The two-dimensional analog of a projective (or injective) resolution: where a single module gets resolved by a complex, an entire chain complex gets resolved by a <em>double complex</em>.</p>
+
+<p>Given a chain complex $C^\bullet$ in an abelian category with enough projectives, a <strong>Cartan–Eilenberg resolution</strong> is a double complex $P^{\bullet,\bullet}$ together with a quasi-isomorphism $P^{\bullet,\bullet} \to C^\bullet$ (treated as a double complex concentrated in row 0) satisfying:</p>
+
+<ul>
+<li>Each $P^{p,q}$ is projective.</li>
+<li>For each row $p$, $P^{p,\bullet} \to C^p$ is a projective resolution of $C^p$.</li>
+<li>The induced maps on cycles, boundaries, and homology — $Z^p(P^{\bullet,\bullet}), B^p(P^{\bullet,\bullet}), H^p(P^{\bullet,\bullet})$ in the horizontal direction — are projective resolutions of $Z^p(C^\bullet), B^p(C^\bullet), H^p(C^\bullet)$ respectively.</li>
+</ul>
+
+<p>The third condition is what distinguishes a Cartan–Eilenberg resolution from a "rowwise resolution"; it's needed to make the constructions naturally functorial.</p>
+
+<div class="ok"><strong>Existence and uniqueness.</strong> Every chain complex bounded below admits a Cartan–Eilenberg resolution, and any two are chain-homotopy equivalent as double complexes. Dually for injective resolutions of complexes bounded above.</div>
+
+<p><strong>Two big uses.</strong></p>
+<ul>
+<li><strong>Hyper-derived functors.</strong> For a left-exact functor $F$ and a chain complex $C^\bullet$, the hyper-derived functor $\mathbb{R}^n F(C^\bullet)$ is computed as $H^n(F(P^{\bullet,\bullet}))$ for any Cartan–Eilenberg resolution. This generalizes derived functors from a single object to a complex.</li>
+<li><strong>Grothendieck spectral sequence.</strong> The composition spectral sequence $\mathbb{R}^p G \circ \mathbb{R}^q F \Rightarrow \mathbb{R}^{p+q}(GF)$ for left-exact $F$ followed by left-exact $G$ comes from applying $G$ to a Cartan–Eilenberg resolution of $F$-acyclics. It's the spectral sequence behind Leray (sheaf cohomology of a pushforward), the Lyndon–Hochschild–Serre sequence (group cohomology of an extension), and the Eilenberg–Moore sequence in topology.</li>
+</ul>
+
+<p>Cartan–Eilenberg resolutions are how you do <em>derived</em> homological algebra one level up: not a derived functor of an object, but of a complex of objects, with all the spectral-sequence machinery the second dimension brings.</p>
+
+<div class="quiz" data-concept="cartan-eilenberg-ha"></div>
+
+</section>
+
 <section id="abelian">
-<h2>12. Abelian categories and a triangulated preview</h2>
+<h2>15. Abelian categories and a triangulated preview</h2>
 <p>Every diagram chase in §§1–11 secretly takes place in an <strong>abelian category</strong>: a category with a zero object, all finite biproducts, all kernels and cokernels, and in which every monomorphism is a kernel and every epimorphism is a cokernel (the "every mono/epi is normal" axiom). In an abelian category, short exact sequences, the snake lemma, the five lemma, Ext/Tor, and all the tools we've built work verbatim.</p>
 
 <div class="note"><strong>Freyd–Mitchell embedding.</strong> Every small abelian category $\mathcal{A}$ admits a fully faithful, exact embedding $\mathcal{A}\hookrightarrow R\text{-Mod}$ for some ring $R$. Upshot: any element-level diagram chase in $\mathsf{Ab}$ transfers immediately to any abelian category — <em>"you can do homological algebra without ever leaving modules."</em></div>
