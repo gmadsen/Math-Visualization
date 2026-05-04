@@ -106,6 +106,12 @@ const STEPS = [
   { name: 'notation',   script: 'audit-notation.mjs',           fix: false },
   { name: 'draft-cards', script: 'audit-draft-index-cards.mjs', fix: false },
   { name: 'starter',    script: 'audit-starter-concepts.mjs',   fix: false },
+  // Low-usage advisory audits — always exit 0; surface quality gaps that
+  // aren't blockers (concepts without worked examples, quiz questions whose
+  // wording drifts from the concept blurb). Wired in PR #102 to make the
+  // signal visible on every rebuild instead of relying on out-of-band runs.
+  { name: 'worked-examples', script: 'audit-worked-examples.mjs',         fix: false },
+  { name: 'blurb-question',  script: 'audit-blurb-question-alignment.mjs', fix: false },
   { name: 'doc-drift',  script: 'audit-doc-drift.mjs',          fix: false },
 ];
 
