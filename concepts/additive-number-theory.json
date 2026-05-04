@@ -122,7 +122,10 @@
       "prereqs": [
         "circle-method-intro"
       ],
-      "blurb": "Near rationals a/q with small q, f(α) is a Gauss-sum-weighted main term (major arcs); elsewhere Weyl bounds force cancellation (minor arcs) — the sum yields an asymptotic with singular series × singular integral."
+      "blurb": "Near rationals a/q with small q, f(α) is a Gauss-sum-weighted main term (major arcs); elsewhere Weyl bounds force cancellation (minor arcs) — the sum yields an asymptotic with singular series × singular integral.",
+      "tags": [
+        "cancellation"
+      ]
     },
     {
       "id": "faulhaber-formula",
