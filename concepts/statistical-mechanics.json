@@ -38,7 +38,9 @@
         "it-shannon-entropy"
       ],
       "blurb": "Gibbs entropy $S = -k_B\\sum p_i\\log p_i$ is maximized at fixed mean energy by exactly the Boltzmann distribution, with $\\beta$ as Lagrange multiplier. In the microcanonical limit it reduces to Boltzmann's $S = k_B\\log\\Omega$, and the second law is monotonicity of $S$ under Hamiltonian coupling.",
-      "tags": []
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "grand-canonical",
@@ -61,7 +63,9 @@
         "boltzmann-canonical"
       ],
       "blurb": "Spins $\\sigma_i\\in\\{\\pm 1\\}$ on a lattice with nearest-neighbor coupling $-J\\sum_{\\langle ij\\rangle}\\sigma_i\\sigma_j$. Mean field predicts a transition at $T_c = qJ/k_B$; Onsager solved $d=2$ exactly with $T_c/J = 2/\\log(1+\\sqrt 2)$ and $\\beta = 1/8$.",
-      "tags": []
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "renormalization-group",

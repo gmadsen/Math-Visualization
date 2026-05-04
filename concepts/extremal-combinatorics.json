@@ -71,7 +71,11 @@
       "prereqs": [
         "erdos-stone-simonovits"
       ],
-      "blurb": "Ruzsa–Szemerédi: a graph with $o(n^3)$ triangles can be made triangle-free by deleting $o(n^2)$ edges; equivalently, robust graphs are supersaturated. Szemerédi's regularity lemma decomposes any dense graph into $\\varepsilon$-regular pairs, with bounds tower-type in $\\varepsilon^{-1}$. Together these give Roth's theorem on $3$-APs."
+      "blurb": "Ruzsa–Szemerédi: a graph with $o(n^3)$ triangles can be made triangle-free by deleting $o(n^2)$ edges; equivalently, robust graphs are supersaturated. Szemerédi's regularity lemma decomposes any dense graph into $\\varepsilon$-regular pairs, with bounds tower-type in $\\varepsilon^{-1}$. Together these give Roth's theorem on $3$-APs.",
+      "tags": [
+        "classification",
+        "foundation"
+      ]
     }
   ]
 }

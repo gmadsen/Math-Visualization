@@ -35,7 +35,11 @@
       "prereqs": [
         "rw-stationary-distribution"
       ],
-      "blurb": "$d(t)=\\max_x \\|P^t(x,\\cdot)-\\pi\\|_{\\mathrm{TV}}$ measures distance to stationarity; the mixing time $t_{\\mathrm{mix}}(\\varepsilon)=\\min\\{t:d(t)\\le\\varepsilon\\}$ is the standard quantitative cost of forgetting the start."
+      "blurb": "$d(t)=\\max_x \\|P^t(x,\\cdot)-\\pi\\|_{\\mathrm{TV}}$ measures distance to stationarity; the mixing time $t_{\\mathrm{mix}}(\\varepsilon)=\\min\\{t:d(t)\\le\\varepsilon\\}$ is the standard quantitative cost of forgetting the start.",
+      "tags": [
+        "foundation",
+        "equidistribution"
+      ]
     },
     {
       "id": "rw-spectral-gap",
@@ -57,7 +61,10 @@
       "prereqs": [
         "rw-mixing-time"
       ],
-      "blurb": "The coupling lemma bounds total-variation distance by the meeting probability of two chains driven on a common probability space; lazy walks on the hypercube and card-shuffles fall out cleanly."
+      "blurb": "The coupling lemma bounds total-variation distance by the meeting probability of two chains driven on a common probability space; lazy walks on the hypercube and card-shuffles fall out cleanly.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "rw-applications-mcmc",
@@ -67,7 +74,11 @@
         "rw-spectral-gap",
         "expectation-moments"
       ],
-      "blurb": "Metropolis–Hastings designs a chain with a prescribed stationary distribution $\\pi$ via an acceptance ratio; mixing time is the cost of one effectively-independent sample, so spectral-gap bounds become statistical bounds."
+      "blurb": "Metropolis–Hastings designs a chain with a prescribed stationary distribution $\\pi$ via an acceptance ratio; mixing time is the cost of one effectively-independent sample, so spectral-gap bounds become statistical bounds.",
+      "tags": [
+        "foundation",
+        "equidistribution"
+      ]
     }
   ]
 }

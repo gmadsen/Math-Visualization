@@ -34,7 +34,10 @@
       "prereqs": [
         "kernel-and-components"
       ],
-      "blurb": "$\\lambda_2$, the algebraic connectivity, is the smoothest mean-zero Dirichlet energy on $G$. It is positive iff $G$ is connected; its eigenvector — the Fiedler vector — sorts vertices for graph bisection."
+      "blurb": "$\\lambda_2$, the algebraic connectivity, is the smoothest mean-zero Dirichlet energy on $G$. It is positive iff $G$ is connected; its eigenvector — the Fiedler vector — sorts vertices for graph bisection.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "cheeger-inequality",
@@ -82,7 +85,10 @@
         "algebraic-connectivity-fiedler",
         "cheeger-inequality"
       ],
-      "blurb": "Embed vertex $i\\mapsto (u_2(i),\\dots,u_{k+1}(i))\\in\\mathbb{R}^k$ via the bottom $k$ non-trivial Laplacian eigenvectors, then run $k$-means. Recovers cluster structure when the bottom-$k$ eigenvalues are nearly $0$."
+      "blurb": "Embed vertex $i\\mapsto (u_2(i),\\dots,u_{k+1}(i))\\in\\mathbb{R}^k$ via the bottom $k$ non-trivial Laplacian eigenvectors, then run $k$-means. Recovers cluster structure when the bottom-$k$ eigenvalues are nearly $0$.",
+      "tags": [
+        "foundation"
+      ]
     }
   ]
 }
