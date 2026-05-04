@@ -9,6 +9,7 @@ window.__MVConcepts = {
       "langlands-program",
       "special-relativity",
       "klein-gordon-equation",
+      "dirac-equation",
       "statistical-mechanics",
       "advanced-complex-analysis",
       "groebner-bases",
@@ -294,6 +295,7 @@ window.__MVConcepts = {
       "hamiltonians-classical-mechanics": "standard",
       "special-relativity": "standard",
       "klein-gordon-equation": "advanced",
+      "dirac-equation": "advanced",
       "general-relativity": "advanced",
       "three-body-problem": "advanced",
       "designs": "standard",
@@ -811,6 +813,92 @@ window.__MVConcepts = {
           "blurb": "Factor out the rest energy: write $\\phi(t,\\vec x) = e^{-imc^2 t/\\hbar}\\psi(t,\\vec x)$, plug into KG, and assume $|i\\hbar\\partial_t\\psi| \\ll mc^2|\\psi|$ (kinetic energy small compared to rest energy). The $\\hbar^2\\partial_t^2\\psi$ term is suppressed by exactly that small ratio and drops, leaving $i\\hbar\\partial_t\\psi = -\\frac{\\hbar^2}{2m}\\nabla^2\\psi$ — the free Schrödinger equation, with the negative-energy branch decoupled. Concrete arenas: pionic atoms (spin-0 $\\pi^-$ orbiting a nucleus), the Higgs propagator, scalar-field cosmological perturbations on FRW backgrounds, and the path-integral building block $\\int e^{iS_\\text{KG}/\\hbar}\\mathcal{D}\\phi$ underlying every bosonic functional integral.",
           "tags": [
             "classification"
+          ]
+        }
+      ]
+    },
+    "dirac-equation": {
+      "topic": "dirac-equation",
+      "title": "Dirac equation",
+      "page": "dirac-equation.html",
+      "concepts": [
+        {
+          "id": "dirac-derivation",
+          "title": "From $E^2=p^2+m^2$ to a first-order operator",
+          "anchor": "derivation",
+          "prereqs": [
+            "kg-derivation",
+            "sr-energy-momentum"
+          ],
+          "blurb": "Klein-Gordon's $j^0$ failed as a probability density. Dirac sought a first-order equation $i\\partial_t\\psi = (\\vec\\alpha\\cdot\\vec p + \\beta m)\\psi$ whose square reproduces $E^2 = p^2 + m^2$, forcing the $\\alpha^i, \\beta$ matrices to satisfy a Clifford algebra $\\{\\alpha^i,\\alpha^j\\}=2\\delta^{ij}, \\{\\alpha^i,\\beta\\}=0, \\beta^2=1$. The minimum dimension forcing this is $4\\times4$, so $\\psi$ is a 4-component spinor — Dirac's wave function carries internal structure that Klein-Gordon's scalar lacked.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "dirac-equation",
+          "title": "The Dirac equation in covariant form",
+          "anchor": "equation",
+          "prereqs": [
+            "dirac-derivation"
+          ],
+          "blurb": "Multiplying through by $\\beta$ gives the manifestly covariant form $(i\\gamma^\\mu\\partial_\\mu - m)\\psi = 0$ with $\\gamma^0 = \\beta, \\gamma^i = \\beta\\alpha^i$, and the Clifford algebra becomes $\\{\\gamma^\\mu,\\gamma^\\nu\\} = 2\\eta^{\\mu\\nu}$. This is the simplest first-order Lorentz-covariant equation for a spinor field, and underwrites every fermionic Standard-Model field.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "dirac-spin-half",
+          "title": "Spin-½ from the Dirac equation",
+          "anchor": "spin-half",
+          "prereqs": [
+            "dirac-equation"
+          ],
+          "blurb": "Dirac's spinor automatically carries spin-½: the conserved angular momentum operator is $\\vec J = \\vec L + \\tfrac{1}{2}\\vec\\Sigma$ with $\\Sigma^i = \\tfrac{i}{2}\\epsilon^{ijk}[\\gamma^j,\\gamma^k]/2$, and the eigenvalues of $\\Sigma_z$ are $\\pm 1/2$. Spin is not added by hand — it is a mathematical consequence of the first-order operator structure. The spin connection couples $\\psi$ to gauge fields and curved spacetime via the local Lorentz group $\\mathrm{Spin}(1,3) = \\mathrm{SL}(2,\\mathbb{C})$.",
+          "tags": [
+            "classification",
+            "group-action"
+          ]
+        },
+        {
+          "id": "dirac-positive-current",
+          "title": "Positive-definite probability current",
+          "anchor": "positive-current",
+          "prereqs": [
+            "dirac-equation"
+          ],
+          "blurb": "The conserved current $j^\\mu = \\bar\\psi\\gamma^\\mu\\psi$ has $j^0 = \\psi^\\dagger\\psi \\geq 0$, recovering the probability-density interpretation that Klein-Gordon failed to provide. Dirac's first-order structure was specifically engineered to make this work, and the original motivation for the equation. The probability current also transforms as a Lorentz vector, so probability conservation $\\partial_\\mu j^\\mu = 0$ is frame-independent.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "dirac-antiparticles",
+          "title": "Negative-energy sea and the prediction of antimatter",
+          "anchor": "antiparticles",
+          "prereqs": [
+            "dirac-equation",
+            "kg-negative-energy"
+          ],
+          "blurb": "Like Klein-Gordon, Dirac's equation has both positive- and negative-energy plane-wave solutions $E = \\pm\\sqrt{p^2+m^2}$. Dirac proposed that all negative-energy states are filled (the \"Dirac sea\") and a hole in the sea would appear as a positive-energy particle of opposite charge: the positron, predicted in 1928 and observed by Anderson in 1932. Modern QFT replaces the sea with field-theoretic creation/annihilation operators, but the antiparticle prediction stands as one of the great triumphs of mathematical physics.",
+          "tags": [
+            "duality",
+            "classification"
+          ]
+        },
+        {
+          "id": "dirac-non-rel-limit",
+          "title": "Non-relativistic limit and Pauli equation",
+          "anchor": "non-rel-limit",
+          "prereqs": [
+            "dirac-equation",
+            "se-time-dependent"
+          ],
+          "blurb": "Splitting the 4-spinor as $\\psi = (\\varphi, \\chi)^T$ and assuming $|\\chi| \\ll |\\varphi|$ in the rest frame yields the **Pauli equation** $i\\partial_t\\varphi = \\bigl(\\tfrac{p^2}{2m} - \\tfrac{e}{2m}\\vec\\sigma\\cdot\\vec B + V\\bigr)\\varphi$ — the Schrödinger equation augmented by an explicit spin-magnetic-moment coupling with gyromagnetic ratio $g = 2$, exactly. The naive expectation $g = 1$ from a classical magnetic moment is broken by Dirac kinematics, and the leading QED correction $g = 2(1 + \\alpha/2\\pi + \\cdots)$ is verified to 12 decimal places.",
+          "tags": [
+            "classification",
+            "refinement"
           ]
         }
       ]
@@ -14923,6 +15011,7 @@ window.__MVConcepts = {
           "hamiltonians-classical-mechanics",
           "special-relativity",
           "klein-gordon-equation",
+          "dirac-equation",
           "general-relativity",
           "three-body-problem",
           "statistical-mechanics",
@@ -15163,6 +15252,7 @@ window.__MVConcepts = {
     "hamiltonians-classical-mechanics": "standard",
     "special-relativity": "standard",
     "klein-gordon-equation": "advanced",
+    "dirac-equation": "advanced",
     "general-relativity": "advanced",
     "three-body-problem": "advanced",
     "designs": "standard",
@@ -15264,11 +15354,11 @@ window.__MVConcepts = {
       "density": 0.47058823529411764
     },
     "Mathematical physics": {
-      "concepts": 57,
-      "intra": 58,
+      "concepts": 63,
+      "intra": 67,
       "crossOut": 39,
       "crossIn": 0,
-      "density": 0.6842105263157895
+      "density": 0.6190476190476191
     }
   }
 };

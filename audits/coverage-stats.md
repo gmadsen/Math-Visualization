@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **140**, concepts: **1002**
-- Widgets: **1029** (registry-driven: 1029, inline: 0)
-- Quizzes: **4200** (v1: 2964, hard: 1223, expert: 13)
-- Quiz types: mcq: 2823, numeric: 1064, multi-select: 136, matching: 58, ordering: 41, complex: 29, spot-the-error: 28, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Topics: **141**, concepts: **1008**
+- Widgets: **1035** (registry-driven: 1035, inline: 0)
+- Quizzes: **4218** (v1: 2982, hard: 1223, expert: 13)
+- Quiz types: mcq: 2832, numeric: 1066, multi-select: 138, matching: 59, ordering: 43, spot-the-error: 30, complex: 29, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **146**
-- Concepts lacking a hard-tier quiz: **564**
+- Concepts lacking a hard-tier quiz: **570**
 
 ## Per-slug registry adoption
 
@@ -169,6 +169,12 @@ page has wired one in yet.
 | `df-stokes-disk` | verbatim | slider | 2d | 1 | differential-forms |
 | `df-two-form-parallelogram` | verbatim | select | 2d | 1 | differential-forms |
 | `diagram-editor` | diagram-editor | drag-and-toggle | 2d | 1 | homological |
+| `dirac-clifford` | verbatim | click | 2d | 1 | dirac-equation |
+| `dirac-current` | verbatim | slider | 2d | 1 | dirac-equation |
+| `dirac-gamma-matrices` | verbatim | click | 2d | 1 | dirac-equation |
+| `dirac-pauli` | verbatim | slider | 2d | 1 | dirac-equation |
+| `dirac-sea` | verbatim | click | 2d | 1 | dirac-equation |
+| `dirac-spin` | verbatim | slider | 2d | 1 | dirac-equation |
 | `ec-disc` | verbatim | slider | 2d | 1 | elliptic-curves |
 | `ec-gl` | verbatim | slider | 2d | 1 | elliptic-curves |
 | `ec-j` | verbatim | slider | 2d | 1 | elliptic-curves |
@@ -680,13 +686,13 @@ page has wired one in yet.
 
 ### Mathematical physics
 
-- Topics: **9**, concepts: **57**
-- Widgets: **58** (registry-driven: 58, inline: 0)
-  - by family: verbatim: 33, schrodinger-figure: 7, hamiltonians-figure: 6, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
-  - by dimension: 2d: 58
-  - by gesture: slider: 40, click: 9, interact: 7, drag: 1, select: 1
-- Quizzes: **172** (v1: 172, hard: 0, expert: 0)
-  - by type: mcq: 117, numeric: 23, multi-select: 19, ordering: 7, spot-the-error: 4, matching: 2
+- Topics: **10**, concepts: **63**
+- Widgets: **64** (registry-driven: 64, inline: 0)
+  - by family: verbatim: 39, schrodinger-figure: 7, hamiltonians-figure: 6, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
+  - by dimension: 2d: 64
+  - by gesture: slider: 43, click: 12, interact: 7, drag: 1, select: 1
+- Quizzes: **190** (v1: 190, hard: 0, expert: 0)
+  - by type: mcq: 126, numeric: 25, multi-select: 21, ordering: 9, spot-the-error: 6, matching: 3
 
 ## Per-topic
 
@@ -695,6 +701,7 @@ page has wired one in yet.
 - `langlands-program` (Modular forms & L-functions) — concepts=8, widgets=0 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
 - `special-relativity` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=19 (v1=19, hard=0, expert=0)
 - `klein-gordon-equation` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `dirac-equation` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `statistical-mechanics` (Mathematical physics) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `advanced-complex-analysis` (Analysis) — concepts=13, widgets=5 (slug=5), quiz=39 (v1=39, hard=0, expert=0)
 - `groebner-bases` (Algebra & homological) — concepts=8, widgets=8 (slug=8), quiz=24 (v1=24, hard=0, expert=0)
