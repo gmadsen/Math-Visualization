@@ -11,7 +11,11 @@
         "categories-morphisms",
         "sets-functions"
       ],
-      "blurb": "The simplex category $\\Delta$ has objects $[n] = \\{0,1,\\ldots,n\\}$ and order-preserving maps. It encodes combinatorial simplices: face maps drop a vertex, degeneracy maps double one."
+      "blurb": "The simplex category $\\Delta$ has objects $[n] = \\{0,1,\\ldots,n\\}$ and order-preserving maps. It encodes combinatorial simplices: face maps drop a vertex, degeneracy maps double one.",
+      "tags": [
+        "foundation",
+        "classification"
+      ]
     },
     {
       "id": "simplicial-set",
@@ -21,7 +25,11 @@
         "simplex-category",
         "presheaf-topos"
       ],
-      "blurb": "A simplicial set is a presheaf on $\\Delta$ — a family $X_n$ of \"$n$-simplices\" with face and degeneracy operators satisfying the simplicial identities. Examples: the standard $n$-simplex $\\Delta^n$, the boundary $\\partial \\Delta^n$, the horn $\\Lambda^n_k$."
+      "blurb": "A simplicial set is a presheaf on $\\Delta$ — a family $X_n$ of \"$n$-simplices\" with face and degeneracy operators satisfying the simplicial identities. Examples: the standard $n$-simplex $\\Delta^n$, the boundary $\\partial \\Delta^n$, the horn $\\Lambda^n_k$.",
+      "tags": [
+        "foundation",
+        "functoriality"
+      ]
     },
     {
       "id": "geometric-realization",

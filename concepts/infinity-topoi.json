@@ -65,7 +65,10 @@
       "prereqs": [
         "infty-topos-definition"
       ],
-      "blurb": "An $\\infty$-topos is hypercomplete if Whitehead's theorem holds internally: a map inducing iso on all homotopy sheaves is an equivalence. Most naturally occurring $\\infty$-topoi are hypercomplete; pathological non-hypercomplete examples come from infinite Krull dimension."
+      "blurb": "An $\\infty$-topos is hypercomplete if Whitehead's theorem holds internally: a map inducing iso on all homotopy sheaves is an equivalence. Most naturally occurring $\\infty$-topoi are hypercomplete; pathological non-hypercomplete examples come from infinite Krull dimension.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "internal-logic-of-infty-topos",
@@ -77,7 +80,10 @@
         "tt-higher-inductive-types",
         "tt-univalence"
       ],
-      "blurb": "Every $\\infty$-topos has an internal type theory — Martin-Löf-style with univalent universes and higher inductive types — modeled by the $\\infty$-category itself. This is the connection between $\\infty$-topoi and homotopy type theory (HoTT)."
+      "blurb": "Every $\\infty$-topos has an internal type theory — Martin-Löf-style with univalent universes and higher inductive types — modeled by the $\\infty$-category itself. This is the connection between $\\infty$-topoi and homotopy type theory (HoTT).",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "etale-infty-topos-of-scheme",

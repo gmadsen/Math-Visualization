@@ -10,7 +10,10 @@
       "prereqs": [
         "algebraic-structures"
       ],
-      "blurb": "A Heyting algebra is a bounded lattice with a binary operation $\\Rightarrow$ satisfying $a \\wedge b \\le c \\iff a \\le b \\Rightarrow c$. Boolean algebras are the special case where double-negation is the identity; topological open-set lattices are generic Heyting algebras."
+      "blurb": "A Heyting algebra is a bounded lattice with a binary operation $\\Rightarrow$ satisfying $a \\wedge b \\le c \\iff a \\le b \\Rightarrow c$. Boolean algebras are the special case where double-negation is the identity; topological open-set lattices are generic Heyting algebras.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "omega-as-heyting-algebra",
@@ -21,7 +24,11 @@
         "heyting-algebra",
         "sieves"
       ],
-      "blurb": "In any topos, the subobject classifier $\\Omega$ carries an internal Heyting-algebra structure: maps $\\Omega \\times \\Omega \\to \\Omega$ implementing $\\wedge, \\vee, \\Rightarrow$. Subobject lattices $\\mathrm{Sub}(X)$ become external Heyting algebras with these operations applied pointwise."
+      "blurb": "In any topos, the subobject classifier $\\Omega$ carries an internal Heyting-algebra structure: maps $\\Omega \\times \\Omega \\to \\Omega$ implementing $\\wedge, \\vee, \\Rightarrow$. Subobject lattices $\\mathrm{Sub}(X)$ become external Heyting algebras with these operations applied pointwise.",
+      "tags": [
+        "foundation",
+        "universal-property"
+      ]
     },
     {
       "id": "internal-language",
@@ -31,7 +38,10 @@
         "omega-as-heyting-algebra",
         "power-objects"
       ],
-      "blurb": "Every topos has an internal first-order language: types are objects, terms are morphisms, formulas are characteristic maps into $\\Omega$. Provability in this language tracks subobject inclusion, and the resulting logic is intuitionist (LEM may fail)."
+      "blurb": "Every topos has an internal first-order language: types are objects, terms are morphisms, formulas are characteristic maps into $\\Omega$. Provability in this language tracks subobject inclusion, and the resulting logic is intuitionist (LEM may fail).",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "kripke-joyal-semantics",
@@ -41,7 +51,10 @@
         "internal-language",
         "presheaf-topos"
       ],
-      "blurb": "Kripke–Joyal semantics interprets the internal language stage-by-stage: an object $X$ \"forces\" a formula $\\varphi$ when the corresponding subobject contains all of $X$. In presheaf toposes this collapses to Kripke's classical possible-world semantics for intuitionist logic."
+      "blurb": "Kripke–Joyal semantics interprets the internal language stage-by-stage: an object $X$ \"forces\" a formula $\\varphi$ when the corresponding subobject contains all of $X$. In presheaf toposes this collapses to Kripke's classical possible-world semantics for intuitionist logic.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "lem-failure",

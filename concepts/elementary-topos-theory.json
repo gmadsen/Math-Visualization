@@ -38,7 +38,11 @@
       "prereqs": [
         "subobject-classifier"
       ],
-      "blurb": "Every subobject of $X$ is named by exactly one map $X \\to \\Omega$, so $\\Omega$ doubles as the object of \"truth values\" of the topos. Logical operations on subobjects (intersection, union, implication) become operations on $\\Omega$ that the topos sees natively."
+      "blurb": "Every subobject of $X$ is named by exactly one map $X \\to \\Omega$, so $\\Omega$ doubles as the object of \"truth values\" of the topos. Logical operations on subobjects (intersection, union, implication) become operations on $\\Omega$ that the topos sees natively.",
+      "tags": [
+        "universal-property",
+        "classification"
+      ]
     },
     {
       "id": "power-objects",
