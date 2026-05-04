@@ -11,15 +11,15 @@
 
     "klein-gordon-equation",
 
-
-
-
-
-
-
-
-
     "dirac-equation",
+
+
+
+
+
+
+
+    "quantum-field-theory",
 
     "statistical-mechanics",
     "advanced-complex-analysis",
@@ -307,6 +307,7 @@
     "special-relativity": "standard",
     "klein-gordon-equation": "advanced",
     "dirac-equation": "advanced",
+    "quantum-field-theory": "capstone",
     "general-relativity": "advanced",
     "three-body-problem": "advanced",
     "designs": "standard",

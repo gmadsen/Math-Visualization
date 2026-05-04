@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **141**, concepts: **1008**
-- Widgets: **1035** (registry-driven: 1035, inline: 0)
-- Quizzes: **4218** (v1: 2982, hard: 1223, expert: 13)
-- Quiz types: mcq: 2832, numeric: 1066, multi-select: 138, matching: 59, ordering: 43, spot-the-error: 30, complex: 29, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Topics: **142**, concepts: **1014**
+- Widgets: **1041** (registry-driven: 1041, inline: 0)
+- Quizzes: **4236** (v1: 3000, hard: 1223, expert: 13)
+- Quiz types: mcq: 2840, numeric: 1067, multi-select: 140, matching: 62, ordering: 45, spot-the-error: 32, complex: 29, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **146**
-- Concepts lacking a hard-tier quiz: **570**
+- Concepts lacking a hard-tier quiz: **576**
 
 ## Per-slug registry adoption
 
@@ -441,6 +441,12 @@ page has wired one in yet.
 | `probabilistic-method-lll` | probabilistic-method-lll | slider | 2d | 1 | probabilistic-method |
 | `probabilistic-method-ramsey` | probabilistic-method-ramsey | slider | 2d | 1 | probabilistic-method |
 | `probabilistic-method-threshold` | probabilistic-method-threshold | slider | 2d | 1 | probabilistic-method |
+| `qft-diagrams` | verbatim | slider | 2d | 1 | quantum-field-theory |
+| `qft-fock` | verbatim | click | 2d | 1 | quantum-field-theory |
+| `qft-modes` | verbatim | slider | 2d | 1 | quantum-field-theory |
+| `qft-paths` | verbatim | slider | 2d | 1 | quantum-field-theory |
+| `qft-rg-flow` | verbatim | slider | 2d | 1 | quantum-field-theory |
+| `qft-sm-fields` | verbatim | click | 2d | 1 | quantum-field-theory |
 | `quantum-groups-applications-map` | quantum-groups-applications-map | inspect | 2d | 1 | quantum-groups |
 | `quantum-groups-crystal-tensor-product` | quantum-groups-crystal-tensor-product | inspect | 2d | 1 | quantum-groups |
 | `quantum-groups-hopf-axioms-inspector` | quantum-groups-hopf-axioms-inspector | inspect | 2d | 1 | quantum-groups |
@@ -686,13 +692,13 @@ page has wired one in yet.
 
 ### Mathematical physics
 
-- Topics: **10**, concepts: **63**
-- Widgets: **64** (registry-driven: 64, inline: 0)
-  - by family: verbatim: 39, schrodinger-figure: 7, hamiltonians-figure: 6, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
-  - by dimension: 2d: 64
-  - by gesture: slider: 43, click: 12, interact: 7, drag: 1, select: 1
-- Quizzes: **190** (v1: 190, hard: 0, expert: 0)
-  - by type: mcq: 126, numeric: 25, multi-select: 21, ordering: 9, spot-the-error: 6, matching: 3
+- Topics: **11**, concepts: **69**
+- Widgets: **70** (registry-driven: 70, inline: 0)
+  - by family: verbatim: 45, schrodinger-figure: 7, hamiltonians-figure: 6, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
+  - by dimension: 2d: 70
+  - by gesture: slider: 47, click: 14, interact: 7, drag: 1, select: 1
+- Quizzes: **208** (v1: 208, hard: 0, expert: 0)
+  - by type: mcq: 134, numeric: 26, multi-select: 23, ordering: 11, spot-the-error: 8, matching: 6
 
 ## Per-topic
 
@@ -702,6 +708,7 @@ page has wired one in yet.
 - `special-relativity` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=19 (v1=19, hard=0, expert=0)
 - `klein-gordon-equation` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `dirac-equation` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `quantum-field-theory` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `statistical-mechanics` (Mathematical physics) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `advanced-complex-analysis` (Analysis) — concepts=13, widgets=5 (slug=5), quiz=39 (v1=39, hard=0, expert=0)
 - `groebner-bases` (Algebra & homological) — concepts=8, widgets=8 (slug=8), quiz=24 (v1=24, hard=0, expert=0)

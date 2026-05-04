@@ -10,6 +10,7 @@ window.__MVConcepts = {
       "special-relativity",
       "klein-gordon-equation",
       "dirac-equation",
+      "quantum-field-theory",
       "statistical-mechanics",
       "advanced-complex-analysis",
       "groebner-bases",
@@ -296,6 +297,7 @@ window.__MVConcepts = {
       "special-relativity": "standard",
       "klein-gordon-equation": "advanced",
       "dirac-equation": "advanced",
+      "quantum-field-theory": "capstone",
       "general-relativity": "advanced",
       "three-body-problem": "advanced",
       "designs": "standard",
@@ -900,6 +902,90 @@ window.__MVConcepts = {
           "tags": [
             "classification",
             "refinement"
+          ]
+        }
+      ]
+    },
+    "quantum-field-theory": {
+      "topic": "quantum-field-theory",
+      "title": "Quantum field theory",
+      "page": "quantum-field-theory.html",
+      "concepts": [
+        {
+          "id": "qft-canonical-quantization",
+          "title": "From classical fields to operator-valued distributions",
+          "anchor": "canonical-quantization",
+          "prereqs": [
+            "kg-equation",
+            "dirac-equation"
+          ],
+          "blurb": "Promote $\\phi(x)$ and $\\psi(x)$ from c-number functions to operator-valued distributions on Fock space. Impose canonical equal-time commutation relations $[\\phi(x),\\pi(y)] = i\\delta^3(x-y)$ for bosons (anticommutators for fermions), expand into modes $\\phi(x) = \\int \\frac{d^3p}{(2\\pi)^3 2E_p}[a_p e^{-ipx} + a_p^\\dagger e^{ipx}]$, and read $a_p^\\dagger$, $a_p$ as creation/annihilation operators. The negative-energy branch becomes positive-energy antiparticles ($b_p^\\dagger$ creates a positron, not a hole in a sea), so Klein-Gordon's negative-probability problem and Dirac's filled sea both dissolve at once: states are multi-particle excitations of a vacuum $|0\\rangle$, and antiparticles fall out as a free byproduct.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "qft-fock-space",
+          "title": "Fock space and multi-particle states",
+          "anchor": "fock-space",
+          "prereqs": [
+            "qft-canonical-quantization"
+          ],
+          "blurb": "The Hilbert space of a free field is the direct sum $\\mathcal{F} = \\bigoplus_{n\\ge 0}\\mathcal{H}^{(n)}$, with $\\mathcal{H}^{(n)} = \\mathrm{Sym}^n\\mathcal{H}_1$ for bosons and $\\Lambda^n\\mathcal{H}_1$ for fermions. Single-particle states $a_p^\\dagger|0\\rangle$ carry momentum $p$; multi-particle states $a_{p_1}^\\dagger\\cdots a_{p_n}^\\dagger|0\\rangle$ are automatically (anti)symmetrized by the algebra of the creation operators. Bose-Einstein vs Fermi-Dirac statistics emerge from $[a_p,a_q^\\dagger] = (2\\pi)^3 2E_p\\,\\delta^3(p-q)$ vs $\\{b_p,b_q^\\dagger\\} = (2\\pi)^3 2E_p\\,\\delta^3(p-q)$, and the spin-statistics theorem (Pauli 1940) ties integer spin to commutators and half-integer spin to anticommutators as the only choice consistent with Lorentz invariance and microcausality.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "qft-path-integral",
+          "title": "The Feynman path integral",
+          "anchor": "path-integral",
+          "prereqs": [
+            "qft-canonical-quantization"
+          ],
+          "blurb": "The transition amplitude factors as $\\langle\\phi_f|e^{-iHT}|\\phi_i\\rangle = \\int\\mathcal{D}\\phi\\,e^{iS[\\phi]/\\hbar}$, a sum over field histories weighted by $e^{iS}$ where $S = \\int d^4x\\,\\mathcal{L}$ is the classical action. The path integral recovers canonical quantization in a Lagrangian framework, makes Lorentz invariance manifest at every step, and is the natural setting for non-Abelian gauge theories where canonical quantization tangles with constraints. The classical limit $\\hbar\\to 0$ recovers the principle of stationary action: the dominant contribution to the path integral comes from $\\delta S = 0$, with quantum corrections organized by $\\hbar$-counting (loops). For Euclidean $S_E = -iS$, $e^{-S_E/\\hbar}$ becomes a Boltzmann weight and statistical mechanics and QFT become the same formalism in different signatures.",
+          "tags": [
+            "duality"
+          ]
+        },
+        {
+          "id": "qft-feynman-diagrams",
+          "title": "Perturbation theory and Feynman diagrams",
+          "anchor": "feynman-diagrams",
+          "prereqs": [
+            "qft-path-integral"
+          ],
+          "blurb": "Expand $e^{iS_{\\mathrm{int}}}$ in powers of the coupling $g$ and apply Wick's theorem to reduce time-ordered products to sums of contracted pairs. Each surviving term is a Feynman diagram: vertices are interaction terms in $\\mathcal{L}$ (e.g. $-ie\\bar\\psi\\gamma^\\mu\\psi A_\\mu$ for QED), internal lines are propagators $i/(p^2-m^2+i\\epsilon)$ for scalars and $i(\\not{p}+m)/(p^2-m^2+i\\epsilon)$ for Dirac, and external lines are asymptotic in/out states. Diagrams compute scattering amplitudes $\\mathcal{M}$; cross-sections follow from $|\\mathcal{M}|^2$ and phase-space integration via the LSZ reduction formula. Tree-level diagrams reproduce the classical $S$-matrix; loops are quantum corrections of order $\\hbar^L$ where $L$ is the loop count.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "qft-renormalization",
+          "title": "Renormalization and running couplings",
+          "anchor": "renormalization",
+          "prereqs": [
+            "qft-feynman-diagrams"
+          ],
+          "blurb": "Loop integrals like $\\int d^4k/k^4$ are UV-divergent. The renormalization program: (a) regulate divergences (dim reg replaces $d=4$ by $4-\\epsilon$; Pauli-Villars introduces heavy regulator masses); (b) absorb the $1/\\epsilon$ poles into bare parameters $g_0,m_0,Z_\\psi$ chosen to cancel them; (c) express physical quantities in finite renormalized $g(\\mu),m(\\mu)$ depending on a sliding scale $\\mu$. The renormalization group equation $\\mu\\partial_\\mu g = \\beta(g)$ tracks the flow: $\\beta_{\\mathrm{QED}}(\\alpha) > 0$ so $\\alpha(\\mu)$ grows logarithmically with energy; $\\beta_{\\mathrm{QCD}}(\\alpha_s) < 0$ so $\\alpha_s$ shrinks (asymptotic freedom, Gross-Wilczek-Politzer 1973). Wilson's effective-field-theory reframing reads renormalization as integrating out high-momentum modes, with renormalizability the special case where the result needs only finitely many couplings.",
+          "tags": [
+            "refinement",
+            "completion"
+          ]
+        },
+        {
+          "id": "qft-gauge-fields",
+          "title": "Quantum gauge fields and the Standard Model",
+          "anchor": "gauge-fields",
+          "prereqs": [
+            "qft-feynman-diagrams",
+            "qft-renormalization"
+          ],
+          "blurb": "Promoting a continuous symmetry from global to local introduces a connection $A_\\mu^a$ via the covariant derivative $D_\\mu = \\partial_\\mu - igA_\\mu^a T^a$, where $T^a$ generate the gauge Lie algebra. The Standard Model gauge group $\\mathrm{SU}(3)_C \\times \\mathrm{SU}(2)_L \\times \\mathrm{U}(1)_Y$ couples quarks and leptons to 8 gluons (color), 3 weak bosons $W^\\pm,W^3$, and the hypercharge boson $B$, with $W^3$ and $B$ mixing to the physical $Z$ and $\\gamma$. Quantizing requires gauge fixing (Faddeev-Popov ghosts in non-Abelian gauges) and the BRST formalism that organizes the residual graded symmetry. The Higgs mechanism breaks $\\mathrm{SU}(2)_L \\times \\mathrm{U}(1)_Y \\to \\mathrm{U}(1)_{\\mathrm{em}}$ by a vacuum expectation value $\\langle\\phi\\rangle\\ne 0$, giving $W^\\pm,Z$ masses while keeping the photon massless and preserving renormalizability — the bedrock of every Standard-Model precision test.",
+          "tags": [
+            "classification",
+            "foundation"
           ]
         }
       ]
@@ -14786,6 +14872,13 @@ window.__MVConcepts = {
         "title": "Large deviations and equilibrium fluctuations",
         "goal": "large-deviations-equilibrium",
         "blurb": "Cramér + Gärtner-Ellis: equilibrium thermodynamic potentials are Legendre transforms of large-deviation rate functions. Free energy and entropy are dual rates, fluctuation-dissipation ties Kubo response to equilibrium correlations — the modern probabilistic capstone of statistical mechanics."
+      },
+      {
+        "id": "capstone-qft-standard-model",
+        "section": "Mathematical physics",
+        "title": "Quantum field theory and the Standard Model",
+        "goal": "qft-gauge-fields",
+        "blurb": "Operator-valued fields on Fock space + path integral + Feynman diagrams + renormalization-group flow + gauged $\\mathrm{SU}(3)\\times\\mathrm{SU}(2)\\times\\mathrm{U}(1)$ with the Higgs mechanism — the framework that produces every Standard-Model prediction tested at the LHC, LEP, and precision-frontier experiments."
       }
     ]
   },
@@ -15013,6 +15106,7 @@ window.__MVConcepts = {
           "special-relativity",
           "klein-gordon-equation",
           "dirac-equation",
+          "quantum-field-theory",
           "general-relativity",
           "three-body-problem",
           "statistical-mechanics",
@@ -15254,6 +15348,7 @@ window.__MVConcepts = {
     "special-relativity": "standard",
     "klein-gordon-equation": "advanced",
     "dirac-equation": "advanced",
+    "quantum-field-theory": "capstone",
     "general-relativity": "advanced",
     "three-body-problem": "advanced",
     "designs": "standard",
@@ -15355,11 +15450,11 @@ window.__MVConcepts = {
       "density": 0.47058823529411764
     },
     "Mathematical physics": {
-      "concepts": 63,
-      "intra": 67,
+      "concepts": 69,
+      "intra": 75,
       "crossOut": 40,
       "crossIn": 0,
-      "density": 0.6349206349206349
+      "density": 0.5797101449275363
     }
   }
 };

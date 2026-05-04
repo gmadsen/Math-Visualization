@@ -216,6 +216,13 @@
       "title": "Large deviations and equilibrium fluctuations",
       "goal": "large-deviations-equilibrium",
       "blurb": "Cramér + Gärtner-Ellis: equilibrium thermodynamic potentials are Legendre transforms of large-deviation rate functions. Free energy and entropy are dual rates, fluctuation-dissipation ties Kubo response to equilibrium correlations — the modern probabilistic capstone of statistical mechanics."
+    },
+    {
+      "id": "capstone-qft-standard-model",
+      "section": "Mathematical physics",
+      "title": "Quantum field theory and the Standard Model",
+      "goal": "qft-gauge-fields",
+      "blurb": "Operator-valued fields on Fock space + path integral + Feynman diagrams + renormalization-group flow + gauged $\\mathrm{SU}(3)\\times\\mathrm{SU}(2)\\times\\mathrm{U}(1)$ with the Higgs mechanism — the framework that produces every Standard-Model prediction tested at the LHC, LEP, and precision-frontier experiments."
     }
   ]
 }

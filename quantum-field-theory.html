@@ -1,0 +1,1093 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Quantum field theory</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"automorphic-forms-adelic","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"additive-number-theory":{"next":"quadratic-forms-genus-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"advanced-complex-analysis":{"next":null,"prev":"fixed-point-theorems","section":"Analysis","title":"Advanced complex analysis"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"moduli-spaces","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"mathematics-and-cryptography","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"mostow-rigidity","prev":"k-theory","section":"Geometry & topology","title":"Atiyah–Singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"etale-cohomology","section":"Algebraic geometry","title":"Calabi–Yau manifolds"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-topoi","prev":"infinity-categories","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":null,"prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"deformation-theory":{"next":"etale-cohomology","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"group-cohomology","prev":"homological","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"expanders","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirac-equation":{"next":"quantum-field-theory","prev":"klein-gordon-equation","section":"Mathematical physics","title":"Dirac equation"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"harmonic-analysis-fourier","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":null,"section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":"calabi-yau-manifolds","prev":"deformation-theory","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"deformation-theory","prev":"group-schemes","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":null,"prev":"designs","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"naive-set-theory","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":"advanced-complex-analysis","prev":"variational-methods","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"type-theory-and-hott","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"quantum-groups","prev":"lie-algebras","section":"Algebra & homological","title":"Galois cohomology and Brauer groups"},"galois-representations":{"next":"heights-arithmetic-geometry","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"gauge-theory":{"next":"string-theory","prev":"statistical-mechanics","section":"Mathematical physics","title":"Gauge theory"},"general-relativity":{"next":"schrodinger-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":"groebner-bases","prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"groebner-bases":{"next":null,"prev":"geometric-and-combinatorial-group-theory","section":"Algebra & homological","title":"Gröbner bases"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"lie-algebras","prev":"derived-categories","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"etale-fundamental-group","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"hamiltonians-classical-mechanics":{"next":"general-relativity","prev":"three-body-problem","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"spectral-theory","prev":"partial-differential-equations","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"analytic-number-theory","prev":"galois-representations","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":null,"prev":"mathematical-statistics","section":"Probability & statistics","title":"High dimensional geometry"},"hodge-theory":{"next":null,"prev":"motives","section":"Algebraic geometry","title":"Hodge theory"},"homological":{"next":"derived-categories","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"cocartesian-fibrations","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-topoi"},"information-theory":{"next":"large-deviations","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"stacks","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"ricci-flow","section":"Geometry & topology","title":"K-theory"},"klein-gordon-equation":{"next":"dirac-equation","prev":"special-relativity","section":"Mathematical physics","title":"Klein-Gordon equation"},"knot-polynomials":{"next":"ricci-flow","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Knot polynomials"},"langlands-program":{"next":null,"prev":"vertex-operator-algebras","section":"Modular forms & L-functions","title":"Langlands program"},"large-deviations":{"next":"mathematical-statistics","prev":"information-theory","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"galois-cohomology-and-brauer","prev":"group-cohomology","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"mathematical-statistics":{"next":"high-dimensional-geometry","prev":"large-deviations","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"mirror-symmetry":{"next":"resolution-of-singularities","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"model-theory-basics":{"next":"computability-and-decidability","prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"modular-curves","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"algebraic-spaces","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"characteristic-classes","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":null,"prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Mostow rigidity"},"motives":{"next":"hodge-theory","prev":"resolution-of-singularities","section":"Algebraic geometry","title":"Motives"},"naive-set-theory":{"next":"first-order-logic-and-completeness","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"wavelets","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"harmonic-functions","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"stochastic-processes-and-martingales","prev":null,"section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"additive-number-theory","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"additive-number-theory","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"quantum-field-theory":{"next":null,"prev":"dirac-equation","section":"Mathematical physics","title":"Quantum field theory"},"quantum-groups":{"next":"quaternions-octonions-and-division-algebras","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"quantum-groups","section":"Algebra & homological","title":"Quaternions, octonions, and division algebras"},"random-walks-and-mixing":{"next":"information-theory","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":"motives","prev":"mirror-symmetry","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"k-theory","prev":"knot-polynomials","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"characteristic-classes","prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":"statistical-mechanics","prev":"general-relativity","section":"Mathematical physics","title":"Schrödinger equation"},"sheaf-cohomology":{"next":"algebraic-de-rham-cohomology","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"algebraic-curves-higher-genus","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Sobolev spaces & distributions"},"special-relativity":{"next":"klein-gordon-equation","prev":"string-theory","section":"Mathematical physics","title":"Special relativity"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"wavelets","prev":"harmonic-functions","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"intersection-theory-chow","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"statistical-mechanics":{"next":"gauge-theory","prev":"schrodinger-equation","section":"Mathematical physics","title":"Statistical mechanics"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":"probability-theory","section":"Probability & statistics","title":"Stochastic processes and martingales"},"string-theory":{"next":"special-relativity","prev":"gauge-theory","section":"Mathematical physics","title":"String theory"},"symplectic-manifolds":{"next":"knot-polynomials","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"hamiltonians-classical-mechanics","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"type-theory-and-hott":{"next":"forcing-and-independence","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and HoTT"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"fixed-point-theorems","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":"langlands-program","prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"numerical-analysis","prev":"spectral-theory","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"model-theory-basics","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"ZFC and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="mathematical-physics" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#canonical-quantization">1&nbsp;From&nbsp;classical&nbsp;fields&nbsp;to&nbsp;operator-valued&nbsp;distributions</a>
+  <a href="#fock-space">2&nbsp;Fock&nbsp;space&nbsp;and&nbsp;multi-particle&nbsp;states</a>
+  <a href="#path-integral">3&nbsp;The&nbsp;Feynman&nbsp;path&nbsp;integral</a>
+  <a href="#feynman-diagrams">4&nbsp;Perturbation&nbsp;theory&nbsp;and&nbsp;Feynman&nbsp;diagrams</a>
+  <a href="#renormalization">5&nbsp;Renormalization&nbsp;and&nbsp;running&nbsp;couplings</a>
+  <a href="#gauge-fields">6&nbsp;Quantum&nbsp;gauge&nbsp;fields&nbsp;and&nbsp;the&nbsp;Standard&nbsp;Model</a>
+  <a href="#connections">7&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Quantum field theory</h1>
+  <p class="sub">The capstone of the relativistic-physics arc: promote $\phi(x)$ and $\psi(x)$ to operator-valued distributions, organize amplitudes by Feynman diagrams, run couplings with the renormalization group, and gauge the symmetries — the framework that produces every Standard-Model prediction.</p>
+</section>
+
+<section id="canonical-quantization">
+<h2>1. From classical fields to operator-valued distributions</h2>
+
+<p>Klein-Gordon's $j^0$ failed as a probability density (negative on superpositions of positive- and negative-energy modes; see the <a href="./klein-gordon-equation.html#current">KG current widget</a>). Dirac's first-order equation fixed the sign of $j^0$ but introduced a filled negative-energy <em>sea</em> as the heuristic for antiparticles. <strong>Quantum field theory</strong> dissolves both problems by promoting $\phi(x)$ and $\psi(x)$ from c-number functions to <strong>operator-valued distributions</strong> on a Fock space, with the negative-energy branch reinterpreted as positive-energy antiparticles from the start.</p>
+
+<p>For a free real scalar, impose the equal-time canonical commutation relation</p>
+
+$$[\phi(t,\vec x),\,\pi(t,\vec y)] \;=\; i\hbar\,\delta^3(\vec x - \vec y),\qquad \pi = \dot\phi,$$
+
+<p>and decompose into momentum modes:</p>
+
+$$\phi(x) \;=\; \int\!\frac{d^3p}{(2\pi)^3 2E_p}\Bigl[a_p\,e^{-ip\cdot x} + a_p^\dagger\,e^{+ip\cdot x}\Bigr],\qquad E_p = \sqrt{|\vec p|^2 + m^2}.$$
+
+<p>The coefficients satisfy $[a_p, a_q^\dagger] = (2\pi)^3 2E_p\,\delta^3(\vec p - \vec q)$ — the algebra of an infinite collection of harmonic oscillators, one per momentum mode. Define the vacuum $|0\rangle$ by $a_p|0\rangle = 0$ for all $p$; the $n$-particle states $a_{p_1}^\dagger\cdots a_{p_n}^\dagger|0\rangle$ span <strong>Fock space</strong>. The Hamiltonian is $H = \int (d^3p/(2\pi)^3 2E_p)\,E_p\,a_p^\dagger a_p$ after normal-ordering, manifestly bounded below.</p>
+
+<p>For a Dirac fermion, the same construction with <em>anticommutators</em> $\{b_p,b_q^\dagger\} = \delta(\vec p-\vec q)$ produces creation operators $b_p^\dagger$ for electrons and a separate set $d_p^\dagger$ for positrons — antiparticles are positive-energy excitations of a <em>different</em> creation operator, not holes in a sea. The sea was a useful pre-QFT crutch; QFT replaces it with the operator algebra and the antiparticle prediction stands.</p>
+
+<div class="widget" id="qft-modes">
+  <div class="hd"><div class="ttl">Quantum field as a stack of harmonic oscillators</div><div class="hint">click modes to add/remove quanta; toggle bose/fermi to see Pauli exclusion</div></div>
+  <div class="row">
+    <label for="qft-modes-cutoff">momentum cutoff $|\vec p|_{\max}$:</label>
+    <input id="qft-modes-cutoff" type="range" min="2" max="9" step="1" value="6">
+    <span id="qft-modes-cutoff-out" class="small"></span>
+  </div>
+  <div class="row">
+    <button id="qft-modes-bose" class="active">bosons (any occupation)</button>
+    <button id="qft-modes-fermi">fermions (Pauli: 0 or 1)</button>
+    <button id="qft-modes-clear">vacuum</button>
+  </div>
+  <svg id="qft-modes-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>Field-mode occupations on Fock space</title></svg>
+  <div id="qft-modes-out" class="readout"></div>
+</div><script>
+(function(){
+  const svg = document.getElementById('qft-modes-svg');
+  const out = document.getElementById('qft-modes-out');
+  const cutoff = document.getElementById('qft-modes-cutoff');
+  const cutoffOut = document.getElementById('qft-modes-cutoff-out');
+  const btnBose = document.getElementById('qft-modes-bose');
+  const btnFermi = document.getElementById('qft-modes-fermi');
+  const btnClear = document.getElementById('qft-modes-clear');
+  let stat = 'bose';
+  let occ = {};
+  function key(p){ return String(p); }
+  function modes(){
+    const N = +cutoff.value;
+    const arr = [];
+    for(let i = -N; i <= N; i++) if(i !== 0) arr.push(i);
+    return arr;
+  }
+  function E(p){ const m = 1; return Math.sqrt(p*p + m*m); }
+  function totalE(){
+    let e = 0; for(const k in occ){ e += E(+k) * occ[k]; } return e;
+  }
+  function totalN(){ let n = 0; for(const k in occ) n += occ[k]; return n; }
+  function totalP(){ let pp = 0; for(const k in occ) pp += (+k) * occ[k]; return pp; }
+  function clickMode(p){
+    const k = key(p);
+    const cur = occ[k] || 0;
+    if(stat === 'fermi'){ occ[k] = cur === 0 ? 1 : 0; }
+    else { occ[k] = cur + 1; if(occ[k] > 5) occ[k] = 0; }
+    if(occ[k] === 0) delete occ[k];
+    draw();
+  }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const N = +cutoff.value;
+    cutoffOut.textContent = `${2*N} modes (p = ±1, ±2, …, ±${N})`;
+    const xs = modes();
+    const W = 480, x0 = -W/2 + 20, x1 = W/2 - 20;
+    const stepX = (x1 - x0) / (xs.length - 1);
+    const baseY = 80;
+    svg.appendChild(SVG('line',{x1:x0-10,y1:baseY,x2:x1+10,y2:baseY,stroke:'var(--mute)','stroke-width':1}));
+    const lblP = SVG('text',{x:x1+24,y:baseY+5,'text-anchor':'start','font-size':12,fill:'var(--mute)'}); lblP.textContent='p'; svg.appendChild(lblP);
+    const lblE = SVG('text',{x:x0-24,y:-110,'text-anchor':'end','font-size':12,fill:'var(--mute)'}); lblE.textContent='E_p'; svg.appendChild(lblE);
+    const Emax = E(N);
+    for(let i = 0; i < xs.length; i++){
+      const p = xs[i];
+      const x = x0 + i * stepX;
+      const e = E(p);
+      const yE = baseY - 30 - (e/Emax) * 130;
+      const k = key(p);
+      const n = occ[k] || 0;
+      svg.appendChild(SVG('line',{x1:x,y1:baseY,x2:x,y2:yE+8,stroke:'var(--line)','stroke-width':0.8,'stroke-dasharray':'2 3'}));
+      const r = SVG('rect',{x:x-14,y:yE,width:28,height:18,rx:4,fill:n>0?'var(--panel2)':'transparent',stroke:'var(--cyan)','stroke-width':1.2,style:'cursor:pointer'});
+      r.dataset.p = String(p);
+      r.addEventListener('click', () => clickMode(p));
+      svg.appendChild(r);
+      const lbl = SVG('text',{x:x,y:yE-4,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      lbl.textContent = (p > 0 ? '+' : '') + p;
+      svg.appendChild(lbl);
+      const nT = SVG('text',{x:x,y:yE+13,'text-anchor':'middle','font-size':11,fill:n>0?'var(--yellow)':'var(--mute)','font-weight':600,style:'pointer-events:none'});
+      nT.textContent = String(n);
+      svg.appendChild(nT);
+      for(let q = 0; q < n; q++){
+        const dy = baseY - 12 - q * 9;
+        svg.appendChild(SVG('circle',{cx:x,cy:dy,r:3.5,fill:'var(--yellow)',stroke:'var(--bg)','stroke-width':0.8,style:'pointer-events:none'}));
+      }
+    }
+    const stateStr = (() => {
+      const ks = Object.keys(occ).sort((a,b)=>(+a)-(+b));
+      if(ks.length === 0) return '|0⟩  (vacuum)';
+      const parts = ks.map(k => `${occ[k]}_{p=${k}}`);
+      return `|${parts.join(', ')}⟩`;
+    })();
+    const t = SVG('text',{x:0,y:-130,'text-anchor':'middle','font-size':13,fill:'var(--ink)'});
+    t.textContent = `Fock-space state: ${stateStr}`;
+    svg.appendChild(t);
+    out.textContent = `statistics: ${stat === 'bose' ? 'bosonic (any occupation)' : 'fermionic (Pauli: 0 or 1)'}    N = ${totalN()}    Σp = ${totalP()}    E = ${totalE().toFixed(3)} (units of m)    Click mode boxes to add/remove quanta. The vacuum |0⟩ is the no-particle state; click any mode to populate it.`;
+  }
+  cutoff.addEventListener('input', () => { occ = {}; draw(); });
+  btnBose.addEventListener('click', () => { stat = 'bose'; btnBose.classList.add('active'); btnFermi.classList.remove('active'); draw(); });
+  btnFermi.addEventListener('click', () => {
+    stat = 'fermi';
+    btnFermi.classList.add('active'); btnBose.classList.remove('active');
+    for(const k in occ) if(occ[k] > 1) occ[k] = 1;
+    draw();
+  });
+  btnClear.addEventListener('click', () => { occ = {}; draw(); });
+  draw();
+})();
+</script>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./dirac-equation.html#equation">The Dirac equation in covariant form</a></li>
+    <li><a href="./klein-gordon-equation.html#equation">The Klein-Gordon equation</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./quantum-field-theory.html#fock-space">Quantum field theory</a> · Fock space and multi-particle states</div>
+    <div><a href="./quantum-field-theory.html#path-integral">Quantum field theory</a> · The Feynman path integral</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="qft-canonical-quantization"></div>
+</section>
+
+<section id="fock-space">
+<h2>2. Fock space and multi-particle states</h2>
+
+<p>The Hilbert space of a free field is the <strong>Fock space</strong></p>
+
+$$\mathcal{F} \;=\; \bigoplus_{n\ge 0}\mathcal{H}^{(n)},\qquad \mathcal{H}^{(0)} = \mathbb{C}\cdot|0\rangle,\quad \mathcal{H}^{(1)} = \mathcal{H}_1,$$
+
+<p>and for each $n\ge 2$, $\mathcal{H}^{(n)} = \mathrm{Sym}^n\mathcal{H}_1$ (bosons) or $\mathcal{H}^{(n)} = \Lambda^n\mathcal{H}_1$ (fermions). The (anti)symmetrization is automatic — it falls out of the (anti)commutation algebra of the creation operators:</p>
+
+$$a_p^\dagger a_q^\dagger|0\rangle = +a_q^\dagger a_p^\dagger|0\rangle\ \text{(boson)},\qquad b_p^\dagger b_q^\dagger|0\rangle = -b_q^\dagger b_p^\dagger|0\rangle\ \text{(fermion)}.$$
+
+<p>Setting $p=q$ in the fermion case gives $b_p^\dagger b_p^\dagger|0\rangle = 0$ — the <strong>Pauli exclusion principle</strong> as a structural identity, not an axiom. The <strong>spin-statistics theorem</strong> (Pauli 1940) shows that integer spin must use commutators and half-integer spin must use anticommutators: any other choice is incompatible with Lorentz invariance and microcausality $[\mathcal{O}(x),\mathcal{O}(y)]=0$ for spacelike $(x-y)^2 > 0$.</p>
+
+<p>The number operator $\hat N = \int (d^3p/(2\pi)^3 2E_p)\,a_p^\dagger a_p$ satisfies $\hat N|n_{p_1},\ldots,n_{p_k}\rangle = (n_{p_1}+\cdots+n_{p_k})|\cdots\rangle$ — Fock states are simultaneous eigenstates of $\hat N$ and $H$. This is the field-theoretic upgrade of the harmonic-oscillator ladder: each momentum slot has its own ladder, and the global state is a tensor of single-mode kets.</p>
+
+<div class="widget" id="qft-fock">
+  <div class="hd"><div class="ttl">Spin-statistics on display: drag particles to swap</div><div class="hint">two particles, two slots; toggle bose/fermi and watch the wave-function sign</div></div>
+  <div class="row">
+    <button id="qft-fock-bose" class="active">bosons: $|p_1, p_2\rangle = +|p_2, p_1\rangle$</button>
+    <button id="qft-fock-fermi">fermions: $|p_1, p_2\rangle = -|p_2, p_1\rangle$</button>
+  </div>
+  <div class="row">
+    <button id="qft-fock-swap">swap particles</button>
+    <button id="qft-fock-same">put both in same mode</button>
+    <button id="qft-fock-reset">reset</button>
+  </div>
+  <svg id="qft-fock-svg" viewBox="-220 -130 440 260" width="100%" height="300"><title>Two-particle (anti)symmetric Fock state</title></svg>
+  <div id="qft-fock-out" class="readout"></div>
+</div><script>
+(function(){
+  const svg = document.getElementById('qft-fock-svg');
+  const out = document.getElementById('qft-fock-out');
+  const bBose = document.getElementById('qft-fock-bose');
+  const bFermi = document.getElementById('qft-fock-fermi');
+  const bSwap = document.getElementById('qft-fock-swap');
+  const bSame = document.getElementById('qft-fock-same');
+  const bReset = document.getElementById('qft-fock-reset');
+  let stat = 'bose';
+  let p1 = 1, p2 = 2;
+  let sign = +1;
+  let history = [];
+  function setBose(){ stat='bose'; bBose.classList.add('active'); bFermi.classList.remove('active'); reset(); }
+  function setFermi(){ stat='fermi'; bFermi.classList.add('active'); bBose.classList.remove('active'); reset(); }
+  function reset(){ p1=1; p2=2; sign=+1; history=['initial']; draw(); }
+  function swap(){
+    const t = p1; p1 = p2; p2 = t;
+    sign = stat === 'fermi' ? -sign : +sign;
+    history.push('swap');
+    draw();
+  }
+  function same(){ p1 = 1; p2 = 1; sign = +1; history.push('same-mode'); draw(); }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const slotX = [-100, 0, 100];
+    const slotY = -10;
+    for(let i = 0; i < 3; i++){
+      const x = slotX[i];
+      svg.appendChild(SVG('rect',{x:x-26,y:slotY-26,width:52,height:52,rx:6,fill:'var(--panel2)',stroke:'var(--line)','stroke-width':1.2}));
+      const lbl = SVG('text',{x:x,y:slotY+44,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      lbl.textContent = `p = ${i+1}`;
+      svg.appendChild(lbl);
+    }
+    const slot1 = slotX[p1-1], slot2 = slotX[p2-1];
+    const sameSlot = (p1 === p2);
+    const collide = stat === 'fermi' && sameSlot;
+    const colA = collide ? 'var(--pink)' : 'var(--cyan)';
+    const colB = collide ? 'var(--pink)' : 'var(--yellow)';
+    if(sameSlot){
+      svg.appendChild(SVG('circle',{cx:slot1-9,cy:slotY,r:9,fill:colA,stroke:'var(--bg)','stroke-width':1.5}));
+      svg.appendChild(SVG('circle',{cx:slot1+9,cy:slotY,r:9,fill:colB,stroke:'var(--bg)','stroke-width':1.5}));
+      const lbl = SVG('text',{x:slot1-9,y:slotY+4,'text-anchor':'middle','font-size':10,fill:'#111','font-weight':700}); lbl.textContent='1'; svg.appendChild(lbl);
+      const lbl2 = SVG('text',{x:slot1+9,y:slotY+4,'text-anchor':'middle','font-size':10,fill:'#111','font-weight':700}); lbl2.textContent='2'; svg.appendChild(lbl2);
+    } else {
+      svg.appendChild(SVG('circle',{cx:slot1,cy:slotY,r:11,fill:colA,stroke:'var(--bg)','stroke-width':1.5}));
+      svg.appendChild(SVG('circle',{cx:slot2,cy:slotY,r:11,fill:colB,stroke:'var(--bg)','stroke-width':1.5}));
+      const lbl1 = SVG('text',{x:slot1,y:slotY+4,'text-anchor':'middle','font-size':11,fill:'#111','font-weight':700}); lbl1.textContent='1'; svg.appendChild(lbl1);
+      const lbl2 = SVG('text',{x:slot2,y:slotY+4,'text-anchor':'middle','font-size':11,fill:'#111','font-weight':700}); lbl2.textContent='2'; svg.appendChild(lbl2);
+    }
+    const titleText = stat === 'bose' ? 'Symmetric (boson)' : 'Antisymmetric (fermion)';
+    const tT = SVG('text',{x:0,y:-95,'text-anchor':'middle','font-size':13,fill:'var(--ink)','font-weight':600}); tT.textContent=titleText; svg.appendChild(tT);
+    let stateText;
+    if(collide){
+      stateText = `b†_{p=${p1}} b†_{p=${p2}} |0⟩ = 0  (Pauli exclusion: identical fermions cannot share a state)`;
+    } else if(sameSlot){
+      stateText = `(a†_{p=${p1}})² |0⟩ = √2 · |2_{p=${p1}}⟩  (double-occupation, allowed for bosons)`;
+    } else {
+      const op = stat === 'bose' ? 'a†' : 'b†';
+      stateText = `${op}_{p=${p1}} ${op}_{p=${p2}} |0⟩  =  ${sign>0?'+':'−'} ${op}_{p=${p2}} ${op}_{p=${p1}} |0⟩`;
+    }
+    const tS = SVG('text',{x:0,y:80,'text-anchor':'middle','font-size':11,fill:collide?'var(--pink)':'var(--ink)'});
+    tS.textContent = stateText;
+    svg.appendChild(tS);
+    const tHist = SVG('text',{x:0,y:100,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+    tHist.textContent = `history: ${history.slice(-4).join(' → ')}    sign so far: ${sign>0?'+1':'−1'}`;
+    svg.appendChild(tHist);
+    let label;
+    if(collide){ label = 'state vanishes'; }
+    else if(sameSlot){ label = 'double occupancy (boson)'; }
+    else { label = `swap parity: ${sign>0 ? '+1 (symmetric)' : '−1 (antisymmetric)'}`; }
+    out.textContent = `statistics: ${stat}    state: ${stateText}    ${label}    Click 'swap' to exchange the two particles. Bosons keep the sign; fermions flip it. Try 'put both in same mode' under fermion statistics: the state vanishes — that's Pauli exclusion derived, not assumed.`;
+  }
+  bBose.addEventListener('click', setBose);
+  bFermi.addEventListener('click', setFermi);
+  bSwap.addEventListener('click', swap);
+  bSame.addEventListener('click', same);
+  bReset.addEventListener('click', reset);
+  reset();
+})();
+</script>
+<div class="quiz" data-concept="qft-fock-space"></div>
+</section>
+
+<section id="path-integral">
+<h2>3. The Feynman path integral</h2>
+
+<p>An equivalent — and for many purposes more powerful — formulation of QFT is Feynman's <strong>path integral</strong>. The transition amplitude between field configurations $\phi_i$ at time $t_i$ and $\phi_f$ at time $t_f$ is</p>
+
+$$\langle\phi_f, t_f \mid \phi_i, t_i\rangle \;=\; \int_{\phi(t_i)=\phi_i}^{\phi(t_f)=\phi_f}\!\mathcal{D}\phi\;\;\exp\!\Bigl(\,\frac{i}{\hbar}S[\phi]\,\Bigr),\qquad S[\phi] = \int d^4x\,\mathcal{L}(\phi,\partial\phi).$$
+
+<p>The integral is over <em>every</em> field history with the given boundary conditions — classical solutions, near-misses, wildly non-classical zigzags. Each contributes the phase $e^{iS/\hbar}$.</p>
+
+<p>The classical limit is <strong>stationary phase</strong>: as $\hbar\to 0$, the phase $S/\hbar$ oscillates rapidly except near configurations where $\delta S/\delta\phi = 0$ — exactly the Euler-Lagrange equation. Off-classical contributions cancel by destructive interference; the dominant configurations are <em>stationary</em>, not zero-action. Quantum corrections are the leading deviation: expand $S[\phi_{\mathrm{cl}} + \eta]$ to quadratic order in the fluctuation $\eta$, and the resulting Gaussian integral gives the one-loop result.</p>
+
+<p>Wick rotation $t \to -i\tau$ maps $iS \to -S_E$ with $S_E > 0$; the path integral becomes</p>
+
+$$Z_E \;=\; \int\mathcal{D}\phi\;e^{-S_E[\phi]/\hbar}$$
+
+<p>— a Boltzmann sum, identical in form to a statistical-mechanics partition function. Euclidean QFT in $d$ dimensions and classical statistical mechanics in $d$ dimensions are the same formalism: phase transitions in spin systems map to RG flows of the dual QFT, lattice regularizations compute thermodynamic quantities, and Monte Carlo methods cross over freely. The Lorentzian theory is recovered by analytic continuation back to real time.</p>
+
+<div class="widget" id="qft-paths">
+  <div class="hd"><div class="ttl">Sum over paths: classical limit by stationary phase</div><div class="hint">drag $\hbar$; classical (stationary-action) path emerges as the slider drops</div></div>
+  <div class="row">
+    <label for="qft-paths-hbar">$\hbar$:</label>
+    <input id="qft-paths-hbar" type="range" min="0.05" max="3" step="0.05" value="1.5">
+    <span id="qft-paths-hbar-out" class="small"></span>
+  </div>
+  <div class="row">
+    <label for="qft-paths-n">number of trial paths:</label>
+    <input id="qft-paths-n" type="range" min="3" max="40" step="1" value="20">
+    <span id="qft-paths-n-out" class="small"></span>
+  </div>
+  <div class="row">
+    <button id="qft-paths-redo">resample paths</button>
+  </div>
+  <svg id="qft-paths-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>Feynman sum over paths and stationary-phase concentration</title></svg>
+  <div id="qft-paths-out" class="readout"></div>
+</div><script>
+(function(){
+  const svg = document.getElementById('qft-paths-svg');
+  const out = document.getElementById('qft-paths-out');
+  const hSlide = document.getElementById('qft-paths-hbar');
+  const hOut = document.getElementById('qft-paths-hbar-out');
+  const nSlide = document.getElementById('qft-paths-n');
+  const nOut = document.getElementById('qft-paths-n-out');
+  const redo = document.getElementById('qft-paths-redo');
+  let paths = [];
+  function makePaths(n){
+    const xs = []; for(let k = 0; k < 25; k++) xs.push(k/24);
+    const arr = [];
+    for(let i = 0; i < n; i++){
+      const amp = (Math.random() - 0.5) * 1.6;
+      const ph = Math.random() * Math.PI;
+      const ys = xs.map(x => amp * Math.sin(Math.PI * x + ph) * x * (1 - x));
+      arr.push({xs, ys});
+    }
+    return arr;
+  }
+  function action(p){
+    let S = 0;
+    for(let i = 1; i < p.xs.length; i++){
+      const dx = p.xs[i] - p.xs[i-1];
+      const dy = p.ys[i] - p.ys[i-1];
+      const v = dy / dx;
+      const yMid = (p.ys[i] + p.ys[i-1]) / 2;
+      S += (0.5 * v * v - 0.5 * 4 * yMid * yMid) * dx;
+    }
+    return 8 * S;
+  }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const hbar = +hSlide.value;
+    const n = +nSlide.value;
+    if(paths.length !== n) paths = makePaths(n);
+    hOut.textContent = `ℏ = ${hbar.toFixed(2)}`;
+    nOut.textContent = `n = ${n} paths`;
+    const W = 480, H = 220, x0 = -W/2 + 20, y0 = -H/2 + 20;
+    svg.appendChild(SVG('rect',{x:x0,y:y0,width:W-40,height:H-40,fill:'transparent',stroke:'var(--line)','stroke-width':0.8}));
+    const X = t => x0 + t * (W - 40);
+    const Y = y => y0 + (H - 40)/2 - y * 60;
+    svg.appendChild(SVG('line',{x1:x0,y1:Y(0),x2:x0+(W-40),y2:Y(0),stroke:'var(--line)','stroke-width':0.6,'stroke-dasharray':'2 4'}));
+    let sumRe = 0, sumIm = 0;
+    let actMin = Infinity, actMax = -Infinity;
+    paths.forEach(p => { const S = action(p); if(S<actMin) actMin=S; if(S>actMax) actMax=S; });
+    const span = Math.max(0.001, actMax - actMin);
+    paths.forEach(p => {
+      const S = action(p);
+      const phase = S / hbar;
+      const w = Math.exp(-Math.pow((S - actMin), 2) / (4 * hbar * hbar) - (S - actMin) * 0.05);
+      const norm = (S - actMin) / span;
+      const opacity = Math.max(0.1, w * (hbar < 0.5 ? Math.max(0.05, 1 - norm * 8) : 0.55));
+      const isClass = norm < 0.05;
+      const col = isClass ? 'var(--yellow)' : (norm < 0.4 ? 'var(--cyan)' : 'var(--mute)');
+      let d = `M ${X(p.xs[0])} ${Y(p.ys[0])}`;
+      for(let i = 1; i < p.xs.length; i++) d += ` L ${X(p.xs[i])} ${Y(p.ys[i])}`;
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:col,'stroke-width':isClass?2.0:1.0,opacity:opacity.toFixed(3)}));
+      sumRe += Math.cos(phase);
+      sumIm += Math.sin(phase);
+    });
+    const cx = -180, cy = 90, R = 28;
+    svg.appendChild(SVG('circle',{cx,cy,r:R,fill:'transparent',stroke:'var(--line)','stroke-width':0.8}));
+    svg.appendChild(SVG('line',{x1:cx-R-2,y1:cy,x2:cx+R+2,y2:cy,stroke:'var(--line)','stroke-width':0.5}));
+    svg.appendChild(SVG('line',{x1:cx,y1:cy-R-2,x2:cx,y2:cy+R+2,stroke:'var(--line)','stroke-width':0.5}));
+    const aR = sumRe / Math.max(1, paths.length);
+    const aI = sumIm / Math.max(1, paths.length);
+    const aMag = Math.hypot(aR, aI);
+    const ang = Math.atan2(aI, aR);
+    const tipX = cx + R * Math.cos(ang) * Math.min(1, aMag * 1.2);
+    const tipY = cy + R * Math.sin(ang) * Math.min(1, aMag * 1.2);
+    drawArrow(svg, [cx, cy], [tipX, tipY], { color: 'var(--yellow)', markerId:'qft-paths-arr', width:1.6 });
+    const lblA = SVG('text',{x:cx,y:cy+R+14,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+    lblA.textContent = `Σ e^{iS/ℏ} / n`;
+    svg.appendChild(lblA);
+    const lblM = SVG('text',{x:cx,y:cy-R-6,'text-anchor':'middle','font-size':10,fill:'var(--yellow)'});
+    lblM.textContent = `|sum| ≈ ${aMag.toFixed(3)}`;
+    svg.appendChild(lblM);
+    const note = hbar < 0.4
+      ? 'small ℏ: classical (yellow) path dominates by stationary phase.'
+      : hbar > 1.8
+        ? 'large ℏ: every path contributes coherently — fully quantum regime.'
+        : 'intermediate ℏ: classical path leads; near-classical paths interfere constructively.';
+    const ntT = SVG('text',{x:0,y:-130,'text-anchor':'middle','font-size':12,fill:'var(--ink)'});
+    ntT.textContent = note;
+    svg.appendChild(ntT);
+    out.textContent = `ℏ = ${hbar.toFixed(2)}    n = ${n}    classical action S_min = ${actMin.toFixed(3)}    sum vector |⟨e^{iS/ℏ}⟩| = ${aMag.toFixed(3)}    Yellow paths are within 5% of stationary action; cyan within 40%; grey are far. Drag ℏ down: see how off-classical contributions wash out by destructive interference, leaving the classical path.`;
+  }
+  hSlide.addEventListener('input', draw);
+  nSlide.addEventListener('input', () => { paths = []; draw(); });
+  redo.addEventListener('click', () => { paths = []; draw(); });
+  draw();
+})();
+</script>
+<div class="quiz" data-concept="qft-path-integral"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./quantum-field-theory.html#feynman-diagrams">Quantum field theory</a> · Perturbation theory and Feynman diagrams</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="feynman-diagrams">
+<h2>4. Perturbation theory and Feynman diagrams</h2>
+
+<p>For an interacting theory $\mathcal{L} = \mathcal{L}_0 + \mathcal{L}_{\mathrm{int}}$, the path integral exponential factors as $e^{iS_0/\hbar}\,e^{iS_{\mathrm{int}}/\hbar}$ and one expands the second factor in powers of the coupling. <strong>Wick's theorem</strong> reduces time-ordered products of free fields to sums over pairwise contractions, and each surviving term is a <strong>Feynman diagram</strong>.</p>
+
+<p>The dictionary, in the canonical QED vocabulary:</p>
+
+<ul>
+<li><strong>Vertices</strong> come from $\mathcal{L}_{\mathrm{int}}$. The QED vertex is $-ie\gamma^\mu$ — one fermion line in, one fermion line out, one photon line.</li>
+<li><strong>Internal lines</strong> are <strong>propagators</strong>: $i/(p^2-m^2+i\epsilon)$ for a scalar, $i(\not{p}+m)/(p^2-m^2+i\epsilon)$ for a Dirac fermion, $-i\eta^{\mu\nu}/(p^2+i\epsilon)$ for a Feynman-gauge photon. Internal lines are <em>off-shell</em> ($p^2\ne m^2$) — they are virtual particles, not observable on their own.</li>
+<li><strong>External lines</strong> are on-shell wave functions $u(p),v(p),\epsilon^\mu(p)$ from the LSZ reduction formula, with $p^2 = m^2$.</li>
+<li><strong>Closed loops</strong> introduce a momentum integral $\int d^4k/(2\pi)^4$ — this is where the famous UV divergences live.</li>
+</ul>
+
+<p>The textbook calculation $e^+e^-\to\mu^+\mu^-$ at tree level gives $\sigma = 4\pi\alpha^2/(3s)$ in the limit $\sqrt s\gg m_\mu$. At $\sqrt s = 100\,\mathrm{GeV}$ the cross-section is $\sim 0.087\,\mathrm{nb}$ — measured to subpercent precision at LEP, and the universal benchmark for $e^+e^-$ collider analyses.</p>
+
+<div class="widget" id="qft-diagrams">
+  <div class="hd"><div class="ttl">Feynman amplitude assembly: $e^+e^- \to \mu^+\mu^-$ tree, plus a one-loop correction</div><div class="hint">slide energy; click to add a vertex correction; tree finite, loop diverges</div></div>
+  <div class="row">
+    <label for="qft-diag-energy">$\sqrt s$ (GeV):</label>
+    <input id="qft-diag-energy" type="range" min="10" max="500" step="5" value="91">
+    <span id="qft-diag-energy-out" class="small"></span>
+  </div>
+  <div class="row">
+    <button id="qft-diag-tree" class="active">tree only</button>
+    <button id="qft-diag-loop">+ one-loop vertex correction</button>
+  </div>
+  <svg id="qft-diag-svg" viewBox="-240 -130 480 260" width="100%" height="300"><title>QED tree and one-loop diagrams</title></svg>
+  <div id="qft-diag-out" class="readout"></div>
+</div><script>
+(function(){
+  const svg = document.getElementById('qft-diag-svg');
+  const out = document.getElementById('qft-diag-out');
+  const eSlide = document.getElementById('qft-diag-energy');
+  const eOut = document.getElementById('qft-diag-energy-out');
+  const bTree = document.getElementById('qft-diag-tree');
+  const bLoop = document.getElementById('qft-diag-loop');
+  const ALPHA = 1/137.036;
+  let mode = 'tree';
+  function setTree(){ mode='tree'; bTree.classList.add('active'); bLoop.classList.remove('active'); draw(); }
+  function setLoop(){ mode='loop'; bLoop.classList.add('active'); bTree.classList.remove('active'); draw(); }
+  function squiggle(svg, x1, y, x2, color){
+    const n = 8, d = (x2 - x1) / n;
+    let path = `M ${x1} ${y}`;
+    for(let i = 1; i <= n; i++){
+      const cx = x1 + d * (i - 0.5);
+      const cy = y + (i % 2 ? -6 : 6);
+      const tx = x1 + d * i;
+      path += ` Q ${cx} ${cy} ${tx} ${y}`;
+    }
+    svg.appendChild(SVG('path',{d:path,fill:'none',stroke:color,'stroke-width':1.4}));
+  }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const sqrt_s = +eSlide.value;
+    eOut.textContent = `√s = ${sqrt_s} GeV`;
+    const s = sqrt_s * sqrt_s;
+    const sigma_tree_GeVm2 = (4 * Math.PI / 3) * ALPHA * ALPHA / s;
+    const sigma_tree_nb = sigma_tree_GeVm2 * 3.89e5;
+    const verticalCenter = -10;
+    const eIn1 = [-180, verticalCenter - 60];
+    const eIn2 = [-180, verticalCenter + 60];
+    const v1 = [-60, verticalCenter];
+    const v2 = [60, verticalCenter];
+    const muOut1 = [180, verticalCenter - 60];
+    const muOut2 = [180, verticalCenter + 60];
+    drawArrow(svg, eIn1, v1, { color:'var(--cyan)', markerId:'qft-diag-arr-1', width:1.4 });
+    drawArrow(svg, eIn2, v1, { color:'var(--cyan)', markerId:'qft-diag-arr-2', width:1.4 });
+    const tIn1 = SVG('text',{x:eIn1[0]-12,y:eIn1[1]+5,'text-anchor':'end','font-size':12,fill:'var(--cyan)'}); tIn1.textContent='e⁻'; svg.appendChild(tIn1);
+    const tIn2 = SVG('text',{x:eIn2[0]-12,y:eIn2[1]+5,'text-anchor':'end','font-size':12,fill:'var(--cyan)'}); tIn2.textContent='e⁺'; svg.appendChild(tIn2);
+    drawArrow(svg, v2, muOut1, { color:'var(--yellow)', markerId:'qft-diag-arr-3', width:1.4 });
+    drawArrow(svg, v2, muOut2, { color:'var(--yellow)', markerId:'qft-diag-arr-4', width:1.4 });
+    const tOut1 = SVG('text',{x:muOut1[0]+12,y:muOut1[1]+5,'text-anchor':'start','font-size':12,fill:'var(--yellow)'}); tOut1.textContent='μ⁻'; svg.appendChild(tOut1);
+    const tOut2 = SVG('text',{x:muOut2[0]+12,y:muOut2[1]+5,'text-anchor':'start','font-size':12,fill:'var(--yellow)'}); tOut2.textContent='μ⁺'; svg.appendChild(tOut2);
+    squiggle(svg, v1[0]+4, v1[1], v2[0]-4, 'var(--violet)');
+    const tPh = SVG('text',{x:0,y:verticalCenter-10,'text-anchor':'middle','font-size':11,fill:'var(--violet)'}); tPh.textContent='γ*'; svg.appendChild(tPh);
+    svg.appendChild(SVG('circle',{cx:v1[0],cy:v1[1],r:4,fill:'var(--ink)'}));
+    svg.appendChild(SVG('circle',{cx:v2[0],cy:v2[1],r:4,fill:'var(--ink)'}));
+    let loopFactor = 0;
+    let loopOK = true;
+    if(mode === 'loop'){
+      const lc = [60, verticalCenter];
+      svg.appendChild(SVG('circle',{cx:lc[0],cy:lc[1]-22,r:14,fill:'transparent',stroke:'var(--pink)','stroke-width':1.4}));
+      const lblL = SVG('text',{x:lc[0],y:lc[1]-50,'text-anchor':'middle','font-size':10,fill:'var(--pink)'});
+      lblL.textContent = '1-loop vertex';
+      svg.appendChild(lblL);
+      const Lambda_GeV = 1e16;
+      const m = 0.000511;
+      loopFactor = (ALPHA / (3 * Math.PI)) * Math.log(Lambda_GeV / m);
+      loopOK = isFinite(loopFactor);
+    }
+    const tT = SVG('text',{x:0,y:-115,'text-anchor':'middle','font-size':12,fill:'var(--ink)','font-weight':600});
+    tT.textContent = mode === 'tree' ? 'tree-level diagram' : 'tree + 1-loop vertex correction (UV-divergent without renormalization)';
+    svg.appendChild(tT);
+    const lines = [
+      `tree amplitude: |M|² ∝ e⁴ / s, σ_tree = (4πα²/3s) ≈ ${sigma_tree_nb.toExponential(3)} nb`,
+    ];
+    if(mode === 'loop'){
+      lines.push(`loop logarithm: (α/3π) ln(Λ/m_e) ≈ ${loopFactor.toFixed(3)} (Λ = 10¹⁶ GeV, m_e = 0.511 MeV)`);
+      lines.push('without renormalization the loop diverges as Λ → ∞ — must absorb into Z-factors. See §5.');
+    }
+    lines.forEach((line,i) => {
+      const tt = SVG('text',{x:0,y:90+i*16,'text-anchor':'middle','font-size':11,fill: i===2 ? 'var(--pink)' : 'var(--mute)'});
+      tt.textContent = line;
+      svg.appendChild(tt);
+    });
+    out.textContent = `√s = ${sqrt_s} GeV    σ_tree(e⁺e⁻ → μ⁺μ⁻) = ${sigma_tree_nb.toExponential(3)} nb    mode: ${mode}    The tree diagram has one virtual photon (violet wavy line) connecting the e⁺e⁻ vertex (left) to the μ⁺μ⁻ vertex (right). Adding a one-loop vertex correction (pink) introduces an integral ∫d⁴k/k² that diverges logarithmically — the cure is renormalization.`;
+  }
+  eSlide.addEventListener('input', draw);
+  bTree.addEventListener('click', setTree);
+  bLoop.addEventListener('click', setLoop);
+  draw();
+})();
+</script>
+<div class="quiz" data-concept="qft-feynman-diagrams"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./quantum-field-theory.html#gauge-fields">Quantum field theory</a> · Quantum gauge fields and the Standard Model</div>
+    <div><a href="./quantum-field-theory.html#renormalization">Quantum field theory</a> · Renormalization and running couplings</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="renormalization">
+<h2>5. Renormalization and running couplings</h2>
+
+<p>One-loop diagrams in QED contain divergent integrals like $\int d^4k\,(k^2-m^2)^{-2}$. The cure is the <strong>renormalization program</strong>: regulate, absorb, and rewrite.</p>
+
+<ol>
+<li><strong>Regulate.</strong> Replace $\int d^4k$ by a finite version: dimensional regularization $d = 4-\epsilon$, Pauli-Villars subtraction with heavy regulator masses, or a hard cutoff $\Lambda$.</li>
+<li><strong>Absorb.</strong> Write the bare Lagrangian's couplings as $g_0 = g + \delta g$, $m_0^2 = m^2 + \delta m^2$, $\psi_0 = \sqrt{Z_\psi}\,\psi$, and choose the counterterms $\delta g, \delta m^2, Z_\psi - 1$ to cancel the divergent pieces of every loop integral. This is mechanical at one loop and works to all orders in renormalizable theories.</li>
+<li><strong>Rewrite.</strong> The physical observable is a finite function of the <strong>renormalized</strong> coupling $g(\mu)$ at a sliding scale $\mu$.</li>
+</ol>
+
+<p>The running of $g(\mu)$ with $\mu$ is captured by the <strong>renormalization-group equation</strong></p>
+
+$$\mu\frac{\partial g(\mu)}{\partial\mu} \;=\; \beta(g),$$
+
+<p>where the sign of $\beta$ matters. In QED, $\beta_{\mathrm{QED}}(\alpha) = +(2/3\pi)\alpha^2$ at one loop, so $\alpha(\mu)$ <em>grows</em> with energy — measured at LEP as $\alpha(M_Z)\approx 1/128$ vs $\alpha(0)\approx 1/137$. In QCD, $\beta_{\mathrm{QCD}}(\alpha_s) = -(7/2\pi)\alpha_s^2$ (Gross-Wilczek-Politzer 1973), so $\alpha_s(\mu)$ <em>shrinks</em> — quarks are nearly free at high energy (asymptotic freedom) and confined at low energy.</p>
+
+<p><strong>Wilson's effective-field-theory reframing</strong> reads renormalization as integrating out high-momentum modes: a theory at scale $\Lambda$ is mapped to an effective theory at scale $\mu < \Lambda$ with redefined couplings. Renormalizability is the special case where only finitely many couplings survive in the IR; non-renormalizable theories are still meaningful effective theories below their cutoff (the Fermi theory of weak interactions, gravitons, low-energy chiral perturbation theory).</p>
+
+<div class="widget" id="qft-rg-flow">
+  <div class="hd"><div class="ttl">RG running: $\alpha_{\mathrm{QED}}$ grows, $\alpha_s$ shrinks with energy</div><div class="hint">slide $\mu$ between $1\,\mathrm{GeV}$ and $10^{16}\,\mathrm{GeV}$; watch the curves cross</div></div>
+  <div class="row">
+    <label for="qft-rg-mu">log₁₀(μ / GeV):</label>
+    <input id="qft-rg-mu" type="range" min="0" max="16" step="0.1" value="2">
+    <span id="qft-rg-mu-out" class="small"></span>
+  </div>
+  <div class="row">
+    <button id="qft-rg-toggle-qed" class="active">show α_QED</button>
+    <button id="qft-rg-toggle-qcd" class="active">show α_s</button>
+  </div>
+  <svg id="qft-rg-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>RG flow of QED and QCD couplings</title></svg>
+  <div id="qft-rg-out" class="readout"></div>
+</div><script>
+(function(){
+  const svg = document.getElementById('qft-rg-svg');
+  const out = document.getElementById('qft-rg-out');
+  const muSl = document.getElementById('qft-rg-mu');
+  const muOut = document.getElementById('qft-rg-mu-out');
+  const bQED = document.getElementById('qft-rg-toggle-qed');
+  const bQCD = document.getElementById('qft-rg-toggle-qcd');
+  let showQED = true, showQCD = true;
+  function alphaQED(mu){
+    const alpha0 = 1/137.036;
+    const me = 5.11e-4;
+    if(mu <= me) return alpha0;
+    const inv = 1/alpha0 - (2/(3*Math.PI)) * Math.log(mu / me);
+    if(inv <= 0.5) return 1.0;
+    return 1 / inv;
+  }
+  function alphaS(mu){
+    const Lambda = 0.2;
+    if(mu <= Lambda * 1.5) return 1.0;
+    const denom = (7 / (2 * Math.PI)) * Math.log(mu / Lambda);
+    if(denom <= 0.05) return 1.0;
+    return 1 / denom;
+  }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const muLog = +muSl.value;
+    const mu = Math.pow(10, muLog);
+    muOut.textContent = `μ = 10^${muLog.toFixed(1)} GeV ≈ ${mu.toExponential(2)} GeV`;
+    const W = 480, H = 220, x0 = -W/2 + 30, y0 = -H/2 + 20;
+    const xMax = x0 + W - 60, yMax = y0 + H - 50;
+    svg.appendChild(SVG('line',{x1:x0,y1:yMax,x2:xMax,y2:yMax,stroke:'var(--mute)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:yMax,stroke:'var(--mute)','stroke-width':1}));
+    const X = lg => x0 + (lg/16) * (xMax - x0);
+    const Y = a => yMax - Math.min(a, 0.5) / 0.5 * (yMax - y0);
+    for(let l = 0; l <= 16; l += 4){
+      const x = X(l);
+      svg.appendChild(SVG('line',{x1:x,y1:yMax,x2:x,y2:yMax+4,stroke:'var(--mute)'}));
+      const t = SVG('text',{x:x,y:yMax+16,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      t.textContent = `10^${l}`;
+      svg.appendChild(t);
+    }
+    for(let v = 0; v <= 0.5; v += 0.1){
+      const y = Y(v);
+      svg.appendChild(SVG('line',{x1:x0-4,y1:y,x2:x0,y2:y,stroke:'var(--mute)'}));
+      const t = SVG('text',{x:x0-8,y:y+3,'text-anchor':'end','font-size':10,fill:'var(--mute)'});
+      t.textContent = v.toFixed(1);
+      svg.appendChild(t);
+    }
+    const lblX = SVG('text',{x:(x0+xMax)/2,y:yMax+34,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    lblX.textContent = 'log₁₀(μ / GeV)';
+    svg.appendChild(lblX);
+    const lblY = SVG('text',{x:x0-32,y:(y0+yMax)/2,'text-anchor':'middle','font-size':11,fill:'var(--mute)','transform':`rotate(-90 ${x0-32} ${(y0+yMax)/2})`});
+    lblY.textContent = 'coupling α(μ)';
+    svg.appendChild(lblY);
+    if(showQED){
+      let d = '';
+      for(let l = 0; l <= 16; l += 0.2){
+        const m = Math.pow(10, l);
+        const a = alphaQED(m);
+        const x = X(l), y = Y(a);
+        d += (l === 0 ? 'M' : 'L') + ` ${x} ${y} `;
+      }
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--cyan)','stroke-width':1.8}));
+    }
+    if(showQCD){
+      let d = '';
+      let started = false;
+      for(let l = 0; l <= 16; l += 0.2){
+        const m = Math.pow(10, l);
+        if(m < 0.5) continue;
+        const a = alphaS(m);
+        const x = X(l), y = Y(a);
+        d += (started ? 'L' : 'M') + ` ${x} ${y} `;
+        started = true;
+      }
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':1.8}));
+    }
+    const xCur = X(muLog);
+    svg.appendChild(SVG('line',{x1:xCur,y1:y0,x2:xCur,y2:yMax,stroke:'var(--violet)','stroke-width':1.2,'stroke-dasharray':'4 3'}));
+    const aQED = alphaQED(mu);
+    const aQCD = alphaS(mu);
+    if(showQED){
+      svg.appendChild(SVG('circle',{cx:xCur,cy:Y(aQED),r:4,fill:'var(--cyan)'}));
+    }
+    if(showQCD && mu >= 0.5){
+      svg.appendChild(SVG('circle',{cx:xCur,cy:Y(aQCD),r:4,fill:'var(--yellow)'}));
+    }
+    const lblQEDleg = SVG('text',{x:xMax-10,y:Y(0.01)+4,'text-anchor':'end','font-size':11,fill:'var(--cyan)'});
+    lblQEDleg.textContent = 'α_QED  (β > 0, grows)';
+    svg.appendChild(lblQEDleg);
+    const lblQCDleg = SVG('text',{x:xMax-10,y:Y(0.10)+4,'text-anchor':'end','font-size':11,fill:'var(--yellow)'});
+    lblQCDleg.textContent = 'α_s  (β < 0, shrinks: asymptotic freedom)';
+    svg.appendChild(lblQCDleg);
+    out.textContent = `μ = ${mu.toExponential(2)} GeV    α_QED(μ) = ${aQED.toFixed(5)}    α_s(μ) = ${(mu>=0.5?aQCD.toFixed(4):'(non-pert: μ < Λ_QCD)')}    Slide μ to watch the running. At μ ≈ M_Z (≈10^2 GeV) α_QED ≈ 1/128 (vs 1/137 at zero energy); at μ ≈ M_GUT (≈10^16 GeV) the QED, weak, and strong couplings approach a common value — the GUT-scale coupling unification clue.`;
+  }
+  muSl.addEventListener('input', draw);
+  bQED.addEventListener('click', () => { showQED = !showQED; bQED.classList.toggle('active', showQED); draw(); });
+  bQCD.addEventListener('click', () => { showQCD = !showQCD; bQCD.classList.toggle('active', showQCD); draw(); });
+  draw();
+})();
+</script>
+<div class="quiz" data-concept="qft-renormalization"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./quantum-field-theory.html#gauge-fields">Quantum field theory</a> · Quantum gauge fields and the Standard Model</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="gauge-fields">
+<h2>6. Quantum gauge fields and the Standard Model</h2>
+
+<p>Promoting a continuous symmetry from <em>global</em> to <em>local</em> is the central organizational idea of the Standard Model. If $\psi(x) \to e^{i\alpha^a(x)T^a}\psi(x)$ is to leave the Lagrangian invariant, the kinetic term must use a <strong>covariant derivative</strong></p>
+
+$$D_\mu \;=\; \partial_\mu - igA_\mu^a T^a,\qquad A_\mu^a(x) \to A_\mu^a + \tfrac{1}{g}\partial_\mu\alpha^a + f^{abc}\alpha^b A_\mu^c,$$
+
+<p>where $T^a$ generate the gauge Lie algebra (with structure constants $f^{abc}$) and $A_\mu^a$ is the <strong>gauge field</strong>. The kinetic term for $A_\mu^a$ is the Yang-Mills action $-\tfrac14 F^a_{\mu\nu}F^{a\mu\nu}$ with $F^a_{\mu\nu} = \partial_\mu A^a_\nu - \partial_\nu A^a_\mu + gf^{abc}A^b_\mu A^c_\nu$.</p>
+
+<p>The <strong>Standard Model</strong> gauge group is</p>
+
+$$G_{\mathrm{SM}} \;=\; \mathrm{SU}(3)_C \times \mathrm{SU}(2)_L \times \mathrm{U}(1)_Y$$
+
+<p>— $\dim = 8 + 3 + 1 = 12$ gauge bosons in total: 8 gluons $G^a_\mu$ (color SU(3)), 3 weak bosons $W^1, W^2, W^3$, and the hypercharge $B$. Quantizing requires <strong>gauge fixing</strong> (the Faddeev-Popov procedure introduces ghost fields in non-Abelian gauges) and the <strong>BRST</strong> formalism that reorganizes the residual graded symmetry.</p>
+
+<p>The <strong>Higgs mechanism</strong> breaks $\mathrm{SU}(2)_L\times\mathrm{U}(1)_Y \to \mathrm{U}(1)_{\mathrm{em}}$ via a vev $\langle\phi\rangle\ne 0$. The vev's electric charge $Q\langle\phi\rangle = 0$, so one combination of $W^3$ and $B$ — the <strong>photon</strong> $A_\mu = \sin\theta_W\,W^3_\mu + \cos\theta_W\,B_\mu$ — does not couple to it and stays exactly massless. The orthogonal combinations $Z_\mu, W^\pm_\mu$ acquire masses $M_Z = M_W/\cos\theta_W \approx 91\,\mathrm{GeV}$, $M_W \approx 80\,\mathrm{GeV}$. Renormalizability survives the spontaneous breaking ('t Hooft 1971), and every Standard-Model precision test — the LEP electroweak fits, the muon $g-2$, the Higgs discovery at the LHC — closes the loop on this mechanism.</p>
+
+<div class="widget" id="qft-sm-fields">
+  <div class="hd"><div class="ttl">Standard Model gauge group: SU(3)×SU(2)×U(1)</div><div class="hint">click a factor to inspect its bosons; toggle Higgs to see W,Z gain mass while γ stays massless</div></div>
+  <div class="row">
+    <button id="qft-sm-su3">SU(3)_C</button>
+    <button id="qft-sm-su2">SU(2)_L</button>
+    <button id="qft-sm-u1">U(1)_Y</button>
+  </div>
+  <div class="row">
+    <button id="qft-sm-higgs">toggle Higgs mechanism</button>
+  </div>
+  <svg id="qft-sm-svg" viewBox="-260 -150 520 320" width="100%" height="350"><title>Standard Model gauge bosons before and after electroweak breaking</title></svg>
+  <div id="qft-sm-out" class="readout"></div>
+</div><script>
+(function(){
+  const svg = document.getElementById('qft-sm-svg');
+  const out = document.getElementById('qft-sm-out');
+  const bSU3 = document.getElementById('qft-sm-su3');
+  const bSU2 = document.getElementById('qft-sm-su2');
+  const bU1 = document.getElementById('qft-sm-u1');
+  const bH = document.getElementById('qft-sm-higgs');
+  let pick = 'all';
+  let higgs = false;
+  function setPick(p){
+    pick = (pick === p) ? 'all' : p;
+    [bSU3, bSU2, bU1].forEach(b => b.classList.remove('active'));
+    if(pick === 'su3') bSU3.classList.add('active');
+    else if(pick === 'su2') bSU2.classList.add('active');
+    else if(pick === 'u1') bU1.classList.add('active');
+    draw();
+  }
+  function setHiggs(){ higgs = !higgs; bH.classList.toggle('active', higgs); draw(); }
+  function bosonBox(x, y, name, mass, color, dim){
+    svg.appendChild(SVG('rect',{x:x-26,y:y-16,width:52,height:32,rx:5,fill:'var(--panel2)',stroke:color,'stroke-width':1.4}));
+    const t = SVG('text',{x,y:y-2,'text-anchor':'middle','font-size':12,fill:color,'font-weight':600});
+    t.textContent = name;
+    svg.appendChild(t);
+    const tm = SVG('text',{x,y:y+12,'text-anchor':'middle','font-size':9,fill:'var(--mute)'});
+    tm.textContent = mass;
+    svg.appendChild(tm);
+    if(dim){
+      const td = SVG('text',{x,y:y-22,'text-anchor':'middle','font-size':9,fill:'var(--mute)'});
+      td.textContent = dim;
+      svg.appendChild(td);
+    }
+  }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const tT = SVG('text',{x:0,y:-130,'text-anchor':'middle','font-size':13,fill:'var(--ink)','font-weight':600});
+    tT.textContent = higgs ? 'Higgs mechanism ON: SU(2)_L × U(1)_Y → U(1)_em (W,Z massive, γ massless)' : 'Unbroken Standard Model gauge group SU(3) × SU(2) × U(1)';
+    svg.appendChild(tT);
+    const showSU3 = pick === 'all' || pick === 'su3';
+    const showSU2 = pick === 'all' || pick === 'su2';
+    const showU1 = pick === 'all' || pick === 'u1';
+    if(showSU3){
+      const groupTitle = SVG('text',{x:-180,y:-95,'text-anchor':'middle','font-size':11,fill:'var(--green)','font-weight':600});
+      groupTitle.textContent = 'SU(3)_C  (8 gluons)';
+      svg.appendChild(groupTitle);
+      const labels = ['G¹','G²','G³','G⁴','G⁵','G⁶','G⁷','G⁸'];
+      for(let i = 0; i < 8; i++){
+        const x = -220 + (i % 4) * 30;
+        const y = -55 + Math.floor(i / 4) * 38;
+        svg.appendChild(SVG('rect',{x:x-12,y:y-10,width:24,height:20,rx:3,fill:'var(--panel2)',stroke:'var(--green)','stroke-width':1.1}));
+        const t = SVG('text',{x,y:y+4,'text-anchor':'middle','font-size':9,fill:'var(--green)','font-weight':600});
+        t.textContent = labels[i];
+        svg.appendChild(t);
+      }
+      const tNote = SVG('text',{x:-180,y:25,'text-anchor':'middle','font-size':9,fill:'var(--mute)'});
+      tNote.textContent = 'massless · self-interacting (non-Abelian)';
+      svg.appendChild(tNote);
+    }
+    if(showSU2 || showU1){
+      const xCenter = pick === 'su2' ? -50 : (pick === 'u1' ? 50 : 50);
+      const groupTitle = SVG('text',{x:xCenter,y:-95,'text-anchor':'middle','font-size':11,fill:'var(--cyan)','font-weight':600});
+      groupTitle.textContent = higgs ? 'After Higgs: γ, Z, W±' : 'SU(2)_L × U(1)_Y  (4 bosons)';
+      svg.appendChild(groupTitle);
+      if(higgs){
+        bosonBox(xCenter - 60, -55, 'γ', 'm = 0', 'var(--yellow)', 'photon');
+        bosonBox(xCenter, -55, 'Z', '91.2 GeV', 'var(--violet)', '');
+        bosonBox(xCenter + 60, -55, 'W⁺', '80.4 GeV', 'var(--pink)', '');
+        bosonBox(xCenter + 60, -10, 'W⁻', '80.4 GeV', 'var(--pink)', '');
+        const ar1 = SVG('text',{x:xCenter,y:32,'text-anchor':'middle','font-size':9,fill:'var(--mute)'});
+        ar1.textContent = 'γ = sin(θ_W) W³ + cos(θ_W) B';
+        svg.appendChild(ar1);
+        const ar2 = SVG('text',{x:xCenter,y:46,'text-anchor':'middle','font-size':9,fill:'var(--mute)'});
+        ar2.textContent = 'Z = cos(θ_W) W³ − sin(θ_W) B';
+        svg.appendChild(ar2);
+      } else {
+        if(showSU2){
+          bosonBox(xCenter - 30, -55, 'W¹', '0', 'var(--cyan)', '');
+          bosonBox(xCenter + 0, -55, 'W²', '0', 'var(--cyan)', '');
+          bosonBox(xCenter + 30, -55, 'W³', '0', 'var(--cyan)', '');
+        }
+        if(showU1){
+          const xB = pick === 'u1' ? xCenter : xCenter + 90;
+          bosonBox(xB, -55, 'B', '0', 'var(--blue)', '');
+        }
+        const sl = SVG('text',{x:xCenter,y:25,'text-anchor':'middle','font-size':9,fill:'var(--mute)'});
+        sl.textContent = 'all massless · awaits Higgs vev to break to U(1)_em';
+        svg.appendChild(sl);
+      }
+    }
+    const tCount = SVG('text',{x:0,y:90,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+    tCount.textContent = `total: 8 gluons + 3 W + 1 B = 12 gauge bosons${higgs ? ' (3 absorbed into W±, Z longitudinal modes via Higgs)' : ''}`;
+    svg.appendChild(tCount);
+    const tHiggs = SVG('text',{x:0,y:108,'text-anchor':'middle','font-size':10,fill:higgs?'var(--violet)':'var(--mute)'});
+    tHiggs.textContent = higgs ? 'Higgs vev v ≈ 246 GeV: W,Z eat 3 Goldstone modes from φ doublet → longitudinal polarization' : 'Higgs OFF: 4 electroweak bosons all massless';
+    svg.appendChild(tHiggs);
+    const status = higgs ? 'broken (electroweak)' : 'unbroken';
+    out.textContent = `selected: ${pick}    Higgs mechanism: ${higgs ? 'ON' : 'OFF'}    electroweak status: ${status}    The photon stays massless because Q⟨φ⟩ = 0 — its U(1)_em subgroup commutes with the vev. Click a gauge factor to filter; click 'Higgs' to break SU(2)_L × U(1)_Y → U(1)_em and watch W±, Z pick up mass.`;
+  }
+  bSU3.addEventListener('click', () => setPick('su3'));
+  bSU2.addEventListener('click', () => setPick('su2'));
+  bU1.addEventListener('click', () => setPick('u1'));
+  bH.addEventListener('click', setHiggs);
+  draw();
+})();
+</script>
+<div class="quiz" data-concept="qft-gauge-fields"></div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     Connections outro.
+═══════════════════════════════════════════════════════════════════ -->
+<section id="connections">
+<h2>Connections</h2>
+
+<p>Quantum field theory is the framework, not the endpoint. The Standard Model successfully predicts every collider observable to date, but open frontiers remain: <strong>quantum gravity</strong> (general-relativity quantization fails as a renormalizable QFT — gravitons have dimension-2 couplings, signaling effective-field-theory only); <strong>strong-CP</strong> (why is the QCD $\theta$-angle observably zero?); <strong>neutrino masses</strong> (Majorana vs Dirac, double-beta decay); the <strong>hierarchy problem</strong> ($M_H \ll M_{\mathrm{Pl}}$ requires fine-tuning); and the <strong>dark sector</strong> (no SM particle accounts for cosmological dark matter or dark energy). The conjectured Langlands-style geometric reformulations and string-theoretic UV completions continue to drive mathematical interaction, while precision-frontier measurements at the LHC, lepton colliders, and neutrino experiments tighten the noose.</p>
+
+<ul>
+<li><a href="./dirac-equation.html#equation">Dirac equation</a> — the immediate precursor; QFT promotes Dirac's $\psi$ to an operator-valued field, making antiparticles structural rather than sea-holes and giving each Dirac field a dedicated antiparticle creation operator.</li>
+<li><a href="./klein-gordon-equation.html#equation">Klein-Gordon equation</a> — the simpler precursor; QFT cures KG's negative-probability problem by reinterpreting $j^\mu$ as a charge current and the negative-energy branch as positive-energy antiparticles.</li>
+<li><a href="./gauge-theory.html#principal-bundles-connections">Gauge theory</a> — the classical (mathematical) version: principal bundles, connections, curvature. QFT quantizes the connection $A_\mu^a$ and reads gauge-fixing as a constraint on the path integral, with Faddeev-Popov ghosts and the BRST formalism.</li>
+<li><a href="./lie-algebras.html#axioms">Lie algebras</a> — the gauge-group generators $T^a$ live in $\mathfrak{su}(3)\oplus\mathfrak{su}(2)\oplus\mathfrak{u}(1)$; structure constants $f^{abc}$ control non-Abelian self-interactions of $W^a$ and gluons.</li>
+<li><a href="./representation-theory.html#def">Representation theory</a> — quark and lepton multiplets are irreducible representations of $G_{\mathrm{SM}}$; the labelling (color triplet, weak doublet, hypercharge) is a representation-theoretic statement, and the Higgs vev singles out the unbroken $\mathrm{U}(1)_{\mathrm{em}}$ representation that the photon couples to.</li>
+<li><a href="./string-theory.html#worldsheet-action">String theory</a> — the natural successor capstone: replaces point-particle QFT by a 2-dimensional worldsheet QFT whose target-space limit reproduces gravity plus matter, and whose dualities (T-duality, mirror symmetry, AdS/CFT) feed back into pure mathematics.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('quantum-field-theory'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-04</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>
