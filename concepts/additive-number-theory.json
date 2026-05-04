@@ -112,7 +112,6 @@
       ],
       "blurb": "Count representations as a Fourier integral: r_{s,k}(N) = ∫₀¹ f(α)^s e(−αN) dα with f(α)=Σ e(αn^k), then split the unit interval into major and minor arcs.",
       "tags": [
-        "finiteness",
         "foundation"
       ]
     },
@@ -123,10 +122,7 @@
       "prereqs": [
         "circle-method-intro"
       ],
-      "blurb": "Near rationals a/q with small q, f(α) is a Gauss-sum-weighted main term (major arcs); elsewhere Weyl bounds force cancellation (minor arcs) — the sum yields an asymptotic with singular series × singular integral.",
-      "tags": [
-        "finiteness"
-      ]
+      "blurb": "Near rationals a/q with small q, f(α) is a Gauss-sum-weighted main term (major arcs); elsewhere Weyl bounds force cancellation (minor arcs) — the sum yields an asymptotic with singular series × singular integral."
     },
     {
       "id": "faulhaber-formula",
