@@ -537,20 +537,23 @@ function countMissingLabels(html) {
 }
 
 // ─────────────────────────────────────────────────────────────────────────
-// JSON-mode processing.
+// Shared a11y backfill core.
 //
-// Topic pages have `content/<topic>.json` as their source of truth; the
-// rebuild chain's `test-roundtrip --fix` step renders HTML from JSON, so
-// any patches applied directly to HTML get wiped on the next rebuild.
-// For topic pages we walk the JSON's html-bearing strings (rawHead,
-// rawBodyPrefix, each section's raw blocks, rawBodySuffix) and patch them
-// in place, then write the JSON back.
+// Both JSON-mode (where html is a fragment from a content/<topic>.json
+// raw-block / rawHead / rawBodyPrefix / etc.) and HTML-mode (where html
+// is a whole landing-page file) go through this. Returns the patched
+// html + a normalized stats blob with a single key shape — eliminating
+// the previous two-place report-bookkeeping.
 //
-// Returns { changed, stats, h2 } where stats matches the HTML-mode shape.
-function patchFragment(html, sectionH2) {
+// `opts.sectionH2` is JSON-mode-only: when patching an isolated raw
+// fragment whose `<section>` opener may live in a *different* raw block,
+// the caller passes the recovered <h2> text so backfillSvgs can derive
+// SVG titles from it. HTML-mode passes nothing — backfillSvgs walks the
+// document's natural sections.
+function applyA11yToText(html, opts = {}) {
   const sectionsOverride =
-    sectionH2 != null
-      ? [{ start: 0, end: html.length, h2: sectionH2 }]
+    opts.sectionH2 != null
+      ? [{ start: 0, end: html.length, h2: opts.sectionH2 }]
       : null;
   const r1 = backfillSvgs(html, sectionsOverride);
   const r2 = backfillLabels(r1.changedHtml);
@@ -567,6 +570,15 @@ function patchFragment(html, sectionH2) {
     },
   };
 }
+
+// JSON-mode processing.
+//
+// Topic pages have `content/<topic>.json` as their source of truth; the
+// rebuild chain's `test-roundtrip --fix` step renders HTML from JSON, so
+// any patches applied directly to HTML get wiped on the next rebuild.
+// For topic pages we walk the JSON's html-bearing strings (rawHead,
+// rawBodyPrefix, each section's raw blocks, rawBodySuffix) and patch them
+// in place, then write the JSON back.
 
 function bumpJsonStats(totals, r) {
   totals.svgInserted += r.svgInserted;
@@ -609,7 +621,7 @@ function processContentJson(jsonPath) {
     stats.nakedBefore += countNakedSvgs(html);
     stats.missingBefore += countMissingLabels(html);
     if (!FIX) return html;
-    const r = patchFragment(html, sectionH2);
+    const r = applyA11yToText(html, { sectionH2 });
     stats.svgInserted += r.stats.svgInserted;
     stats.svgReal += r.stats.svgReal;
     stats.svgFallback += r.stats.svgFallback;
@@ -735,40 +747,32 @@ for (const file of htmlFiles) {
     continue;
   }
 
-  const r1 = backfillSvgs(html);
-  const r2 = backfillLabels(r1.changedHtml);
-  const newHtml = r2.changedHtml;
+  const r = applyA11yToText(html);
 
-  const svgInserted = r1.stats.inserted || 0;
-  const svgReal = r1.stats.real || 0;
-  const svgFallback = r1.stats.fallback || 0;
-  const wired = r2.stats.wired || 0;
-  const noCandidate = r2.stats.noCandidate || 0;
+  totals.svgInserted += r.stats.svgInserted;
+  totals.svgReal += r.stats.svgReal;
+  totals.svgFallback += r.stats.svgFallback;
+  totals.svgSkipped += r.stats.svgSkippedLabeled;
+  totals.labelsWired += r.stats.labelsWired;
+  totals.labelsSkipped += r.stats.labelsNoCandidate;
 
-  totals.svgInserted += svgInserted;
-  totals.svgReal += svgReal;
-  totals.svgFallback += svgFallback;
-  totals.svgSkipped += r1.stats.skippedLabeled || 0;
-  totals.labelsWired += wired;
-  totals.labelsSkipped += noCandidate;
-
-  if (newHtml !== html) {
-    writeFileSync(abs, newHtml);
+  if (r.changed) {
+    writeFileSync(abs, r.newHtml);
     totals.pagesTouched++;
   }
 
-  const nakedAfter = countNakedSvgs(newHtml);
-  const missingAfter = countMissingLabels(newHtml);
-  if (nakedBefore || missingBefore || svgInserted || wired) {
+  const nakedAfter = countNakedSvgs(r.newHtml);
+  const missingAfter = countMissingLabels(r.newHtml);
+  if (nakedBefore || missingBefore || r.stats.svgInserted || r.stats.labelsWired) {
     perFile.push({
       file,
       nakedBefore,
       nakedAfter,
       missingBefore,
       missingAfter,
-      svgInserted,
-      wired,
-      noCandidate,
+      svgInserted: r.stats.svgInserted,
+      wired: r.stats.labelsWired,
+      noCandidate: r.stats.labelsNoCandidate,
     });
   }
 }
