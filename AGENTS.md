@@ -205,7 +205,7 @@ After scaffolding, you still need to:
 1. **Replace the draft index card** — the scaffolder leaves literal "draft" text in the thumb SVG and a placeholder `.desc`. Both are flagged by `audit-draft-index-cards.mjs`. Replace with: (a) a motif SVG matching one of the topic's central diagrams, (b) a 1–2 sentence `.desc`, (c) a `.tag` with 3–4 dot-separated keywords. See `category-theory`'s card as the template.
 2. Confirm the README bullet — `new-topic.mjs` auto-appends one under the matching `###` section in [`README.md`](./README.md); revise the description if the auto-stub is too thin.
 3. If it's a capstone, add an entry (with `section` field) to [`concepts/capstones.json`](./concepts/capstones.json).
-4. **Run `node scripts/rebuild.mjs`** — the full 33-step chain. Bundles are rebuilt, validators run, HTML is rendered from JSON, and any drift is surfaced. **Step list + `--only` enumeration: [`scripts/README.md`](./scripts/README.md) § "All-in-one verification".**
+4. **Run `node scripts/rebuild.mjs`** — the full 37-step chain. Bundles are rebuilt, validators run, HTML is rendered from JSON, and any drift is surfaced. **Step list + `--only` enumeration: [`scripts/README.md`](./scripts/README.md) § "All-in-one verification".**
 
 `rebuild.mjs --no-fix` mirrors CI (read-only). `inject-changelog-footer.mjs` is intentionally outside the chain — run it manually before publishing.
 
