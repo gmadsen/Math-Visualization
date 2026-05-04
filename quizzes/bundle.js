@@ -10340,6 +10340,129 @@ window.MVQuizBank = {
             "explain": "Purely transcendental means a transcendence basis generates the extension. tr.deg = $n$; the field is $k(t_1,\\dots,t_n) = \\mathrm{Frac}(k[t_1,\\dots,t_n])$."
           }
         ]
+      },
+      "completion-ca": {
+        "title": "Completion",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the $I$-adic completion of a ring $R$?",
+            "choices": [
+              "The localization $S^{-1}R$ at the multiplicative complement of $I$",
+              "The inverse limit $\\varprojlim_n R/I^n$",
+              "The integral closure of $R$",
+              "The polynomial ring $R[I]$"
+            ],
+            "answer": 1,
+            "explain": "Inverse limit of the residue rings; tuples $(r_n)$ with $r_{n+1} \\equiv r_n \\pmod{I^n}$."
+          },
+          {
+            "type": "mcq",
+            "q": "The $(p)$-adic completion of $\\mathbb{Z}$ is:",
+            "choices": [
+              "$\\mathbb{Q}$",
+              "$\\mathbb{Z}_p$",
+              "$\\mathbb{F}_p$",
+              "$\\mathbb{Z}/p\\mathbb{Z}$"
+            ],
+            "answer": 1,
+            "explain": "$\\mathbb{Z}_p = \\varprojlim \\mathbb{Z}/p^n$ — a complete DVR with residue field $\\mathbb{F}_p$."
+          },
+          {
+            "type": "mcq",
+            "q": "Hensel's lemma in a complete local ring says:",
+            "choices": [
+              "Every polynomial in $R[x]$ has a root in $R$",
+              "Coprime factorizations in $(R/\\mathfrak m)[x]$ lift to coprime factorizations in $R[x]$",
+              "Every ideal is principal",
+              "$R$ is a UFD"
+            ],
+            "answer": 1,
+            "explain": "Lifts factorization mod the maximal ideal to honest factorization in $R[x]$."
+          }
+        ]
+      },
+      "dvr-dedekind-ca": {
+        "title": "DVRs and Dedekind domains",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A discrete valuation ring is:",
+            "choices": [
+              "A field",
+              "A local PID",
+              "An arbitrary Noetherian domain",
+              "A polynomial ring in one variable"
+            ],
+            "answer": 1,
+            "explain": "DVR = local PID. Equivalently a Noetherian local domain whose maximal ideal is principal."
+          },
+          {
+            "type": "mcq",
+            "q": "A Dedekind domain is characterized by:",
+            "choices": [
+              "Being a UFD",
+              "Being Noetherian, integrally closed, Krull dimension 1",
+              "Being a local ring",
+              "Having all ideals principal"
+            ],
+            "answer": 1,
+            "explain": "All three: Noetherian, integrally closed, dim 1. Equivalently, every nonzero proper ideal factors uniquely as a product of primes."
+          },
+          {
+            "type": "mcq",
+            "q": "Localizing a Dedekind domain at any nonzero prime gives:",
+            "choices": [
+              "A field",
+              "A DVR",
+              "An Artinian ring",
+              "A polynomial ring"
+            ],
+            "answer": 1,
+            "explain": "Global Dedekind = local DVR everywhere; the localization at any nonzero prime is a one-dimensional regular local ring."
+          }
+        ]
+      },
+      "koszul-complex-ca": {
+        "title": "Koszul complex",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Koszul complex $K_\\bullet(a_1,\\ldots,a_n)$ is built from:",
+            "choices": [
+              "The polynomial ring $R[a_1,\\ldots,a_n]$",
+              "The exterior algebra $\\Lambda^\\bullet R^n$ with differential $e_i \\mapsto a_i$",
+              "The tensor algebra $T(R^n)$",
+              "The symmetric algebra $\\mathrm{Sym}(R^n)$"
+            ],
+            "answer": 1,
+            "explain": "Exterior algebra with differential $d(e_i) = a_i$, extended by Leibniz. $d^2 = 0$ from commutativity of the $a_i$."
+          },
+          {
+            "type": "mcq",
+            "q": "When is $K_\\bullet(a_1,\\ldots,a_n)$ a free resolution of $R/(a_1,\\ldots,a_n)$?",
+            "choices": [
+              "Always",
+              "When $(a_1,\\ldots,a_n)$ is a regular sequence",
+              "When the $a_i$ are units",
+              "When $n = 1$"
+            ],
+            "answer": 1,
+            "explain": "Acyclicity in positive degrees ⇔ regularity. Each $a_i$ must be a non-zero-divisor on $R/(a_1,\\ldots,a_{i-1})$."
+          },
+          {
+            "type": "mcq",
+            "q": "Geometrically, when $(a_1,\\ldots,a_n)$ cuts out a complete intersection, the Koszul complex resolves:",
+            "choices": [
+              "The structure sheaf of the ambient $\\mathrm{Spec}\\,R$",
+              "The structure sheaf of the cut-out closed subscheme $V(a_1,\\ldots,a_n)$",
+              "The cotangent bundle",
+              "The dual numbers"
+            ],
+            "answer": 1,
+            "explain": "$K_\\bullet$ resolves $R/(a_1,\\ldots,a_n) = \\mathcal{O}_{V}$. Algebraic shadow of \"intersect $n$ hypersurfaces transversely.\""
+          }
+        ]
       }
     }
   },

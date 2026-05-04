@@ -334,11 +334,14 @@ function allMonicPolysUpToDeg(d,p){
   <a href="#noetherian">6&nbsp;Noetherian&nbsp;rings&nbsp;and&nbsp;the&nbsp;Hilbert&nbsp;basis&nbsp;theorem</a>
   <a href="#artinian-local">7&nbsp;Artinian&nbsp;local&nbsp;rings</a>
   <a href="#localize">8&nbsp;Localization</a>
-  <a href="#flat">9&nbsp;Flatness</a>
-  <a href="#nakayama">10&nbsp;Nakayama's&nbsp;lemma</a>
-  <a href="#integral">11&nbsp;Integral&nbsp;extensions&nbsp;and&nbsp;Noether&nbsp;normalization</a>
-  <a href="#dim">12&nbsp;Dimension&nbsp;and&nbsp;primary&nbsp;decomposition</a>
-  <a href="#trdeg">13&nbsp;Transcendence&nbsp;degree&nbsp;and&nbsp;geometric&nbsp;dimension</a>
+  <a href="#completion">9&nbsp;Completion</a>
+  <a href="#flat">10&nbsp;Flatness</a>
+  <a href="#nakayama">11&nbsp;Nakayama's&nbsp;lemma</a>
+  <a href="#integral">12&nbsp;Integral&nbsp;extensions&nbsp;and&nbsp;Noether&nbsp;normalization</a>
+  <a href="#dim">13&nbsp;Dimension&nbsp;and&nbsp;primary&nbsp;decomposition</a>
+  <a href="#dvr-dedekind">14&nbsp;Discrete&nbsp;valuation&nbsp;rings&nbsp;and&nbsp;Dedekind&nbsp;domains</a>
+  <a href="#trdeg">15&nbsp;Transcendence&nbsp;degree&nbsp;and&nbsp;geometric&nbsp;dimension</a>
+  <a href="#koszul-complex">16&nbsp;Koszul&nbsp;complex</a>
 <!-- toc-auto-end -->
 </nav>
 <!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
@@ -1206,6 +1209,7 @@ Consequence: $\mathbb{Z}/m \otimes_\mathbb{Z} \mathbb{Z}/n \;=\; \mathbb{Z}/\gcd
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./commutative-algebra.html#flat">Commutative algebra</a> · Flatness and Tor</div>
+    <div><a href="./commutative-algebra.html#koszul-complex">Commutative algebra</a> · Koszul complex</div>
     <div><a href="./commutative-algebra.html#nakayama">Commutative algebra</a> · Nakayama's lemma and Zariski tangent spaces</div>
     <div><a href="./commutative-algebra.html#noetherian">Commutative algebra</a> · Noetherian rings and Hilbert basis</div>
 </aside>
@@ -1360,6 +1364,7 @@ Consequence: $\mathbb{Z}/m \otimes_\mathbb{Z} \mathbb{Z}/n \;=\; \mathbb{Z}/\gcd
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./commutative-algebra.html#artinian-local">Commutative algebra</a> · Artinian local rings</div>
+    <div><a href="./commutative-algebra.html#completion">Commutative algebra</a> · Completion</div>
     <div><a href="./commutative-algebra.html#integral">Commutative algebra</a> · Integral extensions and Noether normalization</div>
     <div><a href="./groebner-bases.html#groebner-basis-definition">Gröbner bases</a> · Gröbner bases: definition</div>
     <div><a href="./simplicial-complexes-combinatorial.html#shell">Simplicial complexes (combinatorial)</a> · Shellable and Cohen–Macaulay complexes</div>
@@ -1563,11 +1568,13 @@ Consequence: $\mathbb{Z}/m \otimes_\mathbb{Z} \mathbb{Z}/n \;=\; \mathbb{Z}/\gcd
 <!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./commutative-algebra.html#completion">Commutative algebra</a> · Completion</div>
+    <div><a href="./commutative-algebra.html#dvr-dedekind">Commutative algebra</a> · Discrete valuation rings and Dedekind domains</div>
     <div><a href="./commutative-algebra.html#flat">Commutative algebra</a> · Flatness and Tor</div>
     <div><a href="./commutative-algebra.html#dim">Commutative algebra</a> · Krull dimension and depth heuristics</div>
     <div><a href="./commutative-algebra.html#nakayama">Commutative algebra</a> · Nakayama's lemma and Zariski tangent spaces</div>
     <div><a href="./schemes.html#residue-field">Schemes</a> · Residue fields and evaluation at points</div>
-    <div><a href="./sheaves.html#qcoh">Sheaves</a> · Quasi-coherent sheaves on affine schemes</div>
+    <div class="more">… and 1 more.</div>
 </aside>
 <!-- backlinks-auto-end --><script>
 /* =============================== SECTION 3: localization =============================== */
@@ -1675,8 +1682,38 @@ Consequence: $\mathbb{Z}/m \otimes_\mathbb{Z} \mathbb{Z}/n \;=\; \mathbb{Z}/\gcd
 
 
 </section>
+<section id="completion">
+<h2>9. Completion</h2>
+
+<p>Completion is the second universal construction (after localization §8): instead of inverting elements, you inject every Cauchy sequence as a limit. For a ring $R$ and an ideal $I$:</p>
+
+$$\hat R_I \;=\; \varprojlim_{n} R/I^n \;=\; \Big\{\,(r_n) \in \prod_n R/I^n \;:\; r_{n+1} \equiv r_n \pmod{I^n}\,\Big\}.$$
+
+<p>The map $R \to \hat R_I$, $r \mapsto (r \bmod I^n)_n$, is the universal continuous ring map into an $I$-adically complete topological ring.</p>
+
+<div class="ok"><strong>Canonical examples.</strong>
+<ul>
+<li>$R = \mathbb{Z}$, $I = (p)$ → $\hat R_I = \mathbb{Z}_p$, the $p$-adic integers.</li>
+<li>$R = k[x]$, $I = (x)$ → $\hat R_I = k[\![x]\!]$, formal power series.</li>
+<li>$R = \mathcal{O}_X$, $I = \mathfrak m_x$ → the local ring $\widehat{\mathcal{O}}_{X,x}$ at a point of a scheme — the algebraic model of "infinitesimal neighborhood of $x$."</li>
+</ul></div>
+
+<p>For a Noetherian local ring $(R, \mathfrak m)$, completion has three structural payoffs:</p>
+
+<ul>
+<li><strong>Faithful flatness.</strong> $\hat R$ is faithfully flat over $R$, so completion preserves and reflects exact sequences. Proofs about $R$ that go via $\hat R$ are legitimate.</li>
+<li><strong>Krull's intersection theorem.</strong> $\bigcap_n \mathfrak m^n = 0$ in any Noetherian local ring — equivalently, $R$ injects into $\hat R$.</li>
+<li><strong>Hensel's lemma.</strong> If $R$ is complete local, every factorization of a polynomial in $R/\mathfrak m[x]$ as a product of coprime factors lifts to a factorization in $R[x]$. The lifting principle that makes $p$-adic methods work.</li>
+</ul>
+
+<p>Cohen's structure theorem then says every complete Noetherian local ring containing a field is (formally) a power series ring over its residue field modulo regular relations: $\hat R \cong k[\![x_1,\ldots,x_d]\!] / (f_1,\ldots,f_r)$. Local algebra reduces to formal-series algebra after completion.</p>
+
+<div class="quiz" data-concept="completion-ca"></div>
+
+</section>
+
 <section id="flat">
-<h2>9. Flatness</h2>
+<h2>10. Flatness</h2>
 <p>Tensoring is right-exact but not always left-exact. An $A$-module $M$ is <strong>flat</strong> if tensoring with $M$ preserves injections — equivalently, preserves all short <a href="./homological.html#exact" data-auto-inline-link="1" data-concept-id="exact-sequences" data-blurb="Exactness at B means im f = ker g; short exact sequences 0→A→B→C→0 are the atomic building blocks of homological algebra.">exact sequences</a>:</p>
 <p style="text-align:center">$0\to N'\to N\to N''\to 0$ remains exact after $-\otimes_A M$.</p>
 <p>Equivalently: $\mathrm{Tor}_1^A(M,-)=0$. The implication chain is</p>
@@ -1722,7 +1759,12 @@ so the first map becomes zero and is no longer injective. The kernel is $\mathrm
     <li><a href="./homological.html#exact">Exact sequences</a></li>
   </ul>
 </aside>
-<!-- callback-auto-end -->
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./commutative-algebra.html#koszul-complex">Commutative algebra</a> · Koszul complex</div>
+</aside>
+<!-- backlinks-auto-end -->
 
 <div class="quiz" data-concept="flatness-ca"></div><script>
 /* =============================== SECTION 4: flatness =============================== */
@@ -1865,7 +1907,7 @@ so the first map becomes zero and is no longer injective. The kernel is $\mathrm
 
 </section>
 <section id="nakayama">
-<h2>10. Nakayama's lemma</h2>
+<h2>11. Nakayama's lemma</h2>
 <p>Let $(A,\mathfrak{m})$ be a local ring (one maximal ideal) with residue field $k=A/\mathfrak{m}$.</p>
 <div class="note"><strong>Nakayama.</strong> If $M$ is a finitely generated $A$-module with $\mathfrak{m}M=M$, then $M=0$.</div>
 <p>The standard use: $M/\mathfrak{m}M$ is a $k$-vector space, and a family $m_1,\dots,m_r\in M$ generates $M$ iff their images generate $M/\mathfrak{m}M$. So <em>the dimension of $M/\mathfrak{m}M$ is the minimal number of generators</em>.</p>
@@ -2073,7 +2115,7 @@ so the first map becomes zero and is no longer injective. The kernel is $\mathrm
 
 </section>
 <section id="integral">
-<h2>11. Integral extensions and Noether normalization</h2>
+<h2>12. Integral extensions and Noether normalization</h2>
 <p>Fix a ring extension $A\subseteq B$. An element $b\in B$ is <strong>integral over $A$</strong> if it satisfies a monic polynomial</p>
 <p style="text-align:center">$b^n + a_{n-1}b^{n-1} + \cdots + a_1 b + a_0 = 0,\qquad a_i\in A.$</p>
 <p>Equivalently, $A[b]\subseteq B$ is a finitely generated $A$-module. The set of integral elements is a subring — the <strong>integral closure</strong> of $A$ in $B$ — and $B$ is an <em>integral extension</em> when every element is integral. This generalizes "algebraic number" from $\mathbb{Z}\subseteq\overline{\mathbb{Q}}$ to arbitrary rings; $\mathcal{O}_K$ is the integral closure of $\mathbb{Z}$ in the number field $K$.</p>
@@ -2113,6 +2155,7 @@ so the first map becomes zero and is no longer injective. The kernel is $\mathrm
 <!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./commutative-algebra.html#dvr-dedekind">Commutative algebra</a> · Discrete valuation rings and Dedekind domains</div>
     <div><a href="./commutative-algebra.html#dim">Commutative algebra</a> · Krull dimension and depth heuristics</div>
     <div><a href="./commutative-algebra.html#trdeg">Commutative algebra</a> · Transcendence degree and geometric dimension</div>
 </aside>
@@ -2192,7 +2235,7 @@ so the first map becomes zero and is no longer injective. The kernel is $\mathrm
 
 </section>
 <section id="dim">
-<h2>12. Dimension and primary decomposition</h2>
+<h2>13. Dimension and primary decomposition</h2>
 <p>The <strong>Krull dimension</strong> of a ring $A$ is the supremum of lengths $n$ of chains</p>
 <p style="text-align:center">$\mathfrak{p}_0\subsetneq\mathfrak{p}_1\subsetneq\cdots\subsetneq\mathfrak{p}_n$</p>
 <p>of prime ideals. It's the algebraic shadow of "dimension of a variety". The basic table:</p>
@@ -2231,6 +2274,7 @@ $\dim \mathbb{Z} = 1$ (chains $(0)\subsetneq(p)$) · $\dim k = 0$ · $\dim k[x] 
 <!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./commutative-algebra.html#dvr-dedekind">Commutative algebra</a> · Discrete valuation rings and Dedekind domains</div>
     <div><a href="./commutative-algebra.html#trdeg">Commutative algebra</a> · Transcendence degree and geometric dimension</div>
     <div><a href="./schemes.html#dimension">Schemes</a> · Dimension of a scheme</div>
 </aside>
@@ -2419,8 +2463,39 @@ $\dim \mathbb{Z} = 1$ (chains $(0)\subsetneq(p)$) · $\dim k = 0$ · $\dim k[x] 
 
 
 </section>
+<section id="dvr-dedekind">
+<h2>14. Discrete valuation rings and Dedekind domains</h2>
+
+<p>The arithmetic class of one-dimensional rings: structured enough to admit unique factorization on the ideal level, general enough to capture rings of integers and one-variable polynomials at a single prime.</p>
+
+<div class="ok"><strong>DVR (discrete valuation ring).</strong> A local PID. Equivalently:
+<ul>
+<li>A Noetherian local domain whose maximal ideal $\mathfrak m = (\pi)$ is principal — $\pi$ is a <em>uniformizer</em>.</li>
+<li>An integrally closed Noetherian local domain of Krull dimension 1.</li>
+<li>The valuation ring of a discrete valuation $v: K^\times \to \mathbb{Z}$ on its fraction field $K$.</li>
+</ul>
+Every nonzero element factors uniquely as $u\pi^n$ ($u$ a unit, $n \ge 0$); valuation $v(x) = n$.</div>
+
+<div class="ok"><strong>Dedekind domain.</strong> A Noetherian integral domain of Krull dimension 1 (every nonzero prime is maximal) that is integrally closed. Equivalently: every nonzero proper ideal factors uniquely as a product of prime ideals — recovering "unique factorization at the level of ideals" even when elements don't factor uniquely.</div>
+
+<p><strong>Why these names matter.</strong> Localizing a Dedekind domain at any nonzero prime $\mathfrak p$ produces a DVR — global Dedekind = local DVR everywhere. So Dedekind domains are exactly the rings whose local-at-each-prime structure is a one-dimensional regular local ring.</p>
+
+<p><strong>Canonical examples.</strong></p>
+<ul>
+<li>$\mathbb{Z}$ — Dedekind, with $\mathbb{Z}_{(p)}$ the local DVR at each prime $p$.</li>
+<li>$\mathcal{O}_K$ — the ring of algebraic integers of a number field $K$ (the prototype).</li>
+<li>$k[t]$ — Dedekind; $k[[t]]$ — DVR.</li>
+<li>The local ring at a smooth point of a curve over a field is a DVR; the global ring of regular functions is Dedekind iff the curve is smooth and projective with a single component.</li>
+</ul>
+
+<p>The class group $\mathrm{Cl}(R) = (\text{fractional ideals}) / (\text{principal ideals})$ measures how far a Dedekind domain is from a UFD. Finiteness of the class group is one of the deep theorems in number theory — handled in <a href="./algebraic-number-theory.html">algebraic number theory</a>.</p>
+
+<div class="quiz" data-concept="dvr-dedekind-ca"></div>
+
+</section>
+
 <section id="trdeg">
-<h2>13. Transcendence degree and geometric dimension</h2>
+<h2>15. Transcendence degree and geometric dimension</h2>
 <p>For a field extension $K/k$, the <strong>transcendence degree</strong> $\mathrm{tr.deg}_k(K)$ is the cardinality of a maximal algebraically independent subset of $K$ over $k$ — the "number of free parameters" separating $K$ from $k$. All such subsets have the same size (a Steinitz-style exchange argument). A transcendence basis extends to $K$ via an algebraic extension.</p>
 <div class="note"><strong>The bridge theorem.</strong> If $B$ is a finitely generated integral domain over a field $k$, then
 $$\dim B = \mathrm{tr.deg}_k\,\mathrm{Frac}(B).$$
@@ -2482,6 +2557,32 @@ Proof: apply Noether normalization to find $k[y_1,\dots,y_d]\hookrightarrow B$ f
 <footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>
 
 </section>
+<section id="koszul-complex">
+<h2>16. Koszul complex</h2>
+
+<p>The Koszul complex turns "regularity of a sequence" — the most basic tightness condition on commutative-algebra inputs — into a homological vanishing statement. It's the bridge from element-level conditions (ideal-theoretic depth) to module-level resolutions.</p>
+
+<p>Given $R$-module elements $a_1,\ldots,a_n \in R$, the <strong>Koszul complex</strong> $K_\bullet(a_1,\ldots,a_n)$ is the exterior algebra $\Lambda^\bullet R^n$ as a graded $R$-module, with differential</p>
+
+$$d(e_{i_1}\wedge\cdots\wedge e_{i_k}) \;=\; \sum_{j=1}^{k} (-1)^{j-1}\, a_{i_j}\, e_{i_1}\wedge\cdots\widehat{e_{i_j}}\cdots\wedge e_{i_k}.$$
+
+<p>Concretely $K_0 = R$, $K_n = R$, and $K_k = \Lambda^k R^n = R^{\binom{n}{k}}$ in between. The differential satisfies $d^2 = 0$ exactly because $a_i \cdot a_j = a_j \cdot a_i$.</p>
+
+<div class="ok"><strong>Regularity ⇔ acyclicity.</strong> $a_1,\ldots,a_n$ is a <em>regular sequence</em> on $R$ (each $a_i$ is a non-zero-divisor on $R/(a_1,\ldots,a_{i-1})$) if and only if $K_\bullet(a_1,\ldots,a_n)$ is exact in positive degrees, with $H_0 = R/(a_1,\ldots,a_n)$.</div>
+
+<p><strong>Three uses.</strong></p>
+<ul>
+<li><strong>Free resolutions.</strong> When the sequence is regular, the Koszul complex is a finite free resolution of $R/(a_1,\ldots,a_n)$ — usable to compute $\mathrm{Tor}^R_*$ and $\mathrm{Ext}^*_R$ against the quotient.</li>
+<li><strong>Detecting depth.</strong> $\mathrm{depth}_I(M)$, the length of the longest $M$-regular sequence in an ideal $I$, equals the smallest $i$ for which $H^i(K^\bullet(a_1,\ldots,a_n; M)) \ne 0$ when $(a_1,\ldots,a_n)$ generate $I$ — Koszul cohomology computes depth.</li>
+<li><strong>Geometric meaning.</strong> $K_\bullet(a_1,\ldots,a_n)$ resolves the structure sheaf of the closed subscheme cut out by $(a_1,\ldots,a_n)$ when that subscheme is a complete intersection. The Koszul complex is the algebraic shadow of "intersection of $n$ hypersurfaces."</li>
+</ul>
+
+<p>For depth and regular-sequence-style reasoning <em>beyond</em> the regular case, the appropriate generalization is the <a href="./homological.html#derived-functors">derived-functor</a> machinery — Tor, Ext, and resolutions. Koszul is the prototype every Tor calculation specializes to in the simplest geometric case.</p>
+
+<div class="quiz" data-concept="koszul-complex-ca"></div>
+
+</section>
+
 </main>
 
 

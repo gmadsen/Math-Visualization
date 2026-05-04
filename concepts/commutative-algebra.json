@@ -158,6 +158,49 @@
         "integral-extensions-ca"
       ],
       "blurb": "For a finitely generated domain $B$ over a field $k$, $\\dim B = \\mathrm{tr.deg}_k\\,\\mathrm{Frac}(B)$: Krull dimension equals transcendence degree, the maximal size of an algebraically independent subset. This identifies \"number of free parameters\" with \"length of a prime chain\"."
+    },
+    {
+      "id": "completion-ca",
+      "title": "Completion",
+      "anchor": "completion",
+      "prereqs": [
+        "localization-ca",
+        "noetherian-hilbert-ca"
+      ],
+      "blurb": "The $I$-adic completion $\\hat R_I = \\varprojlim_n R/I^n$ packages every \"approximate\" element by its residues. Produces $\\mathbb{Z}_p$ from $\\mathbb{Z}$, $k[[x]]$ from $k[x]$, and is the natural setting for Hensel's lemma and Krull's intersection theorem.",
+      "tags": [
+        "completion",
+        "foundation"
+      ]
+    },
+    {
+      "id": "dvr-dedekind-ca",
+      "title": "Discrete valuation rings and Dedekind domains",
+      "anchor": "dvr-dedekind",
+      "prereqs": [
+        "localization-ca",
+        "krull-dimension-ca",
+        "integral-extensions-ca"
+      ],
+      "blurb": "DVR = local PID; equivalently a Noetherian local domain with principal maximal ideal. Dedekind domain = Noetherian, dim 1, integrally closed — every nonzero ideal factors uniquely into primes. The arithmetic ring class.",
+      "tags": [
+        "classification",
+        "completion"
+      ]
+    },
+    {
+      "id": "koszul-complex-ca",
+      "title": "Koszul complex",
+      "anchor": "koszul-complex",
+      "prereqs": [
+        "modules-ca",
+        "flatness-ca"
+      ],
+      "blurb": "Built from the exterior algebra of $R^n$ with differential $e_i \\mapsto a_i$. Acyclic iff $(a_1,\\ldots,a_n)$ is a regular sequence — turning the depth/regularity dichotomy into a homological certificate.",
+      "tags": [
+        "foundation",
+        "exact-sequence"
+      ]
     }
   ]
 }
