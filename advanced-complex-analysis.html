@@ -1151,7 +1151,10 @@ In an orthonormal basis $\{\phi_n\}$ of $A^2(\Omega)$, $K_\Omega(z,w) = \sum_n \
     m.appendChild(SVG("path",{d:"M0,0 L10,5 L0,10 z", fill:"var(--yellow)"}));
     defs.appendChild(m); svg.appendChild(defs);
     svg.appendChild(arr);
-    out.textContent = `inner radius r = ${r.toFixed(2)}.  Any holomorphic f on the cyan shell extends uniquely to the pink hole \u2014 isolated singularities are forbidden in \u2102\u00B2.`;
+    const v4 = Math.pow(r, 4);
+    const bm = Math.pow(r, 3);
+    out.textContent =
+      `inner radius r = ${r.toFixed(2)}\ninner 4-volume / full polydisk = r\u2074 \u2248 ${v4.toFixed(3)}\nshell 4-volume / full polydisk = 1 \u2212 r\u2074 \u2248 ${(1 - v4).toFixed(3)}\nBochner\u2013Martinelli boundary measure on \u2202K scales \u223C r\u00B3 \u2248 ${bm.toFixed(3)}\n(\u2192 0 as r \u2192 0, making the extension formula \u2018obvious\u2019 in that limit).\nAny holomorphic f on the cyan shell extends uniquely to the pink hole \u2014 isolated singularities are forbidden in \u2102\u00B2.`;
   }
   rIn.addEventListener("input", render);
   render();
