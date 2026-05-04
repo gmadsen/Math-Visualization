@@ -6854,6 +6854,32 @@ window.__MVConcepts = {
           "tags": [
             "duality"
           ]
+        },
+        {
+          "id": "banach-alaoglu",
+          "title": "Banach–Alaoglu theorem",
+          "anchor": "banach-alaoglu",
+          "prereqs": [
+            "weak-topology"
+          ],
+          "blurb": "The closed unit ball of $X^*$ is weak-$*$ compact: a Tychonoff-product argument that lets $\\ell^\\infty$, $L^\\infty$, and the dual of any normed space play the role of \"compact infinite-dimensional set.\"",
+          "tags": [
+            "compactness",
+            "duality"
+          ]
+        },
+        {
+          "id": "krein-milman",
+          "title": "Krein–Milman theorem",
+          "anchor": "krein-milman",
+          "prereqs": [
+            "banach-alaoglu"
+          ],
+          "blurb": "A nonempty compact convex set in a locally convex space is the closed convex hull of its extreme points. The structural complement to Banach–Alaoglu — once compactness is in hand, extreme points generate.",
+          "tags": [
+            "classification",
+            "compactness"
+          ]
         }
       ]
     },
@@ -14636,11 +14662,11 @@ window.__MVConcepts = {
       "density": 0.5111111111111111
     },
     "Analysis": {
-      "concepts": 170,
-      "intra": 298,
+      "concepts": 172,
+      "intra": 300,
       "crossOut": 27,
       "crossIn": 62,
-      "density": 0.1588235294117647
+      "density": 0.1569767441860465
     },
     "Probability & statistics": {
       "concepts": 55,

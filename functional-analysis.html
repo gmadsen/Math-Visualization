@@ -249,8 +249,10 @@ function drawNode(svg, x, y, label, opts={}){
   <a href="#riesz">11&nbsp;The&nbsp;Riesz&nbsp;representation&nbsp;theorem</a>
   <a href="#reflexivity">12&nbsp;Reflexivity</a>
   <a href="#weak">13&nbsp;Weak&nbsp;and&nbsp;weak-*&nbsp;topologies</a>
-  <a href="#distributions">14&nbsp;Distributions&nbsp;and&nbsp;test&nbsp;functions</a>
-  <a href="#outro">15&nbsp;Connections</a>
+  <a href="#banach-alaoglu">14&nbsp;Banach–Alaoglu&nbsp;theorem</a>
+  <a href="#krein-milman">15&nbsp;Krein–Milman&nbsp;theorem</a>
+  <a href="#distributions">16&nbsp;Distributions&nbsp;and&nbsp;test&nbsp;functions</a>
+  <a href="#outro">17&nbsp;Connections</a>
 <!-- toc-auto-end -->
 </nav>
 <!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
@@ -2057,6 +2059,7 @@ note: ${d.note}`;
 <!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./functional-analysis.html#banach-alaoglu">Functional analysis</a> · Banach–Alaoglu theorem</div>
     <div><a href="./functional-analysis.html#reflexivity">Functional analysis</a> · Reflexivity</div>
     <div><a href="./operator-algebras.html#vna">Operator algebras</a> · Von Neumann algebras and the double commutant</div>
 </aside>
@@ -2066,8 +2069,47 @@ note: ${d.note}`;
 <div class="quiz" data-concept="weak-topology"></div>
 </section>
 
+<section id="banach-alaoglu">
+<h2>14. Banach–Alaoglu theorem</h2>
+
+<p>The norm-topology closed unit ball of an infinite-dimensional Banach space is famously not compact (the canonical basis of $\ell^2$ has no Cauchy subsequence). The weak-$*$ topology fixes this on the <em>dual</em> side:</p>
+
+<div class="ok"><strong>Banach–Alaoglu.</strong> Let $X$ be a normed space. The closed unit ball $B_{X^*} = \{\ell \in X^* : \|\ell\| \le 1\}$ is compact in the weak-$*$ topology.</div>
+
+<p><strong>Proof sketch.</strong> Embed $B_{X^*} \hookrightarrow \prod_{x \in X} \overline{D}_{\|x\|}$ by $\ell \mapsto (\ell(x))_{x \in X}$, where $\overline{D}_r$ is the closed disk of radius $r$ in $\mathbb{C}$. The product is compact by Tychonoff. The image of $B_{X^*}$ is closed in the product topology — being the intersection of the affine constraints $\ell(\alpha x + \beta y) = \alpha\ell(x) + \beta\ell(y)$ — and a closed subset of a compact space is compact. The product topology on $\prod_x \overline{D}_{\|x\|}$ pulls back to the weak-$*$ topology on $B_{X^*}$.</p>
+
+<p><strong>Consequences.</strong> When $X$ is separable, $B_{X^*}$ is also <em>metrizable</em> in the weak-$*$ topology, so every bounded sequence in $X^*$ has a weakly-$*$ convergent subsequence. This is the bridge to existence theorems: minimizers of weakly-$*$ lower semicontinuous functionals on bounded sets, weak-$*$ limits of probability measures (Helly selection), and the construction of invariant measures via fixed points on $B_{X^*}$.</p>
+
+<p>Banach–Alaoglu and Kakutani's reflexivity criterion are the two compactness results that make infinite-dimensional analysis behave: one in the dual under the weak-$*$ topology (always), one in the original space under the weak topology (when reflexive).</p>
+
+<div class="quiz" data-concept="banach-alaoglu"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./functional-analysis.html#krein-milman">Functional analysis</a> · Krein–Milman theorem</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<section id="krein-milman">
+<h2>15. Krein–Milman theorem</h2>
+
+<p>Once Banach–Alaoglu provides the compactness, the next question is: what is the <em>structure</em> of a compact convex set? The Krein–Milman theorem reduces it to its extreme points.</p>
+
+<p>An <strong>extreme point</strong> of a convex set $K$ is a point $e \in K$ that is not in the relative interior of any line segment in $K$: if $e = \tfrac{1}{2}(x+y)$ with $x, y \in K$, then $x = y = e$. Write $\mathrm{ext}(K)$ for the set of extreme points.</p>
+
+<div class="ok"><strong>Krein–Milman.</strong> Let $K$ be a nonempty compact convex subset of a locally convex topological vector space. Then $K$ is the closed convex hull of its extreme points: $K = \overline{\operatorname{conv}}\,\mathrm{ext}(K)$.</div>
+
+<p><strong>Examples.</strong> The extreme points of the closed unit ball of $\ell^1$ are $\{\pm e_n\}_{n=1}^\infty$, where $e_n$ is the $n$-th standard basis vector — a countable, totally disconnected set whose closed convex hull is nevertheless the entire ball. The extreme points of the closed unit ball of $L^\infty[0,1]$ are the measurable functions of modulus 1 a.e. The closed unit ball of $L^1[0,1]$ has <em>no</em> extreme points at all — any unit-norm $f$ splits as $\tfrac{1}{2}(g+h)$ with $g, h$ distinct unit-norm functions via mass partition. By Krein–Milman, this forces $L^1$ to <em>not</em> be the dual of any Banach space.</p>
+
+<p><strong>Bauer's maximum principle.</strong> A convex upper semicontinuous functional on a compact convex set attains its maximum at an extreme point — the dual to Banach–Alaoglu's existence half. This drives the variational arguments in extremal problems and the algebraic characterization of dual spaces.</p>
+
+<div class="quiz" data-concept="krein-milman"></div>
+
+</section>
+
 <section id="distributions">
-<h2>14. Distributions and test functions</h2>
+<h2>16. Distributions and test functions</h2>
 
 <p>Many objects in analysis and PDE — the delta "function," the derivative of a step, the Fourier transform of a polynomial — are not functions. They are <strong>distributions</strong>: continuous linear functionals on a chosen space of very-nice <em>test functions</em>.</p>
 
@@ -2215,7 +2257,7 @@ Pointwise, f_σ(0) = 1/(√(2π)σ) → ∞; away from 0, f_σ(x) → 0. The lim
 
 </section>
 <section id="outro">
-<h2>15. Connections</h2>
+<h2>17. Connections</h2>
 
 <p>Functional analysis is the grammar of modern mathematical analysis. Some of the neighbors:</p>
 

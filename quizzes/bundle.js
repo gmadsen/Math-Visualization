@@ -19227,6 +19227,88 @@ window.MVQuizBank = {
             "explain": "The function $g(x)=x\\phi(x)$ vanishes at $0$: $g(0)=0$. So $\\langle x\\delta_0,\\phi\\rangle=0$ for every $\\phi$, which is the definition of the zero distribution. This identity $x\\delta_0=0$ is the distributional version of the algebraic fact — and it is why $\\delta_0$ is a genuine new object, not a function: no function $f$ satisfies $xf=0$ a.e. yet $\\int f=1$."
           }
         ]
+      },
+      "banach-alaoglu": {
+        "questions": [
+          {
+            "type": "mcq",
+            "answer": 1,
+            "explain": "The weak-$*$ topology — the coarsest topology on $X^*$ making evaluation $\\ell \\mapsto \\ell(x)$ continuous for each fixed $x \\in X$. Norm-compactness fails for the unit ball as soon as $X^*$ is infinite-dimensional.",
+            "q": "Banach–Alaoglu states that the closed unit ball of $X^*$ is compact in which topology?",
+            "choices": [
+              "Norm topology",
+              "Weak-$*$ topology",
+              "Weak topology on $X^*$",
+              "Mackey topology"
+            ]
+          },
+          {
+            "type": "mcq",
+            "answer": 1,
+            "explain": "The unit ball $B_{X^*}$ embeds into a product $\\prod_x \\overline{D}_{\\|x\\|}$ of compact disks; that product is compact by Tychonoff. The image is closed in the product, hence compact.",
+            "q": "Which fundamental result drives the proof of Banach–Alaoglu?",
+            "choices": [
+              "Hahn–Banach extension",
+              "Tychonoff's theorem",
+              "Open mapping theorem",
+              "Riesz representation"
+            ]
+          },
+          {
+            "type": "mcq",
+            "answer": 1,
+            "explain": "If $X$ has a countable dense set $\\{x_n\\}$, then $B_{X^*}$ is metrized by $d(\\ell,\\ell') = \\sum 2^{-n}|\\ell(x_n) - \\ell'(x_n)|/(1+|\\ldots|)$. Every bounded sequence in $X^*$ then has a weakly-$*$ convergent subsequence.",
+            "q": "When is the weak-$*$ topology on $B_{X^*}$ metrizable, so that compactness translates to sequential compactness?",
+            "choices": [
+              "Always",
+              "When $X$ is separable",
+              "When $X$ is reflexive",
+              "When $X$ is finite-dimensional"
+            ]
+          }
+        ],
+        "title": "Banach–Alaoglu theorem"
+      },
+      "krein-milman": {
+        "questions": [
+          {
+            "type": "mcq",
+            "answer": 1,
+            "explain": "$K = \\overline{\\operatorname{conv}}\\,\\mathrm{ext}(K)$. The extreme points alone need not cover $K$ — they generate it under closed convex combinations.",
+            "q": "Krein–Milman expresses a compact convex set $K$ as:",
+            "choices": [
+              "The union of its extreme points",
+              "The closed convex hull of its extreme points",
+              "The interior of its boundary",
+              "The intersection of all closed half-spaces containing it"
+            ]
+          },
+          {
+            "type": "mcq",
+            "answer": 1,
+            "explain": "Extreme points lie strictly outside any nondegenerate line segment in $K$. Equivalently $e$ is not the midpoint of any segment with distinct endpoints in $K$.",
+            "q": "A point $e \\in K$ is an extreme point when $e = \\tfrac{1}{2}(x+y)$ with $x, y \\in K$ forces:",
+            "choices": [
+              "$x = -y$",
+              "$x = y = e$",
+              "$x \\ne y$",
+              "$x, y$ are extreme"
+            ]
+          },
+          {
+            "type": "mcq",
+            "answer": 1,
+            "explain": "If $L^1$ were a dual space, Banach–Alaoglu + Krein–Milman would force its unit ball to have many extreme points (specifically: be the closed convex hull of them). The almost-empty extreme-point set of $B_{L^1}$ rules this out.",
+            "q": "The closed unit ball of $L^1[0,1]$ has very few extreme points. The standard explanation is:",
+            "choices": [
+              "$L^1$ is not separable",
+              "$L^1$ is not the dual of any Banach space",
+              "$L^1$ is reflexive",
+              "$L^1$ has no nonzero functionals"
+            ]
+          }
+        ],
+        "title": "Krein–Milman theorem"
       }
     }
   },
