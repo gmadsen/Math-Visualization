@@ -9021,6 +9021,132 @@ window.__MVWidgets = [
     "exampleScript": "<script>\n(function(){\n  if(!window.MVProofScrubber) return;\n  MVProofScrubber.init('#w-proof-scrubber-example', {\n    title: \"Pythagorean theorem — geometric proof\",\n    hint: \"drag the slider · or press play\",\n    viewBox: \"0 0 240 240\",\n    autoplayMs: 2000,\n    steps: [\n      {\n        title: \"The claim\",\n        body: \"For a right triangle with legs $a$, $b$ and hypotenuse $c$: $a^2 + b^2 = c^2$.\",\n        svgInner: \"<polygon points='40,200 200,200 200,40' fill='var(--panel2)' stroke='var(--ink)' stroke-width='1.5'/><text x='115' y='220' text-anchor='middle' font-size='14' fill='var(--mute)'>a</text><text x='215' y='125' text-anchor='middle' font-size='14' fill='var(--mute)'>b</text><text x='100' y='110' text-anchor='middle' font-size='14' fill='var(--yellow)'>c</text>\",\n      },\n      {\n        title: \"Tile a square of side $a+b$ two ways\",\n        body: \"Take a big square of side length $a+b$ and place four copies of the right triangle in two arrangements. The leftover area must agree across both arrangements.\",\n        svgInner: \"<rect x='40' y='40' width='160' height='160' fill='none' stroke='var(--ink)' stroke-width='1.5'/><line x1='40' y1='80' x2='200' y2='80' stroke='var(--mute)' stroke-dasharray='4 3'/><line x1='160' y1='40' x2='160' y2='200' stroke='var(--mute)' stroke-dasharray='4 3'/>\",\n      },\n      {\n        title: \"Arrangement A: two squares $a^2 + b^2$\",\n        body: \"In the first arrangement the leftover region is a square of side $a$ plus a square of side $b$ — total area $a^2 + b^2$.\",\n        svgInner: \"<rect x='40' y='40' width='40' height='40' fill='color-mix(in srgb, var(--blue) 25%, var(--panel2))' stroke='var(--blue)'/><rect x='80' y='80' width='120' height='120' fill='color-mix(in srgb, var(--green) 25%, var(--panel2))' stroke='var(--green)'/><text x='60' y='65' text-anchor='middle' font-size='14' fill='var(--ink)'>a²</text><text x='140' y='145' text-anchor='middle' font-size='14' fill='var(--ink)'>b²</text>\",\n      },\n      {\n        title: \"Arrangement B: one square $c^2$\",\n        body: \"In the second arrangement the leftover region is a single tilted square whose side is the hypotenuse $c$ — total area $c^2$.\",\n        svgInner: \"<polygon points='80,40 200,80 160,200 40,160' fill='color-mix(in srgb, var(--yellow) 25%, var(--panel2))' stroke='var(--yellow)' stroke-width='1.5'/><text x='120' y='128' text-anchor='middle' font-size='16' fill='var(--ink)'>c²</text>\",\n      },\n      {\n        title: \"Equate\",\n        body: \"Both arrangements have the same total area $(a+b)^2$ and the same four triangles removed, so the leftover regions are equal: $a^2 + b^2 = c^2$.\",\n        svgInner: \"<text x='120' y='130' text-anchor='middle' font-size='22' fill='var(--yellow)' font-weight='600'>a² + b² = c²</text>\",\n      },\n    ],\n  });\n})();\n</script>"
   },
   {
+    "slug": "qft-diagrams",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "qft-diagrams widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Feynman amplitude assembly: $e^+e^- \\to \\mu^+\\mu^-$ tree, plus a one-loop correction\" widget on the quantum-field-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Feynman amplitude assembly: $e^+e^- \\to \\mu^+\\mu^-$ tree, plus a one-loop correction\" widget on `quantum-field-theory`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "qft-fock",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "qft-fock widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Spin-statistics on display: drag particles to swap\" widget on the quantum-field-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Spin-statistics on display: drag particles to swap\" widget on `quantum-field-theory`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "qft-modes",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "qft-modes widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Quantum field as a stack of harmonic oscillators\" widget on the quantum-field-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Quantum field as a stack of harmonic oscillators\" widget on `quantum-field-theory`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "qft-paths",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "qft-paths widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Sum over paths: classical limit by stationary phase\" widget on the quantum-field-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Sum over paths: classical limit by stationary phase\" widget on `quantum-field-theory`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "qft-rg-flow",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "qft-rg-flow widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"RG running: $\\alpha_{\\mathrm{QED}}$ grows, $\\alpha_s$ shrinks with energy\" widget on the quantum-field-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"RG running: $\\alpha_{\\mathrm{QED}}$ grows, $\\alpha_s$ shrinks with energy\" widget on `quantum-field-theory`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "qft-sm-fields",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "qft-sm-fields widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Standard Model gauge group: SU(3)×SU(2)×U(1)\" widget on the quantum-field-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Standard Model gauge group: SU(3)×SU(2)×U(1)\" widget on `quantum-field-theory`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "quantum-groups-applications-map",
     "family": "quantum-groups-applications-map",
     "dimension": "2d",
