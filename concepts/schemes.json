@@ -48,7 +48,10 @@
       "prereqs": [
         "spectrum-primes"
       ],
-      "blurb": "Non-maximal primes are generic points whose closures pick out entire subvarieties, and specialization flows from generic to closed."
+      "blurb": "Non-maximal primes are generic points whose closures pick out entire subvarieties, and specialization flows from generic to closed.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "residue-field-at-prime",
@@ -70,7 +73,10 @@
       "prereqs": [
         "structure-sheaf-schemes"
       ],
-      "blurb": "A locally ringed space is a sheaf of rings whose stalks are local; schemes are precisely those locally isomorphic to Spec of a ring."
+      "blurb": "A locally ringed space is a sheaf of rings whose stalks are local; schemes are precisely those locally isomorphic to Spec of a ring.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "projective-scheme",
@@ -92,7 +98,11 @@
         "structure-sheaf-schemes",
         "ideals-quotients-ca"
       ],
-      "blurb": "Closed subschemes of $\\Spec R$ are $\\Spec(R/I)$ for ideals $I$; passing to $\\sqrt I$ gives the reduced subscheme, and minimal primes carve the space into irreducible components."
+      "blurb": "Closed subschemes of $\\Spec R$ are $\\Spec(R/I)$ for ideals $I$; passing to $\\sqrt I$ gives the reduced subscheme, and minimal primes carve the space into irreducible components.",
+      "tags": [
+        "foundation",
+        "classification"
+      ]
     },
     {
       "id": "dimension-scheme",
@@ -102,7 +112,10 @@
         "spectrum-primes",
         "krull-dimension-ca"
       ],
-      "blurb": "The dimension of a scheme is the supremum of the lengths of specialization chains of points, matching the Krull dimension of its coordinate ring on every affine chart."
+      "blurb": "The dimension of a scheme is the supremum of the lengths of specialization chains of points, matching the Krull dimension of its coordinate ring on every affine chart.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "fiber-over-point",

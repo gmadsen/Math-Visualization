@@ -12,7 +12,10 @@
         "categories-morphisms"
       ],
       "blurb": "A presheaf is a contravariant functor from the poset of open sets to Set, packaging restriction maps into the functor's action on inclusions.",
-      "tags": ["foundation", "functoriality"]
+      "tags": [
+        "foundation",
+        "functoriality"
+      ]
     },
     {
       "id": "presheaf-sheaf-axioms",
@@ -22,7 +25,10 @@
         "presheaf-functor"
       ],
       "blurb": "Sheaf axioms encode local-to-global compatibility for sections over open covers: locality pins sections by their restrictions, gluing assembles compatible families.",
-      "tags": ["descent", "foundation"]
+      "tags": [
+        "descent",
+        "foundation"
+      ]
     },
     {
       "id": "stalks-local-data",
@@ -31,7 +37,10 @@
       "prereqs": [
         "presheaf-sheaf-axioms"
       ],
-      "blurb": "Stalks are filtered colimits over neighborhoods of a point; germs are their elements, and stalk-wise checks detect local properties of sheaves."
+      "blurb": "Stalks are filtered colimits over neighborhoods of a point; germs are their elements, and stalk-wise checks detect local properties of sheaves.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "sheaf-morphisms-stalks",
@@ -42,7 +51,9 @@
         "functors-natural-transformations"
       ],
       "blurb": "Sheaf morphisms are natural transformations; injectivity and isomorphism are checkable on stalks, while stalkwise surjectivity is strictly weaker than global surjectivity — the seed of sheaf cohomology.",
-      "tags": ["functoriality"]
+      "tags": [
+        "functoriality"
+      ]
     },
     {
       "id": "sheafification-functor",
@@ -52,7 +63,10 @@
         "sheaf-morphisms-stalks"
       ],
       "blurb": "Sheafification is the left adjoint to the inclusion Sh(X) into PSh(X); it preserves stalks and turns every presheaf into its universal sheaf approximation.",
-      "tags": ["universal-property", "descent"]
+      "tags": [
+        "universal-property",
+        "descent"
+      ]
     },
     {
       "id": "ox-modules",
@@ -63,7 +77,10 @@
         "structure-sheaf-schemes",
         "locally-ringed-space"
       ],
-      "blurb": "An $\\mathcal{O}_X$-module is a sheaf of abelian groups with compatible $\\mathcal{O}_X(U)$-module structures on sections; locally free ones are vector bundles in disguise."
+      "blurb": "An $\\mathcal{O}_X$-module is a sheaf of abelian groups with compatible $\\mathcal{O}_X(U)$-module structures on sections; locally free ones are vector bundles in disguise.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "sheafification-and-qcoh",
@@ -75,7 +92,9 @@
         "localization-ca"
       ],
       "blurb": "The tilde functor $M \\mapsto \\widetilde{M}$ is an equivalence between $R$-modules and quasi-coherent sheaves on Spec R, globalizing module theory into algebraic geometry.",
-      "tags": ["duality"]
+      "tags": [
+        "duality"
+      ]
     }
   ]
 }

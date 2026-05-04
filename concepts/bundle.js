@@ -317,6 +317,9 @@ window.__MVConcepts = {
           "prereqs": [
             "etale-cohomology:l-adic-cohomology",
             "algebraic-de-rham-cohomology:comparison-betti"
+          ],
+          "tags": [
+            "cohomology"
           ]
         },
         {
@@ -327,6 +330,9 @@ window.__MVConcepts = {
           "prereqs": [
             "cohomology-zoo",
             "intersection-theory-chow:chow-groups"
+          ],
+          "tags": [
+            "functoriality"
           ]
         },
         {
@@ -336,6 +342,9 @@ window.__MVConcepts = {
           "blurb": "Objects (X, p, n) with p an idempotent correspondence and n a Tate twist; morphisms compatible correspondences. Pseudo-abelian envelope of varieties + correspondences, then formally invert the Lefschetz motive. Three flavors — Chow, homological, numerical — by equivalence relation.",
           "prereqs": [
             "algebraic-correspondences"
+          ],
+          "tags": [
+            "foundation"
           ]
         },
         {
@@ -345,6 +354,9 @@ window.__MVConcepts = {
           "blurb": "Q(1) = inverse of the Lefschetz motive h^2(P^1). Realizes as 2πi·Q (Betti, weight −2), shifted Hodge filtration (de Rham), the cyclotomic character (ℓ-adic), Frobenius=1/p (crystalline). Periods include (2πi)^n; mixed Tate motives over Z control multiple zeta values.",
           "prereqs": [
             "pure-chow-motives"
+          ],
+          "tags": [
+            "foundation"
           ]
         },
         {
@@ -356,6 +368,9 @@ window.__MVConcepts = {
             "category-theory:functors-natural-transformations",
             "category-theory:monoidal-categories",
             "representation-theory:group-representations"
+          ],
+          "tags": [
+            "duality"
           ]
         },
         {
@@ -367,6 +382,10 @@ window.__MVConcepts = {
             "tannakian-categories",
             "tate-twist",
             "galois-representations:galois-rep-definition"
+          ],
+          "tags": [
+            "group-action",
+            "duality"
           ]
         },
         {
@@ -376,6 +395,9 @@ window.__MVConcepts = {
           "blurb": "Each cohomology theory is a tensor functor R: Mot(k) → C_R. Comparison isomorphisms tie them: Grothendieck (Betti↔dR over C), Artin (Betti↔ℓ-adic), Fontaine (crystalline↔ℓ-adic via B_cris).",
           "prereqs": [
             "motivic-galois-group"
+          ],
+          "tags": [
+            "functoriality"
           ]
         },
         {
@@ -385,6 +407,9 @@ window.__MVConcepts = {
           "blurb": "Grothendieck (1968): Lefschetz (B), Künneth (C), Hodge (I). Open in general since 1968; modulo (B)+(C) homological = numerical and Mot_hom is Tannakian. Unconditional: Jannsen, mixed Hodge (Deligne), mixed Tate over Z (Deligne-Goncharov-Brown), Voevodsky's DM(k).",
           "prereqs": [
             "realization-functors"
+          ],
+          "tags": [
+            "classification"
           ]
         }
       ]
@@ -402,6 +427,9 @@ window.__MVConcepts = {
           "prereqs": [
             "complex-analysis:holomorphic-function",
             "algebraic-de-rham-cohomology:de-rham-complex"
+          ],
+          "tags": [
+            "foundation"
           ]
         },
         {
@@ -411,6 +439,9 @@ window.__MVConcepts = {
           "blurb": "Hodge (1941): for $X$ compact Kähler of dimension $d$, $H^n(X;\\mathbb{C}) = \\bigoplus_{p+q=n} H^q(X,\\Omega^p_X)$ with $\\overline{H^{p,q}} = H^{q,p}$. Hodge numbers $h^{p,q}$ fill the Hodge diamond; Hodge symmetry + Poincaré duality halve the independent invariants.",
           "prereqs": [
             "why-hodge"
+          ],
+          "tags": [
+            "classification"
           ]
         },
         {
@@ -421,6 +452,9 @@ window.__MVConcepts = {
           "prereqs": [
             "hodge-decomposition",
             "algebraic-de-rham-cohomology:hodge-filtration"
+          ],
+          "tags": [
+            "foundation"
           ]
         },
         {
@@ -431,6 +465,9 @@ window.__MVConcepts = {
           "prereqs": [
             "hodge-filtration-structure",
             "motives:tannakian-categories"
+          ],
+          "tags": [
+            "classification"
           ]
         },
         {
@@ -440,6 +477,9 @@ window.__MVConcepts = {
           "blurb": "Deligne (1971-74): every complex variety — open or singular — has a canonical mixed Hodge structure. Data: a weight filtration $W_\\bullet$ + a Hodge filtration $F^\\bullet$ such that each $\\mathrm{gr}^W_n$ is pure of weight $n$.",
           "prereqs": [
             "pure-hodge-structure"
+          ],
+          "tags": [
+            "classification"
           ]
         },
         {
@@ -452,6 +492,9 @@ window.__MVConcepts = {
             "intersection-theory-chow:chow-groups",
             "motives:motivic-galois-group",
             "motives:realization-functors"
+          ],
+          "tags": [
+            "classification"
           ]
         },
         {
@@ -462,6 +505,9 @@ window.__MVConcepts = {
           "prereqs": [
             "pure-hodge-structure",
             "moduli-spaces:moduli-problem"
+          ],
+          "tags": [
+            "moduli"
           ]
         },
         {
@@ -473,6 +519,9 @@ window.__MVConcepts = {
             "hodge-conjecture",
             "motives:realization-functors",
             "motives:motivic-galois-group"
+          ],
+          "tags": [
+            "functoriality"
           ]
         }
       ]
@@ -11133,7 +11182,10 @@ window.__MVConcepts = {
           "prereqs": [
             "projective-points-lines"
           ],
-          "blurb": "Polynomial equations homogenize naturally and are studied chartwise."
+          "blurb": "Polynomial equations homogenize naturally and are studied chartwise.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "projective-transformations",
@@ -11187,7 +11239,10 @@ window.__MVConcepts = {
           "prereqs": [
             "projective-points-lines"
           ],
-          "blurb": "Counting intersections correctly requires multiplicity at each point."
+          "blurb": "Counting intersections correctly requires multiplicity at each point.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "resultants-elimination",
@@ -11196,7 +11251,10 @@ window.__MVConcepts = {
           "prereqs": [
             "intersection-multiplicity"
           ],
-          "blurb": "Resultants detect common roots and compute projected elimination conditions."
+          "blurb": "Resultants detect common roots and compute projected elimination conditions.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "bezout-theorem-core",
@@ -11218,7 +11276,10 @@ window.__MVConcepts = {
             "bezout-theorem-core",
             "elliptic-curve-definition"
           ],
-          "blurb": "Nine points of $C_1\\cap C_2$ are so rigid that any cubic through eight passes through the ninth — the combinatorial identity that makes the chord–tangent group law associative."
+          "blurb": "Nine points of $C_1\\cap C_2$ are so rigid that any cubic through eight passes through the ninth — the combinatorial identity that makes the chord–tangent group law associative.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "higher-dim-bezout",
@@ -11284,7 +11345,10 @@ window.__MVConcepts = {
           "prereqs": [
             "spectrum-primes"
           ],
-          "blurb": "Non-maximal primes are generic points whose closures pick out entire subvarieties, and specialization flows from generic to closed."
+          "blurb": "Non-maximal primes are generic points whose closures pick out entire subvarieties, and specialization flows from generic to closed.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "residue-field-at-prime",
@@ -11306,7 +11370,10 @@ window.__MVConcepts = {
           "prereqs": [
             "structure-sheaf-schemes"
           ],
-          "blurb": "A locally ringed space is a sheaf of rings whose stalks are local; schemes are precisely those locally isomorphic to Spec of a ring."
+          "blurb": "A locally ringed space is a sheaf of rings whose stalks are local; schemes are precisely those locally isomorphic to Spec of a ring.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "projective-scheme",
@@ -11328,7 +11395,11 @@ window.__MVConcepts = {
             "structure-sheaf-schemes",
             "ideals-quotients-ca"
           ],
-          "blurb": "Closed subschemes of $\\Spec R$ are $\\Spec(R/I)$ for ideals $I$; passing to $\\sqrt I$ gives the reduced subscheme, and minimal primes carve the space into irreducible components."
+          "blurb": "Closed subschemes of $\\Spec R$ are $\\Spec(R/I)$ for ideals $I$; passing to $\\sqrt I$ gives the reduced subscheme, and minimal primes carve the space into irreducible components.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
         },
         {
           "id": "dimension-scheme",
@@ -11338,7 +11409,10 @@ window.__MVConcepts = {
             "spectrum-primes",
             "krull-dimension-ca"
           ],
-          "blurb": "The dimension of a scheme is the supremum of the lengths of specialization chains of points, matching the Krull dimension of its coordinate ring on every affine chart."
+          "blurb": "The dimension of a scheme is the supremum of the lengths of specialization chains of points, matching the Krull dimension of its coordinate ring on every affine chart.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "fiber-over-point",
@@ -11394,7 +11468,10 @@ window.__MVConcepts = {
           "prereqs": [
             "presheaf-sheaf-axioms"
           ],
-          "blurb": "Stalks are filtered colimits over neighborhoods of a point; germs are their elements, and stalk-wise checks detect local properties of sheaves."
+          "blurb": "Stalks are filtered colimits over neighborhoods of a point; germs are their elements, and stalk-wise checks detect local properties of sheaves.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "sheaf-morphisms-stalks",
@@ -11431,7 +11508,10 @@ window.__MVConcepts = {
             "structure-sheaf-schemes",
             "locally-ringed-space"
           ],
-          "blurb": "An $\\mathcal{O}_X$-module is a sheaf of abelian groups with compatible $\\mathcal{O}_X(U)$-module structures on sections; locally free ones are vector bundles in disguise."
+          "blurb": "An $\\mathcal{O}_X$-module is a sheaf of abelian groups with compatible $\\mathcal{O}_X(U)$-module structures on sections; locally free ones are vector bundles in disguise.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "sheafification-and-qcoh",
@@ -11473,7 +11553,10 @@ window.__MVConcepts = {
           "prereqs": [
             "scheme-morphisms"
           ],
-          "blurb": "Immersions are the subobject inclusions of $\\mathsf{Sch}$: $\\Spec(A_f)\\hookrightarrow\\Spec A$ (open) and $\\Spec(A/I)\\hookrightarrow\\Spec A$ (closed)."
+          "blurb": "Immersions are the subobject inclusions of $\\mathsf{Sch}$: $\\Spec(A_f)\\hookrightarrow\\Spec A$ (open) and $\\Spec(A/I)\\hookrightarrow\\Spec A$ (closed).",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "fiber-products",
@@ -11495,7 +11578,10 @@ window.__MVConcepts = {
           "prereqs": [
             "fiber-products"
           ],
-          "blurb": "Fibers over points reveal dimension, singularities, and arithmetic variation in families."
+          "blurb": "Fibers over points reveal dimension, singularities, and arithmetic variation in families.",
+          "tags": [
+            "fibration"
+          ]
         },
         {
           "id": "separated-proper-morphisms",
@@ -11611,7 +11697,10 @@ window.__MVConcepts = {
           "prereqs": [
             "elliptic-curve-definition"
           ],
-          "blurb": "Chord-tangent constructions define an abelian group on rational points."
+          "blurb": "Chord-tangent constructions define an abelian group on rational points.",
+          "tags": [
+            "group-action"
+          ]
         },
         {
           "id": "j-invariant-classification",
@@ -11679,7 +11768,10 @@ window.__MVConcepts = {
           "prereqs": [
             "elliptic-group-law"
           ],
-          "blurb": "Reducing Weierstrass models modulo p tracks good and bad fibers."
+          "blurb": "Reducing Weierstrass models modulo p tracks good and bad fibers.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "kodaira-néron-preview",
@@ -11701,7 +11793,11 @@ window.__MVConcepts = {
             "reduction-mod-p",
             "kodaira-néron-preview"
           ],
-          "blurb": "At good primes $|a_p| \\le 2\\sqrt p$ (Hasse); at multiplicative primes $a_p = \\pm 1$; at additive primes $a_p = 0$. The four-row table assembles the local Euler factors."
+          "blurb": "At good primes $|a_p| \\le 2\\sqrt p$ (Hasse); at multiplicative primes $a_p = \\pm 1$; at additive primes $a_p = 0$. The four-row table assembles the local Euler factors.",
+          "tags": [
+            "classification",
+            "finiteness"
+          ]
         },
         {
           "id": "minimal-weierstrass-model",
@@ -11711,7 +11807,10 @@ window.__MVConcepts = {
             "kodaira-néron-preview",
             "padic-norm-completion"
           ],
-          "blurb": "A global minimal model has the smallest possible discriminant. Its bad primes, weighted by Ogg's formula, produce the conductor $N(E)$ — the number that appears in every $L$-function statement."
+          "blurb": "A global minimal model has the smallest possible discriminant. Its bad primes, weighted by Ogg's formula, produce the conductor $N(E)$ — the number that appears in every $L$-function statement.",
+          "tags": [
+            "classification"
+          ]
         }
       ]
     },
@@ -11728,7 +11827,11 @@ window.__MVConcepts = {
             "projective-scheme",
             "riemann-surface-definition"
           ],
-          "blurb": "A smooth projective curve over an algebraically closed field $k$ is a smooth projective integral $k$-scheme of dimension 1. Its genus $g$ is the dimension of $H^0(C, \\Omega^1_C)$ — over $\\mathbb{C}$ this matches the topological genus of the Riemann surface $C(\\mathbb{C})$."
+          "blurb": "A smooth projective curve over an algebraically closed field $k$ is a smooth projective integral $k$-scheme of dimension 1. Its genus $g$ is the dimension of $H^0(C, \\Omega^1_C)$ — over $\\mathbb{C}$ this matches the topological genus of the Riemann surface $C(\\mathbb{C})$.",
+          "tags": [
+            "foundation",
+            "moduli"
+          ]
         },
         {
           "id": "divisors-on-curves",
@@ -11765,7 +11868,10 @@ window.__MVConcepts = {
             "riemann-roch-curves",
             "kahler-differentials"
           ],
-          "blurb": "If $g \\ge 2$ and $C$ is non-hyperelliptic, the canonical divisor $K$ embeds $C \\hookrightarrow \\mathbb{P}^{g-1}$ as a curve of degree $2g - 2$. The image is the canonical model — the most natural projective realization of an abstract curve."
+          "blurb": "If $g \\ge 2$ and $C$ is non-hyperelliptic, the canonical divisor $K$ embeds $C \\hookrightarrow \\mathbb{P}^{g-1}$ as a curve of degree $2g - 2$. The image is the canonical model — the most natural projective realization of an abstract curve.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "hyperelliptic-curves",
@@ -11952,7 +12058,10 @@ window.__MVConcepts = {
             "hodge-filtration",
             "stokes-derham"
           ],
-          "blurb": "For a smooth projective curve $C$ of genus $g$ over $\\mathbb{C}$: $H^0_{dR}(C) = \\mathbb{C}$, $H^2_{dR}(C) = \\mathbb{C}$ (canonical class), and $H^1_{dR}(C)$ has dimension $2g$ split as $H^0(C, \\Omega^1) \\oplus H^1(C, \\mathcal{O})$ by the Hodge filtration."
+          "blurb": "For a smooth projective curve $C$ of genus $g$ over $\\mathbb{C}$: $H^0_{dR}(C) = \\mathbb{C}$, $H^2_{dR}(C) = \\mathbb{C}$ (canonical class), and $H^1_{dR}(C)$ has dimension $2g$ split as $H^0(C, \\Omega^1) \\oplus H^1(C, \\mathcal{O})$ by the Hodge filtration.",
+          "tags": [
+            "cohomology"
+          ]
         }
       ]
     },
@@ -12041,7 +12150,10 @@ window.__MVConcepts = {
             "spectrum-primes",
             "locally-ringed-space"
           ],
-          "blurb": "Some natural quotients (e.g. $\\mathbb{A}^1 / \\mathbb{Z}$ over a field, or non-free group actions on schemes) are not schemes. Algebraic spaces are the smallest enlargement of schemes that closes the category under such étale quotients while keeping a representable definition."
+          "blurb": "Some natural quotients (e.g. $\\mathbb{A}^1 / \\mathbb{Z}$ over a field, or non-free group actions on schemes) are not schemes. Algebraic spaces are the smallest enlargement of schemes that closes the category under such étale quotients while keeping a representable definition.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "etale-equivalence-relation",
@@ -12079,7 +12191,10 @@ window.__MVConcepts = {
             "algebraic-space-definition",
             "scheme-morphisms"
           ],
-          "blurb": "Morphisms of algebraic spaces are morphisms of étale sheaves; étale-locally on the source and target they reduce to scheme morphisms. Most scheme-morphism properties (étale, smooth, proper, finite type) extend verbatim."
+          "blurb": "Morphisms of algebraic spaces are morphisms of étale sheaves; étale-locally on the source and target they reduce to scheme morphisms. Most scheme-morphism properties (étale, smooth, proper, finite type) extend verbatim.",
+          "tags": [
+            "functoriality"
+          ]
         },
         {
           "id": "examples-of-algebraic-spaces",
@@ -12088,7 +12203,10 @@ window.__MVConcepts = {
           "prereqs": [
             "algebraic-space-definition"
           ],
-          "blurb": "Any scheme is an algebraic space. The free $\\mathbb{Z}$-action on $\\mathbb{A}^1$ over a field has quotient an algebraic space that is not a scheme (no separated quasi-projective representative exists). Hironaka's example gives a smooth proper algebraic space over $\\mathbb{C}$ that isn't a scheme."
+          "blurb": "Any scheme is an algebraic space. The free $\\mathbb{Z}$-action on $\\mathbb{A}^1$ over a field has quotient an algebraic space that is not a scheme (no separated quasi-projective representative exists). Hironaka's example gives a smooth proper algebraic space over $\\mathbb{C}$ that isn't a scheme.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "between-schemes-and-stacks",
@@ -12191,7 +12309,10 @@ window.__MVConcepts = {
           "prereqs": [
             "closed-subscheme"
           ],
-          "blurb": "An algebraic $k$-cycle on $X$ is a finite formal $\\mathbb{Z}$-linear combination of closed subvarieties of dimension $k$. Two cycles are rationally equivalent if their difference is the principal divisor of a rational function on a $(k+1)$-cycle — the right replacement for homotopy in the algebraic setting."
+          "blurb": "An algebraic $k$-cycle on $X$ is a finite formal $\\mathbb{Z}$-linear combination of closed subvarieties of dimension $k$. Two cycles are rationally equivalent if their difference is the principal divisor of a rational function on a $(k+1)$-cycle — the right replacement for homotopy in the algebraic setting.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "chow-groups",
@@ -12214,7 +12335,10 @@ window.__MVConcepts = {
             "chow-groups",
             "intersection-multiplicity"
           ],
-          "blurb": "On a smooth variety $X$, two transverse subvarieties $Y, Z$ of complementary codimension intersect in finitely many points; the count gives the intersection number $Y \\cdot Z \\in A_0(X)$. The product extends to all of $A_*(X)$ via moving lemmas, making $A^*(X)$ a graded ring."
+          "blurb": "On a smooth variety $X$, two transverse subvarieties $Y, Z$ of complementary codimension intersect in finitely many points; the count gives the intersection number $Y \\cdot Z \\in A_0(X)$. The product extends to all of $A_*(X)$ via moving lemmas, making $A^*(X)$ a graded ring.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "chow-ring-of-pn",
@@ -12224,7 +12348,10 @@ window.__MVConcepts = {
             "intersection-product",
             "projective-points-lines"
           ],
-          "blurb": "The Chow ring of projective space is generated by the hyperplane class $h$ with relation $h^{n+1} = 0$. Bezout's theorem $C \\cdot D = (\\deg C)(\\deg D)$ for plane curves is the case $n = 2$ — multiplication of degrees in $\\mathbb{Z}[h]/(h^3)$."
+          "blurb": "The Chow ring of projective space is generated by the hyperplane class $h$ with relation $h^{n+1} = 0$. Bezout's theorem $C \\cdot D = (\\deg C)(\\deg D)$ for plane curves is the case $n = 2$ — multiplication of degrees in $\\mathbb{Z}[h]/(h^3)$.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "chern-classes",
@@ -12282,7 +12409,11 @@ window.__MVConcepts = {
             "group-scheme-definition",
             "spectrum-primes"
           ],
-          "blurb": "$\\mathbb{G}_a = \\Spec\\,k[t]$ (additive), $\\mathbb{G}_m = \\Spec\\,k[t, t^{-1}]$ (multiplicative), $\\mu_n = \\Spec\\,k[t]/(t^n - 1)$ (roots of unity), and in characteristic $p$ the infinitesimal $\\alpha_p = \\Spec\\,k[t]/(t^p)$. The four basic affine group schemes."
+          "blurb": "$\\mathbb{G}_a = \\Spec\\,k[t]$ (additive), $\\mathbb{G}_m = \\Spec\\,k[t, t^{-1}]$ (multiplicative), $\\mu_n = \\Spec\\,k[t]/(t^n - 1)$ (roots of unity), and in characteristic $p$ the infinitesimal $\\alpha_p = \\Spec\\,k[t]/(t^p)$. The four basic affine group schemes.",
+          "tags": [
+            "classification",
+            "group-action"
+          ]
         },
         {
           "id": "hopf-algebra",
@@ -12318,7 +12449,10 @@ window.__MVConcepts = {
             "group-scheme-definition",
             "lie-bracket-fields"
           ],
-          "blurb": "$\\mathrm{Lie}(G) = \\ker(G(k[\\epsilon]/\\epsilon^2) \\to G(k))$ — the tangent space at the identity, with bracket from the adjoint action. Recovers the classical Lie algebra of a Lie group when $k = \\mathbb{R}$ or $\\mathbb{C}$ and $G$ is smooth."
+          "blurb": "$\\mathrm{Lie}(G) = \\ker(G(k[\\epsilon]/\\epsilon^2) \\to G(k))$ — the tangent space at the identity, with bracket from the adjoint action. Recovers the classical Lie algebra of a Lie group when $k = \\mathbb{R}$ or $\\mathbb{C}$ and $G$ is smooth.",
+          "tags": [
+            "lifting"
+          ]
         },
         {
           "id": "torsors-and-cohomology",
@@ -12509,7 +12643,11 @@ window.__MVConcepts = {
             "obstructions-H2",
             "riemann-roch-curves"
           ],
-          "blurb": "For a smooth projective curve $C$ of genus $g \\ge 2$: $H^1(C, T_C)$ has dimension $3g - 3$ (the dimension of $\\mathcal{M}_g$ at $C$), and $H^2(C, T_C) = 0$ (curves have no obstructions). The moduli space $\\mathcal{M}_g$ is smooth of dimension $3g - 3$."
+          "blurb": "For a smooth projective curve $C$ of genus $g \\ge 2$: $H^1(C, T_C)$ has dimension $3g - 3$ (the dimension of $\\mathcal{M}_g$ at $C$), and $H^2(C, T_C) = 0$ (curves have no obstructions). The moduli space $\\mathcal{M}_g$ is smooth of dimension $3g - 3$.",
+          "tags": [
+            "moduli",
+            "cohomology"
+          ]
         }
       ]
     },

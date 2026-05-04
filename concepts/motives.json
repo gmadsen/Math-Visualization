@@ -11,6 +11,9 @@
       "prereqs": [
         "etale-cohomology:l-adic-cohomology",
         "algebraic-de-rham-cohomology:comparison-betti"
+      ],
+      "tags": [
+        "cohomology"
       ]
     },
     {
@@ -21,6 +24,9 @@
       "prereqs": [
         "cohomology-zoo",
         "intersection-theory-chow:chow-groups"
+      ],
+      "tags": [
+        "functoriality"
       ]
     },
     {
@@ -30,6 +36,9 @@
       "blurb": "Objects (X, p, n) with p an idempotent correspondence and n a Tate twist; morphisms compatible correspondences. Pseudo-abelian envelope of varieties + correspondences, then formally invert the Lefschetz motive. Three flavors — Chow, homological, numerical — by equivalence relation.",
       "prereqs": [
         "algebraic-correspondences"
+      ],
+      "tags": [
+        "foundation"
       ]
     },
     {
@@ -39,6 +48,9 @@
       "blurb": "Q(1) = inverse of the Lefschetz motive h^2(P^1). Realizes as 2πi·Q (Betti, weight −2), shifted Hodge filtration (de Rham), the cyclotomic character (ℓ-adic), Frobenius=1/p (crystalline). Periods include (2πi)^n; mixed Tate motives over Z control multiple zeta values.",
       "prereqs": [
         "pure-chow-motives"
+      ],
+      "tags": [
+        "foundation"
       ]
     },
     {
@@ -50,6 +62,9 @@
         "category-theory:functors-natural-transformations",
         "category-theory:monoidal-categories",
         "representation-theory:group-representations"
+      ],
+      "tags": [
+        "duality"
       ]
     },
     {
@@ -61,6 +76,10 @@
         "tannakian-categories",
         "tate-twist",
         "galois-representations:galois-rep-definition"
+      ],
+      "tags": [
+        "group-action",
+        "duality"
       ]
     },
     {
@@ -70,6 +89,9 @@
       "blurb": "Each cohomology theory is a tensor functor R: Mot(k) → C_R. Comparison isomorphisms tie them: Grothendieck (Betti↔dR over C), Artin (Betti↔ℓ-adic), Fontaine (crystalline↔ℓ-adic via B_cris).",
       "prereqs": [
         "motivic-galois-group"
+      ],
+      "tags": [
+        "functoriality"
       ]
     },
     {
@@ -79,6 +101,9 @@
       "blurb": "Grothendieck (1968): Lefschetz (B), Künneth (C), Hodge (I). Open in general since 1968; modulo (B)+(C) homological = numerical and Mot_hom is Tannakian. Unconditional: Jannsen, mixed Hodge (Deligne), mixed Tate over Z (Deligne-Goncharov-Brown), Voevodsky's DM(k).",
       "prereqs": [
         "realization-functors"
+      ],
+      "tags": [
+        "classification"
       ]
     }
   ]

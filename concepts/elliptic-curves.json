@@ -22,7 +22,10 @@
       "prereqs": [
         "elliptic-curve-definition"
       ],
-      "blurb": "Chord-tangent constructions define an abelian group on rational points."
+      "blurb": "Chord-tangent constructions define an abelian group on rational points.",
+      "tags": [
+        "group-action"
+      ]
     },
     {
       "id": "j-invariant-classification",

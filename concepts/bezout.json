@@ -10,7 +10,10 @@
       "prereqs": [
         "projective-points-lines"
       ],
-      "blurb": "Counting intersections correctly requires multiplicity at each point."
+      "blurb": "Counting intersections correctly requires multiplicity at each point.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "resultants-elimination",
@@ -19,7 +22,10 @@
       "prereqs": [
         "intersection-multiplicity"
       ],
-      "blurb": "Resultants detect common roots and compute projected elimination conditions."
+      "blurb": "Resultants detect common roots and compute projected elimination conditions.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "bezout-theorem-core",
@@ -41,7 +47,10 @@
         "bezout-theorem-core",
         "elliptic-curve-definition"
       ],
-      "blurb": "Nine points of $C_1\\cap C_2$ are so rigid that any cubic through eight passes through the ninth — the combinatorial identity that makes the chord–tangent group law associative."
+      "blurb": "Nine points of $C_1\\cap C_2$ are so rigid that any cubic through eight passes through the ninth — the combinatorial identity that makes the chord–tangent group law associative.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "higher-dim-bezout",

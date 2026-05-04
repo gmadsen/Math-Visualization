@@ -11,7 +11,10 @@
         "spectrum-primes",
         "locally-ringed-space"
       ],
-      "blurb": "Some natural quotients (e.g. $\\mathbb{A}^1 / \\mathbb{Z}$ over a field, or non-free group actions on schemes) are not schemes. Algebraic spaces are the smallest enlargement of schemes that closes the category under such étale quotients while keeping a representable definition."
+      "blurb": "Some natural quotients (e.g. $\\mathbb{A}^1 / \\mathbb{Z}$ over a field, or non-free group actions on schemes) are not schemes. Algebraic spaces are the smallest enlargement of schemes that closes the category under such étale quotients while keeping a representable definition.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "etale-equivalence-relation",
@@ -49,7 +52,10 @@
         "algebraic-space-definition",
         "scheme-morphisms"
       ],
-      "blurb": "Morphisms of algebraic spaces are morphisms of étale sheaves; étale-locally on the source and target they reduce to scheme morphisms. Most scheme-morphism properties (étale, smooth, proper, finite type) extend verbatim."
+      "blurb": "Morphisms of algebraic spaces are morphisms of étale sheaves; étale-locally on the source and target they reduce to scheme morphisms. Most scheme-morphism properties (étale, smooth, proper, finite type) extend verbatim.",
+      "tags": [
+        "functoriality"
+      ]
     },
     {
       "id": "examples-of-algebraic-spaces",
@@ -58,7 +64,10 @@
       "prereqs": [
         "algebraic-space-definition"
       ],
-      "blurb": "Any scheme is an algebraic space. The free $\\mathbb{Z}$-action on $\\mathbb{A}^1$ over a field has quotient an algebraic space that is not a scheme (no separated quasi-projective representative exists). Hironaka's example gives a smooth proper algebraic space over $\\mathbb{C}$ that isn't a scheme."
+      "blurb": "Any scheme is an algebraic space. The free $\\mathbb{Z}$-action on $\\mathbb{A}^1$ over a field has quotient an algebraic space that is not a scheme (no separated quasi-projective representative exists). Hironaka's example gives a smooth proper algebraic space over $\\mathbb{C}$ that isn't a scheme.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "between-schemes-and-stacks",
