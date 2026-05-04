@@ -9,17 +9,17 @@
 
     "special-relativity",
 
-
-
-
-
-
-
-
-
-
-
     "klein-gordon-equation",
+
+
+
+
+
+
+
+
+
+    "dirac-equation",
 
     "statistical-mechanics",
     "advanced-complex-analysis",
@@ -306,6 +306,7 @@
     "hamiltonians-classical-mechanics": "standard",
     "special-relativity": "standard",
     "klein-gordon-equation": "advanced",
+    "dirac-equation": "advanced",
     "general-relativity": "advanced",
     "three-body-problem": "advanced",
     "designs": "standard",

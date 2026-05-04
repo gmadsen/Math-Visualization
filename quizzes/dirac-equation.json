@@ -1,0 +1,291 @@
+{
+  "topic": "dirac-equation",
+  "quizzes": {
+    "dirac-derivation": {
+      "title": "From $E^2=p^2+m^2$ to a first-order operator",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Dirac wanted a first-order Hamiltonian $H = \\vec\\alpha\\cdot\\vec p + \\beta m$ whose square reproduces $E^2 = p^2 + m^2$. Squaring gives $H^2 = \\alpha^i\\alpha^j p_ip_j + (\\alpha^i\\beta + \\beta\\alpha^i)p_im + \\beta^2 m^2$. For this to equal $\\vec p^{\\,2} + m^2$, the matrices must satisfy:",
+          "choices": [
+            "$[\\alpha^i,\\alpha^j] = 2\\delta^{ij}$ and $\\beta = 1$.",
+            "$\\{\\alpha^i,\\alpha^j\\} = 2\\delta^{ij}$, $\\{\\alpha^i,\\beta\\} = 0$, $\\beta^2 = 1$.",
+            "$\\alpha^i \\alpha^j = \\delta^{ij}$ (commuting matrices) and $\\alpha^i\\beta = \\beta\\alpha^i$.",
+            "$\\alpha^i = \\beta = 1$ (scalars suffice)."
+          ],
+          "answer": 1,
+          "hint": "Look at the cross terms. $\\alpha^i\\alpha^j p_ip_j$ is symmetric in $(i,j)$, so only the symmetric part of $\\alpha^i\\alpha^j$ contributes. What identity must this symmetric part satisfy, and what must happen to the linear-in-$p$ cross term so $H^2$ contains no piece linear in $p$?",
+          "explain": "Symmetrizing $p_ip_j$ projects $\\alpha^i\\alpha^j$ onto its symmetric part $\\tfrac12\\{\\alpha^i,\\alpha^j\\}$, which must equal $\\delta^{ij}$. The linear-in-$p$ cross term $\\{\\alpha^i,\\beta\\}p_im$ must vanish (else $H^2 \\ne \\vec p^{\\,2} + m^2$). And $\\beta^2 = 1$ to give the $m^2$ term cleanly. This is the defining Clifford algebra $C\\ell_{0,3}$ (or $C\\ell_{1,3}$ once we promote to $\\gamma$ matrices). Choice 0 confuses commutators with anticommutators; commuting $\\alpha$'s would give a positive-definite quadratic form $|\\vec p|^2$ only if they all equaled the identity, which kills the cross-term cancellation."
+        },
+        {
+          "type": "multi-select",
+          "q": "Why is the minimum dimension of the Dirac matrices $4\\times 4$ rather than $2\\times 2$? Select all true statements.",
+          "choices": [
+            "The three Pauli matrices $\\sigma^i$ already satisfy $\\{\\sigma^i,\\sigma^j\\} = 2\\delta^{ij}$ in $2\\times 2$ — they could play the role of $\\vec\\alpha$.",
+            "But there is no $2\\times 2$ matrix that anticommutes with all three Pauli matrices, so $\\beta$ has nowhere to live in dimension 2.",
+            "The next dimension where a fourth matrix anticommuting with three mutually-anticommuting matrices fits is $4$, so $\\psi$ must be a 4-component spinor.",
+            "The dimension is forced to be even because $\\det(\\alpha^i)\\det(\\alpha^j) = -\\det(\\alpha^j)\\det(\\alpha^i)$ requires both determinants to be zero."
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "hint": "Take $\\alpha^i = \\sigma^i$ in $2\\times 2$ and ask: is there any non-trivial $\\beta$ that anticommutes with $\\sigma^1, \\sigma^2,$ and $\\sigma^3$ simultaneously?",
+          "explain": "(0) The Pauli matrices already anticommute pairwise and square to the identity, so they fit as $\\vec\\alpha$ in $2\\times 2$. (1) But $\\{1, \\sigma^1, \\sigma^2, \\sigma^3\\}$ is a basis for $2\\times 2$ Hermitian matrices; any $\\beta = a\\cdot 1 + b_i\\sigma^i$ that anticommutes with all three $\\sigma^j$ must have $a = 0$ AND $b_i = 0$. (2) The next dimension where a fourth Clifford generator fits is 4, where $\\beta = \\sigma^3 \\otimes 1$, $\\alpha^i = \\sigma^1 \\otimes \\sigma^i$ (or similar) works. (3) is wrong — $\\det$ of a product equals the product of $\\det$s scalarly, not with a sign flip."
+        },
+        {
+          "type": "spot-the-error",
+          "q": "Find the error in this attempted derivation: \"To linearize $E = \\sqrt{p^2 + m^2}$, write $E = \\alpha p + \\beta m$ with $\\alpha, \\beta$ real numbers. Squaring: $E^2 = \\alpha^2 p^2 + 2\\alpha\\beta\\,pm + \\beta^2 m^2$. To match $p^2 + m^2$, set $\\alpha = 1, \\beta = 1$, and $\\alpha\\beta = 0$. Therefore $\\alpha = 1, \\beta = 1, 1\\cdot 1 = 0$ — contradiction!\"",
+          "steps": [
+            "Posit $E = \\alpha p + \\beta m$ with $\\alpha, \\beta$ real numbers.",
+            "Square: $E^2 = \\alpha^2 p^2 + 2\\alpha\\beta\\,pm + \\beta^2 m^2$.",
+            "Match $E^2 = p^2 + m^2$ termwise: $\\alpha^2 = 1, \\beta^2 = 1, 2\\alpha\\beta = 0$.",
+            "Conclude: \"$\\alpha = 1, \\beta = 1$ and $\\alpha\\beta = 0$ is a contradiction, so no linearization exists.\""
+          ],
+          "answer": 3,
+          "hint": "The first three steps are correct as a real-number argument. What changes if $\\alpha, \\beta$ are matrices instead of scalars?",
+          "explain": "Step 3 (the conclusion) is the error — but only if $\\alpha,\\beta$ are restricted to numbers. Dirac's insight was that $\\alpha,\\beta$ can be MATRICES, and the cross term $2\\alpha\\beta\\,pm$ becomes $(\\alpha\\beta + \\beta\\alpha)pm$ once you keep operator ordering. For matrices the constraint $\\alpha\\beta + \\beta\\alpha = 0$ (anticommutation) is achievable — it's NOT a contradiction; it just rules out scalars. The correct conclusion is: no scalar linearization, but a matrix linearization exists in dimension $\\geq 4$."
+        }
+      ]
+    },
+    "dirac-equation": {
+      "title": "The Dirac equation in covariant form",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Multiplying $i\\partial_t\\psi = (\\vec\\alpha\\cdot\\vec p + \\beta m)\\psi$ on the left by $\\beta$ and defining $\\gamma^0 = \\beta, \\gamma^i = \\beta\\alpha^i$ produces:",
+          "choices": [
+            "$(i\\gamma^\\mu\\partial_\\mu - m)\\psi = 0$ with $\\{\\gamma^\\mu, \\gamma^\\nu\\} = 2\\eta^{\\mu\\nu}$.",
+            "$(i\\gamma^\\mu\\partial_\\mu + m)\\psi = 0$ with $[\\gamma^\\mu,\\gamma^\\nu] = 2\\eta^{\\mu\\nu}$.",
+            "$\\gamma^\\mu\\gamma^\\nu \\partial_\\mu\\partial_\\nu\\psi = m^2\\psi$ — a second-order equation.",
+            "$\\beta\\psi = 0$ — a constraint, not a dynamical equation."
+          ],
+          "answer": 0,
+          "hint": "Premultiply by $\\beta$. With $\\beta^2 = 1$ the mass term becomes simply $m\\psi$. The two remaining terms each acquire a factor of $\\beta$ times something — what's the natural way to package those into Lorentz-covariant indices?",
+          "explain": "The pre-multiplication gives $i\\gamma^0\\partial_t\\psi + i\\gamma^i\\partial_i\\psi - m\\psi = 0$, i.e., $(i\\gamma^\\mu\\partial_\\mu - m)\\psi = 0$. The Clifford relation $\\{\\alpha^i,\\alpha^j\\} = 2\\delta^{ij}$ and $\\{\\alpha^i,\\beta\\} = 0$ translate (after a short calculation using $\\beta^2 = 1$) to $\\{\\gamma^\\mu,\\gamma^\\nu\\} = 2\\eta^{\\mu\\nu}$ in mostly-plus signature $\\eta = \\mathrm{diag}(+,-,-,-)$ (or mostly-minus, depending on convention)."
+        },
+        {
+          "type": "numeric",
+          "q": "What is the trace $\\operatorname{tr}(\\gamma^0\\gamma^0)$ for the standard $4\\times 4$ Dirac representation? (Use $(\\gamma^0)^2 = \\eta^{00}\\,1 = +1$ in mostly-plus or $-1$ in mostly-minus; assume mostly-plus signature so $(\\gamma^0)^2 = 1$.)",
+          "answer": 4,
+          "tol": 0.01,
+          "hint": "Use $\\{\\gamma^\\mu, \\gamma^\\nu\\} = 2\\eta^{\\mu\\nu}$ at $\\mu=\\nu=0$ to evaluate $(\\gamma^0)^2$, then take the trace.",
+          "explain": "From $\\{\\gamma^0,\\gamma^0\\} = 2(\\gamma^0)^2 = 2\\eta^{00}\\,1$, in mostly-plus signature $\\eta^{00} = +1$ gives $(\\gamma^0)^2 = 1_{4\\times 4}$. Its trace is $4$. More generally $\\operatorname{tr}(\\gamma^\\mu\\gamma^\\nu) = 4\\eta^{\\mu\\nu}$ — a constraint that fixes most $\\gamma$-matrix trace identities used in cross-section calculations."
+        },
+        {
+          "type": "matching",
+          "q": "Match each $\\gamma$-matrix object on the left to its physical/algebraic role on the right.",
+          "left": [
+            "$\\gamma^\\mu$",
+            "$\\bar\\psi = \\psi^\\dagger\\gamma^0$",
+            "$\\gamma^5 = i\\gamma^0\\gamma^1\\gamma^2\\gamma^3$",
+            "$\\sigma^{\\mu\\nu} = \\tfrac{i}{2}[\\gamma^\\mu,\\gamma^\\nu]$"
+          ],
+          "right": [
+            "Lorentz-generator on spinors: $\\tfrac{1}{4}[\\sigma^{\\mu\\nu}]$ generates $\\mathrm{Spin}(1,3)$ rotations and boosts.",
+            "Chirality projector: $P_{L,R} = \\tfrac{1}{2}(1\\mp\\gamma^5)$ split $\\psi$ into left- and right-handed Weyl components.",
+            "The Dirac adjoint, used to build Lorentz-covariant bilinears like $\\bar\\psi\\psi$, $\\bar\\psi\\gamma^\\mu\\psi$.",
+            "Generators of the Clifford algebra $\\{\\gamma^\\mu,\\gamma^\\nu\\} = 2\\eta^{\\mu\\nu}$; carry the spacetime index."
+          ],
+          "answer": [
+            3,
+            2,
+            1,
+            0
+          ],
+          "hint": "Two of these four objects carry a single spacetime index; one squares to $1$ and anticommutes with all $\\gamma^\\mu$; one is built so that $\\bar\\psi\\psi$ is a scalar. Sort by these structural cues.",
+          "explain": "(0)→3: The four $\\gamma^\\mu$ matrices are the Clifford generators. (1)→2: $\\bar\\psi = \\psi^\\dagger\\gamma^0$ is constructed precisely so that $\\bar\\psi\\psi$ is a Lorentz scalar (the naive $\\psi^\\dagger\\psi$ is not — the extra $\\gamma^0$ undoes the boost-induced mismatch). (2)→1: $\\gamma^5$ anticommutes with every $\\gamma^\\mu$ and squares to $1$, so $P_{L,R} = \\tfrac{1}{2}(1\\mp\\gamma^5)$ are projection operators onto the Weyl components. (3)→0: $\\sigma^{\\mu\\nu}/2$ generates the Lorentz transformation of the spinor: $\\psi \\to \\exp(-\\tfrac{i}{4}\\omega_{\\mu\\nu}\\sigma^{\\mu\\nu})\\psi$."
+        }
+      ]
+    },
+    "dirac-spin-half": {
+      "title": "Spin-½ from the Dirac equation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The orbital angular momentum $\\vec L = \\vec x \\times \\vec p$ does NOT commute with the Dirac Hamiltonian $H = \\vec\\alpha\\cdot\\vec p + \\beta m$. What additional operator $\\vec S$ must be added so that $\\vec J = \\vec L + \\vec S$ is conserved?",
+          "choices": [
+            "$\\vec S = \\tfrac{1}{2}\\vec\\sigma$ acting on the upper 2-spinor only.",
+            "$\\vec S = \\tfrac{1}{2}\\vec\\Sigma$ where $\\Sigma^i = \\mathrm{diag}(\\sigma^i, \\sigma^i)$ is the $4\\times 4$ block-diagonal spin operator.",
+            "$\\vec S = 0$ — angular momentum is conserved without a spin term.",
+            "$\\vec S = \\vec\\alpha$ (the Dirac matrices themselves)."
+          ],
+          "answer": 1,
+          "hint": "$[\\vec L, H] = i\\vec\\alpha \\times \\vec p$ doesn't vanish. To cancel it, $[\\vec S, H]$ must equal $-i\\vec\\alpha\\times\\vec p$. Computing $[\\Sigma^i, \\alpha^j]$ uses $\\{\\alpha^i,\\alpha^j\\} = 2\\delta^{ij}$ and the relation $\\Sigma^i = -\\tfrac{i}{2}\\epsilon^{ijk}\\alpha^j\\alpha^k$.",
+          "explain": "$[\\vec L, H] = i\\vec\\alpha \\times \\vec p \\ne 0$ — orbital angular momentum is NOT separately conserved. The extra $\\vec\\Sigma/2$ exactly cancels this commutator: $[\\Sigma^i/2, H] = -i\\epsilon^{ijk}\\alpha^j p^k$, so $\\vec J = \\vec L + \\vec\\Sigma/2$ has $[\\vec J, H] = 0$. The eigenvalues of $\\Sigma^z$ are $\\pm 1$, so spin eigenvalues are $\\pm 1/2$ — Dirac's particle is automatically spin-½. Choice 0 is wrong because the spin must act on BOTH 2-spinor halves; choice 2 is empirically false (electrons have spin)."
+        },
+        {
+          "type": "ordering",
+          "q": "Order the steps that show spin-½ emerges from the Dirac equation, NOT from a spin assumption added by hand.",
+          "items": [
+            "Conclude: a Dirac particle is automatically spin-½, with no input beyond the Clifford algebra structure.",
+            "Compute $[\\vec L, H] = i\\vec\\alpha\\times\\vec p \\ne 0$ — orbital angular momentum is NOT conserved.",
+            "Diagonalize $\\Sigma^z$ on a rest-frame spinor: eigenvalues $\\pm 1$, so $S^z$ eigenvalues $\\pm 1/2$.",
+            "Define $\\Sigma^i = \\tfrac{1}{2}\\epsilon^{ijk}[\\gamma^j\\gamma^k] / (-2i) = \\sigma^{ij}\\epsilon_{ijk}/2$ (i.e., the spin matrix from the Lorentz generators).",
+            "Verify $\\vec J = \\vec L + \\tfrac{1}{2}\\vec\\Sigma$ commutes with $H$: $[\\vec J, H] = 0$."
+          ],
+          "answer": [
+            1,
+            3,
+            4,
+            2,
+            0
+          ],
+          "hint": "Start by noticing $\\vec L$ alone fails to commute. Then construct the missing piece. Then diagonalize. End at the conclusion.",
+          "explain": "(1) $[\\vec L, H] \\ne 0$ flags that the naive Newtonian angular momentum is not enough. (3) Build the spin-matrix from the Lorentz-spinor generators. (4) Verify that $\\vec L + \\tfrac{1}{2}\\vec\\Sigma$ does commute with $H$. (2) Diagonalize $\\Sigma^z$ in the rest frame; its eigenvalues $\\pm 1$ give spin $\\pm 1/2$. (0) The spin-½ structure is forced by the algebra, not assumed. This is the conceptual highlight: Dirac wrote the equation to fix the probability problem of Klein-Gordon, and spin emerged as a free byproduct."
+        },
+        {
+          "type": "mcq",
+          "q": "The Lorentz transformation of a Dirac spinor is generated by $\\sigma^{\\mu\\nu}/2$, where $\\sigma^{\\mu\\nu} = \\tfrac{i}{2}[\\gamma^\\mu,\\gamma^\\nu]$. The double-cover of $\\mathrm{SO}^+(1,3)$ that acts on spinors is:",
+          "choices": [
+            "$\\mathrm{SO}(4)$ — Euclidean rotations in 4D.",
+            "$\\mathrm{Spin}(1,3) \\cong \\mathrm{SL}(2,\\mathbb{C})$.",
+            "$\\mathrm{U}(1)$ — phase rotations.",
+            "$\\mathrm{Sp}(4,\\mathbb{R})$ — symplectic transformations."
+          ],
+          "answer": 1,
+          "hint": "Spinor representations live on the universal cover (or the connected double cover) of the rotation group. For $\\mathrm{SO}^+(1,3)$ (proper orthochronous Lorentz transformations), this double cover is the same group that acts on Weyl spinors via $2\\times 2$ complex matrices.",
+          "explain": "$\\mathrm{Spin}(1,3) \\cong \\mathrm{SL}(2,\\mathbb{C})$ is the double cover of the proper orthochronous Lorentz group. A $2\\pi$ rotation in $\\mathrm{SO}(3) \\subset \\mathrm{SO}^+(1,3)$ lifts to $-1$ in the spin group, so a Dirac spinor picks up a sign — this is the classic $4\\pi$ periodicity of fermions, observed experimentally in neutron interferometry. The Dirac representation of $\\mathrm{Spin}(1,3)$ is the direct sum of the two Weyl reps $(1/2, 0) \\oplus (0, 1/2)$, which is exactly the 4-component decomposition of $\\psi$."
+        }
+      ]
+    },
+    "dirac-positive-current": {
+      "title": "Positive-definite probability current",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The conserved Dirac current is $j^\\mu = \\bar\\psi\\gamma^\\mu\\psi$ with $\\bar\\psi = \\psi^\\dagger\\gamma^0$. What is the time component $j^0$ in terms of $\\psi$ alone (using $(\\gamma^0)^2 = 1$)?",
+          "choices": [
+            "$j^0 = \\psi^\\dagger\\gamma^0\\gamma^0\\psi = \\psi^\\dagger\\psi \\geq 0$.",
+            "$j^0 = i(\\psi^*\\partial_t\\psi - \\psi\\partial_t\\psi^*)$, which can be negative.",
+            "$j^0 = \\bar\\psi\\psi$ (a Lorentz scalar, not the time component).",
+            "$j^0 = \\psi^\\dagger\\beta\\psi$, the scalar bilinear $\\bar\\psi\\psi$, which can be negative on superpositions of positive- and negative-energy spinors."
+          ],
+          "answer": 0,
+          "hint": "Expand $\\bar\\psi$ using its definition. The two $\\gamma^0$ factors that result satisfy a simple Clifford relation.",
+          "explain": "$j^0 = \\psi^\\dagger\\gamma^0\\gamma^0\\psi = \\psi^\\dagger\\,1\\,\\psi = \\psi^\\dagger\\psi = |\\psi_1|^2 + |\\psi_2|^2 + |\\psi_3|^2 + |\\psi_4|^2 \\geq 0$. This is exactly the positive-definite probability density Dirac was after — it never goes negative, recovering the Born rule $\\int j^0\\,d^3x = 1$ at face value. Choice 1 is the Klein-Gordon current's failure mode (which Dirac's first-order equation is engineered to avoid). Choice 2 is a different bilinear (the scalar $\\bar\\psi\\psi$ is Lorentz-invariant but is not a current density)."
+        },
+        {
+          "type": "multi-select",
+          "q": "Why is $j^\\mu = \\bar\\psi\\gamma^\\mu\\psi$ a 'good' probability current? Select all true statements.",
+          "choices": [
+            "$j^0 = \\psi^\\dagger\\psi \\geq 0$ pointwise, so the Born rule applies cleanly.",
+            "$\\partial_\\mu j^\\mu = 0$ as a consequence of the Dirac equation (multiply by $\\bar\\psi$ from the left and the conjugate equation by $\\psi$ from the right, subtract).",
+            "$j^\\mu$ transforms as a Lorentz vector, so $\\partial_\\mu j^\\mu = 0$ is frame-independent.",
+            "$j^\\mu$ is gauge-invariant under $\\psi \\to e^{i\\alpha}\\psi$ (a global $U(1)$ phase), so the conservation has no anomaly at the classical level."
+          ],
+          "answer": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "hint": "Three of these are immediate from the definition of $\\bar\\psi\\gamma^\\mu\\psi$; the fourth requires a short manipulation using both the Dirac equation and its conjugate.",
+          "explain": "All four hold. (0) $\\psi^\\dagger\\psi$ is a sum of squared moduli. (1) Multiply $(i\\gamma^\\mu\\partial_\\mu - m)\\psi = 0$ by $\\bar\\psi$ on the left; multiply $\\bar\\psi(i\\overleftarrow\\partial_\\mu\\gamma^\\mu + m) = 0$ by $\\psi$ on the right; add. The mass terms cancel, leaving $\\partial_\\mu(\\bar\\psi\\gamma^\\mu\\psi) = 0$. (2) $\\bar\\psi\\gamma^\\mu\\psi$ is the canonical Lorentz-vector bilinear (the $\\bar\\psi$ already absorbs the Lorentz transformation of $\\psi$ to make the bilinear covariant). (3) $\\bar\\psi\\gamma^\\mu\\psi \\to \\bar\\psi\\,e^{-i\\alpha} \\gamma^\\mu e^{i\\alpha}\\psi = \\bar\\psi\\gamma^\\mu\\psi$ — phases cancel."
+        },
+        {
+          "type": "mcq",
+          "q": "How does Dirac's first-order structure 'fix' the Klein-Gordon probability problem at the level of the equation?",
+          "choices": [
+            "It removes the negative-energy branch entirely; only positive-energy plane-wave solutions exist.",
+            "Because Dirac is first-order in $\\partial_t$, the Cauchy data is just $\\psi(0,\\vec x)$ (one slot), not $(\\phi, \\partial_t\\phi)$. The current $j^0 = \\psi^\\dagger\\psi$ depends only on $\\psi$ at the same instant, with no $\\partial_t\\psi$ that could flip sign.",
+            "It introduces $\\hbar^2$ into the equation, which makes $j^0$ positive on dimensional grounds.",
+            "It works only for massless particles; for massive Dirac particles $j^0$ is also indefinite."
+          ],
+          "answer": 1,
+          "hint": "Compare the structure of the Schrödinger equation ($i\\partial_t\\psi = H\\psi$, first-order, $|\\psi|^2 \\geq 0$) to the KG equation ($\\partial_t^2\\phi$, second-order, $j^0$ depends on $\\partial_t\\phi$). Which feature of the first-order structure makes $j^0$ positive?",
+          "explain": "Schrödinger and Dirac are first-order in $\\partial_t$, so $j^0$ is a quadratic form in $\\psi$ alone — guaranteed positive when the form is positive-definite, as $\\psi^\\dagger\\psi$ is. KG's $j^0 = i(\\phi^*\\partial_t\\phi - \\phi\\partial_t\\phi^*)$ involves $\\partial_t\\phi$, whose sign can flip on superpositions of positive- and negative-energy modes. Choice 0 is wrong — Dirac DOES have negative-energy solutions; the resolution there is the sea / antiparticles (next concept). Choice 3 is empirically wrong: massive Dirac particles (electrons) have positive $j^0$."
+        }
+      ]
+    },
+    "dirac-antiparticles": {
+      "title": "Negative-energy sea and the prediction of antimatter",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Plane-wave solutions of the Dirac equation $(i\\gamma^\\mu\\partial_\\mu - m)\\psi = 0$ have energies:",
+          "choices": [
+            "$E = +\\sqrt{p^2 + m^2}$ only (negative branch is removed by the first-order structure).",
+            "$E = \\pm\\sqrt{p^2 + m^2}$ — both branches are present, each 2-fold degenerate (spin $\\pm 1/2$).",
+            "$E = m$ only (the rest-frame energy is the unique solution).",
+            "$E$ depends on the choice of $\\gamma$-matrix representation; different reps give different spectra."
+          ],
+          "answer": 1,
+          "hint": "Substitute $\\psi = u(p)e^{-ip\\cdot x}$ into the Dirac equation and reduce to an algebraic eigenvalue problem on the 4-spinor $u(p)$. What is the algebraic structure of its mass-shell condition?",
+          "explain": "The Dirac equation has the same mass shell as KG (both square to give $E^2 = p^2 + m^2$), so the energy branches are the same. The 2-fold degeneracy on each branch is spin: at each momentum, two linearly independent positive-energy spinors (spin up and down) and two negative-energy ones. Choice 0 confuses 'first-order' with 'positive-energy only'; first-order in $\\partial_t$ means the Cauchy problem needs only $\\psi(0,\\vec x)$, but the spectrum still has both signs."
+        },
+        {
+          "type": "mcq",
+          "q": "Dirac's 1928 'hole theory' interpretation of the negative-energy solutions was:",
+          "choices": [
+            "All negative-energy states are filled with electrons (the 'Dirac sea'); the Pauli exclusion principle keeps positive-energy electrons from cascading down. A hole in the sea behaves as a positive-energy particle of opposite charge — the positron.",
+            "Negative-energy states are tachyons traveling faster than light.",
+            "The negative-energy modes are unphysical and must be projected out by hand.",
+            "The 'sea' is a metaphor for vacuum fluctuations, equivalent to modern QFT with no extra physics."
+          ],
+          "answer": 0,
+          "hint": "Dirac was specifically a fermion theorist — the Pauli principle is essential to the picture. What stops electrons from falling into negative-energy states forever?",
+          "explain": "Dirac's sea: the vacuum is not empty but is a Pauli-filled sea of negative-energy electrons. The exclusion principle blocks any positive-energy electron from radiating its way down. Excite a sea-electron to a positive-energy state; the resulting hole carries the OPPOSITE quantum numbers (positive charge, etc.) and behaves as a new particle — the positron, predicted in 1928 and observed by Anderson in 1932. The picture works only for fermions. Modern QFT uses creation/annihilation operators directly without the sea, but the antiparticle prediction is a robust consequence."
+        },
+        {
+          "type": "ordering",
+          "q": "Order the historical/conceptual steps from negative-energy puzzle to confirmed antimatter.",
+          "items": [
+            "Anderson observes a positive electron in cosmic-ray cloud-chamber tracks (1932), confirming Dirac.",
+            "Dirac writes down $(i\\gamma^\\mu\\partial_\\mu - m)\\psi = 0$ and notes the negative-energy plane-wave solutions $E = -\\sqrt{p^2+m^2}$ (1928).",
+            "Modern QFT replaces the sea with field-theoretic creation/annihilation operators $b_p^\\dagger$ for antiparticles; the 'sea' becomes a heuristic, but the prediction of a positron stands.",
+            "Dirac proposes the 'hole theory': all negative-energy states are filled; a hole appears as a positive-energy particle of opposite charge."
+          ],
+          "answer": [
+            1,
+            3,
+            0,
+            2
+          ],
+          "hint": "This is a four-step arc: a puzzle, a bold interpretation, an experimental vindication, and a modern reframing. The real challenge is which of these came in 1928 vs. 1932 vs. the 1940s/50s — date the items.",
+          "explain": "(1) The equation predates the interpretation. (3) Dirac's sea was the bridge from puzzle to prediction. (0) Anderson's experimental discovery confirmed the picture quickly. (2) QFT supersedes the sea with operator language but preserves the antiparticle prediction. The historical compression is striking: ~4 years from equation to discovery."
+        }
+      ]
+    },
+    "dirac-non-rel-limit": {
+      "title": "Non-relativistic limit and Pauli equation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Splitting the 4-spinor as $\\psi = (\\varphi, \\chi)^T$ in the standard representation and assuming $|\\chi| \\ll |\\varphi|$ at low momentum, the leading-order non-relativistic equation for $\\varphi$ is:",
+          "choices": [
+            "The Klein-Gordon equation $(\\Box + m^2)\\varphi = 0$.",
+            "The Pauli equation $i\\partial_t\\varphi = \\bigl(\\tfrac{p^2}{2m} - \\tfrac{e}{2m}\\vec\\sigma\\cdot\\vec B + V\\bigr)\\varphi$, including a spin-magnetic-moment term with gyromagnetic ratio $g = 2$.",
+            "The free Schrödinger equation $i\\partial_t\\varphi = -\\tfrac{\\nabla^2}{2m}\\varphi$ — no spin coupling.",
+            "A first-order equation in $\\varphi$ with no $p^2/(2m)$ term (which only appears at $O(1/m^2)$)."
+          ],
+          "answer": 1,
+          "hint": "The lower 2-spinor $\\chi$ is suppressed by $|\\vec p|/m$ in the rest frame. Solve the bottom-block equation for $\\chi$ in terms of $\\varphi$, substitute back, and minimally-couple to electromagnetism via $\\vec p \\to \\vec p - e\\vec A$. The $(\\vec\\sigma\\cdot\\vec\\pi)^2$ identity is the key.",
+          "explain": "In the standard representation, the bottom block of the Dirac equation gives $\\chi \\approx \\tfrac{1}{2m}\\vec\\sigma\\cdot\\vec\\pi\\,\\varphi$ where $\\vec\\pi = \\vec p - e\\vec A$. Substituting back into the top block: $i\\partial_t\\varphi = \\bigl(\\tfrac{(\\vec\\sigma\\cdot\\vec\\pi)^2}{2m} + e\\Phi\\bigr)\\varphi$. The Pauli identity $(\\vec\\sigma\\cdot\\vec\\pi)^2 = \\vec\\pi^2 - e\\vec\\sigma\\cdot\\vec B$ produces both the kinetic term AND the spin-magnetic coupling automatically — Dirac's structure forces $g = 2$ exactly. Choice 2 misses the spin coupling. Choice 3 confuses the 'first-order' character of the Dirac equation with the order of the resulting Schrödinger equation (which IS second-order in $\\nabla$)."
+        },
+        {
+          "type": "numeric",
+          "q": "The classical magnetic moment of a charged spinning sphere predicts gyromagnetic ratio $g = 1$. The Dirac equation predicts $g = 2$ exactly (at tree level). What is the 'anomalous' part $a_e = (g - 2)/2$ (the leading-order Schwinger 1948 result), to four decimal places, in terms of the fine-structure constant $\\alpha \\approx 1/137.036$?",
+          "answer": 0.0012,
+          "tol": 0.0001,
+          "hint": "Schwinger computed the one-loop QED correction $a_e = \\alpha/(2\\pi)$. Plug in $\\alpha = 1/137.036$.",
+          "explain": "$a_e = \\alpha/(2\\pi) = 1/(137.036 \\times 2\\pi) \\approx 1/861.0 \\approx 0.001161$. Modern measurements give $a_e \\approx 0.00115965218$ — agreement to one part in $10^{12}$, the most precise quantitative confirmation in physics. Dirac gets $g = 2$ at tree level; QED loops add $\\alpha/(2\\pi) + O(\\alpha^2)$ corrections. The Pauli equation already encodes $g = 2$ as a kinematic consequence of the Dirac structure, before any quantization."
+        },
+        {
+          "type": "spot-the-error",
+          "q": "Find the error: \"In the non-relativistic limit, the Dirac 4-spinor $\\psi = (\\varphi, \\chi)^T$ has $\\chi = 0$ identically, since the upper and lower components decouple at low momentum. The Pauli equation is therefore the equation for $\\varphi$ alone with no contribution from $\\chi$.\"",
+          "steps": [
+            "Split the 4-spinor as $\\psi = (\\varphi, \\chi)^T$ in the standard representation.",
+            "Note that at low momentum $|\\chi|/|\\varphi| \\sim |\\vec p|/m \\ll 1$.",
+            "Conclude $\\chi = 0$ identically.",
+            "Derive the Pauli equation for $\\varphi$ with no contribution from $\\chi$."
+          ],
+          "answer": 2,
+          "hint": "$|\\chi|/|\\varphi| \\sim |\\vec p|/m$ is small, but how small is the leading $\\chi$ in absolute terms when you act on it with $\\vec\\sigma\\cdot\\vec\\pi$? An order-of-magnitude check on the bottom-block equation will show whether $\\chi$ is exactly zero or just suppressed.",
+          "explain": "Step 2 is the error. $\\chi$ is suppressed but NOT zero — to leading order $\\chi \\approx (\\vec\\sigma\\cdot\\vec\\pi/2m)\\varphi$, which is small but contributes the spin-magnetic moment when substituted back. If one set $\\chi = 0$ identically, the Pauli term $-(e/2m)\\vec\\sigma\\cdot\\vec B\\,\\varphi$ would never appear, $g = 0$, and the splitting of the hydrogen $2P_{1/2}/2P_{3/2}$ levels (the spin-orbit coupling, which lives at the next order in $1/m$) would be missing. The correct procedure is the systematic Foldy-Wouthuysen expansion in powers of $1/m$, keeping $\\chi$ at each order."
+        }
+      ]
+    }
+  }
+}
