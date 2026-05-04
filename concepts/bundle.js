@@ -8266,7 +8266,11 @@ window.__MVConcepts = {
             "open-sets",
             "metric-spaces"
           ],
-          "blurb": "A map is continuous iff preimages of open sets are open — the coordinate-free definition. Homeomorphisms as the isomorphisms of Top."
+          "blurb": "A map is continuous iff preimages of open sets are open — the coordinate-free definition. Homeomorphisms as the isomorphisms of Top.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
         },
         {
           "id": "compactness",
@@ -8289,7 +8293,11 @@ window.__MVConcepts = {
           "prereqs": [
             "open-sets"
           ],
-          "blurb": "No separation into disjoint nonempty opens; path-connected implies connected; components partition the space."
+          "blurb": "No separation into disjoint nonempty opens; path-connected implies connected; components partition the space.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
         },
         {
           "id": "separation-axioms",
@@ -8298,7 +8306,10 @@ window.__MVConcepts = {
           "prereqs": [
             "open-sets"
           ],
-          "blurb": "T1/Hausdorff/regular/normal, first- and second-countable; Urysohn's lemma and metrization as the payoff."
+          "blurb": "T1/Hausdorff/regular/normal, first- and second-countable; Urysohn's lemma and metrization as the payoff.",
+          "tags": [
+            "classification"
+          ]
         }
       ]
     },
@@ -8326,7 +8337,11 @@ window.__MVConcepts = {
           "prereqs": [
             "paths"
           ],
-          "blurb": "Path-connected space with trivial fundamental group — the domain hypothesis behind existence theorems in complex analysis."
+          "blurb": "Path-connected space with trivial fundamental group — the domain hypothesis behind existence theorems in complex analysis.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
         },
         {
           "id": "fundamental-group",
@@ -8408,7 +8423,10 @@ window.__MVConcepts = {
           "prereqs": [
             "smooth-manifold-definition"
           ],
-          "blurb": "S^n, RP^n, tori, Grassmannians, and classical matrix groups are the canonical manifolds to have in hand before doing anything intrinsic."
+          "blurb": "S^n, RP^n, tori, Grassmannians, and classical matrix groups are the canonical manifolds to have in hand before doing anything intrinsic.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "smooth-map",
@@ -8417,7 +8435,11 @@ window.__MVConcepts = {
           "prereqs": [
             "smooth-manifold-definition"
           ],
-          "blurb": "A map is smooth when every chart representative is C^∞; diffeomorphisms are the isomorphisms of the smooth category."
+          "blurb": "A map is smooth when every chart representative is C^∞; diffeomorphisms are the isomorphisms of the smooth category.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
         },
         {
           "id": "tangent-space-manifolds",
@@ -8426,7 +8448,11 @@ window.__MVConcepts = {
           "prereqs": [
             "smooth-map"
           ],
-          "blurb": "T_pM has three equivalent definitions — equivalence classes of curves, chart velocities, and derivations of C^∞(M) — all naturally isomorphic."
+          "blurb": "T_pM has three equivalent definitions — equivalence classes of curves, chart velocities, and derivations of C^∞(M) — all naturally isomorphic.",
+          "tags": [
+            "foundation",
+            "universal-property"
+          ]
         },
         {
           "id": "tangent-bundle",
@@ -8447,7 +8473,11 @@ window.__MVConcepts = {
           "prereqs": [
             "tangent-bundle"
           ],
-          "blurb": "[X,Y] = XY−YX is a vector field; it measures the failure of flows to commute and gives 𝔛(M) a Lie algebra structure."
+          "blurb": "[X,Y] = XY−YX is a vector field; it measures the failure of flows to commute and gives 𝔛(M) a Lie algebra structure.",
+          "tags": [
+            "foundation",
+            "group-action"
+          ]
         },
         {
           "id": "submanifolds-immersions",
@@ -8468,7 +8498,10 @@ window.__MVConcepts = {
           "prereqs": [
             "tangent-bundle"
           ],
-          "blurb": "A vector field X integrates to a flow Phi^X_t: the fundamental theorem gives a unique maximal integral curve through each point, complete when M is compact."
+          "blurb": "A vector field X integrates to a flow Phi^X_t: the fundamental theorem gives a unique maximal integral curve through each point, complete when M is compact.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "partition-of-unity",
@@ -8489,7 +8522,10 @@ window.__MVConcepts = {
           "prereqs": [
             "tangent-bundle"
           ],
-          "blurb": "An orientation is a coherent choice of sign on the top exterior power of every tangent space; equivalently, an atlas whose transitions have positive Jacobian."
+          "blurb": "An orientation is a coherent choice of sign on the top exterior power of every tangent space; equivalently, an atlas whose transitions have positive Jacobian.",
+          "tags": [
+            "classification"
+          ]
         }
       ]
     },
@@ -8517,7 +8553,10 @@ window.__MVConcepts = {
           "prereqs": [
             "forms-and-wedge"
           ],
-          "blurb": "The exterior derivative extends gradient/curl/divergence and satisfies d^2=0."
+          "blurb": "The exterior derivative extends gradient/curl/divergence and satisfies d^2=0.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "pullback-of-forms",
@@ -8540,7 +8579,11 @@ window.__MVConcepts = {
             "pullback-of-forms",
             "singular-homology"
           ],
-          "blurb": "A smooth k-chain is a formal sum of smooth simplices; integrating a k-form over a chain is defined via pullback to the standard simplex and extends by linearity."
+          "blurb": "A smooth k-chain is a formal sum of smooth simplices; integrating a k-form over a chain is defined via pullback to the standard simplex and extends by linearity.",
+          "tags": [
+            "foundation",
+            "duality"
+          ]
         },
         {
           "id": "stokes-derham",
@@ -8570,7 +8613,10 @@ window.__MVConcepts = {
           "prereqs": [
             "submanifolds-immersions"
           ],
-          "blurb": "A regular surface $S\\subset\\mathbb{R}^3$ carries local parametrizations $\\mathbf{x}(u,v)$ with linearly independent $\\mathbf{x}_u,\\mathbf{x}_v$, a tangent plane $T_pS$, and a unit normal $\\mathbf{n}$; orientability asks whether $\\mathbf{n}$ can be chosen globally."
+          "blurb": "A regular surface $S\\subset\\mathbb{R}^3$ carries local parametrizations $\\mathbf{x}(u,v)$ with linearly independent $\\mathbf{x}_u,\\mathbf{x}_v$, a tangent plane $T_pS$, and a unit normal $\\mathbf{n}$; orientability asks whether $\\mathbf{n}$ can be chosen globally.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "first-second-fundamental",
@@ -8579,7 +8625,11 @@ window.__MVConcepts = {
           "prereqs": [
             "curves-surfaces-dg"
           ],
-          "blurb": "The first form $I = E\\,du^2 + 2F\\,du\\,dv + G\\,dv^2$ records intrinsic length and area; the second form $II$ and its self-adjoint shape operator $S_p = -dN_p$ record how $S$ curves extrinsically in $\\mathbb{R}^3$."
+          "blurb": "The first form $I = E\\,du^2 + 2F\\,du\\,dv + G\\,dv^2$ records intrinsic length and area; the second form $II$ and its self-adjoint shape operator $S_p = -dN_p$ record how $S$ curves extrinsically in $\\mathbb{R}^3$.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
         },
         {
           "id": "gauss-map",
@@ -8588,7 +8638,11 @@ window.__MVConcepts = {
           "prereqs": [
             "first-second-fundamental"
           ],
-          "blurb": "The unit-normal map n: S → S^2 has differential dN_p = −S_p, the self-adjoint shape operator whose eigenvalues are the principal curvatures and whose determinant is the Gaussian curvature."
+          "blurb": "The unit-normal map n: S → S^2 has differential dN_p = −S_p, the self-adjoint shape operator whose eigenvalues are the principal curvatures and whose determinant is the Gaussian curvature.",
+          "tags": [
+            "foundation",
+            "functoriality"
+          ]
         },
         {
           "id": "gauss-curvature-geodesics",
@@ -8597,7 +8651,11 @@ window.__MVConcepts = {
           "prereqs": [
             "first-second-fundamental"
           ],
-          "blurb": "Gaussian curvature $K = \\det S_p$ is intrinsic (Theorema Egregium); geodesics satisfy $\\ddot\\gamma^k + \\Gamma^k_{ij}\\dot\\gamma^i\\dot\\gamma^j = 0$ with Christoffel symbols built from $I$, modelling shortest paths on $S$."
+          "blurb": "Gaussian curvature $K = \\det S_p$ is intrinsic (Theorema Egregium); geodesics satisfy $\\ddot\\gamma^k + \\Gamma^k_{ij}\\dot\\gamma^i\\dot\\gamma^j = 0$ with Christoffel symbols built from $I$, modelling shortest paths on $S$.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
         },
         {
           "id": "gauss-bonnet",
@@ -8627,7 +8685,10 @@ window.__MVConcepts = {
             "smooth-manifold-definition",
             "tangent-space-manifolds"
           ],
-          "blurb": "A smoothly varying inner product on tangent spaces defines length, angle, and volume."
+          "blurb": "A smoothly varying inner product on tangent spaces defines length, angle, and volume.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "levi-civita-connection",
@@ -8648,7 +8709,11 @@ window.__MVConcepts = {
           "prereqs": [
             "levi-civita-connection"
           ],
-          "blurb": "Sectional curvature controls topology and global metric behavior through comparison theorems."
+          "blurb": "Sectional curvature controls topology and global metric behavior through comparison theorems.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
         },
         {
           "id": "ricci-curvature",
@@ -8657,7 +8722,11 @@ window.__MVConcepts = {
           "prereqs": [
             "riemann-curvature-tensor"
           ],
-          "blurb": "The trace of the Riemann tensor measures average sectional curvature, governs geodesic-ball volumes, and drives Einstein's equations."
+          "blurb": "The trace of the Riemann tensor measures average sectional curvature, governs geodesic-ball volumes, and drives Einstein's equations.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
         },
         {
           "id": "volume-form-rg",
@@ -8667,7 +8736,10 @@ window.__MVConcepts = {
             "riemannian-metrics",
             "forms-and-wedge"
           ],
-          "blurb": "The metric produces a canonical volume form \\sqrt{\\det g}\\,dx^1\\wedge\\cdots\\wedge dx^n, giving integration, divergence, and the Laplace-Beltrami operator on (M,g)."
+          "blurb": "The metric produces a canonical volume form \\sqrt{\\det g}\\,dx^1\\wedge\\cdots\\wedge dx^n, giving integration, divergence, and the Laplace-Beltrami operator on (M,g).",
+          "tags": [
+            "foundation"
+          ]
         }
       ]
     },
@@ -8684,7 +8756,10 @@ window.__MVConcepts = {
             "smooth-manifold-definition",
             "algebraic-structures"
           ],
-          "blurb": "Lie groups combine smooth manifolds with group multiplication."
+          "blurb": "Lie groups combine smooth manifolds with group multiplication.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "lie-algebra-tangent",
@@ -8694,7 +8769,11 @@ window.__MVConcepts = {
             "lie-group-definition",
             "tangent-space-manifolds"
           ],
-          "blurb": "The Lie algebra $\\mathfrak{g} = T_e G$ linearizes a Lie group at the identity; for matrix groups it is cut out by differentiating the defining equation along $A(0)=I$."
+          "blurb": "The Lie algebra $\\mathfrak{g} = T_e G$ linearizes a Lie group at the identity; for matrix groups it is cut out by differentiating the defining equation along $A(0)=I$.",
+          "tags": [
+            "foundation",
+            "lifting"
+          ]
         },
         {
           "id": "lie-algebra-and-exp",
@@ -8715,7 +8794,10 @@ window.__MVConcepts = {
           "prereqs": [
             "lie-algebra-and-exp"
           ],
-          "blurb": "The commutator $[X,Y]=XY-YX$ measures how $\\exp(X)$ and $\\exp(Y)$ fail to commute; Baker–Campbell–Hausdorff reconstructs the group product as an iterated-bracket series."
+          "blurb": "The commutator $[X,Y]=XY-YX$ measures how $\\exp(X)$ and $\\exp(Y)$ fail to commute; Baker–Campbell–Hausdorff reconstructs the group product as an iterated-bracket series.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "so3-su2-double-cover",

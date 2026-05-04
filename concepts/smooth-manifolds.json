@@ -11,7 +11,10 @@
         "inverse-function-theorem"
       ],
       "blurb": "Smooth manifolds glue Euclidean charts by smooth transition maps.",
-      "tags": ["foundation", "descent"]
+      "tags": [
+        "foundation",
+        "descent"
+      ]
     },
     {
       "id": "smooth-manifold-examples",
@@ -20,7 +23,10 @@
       "prereqs": [
         "smooth-manifold-definition"
       ],
-      "blurb": "S^n, RP^n, tori, Grassmannians, and classical matrix groups are the canonical manifolds to have in hand before doing anything intrinsic."
+      "blurb": "S^n, RP^n, tori, Grassmannians, and classical matrix groups are the canonical manifolds to have in hand before doing anything intrinsic.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "smooth-map",
@@ -29,7 +35,11 @@
       "prereqs": [
         "smooth-manifold-definition"
       ],
-      "blurb": "A map is smooth when every chart representative is C^\u221e; diffeomorphisms are the isomorphisms of the smooth category."
+      "blurb": "A map is smooth when every chart representative is C^∞; diffeomorphisms are the isomorphisms of the smooth category.",
+      "tags": [
+        "foundation",
+        "classification"
+      ]
     },
     {
       "id": "tangent-space-manifolds",
@@ -38,7 +48,11 @@
       "prereqs": [
         "smooth-map"
       ],
-      "blurb": "T_pM has three equivalent definitions \u2014 equivalence classes of curves, chart velocities, and derivations of C^\u221e(M) \u2014 all naturally isomorphic."
+      "blurb": "T_pM has three equivalent definitions — equivalence classes of curves, chart velocities, and derivations of C^∞(M) — all naturally isomorphic.",
+      "tags": [
+        "foundation",
+        "universal-property"
+      ]
     },
     {
       "id": "tangent-bundle",
@@ -47,8 +61,10 @@
       "prereqs": [
         "tangent-space-manifolds"
       ],
-      "blurb": "TM assembles all tangent spaces into a rank-n vector bundle; smooth sections are vector fields and act as derivations on C^\u221e(M).",
-      "tags": ["fibration"]
+      "blurb": "TM assembles all tangent spaces into a rank-n vector bundle; smooth sections are vector fields and act as derivations on C^∞(M).",
+      "tags": [
+        "fibration"
+      ]
     },
     {
       "id": "lie-bracket-fields",
@@ -57,7 +73,11 @@
       "prereqs": [
         "tangent-bundle"
       ],
-      "blurb": "[X,Y] = XY\u2212YX is a vector field; it measures the failure of flows to commute and gives \ud835\udd1b(M) a Lie algebra structure."
+      "blurb": "[X,Y] = XY−YX is a vector field; it measures the failure of flows to commute and gives 𝔛(M) a Lie algebra structure.",
+      "tags": [
+        "foundation",
+        "group-action"
+      ]
     },
     {
       "id": "submanifolds-immersions",
@@ -67,7 +87,9 @@
         "tangent-space-manifolds"
       ],
       "blurb": "Rank conditions on df control local models: immersions inject tangentially, submersions project, embeddings land as submanifolds; Whitney says every n-manifold embeds in R^{2n}.",
-      "tags": ["classification"]
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "vector-field-flows",
@@ -76,7 +98,10 @@
       "prereqs": [
         "tangent-bundle"
       ],
-      "blurb": "A vector field X integrates to a flow Phi^X_t: the fundamental theorem gives a unique maximal integral curve through each point, complete when M is compact."
+      "blurb": "A vector field X integrates to a flow Phi^X_t: the fundamental theorem gives a unique maximal integral curve through each point, complete when M is compact.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "partition-of-unity",
@@ -86,7 +111,9 @@
         "smooth-manifold-definition"
       ],
       "blurb": "Subordinate partitions of unity exist on any smooth manifold and are the standard device for gluing local constructions into global ones.",
-      "tags": ["descent"]
+      "tags": [
+        "descent"
+      ]
     },
     {
       "id": "orientation",
@@ -95,7 +122,10 @@
       "prereqs": [
         "tangent-bundle"
       ],
-      "blurb": "An orientation is a coherent choice of sign on the top exterior power of every tangent space; equivalently, an atlas whose transitions have positive Jacobian."
+      "blurb": "An orientation is a coherent choice of sign on the top exterior power of every tangent space; equivalently, an atlas whose transitions have positive Jacobian.",
+      "tags": [
+        "classification"
+      ]
     }
   ]
 }

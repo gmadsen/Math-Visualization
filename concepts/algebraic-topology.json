@@ -22,7 +22,11 @@
       "prereqs": [
         "paths"
       ],
-      "blurb": "Path-connected space with trivial fundamental group — the domain hypothesis behind existence theorems in complex analysis."
+      "blurb": "Path-connected space with trivial fundamental group — the domain hypothesis behind existence theorems in complex analysis.",
+      "tags": [
+        "foundation",
+        "classification"
+      ]
     },
     {
       "id": "fundamental-group",
