@@ -26396,7 +26396,7 @@ window.MVQuizBank = {
               "Tor vanishes for flat modules"
             ],
             "answer": 1,
-            "explain": "\"Balanced\" means: the derived functor of a bifunctor right-exact in each argument can be computed by resolving either slot. Same logic gives Ext-symmetry: $\\mathrm{Ext}$ via projective resolution of first arg = injective resolution of second arg."
+            "explain": "\"Balanced\" means: the derived functor of a bifunctor right-exact in each argument can be computed by resolving either slot. Same logic applies to $\\mathrm{Ext}$: projective resolution of $M$ vs injective resolution of $N$ give the same $\\mathrm{Ext}^n_R(M, N)$. (Ext itself is not symmetric in its two arguments — only the two ways of computing it agree.)"
           }
         ]
       },
