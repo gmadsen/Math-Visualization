@@ -34,10 +34,7 @@
       "prereqs": [
         "kernel-and-components"
       ],
-      "blurb": "$\\lambda_2$, the algebraic connectivity, is the smoothest mean-zero Dirichlet energy on $G$. It is positive iff $G$ is connected; its eigenvector — the Fiedler vector — sorts vertices for graph bisection.",
-      "tags": [
-        "classification"
-      ]
+      "blurb": "$\\lambda_2$, the algebraic connectivity, is the smoothest mean-zero Dirichlet energy on $G$. It is positive iff $G$ is connected; its eigenvector — the Fiedler vector — sorts vertices for graph bisection."
     },
     {
       "id": "cheeger-inequality",

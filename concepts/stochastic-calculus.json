@@ -77,10 +77,7 @@
         "sc-girsanov",
         "sc-feynman-kac"
       ],
-      "blurb": "Risk-neutral pricing turns Black–Scholes into a Feynman–Kac integral; the Kalman filter is the conditional-expectation projection for a linear-Gaussian state-space SDE; American option pricing is an optimal-stopping problem and free-boundary PDE.",
-      "tags": [
-        "foundation"
-      ]
+      "blurb": "Risk-neutral pricing turns Black–Scholes into a Feynman–Kac integral; the Kalman filter is the conditional-expectation projection for a linear-Gaussian state-space SDE; American option pricing is an optimal-stopping problem and free-boundary PDE."
     }
   ]
 }

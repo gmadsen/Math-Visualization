@@ -74,10 +74,7 @@
         "d-block-designs",
         "d-latin-squares"
       ],
-      "blurb": "BIBDs were born from agricultural statistics — Fisher used them to test $v$ fertilizers on $b$ field plots so every pair is compared with equal precision. Latin squares schedule pairwise-orthogonal interactions in software testing; finite affine planes enable threshold cryptography; Steiner systems underlie tournament round-robins.",
-      "tags": [
-        "foundation"
-      ]
+      "blurb": "BIBDs were born from agricultural statistics — Fisher used them to test $v$ fertilizers on $b$ field plots so every pair is compared with equal precision. Latin squares schedule pairwise-orthogonal interactions in software testing; finite affine planes enable threshold cryptography; Steiner systems underlie tournament round-robins."
     }
   ]
 }

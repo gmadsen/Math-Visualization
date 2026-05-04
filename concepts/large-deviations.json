@@ -61,10 +61,7 @@
         "ld-sanov-theorem",
         "ld-gartner-ellis"
       ],
-      "blurb": "Schilder's LDP for scaled Brownian paths, Freidlin–Wentzell for small-noise SDEs (rare exits via the action functional), and Boltzmann's $S=k\\log W$ recovered as the rate function of an ideal gas — large deviations is the rigorous bridge between probability and statistical mechanics.",
-      "tags": [
-        "foundation"
-      ]
+      "blurb": "Schilder's LDP for scaled Brownian paths, Freidlin–Wentzell for small-noise SDEs (rare exits via the action functional), and Boltzmann's $S=k\\log W$ recovered as the rate function of an ideal gas — large deviations is the rigorous bridge between probability and statistical mechanics."
     }
   ]
 }

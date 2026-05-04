@@ -2225,10 +2225,7 @@ window.__MVConcepts = {
             "d-block-designs",
             "d-latin-squares"
           ],
-          "blurb": "BIBDs were born from agricultural statistics — Fisher used them to test $v$ fertilizers on $b$ field plots so every pair is compared with equal precision. Latin squares schedule pairwise-orthogonal interactions in software testing; finite affine planes enable threshold cryptography; Steiner systems underlie tournament round-robins.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "BIBDs were born from agricultural statistics — Fisher used them to test $v$ fertilizers on $b$ field plots so every pair is compared with equal precision. Latin squares schedule pairwise-orthogonal interactions in software testing; finite affine planes enable threshold cryptography; Steiner systems underlie tournament round-robins."
         }
       ]
     },
@@ -8159,10 +8156,7 @@ window.__MVConcepts = {
             "sc-girsanov",
             "sc-feynman-kac"
           ],
-          "blurb": "Risk-neutral pricing turns Black–Scholes into a Feynman–Kac integral; the Kalman filter is the conditional-expectation projection for a linear-Gaussian state-space SDE; American option pricing is an optimal-stopping problem and free-boundary PDE.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "Risk-neutral pricing turns Black–Scholes into a Feynman–Kac integral; the Kalman filter is the conditional-expectation projection for a linear-Gaussian state-space SDE; American option pricing is an optimal-stopping problem and free-boundary PDE."
         }
       ]
     },
@@ -8424,10 +8418,7 @@ window.__MVConcepts = {
             "ld-sanov-theorem",
             "ld-gartner-ellis"
           ],
-          "blurb": "Schilder's LDP for scaled Brownian paths, Freidlin–Wentzell for small-noise SDEs (rare exits via the action functional), and Boltzmann's $S=k\\log W$ recovered as the rate function of an ideal gas — large deviations is the rigorous bridge between probability and statistical mechanics.",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "Schilder's LDP for scaled Brownian paths, Freidlin–Wentzell for small-noise SDEs (rare exits via the action functional), and Boltzmann's $S=k\\log W$ recovered as the rate function of an ideal gas — large deviations is the rigorous bridge between probability and statistical mechanics."
         }
       ]
     },
@@ -13136,10 +13127,7 @@ window.__MVConcepts = {
           "prereqs": [
             "kernel-and-components"
           ],
-          "blurb": "$\\lambda_2$, the algebraic connectivity, is the smoothest mean-zero Dirichlet energy on $G$. It is positive iff $G$ is connected; its eigenvector — the Fiedler vector — sorts vertices for graph bisection.",
-          "tags": [
-            "classification"
-          ]
+          "blurb": "$\\lambda_2$, the algebraic connectivity, is the smoothest mean-zero Dirichlet energy on $G$. It is positive iff $G$ is connected; its eigenvector — the Fiedler vector — sorts vertices for graph bisection."
         },
         {
           "id": "cheeger-inequality",
@@ -13313,7 +13301,6 @@ window.__MVConcepts = {
           ],
           "blurb": "A uniformly random $2$-edge-colouring of $K_n$ has expected number of monochromatic $K_k$ at most $\\binom{n}{k}\\,2^{1-\\binom{k}{2}}$. When this drops below $1$ a colouring with no monochromatic $K_k$ exists, giving $R(k,k) > \\lfloor 2^{k/2}\\rfloor$ — the gap to $4^k$ is wide open.",
           "tags": [
-            "cancellation",
             "classification"
           ]
         },

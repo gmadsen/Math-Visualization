@@ -24,7 +24,6 @@
       ],
       "blurb": "A uniformly random $2$-edge-colouring of $K_n$ has expected number of monochromatic $K_k$ at most $\\binom{n}{k}\\,2^{1-\\binom{k}{2}}$. When this drops below $1$ a colouring with no monochromatic $K_k$ exists, giving $R(k,k) > \\lfloor 2^{k/2}\\rfloor$ — the gap to $4^k$ is wide open.",
       "tags": [
-        "cancellation",
         "classification"
       ]
     },
