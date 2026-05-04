@@ -125,7 +125,10 @@
         "dyn-limit-cycles",
         "dyn-iterated-maps"
       ],
-      "blurb": "A Poincaré section $\\Sigma$ is a local transversal to a flow; the first-return map $P\\colon\\Sigma\\to\\Sigma$ turns a continuous system into a discrete one one dimension lower. Periodic orbits become fixed points of $P$."
+      "blurb": "A Poincaré section $\\Sigma$ is a local transversal to a flow; the first-return map $P\\colon\\Sigma\\to\\Sigma$ turns a continuous system into a discrete one one dimension lower. Periodic orbits become fixed points of $P$.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "dyn-symbolic-dynamics",

@@ -719,7 +719,10 @@ window.__MVConcepts = {
           "title": "The graduate landscape",
           "anchor": "overview",
           "prereqs": [],
-          "blurb": "A map of the four threads that organize the graduate complex-analysis canon: value-distribution (Picard, Bloch, Nevanlinna), construction theorems (Weierstrass, Mittag-Leffler), growth and maximum-modulus controls (Phragmén-Lindelöf, Hadamard), and boundary behavior (Hardy, Fatou). Together they answer 'what makes entire and meromorphic functions special, and how do they behave near infinity or on the boundary?'"
+          "blurb": "A map of the four threads that organize the graduate complex-analysis canon: value-distribution (Picard, Bloch, Nevanlinna), construction theorems (Weierstrass, Mittag-Leffler), growth and maximum-modulus controls (Phragmén-Lindelöf, Hadamard), and boundary behavior (Hardy, Fatou). Together they answer 'what makes entire and meromorphic functions special, and how do they behave near infinity or on the boundary?'",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "aca-picard-little",
@@ -731,7 +734,10 @@ window.__MVConcepts = {
             "fundamental-group",
             "upper-half-plane-model"
           ],
-          "blurb": "A non-constant entire function omits at most one complex value. Liouville (bounded ⇒ constant) is the trivial case; little Picard is the same idea pushed to its sharpest form — even an unbounded entire map cannot avoid more than one point."
+          "blurb": "A non-constant entire function omits at most one complex value. Liouville (bounded ⇒ constant) is the trivial case; little Picard is the same idea pushed to its sharpest form — even an unbounded entire map cannot avoid more than one point.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "aca-picard-great",
@@ -743,7 +749,10 @@ window.__MVConcepts = {
             "laurent-series",
             "schwarz-lemma"
           ],
-          "blurb": "In every neighborhood of an essential singularity, $f$ takes every complex value (with at most one exception) infinitely often. This sharpens Casorati-Weierstrass dramatically — 'dense' becomes 'every value, infinitely often'."
+          "blurb": "In every neighborhood of an essential singularity, $f$ takes every complex value (with at most one exception) infinitely often. This sharpens Casorati-Weierstrass dramatically — 'dense' becomes 'every value, infinitely often'.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "aca-weierstrass-factorization",
@@ -752,7 +761,11 @@ window.__MVConcepts = {
           "prereqs": [
             "aca-picard-little"
           ],
-          "blurb": "Every entire function with prescribed zeros $\\{a_n\\}$ factors as $e^{g(z)}\\prod E_{p_n}(z/a_n)$, where the elementary factors $E_p$ are designed so the product converges. The construction generalizes the polynomial factorization $\\prod(z-a_k)$ to entire functions and produces the canonical $\\sin\\pi z = \\pi z\\prod(1-z^2/n^2)$."
+          "blurb": "Every entire function with prescribed zeros $\\{a_n\\}$ factors as $e^{g(z)}\\prod E_{p_n}(z/a_n)$, where the elementary factors $E_p$ are designed so the product converges. The construction generalizes the polynomial factorization $\\prod(z-a_k)$ to entire functions and produces the canonical $\\sin\\pi z = \\pi z\\prod(1-z^2/n^2)$.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
         },
         {
           "id": "aca-mittag-leffler",
@@ -762,7 +775,11 @@ window.__MVConcepts = {
             "aca-weierstrass-factorization",
             "laurent-series"
           ],
-          "blurb": "Dual to Weierstrass: prescribe a discrete pole set with principal parts and there is a meromorphic function realizing them, given by a convergent series of partial fractions plus a holomorphic correction. The witness is the cotangent partial-fraction expansion $\\pi\\cot\\pi z = 1/z + \\sum_{n\\ne 0}(1/(z-n)+1/n)$."
+          "blurb": "Dual to Weierstrass: prescribe a discrete pole set with principal parts and there is a meromorphic function realizing them, given by a convergent series of partial fractions plus a holomorphic correction. The witness is the cotangent partial-fraction expansion $\\pi\\cot\\pi z = 1/z + \\sum_{n\\ne 0}(1/(z-n)+1/n)$.",
+          "tags": [
+            "classification",
+            "duality"
+          ]
         },
         {
           "id": "aca-phragmen-lindelof",
@@ -771,7 +788,10 @@ window.__MVConcepts = {
           "prereqs": [
             "maximum-modulus"
           ],
-          "blurb": "A maximum-modulus principle for unbounded domains, traded for a growth condition. In a sector of opening $\\pi/\\alpha$, if $f$ is bounded by $M$ on the boundary and grows no faster than $e^{|z|^\\beta}$ with $\\beta<\\alpha$, then $|f|\\le M$ throughout. The growth budget is exactly what closes the missing arc at infinity."
+          "blurb": "A maximum-modulus principle for unbounded domains, traded for a growth condition. In a sector of opening $\\pi/\\alpha$, if $f$ is bounded by $M$ on the boundary and grows no faster than $e^{|z|^\\beta}$ with $\\beta<\\alpha$, then $|f|\\le M$ throughout. The growth budget is exactly what closes the missing arc at infinity.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "aca-hadamard-three-circles",
@@ -781,7 +801,10 @@ window.__MVConcepts = {
             "aca-phragmen-lindelof",
             "maximum-modulus"
           ],
-          "blurb": "If $f$ is holomorphic on the annulus $r_1\\le|z|\\le r_3$ and $M(r) = \\max_{|z|=r}|f(z)|$, then $\\log M(r)$ is convex as a function of $\\log r$. The convex-interpolation inequality $M(r_2)^{\\log(r_3/r_1)} \\le M(r_1)^{\\log(r_3/r_2)} M(r_3)^{\\log(r_2/r_1)}$ is the standard tool for growth bounds and Hadamard-Riesz-Thorin interpolation."
+          "blurb": "If $f$ is holomorphic on the annulus $r_1\\le|z|\\le r_3$ and $M(r) = \\max_{|z|=r}|f(z)|$, then $\\log M(r)$ is convex as a function of $\\log r$. The convex-interpolation inequality $M(r_2)^{\\log(r_3/r_1)} \\le M(r_1)^{\\log(r_3/r_2)} M(r_3)^{\\log(r_2/r_1)}$ is the standard tool for growth bounds and Hadamard-Riesz-Thorin interpolation.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "aca-hardy-spaces",
@@ -793,7 +816,10 @@ window.__MVConcepts = {
             "disk-automorphisms",
             "hf-poisson-kernel"
           ],
-          "blurb": "$H^p(\\mathbb{D})$ collects holomorphic functions on the disk whose $L^p$ norm on circles $|z|=r$ stays bounded as $r\\uparrow 1$. Fatou's theorem says every $H^p$ function admits non-tangential boundary values almost everywhere, and the inner-outer factorization $f = B\\cdot S\\cdot O$ decomposes them into a Blaschke product, a singular inner factor, and an outer function."
+          "blurb": "$H^p(\\mathbb{D})$ collects holomorphic functions on the disk whose $L^p$ norm on circles $|z|=r$ stays bounded as $r\\uparrow 1$. Fatou's theorem says every $H^p$ function admits non-tangential boundary values almost everywhere, and the inner-outer factorization $f = B\\cdot S\\cdot O$ decomposes them into a Blaschke product, a singular inner factor, and an outer function.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "aca-bloch-theorem",
@@ -1110,7 +1136,10 @@ window.__MVConcepts = {
             "na-floating-point",
             "banach-hilbert-spaces"
           ],
-          "blurb": "$Ax=b$ via LU $(O(n^3))$, Cholesky for SPD $(\\tfrac12 n^3)$, or QR for least-squares; the condition number $\\kappa(A)=\\|A\\|\\,\\|A^{-1}\\|$ governs how perturbations $\\delta b$ amplify into $\\delta x$. For large sparse $A$, stationary iterations (Jacobi, Gauss–Seidel) converge when the spectral radius of the iteration matrix is $<1$, and Krylov methods (conjugate gradient on SPD systems) reach the solution in $O(\\sqrt{\\kappa})$ iterations."
+          "blurb": "$Ax=b$ via LU $(O(n^3))$, Cholesky for SPD $(\\tfrac12 n^3)$, or QR for least-squares; the condition number $\\kappa(A)=\\|A\\|\\,\\|A^{-1}\\|$ governs how perturbations $\\delta b$ amplify into $\\delta x$. For large sparse $A$, stationary iterations (Jacobi, Gauss–Seidel) converge when the spectral radius of the iteration matrix is $<1$, and Krylov methods (conjugate gradient on SPD systems) reach the solution in $O(\\sqrt{\\kappa})$ iterations.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "na-finite-differences",
@@ -2744,7 +2773,10 @@ window.__MVConcepts = {
             "w-discrete-transform",
             "w-wavelet-vs-fourier"
           ],
-          "blurb": "JPEG2000 replaces JPEG's blocked DCT with a Cohen–Daubechies–Feauveau biorthogonal DWT, giving smooth degradation instead of blocking artefacts. Donoho–Johnstone soft-thresholding $\\hat c=\\operatorname{sgn}(c)(|c|-\\lambda)_+$ is asymptotically minimax for denoising. Vanishing moments make $\\psi_{j,k}$ near-eigenvectors of Calderón–Zygmund operators, which compresses elliptic-PDE matrices to sparse form."
+          "blurb": "JPEG2000 replaces JPEG's blocked DCT with a Cohen–Daubechies–Feauveau biorthogonal DWT, giving smooth degradation instead of blocking artefacts. Donoho–Johnstone soft-thresholding $\\hat c=\\operatorname{sgn}(c)(|c|-\\lambda)_+$ is asymptotically minimax for denoising. Vanishing moments make $\\psi_{j,k}$ near-eigenvectors of Calderón–Zygmund operators, which compresses elliptic-PDE matrices to sparse form.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "w-lifting-scheme",
@@ -2754,7 +2786,10 @@ window.__MVConcepts = {
             "w-multiresolution",
             "w-haar-wavelet"
           ],
-          "blurb": "Sweldens' (1995) lifting scheme builds wavelets by alternating <em>predict</em> and <em>update</em> steps on a split signal — no Fourier-domain factorisation, no algebraic constraints. Every step is invertible, so perfect reconstruction is automatic; the construction works in-place, runs in integer arithmetic for lossless coding, and recovers Haar from one predict + one update on the lazy split."
+          "blurb": "Sweldens' (1995) lifting scheme builds wavelets by alternating <em>predict</em> and <em>update</em> steps on a split signal — no Fourier-domain factorisation, no algebraic constraints. Every step is invertible, so perfect reconstruction is automatic; the construction works in-place, runs in integer arithmetic for lossless coding, and recovers Haar from one predict + one update on the lazy split.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "w-biorthogonal",
@@ -6539,7 +6574,10 @@ window.__MVConcepts = {
           "prereqs": [
             "holomorphic-function"
           ],
-          "blurb": "Visualize $f\\colon\\mathbb{C}\\to\\mathbb{C}$ with hue $=\\arg f(z)$ and lightness encoding $|f(z)|$; zeros and poles appear as rainbow winds counting multiplicity."
+          "blurb": "Visualize $f\\colon\\mathbb{C}\\to\\mathbb{C}$ with hue $=\\arg f(z)$ and lightness encoding $|f(z)|$; zeros and poles appear as rainbow winds counting multiplicity.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "contour-integral",
@@ -6602,7 +6640,10 @@ window.__MVConcepts = {
           "prereqs": [
             "cauchy-integral-formula"
           ],
-          "blurb": "Bounded entire ⇒ constant."
+          "blurb": "Bounded entire ⇒ constant.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "fta",
@@ -6611,7 +6652,10 @@ window.__MVConcepts = {
           "prereqs": [
             "liouville"
           ],
-          "blurb": "Every non-constant polynomial over $\\mathbb{C}$ has a root; Liouville's argument applied to $1/p(z)$ makes this a corollary of complex boundedness."
+          "blurb": "Every non-constant polynomial over $\\mathbb{C}$ has a root; Liouville's argument applied to $1/p(z)$ makes this a corollary of complex boundedness.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "maximum-modulus",
@@ -6620,7 +6664,11 @@ window.__MVConcepts = {
           "prereqs": [
             "cauchy-integral-formula"
           ],
-          "blurb": "Non-constant holomorphic f has no interior max of |f|."
+          "blurb": "Non-constant holomorphic f has no interior max of |f|.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
         },
         {
           "id": "schwarz-lemma",
@@ -6629,7 +6677,10 @@ window.__MVConcepts = {
           "prereqs": [
             "maximum-modulus"
           ],
-          "blurb": "For holomorphic $f\\colon\\mathbb{D}\\to\\mathbb{D}$ with $f(0)=0$: $|f(z)|\\le|z|$ and $|f'(0)|\\le 1$; equality forces $f(z)=e^{i\\theta}z$, a rigidity extracted from the maximum modulus principle."
+          "blurb": "For holomorphic $f\\colon\\mathbb{D}\\to\\mathbb{D}$ with $f(0)=0$: $|f(z)|\\le|z|$ and $|f'(0)|\\le 1$; equality forces $f(z)=e^{i\\theta}z$, a rigidity extracted from the maximum modulus principle.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "laurent-series",
@@ -6687,7 +6738,10 @@ window.__MVConcepts = {
           "prereqs": [
             "argument-principle"
           ],
-          "blurb": "|g| < |f| on γ ⇒ f and f+g have the same number of zeros inside."
+          "blurb": "|g| < |f| on γ ⇒ f and f+g have the same number of zeros inside.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "conformal-map",
@@ -7277,7 +7331,10 @@ window.__MVConcepts = {
             "dyn-limit-cycles",
             "dyn-iterated-maps"
           ],
-          "blurb": "A Poincaré section $\\Sigma$ is a local transversal to a flow; the first-return map $P\\colon\\Sigma\\to\\Sigma$ turns a continuous system into a discrete one one dimension lower. Periodic orbits become fixed points of $P$."
+          "blurb": "A Poincaré section $\\Sigma$ is a local transversal to a flow; the first-return map $P\\colon\\Sigma\\to\\Sigma$ turns a continuous system into a discrete one one dimension lower. Periodic orbits become fixed points of $P$.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "dyn-symbolic-dynamics",
@@ -7681,7 +7738,10 @@ window.__MVConcepts = {
           "prereqs": [
             "hf-poisson-kernel"
           ],
-          "blurb": "For positive harmonic $u$ on $B(0,R)$ and $|x|=r<R$: $\\tfrac{R-r}{R+r}u(0) \\le u(x) \\le \\tfrac{R+r}{R-r}u(0)$. Consequence: a positive harmonic function on $\\mathbb{R}^n$ is constant (Liouville for harmonic functions)."
+          "blurb": "For positive harmonic $u$ on $B(0,R)$ and $|x|=r<R$: $\\tfrac{R-r}{R+r}u(0) \\le u(x) \\le \\tfrac{R+r}{R-r}u(0)$. Consequence: a positive harmonic function on $\\mathbb{R}^n$ is constant (Liouville for harmonic functions).",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "hf-subharmonic",
@@ -7779,7 +7839,10 @@ window.__MVConcepts = {
           "prereqs": [
             "st-unbounded-operators"
           ],
-          "blurb": "Observables in QM are self-adjoint operators whose spectra are measurable energies; eigenvalue problems for elliptic PDE invoke the compact spectral theorem; Fourier transform diagonalizes translation-invariant operators."
+          "blurb": "Observables in QM are self-adjoint operators whose spectra are measurable energies; eigenvalue problems for elliptic PDE invoke the compact spectral theorem; Fourier transform diagonalizes translation-invariant operators.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "st-compact-fredholm",

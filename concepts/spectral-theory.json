@@ -78,7 +78,10 @@
       "prereqs": [
         "st-unbounded-operators"
       ],
-      "blurb": "Observables in QM are self-adjoint operators whose spectra are measurable energies; eigenvalue problems for elliptic PDE invoke the compact spectral theorem; Fourier transform diagonalizes translation-invariant operators."
+      "blurb": "Observables in QM are self-adjoint operators whose spectra are measurable energies; eigenvalue problems for elliptic PDE invoke the compact spectral theorem; Fourier transform diagonalizes translation-invariant operators.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "st-compact-fredholm",

@@ -81,7 +81,10 @@
       "prereqs": [
         "holomorphic-function"
       ],
-      "blurb": "Visualize $f\\colon\\mathbb{C}\\to\\mathbb{C}$ with hue $=\\arg f(z)$ and lightness encoding $|f(z)|$; zeros and poles appear as rainbow winds counting multiplicity."
+      "blurb": "Visualize $f\\colon\\mathbb{C}\\to\\mathbb{C}$ with hue $=\\arg f(z)$ and lightness encoding $|f(z)|$; zeros and poles appear as rainbow winds counting multiplicity.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "contour-integral",
@@ -144,7 +147,10 @@
       "prereqs": [
         "cauchy-integral-formula"
       ],
-      "blurb": "Bounded entire ⇒ constant."
+      "blurb": "Bounded entire ⇒ constant.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "fta",
@@ -153,7 +159,10 @@
       "prereqs": [
         "liouville"
       ],
-      "blurb": "Every non-constant polynomial over $\\mathbb{C}$ has a root; Liouville's argument applied to $1/p(z)$ makes this a corollary of complex boundedness."
+      "blurb": "Every non-constant polynomial over $\\mathbb{C}$ has a root; Liouville's argument applied to $1/p(z)$ makes this a corollary of complex boundedness.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "maximum-modulus",
@@ -162,7 +171,11 @@
       "prereqs": [
         "cauchy-integral-formula"
       ],
-      "blurb": "Non-constant holomorphic f has no interior max of |f|."
+      "blurb": "Non-constant holomorphic f has no interior max of |f|.",
+      "tags": [
+        "foundation",
+        "classification"
+      ]
     },
     {
       "id": "schwarz-lemma",
@@ -171,7 +184,10 @@
       "prereqs": [
         "maximum-modulus"
       ],
-      "blurb": "For holomorphic $f\\colon\\mathbb{D}\\to\\mathbb{D}$ with $f(0)=0$: $|f(z)|\\le|z|$ and $|f'(0)|\\le 1$; equality forces $f(z)=e^{i\\theta}z$, a rigidity extracted from the maximum modulus principle."
+      "blurb": "For holomorphic $f\\colon\\mathbb{D}\\to\\mathbb{D}$ with $f(0)=0$: $|f(z)|\\le|z|$ and $|f'(0)|\\le 1$; equality forces $f(z)=e^{i\\theta}z$, a rigidity extracted from the maximum modulus principle.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "laurent-series",
@@ -229,7 +245,10 @@
       "prereqs": [
         "argument-principle"
       ],
-      "blurb": "|g| < |f| on γ ⇒ f and f+g have the same number of zeros inside."
+      "blurb": "|g| < |f| on γ ⇒ f and f+g have the same number of zeros inside.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "conformal-map",

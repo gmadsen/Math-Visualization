@@ -49,7 +49,10 @@
         "na-floating-point",
         "banach-hilbert-spaces"
       ],
-      "blurb": "$Ax=b$ via LU $(O(n^3))$, Cholesky for SPD $(\\tfrac12 n^3)$, or QR for least-squares; the condition number $\\kappa(A)=\\|A\\|\\,\\|A^{-1}\\|$ governs how perturbations $\\delta b$ amplify into $\\delta x$. For large sparse $A$, stationary iterations (Jacobi, Gauss–Seidel) converge when the spectral radius of the iteration matrix is $<1$, and Krylov methods (conjugate gradient on SPD systems) reach the solution in $O(\\sqrt{\\kappa})$ iterations."
+      "blurb": "$Ax=b$ via LU $(O(n^3))$, Cholesky for SPD $(\\tfrac12 n^3)$, or QR for least-squares; the condition number $\\kappa(A)=\\|A\\|\\,\\|A^{-1}\\|$ governs how perturbations $\\delta b$ amplify into $\\delta x$. For large sparse $A$, stationary iterations (Jacobi, Gauss–Seidel) converge when the spectral radius of the iteration matrix is $<1$, and Krylov methods (conjugate gradient on SPD systems) reach the solution in $O(\\sqrt{\\kappa})$ iterations.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "na-finite-differences",
