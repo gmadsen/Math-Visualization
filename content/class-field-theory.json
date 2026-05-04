@@ -49,36 +49,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "button-stepper",
-          "params": {
-            "widgetId": "w-cyclo",
-            "title": "Cyclotomic tower &amp; abelian subfields",
-            "hint": "pick $n$ to see $\\mathbb{Q}(\\zeta_n)$ and its subfields",
-            "layout": [
-              {
-                "kind": "raw",
-                "html": "<div class=\"row\">\n    <label for=\"cyclo-n\">n =</label>\n    <select id=\"cyclo-n\"></select>\n    <span class=\"small\" id=\"cyclo-meta\"></span>\n  </div>"
-              },
-              {
-                "kind": "svg",
-                "id": "cyclo-svg",
-                "viewBox": "0 0 620 340",
-                "width": 620,
-                "height": 340,
-                "titleText": "Cyclotomic tower &amp;amp; abelian subfields"
-              },
-              {
-                "kind": "readout",
-                "id": "cyclo-out"
-              },
-              {
-                "kind": "raw",
-                "html": "<div class=\"small\">Every abelian extension of $\\mathbb{Q}$ is a subfield of some $\\mathbb{Q}(\\zeta_n)$ (Kronecker–Weber). Subfields of $\\mathbb{Q}(\\zeta_n)$ correspond to subgroups of $(\\mathbb{Z}/n\\mathbb{Z})^\\times$.</div>"
-              }
-            ],
-            "bodyScript": "  const sel = $('#cyclo-n'), svg = $('#cyclo-svg'), meta = $('#cyclo-meta'), out = $('#cyclo-out');\n  const NS = [3,4,5,6,7,8,9,10,12,15,16,20,24];\n  for(const n of NS){\n    const o = document.createElement('option'); o.value=n; o.textContent='n='+n;\n    sel.appendChild(o);\n  }\n  sel.value = 12;\n\n  function subgroupsOfUnits(n){\n    // list subgroups of (Z/nZ)^* by enumerating subsets closed under *, containing 1\n    const units = [];\n    for(let a=1;a<n;a++) if(gcd(a,n)===1) units.push(a);\n    const U = units.length;\n    // enumerate cyclic subgroups, then close under products\n    const subs = new Map(); // key = sorted list\n    function key(S){ return [...S].sort((a,b)=>a-b).join(','); }\n    function close(seed){\n      const S = new Set([1]);\n      const stack = [...seed];\n      while(stack.length){\n        const x = stack.pop();\n        if(S.has(x)) continue;\n        S.add(x);\n        for(const y of [...S]){\n          const p = mod(x*y, n);\n          if(!S.has(p)) stack.push(p);\n        }\n      }\n      return S;\n    }\n    subs.set('1', new Set([1]));\n    for(const a of units){\n      const S = close([a]);\n      subs.set(key(S), S);\n    }\n    // close under pairwise joins a few times\n    let changed = true, guard=0;\n    while(changed && guard<6){\n      changed=false; guard++;\n      const ks = [...subs.keys()];\n      for(let i=0;i<ks.length;i++) for(let j=i;j<ks.length;j++){\n        const A = subs.get(ks[i]), B = subs.get(ks[j]);\n        const seed = [...A, ...B];\n        const S = close(seed);\n        const k = key(S);\n        if(!subs.has(k)){ subs.set(k, S); changed=true; }\n      }\n    }\n    return [...subs.values()].sort((a,b)=>a.size-b.size);\n  }\n\n  function fixedFieldName(n, H){\n    // symbolic name for fixed field of H in Q(zeta_n)\n    const hs = [...H].sort((a,b)=>a-b);\n    if(hs.length===1 && hs[0]===1) return `Q(ζ_${n})`;\n    const phi = eulerPhi(n);\n    if(hs.length === phi) return `Q`;\n    // degree over Q\n    const deg = phi / hs.length;\n    return `K_${deg} (fix of {${hs.join(',')}})`;\n  }\n\n  function render(){\n    const n = parseInt(sel.value, 10);\n    const phi = eulerPhi(n);\n    meta.textContent = `[Q(ζ_${n}):Q] = φ(${n}) = ${phi}`;\n    svg.innerHTML = '';\n    const subs = subgroupsOfUnits(n);\n    // Draw Hasse-like diagram: top Q(ζ_n), bottom Q; levels by subgroup size\n    const W = 620, H = 340;\n    const byLevel = new Map();\n    for(const S of subs){\n      const lvl = S.size; // bigger subgroup = smaller field\n      if(!byLevel.has(lvl)) byLevel.set(lvl, []);\n      byLevel.get(lvl).push(S);\n    }\n    const levels = [...byLevel.keys()].sort((a,b)=>a-b);\n    const yTop = 40, yBot = H - 40;\n    const pos = new Map(); // key -> [x,y]\n    levels.forEach((lvl, i) => {\n      const row = byLevel.get(lvl);\n      const y = yTop + (yBot - yTop) * (i/(Math.max(1, levels.length-1)));\n      const m = row.length;\n      row.forEach((S, j) => {\n        const x = 60 + (W - 120) * ((j+1)/(m+1));\n        const k = [...S].sort((a,b)=>a-b).join(',');\n        pos.set(k, [x,y,S]);\n      });\n    });\n    // edges: A covers B if A ⊂ B properly and no intermediate\n    const keys = [...pos.keys()];\n    for(let i=0;i<keys.length;i++){\n      const [xa,ya,A] = pos.get(keys[i]);\n      for(let j=0;j<keys.length;j++){\n        if(i===j) continue;\n        const [xb,yb,B] = pos.get(keys[j]);\n        if(A.size >= B.size) continue;\n        let contained = true;\n        for(const x of A) if(!B.has(x)){ contained = false; break; }\n        if(!contained) continue;\n        // check no intermediate\n        let maximal = true;\n        for(let k=0;k<keys.length;k++){\n          if(k===i||k===j) continue;\n          const [,,C] = pos.get(keys[k]);\n          if(C.size <= A.size || C.size >= B.size) continue;\n          let cA = true; for(const x of A) if(!C.has(x)){ cA=false; break; }\n          if(!cA) continue;\n          let cB = true; for(const x of C) if(!B.has(x)){ cB=false; break; }\n          if(cB){ maximal=false; break; }\n        }\n        if(maximal){\n          const line = SVG('line',{x1:xa,y1:ya,x2:xb,y2:yb,stroke:'var(--line)','stroke-width':1.2});\n          svg.appendChild(line);\n        }\n      }\n    }\n    // nodes\n    for(const k of keys){\n      const [x,y,S] = pos.get(k);\n      const name = fixedFieldName(n, S);\n      const isTop = (S.size === 1);\n      const isBot = (S.size === phi);\n      const color = isTop ? 'var(--yellow)' : (isBot ? 'var(--green)' : 'var(--blue)');\n      const rect = SVG('rect', {x:x-56, y:y-14, width:112, height:28, rx:6, ry:6,\n        fill:'var(--panel2)', stroke:color, 'stroke-width':1.4});\n      svg.appendChild(rect);\n      const t = SVG('text',{x, y:y+4, 'text-anchor':'middle','font-size':12, fill:'#fff'});\n      t.textContent = name;\n      svg.appendChild(t);\n    }\n    // annotate degrees along tree from top to cover\n    // readout\n    const abelian = `(Z/${n}Z)* has order ${phi}; all ${subs.length} subgroups of it correspond bijectively to subfields of Q(ζ_${n}).`;\n    out.textContent = abelian;\n  }\n  sel.addEventListener('change', render);\n  render();",
-            "sectionComment": "=========== widget 1: cyclotomic tower ==========="
-          }
+          "ref": "w-cyclo"
         },
         {
           "type": "raw",
@@ -161,36 +132,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "button-stepper",
-          "params": {
-            "widgetId": "w-clsvis",
-            "title": "Class groups of imaginary-quadratic $\\mathbb{Q}(\\sqrt{d})$",
-            "hint": "fundamental discriminants, $|d|\\le 100$",
-            "layout": [
-              {
-                "kind": "raw",
-                "html": "<div class=\"row\">\n    <label>color by class number:</label>\n    <span class=\"chip cls0\">1</span><span class=\"chip cls1\">2</span>\n    <span class=\"chip cls2\">3</span><span class=\"chip cls3\">4</span>\n    <span class=\"chip cls4\">≥5</span>\n  </div>"
-              },
-              {
-                "kind": "raw",
-                "html": "<div id=\"clsvis-grid\" class=\"row\" style=\"gap:.25rem\"></div>"
-              },
-              {
-                "kind": "svg",
-                "id": "clsvis-svg",
-                "viewBox": "0 0 620 200",
-                "width": 620,
-                "height": 200
-              },
-              {
-                "kind": "readout",
-                "id": "clsvis-out",
-                "content": "click any entry"
-              }
-            ],
-            "bodyScript": "  // table of class numbers for imaginary quadratic fields Q(sqrt(d)), d<0 squarefree\n  // (standard small table, widely tabulated)\n  const H = {\n    '-1':1,'-2':1,'-3':1,'-5':2,'-6':2,'-7':1,'-10':2,'-11':1,'-13':2,'-14':4,\n    '-15':2,'-17':4,'-19':1,'-21':4,'-22':2,'-23':3,'-26':6,'-29':6,'-30':4,\n    '-31':3,'-33':4,'-34':4,'-35':2,'-37':2,'-38':6,'-39':4,'-41':8,'-42':4,\n    '-43':1,'-46':4,'-47':5,'-51':2,'-53':6,'-55':4,'-57':4,'-58':2,'-59':3,\n    '-61':6,'-62':8,'-65':8,'-66':8,'-67':1,'-69':8,'-70':4,'-71':7,'-73':4,\n    '-74':10,'-77':8,'-78':8,'-79':5,'-82':4,'-83':3,'-85':4,'-86':10,'-87':6,\n    '-89':12,'-91':2,'-93':4,'-94':8,'-95':8,'-97':4\n  };\n  // squarefree negative d\n  const ds = Object.keys(H).map(Number).sort((a,b)=>b-a); // -1,-2,...\n  const grid = $('#clsvis-grid'), out = $('#clsvis-out'), svg = $('#clsvis-svg');\n\n  // Draw an SVG scatter: x = |d|, y = h_K, colored by class number\n  (function drawScatter(){\n    const W = 620, Hh = 200, padL = 40, padR = 20, padT = 20, padB = 30;\n    const xMax = 100, yMax = 12;\n    const ax = (dd) => padL + (Math.abs(dd)-1)/(xMax-1) * (W - padL - padR);\n    const ay = (hh) => (Hh - padB) - (hh-1)/(yMax-1) * (Hh - padT - padB);\n    // axes\n    svg.appendChild(SVG('line',{x1:padL, y1:Hh-padB, x2:W-padR, y2:Hh-padB, stroke:'var(--line)', 'stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:padL, y1:padT, x2:padL, y2:Hh-padB, stroke:'var(--line)', 'stroke-width':1}));\n    // x ticks every 20\n    for(let x=20;x<=100;x+=20){\n      const px = ax(-x);\n      svg.appendChild(SVG('line',{x1:px, y1:Hh-padB, x2:px, y2:Hh-padB+4, stroke:'var(--mute)', 'stroke-width':1}));\n      const t = SVG('text',{x:px, y:Hh-padB+16,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});\n      t.textContent = '-'+x; svg.appendChild(t);\n    }\n    // y ticks\n    for(let y=1;y<=12;y+=2){\n      const py = ay(y);\n      svg.appendChild(SVG('line',{x1:padL-4, y1:py, x2:padL, y2:py, stroke:'var(--mute)', 'stroke-width':1}));\n      const t = SVG('text',{x:padL-7, y:py+3,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n      t.textContent = y; svg.appendChild(t);\n    }\n    // labels\n    const xl = SVG('text',{x:W/2, y:Hh-5,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    xl.textContent = 'd (fundamental discriminant, d<0)';\n    svg.appendChild(xl);\n    const yl = SVG('text',{x:12, y:Hh/2,'text-anchor':'middle','font-size':11,fill:'var(--mute)','transform':`rotate(-90 12 ${Hh/2})`});\n    yl.textContent = 'h_K';\n    svg.appendChild(yl);\n    // points\n    for(const d of ds){\n      const h = H[d];\n      if(h>yMax) continue;\n      const col = h===1?'var(--green)':(h===2?'var(--pink)':(h===3?'var(--yellow)':(h===4?'var(--blue)':'var(--violet)')));\n      svg.appendChild(SVG('circle',{cx:ax(d), cy:ay(h), r:3.2, fill:col, stroke:'none'}));\n    }\n    // highlight h=1 cases (Heegner numbers within |d|<=100: -1,-2,-3,-7,-11,-19,-43,-67)\n    const heeg = [-1,-2,-3,-7,-11,-19,-43,-67];\n    for(const d of heeg){\n      svg.appendChild(SVG('circle',{cx:ax(d), cy:ay(1), r:6, fill:'none', stroke:'var(--green)', 'stroke-width':1.2}));\n    }\n  })();\n  for(const d of ds){\n    const h = H[d];\n    const cls = h===1?'cls0':(h===2?'cls1':(h===3?'cls2':(h===4?'cls3':'cls4')));\n    const el = document.createElement('span');\n    el.className = 'chip ' + cls;\n    el.style.cursor='pointer';\n    el.textContent = d;\n    el.title = `d=${d}, h=${h}`;\n    el.addEventListener('click', ()=>{\n      const pid = (h===1) ? ' — PID (UFD)' : '';\n      const H_desc = (h===2) ? 'Z/2' : (h===3?'Z/3':(h===4?'Z/2 × Z/2 or Z/4':`order ${h}`));\n      out.textContent = `d = ${d}    K = Q(√${d})    class number h_K = ${h}${pid}\nCl(K) has ${h} element${h===1?'':'s'}  (${H_desc})\nHilbert class field degree [H:K] = ${h}`;\n    });\n    grid.appendChild(el);\n  }\n  // init\n  const first = grid.querySelector('.chip');\n  if(first) first.click();",
-            "sectionComment": "=========== widget 2: imaginary quadratic class groups ==========="
-          }
+          "ref": "w-clsvis"
         },
         {
           "type": "raw",
@@ -264,31 +206,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "button-stepper",
-          "params": {
-            "widgetId": "w-tower",
-            "title": "Hilbert class field tower",
-            "hint": "pick $K$ to see $H/K/\\mathbb{Q}$",
-            "layout": [
-              {
-                "kind": "raw",
-                "html": "<div class=\"row\">\n    <label for=\"tower-K\">K =</label>\n    <select id=\"tower-K\"></select>\n    <span class=\"small\" id=\"tower-meta\"></span>\n  </div>"
-              },
-              {
-                "kind": "svg",
-                "id": "tower-svg",
-                "viewBox": "0 0 620 300",
-                "width": 620,
-                "height": 300
-              },
-              {
-                "kind": "readout",
-                "id": "tower-out"
-              }
-            ],
-            "bodyScript": "  const EXAMPLES = [\n    {d:-5,  h:2, HoverK:'K(√-1)',        HoverQ:'Q(√-5, √-1)',     info:'biquadratic; Cl(K)=Z/2; unramified quadratic cover'},\n    {d:-6,  h:2, HoverK:'K(√-3)',        HoverQ:'Q(√-6, √-3) = Q(√2,√-3)', info:'Cl(K)=Z/2; H abelian over Q of degree 4'},\n    {d:-14, h:4, HoverK:'K(α)',           HoverQ:'Q(√-14, α)',      info:'Cl(K)=Z/4 cyclic; genus field Q(√-14,√2) is the degree-2 subfield'},\n    {d:-23, h:3, HoverK:'K(β), β³-β-1=0',HoverQ:'splitting field of x³-x-1 over K', info:'Cl(K)=Z/3; H/K cyclic of degree 3, generated by a root of x³-x-1'},\n    {d:-15, h:2, HoverK:'K(√5)',          HoverQ:'Q(√-15, √5) = Q(√-3, √5)', info:'Cl(K)=Z/2; genus field = Hilbert class field here'},\n  ];\n  const sel = $('#tower-K'), svg=$('#tower-svg'), meta=$('#tower-meta'), out=$('#tower-out');\n  for(const e of EXAMPLES){\n    const o = document.createElement('option');\n    o.value = e.d; o.textContent = `Q(√${e.d})  (h=${e.h})`;\n    sel.appendChild(o);\n  }\n  sel.value = -5;\n  function render(){\n    const d = parseInt(sel.value,10);\n    const ex = EXAMPLES.find(e=>e.d===d);\n    meta.textContent = `h_K = ${ex.h}, [H:K] = ${ex.h}, [H:Q] = ${2*ex.h}`;\n    svg.innerHTML = '';\n    // three boxes stacked: Q, K, H\n    const cx = 310;\n    const yQ = 250, yK = 160, yH = 60;\n    const box = (y, label, color, hl) => {\n      const r = SVG('rect',{x:cx-120, y:y-20, width:240, height:40, rx:8, ry:8,\n        fill:'var(--panel2)', stroke:hl?'var(--yellow)':color, 'stroke-width':1.6});\n      svg.appendChild(r);\n      const t = SVG('text',{x:cx, y:y+5, 'text-anchor':'middle','font-size':13, fill:'#fff'});\n      t.textContent = label;\n      svg.appendChild(t);\n    };\n    box(yH, `H = ${ex.HoverQ}`, 'var(--yellow)', true);\n    box(yK, `K = Q(√${d})`, 'var(--blue)', false);\n    box(yQ, `Q`, 'var(--green)', false);\n    // edges\n    const edge = (y1, y2, label, col) => {\n      const line = SVG('line',{x1:cx, y1:y1+20, x2:cx, y2:y2-20, stroke:col,'stroke-width':1.4});\n      svg.appendChild(line);\n      const t = SVG('text',{x:cx+12, y:(y1+y2)/2+4, 'font-size':12, fill:col});\n      t.textContent = label;\n      svg.appendChild(t);\n    };\n    edge(yH, yK, `Gal(H/K) ≅ Cl(K), order ${ex.h}, unramified`, 'var(--yellow)');\n    edge(yK, yQ, `Gal(K/Q) = Z/2`, 'var(--mute)');\n    // side\n    const side = SVG('text',{x:cx+170, y:(yH+yQ)/2, 'font-size':12, fill:'var(--mute)'});\n    side.textContent = `[H:Q] = ${2*ex.h}`;\n    svg.appendChild(side);\n\n    out.textContent =\n`K = Q(√${d}),  h_K = ${ex.h}\nH (Hilbert class field) = ${ex.HoverK}\n  = ${ex.HoverQ} over Q\nGal(H/K) ≅ Cl(K) has order ${ex.h}\nNote: ${ex.info}`;\n  }\n  sel.addEventListener('change', render);\n  render();",
-            "sectionComment": "=========== widget 3: Hilbert class field tower ==========="
-          }
+          "ref": "w-tower"
         },
         {
           "type": "raw",
@@ -359,32 +277,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "button-stepper",
-          "params": {
-            "widgetId": "w-artin",
-            "title": "Artin-map box",
-            "hint": "input a prime $p$; read off its Frobenius",
-            "layout": [
-              {
-                "kind": "raw",
-                "html": "<div class=\"row\">\n    <label for=\"artin-ext\">Extension:</label>\n    <select id=\"artin-ext\">\n      <option value=\"cyc8\">L = Q(ζ_8) / K = Q,  Gal = (Z/8)*  ≅ Z/2 × Z/2</option>\n      <option value=\"cyc12\">L = Q(ζ_12) / K = Q,  Gal = (Z/12)* ≅ Z/2 × Z/2</option>\n      <option value=\"cyc5\">L = Q(ζ_5) / K = Q,  Gal = (Z/5)*  ≅ Z/4</option>\n      <option value=\"hcf5\">L = Q(√-5, i) / K = Q(√-5)  (Hilbert class field),  Gal ≅ Z/2</option>\n    </select>\n  </div>"
-              },
-              {
-                "kind": "raw",
-                "html": "<div class=\"row\">\n    <label for=\"artin-p\">prime p =</label>\n    <input type=\"number\" id=\"artin-p\" value=\"13\" min=\"2\" max=\"997\" style=\"width:6em\">\n    <button id=\"artin-go\">compute Frobenius</button>\n    <button id=\"artin-random\">random prime</button>\n  </div>"
-              },
-              {
-                "kind": "readout",
-                "id": "artin-out"
-              },
-              {
-                "kind": "raw",
-                "html": "<div class=\"small\">The Artin map factors through a ray class group. For $\\mathbb{Q}(\\zeta_n)/\\mathbb{Q}$ the conductor is $n\\cdot\\infty$, so $\\mathrm{Frob}_p$ depends only on $p\\bmod n$.</div>"
-              }
-            ],
-            "bodyScript": "  const sel=$('#artin-ext'), pin=$('#artin-p'), go=$('#artin-go'), rnd=$('#artin-random'), out=$('#artin-out');\n\n  function compute(ext, p){\n    if(!isPrime(p)) return {ok:false, msg:`${p} is not prime`};\n    if(ext === 'cyc8'){\n      if(p===2) return {ok:false, msg:`p=2 is ramified in Q(ζ_8) — conductor is 8·∞`};\n      const r = mod(p, 8);\n      const name = {1:'id', 3:'σ_3', 5:'σ_5', 7:'σ_7'}[r];\n      const split = (r===1) ? 'splits completely' : 'inert in at least one subfield';\n      return {ok:true, msg:\n`p = ${p}, p mod 8 = ${r}\nFrob_p = ${name} ∈ Gal(Q(ζ_8)/Q) = (Z/8)*\nζ_8 ↦ ζ_8^${r}\n${r===1?'p splits completely in Q(ζ_8)':'p does not split completely'}` };\n    }\n    if(ext === 'cyc12'){\n      if(p===2 || p===3) return {ok:false, msg:`p=${p} is ramified in Q(ζ_12) — conductor is 12·∞`};\n      const r = mod(p, 12);\n      const name = 'σ_'+r;\n      return {ok:true, msg:\n`p = ${p}, p mod 12 = ${r}\nFrob_p = ${name} ∈ Gal(Q(ζ_12)/Q) ≅ (Z/12)* = {1,5,7,11}\nζ_12 ↦ ζ_12^${r}\n${r===1?'p splits completely':'p has residue degree = order of '+r+' in (Z/12)*'}`};\n    }\n    if(ext === 'cyc5'){\n      if(p===5) return {ok:false, msg:`p=5 is ramified in Q(ζ_5)`};\n      const r = mod(p, 5);\n      // order of r in (Z/5)^* (cyclic of order 4)\n      let k=1, cur=r; while(cur!==1){ cur=mod(cur*r,5); k++; if(k>5) break; }\n      return {ok:true, msg:\n`p = ${p}, p mod 5 = ${r}\nFrob_p = σ_${r},  order ${k} in (Z/5)* ≅ Z/4\nresidue degree f = ${k},  number of primes above p = ${4/k}\n${k===1?'p splits completely':(k===4?'p is inert':'p partially splits')}`};\n    }\n    if(ext === 'hcf5'){\n      // K = Q(sqrt(-5)), H = K(i) = Q(sqrt(-5), i); Gal(H/K) = Z/2\n      // A prime p of Q, unramified means p ≠ 2, 5. Behavior:\n      //  - first split/inert in K depending on Legendre (-5|p)\n      //  - Frobenius in Gal(H/K) is determined by whether the primes of K above p are principal\n      if(p===2 || p===5) return {ok:false, msg:`p=${p} is ramified in K = Q(√-5)`};\n      const leg = legendre(-5, p);\n      if(leg === -1){\n        // inert in K; there is a unique prime P of K above p with residue field F_{p^2}\n        // Frobenius in Gal(H/K) acts on i: i ↦ i^{p^2} = i (since p odd). So Frob = id.\n        return {ok:true, msg:\n`p = ${p}: (-5 | p) = -1,  p inert in K = Q(√-5)\nUnique prime P of K above p, N(P) = p²\nIn H = K(i): i ↦ i^{p²} = i\nFrob_P = id ∈ Gal(H/K)\n⇒ P is principal in Cl(K) = Z/2 (inert primes of Q have trivial class)`};\n      } else {\n        // split in K: p = p1 p2. Need to know whether p1 is principal in Cl(K).\n        // For Q(sqrt(-5)): a split prime p is principal iff p is represented by x^2+5y^2,\n        // non-principal iff p = 2x^2+2xy+3y^2 (equivalently p ≡ 1, 9 mod 20 principal;\n        // p ≡ 3, 7 mod 20 non-principal), among those split (p ≡ 1,3,7,9 mod 20).\n        const r = mod(p, 20);\n        const principal = (r===1 || r===9);\n        return {ok:true, msg:\n`p = ${p}: (-5 | p) = +1,  p splits in K = Q(√-5):  (p) = p₁ p₂\np mod 20 = ${r}  ⇒  ${principal?'represented by x²+5y²':'represented by 2x²+2xy+3y²'}\np₁ is ${principal?'principal':'non-principal'} in Cl(K) = Z/2\nIn H = K(i):  Frob_{p₁} = ${principal?'id':'non-trivial generator'} of Gal(H/K)\n⇒ p₁ ${principal?'splits further in H':'is inert in H/K'}`};\n      }\n    }\n    return {ok:false, msg:'unknown extension'};\n  }\n\n  function run(){\n    const ext = sel.value;\n    const p = parseInt(pin.value, 10);\n    const res = compute(ext, p);\n    out.textContent = res.msg;\n  }\n  go.addEventListener('click', run);\n  rnd.addEventListener('click', ()=>{\n    // pick a random prime in [3, 200]\n    const P = primesUpTo(200).filter(q => q>=3);\n    pin.value = P[Math.floor(Math.random()*P.length)];\n    run();\n  });\n  sel.addEventListener('change', run);\n  run();",
-            "sectionComment": "=========== widget 4: Artin map ==========="
-          }
+          "ref": "w-artin"
         },
         {
           "type": "raw",
@@ -458,35 +351,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "button-stepper",
-          "params": {
-            "widgetId": "w-conductor",
-            "title": "Ray class / conductor slider",
-            "hint": "$K=\\mathbb{Q}$: ray class group of conductor $n\\cdot\\infty$",
-            "layout": [
-              {
-                "kind": "raw",
-                "html": "<div class=\"row\">\n    <label for=\"cond-n\">conductor n =</label>\n    <input type=\"range\" id=\"cond-n\" min=\"1\" max=\"30\" value=\"12\">\n    <span id=\"cond-nval\" class=\"small\"></span>\n  </div>"
-              },
-              {
-                "kind": "svg",
-                "id": "cond-svg",
-                "viewBox": "0 0 620 200",
-                "width": 620,
-                "height": 200
-              },
-              {
-                "kind": "readout",
-                "id": "cond-out"
-              },
-              {
-                "kind": "raw",
-                "html": "<div class=\"small\">For $K=\\mathbb{Q}$, $\\operatorname{Cl}_{n\\infty}(\\mathbb{Q})=(\\mathbb{Z}/n)^\\times$ and the ray class field of conductor $n\\infty$ is $\\mathbb{Q}(\\zeta_n)$. Abelian $L/\\mathbb{Q}$ of conductor dividing $n$ $\\Leftrightarrow$ $L\\subset\\mathbb{Q}(\\zeta_n)$.</div>"
-              }
-            ],
-            "bodyScript": "  const rng = $('#cond-n'), val = $('#cond-nval'), svg = $('#cond-svg'), out=$('#cond-out');\n  function render(){\n    const n = parseInt(rng.value,10);\n    const phi = eulerPhi(n);\n    val.textContent = `n = ${n}`;\n    svg.innerHTML = '';\n    // Draw: bar of integers 0..n-1, highlighting units\n    const W = 620, H = 200;\n    const pad = 40;\n    const cells = Math.min(n, 30);\n    const cw = (W - 2*pad) / Math.max(cells, 1);\n    const y = 80, ch = 28;\n    // label\n    const lab = SVG('text',{x:pad, y:50, 'font-size':13, fill:'var(--mute)'});\n    lab.textContent = `Z/${n}Z with units highlighted — these are the elements of Cl_{n∞}(Q) = (Z/${n})* of order ${phi}`;\n    svg.appendChild(lab);\n    for(let i=0;i<cells;i++){\n      const x = pad + i*cw;\n      const u = (gcd(i, n)===1);\n      const fill = u ? '#2a241a' : 'var(--panel2)';\n      const stroke = u ? 'var(--yellow)' : 'var(--line)';\n      svg.appendChild(SVG('rect',{x, y, width:cw-2, height:ch, fill, stroke, 'stroke-width':1}));\n      const t = SVG('text',{x:x+cw/2-1, y:y+ch/2+4,'text-anchor':'middle','font-size':11,\n        fill: u? 'var(--yellow)' : 'var(--mute)'});\n      t.textContent = i;\n      svg.appendChild(t);\n    }\n    // summary\n    const t2 = SVG('text',{x:pad, y:y+ch+30, 'font-size':12, fill:'var(--ink)'});\n    t2.textContent = `φ(${n}) = ${phi}  ⇒  [Q(ζ_${n}):Q] = ${phi}`;\n    svg.appendChild(t2);\n    const t3 = SVG('text',{x:pad, y:y+ch+52, 'font-size':12, fill:'var(--mute)'});\n    const divs = divisors(n);\n    t3.textContent = `Abelian L/Q with conductor | ${n}·∞  ⇔  L ⊂ Q(ζ_${n});  subfields correspond to subgroups of (Z/${n})*`;\n    svg.appendChild(t3);\n\n    out.textContent =\n`conductor  n·∞  (with n = ${n})\nray class group  Cl_{n∞}(Q)  = (Z/${n})*  of order φ(${n}) = ${phi}\nray class field  Q(n∞) = Q(ζ_${n})  with Gal(Q(ζ_${n})/Q) = (Z/${n})*\ndivisors of ${n}: ${divs.join(', ')}  — each corresponds to a subfield`;\n  }\n  rng.addEventListener('input', render);\n  render();",
-            "sectionComment": "=========== widget 5: ray class / conductor slider ==========="
-          }
+          "ref": "w-conductor"
         },
         {
           "type": "raw",
@@ -591,31 +456,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "button-stepper",
-          "params": {
-            "widgetId": "w-qr",
-            "title": "Quadratic reciprocity via Frobenius",
-            "hint": "verify $\\bigl(\\tfrac{q^*}{p}\\bigr) = \\bigl(\\tfrac{p}{q}\\bigr)$",
-            "layout": [
-              {
-                "kind": "raw",
-                "html": "<div class=\"row\">\n    <label for=\"qr-q\">q =</label>\n    <select id=\"qr-q\"></select>\n    <span class=\"small\" id=\"qr-qstar\"></span>\n  </div>"
-              },
-              {
-                "kind": "svg",
-                "id": "qr-svg",
-                "viewBox": "0 0 620 260",
-                "width": 620,
-                "height": 260
-              },
-              {
-                "kind": "readout",
-                "id": "qr-out"
-              }
-            ],
-            "bodyScript": "  const qsel = $('#qr-q'), svg=$('#qr-svg'), out=$('#qr-out'), meta=$('#qr-qstar');\n  const qs = [3,5,7,11,13,17,19,23];\n  for(const q of qs){\n    const o = document.createElement('option'); o.value=q; o.textContent='q='+q;\n    qsel.appendChild(o);\n  }\n  qsel.value=5;\n  function render(){\n    const q = parseInt(qsel.value,10);\n    const qstar = ((q%4)===1) ? q : -q;\n    meta.textContent = `q* = ${qstar},  Q(√${qstar}) ⊂ Q(ζ_${q})`;\n    svg.innerHTML = '';\n    // draw diagram: Q(ζ_q) top, Q(√q*) middle, Q bottom; and arrow from (Z/q)^* -> {±1}\n    const cx = 200;\n    const box = (x, y, w, h, label, color) => {\n      svg.appendChild(SVG('rect',{x, y, width:w, height:h, rx:6, ry:6,\n        fill:'var(--panel2)', stroke:color, 'stroke-width':1.4}));\n      const t = SVG('text',{x:x+w/2, y:y+h/2+4, 'text-anchor':'middle','font-size':12,fill:'#fff'});\n      t.textContent=label; svg.appendChild(t);\n    };\n    box(cx-110, 20, 220, 34, `Q(ζ_${q})   (degree ${q-1})`, 'var(--yellow)');\n    box(cx-110, 100, 220, 34, `Q(√${qstar})  (degree 2)`, 'var(--blue)');\n    box(cx-110, 180, 220, 34, `Q`, 'var(--green)');\n    svg.appendChild(SVG('line',{x1:cx,y1:54, x2:cx,y2:100, stroke:'var(--line)','stroke-width':1.4}));\n    svg.appendChild(SVG('line',{x1:cx,y1:134, x2:cx,y2:180, stroke:'var(--line)','stroke-width':1.4}));\n    // right: Galois groups\n    const gt = (x,y,s) => {\n      const t = SVG('text',{x, y, 'font-size':12, fill:'var(--mute)'}); t.textContent = s; svg.appendChild(t);\n    };\n    gt(cx+130, 80, `(Z/${q})*`);\n    gt(cx+130, 160, `{±1}`);\n    // arrow (Z/q)^* -> {±1}, the Legendre sign\n    svg.appendChild(SVG('line',{x1:cx+155,y1:88, x2:cx+155, y2:150, stroke:'var(--yellow)','stroke-width':1.4,'marker-end':'url(#qrarr)'}));\n    ensureArrow(svg, 'qrarr', 'var(--yellow)');\n    gt(cx+165, 120, `( · / ${q})`);\n\n    // compute a table of small p, showing Frob_p and (q*/p) = (p/q)\n    const primesSample = primesUpTo(60).filter(p => p!==q && p>2);\n    let txt = `q = ${q},  q* = ${qstar}\\n`;\n    txt += `Claim: for p ≠ 2, q,  (q*/p) = Frob_p in Gal(Q(√q*)/Q) = depends only on p mod ${q}\\n\\n`;\n    txt += `p  | p mod ${q} | (p/q) | (q*/p) | Frob_p\\n`;\n    txt += `---+---------+-------+--------+-------\\n`;\n    for(const p of primesSample.slice(0, 10)){\n      const pm = mod(p, q);\n      const lpq = legendre(p, q);\n      const lqp = legendre(qstar, p);\n      const frob = lqp===1 ? 'id' : 'σ';\n      txt += `${String(p).padStart(2)} | ${String(pm).padStart(7)} | ${String(lpq).padStart(5)} | ${String(lqp).padStart(6)} | ${frob}\\n`;\n    }\n    txt += `\\n(p/q) = (q*/p) in every row  ⇒  quadratic reciprocity.`;\n    out.textContent = txt;\n  }\n  qsel.addEventListener('change', render);\n  render();",
-            "sectionComment": "=========== widget 6: QR via Frobenius ==========="
-          }
+          "ref": "w-qr"
         },
         {
           "type": "raw",
@@ -705,42 +546,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "button-stepper",
-          "forWidget": "w-langlands",
-          "params": {
-            "sectionComment": "=========== widget 7: abelian/non-abelian dictionary ===========",
-            "bodyScript": "  const ba=$('#lang-ab'), bn=$('#lang-non'), svg=$('#lang-svg'), out=$('#lang-out');\n  let mode = 'ab';\n\n  function render(){\n    svg.innerHTML = '';\n    ba.classList.toggle('active', mode==='ab');\n    bn.classList.toggle('active', mode==='non');\n    // left: arithmetic box, right: automorphic box, an arrow between\n    const boxL = [40, 60, 240, 160];  // x,y,w,h\n    const boxR = [340, 60, 240, 160];\n    const rect = (b, color, hdr, body) => {\n      svg.appendChild(SVG('rect',{x:b[0], y:b[1], width:b[2], height:b[3], rx:8, ry:8,\n        fill:'var(--panel2)', stroke:color, 'stroke-width':1.6}));\n      const t1 = SVG('text',{x:b[0]+b[2]/2, y:b[1]+24,'text-anchor':'middle','font-size':13,fill:color,'font-weight':700});\n      t1.textContent = hdr; svg.appendChild(t1);\n      const lines = body;\n      lines.forEach((ln,i)=>{\n        const t = SVG('text',{x:b[0]+12, y:b[1]+48+i*20,'font-size':12,fill:'var(--ink)'});\n        t.textContent = ln; svg.appendChild(t);\n      });\n    };\n    if(mode === 'ab'){\n      rect(boxL, 'var(--yellow)', 'Arithmetic', [\n        'abelian extensions L/K',\n        'G_K^ab  (abelianized Galois)',\n        '1-dim Galois reps ρ: G_K → C*',\n        'ideal / ray class groups'\n      ]);\n      rect(boxR, 'var(--cyan)', 'Automorphic', [\n        'idèle-class characters',\n        'C_K = A_K* / K*',\n        'Hecke characters  χ: C_K → C*',\n        '(= Größencharaktere)'\n      ]);\n      // arrow\n      ensureArrow(svg,'ablarr','var(--green)');\n      svg.appendChild(SVG('path',{d:`M ${boxL[0]+boxL[2]} ${boxL[1]+boxL[3]/2} Q 310 ${boxL[1]+boxL[3]/2 - 28} ${boxR[0]} ${boxR[1]+boxR[3]/2}`,\n        fill:'none', stroke:'var(--green)', 'stroke-width':2, 'marker-end':'url(#ablarr)'}));\n      const t = SVG('text',{x:310, y:boxL[1]+boxL[3]/2 - 20, 'text-anchor':'middle','font-size':13,fill:'var(--green)','font-style':'italic'});\n      t.textContent = 'Class field theory';\n      svg.appendChild(t);\n      const sub = SVG('text',{x:310, y:boxL[1]+boxL[3]/2 - 4, 'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      sub.textContent = '(proved, 1920s–30s)';\n      svg.appendChild(sub);\n\n      out.textContent =\n`Abelian case  (class field theory).\n   arithmetic side:   characters of  G_K^ab\n   automorphic side:  characters of  C_K\nEquivalence realised by the Artin map  θ_K: C_K → G_K^ab.\nL-functions match: Artin L-function (Galois) = Hecke L-function (analytic).`;\n    } else {\n      rect(boxL, 'var(--pink)', 'Arithmetic', [\n        'non-abelian ext. of K',\n        'full Galois group G_K',\n        'n-dim reps ρ: G_K → GL_n(C)',\n        'ℓ-adic reps from cohomology'\n      ]);\n      rect(boxR, 'var(--violet)', 'Automorphic', [\n        'automorphic forms on',\n        'GL_n(A_K)',\n        '= modular forms, Maass forms,',\n        '   automorphic representations'\n      ]);\n      ensureArrow(svg,'nonarr','var(--pink)');\n      svg.appendChild(SVG('path',{d:`M ${boxL[0]+boxL[2]} ${boxL[1]+boxL[3]/2} Q 310 ${boxL[1]+boxL[3]/2 - 28} ${boxR[0]} ${boxR[1]+boxR[3]/2}`,\n        fill:'none', stroke:'var(--pink)', 'stroke-width':2, 'marker-end':'url(#nonarr)','stroke-dasharray':'6 4'}));\n      const t = SVG('text',{x:310, y:boxL[1]+boxL[3]/2 - 20, 'text-anchor':'middle','font-size':13,fill:'var(--pink)','font-style':'italic'});\n      t.textContent = 'Langlands program';\n      svg.appendChild(t);\n      const sub = SVG('text',{x:310, y:boxL[1]+boxL[3]/2 - 4, 'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n      sub.textContent = '(conjectural in general)';\n      svg.appendChild(sub);\n\n      out.textContent =\n`Non-abelian case  (Langlands program).\n   arithmetic side:   n-dim Galois representations\n   automorphic side:  automorphic rep'ns of GL_n(A_K)\nProved: GL_n over function fields (Drinfeld n=2; Lafforgue general).\nPartial over number fields: modularity of elliptic curves over Q;\n    potential modularity for Q(√d);  etc.\nL-functions match when the correspondence holds: Artin L = automorphic L.`;\n    }\n  }\n  ba.addEventListener('click', ()=>{ mode='ab'; render(); });\n  bn.addEventListener('click', ()=>{ mode='non'; render(); });\n  render();",
-            "widgetId": "w-langlands",
-            "title": "Abelian vs non-abelian: what CFT and Langlands say",
-            "layout": [
-              {
-                "kind": "row",
-                "buttons": [
-                  {
-                    "id": "lang-ab",
-                    "label": "abelian (CFT)",
-                    "className": "active"
-                  },
-                  {
-                    "id": "lang-non",
-                    "label": "non-abelian (Langlands)"
-                  }
-                ]
-              },
-              {
-                "kind": "svg",
-                "id": "lang-svg",
-                "viewBox": "0 0 620 280",
-                "width": 620,
-                "height": 280
-              },
-              {
-                "kind": "readout",
-                "id": "lang-out"
-              }
-            ],
-            "hint": "toggle to compare"
-          }
+          "ref": "w-langlands"
         },
         {
           "type": "raw",

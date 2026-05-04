@@ -81,42 +81,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "parametric-plot",
-          "params": {
-            "interaction": "single-mode",
-            "widgetId": "w-germ",
-            "svgId": "germ-svg",
-            "outputId": "germ-out",
-            "title": "Re-expansion widget",
-            "hint": "move $a$ inside $|z|<1$; watch the new disk escape",
-            "viewBox": "0 0 620 360",
-            "svgWidth": 620,
-            "svgHeight": 360,
-            "sliders": [
-              {
-                "id": "germ-ax",
-                "outId": "germ-ax-out",
-                "label": "$a$ (drag center):",
-                "min": -0.95,
-                "max": 0.95,
-                "step": 0.01,
-                "init": 0.5,
-                "initReadout": "Re a = 0.50"
-              },
-              {
-                "id": "germ-ay",
-                "outId": "germ-ay-out",
-                "label": "Im $a$:",
-                "min": -0.95,
-                "max": 0.95,
-                "step": 0.01,
-                "init": 0,
-                "initReadout": "Im a = 0.00"
-              }
-            ],
-            "sectionComment": "========== Section 1: re-expansion disk widget ==========",
-            "bodyScript": "  const svg=$('#germ-svg'), out=$('#germ-out');\n  const axs=$('#germ-ax'), ays=$('#germ-ay'), axo=$('#germ-ax-out'), ayo=$('#germ-ay-out');\n  const W=620, H=360;\n  const cx=310, cy=180, sc=150;  // scale: 1 unit -> 150px\n  function toPx(z){ return [cx + sc*z[0], cy - sc*z[1]]; }\n  function draw(){\n    svg.innerHTML='';\n    // axes\n    svg.appendChild(SVG('line',{x1:20,y1:cy,x2:W-20,y2:cy,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)','stroke-width':1}));\n    // original disk D(0,1)\n    svg.appendChild(SVG('circle',{cx:cx,cy:cy,r:sc*1,fill:'none',stroke:'var(--violet)','stroke-width':1.5,'stroke-dasharray':'4,4',opacity:0.7}));\n    // original center\n    svg.appendChild(SVG('circle',{cx:cx,cy:cy,r:3,fill:'var(--violet)'}));\n    const t0 = SVG('text',{x:cx+6,y:cy-6,'font-size':12,fill:'var(--violet)'}); t0.textContent='0'; svg.appendChild(t0);\n    // singularity at 1\n    const p1 = toPx([1,0]);\n    svg.appendChild(SVG('circle',{cx:p1[0],cy:p1[1],r:4,fill:'var(--pink)'}));\n    const t1 = SVG('text',{x:p1[0]+8,y:p1[1]-8,'font-size':13,fill:'var(--pink)'}); t1.textContent='z=1 (pole)'; svg.appendChild(t1);\n    // center a\n    const ax=parseFloat(axs.value), ay=parseFloat(ays.value);\n    const a=[ax,ay];\n    const pa=toPx(a);\n    // New radius = |1 - a|\n    const R = Math.hypot(1-ax, -ay);\n    svg.appendChild(SVG('circle',{cx:pa[0],cy:pa[1],r:sc*R,fill:'none',stroke:'var(--yellow)','stroke-width':1.8}));\n    svg.appendChild(SVG('circle',{cx:pa[0],cy:pa[1],r:4,fill:'var(--yellow)'}));\n    const ta = SVG('text',{x:pa[0]+6,y:pa[1]-8,'font-size':12,fill:'var(--yellow)'}); ta.textContent='a'; svg.appendChild(ta);\n    // legend\n    axo.textContent = 'Re a = ' + ax.toFixed(2);\n    ayo.textContent = 'Im a = ' + ay.toFixed(2);\n    // Does new disk cover points outside |z|=1?\n    const reachesOut = R > (1 - Math.hypot(ax,ay)) + 0.01;\n    const excess = Math.max(0, R - (1 - Math.hypot(ax,ay)));\n    out.textContent =\n      'Re-expansion of 1/(1-z) at a gives a series with radius R = |1-a| = ' + R.toFixed(3) + '.\\n' +\n      'Distance from a to ∂D(0,1): ' + (1 - Math.hypot(ax,ay)).toFixed(3) + '.\\n' +\n      (reachesOut\n        ? 'The new disk ESCAPES the original — continuation reaches points outside |z|<1, excess radius ≈ ' + excess.toFixed(3) + '.'\n        : 'The new disk lies inside the original — no new ground covered yet.');\n  }\n  axs.addEventListener('input',draw);\n  ays.addEventListener('input',draw);\n  draw();"
-          }
+          "ref": "w-germ"
         },
         {
           "type": "raw",
@@ -196,32 +161,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "parametric-plot",
-          "params": {
-            "interaction": "single-mode",
-            "widgetId": "w-chain",
-            "svgId": "chain-svg",
-            "outputId": "chain-out",
-            "title": "Chain of disks along a path",
-            "hint": "drag the slider to sweep the path; watch the radius shrink near $z=1$",
-            "viewBox": "0 0 620 360",
-            "svgWidth": 620,
-            "svgHeight": 360,
-            "sliders": [
-              {
-                "id": "chain-t",
-                "outId": "chain-tout",
-                "label": "path parameter $t$:",
-                "min": 0,
-                "max": 1,
-                "step": 0.005,
-                "init": 0.5,
-                "initReadout": "t = 0.50"
-              }
-            ],
-            "sectionComment": "========== Section 2: chain of disks widget ==========",
-            "bodyScript": "  const svg=$('#chain-svg'), out=$('#chain-out'), tin=$('#chain-t'), tout=$('#chain-tout');\n  const W=620, H=360, cx=310, cy=180, sc=130;\n  function toPx(z){ return [cx + sc*z[0], cy - sc*z[1]]; }\n  // path goes from z = -0.7 to z = +0.9, straight line, aiming toward the pole at z=1\n  function pathAt(t){ return [-0.7 + t*1.6, 0.2]; }\n  function draw(){\n    svg.innerHTML='';\n    // axes\n    svg.appendChild(SVG('line',{x1:20,y1:cy,x2:W-20,y2:cy,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:cx,y1:20,x2:cx,y2:H-20,stroke:'var(--line)','stroke-width':1}));\n    // pole at z=1\n    const p1 = toPx([1,0]);\n    svg.appendChild(SVG('circle',{cx:p1[0],cy:p1[1],r:5,fill:'var(--pink)'}));\n    const t1 = SVG('text',{x:p1[0]+8,y:p1[1]-8,'font-size':13,fill:'var(--pink)'}); t1.textContent='z=1 (pole)'; svg.appendChild(t1);\n    // full path\n    const P0=toPx(pathAt(0)), P1=toPx(pathAt(1));\n    svg.appendChild(SVG('line',{x1:P0[0],y1:P0[1],x2:P1[0],y2:P1[1],stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'3,3'}));\n    // chain of disks: greedy — always jump to the boundary of the current disk\n    const t = parseFloat(tin.value);\n    const maxT = t;\n    const centers = [];\n    let cur = 0;\n    centers.push(pathAt(0));\n    let safety = 0;\n    while(cur < maxT && safety < 200){\n      safety++;\n      const c = pathAt(cur);\n      const R = Math.hypot(1-c[0], -c[1]);  // radius of convergence when expanded at c\n      // step length along path in world units: path speed is 1.6 per unit t\n      // step in t such that distance = 0.85 R\n      const stepDist = 0.85 * R;\n      const step = Math.min(maxT - cur, stepDist / 1.6);\n      cur += step;\n      if(step < 1e-4) break;\n      centers.push(pathAt(cur));\n    }\n    // draw disks\n    centers.forEach((c, k) => {\n      const pc = toPx(c);\n      const R = Math.hypot(1-c[0], -c[1]);\n      const color = k === centers.length-1 ? 'var(--yellow)' : 'var(--blue)';\n      const op = k === centers.length-1 ? 0.28 : 0.12;\n      svg.appendChild(SVG('circle',{cx:pc[0],cy:pc[1],r:sc*R,fill:color,'fill-opacity':op,stroke:color,'stroke-width':1,opacity:0.8}));\n      svg.appendChild(SVG('circle',{cx:pc[0],cy:pc[1],r:3,fill:color}));\n    });\n    // current position marker\n    const ct = pathAt(t), pct = toPx(ct);\n    svg.appendChild(SVG('circle',{cx:pct[0],cy:pct[1],r:5,fill:'var(--green)',stroke:'#000','stroke-width':1}));\n    const tx = SVG('text',{x:pct[0]+8,y:pct[1]+16,'font-size':12,fill:'var(--green)'}); tx.textContent='γ(t)'; svg.appendChild(tx);\n    // readout\n    tout.textContent = 't = ' + t.toFixed(2);\n    const lastC = centers[centers.length-1];\n    const lastR = Math.hypot(1-lastC[0], -lastC[1]);\n    out.textContent =\n      'Chain length: ' + centers.length + ' disks.\\n' +\n      'Current radius at γ(t): R = |1 − γ(t)| = ' + lastR.toFixed(3) + '.\\n' +\n      (t > 0.95\n        ? 'Near the pole z=1 the radii shrink — but the chain still continues f = 1/(1−z).'\n        : 'Each re-expansion step jumps ≈ 0.85·R along the path; the chain advances.');\n  }\n  tin.addEventListener('input',draw);\n  draw();"
-          }
+          "ref": "w-chain"
         },
         {
           "type": "raw",
@@ -293,32 +233,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "parametric-plot",
-          "params": {
-            "interaction": "single-mode",
-            "widgetId": "w-mono",
-            "svgId": "mono-svg",
-            "outputId": "mono-out",
-            "title": "Monodromy of log around 0",
-            "hint": "drag the slider to walk a loop; watch $\\mathrm{Im}\\log z$ climb by $2\\pi$",
-            "viewBox": "0 0 620 360",
-            "svgWidth": 620,
-            "svgHeight": 360,
-            "sliders": [
-              {
-                "id": "mono-t",
-                "outId": "mono-tout",
-                "label": "path (fraction of loop):",
-                "min": 0,
-                "max": 2,
-                "step": 0.005,
-                "init": 0.5,
-                "initReadout": "t = 0.50 turns"
-              }
-            ],
-            "sectionComment": "========== Section 3: monodromy of log ==========",
-            "bodyScript": "  const svg=$('#mono-svg'), out=$('#mono-out'), tin=$('#mono-t'), tout=$('#mono-tout');\n  const W=620, H=360;\n  // LEFT: z-plane with loop | RIGHT: Im log plot\n  const L = {cx:170, cy:180, sc:110};\n  const R = {x0:360, y0:330, xw:230, yh:280};  // plot area\n  function toL(z){ return [L.cx + L.sc*z[0], L.cy - L.sc*z[1]]; }\n  function draw(){\n    svg.innerHTML='';\n    const tmax = parseFloat(tin.value);  // number of turns (0..2)\n    // --- left: z plane ---\n    // axes\n    svg.appendChild(SVG('line',{x1:40,y1:L.cy,x2:320,y2:L.cy,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:L.cx,y1:50,x2:L.cx,y2:310,stroke:'var(--line)'}));\n    // branch point at 0\n    svg.appendChild(SVG('circle',{cx:L.cx,cy:L.cy,r:5,fill:'var(--pink)'}));\n    const t0 = SVG('text',{x:L.cx+8,y:L.cy-8,'font-size':12,fill:'var(--pink)'}); t0.textContent='0'; svg.appendChild(t0);\n    // unit circle dashed\n    svg.appendChild(SVG('circle',{cx:L.cx,cy:L.cy,r:L.sc,fill:'none',stroke:'var(--mute)','stroke-width':1,'stroke-dasharray':'3,3'}));\n    // the traced arc\n    const arcPts = [];\n    const N = Math.max(6, Math.round(200 * tmax));\n    for(let k=0;k<=N;k++){\n      const tt = tmax * k / N;\n      const theta = 2*Math.PI * tt;\n      arcPts.push(toL([Math.cos(theta), Math.sin(theta)]));\n    }\n    let dpath = 'M ' + arcPts[0][0] + ' ' + arcPts[0][1];\n    for(let k=1;k<arcPts.length;k++) dpath += ' L ' + arcPts[k][0] + ' ' + arcPts[k][1];\n    svg.appendChild(SVG('path',{d:dpath, stroke:'var(--yellow)','stroke-width':2,fill:'none'}));\n    // endpoint marker\n    const ep = arcPts[arcPts.length-1];\n    svg.appendChild(SVG('circle',{cx:ep[0],cy:ep[1],r:5,fill:'var(--yellow)',stroke:'#000'}));\n    // starting point\n    const sp = toL([1,0]);\n    svg.appendChild(SVG('circle',{cx:sp[0],cy:sp[1],r:4,fill:'var(--blue)'}));\n    const ts = SVG('text',{x:sp[0]+6,y:sp[1]+16,'font-size':11,fill:'var(--blue)'}); ts.textContent='z₀=1'; svg.appendChild(ts);\n    const tl = SVG('text',{x:80,y:70,'font-size':12,fill:'var(--mute)'}); tl.textContent='z-plane'; svg.appendChild(tl);\n\n    // --- right: Im log(z) vs t ---\n    // axes\n    svg.appendChild(SVG('line',{x1:R.x0,y1:R.y0,x2:R.x0+R.xw,y2:R.y0,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:R.x0,y1:R.y0,x2:R.x0,y2:R.y0-R.yh,stroke:'var(--line)'}));\n    // y-axis ticks at 0, 2pi, 4pi\n    const ymax = 4*Math.PI + 1;\n    function ty(y){ return R.y0 - (y/ymax)*R.yh; }\n    [0, 2*Math.PI, 4*Math.PI].forEach(yv => {\n      const yy = ty(yv);\n      svg.appendChild(SVG('line',{x1:R.x0-4,y1:yy,x2:R.x0,y2:yy,stroke:'var(--line)'}));\n      const tx = SVG('text',{x:R.x0-8,y:yy+4,'font-size':10,fill:'var(--mute)','text-anchor':'end'});\n      tx.textContent = (yv===0?'0': (yv/Math.PI).toFixed(0) + 'π');\n      svg.appendChild(tx);\n    });\n    // x-axis ticks at 0, 1, 2 turns\n    [0,1,2].forEach(xv => {\n      const xx = R.x0 + (xv/2)*R.xw;\n      svg.appendChild(SVG('line',{x1:xx,y1:R.y0,x2:xx,y2:R.y0+4,stroke:'var(--line)'}));\n      const tx = SVG('text',{x:xx,y:R.y0+16,'font-size':10,fill:'var(--mute)','text-anchor':'middle'});\n      tx.textContent = xv + ' turn' + (xv===1?'':'s');\n      svg.appendChild(tx);\n    });\n    // curve: Im log(z(t)) = 2π t as a straight line\n    const Nc = Math.max(6, Math.round(200 * tmax));\n    let cd = '';\n    for(let k=0;k<=Nc;k++){\n      const tt = tmax * k / Nc;\n      const yv = 2*Math.PI*tt;\n      const xx = R.x0 + (tt/2)*R.xw;\n      const yy = ty(yv);\n      cd += (k===0?'M':'L') + xx + ' ' + yy + ' ';\n    }\n    svg.appendChild(SVG('path',{d:cd,stroke:'var(--yellow)','stroke-width':2,fill:'none'}));\n    // mark 2π level\n    const y2pi = ty(2*Math.PI);\n    svg.appendChild(SVG('line',{x1:R.x0,y1:y2pi,x2:R.x0+R.xw,y2:y2pi,stroke:'var(--pink)','stroke-width':1,'stroke-dasharray':'3,3',opacity:0.6}));\n    const lbl = SVG('text',{x:R.x0+R.xw-2,y:y2pi-4,'font-size':11,fill:'var(--pink)','text-anchor':'end'});\n    lbl.textContent = 'one full loop → +2πi';\n    svg.appendChild(lbl);\n    const tr = SVG('text',{x:R.x0+10,y:R.y0-R.yh+8,'font-size':12,fill:'var(--mute)'}); tr.textContent='Im log z(t)'; svg.appendChild(tr);\n\n    tout.textContent = 't = ' + tmax.toFixed(2) + ' turn' + (tmax===1?'':'s');\n    const total = 2*Math.PI*tmax;\n    out.textContent =\n      'After ' + tmax.toFixed(2) + ' loops around 0:\\n' +\n      '  continued value of log(1) = 0 + i·(' + total.toFixed(3) + ') = i·' + (total/Math.PI).toFixed(3) + 'π.\\n' +\n      'Monodromy generator: +2πi per loop. On C\\\\{0} we have π₁=ℤ; log is ℤ-sheeted.';\n  }\n  tin.addEventListener('input',draw);\n  draw();"
-          }
+          "ref": "w-mono"
         },
         {
           "type": "raw",
@@ -399,42 +314,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "parametric-plot",
-          "params": {
-            "interaction": "single-mode",
-            "widgetId": "w-schwarz",
-            "svgId": "sch-svg",
-            "outputId": "sch-out",
-            "title": "Schwarz reflection across the real axis",
-            "viewBox": "0 0 620 360",
-            "svgWidth": 620,
-            "svgHeight": 360,
-            "sliders": [
-              {
-                "id": "sch-x",
-                "label": "Re $z$:",
-                "min": -1.4,
-                "max": 1.4,
-                "step": 0.01,
-                "init": 0.5,
-                "outId": "sch-xo",
-                "initReadout": "Re z = 0.50"
-              },
-              {
-                "id": "sch-y",
-                "label": "Im $z$ (&gt;0):",
-                "min": 0.05,
-                "max": 1.3,
-                "step": 0.01,
-                "init": 0.8,
-                "outId": "sch-yo",
-                "initReadout": "Im z = 0.80"
-              }
-            ],
-            "bodyScript": "  const svg=$('#sch-svg'), out=$('#sch-out');\n  const xs=$('#sch-x'), ys=$('#sch-y'), xo=$('#sch-xo'), yo=$('#sch-yo');\n  const W=620, H=360;\n  // left = z-plane, right = w-plane\n  const Lp = {cx:170, cy:180, sc:100};\n  const Rp = {cx:450, cy:180, sc:90};\n  function toL(z){ return [Lp.cx + Lp.sc*z[0], Lp.cy - Lp.sc*z[1]]; }\n  function toR(w){ return [Rp.cx + Rp.sc*w[0], Rp.cy - Rp.sc*w[1]]; }\n  // f(z) = z^3 + 0.3 z  — real on real axis (real coefficients)\n  function f(z){ const [x,y]=z;\n    // z^3 = (x+iy)^3 = x^3 - 3xy^2 + i(3x^2 y - y^3)\n    const re = x*x*x - 3*x*y*y + 0.3*x;\n    const im = 3*x*x*y - y*y*y + 0.3*y;\n    return [re, im];\n  }\n  function draw(){\n    svg.innerHTML='';\n    // left axes\n    svg.appendChild(SVG('line',{x1:40,y1:Lp.cy,x2:300,y2:Lp.cy,stroke:'var(--cyan)','stroke-width':1.5}));  // real axis highlighted\n    svg.appendChild(SVG('line',{x1:Lp.cx,y1:50,x2:Lp.cx,y2:310,stroke:'var(--line)'}));\n    const llab = SVG('text',{x:50,y:Lp.cy-8,'font-size':11,fill:'var(--cyan)'}); llab.textContent='real axis (boundary I)'; svg.appendChild(llab);\n    // right axes\n    svg.appendChild(SVG('line',{x1:340,y1:Rp.cy,x2:600,y2:Rp.cy,stroke:'var(--cyan)','stroke-width':1.5}));\n    svg.appendChild(SVG('line',{x1:Rp.cx,y1:50,x2:Rp.cx,y2:310,stroke:'var(--line)'}));\n    // upper-half tint on left\n    svg.appendChild(SVG('rect',{x:40,y:50,width:260,height:130,fill:'var(--blue)','fill-opacity':0.06}));\n    svg.appendChild(SVG('rect',{x:40,y:180,width:260,height:130,fill:'var(--yellow)','fill-opacity':0.06}));\n    const tU = SVG('text',{x:45,y:65,'font-size':11,fill:'var(--blue)'}); tU.textContent='U⁺ (original f)'; svg.appendChild(tU);\n    const tD = SVG('text',{x:45,y:300,'font-size':11,fill:'var(--yellow)'}); tD.textContent='U⁻ (extension f̃(z)=f(z̄))'; svg.appendChild(tD);\n\n    const x=parseFloat(xs.value), y=parseFloat(ys.value);\n    const z=[x,y], zb=[x,-y];\n    const pz = toL(z), pzb = toL(zb);\n    // vertical dashed line connecting z and zbar\n    svg.appendChild(SVG('line',{x1:pz[0],y1:pz[1],x2:pzb[0],y2:pzb[1],stroke:'var(--violet)','stroke-dasharray':'3,3','stroke-width':1}));\n    svg.appendChild(SVG('circle',{cx:pz[0],cy:pz[1],r:5,fill:'var(--blue)',stroke:'#000'}));\n    svg.appendChild(SVG('circle',{cx:pzb[0],cy:pzb[1],r:5,fill:'var(--yellow)',stroke:'#000'}));\n    const tzt = SVG('text',{x:pz[0]+8,y:pz[1]-4,'font-size':11,fill:'var(--blue)'}); tzt.textContent='z'; svg.appendChild(tzt);\n    const tzbt = SVG('text',{x:pzb[0]+8,y:pzb[1]+14,'font-size':11,fill:'var(--yellow)'}); tzbt.textContent='z̄'; svg.appendChild(tzbt);\n\n    // right side: images\n    const w = f(z), wc = [w[0], -w[1]];  // f̃(z̄) = conj f(z)\n    const pw = toR(w), pwc = toR(wc);\n    svg.appendChild(SVG('line',{x1:pw[0],y1:pw[1],x2:pwc[0],y2:pwc[1],stroke:'var(--violet)','stroke-dasharray':'3,3','stroke-width':1}));\n    svg.appendChild(SVG('circle',{cx:pw[0],cy:pw[1],r:5,fill:'var(--blue)',stroke:'#000'}));\n    svg.appendChild(SVG('circle',{cx:pwc[0],cy:pwc[1],r:5,fill:'var(--yellow)',stroke:'#000'}));\n    const tw = SVG('text',{x:pw[0]+8,y:pw[1]-4,'font-size':11,fill:'var(--blue)'}); tw.textContent='f(z)'; svg.appendChild(tw);\n    const twc = SVG('text',{x:pwc[0]+8,y:pwc[1]+14,'font-size':11,fill:'var(--yellow)'}); twc.textContent='f(z̄) = f(z)‾'; svg.appendChild(twc);\n\n    // labels\n    const tl = SVG('text',{x:170,y:40,'font-size':12,fill:'var(--mute)','text-anchor':'middle'}); tl.textContent='z-plane'; svg.appendChild(tl);\n    const tr = SVG('text',{x:450,y:40,'font-size':12,fill:'var(--mute)','text-anchor':'middle'}); tr.textContent='w-plane,  f(z) = z³ + 0.3 z'; svg.appendChild(tr);\n\n    xo.textContent = 'Re z = ' + x.toFixed(2);\n    yo.textContent = 'Im z = ' + y.toFixed(2);\n    out.textContent =\n      'z  = ' + x.toFixed(3) + ' + ' + y.toFixed(3) + 'i\\n' +\n      'f(z) = ' + w[0].toFixed(3) + ' + ' + w[1].toFixed(3) + 'i\\n' +\n      'f̃(z̄) = conj f(z) = ' + wc[0].toFixed(3) + ' + ' + wc[1].toFixed(3) + 'i\\n' +\n      'Because f has real coefficients, f(ℝ)⊂ℝ; reflection extends f to lower half plane by conjugation.';\n  }\n  xs.addEventListener('input',draw); ys.addEventListener('input',draw);\n  draw();",
-            "hint": "move $z$ in upper half plane; watch $\\bar z$ track, and $f,\\tilde f$ values pair by conjugation",
-            "sectionComment": "========== Section 4: Schwarz reflection widget =========="
-          }
+          "ref": "w-schwarz"
         },
         {
           "type": "raw",
@@ -508,52 +388,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "parametric-plot",
-          "params": {
-            "interaction": "single-mode",
-            "widgetId": "w-lac",
-            "svgId": "lac-svg",
-            "outputId": "lac-out",
-            "title": "Lacunary series $\\sum z^{n^2}$ near the unit circle",
-            "viewBox": "0 0 620 360",
-            "svgWidth": 620,
-            "svgHeight": 360,
-            "sliders": [
-              {
-                "id": "lac-r",
-                "label": "radius $r$:",
-                "min": 0.5,
-                "max": 0.995,
-                "step": 0.005,
-                "init": 0.9,
-                "outId": "lac-ro",
-                "initReadout": "r = 0.900"
-              },
-              {
-                "id": "lac-t",
-                "label": "$\\theta/(2\\pi)$:",
-                "min": 0,
-                "max": 1,
-                "step": 0.001,
-                "init": 0.25,
-                "outId": "lac-to",
-                "initReadout": "θ = π/2"
-              },
-              {
-                "id": "lac-n",
-                "label": "truncation $N$:",
-                "min": 20,
-                "max": 500,
-                "step": 1,
-                "init": 150,
-                "outId": "lac-no",
-                "initReadout": "N = 150"
-              }
-            ],
-            "bodyScript": "  const svg=$('#lac-svg'), out=$('#lac-out');\n  const rs=$('#lac-r'), ts=$('#lac-t'), ns=$('#lac-n');\n  const ro=$('#lac-ro'), to=$('#lac-to'), no=$('#lac-no');\n  const W=620, H=360;\n  // LEFT: z-plane with point and unit circle\n  const Lp={cx:170, cy:180, sc:110};\n  // RIGHT: magnitude plot |F(z)| vs r for fixed theta\n  const Rp={x0:360, y0:320, xw:230, yh:260};\n  function toL(z){ return [Lp.cx + Lp.sc*z[0], Lp.cy - Lp.sc*z[1]]; }\n  function partial(r, theta, N){\n    let re=0, im=0;\n    for(let n=0;n<=N;n++){\n      const k = n*n;\n      const rho = Math.pow(r, k);\n      const ang = k*theta;\n      re += rho*Math.cos(ang);\n      im += rho*Math.sin(ang);\n    }\n    return [re,im];\n  }\n  function draw(){\n    svg.innerHTML='';\n    // left axes\n    svg.appendChild(SVG('line',{x1:40,y1:Lp.cy,x2:300,y2:Lp.cy,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:Lp.cx,y1:50,x2:Lp.cx,y2:310,stroke:'var(--line)'}));\n    // unit circle\n    svg.appendChild(SVG('circle',{cx:Lp.cx,cy:Lp.cy,r:Lp.sc,fill:'none',stroke:'var(--pink)','stroke-width':1.2,'stroke-dasharray':'3,3'}));\n    // mark some roots of unity\n    for(const q of [2,3,4,5,6,7,8,12]){\n      for(let p=0;p<q;p++){\n        const ang = 2*Math.PI*p/q;\n        const pp = toL([Math.cos(ang), Math.sin(ang)]);\n        svg.appendChild(SVG('circle',{cx:pp[0],cy:pp[1],r:2,fill:'var(--pink)',opacity:0.7}));\n      }\n    }\n    const r=parseFloat(rs.value), tval=parseFloat(ts.value), N=parseInt(ns.value);\n    const theta = 2*Math.PI*tval;\n    const z = [r*Math.cos(theta), r*Math.sin(theta)];\n    const pz = toL(z);\n    svg.appendChild(SVG('circle',{cx:pz[0],cy:pz[1],r:5,fill:'var(--yellow)',stroke:'#000'}));\n    const tl = SVG('text',{x:90,y:65,'font-size':11,fill:'var(--mute)'}); tl.textContent='z-plane (singularities dense on unit circle)'; svg.appendChild(tl);\n\n    // right: |F_N(r e^{iθ})| vs r for current θ\n    // axes\n    svg.appendChild(SVG('line',{x1:Rp.x0,y1:Rp.y0,x2:Rp.x0+Rp.xw,y2:Rp.y0,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:Rp.x0,y1:Rp.y0,x2:Rp.x0,y2:Rp.y0-Rp.yh,stroke:'var(--line)'}));\n    // compute curve |F(r' e^{iθ})| for r' in [0,0.995], fixed θ\n    const samples = 120;\n    let maxVal = 1;\n    const pts = [];\n    for(let k=0;k<=samples;k++){\n      const rp = 0.995 * k/samples;\n      const v = partial(rp, theta, N);\n      const mag = Math.hypot(v[0], v[1]);\n      pts.push([rp, mag]);\n      if(mag>maxVal) maxVal = mag;\n    }\n    // cap to reasonable\n    const cap = Math.min(maxVal, 60);\n    function px(rp){ return Rp.x0 + (rp/1.0)*Rp.xw; }\n    function py(m){ return Rp.y0 - Math.min(m,cap)/cap * Rp.yh; }\n    let d='';\n    pts.forEach((pt,k)=>{ d += (k===0?'M':'L') + px(pt[0]) + ' ' + py(pt[1]) + ' '; });\n    svg.appendChild(SVG('path',{d,stroke:'var(--cyan)','stroke-width':1.8,fill:'none'}));\n    // current r marker\n    const cv = partial(r, theta, N);\n    const cmag = Math.hypot(cv[0],cv[1]);\n    const mx = px(r), my = py(cmag);\n    svg.appendChild(SVG('circle',{cx:mx,cy:my,r:4,fill:'var(--yellow)',stroke:'#000'}));\n    // axis labels\n    [0,0.5,1].forEach(xv=>{\n      const xx=px(xv);\n      svg.appendChild(SVG('line',{x1:xx,y1:Rp.y0,x2:xx,y2:Rp.y0+4,stroke:'var(--line)'}));\n      const t = SVG('text',{x:xx,y:Rp.y0+16,'font-size':10,fill:'var(--mute)','text-anchor':'middle'});\n      t.textContent = xv.toFixed(xv===0?0:1); svg.appendChild(t);\n    });\n    const tr = SVG('text',{x:Rp.x0+Rp.xw/2,y:Rp.y0+30,'font-size':11,fill:'var(--mute)','text-anchor':'middle'}); tr.textContent='radius r′'; svg.appendChild(tr);\n    const tl2 = SVG('text',{x:Rp.x0+6,y:Rp.y0-Rp.yh+10,'font-size':11,fill:'var(--mute)'}); tl2.textContent='|F_N(r′e^{iθ})|, capped at '+cap.toFixed(0); svg.appendChild(tl2);\n\n    // readouts\n    ro.textContent = 'r = ' + r.toFixed(3);\n    // detect rational-ish angle\n    let nearRat = '';\n    for(const q of [2,3,4,5,6,7,8,10,12]){\n      for(let p=0;p<q;p++){\n        if(Math.abs(tval - p/q) < 0.003){ nearRat = ' (near p/q = '+p+'/'+q+')'; }\n      }\n    }\n    to.textContent = 'θ = ' + (tval===0?'0':(tval*2).toFixed(3)+'π') + nearRat;\n    no.textContent = 'N = ' + N;\n    out.textContent =\n      '|F_N(z)| ≈ ' + cmag.toFixed(3) + '  at z = ' + r.toFixed(3) + '·exp(i·' + (tval*2).toFixed(3) + 'π), N=' + N + '\\n' +\n      (r>0.985 ? 'Near the boundary the partial sums start to blow up. Try nudging θ to a rational multiple of π — the blow-up is present there too.' :\n       nearRat ? 'At roots of unity the partial sums grow like 1/√(1−r); the boundary point is singular.' :\n                 'Inside the disk F(z) is perfectly holomorphic, but the unit circle is a natural boundary.');\n  }\n  rs.addEventListener('input',draw);\n  ts.addEventListener('input',draw);\n  ns.addEventListener('input',draw);\n  draw();",
-            "hint": "move $r$ toward $1$ and rotate $\\theta$; partial sums blow up at any rational angle",
-            "sectionComment": "========== Section 5: lacunary sum widget =========="
-          }
+          "ref": "w-lac"
         },
         {
           "type": "raw",
@@ -711,123 +546,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "button-stepper",
-          "params": {
-            "widgetId": "w-zeta",
-            "title": "Walk through Riemann's derivation",
-            "layout": [
-              {
-                "kind": "svg",
-                "id": "zeta-svg",
-                "viewBox": "0 0 620 360",
-                "width": 620,
-                "height": 360,
-                "titleText": "Walk through Riemann&#39;s derivation"
-              },
-              {
-                "kind": "row",
-                "buttons": [
-                  {
-                    "label": "0. series",
-                    "dataAttr": {
-                      "name": "data-step",
-                      "value": "0"
-                    },
-                    "className": "z-step active"
-                  },
-                  {
-                    "label": "1. gamma → Mellin",
-                    "dataAttr": {
-                      "name": "data-step",
-                      "value": "1"
-                    },
-                    "className": "z-step"
-                  },
-                  {
-                    "label": "2. split at x=1",
-                    "dataAttr": {
-                      "name": "data-step",
-                      "value": "2"
-                    },
-                    "className": "z-step"
-                  },
-                  {
-                    "label": "3. θ(1/x) = √x · θ(x)",
-                    "dataAttr": {
-                      "name": "data-step",
-                      "value": "3"
-                    },
-                    "className": "z-step"
-                  },
-                  {
-                    "label": "4. ξ(s) = ξ(1−s)",
-                    "dataAttr": {
-                      "name": "data-step",
-                      "value": "4"
-                    },
-                    "className": "z-step"
-                  }
-                ]
-              },
-              {
-                "kind": "raw",
-                "html": "<div class=\"row\">\n    <label for=\"zeta-s\">s = </label>\n    <input type=\"range\" id=\"zeta-s\" min=\"-3\" max=\"4\" step=\"0.05\" value=\"2.0\">\n    <span class=\"small\" id=\"zeta-so\">s = 2.00</span>\n  </div>"
-              },
-              {
-                "kind": "readout",
-                "id": "zeta-out",
-                "content": "&nbsp;"
-              }
-            ],
-            "bodyScript": "  const svg=$('#zeta-svg'), out=$('#zeta-out');\n  const sin=$('#zeta-s'), sout=$('#zeta-so');\n  const buttons=$$('.z-step');\n  let step = 0;\n  const W=620, H=360;\n  // plot area\n  const P={x0:80, y0:300, xw:490, yh:240};\n  // theta function approx\n  function theta(x){\n    // sum_{n in Z} exp(-pi n^2 x). Use |n|<=8 for x>0.1; use transform for x<0.1\n    if(x<0.1){\n      return theta(1/x) / Math.sqrt(x);\n    }\n    let s=1;\n    for(let n=1;n<=15;n++){\n      const t = Math.exp(-Math.PI*n*n*x);\n      if(t<1e-16) break;\n      s += 2*t;\n    }\n    return s;\n  }\n  function integrand(x, s, variant){\n    // variant: 0 = (θ(x)-1)/2 * x^{s/2-1} (original)\n    //         1 = same, split show [0,1]∪[1,∞)\n    //         2 = (θ(x)-1)/2 * x^{s/2-1} (orig) over [1,∞)\n    //         3 = symmetric: (θ(x)-1)/2 * (x^{s/2-1} + x^{(1-s)/2-1}) on [1,∞)\n    const th = (theta(x) - 1)/2;\n    if(variant===3) return th * (Math.pow(x, s/2-1) + Math.pow(x, (1-s)/2-1));\n    return th * Math.pow(x, s/2-1);\n  }\n  function draw(){\n    svg.innerHTML='';\n    sin.disabled = false;\n    // axes\n    svg.appendChild(SVG('line',{x1:P.x0,y1:P.y0,x2:P.x0+P.xw,y2:P.y0,stroke:'var(--line)'}));\n    svg.appendChild(SVG('line',{x1:P.x0,y1:P.y0,x2:P.x0,y2:P.y0-P.yh,stroke:'var(--line)'}));\n    // x-axis label\n    const lx = SVG('text',{x:P.x0+P.xw/2,y:P.y0+32,'font-size':12,fill:'var(--mute)','text-anchor':'middle'});\n    lx.textContent = 'x';  svg.appendChild(lx);\n\n    const s = parseFloat(sin.value);\n    sout.textContent = 's = ' + s.toFixed(2);\n\n    // x range: log-ish from 0.03 to 5\n    const xmin=0.03, xmax=5;\n    function xtoPx(x){ return P.x0 + ((x-xmin)/(xmax-xmin))*P.xw; }\n    // draw x=1 vertical guide\n    const x1p = xtoPx(1);\n    svg.appendChild(SVG('line',{x1:x1p,y1:P.y0,x2:x1p,y2:P.y0-P.yh,stroke:'var(--pink)','stroke-width':1,'stroke-dasharray':'3,3',opacity:0.6}));\n    const lab1 = SVG('text',{x:x1p+4,y:P.y0-P.yh+12,'font-size':11,fill:'var(--pink)'}); lab1.textContent='x=1'; svg.appendChild(lab1);\n\n    // sample integrand\n    const N=200;\n    let vals=[]; let maxV=0;\n    for(let k=0;k<=N;k++){\n      const x = xmin + (xmax-xmin)*k/N;\n      const v = (step<=2)\n        ? integrand(x, s, 0)\n        : (step===3 || step===4)\n          ? (x>=1 ? integrand(x, s, 3) : 0)\n          : integrand(x, s, 0);\n      vals.push([x,v]);\n      if(Math.abs(v)>maxV && isFinite(v)) maxV = Math.abs(v);\n    }\n    if(maxV<0.1) maxV = 0.1;\n    function ytoPx(y){ return P.y0 - (y/maxV)*P.yh*0.9; }\n\n    // y-axis ticks\n    [0, maxV/2, maxV].forEach(yv=>{\n      const yy = ytoPx(yv);\n      svg.appendChild(SVG('line',{x1:P.x0-4,y1:yy,x2:P.x0,y2:yy,stroke:'var(--line)'}));\n      const tt = SVG('text',{x:P.x0-8,y:yy+4,'font-size':10,fill:'var(--mute)','text-anchor':'end'});\n      tt.textContent = yv.toFixed(2); svg.appendChild(tt);\n    });\n\n    // shaded region\n    if(step>=2){\n      // shade x<1 differently from x>=1\n      let d1 = 'M ' + xtoPx(vals[0][0]) + ' ' + P.y0;\n      let d2 = null;\n      for(let k=0;k<vals.length;k++){\n        const [x,v] = vals[k];\n        if(x<=1){\n          d1 += ' L ' + xtoPx(x) + ' ' + ytoPx(v);\n        } else {\n          if(d2===null){ d2 = 'M ' + xtoPx(x) + ' ' + P.y0 + ' L ' + xtoPx(x) + ' ' + ytoPx(v); }\n          else { d2 += ' L ' + xtoPx(x) + ' ' + ytoPx(v); }\n        }\n      }\n      d1 += ' L ' + xtoPx(1) + ' ' + P.y0 + ' Z';\n      d2 += ' L ' + xtoPx(xmax) + ' ' + P.y0 + ' Z';\n      if(step===2){\n        svg.appendChild(SVG('path',{d:d1,fill:'var(--violet)','fill-opacity':0.25,stroke:'var(--violet)','stroke-width':1}));\n        svg.appendChild(SVG('path',{d:d2,fill:'var(--cyan)','fill-opacity':0.25,stroke:'var(--cyan)','stroke-width':1}));\n      } else {\n        // step 3, 4: [0,1) piece folded away, only [1,∞) shown symmetric\n        svg.appendChild(SVG('path',{d:d2,fill:'var(--green)','fill-opacity':0.25,stroke:'var(--green)','stroke-width':1.2}));\n      }\n    } else {\n      // single shaded region\n      let d = 'M ' + xtoPx(vals[0][0]) + ' ' + P.y0;\n      for(const [x,v] of vals) d += ' L ' + xtoPx(x) + ' ' + ytoPx(v);\n      d += ' L ' + xtoPx(xmax) + ' ' + P.y0 + ' Z';\n      svg.appendChild(SVG('path',{d, fill:'var(--yellow)','fill-opacity':0.22,stroke:'var(--yellow)','stroke-width':1.2}));\n    }\n\n    // step-specific caption\n    let cap = '';\n    if(step===0){\n      cap = 'ζ(s) = Σ 1/n^s,  converges only for Re s > 1.';\n    } else if(step===1){\n      cap = 'Gamma trick: π^{−s/2} Γ(s/2) ζ(s) = ∫₀^∞ (θ(x)−1)/2 · x^{s/2−1} dx.   Shaded = integrand over (0,∞).';\n    } else if(step===2){\n      cap = 'Split at x=1:  (0,1) violet,  [1,∞) cyan.  The (0,1) piece is the troublesome one for small Re s.';\n    } else if(step===3){\n      cap = 'Under x→1/x on (0,1) and θ(1/x)=√x·θ(x), the violet piece re-expresses as an integral on [1,∞), producing −1/(s(1−s)) + symmetric integrand on [1,∞).';\n    } else if(step===4){\n      cap = 'Completed ξ(s) = ½ s(s−1) π^{−s/2} Γ(s/2) ζ(s) is entire, and ξ(s)=ξ(1−s).  Slider changes s; integrand on [1,∞) is MANIFESTLY symmetric under s↦1−s.';\n    }\n    out.textContent = cap;\n\n    // header text\n    const ttl = SVG('text',{x:P.x0, y:40, 'font-size':13, fill:'var(--ink)','font-weight':600});\n    ttl.textContent = ['0. ζ(s)=Σ n^{−s}',\n                       '1. Mellin via gamma',\n                       '2. split at x=1',\n                       '3. use θ(1/x)=√x·θ(x)',\n                       '4. ξ(s)=ξ(1−s)'][step];\n    svg.appendChild(ttl);\n  }\n  buttons.forEach(b => b.addEventListener('click', ()=>{\n    step = parseInt(b.dataset.step);\n    buttons.forEach(x => x.classList.remove('active'));\n    b.classList.add('active');\n    draw();\n  }));\n  sin.addEventListener('input', draw);\n  draw();",
-            "hint": "step through the four moves; the readout shows the current integrand and its symmetry status",
-            "buttons": [
-              {
-                "label": "0. series",
-                "dataAttr": {
-                  "name": "data-step",
-                  "value": "0"
-                },
-                "className": "z-step active"
-              },
-              {
-                "label": "1. gamma → Mellin",
-                "dataAttr": {
-                  "name": "data-step",
-                  "value": "1"
-                },
-                "className": "z-step"
-              },
-              {
-                "label": "2. split at x=1",
-                "dataAttr": {
-                  "name": "data-step",
-                  "value": "2"
-                },
-                "className": "z-step"
-              },
-              {
-                "label": "3. θ(1/x) = √x · θ(x)",
-                "dataAttr": {
-                  "name": "data-step",
-                  "value": "3"
-                },
-                "className": "z-step"
-              },
-              {
-                "label": "4. ξ(s) = ξ(1−s)",
-                "dataAttr": {
-                  "name": "data-step",
-                  "value": "4"
-                },
-                "className": "z-step"
-              }
-            ],
-            "sectionComment": "========== Section 6: zeta derivation stepper ==========",
-            "svgId": "zeta-svg",
-            "viewBox": "0 0 620 360",
-            "readoutId": "zeta-out"
-          }
+          "ref": "w-zeta"
         },
         {
           "type": "raw",
