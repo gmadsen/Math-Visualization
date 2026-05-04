@@ -7,6 +7,7 @@
 
     "langlands-program",
     "microlocal-analysis",
+    "geometric-measure-theory",
 
     "special-relativity",
 
@@ -203,6 +204,7 @@
     "harmonic-analysis-fourier": "standard",
     "sobolev-spaces-distributions": "standard",
     "microlocal-analysis": "advanced",
+    "geometric-measure-theory": "advanced",
     "advanced-complex-analysis": "advanced",
     "point-set-topology": "prereq",
     "algebraic-topology": "prereq",

@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **143**, concepts: **1020**
-- Widgets: **1047** (registry-driven: 1047, inline: 0)
-- Quizzes: **4254** (v1: 3018, hard: 1223, expert: 13)
-- Quiz types: mcq: 2848, numeric: 1068, multi-select: 143, matching: 65, ordering: 47, spot-the-error: 33, complex: 29, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Topics: **144**, concepts: **1026**
+- Widgets: **1053** (registry-driven: 1053, inline: 0)
+- Quizzes: **4272** (v1: 3036, hard: 1223, expert: 13)
+- Quiz types: mcq: 2854, numeric: 1070, multi-select: 147, matching: 67, ordering: 49, spot-the-error: 35, complex: 29, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **146**
-- Concepts lacking a hard-tier quiz: **582**
+- Concepts lacking a hard-tier quiz: **588**
 
 ## Per-slug registry adoption
 
@@ -257,6 +257,12 @@ page has wired one in yet.
 | `general-relativity-kerr` | general-relativity-kerr | slider | 2d | 1 | general-relativity |
 | `general-relativity-light-cones` | general-relativity-light-cones | drag | 2d | 1 | general-relativity |
 | `general-relativity-schwarzschild` | general-relativity-schwarzschild | slider | 2d | 1 | general-relativity |
+| `gmt-bv` | verbatim | slider | 2d | 1 | geometric-measure-theory |
+| `gmt-coarea` | verbatim | slider | 2d | 1 | geometric-measure-theory |
+| `gmt-currents` | verbatim | click | 2d | 1 | geometric-measure-theory |
+| `gmt-perim` | verbatim | slider | 2d | 1 | geometric-measure-theory |
+| `gmt-plateau` | verbatim | drag | 2d | 1 | geometric-measure-theory |
+| `gmt-rect` | verbatim | slider | 2d | 1 | geometric-measure-theory |
 | `grothendieck-topologies-sites-axioms-scrub` | declarative-host | click | 2d | 1 | grothendieck-topologies-sites |
 | `grothendieck-topologies-sites-geom-comp` | declarative-host | click | 2d | 1 | grothendieck-topologies-sites |
 | `grothendieck-topologies-sites-giraud` | declarative-host | click | 2d | 1 | grothendieck-topologies-sites |
@@ -628,13 +634,13 @@ page has wired one in yet.
 
 ### Analysis
 
-- Topics: **17**, concepts: **179**
-- Widgets: **149** (registry-driven: 149, inline: 0)
-  - by family: clickable-diagram: 41, button-stepper: 37, verbatim: 27, aca-figure: 5, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, variational-fdiff: 1, variational-brachistochrone: 1, variational-direct-method: 1, variational-mountain-pass: 1, variational-isoperimetric: 1, variational-sphere-geodesic: 1, constraint-bifurcation-explorer: 1, recurrence-plotter: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
-  - by dimension: 2d: 148, 3d: 1
-  - by gesture: click: 87, slider: 51, drag: 5, select: 4, step: 1, static: 1
-- Quizzes: **681** (v1: 496, hard: 185, expert: 0)
-  - by type: mcq: 432, numeric: 154, multi-select: 27, matching: 21, ordering: 16, complex: 14, proof-completion: 9, spot-the-error: 6, construction: 1, guess-my-rule: 1
+- Topics: **18**, concepts: **185**
+- Widgets: **155** (registry-driven: 155, inline: 0)
+  - by family: clickable-diagram: 41, button-stepper: 37, verbatim: 33, aca-figure: 5, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, variational-fdiff: 1, variational-brachistochrone: 1, variational-direct-method: 1, variational-mountain-pass: 1, variational-isoperimetric: 1, variational-sphere-geodesic: 1, constraint-bifurcation-explorer: 1, recurrence-plotter: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
+  - by dimension: 2d: 154, 3d: 1
+  - by gesture: click: 88, slider: 55, drag: 6, select: 4, step: 1, static: 1
+- Quizzes: **699** (v1: 514, hard: 185, expert: 0)
+  - by type: mcq: 438, numeric: 156, multi-select: 31, matching: 23, ordering: 18, complex: 14, proof-completion: 9, spot-the-error: 8, construction: 1, guess-my-rule: 1
 
 ### Probability & statistics
 
@@ -712,6 +718,7 @@ page has wired one in yet.
 - `hodge-theory` (Algebraic geometry) — concepts=8, widgets=0 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
 - `langlands-program` (Modular forms & L-functions) — concepts=8, widgets=0 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
 - `microlocal-analysis` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `geometric-measure-theory` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `special-relativity` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=19 (v1=19, hard=0, expert=0)
 - `klein-gordon-equation` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `dirac-equation` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
