@@ -539,6 +539,10 @@ window.__MVConcepts = {
           "prereqs": [
             "galois-representations:galois-rep-definition",
             "automorphic-forms-adelic:automorphic-form-definition"
+          ],
+          "tags": [
+            "duality",
+            "foundation"
           ]
         },
         {
@@ -550,6 +554,9 @@ window.__MVConcepts = {
             "langlands-philosophy",
             "L-functions:lfunction-prototype",
             "L-functions:functional-equation-completion"
+          ],
+          "tags": [
+            "duality"
           ]
         },
         {
@@ -559,6 +566,10 @@ window.__MVConcepts = {
           "blurb": "Bijection between $n$-dim Frobenius-semisimple Weil-Deligne reps of $W_{\\mathbb{Q}_v}$ and irreducible smooth admissible reps of $\\GL_n(\\mathbb{Q}_v)$. Proven for $p$-adic places (Harris-Taylor, Henniart 2001) and archimedean (Langlands 1973).",
           "prereqs": [
             "langlands-philosophy"
+          ],
+          "tags": [
+            "classification",
+            "duality"
           ]
         },
         {
@@ -569,6 +580,10 @@ window.__MVConcepts = {
           "prereqs": [
             "local-langlands-gl-n",
             "l-functions-langlands-bridge"
+          ],
+          "tags": [
+            "classification",
+            "duality"
           ]
         },
         {
@@ -579,6 +594,10 @@ window.__MVConcepts = {
           "prereqs": [
             "global-langlands-gl-n",
             "class-field-theory:artin-map-cft"
+          ],
+          "tags": [
+            "classification",
+            "foundation"
           ]
         },
         {
@@ -589,6 +608,9 @@ window.__MVConcepts = {
           "prereqs": [
             "global-langlands-gl-n",
             "modularity-and-flt:modularity-theorem"
+          ],
+          "tags": [
+            "classification"
           ]
         },
         {
@@ -598,6 +620,9 @@ window.__MVConcepts = {
           "blurb": "Predicted lifting maps between automorphic reps of different groups, mediated by homomorphisms of L-groups. Symmetric power, base change, endoscopic transfer. The conjectural Langlands group $L_F$ is the unifying object whose finite-dim representations correspond to automorphic reps.",
           "prereqs": [
             "global-langlands-gl-n"
+          ],
+          "tags": [
+            "functoriality"
           ]
         },
         {
@@ -610,6 +635,9 @@ window.__MVConcepts = {
             "gl2-modularity",
             "cft-as-langlands",
             "sato-tate:symmetric-power-l-functions"
+          ],
+          "tags": [
+            "duality"
           ]
         }
       ]
@@ -2850,7 +2878,10 @@ window.__MVConcepts = {
             "voa-modular-invariance",
             "group-representations"
           ],
-          "blurb": "VOAs axiomatise the chiral half of two-dimensional conformal field theory; Beilinson–Drinfeld's chiral algebras globalise the construction over algebraic curves, replacing formal power series with $\\mathcal{D}$-modules and giving the framework underlying the geometric Langlands program."
+          "blurb": "VOAs axiomatise the chiral half of two-dimensional conformal field theory; Beilinson–Drinfeld's chiral algebras globalise the construction over algebraic curves, replacing formal power series with $\\mathcal{D}$-modules and giving the framework underlying the geometric Langlands program.",
+          "tags": [
+            "foundation"
+          ]
         }
       ]
     },
@@ -10514,7 +10545,10 @@ window.__MVConcepts = {
           "prereqs": [
             "upper-half-plane-model"
           ],
-          "blurb": "The metric ds^2=(dx^2+dy^2)/y^2 rescales Euclidean length by height, making the boundary infinitely far away."
+          "blurb": "The metric ds^2=(dx^2+dy^2)/y^2 rescales Euclidean length by height, making the boundary infinitely far away.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "geodesics-in-H",
@@ -10523,7 +10557,11 @@ window.__MVConcepts = {
           "prereqs": [
             "hyperbolic-metric"
           ],
-          "blurb": "Geodesics are vertical lines and semicircles orthogonal to the real axis; they minimize hyperbolic distance."
+          "blurb": "Geodesics are vertical lines and semicircles orthogonal to the real axis; they minimize hyperbolic distance.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
         },
         {
           "id": "sl2r-action-on-H",
@@ -10659,7 +10697,10 @@ window.__MVConcepts = {
           "prereqs": [
             "theta-series-lattice"
           ],
-          "blurb": "The series converges absolutely on the upper half-plane; the q-expansion displays theta as a Laurent-in-q^{1/2} generating function."
+          "blurb": "The series converges absolutely on the upper half-plane; the q-expansion displays theta as a Laurent-in-q^{1/2} generating function.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "theta-transformation-law",
@@ -10681,7 +10722,10 @@ window.__MVConcepts = {
           "prereqs": [
             "theta-transformation-law"
           ],
-          "blurb": "The Dedekind eta function η(τ) is a weight-1/2 companion to theta; η^24=Δ sits inside the theta world."
+          "blurb": "The Dedekind eta function η(τ) is a weight-1/2 companion to theta; η^24=Δ sits inside the theta world.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "jacobi-triple-product",
@@ -10733,7 +10777,11 @@ window.__MVConcepts = {
           "prereqs": [
             "euler-partition-product"
           ],
-          "blurb": "The reciprocal product ∏(1−q^n) collapses to a sparse signed sum over pentagonal numbers k(3k−1)/2, yielding a linear-time recurrence for p(n)."
+          "blurb": "The reciprocal product ∏(1−q^n) collapses to a sparse signed sum over pentagonal numbers k(3k−1)/2, yielding a linear-time recurrence for p(n).",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
         },
         {
           "id": "ramanujan-congruences",
@@ -10745,7 +10793,11 @@ window.__MVConcepts = {
             "dedekind-eta-modular",
             "jacobi-triple-product"
           ],
-          "blurb": "p(5n+4)≡0 (mod 5), p(7n+5)≡0 (mod 7), p(11n+6)≡0 (mod 11) — three arithmetic miracles whose proofs ride on modular forms."
+          "blurb": "p(5n+4)≡0 (mod 5), p(7n+5)≡0 (mod 7), p(11n+6)≡0 (mod 11) — three arithmetic miracles whose proofs ride on modular forms.",
+          "tags": [
+            "density",
+            "classification"
+          ]
         },
         {
           "id": "dedekind-eta-modular",
@@ -10787,7 +10839,10 @@ window.__MVConcepts = {
           "prereqs": [
             "hecke-operator-tp"
           ],
-          "blurb": "On coefficients, T_p obeys a'_n=a_{pn}+p^{k-1}a_{n/p}, giving a computable arithmetic rule."
+          "blurb": "On coefficients, T_p obeys a'_n=a_{pn}+p^{k-1}a_{n/p}, giving a computable arithmetic rule.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "hecke-algebra-commuting",
@@ -10955,7 +11010,10 @@ window.__MVConcepts = {
             "continuation-along-path",
             "harmonic-functions"
           ],
-          "blurb": "If $f$ is holomorphic on $U^+$ and extends continuously to a real boundary arc with real values, then $\\tilde f(\\bar z) = \\overline{f(z)}$ defines a holomorphic extension across the arc."
+          "blurb": "If $f$ is holomorphic on $U^+$ and extends continuously to a real boundary arc with real values, then $\\tilde f(\\bar z) = \\overline{f(z)}$ defines a holomorphic extension across the arc.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "zeta-functional-equation",
@@ -11010,7 +11068,10 @@ window.__MVConcepts = {
           "prereqs": [
             "even-integer-values"
           ],
-          "blurb": "Roger Apéry proved in 1978 that $\\zeta(3)$ is irrational; no closed form in terms of $\\pi$ is known. Whether $\\zeta(5), \\zeta(7), \\ldots$ are irrational remains one of the deepest open questions in number theory."
+          "blurb": "Roger Apéry proved in 1978 that $\\zeta(3)$ is irrational; no closed form in terms of $\\pi$ is known. Whether $\\zeta(5), \\zeta(7), \\ldots$ are irrational remains one of the deepest open questions in number theory.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "negative-integer-values",
@@ -11061,7 +11122,10 @@ window.__MVConcepts = {
             "analytic-continuation-lfunc",
             "mahler-measure-lehmer"
           ],
-          "blurb": "The (logarithmic) Mahler measure $m(P)=\\int_{T^n}\\log|P(z_1,\\ldots,z_n)|$ of a Laurent polynomial on the torus turns out to compute special values of $L$-functions: Smyth's $m(1+x+y)=L'(\\chi_{-3},-1)$ and Boyd's conjectures place vast families of $m(P)$ in the orbit of zeta and $L$-values, with Deninger linking them to regulators in arithmetic geometry."
+          "blurb": "The (logarithmic) Mahler measure $m(P)=\\int_{T^n}\\log|P(z_1,\\ldots,z_n)|$ of a Laurent polynomial on the torus turns out to compute special values of $L$-functions: Smyth's $m(1+x+y)=L'(\\chi_{-3},-1)$ and Boyd's conjectures place vast families of $m(P)$ in the orbit of zeta and $L$-values, with Deninger linking them to regulators in arithmetic geometry.",
+          "tags": [
+            "duality"
+          ]
         }
       ]
     },
@@ -11274,7 +11338,10 @@ window.__MVConcepts = {
             "thompson-series",
             "adjoint-roots"
           ],
-          "blurb": "Borcherds built the Monster Lie algebra — a generalized Kac–Moody from the moonshine VOA via Goddard–Thorn — whose Weyl–Kac denominator identity gives replication recursions that pin each Thompson series to its Conway–Norton Hauptmodul."
+          "blurb": "Borcherds built the Monster Lie algebra — a generalized Kac–Moody from the moonshine VOA via Goddard–Thorn — whose Weyl–Kac denominator identity gives replication recursions that pin each Thompson series to its Conway–Norton Hauptmodul.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "replication-formulas",
@@ -13686,7 +13753,11 @@ window.__MVConcepts = {
             "hasse-bound-angle",
             "frobenius-traces"
           ],
-          "blurb": "Numerical origin of BSD: ∏_{p≤X} N_p/p ≈ c·(log X)^r for the true rank r. Curves of higher rank have more points modulo p on average."
+          "blurb": "Numerical origin of BSD: ∏_{p≤X} N_p/p ≈ c·(log X)^r for the true rank r. Curves of higher rank have more points modulo p on average.",
+          "tags": [
+            "density",
+            "classification"
+          ]
         },
         {
           "id": "bsd-rank-equality",
@@ -13745,7 +13816,10 @@ window.__MVConcepts = {
           "prereqs": [
             "elliptic-curve-definition"
           ],
-          "blurb": "From a hypothetical solution $a^p + b^p = c^p$ to Fermat, Frey attaches $E_{a,b,c}: y^2 = x(x - a^p)(x + b^p)$. Its discriminant is $2^{-8}(abc)^{2p}$: a perfect $2p$-th power away from 2, which makes the curve semistable and forces very mild ramification."
+          "blurb": "From a hypothetical solution $a^p + b^p = c^p$ to Fermat, Frey attaches $E_{a,b,c}: y^2 = x(x - a^p)(x + b^p)$. Its discriminant is $2^{-8}(abc)^{2p}$: a perfect $2p$-th power away from 2, which makes the curve semistable and forces very mild ramification.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "modularity-theorem",

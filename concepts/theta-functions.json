@@ -22,7 +22,10 @@
       "prereqs": [
         "theta-series-lattice"
       ],
-      "blurb": "The series converges absolutely on the upper half-plane; the q-expansion displays theta as a Laurent-in-q^{1/2} generating function."
+      "blurb": "The series converges absolutely on the upper half-plane; the q-expansion displays theta as a Laurent-in-q^{1/2} generating function.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "theta-transformation-law",
@@ -44,7 +47,10 @@
       "prereqs": [
         "theta-transformation-law"
       ],
-      "blurb": "The Dedekind eta function η(τ) is a weight-1/2 companion to theta; η^24=Δ sits inside the theta world."
+      "blurb": "The Dedekind eta function η(τ) is a weight-1/2 companion to theta; η^24=Δ sits inside the theta world.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "jacobi-triple-product",

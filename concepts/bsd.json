@@ -12,7 +12,9 @@
         "mordell-weil-ec"
       ],
       "blurb": "E(Q) is finitely generated: E(Q) ≅ Z^r ⊕ E(Q)_tors. The rank r is a deep invariant; the torsion is tame (Mazur).",
-      "tags": ["finiteness"]
+      "tags": [
+        "finiteness"
+      ]
     },
     {
       "id": "point-counting-heuristic",
@@ -23,7 +25,11 @@
         "hasse-bound-angle",
         "frobenius-traces"
       ],
-      "blurb": "Numerical origin of BSD: ∏_{p≤X} N_p/p ≈ c·(log X)^r for the true rank r. Curves of higher rank have more points modulo p on average."
+      "blurb": "Numerical origin of BSD: ∏_{p≤X} N_p/p ≈ c·(log X)^r for the true rank r. Curves of higher rank have more points modulo p on average.",
+      "tags": [
+        "density",
+        "classification"
+      ]
     },
     {
       "id": "bsd-rank-equality",
@@ -36,7 +42,9 @@
         "euler-product-structure"
       ],
       "blurb": "The conjecture: ord_{s=1} L(E, s) = rank E(Q). Sharper form predicts the leading Taylor coefficient in terms of regulator, Sha, periods, torsion.",
-      "tags": ["duality"]
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "regulator",
@@ -47,7 +55,9 @@
         "mordell-weil-ec"
       ],
       "blurb": "The canonical height ĥ is a positive-definite quadratic form on E(Q)/tors; its Gram determinant on a basis is the regulator R, the volume of the Mordell–Weil lattice that enters the refined BSD formula.",
-      "tags": ["duality"]
+      "tags": [
+        "duality"
+      ]
     },
     {
       "id": "sha-tate-shafarevich",
@@ -58,7 +68,11 @@
         "elliptic-group-law"
       ],
       "blurb": "Ш(E/Q) measures the failure of the local-to-global principle for torsors under E. Conjecturally finite, its order enters the refined BSD formula as a multiplicative fudge factor.",
-      "tags": ["descent", "cohomology", "finiteness"]
+      "tags": [
+        "descent",
+        "cohomology",
+        "finiteness"
+      ]
     }
   ]
 }

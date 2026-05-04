@@ -51,7 +51,10 @@
         "continuation-along-path",
         "harmonic-functions"
       ],
-      "blurb": "If $f$ is holomorphic on $U^+$ and extends continuously to a real boundary arc with real values, then $\\tilde f(\\bar z) = \\overline{f(z)}$ defines a holomorphic extension across the arc."
+      "blurb": "If $f$ is holomorphic on $U^+$ and extends continuously to a real boundary arc with real values, then $\\tilde f(\\bar z) = \\overline{f(z)}$ defines a holomorphic extension across the arc.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "zeta-functional-equation",
