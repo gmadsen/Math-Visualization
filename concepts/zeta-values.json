@@ -35,10 +35,7 @@
       "prereqs": [
         "even-integer-values"
       ],
-      "blurb": "Roger Apéry proved in 1978 that $\\zeta(3)$ is irrational; no closed form in terms of $\\pi$ is known. Whether $\\zeta(5), \\zeta(7), \\ldots$ are irrational remains one of the deepest open questions in number theory.",
-      "tags": [
-        "classification"
-      ]
+      "blurb": "Roger Apéry proved in 1978 that $\\zeta(3)$ is irrational; no closed form in terms of $\\pi$ is known. Whether $\\zeta(5), \\zeta(7), \\ldots$ are irrational remains one of the deepest open questions in number theory."
     },
     {
       "id": "negative-integer-values",

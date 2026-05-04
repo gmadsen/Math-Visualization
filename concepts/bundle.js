@@ -10795,7 +10795,6 @@ window.__MVConcepts = {
           ],
           "blurb": "p(5n+4)≡0 (mod 5), p(7n+5)≡0 (mod 7), p(11n+6)≡0 (mod 11) — three arithmetic miracles whose proofs ride on modular forms.",
           "tags": [
-            "density",
             "classification"
           ]
         },
@@ -11068,10 +11067,7 @@ window.__MVConcepts = {
           "prereqs": [
             "even-integer-values"
           ],
-          "blurb": "Roger Apéry proved in 1978 that $\\zeta(3)$ is irrational; no closed form in terms of $\\pi$ is known. Whether $\\zeta(5), \\zeta(7), \\ldots$ are irrational remains one of the deepest open questions in number theory.",
-          "tags": [
-            "classification"
-          ]
+          "blurb": "Roger Apéry proved in 1978 that $\\zeta(3)$ is irrational; no closed form in terms of $\\pi$ is known. Whether $\\zeta(5), \\zeta(7), \\ldots$ are irrational remains one of the deepest open questions in number theory."
         },
         {
           "id": "negative-integer-values",
