@@ -36,23 +36,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "button-stepper",
-          "params": {
-            "widgetId": "w-table",
-            "title": "$r_k(n)$ for small $n,\\,k$",
-            "layout": [
-              {
-                "kind": "raw",
-                "html": "<div id=\"rtable\"></div>"
-              },
-              {
-                "kind": "raw",
-                "html": "<p class=\"small\">Row $n=0$ gives $r_k(0)=1$ (all zeros). Note the gaps in $r_2$ (no reps for $3,6,7,11,12,\\ldots$), the single gap $r_3(7)=0$, and that $r_4(n)\\ge 1$ for every $n$ — foreshadowing Lagrange.</p>"
-              }
-            ],
-            "bodyScript": "  function r2(n){\n    if(n<0) return 0;\n    let c=0;\n    const s=Math.floor(Math.sqrt(n));\n    for(let a=-s;a<=s;a++){\n      const r=n-a*a; if(r<0) continue;\n      const b=Math.round(Math.sqrt(r));\n      if(b*b===r) c++;\n    }\n    return c;\n  }\n  function r3(n){\n    if(n<0) return 0;\n    let c=0;\n    const s=Math.floor(Math.sqrt(n));\n    for(let a=-s;a<=s;a++){\n      for(let b=-s;b<=s;b++){\n        const r=n-a*a-b*b; if(r<0) continue;\n        const cc=Math.round(Math.sqrt(r));\n        if(cc*cc===r) c+=(cc===0?1:2);\n      }\n    }\n    return c;\n  }\n  function r4(n){\n    if(n<0) return 0;\n    let c=0;\n    const s=Math.floor(Math.sqrt(n));\n    for(let a=-s;a<=s;a++){\n      for(let b=-s;b<=s;b++){\n        const rem=n-a*a-b*b;\n        if(rem<0) continue;\n        // count reps of rem as r2\n        c += r2(rem);\n      }\n    }\n    return c;\n  }\n  const host = document.getElementById('rtable');\n  const t = document.createElement('table');\n  t.className='plain';\n  const head = document.createElement('thead');\n  head.innerHTML = '<tr><th>$n$</th><th>$r_2(n)$</th><th>$r_3(n)$</th><th>$r_4(n)$</th><th>smallest rep of $n$ as sum of $\\\\le 4$ squares</th></tr>';\n  t.appendChild(head);\n  const body = document.createElement('tbody');\n  function bestRep(n){\n    // min k s.t. n = sum of k squares of positive ints (k up to 4)\n    if(n===0) return '0';\n    for(let k=1;k<=4;k++){\n      const found = [];\n      function go(rem, start, chosen){\n        if(chosen.length===k){\n          if(rem===0){ found.push([...chosen]); return true; }\n          return false;\n        }\n        for(let x=start;x*x<=rem;x++){\n          chosen.push(x);\n          if(go(rem-x*x, x, chosen)) return true;\n          chosen.pop();\n        }\n        return false;\n      }\n      if(go(n,1,[])) return found[0].map(x=>x+'²').join(' + ');\n    }\n    return '—';\n  }\n  const ns = [0,1,2,3,4,5,6,7,8,9,10,11,12];\n  for(const n of ns){\n    const tr = document.createElement('tr');\n    tr.innerHTML = `<td class=\"num\">${n}</td><td class=\"num\">${r2(n)}</td><td class=\"num\">${r3(n)}</td><td class=\"num\">${r4(n)}</td><td class=\"num\">${bestRep(n)}</td>`;\n    body.appendChild(tr);\n  }\n  t.appendChild(body);\n  host.appendChild(t);",
-            "hint": "$r_k(n)$ counts signed ordered representations"
-          }
+          "ref": "w-table"
         },
         {
           "type": "raw",
@@ -586,7 +570,7 @@
           "type": "widget",
           "slug": "button-stepper",
           "params": {
-            "widgetId": "w-table",
+            "widgetId": "w-table-2",
             "title": "$g(k)$ and $G(k)$ lookup",
             "layout": [
               {
@@ -622,28 +606,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "button-stepper",
-          "params": {
-            "widgetId": "w-table",
-            "title": "$g(k)$ and $G(k)$ lookup",
-            "layout": [
-              {
-                "kind": "svg",
-                "id": "gg-svg",
-                "viewBox": "0 0 620 260",
-                "width": 620,
-                "height": 260
-              },
-              {
-                "kind": "raw",
-                "html": "<div class=\"readout small\" id=\"gg-out\">bars: $g(k)$ (yellow) vs $G(k)$ (green, midpoint when an interval is known). Gap shows the \"exceptional\" penalty.</div>"
-              }
-            ],
-            "bodyScript": "  const data = [\n    {k:2,  g:4,   Glo:4,  Ghi:4},\n    {k:3,  g:9,   Glo:4,  Ghi:7},\n    {k:4,  g:19,  Glo:16, Ghi:16},\n    {k:5,  g:37,  Glo:6,  Ghi:17},\n    {k:6,  g:73,  Glo:9,  Ghi:24},\n    {k:7,  g:143, Glo:8,  Ghi:33},\n    {k:8,  g:279, Glo:32, Ghi:42},\n    {k:9,  g:548, Glo:13, Ghi:50},\n    {k:10, g:1079,Glo:12, Ghi:59}\n  ];\n  const svg = $('#gg-svg'), out = $('#gg-out');\n  const W=620, H=260, pad=38;\n  const maxY = Math.max(...data.map(d=>d.g));\n  // log scale for contrast\n  const yS = v => (H-pad) - (Math.log(1+v)/Math.log(1+maxY))*(H-pad-pad/2);\n  // axes\n  svg.appendChild(SVG('line',{x1:pad,y1:H-pad,x2:W-pad,y2:H-pad,stroke:'var(--line)','stroke-width':1}));\n  svg.appendChild(SVG('line',{x1:pad,y1:pad/2,x2:pad,y2:H-pad,stroke:'var(--line)','stroke-width':1}));\n  // y label\n  const ylab = SVG('text',{x:pad-6,y:pad-2,'text-anchor':'end','font-size':11,fill:'var(--mute)'});\n  ylab.textContent = 'log scale'; svg.appendChild(ylab);\n  // y ticks at 4, 10, 40, 100, 400, 1000\n  for(const v of [4,10,40,100,400,1000]){\n    if(v>maxY) continue;\n    const y = yS(v);\n    svg.appendChild(SVG('line',{x1:pad-4,y1:y,x2:pad,y2:y,stroke:'var(--mute)','stroke-width':1}));\n    const t = SVG('text',{x:pad-6,y:y+4,'text-anchor':'end','font-size':10,fill:'var(--mute)'});\n    t.textContent = v; svg.appendChild(t);\n  }\n  const slot = (W - 2*pad) / data.length;\n  data.forEach((d, i) => {\n    const cx = pad + slot*(i+0.5);\n    const bw = slot*0.36;\n    // g(k) — yellow\n    const yg = yS(d.g);\n    svg.appendChild(SVG('rect',{x:cx-bw-2,y:yg,width:bw,height:(H-pad)-yg,fill:'var(--yellow)',opacity:0.85,rx:2}));\n    // G(k) — green (midpoint of interval)\n    const Gmid = (d.Glo + d.Ghi)/2;\n    const yG = yS(Gmid);\n    svg.appendChild(SVG('rect',{x:cx+2,y:yG,width:bw,height:(H-pad)-yG,fill:'var(--green)',opacity:0.85,rx:2}));\n    // if interval, draw a vertical range bar\n    if(d.Glo !== d.Ghi){\n      const ylo = yS(d.Glo), yhi = yS(d.Ghi);\n      svg.appendChild(SVG('line',{x1:cx+2+bw/2,y1:ylo,x2:cx+2+bw/2,y2:yhi,stroke:'var(--ink)','stroke-width':1.5,'stroke-linecap':'round'}));\n      svg.appendChild(SVG('line',{x1:cx+2+bw/2-5,y1:yhi,x2:cx+2+bw/2+5,y2:yhi,stroke:'var(--ink)','stroke-width':1.5}));\n      svg.appendChild(SVG('line',{x1:cx+2+bw/2-5,y1:ylo,x2:cx+2+bw/2+5,y2:ylo,stroke:'var(--ink)','stroke-width':1.5}));\n    }\n    // k label\n    const t = SVG('text',{x:cx,y:H-pad+16,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});\n    t.textContent = `k=${d.k}`; svg.appendChild(t);\n    // value labels above bars (small)\n    const tg = SVG('text',{x:cx-bw/2-2,y:yg-3,'text-anchor':'middle','font-size':9,fill:'var(--yellow)'});\n    tg.textContent = d.g; svg.appendChild(tg);\n    const tG = SVG('text',{x:cx+bw/2+2,y:yG-3,'text-anchor':'middle','font-size':9,fill:'var(--green)'});\n    tG.textContent = (d.Glo===d.Ghi) ? d.Glo : `${d.Glo}–${d.Ghi}`;\n    svg.appendChild(tG);\n    // invisible hit rect for tooltip\n    const hit = SVG('rect',{x:cx-slot/2,y:pad/2,width:slot,height:H-pad-pad/2,fill:'transparent'});\n    hit.addEventListener('mouseenter', ()=>{\n      const Gtxt = d.Glo===d.Ghi ? `${d.Glo}` : `in [${d.Glo}, ${d.Ghi}]`;\n      out.textContent = `k = ${d.k}:   g(k) = ${d.g},   G(k) = ${Gtxt}.   ratio g/G ≈ ${(d.g/((d.Glo+d.Ghi)/2)).toFixed(2)}.`;\n    });\n    svg.appendChild(hit);\n  });\n  // legend\n  const lg = SVG('g',{});\n  lg.appendChild(SVG('rect',{x:pad+4,y:pad/2-2,width:10,height:10,fill:'var(--yellow)'}));\n  const lt1 = SVG('text',{x:pad+18,y:pad/2+7,'font-size':11,fill:'var(--mute)'});\n  lt1.textContent = 'g(k)'; lg.appendChild(lt1);\n  lg.appendChild(SVG('rect',{x:pad+58,y:pad/2-2,width:10,height:10,fill:'var(--green)'}));\n  const lt2 = SVG('text',{x:pad+72,y:pad/2+7,'font-size':11,fill:'var(--mute)'});\n  lt2.textContent = 'G(k)'; lg.appendChild(lt2);\n  svg.appendChild(lg);",
-            "hint": "bar heights compare the two constants; hover for values",
-            "svgId": "gg-svg",
-            "viewBox": "0 0 620 260"
-          }
+          "ref": "w-table-2"
         },
         {
           "type": "raw",

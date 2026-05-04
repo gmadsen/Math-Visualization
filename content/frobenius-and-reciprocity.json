@@ -15,10 +15,10 @@
           "slug": "fr-tower",
           "params": {
             "widgetId": "tower",
-            "title": "The Galois tower",
-            "hint": "finite Galois extension inside the algebraic closure",
+            "title": "",
+            "hint": "",
             "bodyMarkup": "<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">The Galois tower</div><div class=\"hint\">finite Galois extension inside the algebraic closure</div></div>\n  <svg id=\"tower-svg\" viewBox=\"0 0 620 260\" width=\"620\" height=\"260\"><title>The Galois tower</title></svg>\n</div>",
-            "bodyScript": ""
+            "bodyScript": "<script>\n(function(){\n  const svg = $('#tower-svg');\n  // three nodes: Q at bottom, K in the middle, Qbar at top (schematic)\n  drawNode(svg, 310, 220, 'ℚ',    {r:22, stroke:'var(--blue)'});\n  drawNode(svg, 310, 130, 'K',    {r:22, stroke:'var(--yellow)'});\n  drawNode(svg, 310, 40,  '\\u211A̅', {r:22, stroke:'var(--violet)'});\n  drawArrow(svg, [310,202], [310,150], {curve:0, markerId:'tw-1', color:'var(--yellow)', width:1.8});\n  drawArrow(svg, [310,112], [310,60],  {curve:0, markerId:'tw-2', color:'var(--violet)', dash:'4 4', width:1.6});\n  // side labels\n  const t1 = SVG('text',{x:360,y:180,'font-size':13,fill:'var(--yellow)','font-style':'italic'});\n  t1.textContent = 'finite Galois, G = Gal(K/ℚ)';\n  svg.appendChild(t1);\n  const t2 = SVG('text',{x:360,y:85,'font-size':13,fill:'var(--violet)','font-style':'italic'});\n  t2.textContent = 'absolute closure (infinite)';\n  svg.appendChild(t2);\n  // side annotation: f splits in K\n  const t3 = SVG('text',{x:120,y:135,'font-size':13,fill:'var(--mute)'});\n  t3.textContent = 'smallest field in which f(x) splits';\n  svg.appendChild(t3);\n})();\n</script>"
           }
         },
         {
@@ -27,14 +27,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "fr-tower",
-          "params": {
-            "widgetId": "tower",
-            "title": "",
-            "hint": "",
-            "bodyMarkup": "",
-            "bodyScript": "<script>\n(function(){\n  const svg = $('#tower-svg');\n  // three nodes: Q at bottom, K in the middle, Qbar at top (schematic)\n  drawNode(svg, 310, 220, 'ℚ',    {r:22, stroke:'var(--blue)'});\n  drawNode(svg, 310, 130, 'K',    {r:22, stroke:'var(--yellow)'});\n  drawNode(svg, 310, 40,  '\\u211A̅', {r:22, stroke:'var(--violet)'});\n  drawArrow(svg, [310,202], [310,150], {curve:0, markerId:'tw-1', color:'var(--yellow)', width:1.8});\n  drawArrow(svg, [310,112], [310,60],  {curve:0, markerId:'tw-2', color:'var(--violet)', dash:'4 4', width:1.6});\n  // side labels\n  const t1 = SVG('text',{x:360,y:180,'font-size':13,fill:'var(--yellow)','font-style':'italic'});\n  t1.textContent = 'finite Galois, G = Gal(K/ℚ)';\n  svg.appendChild(t1);\n  const t2 = SVG('text',{x:360,y:85,'font-size':13,fill:'var(--violet)','font-style':'italic'});\n  t2.textContent = 'absolute closure (infinite)';\n  svg.appendChild(t2);\n  // side annotation: f splits in K\n  const t3 = SVG('text',{x:120,y:135,'font-size':13,fill:'var(--mute)'});\n  t3.textContent = 'smallest field in which f(x) splits';\n  svg.appendChild(t3);\n})();\n</script>"
-          }
+          "ref": "tower"
         },
         {
           "type": "raw",
@@ -487,10 +480,10 @@
           "slug": "fr-dict",
           "params": {
             "widgetId": "dict",
-            "title": "Reciprocity dictionary",
+            "title": "",
             "hint": "",
             "bodyMarkup": "<div class=\"widget\">\n  <div class=\"hd\"><div class=\"ttl\">Reciprocity dictionary</div></div>\n  <svg id=\"dict-svg\" viewBox=\"0 0 640 240\" width=\"640\" height=\"240\"><title>Reciprocity dictionary</title></svg>\n</div>",
-            "bodyScript": ""
+            "bodyScript": "<script>\n(function(){\n  const svg = $('#dict-svg');\n  // left column: arithmetic side; right column: automorphic side\n  const left = [\n    {y:50,  label:'Galois rep. ρ : G_ℚ → GL_1(ℂ)',     color:'var(--blue)'},\n    {y:115, label:'Galois rep. ρ : G_ℚ → GL_2(ℂ)',     color:'var(--blue)'},\n    {y:180, label:'Galois rep. ρ : G_ℚ → GL_n(ℂ_ℓ)',   color:'var(--blue)'},\n  ];\n  const right = [\n    {y:50,  label:'Dirichlet character χ mod N',           color:'var(--yellow)'},\n    {y:115, label:'weight-1 modular form (Artin case)',    color:'var(--yellow)'},\n    {y:180, label:'cuspidal automorphic rep. of GL_n',     color:'var(--yellow)'},\n  ];\n  // boxes\n  for(const L of left){\n    svg.appendChild(SVG('rect',{x:20,y:L.y-18,width:260,height:34,rx:6,fill:'var(--panel2)',stroke:L.color,'stroke-width':1.4}));\n    const t = SVG('text',{x:150,y:L.y+5,'text-anchor':'middle','font-size':12,fill:'var(--ink)'});\n    t.textContent = L.label;\n    svg.appendChild(t);\n  }\n  for(const R of right){\n    svg.appendChild(SVG('rect',{x:370,y:R.y-18,width:250,height:34,rx:6,fill:'var(--panel2)',stroke:R.color,'stroke-width':1.4}));\n    const t = SVG('text',{x:495,y:R.y+5,'text-anchor':'middle','font-size':12,fill:'var(--ink)'});\n    t.textContent = R.label;\n    svg.appendChild(t);\n  }\n  // arrows — two-headed, with label\n  for(let i=0;i<3;i++){\n    ensureArrow(svg, 'dict-r'+i, 'var(--green)');\n    ensureArrow(svg, 'dict-l'+i, 'var(--green)');\n    svg.appendChild(SVG('path',{d:`M 285 ${left[i].y} L 365 ${right[i].y}`, stroke:'var(--green)', 'stroke-width':1.6, fill:'none', 'marker-end':'url(#dict-r'+i+')'}));\n    svg.appendChild(SVG('path',{d:`M 365 ${right[i].y} L 285 ${left[i].y}`, stroke:'var(--green)', 'stroke-width':1.6, fill:'none', 'marker-end':'url(#dict-l'+i+')', 'stroke-dasharray':'0'}));\n  }\n  // column titles\n  const hL = SVG('text',{x:150,y:22,'text-anchor':'middle','font-size':13,fill:'var(--mute)','font-style':'italic'});\n  hL.textContent = 'arithmetic side';\n  svg.appendChild(hL);\n  const hR = SVG('text',{x:495,y:22,'text-anchor':'middle','font-size':13,fill:'var(--mute)','font-style':'italic'});\n  hR.textContent = 'automorphic side';\n  svg.appendChild(hR);\n  // caption\n  const cap = SVG('text',{x:320,y:225,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n  cap.textContent = 'tr ρ(Frob_p)  =  a_p(π)   for almost every p';\n  svg.appendChild(cap);\n})();\n</script>"
           }
         },
         {
@@ -499,14 +492,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "fr-dict",
-          "params": {
-            "widgetId": "dict",
-            "title": "",
-            "hint": "",
-            "bodyMarkup": "",
-            "bodyScript": "<script>\n(function(){\n  const svg = $('#dict-svg');\n  // left column: arithmetic side; right column: automorphic side\n  const left = [\n    {y:50,  label:'Galois rep. ρ : G_ℚ → GL_1(ℂ)',     color:'var(--blue)'},\n    {y:115, label:'Galois rep. ρ : G_ℚ → GL_2(ℂ)',     color:'var(--blue)'},\n    {y:180, label:'Galois rep. ρ : G_ℚ → GL_n(ℂ_ℓ)',   color:'var(--blue)'},\n  ];\n  const right = [\n    {y:50,  label:'Dirichlet character χ mod N',           color:'var(--yellow)'},\n    {y:115, label:'weight-1 modular form (Artin case)',    color:'var(--yellow)'},\n    {y:180, label:'cuspidal automorphic rep. of GL_n',     color:'var(--yellow)'},\n  ];\n  // boxes\n  for(const L of left){\n    svg.appendChild(SVG('rect',{x:20,y:L.y-18,width:260,height:34,rx:6,fill:'var(--panel2)',stroke:L.color,'stroke-width':1.4}));\n    const t = SVG('text',{x:150,y:L.y+5,'text-anchor':'middle','font-size':12,fill:'var(--ink)'});\n    t.textContent = L.label;\n    svg.appendChild(t);\n  }\n  for(const R of right){\n    svg.appendChild(SVG('rect',{x:370,y:R.y-18,width:250,height:34,rx:6,fill:'var(--panel2)',stroke:R.color,'stroke-width':1.4}));\n    const t = SVG('text',{x:495,y:R.y+5,'text-anchor':'middle','font-size':12,fill:'var(--ink)'});\n    t.textContent = R.label;\n    svg.appendChild(t);\n  }\n  // arrows — two-headed, with label\n  for(let i=0;i<3;i++){\n    ensureArrow(svg, 'dict-r'+i, 'var(--green)');\n    ensureArrow(svg, 'dict-l'+i, 'var(--green)');\n    svg.appendChild(SVG('path',{d:`M 285 ${left[i].y} L 365 ${right[i].y}`, stroke:'var(--green)', 'stroke-width':1.6, fill:'none', 'marker-end':'url(#dict-r'+i+')'}));\n    svg.appendChild(SVG('path',{d:`M 365 ${right[i].y} L 285 ${left[i].y}`, stroke:'var(--green)', 'stroke-width':1.6, fill:'none', 'marker-end':'url(#dict-l'+i+')', 'stroke-dasharray':'0'}));\n  }\n  // column titles\n  const hL = SVG('text',{x:150,y:22,'text-anchor':'middle','font-size':13,fill:'var(--mute)','font-style':'italic'});\n  hL.textContent = 'arithmetic side';\n  svg.appendChild(hL);\n  const hR = SVG('text',{x:495,y:22,'text-anchor':'middle','font-size':13,fill:'var(--mute)','font-style':'italic'});\n  hR.textContent = 'automorphic side';\n  svg.appendChild(hR);\n  // caption\n  const cap = SVG('text',{x:320,y:225,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});\n  cap.textContent = 'tr ρ(Frob_p)  =  a_p(π)   for almost every p';\n  svg.appendChild(cap);\n})();\n</script>"
-          }
+          "ref": "dict"
         },
         {
           "type": "raw",

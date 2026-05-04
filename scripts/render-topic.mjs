@@ -17,14 +17,11 @@
  *                      module at widgets/<slug>/index.mjs is imported and
  *                      renderMarkup(params) is called; that module's output
  *                      must match the original inline bytes exactly.
- *   widget-script    — registry-driven script block. Three forms:
- *                        (a) {ref: widgetId} — looks up the widget block by
- *                            widgetId, calls renderScript on its slug+params.
- *                            This is the canonical form: it eliminates ~5KB
- *                            of duplicated params per widget.
- *                        (b) {slug, params} — legacy duplicated form. Kept
- *                            for back-compat; new content should use (a).
- *                        (c) {forWidget, html} — verbatim inline script with
+ *   widget-script    — registry-driven script block. Two forms:
+ *                        (a) {ref: widgetId} — canonical. Looks up the widget
+ *                            block by widgetId, calls renderScript on its
+ *                            slug+params.
+ *                        (b) {forWidget, html} — verbatim inline script with
  *                            a back-reference (Phase 3 auto-detect).
  */
 
@@ -55,18 +52,13 @@ async function renderBlock(b, widgetById) {
     return b.html + (b.script || '');
   }
   if (b.type === 'widget-script') {
-    // Canonical form: ref by widgetId — looks up the widget block elsewhere
-    // in the doc and uses its slug+params. Eliminates duplicated params.
+    // Canonical form: ref by widgetId — look up the widget block in the
+    // doc and use its slug+params for renderScript.
     if (b.ref) {
       const w = widgetById.get(b.ref);
       if (!w) throw new Error(`widget-script ref="${b.ref}" not found in widget blocks`);
       const mod = await loadWidgetModule(w.slug);
       return mod.renderScript(w.params);
-    }
-    // Legacy form: slug + params duplicated from the widget block.
-    if (b.slug) {
-      const mod = await loadWidgetModule(b.slug);
-      return mod.renderScript(b.params);
     }
     // Phase 3 auto-detected: verbatim html with forWidget back-reference.
     return b.html;
