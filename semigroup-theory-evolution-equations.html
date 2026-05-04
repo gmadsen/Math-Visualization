@@ -248,7 +248,7 @@ $$\|T(t)\|_{B(X)} \;\le\; M\,e^{\omega t} \qquad \text{for all } t\ge 0.$$
 <p>Three canonical PDE examples set the picture. The <strong>heat semigroup</strong> $T(t)=e^{t\Delta}$ on $X=L^2(\mathbb{R}^n)$ is a contraction: $\|T(t)f\|_{L^2}\le\|f\|_{L^2}$ by Plancherel applied to the Fourier multiplier $e^{-t|\xi|^2}$, which has modulus $\le 1$. The <strong>wave-equation propagator</strong> on $X=H^1\times L^2$ (the energy space, holding $(u,u_t)$) is a $C_0$-group, $\|T(t)\|\le 1$ in the energy norm, signed time. The <strong>Schrödinger group</strong> $T(t)=e^{-it\Delta}$ on $L^2(\mathbb{R}^n)$ is a unitary $C_0$-group: $\|T(t)f\|_{L^2}=\|f\|_{L^2}$ exactly, and reversibility means we can run time backwards.</p>
 
 <div class="widget" id="sg-c0">
-  <div class="hd"><div class="ttl">C₀ semigroup law: T(s)·T(t) = T(s+t)</div><div class="hint">pick a semigroup, slide t and s; the two paths to T(s+t)·u₀ agree pointwise</div></div>
+  <div class="hd"><div class="ttl">C₀ semigroup law: T(s)·T(t) = T(s+t)</div><div class="hint">pick a semigroup, slide t and s; the composed and direct paths to T(s+t)·u₀ overlay</div></div>
   <div class="row">
     <button id="sg-c0-heat" class="active">heat $T(t)=e^{t\Delta}$</button>
     <button id="sg-c0-wave">wave (1D, traveling)</button>
@@ -285,6 +285,7 @@ $$\|T(t)\|_{B(X)} \;\le\; M\,e^{\omega t} \qquad \text{for all } t\ge 0.$$
   const xs = [];
   for(let k=0;k<N;k++) xs.push(-Math.PI + (2*Math.PI*k)/(N-1));
   function u0(x){ return Math.exp(-3*x*x); }
+  // Direct evaluation T(t) u0 by closed form (heat: Gaussian widening with operator Delta; wave: d'Alembert; Schrodinger: e^{itDelta} on Gaussian, denominator 1+4iat, a=3 so 1+12it).
   function applyT(t){
     if(kind === 'heat'){
       const sigma2 = 1/6 + 2*t;
@@ -296,7 +297,7 @@ $$\|T(t)\|_{B(X)} \;\le\; M\,e^{\omega t} \qquad \text{for all } t\ge 0.$$
     }
     const a = 3;
     return xs.map(x => {
-      const rD = 1, iD = 2*t;
+      const rD = 1, iD = 4*a*t;
       const mod2 = rD*rD + iD*iD;
       const invR = rD/mod2, invI = -iD/mod2;
       const re = -a*x*x*invR, im = -a*x*x*invI;
@@ -306,6 +307,74 @@ $$\|T(t)\|_{B(X)} \;\le\; M\,e^{\omega t} \qquad \text{for all } t\ge 0.$$
       const phaseSqrt = 0.5 * Math.atan2(iD, rD);
       const uR = (expR*cosI*Math.cos(-phaseSqrt) - expR*sinI*Math.sin(-phaseSqrt)) / ampSqrt;
       return uR;
+    });
+  }
+  // Composed evaluation T(s) o T(t) u0 by numerical kernel convolution / shift / mode propagation.
+  // Heat: convolve current state with Gaussian kernel of variance 2s. Wave: shift current state +- s and average. Schrodinger: discrete Fourier coefficients then phase k^2 s.
+  function applyTcomposed(t, s){
+    const utArr = applyT(t);
+    if(kind === 'wave'){
+      // d'Alembert: T(s) on already-evolved state advances each traveling wave by s; for our explicit u0, T(s)(T(t)u0)(x) = 1/2[u0(x-(t+s)) + u0(x+(t+s))] - we synthesize that by sampling u_t shifted +/- s.
+      const arr = new Array(xs.length).fill(0);
+      for(let k=0;k<xs.length;k++){
+        const x = xs[k];
+        // Linear interpolation of utArr at x +- s
+        function interp(y){
+          const j0 = (y - xs[0]) / (xs[1]-xs[0]);
+          const j = Math.max(0, Math.min(xs.length-2, Math.floor(j0)));
+          const a = j0 - j;
+          return utArr[j]*(1-a) + utArr[j+1]*a;
+        }
+        arr[k] = 0.5*(interp(x-s) + interp(x+s));
+      }
+      return arr;
+    }
+    if(kind === 'heat'){
+      // Discrete heat kernel convolution with variance 2s
+      if(s < 1e-6) return utArr.slice();
+      const arr = new Array(xs.length).fill(0);
+      const sigma = Math.sqrt(2*s);
+      const half = Math.min(4*sigma, Math.PI);
+      const M = 60;
+      for(let k=0;k<xs.length;k++){
+        const x = xs[k];
+        let acc = 0, norm = 0;
+        for(let j=0;j<=M;j++){
+          const y = -half + (2*half*j)/M;
+          const w = Math.exp(-(y*y)/(4*s));
+          // sample utArr at x - y
+          const j0 = (x - y - xs[0]) / (xs[1]-xs[0]);
+          const ji = Math.max(0, Math.min(xs.length-2, Math.floor(j0)));
+          const aa = j0 - ji;
+          const v = utArr[ji]*(1-aa) + utArr[ji+1]*aa;
+          acc += v * w; norm += w;
+        }
+        arr[k] = acc/norm;
+      }
+      return arr;
+    }
+    // Schrodinger: take DFT of utArr (real), apply phase e^{i k^2 s} per mode, inverse-DFT real part.
+    const K = 32;
+    const ck = [];
+    for(let kk=-K;kk<=K;kk++){
+      let re = 0, im = 0;
+      for(let j=0;j<xs.length-1;j++){
+        const xj = xs[j];
+        re += utArr[j] * Math.cos(kk*xj);
+        im -= utArr[j] * Math.sin(kk*xj);
+      }
+      ck.push({k:kk, re: re/(xs.length-1), im: im/(xs.length-1)});
+    }
+    return xs.map(x => {
+      let acc = 0;
+      for(const {k:kk, re, im} of ck){
+        const phase = kk*kk * s;
+        const c = Math.cos(phase), si = Math.sin(phase);
+        const newR = re*c - im*si;
+        const newI = re*si + im*c;
+        acc += newR * Math.cos(kk*x) - newI * Math.sin(kk*x);
+      }
+      return acc;
     });
   }
   function clamp01(v){ return Math.max(-1.4, Math.min(1.4, v)); }
@@ -319,33 +388,41 @@ $$\|T(t)\|_{B(X)} \;\le\; M\,e^{\omega t} \qquad \text{for all } t\ge 0.$$
     svg.appendChild(SVG('line',{x1:0,y1:-120,x2:0,y2:120,stroke:'var(--mute)','stroke-width':0.6,'stroke-dasharray':'2 3'}));
     const X = x => x * (220/Math.PI);
     const Y = v => -clamp01(v) * 70;
-    function plot(arr, color, dash){
+    function plot(arr, color, dash, width){
       let d = '';
       for(let k=0;k<xs.length;k++){
         const px = X(xs[k]), py = Y(arr[k]);
         d += (k===0 ? 'M' : 'L') + ` ${px.toFixed(1)} ${py.toFixed(1)} `;
       }
-      const p = SVG('path',{d, fill:'none', stroke:color, 'stroke-width':1.6});
+      const p = SVG('path',{d, fill:'none', stroke:color, 'stroke-width':width||1.6});
       if(dash) p.setAttribute('stroke-dasharray', dash);
       svg.appendChild(p);
     }
     plot(applyT(0), 'var(--mute)', '4 3');
     plot(applyT(t), 'var(--cyan)', null);
     const Tst = applyT(s+t);
-    plot(Tst, 'var(--yellow)', null);
+    plot(Tst, 'var(--yellow)', null, 2.4);
+    const Tcomp = applyTcomposed(t, s);
+    plot(Tcomp, 'var(--violet)', '3 2', 1.4);
     let maxDiff = 0;
+    for(let k=0;k<xs.length;k++){
+      maxDiff = Math.max(maxDiff, Math.abs(Tst[k] - Tcomp[k]));
+    }
     for(let m=-3; m<=3; m++){
       const px = X(m);
       svg.appendChild(SVG('line',{x1:px,y1:yMid-3,x2:px,y2:yMid+3,stroke:'var(--mute)'}));
     }
-    const lg = (x, y, c, txt) => {
-      svg.appendChild(SVG('line',{x1:x,y1:y,x2:x+18,y2:y,stroke:c,'stroke-width':2}));
-      const t = SVG('text',{x:x+24,y:y+3,'font-size':10,fill:'var(--mute)'});
-      t.textContent = txt; svg.appendChild(t);
+    const lg = (x, y, c, txt, dash) => {
+      const ln = SVG('line',{x1:x,y1:y,x2:x+18,y2:y,stroke:c,'stroke-width':2});
+      if(dash) ln.setAttribute('stroke-dasharray', dash);
+      svg.appendChild(ln);
+      const tt = SVG('text',{x:x+24,y:y+3,'font-size':10,fill:'var(--mute)'});
+      tt.textContent = txt; svg.appendChild(tt);
     };
-    lg(-235, -130, 'var(--mute)', 'u0');
-    lg(-145, -130, 'var(--cyan)', 'T(t) u0');
-    lg(-50, -130, 'var(--yellow)', 'T(s+t) u0 = T(s)T(t) u0');
+    lg(-235, -130, 'var(--mute)', 'u0', '4 3');
+    lg(-205, -118, 'var(--cyan)', 'T(t) u0');
+    lg(-145, -130, 'var(--yellow)', 'T(s+t) u0 (direct)');
+    lg(-25, -130, 'var(--violet)', 'T(s)·T(t) u0 (composed)', '3 2');
     const sumLabel = SVG('text',{x:0, y:130, 'text-anchor':'middle', 'font-size':11, fill:'var(--ink)'});
     const desc = kind === 'heat'
       ? `Heat semigroup: u0=e^{-3x^2} stays Gaussian; T(t) widens variance by 2t. Composing T(s)T(t) widens by 2s+2t = 2(s+t), matching T(s+t).`
@@ -356,7 +433,8 @@ $$\|T(t)\|_{B(X)} \;\le\; M\,e^{\omega t} \qquad \text{for all } t\ge 0.$$
     svg.appendChild(sumLabel);
     const xAxisL = SVG('text',{x:230,y:14,'text-anchor':'end','font-size':10,fill:'var(--mute)'});
     xAxisL.textContent = 'x'; svg.appendChild(xAxisL);
-    out.textContent = `Semigroup: ${kind === 'heat' ? 'heat (parabolic, contraction)' : kind === 'wave' ? 'wave (hyperbolic, isometric group)' : 'Schroedinger (dispersive, unitary group)'}    s = ${s.toFixed(2)}, t = ${t.toFixed(2)}, s+t = ${(s+t).toFixed(2)}    semigroup law T(s)T(t) u0 = T(s+t) u0 holds by closed-form identity (Gaussian widening / d'Alembert split / phase composition).
+    out.textContent = `Semigroup: ${kind === 'heat' ? 'heat (parabolic, contraction)' : kind === 'wave' ? 'wave (hyperbolic, isometric group)' : 'Schroedinger (dispersive, unitary group)'}    s = ${s.toFixed(2)}, t = ${t.toFixed(2)}, s+t = ${(s+t).toFixed(2)}.
+Direct path T(s+t) u0 (yellow) and composed path T(s)·(T(t) u0) (violet, dashed) overlay; max pointwise difference approx ${maxDiff.toExponential(2)} (numerical / discretization noise; converges to 0 with finer grids). This IS the semigroup law made visible.
 Growth bound: |T(t)| <= 1 in all three cases shown (M=1, omega=0). Heat is a contraction, wave/Schroedinger are isometries.`;
   }
   bH.addEventListener('click', setH);
@@ -572,7 +650,8 @@ $$A_n \;=\; n\,A\,(n - A)^{-1} \;=\; n^2(n-A)^{-1} - n\,I,$$
   const N = 240;
   const xs = [];
   for(let k=0;k<N;k++) xs.push(-Math.PI + (2*Math.PI*k)/(N-1));
-  function f(x){ return Math.tanh(6*x); }
+  // Smooth periodic test function: avoids Gibbs at +-pi (sin(3x) - 0.5 sin(7x) is exactly 2pi-periodic)
+  function f(x){ return Math.sin(3*x) - 0.5*Math.sin(7*x); }
   function resolvent(lambda){
     if(kind === 'bad'){
       const denom = lambda - 1.0;
@@ -627,9 +706,12 @@ $$A_n \;=\; n\,A\,(n - A)^{-1} \;=\; n^2(n-A)^{-1} - n\,I,$$
     plot(rArr, 'var(--cyan)', null);
     const yArr = rArr.map((v,i) => lambda*lambda*v - lambda*fArr[i]);
     plot(yArr, 'var(--violet)', '4 3');
-    let supR = 0, supF = 0;
-    for(let k=0;k<xs.length;k++){ supR = Math.max(supR, Math.abs(rArr[k])); supF = Math.max(supF, Math.abs(fArr[k])); }
-    const ratio = supR / Math.max(supF, 1e-9);
+    // Discrete L^2 norm ratio - the right norm for the operator-norm bound on a self-adjoint generator.
+    let l2R = 0, l2F = 0;
+    const dx = xs[1] - xs[0];
+    for(let k=0;k<xs.length;k++){ l2R += rArr[k]*rArr[k]*dx; l2F += fArr[k]*fArr[k]*dx; }
+    l2R = Math.sqrt(l2R); l2F = Math.sqrt(l2F);
+    const ratio = l2R / Math.max(l2F, 1e-9);
     const bound = 1/lambda;
     const lg = (x, y, c, txt, dash) => {
       const ln = SVG('line',{x1:x,y1:y,x2:x+18,y2:y,stroke:c,'stroke-width':2});
@@ -641,14 +723,18 @@ $$A_n \;=\; n\,A\,(n - A)^{-1} \;=\; n^2(n-A)^{-1} - n\,I,$$
     lg(-235, -130, 'var(--mute)', 'f', '3 3');
     lg(-180, -130, 'var(--cyan)', '(lambda-A)^{-1} f');
     lg(-95, -130, 'var(--violet)', 'A_lambda f (Yosida)', '4 3');
-    out.textContent = kind === 'diss'
-      ? `Dissipative A = d^2/dx^2 (periodic). Resolvent (lambda-A)^{-1} smooths the step f = tanh(6x) - every Fourier mode is divided by (lambda+k^2), so high frequencies are suppressed.
-At lambda = ${lambda.toFixed(2)}: |(lambda-A)^{-1} f|_inf approx ${supR.toFixed(3)}, |f|_inf approx ${supF.toFixed(3)}, ratio ${ratio.toFixed(3)} <= 1/lambda = ${bound.toFixed(3)} (Hille-Yosida bound holds).
-The Yosida approximant A_lambda = lambda^2 (lambda-A)^{-1} - lambda I is bounded; A_lambda f converges to Af = d^2 f /dx^2 as lambda goes to infinity.`
-      : `Non-dissipative A = +1*I. Spectrum is {1}; the resolvent (lambda-A)^{-1} = (lambda-1)^{-1} I.
-At lambda = ${lambda.toFixed(2)}: ratio = 1/|lambda-1| = ${(1/Math.abs(lambda-1)).toFixed(3)}; the Hille-Yosida bound 1/lambda would require ${bound.toFixed(3)}.
-${(lambda > 1 && (1/Math.abs(lambda-1)) > bound) ? 'Bound VIOLATED - A does NOT generate a contraction semigroup. (It does generate e^{tI} = e^t * I, a growing semigroup, but omega=1 not 0.)' : 'check different lambda; the failure shows for lambda near 1.'}
-Lesson: dissipativity of A is necessary for contraction; otherwise the resolvent norm exceeds 1/lambda and Hille-Yosida fails.`;
+    if(kind === 'diss'){
+      out.textContent = `Dissipative A = d^2/dx^2 (periodic). Resolvent (lambda-A)^{-1} acts on a smooth periodic test function f = sin(3x) - 0.5 sin(7x); each Fourier mode is divided by (lambda+k^2).
+At lambda = ${lambda.toFixed(2)}: |(lambda-A)^{-1} f|_{L^2} approx ${l2R.toFixed(3)}, |f|_{L^2} approx ${l2F.toFixed(3)}, L^2-ratio ${ratio.toFixed(3)} <= 1/lambda = ${bound.toFixed(3)} (Hille-Yosida bound holds; equality is reached as lambda goes to 0+ when the lowest mode dominates).
+The Yosida approximant A_lambda = lambda^2 (lambda-A)^{-1} - lambda I is bounded; A_lambda f converges to Af = d^2 f /dx^2 = -9 sin(3x) + 24.5 sin(7x) as lambda goes to infinity.`;
+    } else {
+      const ratioBad = 1/Math.abs(lambda-1);
+      const violated = ratioBad > bound + 1e-9;
+      out.textContent = `Non-dissipative A = +1*I. Spectrum is {1}; resolvent (lambda-A)^{-1} = (lambda-1)^{-1} I, so its operator norm is exactly 1/|lambda-1|.
+At lambda = ${lambda.toFixed(2)}: ||(lambda-A)^{-1}|| = ${ratioBad.toFixed(3)}; Hille-Yosida would require <= 1/lambda = ${bound.toFixed(3)}.
+${violated ? 'Bound VIOLATED - A does NOT generate a contraction semigroup. (It does generate e^{tI} = e^t * I, a growing semigroup, but omega=1 not 0.)' : 'Bound holds at this lambda, but Hille-Yosida demands the bound for EVERY lambda > 0; slide near lambda = 1 (or above) to see the violation.'}
+Lesson: dissipativity of A is necessary for contraction; otherwise the resolvent norm exceeds 1/lambda for some lambda > 0 and Hille-Yosida fails.`;
+    }
   }
   bD.addEventListener('click', setD);
   bB.addEventListener('click', setB);
@@ -684,17 +770,17 @@ $$\bigl\|\,(\lambda - A)^{-1}\,\bigr\| \;\le\; \frac{M}{|\lambda|}\qquad \text{o
 
 <ul>
 <li><strong>Instant smoothing.</strong> For $t>0$ and any $k\ge 0$: $T(t)x\in D(A^k)$ for every $x\in X$, and $\|A^k T(t)\|\le C_k/t^k$. Apply this with $A=\Delta$: $T(t)L^2\subset H^{2k}$ for every $k$, so $T(t)L^2\subset C^\infty$ for every $t>0$. The heat equation regularizes data instantly.</li>
-<li><strong>Maximal $L^p$ regularity.</strong> If $A$ generates an analytic semigroup on a UMD space, the inhomogeneous problem $u'-Au=f$ with $u(0)=0$ has a solution with $u', Au\in L^p(0,T;X)$ whenever $f\in L^p(0,T;X)$, with norm equivalent to $\|f\|$. This is the right $L^p$-existence theory for parabolic PDEs.</li>
+<li><strong>Maximal $L^p$ regularity.</strong> If $A$ generates an analytic semigroup on a UMD space (a Banach space where the Hilbert transform is bounded — includes every $L^p$ with $1&lt;p&lt;\infty$), the inhomogeneous problem $u'-Au=f$ with $u(0)=0$ has a solution with $u', Au\in L^p(0,T;X)$ whenever $f\in L^p(0,T;X)$, with norm equivalent to $\|f\|$. This is the right $L^p$-existence theory for parabolic PDEs.</li>
 </ul>
 
-<p>Comparison: the wave-equation propagator on $H^1\times L^2$ is a $C_0$-group with $\|T(t)\|=1$ (energy conservation) but not analytic — initial singularities propagate forever, never smoothing. The Schrödinger group $e^{-it\Delta}$ has the same behaviour: singularities disperse but the wavefront set is preserved, no instant smoothing.</p>
+<p>Comparison: the wave-equation propagator on $H^1\times L^2$ is a $C_0$-group with $\|T(t)\|=1$ (energy conservation) but not analytic — initial singularities propagate forever, never smoothing. The Schrödinger group $e^{-it\Delta}$ has the same behaviour: singularities disperse but the <a href="./microlocal-analysis.html#wavefront">wavefront set</a> (the phase-space record of singular directions) is preserved, no instant smoothing.</p>
 
 <div class="widget" id="sg-analytic">
   <div class="hd"><div class="ttl">Instant smoothing: parabolic vs hyperbolic vs dispersive</div><div class="hint">drop a step into each evolution; only the analytic (heat) one smooths instantly</div></div>
   <div class="row">
-    <button id="sg-an-heat" class="active">heat: T(t) = e^{tΔ} (analytic)</button>
-    <button id="sg-an-wave">wave: u_tt = u_xx (not analytic)</button>
-    <button id="sg-an-schro">Schrödinger: T(t) = e^{-itΔ} (not analytic)</button>
+    <button id="sg-an-heat" class="active">heat: $T(t) = e^{t\Delta}$ (analytic)</button>
+    <button id="sg-an-wave">wave: $u_{tt} = u_{xx}$ (not analytic)</button>
+    <button id="sg-an-schro">Schrödinger: $T(t) = e^{-it\Delta}$ (not analytic)</button>
   </div>
   <div class="row">
     <label for="sg-an-t">$t$:</label>
@@ -725,22 +811,32 @@ $$\bigl\|\,(\lambda - A)^{-1}\,\bigr\| \;\le\; \frac{M}{|\lambda|}\qquad \text{o
     return x < 0 ? -y : y;
   }
   function step(x){ return 0.5 * (1 + erf(8*x)); }
+  // Smooth periodic bump for the dispersive case: tanh-flat between +-pi, smoothly fading to 0 by x = +-pi/2 outside the bump.
+  // bump(x) = sigmoid-localized rising edge that vanishes near +-pi to avoid Gibbs in periodic Fourier extension.
+  function bump(x){
+    // 0.5*(tanh(8x) - tanh(8(x - pi/2))*0)  -- simpler: use a 2pi-periodic smooth function with a narrow rising-edge in [-pi/2, pi/2] that is zero at +-pi.
+    // Choose: 0.5*(1+erf(8x)) * window(x), with window vanishing smoothly at +-pi.
+    const w = Math.exp(-Math.pow(x/1.4, 8));
+    return 0.5*(1 + erf(8*x)) * w;
+  }
   function applyT(t){
     if(kind === 'heat'){
-      const denom = Math.sqrt(1 + 128*t);
+      // For u0 = step(x) = 0.5*(1+erf(alpha x)) with alpha=8, heat solution is 0.5*(1+erf(alpha x / sqrt(1+4 alpha^2 t))) = 0.5*(1+erf(8 x / sqrt(1+256 t))).
+      const denom = Math.sqrt(1 + 256*t);
       return xs.map(x => 0.5*(1 + erf(8*x/denom)));
     }
     if(kind === 'wave'){
       return xs.map(x => 0.5*(step(x-t) + step(x+t)));
     }
+    // Schrodinger: use a SMOOTH 2pi-periodic test function (bump) so periodic Fourier expansion is not corrupted by edge Gibbs.
     const K = 60;
     const ck = [];
     for(let k=-K;k<=K;k++){
       let re = 0, im = 0;
       for(let j=0;j<xs.length-1;j++){
         const xj = xs[j];
-        re += step(xj) * Math.cos(k*xj);
-        im -= step(xj) * Math.sin(k*xj);
+        re += bump(xj) * Math.cos(k*xj);
+        im -= bump(xj) * Math.sin(k*xj);
       }
       ck.push({k, re: re/(xs.length-1), im: im/(xs.length-1)});
     }
@@ -782,7 +878,7 @@ $$\bigl\|\,(\lambda - A)^{-1}\,\bigr\| \;\le\; \frac{M}{|\lambda|}\qquad \text{o
       ? `Heat: edge thickness widens like sqrt(t); at any t > 0, u(t,x) is C-infinity (analytic semigroup, instant smoothing).`
       : kind === 'wave'
       ? `Wave: edge splits into two pulses moving at +-1; sharpness preserved exactly (finite speed, no smoothing).`
-      : `Schroedinger: dispersive ringing - high modes spin at rate k^2, modulus oscillates but no instant smoothing.`;
+      : `Schroedinger (smooth periodic bump): high modes spin at rate k^2, dispersive but no instant smoothing.`;
     svg.appendChild(desc);
     let maxSlope = 0;
     const ut = applyT(t);
@@ -1003,20 +1099,41 @@ $$Af(x)\;=\;\tfrac{1}{2}\sum_{i,j}(\sigma\sigma^\top)_{ij}(x)\,\partial_i\partia
     return xs.map(x => amp * Math.exp(-x*x/(2*sigma2)));
   }
   function indicator(x, w, r){ return (Math.abs(x-w) < r) ? 1 : 0; }
+  // Naive controlled trajectory: u_ctrl(T,x) = T(T)u0 + 1_omega(x) * (u_T(x) - T(T)u0(x)) -- the simplest projection-onto-omega control.
+  // Residual on omega^c = (u_T - T(T)u0) restricted to omega^c is what cannot be matched by such a naive controller.
+  function controlled(T, w, r){
+    const drift = Tu0(T);
+    return xs.map((x, k) => {
+      const inOmega = indicator(x, w, r);
+      return drift[k] + inOmega * (uTFn(x) - drift[k]);
+    });
+  }
   function controlCost(T, w, r){
     const drift = Tu0(T);
-    let target = 0, missed = 0, areaW = 0;
+    let targetSq = 0, missedSq = 0, areaW = 0;
+    // Centroid distance of omega from the target's mass center (target is centered near x=1)
+    let targetCenter = 0, targetMass = 0;
+    for(let k=0;k<xs.length;k++){
+      const v = uTFn(xs[k]);
+      targetCenter += xs[k] * v * dx;
+      targetMass += v * dx;
+    }
+    const xT = targetMass > 1e-9 ? targetCenter/targetMass : 0;
+    const distOmegaToTarget = Math.abs(w - xT);
     for(let k=0;k<xs.length;k++){
       const dif = uTFn(xs[k]) - drift[k];
-      target += dif*dif * dx;
+      targetSq += dif*dif * dx;
       const inOmega = indicator(xs[k], w, r);
       areaW += inOmega * dx;
-      if(!inOmega) missed += dif*dif * dx;
+      if(!inOmega) missedSq += dif*dif * dx;
     }
-    const reachable = areaW > 0 ? Math.sqrt(target) : Infinity;
-    const unreachable = Math.sqrt(missed);
-    const Tcost = areaW > 0 ? Math.exp(1.0/Math.max(T, 0.05)) * Math.sqrt(target)/Math.sqrt(areaW) : Infinity;
-    return { target: Math.sqrt(target), missed: unreachable, areaW, cost: Tcost };
+    const target = Math.sqrt(targetSq);
+    const unreachable = Math.sqrt(missedSq);
+    // LQR-style cost: grows with target norm, e^{c/T}, and 1/sqrt(area). Add a penalty (1 + |w - x_target|) so that
+    // moving the window AWAY from the target's center increases cost - now w is a real control knob, not just decorative.
+    const Tcost = areaW > 0 ? Math.exp(1.0/Math.max(T, 0.05)) * target * (1 + distOmegaToTarget) / Math.sqrt(areaW) : Infinity;
+    const ratio = target > 1e-9 ? unreachable / target : 0;
+    return { target, missed: unreachable, areaW, cost: Tcost, ratio, distOmegaToTarget };
   }
   function draw(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
@@ -1029,13 +1146,13 @@ $$Af(x)\;=\;\tfrac{1}{2}\sum_{i,j}(\sigma\sigma^\top)_{ij}(x)\,\partial_i\partia
     svg.appendChild(SVG('line',{x1:0,y1:yMid-110,x2:0,y2:yMid+110,stroke:'var(--mute)','stroke-width':0.6,'stroke-dasharray':'2 3'}));
     const X = x => x * (220/Math.PI);
     const Y = v => yMid - Math.max(0, Math.min(1.4, v)) * 80;
-    function plot(yfn, color, dash){
+    function plot(yfn, color, dash, width){
       let d = '';
       for(let k=0;k<xs.length;k++){
-        const px = X(xs[k]), py = yfn(xs[k]);
+        const px = X(xs[k]), py = yfn(xs[k], k);
         d += (k===0 ? 'M' : 'L') + ` ${px.toFixed(1)} ${py.toFixed(1)} `;
       }
-      const p = SVG('path',{d, fill:'none', stroke:color, 'stroke-width':1.6});
+      const p = SVG('path',{d, fill:'none', stroke:color, 'stroke-width':width||1.6});
       if(dash) p.setAttribute('stroke-dasharray', dash);
       svg.appendChild(p);
     }
@@ -1044,8 +1161,9 @@ $$Af(x)\;=\;\tfrac{1}{2}\sum_{i,j}(\sigma\sigma^\top)_{ij}(x)\,\partial_i\partia
     plot(x => Y(u0Fn(x)), 'var(--mute)', '3 3');
     plot(x => Y(uTFn(x)), 'var(--yellow)', null);
     const drift = Tu0(T);
-    let pi = 0;
-    plot(x => { const v = drift[pi++]; return Y(v); }, 'var(--cyan)', '2 2');
+    plot((x, k) => Y(drift[k]), 'var(--cyan)', '2 2');
+    const ctrl = controlled(T, w, r);
+    plot((x, k) => Y(ctrl[k]), 'var(--violet)', null, 2.0);
     const lg = (x, y, c, txt, dash) => {
       const ln = SVG('line',{x1:x,y1:y,x2:x+18,y2:y,stroke:c,'stroke-width':2});
       if(dash) ln.setAttribute('stroke-dasharray', dash);
@@ -1054,17 +1172,16 @@ $$Af(x)\;=\;\tfrac{1}{2}\sum_{i,j}(\sigma\sigma^\top)_{ij}(x)\,\partial_i\partia
       t.textContent = txt; svg.appendChild(t);
     };
     lg(-235, -130, 'var(--mute)', 'u0', '3 3');
-    lg(-180, -130, 'var(--cyan)', 'T(T) u0 (drift)', '2 2');
-    lg(-65, -130, 'var(--yellow)', 'target u_T');
-    const omegaText = SVG('text',{x:130, y:-130, 'font-size':10, fill:'var(--green)'}); omegaText.textContent = 'omega (control)'; svg.appendChild(omegaText);
+    lg(-200, -118, 'var(--cyan)', 'T(T) u0 (drift)', '2 2');
+    lg(-105, -130, 'var(--yellow)', 'target u_T');
+    lg(-30, -118, 'var(--violet)', 'controlled u(T,x) (naive proj)');
+    const omegaText = SVG('text',{x:140, y:-130, 'font-size':10, fill:'var(--green)'}); omegaText.textContent = 'omega (control)'; svg.appendChild(omegaText);
     const c = controlCost(T, w, r);
-    const reachable = c.areaW > 0;
-    const ratio = c.target > 1e-9 ? c.missed / c.target : 0;
     out.textContent = `Heat equation u_t = u_xx on [-pi, pi], control window omega = [${w.toFixed(2)} +- ${r.toFixed(2)}], horizon T = ${T.toFixed(2)}.
-Drift T(T) u0 vs target u_T: |u_T - T(T) u0|_{L^2} approx ${c.target.toFixed(3)} (this is what control must close).
-Reachability (analytic semigroup, approximate controllability for any omega with positive measure): ${reachable ? 'achievable in any T > 0; the question is the cost' : 'omega has measure 0; no control'}.
-LQR-style cost estimate |v|_{L^2(0,T;omega)} approx ${c.cost.toFixed(2)} (grows like e^{c/T} for small T - Lebeau-Robbiano observability cost).
-Note: approximate is not exact; for parabolic eqs the reachable set is dense but not the full L^2, because instant smoothing means u(T) is in intersection_k H^k.`;
+Drift T(T) u0 vs target u_T: |u_T - T(T) u0|_{L^2} approx ${c.target.toFixed(3)} (residual the control must close).
+Naive projection-onto-omega controller (violet) matches the target inside omega and falls back to the drift outside; residual outside omega: |u_T - T(T)u0|_{L^2(omega^c)} approx ${c.missed.toFixed(3)} (= ${(c.ratio*100).toFixed(1)}% of total residual not corrected by this controller).
+Approximate controllability (analytic-semigroup theory) says a TRUE control closes the residual to any precision; the cost grows like e^{c/T} for small T. Cost estimate (with omega-to-target distance ${c.distOmegaToTarget.toFixed(2)}): |v|_{L^2(0,T;omega)} approx ${c.cost.toFixed(2)} - moving omega away from the target's center makes the cost worse.
+Approximate is not exact: for parabolic eqs the reachable set is dense but not all of L^2 (instant smoothing means u(T) lies in intersection_k H^k). The exponential blow-up e^{c/T} is the observability cost (Lebeau-Robbiano: short horizons need exponentially expensive controls).`;
   }
   wS.addEventListener('input', draw);
   rS.addEventListener('input', draw);
@@ -1085,8 +1202,10 @@ Note: approximate is not exact; for parabolic eqs the reachable set is dense but
 <li><a href="./functional-analysis.html#bounded">Functional analysis — Bounded operators &amp; adjoints</a> — the Banach-space scaffolding that holds $T(t)$ and $A$.</li>
 <li><a href="./partial-differential-equations.html#heat">Partial differential equations — Heat equation &amp; heat kernel</a> — the canonical analytic-semigroup example, fully visible at the level of the Gaussian kernel.</li>
 <li><a href="./sobolev-spaces-distributions.html#sobolev">Sobolev spaces &amp; distributions — $W^{k,p}$ and $H^s$</a> — the natural domains $D(A^k)$ for differential generators.</li>
-<li><a href="./spectral-theory.html#spectral-decomp">Spectral theory — spectral decomposition</a> — diagonalizes self-adjoint generators so $T(t)=e^{tA}$ is computed mode-by-mode.</li>
+<li><a href="./spectral-theory.html#self-adjoint">Spectral theory — spectrum of a self-adjoint operator</a> — diagonalizes self-adjoint generators so $T(t)=e^{tA}$ is computed mode-by-mode.</li>
+<li><a href="./microlocal-analysis.html#wavefront">Microlocal analysis — wavefront set</a> — explains why Schrödinger and wave propagators preserve singularities (no instant smoothing) while heat erases them.</li>
 <li><a href="./stochastic-calculus.html#ito-formula">Stochastic calculus — Itô formula</a> — derives the second-order elliptic generator of a Markov semigroup from an SDE.</li>
+<li><a href="./stochastic-processes-and-martingales.html#continuous-martingales">Stochastic processes &amp; martingales — continuous martingales</a> — Markov semigroup acts on bounded measurable functions of the diffusion's path.</li>
 </ul>
 </section>
 

@@ -14,7 +14,7 @@
             "$\\|T(t)-T(s)\\|_{B(X)}\\to 0$ as $t\\to s$ — uniform (norm) continuity."
           ],
           "answer": 3,
-          "hint": "One of these four is a strictly stronger condition than what the C₀ axiom asks for; if it were required, most PDE evolution operators would be excluded.",
+          "hint": "Three of these are the explicit C₀ axioms; one is a continuity statement set in a different topology on $B(X)$ from the one the strong-continuity axiom uses. Sort the four by which topology each statement lives in.",
           "explain": "The C₀ axiom is STRONG continuity (pointwise in $x$), not norm continuity. Norm continuity is far stronger and forces the generator $A$ to be bounded — it would exclude $A=\\Delta$, $A=d/dx$, and essentially every PDE-relevant generator. The three correct axioms are (0,1,2); (3) is a different (much smaller) class called uniformly continuous semigroups."
         },
         {
@@ -22,7 +22,7 @@
           "q": "The heat semigroup $T(t) = e^{t\\Delta}$ on $L^2(\\mathbb{R}^n)$ has growth bound $M e^{\\omega t}$ with the smallest admissible constants $M$ and $\\omega$. What is $\\omega$?",
           "answer": 0,
           "tol": 1e-9,
-          "hint": "Compute $\\|T(t)f\\|_{L^2}/\\|f\\|_{L^2}$ via Plancherel: in Fourier, $T(t)$ multiplies $\\hat f(\\xi)$ by what function of $|\\xi|$? Bound that multiplier's modulus.",
+          "hint": "In Fourier, $T(t)$ acts as multiplication on $\\hat f$ by a real-exponential factor depending on $|\\xi|$. Plancherel turns the $L^2$ ratio into a sup over that multiplier's modulus.",
           "explain": "By Plancherel, $\\|T(t)f\\|_{L^2}^2 = \\int |e^{-t|\\xi|^2}\\hat f(\\xi)|^2 d\\xi \\le \\int|\\hat f|^2 = \\|f\\|^2$, so $\\|T(t)\\|\\le 1$ with equality at $t=0$. The growth bound $\\|T(t)\\|\\le 1\\cdot e^{0\\cdot t}$ is sharp: $M=1$, $\\omega=0$. The semigroup is a contraction; the answer is $\\omega = 0$."
         },
         {
@@ -46,7 +46,7 @@
             0,
             1
           ],
-          "hint": "Two of these are time-reversible (define for all $t\\in\\mathbb{R}$, not just $t\\ge 0$); two are not. Among the reversible pair, separate by exact $L^2$ preservation vs. energy-norm preservation. Among the irreversible pair, separate by the bounded-vs-unbounded generator distinction.",
+          "hint": "Pick one concrete test function (say a Schwartz Gaussian) and ask, for each operator on the left, what each right-hand structural property would predict about its image — preservation of one norm, smoothing, reversibility, or norm-continuity in $t$.",
           "explain": "(0)→2: heat is a parabolic contraction, irreversible. (1)→3: Schrödinger preserves $L^2$ exactly (Plancherel + unitary multiplier), defined for all $t$. (2)→0: wave conserves energy ($\\frac{1}{2}\\|\\nabla u\\|^2+\\frac{1}{2}\\|u_t\\|^2$), reversible. (3)→1: bounded $A$ ⇒ $e^{tA}$ converges in operator norm, giving uniform continuity. Differentiating these four families is exactly the classification project of semigroup theory."
         }
       ]
@@ -64,7 +64,7 @@
             "$D(A)$ is closed in $X$, and $A$ is bounded on it."
           ],
           "answer": 1,
-          "hint": "Pick a concrete generator like $A = d/dx$ on $L^2(\\mathbb{R})$. Take $f = \\mathbf{1}_{[0,1]}$. Does the difference quotient $(T(h)f - f)/h$ converge in $L^2$? What does that say about $D(A)$ vs. $X$?",
+          "hint": "Try $A=d/dx$ on $L^2$ and a non-Sobolev test datum: does the difference quotient converge in $X$? Then use the closed-graph theorem to rule out one of the four options that would force $A$ bounded.",
           "explain": "$D(A)$ is dense in $X$ (the time-averaged orbit $\\frac{1}{t}\\int_0^t T(s)x\\,ds$ approximates $x$ and lies in $D(A)$), but it is generally a proper subspace because $A$ is unbounded. $A$ is closed but not bounded on $D(A)$. (0) fails when $A$ is unbounded, e.g. $A=d/dx$ has $D(A)=W^{1,2}\\subsetneq L^2$. (2) fails — even for bounded $X$, $D(A)$ is dense. (3) closure of $D(A)$ would force $A$ bounded by closed-graph."
         },
         {
@@ -81,7 +81,7 @@
             1,
             3
           ],
-          "hint": "One of the four is too strong: it asks for differentiability at every initial datum, which would require $A$ bounded. Identify that one and rule it out.",
+          "hint": "Mild solutions exist for any initial datum but classical (differentiable) solutions need more regularity. Which option conflates the two regimes?",
           "explain": "(0,1,3) are the textbook content. (2) is false: orbits starting outside $D(A)$ are continuous but generally not differentiable. The whole point of $D(A)$ is to record exactly the initial data for which the equation $u'=Au$ holds in the strong sense. Mild solutions $u(t)=T(t)u_0$ exist for any $u_0\\in X$, but classical solutions need $u_0\\in D(A)$."
         },
         {
@@ -95,7 +95,7 @@
           ],
           "right": [
             "$Af = m\\cdot f$ with $D(A) = L^2$ (the operator is bounded)",
-            "$Af = Af$ with $D(A) = X$",
+            "$Af = A f$ with $D(A) = X$ (same bounded operator, full domain)",
             "$Af = \\Delta f$ with $D(A) = H^2(\\mathbb{R}^n)$",
             "$Af = f'$ with $D(A) = W^{1,p}(\\mathbb{R})$"
           ],
@@ -105,7 +105,7 @@
             0,
             1
           ],
-          "hint": "Two of these have generators with $D(A)=X$ (whole space), and two have generators with strictly smaller domains. Sort by 'is the generator unbounded?' first, then pair within each class.",
+          "hint": "For each operator on the left, ask: what regularity must $f$ have so that the natural symbolic action of $A$ on $f$ produces something back in the same space?",
           "explain": "(0)→2: Δ has its natural Sobolev domain $H^2$. (1)→3: derivative on $L^p$ has domain $W^{1,p}$. (2)→0: multiplication by a bounded function is itself a bounded operator with $D(A)=L^2$. (3)→1: bounded $A$ means $D(A)=X$ trivially. The pattern: $D(A)$ is the natural Sobolev/regularity space the differential operator $A$ requires to land back in $X$."
         }
       ]
@@ -123,7 +123,7 @@
             "$A$ has compact resolvent."
           ],
           "answer": 1,
-          "hint": "Specialize to the simplest case: $A$ scalar, on $X=\\mathbb{R}$. For which $A\\in\\mathbb{R}$ is $T(t)=e^{tA}$ a contraction? Now write the resolvent $(λ-A)^{-1}$ in this scalar case and see which of the four conditions matches.",
+          "hint": "Hille–Yosida sits between two extremes: bounded $A$ (option 0, far too restrictive) and self-adjointness with negative spectrum (option 2, sufficient but not necessary). The actual hypothesis is a single estimate that the closed-graph theorem can verify directly from $A$.",
           "explain": "The resolvent estimate $\\|(\\lambda-A)^{-1}\\|\\le 1/\\lambda$ for every $\\lambda>0$ is the analytic content of Hille–Yosida in the contraction case. In the scalar case $A=a\\in\\mathbb{R}$, the bound says $1/(\\lambda-a)\\le 1/\\lambda$ for $\\lambda>0$, i.e. $a\\le 0$ — exactly when $e^{ta}\\le 1$. (0) excludes Δ. (2) self-adjointness is sufficient when spectrum is in $(-\\infty,0]$ but not necessary (translation isn't self-adjoint yet generates a contraction group). (3) compact resolvent is unrelated to contraction."
         },
         {
@@ -143,7 +143,7 @@
             4,
             0
           ],
-          "hint": "The chain runs: 'check a hypothesis → use it to define a regularized object → measure how the regularization approximates the unbounded original → exponentiate the regularization (which is now bounded) → take a limit'. Each step needs the previous one to be in place.",
+          "hint": "Each step has a precondition that must already be true. Pick any two steps and ask: which one assumes the other has already happened? E.g. defining $T_n=e^{tA_n}$ presumes $A_n$ is already constructed and bounded.",
           "explain": "(1) Resolvent bound: this is the input from Hille–Yosida hypothesis. (2) Form $A_n$: bounded by construction once the resolvent is bounded. (3) Strong convergence $A_n\\to A$ on $D(A)$: justifies treating $A_n$ as an approximation. (4) Define $T_n=e^{tA_n}$: only legal because $A_n$ is bounded (series converges in operator norm). (0) Take the strong limit: gives $T(t)$. Skipping (1) leaves $A_n$ undefined; skipping (3) leaves the approximation unjustified; etc."
         },
         {
@@ -156,7 +156,7 @@
             "By Hille–Yosida, $A$ generates a contraction semigroup."
           ],
           "answer": 3,
-          "hint": "The conclusion would force $\\|e^{tI}\\|\\le 1$ for all $t\\ge 0$. Compute $\\|e^{tI}\\|$ directly to see whether that holds. Then re-read the Hille–Yosida bound and check which $\\lambda$ values matter.",
+          "hint": "Restate Hille–Yosida from memory before re-reading the proof. The estimate carries a quantifier on $\\lambda$; check that the proof uses that exact quantifier and not a relaxed one.",
           "explain": "Step 3 is wrong (and the test the proof claims to perform is the wrong test). Hille–Yosida demands $\\|(\\lambda-A)^{-1}\\|\\le 1/\\lambda$ for EVERY $\\lambda>0$, not just for $\\lambda$ large. At $\\lambda=2$, $1/|\\lambda-1|=1$ but the required bound is $1/\\lambda=0.5$ — the estimate fails. And indeed $A=I$ generates $e^{tI}=e^t I$, with $\\|e^{tI}\\|=e^t>1$, so it is NOT a contraction semigroup. The error is taking 'eventually small' as a substitute for 'pointwise bounded by $1/\\lambda$'."
         }
       ]
@@ -174,7 +174,7 @@
             "The generator $A$ is bounded."
           ],
           "answer": 1,
-          "hint": "Hille–Yosida only requires $\\lambda>0$, i.e. a half-line of resolvent estimates. Analyticity demands the estimate on a region that bulges into the complex plane — and the bulge is what extends $T(t)$ holomorphically. Which of the four answers describes such a bulged region?",
+          "hint": "Holomorphic extension of $T(t)$ off the real axis requires the resolvent estimate to hold somewhere off the real axis too. Three of these options give estimates only on a 1D set or use the wrong topology entirely.",
           "explain": "Analyticity demands the resolvent estimate on a SECTOR fattened past the imaginary axis (the half-plane $\\mathrm{Re}\\,\\lambda>0$ extended to angle $\\pi/2+\\delta$). This is strictly stronger than Hille–Yosida (which only requires $\\lambda>0$). The fattened sector is what gives the holomorphic extension of $T$ via the Cauchy contour-integral formula $T(z) = \\frac{1}{2\\pi i}\\int_\\Gamma e^{z\\lambda}(\\lambda-A)^{-1}d\\lambda$. (0,3) are weaker; (2) misuses 'holomorphic'."
         },
         {
@@ -191,7 +191,7 @@
             1,
             2
           ],
-          "hint": "Three of the four are textbook consequences of the analyticity hypothesis. The fourth is the wrong direction — analyticity implies a smoothing property, which is incompatible with one of these claims.",
+          "hint": "Analyticity is incompatible with purely-imaginary spectrum. Compute the spectrum of one well-known group ($e^{itH}$ for self-adjoint $H$) and ask which of the four claims would force its spectrum to leave the imaginary axis.",
           "explain": "(0,1,2) are the operator-theoretic versions of parabolic regularity, instant smoothing, and maximal regularity. (3) is wrong: unitary semigroups have purely imaginary spectrum (think $e^{itH}$ for a self-adjoint $H$), so the resolvent has no fattened sector and the semigroup is NOT analytic. The Schrödinger group is unitary but not analytic — singularities don't smooth, just disperse."
         },
         {
@@ -215,7 +215,7 @@
             1,
             0
           ],
-          "hint": "Two of these are time-reversible groups (the operator is defined for all $t\\in\\mathbb{R}$); two are not. Among the reversible pair, separate by 'preserves $L^2$ exactly' vs. 'preserves an energy norm involving derivatives'. Among the irreversible pair, separate by 'norm-continuous' vs. 'analytic / smoothing'.",
+          "hint": "Pick a single rough initial datum (a step or sawtooth) and trace it through each operator at $t>0$: which classes preserve the singularity, which smooth it, which reverse time?",
           "explain": "(0)→3: heat is the prototype analytic semigroup, $t\\ge 0$ only, instant smoothing. (1)→2: Schrödinger group, all $t$, unitary, no smoothing. (2)→1: wave is a $C_0$-group preserving energy, finite speed of propagation, no smoothing. (3)→0: bounded $A$ ⇒ uniformly continuous, all $t\\in\\mathbb{R}$, smoothing depends on $A$ (typically none, since $A$ is bounded). The four landscapes — analytic, unitary-dispersive, energy-preserving hyperbolic, uniformly continuous — are the major taxa."
         }
       ]
@@ -233,7 +233,7 @@
             "$u(t) = T(t)u_0 + \\int_0^t f(t-s)\\,ds$"
           ],
           "answer": 1,
-          "hint": "Differentiate each candidate (formally) and check whether $u'-Au=f$ pops out. The semigroup acts on the forcing $f(s)$ for the elapsed time $t-s$ — the 'time remaining' between the source firing at $s$ and the observation at $t$.",
+          "hint": "Differentiate each candidate formally and check whether $u'-Au=f$ falls out. Two of the four options keep the source $f(s)$ outside the action of $T$; one shifts the wrong direction; only one threads $f(s)$ through $T$ correctly.",
           "explain": "The variation-of-parameters / Duhamel formula propagates the source $f(s)$ forward by the elapsed time $t-s$. Differentiating: $u'(t) = AT(t)u_0 + f(t) + \\int_0^t AT(t-s)f(s)ds = Au(t)+f(t)$. (0) misses the time-shift on $T$. (2) propagates by $s$ instead of $t-s$ — wrong direction. (3) drops the semigroup entirely."
         },
         {
@@ -257,7 +257,7 @@
             1,
             2
           ],
-          "hint": "One of these PDEs is second-order in time — turning it into a first-order Cauchy problem requires expanding the state. Two of the others differ only in the generator (a Laplacian, optionally combined with a drift term or multiplied by $-i$). Sort by the structural transformation needed first.",
+          "hint": "First sort by structural transformation: which PDE is second-order in $t$ and therefore needs a doubled state space? The remaining three keep $X=L^2$ but differ in how $A$ relates to $\\Delta$ — by a constant, a drift, or an imaginary unit.",
           "explain": "(0)→3: heat — straightforward $A=\\Delta$. (1)→0: wave is second-order in $t$; standard trick is the doubled state $(u,u_t)$ on $H^1\\times L^2$ with the matrix generator. (2)→1: Schrödinger has $A=-i\\Delta$ (skew-symmetric, generates a unitary group). (3)→2: advection-diffusion adds a first-order drift, generator is still 2nd-order elliptic when $b$ is bounded. The choice of $X$ encodes the natural energy/conservation law."
         },
         {
@@ -274,7 +274,7 @@
             1,
             3
           ],
-          "hint": "Three of the four are textbook content. The fourth claims a kind of failure (non-uniqueness) that the closedness of $A$ forces to be impossible. Which one is it?",
+          "hint": "What does closedness of $A$ — automatic for $C_0$-generators — buy you for the difference $w$ of two solutions with the same initial datum? If $w$ is a mild solution of $w'=Aw$ with $w(0)=0$, what is $w$?",
           "explain": "(0,1,3) are the well-posedness package. (2) is wrong: when $A$ generates a $C_0$-semigroup it is automatically closed, and closedness implies uniqueness of mild solutions — two solutions with the same $u_0$ would have a difference $w(t)$ that is a mild solution of $w'=Aw$ with $w(0)=0$, forcing $w\\equiv 0$ by the semigroup law. Linearity, continuity, and existence are all built into the framework once the generator hypothesis is verified."
         }
       ]
@@ -292,7 +292,7 @@
             "Diagonalize $\\Delta$ via spectral theorem and integrate ODEs."
           ],
           "answer": 1,
-          "hint": "Local Lipschitz on $F$ is the hypothesis used by exactly one of these four methods. Recall what theorem turns 'local Lipschitz integrand' into 'unique fixed point' on a function space.",
+          "hint": "Two of these methods need $A$ to commute with a basis (Fourier, spectral diagonalization). The other two work for any $C_0$-generator on any Banach space; among those, only one method's hypothesis matches the regularity assumption stated for $F$.",
           "explain": "The Duhamel form turns the PDE into an integral equation $u=\\Phi(u)$ on $C([0,T_*];X)$. For $T_*$ small the map $\\Phi$ is a contraction (because $F$ is locally Lipschitz and $\\sup_t\\|T(t)\\|$ is bounded on compacts), so Banach's theorem gives a unique mild solution. (0,3) require structural assumptions like compact resolvent / spectral diagonal. (2) maximum principles give bounds, not existence. The semigroup + fixed-point recipe is universal across $A=\\Delta, -\\Delta+i, etc.$"
         },
         {
@@ -300,7 +300,7 @@
           "q": "For an SDE $dX_t = \\sigma\\,dW_t$ on $\\mathbb{R}$ with constant $\\sigma > 0$ and Brownian motion $W$, the Markov semigroup $T(t)f(x)=\\mathbb{E}[f(X_t)\\mid X_0=x]$ has generator $Af(x) = c\\cdot f''(x)$ for smooth $f$. What is the constant $c$, in terms of $\\sigma$? (Enter the coefficient as a closed-form expression of $\\sigma$ — answer the numerical value when $\\sigma=2$.)",
           "answer": 2,
           "tol": 1e-6,
-          "hint": "Apply Itô's formula to $f(X_t)$, take expectation, and read off the drift in $t$ at smooth $f$. The result is a constant times $f''$; that constant has a $1/2$ in it (canonical Itô convention).",
+          "hint": "Itô's formula has two terms when applied to $f(X_t)$: a stochastic-integral term (martingale, vanishes in expectation) and a deterministic drift in $t$. Read the drift, isolate the coefficient of $f''$, and substitute $\\sigma=2$.",
           "explain": "Itô's formula: $df(X_t) = f'(X_t)\\,dX_t + \\frac{1}{2}f''(X_t)\\,d\\langle X\\rangle_t = \\sigma f'(X_t)dW_t + \\frac{1}{2}\\sigma^2 f''(X_t)dt$. Taking expectation kills the martingale, so $\\frac{d}{dt}\\mathbb{E}[f(X_t)] = \\frac{1}{2}\\sigma^2\\mathbb{E}[f''(X_t)]$, hence $A = \\frac{1}{2}\\sigma^2 \\partial^2$. With $\\sigma=2$: $c = \\frac{1}{2}\\cdot 4 = 2$. The general formula $A = \\frac{1}{2}\\sigma\\sigma^\\top:D^2 + b\\cdot D$ specializes to $\\frac{1}{2}\\Delta$ for $\\sigma=I$, $b=0$ — the heat semigroup is the Markov semigroup of standard Brownian motion."
         },
         {
@@ -318,7 +318,7 @@
             2,
             3
           ],
-          "hint": "All four of these are textbook semigroup-control facts. None is a trick; the question tests whether you can recognize each as standard rather than which is the odd one out.",
+          "hint": "For each statement, ask: does this fail for parabolic equations, hyperbolic equations, or both? The geometric vs. analytic mechanisms behind controllability differ qualitatively across the two regimes — check each statement on its own merits.",
           "explain": "(0) and (1) are the heat-equation story: analyticity gives approximate controllability for any nonempty $\\omega$ (Lebeau–Robbiano), but exact controllability fails because $u(T)\\in\\bigcap_k H^k$ is much smoother than a generic $L^2$ target. (2) is the BLR theorem for the wave equation, where finite speed of propagation forces a geometric obstruction. (3) is the Hahn–Banach dual characterization: approximate controllability ⇔ uniqueness for the adjoint observability problem. All four are correct — semigroup theory unifies the controllability question across the parabolic, hyperbolic, and abstract settings."
         }
       ]

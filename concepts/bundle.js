@@ -849,7 +849,7 @@ window.__MVConcepts = {
           "prereqs": [
             "bounded-operators-fa"
           ],
-          "blurb": "A C₀ semigroup on a Banach space $X$ is a family $\\{T(t)\\}_{t \\geq 0}$ of bounded operators satisfying $T(0) = I$, $T(s+t) = T(s)T(t)$, and $t \\mapsto T(t)x$ continuous in $t$ for every $x \\in X$. It encodes the time-evolution of an autonomous linear PDE: heat semigroup $T(t) = e^{t\\Delta}$, wave-equation propagator on the energy space, Schrödinger group $e^{-it\\Delta}$. Every $T(t)$ is bounded by $Me^{\\omega t}$ for some constants — semigroups grow at most exponentially, and the constants $(M,\\omega)$ stratify them into contractions, isometries, and exponentially growing orbits.",
+          "blurb": "A C₀ semigroup $\\{T(t)\\}_{t\\ge 0}$ on $X$ obeys $T(0)=I$, $T(s+t)=T(s)T(t)$, and strong continuity $t\\mapsto T(t)x$ for every $x$. Strong (not norm) continuity is the right calibration: the stronger axiom $\\|T(t)-T(s)\\|\\to 0$ forces $A$ bounded, ruling out $A=\\Delta$, $A=\\partial_x$, and every PDE-relevant generator. Strong continuity at $t=0$ plus the uniform-boundedness principle yields $\\|T(t)\\|\\le M e^{\\omega t}$ automatically; the constants $(M,\\omega)$ stratify families into contractions ($M=1$, $\\omega=0$ — heat), uniformly bounded ($\\omega=0$ — Schrödinger), and exponentially growing ($\\omega>0$). This classification is the foundation Hille–Yosida sharpens with resolvent estimates.",
           "tags": [
             "foundation"
           ]
@@ -861,7 +861,7 @@ window.__MVConcepts = {
           "prereqs": [
             "sg-c0-semigroups"
           ],
-          "blurb": "The generator $A$ of a C₀ semigroup $T(t)$ is $Ax = \\lim_{t \\to 0^+} (T(t)x - x)/t$ on the dense domain $D(A) = \\{x : \\text{the limit exists in }X\\}$. $A$ is closed, densely defined, and uniquely determines $T$: knowing $A$ plus the resolvent set is equivalent to knowing $T$. The semigroup is differentiable on $D(A)$: $\\frac{d}{dt}T(t)x = AT(t)x = T(t)Ax$. This is the operator analogue of $\\frac{d}{dt}e^{tA} = Ae^{tA}$, but now $A$ is unbounded and the domain $D(A)$ records exactly which orbits are classically differentiable.",
+          "blurb": "The generator $A$ of $T(t)$ is $Ax=\\lim_{t\\to 0^+}(T(t)x-x)/t$ on the dense subspace $D(A)$ where the strong limit exists. $A$ is closed, generally unbounded, and uniquely determines $T$ — knowing the resolvent set and the values of $A$ on $D(A)$ is equivalent to knowing every $T(t)$. The differentiation identity $\\frac{d}{dt}T(t)x=AT(t)x=T(t)Ax$ holds on $D(A)$, making $u(t)=T(t)u_0$ a classical $C^1$ solution of $u'=Au$ when $u_0\\in D(A)$, and a mild solution otherwise. Concrete domains record the Sobolev regularity $A$ requires: heat has $D(\\Delta)=H^2$, translation $D(\\partial_x)=W^{1,p}$, multiplication by bounded $m$ has $D(A)=L^2$ ($A$ already bounded). Boundedness of $A$ is equivalent to uniform continuity of $T$.",
           "tags": [
             "foundation",
             "classification"
@@ -874,7 +874,7 @@ window.__MVConcepts = {
           "prereqs": [
             "sg-infinitesimal-generator"
           ],
-          "blurb": "Hille–Yosida characterizes generators of contractions: $A$ generates a $T(t)$ with $\\|T(t)\\| \\leq 1$ iff $A$ is closed, densely defined, and every $\\lambda > 0$ lies in the resolvent set with $\\|(\\lambda - A)^{-1}\\| \\leq 1/\\lambda$. The Lumer–Phillips refinement: $A$ generates a contraction semigroup iff $A$ is dissipative and $\\mathrm{range}(\\lambda - A) = X$ for some $\\lambda > 0$. The proof constructs $T(t)$ via the Yosida approximation $A_n = nA(n - A)^{-1}$, taking $T(t) = \\lim e^{tA_n}$ — a regularization that turns unbounded generators back into bounded operators where the exponential converges.",
+          "blurb": "$A$ generates a contraction $C_0$-semigroup iff $A$ is closed, densely defined, and every $\\lambda>0$ lies in $\\rho(A)$ with $\\|(\\lambda-A)^{-1}\\|\\le 1/\\lambda$ — a purely operator-theoretic estimate the closed-graph theorem can verify. For general $C_0$-semigroups with bound $Me^{\\omega t}$ the resolvent inequality must hold on every iterate $\\|(\\lambda-A)^{-n}\\|\\le M/(\\lambda-\\omega)^n$. Lumer–Phillips refines: dissipativity ($\\mathrm{Re}\\langle Ax,x\\rangle\\le 0$ on Hilbert space) plus a range condition is equivalent and avoids the iterate. The constructive proof — Yosida approximation $A_n=n^2(n-A)^{-1}-nI$ — regularizes $A$ to a bounded operator whose exponential converges to $T(t)$ strongly. This is the existence half of the abstract Cauchy problem.",
           "tags": [
             "classification",
             "foundation"
@@ -887,7 +887,7 @@ window.__MVConcepts = {
           "prereqs": [
             "sg-hille-yosida"
           ],
-          "blurb": "$T(t)$ is analytic if it extends holomorphically into a sector $\\Sigma_\\delta = \\{z : |\\arg z| < \\delta\\}$. Equivalent characterization: the resolvent $(\\lambda - A)^{-1}$ exists and is bounded by $M/|\\lambda|$ on a fattened sector $\\{|\\arg \\lambda| < \\pi/2 + \\delta\\}$. The heat semigroup $e^{t\\Delta}$ is the canonical example. Analytic semigroups smooth instantly: $T(t)x \\in D(A^k)$ for all $k$ when $t > 0$, regardless of how rough $x$ is. This is the operator-theoretic origin of parabolic regularity — solutions of $u_t = \\Delta u$ become $C^\\infty$ for $t > 0$ — and the source of maximal $L^p$ regularity for inhomogeneous problems.",
+          "blurb": "$T(t)$ is analytic when it extends holomorphically to a complex sector $\\Sigma_\\delta=\\{|\\arg z|<\\delta\\}$. Equivalent: the resolvent set contains a fattened sector $|\\arg\\lambda|<\\pi/2+\\delta$ with $\\|(\\lambda-A)^{-1}\\|\\le M/|\\lambda|$ — strictly stronger than Hille–Yosida's half-line. Uniformly elliptic operators ($\\Delta$, $-\\nabla\\!\\cdot\\!(a\\nabla)$) qualify; first-order skew-symmetric ones (Schrödinger's $-i\\Delta$) do not, since their spectrum lies on the imaginary axis. Two consequences are decisive for parabolic PDE: instant smoothing ($T(t)L^2\\subset C^\\infty$ for any $t>0$, with $\\|A^kT(t)\\|\\le C_k/t^k$) and maximal $L^p$ regularity ($u', Au\\in L^p$ when $f\\in L^p$, on UMD spaces — Banach spaces where the Hilbert transform is bounded). Wave and Schrödinger groups conserve energy but never smooth.",
           "tags": [
             "classification",
             "refinement"
@@ -901,7 +901,7 @@ window.__MVConcepts = {
             "sg-c0-semigroups",
             "pde-classification"
           ],
-          "blurb": "The Cauchy problem $u'(t) = A u(t)$, $u(0) = u_0$ has a unique mild solution $u(t) = T(t)u_0$ for any $u_0 \\in X$ when $A$ generates a C₀ semigroup. For $u_0 \\in D(A)$, this is a strict (classical) solution. Inhomogeneous problems $u' = Au + f$ obey the Duhamel formula $u(t) = T(t)u_0 + \\int_0^t T(t-s)f(s)\\,ds$, the variation-of-parameters template. This unifies a vast family of PDEs — heat ($A=\\Delta$), wave (first-order form), Schrödinger ($A=-i\\Delta$), advection-diffusion — under one solvability theorem, with the choice of $X$ and $D(A)$ encoding the equation's natural function space.",
+          "blurb": "Recast a linear time-evolution PDE as $u'=Au+f$, $u(0)=u_0$ by choosing the natural state space $X$ and generator: heat ($X=L^2$, $A=\\Delta$, $D=H^2$), wave (doubled state on $H^1\\times L^2$ to make second-order-in-time first-order), free Schrödinger ($A=-i\\Delta$, $D=H^2$), advection-diffusion ($A=\\Delta-b\\!\\cdot\\!\\nabla$). The mild solution from Duhamel is $u(t)=T(t)u_0+\\int_0^t T(t-s)f(s)\\,ds$, well-defined for any $u_0\\in X$ and continuous $f$, classical when $u_0\\in D(A)$ and $f\\in C^1$. Closedness of $A$ — automatic for $C_0$-generators — delivers uniqueness for free. A single existence theorem subsumes parabolic, hyperbolic, and dispersive PDEs; the choice of $X$ and $D(A)$ encodes each equation's natural energy/conservation structure.",
           "tags": [
             "classification"
           ]
@@ -914,7 +914,7 @@ window.__MVConcepts = {
             "sg-analytic-semigroups",
             "sg-evolution-pdes"
           ],
-          "blurb": "Semigroup theory underwrites three downstream subjects. Nonlinear PDEs $u' = Au + F(u)$ with locally Lipschitz $F$ admit mild solutions $u(t) = T(t)u_0 + \\int_0^t T(t-s)F(u(s))\\,ds$ via Banach contraction, with maximal time of existence determined by blow-up criteria. Control theory tests reachability of $u' = Au + Bv$ via spectral conditions on $(A,B)$ — heat is approximately controllable from any nonempty open $\\omega$ thanks to analyticity, while waves require the geometric control condition. Stochastic flows from an SDE $dX = b\\,dt + \\sigma\\,dW$ produce the Markov semigroup $T(t)f(x) = \\mathbb{E}[f(X_t)\\mid X_0 = x]$, whose generator $\\frac{1}{2}\\sigma\\sigma^* : D^2 + b\\cdot D$ is the Itô–Feynman–Kac bridge to functional analysis.",
+          "blurb": "Three downstream uses share the Duhamel skeleton plus one extra ingredient. Nonlinear $u'=Au+F(u)$ with locally Lipschitz $F$: Banach contraction on $C([0,T_*];X)$ supplies the unique mild solution, with maximal-time blow-up criterion (Fujita's critical exponents for semilinear heat $u_t=\\Delta u+u^p$, Kato's mild Navier–Stokes). Control $u'=Au+Bv$: the heat equation is approximately controllable from any nonempty open $\\omega$ (Lebeau–Robbiano, via analyticity), while wave needs the geometric control condition — every billiard trajectory must enter $\\omega$ in finite time (Bardos–Lebeau–Rauch). Stochastic flows: an Itô SDE $dX=b\\,dt+\\sigma\\,dW$ produces the Markov semigroup $T(t)f(x)=\\mathbb{E}[f(X_t)\\mid X_0=x]$ with generator $\\frac{1}{2}\\sigma\\sigma^\\top\\!:\\!D^2+b\\!\\cdot\\!D$; Feynman–Kac then turns analytic estimates on $T(t)$ into probabilistic path-integral statements.",
           "tags": [
             "classification",
             "refinement"
