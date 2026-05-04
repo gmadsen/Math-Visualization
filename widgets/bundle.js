@@ -7735,6 +7735,132 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "ml-elliptic",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "ml-elliptic widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Bootstrap from parametrix: gain $m$ derivatives where $P$ is elliptic\" widget on the microlocal-analysis topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Bootstrap from parametrix: gain $m$ derivatives where $P$ is elliptic\" widget on `microlocal-analysis`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "ml-fio-canon",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "ml-fio-canon widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"FIO as wavefront mover: a Lagrangian relation between $T^*Y$ and $T^*X$\" widget on the microlocal-analysis topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"FIO as wavefront mover: a Lagrangian relation between $T^*Y$ and $T^*X$\" widget on `microlocal-analysis`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "ml-prop",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "ml-prop widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Singularity propagation by null bicharacteristic flow\" widget on the microlocal-analysis topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Singularity propagation by null bicharacteristic flow\" widget on `microlocal-analysis`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "ml-radon",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "ml-radon widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Radon canonical relation: which directions detect which edges\" widget on the microlocal-analysis topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Radon canonical relation: which directions detect which edges\" widget on `microlocal-analysis`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "ml-symbol",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "ml-symbol widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Symbol estimates and composition\" widget on the microlocal-analysis topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Symbol estimates and composition\" widget on `microlocal-analysis`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "ml-wf",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "interactive",
+    "title": "ml-wf widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Wavefront set: where × direction\" widget on the microlocal-analysis topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Wavefront set: where × direction\" widget on `microlocal-analysis`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "model-theory-ax-grothendieck",
     "family": "model-theory-ax-grothendieck",
     "dimension": "2d",

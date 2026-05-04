@@ -1,0 +1,323 @@
+{
+  "topic": "microlocal-analysis",
+  "quizzes": {
+    "ml-wavefront": {
+      "title": "The wavefront set: where × in which direction",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "By the phase-space-localization definition, $(x_0,\\xi_0)\\notin\\mathrm{WF}(u)$ exactly when:",
+          "choices": [
+            "$u(x_0)$ is finite, regardless of frequency content.",
+            "There exists $\\phi\\in C^\\infty_c$ with $\\phi(x_0)\\ne 0$ and an open cone $V\\ni\\xi_0$ such that $\\widehat{\\phi u}(\\xi)$ decays faster than every polynomial as $\\xi\\to\\infty$ within $V$.",
+            "There exists $\\phi\\in C^\\infty_c$ with $\\phi(x_0)\\ne 0$ such that $\\widehat{\\phi u}(\\xi_0)=0$ at the single point $\\xi_0$.",
+            "$u$ is real-analytic in a neighborhood of $x_0$, with $\\xi_0$ playing no role."
+          ],
+          "answer": 1,
+          "hint": "The condition needs to localize in physical space (cutoff $\\phi$) AND in frequency space (a neighborhood, not just a point), and the right strength is rapid (faster than every polynomial) decay.",
+          "explain": "The definition cuts off near $x_0$, then asks for rapid decay of the Fourier transform on a CONICAL neighborhood of $\\xi_0$ — both a physical-space window and a frequency-space cone. (0) ignores frequency content entirely. (2) demands vanishing at a single point, which is far weaker than rapid decay on a cone. (3) is the analytic-wavefront variant, which is strictly finer."
+        },
+        {
+          "type": "mcq",
+          "q": "What is $\\mathrm{WF}(\\delta_0)$ on $\\mathbb{R}^n$?",
+          "choices": [
+            "$\\emptyset$ — the Dirac delta is technically a distribution, not a function with singularities.",
+            "$\\{(0,0)\\}$ — singular at the origin, no direction information.",
+            "$\\{(0,\\xi):\\xi\\ne 0\\}$ — singular at the origin, in every nonzero direction.",
+            "$\\{(x,\\xi):x\\ne 0\\}$ — supported only away from the origin."
+          ],
+          "answer": 2,
+          "hint": "Compute $\\widehat{\\phi\\delta_0}(\\xi)$ for any cutoff $\\phi$ near $0$ — what is its value, and how does it decay (or not) as $|\\xi|\\to\\infty$?",
+          "explain": "$\\widehat{\\phi\\delta_0}(\\xi)=\\phi(0)$, a nonzero constant — no decay in any direction. So no $\\xi_0\\ne 0$ is a regular direction at $x=0$. The base projection is $\\{0\\}=\\mathrm{singsupp}(\\delta_0)$, and the fibre is the entire punctured cotangent space — the canonical 'point singularity has every direction' picture."
+        },
+        {
+          "type": "matching",
+          "q": "Match each distribution on the left to its wavefront set on the right.",
+          "left": [
+            "$\\delta_0$ on $\\mathbb{R}^n$",
+            "$\\mathbf{1}_{x_1>0}$ (Heaviside on the hyperplane $x_1=0$)",
+            "Smooth bump $\\phi\\in C^\\infty_c$",
+            "Surface measure on $\\{|x|=1\\}\\subset\\mathbb{R}^n$"
+          ],
+          "right": [
+            "$\\emptyset$ — every $(x,\\xi)$ is a direction of regularity.",
+            "$\\{(0,\\xi):\\xi\\ne 0\\}$ — point singularity, every direction.",
+            "Conormal bundle of the unit sphere — singular along the sphere, conormal direction radial.",
+            "$\\{(x,\\xi):x_1=0,\\;\\xi=t\\,e_1,\\;t\\ne 0\\}$ — singular only on the hyperplane, conormal direction $e_1$."
+          ],
+          "answer": [
+            1,
+            3,
+            0,
+            2
+          ],
+          "hint": "Two of these have codimension-1 singular support; one has a single-point singular support; one is smooth. Sort by the codimension first, then read direction off the geometry — the WF cone is conormal to the singular set.",
+          "explain": "(0)→1: $\\delta_0$ — point singularity, isotropic. (1)→3: hyperplane jump — singular only on the hyperplane, with conormal direction $\\xi=t\\,e_1$. (2)→0: smooth functions have empty WF. (3)→2: a hypersurface measure is singular on the surface, with conormal pointing radially. The pattern: $\\mathrm{WF}$ of an indicator/measure on a smooth submanifold $S$ is the conormal bundle $N^*S\\setminus 0$."
+        }
+      ]
+    },
+    "ml-pseudo-diff-ops": {
+      "title": "Pseudodifferential operators and the symbol calculus",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A symbol $p\\in S^m$ on $\\mathbb{R}^n\\times\\mathbb{R}^n$ satisfies which estimate for every multi-indices $\\alpha,\\beta$?",
+          "choices": [
+            "$|p(x,\\xi)|\\le C_m\\,(1+|\\xi|)^m$ — only the function itself is bounded.",
+            "$|\\partial^\\alpha_x\\partial^\\beta_\\xi p(x,\\xi)|\\le C_{\\alpha\\beta}\\,(1+|\\xi|)^{m-|\\beta|}$ — each $\\xi$-derivative drops the order by one; $x$-derivatives do not.",
+            "$|\\partial^\\alpha_x\\partial^\\beta_\\xi p(x,\\xi)|\\le C_{\\alpha\\beta}\\,(1+|\\xi|)^{m-|\\alpha|}$ — each $x$-derivative drops the order by one.",
+            "$|\\partial^\\alpha_x\\partial^\\beta_\\xi p(x,\\xi)|\\le C_{\\alpha\\beta}\\,(1+|\\xi|)^{m-|\\alpha|-|\\beta|}$ — $x$-derivatives and $\\xi$-derivatives both drop the order."
+          ],
+          "answer": 1,
+          "hint": "Differentiating a polynomial $\\xi^\\alpha$ in $\\xi$ lowers the degree; differentiating in $x$ leaves the $\\xi$-degree unchanged. The Hörmander class is designed so its members behave like that.",
+          "explain": "The defining estimate is asymmetric: $\\xi$-derivatives are 'cheap' (each drops order by 1) and $x$-derivatives are 'free' (no order drop). This matches polynomials in $\\xi$: $\\partial_\\xi(\\xi^\\alpha)$ has lower degree, $\\partial_x(a(x)\\xi^\\alpha)$ has the same. The asymmetric estimate is what makes ΨDO composition work modulo lower-order error."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select all true statements about the symbol calculus on $\\Psi^m$.",
+          "choices": [
+            "If $P\\in\\Psi^{m_1}$ and $Q\\in\\Psi^{m_2}$, then $PQ\\in\\Psi^{m_1+m_2}$ with principal symbol $\\sigma_{m_1+m_2}(PQ)=\\sigma_{m_1}(P)\\,\\sigma_{m_2}(Q)$.",
+            "Every $P\\in\\Psi^m$ is bounded $H^s\\to H^{s-m}$ for every $s\\in\\mathbb{R}$.",
+            "Differential operators $\\sum_{|\\alpha|\\le m} a_\\alpha(x)D^\\alpha$ are pseudodifferential operators of order $m$ with polynomial-in-$\\xi$ symbol.",
+            "Composition of two ΨDOs is again a ΨDO with full symbol equal to the pointwise product $p(x,\\xi)q(x,\\xi)$ of the two full symbols."
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "hint": "Three of these are textbook fact; one mistakes a leading-order statement for an exact one. Recall the asymptotic formula $p\\#q\\sim\\sum_\\alpha (i^{|\\alpha|}/\\alpha!)\\,\\partial^\\alpha_\\xi p\\,\\partial^\\alpha_x q$ and ask which term in it survives at the principal-symbol level.",
+          "explain": "(0,1,2) are core. (3) is wrong: the FULL composition symbol is the asymptotic series $p\\#q\\sim p\\,q + (\\partial_\\xi p)(\\partial_x q)/i + \\cdots$; the pointwise product is correct only at the PRINCIPAL-symbol level (top order). The lower-order terms are exactly the structure that makes the calculus interesting — they generate non-trivial commutators $[P,Q]$ at order $m_1+m_2-1$."
+        },
+        {
+          "type": "matching",
+          "q": "Match each symbol-calculus notion on the left to its precise structural role on the right.",
+          "left": [
+            "Principal symbol $\\sigma_m(P)$",
+            "Smoothing operator $R\\in\\Psi^{-\\infty}$",
+            "Adjoint $P^*\\in\\Psi^m$",
+            "Symbol class $S^m$"
+          ],
+          "right": [
+            "Has principal symbol $\\overline{\\sigma_m(P)}$ — complex conjugation on the leading term.",
+            "Functions $p(x,\\xi)\\in C^\\infty$ with $|\\partial^\\alpha_x\\partial^\\beta_\\xi p|\\le C_{\\alpha\\beta}(1+|\\xi|)^{m-|\\beta|}$.",
+            "Maps $H^s\\to C^\\infty$ for every $s$; its Schwartz kernel is $C^\\infty$.",
+            "Function on $T^*\\mathbb{R}^n\\setminus 0$ defined modulo lower-order terms — coordinate-invariant, the leading datum of $P\\in\\Psi^m$."
+          ],
+          "answer": [
+            3,
+            2,
+            0,
+            1
+          ],
+          "hint": "Two of these are objects (operator / function-class), two are derived constructions (principal symbol / adjoint). For the derived ones, ask 'what does taking adjoints / leading terms give?'.",
+          "explain": "(0)→3: principal symbol is the coordinate-invariant top-order data on $T^*\\mathbb{R}^n\\setminus 0$. (1)→2: smoothing operators have $C^\\infty$ kernel and map every $H^s$ into $C^\\infty$. (2)→0: the adjoint's principal symbol is the conjugate of the original's. (3)→1: the symbol class is the function space the operator's kernel comes from after Fourier inversion."
+        }
+      ]
+    },
+    "ml-microlocal-regularity": {
+      "title": "Microlocal regularity and propagation of singularities",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Hörmander's propagation-of-singularities theorem: for $P\\in\\Psi^m$ with real principal symbol $p_m$, the set $\\mathrm{WF}(u)\\setminus\\mathrm{WF}(Pu)$ is invariant under:",
+          "choices": [
+            "Translations of $T^*\\mathbb{R}^n$ — same conclusion in every coordinate system.",
+            "The Hamiltonian flow of $p_m$ inside the characteristic variety $\\{p_m=0\\}$.",
+            "The geodesic flow of any background Riemannian metric.",
+            "Time-reversal alone, with no other dynamics."
+          ],
+          "answer": 1,
+          "hint": "The flow has to be canonically attached to the operator $P$ itself, not to extra geometry. The principal symbol is a function on $T^*\\mathbb{R}^n$ — what canonical flow does a function on a symplectic manifold generate?",
+          "explain": "The principal symbol $p_m\\colon T^*\\mathbb{R}^n\\to\\mathbb{R}$ is a Hamiltonian on the cotangent symplectic manifold; its Hamiltonian vector field $X_{p_m}$ generates a flow inside each level set, in particular the characteristic variety $\\{p_m=0\\}$. The integral curves there are the null bicharacteristics, and Hörmander says singularities of $u$ that don't come from $\\mathrm{WF}(Pu)$ propagate exactly along these curves."
+        },
+        {
+          "type": "numeric",
+          "q": "For the wave operator $\\Box=-\\partial_t^2+\\Delta_x$ on $\\mathbb{R}^{1+n}$, the principal symbol is $p_2(t,x;\\tau,\\xi)=-\\tau^2+|\\xi|^2$. The characteristic variety is the set $\\{p_2=0\\}$. For a fixed nonzero spatial frequency $\\xi$ with $|\\xi|=1$, how many real values of $\\tau$ lie on the characteristic variety?",
+          "answer": 2,
+          "tol": 0,
+          "hint": "Solve $-\\tau^2+|\\xi|^2=0$ for $\\tau$ given $|\\xi|=1$. Count the real roots; they correspond to the two helicities (forward / backward) of the wave equation.",
+          "explain": "$-\\tau^2+1=0$ gives $\\tau=\\pm 1$, so two real values. These are the forward and backward light cones in the cotangent fibre, and the bicharacteristics splitting at $|\\xi|=1$ correspond to the two solution operators $e^{\\pm it\\sqrt{-\\Delta}}$ — one carrying singularities forward in time, the other backward."
+        },
+        {
+          "type": "spot-the-error",
+          "q": "Find the error in this attempted proof sketch: \"Hörmander's theorem says singularities of $Pu=f$ propagate, so the singular support of $u$ is invariant under any classical PDE flow. In particular, since $\\mathrm{WF}$ projects to $\\mathrm{singsupp}$, the singular support is also invariant under that flow.\"",
+          "steps": [
+            "State Hörmander's theorem: $\\mathrm{WF}(u)\\setminus\\mathrm{WF}(Pu)$ is invariant under the bicharacteristic flow inside $\\mathrm{Char}(P)$.",
+            "Note that $\\mathrm{singsupp}(u)$ is the projection of $\\mathrm{WF}(u)$ from $T^*\\mathbb{R}^n\\setminus 0$ to the base $\\mathbb{R}^n$.",
+            "Conclude that the projection of an invariant set is invariant, so $\\mathrm{singsupp}(u)$ is invariant under the projected flow.",
+            "Conclude further that this projected flow is the standard PDE characteristic flow on the base."
+          ],
+          "answer": 2,
+          "hint": "Projections do funny things to invariance. Two distinct points in $T^*M$ above the same $x$ can flow to two different fibres above two different base points; that does NOT make the base projection invariant under any well-defined base flow.",
+          "explain": "Step 2 is the error. Bicharacteristic flow lives on $T^*M\\setminus 0$, NOT on $M$: two distinct $\\xi$ at the same $x$ flow to different cotangent points whose base projections diverge. There is no well-defined 'projected flow' on $M$ — the geometry that propagation describes is genuinely cotangent-bundle, not base-manifold. This is the conceptual win of microlocal analysis over the older 'singularities follow characteristics' picture: the curves live in phase space, not configuration space."
+        }
+      ]
+    },
+    "ml-elliptic-regularity": {
+      "title": "Elliptic regularity via the parametrix",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A parametrix for an elliptic $P\\in\\Psi^m$ is a ΨDO $Q$ such that:",
+          "choices": [
+            "$QP=PQ=I$ — an exact two-sided inverse on $L^2$.",
+            "$QP=I+R_1$ and $PQ=I+R_2$ where $R_1,R_2\\in\\Psi^{-\\infty}$ are smoothing operators; $Q$ has order $-m$.",
+            "$Q$ has principal symbol $1/p_m$ but no relation to $P$ at lower order.",
+            "$Q$ exists only if $P$ is self-adjoint."
+          ],
+          "answer": 1,
+          "hint": "An elliptic ΨDO is rarely literally invertible (e.g. $-\\Delta$ has zero modes on a torus). The right condition relaxes 'exact inverse' to 'inverse modulo something harmless'. What is the natural class of harmless errors?",
+          "explain": "Smoothing remainders are the right error class: $R\\in\\Psi^{-\\infty}$ maps every $H^s$ into $C^\\infty$, so $R\\,u$ is automatically smoother than anything in sight. A parametrix gives a left and right inverse modulo this. (0) is too strong — global zero modes / boundary conditions break it. (2) misses that $Q$ inherits structure all the way down. (3) elliptic doesn't require self-adjoint."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following follow from the existence of a parametrix for an elliptic $P\\in\\Psi^m$? Select all that apply.",
+          "choices": [
+            "If $f\\in H^s_{\\mathrm{loc}}$ and $Pu=f$ then $u\\in H^{s+m}_{\\mathrm{loc}}$.",
+            "If $f\\in C^\\infty$ and $Pu=f$ then $u\\in C^\\infty$.",
+            "$\\mathrm{WF}(u)=\\mathrm{WF}(Pu)$ on the elliptic set $\\{p_m\\ne 0\\}$.",
+            "$P$ is bounded $L^2\\to L^2$ regardless of $m$."
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "hint": "Three of these are immediate consequences of $u=Qf-Ru$ with $Q\\in\\Psi^{-m}$ and $R$ smoothing. The fourth conflates two different statements about the order $m$.",
+          "explain": "(0,1,2) follow from $u=Qf-R u$: $Qf$ is in $H^{s+m}$ when $f\\in H^s$, and the smoothing remainder is in $C^\\infty$. Iterating gives full $C^\\infty$ for $C^\\infty$ data, and the WF equality on the elliptic set. (3) is wrong: $P\\in\\Psi^m$ is bounded $H^s\\to H^{s-m}$, in particular $L^2\\to L^2$ only when $m\\le 0$; for $m=2$ (Laplacian) it maps $H^2\\to L^2$, not $L^2\\to L^2$."
+        },
+        {
+          "type": "ordering",
+          "q": "Order the steps of building a parametrix for an elliptic $P\\in\\Psi^m$ on a coordinate patch.",
+          "items": [
+            "Verify $QP=I+R$ with $R\\in\\Psi^{-\\infty}$, completing the parametrix construction.",
+            "Take the asymptotic sum $q\\sim q_0+q_{-1}+\\cdots$ to define the symbol $q\\in S^{-m}$ of the parametrix $Q$.",
+            "Define $q_0(x,\\xi)=\\chi(\\xi)/p_m(x,\\xi)$ where $\\chi$ is a smooth cutoff supported away from $\\xi=0$, giving the leading symbol of order $-m$.",
+            "Check that $P$ is elliptic: $p_m(x,\\xi)\\ne 0$ for $\\xi\\ne 0$ on the relevant patch.",
+            "Solve the recursive transport equations for $q_{-1}, q_{-2},\\ldots$ so that the symbol of $QP$ has its $j$-th lower-order piece cancelled."
+          ],
+          "answer": [
+            3,
+            2,
+            4,
+            1,
+            0
+          ],
+          "hint": "One step is purely a hypothesis check; one is purely a leading-order definition; two are recursive lower-order constructions; one is the final verification. Order them by what depends on what — the lower-order corrections need the leading term first.",
+          "explain": "(3) Check ellipticity. (2) Define the leading symbol $q_0=1/p_m$. (4) Solve the order-by-order corrections so the composition $q\\#p$ matches $1$ to all orders. (1) Sum the asymptotic series via Borel summation to get a genuine symbol. (0) Verify the remainder is smoothing. Skipping any step breaks the construction: e.g. defining $q_0$ before checking ellipticity divides by zero on the characteristic variety."
+        }
+      ]
+    },
+    "ml-fourier-integral-ops": {
+      "title": "Fourier integral operators and Lagrangian distributions",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "An FIO $A$ with phase $\\phi(x,y,\\xi)$ and amplitude $a(x,y,\\xi)$ has canonical relation $\\Lambda\\subset T^*X\\times T^*Y$ given by:",
+          "choices": [
+            "$\\Lambda=\\{(x,d_x\\phi;\\,y,-d_y\\phi):(x,y,\\xi)\\text{ satisfies }d_\\xi\\phi=0\\}$, a Lagrangian half-dimensional submanifold.",
+            "$\\Lambda=\\{(x,\\xi;y,\\eta):x=y\\}$, the diagonal.",
+            "$\\Lambda=\\{(x,\\xi;y,\\eta):a(x,y,\\xi)=0\\}$ — zero set of the amplitude.",
+            "$\\Lambda=T^*X\\times T^*Y$ — the entire product, no constraint."
+          ],
+          "answer": 0,
+          "hint": "The construction comes from the stationary-phase principle applied to $\\int e^{i\\phi}a\\,dy\\,d\\xi$: where in $(y,\\xi)$ does the integral concentrate, and what relation between $(x,d_x\\phi)$ and $(y,-d_y\\phi)$ pops out?",
+          "explain": "Stationary phase localizes on $d_\\xi\\phi=0$ (the critical set $C_\\phi$); on this set the cotangent points $(x,d_x\\phi)$ and $(y,-d_y\\phi)$ are paired, and the resulting relation is automatically Lagrangian by the non-degeneracy of $\\phi$. (1) is the special case $\\phi=(x-y)\\cdot\\xi$ giving the diagonal — i.e. ΨDOs. (2) the amplitude controls smoothness, not the canonical relation. (3) gives no constraint, defeating the purpose."
+        },
+        {
+          "type": "multi-select",
+          "q": "Select all true statements about FIOs and ΨDOs.",
+          "choices": [
+            "ΨDOs are exactly the FIOs whose canonical relation is the diagonal of $T^*X$, i.e. they preserve the cotangent point $(x,\\xi)$.",
+            "If the canonical relation $\\Lambda$ is the graph of a symplectomorphism $\\chi$, the FIO quantizes $\\chi$ and acts on WF by $\\mathrm{WF}(Au)=\\chi(\\mathrm{WF}(u))$.",
+            "The wave-equation solution operators $e^{\\pm it\\sqrt{-\\Delta}}$ are FIOs whose canonical relations are the time-$t$ Hamiltonian flows of the symbols $\\pm|\\xi|$.",
+            "Every FIO is bounded $L^2\\to L^2$, regardless of the order of its amplitude."
+          ],
+          "answer": [
+            0,
+            1,
+            2
+          ],
+          "hint": "Three of these are textbook structural facts about FIOs as wavefront-set movers. The fourth conflates 'is an FIO' with 'is bounded on $L^2$' without checking the order.",
+          "explain": "(0,1,2) are the textbook story. (3) is wrong: an FIO of order $m$ maps $H^s\\to H^{s-m}$ just like a ΨDO; only zero-order FIOs map $L^2\\to L^2$, and even those need the canonical relation to be a graph (the local-graph condition of Hörmander). FIOs of positive order are not $L^2$-bounded."
+        },
+        {
+          "type": "matching",
+          "q": "Match each FIO ingredient on the left to its precise role on the right.",
+          "left": [
+            "Phase function $\\phi(x,y,\\xi)$",
+            "Amplitude $a(x,y,\\xi)\\in S^m$",
+            "Lagrangian $\\Lambda\\subset T^*X\\times T^*Y$",
+            "Critical set $C_\\phi=\\{d_\\xi\\phi=0\\}$"
+          ],
+          "right": [
+            "Where the stationary-phase contribution concentrates: parameterizes $\\Lambda$ via $(x,y,\\xi)\\mapsto(x,d_x\\phi;y,-d_y\\phi)$.",
+            "The submanifold of $T^*X\\times T^*Y$ that the FIO quantizes; the canonical relation along which $\\mathrm{WF}$ propagates.",
+            "Smooth function homogeneous of degree 1 in $\\xi$; encodes the geometry / symplectic data of the operator.",
+            "Smooth function in the symbol class $S^m$; controls the operator's order, not its geometry."
+          ],
+          "answer": [
+            2,
+            3,
+            1,
+            0
+          ],
+          "hint": "Two of these are functions you write down (a phase and an amplitude); two are derived geometric objects (a critical set and the Lagrangian it defines). For each, ask: which controls geometry, and which controls smoothness/order?",
+          "explain": "(0)→2: the phase is the geometric input — its differentials define the canonical relation. (1)→3: the amplitude is the analytic input — its order controls the operator's mapping behavior. (2)→1: the Lagrangian is the geometric output — the submanifold of $T^*X\\times T^*Y$ that the operator quantizes. (3)→0: the critical set is the bridge — it's where stationary phase concentrates and parameterizes $\\Lambda$."
+        }
+      ]
+    },
+    "ml-applications": {
+      "title": "Scattering, Radon transforms, and inverse problems",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "For the Radon transform $Rf(L)=\\int_L f$ over lines $L\\subset\\mathbb{R}^2$, microlocal analysis says a singularity of $f$ at $(x_0,\\xi_0)\\in T^*\\mathbb{R}^2\\setminus 0$ is detected by:",
+          "choices": [
+            "Every line through $x_0$.",
+            "Lines $L$ with $x_0\\in L$ and $L\\perp\\xi_0$ (i.e. lines through $x_0$ perpendicular to the wavefront direction).",
+            "Lines $L$ with $x_0\\in L$ and $L$ parallel to $\\xi_0$.",
+            "Lines $L$ disjoint from a small ball around $x_0$, by an averaging argument."
+          ],
+          "answer": 1,
+          "hint": "Think about an edge in an image: which lines 'see' it? An edge perpendicular to the line direction makes a sharp jump in $Rf$; an edge parallel to the line direction is smoothed out by the line average.",
+          "explain": "An edge with conormal $\\xi_0$ is captured by Radon transform values $Rf(L)$ exactly when the line $L$ is perpendicular to $\\xi_0$ (so it crosses the edge transversally and produces a jump in the projection). Lines parallel to the edge integrate along it and miss the singularity. The full statement: the Radon FIO has canonical relation $\\{(L,\\eta;x_0,\\xi_0):x_0\\in L,\\,L\\perp\\xi_0,\\,\\eta\\propto\\xi_0\\}$. This is the microlocal foundation of CT visible-singularities theorems."
+        },
+        {
+          "type": "mcq",
+          "q": "In limited-angle CT, projections are taken only along directions in some restricted angular range $[-\\alpha,\\alpha]$. What does microlocal analysis predict about reconstruction?",
+          "choices": [
+            "Reconstruction is impossible — no edge of $f$ can be recovered.",
+            "All edges of $f$ are recoverable equally well, just with smaller signal-to-noise.",
+            "Edges of $f$ whose conormal direction lies in the missing-angle cone are 'invisible' to limited-angle data and produce streak/artifact patterns; edges in the measured cone are sharply recovered.",
+            "Reconstruction perfectly recovers smooth parts of $f$ but loses the average value."
+          ],
+          "answer": 2,
+          "hint": "Combine the canonical-relation answer (lines $\\perp\\xi_0$ detect the edge at conormal $\\xi_0$) with the constraint that line directions are restricted. Which conormals can possibly be detected, and which are necessarily missed?",
+          "explain": "If only angles in $[-\\alpha,\\alpha]$ are measured, the only $\\xi_0$ that can be recovered are those with a perpendicular line in the measured set — i.e. $\\xi_0$ in the perpendicular cone. Edges with $\\xi_0$ outside this cone have no detecting line and become invisible: this is the rigorous form of limited-angle missing-cone artifacts (Quinto, Greenleaf-Uhlmann). The visible-singularities theorem of microlocal analysis predicts exactly which edges survive."
+        },
+        {
+          "type": "ordering",
+          "q": "Order the conceptual steps that take the Helmholtz equation $(\\Delta+k^2)u=f$ from PDE to a microlocally well-posed scattering problem.",
+          "items": [
+            "Apply Hörmander's propagation theorem on the chosen sheet to get existence/uniqueness modulo decaying remainders, completing the limiting absorption principle.",
+            "Compute the principal symbol $p_2(x,\\xi)=-|\\xi|^2+k^2$ and observe the characteristic variety is the sphere $|\\xi|=k$.",
+            "Note the operator is non-elliptic on the characteristic variety, so the parametrix construction breaks and a different regularization is needed.",
+            "Impose the Sommerfeld radiation condition $r^{(n-1)/2}(\\partial_r-ik)u\\to 0$, which microlocally selects the outgoing half of the characteristic variety.",
+            "Write down $(\\Delta+k^2)u=f$ on $\\mathbb{R}^n$ as the equation modeling time-harmonic scattering."
+          ],
+          "answer": [
+            4,
+            1,
+            2,
+            3,
+            0
+          ],
+          "hint": "Each step depends on the previous one. You start with the equation, compute its symbol, observe what fails, impose a fix, then reap the consequences. Sort by what step's CONCLUSION feeds into the next step's HYPOTHESIS.",
+          "explain": "(4) State the equation. (1) Compute the principal symbol — discovers the characteristic sphere. (2) Diagnose the failure: non-elliptic on $|\\xi|=k$, no parametrix. (3) Impose the radiation condition — selects outgoing bicharacteristics. (0) Apply Hörmander on the selected sheet to extract well-posedness. The order is forced: you can't apply propagation before selecting the sheet, can't select before knowing what fails, can't diagnose before computing the symbol, can't compute the symbol before writing the equation."
+        }
+      ]
+    }
+  }
+}

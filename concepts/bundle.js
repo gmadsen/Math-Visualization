@@ -7,6 +7,7 @@ window.__MVConcepts = {
       "motives",
       "hodge-theory",
       "langlands-program",
+      "microlocal-analysis",
       "special-relativity",
       "klein-gordon-equation",
       "dirac-equation",
@@ -191,6 +192,7 @@ window.__MVConcepts = {
       "probability-theory": "standard",
       "harmonic-analysis-fourier": "standard",
       "sobolev-spaces-distributions": "standard",
+      "microlocal-analysis": "advanced",
       "advanced-complex-analysis": "advanced",
       "point-set-topology": "prereq",
       "algebraic-topology": "prereq",
@@ -647,6 +649,96 @@ window.__MVConcepts = {
           "tags": [
             "duality"
           ]
+        }
+      ]
+    },
+    "microlocal-analysis": {
+      "topic": "microlocal-analysis",
+      "title": "Microlocal analysis",
+      "page": "microlocal-analysis.html",
+      "concepts": [
+        {
+          "id": "ml-wavefront",
+          "title": "The wavefront set: where × in which direction",
+          "anchor": "wavefront",
+          "prereqs": [
+            "test-functions-distributions",
+            "schwartz-space-distributions"
+          ],
+          "tags": [
+            "foundation"
+          ],
+          "blurb": "The singular support of $u\\in\\mathcal{D}'$ records where $u$ fails to be smooth; the wavefront set $\\mathrm{WF}(u)\\subset T^*\\mathbb{R}^n\\setminus 0$ refines this to where × in which direction. Definition: $(x_0,\\xi_0)\\notin\\mathrm{WF}(u)$ iff some smooth cutoff $\\phi$ near $x_0$ makes $\\widehat{\\phi u}$ rapidly decaying in a conical neighborhood of $\\xi_0$. Examples: $\\mathrm{WF}(\\delta_0)=\\{0\\}\\times(\\mathbb{R}^n\\setminus 0)$ (point, every direction); a hyperplane jump has wavefront on the hyperplane's conormal bundle. The projection of $\\mathrm{WF}(u)$ to the base is $\\mathrm{singsupp}(u)$, but each fibre carries direction."
+        },
+        {
+          "id": "ml-pseudo-diff-ops",
+          "title": "Pseudodifferential operators and the symbol calculus",
+          "anchor": "pseudo-diff",
+          "prereqs": [
+            "ml-wavefront",
+            "fourier-transform-real-line",
+            "sobolev-spaces-wkp"
+          ],
+          "tags": [
+            "foundation",
+            "classification"
+          ],
+          "blurb": "A ΨDO of order $m$ acts as $Pu(x)=(2\\pi)^{-n}\\int e^{ix\\cdot\\xi}\\,p(x,\\xi)\\,\\hat u(\\xi)\\,d\\xi$, with symbol $p\\in S^m$ satisfying $|\\partial^\\alpha_x\\partial^\\beta_\\xi p|\\le C_{\\alpha\\beta}(1+|\\xi|)^{m-|\\beta|}$. Differential operators $\\sum a_\\alpha(x)D^\\alpha$ are ΨDOs with polynomial symbols; the larger class is closed under composition (modulo lower-order error) and admits parametrices on the elliptic set. The principal symbol $\\sigma_m(P)$ lives on $T^*\\mathbb{R}^n$ and captures top-order behavior; $\\sigma_m(PQ)=\\sigma_{m_1}(P)\\sigma_{m_2}(Q)$ and $P:H^s\\to H^{s-m}$ continuously."
+        },
+        {
+          "id": "ml-microlocal-regularity",
+          "title": "Microlocal regularity and propagation of singularities",
+          "anchor": "regularity",
+          "prereqs": [
+            "ml-wavefront",
+            "ml-pseudo-diff-ops",
+            "sm-hamiltonian-flow"
+          ],
+          "tags": [
+            "classification"
+          ],
+          "blurb": "For $P\\in\\Psi^m$ with real principal symbol $p_m$, $\\mathrm{WF}(Pu)\\subset\\mathrm{WF}(u)$ always, and where $p_m\\ne 0$ (the elliptic set) the inclusion is an equality. On the characteristic variety $\\{p_m=0\\}$, Hörmander's theorem says $\\mathrm{WF}(u)\\setminus\\mathrm{WF}(Pu)$ is invariant under the Hamiltonian flow of $p_m$ — singularities of solutions of $Pu=f$ propagate along null bicharacteristics. For the wave operator, those bicharacteristics project to null geodesics in spacetime, the rigorous form of \"signals travel along light rays\"."
+        },
+        {
+          "id": "ml-elliptic-regularity",
+          "title": "Elliptic regularity via the parametrix",
+          "anchor": "elliptic",
+          "prereqs": [
+            "ml-pseudo-diff-ops",
+            "sobolev-spaces-wkp"
+          ],
+          "tags": [
+            "classification",
+            "lifting"
+          ],
+          "blurb": "When $p_m(x_0,\\xi_0)\\ne 0$ for $\\xi_0\\ne 0$ (P elliptic), there is a left parametrix $Q\\in\\Psi^{-m}$ with $QP=I+R$, $R$ smoothing. From $Pu=f$: $u=Qf-Ru$; the right side is as smooth as $f$ minus a smoothing remainder, so $f\\in H^s\\Rightarrow u\\in H^{s+m}$ locally. Iterating gives full elliptic regularity: $f\\in C^\\infty\\Rightarrow u\\in C^\\infty$ wherever $P$ is elliptic. Recovers the classical $-\\Delta u=f$ regularity statement as a microlocal corollary, and feeds the analytic side of the Atiyah-Singer index theorem."
+        },
+        {
+          "id": "ml-fourier-integral-ops",
+          "title": "Fourier integral operators and Lagrangian distributions",
+          "anchor": "fio",
+          "prereqs": [
+            "ml-pseudo-diff-ops",
+            "sm-lagrangian-submanifolds"
+          ],
+          "tags": [
+            "classification"
+          ],
+          "blurb": "FIOs generalize ΨDOs by replacing $(x-y)\\cdot\\xi$ with a non-degenerate phase $\\phi(x,y,\\xi)$: $Au(x)=(2\\pi)^{-N}\\int e^{i\\phi}\\,a(x,y,\\xi)\\,u(y)\\,dy\\,d\\xi$. The phase determines a Lagrangian submanifold $\\Lambda\\subset T^*X\\times T^*Y$, and FIOs quantize canonical transformations: WF is moved by the canonical relation $\\Lambda$. Solution operators $e^{itA}$ for hyperbolic equations are FIOs whose canonical relation is the time-$t$ Hamiltonian flow of $\\sigma(A)$. Geometric optics, the WKB ansatz, and the Maslov index sit naturally in this framework."
+        },
+        {
+          "id": "ml-applications",
+          "title": "Scattering, Radon transforms, and inverse problems",
+          "anchor": "applications",
+          "prereqs": [
+            "ml-fourier-integral-ops",
+            "ml-microlocal-regularity"
+          ],
+          "tags": [
+            "classification",
+            "refinement"
+          ],
+          "blurb": "Microlocal analysis underwrites: (a) scattering theory — Sommerfeld's radiation condition selects outgoing bicharacteristics, and propagation of singularities + limiting absorption gives existence/uniqueness for $(\\Delta+k^2)u=f$; (b) X-ray and Radon transforms — the canonical relation maps $(x,\\xi)$ to lines through $x$ perpendicular to $\\xi$, so wavefront direction tracks which singularities are visible from which lines, an answer to limited-angle CT; (c) general relativity — Hörmander's theorem governs propagation of gravitational-wave singularities along null geodesics of $\\Box_g$. The toolkit replaces ad-hoc PDE arguments with one geometric language."
         }
       ]
     },
@@ -14950,6 +15042,7 @@ window.__MVConcepts = {
           "dynamical-systems",
           "harmonic-analysis-fourier",
           "sobolev-spaces-distributions",
+          "microlocal-analysis",
           "advanced-complex-analysis",
           "partial-differential-equations",
           "harmonic-functions",
@@ -15242,6 +15335,7 @@ window.__MVConcepts = {
     "probability-theory": "standard",
     "harmonic-analysis-fourier": "standard",
     "sobolev-spaces-distributions": "standard",
+    "microlocal-analysis": "advanced",
     "advanced-complex-analysis": "advanced",
     "point-set-topology": "prereq",
     "algebraic-topology": "prereq",
@@ -15401,11 +15495,11 @@ window.__MVConcepts = {
       "density": 0.5111111111111111
     },
     "Analysis": {
-      "concepts": 173,
-      "intra": 302,
-      "crossOut": 27,
+      "concepts": 179,
+      "intra": 314,
+      "crossOut": 29,
       "crossIn": 62,
-      "density": 0.15606936416184972
+      "density": 0.16201117318435754
     },
     "Probability & statistics": {
       "concepts": 55,
@@ -15418,7 +15512,7 @@ window.__MVConcepts = {
       "concepts": 104,
       "intra": 157,
       "crossOut": 19,
-      "crossIn": 89,
+      "crossIn": 91,
       "density": 0.18269230769230768
     },
     "Number theory": {
