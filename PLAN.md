@@ -12,13 +12,12 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 - 177 concepts lack a widget in their owning section
 - 1017 widgets, 100% registry-driven (PR #70 zero-baseline sweep — `audit-no-inline-widgets` now hard-fails on any non-registry widget)
 - Quiz tiers: v1 = 2927, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
-- Tag coverage: ~80%. Worst remaining sections: number-theory 63%, higher-categories 71%, logic-and-foundations 76%, geometry-and-topology 78%, algebraic-geometry 78%. (Analysis/probability/modular-forms/combinatorics closed to 85–93% in PR #49.)
+- Tag coverage: **99.1%** (981/990) across all 11 sections after PRs #84–#88 + #94–#98. The 9 intentionally-untagged concepts are catalog/TOC blurbs (`*-applications`), single-result rigidity (Apéry's $\zeta(3)$ irrationality), or observation-shaped concepts (lem-failure, algebraic-connectivity Fiedler). Vocabulary expanded in PR #94 with `equidistribution`, `density`, `cancellation`, `refinement` to cover analytic-NT methods and $\infty$-topos refinement properties. Tagging effort effectively complete.
 
 ## Near-term tasks
 
 Items below come out of the algebra/analysis comparative audit shipped in PR #49.
 
-- **Tagging vocabulary expansion (residue from PRs #84–#88).** All five remaining tagging-tail sections now sit at 93–100%. The 7 still-untagged concepts (5 analytic-NT methods + Kripke–Joyal + lem-failure + hypercompletion partial) expose a controlled-vocabulary limit — `concepts/tags.json`'s 15 tags are heavily category-/algebra-flavored and don't have a clean slot for "quantitative analytic count" methods (sieve, exponential-sum, circle-method, large-sieve, Bombieri–Vinogradov), or for Kripke-style logic-interpretation, or for hypercompletion-style refinement properties. Candidate new tags: `equidistribution`, `density`, `cancellation`, `forcing` (in the topos-logic sense), `refinement`. Vocabulary changes touch validate-concepts + bundle.js + tags.html — own infra PR.
 - **Math physics has no `hard` tier and Combinatorics has no `hard` tier.** 552 concepts lack a hard tier corpus-wide; 12 topics in those two sections × ~6 concepts × 2-3 questions each ≈ ~150 of the missing questions. Per "Out of scope", de-prioritized — listed here so the gap is visible, not actioned.
 
 ## Bigger missing-topic candidates (from the comparative audit)
