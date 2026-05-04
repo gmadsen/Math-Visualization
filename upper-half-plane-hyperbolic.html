@@ -457,7 +457,7 @@ function ensureArrow(svg, id, color){
     // points
     for(const [p,name,col] of [[zA,'z',
       'var(--blue)'],[zB,'w','var(--green)']]){
-      svg.appendChild(SVG('circle',{cx:X(p.x), cy:Y(p.y), r:7, fill:col, stroke:'#fff','stroke-width':1.5,style:'cursor:grab'}));
+      svg.appendChild(SVG('circle',{cx:X(p.x), cy:Y(p.y), r:7, fill:col, stroke:'var(--ink)','stroke-width':1.5,style:'cursor:grab'}));
       const t = SVG('text',{x:X(p.x)+10, y:Y(p.y)-8, fill:col, 'font-size':13, 'font-weight':600});
       t.textContent = name;
       svg.appendChild(t);
@@ -594,10 +594,10 @@ function ensureArrow(svg, id, color){
       svg.appendChild(SVG('circle',{cx:X(t.x),cy:Y(t.y),r:3,fill:'var(--cyan)'}));
     }
     // the draggable point z
-    svg.appendChild(SVG('circle',{cx:X(z.x),cy:Y(z.y),r:7,fill:'var(--blue)',stroke:'#fff','stroke-width':1.5,style:'cursor:grab'}));
+    svg.appendChild(SVG('circle',{cx:X(z.x),cy:Y(z.y),r:7,fill:'var(--blue)',stroke:'var(--ink)','stroke-width':1.5,style:'cursor:grab'}));
     const tz = apply(a,b,c,d,z);
     if(tz.y > 0){
-      svg.appendChild(SVG('circle',{cx:X(tz.x),cy:Y(tz.y),r:7,fill:'var(--yellow)',stroke:'#fff','stroke-width':1.5}));
+      svg.appendChild(SVG('circle',{cx:X(tz.x),cy:Y(tz.y),r:7,fill:'var(--yellow)',stroke:'var(--ink)','stroke-width':1.5}));
       const tl = SVG('text',{x:X(tz.x)+10,y:Y(tz.y)-8,fill:'var(--yellow)','font-size':13,'font-weight':600});
       tl.textContent='g·z'; svg.appendChild(tl);
     }
@@ -899,7 +899,7 @@ $\operatorname{area}(\Delta) \;=\; \pi - (\alpha + \beta + \gamma).$</div>
     const names=['A','B','C'];
     const cols=['var(--blue)','var(--green)','var(--cyan)'];
     for(let i=0;i<3;i++){
-      svg.appendChild(SVG('circle',{cx:X(V[i].x),cy:Y(V[i].y),r:7,fill:cols[i],stroke:'#fff','stroke-width':1.5,style:'cursor:grab'}));
+      svg.appendChild(SVG('circle',{cx:X(V[i].x),cy:Y(V[i].y),r:7,fill:cols[i],stroke:'var(--ink)','stroke-width':1.5,style:'cursor:grab'}));
       const t=SVG('text',{x:X(V[i].x)+10,y:Y(V[i].y)-8,fill:cols[i],'font-size':13,'font-weight':600});
       t.textContent = names[i]; svg.appendChild(t);
     }
