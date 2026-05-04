@@ -10,7 +10,10 @@
       "prereqs": [
         "quadratic-reciprocity-law"
       ],
-      "blurb": "Prime splitting in Gaussian integers characterizes n=x^2+y^2."
+      "blurb": "Prime splitting in Gaussian integers characterizes n=x^2+y^2.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "gaussian-integer-splitting",
@@ -32,7 +35,10 @@
         "gaussian-integer-splitting",
         "genus-theory"
       ],
-      "blurb": "Integers not of form 4^a(8b+7) are sums of three squares."
+      "blurb": "Integers not of form 4^a(8b+7) are sums of three squares.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "four-squares-and-waring",
@@ -41,7 +47,11 @@
       "prereqs": [
         "three-squares-theorem"
       ],
-      "blurb": "Lagrange and Waring-type refinements show universal additive quadratic behavior."
+      "blurb": "Lagrange and Waring-type refinements show universal additive quadratic behavior.",
+      "tags": [
+        "classification",
+        "finiteness"
+      ]
     },
     {
       "id": "waring-problem",
@@ -62,7 +72,11 @@
       "prereqs": [
         "four-squares-and-waring"
       ],
-      "blurb": "For each k, g(k) is the least s such that every n is a sum of s k-th powers: g(2)=4 (Lagrange), g(3)=9 (Wieferich), g(4)=19."
+      "blurb": "For each k, g(k) is the least s such that every n is a sum of s k-th powers: g(2)=4 (Lagrange), g(3)=9 (Wieferich), g(4)=19.",
+      "tags": [
+        "classification",
+        "finiteness"
+      ]
     },
     {
       "id": "g-k-vs-G-k",
@@ -71,7 +85,10 @@
       "prereqs": [
         "waring-problem-statement"
       ],
-      "blurb": "G(k) is the asymptotic Waring constant (sufficiently large n); G(k) ≤ g(k), often strictly, and G(k) = O(k log k)."
+      "blurb": "G(k) is the asymptotic Waring constant (sufficiently large n); G(k) ≤ g(k), often strictly, and G(k) = O(k log k).",
+      "tags": [
+        "finiteness"
+      ]
     },
     {
       "id": "hilbert-waring-theorem",
@@ -93,7 +110,10 @@
         "hilbert-waring-theorem",
         "dirichlet-series-basics"
       ],
-      "blurb": "Count representations as a Fourier integral: r_{s,k}(N) = ∫₀¹ f(α)^s e(−αN) dα with f(α)=Σ e(αn^k), then split the unit interval into major and minor arcs."
+      "blurb": "Count representations as a Fourier integral: r_{s,k}(N) = ∫₀¹ f(α)^s e(−αN) dα with f(α)=Σ e(αn^k), then split the unit interval into major and minor arcs.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "major-vs-minor-arcs",
@@ -111,7 +131,10 @@
       "prereqs": [
         "algebraic-structures"
       ],
-      "blurb": "The sum $\\sum_{k=1}^{n} k^m$ is a polynomial in $n$ of degree $m{+}1$, with coefficients assembled from binomial numbers and Bernoulli numbers."
+      "blurb": "The sum $\\sum_{k=1}^{n} k^m$ is a polynomial in $n$ of degree $m{+}1$, with coefficients assembled from binomial numbers and Bernoulli numbers.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "bernoulli-generating-function",
@@ -120,7 +143,10 @@
       "prereqs": [
         "faulhaber-formula"
       ],
-      "blurb": "The Bernoulli numbers $B_n$ arise from $t/(e^t-1)=\\sum B_n t^n/n!$; all odd $B_n$ beyond $B_1$ vanish and the even ones alternate in sign."
+      "blurb": "The Bernoulli numbers $B_n$ arise from $t/(e^t-1)=\\sum B_n t^n/n!$; all odd $B_n$ beyond $B_1$ vanish and the even ones alternate in sign.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "zeta-special-values",
@@ -143,7 +169,11 @@
         "bernoulli-generating-function",
         "riemann-integral"
       ],
-      "blurb": "Euler-Maclaurin turns a finite sum into an integral plus endpoint corrections weighted by Bernoulli numbers, making asymptotic expansions of slowly-converging series accessible."
+      "blurb": "Euler-Maclaurin turns a finite sum into an integral plus endpoint corrections weighted by Bernoulli numbers, making asymptotic expansions of slowly-converging series accessible.",
+      "tags": [
+        "foundation",
+        "finiteness"
+      ]
     },
     {
       "id": "zeta-functional-equation-preview",

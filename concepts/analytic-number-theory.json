@@ -26,7 +26,11 @@
         "residue-theorem",
         "perron-formula"
       ],
-      "blurb": "Riemann's $\\zeta(s) = \\sum n^{-s} = \\prod_p (1-p^{-s})^{-1}$ links primes to a meromorphic function on $\\mathbb{C}$. The von Mangoldt explicit formula $\\psi(x) = x - \\sum_\\rho x^\\rho/\\rho - \\log 2\\pi - \\tfrac12\\log(1-x^{-2})$ writes the prime-counting error as a sum over the non-trivial zeros $\\rho$ of $\\zeta$."
+      "blurb": "Riemann's $\\zeta(s) = \\sum n^{-s} = \\prod_p (1-p^{-s})^{-1}$ links primes to a meromorphic function on $\\mathbb{C}$. The von Mangoldt explicit formula $\\psi(x) = x - \\sum_\\rho x^\\rho/\\rho - \\log 2\\pi - \\tfrac12\\log(1-x^{-2})$ writes the prime-counting error as a sum over the non-trivial zeros $\\rho$ of $\\zeta$.",
+      "tags": [
+        "duality",
+        "foundation"
+      ]
     },
     {
       "id": "ant-zero-free-region",
@@ -98,7 +102,10 @@
         "ant-prime-counting",
         "ant-zero-free-region"
       ],
-      "blurb": "Selberg's identity $\\sum_{p \\le x} \\log^2 p + \\sum_{pq \\le x} \\log p \\log q = 2x \\log x + O(x)$ — an elementary consequence of $\\Lambda \\ast 1 = \\log$ and $\\Lambda + \\Lambda \\ast \\Lambda$ counting weighted prime/prime-pair contributions — is symmetric in $p$ and $pq$. Erdős and Selberg (1948–49) bootstrapped it into a complex-analysis-free proof of PNT, settling a long-standing question about whether $\\zeta$ is essential."
+      "blurb": "Selberg's identity $\\sum_{p \\le x} \\log^2 p + \\sum_{pq \\le x} \\log p \\log q = 2x \\log x + O(x)$ — an elementary consequence of $\\Lambda \\ast 1 = \\log$ and $\\Lambda + \\Lambda \\ast \\Lambda$ counting weighted prime/prime-pair contributions — is symmetric in $p$ and $pq$. Erdős and Selberg (1948–49) bootstrapped it into a complex-analysis-free proof of PNT, settling a long-standing question about whether $\\zeta$ is essential.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "ant-large-sieve",

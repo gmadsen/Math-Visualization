@@ -85,7 +85,11 @@
         "field-extensions-galois",
         "quotients-homomorphisms"
       ],
-      "blurb": "A finite extension is Galois iff it is both normal (a splitting field) and separable (minimal polynomials have distinct roots); in characteristic zero, separability is automatic."
+      "blurb": "A finite extension is Galois iff it is both normal (a splitting field) and separable (minimal polynomials have distinct roots); in characteristic zero, separability is automatic.",
+      "tags": [
+        "classification",
+        "foundation"
+      ]
     },
     {
       "id": "primitive-element-theorem",
@@ -94,7 +98,10 @@
       "prereqs": [
         "normal-separable-extensions"
       ],
-      "blurb": "Every finite separable extension $L/K$ is simple: $L=K(\\alpha)$ for some $\\alpha$, so Galois theory over characteristic zero reduces to the study of a single minimal polynomial."
+      "blurb": "Every finite separable extension $L/K$ is simple: $L=K(\\alpha)$ for some $\\alpha$, so Galois theory over characteristic zero reduces to the study of a single minimal polynomial.",
+      "tags": [
+        "classification"
+      ]
     }
   ]
 }

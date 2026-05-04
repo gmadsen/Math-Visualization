@@ -35,7 +35,11 @@
       "prereqs": [
         "reduction-theory"
       ],
-      "blurb": "Dirichlet composition equips the set of primitive form classes with a group structure; the resulting finite abelian group has order h(D), the class number of discriminant D."
+      "blurb": "Dirichlet composition equips the set of primitive form classes with a group structure; the resulting finite abelian group has order h(D), the class number of discriminant D.",
+      "tags": [
+        "group-action",
+        "classification"
+      ]
     },
     {
       "id": "genus-theory",
@@ -59,7 +63,11 @@
         "prime-ideals-factorization-ant",
         "hilbert-class-field"
       ],
-      "blurb": "There is a canonical isomorphism between the form class group of discriminant D and the ideal class group of ℚ(√D); this bridges classical and modern algebraic number theory."
+      "blurb": "There is a canonical isomorphism between the form class group of discriminant D and the ideal class group of ℚ(√D); this bridges classical and modern algebraic number theory.",
+      "tags": [
+        "classification",
+        "duality"
+      ]
     }
   ]
 }

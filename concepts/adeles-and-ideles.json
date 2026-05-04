@@ -36,7 +36,11 @@
       "prereqs": [
         "adele-ring"
       ],
-      "blurb": "The idèles $\\mathbb{A}_\\mathbb{Q}^\\times$ are invertible adèles with the restricted-product topology on units; the idèle class group $C_\\mathbb{Q} = \\mathbb{A}_\\mathbb{Q}^\\times/\\mathbb{Q}^\\times$ packages archimedean and $p$-adic data globally."
+      "blurb": "The idèles $\\mathbb{A}_\\mathbb{Q}^\\times$ are invertible adèles with the restricted-product topology on units; the idèle class group $C_\\mathbb{Q} = \\mathbb{A}_\\mathbb{Q}^\\times/\\mathbb{Q}^\\times$ packages archimedean and $p$-adic data globally.",
+      "tags": [
+        "group-action",
+        "foundation"
+      ]
     },
     {
       "id": "strong-approximation",
