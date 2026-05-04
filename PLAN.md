@@ -18,8 +18,7 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
 Items below come out of the algebra/analysis comparative audit shipped in PR #49.
 
-- **Within-topic concept backfill on `complex-analysis`, `functional-analysis`, `commutative-algebra`, `homological`.** Named-theorem level: open-mapping (named), Phragmén-Lindelöf bridge, subharmonic backref; Banach-Alaoglu (named), Krein-Milman; completion, DVRs/Dedekind domains, Koszul complex; double complexes, Tor symmetry, Cartan-Eilenberg.
-- **Tagging tail — remaining sections.** PR #49 closed the four worst (analysis 56→91%, probability 45→93%, modular-forms 51→85%, combinatorics 49→86%). Mid-tier follow-up: number-theory (63%), higher-categories (71%), logic-and-foundations (76%), geometry-and-topology and algebraic-geometry (78% each).
+- **Tagging vocabulary expansion (residue from PRs #84–#88).** All five remaining tagging-tail sections now sit at 93–100%. The 7 still-untagged concepts (5 analytic-NT methods + Kripke–Joyal + lem-failure + hypercompletion partial) expose a controlled-vocabulary limit — `concepts/tags.json`'s 15 tags are heavily category-/algebra-flavored and don't have a clean slot for "quantitative analytic count" methods (sieve, exponential-sum, circle-method, large-sieve, Bombieri–Vinogradov), or for Kripke-style logic-interpretation, or for hypercompletion-style refinement properties. Candidate new tags: `equidistribution`, `density`, `cancellation`, `forcing` (in the topos-logic sense), `refinement`. Vocabulary changes touch validate-concepts + bundle.js + tags.html — own infra PR.
 - **Math physics has no `hard` tier and Combinatorics has no `hard` tier.** 552 concepts lack a hard tier corpus-wide; 12 topics in those two sections × ~6 concepts × 2-3 questions each ≈ ~150 of the missing questions. Per "Out of scope", de-prioritized — listed here so the gap is visible, not actioned.
 
 ## Bigger missing-topic candidates (from the comparative audit)
