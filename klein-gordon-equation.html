@@ -272,7 +272,7 @@ function drawNode(svg, x, y, label, opts={}){
 <section id="derivation">
 <h2>1. From $E^2=p^2+m^2$ to a wave operator</h2>
 
-<p>Special relativity hands quantum mechanics a non-negotiable starting point: the on-shell relation $E^2 = |\vec p|^2 c^2 + m^2 c^4$. The Schrödinger equation is built around the non-relativistic dispersion $E = |\vec p|^2/(2m)$, so it cannot be the right equation for a particle whose energy and momentum are comparable to $mc^2$. To get a relativistic wave equation, we apply the standard quantization rules</p>
+<p>Special relativity hands quantum mechanics a non-negotiable starting point: the on-shell relation $E^2 = |\vec p|^2 c^2 + m^2 c^4$ ("on-shell" = physical states satisfying this constraint, i.e. living on the relativistic mass-shell hyperboloid in 4-momentum space). The Schrödinger equation is built around the non-relativistic dispersion $E = |\vec p|^2/(2m)$, so it cannot be the right equation for a particle whose energy and momentum are comparable to $mc^2$. To get a relativistic wave equation, we apply the standard quantization rules</p>
 
 $$E \;\mapsto\; i\hbar\,\partial_t,\qquad \vec p \;\mapsto\; -i\hbar\,\vec\nabla$$
 
@@ -318,11 +318,9 @@ $$\boxed{\;(\Box + m^2)\,\phi \;=\; 0.\;}$$
     }
     // Highlight the m² term inside the KG card with a colored swatch
     const swX = 20+90-22, swY = 40;
-    svg.appendChild(SVG('rect',{x:swX,y:swY,width:44,height:22,rx:4,fill:'rgba(125,224,214,0.16)',stroke:'var(--cyan)','stroke-width':1}));
+    svg.appendChild(SVG('rect',{x:swX,y:swY,width:44,height:22,rx:4,fill:'var(--cyan)','fill-opacity':'0.16',stroke:'var(--cyan)','stroke-width':1}));
     const swT = SVG('text',{x:swX+22,y:swY+15,'text-anchor':'middle','font-size':11,fill:'var(--cyan)','font-weight':600}); swT.textContent=`m² = ${(m*m).toFixed(2)}`; svg.appendChild(swT);
-    // Verify residual: KG operator applied to plane wave with E²=p²+m², p=0 reduces to (E² − m²) = 0
-    const residual_m0 = m < 1e-3 ? 'wave eq. □φ = 0 ✓' : '−';
-    out.textContent = `m = ${m.toFixed(2)}    rest energy m² = ${(m*m).toFixed(3)}    Schrödinger: 1st-order in t.    Klein-Gordon: 2nd-order in t (one new branch of solutions).    m → 0 limit:  ${m < 1e-3 ? 'KG → wave equation □φ = 0  ✓ (massless scalar, e.g. Goldstone boson)' : 'massive scalar; relativistic dispersion E² = p² + m²'}`;
+    out.textContent = `m = ${m.toFixed(2)}    rest energy m² = ${(m*m).toFixed(3)}    Schrödinger: 1st-order in t.    Klein-Gordon: 2nd-order in t (one new branch of solutions).    m → 0 limit:  ${m < 1e-3 ? 'KG → wave equation □φ = 0  ✓ (massless scalar — same operator as the wave equation; the m=0 limit also describes a Goldstone boson, the massless excitation of a spontaneously broken continuous symmetry)' : 'massive scalar; relativistic dispersion E² = p² + m²'}`;
   }
   mIn.addEventListener('input', draw);
   draw();
@@ -382,7 +380,9 @@ $$\boxed{\;(\Box + m^2)\,\phi(x) \;=\; 0,\qquad \Box \;\equiv\; \eta^{\mu\nu}\,\
   const mIn = document.getElementById('wave-m');
   const tIn = document.getElementById('wave-t');
   // Initial real packet  φ(0,x) = exp(-(x-x0)²/2σ²) cos(k0 x)
-  // Right-moving piece: integrate Re ∫ A(k) exp(i(kx − ω(k) t)) dk with ω(k)=√(k²+m²)
+  // Integrate Re ∫ A(k) exp(i(kx − ω(k) t)) dk with ω(k)=√(k²+m²) over the full k ∈ [-3,3] axis.
+  // The Gaussian amplitude is centered at k_0 = +1.2 with σ_k = 1/σ = 0.25, so the negative-k tail is
+  // doubly-exponentially suppressed (~e^{-(2.4)² × 16/2} ≈ 10⁻¹³); in practice the packet is right-moving.
   function packet(x, t, m){
     const k0 = 1.2, sigma = 4.0, x0 = -8;
     let re = 0;
@@ -502,13 +502,14 @@ $$v_g \;=\; \frac{dE}{d|\vec p|} \;=\; \frac{|\vec p|}{\sqrt{|\vec p|^2+m^2}} \;
     svg.appendChild(SVG('line',{x1:0,y1:-H,x2:0,y2:H,stroke:'var(--line)','stroke-width':1}));
     const lx = SVG('text',{x:W-4,y:-6,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); lx.textContent='p'; svg.appendChild(lx);
     const ly = SVG('text',{x:6,y:-H+12,'font-size':11,fill:'var(--mute)'}); ly.textContent='E'; svg.appendChild(ly);
-    // light cone E = ±|p|
-    svg.appendChild(SVG('line',{x1:-W,y1:-W*0.5,x2:W,y2:W*0.5,stroke:'var(--yellow)','stroke-dasharray':'3 3','stroke-width':1,'stroke-opacity':.6}));
-    svg.appendChild(SVG('line',{x1:-W,y1:W*0.5,x2:W,y2:-W*0.5,stroke:'var(--yellow)','stroke-dasharray':'3 3','stroke-width':1,'stroke-opacity':.6}));
-    const tly = SVG('text',{x:W-4,y:-W*0.5+14,'text-anchor':'end','font-size':10,fill:'var(--yellow)'}); tly.textContent='|E|=|p| (m=0)'; svg.appendChild(tly);
-    // hyperbolae E = ±√(p² + m²)  scale: E unit = 0.5 px / unit (so W × 0.5 maps E=400 → W)
+    // hyperbolae E = ±√(p² + m²)  — define scales first so the light cone uses the same slope
     const E_to_y = 50; // px per unit of E
     const p_to_x = W/3.0; // px per unit of p, since slider range is [-3,3]
+    // light cone E = ±|p|, drawn with the same y/x scale as the hyperbolae so the curves' asymptotes match
+    const cone_dy = W * (E_to_y / p_to_x);
+    svg.appendChild(SVG('line',{x1:-W,y1: cone_dy,x2:W,y2:-cone_dy,stroke:'var(--yellow)','stroke-dasharray':'3 3','stroke-width':1,'stroke-opacity':.6}));
+    svg.appendChild(SVG('line',{x1:-W,y1:-cone_dy,x2:W,y2: cone_dy,stroke:'var(--yellow)','stroke-dasharray':'3 3','stroke-width':1,'stroke-opacity':.6}));
+    const tly = SVG('text',{x:W-4,y:-cone_dy+14,'text-anchor':'end','font-size':10,fill:'var(--yellow)'}); tly.textContent='|E|=|p| (m=0)'; svg.appendChild(tly);
     const upPath = [], dnPath = [];
     for(let i=0;i<=200;i++){
       const pp = -3 + 6*i/200;
@@ -537,7 +538,7 @@ $$v_g \;=\; \frac{dE}{d|\vec p|} \;=\; \frac{|\vec p|}{\sqrt{|\vec p|^2+m^2}} \;
     const sy_dn =  E * E_to_y;
     svg.appendChild(SVG('circle',{cx:sx,cy:sy_dn,r:5,fill:'var(--pink)',stroke:'var(--ink)','stroke-width':1}));
     // Tangent slope marker (group velocity)
-    const dx = 22, dy = -vg * 22 * E_to_y / p_to_x * (p_to_x / E_to_y) * (E_to_y / p_to_x); // simplifies
+    const dx = 22;
     const tang_dy = -vg * dx * (E_to_y / p_to_x);
     svg.appendChild(SVG('line',{x1:sx-dx,y1:sy_up-tang_dy,x2:sx+dx,y2:sy_up+tang_dy,stroke:'var(--green)','stroke-width':1.8}));
     // legend
@@ -549,8 +550,11 @@ $$v_g \;=\; \frac{dE}{d|\vec p|} \;=\; \frac{|\vec p|}{\sqrt{|\vec p|^2+m^2}} \;
     lg.appendChild(SVG('line',{x1:0,y1:28,x2:18,y2:28,stroke:'var(--green)','stroke-width':1.8}));
     const lg3 = SVG('text',{x:24,y:32,'font-size':11,fill:'var(--green)'}); lg3.textContent='tangent = v_g'; lg.appendChild(lg3);
     svg.appendChild(lg);
-    const v_phi = E / Math.max(Math.abs(p), 1e-6);
-    out.textContent = `m = ${m.toFixed(2)}    p = ${p.toFixed(2)}    E₊ = +${E.toFixed(3)}   E₋ = −${E.toFixed(3)}    v_g = p/E = ${vg.toFixed(3)} (always |v_g| < 1)    v_φ = E/|p| = ${v_phi.toFixed(3)} (≥ 1 for massive modes; carries no info)`;
+    // Guards: v_φ diverges as p → 0 (prefer em-dash to giant numbers); v_g undefined when E = 0 (m = p = 0).
+    const small_p = Math.abs(p) < 1e-3 * Math.max(m, 1e-3);
+    const v_phi_str = small_p ? '— (v_φ → ∞ as p → 0)' : (E / Math.abs(p)).toFixed(3);
+    const v_g_str = E < 1e-6 ? '—' : vg.toFixed(3);
+    out.textContent = `m = ${m.toFixed(2)}    p = ${p.toFixed(2)}    E₊ = +${E.toFixed(3)}   E₋ = −${E.toFixed(3)}    v_g = p/E = ${v_g_str} (always |v_g| < 1)    v_φ = E/|p| = ${v_phi_str} (≥ 1 for massive modes; carries no info)`;
   }
   mIn.addEventListener('input', draw);
   pIn.addEventListener('input', draw);
@@ -687,39 +691,38 @@ $$\phi(t,x) \;=\; A\,e^{-i(Et-px)} + B\,e^{+i(Et-px)}\quad\text{(positive- + neg
   const W = 200, H = 90;
   function draw(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
-    const r = parseFloat(rIn.value);   // |B|/|A|
+    const r = parseFloat(rIn.value);    // |B|/|A|
     const ph = parseFloat(phiIn.value);
-    // Take A = 1, B = r e^{i ph}, p = 1, m = 1, t = 0  (only x dependence)
-    const E = Math.sqrt(1*1 + 1*1); // √2 ≈ 1.414
-    const p_mom = 1;
-    // φ = A e^{-i(E t - p x)} + B e^{+i(E t - p x)}, evaluated at t=0 → φ = e^{i p x} + r e^{i ph} e^{-i p x}
-    // ∂t φ = -i E A e^{-i(E t - p x)} + i E B e^{+i(E t - p x)}, t=0 → -i E e^{i p x} + i E r e^{i ph} e^{-i p x}
-    // j^0 = i (φ* ∂t φ - φ ∂t φ*)
+    // Two distinct-momentum modes: p_+ = +1 (positive-energy branch), p_- = -0.4 (negative-energy branch).
+    // φ = A e^{-i(E_+ t - p_+ x)} + B e^{-i(E_- t - p_- x)}, A = 1, B = r e^{i ph}, m = 1, t = 0.
+    // E_+ = +√(p_+² + m²),  E_- = −√(p_-² + m²)  (negative-energy branch carries minus sign).
+    // At t = 0:  φ(0,x) = e^{i p_+ x} + r e^{i(ph + p_- x)}
+    //           ∂t φ(0,x) = -i E_+ e^{i p_+ x}  + (-i E_-) r e^{i(ph + p_- x)}
+    // j^0 = -2 Im(φ* ∂t φ); cross-terms now ∝ cos((p_+ − p_-)x − ph) (E_+ + E_-) — explicit x and φ dependence.
+    const m = 1.0;
+    const p_plus = 1.0, p_minus = -0.4;
+    const E_plus = Math.sqrt(p_plus*p_plus + m*m);
+    const E_minus = -Math.sqrt(p_minus*p_minus + m*m);
     // axes
     svg.appendChild(SVG('line',{x1:-W,y1:0,x2:W,y2:0,stroke:'var(--line)','stroke-width':1}));
     svg.appendChild(SVG('line',{x1:0,y1:-H,x2:0,y2:H,stroke:'var(--line)','stroke-width':0.5}));
     const lx = SVG('text',{x:W-4,y:-6,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); lx.textContent='x'; svg.appendChild(lx);
     const ly = SVG('text',{x:6,y:-H+12,'font-size':11,fill:'var(--mute)'}); ly.textContent='j⁰(x)'; svg.appendChild(ly);
-    // Reference line at j^0 = 0
     const path = [];
-    let minJ = 0, maxJ = 0;
+    let minJ = Infinity, maxJ = -Infinity;
     const samples = [];
     for(let i=0;i<=200;i++){
       const x = -10 + 20*i/200;
-      // φ(0,x), ∂t φ(0,x)
-      const A_re = Math.cos(p_mom*x), A_im = Math.sin(p_mom*x);
-      const B_re = r*Math.cos(ph - p_mom*x), B_im = r*Math.sin(ph - p_mom*x);
+      // φ(0,x): real and imaginary parts
+      const A_re = Math.cos(p_plus*x),  A_im = Math.sin(p_plus*x);
+      const B_re = r*Math.cos(ph + p_minus*x), B_im = r*Math.sin(ph + p_minus*x);
       const phi_re = A_re + B_re, phi_im = A_im + B_im;
-      // ∂t φ at t=0: -iE A_factor + iE B_factor where A_factor = e^{i p x}, B_factor = r e^{i(ph - p x)}
-      // -i E (cos(px) + i sin(px)) = -i E cos(px) + E sin(px)  → re = E sin(px), im = -E cos(px)
-      // +i E r (cos(ph-px) + i sin(ph-px)) = -E r sin(ph-px) + i E r cos(ph-px) → re = -E r sin(ph-px), im = E r cos(ph-px)
-      const dt_re = E*Math.sin(p_mom*x) - E*r*Math.sin(ph - p_mom*x);
-      const dt_im = -E*Math.cos(p_mom*x) + E*r*Math.cos(ph - p_mom*x);
-      // j^0 = i (φ* ∂t φ - φ ∂t φ*)
-      // φ* ∂t φ = (phi_re - i phi_im)(dt_re + i dt_im)
-      //        = (phi_re dt_re + phi_im dt_im) + i(phi_re dt_im - phi_im dt_re)
-      // Im part: phi_re dt_im - phi_im dt_re
-      // j^0 = i (φ* ∂t φ - c.c.) = -2 Im(φ* ∂t φ) = -2 (phi_re dt_im - phi_im dt_re)
+      // ∂t φ at t = 0:
+      //   -i E_+ (cos(p_+ x) + i sin(p_+ x))    → re =  E_+ sin(p_+ x),   im = -E_+ cos(p_+ x)
+      //   -i E_- r (cos(ph + p_- x) + i sin(.)) → re =  E_- r sin(.),     im = -E_- r cos(.)
+      const dt_re = E_plus*Math.sin(p_plus*x) + E_minus*r*Math.sin(ph + p_minus*x);
+      const dt_im = -E_plus*Math.cos(p_plus*x) - E_minus*r*Math.cos(ph + p_minus*x);
+      // j^0 = -2 Im(φ* ∂t φ) = -2 (phi_re * dt_im - phi_im * dt_re)
       const j0 = -2*(phi_re*dt_im - phi_im*dt_re);
       samples.push([x, j0]);
       if(j0 < minJ) minJ = j0;
@@ -744,7 +747,7 @@ $$\phi(t,x) \;=\; A\,e^{-i(Et-px)} + B\,e^{+i(Et-px)}\quad\text{(positive- + neg
         if(!inNeg){ shade.push(`M${sx.toFixed(1)} 0`); inNeg = true; }
         shade.push(`L${sx.toFixed(1)} ${sy.toFixed(2)}`);
       } else if(inNeg){
-        const sxprev = samples[i-1][0]/10*W;
+        const sxprev = i > 0 ? samples[i-1][0]/10*W : sx;
         shade.push(`L${sxprev.toFixed(1)} 0 Z`);
         inNeg = false;
       }
@@ -754,14 +757,14 @@ $$\phi(t,x) \;=\; A\,e^{-i(Et-px)} + B\,e^{+i(Et-px)}\quad\text{(positive- + neg
       shade.push(`L${lastSx.toFixed(1)} 0 Z`);
     }
     if(shade.length){
-      svg.appendChild(SVG('path',{d:shade.join(' '),fill:'rgba(224,122,95,0.18)',stroke:'none'}));
+      svg.appendChild(SVG('path',{d:shade.join(' '),fill:'var(--pink)','fill-opacity':'0.18',stroke:'none'}));
     }
     svg.appendChild(SVG('path',{d:path.join(' '),fill:'none',stroke:'var(--cyan)','stroke-width':2}));
     // baseline
     svg.appendChild(SVG('line',{x1:-W,y1:0,x2:W,y2:0,stroke:'var(--mute)','stroke-width':0.5,'stroke-dasharray':'2 3'}));
     const negLabel = minJ < -0.05 ? `j⁰ < 0 over part of x — pink shading.  Cannot be a probability density.`
-                                  : `j⁰ ≥ 0 everywhere here — but a small twist of the phase will tip it negative.`;
-    out.textContent = `|B|/|A| = ${r.toFixed(2)}    arg(B/A) = ${ph.toFixed(2)}    p = 1, m = 1, E = √2 ≈ ${E.toFixed(3)}    min j⁰ = ${minJ.toFixed(2)}    max j⁰ = ${maxJ.toFixed(2)}    ${negLabel}`;
+                                  : `j⁰ ≥ 0 everywhere here — increase the antiparticle weight or twist the phase to tip it negative.`;
+    out.textContent = `|B|/|A| = ${r.toFixed(2)}    arg(B/A) = ${ph.toFixed(2)}    p_+ = ${p_plus.toFixed(2)}, p_- = ${p_minus.toFixed(2)}, m = ${m.toFixed(2)}    E_+ = ${E_plus.toFixed(3)}, E_- = ${E_minus.toFixed(3)}    min j⁰ = ${minJ.toFixed(2)}    max j⁰ = ${maxJ.toFixed(2)}    ${negLabel}`;
   }
   rIn.addEventListener('input', draw);
   phiIn.addEventListener('input', draw);
@@ -799,7 +802,7 @@ $$\boxed{\;i\hbar\,\partial_t\psi \;=\; -\frac{\hbar^2}{2m}\,\nabla^2\psi.\;}$$
 </ul>
 
 <div class="widget" id="kg-nrl">
-  <div class="hd"><div class="ttl">KG vs Schrödinger kinetic energy</div><div class="hint">they merge at low $|p|$, diverge as $|p| \to m$</div></div>
+  <div class="hd"><div class="ttl">KG vs Schrödinger kinetic energy</div><div class="hint">they merge at low $|p|$, the difference grows once $|p| \gtrsim m$</div></div>
   <div class="row">
     <label for="nrl-p">$p$ (in units of $m$)</label>
     <input id="nrl-p" type="range" min="0" max="3" step="0.01" value="0.3">
@@ -888,7 +891,7 @@ $$\boxed{\;i\hbar\,\partial_t\psi \;=\; -\frac{\hbar^2}{2m}\,\nabla^2\psi.\;}$$
 <li><a href="./schrodinger-equation.html#time-dep">Schrödinger equation</a> — the non-relativistic limit, recovered by factoring out $e^{-imc^2t/\hbar}$ and dropping $\hbar^2\partial_t^2\psi$.</li>
 <li><a href="./partial-differential-equations.html#wave">Partial differential equations — wave equation</a> — KG is the wave equation with a constant zero-th-order term; characteristics, Cauchy data, Green's functions all carry over.</li>
 <li><a href="./gauge-theory.html#curvature-yang-mills">Gauge theory</a> — promote $\partial_\mu \to D_\mu = \partial_\mu + ieA_\mu$ and KG becomes the equation of a charged scalar minimally coupled to electromagnetism (the Higgs sector, scalar QED).</li>
-<li><a href="./advanced-complex-analysis.html#riemann-surfaces">Advanced complex analysis</a> — the two branches $E = \pm\sqrt{p^2+m^2}$ are the two sheets of a Riemann surface; the analytic continuation across the branch cut is what threads the Feynman propagator's $+i\epsilon$ prescription.</li>
+<li><a href="./riemann-surfaces.html#intro">Riemann surfaces</a> — the two branches $E = \pm\sqrt{p^2+m^2}$ are the two sheets of a Riemann surface; the analytic continuation across the branch cut is what threads the Feynman propagator's $+i\epsilon$ prescription.</li>
 </ul>
 </section>
 
