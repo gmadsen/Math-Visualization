@@ -8,6 +8,7 @@ window.__MVConcepts = {
       "hodge-theory",
       "langlands-program",
       "microlocal-analysis",
+      "geometric-measure-theory",
       "special-relativity",
       "klein-gordon-equation",
       "dirac-equation",
@@ -193,6 +194,7 @@ window.__MVConcepts = {
       "harmonic-analysis-fourier": "standard",
       "sobolev-spaces-distributions": "standard",
       "microlocal-analysis": "advanced",
+      "geometric-measure-theory": "advanced",
       "advanced-complex-analysis": "advanced",
       "point-set-topology": "prereq",
       "algebraic-topology": "prereq",
@@ -741,6 +743,95 @@ window.__MVConcepts = {
             "refinement"
           ],
           "blurb": "Microlocal analysis underwrites: (a) scattering theory — Sommerfeld's radiation condition selects outgoing bicharacteristics, and propagation of singularities + limiting absorption gives existence/uniqueness for $(\\Delta+k^2)u=f$ on the non-elliptic characteristic sphere $|\\xi|=k$; (b) X-ray and Radon transforms — the canonical relation maps $(x,\\xi)$ to lines through $x$ perpendicular to $\\xi$, so wavefront direction tracks which singularities are visible from which lines (the visible-singularities theorem of Quinto–Greenleaf–Uhlmann is the rigorous form of limited-angle CT artifacts and the missing-cone phenomenon); (c) general relativity — Hörmander's theorem governs propagation of gravitational-wave singularities along null geodesics of $\\Box_g$, the rigorous content of \"signals travel at the speed of light\" in curved spacetime. The toolkit replaces ad-hoc PDE arguments with one geometric language and keeps paying out — Calderón-style boundary determination, second microlocalization, FBI-Bargmann transforms — across the inverse-problem and analytic-regularity frontiers."
+        }
+      ]
+    },
+    "geometric-measure-theory": {
+      "topic": "geometric-measure-theory",
+      "title": "Geometric measure theory",
+      "page": "geometric-measure-theory.html",
+      "concepts": [
+        {
+          "id": "gmt-bv-functions",
+          "title": "Functions of bounded variation",
+          "anchor": "bv-functions",
+          "prereqs": [
+            "distributional-derivative",
+            "lp-spaces",
+            "bounded-variation"
+          ],
+          "blurb": "$u\\in\\mathrm{BV}(\\Omega)$ iff $u\\in L^1$ and the distributional derivative $Du$ is a finite vector-valued Radon measure on $\\Omega$, with total variation $|Du|(\\Omega)=\\sup\\{\\int u\\,\\mathrm{div}\\,\\phi:\\phi\\in C^1_c,|\\phi|\\le 1\\}$. Every BV function admits a Lebesgue-Radon-Nikodym decomposition $Du=\\nabla u\\,\\mathcal{L}^n + (u^+ - u^-)\\nu_u\\,\\mathcal{H}^{n-1}\\restriction J_u + D^c u$ — absolutely continuous, jump, and Cantor parts, supported on $\\mathcal{L}^n$, on the rectifiable jump set $J_u$, and on a Cantor-like set respectively. BV is strictly larger than $W^{1,1}$ (the Heaviside has $u'=\\delta_0\\notin L^1$; the Cantor staircase has $\\nabla u\\equiv 0$ but $|D^c u|=1$), enjoys $L^1$-lower-semicontinuity of $|Du|$ and Rellich-type compactness, and is the operative class for §2's perimeter theory and §6's Mumford-Shah segmentation — the natural domain whenever the admissible functions must accommodate jumps along $(n{-}1)$-rectifiable singular sets.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "gmt-perimeter-sets",
+          "title": "Sets of finite perimeter and reduced boundary",
+          "anchor": "perimeter",
+          "prereqs": [
+            "gmt-bv-functions"
+          ],
+          "blurb": "$E\\subset\\mathbb{R}^n$ has finite perimeter iff $\\chi_E\\in\\mathrm{BV}_{\\mathrm{loc}}$, with perimeter $P(E)=|D\\chi_E|(\\mathbb{R}^n)$ — the divergence-test sup that agrees with $\\mathcal{H}^{n-1}(\\partial E)$ on smooth $E$. The reduced boundary $\\partial^*E$ is the set of points where the measure-theoretic outward normal $\\nu_E(x)=-\\lim_r D\\chi_E(B_r(x))/|D\\chi_E|(B_r(x))$ exists in $S^{n-1}$; corners drop out as $\\mathcal{H}^{n-1}$-null. De Giorgi's structure theorem: $\\partial^*E$ is countably $(n-1)$-rectifiable, $D\\chi_E=-\\nu_E\\,\\mathcal{H}^{n-1}\\restriction\\partial^*E$, and $P(E)=\\mathcal{H}^{n-1}(\\partial^*E)$. This generalizes surface area to corner-y and disconnected sets while excluding wild boundaries (Koch snowflake has $P=\\infty$, ruled out); the natural domain for the isoperimetric inequality $P(E)\\ge n\\omega_n^{1/n}|E|^{(n-1)/n}$ and downstream existence for Plateau in §5.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "gmt-rectifiability",
+          "title": "Rectifiable sets and Hausdorff measure",
+          "anchor": "rectifiability",
+          "prereqs": [
+            "gmt-perimeter-sets",
+            "hausdorff-measure"
+          ],
+          "blurb": "$S\\subset\\mathbb{R}^n$ is countably $k$-rectifiable iff $\\mathcal{H}^k$-almost all of $S$ is contained in a countable union of Lipschitz images of $\\mathbb{R}^k$ — Rademacher's theorem then supplies $\\mathcal{H}^k$-a.e. tangent planes. Three equivalent characterizations classify the class: existence of approximate $k$-tangent planes $\\mathcal{H}^k$-a.e.; the $k$-density $\\Theta^k(S,x)=\\lim_r\\mathcal{H}^k(S\\cap B_r)/\\omega_k r^k$ equals $1$ a.e.; and the Besicovitch-Federer projection theorem — for purely $k$-unrectifiable sets, projection onto $\\mathcal{H}^{k(n-k)}$-a.e. $k$-plane has Lebesgue measure zero. The 4-corner Cantor set ($\\dim_H=1$ but purely $1$-unrectifiable) is the canonical counterexample; De Giorgi's $\\partial^*E$ is the canonical example, and rectifiability of level sets ($\\S 4$) is what makes the coarea formula well-posed.",
+          "tags": [
+            "classification",
+            "refinement"
+          ]
+        },
+        {
+          "id": "gmt-area-coarea",
+          "title": "Area and coarea formulas",
+          "anchor": "area-coarea",
+          "prereqs": [
+            "gmt-rectifiability"
+          ],
+          "blurb": "For Lipschitz $f:\\mathbb{R}^k\\to\\mathbb{R}^n$ ($k\\le n$), the area formula $\\int_A J_f\\,d\\mathcal{L}^k = \\int_{\\mathbb{R}^n}\\mathcal{H}^0(A\\cap f^{-1}(y))\\,d\\mathcal{H}^k(y)$ generalizes change-of-variables to non-injective Lipschitz maps via the multiplicity factor; injective $f$ recovers $\\mathcal{H}^k(f(A))=\\int_A J_f$. Both formulas hold under Lipschitz regularity (not $C^1$) thanks to Rademacher. For $u:\\mathbb{R}^n\\to\\mathbb{R}^m$, the coarea formula $\\int g\\,J_u\\,d\\mathcal{L}^n = \\int_{\\mathbb{R}^m}\\int_{u^{-1}(y)} g\\,d\\mathcal{H}^{n-m}\\,d\\mathcal{L}^m(y)$ slices a top-dimensional integral via level sets — most-cited as $\\int|\\nabla u|=\\int\\mathcal{H}^{n-1}(\\{u=t\\})\\,dt$, the bridge between BV total variation and integrated level-set perimeter. Operationally this means minimizing $\\int|\\nabla u|$ reduces to simultaneously minimizing perimeters of superlevel sets — what makes BV the right setting for free-boundary variational problems.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "gmt-currents",
+          "title": "Currents and Federer–Fleming compactness",
+          "anchor": "currents",
+          "prereqs": [
+            "gmt-rectifiability",
+            "stokes-derham"
+          ],
+          "blurb": "A $k$-current $T\\in\\mathcal{D}^k(\\mathbb{R}^n)$ is a continuous linear functional on smooth compactly-supported $k$-forms; oriented submanifolds $M$ give integration currents $\\langle [M],\\omega\\rangle=\\int_M\\omega$. The boundary $\\partial T$ satisfies $\\langle\\partial T,\\eta\\rangle=\\langle T,d\\eta\\rangle$ — Stokes built into the definition, so $\\partial[M]=[\\partial M]$. The mass $\\mathbf{M}(T)=\\sup_{|\\omega|\\le 1}\\langle T,\\omega\\rangle$ generalizes $\\mathcal{H}^k$, and integral currents are the rectifiable, integer-multiplicity subclass closed under weak limits with bounded mass+boundary-mass. Federer-Fleming compactness: a sequence $T_j\\subset\\mathbf{I}_k$ with $\\mathrm{spt}(T_j)\\subset K$ (a fixed compact set) and uniformly bounded $\\mathbf{M}(T_j)+\\mathbf{M}(\\partial T_j)$ admits a weakly convergent subsequence in the integral-current class; without spt-compactness mass can escape to infinity. This is the existence engine for Plateau-style problems and SBV-based segmentation in §6.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "gmt-applications",
+          "title": "Applications: Plateau, minimal surfaces, and Mumford–Shah",
+          "anchor": "applications",
+          "prereqs": [
+            "gmt-area-coarea",
+            "gmt-currents"
+          ],
+          "blurb": "GMT solves Plateau's problem rigorously: minimize mass over integral currents with prescribed boundary; Federer-Fleming gives existence and Allard's regularity theorem gives interior $C^{1,\\alpha}$-smoothness $\\mathcal{H}^k$-a.e. on the support of a stationary integral varifold (with the Simons cone in $\\mathbb{R}^8$ exhibiting the first singular minimizer in codimension 1). Mumford-Shah image segmentation $\\inf\\int(u-g)^2 + \\alpha\\int_{\\Omega\\setminus K}|\\nabla u|^2 + \\beta\\,\\mathcal{H}^{n-1}(K)$ is well-posed via the SBV compactness theorem (Ambrosio 1989), with De Giorgi-Carriero-Leaci density estimates closing the singular set $K$. Brakke flows generalize mean-curvature flow to varifolds whose mass decreases at squared mean curvature, and Cheeger constants $h(\\Omega)=\\inf P(E)/|E|$ control the Laplacian spectral gap via $\\lambda_1\\ge h^2/4$ — both natively expressed in the perimeter / SBV / varifold language built up over the previous five sections.",
+          "tags": [
+            "classification",
+            "refinement"
+          ]
         }
       ]
     },
@@ -15045,6 +15136,7 @@ window.__MVConcepts = {
           "harmonic-analysis-fourier",
           "sobolev-spaces-distributions",
           "microlocal-analysis",
+          "geometric-measure-theory",
           "advanced-complex-analysis",
           "partial-differential-equations",
           "harmonic-functions",
@@ -15338,6 +15430,7 @@ window.__MVConcepts = {
     "harmonic-analysis-fourier": "standard",
     "sobolev-spaces-distributions": "standard",
     "microlocal-analysis": "advanced",
+    "geometric-measure-theory": "advanced",
     "advanced-complex-analysis": "advanced",
     "point-set-topology": "prereq",
     "algebraic-topology": "prereq",
@@ -15497,11 +15590,11 @@ window.__MVConcepts = {
       "density": 0.5111111111111111
     },
     "Analysis": {
-      "concepts": 179,
-      "intra": 315,
-      "crossOut": 30,
+      "concepts": 185,
+      "intra": 325,
+      "crossOut": 31,
       "crossIn": 62,
-      "density": 0.16759776536312848
+      "density": 0.16756756756756758
     },
     "Probability & statistics": {
       "concepts": 55,
@@ -15514,7 +15607,7 @@ window.__MVConcepts = {
       "concepts": 104,
       "intra": 157,
       "crossOut": 19,
-      "crossIn": 92,
+      "crossIn": 93,
       "density": 0.18269230769230768
     },
     "Number theory": {

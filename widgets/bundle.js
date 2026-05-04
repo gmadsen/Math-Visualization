@@ -4995,6 +4995,132 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "gmt-bv",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "gmt-bv widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"BV decomposition: absolutely continuous + jump + Cantor\" widget on the geometric-measure-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"BV decomposition: absolutely continuous + jump + Cantor\" widget on `geometric-measure-theory`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "gmt-coarea",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "gmt-coarea widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Coarea formula: ∫|∇u| as integrated level-set perimeter\" widget on the geometric-measure-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Coarea formula: ∫|∇u| as integrated level-set perimeter\" widget on `geometric-measure-theory`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "gmt-currents",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "gmt-currents widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Build an oriented chain; watch boundary and mass\" widget on the geometric-measure-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Build an oriented chain; watch boundary and mass\" widget on `geometric-measure-theory`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "gmt-perim",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "gmt-perim widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Perimeter as boundary roughness varies\" widget on the geometric-measure-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Perimeter as boundary roughness varies\" widget on `geometric-measure-theory`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "gmt-plateau",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "drag",
+    "role": "interactive",
+    "title": "gmt-plateau widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Plateau in 2D / Mumford-Shah toggle\" widget on the geometric-measure-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Plateau in 2D / Mumford-Shah toggle\" widget on `geometric-measure-theory`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "gmt-rect",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "gmt-rect widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Rectifiable vs purely unrectifiable: project onto a rotating line\" widget on the geometric-measure-theory topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Rectifiable vs purely unrectifiable: project onto a rotating line\" widget on `geometric-measure-theory`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "grothendieck-topologies-sites-axioms-scrub",
     "family": "declarative-host",
     "dimension": "2d",

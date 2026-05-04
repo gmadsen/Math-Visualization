@@ -1,0 +1,1743 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Geometric measure theory</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"automorphic-forms-adelic","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"additive-number-theory":{"next":"quadratic-forms-genus-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"advanced-complex-analysis":{"next":"microlocal-analysis","prev":"fixed-point-theorems","section":"Analysis","title":"Advanced complex analysis"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"moduli-spaces","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"mathematics-and-cryptography","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"mostow-rigidity","prev":"k-theory","section":"Geometry & topology","title":"Atiyah–Singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"etale-cohomology","section":"Algebraic geometry","title":"Calabi–Yau manifolds"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-topoi","prev":"infinity-categories","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":null,"prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"deformation-theory":{"next":"etale-cohomology","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"group-cohomology","prev":"homological","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"expanders","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirac-equation":{"next":"quantum-field-theory","prev":"klein-gordon-equation","section":"Mathematical physics","title":"Dirac equation"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"harmonic-analysis-fourier","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":null,"section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":"calabi-yau-manifolds","prev":"deformation-theory","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"deformation-theory","prev":"group-schemes","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":null,"prev":"designs","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"naive-set-theory","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":"advanced-complex-analysis","prev":"variational-methods","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"type-theory-and-hott","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"quantum-groups","prev":"lie-algebras","section":"Algebra & homological","title":"Galois cohomology and Brauer groups"},"galois-representations":{"next":"heights-arithmetic-geometry","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"gauge-theory":{"next":"string-theory","prev":"statistical-mechanics","section":"Mathematical physics","title":"Gauge theory"},"general-relativity":{"next":"schrodinger-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":"groebner-bases","prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"geometric-measure-theory":{"next":null,"prev":"microlocal-analysis","section":"Analysis","title":"Geometric measure theory"},"groebner-bases":{"next":null,"prev":"geometric-and-combinatorial-group-theory","section":"Algebra & homological","title":"Gröbner bases"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"lie-algebras","prev":"derived-categories","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"etale-fundamental-group","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"hamiltonians-classical-mechanics":{"next":"general-relativity","prev":"three-body-problem","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"spectral-theory","prev":"partial-differential-equations","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"analytic-number-theory","prev":"galois-representations","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":null,"prev":"mathematical-statistics","section":"Probability & statistics","title":"High dimensional geometry"},"hodge-theory":{"next":null,"prev":"motives","section":"Algebraic geometry","title":"Hodge theory"},"homological":{"next":"derived-categories","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"cocartesian-fibrations","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-topoi"},"information-theory":{"next":"large-deviations","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"stacks","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"ricci-flow","section":"Geometry & topology","title":"K-theory"},"klein-gordon-equation":{"next":"dirac-equation","prev":"special-relativity","section":"Mathematical physics","title":"Klein-Gordon equation"},"knot-polynomials":{"next":"ricci-flow","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Knot polynomials"},"langlands-program":{"next":null,"prev":"vertex-operator-algebras","section":"Modular forms & L-functions","title":"Langlands program"},"large-deviations":{"next":"mathematical-statistics","prev":"information-theory","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"galois-cohomology-and-brauer","prev":"group-cohomology","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"mathematical-statistics":{"next":"high-dimensional-geometry","prev":"large-deviations","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"microlocal-analysis":{"next":"geometric-measure-theory","prev":"advanced-complex-analysis","section":"Analysis","title":"Microlocal analysis"},"mirror-symmetry":{"next":"resolution-of-singularities","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"model-theory-basics":{"next":"computability-and-decidability","prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"modular-curves","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"algebraic-spaces","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"characteristic-classes","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":null,"prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Mostow rigidity"},"motives":{"next":"hodge-theory","prev":"resolution-of-singularities","section":"Algebraic geometry","title":"Motives"},"naive-set-theory":{"next":"first-order-logic-and-completeness","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"wavelets","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"harmonic-functions","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"stochastic-processes-and-martingales","prev":null,"section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"additive-number-theory","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"additive-number-theory","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"quantum-field-theory":{"next":null,"prev":"dirac-equation","section":"Mathematical physics","title":"Quantum field theory"},"quantum-groups":{"next":"quaternions-octonions-and-division-algebras","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"quantum-groups","section":"Algebra & homological","title":"Quaternions, octonions, and division algebras"},"random-walks-and-mixing":{"next":"information-theory","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":"motives","prev":"mirror-symmetry","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"k-theory","prev":"knot-polynomials","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"characteristic-classes","prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":"statistical-mechanics","prev":"general-relativity","section":"Mathematical physics","title":"Schrödinger equation"},"sheaf-cohomology":{"next":"algebraic-de-rham-cohomology","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"algebraic-curves-higher-genus","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Sobolev spaces & distributions"},"special-relativity":{"next":"klein-gordon-equation","prev":"string-theory","section":"Mathematical physics","title":"Special relativity"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"wavelets","prev":"harmonic-functions","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"intersection-theory-chow","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"statistical-mechanics":{"next":"gauge-theory","prev":"schrodinger-equation","section":"Mathematical physics","title":"Statistical mechanics"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":"probability-theory","section":"Probability & statistics","title":"Stochastic processes and martingales"},"string-theory":{"next":"special-relativity","prev":"gauge-theory","section":"Mathematical physics","title":"String theory"},"symplectic-manifolds":{"next":"knot-polynomials","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"hamiltonians-classical-mechanics","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"type-theory-and-hott":{"next":"forcing-and-independence","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and HoTT"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"fixed-point-theorems","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":"langlands-program","prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"numerical-analysis","prev":"spectral-theory","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"model-theory-basics","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"ZFC and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="analysis" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#bv-functions">1&nbsp;Functions&nbsp;of&nbsp;bounded&nbsp;variation</a>
+  <a href="#perimeter">2&nbsp;Sets&nbsp;of&nbsp;finite&nbsp;perimeter&nbsp;and&nbsp;reduced&nbsp;boundary</a>
+  <a href="#rectifiability">3&nbsp;Rectifiable&nbsp;sets&nbsp;and&nbsp;Hausdorff&nbsp;measure</a>
+  <a href="#area-coarea">4&nbsp;Area&nbsp;and&nbsp;coarea&nbsp;formulas</a>
+  <a href="#currents">5&nbsp;Currents&nbsp;and&nbsp;Federer–Fleming&nbsp;compactness</a>
+  <a href="#applications">6&nbsp;Applications:&nbsp;Plateau,&nbsp;minimal&nbsp;surfaces,&nbsp;and&nbsp;Mumford–Shah</a>
+  <a href="#connections">7&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Geometric measure theory</h1>
+  <p class="sub">Measure theory with geometric content: BV functions, sets of finite perimeter, rectifiable sets, currents, and the existence theorems for minimal surfaces and image segmentation that fall out of one compactness machine.</p>
+</section>
+
+<section id="bv-functions">
+<h2>1. Functions of bounded variation</h2>
+
+<p>A function $u\in L^1(\Omega)$ on an open set $\Omega\subset\mathbb{R}^n$ is of <strong>bounded variation</strong> when its distributional gradient is a finite vector-valued Radon measure: there exists $Du=(D_1u,\dots,D_nu)$, finite signed Borel measures, with</p>
+
+$$\int_\Omega u\,\partial_i\phi\,dx \;=\; -\int_\Omega \phi\,d(D_iu)\qquad\text{for every }\phi\in C^1_c(\Omega).$$
+
+<p>The <strong>total variation</strong> $|Du|(\Omega)$ — the variation measure of the vector measure $Du$ — equals the dual norm</p>
+
+$$|Du|(\Omega)\;=\;\sup\Bigl\{\,\int_\Omega u\,\mathrm{div}\,\phi\,dx \,:\, \phi\in C^1_c(\Omega;\mathbb{R}^n),\,|\phi(x)|\le 1\,\Bigr\}.$$
+
+<p>Why widen $W^{1,1}$ to $\mathrm{BV}$? Because $W^{1,1}$ requires the gradient measure to be <em>absolutely continuous</em> with respect to Lebesgue measure, ruling out jumps. The Heaviside on $\mathbb{R}$ has $u'=\delta_0$ — a finite Radon measure but not in $L^1$ — so $H\in\mathrm{BV}_{\mathrm{loc}}\setminus W^{1,1}_{\mathrm{loc}}$. Every BV function admits a Radon-Nikodym-style decomposition</p>
+
+$$Du \;=\; \nabla u\,\mathcal{L}^n \;+\; (u^+-u^-)\,\nu_u\,\mathcal{H}^{n-1}\restriction J_u \;+\; D^c u,$$
+
+<p>splitting the gradient measure into an absolutely continuous part (the classical $\nabla u\in L^1$), a jump part concentrated on the rectifiable jump set $J_u$ with two-sided traces $u^\pm$ and unit normal $\nu_u$, and a Cantor part $D^c u$ — singular with respect to Lebesgue measure but vanishing on every $\mathcal{H}^{n-1}$-finite set. The Cantor staircase $u(x)=$ Cantor function has $\nabla u\equiv 0$, no jumps, yet $|Du|([0,1])=1$ — the canonical $\mathrm{BV}\setminus W^{1,1}$ counterexample whose entire variation lives in $D^c u$.</p>
+
+<p>Three properties make $\mathrm{BV}$ the natural setting for variational problems with discontinuities. <strong>Lower semicontinuity</strong>: if $u_k\to u$ in $L^1$ then $|Du|(\Omega)\le\liminf_k|Du_k|(\Omega)$. <strong>Compactness</strong>: bounded sequences in $\mathrm{BV}(\Omega)$ have $L^1$-convergent subsequences (a Rellich-type embedding). <strong>Coarea</strong>: $|Du|(\Omega)=\int_\mathbb{R}|D\chi_{\{u>t\}}|(\Omega)\,dt$ — total variation as integrated level-set perimeter, which is the bridge to §2 and §4.</p>
+
+<div class="widget" id="gmt-bv">
+  <div class="hd"><div class="ttl">BV decomposition: absolutely continuous + jump + Cantor</div><div class="hint">slide jump amplitude and Cantor weight; the readout splits $|Du|$ three ways</div></div>
+  <div class="row">
+    <label for="gmt-bv-jumps">number of jumps:</label>
+    <input id="gmt-bv-jumps" type="range" min="0" max="6" step="1" value="2">
+    <span id="gmt-bv-jumps-out" class="small"></span>
+  </div>
+  <div class="row">
+    <label for="gmt-bv-amp">jump amplitude:</label>
+    <input id="gmt-bv-amp" type="range" min="0" max="1.2" step="0.05" value="0.5">
+    <span id="gmt-bv-amp-out" class="small"></span>
+  </div>
+  <div class="row">
+    <label for="gmt-bv-cantor">Cantor staircase weight:</label>
+    <input id="gmt-bv-cantor" type="range" min="0" max="1" step="0.05" value="0.3">
+    <span id="gmt-bv-cantor-out" class="small"></span>
+  </div>
+  <svg id="gmt-bv-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>BV function on [0,1] with adjustable AC, jump, and Cantor parts</title></svg>
+  <div id="gmt-bv-out" class="readout"></div>
+</div><script>
+(function(){
+  const svg = document.getElementById('gmt-bv-svg');
+  const out = document.getElementById('gmt-bv-out');
+  const sJ = document.getElementById('gmt-bv-jumps');
+  const sJo = document.getElementById('gmt-bv-jumps-out');
+  const sA = document.getElementById('gmt-bv-amp');
+  const sAo = document.getElementById('gmt-bv-amp-out');
+  const sC = document.getElementById('gmt-bv-cantor');
+  const sCo = document.getElementById('gmt-bv-cantor-out');
+  if(!svg || !out) return;
+
+  // viewBox = -260 -150 520 280; map x in [0,1] to [-220, 220], y values flipped
+  const X0 = -220, X1 = 220, Y0 = 100, Y1 = -100;
+  const xMap = t => X0 + t * (X1 - X0);
+  const yMap = v => Y0 + v * (Y1 - Y0); // v in [0,1]
+
+  // Cantor staircase value at t (depth k)
+  function cantor(t, depth){
+    if(depth <= 0) return t; // base: identity (smooth fallback)
+    let lo = 0, hi = 1, vlo = 0, vhi = 1;
+    for(let i = 0; i < depth; i++){
+      const a = lo + (hi - lo)/3;
+      const b = lo + 2*(hi - lo)/3;
+      const vmid = (vlo + vhi)/2;
+      if(t < a){ hi = a; vhi = vmid; }
+      else if(t > b){ lo = b; vlo = vmid; }
+      else { return vmid; }
+    }
+    // linear interp on the remaining sub-interval (treat as flat at vmid average)
+    const span = hi - lo;
+    if(span <= 0) return (vlo + vhi)/2;
+    return vlo + (t - lo)/span * (vhi - vlo);
+  }
+
+  function draw(){
+    const N = parseInt(sJ.value, 10);
+    const A = parseFloat(sA.value);
+    const C = parseFloat(sC.value);
+    const cantorDepth = 5;
+    sJo.textContent = String(N);
+    sAo.textContent = A.toFixed(2);
+    sCo.textContent = C.toFixed(2);
+
+    // AC component: smooth ramp 0.4*t  (derivative 0.4)
+    const acSlope = 0.4;
+    const acTV = acSlope; // ∫_0^1 |0.4| dt = 0.4
+
+    // Jump locations evenly spaced
+    const jumps = [];
+    for(let i = 1; i <= N; i++){
+      jumps.push({ x: i / (N + 1), amp: A });
+    }
+    const jumpTV = N * Math.abs(A);
+
+    // Cantor part: scaled by C
+    const cantorTV = C; // total variation of (C * Cantor) on [0,1] is C
+
+    // Build samples
+    const M = 401;
+    const xs = new Float64Array(M);
+    const ys = new Float64Array(M);
+    for(let i = 0; i < M; i++){
+      const t = i / (M - 1);
+      let v = acSlope * t;
+      // jumps
+      for(const j of jumps){
+        if(t >= j.x) v += j.amp;
+      }
+      // cantor
+      v += C * cantor(t, cantorDepth);
+      xs[i] = t;
+      ys[i] = v;
+    }
+
+    // Normalize y for display: map [vmin, vmax] to [0,1]
+    let vmin = Infinity, vmax = -Infinity;
+    for(let i = 0; i < M; i++){
+      if(ys[i] < vmin) vmin = ys[i];
+      if(ys[i] > vmax) vmax = ys[i];
+    }
+    if(vmax - vmin < 1e-9) vmax = vmin + 1;
+    const norm = v => (v - vmin) / (vmax - vmin);
+
+    // Clear SVG (keep <title>)
+    while(svg.firstChild){
+      if(svg.firstChild.nodeName === 'title') break;
+      svg.removeChild(svg.firstChild);
+    }
+    [...svg.querySelectorAll('g.gmt-bv-layer,path.gmt-bv-line,line.gmt-bv-axis,text.gmt-bv-label,circle.gmt-bv-jump')].forEach(n => n.remove());
+    // also nuke residue: simplest, remove every child except <title>
+    [...svg.children].forEach(n => { if(n.nodeName !== 'title') svg.removeChild(n); });
+
+    // axes
+    const ax = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    ax.setAttribute('x1', X0); ax.setAttribute('x2', X1);
+    ax.setAttribute('y1', Y0); ax.setAttribute('y2', Y0);
+    ax.setAttribute('stroke', 'var(--line)'); ax.setAttribute('stroke-width', '1');
+    svg.appendChild(ax);
+    const ay = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    ay.setAttribute('x1', X0); ay.setAttribute('x2', X0);
+    ay.setAttribute('y1', Y0); ay.setAttribute('y2', Y1);
+    ay.setAttribute('stroke', 'var(--line)'); ay.setAttribute('stroke-width', '1');
+    svg.appendChild(ay);
+
+    // Draw piecewise: the function has discontinuities at jump locations,
+    // so draw segments separately so we don't connect across jumps.
+    const cuts = [0, ...jumps.map(j => j.x), 1];
+    cuts.sort((a,b)=>a-b);
+    let segStart = 0;
+    for(let s = 0; s < cuts.length - 1; s++){
+      const a = cuts[s], b = cuts[s+1];
+      const iA = Math.round(a * (M - 1));
+      const iB = Math.round(b * (M - 1));
+      let d = '';
+      // sample from iA up to but not including jump-at-b crossing
+      for(let i = iA; i <= iB; i++){
+        // Skip the immediate post-jump sample at exactly t = jump.x which already includes jump
+        const t = xs[i];
+        // Recompute "left side" v for points before next jump: ignore jumps with x === b
+        // Simpler: at i = iB exactly, this sample sits at b which already has the jump added.
+        // Instead, build the left-limit value:
+        let v = acSlope * t;
+        for(const j of jumps){
+          if(t > j.x || (t === j.x && j.x !== b)) v += j.amp;
+        }
+        v += C * cantor(t, cantorDepth);
+        const X = xMap(t);
+        const Y = yMap(norm(v));
+        d += (i === iA ? 'M' : 'L') + X.toFixed(2) + ' ' + Y.toFixed(2) + ' ';
+      }
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', d.trim());
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke', 'var(--cyan)');
+      path.setAttribute('stroke-width', '2');
+      svg.appendChild(path);
+    }
+
+    // Draw jump risers as dashed pink verticals, plus end-point dots
+    for(const j of jumps){
+      let leftV = acSlope * j.x;
+      for(const jj of jumps){ if(jj.x < j.x) leftV += jj.amp; }
+      leftV += C * cantor(j.x, cantorDepth);
+      const rightV = leftV + j.amp;
+      const X = xMap(j.x);
+      const Y1p = yMap(norm(leftV));
+      const Y2p = yMap(norm(rightV));
+      const ln = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      ln.setAttribute('x1', X); ln.setAttribute('x2', X);
+      ln.setAttribute('y1', Y1p); ln.setAttribute('y2', Y2p);
+      ln.setAttribute('stroke', 'var(--pink)'); ln.setAttribute('stroke-width', '1.5');
+      ln.setAttribute('stroke-dasharray', '4,3');
+      svg.appendChild(ln);
+      const c1 = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      c1.setAttribute('cx', X); c1.setAttribute('cy', Y1p); c1.setAttribute('r', 2.5);
+      c1.setAttribute('fill', 'var(--pink)');
+      svg.appendChild(c1);
+      const c2 = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      c2.setAttribute('cx', X); c2.setAttribute('cy', Y2p); c2.setAttribute('r', 2.5);
+      c2.setAttribute('fill', 'var(--pink)');
+      svg.appendChild(c2);
+    }
+
+    // axis labels
+    const lbl0 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    lbl0.setAttribute('x', X0 - 10); lbl0.setAttribute('y', Y0 + 14);
+    lbl0.setAttribute('font-size', '11'); lbl0.setAttribute('fill', 'var(--mute)');
+    lbl0.textContent = '0';
+    svg.appendChild(lbl0);
+    const lbl1 = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    lbl1.setAttribute('x', X1 - 5); lbl1.setAttribute('y', Y0 + 14);
+    lbl1.setAttribute('font-size', '11'); lbl1.setAttribute('fill', 'var(--mute)');
+    lbl1.textContent = '1';
+    svg.appendChild(lbl1);
+
+    // Legend
+    const lg = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    lg.setAttribute('transform', `translate(${X0 + 6},${Y1 + 8})`);
+    const lgItems = [
+      { color: 'var(--cyan)', label: 'u(x) (AC + Cantor + jumps)' },
+      { color: 'var(--pink)', label: 'jump risers' },
+    ];
+    lgItems.forEach((it, i) => {
+      const ln = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      ln.setAttribute('x1', 0); ln.setAttribute('x2', 18);
+      ln.setAttribute('y1', i*14); ln.setAttribute('y2', i*14);
+      ln.setAttribute('stroke', it.color); ln.setAttribute('stroke-width', '2');
+      lg.appendChild(ln);
+      const tx = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      tx.setAttribute('x', 24); tx.setAttribute('y', i*14 + 4);
+      tx.setAttribute('font-size', '11'); tx.setAttribute('fill', 'var(--mute)');
+      tx.textContent = it.label;
+      lg.appendChild(tx);
+    });
+    svg.appendChild(lg);
+
+    const total = acTV + jumpTV + cantorTV;
+    out.textContent =
+      `|Du|_AC      = ${acTV.toFixed(3)}  (∫|u'_smooth| dt for slope ${acSlope.toFixed(2)})\n` +
+      `|Du|_Jump    = ${jumpTV.toFixed(3)}  (${N} jumps × |${A.toFixed(2)}|)\n` +
+      `|Du|_Cantor  = ${cantorTV.toFixed(3)}  (Cantor weight ${C.toFixed(2)})\n` +
+      `|Du|([0,1])  = ${total.toFixed(3)}`;
+  }
+
+  sJ.addEventListener('input', draw);
+  sA.addEventListener('input', draw);
+  sC.addEventListener('input', draw);
+  draw();
+})();
+</script>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./measure-theory.html#lp">Lᵖ spaces</a></li>
+    <li><a href="./real-analysis.html#bounded-variation">Bounded variation</a></li>
+    <li><a href="./sobolev-spaces-distributions.html#weak-derivative">Distributional and weak derivatives</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./geometric-measure-theory.html#perimeter">Geometric measure theory</a> · Sets of finite perimeter and reduced boundary</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="gmt-bv-functions"></div>
+</section>
+
+<section id="perimeter">
+<h2>2. Sets of finite perimeter and reduced boundary</h2>
+
+<p>A measurable set $E\subset\mathbb{R}^n$ has <strong>finite perimeter</strong> when $\chi_E\in\mathrm{BV}_{\mathrm{loc}}(\mathbb{R}^n)$, and its <strong>perimeter</strong> is</p>
+
+$$P(E)\;=\;|D\chi_E|(\mathbb{R}^n)\;=\;\sup\Bigl\{\,\int_E\mathrm{div}\,\phi\,dx \,:\, \phi\in C^1_c(\mathbb{R}^n;\mathbb{R}^n),\,|\phi|\le 1\,\Bigr\}.$$
+
+<p>For $E$ with smooth boundary the divergence theorem gives $P(E)=\mathcal{H}^{n-1}(\partial E)$, recovering classical surface area. The point of GMT is that this dual definition makes sense — and is finite — for sets whose topological boundary is fractal, has corners, or is wildly non-smooth, while the surface area $\mathcal{H}^{n-1}(\partial E)$ is sharp only on the <em>reduced</em> part of the boundary.</p>
+
+<p>The <strong>reduced boundary</strong> $\partial^*E$ is the set of points $x$ where the outward unit normal exists in the measure-theoretic sense:</p>
+
+$$\nu_E(x)\;=\;-\lim_{r\to 0}\frac{D\chi_E(B_r(x))}{|D\chi_E|(B_r(x))} \;\in\; S^{n-1},\qquad |D\chi_E|(B_r(x))>0\text{ for all }r>0.$$
+
+<p><strong>De Giorgi's structure theorem</strong> is the central result: if $P(E)<\infty$ then $\partial^*E$ is countably $(n-1)$-rectifiable (a countable union of $C^1$-hypersurface pieces, modulo $\mathcal{H}^{n-1}$-null), $\nu_E$ is a Borel measurable unit-vector field, $|D\chi_E|=\mathcal{H}^{n-1}\restriction\partial^*E$, and</p>
+
+$$P(E)\;=\;\mathcal{H}^{n-1}(\partial^*E),\qquad D\chi_E\;=\;-\nu_E\,\mathcal{H}^{n-1}\restriction\partial^*E.$$
+
+<p>This is the divergence theorem extended to corner-y, fractal, and disconnected sets — with the caveat that the <em>topological</em> boundary may be larger than $\partial^*E$. The Koch snowflake is the textbook bad case: it has finite Lebesgue measure but infinite perimeter ($P(E)=\infty$, the limit of perimeters of the pre-fractal approximants), so finite-perimeter regularity forbids it. A square has $\partial^*E$ = the four open edges (the four corners drop out as $\mathcal{H}^{n-1}$-null — they are the genuinely non-smooth points). The whole isoperimetric story — $P(E)\ge n\omega_n^{1/n}|E|^{(n-1)/n}$ with equality only on balls — lives natively in this class.</p>
+
+<div class="widget" id="gmt-perim">
+  <div class="hd"><div class="ttl">Perimeter as boundary roughness varies</div><div class="hint">slider drives Koch-style refinement; slider→∞ shows $P\to\infty$ with area bounded</div></div>
+  <div class="row">
+    <label for="gmt-perim-depth">refinement depth $k$:</label>
+    <input id="gmt-perim-depth" type="range" min="0" max="5" step="1" value="2">
+    <span id="gmt-perim-depth-out" class="small"></span>
+  </div>
+  <div class="row">
+    <button id="gmt-perim-square" class="active">smooth start: square</button>
+    <button id="gmt-perim-disk">smooth start: disk (16-gon approx)</button>
+  </div>
+  <svg id="gmt-perim-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>Set of finite perimeter as fractal refinement depth grows</title></svg>
+  <div id="gmt-perim-out" class="readout"></div>
+</div><script>
+(function(){
+  const svg = document.getElementById('gmt-perim-svg');
+  const out = document.getElementById('gmt-perim-out');
+  const sD = document.getElementById('gmt-perim-depth');
+  const sDo = document.getElementById('gmt-perim-depth-out');
+  const bSq = document.getElementById('gmt-perim-square');
+  const bDk = document.getElementById('gmt-perim-disk');
+  if(!svg || !out) return;
+
+  let mode = 'square';
+  function setMode(m){
+    mode = m;
+    bSq.classList.toggle('active', m === 'square');
+    bDk.classList.toggle('active', m === 'disk');
+    draw();
+  }
+  bSq.addEventListener('click', () => setMode('square'));
+  bDk.addEventListener('click', () => setMode('disk'));
+
+  // Koch-style refinement: replace each edge with a 4-segment bump (4/3 length factor).
+  // factor*L for total perimeter, area gain is bounded.
+  function kochSubdivide(verts){
+    const out = [];
+    for(let i = 0; i < verts.length; i++){
+      const a = verts[i];
+      const b = verts[(i + 1) % verts.length];
+      const dx = b[0] - a[0], dy = b[1] - a[1];
+      const p1 = [a[0] + dx/3, a[1] + dy/3];
+      const p3 = [a[0] + 2*dx/3, a[1] + 2*dy/3];
+      // bump outward (right-hand normal of (b-a) with CCW traversal points outward for CW polygon
+      // For our drawing y is screen-down so flip):
+      const nx = -dy, ny = dx; // perpendicular; choose this direction for outward bump
+      const len = Math.hypot(nx, ny) || 1;
+      const h = (Math.hypot(dx, dy) / 3) * Math.sqrt(3) / 2;
+      const p2 = [(p1[0] + p3[0])/2 + (nx/len) * h, (p1[1] + p3[1])/2 + (ny/len) * h];
+      out.push(a, p1, p2, p3);
+    }
+    return out;
+  }
+
+  function polyPerimeter(verts){
+    let P = 0;
+    for(let i = 0; i < verts.length; i++){
+      const a = verts[i];
+      const b = verts[(i + 1) % verts.length];
+      P += Math.hypot(b[0] - a[0], b[1] - a[1]);
+    }
+    return P;
+  }
+  function polyArea(verts){
+    let A = 0;
+    for(let i = 0; i < verts.length; i++){
+      const a = verts[i];
+      const b = verts[(i + 1) % verts.length];
+      A += a[0] * b[1] - b[0] * a[1];
+    }
+    return Math.abs(A) / 2;
+  }
+
+  function startSquare(){
+    // unit square, centered at origin, side length 1.0 in math coords
+    return [[-0.5,-0.5],[0.5,-0.5],[0.5,0.5],[-0.5,0.5]];
+  }
+  function startDisk(){
+    const out = [];
+    const N = 16;
+    for(let i = 0; i < N; i++){
+      const t = (i / N) * 2 * Math.PI;
+      out.push([0.5 * Math.cos(t), 0.5 * Math.sin(t)]);
+    }
+    return out;
+  }
+
+  function draw(){
+    const k = parseInt(sD.value, 10);
+    sDo.textContent = `k = ${k}`;
+
+    let verts = mode === 'square' ? startSquare() : startDisk();
+    const baseP = polyPerimeter(verts);
+    const baseA = polyArea(verts);
+    for(let i = 0; i < k; i++) verts = kochSubdivide(verts);
+
+    const P = polyPerimeter(verts);
+    const A = polyArea(verts);
+
+    // Clear
+    [...svg.children].forEach(n => { if(n.nodeName !== 'title') svg.removeChild(n); });
+
+    // Fit polygon into viewBox area: compute bbox, scale to ~340 width
+    let xmin = Infinity, xmax = -Infinity, ymin = Infinity, ymax = -Infinity;
+    for(const v of verts){
+      if(v[0] < xmin) xmin = v[0]; if(v[0] > xmax) xmax = v[0];
+      if(v[1] < ymin) ymin = v[1]; if(v[1] > ymax) ymax = v[1];
+    }
+    const w = xmax - xmin || 1, h = ymax - ymin || 1;
+    const scale = Math.min(340 / w, 220 / h);
+    const cx = (xmin + xmax) / 2, cy = (ymin + ymax) / 2;
+    const proj = v => [(v[0] - cx) * scale, -(v[1] - cy) * scale];
+    let d = '';
+    verts.forEach((v, i) => {
+      const p = proj(v);
+      d += (i === 0 ? 'M' : 'L') + p[0].toFixed(2) + ' ' + p[1].toFixed(2) + ' ';
+    });
+    d += 'Z';
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', d.trim());
+    path.setAttribute('fill', 'color-mix(in srgb, var(--violet) 18%, transparent)');
+    path.setAttribute('stroke', 'var(--violet)');
+    path.setAttribute('stroke-width', '1.5');
+    path.setAttribute('stroke-linejoin', 'round');
+    svg.appendChild(path);
+
+    // Readout
+    out.textContent =
+      `Refinement depth k = ${k} (${mode})\n` +
+      `Perimeter P(E_k) = ${P.toFixed(4)}  (base ${baseP.toFixed(4)}, factor ≈ ${(P/baseP).toFixed(3)} ≈ (4/3)^${k} = ${Math.pow(4/3,k).toFixed(3)})\n` +
+      `Area     |E_k|    = ${A.toFixed(4)}  (base ${baseA.toFixed(4)})\n` +
+      `As k → ∞: P → ∞, area → finite limit. Koch-type sets fail finite-perimeter.`;
+  }
+
+  sD.addEventListener('input', draw);
+  draw();
+})();
+</script>
+<div class="quiz" data-concept="gmt-perimeter-sets"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./geometric-measure-theory.html#rectifiability">Geometric measure theory</a> · Rectifiable sets and Hausdorff measure</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="rectifiability">
+<h2>3. Rectifiable sets and Hausdorff measure</h2>
+
+<p>A subset $S\subset\mathbb{R}^n$ is <strong>countably $k$-rectifiable</strong> when $\mathcal{H}^k$-almost all of $S$ is contained in a countable union of Lipschitz images of subsets of $\mathbb{R}^k$:</p>
+
+$$S\;\subset\;S_0\,\cup\,\bigcup_{j=1}^\infty f_j(A_j),\qquad \mathcal{H}^k(S_0)=0,\;f_j:A_j\subset\mathbb{R}^k\to\mathbb{R}^n\text{ Lipschitz}.$$
+
+<p>This is the geometric measure-theoretic upgrade of "smooth $k$-submanifold up to a measure-zero exceptional set". Three structural facts pin down the class:</p>
+
+<p><strong>Approximate tangent planes.</strong> At $\mathcal{H}^k$-almost every $x\in S$ there is a unique $k$-plane $T_xS\subset\mathbb{R}^n$ such that $S$ has density $1$ in $T_xS$ near $x$ (in the precise $r\to 0$ blow-up sense). So rectifiable sets carry a measurable tangent-plane field even when no parameterization is differentiable in the classical sense — a corner point of a Lipschitz curve has tangent direction defined $\mathcal{H}^1$-a.e., just not at the corner itself.</p>
+
+<p><strong>Besicovitch–Federer projection theorem.</strong> A purely $k$-unrectifiable set $S$ (no $\mathcal{H}^k$-positive piece is rectifiable) projects to a set of $\mathcal{L}^k$-measure zero on $\mathcal{H}^{k\cdot(n-k)}$-almost every $k$-plane. Rectifiable sets project to positive measure on most planes; purely unrectifiable sets are invisible to most projections. The 2D test: a smooth curve has positive projected length onto almost every line, while the 4-corner Cantor set in the plane projects to a Lebesgue-null set on every line except a Hausdorff-dimension-1 sparse family.</p>
+
+<p><strong>Densities classify.</strong> The $k$-dimensional density $\Theta^k(S,x)=\lim_{r\to 0}\mathcal{H}^k(S\cap B_r(x))/(\omega_k r^k)$ exists and equals $1$ at $\mathcal{H}^k$-a.e. point of a rectifiable $S$ (Besicovitch, Marstrand, Mattila). Conversely, $\mathcal{H}^k$-positive sets where the density exists and is positive a.e. are rectifiable. So rectifiability $\Leftrightarrow$ existence of a unit density a.e. — measure-theoretic smoothness reduces to a one-dimensional limit at almost every point.</p>
+
+<p>De Giorgi's structure theorem for finite-perimeter sets is exactly: the reduced boundary is countably $(n-1)$-rectifiable. So §2's $\partial^*E$ is the canonical example of a rectifiable set, and the "surface area equals $\mathcal{H}^{n-1}$" identity is a consequence of the density theorem applied to it.</p>
+
+<div class="widget" id="gmt-rect">
+  <div class="hd"><div class="ttl">Rectifiable vs purely unrectifiable: project onto a rotating line</div><div class="hint">slide θ; the bottom strip is the projection. Cantor's projection collapses to a sparse set on most θ.</div></div>
+  <div class="row">
+    <button id="gmt-rect-circle" class="active">smooth curve (unit circle)</button>
+    <button id="gmt-rect-cantor">4-corner Cantor (purely unrectifiable)</button>
+  </div>
+  <div class="row">
+    <label for="gmt-rect-theta">projection angle $\theta$:</label>
+    <input id="gmt-rect-theta" type="range" min="0" max="3.14159" step="0.01" value="0.6">
+    <span id="gmt-rect-theta-out" class="small"></span>
+  </div>
+  <svg id="gmt-rect-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>Rectifiable vs purely unrectifiable set under a rotating projection</title></svg>
+  <div id="gmt-rect-out" class="readout"></div>
+</div><script>
+(function(){
+  const svg = document.getElementById('gmt-rect-svg');
+  const out = document.getElementById('gmt-rect-out');
+  const sT = document.getElementById('gmt-rect-theta');
+  const sTo = document.getElementById('gmt-rect-theta-out');
+  const bC = document.getElementById('gmt-rect-circle');
+  const bX = document.getElementById('gmt-rect-cantor');
+  if(!svg || !out) return;
+
+  let mode = 'circle';
+  function setMode(m){
+    mode = m;
+    bC.classList.toggle('active', m === 'circle');
+    bX.classList.toggle('active', m === 'cantor');
+    draw();
+  }
+  bC.addEventListener('click', () => setMode('circle'));
+  bX.addEventListener('click', () => setMode('cantor'));
+
+  // Build 4-corner Cantor set sample points (depth-3, unit square [-0.5,0.5]^2)
+  function buildCantor(){
+    // start with one cell [(-0.5,-0.5),(0.5,0.5)]
+    let cells = [[-0.5,-0.5,0.5,0.5]];
+    const depth = 4;
+    for(let d = 0; d < depth; d++){
+      const next = [];
+      for(const c of cells){
+        const x0 = c[0], y0 = c[1], x1 = c[2], y1 = c[3];
+        const w = (x1 - x0) / 4;
+        const h = (y1 - y0) / 4;
+        // 4 corner sub-squares: [x0,x0+w] × [y0,y0+h] and the three corners
+        next.push([x0, y0, x0 + w, y0 + h]);
+        next.push([x1 - w, y0, x1, y0 + h]);
+        next.push([x0, y1 - h, x0 + w, y1]);
+        next.push([x1 - w, y1 - h, x1, y1]);
+      }
+      cells = next;
+    }
+    // Sample center of each cell as a representative point
+    return cells.map(c => [(c[0]+c[2])/2, (c[1]+c[3])/2]);
+  }
+  const cantorPts = buildCantor();
+
+  function buildCirclePts(){
+    const pts = [];
+    const N = 240;
+    for(let i = 0; i < N; i++){
+      const t = (i / N) * 2 * Math.PI;
+      pts.push([0.5 * Math.cos(t), 0.5 * Math.sin(t)]);
+    }
+    return pts;
+  }
+  const circlePts = buildCirclePts();
+
+  // Map math units (~[-0.7,0.7]) to screen pixels
+  const SCALE = 180;
+
+  function projectionMeasure(pts, theta){
+    // project onto unit vector (cos θ, sin θ)
+    const u = [Math.cos(theta), Math.sin(theta)];
+    const proj = pts.map(p => p[0]*u[0] + p[1]*u[1]);
+    proj.sort((a,b)=>a-b);
+    if(mode === 'circle'){
+      // circle of radius 0.5 projects to interval of length 1 for any θ
+      return { min: -0.5, max: 0.5, len: 1.0, occupied: 1.0 };
+    } else {
+      // For a discrete point cloud sampling the cantor set, count occupied "buckets"
+      // bucket size scaled to depth-4: 1/4^depth = 1/256, but we use coarser bins for visibility
+      const binW = 1 / 100;
+      const min = proj[0], max = proj[proj.length-1];
+      const bins = new Set();
+      for(const v of proj) bins.add(Math.floor(v / binW));
+      const occupied = bins.size * binW;
+      return { min, max, len: max - min, occupied };
+    }
+  }
+
+  function draw(){
+    const theta = parseFloat(sT.value);
+    sTo.textContent = `θ = ${theta.toFixed(2)} rad (${(theta * 180 / Math.PI).toFixed(0)}°)`;
+
+    const pts = mode === 'circle' ? circlePts : cantorPts;
+    const meas = projectionMeasure(pts, theta);
+
+    [...svg.children].forEach(n => { if(n.nodeName !== 'title') svg.removeChild(n); });
+
+    // Draw set on left half (centered at -90, 0 in viewBox coords)
+    const setCx = -90, setCy = 0;
+    if(mode === 'circle'){
+      const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      c.setAttribute('cx', setCx); c.setAttribute('cy', setCy);
+      c.setAttribute('r', 0.5 * SCALE);
+      c.setAttribute('fill', 'none');
+      c.setAttribute('stroke', 'var(--cyan)');
+      c.setAttribute('stroke-width', '2');
+      svg.appendChild(c);
+    } else {
+      for(const p of cantorPts){
+        const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        dot.setAttribute('cx', setCx + p[0] * SCALE);
+        dot.setAttribute('cy', setCy - p[1] * SCALE);
+        dot.setAttribute('r', 1);
+        dot.setAttribute('fill', 'var(--pink)');
+        svg.appendChild(dot);
+      }
+    }
+
+    // Draw projection direction ray through set center
+    const rayLen = 100;
+    const ray = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    ray.setAttribute('x1', setCx - rayLen * Math.cos(theta));
+    ray.setAttribute('y1', setCy + rayLen * Math.sin(theta));
+    ray.setAttribute('x2', setCx + rayLen * Math.cos(theta));
+    ray.setAttribute('y2', setCy - rayLen * Math.sin(theta));
+    ray.setAttribute('stroke', 'var(--yellow)');
+    ray.setAttribute('stroke-width', '1');
+    ray.setAttribute('stroke-dasharray', '4,3');
+    svg.appendChild(ray);
+
+    // Draw projected set on right half (axis horizontal centered at 100, 0)
+    const projCx = 100, projCy = 0;
+    const axis = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    axis.setAttribute('x1', projCx - 110); axis.setAttribute('x2', projCx + 110);
+    axis.setAttribute('y1', projCy); axis.setAttribute('y2', projCy);
+    axis.setAttribute('stroke', 'var(--line)'); axis.setAttribute('stroke-width', '1');
+    svg.appendChild(axis);
+
+    // Project each point of the set onto the axis and place a tick
+    const u = [Math.cos(theta), Math.sin(theta)];
+    for(const p of pts){
+      const v = p[0]*u[0] + p[1]*u[1];
+      const tk = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      tk.setAttribute('x1', projCx + v * SCALE);
+      tk.setAttribute('x2', projCx + v * SCALE);
+      tk.setAttribute('y1', projCy - 8);
+      tk.setAttribute('y2', projCy + 8);
+      tk.setAttribute('stroke', mode === 'circle' ? 'var(--cyan)' : 'var(--pink)');
+      tk.setAttribute('stroke-width', mode === 'circle' ? '0.6' : '0.8');
+      tk.setAttribute('opacity', '0.8');
+      svg.appendChild(tk);
+    }
+
+    // Labels
+    const lblL = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    lblL.setAttribute('x', setCx); lblL.setAttribute('y', setCy + 110);
+    lblL.setAttribute('text-anchor', 'middle');
+    lblL.setAttribute('font-size', '12'); lblL.setAttribute('fill', 'var(--mute)');
+    lblL.textContent = mode === 'circle' ? 'unit circle (rectifiable)' : '4-corner Cantor (purely unrectifiable)';
+    svg.appendChild(lblL);
+
+    const lblR = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    lblR.setAttribute('x', projCx); lblR.setAttribute('y', projCy + 110);
+    lblR.setAttribute('text-anchor', 'middle');
+    lblR.setAttribute('font-size', '12'); lblR.setAttribute('fill', 'var(--mute)');
+    lblR.textContent = `projection onto angle θ = ${theta.toFixed(2)}`;
+    svg.appendChild(lblR);
+
+    out.textContent =
+      `Mode: ${mode === 'circle' ? 'unit circle (1-rectifiable)' : '4-corner Cantor (purely 1-unrectifiable, dim_H = 1)'}\n` +
+      `θ = ${theta.toFixed(3)} rad\n` +
+      `H¹(π_θ(S)) ≈ ${meas.occupied.toFixed(4)}  (length of occupied projection)\n` +
+      (mode === 'circle'
+        ? 'Circle: H¹ of projection = 1 (diameter) for every θ.'
+        : 'Cantor: occupied length collapses for almost every θ (Besicovitch–Federer).');
+  }
+
+  sT.addEventListener('input', draw);
+  draw();
+})();
+</script>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./measure-theory.html#hausdorff">Hausdorff measure & dimension</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./geometric-measure-theory.html#area-coarea">Geometric measure theory</a> · Area and coarea formulas</div>
+    <div><a href="./geometric-measure-theory.html#currents">Geometric measure theory</a> · Currents and Federer–Fleming compactness</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="gmt-rectifiability"></div>
+</section>
+
+<section id="area-coarea">
+<h2>4. Area and coarea formulas</h2>
+
+<p>Two formulas tie together Lipschitz maps, Hausdorff measures, and integration on rectifiable sets. Both hold for Lipschitz $f$ — far broader than $C^1$ — because Rademacher's theorem gives differentiability $\mathcal{L}^k$-almost everywhere.</p>
+
+<p><strong>Area formula.</strong> For Lipschitz $f:\mathbb{R}^k\to\mathbb{R}^n$ with $k\le n$ and Borel $A\subset\mathbb{R}^k$:</p>
+
+$$\int_A J_f(x)\,d\mathcal{L}^k(x) \;=\; \int_{\mathbb{R}^n} \mathcal{H}^0\bigl(A\cap f^{-1}(y)\bigr)\,d\mathcal{H}^k(y),$$
+
+<p>where $J_f(x)=\sqrt{\det(Df(x)^T Df(x))}$ is the $k$-Jacobian. Read right-to-left: integrate the cardinality of preimage fibres against the $k$-dimensional Hausdorff measure on the image, and you recover the Jacobian-weighted Lebesgue integral on the source. When $f$ is injective and $A$ is a parameter region, the right side reduces to $\mathcal{H}^k(f(A))$ and the area formula becomes the classical change-of-variables / surface-area formula: $\mathcal{H}^k(f(A))=\int_A J_f\,d\mathcal{L}^k$. Non-injective $f$ multiply-covers parts of the image; the multiplicity factor $\mathcal{H}^0(A\cap f^{-1}(y))$ is exactly the correction.</p>
+
+<p><strong>Coarea formula.</strong> For Lipschitz $u:\mathbb{R}^n\to\mathbb{R}^m$ with $m\le n$ and integrable $g$:</p>
+
+$$\int_{\mathbb{R}^n} g(x)\,J_u(x)\,d\mathcal{L}^n(x) \;=\; \int_{\mathbb{R}^m}\Bigl(\int_{u^{-1}(y)} g\,d\mathcal{H}^{n-m}\Bigr)\,d\mathcal{L}^m(y).$$
+
+<p>The level set $u^{-1}(y)$ is $(n-m)$-rectifiable for $\mathcal{L}^m$-a.e. $y$ (the GMT-form of Sard's theorem), and the formula slices a top-dimensional integral by integrating against level-set integrals. The most-cited special case is $m=1$, $g=1$:</p>
+
+$$\int_\Omega |\nabla u|\,dx \;=\; \int_{-\infty}^\infty \mathcal{H}^{n-1}(\Omega\cap\{u=t\})\,dt.$$
+
+<p>Total variation of a smooth $u$ as integrated level-set perimeter — the bridge that, extended to $u\in\mathrm{BV}$, identifies $|Du|(\Omega)=\int|D\chi_{\{u>t\}}|(\Omega)\,dt$ with the integrated perimeter of superlevel sets. Read this as: every BV function is a continuous combination of indicator functions of finite-perimeter sets, weighted by the height of the level. This decomposition is what makes the BV-perimeter equivalence (a Cavalieri-style integration) the operational core of GMT — minimizing $\int|\nabla u|$ over $u$ reduces to simultaneously minimizing $\mathcal{H}^{n-1}(\partial^*\{u>t\})$ for almost every $t$.</p>
+
+<div class="widget" id="gmt-coarea">
+  <div class="hd"><div class="ttl">Coarea formula: ∫|∇u| as integrated level-set perimeter</div><div class="hint">pick u; sum H¹ over a t-grid; running sum should approach ∫|∇u| dx</div></div>
+  <div class="row">
+    <label for="gmt-coarea-u">function u(x,y):</label>
+    <select id="gmt-coarea-u">
+      <option value="paraboloid">$u = x^2 + y^2$ (paraboloid)</option>
+      <option value="saddle">$u = x^2 - y^2$ (saddle)</option>
+      <option value="cone">$u = \sqrt{x^2+y^2}$ (cone)</option>
+      <option value="ridge">$u = |x|$ (ridge)</option>
+    </select>
+  </div>
+  <div class="row">
+    <label for="gmt-coarea-t">level value $t$:</label>
+    <input id="gmt-coarea-t" type="range" min="-1" max="1" step="0.02" value="0.4">
+    <span id="gmt-coarea-t-out" class="small"></span>
+  </div>
+  <svg id="gmt-coarea-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>Level set u^{-1}(t) and Cavalieri sum approximating ∫|∇u|</title></svg>
+  <div id="gmt-coarea-out" class="readout"></div>
+</div><script>
+(function(){
+  const svg = document.getElementById('gmt-coarea-svg');
+  const out = document.getElementById('gmt-coarea-out');
+  const sU = document.getElementById('gmt-coarea-u');
+  const sT = document.getElementById('gmt-coarea-t');
+  const sTo = document.getElementById('gmt-coarea-t-out');
+  if(!svg || !out) return;
+
+  const SCALE = 110; // math unit -> px
+  const cx0 = 0, cy0 = 0; // domain center for plotting
+
+  // Each model returns:
+  //   levelCurves(t): array of SVG path d-strings to draw {u = t} ∩ unit-disk
+  //   H1Level(t): H¹ length of the level set (analytic)
+  //   integralAbsGrad(): ∫_{B_1}|∇u| dx
+  //   tRange: domain for the t slider (used for Cavalieri sweep)
+  function model(name){
+    if(name === 'paraboloid'){
+      // u = x²+y² ; level set { x²+y² = t } is circle radius √t (only for t ≥ 0).
+      return {
+        name,
+        tRange: [0, 1],
+        levelPaths: t => {
+          if(t <= 0) return [];
+          const r = Math.sqrt(Math.min(t, 1));
+          return [arcCirclePath(0, 0, r * SCALE)];
+        },
+        H1: t => {
+          if(t < 0 || t > 1) return 0;
+          return 2 * Math.PI * Math.sqrt(t);
+        },
+        intAbsGrad: () => {
+          // ∫_{B_1} 2r * r dr dθ = 2π * 2/3 = 4π/3
+          return 4 * Math.PI / 3;
+        },
+      };
+    }
+    if(name === 'saddle'){
+      // u = x² - y² ; level set is hyperbola pair
+      return {
+        name,
+        tRange: [-1, 1],
+        levelPaths: t => {
+          // x² - y² = t inside unit disk. Param: y = sinh(s), x = ± cosh(s) * sign? Use t = x²-y²
+          // For t > 0: x² = t + y² → x = ±√(t+y²). y ranges so x²+y² ≤ 1.
+          // For t < 0: y² = -t + x² → y = ±√(-t+x²). x ranges similarly.
+          const paths = [];
+          if(Math.abs(t) < 1e-6){
+            // two diagonals y = ±x ∩ disk
+            paths.push(`M ${(-Math.SQRT1_2)*SCALE} ${-(Math.SQRT1_2)*SCALE} L ${(Math.SQRT1_2)*SCALE} ${(Math.SQRT1_2)*SCALE}`);
+            paths.push(`M ${(-Math.SQRT1_2)*SCALE} ${(Math.SQRT1_2)*SCALE} L ${(Math.SQRT1_2)*SCALE} ${-(Math.SQRT1_2)*SCALE}`);
+            return paths;
+          }
+          if(t > 0){
+            // two branches x = ±√(t+y²)
+            for(const sgn of [+1, -1]){
+              let d = '';
+              let started = false;
+              for(let y = -1; y <= 1.001; y += 0.02){
+                const x2 = t + y*y;
+                if(x2 < 0) continue;
+                const x = sgn * Math.sqrt(x2);
+                if(x*x + y*y > 1) continue;
+                d += (started ? 'L' : 'M') + (x*SCALE).toFixed(2) + ' ' + (-y*SCALE).toFixed(2) + ' ';
+                started = true;
+              }
+              if(d) paths.push(d.trim());
+            }
+          } else {
+            const tt = -t;
+            for(const sgn of [+1, -1]){
+              let d = '';
+              let started = false;
+              for(let x = -1; x <= 1.001; x += 0.02){
+                const y2 = tt + x*x;
+                if(y2 < 0) continue;
+                const y = sgn * Math.sqrt(y2);
+                if(x*x + y*y > 1) continue;
+                d += (started ? 'L' : 'M') + (x*SCALE).toFixed(2) + ' ' + (-y*SCALE).toFixed(2) + ' ';
+                started = true;
+              }
+              if(d) paths.push(d.trim());
+            }
+          }
+          return paths;
+        },
+        H1: t => {
+          // numerical integration along hyperbola arc inside unit disk
+          // Arc length element for x²-y² = t: parametrize (x,y) and compute |∂_s|
+          // We'll just numerically scan the curve and sum segment lengths.
+          if(Math.abs(t) > 1) return 0;
+          const eps = 1e-6;
+          let total = 0;
+          if(Math.abs(t) < eps){
+            // length of two chords through origin clipped to disk: each chord is 2 (diameter sqrt(2)*1?)
+            // actually y = ±x clipped to x²+y²=1 gives chord length 2 (from (-√½,-√½) to (√½,√½)) = 2*√(2*½) = √2.
+            return 2 * Math.sqrt(2);
+          }
+          if(t > 0){
+            for(const sgn of [+1, -1]){
+              let prev = null;
+              for(let y = -1; y <= 1.0001; y += 0.005){
+                const x2 = t + y*y;
+                if(x2 < 0) continue;
+                const x = sgn * Math.sqrt(x2);
+                if(x*x + y*y > 1) continue;
+                if(prev) total += Math.hypot(x - prev[0], y - prev[1]);
+                prev = [x, y];
+              }
+            }
+          } else {
+            const tt = -t;
+            for(const sgn of [+1, -1]){
+              let prev = null;
+              for(let x = -1; x <= 1.0001; x += 0.005){
+                const y2 = tt + x*x;
+                if(y2 < 0) continue;
+                const y = sgn * Math.sqrt(y2);
+                if(x*x + y*y > 1) continue;
+                if(prev) total += Math.hypot(x - prev[0], y - prev[1]);
+                prev = [x, y];
+              }
+            }
+          }
+          return total;
+        },
+        intAbsGrad: () => {
+          // |∇u| = 2√(x²+y²) = 2r ; same as paraboloid → 4π/3
+          return 4 * Math.PI / 3;
+        },
+      };
+    }
+    if(name === 'cone'){
+      // u = √(x²+y²) = r ; |∇u| = 1 a.e. (singular at origin); level r=t is circle radius t (t in [0,1])
+      return {
+        name,
+        tRange: [0, 1],
+        levelPaths: t => {
+          if(t <= 0 || t > 1) return [];
+          return [arcCirclePath(0, 0, t * SCALE)];
+        },
+        H1: t => (t < 0 || t > 1) ? 0 : 2 * Math.PI * t,
+        intAbsGrad: () => Math.PI, // ∫_{B_1} 1 dx = π
+      };
+    }
+    if(name === 'ridge'){
+      // u = |x|, |∇u| = 1 a.e. on B_1, singular at x=0. Level sets {|x| = t} = two vertical lines
+      return {
+        name,
+        tRange: [0, 1],
+        levelPaths: t => {
+          if(t <= 0 || t > 1) return [];
+          const yMax = Math.sqrt(Math.max(0, 1 - t*t));
+          // vertical chords at x = ±t inside unit disk
+          return [
+            `M ${(t*SCALE).toFixed(2)} ${(-yMax*SCALE).toFixed(2)} L ${(t*SCALE).toFixed(2)} ${(yMax*SCALE).toFixed(2)}`,
+            `M ${(-t*SCALE).toFixed(2)} ${(-yMax*SCALE).toFixed(2)} L ${(-t*SCALE).toFixed(2)} ${(yMax*SCALE).toFixed(2)}`,
+          ];
+        },
+        H1: t => {
+          if(t < 0 || t > 1) return 0;
+          // Two chords each of length 2√(1-t²)
+          return 4 * Math.sqrt(Math.max(0, 1 - t*t));
+        },
+        intAbsGrad: () => Math.PI, // ∫_{B_1} 1 = π
+      };
+    }
+    return null;
+  }
+
+  function arcCirclePath(cx, cy, r){
+    if(r <= 0.5) return `M ${(cx+r).toFixed(2)} ${cy} A ${r.toFixed(2)} ${r.toFixed(2)} 0 1 0 ${(cx-r).toFixed(2)} ${cy} A ${r.toFixed(2)} ${r.toFixed(2)} 0 1 0 ${(cx+r).toFixed(2)} ${cy}`;
+    return `M ${(cx+r).toFixed(2)} ${cy} A ${r.toFixed(2)} ${r.toFixed(2)} 0 1 0 ${(cx-r).toFixed(2)} ${cy} A ${r.toFixed(2)} ${r.toFixed(2)} 0 1 0 ${(cx+r).toFixed(2)} ${cy}`;
+  }
+
+  function cavalieriSum(m, N){
+    // Riemann sum of H¹(u^{-1}(t)) over t in tRange with N subintervals (skipping singular t)
+    const [a, b] = m.tRange;
+    const dt = (b - a) / N;
+    let sum = 0;
+    for(let i = 0; i < N; i++){
+      const t = a + (i + 0.5) * dt;
+      const v = m.H1(t);
+      if(Number.isFinite(v)) sum += v * dt;
+    }
+    return sum;
+  }
+
+  function draw(){
+    const name = sU.value;
+    const m = model(name);
+    const t = parseFloat(sT.value);
+    sTo.textContent = `t = ${t.toFixed(2)}`;
+
+    [...svg.children].forEach(n => { if(n.nodeName !== 'title') svg.removeChild(n); });
+
+    // Draw unit disk outline
+    const disk = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    disk.setAttribute('cx', cx0); disk.setAttribute('cy', cy0);
+    disk.setAttribute('r', SCALE);
+    disk.setAttribute('fill', 'none');
+    disk.setAttribute('stroke', 'var(--line)');
+    disk.setAttribute('stroke-width', '1');
+    disk.setAttribute('stroke-dasharray', '3,3');
+    svg.appendChild(disk);
+
+    // Background gradient field via subsampled streamlines (just a hint of |∇u| variation)
+    // Skip for clarity; instead show a faint contour at several t values.
+    for(let tt = m.tRange[0] + 0.1; tt <= m.tRange[1] - 0.05; tt += 0.2){
+      for(const dStr of m.levelPaths(tt)){
+        const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        p.setAttribute('d', dStr);
+        p.setAttribute('fill', 'none');
+        p.setAttribute('stroke', 'var(--line)');
+        p.setAttribute('stroke-width', '0.8');
+        p.setAttribute('opacity', '0.55');
+        svg.appendChild(p);
+      }
+    }
+
+    // Highlighted level set at current t
+    for(const dStr of m.levelPaths(t)){
+      const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      p.setAttribute('d', dStr);
+      p.setAttribute('fill', 'none');
+      p.setAttribute('stroke', 'var(--yellow)');
+      p.setAttribute('stroke-width', '2.4');
+      svg.appendChild(p);
+    }
+
+    const H1t = m.H1(t);
+    const N = 64;
+    const cavSum = cavalieriSum(m, N);
+    const trueIntegral = m.intAbsGrad();
+
+    out.textContent =
+      `u(x,y) = ${({paraboloid:'x²+y²', saddle:'x²-y²', cone:'√(x²+y²)', ridge:'|x|'})[name]}\n` +
+      `Level set u⁻¹(${t.toFixed(2)}) ∩ B₁: H¹ ≈ ${H1t.toFixed(4)}\n` +
+      `Cavalieri sum  ∫ H¹(u⁻¹(t)) dt  (N=${N}) ≈ ${cavSum.toFixed(4)}\n` +
+      `∫_{B₁} |∇u| dx (analytic)            = ${trueIntegral.toFixed(4)}\n` +
+      `coarea identity: the two should match (small N introduces discretization error).`;
+  }
+
+  sU.addEventListener('change', draw);
+  sT.addEventListener('input', draw);
+  // also handle the katex-select shim button changes via same change event on hidden select
+  draw();
+})();
+</script>
+<div class="quiz" data-concept="gmt-area-coarea"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./geometric-measure-theory.html#applications">Geometric measure theory</a> · Applications: Plateau, minimal surfaces, and Mumford–Shah</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="currents">
+<h2>5. Currents and Federer–Fleming compactness</h2>
+
+<p>De Rham's currents generalize oriented submanifolds the way distributions generalize functions: a <strong>$k$-current</strong> $T$ is a continuous linear functional on the space $\mathcal{D}^k(\mathbb{R}^n)$ of smooth, compactly supported $k$-forms. An oriented $k$-submanifold $M$ defines its <strong>integration current</strong> $[M]$ by</p>
+
+$$\langle [M],\omega\rangle \;=\; \int_M\omega,\qquad\omega\in\mathcal{D}^k(\mathbb{R}^n).$$
+
+<p>Currents have a <strong>boundary</strong>: $\partial T$ is the $(k-1)$-current with $\langle\partial T,\eta\rangle=\langle T,d\eta\rangle$. For an integration current $[M]$ this recovers Stokes' theorem: $\partial[M]=[\partial M]$. Currents have a <strong>mass</strong></p>
+
+$$\mathbf{M}(T)\;=\;\sup\bigl\{\,\langle T,\omega\rangle\,:\,\omega\in\mathcal{D}^k,\,\|\omega\|_\infty\le 1\,\bigr\},$$
+
+<p>which generalizes $\mathcal{H}^k$-measure: $\mathbf{M}([M])=\mathcal{H}^k(M)$ for an oriented submanifold. The class of <strong>integral currents</strong> $\mathbf{I}_k(\mathbb{R}^n)$ consists of locally rectifiable $k$-currents $T$ (carried by an $\mathcal{H}^k$-rectifiable set with integer-valued multiplicity and $\mathcal{H}^k$-measurable orientation) for which $\partial T$ is itself locally rectifiable. They are the GMT replacement for oriented Lipschitz chains.</p>
+
+<p><strong>Federer–Fleming compactness theorem.</strong> Let $\{T_j\}\subset\mathbf{I}_k(\mathbb{R}^n)$ be a sequence with $\mathrm{spt}(T_j)\subset K$ (a fixed compact set) and uniform bounds $\mathbf{M}(T_j)+\mathbf{M}(\partial T_j)\le C$. Then there is a subsequence $T_{j_l}$ converging weakly (i.e., $\langle T_{j_l},\omega\rangle\to\langle T,\omega\rangle$ for every $\omega\in\mathcal{D}^k$) to an integral current $T\in\mathbf{I}_k(\mathbb{R}^n)$, with $\mathbf{M}(T)\le\liminf\mathbf{M}(T_{j_l})$ and $\mathbf{M}(\partial T)\le\liminf\mathbf{M}(\partial T_{j_l})$.</p>
+
+<p>This is the engine of GMT existence theory. Compactness in classical function spaces (Arzelà-Ascoli on $C^0$, Rellich on $W^{1,p}$) cannot extract a limit from a minimizing sequence of surfaces: equiboundedness in $\mathcal{H}^k$ alone is too weak, and the limit can fail to be a manifold. Integral currents — measure-theoretic generalized surfaces with quantized multiplicity — form a class large enough to be closed under weak limits of mass-bounded minimizing sequences and small enough to retain a coherent boundary calculus. The Plateau-problem proof is now mechanical: take a minimizing sequence of currents with prescribed boundary, extract a weakly convergent subsequence by Federer-Fleming, and the limit minimizes mass.</p>
+
+<div class="widget" id="gmt-currents">
+  <div class="hd"><div class="ttl">Build an oriented chain; watch boundary and mass</div><div class="hint">click to add segments; tail→head sets orientation. Boundary = signed endpoints.</div></div>
+  <div class="row">
+    <button id="gmt-currents-add" class="active">click mode: add oriented segment</button>
+    <button id="gmt-currents-clear">clear chain</button>
+    <button id="gmt-currents-loop">add closed loop (∂T = 0)</button>
+  </div>
+  <svg id="gmt-currents-svg" viewBox="-260 -150 520 280" width="100%" height="320" style="cursor:crosshair"><title>1-current as oriented polygonal chain with computed boundary and mass</title></svg>
+  <div id="gmt-currents-out" class="readout"></div>
+</div><script>
+(function(){
+  const svg = document.getElementById('gmt-currents-svg');
+  const out = document.getElementById('gmt-currents-out');
+  const bAdd = document.getElementById('gmt-currents-add');
+  const bClear = document.getElementById('gmt-currents-clear');
+  const bLoop = document.getElementById('gmt-currents-loop');
+  if(!svg || !out) return;
+
+  // segments: array of {from:[x,y], to:[x,y]} in viewBox coords
+  let segments = [];
+  let pending = null; // first click is the tail; second click is the head
+
+  function clear(){
+    segments = [];
+    pending = null;
+    redraw();
+  }
+  bClear.addEventListener('click', clear);
+
+  bAdd.addEventListener('click', () => {
+    bAdd.classList.add('active');
+  });
+
+  bLoop.addEventListener('click', () => {
+    // add a closed triangle near the center; ∂T should cancel
+    const cx = 0, cy = 0, r = 60;
+    const A = [cx + r, cy + 0];
+    const B = [cx - r/2, cy - r * Math.sqrt(3)/2];
+    const C = [cx - r/2, cy + r * Math.sqrt(3)/2];
+    segments.push({ from: A, to: B });
+    segments.push({ from: B, to: C });
+    segments.push({ from: C, to: A });
+    pending = null;
+    redraw();
+  });
+
+  // Convert pointer event to viewBox coordinates
+  function ptInVB(evt){
+    const pt = svg.createSVGPoint();
+    pt.x = evt.clientX;
+    pt.y = evt.clientY;
+    const ctm = svg.getScreenCTM();
+    if(!ctm) return null;
+    const v = pt.matrixTransform(ctm.inverse());
+    return [v.x, v.y];
+  }
+
+  svg.addEventListener('click', (evt) => {
+    const p = ptInVB(evt);
+    if(!p) return;
+    if(!pending){
+      pending = p;
+    } else {
+      segments.push({ from: pending, to: p });
+      pending = null;
+    }
+    redraw();
+  });
+
+  function vertexKey(p){
+    // bucket nearby endpoints together to detect cancellation
+    const k = 6; // px snap radius
+    return `${Math.round(p[0]/k)},${Math.round(p[1]/k)}`;
+  }
+
+  function boundaryAndMass(){
+    // mass = sum of segment lengths
+    // ∂T at each vertex = (incoming - outgoing) signed multiplicity
+    const tally = new Map(); // key -> { x, y, count }
+    let mass = 0;
+    for(const s of segments){
+      const dx = s.to[0] - s.from[0], dy = s.to[1] - s.from[1];
+      mass += Math.hypot(dx, dy);
+      // tail contributes -1; head contributes +1
+      const kFrom = vertexKey(s.from);
+      const kTo = vertexKey(s.to);
+      if(!tally.has(kFrom)) tally.set(kFrom, { x: s.from[0], y: s.from[1], count: 0 });
+      tally.get(kFrom).count -= 1;
+      if(!tally.has(kTo)) tally.set(kTo, { x: s.to[0], y: s.to[1], count: 0 });
+      tally.get(kTo).count += 1;
+    }
+    let bdyMass = 0;
+    const verts = [];
+    for(const v of tally.values()){
+      if(v.count !== 0){
+        bdyMass += Math.abs(v.count);
+        verts.push(v);
+      }
+    }
+    return { mass, bdyMass, verts };
+  }
+
+  function redraw(){
+    [...svg.children].forEach(n => { if(n.nodeName !== 'title') svg.removeChild(n); });
+
+    // arrow marker
+    const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+    const mkP = document.createElementNS('http://www.w3.org/2000/svg', 'marker');
+    mkP.setAttribute('id', 'gmt-cur-arrow');
+    mkP.setAttribute('viewBox', '0 0 10 10');
+    mkP.setAttribute('refX', '9'); mkP.setAttribute('refY', '5');
+    mkP.setAttribute('markerWidth', '5'); mkP.setAttribute('markerHeight', '5');
+    mkP.setAttribute('orient', 'auto');
+    const mkPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    mkPath.setAttribute('d', 'M0,0 L10,5 L0,10 z');
+    mkPath.setAttribute('fill', 'var(--cyan)');
+    mkP.appendChild(mkPath);
+    defs.appendChild(mkP);
+    svg.appendChild(defs);
+
+    // light grid
+    for(let gx = -240; gx <= 240; gx += 60){
+      const ln = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      ln.setAttribute('x1', gx); ln.setAttribute('x2', gx);
+      ln.setAttribute('y1', -130); ln.setAttribute('y2', 130);
+      ln.setAttribute('stroke', 'var(--line)'); ln.setAttribute('stroke-width', '0.4');
+      svg.appendChild(ln);
+    }
+    for(let gy = -120; gy <= 120; gy += 60){
+      const ln = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      ln.setAttribute('x1', -240); ln.setAttribute('x2', 240);
+      ln.setAttribute('y1', gy); ln.setAttribute('y2', gy);
+      ln.setAttribute('stroke', 'var(--line)'); ln.setAttribute('stroke-width', '0.4');
+      svg.appendChild(ln);
+    }
+
+    // segments
+    for(const s of segments){
+      const ln = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      ln.setAttribute('x1', s.from[0]); ln.setAttribute('y1', s.from[1]);
+      ln.setAttribute('x2', s.to[0]); ln.setAttribute('y2', s.to[1]);
+      ln.setAttribute('stroke', 'var(--cyan)'); ln.setAttribute('stroke-width', '2');
+      ln.setAttribute('marker-end', 'url(#gmt-cur-arrow)');
+      svg.appendChild(ln);
+    }
+
+    // pending tail marker
+    if(pending){
+      const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      c.setAttribute('cx', pending[0]); c.setAttribute('cy', pending[1]);
+      c.setAttribute('r', 4);
+      c.setAttribute('fill', 'var(--yellow)');
+      svg.appendChild(c);
+    }
+
+    // boundary tally as filled circles
+    const { mass, bdyMass, verts } = boundaryAndMass();
+    for(const v of verts){
+      const r = 3 + Math.min(Math.abs(v.count) * 1.5, 8);
+      const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+      c.setAttribute('cx', v.x); c.setAttribute('cy', v.y);
+      c.setAttribute('r', r);
+      c.setAttribute('fill', v.count > 0 ? 'var(--green)' : 'var(--pink)');
+      c.setAttribute('opacity', '0.8');
+      svg.appendChild(c);
+      const t = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      t.setAttribute('x', v.x + r + 4); t.setAttribute('y', v.y + 3);
+      t.setAttribute('font-size', '10'); t.setAttribute('fill', 'var(--mute)');
+      t.textContent = (v.count > 0 ? '+' : '') + v.count;
+      svg.appendChild(t);
+    }
+
+    out.textContent =
+      `Segments: ${segments.length}` + (pending ? '  (waiting for head — click again)' : '') + '\n' +
+      `Mass M(T)         = ${mass.toFixed(2)}  (px; sum of segment lengths)\n` +
+      `Boundary mass M(∂T) = ${bdyMass.toFixed(2)}  (sum |signed multiplicities|)\n` +
+      (bdyMass === 0 && segments.length > 0
+        ? '∂T = 0 — closed cycle (Federer–Fleming weak limit class).'
+        : '∂T ≠ 0 — open chain. Adding closing edges cancels endpoints.');
+  }
+
+  redraw();
+})();
+</script>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./differential-forms.html#deRham">Stokes theorem and de Rham cohomology</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./geometric-measure-theory.html#applications">Geometric measure theory</a> · Applications: Plateau, minimal surfaces, and Mumford–Shah</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="gmt-currents"></div>
+</section>
+
+<section id="applications">
+<h2>6. Applications: Plateau, minimal surfaces, and Mumford–Shah</h2>
+
+<p>Three flagship arenas where GMT replaces ad-hoc PDE / variational tools with a uniform existence theorem:</p>
+
+<p><strong>Plateau's problem.</strong> Given a closed $(k-1)$-current $\Gamma$ in $\mathbb{R}^n$ with finite mass, find a $k$-current $T$ with $\partial T=\Gamma$ minimizing mass — the higher-dimensional soap-film problem. Federer-Fleming (§5) does the heavy lifting: a minimizing sequence $T_j$ has uniformly bounded mass (any competitor is an upper bound) and fixed boundary mass $\mathbf{M}(\Gamma)$; pass to a weakly convergent subsequence with limit $T$ satisfying $\partial T=\Gamma$ and $\mathbf{M}(T)=\inf$. Existence is mechanical.</p>
+
+<p>Regularity is delicate, and clean statements need a slightly larger object than a current. A <strong>varifold</strong> is a Radon measure on the Grassmannian bundle $\mathbb{R}^n\times G(n,k)$ — informally, a current with orientation forgotten but tangent-plane data retained. Currents lose embedded-vs-immersed information (a soap film that self-touches has $\partial T=\Gamma$ degenerate to nothing meaningful at the contact); varifolds keep the unsigned mass and the tangent-plane field. An <strong>integral varifold</strong> is the rectifiable, integer-multiplicity sub-class. A varifold is <strong>stationary</strong> when the first variation of mass under any compactly-supported diffeomorphism vanishes — the variational analogue of vanishing mean curvature. <em>Allard's regularity theorem</em> says the support of a stationary integral varifold is a $C^{1,\alpha}$-submanifold $\mathcal{H}^k$-almost everywhere. A celebrated chain of results (Fleming, De Giorgi, Almgren, Simons) shows that codimension-1 minimizers are $C^\infty$ in dimensions $n\le 7$, with the <strong>Simons cone</strong> $\{x_1^2+\cdots+x_4^2=x_5^2+\cdots+x_8^2\}$ giving the first singular minimizer in $\mathbb{R}^8$.</p>
+
+<p><strong>Mumford-Shah image segmentation.</strong> The functional</p>
+
+$$\mathcal{E}(u,K)\;=\;\int_{\Omega\setminus K}(u-g)^2\,dx \;+\;\alpha\int_{\Omega\setminus K}|\nabla u|^2\,dx\;+\;\beta\,\mathcal{H}^{n-1}(K)$$
+
+<p>is minimized over pairs $(u,K)$ with $K\subset\Omega$ a closed singular set and $u\in C^1(\Omega\setminus K)$: a piecewise-smooth approximation $u$ to the noisy data $g$, paired with an edge set $K$ whose total $(n-1)$-measure is penalized. Direct minimization on closed-set pairs fails because the obvious topology on closed sets is bad — Hausdorff convergence does not control $\mathcal{H}^{n-1}$. The fix is to lift $K$ into the BV decomposition. <strong>Special BV</strong> functions $\mathrm{SBV}(\Omega)$ are the subspace of $\mathrm{BV}(\Omega)$ cut out by $D^c u=0$: only the absolutely-continuous and jump parts survive, with $K=J_u$ then a rectifiable jump set. Ambrosio's <strong>SBV compactness theorem</strong> (1989) is the version of Federer-Fleming for this class: bounded sequences in SBV with bounded $\mathcal{H}^{n-1}(J_u)$ have $L^1$-convergent subsequences whose limit lies in SBV with the diffuse Cantor singularities zero'd out — exactly what makes Mumford-Shah well-posed. De Giorgi-Carriero-Leaci then close the singular set $K=\overline{J_u}$ via density estimates: GMT making a computer-vision functional rigorous.</p>
+
+<p><strong>Mean-curvature flow and Cheeger inequalities.</strong> A <strong>Brakke flow</strong> is a weak solution of mean-curvature flow defined as a one-parameter family $\{V_t\}$ of varifolds whose mass decreases at the squared mean curvature: $\frac{d}{dt}\mathbf{M}(V_t)\le -\int|H|^2\,dV_t$. Past pinch-off / topology-change singularities the smooth flow ceases to make sense; the varifold formulation continues. The <strong>Cheeger constant</strong> $h(\Omega)=\inf_E P(E)/\min(|E|,|\Omega\setminus E|)$ — a perimeter-volume isoperimetric quotient — gives the Cheeger inequality $\lambda_1(\Omega)\ge h(\Omega)^2/4$, an isoperimetric lower bound on the Laplacian spectral gap. Cheeger uses the coarea bridge directly (level-set perimeter argument); Brakke flow uses varifold tangent-measure rectifiability and Allard-style regularity rather than coarea.</p>
+
+<div class="widget" id="gmt-plateau">
+  <div class="hd"><div class="ttl">Plateau in 2D / Mumford-Shah toggle</div><div class="hint">drag boundary points; widget shows the minimal connecting curve, then toggle to MS edge detection</div></div>
+  <div class="row">
+    <button id="gmt-plat-plateau" class="active">Plateau: minimize length over chains with fixed boundary</button>
+    <button id="gmt-plat-ms">Mumford-Shah: edge-set $K$ on a 1D signal</button>
+  </div>
+  <div class="row">
+    <label for="gmt-plat-noise">noise level (MS only):</label>
+    <input id="gmt-plat-noise" type="range" min="0" max="0.6" step="0.02" value="0.15">
+    <span id="gmt-plat-noise-out" class="small"></span>
+  </div>
+  <div class="row">
+    <label for="gmt-plat-beta">edge penalty $\beta$ (MS only):</label>
+    <input id="gmt-plat-beta" type="range" min="0.01" max="0.6" step="0.01" value="0.12">
+    <span id="gmt-plat-beta-out" class="small"></span>
+  </div>
+  <svg id="gmt-plat-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>Plateau-style minimal chain or Mumford-Shah edge set</title></svg>
+  <div id="gmt-plat-out" class="readout"></div>
+</div><script>
+(function(){
+  const svg = document.getElementById('gmt-plat-svg');
+  const out = document.getElementById('gmt-plat-out');
+  const bP = document.getElementById('gmt-plat-plateau');
+  const bM = document.getElementById('gmt-plat-ms');
+  const sN = document.getElementById('gmt-plat-noise');
+  const sNo = document.getElementById('gmt-plat-noise-out');
+  const sB = document.getElementById('gmt-plat-beta');
+  const sBo = document.getElementById('gmt-plat-beta-out');
+  if(!svg || !out) return;
+
+  let mode = 'plateau';
+  function setMode(m){
+    mode = m;
+    bP.classList.toggle('active', m === 'plateau');
+    bM.classList.toggle('active', m === 'ms');
+    draw();
+  }
+  bP.addEventListener('click', () => setMode('plateau'));
+  bM.addEventListener('click', () => setMode('ms'));
+
+  // Generate ground-truth signal (3-step staircase) plus noise
+  const N = 80;
+  function buildSignal(noise){
+    // staircase: levels 0.2 on [0,30), 0.7 on [30,55), 0.4 on [55, 80)
+    // Use a deterministic pseudo-RNG so results are reproducible per noise level
+    const g = new Float64Array(N);
+    let seed = 1234567;
+    function rand(){
+      seed = (seed * 1664525 + 1013904223) | 0;
+      return ((seed >>> 0) / 0xffffffff) - 0.5;
+    }
+    for(let i = 0; i < N; i++){
+      let v;
+      if(i < 30) v = 0.2;
+      else if(i < 55) v = 0.7;
+      else v = 0.4;
+      v += noise * rand() * 2;
+      g[i] = v;
+    }
+    return g;
+  }
+
+  // Mumford-Shah-on-1D dynamic program.
+  // J(i) = min over j < i of [ J(j) + segCost(j+1, i) ] + β if j ≥ 0
+  // segCost(a,b) = sum_{k=a..b} (g[k] - mean_{a..b})^2
+  // ground state J(-1) = 0 ; result builds optimal break-set.
+  function runDP(g, beta){
+    const n = g.length;
+    // prefix sums for O(1) variance
+    const ps = new Float64Array(n + 1);
+    const ps2 = new Float64Array(n + 1);
+    for(let i = 0; i < n; i++){
+      ps[i+1] = ps[i] + g[i];
+      ps2[i+1] = ps2[i] + g[i]*g[i];
+    }
+    function segCost(a, b){
+      // [a, b] inclusive, length L = b - a + 1
+      const L = b - a + 1;
+      if(L <= 0) return 0;
+      const sum = ps[b+1] - ps[a];
+      const sumSq = ps2[b+1] - ps2[a];
+      const mean = sum / L;
+      const cost = sumSq - L * mean * mean;
+      return Math.max(0, cost);
+    }
+    // J[i] = best cost ending at index i (segment last contains i)
+    // back[i] = the start index of the last segment
+    const J = new Float64Array(n);
+    const back = new Int32Array(n);
+    for(let i = 0; i < n; i++){
+      let best = Infinity, bestStart = 0;
+      for(let a = 0; a <= i; a++){
+        const prev = (a === 0) ? 0 : (J[a-1] + beta); // each break costs β
+        const c = segCost(a, i) + prev;
+        if(c < best){ best = c; bestStart = a; }
+      }
+      J[i] = best;
+      back[i] = bestStart;
+    }
+    // backtrack
+    const breaks = [];
+    let cur = n - 1;
+    while(cur >= 0){
+      const start = back[cur];
+      if(start > 0) breaks.unshift(start);
+      cur = start - 1;
+    }
+    // segment-wise mean signal u
+    const u = new Float64Array(n);
+    let segStart = 0;
+    const segEdges = [...breaks, n];
+    for(const e of segEdges){
+      const a = segStart, b = e - 1;
+      let s = 0;
+      for(let k = a; k <= b; k++) s += g[k];
+      const mean = s / (b - a + 1);
+      for(let k = a; k <= b; k++) u[k] = mean;
+      segStart = e;
+    }
+    return { J, breaks, u };
+  }
+
+  function draw(){
+    const noise = parseFloat(sN.value);
+    const beta = parseFloat(sB.value);
+    sNo.textContent = noise.toFixed(2);
+    sBo.textContent = beta.toFixed(2);
+
+    [...svg.children].forEach(n => { if(n.nodeName !== 'title') svg.removeChild(n); });
+
+    // viewBox: -260 -150 520 280
+    const X0 = -220, X1 = 220, Y0 = 100, Y1 = -100;
+    const xMap = i => X0 + (i / (N - 1)) * (X1 - X0);
+
+    if(mode === 'plateau'){
+      // 2D: render two boundary points and the chord (the linear length-minimizer).
+      // Show that the "minimal connecting chain" with given boundary is the straight segment.
+      const A = [-130, 60], B = [140, -50];
+      const ln = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      ln.setAttribute('x1', A[0]); ln.setAttribute('y1', A[1]);
+      ln.setAttribute('x2', B[0]); ln.setAttribute('y2', B[1]);
+      ln.setAttribute('stroke', 'var(--cyan)'); ln.setAttribute('stroke-width', '2');
+      svg.appendChild(ln);
+      // Wiggly competitor (longer)
+      let d = `M ${A[0]} ${A[1]}`;
+      const seg = 12;
+      for(let i = 1; i <= seg; i++){
+        const t = i / seg;
+        const x = A[0] + t * (B[0] - A[0]);
+        const y = A[1] + t * (B[1] - A[1]) + 30 * Math.sin(t * Math.PI * 3);
+        d += ` L ${x.toFixed(1)} ${y.toFixed(1)}`;
+      }
+      const wig = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      wig.setAttribute('d', d);
+      wig.setAttribute('fill', 'none');
+      wig.setAttribute('stroke', 'var(--mute)');
+      wig.setAttribute('stroke-width', '1.2');
+      wig.setAttribute('stroke-dasharray', '4,3');
+      svg.appendChild(wig);
+      for(const P of [A, B]){
+        const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        c.setAttribute('cx', P[0]); c.setAttribute('cy', P[1]);
+        c.setAttribute('r', 4);
+        c.setAttribute('fill', 'var(--pink)');
+        svg.appendChild(c);
+      }
+      const lbl = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      lbl.setAttribute('x', 0); lbl.setAttribute('y', -110);
+      lbl.setAttribute('text-anchor', 'middle');
+      lbl.setAttribute('font-size', '12'); lbl.setAttribute('fill', 'var(--mute)');
+      lbl.textContent = 'Plateau in 2D: minimize length over chains with boundary {A, B}';
+      svg.appendChild(lbl);
+      const massStraight = Math.hypot(B[0]-A[0], B[1]-A[1]);
+      // estimate wiggly length
+      let wL = 0; let prev = A;
+      for(let i = 1; i <= seg; i++){
+        const t = i / seg;
+        const x = A[0] + t * (B[0] - A[0]);
+        const y = A[1] + t * (B[1] - A[1]) + 30 * Math.sin(t * Math.PI * 3);
+        wL += Math.hypot(x - prev[0], y - prev[1]); prev = [x, y];
+      }
+      out.textContent =
+        `Plateau (2D, k=1): minimize mass over 1-currents with ∂T = δ_B − δ_A.\n` +
+        `Straight segment (cyan): mass M = ${massStraight.toFixed(2)} px (the unique minimizer).\n` +
+        `Wiggly competitor (dashed): mass M = ${wL.toFixed(2)} px.\n` +
+        `Federer–Fleming guarantees a weakly-convergent minimizing subsequence; here it converges to the chord.`;
+    } else {
+      const g = buildSignal(noise);
+      const { breaks, u } = runDP(g, beta);
+
+      // axis
+      const ax = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+      ax.setAttribute('x1', X0); ax.setAttribute('x2', X1);
+      ax.setAttribute('y1', Y0 + 6); ax.setAttribute('y2', Y0 + 6);
+      ax.setAttribute('stroke', 'var(--line)'); ax.setAttribute('stroke-width', '1');
+      svg.appendChild(ax);
+
+      // map signal value [vmin, vmax] to [Y0, Y1]
+      let vmin = Infinity, vmax = -Infinity;
+      for(let i = 0; i < N; i++){
+        if(g[i] < vmin) vmin = g[i];
+        if(g[i] > vmax) vmax = g[i];
+        if(u[i] < vmin) vmin = u[i];
+        if(u[i] > vmax) vmax = u[i];
+      }
+      if(vmax - vmin < 1e-6) vmax = vmin + 1;
+      const yMap = v => Y0 - ((v - vmin) / (vmax - vmin)) * (Y0 - Y1);
+
+      // raw signal as small dots
+      for(let i = 0; i < N; i++){
+        const dot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        dot.setAttribute('cx', xMap(i)); dot.setAttribute('cy', yMap(g[i]));
+        dot.setAttribute('r', 1.6);
+        dot.setAttribute('fill', 'var(--mute)');
+        svg.appendChild(dot);
+      }
+      // segmented u as step function (cyan)
+      let dStr = '';
+      for(let i = 0; i < N; i++){
+        const x = xMap(i);
+        const y = yMap(u[i]);
+        // draw horizontal then vertical at break
+        if(i === 0){ dStr += `M ${x.toFixed(1)} ${y.toFixed(1)}`; }
+        else {
+          const xPrev = xMap(i-1);
+          if(u[i] !== u[i-1]){
+            dStr += ` L ${x.toFixed(1)} ${yMap(u[i-1]).toFixed(1)}`;
+          }
+          dStr += ` L ${x.toFixed(1)} ${y.toFixed(1)}`;
+        }
+      }
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', dStr);
+      path.setAttribute('fill', 'none');
+      path.setAttribute('stroke', 'var(--cyan)');
+      path.setAttribute('stroke-width', '2');
+      svg.appendChild(path);
+      // edges (vertical pink dashed at each break)
+      for(const k of breaks){
+        const x = xMap(k);
+        const ln = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        ln.setAttribute('x1', x); ln.setAttribute('x2', x);
+        ln.setAttribute('y1', Y1); ln.setAttribute('y2', Y0);
+        ln.setAttribute('stroke', 'var(--pink)'); ln.setAttribute('stroke-width', '1');
+        ln.setAttribute('stroke-dasharray', '3,3');
+        svg.appendChild(ln);
+      }
+
+      // legend
+      const lblL = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+      lblL.setAttribute('x', X0); lblL.setAttribute('y', Y1 - 4);
+      lblL.setAttribute('font-size', '11'); lblL.setAttribute('fill', 'var(--mute)');
+      lblL.textContent = `noisy signal g (mute) | recovered piecewise-constant u (cyan) | edge set K = J_u (pink dashed)`;
+      svg.appendChild(lblL);
+
+      const fidelity = (() => { let s = 0; for(let i = 0; i < N; i++) s += (u[i]-g[i])*(u[i]-g[i]); return s; })();
+      out.textContent =
+        `Mode: Mumford–Shah (1D) on N=${N} samples; noise σ ≈ ${noise.toFixed(2)}; β = ${beta.toFixed(2)}.\n` +
+        `DP recovered K = J_u at indices [${breaks.join(', ')}]  (|K| = ${breaks.length})\n` +
+        `Energy ≈ Σ(u−g)² + β·|K| = ${fidelity.toFixed(3)} + ${(beta*breaks.length).toFixed(3)} = ${(fidelity + beta*breaks.length).toFixed(3)}\n` +
+        `Ground truth has 2 internal jumps at i=30 and i=55 — increase β to merge spurious edges, decrease to over-segment.`;
+    }
+  }
+
+  sN.addEventListener('input', draw);
+  sB.addEventListener('input', draw);
+  draw();
+})();
+</script>
+<div class="quiz" data-concept="gmt-applications"></div>
+</section>
+
+<section id="connections">
+<h2>Connections</h2>
+
+<p>Geometric measure theory is the analytic toolkit for problems where the natural class of competitors is rougher than smooth submanifolds: minimal surfaces with corners, BV functions with jumps, edge sets in noisy images, fractal boundary phenomena. Open frontiers include the regularity of solutions to higher-codimension Plateau problems (Almgren's $Q$-valued functions, the De Lellis-Spadaro program), GMT on metric measure spaces (Cheeger differentiation, Ambrosio-Kirchheim currents in metric spaces, Heisenberg-group GMT), the Mumford-Shah conjecture on the regularity of singular sets in image segmentation, and Brakke-flow weak solutions for mean-curvature flow past singularities. Below the headline names, the field is still actively producing new compactness theorems for variant function classes (BD, GSBV, GBD).</p>
+
+<ul>
+<li><a href="./measure-theory.html#hausdorff">Measure theory — Hausdorff measure &amp; dimension</a> — supplies $\mathcal{H}^k$, the substrate for rectifiability, currents, and the area / coarea formulas. The s-dimensional Hausdorff measure introduced there becomes the unit of mass for integration currents and the way perimeter is even defined.</li>
+<li><a href="./sobolev-spaces-distributions.html#weak-derivative">Sobolev spaces &amp; distributions — distributional / weak derivatives</a> — the BV space sits one rung above $W^{1,1}$: the gradient is a Radon measure (allowing jumps and Cantor parts) rather than an $L^1$ function. Section 1's BV decomposition is exactly the Radon-Nikodym refinement of the distributional derivative.</li>
+<li><a href="./real-analysis.html#bounded-variation">Real analysis — bounded variation</a> — the 1D classical $\mathrm{BV}([a,b])$ via Jordan's monotone-difference theorem is the point of departure. GMT's BV is the multivariable measure-valued upgrade, and the Cantor function reappears here as the canonical $\mathrm{BV}\setminus\mathrm{AC}$ counterexample.</li>
+<li><a href="./differential-forms.html#deRham">Differential forms — Stokes &amp; de Rham</a> — currents are the distributional dual of compactly-supported smooth forms, and Stokes' theorem $\partial[M]=[\partial M]$ is built into the very definition of $\partial T$ on currents. Federer-Fleming's existence theorem is essentially de Rham's theory done with rectifiable carriers and integer multiplicities.</li>
+<li><a href="./variational-methods.html#direct-method">Variational methods — direct method</a> — every existence theorem in §6 (Plateau, Mumford-Shah) is the direct method of the calculus of variations carried out in a function class (currents, SBV) chosen so that the requisite lower semicontinuity + compactness pair both hold. GMT is what enables the direct method to land outside Sobolev space.</li>
+<li><a href="./atiyah-singer-index-theorem.html#elliptic">Atiyah-Singer index theorem</a> — Allard's regularity theorem and the regularity theory of minimal currents lean on elliptic estimates for the linearization of the area functional; the geometric-analytic regularity story for stationary varifolds is in the same intellectual neighborhood as parametrix-driven regularity in microlocal analysis.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('geometric-measure-theory'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-04</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>
