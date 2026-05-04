@@ -11,7 +11,7 @@
         "kg-derivation",
         "sr-energy-momentum"
       ],
-      "blurb": "Klein-Gordon's $j^0$ failed as a probability density. Dirac sought a first-order equation $i\\partial_t\\psi = (\\vec\\alpha\\cdot\\vec p + \\beta m)\\psi$ whose square reproduces $E^2 = p^2 + m^2$, forcing the $\\alpha^i, \\beta$ matrices to satisfy a Clifford algebra $\\{\\alpha^i,\\alpha^j\\}=2\\delta^{ij}, \\{\\alpha^i,\\beta\\}=0, \\beta^2=1$. The minimum dimension forcing this is $4\\times4$, so $\\psi$ is a 4-component spinor — Dirac's wave function carries internal structure that Klein-Gordon's scalar lacked.",
+      "blurb": "Klein-Gordon's $j^0$ failed as a probability density. Dirac sought a first-order equation $i\\partial_t\\psi = (\\vec\\alpha\\cdot\\vec p + \\beta m)\\psi$ whose square reproduces $E^2 = p^2 + m^2$, forcing the $\\alpha^i, \\beta$ matrices to satisfy a Clifford algebra $\\{\\alpha^i,\\alpha^j\\}=2\\delta^{ij}, \\{\\alpha^i,\\beta\\}=0, \\beta^2=1$. The trade-off is structural: a first-order equation in time gives $\\psi$-only Cauchy data and $j^0 = \\psi^\\dagger\\psi \\geq 0$, but the algebraic relation $H^2 = p^2 + m^2$ has no $2\\times2$ representation, so the wave function carries internal structure. The minimum dimension hosting all four generators is $4\\times4$, making $\\psi$ a 4-component spinor — Dirac's wave function carries the spin information that Klein-Gordon's scalar lacked.",
       "tags": [
         "foundation"
       ]
@@ -23,7 +23,7 @@
       "prereqs": [
         "dirac-derivation"
       ],
-      "blurb": "Multiplying through by $\\beta$ gives the manifestly covariant form $(i\\gamma^\\mu\\partial_\\mu - m)\\psi = 0$ with $\\gamma^0 = \\beta, \\gamma^i = \\beta\\alpha^i$, and the Clifford algebra becomes $\\{\\gamma^\\mu,\\gamma^\\nu\\} = 2\\eta^{\\mu\\nu}$. This is the simplest first-order Lorentz-covariant equation for a spinor field, and underwrites every fermionic Standard-Model field.",
+      "blurb": "Multiplying through by $\\beta$ gives the manifestly covariant form $(i\\gamma^\\mu\\partial_\\mu - m)\\psi = 0$ with $\\gamma^0 = \\beta, \\gamma^i = \\beta\\alpha^i$, and the Clifford algebra becomes $\\{\\gamma^\\mu,\\gamma^\\nu\\} = 2\\eta^{\\mu\\nu}$. This is the simplest first-order Lorentz-covariant equation for a spinor field, and it underwrites every fermionic Standard-Model field: the charged leptons (electron, muon, tau) and the quark fields after gauge coupling, with the Majorana variant for neutrinos identifying $\\psi$ with its charge conjugate. The chirality projectors $P_{L,R} = \\tfrac{1}{2}(1\\mp\\gamma^5)$ split $\\psi$ into the left- and right-handed Weyl components that are the actual building blocks of the electroweak interaction, and the spinor bilinears $\\bar\\psi\\psi$, $\\bar\\psi\\gamma^\\mu\\psi$, $\\bar\\psi\\sigma^{\\mu\\nu}\\psi$ are the canonical Lorentz-covariant fermion currents.",
       "tags": [
         "foundation",
         "classification"
@@ -34,7 +34,8 @@
       "title": "Spin-½ from the Dirac equation",
       "anchor": "spin-half",
       "prereqs": [
-        "dirac-equation"
+        "dirac-equation",
+        "la-sl2-and-roots"
       ],
       "blurb": "Dirac's spinor automatically carries spin-½: the conserved angular momentum operator is $\\vec J = \\vec L + \\tfrac{1}{2}\\vec\\Sigma$ with $\\Sigma^i = \\tfrac{i}{2}\\epsilon^{ijk}[\\gamma^j,\\gamma^k]/2$, and the eigenvalues of $\\Sigma_z$ are $\\pm 1/2$. Spin is not added by hand — it is a mathematical consequence of the first-order operator structure. The spin connection couples $\\psi$ to gauge fields and curved spacetime via the local Lorentz group $\\mathrm{Spin}(1,3) = \\mathrm{SL}(2,\\mathbb{C})$.",
       "tags": [
@@ -49,7 +50,7 @@
       "prereqs": [
         "dirac-equation"
       ],
-      "blurb": "The conserved current $j^\\mu = \\bar\\psi\\gamma^\\mu\\psi$ has $j^0 = \\psi^\\dagger\\psi \\geq 0$, recovering the probability-density interpretation that Klein-Gordon failed to provide. Dirac's first-order structure was specifically engineered to make this work, and the original motivation for the equation. The probability current also transforms as a Lorentz vector, so probability conservation $\\partial_\\mu j^\\mu = 0$ is frame-independent.",
+      "blurb": "The conserved current $j^\\mu = \\bar\\psi\\gamma^\\mu\\psi$ has $j^0 = \\psi^\\dagger\\psi \\geq 0$ pointwise — the probability-density interpretation Klein-Gordon failed to provide. The mechanism is structural: Dirac is first-order in $\\partial_t$, so the Cauchy data is a single $\\psi(0,\\vec x)$ slot rather than KG's $(\\phi, \\partial_t\\phi)$ pair, and $j^0$ is a positive-definite quadratic form in $\\psi$ alone with no $\\partial_t\\psi$ that could flip sign on superpositions of positive- and negative-energy modes. The original 1928 motivation was exactly this: engineer a relativistic wave equation whose conserved 0-component qualifies as a probability density. The current also transforms as a Lorentz vector, so $\\partial_\\mu j^\\mu = 0$ is frame-independent, and gauging the global $U(1)$ phase symmetry $\\psi \\to e^{i\\alpha}\\psi$ produces QED via minimal coupling $\\partial_\\mu \\to D_\\mu = \\partial_\\mu - ieA_\\mu$.",
       "tags": [
         "classification"
       ]

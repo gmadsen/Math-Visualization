@@ -231,7 +231,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./lie-algebras.html#classification\">Lie algebras</a> · Classification of simple Lie algebras</div>\n    <div><a href=\"./quantum-groups.html#uq-sl2\">Quantum groups</a> · Drinfeld–Jimbo $U_q(\\mathfrak{sl}_2)$</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./dirac-equation.html#spin-half\">Dirac equation</a> · Spin-½ from the Dirac equation</div>\n    <div><a href=\"./lie-algebras.html#classification\">Lie algebras</a> · Classification of simple Lie algebras</div>\n    <div><a href=\"./quantum-groups.html#uq-sl2\">Quantum groups</a> · Drinfeld–Jimbo $U_q(\\mathfrak{sl}_2)$</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",
