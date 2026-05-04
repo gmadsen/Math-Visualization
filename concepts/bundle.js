@@ -5385,8 +5385,7 @@ window.__MVConcepts = {
           ],
           "blurb": "Kripke–Joyal semantics interprets the internal language stage-by-stage: an object $X$ \"forces\" a formula $\\varphi$ when the corresponding subobject contains all of $X$. In presheaf toposes this collapses to Kripke's classical possible-world semantics for intuitionist logic.",
           "tags": [
-            "foundation",
-            "descent"
+            "foundation"
           ]
         },
         {
@@ -5397,10 +5396,7 @@ window.__MVConcepts = {
             "internal-language",
             "kripke-joyal-semantics"
           ],
-          "blurb": "Most toposes are not Boolean: $\\neg\\neg p = p$ generally fails internally. The double-negation topology on a topos extracts the largest Boolean sub-topos and is the algebraic shadow of \"forcing $p \\vee \\neg p$\".",
-          "tags": [
-            "foundation"
-          ]
+          "blurb": "Most toposes are not Boolean: $\\neg\\neg p = p$ generally fails internally. The double-negation topology on a topos extracts the largest Boolean sub-topos and is the algebraic shadow of \"forcing $p \\vee \\neg p$\"."
         },
         {
           "id": "geometric-morphisms-logic",
@@ -5855,7 +5851,6 @@ window.__MVConcepts = {
           ],
           "blurb": "An $\\infty$-topos is hypercomplete if Whitehead's theorem holds internally: a map inducing iso on all homotopy sheaves is an equivalence. Most naturally occurring $\\infty$-topoi are hypercomplete; pathological non-hypercomplete examples come from infinite Krull dimension.",
           "tags": [
-            "foundation",
             "classification"
           ]
         },
