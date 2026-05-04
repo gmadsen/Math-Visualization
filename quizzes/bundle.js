@@ -22015,7 +22015,7 @@ window.MVQuizBank = {
               "$u\\in W^{1,1}(\\Omega)$ — every $\\mathrm{BV}$ function lies in the Sobolev space $W^{1,1}$."
             ],
             "answer": 1,
-            "hint": "Two of the choices treat $\\mathrm{BV}$ as a strict subclass of either Sobolev or continuous functions; one mixes a.e. differentiability with the distributional definition. Which one operates on the natural object — the distributional derivative — and asks only that it be a (signed) measure?",
+            "hint": "Test each definition against the Heaviside function $H=\\mathbf{1}_{x>0}$: the page asserts $H\\in\\mathrm{BV}\\setminus W^{1,1}$ because $H'=\\delta_0$ is a finite Radon measure but is not in $L^1$. Which choice's definition accepts $H$? Eliminate the others by feeding them this single example.",
             "explain": "BV is exactly $L^1$-functions whose distributional derivative is a finite Radon measure. (0) describes a strict subset (functions with absolutely continuous gradient — i.e. $W^{1,1}$). (2) is the 1D classical definition restricted to continuous oscillation, which doesn't match the multivariable distributional formulation. (3) the inclusion $W^{1,1}\\subset\\mathrm{BV}$ is strict — Heaviside and the Cantor function lie in BV but not $W^{1,1}$."
           },
           {
@@ -22046,7 +22046,7 @@ window.MVQuizBank = {
               "Therefore: any $u\\in\\mathrm{BV}$ with $|Du|=0$ is constant — but only up to modification on a Lebesgue-null set; the equivalence class is the constant function."
             ],
             "answer": 3,
-            "hint": "The argument is correct down to the conclusion. The flagged step adds a qualifier that doesn't actually change the assertion — examine whether the distinction it introduces is real for the BV equivalence relation.",
+            "hint": "Reread each step as a standalone claim and ask: is the assertion already proved by an earlier step? An error can be a false weakening dressed up as added rigor — find the step that does work that was already done.",
             "explain": "Step 3 'corrects' a non-error: BV functions are equivalence classes modulo Lebesgue-null modifications, but the conclusion that the equivalence class is the constant function is exactly what step 2 already proved. The flagged step pretends to add a refinement but the argument was already correct in step 2 — the 'only up to modification' is redundant verbiage hiding behind a fake epsilon of rigor. The error is the false suggestion that the conclusion needed weakening."
           }
         ]
@@ -22064,7 +22064,7 @@ window.MVQuizBank = {
               "$P(E)=|E|$ — perimeter equals Lebesgue measure for smooth sets."
             ],
             "answer": 0,
-            "hint": "On a smooth boundary, every point has a classical inward normal, so the measure-theoretic and topological boundary coincide. Then ask which Hausdorff dimension matches a hypersurface in $\\mathbb{R}^n$.",
+            "hint": "Smooth boundaries are nice in two ways at once: every point has a classical normal, and the boundary is a hypersurface. For each choice, ask which of those two facts it would have to violate, then check the dimensionality claim against the divergence theorem $|D\\chi_E|(\\mathbb{R}^n) = \\int_{\\partial E} 1\\,d\\mathcal{H}^?$.",
             "explain": "For smooth $\\partial E$, the divergence theorem gives $|D\\chi_E|(\\mathbb{R}^n)=\\mathcal{H}^{n-1}(\\partial E)$, and the reduced boundary equals the topological boundary because the measure-theoretic normal exists everywhere. (1) wrong dimension — perimeter is $(n-1)$-dimensional, not $n$. (2) smooth boundaries are rectifiable. (3) perimeter and Lebesgue measure are different objects on different spaces."
           },
           {
@@ -22088,7 +22088,7 @@ window.MVQuizBank = {
               0,
               2
             ],
-            "hint": "Three of these have finite perimeter; one is the canonical bad case. Among the finite ones, distinguish smooth, corner, and slab geometry by which points fail to admit a measure-theoretic normal.",
+            "hint": "For each set on the left, ask two questions: (a) is its boundary fractal — that is, does the pre-fractal perimeter sequence diverge? (b) if not, which points along its boundary fail to admit a measure-theoretic normal? The answers determine whether $P$ is finite and whether $\\partial^*E$ equals the topological boundary, smooth or corner-y.",
             "explain": "(0)→3: square has $P=4$ and the four corners are codimension-2 (a finite point set in $\\mathbb{R}^2$ is $\\mathcal{H}^1$-null). (1)→1: smooth disk, $P=2\\pi$, $\\partial^*E = \\partial B_1$. (2)→0: Koch limit has $P=\\infty$ — finite-perimeter sets explicitly exclude such fractals. (3)→2: half-space ∩ ball has piecewise-smooth boundary, every smooth piece contributes its $\\mathcal{H}^{n-1}$-measure to $P$."
           },
           {
@@ -22096,7 +22096,7 @@ window.MVQuizBank = {
             "q": "What is $P(E)$ for the unit square $E=(0,1)^2\\subset\\mathbb{R}^2$? (Use the GMT convention $P(E)=|D\\chi_E|(\\mathbb{R}^2)=\\mathcal{H}^1(\\partial^*E)$.)",
             "answer": 4,
             "tol": 0.001,
-            "hint": "The corners are isolated points; in $\\mathbb{R}^2$ a finite set has $\\mathcal{H}^1$-measure zero, so they contribute nothing. The contributing pieces are the four open edges.",
+            "hint": "$\\partial^*E$ excludes the points where the measure-theoretic normal fails to exist. For the unit square, identify those points and ask whether they have positive $\\mathcal{H}^1$-measure. Then $P(E) = \\mathcal{H}^1(\\partial^*E)$.",
             "explain": "$\\partial^*E$ is the four open edges (corners are excluded since the measure-theoretic normal fails to exist at a corner — the limit $\\lim_r D\\chi_E(B_r)/|D\\chi_E|(B_r)$ doesn't exist there). Each edge has $\\mathcal{H}^1$-length $1$, total $4$. The corners are $\\mathcal{H}^1$-null, so $P(E)=\\mathcal{H}^1(\\partial^*E)=4$ matches the elementary perimeter."
           }
         ]
@@ -22114,7 +22114,7 @@ window.MVQuizBank = {
               "$S$ is the topological boundary of a set of finite perimeter."
             ],
             "answer": 1,
-            "hint": "The class needs to be larger than smooth and larger than $C^1$ — Lipschitz is precisely Rademacher's natural class for a.e. differentiability. Which choice asks for the broadest parameterization while still controlling $\\mathcal{H}^k$-measure?",
+            "hint": "For each choice, ask: does it admit corners? Does it admit countably many smooth pieces? The 4-corner Cantor set in §3's widget has $\\dim_H = 1$ exactly but is purely unrectifiable — which choice would mistakenly call it $1$-rectifiable?",
             "explain": "Lipschitz is the right regularity: Rademacher's theorem gives differentiability a.e., enough for the area formula and approximate tangent planes. (0) is too restrictive: rectifiable sets need not be smooth manifolds anywhere — corners are allowed. (2) Hausdorff dimension $k$ is necessary but not sufficient: purely unrectifiable sets like the 4-corner Cantor set have dimension exactly $1$. (3) is one example, not the definition."
           },
           {
@@ -22149,7 +22149,7 @@ window.MVQuizBank = {
               1,
               3
             ],
-            "hint": "Three of these are countable unions of Lipschitz images of $\\mathbb{R}^1$ (one trivially, one by definition, one by union of two pieces). One is the canonical 'invisible to projection' counterexample.",
+            "hint": "Apply the §3 page test: a set is countably $1$-rectifiable iff its $1$-density equals $1$ a.e. (equivalently, projects to positive measure on a non-null set of lines). For each choice, decide whether the set passes — without assuming any particular cardinality of yes/no answers.",
             "explain": "(0,1) are smooth/Lipschitz curves, both Lipschitz images of $[0,1]$. (3) finite union of rectifiable sets is rectifiable. (2) wrong: the 4-corner Cantor set has $\\mathcal{H}^1$-measure positive and finite (Hausdorff dimension exactly $1$), but is purely $1$-unrectifiable — the Besicovitch projection theorem says it projects to Lebesgue-null on almost every line, which is incompatible with being a countable Lipschitz image of $\\mathbb{R}^1$."
           }
         ]
@@ -22167,7 +22167,7 @@ window.MVQuizBank = {
               "$\\int_A J_f^2\\,d\\mathcal{L}^k = \\mathcal{H}^k(f(A))^2$ — squared Jacobian gives squared image measure."
             ],
             "answer": 1,
-            "hint": "Read both sides carefully. The right side has a counting function $\\mathcal{H}^0(A\\cap f^{-1}(y))$ — what does that compute, and why is it needed when $f$ is not injective?",
+            "hint": "The area formula has to handle non-injective $f$ — for example $f(x)=x^2$ on $[-1,1]$, where every $y\\in(0,1]$ has two preimages. For each choice, ask: would the equation hold for that example? Cross-check by setting $f$ injective and seeing which choice degenerates to the classical change-of-variables.",
             "explain": "$\\mathcal{H}^0$ is counting measure: $\\mathcal{H}^0(A\\cap f^{-1}(y))$ is the cardinality of the preimage. When $f$ is injective this is $\\chi_{f(A)}(y)$ and the area formula reduces to $\\int_A J_f = \\mathcal{H}^k(f(A))$ — choice (0). For non-injective $f$, multiplicity matters and is exactly the counting correction. (2,3) are not the area formula — invented identities."
           },
           {
@@ -22184,7 +22184,7 @@ window.MVQuizBank = {
               1,
               2
             ],
-            "hint": "One choice is the most-cited special case ($m=1$, $g=1$); one is the GMT-Sard statement embedded in the formula; one is the BV upgrade; one over-claims regularity at every level. Identify the over-claim.",
+            "hint": "For each choice, ask: is the claim asserted for *almost every* level value, or for *every* level value? Critical values of $u$ form a Lebesgue-null set on which level-set regularity can fail — one choice forgets that exception.",
             "explain": "(0) is the special case $m=1$, $g=1$. (1) is the rectifiability conclusion (a Sard-style statement) needed to integrate $\\mathcal{H}^{n-m}$ over the level set. (2) is the BV upgrade extending the smooth coarea identity to BV-superlevel sets — the operational core of GMT. (3) is wrong: the level set is rectifiable a.e., not smooth at every value. Critical values of $u$ form a Lebesgue-null exceptional set."
           },
           {
@@ -22192,7 +22192,7 @@ window.MVQuizBank = {
             "q": "For $u(x,y) = x^2 + y^2$ on $\\mathbb{R}^2$ and the disk $\\Omega=B_1(0)$, the coarea formula gives $\\int_\\Omega|\\nabla u|\\,dx\\,dy = \\int_0^1 \\mathcal{H}^1(\\{u=t\\}\\cap B_1)\\,dt$. Compute the left side; you may use polar coordinates.",
             "answer": 4.18879,
             "tol": 0.01,
-            "hint": "$|\\nabla u| = 2|x|$ in 2D becomes $|\\nabla u|(r,\\theta)=2r$ in polar coordinates. The integration element is $r\\,dr\\,d\\theta$ on the unit disk.",
+            "hint": "Compute $\\nabla u = (\\partial_x u,\\partial_y u)$ and then $|\\nabla u|$. Polar coordinates simplify radial functions; remember the Jacobian for the area element. Cross-check by computing the right-hand side of the coarea identity (level-set lengths integrated against $dt$).",
             "explain": "$|\\nabla u| = 2\\sqrt{x^2+y^2} = 2r$. So $\\int_{B_1}|\\nabla u| = \\int_0^{2\\pi}\\int_0^1 2r\\cdot r\\,dr\\,d\\theta = 2\\pi\\cdot 2/3 = 4\\pi/3 \\approx 4.189$. Cross-check via right side: $\\{u=t\\}\\cap B_1$ is the circle of radius $\\sqrt{t}$, which lies in $B_1$ for $t\\in[0,1]$. Its $\\mathcal{H}^1$-measure is $2\\pi\\sqrt{t}$. So $\\int_0^1 2\\pi\\sqrt{t}\\,dt = 2\\pi\\cdot 2/3 = 4\\pi/3$ — identity verified."
           }
         ]
@@ -22210,7 +22210,7 @@ window.MVQuizBank = {
               "$\\partial T = -T$ — the boundary is just sign-reversal."
             ],
             "answer": 0,
-            "hint": "Write down what $\\partial$ should do for an integration current $[M]$: Stokes' theorem $\\int_M d\\eta = \\int_{\\partial M}\\eta$. Reverse-engineer the duality definition that makes this fall out.",
+            "hint": "$\\partial$ on currents must be the distributional adjoint of *some* operator on forms. Two natural candidates: $d$ (exterior derivative) and a topological-boundary operator on forms (which doesn't really exist). Which adjoint definition makes $\\partial[M]=[\\partial M]$ for an oriented submanifold $M$?",
             "explain": "$\\langle\\partial T,\\eta\\rangle = \\langle T,d\\eta\\rangle$ is the distributional adjoint of the exterior derivative. For an integration current $[M]$, $\\langle [M],d\\eta\\rangle = \\int_M d\\eta = \\int_{\\partial M}\\eta = \\langle [\\partial M],\\eta\\rangle$, so $\\partial[M]=[\\partial M]$ — Stokes built into the definition. (1) misses the duality role (and the formula even drops the test object). (2) backwards. (3) trivially wrong dimension."
           },
           {
@@ -22234,7 +22234,7 @@ window.MVQuizBank = {
               1,
               0
             ],
-            "hint": "Two left items are scalar invariants (sizes); two are structural (the class of currents and the topology). For each, ask: which scalar measures size of $T$ vs. size of $\\partial T$? Which structure carries the integer-multiplicity rectifiable data?",
+            "hint": "For each left item, ask what kind of object it is: a sup over forms (size of $T$), a sup over forms applied to $\\partial T$ (size of $\\partial T$), a class of currents (structural), or a topology on currents (structural). Match scalars to scalar descriptions and structures to structural descriptions.",
             "explain": "(0)→2: mass is the dual sup over unit-norm forms. (1)→3: boundary mass is a separate scalar; the compactness theorem requires both bounded uniformly to extract a subsequence. (2)→1: integral currents are the rectifiable + integer-multiplicity class — small enough to have a coherent boundary calculus, large enough to be closed under weak limits with bounded mass+boundary mass. (3)→0: weak convergence is pairing-by-pairing convergence, the right topology to make Federer-Fleming work."
           },
           {
@@ -22247,7 +22247,7 @@ window.MVQuizBank = {
               "By Federer-Fleming, extract a weakly convergent subsequence with limit an integral current; weak limit of $\\partial T_j$ is $\\Gamma$ by continuity of $\\partial$, so the limit also has boundary $\\Gamma$. Existence is now mechanical."
             ],
             "answer": 0,
-            "hint": "The argument as a whole is correct, but the OPENING summary leaves out a hypothesis that the later steps quietly use. Reread the theorem statement on its own: which condition does the summary fail to mention?",
+            "hint": "Some arguments are *internally* consistent but built on a mis-stated theorem. Read the statement of Federer-Fleming on its own (no Plateau context) and write down its precise hypotheses; then compare against what each step quotes. The original formulation, not the application, is where misquotation hides.",
             "explain": "Step 0 (the summary) is incomplete: it says 'bounded mass' but Federer-Fleming requires BOTH bounded mass AND bounded boundary mass. The argument later (step 2) uses the boundary-mass bound implicitly when invoking $\\partial T_j = \\Gamma$ — but the original opening statement was wrong as written. Mass bound alone is not enough: a sequence with bounded mass but boundary masses going to $\\infty$ can have no weakly convergent subsequence in the integral-current class. The full theorem is a two-quantity bound; the summary dropped one."
           }
         ]
@@ -22265,7 +22265,7 @@ window.MVQuizBank = {
               "Every mass-minimizing current has zero mean curvature classically."
             ],
             "answer": 1,
-            "hint": "Allard gives partial regularity, not full. The technical statement is about the typical point on the support, with a measure-zero exceptional set allowed. Which choice has that 'almost everywhere' qualifier?",
+            "hint": "The Simons cone in $\\mathbb{R}^8$ is a mass-minimizer with a *singular* point at the origin. For each choice, ask whether the Simons cone is a counterexample: does the choice survive that one example, or does it over-claim?",
             "explain": "Allard's theorem: the support of a stationary integral varifold is a $C^{1,\\alpha}$-submanifold off a $\\mathcal{H}^k$-null singular set. Higher regularity (smooth in dimensions $n\\le 7$, with the Simons cone giving the first singular minimizer in $\\mathbb{R}^8$) follows from later results. (0) over-claims: singular sets can occur. (2) Federer-Fleming gives existence regardless of $\\Gamma$ smoothness; Allard handles the regularity conclusion separately. (3) classical mean curvature isn't even defined at singular points."
           },
           {
@@ -22285,7 +22285,7 @@ window.MVQuizBank = {
               3,
               4
             ],
-            "hint": "One step is the problem definition; one is the variational reformulation; one is compactness; one is lower-semicontinuity; one is the conclusion plus a regularity addendum. The order is: state, reformulate, the two ingredients of the direct method, conclude.",
+            "hint": "This is a direct-method argument. The direct method has a fixed skeleton: state energy, reformulate in the right function class, apply compactness, apply lower-semicontinuity, conclude. Identify which of the five items plays each role; the linear order falls out of dependencies.",
             "explain": "(1) State the energy. (2) Reformulate via SBV — the 'no Cantor part' condition is what makes minimizing sequences relatively compact. (0) Apply SBV compactness to extract a limit. (3) Lower-semicontinuity makes the energy $\\le$ liminf along the subsequence, so the limit minimizes. (4) Conclude existence; the closed-set form requires the density estimate that $\\overline{J_u}\\setminus J_u$ is $\\mathcal{H}^{n-1}$-null. The direct method runs in this exact order."
           },
           {
@@ -22302,7 +22302,7 @@ window.MVQuizBank = {
               1,
               2
             ],
-            "hint": "Three of these need a function class richer than Sobolev to even formulate the existence problem. One is a numerical algorithm for a different operator that has nothing to do with BV / perimeter.",
+            "hint": "For each choice, ask two questions: (i) does formulating the *existence* problem need a function class beyond $W^{1,p}$? (ii) is the operator involved related to perimeter / total variation, or to a different geometric quantity? Both criteria have to bend in the same direction for a problem to belong to GMT.",
             "explain": "(0) Plateau is the textbook GMT application. (1) Mumford-Shah needs SBV (a BV subclass) for existence. (2) Cheeger constant is literally a perimeter-volume quotient, lower-bounding the spectral gap of $-\\Delta$ — a GMT-flavored isoperimetric inequality. (3) FFT-based Radon inversion is microlocal/Fourier analysis on $L^2$ — no BV / perimeter content; this is the microlocal-analysis topic, not GMT."
           }
         ]
