@@ -5268,7 +5268,11 @@ window.__MVConcepts = {
           "prereqs": [
             "subobject-classifier"
           ],
-          "blurb": "Every subobject of $X$ is named by exactly one map $X \\to \\Omega$, so $\\Omega$ doubles as the object of \"truth values\" of the topos. Logical operations on subobjects (intersection, union, implication) become operations on $\\Omega$ that the topos sees natively."
+          "blurb": "Every subobject of $X$ is named by exactly one map $X \\to \\Omega$, so $\\Omega$ doubles as the object of \"truth values\" of the topos. Logical operations on subobjects (intersection, union, implication) become operations on $\\Omega$ that the topos sees natively.",
+          "tags": [
+            "universal-property",
+            "classification"
+          ]
         },
         {
           "id": "power-objects",
@@ -5338,7 +5342,10 @@ window.__MVConcepts = {
           "prereqs": [
             "algebraic-structures"
           ],
-          "blurb": "A Heyting algebra is a bounded lattice with a binary operation $\\Rightarrow$ satisfying $a \\wedge b \\le c \\iff a \\le b \\Rightarrow c$. Boolean algebras are the special case where double-negation is the identity; topological open-set lattices are generic Heyting algebras."
+          "blurb": "A Heyting algebra is a bounded lattice with a binary operation $\\Rightarrow$ satisfying $a \\wedge b \\le c \\iff a \\le b \\Rightarrow c$. Boolean algebras are the special case where double-negation is the identity; topological open-set lattices are generic Heyting algebras.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "omega-as-heyting-algebra",
@@ -5349,7 +5356,11 @@ window.__MVConcepts = {
             "heyting-algebra",
             "sieves"
           ],
-          "blurb": "In any topos, the subobject classifier $\\Omega$ carries an internal Heyting-algebra structure: maps $\\Omega \\times \\Omega \\to \\Omega$ implementing $\\wedge, \\vee, \\Rightarrow$. Subobject lattices $\\mathrm{Sub}(X)$ become external Heyting algebras with these operations applied pointwise."
+          "blurb": "In any topos, the subobject classifier $\\Omega$ carries an internal Heyting-algebra structure: maps $\\Omega \\times \\Omega \\to \\Omega$ implementing $\\wedge, \\vee, \\Rightarrow$. Subobject lattices $\\mathrm{Sub}(X)$ become external Heyting algebras with these operations applied pointwise.",
+          "tags": [
+            "foundation",
+            "universal-property"
+          ]
         },
         {
           "id": "internal-language",
@@ -5359,7 +5370,10 @@ window.__MVConcepts = {
             "omega-as-heyting-algebra",
             "power-objects"
           ],
-          "blurb": "Every topos has an internal first-order language: types are objects, terms are morphisms, formulas are characteristic maps into $\\Omega$. Provability in this language tracks subobject inclusion, and the resulting logic is intuitionist (LEM may fail)."
+          "blurb": "Every topos has an internal first-order language: types are objects, terms are morphisms, formulas are characteristic maps into $\\Omega$. Provability in this language tracks subobject inclusion, and the resulting logic is intuitionist (LEM may fail).",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "kripke-joyal-semantics",
@@ -5369,7 +5383,11 @@ window.__MVConcepts = {
             "internal-language",
             "presheaf-topos"
           ],
-          "blurb": "Kripke–Joyal semantics interprets the internal language stage-by-stage: an object $X$ \"forces\" a formula $\\varphi$ when the corresponding subobject contains all of $X$. In presheaf toposes this collapses to Kripke's classical possible-world semantics for intuitionist logic."
+          "blurb": "Kripke–Joyal semantics interprets the internal language stage-by-stage: an object $X$ \"forces\" a formula $\\varphi$ when the corresponding subobject contains all of $X$. In presheaf toposes this collapses to Kripke's classical possible-world semantics for intuitionist logic.",
+          "tags": [
+            "foundation",
+            "descent"
+          ]
         },
         {
           "id": "lem-failure",
@@ -5379,7 +5397,10 @@ window.__MVConcepts = {
             "internal-language",
             "kripke-joyal-semantics"
           ],
-          "blurb": "Most toposes are not Boolean: $\\neg\\neg p = p$ generally fails internally. The double-negation topology on a topos extracts the largest Boolean sub-topos and is the algebraic shadow of \"forcing $p \\vee \\neg p$\"."
+          "blurb": "Most toposes are not Boolean: $\\neg\\neg p = p$ generally fails internally. The double-negation topology on a topos extracts the largest Boolean sub-topos and is the algebraic shadow of \"forcing $p \\vee \\neg p$\".",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "geometric-morphisms-logic",
@@ -5409,7 +5430,11 @@ window.__MVConcepts = {
             "categories-morphisms",
             "presheaf-functor"
           ],
-          "blurb": "A sieve on $c$ is a downward-closed family of arrows into $c$ — equivalently a subfunctor of the representable presheaf $h_c$. Sieves are the building blocks of Grothendieck topologies and play the role that open covers do for ordinary topology."
+          "blurb": "A sieve on $c$ is a downward-closed family of arrows into $c$ — equivalently a subfunctor of the representable presheaf $h_c$. Sieves are the building blocks of Grothendieck topologies and play the role that open covers do for ordinary topology.",
+          "tags": [
+            "foundation",
+            "descent"
+          ]
         },
         {
           "id": "grothendieck-topology",
@@ -5492,7 +5517,11 @@ window.__MVConcepts = {
             "categories-morphisms",
             "sets-functions"
           ],
-          "blurb": "The simplex category $\\Delta$ has objects $[n] = \\{0,1,\\ldots,n\\}$ and order-preserving maps. It encodes combinatorial simplices: face maps drop a vertex, degeneracy maps double one."
+          "blurb": "The simplex category $\\Delta$ has objects $[n] = \\{0,1,\\ldots,n\\}$ and order-preserving maps. It encodes combinatorial simplices: face maps drop a vertex, degeneracy maps double one.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
         },
         {
           "id": "simplicial-set",
@@ -5502,7 +5531,11 @@ window.__MVConcepts = {
             "simplex-category",
             "presheaf-topos"
           ],
-          "blurb": "A simplicial set is a presheaf on $\\Delta$ — a family $X_n$ of \"$n$-simplices\" with face and degeneracy operators satisfying the simplicial identities. Examples: the standard $n$-simplex $\\Delta^n$, the boundary $\\partial \\Delta^n$, the horn $\\Lambda^n_k$."
+          "blurb": "A simplicial set is a presheaf on $\\Delta$ — a family $X_n$ of \"$n$-simplices\" with face and degeneracy operators satisfying the simplicial identities. Examples: the standard $n$-simplex $\\Delta^n$, the boundary $\\partial \\Delta^n$, the horn $\\Lambda^n_k$.",
+          "tags": [
+            "foundation",
+            "functoriality"
+          ]
         },
         {
           "id": "geometric-realization",
@@ -5587,7 +5620,10 @@ window.__MVConcepts = {
             "quasi-category",
             "categories-morphisms"
           ],
-          "blurb": "Quotienting a quasi-category $\\mathcal{C}$ by the equivalence relation \"there is a 2-simplex from $f$ to $g$\" gives an ordinary 1-category $h(\\mathcal{C})$. This is the shadow of $\\mathcal{C}$ visible to non-homotopical eyes."
+          "blurb": "Quotienting a quasi-category $\\mathcal{C}$ by the equivalence relation \"there is a 2-simplex from $f$ to $g$\" gives an ordinary 1-category $h(\\mathcal{C})$. This is the shadow of $\\mathcal{C}$ visible to non-homotopical eyes.",
+          "tags": [
+            "functoriality"
+          ]
         },
         {
           "id": "infty-functors",
@@ -5743,7 +5779,10 @@ window.__MVConcepts = {
             "quasi-category",
             "covering-spaces"
           ],
-          "blurb": "The source map $\\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$ of the arrow $\\infty$-category is a cocartesian fibration whose fibers are slice categories. The forgetful $\\mathrm{Mod}_R \\to \\mathrm{CAlg}$ is a cocartesian fibration whose transport is base change. The classifying space $BG$-fibration over a point recovers a $G$-action on its fiber."
+          "blurb": "The source map $\\mathrm{Fun}(\\Delta^1, \\mathcal{C}) \\to \\mathcal{C}$ of the arrow $\\infty$-category is a cocartesian fibration whose fibers are slice categories. The forgetful $\\mathrm{Mod}_R \\to \\mathrm{CAlg}$ is a cocartesian fibration whose transport is base change. The classifying space $BG$-fibration over a point recovers a $G$-action on its fiber.",
+          "tags": [
+            "fibration"
+          ]
         }
       ]
     },
@@ -5814,7 +5853,11 @@ window.__MVConcepts = {
           "prereqs": [
             "infty-topos-definition"
           ],
-          "blurb": "An $\\infty$-topos is hypercomplete if Whitehead's theorem holds internally: a map inducing iso on all homotopy sheaves is an equivalence. Most naturally occurring $\\infty$-topoi are hypercomplete; pathological non-hypercomplete examples come from infinite Krull dimension."
+          "blurb": "An $\\infty$-topos is hypercomplete if Whitehead's theorem holds internally: a map inducing iso on all homotopy sheaves is an equivalence. Most naturally occurring $\\infty$-topoi are hypercomplete; pathological non-hypercomplete examples come from infinite Krull dimension.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
         },
         {
           "id": "internal-logic-of-infty-topos",
@@ -5826,7 +5869,10 @@ window.__MVConcepts = {
             "tt-higher-inductive-types",
             "tt-univalence"
           ],
-          "blurb": "Every $\\infty$-topos has an internal type theory — Martin-Löf-style with univalent universes and higher inductive types — modeled by the $\\infty$-category itself. This is the connection between $\\infty$-topoi and homotopy type theory (HoTT)."
+          "blurb": "Every $\\infty$-topos has an internal type theory — Martin-Löf-style with univalent universes and higher inductive types — modeled by the $\\infty$-category itself. This is the connection between $\\infty$-topoi and homotopy type theory (HoTT).",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "etale-infty-topos-of-scheme",
