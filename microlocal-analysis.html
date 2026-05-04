@@ -1,0 +1,1071 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Microlocal analysis</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"automorphic-forms-adelic","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"additive-number-theory":{"next":"quadratic-forms-genus-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"advanced-complex-analysis":{"next":"microlocal-analysis","prev":"fixed-point-theorems","section":"Analysis","title":"Advanced complex analysis"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"moduli-spaces","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"mathematics-and-cryptography","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"mostow-rigidity","prev":"k-theory","section":"Geometry & topology","title":"Atiyah–Singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"etale-cohomology","section":"Algebraic geometry","title":"Calabi–Yau manifolds"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-topoi","prev":"infinity-categories","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":null,"prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"deformation-theory":{"next":"etale-cohomology","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"group-cohomology","prev":"homological","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"expanders","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirac-equation":{"next":"quantum-field-theory","prev":"klein-gordon-equation","section":"Mathematical physics","title":"Dirac equation"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"harmonic-analysis-fourier","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":null,"section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":"calabi-yau-manifolds","prev":"deformation-theory","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"deformation-theory","prev":"group-schemes","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":null,"prev":"designs","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"naive-set-theory","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":"advanced-complex-analysis","prev":"variational-methods","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"type-theory-and-hott","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"quantum-groups","prev":"lie-algebras","section":"Algebra & homological","title":"Galois cohomology and Brauer groups"},"galois-representations":{"next":"heights-arithmetic-geometry","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"gauge-theory":{"next":"string-theory","prev":"statistical-mechanics","section":"Mathematical physics","title":"Gauge theory"},"general-relativity":{"next":"schrodinger-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":"groebner-bases","prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"groebner-bases":{"next":null,"prev":"geometric-and-combinatorial-group-theory","section":"Algebra & homological","title":"Gröbner bases"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"lie-algebras","prev":"derived-categories","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"etale-fundamental-group","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"hamiltonians-classical-mechanics":{"next":"general-relativity","prev":"three-body-problem","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"spectral-theory","prev":"partial-differential-equations","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"analytic-number-theory","prev":"galois-representations","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":null,"prev":"mathematical-statistics","section":"Probability & statistics","title":"High dimensional geometry"},"hodge-theory":{"next":null,"prev":"motives","section":"Algebraic geometry","title":"Hodge theory"},"homological":{"next":"derived-categories","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"cocartesian-fibrations","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-topoi"},"information-theory":{"next":"large-deviations","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"stacks","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"ricci-flow","section":"Geometry & topology","title":"K-theory"},"klein-gordon-equation":{"next":"dirac-equation","prev":"special-relativity","section":"Mathematical physics","title":"Klein-Gordon equation"},"knot-polynomials":{"next":"ricci-flow","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Knot polynomials"},"langlands-program":{"next":null,"prev":"vertex-operator-algebras","section":"Modular forms & L-functions","title":"Langlands program"},"large-deviations":{"next":"mathematical-statistics","prev":"information-theory","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"galois-cohomology-and-brauer","prev":"group-cohomology","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"mathematical-statistics":{"next":"high-dimensional-geometry","prev":"large-deviations","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"microlocal-analysis":{"next":null,"prev":"advanced-complex-analysis","section":"Analysis","title":"Microlocal analysis"},"mirror-symmetry":{"next":"resolution-of-singularities","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"model-theory-basics":{"next":"computability-and-decidability","prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"modular-curves","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"algebraic-spaces","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"characteristic-classes","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":null,"prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Mostow rigidity"},"motives":{"next":"hodge-theory","prev":"resolution-of-singularities","section":"Algebraic geometry","title":"Motives"},"naive-set-theory":{"next":"first-order-logic-and-completeness","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"wavelets","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"harmonic-functions","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"stochastic-processes-and-martingales","prev":null,"section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"additive-number-theory","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"additive-number-theory","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"quantum-field-theory":{"next":null,"prev":"dirac-equation","section":"Mathematical physics","title":"Quantum field theory"},"quantum-groups":{"next":"quaternions-octonions-and-division-algebras","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"quantum-groups","section":"Algebra & homological","title":"Quaternions, octonions, and division algebras"},"random-walks-and-mixing":{"next":"information-theory","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":"motives","prev":"mirror-symmetry","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"k-theory","prev":"knot-polynomials","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"characteristic-classes","prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":"statistical-mechanics","prev":"general-relativity","section":"Mathematical physics","title":"Schrödinger equation"},"sheaf-cohomology":{"next":"algebraic-de-rham-cohomology","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"algebraic-curves-higher-genus","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Sobolev spaces & distributions"},"special-relativity":{"next":"klein-gordon-equation","prev":"string-theory","section":"Mathematical physics","title":"Special relativity"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"wavelets","prev":"harmonic-functions","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"intersection-theory-chow","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"statistical-mechanics":{"next":"gauge-theory","prev":"schrodinger-equation","section":"Mathematical physics","title":"Statistical mechanics"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":"probability-theory","section":"Probability & statistics","title":"Stochastic processes and martingales"},"string-theory":{"next":"special-relativity","prev":"gauge-theory","section":"Mathematical physics","title":"String theory"},"symplectic-manifolds":{"next":"knot-polynomials","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"hamiltonians-classical-mechanics","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"type-theory-and-hott":{"next":"forcing-and-independence","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and HoTT"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"fixed-point-theorems","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":"langlands-program","prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"numerical-analysis","prev":"spectral-theory","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"model-theory-basics","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"ZFC and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="analysis" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#wavefront">1&nbsp;The&nbsp;wavefront&nbsp;set:&nbsp;where&nbsp;×&nbsp;in&nbsp;which&nbsp;direction</a>
+  <a href="#pseudo-diff">2&nbsp;Pseudodifferential&nbsp;operators&nbsp;and&nbsp;the&nbsp;symbol&nbsp;calculus</a>
+  <a href="#regularity">3&nbsp;Microlocal&nbsp;regularity&nbsp;and&nbsp;propagation&nbsp;of&nbsp;singularities</a>
+  <a href="#elliptic">4&nbsp;Elliptic&nbsp;regularity&nbsp;via&nbsp;the&nbsp;parametrix</a>
+  <a href="#fio">5&nbsp;Fourier&nbsp;integral&nbsp;operators&nbsp;and&nbsp;Lagrangian&nbsp;distributions</a>
+  <a href="#applications">6&nbsp;Scattering,&nbsp;Radon&nbsp;transforms,&nbsp;and&nbsp;inverse&nbsp;problems</a>
+  <a href="#connections">7&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Microlocal analysis</h1>
+  <p class="sub">Refines the singular support of a distribution from <em>where</em> it fails to be smooth to <em>where × in which direction</em>: the wavefront set lives on $T^*\mathbb{R}^n\setminus 0$, pseudodifferential and Fourier integral operators move it by Hamiltonian flow, and the resulting calculus replaces ad-hoc PDE arguments with one geometric language.</p>
+</section>
+
+<section id="wavefront">
+<h2>1. The wavefront set: where × in which direction</h2>
+
+<p>For a distribution $u\in\mathcal{D}'(\mathbb{R}^n)$ the <strong>singular support</strong> $\mathrm{singsupp}(u)$ records the points $x_0$ near which $u$ fails to be $C^\infty$. Two distributions can have the same singular support yet behave differently along it: the step on $\{x_1=0\}$ and the surface measure on the unit sphere both fail to be smooth on a hypersurface, but their non-smooth content points in different directions in frequency space. <strong>Hörmander's wavefront set</strong> records exactly that direction.</p>
+
+<p>The definition is phase-space localization. Pick a cutoff $\phi\in C^\infty_c(\mathbb{R}^n)$ with $\phi(x_0)\ne 0$. The product $\phi u$ is a compactly supported distribution; its Fourier transform $\widehat{\phi u}(\xi)$ is smooth and tempered. Say $(x_0,\xi_0)$ is a <em>direction of regularity</em> when there exists such a cutoff and an open cone $V\ni\xi_0$ in $\mathbb{R}^n\setminus 0$ on which $\widehat{\phi u}$ decays faster than any polynomial: for every $N$, $|\widehat{\phi u}(\xi)|\le C_N(1+|\xi|)^{-N}$ as $\xi\in V$ goes to infinity. The complement</p>
+
+$$\mathrm{WF}(u) \;=\; \{(x_0,\xi_0)\in T^*\mathbb{R}^n\setminus 0 \;:\; \xi_0\text{ is not a direction of regularity for }u\text{ at }x_0\}$$
+
+<p>is a closed conic subset of $T^*\mathbb{R}^n\setminus 0$. Its projection onto the base is exactly $\mathrm{singsupp}(u)$, but the fiber over each base point — a cone in $\mathbb{R}^n\setminus 0$ — sees direction.</p>
+
+<p>Three diagnostic examples set the geometry:</p>
+
+<ul>
+<li>$u=\delta_0$: $\widehat{\phi\delta_0}=\phi(0)$ is constant, so it has no rapid decay in any direction. $\mathrm{WF}(\delta_0)=\{(0,\xi):\xi\ne 0\}$ — singular at one point, in every direction.</li>
+<li>$u=\mathbf{1}_{x_1>0}$ (Heaviside on a hyperplane): the Fourier transform is concentrated near $\xi_2=\cdots=\xi_n=0$. $\mathrm{WF}(u)$ is the <em>conormal bundle</em> of $\{x_1=0\}$ (the cotangent vectors that annihilate every tangent direction to the hyperplane — here the covectors $\xi\propto e_1$ at every base point on $\{x_1=0\}$); singular only along the hyperplane, only in the direction perpendicular to it.</li>
+<li>$u\in C^\infty(\mathbb{R}^n)$: $\widehat{\phi u}$ is Schwartz everywhere, $\mathrm{WF}(u)=\emptyset$. The wavefront set is empty exactly when $u$ is smooth.</li>
+</ul>
+
+<p>Two structural facts shape the rest of the theory. First, $\mathrm{WF}(u)$ is invariant under multiplication by smooth functions and under linear changes of variable, so it is intrinsic to the manifold setting and lifts to $T^*M\setminus 0$ for $M$ smooth. Second, smoothing is microlocal: a $C^\infty$ kernel can erase $\mathrm{WF}(u)$ at any prescribed cone, and a non-smoothing operator can only <em>shrink</em> the wavefront set, never grow it (the basic inclusion $\mathrm{WF}(Au)\subset\mathrm{WF}(u)$ for any pseudodifferential $A$ in §3).</p>
+
+<div class="widget" id="ml-wf">
+  <div class="hd"><div class="ttl">Wavefront set: where × direction</div><div class="hint">pick a distribution; the right panel plots its WF cone over the singular point</div></div>
+  <div class="row">
+    <label for="ml-wf-pick">distribution:</label>
+    <select id="ml-wf-pick">
+      <option value="delta">δ₀ (point at origin)</option>
+      <option value="dipole">δ′₀ (point dipole)</option>
+      <option value="step">Heaviside on {x=0} (hyperplane jump)</option>
+      <option value="step45">Heaviside on x+y=0 (rotated jump)</option>
+      <option value="corner">step on quadrant (two hyperplanes meet)</option>
+      <option value="invabs">|x|⁻¹ (homogeneous singular at origin)</option>
+      <option value="bump">smooth bump (no singular support)</option>
+    </select>
+  </div>
+  <svg id="ml-wf-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>Wavefront set on the cotangent bundle</title></svg>
+  <div id="ml-wf-out" class="readout"></div>
+</div><script>
+(function(){
+  const svg = document.getElementById('ml-wf-svg');
+  const out = document.getElementById('ml-wf-out');
+  const pick = document.getElementById('ml-wf-pick');
+  function description(kind){
+    if(kind === 'delta') return {
+      sing: '{(0,0)}',
+      cone: 'every ξ ≠ 0',
+      wf: 'WF(δ₀) = {(0,0)} × (ℝ²∖0)',
+      points: [[0,0]],
+      drawCone: (svg, x, y) => drawFullCone(svg, x, y),
+      classify: 'point singularity, isotropic in direction',
+    };
+    if(kind === 'dipole') return {
+      sing: '{(0,0)}',
+      cone: 'every ξ ≠ 0',
+      wf: 'WF(δ′₀) = {(0,0)} × (ℝ²∖0) — same support as δ₀ (differentiation does not narrow the closed-cone Σ_x at a singular point)',
+      points: [[0,0]],
+      drawCone: (svg, x, y) => drawFullCone(svg, x, y),
+      classify: 'point singularity, isotropic — derivatives do not narrow the cone',
+    };
+    if(kind === 'step') return {
+      sing: '{(x,y) : x = 0}',
+      cone: 'ξ ‖ (1,0): horizontal direction only',
+      wf: 'WF(1_{x>0}) = N*{x=0} = {(0,y)} × ℝ·(1,0)',
+      points: [[0,-60],[0,-20],[0,20],[0,60]],
+      drawCone: (svg, x, y) => drawAxialCone(svg, x, y, 0, 0.18),
+      classify: 'codim-1 singularity, conormal direction',
+    };
+    if(kind === 'step45') return {
+      sing: '{(x,y) : x + y = 0}',
+      cone: 'ξ ‖ (1,1): diagonal direction',
+      wf: 'WF(1_{x+y>0}) = N*{x+y=0}, conormal (1,1)/√2',
+      points: [[-50,50],[-20,20],[20,-20],[50,-50]],
+      drawCone: (svg, x, y) => drawAxialCone(svg, x, y, Math.PI/4, 0.18),
+      classify: 'codim-1 singularity along rotated hyperplane',
+    };
+    if(kind === 'corner') return {
+      sing: 'two rays {x=0,y≥0} ∪ {y=0,x≥0}',
+      cone: 'union of two conormals (1,0) and (0,1) along their pieces',
+      wf: 'WF(1_{x>0,y>0}) is the union of the two conormal directions, plus all directions at the corner (0,0)',
+      points: [[0,30],[0,60],[30,0],[60,0],[0,0]],
+      drawCone: (svg, x, y) => {
+        if(x === 0 && y === 0) drawFullCone(svg, x, y);
+        else if(x === 0) drawAxialCone(svg, x, y, 0, 0.16);
+        else drawAxialCone(svg, x, y, Math.PI/2, 0.16);
+      },
+      classify: 'corner: singular support is two rays; corner contributes all directions',
+    };
+    if(kind === 'invabs') return {
+      sing: '{(0,0)}',
+      cone: 'every ξ ≠ 0',
+      wf: 'WF(|x|⁻¹) = {(0,0)} × (ℝ²∖0) — homogeneous distribution, full cone like δ₀',
+      points: [[0,0]],
+      drawCone: (svg, x, y) => drawFullCone(svg, x, y),
+      classify: 'point singularity from homogeneity, not concentration: |x|⁻¹ is integrable away from 0 and singular only there',
+    };
+    return {
+      sing: '∅',
+      cone: 'no directions',
+      wf: 'WF(u) = ∅: u is smooth, every (x,ξ) is a direction of regularity',
+      points: [],
+      drawCone: () => {},
+      classify: 'smooth — no microlocal singularities',
+    };
+  }
+  function drawFullCone(svg, x, y){
+    for(let k = 0; k < 16; k++){
+      const a = k * 2 * Math.PI / 16;
+      const dx = Math.cos(a) * 90, dy = Math.sin(a) * 90;
+      svg.appendChild(SVG('line',{x1:x,y1:y,x2:x+dx,y2:y+dy,stroke:'var(--pink)','stroke-width':1.0,opacity:0.6}));
+    }
+  }
+  function drawAxialCone(svg, x, y, theta, halfAngle){
+    for(const sgn of [1, -1]){
+      const ax = sgn * Math.cos(theta);
+      const ay = sgn * Math.sin(theta);
+      const px = -ay, py = ax;
+      const len = 90;
+      const pts = [];
+      for(let s = -1; s <= 1; s += 0.1){
+        const ux = ax + px * Math.tan(halfAngle) * s;
+        const uy = ay + py * Math.tan(halfAngle) * s;
+        const L = Math.hypot(ux, uy) || 1;
+        pts.push([x + ux/L * len, y + uy/L * len]);
+      }
+      const polyD = `M ${x} ${y} ${pts.map(p => `L ${p[0]} ${p[1]}`).join(' ')} Z`;
+      svg.appendChild(SVG('path',{d:polyD,fill:'var(--pink)',opacity:0.18,stroke:'var(--pink)','stroke-width':1.0}));
+    }
+  }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const kind = pick.value;
+    const d = description(kind);
+    const xLeftCenter = -120, xRightCenter = 120;
+    svg.appendChild(SVG('rect',{x:xLeftCenter-110,y:-110,width:220,height:220,fill:'transparent',stroke:'var(--line)','stroke-width':0.8,'stroke-dasharray':'3 4'}));
+    svg.appendChild(SVG('rect',{x:xRightCenter-110,y:-110,width:220,height:220,fill:'transparent',stroke:'var(--line)','stroke-width':0.8,'stroke-dasharray':'3 4'}));
+    const titleL = SVG('text',{x:xLeftCenter,y:-126,'text-anchor':'middle','font-size':12,fill:'var(--cyan)','font-weight':600}); titleL.textContent='physical space (singsupp)'; svg.appendChild(titleL);
+    const titleR = SVG('text',{x:xRightCenter,y:-126,'text-anchor':'middle','font-size':12,fill:'var(--pink)','font-weight':600}); titleR.textContent='cotangent fiber over each x (WF directions)'; svg.appendChild(titleR);
+    svg.appendChild(SVG('line',{x1:xLeftCenter-100,y1:0,x2:xLeftCenter+100,y2:0,stroke:'var(--mute)','stroke-width':0.6,'stroke-dasharray':'2 3'}));
+    svg.appendChild(SVG('line',{x1:xLeftCenter,y1:-100,x2:xLeftCenter,y2:100,stroke:'var(--mute)','stroke-width':0.6,'stroke-dasharray':'2 3'}));
+    svg.appendChild(SVG('line',{x1:xRightCenter-100,y1:0,x2:xRightCenter+100,y2:0,stroke:'var(--mute)','stroke-width':0.6,'stroke-dasharray':'2 3'}));
+    svg.appendChild(SVG('line',{x1:xRightCenter,y1:-100,x2:xRightCenter,y2:100,stroke:'var(--mute)','stroke-width':0.6,'stroke-dasharray':'2 3'}));
+    if(kind === 'step' || kind === 'step45' || kind === 'corner'){
+      if(kind === 'step') svg.appendChild(SVG('line',{x1:xLeftCenter,y1:-100,x2:xLeftCenter,y2:100,stroke:'var(--cyan)','stroke-width':2.4}));
+      if(kind === 'step45') svg.appendChild(SVG('line',{x1:xLeftCenter-90,y1:90,x2:xLeftCenter+90,y2:-90,stroke:'var(--cyan)','stroke-width':2.4}));
+      if(kind === 'corner'){
+        svg.appendChild(SVG('line',{x1:xLeftCenter,y1:0,x2:xLeftCenter,y2:-100,stroke:'var(--cyan)','stroke-width':2.4}));
+        svg.appendChild(SVG('line',{x1:xLeftCenter,y1:0,x2:xLeftCenter+100,y2:0,stroke:'var(--cyan)','stroke-width':2.4}));
+      }
+    }
+    for(const [px, py] of d.points){
+      svg.appendChild(SVG('circle',{cx:xLeftCenter+px,cy:-py,r:3.5,fill:'var(--cyan)',stroke:'var(--bg)','stroke-width':0.8}));
+    }
+    if(kind === 'delta' || kind === 'dipole' || kind === 'invabs'){
+      svg.appendChild(SVG('circle',{cx:xLeftCenter,cy:0,r:5,fill:'var(--cyan)',stroke:'var(--bg)','stroke-width':1.0}));
+    }
+    if(kind === 'bump'){
+      const bump = SVG('circle',{cx:xLeftCenter,cy:0,r:55,fill:'var(--green)',opacity:0.18,stroke:'var(--green)','stroke-width':1.2});
+      svg.appendChild(bump);
+      const t = SVG('text',{x:xLeftCenter,y:5,'text-anchor':'middle','font-size':10,fill:'var(--green)'}); t.textContent='smooth'; svg.appendChild(t);
+    }
+    d.drawCone(svg, xRightCenter, 0);
+    const lblOrigin = SVG('text',{x:xRightCenter+5,y:-4,'text-anchor':'start','font-size':9,fill:'var(--mute)'}); lblOrigin.textContent='ξ=0 (excluded)'; svg.appendChild(lblOrigin);
+    out.textContent = `Distribution: ${pick.options[pick.selectedIndex].text}\nSingular support: ${d.sing}\nWavefront cone over each singular point: ${d.cone}\n${d.wf}\n${d.classify}`;
+  }
+  pick.addEventListener('change', draw);
+  draw();
+})();
+</script>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./harmonic-analysis-fourier.html#schwartz">Schwartz space and tempered distributions</a></li>
+    <li><a href="./sobolev-spaces-distributions.html#test-functions">Test functions and the space of distributions</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./microlocal-analysis.html#regularity">Microlocal analysis</a> · Microlocal regularity and propagation of singularities</div>
+    <div><a href="./microlocal-analysis.html#pseudo-diff">Microlocal analysis</a> · Pseudodifferential operators and the symbol calculus</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="ml-wavefront"></div>
+</section>
+
+<section id="pseudo-diff">
+<h2>2. Pseudodifferential operators and the symbol calculus</h2>
+
+<p>A linear differential operator $P=\sum_{|\alpha|\le m} a_\alpha(x)D^\alpha$, with $D^\alpha=(-i\partial)^\alpha$, can be rewritten via the Fourier inversion formula as</p>
+
+$$Pu(x) \;=\; \frac{1}{(2\pi)^n}\int e^{ix\cdot\xi}\,p(x,\xi)\,\hat u(\xi)\,d\xi,\qquad p(x,\xi)\;=\;\sum_{|\alpha|\le m} a_\alpha(x)\,\xi^\alpha.$$
+
+<p>The function $p(x,\xi)$ is a polynomial of degree $m$ in $\xi$ — the <em>full symbol</em> of $P$. <strong>Pseudodifferential operators</strong> (ΨDOs) generalize this construction to arbitrary symbols: the Hörmander class $S^m$ (with $m\in\mathbb{R}$) consists of $C^\infty$ functions $p(x,\xi)$ on $\mathbb{R}^n\times\mathbb{R}^n$ satisfying the symbol estimates</p>
+
+$$\bigl|\,\partial^\alpha_x\,\partial^\beta_\xi\, p(x,\xi)\,\bigr| \;\le\; C_{\alpha\beta}\,(1+|\xi|)^{m-|\beta|}\qquad\text{for all multi-indices }\alpha,\beta.$$
+
+<p>Each $\xi$-derivative drops the order by one; differentiating in $x$ does not. A symbol is <strong>classical</strong> if it admits an asymptotic expansion $p\sim p_m + p_{m-1}+\cdots$ where $p_{m-j}\in S^{m-j}$ is positively homogeneous of degree $m-j$ in $\xi$ for $|\xi|$ large. The leading term $p_m$ is the <strong>principal symbol</strong>; it transforms as a function on $T^*\mathbb{R}^n$ under coordinate changes (the lower-order pieces depend on the choice of quantization — Egorov's theorem, an FIO-conjugation statement, gives the correction terms when needed).</p>
+
+<p>The basic calculus runs on three rules. <strong>Composition</strong>: if $P\in\Psi^{m_1}$ and $Q\in\Psi^{m_2}$ then $PQ\in\Psi^{m_1+m_2}$ with principal symbol $p_{m_1}q_{m_2}$ (full symbol $p\#q$ given by the asymptotic expansion $p\#q\sim\sum_\alpha (i^{|\alpha|}/\alpha!)\,\partial^\alpha_\xi p\,\partial^\alpha_x q$, with each successive term landing one order lower). <strong>Adjoint</strong>: $P^*\in\Psi^m$ with principal symbol $\overline{p_m}$. <strong>Mapping</strong>: every $P\in\Psi^m$ is bounded $H^s\to H^{s-m}$ for every $s$, where $H^s$ is the $L^2$-Sobolev scale. Differential operators have polynomial symbols and trivially satisfy the estimates; the larger ΨDO class is closed under inversion modulo smoothing (a symbol that is invertible at infinity admits an asymptotic inverse), which is what makes <em>parametrices</em> possible.</p>
+
+<div class="widget" id="ml-symbol">
+  <div class="hd"><div class="ttl">Symbol estimates and composition</div><div class="hint">slide order m; compose two symbols; principal symbol multiplies, lower-order remainder appears</div></div>
+  <div class="row">
+    <label for="ml-sym-m1">order $m_1$:</label>
+    <input id="ml-sym-m1" type="range" min="-2" max="3" step="1" value="2">
+    <span id="ml-sym-m1-out" class="small"></span>
+  </div>
+  <div class="row">
+    <label for="ml-sym-m2">order $m_2$:</label>
+    <input id="ml-sym-m2" type="range" min="-2" max="3" step="1" value="-1">
+    <span id="ml-sym-m2-out" class="small"></span>
+  </div>
+  <div class="row">
+    <button id="ml-sym-classical" class="active">homogeneous (admits expansion $p\sim p_m+p_{m-1}+\cdots$)</button>
+    <button id="ml-sym-noncl">oscillatory perturbation (still in $S^m_{1,0}$)</button>
+  </div>
+  <svg id="ml-sym-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>Symbol-class decay and composition</title></svg>
+  <div id="ml-sym-out" class="readout"></div>
+</div><script>
+(function(){
+  const svg = document.getElementById('ml-sym-svg');
+  const out = document.getElementById('ml-sym-out');
+  const m1S = document.getElementById('ml-sym-m1');
+  const m1O = document.getElementById('ml-sym-m1-out');
+  const m2S = document.getElementById('ml-sym-m2');
+  const m2O = document.getElementById('ml-sym-m2-out');
+  const bC = document.getElementById('ml-sym-classical');
+  const bN = document.getElementById('ml-sym-noncl');
+  let mode = 'classical';
+  function setC(){ mode='classical'; bC.classList.add('active'); bN.classList.remove('active'); draw(); }
+  function setN(){ mode='noncl'; bN.classList.add('active'); bC.classList.remove('active'); draw(); }
+  function p(xi, m){
+    if(mode === 'classical') return Math.pow(1+xi*xi, m/2);
+    return Math.pow(1+xi*xi, m/2) * (1 + 0.25*Math.sin(0.6*xi));
+  }
+  function pPrime(xi, m){
+    const eps = 1e-3;
+    return (p(xi+eps, m) - p(xi-eps, m)) / (2*eps);
+  }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const m1 = +m1S.value;
+    const m2 = +m2S.value;
+    m1O.textContent = `m₁ = ${m1}`;
+    m2O.textContent = `m₂ = ${m2}`;
+    const W = 480, H = 220, x0 = -W/2 + 30, y0 = -H/2 + 20;
+    const xMax = x0 + W - 60, yMax = y0 + H - 50;
+    svg.appendChild(SVG('line',{x1:x0,y1:yMax,x2:xMax,y2:yMax,stroke:'var(--mute)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x0,y2:yMax,stroke:'var(--mute)','stroke-width':1}));
+    const xiMax = 20;
+    const yScale = 60;
+    const X = xi => x0 + (xi/xiMax) * (xMax - x0);
+    const Y = v => yMax - Math.max(-3, Math.min(3, Math.log10(Math.max(1e-4, v)))) * 18 - 30;
+    function curve(m, color, dash){
+      let d = '';
+      for(let xi = 0.5; xi <= xiMax; xi += 0.2){
+        const v = p(xi, m);
+        const x = X(xi), y = Y(v);
+        d += (d ? 'L' : 'M') + ` ${x.toFixed(1)} ${y.toFixed(1)} `;
+      }
+      const path = SVG('path',{d,fill:'none',stroke:color,'stroke-width':1.6});
+      if(dash) path.setAttribute('stroke-dasharray', dash);
+      svg.appendChild(path);
+    }
+    curve(m1, 'var(--cyan)', null);
+    curve(m2, 'var(--violet)', null);
+    curve(m1+m2, 'var(--yellow)', '4 3');
+    for(let l = 0; l <= xiMax; l += 5){
+      const x = X(l);
+      svg.appendChild(SVG('line',{x1:x,y1:yMax,x2:x,y2:yMax+4,stroke:'var(--mute)'}));
+      const t = SVG('text',{x,y:yMax+16,'text-anchor':'middle','font-size':10,fill:'var(--mute)'}); t.textContent = `${l}`; svg.appendChild(t);
+    }
+    const lblX = SVG('text',{x:(x0+xMax)/2,y:yMax+34,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); lblX.textContent='|ξ|'; svg.appendChild(lblX);
+    const lblY = SVG('text',{x:x0-26,y:(y0+yMax)/2,'text-anchor':'middle','font-size':11,fill:'var(--mute)','transform':`rotate(-90 ${x0-26} ${(y0+yMax)/2})`}); lblY.textContent='log₁₀ |p(ξ)|'; svg.appendChild(lblY);
+    const lblP1 = SVG('text',{x:xMax-8,y:Y(p(xiMax,m1))-4,'text-anchor':'end','font-size':11,fill:'var(--cyan)'}); lblP1.textContent=`p₁ ∈ S^{${m1}}`; svg.appendChild(lblP1);
+    const lblP2 = SVG('text',{x:xMax-8,y:Y(p(xiMax,m2))-4,'text-anchor':'end','font-size':11,fill:'var(--violet)'}); lblP2.textContent=`p₂ ∈ S^{${m2}}`; svg.appendChild(lblP2);
+    const lblP3 = SVG('text',{x:xMax-8,y:Y(p(xiMax,m1+m2))-4,'text-anchor':'end','font-size':11,fill:'var(--yellow)'}); lblP3.textContent=`P₁P₂: principal ∈ S^{${m1+m2}}`; svg.appendChild(lblP3);
+    const remL = SVG('text',{x:0,y:-130,'text-anchor':'middle','font-size':11,fill:'var(--ink)'});
+    const remT = m1+m2-1;
+    remL.textContent = `Composition: σ(P₁P₂) = p₁ p₂ in S^{${m1+m2}}, with lower-order remainder in S^{${remT}} from the i ∂_ξ p₁ · ∂_x p₂ term.`;
+    svg.appendChild(remL);
+    const sampleXi = 10;
+    const v1 = p(sampleXi, m1);
+    const v2 = p(sampleXi, m2);
+    const dv1 = pPrime(sampleXi, m1);
+    const expectedDecay = Math.pow(1+sampleXi*sampleXi, (m1-1)/2);
+    const ratio = Math.abs(dv1) / (expectedDecay || 1);
+    out.textContent = `Symbol class S^{${m1}}: at |ξ|=${sampleXi}, |p₁| ≈ ${v1.toFixed(3)}; ξ-derivative |∂_ξ p₁| ≈ ${Math.abs(dv1).toFixed(3)}, growth rate (1+|ξ|)^{${m1-1}} ≈ ${expectedDecay.toFixed(3)} so the implicit constant C₁ ≈ ${ratio.toFixed(2)} (estimate: |∂^β_ξ p| ≤ C_β(1+|ξ|)^{m-|β|}, each ∂_ξ drops one order).
+Composition: P₁ ∈ Ψ^{${m1}}, P₂ ∈ Ψ^{${m2}} ⇒ P₁P₂ ∈ Ψ^{${m1+m2}}. Principal symbol multiplies; the i ∂_ξ p₁ ∂_x p₂ correction lives one order down in S^{${remT}}.
+Mapping: P₁: H^s → H^{s-${m1}}; P₂: H^s → H^{s-${m2}}. Smoothing operators (m → -∞) are exactly those mapping every H^s into C^∞.`;
+  }
+  m1S.addEventListener('input', draw);
+  m2S.addEventListener('input', draw);
+  bC.addEventListener('click', setC);
+  bN.addEventListener('click', setN);
+  draw();
+})();
+</script>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./harmonic-analysis-fourier.html#fourier-transform">Fourier transform on $\mathbb{R}$</a></li>
+    <li><a href="./sobolev-spaces-distributions.html#sobolev">Sobolev spaces $W^{k,p}$ and $H^s$</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./microlocal-analysis.html#elliptic">Microlocal analysis</a> · Elliptic regularity via the parametrix</div>
+    <div><a href="./microlocal-analysis.html#fio">Microlocal analysis</a> · Fourier integral operators and Lagrangian distributions</div>
+    <div><a href="./microlocal-analysis.html#regularity">Microlocal analysis</a> · Microlocal regularity and propagation of singularities</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="ml-pseudo-diff-ops"></div>
+</section>
+
+<section id="regularity">
+<h2>3. Microlocal regularity and propagation of singularities</h2>
+
+<p>Pseudodifferential operators interact with the wavefront set in two complementary ways. The trivial direction is the <strong>microlocal pseudo-locality</strong> bound</p>
+
+$$\mathrm{WF}(Pu) \;\subset\; \mathrm{WF}(u),$$
+
+<p>which is true for every $P\in\Psi^m$: a ΨDO can shrink the wavefront set (smooth out singularities) but never grow new ones. The non-trivial direction needs ellipticity. Define the <em>characteristic variety</em> and <em>elliptic set</em> of $P$ inside $T^*\mathbb{R}^n\setminus 0$ (the cotangent bundle with the zero section removed, so $p_m$'s vanishing on $\xi=0$ doesn't trivially fill Char):</p>
+
+$$\mathrm{Char}(P) \;=\; \{(x,\xi)\in T^*\mathbb{R}^n\setminus 0\,:\, p_m(x,\xi)=0\},\qquad \mathrm{Ell}(P) \;=\; (T^*\mathbb{R}^n\setminus 0)\setminus \mathrm{Char}(P).$$
+
+<p>Microlocal elliptic regularity says $\mathrm{WF}(u)\cap\mathrm{Ell}(P)\subset\mathrm{WF}(Pu)$: at any point where $P$ is invertible at top order, $u$ inherits the smoothness of $Pu$. Equivalently, $\mathrm{WF}(u)\setminus\mathrm{WF}(Pu)\subset\mathrm{Char}(P)$ — singularities of $u$ that survive applying $P$ must live on the characteristic variety.</p>
+
+<p>The deep statement, <strong>Hörmander's propagation theorem</strong>, governs how those characteristic singularities move. The principal symbol $p_m$ is a function on $T^*\mathbb{R}^n$; its Hamiltonian vector field is</p>
+
+$$X_{p_m} \;=\; \sum_j\Bigl(\frac{\partial p_m}{\partial\xi_j}\partial_{x_j} - \frac{\partial p_m}{\partial x_j}\partial_{\xi_j}\Bigr),$$
+
+<p>and the integral curves of $X_{p_m}$ inside $\mathrm{Char}(P)$ are the <strong>null bicharacteristics</strong>. The theorem: if $p_m$ is real, the set $\mathrm{WF}(u)\setminus\mathrm{WF}(Pu)$ is invariant under the bicharacteristic flow inside $\mathrm{Char}(P)$. Singularities of solutions of $Pu=f$ propagate along null bicharacteristics.</p>
+
+<p>The wave operator $\Box=-\partial_t^2+\Delta_x$ has principal symbol $p_2(t,x;\tau,\xi)=-\tau^2+|\xi|^2$. Its characteristic variety $\{\tau^2=|\xi|^2\}$ is the light cone in cotangent fibers, and the bicharacteristics project to null geodesics in spacetime — light rays. So Hörmander's theorem is the rigorous content of "wave fronts travel at the speed of light": a sharp edge in the initial data propagates exactly along the null geodesic launched in its conormal direction. The singular-support drawing one would draw with d'Alembert's formula coincides with the projection of the wavefront set under this flow.</p>
+
+<div class="widget" id="ml-prop">
+  <div class="hd"><div class="ttl">Singularity propagation by null bicharacteristic flow</div><div class="hint">slide t; the conormal of the initial edge propagates along light rays</div></div>
+  <div class="row">
+    <label for="ml-prop-t">time $t$:</label>
+    <input id="ml-prop-t" type="range" min="0" max="3" step="0.05" value="1.0">
+    <span id="ml-prop-t-out" class="small"></span>
+  </div>
+  <div class="row">
+    <button id="ml-prop-pt" class="active">point initial datum (δ at origin)</button>
+    <button id="ml-prop-edge">straight-edge initial datum</button>
+  </div>
+  <div class="row">
+    <button id="ml-prop-singvswf">show singular support vs wavefront</button>
+  </div>
+  <svg id="ml-prop-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>Wavefront propagation along light rays</title></svg>
+  <div id="ml-prop-out" class="readout"></div>
+</div><script>
+(function(){
+  const svg = document.getElementById('ml-prop-svg');
+  const out = document.getElementById('ml-prop-out');
+  const tS = document.getElementById('ml-prop-t');
+  const tO = document.getElementById('ml-prop-t-out');
+  const bPt = document.getElementById('ml-prop-pt');
+  const bEdge = document.getElementById('ml-prop-edge');
+  const bSvW = document.getElementById('ml-prop-singvswf');
+  let kind = 'pt';
+  let showSing = false;
+  function toggleSvW(){ showSing = !showSing; bSvW.classList.toggle('active', showSing); draw(); }
+  function setPt(){ kind='pt'; bPt.classList.add('active'); bEdge.classList.remove('active'); draw(); }
+  function setEdge(){ kind='edge'; bEdge.classList.add('active'); bPt.classList.remove('active'); draw(); }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const t = +tS.value;
+    tO.textContent = `t = ${t.toFixed(2)}`;
+    const cx = 0, cy = 10;
+    const scale = 70;
+    svg.appendChild(SVG('rect',{x:cx-150,y:cy-110,width:300,height:200,fill:'transparent',stroke:'var(--line)','stroke-width':0.8}));
+    svg.appendChild(SVG('line',{x1:cx-150,y1:cy,x2:cx+150,y2:cy,stroke:'var(--mute)','stroke-width':0.6,'stroke-dasharray':'2 3'}));
+    svg.appendChild(SVG('line',{x1:cx,y1:cy-100,x2:cx,y2:cy+100,stroke:'var(--mute)','stroke-width':0.6,'stroke-dasharray':'2 3'}));
+    const lblX = SVG('text',{x:cx+148,y:cy+12,'text-anchor':'end','font-size':10,fill:'var(--mute)'}); lblX.textContent='x'; svg.appendChild(lblX);
+    const lblY = SVG('text',{x:cx-10,y:cy-100,'text-anchor':'end','font-size':10,fill:'var(--mute)'}); lblY.textContent='y'; svg.appendChild(lblY);
+    if(kind === 'pt'){
+      svg.appendChild(SVG('circle',{cx,cy,r:t*scale,fill:'transparent',stroke:'var(--cyan)','stroke-width':2.0}));
+      const N = 12;
+      for(let k = 0; k < N; k++){
+        const a = (k + 0.5) * 2 * Math.PI / N;
+        const x1 = cx + Math.cos(a) * t * scale;
+        const y1 = cy + Math.sin(a) * t * scale;
+        const x2 = cx + Math.cos(a) * (t + 0.18) * scale;
+        const y2 = cy + Math.sin(a) * (t + 0.18) * scale;
+        svg.appendChild(SVG('line',{x1,y1,x2,y2,stroke:'var(--pink)','stroke-width':1.2}));
+      }
+      svg.appendChild(SVG('circle',{cx,cy,r:3.5,fill:'var(--yellow)'}));
+      if(showSing){
+        svg.appendChild(SVG('circle',{cx,cy,r:t*scale,fill:'var(--green)','stroke':'var(--green)','stroke-width':1.0,opacity:0.18}));
+      }
+      const tt = SVG('text',{x:0,y:-128,'text-anchor':'middle','font-size':11,fill:'var(--ink)'});
+      tt.textContent = showSing
+        ? `Singular support (green shaded ring/disk) is just "where u is non-smooth"; the wavefront set (pink arrows) refines this to where × in which direction. Both project to the same circle |x| = t — but only the WF picture exposes that the conormal points radially outward.`
+        : `Initial WF(δ₀) = {(0,0)} × (ℝ²∖0). After flow time t, WF(u_t) sits on the circle |x| = t with conormal pointing radially outward — exactly the cone tips of the spacetime light cone projected to spatial slice {t = const}.`;
+      svg.appendChild(tt);
+    } else {
+      const xEdge = -50 + t * 70;
+      svg.appendChild(SVG('line',{x1:cx+xEdge,y1:cy-90,x2:cx+xEdge,y2:cy+90,stroke:'var(--cyan)','stroke-width':2.4}));
+      for(let k = -3; k <= 3; k++){
+        const py = cy + k * 24;
+        svg.appendChild(SVG('line',{x1:cx+xEdge,y1:py,x2:cx+xEdge+22,y2:py,stroke:'var(--pink)','stroke-width':1.4}));
+      }
+      const xEdgeL = -50 - t * 70;
+      svg.appendChild(SVG('line',{x1:cx+xEdgeL,y1:cy-90,x2:cx+xEdgeL,y2:cy+90,stroke:'var(--cyan)','stroke-width':2.0,opacity:0.55}));
+      for(let k = -3; k <= 3; k++){
+        const py = cy + k * 24;
+        svg.appendChild(SVG('line',{x1:cx+xEdgeL,y1:py,x2:cx+xEdgeL-22,y2:py,stroke:'var(--pink)','stroke-width':1.2,opacity:0.55}));
+      }
+      if(showSing){
+        svg.appendChild(SVG('rect',{x:cx+xEdge-2,y:cy-90,width:4,height:180,fill:'var(--green)',opacity:0.35}));
+        svg.appendChild(SVG('rect',{x:cx+xEdgeL-2,y:cy-90,width:4,height:180,fill:'var(--green)',opacity:0.35}));
+      }
+      const tt = SVG('text',{x:0,y:-128,'text-anchor':'middle','font-size':11,fill:'var(--ink)'});
+      tt.textContent = showSing
+        ? `Singular support (green stripes) marks the two propagating jump locations — "where" only. The pink arrows (wavefront) record the conormal direction, which stays parallel to (1,0) in both pulses: the FIO transports both base point and direction.`
+        : `Initial WF on hyperplane {x = -50}, conormal ξ ‖ (1,0). d'Alembert splits into two pulses moving ±x with conormal preserved: bicharacteristic-flow image of the original WF cone.`;
+      svg.appendChild(tt);
+    }
+    out.textContent = `t = ${t.toFixed(2)}    initial datum: ${kind === 'pt' ? 'δ₀ — singular at origin in every direction' : 'edge on hyperplane x = -50, conormal (1,0)'}    Solving □u = 0 with this initial Cauchy data: WF(u_t) is the bicharacteristic-flow image of the initial WF. Edges propagate as conormal+1 sheets travelling at speed 1; the spatial trace at time t is exactly the wavefront drawn here. Hörmander's theorem makes this rigorous, replacing d'Alembert's geometric picture in 1D with a sharp statement on T*ℝⁿ.`;
+  }
+  tS.addEventListener('input', draw);
+  bPt.addEventListener('click', setPt);
+  bEdge.addEventListener('click', setEdge);
+  bSvW.addEventListener('click', toggleSvW);
+  draw();
+})();
+</script>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./symplectic-manifolds.html#hamiltonian">Hamiltonian vector fields and flows</a></li>
+    <li><a href="./partial-differential-equations.html#wave">Wave equation and d'Alembert</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./microlocal-analysis.html#applications">Microlocal analysis</a> · Scattering, Radon transforms, and inverse problems</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="ml-microlocal-regularity"></div>
+</section>
+
+<section id="elliptic">
+<h2>4. Elliptic regularity via the parametrix</h2>
+
+<p>An operator $P\in\Psi^m$ is <strong>elliptic at $(x_0,\xi_0)$</strong> when $p_m(x_0,\xi_0)\ne 0$; <em>uniformly elliptic on $\Omega$</em> when this holds for every $(x_0,\xi_0)\in T^*\Omega\setminus 0$. The Laplacian's principal symbol is $p_2(x,\xi)=-|\xi|^2$, so $-\Delta$ is uniformly elliptic on every open set: $|\xi|^2$ vanishes only on the zero section, which we have already excluded.</p>
+
+<p>The parametrix construction is the workhorse. If $P$ is elliptic with principal symbol $p_m\ne 0$, one builds a ΨDO $Q\in\Psi^{-m}$ — the <em>parametrix</em> — whose principal symbol is $1/p_m$, by extending $1/p_m$ smoothly off the zero section and inverting order-by-order using the composition expansion. The parametrix satisfies</p>
+
+$$QP \;=\; I + R_1,\qquad PQ \;=\; I + R_2,$$
+
+<p>where $R_1,R_2\in\Psi^{-\infty}$ are <em>smoothing</em> operators. Smoothing operators map $H^s\to C^\infty$ for every $s$ — they have $C^\infty$ Schwartz kernel, equivalently their symbols are Schwartz in $\xi$.</p>
+
+<p>From $Pu=f$ multiply by $Q$: $u + R_1 u = Q f$, hence $u=Qf - R_1 u$. The right-hand side is as smooth as the data: $Qf\in H^{s+m}$ when $f\in H^s$ (because $Q\in\Psi^{-m}$), and $R_1 u\in C^\infty$. Iterating ($R_1$ of $R_1 u$ is also smoothing, but already $C^\infty$) gives the <strong>elliptic regularity theorem</strong>:</p>
+
+$$f\in H^s_{\mathrm{loc}}\;\Longrightarrow\; u\in H^{s+m}_{\mathrm{loc}}.$$
+
+<p>For $-\Delta u=f$ this is the classical statement $f\in H^s\Rightarrow u\in H^{s+2}$. Microlocally: $\mathrm{WF}(u)=\mathrm{WF}(Pu)$ on the elliptic set. Where $P$ is non-elliptic — e.g. on the characteristic variety $\tau^2=|\xi|^2$ of the wave operator — the parametrix breaks down and singularities can survive: that is what makes hyperbolic problems propagate signals while elliptic problems trap singularities at sources. The parametrix is also the launching point for index theory: $P:H^s\to H^{s-m}$ is Fredholm exactly on the symbol level, and $\mathrm{ind}(P)$ is computable from $p_m$ via Atiyah-Singer.</p>
+
+<div class="widget" id="ml-elliptic">
+  <div class="hd"><div class="ttl">Bootstrap from parametrix: gain $m$ derivatives where $P$ is elliptic</div><div class="hint">slide source smoothness s; click character to test elliptic vs characteristic point</div></div>
+  <div class="row">
+    <label for="ml-ell-s">source smoothness $s$ (so $f \in H^s$):</label>
+    <input id="ml-ell-s" type="range" min="-2" max="6" step="0.5" value="1.0">
+    <span id="ml-ell-s-out" class="small"></span>
+  </div>
+  <div class="row">
+    <label for="ml-ell-m">order $m$ of $P$:</label>
+    <input id="ml-ell-m" type="range" min="1" max="4" step="1" value="2">
+    <span id="ml-ell-m-out" class="small"></span>
+  </div>
+  <div class="row">
+    <button id="ml-ell-elliptic" class="active">elliptic point: $p_m \ne 0$</button>
+    <button id="ml-ell-char">characteristic point: $p_m = 0$</button>
+  </div>
+  <svg id="ml-ell-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>Parametrix bootstrap on Sobolev scale</title></svg>
+  <div id="ml-ell-out" class="readout"></div>
+</div><script>
+(function(){
+  const svg = document.getElementById('ml-ell-svg');
+  const out = document.getElementById('ml-ell-out');
+  const sS = document.getElementById('ml-ell-s');
+  const sO = document.getElementById('ml-ell-s-out');
+  const mS = document.getElementById('ml-ell-m');
+  const mO = document.getElementById('ml-ell-m-out');
+  const bE = document.getElementById('ml-ell-elliptic');
+  const bC = document.getElementById('ml-ell-char');
+  let elliptic = true;
+  function setE(){ elliptic = true; bE.classList.add('active'); bC.classList.remove('active'); draw(); }
+  function setC(){ elliptic = false; bC.classList.add('active'); bE.classList.remove('active'); draw(); }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const s = +sS.value, m = +mS.value;
+    sO.textContent = `s = ${s.toFixed(1)}`;
+    mO.textContent = `m = ${m}`;
+    const W = 480, x0 = -W/2 + 30;
+    const xMax = x0 + W - 60;
+    const yMid = 30;
+    svg.appendChild(SVG('line',{x1:x0,y1:yMid,x2:xMax,y2:yMid,stroke:'var(--mute)','stroke-width':1}));
+    const sMin = -3, sMax = 9;
+    const X = sv => x0 + ((sv - sMin)/(sMax - sMin)) * (xMax - x0);
+    for(let l = sMin; l <= sMax; l++){
+      const x = X(l);
+      svg.appendChild(SVG('line',{x1:x,y1:yMid-4,x2:x,y2:yMid+4,stroke:'var(--mute)','stroke-width':0.8}));
+      const t = SVG('text',{x,y:yMid+18,'text-anchor':'middle','font-size':10,fill:'var(--mute)'}); t.textContent = `${l}`; svg.appendChild(t);
+    }
+    const lblScale = SVG('text',{x:(x0+xMax)/2,y:yMid+38,'text-anchor':'middle','font-size':11,fill:'var(--mute)'}); lblScale.textContent='Sobolev exponent (regularity gained →)'; svg.appendChild(lblScale);
+    const fX = X(s);
+    svg.appendChild(SVG('circle',{cx:fX,cy:yMid,r:5,fill:'var(--cyan)'}));
+    const fLbl = SVG('text',{x:fX,y:yMid-12,'text-anchor':'middle','font-size':11,fill:'var(--cyan)','font-weight':600}); fLbl.textContent = `f ∈ H^{${s.toFixed(1)}}`; svg.appendChild(fLbl);
+    if(elliptic){
+      const uX = X(s + m);
+      svg.appendChild(SVG('circle',{cx:uX,cy:yMid,r:6,fill:'var(--yellow)'}));
+      const uLbl = SVG('text',{x:uX,y:yMid-12,'text-anchor':'middle','font-size':11,fill:'var(--yellow)','font-weight':600}); uLbl.textContent = `u ∈ H^{${(s+m).toFixed(1)}}`; svg.appendChild(uLbl);
+      drawArrow(svg, [fX+6, yMid-30], [uX-6, yMid-30], { color:'var(--green)', curve:-12, label:`+${m}`, markerId:'ml-ell-arr-1', width:1.6 });
+      const noteT = SVG('text',{x:0,y:-128,'text-anchor':'middle','font-size':12,fill:'var(--green)','font-weight':600}); noteT.textContent='Elliptic at (x₀,ξ₀): parametrix Q ∈ Ψ^{−m} maps H^s → H^{s+m}'; svg.appendChild(noteT);
+    } else {
+      const uX = X(s);
+      svg.appendChild(SVG('circle',{cx:uX,cy:yMid+22,r:6,fill:'var(--pink)'}));
+      const uLbl = SVG('text',{x:uX,y:yMid+44,'text-anchor':'middle','font-size':11,fill:'var(--pink)','font-weight':600}); uLbl.textContent = `u ∈ H^{${s.toFixed(1)}} locally — gain only via bicharacteristic propagation`; svg.appendChild(uLbl);
+      const noteT = SVG('text',{x:0,y:-128,'text-anchor':'middle','font-size':12,fill:'var(--pink)','font-weight':600}); noteT.textContent='Characteristic point: p_m = 0, parametrix breaks; singularities propagate, do not bootstrap'; svg.appendChild(noteT);
+    }
+    const eqT = SVG('text',{x:0,y:-100,'text-anchor':'middle','font-size':11,fill:'var(--ink)'});
+    eqT.textContent = elliptic
+      ? `Pu = f, Q parametrix: u = Qf − R₁u, R₁ smoothing. ⇒ u ∈ H^{s+m} = H^{${(s+m).toFixed(1)}} locally where P is elliptic.`
+      : `Pu = f at (x₀,ξ₀) ∈ Char(P): no parametrix-style ${m}-derivative gain. Regularity at (x₀,ξ₀) is determined by tracing the bicharacteristic of σ_m(P): if it hits a smoothness region of u or f, propagation transports smoothness back to (x₀,ξ₀).`;
+    svg.appendChild(eqT);
+    out.textContent = `s = ${s.toFixed(1)}    m = ${m}    point: ${elliptic ? 'elliptic' : 'characteristic'}    ${elliptic ? `bootstrap: f ∈ H^${s.toFixed(1)} ⇒ u ∈ H^{${(s+m).toFixed(1)}} (gain of ${m} derivatives, exact for −Δ when m=2)` : `no parametrix-style gain on Char(P): u stays at H^${s.toFixed(1)} locally, but smoothness propagates along bicharacteristics of σ_m(P) — Hörmander transports regularity along the flow rather than improving it pointwise.`}    For −Δu = f on a bounded smooth domain (m=2) the bootstrap iterates: f ∈ C^∞ ⇒ u ∈ C^∞.`;
+  }
+  sS.addEventListener('input', draw);
+  mS.addEventListener('input', draw);
+  bE.addEventListener('click', setE);
+  bC.addEventListener('click', setC);
+  draw();
+})();
+</script>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./sobolev-spaces-distributions.html#sobolev">Sobolev spaces $W^{k,p}$ and $H^s$</a></li>
+    <li><a href="./atiyah-singer-index-theorem.html#elliptic">Elliptic operators and Fredholm property</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="ml-elliptic-regularity"></div>
+</section>
+
+<section id="fio">
+<h2>5. Fourier integral operators and Lagrangian distributions</h2>
+
+<p>Pseudodifferential operators arise from the special phase $\phi(x,y,\xi)=(x-y)\cdot\xi$. Replacing this with a more general phase function gives the larger class of <strong>Fourier integral operators (FIOs)</strong>:</p>
+
+$$Au(x) \;=\; \frac{1}{(2\pi)^N}\int e^{i\phi(x,y,\xi)}\,a(x,y,\xi)\,u(y)\,dy\,d\xi,$$
+
+<p>where $a\in S^m$ and $\phi$ is a non-degenerate <strong>phase function</strong> — homogeneous of degree 1 in $\xi$, with $d\phi\ne 0$ and the differentials $d(\partial\phi/\partial\xi_j)$ linearly independent on the critical set $C_\phi=\{(x,y,\xi):\partial_\xi\phi=0\}$. The pair $(\phi,a)$ <em>quantizes</em> a <strong>Lagrangian submanifold</strong> $\Lambda\subset T^*X\times T^*Y$ defined by</p>
+
+$$\Lambda \;=\; \bigl\{\,(x,d_x\phi;\,y,-d_y\phi)\,:\,(x,y,\xi)\in C_\phi\,\bigr\}.$$
+
+<p>The non-degeneracy condition makes $\Lambda$ a Lagrangian — half-dimensional with the natural symplectic form $\omega_{T^*X}\ominus\omega_{T^*Y}$ vanishing on it. Distributions of the form $Au$ for $u\in C^\infty_c$ are <strong>Lagrangian distributions</strong> with WF contained in $\Lambda$; equivalently, FIOs propagate $\mathrm{WF}$ along the canonical <em>relation</em>: $\mathrm{WF}(Au)\subset \Lambda\circ \mathrm{WF}(u)$ as a composition of relations on $T^*Y\to T^*X$. When $\Lambda$ happens to be the graph of a symplectomorphism $\chi$ this collapses to the function $\chi(\mathrm{WF}(u))$; for general $\Lambda$ (e.g. the Radon transform of §6) the inclusion is genuinely set-valued.</p>
+
+<p>Two structural perks:</p>
+
+<ul>
+<li><strong>FIO ↔ canonical transformation.</strong> When $\Lambda$ is the graph of a symplectomorphism $\chi:T^*Y\to T^*X$, FIOs quantize $\chi$. Composition of FIOs whose canonical relations compose transversally gives another FIO with canonical relation the composition $\Lambda_1\circ\Lambda_2$. ΨDOs are the special case $\chi=\mathrm{id}$, $\Lambda=\Delta_{T^*X}$.</li>
+<li><strong>Solutions of evolution equations are FIOs.</strong> For a real-principal-symbol $P$ of order 1 like $\partial_t-A(x,D_x)$ with $a$ real, the half-wave propagator $e^{itA}$ is an FIO whose canonical relation is the time-$t$ Hamiltonian flow of the principal symbol of $A$. Solutions of $\Box u = 0$ split as a sum of two FIOs (forward and backward half-waves), explaining geometric optics, the <em>Maslov correction at caustics</em> (the half-integer phase shift FIOs pick up each time the projection $\pi:\Lambda\to X$ becomes singular — caustics are the projected fold loci), and the <em>WKB ansatz</em> $a(x,t;\xi)e^{i\phi(x,t;\xi)}$ (a high-frequency asymptotic with slowly-varying amplitude $a$ and rapidly oscillating phase $\phi$) as the leading term of an FIO expansion.</li>
+</ul>
+
+<div class="widget" id="ml-fio-canon">
+  <div class="hd"><div class="ttl">FIO as wavefront mover: a Lagrangian relation between $T^*Y$ and $T^*X$</div><div class="hint">five sample covectors in $T^*Y$ are mapped to $T^*X$ under each canonical transformation; pick a transformation and slide the parameter</div></div>
+  <div class="row">
+    <button id="ml-fio-shift" class="active">translation: x = y + t</button>
+    <button id="ml-fio-scale">dilation: x = λ y</button>
+    <button id="ml-fio-rot">rotation: x = R_θ y</button>
+  </div>
+  <div class="row">
+    <label for="ml-fio-param">parameter:</label>
+    <input id="ml-fio-param" type="range" min="-2" max="2" step="0.05" value="0.6">
+    <span id="ml-fio-param-out" class="small"></span>
+  </div>
+  <svg id="ml-fio-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>Canonical transformation between two cotangent bundles</title></svg>
+  <div id="ml-fio-out" class="readout"></div>
+</div><script>
+(function(){
+  const svg = document.getElementById('ml-fio-svg');
+  const out = document.getElementById('ml-fio-out');
+  const bShift = document.getElementById('ml-fio-shift');
+  const bScale = document.getElementById('ml-fio-scale');
+  const bRot = document.getElementById('ml-fio-rot');
+  const pSlide = document.getElementById('ml-fio-param');
+  const pOut = document.getElementById('ml-fio-param-out');
+  let mode = 'shift';
+  const sliderInitMin = pSlide.min;
+  const sliderInitMax = pSlide.max;
+  const sliderInitStep = pSlide.step;
+  function setShift(){ mode='shift'; activate(bShift); pSlide.min=sliderInitMin; pSlide.max=sliderInitMax; pSlide.step=sliderInitStep; pSlide.value = Math.max(+sliderInitMin, Math.min(+sliderInitMax, +pSlide.value)); draw(); }
+  function setScale(){ mode='scale'; activate(bScale); pSlide.min=0.25; pSlide.max=5; pSlide.step=0.05; pSlide.value = Math.max(0.25, Math.min(5, +pSlide.value || 1)); draw(); }
+  function setRot(){ mode='rot'; activate(bRot); pSlide.min=-Math.PI; pSlide.max=Math.PI; pSlide.step=0.05; pSlide.value = 0.6; draw(); }
+  function activate(b){ [bShift,bScale,bRot].forEach(x => x.classList.remove('active')); b.classList.add('active'); }
+  const samplesY = [
+    [40, 0, 60, 0],
+    [-40, 0, -60, 0],
+    [0, 40, 0, 60],
+    [0, -40, 0, -60],
+    [30, 30, 50, 30],
+  ];
+  function map(y, p){
+    const [yx, yy, xi, eta] = y;
+    if(mode === 'shift'){
+      return [yx + p*40, yy, xi, eta];
+    }
+    if(mode === 'scale'){
+      const lam = Math.max(0.25, Math.min(5, p === 0 ? 1 : p));
+      return [yx * lam, yy * lam, xi / lam, eta / lam];
+    }
+    const c = Math.cos(p), s = Math.sin(p);
+    return [yx*c - yy*s, yx*s + yy*c, xi*c - eta*s, xi*s + eta*c];
+  }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const p = +pSlide.value;
+    if(mode === 'shift') pOut.textContent = `t = ${p.toFixed(2)}`;
+    else if(mode === 'scale') pOut.textContent = `λ = ${p.toFixed(2)}`;
+    else pOut.textContent = `θ = ${p.toFixed(2)} rad`;
+    const xLeft = -120, xRight = 120;
+    svg.appendChild(SVG('rect',{x:xLeft-110,y:-110,width:220,height:220,fill:'transparent',stroke:'var(--line)','stroke-width':0.8,'stroke-dasharray':'3 4'}));
+    svg.appendChild(SVG('rect',{x:xRight-110,y:-110,width:220,height:220,fill:'transparent',stroke:'var(--line)','stroke-width':0.8,'stroke-dasharray':'3 4'}));
+    svg.appendChild(SVG('line',{x1:xLeft-100,y1:0,x2:xLeft+100,y2:0,stroke:'var(--mute)','stroke-width':0.6,'stroke-dasharray':'2 3'}));
+    svg.appendChild(SVG('line',{x1:xLeft,y1:-100,x2:xLeft,y2:100,stroke:'var(--mute)','stroke-width':0.6,'stroke-dasharray':'2 3'}));
+    svg.appendChild(SVG('line',{x1:xRight-100,y1:0,x2:xRight+100,y2:0,stroke:'var(--mute)','stroke-width':0.6,'stroke-dasharray':'2 3'}));
+    svg.appendChild(SVG('line',{x1:xRight,y1:-100,x2:xRight,y2:100,stroke:'var(--mute)','stroke-width':0.6,'stroke-dasharray':'2 3'}));
+    const lblL = SVG('text',{x:xLeft,y:-122,'text-anchor':'middle','font-size':12,fill:'var(--cyan)','font-weight':600}); lblL.textContent='T*Y (source)'; svg.appendChild(lblL);
+    const lblR = SVG('text',{x:xRight,y:-122,'text-anchor':'middle','font-size':12,fill:'var(--yellow)','font-weight':600}); lblR.textContent='T*X (target)'; svg.appendChild(lblR);
+    samplesY.forEach((y, i) => {
+      const xMapped = map(y, p);
+      const pyx = xLeft + y[0] * 0.7, pyy = -y[1] * 0.7;
+      const ptipx = xLeft + y[2] * 0.7, ptipy = -y[3] * 0.7;
+      drawArrow(svg, [pyx, pyy], [ptipx, ptipy], { color:'var(--cyan)', markerId:`ml-fio-y-${i}`, width:1.4 });
+      svg.appendChild(SVG('circle',{cx:pyx,cy:pyy,r:3,fill:'var(--cyan)'}));
+      const px2 = xRight + xMapped[0] * 0.7, py2 = -xMapped[1] * 0.7;
+      const ptipx2 = xRight + xMapped[2] * 0.7, ptipy2 = -xMapped[3] * 0.7;
+      drawArrow(svg, [px2, py2], [ptipx2, ptipy2], { color:'var(--yellow)', markerId:`ml-fio-x-${i}`, width:1.4 });
+      svg.appendChild(SVG('circle',{cx:px2,cy:py2,r:3,fill:'var(--yellow)'}));
+      svg.appendChild(SVG('line',{x1:pyx,y1:pyy,x2:px2,y2:py2,stroke:'var(--violet)','stroke-width':0.8,'stroke-dasharray':'3 3',opacity:0.8}));
+    });
+    const formula = mode === 'shift'
+      ? `χ(y, η) = (y + t·e₁, η). Lagrangian Λ = {(x,ξ;y,η) : x = y + t·e₁, ξ = η} ⊂ T*X × T*Y.`
+      : mode === 'scale'
+        ? `χ(y, η) = (λy, η/λ) (preserves ω because dx∧dξ = d(λy)∧d(η/λ) = dy∧dη).`
+        : `χ(y, η) = (R_θ y, R_θ η) — orthogonal rotation, preserves the symplectic form.`;
+    out.textContent = `${formula}\nFIO with this canonical relation moves WF(u) by the rule: WF(Au) = χ(WF(u)). When χ = identity, A reduces to a ΨDO (acts pointwise on T*X). For the wave propagator e^{itA}, χ is the time-t Hamiltonian flow of σ(A); singularities of u(0) at (x₀,ξ₀) end up at flow(t)(x₀,ξ₀) — the geometric-optics ray-tracing rule.`;
+  }
+  bShift.addEventListener('click', setShift);
+  bScale.addEventListener('click', setScale);
+  bRot.addEventListener('click', setRot);
+  pSlide.addEventListener('input', draw);
+  draw();
+})();
+</script>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./symplectic-manifolds.html#lagrangian">Lagrangian submanifolds</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./microlocal-analysis.html#applications">Microlocal analysis</a> · Scattering, Radon transforms, and inverse problems</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="ml-fourier-integral-ops"></div>
+</section>
+
+<section id="applications">
+<h2>6. Scattering, Radon transforms, and inverse problems</h2>
+
+<p>Microlocal analysis ships as a uniform language for problems that earlier needed a different ad-hoc tool per setting. Three flagship arenas:</p>
+
+<p><strong>Scattering theory.</strong> The reduced wave equation $(\Delta+k^2)u=f$ on $\mathbb{R}^n$ has principal symbol $-|\xi|^2+k^2$ — characteristic on the sphere $|\xi|=k$ — so it is non-elliptic and its parametrix breaks. Existence of <em>outgoing</em> solutions requires the <strong>Sommerfeld radiation condition</strong> $r^{(n-1)/2}(\partial_r-ik)u\to 0$ as $r\to\infty$, which microlocally selects the half of the characteristic variety corresponding to outgoing bicharacteristics. Hörmander's propagation theorem governs how singularities (geometric-optics rays) reach infinity, and the resulting limiting absorption principle gives existence + uniqueness of the scattering solution. The same machinery delivers Strichartz estimates and dispersive bounds for $e^{it\sqrt{-\Delta}}$.</p>
+
+<p><strong>X-ray and Radon transforms.</strong> The Radon transform $Rf(L)=\int_L f$ over lines (or hyperplanes) inverts to recover $f$ from its line integrals — the mathematics of CT scanning. Microlocal analysis tells you exactly which <em>singularities</em> are recoverable: $R$ is an FIO whose canonical relation maps $\mathrm{WF}(f)$ at $(x,\xi)$ to lines through $x$ perpendicular to $\xi$. So a singularity of $f$ at $x$ in direction $\xi$ is detected only by the family of lines $L$ with $x\in L$ and $L\perp\xi$: missing data along that family produces a missing-cone artifact in reconstruction. The <em>visible singularities</em> for limited-angle CT are precisely those $(x,\xi)$ whose required lines lie in the measured set; this is the microlocal limited-data theorem of Quinto, Greenleaf-Uhlmann, and others.</p>
+
+<p><strong>Inverse problems and general relativity.</strong> The Calderón problem (recover conductivity from boundary measurements) and the Dirichlet-to-Neumann map at the boundary are studied with FIO + parametrix machinery. In general relativity, propagation of singularities across a Cauchy horizon is governed by Hörmander's theorem applied to the Lorentzian wave operator $\Box_g$: gravitational waves carry singularities of initial data along null geodesics of the metric, and the resulting smoothing/non-smoothing dichotomy underlies the strong cosmic censorship conjecture.</p>
+
+<div class="widget" id="ml-radon">
+  <div class="hd"><div class="ttl">Radon canonical relation: which directions detect which edges</div><div class="hint">drag a point inside the phantom; only lines perpendicular to its conormal can resolve it</div></div>
+  <div class="row">
+    <label for="ml-radon-theta">edge conormal angle $\theta$:</label>
+    <input id="ml-radon-theta" type="range" min="0" max="3.14159" step="0.02" value="0.7">
+    <span id="ml-radon-theta-out" class="small"></span>
+  </div>
+  <div class="row">
+    <button id="ml-radon-circle" class="active">disk phantom (smooth boundary)</button>
+    <button id="ml-radon-square">square phantom (corners)</button>
+  </div>
+  <div class="row">
+    <button id="ml-radon-limit">limited-angle: lines only in [−π/4, π/4]</button>
+  </div>
+  <svg id="ml-radon-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>Radon canonical relation and limited-angle visibility</title></svg>
+  <div id="ml-radon-out" class="readout"></div>
+</div><script>
+(function(){
+  const svg = document.getElementById('ml-radon-svg');
+  const out = document.getElementById('ml-radon-out');
+  const tS = document.getElementById('ml-radon-theta');
+  const tO = document.getElementById('ml-radon-theta-out');
+  const bC = document.getElementById('ml-radon-circle');
+  const bSq = document.getElementById('ml-radon-square');
+  const bLim = document.getElementById('ml-radon-limit');
+  let kind = 'circle';
+  let limited = false;
+  function setC(){ kind='circle'; bC.classList.add('active'); bSq.classList.remove('active'); draw(); }
+  function setSq(){ kind='square'; bSq.classList.add('active'); bC.classList.remove('active'); draw(); }
+  function toggleLim(){ limited = !limited; bLim.classList.toggle('active', limited); draw(); }
+  function inLimited(angle){
+    const a = ((angle % Math.PI) + Math.PI) % Math.PI;
+    return (a < Math.PI/4) || (a > 3*Math.PI/4);
+  }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const theta = +tS.value;
+    tO.textContent = `θ = ${theta.toFixed(2)} rad ≈ ${(theta*180/Math.PI).toFixed(0)}°`;
+    const cx = -120, cy = 0;
+    const cx2 = 120, cy2 = 0;
+    if(kind === 'circle'){
+      svg.appendChild(SVG('circle',{cx,cy,r:75,fill:'var(--panel2)',stroke:'var(--cyan)','stroke-width':1.6}));
+    } else {
+      svg.appendChild(SVG('rect',{x:cx-60,y:cy-60,width:120,height:120,fill:'var(--panel2)',stroke:'var(--cyan)','stroke-width':1.6}));
+    }
+    let edgeX, edgeY;
+    if(kind === 'circle'){
+      edgeX = cx + 75 * Math.cos(theta);
+      edgeY = cy + 75 * Math.sin(theta);
+    } else {
+      const n = Math.cos(theta), s = Math.sin(theta);
+      const tt = 1.0 / Math.max(Math.abs(n), Math.abs(s));
+      edgeX = cx + 60 * n * tt;
+      edgeY = cy + 60 * s * tt;
+    }
+    svg.appendChild(SVG('circle',{cx:edgeX,cy:edgeY,r:5,fill:'var(--yellow)',stroke:'var(--bg)','stroke-width':1.2}));
+    drawArrow(svg, [edgeX, edgeY], [edgeX + Math.cos(theta)*30, edgeY + Math.sin(theta)*30], { color:'var(--pink)', markerId:'ml-radon-conormal', width:2.0 });
+    const lblN = SVG('text',{x:edgeX + Math.cos(theta)*40, y:edgeY + Math.sin(theta)*40 + 4,'text-anchor':'middle','font-size':10,fill:'var(--pink)'}); lblN.textContent='ξ (conormal)'; svg.appendChild(lblN);
+    const N = 16;
+    for(let k = 0; k < N; k++){
+      const phi = k * Math.PI / N;
+      const visibleByGeometry = Math.abs(((phi - theta) % Math.PI + Math.PI) % Math.PI - Math.PI/2) < 0.1;
+      const allowed = !limited || inLimited(phi);
+      const detects = visibleByGeometry && allowed;
+      const col = detects ? 'var(--green)' : (visibleByGeometry ? 'var(--mute)' : 'var(--line)');
+      const ux = Math.cos(phi), uy = Math.sin(phi);
+      const x1 = edgeX - ux * 80, y1 = edgeY - uy * 80;
+      const x2 = edgeX + ux * 80, y2 = edgeY + uy * 80;
+      svg.appendChild(SVG('line',{x1,y1,x2,y2,stroke:col,'stroke-width':detects?1.6:0.8,opacity:detects?0.9:0.5}));
+    }
+    const t1 = SVG('text',{x:cx,y:-118,'text-anchor':'middle','font-size':12,fill:'var(--cyan)','font-weight':600}); t1.textContent='phantom (image domain)'; svg.appendChild(t1);
+    drawNode(svg, cx2, cy2, 'WF', { r:12, fill:'var(--panel2)', stroke:'var(--pink)', textColor:'var(--pink)', fontSize:10 });
+    const lbl = SVG('text',{x:cx2,y:-118,'text-anchor':'middle','font-size':12,fill:'var(--pink)','font-weight':600}); lbl.textContent='wavefront direction (boundary normal)'; svg.appendChild(lbl);
+    drawArrow(svg, [cx2, cy2], [cx2 + Math.cos(theta)*60, cy2 + Math.sin(theta)*60], { color:'var(--pink)', markerId:'ml-radon-wf-vec', width:2.2 });
+    const angDeg = (theta * 180 / Math.PI).toFixed(0);
+    out.textContent = `Edge at boundary point (yellow); conormal direction θ = ${angDeg}°.
+Radon canonical relation: a singularity of f at (x₀,ξ₀) is detected by Rf at exactly the lines L with x₀ ∈ L and L ⊥ ξ₀ (perpendicular family, drawn green).
+Other lines through x₀ pass through but cannot resolve this edge (grey/dim).
+${limited ? 'Limited-angle scan [−π/4, π/4]: only the green lines whose direction lies in the measured range can detect this singularity. Edges with conormal outside this cone become invisible — the missing-cone artifact in limited-angle CT.' : 'Full-angle scan: every singularity has at least one detecting line, all WF(f) is reconstructable.'}`;
+  }
+  tS.addEventListener('input', draw);
+  bC.addEventListener('click', setC);
+  bSq.addEventListener('click', setSq);
+  bLim.addEventListener('click', toggleLim);
+  draw();
+})();
+</script>
+<div class="quiz" data-concept="ml-applications"></div>
+</section>
+
+<section id="connections">
+<h2>Connections</h2>
+
+<p>Microlocal analysis is the geometric refactor that the second half of the 20th century brought to PDE: every "wavefronts travel along characteristics" hand-wave becomes a precise statement on $T^*M\setminus 0$, and every parametrix construction gets a uniform symbol calculus. Open frontiers include semiclassical analysis (the $\hbar\to 0$ regime, where $\xi$-derivatives are weighted by $\hbar$ and the propagation theorem connects to quantum chaos and trace formulas), the analytic-wavefront refinement (decay below $C_N(1+|\xi|)^{-N}$ tightened to exponential decay, controlling Gevrey and analytic regularity), and FBI-Bargmann transforms / second microlocalization for problems where the standard wavefront set is too coarse. On the inverse-problem side, microlocal techniques drive ongoing work on limited-data tomography, Calderón-style boundary determination, and the propagation of gravitational-wave singularities across Cauchy horizons.</p>
+
+<ul>
+<li><a href="./sobolev-spaces-distributions.html#test-functions">Sobolev spaces &amp; distributions</a> — supplies the distribution-theoretic substrate $\mathcal{D}'$ on which the wavefront set is defined and the Sobolev scale $H^s$ on which the symbol calculus operates.</li>
+<li><a href="./harmonic-analysis-fourier.html#schwartz">Harmonic analysis &amp; Fourier theory</a> — Schwartz space, tempered distributions and the Fourier-multiplier viewpoint behind ΨDO quantization; the "phase-space localization" definition of $\mathrm{WF}$ is a Fourier-decay statement after a smooth cutoff.</li>
+<li><a href="./partial-differential-equations.html#wave">Partial differential equations</a> — d'Alembert's geometric picture of finite-speed propagation, upgraded by Hörmander's theorem from "singularities follow characteristics" to "$\mathrm{WF}(u)$ is invariant under the bicharacteristic flow".</li>
+<li><a href="./symplectic-manifolds.html#lagrangian">Symplectic manifolds — Lagrangian submanifolds</a> — the natural home of FIOs: their canonical relations are Lagrangians in $T^*X\times T^*Y$, and the $\Lambda$-quantization story is symplectic geometry written in operator-theoretic vocabulary.</li>
+<li><a href="./symplectic-manifolds.html#hamiltonian">Symplectic manifolds — Hamiltonian flow</a> — supplies the propagation engine: $X_{p_m}$ is a Hamiltonian vector field, and singularities of $Pu=f$ flow along its integral curves inside $\mathrm{Char}(P)$.</li>
+<li><a href="./atiyah-singer-index-theorem.html#elliptic">Atiyah-Singer index theorem</a> — index of an elliptic ΨDO depends only on its principal symbol on $T^*M\setminus 0$; the parametrix construction here is the analytic input that lets the topological index theorem land.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('microlocal-analysis'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-04</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

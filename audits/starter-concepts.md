@@ -14,9 +14,9 @@ reach into upstream foundations or stay within their own cluster.
 | Logic & Foundations | 49 | 56 | 5 | 17 | 0.102 |
 | Algebra & homological | 124 | 184 | 16 | 75 | 0.129 |
 | Higher categories & toposes | 45 | 68 | 23 | 2 | 0.511 |
-| Analysis | 173 | 302 | 27 | 62 | 0.156 |
+| Analysis | 179 | 315 | 30 | 62 | 0.168 |
 | Probability & statistics | 55 | 92 | 14 | 13 | 0.255 |
-| Geometry & topology | 104 | 157 | 19 | 89 | 0.183 |
+| Geometry & topology | 104 | 157 | 19 | 92 | 0.183 |
 | Number theory | 98 | 130 | 40 | 25 | 0.408 |
 | Modular forms & L-functions | 103 | 139 | 55 | 13 | 0.534 |
 | Algebraic geometry | 143 | 187 | 55 | 20 | 0.385 |

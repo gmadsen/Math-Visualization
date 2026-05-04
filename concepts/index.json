@@ -6,6 +6,7 @@
     "hodge-theory",
 
     "langlands-program",
+    "microlocal-analysis",
 
     "special-relativity",
 
@@ -13,13 +14,13 @@
 
     "dirac-equation",
 
-
-
-
-
-
-
     "quantum-field-theory",
+
+
+
+
+
+
 
     "statistical-mechanics",
     "advanced-complex-analysis",
@@ -201,6 +202,7 @@
     "probability-theory": "standard",
     "harmonic-analysis-fourier": "standard",
     "sobolev-spaces-distributions": "standard",
+    "microlocal-analysis": "advanced",
     "advanced-complex-analysis": "advanced",
     "point-set-topology": "prereq",
     "algebraic-topology": "prereq",
