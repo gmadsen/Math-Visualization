@@ -32,7 +32,7 @@
           "type": "numeric",
           "q": "In $\\ell^2$, compute $\\|x\\|_2$ for $x=(1,2,2,0,0,\\ldots)$.",
           "answer": 3,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "$\\|x\\|_2=\\sqrt{1^2+2^2+2^2}=\\sqrt{9}=3$."
         }
       ],
@@ -65,7 +65,7 @@
           "type": "numeric",
           "q": "Let $e_1,e_2\\in\\ell^2$ be the first two standard basis vectors. Using the polarization identity $\\langle x,y\\rangle=\\tfrac{1}{4}(\\|x+y\\|^2-\\|x-y\\|^2)$ (real case), compute $\\langle e_1+2e_2,\\, 3e_1-e_2\\rangle$.",
           "answer": 1,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "$\\langle e_1+2e_2,3e_1-e_2\\rangle=1\\cdot 3+2\\cdot(-1)=3-2=1$. Verify with polarization: $\\|x+y\\|^2=\\|(4e_1+e_2)\\|^2=17$, $\\|x-y\\|^2=\\|(-2e_1+3e_2)\\|^2=13$; $(17-13)/4=1$."
         }
       ]
@@ -89,14 +89,14 @@
           "type": "numeric",
           "q": "On $\\mathbb{R}^2$ with Euclidean norm, what is the operator norm of the diagonal matrix $T=\\mathrm{diag}(3,-4)$?",
           "answer": 4,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "For a real diagonal matrix, $\\|T\\|=\\max_i|t_i|$ since the singular values are $|t_i|$. Here $\\max(3,4)=4$."
         },
         {
           "type": "numeric",
           "q": "Compute the operator norm of $T=\\begin{pmatrix}1&2\\\\2&1\\end{pmatrix}$ (symmetric, so $\\|T\\|=\\max|\\lambda_i|$).",
           "answer": 3,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "Eigenvalues of the symmetric matrix satisfy $(1-\\lambda)^2-4=0$, so $\\lambda=3$ or $\\lambda=-1$. The operator norm is $\\max(|3|,|-1|)=3$."
         }
       ],
@@ -118,7 +118,7 @@
           "type": "numeric",
           "q": "Let $T=\\begin{pmatrix}3&4\\\\0&0\\end{pmatrix}$ on $\\mathbb{R}^2$ (Euclidean). Compute $\\|T\\|$ via the largest singular value.",
           "answer": 5,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "hint": "Compute $T^\\top T$ and find its largest eigenvalue, then take square root.",
           "explain": "$T^\\top T=\\begin{pmatrix}9&12\\\\12&16\\end{pmatrix}$ has eigenvalues $25$ and $0$. Largest singular value is $\\sqrt{25}=5$. Matches: the single nonzero row has norm $\\sqrt{9+16}=5$."
         },
@@ -167,7 +167,7 @@
           "type": "numeric",
           "q": "On $\\ell^2$, let $S$ be the unilateral (right) shift $S(x_1,x_2,\\ldots)=(0,x_1,x_2,\\ldots)$. What is the operator norm $\\|S\\|$?",
           "answer": 1,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "$S$ is an isometry: $\\|Sx\\|_2=\\|x\\|_2$ for every $x\\in\\ell^2$, so $\\|S\\|=1$."
         }
       ],
@@ -201,7 +201,7 @@
           "type": "numeric",
           "q": "Let $T$ be the $2\\times 2$ matrix $\\begin{pmatrix}3&4\\\\0&0\\end{pmatrix}$ viewed as an operator $\\mathbb{R}^2\\to\\mathbb{R}^2$ with the Euclidean norm. Compute $\\|T\\|$ (the operator norm), which equals the largest singular value of $T$.",
           "answer": 5,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "The singular values of $T$ are the square roots of the eigenvalues of $T^\\top T=\\begin{pmatrix}9&12\\\\12&16\\end{pmatrix}$. Its eigenvalues are $25$ and $0$, so the largest singular value — and hence the operator norm — is $\\sqrt{25}=5$."
         }
       ]
@@ -241,7 +241,7 @@
           "type": "numeric",
           "q": "For $T=\\begin{pmatrix}2&i\\\\ 3&0\\end{pmatrix}$ on $\\mathbb{C}^2$, compute $(T^*)_{12}$ (the top-right entry of the adjoint). Give your answer as a real number (it happens to be real here).",
           "answer": 3,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "The adjoint is the conjugate transpose: $T^*=\\begin{pmatrix}\\bar 2&\\bar 3\\\\ \\overline{i}&\\bar 0\\end{pmatrix}=\\begin{pmatrix}2&3\\\\-i&0\\end{pmatrix}$. So $(T^*)_{12}=3$."
         }
       ],
@@ -505,7 +505,7 @@
             -1,
             0
           ],
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "The Pauli matrix $\\sigma_y$ has eigenvalues $+1$ and $-1$; their product equals $\\det(\\sigma_y)=-1=-1+0i$, matching the general fact $\\det T=\\prod\\lambda_i$."
         }
       ],
@@ -538,7 +538,7 @@
           "type": "numeric",
           "q": "The spectral projections of $T=\\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix}$ onto eigenspaces $\\lambda=+1$ and $\\lambda=-1$ are $P_+=\\begin{pmatrix}1&0\\\\0&0\\end{pmatrix}$ and $P_-=\\begin{pmatrix}0&0\\\\0&1\\end{pmatrix}$. Compute $\\|T\\|^2=\\|T^*T\\|$ using the spectral decomposition $T=P_+-P_-$.",
           "answer": 1,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "$T^*T=T^2=(P_+-P_-)^2=P_++P_-=I$ (since $P_+P_-=0$ and $P_\\pm^2=P_\\pm$). Thus $\\|T^*T\\|=\\|I\\|=1$, so $\\|T\\|^2=1$ and $\\|T\\|=1$. This matches $\\|T\\|=\\max(|+1|,|-1|)=1$."
         }
       ]
@@ -622,7 +622,7 @@
           "type": "numeric",
           "q": "On $L^2[0,1]$, the multiplication operator $(M_x f)(x)=xf(x)$ has $\\sigma(M_x)=[0,1]$. What is the Lebesgue measure of its POINT spectrum $\\sigma_p(M_x)$?",
           "answer": 0,
-          "tol": 1e-9,
+          "tol": 1e-09,
           "explain": "$M_x$ has no eigenvalues: $(M_x-\\lambda)f=0$ forces $f(x)=0$ for a.e. $x\\ne\\lambda$, so $f=0$ in $L^2$. Thus $\\sigma_p(M_x)=\\emptyset$, and its measure is $0$. The entire spectrum $[0,1]$ is continuous spectrum: $M_x-\\lambda$ is injective with dense range but not surjective for $\\lambda\\in[0,1]$."
         }
       ]
@@ -659,7 +659,7 @@
           "type": "numeric",
           "q": "On $\\ell^2$ let $\\ell(x)=2x_1+x_2-2x_3$ for $x=(x_1,x_2,x_3,0,\\ldots)$. By Riesz, $\\ell(x)=\\langle x,y\\rangle$ for some $y\\in\\ell^2$. Compute $\\|\\ell\\|=\\|y\\|_2$.",
           "answer": 3,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "The representing vector is $y=(2,1,-2,0,\\ldots)$ (real, so no conjugation), and $\\|y\\|_2=\\sqrt{4+1+4}=\\sqrt{9}=3$. Riesz makes $\\|\\ell\\|_{H^*}=\\|y\\|_H$."
         }
       ],
@@ -728,7 +728,7 @@
           "type": "numeric",
           "q": "In $\\ell^2$, let $e_n$ be the $n$-th standard basis vector. The sequence $(e_n)$ does NOT converge in norm, but does converge weakly to a unique limit $w\\in\\ell^2$. Compute $\\|w\\|_2$.",
           "answer": 0,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "For each $y\\in\\ell^2$, $\\langle e_n,y\\rangle=\\overline{y_n}\\to 0$, so $e_n\\rightharpoonup 0$. Yet $\\|e_n-0\\|_2=1$, so there is no norm convergence — a textbook illustration that weak limit $\\ne$ strong limit."
         }
       ],
@@ -882,7 +882,7 @@
           "type": "numeric",
           "q": "Compute $\\langle\\delta_0^{(1)},\\phi\\rangle$ where $\\delta_0^{(1)}$ is the distributional derivative of $\\delta_0$ and $\\phi(x)=x^2-3x+5$. Recall $\\langle\\delta_0^{(1)},\\phi\\rangle=-\\phi'(0)$.",
           "answer": 3,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "Distributional differentiation: $\\langle T',\\phi\\rangle=-\\langle T,\\phi'\\rangle$. For $T=\\delta_0$, $\\langle\\delta_0',\\phi\\rangle=-\\langle\\delta_0,\\phi'\\rangle=-\\phi'(0)$. With $\\phi(x)=x^2-3x+5$, $\\phi'(x)=2x-3$, $\\phi'(0)=-3$, so $-\\phi'(0)=3$."
         }
       ],
@@ -929,6 +929,88 @@
           "explain": "The function $g(x)=x\\phi(x)$ vanishes at $0$: $g(0)=0$. So $\\langle x\\delta_0,\\phi\\rangle=0$ for every $\\phi$, which is the definition of the zero distribution. This identity $x\\delta_0=0$ is the distributional version of the algebraic fact — and it is why $\\delta_0$ is a genuine new object, not a function: no function $f$ satisfies $xf=0$ a.e. yet $\\int f=1$."
         }
       ]
+    },
+    "banach-alaoglu": {
+      "questions": [
+        {
+          "type": "mcq",
+          "answer": 1,
+          "explain": "The weak-$*$ topology — the coarsest topology on $X^*$ making evaluation $\\ell \\mapsto \\ell(x)$ continuous for each fixed $x \\in X$. Norm-compactness fails for the unit ball as soon as $X^*$ is infinite-dimensional.",
+          "q": "Banach–Alaoglu states that the closed unit ball of $X^*$ is compact in which topology?",
+          "choices": [
+            "Norm topology",
+            "Weak-$*$ topology",
+            "Weak topology on $X^*$",
+            "Mackey topology"
+          ]
+        },
+        {
+          "type": "mcq",
+          "answer": 1,
+          "explain": "The unit ball $B_{X^*}$ embeds into a product $\\prod_x \\overline{D}_{\\|x\\|}$ of compact disks; that product is compact by Tychonoff. The image is closed in the product, hence compact.",
+          "q": "Which fundamental result drives the proof of Banach–Alaoglu?",
+          "choices": [
+            "Hahn–Banach extension",
+            "Tychonoff's theorem",
+            "Open mapping theorem",
+            "Riesz representation"
+          ]
+        },
+        {
+          "type": "mcq",
+          "answer": 1,
+          "explain": "If $X$ has a countable dense set $\\{x_n\\}$, then $B_{X^*}$ is metrized by $d(\\ell,\\ell') = \\sum 2^{-n}|\\ell(x_n) - \\ell'(x_n)|/(1+|\\ldots|)$. Every bounded sequence in $X^*$ then has a weakly-$*$ convergent subsequence.",
+          "q": "When is the weak-$*$ topology on $B_{X^*}$ metrizable, so that compactness translates to sequential compactness?",
+          "choices": [
+            "Always",
+            "When $X$ is separable",
+            "When $X$ is reflexive",
+            "When $X$ is finite-dimensional"
+          ]
+        }
+      ],
+      "title": "Banach–Alaoglu theorem"
+    },
+    "krein-milman": {
+      "questions": [
+        {
+          "type": "mcq",
+          "answer": 1,
+          "explain": "$K = \\overline{\\operatorname{conv}}\\,\\mathrm{ext}(K)$. The extreme points alone need not cover $K$ — they generate it under closed convex combinations.",
+          "q": "Krein–Milman expresses a compact convex set $K$ as:",
+          "choices": [
+            "The union of its extreme points",
+            "The closed convex hull of its extreme points",
+            "The interior of its boundary",
+            "The intersection of all closed half-spaces containing it"
+          ]
+        },
+        {
+          "type": "mcq",
+          "answer": 1,
+          "explain": "Extreme points lie strictly outside any nondegenerate line segment in $K$. Equivalently $e$ is not the midpoint of any segment with distinct endpoints in $K$.",
+          "q": "A point $e \\in K$ is an extreme point when $e = \\tfrac{1}{2}(x+y)$ with $x, y \\in K$ forces:",
+          "choices": [
+            "$x = -y$",
+            "$x = y = e$",
+            "$x \\ne y$",
+            "$x, y$ are extreme"
+          ]
+        },
+        {
+          "type": "mcq",
+          "answer": 1,
+          "explain": "If $L^1$ were a dual space, Banach–Alaoglu + Krein–Milman would force its unit ball to have many extreme points (specifically: be the closed convex hull of them). The almost-empty extreme-point set of $B_{L^1}$ rules this out.",
+          "q": "The closed unit ball of $L^1[0,1]$ has very few extreme points. The standard explanation is:",
+          "choices": [
+            "$L^1$ is not separable",
+            "$L^1$ is not the dual of any Banach space",
+            "$L^1$ is reflexive",
+            "$L^1$ has no nonzero functionals"
+          ]
+        }
+      ],
+      "title": "Krein–Milman theorem"
     }
   }
 }
