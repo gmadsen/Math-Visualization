@@ -20,14 +20,14 @@
           "type": "numeric",
           "q": "Let $C_\\bullet$ be the simplicial chain complex of the standard triangle (boundary of a $2$-simplex) with $C_0=\\mathbb{Q}^3,\\ C_1=\\mathbb{Q}^3$. What is $\\dim_\\mathbb{Q} H_1$?",
           "answer": 1,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "The triangle is homotopy equivalent to $S^1$, so $H_0=\\mathbb{Q}$ and $H_1=\\mathbb{Q}$. Its one independent $1$-cycle is the loop around the triangle."
         },
         {
           "type": "numeric",
           "q": "For the torus $T^2$ with rational Betti numbers $(b_0,b_1,b_2)=(1,2,1)$, compute the Euler characteristic $\\chi(T^2)=b_0-b_1+b_2$.",
           "answer": 0,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "$\\chi(T^2)=1-2+1=0$. Every closed orientable surface of genus $g$ has $\\chi=2-2g$; here $g=1$."
         }
       ],
@@ -48,7 +48,7 @@
           "type": "numeric",
           "q": "Let $C_\\bullet$ be the chain complex $0\\to\\mathbb{Z}\\xrightarrow{\\cdot 3}\\mathbb{Z}\\to 0$ concentrated in degrees $1$ and $0$. Compute $|H_0(C_\\bullet)|$ (the order of $H_0$).",
           "answer": 3,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "$H_0=\\ker(C_{-1}\\to C_{-2})/\\operatorname{im}(\\partial_1)=\\mathbb{Z}/3\\mathbb{Z}$, which has order $3$."
         },
         {
@@ -101,7 +101,7 @@
           "type": "numeric",
           "q": "For a short exact sequence $0\\to A\\to B\\to C\\to 0$ of finite abelian groups with $|A|=6$ and $|C|=10$, compute $|B|$.",
           "answer": 60,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "Orders multiply across a short exact sequence: $|B|=|A|\\cdot|C|=6\\cdot 10=60$. This is the group-theoretic analogue of $\\dim B = \\dim A + \\dim C$ for vector spaces."
         }
       ],
@@ -122,7 +122,7 @@
           "type": "numeric",
           "q": "In the long exact sequence arising from $0\\to A_\\bullet\\to B_\\bullet\\to C_\\bullet\\to 0$, suppose $H_1(B)=0$, $H_1(C)=\\mathbb{Z}^2$, $H_0(A)=\\mathbb{Z}^3$, and the connecting map $\\partial:H_1(C)\\to H_0(A)$ is injective. What is $\\dim_{\\mathbb{Q}}\\operatorname{coker}(\\partial)$?",
           "answer": 1,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "$\\partial:\\mathbb{Z}^2\\hookrightarrow\\mathbb{Z}^3$ is injective (since $H_1(B)=0$ forces exactness). Its cokernel has rank $3-2=1$ over $\\mathbb{Q}$."
         },
         {
@@ -181,7 +181,7 @@
           "type": "numeric",
           "q": "In the widget's example ($\\alpha=0, \\beta=\\cdot 2, \\gamma=0$ on $\\mathbb{Z}/2,\\mathbb{Z}/4,\\mathbb{Z}/2$), what is $\\delta(1)\\in\\operatorname{coker}\\alpha=\\mathbb{Z}/2$?",
           "answer": 1,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "Lift $c=1$ to $b=1\\in\\mathbb{Z}/4$; $\\beta(b)=2$; pull back along $i':a'\\mapsto 2a'$ to get $a'=1\\in\\mathbb{Z}/2$. Since $\\operatorname{im}\\alpha=0$, $\\delta(1)=1$."
         }
       ],
@@ -214,7 +214,7 @@
           "type": "numeric",
           "q": "In a snake-lemma setup with $\\alpha=\\mathrm{id}_{\\mathbb{Z}/4}$, $\\beta=\\mathrm{id}_{\\mathbb{Z}/4}$, $\\gamma=\\mathrm{id}_{\\mathbb{Z}/4}$ and exact rows being the identity sequence, what is $|\\ker\\delta|$?",
           "answer": 4,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "With all vertical maps being identities, $\\ker\\gamma=0$ (since $\\gamma=\\mathrm{id}$, every element is in the image, kernel is trivial — but actually $\\ker(\\mathrm{id})=0$). Wait: $\\ker\\delta$ is the kernel of $\\delta:\\ker\\gamma\\to\\operatorname{coker}\\alpha$. Since $\\ker\\gamma=0$ (identity is injective), the domain is $0$ and $\\ker\\delta=0$. But if rows are $0\\to\\mathbb{Z}/4\\xrightarrow{\\mathrm{id}}\\mathbb{Z}/4\\to 0$, then $\\ker\\gamma=\\mathbb{Z}/4$, $\\operatorname{coker}\\alpha=0$, and $\\delta=0$ with $\\ker\\delta=\\mathbb{Z}/4$, so $|\\ker\\delta|=4$."
         },
         {
@@ -264,7 +264,7 @@
           "type": "numeric",
           "q": "In a ladder with exact rows, $f_1,f_2,f_4,f_5$ are isomorphisms and $\\dim A_3=\\dim B_3=7$ (vector spaces). What is the rank of $f_3$?",
           "answer": 7,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "By the five lemma $f_3$ is an isomorphism, so its rank equals $\\dim A_3=7$."
         }
       ],
@@ -339,7 +339,7 @@
           "type": "numeric",
           "q": "Use the Mayer–Vietoris long exact sequence and induction to compute $\\dim_\\mathbb{Q} H_n(S^n;\\mathbb{Q})$ for $n\\ge 1$.",
           "answer": 1,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "Covering $S^n$ by two contractible hemispheres $U,V$ with $U\\cap V\\simeq S^{n-1}$, the MV sequence gives $H_n(S^n)\\cong H_{n-1}(S^{n-1})$ for $n\\ge 2$, and $H_1(S^1)\\cong\\mathbb{Z}$ directly. Inductively $\\dim H_n(S^n;\\mathbb{Q})=1$."
         },
         {
@@ -372,7 +372,7 @@
           "type": "numeric",
           "q": "Using the long exact sequence of the pair $(D^2, S^1)$ and the fact that $D^2$ is contractible, compute $\\dim_{\\mathbb{Q}} H_1(D^2,S^1;\\mathbb{Q})$.",
           "answer": 1,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "The LES gives $H_1(D^2)\\to H_1(D^2,S^1)\\to H_0(S^1)\\to H_0(D^2)$. Since $D^2$ is contractible, $H_1(D^2)=0$ and the map $H_0(S^1)\\cong\\mathbb{Q}\\to H_0(D^2)\\cong\\mathbb{Q}$ is an isomorphism. So $H_1(D^2,S^1)\\cong\\mathbb{Q}$, dimension $1$. (By excision this equals $\\tilde{H}_1(S^1)\\cong\\mathbb{Q}$.)"
         },
         {
@@ -460,7 +460,7 @@
           "type": "numeric",
           "q": "How many isomorphism classes of projective modules of rank $1$ are there over a Dedekind domain with class number $h=3$?",
           "answer": 3,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "Over a Dedekind domain, rank-$1$ projectives are classified by the ideal class group $\\mathrm{Cl}(R)$. If $h=|\\mathrm{Cl}(R)|=3$, there are exactly $3$ isomorphism classes (the trivial class corresponds to the free module $R$; the other two are non-free rank-$1$ projectives)."
         }
       ]
@@ -535,7 +535,7 @@
           "type": "numeric",
           "q": "Let $I=\\mathbb{Q}/\\mathbb{Z}$ over $\\mathbb{Z}$. How many extensions $\\mathbb{Z}\\to I$ exist of a given map $f\\colon(2)\\to I$ with $f(2)=1/4\\in\\mathbb{Q}/\\mathbb{Z}$?",
           "answer": 2,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "We need $\\tilde f(1)\\in\\mathbb{Q}/\\mathbb{Z}$ with $2\\tilde f(1)=1/4$, i.e. $\\tilde f(1)\\in\\{1/8, 5/8\\}\\pmod{1}$. Both are valid extensions; there are exactly $2$."
         }
       ]
@@ -609,7 +609,7 @@
           "type": "numeric",
           "q": "Let $M = \\mathbb{Z}/6$ as a $\\mathbb{Z}$-module. Tensor the SES $0\\to\\mathbb{Z}\\xrightarrow{\\cdot 4}\\mathbb{Z}\\to\\mathbb{Z}/4\\to 0$ with $M$. What is the order of the kernel of the induced map $\\mathbb{Z}/6\\to\\mathbb{Z}/6$?",
           "answer": 2,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "After tensoring with $\\mathbb{Z}/6$, the map $\\cdot 4\\colon\\mathbb{Z}/6\\to\\mathbb{Z}/6$ has kernel $\\{x\\in\\mathbb{Z}/6 : 4x\\equiv 0\\pmod 6\\}=\\{0,3\\}$, of order $2$. This measures the failure of flatness of $\\mathbb{Z}/6$: $\\operatorname{Tor}_1^\\mathbb{Z}(\\mathbb{Z}/6,\\mathbb{Z}/4)=\\mathbb{Z}/\\gcd(6,4)=\\mathbb{Z}/2$."
         }
       ]
@@ -633,7 +633,7 @@
           "type": "numeric",
           "q": "Compute $\\dim_{\\mathbb{F}_2} \\operatorname{Ext}^1_{\\mathbb{Z}}(\\mathbb{Z}/2,\\mathbb{Z}/2)$.",
           "answer": 1,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "hint": "From $0\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}\\to\\mathbb{Z}/2\\to 0$, applying $\\Hom(-,\\mathbb{Z}/2)$ gives $\\mathbb{Z}/2\\xrightarrow{\\times 2=0}\\mathbb{Z}/2$, whose cokernel is…",
           "explain": "From $0\\to\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}\\to\\mathbb{Z}/2\\to 0$, applying $\\Hom(-,\\mathbb{Z}/2)$ gives $\\mathbb{Z}/2\\xrightarrow{\\times 2=0}\\mathbb{Z}/2$, whose cokernel is $\\mathbb{Z}/2$. So $\\operatorname{Ext}^1_\\mathbb{Z}(\\mathbb{Z}/2,\\mathbb{Z}/2)\\cong\\mathbb{Z}/2$, dimension $1$ over $\\mathbb{F}_2$."
         },
@@ -641,7 +641,7 @@
           "type": "numeric",
           "q": "What is $\\operatorname{Tor}^\\mathbb{Z}_1(\\mathbb{Z}/6,\\mathbb{Z}/4)$ as $\\mathbb{Z}/d$? Give $d$.",
           "answer": 2,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "$\\operatorname{Tor}^\\mathbb{Z}_1(\\mathbb{Z}/m,\\mathbb{Z}/n)\\cong\\mathbb{Z}/\\gcd(m,n)$. Here $\\gcd(6,4)=2$."
         }
       ],
@@ -662,7 +662,7 @@
           "type": "numeric",
           "q": "Compute $|\\operatorname{Tor}^{\\mathbb{Z}}_1(\\mathbb{Z}/12,\\mathbb{Z}/8)|$ (the order of the group).",
           "answer": 4,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "$\\operatorname{Tor}^\\mathbb{Z}_1(\\mathbb{Z}/m,\\mathbb{Z}/n)\\cong\\mathbb{Z}/\\gcd(m,n)$. Here $\\gcd(12,8)=4$, so the group is $\\mathbb{Z}/4$ with order $4$."
         },
         {
@@ -698,7 +698,7 @@
           "type": "numeric",
           "q": "$\\mathbb{Z}/6$ has what length-$1$ free resolution? Enter the single invariant factor appearing in the presentation matrix (a $1\\times 1$ matrix).",
           "answer": 6,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "The resolution is $0\\to\\mathbb{Z}\\xrightarrow{\\cdot 6}\\mathbb{Z}\\to\\mathbb{Z}/6\\to 0$. The presentation matrix is the $1\\times 1$ matrix $[6]$."
         },
         {
@@ -731,7 +731,7 @@
           "type": "numeric",
           "q": "Over a PID $R$, every finitely generated module has a free resolution of length at most what?",
           "answer": 1,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "Over a PID, submodules of free modules are free (Smith normal form), so a finitely generated module $M$ has a resolution $0\\to R^r\\to R^s\\to M\\to 0$ of length $1$. Hence global dimension of a PID is $\\le 1$."
         },
         {
@@ -860,7 +860,7 @@
           "type": "numeric",
           "q": "Consider the double complex $C^{0,0}=C^{1,0}=C^{0,1}=C^{1,1}=\\mathbb{Z}$, with horizontal maps multiplication by $2$ and vertical maps multiplication by $3$. Taking horizontal homology first, what is the rank of $E_1^{0,0}$ as an abelian group?",
           "answer": 0,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "The horizontal map $\\mathbb{Z}\\xrightarrow{2}\\mathbb{Z}$ is injective, so its kernel is $0$. Thus $E_1^{0,0}=\\ker(2)=0$, which has rank $0$ (and is in fact the zero group)."
         }
       ],
@@ -893,8 +893,131 @@
           "type": "numeric",
           "q": "For the Leray–Hirsch spectral sequence of the trivial fibration $E=F\\times B$ with $F=S^2,B=S^2$, the spectral sequence degenerates at $E_2$. Compute $\\dim_{\\mathbb{Q}} H^2(E;\\mathbb{Q})$.",
           "answer": 2,
-          "tol": 0.000001,
+          "tol": 1e-06,
           "explain": "Degeneration gives $H^n(E)\\cong\\bigoplus_{p+q=n}H^p(B)\\otimes H^q(F)$. For $n=2$: $(p,q)=(2,0)$ contributes $H^2(S^2)\\otimes H^0(S^2)=\\mathbb{Q}$, and $(0,2)$ contributes $H^0(S^2)\\otimes H^2(S^2)=\\mathbb{Q}$. Total $\\dim=2$."
+        }
+      ]
+    },
+    "double-complex-ha": {
+      "title": "Double complexes",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A double complex $C^{\\bullet,\\bullet}$ has two differentials $d^h, d^v$ satisfying:",
+          "choices": [
+            "$d^h \\circ d^v = d^v \\circ d^h$ (commutativity)",
+            "$d^h \\circ d^v + d^v \\circ d^h = 0$ (anticommutativity)",
+            "$d^h = d^v$",
+            "$d^h \\circ d^v = 0$"
+          ],
+          "answer": 1,
+          "explain": "Anticommutativity. The total differential $d = d^h + d^v$ then satisfies $d^2 = (d^h)^2 + (d^h d^v + d^v d^h) + (d^v)^2 = 0$."
+        },
+        {
+          "type": "mcq",
+          "q": "The total complex of a double complex is defined by:",
+          "choices": [
+            "$\\mathrm{Tot}^n = C^{n,n}$",
+            "$\\mathrm{Tot}^n = \\bigoplus_{p+q=n} C^{p,q}$",
+            "$\\mathrm{Tot}^n = \\prod_p C^{p,n}$",
+            "$\\mathrm{Tot}^n = C^{0,n}$"
+          ],
+          "answer": 1,
+          "explain": "Direct sum along the anti-diagonal $p+q = n$. The differential is $d^h + d^v$."
+        },
+        {
+          "type": "mcq",
+          "q": "How many spectral sequences does a (bounded) double complex naturally produce?",
+          "choices": [
+            "One",
+            "Two",
+            "Infinitely many",
+            "Zero — they require additional structure"
+          ],
+          "answer": 1,
+          "explain": "Filtering by columns first then rows, vs rows first then columns, gives two spectral sequences, both converging to the same total cohomology. The 'two ways to compute' identity drives Tor balancing, Grothendieck spectral sequence, etc."
+        }
+      ]
+    },
+    "tor-symmetry-ha": {
+      "title": "Symmetry of Tor",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Symmetry of Tor is the canonical isomorphism:",
+          "choices": [
+            "$\\mathrm{Tor}^R_n(M,N) \\cong \\mathrm{Hom}(M,N)$",
+            "$\\mathrm{Tor}^R_n(M,N) \\cong \\mathrm{Tor}^R_n(N,M)$",
+            "$\\mathrm{Tor}^R_n(M,N) \\cong \\mathrm{Ext}^n_R(M,N)$",
+            "$\\mathrm{Tor}^R_n(M,N) \\cong M \\otimes_R N$ for all $n$"
+          ],
+          "answer": 1,
+          "explain": "Resolving either side computes the same Tor. The isomorphism is natural in both arguments."
+        },
+        {
+          "type": "mcq",
+          "q": "The standard proof of Tor symmetry uses:",
+          "choices": [
+            "The five lemma",
+            "The double complex $P_\\bullet \\otimes Q_\\bullet$ with two spectral sequences",
+            "Nakayama's lemma",
+            "Localization"
+          ],
+          "answer": 1,
+          "explain": "Take projective resolutions $P_\\bullet \\to M$ and $Q_\\bullet \\to N$, form $P_\\bullet \\otimes Q_\\bullet$, compute the total cohomology two ways."
+        },
+        {
+          "type": "mcq",
+          "q": "Tor symmetry is a special case of which broader principle?",
+          "choices": [
+            "Cohomology equals homology",
+            "$\\otimes_R$ is a balanced derived bifunctor",
+            "Right-exactness of $\\otimes$",
+            "Tor vanishes for flat modules"
+          ],
+          "answer": 1,
+          "explain": "\"Balanced\" means: the derived functor of a bifunctor right-exact in each argument can be computed by resolving either slot. Same logic applies to $\\mathrm{Ext}$: projective resolution of $M$ vs injective resolution of $N$ give the same $\\mathrm{Ext}^n_R(M, N)$. (Ext itself is not symmetric in its two arguments — only the two ways of computing it agree.)"
+        }
+      ]
+    },
+    "cartan-eilenberg-ha": {
+      "title": "Cartan–Eilenberg resolutions",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "A Cartan–Eilenberg resolution of a chain complex $C^\\bullet$ is:",
+          "choices": [
+            "A single resolution of $\\bigoplus_p C^p$",
+            "A double complex $P^{\\bullet,\\bullet}$ with rowwise projective resolutions of each $C^p$ and induced resolutions of cycles, boundaries, homology",
+            "An injective resolution of $C^\\bullet$",
+            "A free resolution"
+          ],
+          "answer": 1,
+          "explain": "All three of: rowwise projective resolutions, plus the horizontal cycles/boundaries/homology of $P^{\\bullet,\\bullet}$ resolve those of $C^\\bullet$. The third condition is what distinguishes a CE resolution from a mere rowwise resolution."
+        },
+        {
+          "type": "mcq",
+          "q": "Cartan–Eilenberg resolutions exist for every complex bounded below. Are two such resolutions of the same complex equivalent?",
+          "choices": [
+            "Only if the original complex is contractible",
+            "Yes, any two are chain-homotopy equivalent as double complexes",
+            "No — they can be inequivalent",
+            "Only up to total cohomology"
+          ],
+          "answer": 1,
+          "explain": "Existence + uniqueness up to chain-homotopy of double complexes. This is what makes hyper-derived functors well-defined."
+        },
+        {
+          "type": "mcq",
+          "q": "The Grothendieck spectral sequence $\\mathbb{R}^p G(\\mathbb{R}^q F(A)) \\Rightarrow \\mathbb{R}^{p+q}(GF)(A)$ is constructed by:",
+          "choices": [
+            "Applying $G$ to an injective resolution of $A$",
+            "Applying $G$ to a Cartan–Eilenberg resolution of $F$-acyclics",
+            "Cup product",
+            "The five lemma"
+          ],
+          "answer": 1,
+          "explain": "Replace $A$ by an $F$-acyclic resolution; apply $F$ to get a complex; take a CE resolution of that and apply $G$. The resulting double complex's two spectral sequences give the Grothendieck spectral sequence."
         }
       ]
     }

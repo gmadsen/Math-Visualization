@@ -8,10 +8,10 @@ When something ships, delete its bullet here. Don't keep a "Shipped recently" lo
 
 From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
-- 138 topics, 987 concepts, 31 capstones
+- 138 topics, 990 concepts, 31 capstones
 - 177 concepts lack a widget in their owning section
 - 1017 widgets, 100% registry-driven (PR #70 zero-baseline sweep — `audit-no-inline-widgets` now hard-fails on any non-registry widget)
-- Quiz tiers: v1 = 2918, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
+- Quiz tiers: v1 = 2927, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 - Tag coverage: ~80%. Worst remaining sections: number-theory 63%, higher-categories 71%, logic-and-foundations 76%, geometry-and-topology 78%, algebraic-geometry 78%. (Analysis/probability/modular-forms/combinatorics closed to 85–93% in PR #49.)
 
 ## Near-term tasks
@@ -20,7 +20,7 @@ Items below come out of the algebra/analysis comparative audit shipped in PR #49
 
 - **Within-topic concept backfill on `complex-analysis`, `functional-analysis`, `commutative-algebra`, `homological`.** Named-theorem level: open-mapping (named), Phragmén-Lindelöf bridge, subharmonic backref; Banach-Alaoglu (named), Krein-Milman; completion, DVRs/Dedekind domains, Koszul complex; double complexes, Tor symmetry, Cartan-Eilenberg.
 - **Tagging tail — remaining sections.** PR #49 closed the four worst (analysis 56→91%, probability 45→93%, modular-forms 51→85%, combinatorics 49→86%). Mid-tier follow-up: number-theory (63%), higher-categories (71%), logic-and-foundations (76%), geometry-and-topology and algebraic-geometry (78% each).
-- **Math physics has no `hard` tier and Combinatorics has no `hard` tier.** 549 concepts lack a hard tier corpus-wide; 12 topics in those two sections × ~6 concepts × 2-3 questions each ≈ ~150 of the missing questions. Per "Out of scope", de-prioritized — listed here so the gap is visible, not actioned.
+- **Math physics has no `hard` tier and Combinatorics has no `hard` tier.** 552 concepts lack a hard tier corpus-wide; 12 topics in those two sections × ~6 concepts × 2-3 questions each ≈ ~150 of the missing questions. Per "Out of scope", de-prioritized — listed here so the gap is visible, not actioned.
 
 ## Bigger missing-topic candidates (from the comparative audit)
 
@@ -79,7 +79,7 @@ Items raised by the review-team agents that were deferred at merge time. **All q
 
 Items the user has explicitly de-prioritized. **Don't suggest these as "what next" without prompting.**
 
-- **Hard-tier quiz authoring** (549 concepts lack hard tier).
+- **Hard-tier quiz authoring** (552 concepts lack hard tier).
 - **Expert-tier authoring** (13 questions corpus-wide).
 
 These are real coverage gaps but not where the user wants to spend time. Per-session feedback memory: lowest-leverage direction, structural/architectural improvements come first.
