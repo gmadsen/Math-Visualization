@@ -47,7 +47,11 @@
         "fol-semantics",
         "fol-deduction"
       ],
-      "blurb": "$\\Gamma\\vdash\\varphi \\iff \\Gamma\\models\\varphi$. Equivalently, every consistent theory has a model. Henkin's proof: add witness constants for every $\\exists x\\,\\psi(x)$, extend to a maximal consistent Henkin theory, then take the term model — closed terms modulo provable equality — as the canonical structure."
+      "blurb": "$\\Gamma\\vdash\\varphi \\iff \\Gamma\\models\\varphi$. Equivalently, every consistent theory has a model. Henkin's proof: add witness constants for every $\\exists x\\,\\psi(x)$, extend to a maximal consistent Henkin theory, then take the term model — closed terms modulo provable equality — as the canonical structure.",
+      "tags": [
+        "foundation",
+        "classification"
+      ]
     },
     {
       "id": "fol-compactness",
@@ -57,7 +61,11 @@
         "fol-completeness",
         "compactness"
       ],
-      "blurb": "Compactness theorem: a set of sentences is satisfiable iff every finite subset is. An immediate corollary of completeness, since proofs are finite. Adding a constant $c$ with $c>0, c>1, c>2,\\ldots$ to Peano arithmetic gives a consistent extension, hence a non-standard model of $\\mathbb{N}$ containing infinite elements."
+      "blurb": "Compactness theorem: a set of sentences is satisfiable iff every finite subset is. An immediate corollary of completeness, since proofs are finite. Adding a constant $c$ with $c>0, c>1, c>2,\\ldots$ to Peano arithmetic gives a consistent extension, hence a non-standard model of $\\mathbb{N}$ containing infinite elements.",
+      "tags": [
+        "compactness",
+        "foundation"
+      ]
     },
     {
       "id": "fol-lowenheim-skolem",
@@ -68,7 +76,10 @@
         "countability",
         "compactness"
       ],
-      "blurb": "Downward Löwenheim–Skolem: any satisfiable theory in a countable language has a countable model. Applied to ZFC, this yields a countable model of set theory — even though ZFC proves $\\mathbb{R}$ is uncountable. The 'paradox' is resolved: 'uncountable' is internal; the bijection witnessing countability lives outside the model."
+      "blurb": "Downward Löwenheim–Skolem: any satisfiable theory in a countable language has a countable model. Applied to ZFC, this yields a countable model of set theory — even though ZFC proves $\\mathbb{R}$ is uncountable. The 'paradox' is resolved: 'uncountable' is internal; the bijection witnessing countability lives outside the model.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "fol-decidable-theories",
@@ -77,7 +88,11 @@
       "prereqs": [
         "fol-completeness"
       ],
-      "blurb": "A theory $T$ is decidable if there's an algorithm to test $T\\vdash\\varphi$. Complete + recursively axiomatised $\\Rightarrow$ decidable. Quantifier elimination (e.g. for dense linear orders without endpoints, real closed fields, algebraically closed fields) reduces every formula to a quantifier-free one, giving decidability and a clean structure theory of definable sets."
+      "blurb": "A theory $T$ is decidable if there's an algorithm to test $T\\vdash\\varphi$. Complete + recursively axiomatised $\\Rightarrow$ decidable. Quantifier elimination (e.g. for dense linear orders without endpoints, real closed fields, algebraically closed fields) reduces every formula to a quantifier-free one, giving decidability and a clean structure theory of definable sets.",
+      "tags": [
+        "foundation",
+        "classification"
+      ]
     }
   ]
 }

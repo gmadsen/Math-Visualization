@@ -23,7 +23,10 @@
       "prereqs": [
         "zfc-axioms"
       ],
-      "blurb": "Each ordinal $\\alpha$ is the set of strictly smaller ordinals: $0=\\emptyset$, $1=\\{0\\}$, $2=\\{0,1\\}$, $\\omega=\\{0,1,2,\\dots\\}$. Transfinite induction and recursion run along the well-order $\\in$."
+      "blurb": "Each ordinal $\\alpha$ is the set of strictly smaller ordinals: $0=\\emptyset$, $1=\\{0\\}$, $2=\\{0,1\\}$, $\\omega=\\{0,1,2,\\dots\\}$. Transfinite induction and recursion run along the well-order $\\in$.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "ordinal-arithmetic",
@@ -32,7 +35,10 @@
       "prereqs": [
         "von-neumann-ordinals"
       ],
-      "blurb": "Sum, product, and exponentiation of ordinals defined by transfinite recursion. Non-commutative ($1+\\omega=\\omega\\ne\\omega+1$), and the tower $\\omega,\\omega^\\omega,\\omega^{\\omega^\\omega},\\dots$ converges to $\\varepsilon_0$."
+      "blurb": "Sum, product, and exponentiation of ordinals defined by transfinite recursion. Non-commutative ($1+\\omega=\\omega\\ne\\omega+1$), and the tower $\\omega,\\omega^\\omega,\\omega^{\\omega^\\omega},\\dots$ converges to $\\varepsilon_0$.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "cardinals-cofinality",
@@ -55,7 +61,10 @@
         "zfc-axioms",
         "axiom-of-choice-intuition"
       ],
-      "blurb": "AC, Zorn's lemma, and the well-ordering theorem are equivalent over ZF. Tychonoff's product theorem, existence of a Hamel basis for $\\mathbb R/\\mathbb Q$, and a non-measurable set all need it."
+      "blurb": "AC, Zorn's lemma, and the well-ordering theorem are equivalent over ZF. Tychonoff's product theorem, existence of a Hamel basis for $\\mathbb R/\\mathbb Q$, and a non-measurable set all need it.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "continuum-hypothesis",
@@ -64,7 +73,10 @@
       "prereqs": [
         "cardinals-cofinality"
       ],
-      "blurb": "CH: $2^{\\aleph_0}=\\aleph_1$. Gödel (1940) showed CH is consistent with ZFC; Cohen (1963) showed $\\neg$CH is too — so CH is independent. Forcing is the technique behind Cohen's half."
+      "blurb": "CH: $2^{\\aleph_0}=\\aleph_1$. Gödel (1940) showed CH is consistent with ZFC; Cohen (1963) showed $\\neg$CH is too — so CH is independent. Forcing is the technique behind Cohen's half.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "inaccessible-cardinals",

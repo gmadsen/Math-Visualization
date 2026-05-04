@@ -3427,7 +3427,11 @@ window.__MVConcepts = {
           "prereqs": [
             "sets-functions"
           ],
-          "blurb": "Countable vs uncountable, Cantor's diagonal argument, and why |R| > |Q|."
+          "blurb": "Countable vs uncountable, Cantor's diagonal argument, and why |R| > |Q|.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
         },
         {
           "id": "axiom-of-choice-intuition",
@@ -3437,7 +3441,10 @@ window.__MVConcepts = {
             "cartesian-product-powerset",
             "countability"
           ],
-          "blurb": "A choice function exists for every family of non-empty sets. Equivalent to Zorn's lemma and the well-ordering theorem; behind every basis, maximal ideal, and Tychonoff product."
+          "blurb": "A choice function exists for every family of non-empty sets. Equivalent to Zorn's lemma and the well-ordering theorem; behind every basis, maximal ideal, and Tychonoff product.",
+          "tags": [
+            "foundation"
+          ]
         }
       ]
     },
@@ -3490,7 +3497,11 @@ window.__MVConcepts = {
             "fol-semantics",
             "fol-deduction"
           ],
-          "blurb": "$\\Gamma\\vdash\\varphi \\iff \\Gamma\\models\\varphi$. Equivalently, every consistent theory has a model. Henkin's proof: add witness constants for every $\\exists x\\,\\psi(x)$, extend to a maximal consistent Henkin theory, then take the term model — closed terms modulo provable equality — as the canonical structure."
+          "blurb": "$\\Gamma\\vdash\\varphi \\iff \\Gamma\\models\\varphi$. Equivalently, every consistent theory has a model. Henkin's proof: add witness constants for every $\\exists x\\,\\psi(x)$, extend to a maximal consistent Henkin theory, then take the term model — closed terms modulo provable equality — as the canonical structure.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
         },
         {
           "id": "fol-compactness",
@@ -3500,7 +3511,11 @@ window.__MVConcepts = {
             "fol-completeness",
             "compactness"
           ],
-          "blurb": "Compactness theorem: a set of sentences is satisfiable iff every finite subset is. An immediate corollary of completeness, since proofs are finite. Adding a constant $c$ with $c>0, c>1, c>2,\\ldots$ to Peano arithmetic gives a consistent extension, hence a non-standard model of $\\mathbb{N}$ containing infinite elements."
+          "blurb": "Compactness theorem: a set of sentences is satisfiable iff every finite subset is. An immediate corollary of completeness, since proofs are finite. Adding a constant $c$ with $c>0, c>1, c>2,\\ldots$ to Peano arithmetic gives a consistent extension, hence a non-standard model of $\\mathbb{N}$ containing infinite elements.",
+          "tags": [
+            "compactness",
+            "foundation"
+          ]
         },
         {
           "id": "fol-lowenheim-skolem",
@@ -3511,7 +3526,10 @@ window.__MVConcepts = {
             "countability",
             "compactness"
           ],
-          "blurb": "Downward Löwenheim–Skolem: any satisfiable theory in a countable language has a countable model. Applied to ZFC, this yields a countable model of set theory — even though ZFC proves $\\mathbb{R}$ is uncountable. The 'paradox' is resolved: 'uncountable' is internal; the bijection witnessing countability lives outside the model."
+          "blurb": "Downward Löwenheim–Skolem: any satisfiable theory in a countable language has a countable model. Applied to ZFC, this yields a countable model of set theory — even though ZFC proves $\\mathbb{R}$ is uncountable. The 'paradox' is resolved: 'uncountable' is internal; the bijection witnessing countability lives outside the model.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "fol-decidable-theories",
@@ -3520,7 +3538,11 @@ window.__MVConcepts = {
           "prereqs": [
             "fol-completeness"
           ],
-          "blurb": "A theory $T$ is decidable if there's an algorithm to test $T\\vdash\\varphi$. Complete + recursively axiomatised $\\Rightarrow$ decidable. Quantifier elimination (e.g. for dense linear orders without endpoints, real closed fields, algebraically closed fields) reduces every formula to a quantifier-free one, giving decidability and a clean structure theory of definable sets."
+          "blurb": "A theory $T$ is decidable if there's an algorithm to test $T\\vdash\\varphi$. Complete + recursively axiomatised $\\Rightarrow$ decidable. Quantifier elimination (e.g. for dense linear orders without endpoints, real closed fields, algebraically closed fields) reduces every formula to a quantifier-free one, giving decidability and a clean structure theory of definable sets.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
         }
       ]
     },
@@ -3549,7 +3571,10 @@ window.__MVConcepts = {
           "prereqs": [
             "zfc-axioms"
           ],
-          "blurb": "Each ordinal $\\alpha$ is the set of strictly smaller ordinals: $0=\\emptyset$, $1=\\{0\\}$, $2=\\{0,1\\}$, $\\omega=\\{0,1,2,\\dots\\}$. Transfinite induction and recursion run along the well-order $\\in$."
+          "blurb": "Each ordinal $\\alpha$ is the set of strictly smaller ordinals: $0=\\emptyset$, $1=\\{0\\}$, $2=\\{0,1\\}$, $\\omega=\\{0,1,2,\\dots\\}$. Transfinite induction and recursion run along the well-order $\\in$.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "ordinal-arithmetic",
@@ -3558,7 +3583,10 @@ window.__MVConcepts = {
           "prereqs": [
             "von-neumann-ordinals"
           ],
-          "blurb": "Sum, product, and exponentiation of ordinals defined by transfinite recursion. Non-commutative ($1+\\omega=\\omega\\ne\\omega+1$), and the tower $\\omega,\\omega^\\omega,\\omega^{\\omega^\\omega},\\dots$ converges to $\\varepsilon_0$."
+          "blurb": "Sum, product, and exponentiation of ordinals defined by transfinite recursion. Non-commutative ($1+\\omega=\\omega\\ne\\omega+1$), and the tower $\\omega,\\omega^\\omega,\\omega^{\\omega^\\omega},\\dots$ converges to $\\varepsilon_0$.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "cardinals-cofinality",
@@ -3581,7 +3609,10 @@ window.__MVConcepts = {
             "zfc-axioms",
             "axiom-of-choice-intuition"
           ],
-          "blurb": "AC, Zorn's lemma, and the well-ordering theorem are equivalent over ZF. Tychonoff's product theorem, existence of a Hamel basis for $\\mathbb R/\\mathbb Q$, and a non-measurable set all need it."
+          "blurb": "AC, Zorn's lemma, and the well-ordering theorem are equivalent over ZF. Tychonoff's product theorem, existence of a Hamel basis for $\\mathbb R/\\mathbb Q$, and a non-measurable set all need it.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "continuum-hypothesis",
@@ -3590,7 +3621,10 @@ window.__MVConcepts = {
           "prereqs": [
             "cardinals-cofinality"
           ],
-          "blurb": "CH: $2^{\\aleph_0}=\\aleph_1$. Gödel (1940) showed CH is consistent with ZFC; Cohen (1963) showed $\\neg$CH is too — so CH is independent. Forcing is the technique behind Cohen's half."
+          "blurb": "CH: $2^{\\aleph_0}=\\aleph_1$. Gödel (1940) showed CH is consistent with ZFC; Cohen (1963) showed $\\neg$CH is too — so CH is independent. Forcing is the technique behind Cohen's half.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "inaccessible-cardinals",
@@ -3995,7 +4029,10 @@ window.__MVConcepts = {
           "prereqs": [
             "forcing-truth-lemma"
           ],
-          "blurb": "The Cohen poset $2^{<\\omega}$ has finite binary strings ordered by extension. A generic filter $G$ collects to a single new real $r_G\\in 2^\\omega$ not in $M$. Forcing with the product $2^{<\\omega}\\times\\aleph_2$ injects $\\aleph_2^M$ many new reals at once."
+          "blurb": "The Cohen poset $2^{<\\omega}$ has finite binary strings ordered by extension. A generic filter $G$ collects to a single new real $r_G\\in 2^\\omega$ not in $M$. Forcing with the product $2^{<\\omega}\\times\\aleph_2$ injects $\\aleph_2^M$ many new reals at once.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "forcing-not-ch",
@@ -4017,7 +4054,11 @@ window.__MVConcepts = {
           "prereqs": [
             "forcing-not-ch"
           ],
-          "blurb": "Forcing also settles the Suslin hypothesis (independent), Martin's axiom (consistent with $\\neg$CH and useful as a parameter), Whitehead's problem in algebra, and large-cardinal indestructibility — Laver-style preparations make supercompacts survive any further forcing."
+          "blurb": "Forcing also settles the Suslin hypothesis (independent), Martin's axiom (consistent with $\\neg$CH and useful as a parameter), Whitehead's problem in algebra, and large-cardinal indestructibility — Laver-style preparations make supercompacts survive any further forcing.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
         }
       ]
     },
