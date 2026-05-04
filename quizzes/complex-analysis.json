@@ -757,6 +757,47 @@
           "hint": "TODO: nudge that does not give away the answer."
         }
       ]
+    },
+    "open-mapping-ca": {
+      "title": "Open mapping theorem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The open mapping theorem says that a non-constant holomorphic $f$ on a connected domain is:",
+          "choices": [
+            "A bijection onto its image",
+            "An open map: $f(U)$ is open whenever $U$ is open",
+            "A closed map: $f(U)$ is closed whenever $U$ is closed",
+            "A diffeomorphism onto $\\mathbb{C}$"
+          ],
+          "answer": 1,
+          "explain": "Open mapping. The dichotomy is \"constant or open\" — there is no in-between. Closed maps need not be open, and bijectivity is a much stronger property handled separately."
+        },
+        {
+          "type": "mcq",
+          "q": "Which earlier theorem drives the proof of open mapping?",
+          "choices": [
+            "Cauchy's integral formula",
+            "Liouville's theorem",
+            "Argument principle (or Rouché)",
+            "Schwarz lemma"
+          ],
+          "answer": 2,
+          "explain": "The argument principle counts zero-preimages of $f - w$ inside a small disk; Rouché shows the count is constant for $w$ near $w_0$, which produces the open neighborhood $D(w_0,\\delta) \\subset f(U)$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is open mapping equivalent to the local biholomorphism statement \"$f'(z_0)\\ne 0 \\Rightarrow f$ is a biholomorphism near $z_0$\"?",
+          "choices": [
+            "Both are direct corollaries of the inverse function theorem on $\\mathbb{R}^2$",
+            "Open mapping implies a non-constant $f$ is locally invertible; combined with $f' \\ne 0$ it gives a holomorphic local inverse",
+            "They are independent statements, equivalence is a coincidence",
+            "Schwarz lemma upgrades open mapping to bijection"
+          ],
+          "answer": 1,
+          "explain": "Open mapping shows $f$ takes a neighborhood onto a neighborhood; $f' \\ne 0$ rules out branch-multiplicity in the Rouché count, so the map is locally injective. Holomorphy of the inverse follows from the same Cauchy-Riemann argument."
+        }
+      ]
     }
   }
 }

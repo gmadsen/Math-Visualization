@@ -273,18 +273,19 @@ const C = {
   <a href="#liouville">12&nbsp;Liouville's&nbsp;theorem</a>
   <a href="#fta">13&nbsp;Fundamental&nbsp;theorem&nbsp;of&nbsp;algebra</a>
   <a href="#maximum-modulus">14&nbsp;Maximum&nbsp;modulus&nbsp;principle</a>
-  <a href="#schwarz-lemma">15&nbsp;Schwarz&nbsp;lemma</a>
-  <a href="#laurent-series">16&nbsp;Laurent&nbsp;series</a>
-  <a href="#singularity-classification">17&nbsp;Classification&nbsp;of&nbsp;singularities</a>
-  <a href="#residue-theorem">18&nbsp;Residue&nbsp;theorem</a>
-  <a href="#argument-principle">19&nbsp;Argument&nbsp;principle</a>
-  <a href="#rouche">20&nbsp;Rouché's&nbsp;theorem</a>
-  <a href="#conformal-map">21&nbsp;Conformal&nbsp;maps</a>
-  <a href="#disk-automorphisms">22&nbsp;Disk&nbsp;automorphisms</a>
-  <a href="#normal-families">23&nbsp;Normal&nbsp;families&nbsp;(Montel)</a>
-  <a href="#riemann-mapping">24&nbsp;Riemann&nbsp;mapping&nbsp;theorem</a>
-  <a href="#harmonic-functions">25&nbsp;Harmonic&nbsp;functions</a>
-  <a href="#analytic-continuation">26&nbsp;Analytic&nbsp;continuation</a>
+  <a href="#open-mapping">15&nbsp;Open&nbsp;mapping&nbsp;theorem</a>
+  <a href="#schwarz-lemma">16&nbsp;Schwarz&nbsp;lemma</a>
+  <a href="#laurent-series">17&nbsp;Laurent&nbsp;series</a>
+  <a href="#singularity-classification">18&nbsp;Classification&nbsp;of&nbsp;singularities</a>
+  <a href="#residue-theorem">19&nbsp;Residue&nbsp;theorem</a>
+  <a href="#argument-principle">20&nbsp;Argument&nbsp;principle</a>
+  <a href="#rouche">21&nbsp;Rouché's&nbsp;theorem</a>
+  <a href="#conformal-map">22&nbsp;Conformal&nbsp;maps</a>
+  <a href="#disk-automorphisms">23&nbsp;Disk&nbsp;automorphisms</a>
+  <a href="#normal-families">24&nbsp;Normal&nbsp;families&nbsp;(Montel)</a>
+  <a href="#riemann-mapping">25&nbsp;Riemann&nbsp;mapping&nbsp;theorem</a>
+  <a href="#harmonic-functions">26&nbsp;Harmonic&nbsp;functions</a>
+  <a href="#analytic-continuation">27&nbsp;Analytic&nbsp;continuation</a>
 <!-- toc-auto-end -->
 </nav>
 <!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
@@ -635,13 +636,38 @@ const C = {
   <div class="ttl">Used in</div>
     <div><a href="./advanced-complex-analysis.html#hadamard-three-circles">Advanced complex analysis</a> · Hadamard's three-circles theorem</div>
     <div><a href="./advanced-complex-analysis.html#phragmen-lindelof">Advanced complex analysis</a> · Phragmén-Lindelöf principle</div>
+    <div><a href="./complex-analysis.html#open-mapping">Complex Analysis</a> · Open mapping theorem</div>
     <div><a href="./complex-analysis.html#schwarz-lemma">Complex Analysis</a> · Schwarz lemma</div>
 </aside>
 <!-- backlinks-auto-end -->
+
+<p><strong>Bridge to unbounded domains.</strong> Maximum modulus as stated needs a bounded domain (else $f(z) = z$ on $\mathbb{C}$ would be a counterexample). The <a href="./advanced-complex-analysis.html#phragmen-lindelof"><strong>Phragmén–Lindelöf principle</strong></a> recovers the conclusion on unbounded sectors by trading boundedness of the domain for a controlled growth bound at infinity — the engine inside Hadamard's three-circles theorem and the Riesz–Thorin interpolation theorem.</p>
+
+</section>
+
+<section id="open-mapping">
+<h2>15. Open mapping theorem</h2>
+
+<p>Maximum modulus says a non-constant $f$ on a domain $\Omega$ never attains $|f|$-maxima inside. The <em>topological</em> dual is the open mapping theorem: $f$ doesn't just avoid pinning local maxima — it spreads every open set to another open set.</p>
+
+<div class="ok"><strong>Open mapping theorem.</strong> Let $f$ be holomorphic on a connected domain $\Omega \subset \mathbb{C}$. Then either $f$ is constant, or $f$ is an open map: $f(U)$ is open in $\mathbb{C}$ for every open $U \subseteq \Omega$.</div>
+
+<p><strong>Why.</strong> Pick $z_0 \in U$ with $w_0 = f(z_0)$. Choose $r > 0$ small enough that $\overline{D}(z_0, r) \subset U$ and $f(z) \ne w_0$ for $z \in \partial D(z_0, r)$ (possible since zeros of the non-constant holomorphic $f - w_0$ are isolated). Let $\delta = \min_{|z - z_0| = r} |f(z) - w_0| > 0$. For any $w$ with $|w - w_0| < \delta$, the argument principle (Rouché) shows $f(z) = w$ has the same number of solutions in $D(z_0, r)$ as $f(z) = w_0$, which is $\ge 1$. So $D(w_0, \delta) \subset f(U)$, and $f(U)$ is open at every point.</p>
+
+<p><strong>Two clean consequences.</strong></p>
+<ul>
+<li><strong>Local biholomorphism criterion.</strong> If $f'(z_0) \ne 0$, then $f$ is a biholomorphism on a neighborhood of $z_0$. (Solutions of $f(z) = w$ are simple and unique near $z_0$ once $w$ is close to $w_0$.) Inverse function theorem on the holomorphic side.</li>
+<li><strong>Maximum-modulus reproof.</strong> If $|f|$ has an interior maximum at $z_0$, then $f(z_0)$ is a boundary point of $f(\Omega)$ — but openness forces $f(z_0)$ to be interior. Contradiction unless $f$ is constant.</li>
+</ul>
+
+<p>Open mapping plus maximum modulus together encode the rigidity of holomorphy at the topological / algebraic level: holomorphic maps either freeze (constant) or spread (open). No middle behavior. The same dichotomy reappears one variable up as Hartogs's extension theorem in <a href="./advanced-complex-analysis.html#scv">several complex variables</a> — extension is forced because the alternatives are too rigid.</p>
+
+<div class="quiz" data-concept="open-mapping-ca"></div>
+
 </section>
 
 <section id="schwarz-lemma">
-<h2>15. Schwarz lemma</h2>
+<h2>16. Schwarz lemma</h2>
 <p><strong>Schwarz lemma.</strong> If $f\colon\mathbb{D}\to\mathbb{D}$ is holomorphic with $f(0)=0$, then $|f(z)|\le |z|$ and $|f'(0)|\le 1$. Equality at any interior $z$ forces $f(z) = e^{i\theta}z$.</p>
 <p><em>Proof.</em> Define $g(z) = f(z)/z$ — holomorphic on $\mathbb{D}$ because $f(0)=0$ removes the apparent singularity (§17). On the circle $|z|=r<1$, $|g(z)|\le 1/r$. Maximum modulus (§14) propagates the bound to the interior, then $r\to 1$ gives $|g|\le 1$ everywhere. Equality at any interior point makes $|g|$ attain its max inside $\mathbb{D}$, forcing $g$ to be a constant of modulus $1$.</p>
 <p>The lemma is short to state, but the consequences are sweeping. It is a <em>rigidity</em> result: a self-map of the disk fixing $0$ is either a rotation or strictly contracts the origin. There is no "dilation by $0.99$ near $0$ then expansion further out" — the boundary constraint nails everything down.</p>
@@ -661,7 +687,7 @@ const C = {
 </section>
 
 <section id="laurent-series">
-<h2>16. Laurent series</h2>
+<h2>17. Laurent series</h2>
 <p>Drop the assumption that $f$ is holomorphic on the whole disc; allow an isolated singularity at $z_0$. On any annulus $r_1 < |z - z_0| < r_2$ on which $f$ is holomorphic, we have a unique <strong>Laurent expansion</strong></p>
 <p>$$f(z) \;=\; \sum_{n=-\infty}^\infty c_n (z-z_0)^n,$$</p>
 <p>convergent on the annulus and divergent outside. The coefficients are still given by Cauchy's formula:</p>
@@ -685,7 +711,7 @@ const C = {
 </section>
 
 <section id="singularity-classification">
-<h2>17. Classification of singularities</h2>
+<h2>18. Classification of singularities</h2>
 <p>An isolated singularity at $z_0$ is a point where $f$ is holomorphic on some punctured disk $0<|z-z_0|<R$ but not at $z_0$ itself. The Laurent expansion (§16) sees three qualitatively different behaviours, distinguished entirely by the <em>principal part</em> $\sum_{n<0} c_n(z-z_0)^n$:</p>
 <p><span class="pill" style="color:var(--green)">removable</span> all $c_{n}=0$ for $n<0$ — $f$ extends holomorphically across $z_0$ (Riemann's removable-singularity theorem: this happens iff $f$ is bounded near $z_0$).</p>
 <p><span class="pill" style="color:var(--yellow)">pole of order $k$</span> $c_{-k}\ne 0$ but $c_n=0$ for $n<-k$ — $f$ blows up like $1/(z-z_0)^k$, and $\lim_{z\to z_0}|f(z)| = \infty$ in every direction.</p>
@@ -703,7 +729,7 @@ const C = {
 </section>
 
 <section id="residue-theorem">
-<h2>18. Residue theorem</h2>
+<h2>19. Residue theorem</h2>
 <p>The <strong>residue</strong> of $f$ at $z_0$ is</p>
 <p>$$\operatorname{Res}(f,z_0) \;=\; c_{-1} \;=\; \frac{1}{2\pi i}\oint f\,dz.$$</p>
 <p>For a simple pole $\operatorname{Res}(f,z_0) = \lim_{z\to z_0}(z-z_0)f(z)$. For a pole of order $k$, $\operatorname{Res}(f,z_0) = \dfrac{1}{(k-1)!}\lim_{z\to z_0}\dfrac{d^{k-1}}{dz^{k-1}}\bigl((z-z_0)^k f(z)\bigr)$.</p>
@@ -721,7 +747,7 @@ const C = {
 </section>
 
 <section id="argument-principle">
-<h2>19. Argument principle</h2>
+<h2>20. Argument principle</h2>
 <p>Apply the residue theorem to the logarithmic derivative $f'/f$. If $f$ is meromorphic with zeros $a_j$ of order $m_j$ and poles $b_k$ of order $n_k$, then $f'/f$ has simple poles at each $a_j$ with residue $m_j$, and at each $b_k$ with residue $-n_k$. Hence</p>
 <p>$$\frac{1}{2\pi i}\oint_\gamma \frac{f'(z)}{f(z)}\,dz \;=\; Z - P,$$</p>
 <p>where $Z = \sum m_j$ counts zeros enclosed by $\gamma$ (with multiplicity) and $P = \sum n_k$ counts poles. This is the <strong>argument principle</strong>.</p>
@@ -751,13 +777,14 @@ const C = {
 </div><div class="quiz" data-concept="argument-principle"></div><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
+    <div><a href="./complex-analysis.html#open-mapping">Complex Analysis</a> · Open mapping theorem</div>
     <div><a href="./complex-analysis.html#rouche">Complex Analysis</a> · Rouché's theorem</div>
 </aside>
 <!-- backlinks-auto-end -->
 </section>
 
 <section id="rouche">
-<h2>20. Rouché's theorem</h2>
+<h2>21. Rouché's theorem</h2>
 <p>The argument principle counts zeros by winding number. Rouché's theorem turns that counting into a perturbation tool: if $g$ is a small enough wiggle of $f$ on the boundary, the count cannot change.</p>
 <div class="note"><strong>Rouché's theorem.</strong> If $|f(z) - g(z)| < |f(z)|$ on a contour $\gamma$, then $f$ and $g$ have the same number of zeros inside. Picture: the image $g(\gamma)$ is "less than $|f(\gamma)|$ away" from $f(\gamma)$, so it cannot loop around $0$ a different number of times.</div>
 <p><strong>Worked example: FTA in one line.</strong> Let $p(z)=z^n + a_{n-1}z^{n-1}+\cdots+a_0$. Take $f(z)=z^n$ and $g(z)=p(z)$ on the circle $|z|=R$. For $R$ large, $|p(z)-z^n| = |a_{n-1}z^{n-1}+\cdots| \le C R^{n-1} < R^n = |z^n|$, so $p$ has the same number of zeros as $z^n$ inside, namely $n$.</p>
@@ -767,7 +794,7 @@ const C = {
 </section>
 
 <section id="conformal-map">
-<h2>21. Conformal maps</h2>
+<h2>22. Conformal maps</h2>
 <p>A holomorphic map $f$ is <strong>conformal</strong> wherever $f'\ne 0$. Globally, a <em>conformal isomorphism</em> is a holomorphic bijection with holomorphic inverse.</p>
 <h3>Joukowski and Schwarz–Christoffel</h3>
 <p>The <strong>Joukowski</strong> map $J(z) = \tfrac12(z + 1/z)$ has the celebrated property that it sends a circle through $z=1$ (or $z=-1$) to an "airfoil" shape — historically used in early 20th-century aerodynamics to compute flow around wings.</p>
@@ -800,7 +827,7 @@ const C = {
 </section>
 
 <section id="disk-automorphisms">
-<h2>22. Disk automorphisms</h2>
+<h2>23. Disk automorphisms</h2>
 <p>The conformal automorphisms of the disk are exactly</p>
 <p>$$\mathrm{Aut}(\mathbb{D}) = \left\{ z\mapsto e^{i\theta}\frac{z-a}{1-\bar a z} \;:\; \theta\in\mathbb{R},\, a\in\mathbb{D}\right\} \;\cong\; \mathrm{PSU}(1,1).$$</p>
 <p>This is the <em>isometry group of the hyperbolic plane</em>, with the Poincaré metric $ds^2 = \dfrac{4|dz|^2}{(1-|z|^2)^2}$.</p>
@@ -815,7 +842,7 @@ const C = {
 </section>
 
 <section id="normal-families">
-<h2>23. Normal families (Montel)</h2>
+<h2>24. Normal families (Montel)</h2>
 <p>A family $\mathcal{F}$ of holomorphic functions on a domain $\Omega$ is <strong>normal</strong> if every sequence in $\mathcal{F}$ has a subsequence that converges locally uniformly on $\Omega$ — possibly to $\infty$. This is compactness in disguise: the right setting is the topology of uniform convergence on compact sets.</p>
 <div class="note"><strong>Montel's theorem.</strong> If $\mathcal{F}$ is <em>locally bounded</em> (uniformly bounded on each compact $K\subset\Omega$), then $\mathcal{F}$ is normal.</div>
 <p>The proof is Arzelà–Ascoli applied to the right object. Local boundedness combined with Cauchy's estimate $|f'(z)|\le M_K/\mathrm{dist}(z,\partial K)$ gives equicontinuity for free; Arzelà–Ascoli then extracts a uniformly convergent subsequence, and the locally uniform limit of holomorphic functions is holomorphic (Weierstrass). So local boundedness is the only hypothesis you have to check.</p>
@@ -839,14 +866,14 @@ const C = {
 </section>
 
 <section id="riemann-mapping">
-<h2>24. Riemann mapping theorem</h2>
+<h2>25. Riemann mapping theorem</h2>
 <p><strong>Riemann mapping theorem.</strong> Every simply connected proper open subset of $\mathbb{C}$ is conformally equivalent to the open unit disk $\mathbb{D}$. (And the equivalence is unique once you fix a base point and a tangent direction.)</p>
 <p>Topology says the disk and any other simply connected domain are homeomorphic; the Riemann mapping theorem says they are <em>holomorphically</em> equivalent. The proof is non-constructive — the equivalence is the unique normalized solution to an extremal problem (maximize $|f'(z_0)|$ among holomorphic injections into $\mathbb{D}$).</p>
 <div class="quiz" data-concept="riemann-mapping"></div>
 </section>
 
 <section id="harmonic-functions">
-<h2>25. Harmonic functions</h2>
+<h2>26. Harmonic functions</h2>
 <p>If $f = u + iv$ is holomorphic, both $u$ and $v$ are <strong>harmonic</strong>: they satisfy Laplace's equation $\Delta u = u_{xx} + u_{yy} = 0$. Conversely, any harmonic function on a simply connected domain is the real part of some holomorphic $f$, unique up to a real additive constant. The imaginary part $v$ is the <em>harmonic conjugate</em> of $u$; you reconstruct it by integrating the Cauchy–Riemann equations.</p>
 <p>This identification is the bridge to potential theory: the steady-state heat distribution, the gravitational potential in vacuum, and the electrostatic potential in a charge-free region are all harmonic, hence locally real parts of holomorphic functions. Conformal maps then move boundary value problems between domains.</p>
 <!-- callback-auto-begin -->
@@ -862,10 +889,13 @@ const C = {
     <div><a href="./analytic-continuation.html#schwarz">Analytic continuation</a> · Schwarz reflection principle</div>
 </aside>
 <!-- backlinks-auto-end --><div class="quiz" data-concept="harmonic-functions"></div>
+
+<p><strong>One step further: subharmonic functions.</strong> Subharmonic functions (continuous, satisfying $u(z_0) \le \frac{1}{2\pi}\int_0^{2\pi} u(z_0 + re^{i\theta})d\theta$) generalize $\log|f|$ for holomorphic $f$ and provide the right setting for value-distribution and potential theory. They underwrite the Perron method for the <a href="./harmonic-functions.html">harmonic-functions topic</a>'s Dirichlet problem and the proof of the Bloch lower bound (<a href="./advanced-complex-analysis.html#bloch">advanced complex analysis §9</a>) via comparison with metrics of curvature $\le -1$ — the Ahlfors–Schwarz lemma at work.</p>
+
 </section>
 
 <section id="analytic-continuation">
-<h2>26. Analytic continuation</h2>
+<h2>27. Analytic continuation</h2>
 <p><strong>Analytic continuation.</strong> A holomorphic function on a small disk has a unique extension to any simply connected domain containing the disk on which the extension exists. (Identity theorem: two holomorphic functions agreeing on a set with an accumulation point agree everywhere on the connected component.) The natural domain of $\sqrt{z}$ or $\log z$ is not $\mathbb{C}\setminus\{0\}$ but a bigger object — a <em>Riemann surface</em>. Walking $\log z$ around a loop encircling $0$ adds $2\pi i$; that increment is the <em>monodromy</em>.</p>
 <p>Riemann surfaces are the natural homes of multi-valued analytic functions. The compact ones are classified by genus; the simply connected ones by uniformization (every compact Riemann surface of genus $\ge 2$ is a quotient of the upper half-plane by a Fuchsian group). Modular forms — automorphic functions on the upper half-plane — pick up here. <em>Forward pointer: a future <code>modular-forms.html</code> will continue this thread.</em></p>
 <div class="ok">Holomorphic = locally rotation+scaling = locally a power series = $u,v$ harmonic conjugates = closed contour integrals vanish = boundary values determine interior. Six perspectives on one phenomenon.</div>

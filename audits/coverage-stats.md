@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **138**, concepts: **984**
+- Topics: **138**, concepts: **990**
 - Widgets: **1017** (registry-driven: 1017, inline: 0)
-- Quizzes: **4145** (v1: 2909, hard: 1223, expert: 13)
-- Quiz types: mcq: 2786, numeric: 1056, multi-select: 132, matching: 57, ordering: 38, complex: 29, spot-the-error: 26, proof-completion: 17, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **140**
-- Concepts lacking a hard-tier quiz: **546**
+- Quizzes: **4163** (v1: 2927, hard: 1223, expert: 13)
+- Quiz types: mcq: 2804, numeric: 1056, multi-select: 132, matching: 57, ordering: 38, complex: 29, spot-the-error: 26, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Concepts lacking a widget in their section: **146**
+- Concepts lacking a hard-tier quiz: **552**
 
 ## Per-slug registry adoption
 
@@ -578,13 +578,13 @@ page has wired one in yet.
 
 ### Algebra & homological
 
-- Topics: **13**, concepts: **121**
+- Topics: **13**, concepts: **124**
 - Widgets: **123** (registry-driven: 123, inline: 0)
   - by family: button-stepper: 42, clickable-diagram: 21, verbatim: 14, parametric-plot: 9, proof-scrubber: 2, quantum-groups-hopf-axioms-inspector: 1, quantum-groups-qsl2-deformation-slider: 1, quantum-groups-yang-baxter-reidemeister: 1, quantum-groups-crystal-tensor-product: 1, quantum-groups-reshetikhin-turaev-knots: 1, quantum-groups-applications-map: 1, quaternions-multiplication-tester: 1, quaternions-rotation-visualizer: 1, quaternions-cayley-dickson-ladder: 1, quaternions-fano-plane-oracle: 1, quaternions-frobenius-case-tree: 1, quaternions-hurwitz-tower-bar: 1, naturality-square: 1, declarative-host: 1, clickable-graph: 1, diagram-editor: 1, group-cohomology-coboundary-calculator: 1, group-cohomology-fixed-points: 1, group-cohomology-hilbert-90: 1, group-cohomology-c2-extensions: 1, group-cohomology-tate-periodic-table: 1, group-cohomology-lhs-spectral: 1, group-cohomology-brauer-cheatsheet: 1, lie-algebras-bracket-table: 1, lie-algebras-adjoint-vis: 1, lie-algebras-derived-series: 1, lie-algebras-root-vis: 1, lie-algebras-weight-diagram: 1, lie-algebras-dynkin-gallery: 1, gcb-cocycle-tester: 1, gcb-mu2-torsor-visualizer: 1, gcb-central-extension-browser: 1, gcb-cyclic-algebra-tester: 1, gcb-tate-pairing-table: 1, gcb-hasse-counterexample-gallery: 1
   - by dimension: 2d: 122, 3d: 1
   - by gesture: click: 93, select: 12, slider: 6, inspect: 3, toggle: 2, scrub: 2, input: 1, slider+click: 1, interactive: 1, drag-and-toggle: 1, step: 1
-- Quizzes: **550** (v1: 364, hard: 186, expert: 0)
-  - by type: mcq: 347, numeric: 149, multi-select: 27, ordering: 11, spot-the-error: 6, matching: 5, proof-completion: 4, complex: 1
+- Quizzes: **559** (v1: 373, hard: 186, expert: 0)
+  - by type: mcq: 356, numeric: 149, multi-select: 27, ordering: 11, spot-the-error: 6, matching: 5, proof-completion: 4, complex: 1
 
 ### Higher categories & toposes
 
@@ -598,13 +598,13 @@ page has wired one in yet.
 
 ### Analysis
 
-- Topics: **16**, concepts: **170**
+- Topics: **16**, concepts: **173**
 - Widgets: **143** (registry-driven: 143, inline: 0)
   - by family: clickable-diagram: 41, button-stepper: 37, verbatim: 21, aca-figure: 5, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, variational-fdiff: 1, variational-brachistochrone: 1, variational-direct-method: 1, variational-mountain-pass: 1, variational-isoperimetric: 1, variational-sphere-geodesic: 1, constraint-bifurcation-explorer: 1, recurrence-plotter: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
   - by dimension: 2d: 142, 3d: 1
   - by gesture: click: 87, slider: 46, drag: 5, select: 3, step: 1, static: 1
-- Quizzes: **654** (v1: 469, hard: 185, expert: 0)
-  - by type: mcq: 415, numeric: 153, multi-select: 24, matching: 18, ordering: 14, complex: 14, proof-completion: 9, spot-the-error: 5, construction: 1, guess-my-rule: 1
+- Quizzes: **663** (v1: 478, hard: 185, expert: 0)
+  - by type: mcq: 424, numeric: 153, multi-select: 24, matching: 18, ordering: 14, complex: 14, proof-completion: 9, spot-the-error: 5, construction: 1, guess-my-rule: 1
 
 ### Probability & statistics
 
@@ -722,7 +722,7 @@ page has wired one in yet.
 - `algebra` (Algebra & homological) — concepts=16, widgets=16 (slug=16), quiz=85 (v1=48, hard=37, expert=0)
 - `category-theory` (Algebra & homological) — concepts=12, widgets=17 (slug=17), quiz=72 (v1=36, hard=36, expert=0)
 - `representation-theory` (Algebra & homological) — concepts=13, widgets=13 (slug=13), quiz=74 (v1=39, hard=35, expert=0)
-- `commutative-algebra` (Algebra & homological) — concepts=13, widgets=13 (slug=13), quiz=75 (v1=40, hard=35, expert=0)
+- `commutative-algebra` (Algebra & homological) — concepts=16, widgets=13 (slug=13), quiz=84 (v1=49, hard=35, expert=0)
 - `homological` (Algebra & homological) — concepts=15, widgets=12 (slug=12), quiz=82 (v1=45, hard=37, expert=0)
 - `derived-categories` (Algebra & homological) — concepts=7, widgets=7 (slug=7), quiz=27 (v1=21, hard=6, expert=0)
 - `group-cohomology` (Algebra & homological) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
@@ -737,8 +737,8 @@ page has wired one in yet.
 - `infinity-topoi` (Higher categories & toposes) — concepts=7, widgets=9 (slug=9), quiz=29 (v1=21, hard=8, expert=0)
 - `real-analysis` (Analysis) — concepts=18, widgets=19 (slug=19), quiz=83 (v1=54, hard=29, expert=0)
 - `measure-theory` (Analysis) — concepts=12, widgets=12 (slug=12), quiz=72 (v1=36, hard=36, expert=0)
-- `complex-analysis` (Analysis) — concepts=26, widgets=7 (slug=7), quiz=49 (v1=37, hard=12, expert=0)
-- `functional-analysis` (Analysis) — concepts=12, widgets=11 (slug=11), quiz=72 (v1=36, hard=36, expert=0)
+- `complex-analysis` (Analysis) — concepts=27, widgets=7 (slug=7), quiz=52 (v1=40, hard=12, expert=0)
+- `functional-analysis` (Analysis) — concepts=14, widgets=11 (slug=11), quiz=78 (v1=42, hard=36, expert=0)
 - `operator-algebras` (Analysis) — concepts=12, widgets=12 (slug=12), quiz=72 (v1=36, hard=36, expert=0)
 - `dynamical-systems` (Analysis) — concepts=13, widgets=14 (slug=14), quiz=75 (v1=39, hard=36, expert=0)
 - `sobolev-spaces-distributions` (Analysis) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)

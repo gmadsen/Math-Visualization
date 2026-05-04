@@ -4776,6 +4776,49 @@ window.__MVConcepts = {
             "integral-extensions-ca"
           ],
           "blurb": "For a finitely generated domain $B$ over a field $k$, $\\dim B = \\mathrm{tr.deg}_k\\,\\mathrm{Frac}(B)$: Krull dimension equals transcendence degree, the maximal size of an algebraically independent subset. This identifies \"number of free parameters\" with \"length of a prime chain\"."
+        },
+        {
+          "id": "completion-ca",
+          "title": "Completion",
+          "anchor": "completion",
+          "prereqs": [
+            "localization-ca",
+            "noetherian-hilbert-ca"
+          ],
+          "blurb": "The $I$-adic completion $\\hat R_I = \\varprojlim_n R/I^n$ packages every \"approximate\" element by its residues. Produces $\\mathbb{Z}_p$ from $\\mathbb{Z}$, $k[[x]]$ from $k[x]$, and is the natural setting for Hensel's lemma and Krull's intersection theorem.",
+          "tags": [
+            "completion",
+            "foundation"
+          ]
+        },
+        {
+          "id": "dvr-dedekind-ca",
+          "title": "Discrete valuation rings and Dedekind domains",
+          "anchor": "dvr-dedekind",
+          "prereqs": [
+            "localization-ca",
+            "krull-dimension-ca",
+            "integral-extensions-ca"
+          ],
+          "blurb": "DVR = local PID; equivalently a Noetherian local domain with principal maximal ideal. Dedekind domain = Noetherian, dim 1, integrally closed — every nonzero ideal factors uniquely into primes. The arithmetic ring class.",
+          "tags": [
+            "classification",
+            "completion"
+          ]
+        },
+        {
+          "id": "koszul-complex-ca",
+          "title": "Koszul complex",
+          "anchor": "koszul-complex",
+          "prereqs": [
+            "modules-ca",
+            "flatness-ca"
+          ],
+          "blurb": "Built from the exterior algebra of $R^n$ with differential $e_i \\mapsto a_i$. Acyclic iff $(a_1,\\ldots,a_n)$ is a regular sequence — turning the depth/regularity dichotomy into a homological certificate.",
+          "tags": [
+            "foundation",
+            "exact-sequence"
+          ]
         }
       ]
     },
@@ -6728,6 +6771,20 @@ window.__MVConcepts = {
           "tags": [
             "lifting"
           ]
+        },
+        {
+          "id": "open-mapping-ca",
+          "title": "Open mapping theorem",
+          "anchor": "open-mapping",
+          "prereqs": [
+            "maximum-modulus",
+            "argument-principle"
+          ],
+          "blurb": "A non-constant holomorphic map between domains is open: it sends every open set to an open set. Equivalent to the dichotomy \"constant or open,\" and the topological flip of the maximum-modulus principle.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
         }
       ]
     },
@@ -6894,6 +6951,32 @@ window.__MVConcepts = {
           "blurb": "The dual of Cc^∞ is the space of distributions — delta, principal value, tempered — extending differentiation and Fourier analysis beyond functions.",
           "tags": [
             "duality"
+          ]
+        },
+        {
+          "id": "banach-alaoglu",
+          "title": "Banach–Alaoglu theorem",
+          "anchor": "banach-alaoglu",
+          "prereqs": [
+            "weak-topology"
+          ],
+          "blurb": "The closed unit ball of $X^*$ is weak-$*$ compact: a Tychonoff-product argument that lets $\\ell^\\infty$, $L^\\infty$, and the dual of any normed space play the role of \"compact infinite-dimensional set.\"",
+          "tags": [
+            "compactness",
+            "duality"
+          ]
+        },
+        {
+          "id": "krein-milman",
+          "title": "Krein–Milman theorem",
+          "anchor": "krein-milman",
+          "prereqs": [
+            "banach-alaoglu"
+          ],
+          "blurb": "A nonempty compact convex set in a locally convex space is the closed convex hull of its extreme points. The structural complement to Banach–Alaoglu — once compactness is in hand, extreme points generate.",
+          "tags": [
+            "classification",
+            "compactness"
           ]
         }
       ]
@@ -14663,11 +14746,11 @@ window.__MVConcepts = {
       "density": 0.10204081632653061
     },
     "Algebra & homological": {
-      "concepts": 121,
-      "intra": 177,
+      "concepts": 124,
+      "intra": 184,
       "crossOut": 16,
       "crossIn": 74,
-      "density": 0.1322314049586777
+      "density": 0.12903225806451613
     },
     "Higher categories & toposes": {
       "concepts": 45,
@@ -14677,11 +14760,11 @@ window.__MVConcepts = {
       "density": 0.5111111111111111
     },
     "Analysis": {
-      "concepts": 170,
-      "intra": 298,
+      "concepts": 173,
+      "intra": 302,
       "crossOut": 27,
       "crossIn": 62,
-      "density": 0.1588235294117647
+      "density": 0.15606936416184972
     },
     "Probability & statistics": {
       "concepts": 55,
