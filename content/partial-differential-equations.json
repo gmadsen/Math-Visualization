@@ -145,7 +145,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./general-relativity.html#gw\">General relativity</a> · Linearised gravity and gravitational waves</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./general-relativity.html#gw\">General relativity</a> · Linearised gravity and gravitational waves</div>\n    <div><a href=\"./microlocal-analysis.html#regularity\">Microlocal analysis</a> · Microlocal regularity and propagation of singularities</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

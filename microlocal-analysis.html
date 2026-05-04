@@ -271,7 +271,7 @@ $$\mathrm{WF}(u) \;=\; \{(x_0,\xi_0)\in T^*\mathbb{R}^n\setminus 0 \;:\; \xi_0\t
 
 <ul>
 <li>$u=\delta_0$: $\widehat{\phi\delta_0}=\phi(0)$ is constant, so it has no rapid decay in any direction. $\mathrm{WF}(\delta_0)=\{(0,\xi):\xi\ne 0\}$ — singular at one point, in every direction.</li>
-<li>$u=\mathbf{1}_{x_1>0}$ (Heaviside on a hyperplane): the Fourier transform is concentrated near $\xi_2=\cdots=\xi_n=0$. $\mathrm{WF}(u)$ is the conormal bundle of $\{x_1=0\}$ — singular only along the hyperplane, only in the direction perpendicular to it.</li>
+<li>$u=\mathbf{1}_{x_1>0}$ (Heaviside on a hyperplane): the Fourier transform is concentrated near $\xi_2=\cdots=\xi_n=0$. $\mathrm{WF}(u)$ is the <em>conormal bundle</em> of $\{x_1=0\}$ (the cotangent vectors that annihilate every tangent direction to the hyperplane — here the covectors $\xi\propto e_1$ at every base point on $\{x_1=0\}$); singular only along the hyperplane, only in the direction perpendicular to it.</li>
 <li>$u\in C^\infty(\mathbb{R}^n)$: $\widehat{\phi u}$ is Schwartz everywhere, $\mathrm{WF}(u)=\emptyset$. The wavefront set is empty exactly when $u$ is smooth.</li>
 </ul>
 
@@ -287,6 +287,7 @@ $$\mathrm{WF}(u) \;=\; \{(x_0,\xi_0)\in T^*\mathbb{R}^n\setminus 0 \;:\; \xi_0\t
       <option value="step">Heaviside on {x=0} (hyperplane jump)</option>
       <option value="step45">Heaviside on x+y=0 (rotated jump)</option>
       <option value="corner">step on quadrant (two hyperplanes meet)</option>
+      <option value="invabs">|x|⁻¹ (homogeneous singular at origin)</option>
       <option value="bump">smooth bump (no singular support)</option>
     </select>
   </div>
@@ -309,7 +310,7 @@ $$\mathrm{WF}(u) \;=\; \{(x_0,\xi_0)\in T^*\mathbb{R}^n\setminus 0 \;:\; \xi_0\t
     if(kind === 'dipole') return {
       sing: '{(0,0)}',
       cone: 'every ξ ≠ 0',
-      wf: 'WF(δ′₀) = {(0,0)} × (ℝ²∖0) — same support as δ₀',
+      wf: 'WF(δ′₀) = {(0,0)} × (ℝ²∖0) — same support as δ₀ (differentiation does not narrow the closed-cone Σ_x at a singular point)',
       points: [[0,0]],
       drawCone: (svg, x, y) => drawFullCone(svg, x, y),
       classify: 'point singularity, isotropic — derivatives do not narrow the cone',
@@ -341,6 +342,14 @@ $$\mathrm{WF}(u) \;=\; \{(x_0,\xi_0)\in T^*\mathbb{R}^n\setminus 0 \;:\; \xi_0\t
         else drawAxialCone(svg, x, y, Math.PI/2, 0.16);
       },
       classify: 'corner: singular support is two rays; corner contributes all directions',
+    };
+    if(kind === 'invabs') return {
+      sing: '{(0,0)}',
+      cone: 'every ξ ≠ 0',
+      wf: 'WF(|x|⁻¹) = {(0,0)} × (ℝ²∖0) — homogeneous distribution, full cone like δ₀',
+      points: [[0,0]],
+      drawCone: (svg, x, y) => drawFullCone(svg, x, y),
+      classify: 'point singularity from homogeneity, not concentration: |x|⁻¹ is integrable away from 0 and singular only there',
     };
     return {
       sing: '∅',
@@ -399,7 +408,7 @@ $$\mathrm{WF}(u) \;=\; \{(x_0,\xi_0)\in T^*\mathbb{R}^n\setminus 0 \;:\; \xi_0\t
     for(const [px, py] of d.points){
       svg.appendChild(SVG('circle',{cx:xLeftCenter+px,cy:-py,r:3.5,fill:'var(--cyan)',stroke:'var(--bg)','stroke-width':0.8}));
     }
-    if(kind === 'delta' || kind === 'dipole'){
+    if(kind === 'delta' || kind === 'dipole' || kind === 'invabs'){
       svg.appendChild(SVG('circle',{cx:xLeftCenter,cy:0,r:5,fill:'var(--cyan)',stroke:'var(--bg)','stroke-width':1.0}));
     }
     if(kind === 'bump'){
@@ -443,7 +452,7 @@ $$Pu(x) \;=\; \frac{1}{(2\pi)^n}\int e^{ix\cdot\xi}\,p(x,\xi)\,\hat u(\xi)\,d\xi
 
 $$\bigl|\,\partial^\alpha_x\,\partial^\beta_\xi\, p(x,\xi)\,\bigr| \;\le\; C_{\alpha\beta}\,(1+|\xi|)^{m-|\beta|}\qquad\text{for all multi-indices }\alpha,\beta.$$
 
-<p>Each $\xi$-derivative drops the order by one; differentiating in $x$ does not. A symbol is <strong>classical</strong> if it admits an asymptotic expansion $p\sim p_m + p_{m-1}+\cdots$ where $p_{m-j}\in S^{m-j}$ is positively homogeneous of degree $m-j$ in $\xi$ for $|\xi|$ large. The leading term $p_m$ is the <strong>principal symbol</strong>; it transforms as a function on $T^*\mathbb{R}^n$ under coordinate changes (the lower-order pieces transform by Egorov's correction terms and depend on the choice of quantization).</p>
+<p>Each $\xi$-derivative drops the order by one; differentiating in $x$ does not. A symbol is <strong>classical</strong> if it admits an asymptotic expansion $p\sim p_m + p_{m-1}+\cdots$ where $p_{m-j}\in S^{m-j}$ is positively homogeneous of degree $m-j$ in $\xi$ for $|\xi|$ large. The leading term $p_m$ is the <strong>principal symbol</strong>; it transforms as a function on $T^*\mathbb{R}^n$ under coordinate changes (the lower-order pieces depend on the choice of quantization — Egorov's theorem, an FIO-conjugation statement, gives the correction terms when needed).</p>
 
 <p>The basic calculus runs on three rules. <strong>Composition</strong>: if $P\in\Psi^{m_1}$ and $Q\in\Psi^{m_2}$ then $PQ\in\Psi^{m_1+m_2}$ with principal symbol $p_{m_1}q_{m_2}$ (full symbol $p\#q$ given by the asymptotic expansion $p\#q\sim\sum_\alpha (i^{|\alpha|}/\alpha!)\,\partial^\alpha_\xi p\,\partial^\alpha_x q$, with each successive term landing one order lower). <strong>Adjoint</strong>: $P^*\in\Psi^m$ with principal symbol $\overline{p_m}$. <strong>Mapping</strong>: every $P\in\Psi^m$ is bounded $H^s\to H^{s-m}$ for every $s$, where $H^s$ is the $L^2$-Sobolev scale. Differential operators have polynomial symbols and trivially satisfy the estimates; the larger ΨDO class is closed under inversion modulo smoothing (a symbol that is invertible at infinity admits an asymptotic inverse), which is what makes <em>parametrices</em> possible.</p>
 
@@ -460,8 +469,8 @@ $$\bigl|\,\partial^\alpha_x\,\partial^\beta_\xi\, p(x,\xi)\,\bigr| \;\le\; C_{\a
     <span id="ml-sym-m2-out" class="small"></span>
   </div>
   <div class="row">
-    <button id="ml-sym-classical" class="active">classical (homogeneous) symbol</button>
-    <button id="ml-sym-noncl">non-classical symbol</button>
+    <button id="ml-sym-classical" class="active">homogeneous (admits expansion $p\sim p_m+p_{m-1}+\cdots$)</button>
+    <button id="ml-sym-noncl">oscillatory perturbation (still in $S^m_{1,0}$)</button>
   </div>
   <svg id="ml-sym-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>Symbol-class decay and composition</title></svg>
   <div id="ml-sym-out" class="readout"></div>
@@ -499,7 +508,7 @@ $$\bigl|\,\partial^\alpha_x\,\partial^\beta_\xi\, p(x,\xi)\,\bigr| \;\le\; C_{\a
     const xiMax = 20;
     const yScale = 60;
     const X = xi => x0 + (xi/xiMax) * (xMax - x0);
-    const Y = v => yMax - Math.max(-1.6, Math.min(1.6, Math.log10(Math.max(1e-3, v)))) * 30 - 30;
+    const Y = v => yMax - Math.max(-3, Math.min(3, Math.log10(Math.max(1e-4, v)))) * 18 - 30;
     function curve(m, color, dash){
       let d = '';
       for(let xi = 0.5; xi <= xiMax; xi += 0.2){
@@ -533,7 +542,8 @@ $$\bigl|\,\partial^\alpha_x\,\partial^\beta_\xi\, p(x,\xi)\,\bigr| \;\le\; C_{\a
     const v2 = p(sampleXi, m2);
     const dv1 = pPrime(sampleXi, m1);
     const expectedDecay = Math.pow(1+sampleXi*sampleXi, (m1-1)/2);
-    out.textContent = `Symbol class S^{${m1}}: at |ξ|=${sampleXi}, |p₁| ≈ ${v1.toFixed(3)}; ξ-derivative |∂_ξ p₁| ≈ ${Math.abs(dv1).toFixed(3)}, bound C(1+|ξ|)^{${m1-1}} ≈ ${expectedDecay.toFixed(3)} (each ∂_ξ drops one order).
+    const ratio = Math.abs(dv1) / (expectedDecay || 1);
+    out.textContent = `Symbol class S^{${m1}}: at |ξ|=${sampleXi}, |p₁| ≈ ${v1.toFixed(3)}; ξ-derivative |∂_ξ p₁| ≈ ${Math.abs(dv1).toFixed(3)}, growth rate (1+|ξ|)^{${m1-1}} ≈ ${expectedDecay.toFixed(3)} so the implicit constant C₁ ≈ ${ratio.toFixed(2)} (estimate: |∂^β_ξ p| ≤ C_β(1+|ξ|)^{m-|β|}, each ∂_ξ drops one order).
 Composition: P₁ ∈ Ψ^{${m1}}, P₂ ∈ Ψ^{${m2}} ⇒ P₁P₂ ∈ Ψ^{${m1+m2}}. Principal symbol multiplies; the i ∂_ξ p₁ ∂_x p₂ correction lives one order down in S^{${remT}}.
 Mapping: P₁: H^s → H^{s-${m1}}; P₂: H^s → H^{s-${m2}}. Smoothing operators (m → -∞) are exactly those mapping every H^s into C^∞.`;
   }
@@ -569,9 +579,9 @@ Mapping: P₁: H^s → H^{s-${m1}}; P₂: H^s → H^{s-${m2}}. Smoothing operato
 
 $$\mathrm{WF}(Pu) \;\subset\; \mathrm{WF}(u),$$
 
-<p>which is true for every $P\in\Psi^m$: a ΨDO can shrink the wavefront set (smooth out singularities) but never grow new ones. The non-trivial direction needs ellipticity. Define the <em>characteristic variety</em> and <em>elliptic set</em> of $P$ inside $T^*\mathbb{R}^n\setminus 0$:</p>
+<p>which is true for every $P\in\Psi^m$: a ΨDO can shrink the wavefront set (smooth out singularities) but never grow new ones. The non-trivial direction needs ellipticity. Define the <em>characteristic variety</em> and <em>elliptic set</em> of $P$ inside $T^*\mathbb{R}^n\setminus 0$ (the cotangent bundle with the zero section removed, so $p_m$'s vanishing on $\xi=0$ doesn't trivially fill Char):</p>
 
-$$\mathrm{Char}(P) \;=\; \{(x,\xi): p_m(x,\xi)=0\},\qquad \mathrm{Ell}(P) \;=\; (T^*\mathbb{R}^n\setminus 0)\setminus \mathrm{Char}(P).$$
+$$\mathrm{Char}(P) \;=\; \{(x,\xi)\in T^*\mathbb{R}^n\setminus 0\,:\, p_m(x,\xi)=0\},\qquad \mathrm{Ell}(P) \;=\; (T^*\mathbb{R}^n\setminus 0)\setminus \mathrm{Char}(P).$$
 
 <p>Microlocal elliptic regularity says $\mathrm{WF}(u)\cap\mathrm{Ell}(P)\subset\mathrm{WF}(Pu)$: at any point where $P$ is invertible at top order, $u$ inherits the smoothness of $Pu$. Equivalently, $\mathrm{WF}(u)\setminus\mathrm{WF}(Pu)\subset\mathrm{Char}(P)$ — singularities of $u$ that survive applying $P$ must live on the characteristic variety.</p>
 
@@ -607,7 +617,10 @@ $$X_{p_m} \;=\; \sum_j\Bigl(\frac{\partial p_m}{\partial\xi_j}\partial_{x_j} - \
   const tO = document.getElementById('ml-prop-t-out');
   const bPt = document.getElementById('ml-prop-pt');
   const bEdge = document.getElementById('ml-prop-edge');
+  const bSvW = document.getElementById('ml-prop-singvswf');
   let kind = 'pt';
+  let showSing = false;
+  function toggleSvW(){ showSing = !showSing; bSvW.classList.toggle('active', showSing); draw(); }
   function setPt(){ kind='pt'; bPt.classList.add('active'); bEdge.classList.remove('active'); draw(); }
   function setEdge(){ kind='edge'; bEdge.classList.add('active'); bPt.classList.remove('active'); draw(); }
   function draw(){
@@ -633,24 +646,35 @@ $$X_{p_m} \;=\; \sum_j\Bigl(\frac{\partial p_m}{\partial\xi_j}\partial_{x_j} - \
         svg.appendChild(SVG('line',{x1,y1,x2,y2,stroke:'var(--pink)','stroke-width':1.2}));
       }
       svg.appendChild(SVG('circle',{cx,cy,r:3.5,fill:'var(--yellow)'}));
+      if(showSing){
+        svg.appendChild(SVG('circle',{cx,cy,r:t*scale,fill:'var(--green)','stroke':'var(--green)','stroke-width':1.0,opacity:0.18}));
+      }
       const tt = SVG('text',{x:0,y:-128,'text-anchor':'middle','font-size':11,fill:'var(--ink)'});
-      tt.textContent = `Initial WF(δ₀) = {(0,0)} × (ℝ²∖0). After flow time t, WF(u_t) sits on the circle |x| = t with conormal pointing radially outward — exactly the cone tips of the spacetime light cone projected to spatial slice {t = const}.`;
+      tt.textContent = showSing
+        ? `Singular support (green shaded ring/disk) is just "where u is non-smooth"; the wavefront set (pink arrows) refines this to where × in which direction. Both project to the same circle |x| = t — but only the WF picture exposes that the conormal points radially outward.`
+        : `Initial WF(δ₀) = {(0,0)} × (ℝ²∖0). After flow time t, WF(u_t) sits on the circle |x| = t with conormal pointing radially outward — exactly the cone tips of the spacetime light cone projected to spatial slice {t = const}.`;
       svg.appendChild(tt);
     } else {
-      const xEdge = -50 + t * 60;
+      const xEdge = -50 + t * 70;
       svg.appendChild(SVG('line',{x1:cx+xEdge,y1:cy-90,x2:cx+xEdge,y2:cy+90,stroke:'var(--cyan)','stroke-width':2.4}));
       for(let k = -3; k <= 3; k++){
         const py = cy + k * 24;
         svg.appendChild(SVG('line',{x1:cx+xEdge,y1:py,x2:cx+xEdge+22,y2:py,stroke:'var(--pink)','stroke-width':1.4}));
       }
-      const xEdgeL = -50 - t * 60;
+      const xEdgeL = -50 - t * 70;
       svg.appendChild(SVG('line',{x1:cx+xEdgeL,y1:cy-90,x2:cx+xEdgeL,y2:cy+90,stroke:'var(--cyan)','stroke-width':2.0,opacity:0.55}));
       for(let k = -3; k <= 3; k++){
         const py = cy + k * 24;
         svg.appendChild(SVG('line',{x1:cx+xEdgeL,y1:py,x2:cx+xEdgeL-22,y2:py,stroke:'var(--pink)','stroke-width':1.2,opacity:0.55}));
       }
+      if(showSing){
+        svg.appendChild(SVG('rect',{x:cx+xEdge-2,y:cy-90,width:4,height:180,fill:'var(--green)',opacity:0.35}));
+        svg.appendChild(SVG('rect',{x:cx+xEdgeL-2,y:cy-90,width:4,height:180,fill:'var(--green)',opacity:0.35}));
+      }
       const tt = SVG('text',{x:0,y:-128,'text-anchor':'middle','font-size':11,fill:'var(--ink)'});
-      tt.textContent = `Initial WF on hyperplane {x = -50}, conormal ξ ‖ (1,0). d'Alembert splits into two pulses moving ±x with conormal preserved: bicharacteristic-flow image of the original WF cone.`;
+      tt.textContent = showSing
+        ? `Singular support (green stripes) marks the two propagating jump locations — "where" only. The pink arrows (wavefront) record the conormal direction, which stays parallel to (1,0) in both pulses: the FIO transports both base point and direction.`
+        : `Initial WF on hyperplane {x = -50}, conormal ξ ‖ (1,0). d'Alembert splits into two pulses moving ±x with conormal preserved: bicharacteristic-flow image of the original WF cone.`;
       svg.appendChild(tt);
     }
     out.textContent = `t = ${t.toFixed(2)}    initial datum: ${kind === 'pt' ? 'δ₀ — singular at origin in every direction' : 'edge on hyperplane x = -50, conormal (1,0)'}    Solving □u = 0 with this initial Cauchy data: WF(u_t) is the bicharacteristic-flow image of the initial WF. Edges propagate as conormal+1 sheets travelling at speed 1; the spatial trace at time t is exactly the wavefront drawn here. Hörmander's theorem makes this rigorous, replacing d'Alembert's geometric picture in 1D with a sharp statement on T*ℝⁿ.`;
@@ -658,6 +682,7 @@ $$X_{p_m} \;=\; \sum_j\Bigl(\frac{\partial p_m}{\partial\xi_j}\partial_{x_j} - \
   tS.addEventListener('input', draw);
   bPt.addEventListener('click', setPt);
   bEdge.addEventListener('click', setEdge);
+  bSvW.addEventListener('click', toggleSvW);
   draw();
 })();
 </script>
@@ -666,6 +691,7 @@ $$X_{p_m} \;=\; \sum_j\Bigl(\frac{\partial p_m}{\partial\xi_j}\partial_{x_j} - \
   <div class="ttl">See also</div>
   <ul>
     <li><a href="./symplectic-manifolds.html#hamiltonian">Hamiltonian vector fields and flows</a></li>
+    <li><a href="./partial-differential-equations.html#wave">Wave equation and d'Alembert</a></li>
   </ul>
 </aside>
 <!-- callback-auto-end --><!-- backlinks-auto-begin -->
@@ -753,15 +779,15 @@ $$f\in H^s_{\mathrm{loc}}\;\Longrightarrow\; u\in H^{s+m}_{\mathrm{loc}}.$$
     } else {
       const uX = X(s);
       svg.appendChild(SVG('circle',{cx:uX,cy:yMid+22,r:6,fill:'var(--pink)'}));
-      const uLbl = SVG('text',{x:uX,y:yMid+44,'text-anchor':'middle','font-size':11,fill:'var(--pink)','font-weight':600}); uLbl.textContent = `u ∈ H^{${s.toFixed(1)}} only — no gain`; svg.appendChild(uLbl);
+      const uLbl = SVG('text',{x:uX,y:yMid+44,'text-anchor':'middle','font-size':11,fill:'var(--pink)','font-weight':600}); uLbl.textContent = `u ∈ H^{${s.toFixed(1)}} locally — gain only via bicharacteristic propagation`; svg.appendChild(uLbl);
       const noteT = SVG('text',{x:0,y:-128,'text-anchor':'middle','font-size':12,fill:'var(--pink)','font-weight':600}); noteT.textContent='Characteristic point: p_m = 0, parametrix breaks; singularities propagate, do not bootstrap'; svg.appendChild(noteT);
     }
     const eqT = SVG('text',{x:0,y:-100,'text-anchor':'middle','font-size':11,fill:'var(--ink)'});
     eqT.textContent = elliptic
       ? `Pu = f, Q parametrix: u = Qf − R₁u, R₁ smoothing. ⇒ u ∈ H^{s+m} = H^{${(s+m).toFixed(1)}} locally where P is elliptic.`
-      : `Pu = f at (x₀,ξ₀) ∈ Char(P): no left-inverse Q, regularity is preserved by Hörmander's propagation, not strictly improved.`;
+      : `Pu = f at (x₀,ξ₀) ∈ Char(P): no parametrix-style ${m}-derivative gain. Regularity at (x₀,ξ₀) is determined by tracing the bicharacteristic of σ_m(P): if it hits a smoothness region of u or f, propagation transports smoothness back to (x₀,ξ₀).`;
     svg.appendChild(eqT);
-    out.textContent = `s = ${s.toFixed(1)}    m = ${m}    point: ${elliptic ? 'elliptic' : 'characteristic'}    ${elliptic ? `bootstrap: f ∈ H^${s.toFixed(1)} ⇒ u ∈ H^{${(s+m).toFixed(1)}} (gain of ${m} derivatives, exact for −Δ when m=2)` : `no gain on Char(P): u stays at H^${s.toFixed(1)}, but its WF is constrained to bicharacteristics by Hörmander`}    For −Δu = f on a bounded smooth domain (m=2) the bootstrap iterates: f ∈ C^∞ ⇒ u ∈ C^∞.`;
+    out.textContent = `s = ${s.toFixed(1)}    m = ${m}    point: ${elliptic ? 'elliptic' : 'characteristic'}    ${elliptic ? `bootstrap: f ∈ H^${s.toFixed(1)} ⇒ u ∈ H^{${(s+m).toFixed(1)}} (gain of ${m} derivatives, exact for −Δ when m=2)` : `no parametrix-style gain on Char(P): u stays at H^${s.toFixed(1)} locally, but smoothness propagates along bicharacteristics of σ_m(P) — Hörmander transports regularity along the flow rather than improving it pointwise.`}    For −Δu = f on a bounded smooth domain (m=2) the bootstrap iterates: f ∈ C^∞ ⇒ u ∈ C^∞.`;
   }
   sS.addEventListener('input', draw);
   mS.addEventListener('input', draw);
@@ -775,6 +801,7 @@ $$f\in H^s_{\mathrm{loc}}\;\Longrightarrow\; u\in H^{s+m}_{\mathrm{loc}}.$$
   <div class="ttl">See also</div>
   <ul>
     <li><a href="./sobolev-spaces-distributions.html#sobolev">Sobolev spaces $W^{k,p}$ and $H^s$</a></li>
+    <li><a href="./atiyah-singer-index-theorem.html#elliptic">Elliptic operators and Fredholm property</a></li>
   </ul>
 </aside>
 <!-- callback-auto-end --><div class="quiz" data-concept="ml-elliptic-regularity"></div>
@@ -791,17 +818,17 @@ $$Au(x) \;=\; \frac{1}{(2\pi)^N}\int e^{i\phi(x,y,\xi)}\,a(x,y,\xi)\,u(y)\,dy\,d
 
 $$\Lambda \;=\; \bigl\{\,(x,d_x\phi;\,y,-d_y\phi)\,:\,(x,y,\xi)\in C_\phi\,\bigr\}.$$
 
-<p>The non-degeneracy condition makes $\Lambda$ a Lagrangian — half-dimensional with the natural symplectic form $\omega_{T^*X}\ominus\omega_{T^*Y}$ vanishing on it. Distributions of the form $Au$ for $u\in C^\infty_c$ are <strong>Lagrangian distributions</strong> with WF contained in $\Lambda$; equivalently, FIOs send $\mathrm{WF}(u)\subset T^*Y$ to $\mathrm{WF}(Au)\subset T^*X$ along the canonical relation $\Lambda$.</p>
+<p>The non-degeneracy condition makes $\Lambda$ a Lagrangian — half-dimensional with the natural symplectic form $\omega_{T^*X}\ominus\omega_{T^*Y}$ vanishing on it. Distributions of the form $Au$ for $u\in C^\infty_c$ are <strong>Lagrangian distributions</strong> with WF contained in $\Lambda$; equivalently, FIOs propagate $\mathrm{WF}$ along the canonical <em>relation</em>: $\mathrm{WF}(Au)\subset \Lambda\circ \mathrm{WF}(u)$ as a composition of relations on $T^*Y\to T^*X$. When $\Lambda$ happens to be the graph of a symplectomorphism $\chi$ this collapses to the function $\chi(\mathrm{WF}(u))$; for general $\Lambda$ (e.g. the Radon transform of §6) the inclusion is genuinely set-valued.</p>
 
 <p>Two structural perks:</p>
 
 <ul>
 <li><strong>FIO ↔ canonical transformation.</strong> When $\Lambda$ is the graph of a symplectomorphism $\chi:T^*Y\to T^*X$, FIOs quantize $\chi$. Composition of FIOs whose canonical relations compose transversally gives another FIO with canonical relation the composition $\Lambda_1\circ\Lambda_2$. ΨDOs are the special case $\chi=\mathrm{id}$, $\Lambda=\Delta_{T^*X}$.</li>
-<li><strong>Solutions of evolution equations are FIOs.</strong> For a real-principal-symbol $P$ of order 1 like $\partial_t-A(x,D_x)$ with $a$ real, the half-wave propagator $e^{itA}$ is an FIO whose canonical relation is the time-$t$ Hamiltonian flow of the principal symbol of $A$. Solutions of $\Box u = 0$ split as a sum of two FIOs (forward and backward half-waves), explaining geometric optics, the Maslov correction at caustics, and the WKB ansatz $a(x,t;\xi)e^{i\phi(x,t;\xi)}$ as the leading term of an FIO expansion.</li>
+<li><strong>Solutions of evolution equations are FIOs.</strong> For a real-principal-symbol $P$ of order 1 like $\partial_t-A(x,D_x)$ with $a$ real, the half-wave propagator $e^{itA}$ is an FIO whose canonical relation is the time-$t$ Hamiltonian flow of the principal symbol of $A$. Solutions of $\Box u = 0$ split as a sum of two FIOs (forward and backward half-waves), explaining geometric optics, the <em>Maslov correction at caustics</em> (the half-integer phase shift FIOs pick up each time the projection $\pi:\Lambda\to X$ becomes singular — caustics are the projected fold loci), and the <em>WKB ansatz</em> $a(x,t;\xi)e^{i\phi(x,t;\xi)}$ (a high-frequency asymptotic with slowly-varying amplitude $a$ and rapidly oscillating phase $\phi$) as the leading term of an FIO expansion.</li>
 </ul>
 
 <div class="widget" id="ml-fio-canon">
-  <div class="hd"><div class="ttl">FIO as wavefront mover: a Lagrangian relation between $T^*Y$ and $T^*X$</div><div class="hint">click a covector in $T^*Y$; the canonical relation maps it to $T^*X$</div></div>
+  <div class="hd"><div class="ttl">FIO as wavefront mover: a Lagrangian relation between $T^*Y$ and $T^*X$</div><div class="hint">five sample covectors in $T^*Y$ are mapped to $T^*X$ under each canonical transformation; pick a transformation and slide the parameter</div></div>
   <div class="row">
     <button id="ml-fio-shift" class="active">translation: x = y + t</button>
     <button id="ml-fio-scale">dilation: x = λ y</button>
@@ -824,9 +851,12 @@ $$\Lambda \;=\; \bigl\{\,(x,d_x\phi;\,y,-d_y\phi)\,:\,(x,y,\xi)\in C_\phi\,\bigr
   const pSlide = document.getElementById('ml-fio-param');
   const pOut = document.getElementById('ml-fio-param-out');
   let mode = 'shift';
-  function setShift(){ mode='shift'; activate(bShift); draw(); }
-  function setScale(){ mode='scale'; activate(bScale); pSlide.min=-1; pSlide.max=2; pSlide.value = Math.max(0.2, +pSlide.value); draw(); }
-  function setRot(){ mode='rot'; activate(bRot); pSlide.min=-Math.PI; pSlide.max=Math.PI; pSlide.value = 0.6; draw(); }
+  const sliderInitMin = pSlide.min;
+  const sliderInitMax = pSlide.max;
+  const sliderInitStep = pSlide.step;
+  function setShift(){ mode='shift'; activate(bShift); pSlide.min=sliderInitMin; pSlide.max=sliderInitMax; pSlide.step=sliderInitStep; pSlide.value = Math.max(+sliderInitMin, Math.min(+sliderInitMax, +pSlide.value)); draw(); }
+  function setScale(){ mode='scale'; activate(bScale); pSlide.min=0.25; pSlide.max=5; pSlide.step=0.05; pSlide.value = Math.max(0.25, Math.min(5, +pSlide.value || 1)); draw(); }
+  function setRot(){ mode='rot'; activate(bRot); pSlide.min=-Math.PI; pSlide.max=Math.PI; pSlide.step=0.05; pSlide.value = 0.6; draw(); }
   function activate(b){ [bShift,bScale,bRot].forEach(x => x.classList.remove('active')); b.classList.add('active'); }
   const samplesY = [
     [40, 0, 60, 0],
@@ -841,7 +871,7 @@ $$\Lambda \;=\; \bigl\{\,(x,d_x\phi;\,y,-d_y\phi)\,:\,(x,y,\xi)\in C_\phi\,\bigr
       return [yx + p*40, yy, xi, eta];
     }
     if(mode === 'scale'){
-      const lam = p === 0 ? 1 : p;
+      const lam = Math.max(0.25, Math.min(5, p === 0 ? 1 : p));
       return [yx * lam, yy * lam, xi / lam, eta / lam];
     }
     const c = Math.cos(p), s = Math.sin(p);
@@ -872,7 +902,7 @@ $$\Lambda \;=\; \bigl\{\,(x,d_x\phi;\,y,-d_y\phi)\,:\,(x,y,\xi)\in C_\phi\,\bigr
       const ptipx2 = xRight + xMapped[2] * 0.7, ptipy2 = -xMapped[3] * 0.7;
       drawArrow(svg, [px2, py2], [ptipx2, ptipy2], { color:'var(--yellow)', markerId:`ml-fio-x-${i}`, width:1.4 });
       svg.appendChild(SVG('circle',{cx:px2,cy:py2,r:3,fill:'var(--yellow)'}));
-      svg.appendChild(SVG('line',{x1:ptipx,y1:ptipy,x2:px2,y2:py2,stroke:'var(--violet)','stroke-width':0.8,'stroke-dasharray':'3 3',opacity:0.8}));
+      svg.appendChild(SVG('line',{x1:pyx,y1:pyy,x2:px2,y2:py2,stroke:'var(--violet)','stroke-width':0.8,'stroke-dasharray':'3 3',opacity:0.8}));
     });
     const formula = mode === 'shift'
       ? `χ(y, η) = (y + t·e₁, η). Lagrangian Λ = {(x,ξ;y,η) : x = y + t·e₁, ξ = η} ⊂ T*X × T*Y.`
@@ -975,7 +1005,7 @@ $$\Lambda \;=\; \bigl\{\,(x,d_x\phi;\,y,-d_y\phi)\,:\,(x,y,\xi)\in C_\phi\,\bigr
     const N = 16;
     for(let k = 0; k < N; k++){
       const phi = k * Math.PI / N;
-      const visibleByGeometry = Math.abs(((phi - theta + Math.PI/2) % Math.PI + Math.PI) % Math.PI - Math.PI/2) < 0.1;
+      const visibleByGeometry = Math.abs(((phi - theta) % Math.PI + Math.PI) % Math.PI - Math.PI/2) < 0.1;
       const allowed = !limited || inLimited(phi);
       const detects = visibleByGeometry && allowed;
       const col = detects ? 'var(--green)' : (visibleByGeometry ? 'var(--mute)' : 'var(--line)');

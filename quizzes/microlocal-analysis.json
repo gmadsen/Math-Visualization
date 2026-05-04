@@ -14,7 +14,7 @@
             "$u$ is real-analytic in a neighborhood of $x_0$, with $\\xi_0$ playing no role."
           ],
           "answer": 1,
-          "hint": "The condition needs to localize in physical space (cutoff $\\phi$) AND in frequency space (a neighborhood, not just a point), and the right strength is rapid (faster than every polynomial) decay.",
+          "hint": "Two of the choices fail because they ignore the frequency direction $\\xi_0$ entirely; one fails because it confuses pointwise vanishing with rapid decay on a cone.",
           "explain": "The definition cuts off near $x_0$, then asks for rapid decay of the Fourier transform on a CONICAL neighborhood of $\\xi_0$ — both a physical-space window and a frequency-space cone. (0) ignores frequency content entirely. (2) demands vanishing at a single point, which is far weaker than rapid decay on a cone. (3) is the analytic-wavefront variant, which is strictly finer."
         },
         {
@@ -51,7 +51,7 @@
             0,
             2
           ],
-          "hint": "Two of these have codimension-1 singular support; one has a single-point singular support; one is smooth. Sort by the codimension first, then read direction off the geometry — the WF cone is conormal to the singular set.",
+          "hint": "Two of these have hypersurface singular support (codim 1); one has a single-point singular support; one is smooth. Match each by what its singular support is, then check the direction.",
           "explain": "(0)→1: $\\delta_0$ — point singularity, isotropic. (1)→3: hyperplane jump — singular only on the hyperplane, with conormal direction $\\xi=t\\,e_1$. (2)→0: smooth functions have empty WF. (3)→2: a hypersurface measure is singular on the surface, with conormal pointing radially. The pattern: $\\mathrm{WF}$ of an indicator/measure on a smooth submanifold $S$ is the conormal bundle $N^*S\\setminus 0$."
         }
       ]
@@ -69,7 +69,7 @@
             "$|\\partial^\\alpha_x\\partial^\\beta_\\xi p(x,\\xi)|\\le C_{\\alpha\\beta}\\,(1+|\\xi|)^{m-|\\alpha|-|\\beta|}$ — $x$-derivatives and $\\xi$-derivatives both drop the order."
           ],
           "answer": 1,
-          "hint": "Differentiating a polynomial $\\xi^\\alpha$ in $\\xi$ lowers the degree; differentiating in $x$ leaves the $\\xi$-degree unchanged. The Hörmander class is designed so its members behave like that.",
+          "hint": "Differential operators $\\sum a_\\alpha(x)D^\\alpha$ should fall in $S^m$ when $|\\alpha|\\le m$ — check which of the four estimates a polynomial-in-$\\xi$ symbol actually satisfies for that $m$.",
           "explain": "The defining estimate is asymmetric: $\\xi$-derivatives are 'cheap' (each drops order by 1) and $x$-derivatives are 'free' (no order drop). This matches polynomials in $\\xi$: $\\partial_\\xi(\\xi^\\alpha)$ has lower degree, $\\partial_x(a(x)\\xi^\\alpha)$ has the same. The asymmetric estimate is what makes ΨDO composition work modulo lower-order error."
         },
         {
@@ -86,7 +86,7 @@
             1,
             2
           ],
-          "hint": "Three of these are textbook fact; one mistakes a leading-order statement for an exact one. Recall the asymptotic formula $p\\#q\\sim\\sum_\\alpha (i^{|\\alpha|}/\\alpha!)\\,\\partial^\\alpha_\\xi p\\,\\partial^\\alpha_x q$ and ask which term in it survives at the principal-symbol level.",
+          "hint": "The principal-symbol composition formula and the *full*-symbol composition formula are not the same. Which choice would only be correct if you stopped at the leading term?",
           "explain": "(0,1,2) are core. (3) is wrong: the FULL composition symbol is the asymptotic series $p\\#q\\sim p\\,q + (\\partial_\\xi p)(\\partial_x q)/i + \\cdots$; the pointwise product is correct only at the PRINCIPAL-symbol level (top order). The lower-order terms are exactly the structure that makes the calculus interesting — they generate non-trivial commutators $[P,Q]$ at order $m_1+m_2-1$."
         },
         {
@@ -128,7 +128,7 @@
             "Time-reversal alone, with no other dynamics."
           ],
           "answer": 1,
-          "hint": "The flow has to be canonically attached to the operator $P$ itself, not to extra geometry. The principal symbol is a function on $T^*\\mathbb{R}^n$ — what canonical flow does a function on a symplectic manifold generate?",
+          "hint": "The flow has to be intrinsic to $P$ alone — no auxiliary metric, no global structure on $\\mathbb{R}^n$. Which of the four candidates uses only data already encoded in the principal symbol?",
           "explain": "The principal symbol $p_m\\colon T^*\\mathbb{R}^n\\to\\mathbb{R}$ is a Hamiltonian on the cotangent symplectic manifold; its Hamiltonian vector field $X_{p_m}$ generates a flow inside each level set, in particular the characteristic variety $\\{p_m=0\\}$. The integral curves there are the null bicharacteristics, and Hörmander says singularities of $u$ that don't come from $\\mathrm{WF}(Pu)$ propagate exactly along these curves."
         },
         {
@@ -136,7 +136,7 @@
           "q": "For the wave operator $\\Box=-\\partial_t^2+\\Delta_x$ on $\\mathbb{R}^{1+n}$, the principal symbol is $p_2(t,x;\\tau,\\xi)=-\\tau^2+|\\xi|^2$. The characteristic variety is the set $\\{p_2=0\\}$. For a fixed nonzero spatial frequency $\\xi$ with $|\\xi|=1$, how many real values of $\\tau$ lie on the characteristic variety?",
           "answer": 2,
           "tol": 0,
-          "hint": "Solve $-\\tau^2+|\\xi|^2=0$ for $\\tau$ given $|\\xi|=1$. Count the real roots; they correspond to the two helicities (forward / backward) of the wave equation.",
+          "hint": "The characteristic variety is the zero set of the principal symbol. Treat $\\tau$ as the variable, fix $|\\xi|=1$, and ask how many real $\\tau$ satisfy the equation.",
           "explain": "$-\\tau^2+1=0$ gives $\\tau=\\pm 1$, so two real values. These are the forward and backward light cones in the cotangent fibre, and the bicharacteristics splitting at $|\\xi|=1$ correspond to the two solution operators $e^{\\pm it\\sqrt{-\\Delta}}$ — one carrying singularities forward in time, the other backward."
         },
         {
@@ -149,7 +149,7 @@
             "Conclude further that this projected flow is the standard PDE characteristic flow on the base."
           ],
           "answer": 2,
-          "hint": "Projections do funny things to invariance. Two distinct points in $T^*M$ above the same $x$ can flow to two different fibres above two different base points; that does NOT make the base projection invariant under any well-defined base flow.",
+          "hint": "One step takes for granted that any property of an invariant set passes to its projection. Test that step against a small example: pick two cotangent points above the same $x$ and trace where the bicharacteristic flow sends them.",
           "explain": "Step 2 is the error. Bicharacteristic flow lives on $T^*M\\setminus 0$, NOT on $M$: two distinct $\\xi$ at the same $x$ flow to different cotangent points whose base projections diverge. There is no well-defined 'projected flow' on $M$ — the geometry that propagation describes is genuinely cotangent-bundle, not base-manifold. This is the conceptual win of microlocal analysis over the older 'singularities follow characteristics' picture: the curves live in phase space, not configuration space."
         }
       ]
@@ -184,7 +184,7 @@
             1,
             2
           ],
-          "hint": "Three of these are immediate consequences of $u=Qf-Ru$ with $Q\\in\\Psi^{-m}$ and $R$ smoothing. The fourth conflates two different statements about the order $m$.",
+          "hint": "Three of the four follow from chasing the parametrix identity through the Sobolev mapping bound. The fourth would only hold for a specific value of $m$.",
           "explain": "(0,1,2) follow from $u=Qf-R u$: $Qf$ is in $H^{s+m}$ when $f\\in H^s$, and the smoothing remainder is in $C^\\infty$. Iterating gives full $C^\\infty$ for $C^\\infty$ data, and the WF equality on the elliptic set. (3) is wrong: $P\\in\\Psi^m$ is bounded $H^s\\to H^{s-m}$, in particular $L^2\\to L^2$ only when $m\\le 0$; for $m=2$ (Laplacian) it maps $H^2\\to L^2$, not $L^2\\to L^2$."
         },
         {
@@ -222,7 +222,7 @@
             "$\\Lambda=T^*X\\times T^*Y$ — the entire product, no constraint."
           ],
           "answer": 0,
-          "hint": "The construction comes from the stationary-phase principle applied to $\\int e^{i\\phi}a\\,dy\\,d\\xi$: where in $(y,\\xi)$ does the integral concentrate, and what relation between $(x,d_x\\phi)$ and $(y,-d_y\\phi)$ pops out?",
+          "hint": "Stationary phase says only the critical points of $\\phi$ in the integration variables contribute. What constraint does that critical-point condition place on the cotangent points $(x,\\cdot)$ and $(y,\\cdot)$ that the FIO relates?",
           "explain": "Stationary phase localizes on $d_\\xi\\phi=0$ (the critical set $C_\\phi$); on this set the cotangent points $(x,d_x\\phi)$ and $(y,-d_y\\phi)$ are paired, and the resulting relation is automatically Lagrangian by the non-degeneracy of $\\phi$. (1) is the special case $\\phi=(x-y)\\cdot\\xi$ giving the diagonal — i.e. ΨDOs. (2) the amplitude controls smoothness, not the canonical relation. (3) gives no constraint, defeating the purpose."
         },
         {
@@ -281,7 +281,7 @@
             "Lines $L$ disjoint from a small ball around $x_0$, by an averaging argument."
           ],
           "answer": 1,
-          "hint": "Think about an edge in an image: which lines 'see' it? An edge perpendicular to the line direction makes a sharp jump in $Rf$; an edge parallel to the line direction is smoothed out by the line average.",
+          "hint": "Picture an edge as a discontinuity along a smooth curve. The line integral $Rf(L)$ feels the edge only when the line and the edge interact transversally — what does that say about the relative orientation of $L$ and the edge's conormal?",
           "explain": "An edge with conormal $\\xi_0$ is captured by Radon transform values $Rf(L)$ exactly when the line $L$ is perpendicular to $\\xi_0$ (so it crosses the edge transversally and produces a jump in the projection). Lines parallel to the edge integrate along it and miss the singularity. The full statement: the Radon FIO has canonical relation $\\{(L,\\eta;x_0,\\xi_0):x_0\\in L,\\,L\\perp\\xi_0,\\,\\eta\\propto\\xi_0\\}$. This is the microlocal foundation of CT visible-singularities theorems."
         },
         {
@@ -314,7 +314,7 @@
             3,
             0
           ],
-          "hint": "Each step depends on the previous one. You start with the equation, compute its symbol, observe what fails, impose a fix, then reap the consequences. Sort by what step's CONCLUSION feeds into the next step's HYPOTHESIS.",
+          "hint": "Two of the steps are diagnostic (compute, observe what fails); two are remedial (impose a condition, then conclude); one is the prerequisite that the rest depend on. Group them, then sequence inside each group.",
           "explain": "(4) State the equation. (1) Compute the principal symbol — discovers the characteristic sphere. (2) Diagnose the failure: non-elliptic on $|\\xi|=k$, no parametrix. (3) Impose the radiation condition — selects outgoing bicharacteristics. (0) Apply Hörmander on the selected sheet to extract well-posedness. The order is forced: you can't apply propagation before selecting the sheet, can't select before knowing what fails, can't diagnose before computing the symbol, can't compute the symbol before writing the equation."
         }
       ]
