@@ -17,7 +17,7 @@ window.__MVWidgets = [
       "bodyMarkup",
       "bodyScript"
     ],
-    "readmeExcerpt": "Bespoke widget for the advanced-complex-analysis topic.",
+    "readmeExcerpt": "Bespoke widget for **§11 Bergman kernels** on the [advanced-complex-analysis](../../advanced-complex-analysis.html#bergman) topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -38,7 +38,7 @@ window.__MVWidgets = [
       "bodyMarkup",
       "bodyScript"
     ],
-    "readmeExcerpt": "Bespoke widget for the advanced-complex-analysis topic.",
+    "readmeExcerpt": "Bespoke widget for **§9 Bloch's theorem** on the [advanced-complex-analysis](../../advanced-complex-analysis.html#bloch) topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -59,7 +59,7 @@ window.__MVWidgets = [
       "bodyMarkup",
       "bodyScript"
     ],
-    "readmeExcerpt": "Bespoke widget for the advanced-complex-analysis topic.",
+    "readmeExcerpt": "Bespoke widget for **§13 Several complex variables** on the [advanced-complex-analysis](../../advanced-complex-analysis.html#scv) topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -80,7 +80,7 @@ window.__MVWidgets = [
       "bodyMarkup",
       "bodyScript"
     ],
-    "readmeExcerpt": "Bespoke widget for the advanced-complex-analysis topic.",
+    "readmeExcerpt": "Bespoke widget for **§10 Nevanlinna theory** on the [advanced-complex-analysis](../../advanced-complex-analysis.html#nevanlinna) topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,
@@ -101,7 +101,7 @@ window.__MVWidgets = [
       "bodyMarkup",
       "bodyScript"
     ],
-    "readmeExcerpt": "Bespoke widget for the advanced-complex-analysis topic.",
+    "readmeExcerpt": "Bespoke widget for **§12 Quasiconformal maps and the Beltrami equation** on the [advanced-complex-analysis](../../advanced-complex-analysis.html#quasiconformal) topic.",
     "hasExample": false,
     "exampleParams": null,
     "exampleMarkup": null,

@@ -226,9 +226,23 @@ function buildNavBlock() {
   // content below (main has a fixed top-padding assuming a thin nav).
   // The mount now lives OUTSIDE the nav as a sibling so it takes a
   // natural block slot in document flow and pushes content down.
+  //
+  // The .nav-links span surfaces the same site-wide landing pages every
+  // landing-page top bar carries (Pathway, Tours, History, Themes, Mindmap,
+  // Search) so topic-page readers can hop directly to any of them without
+  // bouncing back through the home page first. CSS for `.nav-links` lives
+  // in css/notebook.css (loaded everywhere via theme-light.css).
   return (
     NAV.begin +
     '<div class="breadcrumb"></div>' +
+    '<span class="nav-links">' +
+      '<a class="nav-link" href="./pathway.html">Pathway</a>' +
+      '<a class="nav-link" href="./tours.html">Tours</a>' +
+      '<a class="nav-link" href="./history.html">History</a>' +
+      '<a class="nav-link" href="./tags.html">Themes</a>' +
+      '<a class="nav-link" href="./mindmap.html">Mindmap</a>' +
+      '<a class="nav-link" href="./search.html">Search</a>' +
+    '</span>' +
     '<span class="mv-theme-slot"></span>' +
     NAV.end
   );

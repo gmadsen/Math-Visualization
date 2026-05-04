@@ -13964,7 +13964,7 @@ window.__MVConcepts = {
           "gauge-theory",
           "string-theory"
         ],
-        "color": "p"
+        "color": "o"
       }
     ]
   },
