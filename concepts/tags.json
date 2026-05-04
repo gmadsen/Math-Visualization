@@ -75,6 +75,26 @@
       "id": "foundation",
       "title": "Foundation",
       "blurb": "Definitional bedrock that downstream concepts assume — the vocabulary entries you can't skip."
+    },
+    {
+      "id": "equidistribution",
+      "title": "Equidistribution",
+      "blurb": "Sequences become uniform in the limit — Weyl's criterion, Birkhoff's ergodic theorem, $\\zeta$-zero distribution, exponential-sum cancellation. The asymptotic backbone of analytic number theory and dynamics."
+    },
+    {
+      "id": "density",
+      "title": "Density",
+      "blurb": "Distribution statements counting how often something happens — primes in arithmetic progressions, Chebotarev density, Dirichlet density, prime number theorem on average. The 'how many' counterpart to existence theorems."
+    },
+    {
+      "id": "cancellation",
+      "title": "Cancellation",
+      "blurb": "Oscillatory sums $\\sum e(\\phi(n))$ collapse below the trivial bound — Weyl, van der Corput, large sieve, square-root cancellation. The technical engine behind sieve methods, exponential sums, and the circle method."
+    },
+    {
+      "id": "refinement",
+      "title": "Refinement",
+      "blurb": "Property-strengthening conditions on a baseline structure — hypercompleteness in $\\infty$-toposes, Whitehead-style equivalences, fineness of topologies, prosaic-vs-derived passage. The next level after foundation."
     }
   ]
 }

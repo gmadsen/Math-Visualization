@@ -67,7 +67,8 @@
       ],
       "blurb": "An $\\infty$-topos is hypercomplete if Whitehead's theorem holds internally: a map inducing iso on all homotopy sheaves is an equivalence. Most naturally occurring $\\infty$-topoi are hypercomplete; pathological non-hypercomplete examples come from infinite Krull dimension.",
       "tags": [
-        "classification"
+        "classification",
+        "refinement"
       ]
     },
     {

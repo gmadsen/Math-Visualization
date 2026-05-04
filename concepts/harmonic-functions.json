@@ -71,7 +71,11 @@
         "hf-maximum-principle",
         "analyticity"
       ],
-      "blurb": "An upper semicontinuous $v$ with $\\Delta v \\ge 0$ (or equivalently $v(x)\\le$ ball average) is subharmonic; max-principle still holds. Perron's method solves the Dirichlet problem on any regular domain by taking the supremum of the family of subharmonic functions bounded above by the boundary data."
+      "blurb": "An upper semicontinuous $v$ with $\\Delta v \\ge 0$ (or equivalently $v(x)\\le$ ball average) is subharmonic; max-principle still holds. Perron's method solves the Dirichlet problem on any regular domain by taking the supremum of the family of subharmonic functions bounded above by the boundary data.",
+      "tags": [
+        "foundation",
+        "refinement"
+      ]
     }
   ]
 }

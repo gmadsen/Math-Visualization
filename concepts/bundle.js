@@ -6027,7 +6027,8 @@ window.__MVConcepts = {
           ],
           "blurb": "An $\\infty$-topos is hypercomplete if Whitehead's theorem holds internally: a map inducing iso on all homotopy sheaves is an equivalence. Most naturally occurring $\\infty$-topoi are hypercomplete; pathological non-hypercomplete examples come from infinite Krull dimension.",
           "tags": [
-            "classification"
+            "classification",
+            "refinement"
           ]
         },
         {
@@ -7690,7 +7691,11 @@ window.__MVConcepts = {
             "hf-maximum-principle",
             "analyticity"
           ],
-          "blurb": "An upper semicontinuous $v$ with $\\Delta v \\ge 0$ (or equivalently $v(x)\\le$ ball average) is subharmonic; max-principle still holds. Perron's method solves the Dirichlet problem on any regular domain by taking the supremum of the family of subharmonic functions bounded above by the boundary data."
+          "blurb": "An upper semicontinuous $v$ with $\\Delta v \\ge 0$ (or equivalently $v(x)\\le$ ball average) is subharmonic; max-principle still holds. Perron's method solves the Dirichlet problem on any regular domain by taking the supremum of the family of subharmonic functions bounded above by the boundary data.",
+          "tags": [
+            "foundation",
+            "refinement"
+          ]
         }
       ]
     },
@@ -9725,7 +9730,10 @@ window.__MVConcepts = {
           "prereqs": [
             "circle-method-intro"
           ],
-          "blurb": "Near rationals a/q with small q, f(α) is a Gauss-sum-weighted main term (major arcs); elsewhere Weyl bounds force cancellation (minor arcs) — the sum yields an asymptotic with singular series × singular integral."
+          "blurb": "Near rationals a/q with small q, f(α) is a Gauss-sum-weighted main term (major arcs); elsewhere Weyl bounds force cancellation (minor arcs) — the sum yields an asymptotic with singular series × singular integral.",
+          "tags": [
+            "cancellation"
+          ]
         },
         {
           "id": "faulhaber-formula",
@@ -10093,7 +10101,8 @@ window.__MVConcepts = {
           ],
           "blurb": "Primes equidistribute across Frobenius conjugacy classes with predicted densities.",
           "tags": [
-            "group-action"
+            "group-action",
+            "density"
           ]
         },
         {
@@ -10391,7 +10400,10 @@ window.__MVConcepts = {
             "ant-prime-counting",
             "dirichlet-characters-lseries"
           ],
-          "blurb": "For $\\gcd(a,q) = 1$, the arithmetic progression $a, a+q, a+2q, \\ldots$ contains infinitely many primes. The proof factors $-\\log(1-p^{-s})$ over Dirichlet characters $\\chi$ mod $q$, and the non-vanishing $L(1,\\chi) \\ne 0$ for non-trivial $\\chi$ kills the would-be obstruction; PNT for APs gives $\\pi(x;q,a) \\sim \\frac{1}{\\varphi(q)} \\frac{x}{\\log x}$."
+          "blurb": "For $\\gcd(a,q) = 1$, the arithmetic progression $a, a+q, a+2q, \\ldots$ contains infinitely many primes. The proof factors $-\\log(1-p^{-s})$ over Dirichlet characters $\\chi$ mod $q$, and the non-vanishing $L(1,\\chi) \\ne 0$ for non-trivial $\\chi$ kills the would-be obstruction; PNT for APs gives $\\pi(x;q,a) \\sim \\frac{1}{\\varphi(q)} \\frac{x}{\\log x}$.",
+          "tags": [
+            "density"
+          ]
         },
         {
           "id": "ant-sieve-methods",
@@ -10401,7 +10413,11 @@ window.__MVConcepts = {
             "ant-prime-counting",
             "dirichlet-series-basics"
           ],
-          "blurb": "Inclusion–exclusion ($\\sum_{d\\mid P} \\mu(d) \\lfloor x/d \\rfloor$) is too erratic for primes; truncating the Möbius weights at small divisors gives Brun and Selberg sieves. Brun proved $\\sum_{p\\text{ twin}} (1/p + 1/(p+2))$ converges (the twin-prime constant) and bounded gaps follow from Selberg-style upper bounds on $\\#\\{n \\le x : n,n+2 \\text{ both prime}\\}$."
+          "blurb": "Inclusion–exclusion ($\\sum_{d\\mid P} \\mu(d) \\lfloor x/d \\rfloor$) is too erratic for primes; truncating the Möbius weights at small divisors gives Brun and Selberg sieves. Brun proved $\\sum_{p\\text{ twin}} (1/p + 1/(p+2))$ converges (the twin-prime constant) and bounded gaps follow from Selberg-style upper bounds on $\\#\\{n \\le x : n,n+2 \\text{ both prime}\\}$.",
+          "tags": [
+            "cancellation",
+            "density"
+          ]
         },
         {
           "id": "ant-bombieri-vinogradov",
@@ -10411,7 +10427,11 @@ window.__MVConcepts = {
             "ant-dirichlet-theorem",
             "lfunction-prototype"
           ],
-          "blurb": "On average over moduli $q \\le x^{1/2}/(\\log x)^A$, the Bombieri–Vinogradov theorem bounds $\\sum_q \\max_{\\gcd(a,q)=1} |\\pi(x;q,a) - \\mathrm{Li}(x)/\\varphi(q)|$ by $x/(\\log x)^B$ — a GRH-quality error in the $\\ell^1$ norm even though GRH itself remains open."
+          "blurb": "On average over moduli $q \\le x^{1/2}/(\\log x)^A$, the Bombieri–Vinogradov theorem bounds $\\sum_q \\max_{\\gcd(a,q)=1} |\\pi(x;q,a) - \\mathrm{Li}(x)/\\varphi(q)|$ by $x/(\\log x)^B$ — a GRH-quality error in the $\\ell^1$ norm even though GRH itself remains open.",
+          "tags": [
+            "cancellation",
+            "density"
+          ]
         },
         {
           "id": "ant-circle-method",
@@ -10421,7 +10441,10 @@ window.__MVConcepts = {
             "ant-prime-counting",
             "cauchy-integral-formula"
           ],
-          "blurb": "Encode a counting problem as the constant Fourier coefficient $r(N) = \\int_0^1 |S(\\alpha)|^k e(-N\\alpha)\\,d\\alpha$ of a generating exponential sum $S(\\alpha) = \\sum_{n \\le N} e(\\alpha n)$. Split $[0,1]$ into <em>major arcs</em> near rationals $a/q$ with small $q$ (where $S$ has a clean asymptotic) and <em>minor arcs</em> (where one needs cancellation bounds). Hardy–Littlewood proved Waring's problem; Vinogradov used it to settle ternary Goldbach for sufficiently large odd $N$."
+          "blurb": "Encode a counting problem as the constant Fourier coefficient $r(N) = \\int_0^1 |S(\\alpha)|^k e(-N\\alpha)\\,d\\alpha$ of a generating exponential sum $S(\\alpha) = \\sum_{n \\le N} e(\\alpha n)$. Split $[0,1]$ into <em>major arcs</em> near rationals $a/q$ with small $q$ (where $S$ has a clean asymptotic) and <em>minor arcs</em> (where one needs cancellation bounds). Hardy–Littlewood proved Waring's problem; Vinogradov used it to settle ternary Goldbach for sufficiently large odd $N$.",
+          "tags": [
+            "cancellation"
+          ]
         },
         {
           "id": "ant-exponential-sums",
@@ -10431,7 +10454,11 @@ window.__MVConcepts = {
             "ant-prime-counting",
             "ant-circle-method"
           ],
-          "blurb": "Weyl's criterion says $\\{a_n\\} \\subset \\mathbb{R}/\\mathbb{Z}$ is equidistributed iff $\\frac{1}{N}\\sum_{n \\le N} e(k a_n) \\to 0$ for every $k \\ne 0$. Cancellation in $\\sum e(f(n))$ for polynomial $f$ — quantified by Weyl's inequality and refined by van der Corput's $A$- and $B$-processes — drives equidistribution of $\\{n\\alpha\\}$, $\\{p\\alpha\\}$ over primes, and the minor-arc estimates the circle method demands."
+          "blurb": "Weyl's criterion says $\\{a_n\\} \\subset \\mathbb{R}/\\mathbb{Z}$ is equidistributed iff $\\frac{1}{N}\\sum_{n \\le N} e(k a_n) \\to 0$ for every $k \\ne 0$. Cancellation in $\\sum e(f(n))$ for polynomial $f$ — quantified by Weyl's inequality and refined by van der Corput's $A$- and $B$-processes — drives equidistribution of $\\{n\\alpha\\}$, $\\{p\\alpha\\}$ over primes, and the minor-arc estimates the circle method demands.",
+          "tags": [
+            "cancellation",
+            "equidistribution"
+          ]
         },
         {
           "id": "ant-selberg-elementary",
@@ -10454,7 +10481,11 @@ window.__MVConcepts = {
             "ant-bombieri-vinogradov",
             "ant-exponential-sums"
           ],
-          "blurb": "The analytic large sieve bounds $\\sum_{q \\le Q} \\sum_{\\chi \\bmod q}^{*} |\\sum_{n \\le N} a_n \\chi(n)|^2 \\le (Q^2 + N) \\sum |a_n|^2$, summing over primitive characters. It is equivalent to a dual frequency-localization inequality $\\sum_{r=1}^R |T(\\alpha_r)|^2 \\le (\\delta^{-1} + N)\\sum |a_n|^2$ for $\\delta$-spaced $\\alpha_r$, and it powers Bombieri–Vinogradov: combine it with a Vaughan-style decomposition of $\\Lambda$ to derive GRH-on-average."
+          "blurb": "The analytic large sieve bounds $\\sum_{q \\le Q} \\sum_{\\chi \\bmod q}^{*} |\\sum_{n \\le N} a_n \\chi(n)|^2 \\le (Q^2 + N) \\sum |a_n|^2$, summing over primitive characters. It is equivalent to a dual frequency-localization inequality $\\sum_{r=1}^R |T(\\alpha_r)|^2 \\le (\\delta^{-1} + N)\\sum |a_n|^2$ for $\\delta$-spaced $\\alpha_r$, and it powers Bombieri–Vinogradov: combine it with a Vaughan-style decomposition of $\\Lambda$ to derive GRH-on-average.",
+          "tags": [
+            "cancellation",
+            "density"
+          ]
         }
       ]
     },
@@ -14577,6 +14608,26 @@ window.__MVConcepts = {
         "id": "foundation",
         "title": "Foundation",
         "blurb": "Definitional bedrock that downstream concepts assume — the vocabulary entries you can't skip."
+      },
+      {
+        "id": "equidistribution",
+        "title": "Equidistribution",
+        "blurb": "Sequences become uniform in the limit — Weyl's criterion, Birkhoff's ergodic theorem, $\\zeta$-zero distribution, exponential-sum cancellation. The asymptotic backbone of analytic number theory and dynamics."
+      },
+      {
+        "id": "density",
+        "title": "Density",
+        "blurb": "Distribution statements counting how often something happens — primes in arithmetic progressions, Chebotarev density, Dirichlet density, prime number theorem on average. The 'how many' counterpart to existence theorems."
+      },
+      {
+        "id": "cancellation",
+        "title": "Cancellation",
+        "blurb": "Oscillatory sums $\\sum e(\\phi(n))$ collapse below the trivial bound — Weyl, van der Corput, large sieve, square-root cancellation. The technical engine behind sieve methods, exponential sums, and the circle method."
+      },
+      {
+        "id": "refinement",
+        "title": "Refinement",
+        "blurb": "Property-strengthening conditions on a baseline structure — hypercompleteness in $\\infty$-toposes, Whitehead-style equivalences, fineness of topologies, prosaic-vs-derived passage. The next level after foundation."
       }
     ]
   },
