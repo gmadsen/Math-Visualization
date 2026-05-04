@@ -8,6 +8,7 @@
     "langlands-program",
     "microlocal-analysis",
     "geometric-measure-theory",
+    "semigroup-theory-evolution-equations",
 
     "special-relativity",
 
@@ -205,6 +206,7 @@
     "sobolev-spaces-distributions": "standard",
     "microlocal-analysis": "advanced",
     "geometric-measure-theory": "advanced",
+    "semigroup-theory-evolution-equations": "advanced",
     "advanced-complex-analysis": "advanced",
     "point-set-topology": "prereq",
     "algebraic-topology": "prereq",

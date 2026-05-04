@@ -9,6 +9,7 @@ window.__MVConcepts = {
       "langlands-program",
       "microlocal-analysis",
       "geometric-measure-theory",
+      "semigroup-theory-evolution-equations",
       "special-relativity",
       "klein-gordon-equation",
       "dirac-equation",
@@ -195,6 +196,7 @@ window.__MVConcepts = {
       "sobolev-spaces-distributions": "standard",
       "microlocal-analysis": "advanced",
       "geometric-measure-theory": "advanced",
+      "semigroup-theory-evolution-equations": "advanced",
       "advanced-complex-analysis": "advanced",
       "point-set-topology": "prereq",
       "algebraic-topology": "prereq",
@@ -828,6 +830,91 @@ window.__MVConcepts = {
             "gmt-currents"
           ],
           "blurb": "GMT solves Plateau's problem rigorously: minimize mass over integral currents with prescribed boundary; Federer-Fleming gives existence and Allard's regularity theorem gives interior $C^{1,\\alpha}$-smoothness $\\mathcal{H}^k$-a.e. on the support of a stationary integral varifold (with the Simons cone in $\\mathbb{R}^8$ exhibiting the first singular minimizer in codimension 1). Mumford-Shah image segmentation $\\inf\\int(u-g)^2 + \\alpha\\int_{\\Omega\\setminus K}|\\nabla u|^2 + \\beta\\,\\mathcal{H}^{n-1}(K)$ is well-posed via the SBV compactness theorem (Ambrosio 1989), with De Giorgi-Carriero-Leaci density estimates closing the singular set $K$. Brakke flows generalize mean-curvature flow to varifolds whose mass decreases at squared mean curvature, and Cheeger constants $h(\\Omega)=\\inf P(E)/|E|$ control the Laplacian spectral gap via $\\lambda_1\\ge h^2/4$ — both natively expressed in the perimeter / SBV / varifold language built up over the previous five sections.",
+          "tags": [
+            "classification",
+            "refinement"
+          ]
+        }
+      ]
+    },
+    "semigroup-theory-evolution-equations": {
+      "topic": "semigroup-theory-evolution-equations",
+      "title": "Semigroup theory and evolution equations",
+      "page": "semigroup-theory-evolution-equations.html",
+      "concepts": [
+        {
+          "id": "sg-c0-semigroups",
+          "title": "Strongly continuous (C₀) semigroups",
+          "anchor": "c0-semigroups",
+          "prereqs": [
+            "bounded-operators-fa"
+          ],
+          "blurb": "A C₀ semigroup on a Banach space $X$ is a family $\\{T(t)\\}_{t \\geq 0}$ of bounded operators satisfying $T(0) = I$, $T(s+t) = T(s)T(t)$, and $t \\mapsto T(t)x$ continuous in $t$ for every $x \\in X$. It encodes the time-evolution of an autonomous linear PDE: heat semigroup $T(t) = e^{t\\Delta}$, wave-equation propagator on the energy space, Schrödinger group $e^{-it\\Delta}$. Every $T(t)$ is bounded by $Me^{\\omega t}$ for some constants — semigroups grow at most exponentially, and the constants $(M,\\omega)$ stratify them into contractions, isometries, and exponentially growing orbits.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "sg-infinitesimal-generator",
+          "title": "The infinitesimal generator",
+          "anchor": "generator",
+          "prereqs": [
+            "sg-c0-semigroups"
+          ],
+          "blurb": "The generator $A$ of a C₀ semigroup $T(t)$ is $Ax = \\lim_{t \\to 0^+} (T(t)x - x)/t$ on the dense domain $D(A) = \\{x : \\text{the limit exists in }X\\}$. $A$ is closed, densely defined, and uniquely determines $T$: knowing $A$ plus the resolvent set is equivalent to knowing $T$. The semigroup is differentiable on $D(A)$: $\\frac{d}{dt}T(t)x = AT(t)x = T(t)Ax$. This is the operator analogue of $\\frac{d}{dt}e^{tA} = Ae^{tA}$, but now $A$ is unbounded and the domain $D(A)$ records exactly which orbits are classically differentiable.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "sg-hille-yosida",
+          "title": "The Hille–Yosida theorem",
+          "anchor": "hille-yosida",
+          "prereqs": [
+            "sg-infinitesimal-generator"
+          ],
+          "blurb": "Hille–Yosida characterizes generators of contractions: $A$ generates a $T(t)$ with $\\|T(t)\\| \\leq 1$ iff $A$ is closed, densely defined, and every $\\lambda > 0$ lies in the resolvent set with $\\|(\\lambda - A)^{-1}\\| \\leq 1/\\lambda$. The Lumer–Phillips refinement: $A$ generates a contraction semigroup iff $A$ is dissipative and $\\mathrm{range}(\\lambda - A) = X$ for some $\\lambda > 0$. The proof constructs $T(t)$ via the Yosida approximation $A_n = nA(n - A)^{-1}$, taking $T(t) = \\lim e^{tA_n}$ — a regularization that turns unbounded generators back into bounded operators where the exponential converges.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "sg-analytic-semigroups",
+          "title": "Analytic semigroups and parabolic regularity",
+          "anchor": "analytic",
+          "prereqs": [
+            "sg-hille-yosida"
+          ],
+          "blurb": "$T(t)$ is analytic if it extends holomorphically into a sector $\\Sigma_\\delta = \\{z : |\\arg z| < \\delta\\}$. Equivalent characterization: the resolvent $(\\lambda - A)^{-1}$ exists and is bounded by $M/|\\lambda|$ on a fattened sector $\\{|\\arg \\lambda| < \\pi/2 + \\delta\\}$. The heat semigroup $e^{t\\Delta}$ is the canonical example. Analytic semigroups smooth instantly: $T(t)x \\in D(A^k)$ for all $k$ when $t > 0$, regardless of how rough $x$ is. This is the operator-theoretic origin of parabolic regularity — solutions of $u_t = \\Delta u$ become $C^\\infty$ for $t > 0$ — and the source of maximal $L^p$ regularity for inhomogeneous problems.",
+          "tags": [
+            "classification",
+            "refinement"
+          ]
+        },
+        {
+          "id": "sg-evolution-pdes",
+          "title": "Evolution equations as abstract Cauchy problems",
+          "anchor": "evolution-pdes",
+          "prereqs": [
+            "sg-c0-semigroups",
+            "pde-classification"
+          ],
+          "blurb": "The Cauchy problem $u'(t) = A u(t)$, $u(0) = u_0$ has a unique mild solution $u(t) = T(t)u_0$ for any $u_0 \\in X$ when $A$ generates a C₀ semigroup. For $u_0 \\in D(A)$, this is a strict (classical) solution. Inhomogeneous problems $u' = Au + f$ obey the Duhamel formula $u(t) = T(t)u_0 + \\int_0^t T(t-s)f(s)\\,ds$, the variation-of-parameters template. This unifies a vast family of PDEs — heat ($A=\\Delta$), wave (first-order form), Schrödinger ($A=-i\\Delta$), advection-diffusion — under one solvability theorem, with the choice of $X$ and $D(A)$ encoding the equation's natural function space.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "sg-applications",
+          "title": "Applications: nonlinear PDEs, control, and stochastic flows",
+          "anchor": "applications",
+          "prereqs": [
+            "sg-analytic-semigroups",
+            "sg-evolution-pdes"
+          ],
+          "blurb": "Semigroup theory underwrites three downstream subjects. Nonlinear PDEs $u' = Au + F(u)$ with locally Lipschitz $F$ admit mild solutions $u(t) = T(t)u_0 + \\int_0^t T(t-s)F(u(s))\\,ds$ via Banach contraction, with maximal time of existence determined by blow-up criteria. Control theory tests reachability of $u' = Au + Bv$ via spectral conditions on $(A,B)$ — heat is approximately controllable from any nonempty open $\\omega$ thanks to analyticity, while waves require the geometric control condition. Stochastic flows from an SDE $dX = b\\,dt + \\sigma\\,dW$ produce the Markov semigroup $T(t)f(x) = \\mathbb{E}[f(X_t)\\mid X_0 = x]$, whose generator $\\frac{1}{2}\\sigma\\sigma^* : D^2 + b\\cdot D$ is the Itô–Feynman–Kac bridge to functional analysis.",
           "tags": [
             "classification",
             "refinement"
@@ -15137,6 +15224,7 @@ window.__MVConcepts = {
           "sobolev-spaces-distributions",
           "microlocal-analysis",
           "geometric-measure-theory",
+          "semigroup-theory-evolution-equations",
           "advanced-complex-analysis",
           "partial-differential-equations",
           "harmonic-functions",
@@ -15431,6 +15519,7 @@ window.__MVConcepts = {
     "sobolev-spaces-distributions": "standard",
     "microlocal-analysis": "advanced",
     "geometric-measure-theory": "advanced",
+    "semigroup-theory-evolution-equations": "advanced",
     "advanced-complex-analysis": "advanced",
     "point-set-topology": "prereq",
     "algebraic-topology": "prereq",
@@ -15590,11 +15679,11 @@ window.__MVConcepts = {
       "density": 0.5111111111111111
     },
     "Analysis": {
-      "concepts": 185,
-      "intra": 325,
+      "concepts": 191,
+      "intra": 333,
       "crossOut": 31,
       "crossIn": 62,
-      "density": 0.16756756756756758
+      "density": 0.16230366492146597
     },
     "Probability & statistics": {
       "concepts": 55,

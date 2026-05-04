@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **144**, concepts: **1026**
-- Widgets: **1053** (registry-driven: 1053, inline: 0)
-- Quizzes: **4272** (v1: 3036, hard: 1223, expert: 13)
-- Quiz types: mcq: 2854, numeric: 1070, multi-select: 147, matching: 67, ordering: 49, spot-the-error: 35, complex: 29, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Topics: **145**, concepts: **1032**
+- Widgets: **1059** (registry-driven: 1059, inline: 0)
+- Quizzes: **4290** (v1: 3054, hard: 1223, expert: 13)
+- Quiz types: mcq: 2860, numeric: 1072, multi-select: 151, matching: 71, ordering: 50, spot-the-error: 36, complex: 29, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **146**
-- Concepts lacking a hard-tier quiz: **588**
+- Concepts lacking a hard-tier quiz: **594**
 
 ## Per-slug registry adoption
 
@@ -489,6 +489,12 @@ page has wired one in yet.
 | `ricci-extinction-timeline` | ricci-extinction-timeline | button-stepper | 2d | 1 | ricci-flow |
 | `ricci-neckpinch-surgery` | ricci-neckpinch-surgery | button-stepper | 2d | 1 | ricci-flow |
 | `ricci-soliton-zoo` | ricci-soliton-zoo | button-stepper | 2d | 1 | ricci-flow |
+| `sg-analytic` | verbatim | select | 2d | 1 | semigroup-theory-evolution-equations |
+| `sg-c0` | verbatim | select | 2d | 1 | semigroup-theory-evolution-equations |
+| `sg-cauchy` | verbatim | select | 2d | 1 | semigroup-theory-evolution-equations |
+| `sg-control` | verbatim | select | 2d | 1 | semigroup-theory-evolution-equations |
+| `sg-gen` | verbatim | select | 2d | 1 | semigroup-theory-evolution-equations |
+| `sg-hy` | verbatim | select | 2d | 1 | semigroup-theory-evolution-equations |
 | `simplicial-complexes-combinatorial-faces` | simplicial-complexes-combinatorial-faces | click | 2d | 1 | simplicial-complexes-combinatorial |
 | `simplicial-complexes-combinatorial-fh` | simplicial-complexes-combinatorial-fh | click | 2d | 1 | simplicial-complexes-combinatorial |
 | `simplicial-complexes-combinatorial-nerve` | simplicial-complexes-combinatorial-nerve | slider | 2d | 1 | simplicial-complexes-combinatorial |
@@ -634,13 +640,13 @@ page has wired one in yet.
 
 ### Analysis
 
-- Topics: **18**, concepts: **185**
-- Widgets: **155** (registry-driven: 155, inline: 0)
-  - by family: clickable-diagram: 41, button-stepper: 37, verbatim: 33, aca-figure: 5, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, variational-fdiff: 1, variational-brachistochrone: 1, variational-direct-method: 1, variational-mountain-pass: 1, variational-isoperimetric: 1, variational-sphere-geodesic: 1, constraint-bifurcation-explorer: 1, recurrence-plotter: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
-  - by dimension: 2d: 154, 3d: 1
-  - by gesture: click: 88, slider: 55, drag: 6, select: 4, step: 1, static: 1
-- Quizzes: **699** (v1: 514, hard: 185, expert: 0)
-  - by type: mcq: 438, numeric: 156, multi-select: 31, matching: 23, ordering: 18, complex: 14, proof-completion: 9, spot-the-error: 8, construction: 1, guess-my-rule: 1
+- Topics: **19**, concepts: **191**
+- Widgets: **161** (registry-driven: 161, inline: 0)
+  - by family: clickable-diagram: 41, verbatim: 39, button-stepper: 37, aca-figure: 5, numerical-fp-cancellation: 1, numerical-newton-iteration: 1, numerical-quadrature-error: 1, numerical-hilbert-conditioning: 1, numerical-ftcs-stability: 1, numerical-fem-hat-basis: 1, variational-fdiff: 1, variational-brachistochrone: 1, variational-direct-method: 1, variational-mountain-pass: 1, variational-isoperimetric: 1, variational-sphere-geodesic: 1, constraint-bifurcation-explorer: 1, recurrence-plotter: 1, julia-playground: 1, sobolev-pairing: 1, sobolev-weak-derivative: 1, sobolev-fractional-power: 1, sobolev-embedding-exponent: 1, sobolev-trace: 1, sobolev-newtonian-potential: 1, sobolev-variational: 1, harmonic-partial-sum: 1, harmonic-tent-transform: 1, harmonic-convolution: 1, harmonic-uncertainty: 1, harmonic-heat-evolution: 1, pde-classifier: 1, pde-heat-kernel: 1, pde-wave-dalembert: 1, pde-poisson-disk: 1, pde-weak-test: 1, pde-sobolev-embedding: 1, harmonic-functions-laplacian-heatmap: 1, harmonic-functions-mvp-circle: 1, harmonic-functions-maximum-locator: 1, harmonic-functions-poisson-extension: 1, harmonic-functions-harnack-corridor: 1, harmonic-functions-perron-supremum: 1
+  - by dimension: 2d: 160, 3d: 1
+  - by gesture: click: 88, slider: 55, select: 10, drag: 6, step: 1, static: 1
+- Quizzes: **717** (v1: 532, hard: 185, expert: 0)
+  - by type: mcq: 444, numeric: 158, multi-select: 35, matching: 27, ordering: 19, complex: 14, spot-the-error: 9, proof-completion: 9, construction: 1, guess-my-rule: 1
 
 ### Probability & statistics
 
@@ -719,6 +725,7 @@ page has wired one in yet.
 - `langlands-program` (Modular forms & L-functions) — concepts=8, widgets=0 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
 - `microlocal-analysis` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `geometric-measure-theory` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `semigroup-theory-evolution-equations` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `special-relativity` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=19 (v1=19, hard=0, expert=0)
 - `klein-gordon-equation` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `dirac-equation` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
