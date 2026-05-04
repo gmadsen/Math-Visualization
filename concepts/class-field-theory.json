@@ -10,7 +10,11 @@
       "prereqs": [
         "artin-reciprocity-preview"
       ],
-      "blurb": "Idèle class groups package global and local arithmetic data in one object."
+      "blurb": "Idèle class groups package global and local arithmetic data in one object.",
+      "tags": [
+        "group-action",
+        "foundation"
+      ]
     },
     {
       "id": "hilbert-class-field",
@@ -44,7 +48,11 @@
       "prereqs": [
         "artin-map-cft"
       ],
-      "blurb": "Ray class fields and local reciprocity provide explicit control of abelian extensions."
+      "blurb": "Ray class fields and local reciprocity provide explicit control of abelian extensions.",
+      "tags": [
+        "descent",
+        "classification"
+      ]
     },
     {
       "id": "existence-theorem-cft",
@@ -69,7 +77,11 @@
         "artin-map-cft",
         "prime-ideals-factorization-ant"
       ],
-      "blurb": "For a finite abelian $L/K$ the discriminant factors as the product of the conductors of its 1-dimensional characters, $\\mathfrak{d}_{L/K}=\\prod_\\chi \\mathfrak{f}(\\chi)$, tying ramification to the Artin conductor."
+      "blurb": "For a finite abelian $L/K$ the discriminant factors as the product of the conductors of its 1-dimensional characters, $\\mathfrak{d}_{L/K}=\\prod_\\chi \\mathfrak{f}(\\chi)$, tying ramification to the Artin conductor.",
+      "tags": [
+        "finiteness",
+        "classification"
+      ]
     }
   ]
 }

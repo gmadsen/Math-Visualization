@@ -1119,7 +1119,9 @@ window.__MVConcepts = {
             "crypto-rsa",
             "cx-p-and-np"
           ],
-          "tags": [],
+          "tags": [
+            "foundation"
+          ],
           "blurb": "Trial division, Pollard's $\\rho$ method (Floyd cycle detection on $x \\mapsto x^2+1 \\bmod n$), Pollard's $p-1$ method, the quadratic sieve, and the general number-field sieve. Subexponential complexity $L_n[1/3,c]$ is the current frontier — no polynomial-time classical algorithm is known."
         },
         {
@@ -9083,7 +9085,11 @@ window.__MVConcepts = {
             "field-extensions-galois",
             "quotients-homomorphisms"
           ],
-          "blurb": "A finite extension is Galois iff it is both normal (a splitting field) and separable (minimal polynomials have distinct roots); in characteristic zero, separability is automatic."
+          "blurb": "A finite extension is Galois iff it is both normal (a splitting field) and separable (minimal polynomials have distinct roots); in characteristic zero, separability is automatic.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
         },
         {
           "id": "primitive-element-theorem",
@@ -9092,7 +9098,10 @@ window.__MVConcepts = {
           "prereqs": [
             "normal-separable-extensions"
           ],
-          "blurb": "Every finite separable extension $L/K$ is simple: $L=K(\\alpha)$ for some $\\alpha$, so Galois theory over characteristic zero reduces to the study of a single minimal polynomial."
+          "blurb": "Every finite separable extension $L/K$ is simple: $L=K(\\alpha)$ for some $\\alpha$, so Galois theory over characteristic zero reduces to the study of a single minimal polynomial.",
+          "tags": [
+            "classification"
+          ]
         }
       ]
     },
@@ -9108,7 +9117,11 @@ window.__MVConcepts = {
           "prereqs": [
             "sets-functions"
           ],
-          "blurb": "For p prime, the nonzero residues (Z/p)× form a cyclic group of order p-1 under multiplication. A primitive root g generates every nonzero residue as g, g^2, ..., g^{p-1} ≡ 1 — the cyclic structure that Legendre symbols and the entire reciprocity machinery rest on."
+          "blurb": "For p prime, the nonzero residues (Z/p)× form a cyclic group of order p-1 under multiplication. A primitive root g generates every nonzero residue as g, g^2, ..., g^{p-1} ≡ 1 — the cyclic structure that Legendre symbols and the entire reciprocity machinery rest on.",
+          "tags": [
+            "group-action",
+            "foundation"
+          ]
         },
         {
           "id": "legendre-symbol",
@@ -9117,7 +9130,11 @@ window.__MVConcepts = {
           "prereqs": [
             "multiplicative-group-mod-p"
           ],
-          "blurb": "For odd prime p, the symbol (a/p) detects whether a is a square mod p, taking values 1, -1, or 0."
+          "blurb": "For odd prime p, the symbol (a/p) detects whether a is a square mod p, taking values 1, -1, or 0.",
+          "tags": [
+            "classification",
+            "group-action"
+          ]
         },
         {
           "id": "supplementary-laws-qr",
@@ -9126,7 +9143,10 @@ window.__MVConcepts = {
           "prereqs": [
             "legendre-symbol"
           ],
-          "blurb": "Explicit formulas for (-1/p) and (2/p) via p mod 4 and p mod 8 reduce many residue checks to parity facts."
+          "blurb": "Explicit formulas for (-1/p) and (2/p) via p mod 4 and p mod 8 reduce many residue checks to parity facts.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "gauss-lemma-qr",
@@ -9135,7 +9155,11 @@ window.__MVConcepts = {
           "prereqs": [
             "legendre-symbol"
           ],
-          "blurb": "The sign in (a/p) can be computed by counting how many multiples a,2a,...,(p-1)a/2 land past p/2."
+          "blurb": "The sign in (a/p) can be computed by counting how many multiples a,2a,...,(p-1)a/2 land past p/2.",
+          "tags": [
+            "classification",
+            "group-action"
+          ]
         },
         {
           "id": "quadratic-reciprocity-law",
@@ -9160,7 +9184,10 @@ window.__MVConcepts = {
           "prereqs": [
             "quadratic-reciprocity-law"
           ],
-          "blurb": "Extend (a/p) multiplicatively to odd composite n: reciprocity and both supplements survive, yielding a gcd-style O(log n) algorithm with no factoring required."
+          "blurb": "Extend (a/p) multiplicatively to odd composite n: reciprocity and both supplements survive, yielding a gcd-style O(log n) algorithm with no factoring required.",
+          "tags": [
+            "classification"
+          ]
         }
       ]
     },
@@ -9201,7 +9228,11 @@ window.__MVConcepts = {
           "prereqs": [
             "reduction-theory"
           ],
-          "blurb": "Dirichlet composition equips the set of primitive form classes with a group structure; the resulting finite abelian group has order h(D), the class number of discriminant D."
+          "blurb": "Dirichlet composition equips the set of primitive form classes with a group structure; the resulting finite abelian group has order h(D), the class number of discriminant D.",
+          "tags": [
+            "group-action",
+            "classification"
+          ]
         },
         {
           "id": "genus-theory",
@@ -9225,7 +9256,11 @@ window.__MVConcepts = {
             "prime-ideals-factorization-ant",
             "hilbert-class-field"
           ],
-          "blurb": "There is a canonical isomorphism between the form class group of discriminant D and the ideal class group of ℚ(√D); this bridges classical and modern algebraic number theory."
+          "blurb": "There is a canonical isomorphism between the form class group of discriminant D and the ideal class group of ℚ(√D); this bridges classical and modern algebraic number theory.",
+          "tags": [
+            "classification",
+            "duality"
+          ]
         }
       ]
     },
@@ -9241,7 +9276,10 @@ window.__MVConcepts = {
           "prereqs": [
             "quadratic-reciprocity-law"
           ],
-          "blurb": "Prime splitting in Gaussian integers characterizes n=x^2+y^2."
+          "blurb": "Prime splitting in Gaussian integers characterizes n=x^2+y^2.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "gaussian-integer-splitting",
@@ -9263,7 +9301,10 @@ window.__MVConcepts = {
             "gaussian-integer-splitting",
             "genus-theory"
           ],
-          "blurb": "Integers not of form 4^a(8b+7) are sums of three squares."
+          "blurb": "Integers not of form 4^a(8b+7) are sums of three squares.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "four-squares-and-waring",
@@ -9272,7 +9313,11 @@ window.__MVConcepts = {
           "prereqs": [
             "three-squares-theorem"
           ],
-          "blurb": "Lagrange and Waring-type refinements show universal additive quadratic behavior."
+          "blurb": "Lagrange and Waring-type refinements show universal additive quadratic behavior.",
+          "tags": [
+            "classification",
+            "finiteness"
+          ]
         },
         {
           "id": "waring-problem",
@@ -9293,7 +9338,11 @@ window.__MVConcepts = {
           "prereqs": [
             "four-squares-and-waring"
           ],
-          "blurb": "For each k, g(k) is the least s such that every n is a sum of s k-th powers: g(2)=4 (Lagrange), g(3)=9 (Wieferich), g(4)=19."
+          "blurb": "For each k, g(k) is the least s such that every n is a sum of s k-th powers: g(2)=4 (Lagrange), g(3)=9 (Wieferich), g(4)=19.",
+          "tags": [
+            "classification",
+            "finiteness"
+          ]
         },
         {
           "id": "g-k-vs-G-k",
@@ -9302,7 +9351,10 @@ window.__MVConcepts = {
           "prereqs": [
             "waring-problem-statement"
           ],
-          "blurb": "G(k) is the asymptotic Waring constant (sufficiently large n); G(k) ≤ g(k), often strictly, and G(k) = O(k log k)."
+          "blurb": "G(k) is the asymptotic Waring constant (sufficiently large n); G(k) ≤ g(k), often strictly, and G(k) = O(k log k).",
+          "tags": [
+            "finiteness"
+          ]
         },
         {
           "id": "hilbert-waring-theorem",
@@ -9324,7 +9376,11 @@ window.__MVConcepts = {
             "hilbert-waring-theorem",
             "dirichlet-series-basics"
           ],
-          "blurb": "Count representations as a Fourier integral: r_{s,k}(N) = ∫₀¹ f(α)^s e(−αN) dα with f(α)=Σ e(αn^k), then split the unit interval into major and minor arcs."
+          "blurb": "Count representations as a Fourier integral: r_{s,k}(N) = ∫₀¹ f(α)^s e(−αN) dα with f(α)=Σ e(αn^k), then split the unit interval into major and minor arcs.",
+          "tags": [
+            "finiteness",
+            "foundation"
+          ]
         },
         {
           "id": "major-vs-minor-arcs",
@@ -9333,7 +9389,10 @@ window.__MVConcepts = {
           "prereqs": [
             "circle-method-intro"
           ],
-          "blurb": "Near rationals a/q with small q, f(α) is a Gauss-sum-weighted main term (major arcs); elsewhere Weyl bounds force cancellation (minor arcs) — the sum yields an asymptotic with singular series × singular integral."
+          "blurb": "Near rationals a/q with small q, f(α) is a Gauss-sum-weighted main term (major arcs); elsewhere Weyl bounds force cancellation (minor arcs) — the sum yields an asymptotic with singular series × singular integral.",
+          "tags": [
+            "finiteness"
+          ]
         },
         {
           "id": "faulhaber-formula",
@@ -9342,7 +9401,10 @@ window.__MVConcepts = {
           "prereqs": [
             "algebraic-structures"
           ],
-          "blurb": "The sum $\\sum_{k=1}^{n} k^m$ is a polynomial in $n$ of degree $m{+}1$, with coefficients assembled from binomial numbers and Bernoulli numbers."
+          "blurb": "The sum $\\sum_{k=1}^{n} k^m$ is a polynomial in $n$ of degree $m{+}1$, with coefficients assembled from binomial numbers and Bernoulli numbers.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "bernoulli-generating-function",
@@ -9351,7 +9413,10 @@ window.__MVConcepts = {
           "prereqs": [
             "faulhaber-formula"
           ],
-          "blurb": "The Bernoulli numbers $B_n$ arise from $t/(e^t-1)=\\sum B_n t^n/n!$; all odd $B_n$ beyond $B_1$ vanish and the even ones alternate in sign."
+          "blurb": "The Bernoulli numbers $B_n$ arise from $t/(e^t-1)=\\sum B_n t^n/n!$; all odd $B_n$ beyond $B_1$ vanish and the even ones alternate in sign.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "zeta-special-values",
@@ -9374,7 +9439,11 @@ window.__MVConcepts = {
             "bernoulli-generating-function",
             "riemann-integral"
           ],
-          "blurb": "Euler-Maclaurin turns a finite sum into an integral plus endpoint corrections weighted by Bernoulli numbers, making asymptotic expansions of slowly-converging series accessible."
+          "blurb": "Euler-Maclaurin turns a finite sum into an integral plus endpoint corrections weighted by Bernoulli numbers, making asymptotic expansions of slowly-converging series accessible.",
+          "tags": [
+            "foundation",
+            "finiteness"
+          ]
         },
         {
           "id": "zeta-functional-equation-preview",
@@ -9415,7 +9484,11 @@ window.__MVConcepts = {
           "prereqs": [
             "number-fields-integers"
           ],
-          "blurb": "The discriminant $\\Delta_K$ is the squared determinant of an integral basis under the embeddings; it records exactly which rational primes ramify."
+          "blurb": "The discriminant $\\Delta_K$ is the squared determinant of an integral basis under the embeddings; it records exactly which rational primes ramify.",
+          "tags": [
+            "finiteness",
+            "classification"
+          ]
         },
         {
           "id": "prime-ideals-factorization-ant",
@@ -9485,7 +9558,11 @@ window.__MVConcepts = {
             "padic-norm-completion",
             "metric-spaces"
           ],
-          "blurb": "The strong triangle inequality forces isoceles triangles, clopen balls, and a totally disconnected topology on Q_p."
+          "blurb": "The strong triangle inequality forces isoceles triangles, clopen balls, and a totally disconnected topology on Q_p.",
+          "tags": [
+            "completion",
+            "foundation"
+          ]
         },
         {
           "id": "padic-expansions",
@@ -9594,7 +9671,11 @@ window.__MVConcepts = {
           "prereqs": [
             "adele-ring"
           ],
-          "blurb": "The idèles $\\mathbb{A}_\\mathbb{Q}^\\times$ are invertible adèles with the restricted-product topology on units; the idèle class group $C_\\mathbb{Q} = \\mathbb{A}_\\mathbb{Q}^\\times/\\mathbb{Q}^\\times$ packages archimedean and $p$-adic data globally."
+          "blurb": "The idèles $\\mathbb{A}_\\mathbb{Q}^\\times$ are invertible adèles with the restricted-product topology on units; the idèle class group $C_\\mathbb{Q} = \\mathbb{A}_\\mathbb{Q}^\\times/\\mathbb{Q}^\\times$ packages archimedean and $p$-adic data globally.",
+          "tags": [
+            "group-action",
+            "foundation"
+          ]
         },
         {
           "id": "strong-approximation",
@@ -9677,7 +9758,11 @@ window.__MVConcepts = {
           "prereqs": [
             "frobenius-element"
           ],
-          "blurb": "Primes equidistribute across Frobenius conjugacy classes with predicted densities."
+          "blurb": "Primes equidistribute across Frobenius conjugacy classes with predicted densities.",
+          "tags": [
+            "classification",
+            "group-action"
+          ]
         },
         {
           "id": "artin-reciprocity-preview",
@@ -9705,7 +9790,11 @@ window.__MVConcepts = {
           "prereqs": [
             "artin-reciprocity-preview"
           ],
-          "blurb": "Idèle class groups package global and local arithmetic data in one object."
+          "blurb": "Idèle class groups package global and local arithmetic data in one object.",
+          "tags": [
+            "group-action",
+            "foundation"
+          ]
         },
         {
           "id": "hilbert-class-field",
@@ -9739,7 +9828,11 @@ window.__MVConcepts = {
           "prereqs": [
             "artin-map-cft"
           ],
-          "blurb": "Ray class fields and local reciprocity provide explicit control of abelian extensions."
+          "blurb": "Ray class fields and local reciprocity provide explicit control of abelian extensions.",
+          "tags": [
+            "descent",
+            "classification"
+          ]
         },
         {
           "id": "existence-theorem-cft",
@@ -9764,7 +9857,11 @@ window.__MVConcepts = {
             "artin-map-cft",
             "prime-ideals-factorization-ant"
           ],
-          "blurb": "For a finite abelian $L/K$ the discriminant factors as the product of the conductors of its 1-dimensional characters, $\\mathfrak{d}_{L/K}=\\prod_\\chi \\mathfrak{f}(\\chi)$, tying ramification to the Artin conductor."
+          "blurb": "For a finite abelian $L/K$ the discriminant factors as the product of the conductors of its 1-dimensional characters, $\\mathfrak{d}_{L/K}=\\prod_\\chi \\mathfrak{f}(\\chi)$, tying ramification to the Artin conductor.",
+          "tags": [
+            "finiteness",
+            "classification"
+          ]
         }
       ]
     },
@@ -9936,7 +10033,11 @@ window.__MVConcepts = {
             "residue-theorem",
             "perron-formula"
           ],
-          "blurb": "Riemann's $\\zeta(s) = \\sum n^{-s} = \\prod_p (1-p^{-s})^{-1}$ links primes to a meromorphic function on $\\mathbb{C}$. The von Mangoldt explicit formula $\\psi(x) = x - \\sum_\\rho x^\\rho/\\rho - \\log 2\\pi - \\tfrac12\\log(1-x^{-2})$ writes the prime-counting error as a sum over the non-trivial zeros $\\rho$ of $\\zeta$."
+          "blurb": "Riemann's $\\zeta(s) = \\sum n^{-s} = \\prod_p (1-p^{-s})^{-1}$ links primes to a meromorphic function on $\\mathbb{C}$. The von Mangoldt explicit formula $\\psi(x) = x - \\sum_\\rho x^\\rho/\\rho - \\log 2\\pi - \\tfrac12\\log(1-x^{-2})$ writes the prime-counting error as a sum over the non-trivial zeros $\\rho$ of $\\zeta$.",
+          "tags": [
+            "duality",
+            "foundation"
+          ]
         },
         {
           "id": "ant-zero-free-region",
@@ -9958,7 +10059,10 @@ window.__MVConcepts = {
             "ant-prime-counting",
             "dirichlet-characters-lseries"
           ],
-          "blurb": "For $\\gcd(a,q) = 1$, the arithmetic progression $a, a+q, a+2q, \\ldots$ contains infinitely many primes. The proof factors $-\\log(1-p^{-s})$ over Dirichlet characters $\\chi$ mod $q$, and the non-vanishing $L(1,\\chi) \\ne 0$ for non-trivial $\\chi$ kills the would-be obstruction; PNT for APs gives $\\pi(x;q,a) \\sim \\frac{1}{\\varphi(q)} \\frac{x}{\\log x}$."
+          "blurb": "For $\\gcd(a,q) = 1$, the arithmetic progression $a, a+q, a+2q, \\ldots$ contains infinitely many primes. The proof factors $-\\log(1-p^{-s})$ over Dirichlet characters $\\chi$ mod $q$, and the non-vanishing $L(1,\\chi) \\ne 0$ for non-trivial $\\chi$ kills the would-be obstruction; PNT for APs gives $\\pi(x;q,a) \\sim \\frac{1}{\\varphi(q)} \\frac{x}{\\log x}$.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "ant-sieve-methods",
@@ -9968,7 +10072,10 @@ window.__MVConcepts = {
             "ant-prime-counting",
             "dirichlet-series-basics"
           ],
-          "blurb": "Inclusion–exclusion ($\\sum_{d\\mid P} \\mu(d) \\lfloor x/d \\rfloor$) is too erratic for primes; truncating the Möbius weights at small divisors gives Brun and Selberg sieves. Brun proved $\\sum_{p\\text{ twin}} (1/p + 1/(p+2))$ converges (the twin-prime constant) and bounded gaps follow from Selberg-style upper bounds on $\\#\\{n \\le x : n,n+2 \\text{ both prime}\\}$."
+          "blurb": "Inclusion–exclusion ($\\sum_{d\\mid P} \\mu(d) \\lfloor x/d \\rfloor$) is too erratic for primes; truncating the Möbius weights at small divisors gives Brun and Selberg sieves. Brun proved $\\sum_{p\\text{ twin}} (1/p + 1/(p+2))$ converges (the twin-prime constant) and bounded gaps follow from Selberg-style upper bounds on $\\#\\{n \\le x : n,n+2 \\text{ both prime}\\}$.",
+          "tags": [
+            "finiteness"
+          ]
         },
         {
           "id": "ant-bombieri-vinogradov",
@@ -9978,7 +10085,10 @@ window.__MVConcepts = {
             "ant-dirichlet-theorem",
             "lfunction-prototype"
           ],
-          "blurb": "On average over moduli $q \\le x^{1/2}/(\\log x)^A$, the Bombieri–Vinogradov theorem bounds $\\sum_q \\max_{\\gcd(a,q)=1} |\\pi(x;q,a) - \\mathrm{Li}(x)/\\varphi(q)|$ by $x/(\\log x)^B$ — a GRH-quality error in the $\\ell^1$ norm even though GRH itself remains open."
+          "blurb": "On average over moduli $q \\le x^{1/2}/(\\log x)^A$, the Bombieri–Vinogradov theorem bounds $\\sum_q \\max_{\\gcd(a,q)=1} |\\pi(x;q,a) - \\mathrm{Li}(x)/\\varphi(q)|$ by $x/(\\log x)^B$ — a GRH-quality error in the $\\ell^1$ norm even though GRH itself remains open.",
+          "tags": [
+            "finiteness"
+          ]
         },
         {
           "id": "ant-circle-method",
@@ -9988,7 +10098,10 @@ window.__MVConcepts = {
             "ant-prime-counting",
             "cauchy-integral-formula"
           ],
-          "blurb": "Encode a counting problem as the constant Fourier coefficient $r(N) = \\int_0^1 |S(\\alpha)|^k e(-N\\alpha)\\,d\\alpha$ of a generating exponential sum $S(\\alpha) = \\sum_{n \\le N} e(\\alpha n)$. Split $[0,1]$ into <em>major arcs</em> near rationals $a/q$ with small $q$ (where $S$ has a clean asymptotic) and <em>minor arcs</em> (where one needs cancellation bounds). Hardy–Littlewood proved Waring's problem; Vinogradov used it to settle ternary Goldbach for sufficiently large odd $N$."
+          "blurb": "Encode a counting problem as the constant Fourier coefficient $r(N) = \\int_0^1 |S(\\alpha)|^k e(-N\\alpha)\\,d\\alpha$ of a generating exponential sum $S(\\alpha) = \\sum_{n \\le N} e(\\alpha n)$. Split $[0,1]$ into <em>major arcs</em> near rationals $a/q$ with small $q$ (where $S$ has a clean asymptotic) and <em>minor arcs</em> (where one needs cancellation bounds). Hardy–Littlewood proved Waring's problem; Vinogradov used it to settle ternary Goldbach for sufficiently large odd $N$.",
+          "tags": [
+            "finiteness"
+          ]
         },
         {
           "id": "ant-exponential-sums",
@@ -9998,7 +10111,10 @@ window.__MVConcepts = {
             "ant-prime-counting",
             "ant-circle-method"
           ],
-          "blurb": "Weyl's criterion says $\\{a_n\\} \\subset \\mathbb{R}/\\mathbb{Z}$ is equidistributed iff $\\frac{1}{N}\\sum_{n \\le N} e(k a_n) \\to 0$ for every $k \\ne 0$. Cancellation in $\\sum e(f(n))$ for polynomial $f$ — quantified by Weyl's inequality and refined by van der Corput's $A$- and $B$-processes — drives equidistribution of $\\{n\\alpha\\}$, $\\{p\\alpha\\}$ over primes, and the minor-arc estimates the circle method demands."
+          "blurb": "Weyl's criterion says $\\{a_n\\} \\subset \\mathbb{R}/\\mathbb{Z}$ is equidistributed iff $\\frac{1}{N}\\sum_{n \\le N} e(k a_n) \\to 0$ for every $k \\ne 0$. Cancellation in $\\sum e(f(n))$ for polynomial $f$ — quantified by Weyl's inequality and refined by van der Corput's $A$- and $B$-processes — drives equidistribution of $\\{n\\alpha\\}$, $\\{p\\alpha\\}$ over primes, and the minor-arc estimates the circle method demands.",
+          "tags": [
+            "finiteness"
+          ]
         },
         {
           "id": "ant-selberg-elementary",
@@ -10008,7 +10124,10 @@ window.__MVConcepts = {
             "ant-prime-counting",
             "ant-zero-free-region"
           ],
-          "blurb": "Selberg's identity $\\sum_{p \\le x} \\log^2 p + \\sum_{pq \\le x} \\log p \\log q = 2x \\log x + O(x)$ — an elementary consequence of $\\Lambda \\ast 1 = \\log$ and $\\Lambda + \\Lambda \\ast \\Lambda$ counting weighted prime/prime-pair contributions — is symmetric in $p$ and $pq$. Erdős and Selberg (1948–49) bootstrapped it into a complex-analysis-free proof of PNT, settling a long-standing question about whether $\\zeta$ is essential."
+          "blurb": "Selberg's identity $\\sum_{p \\le x} \\log^2 p + \\sum_{pq \\le x} \\log p \\log q = 2x \\log x + O(x)$ — an elementary consequence of $\\Lambda \\ast 1 = \\log$ and $\\Lambda + \\Lambda \\ast \\Lambda$ counting weighted prime/prime-pair contributions — is symmetric in $p$ and $pq$. Erdős and Selberg (1948–49) bootstrapped it into a complex-analysis-free proof of PNT, settling a long-standing question about whether $\\zeta$ is essential.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "ant-large-sieve",
@@ -10018,7 +10137,10 @@ window.__MVConcepts = {
             "ant-bombieri-vinogradov",
             "ant-exponential-sums"
           ],
-          "blurb": "The analytic large sieve bounds $\\sum_{q \\le Q} \\sum_{\\chi \\bmod q}^{*} |\\sum_{n \\le N} a_n \\chi(n)|^2 \\le (Q^2 + N) \\sum |a_n|^2$, summing over primitive characters. It is equivalent to a dual frequency-localization inequality $\\sum_{r=1}^R |T(\\alpha_r)|^2 \\le (\\delta^{-1} + N)\\sum |a_n|^2$ for $\\delta$-spaced $\\alpha_r$, and it powers Bombieri–Vinogradov: combine it with a Vaughan-style decomposition of $\\Lambda$ to derive GRH-on-average."
+          "blurb": "The analytic large sieve bounds $\\sum_{q \\le Q} \\sum_{\\chi \\bmod q}^{*} |\\sum_{n \\le N} a_n \\chi(n)|^2 \\le (Q^2 + N) \\sum |a_n|^2$, summing over primitive characters. It is equivalent to a dual frequency-localization inequality $\\sum_{r=1}^R |T(\\alpha_r)|^2 \\le (\\delta^{-1} + N)\\sum |a_n|^2$ for $\\delta$-spaced $\\alpha_r$, and it powers Bombieri–Vinogradov: combine it with a Vaughan-style decomposition of $\\Lambda$ to derive GRH-on-average.",
+          "tags": [
+            "finiteness"
+          ]
         }
       ]
     },
@@ -10709,7 +10831,10 @@ window.__MVConcepts = {
             "galois-rep-definition",
             "frobenius-element"
           ],
-          "blurb": "At unramified primes, Frobenius characteristic polynomials carry local arithmetic data."
+          "blurb": "At unramified primes, Frobenius characteristic polynomials carry local arithmetic data.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "ramification-galois-rep",
@@ -10719,7 +10844,11 @@ window.__MVConcepts = {
             "frobenius-traces",
             "padic-norm-completion"
           ],
-          "blurb": "Ramified primes are those where inertia acts nontrivially; the conductor exponent records the size of the inertia invariants."
+          "blurb": "Ramified primes are those where inertia acts nontrivially; the conductor exponent records the size of the inertia invariants.",
+          "tags": [
+            "finiteness",
+            "classification"
+          ]
         },
         {
           "id": "modularity-and-deformations",

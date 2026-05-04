@@ -24,7 +24,11 @@
         "padic-norm-completion",
         "metric-spaces"
       ],
-      "blurb": "The strong triangle inequality forces isoceles triangles, clopen balls, and a totally disconnected topology on Q_p."
+      "blurb": "The strong triangle inequality forces isoceles triangles, clopen balls, and a totally disconnected topology on Q_p.",
+      "tags": [
+        "completion",
+        "foundation"
+      ]
     },
     {
       "id": "padic-expansions",
