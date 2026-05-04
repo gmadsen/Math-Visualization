@@ -14,7 +14,7 @@
             "$[\\phi(t,\\vec x), \\phi(t,\\vec y)] = i\\hbar\\,\\delta^3(\\vec x - \\vec y)$."
           ],
           "answer": 0,
-          "hint": "The canonical pairing comes from the Poisson bracket $\\{\\phi(\\vec x),\\pi(\\vec y)\\}_{\\mathrm{PB}} = \\delta^3(\\vec x - \\vec y)$ promoted by the Dirac quantization rule $\\{\\cdot,\\cdot\\}_{\\mathrm{PB}} \\to \\tfrac{1}{i\\hbar}[\\cdot,\\cdot]$. Anticommutators belong to fermions, not scalars.",
+          "hint": "The classical Poisson bracket $\\{\\phi(\\vec x),\\pi(\\vec y)\\}_{\\mathrm{PB}}$ is a $\\delta$-function; quantization promotes brackets to operator commutators or anticommutators. Spin-statistics decides which.",
           "explain": "$[\\phi(\\vec x),\\pi(\\vec y)] = i\\hbar\\,\\delta^3(\\vec x-\\vec y)$ is the field-theoretic analogue of $[\\hat q,\\hat p] = i\\hbar$ in QM, with the Kronecker delta upgraded to a Dirac delta. Choice 1 would mean classical commuting variables — no quantum theory. Choice 2 is the canonical relation for fermion fields ($\\{\\psi_\\alpha,\\psi^\\dagger_\\beta\\} = \\delta_{\\alpha\\beta}\\delta^3$), forced by spin-statistics. Choice 3 mistakes which pair gets the delta — $[\\phi,\\phi]$ at equal times vanishes."
         },
         {
@@ -31,7 +31,7 @@
             1,
             2
           ],
-          "hint": "Three of these capture the actual reinterpretation; one is a common misreading. The negative-energy modes are not deleted — their coefficients become creation operators for positive-energy quanta with reversed-sign convention.",
+          "hint": "The mode-expansion machinery doesn't delete anything by hand. What does the negative-energy branch get reinterpreted AS, and what conserved quantity gets recoordinated alongside?",
           "explain": "(0) Both signs of $E$ are kept, but only one sign of energy appears in the spectrum: $a_p^\\dagger$ raises energy by $E_p>0$. (1) Normal ordering subtracts the zero-point divergence $\\sum_p \\tfrac12 E_p$; what remains is a non-negative number operator. (2) The current $j^\\mu$ is a charge current (number minus antinumber weighted by $U(1)$ charge), so $j^0$ being indefinite is exactly correct. (3) is the pre-QFT misreading — modern formalism keeps both branches and reinterprets, it does not project."
         },
         {
@@ -49,7 +49,7 @@
             3,
             0
           ],
-          "hint": "The flow goes: choose a thing to promote, write down its bracket, decompose it spectrally, then identify the spectrum. The vacuum is named only after creation/annihilation operators are in hand.",
+          "hint": "Which step depends on which? You can't define a vacuum until something exists to annihilate; you can't extract creation operators until you have an algebra to decompose.",
           "explain": "(1) Promotion to operators is the conceptual leap. (2) The canonical bracket fixes the algebra. (3) Mode expansion diagonalizes the free Hamiltonian and exhibits the harmonic-oscillator structure. (0) The vacuum is the kernel of all annihilation operators, and Fock space is built from it. Out of order: e.g. trying to define $|0\\rangle$ before having the $a_p$ algebra is circular — there's nothing to annihilate."
         }
       ]
@@ -64,11 +64,11 @@
             "$\\mathcal{H}_1^{\\otimes n}$ — all tensor products with no symmetry imposed.",
             "$\\mathrm{Sym}^n\\mathcal{H}_1$ — symmetric tensor products, since $a_p^\\dagger a_q^\\dagger|0\\rangle = a_q^\\dagger a_p^\\dagger|0\\rangle$ by $[a_p^\\dagger,a_q^\\dagger]=0$.",
             "$\\Lambda^n\\mathcal{H}_1$ — antisymmetric tensor products (fermion case).",
-            "The unsymmetrized tensor product $\\mathcal{H}_1 \\otimes \\cdots \\otimes \\mathcal{H}_1$ but restricted to $n!$-permutation-equivalent states."
+            "$\\mathcal{H}_1 \\otimes \\cdots \\otimes \\mathcal{H}_1 / S_n$ — the orbit space under the symmetric group, treating particles as classically distinguishable but unlabelled."
           ],
           "answer": 1,
           "hint": "Bosons commute. Compute $a_p^\\dagger a_q^\\dagger - a_q^\\dagger a_p^\\dagger$ from the canonical commutation relations; this fixes which symmetry the multi-particle states inherit.",
-          "explain": "$[a_p^\\dagger,a_q^\\dagger] = 0$ for bosons forces $a_p^\\dagger a_q^\\dagger|0\\rangle = a_q^\\dagger a_p^\\dagger|0\\rangle$, i.e. the two-particle state is symmetric under particle exchange. Iterating, the $n$-particle subspace is exactly $\\mathrm{Sym}^n\\mathcal{H}_1$. (2) is the fermion case (anticommuting $b_p^\\dagger$). (3) is empirically wrong: bosons obey Bose-Einstein statistics, not classical Maxwell-Boltzmann."
+          "explain": "$[a_p^\\dagger,a_q^\\dagger] = 0$ for bosons forces $a_p^\\dagger a_q^\\dagger|0\\rangle = a_q^\\dagger a_p^\\dagger|0\\rangle$, i.e. the two-particle state is symmetric under particle exchange. Iterating, the $n$-particle subspace is exactly $\\mathrm{Sym}^n\\mathcal{H}_1$. (2) is the fermion case (anticommuting $b_p^\\dagger$). (3) is the classical-statistics misreading: dropping labels via $S_n$ orbits gives Maxwell-Boltzmann counting, but bosonic interference requires the genuine symmetric tensor structure (the empirically falsified Gibbs paradox resolution before quantum statistics)."
         },
         {
           "type": "mcq",
@@ -77,10 +77,10 @@
             "It equals $2\\,(b_p^\\dagger)^2|0\\rangle$ — twice the bosonic counterpart.",
             "It vanishes — the Pauli exclusion principle: two identical fermions cannot occupy the same single-particle state.",
             "It equals $|0\\rangle$ — the operators cancel.",
-            "It is undefined — anticommuting operators don't admit squaring."
+            "It is non-zero but unnormalizable, so it lies outside the physical Hilbert space and gets projected out."
           ],
           "answer": 1,
-          "hint": "Apply the anticommutator $\\{b_p^\\dagger, b_p^\\dagger\\} = 2(b_p^\\dagger)^2$ to the vacuum, and use the explicit $\\{b_p^\\dagger, b_p^\\dagger\\}=0$ from the canonical anticommutation relations.",
+          "hint": "What does the canonical ANTIcommutation relation say for two copies of the same operator? Apply that to a state.",
           "explain": "$\\{b_p^\\dagger,b_p^\\dagger\\} = 2(b_p^\\dagger)^2 = 0$ forces $(b_p^\\dagger)^2 = 0$. So $b_p^\\dagger b_p^\\dagger|0\\rangle = 0$ identically — there is no two-fermion state with both quanta in the same momentum and spin state. This is the Pauli exclusion principle, derived from Lorentz invariance + microcausality + half-integer spin via the spin-statistics theorem (Pauli 1940), not assumed."
         },
         {
@@ -122,7 +122,7 @@
             "$e^{iS_{\\mathrm{cl}}[\\phi_f-\\phi_i]/\\hbar}$ — exactly the classical-action exponential, with no integration."
           ],
           "answer": 1,
-          "hint": "Feynman's insight was that quantum mechanics sums over every conceivable history, not just stationary ones. The phase weighting is what makes the sum converge to the classical answer in the $\\hbar\\to 0$ limit, by stationary-phase / saddle-point argument.",
+          "hint": "Feynman's path integral is famous for what it sums over. Once you remember that, the right weight (whose $\\hbar\\to 0$ stationary phase recovers the Euler-Lagrange equation) picks itself out.",
           "explain": "$\\int\\mathcal{D}\\phi\\,e^{iS[\\phi]/\\hbar}$ sums over every $\\phi(x)$ — classical solutions, near-misses, wildly non-classical paths — weighted by the phase $e^{iS}$. As $\\hbar\\to 0$, stationary phase localizes the integral on $\\delta S = 0$ (the Euler-Lagrange equation), recovering classical mechanics. (0) Restricting to classical paths drops the quantum content entirely. (2) $|S|^2$ would be a probability weight, not a phase, and would not interfere. (3) Drops the integration that makes it quantum."
         },
         {
@@ -135,7 +135,7 @@
             "State: the classical limit is the path of zero action."
           ],
           "answer": 2,
-          "hint": "Stationary phase looks for points where the EXPONENT'S DERIVATIVE vanishes, not where the exponent itself vanishes. Reread the integrand: which combination of derivatives is what makes the phase locally non-oscillatory?",
+          "hint": "Stationary-phase asymptotics localizes on a particular condition involving derivatives of the exponent. Re-read each step against that condition; only one step misstates it.",
           "explain": "Step 2 confuses 'zero action' with 'stationary action'. Stationary phase localizes $\\int e^{iS/\\hbar}$ on the configurations where $\\delta S/\\delta\\phi = 0$ — the Euler-Lagrange equation — NOT on $S = 0$. A path with $S[\\phi]\\ne 0$ but $\\delta S = 0$ (a non-trivial classical solution) is the dominant contribution. The classical principle is 'stationary action' for a reason. The fix: replace 'paths with $S=0$' by 'paths satisfying $\\delta S/\\delta\\phi = 0$'."
         },
         {
@@ -148,7 +148,7 @@
             "$\\int\\mathcal{D}\\phi\\,\\cos(S_E[\\phi]/\\hbar)$ — a real-valued sinusoidal weight."
           ],
           "answer": 0,
-          "hint": "The Wick rotation $t = -i\\tau$ replaces an oscillatory weight by an exponential decay weight when $S_E > 0$. Compare to the Gibbs distribution in classical statistical mechanics: what role does $S_E/\\hbar$ play, and what role does $\\beta H$ play?",
+          "hint": "Compare $e^{iS/\\hbar}$ to the Wick-rotated form when $S_E > 0$. Which standard distribution from statistical mechanics has the same functional shape?",
           "explain": "$iS \\to -S_E$ converts the oscillating weight $e^{iS/\\hbar}$ to a decaying weight $e^{-S_E/\\hbar}$, identical in form to a Boltzmann factor with $\\beta\\hbar \\leftrightarrow 1$. This is the duality between Euclidean QFT and classical statistical mechanics in $d+1$ dimensions: phase transitions in spin systems map to RG flow in the dual QFT, lattice regularizations of QFT compute thermodynamic quantities, and Monte Carlo methods cross over freely. (1) Wrong sign — Euclidean rotation REGULATES the integral, doesn't make it divergent. (2) The Euclidean integral is mathematically well-defined; unitary Lorentzian results are recovered by analytic continuation back."
         }
       ]
@@ -172,10 +172,10 @@
         {
           "type": "numeric",
           "q": "For the QED scattering process $e^+ e^- \\to \\mu^+ \\mu^-$ at tree level, in the high-energy limit $\\sqrt s \\gg m_\\mu$, the cross-section is $\\sigma = \\frac{4\\pi\\alpha^2}{3s}$. Using $\\alpha = 1/137$ and $\\sqrt s = 100\\,\\mathrm{GeV}$ (so $s = 10^4\\,\\mathrm{GeV}^2$), what is $\\sigma$ in nanobarns? (Use $\\hbar c = 0.197\\,\\mathrm{GeV\\cdot fm}$, so $1\\,\\mathrm{GeV}^{-2} = 0.389\\,\\mathrm{mb} = 3.89\\times 10^5\\,\\mathrm{nb}$.)",
-          "answer": 0.0867,
-          "tol": 0.005,
+          "answer": 0.00868,
+          "tol": 0.0005,
           "hint": "Plug in: $\\sigma = (4\\pi/3) \\cdot (1/137)^2 \\cdot (1/10^4\\,\\mathrm{GeV}^{-2})$ then convert via $1\\,\\mathrm{GeV}^{-2} = 3.89\\times 10^5\\,\\mathrm{nb}$. The $4\\pi/3$ factor traces to integrating $|\\mathcal M|^2$ over the muon angular distribution.",
-          "explain": "$\\sigma = (4\\pi/3) \\times (1/137)^2 \\times (1/10^4\\,\\mathrm{GeV}^{-2}) \\approx 4.19 \\times 5.33\\times 10^{-5} \\times 10^{-4}\\,\\mathrm{GeV}^{-2} \\approx 2.23\\times 10^{-8}\\,\\mathrm{GeV}^{-2}$. Convert: $\\sigma \\approx 2.23\\times 10^{-8} \\times 3.89\\times 10^5\\,\\mathrm{nb} \\approx 8.68\\times 10^{-3}\\times 10\\,\\mathrm{nb} \\approx 0.087\\,\\mathrm{nb}$. This is the canonical 'point-like' cross-section that benchmarks QCD jets at $e^+e^-$ colliders, and the agreement with PETRA/LEP measurements is one of the cleanest tree-level QED tests."
+          "explain": "$\\sigma = (4\\pi/3) \\times (1/137)^2 \\times (1/10^4\\,\\mathrm{GeV}^{-2}) \\approx 4.19 \\times 5.33\\times 10^{-5} \\times 10^{-4}\\,\\mathrm{GeV}^{-2} \\approx 2.23\\times 10^{-8}\\,\\mathrm{GeV}^{-2}$. Convert: $\\sigma \\approx 2.23\\times 10^{-8} \\times 3.89\\times 10^5\\,\\mathrm{nb} \\approx 8.68\\times 10^{-3}\\,\\mathrm{nb} \\approx 0.0087\\,\\mathrm{nb}$ (i.e. about 8.7 picobarn). This is the canonical 'point-like' cross-section that benchmarks QCD jets at $e^+e^-$ colliders, and the agreement with PETRA/LEP measurements is one of the cleanest tree-level QED tests."
         },
         {
           "type": "matching",
@@ -216,7 +216,7 @@
             "$\\alpha(\\mu)$ blows up at every scale — QED is not a well-defined QFT."
           ],
           "answer": 1,
-          "hint": "Sign of $\\beta$ determines flow direction. $\\beta>0$ means the coupling grows as $\\mu$ increases; in QED, the physical picture is that virtual electron-positron pairs screen the bare charge, so probing at higher energy (= shorter distance, less screening) sees more bare charge.",
+          "hint": "Sign of $\\beta$ tells you the direction of running. Solve $d\\alpha/d\\ln\\mu = +2\\alpha^2/(3\\pi)$ for $\\alpha(\\mu_2)$ in terms of $\\alpha(\\mu_1)$; does the right-hand side push $\\alpha$ up or down with $\\mu$?",
           "explain": "Integrating $d\\alpha/d\\ln\\mu = 2\\alpha^2/(3\\pi)$ gives $1/\\alpha(\\mu_2) = 1/\\alpha(\\mu_1) - (2/3\\pi)\\ln(\\mu_2/\\mu_1)$. Since the right side decreases with $\\mu_2 > \\mu_1$, $\\alpha(\\mu_2) > \\alpha(\\mu_1)$. Numerically, $\\alpha(M_Z) \\approx 1/128$ vs $\\alpha(0) \\approx 1/137$ — the running has been measured at LEP. (3) is the Landau pole: $\\alpha$ does diverge at a finite scale (the Landau scale, $\\sim 10^{286}\\,\\mathrm{GeV}$ in pure QED), but it's astronomically far above any physical scale, and embedding QED in the Standard Model fixes it (the U(1)_Y of the SM merges with SU(2)_L)."
         },
         {
@@ -253,7 +253,7 @@
             3,
             0
           ],
-          "hint": "You can't see the divergence until you've defined what to compute; you can't cancel it until you've isolated it; you need a scheme to know what 'finite' means; only at the end can you write the result in terms of physical (renormalized) couplings.",
+          "hint": "One of these steps is purely formal (no physics yet); one is purely a calculation; two are bookkeeping (counterterms vs scheme choice — which constrains the other?). Sort by what depends on what.",
           "explain": "(2) Regulator first — without one, the integral is formally infinite and you can't manipulate it. (1) Compute, find the divergence as $\\epsilon\\to 0$ or $\\Lambda\\to\\infty$. (4) Counterterms are designed to cancel the divergence — but their finite parts are scheme-dependent. (3) The scheme fixes the finite remainder. (0) The result is then a finite expression in the renormalized coupling at scale $\\mu$. Skipping the scheme (3) would leave the answer ambiguous up to a finite redefinition; that ambiguity is exactly the renormalization-group freedom."
         }
       ]
@@ -305,11 +305,11 @@
             "The Higgs field $\\phi$ acquires a vacuum expectation value $\\langle\\phi\\rangle\\ne 0$, breaking $\\mathrm{SU}(2)_L\\times\\mathrm{U}(1)_Y$.",
             "Gauge bosons acquire masses from the kinetic term $|D_\\mu\\phi|^2$ when $\\phi$ is replaced by $\\langle\\phi\\rangle$.",
             "The photon, like $W^\\pm$ and $Z$, is massive because it couples to $\\langle\\phi\\rangle$.",
-            "Experimentally, photons appear massless only as a low-energy approximation that breaks down."
+            "After diagonalization, $W^\\pm$ and $Z$ acquire masses while one orthogonal combination of $W^3$ and $B$ remains massless and is identified as the photon."
           ],
           "answer": 2,
-          "hint": "The unbroken subgroup leaves one combination of $W^3$ and $B$ unbroken — that combination doesn't couple to the Higgs vev at all, so it stays massless. Which combination is the photon, and what is its hypercharge with respect to $\\langle\\phi\\rangle$?",
-          "explain": "Step 2 is the error. The Higgs vev $\\langle\\phi\\rangle$ has electroweak quantum numbers $(I_3,Y) = (-1/2, +1/2)$, so the electric charge $Q = I_3 + Y/2 = 0$ on the vev. The combination of $W^3$ and $B$ that couples to $Q$ is the photon $A_\\mu = \\sin\\theta_W W^3_\\mu + \\cos\\theta_W B_\\mu$, and since $Q\\langle\\phi\\rangle = 0$, the photon does NOT couple to the vev and therefore remains exactly massless — the unbroken $\\mathrm{U}(1)_{\\mathrm{em}}$. Step 3 is also empirically wrong: experimental photon-mass bounds are $m_\\gamma < 10^{-18}\\,\\mathrm{eV}$, indistinguishable from zero. The photon's masslessness is a structural consequence of the Higgs mechanism, not an approximation."
+          "hint": "Compute the electric charge $Q = I_3 + Y$ (in the $Y$-defined-as-$2(Q-I_3)$ convention used here) of the Higgs vev in its electroweak quantum numbers. Which generator (and therefore which gauge boson) annihilates $\\langle\\phi\\rangle$?",
+          "explain": "Step 2 is the error. The Higgs vev $\\langle\\phi\\rangle$ has electroweak quantum numbers $(I_3,Y) = (-1/2, +1)$, so the electric charge $Q = I_3 + Y/2 = 0$ on the vev. The combination of $W^3$ and $B$ that couples to $Q$ is the photon $A_\\mu = \\sin\\theta_W W^3_\\mu + \\cos\\theta_W B_\\mu$, and since $Q\\langle\\phi\\rangle = 0$, the photon does NOT couple to the vev and therefore remains exactly massless — the unbroken $\\mathrm{U}(1)_{\\mathrm{em}}$. Experimental photon-mass bounds are $m_\\gamma < 10^{-18}\\,\\mathrm{eV}$, indistinguishable from zero — masslessness is a structural consequence of the Higgs mechanism, not an approximation."
         }
       ]
     }

@@ -190,7 +190,7 @@
 <script src="./js/display-prefs.js"></script>
 <!-- display-prefs-head-auto-end -->
 </head>
-<body data-section="mathematical-physics" data-level="intermediate">
+<body data-section="mathematical-physics" data-level="capstone">
 <script>
 const $ = (s,r=document)=>r.querySelector(s);
 const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
@@ -277,7 +277,7 @@ $$[\phi(t,\vec x),\,\pi(t,\vec y)] \;=\; i\hbar\,\delta^3(\vec x - \vec y),\qqua
 
 $$\phi(x) \;=\; \int\!\frac{d^3p}{(2\pi)^3 2E_p}\Bigl[a_p\,e^{-ip\cdot x} + a_p^\dagger\,e^{+ip\cdot x}\Bigr],\qquad E_p = \sqrt{|\vec p|^2 + m^2}.$$
 
-<p>The coefficients satisfy $[a_p, a_q^\dagger] = (2\pi)^3 2E_p\,\delta^3(\vec p - \vec q)$ — the algebra of an infinite collection of harmonic oscillators, one per momentum mode. Define the vacuum $|0\rangle$ by $a_p|0\rangle = 0$ for all $p$; the $n$-particle states $a_{p_1}^\dagger\cdots a_{p_n}^\dagger|0\rangle$ span <strong>Fock space</strong>. The Hamiltonian is $H = \int (d^3p/(2\pi)^3 2E_p)\,E_p\,a_p^\dagger a_p$ after normal-ordering, manifestly bounded below.</p>
+<p>The coefficients satisfy $[a_p, a_q^\dagger] = (2\pi)^3 2E_p\,\delta^3(\vec p - \vec q)$ — the algebra of an infinite collection of harmonic oscillators, one per momentum mode. Define the vacuum $|0\rangle$ by $a_p|0\rangle = 0$ for all $p$; the $n$-particle states $a_{p_1}^\dagger\cdots a_{p_n}^\dagger|0\rangle$ span <strong>Fock space</strong>. The Hamiltonian is $H = \int (d^3p/(2\pi)^3 2E_p)\,E_p\,a_p^\dagger a_p$ after <strong>normal-ordering</strong> ($:O:$ — re-arranging all $a^\dagger$ to the left of all $a$, dropping the formally-infinite zero-point c-number that results), manifestly bounded below.</p>
 
 <p>For a Dirac fermion, the same construction with <em>anticommutators</em> $\{b_p,b_q^\dagger\} = \delta(\vec p-\vec q)$ produces creation operators $b_p^\dagger$ for electrons and a separate set $d_p^\dagger$ for positrons — antiparticles are positive-energy excitations of a <em>different</em> creation operator, not holes in a sea. The sea was a useful pre-QFT crutch; QFT replaces it with the operator algebra and the antiparticle prediction stands.</p>
 
@@ -371,7 +371,9 @@ $$\phi(x) \;=\; \int\!\frac{d^3p}{(2\pi)^3 2E_p}\Bigl[a_p\,e^{-ip\cdot x} + a_p^
     const t = SVG('text',{x:0,y:-130,'text-anchor':'middle','font-size':13,fill:'var(--ink)'});
     t.textContent = `Fock-space state: ${stateStr}`;
     svg.appendChild(t);
-    out.textContent = `statistics: ${stat === 'bose' ? 'bosonic (any occupation)' : 'fermionic (Pauli: 0 or 1)'}    N = ${totalN()}    Σp = ${totalP()}    E = ${totalE().toFixed(3)} (units of m)    Click mode boxes to add/remove quanta. The vacuum |0⟩ is the no-particle state; click any mode to populate it.`;
+    const capped = stat === 'bose' && Object.values(occ).some(v => v >= 5);
+    const capNote = capped ? '    (boson cap: 5 quanta per mode for display — click again to wrap to 0)' : '';
+    out.textContent = `statistics: ${stat === 'bose' ? 'bosonic (any occupation; display caps at 5/mode)' : 'fermionic (Pauli: 0 or 1)'}    N = ${totalN()}    Σp = ${totalP()}    E = ${totalE().toFixed(3)} (units of m)    Click mode boxes to add/remove quanta. The vacuum |0⟩ is the no-particle state; click any mode to populate it.${capNote}`;
   }
   cutoff.addEventListener('input', () => { occ = {}; draw(); });
   btnBose.addEventListener('click', () => { stat = 'bose'; btnBose.classList.add('active'); btnFermi.classList.remove('active'); draw(); });
@@ -472,13 +474,13 @@ $$a_p^\dagger a_q^\dagger|0\rangle = +a_q^\dagger a_p^\dagger|0\rangle\ \text{(b
     if(sameSlot){
       svg.appendChild(SVG('circle',{cx:slot1-9,cy:slotY,r:9,fill:colA,stroke:'var(--bg)','stroke-width':1.5}));
       svg.appendChild(SVG('circle',{cx:slot1+9,cy:slotY,r:9,fill:colB,stroke:'var(--bg)','stroke-width':1.5}));
-      const lbl = SVG('text',{x:slot1-9,y:slotY+4,'text-anchor':'middle','font-size':10,fill:'#111','font-weight':700}); lbl.textContent='1'; svg.appendChild(lbl);
-      const lbl2 = SVG('text',{x:slot1+9,y:slotY+4,'text-anchor':'middle','font-size':10,fill:'#111','font-weight':700}); lbl2.textContent='2'; svg.appendChild(lbl2);
+      const lbl = SVG('text',{x:slot1-9,y:slotY+4,'text-anchor':'middle','font-size':10,fill:'var(--bg)','font-weight':700}); lbl.textContent='1'; svg.appendChild(lbl);
+      const lbl2 = SVG('text',{x:slot1+9,y:slotY+4,'text-anchor':'middle','font-size':10,fill:'var(--bg)','font-weight':700}); lbl2.textContent='2'; svg.appendChild(lbl2);
     } else {
       svg.appendChild(SVG('circle',{cx:slot1,cy:slotY,r:11,fill:colA,stroke:'var(--bg)','stroke-width':1.5}));
       svg.appendChild(SVG('circle',{cx:slot2,cy:slotY,r:11,fill:colB,stroke:'var(--bg)','stroke-width':1.5}));
-      const lbl1 = SVG('text',{x:slot1,y:slotY+4,'text-anchor':'middle','font-size':11,fill:'#111','font-weight':700}); lbl1.textContent='1'; svg.appendChild(lbl1);
-      const lbl2 = SVG('text',{x:slot2,y:slotY+4,'text-anchor':'middle','font-size':11,fill:'#111','font-weight':700}); lbl2.textContent='2'; svg.appendChild(lbl2);
+      const lbl1 = SVG('text',{x:slot1,y:slotY+4,'text-anchor':'middle','font-size':11,fill:'var(--bg)','font-weight':700}); lbl1.textContent='1'; svg.appendChild(lbl1);
+      const lbl2 = SVG('text',{x:slot2,y:slotY+4,'text-anchor':'middle','font-size':11,fill:'var(--bg)','font-weight':700}); lbl2.textContent='2'; svg.appendChild(lbl2);
     }
     const titleText = stat === 'bose' ? 'Symmetric (boson)' : 'Antisymmetric (fermion)';
     const tT = SVG('text',{x:0,y:-95,'text-anchor':'middle','font-size':13,fill:'var(--ink)','font-weight':600}); tT.textContent=titleText; svg.appendChild(tT);
@@ -495,7 +497,7 @@ $$a_p^\dagger a_q^\dagger|0\rangle = +a_q^\dagger a_p^\dagger|0\rangle\ \text{(b
     tS.textContent = stateText;
     svg.appendChild(tS);
     const tHist = SVG('text',{x:0,y:100,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
-    tHist.textContent = `history: ${history.slice(-4).join(' → ')}    sign so far: ${sign>0?'+1':'−1'}`;
+    tHist.textContent = `history: ${history.slice(-4).join(' → ')}    structural sign per single swap: ${stat==='fermi'?'−1 (antisymmetric)':'+1 (symmetric)'}    cumulative after ${history.length-1} swap(s): ${sign>0?'+1':'−1'}`;
     svg.appendChild(tHist);
     let label;
     if(collide){ label = 'state vanishes'; }
@@ -561,7 +563,10 @@ $$Z_E \;=\; \int\mathcal{D}\phi\;e^{-S_E[\phi]/\hbar}$$
   function makePaths(n){
     const xs = []; for(let k = 0; k < 25; k++) xs.push(k/24);
     const arr = [];
-    for(let i = 0; i < n; i++){
+    // Seed path 0 with the action-minimizing (y ≡ 0) classical solution so
+    // the small-ℏ stationary-phase concentration is visible.
+    arr.push({xs, ys: xs.map(() => 0)});
+    for(let i = 1; i < n; i++){
       const amp = (Math.random() - 0.5) * 1.6;
       const ph = Math.random() * Math.PI;
       const ys = xs.map(x => amp * Math.sin(Math.PI * x + ph) * x * (1 - x));
@@ -596,17 +601,27 @@ $$Z_E \;=\; \int\mathcal{D}\phi\;e^{-S_E[\phi]/\hbar}$$
     let actMin = Infinity, actMax = -Infinity;
     paths.forEach(p => { const S = action(p); if(S<actMin) actMin=S; if(S>actMax) actMax=S; });
     const span = Math.max(0.001, actMax - actMin);
-    paths.forEach(p => {
-      const S = action(p);
+    // True coherent phase sum: each path contributes e^{iS/ℏ} with unit
+    // weight. Visual opacity tracks |ΔS/ℏ|: nearby-stationary paths add
+    // coherently and stay visible at small ℏ; far-from-classical paths
+    // oscillate rapidly and average to near-zero, dimmed to mimic that
+    // washing-out. Sort so the classical seed renders on top.
+    const ordered = paths.map((p,i) => ({p, S: action(p), i}))
+      .sort((a,b) => Math.abs(b.S - actMin) - Math.abs(a.S - actMin));
+    ordered.forEach(({p, S}) => {
       const phase = S / hbar;
-      const w = Math.exp(-Math.pow((S - actMin), 2) / (4 * hbar * hbar) - (S - actMin) * 0.05);
-      const norm = (S - actMin) / span;
-      const opacity = Math.max(0.1, w * (hbar < 0.5 ? Math.max(0.05, 1 - norm * 8) : 0.55));
-      const isClass = norm < 0.05;
+      const dS = S - actMin;
+      // Coherence width: paths within ~ℏ of the stationary action add
+      // constructively; beyond that they wash out. Width ∝ ℏ matches the
+      // width of the stationary-phase saddle.
+      const coherent = Math.exp(-Math.pow(dS / Math.max(0.05, hbar), 2));
+      const norm = dS / span;
+      const isClass = norm < 0.02 || (S === actMin);
       const col = isClass ? 'var(--yellow)' : (norm < 0.4 ? 'var(--cyan)' : 'var(--mute)');
+      const opacity = Math.max(0.06, isClass ? 0.95 : 0.15 + 0.7 * coherent);
       let d = `M ${X(p.xs[0])} ${Y(p.ys[0])}`;
       for(let i = 1; i < p.xs.length; i++) d += ` L ${X(p.xs[i])} ${Y(p.ys[i])}`;
-      svg.appendChild(SVG('path',{d,fill:'none',stroke:col,'stroke-width':isClass?2.0:1.0,opacity:opacity.toFixed(3)}));
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:col,'stroke-width':isClass?2.2:1.0,opacity:opacity.toFixed(3)}));
       sumRe += Math.cos(phase);
       sumIm += Math.sin(phase);
     });
@@ -654,6 +669,8 @@ $$Z_E \;=\; \int\mathcal{D}\phi\;e^{-S_E[\phi]/\hbar}$$
 <section id="feynman-diagrams">
 <h2>4. Perturbation theory and Feynman diagrams</h2>
 
+<aside class="note"><strong>Convention.</strong> Throughout this page we work in <em>mostly-minus</em> signature $\eta_{\mu\nu} = \mathrm{diag}(+1,-1,-1,-1)$, matching the <a href="./dirac-equation.html#equation">Dirac equation</a> page; an on-shell timelike 4-momentum carries $p^2 = E^2 - |\vec p|^2 = m^2 > 0$, which is what makes the Feynman propagator $i/(p^2 - m^2 + i\epsilon)$ have its pole at the physical mass. <a href="./special-relativity.html#minkowski">Special relativity</a> and <a href="./klein-gordon-equation.html#equation">Klein-Gordon</a> use the opposite mostly-plus convention; all amplitudes are convention-independent, but watch the sign when comparing $p^2-m^2$ across pages.</aside>
+
 <p>For an interacting theory $\mathcal{L} = \mathcal{L}_0 + \mathcal{L}_{\mathrm{int}}$, the path integral exponential factors as $e^{iS_0/\hbar}\,e^{iS_{\mathrm{int}}/\hbar}$ and one expands the second factor in powers of the coupling. <strong>Wick's theorem</strong> reduces time-ordered products of free fields to sums over pairwise contractions, and each surviving term is a <strong>Feynman diagram</strong>.</p>
 
 <p>The dictionary, in the canonical QED vocabulary:</p>
@@ -661,11 +678,11 @@ $$Z_E \;=\; \int\mathcal{D}\phi\;e^{-S_E[\phi]/\hbar}$$
 <ul>
 <li><strong>Vertices</strong> come from $\mathcal{L}_{\mathrm{int}}$. The QED vertex is $-ie\gamma^\mu$ — one fermion line in, one fermion line out, one photon line.</li>
 <li><strong>Internal lines</strong> are <strong>propagators</strong>: $i/(p^2-m^2+i\epsilon)$ for a scalar, $i(\not{p}+m)/(p^2-m^2+i\epsilon)$ for a Dirac fermion, $-i\eta^{\mu\nu}/(p^2+i\epsilon)$ for a Feynman-gauge photon. Internal lines are <em>off-shell</em> ($p^2\ne m^2$) — they are virtual particles, not observable on their own.</li>
-<li><strong>External lines</strong> are on-shell wave functions $u(p),v(p),\epsilon^\mu(p)$ from the LSZ reduction formula, with $p^2 = m^2$.</li>
+<li><strong>External lines</strong> are on-shell wave functions $u(p),v(p),\epsilon^\mu(p)$ from the <strong>LSZ reduction formula</strong> (Lehmann-Symanzik-Zimmermann: the amputation rule that converts time-ordered correlation functions into physical scattering amplitudes by stripping external propagators and projecting onto on-shell states), with $p^2 = m^2$.</li>
 <li><strong>Closed loops</strong> introduce a momentum integral $\int d^4k/(2\pi)^4$ — this is where the famous UV divergences live.</li>
 </ul>
 
-<p>The textbook calculation $e^+e^-\to\mu^+\mu^-$ at tree level gives $\sigma = 4\pi\alpha^2/(3s)$ in the limit $\sqrt s\gg m_\mu$. At $\sqrt s = 100\,\mathrm{GeV}$ the cross-section is $\sim 0.087\,\mathrm{nb}$ — measured to subpercent precision at LEP, and the universal benchmark for $e^+e^-$ collider analyses.</p>
+<p>The textbook calculation $e^+e^-\to\mu^+\mu^-$ at tree level gives $\sigma = 4\pi\alpha^2/(3s)$ in the limit $\sqrt s\gg m_\mu$. At $\sqrt s = 100\,\mathrm{GeV}$ the cross-section is $\sim 8.7\times 10^{-3}\,\mathrm{nb} \approx 8.7\,\mathrm{pb}$ — measured to subpercent precision at LEP, and the universal benchmark for $e^+e^-$ collider analyses.</p>
 
 <div class="widget" id="qft-diagrams">
   <div class="hd"><div class="ttl">Feynman amplitude assembly: $e^+e^- \to \mu^+\mu^-$ tree, plus a one-loop correction</div><div class="hint">slide energy; click to add a vertex correction; tree finite, loop diverges</div></div>
@@ -801,8 +818,9 @@ $$\mu\frac{\partial g(\mu)}{\partial\mu} \;=\; \beta(g),$$
     <span id="qft-rg-mu-out" class="small"></span>
   </div>
   <div class="row">
-    <button id="qft-rg-toggle-qed" class="active">show α_QED</button>
-    <button id="qft-rg-toggle-qcd" class="active">show α_s</button>
+    <button id="qft-rg-toggle-qed" class="active">show α_1 (U(1))</button>
+    <button id="qft-rg-toggle-su2" class="active">show α_2 (SU(2))</button>
+    <button id="qft-rg-toggle-qcd" class="active">show α_3 (SU(3))</button>
   </div>
   <svg id="qft-rg-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>RG flow of QED and QCD couplings</title></svg>
   <div id="qft-rg-out" class="readout"></div>
@@ -813,22 +831,27 @@ $$\mu\frac{\partial g(\mu)}{\partial\mu} \;=\; \beta(g),$$
   const muSl = document.getElementById('qft-rg-mu');
   const muOut = document.getElementById('qft-rg-mu-out');
   const bQED = document.getElementById('qft-rg-toggle-qed');
+  const bSU2 = document.getElementById('qft-rg-toggle-su2');
   const bQCD = document.getElementById('qft-rg-toggle-qcd');
-  let showQED = true, showQCD = true;
-  function alphaQED(mu){
-    const alpha0 = 1/137.036;
-    const me = 5.11e-4;
-    if(mu <= me) return alpha0;
-    const inv = 1/alpha0 - (2/(3*Math.PI)) * Math.log(mu / me);
-    if(inv <= 0.5) return 1.0;
-    return 1 / inv;
+  let showQED = true, showSU2 = true, showQCD = true;
+  // One-loop SM β-coefficients (standard textbook normalization):
+  // α_i^{-1}(μ) = α_i^{-1}(M_Z) - (b_i / 2π) ln(μ/M_Z),
+  // with (b_1, b_2, b_3) = (41/10, -19/6, -7) and the GUT-normalized
+  // α_1 = (5/3) α_Y. At M_Z, α_1^{-1} ≈ 59.0, α_2^{-1} ≈ 29.6,
+  // α_3^{-1} ≈ 8.5; the three lines nearly meet at μ ~ 10^{15} GeV.
+  const MZ = 91.1876;
+  const b1 = 41/10, b2 = -19/6, b3 = -7;
+  const inv1_MZ = 59.0, inv2_MZ = 29.6, inv3_MZ = 8.5;
+  function alphaInv(b, invMZ, mu){
+    return invMZ - (b / (2 * Math.PI)) * Math.log(mu / MZ);
   }
-  function alphaS(mu){
-    const Lambda = 0.2;
-    if(mu <= Lambda * 1.5) return 1.0;
-    const denom = (7 / (2 * Math.PI)) * Math.log(mu / Lambda);
-    if(denom <= 0.05) return 1.0;
-    return 1 / denom;
+  function alpha1(mu){ const i = alphaInv(b1, inv1_MZ, mu); return i > 0.5 ? 1/i : 1.0; }
+  function alpha2(mu){ const i = alphaInv(b2, inv2_MZ, mu); return i > 0.5 ? 1/i : 1.0; }
+  function alpha3(mu){ const i = alphaInv(b3, inv3_MZ, mu); return i > 0.5 ? 1/i : 1.0; }
+  function alphaEM(mu){ // QED-physical α reconstructed from α_1, α_2 via
+    // 1/α_em = (5/3)/α_1 + 1/α_2  (Weinberg-angle / EW unification).
+    const i = (3/5) * alphaInv(b1, inv1_MZ, mu) + alphaInv(b2, inv2_MZ, mu);
+    return i > 0.5 ? 1/i : 1.0;
   }
   function draw(){
     while(svg.firstChild) svg.removeChild(svg.firstChild);
@@ -861,49 +884,40 @@ $$\mu\frac{\partial g(\mu)}{\partial\mu} \;=\; \beta(g),$$
     const lblY = SVG('text',{x:x0-32,y:(y0+yMax)/2,'text-anchor':'middle','font-size':11,fill:'var(--mute)','transform':`rotate(-90 ${x0-32} ${(y0+yMax)/2})`});
     lblY.textContent = 'coupling α(μ)';
     svg.appendChild(lblY);
-    if(showQED){
-      let d = '';
-      for(let l = 0; l <= 16; l += 0.2){
+    function drawCurve(fn, color, fromLog){
+      let d = ''; let started = false;
+      for(let l = fromLog; l <= 16; l += 0.2){
         const m = Math.pow(10, l);
-        const a = alphaQED(m);
-        const x = X(l), y = Y(a);
-        d += (l === 0 ? 'M' : 'L') + ` ${x} ${y} `;
-      }
-      svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--cyan)','stroke-width':1.8}));
-    }
-    if(showQCD){
-      let d = '';
-      let started = false;
-      for(let l = 0; l <= 16; l += 0.2){
-        const m = Math.pow(10, l);
-        if(m < 0.5) continue;
-        const a = alphaS(m);
+        const a = fn(m);
         const x = X(l), y = Y(a);
         d += (started ? 'L' : 'M') + ` ${x} ${y} `;
         started = true;
       }
-      svg.appendChild(SVG('path',{d,fill:'none',stroke:'var(--yellow)','stroke-width':1.8}));
+      svg.appendChild(SVG('path',{d,fill:'none',stroke:color,'stroke-width':1.8}));
     }
+    if(showQED) drawCurve(alpha1, 'var(--cyan)', 0);
+    if(showSU2) drawCurve(alpha2, 'var(--violet)', 0);
+    if(showQCD) drawCurve(alpha3, 'var(--yellow)', Math.log10(0.5));
     const xCur = X(muLog);
-    svg.appendChild(SVG('line',{x1:xCur,y1:y0,x2:xCur,y2:yMax,stroke:'var(--violet)','stroke-width':1.2,'stroke-dasharray':'4 3'}));
-    const aQED = alphaQED(mu);
-    const aQCD = alphaS(mu);
-    if(showQED){
-      svg.appendChild(SVG('circle',{cx:xCur,cy:Y(aQED),r:4,fill:'var(--cyan)'}));
-    }
-    if(showQCD && mu >= 0.5){
-      svg.appendChild(SVG('circle',{cx:xCur,cy:Y(aQCD),r:4,fill:'var(--yellow)'}));
-    }
-    const lblQEDleg = SVG('text',{x:xMax-10,y:Y(0.01)+4,'text-anchor':'end','font-size':11,fill:'var(--cyan)'});
-    lblQEDleg.textContent = 'α_QED  (β > 0, grows)';
+    svg.appendChild(SVG('line',{x1:xCur,y1:y0,x2:xCur,y2:yMax,stroke:'var(--pink)','stroke-width':1.2,'stroke-dasharray':'4 3'}));
+    const a1 = alpha1(mu), a2 = alpha2(mu), a3 = alpha3(mu), aEM = alphaEM(mu);
+    if(showQED) svg.appendChild(SVG('circle',{cx:xCur,cy:Y(a1),r:4,fill:'var(--cyan)'}));
+    if(showSU2) svg.appendChild(SVG('circle',{cx:xCur,cy:Y(a2),r:4,fill:'var(--violet)'}));
+    if(showQCD && mu >= 0.5) svg.appendChild(SVG('circle',{cx:xCur,cy:Y(a3),r:4,fill:'var(--yellow)'}));
+    const lblQEDleg = SVG('text',{x:xMax-10,y:Y(0.025)+4,'text-anchor':'end','font-size':11,fill:'var(--cyan)'});
+    lblQEDleg.textContent = 'α_1 ≡ (5/3)α_Y  (β_1 > 0)';
     svg.appendChild(lblQEDleg);
-    const lblQCDleg = SVG('text',{x:xMax-10,y:Y(0.10)+4,'text-anchor':'end','font-size':11,fill:'var(--yellow)'});
-    lblQCDleg.textContent = 'α_s  (β < 0, shrinks: asymptotic freedom)';
+    const lblSU2leg = SVG('text',{x:xMax-10,y:Y(0.06)+4,'text-anchor':'end','font-size':11,fill:'var(--violet)'});
+    lblSU2leg.textContent = 'α_2  (SU(2): β_2 < 0, mild)';
+    svg.appendChild(lblSU2leg);
+    const lblQCDleg = SVG('text',{x:xMax-10,y:Y(0.18)+4,'text-anchor':'end','font-size':11,fill:'var(--yellow)'});
+    lblQCDleg.textContent = 'α_3  (SU(3): β_3 < 0, asymptotic freedom)';
     svg.appendChild(lblQCDleg);
-    out.textContent = `μ = ${mu.toExponential(2)} GeV    α_QED(μ) = ${aQED.toFixed(5)}    α_s(μ) = ${(mu>=0.5?aQCD.toFixed(4):'(non-pert: μ < Λ_QCD)')}    Slide μ to watch the running. At μ ≈ M_Z (≈10^2 GeV) α_QED ≈ 1/128 (vs 1/137 at zero energy); at μ ≈ M_GUT (≈10^16 GeV) the QED, weak, and strong couplings approach a common value — the GUT-scale coupling unification clue.`;
+    out.textContent = `μ = ${mu.toExponential(2)} GeV    α_em(μ) ≈ ${aEM.toFixed(5)} (≈ 1/${(1/aEM).toFixed(1)})    α_2(μ) = ${a2.toFixed(4)}    α_3(μ) = ${(mu>=0.5?a3.toFixed(4):'(non-pert: μ < Λ_QCD)')}    One-loop SM running with full b_1=41/10, b_2=-19/6, b_3=-7. At M_Z, α_em ≈ 1/128 (vs 1/137 at zero energy); the three GUT-normalized couplings nearly meet near 10^{15} GeV — the textbook hint that supersymmetric extensions sharpen into actual unification.`;
   }
   muSl.addEventListener('input', draw);
   bQED.addEventListener('click', () => { showQED = !showQED; bQED.classList.toggle('active', showQED); draw(); });
+  bSU2.addEventListener('click', () => { showSU2 = !showSU2; bSU2.classList.toggle('active', showSU2); draw(); });
   bQCD.addEventListener('click', () => { showQCD = !showQCD; bQCD.classList.toggle('active', showQCD); draw(); });
   draw();
 })();
@@ -929,7 +943,7 @@ $$D_\mu \;=\; \partial_\mu - igA_\mu^a T^a,\qquad A_\mu^a(x) \to A_\mu^a + \tfra
 
 $$G_{\mathrm{SM}} \;=\; \mathrm{SU}(3)_C \times \mathrm{SU}(2)_L \times \mathrm{U}(1)_Y$$
 
-<p>— $\dim = 8 + 3 + 1 = 12$ gauge bosons in total: 8 gluons $G^a_\mu$ (color SU(3)), 3 weak bosons $W^1, W^2, W^3$, and the hypercharge $B$. Quantizing requires <strong>gauge fixing</strong> (the Faddeev-Popov procedure introduces ghost fields in non-Abelian gauges) and the <strong>BRST</strong> formalism that reorganizes the residual graded symmetry.</p>
+<p>— $\dim = 8 + 3 + 1 = 12$ gauge bosons in total: 8 gluons $G^a_\mu$ (color SU(3)), 3 weak bosons $W^1, W^2, W^3$, and the hypercharge $B$. Quantizing requires <strong>gauge fixing</strong> (the Faddeev-Popov procedure introduces ghost fields in non-Abelian gauges) and the <strong>BRST</strong> formalism (Becchi-Rouet-Stora-Tyutin: a nilpotent graded operator $Q$ with $Q^2=0$ that encodes the residual gauge freedom after gauge-fixing; physical states are the cohomology $\mathrm{ker}\,Q / \mathrm{im}\,Q$, ghosts and anti-ghosts cancel unphysical longitudinal modes) that reorganizes the residual graded symmetry.</p>
 
 <p>The <strong>Higgs mechanism</strong> breaks $\mathrm{SU}(2)_L\times\mathrm{U}(1)_Y \to \mathrm{U}(1)_{\mathrm{em}}$ via a vev $\langle\phi\rangle\ne 0$. The vev's electric charge $Q\langle\phi\rangle = 0$, so one combination of $W^3$ and $B$ — the <strong>photon</strong> $A_\mu = \sin\theta_W\,W^3_\mu + \cos\theta_W\,B_\mu$ — does not couple to it and stays exactly massless. The orthogonal combinations $Z_\mu, W^\pm_\mu$ acquire masses $M_Z = M_W/\cos\theta_W \approx 91\,\mathrm{GeV}$, $M_W \approx 80\,\mathrm{GeV}$. Renormalizability survives the spontaneous breaking ('t Hooft 1971), and every Standard-Model precision test — the LEP electroweak fits, the muon $g-2$, the Higgs discovery at the LHC — closes the loop on this mechanism.</p>
 
