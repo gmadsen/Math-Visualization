@@ -50,22 +50,24 @@ html[data-hide-widgets]:not([data-hide-quizzes]) .widget.quiz {
 }
 
 
-/* ---------- 0b. Topic-page top nav links ---------- */
+/* ---------- 0b. Cross-page nav-links row ---------- */
 
-/* The breadcrumb-nav-auto block (injected by scripts/inject-breadcrumb.mjs)
- * carries a row of cross-page nav links (Pathway, Tours, History, Themes,
- * Mindmap, Search) so topic readers can hop directly to any landing page
- * without bouncing back through index.html. Landing pages style their own
- * .nav-links inside .top-nav; these rules scope the styling for topic
- * pages where the same row sits inside <nav class="toc">. */
-.toc .nav-links {
+/* Topic pages: the breadcrumb-nav-auto block (injected by
+ * scripts/inject-breadcrumb.mjs) carries a row of cross-page nav links
+ * (Pathway, Tours, History, Themes, Mindmap, Search) so topic readers can
+ * hop directly to any landing page without bouncing back through index.html.
+ * Landing pages without their own `.top-nav .nav-links` rules (pathway,
+ * mindmap, tours, progress, review, search, history) inherit this baseline.
+ * Landing pages WITH their own `.top-nav .nav-links` styling (index.html,
+ * tags.html) keep theirs — `.top-nav .nav-links` has higher specificity. */
+.nav-links {
   display: inline-flex;
   gap: 0.25rem;
   align-items: center;
   flex-wrap: wrap;
   margin: 0 0.5rem;
 }
-.toc .nav-links a.nav-link {
+.nav-links a.nav-link {
   color: var(--mute);
   text-decoration: none;
   padding: 0.2rem 0.55rem;
@@ -75,9 +77,12 @@ html[data-hide-widgets]:not([data-hide-quizzes]) .widget.quiz {
   font-family: var(--font-display);
   transition: color 120ms ease, background 120ms ease;
 }
-.toc .nav-links a.nav-link:hover {
+.nav-links a.nav-link:hover {
   color: var(--ink);
   background: var(--panel2);
+}
+.nav-links a.nav-link.accent {
+  color: var(--cyan);
 }
 
 
