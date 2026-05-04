@@ -109,6 +109,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 | [`audit-cross-page-consistency.mjs`](./audit-cross-page-consistency.mjs) | `<head>` + sidetoc + body-attr consistency across topic HTML. |
 | [`audit-bundle-staleness.mjs`](./audit-bundle-staleness.mjs) | Fast check of `concepts/bundle.js` + `quizzes/bundle.js` vs source. |
 | [`audit-canvas-stub.mjs`](./audit-canvas-stub.mjs) | Cross-checks canvas 2D method calls in the corpus against the explicit stub list in `test-topic-jsdom.mjs`. Flags any methods that would silently hit the Proxy noop fallback at runtime — boot test passes, but a `undefined` return from an unstubbed method can break a real widget. |
+| [`audit-widget-runtime.mjs`](./audit-widget-runtime.mjs) | jsdom runtime audit: loads each topic, exercises every widget's sliders/buttons/selects, and reports interaction errors, empty widgets, control throws, and inert controls. Catches the class of bug where widget code throws on certain user actions but boots cleanly. Always exits 0 (advisory). |
 | [`audit-draft-index-cards.mjs`](./audit-draft-index-cards.mjs) | Flags `index.html` cards still in `new-topic.mjs` placeholder state — literal "draft" text in thumb SVG, placeholder `.desc`, or unfilled TODO comment. Advisory; gates nothing. |
 | [`audit-doc-drift.mjs`](./audit-doc-drift.mjs) | `PLAN.md` / `AGENTS.md` / this `README.md` vs on-disk reality. Final rebuild step. |
 
@@ -138,7 +139,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 Default path after any content edit:
 
 ```bash
-node scripts/rebuild.mjs           # 33 steps, fix-mode; bails on first failure
+node scripts/rebuild.mjs           # 37 steps, fix-mode; bails on first failure
 node scripts/rebuild.mjs --no-fix  # CI mirror (read-only; fails if anything drifted)
 node scripts/rebuild.mjs --only <step>
 ```
@@ -183,7 +184,9 @@ CI ([`.github/workflows/verify.yml`](../.github/workflows/verify.yml)) runs `reb
 32. `audit-notation.mjs`
 33. `audit-draft-index-cards.mjs`
 34. `audit-starter-concepts.mjs`
-35. `audit-doc-drift.mjs`
+35. `audit-worked-examples.mjs`
+36. `audit-blurb-question-alignment.mjs`
+37. `audit-doc-drift.mjs`
 
 Round-trip is intentionally first among the post-injector steps so that smoke and topic-jsdom check the regenerated HTML, not stale on-disk HTML — otherwise a content/json edit that broke a topic page would pass its first rebuild and only fail the next one.
 

@@ -73,6 +73,18 @@
     var outEl = el.querySelector('.mv-sonify-out');
     var msgEl = el.querySelector('.mv-sonify-msg');
 
+    // Audio state declared up-front so the slider 'input' listener (which
+    // checks state.playing) doesn't reference an undefined when the
+    // HAS_WEB_AUDIO early-return fires below — e.g. in jsdom or in a
+    // browser without Web Audio. The actual ctx/osc/gainNode creation is
+    // still lazy on first Play (some browsers require a user gesture).
+    var state = {
+      ctx: null,
+      osc: null,
+      gainNode: null,
+      playing: false
+    };
+
     function updateReadout() {
       var q = parseFloat(slider.value);
       var f = 0, g = 0;
@@ -93,15 +105,6 @@
       msgEl.textContent = 'Web Audio API unavailable — audio is disabled. Readout still tracks the parameter.';
       return;
     }
-
-    // Audio state. Lazily create AudioContext on first Play because most
-    // browsers require a user gesture.
-    var state = {
-      ctx: null,
-      osc: null,
-      gainNode: null,
-      playing: false
-    };
 
     function applyParams() {
       if (!state.playing) return;
