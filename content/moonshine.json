@@ -37,24 +37,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "button-stepper",
-          "params": {
-            "widgetId": "w-j",
-            "title": "Widget 1 · j-coefficient table",
-            "layout": [
-              {
-                "kind": "raw",
-                "html": "<div class=\"row\">\n    <label for=\"w-j-N\">show coefficients up to $q^N$ with $N$ =</label>\n    <input id=\"w-j-N\" type=\"range\" min=\"1\" max=\"10\" step=\"1\" value=\"6\">\n    <span id=\"w-j-Nv\" class=\"pill\">N=6</span>\n  </div>"
-              },
-              {
-                "kind": "readout",
-                "id": "w-j-out"
-              }
-            ],
-            "bodyScript": "  // c_n := Fourier coefficient of q^n in j(tau), for n = -1, 0, 1, 2, ...\n  // OEIS A000521\n  const C = {\n   \"-1\": 1n,\n    \"0\": 744n,\n    \"1\": 196884n,\n    \"2\": 21493760n,\n    \"3\": 864299970n,\n    \"4\": 20245856256n,\n    \"5\": 333202640600n,\n    \"6\": 4252023300096n,\n    \"7\": 44656994071935n,\n    \"8\": 401490886656000n,\n    \"9\": 3176440229784420n,\n   \"10\": 22567393309593600n,\n  };\n  const slider = $('#w-j-N'), lbl = $('#w-j-Nv'), out = $('#w-j-out');\n  function render(){\n    const N = +slider.value;\n    lbl.textContent = 'N=' + N;\n    let s = 'n      c_n  (Fourier coefficient of q^n in j)\\n';\n    s += '---    ----------------------------------------\\n';\n    for(let n=-1;n<=N;n++){\n      s += (n===-1 ? '-1' : ' '+String(n)).padStart(3,' ');\n      s += '    ' + C[String(n)].toString() + '\\n';\n    }\n    out.textContent = s.trimEnd();\n  }\n  slider.addEventListener('input', render);\n  render();",
-            "hint": "the Fourier head of $j(\\tau) = q^{-1} + 744 + c_1 q + c_2 q^2 + \\cdots$",
-            "readoutId": "w-j-out"
-          }
+          "ref": "w-j"
         },
         {
           "type": "raw",
@@ -122,25 +105,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "button-stepper",
-          "params": {
-            "widgetId": "w-mon",
-            "title": "Widget 2 · Monster irreducible dimensions",
-            "layout": [
-              {
-                "kind": "raw",
-                "html": "<div class=\"row\" id=\"w-mon-rows\" style=\"flex-direction:column;align-items:stretch;gap:.25rem\"></div>"
-              },
-              {
-                "kind": "readout",
-                "id": "w-mon-out",
-                "content": "click a row…"
-              }
-            ],
-            "bodyScript": "  const DATA = [\n    {i:1, d:1n,           name:\"V₁ (trivial)\"},\n    {i:2, d:196883n,      name:\"V₂\"},\n    {i:3, d:21296876n,    name:\"V₃\"},\n    {i:4, d:842609326n,   name:\"V₄\"},\n    {i:5, d:18538750076n, name:\"V₅\"},\n    {i:6, d:19360062527n, name:\"V₆\"},\n  ];\n  const host = $('#w-mon-rows'), out = $('#w-mon-out');\n  DATA.forEach(r=>{\n    const row = document.createElement('div');\n    row.style.cssText = 'display:flex;gap:.6rem;align-items:center;padding:.25rem .4rem;border:1px solid var(--line);border-radius:6px;cursor:pointer;background:var(--panel2)';\n    row.innerHTML = `<span style=\"color:var(--yellow);font-weight:600;width:3em\">${r.name.split(' ')[0]}</span>\n      <span style=\"color:var(--mute);flex:1\">${r.name}</span>\n      <code style=\"color:#f0c987\">${r.d.toString()}</code>`;\n    row.addEventListener('click', ()=>{\n      [...host.children].forEach(c=>c.style.background='var(--panel2)');\n      row.style.background='#2a2416';\n      const d = r.d;\n      let hint = '';\n      if(r.i===2) hint = 'c_1 = 196884 = 196883 + 1 = dim V_2 + dim V_1';\n      else if(r.i===3) hint = 'c_2 = 21493760 = 21296876 + 196883 + 1 = dim V_3 + dim V_2 + dim V_1';\n      else if(r.i===1) hint = 'the trivial representation — always appears';\n      else hint = 'appears in the decomposition of c_n for larger n';\n      out.textContent = `${r.name}: dim = ${d.toString()}\\n${hint}`;\n    });\n    host.appendChild(row);\n  });",
-            "hint": "tap a row to highlight the dimension you'll want in section 3",
-            "readoutId": "w-mon-out"
-          }
+          "ref": "w-mon"
         },
         {
           "type": "raw",
@@ -207,24 +172,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "button-stepper",
-          "params": {
-            "widgetId": "w-mck",
-            "title": "Widget 3 · McKay decomposition calculator",
-            "layout": [
-              {
-                "kind": "raw",
-                "html": "<div class=\"row\">\n    <label for=\"w-mck-n\">level $n$:</label>\n    <select id=\"w-mck-n\">\n      <option value=\"-1\">n = −1</option>\n      <option value=\"1\" selected>n = 1</option>\n      <option value=\"2\">n = 2</option>\n      <option value=\"3\">n = 3</option>\n      <option value=\"4\">n = 4</option>\n      <option value=\"5\">n = 5</option>\n    </select>\n    <button id=\"w-mck-check\">check arithmetic</button>\n  </div>"
-              },
-              {
-                "kind": "readout",
-                "id": "w-mck-out"
-              }
-            ],
-            "bodyScript": "  // Dimensions of Monster irreducibles we'll use.\n  const DIM = [\n    1n, 196883n, 21296876n, 842609326n, 18538750076n, 19360062527n,\n    293553734298n, 3879214937598n, 12432283649025n,\n  ];\n  // Multiplicities m_{i,n} in V^♮_n for small n (published decompositions).\n  // entry is: n -> array of multiplicities for V_1..V_9 (we use only the first few).\n  const DEC = {\n    \"-1\": [1, 0, 0, 0, 0, 0, 0, 0, 0],\n     \"1\": [1, 1, 0, 0, 0, 0, 0, 0, 0],\n     \"2\": [1, 1, 1, 0, 0, 0, 0, 0, 0],\n     \"3\": [2, 2, 1, 1, 0, 0, 0, 0, 0],\n     \"4\": [2, 3, 2, 1, 1, 0, 0, 0, 0],\n     \"5\": [4, 5, 3, 2, 1, 1, 0, 0, 0],\n  };\n  // c_n for sanity check\n  const C = {\n   \"-1\": 1n, \"1\": 196884n, \"2\": 21493760n, \"3\": 864299970n,\n    \"4\": 20245856256n, \"5\": 333202640600n,\n  };\n  const sel = $('#w-mck-n'), btn = $('#w-mck-check'), out = $('#w-mck-out');\n  function render(){\n    const n = sel.value;\n    const mults = DEC[n];\n    const c = C[n];\n    let lines = [];\n    lines.push(`n = ${n}`);\n    lines.push(`c_n = ${c.toString()}   (Fourier coef of q^${n} in j)`);\n    lines.push('');\n    lines.push('decomposition V^♮_n  =  ⊕ m_i · V_i :');\n    let total = 0n, human = [];\n    mults.forEach((m,i)=>{\n      if(m===0) return;\n      total += BigInt(m) * DIM[i];\n      const coef = m===1 ? '' : (m+'·');\n      human.push(`${coef}V_${i+1}`);\n    });\n    lines.push('  ' + human.join('  +  '));\n    lines.push('');\n    lines.push('arithmetic check:');\n    mults.forEach((m,i)=>{\n      if(m===0) return;\n      lines.push(`  ${String(m).padStart(2,' ')} · dim V_${i+1} = ${String(m).padStart(2,' ')} · ${DIM[i].toString().padStart(12,' ')} = ${(BigInt(m)*DIM[i]).toString()}`);\n    });\n    lines.push(`  sum                                = ${total.toString()}`);\n    lines.push(`  target c_${n===-1?'{-1}':n}                              = ${c.toString()}`);\n    lines.push(`  match? ${total === c ? 'YES' : 'NO'}`);\n    out.textContent = lines.join('\\n');\n  }\n  sel.addEventListener('change', render);\n  btn.addEventListener('click', render);\n  render();",
-            "hint": "enter $n$; widget displays $c_n$ and the $\\mathbb{M}$-irreducible decomposition of $V^{\\natural}_n$",
-            "readoutId": "w-mck-out"
-          }
+          "ref": "w-mck"
         },
         {
           "type": "raw",
@@ -283,24 +231,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "button-stepper",
-          "params": {
-            "widgetId": "w-t",
-            "title": "Widget 4 · Thompson-series selector",
-            "layout": [
-              {
-                "kind": "raw",
-                "html": "<div class=\"row\">\n    <label for=\"w-t-g\">conjugacy class:</label>\n    <select id=\"w-t-g\">\n      <option value=\"1A\" selected>1A   (identity)</option>\n      <option value=\"2A\">2A   (order 2, class \"Fischer involution\")</option>\n      <option value=\"2B\">2B   (order 2, class \"Conway involution\")</option>\n      <option value=\"3A\">3A   (order 3)</option>\n      <option value=\"5A\">5A   (order 5)</option>\n    </select>\n  </div>"
-              },
-              {
-                "kind": "readout",
-                "id": "w-t-out"
-              }
-            ],
-            "bodyScript": "  // Thompson series head coefficients (tr g|V_n for n=-1..4).\n  // Classical data: T_{1A} = j - 744; T_{2A}, T_{2B}, T_{3A}, T_{5A} are the Hauptmoduls\n  // for Gamma_0(2)+ , Gamma_0(2), Gamma_0(3)+, Gamma_0(5)+ respectively.\n  const T = {\n    \"1A\": {\n      label: \"T_{1A}(τ) = J(τ) = j(τ) − 744\",\n      coefs: [\"1\",\"0\",\"196884\",\"21493760\",\"864299970\",\"20245856256\"],\n      group: \"SL_2(ℤ)     (genus 0; normalizer of itself)\",\n    },\n    \"2A\": {\n      label: \"T_{2A}(τ)   (Hauptmodul for Γ₀(2)+)\",\n      coefs: [\"1\",\"0\",\"4372\",\"96256\",\"1240002\",\"10698752\"],\n      group: \"Γ₀(2)+      (genus 0)\",\n    },\n    \"2B\": {\n      label: \"T_{2B}(τ)   (Hauptmodul for Γ₀(2))\",\n      coefs: [\"1\",\"0\",\"276\",\"−2048\",\"11202\",\"−49152\"],\n      group: \"Γ₀(2)        (genus 0)\",\n    },\n    \"3A\": {\n      label: \"T_{3A}(τ)   (Hauptmodul for Γ₀(3)+)\",\n      coefs: [\"1\",\"0\",\"783\",\"8672\",\"65367\",\"371520\"],\n      group: \"Γ₀(3)+      (genus 0)\",\n    },\n    \"5A\": {\n      label: \"T_{5A}(τ)   (Hauptmodul for Γ₀(5)+)\",\n      coefs: [\"1\",\"0\",\"134\",\"760\",\"3345\",\"12256\"],\n      group: \"Γ₀(5)+      (genus 0)\",\n    },\n  };\n  const sel = $('#w-t-g'), out = $('#w-t-out');\n  function render(){\n    const t = T[sel.value];\n    let s = '';\n    s += t.label + '\\n';\n    s += 'modular group:   ' + t.group + '\\n\\n';\n    s += 'n      tr(g | V^♮_n)\\n';\n    s += '---    -----------------\\n';\n    const ns = [-1,0,1,2,3,4];\n    ns.forEach((n,i)=>{\n      s += (n===-1 ? '-1' : ' '+String(n)).padStart(3,' ');\n      s += '    ' + t.coefs[i] + '\\n';\n    });\n    s += '\\n';\n    s += 'n = -1 coefficient is always 1: the vacuum V^♮_{-1} is the trivial rep,\\n';\n    s += 'and every group element acts as the identity on it.\\n';\n    out.textContent = s;\n  }\n  sel.addEventListener('change', render);\n  render();",
-            "hint": "pick a conjugacy class $g \\in \\mathbb{M}$; see the head of $T_g(\\tau)$",
-            "readoutId": "w-t-out"
-          }
+          "ref": "w-t"
         },
         {
           "type": "raw",
@@ -367,24 +298,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "button-stepper",
-          "params": {
-            "widgetId": "w-rep",
-            "title": "Widget 5 · Replication formula for J",
-            "layout": [
-              {
-                "kind": "raw",
-                "html": "<div class=\"row\">\n    <label for=\"w-rep-mn\">test $c(m) c(n) = $ sum identity at $(m,n)$:</label>\n    <select id=\"w-rep-mn\">\n      <option value=\"2,3\" selected>(m,n) = (2, 3)</option>\n      <option value=\"2,2\">(m,n) = (2, 2)</option>\n      <option value=\"1,4\">(m,n) = (1, 4)</option>\n      <option value=\"3,3\">(m,n) = (3, 3)</option>\n    </select>\n  </div>"
-              },
-              {
-                "kind": "readout",
-                "id": "w-rep-out"
-              }
-            ],
-            "bodyScript": "  // Coefficients c(n) of q^n in J(tau) = j(tau) - 744.\n  // c(-1) = 1; c(0) = 0; c(n) = j-coefficient for n >= 1.\n  const c = new Map();\n  c.set(-1, 1n); c.set(0, 0n);\n  c.set(1, 196884n);\n  c.set(2, 21493760n);\n  c.set(3, 864299970n);\n  c.set(4, 20245856256n);\n  c.set(5, 333202640600n);\n  c.set(6, 4252023300096n);\n  c.set(7, 44656994071935n);\n  c.set(8, 401490886656000n);\n  c.set(9, 3176440229784420n);\n  c.set(10, 22567393309593600n);\n\n  // The classical \"replication\" identity for J coming from the Monster denominator:\n  //   c(4m+2n) = (sum_{r>=0, r<=m} c(2m-r) c(2n+r))  ... (schematic).\n  // For a clean numerical demo we instead verify the following special case that\n  // follows from comparing q^m p^n and q^n p^m terms of log of the denominator\n  // product: for m,n >= 1,\n  //   c(mn) = (1/(m+n)) * sum of certain c(i)c(j) — but to keep arithmetic exact\n  // we test the simplest closed identity that can be checked with our table:\n  //   c(m+n-1) appears inside Faber polynomial relations.\n  // We use the best-known small replication check:\n  //   c(2) + c(1)^2 / 2   vs.  a known linear combo.\n  // For a user-facing widget we give the check as a symbolic identity:\n  //   \"Borcherds' recursion expresses c(m n) in terms of c(k) for k < mn.\"\n  //  and we verify this numerically using one specific recursion instance at a time.\n\n  const REC = {\n    // Identity used: for j-function, c(4) = c(1)*c(3) - c(1)^2*c(1) + ...\n    // Instead of deriving these, we give Mahler's/Borcherds' \"replication\" at level 2:\n    //    c(2n) = c(n)^2/? + ...\n    // For simplicity, we check Mahler's celebrated identity at (m,n)=(2,3):\n    //    c(6) = c(1) c(5) + c(2) c(4) + c(3)^2 - c(1)^4 - ... (long).\n    // We keep the demo honest by just showing the hand-verifiable identity:\n    //    j(p) - j(q) = p^-1 * prod_{m>0,n} (1 - p^m q^n)^c(mn)\n    // and expanding the first few terms.\n    \"2,3\": {\n      desc: \"Expanding  p^{-1} ∏ (1 − p^m q^n)^{c(mn)}  −  (p^{-1} − q^{-1})  =  J(p) − J(q) + J(p)·J(q)·… low terms\",\n      check: \"The coefficient of p^2 q^3 on the LHS, computed from c(mn) for mn ≤ 6, equals c(2)·c(3) + {lower} — see note\",\n      numbers: [\n        [\"c(1)\", \"196884\"],\n        [\"c(2)\", \"21493760\"],\n        [\"c(3)\", \"864299970\"],\n        [\"c(4)\", \"20245856256\"],\n        [\"c(5)\", \"333202640600\"],\n        [\"c(6)\", \"4252023300096\"],\n      ],\n    },\n    \"2,2\": {\n      desc: \"Coefficient of p^2 q^2: controlled by c(1), c(2), c(4).\",\n      check: \"The denominator product's Weyl side forces c(4) to be determined by the lower c's — Borcherds' content.\",\n      numbers: [\n        [\"c(1)\", \"196884\"],\n        [\"c(2)\", \"21493760\"],\n        [\"c(4)\", \"20245856256\"],\n      ],\n    },\n    \"1,4\": {\n      desc: \"Coefficient of p^1 q^4: involves c(1), c(2), c(3), c(4).\",\n      check: \"Matches the Hauptmodul expansion of J — used as a cross-check in Conway–Norton's tables.\",\n      numbers: [\n        [\"c(1)\", \"196884\"],\n        [\"c(2)\", \"21493760\"],\n        [\"c(3)\", \"864299970\"],\n        [\"c(4)\", \"20245856256\"],\n      ],\n    },\n    \"3,3\": {\n      desc: \"Coefficient of p^3 q^3: diagonal case, involves c(1..6).\",\n      check: \"Replicability of T_{1A} = J is the identity-class instance of replicability of every T_g.\",\n      numbers: [\n        [\"c(1)\", \"196884\"],\n        [\"c(2)\", \"21493760\"],\n        [\"c(3)\", \"864299970\"],\n        [\"c(6)\", \"4252023300096\"],\n      ],\n    },\n  };\n\n  const sel = $('#w-rep-mn'), out = $('#w-rep-out');\n  function render(){\n    const r = REC[sel.value];\n    let s = '';\n    s += 'denominator identity:\\n';\n    s += '   p^{-1} · ∏_{m>0, n∈Z} (1 − p^m q^n)^{c(mn)}  =  J(p) − J(q)\\n\\n';\n    s += 'selected coefficient check: (m,n) = ' + sel.value.replace(',', ', ') + '\\n';\n    s += '  ' + r.desc + '\\n';\n    s += '  ' + r.check + '\\n\\n';\n    s += 'values in play:\\n';\n    r.numbers.forEach(([k,v])=>{ s += '  ' + k + ' = ' + v + '\\n'; });\n    s += '\\n';\n    s += 'interpretation: the same numbers c(n) — the j-coefficients — appear as\\n';\n    s += 'root multiplicities in the Monster Lie algebra and as graded dimensions\\n';\n    s += 'of V^♮_n. The denominator identity is the bridge.\\n';\n    out.textContent = s;\n  }\n  sel.addEventListener('change', render);\n  render();",
-            "hint": "numerical check of Borcherds' recursion on $J$'s own coefficients",
-            "readoutId": "w-rep-out"
-          }
+          "ref": "w-rep"
         },
         {
           "type": "raw",
@@ -447,24 +361,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "button-stepper",
-          "params": {
-            "widgetId": "w-rep-rec",
-            "title": "Widget 6 · Faber-polynomial recursion for $c(N)$",
-            "layout": [
-              {
-                "kind": "raw",
-                "html": "<div class=\"row\">\n    <label for=\"w-rep-rec-N\">target $N$ in $c(N)$:</label>\n    <select id=\"w-rep-rec-N\">\n      <option value=\"2\">N = 2</option>\n      <option value=\"3\">N = 3</option>\n      <option value=\"4\" selected>N = 4</option>\n      <option value=\"5\">N = 5</option>\n      <option value=\"6\">N = 6</option>\n      <option value=\"7\">N = 7</option>\n      <option value=\"8\">N = 8</option>\n    </select>\n    <button id=\"w-rep-rec-run\">expand $\\Phi_N(J)$ recursion</button>\n  </div>"
-              },
-              {
-                "kind": "readout",
-                "id": "w-rep-rec-out"
-              }
-            ],
-            "bodyScript": "  // c(n) for n >= -1 (with c(0) = 0): coefficients of J(tau) = j(tau) - 744.\n  const C = new Map([\n    [-1, 1n], [0, 0n],\n    [1, 196884n],\n    [2, 21493760n],\n    [3, 864299970n],\n    [4, 20245856256n],\n    [5, 333202640600n],\n    [6, 4252023300096n],\n    [7, 44656994071935n],\n    [8, 401490886656000n],\n  ]);\n  // Faber polynomial Phi_N(J) = q^{-N} + O(q), defined recursively\n  //    Phi_{N+1}(X) = X * Phi_N(X) - sum_{k=1..N} c(k-1) Phi_{N-k}(X)\n  //  (here we just *describe* the recursion; for the demo we precompute c(N) check terms.)\n  // Mahler/Borcherds replication: c(N) is determined by c(1),...,c(N-1) plus divisor-controlled offsets.\n  // The simplest closed form, verifiable from our table, is the level-2 replication:\n  //    c(2N+1) = sum_{0 <= r <= N} c(N - r) c(N + r + 1)  -  c(N) c(N+1)   (Mahler)\n  // and the level-1 \"Hecke\" form\n  //    c(2N) + (terms in c(N)^2 and lower)  computed below.\n  // We illustrate the actual recursive *check* only for N where we have all required coefficients in our table.\n  const RECIPES = {\n    2: { rhs: () => {\n           // c(2) appears as a 'free' starting datum; we display its position in the recursion family.\n           return { lines:[\n             'c(2) is part of the seed (c(1), c(2)) of the recursion.',\n             'It can be cross-checked against c(3) via Mahler:',\n             '   c(3) = c(1)^2 - 2 c(2)  + 2 c(1)         ⟶ rearrangement gives the Hauptmodul defining relation',\n             '',\n             'numerical seed:  c(1) = ' + C.get(1) + '   c(2) = ' + C.get(2)\n           ], match: null }; } },\n    3: { rhs: () => {\n           // verifiable: c(3) - 3 c(1) c(2) / 2 + (c(1)^3) / 3 = ?  (Faber expansion)\n           // Use the Adams operation form:  T_2 J(tau) = (sum over n of c(2n)) where T_2 acts on J.\n           // For concreteness we verify  c(3)  appears in the level-2 replication\n           //    c(3) = c(1) c(2) - c(2) c(1) + c(2)  (trivial)\n           // and we display the coefficient computation.\n           const c1 = C.get(1), c2 = C.get(2), c3 = C.get(3);\n           return { lines:[\n             'level-2 replication identity (Mahler):',\n             '   c(2N+1) = (sum_{r} c(N-r) c(N+r+1)) - c(N) c(N+1)',\n             'with N = 1:',\n             '   c(3) = c(1) c(2) - c(1) c(2)   (only r=0 term;  r out of range)',\n             '          = 0  -- this instance is degenerate; the real recursion uses N=2',\n             'with N = 2:',\n             '   c(5) = c(0) c(5) + c(1) c(4) + c(2) c(3) - c(2) c(3)',\n             '         = (1 + ' + c1 + ' · ' + C.get(4) + ' + 0) ',\n             '',\n             'simplified check (treating c(3) as free):  c(3) = ' + c3\n           ], match: null }; } },\n    4: { rhs: () => {\n           // Concrete check we CAN do exactly:\n           //   T_2 J(tau)  =  c(2) q^{-2} + (c(1) + c(4)) q^{-1} + ...\n           //   T_2 acts on J as a Hecke-like operator; for the Hauptmodul J,\n           //     2 c(2N) = c(N)^2 + 2 c(2N) - 2 c(N)^2 + (terms from c(d) for d | N).\n           // Simplest VERIFIABLE identity using only our c(k) table:\n           //   The 'square coefficient' c(2 N)  ≡  c(N)^2 / 2  (mod  small)\n           // We compute the Mahler ratio.\n           const c1 = C.get(1), c2 = C.get(2), c3 = C.get(3), c4 = C.get(4);\n           // Display the Faber polynomial Phi_4 expansion sketch:\n           return { lines:[\n             'Faber polynomial recursion (sketch):',\n             '   Phi_4(X) = X^4 - 4 c(1) X^2 - 4 c(2) X - 2 c(1)^2 - 4 c(3)',\n             '   Phi_4(J(tau)) = q^{-4} + O(q)  forces:',\n             '     c(4) = (numerical combination of c(1), c(2), c(3))',\n             '',\n             'numerical values:',\n             '   c(1)   = ' + c1,\n             '   c(2)   = ' + c2,\n             '   c(3)   = ' + c3,\n             '   c(4)   = ' + c4,\n             '   c(1)^2 = ' + (c1*c1),\n             '',\n             'Borcherds \\u2192 c(4) is forced by c(1), c(2), c(3) via the denominator identity.',\n             'The actual closed form (after collecting Faber coefficients) checks out exactly.'\n           ], match: null }; } },\n    5: { rhs: () => {\n           const c1 = C.get(1), c2 = C.get(2), c3 = C.get(3), c4 = C.get(4), c5 = C.get(5);\n           return { lines:[\n             'Phi_5 recursion:',\n             '   Phi_5(X) = X^5 - 5 c(1) X^3 - 5 c(2) X^2 + (5 c(1)^2 - 5 c(3)) X + (5 c(1) c(2) - 5 c(4))',\n             '   Phi_5(J) = q^{-5} + O(q)',\n             'forces:',\n             '   c(5) = polynomial in c(1)..c(4) with explicit integer coefficients.',\n             '',\n             'numerical values:',\n             '   c(1) = ' + c1,\n             '   c(2) = ' + c2,\n             '   c(3) = ' + c3,\n             '   c(4) = ' + c4,\n             '   c(5) = ' + c5\n           ], match: null }; } },\n    6: { rhs: () => {\n           const c1 = C.get(1), c2 = C.get(2), c6 = C.get(6);\n           return { lines:[\n             'Phi_6: c(6) is forced by c(1)..c(5) via',\n             '   Phi_6(J) = q^{-6} + O(q),  Phi_6(X) of degree 6 in X.',\n             '',\n             'level-2 replication consistency (Mahler):',\n             '   c(6) cross-checked against c(2) c(3) and c(1) c(5).',\n             '',\n             'numerical values:',\n             '   c(1) = ' + c1,\n             '   c(2) = ' + c2,\n             '   c(6) = ' + c6\n           ], match: null }; } },\n    7: { rhs: () => {\n           const c7 = C.get(7);\n           return { lines:[\n             'Phi_7: c(7) determined by c(1)..c(6).',\n             '',\n             '   c(7) = ' + c7,\n             '',\n             'For replicable functions (Thompson series), the *same* Phi_N recursion holds with',\n             '   c \\u2192 c_g  (i.e. dim \\u2192 tr g),',\n             'and that is what forces every T_g to be a Hauptmodul.'\n           ], match: null }; } },\n    8: { rhs: () => {\n           const c8 = C.get(8);\n           return { lines:[\n             'Phi_8: c(8) determined by c(1)..c(7).',\n             '',\n             '   c(8) = ' + c8,\n             '',\n             'Note: the Faber-polynomial coefficients are themselves polynomial in c(1),...,c(N-1),',\n             'so only the *first* coefficient (c(1) = 196884) is free; everything else is forced.'\n           ], match: null }; } },\n  };\n  const sel = $('#w-rep-rec-N'), btn = $('#w-rep-rec-run'), out = $('#w-rep-rec-out');\n  function render(){\n    const N = +sel.value;\n    const r = RECIPES[N].rhs();\n    out.textContent = 'recursion for c(' + N + '):\\n\\n' + r.lines.join('\\n');\n  }\n  sel.addEventListener('change', render);\n  btn.addEventListener('click', render);\n  render();",
-            "hint": "watch each $c(N)$ get pinned by lower coefficients via $\\Phi_N(J) = q^{-N} + O(q)$",
-            "readoutId": "w-rep-rec-out"
-          }
+          "ref": "w-rep-rec"
         },
         {
           "type": "raw",
@@ -515,24 +412,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "button-stepper",
-          "params": {
-            "widgetId": "w-gz",
-            "title": "Widget 7 · Genus of $X_0(N)$ and $X_0(N)+$",
-            "layout": [
-              {
-                "kind": "raw",
-                "html": "<div class=\"row\">\n    <label for=\"w-gz-N\">level $N$:</label>\n    <input id=\"w-gz-N\" type=\"range\" min=\"1\" max=\"71\" step=\"1\" value=\"71\">\n    <span id=\"w-gz-Nv\" class=\"pill\">N = 71</span>\n  </div>\n  <div class=\"row\">\n    <button id=\"w-gz-prime\">prime levels only</button>\n    <button id=\"w-gz-allmf\">show $|\\\\mathbb{M}|$ supersingular primes</button>\n  </div>"
-              },
-              {
-                "kind": "readout",
-                "id": "w-gz-out"
-              }
-            ],
-            "bodyScript": "  // Genus of X_0(N) and X_0(N)+ for small N (precomputed standard data,\n  // see e.g. Cummins–Gannon, \"Modular equations and the genus zero property of moonshine functions\").\n  // genus0[N]      = genus of X_0(N)\n  // genus0plus[N]  = genus of X_0(N)+ = X_0(N) / { all Atkin-Lehner involutions w_e, e || N }\n  const genus0 = {\n    1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0,\n    11:1, 12:0, 13:0, 14:1, 15:1, 16:0, 17:1, 18:0, 19:1, 20:1,\n    21:1, 22:2, 23:2, 24:1, 25:0, 26:2, 27:1, 28:2, 29:2, 30:3,\n    31:2, 32:1, 33:3, 34:3, 35:3, 36:1, 37:2, 38:4, 39:3, 40:3,\n    41:3, 42:5, 43:3, 44:4, 45:3, 46:5, 47:4, 48:3, 49:1, 50:2,\n    51:5, 52:5, 53:4, 54:4, 55:5, 56:5, 57:5, 58:6, 59:5, 60:7,\n    61:4, 62:7, 63:5, 64:3, 65:5, 66:9, 67:5, 68:7, 69:7, 70:9,\n    71:6,\n  };\n  // Genus of X_0(N)+ (Fricke / full Atkin–Lehner quotient). Tabulated:\n  const genus0plus = {\n    1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0, 9:0, 10:0,\n    11:0, 12:0, 13:0, 14:0, 15:0, 16:0, 17:0, 18:0, 19:0, 20:0,\n    21:0, 22:0, 23:0, 24:0, 25:0, 26:0, 27:0, 28:0, 29:0, 30:0,\n    31:0, 32:0, 33:0, 34:0, 35:0, 36:0, 37:0, 38:0, 39:0, 40:0,\n    41:0, 42:0, 43:0, 44:0, 45:0, 46:0, 47:0, 48:0, 49:0, 50:0,\n    51:1, 52:0, 53:1, 54:0, 55:0, 56:0, 57:1, 58:0, 59:0, 60:0,\n    61:1, 62:0, 63:0, 64:0, 65:0, 66:1, 67:1, 68:0, 69:1, 70:0,\n    71:0,\n  };\n  // Ogg's 15 supersingular primes = primes dividing |M| (= primes p with X_0(p)+ genus 0).\n  const SS = new Set([2,3,5,7,11,13,17,19,23,29,31,41,47,59,71]);\n  function isPrime(n){\n    if(n<2) return false; if(n<4) return true; if(n%2===0) return false;\n    for(let d=3; d*d<=n; d+=2) if(n%d===0) return false;\n    return true;\n  }\n  const slider = $('#w-gz-N'), lbl = $('#w-gz-Nv'), out = $('#w-gz-out');\n  let primeOnly = false, showSS = false;\n  function render(){\n    const Nval = +slider.value;\n    lbl.textContent = 'N = ' + Nval;\n    let s = 'level     genus X_0(N)     genus X_0(N)+    Atkin\\u2013Lehner drop?     Ogg / |\\u{1D544}|?\\n';\n    s += '-----     ------------     -------------    --------------------     ----------------\\n';\n    for(let n=1; n<=Nval; n++){\n      if(primeOnly && !isPrime(n)) continue;\n      if(showSS && !(SS.has(n) || isPrime(n) === false ? false : SS.has(n))) {\n        if(!SS.has(n)) continue;\n      }\n      const g  = genus0[n], gp = genus0plus[n];\n      const drop = (g > gp) ? '  yes (' + g + ' \\u2192 ' + gp + ')' : (gp===0 && g===0 ? '  (already 0)' : '  no');\n      const ogg = SS.has(n) ? '  yes \\u2713' : '  -';\n      s += String(n).padStart(4,' ') + '       ' + String(g).padStart(2,' ') + '              ' + String(gp).padStart(2,' ') + '             ' + drop.padEnd(20,' ') + '   ' + ogg + '\\n';\n    }\n    s += '\\n';\n    s += 'Conway\\u2013Norton: every moonshine group \\u0393_g has X_g = \\u0393_g \\\\ \\u210B^* of genus 0.\\n';\n    s += 'Ogg (1975): the 15 supersingular primes = primes dividing |\\u{1D544}| = primes p with X_0(p)+ genus 0.\\n';\n    out.textContent = s;\n  }\n  slider.addEventListener('input', render);\n  $('#w-gz-prime').addEventListener('click', ()=>{ primeOnly = !primeOnly; render(); });\n  $('#w-gz-allmf').addEventListener('click', ()=>{ showSS = !showSS; render(); });\n  render();",
-            "hint": "scrub $N$; watch where $X_0(N)$ has positive genus but $X_0(N)+$ is still zero",
-            "readoutId": "w-gz-out"
-          }
+          "ref": "w-gz"
         },
         {
           "type": "raw",
@@ -596,24 +476,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "button-stepper",
-          "params": {
-            "widgetId": "w-gen",
-            "title": "Widget 8 · Twisted series $Z(g,h;\\tau)$ on commuting pairs",
-            "layout": [
-              {
-                "kind": "raw",
-                "html": "<div class=\"row\">\n    <label for=\"w-gen-pair\">commuting pair $(g, h)$:</label>\n    <select id=\"w-gen-pair\">\n      <option value=\"e,e\" selected>(e, e)   identity / identity</option>\n      <option value=\"e,2A\">(e, 2A)   ordinary Thompson</option>\n      <option value=\"2A,e\">(2A, e)   pure twist by 2A</option>\n      <option value=\"2A,2A\">(2A, 2A)  diagonal commuting pair</option>\n      <option value=\"2A,2B\">(2A, 2B)  commuting Fischer × Conway</option>\n      <option value=\"3A,3A\">(3A, 3A)  diagonal order-3 pair</option>\n      <option value=\"3A,e\">(3A, e)   pure twist by 3A</option>\n    </select>\n  </div>\n  <div class=\"row\">\n    <label for=\"w-gen-act\">apply $\\\\mathrm{SL}_2(\\\\mathbb{Z})$ generator:</label>\n    <button id=\"w-gen-S\">$S = \\\\begin{psmallmatrix}0&-1\\\\\\\\1&0\\\\end{psmallmatrix}$</button>\n    <button id=\"w-gen-T\">$T = \\\\begin{psmallmatrix}1&1\\\\\\\\0&1\\\\end{psmallmatrix}$</button>\n    <button id=\"w-gen-reset\">reset</button>\n  </div>"
-              },
-              {
-                "kind": "readout",
-                "id": "w-gen-out"
-              }
-            ],
-            "bodyScript": "  // Twisted McKay-Thompson series Z(g,h; tau) head data for a small subset of commuting pairs.\n  // Source: Norton (1984), Carnahan (2010), Mason - the values shown below are the leading\n  // q-coefficients of the head of each Z. For pure twists g != e, the q-grading is 1/|g|-fractional.\n  const PAIRS = {\n    \"e,e\": {\n      label: \"Z(e,e; τ) = J(τ) = j(τ) − 744\",\n      grp:   \"SL_2(ℤ)  (genus 0)\",\n      head:  \"q^{-1} + 0 + 196884 q + 21493760 q^2 + 864299970 q^3 + ...\",\n      note:  \"the diagonal: ordinary moonshine module character.\",\n    },\n    \"e,2A\": {\n      label: \"Z(e,2A; τ) = T_{2A}(τ)\",\n      grp:   \"Γ₀(2)+   (genus 0)\",\n      head:  \"q^{-1} + 0 + 4372 q + 96256 q^2 + 1240002 q^3 + ...\",\n      note:  \"first column g = e is the ordinary Thompson series of h.\",\n    },\n    \"2A,e\": {\n      label: \"Z(2A,e; τ) = trace on the 2A-twisted module of V^♮\",\n      grp:   \"Γ₀(2)    (genus 0)\",\n      head:  \"q^{-1/2} + 4372 q^{1/2} + 96256 q^{3/2} + ...\",\n      note:  \"PURE TWIST: the q-grading is now half-integer (since |2A| = 2);\\nthe SL_2(ℤ) action mixes 2A-twist with 2A-action.\",\n    },\n    \"2A,2A\": {\n      label: \"Z(2A,2A; τ)\",\n      grp:   \"Γ₀(2)+ (or a small index subgroup; genus 0)\",\n      head:  \"q^{-1/2} − 4372 q^{1/2} + 96256 q^{3/2} − ...\",\n      note:  \"diagonal commuting pair. Z(2A,2A;τ+1) = Z(2A·2A, 2A; τ) = Z(e,2A; τ)\\nby T-action — used as a consistency check.\",\n    },\n    \"2A,2B\": {\n      label: \"Z(2A,2B; τ)\",\n      grp:   \"genus 0 with cocycle\",\n      head:  \"q^{-1/2} + 0 q^{1/2} + ...   (vanishing first ramified coefficient)\",\n      note:  \"2A and 2B commute inside ℳ (centralizer C_ℳ(2A) ⊃ a 2-Sylow of 2B's normalizer).\\nThe vanishing trace tracks the +1/-1 split of 2A on V^♮.\",\n    },\n    \"3A,3A\": {\n      label: \"Z(3A,3A; τ)\",\n      grp:   \"Γ₀(3)+ extension; genus 0\",\n      head:  \"q^{-1/3} + 783 q^{2/3} − 8672 q^{5/3} + ...   (cube-root grading)\",\n      note:  \"order-3 twist gives 1/3-fractional q-grading; cocycle is a 3rd root of unity.\",\n    },\n    \"3A,e\": {\n      label: \"Z(3A,e; τ)\",\n      grp:   \"Γ₀(3)    (genus 0)\",\n      head:  \"q^{-1/3} + 783 q^{2/3} + 8672 q^{5/3} + ...\",\n      note:  \"the 3A-twisted module's bare graded dimension; tau-translated by S→ (e,3A) Thompson series.\",\n    },\n  };\n  const sel = $('#w-gen-pair'), out = $('#w-gen-out');\n  let history = [];\n  function display(currentKey, hist){\n    const r = PAIRS[currentKey];\n    let s = r.label + '\\n';\n    s += '  modular group:   ' + r.grp + '\\n';\n    s += '  q-expansion:     ' + r.head + '\\n';\n    s += '  note:            ' + r.note + '\\n';\n    if(hist && hist.length){\n      s += '\\n  SL_2(ℤ) history (acts on (g,h) by  (g,h) → (g^a h^c, g^b h^d)):\\n';\n      hist.forEach((h,i)=>{ s += '    ' + (i+1) + '. ' + h + '\\n'; });\n    }\n    s += '\\n';\n    s += '  general fact (Norton, proved by Carnahan):\\n';\n    s += '    Z(g, h; τ) is constant or a Hauptmodul for a genus-0 Γ_{g,h} ≤ SL_2(ℝ).\\n';\n    s += '    Z(g, h; (a τ + b)/(c τ + d)) = ζ · Z(g^a h^c, g^b h^d; τ),  ζ a 24th root of unity.\\n';\n    s += '    Z(e, h; τ)  recovers the ordinary Thompson series  T_h(τ).';\n    out.textContent = s;\n  }\n  function applyS(key){\n    // S sends (g,h) → (h, g^{-1}); for our limited table we approximate symbolically.\n    const m = { \"e,e\":\"e,e\", \"e,2A\":\"2A,e\", \"2A,e\":\"e,2A\",\n                \"2A,2A\":\"2A,2A\", \"2A,2B\":\"2B,2A_{not_in_table}\",\n                \"3A,3A\":\"3A,3A\", \"3A,e\":\"e,3A_{not_in_table}\" };\n    return m[key] || key;\n  }\n  function applyT(key){\n    // T sends (g,h) → (g, gh).  For our involution-heavy table 2A·2A = e, 3A·3A = 3A^{-1} = 3A^2.\n    const m = { \"e,e\":\"e,e\", \"e,2A\":\"e,2A\", \"2A,e\":\"2A,2A\",\n                \"2A,2A\":\"2A,e\", \"2A,2B\":\"2A,2A·2B_{not_in_table}\",\n                \"3A,3A\":\"3A,3A^2_{not_in_table}\", \"3A,e\":\"3A,3A\" };\n    return m[key] || key;\n  }\n  let cur = sel.value;\n  function render(){ display(cur, history); }\n  sel.addEventListener('change', () => { cur = sel.value; history = []; render(); });\n  $('#w-gen-S').addEventListener('click', () => {\n    const next = applyS(cur);\n    history.push('apply S to (' + cur.replace(',', ', ') + ')  →  (' + next.replace(',', ', ') + ')');\n    if(PAIRS[next]) cur = next;\n    render();\n  });\n  $('#w-gen-T').addEventListener('click', () => {\n    const next = applyT(cur);\n    history.push('apply T to (' + cur.replace(',', ', ') + ')  →  (' + next.replace(',', ', ') + ')');\n    if(PAIRS[next]) cur = next;\n    render();\n  });\n  $('#w-gen-reset').addEventListener('click', () => { cur = sel.value; history = []; render(); });\n  render();",
-            "hint": "select $(g,h)$; apply $S$ or $T$ to see covariance",
-            "readoutId": "w-gen-out"
-          }
+          "ref": "w-gen"
         },
         {
           "type": "raw",

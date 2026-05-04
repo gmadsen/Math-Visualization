@@ -88,7 +88,7 @@
     border:1px solid color-mix(in srgb, var(--motif-color, var(--cyan)) 28%, transparent)}
   .tag-card .tag-motif svg{width:30px;height:30px;display:block}
   .tag-card .tag-body{min-width:0}
-  .tag-card h2{margin:0 0 0.25rem;color:#fff;font-size:1.05rem;
+  .tag-card h2{margin:0 0 0.25rem;color:var(--ink);font-size:1.05rem;
     display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem}
   .tag-card h2 .count{font-family:ui-monospace,Menlo,monospace;font-size:0.78rem;
     color:var(--mute);font-weight:500;flex-shrink:0}
@@ -123,6 +123,7 @@
   .td-section[data-color="v"] h3{color:var(--violet)}
   .td-section[data-color="g"] h3{color:var(--green)}
   .td-section[data-color="c"] h3{color:var(--cyan)}
+  .td-section[data-color="o"] h3{color:var(--orange)}
   ul.td-list{list-style:none;padding:0;margin:0.4rem 0 0;
     display:grid;grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));gap:6px}
   ul.td-list li{margin:0}
@@ -316,18 +317,16 @@
       if (s && s.id) SECTION_META[s.id] = { color: s.color || 'b' };
     }
 
-    // Per-theme motif: 5 abstract SVGs × 7 palette colors keyed by hash(theme.id)
-    // gives 35 distinct combinations across the ~40 themes — enough that nearly
-    // every theme has a unique chip without authoring per-theme art. Hash is a
-    // simple charcode sum mod N (deterministic, stable across reloads).
+    // Per-theme motif: 5 abstract SVGs × 7 palette colors keyed by index in
+    // the controlled vocabulary so adjacent themes get different motifs AND
+    // colors (CRT: i mod 5 and i mod 7 are coprime, so the cell (i%5, i%7)
+    // is unique mod 35 — every one of the current 15 themes lands in a
+    // distinct cell). Pre-built lookup so tagMotif/colorIndex can use it.
     const TAG_COLORS = ['--yellow','--blue','--green','--pink','--violet','--cyan','--orange'];
-    function tagHash(id, mod){
-      let h = 0;
-      for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0;
-      return h % mod;
-    }
+    const TAG_INDEX = Object.create(null);
+    (data.tags?.tags || []).forEach((t, i) => { TAG_INDEX[t.id] = i; });
     function tagMotif(id){
-      const m = tagHash(id + '~motif', 5);
+      const m = (TAG_INDEX[id] ?? 0) % 5;
       // Use stroke=currentColor so the motif inherits --motif-color via CSS.
       const sw = 'stroke="currentColor" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"';
       switch(m){
@@ -356,13 +355,13 @@
       card.setAttribute('aria-pressed', 'false');
       card.setAttribute('aria-controls', 'tag-detail');
       const count = (byTag.get(t.id) || []).length;
-      const colorVar = TAG_COLORS[tagHash(t.id + '~color', TAG_COLORS.length)];
+      const colorVar = TAG_COLORS[(TAG_INDEX[t.id] ?? 0) % TAG_COLORS.length];
       card.style.setProperty('--motif-color', `var(${colorVar})`);
       card.style.color = `var(${colorVar})`;
       card.innerHTML = ''
-        + '<div class="tag-motif">' + tagMotif(t.id) + '</div>'
+        + '<div class="tag-motif" aria-hidden="true">' + tagMotif(t.id) + '</div>'
         + '<div class="tag-body">'
-          + '<h2 style="color:#fff">' + escapeHtml(t.title) + '<span class="count">' + count + '</span></h2>'
+          + '<h2>' + escapeHtml(t.title) + '<span class="count">' + count + '</span></h2>'
           + '<p class="blurb">' + escapeHtml(t.blurb) + '</p>'
         + '</div>';
       card.addEventListener('click', () => selectTag(t));
