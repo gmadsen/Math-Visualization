@@ -4,21 +4,21 @@ Forward-looking priorities for the notebook. Daily-workflow commands, one-time s
 
 When something ships, delete its bullet here. Don't keep a "Shipped recently" log — `git log` is the audit trail. The full step list of `rebuild.mjs` is in `scripts/rebuild.mjs` — refer to it rather than restating step names here.
 
-## Corpus snapshot (2026-05-02)
+## Corpus snapshot (2026-05-04)
 
 From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
-- 138 topics, 990 concepts, 31 capstones
+- 139 topics, 996 concepts, 31 capstones
 - 177 concepts lack a widget in their owning section
-- 1017 widgets, 100% registry-driven (PR #70 zero-baseline sweep — `audit-no-inline-widgets` now hard-fails on any non-registry widget)
-- Quiz tiers: v1 = 2927, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
-- Tag coverage: **99.1%** (981/990) across all 11 sections after PRs #84–#88 + #94–#98. The 9 intentionally-untagged concepts are catalog/TOC blurbs (`*-applications`), single-result rigidity (Apéry's $\zeta(3)$ irrationality), or observation-shaped concepts (lem-failure, algebraic-connectivity Fiedler). Vocabulary expanded in PR #94 with `equidistribution`, `density`, `cancellation`, `refinement` to cover analytic-NT methods and $\infty$-topos refinement properties. Tagging effort effectively complete.
+- 1023 widgets, 100% registry-driven (PR #70 zero-baseline sweep — `audit-no-inline-widgets` now hard-fails on any non-registry widget)
+- Quiz tiers: v1 = 2945, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
+- Tag coverage: **99.1%** across all 11 sections after PRs #84–#88 + #94–#98. The intentionally-untagged concepts are catalog/TOC blurbs (`*-applications`), single-result rigidity (Apéry's $\zeta(3)$ irrationality), or observation-shaped concepts (lem-failure, algebraic-connectivity Fiedler). Vocabulary expanded in PR #94 with `equidistribution`, `density`, `cancellation`, `refinement` to cover analytic-NT methods and $\infty$-topos refinement properties. Tagging effort effectively complete.
 
 ## Near-term tasks
 
 Items below come out of the algebra/analysis comparative audit shipped in PR #49.
 
-- **Math physics has no `hard` tier and Combinatorics has no `hard` tier.** 552 concepts lack a hard tier corpus-wide; 12 topics in those two sections × ~6 concepts × 2-3 questions each ≈ ~150 of the missing questions. Per "Out of scope", de-prioritized — listed here so the gap is visible, not actioned.
+- **Math physics has no `hard` tier and Combinatorics has no `hard` tier.** 558 concepts lack a hard tier corpus-wide; 12 topics in those two sections × ~6 concepts × 2-3 questions each ≈ ~150 of the missing questions. Per "Out of scope", de-prioritized — listed here so the gap is visible, not actioned.
 
 ## Bigger missing-topic candidates (from the comparative audit)
 
@@ -61,7 +61,7 @@ Items raised by the review-team agents that were deferred at merge time. **All q
 
 Items the user has explicitly de-prioritized. **Don't suggest these as "what next" without prompting.**
 
-- **Hard-tier quiz authoring** (552 concepts lack hard tier).
+- **Hard-tier quiz authoring** (558 concepts lack hard tier).
 - **Expert-tier authoring** (13 questions corpus-wide).
 
 These are real coverage gaps but not where the user wants to spend time. Per-session feedback memory: lowest-leverage direction, structural/architectural improvements come first.

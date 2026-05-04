@@ -7,6 +7,7 @@ window.__MVConcepts = {
       "motives",
       "hodge-theory",
       "langlands-program",
+      "special-relativity",
       "statistical-mechanics",
       "advanced-complex-analysis",
       "groebner-bases",
@@ -290,6 +291,7 @@ window.__MVConcepts = {
       "high-dimensional-geometry": "advanced",
       "mostow-rigidity": "advanced",
       "hamiltonians-classical-mechanics": "standard",
+      "special-relativity": "standard",
       "general-relativity": "advanced",
       "three-body-problem": "advanced",
       "designs": "standard",
@@ -638,6 +640,88 @@ window.__MVConcepts = {
           ],
           "tags": [
             "duality"
+          ]
+        }
+      ]
+    },
+    "special-relativity": {
+      "topic": "special-relativity",
+      "title": "Special relativity",
+      "page": "special-relativity.html",
+      "concepts": [
+        {
+          "id": "sr-postulates",
+          "title": "Einstein's postulates and inertial frames",
+          "anchor": "postulates",
+          "prereqs": [],
+          "blurb": "Two postulates: (1) the laws of physics are identical in every inertial frame; (2) the speed of light $c$ in vacuum is the same in every inertial frame, regardless of the source's motion. Together they replace Galilean relativity: velocity addition can no longer be linear, and simultaneity becomes frame-dependent.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "sr-lorentz",
+          "title": "Lorentz transformations",
+          "anchor": "lorentz",
+          "prereqs": [
+            "sr-postulates"
+          ],
+          "blurb": "A boost along $x$ between frames with relative speed $v$ is $t'=\\gamma(t-vx/c^2)$, $x'=\\gamma(x-vt)$, with $\\gamma=1/\\sqrt{1-v^2/c^2}$ and the transverse coordinates unchanged. Composing two boosts in the same direction yields a third with $v_3=(v_1+v_2)/(1+v_1v_2/c^2)$ — speeds add hyperbolically, not linearly, and $|v|<c$ is preserved.",
+          "tags": [
+            "group-action",
+            "classification"
+          ]
+        },
+        {
+          "id": "sr-minkowski",
+          "title": "Minkowski metric and the spacetime interval",
+          "anchor": "minkowski",
+          "prereqs": [
+            "sr-lorentz"
+          ],
+          "blurb": "Spacetime is $\\mathbb{R}^{1,3}$ with metric $\\eta=\\mathrm{diag}(-1,+1,+1,+1)$ in mostly-plus convention; the interval $\\Delta s^2=-c^2\\Delta t^2+\\Delta x^2+\\Delta y^2+\\Delta z^2$ is invariant under Lorentz transformations. The sign classifies separations as timelike ($\\Delta s^2<0$), lightlike (null cone $\\Delta s^2=0$), or spacelike, and the Lorentz group $\\mathrm{O}(1,3)$ is exactly the linear isometries of $\\eta$.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "sr-time-length",
+          "title": "Time dilation and length contraction",
+          "anchor": "time-length",
+          "prereqs": [
+            "sr-lorentz",
+            "sr-minkowski"
+          ],
+          "blurb": "A clock at rest in a frame moving at speed $v$ ticks slow by a factor $\\gamma$: a proper-time interval $\\Delta\\tau$ is observed as $\\Delta t=\\gamma\\Delta\\tau$. A rod of proper length $L_0$ aligned with its motion has lab-frame length $L=L_0/\\gamma$. Both are kinematic, frame-comparison statements — the moving observer sees nothing unusual locally.",
+          "tags": [
+            "duality",
+            "classification"
+          ]
+        },
+        {
+          "id": "sr-energy-momentum",
+          "title": "Relativistic energy-momentum",
+          "anchor": "energy-momentum",
+          "prereqs": [
+            "sr-minkowski"
+          ],
+          "blurb": "The 4-momentum $p^\\mu=(E/c,\\,\\vec p)$ transforms as a Lorentz vector and obeys $E^2=p^2c^2+m^2c^4$. At rest $E=mc^2$ — mass and energy are interconvertible — and in the low-velocity limit $E\\approx mc^2+\\tfrac12 mv^2$ recovers Newtonian kinetic energy plus a constant rest-energy offset.",
+          "tags": [
+            "classification"
+          ]
+        },
+        {
+          "id": "sr-causality",
+          "title": "Causality, light cones, and the relativity of simultaneity",
+          "anchor": "causality",
+          "prereqs": [
+            "sr-minkowski"
+          ],
+          "blurb": "Two events are causally connected only when timelike or null separated; the future light cone of an event is invariant under proper orthochronous Lorentz transformations. Spacelike-separated events admit frames in which their temporal order reverses — \"simultaneity\" is a frame-dependent slicing of spacetime — and superluminal signals would let one send messages into one's own past.",
+          "tags": [
+            "classification",
+            "foundation"
           ]
         }
       ]
@@ -14748,6 +14832,7 @@ window.__MVConcepts = {
         "topics": [
           "schrodinger-equation",
           "hamiltonians-classical-mechanics",
+          "special-relativity",
           "general-relativity",
           "three-body-problem",
           "statistical-mechanics",
@@ -14986,6 +15071,7 @@ window.__MVConcepts = {
     "high-dimensional-geometry": "advanced",
     "mostow-rigidity": "advanced",
     "hamiltonians-classical-mechanics": "standard",
+    "special-relativity": "standard",
     "general-relativity": "advanced",
     "three-body-problem": "advanced",
     "designs": "standard",
@@ -15087,11 +15173,11 @@ window.__MVConcepts = {
       "density": 0.47058823529411764
     },
     "Mathematical physics": {
-      "concepts": 45,
-      "intra": 42,
+      "concepts": 51,
+      "intra": 48,
       "crossOut": 37,
       "crossIn": 0,
-      "density": 0.8222222222222222
+      "density": 0.7254901960784313
     }
   }
 };

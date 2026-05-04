@@ -1,0 +1,520 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Special relativity</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"automorphic-forms-adelic","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"additive-number-theory":{"next":"quadratic-forms-genus-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"advanced-complex-analysis":{"next":null,"prev":"fixed-point-theorems","section":"Analysis","title":"Advanced complex analysis"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"moduli-spaces","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"mathematics-and-cryptography","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"mostow-rigidity","prev":"k-theory","section":"Geometry & topology","title":"Atiyah–Singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"etale-cohomology","section":"Algebraic geometry","title":"Calabi–Yau manifolds"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-topoi","prev":"infinity-categories","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":null,"prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"deformation-theory":{"next":"etale-cohomology","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"group-cohomology","prev":"homological","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"expanders","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"harmonic-analysis-fourier","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":null,"section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":"calabi-yau-manifolds","prev":"deformation-theory","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"deformation-theory","prev":"group-schemes","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":null,"prev":"designs","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"naive-set-theory","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":"advanced-complex-analysis","prev":"variational-methods","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"type-theory-and-hott","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"quantum-groups","prev":"lie-algebras","section":"Algebra & homological","title":"Galois cohomology and Brauer groups"},"galois-representations":{"next":"heights-arithmetic-geometry","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"gauge-theory":{"next":"string-theory","prev":"statistical-mechanics","section":"Mathematical physics","title":"Gauge theory"},"general-relativity":{"next":"schrodinger-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":"groebner-bases","prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"groebner-bases":{"next":null,"prev":"geometric-and-combinatorial-group-theory","section":"Algebra & homological","title":"Gröbner bases"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"lie-algebras","prev":"derived-categories","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"etale-fundamental-group","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"hamiltonians-classical-mechanics":{"next":"general-relativity","prev":"three-body-problem","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"spectral-theory","prev":"partial-differential-equations","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"analytic-number-theory","prev":"galois-representations","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":null,"prev":"mathematical-statistics","section":"Probability & statistics","title":"High dimensional geometry"},"hodge-theory":{"next":null,"prev":"motives","section":"Algebraic geometry","title":"Hodge theory"},"homological":{"next":"derived-categories","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"cocartesian-fibrations","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-topoi"},"information-theory":{"next":"large-deviations","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"stacks","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"ricci-flow","section":"Geometry & topology","title":"K-theory"},"knot-polynomials":{"next":"ricci-flow","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Knot polynomials"},"langlands-program":{"next":null,"prev":"vertex-operator-algebras","section":"Modular forms & L-functions","title":"Langlands program"},"large-deviations":{"next":"mathematical-statistics","prev":"information-theory","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"galois-cohomology-and-brauer","prev":"group-cohomology","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"mathematical-statistics":{"next":"high-dimensional-geometry","prev":"large-deviations","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"mirror-symmetry":{"next":"resolution-of-singularities","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"model-theory-basics":{"next":"computability-and-decidability","prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"modular-curves","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"algebraic-spaces","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"characteristic-classes","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":null,"prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Mostow rigidity"},"motives":{"next":"hodge-theory","prev":"resolution-of-singularities","section":"Algebraic geometry","title":"Motives"},"naive-set-theory":{"next":"first-order-logic-and-completeness","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"wavelets","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"harmonic-functions","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"stochastic-processes-and-martingales","prev":null,"section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"additive-number-theory","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"additive-number-theory","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"quantum-groups":{"next":"quaternions-octonions-and-division-algebras","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"quantum-groups","section":"Algebra & homological","title":"Quaternions, octonions, and division algebras"},"random-walks-and-mixing":{"next":"information-theory","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":"motives","prev":"mirror-symmetry","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"k-theory","prev":"knot-polynomials","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"characteristic-classes","prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":"statistical-mechanics","prev":"general-relativity","section":"Mathematical physics","title":"Schrödinger equation"},"sheaf-cohomology":{"next":"algebraic-de-rham-cohomology","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"algebraic-curves-higher-genus","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Sobolev spaces & distributions"},"special-relativity":{"next":null,"prev":"string-theory","section":"Mathematical physics","title":"Special relativity"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"wavelets","prev":"harmonic-functions","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"intersection-theory-chow","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"statistical-mechanics":{"next":"gauge-theory","prev":"schrodinger-equation","section":"Mathematical physics","title":"Statistical mechanics"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":"probability-theory","section":"Probability & statistics","title":"Stochastic processes and martingales"},"string-theory":{"next":"special-relativity","prev":"gauge-theory","section":"Mathematical physics","title":"String theory"},"symplectic-manifolds":{"next":"knot-polynomials","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"hamiltonians-classical-mechanics","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"type-theory-and-hott":{"next":"forcing-and-independence","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and HoTT"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"fixed-point-theorems","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":"langlands-program","prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"numerical-analysis","prev":"spectral-theory","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"model-theory-basics","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"ZFC and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="mathematical-physics" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#postulates">1&nbsp;Einstein's&nbsp;postulates&nbsp;and&nbsp;inertial&nbsp;frames</a>
+  <a href="#lorentz">2&nbsp;Lorentz&nbsp;transformations</a>
+  <a href="#minkowski">3&nbsp;Minkowski&nbsp;metric&nbsp;and&nbsp;the&nbsp;spacetime&nbsp;interval</a>
+  <a href="#time-length">4&nbsp;Time&nbsp;dilation&nbsp;and&nbsp;length&nbsp;contraction</a>
+  <a href="#energy-momentum">5&nbsp;Relativistic&nbsp;energy-momentum</a>
+  <a href="#causality">6&nbsp;Causality,&nbsp;light&nbsp;cones,&nbsp;and&nbsp;the&nbsp;relativity&nbsp;of&nbsp;simultaneity</a>
+  <a href="#connections">7&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Special relativity</h1>
+  <p class="sub">Two postulates — same physics in every inertial frame, same speed of light for every observer — force a single new geometry on spacetime. From there, time dilation, mass-energy equivalence, and a hard speed limit all fall out.</p>
+</section>
+
+<section id="postulates">
+<h2>1. Einstein's postulates and inertial frames</h2>
+
+<p>Special relativity rests on two assumptions that are stated tersely but constrain physics enormously:</p>
+
+<ol>
+  <li><strong>Principle of relativity.</strong> The laws of physics take the same form in every inertial frame.</li>
+  <li><strong>Invariance of $c$.</strong> The speed of light in vacuum is the same number $c\approx 2.998\times 10^8\text{ m/s}$ in every inertial frame, independent of the source's motion.</li>
+</ol>
+
+<p>An <em>inertial frame</em> is a frame in which a free particle moves in a straight line at constant speed — Newton's first law holds. The first postulate is a Galilean restatement; the second is what breaks Galilean kinematics. In Galilean physics, if you ride a train at speed $u$ and shine a flashlight forward, ground observers measure light going at $c+u$. Einstein takes the experimental fact that this is wrong (Michelson–Morley, 1887) and elevates it to a postulate.</p>
+
+<p>The two postulates jointly force several consequences before we have written down a single equation:</p>
+
+<ul>
+  <li><strong>Velocity addition can't be linear.</strong> If $u'=u-v$ Galilean, then a $u=c$ light pulse would have $u'=c-v\ne c$ in another frame, contradicting postulate 2.</li>
+  <li><strong>Simultaneity is frame-dependent.</strong> Two flashes equidistant from an observer in one frame need not be equidistant in another — the frames disagree on whether they are simultaneous.</li>
+  <li><strong>$c$ is a hard speed limit for matter and information.</strong> If a massive object reached $c$ in one frame, it would have a different (and impossible) status in another.</li>
+</ul>
+
+<div class="widget" id="w-vadd">
+  <div class="hd"><div class="ttl">Velocity addition: Galilean vs Einstein</div><div class="hint">slide each speed; both formulas are plotted</div></div>
+  <div class="row">
+    <label for="vadd-u">$u/c$ (object in frame S′)</label>
+    <input id="vadd-u" type="range" min="-0.99" max="0.99" step="0.01" value="0.6">
+  </div>
+  <div class="row">
+    <label for="vadd-v">$v/c$ (frame S′ vs S)</label>
+    <input id="vadd-v" type="range" min="-0.99" max="0.99" step="0.01" value="0.6">
+  </div>
+  <svg id="vadd-svg" viewBox="-200 -130 420 220" width="100%" height="240"><title>Galilean vs Einstein velocity addition</title></svg>
+  <div id="vadd-out" class="readout"></div>
+</div>
+
+<div class="quiz" data-concept="sr-postulates"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./special-relativity.html#lorentz">Special relativity</a> · Lorentz transformations</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="lorentz">
+<h2>2. Lorentz transformations</h2>
+
+<p>The transformation between two inertial frames in standard configuration — frame $S'$ moving along the $x$-axis at speed $v$ relative to $S$, with axes parallel and origins coinciding at $t=t'=0$ — is the <strong>Lorentz boost</strong>:</p>
+
+$$t' = \gamma\!\left(t - \frac{vx}{c^2}\right), \qquad x' = \gamma\bigl(x - vt\bigr), \qquad y'=y, \qquad z'=z,$$
+
+<p>where $\beta = v/c$ and the <em>Lorentz factor</em> is</p>
+
+$$\gamma \;=\; \frac{1}{\sqrt{1-\beta^2}}.$$
+
+<p>The inverse boost just flips the sign of $v$. Both $\gamma\to 1$ and $\beta\to 0$ recover the Galilean transformation $t'=t,\ x'=x-vt$ — the corrections are second-order in $v/c$ until $v$ becomes a substantial fraction of light speed.</p>
+
+<p>Composing two collinear boosts of speed $v_1$ and $v_2$ gives a third boost of speed</p>
+
+$$v_3 \;=\; \frac{v_1 + v_2}{1 + v_1 v_2/c^2},$$
+
+<p>the relativistic <strong>velocity-addition formula</strong>. Two values of $v$ less than $c$ produce a $v_3<c$; equality $v_3=c$ holds iff one input was already $c$. The boosts along $x$ form a one-parameter group under this composition, and the Lorentz group $\mathrm{O}(1,3)$ extends them with rotations and time-orientation flips.</p>
+
+<div class="widget" id="w-boost">
+  <div class="hd"><div class="ttl">Boost: how spacetime axes tilt</div><div class="hint">slide $\beta$ to watch $S'$ axes scissor in</div></div>
+  <div class="row">
+    <label for="boost-b">$\beta = v/c$</label>
+    <input id="boost-b" type="range" min="-0.95" max="0.95" step="0.01" value="0.6">
+  </div>
+  <svg id="boost-svg" viewBox="-180 -160 360 320" width="100%" height="320"><title>Lorentz boost on spacetime axes</title></svg>
+  <div id="boost-out" class="readout"></div>
+</div>
+
+<div class="quiz" data-concept="sr-lorentz"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./special-relativity.html#minkowski">Special relativity</a> · Minkowski metric and the spacetime interval</div>
+    <div><a href="./special-relativity.html#time-length">Special relativity</a> · Time dilation and length contraction</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="minkowski">
+<h2>3. Minkowski metric and the spacetime interval</h2>
+
+<p>Lorentz transformations preserve a single quadratic form. For two events with coordinate separation $(\Delta t, \Delta x, \Delta y, \Delta z)$, the <strong>spacetime interval</strong></p>
+
+$$\Delta s^2 \;=\; -\,c^2\Delta t^2 + \Delta x^2 + \Delta y^2 + \Delta z^2$$
+
+<p>is the same in every inertial frame. This is the special-relativistic analogue of Euclidean distance, and the choice of sign is exactly what makes time fundamentally different from space. In matrix form, write the <strong>Minkowski metric</strong></p>
+
+$$\eta_{\mu\nu} \;=\; \mathrm{diag}(-1,\,+1,\,+1,\,+1) \quad\text{(mostly-plus convention)}.$$
+
+<p>The Lorentz group is then the set of linear maps $\Lambda^\mu{}_\nu$ preserving $\eta$:</p>
+
+$$\eta_{\mu\nu}\,\Lambda^\mu{}_\rho\,\Lambda^\nu{}_\sigma \;=\; \eta_{\rho\sigma},$$
+
+<p>i.e. $\mathrm{O}(1,3)$. The sign of $\Delta s^2$ classifies separations:</p>
+
+<ul>
+  <li><strong>Timelike</strong>: $\Delta s^2 < 0$ — a massive observer can be present at both events; their proper time is $\Delta\tau = \sqrt{-\Delta s^2}/c$.</li>
+  <li><strong>Lightlike (null)</strong>: $\Delta s^2 = 0$ — only a photon can connect them.</li>
+  <li><strong>Spacelike</strong>: $\Delta s^2 > 0$ — no causal curve connects them; they are "elsewhere" relative to each other.</li>
+</ul>
+
+<div class="widget" id="w-cone">
+  <div class="hd"><div class="ttl">Light cone &amp; vector classification</div><div class="hint">drag the cyan tip; classification is live</div></div>
+  <svg id="cone-svg" viewBox="-160 -160 320 320" width="100%" height="340"><title>Light cone with classified vector</title></svg>
+  <div id="cone-out" class="readout">drag the cyan tip…</div>
+</div>
+
+<p>The Lorentz group has four connected components depending on whether $\Lambda$ flips spatial parity ($\det\Lambda = \pm 1$) and whether it reverses time orientation ($\Lambda^0{}_0 \gtrless 0$). The component containing the identity — proper orthochronous transformations $\mathrm{SO}^+(1,3)$ — is the physical symmetry group of inertial relabelings and is connected to the identity.</p>
+
+<div class="quiz" data-concept="sr-minkowski"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./special-relativity.html#causality">Special relativity</a> · Causality, light cones, and the relativity of simultaneity</div>
+    <div><a href="./special-relativity.html#energy-momentum">Special relativity</a> · Relativistic energy-momentum</div>
+    <div><a href="./special-relativity.html#time-length">Special relativity</a> · Time dilation and length contraction</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="time-length">
+<h2>4. Time dilation and length contraction</h2>
+
+<p>Two of the most-quoted consequences of the Lorentz transformations are kinematic. They follow by reading the boost equations on the right-hand events.</p>
+
+<p><strong>Time dilation.</strong> A clock at rest in $S'$ measures events at $\Delta x' = 0$. The two events are separated by proper time $\Delta\tau = \Delta t'$. In frame $S$, $\Delta t = \gamma \Delta t'$, so</p>
+
+$$\boxed{\;\Delta t \;=\; \gamma\,\Delta\tau\;}\qquad (\gamma \ge 1).$$
+
+<p>The lab clock reads more time than the moving clock — moving clocks run slow. Atmospheric muons reach the ground because the $\sim 2.2\,\mu\text{s}$ proper lifetime is dilated by $\gamma\sim 30$ for typical cosmic-ray speeds, giving them tens of microseconds in the lab frame, enough to travel ~10 km.</p>
+
+<p><strong>Length contraction.</strong> A rod of proper length $L_0$ at rest in $S'$ has endpoints at $x'=0$ and $x'=L_0$ at all times. Measuring its length in $S$ means recording its endpoints at the same time $t$. From $x' = \gamma(x-vt)$ at fixed $t$, $\Delta x' = \gamma\,\Delta x$, so</p>
+
+$$\boxed{\;L \;=\; L_0/\gamma\;}\qquad (L \le L_0).$$
+
+<p>The rod is shorter in the frame in which it moves. The contraction is along the direction of motion only; transverse dimensions are unaffected.</p>
+
+<div class="note">Both effects are <em>reciprocal</em>. From $S'$'s perspective, $S$'s clocks run slow and $S$'s rulers are contracted. There is no contradiction: each frame uses its own simultaneity convention, and "the moving clock at this instant" means different events in the two frames — the relativity of simultaneity (§6) glues everything together.</div>
+
+<div class="widget" id="w-gamma">
+  <div class="hd"><div class="ttl">Lorentz factor: γ as β grows</div><div class="hint">slide β; γ blows up at $c$</div></div>
+  <div class="row">
+    <label for="gam-b">$\beta = v/c$</label>
+    <input id="gam-b" type="range" min="0" max="0.999" step="0.001" value="0.6">
+  </div>
+  <svg id="gam-svg" viewBox="-200 -130 420 220" width="100%" height="240"><title>Lorentz factor γ vs β</title></svg>
+  <div id="gam-out" class="readout"></div>
+</div>
+
+<div class="quiz" data-concept="sr-time-length"></div>
+</section>
+
+<section id="energy-momentum">
+<h2>5. Relativistic energy-momentum</h2>
+
+<p>Newtonian momentum $\vec p = m\vec v$ is not preserved under Lorentz boosts; the right replacement is the <strong>4-momentum</strong></p>
+
+$$p^\mu \;=\; m\,\frac{dx^\mu}{d\tau} \;=\; \bigl(\gamma m c,\,\gamma m \vec v\bigr) \;=\; \bigl(E/c,\,\vec p\bigr).$$
+
+<p>It transforms as a Lorentz vector, and its Minkowski norm is invariant:</p>
+
+$$\eta_{\mu\nu}\,p^\mu p^\nu \;=\; -E^2/c^2 + |\vec p|^2 \;=\; -m^2 c^2.$$
+
+<p>Reading off the energy gives the <strong>relativistic energy-momentum relation</strong>:</p>
+
+$$\boxed{\;E^2 \;=\; |\vec p|^2 c^2 + m^2 c^4.\;}$$
+
+<p>At rest, $\vec p = 0$ and $E = m c^2$ — Einstein's mass-energy equivalence. For a slow-moving particle ($v\ll c$),</p>
+
+$$E \;=\; \gamma m c^2 \;\approx\; m c^2 + \tfrac12 m v^2 + O(v^4/c^2),$$
+
+<p>recovering Newtonian kinetic energy plus a (large, conventional) constant rest-energy offset $mc^2$. Photons satisfy $m=0$ and $E = |\vec p| c$ — they have momentum without mass.</p>
+
+<div class="widget" id="w-em">
+  <div class="hd"><div class="ttl">Energy: relativistic vs Newtonian</div><div class="hint">$E_\text{rel}/(mc^2)$ vs $1+\frac12\beta^2$</div></div>
+  <div class="row">
+    <label for="em-b">$\beta = v/c$</label>
+    <input id="em-b" type="range" min="0" max="0.99" step="0.005" value="0.5">
+  </div>
+  <svg id="em-svg" viewBox="-200 -130 420 220" width="100%" height="240"><title>Relativistic vs Newtonian energy</title></svg>
+  <div id="em-out" class="readout"></div>
+</div>
+
+<p>Two consequences worth recording: (1) accelerating a massive particle to $c$ would require infinite energy ($\gamma\to\infty$ as $\beta\to1$), which is the dynamic statement of the speed limit. (2) Mass-energy equivalence powers nuclear binding, fission, fusion, and pair production — the released $E = \Delta m\,c^2$ is the same energy that would have to be supplied to break the bound state.</p>
+
+<div class="quiz" data-concept="sr-energy-momentum"></div>
+</section>
+
+<section id="causality">
+<h2>6. Causality, light cones, and the relativity of simultaneity</h2>
+
+<p>The Lorentz-invariant interval splits spacetime around any event $p$ into the future light cone, the past light cone, and "elsewhere":</p>
+
+<ul>
+  <li><strong>Future light cone of $p$</strong>: timelike or null vectors with $\Delta t > 0$. Events here can be influenced by $p$.</li>
+  <li><strong>Past light cone</strong>: timelike or null vectors with $\Delta t < 0$. Events here can have influenced $p$.</li>
+  <li><strong>Elsewhere</strong>: spacelike-separated events. No causal curve connects them; their temporal order is frame-dependent.</li>
+</ul>
+
+<p>The future cone is preserved by every proper orthochronous Lorentz transformation, so the relation "$q$ lies in the causal future of $p$" is frame-independent. But the simultaneity slice — the set of events at a given $t$ — is not: under a boost, the slice tilts, and two spacelike-separated events that were simultaneous in $S$ are no longer simultaneous in $S'$.</p>
+
+<div class="widget" id="w-sim">
+  <div class="hd"><div class="ttl">Two flashes — simultaneous in whose frame?</div><div class="hint">drag β; watch the simultaneity slice tilt</div></div>
+  <div class="row">
+    <label for="sim-b">$\beta$ for boosted frame</label>
+    <input id="sim-b" type="range" min="-0.9" max="0.9" step="0.01" value="0.5">
+  </div>
+  <svg id="sim-svg" viewBox="-180 -160 360 320" width="100%" height="320"><title>Simultaneity slices in two frames</title></svg>
+  <div id="sim-out" class="readout"></div>
+</div>
+
+<p>Because the cyan and pink simultaneity slices are different lines through the origin, two spacelike-separated events on the cyan slice ($A$ and $B$ above, both at $t=0$) sit at different $t'$ values on the pink slice. Boost in the opposite direction and the temporal order reverses. This is harmless: $A$ and $B$ are spacelike-separated, so neither can causally influence the other, and a frame-dependent ordering is fine.</p>
+
+<p><strong>The faster-than-light prohibition.</strong> If a signal could travel faster than $c$ from $A$ to $B$, it would lie in the spacelike "elsewhere" of $A$. Then in some frames its endpoint $B$ precedes its start $A$ — a signal from your future arrives in your past. Closing this loop produces the standard time-travel paradox (the "tachyonic antitelephone"). Special relativity therefore demands that information and matter respect $|v|<c$ to remain consistent with causality.</p>
+
+<div class="quiz" data-concept="sr-causality"></div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     Connections outro — pedagogy reviewer's templated closure pattern.
+═══════════════════════════════════════════════════════════════════ -->
+<section id="connections">
+<h2>Connections</h2>
+
+<p>Special relativity is the kinematic skeleton; nearly every modern fundamental theory is built to be Lorentz-invariant from the start. The open frontier is not within SR — it is in how SR couples to gravity (general relativity bends spacetime so that "inertial frame" only makes sense locally) and to quantum mechanics (relativistic quantum field theory unifies the Lorentz group with quantum probability amplitudes; the spin-statistics theorem and antiparticle prediction follow).</p>
+
+<ul>
+<li><a href="./general-relativity.html#spacetime">General relativity — spacetime as a Lorentzian manifold</a> — replaces the flat Minkowski metric with a curved one; SR is the local tangent-space limit.</li>
+<li><a href="./schrodinger-equation.html">Schrödinger equation</a> — non-relativistic quantum mechanics; the SR analogues are the Klein–Gordon (scalar) and Dirac (spinor) equations.</li>
+<li><a href="./hamiltonians-classical-mechanics.html">Hamiltonians &amp; classical mechanics</a> — the non-relativistic limit one obtains from SR's Lagrangian $L=-mc^2\sqrt{1-\beta^2}$.</li>
+<li><a href="./gauge-theory.html">Gauge theory</a> — the relativistic field-theory framework that unifies electromagnetism (Maxwell's equations are already Lorentz-invariant) with weak and strong forces.</li>
+<li><a href="./quaternions-octonions-and-division-algebras.html">Quaternions, octonions, and division algebras</a> — Hamilton's quaternions arise as $\mathrm{Spin}(3)$, the universal cover of the spatial-rotation subgroup of $\mathrm{SO}^+(1,3)$; the full Lorentz group is covered by $\mathrm{SL}(2,\mathbb{C})$.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('special-relativity'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-04</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+</details>
+
+</body>
+</html>

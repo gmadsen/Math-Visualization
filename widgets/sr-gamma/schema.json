@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/sr-gamma/schema.json",
+  "title": "sr-gamma widget params",
+  "description": "Bespoke verbatim-renderer slug for the \"Lorentz factor: γ as β grows\" widget on the special-relativity topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+  "meta": {
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title",
+    "hint",
+    "bodyMarkup",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the widget root, or the inner-id prefix when the original markup carried no outer id."
+    },
+    "title": {
+      "type": "string",
+      "description": "Header title (rendered inside .hd > .ttl by the original markup)."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Header hint (rendered inside .hd > .hint)."
+    },
+    "bodyMarkup": {
+      "type": "string",
+      "description": "Verbatim markup for the widget — full `<div class=\"widget\">…</div>` block as it appears in the source HTML.",
+      "x-artifact": true
+    },
+    "bodyScript": {
+      "type": "string",
+      "description": "Verbatim driving `<script>…</script>` block, or empty string when the widget has no driving script.",
+      "x-artifact": true
+    }
+  }
+}

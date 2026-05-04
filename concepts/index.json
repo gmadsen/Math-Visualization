@@ -5,14 +5,6 @@
 
     "hodge-theory",
 
-
-
-
-
-
-
-
-
     "langlands-program",
 
 
@@ -20,6 +12,14 @@
 
 
 
+
+
+
+
+
+
+
+    "special-relativity",
 
     "statistical-mechanics",
     "advanced-complex-analysis",
@@ -304,6 +304,7 @@
     "high-dimensional-geometry": "advanced",
     "mostow-rigidity": "advanced",
     "hamiltonians-classical-mechanics": "standard",
+    "special-relativity": "standard",
     "general-relativity": "advanced",
     "three-body-problem": "advanced",
     "designs": "standard",

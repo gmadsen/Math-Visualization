@@ -49076,6 +49076,232 @@ window.MVQuizBank = {
       }
     }
   },
+  "special-relativity": {
+    "topic": "special-relativity",
+    "quizzes": {
+      "sr-postulates": {
+        "title": "Einstein's postulates and inertial frames",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Einstein's two postulates of special relativity are:",
+            "choices": [
+              "(1) Every inertial frame is at rest with respect to the ether; (2) light moves at $c$ relative to the ether.",
+              "(1) The laws of physics take the same form in every inertial frame; (2) the speed of light in vacuum is the same $c$ in every inertial frame.",
+              "(1) Energy and mass are equivalent; (2) accelerated frames are indistinguishable from gravitational fields.",
+              "(1) Time is absolute; (2) space is absolute."
+            ],
+            "answer": 1,
+            "explain": "The relativity principle (covariance of physical laws across inertial frames) plus the constancy of $c$ are Einstein's two postulates. Choice 3 mixes in $E=mc^2$ (a derived consequence) and the equivalence principle (which is general, not special, relativity)."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the constancy of $c$ in every inertial frame force Galilean velocity addition $u' = u - v$ to fail?",
+            "choices": [
+              "Because Galilean addition is not a Lie group law.",
+              "Because if light moves at $c$ in frame $S$, Galilean addition would give a different speed $c-v$ in $S'$, contradicting postulate 2.",
+              "Because Galilean addition only works for non-relativistic speeds, and light is always non-relativistic.",
+              "Because $c$ is infinite."
+            ],
+            "answer": 1,
+            "explain": "Galilean addition predicts the speed of a $c$-pulse in $S'$ to be $c-v$, which is only $c$ if $v=0$. To preserve invariance of $c$ for all frames, the addition law must be nonlinear — the relativistic formula $(u+v)/(1+uv/c^2)$."
+          },
+          {
+            "type": "numeric",
+            "q": "An object moves at $u=0.8c$ in frame $S'$, which itself moves at $v=0.6c$ relative to $S$. Compute the object's speed in $S$ (in units of $c$, to two decimal places).",
+            "answer": 0.95,
+            "tol": 0.01,
+            "explain": "$(0.8+0.6)/(1+0.48) = 1.4/1.48 \\approx 0.946$. Note Galilean addition would give $1.4c$, exceeding the speed of light."
+          }
+        ]
+      },
+      "sr-lorentz": {
+        "title": "Lorentz transformations",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which of the following is the Lorentz boost along $x$ with velocity $v$?",
+            "choices": [
+              "$t' = t,\\quad x' = x - vt$",
+              "$t' = \\gamma(t - vx/c^2),\\quad x' = \\gamma(x - vt)$",
+              "$t' = \\gamma t,\\quad x' = \\gamma x$",
+              "$t' = t + vx/c^2,\\quad x' = x - v t$"
+            ],
+            "answer": 1,
+            "explain": "The Lorentz boost mixes $t$ and $x$ symmetrically by $\\gamma$. Choice 0 is the Galilean limit; choice 2 is missing the cross-coupling that mixes time with space."
+          },
+          {
+            "type": "numeric",
+            "q": "Compute $\\gamma$ at $\\beta = v/c = 0.6$ (to three decimal places).",
+            "answer": 1.25,
+            "tol": 0.005,
+            "explain": "$\\gamma = 1/\\sqrt{1 - 0.36} = 1/\\sqrt{0.64} = 1/0.8 = 1.25$."
+          },
+          {
+            "type": "mcq",
+            "q": "Composing two collinear boosts of speeds $v_1$ and $v_2$ gives a third boost of speed $v_3$. What is $v_3$?",
+            "choices": [
+              "$v_1 + v_2$",
+              "$\\dfrac{v_1 + v_2}{1 + v_1 v_2/c^2}$",
+              "$\\sqrt{v_1^2 + v_2^2}$",
+              "$\\dfrac{v_1 v_2}{c}$"
+            ],
+            "answer": 1,
+            "explain": "The relativistic velocity-addition formula. It guarantees $|v_3|<c$ whenever $|v_1|,|v_2|<c$, and gives $v_3 = c$ iff one input was already $c$."
+          }
+        ]
+      },
+      "sr-minkowski": {
+        "title": "Minkowski metric and the spacetime interval",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In mostly-plus Minkowski metric $\\eta = \\mathrm{diag}(-1,+1,+1,+1)$, what is the spacetime interval $\\Delta s^2$ between two events with separation $(\\Delta t, \\Delta x, \\Delta y, \\Delta z)$?",
+            "choices": [
+              "$c^2\\Delta t^2 + \\Delta x^2 + \\Delta y^2 + \\Delta z^2$",
+              "$-c^2\\Delta t^2 + \\Delta x^2 + \\Delta y^2 + \\Delta z^2$",
+              "$\\Delta x^2 + \\Delta y^2 + \\Delta z^2$",
+              "$c^2\\Delta t^2 - \\Delta x^2 - \\Delta y^2 - \\Delta z^2$"
+            ],
+            "answer": 1,
+            "explain": "In mostly-plus signature, $\\Delta s^2 = -c^2\\Delta t^2 + |\\Delta\\vec x|^2$. Choice 3 is the same quantity in the mostly-minus convention $(+,-,-,-)$ with the opposite sign — both conventions are in use; pick one and stick with it."
+          },
+          {
+            "type": "numeric",
+            "q": "Two events have separation $(c\\Delta t, \\Delta x, \\Delta y, \\Delta z) = (5, 3, 0, 0)$ (in some unit). Compute $\\Delta s^2$ in the mostly-plus convention.",
+            "answer": -16,
+            "tol": 0.0001,
+            "explain": "$\\Delta s^2 = -25 + 9 = -16$. Negative, so the events are timelike-separated; a massive observer can be present at both."
+          },
+          {
+            "type": "mcq",
+            "q": "Two events are spacelike-separated. Which statement is TRUE?",
+            "choices": [
+              "There exists a frame in which they are simultaneous.",
+              "They lie on the future light cone of each other.",
+              "A massive observer can be present at both.",
+              "Their proper time separation is positive."
+            ],
+            "answer": 0,
+            "explain": "Spacelike separation $\\Delta s^2 > 0$ means there is a Lorentz boost making $\\Delta t' = 0$ — a frame in which they are simultaneous (and indeed spatially separated by $\\sqrt{\\Delta s^2}$). No causal curve connects them, so 1 and 2 are false; proper time is only defined along timelike worldlines, so 3 is meaningless."
+          }
+        ]
+      },
+      "sr-time-length": {
+        "title": "Time dilation and length contraction",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A clock at rest in a frame moving at speed $v$ relative to the lab measures a proper time interval $\\Delta\\tau$ between two of its ticks. The lab measures the interval as $\\Delta t$. Which holds?",
+            "choices": [
+              "$\\Delta t = \\Delta\\tau / \\gamma$ (lab clock runs slow)",
+              "$\\Delta t = \\Delta\\tau$ (clocks always agree)",
+              "$\\Delta t = \\gamma\\Delta\\tau$ (moving clock runs slow as seen from lab)",
+              "$\\Delta t = \\gamma^2 \\Delta\\tau$"
+            ],
+            "answer": 2,
+            "explain": "Moving clocks run slow by a factor $\\gamma$: a tick separated by proper time $\\Delta\\tau$ on the moving clock takes lab-frame time $\\Delta t = \\gamma \\Delta\\tau$, which is longer."
+          },
+          {
+            "type": "numeric",
+            "q": "A muon's proper lifetime is $2.2\\,\\mu\\text{s}$. Travelling at $\\beta = 0.99$ (so $\\gamma \\approx 7.09$), what is its lifetime as measured in the lab, in microseconds (to one decimal place)?",
+            "answer": 15.6,
+            "tol": 0.3,
+            "explain": "$\\Delta t = \\gamma \\Delta\\tau \\approx 7.09 \\times 2.2 \\approx 15.6\\,\\mu\\text{s}$. This is why atmospheric muons reach the ground rather than decaying within their proper lifetime."
+          },
+          {
+            "type": "mcq",
+            "q": "A rod of proper length $L_0 = 1\\text{ m}$ flies past you at $\\gamma = 2$. Its length in your (lab) frame is:",
+            "choices": [
+              "$2\\text{ m}$",
+              "$1\\text{ m}$ (same as proper length, lengths don't change)",
+              "$0.5\\text{ m}$ (length-contracted by $1/\\gamma$)",
+              "Depends on which end you measure first"
+            ],
+            "answer": 2,
+            "explain": "Length contraction: $L = L_0/\\gamma = 1/2 = 0.5\\text{ m}$. The contraction is along the direction of motion only; transverse dimensions are unchanged."
+          }
+        ]
+      },
+      "sr-energy-momentum": {
+        "title": "Relativistic energy-momentum",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What is the relativistic energy-momentum relation for a particle of rest mass $m$?",
+            "choices": [
+              "$E = \\tfrac12 m v^2$",
+              "$E = m c^2$ exactly (always, for any speed)",
+              "$E^2 = |\\vec p|^2 c^2 + m^2 c^4$",
+              "$E = m c^2 + |\\vec p| c$"
+            ],
+            "answer": 2,
+            "explain": "$E^2 - |\\vec p|^2 c^2 = m^2 c^4$ is the Lorentz-invariant length of the 4-momentum. Choice 1 holds only at rest; choice 0 is the Newtonian kinetic energy."
+          },
+          {
+            "type": "numeric",
+            "q": "A particle has rest mass $m$ and moves at $\\beta = 0.6$. Compute its total energy in units of $mc^2$ (to two decimal places).",
+            "answer": 1.25,
+            "tol": 0.01,
+            "explain": "$E = \\gamma m c^2 = 1.25\\, m c^2$. The kinetic energy is $E - mc^2 = 0.25\\, mc^2$, much larger than the Newtonian $\\tfrac12 m v^2 = 0.18\\, m c^2$."
+          },
+          {
+            "type": "mcq",
+            "q": "Which is TRUE for a photon (rest mass $m=0$)?",
+            "choices": [
+              "Photons have $E = 0$ and $|\\vec p| = 0$.",
+              "Photons satisfy $E = |\\vec p| c$ — momentum without rest mass.",
+              "Photons have $\\gamma = 1$.",
+              "Photons travel slower than $c$ when redshifted."
+            ],
+            "answer": 1,
+            "explain": "Setting $m=0$ in $E^2 = p^2 c^2 + m^2 c^4$ yields $E = |\\vec p| c$. Photons carry momentum (e.g. radiation pressure) despite zero rest mass."
+          }
+        ]
+      },
+      "sr-causality": {
+        "title": "Causality, light cones, and the relativity of simultaneity",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Two events are timelike-separated, with event $A$ in the past light cone of event $B$. Under a proper orthochronous Lorentz boost, what happens to their time ordering?",
+            "choices": [
+              "The order can be reversed if the boost is large enough.",
+              "The order is preserved — $A$ remains before $B$ in every inertial frame.",
+              "The order depends on whether $A$ and $B$ have the same spatial coordinates.",
+              "The order is preserved only in frames where $A$ and $B$ are at rest."
+            ],
+            "answer": 1,
+            "explain": "Proper orthochronous Lorentz transformations preserve the future light cone, hence the time-ordering of timelike-separated events. Only spacelike-separated events admit frames in which their temporal order reverses."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the existence of faster-than-light signals violate causality in special relativity?",
+            "choices": [
+              "Because no force can accelerate matter to $c$.",
+              "Because faster-than-light signals would have negative kinetic energy.",
+              "Because the receive event would be spacelike-separated from the send event, and one could find a frame in which the receive precedes the send — closing two such signals creates a causal loop.",
+              "Because relativistic mass diverges as $v \\to c$."
+            ],
+            "answer": 2,
+            "explain": "An FTL signal $A \\to B$ has $A$ and $B$ spacelike-separated, so some frame puts $B$ before $A$. Sending a reply by FTL from $B$ closes a loop: the reply arrives at $A$ before the original was sent — the tachyonic antitelephone."
+          },
+          {
+            "type": "mcq",
+            "q": "Two flashbulbs $A$ and $B$, at rest a distance $L$ apart in frame $S$, fire simultaneously at $t = 0$. In a boosted frame $S'$ moving in the $+x$ direction relative to $S$:",
+            "choices": [
+              "$A$ and $B$ still fire simultaneously, by the relativity principle.",
+              "$A$ and $B$ fire at different times in $S'$ — simultaneity is frame-dependent for spacelike-separated events.",
+              "$A$ and $B$ are now timelike-separated in $S'$, so one causes the other.",
+              "$A$ and $B$ fire at the same time only if $L = c\\Delta t$."
+            ],
+            "answer": 1,
+            "explain": "The events $A$ and $B$ are spacelike-separated (distance $L$, no time gap). In $S'$, $\\Delta t' = -\\gamma v L/c^2 \\ne 0$, so they are no longer simultaneous. There is no contradiction: spacelike-separated events have no causal relationship, so reordering is harmless."
+          }
+        ]
+      }
+    }
+  },
   "spectral-graph-theory": {
     "topic": "spectral-graph-theory",
     "quizzes": {
