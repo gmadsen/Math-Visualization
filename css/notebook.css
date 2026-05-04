@@ -50,12 +50,54 @@ html[data-hide-widgets]:not([data-hide-quizzes]) .widget.quiz {
 }
 
 
+/* ---------- 0b. Cross-page nav-links row ---------- */
+
+/* Topic pages: the breadcrumb-nav-auto block (injected by
+ * scripts/inject-breadcrumb.mjs) carries a row of cross-page nav links
+ * (Pathway, Tours, History, Themes, Mindmap, Search) so topic readers can
+ * hop directly to any landing page without bouncing back through index.html.
+ * Landing pages without their own `.top-nav .nav-links` rules (pathway,
+ * mindmap, tours, progress, review, search, history) inherit this baseline.
+ * Landing pages WITH their own `.top-nav .nav-links` styling (index.html,
+ * tags.html) keep theirs — `.top-nav .nav-links` has higher specificity. */
+.nav-links {
+  display: inline-flex;
+  gap: 0.25rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0 0.5rem;
+}
+.nav-links a.nav-link {
+  color: var(--mute);
+  text-decoration: none;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  font-family: var(--font-display);
+  transition: color 120ms ease, background 120ms ease;
+}
+.nav-links a.nav-link:hover {
+  color: var(--ink);
+  background: var(--panel2);
+}
+.nav-links a.nav-link.accent {
+  color: var(--cyan);
+}
+
+
 /* ---------- 1. Typography ---------- */
 
 :root {
   --font-body:    'Iowan Old Style', 'Charter', 'Source Serif 4', 'Source Serif Pro', Georgia, 'Times New Roman', serif;
   --font-display: system-ui, -apple-system, BlinkMacSystemFont, 'Inter', 'Inter Tight', 'Segoe UI', Roboto, sans-serif;
   --font-mono:    ui-monospace, SFMono-Regular, Menlo, Consolas, 'Cascadia Mono', monospace;
+
+  /* 7th accent — disambiguates Mathematical physics from Analysis (which both
+   * mapped to --pink in the original 6-color palette). Defined here so the
+   * variable is available everywhere notebook.css is loaded; theme-light.css
+   * provides a desaturated counterpart for the light theme. */
+  --orange: #f4a261;
 }
 
 body {

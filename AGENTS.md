@@ -132,7 +132,7 @@ Recurring gotchas collected from real fan-outs. Skim this list before editing; r
 
 ## House conventions
 
-- **Colors** live in `:root`: `--bg`, `--panel`, `--panel2`, `--ink`, `--mute`, `--line`, plus accents `--yellow --blue --green --pink --violet --cyan`. Use these vars, never hex literals inside widgets.
+- **Colors** live in `:root`: `--bg`, `--panel`, `--panel2`, `--ink`, `--mute`, `--line`, plus accents `--yellow --blue --green --pink --violet --cyan --orange`. Use these vars, never hex literals inside widgets. (`--orange` lives in `css/notebook.css`'s `:root` and the light override in `css/theme-light.css`; topic-page inline `<style>` blocks define the original six.)
 - **KaTeX delimiters**: `$…$` inline, `$$…$$` display, plus `\(…\)` and `\[…\]`. Configured in the loader script — don't invent new ones.
 - **Widget chrome**: wrap interactives in `<div class="widget">` with `<div class="hd"><div class="ttl">…</div><div class="hint">…</div></div>`. Use `.readout`, `.row`, `.note`, `.ok`, `.bad` for standard sub-elements.
 - **Level badges** on index cards: `<span class="level prereq">prereq</span>`, `advanced`, or `capstone`. Match the roadmap's classification.
@@ -151,8 +151,8 @@ Recurring gotchas collected from real fan-outs. Skim this list before editing; r
   8. **Modular forms & L-functions** (cyan/pink) — upper half-plane, modular forms, theta, Hecke, Dirichlet/Euler products, analytic continuation, zeta values, L-functions, Galois reps, moonshine, Sato–Tate, BSD, modularity & FLT.
   9. **Algebraic geometry** (green/cyan/violet) — projective plane, Bézout, schemes, sheaves, morphisms, functor of points, elliptic curves, singular cubics, moduli, sheaf cohomology, stacks, étale cohomology, algebraic spaces, Chow, π₁ét, higher-genus curves, group schemes, deformation theory, algebraic de Rham.
   10. **Combinatorics & graph theory** (yellow/green) — spectral graphs, matroids, probabilistic method, extremal, simplicial complexes, expanders, Ramsey, additive NT, knot polynomials.
-  11. **Mathematical physics** (pink/violet) — classical Hamiltonians, statistical mechanics, Schrödinger, gauge theory.
-- **Card color palette**: each card uses one of the six accent colors via the `.y`, `.b`, `.p`, `.g`, `.c`, `.v` classes on its thumb SVG. Pick a color that harmonizes with the section rather than strictly matching — variety inside a section is fine.
+  11. **Mathematical physics** (orange/violet) — classical Hamiltonians, statistical mechanics, Schrödinger, gauge theory.
+- **Card color palette**: each card uses one of the seven accent colors via the `.y`, `.b`, `.p`, `.g`, `.c`, `.v`, `.o` classes on its thumb SVG. Pick a color that harmonizes with the section rather than strictly matching — variety inside a section is fine. (`--orange` was added in PR #83 to give Mathematical physics its own section accent — Analysis kept `--pink`.)
 - **Cross-page callbacks**: when a concept's `prereqs` reference an id owned by another topic, the section ends with an `<aside class="callback">` listing "See also" links to the target anchors. Insertions are mechanical — run `node scripts/audit-callbacks.mjs --fix` after editing any `concepts/*.json` prereqs. The companion audit (`node scripts/audit-callbacks.mjs`, no flag) and a light smoke-test guard both enforce coverage.
 - **Per-page changelog footers**: every topic HTML ends with a `<details class="changelog">` block seeded from `git log`. New content PRs that touch a topic page should prepend a changelog row via re-running `scripts/inject-changelog-footer.mjs` — it rebuilds the block in place, picking up any new commits to the page.
 

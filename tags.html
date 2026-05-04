@@ -75,13 +75,20 @@
     gap:12px;margin:1.4rem 0}
   .tag-card{background:var(--panel);border:1px solid var(--line);border-radius:10px;
     padding:0.95rem 1.05rem;cursor:pointer;
-    transition:transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease}
+    transition:transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+    display:grid;grid-template-columns:48px 1fr;gap:0.85rem;align-items:start}
   .tag-card:hover{transform:translateY(-2px);border-color:var(--cyan);
     box-shadow:0 6px 18px color-mix(in srgb, var(--cyan) 18%, transparent)}
   .tag-card.active{border-color:var(--yellow);
     box-shadow:0 6px 22px color-mix(in srgb, var(--yellow) 22%, transparent);
     transform:translateY(-2px)}
-  .tag-card h2{margin:0 0 0.25rem;color:#fff;font-size:1.05rem;
+  .tag-card .tag-motif{width:48px;height:48px;border-radius:8px;
+    background:color-mix(in srgb, var(--motif-color, var(--cyan)) 14%, var(--panel2));
+    display:flex;align-items:center;justify-content:center;
+    border:1px solid color-mix(in srgb, var(--motif-color, var(--cyan)) 28%, transparent)}
+  .tag-card .tag-motif svg{width:30px;height:30px;display:block}
+  .tag-card .tag-body{min-width:0}
+  .tag-card h2{margin:0 0 0.25rem;color:var(--ink);font-size:1.05rem;
     display:flex;justify-content:space-between;align-items:baseline;gap:0.5rem}
   .tag-card h2 .count{font-family:ui-monospace,Menlo,monospace;font-size:0.78rem;
     color:var(--mute);font-weight:500;flex-shrink:0}
@@ -116,6 +123,7 @@
   .td-section[data-color="v"] h3{color:var(--violet)}
   .td-section[data-color="g"] h3{color:var(--green)}
   .td-section[data-color="c"] h3{color:var(--cyan)}
+  .td-section[data-color="o"] h3{color:var(--orange)}
   ul.td-list{list-style:none;padding:0;margin:0.4rem 0 0;
     display:grid;grid-template-columns:repeat(auto-fill, minmax(260px, 1fr));gap:6px}
   ul.td-list li{margin:0}
@@ -183,7 +191,10 @@
     <div class="nav-links">
       <a class="nav-link" href="./index.html">← Notebook</a>
       <a class="nav-link" href="./pathway.html">Pathway</a>
+      <a class="nav-link" href="./tours.html">Tours</a>
+      <a class="nav-link" href="./history.html">History</a>
       <a class="nav-link accent" href="./tags.html">Themes</a>
+      <a class="nav-link" href="./mindmap.html">Mindmap</a>
       <a class="nav-link" href="./search.html">Search</a>
       <a class="nav-link" href="./latex-cheatsheet.html">LaTeX cheatsheet</a>
       <a class="nav-link" href="./progress.html">Your progress</a>
@@ -306,6 +317,33 @@
       if (s && s.id) SECTION_META[s.id] = { color: s.color || 'b' };
     }
 
+    // Per-theme motif: 5 abstract SVGs × 7 palette colors keyed by index in
+    // the controlled vocabulary so adjacent themes get different motifs AND
+    // colors (CRT: i mod 5 and i mod 7 are coprime, so the cell (i%5, i%7)
+    // is unique mod 35 — every one of the current 15 themes lands in a
+    // distinct cell). Pre-built lookup so tagMotif/colorIndex can use it.
+    const TAG_COLORS = ['--yellow','--blue','--green','--pink','--violet','--cyan','--orange'];
+    const TAG_INDEX = Object.create(null);
+    (data.tags?.tags || []).forEach((t, i) => { TAG_INDEX[t.id] = i; });
+    function tagMotif(id){
+      const m = (TAG_INDEX[id] ?? 0) % 5;
+      // Use stroke=currentColor so the motif inherits --motif-color via CSS.
+      const sw = 'stroke="currentColor" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"';
+      switch(m){
+        case 0: // duality / pair — two intersecting circles
+          return `<svg viewBox="0 0 24 24" ${sw}><circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/></svg>`;
+        case 1: // sequence — arrow trail
+          return `<svg viewBox="0 0 24 24" ${sw}><path d="M3 12h6m0 0l-2-2m2 2l-2 2"/><path d="M11 12h6m0 0l-2-2m2 2l-2 2"/></svg>`;
+        case 2: // covering / lattice — 2x2 grid
+          return `<svg viewBox="0 0 24 24" ${sw}><rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><rect x="13" y="13" width="7" height="7" rx="1"/></svg>`;
+        case 3: // fibration / stack — three nested arches
+          return `<svg viewBox="0 0 24 24" ${sw}><path d="M3 18h18"/><path d="M5 14a7 7 0 0114 0"/><path d="M8 10a4 4 0 018 0"/></svg>`;
+        case 4: // moduli / parameter — concentric circles
+        default:
+          return `<svg viewBox="0 0 24 24" ${sw}><circle cx="12" cy="12" r="2"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="9.5"/></svg>`;
+      }
+    }
+
     // Render tag cards in vocabulary order.
     grid.innerHTML = '';
     for (const t of data.tags.tags) {
@@ -317,9 +355,15 @@
       card.setAttribute('aria-pressed', 'false');
       card.setAttribute('aria-controls', 'tag-detail');
       const count = (byTag.get(t.id) || []).length;
+      const colorVar = TAG_COLORS[(TAG_INDEX[t.id] ?? 0) % TAG_COLORS.length];
+      card.style.setProperty('--motif-color', `var(${colorVar})`);
+      card.style.color = `var(${colorVar})`;
       card.innerHTML = ''
-        + '<h2>' + escapeHtml(t.title) + '<span class="count">' + count + '</span></h2>'
-        + '<p class="blurb">' + escapeHtml(t.blurb) + '</p>';
+        + '<div class="tag-motif" aria-hidden="true">' + tagMotif(t.id) + '</div>'
+        + '<div class="tag-body">'
+          + '<h2>' + escapeHtml(t.title) + '<span class="count">' + count + '</span></h2>'
+          + '<p class="blurb">' + escapeHtml(t.blurb) + '</p>'
+        + '</div>';
       card.addEventListener('click', () => selectTag(t));
       card.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectTag(t); }

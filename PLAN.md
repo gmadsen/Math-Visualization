@@ -28,6 +28,11 @@ Listed for the long view; each is a multi-session lift.
 
 - **Algebra side:** `algebraic-K-theory-foundations` (homological cluster currently stops at derived categories); `model-categories` (bridge to higher-categories).
 - **Analysis side:** `microlocal-analysis` (wavefront sets, pseudodifferential operators — natural sequel to `sobolev-spaces-distributions` + `pde`); `geometric-measure-theory` (BV, sets of finite perimeter, rectifiability, area-coarea); `semigroup-theory-evolution-equations` (Hille-Yosida, analytic semigroups).
+- **Mathematical physics side:** `special-relativity` (4-vectors, Minkowski metric, Lorentz transforms, mass-energy); `klein-gordon-equation` (relativistic scalar wave eq, wave-vs-particle); `dirac-equation` (spinor formulation, the antiparticle prediction); `quantum-field-theory` (path integrals, perturbation theory, gauge fields beyond §`gauge-theory`'s classical view). Currently the `mathematical-physics` section stops at the schrodinger / hamiltonians / classical-gauge level; relativistic + field-theoretic content is missing.
+
+## Content-gap audit — long-running
+
+A systematic pass: for each section, compare against a canonical reference (PCM, nLab, Wikipedia) and flag the missing standard topics. The sub-bullets above (algebra/analysis/math-physics) are partial outputs of such a pass; a more thorough sweep would surface gaps in number theory, algebraic geometry, geometry-and-topology, and modular forms too. Not actioned per session — the right cadence is one section at a time, after a topic-drafting batch lands.
 
 ## Authoring polish — small
 
