@@ -4176,7 +4176,10 @@ window.__MVConcepts = {
           "prereqs": [
             "cayley-tables"
           ],
-          "blurb": "Homomorphisms, quotient structures, and finite fields connect symmetry algebra to arithmetic and coding theory."
+          "blurb": "Homomorphisms, quotient structures, and finite fields connect symmetry algebra to arithmetic and coding theory.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "ring-ideals",
@@ -4185,7 +4188,11 @@ window.__MVConcepts = {
           "prereqs": [
             "quotients-homomorphisms"
           ],
-          "blurb": "An ideal I of a commutative ring R is the kernel of some homomorphism out of R; quotienting by it produces R/I, and prime versus maximal ideals distinguish integral domains from fields."
+          "blurb": "An ideal I of a commutative ring R is the kernel of some homomorphism out of R; quotienting by it produces R/I, and prime versus maximal ideals distinguish integral domains from fields.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
         },
         {
           "id": "field-extensions-basics",
@@ -4194,7 +4201,10 @@ window.__MVConcepts = {
           "prereqs": [
             "ring-ideals"
           ],
-          "blurb": "Adjoining a root of an irreducible polynomial m(x) over F produces the extension F[x]/(m), a field of degree deg m; algebraic elements carry a unique monic minimal polynomial."
+          "blurb": "Adjoining a root of an irreducible polynomial m(x) over F produces the extension F[x]/(m), a field of degree deg m; algebraic elements carry a unique monic minimal polynomial.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "subgroups-cosets-lagrange",
@@ -4215,7 +4225,10 @@ window.__MVConcepts = {
           "prereqs": [
             "subgroups-cosets-lagrange"
           ],
-          "blurb": "When N is normal in G the coset set G/N inherits a group structure; the three isomorphism theorems describe how homomorphisms, intersections, and chains of normal subgroups interact with quotients."
+          "blurb": "When N is normal in G the coset set G/N inherits a group structure; the three isomorphism theorems describe how homomorphisms, intersections, and chains of normal subgroups interact with quotients.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "group-actions-burnside",
@@ -4263,7 +4276,11 @@ window.__MVConcepts = {
           "prereqs": [
             "ring-ideals"
           ],
-          "blurb": "Over a field k, k[x] is a Euclidean domain whose irreducibles are the building blocks of extensions; Eisenstein's criterion, rational-root testing, and Gauss's lemma give practical tools to detect irreducibility."
+          "blurb": "Over a field k, k[x] is a Euclidean domain whose irreducibles are the building blocks of extensions; Eisenstein's criterion, rational-root testing, and Gauss's lemma give practical tools to detect irreducibility.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
         },
         {
           "id": "semidirect-products-ses",
@@ -4399,7 +4416,10 @@ window.__MVConcepts = {
           "prereqs": [
             "functors-natural-transformations"
           ],
-          "blurb": "A monoidal category has an associative bifunctor and a unit, up to coherent natural isomorphism; it is the setting for tensor products, braidings, and algebraic structures internal to a category."
+          "blurb": "A monoidal category has an associative bifunctor and a unit, up to coherent natural isomorphism; it is the setting for tensor products, braidings, and algebraic structures internal to a category.",
+          "tags": [
+            "refinement"
+          ]
         },
         {
           "id": "yoneda-lemma",
@@ -4472,7 +4492,10 @@ window.__MVConcepts = {
           "prereqs": [
             "functors-natural-transformations"
           ],
-          "blurb": "A 2-category has objects, 1-morphisms, and 2-morphisms between 1-morphisms; $\\mathsf{Cat}$ is the archetype, with functors as 1-cells and natural transformations as 2-cells."
+          "blurb": "A 2-category has objects, 1-morphisms, and 2-morphisms between 1-morphisms; $\\mathsf{Cat}$ is the archetype, with functors as 1-cells and natural transformations as 2-cells.",
+          "tags": [
+            "refinement"
+          ]
         },
         {
           "id": "enriched-categories",
@@ -4481,7 +4504,10 @@ window.__MVConcepts = {
           "prereqs": [
             "monoidal-categories"
           ],
-          "blurb": "Enrichment replaces Hom-sets by objects in a monoidal $\\mathcal{V}$; Ab-enriched gives additive categories, and Lawvere showed a metric space is exactly a $([0,\\infty],+,0)$-enriched category."
+          "blurb": "Enrichment replaces Hom-sets by objects in a monoidal $\\mathcal{V}$; Ab-enriched gives additive categories, and Lawvere showed a metric space is exactly a $([0,\\infty],+,0)$-enriched category.",
+          "tags": [
+            "refinement"
+          ]
         }
       ]
     },
@@ -4535,7 +4561,10 @@ window.__MVConcepts = {
           "prereqs": [
             "maschke-theorem"
           ],
-          "blurb": "An intertwiner between irreducibles over an algebraically closed field is either zero or a scalar; this one line forces endomorphism algebras, commutants, and central characters to take their standard forms."
+          "blurb": "An intertwiner between irreducibles over an algebraically closed field is either zero or a scalar; this one line forces endomorphism algebras, commutants, and central characters to take their standard forms.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "characters-orthogonality",
@@ -4581,7 +4610,11 @@ window.__MVConcepts = {
           "prereqs": [
             "characters-orthogonality"
           ],
-          "blurb": "$\\mathbb{C}[G] \\cong \\bigoplus_\\lambda (\\dim V_\\lambda)\\,V_\\lambda$: each irrep appears with multiplicity equal to its dimension, giving $|G| = \\sum (\\dim V_\\lambda)^2$."
+          "blurb": "$\\mathbb{C}[G] \\cong \\bigoplus_\\lambda (\\dim V_\\lambda)\\,V_\\lambda$: each irrep appears with multiplicity equal to its dimension, giving $|G| = \\sum (\\dim V_\\lambda)^2$.",
+          "tags": [
+            "classification",
+            "duality"
+          ]
         },
         {
           "id": "frobenius-reciprocity",
@@ -4630,7 +4663,10 @@ window.__MVConcepts = {
           "prereqs": [
             "schurs-lemma"
           ],
-          "blurb": "An $\\mathfrak{sl}_2$-irrep is determined by a highest-weight vector $v$: $Hv = nv$, $Ev=0$, and the $F$-orbit $\\{v,Fv,F^2v,\\ldots,F^nv\\}$ exhausts the rep — the template for every semisimple Lie algebra."
+          "blurb": "An $\\mathfrak{sl}_2$-irrep is determined by a highest-weight vector $v$: $Hv = nv$, $Ev=0$, and the $F$-orbit $\\{v,Fv,F^2v,\\ldots,F^nv\\}$ exhausts the rep — the template for every semisimple Lie algebra.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "sl2-weight-decomposition",
@@ -4671,7 +4707,11 @@ window.__MVConcepts = {
           "prereqs": [
             "ideals-quotients-ca"
           ],
-          "blurb": "Prime ideals are those with domain quotient; maximal ideals yield field quotients. In Artinian rings the two coincide; in $\\mathbb{Z}$, $k[x,y]$ they split into a height-graded structure."
+          "blurb": "Prime ideals are those with domain quotient; maximal ideals yield field quotients. In Artinian rings the two coincide; in $\\mathbb{Z}$, $k[x,y]$ they split into a height-graded structure.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
         },
         {
           "id": "spec-zariski-ca",
@@ -4693,7 +4733,10 @@ window.__MVConcepts = {
           "prereqs": [
             "primes-maximals-ca"
           ],
-          "blurb": "$\\mathrm{nil}(A) = \\bigcap_{\\mathfrak{p}\\text{ prime}}\\mathfrak{p}$ detects nilpotents; $\\mathrm{Jac}(A) = \\bigcap_{\\mathfrak{m}\\text{ max}}\\mathfrak{m}$ controls units via $1 + \\mathrm{Jac}(A) \\subset A^\\times$."
+          "blurb": "$\\mathrm{nil}(A) = \\bigcap_{\\mathfrak{p}\\text{ prime}}\\mathfrak{p}$ detects nilpotents; $\\mathrm{Jac}(A) = \\bigcap_{\\mathfrak{m}\\text{ max}}\\mathfrak{m}$ controls units via $1 + \\mathrm{Jac}(A) \\subset A^\\times$.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "modules-ca",
@@ -4743,7 +4786,10 @@ window.__MVConcepts = {
             "ideals-quotients-ca",
             "primes-maximals-ca"
           ],
-          "blurb": "Localization zooms to behavior near primes and isolates local properties."
+          "blurb": "Localization zooms to behavior near primes and isolates local properties.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "flatness-ca",
@@ -4796,7 +4842,10 @@ window.__MVConcepts = {
             "integral-extensions-ca",
             "spec-zariski-ca"
           ],
-          "blurb": "Dimension via prime chains measures geometric size and complexity of rings."
+          "blurb": "Dimension via prime chains measures geometric size and complexity of rings.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "transcendence-degree-ca",
@@ -4806,7 +4855,10 @@ window.__MVConcepts = {
             "krull-dimension-ca",
             "integral-extensions-ca"
           ],
-          "blurb": "For a finitely generated domain $B$ over a field $k$, $\\dim B = \\mathrm{tr.deg}_k\\,\\mathrm{Frac}(B)$: Krull dimension equals transcendence degree, the maximal size of an algebraically independent subset. This identifies \"number of free parameters\" with \"length of a prime chain\"."
+          "blurb": "For a finitely generated domain $B$ over a field $k$, $\\dim B = \\mathrm{tr.deg}_k\\,\\mathrm{Frac}(B)$: Krull dimension equals transcendence degree, the maximal size of an algebraically independent subset. This identifies \"number of free parameters\" with \"length of a prime chain\".",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "completion-ca",
@@ -4955,7 +5007,10 @@ window.__MVConcepts = {
           "prereqs": [
             "exact-sequences"
           ],
-          "blurb": "M is flat iff −⊗M preserves exactness; localizations are flat, projectives are flat, and over ℤ flatness coincides with torsion-freeness."
+          "blurb": "M is flat iff −⊗M preserves exactness; localizations are flat, projectives are flat, and over ℤ flatness coincides with torsion-freeness.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "derived-functors",
@@ -4980,7 +5035,10 @@ window.__MVConcepts = {
             "derived-functors",
             "flat-modules"
           ],
-          "blurb": "Every module has projective and injective resolutions; their lengths measure the global dimension of the ring."
+          "blurb": "Every module has projective and injective resolutions; their lengths measure the global dimension of the ring.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "abelian-categories",
@@ -5063,7 +5121,10 @@ window.__MVConcepts = {
           "prereqs": [
             "chain-complexes"
           ],
-          "blurb": "The homotopy category $K(\\mathcal{A})$ has chain complexes for objects and homotopy classes of chain maps for morphisms. It identifies maps that differ by a chain homotopy and is the first step toward inverting quasi-isomorphisms."
+          "blurb": "The homotopy category $K(\\mathcal{A})$ has chain complexes for objects and homotopy classes of chain maps for morphisms. It identifies maps that differ by a chain homotopy and is the first step toward inverting quasi-isomorphisms.",
+          "tags": [
+            "refinement"
+          ]
         },
         {
           "id": "quasi-isomorphisms",
@@ -5072,7 +5133,10 @@ window.__MVConcepts = {
           "prereqs": [
             "homotopy-category-K"
           ],
-          "blurb": "A quasi-isomorphism is a chain map inducing iso on cohomology. The derived category $D(\\mathcal{A})$ is the localization of $K(\\mathcal{A})$ at the class of quasi-isomorphisms — \"objects up to cohomology agreement.\""
+          "blurb": "A quasi-isomorphism is a chain map inducing iso on cohomology. The derived category $D(\\mathcal{A})$ is the localization of $K(\\mathcal{A})$ at the class of quasi-isomorphisms — \"objects up to cohomology agreement.\"",
+          "tags": [
+            "refinement"
+          ]
         },
         {
           "id": "derived-category",
@@ -5125,7 +5189,11 @@ window.__MVConcepts = {
             "triangulated-structure",
             "abelian-categories"
           ],
-          "blurb": "A $t$-structure $(D^{\\le 0}, D^{\\ge 0})$ on a triangulated category gives a notion of \"objects concentrated in non-positive (resp. non-negative) degree\" and a heart $D^{\\le 0} \\cap D^{\\ge 0}$ that is abelian. Recovers $\\mathcal{A}$ from $D(\\mathcal{A})$ as the heart of the standard $t$-structure."
+          "blurb": "A $t$-structure $(D^{\\le 0}, D^{\\ge 0})$ on a triangulated category gives a notion of \"objects concentrated in non-positive (resp. non-negative) degree\" and a heart $D^{\\le 0} \\cap D^{\\ge 0}$ that is abelian. Recovers $\\mathcal{A}$ from $D(\\mathcal{A})$ as the heart of the standard $t$-structure.",
+          "tags": [
+            "classification",
+            "refinement"
+          ]
         },
         {
           "id": "examples-D-Coh",

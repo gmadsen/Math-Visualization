@@ -100,7 +100,10 @@
       "prereqs": [
         "exact-sequences"
       ],
-      "blurb": "M is flat iff −⊗M preserves exactness; localizations are flat, projectives are flat, and over ℤ flatness coincides with torsion-freeness."
+      "blurb": "M is flat iff −⊗M preserves exactness; localizations are flat, projectives are flat, and over ℤ flatness coincides with torsion-freeness.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "derived-functors",
@@ -125,7 +128,10 @@
         "derived-functors",
         "flat-modules"
       ],
-      "blurb": "Every module has projective and injective resolutions; their lengths measure the global dimension of the ring."
+      "blurb": "Every module has projective and injective resolutions; their lengths measure the global dimension of the ring.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "abelian-categories",
