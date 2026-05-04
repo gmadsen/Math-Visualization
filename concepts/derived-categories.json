@@ -12,7 +12,7 @@
       ],
       "blurb": "The homotopy category $K(\\mathcal{A})$ has chain complexes for objects and homotopy classes of chain maps for morphisms. It identifies maps that differ by a chain homotopy and is the first step toward inverting quasi-isomorphisms.",
       "tags": [
-        "foundation"
+        "refinement"
       ]
     },
     {
@@ -24,7 +24,7 @@
       ],
       "blurb": "A quasi-isomorphism is a chain map inducing iso on cohomology. The derived category $D(\\mathcal{A})$ is the localization of $K(\\mathcal{A})$ at the class of quasi-isomorphisms — \"objects up to cohomology agreement.\"",
       "tags": [
-        "foundation"
+        "refinement"
       ]
     },
     {
@@ -80,8 +80,8 @@
       ],
       "blurb": "A $t$-structure $(D^{\\le 0}, D^{\\ge 0})$ on a triangulated category gives a notion of \"objects concentrated in non-positive (resp. non-negative) degree\" and a heart $D^{\\le 0} \\cap D^{\\ge 0}$ that is abelian. Recovers $\\mathcal{A}$ from $D(\\mathcal{A})$ as the heart of the standard $t$-structure.",
       "tags": [
-        "foundation",
-        "classification"
+        "classification",
+        "refinement"
       ]
     },
     {

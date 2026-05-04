@@ -66,7 +66,7 @@
       ],
       "blurb": "A monoidal category has an associative bifunctor and a unit, up to coherent natural isomorphism; it is the setting for tensor products, braidings, and algebraic structures internal to a category.",
       "tags": [
-        "foundation"
+        "refinement"
       ]
     },
     {
@@ -142,7 +142,7 @@
       ],
       "blurb": "A 2-category has objects, 1-morphisms, and 2-morphisms between 1-morphisms; $\\mathsf{Cat}$ is the archetype, with functors as 1-cells and natural transformations as 2-cells.",
       "tags": [
-        "foundation"
+        "refinement"
       ]
     },
     {
@@ -154,7 +154,7 @@
       ],
       "blurb": "Enrichment replaces Hom-sets by objects in a monoidal $\\mathcal{V}$; Ab-enriched gives additive categories, and Lawvere showed a metric space is exactly a $([0,\\infty],+,0)$-enriched category.",
       "tags": [
-        "foundation"
+        "refinement"
       ]
     }
   ]

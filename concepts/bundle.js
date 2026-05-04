@@ -4387,7 +4387,7 @@ window.__MVConcepts = {
           ],
           "blurb": "A monoidal category has an associative bifunctor and a unit, up to coherent natural isomorphism; it is the setting for tensor products, braidings, and algebraic structures internal to a category.",
           "tags": [
-            "foundation"
+            "refinement"
           ]
         },
         {
@@ -4463,7 +4463,7 @@ window.__MVConcepts = {
           ],
           "blurb": "A 2-category has objects, 1-morphisms, and 2-morphisms between 1-morphisms; $\\mathsf{Cat}$ is the archetype, with functors as 1-cells and natural transformations as 2-cells.",
           "tags": [
-            "foundation"
+            "refinement"
           ]
         },
         {
@@ -4475,7 +4475,7 @@ window.__MVConcepts = {
           ],
           "blurb": "Enrichment replaces Hom-sets by objects in a monoidal $\\mathcal{V}$; Ab-enriched gives additive categories, and Lawvere showed a metric space is exactly a $([0,\\infty],+,0)$-enriched category.",
           "tags": [
-            "foundation"
+            "refinement"
           ]
         }
       ]
@@ -5092,7 +5092,7 @@ window.__MVConcepts = {
           ],
           "blurb": "The homotopy category $K(\\mathcal{A})$ has chain complexes for objects and homotopy classes of chain maps for morphisms. It identifies maps that differ by a chain homotopy and is the first step toward inverting quasi-isomorphisms.",
           "tags": [
-            "foundation"
+            "refinement"
           ]
         },
         {
@@ -5104,7 +5104,7 @@ window.__MVConcepts = {
           ],
           "blurb": "A quasi-isomorphism is a chain map inducing iso on cohomology. The derived category $D(\\mathcal{A})$ is the localization of $K(\\mathcal{A})$ at the class of quasi-isomorphisms — \"objects up to cohomology agreement.\"",
           "tags": [
-            "foundation"
+            "refinement"
           ]
         },
         {
@@ -5160,8 +5160,8 @@ window.__MVConcepts = {
           ],
           "blurb": "A $t$-structure $(D^{\\le 0}, D^{\\ge 0})$ on a triangulated category gives a notion of \"objects concentrated in non-positive (resp. non-negative) degree\" and a heart $D^{\\le 0} \\cap D^{\\ge 0}$ that is abelian. Recovers $\\mathcal{A}$ from $D(\\mathcal{A})$ as the heart of the standard $t$-structure.",
           "tags": [
-            "foundation",
-            "classification"
+            "classification",
+            "refinement"
           ]
         },
         {
