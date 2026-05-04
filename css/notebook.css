@@ -41,9 +41,11 @@
  * Quiz hosts get the .widget class added by js/quiz.js's renderQuiz so they
  * inherit the widget chrome — but that means hiding widgets ALSO hides every
  * rendered quiz, which is wrong (quizzes are toggled separately). Restore
- * quiz visibility unconditionally; data-hide-quizzes still controls them
- * via the `.quiz` rule. */
-html[data-hide-widgets] .widget.quiz {
+ * quiz visibility — but only when the user hasn't *also* asked to hide
+ * quizzes. Without the :not() guard, this override beats the per-page
+ * `html[data-hide-quizzes] .quiz` hide rule by specificity (0,1,2 vs 0,1,1)
+ * and the quiz hider silently fails whenever both flags are set. */
+html[data-hide-widgets]:not([data-hide-quizzes]) .widget.quiz {
   display: block !important;
 }
 

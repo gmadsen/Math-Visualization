@@ -301,8 +301,12 @@
   .map .pin:focus-visible circle{stroke:var(--cyan);stroke-width:2.2;
     stroke-dasharray:3 2;filter:drop-shadow(0 0 6px var(--cyan))}
   .map .pin.selected circle{stroke:var(--yellow);stroke-width:2}
+  .map .pin.scrub-out{opacity:.28}
   .map .pin.dim{opacity:.18}
-  .map .pin.scrub-out{opacity:.28;transition:opacity 200ms ease}
+  /* When both flags apply, the explicit era/lineage filter (.dim) wins over
+   * the ambient scrubber dim (.scrub-out). Source order matters: ties on
+   * specificity (0,2,1) → later rule wins. */
+  .map .pin.scrub-out.dim{opacity:.18}
   .map .pin{transition:opacity 200ms ease}
   /* Scrubber styling */
   .tl .tl-scrubber{cursor:ew-resize}
