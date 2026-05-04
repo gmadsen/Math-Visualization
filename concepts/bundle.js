@@ -682,7 +682,9 @@ window.__MVConcepts = {
             "it-shannon-entropy"
           ],
           "blurb": "Gibbs entropy $S = -k_B\\sum p_i\\log p_i$ is maximized at fixed mean energy by exactly the Boltzmann distribution, with $\\beta$ as Lagrange multiplier. In the microcanonical limit it reduces to Boltzmann's $S = k_B\\log\\Omega$, and the second law is monotonicity of $S$ under Hamiltonian coupling.",
-          "tags": []
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "grand-canonical",
@@ -705,7 +707,9 @@ window.__MVConcepts = {
             "boltzmann-canonical"
           ],
           "blurb": "Spins $\\sigma_i\\in\\{\\pm 1\\}$ on a lattice with nearest-neighbor coupling $-J\\sum_{\\langle ij\\rangle}\\sigma_i\\sigma_j$. Mean field predicts a transition at $T_c = qJ/k_B$; Onsager solved $d=2$ exactly with $T_c/J = 2/\\log(1+\\sqrt 2)$ and $\\beta = 1/8$.",
-          "tags": []
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "renormalization-group",
@@ -8346,7 +8350,11 @@ window.__MVConcepts = {
           "prereqs": [
             "rw-stationary-distribution"
           ],
-          "blurb": "$d(t)=\\max_x \\|P^t(x,\\cdot)-\\pi\\|_{\\mathrm{TV}}$ measures distance to stationarity; the mixing time $t_{\\mathrm{mix}}(\\varepsilon)=\\min\\{t:d(t)\\le\\varepsilon\\}$ is the standard quantitative cost of forgetting the start."
+          "blurb": "$d(t)=\\max_x \\|P^t(x,\\cdot)-\\pi\\|_{\\mathrm{TV}}$ measures distance to stationarity; the mixing time $t_{\\mathrm{mix}}(\\varepsilon)=\\min\\{t:d(t)\\le\\varepsilon\\}$ is the standard quantitative cost of forgetting the start.",
+          "tags": [
+            "foundation",
+            "equidistribution"
+          ]
         },
         {
           "id": "rw-spectral-gap",
@@ -8368,7 +8376,10 @@ window.__MVConcepts = {
           "prereqs": [
             "rw-mixing-time"
           ],
-          "blurb": "The coupling lemma bounds total-variation distance by the meeting probability of two chains driven on a common probability space; lazy walks on the hypercube and card-shuffles fall out cleanly."
+          "blurb": "The coupling lemma bounds total-variation distance by the meeting probability of two chains driven on a common probability space; lazy walks on the hypercube and card-shuffles fall out cleanly.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "rw-applications-mcmc",
@@ -8378,7 +8389,11 @@ window.__MVConcepts = {
             "rw-spectral-gap",
             "expectation-moments"
           ],
-          "blurb": "Metropolis–Hastings designs a chain with a prescribed stationary distribution $\\pi$ via an acceptance ratio; mixing time is the cost of one effectively-independent sample, so spectral-gap bounds become statistical bounds."
+          "blurb": "Metropolis–Hastings designs a chain with a prescribed stationary distribution $\\pi$ via an acceptance ratio; mixing time is the cost of one effectively-independent sample, so spectral-gap bounds become statistical bounds.",
+          "tags": [
+            "foundation",
+            "equidistribution"
+          ]
         }
       ]
     },
@@ -13345,7 +13360,10 @@ window.__MVConcepts = {
             "algebraic-connectivity-fiedler",
             "cheeger-inequality"
           ],
-          "blurb": "Embed vertex $i\\mapsto (u_2(i),\\dots,u_{k+1}(i))\\in\\mathbb{R}^k$ via the bottom $k$ non-trivial Laplacian eigenvectors, then run $k$-means. Recovers cluster structure when the bottom-$k$ eigenvalues are nearly $0$."
+          "blurb": "Embed vertex $i\\mapsto (u_2(i),\\dots,u_{k+1}(i))\\in\\mathbb{R}^k$ via the bottom $k$ non-trivial Laplacian eigenvectors, then run $k$-means. Recovers cluster structure when the bottom-$k$ eigenvalues are nearly $0$.",
+          "tags": [
+            "foundation"
+          ]
         }
       ]
     },
@@ -13466,7 +13484,10 @@ window.__MVConcepts = {
           "prereqs": [
             "existence-by-expectation"
           ],
-          "blurb": "A uniformly random $2$-edge-colouring of $K_n$ has expected number of monochromatic $K_k$ at most $\\binom{n}{k}\\,2^{1-\\binom{k}{2}}$. When this drops below $1$ a colouring with no monochromatic $K_k$ exists, giving $R(k,k) > \\lfloor 2^{k/2}\\rfloor$ — the gap to $4^k$ is wide open."
+          "blurb": "A uniformly random $2$-edge-colouring of $K_n$ has expected number of monochromatic $K_k$ at most $\\binom{n}{k}\\,2^{1-\\binom{k}{2}}$. When this drops below $1$ a colouring with no monochromatic $K_k$ exists, giving $R(k,k) > \\lfloor 2^{k/2}\\rfloor$ — the gap to $4^k$ is wide open.",
+          "tags": [
+            "classification"
+          ]
         },
         {
           "id": "linearity-of-expectation",
@@ -13488,7 +13509,10 @@ window.__MVConcepts = {
           "prereqs": [
             "linearity-of-expectation"
           ],
-          "blurb": "Sample a random object that is almost good, then locally repair. Delete one vertex per short cycle to force girth $\\ge g$ while preserving the chromatic-number bound; sample-then-delete recovers the Turán bound $\\alpha(G)\\ge \\sum 1/(d_v+1)$ from $\\mathbb{E}[|S|-e(S)]$."
+          "blurb": "Sample a random object that is almost good, then locally repair. Delete one vertex per short cycle to force girth $\\ge g$ while preserving the chromatic-number bound; sample-then-delete recovers the Turán bound $\\alpha(G)\\ge \\sum 1/(d_v+1)$ from $\\mathbb{E}[|S|-e(S)]$.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "lovasz-local-lemma",
@@ -13497,7 +13521,10 @@ window.__MVConcepts = {
           "prereqs": [
             "existence-by-expectation"
           ],
-          "blurb": "If each bad event $A_i$ has probability $\\le p$ and depends on at most $d$ others, then $e\\,p\\,(d+1)\\le 1$ implies $\\mathbb{P}(\\bigcap \\bar A_i) > 0$ — exponentially better than the union bound. Yields $k$-CNF satisfiability up to $2^k/(ek)$ occurrences per variable; Moser–Tardos made the proof a polynomial-time algorithm."
+          "blurb": "If each bad event $A_i$ has probability $\\le p$ and depends on at most $d$ others, then $e\\,p\\,(d+1)\\le 1$ implies $\\mathbb{P}(\\bigcap \\bar A_i) > 0$ — exponentially better than the union bound. Yields $k$-CNF satisfiability up to $2^k/(ek)$ occurrences per variable; Moser–Tardos made the proof a polynomial-time algorithm.",
+          "tags": [
+            "foundation"
+          ]
         },
         {
           "id": "random-graph-thresholds",
@@ -13507,7 +13534,11 @@ window.__MVConcepts = {
             "linearity-of-expectation",
             "expectation-moments"
           ],
-          "blurb": "First-moment $\\mathbb{P}(X\\ge 1)\\le\\mathbb{E}[X]$ kills sub-structures below threshold; second-moment $\\mathbb{P}(X=0)\\le\\operatorname{Var}(X)/\\mathbb{E}[X]^2$ produces them above. Triangles appear at $p_c=1/n$ as $\\mathrm{Pois}((np)^3/6)$; connectivity and Hamiltonicity at $\\log n / n$."
+          "blurb": "First-moment $\\mathbb{P}(X\\ge 1)\\le\\mathbb{E}[X]$ kills sub-structures below threshold; second-moment $\\mathbb{P}(X=0)\\le\\operatorname{Var}(X)/\\mathbb{E}[X]^2$ produces them above. Triangles appear at $p_c=1/n$ as $\\mathrm{Pois}((np)^3/6)$; connectivity and Hamiltonicity at $\\log n / n$.",
+          "tags": [
+            "classification",
+            "density"
+          ]
         },
         {
           "id": "concentration-inequalities",
@@ -13597,7 +13628,11 @@ window.__MVConcepts = {
           "prereqs": [
             "erdos-stone-simonovits"
           ],
-          "blurb": "Ruzsa–Szemerédi: a graph with $o(n^3)$ triangles can be made triangle-free by deleting $o(n^2)$ edges; equivalently, robust graphs are supersaturated. Szemerédi's regularity lemma decomposes any dense graph into $\\varepsilon$-regular pairs, with bounds tower-type in $\\varepsilon^{-1}$. Together these give Roth's theorem on $3$-APs."
+          "blurb": "Ruzsa–Szemerédi: a graph with $o(n^3)$ triangles can be made triangle-free by deleting $o(n^2)$ edges; equivalently, robust graphs are supersaturated. Szemerédi's regularity lemma decomposes any dense graph into $\\varepsilon$-regular pairs, with bounds tower-type in $\\varepsilon^{-1}$. Together these give Roth's theorem on $3$-APs.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
         }
       ]
     },
