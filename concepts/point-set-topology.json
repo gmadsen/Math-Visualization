@@ -35,7 +35,11 @@
         "open-sets",
         "metric-spaces"
       ],
-      "blurb": "A map is continuous iff preimages of open sets are open — the coordinate-free definition. Homeomorphisms as the isomorphisms of Top."
+      "blurb": "A map is continuous iff preimages of open sets are open — the coordinate-free definition. Homeomorphisms as the isomorphisms of Top.",
+      "tags": [
+        "foundation",
+        "classification"
+      ]
     },
     {
       "id": "compactness",
@@ -58,7 +62,11 @@
       "prereqs": [
         "open-sets"
       ],
-      "blurb": "No separation into disjoint nonempty opens; path-connected implies connected; components partition the space."
+      "blurb": "No separation into disjoint nonempty opens; path-connected implies connected; components partition the space.",
+      "tags": [
+        "foundation",
+        "classification"
+      ]
     },
     {
       "id": "separation-axioms",
@@ -67,7 +75,10 @@
       "prereqs": [
         "open-sets"
       ],
-      "blurb": "T1/Hausdorff/regular/normal, first- and second-countable; Urysohn's lemma and metrization as the payoff."
+      "blurb": "T1/Hausdorff/regular/normal, first- and second-countable; Urysohn's lemma and metrization as the payoff.",
+      "tags": [
+        "classification"
+      ]
     }
   ]
 }

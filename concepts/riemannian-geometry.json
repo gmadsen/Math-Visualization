@@ -11,7 +11,10 @@
         "smooth-manifold-definition",
         "tangent-space-manifolds"
       ],
-      "blurb": "A smoothly varying inner product on tangent spaces defines length, angle, and volume."
+      "blurb": "A smoothly varying inner product on tangent spaces defines length, angle, and volume.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "levi-civita-connection",
@@ -32,7 +35,11 @@
       "prereqs": [
         "levi-civita-connection"
       ],
-      "blurb": "Sectional curvature controls topology and global metric behavior through comparison theorems."
+      "blurb": "Sectional curvature controls topology and global metric behavior through comparison theorems.",
+      "tags": [
+        "foundation",
+        "classification"
+      ]
     },
     {
       "id": "ricci-curvature",
@@ -41,7 +48,11 @@
       "prereqs": [
         "riemann-curvature-tensor"
       ],
-      "blurb": "The trace of the Riemann tensor measures average sectional curvature, governs geodesic-ball volumes, and drives Einstein's equations."
+      "blurb": "The trace of the Riemann tensor measures average sectional curvature, governs geodesic-ball volumes, and drives Einstein's equations.",
+      "tags": [
+        "foundation",
+        "classification"
+      ]
     },
     {
       "id": "volume-form-rg",
@@ -51,7 +62,10 @@
         "riemannian-metrics",
         "forms-and-wedge"
       ],
-      "blurb": "The metric produces a canonical volume form \\sqrt{\\det g}\\,dx^1\\wedge\\cdots\\wedge dx^n, giving integration, divergence, and the Laplace-Beltrami operator on (M,g)."
+      "blurb": "The metric produces a canonical volume form \\sqrt{\\det g}\\,dx^1\\wedge\\cdots\\wedge dx^n, giving integration, divergence, and the Laplace-Beltrami operator on (M,g).",
+      "tags": [
+        "foundation"
+      ]
     }
   ]
 }

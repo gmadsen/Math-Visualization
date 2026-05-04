@@ -11,7 +11,10 @@
         "smooth-manifold-definition",
         "algebraic-structures"
       ],
-      "blurb": "Lie groups combine smooth manifolds with group multiplication."
+      "blurb": "Lie groups combine smooth manifolds with group multiplication.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "lie-algebra-tangent",
@@ -21,7 +24,11 @@
         "lie-group-definition",
         "tangent-space-manifolds"
       ],
-      "blurb": "The Lie algebra $\\mathfrak{g} = T_e G$ linearizes a Lie group at the identity; for matrix groups it is cut out by differentiating the defining equation along $A(0)=I$."
+      "blurb": "The Lie algebra $\\mathfrak{g} = T_e G$ linearizes a Lie group at the identity; for matrix groups it is cut out by differentiating the defining equation along $A(0)=I$.",
+      "tags": [
+        "foundation",
+        "lifting"
+      ]
     },
     {
       "id": "lie-algebra-and-exp",
@@ -42,7 +49,10 @@
       "prereqs": [
         "lie-algebra-and-exp"
       ],
-      "blurb": "The commutator $[X,Y]=XY-YX$ measures how $\\exp(X)$ and $\\exp(Y)$ fail to commute; Baker–Campbell–Hausdorff reconstructs the group product as an iterated-bracket series."
+      "blurb": "The commutator $[X,Y]=XY-YX$ measures how $\\exp(X)$ and $\\exp(Y)$ fail to commute; Baker–Campbell–Hausdorff reconstructs the group product as an iterated-bracket series.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "so3-su2-double-cover",
