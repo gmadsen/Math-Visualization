@@ -47,7 +47,10 @@
       "prereqs": [
         "forcing-truth-lemma"
       ],
-      "blurb": "The Cohen poset $2^{<\\omega}$ has finite binary strings ordered by extension. A generic filter $G$ collects to a single new real $r_G\\in 2^\\omega$ not in $M$. Forcing with the product $2^{<\\omega}\\times\\aleph_2$ injects $\\aleph_2^M$ many new reals at once."
+      "blurb": "The Cohen poset $2^{<\\omega}$ has finite binary strings ordered by extension. A generic filter $G$ collects to a single new real $r_G\\in 2^\\omega$ not in $M$. Forcing with the product $2^{<\\omega}\\times\\aleph_2$ injects $\\aleph_2^M$ many new reals at once.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "forcing-not-ch",
@@ -69,7 +72,11 @@
       "prereqs": [
         "forcing-not-ch"
       ],
-      "blurb": "Forcing also settles the Suslin hypothesis (independent), Martin's axiom (consistent with $\\neg$CH and useful as a parameter), Whitehead's problem in algebra, and large-cardinal indestructibility — Laver-style preparations make supercompacts survive any further forcing."
+      "blurb": "Forcing also settles the Suslin hypothesis (independent), Martin's axiom (consistent with $\\neg$CH and useful as a parameter), Whitehead's problem in algebra, and large-cardinal indestructibility — Laver-style preparations make supercompacts survive any further forcing.",
+      "tags": [
+        "foundation",
+        "classification"
+      ]
     }
   ]
 }

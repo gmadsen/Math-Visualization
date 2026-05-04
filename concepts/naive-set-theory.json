@@ -44,7 +44,11 @@
       "prereqs": [
         "sets-functions"
       ],
-      "blurb": "Countable vs uncountable, Cantor's diagonal argument, and why |R| > |Q|."
+      "blurb": "Countable vs uncountable, Cantor's diagonal argument, and why |R| > |Q|.",
+      "tags": [
+        "foundation",
+        "classification"
+      ]
     },
     {
       "id": "axiom-of-choice-intuition",
@@ -54,7 +58,10 @@
         "cartesian-product-powerset",
         "countability"
       ],
-      "blurb": "A choice function exists for every family of non-empty sets. Equivalent to Zorn's lemma and the well-ordering theorem; behind every basis, maximal ideal, and Tychonoff product."
+      "blurb": "A choice function exists for every family of non-empty sets. Equivalent to Zorn's lemma and the well-ordering theorem; behind every basis, maximal ideal, and Tychonoff product.",
+      "tags": [
+        "foundation"
+      ]
     }
   ]
 }
