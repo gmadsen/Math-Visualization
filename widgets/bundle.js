@@ -10060,6 +10060,132 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "sg-analytic",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "interactive",
+    "title": "sg-analytic widget params",
+    "description": "Bespoke verbatim-renderer slug for the sg-analytic widget on the semigroup-theory-evolution-equations topic. Carries opaque bodyMarkup + bodyScript strings.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the `sg-analytic` widget on `semigroup-theory-evolution-equations`. Uses the shared renderer at `widgets/_shared/verbatim-renderer.mjs` — `bodyMarkup` and `bodyScript` are emitted verbatim. See `schema.json` for the param shape.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "sg-c0",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "interactive",
+    "title": "sg-c0 widget params",
+    "description": "Bespoke verbatim-renderer slug for the sg-c0 widget on the semigroup-theory-evolution-equations topic. Carries opaque bodyMarkup + bodyScript strings.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the `sg-c0` widget on `semigroup-theory-evolution-equations`. Uses the shared renderer at `widgets/_shared/verbatim-renderer.mjs` — `bodyMarkup` and `bodyScript` are emitted verbatim. See `schema.json` for the param shape.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "sg-cauchy",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "interactive",
+    "title": "sg-cauchy widget params",
+    "description": "Bespoke verbatim-renderer slug for the sg-cauchy widget on the semigroup-theory-evolution-equations topic. Carries opaque bodyMarkup + bodyScript strings.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the `sg-cauchy` widget on `semigroup-theory-evolution-equations`. Uses the shared renderer at `widgets/_shared/verbatim-renderer.mjs` — `bodyMarkup` and `bodyScript` are emitted verbatim. See `schema.json` for the param shape.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "sg-control",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "interactive",
+    "title": "sg-control widget params",
+    "description": "Bespoke verbatim-renderer slug for the sg-control widget on the semigroup-theory-evolution-equations topic. Carries opaque bodyMarkup + bodyScript strings.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the `sg-control` widget on `semigroup-theory-evolution-equations`. Uses the shared renderer at `widgets/_shared/verbatim-renderer.mjs` — `bodyMarkup` and `bodyScript` are emitted verbatim. See `schema.json` for the param shape.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "sg-gen",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "interactive",
+    "title": "sg-gen widget params",
+    "description": "Bespoke verbatim-renderer slug for the sg-gen widget on the semigroup-theory-evolution-equations topic. Carries opaque bodyMarkup + bodyScript strings.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the `sg-gen` widget on `semigroup-theory-evolution-equations`. Uses the shared renderer at `widgets/_shared/verbatim-renderer.mjs` — `bodyMarkup` and `bodyScript` are emitted verbatim. See `schema.json` for the param shape.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "sg-hy",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "interactive",
+    "title": "sg-hy widget params",
+    "description": "Bespoke verbatim-renderer slug for the sg-hy widget on the semigroup-theory-evolution-equations topic. Carries opaque bodyMarkup + bodyScript strings.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the `sg-hy` widget on `semigroup-theory-evolution-equations`. Uses the shared renderer at `widgets/_shared/verbatim-renderer.mjs` — `bodyMarkup` and `bodyScript` are emitted verbatim. See `schema.json` for the param shape.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "simplicial-complexes-combinatorial-faces",
     "family": "simplicial-complexes-combinatorial-faces",
     "dimension": "2d",

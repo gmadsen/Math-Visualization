@@ -47841,6 +47841,333 @@ window.MVQuizBank = {
       }
     }
   },
+  "semigroup-theory-evolution-equations": {
+    "topic": "semigroup-theory-evolution-equations",
+    "quizzes": {
+      "sg-c0-semigroups": {
+        "title": "Strongly continuous (C₀) semigroups",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which of the following is NOT one of the three defining axioms of a C₀ semigroup $\\{T(t)\\}_{t\\ge 0}$ on a Banach space $X$?",
+            "choices": [
+              "$T(0) = I$ — identity at zero time.",
+              "$T(s+t) = T(s)\\,T(t)$ for all $s,t\\ge 0$ — semigroup law.",
+              "$t\\mapsto T(t)x$ is continuous in $t$ for every $x\\in X$ — strong continuity.",
+              "$\\|T(t)-T(s)\\|_{B(X)}\\to 0$ as $t\\to s$ — uniform (norm) continuity."
+            ],
+            "answer": 3,
+            "hint": "Three of these are the explicit C₀ axioms; one is a continuity statement set in a different topology on $B(X)$ from the one the strong-continuity axiom uses. Sort the four by which topology each statement lives in.",
+            "explain": "The C₀ axiom is STRONG continuity (pointwise in $x$), not norm continuity. Norm continuity is far stronger and forces the generator $A$ to be bounded — it would exclude $A=\\Delta$, $A=d/dx$, and essentially every PDE-relevant generator. The three correct axioms are (0,1,2); (3) is a different (much smaller) class called uniformly continuous semigroups."
+          },
+          {
+            "type": "numeric",
+            "q": "The heat semigroup $T(t) = e^{t\\Delta}$ on $L^2(\\mathbb{R}^n)$ has growth bound $M e^{\\omega t}$ with the smallest admissible constants $M$ and $\\omega$. What is $\\omega$?",
+            "answer": 0,
+            "tol": 1e-9,
+            "hint": "In Fourier, $T(t)$ acts as multiplication on $\\hat f$ by a real-exponential factor depending on $|\\xi|$. Plancherel turns the $L^2$ ratio into a sup over that multiplier's modulus.",
+            "explain": "By Plancherel, $\\|T(t)f\\|_{L^2}^2 = \\int |e^{-t|\\xi|^2}\\hat f(\\xi)|^2 d\\xi \\le \\int|\\hat f|^2 = \\|f\\|^2$, so $\\|T(t)\\|\\le 1$ with equality at $t=0$. The growth bound $\\|T(t)\\|\\le 1\\cdot e^{0\\cdot t}$ is sharp: $M=1$, $\\omega=0$. The semigroup is a contraction; the answer is $\\omega = 0$."
+          },
+          {
+            "type": "matching",
+            "q": "Match each PDE solution operator on the left to the structural property it has on the right.",
+            "left": [
+              "Heat semigroup $T(t)=e^{t\\Delta}$ on $L^2(\\mathbb{R}^n)$",
+              "Schrödinger group $T(t)=e^{-it\\Delta}$ on $L^2(\\mathbb{R}^n)$",
+              "Wave-equation propagator on the energy space $H^1\\times L^2$",
+              "Operator $T(t)=e^{tA}$ where $A\\in B(X)$ is bounded"
+            ],
+            "right": [
+              "C₀-group of isometries on the energy norm; energy is conserved.",
+              "Uniformly continuous semigroup: $\\|T(t)-T(s)\\|\\to 0$ as $t\\to s$.",
+              "Contraction $C_0$-semigroup: $\\|T(t)\\|\\le 1$, defined only for $t\\ge 0$.",
+              "Unitary $C_0$-group: $\\|T(t)f\\|_{L^2}=\\|f\\|_{L^2}$ exactly, for all $t\\in\\mathbb{R}$."
+            ],
+            "answer": [
+              2,
+              3,
+              0,
+              1
+            ],
+            "hint": "Pick one concrete test function (say a Schwartz Gaussian) and ask, for each operator on the left, what each right-hand structural property would predict about its image — preservation of one norm, smoothing, reversibility, or norm-continuity in $t$.",
+            "explain": "(0)→2: heat is a parabolic contraction, irreversible. (1)→3: Schrödinger preserves $L^2$ exactly (Plancherel + unitary multiplier), defined for all $t$. (2)→0: wave conserves energy ($\\frac{1}{2}\\|\\nabla u\\|^2+\\frac{1}{2}\\|u_t\\|^2$), reversible. (3)→1: bounded $A$ ⇒ $e^{tA}$ converges in operator norm, giving uniform continuity. Differentiating these four families is exactly the classification project of semigroup theory."
+          }
+        ]
+      },
+      "sg-infinitesimal-generator": {
+        "title": "The infinitesimal generator",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a C₀ semigroup $T(t)$ with generator $A$ on $X$, which statement about $D(A)$ is correct?",
+            "choices": [
+              "$D(A) = X$ always — every $x\\in X$ has a strong limit of the difference quotient.",
+              "$D(A)$ is a dense linear subspace of $X$, and $A$ is closed but in general unbounded.",
+              "$D(A)$ is a finite-dimensional subspace.",
+              "$D(A)$ is closed in $X$, and $A$ is bounded on it."
+            ],
+            "answer": 1,
+            "hint": "Try $A=d/dx$ on $L^2$ and a non-Sobolev test datum: does the difference quotient converge in $X$? Then use the closed-graph theorem to rule out one of the four options that would force $A$ bounded.",
+            "explain": "$D(A)$ is dense in $X$ (the time-averaged orbit $\\frac{1}{t}\\int_0^t T(s)x\\,ds$ approximates $x$ and lies in $D(A)$), but it is generally a proper subspace because $A$ is unbounded. $A$ is closed but not bounded on $D(A)$. (0) fails when $A$ is unbounded, e.g. $A=d/dx$ has $D(A)=W^{1,2}\\subsetneq L^2$. (2) fails — even for bounded $X$, $D(A)$ is dense. (3) closure of $D(A)$ would force $A$ bounded by closed-graph."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all true statements about the differentiation identity $\\frac{d}{dt}T(t)x = AT(t)x = T(t)Ax$.",
+            "choices": [
+              "It holds for $x\\in D(A)$ and $t\\ge 0$, with both products well-defined.",
+              "$T(t)$ maps $D(A)$ into $D(A)$ — orbits starting in the domain stay in the domain.",
+              "It holds for every $x\\in X$ — the orbit of any initial datum is differentiable in $t$.",
+              "If $x\\in D(A)$, then $u(t) = T(t)x$ is a classical $C^1$ solution of the abstract Cauchy problem $u' = Au$, $u(0) = x$."
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "hint": "Mild solutions exist for any initial datum but classical (differentiable) solutions need more regularity. Which option conflates the two regimes?",
+            "explain": "(0,1,3) are the textbook content. (2) is false: orbits starting outside $D(A)$ are continuous but generally not differentiable. The whole point of $D(A)$ is to record exactly the initial data for which the equation $u'=Au$ holds in the strong sense. Mild solutions $u(t)=T(t)u_0$ exist for any $u_0\\in X$, but classical solutions need $u_0\\in D(A)$."
+          },
+          {
+            "type": "matching",
+            "q": "Match each $C_0$-semigroup on the left to its generator (and domain) on the right.",
+            "left": [
+              "Heat semigroup $T(t)=e^{t\\Delta}$ on $L^2(\\mathbb{R}^n)$",
+              "Translation semigroup $T(t)f(x)=f(x+t)$ on $L^p(\\mathbb{R})$, $1\\le p<\\infty$",
+              "Multiplication semigroup $T(t)f(x)=e^{t\\,m(x)}f(x)$ on $L^2$ for a bounded measurable $m$",
+              "Uniformly continuous semigroup $T(t)=e^{tA}$ for $A\\in B(X)$"
+            ],
+            "right": [
+              "$Af = m\\cdot f$ with $D(A) = L^2$ (the operator is bounded)",
+              "$Af = A f$ with $D(A) = X$ (same bounded operator, full domain)",
+              "$Af = \\Delta f$ with $D(A) = H^2(\\mathbb{R}^n)$",
+              "$Af = f'$ with $D(A) = W^{1,p}(\\mathbb{R})$"
+            ],
+            "answer": [
+              2,
+              3,
+              0,
+              1
+            ],
+            "hint": "For each operator on the left, ask: what regularity must $f$ have so that the natural symbolic action of $A$ on $f$ produces something back in the same space?",
+            "explain": "(0)→2: Δ has its natural Sobolev domain $H^2$. (1)→3: derivative on $L^p$ has domain $W^{1,p}$. (2)→0: multiplication by a bounded function is itself a bounded operator with $D(A)=L^2$. (3)→1: bounded $A$ means $D(A)=X$ trivially. The pattern: $D(A)$ is the natural Sobolev/regularity space the differential operator $A$ requires to land back in $X$."
+          }
+        ]
+      },
+      "sg-hille-yosida": {
+        "title": "The Hille–Yosida theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Hille–Yosida (contraction case): $A$ generates a $C_0$-semigroup $T(t)$ with $\\|T(t)\\|\\le 1$ iff $A$ is closed, densely defined, and:",
+            "choices": [
+              "$A$ is bounded with $\\|A\\|\\le 1$.",
+              "Every $\\lambda > 0$ lies in $\\rho(A)$ with $\\|(\\lambda-A)^{-1}\\| \\le 1/\\lambda$.",
+              "$A = A^*$ (self-adjoint) with negative spectrum.",
+              "$A$ has compact resolvent."
+            ],
+            "answer": 1,
+            "hint": "Hille–Yosida sits between two extremes: bounded $A$ (option 0, far too restrictive) and self-adjointness with negative spectrum (option 2, sufficient but not necessary). The actual hypothesis is a single estimate that the closed-graph theorem can verify directly from $A$.",
+            "explain": "The resolvent estimate $\\|(\\lambda-A)^{-1}\\|\\le 1/\\lambda$ for every $\\lambda>0$ is the analytic content of Hille–Yosida in the contraction case. In the scalar case $A=a\\in\\mathbb{R}$, the bound says $1/(\\lambda-a)\\le 1/\\lambda$ for $\\lambda>0$, i.e. $a\\le 0$ — exactly when $e^{ta}\\le 1$. (0) excludes Δ. (2) self-adjointness is sufficient when spectrum is in $(-\\infty,0]$ but not necessary (translation isn't self-adjoint yet generates a contraction group). (3) compact resolvent is unrelated to contraction."
+          },
+          {
+            "type": "ordering",
+            "q": "Order the conceptual steps of constructing the semigroup from the generator via the Yosida approximation.",
+            "items": [
+              "Take the strong limit $T(t)x = \\lim_n T_n(t) x$ for $x\\in D(A)$, then extend by density to $X$.",
+              "Verify the resolvent estimate $\\|n(n-A)^{-1}\\|\\le 1$, ensuring $A_n$ is bounded uniformly.",
+              "Form the bounded approximant $A_n = nA(n-A)^{-1} = n^2(n-A)^{-1} - nI$.",
+              "Show $A_n x \\to A x$ for $x\\in D(A)$ as $n\\to\\infty$.",
+              "Define $T_n(t) = e^{tA_n} = \\sum_{k\\ge 0}(tA_n)^k/k!$ as a uniformly continuous semigroup."
+            ],
+            "answer": [
+              1,
+              2,
+              3,
+              4,
+              0
+            ],
+            "hint": "Each step has a precondition that must already be true. Pick any two steps and ask: which one assumes the other has already happened? E.g. defining $T_n=e^{tA_n}$ presumes $A_n$ is already constructed and bounded.",
+            "explain": "(1) Resolvent bound: this is the input from Hille–Yosida hypothesis. (2) Form $A_n$: bounded by construction once the resolvent is bounded. (3) Strong convergence $A_n\\to A$ on $D(A)$: justifies treating $A_n$ as an approximation. (4) Define $T_n=e^{tA_n}$: only legal because $A_n$ is bounded (series converges in operator norm). (0) Take the strong limit: gives $T(t)$. Skipping (1) leaves $A_n$ undefined; skipping (3) leaves the approximation unjustified; etc."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Find the error in this attempted use of Hille–Yosida: \"To check that $A = +I$ (the identity operator) generates a $C_0$-semigroup of contractions on $X$, I observe: $A$ is bounded (so closed and densely defined), and for $\\lambda > 0$ the resolvent is $(\\lambda - I)^{-1} = (\\lambda-1)^{-1}I$, with norm $1/|\\lambda-1|$. Since $1/|\\lambda-1| \\to 0$ as $\\lambda\\to\\infty$, the resolvent is bounded for large $\\lambda$. By Hille–Yosida, $A$ generates a contraction semigroup.\"",
+            "steps": [
+              "$A = I$ is bounded, hence closed and densely defined.",
+              "For $\\lambda > 0$, $(\\lambda - I)^{-1} = (\\lambda-1)^{-1}I$ with norm $1/|\\lambda-1|$.",
+              "$1/|\\lambda-1|\\to 0$ as $\\lambda\\to\\infty$, so the resolvent is bounded for large $\\lambda$.",
+              "By Hille–Yosida, $A$ generates a contraction semigroup."
+            ],
+            "answer": 3,
+            "hint": "Restate Hille–Yosida from memory before re-reading the proof. The estimate carries a quantifier on $\\lambda$; check that the proof uses that exact quantifier and not a relaxed one.",
+            "explain": "Step 3 is wrong (and the test the proof claims to perform is the wrong test). Hille–Yosida demands $\\|(\\lambda-A)^{-1}\\|\\le 1/\\lambda$ for EVERY $\\lambda>0$, not just for $\\lambda$ large. At $\\lambda=2$, $1/|\\lambda-1|=1$ but the required bound is $1/\\lambda=0.5$ — the estimate fails. And indeed $A=I$ generates $e^{tI}=e^t I$, with $\\|e^{tI}\\|=e^t>1$, so it is NOT a contraction semigroup. The error is taking 'eventually small' as a substitute for 'pointwise bounded by $1/\\lambda$'."
+          }
+        ]
+      },
+      "sg-analytic-semigroups": {
+        "title": "Analytic semigroups and parabolic regularity",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "$T(t)$ is an analytic $C_0$-semigroup iff there is some $\\delta\\in(0,\\pi/2]$ such that:",
+            "choices": [
+              "$T(t)$ is bounded for $t\\ge 0$ — basic Hille–Yosida only.",
+              "The resolvent set of $A$ contains the sector $\\{|\\arg\\lambda|<\\pi/2+\\delta\\}\\setminus\\{0\\}$ and $\\|(\\lambda-A)^{-1}\\|\\le M/|\\lambda|$ on this sector.",
+              "$T(t)$ extends to a holomorphic function on the real line.",
+              "The generator $A$ is bounded."
+            ],
+            "answer": 1,
+            "hint": "Holomorphic extension of $T(t)$ off the real axis requires the resolvent estimate to hold somewhere off the real axis too. Three of these options give estimates only on a 1D set or use the wrong topology entirely.",
+            "explain": "Analyticity demands the resolvent estimate on a SECTOR fattened past the imaginary axis (the half-plane $\\mathrm{Re}\\,\\lambda>0$ extended to angle $\\pi/2+\\delta$). This is strictly stronger than Hille–Yosida (which only requires $\\lambda>0$). The fattened sector is what gives the holomorphic extension of $T$ via the Cauchy contour-integral formula $T(z) = \\frac{1}{2\\pi i}\\int_\\Gamma e^{z\\lambda}(\\lambda-A)^{-1}d\\lambda$. (0,3) are weaker; (2) misuses 'holomorphic'."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select the consequences of $T(t)$ being an analytic $C_0$-semigroup with generator $A$.",
+            "choices": [
+              "For every $x\\in X$ and every $t>0$ and every $k\\ge 0$: $T(t)x\\in D(A^k)$, with $\\|A^k T(t)\\|\\le C_k/t^k$.",
+              "If $u_0\\in L^2(\\mathbb{R}^n)$ and $A=\\Delta$, then $u(t)=T(t)u_0\\in C^\\infty(\\mathbb{R}^n)$ for every $t>0$.",
+              "The inhomogeneous problem $u'-Au=f$ enjoys maximal $L^p$ regularity on UMD spaces: $u', Au\\in L^p(0,T;X)$ when $f\\in L^p(0,T;X)$.",
+              "$T(t)$ is unitary, so $\\|T(t)x\\|=\\|x\\|$ for all $t\\ge 0$."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "hint": "Analyticity is incompatible with purely-imaginary spectrum. Compute the spectrum of one well-known group ($e^{itH}$ for self-adjoint $H$) and ask which of the four claims would force its spectrum to leave the imaginary axis.",
+            "explain": "(0,1,2) are the operator-theoretic versions of parabolic regularity, instant smoothing, and maximal regularity. (3) is wrong: unitary semigroups have purely imaginary spectrum (think $e^{itH}$ for a self-adjoint $H$), so the resolvent has no fattened sector and the semigroup is NOT analytic. The Schrödinger group is unitary but not analytic — singularities don't smooth, just disperse."
+          },
+          {
+            "type": "matching",
+            "q": "Match each evolution operator on the left to the regularity/smoothing class on the right.",
+            "left": [
+              "Heat semigroup $T(t)=e^{t\\Delta}$ on $L^2(\\mathbb{R}^n)$",
+              "Schrödinger group $T(t)=e^{-it\\Delta}$ on $L^2(\\mathbb{R}^n)$",
+              "Wave-equation propagator on the energy space",
+              "Bounded-perturbation semigroup $T(t)=e^{tA}$, $A\\in B(X)$"
+            ],
+            "right": [
+              "Defined for all $t\\in\\mathbb{R}$; uniformly bounded; norm-continuous in $t$.",
+              "Defined for all $t\\in\\mathbb{R}$; isometric on the energy norm; finite speed of propagation, no smoothing.",
+              "Defined for all $t\\in\\mathbb{R}$; unitary on $L^2$; no smoothing — singularities disperse but persist.",
+              "Defined only for $t\\ge 0$; analytic on a sector; instantly smoothing — $T(t)L^2\\subset C^\\infty$ for $t>0$."
+            ],
+            "answer": [
+              3,
+              2,
+              1,
+              0
+            ],
+            "hint": "Pick a single rough initial datum (a step or sawtooth) and trace it through each operator at $t>0$: which classes preserve the singularity, which smooth it, which reverse time?",
+            "explain": "(0)→3: heat is the prototype analytic semigroup, $t\\ge 0$ only, instant smoothing. (1)→2: Schrödinger group, all $t$, unitary, no smoothing. (2)→1: wave is a $C_0$-group preserving energy, finite speed of propagation, no smoothing. (3)→0: bounded $A$ ⇒ uniformly continuous, all $t\\in\\mathbb{R}$, smoothing depends on $A$ (typically none, since $A$ is bounded). The four landscapes — analytic, unitary-dispersive, energy-preserving hyperbolic, uniformly continuous — are the major taxa."
+          }
+        ]
+      },
+      "sg-evolution-pdes": {
+        "title": "Evolution equations as abstract Cauchy problems",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Duhamel's formula for the inhomogeneous Cauchy problem $u'=Au+f$, $u(0)=u_0$, with $A$ generating a $C_0$-semigroup $T$ and $f\\in C([0,T];X)$, gives the unique mild solution as:",
+            "choices": [
+              "$u(t) = T(t)u_0 + T(t)\\int_0^t f(s)\\,ds$",
+              "$u(t) = T(t)u_0 + \\int_0^t T(t-s)f(s)\\,ds$",
+              "$u(t) = T(t)u_0 + \\int_0^t T(s)f(s)\\,ds$",
+              "$u(t) = T(t)u_0 + \\int_0^t f(t-s)\\,ds$"
+            ],
+            "answer": 1,
+            "hint": "Differentiate each candidate formally and check whether $u'-Au=f$ falls out. Two of the four options keep the source $f(s)$ outside the action of $T$; one shifts the wrong direction; only one threads $f(s)$ through $T$ correctly.",
+            "explain": "The variation-of-parameters / Duhamel formula propagates the source $f(s)$ forward by the elapsed time $t-s$. Differentiating: $u'(t) = AT(t)u_0 + f(t) + \\int_0^t AT(t-s)f(s)ds = Au(t)+f(t)$. (0) misses the time-shift on $T$. (2) propagates by $s$ instead of $t-s$ — wrong direction. (3) drops the semigroup entirely."
+          },
+          {
+            "type": "matching",
+            "q": "Match each PDE on the left to the abstract Cauchy form (state space and generator) used in semigroup theory.",
+            "left": [
+              "Heat equation $u_t = \\Delta u$ on $\\mathbb{R}^n$",
+              "Wave equation $u_{tt} = \\Delta u$ on $\\mathbb{R}^n$",
+              "Free Schrödinger $i u_t = -\\Delta u$ on $\\mathbb{R}^n$",
+              "Advection-diffusion $u_t = \\Delta u - b\\cdot\\nabla u$"
+            ],
+            "right": [
+              "$X = H^1\\times L^2$ (energy space), $A = \\begin{pmatrix}0&I\\\\\\Delta&0\\end{pmatrix}$ on the doubled state $(u,u_t)$",
+              "$X = L^2$, $A = -i\\Delta$ with $D(A)=H^2$",
+              "$X = L^2$, $A = \\Delta - b\\cdot\\nabla$ with $D(A)=H^2$ (when $b$ is bounded)",
+              "$X = L^2$, $A = \\Delta$ with $D(A)=H^2$"
+            ],
+            "answer": [
+              3,
+              0,
+              1,
+              2
+            ],
+            "hint": "First sort by structural transformation: which PDE is second-order in $t$ and therefore needs a doubled state space? The remaining three keep $X=L^2$ but differ in how $A$ relates to $\\Delta$ — by a constant, a drift, or an imaginary unit.",
+            "explain": "(0)→3: heat — straightforward $A=\\Delta$. (1)→0: wave is second-order in $t$; standard trick is the doubled state $(u,u_t)$ on $H^1\\times L^2$ with the matrix generator. (2)→1: Schrödinger has $A=-i\\Delta$ (skew-symmetric, generates a unitary group). (3)→2: advection-diffusion adds a first-order drift, generator is still 2nd-order elliptic when $b$ is bounded. The choice of $X$ encodes the natural energy/conservation law."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select the true statements about mild and classical solutions to $u'=Au+f$, $u(0)=u_0$.",
+            "choices": [
+              "The mild solution from Duhamel exists for any $u_0\\in X$ and any $f\\in C([0,T];X)$, and is continuous in $t$.",
+              "If $u_0\\in D(A)$ and $f\\in C^1([0,T];X)$, then the mild solution is a classical $C^1$ solution: $u\\in C^1([0,T];X)$, $u(t)\\in D(A)$ for all $t$.",
+              "Two distinct mild solutions can correspond to the same initial datum $u_0$, so uniqueness must be assumed separately.",
+              "Linearity of $A$ implies the mild solution depends linearly and continuously on $(u_0, f)$ — the classical well-posedness diagram."
+            ],
+            "answer": [
+              0,
+              1,
+              3
+            ],
+            "hint": "What does closedness of $A$ — automatic for $C_0$-generators — buy you for the difference $w$ of two solutions with the same initial datum? If $w$ is a mild solution of $w'=Aw$ with $w(0)=0$, what is $w$?",
+            "explain": "(0,1,3) are the well-posedness package. (2) is wrong: when $A$ generates a $C_0$-semigroup it is automatically closed, and closedness implies uniqueness of mild solutions — two solutions with the same $u_0$ would have a difference $w(t)$ that is a mild solution of $w'=Aw$ with $w(0)=0$, forcing $w\\equiv 0$ by the semigroup law. Linearity, continuity, and existence are all built into the framework once the generator hypothesis is verified."
+          }
+        ]
+      },
+      "sg-applications": {
+        "title": "Applications: nonlinear PDEs, control, and stochastic flows",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For the semilinear heat equation $u'=\\Delta u + F(u)$, $u(0)=u_0$, with $F\\colon L^p\\to L^p$ locally Lipschitz, the standard local-existence proof is:",
+            "choices": [
+              "Solve in Fourier coefficients, mode by mode.",
+              "Convert to the integral equation $u(t)=T(t)u_0+\\int_0^t T(t-s)F(u(s))ds$ and apply Banach's fixed-point theorem on a small time interval.",
+              "Apply the maximum principle directly to the differential equation.",
+              "Diagonalize $\\Delta$ via spectral theorem and integrate ODEs."
+            ],
+            "answer": 1,
+            "hint": "Two of these methods need $A$ to commute with a basis (Fourier, spectral diagonalization). The other two work for any $C_0$-generator on any Banach space; among those, only one method's hypothesis matches the regularity assumption stated for $F$.",
+            "explain": "The Duhamel form turns the PDE into an integral equation $u=\\Phi(u)$ on $C([0,T_*];X)$. For $T_*$ small the map $\\Phi$ is a contraction (because $F$ is locally Lipschitz and $\\sup_t\\|T(t)\\|$ is bounded on compacts), so Banach's theorem gives a unique mild solution. (0,3) require structural assumptions like compact resolvent / spectral diagonal. (2) maximum principles give bounds, not existence. The semigroup + fixed-point recipe is universal across $A=\\Delta, -\\Delta+i, etc.$"
+          },
+          {
+            "type": "numeric",
+            "q": "For an SDE $dX_t = \\sigma\\,dW_t$ on $\\mathbb{R}$ with constant $\\sigma > 0$ and Brownian motion $W$, the Markov semigroup $T(t)f(x)=\\mathbb{E}[f(X_t)\\mid X_0=x]$ has generator $Af(x) = c\\cdot f''(x)$ for smooth $f$. What is the constant $c$, in terms of $\\sigma$? (Enter the coefficient as a closed-form expression of $\\sigma$ — answer the numerical value when $\\sigma=2$.)",
+            "answer": 2,
+            "tol": 0.000001,
+            "hint": "Itô's formula has two terms when applied to $f(X_t)$: a stochastic-integral term (martingale, vanishes in expectation) and a deterministic drift in $t$. Read the drift, isolate the coefficient of $f''$, and substitute $\\sigma=2$.",
+            "explain": "Itô's formula: $df(X_t) = f'(X_t)\\,dX_t + \\frac{1}{2}f''(X_t)\\,d\\langle X\\rangle_t = \\sigma f'(X_t)dW_t + \\frac{1}{2}\\sigma^2 f''(X_t)dt$. Taking expectation kills the martingale, so $\\frac{d}{dt}\\mathbb{E}[f(X_t)] = \\frac{1}{2}\\sigma^2\\mathbb{E}[f''(X_t)]$, hence $A = \\frac{1}{2}\\sigma^2 \\partial^2$. With $\\sigma=2$: $c = \\frac{1}{2}\\cdot 4 = 2$. The general formula $A = \\frac{1}{2}\\sigma\\sigma^\\top:D^2 + b\\cdot D$ specializes to $\\frac{1}{2}\\Delta$ for $\\sigma=I$, $b=0$ — the heat semigroup is the Markov semigroup of standard Brownian motion."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all true statements about controllability of $u'=Au+Bv$, $u(0)=u_0$, $v$ a control input.",
+            "choices": [
+              "For the heat equation on a bounded domain $\\Omega\\subset\\mathbb{R}^n$ with control on a nonempty open subdomain $\\omega\\subset\\Omega$, the system is approximately controllable in any time $T>0$.",
+              "Approximate controllability of the heat equation can fail to be EXACT: the reachable set is dense in $L^2$ but not all of $L^2$, because $u(T)$ is automatically $C^\\infty$.",
+              "For the wave equation, exact controllability requires the geometric control condition: every billiard trajectory in $\\Omega$ must enter $\\omega$ in finite time (Bardos–Lebeau–Rauch).",
+              "Approximate controllability is equivalent to the unique-continuation property of the adjoint semigroup $T(t)^*$ for solutions vanishing on $\\omega$."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "For each statement, ask: does this fail for parabolic equations, hyperbolic equations, or both? The geometric vs. analytic mechanisms behind controllability differ qualitatively across the two regimes — check each statement on its own merits.",
+            "explain": "(0) and (1) are the heat-equation story: analyticity gives approximate controllability for any nonempty $\\omega$ (Lebeau–Robbiano), but exact controllability fails because $u(T)\\in\\bigcap_k H^k$ is much smoother than a generic $L^2$ target. (2) is the BLR theorem for the wave equation, where finite speed of propagation forces a geometric obstruction. (3) is the Hahn–Banach dual characterization: approximate controllability ⇔ uniqueness for the adjoint observability problem. All four are correct — semigroup theory unifies the controllability question across the parabolic, hyperbolic, and abstract settings."
+          }
+        ]
+      }
+    }
+  },
   "sheaf-cohomology": {
     "topic": "sheaf-cohomology",
     "quizzes": {

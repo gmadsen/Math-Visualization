@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://math-vis.local/widgets/sg-hy/schema.json",
+  "title": "sg-hy widget params",
+  "description": "Bespoke verbatim-renderer slug for the sg-hy widget on the semigroup-theory-evolution-equations topic. Carries opaque bodyMarkup + bodyScript strings.",
+  "meta": {
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "interactive"
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "widgetId",
+    "title",
+    "hint",
+    "bodyMarkup",
+    "bodyScript"
+  ],
+  "properties": {
+    "widgetId": {
+      "type": "string",
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]*$",
+      "description": "DOM id for the widget root."
+    },
+    "title": {
+      "type": "string",
+      "description": "Header title (rendered inside .hd > .ttl)."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Header hint (rendered inside .hd > .hint)."
+    },
+    "bodyMarkup": {
+      "type": "string",
+      "description": "Verbatim markup for the widget block.",
+      "x-artifact": true
+    },
+    "bodyScript": {
+      "type": "string",
+      "description": "Verbatim driving script block.",
+      "x-artifact": true
+    }
+  }
+}
