@@ -6687,6 +6687,20 @@ window.__MVConcepts = {
           "tags": [
             "lifting"
           ]
+        },
+        {
+          "id": "open-mapping-ca",
+          "title": "Open mapping theorem",
+          "anchor": "open-mapping",
+          "prereqs": [
+            "maximum-modulus",
+            "argument-principle"
+          ],
+          "blurb": "A non-constant holomorphic map between domains is open: it sends every open set to an open set. Equivalent to the dichotomy \"constant or open,\" and the topological flip of the maximum-modulus principle.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
         }
       ]
     },
@@ -14636,11 +14650,11 @@ window.__MVConcepts = {
       "density": 0.5111111111111111
     },
     "Analysis": {
-      "concepts": 170,
-      "intra": 298,
+      "concepts": 171,
+      "intra": 300,
       "crossOut": 27,
       "crossIn": 62,
-      "density": 0.1588235294117647
+      "density": 0.15789473684210525
     },
     "Probability & statistics": {
       "concepts": 55,
