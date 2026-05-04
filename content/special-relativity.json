@@ -22,6 +22,10 @@
           }
         },
         {
+          "type": "widget-script",
+          "ref": "w-vadd"
+        },
+        {
           "type": "raw",
           "html": "\n\n"
         },
@@ -29,6 +33,10 @@
           "type": "quiz",
           "concept": "sr-postulates",
           "html": "<div class=\"quiz\" data-concept=\"sr-postulates\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./hamiltonians-classical-mechanics.html#phase-space\">Phase space and the cotangent bundle</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
@@ -59,6 +67,10 @@
           }
         },
         {
+          "type": "widget-script",
+          "ref": "w-boost"
+        },
+        {
           "type": "raw",
           "html": "\n\n"
         },
@@ -66,6 +78,10 @@
           "type": "quiz",
           "concept": "sr-lorentz",
           "html": "<div class=\"quiz\" data-concept=\"sr-lorentz\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./lie-groups.html#intro\">Lie groups and matrix examples</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
@@ -96,13 +112,21 @@
           }
         },
         {
+          "type": "widget-script",
+          "ref": "w-cone"
+        },
+        {
           "type": "raw",
-          "html": "\n\n<p>The Lorentz group has four connected components depending on whether $\\Lambda$ flips spatial parity ($\\det\\Lambda = \\pm 1$) and whether it reverses time orientation ($\\Lambda^0{}_0 \\gtrless 0$). The component containing the identity — proper orthochronous transformations $\\mathrm{SO}^+(1,3)$ — is the physical symmetry group of inertial relabelings and is connected to the identity.</p>\n\n"
+          "html": "\n\n<p>The Lorentz group has four connected components depending on whether $\\Lambda$ flips spatial parity ($\\det\\Lambda = \\pm 1$) and whether it reverses time orientation ($\\Lambda^0{}_0 \\gtrless 0$). The component containing the identity — the <em>proper orthochronous</em> transformations $\\mathrm{SO}^+(1,3)$, i.e. those with $\\det\\Lambda = +1$ (proper, no parity flip) and $\\Lambda^0{}_0 > 0$ (orthochronous, no time reversal) — is the physical symmetry group of inertial relabelings: every continuous boost-and-rotate sequence stays inside this component, while parity ($P$), time reversal ($T$), and their product $PT$ peel off the other three.</p>\n\n"
         },
         {
           "type": "quiz",
           "concept": "sr-minkowski",
           "html": "<div class=\"quiz\" data-concept=\"sr-minkowski\"></div>"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./riemannian-geometry.html#metric\">Riemannian metrics</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "raw",
@@ -131,6 +155,10 @@
             "bodyMarkup": "<div class=\"widget\" id=\"w-gamma\">\n  <div class=\"hd\"><div class=\"ttl\">Lorentz factor: γ as β grows</div><div class=\"hint\">slide β; γ blows up at $c$</div></div>\n  <div class=\"row\">\n    <label for=\"gam-b\">$\\beta = v/c$</label>\n    <input id=\"gam-b\" type=\"range\" min=\"0\" max=\"0.999\" step=\"0.001\" value=\"0.6\">\n  </div>\n  <svg id=\"gam-svg\" viewBox=\"-200 -130 420 220\" width=\"100%\" height=\"240\"><title>Lorentz factor γ vs β</title></svg>\n  <div id=\"gam-out\" class=\"readout\"></div>\n</div>",
             "bodyScript": "\n\n<script>\n(function(){\n  const svg = document.getElementById('gam-svg');\n  const out = document.getElementById('gam-out');\n  const bIn = document.getElementById('gam-b');\n  const W = 180, H = 90;\n  function draw(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    // axes\n    svg.appendChild(SVG('line',{x1:-W,y1:H-10,x2:W,y2:H-10,stroke:'var(--line)','stroke-width':1}));\n    svg.appendChild(SVG('line',{x1:-W,y1:-H+10,x2:-W,y2:H-10,stroke:'var(--line)','stroke-width':1}));\n    // gamma curve over β ∈ [0,0.999]\n    const path = [];\n    for(let i=0;i<=200;i++){\n      const beta = i/200 * 0.999;\n      const g = 1/Math.sqrt(1-beta*beta);\n      const sx = -W + (beta/0.999) * 2*W;\n      const sy = (H-10) - Math.min(g, 8) * 18;\n      path.push(`${i===0?'M':'L'}${sx.toFixed(1)} ${sy.toFixed(1)}`);\n    }\n    svg.appendChild(SVG('path',{d:path.join(' '),fill:'none',stroke:'var(--cyan)','stroke-width':2.2}));\n    // current marker\n    const beta = parseFloat(bIn.value);\n    const g = 1/Math.sqrt(1-beta*beta);\n    const sx = -W + (beta/0.999) * 2*W;\n    const sy = (H-10) - Math.min(g, 8) * 18;\n    svg.appendChild(SVG('line',{x1:sx,y1:H-10,x2:sx,y2:sy,stroke:'var(--mute)','stroke-dasharray':'3 3'}));\n    svg.appendChild(SVG('circle',{cx:sx,cy:sy,r:5,fill:'var(--cyan)','stroke':'var(--ink)','stroke-width':1}));\n    // ticks\n    for(const k of [1,2,4,8]){\n      const ty = (H-10) - Math.min(k,8)*18;\n      svg.appendChild(SVG('line',{x1:-W,y1:ty,x2:-W+5,y2:ty,stroke:'var(--mute)','stroke-width':1}));\n      const tt = SVG('text',{x:-W-4,y:ty+3,'font-size':10,fill:'var(--mute)','text-anchor':'end'}); tt.textContent = `γ=${k}`; svg.appendChild(tt);\n    }\n    // β tick labels\n    for(const b of [0,0.5,0.9,0.99]){\n      const tx = -W + (b/0.999) * 2*W;\n      const tt = SVG('text',{x:tx,y:H+6,'font-size':10,fill:'var(--mute)','text-anchor':'middle'}); tt.textContent = `β=${b}`; svg.appendChild(tt);\n    }\n    out.textContent = `β = ${beta.toFixed(3)}    γ = ${g.toFixed(3)}    Δt/Δτ = γ ≈ ${g.toFixed(2)}    L/L₀ = 1/γ ≈ ${(1/g).toFixed(2)}    γ→∞ as β→1: time dilation and length contraction become unbounded.`;\n  }\n  bIn.addEventListener('input', draw);\n  draw();\n})();\n</script>"
           }
+        },
+        {
+          "type": "widget-script",
+          "ref": "w-gamma"
         },
         {
           "type": "raw",
@@ -166,8 +194,16 @@
           }
         },
         {
+          "type": "widget-script",
+          "ref": "w-em"
+        },
+        {
           "type": "raw",
           "html": "\n\n<p>Two consequences worth recording: (1) accelerating a massive particle to $c$ would require infinite energy ($\\gamma\\to\\infty$ as $\\beta\\to1$), which is the dynamic statement of the speed limit. (2) Mass-energy equivalence powers nuclear binding, fission, fusion, and pair production — the released $E = \\Delta m\\,c^2$ is the same energy that would have to be supplied to break the bound state.</p>\n\n"
+        },
+        {
+          "type": "raw",
+          "html": "<!-- callback-auto-begin -->\n<aside class=\"callback\">\n  <div class=\"ttl\">See also</div>\n  <ul>\n    <li><a href=\"./hamiltonians-classical-mechanics.html#noether\">Symmetries and Noether's theorem</a></li>\n  </ul>\n</aside>\n<!-- callback-auto-end -->"
         },
         {
           "type": "quiz",
@@ -199,8 +235,12 @@
           }
         },
         {
+          "type": "widget-script",
+          "ref": "w-sim"
+        },
+        {
           "type": "raw",
-          "html": "\n\n<p>Because the cyan and pink simultaneity slices are different lines through the origin, two spacelike-separated events on the cyan slice ($A$ and $B$ above, both at $t=0$) sit at different $t'$ values on the pink slice. Boost in the opposite direction and the temporal order reverses. This is harmless: $A$ and $B$ are spacelike-separated, so neither can causally influence the other, and a frame-dependent ordering is fine.</p>\n\n<p><strong>The faster-than-light prohibition.</strong> If a signal could travel faster than $c$ from $A$ to $B$, it would lie in the spacelike \"elsewhere\" of $A$. Then in some frames its endpoint $B$ precedes its start $A$ — a signal from your future arrives in your past. Closing this loop produces the standard time-travel paradox (the \"tachyonic antitelephone\"). Special relativity therefore demands that information and matter respect $|v|<c$ to remain consistent with causality.</p>\n\n"
+          "html": "\n\n<p>Because the cyan and pink simultaneity slices are different lines through the origin, two spacelike-separated events on the cyan slice ($A$ and $B$ above, both at $t=0$) sit at different $t'$ values on the pink slice. Boost in the opposite direction and the temporal order reverses. This is harmless: $A$ and $B$ are spacelike-separated, so neither can causally influence the other, and a frame-dependent ordering is fine.</p>\n\n<p><strong>The faster-than-light prohibition.</strong> If a signal could travel faster than $c$ from $A$ to $B$, it would lie in the spacelike \"elsewhere\" of $A$. Then in some frames its endpoint $B$ precedes its start $A$ — a signal from your future arrives in your past. Closing this loop produces a <strong>tachyonic antitelephone</strong>: Alice sends Bob a superluminal message, Bob (in some boosted frame where the order $A,B$ is reversed) sends a superluminal reply, and Alice receives the reply <em>before</em> she sent the original. Each link is fine in its own frame, yet the chain delivers a message into the sender's own past — a closed causal loop. Special relativity therefore demands that information and matter respect $|v|<c$ to remain consistent with causality.</p>\n\n"
         },
         {
           "type": "quiz",
@@ -218,10 +258,10 @@
       "blocks": [
         {
           "type": "raw",
-          "html": "<section id=\"connections\">\n<h2>Connections</h2>\n\n<p>Special relativity is the kinematic skeleton; nearly every modern fundamental theory is built to be Lorentz-invariant from the start. The open frontier is not within SR — it is in how SR couples to gravity (general relativity bends spacetime so that \"inertial frame\" only makes sense locally) and to quantum mechanics (relativistic quantum field theory unifies the Lorentz group with quantum probability amplitudes; the spin-statistics theorem and antiparticle prediction follow).</p>\n\n<ul>\n<li><a href=\"./general-relativity.html#spacetime\">General relativity — spacetime as a Lorentzian manifold</a> — replaces the flat Minkowski metric with a curved one; SR is the local tangent-space limit.</li>\n<li><a href=\"./schrodinger-equation.html\">Schrödinger equation</a> — non-relativistic quantum mechanics; the SR analogues are the Klein–Gordon (scalar) and Dirac (spinor) equations.</li>\n<li><a href=\"./hamiltonians-classical-mechanics.html\">Hamiltonians &amp; classical mechanics</a> — the non-relativistic limit one obtains from SR's Lagrangian $L=-mc^2\\sqrt{1-\\beta^2}$.</li>\n<li><a href=\"./gauge-theory.html\">Gauge theory</a> — the relativistic field-theory framework that unifies electromagnetism (Maxwell's equations are already Lorentz-invariant) with weak and strong forces.</li>\n<li><a href=\"./quaternions-octonions-and-division-algebras.html\">Quaternions, octonions, and division algebras</a> — Hamilton's quaternions arise as $\\mathrm{Spin}(3)$, the universal cover of the spatial-rotation subgroup of $\\mathrm{SO}^+(1,3)$; the full Lorentz group is covered by $\\mathrm{SL}(2,\\mathbb{C})$.</li>\n</ul>\n</section>\n\n"
+          "html": "<section id=\"connections\">\n<h2>Connections</h2>\n\n<p>Special relativity is the kinematic skeleton; nearly every modern fundamental theory is built to be Lorentz-invariant from the start. The open frontier is not within SR — it is in how SR couples to gravity (general relativity bends spacetime so that \"inertial frame\" only makes sense locally) and to quantum mechanics (relativistic quantum field theory unifies the Lorentz group with quantum probability amplitudes; the spin-statistics theorem and antiparticle prediction follow).</p>\n\n<ul>\n<li><a href=\"./general-relativity.html#spacetime\">General relativity — spacetime as a Lorentzian manifold</a> — replaces the flat Minkowski metric with a curved one; SR is the local tangent-space limit.</li>\n<li><a href=\"./schrodinger-equation.html#time-dep\">Schrödinger equation</a> — non-relativistic quantum mechanics; the SR analogues are the Klein–Gordon (scalar) and Dirac (spinor) equations.</li>\n<li><a href=\"./hamiltonians-classical-mechanics.html#hamilton-eq\">Hamiltonians &amp; classical mechanics</a> — the non-relativistic limit one obtains from SR's Lagrangian $L=-mc^2\\sqrt{1-\\beta^2}$.</li>\n<li><a href=\"./gauge-theory.html#curvature-yang-mills\">Gauge theory</a> — the relativistic field-theory framework that unifies electromagnetism (Maxwell's equations are already Lorentz-invariant) with weak and strong forces.</li>\n<li><a href=\"./quaternions-octonions-and-division-algebras.html#rotations\">Quaternions, octonions, and division algebras</a> — Hamilton's quaternions arise as $\\mathrm{Spin}(3)$, the universal cover of the spatial-rotation subgroup $\\mathrm{SO}(3)$; the proper orthochronous component $\\mathrm{SO}^+(1,3)$ is double-covered by $\\mathrm{SL}(2,\\mathbb{C})$ (not the full Lorentz group $\\mathrm{O}(1,3)$, which has four disconnected pieces).</li>\n</ul>\n</section>\n\n"
         }
       ]
     }
   ],
-  "rawBodySuffix": "</main>\n\n<script>\n(function(){\n  function start(){ if(window.MVQuiz) MVQuiz.init('special-relativity'); }\n  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);\n  else start();\n})();\n</script>\n<details class=\"changelog\">\n  <summary>changelog</summary>\n  <table>\n    <tbody>\n      <tr><td>2026-05-04</td><td>initial version</td></tr>\n    </tbody>\n  </table>\n</details>\n</details>\n\n</body>\n</html>\n"
+  "rawBodySuffix": "</main>\n\n<script>\n(function(){\n  function start(){ if(window.MVQuiz) MVQuiz.init('special-relativity'); }\n  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);\n  else start();\n})();\n</script>\n<details class=\"changelog\">\n  <summary>changelog</summary>\n  <table>\n    <tbody>\n      <tr><td>2026-05-04</td><td>initial version</td></tr>\n    </tbody>\n  </table>\n</details>\n\n</body>\n</html>\n"
 }

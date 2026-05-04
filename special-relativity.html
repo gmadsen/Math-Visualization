@@ -294,7 +294,75 @@ function drawNode(svg, x, y, label, opts={}){
   <div id="vadd-out" class="readout"></div>
 </div>
 
-<div class="quiz" data-concept="sr-postulates"></div><!-- backlinks-auto-begin -->
+<script>
+(function(){
+  const svg = document.getElementById('vadd-svg');
+  const out = document.getElementById('vadd-out');
+  const uIn = document.getElementById('vadd-u');
+  const vIn = document.getElementById('vadd-v');
+  const W = 180, H = 90;
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // axes — horizontal axis = u/c, vertical axis = composed velocity / c
+    svg.appendChild(SVG('line',{x1:-W,y1:0,x2:W,y2:0,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:0,y1:-H,x2:0,y2:H,stroke:'var(--line)','stroke-width':1}));
+    // axis labels
+    const lx = SVG('text',{x:W-4,y:-6,'text-anchor':'end','font-size':11,fill:'var(--mute)'}); lx.textContent = 'u/c'; svg.appendChild(lx);
+    const ly = SVG('text',{x:6,y:-H+12,'font-size':11,fill:'var(--mute)'}); ly.textContent = 'composed / c'; svg.appendChild(ly);
+    // ±1 reference lines (light-speed bounds)
+    svg.appendChild(SVG('line',{x1:-W,y1:-H+10,x2:W,y2:-H+10,stroke:'var(--yellow)','stroke-dasharray':'3 3','stroke-width':1,'stroke-opacity':.5}));
+    svg.appendChild(SVG('line',{x1:-W,y1:H-10,x2:W,y2:H-10,stroke:'var(--yellow)','stroke-dasharray':'3 3','stroke-width':1,'stroke-opacity':.5}));
+    const tc = SVG('text',{x:-W+4,y:-H+22,'font-size':10,fill:'var(--yellow)'}); tc.textContent = 'c'; svg.appendChild(tc);
+    const tcm = SVG('text',{x:-W+4,y:H-12,'font-size':10,fill:'var(--yellow)'}); tcm.textContent = '−c'; svg.appendChild(tcm);
+    // current v
+    const v = parseFloat(vIn.value);
+    // Galilean curve: w = u + v   (clamped for plotting only)
+    const galPath = [];
+    const einPath = [];
+    for(let i=-100;i<=100;i++){
+      const u = i/100 * 0.999;
+      const wg = u + v;
+      const we = (u + v) / (1 + u*v);
+      const sx = (u/0.999) * W;
+      const syG = -Math.max(-1.4, Math.min(1.4, wg)) * (H-10);
+      const syE = -we * (H-10);
+      galPath.push(`${i===-100?'M':'L'}${sx.toFixed(1)} ${syG.toFixed(1)}`);
+      einPath.push(`${i===-100?'M':'L'}${sx.toFixed(1)} ${syE.toFixed(1)}`);
+    }
+    svg.appendChild(SVG('path',{d:galPath.join(' '),fill:'none',stroke:'var(--mute)','stroke-width':1.4,'stroke-dasharray':'4 3'}));
+    svg.appendChild(SVG('path',{d:einPath.join(' '),fill:'none',stroke:'var(--cyan)','stroke-width':2.2}));
+    // current u marker
+    const u = parseFloat(uIn.value);
+    const wG = u + v;
+    const wE = (u + v) / (1 + u*v);
+    const sx = (u/0.999) * W;
+    const syG = -Math.max(-1.4, Math.min(1.4, wG)) * (H-10);
+    const syE = -wE * (H-10);
+    svg.appendChild(SVG('circle',{cx:sx,cy:syG,r:4,fill:'var(--mute)'}));
+    svg.appendChild(SVG('circle',{cx:sx,cy:syE,r:5,fill:'var(--cyan)','stroke':'var(--ink)','stroke-width':1}));
+    // legend
+    const lg = SVG('g',{transform:`translate(${W-110},${-H+8})`});
+    lg.appendChild(SVG('line',{x1:0,y1:0,x2:18,y2:0,stroke:'var(--mute)','stroke-dasharray':'4 3','stroke-width':1.4}));
+    const lgG = SVG('text',{x:24,y:4,'font-size':11,fill:'var(--mute)'}); lgG.textContent='Galilean u+v'; lg.appendChild(lgG);
+    lg.appendChild(SVG('line',{x1:0,y1:14,x2:18,y2:14,stroke:'var(--cyan)','stroke-width':2}));
+    const lgE = SVG('text',{x:24,y:18,'font-size':11,fill:'var(--cyan)'}); lgE.textContent='Einstein (u+v)/(1+uv/c²)'; lg.appendChild(lgE);
+    svg.appendChild(lg);
+    out.textContent = `u/c = ${u.toFixed(2)}    v/c = ${v.toFixed(2)}    Galilean (u+v)/c = ${wG.toFixed(3)}    Einstein = ${wE.toFixed(3)}    ${Math.abs(wE)<1 ? '|composed| < c ✓' : '|composed| ≥ c (impossible — Galilean overshoot)'}`;
+  }
+  uIn.addEventListener('input', draw);
+  vIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<div class="quiz" data-concept="sr-postulates"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./hamiltonians-classical-mechanics.html#phase-space">Phase space and the cotangent bundle</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./special-relativity.html#lorentz">Special relativity</a> · Lorentz transformations</div>
@@ -331,7 +399,52 @@ $$v_3 \;=\; \frac{v_1 + v_2}{1 + v_1 v_2/c^2},$$
   <div id="boost-out" class="readout"></div>
 </div>
 
-<div class="quiz" data-concept="sr-lorentz"></div><!-- backlinks-auto-begin -->
+<script>
+(function(){
+  const svg = document.getElementById('boost-svg');
+  const out = document.getElementById('boost-out');
+  const bIn = document.getElementById('boost-b');
+  const W = 150;
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const beta = parseFloat(bIn.value);
+    const gamma = 1/Math.sqrt(1-beta*beta);
+    // S axes (t up = -y, x right) — shaded grid
+    for(let k=-3;k<=3;k++){
+      svg.appendChild(SVG('line',{x1:-W,y1:k*30,x2:W,y2:k*30,stroke:'var(--line)','stroke-width':k===0?1.4:0.5}));
+      svg.appendChild(SVG('line',{x1:k*30,y1:-W,x2:k*30,y2:W,stroke:'var(--line)','stroke-width':k===0?1.4:0.5}));
+    }
+    // light cone (45° lines)
+    svg.appendChild(SVG('line',{x1:-W,y1:-W,x2:W,y2:W,stroke:'var(--yellow)','stroke-dasharray':'4 3','stroke-width':1,'stroke-opacity':.7}));
+    svg.appendChild(SVG('line',{x1:-W,y1:W,x2:W,y2:-W,stroke:'var(--yellow)','stroke-dasharray':'4 3','stroke-width':1,'stroke-opacity':.7}));
+    // S' t' axis: x = β t  ⇒ slope dt/dx = 1/β; tilted toward light cone as |β|→1
+    // t' axis maps (t,0) → in S coords with c=1: x = β t, t = t (event with x'=0 at S′ time t' has S coords (γt', βγt'))
+    // Direction of t' axis in S: (Δx, Δt) ∝ (β, 1).
+    const tx = beta*W, ty = -W;
+    svg.appendChild(SVG('line',{x1:-tx,y1:-ty,x2:tx,y2:ty,stroke:'var(--cyan)','stroke-width':2.2}));
+    // x' axis: t = β x, direction (1, β)
+    const xx = W, xy = -beta*W;
+    svg.appendChild(SVG('line',{x1:-xx,y1:-xy,x2:xx,y2:xy,stroke:'var(--pink)','stroke-width':2.2}));
+    // axis labels
+    const lt = SVG('text',{x:6,y:-W+12,'font-size':11,fill:'var(--ink)'}); lt.textContent='t'; svg.appendChild(lt);
+    const lx = SVG('text',{x:W-12,y:-6,'font-size':11,fill:'var(--ink)','text-anchor':'end'}); lx.textContent='x'; svg.appendChild(lx);
+    const ltp = SVG('text',{x:tx+6,y:ty+14,'font-size':11,fill:'var(--cyan)'}); ltp.textContent="t′"; svg.appendChild(ltp);
+    const lxp = SVG('text',{x:xx-12,y:xy-4,'font-size':11,fill:'var(--pink)','text-anchor':'end'}); lxp.textContent="x′"; svg.appendChild(lxp);
+    out.textContent = `β = ${beta.toFixed(2)}    γ = ${gamma.toFixed(3)}    The S′ axes (t′,x′) are scissored toward the light-cone diagonal: as β→1 they collapse onto the same null line, encoding the speed-of-light limit.`;
+  }
+  bIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
+<div class="quiz" data-concept="sr-lorentz"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./lie-groups.html#intro">Lie groups and matrix examples</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./special-relativity.html#minkowski">Special relativity</a> · Minkowski metric and the spacetime interval</div>
@@ -369,9 +482,71 @@ $$\eta_{\mu\nu}\,\Lambda^\mu{}_\rho\,\Lambda^\nu{}_\sigma \;=\; \eta_{\rho\sigma
   <div id="cone-out" class="readout">drag the cyan tip…</div>
 </div>
 
-<p>The Lorentz group has four connected components depending on whether $\Lambda$ flips spatial parity ($\det\Lambda = \pm 1$) and whether it reverses time orientation ($\Lambda^0{}_0 \gtrless 0$). The component containing the identity — proper orthochronous transformations $\mathrm{SO}^+(1,3)$ — is the physical symmetry group of inertial relabelings and is connected to the identity.</p>
+<script>
+(function(){
+  const svg = document.getElementById('cone-svg');
+  const out = document.getElementById('cone-out');
+  const W = 150;
+  let vx = 50, vt = -110;
+  function build(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // Future + past light cones (filled)
+    const fut = SVG('path',{d:`M0,0 L-${W},-${W} L${W},-${W} Z`,fill:'rgba(255,216,102,0.10)',stroke:'var(--yellow)','stroke-width':1});
+    const past = SVG('path',{d:`M0,0 L-${W},${W} L${W},${W} Z`,fill:'rgba(255,216,102,0.06)',stroke:'var(--yellow)','stroke-width':1,'stroke-dasharray':'3 3'});
+    svg.appendChild(fut); svg.appendChild(past);
+    // Null lines
+    svg.appendChild(SVG('line',{x1:-W,y1:-W,x2:W,y2:W,stroke:'var(--yellow)','stroke-dasharray':'4 3','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:-W,y1:W,x2:W,y2:-W,stroke:'var(--yellow)','stroke-dasharray':'4 3','stroke-width':1}));
+    // Axes
+    svg.appendChild(SVG('line',{x1:-W,y1:0,x2:W,y2:0,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:0,y1:-W,x2:0,y2:W,stroke:'var(--line)','stroke-width':1}));
+    const lt = SVG('text',{x:6,y:-W+12,'font-size':11,fill:'var(--mute)'}); lt.textContent='ct (future)'; svg.appendChild(lt);
+    const lx = SVG('text',{x:W-4,y:-6,'font-size':11,fill:'var(--mute)','text-anchor':'end'}); lx.textContent='x'; svg.appendChild(lx);
+  }
+  function draw(){
+    build();
+    const inner = vx*vx - vt*vt; // x² − t² with c=1
+    let kind, color;
+    if(Math.abs(inner) < 60){ kind = 'lightlike (null)'; color = 'var(--yellow)'; }
+    else if(inner < 0){ kind = (vt<0 ? 'timelike (future)' : 'timelike (past)'); color = 'var(--cyan)'; }
+    else { kind = 'spacelike'; color = 'var(--pink)'; }
+    ensureArrow(svg,'cone-arr',color);
+    svg.appendChild(SVG('line',{x1:0,y1:0,x2:vx,y2:vt,stroke:color,'stroke-width':2.4,'marker-end':'url(#cone-arr)'}));
+    const h = SVG('circle',{cx:vx,cy:vt,r:8,fill:color,stroke:'var(--ink)','stroke-width':1.2,style:'cursor:grab'});
+    svg.appendChild(h);
+    h.addEventListener('pointerdown', e => {
+      e.preventDefault();
+      const r = svg.getBoundingClientRect();
+      function move(ev){
+        const sx = (ev.clientX - r.left)/r.width * 320 - 160;
+        const sy = (ev.clientY - r.top)/r.height * 320 - 160;
+        vx = Math.max(-W+8, Math.min(W-8, sx));
+        vt = Math.max(-W+8, Math.min(W-8, sy));
+        draw();
+      }
+      function up(){
+        document.removeEventListener('pointermove', move);
+        document.removeEventListener('pointerup', up);
+      }
+      document.addEventListener('pointermove', move);
+      document.addEventListener('pointerup', up, {once:true});
+    });
+    out.textContent = `Δx = ${vx.toFixed(0)},  cΔt = ${(-vt).toFixed(0)}    Δs² = Δx² − (cΔt)² = ${inner.toFixed(0)}    ⇒  ${kind}`;
+  }
+  draw();
+})();
+</script>
 
-<div class="quiz" data-concept="sr-minkowski"></div><!-- backlinks-auto-begin -->
+<p>The Lorentz group has four connected components depending on whether $\Lambda$ flips spatial parity ($\det\Lambda = \pm 1$) and whether it reverses time orientation ($\Lambda^0{}_0 \gtrless 0$). The component containing the identity — the <em>proper orthochronous</em> transformations $\mathrm{SO}^+(1,3)$, i.e. those with $\det\Lambda = +1$ (proper, no parity flip) and $\Lambda^0{}_0 > 0$ (orthochronous, no time reversal) — is the physical symmetry group of inertial relabelings: every continuous boost-and-rotate sequence stays inside this component, while parity ($P$), time reversal ($T$), and their product $PT$ peel off the other three.</p>
+
+<div class="quiz" data-concept="sr-minkowski"></div><!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./riemannian-geometry.html#metric">Riemannian metrics</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
 <aside class="related">
   <div class="ttl">Used in</div>
     <div><a href="./special-relativity.html#causality">Special relativity</a> · Causality, light cones, and the relativity of simultaneity</div>
@@ -410,6 +585,52 @@ $$\boxed{\;L \;=\; L_0/\gamma\;}\qquad (L \le L_0).$$
   <div id="gam-out" class="readout"></div>
 </div>
 
+<script>
+(function(){
+  const svg = document.getElementById('gam-svg');
+  const out = document.getElementById('gam-out');
+  const bIn = document.getElementById('gam-b');
+  const W = 180, H = 90;
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    // axes
+    svg.appendChild(SVG('line',{x1:-W,y1:H-10,x2:W,y2:H-10,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:-W,y1:-H+10,x2:-W,y2:H-10,stroke:'var(--line)','stroke-width':1}));
+    // gamma curve over β ∈ [0,0.999]
+    const path = [];
+    for(let i=0;i<=200;i++){
+      const beta = i/200 * 0.999;
+      const g = 1/Math.sqrt(1-beta*beta);
+      const sx = -W + (beta/0.999) * 2*W;
+      const sy = (H-10) - Math.min(g, 8) * 18;
+      path.push(`${i===0?'M':'L'}${sx.toFixed(1)} ${sy.toFixed(1)}`);
+    }
+    svg.appendChild(SVG('path',{d:path.join(' '),fill:'none',stroke:'var(--cyan)','stroke-width':2.2}));
+    // current marker
+    const beta = parseFloat(bIn.value);
+    const g = 1/Math.sqrt(1-beta*beta);
+    const sx = -W + (beta/0.999) * 2*W;
+    const sy = (H-10) - Math.min(g, 8) * 18;
+    svg.appendChild(SVG('line',{x1:sx,y1:H-10,x2:sx,y2:sy,stroke:'var(--mute)','stroke-dasharray':'3 3'}));
+    svg.appendChild(SVG('circle',{cx:sx,cy:sy,r:5,fill:'var(--cyan)','stroke':'var(--ink)','stroke-width':1}));
+    // ticks
+    for(const k of [1,2,4,8]){
+      const ty = (H-10) - Math.min(k,8)*18;
+      svg.appendChild(SVG('line',{x1:-W,y1:ty,x2:-W+5,y2:ty,stroke:'var(--mute)','stroke-width':1}));
+      const tt = SVG('text',{x:-W-4,y:ty+3,'font-size':10,fill:'var(--mute)','text-anchor':'end'}); tt.textContent = `γ=${k}`; svg.appendChild(tt);
+    }
+    // β tick labels
+    for(const b of [0,0.5,0.9,0.99]){
+      const tx = -W + (b/0.999) * 2*W;
+      const tt = SVG('text',{x:tx,y:H+6,'font-size':10,fill:'var(--mute)','text-anchor':'middle'}); tt.textContent = `β=${b}`; svg.appendChild(tt);
+    }
+    out.textContent = `β = ${beta.toFixed(3)}    γ = ${g.toFixed(3)}    Δt/Δτ = γ ≈ ${g.toFixed(2)}    L/L₀ = 1/γ ≈ ${(1/g).toFixed(2)}    γ→∞ as β→1: time dilation and length contraction become unbounded.`;
+  }
+  bIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <div class="quiz" data-concept="sr-time-length"></div>
 </section>
 
@@ -444,9 +665,62 @@ $$E \;=\; \gamma m c^2 \;\approx\; m c^2 + \tfrac12 m v^2 + O(v^4/c^2),$$
   <div id="em-out" class="readout"></div>
 </div>
 
+<script>
+(function(){
+  const svg = document.getElementById('em-svg');
+  const out = document.getElementById('em-out');
+  const bIn = document.getElementById('em-b');
+  const W = 180, H = 90;
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    svg.appendChild(SVG('line',{x1:-W,y1:H-10,x2:W,y2:H-10,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:-W,y1:-H+10,x2:-W,y2:H-10,stroke:'var(--line)','stroke-width':1}));
+    // E_rel(β)/mc² = γ
+    const relPath = [];
+    const newPath = [];
+    for(let i=0;i<=200;i++){
+      const beta = i/200 * 0.99;
+      const g = 1/Math.sqrt(1-beta*beta);
+      const sx = -W + (beta/0.99) * 2*W;
+      const syR = (H-10) - Math.min(g, 8) * 18;
+      const syN = (H-10) - Math.min(1 + 0.5*beta*beta, 8) * 18;
+      relPath.push(`${i===0?'M':'L'}${sx.toFixed(1)} ${syR.toFixed(1)}`);
+      newPath.push(`${i===0?'M':'L'}${sx.toFixed(1)} ${syN.toFixed(1)}`);
+    }
+    svg.appendChild(SVG('path',{d:newPath.join(' '),fill:'none',stroke:'var(--mute)','stroke-width':1.4,'stroke-dasharray':'4 3'}));
+    svg.appendChild(SVG('path',{d:relPath.join(' '),fill:'none',stroke:'var(--pink)','stroke-width':2.2}));
+    const beta = parseFloat(bIn.value);
+    const g = 1/Math.sqrt(1-beta*beta);
+    const newt = 1 + 0.5*beta*beta;
+    const sx = -W + (beta/0.99) * 2*W;
+    const syR = (H-10) - Math.min(g, 8) * 18;
+    const syN = (H-10) - Math.min(newt, 8) * 18;
+    svg.appendChild(SVG('circle',{cx:sx,cy:syR,r:5,fill:'var(--pink)',stroke:'var(--ink)','stroke-width':1}));
+    svg.appendChild(SVG('circle',{cx:sx,cy:syN,r:4,fill:'var(--mute)'}));
+    // legend
+    const lg = SVG('g',{transform:`translate(${-W+8},${-H+8})`});
+    lg.appendChild(SVG('line',{x1:0,y1:0,x2:18,y2:0,stroke:'var(--pink)','stroke-width':2}));
+    const lgR = SVG('text',{x:24,y:4,'font-size':11,fill:'var(--pink)'}); lgR.textContent='E_rel/mc² = γ'; lg.appendChild(lgR);
+    lg.appendChild(SVG('line',{x1:0,y1:14,x2:18,y2:14,stroke:'var(--mute)','stroke-dasharray':'4 3','stroke-width':1.4}));
+    const lgN = SVG('text',{x:24,y:18,'font-size':11,fill:'var(--mute)'}); lgN.textContent='Newtonian 1 + ½β²'; lg.appendChild(lgN);
+    svg.appendChild(lg);
+    out.textContent = `β = ${beta.toFixed(2)}    E_rel/(mc²) = γ = ${g.toFixed(3)}    Newtonian 1 + ½β² = ${newt.toFixed(3)}    discrepancy ${((g-newt)/newt*100).toFixed(1)}%    (Newtonian undershoots; gap grows without bound as β→1)`;
+  }
+  bIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <p>Two consequences worth recording: (1) accelerating a massive particle to $c$ would require infinite energy ($\gamma\to\infty$ as $\beta\to1$), which is the dynamic statement of the speed limit. (2) Mass-energy equivalence powers nuclear binding, fission, fusion, and pair production — the released $E = \Delta m\,c^2$ is the same energy that would have to be supplied to break the bound state.</p>
 
-<div class="quiz" data-concept="sr-energy-momentum"></div>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./hamiltonians-classical-mechanics.html#noether">Symmetries and Noether's theorem</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="sr-energy-momentum"></div>
 </section>
 
 <section id="causality">
@@ -472,9 +746,59 @@ $$E \;=\; \gamma m c^2 \;\approx\; m c^2 + \tfrac12 m v^2 + O(v^4/c^2),$$
   <div id="sim-out" class="readout"></div>
 </div>
 
+<script>
+(function(){
+  const svg = document.getElementById('sim-svg');
+  const out = document.getElementById('sim-out');
+  const bIn = document.getElementById('sim-b');
+  const W = 150;
+  // Two events: A at (x=-80, t=0), B at (x=+80, t=0) — simultaneous in S
+  const A = [-80, 0], B = [80, 0];
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const beta = parseFloat(bIn.value);
+    // grid
+    for(let k=-3;k<=3;k++){
+      svg.appendChild(SVG('line',{x1:-W,y1:k*30,x2:W,y2:k*30,stroke:'var(--line)','stroke-width':k===0?1.4:0.5,'stroke-opacity':.6}));
+      svg.appendChild(SVG('line',{x1:k*30,y1:-W,x2:k*30,y2:W,stroke:'var(--line)','stroke-width':k===0?1.4:0.5,'stroke-opacity':.6}));
+    }
+    // light cone
+    svg.appendChild(SVG('line',{x1:-W,y1:-W,x2:W,y2:W,stroke:'var(--yellow)','stroke-dasharray':'4 3','stroke-width':1,'stroke-opacity':.7}));
+    svg.appendChild(SVG('line',{x1:-W,y1:W,x2:W,y2:-W,stroke:'var(--yellow)','stroke-dasharray':'4 3','stroke-width':1,'stroke-opacity':.7}));
+    // S simultaneity slice = horizontal line t=0
+    svg.appendChild(SVG('line',{x1:-W,y1:0,x2:W,y2:0,stroke:'var(--cyan)','stroke-width':2,'stroke-opacity':.7}));
+    const ls = SVG('text',{x:W-4,y:-6,'font-size':11,fill:'var(--cyan)','text-anchor':'end'}); ls.textContent="S: t = 0"; svg.appendChild(ls);
+    // S' simultaneity slice = line t = β x  (in our (x→sx, t→-y) display, that's y = -β x)
+    const x1 = -W, y1 = beta*W;
+    const x2 = W, y2 = -beta*W;
+    svg.appendChild(SVG('line',{x1,y1,x2,y2,stroke:'var(--pink)','stroke-width':2,'stroke-opacity':.85}));
+    const lp = SVG('text',{x:x2-4,y:y2-6,'font-size':11,fill:'var(--pink)','text-anchor':'end'}); lp.textContent="S': t' = 0"; svg.appendChild(lp);
+    // events
+    for(const [P,name,col] of [[A,'A','var(--green)'],[B,'B','var(--violet)']]){
+      svg.appendChild(SVG('circle',{cx:P[0],cy:-P[1],r:6,fill:col,stroke:'var(--ink)','stroke-width':1}));
+      const t = SVG('text',{x:P[0]+10,y:-P[1]-8,'font-size':12,fill:col,'font-weight':600}); t.textContent=name; svg.appendChild(t);
+    }
+    // axis labels
+    const lt = SVG('text',{x:6,y:-W+12,'font-size':11,fill:'var(--mute)'}); lt.textContent='ct'; svg.appendChild(lt);
+    const lx = SVG('text',{x:W-4,y:14,'font-size':11,fill:'var(--mute)','text-anchor':'end'}); lx.textContent='x'; svg.appendChild(lx);
+    // S' time of A and B
+    // t' = γ(t - β x). At A=(t=0, x=-80): t'_A = -γ β · -80 = 80 γ β; at B: t'_B = -80 γ β
+    const gamma = 1/Math.sqrt(1-beta*beta);
+    const tpA = -gamma * beta * A[0];
+    const tpB = -gamma * beta * B[0];
+    const dt = tpB - tpA;
+    const order = Math.abs(beta) < 1e-3 ? 'A and B simultaneous in S′ too' :
+      (dt > 0 ? 'in S′, A happens BEFORE B' : 'in S′, B happens BEFORE A');
+    out.textContent = `Frame S: A and B simultaneous (both at t=0). Boost β=${beta.toFixed(2)}    γ=${gamma.toFixed(3)}    t'(A)=${tpA.toFixed(0)},  t'(B)=${tpB.toFixed(0)}    Δt' = ${dt.toFixed(0)}    ⇒  ${order}`;
+  }
+  bIn.addEventListener('input', draw);
+  draw();
+})();
+</script>
+
 <p>Because the cyan and pink simultaneity slices are different lines through the origin, two spacelike-separated events on the cyan slice ($A$ and $B$ above, both at $t=0$) sit at different $t'$ values on the pink slice. Boost in the opposite direction and the temporal order reverses. This is harmless: $A$ and $B$ are spacelike-separated, so neither can causally influence the other, and a frame-dependent ordering is fine.</p>
 
-<p><strong>The faster-than-light prohibition.</strong> If a signal could travel faster than $c$ from $A$ to $B$, it would lie in the spacelike "elsewhere" of $A$. Then in some frames its endpoint $B$ precedes its start $A$ — a signal from your future arrives in your past. Closing this loop produces the standard time-travel paradox (the "tachyonic antitelephone"). Special relativity therefore demands that information and matter respect $|v|<c$ to remain consistent with causality.</p>
+<p><strong>The faster-than-light prohibition.</strong> If a signal could travel faster than $c$ from $A$ to $B$, it would lie in the spacelike "elsewhere" of $A$. Then in some frames its endpoint $B$ precedes its start $A$ — a signal from your future arrives in your past. Closing this loop produces a <strong>tachyonic antitelephone</strong>: Alice sends Bob a superluminal message, Bob (in some boosted frame where the order $A,B$ is reversed) sends a superluminal reply, and Alice receives the reply <em>before</em> she sent the original. Each link is fine in its own frame, yet the chain delivers a message into the sender's own past — a closed causal loop. Special relativity therefore demands that information and matter respect $|v|<c$ to remain consistent with causality.</p>
 
 <div class="quiz" data-concept="sr-causality"></div>
 </section>
@@ -490,10 +814,10 @@ $$E \;=\; \gamma m c^2 \;\approx\; m c^2 + \tfrac12 m v^2 + O(v^4/c^2),$$
 
 <ul>
 <li><a href="./general-relativity.html#spacetime">General relativity — spacetime as a Lorentzian manifold</a> — replaces the flat Minkowski metric with a curved one; SR is the local tangent-space limit.</li>
-<li><a href="./schrodinger-equation.html">Schrödinger equation</a> — non-relativistic quantum mechanics; the SR analogues are the Klein–Gordon (scalar) and Dirac (spinor) equations.</li>
-<li><a href="./hamiltonians-classical-mechanics.html">Hamiltonians &amp; classical mechanics</a> — the non-relativistic limit one obtains from SR's Lagrangian $L=-mc^2\sqrt{1-\beta^2}$.</li>
-<li><a href="./gauge-theory.html">Gauge theory</a> — the relativistic field-theory framework that unifies electromagnetism (Maxwell's equations are already Lorentz-invariant) with weak and strong forces.</li>
-<li><a href="./quaternions-octonions-and-division-algebras.html">Quaternions, octonions, and division algebras</a> — Hamilton's quaternions arise as $\mathrm{Spin}(3)$, the universal cover of the spatial-rotation subgroup of $\mathrm{SO}^+(1,3)$; the full Lorentz group is covered by $\mathrm{SL}(2,\mathbb{C})$.</li>
+<li><a href="./schrodinger-equation.html#time-dep">Schrödinger equation</a> — non-relativistic quantum mechanics; the SR analogues are the Klein–Gordon (scalar) and Dirac (spinor) equations.</li>
+<li><a href="./hamiltonians-classical-mechanics.html#hamilton-eq">Hamiltonians &amp; classical mechanics</a> — the non-relativistic limit one obtains from SR's Lagrangian $L=-mc^2\sqrt{1-\beta^2}$.</li>
+<li><a href="./gauge-theory.html#curvature-yang-mills">Gauge theory</a> — the relativistic field-theory framework that unifies electromagnetism (Maxwell's equations are already Lorentz-invariant) with weak and strong forces.</li>
+<li><a href="./quaternions-octonions-and-division-algebras.html#rotations">Quaternions, octonions, and division algebras</a> — Hamilton's quaternions arise as $\mathrm{Spin}(3)$, the universal cover of the spatial-rotation subgroup $\mathrm{SO}(3)$; the proper orthochronous component $\mathrm{SO}^+(1,3)$ is double-covered by $\mathrm{SL}(2,\mathbb{C})$ (not the full Lorentz group $\mathrm{O}(1,3)$, which has four disconnected pieces).</li>
 </ul>
 </section>
 
@@ -513,7 +837,6 @@ $$E \;=\; \gamma m c^2 \;\approx\; m c^2 + \tfrac12 m v^2 + O(v^4/c^2),$$
       <tr><td>2026-05-04</td><td>initial version</td></tr>
     </tbody>
   </table>
-</details>
 </details>
 
 </body>

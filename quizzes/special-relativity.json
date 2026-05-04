@@ -5,16 +5,17 @@
       "title": "Einstein's postulates and inertial frames",
       "questions": [
         {
-          "type": "mcq",
-          "q": "Einstein's two postulates of special relativity are:",
+          "type": "multi-select",
+          "q": "Which of the following are direct consequences of Einstein's two postulates? (Select all that apply.)",
           "choices": [
-            "(1) Every inertial frame is at rest with respect to the ether; (2) light moves at $c$ relative to the ether.",
-            "(1) The laws of physics take the same form in every inertial frame; (2) the speed of light in vacuum is the same $c$ in every inertial frame.",
-            "(1) Energy and mass are equivalent; (2) accelerated frames are indistinguishable from gravitational fields.",
-            "(1) Time is absolute; (2) space is absolute."
+            "Velocity addition is no longer linear.",
+            "Simultaneity becomes frame-dependent.",
+            "Energy and mass are interconvertible.",
+            "Accelerated frames are equivalent to gravitational fields."
           ],
-          "answer": 1,
-          "explain": "The relativity principle (covariance of physical laws across inertial frames) plus the constancy of $c$ are Einstein's two postulates. Choice 3 mixes in $E=mc^2$ (a derived consequence) and the equivalence principle (which is general, not special, relativity)."
+          "answer": [0, 1, 2],
+          "hint": "The equivalence principle belongs to GR, not SR.",
+          "explain": "The relativity principle (covariance of physical laws) plus the constancy of $c$ together imply: (0) the relativistic addition law $(u+v)/(1+uv/c^2)$, since Galilean addition would change the speed of light; (1) frame-dependent simultaneity, from the Lorentz mixing of $t$ and $x$; (2) mass-energy equivalence $E=\\gamma mc^2$, from the Lorentz-invariant length of the 4-momentum. The equivalence principle (3) is the foundational postulate of *general* relativity, not special relativity."
         },
         {
           "type": "mcq",
@@ -33,6 +34,7 @@
           "q": "An object moves at $u=0.8c$ in frame $S'$, which itself moves at $v=0.6c$ relative to $S$. Compute the object's speed in $S$ (in units of $c$, to two decimal places).",
           "answer": 0.95,
           "tol": 0.01,
+          "hint": "Galilean addition gives $1.4c$, which is impossible. Use the relativistic velocity-addition law from Q2.",
           "explain": "$(0.8+0.6)/(1+0.48) = 1.4/1.48 \\approx 0.946$. Note Galilean addition would give $1.4c$, exceeding the speed of light."
         }
       ]
@@ -50,6 +52,7 @@
             "$t' = t + vx/c^2,\\quad x' = x - v t$"
           ],
           "answer": 1,
+          "hint": "In the Galilean limit $\\beta \\to 0$, $\\gamma \\to 1$ — the correct boost should reduce to $t' = t,\\ x' = x - vt$.",
           "explain": "The Lorentz boost mixes $t$ and $x$ symmetrically by $\\gamma$. Choice 0 is the Galilean limit; choice 2 is missing the cross-coupling that mixes time with space."
         },
         {
@@ -106,6 +109,19 @@
           ],
           "answer": 0,
           "explain": "Spacelike separation $\\Delta s^2 > 0$ means there is a Lorentz boost making $\\Delta t' = 0$ — a frame in which they are simultaneous (and indeed spatially separated by $\\sqrt{\\Delta s^2}$). No causal curve connects them, so 1 and 2 are false; proper time is only defined along timelike worldlines, so 3 is meaningless."
+        },
+        {
+          "type": "spot-the-error",
+          "q": "Find the error in the following argument: \"Two events $A$ and $B$ are timelike-separated, with $\\Delta s^2 = -16$. Therefore there exists a Lorentz boost making them simultaneous in some frame.\"",
+          "steps": [
+            "Compute $\\Delta s^2 = -c^2\\Delta t^2 + |\\Delta\\vec x|^2 = -16$ (negative).",
+            "A negative interval means the events are timelike-separated.",
+            "Apply the rule: there exists a Lorentz boost making any two events simultaneous in some frame.",
+            "Conclude: a frame exists in which $A$ and $B$ are simultaneous."
+          ],
+          "answer": 2,
+          "hint": "Check the sign of $\\Delta s^2$ in the rule's hypothesis.",
+          "explain": "Step 2 is wrong: a Lorentz boost can make two events simultaneous only when they are *spacelike*-separated ($\\Delta s^2 > 0$). Timelike pairs ($\\Delta s^2 < 0$) have invariant temporal ordering — every observer sees $A$ before $B$ (or vice versa). Boosting a timelike pair only rescales $\\Delta t$ by $\\gamma$ factors, never to zero."
         }
       ]
     },
@@ -129,19 +145,21 @@
           "q": "A muon's proper lifetime is $2.2\\,\\mu\\text{s}$. Travelling at $\\beta = 0.99$ (so $\\gamma \\approx 7.09$), what is its lifetime as measured in the lab, in microseconds (to one decimal place)?",
           "answer": 15.6,
           "tol": 0.3,
+          "hint": "Lab measures the dilated lifetime: $\\Delta t = \\gamma\\Delta\\tau$. The muon's own lifetime is the proper time. Multiply, don't divide.",
           "explain": "$\\Delta t = \\gamma \\Delta\\tau \\approx 7.09 \\times 2.2 \\approx 15.6\\,\\mu\\text{s}$. This is why atmospheric muons reach the ground rather than decaying within their proper lifetime."
         },
         {
           "type": "mcq",
           "q": "A rod of proper length $L_0 = 1\\text{ m}$ flies past you at $\\gamma = 2$. Its length in your (lab) frame is:",
           "choices": [
-            "$2\\text{ m}$",
+            "$2\\text{ m}$ (length-dilated by $\\gamma$, by symmetry with time dilation)",
             "$1\\text{ m}$ (same as proper length, lengths don't change)",
             "$0.5\\text{ m}$ (length-contracted by $1/\\gamma$)",
-            "Depends on which end you measure first"
+            "$\\sqrt{1-1/\\gamma^2}\\,\\text{m} = \\tfrac{\\sqrt{3}}{2}\\,\\text{m}$ (using $\\sqrt{1-\\beta^2}$ in the wrong place)"
           ],
           "answer": 2,
-          "explain": "Length contraction: $L = L_0/\\gamma = 1/2 = 0.5\\text{ m}$. The contraction is along the direction of motion only; transverse dimensions are unchanged."
+          "hint": "Length contracts; it does not dilate. $L = L_0/\\gamma$ along the direction of motion.",
+          "explain": "Length contraction: $L = L_0/\\gamma = 1/2 = 0.5\\text{ m}$. The contraction is along the direction of motion only; transverse dimensions are unchanged. Distractor 0 mistakes time dilation's $\\Delta t = \\gamma\\Delta\\tau$ for length dilation — but lengths and times transform inversely. Distractor 3 garbles $1/\\gamma = \\sqrt{1-\\beta^2}$ by misplacing the square root."
         }
       ]
     },
@@ -174,10 +192,11 @@
             "Photons have $E = 0$ and $|\\vec p| = 0$.",
             "Photons satisfy $E = |\\vec p| c$ — momentum without rest mass.",
             "Photons have $\\gamma = 1$.",
-            "Photons travel slower than $c$ when redshifted."
+            "Photons satisfy $E = mc^2$ with $m$ replaced by relativistic mass $\\gamma m$, so a photon's energy depends on $\\gamma$."
           ],
           "answer": 1,
-          "explain": "Setting $m=0$ in $E^2 = p^2 c^2 + m^2 c^4$ yields $E = |\\vec p| c$. Photons carry momentum (e.g. radiation pressure) despite zero rest mass."
+          "hint": "Set $m=0$ in $E^2 = p^2c^2 + m^2c^4$ and read off.",
+          "explain": "Setting $m=0$ in $E^2 = p^2 c^2 + m^2 c^4$ yields $E = |\\vec p| c$. Photons carry momentum (e.g. radiation pressure) despite zero rest mass. Distractor 3 is the classic \"relativistic mass\" trap — the formula $E = \\gamma m c^2$ is indeterminate for photons ($\\gamma = \\infty$, $m = 0$); the rest-mass energy-momentum relation handles the massless limit cleanly. Distractor 2 confuses photons being massless with $\\gamma = 1$ (photons have no rest frame, so $\\gamma$ is undefined for them)."
         }
       ]
     },
@@ -190,23 +209,25 @@
           "choices": [
             "The order can be reversed if the boost is large enough.",
             "The order is preserved — $A$ remains before $B$ in every inertial frame.",
-            "The order depends on whether $A$ and $B$ have the same spatial coordinates.",
+            "The order can be reversed by an improper Lorentz transformation (e.g. time reversal $t \\mapsto -t$).",
             "The order is preserved only in frames where $A$ and $B$ are at rest."
           ],
           "answer": 1,
-          "explain": "Proper orthochronous Lorentz transformations preserve the future light cone, hence the time-ordering of timelike-separated events. Only spacelike-separated events admit frames in which their temporal order reverses."
+          "hint": "Proper orthochronous Lorentz transformations preserve the future light cone.",
+          "explain": "Proper orthochronous Lorentz transformations (the connected component $\\mathrm{SO}^+(1,3)$) preserve the future light cone, hence the time-ordering of timelike-separated events. Only spacelike-separated events admit *proper orthochronous* frames in which their temporal order reverses. Distractor 2 is a real conceptual snag — \"proper orthochronous\" is a load-bearing qualifier; under improper or non-orthochronous transformations (e.g. parity, time reversal) all sorts of orderings flip, but those are not physical changes of inertial frame."
         },
         {
-          "type": "mcq",
-          "q": "Why does the existence of faster-than-light signals violate causality in special relativity?",
-          "choices": [
-            "Because no force can accelerate matter to $c$.",
-            "Because faster-than-light signals would have negative kinetic energy.",
-            "Because the receive event would be spacelike-separated from the send event, and one could find a frame in which the receive precedes the send — closing two such signals creates a causal loop.",
-            "Because relativistic mass diverges as $v \\to c$."
+          "type": "ordering",
+          "q": "Order the steps of the tachyonic-antitelephone argument showing that FTL signaling violates causality.",
+          "items": [
+            "Receiver at $B$ sends an FTL reply in the boosted frame, aimed back toward $A$.",
+            "In some boosted frame $S'$, the temporal order of $A$ and $B$ is reversed: $B$ now precedes $A$.",
+            "Alice sends an FTL signal from event $A$ to event $B$; since the signal exceeds $c$, $A$ and $B$ are spacelike-separated.",
+            "The reply arrives at $A$ before the original signal was sent — a closed causal loop."
           ],
-          "answer": 2,
-          "explain": "An FTL signal $A \\to B$ has $A$ and $B$ spacelike-separated, so some frame puts $B$ before $A$. Sending a reply by FTL from $B$ closes a loop: the reply arrives at $A$ before the original was sent — the tachyonic antitelephone."
+          "answer": [2, 1, 0, 3],
+          "hint": "Start with the original signal; end with the closed loop.",
+          "explain": "(2) The original FTL signal $A\\to B$ has $\\Delta s^2>0$, so $A$ and $B$ are spacelike-separated. (1) Spacelike pairs admit boosts that flip their temporal order — pick one. (0) From $B$ (now \"earlier\" in $S'$), send an FTL reply back; in $S'$ this is again forward-in-time. (3) Transforming back, the reply arrives at $A$ before $A$ was sent — the tachyonic antitelephone. Each individual signal is fine in its own frame; what fails is the global consistency of cause and effect."
         },
         {
           "type": "mcq",

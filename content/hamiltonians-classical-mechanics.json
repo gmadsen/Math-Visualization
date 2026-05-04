@@ -62,7 +62,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./hamiltonians-classical-mechanics.html#hamilton-eq\">Hamiltonians and classical mechanics</a> · Hamilton's equations</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./hamiltonians-classical-mechanics.html#hamilton-eq\">Hamiltonians and classical mechanics</a> · Hamilton's equations</div>\n    <div><a href=\"./special-relativity.html#postulates\">Special relativity</a> · Einstein's postulates and inertial frames</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",
@@ -359,7 +359,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./hamiltonians-classical-mechanics.html#integrable\">Hamiltonians and classical mechanics</a> · Integrable systems and KAM</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./hamiltonians-classical-mechanics.html#integrable\">Hamiltonians and classical mechanics</a> · Integrable systems and KAM</div>\n    <div><a href=\"./special-relativity.html#energy-momentum\">Special relativity</a> · Relativistic energy-momentum</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "quiz",

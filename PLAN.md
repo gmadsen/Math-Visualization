@@ -11,7 +11,7 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 - 139 topics, 996 concepts, 31 capstones
 - 177 concepts lack a widget in their owning section
 - 1023 widgets, 100% registry-driven (PR #70 zero-baseline sweep — `audit-no-inline-widgets` now hard-fails on any non-registry widget)
-- Quiz tiers: v1 = 2945, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
+- Quiz tiers: v1 = 2946, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 - Tag coverage: **99.1%** across all 11 sections after PRs #84–#88 + #94–#98. The intentionally-untagged concepts are catalog/TOC blurbs (`*-applications`), single-result rigidity (Apéry's $\zeta(3)$ irrationality), or observation-shaped concepts (lem-failure, algebraic-connectivity Fiedler). Vocabulary expanded in PR #94 with `equidistribution`, `density`, `cancellation`, `refinement` to cover analytic-NT methods and $\infty$-topos refinement properties. Tagging effort effectively complete.
 
 ## Near-term tasks

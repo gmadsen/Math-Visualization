@@ -653,8 +653,10 @@ window.__MVConcepts = {
           "id": "sr-postulates",
           "title": "Einstein's postulates and inertial frames",
           "anchor": "postulates",
-          "prereqs": [],
-          "blurb": "Two postulates: (1) the laws of physics are identical in every inertial frame; (2) the speed of light $c$ in vacuum is the same in every inertial frame, regardless of the source's motion. Together they replace Galilean relativity: velocity addition can no longer be linear, and simultaneity becomes frame-dependent.",
+          "prereqs": [
+            "hcm-phase-space"
+          ],
+          "blurb": "Two postulates: (1) the laws of physics are identical in every inertial frame; (2) the speed of light $c$ in vacuum is the same in every inertial frame, regardless of the source's motion. Together they replace Galilean relativity wholesale: velocity addition becomes hyperbolic rather than linear, simultaneity becomes a frame-dependent slicing of spacetime, and $c$ becomes a hard speed limit no signal or massive observer can reach. Every later structure on the page — Lorentz boosts, Minkowski geometry, $E=mc^2$ — is forced by these two assumptions plus the demand that physics still be linear in coordinates.",
           "tags": [
             "foundation"
           ]
@@ -664,9 +666,10 @@ window.__MVConcepts = {
           "title": "Lorentz transformations",
           "anchor": "lorentz",
           "prereqs": [
-            "sr-postulates"
+            "sr-postulates",
+            "lie-group-definition"
           ],
-          "blurb": "A boost along $x$ between frames with relative speed $v$ is $t'=\\gamma(t-vx/c^2)$, $x'=\\gamma(x-vt)$, with $\\gamma=1/\\sqrt{1-v^2/c^2}$ and the transverse coordinates unchanged. Composing two boosts in the same direction yields a third with $v_3=(v_1+v_2)/(1+v_1v_2/c^2)$ — speeds add hyperbolically, not linearly, and $|v|<c$ is preserved.",
+          "blurb": "A boost along $x$ between frames with relative speed $v$ is $t'=\\gamma(t-vx/c^2)$, $x'=\\gamma(x-vt)$, with $\\gamma=1/\\sqrt{1-v^2/c^2}$ and the transverse coordinates unchanged. Composing two boosts in the same direction yields a third with $v_3=(v_1+v_2)/(1+v_1v_2/c^2)$ — speeds add hyperbolically, not linearly, and $|v|<c$ is preserved by composition. The boosts along a single axis form a one-parameter Lie group isomorphic to $\\mathbb{R}$ under rapidity addition $\\xi=\\operatorname{artanh}\\beta$, embedded in the full Lorentz group $\\mathrm{O}(1,3)$ as the symmetry group of inertial relabelings.",
           "tags": [
             "group-action",
             "classification"
@@ -677,9 +680,10 @@ window.__MVConcepts = {
           "title": "Minkowski metric and the spacetime interval",
           "anchor": "minkowski",
           "prereqs": [
-            "sr-lorentz"
+            "sr-lorentz",
+            "riemannian-metrics"
           ],
-          "blurb": "Spacetime is $\\mathbb{R}^{1,3}$ with metric $\\eta=\\mathrm{diag}(-1,+1,+1,+1)$ in mostly-plus convention; the interval $\\Delta s^2=-c^2\\Delta t^2+\\Delta x^2+\\Delta y^2+\\Delta z^2$ is invariant under Lorentz transformations. The sign classifies separations as timelike ($\\Delta s^2<0$), lightlike (null cone $\\Delta s^2=0$), or spacelike, and the Lorentz group $\\mathrm{O}(1,3)$ is exactly the linear isometries of $\\eta$.",
+          "blurb": "Spacetime is $\\mathbb{R}^{1,3}$ with metric $\\eta=\\mathrm{diag}(-1,+1,+1,+1)$ in mostly-plus convention; the interval $\\Delta s^2=-c^2\\Delta t^2+\\Delta x^2+\\Delta y^2+\\Delta z^2$ is invariant under Lorentz transformations. The sign classifies separations as timelike ($\\Delta s^2<0$, traversable by a massive observer with proper time $\\sqrt{-\\Delta s^2}/c$), lightlike (null cone $\\Delta s^2=0$, only photons), or spacelike ($\\Delta s^2>0$, no causal curve), and the Lorentz group $\\mathrm{O}(1,3)$ is exactly the linear isometries of $\\eta$. This is the special-relativistic analogue of the Euclidean inner product — the single sign-flip in $\\eta_{00}$ is what makes time fundamentally different from space and forces the entire causal structure that follows.",
           "tags": [
             "foundation",
             "classification"
@@ -693,7 +697,7 @@ window.__MVConcepts = {
             "sr-lorentz",
             "sr-minkowski"
           ],
-          "blurb": "A clock at rest in a frame moving at speed $v$ ticks slow by a factor $\\gamma$: a proper-time interval $\\Delta\\tau$ is observed as $\\Delta t=\\gamma\\Delta\\tau$. A rod of proper length $L_0$ aligned with its motion has lab-frame length $L=L_0/\\gamma$. Both are kinematic, frame-comparison statements — the moving observer sees nothing unusual locally.",
+          "blurb": "A clock at rest in a frame moving at speed $v$ ticks slow by a factor $\\gamma$: a proper-time interval $\\Delta\\tau$ is observed as $\\Delta t=\\gamma\\Delta\\tau$. A rod of proper length $L_0$ aligned with its motion has lab-frame length $L=L_0/\\gamma$. Both effects are reciprocal — each observer sees the other's clocks run slow and rulers contract — and entirely kinematic: the moving observer sees nothing unusual locally, and the cosmic-ray muon flux at sea level (orders of magnitude above what its $2.2\\,\\mu\\mathrm{s}$ rest-frame lifetime allows) is the experimental smoking gun.",
           "tags": [
             "duality",
             "classification"
@@ -704,9 +708,10 @@ window.__MVConcepts = {
           "title": "Relativistic energy-momentum",
           "anchor": "energy-momentum",
           "prereqs": [
-            "sr-minkowski"
+            "sr-minkowski",
+            "hcm-noether"
           ],
-          "blurb": "The 4-momentum $p^\\mu=(E/c,\\,\\vec p)$ transforms as a Lorentz vector and obeys $E^2=p^2c^2+m^2c^4$. At rest $E=mc^2$ — mass and energy are interconvertible — and in the low-velocity limit $E\\approx mc^2+\\tfrac12 mv^2$ recovers Newtonian kinetic energy plus a constant rest-energy offset.",
+          "blurb": "The 4-momentum $p^\\mu=(E/c,\\,\\vec p)$ transforms as a Lorentz vector and obeys the on-shell relation $E^2=p^2c^2+m^2c^4$, the Minkowski norm of $p^\\mu$. At rest $E=mc^2$ — mass and rest energy are the same currency, the source of nuclear binding ($\\sim 1\\%$ mass defect) and pair production ($E_\\gamma>2m_ec^2$) — while in the low-velocity limit $E\\approx mc^2+\\tfrac12 mv^2$ recovers Newtonian kinetic energy plus a constant rest-energy offset. Conservation of $p^\\mu$ in collisions follows from spacetime-translation invariance via Noether's theorem; mass is no longer separately conserved, only the total $E^2-|\\vec p|^2c^2$ summed over particles.",
           "tags": [
             "classification"
           ]
@@ -718,7 +723,7 @@ window.__MVConcepts = {
           "prereqs": [
             "sr-minkowski"
           ],
-          "blurb": "Two events are causally connected only when timelike or null separated; the future light cone of an event is invariant under proper orthochronous Lorentz transformations. Spacelike-separated events admit frames in which their temporal order reverses — \"simultaneity\" is a frame-dependent slicing of spacetime — and superluminal signals would let one send messages into one's own past.",
+          "blurb": "Two events are causally connected only when timelike or null separated; the future light cone of an event is invariant under proper orthochronous Lorentz transformations $\\mathrm{SO}^+(1,3)$, so the relation \"$q$ lies in the causal future of $p$\" is frame-independent. Spacelike-separated events admit boosted frames in which their temporal order reverses — \"simultaneity\" is a frame-dependent slicing of spacetime — and superluminal signals would close a causal loop (the tachyonic antitelephone), letting one send messages into one's own past. The hard speed limit $|v|<c$ for information and matter is therefore not a kinematic accident but a consistency requirement of the geometry.",
           "tags": [
             "classification",
             "foundation"
@@ -15141,7 +15146,7 @@ window.__MVConcepts = {
       "concepts": 104,
       "intra": 157,
       "crossOut": 19,
-      "crossIn": 87,
+      "crossIn": 89,
       "density": 0.18269230769230768
     },
     "Number theory": {
@@ -15174,10 +15179,10 @@ window.__MVConcepts = {
     },
     "Mathematical physics": {
       "concepts": 51,
-      "intra": 48,
-      "crossOut": 37,
+      "intra": 50,
+      "crossOut": 39,
       "crossIn": 0,
-      "density": 0.7254901960784313
+      "density": 0.7647058823529411
     }
   }
 };

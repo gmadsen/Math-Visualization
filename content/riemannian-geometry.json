@@ -54,7 +54,7 @@
         },
         {
           "type": "raw",
-          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./general-relativity.html#spacetime\">General relativity</a> · Spacetime as a Lorentzian manifold</div>\n    <div><a href=\"./mostow-rigidity.html#statement\">Mostow rigidity</a> · Mostow's rigidity theorem</div>\n    <div><a href=\"./riemannian-geometry.html#geodesics\">Riemannian geometry</a> · Levi-Civita connection and geodesics</div>\n    <div><a href=\"./riemannian-geometry.html#volume\">Riemannian geometry</a> · Riemannian volume form and divergence</div>\n    <div><a href=\"./string-theory.html#worldsheet-action\">String theory</a> · The world-sheet action</div>\n</aside>\n<!-- backlinks-auto-end -->"
+          "html": "<!-- backlinks-auto-begin -->\n<aside class=\"related\">\n  <div class=\"ttl\">Used in</div>\n    <div><a href=\"./general-relativity.html#spacetime\">General relativity</a> · Spacetime as a Lorentzian manifold</div>\n    <div><a href=\"./mostow-rigidity.html#statement\">Mostow rigidity</a> · Mostow's rigidity theorem</div>\n    <div><a href=\"./riemannian-geometry.html#geodesics\">Riemannian geometry</a> · Levi-Civita connection and geodesics</div>\n    <div><a href=\"./riemannian-geometry.html#volume\">Riemannian geometry</a> · Riemannian volume form and divergence</div>\n    <div><a href=\"./special-relativity.html#minkowski\">Special relativity</a> · Minkowski metric and the spacetime interval</div>\n    <div><a href=\"./string-theory.html#worldsheet-action\">String theory</a> · The world-sheet action</div>\n</aside>\n<!-- backlinks-auto-end -->"
         },
         {
           "type": "raw",

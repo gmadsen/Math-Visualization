@@ -135,20 +135,42 @@ function beforeParseStubs(window) {
 
 // ─── widget exercise ────────────────────────────────────────────────────
 
+function svgFingerprint(svg) {
+  // Stable, change-sensitive fingerprint of an SVG's mutable state. Counting
+  // innerHTML length collapses every meaningful redraw into a single integer
+  // and produced ~57 false-positive "inert-controls" findings (every widget
+  // whose redraw kept the same number of elements registered as no-change).
+  // Sample every element's tag, key visual attributes, and text content; hash
+  // each into a small string and join. Two redraws with different geometry
+  // will differ on this fingerprint even when the element count is identical.
+  const parts = [];
+  for (const el of svg.querySelectorAll('*')) {
+    const tag = el.tagName.toLowerCase();
+    // Visual attributes that change on redraw. d/points dominate paths and
+    // polylines; cx/cy/r dominate circles; x/x1/x2/y/y1/y2 dominate
+    // lines/rects; fill/stroke change palette swaps; transform catches g.
+    const attrs = ['d','points','cx','cy','r','x','x1','x2','y','y1','y2','width','height','fill','stroke','transform'];
+    const sig = attrs.map(a => el.getAttribute(a) || '').join('|');
+    const text = (el.textContent || '').slice(0, 32);
+    parts.push(`${tag}:${sig}:${text}`);
+  }
+  return parts.join('\n');
+}
+
 function snapshotWidget(widget) {
-  // Capture a string fingerprint of the widget's mutable state: SVG inner
-  // markup, .readout text content, .out text content. Comparing before/after
-  // detects whether any control caused a state change.
+  // Capture a string fingerprint of the widget's mutable state: SVG geometry
+  // (per-element attribute fingerprint, not just length), readout text,
+  // and child count.
   const readoutEls = widget.querySelectorAll('.readout, .out, [id$="-out"]');
   const readoutText = [...readoutEls].map(e => e.textContent || '').join('|');
   const svgs = widget.querySelectorAll('svg');
-  const svgInner = [...svgs].map(s => s.innerHTML.length).join(',');
+  const svgFp = [...svgs].map(svgFingerprint).join('\n---\n');
   const childCount = widget.children.length;
-  return { readoutText, svgInner, childCount };
+  return { readoutText, svgFp, childCount };
 }
 
 function snapshotEqual(a, b) {
-  return a.readoutText === b.readoutText && a.svgInner === b.svgInner;
+  return a.readoutText === b.readoutText && a.svgFp === b.svgFp;
 }
 
 function exerciseControl(window, widget, control) {
@@ -222,63 +244,74 @@ async function auditTopic(slug) {
 
   const findings = [];
   const window = dom.window;
-  const widgets = [...window.document.querySelectorAll('.widget')];
 
-  if (errors.length) {
-    findings.push({ widget: '(page boot)', kind: 'boot-error', detail: errors.slice(0, 3).join(' || ') });
-  }
+  try {
+    const widgets = [...window.document.querySelectorAll('.widget')];
 
-  for (const widget of widgets) {
-    const wid = widget.id || '(no-id)';
-
-    // Skip quiz widgets — they have their own test path
-    if (widget.classList.contains('quiz')) continue;
-
-    if (widget.children.length === 0) {
-      findings.push({ widget: wid, kind: 'empty-widget', detail: 'no children after boot' });
-      continue;
+    if (errors.length) {
+      findings.push({ widget: '(page boot)', kind: 'boot-error', detail: errors.slice(0, 3).join(' || ') });
     }
 
-    const before = snapshotWidget(widget);
+    for (const widget of widgets) {
+      const wid = widget.id || '(no-id)';
 
-    // Find controls inside this widget
-    const controls = [...widget.querySelectorAll('input[type=range], select, button:not(.quiz-submit):not(.quiz-next)')];
+      // Skip quiz widgets — they have their own test path
+      if (widget.classList.contains('quiz')) continue;
 
-    if (controls.length === 0) {
-      // Widget might be a static illustration — not a finding by itself
-      continue;
-    }
-
-    let anyChange = false;
-    let preErrCount = errors.length;
-
-    for (const control of controls) {
-      const ok = exerciseControl(window, widget, control);
-      if (!ok) {
-        const cid = control.id || control.tagName.toLowerCase();
-        findings.push({ widget: wid, kind: 'control-throw', detail: `dispatch failed on ${cid}` });
+      if (widget.children.length === 0) {
+        findings.push({ widget: wid, kind: 'empty-widget', detail: 'no children after boot' });
         continue;
       }
-      // Wait briefly for any async re-render
-      await new Promise((r) => setTimeout(r, 10));
 
-      const after = snapshotWidget(widget);
-      if (!snapshotEqual(before, after)) anyChange = true;
+      // Find controls inside this widget
+      const controls = [...widget.querySelectorAll('input[type=range], select, button:not(.quiz-submit):not(.quiz-next)')];
+
+      if (controls.length === 0) {
+        // Widget might be a static illustration — not a finding by itself
+        continue;
+      }
+
+      let anyChange = false;
+      let preErrCount = errors.length;
+      // Re-baseline before each control. If we sample once at the start, a
+      // control that DOES cause a change masks every subsequent inert sibling
+      // (the post-snapshot stays "different from initial baseline" even when
+      // a sibling click triggered no redraw of its own).
+      let before = snapshotWidget(widget);
+
+      for (const control of controls) {
+        const ok = exerciseControl(window, widget, control);
+        if (!ok) {
+          const cid = control.id || control.tagName.toLowerCase();
+          findings.push({ widget: wid, kind: 'control-throw', detail: `dispatch failed on ${cid}` });
+          continue;
+        }
+        // Wait briefly for any async re-render
+        await new Promise((r) => setTimeout(r, 10));
+
+        const after = snapshotWidget(widget);
+        if (!snapshotEqual(before, after)) anyChange = true;
+        before = after;  // re-baseline so the next control is judged on its own
+      }
+
+      const postErrs = errors.slice(preErrCount);
+      if (postErrs.length) {
+        findings.push({ widget: wid, kind: 'interaction-error', detail: postErrs.slice(0, 2).join(' || ').slice(0, 200) });
+      }
+
+      if (!anyChange && controls.length > 0 && postErrs.length === 0) {
+        const ids = controls.map(c => c.id || c.tagName.toLowerCase()).slice(0, 3).join(',');
+        findings.push({ widget: wid, kind: 'inert-controls', detail: `${controls.length} control(s) [${ids}] caused no readout/SVG change` });
+      }
     }
 
-    const postErrs = errors.slice(preErrCount);
-    if (postErrs.length) {
-      findings.push({ widget: wid, kind: 'interaction-error', detail: postErrs.slice(0, 2).join(' || ').slice(0, 200) });
-    }
-
-    if (!anyChange && controls.length > 0 && postErrs.length === 0) {
-      const ids = controls.map(c => c.id || c.tagName.toLowerCase()).slice(0, 3).join(',');
-      findings.push({ widget: wid, kind: 'inert-controls', detail: `${controls.length} control(s) [${ids}] caused no readout/SVG change` });
-    }
+    return { slug, findings, widgetCount: widgets.length };
+  } finally {
+    // Always close the JSDOM, even on a thrown audit. JSDOMs are heavy
+    // (background timers, Proxy stubs); leaking one per topic exhausts
+    // memory and timer budget on a 138-topic run.
+    window.close();
   }
-
-  dom.window.close();
-  return { slug, findings, widgetCount: widgets.length };
 }
 
 // ─── main ───────────────────────────────────────────────────────────────
