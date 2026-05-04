@@ -61,7 +61,10 @@
       "prereqs": [
         "hf-poisson-kernel"
       ],
-      "blurb": "For positive harmonic $u$ on $B(0,R)$ and $|x|=r<R$: $\\tfrac{R-r}{R+r}u(0) \\le u(x) \\le \\tfrac{R+r}{R-r}u(0)$. Consequence: a positive harmonic function on $\\mathbb{R}^n$ is constant (Liouville for harmonic functions)."
+      "blurb": "For positive harmonic $u$ on $B(0,R)$ and $|x|=r<R$: $\\tfrac{R-r}{R+r}u(0) \\le u(x) \\le \\tfrac{R+r}{R-r}u(0)$. Consequence: a positive harmonic function on $\\mathbb{R}^n$ is constant (Liouville for harmonic functions).",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "hf-subharmonic",

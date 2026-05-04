@@ -20,7 +20,10 @@
         "fundamental-group",
         "upper-half-plane-model"
       ],
-      "blurb": "A non-constant entire function omits at most one complex value. Liouville (bounded ⇒ constant) is the trivial case; little Picard is the same idea pushed to its sharpest form — even an unbounded entire map cannot avoid more than one point."
+      "blurb": "A non-constant entire function omits at most one complex value. Liouville (bounded ⇒ constant) is the trivial case; little Picard is the same idea pushed to its sharpest form — even an unbounded entire map cannot avoid more than one point.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "aca-picard-great",
@@ -32,7 +35,10 @@
         "laurent-series",
         "schwarz-lemma"
       ],
-      "blurb": "In every neighborhood of an essential singularity, $f$ takes every complex value (with at most one exception) infinitely often. This sharpens Casorati-Weierstrass dramatically — 'dense' becomes 'every value, infinitely often'."
+      "blurb": "In every neighborhood of an essential singularity, $f$ takes every complex value (with at most one exception) infinitely often. This sharpens Casorati-Weierstrass dramatically — 'dense' becomes 'every value, infinitely often'.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "aca-weierstrass-factorization",
@@ -41,7 +47,11 @@
       "prereqs": [
         "aca-picard-little"
       ],
-      "blurb": "Every entire function with prescribed zeros $\\{a_n\\}$ factors as $e^{g(z)}\\prod E_{p_n}(z/a_n)$, where the elementary factors $E_p$ are designed so the product converges. The construction generalizes the polynomial factorization $\\prod(z-a_k)$ to entire functions and produces the canonical $\\sin\\pi z = \\pi z\\prod(1-z^2/n^2)$."
+      "blurb": "Every entire function with prescribed zeros $\\{a_n\\}$ factors as $e^{g(z)}\\prod E_{p_n}(z/a_n)$, where the elementary factors $E_p$ are designed so the product converges. The construction generalizes the polynomial factorization $\\prod(z-a_k)$ to entire functions and produces the canonical $\\sin\\pi z = \\pi z\\prod(1-z^2/n^2)$.",
+      "tags": [
+        "classification",
+        "foundation"
+      ]
     },
     {
       "id": "aca-mittag-leffler",
@@ -51,7 +61,11 @@
         "aca-weierstrass-factorization",
         "laurent-series"
       ],
-      "blurb": "Dual to Weierstrass: prescribe a discrete pole set with principal parts and there is a meromorphic function realizing them, given by a convergent series of partial fractions plus a holomorphic correction. The witness is the cotangent partial-fraction expansion $\\pi\\cot\\pi z = 1/z + \\sum_{n\\ne 0}(1/(z-n)+1/n)$."
+      "blurb": "Dual to Weierstrass: prescribe a discrete pole set with principal parts and there is a meromorphic function realizing them, given by a convergent series of partial fractions plus a holomorphic correction. The witness is the cotangent partial-fraction expansion $\\pi\\cot\\pi z = 1/z + \\sum_{n\\ne 0}(1/(z-n)+1/n)$.",
+      "tags": [
+        "classification",
+        "duality"
+      ]
     },
     {
       "id": "aca-phragmen-lindelof",
@@ -60,7 +74,10 @@
       "prereqs": [
         "maximum-modulus"
       ],
-      "blurb": "A maximum-modulus principle for unbounded domains, traded for a growth condition. In a sector of opening $\\pi/\\alpha$, if $f$ is bounded by $M$ on the boundary and grows no faster than $e^{|z|^\\beta}$ with $\\beta<\\alpha$, then $|f|\\le M$ throughout. The growth budget is exactly what closes the missing arc at infinity."
+      "blurb": "A maximum-modulus principle for unbounded domains, traded for a growth condition. In a sector of opening $\\pi/\\alpha$, if $f$ is bounded by $M$ on the boundary and grows no faster than $e^{|z|^\\beta}$ with $\\beta<\\alpha$, then $|f|\\le M$ throughout. The growth budget is exactly what closes the missing arc at infinity.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "aca-hadamard-three-circles",
@@ -70,7 +87,10 @@
         "aca-phragmen-lindelof",
         "maximum-modulus"
       ],
-      "blurb": "If $f$ is holomorphic on the annulus $r_1\\le|z|\\le r_3$ and $M(r) = \\max_{|z|=r}|f(z)|$, then $\\log M(r)$ is convex as a function of $\\log r$. The convex-interpolation inequality $M(r_2)^{\\log(r_3/r_1)} \\le M(r_1)^{\\log(r_3/r_2)} M(r_3)^{\\log(r_2/r_1)}$ is the standard tool for growth bounds and Hadamard-Riesz-Thorin interpolation."
+      "blurb": "If $f$ is holomorphic on the annulus $r_1\\le|z|\\le r_3$ and $M(r) = \\max_{|z|=r}|f(z)|$, then $\\log M(r)$ is convex as a function of $\\log r$. The convex-interpolation inequality $M(r_2)^{\\log(r_3/r_1)} \\le M(r_1)^{\\log(r_3/r_2)} M(r_3)^{\\log(r_2/r_1)}$ is the standard tool for growth bounds and Hadamard-Riesz-Thorin interpolation.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "aca-hardy-spaces",
@@ -82,7 +102,10 @@
         "disk-automorphisms",
         "hf-poisson-kernel"
       ],
-      "blurb": "$H^p(\\mathbb{D})$ collects holomorphic functions on the disk whose $L^p$ norm on circles $|z|=r$ stays bounded as $r\\uparrow 1$. Fatou's theorem says every $H^p$ function admits non-tangential boundary values almost everywhere, and the inner-outer factorization $f = B\\cdot S\\cdot O$ decomposes them into a Blaschke product, a singular inner factor, and an outer function."
+      "blurb": "$H^p(\\mathbb{D})$ collects holomorphic functions on the disk whose $L^p$ norm on circles $|z|=r$ stays bounded as $r\\uparrow 1$. Fatou's theorem says every $H^p$ function admits non-tangential boundary values almost everywhere, and the inner-outer factorization $f = B\\cdot S\\cdot O$ decomposes them into a Blaschke product, a singular inner factor, and an outer function.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "aca-bloch-theorem",
@@ -93,7 +116,9 @@
         "schwarz-lemma",
         "normal-families"
       ],
-      "tags": ["compactness"],
+      "tags": [
+        "compactness"
+      ],
       "blurb": "If $f$ is holomorphic on the unit disk with $f(0)=0$ and $f'(0)=1$, then $f(\\mathbb{D})$ contains a univalent (one-sheeted) sub-disk of universal radius $B \\ge \\sqrt{3}/4$. The Bloch constant $B$ and its companion the Landau constant $L$ make the Picard-style 'cannot avoid much' phenomenon quantitative — every normalized holomorphic function on the disk geometrically covers a chunk of the plane no smaller than a fixed lower bound."
     },
     {
@@ -104,7 +129,9 @@
         "aca-picard-great",
         "aca-hadamard-three-circles"
       ],
-      "tags": ["classification"],
+      "tags": [
+        "classification"
+      ],
       "blurb": "A quantitative refinement of Picard for meromorphic functions: the Nevanlinna characteristic $T(r,f) = m(r,\\infty) + N(r,\\infty)$ measures growth as a sum of a proximity term $m(r,a)$ (how close $f$ comes to $a$ on $|z|=r$) and a counting term $N(r,a)$ (the integrated count of $a$-points). The first main theorem says $m(r,a) + N(r,a) = T(r,f) + O(1)$ is independent of $a$; the second main theorem and the defect relation $\\sum_a \\delta(a) \\le 2$ recover Picard as a corollary — at most two values can have defect $\\delta(a) = 1$."
     },
     {
@@ -115,7 +142,9 @@
         "banach-hilbert-spaces",
         "lp-spaces"
       ],
-      "tags": ["duality"],
+      "tags": [
+        "duality"
+      ],
       "blurb": "The Bergman space $A^2(\\Omega)$ is the Hilbert space of holomorphic functions on a bounded domain $\\Omega \\subset \\mathbb{C}$ that are square-integrable for area measure. Point evaluation is bounded, so by Riesz representation there is a reproducing kernel $K_\\Omega(z,w)$ — the Bergman kernel — characterized by $f(w) = \\int_\\Omega K(z,w) f(z)\\, dA$. The kernel transforms covariantly under biholomorphisms ($K_{\\phi(\\Omega)}(\\phi(z),\\phi(w)) = K_\\Omega(z,w)/(\\phi'(z)\\overline{\\phi'(w)})$) and its log Hessian $\\partial\\bar\\partial \\log K(z,z)$ gives the Bergman metric — on the unit disk this recovers the standard Poincaré metric of constant Gaussian curvature $-1$."
     },
     {
@@ -127,7 +156,10 @@
         "cauchy-riemann",
         "sobolev-spaces-wkp"
       ],
-      "tags": ["moduli", "lifting"],
+      "tags": [
+        "moduli",
+        "lifting"
+      ],
       "blurb": "A $K$-quasiconformal map $f$ is a homeomorphism of planar domains whose distributional derivatives satisfy the Beltrami equation $\\partial_{\\bar z} f = \\mu\\, \\partial_z f$ with $\\|\\mu\\|_\\infty \\le k = (K-1)/(K+1) < 1$. The dilatation $\\mu_f$ measures how far $f$ is from conformal — infinitesimally it sends round disks to ellipses of bounded eccentricity. The measurable Riemann mapping theorem (Morrey-Ahlfors-Bers) inverts this: any measurable $\\mu$ with $\\|\\mu\\|_\\infty < 1$ is the dilatation of a unique normalized quasiconformal homeomorphism, the cornerstone of Teichmüller theory and Thurston-style hyperbolic geometrization."
     },
     {
@@ -140,7 +172,9 @@
         "hf-subharmonic",
         "sobolev-spaces-wkp"
       ],
-      "tags": ["cohomology"],
+      "tags": [
+        "cohomology"
+      ],
       "blurb": "Holomorphic functions of $n\\ge 2$ variables behave qualitatively unlike the $n=1$ case. The Hartogs phenomenon forces extension across compact holes: any holomorphic $f$ on a Hartogs figure (a polydisk shell) extends uniquely to the full polydisk — there are no isolated singularities in $\\mathbb{C}^n$ for $n\\ge 2$. A domain $\\Omega \\subset \\mathbb{C}^n$ is a domain of holomorphy iff it is pseudoconvex (Levi's problem), characterized by the existence of a plurisubharmonic exhaustion. The $\\bar\\partial$-Neumann problem solves $\\bar\\partial u = f$ for $\\bar\\partial$-closed $f$ on pseudoconvex domains and is the analytic engine driving the rest of the theory."
     }
   ]

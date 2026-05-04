@@ -86,7 +86,10 @@
         "w-multiresolution",
         "w-haar-wavelet"
       ],
-      "blurb": "Sweldens' (1995) lifting scheme builds wavelets by alternating <em>predict</em> and <em>update</em> steps on a split signal — no Fourier-domain factorisation, no algebraic constraints. Every step is invertible, so perfect reconstruction is automatic; the construction works in-place, runs in integer arithmetic for lossless coding, and recovers Haar from one predict + one update on the lazy split."
+      "blurb": "Sweldens' (1995) lifting scheme builds wavelets by alternating <em>predict</em> and <em>update</em> steps on a split signal — no Fourier-domain factorisation, no algebraic constraints. Every step is invertible, so perfect reconstruction is automatic; the construction works in-place, runs in integer arithmetic for lossless coding, and recovers Haar from one predict + one update on the lazy split.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "w-biorthogonal",
