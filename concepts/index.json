@@ -7,19 +7,19 @@
 
     "langlands-program",
 
-
-
-
-
-
-
-
-
-
-
-
-
     "special-relativity",
+
+
+
+
+
+
+
+
+
+
+
+    "klein-gordon-equation",
 
     "statistical-mechanics",
     "advanced-complex-analysis",
@@ -305,6 +305,7 @@
     "mostow-rigidity": "advanced",
     "hamiltonians-classical-mechanics": "standard",
     "special-relativity": "standard",
+    "klein-gordon-equation": "advanced",
     "general-relativity": "advanced",
     "three-body-problem": "advanced",
     "designs": "standard",

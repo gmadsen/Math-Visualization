@@ -21,7 +21,7 @@ reach into upstream foundations or stay within their own cluster.
 | Modular forms & L-functions | 103 | 139 | 55 | 13 | 0.534 |
 | Algebraic geometry | 143 | 187 | 55 | 20 | 0.385 |
 | Combinatorics & graph theory | 51 | 50 | 24 | 2 | 0.471 |
-| Mathematical physics | 51 | 50 | 39 | 0 | 0.765 |
+| Mathematical physics | 57 | 58 | 39 | 0 | 0.684 |
 
 ## EMPTY — concepts with no prereqs (1)
 

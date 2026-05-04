@@ -23,7 +23,7 @@ Alongside each handwritten `<topic>.html`, the repo also carries a structured `c
 
 ## Learning pathways
 
-Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 31 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 996-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the eleven sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
+Start from [`pathway.html`](./pathway.html) to explore prerequisite graphs for capstone goals — pick any of the 31 capstones and the DAG layers every prereq concept by depth. For free-form exploration over the entire 1002-concept graph (no goal required), [`mindmap.html`](./mindmap.html) renders a section-clustered force-directed layout: click a node to focus its k-hop neighborhood, filter by section/level/mastery, and a structural-stats panel surfaces uneven prereq density across the eleven sections. Both views read the same concept graph; pathway is goal-targeted, mindmap is free-explore.
 
 Each concept carries up to three quiz tiers — v1 (required), hard (unlocked after v1), and expert (unlocked after hard). Mastery is tracked in `localStorage` and lights up downstream concepts `locked → ready → mastered`, Brilliant-style. Topic cards on the index may carry a level badge: `prereq`, `advanced`, or `capstone`.
 
@@ -189,6 +189,7 @@ Each concept carries up to three quiz tiers — v1 (required), hard (unlocked af
 - [Gauge theory](./gauge-theory.html) — capstone of differential gauge theory: connections on principal bundles, curvature and Yang-Mills, gauge transformations and Wilson loops, BPST instantons and Chern-Simons, lattice gauge theory and confinement, the Donaldson and Seiberg-Witten 4-manifold invariants.
 - [String theory](./string-theory.html) — capstone of mathematical string theory: world-sheet action and 2D CFT, bosonic critical dimension $D=26$, superstrings in $D=10$, Calabi-Yau compactification, T-duality and mirror symmetry, branes and AdS/CFT, and the math output (mirror symmetry, monstrous moonshine, geometric Langlands).
 - [Special relativity](./special-relativity.html) — draft — fill in once the page has real content
+- [Klein gordon equation](./klein-gordon-equation.html) — draft — fill in once the page has real content
 
 ## Resetting progress
 

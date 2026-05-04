@@ -8,17 +8,17 @@ When something ships, delete its bullet here. Don't keep a "Shipped recently" lo
 
 From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
-- 139 topics, 996 concepts, 31 capstones
+- 140 topics, 1002 concepts, 31 capstones
 - 177 concepts lack a widget in their owning section
-- 1023 widgets, 100% registry-driven (PR #70 zero-baseline sweep — `audit-no-inline-widgets` now hard-fails on any non-registry widget)
-- Quiz tiers: v1 = 2946, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
+- 1029 widgets, 100% registry-driven (PR #70 zero-baseline sweep — `audit-no-inline-widgets` now hard-fails on any non-registry widget)
+- Quiz tiers: v1 = 2964, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 - Tag coverage: **99.1%** across all 11 sections after PRs #84–#88 + #94–#98. The intentionally-untagged concepts are catalog/TOC blurbs (`*-applications`), single-result rigidity (Apéry's $\zeta(3)$ irrationality), or observation-shaped concepts (lem-failure, algebraic-connectivity Fiedler). Vocabulary expanded in PR #94 with `equidistribution`, `density`, `cancellation`, `refinement` to cover analytic-NT methods and $\infty$-topos refinement properties. Tagging effort effectively complete.
 
 ## Near-term tasks
 
 Items below come out of the algebra/analysis comparative audit shipped in PR #49.
 
-- **Math physics has no `hard` tier and Combinatorics has no `hard` tier.** 558 concepts lack a hard tier corpus-wide; 12 topics in those two sections × ~6 concepts × 2-3 questions each ≈ ~150 of the missing questions. Per "Out of scope", de-prioritized — listed here so the gap is visible, not actioned.
+- **Math physics has no `hard` tier and Combinatorics has no `hard` tier.** 564 concepts lack a hard tier corpus-wide; 13 topics in those two sections × ~6 concepts × 2-3 questions each ≈ ~150 of the missing questions. Per "Out of scope", de-prioritized — listed here so the gap is visible, not actioned.
 
 ## Bigger missing-topic candidates (from the comparative audit)
 
@@ -26,7 +26,7 @@ Listed for the long view; each is a multi-session lift.
 
 - **Algebra side:** `algebraic-K-theory-foundations` (homological cluster currently stops at derived categories); `model-categories` (bridge to higher-categories).
 - **Analysis side:** `microlocal-analysis` (wavefront sets, pseudodifferential operators — natural sequel to `sobolev-spaces-distributions` + `pde`); `geometric-measure-theory` (BV, sets of finite perimeter, rectifiability, area-coarea); `semigroup-theory-evolution-equations` (Hille-Yosida, analytic semigroups).
-- **Mathematical physics side:** `special-relativity` (4-vectors, Minkowski metric, Lorentz transforms, mass-energy); `klein-gordon-equation` (relativistic scalar wave eq, wave-vs-particle); `dirac-equation` (spinor formulation, the antiparticle prediction); `quantum-field-theory` (path integrals, perturbation theory, gauge fields beyond §`gauge-theory`'s classical view). Currently the `mathematical-physics` section stops at the schrodinger / hamiltonians / classical-gauge level; relativistic + field-theoretic content is missing.
+- **Mathematical physics side:** `dirac-equation` (spinor formulation, the antiparticle prediction); `quantum-field-theory` (path integrals, perturbation theory, gauge fields beyond §`gauge-theory`'s classical view). `special-relativity` and `klein-gordon-equation` shipped — section now spans classical mechanics → SR → KG → general relativity → gauge theory → string theory.
 
 ## Content-gap audit — long-running
 
@@ -61,7 +61,7 @@ Items raised by the review-team agents that were deferred at merge time. **All q
 
 Items the user has explicitly de-prioritized. **Don't suggest these as "what next" without prompting.**
 
-- **Hard-tier quiz authoring** (558 concepts lack hard tier).
+- **Hard-tier quiz authoring** (564 concepts lack hard tier).
 - **Expert-tier authoring** (13 questions corpus-wide).
 
 These are real coverage gaps but not where the user wants to spend time. Per-session feedback memory: lowest-leverage direction, structural/architectural improvements come first.

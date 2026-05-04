@@ -1,0 +1,82 @@
+{
+  "topic": "klein-gordon-equation",
+  "title": "Klein-Gordon equation",
+  "page": "klein-gordon-equation.html",
+  "concepts": [
+    {
+      "id": "kg-derivation",
+      "title": "From E²=p²+m² to a wave operator",
+      "anchor": "derivation",
+      "prereqs": [
+        "sr-energy-momentum"
+      ],
+      "blurb": "Start from the relativistic on-shell relation $E^2 = |\\vec p|^2 c^2 + m^2 c^4$. Apply canonical quantization $E \\mapsto i\\hbar\\,\\partial_t$, $\\vec p \\mapsto -i\\hbar\\vec\\nabla$ to both sides, acting on a scalar field $\\phi$. After setting $\\hbar=c=1$ and using the d'Alembertian $\\Box = \\partial_t^2 - \\nabla^2$, the relation collapses to $(\\Box + m^2)\\phi = 0$ — the canonical relativistic wave equation for a spin-0 field. The price of treating $E^2$ symmetrically is a second-order time derivative, which (unlike Schrödinger's first-order one) introduces a second branch of plane-wave solutions.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "kg-equation",
+      "title": "The Klein-Gordon equation",
+      "anchor": "equation",
+      "prereqs": [
+        "kg-derivation"
+      ],
+      "blurb": "$(\\Box + m^2)\\phi = 0$ with $\\Box = \\eta^{\\mu\\nu}\\partial_\\mu\\partial_\\nu$ is the simplest manifestly Lorentz-invariant scalar wave equation, and the relativistic analogue of $\\Box\\phi=0$ with a single mass parameter $m$ (Compton wavelength $1/m$ in natural units). It is the equation of motion for the Standard Model's Higgs field (with self-interactions layered on), for spin-0 mesons such as $\\pi^\\pm,\\pi^0,K^\\pm$ as effective fields, and for each gauge-fixed component of $A^\\mu$ (massless $m=0$ limit). Every subsequent relativistic equation — Dirac, Maxwell, Yang–Mills — is built so that each component reduces to KG when spin and gauge structure are turned off.",
+      "tags": [
+        "foundation",
+        "classification"
+      ]
+    },
+    {
+      "id": "kg-plane-waves",
+      "title": "Plane-wave solutions and the dispersion relation",
+      "anchor": "plane-waves",
+      "prereqs": [
+        "kg-equation"
+      ],
+      "blurb": "Substituting $\\phi = e^{-i(Et - \\vec p\\cdot\\vec x)}$ into $(\\Box + m^2)\\phi = 0$ gives $-E^2 + |\\vec p|^2 + m^2 = 0$, recovering the relativistic dispersion $E^2 = |\\vec p|^2 + m^2$ as a pure consequence of the field equation. Two branches solve it: $E_\\pm = \\pm\\sqrt{|\\vec p|^2 + m^2}$. The phase velocity $v_\\phi = E/|\\vec p|$ exceeds $c$ for any massive mode (carries no information), while the group velocity $v_g = dE/d|\\vec p| = |\\vec p|/E$ stays strictly below $c$ — wave packets respect the special-relativistic speed limit even though individual phase fronts do not.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "kg-negative-energy",
+      "title": "Negative-energy solutions and antiparticles",
+      "anchor": "negative-energy",
+      "prereqs": [
+        "kg-plane-waves"
+      ],
+      "blurb": "The negative branch $E_- = -\\sqrt{|\\vec p|^2+m^2}$ initially looks pathological — an unbounded-below spectrum would let particles cascade to $-\\infty$ — and cannot be discarded since a second-order equation needs both initial-data sectors. The Feynman–Stückelberg reinterpretation reads each negative-energy mode as a positive-energy antiparticle propagating with reversed 4-momentum: same mass, opposite charge, opposite direction in time. This restores a spectrum bounded below by $+m$ for both particles and antiparticles, and is one of the first cases in physics where antimatter falls out as a mathematical consequence of relativistic invariance rather than from experiment.",
+      "tags": [
+        "duality"
+      ]
+    },
+    {
+      "id": "kg-current",
+      "title": "Conserved current and the probability problem",
+      "anchor": "current",
+      "prereqs": [
+        "kg-equation"
+      ],
+      "blurb": "The 4-current $j^\\mu = i(\\phi^*\\partial^\\mu\\phi - \\phi\\,\\partial^\\mu\\phi^*)$ satisfies $\\partial_\\mu j^\\mu = 0$ as a direct consequence of the KG equation, but its time component $j^0$ is not positive-definite: superposing positive- and negative-energy plane waves makes $j^0$ flip sign. So $j^0$ disqualifies itself as a single-particle probability density — the obstacle that forced the move from relativistic wave mechanics to quantum field theory in the 1930s. The resolution: promote $\\phi$ to an operator-valued field on Fock space, reinterpret $j^\\mu$ as a charge current (particle number minus antiparticle number weighted by $U(1)$ charge), and recover positive probabilities only in the non-relativistic limit.",
+      "tags": [
+        "classification"
+      ]
+    },
+    {
+      "id": "kg-non-rel-limit",
+      "title": "Non-relativistic limit and applications",
+      "anchor": "non-rel-limit",
+      "prereqs": [
+        "kg-plane-waves",
+        "kg-equation",
+        "se-time-dependent"
+      ],
+      "blurb": "Factor out the rest energy: write $\\phi(t,\\vec x) = e^{-imc^2 t/\\hbar}\\psi(t,\\vec x)$, plug into KG, and assume $|i\\hbar\\partial_t\\psi| \\ll mc^2|\\psi|$ (kinetic energy small compared to rest energy). The $\\hbar^2\\partial_t^2\\psi$ term is suppressed by exactly that small ratio and drops, leaving $i\\hbar\\partial_t\\psi = -\\frac{\\hbar^2}{2m}\\nabla^2\\psi$ — the free Schrödinger equation, with the negative-energy branch decoupled. Concrete arenas: pionic atoms (spin-0 $\\pi^-$ orbiting a nucleus), the Higgs propagator, scalar-field cosmological perturbations on FRW backgrounds, and the path-integral building block $\\int e^{iS_\\text{KG}/\\hbar}\\mathcal{D}\\phi$ underlying every bosonic functional integral.",
+      "tags": [
+        "classification"
+      ]
+    }
+  ]
+}
