@@ -86,7 +86,10 @@
         "analytic-continuation-lfunc",
         "mahler-measure-lehmer"
       ],
-      "blurb": "The (logarithmic) Mahler measure $m(P)=\\int_{T^n}\\log|P(z_1,\\ldots,z_n)|$ of a Laurent polynomial on the torus turns out to compute special values of $L$-functions: Smyth's $m(1+x+y)=L'(\\chi_{-3},-1)$ and Boyd's conjectures place vast families of $m(P)$ in the orbit of zeta and $L$-values, with Deninger linking them to regulators in arithmetic geometry."
+      "blurb": "The (logarithmic) Mahler measure $m(P)=\\int_{T^n}\\log|P(z_1,\\ldots,z_n)|$ of a Laurent polynomial on the torus turns out to compute special values of $L$-functions: Smyth's $m(1+x+y)=L'(\\chi_{-3},-1)$ and Boyd's conjectures place vast families of $m(P)$ in the orbit of zeta and $L$-values, with Deninger linking them to regulators in arithmetic geometry.",
+      "tags": [
+        "duality"
+      ]
     }
   ]
 }

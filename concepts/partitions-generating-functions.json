@@ -34,7 +34,11 @@
       "prereqs": [
         "euler-partition-product"
       ],
-      "blurb": "The reciprocal product ∏(1−q^n) collapses to a sparse signed sum over pentagonal numbers k(3k−1)/2, yielding a linear-time recurrence for p(n)."
+      "blurb": "The reciprocal product ∏(1−q^n) collapses to a sparse signed sum over pentagonal numbers k(3k−1)/2, yielding a linear-time recurrence for p(n).",
+      "tags": [
+        "classification",
+        "foundation"
+      ]
     },
     {
       "id": "ramanujan-congruences",
@@ -46,7 +50,10 @@
         "dedekind-eta-modular",
         "jacobi-triple-product"
       ],
-      "blurb": "p(5n+4)≡0 (mod 5), p(7n+5)≡0 (mod 7), p(11n+6)≡0 (mod 11) — three arithmetic miracles whose proofs ride on modular forms."
+      "blurb": "p(5n+4)≡0 (mod 5), p(7n+5)≡0 (mod 7), p(11n+6)≡0 (mod 11) — three arithmetic miracles whose proofs ride on modular forms.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "dedekind-eta-modular",

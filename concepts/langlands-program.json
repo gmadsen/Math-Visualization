@@ -11,6 +11,10 @@
       "prereqs": [
         "galois-representations:galois-rep-definition",
         "automorphic-forms-adelic:automorphic-form-definition"
+      ],
+      "tags": [
+        "duality",
+        "foundation"
       ]
     },
     {
@@ -22,6 +26,9 @@
         "langlands-philosophy",
         "L-functions:lfunction-prototype",
         "L-functions:functional-equation-completion"
+      ],
+      "tags": [
+        "duality"
       ]
     },
     {
@@ -31,6 +38,10 @@
       "blurb": "Bijection between $n$-dim Frobenius-semisimple Weil-Deligne reps of $W_{\\mathbb{Q}_v}$ and irreducible smooth admissible reps of $\\GL_n(\\mathbb{Q}_v)$. Proven for $p$-adic places (Harris-Taylor, Henniart 2001) and archimedean (Langlands 1973).",
       "prereqs": [
         "langlands-philosophy"
+      ],
+      "tags": [
+        "classification",
+        "duality"
       ]
     },
     {
@@ -41,6 +52,10 @@
       "prereqs": [
         "local-langlands-gl-n",
         "l-functions-langlands-bridge"
+      ],
+      "tags": [
+        "classification",
+        "duality"
       ]
     },
     {
@@ -51,6 +66,10 @@
       "prereqs": [
         "global-langlands-gl-n",
         "class-field-theory:artin-map-cft"
+      ],
+      "tags": [
+        "classification",
+        "foundation"
       ]
     },
     {
@@ -61,6 +80,9 @@
       "prereqs": [
         "global-langlands-gl-n",
         "modularity-and-flt:modularity-theorem"
+      ],
+      "tags": [
+        "classification"
       ]
     },
     {
@@ -70,6 +92,9 @@
       "blurb": "Predicted lifting maps between automorphic reps of different groups, mediated by homomorphisms of L-groups. Symmetric power, base change, endoscopic transfer. The conjectural Langlands group $L_F$ is the unifying object whose finite-dim representations correspond to automorphic reps.",
       "prereqs": [
         "global-langlands-gl-n"
+      ],
+      "tags": [
+        "functoriality"
       ]
     },
     {
@@ -82,6 +107,9 @@
         "gl2-modularity",
         "cft-as-langlands",
         "sato-tate:symmetric-power-l-functions"
+      ],
+      "tags": [
+        "duality"
       ]
     }
   ]

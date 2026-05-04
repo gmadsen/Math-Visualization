@@ -23,7 +23,9 @@
         "group-representations"
       ],
       "blurb": "The Monster M is the largest sporadic finite simple group, of order ~8x10^53; its smallest faithful complex irreducibles have dimensions 1, 196883, 21296876, 842609326.",
-      "tags": ["classification"]
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "mckay-observation",
@@ -59,7 +61,10 @@
         "thompson-series",
         "adjoint-roots"
       ],
-      "blurb": "Borcherds built the Monster Lie algebra — a generalized Kac–Moody from the moonshine VOA via Goddard–Thorn — whose Weyl–Kac denominator identity gives replication recursions that pin each Thompson series to its Conway–Norton Hauptmodul."
+      "blurb": "Borcherds built the Monster Lie algebra — a generalized Kac–Moody from the moonshine VOA via Goddard–Thorn — whose Weyl–Kac denominator identity gives replication recursions that pin each Thompson series to its Conway–Norton Hauptmodul.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "replication-formulas",
@@ -69,7 +74,9 @@
         "borcherds-proof-sketch"
       ],
       "blurb": "Comparing $p^m q^n$ coefficients in Borcherds' denominator identity yields explicit Faber–Mahler recursions that determine each $c(N)$ from a finite list of lower coefficients; the same recursions, with $\\dim$ replaced by $\\tr g$, force every Thompson series to coincide with its Conway–Norton Hauptmodul.",
-      "tags": ["classification"]
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "genus-zero-moonshine-groups",
@@ -80,7 +87,10 @@
         "mc-genus-formula"
       ],
       "blurb": "The 171 commensurability classes of moonshine groups $\\Gamma_g \\le \\mathrm{SL}_2(\\mathbb{R})$ are exactly the genus-zero quotients of $\\mathcal{H}^*$ commensurable with $\\mathrm{SL}_2(\\mathbb{Z})$; the set of primes $p$ with $\\Gamma_0(p)+$ genus zero — $\\{2,3,5,7,11,13,17,19,23,29,31,41,47,59,71\\}$ — is precisely Ogg's list of supersingular primes dividing $|\\mathbb{M}|$.",
-      "tags": ["classification", "moduli"]
+      "tags": [
+        "classification",
+        "moduli"
+      ]
     },
     {
       "id": "generalized-moonshine",
@@ -91,7 +101,10 @@
         "voa-moonshine-module"
       ],
       "blurb": "Norton's generalized moonshine attaches a McKay–Thompson series $Z(g,h;\\tau)$ to each commuting pair $(g,h) \\in \\mathbb{M}\\times\\mathbb{M}$ — the graded twisted trace on a $g$-twisted module of $V^\\natural$; conjectured (Norton 1984) and proved (Carnahan 2010+) to be a Hauptmodul for some genus-zero group, with covariance $Z(g,h;\\tau) = Z(g^a h^c, g^b h^d;\\,\\frac{a\\tau+b}{c\\tau+d})$ under $\\mathrm{SL}_2(\\mathbb{Z})$.",
-      "tags": ["group-action", "classification"]
+      "tags": [
+        "group-action",
+        "classification"
+      ]
     }
   ]
 }

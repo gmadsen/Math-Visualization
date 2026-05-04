@@ -10,7 +10,10 @@
       "prereqs": [
         "elliptic-curve-definition"
       ],
-      "blurb": "From a hypothetical solution $a^p + b^p = c^p$ to Fermat, Frey attaches $E_{a,b,c}: y^2 = x(x - a^p)(x + b^p)$. Its discriminant is $2^{-8}(abc)^{2p}$: a perfect $2p$-th power away from 2, which makes the curve semistable and forces very mild ramification."
+      "blurb": "From a hypothetical solution $a^p + b^p = c^p$ to Fermat, Frey attaches $E_{a,b,c}: y^2 = x(x - a^p)(x + b^p)$. Its discriminant is $2^{-8}(abc)^{2p}$: a perfect $2p$-th power away from 2, which makes the curve semistable and forces very mild ramification.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "modularity-theorem",
@@ -23,7 +26,9 @@
         "galois-rep-definition"
       ],
       "blurb": "Every elliptic curve $E/\\mathbb{Q}$ of conductor $N$ corresponds to a weight-2 newform $f_E \\in S_2(\\Gamma_0(N))$ with matching Frobenius traces $a_p(E) = a_p(f_E)$. Wiles + Taylor–Wiles (1995) handled the semistable case; BCDT (2001) extended to all $E/\\mathbb{Q}$.",
-      "tags": ["classification"]
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "ribet-level-lowering",
@@ -34,7 +39,9 @@
         "modularity-and-deformations"
       ],
       "blurb": "Ribet's $\\varepsilon$-theorem: if $\\overline\\rho_{E,p}$ is modular of level $Np$ and unramified at $p$, it is modular at level $N$. Applied to the Frey curve this collapses the level to $2$, where $S_2(\\Gamma_0(2)) = 0$ contradicts the Fermat solution.",
-      "tags": ["lifting"]
+      "tags": [
+        "lifting"
+      ]
     },
     {
       "id": "deformation-rings",
@@ -45,7 +52,11 @@
         "frobenius-traces"
       ],
       "blurb": "Given a residual $\\overline\\rho\\colon G_\\mathbb{Q} \\to \\mathrm{GL}_2(\\mathbb{F}_p)$, Mazur's universal deformation ring $R_\\Sigma$ represents lifts to complete Noetherian local rings with prescribed ramification $\\Sigma$; it is the formal moduli of Galois deformations.",
-      "tags": ["lifting", "moduli", "universal-property"]
+      "tags": [
+        "lifting",
+        "moduli",
+        "universal-property"
+      ]
     },
     {
       "id": "r-equals-t",
@@ -57,7 +68,9 @@
         "hecke-algebra-commuting"
       ],
       "blurb": "Wiles' lifting engine identifies $R_\\Sigma$ with the localized Hecke algebra $\\mathbb{T}_\\Sigma$ on weight-2 cusp forms; the Taylor–Wiles patching argument upgrades $R_\\Sigma \\twoheadrightarrow \\mathbb{T}_\\Sigma$ to an isomorphism, so every deformation is modular.",
-      "tags": ["lifting"]
+      "tags": [
+        "lifting"
+      ]
     }
   ]
 }

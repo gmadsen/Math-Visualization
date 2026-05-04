@@ -23,7 +23,10 @@
       "prereqs": [
         "upper-half-plane-model"
       ],
-      "blurb": "The metric ds^2=(dx^2+dy^2)/y^2 rescales Euclidean length by height, making the boundary infinitely far away."
+      "blurb": "The metric ds^2=(dx^2+dy^2)/y^2 rescales Euclidean length by height, making the boundary infinitely far away.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "geodesics-in-H",
@@ -32,7 +35,11 @@
       "prereqs": [
         "hyperbolic-metric"
       ],
-      "blurb": "Geodesics are vertical lines and semicircles orthogonal to the real axis; they minimize hyperbolic distance."
+      "blurb": "Geodesics are vertical lines and semicircles orthogonal to the real axis; they minimize hyperbolic distance.",
+      "tags": [
+        "foundation",
+        "classification"
+      ]
     },
     {
       "id": "sl2r-action-on-H",

@@ -22,7 +22,10 @@
       "prereqs": [
         "hecke-operator-tp"
       ],
-      "blurb": "On coefficients, T_p obeys a'_n=a_{pn}+p^{k-1}a_{n/p}, giving a computable arithmetic rule."
+      "blurb": "On coefficients, T_p obeys a'_n=a_{pn}+p^{k-1}a_{n/p}, giving a computable arithmetic rule.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "hecke-algebra-commuting",
