@@ -17,8 +17,15 @@
  *                      module at widgets/<slug>/index.mjs is imported and
  *                      renderMarkup(params) is called; that module's output
  *                      must match the original inline bytes exactly.
- *   widget-script    — registry-driven script block (slug + params).  Calls
- *                      widgets/<slug>/index.mjs renderScript(params).
+ *   widget-script    — registry-driven script block. Three forms:
+ *                        (a) {ref: widgetId} — looks up the widget block by
+ *                            widgetId, calls renderScript on its slug+params.
+ *                            This is the canonical form: it eliminates ~5KB
+ *                            of duplicated params per widget.
+ *                        (b) {slug, params} — legacy duplicated form. Kept
+ *                            for back-compat; new content should use (a).
+ *                        (c) {forWidget, html} — verbatim inline script with
+ *                            a back-reference (Phase 3 auto-detect).
  */
 
 import { readFileSync } from 'node:fs';
@@ -39,7 +46,7 @@ async function loadWidgetModule(slug) {
   return mod;
 }
 
-async function renderBlock(b) {
+async function renderBlock(b, widgetById) {
   if (b.type === 'widget') {
     if (b.slug) {
       const mod = await loadWidgetModule(b.slug);
@@ -48,18 +55,36 @@ async function renderBlock(b) {
     return b.html + (b.script || '');
   }
   if (b.type === 'widget-script') {
-    // Registry-driven case (Phase 2 hand-edit): slug + params resolve
-    // through the widgets/ registry.
+    // Canonical form: ref by widgetId — looks up the widget block elsewhere
+    // in the doc and uses its slug+params. Eliminates duplicated params.
+    if (b.ref) {
+      const w = widgetById.get(b.ref);
+      if (!w) throw new Error(`widget-script ref="${b.ref}" not found in widget blocks`);
+      const mod = await loadWidgetModule(w.slug);
+      return mod.renderScript(w.params);
+    }
+    // Legacy form: slug + params duplicated from the widget block.
     if (b.slug) {
       const mod = await loadWidgetModule(b.slug);
       return mod.renderScript(b.params);
     }
-    // Auto-detected case (Phase 3): verbatim html field with a forWidget
-    // back-reference.
+    // Phase 3 auto-detected: verbatim html with forWidget back-reference.
     return b.html;
   }
   // raw / quiz both carry their html verbatim.
   return b.html;
+}
+
+function buildWidgetById(doc) {
+  const map = new Map();
+  for (const section of doc.sections) {
+    for (const block of section.blocks) {
+      if (block.type === 'widget' && block.slug && block.params?.widgetId) {
+        map.set(block.params.widgetId, block);
+      }
+    }
+  }
+  return map;
 }
 
 async function main() {
@@ -71,10 +96,11 @@ async function main() {
   const inPath = resolve(repoRoot, 'content', `${slug}.json`);
   const doc = JSON.parse(readFileSync(inPath, 'utf8'));
 
+  const widgetById = buildWidgetById(doc);
   const parts = [];
   for (const section of doc.sections) {
     for (const block of section.blocks) {
-      parts.push(await renderBlock(block));
+      parts.push(await renderBlock(block, widgetById));
     }
   }
   const out = doc.rawHead + doc.rawBodyPrefix + parts.join('') + doc.rawBodySuffix;

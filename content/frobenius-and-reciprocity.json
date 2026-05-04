@@ -80,28 +80,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "button-stepper",
-          "params": {
-            "widgetId": "w-factor",
-            "title": "Factor $f(x) \\bmod p$",
-            "hint": "cycle shape of Frobenius",
-            "readoutId": "f-out",
-            "bodyScript": "  const POLYS = [\n    {name:'x² - 5',        coeffs:[-5, 0, 1],       disc:20   },\n    {name:'x² + 1',        coeffs:[1, 0, 1],        disc:-4   },\n    {name:'x³ - x - 1',    coeffs:[-1,-1,0, 1],     disc:-23  },\n    {name:'x³ - 2',        coeffs:[-2, 0, 0, 1],    disc:-108 },\n    {name:'x⁴ + 1',        coeffs:[1, 0, 0, 0, 1],  disc:256  },\n    {name:'x⁴ - 2',        coeffs:[-2, 0, 0, 0, 1], disc:-2048},\n  ];\n  const sel = $('#f-poly');\n  POLYS.forEach((p,i)=>{\n    const o=document.createElement('option');\n    o.value=i; o.textContent=p.name;\n    sel.appendChild(o);\n  });\n  sel.value = 2; // x^3 - x - 1\n  const pin = $('#f-prime'), out = $('#f-out'), go = $('#f-go'), quick = $('#f-quick');\n  function run(){\n    const P = POLYS[+sel.value];\n    const p = Math.max(2, Math.min(997, +pin.value|0));\n    if(!isPrime(p)){ out.textContent = `${p} is not prime — pick a prime.`; quick.innerHTML=''; return; }\n    const degs = factorDegreesModP(P.coeffs, p);\n    const ram = P.disc !== 0 && (P.disc % p === 0);\n    let msg = `f(x) = ${P.name},  p = ${p}\\n`;\n    if(ram || !degs){\n      msg += `ramified at p (discriminant divisible by ${p}) — not a generic Frobenius.`;\n    } else {\n      msg += `factorisation degrees: ${degs.join(' + ')}\\n`;\n      msg += `cycle shape: ${shapeStr(degs)}`;\n    }\n    out.textContent = msg;\n    // quick survey\n    quick.innerHTML='';\n    let ct = 0, q = 2;\n    while(ct < 15 && q < 200){\n      if(isPrime(q)){\n        const ramq = P.disc !== 0 && (P.disc % q === 0);\n        let s;\n        if(ramq){ s = document.createElement('span'); s.className='chip ram'; s.textContent=`${q}:ram`; }\n        else {\n          const ds = factorDegreesModP(P.coeffs, q);\n          s = document.createElement('span');\n          s.className = 'chip ' + (ds.length===P.coeffs.length-1?'split':(ds.length===1?'inert':'partial'));\n          s.textContent = `${q}:${ds.join(',')}`;\n        }\n        quick.appendChild(s);\n        ct++;\n      }\n      q++;\n    }\n  }\n  sel.addEventListener('change', run);\n  go.addEventListener('click', run);\n  pin.addEventListener('change', run);\n  pin.addEventListener('keyup', e=>{ if(e.key==='Enter') run(); });\n  run();",
-            "layout": [
-              {
-                "kind": "raw",
-                "html": "<div class=\"row\">\n    <label for=\"f-poly\">polynomial:</label>\n    <select id=\"f-poly\"></select>\n    <label for=\"f-prime\">prime $p$:</label>\n    <input id=\"f-prime\" type=\"number\" min=\"2\" max=\"997\" value=\"7\" style=\"width:5em\">\n    <button id=\"f-go\">factor</button>\n  </div>"
-              },
-              {
-                "kind": "readout",
-                "id": "f-out"
-              },
-              {
-                "kind": "raw",
-                "html": "<div class=\"row\">\n    <span class=\"small\">first 15 primes:</span>\n    <span id=\"f-quick\"></span>\n  </div>"
-              }
-            ]
-          }
+          "ref": "w-factor"
         },
         {
           "type": "widget",
@@ -253,81 +232,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "button-stepper",
-          "params": {
-            "widgetId": "w-frob",
-            "title": "Frobenius as a permutation",
-            "hint": "cycle shape $\\leftrightarrow$ factorisation",
-            "svgId": "frob-svg",
-            "viewBox": "0 0 620 240",
-            "readoutId": "frob-out",
-            "buttons": [
-              {
-                "label": "(3) — 3-cycle, cubic stays irreducible",
-                "dataAttr": {
-                  "name": "data-key",
-                  "value": "a"
-                },
-                "className": "active"
-              },
-              {
-                "label": "(2,1) — transposition, deg 2 × deg 1",
-                "dataAttr": {
-                  "name": "data-key",
-                  "value": "b"
-                }
-              },
-              {
-                "label": "(1,1,1) — identity, fully split",
-                "dataAttr": {
-                  "name": "data-key",
-                  "value": "c"
-                }
-              }
-            ],
-            "layout": [
-              {
-                "kind": "row",
-                "label": "pick:",
-                "buttons": [
-                  {
-                    "label": "(3) — 3-cycle, cubic stays irreducible",
-                    "dataAttr": {
-                      "name": "data-key",
-                      "value": "a"
-                    },
-                    "className": "active"
-                  },
-                  {
-                    "label": "(2,1) — transposition, deg 2 × deg 1",
-                    "dataAttr": {
-                      "name": "data-key",
-                      "value": "b"
-                    }
-                  },
-                  {
-                    "label": "(1,1,1) — identity, fully split",
-                    "dataAttr": {
-                      "name": "data-key",
-                      "value": "c"
-                    }
-                  }
-                ]
-              },
-              {
-                "kind": "svg",
-                "id": "frob-svg",
-                "viewBox": "0 0 620 240",
-                "width": 620,
-                "height": 240
-              },
-              {
-                "kind": "readout",
-                "id": "frob-out"
-              }
-            ],
-            "bodyScript": "  const svg = $('#frob-svg'), out = $('#frob-out');\n  // three root positions\n  const R = [[160,130],[310,80],[460,130]];\n  const LABELS = ['α₁','α₂','α₃'];\n  const PERMS = {\n    a: {name:'3-cycle',    perm:[1,2,0], factorisation:'f̄(x) irreducible of degree 3'},\n    b: {name:'transposition', perm:[1,0,2], factorisation:'f̄(x) = (deg 2) · (deg 1)'},\n    c: {name:'identity',   perm:[0,1,2], factorisation:'f̄(x) = (x−r₁)(x−r₂)(x−r₃), three linear'},\n  };\n  let key = 'a';\n  function render(){\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    for(let i=0;i<3;i++) drawNode(svg, R[i][0], R[i][1], LABELS[i], {r:22, stroke:'var(--blue)'});\n    const P = PERMS[key];\n    for(let i=0;i<3;i++){\n      const j = P.perm[i];\n      if(i===j){\n        // loop\n        const [x,y] = R[i];\n        ensureArrow(svg,'frob-fix','var(--green)');\n        const d = `M ${x-12} ${y-26} C ${x-40} ${y-70}, ${x+40} ${y-70}, ${x+12} ${y-26}`;\n        svg.appendChild(SVG('path',{d, fill:'none', stroke:'var(--green)','stroke-width':1.6,'marker-end':'url(#frob-fix)'}));\n      } else {\n        const curve = (i<j)?32:-32;\n        drawArrow(svg, R[i], R[j], {\n          color:'var(--yellow)', curve, markerId:'frob-'+key+'-'+i,\n          pad1:24, pad2:26, width:1.8\n        });\n      }\n    }\n    // caption + shape\n    const shape = cycleShapeFromPerm(P.perm);\n    const t = SVG('text',{x:310,y:210,'text-anchor':'middle','font-size':13,fill:'var(--yellow)','font-style':'italic'});\n    t.textContent = `cycle shape = ${shapeStr(shape)}`;\n    svg.appendChild(t);\n    out.textContent = `Frobenius type: ${P.name}\\n${P.factorisation}`;\n  }\n  function cycleShapeFromPerm(p){\n    const n = p.length; const seen = new Array(n).fill(false); const cycs = [];\n    for(let i=0;i<n;i++){\n      if(seen[i]) continue;\n      let j = i, L = 0;\n      while(!seen[j]){ seen[j]=true; j=p[j]; L++; }\n      cycs.push(L);\n    }\n    cycs.sort((a,b)=>b-a);\n    return cycs;\n  }\n  document.querySelectorAll('#w-frob button').forEach(b => b.addEventListener('click', () => {\n    document.querySelectorAll('#w-frob button').forEach(x => x.classList.remove('active'));\n    b.classList.add('active');\n    key = b.getAttribute('data-key');\n    render();\n  }));\n  render();"
-          }
+          "ref": "w-frob"
         },
         {
           "type": "raw",
@@ -429,33 +334,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "button-stepper",
-          "params": {
-            "widgetId": "w-cheb",
-            "title": "Chebotarev experiment",
-            "hint": "empirical vs. predicted",
-            "svgId": "cheb-svg",
-            "viewBox": "0 0 620 260",
-            "readoutId": "cheb-out",
-            "bodyScript": "  const POLYS = [\n    {name:'x² - 5 (G = ℤ/2)',\n      coeffs:[-5,0,1], disc:20,\n      classes:[{name:'identity (split)', size:1, total:2, match: degs => degs.length===2},\n               {name:'nontrivial (inert)', size:1, total:2, match: degs => degs.length===1}]},\n    {name:'x³ - x - 1 (G = S₃)',\n      coeffs:[-1,-1,0,1], disc:-23,\n      classes:[{name:'identity (1,1,1)', size:1, total:6, match: degs => degs.length===3},\n               {name:'transposition (2,1)', size:3, total:6, match: degs => degs.length===2},\n               {name:'3-cycle (3)', size:2, total:6, match: degs => degs.length===1 && degs[0]===3}]},\n    {name:'x⁴ + 1 (G = V₄)',\n      coeffs:[1,0,0,0,1], disc:256,\n      classes:[{name:'identity (1,1,1,1)', size:1, total:4, match: degs => degs.length===4},\n               {name:'type (2,2)',         size:3, total:4, match: degs => degs.length===2 && degs[0]===2 && degs[1]===2}]},\n  ];\n  const sel = $('#cheb-poly');\n  POLYS.forEach((p,i)=>{ const o=document.createElement('option'); o.value=i; o.textContent=p.name; sel.appendChild(o); });\n  sel.value = 1;\n  const N = $('#cheb-N'), Nval = $('#cheb-Nval'), svg = $('#cheb-svg'), out = $('#cheb-out');\n  function run(){\n    const P = POLYS[+sel.value];\n    const lim = +N.value;\n    Nval.textContent = `N = ${lim}`;\n    const primes = primesUpTo(lim);\n    // count primes in each class, excluding ramified\n    const counts = P.classes.map(()=>0);\n    let goodPrimes = 0;\n    for(const p of primes){\n      if(P.disc !== 0 && P.disc % p === 0) continue;\n      const degs = factorDegreesModP(P.coeffs, p);\n      if(!degs) continue;\n      goodPrimes++;\n      for(let i=0;i<P.classes.length;i++){\n        if(P.classes[i].match(degs)) counts[i]++;\n      }\n    }\n    // draw\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const x0 = 200, barMax = 380;\n    const lineY = 20;\n    // headers\n    const hd = SVG('text',{x:10, y:22, 'font-size':12, fill:'var(--mute)'});\n    hd.textContent = 'class';\n    svg.appendChild(hd);\n    const hd2 = SVG('text',{x:x0, y:22, 'font-size':12, fill:'var(--mute)'});\n    hd2.textContent = 'empirical (blue) vs. predicted (yellow outline)';\n    svg.appendChild(hd2);\n    for(let i=0;i<P.classes.length;i++){\n      const C = P.classes[i];\n      const y = 60 + i*55;\n      const pred = C.size / C.total;\n      const emp  = goodPrimes ? counts[i]/goodPrimes : 0;\n      // name\n      const tn = SVG('text',{x:10, y:y+16, 'font-size':13, fill:'var(--ink)'});\n      tn.textContent = C.name;\n      svg.appendChild(tn);\n      // empirical bar\n      svg.appendChild(SVG('rect',{x:x0, y:y+4, width:emp*barMax, height:18, fill:'var(--blue)', rx:3}));\n      // predicted outline\n      svg.appendChild(SVG('rect',{x:x0, y:y, width:pred*barMax, height:26, fill:'none', stroke:'var(--yellow)', 'stroke-dasharray':'4 3', 'stroke-width':1.5, rx:3}));\n      // numbers\n      const tv = SVG('text',{x:x0+barMax+10, y:y+18, 'font-size':12, fill:'var(--mute)'});\n      tv.textContent = `emp ${(emp*100).toFixed(1)}%  ·  pred ${(pred*100).toFixed(1)}%`;\n      svg.appendChild(tv);\n    }\n    out.textContent = `${goodPrimes} unramified primes ≤ ${lim} surveyed for ${POLYS[+sel.value].name}`;\n  }\n  sel.addEventListener('change', run);\n  N.addEventListener('input', run);\n  run();",
-            "layout": [
-              {
-                "kind": "raw",
-                "html": "<div class=\"row\">\n    <label for=\"cheb-poly\">polynomial:</label>\n    <select id=\"cheb-poly\"></select>\n    <label for=\"cheb-N\">limit $N$:</label>\n    <input type=\"range\" id=\"cheb-N\" min=\"200\" max=\"5000\" step=\"100\" value=\"2000\">\n    <span id=\"cheb-Nval\" class=\"small\"></span>\n  </div>"
-              },
-              {
-                "kind": "svg",
-                "id": "cheb-svg",
-                "viewBox": "0 0 620 260",
-                "width": 620,
-                "height": 260
-              },
-              {
-                "kind": "readout",
-                "id": "cheb-out"
-              }
-            ]
-          }
+          "ref": "w-cheb"
         },
         {
           "type": "raw",
@@ -518,28 +397,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "button-stepper",
-          "params": {
-            "widgetId": "w-quad",
-            "title": "Splitting of $x^2 - a$",
-            "hint": "green = splits, pink = inert",
-            "readoutId": "q-out",
-            "bodyScript": "  const A_VALS = [2, 3, -1, 5, -3, 6, 7];\n  const sel = $('#q-a'), grid = $('#q-grid'), out = $('#q-out'), mod_el = $('#q-modulus');\n  A_VALS.forEach(a=>{ const o=document.createElement('option'); o.value=a; o.textContent=String(a); sel.appendChild(o);});\n  sel.value = 5;\n  function render(){\n    const a = +sel.value;\n    const modulus = 4*Math.abs(a);\n    mod_el.textContent = `modulus 4|a| = ${modulus}`;\n    grid.innerHTML='';\n    const poly = [-a, 0, 1];\n    const primes = primesUpTo(200).filter(p=>p!==2); // exclude p=2 in this display\n    // group by residue class mod \"modulus\"\n    const cells = [];\n    for(const p of primes){\n      const res = mod(p, modulus);\n      if(poly.slice(0).some(()=>false)){} // noop\n      const ram = (poly[0] === 0) || (mod(a,p) === 0);\n      let chipClass, label;\n      if(ram){ chipClass='ram'; label='ram'; }\n      else {\n        // compute splitting\n        const degs = factorDegreesModP(poly, p);\n        if(!degs){ chipClass='ram'; label='ram'; }\n        else if(degs.length===2){ chipClass='split'; label='split'; }\n        else { chipClass='inert'; label='inert'; }\n      }\n      cells.push({p, res, chipClass, label});\n    }\n    // group by residue class\n    const byRes = new Map();\n    for(const c of cells){\n      if(!byRes.has(c.res)) byRes.set(c.res, []);\n      byRes.get(c.res).push(c);\n    }\n    const sortedRes = [...byRes.keys()].sort((x,y)=>x-y);\n    const wrap = document.createElement('div');\n    const hdr = document.createElement('div'); hdr.className='small';\n    hdr.style.cssText = 'color:var(--mute);margin-bottom:.4rem';\n    hdr.textContent = `primes p ≤ 200, grouped by p mod ${modulus}. If the class is green-only or pink-only, the reciprocity prediction holds.`;\n    wrap.appendChild(hdr);\n    const table = document.createElement('table'); table.className='plain';\n    const theadRow = document.createElement('tr');\n    theadRow.innerHTML = `<th>p mod ${modulus}</th><th>primes in this class</th>`;\n    table.appendChild(theadRow);\n    for(const r of sortedRes){\n      const tr = document.createElement('tr');\n      const t1 = document.createElement('td'); t1.textContent = r; tr.appendChild(t1);\n      const t2 = document.createElement('td');\n      for(const c of byRes.get(r)){\n        const span = document.createElement('span');\n        span.className = 'chip ' + c.chipClass;\n        span.textContent = `${c.p}`;\n        span.title = `${c.p}: ${c.label}`;\n        t2.appendChild(span);\n      }\n      tr.appendChild(t2);\n      table.appendChild(tr);\n    }\n    wrap.appendChild(table);\n    grid.appendChild(wrap);\n    // produce verdict\n    const verdict = [];\n    for(const r of sortedRes){\n      const types = new Set(byRes.get(r).filter(c=>c.chipClass!=='ram').map(c=>c.chipClass));\n      if(types.size>1){ verdict.push(`${r} mixed`); }\n    }\n    out.textContent = verdict.length\n      ? `inhomogeneous residue classes: ${verdict.join(', ')}`\n      : `every residue class is pure: reciprocity holds modulo ${modulus}.`;\n  }\n  sel.addEventListener('change', render);\n  render();",
-            "layout": [
-              {
-                "kind": "raw",
-                "html": "<div class=\"row\">\n    <label for=\"q-a\">radicand $a$:</label>\n    <select id=\"q-a\"></select>\n    <span class=\"small\" id=\"q-modulus\"></span>\n  </div>"
-              },
-              {
-                "kind": "raw",
-                "html": "<div class=\"grid-wrap\" id=\"q-grid\"></div>"
-              },
-              {
-                "kind": "readout",
-                "id": "q-out"
-              }
-            ]
-          }
+          "ref": "w-quad"
         },
         {
           "type": "raw",
@@ -571,22 +429,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "clickable-diagram",
-          "params": {
-            "interaction": "svg-diagram",
-            "widgetId": "w-cyc",
-            "title": "$(\\mathbb{Z}/N)^\\times$ — the cyclotomic Galois group",
-            "hint": "element = residue class, Frob is identity map",
-            "svgId": "cy-svg",
-            "svgViewBox": "0 0 620 260",
-            "svgWidthAttr": "620",
-            "svgHeightAttr": "260",
-            "svgTitle": "$(\\mathbb{Z}/N)^\\times$ — the cyclotomic Galois group",
-            "outputId": "cy-out",
-            "layout": "controls-first",
-            "controlsLiteral": "    <label for=\"cy-N\">$N$:</label>\n    <select id=\"cy-N\"></select>\n    <label for=\"cy-p\">highlight prime $p$:</label>\n    <input type=\"number\" id=\"cy-p\" value=\"11\" min=\"2\" max=\"200\" style=\"width:5em\">",
-            "scriptBodyLiteral": "(function(){\n  const Ns = [5,7,8,12,15,16];\n  const selN = $('#cy-N'), pin = $('#cy-p'), svg = $('#cy-svg'), out = $('#cy-out');\n  Ns.forEach(n=>{ const o=document.createElement('option'); o.value=n; o.textContent=String(n); selN.appendChild(o); });\n  selN.value = 12;\n  function render(){\n    const N = +selN.value;\n    const pv = +pin.value;\n    // elements of (Z/N)^*\n    const elts = [];\n    for(let k=1;k<N;k++){\n      if(gcd(k,N)===1) elts.push(k);\n    }\n    // layout on a circle\n    while(svg.firstChild) svg.removeChild(svg.firstChild);\n    const cx=310, cy=130, R=95;\n    // title\n    const tH = SVG('text',{x:310, y:22, 'text-anchor':'middle', 'font-size':13, fill:'var(--mute)'});\n    tH.textContent = `|(ℤ/${N})×| = ${elts.length},  Frob_p = p mod ${N}`;\n    svg.appendChild(tH);\n    const n = elts.length;\n    let frobRes = null;\n    if(isPrime(pv) && gcd(pv,N)===1) frobRes = mod(pv,N);\n    for(let i=0;i<n;i++){\n      const ang = -Math.PI/2 + 2*Math.PI*i/n;\n      const x = cx + R*Math.cos(ang), y = cy + R*Math.sin(ang);\n      const isFrob = elts[i] === frobRes;\n      drawNode(svg, x, y, String(elts[i]), {r:18, stroke: isFrob?'var(--yellow)':'var(--blue)'});\n    }\n    // describe cycle structure of Frob_p acting on roots of unity — i.e. order of p in (Z/N)*\n    if(frobRes !== null){\n      let ord = 1, curr = frobRes;\n      while(curr !== 1 && ord < N*2){ curr = mod(curr*frobRes, N); ord++; }\n      const phiN = elts.length;\n      const cycles = phiN / ord;\n      out.textContent = `p = ${pv},  Frob_p = ${frobRes} mod ${N}.  order of Frob in G = ${ord}.\\nΦ_${N}(x) mod ${pv} factors as ${cycles} irreducible piece(s), each of degree ${ord}.`;\n    } else {\n      if(!isPrime(pv)) out.textContent = `${pv} is not prime`;\n      else out.textContent = `p = ${pv} divides N = ${N} (ramified).`;\n    }\n  }\n  function gcd(a,b){ a=Math.abs(a); b=Math.abs(b); while(b){ [a,b]=[b,a%b]; } return a; }\n  selN.addEventListener('change', render);\n  pin.addEventListener('change', render);\n  pin.addEventListener('keyup', e=>{ if(e.key==='Enter') render(); });\n  render();\n})();"
-          }
+          "ref": "w-cyc"
         },
         {
           "type": "raw",
@@ -633,29 +476,7 @@
         },
         {
           "type": "widget-script",
-          "slug": "button-stepper",
-          "params": {
-            "widgetId": "w-s3",
-            "title": "$S_3$ cycle shape for $x^3-x-1$",
-            "hint": "primes $\\le 100$, coloured by class",
-            "svgId": "s3-svg",
-            "viewBox": "0 0 620 260",
-            "readoutId": "s3-out",
-            "bodyScript": "  const POLY = [-1,-1,0,1]; // x^3 - x - 1\n  const DISC = -23;\n  const svg = $('#s3-svg'), out = $('#s3-out');\n  const primes = primesUpTo(100);\n  // classify each prime\n  const rows = [];\n  let c1 = 0, c2 = 0, c3 = 0, cram = 0;\n  for(const p of primes){\n    if(DISC % p === 0){ rows.push({p, cls:'ram'}); cram++; continue; }\n    const degs = factorDegreesModP(POLY, p);\n    if(!degs){ rows.push({p, cls:'ram'}); cram++; continue; }\n    if(degs.length===3){ rows.push({p, cls:'split', a:2, shape:'(1,1,1)'}); c1++; }\n    else if(degs.length===1 && degs[0]===3){ rows.push({p, cls:'three', a:-1, shape:'(3)'}); c3++; }\n    else { rows.push({p, cls:'trans', a:0, shape:'(2,1)'}); c2++; }\n  }\n  // layout: bar of primes, colour-coded\n  while(svg.firstChild) svg.removeChild(svg.firstChild);\n  const x0 = 30, y0 = 40, cellW = 22, cellH = 22;\n  const perRow = Math.floor((620 - 60) / cellW);\n  const colors = {'split':'var(--green)','trans':'var(--blue)','three':'var(--yellow)','ram':'var(--pink)'};\n  rows.forEach((r,i)=>{\n    const rr = Math.floor(i/perRow), cc = i%perRow;\n    const x = x0 + cc*cellW, y = y0 + rr*cellH;\n    svg.appendChild(SVG('rect',{x, y, width:cellW-2, height:cellH-2, fill:colors[r.cls], rx:3}));\n    const t = SVG('text',{x: x + (cellW-2)/2, y: y + cellH - 8, 'text-anchor':'middle', 'font-size':10, fill:'#111', 'font-weight':600});\n    t.textContent = r.p;\n    svg.appendChild(t);\n  });\n  // legend\n  const leg = [\n    {cls:'split', label:'(1,1,1) · a_p = 2', x:30},\n    {cls:'trans', label:'(2,1) · a_p = 0',   x:210},\n    {cls:'three', label:'(3) · a_p = −1',    x:370},\n    {cls:'ram',   label:'p | 23',            x:520},\n  ];\n  const ry = 220;\n  for(const L of leg){\n    svg.appendChild(SVG('rect',{x:L.x, y:ry, width:16, height:16, fill:colors[L.cls], rx:2}));\n    const t = SVG('text',{x:L.x+22, y:ry+12, 'font-size':12, fill:'var(--ink)'});\n    t.textContent = L.label;\n    svg.appendChild(t);\n  }\n  // summary\n  const total = c1+c2+c3;\n  const pct = x => ((x/total)*100).toFixed(1) + '%';\n  out.textContent =\n    `primes ≤ 100 (unramified): ${total}\\n` +\n    `split (1,1,1): ${c1}  →  ${pct(c1)}   (predicted 16.7%)\\n` +\n    `transposition (2,1): ${c2}  →  ${pct(c2)}   (predicted 50.0%)\\n` +\n    `3-cycle (3): ${c3}  →  ${pct(c3)}   (predicted 33.3%)\\n` +\n    `ramified (p | 23): ${cram}`;",
-            "layout": [
-              {
-                "kind": "svg",
-                "id": "s3-svg",
-                "viewBox": "0 0 620 260",
-                "width": 620,
-                "height": 260
-              },
-              {
-                "kind": "readout",
-                "id": "s3-out"
-              }
-            ]
-          }
+          "ref": "w-s3"
         },
         {
           "type": "raw",
