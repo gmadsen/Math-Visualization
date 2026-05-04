@@ -11,7 +11,11 @@
         "projective-scheme",
         "riemann-surface-definition"
       ],
-      "blurb": "A smooth projective curve over an algebraically closed field $k$ is a smooth projective integral $k$-scheme of dimension 1. Its genus $g$ is the dimension of $H^0(C, \\Omega^1_C)$ — over $\\mathbb{C}$ this matches the topological genus of the Riemann surface $C(\\mathbb{C})$."
+      "blurb": "A smooth projective curve over an algebraically closed field $k$ is a smooth projective integral $k$-scheme of dimension 1. Its genus $g$ is the dimension of $H^0(C, \\Omega^1_C)$ — over $\\mathbb{C}$ this matches the topological genus of the Riemann surface $C(\\mathbb{C})$.",
+      "tags": [
+        "foundation",
+        "moduli"
+      ]
     },
     {
       "id": "divisors-on-curves",
@@ -48,7 +52,10 @@
         "riemann-roch-curves",
         "kahler-differentials"
       ],
-      "blurb": "If $g \\ge 2$ and $C$ is non-hyperelliptic, the canonical divisor $K$ embeds $C \\hookrightarrow \\mathbb{P}^{g-1}$ as a curve of degree $2g - 2$. The image is the canonical model — the most natural projective realization of an abstract curve."
+      "blurb": "If $g \\ge 2$ and $C$ is non-hyperelliptic, the canonical divisor $K$ embeds $C \\hookrightarrow \\mathbb{P}^{g-1}$ as a curve of degree $2g - 2$. The image is the canonical model — the most natural projective realization of an abstract curve.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "hyperelliptic-curves",

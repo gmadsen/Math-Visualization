@@ -11,7 +11,9 @@
         "elliptic-curve-definition"
       ],
       "blurb": "Nodal and cuspidal degenerations control failures of smooth group laws.",
-      "tags": ["classification"]
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "reduction-mod-p",
@@ -20,7 +22,10 @@
       "prereqs": [
         "elliptic-group-law"
       ],
-      "blurb": "Reducing Weierstrass models modulo p tracks good and bad fibers."
+      "blurb": "Reducing Weierstrass models modulo p tracks good and bad fibers.",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "kodaira-néron-preview",
@@ -30,7 +35,9 @@
         "reduction-mod-p"
       ],
       "blurb": "Local reduction types forecast conductor exponents and arithmetic complexity.",
-      "tags": ["classification"]
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "hasse-bound-point-counting",
@@ -40,7 +47,11 @@
         "reduction-mod-p",
         "kodaira-néron-preview"
       ],
-      "blurb": "At good primes $|a_p| \\le 2\\sqrt p$ (Hasse); at multiplicative primes $a_p = \\pm 1$; at additive primes $a_p = 0$. The four-row table assembles the local Euler factors."
+      "blurb": "At good primes $|a_p| \\le 2\\sqrt p$ (Hasse); at multiplicative primes $a_p = \\pm 1$; at additive primes $a_p = 0$. The four-row table assembles the local Euler factors.",
+      "tags": [
+        "classification",
+        "finiteness"
+      ]
     },
     {
       "id": "minimal-weierstrass-model",
@@ -50,7 +61,10 @@
         "kodaira-néron-preview",
         "padic-norm-completion"
       ],
-      "blurb": "A global minimal model has the smallest possible discriminant. Its bad primes, weighted by Ogg's formula, produce the conductor $N(E)$ — the number that appears in every $L$-function statement."
+      "blurb": "A global minimal model has the smallest possible discriminant. Its bad primes, weighted by Ogg's formula, produce the conductor $N(E)$ — the number that appears in every $L$-function statement.",
+      "tags": [
+        "classification"
+      ]
     }
   ]
 }

@@ -79,7 +79,10 @@
         "hodge-filtration",
         "stokes-derham"
       ],
-      "blurb": "For a smooth projective curve $C$ of genus $g$ over $\\mathbb{C}$: $H^0_{dR}(C) = \\mathbb{C}$, $H^2_{dR}(C) = \\mathbb{C}$ (canonical class), and $H^1_{dR}(C)$ has dimension $2g$ split as $H^0(C, \\Omega^1) \\oplus H^1(C, \\mathcal{O})$ by the Hodge filtration."
+      "blurb": "For a smooth projective curve $C$ of genus $g$ over $\\mathbb{C}$: $H^0_{dR}(C) = \\mathbb{C}$, $H^2_{dR}(C) = \\mathbb{C}$ (canonical class), and $H^1_{dR}(C)$ has dimension $2g$ split as $H^0(C, \\Omega^1) \\oplus H^1(C, \\mathcal{O})$ by the Hodge filtration.",
+      "tags": [
+        "cohomology"
+      ]
     }
   ]
 }

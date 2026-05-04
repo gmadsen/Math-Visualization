@@ -11,7 +11,9 @@
         "gluing-affines"
       ],
       "blurb": "Scheme maps are local ring maps glued globally and tested on affines.",
-      "tags": ["foundation"]
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "immersions-schemes",
@@ -20,7 +22,10 @@
       "prereqs": [
         "scheme-morphisms"
       ],
-      "blurb": "Immersions are the subobject inclusions of $\\mathsf{Sch}$: $\\Spec(A_f)\\hookrightarrow\\Spec A$ (open) and $\\Spec(A/I)\\hookrightarrow\\Spec A$ (closed)."
+      "blurb": "Immersions are the subobject inclusions of $\\mathsf{Sch}$: $\\Spec(A_f)\\hookrightarrow\\Spec A$ (open) and $\\Spec(A/I)\\hookrightarrow\\Spec A$ (closed).",
+      "tags": [
+        "classification"
+      ]
     },
     {
       "id": "fiber-products",
@@ -30,7 +35,10 @@
         "scheme-morphisms"
       ],
       "blurb": "Fiber products represent pullback problems and define base-change geometry.",
-      "tags": ["universal-property", "functoriality"]
+      "tags": [
+        "universal-property",
+        "functoriality"
+      ]
     },
     {
       "id": "geometric-fibers",
@@ -39,7 +47,10 @@
       "prereqs": [
         "fiber-products"
       ],
-      "blurb": "Fibers over points reveal dimension, singularities, and arithmetic variation in families."
+      "blurb": "Fibers over points reveal dimension, singularities, and arithmetic variation in families.",
+      "tags": [
+        "fibration"
+      ]
     },
     {
       "id": "separated-proper-morphisms",
@@ -50,7 +61,9 @@
         "immersions-schemes"
       ],
       "blurb": "Separated means the diagonal $\\Delta_f\\colon X\\to X\\times_S X$ is a closed immersion (Hausdorff-like); proper means separated, of finite type, and universally closed — the valuative criterion makes this the scheme version of compact.",
-      "tags": ["compactness"]
+      "tags": [
+        "compactness"
+      ]
     }
   ]
 }
