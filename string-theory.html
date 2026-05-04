@@ -829,10 +829,10 @@ The two non-trivial entries are $h^{1,1}(X)$ (Kähler / size moduli) and $h^{2,1
         const x = cx + (p - q) * dx;
         const y = cy + ((p + q) - 3) * dy;
         const isFree = ((p===1&&q===1)||(p===2&&q===2)||(p===2&&q===1)||(p===1&&q===2));
-        const fill = isFree ? 'var(--panel2)' : '#0b0f16';
+        const fill = isFree ? 'var(--panel2)' : 'var(--bg)';
         const stroke = isFree ? (((p===1&&q===1)||(p===2&&q===2)) ? 'var(--blue)' : 'var(--violet)') : 'var(--line)';
         svg.appendChild(SVG('rect',{x:x-22, y:y-12, width:44, height:24, rx:6, ry:6, fill, stroke, 'stroke-width':1.2}));
-        const t = SVG('text',{x, y:y+5, 'text-anchor':'middle','font-size':12, fill:'#fff'});
+        const t = SVG('text',{x, y:y+5, 'text-anchor':'middle','font-size':12, fill:'var(--ink)'});
         t.textContent = String(v);
         svg.appendChild(t);
       }

@@ -370,7 +370,7 @@ function drawNode(svg, x, y, label, opts={}){
     // nodes
     pos.forEach((p,i)=>{
       svg.appendChild(SVG('circle',{cx:p[0],cy:p[1],r:14,fill:'var(--panel2)',stroke:'var(--violet)','stroke-width':1.6}));
-      const t = SVG('text',{x:p[0],y:p[1]+5,'text-anchor':'middle','font-size':12,fill:'#fff','font-weight':700});
+      const t = SVG('text',{x:p[0],y:p[1]+5,'text-anchor':'middle','font-size':12,fill:'var(--ink)','font-weight':700});
       t.textContent = String(i+1);
       svg.appendChild(t);
     });
@@ -455,7 +455,7 @@ function drawNode(svg, x, y, label, opts={}){
     function X(v){ return ml + (v - 3) / (nMax - 3) * plotW; }
     function Y(lv){ return mt + plotH - (lv - yMin) / (yMax - yMin) * plotH; }
     // gridlines
-    svg.appendChild(SVG('rect',{x:ml,y:mt,width:plotW,height:plotH,fill:'#0b0f16',stroke:'var(--line)'}));
+    svg.appendChild(SVG('rect',{x:ml,y:mt,width:plotW,height:plotH,fill:'var(--bg)',stroke:'var(--line)'}));
     // y=0 line (bound = 1)
     const y0 = Y(0);
     svg.appendChild(SVG('line',{x1:ml,y1:y0,x2:ml+plotW,y2:y0,stroke:'var(--green)','stroke-width':1.6,'stroke-dasharray':'4 4'}));
@@ -580,7 +580,7 @@ function drawNode(svg, x, y, label, opts={}){
     const yMax = Math.max(...ys, 0) + 1;
     function X(v){ return ml + (v - xs[0]) / (xs[xs.length-1] - xs[0] || 1) * plotW; }
     function Y(lv){ return mt + plotH - (lv - yMin) / (yMax - yMin) * plotH; }
-    svg.appendChild(SVG('rect',{x:ml,y:mt,width:plotW,height:plotH,fill:'#0b0f16',stroke:'var(--line)'}));
+    svg.appendChild(SVG('rect',{x:ml,y:mt,width:plotW,height:plotH,fill:'var(--bg)',stroke:'var(--line)'}));
     // bound = 1 line
     const y0 = Y(0);
     svg.appendChild(SVG('line',{x1:ml,y1:y0,x2:ml+plotW,y2:y0,stroke:'var(--green)','stroke-width':1.6,'stroke-dasharray':'4 4'}));
@@ -736,7 +736,7 @@ function drawNode(svg, x, y, label, opts={}){
       if(step >= 2 && deleted.has(i)){ fill = '#2a1818'; stroke = 'var(--pink)'; }
       if(step >= 2 && surv.has(i)){ fill = '#1a2418'; stroke = 'var(--green)'; }
       svg.appendChild(SVG('circle',{cx:p[0],cy:p[1],r:14,fill,stroke,'stroke-width':1.6}));
-      const t = SVG('text',{x:p[0],y:p[1]+5,'text-anchor':'middle','font-size':11,fill:'#fff','font-weight':600});
+      const t = SVG('text',{x:p[0],y:p[1]+5,'text-anchor':'middle','font-size':11,fill:'var(--ink)','font-weight':600});
       t.textContent = String(i+1);
       svg.appendChild(t);
     });
@@ -823,7 +823,7 @@ then $\mathbb{P}\!\left(\bigcap_{i=1}^m \bar A_i\right) > 0$.</div>
       const lpMax = 2;                                // a bit above 1
       return mt + plotH - (lp - lpMin) / (lpMax - lpMin) * plotH;
     }
-    svg.appendChild(SVG('rect',{x:ml,y:mt,width:plotW,height:plotH,fill:'#0b0f16',stroke:'var(--line)'}));
+    svg.appendChild(SVG('rect',{x:ml,y:mt,width:plotW,height:plotH,fill:'var(--bg)',stroke:'var(--line)'}));
     // shade feasible region: e*p*(d+1) <= 1 ⇒ p <= 1/(e(d+1))
     // we draw the curve p = 1/(e(d+1)) in log space
     const pts = [];
@@ -1111,7 +1111,7 @@ then $\mathbb{P}\!\left(\bigcap_{i=1}^m \bar A_i\right) > 0$.</div>
     const cols = ['var(--violet)','var(--pink)','var(--green)','var(--cyan)'];
     const W=720,H=240,ml=140,mr=20,mt=20,mb=30;
     const plotW=W-ml-mr, plotH=H-mt-mb;
-    svg.appendChild(SVG('rect',{x:ml,y:mt,width:plotW,height:plotH,fill:'#0b0f16',stroke:'var(--line)'}));
+    svg.appendChild(SVG('rect',{x:ml,y:mt,width:plotW,height:plotH,fill:'var(--bg)',stroke:'var(--line)'}));
     // log-scale: show -log10(bound), clipped to [0, 60]
     const maxLog = 60;
     function W_(v){

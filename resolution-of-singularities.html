@@ -401,8 +401,8 @@ together with the projection $\pi : \mathrm{Bl}_0 \mathbb{A}^n \to \mathbb{A}^n$
     Tv.textContent = t.toFixed(2);
     svg.innerHTML = "";
     // backgrounds
-    svg.appendChild(SVG("rect", {x:Lp.x0, y:Lp.y0, width:PW, height:PH, fill:"#0b0f16", stroke:"#2a3242"}));
-    svg.appendChild(SVG("rect", {x:Rp.x0, y:Rp.y0, width:PW, height:PH, fill:"#0b0f16", stroke:"#2a3242"}));
+    svg.appendChild(SVG("rect", {x:Lp.x0, y:Lp.y0, width:PW, height:PH, fill:"var(--bg)", stroke:"#2a3242"}));
+    svg.appendChild(SVG("rect", {x:Rp.x0, y:Rp.y0, width:PW, height:PH, fill:"var(--bg)", stroke:"#2a3242"}));
     // axes left
     svg.appendChild(SVG("line", {x1:Lp.x0, y1:syL(0), x2:Lp.x1, y2:syL(0), stroke:"#2a3242"}));
     svg.appendChild(SVG("line", {x1:sxL(0), y1:Lp.y0, x2:sxL(0), y2:Lp.y1, stroke:"#2a3242"}));

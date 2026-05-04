@@ -682,7 +682,7 @@ $$ \tr\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; a_p(f), \qquad \det\rho_{f,\lambda
         fill: n.big ? 'var(--panel2)' : 'var(--panel)',
         stroke: n.big ? 'var(--yellow)' : 'var(--blue)', 'stroke-width':1.5}));
       const t = SVG('text', {x:n.x, y:n.y+4, 'text-anchor':'middle', 'font-size':n.big?15:12,
-        fill: n.big?'var(--yellow)':'#fff', 'font-weight':600});
+        fill: n.big?'var(--yellow)':'var(--ink)', 'font-weight':600});
       t.textContent = n.label;
       svg.appendChild(t);
     }
@@ -721,7 +721,7 @@ $$ \tr\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; a_p(f), \qquad \det\rho_{f,\lambda
     // G_Q box
     svg.appendChild(SVG('rect', {x:60, y:90, width:160, height:60, rx:8,
       fill:'var(--panel2)', stroke:'var(--blue)', 'stroke-width':1.6}));
-    const t1 = SVG('text', {x:140, y:115, 'text-anchor':'middle', 'font-size':18, fill:'#fff', 'font-weight':600});
+    const t1 = SVG('text', {x:140, y:115, 'text-anchor':'middle', 'font-size':18, fill:'var(--ink)', 'font-weight':600});
     t1.textContent = 'G_Q';
     svg.appendChild(t1);
     const t1s = SVG('text', {x:140, y:138, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});
@@ -732,7 +732,7 @@ $$ \tr\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; a_p(f), \qquad \det\rho_{f,\lambda
     // target box
     svg.appendChild(SVG('rect', {x:460, y:90, width:220, height:60, rx:8,
       fill:'var(--panel2)', stroke:I.color, 'stroke-width':1.6}));
-    const t2 = SVG('text', {x:570, y:115, 'text-anchor':'middle', 'font-size':18, fill:'#fff', 'font-weight':600});
+    const t2 = SVG('text', {x:570, y:115, 'text-anchor':'middle', 'font-size':18, fill:'var(--ink)', 'font-weight':600});
     t2.textContent = I.target;
     svg.appendChild(t2);
     const t2s = SVG('text', {x:570, y:138, 'text-anchor':'middle', 'font-size':11, fill:'var(--mute)'});
@@ -806,7 +806,7 @@ $$ \tr\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; a_p(f), \qquad \det\rho_{f,\lambda
       const prim = (gcd(k,N)===1);
       const r = prim ? 4.5 : 3;
       svg.appendChild(SVG('circle',{cx:pts[k][0], cy:pts[k][1], r,
-        fill: prim ? 'var(--yellow)' : 'var(--mute)', stroke:'#0b0f16', 'stroke-width':1}));
+        fill: prim ? 'var(--yellow)' : 'var(--mute)', stroke:'var(--bg)', 'stroke-width':1}));
     }
     // center label
     const c1 = SVG('text',{x:cx, y:cy-6, 'text-anchor':'middle', 'font-size':13, fill:'var(--mute)'});
@@ -961,7 +961,7 @@ $$ \tr\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; a_p(f), \qquad \det\rho_{f,\lambda
     ];
     for(let r=0;r<2;r++) for(let c=0;c<2;c++){
       const x = mx - 55 + c*70, y = my - 20 + r*42;
-      svg.appendChild(SVG('rect',{x:x-24, y:y-16, width:48, height:32, rx:4, fill:'#0b0f16', stroke:'var(--line)'}));
+      svg.appendChild(SVG('rect',{x:x-24, y:y-16, width:48, height:32, rx:4, fill:'var(--bg)', stroke:'var(--line)'}));
       const t = SVG('text',{x, y:y+5, 'text-anchor':'middle', 'font-size':15, fill:'var(--ink)', 'font-family':'ui-monospace,monospace'});
       t.textContent = rows[r][c];
       svg.appendChild(t);
@@ -1020,7 +1020,7 @@ $$ \tr\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; a_p(f), \qquad \det\rho_{f,\lambda
     for(const pt of [a1,a2]){
       const sx = cx + R * pt.re / sp;
       const sy = cy - R * pt.im / sp;
-      svg.appendChild(SVG('circle',{cx:sx, cy:sy, r:5, fill:'var(--yellow)', stroke:'#0b0f16', 'stroke-width':1.5}));
+      svg.appendChild(SVG('circle',{cx:sx, cy:sy, r:5, fill:'var(--yellow)', stroke:'var(--bg)', 'stroke-width':1.5}));
     }
 
     text.textContent = "Representative matrix with trace " + a + " and determinant " + p + ". Characteristic polynomial t² − " + a + "t + " + p + ". "
@@ -1207,7 +1207,7 @@ $$ \tr\rho_{f,\lambda}(\mathrm{Frob}_p) \;=\; a_p(f), \qquad \det\rho_{f,\lambda
     for(const [pt, col] of [[a1,'var(--yellow)'],[a2,'var(--pink)']]){
       const sx = cx + R * pt.re / sp;
       const sy = cy - R * pt.im / sp;
-      svg.appendChild(SVG('circle',{cx:sx, cy:sy, r:6, fill:col, stroke:'#0b0f16', 'stroke-width':1.5}));
+      svg.appendChild(SVG('circle',{cx:sx, cy:sy, r:6, fill:col, stroke:'var(--bg)', 'stroke-width':1.5}));
       // dashed line to origin
       svg.appendChild(SVG('line',{x1:cx, y1:cy, x2:sx, y2:sy, stroke:col, 'stroke-width':1, 'stroke-dasharray':'3 3', opacity:0.5}));
     }

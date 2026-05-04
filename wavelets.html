@@ -776,7 +776,7 @@ Analysis: $c_{j,k}=\langle f,\tilde\psi_{j,k}\rangle$. Synthesis: $f=\sum_{j,k}c
     for(let i=0;i<n;i++){
       const xi = xs(i), yi = ys(filter[i]);
       svg.appendChild(SVG("line",{x1:xi,y1:yMid,x2:xi,y2:yi,stroke:color,"stroke-width":1.5}));
-      svg.appendChild(SVG("circle",{cx:xi,cy:yi,r:3.5,fill:color,stroke:"#0b0f16","stroke-width":1}));
+      svg.appendChild(SVG("circle",{cx:xi,cy:yi,r:3.5,fill:color,stroke:"var(--bg)","stroke-width":1}));
     }
     // label
     const t = SVG("text",{x: x0+8, y: y0+14, "font-size":12, fill: color});

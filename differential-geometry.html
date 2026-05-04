@@ -569,7 +569,7 @@ The matrix is skew-symmetric because $(T,N,B)$ is orthonormal. Curvature $\kappa
       fill:'var(--green)', 'font-size':14, 'font-style':'italic','font-weight':600})).textContent='N';
 
     // point
-    svg.appendChild(SVG('circle',{cx:tx(p[0]),cy:ty(p[1]),r:5, fill:'#fff', stroke:'#111','stroke-width':1.5}));
+    svg.appendChild(SVG('circle',{cx:tx(p[0]),cy:ty(p[1]),r:5, fill:'var(--ink)', stroke:'#111','stroke-width':1.5}));
 
     tVal.textContent = `t = ${t.toFixed(3)}`;
     out.textContent =
@@ -726,7 +726,7 @@ The matrix is skew-symmetric because $(T,N,B)$ is orthonormal. Curvature $\kappa
     drawArrow(svg, [tx(pP[0]),ty(pP[1])], [tx(pB[0]),ty(pB[1])],
       {color:'var(--violet)', markerId:'sc-B', width:2.2, pad2:6});
 
-    svg.appendChild(SVG('circle',{cx:tx(pP[0]),cy:ty(pP[1]),r:5, fill:'#fff', stroke:'#111','stroke-width':1.5}));
+    svg.appendChild(SVG('circle',{cx:tx(pP[0]),cy:ty(pP[1]),r:5, fill:'var(--ink)', stroke:'#111','stroke-width':1.5}));
 
     // labels
     function lab(pp, name, color){
@@ -1088,7 +1088,7 @@ $$K(p) = \det S_p = k_1 k_2 = \frac{eg - f^2}{EG - F^2}, \qquad H(p) = \tfrac{1}
     // RIGHT half: the unit sphere S²
     const rightCx = 170, rightCy = 0, R = 120;
     // background circle
-    svg.appendChild(SVG('circle',{cx:rightCx, cy:rightCy, r:R, fill:'#0b0f16',stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('circle',{cx:rightCx, cy:rightCy, r:R, fill:'var(--bg)',stroke:'var(--line)','stroke-width':1}));
     // latitude lines (5)
     for(let k=-2;k<=2;k++){
       const lat = k*Math.PI/6;
@@ -1117,7 +1117,7 @@ $$K(p) = \det S_p = k_1 k_2 = \frac{eg - f^2}{EG - F^2}, \qquad H(p) = \tfrac{1}
     const ppN = proj3(nn, yaw, pitch);
     const isFront = ppN[2] > 0;
     svg.appendChild(SVG('circle',{cx:rightCx + ppN[0]*R, cy:rightCy - ppN[1]*R, r:6,
-      fill:isFront?'var(--blue)':'#3a4258', stroke:'#fff','stroke-width':1.3, opacity:isFront?1:0.55}));
+      fill:isFront?'var(--blue)':'#3a4258', stroke:'var(--ink)','stroke-width':1.3, opacity:isFront?1:0.55}));
 
     // image of a small neighborhood: trace n along a short u-v arc
     let d2='';
@@ -1858,7 +1858,7 @@ where $\chi(S) = V - E + F$ is the Euler characteristic of any triangulation.</d
 
     if(key === 'dtorus'){
       drawGenus2();
-      const t1 = SVG('text',{x:0,y:-110,'text-anchor':'middle','font-size':14,fill:'#fff','font-weight':600});
+      const t1 = SVG('text',{x:0,y:-110,'text-anchor':'middle','font-size':14,fill:'var(--ink)','font-weight':600});
       t1.textContent = 'double torus (genus 2)'; svg.appendChild(t1);
       out.textContent =
         `${S.label}\n` +

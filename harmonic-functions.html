@@ -643,7 +643,7 @@ function heatColor(t){
         const inside = (xc*xc+yc*yc <= R*R);
         svg.appendChild(SVG("rect",{x:px(x0), y:py(y0),
           width:px(x1)-px(x0)+0.6, height:py(y1)-py(y0)+0.6,
-          fill:inside?heatColor(cells[j][i]/uAbs):"#0b0f16",
+          fill:inside?heatColor(cells[j][i]/uAbs):"var(--bg)",
           opacity:inside?1:0.4}));
       }
     }
@@ -818,7 +818,7 @@ function heatColor(t){
 
     // right: radial slice u(r₀ e^{iθ}) vs θ (and boundary g)
     const px0 = 380, py0 = 30, pW = 320, pH = 280;
-    svg.appendChild(SVG("rect",{x:px0, y:py0, width:pW, height:pH, fill:"#0b0f16", stroke:"var(--line)"}));
+    svg.appendChild(SVG("rect",{x:px0, y:py0, width:pW, height:pH, fill:"var(--bg)", stroke:"var(--line)"}));
     // axes
     const yMid = py0+pH/2;
     svg.appendChild(SVG("line",{x1:px0, y1:yMid, x2:px0+pW, y2:yMid, stroke:"var(--line)", "stroke-dasharray":"3 3"}));
@@ -976,7 +976,7 @@ function heatColor(t){
     const px0 = 380, py0 = 30, pW = 320, pH = 280;
     const yMax = Math.max(hi*1.05, uSampMax*1.05, 5);
     function bary(v){ return py0 + pH - (v/yMax)*pH; }
-    svg.appendChild(SVG("rect",{x:px0, y:py0, width:pW, height:pH, fill:"#0b0f16", stroke:"var(--line)"}));
+    svg.appendChild(SVG("rect",{x:px0, y:py0, width:pW, height:pH, fill:"var(--bg)", stroke:"var(--line)"}));
     // Harnack corridor band
     svg.appendChild(SVG("rect",{x:px0+30, y:bary(hi), width:pW-60, height:bary(lo)-bary(hi),
       fill:"var(--cyan)", opacity:0.15}));
@@ -1109,7 +1109,7 @@ function heatColor(t){
     }
     // diametral plot u along the real diameter [-1,1]
     const px0 = 50, py0 = 30, pW = 300, pH = 240;
-    svg.appendChild(SVG("rect",{x:px0, y:py0, width:pW, height:pH, fill:"#0b0f16", stroke:"var(--line)"}));
+    svg.appendChild(SVG("rect",{x:px0, y:py0, width:pW, height:pH, fill:"var(--bg)", stroke:"var(--line)"}));
     const yMid = py0+pH/2;
     svg.appendChild(SVG("line",{x1:px0, y1:yMid, x2:px0+pW, y2:yMid, stroke:"var(--line)", "stroke-dasharray":"3 3"}));
     // exact harmonic Poisson extension on diameter (along the x-axis, θ = 0 / π)
