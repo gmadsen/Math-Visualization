@@ -32,7 +32,10 @@
       "prereqs": [
         "cayley-tables"
       ],
-      "blurb": "Homomorphisms, quotient structures, and finite fields connect symmetry algebra to arithmetic and coding theory."
+      "blurb": "Homomorphisms, quotient structures, and finite fields connect symmetry algebra to arithmetic and coding theory.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "ring-ideals",
@@ -41,7 +44,11 @@
       "prereqs": [
         "quotients-homomorphisms"
       ],
-      "blurb": "An ideal I of a commutative ring R is the kernel of some homomorphism out of R; quotienting by it produces R/I, and prime versus maximal ideals distinguish integral domains from fields."
+      "blurb": "An ideal I of a commutative ring R is the kernel of some homomorphism out of R; quotienting by it produces R/I, and prime versus maximal ideals distinguish integral domains from fields.",
+      "tags": [
+        "foundation",
+        "classification"
+      ]
     },
     {
       "id": "field-extensions-basics",
@@ -50,7 +57,10 @@
       "prereqs": [
         "ring-ideals"
       ],
-      "blurb": "Adjoining a root of an irreducible polynomial m(x) over F produces the extension F[x]/(m), a field of degree deg m; algebraic elements carry a unique monic minimal polynomial."
+      "blurb": "Adjoining a root of an irreducible polynomial m(x) over F produces the extension F[x]/(m), a field of degree deg m; algebraic elements carry a unique monic minimal polynomial.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "subgroups-cosets-lagrange",
@@ -71,7 +81,10 @@
       "prereqs": [
         "subgroups-cosets-lagrange"
       ],
-      "blurb": "When N is normal in G the coset set G/N inherits a group structure; the three isomorphism theorems describe how homomorphisms, intersections, and chains of normal subgroups interact with quotients."
+      "blurb": "When N is normal in G the coset set G/N inherits a group structure; the three isomorphism theorems describe how homomorphisms, intersections, and chains of normal subgroups interact with quotients.",
+      "tags": [
+        "foundation"
+      ]
     },
     {
       "id": "group-actions-burnside",
@@ -119,7 +132,11 @@
       "prereqs": [
         "ring-ideals"
       ],
-      "blurb": "Over a field k, k[x] is a Euclidean domain whose irreducibles are the building blocks of extensions; Eisenstein's criterion, rational-root testing, and Gauss's lemma give practical tools to detect irreducibility."
+      "blurb": "Over a field k, k[x] is a Euclidean domain whose irreducibles are the building blocks of extensions; Eisenstein's criterion, rational-root testing, and Gauss's lemma give practical tools to detect irreducibility.",
+      "tags": [
+        "foundation",
+        "classification"
+      ]
     },
     {
       "id": "semidirect-products-ses",
