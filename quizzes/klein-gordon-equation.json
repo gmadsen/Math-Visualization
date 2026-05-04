@@ -1,0 +1,256 @@
+{
+  "topic": "klein-gordon-equation",
+  "quizzes": {
+    "kg-derivation": {
+      "title": "From E²=p²+m² to a wave operator",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Applying the standard quantization rules $E \\mapsto i\\hbar\\,\\partial_t$ and $\\vec p \\mapsto -i\\hbar\\vec\\nabla$ to the relativistic relation $E^2 = |\\vec p|^2 c^2 + m^2 c^4$ produces which equation (in natural units $\\hbar=c=1$)?",
+          "choices": [
+            "$i\\,\\partial_t\\phi = (-\\nabla^2 + m^2)\\phi$",
+            "$(\\Box + m^2)\\phi = 0$, where $\\Box = \\partial_t^2 - \\nabla^2$",
+            "$(\\Box - m^2)\\phi = 0$",
+            "$\\nabla^2\\phi = m^2\\phi$"
+          ],
+          "answer": 1,
+          "hint": "Both sides of $E^2=p^2+m^2$ become operators acting on $\\phi$; the time derivative comes squared because $E^2$ is on the left.",
+          "explain": "Substituting gives $-\\partial_t^2\\phi = -\\nabla^2\\phi + m^2\\phi$, i.e. $(\\partial_t^2 - \\nabla^2 + m^2)\\phi = 0$, which is $(\\Box + m^2)\\phi = 0$ with the convention $\\Box = \\partial_t^2 - \\nabla^2$. Choice 0 is first-order in time (Schrödinger-like) and is the wrong shape; choice 2 has the wrong sign of $m^2$."
+        },
+        {
+          "type": "spot-the-error",
+          "q": "Find the error in this derivation: \"To get a relativistic Schrödinger equation, take $E = \\sqrt{p^2 + m^2}$, apply $E \\mapsto i\\partial_t$, and obtain $i\\partial_t\\phi = \\sqrt{-\\nabla^2 + m^2}\\,\\phi$. This is the Klein-Gordon equation.\"",
+          "steps": [
+            "Start from $E = \\sqrt{p^2 + m^2}$ (positive square root only).",
+            "Apply $E \\mapsto i\\partial_t$, $\\vec p \\mapsto -i\\vec\\nabla$.",
+            "Conclude: $i\\partial_t\\phi = \\sqrt{-\\nabla^2 + m^2}\\,\\phi$.",
+            "Identify the resulting equation as the Klein-Gordon equation."
+          ],
+          "answer": 3,
+          "hint": "What is the actual Klein-Gordon operator? Is it first-order or second-order in time?",
+          "explain": "Step 3 is the error. The equation $i\\partial_t\\phi = \\sqrt{-\\nabla^2+m^2}\\,\\phi$ is a valid first-order relativistic equation (sometimes called the 'square-root Klein-Gordon' or relativistic kinetic-energy equation), but it is NOT the Klein-Gordon equation. KG comes from squaring first: $E^2 = p^2 + m^2 \\mapsto -\\partial_t^2\\phi = (-\\nabla^2 + m^2)\\phi$, which is second-order in time and treats the $\\pm$ branches symmetrically. The square-root form is non-local in space (the operator $\\sqrt{-\\nabla^2 + m^2}$ has an integral kernel) and is not manifestly Lorentz-invariant in the form written."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is the Klein-Gordon equation second-order in time, while the Schrödinger equation is first-order?",
+          "choices": [
+            "Because relativistic equations are always second-order; non-relativistic equations are always first-order.",
+            "Because $E^2 = p^2 + m^2$ has $E$ squared, while $E = p^2/(2m)$ has $E$ to the first power; canonical quantization preserves the order.",
+            "Because $\\hbar$ appears squared in KG and to the first power in Schrödinger.",
+            "Historical accident — both equations could be written either way."
+          ],
+          "answer": 1,
+          "explain": "The relativistic dispersion relation has $E^2$ on one side, so quantization $E \\mapsto i\\partial_t$ produces $-\\partial_t^2$ — second-order in time. The non-relativistic dispersion is linear in $E$, giving $i\\partial_t$ — first-order. Choice 0 is wrong (Dirac's equation is first-order and relativistic). Choice 3 is wrong: the order is forced by the structure of the dispersion relation."
+        }
+      ]
+    },
+    "kg-equation": {
+      "title": "The Klein-Gordon equation",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The Klein-Gordon equation $(\\Box + m^2)\\phi = 0$ is the relativistic wave equation for a:",
+          "choices": [
+            "spin-1/2 field (Dirac)",
+            "spin-0 (scalar) field",
+            "spin-1 (vector) field (Maxwell, Proca)",
+            "spin-2 (tensor) field (graviton)"
+          ],
+          "answer": 1,
+          "hint": "$\\phi$ is a scalar — one component, transforming trivially under Lorentz rotations.",
+          "explain": "$\\phi$ is a Lorentz scalar (one component, no internal structure under boosts), so KG describes spin-0 fields: pions, kaons, the Higgs. Spin-1/2 needs the 4-component Dirac spinor; spin-1 needs $A^\\mu$ with the Maxwell or Proca equation; spin-2 needs $h_{\\mu\\nu}$. Each higher-spin component, however, individually satisfies KG when spin/gauge structure is turned off."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following are Standard-Model applications of the Klein-Gordon equation? (Select all that apply.)",
+          "choices": [
+            "The free Higgs propagator (kinetic operator $\\Box + m_H^2$).",
+            "Pions and other spin-0 mesons as effective fields.",
+            "Each component of the photon $A^\\mu$ in Lorenz gauge ($m=0$ limit).",
+            "Free electrons (since they're elementary)."
+          ],
+          "answer": [0, 1, 2],
+          "hint": "Electrons are spin-1/2 — Dirac, not Klein-Gordon.",
+          "explain": "The Higgs (0) and pions (1) are scalar fields; their kinetic operator is exactly $\\Box + m^2$. Each Lorenz-gauge component $A^\\mu$ of the photon satisfies $\\Box A^\\mu = 0$, the massless KG equation (2). Electrons are spin-1/2 and obey the Dirac equation, not KG — though each component of a Dirac spinor also satisfies $(\\Box + m_e^2)\\psi_a = 0$ as a consequence."
+        },
+        {
+          "type": "numeric",
+          "q": "In natural units ($\\hbar = c = 1$), what is the Compton wavelength of a Klein-Gordon field with $m = 0.5$? (Round to two decimal places.)",
+          "answer": 2.0,
+          "tol": 0.01,
+          "hint": "Compton wavelength is $\\lambda_C = \\hbar/(mc)$, which becomes $1/m$ in natural units.",
+          "explain": "$\\lambda_C = \\hbar/(mc) = 1/m$ in natural units. For $m = 0.5$, $\\lambda_C = 2.0$. This is the only length scale in the free KG equation — every other dimensional quantity is built from $\\lambda_C$ and $c$."
+        }
+      ]
+    },
+    "kg-plane-waves": {
+      "title": "Plane-wave solutions and the dispersion relation",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Substituting the plane wave $\\phi = e^{-i(Et - \\vec p\\cdot\\vec x)}$ into $(\\Box + m^2)\\phi = 0$ produces the dispersion relation. Compute $E$ for $|\\vec p| = 2$ and $m = 1$ (positive branch only, in natural units, to three decimal places).",
+          "answer": 2.236,
+          "tol": 0.005,
+          "explain": "$E_+ = \\sqrt{|\\vec p|^2 + m^2} = \\sqrt{4 + 1} = \\sqrt{5} \\approx 2.236$. This is exactly the relativistic energy-momentum relation $E^2 = p^2 + m^2$ recovered as a dispersion relation."
+        },
+        {
+          "type": "mcq",
+          "q": "For a Klein-Gordon plane wave with mass $m > 0$ and momentum $\\vec p \\ne 0$, which is TRUE about the phase velocity $v_\\phi = E/|\\vec p|$ and group velocity $v_g = dE/d|\\vec p|$?",
+          "choices": [
+            "$v_\\phi < c$ and $v_g < c$ both — neither exceeds $c$.",
+            "$v_\\phi > c$ but $v_g < c$ — the phase exceeds $c$ but carries no information; the group stays subluminal.",
+            "$v_\\phi = v_g$ for any massive plane wave.",
+            "$v_\\phi < c$ but $v_g > c$ — group velocity is unbounded."
+          ],
+          "answer": 1,
+          "hint": "Compute $v_\\phi = \\sqrt{p^2+m^2}/|p|$ and $v_g = |p|/\\sqrt{p^2+m^2}$. Note $v_\\phi v_g = 1$.",
+          "explain": "For massive KG: $v_\\phi = E/|p| = \\sqrt{1 + m^2/p^2} > 1 = c$, while $v_g = |p|/E = |p|/\\sqrt{p^2+m^2} < 1$. Their product $v_\\phi v_g = 1$. The faster-than-light phase velocity carries no signal (a uniform plane wave conveys no information); only modulations of an envelope do, and those move at $v_g$. Choice 2 holds for massless modes only ($v_\\phi = v_g = c$); choice 3 violates causality."
+        },
+        {
+          "type": "ordering",
+          "q": "Order the steps deriving the Klein-Gordon dispersion relation from a plane-wave ansatz.",
+          "items": [
+            "Read off the dispersion: $E^2 = |\\vec p|^2 + m^2$.",
+            "Compute $\\partial_t^2\\phi = -E^2\\phi$ and $\\nabla^2\\phi = -|\\vec p|^2\\phi$.",
+            "Substitute into $(\\partial_t^2 - \\nabla^2 + m^2)\\phi = 0$ to get $(-E^2 + |\\vec p|^2 + m^2)\\phi = 0$.",
+            "Substitute $\\phi(t,\\vec x) = e^{-i(Et - \\vec p\\cdot\\vec x)}$."
+          ],
+          "answer": [3, 1, 2, 0],
+          "hint": "Start with the ansatz; end with the dispersion relation.",
+          "explain": "(3) Posit a plane-wave ansatz. (1) Each derivative pulls down a factor of $-iE$ or $+ip_j$, so the second derivatives produce $-E^2$ and $-|\\vec p|^2$. (2) The equation $(\\Box + m^2)\\phi = 0$ becomes algebraic. (0) For the wave to be non-trivial, the bracket vanishes — this is the dispersion relation."
+        }
+      ]
+    },
+    "kg-negative-energy": {
+      "title": "Negative-energy solutions and antiparticles",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Why can't the negative-energy branch $E_- = -\\sqrt{|\\vec p|^2+m^2}$ simply be discarded?",
+          "choices": [
+            "Because the equation $(\\Box + m^2)\\phi = 0$ is second-order in time, so the space of solutions is two-dimensional per momentum mode — both branches are needed for a complete set.",
+            "Because the negative energies are required by gauge invariance.",
+            "Because Lorentz invariance can be checked only on the negative branch.",
+            "Because $E_-$ corresponds to faster-than-light propagation, which is needed for renormalization."
+          ],
+          "answer": 0,
+          "hint": "How many initial conditions $(\\phi, \\partial_t\\phi)$ does a second-order PDE in time need?",
+          "explain": "A second-order PDE in time requires two pieces of initial data per spatial mode: $\\phi(0,\\vec x)$ and $\\partial_t\\phi(0,\\vec x)$. A general solution must therefore be a linear combination of TWO independent plane waves per momentum, and the natural pair is $E_+$ and $E_-$. Discarding one branch breaks completeness of the Cauchy problem — you can't match arbitrary initial conditions. Choices 1, 2, 3 are nonsense."
+        },
+        {
+          "type": "mcq",
+          "q": "Under the Feynman-Stückelberg reinterpretation, a negative-energy mode $\\phi_-(x) = e^{i(Et - \\vec p\\cdot\\vec x)}$ (with $E > 0$) is read as:",
+          "choices": [
+            "A positive-energy particle moving forward in time with momentum $+\\vec p$.",
+            "A positive-energy ANTIPARTICLE with reversed 4-momentum: same mass, opposite charge, propagating with $(+E, -\\vec p)$ when re-read with time arrow flipped.",
+            "A particle that has tunneled through a potential barrier.",
+            "A virtual mode that doesn't represent a physical particle."
+          ],
+          "answer": 1,
+          "hint": "What sign change converts $e^{i(Et - \\vec p\\cdot\\vec x)}$ to a positive-energy plane wave?",
+          "explain": "Reading $e^{i(Et - \\vec p\\cdot\\vec x)} = e^{-i(-E)t + i\\vec p\\cdot\\vec x} = (e^{-i(Et + \\vec p\\cdot\\vec x)})^*$ as a positive-energy mode of momentum $-\\vec p$ (with charge conjugation built in) is the Stückelberg trick. The result is a positive-energy ANTIPARTICLE with the same mass and opposite charge. After this reinterpretation, the spectrum is bounded below by $+m$ for both species. Distractor 3 confuses this with virtual (off-shell) modes — Stückelberg modes are on-shell; the reinterpretation is about reading the SAME mode two ways."
+        },
+        {
+          "type": "multi-select",
+          "q": "Which of the following statements about the Feynman-Stückelberg reinterpretation are TRUE? (Select all that apply.)",
+          "choices": [
+            "It restores a spectrum bounded below by $+m$ for both particles and antiparticles.",
+            "It predicts that for a real-valued KG field, particle and antiparticle coincide (e.g. $\\pi^0$ is its own antiparticle).",
+            "It eliminates the negative-energy branch from the equation.",
+            "It generalizes to all spins, not just spin-0 (though Dirac's hole-theory argument got there first for spin-1/2)."
+          ],
+          "answer": [0, 1, 3],
+          "hint": "Stückelberg keeps the negative branch; he just reads it differently.",
+          "explain": "(0) After reinterpretation, both species have $E \\ge +m$. (1) For a real field, $\\phi^* = \\phi$, so the creation and annihilation operators coincide and particle = antiparticle — the $\\pi^0$, the photon (modulo gauge), and the Higgs (after symmetry breaking, real) are all self-conjugate. (3) Stückelberg's trick works for any spin: a free field of any spin satisfies a wave equation with $\\Box + m^2$ in each component, and the same $E_-$ negative-energy issue and same reinterpretation apply. (2) is FALSE: the negative branch is NOT eliminated — it is reread as a positive-energy antiparticle. The equation still has both branches; only the interpretation changes."
+        }
+      ]
+    },
+    "kg-current": {
+      "title": "Conserved current and the probability problem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The 4-current $j^\\mu = i(\\phi^*\\partial^\\mu\\phi - \\phi\\,\\partial^\\mu\\phi^*)$ for the Klein-Gordon field satisfies:",
+          "choices": [
+            "$\\partial_\\mu j^\\mu = 0$ (it is conserved) and $j^0 \\ge 0$ (positive density).",
+            "$\\partial_\\mu j^\\mu = 0$ but $j^0$ can be negative.",
+            "$j^0 \\ge 0$ but the current is not conserved.",
+            "Neither conserved nor positive-definite."
+          ],
+          "answer": 1,
+          "hint": "Multiply the KG equation by $\\phi^*$, subtract the conjugate. What does this give? Then check $j^0$ on a sample superposition.",
+          "explain": "Multiplying $(\\Box + m^2)\\phi = 0$ by $\\phi^*$, subtracting the conjugate, gives $\\partial_\\mu j^\\mu = 0$ — the current is conserved. But $j^0 = i(\\phi^*\\partial_t\\phi - \\phi\\partial_t\\phi^*)$ is NOT positive-definite: a $\\phi_+ + \\phi_-$ superposition makes it flip sign as in §5's widget. This was the obstacle that forced relativistic wave mechanics to evolve into quantum field theory."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the modern resolution of the negative-$j^0$ problem in relativistic quantum theory?",
+          "choices": [
+            "Discard the negative-energy modes; this restores positive $j^0$.",
+            "Promote $\\phi$ to an operator-valued field on Fock space; reinterpret $j^\\mu$ as a charge current (particle minus antiparticle number, weighted by $U(1)$ charge), where $j^0 < 0$ just means antiparticle excess.",
+            "Replace $j^\\mu$ with $|\\phi|^2$, which is always positive.",
+            "Restrict to real-valued $\\phi$ where $j^\\mu$ vanishes identically."
+          ],
+          "answer": 1,
+          "hint": "QFT replaces the single-particle wavefunction with a quantized field; the conserved current's interpretation changes accordingly.",
+          "explain": "In QFT $\\phi$ becomes an operator with creation/annihilation modes for particles AND antiparticles. The conserved $j^\\mu$ acquires a new reading as a charge current: $j^0$ counts particles minus antiparticles times the $U(1)$ charge, and is allowed to be negative when antiparticles dominate. The Schrödinger probability interpretation is recovered only in the non-relativistic limit (§6). Choice 0 breaks the equation (see §4). Choice 2 is dimensionally wrong: $|\\phi|^2$ is not a conserved current density. Choice 3 is wrong: real fields have $j^\\mu = 0$ only because particle = antiparticle (no $U(1)$ to charge-track), not because the problem disappears."
+        },
+        {
+          "type": "matching",
+          "q": "Match each conserved-current interpretation (right) to the setting (left) where it is the correct reading.",
+          "left": [
+            "Schrödinger $j^0 = |\\psi|^2$ in non-relativistic QM",
+            "Klein-Gordon $j^0$ as a charge current in relativistic QFT",
+            "Klein-Gordon $j^0$ as a single-particle probability density (pre-QFT)"
+          ],
+          "right": [
+            "Probability density: $\\ge 0$, integrates to $1$.",
+            "Charge density: signed; negative values mean antiparticle excess.",
+            "Inconsistent: $j^0$ flips sign on $\\phi_+ + \\phi_-$ superpositions."
+          ],
+          "answer": [0, 1, 2],
+          "hint": "Probability is non-negative; charge can be either sign; the pre-QFT reading was historically the impasse.",
+          "explain": "(0) $|\\psi|^2$ is the canonical Born density — non-negative, normalized. (1) In QFT $\\phi$ is operator-valued and $j^\\mu$ becomes a charge current; $j^0 < 0$ just means antiparticles dominate. (2) The pre-QFT attempt to keep $\\phi$ as a one-particle wavefunction failed because $j^0$ goes negative on a $\\phi_+ + \\phi_-$ superposition — the historical impasse that forced the field-theoretic upgrade."
+        }
+      ]
+    },
+    "kg-non-rel-limit": {
+      "title": "Non-relativistic limit and applications",
+      "questions": [
+        {
+          "type": "ordering",
+          "q": "Order the steps reducing the Klein-Gordon equation to the free Schrödinger equation in the non-relativistic limit.",
+          "items": [
+            "Drop the $\\hbar^2\\partial_t^2\\psi$ term, suppressed by $|i\\hbar\\partial_t\\psi|/(mc^2|\\psi|) \\ll 1$.",
+            "Write $\\phi(t,\\vec x) = e^{-imc^2 t/\\hbar}\\psi(t,\\vec x)$ to factor out the rest-energy phase.",
+            "Substitute into KG and simplify; obtain $2imc^2\\partial_t\\psi = -\\hbar^2 c^2 \\nabla^2\\psi - \\hbar^2\\partial_t^2\\psi$.",
+            "Divide through by $2mc^2$ to obtain $i\\hbar\\partial_t\\psi = -\\frac{\\hbar^2}{2m}\\nabla^2\\psi$."
+          ],
+          "answer": [1, 2, 0, 3],
+          "hint": "Start by removing the dominant rest-energy oscillation; end at Schrödinger.",
+          "explain": "(1) The KG plane wave at rest oscillates as $e^{-imc^2t/\\hbar}$; factoring it out leaves the slowly varying $\\psi$. (2) Substitution gives a three-term equation. (0) The non-relativistic regime says kinetic energy is much less than rest energy, exactly the parameter that suppresses the second-time-derivative term. (3) Dividing yields free Schrödinger. The negative-energy branch decouples because its $e^{+imc^2t/\\hbar}$ factor counter-rotates against the prefactor — its contribution oscillates at $\\sim 2mc^2/\\hbar$, far above any non-relativistic frequency, and averages to zero."
+        },
+        {
+          "type": "numeric",
+          "q": "Compare the kinetic energies $E_\\text{KG}/m = \\sqrt{1 + (p/m)^2} - 1$ and $E_\\text{Schr}/m = \\tfrac12(p/m)^2$ at $p/m = 0.2$. Compute the relative error $|E_\\text{KG} - E_\\text{Schr}|/E_\\text{Schr}$ as a percentage (one decimal place).",
+          "answer": 1.5,
+          "tol": 0.3,
+          "hint": "Expand $\\sqrt{1+x^2} - 1 \\approx \\tfrac12 x^2 - \\tfrac18 x^4$. The error is $\\tfrac18 x^4$ relative to $\\tfrac12 x^2$, i.e. $\\tfrac14 x^2$.",
+          "explain": "$E_\\text{KG}/m = \\sqrt{1.04} - 1 \\approx 0.0198$; $E_\\text{Schr}/m = 0.02$. Relative error $\\approx 0.0002/0.02 = 1\\%$ to leading order; the leading correction is $\\tfrac14(p/m)^2 = 0.01 = 1\\%$. The actual numerical answer is $\\approx 1.5\\%$ when computed exactly. At low momenta Schrödinger is excellent; the discrepancy grows as $(p/m)^4$ relative to $(p/m)^2$."
+        },
+        {
+          "type": "multi-select",
+          "q": "In which of the following physical settings does the Klein-Gordon equation play a direct role? (Select all that apply.)",
+          "choices": [
+            "Pionic atoms (a $\\pi^-$ orbiting a nucleus).",
+            "The free Higgs propagator in perturbative QFT (kinetic operator $\\Box + m_H^2$).",
+            "Free electrons in a semiconductor at room temperature.",
+            "Inflaton perturbations on FRW backgrounds in cosmology."
+          ],
+          "answer": [0, 1, 3],
+          "hint": "Spin-1/2 → Dirac, not KG. Anything spin-0 and relativistic → KG. Curved-spacetime scalars → KG with a Hubble friction term.",
+          "explain": "(0) The $\\pi^-$ is spin-0; its wavefunction in a Coulomb potential satisfies a KG equation with $V = -Z\\alpha/r$. (1) The Higgs propagator in momentum space is $i/(p^2 - m_H^2 + i\\epsilon)$, exactly the KG Green's function. (3) The inflaton is a scalar field; perturbations on FRW satisfy a generalized KG equation with a Hubble-friction $3H\\dot\\phi$ term. (2) Electrons are spin-1/2 → Dirac equation; in a semiconductor, the non-relativistic limit (Schrödinger with effective mass) is ample, but neither is KG."
+        }
+      ]
+    }
+  }
+}

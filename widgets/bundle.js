@@ -6798,6 +6798,132 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "kg-anti",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "kg-anti widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Particle ↔ antiparticle: 4-momentum flip\" widget on the klein-gordon-equation topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Particle ↔ antiparticle: 4-momentum flip\" widget on `klein-gordon-equation`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "kg-curr",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "kg-curr widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"$j^0$ for a $\\phi_+ + \\phi_-$ superposition\" widget on the klein-gordon-equation topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"$j^0$ for a $\\phi_+ + \\phi_-$ superposition\" widget on `klein-gordon-equation`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "kg-deriv",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "kg-deriv widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Schrödinger vs Klein-Gordon: side-by-side\" widget on the klein-gordon-equation topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Schrödinger vs Klein-Gordon: side-by-side\" widget on `klein-gordon-equation`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "kg-disp",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "kg-disp widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Dispersion relation $E^2 = p^2 + m^2$\" widget on the klein-gordon-equation topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Dispersion relation $E^2 = p^2 + m^2$\" widget on `klein-gordon-equation`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "kg-nrl",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "kg-nrl widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"KG vs Schrödinger kinetic energy\" widget on the klein-gordon-equation topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"KG vs Schrödinger kinetic energy\" widget on `klein-gordon-equation`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "kg-wave",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "kg-wave widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"A 1+1d wave packet evolving\" widget on the klein-gordon-equation topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"A 1+1d wave packet evolving\" widget on `klein-gordon-equation`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "knot-polynomials-alexander",
     "family": "knot-polynomials-alexander",
     "dimension": "2d",

@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **139**, concepts: **996**
-- Widgets: **1023** (registry-driven: 1023, inline: 0)
-- Quizzes: **4182** (v1: 2946, hard: 1223, expert: 13)
-- Quiz types: mcq: 2815, numeric: 1061, multi-select: 133, matching: 57, ordering: 39, complex: 29, spot-the-error: 27, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Topics: **140**, concepts: **1002**
+- Widgets: **1029** (registry-driven: 1029, inline: 0)
+- Quizzes: **4200** (v1: 2964, hard: 1223, expert: 13)
+- Quiz types: mcq: 2823, numeric: 1064, multi-select: 136, matching: 58, ordering: 41, complex: 29, spot-the-error: 28, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **146**
-- Concepts lacking a hard-tier quiz: **558**
+- Concepts lacking a hard-tier quiz: **564**
 
 ## Per-slug registry adoption
 
@@ -344,6 +344,12 @@ page has wired one in yet.
 | `k-theory-index-theorem` | k-theory-index-theorem | click | 2d | 1 | k-theory |
 | `k-theory-low-k-groups` | k-theory-low-k-groups | click | 2d | 1 | k-theory |
 | `k-theory-ses-relations` | k-theory-ses-relations | click | 2d | 1 | k-theory |
+| `kg-anti` | verbatim | click | 2d | 1 | klein-gordon-equation |
+| `kg-curr` | verbatim | slider | 2d | 1 | klein-gordon-equation |
+| `kg-deriv` | verbatim | slider | 2d | 1 | klein-gordon-equation |
+| `kg-disp` | verbatim | slider | 2d | 1 | klein-gordon-equation |
+| `kg-nrl` | verbatim | slider | 2d | 1 | klein-gordon-equation |
+| `kg-wave` | verbatim | slider | 2d | 1 | klein-gordon-equation |
 | `knot-polynomials-alexander` | knot-polynomials-alexander | click | 2d | 1 | knot-polynomials |
 | `knot-polynomials-bracket` | knot-polynomials-bracket | step | 2d | 1 | knot-polynomials |
 | `knot-polynomials-gallery` | knot-polynomials-gallery | click | 2d | 1 | knot-polynomials |
@@ -674,13 +680,13 @@ page has wired one in yet.
 
 ### Mathematical physics
 
-- Topics: **8**, concepts: **51**
-- Widgets: **52** (registry-driven: 52, inline: 0)
-  - by family: verbatim: 27, schrodinger-figure: 7, hamiltonians-figure: 6, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
-  - by dimension: 2d: 52
-  - by gesture: slider: 35, click: 8, interact: 7, drag: 1, select: 1
-- Quizzes: **154** (v1: 154, hard: 0, expert: 0)
-  - by type: mcq: 109, numeric: 20, multi-select: 16, ordering: 5, spot-the-error: 3, matching: 1
+- Topics: **9**, concepts: **57**
+- Widgets: **58** (registry-driven: 58, inline: 0)
+  - by family: verbatim: 33, schrodinger-figure: 7, hamiltonians-figure: 6, general-relativity-light-cones: 1, general-relativity-einstein: 1, general-relativity-schwarzschild: 1, general-relativity-kerr: 1, general-relativity-cosmology: 1, general-relativity-gw: 1, three-body-nbody-simulator: 1, three-body-lagrange-points: 1, three-body-special-solutions: 1, three-body-horseshoe: 1, three-body-kam-tori: 1, three-body-halo-orbits: 1
+  - by dimension: 2d: 58
+  - by gesture: slider: 40, click: 9, interact: 7, drag: 1, select: 1
+- Quizzes: **172** (v1: 172, hard: 0, expert: 0)
+  - by type: mcq: 117, numeric: 23, multi-select: 19, ordering: 7, spot-the-error: 4, matching: 2
 
 ## Per-topic
 
@@ -688,6 +694,7 @@ page has wired one in yet.
 - `hodge-theory` (Algebraic geometry) — concepts=8, widgets=0 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
 - `langlands-program` (Modular forms & L-functions) — concepts=8, widgets=0 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
 - `special-relativity` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=19 (v1=19, hard=0, expert=0)
+- `klein-gordon-equation` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `statistical-mechanics` (Mathematical physics) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `advanced-complex-analysis` (Analysis) — concepts=13, widgets=5 (slug=5), quiz=39 (v1=39, hard=0, expert=0)
 - `groebner-bases` (Algebra & homological) — concepts=8, widgets=8 (slug=8), quiz=24 (v1=24, hard=0, expert=0)
