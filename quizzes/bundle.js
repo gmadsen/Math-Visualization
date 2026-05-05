@@ -12334,7 +12334,7 @@ window.MVQuizBank = {
               "The fpqc site of $\\mathrm{Spec}\\,\\mathbb{Z}$."
             ],
             "answer": 1,
-            "hint": "The base of the site is a single point, not a scheme; covers are required to be finite, not arbitrary; and the objects of the site have a special disconnectedness property that makes the sheaf condition for finite covers reduce to a simple disjoint-union axiom.",
+            "hint": "Some of the candidates put the site on a base scheme rather than a stripped-down base; one chooses a topology that is too coarse to give descent for the targeted homological applications. The right choice has a base that is as small as possible, a constraint on the sizes of admissible coverings, and an extremal connectedness condition on its underlying objects.",
             "explain": "Condensed sets are sheaves on the pro-étale site of a point: extremally disconnected profinite sets, with finite jointly-surjective covers. The other choices either pick the wrong base (a scheme), the wrong topology (open covers don't have descent for the targeted homological-algebra applications), or the wrong scheme (fpqc on $\\mathrm{Spec}\\,\\mathbb{Z}$ would give condensed schemes, a different downstream object)."
           },
           {
@@ -12358,7 +12358,7 @@ window.MVQuizBank = {
               1,
               0
             ],
-            "hint": "Read off each row from the descent axiom plus the topology of the target. The $\\{a,b\\}$ row uses the disjoint-union axiom; the singleton-target row collapses to a single value; one row exploits a totally-disconnected target so continuous maps simplify; one row exploits the profinite source so continuous maps factor through finite quotients.",
+            "hint": "Each row falls to one of two levers: an axiom that splits the value across a decomposition of the source, or an exploitation of how the receiving space behaves under continuity. Decide for every row which lever is the cleanest, and let the remaining row inherit by elimination.",
             "explain": "Row 0 ($\\mathbb{R}, \\{a,b\\}$): descent gives $\\underline T(\\{a\\} \\sqcup \\{b\\}) = \\mathbb{R} \\times \\mathbb{R}$ — pairs of values. Row 1 ($\\mathbb{Z}_p$, Cantor): both totally disconnected, so $\\mathrm{Cont} = $ locally constant. Row 2 (point, $\\mathbb{Z}_p$): there is a unique map from anywhere to a point. Row 3 ($S^1$, $\\mathbb{Z}_p$): every continuous map factors through finite cyclic quotients $\\mu_{p^n}$ of $S^1$, with colimit the Prüfer $p$-group $\\mu_{p^\\infty}$."
           },
           {
@@ -12377,7 +12377,7 @@ window.MVQuizBank = {
               3,
               4
             ],
-            "hint": "Four of the five claims are correct standard facts about $\\mathrm{Cond}(\\mathrm{Set})$ from the foundational papers; one is false for set-theoretic reasons related to the proper-class size of profinite sets up to iso. Identify the size-related claim and check whether it survives a universe-size argument.",
+            "hint": "Four of the five claims are routine consequences of the topos-theoretic definition. The remaining one asserts a size property that would force the entire isomorphism-class structure to be small — incompatible with how broad the ambient class of probes is. Test each option against a generic Grothendieck-topos check, and reject the size claim if no universe argument rescues it.",
             "explain": "The four correct statements are direct consequences of the topos-theoretic construction: any sheaf topos has all (co)limits, $\\mathbf{CGWH}$ embeds fully faithfully, representable sheaves include the profinite sets, and Grothendieck topoi are Cartesian closed. The size claim is false: $\\mathrm{Cond}(\\mathrm{Set})$ is locally small (Hom sets are sets) only modulo a Grothendieck universe choice, and is not literally small — there is a proper class of (iso classes of) profinite sets even up to bounded cardinality."
           }
         ]
@@ -12463,7 +12463,7 @@ window.MVQuizBank = {
               3,
               4
             ],
-            "hint": "One claim is far too strong (would make the entire framework collapse onto a single category). The other four are structural axioms in the Clausen–Scholze foundational paper — check each against what would happen to the theory if it failed.",
+            "hint": "One option is far too strong: it would force the refinement to coincide with the ambient framework, deleting the whole point of the construction. The remaining four are structural properties spelled out in the Clausen–Scholze foundations — test each by asking what would break if it failed.",
             "explain": "All four selected statements are standard. The third option is false — $\\mathbb{R}$ is a counterexample, as are most archimedean groups; if it were true, solid wouldn't be a meaningful refinement of condensed. The other four are exactly the structural properties that make $D(\\mathrm{Solid}(\\mathrm{Ab}))$ a viable derived-category foundation for completed/profinite topological algebra."
           },
           {
@@ -12525,7 +12525,7 @@ window.MVQuizBank = {
               3,
               4
             ],
-            "hint": "All five are full subcategories. Confirm by recalling the design goal of liquid theory: to give classical functional analysis a single derived-category home. Reject any choice only if it sits outside what \"functional analysis\" naturally includes, but check the discrete case carefully — ask yourself whether liquid theory ought to subsume pure linear algebra or be incompatible with it.",
+            "hint": "Liquid theory's design goal is to give classical functional analysis a single derived-category home. Test each option against the question: does the corresponding object class sit naturally inside that scope? The trickiest case is the most degenerate one (no topology at all) — decide whether the framework should be compatible with that limit or refuse it.",
             "explain": "Liquid theory is engineered to subsume every classical functional-analysis category — that's the whole point. All five embed: Banach as the prototype, Fréchet as countable Banach limits, bornological with sane boundedness, discrete as a degenerate case (the discrete topology is liquid for any $p$), and locally convex TVS as a containing umbrella. The only objects that DON'T embed are those built on a fundamentally different algebraic base (complex Banach spaces need a complex variant; non-Hausdorff TVS need extra care)."
           },
           {
@@ -12561,7 +12561,7 @@ window.MVQuizBank = {
               "An IHÉS public lecture series in early 2021."
             ],
             "answer": 2,
-            "hint": "The challenge was deliberately addressed to the formal-methods community rather than the broader mathematical public. Among the four venues listed, only one is run by a leading Lean evangelist whose audience is precisely the formal-mathematics-in-Lean community; recall whose blog that is.",
+            "hint": "The challenge was deliberately addressed to the formal-methods community rather than the broader public. Of the four venues, only one is run by a leading Lean evangelist whose audience could plausibly attempt the verification; the other venues either did not host the original announcement or were the wrong audience.",
             "explain": "Scholze posted on Buzzard's Xena blog on December 5, 2020. Xena is Buzzard's vehicle for outreach to the Lean / formal-mathematics-in-Lean community at Imperial College London; the choice of venue was deliberate — Scholze wanted the challenge seen by people who could actually attempt it. The other three venues exist but didn't host the original challenge."
           },
           {
@@ -12599,7 +12599,7 @@ window.MVQuizBank = {
               1,
               2
             ],
-            "hint": "Five claims; three describe the LTE's documented impact, two are historical-distinctness claims that overshoot. Algebraic topology had been formalised long before the LTE (the Four Color Theorem, the Feit-Thompson theorem, etc.); and disproving an established theorem isn't what the LTE did. Identify and reject the two overreaches.",
+            "hint": "Two of the five options are historical-distinctness claims that overshoot: one ignores prior verification efforts (Four Color, Kepler / Flyspeck, Feit-Thompson), and one mistakes the outcome's polarity. Identify both overreaches; the rest describe widely-cited cultural consequences.",
             "explain": "The first three are widely-cited reasons for the LTE's cultural impact: (a) Scholze didn't already trust the proof; (b) the resulting infrastructure became the platform for follow-on projects; (c) the blueprint methodology has been adopted as a coordination template. The fourth claim is false — Hales's flyspeck (Kepler conjecture) and the Coq-formalised Four Color Theorem long predate the LTE, and earlier algebraic-topology formalisations exist too. The fifth claim is false — the LTE confirmed a theorem (modulo one patched-up step), it didn't disprove one."
           }
         ]
@@ -12617,7 +12617,7 @@ window.MVQuizBank = {
               "The Lurie–Bhatt $\\infty$-topos $\\mathrm{Shv}_{\\mathbb{\\Delta}}^{ét}(X)$, with no need for condensed methods."
             ],
             "answer": 1,
-            "hint": "Prismatic cohomology computes $p$-adic invariants and unifies étale, de Rham, and crystalline cohomologies — all of which are completed non-archimedean theories. Match the framework: solid is for non-archimedean completion (so $p$-adic), liquid is for $\\mathbb{R}$-vector spaces (archimedean). One option corresponds to the matching framework.",
+            "hint": "Prismatic cohomology unifies étale, de Rham, and crystalline cohomologies, all of which live in completed non-archimedean settings. The condensed framework comes in two flavours indexed by whether the coefficients are non-archimedean or archimedean — pick the option whose coefficient class matches the input ring of prismatic cohomology.",
             "explain": "Prismatic cohomology lands in $D(\\mathrm{Solid}(\\mathbb{Z}_p))$: solid is the right framework for $p$-adic / completed non-archimedean theories. The integral comparison theorems (étale-vs-prismatic, crystalline-vs-prismatic, de Rham-vs-prismatic) all become statements about quasi-isomorphisms there. The other choices: $D^b(\\mathrm{Coh})$ doesn't capture $p$-adic continuity properly; liquid is for $\\mathbb{R}$, not $\\mathbb{Z}_p$; and while a topos-level definition exists, the condensed framework is the natural derived-category home where the comparison theorems live."
           },
           {
@@ -12641,7 +12641,7 @@ window.MVQuizBank = {
               3,
               1
             ],
-            "hint": "Three rings on the left have non-archimedean ($p$-adic) coefficients and one is archimedean. The non-archimedean rings get solid frameworks; the archimedean one needs liquid. Within the solid rings, distinguish polynomial / Tate algebra / formal-power-series by their algebraic shape — each maps to a different right entry.",
+            "hint": "First sort the four rings by the topology of their coefficients (archimedean vs non-archimedean) — that selects between the two competing condensed frameworks. Within the same framework, the remaining algebraic shape (polynomial / completed convergent / formal-power-series) distinguishes the rest.",
             "explain": "Left 0 ($\\mathbb{Q}_p[t]$) → Right 2: $p$-adic coefficients, polynomial in $t$. Left 1 ($\\mathbb{R}[t]$) → Right 0: archimedean, requires liquid. Left 2 ($\\mathbb{Z}_p\\langle x\\rangle$) → Right 3: Tate algebra of the rigid disk. Left 3 ($\\mathbb{Z}_p[[x]]$) → Right 1: formal-power-series, the canonical Mittag-Leffler example. The grouping is non-archimedean → solid, archimedean → liquid; within solid, the algebraic shape selects the specific instantiation."
           },
           {
@@ -12660,7 +12660,7 @@ window.MVQuizBank = {
               2,
               4
             ],
-            "hint": "Four of the five are programmes where the condensed framework has played an active role; one is a major open problem on which condensed mathematics has not been the principal tool. The Riemann hypothesis sits in classical analytic number theory whose machinery is largely orthogonal to the developments here — match each option against where condensed methods have actually been deployed.",
+            "hint": "Four of the choices name living research deployments; one names a famous open conjecture worked on by other communities entirely. Spot the outlier — its established toolkit (random-matrix heuristics, $L$-function continuation, Selberg-style techniques) belongs to a different lineage than the foundations discussed here.",
             "explain": "The first, second, third, and fifth are programmes where condensed mathematics is now standard or being explicitly applied: analytic rings unify rigid/adic/Berkovich; prismatic cohomology lives in solid derived categories; analytic stacks are built on solid theory; Fargues–Scholze geometric Langlands uses condensed methods at the technical core. The Riemann hypothesis remains open and the principal techniques (analytic continuation, Selberg / random-matrix heuristics, $L$-function machinery) are largely orthogonal to the condensed framework."
           }
         ]
