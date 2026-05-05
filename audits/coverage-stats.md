@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **145**, concepts: **1032**
-- Widgets: **1059** (registry-driven: 1059, inline: 0)
-- Quizzes: **4290** (v1: 3054, hard: 1223, expert: 13)
-- Quiz types: mcq: 2860, numeric: 1072, multi-select: 151, matching: 71, ordering: 50, spot-the-error: 36, complex: 29, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Topics: **146**, concepts: **1038**
+- Widgets: **1065** (registry-driven: 1065, inline: 0)
+- Quizzes: **4308** (v1: 3072, hard: 1223, expert: 13)
+- Quiz types: mcq: 2866, numeric: 1073, multi-select: 155, matching: 75, ordering: 52, spot-the-error: 37, complex: 29, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **146**
-- Concepts lacking a hard-tier quiz: **594**
+- Concepts lacking a hard-tier quiz: **600**
 
 ## Per-slug registry adoption
 
@@ -38,6 +38,12 @@ page has wired one in yet.
 | `aca-hartogs-shell` | aca-figure | slider | 2d | 1 | advanced-complex-analysis |
 | `aca-nevanlinna-characteristic` | aca-figure | slider | 2d | 1 | advanced-complex-analysis |
 | `aca-quasiconformal-warp` | aca-figure | slider | 2d | 1 | advanced-complex-analysis |
+| `ak-Q` | verbatim | click | 2d | 1 | algebraic-k-theory-foundations |
+| `ak-apps` | verbatim | click | 2d | 1 | algebraic-k-theory-foundations |
+| `ak-k0` | verbatim | click | 2d | 1 | algebraic-k-theory-foundations |
+| `ak-k1` | verbatim | slider | 2d | 1 | algebraic-k-theory-foundations |
+| `ak-k2` | verbatim | input | 2d | 1 | algebraic-k-theory-foundations |
+| `ak-loc` | verbatim | slider | 2d | 1 | algebraic-k-theory-foundations |
 | `algebraic-curves-canonical-embedding-scrubber` | algebraic-curves-canonical-embedding-scrubber | interact | 2d | 1 | algebraic-curves-higher-genus |
 | `algebraic-curves-hyperelliptic-cover` | algebraic-curves-hyperelliptic-cover | interact | 2d | 1 | algebraic-curves-higher-genus |
 | `algebraic-curves-jacobian-lattice` | algebraic-curves-jacobian-lattice | interact | 2d | 1 | algebraic-curves-higher-genus |
@@ -620,13 +626,13 @@ page has wired one in yet.
 
 ### Algebra & homological
 
-- Topics: **13**, concepts: **124**
-- Widgets: **123** (registry-driven: 123, inline: 0)
-  - by family: button-stepper: 42, clickable-diagram: 21, verbatim: 14, parametric-plot: 9, proof-scrubber: 2, quantum-groups-hopf-axioms-inspector: 1, quantum-groups-qsl2-deformation-slider: 1, quantum-groups-yang-baxter-reidemeister: 1, quantum-groups-crystal-tensor-product: 1, quantum-groups-reshetikhin-turaev-knots: 1, quantum-groups-applications-map: 1, quaternions-multiplication-tester: 1, quaternions-rotation-visualizer: 1, quaternions-cayley-dickson-ladder: 1, quaternions-fano-plane-oracle: 1, quaternions-frobenius-case-tree: 1, quaternions-hurwitz-tower-bar: 1, naturality-square: 1, declarative-host: 1, clickable-graph: 1, diagram-editor: 1, group-cohomology-coboundary-calculator: 1, group-cohomology-fixed-points: 1, group-cohomology-hilbert-90: 1, group-cohomology-c2-extensions: 1, group-cohomology-tate-periodic-table: 1, group-cohomology-lhs-spectral: 1, group-cohomology-brauer-cheatsheet: 1, lie-algebras-bracket-table: 1, lie-algebras-adjoint-vis: 1, lie-algebras-derived-series: 1, lie-algebras-root-vis: 1, lie-algebras-weight-diagram: 1, lie-algebras-dynkin-gallery: 1, gcb-cocycle-tester: 1, gcb-mu2-torsor-visualizer: 1, gcb-central-extension-browser: 1, gcb-cyclic-algebra-tester: 1, gcb-tate-pairing-table: 1, gcb-hasse-counterexample-gallery: 1
-  - by dimension: 2d: 122, 3d: 1
-  - by gesture: click: 93, select: 12, slider: 6, inspect: 3, toggle: 2, scrub: 2, input: 1, slider+click: 1, interactive: 1, drag-and-toggle: 1, step: 1
-- Quizzes: **559** (v1: 373, hard: 186, expert: 0)
-  - by type: mcq: 356, numeric: 149, multi-select: 27, ordering: 11, spot-the-error: 6, matching: 5, proof-completion: 4, complex: 1
+- Topics: **14**, concepts: **130**
+- Widgets: **129** (registry-driven: 129, inline: 0)
+  - by family: button-stepper: 42, clickable-diagram: 21, verbatim: 20, parametric-plot: 9, proof-scrubber: 2, quantum-groups-hopf-axioms-inspector: 1, quantum-groups-qsl2-deformation-slider: 1, quantum-groups-yang-baxter-reidemeister: 1, quantum-groups-crystal-tensor-product: 1, quantum-groups-reshetikhin-turaev-knots: 1, quantum-groups-applications-map: 1, quaternions-multiplication-tester: 1, quaternions-rotation-visualizer: 1, quaternions-cayley-dickson-ladder: 1, quaternions-fano-plane-oracle: 1, quaternions-frobenius-case-tree: 1, quaternions-hurwitz-tower-bar: 1, naturality-square: 1, declarative-host: 1, clickable-graph: 1, diagram-editor: 1, group-cohomology-coboundary-calculator: 1, group-cohomology-fixed-points: 1, group-cohomology-hilbert-90: 1, group-cohomology-c2-extensions: 1, group-cohomology-tate-periodic-table: 1, group-cohomology-lhs-spectral: 1, group-cohomology-brauer-cheatsheet: 1, lie-algebras-bracket-table: 1, lie-algebras-adjoint-vis: 1, lie-algebras-derived-series: 1, lie-algebras-root-vis: 1, lie-algebras-weight-diagram: 1, lie-algebras-dynkin-gallery: 1, gcb-cocycle-tester: 1, gcb-mu2-torsor-visualizer: 1, gcb-central-extension-browser: 1, gcb-cyclic-algebra-tester: 1, gcb-tate-pairing-table: 1, gcb-hasse-counterexample-gallery: 1
+  - by dimension: 2d: 128, 3d: 1
+  - by gesture: click: 96, select: 12, slider: 8, inspect: 3, input: 2, toggle: 2, scrub: 2, slider+click: 1, interactive: 1, drag-and-toggle: 1, step: 1
+- Quizzes: **577** (v1: 391, hard: 186, expert: 0)
+  - by type: mcq: 362, numeric: 150, multi-select: 31, ordering: 13, matching: 9, spot-the-error: 7, proof-completion: 4, complex: 1
 
 ### Higher categories & toposes
 
@@ -721,6 +727,7 @@ page has wired one in yet.
 ## Per-topic
 
 - `motives` (Algebraic geometry) — concepts=8, widgets=0 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
+- `algebraic-k-theory-foundations` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `hodge-theory` (Algebraic geometry) — concepts=8, widgets=0 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
 - `langlands-program` (Modular forms & L-functions) — concepts=8, widgets=0 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
 - `microlocal-analysis` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
@@ -901,15 +908,15 @@ page has wired one in yet.
 - `motivic-galois-group` (motives)
 - `realization-functors` (motives)
 - `standard-conjectures` (motives)
+- `ak-k0-projective` (algebraic-k-theory-foundations)
+- `ak-k1-units` (algebraic-k-theory-foundations)
+- `ak-k2-steinberg` (algebraic-k-theory-foundations)
+- `ak-q-construction` (algebraic-k-theory-foundations)
+- `ak-localization-sequence` (algebraic-k-theory-foundations)
+- `ak-applications` (algebraic-k-theory-foundations)
 - `why-hodge` (hodge-theory)
 - `hodge-decomposition` (hodge-theory)
 - `hodge-filtration-structure` (hodge-theory)
 - `pure-hodge-structure` (hodge-theory)
 - `mixed-hodge-structure` (hodge-theory)
 - `hodge-conjecture` (hodge-theory)
-- `period-domains-vhs` (hodge-theory)
-- `hodge-as-realization` (hodge-theory)
-- `langlands-philosophy` (langlands-program)
-- `l-functions-langlands-bridge` (langlands-program)
-- `local-langlands-gl-n` (langlands-program)
-- `global-langlands-gl-n` (langlands-program)
