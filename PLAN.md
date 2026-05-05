@@ -4,7 +4,7 @@ Forward-looking priorities for the notebook. Daily-workflow commands, one-time s
 
 When something ships, delete its bullet here. Don't keep a "Shipped recently" log — `git log` is the audit trail. The full step list of `rebuild.mjs` is in `scripts/rebuild.mjs` — refer to it rather than restating step names here.
 
-## Corpus snapshot (2026-05-04)
+## Corpus snapshot (2026-05-05)
 
 From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 
@@ -13,6 +13,7 @@ From `audits/coverage-stats.md` and `audits/starter-concepts.md`:
 - 1035 widgets, 100% registry-driven (PR #70 zero-baseline sweep — `audit-no-inline-widgets` now hard-fails on any non-registry widget)
 - Quiz tiers: v1 = 3108, hard = 1223, expert = 13 (intentionally bottom-of-list — see "Out of scope")
 - Tag coverage: **99.1%** across all 11 sections after PRs #84–#88 + #94–#98. The intentionally-untagged concepts are catalog/TOC blurbs (`*-applications`), single-result rigidity (Apéry's $\zeta(3)$ irrationality), or observation-shaped concepts (lem-failure, algebraic-connectivity Fiedler). Vocabulary expanded in PR #94 with `equidistribution`, `density`, `cancellation`, `refinement` to cover analytic-NT methods and $\infty$-topos refinement properties. Tagging effort effectively complete.
+- 10 narrative-tour story pages: BSD, FLT, Sato–Tate (no tour entry), and the six new ones from this session (Cohomology, Sets→∞-topoi, Sound→Wavelets, Local–Global, Solvability, Hodge, Langlands) plus Millennium Prizes (Tour 10).
 
 ## Near-term tasks
 
@@ -32,6 +33,9 @@ A systematic pass: for each section, compare against a canonical reference (PCM,
 
 - **Index-card thumb art.** `new-topic.mjs` leaves placeholder colored thumbs in `index.html`; could replace with motif-appropriate SVGs.
 - **Hoist semantic params out of verbatim slugs.** PR #70 banked the inline-widget zero-baseline by minting 77 per-widget verbatim slugs that share `widgets/_shared/verbatim-renderer.mjs` — schemas just carry opaque `bodyMarkup`/`bodyScript` strings. The deeper migration is to convert these to bespoke renderers with semantic params (slider ranges, color tokens, etc.) so AJV validation and the React frontend can actually inspect each widget. Worth doing in batches by topic rather than corpus-wide.
+- **Card ordering: tier → DAG topological.** `scripts/reorder-section-cards.mjs` does tier-then-stable today (prereq → intermediate → advanced → capstone). A topological pass over each section's prereq sub-DAG inside each tier would propagate "what depends on what" to the visible reading order.
+- **Tour 10 (Millennium Prizes) bridge prose.** The other 9 tours have ~150-word `<p class="bridge">` paragraphs per stop; Tour 10 currently uses a one-paragraph framing per problem. Expand to bridge-style if the long-form essay isn't enough.
+- **Sato–Tate has a story page but no tour.** `capstone-satotate-story.html` is reachable from the satotate index card and the topic page but has no `<button class="tour-card">` entry. Add a Tour 11 if the gap matters; otherwise leave it as the only "story without a tour" inversion.
 
 ## Three.js / Pyodide / alt frontends (long-running)
 
