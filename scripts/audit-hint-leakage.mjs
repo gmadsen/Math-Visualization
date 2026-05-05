@@ -213,6 +213,11 @@ function detectFingerprint(q, hintBag) {
       if (ansSet.has(i)) continue;
       for (const t of operativeTokens(q.choices[i])) wrongUnion.add(t);
     }
+    // Guard: if every choice is "correct" (multi-select select-all), the
+    // wrongUnion is empty and the fingerprint pass below would flag every
+    // operative token in the hint as a leak. The count-leak heuristic
+    // catches the real risk in that case ("all four are textbook").
+    if (wrongUnion.size === 0) return [];
     const fingerprints = [];
     for (const t of correctTokens) {
       if (!hintBag.has(t)) continue;
