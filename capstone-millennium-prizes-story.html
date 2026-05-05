@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>The seven problems — Hilbert's heir, twenty-first-century edition</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+    --orange:#f0a868;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,"Charter","Georgia",serif;
+    font-size:17px;line-height:1.72}
+  main{max-width:780px;margin:0 auto;padding:3rem 1.5rem 7rem}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  h1{font-size:2.3rem;letter-spacing:-0.01em;margin:0 0 0.4rem;font-weight:650}
+  h2{font-size:1.45rem;margin:3rem 0 0.7rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.35rem;font-weight:600}
+  h2 .num{color:var(--orange);font-variant-numeric:tabular-nums;margin-right:.45rem;font-weight:500}
+  h3{font-size:1.08rem;margin:1.6rem 0 .5rem;color:var(--orange);font-weight:600}
+  p{margin:0.8rem 0}
+  blockquote{border-left:3px solid var(--orange);padding:.2rem 1rem;margin:1.2rem 0;color:#f0e0cf;
+    background:#241c14;border-radius:0 6px 6px 0;font-style:italic}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:1.4rem;font-size:1.05rem;line-height:1.55}
+  .lede{font-size:1.05rem;line-height:1.7;color:#dde3ec;margin:1.4rem 0 1.8rem}
+  .lede::first-letter{
+    float:left;font-size:3.1rem;line-height:.95;
+    padding:.15rem .45rem 0 0;color:var(--orange);font-weight:700;font-family:"Charter","Georgia",serif;
+  }
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.55rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.88rem;align-items:baseline}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--orange)}
+  nav.toc .spacer{flex:1}
+  nav.toc .story-pill{color:var(--orange);border:1px solid color-mix(in srgb, var(--orange) 45%, transparent);
+    border-radius:999px;padding:1px 10px;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase}
+  .hero{padding:2.4rem 0 .4rem}
+  .byline{color:var(--mute);font-size:.88rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.6rem}
+  .figure{margin:1.6rem 0 2rem;text-align:center}
+  .figure svg{display:block;margin:0 auto;max-width:100%;
+    background:#0b0f16;border:1px solid var(--line);border-radius:8px}
+  .figure svg text{fill:var(--ink);font-family:inherit}
+  .caption{color:var(--mute);font-size:.88rem;margin-top:.5rem;line-height:1.5;font-style:italic;
+    max-width:560px;margin-left:auto;margin-right:auto}
+  .note{border-left:3px solid var(--orange);padding:.35rem .9rem;color:#f0e0cf;background:#241c14;
+    margin:1rem 0;border-radius:0 6px 6px 0;font-size:.96rem;line-height:1.6}
+  .ok{border-left:3px solid var(--green);padding:.35rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0;font-size:.96rem;line-height:1.6}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(240,168,104,0.06);
+    border-left:3px solid color-mix(in srgb, var(--orange) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2.5rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute);white-space:nowrap;font-variant-numeric:tabular-nums}
+  .endrule{border:none;border-top:1px solid var(--line);margin:2.4rem 0 1rem}
+  .colophon{color:var(--mute);font-size:.88rem;line-height:1.55;font-style:italic}
+  ol.refs{padding-left:1.3rem;color:var(--mute);font-size:.9rem;line-height:1.55}
+  ol.refs li{margin:.25rem 0}
+</style>
+<link rel="stylesheet" href="./css/notebook.css">
+<script src="./js/theme-toggle.js"></script>
+</head>
+<body data-level="capstone" data-c="orange">
+
+<nav class="toc">
+  <a href="./index.html" style="color:var(--orange);font-weight:500">← Notebook</a>
+  <a href="./tours.html#millennium-arc">Tour 10</a>
+  <a href="#riemann">RH</a>
+  <a href="#pnp">P vs NP</a>
+  <a href="#hodge">Hodge</a>
+  <a href="#yang-mills">Yang–Mills</a>
+  <a href="#navier-stokes">Navier–Stokes</a>
+  <a href="#bsd">BSD</a>
+  <a href="#poincare">Poincaré</a>
+  <span class="spacer"></span>
+  <span class="story-pill">story</span>
+</nav>
+
+<main>
+
+<section class="hero">
+  <div class="byline">An essay on the seven problems</div>
+  <h1>The seven problems — Hilbert's heir, twenty-first-century edition</h1>
+  <p class="sub">On 24 May 2000, at the Collège de France, the Clay Mathematics Institute announced seven problems and offered a million dollars for the resolution of each. They are the closest thing modern mathematics has to Hilbert's 1900 list. One — Poincaré — has fallen. The other six remain, each charting a different flavor of difficulty: analytic, computational, geometric, physical, arithmetic, topological.</p>
+</section>
+
+<p class="lede">There is a tradition, nearly as old as the discipline itself, of drawing a map of mathematics by listing the things it cannot yet do. Hilbert did it in 1900, on a Wednesday morning at the Sorbonne, with twenty-three problems that ended up shaping a century of work. A hundred years later — almost to the day — the Clay Mathematics Institute did it again, with seven. The list is shorter, the prize money larger ($\$7{,}000{,}000$ on offer in $2000$ dollars), and the problems are deliberately disjoint: each one points at a different kind of difficulty, a different region of the discipline where the standard tools have visibly run out. To survey them in pedagogical order is to take a guided tour of the places mathematics, in $2000$, did not yet know how to think. Twenty-five years on, six of those places still don't.</p>
+
+<p>It is a companion to <a href="./tours.html#millennium-arc">Tour 10</a> in the notebook, which lays out the same arc as a sequence of stops with figures. Here we stay with the prose.</p>
+
+<!-- ───────────────────────────────────────────── § 1 ──── -->
+<section id="riemann">
+<h2><span class="num">§1.</span> The Riemann Hypothesis — the zeros of $\zeta$</h2>
+<p>Bernhard Riemann's 1859 paper "On the number of primes less than a given magnitude" is eight pages long, and the conjecture it slips in casually — almost as a remark — has not been settled in the hundred and sixty-six years since. The setup is short. Define the <em>Riemann zeta function</em> for $\mathrm{Re}(s) > 1$ by the absolutely convergent series
+$$\zeta(s) \;=\; \sum_{n=1}^\infty \frac{1}{n^s} \;=\; \prod_{p \,\text{prime}} \frac{1}{1 - p^{-s}}.$$
+The product, due to Euler, is the analytic translation of unique factorization in $\mathbb{Z}$. It is the reason $\zeta$ knows about primes at all.</p>
+
+<p>Riemann's first observation is that the series, which only converges in the right half-plane, can be analytically continued to a meromorphic function on all of $\mathbb{C}$ with a single simple pole at $s = 1$. His second observation is the <em>functional equation</em>
+$$\xi(s) \;=\; \xi(1-s), \qquad \xi(s) := \tfrac{1}{2} s(s-1)\,\pi^{-s/2}\,\Gamma(s/2)\,\zeta(s),$$
+relating the value at $s$ to the value at $1-s$. The functional equation forces $\zeta$ to vanish at the negative even integers ($s = -2, -4, -6, \ldots$, the <em>trivial zeros</em>) and confines all the other zeros to the <em>critical strip</em> $0 \le \mathrm{Re}(s) \le 1$.</p>
+
+<div class="ok">
+  <strong>Riemann Hypothesis.</strong> Every non-trivial zero of $\zeta(s)$ has real part exactly $\tfrac{1}{2}$.
+</div>
+
+<p>Why does anyone care? Because the zeros of $\zeta$ control the distribution of prime numbers, with a precision that no other tool comes close to. The prime-counting function $\pi(x) = \#\{p \le x\}$ satisfies the explicit formula
+$$\pi(x) \;\approx\; \mathrm{Li}(x) \;-\; \sum_{\rho} \mathrm{Li}(x^{\rho}),$$
+where the sum runs over non-trivial zeros $\rho$ of $\zeta$. The error term $\mathrm{Li}(x) - \pi(x)$ is bounded by $O(x^{1/2}\log x)$ <em>if and only if</em> RH holds. Every prime is, in this sense, voting on the location of zeros. Move a single zero off the critical line and a quantitative gap appears in our count of primes up to $x$.</p>
+
+<p>The line $\mathrm{Re}(s) = \tfrac{1}{2}$ is the axis of symmetry of the functional equation. RH says the zeros lie on the symmetry axis itself — the most balanced, most rigid possible distribution. Numerical work has verified this for the first $10^{13}$ zeros and counting; Hardy proved in 1914 that infinitely many zeros lie on the line; the proportion proved on the line has crept upward over decades but remains short of $100\%$. The structural obstruction is severe. We have no general method for forcing the zeros of an $L$-function onto a single line; we have shown it for none of $\zeta$'s siblings either.</p>
+
+<blockquote>If anyone proves RH, they will not just have settled a problem about $\zeta$. They will have found a method, and that method will almost certainly resolve the Generalized Riemann Hypothesis for Dirichlet $L$-functions, settle the error term in the prime number theorem, sharpen bounds on class numbers, and tighten our control of primes in arithmetic progressions. RH is one keystone in a much larger arch.</blockquote>
+
+<p>Two analogues have already been proved, which is why the conjecture is taken seriously. For zeta functions of curves over finite fields, the Riemann Hypothesis is a theorem of Weil (1948), generalized by Deligne (1974) to all smooth projective varieties as part of the Weil conjectures. The proof in finite characteristic uses étale cohomology and depends crucially on the existence of a "big" cohomology theory with a Frobenius action. The classical RH stubbornly resists translation: there is no analogue of the Frobenius operator over $\mathbb{Z}$, and the search for one — Connes's noncommutative geometry program, the Bost–Connes system, the Hilbert–Pólya speculation that the zeros are eigenvalues of some self-adjoint operator — is one of the central currents of mathematical physics.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./l-functions.html">$L$-functions</a> — the broader family of Dirichlet series RH belongs to</li>
+    <li><a href="./analytic-number-theory.html">Analytic number theory</a> — the prime number theorem, explicit formulas, the critical strip</li>
+    <li><a href="./modularity-and-flt.html">Modularity</a> — RH for modular $L$-functions is the same conjecture in costume</li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 2 ──── -->
+<section id="pnp">
+<h2><span class="num">§2.</span> P versus NP — the gap between checking and finding</h2>
+<p>The second problem is the youngest of the seven, and in some ways the most cleanly stated. It belongs to <em>computational complexity theory</em>, the mathematical discipline that asks not "is there an algorithm?" but "how much does the algorithm cost?" The problem distinguishes two complexity classes:</p>
+
+<p><strong>P</strong> — the class of decision problems solvable by a deterministic Turing machine in time bounded by a polynomial in the input length. The problem "is this number prime?" lives here, after the AKS algorithm of 2002 settled the question. So does linear programming, after Khachiyan and Karmarkar. So does virtually anything we already know how to compute fast.</p>
+
+<p><strong>NP</strong> — the class of decision problems whose <em>yes</em>-instances admit a polynomial-time-checkable certificate. The traveling salesman problem ("is there a tour of length $\le L$?") is in NP because if you hand me a tour I can verify its length in linear time. Boolean satisfiability — given a formula, is there a truth assignment that makes it true? — is in NP because if you show me the satisfying assignment I plug it in and confirm. Factoring is in NP because if you hand me a factor I divide.</p>
+
+<div class="ok">
+  <strong>P vs NP.</strong> Is $\text{P} = \text{NP}$? That is: every problem whose solution is easy to <em>check</em> — does it have a solution that is easy to <em>find</em>?
+</div>
+
+<p>The almost-universal expectation is that $\text{P} \neq \text{NP}$ — that finding is fundamentally harder than checking. But the conjecture has the unusual property that very little is actually proved about it. We know neither implication. The class NP contains thousands of problems shown to be <em>NP-complete</em> by Cook (1971), Levin (1971), and Karp (1972) and the army that followed: any one of these — SAT, 3-SAT, traveling salesman, graph 3-coloring, subset-sum — is polynomial-time-equivalent to all the others. To prove $\text{P} = \text{NP}$ it would suffice to find a polynomial-time algorithm for any single NP-complete problem. To prove $\text{P} \neq \text{NP}$ it would suffice to prove that no such algorithm exists for any single one.</p>
+
+<p>The infrastructure of the modern internet — RSA, Diffie–Hellman, every form of public-key cryptography — rests on the assumption $\text{P} \neq \text{NP}$, and on the more specific assumption that factoring and discrete-log are not in P. A constructive proof that $\text{P} = \text{NP}$ would, at a stroke, be either a triumph (mathematical proof becomes mechanizable) or a catastrophe (cryptography collapses), depending on the polynomial. A non-constructive proof that $\text{P} = \text{NP}$, with no extracted algorithm, would change very little in practice — it would just tell us where to look.</p>
+
+<div class="note">
+What is genuinely known is the meta-theory of why this is hard. Several classes of "natural" proof techniques are known to be insufficient. <em>Relativization</em> (Baker–Gill–Solovay, 1975): both $\text{P} = \text{NP}$ and $\text{P} \neq \text{NP}$ are consistent with oracle access. <em>Natural proofs</em> (Razborov–Rudich, 1994): any "natural" combinatorial argument that proves circuit lower bounds would also break a strong pseudorandom generator, contradicting standard cryptographic assumptions. <em>Algebrization</em> (Aaronson–Wigderson, 2008): even algebraic relativization is not enough. The barriers tell us that any successful proof must be "non-natural" — must use specific structure of P and NP that we have not yet learned to articulate.
+</div>
+
+<p>The conjecture is a question about the gap between two perspectives on a problem: the existence of a witness, and the algorithm that produces one. It is the only Millennium Problem from the discrete-mathematics side of the discipline, and the only one whose statement requires a model of computation rather than a model of physical or geometric space. Among the seven, it is also the one that most directly affects daily life — every cryptographic protocol, every optimization heuristic, every machine-learning training loop is haunted by the question of whether finding could be as easy as checking.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./computability.html">Computability</a> — Turing machines, the halting problem, the layer below complexity</li>
+    <li><a href="./proof-theory.html">Proof theory</a> — formal proofs, the propositional calculus, NP and theorem-checking</li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 3 ──── -->
+<section id="hodge">
+<h2><span class="num">§3.</span> The Hodge Conjecture — algebraic versus analytic cycles</h2>
+<p>The Hodge Conjecture asks a very precise question about a very abstract correspondence: it asks when a piece of cohomology comes from geometry. The setup requires a few ingredients, but the payoff is that all of them are objects mathematicians cared about long before anyone wrote down the conjecture.</p>
+
+<p>Let $X$ be a smooth complex projective variety — a closed submanifold of some $\mathbb{CP}^N$ cut out by polynomial equations. Such a variety has two natures braided together. As a complex manifold, it carries de Rham cohomology $H^*(X, \mathbb{C})$ computed from differential forms. As a complex manifold of complex dimension $n$, the de Rham complex decomposes by bidegree:
+$$H^k(X, \mathbb{C}) \;=\; \bigoplus_{p+q = k} H^{p,q}(X), \qquad H^{p,q}(X) := \text{cohomology of forms of type } (p,q).$$
+This is the <em>Hodge decomposition</em>, due to W. V. D. Hodge in the 1930s. The pieces $H^{p,q}$ satisfy $\overline{H^{p,q}} = H^{q,p}$, so the rational structure $H^k(X, \mathbb{Q}) \subset H^k(X, \mathbb{C})$ interacts with the bigrading in a constrained way.</p>
+
+<p>A class $\alpha \in H^{2p}(X, \mathbb{Q})$ is called a <strong>Hodge class</strong> if its image in complex cohomology lies entirely in the middle piece $H^{p,p}$ — that is, the analytic types $(p+1, p-1), (p+2, p-2), \ldots$ all vanish. Hodge classes form a $\mathbb{Q}$-vector space inside cohomology, and they are the ones the bigrading allows to come from algebraic cycles.</p>
+
+<p>An <strong>algebraic cycle</strong> on $X$ of codimension $p$ is a formal $\mathbb{Q}$-linear combination of irreducible closed subvarieties of codimension $p$. Each such subvariety has a fundamental class in $H^{2p}(X, \mathbb{Q})$, and a general fact (the Lefschetz $(1,1)$-theorem in codimension $1$, the Hodge cycle property in higher codimension) is that the class of any algebraic cycle is automatically a Hodge class.</p>
+
+<div class="ok">
+  <strong>Hodge Conjecture.</strong> Every Hodge class on a smooth complex projective variety is the class of an algebraic cycle (with $\mathbb{Q}$-coefficients).
+</div>
+
+<p>The conjecture is the converse of the easy direction. Hodge classes are defined by an analytic / Hodge-theoretic condition: their image in complex cohomology must respect the bigrading. The conjecture says this analytic condition exactly characterizes the algebraic-geometric origin: every cohomology class compatible with the bigrading must come from a finite union of subvarieties.</p>
+
+<p>For divisors — codimension-$1$ algebraic cycles — Lefschetz proved this in 1924, and the result is essentially classical: the Picard group of line bundles surjects onto the Hodge classes in $H^2$. In higher codimension, the conjecture is open in general, with positive evidence accumulated case by case. It is known for varieties of dimension $\le 3$ (any Hodge class on a threefold is algebraic), for abelian varieties of certain types, for products of curves. It is unknown for the generic $K3$ surface squared.</p>
+
+<p>Why is it hard? Because algebraic cycles are extremely rigid objects, while cohomology is a flexible analytic invariant. Constructing an algebraic cycle to represent a given Hodge class requires solving a constraint that has no analytic solution method: you must produce equations cutting out an actual subvariety with the prescribed cohomological signature. The conjecture is the assertion that the rigidity of algebraic geometry is, for compact Kähler manifolds, exactly equal to the flexibility of Hodge theory.</p>
+
+<div class="note">
+The Hodge Conjecture is one of Grothendieck's <em>standard conjectures</em> in disguise. If true, it gives a category of pure motives over $\mathbb{C}$ defined using algebraic cycles modulo homological equivalence, with the right Tannakian properties. The Hodge realization functor would then become a faithful tensor functor, and a great deal of conjectural machinery about motives — periods, motivic Galois groups, mixed Hodge structures — would acquire a foundation. The conjecture is therefore a <em>foundational</em> question: it asks whether algebraic geometry can be built motivically the way we want it to be.
+</div>
+
+<p>In characteristic $p$ there is an analogue, the Tate Conjecture, which predicts that Galois-invariant classes in $\ell$-adic cohomology are spanned by algebraic cycles. Tate is open in many cases but proved in others by Faltings, Tate himself, and the étale-cohomology toolkit. The two conjectures are siblings: each says, in its own characteristic, that the algebraic and the cohomological notions of "cycle" should agree. Neither is settled, and the gap between them is one of the most quietly central mysteries in arithmetic geometry.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./hodge-theory.html">Hodge theory</a> — the bigrading, harmonic forms, the Kähler package</li>
+    <li><a href="./algebraic-de-rham-cohomology.html">Algebraic de Rham cohomology</a> — the comparison with classical de Rham</li>
+    <li><a href="./motives.html">Motives</a> — where the Hodge Conjecture sits in Grothendieck's program</li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 4 ──── -->
+<section id="yang-mills">
+<h2><span class="num">§4.</span> Yang–Mills existence and the mass gap</h2>
+<p>The fourth problem comes from physics, but the difficulty is purely mathematical. It asks whether the quantum field theory that describes the strong nuclear force — and, to a different parameter regime, the electroweak interactions — exists as a rigorous mathematical structure, and if so, whether it has a property that experiments and lattice computations strongly suggest it has: a <em>mass gap</em>.</p>
+
+<p>The classical setup is gauge theory. Fix a compact simple Lie group $G$ — for the strong force, $G = \mathrm{SU}(3)$ — and a connection $A$ on a principal $G$-bundle over $\mathbb{R}^4$. The curvature $F = dA + A \wedge A$ is a $\mathfrak{g}$-valued $2$-form, and the Yang–Mills action is
+$$S_{\text{YM}}(A) \;=\; \frac{1}{2g^2} \int_{\mathbb{R}^4} \mathrm{tr}(F \wedge \star F).$$
+Critical points are gauge-equivalence classes of connections satisfying $d_A \star F = 0$ — the Yang–Mills equations. Classically, this is a beautiful nonlinear elliptic / hyperbolic system whose moduli of solutions on $4$-manifolds are the source of Donaldson's invariants.</p>
+
+<p>The question asked by the Millennium Problem is the <em>quantum</em> version. One wants to construct a Wightman quantum field theory — a $G$-equivariant operator-valued distribution on $\mathbb{R}^{1,3}$ satisfying the Wightman axioms (covariance, positivity, locality, vacuum) — whose classical limit recovers Yang–Mills theory. The traditional formal recipe is the Feynman path integral
+$$\langle \mathcal{O} \rangle \;=\; \frac{1}{Z} \int \mathcal{D}A \;\mathcal{O}(A)\, e^{-S_{\text{YM}}(A)/\hbar},$$
+which is meaningless as written: the measure $\mathcal{D}A$ on the infinite-dimensional space of connections does not exist, and the perturbation series in $g$ is divergent. Constructive quantum field theory is the program of giving this expression a meaning, and it has succeeded for several simpler models in dimensions $2$ and $3$ (Glimm–Jaffe and others, in the 1970s) but never in dimension $4$ for a non-abelian gauge theory.</p>
+
+<div class="ok">
+  <strong>Yang–Mills with mass gap.</strong> Construct a Wightman quantum gauge theory on $\mathbb{R}^{1,3}$ with gauge group a compact simple Lie group $G$, and prove that its Hamiltonian has a strictly positive lowest energy above the vacuum: a <em>mass gap</em> $\Delta > 0$.
+</div>
+
+<p>The mass gap is the assertion that the energy spectrum of the theory has a strictly positive lowest excited state — equivalently, that all physical excitations are massive. This is empirically what one observes for QCD: the lightest excitation is the pion at $\sim 140$ MeV, and there is no massless particle in the spectrum (no "free gluon"). It is also remarkable, because the underlying classical theory is conformally invariant — the action $S_{\text{YM}}$ has no mass scale at all in $4$ dimensions. A mass scale must therefore emerge from the quantization itself, by the mechanism known as <em>dimensional transmutation</em>: the renormalization-group running of the coupling $g$ generates an exponentially small but non-zero scale $\Lambda_{\text{QCD}} \sim \mu \, e^{-1/(\beta_0 g^2)}$. To prove a mass gap is to prove this mechanism rigorously.</p>
+
+<p>The technical obstacles are vast. The $4$-dimensional Yang–Mills theory is renormalizable but not super-renormalizable; ultraviolet divergences require the full machinery of perturbative renormalization, and constructive control over the non-perturbative regime (where the coupling becomes strong) requires methods we do not have. Lattice gauge theory — Wilson's 1974 discrete approximation of the path integral on $a\mathbb{Z}^4$ — gives compelling numerical evidence for confinement and a mass gap, and even rigorous existence in finite volume with a lattice cutoff. The unsolved problem is the continuum limit $a \to 0$: showing the lattice theory converges to a Wightman theory on $\mathbb{R}^{1,3}$ with the gap intact.</p>
+
+<blockquote>The Yang–Mills problem is the only Millennium Problem that is also a problem in physics. Its resolution would not just construct one quantum field theory: it would establish a framework for constructing all of them, and would close a sixty-year gap between what physicists compute and what mathematicians can prove exists.</blockquote>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./gauge-theory.html">Gauge theory</a> — connections on principal bundles, curvature, Yang–Mills action</li>
+    <li><a href="./quantum-field-theory.html">Quantum field theory</a> — Wightman axioms, path integrals, renormalization</li>
+    <li><a href="./statistical-mechanics.html">Statistical mechanics</a> — lattice gauge theory and its continuum limits</li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 5 ──── -->
+<section id="navier-stokes">
+<h2><span class="num">§5.</span> Navier–Stokes existence and smoothness</h2>
+<p>The fifth problem is the most physically tangible of the seven. It asks whether the equations of fluid dynamics — written down in the $1820$s by Navier, refined by Stokes in the $1840$s, used every day to design aircraft and predict weather — have well-defined solutions that stay smooth for all time. The expectation, based on physical intuition and a hundred and seventy years of practice, is "yes." A proof has not arrived.</p>
+
+<p>The setting is incompressible viscous flow on $\mathbb{R}^3$ (or on a periodic torus $\mathbb{T}^3$ — both are valid Millennium formulations). The unknown is a velocity field $u : \mathbb{R}^3 \times [0, \infty) \to \mathbb{R}^3$ and a pressure $p$, satisfying
+$$\partial_t u \;+\; (u \cdot \nabla) u \;=\; -\nabla p \;+\; \nu \Delta u, \qquad \nabla \cdot u = 0,$$
+with smooth, rapidly decaying initial data $u(\cdot, 0) = u_0$ and viscosity $\nu > 0$. The first equation is Newton's second law for a fluid parcel. The second is the incompressibility constraint. The pressure $p$ is a Lagrange multiplier enforcing $\nabla \cdot u = 0$ and is recovered from $u$ by solving a Poisson equation.</p>
+
+<div class="ok">
+  <strong>Navier–Stokes regularity.</strong> Given smooth, divergence-free, rapidly decaying initial data $u_0$ on $\mathbb{R}^3$ (or $\mathbb{T}^3$), prove that a smooth solution $u$ exists for all $t > 0$ — or exhibit initial data for which the solution must develop a singularity in finite time.
+</div>
+
+<p>The two-dimensional version is settled. In $2$D, smooth global solutions exist for all smooth initial data; this is a theorem of Leray and others, proved by exploiting the conservation of vorticity along trajectories and the boundedness of $L^2$ norms. The reason $2$D is tractable is that the nonlinear term $(u \cdot \nabla) u$ has a lower scaling dimension than the dissipative term $\nu \Delta u$ — in $2$D the dissipation wins.</p>
+
+<p>In $3$D the scaling balance flips. The $L^2$-energy estimate gives a global bound $\| u(t) \|_{L^2} \le \| u_0 \|_{L^2}$, but the natural <em>scaling-critical</em> norms — the ones invariant under $u \mapsto \lambda u(\lambda x, \lambda^2 t)$ — are at the same dimensional level as the dispersive term. Standard energy methods get global existence in weak senses (Leray–Hopf weak solutions, $1934$), but uniqueness and smoothness of those weak solutions is open, and the gap between "weak solution exists" and "smooth solution exists" is exactly the conjecture.</p>
+
+<div class="note">
+The phenomenon one would have to rule out — or exhibit — is a finite-time <em>blow-up</em>: a smooth solution whose $L^\infty$ norm of $\nabla u$ becomes infinite at a single point of space-time. The Beale–Kato–Majda criterion (1984) says that a solution stays smooth past time $T$ iff $\int_0^T \|\omega(t)\|_{L^\infty} \, dt < \infty$, where $\omega = \nabla \times u$ is the vorticity. So blow-up is equivalent to vorticity concentration. Numerical experiments on 3D Euler (the $\nu = 0$ limit) show suggestive but inconclusive concentrations along thin tubes. Whether viscosity always saves the day is the entire question.
+</div>
+
+<p>Partial results clarify the geometry of any potential singularity. The Caffarelli–Kohn–Nirenberg theorem (1982) shows that the singular set of any suitable weak solution has parabolic Hausdorff dimension at most $1$. So singularities, if they exist, are very small: not a $2$-dimensional surface in space-time, not even a curve in space. They would be more like isolated points, or zero-measure sets in time. This is consistent with smoothness; it is consistent with sporadic blow-up; it does not decide.</p>
+
+<p>Tao's $2014$ paper "Finite time blowup for an averaged three-dimensional Navier–Stokes equation" gave a startling result: a slightly modified equation, with the nonlinearity replaced by a carefully chosen averaged version that preserves all the standard energy estimates, does blow up in finite time. This says, definitively, that the standard a-priori energy bounds are <em>not enough</em> to rule out blow-up. Whatever proof of regularity is found, it must use specific structure of the actual nonlinear term that the averaged version destroys. In a precise sense, the easy ways have been ruled out.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./partial-differential-equations.html">PDE</a> — the elliptic / parabolic / hyperbolic trichotomy, weak solutions</li>
+    <li><a href="./functional-analysis.html">Functional analysis</a> — Sobolev spaces, energy methods, the Leray projection</li>
+    <li><a href="./harmonic-analysis.html">Harmonic analysis</a> — paraproducts, scaling-critical estimates, BMO</li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 6 ──── -->
+<section id="bsd">
+<h2><span class="num">§6.</span> The Birch and Swinnerton-Dyer Conjecture</h2>
+<p>BSD is the conjecture that, for an elliptic curve over $\mathbb{Q}$, two completely different counts of "how many rational points there are" agree. One count is algebraic — the rank of the Mordell–Weil group of rational points. The other is analytic — the order of vanishing of the curve's $L$-function at the central point. The conjecture is that these two integers are always equal.</p>
+
+<p>An <em>elliptic curve</em> over $\mathbb{Q}$ is a smooth projective curve of genus $1$ with a chosen rational base point — concretely, a Weierstrass equation $y^2 = x^3 + ax + b$ with $a, b \in \mathbb{Q}$ and discriminant $\Delta = -16(4a^3 + 27b^2) \neq 0$. The set of rational solutions, plus the point at infinity, forms an abelian group $E(\mathbb{Q})$ under the chord-and-tangent law. Mordell proved in $1922$ that this group is finitely generated:
+$$E(\mathbb{Q}) \;\cong\; \mathbb{Z}^r \;\oplus\; E(\mathbb{Q})_{\text{tors}},$$
+with $r \ge 0$ the <em>algebraic rank</em>. The torsion subgroup is computable in finite time (Mazur's theorem classifies the possibilities). The free rank $r$ is what BSD wants to read off the $L$-function.</p>
+
+<p>The $L$-function of $E$ is built from local factors, one for each prime:
+$$L(E, s) \;=\; \prod_p L_p(E, s)^{-1},$$
+where $L_p(E, s) = 1 - a_p p^{-s} + p \cdot p^{-2s}$ for primes of good reduction, and a degenerate version for bad primes. The coefficients $a_p$ count points: $a_p = p + 1 - \#E(\mathbb{F}_p)$ for good $p$. The product converges for $\mathrm{Re}(s) > 3/2$, and a deep theorem of Wiles, Taylor, Breuil–Conrad–Diamond–Taylor (the modularity theorem) says that $L(E, s)$ extends to an entire function on $\mathbb{C}$ satisfying a functional equation that swaps $s \leftrightarrow 2 - s$. The center of symmetry is $s = 1$.</p>
+
+<div class="ok">
+  <strong>BSD (rank part).</strong> $\mathrm{ord}_{s=1} L(E, s) = \mathrm{rank}\, E(\mathbb{Q}).$
+</div>
+
+<p>The right-hand side counts independent rational points. The left-hand side is a purely analytic integer — the number of times you must differentiate $L(E, s)$ at $s = 1$ before getting a non-zero value. The conjecture says these are the same number, for every elliptic curve over $\mathbb{Q}$.</p>
+
+<p>The full BSD also predicts a precise formula for the leading Taylor coefficient at $s = 1$, in terms of the regulator (a determinant built from a height-pairing on $E(\mathbb{Q})$), the order of the Tate–Shafarevich group $\Sha(E/\mathbb{Q})$, the period of $E$, the local Tamagawa numbers, and the order of $E(\mathbb{Q})_{\text{tors}}^2$. The Sha factor is the most mysterious: $\Sha$ measures the failure of the local-to-global principle for principal homogeneous spaces over $E$, and even its finiteness is conjectural in general.</p>
+
+<p>The state of the art: Coates–Wiles (1977) proved that if $L(E, 1) \neq 0$ then $E(\mathbb{Q})$ is finite, for $E$ with complex multiplication. Gross–Zagier (1986) and Kolyvagin (1988) together prove BSD for analytic rank $\le 1$: if $\mathrm{ord}_{s=1} L(E, s) \le 1$ then BSD holds and $\Sha$ is finite. The Bhargava–Skinner–Zhang program has shown that a positive proportion of elliptic curves over $\mathbb{Q}$ have rank $0$ or $1$ and satisfy BSD. Beyond rank $\le 1$, however, the conjecture is wide open: we have <em>no</em> proven case where the algebraic rank is $\ge 2$ and equal to the analytic rank.</p>
+
+<div class="note">
+BSD is the simplest case of a vast network of Beilinson–Bloch–Kato conjectures predicting orders of vanishing of $L$-functions of motives at integer points, with leading coefficients given by regulators of motivic cohomology. Each instance involves transcendental periods, $p$-adic comparison theorems, and Selmer groups that play the role of $\Sha$. To prove BSD for higher rank is to make one piece of this conjectural skyscraper concrete; a method that worked for rank $\ge 2$ would, almost by accident, illuminate every floor above it.
+</div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./bsd.html">BSD topic</a> — the dedicated page with worked examples and the rank ladder</li>
+    <li><a href="./elliptic-curves.html">Elliptic curves</a> — the Mordell–Weil group and its arithmetic</li>
+    <li><a href="./modularity-and-flt.html">Modularity</a> — the theorem that gives $L(E,s)$ its analytic continuation</li>
+    <li><a href="./l-functions.html">$L$-functions</a> — where BSD sits in the broader conjectural picture</li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 7 ──── -->
+<section id="poincare">
+<h2><span class="num">§7.</span> The Poincaré Conjecture — and a problem solved</h2>
+<p>The seventh problem is the only one of the Millennium Seven that has been resolved. Henri Poincaré posed it in $1904$, in a paper on the foundations of topology that introduced both the fundamental group and a question Poincaré thought was probably easy. It turned out to take ninety-nine years.</p>
+
+<p>The setup is short. A <em>closed</em> manifold is one that is compact and without boundary. A manifold is <em>simply connected</em> if every loop in it can be continuously contracted to a point. A $1$-dimensional closed manifold is a circle (only); a $2$-dimensional closed simply-connected manifold is the $2$-sphere $S^2$ (this is essentially the classification of surfaces). Poincaré asked the obvious question one dimension up.</p>
+
+<div class="ok">
+  <strong>Poincaré Conjecture.</strong> Every simply connected, closed $3$-manifold is homeomorphic to the $3$-sphere $S^3$.
+</div>
+
+<p>Why is this hard? The natural attempt — try to show that a simply connected closed $3$-manifold has the same homology as $S^3$ and conclude — works for the homology calculation but not for the conclusion. Three-manifolds with the homology of $S^3$ that are not simply connected (homology spheres, like Poincaré's own dodecahedral space) exist. Three-manifolds with more elaborate fundamental group exhibit a wild zoology. Standard surgical and combinatorial techniques get arbitrarily close to the result but never quite seal it.</p>
+
+<p>The conjecture in higher dimensions was, paradoxically, easier. Smale proved the topological Poincaré conjecture in dimensions $\ge 5$ in $1961$ using the $h$-cobordism theorem; Freedman settled dimension $4$ in $1982$ using his Casson-handle decomposition. Dimension $3$ — the dimension Poincaré actually asked about — is the hardest because there is too little room for surgery and too much for combinatorial collapse. It sits in a Goldilocks zone where neither high-dimensional nor low-dimensional methods quite reach.</p>
+
+<p>The strategy that finally worked is due to Hamilton and Perelman, and it is geometric rather than topological. Hamilton's $1982$ proposal: put a Riemannian metric $g(t)$ on the $3$-manifold $M$ and let it evolve by the <em>Ricci flow</em>
+$$\partial_t g_{ij} \;=\; -2 \,\mathrm{Ric}(g)_{ij}.$$
+This is a heat-like nonlinear PDE on the space of metrics. It tends to smooth out curvature and, conjecturally, to drive the metric toward a canonical form: a spherical metric, a hyperbolic metric, or a Seifert-fibered geometry, depending on the topology. If $M$ is simply connected, the conjecture predicts the spherical case, and the Poincaré conjecture follows.</p>
+
+<p>The technical obstacle Hamilton could not surmount is that Ricci flow develops singularities — cigar-shaped pieces of curvature pinch off — and these singularities have to be analyzed and cut out before the flow can continue. Perelman's $2002$–$2003$ preprints introduced exactly the tools needed to handle the singularities: an entropy functional that monotonically increases under the flow, a "no local collapsing" theorem that prevents pathological pinching, an explicit classification of the possible singularity profiles, and the technique of <em>Ricci flow with surgery</em>, where each pinching neck is cut and capped before the flow is restarted on the smaller pieces. After finitely many surgeries, the manifold decomposes into geometric pieces, and the simply-connected hypothesis forces every piece to be $S^3$.</p>
+
+<blockquote>The Poincaré Conjecture is the only Millennium Problem solved. It is also the only one solved by methods entirely from outside the discipline that posed it: Poincaré asked a topological question, and the answer turned out to be a theorem in geometric analysis. The proof's centerpiece is a parabolic PDE on the space of Riemannian metrics, and its singularity analysis required tools no one had built when the problem was originally posed.</blockquote>
+
+<p>Perelman declined the Fields Medal in $2006$ and the Clay Millennium Prize in $2010$, in both cases without elaboration. The proof has been verified, expanded, simplified, taught, and is now part of the standard graduate curriculum in geometric analysis. The Geometrization Conjecture — Thurston's broader prediction that every $3$-manifold decomposes along spheres and tori into pieces with one of eight model geometries — is a theorem by the same machinery; the Poincaré conjecture is its simplest case.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-topology.html">Algebraic topology</a> — the fundamental group, simply-connectedness, the homology classification</li>
+    <li><a href="./smooth-manifolds.html">Smooth manifolds</a> — Riemannian metrics, curvature, the structure of low-dimensional manifolds</li>
+    <li><a href="./ricci-flow.html">Ricci flow</a> — Hamilton's PDE, Perelman's entropy, surgery</li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 8 ──── -->
+<section id="coda">
+<h2><span class="num">§8.</span> Coda — what the seven look like together</h2>
+<p>One way to read the Millennium list is as a deliberate sampler. Seven problems, seven different kinds of difficulty: analytic (RH), computational (P vs NP), Hodge-theoretic (Hodge), constructive-field-theoretic (Yang–Mills), partial-differential (Navier–Stokes), arithmetic-geometric (BSD), topological (Poincaré). Each is, within its own subdiscipline, the place where the standard tools have demonstrably run out. They are spread across the discipline by design: the Clay scientific advisory board chose them precisely so that no single subfield could "win" the prize without a genuinely new idea.</p>
+
+<p>The natural comparison is to Hilbert's $1900$ list. Hilbert's twenty-three problems were also a sampler — partly programmatic ("axiomatize physics"), partly concrete ("transcendence of $e^{i\pi}$"), partly impossible ("decide whether any Diophantine equation has a solution," which Matiyasevich answered negatively in $1970$). They were, as a list, more uneven than the Millennium Seven; some were ill-defined, some were settled within a few years, some — like the eighth, which contains the Riemann Hypothesis — are still open. The Clay list is more disciplined: each problem has a precise statement, a precise prize condition, and an official problem description written by an expert.</p>
+
+<p>What Hilbert and Clay have in common is what every such list has in common: an attempt to project, onto a finite list, the central <em>obstructions</em> rather than the central <em>achievements</em> of the discipline. Mathematics is at its sharpest when it knows exactly what it cannot do, and the lists are a way of making the boundary of "cannot" public, fundable, and shared. The Millennium Seven also did something Hilbert's list did not: they put a price on each. Whether the prizes change anyone's research priorities is debatable; what is not debatable is that they make the boundary visible to a much larger audience than mathematicians alone.</p>
+
+<p>Twenty-five years on, the score is one solved (Poincaré, by Perelman, $2003$) and six open. The shape of the open six is striking. RH has a wealth of partial results, some of them stunning, but no method that even hints at how to force the zeros onto the line. P vs NP has a half-century of barrier theorems showing what kinds of proofs <em>cannot</em> work, but no candidate for a proof that <em>can</em>. The Hodge Conjecture is settled in low dimensions and pieces of higher ones, with the general case waiting for a method to construct algebraic cycles from cohomological data. Yang–Mills has lattice evidence and physical intuition pointing decisively at "yes," with the rigorous continuum construction stuck in dimension $4$. Navier–Stokes has been narrowed down to "if singularities form, they form on a small set, and they cannot be ruled out by any of the easy a-priori bounds." BSD is settled for analytic rank $\le 1$ and conjectural for rank $\ge 2$, with no method in sight to push the boundary upward.</p>
+
+<p>If there is a unifying theme to the six remaining problems, it is the <em>missing structural object</em>. RH wants a Hilbert–Pólya operator we do not have. P vs NP wants a complexity-theoretic invariant that distinguishes hard problems from easy ones in a way that does not relativize, naturalize, or algebrize. Hodge wants an algebraic cycle for every Hodge class, with no construction principle. Yang–Mills wants a measure on connections modulo gauge that does not exist by ordinary measure-theoretic means. Navier–Stokes wants an a-priori bound the energy estimate is too weak to provide. BSD wants a Heegner-point construction that goes past rank one. In each case, the answer is conjecturally yes; in each case, the obstruction is that the object that would witness "yes" has not been built.</p>
+
+<div class="note">
+The one that has been solved tells us something about the others. The Poincaré conjecture was settled by importing a tool — Ricci flow — from outside topology, and by analyzing its singularities with techniques no one had developed when the problem was posed. None of the six open Millennium Problems looks likely to fall to a tool already in its home subfield. The historical pattern, then, is to expect the resolution of each remaining problem to come from <em>somewhere else</em>: a new cohomology theory for RH, a new complexity model for P vs NP, a new motivic construction for Hodge, a new constructive framework for Yang–Mills, a new geometric invariant for Navier–Stokes, a new arithmetic engine for BSD. The problems will be solved, if they are solved, by methods we have not yet built.
+</div>
+
+<p>That is, in the end, what makes the Millennium list a worthwhile object to contemplate. It is not a list of theorems waiting to be proved by sustained effort within their respective subfields. It is a list of places where the discipline does not yet have the right concepts. The clock has been ticking for a quarter of a century. One concept has arrived (Ricci flow). Six are still missing. When they come — if they come — they will, like Perelman's, almost certainly come from a direction nobody currently expects.</p>
+</section>
+
+<hr class="endrule"/>
+
+<p class="colophon">
+The seven problems were chosen by a scientific advisory board chaired by Andrew Wiles, who had himself just solved a different century-old conjecture (Fermat's Last Theorem, via the modularity theorem and the deformation-theoretic machinery of Ribet, Wiles, and Taylor). The choice was not exhaustive: many distinguished open problems — the abc conjecture, the Langlands functoriality conjectures, the Schinzel hypothesis, the Beilinson conjectures, the Connes embedding problem (settled negatively in $2020$ via complexity-theoretic methods, in a delightful inversion of the discipline-boundary lesson) — were deliberately excluded because the board wanted the list to span subfields, not merely to enumerate famous unknowns. The result is a list whose unifying property is not subject matter but <em>flavor of difficulty</em>. Twenty-five years on, that property is the one that has aged best: the seven problems still feel disjoint, and the methods that will solve each of the remaining six still feel mutually unrelated. Whether this is a sign of the list's good design or of mathematics's stubborn fragmentation is a question for the next century.
+</p>
+
+<h3>Further reading</h3>
+<ol class="refs">
+  <li>Clay Mathematics Institute, official problem descriptions: A. Wiles (RH), S. Cook (P vs NP), P. Deligne (Hodge), A. Jaffe and E. Witten (Yang–Mills), C. Fefferman (Navier–Stokes), A. Wiles (BSD), J. Milnor (Poincaré). Each is a definitive statement.</li>
+  <li>K. Devlin, <em>The Millennium Problems: The Seven Greatest Unsolved Mathematical Puzzles of Our Time</em>, Basic Books (2002). A general-audience tour, written shortly after the announcement.</li>
+  <li>J. Carlson, A. Jaffe, A. Wiles (eds.), <em>The Millennium Prize Problems</em>, AMS / CMI (2006). The collected expert problem statements, with introductions.</li>
+  <li>H. Iwaniec and E. Kowalski, <em>Analytic Number Theory</em>, AMS Colloquium 53 (2004). The standard graduate reference for RH and its $L$-function siblings.</li>
+  <li>S. Arora and B. Barak, <em>Computational Complexity: A Modern Approach</em>, Cambridge (2009). Includes the relativization, natural proofs, and algebrization barriers.</li>
+  <li>C. Voisin, <em>Hodge Theory and Complex Algebraic Geometry</em>, vols. I–II, Cambridge (2002–2003). The standard treatment of the Hodge decomposition and the conjecture.</li>
+  <li>J. Glimm and A. Jaffe, <em>Quantum Physics: A Functional Integral Point of View</em>, 2nd ed., Springer (1987). The constructive QFT reference for what has been done in dimensions $2$ and $3$.</li>
+  <li>L. Tao, "Finite time blowup for an averaged three-dimensional Navier–Stokes equation," <em>J. Amer. Math. Soc.</em> 29 (2016).</li>
+  <li>A. Wiles, "Modular elliptic curves and Fermat's Last Theorem," <em>Ann. Math.</em> 141 (1995); R. Taylor and A. Wiles, "Ring-theoretic properties of certain Hecke algebras," ibid. The infrastructure behind BSD's analytic continuation.</li>
+  <li>J. Morgan and G. Tian, <em>Ricci Flow and the Poincaré Conjecture</em>, CMI Monograph 3 (2007). The expanded, refereed exposition of Perelman's argument.</li>
+</ol>
+
+</main>
+
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-05</td><td>Millennium Prizes capstone story (Tour 10 long-form): RH, P vs NP, Hodge, Yang–Mills, Navier–Stokes, BSD, Poincaré + coda</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

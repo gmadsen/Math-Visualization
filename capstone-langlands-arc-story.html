@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Langlands philosophy — reciprocity as L-function matching</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}',
+        '\\GL':'\\operatorname{GL}'
+      },
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,"Charter","Georgia",serif;
+    font-size:17px;line-height:1.72}
+  main{max-width:780px;margin:0 auto;padding:3rem 1.5rem 7rem}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  h1{font-size:2.3rem;letter-spacing:-0.01em;margin:0 0 0.4rem;font-weight:650}
+  h2{font-size:1.45rem;margin:3rem 0 0.7rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.35rem;font-weight:600}
+  h2 .num{color:var(--cyan);font-variant-numeric:tabular-nums;margin-right:.45rem;font-weight:500}
+  h3{font-size:1.08rem;margin:1.6rem 0 .5rem;color:var(--cyan);font-weight:600}
+  p{margin:0.8rem 0}
+  blockquote{border-left:3px solid var(--cyan);padding:.2rem 1rem;margin:1.2rem 0;color:#cfeeea;
+    background:#142624;border-radius:0 6px 6px 0;font-style:italic}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:1.4rem;font-size:1.05rem;line-height:1.55}
+  .lede{font-size:1.05rem;line-height:1.7;color:#dde3ec;margin:1.4rem 0 1.8rem}
+  .lede::first-letter{
+    float:left;font-size:3.1rem;line-height:.95;
+    padding:.15rem .45rem 0 0;color:var(--cyan);font-weight:700;font-family:"Charter","Georgia",serif;
+  }
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.55rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.88rem;align-items:baseline}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--cyan)}
+  nav.toc .spacer{flex:1}
+  nav.toc .story-pill{color:var(--cyan);border:1px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:999px;padding:1px 10px;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase}
+  .hero{padding:2.4rem 0 .4rem}
+  .byline{color:var(--mute);font-size:.88rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.6rem}
+  .figure{margin:1.6rem 0 2rem;text-align:center}
+  .figure svg{display:block;margin:0 auto;max-width:100%;
+    background:#0b0f16;border:1px solid var(--line);border-radius:8px}
+  .figure svg text{fill:var(--ink);font-family:inherit}
+  .caption{color:var(--mute);font-size:.88rem;margin-top:.5rem;line-height:1.5;font-style:italic;
+    max-width:560px;margin-left:auto;margin-right:auto}
+  .note{border-left:3px solid var(--cyan);padding:.35rem .9rem;color:#cfeeea;background:#142624;
+    margin:1rem 0;border-radius:0 6px 6px 0;font-size:.96rem;line-height:1.6}
+  .ok{border-left:3px solid var(--green);padding:.35rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0;font-size:.96rem;line-height:1.6}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(125,224,214,0.06);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2.5rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute);white-space:nowrap;font-variant-numeric:tabular-nums}
+  .endrule{border:none;border-top:1px solid var(--line);margin:2.4rem 0 1rem}
+  .colophon{color:var(--mute);font-size:.88rem;line-height:1.55;font-style:italic}
+  ol.refs{padding-left:1.3rem;color:var(--mute);font-size:.9rem;line-height:1.55}
+  ol.refs li{margin:.25rem 0}
+</style>
+<link rel="stylesheet" href="./css/notebook.css">
+<script src="./js/theme-toggle.js"></script>
+</head>
+<body data-level="capstone" data-c="cyan">
+
+<nav class="toc">
+  <a href="./index.html" style="color:var(--cyan);font-weight:500">← Notebook</a>
+  <a href="#reciprocity">§1 Reciprocity</a>
+  <a href="#cft">§2 Class field theory</a>
+  <a href="#modularity">§3 Modularity</a>
+  <a href="#functoriality">§4 Functoriality</a>
+  <a href="#endgame">§5 Endgame</a>
+  <a href="#coda">§6 Coda</a>
+  <span class="spacer"></span>
+  <span class="story-pill">story</span>
+</nav>
+
+<main>
+
+<section class="hero">
+  <div class="byline">An essay on the deepest matching in number theory</div>
+  <h1>Langlands philosophy</h1>
+  <p class="sub">Reciprocity is a matching. On one side: continuous representations of the absolute Galois group of $\mathbb{Q}$, the symmetry of arithmetic. On the other: automorphic representations of $\GL_n(\mathbb{A})$, the harmonic-analytic objects living on adelic homogeneous spaces. The Langlands philosophy says these two sides are the same data, that every $L$-function arising from one has an exact counterpart on the other, and that this matching extends — non-abelianly, in every dimension — the classical reciprocity laws of Gauss, Hilbert, and Artin.</p>
+</section>
+
+<p class="lede">There is a hidden symmetry between two parts of mathematics that look nothing alike. One is arithmetic — the study of integers and primes, of how polynomials factor in number fields, of which residues are squares modulo which other residues. Its symmetries are encoded by the absolute Galois group $\Gal(\overline{\mathbb{Q}}/\mathbb{Q})$, an enormous profinite object whose finite quotients are the Galois groups of all algebraic number fields at once. The other is harmonic analysis — the study of functions transforming under group actions, of representations of Lie groups, of decompositions into eigenforms for averaging operators. Its central objects are automorphic forms: holomorphic or smooth functions on quotients of symmetric spaces by arithmetic groups, whose Fourier coefficients carry deep number-theoretic content. Robert Langlands's 1967 letter to Weil proposed that these two worlds — Galois on one side, automorphic on the other — should be different incarnations of one underlying object, and that the dictionary translating between them takes the form of an equality of $L$-functions.</p>
+
+<p>This essay is a companion to <a href="./tours.html#langlands-arc">Tour 9</a> in the notebook, which lays out the same arc as a sequence of stops with figures. Here we stay with the prose, and try to give the philosophy time to breathe.</p>
+
+<!-- ───────────────────────────────────────────── § 1 ──── -->
+<section id="reciprocity">
+<h2><span class="num">§1.</span> Reciprocity, from Gauss to Galois representations</h2>
+<p>The story begins in 1801, in Gauss's <em>Disquisitiones Arithmeticae</em>, with a theorem so unexpected that Gauss called it the <em>theorema aureum</em> — the golden theorem. Quadratic reciprocity says that for distinct odd primes $p$ and $q$, the question "is $p$ a square modulo $q$?" and the question "is $q$ a square modulo $p$?" are linked by a clean parity rule:
+$$\left(\frac{p}{q}\right)\!\left(\frac{q}{p}\right) = (-1)^{\frac{p-1}{2}\cdot\frac{q-1}{2}}.$$
+The two questions live at different primes; the two answers should have nothing to do with each other; and yet they determine each other through a parity that depends only on $p$ and $q \pmod 4$. Gauss called it golden because every proof he found felt like cheating — the truth is forced by congruences, but the <em>reason</em> is opaque from inside elementary arithmetic.</p>
+
+<p>The 19th and early 20th centuries spent themselves looking for the reason. Hilbert in his 1900 problems asked for a <em>most general reciprocity law</em>; Takagi and Artin gave one in the 1920s, in a form that is still our deepest understanding of the abelian case. Their reformulation: a quadratic residue symbol is a one-dimensional character of an abelian Galois group, and reciprocity is the assertion that this character agrees with a Hecke character on the idèle class group. The data look identical from the two sides, and the matching is forced by an equality of $L$-functions that we now call <em>Artin reciprocity</em>. We will return to that story in §2. What matters first is the conceptual move: the question stopped being about residues and became about <em>representations of Galois groups</em>.</p>
+
+<p>The full Galois group of $\mathbb{Q}$ over its algebraic closure,
+$$G_\mathbb{Q} \;=\; \Gal(\overline{\mathbb{Q}}/\mathbb{Q}),$$
+is a profinite topological group: an inverse limit of the finite Galois groups $\Gal(L/\mathbb{Q})$ over all finite Galois extensions $L \supset \mathbb{Q}$. It is, in a precise sense, the symmetry group of all algebraic numbers at once. Its abelianization $G_\mathbb{Q}^{\mathrm{ab}}$ is what classical class field theory understands. Its non-abelian part — vast, profinite, deeply non-explicit — is what Langlands proposed to access through representation theory.</p>
+
+<p>A continuous representation
+$$\rho \colon G_\mathbb{Q} \;\longrightarrow\; \GL_n(\overline{\mathbb{Q}}_\ell)$$
+is the natural higher-dimensional refinement of a Galois character. The case $n=1$ is the abelian one and is handled by class field theory; the case $n=2$ is where modular forms enter; the case of general $n$ is the Langlands program in its full generality. Where do such representations come from? The single deepest source is étale cohomology. For a smooth projective variety $X$ over $\mathbb{Q}$ and a prime $\ell$, the étale cohomology groups $H^i_{\text{ét}}(X_{\overline{\mathbb{Q}}}; \mathbb{Q}_\ell)$ are finite-dimensional $\mathbb{Q}_\ell$-vector spaces carrying a continuous action of $G_\mathbb{Q}$. Specializing to dimension one and elliptic curves: for an elliptic curve $E/\mathbb{Q}$, the Tate module
+$$V_\ell E \;=\; T_\ell E \otimes_{\mathbb{Z}_\ell} \mathbb{Q}_\ell, \qquad T_\ell E \;=\; \varprojlim_n E[\ell^n](\overline{\mathbb{Q}})$$
+is a 2-dimensional $\mathbb{Q}_\ell$-vector space, and the action of $G_\mathbb{Q}$ on it gives a Galois representation
+$$\rho_{E,\ell} \colon G_\mathbb{Q} \to \GL_2(\mathbb{Q}_\ell).$$
+This is the workhorse example of the entire program. Every later sentence in this essay can be understood as a generalization or sharpening of what one says about $\rho_{E,\ell}$.</p>
+
+<aside class="note">
+A profinite group is the inverse limit of its finite quotients, and "continuous" representations land in topological groups like $\GL_n(\mathbb{Q}_\ell)$ where the topology comes from $\ell$-adic distance. Continuous is essential: $G_\mathbb{Q}$ has a vast supply of <em>discontinuous</em> homomorphisms to ordinary $\GL_n(\mathbb{C})$, and they are useless. The continuity constraint forces $\rho$ to factor through some finite quotient when the target is discrete, which is why $\ell$-adic targets — where the topology is rich enough to support infinite-dimensional information at finite level — are the right ones.
+</aside>
+
+<p>From any such $\rho$ one writes down its $L$-function, copying the recipe Artin gave for one-dimensional characters. At every prime $p$ where $\rho$ is unramified — that is, the inertia subgroup $I_p \subset G_\mathbb{Q}$ acts trivially — there is a well-defined Frobenius conjugacy class $\operatorname{Frob}_p$ in the quotient. Set
+$$L_p(\rho, s) \;=\; \det\!\bigl(I_n - \rho(\operatorname{Frob}_p)\, p^{-s}\bigr)^{-1},$$
+and define the global $L$-function as the Euler product
+$$L(\rho, s) \;=\; \prod_p L_p(\rho, s).$$
+For ramified primes the local factor is more delicate but still finite-dimensional. The product converges in a right half-plane by an easy estimate; whether $L(\rho, s)$ extends meromorphically to all of $\mathbb{C}$ and satisfies a functional equation $\Lambda(s) = \varepsilon \cdot \Lambda(n - s)$ is, in general, conjectural. <em>Until you can match $\rho$ to something on the analytic side, all of this is conjecture</em> — but the Galois representation itself is concrete, computable at any prime, and grounded in geometry.</p>
+
+<blockquote>The Langlands philosophy in one sentence: every reasonable Galois representation has an automorphic shadow, and the analytic continuation and functional equation of $L(\rho, s)$ are forced by automorphy on the other side.</blockquote>
+
+<p>The shape of what one expects, in 1967 and now, is a dictionary. On the left column: $n$-dimensional continuous Galois representations of $G_\mathbb{Q}$, satisfying suitable arithmetic conditions (geometric, in Fontaine–Mazur's sense; or motivic, conjecturally). On the right column: cuspidal automorphic representations of $\GL_n(\mathbb{A}_\mathbb{Q})$. The dictionary is required to match $L$-functions factor by factor, at every prime simultaneously, ramified and unramified alike. When the dictionary works, the conjectural analytic properties on the left are <em>theorems</em> on the right, transported across the matching.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./galois-representations.html#rep">Galois representations</a> — the continuous-representation framework</li>
+    <li><a href="./l-functions.html">L-functions</a> — the Euler-product side</li>
+    <li><a href="./class-field-theory.html#artin">Artin reciprocity</a> — the abelian prototype</li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 2 ──── -->
+<section id="cft">
+<h2><span class="num">§2.</span> Class field theory: Langlands for $\GL_1$</h2>
+<p>The proven prototype, in the language Langlands generalises, is class field theory — the abelian case of the matching, complete and unconditional, established between roughly 1900 and 1930 by Hilbert, Takagi, Artin, Chevalley, and others. Read with hindsight, it is exactly the $n=1$ case of the conjectural Langlands correspondence, and the entire program is best thought of as the search for its non-abelian generalization.</p>
+
+<p>The setup is this. Let $K$ be a number field — for concreteness, take $K = \mathbb{Q}$. Let $G_K^{\mathrm{ab}} = \Gal(\overline{K}/K)^{\mathrm{ab}}$ be the abelianization of the absolute Galois group: the Galois group of the maximal abelian extension $K^{\mathrm{ab}} \subset \overline{K}$. Continuous one-dimensional representations of $G_K$ — equivalently, characters of $G_K^{\mathrm{ab}}$ — form a topological group $\Hom(G_K^{\mathrm{ab}}, \mathbb{C}^\times)$. On the other side, define the <em>idèle class group</em>
+$$C_K \;=\; \mathbb{A}_K^\times / K^\times,$$
+where $\mathbb{A}_K = \prod'_v K_v$ is the restricted product of the local completions of $K$ at all places — finite primes and archimedean places together. The continuous characters of $C_K$ form another topological group: the group of <em>Hecke characters</em>, classical objects studied since Hecke's 1918 thesis.</p>
+
+<p>Artin reciprocity is the assertion that these two sides match. There is a canonical isomorphism of topological groups
+$$\mathrm{rec}_K \colon C_K^{\circ} \;\xrightarrow{\,\sim\,}\; G_K^{\mathrm{ab}},$$
+where $C_K^\circ$ is the connected component of the identity. Equivalently, dualizing, there is a bijection between continuous characters of $G_K^{\mathrm{ab}}$ and continuous Hecke characters on $C_K$, and the bijection respects $L$-functions: for a Galois character $\chi$, the Artin $L$-function
+$$L(\chi, s) \;=\; \prod_p \bigl(1 - \chi(\operatorname{Frob}_p) p^{-s}\bigr)^{-1}$$
+equals the Hecke $L$-function of the corresponding Hecke character $\psi = \chi \circ \mathrm{rec}_K^{-1}$, factor by factor at every prime, ramified and unramified alike. Two completely different recipes — one starting from the symmetries of arithmetic, one starting from harmonic analysis on an idelic homogeneous space — produce the same Dirichlet series.</p>
+
+<div class="figure">
+  <svg viewBox="0 0 560 220" width="560" height="220" role="img" aria-label="Class field theory matching: Galois characters to Hecke characters">
+    <title>The abelian Langlands matching: G_K^ab -- C_K</title>
+    <g font-size="13">
+      <text x="120" y="40" text-anchor="middle" fill="var(--cyan)">arithmetic side</text>
+      <text x="440" y="40" text-anchor="middle" fill="var(--cyan)">analytic side</text>
+      <text x="120" y="105" text-anchor="middle" fill="var(--ink)">G_K^ab = Gal(K^ab / K)</text>
+      <text x="440" y="105" text-anchor="middle" fill="var(--ink)">C_K = A_K^× / K^×</text>
+      <text x="120" y="175" text-anchor="middle" fill="var(--mute)" font-style="italic">1-dim Galois reps</text>
+      <text x="440" y="175" text-anchor="middle" fill="var(--mute)" font-style="italic">Hecke characters</text>
+    </g>
+    <g stroke="var(--cyan)" stroke-width="1.4" fill="none">
+      <path d="M 200 100 L 360 100" marker-end="url(#a-r)" marker-start="url(#a-l)"/>
+      <path d="M 200 175 L 360 175" marker-end="url(#a-r2)" marker-start="url(#a-l2)"/>
+    </g>
+    <defs>
+      <marker id="a-r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--cyan)"/></marker>
+      <marker id="a-l" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--cyan)"/></marker>
+      <marker id="a-r2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--cyan)"/></marker>
+      <marker id="a-l2" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--cyan)"/></marker>
+    </defs>
+    <text x="280" y="92" text-anchor="middle" font-size="11" fill="var(--cyan)">rec_K</text>
+    <text x="280" y="167" text-anchor="middle" font-size="11" fill="var(--cyan)">L(χ,s) = L(ψ,s)</text>
+  </svg>
+  <div class="caption">Figure 1. The abelian (Artin) matching: the absolute abelian Galois group of $K$ is isomorphic to (the connected-component quotient of) the idèle class group, and the bijection on characters preserves $L$-functions. This is the Langlands correspondence at $n=1$.</div>
+</div>
+
+<p>To make this concrete, take $K = \mathbb{Q}$. The Kronecker–Weber theorem — a special case of class field theory, but proved much earlier — says every finite abelian extension of $\mathbb{Q}$ is contained in a cyclotomic field $\mathbb{Q}(\zeta_N)$, where $\zeta_N$ is a primitive $N$-th root of unity. The maximal abelian extension of $\mathbb{Q}$ is therefore $\mathbb{Q}^{\mathrm{ab}} = \mathbb{Q}(\zeta_\infty) = \bigcup_N \mathbb{Q}(\zeta_N)$, and
+$$\Gal(\mathbb{Q}^{\mathrm{ab}}/\mathbb{Q}) \;\cong\; \widehat{\mathbb{Z}}^\times \;=\; \prod_p \mathbb{Z}_p^\times.$$
+The reciprocity isomorphism identifies this with the idèle class group $\mathbb{A}_\mathbb{Q}^\times / \mathbb{Q}^\times \cdot \mathbb{R}_{>0}$. In Dirichlet's language, characters of $(\mathbb{Z}/N)^\times$ become characters of $G_\mathbb{Q}^{\mathrm{ab}}$ via the cyclotomic action, and Dirichlet $L$-functions are exactly the Artin $L$-functions of the corresponding Galois characters.</p>
+
+<p>The right-hand side of the matching is the moment automorphic representations enter. Continuous characters of $\mathbb{A}_\mathbb{Q}^\times / \mathbb{Q}^\times$ are precisely the automorphic representations of $\GL_1(\mathbb{A}_\mathbb{Q})$ — irreducible smooth representations of the trivial group $\GL_1$ over the adèles. The whole Langlands program is built on the slogan that this picture should generalize: replace $\GL_1$ by $\GL_n$ and one-dimensional Galois characters by $n$-dimensional Galois representations, and the same matching, with the same equality of $L$-functions, should hold.</p>
+
+<aside class="note">
+What does it mean to "see" class field theory as a Langlands correspondence? The point is not that the abelian case is harder than the non-abelian case — it is unconditionally easier. The point is that the language used to state class field theory in its modern form (idèles, Hecke characters, $L$-functions, local-to-global agreement) is exactly the language of automorphic representations of $\GL_1$. The non-abelian generalization simply replaces the abelian $\GL_1$ by the non-abelian $\GL_n$, demands the same kind of matching, and adds the cuspidal-automorphic refinement on the analytic side. Everything else — local factors, Euler products, functional equations — is identical in shape.
+</aside>
+
+<p>Tate's 1950 thesis under Artin gave the analytic theory of these abelian $L$-functions a uniform treatment: the meromorphic continuation and functional equation of every Hecke $L$-function follow from a single local-to-global Fourier analysis on $\mathbb{A}_\mathbb{Q}$. Tate's thesis is the prototype of every later automorphic $L$-function argument — Godement–Jacquet for $\GL_n$, Jacquet–Langlands for $\GL_2$, Langlands–Shahidi for general reductive groups. The shape of the proof — adelic Fourier analysis, local factors, functional equation as Poisson summation — is invariant under going from $\GL_1$ to $\GL_n$. This is the technical reason that the Langlands philosophy is not just an analogy: the same machine that proves analytic continuation in the abelian case keeps working when you turn the dimension knob up.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./class-field-theory.html#artin">Artin reciprocity in detail</a></li>
+    <li><a href="./l-functions.html#hecke">Hecke $L$-functions</a></li>
+    <li><a href="./galois-representations.html#one-dim">One-dimensional Galois representations</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 3 ──── -->
+<section id="modularity">
+<h2><span class="num">§3.</span> Modularity: Langlands for $\GL_2$, the proven case</h2>
+<p>In the dictionary of §1 the simplest non-abelian case is $n=2$: two-dimensional Galois representations matched to automorphic representations of $\GL_2(\mathbb{A}_\mathbb{Q})$. The classical incarnation of $\GL_2$-automorphic representations is the theory of modular forms, and the matching between elliptic curves and modular forms is the only fragment of the program that has been promoted from conjecture to theorem in full generality. It is the case proved by Wiles, Taylor–Wiles, and Breuil–Conrad–Diamond–Taylor between 1995 and 2001, and it is the engine inside Wiles's proof of Fermat's Last Theorem.</p>
+
+<p>A classical modular form of weight $k$ and level $N$ is a holomorphic function $f$ on the upper half-plane $\mathbb{H} = \{z \in \mathbb{C} : \mathrm{Im}\, z > 0\}$ satisfying the transformation law
+$$f\!\left(\frac{az+b}{cz+d}\right) = (cz+d)^k\, f(z) \qquad \text{for all } \begin{pmatrix}a & b \\ c & d\end{pmatrix} \in \Gamma_0(N) \subset \mathrm{SL}_2(\mathbb{Z}),$$
+and meromorphic, in fact holomorphic with controlled growth, at the cusps. The space $S_k(\Gamma_0(N))$ of cusp forms of weight $k$ and level $N$ is a finite-dimensional complex vector space, on which a commuting family of <em>Hecke operators</em> $T_p$ acts for primes $p \nmid N$. A simultaneous eigenvector $f$ for every $T_p$, normalized so that the leading Fourier coefficient $a_1 = 1$, is called a <em>Hecke eigenform</em>. Its Fourier expansion at $i\infty$,
+$$f(z) \;=\; \sum_{n \ge 1} a_n(f)\, q^n, \qquad q = e^{2\pi i z},$$
+has eigenvalues $a_p(f)$ at the primes that satisfy beautiful multiplicative relations: $a_{mn} = a_m a_n$ for $\gcd(m,n) = 1$, and $a_{p^{r+1}} = a_p a_{p^r} - p^{k-1} a_{p^{r-1}}$. The associated $L$-function is
+$$L(f, s) \;=\; \sum_{n \ge 1} \frac{a_n(f)}{n^s} \;=\; \prod_p \frac{1}{1 - a_p(f)\, p^{-s} + p^{k-1-2s}},$$
+and Hecke proved in the 1930s that $L(f,s)$ has analytic continuation and a functional equation by adapting Riemann's argument for $\zeta(s)$.</p>
+
+<p>The <em>modularity theorem</em> (Wiles, Taylor–Wiles 1995; BCDT 2001 in full) says: every elliptic curve $E$ over $\mathbb{Q}$ is modular, meaning there exists a weight-2 normalized newform $f_E \in S_2(\Gamma_0(N))$ — where $N$ is the conductor of $E$ — such that
+$$L(E, s) \;=\; L(f_E, s).$$
+Concretely: the trace of Frobenius on $\rho_{E,\ell}$ at every prime $p \nmid N\ell$ equals the $p$-th Fourier coefficient of $f_E$,
+$$a_p(E) \;=\; p + 1 - \#E(\mathbb{F}_p) \;=\; a_p(f_E).$$
+Two completely different recipes — one counting points on a cubic curve modulo $p$, one looking at Fourier expansions of holomorphic functions on $\mathbb{H}$ — produce the same numbers, at every prime, simultaneously.</p>
+
+<div class="figure">
+  <svg viewBox="0 0 560 240" width="560" height="240" role="img" aria-label="Modularity matching for elliptic curves">
+    <title>Modularity: rho_E ↔ f_E with matching L-functions</title>
+    <g font-size="13">
+      <text x="120" y="38" text-anchor="middle" fill="var(--cyan)">Galois side</text>
+      <text x="440" y="38" text-anchor="middle" fill="var(--cyan)">automorphic side</text>
+      <text x="120" y="80" text-anchor="middle" fill="var(--ink)">elliptic curve E / Q</text>
+      <text x="440" y="80" text-anchor="middle" fill="var(--ink)">eigenform f_E ∈ S_2(Γ_0(N))</text>
+      <text x="120" y="120" text-anchor="middle" fill="var(--mute)" font-size="12">↓ Tate module</text>
+      <text x="440" y="120" text-anchor="middle" fill="var(--mute)" font-size="12">↓ Hecke eigenvalues</text>
+      <text x="120" y="155" text-anchor="middle" fill="var(--ink)">ρ_E,ℓ : G_Q → GL_2(Q_ℓ)</text>
+      <text x="440" y="155" text-anchor="middle" fill="var(--ink)">π_f : autom. rep. of GL_2(A)</text>
+    </g>
+    <g stroke="var(--cyan)" stroke-width="1.4" fill="none">
+      <path d="M 220 155 L 340 155" marker-end="url(#m-r)" marker-start="url(#m-l)"/>
+    </g>
+    <defs>
+      <marker id="m-r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--cyan)"/></marker>
+      <marker id="m-l" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="var(--cyan)"/></marker>
+    </defs>
+    <text x="280" y="195" text-anchor="middle" font-size="13" fill="var(--ink)">tr ρ_E,ℓ(Frob_p) = a_p(f_E) = p + 1 − #E(F_p)</text>
+    <text x="280" y="220" text-anchor="middle" font-size="12" fill="var(--cyan)" font-style="italic">L(E, s) = L(f_E, s)</text>
+  </svg>
+  <div class="caption">Figure 2. Modularity for an elliptic curve over $\mathbb{Q}$: the Galois representation $\rho_{E,\ell}$ on the Tate module and the automorphic representation $\pi_{f_E}$ generated by the weight-2 newform $f_E$ produce the same $L$-function, with traces of Frobenius matching Fourier coefficients of $f_E$ at every prime.</div>
+</div>
+
+<p>Why is this so hard? On the analytic side, the theory of modular forms had been mature for a century. The hard part is on the deformation-theoretic Galois side. To show $\rho_{E,\ell}$ is modular, Wiles studied the universal deformation ring $R$ parametrizing $\ell$-adic lifts of the residual representation $\bar\rho_{E,\ell}: G_\mathbb{Q} \to \GL_2(\mathbb{F}_\ell)$, and a Hecke algebra $T$ acting on the space of modular forms with the same residual representation. The famous "$R = T$" identity, established by patching deformations level by level, says these two rings are isomorphic — so every Galois deformation comes from a modular form, and in particular $\rho_{E,\ell}$ does. This is the deepest piece of arithmetic algebraic geometry the proof needed; it is also the technique that has powered every subsequent advance in the program. Khare–Wintenberger (2009) used a refined version to prove Serre's conjecture: every odd irreducible mod-$\ell$ Galois representation is modular. That theorem is the mod-$\ell$ analogue of $\GL_2$ Langlands, and it is what underwrites most modern automorphy lifting.</p>
+
+<blockquote>What modularity gives, the merely-conjectural side does not: $L(E, s)$ extends meromorphically to all of $\mathbb{C}$ and satisfies a functional equation $\Lambda(E, s) = \pm \Lambda(E, 2 - s)$, because $L(f_E, s)$ does. Hecke proved analytic continuation for modular $L$-functions in the 1930s. Modularity transports that theorem from the analytic to the arithmetic side.</blockquote>
+
+<p>The classical-to-adelic dictionary makes the connection to the rest of the program. A modular form $f$ of weight $k$ and level $N$ corresponds to an automorphic representation $\pi_f$ of $\GL_2(\mathbb{A}_\mathbb{Q})$, generated by the function on $\GL_2(\mathbb{Q}) \backslash \GL_2(\mathbb{A})$ that pulls back to $f$ via strong approximation. Hecke operators become local convolution operators at finite primes, and Hecke eigenvalues become Satake parameters. The Galois–automorphic matching at $n=2$ thereby reads $\rho_{E,\ell} \leftrightarrow \pi_{f_E}$, and the equality of $L$-functions is the matching of all this data, locally at every prime. The whole structure — local factors, ramification, conductor, sign of the functional equation — survives the translation. What had been the abelian dictionary of §2, with one-dimensional characters, has become a 2-dimensional dictionary with semisimple representations of $\GL_2$.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./modular-forms.html#forms">Modular forms and Hecke eigenforms</a></li>
+    <li><a href="./modularity-and-flt.html">Modularity and FLT</a></li>
+    <li><a href="./galois-representations.html#tate-module">Tate modules and $\rho_{E,\ell}$</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 4 ──── -->
+<section id="functoriality">
+<h2><span class="num">§4.</span> Functoriality: $\GL_n$, the Satake isomorphism, the fundamental lemma</h2>
+<p>The $\GL_2$ matching of §3 is the visible tip of an iceberg. The full Langlands philosophy demands the same pattern for every $n \ge 1$, and beyond $\GL_n$ for every reductive group. Stating the conjecture in this generality requires three pieces of machinery: the adelic formulation of automorphic representations, the Satake isomorphism that pins down local data, and Langlands functoriality — the transfer principle that organizes the entire web of conjectures.</p>
+
+<p>Begin with the adelic side. The adèles $\mathbb{A}_\mathbb{Q} = \mathbb{R} \times \prod'_p \mathbb{Q}_p$ are the locally compact ring assembling all completions of $\mathbb{Q}$, with the restricted-product condition that almost all finite components lie in $\mathbb{Z}_p$. The group $\GL_n(\mathbb{A}_\mathbb{Q}) = \GL_n(\mathbb{R}) \times \prod'_p \GL_n(\mathbb{Q}_p)$ is locally compact, and the discrete subgroup $\GL_n(\mathbb{Q})$ embeds diagonally. The quotient
+$$\GL_n(\mathbb{Q}) \backslash \GL_n(\mathbb{A}_\mathbb{Q})$$
+is the adelic homogeneous space, and a function on it that is right-$K$-finite for a compact-open subgroup $K \subset \GL_n(\mathbb{A}_\mathbb{Q})$, $\mathfrak{z}$-finite for the center of the universal enveloping algebra, and of moderate growth, is an <em>automorphic form</em>. An <em>automorphic representation</em> $\pi$ of $\GL_n(\mathbb{A}_\mathbb{Q})$ is an irreducible subquotient of the regular representation on the space of automorphic forms; if it occurs in the $L^2$-cuspidal subspace, $\pi$ is <em>cuspidal</em>. By a theorem of Flath, every irreducible automorphic representation factors as a restricted tensor product
+$$\pi \;=\; \pi_\infty \otimes \bigotimes_p{}'\, \pi_p$$
+of irreducible admissible representations of the local groups $\GL_n(\mathbb{Q}_v)$. The local components $\pi_p$ are the building blocks; almost all of them are unramified, meaning they have a $\GL_n(\mathbb{Z}_p)$-fixed vector.</p>
+
+<p>The unramified local representations of $\GL_n(\mathbb{Q}_p)$ are classified by the <em>Satake isomorphism</em>, a beautiful piece of $p$-adic harmonic analysis. The spherical Hecke algebra $\mathcal{H}(\GL_n(\mathbb{Q}_p), \GL_n(\mathbb{Z}_p))$ — bi-invariant compactly supported functions under convolution — is canonically isomorphic to the algebra of symmetric Laurent polynomials in $n$ variables:
+$$\mathcal{H}(\GL_n(\mathbb{Q}_p), \GL_n(\mathbb{Z}_p)) \;\cong\; \mathbb{C}[X_1^{\pm 1}, \ldots, X_n^{\pm 1}]^{S_n}.$$
+An unramified $\pi_p$ is therefore determined by an unordered $n$-tuple of nonzero complex numbers $(\alpha_{1,p}, \ldots, \alpha_{n,p})$ — its <em>Satake parameters</em> — and the local $L$-factor reads
+$$L_p(\pi, s) \;=\; \prod_{i=1}^n \bigl(1 - \alpha_{i,p}\, p^{-s}\bigr)^{-1}.$$
+Compare this with the local $L$-factor on the Galois side:
+$$L_p(\rho, s) \;=\; \det\!\bigl(I_n - \rho(\operatorname{Frob}_p) p^{-s}\bigr)^{-1} \;=\; \prod_{i=1}^n \bigl(1 - \beta_{i,p}\, p^{-s}\bigr)^{-1},$$
+where $\beta_{i,p}$ are the eigenvalues of $\rho(\operatorname{Frob}_p)$. The Langlands matching at $\pi \leftrightarrow \rho$ asserts that the multisets of Satake parameters and Frobenius eigenvalues agree at every unramified prime: $\{\alpha_{i,p}\} = \{\beta_{i,p}\}$. Equality of $L$-functions, factor by factor, is exactly equality of these parameters.</p>
+
+<aside class="note">
+The Satake isomorphism is not specific to $\GL_n$. For any unramified reductive group $G$ over $\mathbb{Q}_p$, the spherical Hecke algebra is canonically isomorphic to the representation ring of the <em>Langlands dual group</em> $\widehat{G}$ — a complex reductive group with roots and weights swapped. For $G = \GL_n$, the dual is $\widehat{\GL_n} = \GL_n(\mathbb{C})$, and the rep ring is the symmetric Laurent polynomials. For $G = \mathrm{SO}_{2n+1}$, the dual is $\mathrm{Sp}_{2n}(\mathbb{C})$. The Langlands dual is what makes the program "functorial": natural maps between dual groups predict natural maps between automorphic representations.
+</aside>
+
+<p>This sets up the central conjecture. <strong>Langlands functoriality</strong> says: any homomorphism of Langlands dual groups $\varphi\colon \widehat{H} \to \widehat{G}$ induces a transfer map sending automorphic representations of $H(\mathbb{A})$ to automorphic representations of $G(\mathbb{A})$, compatibly with $L$-functions. Special cases of functoriality include base change (transferring an automorphic representation from $\GL_n(\mathbb{A}_F)$ to $\GL_n(\mathbb{A}_E)$ for $E/F$ a finite Galois extension), automorphic induction (its inverse), and the symmetric power lifts $\mathrm{sym}^k\colon \GL_2 \to \GL_{k+1}$. Each functoriality statement is a deep conjecture with profound consequences. Langlands–Tunnell (1980, used by Wiles for the residual case of modularity) proves the tetrahedral and octahedral case of Artin's conjecture by transferring through $\GL_2$. Arthur's endoscopic transfer for classical groups, completed in the 2010s, is functoriality between $\mathrm{SO}_{2n+1}$ or $\mathrm{Sp}_{2n}$ and $\GL_{2n}$. The geometric Langlands program reformulates functoriality as a duality between sheaves on moduli stacks of bundles for dual groups.</p>
+
+<p>The technical engine inside many of these proofs is the <strong>Arthur–Selberg trace formula</strong>, an identity of distributions on $G(\mathbb{A})$ comparing the spectral decomposition of $L^2(G(\mathbb{Q}) \backslash G(\mathbb{A}))$ with a sum over conjugacy classes:
+$$\sum_\pi m(\pi)\, \tr \pi(f) \;=\; \sum_{[\gamma]} \mathrm{vol}(\gamma) \cdot O_\gamma(f) + (\text{continuous terms}).$$
+Comparing trace formulas for two groups $H$ and $G$ related by a functorial map is how Langlands hoped to prove transfer. The obstacle for decades was the <em>fundamental lemma</em>: a precise identity between orbital integrals on $G$ and stable orbital integrals on its endoscopic groups. Stated cleanly by Langlands and refined by Shelstad in the 1980s, it resisted proof for nearly 20 years. Bao Châu Ngô proved it in 2008, using the geometry of the Hitchin fibration and a delicate cohomological argument; it earned him the 2010 Fields Medal. With the fundamental lemma in hand, Arthur completed the endoscopic classification of automorphic representations of classical groups in his 2013 monograph, and a substantial portion of functoriality is now theorem.</p>
+
+<p>For $\GL_n$ over function fields — the geometric analogue of $\mathbb{Q}$, where $\mathbb{Q}$ is replaced by the function field of a curve over a finite field — the matching is much further along than over $\mathbb{Q}$. Drinfeld proved $\GL_2$ Langlands over function fields in the 1970s using moduli stacks of <em>shtukas</em>, and Laurent Lafforgue extended it to $\GL_n$ for all $n$ in 2002, earning the 2002 Fields Medal. Vincent Lafforgue (Laurent's brother) established a substantial part of the function-field Langlands program for general reductive groups in 2018. Function-field Langlands is closer to a theorem and number-field Langlands is closer to a conjecture; this asymmetry — reflecting the fundamental fact that $\mathbb{F}_q[t]$ is geometrically simpler than $\mathbb{Z}$ — is one of the program's structural facts.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./langlands-program.html">The Langlands program</a> — the concept page</li>
+    <li><a href="./l-functions.html#unified">Euler products and functional equations</a></li>
+    <li><a href="./galois-representations.html#rep">Galois representations</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 5 ──── -->
+<section id="endgame">
+<h2><span class="num">§5.</span> Endgame: Sato–Tate, Clozel–Harris–Taylor, the geometric program</h2>
+<p>The Langlands program is not a single conjecture but a fan of nested predictions, of which only the outermost layers are theorems. To take the temperature of the field as of 2025, three landmarks are useful: the proof of Sato–Tate, the Clozel–Harris–Taylor advances on automorphy lifting in higher dimension, and the geometric / categorical reformulation that has emerged in the work of Beilinson, Drinfeld, Frenkel, Gaitsgory, and Scholze.</p>
+
+<p>The Sato–Tate conjecture (1960s) is a statistical statement about elliptic curves. For an elliptic curve $E/\mathbb{Q}$ without complex multiplication, write $a_p = p + 1 - \#E(\mathbb{F}_p)$ and define the normalized angle $\theta_p \in [0, \pi]$ by $a_p = 2\sqrt{p}\, \cos\theta_p$ — the Hasse bound $|a_p| \le 2\sqrt{p}$ guarantees $\cos\theta_p \in [-1,1]$. Sato and Tate conjectured that as $p$ varies over primes of good reduction, the angles $\theta_p$ equidistribute with respect to the Sato–Tate measure
+$$d\mu_{\mathrm{ST}} \;=\; \frac{2}{\pi}\, \sin^2\!\theta\, d\theta.$$
+This is the spectral measure of $\mathrm{SU}(2)$, a hint that the Galois representation $\rho_{E,\ell}$ has, in some Tannakian sense, an $\mathrm{SU}(2)$-symmetry shaping its Frobenius statistics. Sato–Tate was proved in 2008 by Clozel, Harris, Shepherd-Barron, and Taylor in a remarkable sequence of papers, building on Wiles's modularity machine but going substantially further. The key step is to show that all <em>symmetric power</em> $L$-functions $L(\mathrm{sym}^k \rho_{E,\ell}, s)$ are automorphic — that is, equal $L$-functions of automorphic representations of $\GL_{k+1}(\mathbb{A}_\mathbb{Q})$ — for every $k \ge 1$. Once enough symmetric powers are automorphic, an analytic-number-theoretic Tauberian argument applied to the family $\{L(\mathrm{sym}^k \rho_{E,\ell}, s)\}$ yields equidistribution. Sato–Tate is the first result that crucially uses Langlands functoriality (the symmetric-power lift) in an essential way to deduce a concrete equidistribution statement.</p>
+
+<p>The technical engine — <em>automorphy lifting in higher dimension</em> — has subsequently produced further victories. Calegari and Geraghty refined the deformation-theoretic patching to settings where the relevant cohomology groups are not freely modular, opening up modularity results for $\GL_n$ with $n > 2$ under strong hypotheses. Allen, Calegari, Caraiani, Gee, Helm, Le Hung, Newton, Scholze, and Taylor proved, in a series of papers around 2018–2023, the modularity of every cuspidal Hilbert modular form's symmetric powers, and 10-dimensional automorphy lifting for $\GL_n$ over CM fields. The <em>potential modularity</em> of every elliptic curve over a totally real or CM field is now known. Many cases of the global $\GL_n$ Langlands correspondence are theorem in dimension $\le 5$, with many partial results above. The Fontaine–Mazur conjecture — that every odd, irreducible, geometric, $\ell$-adic Galois representation of $G_\mathbb{Q}$ comes from a cuspidal automorphic representation — is now known in two-dimensional cases by work of Emerton, Kisin, and others, and is the precise current frontier.</p>
+
+<p>In a parallel direction, the <em>geometric Langlands program</em> reformulates the entire matching as an equivalence of categories rather than a bijection of Galois reps and automorphic forms. For a smooth projective curve $X$ over $\mathbb{C}$, replace the role of $G_\mathbb{Q}$ by the algebraic fundamental group $\pi_1(X)$, and replace automorphic representations by sheaves on the moduli stack $\mathrm{Bun}_G(X)$ of $G$-bundles on $X$. The geometric Langlands conjecture (Beilinson–Drinfeld 1990s, refined by Arinkin and Gaitsgory) is an equivalence
+$$D\text{-mod}(\mathrm{Bun}_G(X)) \;\simeq\; \mathrm{IndCoh}\bigl(\mathrm{LocSys}_{\widehat{G}}(X)\bigr)$$
+between the category of $D$-modules on $\mathrm{Bun}_G(X)$ and ind-coherent sheaves on the moduli space of $\widehat{G}$-local systems on $X$. This is a categorical Fourier-Mukai-style duality, and a complete proof of the function-field categorical statement was announced by Gaitsgory and a large team in 2024. The geometric program is harder than the arithmetic one in dimension count but easier in technique, and it is currently the most rapidly evolving frontier: every advance in geometric Langlands has historically translated, after further work, into progress on the arithmetic side.</p>
+
+<p>The deepest layer connecting all of this to the rest of the notebook is Peter Scholze's <em>perfectoid spaces</em> and his ongoing reformulation of the program in terms of the <em>$p$-adic geometric Langlands correspondence</em>. Perfectoid spaces are a class of analytic adic spaces in which Frobenius is, in a precise sense, an isomorphism — they bridge characteristic $0$ and characteristic $p$ geometry through a process called <em>tilting</em>. Using perfectoid Shimura varieties and the pro-étale site, Scholze and Caraiani (2017) constructed Galois representations attached to torsion classes in cohomology of locally symmetric spaces, opening up Langlands-correspondence-type statements where no automorphic representation in the classical sense exists. The Fargues–Scholze "geometrization" of the local Langlands correspondence (announced 2020, full manuscript 2024) reformulates local Langlands as a sheaf-theoretic statement on the moduli stack of $G$-bundles on the Fargues–Fontaine curve. Each of these is a major rewrite of the foundations of the program; collectively, they suggest that we are still well short of understanding what the Langlands philosophy is ultimately a theorem about.</p>
+
+<div class="note">
+A useful slogan for the current state of affairs: $\GL_2$ over $\mathbb{Q}$ is theorem; $\GL_n$ over function fields is theorem; $\GL_n$ over number fields is conjecture, with substantial fragments theorem; geometric Langlands over $\mathbb{C}$ is theorem; the categorical / spectral reformulations of the program are an active research frontier reshaping the questions themselves. The endpoint Langlands envisioned — a single Tannakian "Langlands group" $L_F$ whose $n$-dimensional representations are exactly cuspidal automorphic representations of $\GL_n(\mathbb{A}_F)$, compatible with the motivic Galois group — remains conjectural in essentially every case.
+</div>
+
+<p>A final point deserves emphasis. Langlands originally formulated his conjectures over $\mathbb{Q}$ and over function fields. Substantial generalizations have since been understood for global fields of all kinds: number fields, function fields of curves over finite fields, and — under restrictions — over $p$-adic local fields and over $\mathbb{C}$. The <em>local Langlands correspondence</em>, which matches admissible representations of $G(\mathbb{Q}_p)$ to $\widehat{G}$-valued Weil–Deligne representations of $G_{\mathbb{Q}_p}$, was proved by Harris–Taylor and Henniart for $\GL_n$ in 2001, and Fargues–Scholze geometrized it. The relationship between local and global is a local–global principle in disguise: global automorphy is forced by compatibility of local matchings at every place, and this is what every modern automorphy-lifting argument exploits. Reciprocity, in the Langlands sense, is the assertion that every prime sees the same dictionary at the same time.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./sato-tate.html">Sato–Tate equidistribution</a></li>
+    <li><a href="./langlands-program.html#capstone">Universal reciprocity</a></li>
+    <li><a href="./modularity-and-flt.html">Modularity and FLT</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 6 ──── -->
+<section id="coda">
+<h2><span class="num">§6.</span> Coda: a grand unification</h2>
+<p>What Langlands sketched in his 1967 letter to Weil — and what mathematics has been incrementally proving ever since — is a grand unification of two of its largest subjects. Number theory in its arithmetic mood (Galois groups, Frobenius, congruences, étale cohomology) and harmonic analysis in its arithmetic mood (automorphic forms, Hecke algebras, spectral decomposition of locally symmetric spaces) turn out to be the same subject viewed through different lenses. The matching is not metaphorical: it is an equality of $L$-functions, factor by factor, at every prime, simultaneously. When the matching holds, the two columns of the dictionary supply each other with what each side could not prove alone — analytic continuation and functional equation flow from automorphy to the Galois side; rationality and Tate-module structure flow from the Galois side to automorphy.</p>
+
+<p>The milestones of the program now span a century. Artin reciprocity (1927) settled the abelian case and gave the language. Hecke's theory of $L$-functions (1918–1937) and Tate's thesis (1950) supplied the analytic backbone, showing that the same Fourier-analytic machine works at every $n$. Langlands's 1967 letter set the program. Wiles's modularity (1995, with Taylor) and the Breuil–Conrad–Diamond–Taylor extension (2001) settled the proven $\GL_2$ case over $\mathbb{Q}$ and embedded it in the deformation-theoretic engine. Drinfeld and Lafforgue settled $\GL_n$ over function fields (1970s, 2002). Ngô's proof of the fundamental lemma (2008) unlocked Arthur's endoscopic classification. Khare–Wintenberger settled Serre's conjecture (2009). Clozel–Harris–Shepherd-Barron–Taylor proved Sato–Tate (2008–2010) by establishing the symmetric-power lifts as a special case of functoriality. Scholze's perfectoid spaces (2012) and the subsequent geometrization of local Langlands (Fargues–Scholze, 2024) opened a new front. Gaitsgory's team announced the geometric Langlands theorem in 2024. The frontier, as of this writing, is potential modularity in higher dimension, the categorical reformulation of arithmetic Langlands, and the search for an explicit construction of the Langlands group $L_F$.</p>
+
+<p>The philosophical point is that reciprocity — the matching of arithmetic and analytic data through $L$-functions — is the deepest organizing principle in number theory. Quadratic reciprocity (1801) was the first instance, and class field theory (1900–1930) handled the abelian generalization. The non-abelian extension is the Langlands program, and most of what has been proved in number theory since 1967 is, in some sense, an instance or a consequence of it. Even apparently unrelated successes — Fermat's Last Theorem, the Birch–Swinnerton-Dyer conjecture in low rank, the explicit Galois groups Khare–Wintenberger settled — are downstream of the matching, often by deformation-theoretic arguments that did not exist before Wiles. The Langlands philosophy is not so much a single conjecture as the operating system on which modern number theory runs.</p>
+
+<blockquote>If number theory has a north star, it is reciprocity. The Langlands program is the project of generalizing that star to every dimension and every reductive group, of making it into a structural feature of mathematics rather than a curiosity at $n=1$. After six decades of partial proofs, what remains is breathtaking — but the program has worked, in the cases where it has been proved, with such uncanny precision that it would now be more surprising for it to fail in any of the remaining cases than for it to succeed.</blockquote>
+
+<p>The question Langlands asked Weil to read with sympathy in 1967 was, in essence: <em>can a one-dimensional reciprocity law be extended to every dimension?</em> The answer, in the proven cases, has been yes — and the proofs have repeatedly required machinery that did not exist when the question was asked. Galois representations attached to torsion classes, perfectoid Shimura varieties, the Fargues–Fontaine curve, the categorical local Langlands correspondence, $\infty$-categorical sheaves on moduli stacks of bundles: these are inventions of the last fifteen years, each motivated by a Langlands-program problem and each opening territory that no other source has seen the need for. The program has been a technology generator as much as a theorem to be proved. Whatever its eventual fate, it has already redrawn the map of mathematics; and the matching it predicts — between the symmetry of arithmetic and the harmony of automorphic forms — is the most beautiful single idea in the subject.</p>
+
+<div class="note">
+The reader who has reached this far has, in some sense, completed a survey. The arithmetic side of the program is in <a href="./galois-representations.html">galois-representations.html</a>, <a href="./class-field-theory.html">class-field-theory.html</a>, and <a href="./modular-forms.html">modular-forms.html</a>. The automorphic side is in <a href="./langlands-program.html">langlands-program.html</a>. Modularity itself is in <a href="./modularity-and-flt.html">modularity-and-flt.html</a>, and the equidistribution endpoint is in <a href="./sato-tate.html">sato-tate.html</a>. The unifying analytic engine — Euler products and functional equations — is in <a href="./l-functions.html">l-functions.html</a>. The thread tying them together is what this essay has tried to articulate: a single matching, viewed from six angles, of which the program is the conjectural completion.
+</div>
+</section>
+
+<hr class="endrule"/>
+
+<p class="colophon">
+The reciprocity that runs from Gauss's golden theorem to Langlands's letter is one matching wearing many costumes. At $n=1$ it is class field theory, settled a hundred years ago. At $n=2$ over $\mathbb{Q}$ it is modularity, settled by Wiles. At $n \ge 3$ it is mostly conjecture, with islands of theorem secured by automorphy lifting in higher dimension. Across the whole program the same shape recurs: an Euler product on each side, agreement at every prime, a functional equation forced by the analytic side. Whatever else mathematics turns out to be, it appears that arithmetic and harmonic analysis are, at the deepest level, the same subject — and the Langlands philosophy is the projection of that fact onto the single object best suited to register it: the $L$-function.
+</p>
+
+<h3>Further reading</h3>
+<ol class="refs">
+  <li>R. P. Langlands, "Letter to A. Weil" (1967). The 17-page handwritten origin document of the program; available from the Institute for Advanced Study Langlands archive.</li>
+  <li>S. Gelbart, "An elementary introduction to the Langlands program," <em>Bull. Amer. Math. Soc.</em> 10 (1984). The standard expository entry point.</li>
+  <li>J. Bernstein and S. Gelbart (eds.), <em>An Introduction to the Langlands Program</em>, Birkhäuser (2003). Lecture-note treatment of the abelian and $\GL_2$ cases.</li>
+  <li>J. Tate, "Fourier analysis in number fields and Hecke's zeta-functions," in J. W. S. Cassels and A. Fröhlich (eds.), <em>Algebraic Number Theory</em>, Academic Press (1967). Tate's 1950 thesis, the analytic backbone of the program.</li>
+  <li>A. Wiles, "Modular elliptic curves and Fermat's Last Theorem," <em>Ann. of Math.</em> 141 (1995). The proof of $\GL_2$ Langlands for semistable elliptic curves over $\mathbb{Q}$.</li>
+  <li>L. Lafforgue, "Chtoucas de Drinfeld et correspondance de Langlands," <em>Invent. Math.</em> 147 (2002). $\GL_n$ Langlands over function fields.</li>
+  <li>B. C. Ngô, "Le lemme fondamental pour les algèbres de Lie," <em>Publ. Math. IHÉS</em> 111 (2010). The fundamental lemma via Hitchin fibrations.</li>
+  <li>L. Clozel, M. Harris, and R. Taylor, "Automorphy for some $\ell$-adic lifts of automorphic mod $\ell$ Galois representations," <em>Publ. Math. IHÉS</em> 108 (2008). The automorphy-lifting package that, with subsequent work, yielded Sato–Tate.</li>
+  <li>L. Fargues and P. Scholze, <em>Geometrization of the local Langlands correspondence</em>, manuscript (2024). The geometric reformulation on the Fargues–Fontaine curve.</li>
+  <li>D. Gaitsgory, "Recent progress in the geometric Langlands program," ICM 2022 plenary; full theorem with collaborators announced 2024.</li>
+</ol>
+
+</main>
+
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-05</td><td>Langlands philosophy capstone story (Tour 9 long-form): reciprocity → class field theory → modularity → functoriality → Sato–Tate &amp; geometric program</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

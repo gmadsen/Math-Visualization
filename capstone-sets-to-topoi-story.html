@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>From naive sets to ∞-topoi</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,"Charter","Georgia",serif;
+    font-size:17px;line-height:1.72}
+  main{max-width:780px;margin:0 auto;padding:3rem 1.5rem 7rem}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  h1{font-size:2.3rem;letter-spacing:-0.01em;margin:0 0 0.4rem;font-weight:650}
+  h2{font-size:1.45rem;margin:3rem 0 0.7rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.35rem;font-weight:600}
+  h2 .num{color:var(--green);font-variant-numeric:tabular-nums;margin-right:.45rem;font-weight:500}
+  h3{font-size:1.08rem;margin:1.6rem 0 .5rem;color:var(--green);font-weight:600}
+  p{margin:0.8rem 0}
+  blockquote{border-left:3px solid var(--green);padding:.2rem 1rem;margin:1.2rem 0;color:#d8e8cf;
+    background:#172019;border-radius:0 6px 6px 0;font-style:italic}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:1.4rem;font-size:1.05rem;line-height:1.55}
+  .lede{font-size:1.05rem;line-height:1.7;color:#dde3ec;margin:1.4rem 0 1.8rem}
+  .lede::first-letter{
+    float:left;font-size:3.1rem;line-height:.95;
+    padding:.15rem .45rem 0 0;color:var(--green);font-weight:700;font-family:"Charter","Georgia",serif;
+  }
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.55rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.88rem;align-items:baseline}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--green)}
+  nav.toc .spacer{flex:1}
+  nav.toc .story-pill{color:var(--green);border:1px solid color-mix(in srgb, var(--green) 45%, transparent);
+    border-radius:999px;padding:1px 10px;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase}
+  .hero{padding:2.4rem 0 .4rem}
+  .byline{color:var(--mute);font-size:.88rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.6rem}
+  .figure{margin:1.6rem 0 2rem;text-align:center}
+  .figure svg{display:block;margin:0 auto;max-width:100%;
+    background:#0b0f16;border:1px solid var(--line);border-radius:8px}
+  .figure svg text{fill:var(--ink);font-family:inherit}
+  .caption{color:var(--mute);font-size:.88rem;margin-top:.5rem;line-height:1.5;font-style:italic;
+    max-width:560px;margin-left:auto;margin-right:auto}
+  .note{border-left:3px solid var(--green);padding:.35rem .9rem;color:#d8e8cf;background:#172019;
+    margin:1rem 0;border-radius:0 6px 6px 0;font-size:.96rem;line-height:1.6}
+  .ok{border-left:3px solid var(--green);padding:.35rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0;font-size:.96rem;line-height:1.6}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(131,193,103,0.06);
+    border-left:3px solid color-mix(in srgb, var(--green) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2.5rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute);white-space:nowrap;font-variant-numeric:tabular-nums}
+  .endrule{border:none;border-top:1px solid var(--line);margin:2.4rem 0 1rem}
+  .colophon{color:var(--mute);font-size:.88rem;line-height:1.55;font-style:italic}
+  ol.refs{padding-left:1.3rem;color:var(--mute);font-size:.9rem;line-height:1.55}
+  ol.refs li{margin:.25rem 0}
+</style>
+<link rel="stylesheet" href="./css/notebook.css">
+<script src="./js/theme-toggle.js"></script>
+</head>
+<body data-level="capstone" data-c="green">
+
+<nav class="toc">
+  <a href="./index.html" style="color:var(--green);font-weight:500">← Notebook</a>
+  <a href="./tours.html#sets-to-topoi">Tour 4</a>
+  <a href="#sets">§1 Sets</a>
+  <a href="#yoneda">§2 Yoneda</a>
+  <a href="#elementary-topos">§3 Topoi</a>
+  <a href="#simplicial">§4 Simplicial</a>
+  <a href="#quasi-cat">§5 ∞-cat</a>
+  <a href="#infinity-topos">§6 ∞-topoi</a>
+  <span class="spacer"></span>
+  <span class="story-pill">story</span>
+</nav>
+
+<main>
+
+<section class="hero">
+  <div class="byline">An essay on universes of discourse</div>
+  <h1>From naive sets to ∞-topoi</h1>
+  <p class="sub">Every working mathematician picks a place in which to do mathematics. For most of the twentieth century that place was "sets and functions"; for the last fifty years it has been migrating, layer by layer, into a richer and richer category of categories. This essay traces the migration in six steps, from the membership relation $\in$ all the way to Lurie's $\infty$-topoi — the ambient universe in which derived algebraic geometry, homotopy type theory, and modern descent all live.</p>
+</section>
+
+<p class="lede">Mathematics is haunted by a question that students rarely think to ask: <em>where</em> is mathematics done? Not which subject — whether algebra or analysis or topology — but in which kind of universe. For most of the nineteenth century the answer was "in $\mathbb{R}^n$, with a few permitted abstractions"; for most of the twentieth, it was Cantor's set theory, with ZFC as the official rulebook. The answer that has been quietly assembling itself since 1945 is more interesting. A mathematical universe, on this view, is not a fixed bag of points decorated with extra structure; it is a <em>category</em>, a place where one can speak of objects, morphisms, and universal constructions, and where the same theorem will look entirely different depending on which category one inhabits. Sheaves over a topological space form one universe; group actions form another; the world of homotopy types is a third; the étale site of an arithmetic scheme is a fourth. Each of them looks like $\mathsf{Set}$ from far enough away, and each of them, on closer inspection, behaves in subtly different ways — different logics, different truth values, different rules for when "the same" really means the same. A topos is the technical name for this kind of universe-of-discourse, and an $\infty$-topos is the homotopy-theoretically refined version that has taken over modern geometry. The arc this essay traces is the path that connects them.</p>
+
+<p>It is a companion to <a href="./tours.html#sets-to-topoi">Tour 4</a> in the notebook, which lays out the same arc as a sequence of stops with figures. Here we stay with the prose and try to make the conceptual jump in slow motion.</p>
+
+<!-- ───────────────────────────────────────────── § 1 ──── -->
+<section id="sets">
+<h2><span class="num">§1.</span> Sets, functions, and the iterative hierarchy</h2>
+<p>The starting point is the picture every student carries by the end of an undergraduate course. A <em>set</em> is a collection of elements; a <em>function</em> $f\colon A \to B$ is a rule that assigns to each $a \in A$ exactly one $b \in B$. From this primitive vocabulary you build the cartesian product $A \times B$ (ordered pairs), the disjoint union $A \sqcup B$ (tagged elements), the quotient $A/{\sim}$ (equivalence classes under a relation), and the function space $B^A$ (the set of all functions $A \to B$). These four operations are the workshop in which most undergraduate proofs are written, and for a great deal of mathematics they are entirely sufficient.</p>
+
+<p>The price of this clarity is paid in the foundations. Cantor's original conception, in his 1874 and 1891 papers, treated sets <em>naively</em>: any well-defined collection of objects was a set. Russell's 1901 paradox — the set $R = \{x : x \notin x\}$ of all sets that do not contain themselves — showed that naive comprehension is contradictory, since asking whether $R \in R$ produces "yes if and only if no." The standard repair, codified in the Zermelo–Fraenkel axioms with the Axiom of Choice (ZFC) by 1925, restricts comprehension: one cannot simply form $\{x : \varphi(x)\}$ for arbitrary $\varphi$, but only $\{x \in A : \varphi(x)\}$ for a previously-given set $A$. The full universe of sets is then built by transfinite iteration:
+$$V_0 = \emptyset, \qquad V_{\alpha+1} = \mathcal{P}(V_\alpha), \qquad V_\lambda = \bigcup_{\alpha < \lambda} V_\alpha \text{ for limit } \lambda,$$
+and the universe of all sets is $V = \bigcup_\alpha V_\alpha$ over all ordinals $\alpha$. This is the <em>cumulative hierarchy</em>: every set is a member of some $V_\alpha$, every set is built out of previously-constructed sets via the power-set operation, and every theorem of ZFC is a statement about this hierarchy.</p>
+
+<div class="note">
+ZFC works. It has worked for a hundred years; nearly every theorem in the literature can in principle be reformulated as a statement about $V$. But notice what is being privileged: the relation $\in$, the membership relation, is treated as primitive. To say "$f$ is a function from $A$ to $B$" is, in the ZFC dialect, to say "$f$ is a certain kind of subset of $A \times B$" — and $A \times B$ is itself a set of ordered pairs $(a, b)$ encoded, à la Kuratowski, as $\{\{a\}, \{a, b\}\}$. The whole apparatus of ordered tuples, functions, products, and quotients is grounded in iterated braces. The encoding works, but it is not what mathematicians actually mean.
+</div>
+
+<p>What mathematicians actually mean, when they prove that "the product of two sets is unique up to a unique isomorphism," is something more structural. They mean: there is an object $A \times B$ together with two projection functions $\pi_A\colon A\times B \to A$ and $\pi_B\colon A \times B \to B$ such that, for any other object $C$ and any pair of functions $f\colon C \to A$ and $g\colon C \to B$, there exists a unique function $\langle f, g\rangle\colon C \to A \times B$ making
+$$\pi_A \circ \langle f, g\rangle = f, \qquad \pi_B \circ \langle f, g\rangle = g.$$
+This is the <em>universal property</em> of the product. It does not mention elements, ordered pairs, or braces; it mentions only objects, arrows, and a uniqueness clause. And the moment you write this universal property down, you have left set theory and entered category theory — because the property involves not just $A$ and $B$ but the ambient category of all objects $C$, the all-quantifier ranging over morphisms.</p>
+
+<p>The leap from "$\in$" to "universal property" is the entire conceptual jump this tour follows up. From the universal-property point of view, sets and functions are merely <em>one example</em> of a structure with products. Topological spaces with continuous maps have products. Groups with homomorphisms have products. Sheaves of abelian groups have products. The construction is the same in each case, the underlying machinery is different, and the categorical reformulation makes that fact a single line rather than four separate proofs.</p>
+
+<p>The category of sets, $\mathsf{Set}$, will reappear at every later stop of this essay as a kind of reference point: the simplest universe of discourse, the one in which all later universes claim some kinship. But by the end of the tour we will see that $\mathsf{Set}$ is not the only place to do mathematics — it is one topos among many, and not always the most natural one.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./naive-set-theory.html#sets">Sets, functions, products on the naive set theory page</a></li>
+    <li><a href="./naive-set-theory.html#russell">Russell's paradox</a></li>
+    <li><a href="./category-theory.html#categories">Categories as the next layer up</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 2 ──── -->
+<section id="yoneda">
+<h2><span class="num">§2.</span> Categories, functors, and the Yoneda lemma</h2>
+<p>A <em>category</em> $\mathcal{C}$ consists of a class of objects $\mathrm{ob}(\mathcal{C})$, and for each pair of objects $X, Y$ a class of <em>morphisms</em> (or arrows) $\mathrm{Hom}_{\mathcal{C}}(X, Y)$, together with an associative composition operation and an identity morphism $1_X$ on every object $X$. That is the entire definition; no element is mentioned. Sets and functions form a category $\mathsf{Set}$. Groups and homomorphisms form $\mathsf{Grp}$. Topological spaces and continuous maps form $\mathsf{Top}$. Vector spaces over a fixed field $k$ and $k$-linear maps form $\mathsf{Vect}_k$. The category is what you get when you keep track of arrows between things rather than elements within things — and the discipline of doing this honestly turns out, after Eilenberg and Mac Lane's foundational paper of 1945, to be unexpectedly powerful.</p>
+
+<p>A <em>functor</em> $F\colon \mathcal{C} \to \mathcal{D}$ assigns an object $F(X) \in \mathcal{D}$ to each object $X \in \mathcal{C}$ and a morphism $F(f)\colon F(X) \to F(Y)$ to each morphism $f\colon X \to Y$, in a way that respects identities and composition. Functors are how categories talk to one another. The forgetful functor $U\colon \mathsf{Grp} \to \mathsf{Set}$ sends a group to its underlying set; the free functor $F\colon \mathsf{Set} \to \mathsf{Grp}$ sends a set to the free group on it; together they form an <em>adjunction</em> $F \dashv U$, the categorical generalization of "the free thing is the universal solution." Most pairs of theories you have ever seen related to each other — vector spaces and bases, topological spaces and their fundamental groups, sets and free monoids — are connected by an adjunction.</p>
+
+<p>A <em>natural transformation</em> $\eta\colon F \Rightarrow G$ between two functors $F, G\colon \mathcal{C} \to \mathcal{D}$ is a family of morphisms $\eta_X\colon F(X) \to G(X)$, one for each $X \in \mathcal{C}$, such that the obvious square commutes for every $f\colon X \to Y$. So natural transformations are arrows between functors, and one can build categories of functors $[\mathcal{C}, \mathcal{D}]$ whose objects are functors $\mathcal{C} \to \mathcal{D}$ and whose morphisms are natural transformations. This is already the second layer of "everything is an arrow"; we will need a third in §5.</p>
+
+<p>The punchline of this layer is the <strong>Yoneda lemma</strong>. For each object $X \in \mathcal{C}$, there is a representable presheaf
+$$h_X = \mathrm{Hom}_{\mathcal{C}}(-, X)\colon \mathcal{C}^{\mathrm{op}} \to \mathsf{Set},$$
+which sends an object $Y$ to the set of arrows $Y \to X$ and a morphism $g\colon Y' \to Y$ to precomposition $f \mapsto f \circ g$. The Yoneda lemma asserts that for any presheaf $F\colon \mathcal{C}^{\mathrm{op}} \to \mathsf{Set}$, the natural transformations $h_X \Rightarrow F$ are in bijection with elements of $F(X)$:
+$$\mathrm{Nat}(h_X, F) \;\cong\; F(X).$$
+A consequence: the assignment $X \mapsto h_X$ defines a fully faithful embedding
+$$\mathcal{C} \;\hookrightarrow\; \widehat{\mathcal{C}} := [\mathcal{C}^{\mathrm{op}}, \mathsf{Set}]$$
+of $\mathcal{C}$ into its <em>presheaf category</em> $\widehat{\mathcal{C}}$. Every object of $\mathcal{C}$ is determined, up to canonical isomorphism, by the pattern of arrows into it from every other object.</p>
+
+<blockquote>An object is what an object does. The Yoneda lemma is the precise statement that an object's identity is exhausted by its relationships — by the functor of arrows into it.</blockquote>
+
+<p>This is the philosophical lever that makes the rest of the tour possible. Every later "topos" will be a category of presheaves, or a localization of one — a category of <em>generalized elements</em>, where an element of $X$ is allowed to be parametrized by any other object $Y$. The étale topos of a scheme is built from étale-covers-as-elements; the topos of $G$-sets is built from "elements parametrized by orbits"; the $\infty$-topos of spaces is built from "elements up to homotopy." In every case, the trick is that we are reading the universe through the Yoneda mirror.</p>
+
+<p>Historically, the lemma was conveyed verbally: Saunders Mac Lane reports that Nobuo Yoneda dictated it to him in 1954 at the Gare du Nord in Paris, while Mac Lane was about to board a train. The argument is so elementary that one can write it on a napkin; the consequences took fifty years to fully unfold.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./category-theory.html#yoneda">The Yoneda lemma in detail</a></li>
+    <li><a href="./category-theory.html#functors">Functors and natural transformations</a></li>
+    <li><a href="./category-theory.html#adjunctions">Adjunctions</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 3 ──── -->
+<section id="elementary-topos">
+<h2><span class="num">§3.</span> Elementary topoi: a place where one can do mathematics</h2>
+<p>An <em>elementary topos</em> is a category that "behaves like $\mathsf{Set}$" in three specific ways. The definition was extracted by Lawvere and Tierney around 1969–70 from Grothendieck's geometric theory of sites and sheaves; what they realized is that the categorical features that make $\mathsf{Set}$ a useful place to do mathematics can be axiomatized cleanly, with no reference to elements at all.</p>
+
+<p>The three pieces are: <em>finite limits</em>, <em>exponentials</em>, and a <em>subobject classifier</em>. Finite limits are the universal-property-driven generalizations of products, equalizers, and pullbacks; their existence means every reasonable diagram of finite shape has a "best fit" object. Exponentials $B^A$ are objects equipped with an evaluation map $\mathrm{ev}\colon B^A \times A \to B$ such that for any $f\colon C \times A \to B$, there is a unique transpose $\tilde f\colon C \to B^A$ — in other words, $(-) \times A$ has a right adjoint. In $\mathsf{Set}$ this is just the function space.</p>
+
+<p>The third piece is the conceptual heart. A <strong>subobject classifier</strong> is an object $\Omega$ together with a "true" arrow $\mathrm{true}\colon 1 \to \Omega$ (where $1$ is the terminal object) such that every monomorphism $m\colon U \hookrightarrow X$ is the pullback of $\mathrm{true}$ along a unique characteristic arrow $\chi_m\colon X \to \Omega$:
+$$\begin{array}{ccc} U & \longrightarrow & 1 \\ {}_{m}\!\downarrow & & \downarrow_{\mathrm{true}} \\ X & \xrightarrow{\chi_m} & \Omega \end{array}$$
+In $\mathsf{Set}$, $\Omega = \{\mathrm{true}, \mathrm{false}\}$ and $\chi_m$ is the indicator function of the subset $U \subset X$. The subobject classifier is the categorical avatar of "the set of truth values." It pins down what propositions look like, internally, in this category.</p>
+
+<div class="ok">
+  <strong>Definition (Lawvere–Tierney).</strong> An elementary topos $\mathcal{E}$ is a category with finite limits, exponentials, and a subobject classifier. From these three axioms one can derive that $\mathcal{E}$ has finite colimits, is locally cartesian closed, has a natural numbers object (under mild additional assumptions), and supports a faithful internal logic.
+</div>
+
+<p>The slogan: <em>a topos is a place where one can do mathematics</em>. Concretely, one can interpret the language of higher-order intuitionistic logic in $\mathcal{E}$ — "for all $x \in X$, there exists $y \in Y$ such that $\varphi(x,y)$" becomes a precise statement about morphisms in $\mathcal{E}$ — and the axioms of intuitionistic Zermelo set theory hold inside any topos. The internal logic is <em>intuitionistic</em>: the law of excluded middle, $p \vee \neg p$, is not a theorem in a general topos, because $\Omega$ usually has more than two truth values. This is not a defect; it is a feature, and it is what allows toposes to model mathematics-with-variation, mathematics-with-time, mathematics-with-continuous-truth.</p>
+
+<p>The examples are abundant. The category $\mathsf{Set}$ itself is a topos; so is the category of $G$-sets for any group $G$, with $\Omega$ the lattice of $G$-stable subsets of a one-point set's orbit. The category of presheaves $\widehat{\mathcal{C}} = [\mathcal{C}^{\mathrm{op}}, \mathsf{Set}]$ on any small category $\mathcal{C}$ is a topos; this is where the Yoneda embedding lives. The category of sheaves $\mathrm{Sh}(X)$ on a topological space $X$ is a topos, with $\Omega$ the sheaf of open sets. The <em>effective topos</em>, due to Hyland, is a topos in which every function is computable — its internal logic encodes computability. Cohen's forcing models, viewed correctly, are toposes. Each of these is a different mathematical universe in which different theorems are true.</p>
+
+<div class="note">
+The shift from "set" to "topos" parallels the shift from "$\mathbb{R}^n$" to "manifold" a century earlier. Just as differential geometry stopped privileging $\mathbb{R}^n$ as <em>the</em> place to do calculus and started treating it as one chart among many on a manifold, topos theory stops privileging $\mathsf{Set}$ as <em>the</em> place to do mathematics and starts treating it as one topos among many. The structural rules — finite limits, exponentials, subobject classifier — are what survive the change of universe.
+</div>
+
+<p>Sheaves deserve a separate paragraph because they will dominate the rest of the essay. A <em>sheaf</em> on a topological space $X$ is a presheaf $F\colon \mathsf{Open}(X)^{\mathrm{op}} \to \mathsf{Set}$ satisfying the gluing condition: for every open cover $\{U_i\} \subset \mathsf{Open}(X)$ of an open $U$, the diagram
+$$F(U) \;\to\; \prod_i F(U_i) \;\rightrightarrows\; \prod_{i,j} F(U_i \cap U_j)$$
+is an equalizer. Local data, compatible on overlaps, glues uniquely to global data. Grothendieck's insight, formalized in SGA 4 in the early 1960s, was that this gluing condition makes sense whenever one has a notion of "covering family" — not necessarily of opens in a topological space, but more generally of morphisms in a category. The general framework is a <em>Grothendieck topology</em> on a small category $\mathcal{C}$, specifying for each object the families of morphisms that count as "covers." A category equipped with a Grothendieck topology is a <em>site</em>, and the sheaves on a site form a topos $\mathrm{Sh}(\mathcal{C}, J) \subset \widehat{\mathcal{C}}$ — a left-exact reflective subcategory of presheaves. These are the <em>Grothendieck topoi</em>, and they are simultaneously the historical precursor of the elementary topoi (which generalize them axiomatically) and the geometric source from which most of mathematics' interesting topoi actually arise.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./elementary-topos-theory.html#subobject-classifier">The subobject classifier</a></li>
+    <li><a href="./elementary-topos-theory.html#internal-logic">Internal logic of a topos</a></li>
+    <li><a href="./grothendieck-topologies.html">Grothendieck topologies and sites</a></li>
+    <li><a href="./sheaves.html">Sheaves and the gluing condition</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 4 ──── -->
+<section id="simplicial">
+<h2><span class="num">§4.</span> Simplicial sets and the nerve construction</h2>
+<p>To go higher we need a combinatorial model of "category up to coherent homotopy." The technology that solves this problem is simplicial sets, and it has been quietly central to algebraic topology since the 1950s.</p>
+
+<p>The <em>simplex category</em> $\Delta$ has, as objects, the finite non-empty linearly ordered sets $[n] = \{0 < 1 < \cdots < n\}$ for each $n \geq 0$, and as morphisms the order-preserving maps $[m] \to [n]$. A <em>simplicial set</em> is a presheaf
+$$X\colon \Delta^{\mathrm{op}} \to \mathsf{Set},$$
+i.e. a functor that assigns to each $[n]$ a set $X_n$ of "$n$-simplices," together with face maps $d_i\colon X_n \to X_{n-1}$ that drop the $i$-th vertex and degeneracy maps $s_i\colon X_n \to X_{n+1}$ that repeat it, satisfying the simplicial identities. The category of simplicial sets is denoted $\mathsf{sSet} = \widehat{\Delta}$; by §2's reasoning it is a topos.</p>
+
+<p>The geometric content is that simplicial sets are a combinatorial way to encode topological spaces. The <em>geometric realization</em> functor $|{-}|\colon \mathsf{sSet} \to \mathsf{Top}$ glues an actual topological $n$-simplex into the picture for each element of $X_n$, and the upshot — proved by Quillen in 1967 — is that $\mathsf{sSet}$ and $\mathsf{Top}$ are equivalent as homotopy theories: any reasonable topological space can be replaced, up to weak homotopy equivalence, by a simplicial set, and any homotopy-theoretic question about spaces is equally well asked in $\mathsf{sSet}$. For a homotopy theorist, simplicial sets are spaces.</p>
+
+<p>The categorical content is more surprising. To every (small) category $\mathcal{C}$ one associates its <em>nerve</em>, a simplicial set $N(\mathcal{C})$ defined by
+$$N(\mathcal{C})_n = \{ \text{length-}n \text{ composable chains of arrows in } \mathcal{C} \},$$
+i.e. tuples $X_0 \xrightarrow{f_1} X_1 \xrightarrow{f_2} \cdots \xrightarrow{f_n} X_n$. The face map $d_i$ for $0 < i < n$ composes the two adjacent arrows $f_i$ and $f_{i+1}$; the boundary face maps $d_0$ and $d_n$ drop an endpoint; the degeneracy $s_i$ inserts an identity arrow at the $i$-th vertex. The nerve construction is fully faithful: a category is recoverable from its nerve.</p>
+
+<p>So a category <em>is</em> a particular kind of simplicial set. Which kind? The answer is the <em>horn-filling</em> condition. For $0 \leq k \leq n$, the $k$-th horn $\Lambda^n_k$ is the simplicial set obtained from the standard $n$-simplex $\Delta^n$ by removing its interior and the $k$-th face. A horn is "inner" if $0 < k < n$. The characterization of nerves of categories is:</p>
+
+<div class="ok">
+  <strong>Theorem (Grothendieck, Boardman–Vogt).</strong> A simplicial set $X$ is the nerve of a category if and only if every inner horn $\Lambda^n_k \to X$ has a <em>unique</em> filler $\Delta^n \to X$. The category is reconstructed from $X$ by taking objects $X_0$, morphisms $X_1$, and composition from the unique fillers of $\Lambda^2_1$.
+</div>
+
+<p>Why "unique"? Because composition in a category is a single, well-defined operation: given $f$ and $g$ with matching endpoints, there is exactly one composite $g \circ f$. The horn $\Lambda^2_1$ encodes the data of a composable pair; the filler is the triangle witnessing their composite; uniqueness encodes determinism of composition.</p>
+
+<p>The relaxation that opens the door to the next stop is: drop the uniqueness clause. If we ask only that every inner horn admits <em>some</em> filler, not necessarily a unique one, we get a more flexible structure called a <em>quasi-category</em>. The compositions are now defined "up to coherent homotopy" — there is no chosen composite of $f$ and $g$, but a contractible space of acceptable composites, and the higher simplices encode coherences between them. This is the simplicial-set definition of an $\infty$-category that Joyal and Lurie later turned into a working theory. We will arrive there in §5.</p>
+
+<div class="note">
+The simplex category $\Delta$ is, in retrospect, one of the most important categories in modern mathematics. Sheaves on $\Delta^{\mathrm{op}}$ — i.e. simplicial sets — model spaces. Cosimplicial objects model cochain complexes via Dold–Kan. The cobar resolution lifts to a functor $\Delta \to \mathcal{C}$. Every truncation, every nerve, every classifying space, every model-categorical replacement starts with $\Delta$. The fact that one little category, with $\aleph_0$ many morphisms, encodes both spaces and categories simultaneously is the engine of higher category theory.
+</div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./simplicial-sets-and-nerve.html#nerve-of-category">The nerve of a category</a></li>
+    <li><a href="./simplicial-sets-and-nerve.html#horns">Horns and the inner-horn condition</a></li>
+    <li><a href="./algebraic-topology.html#singular-homology">Singular simplicial sets and homology</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 5 ──── -->
+<section id="quasi-cat">
+<h2><span class="num">§5.</span> $\infty$-categories as quasi-categories</h2>
+<p>A <strong>quasi-category</strong> (Joyal) — equivalently an <strong>$\infty$-category</strong> in Lurie's terminology — is a simplicial set $X$ in which every inner horn admits a filler:
+$$\text{for every } 0 < k < n,\ \text{every map } \Lambda^n_k \to X \text{ extends to } \Delta^n \to X.$$
+The fillers are not unique. They are not even well-defined up to a privileged choice. They form a contractible space of choices, witnessed by the higher simplices of $X$, and the coherence data — the higher and higher simplices — bookkeeps the homotopies between alternative fillers.</p>
+
+<p>This single relaxation is enormously consequential. It means that the "sets" of morphisms between two objects in $X$ are no longer sets at all but <em>spaces</em> (in the sense of Kan complexes, the $\infty$-groupoid version of homotopy types). What was $\mathrm{Hom}_{\mathcal{C}}(X, Y) \in \mathsf{Set}$ becomes
+$$\mathrm{Map}_X(x, y) \;\in\; \mathcal{S},$$
+where $\mathcal{S}$ is the $\infty$-category of spaces — the simplicial nerve of the simplicial category of Kan complexes. Composition, identity, and associativity now live up to coherent homotopy; the higher simplices of $X$ enforce all the higher coherences automatically. There is no need to introduce a tower of "associator" 2-cells, "pentagonator" 3-cells, and so on by hand; they are baked into the simplicial structure.</p>
+
+<p>The miracle, established by Joyal in the 1980s and turned into a working theory by Lurie's <em>Higher Topos Theory</em> in 2009, is that every concept of ordinary category theory generalizes:</p>
+
+<ul>
+  <li><strong>Limits and colimits</strong> exist in the $\infty$-categorical sense; they are characterized by the same universal property, but the uniqueness clause is replaced by "there is a contractible space of universal cones."</li>
+  <li><strong>Adjunctions</strong> $F \dashv G$ between $\infty$-categories make sense, and an adjoint, when it exists, is unique up to a contractible space of choices.</li>
+  <li><strong>Kan extensions</strong> generalize, and the formula for a left Kan extension as a colimit becomes the universal recipe for "extending a functor along an inclusion."</li>
+  <li><strong>The Yoneda lemma</strong> — the philosophical anchor of §2 — generalizes: every $\infty$-category $\mathcal{C}$ embeds fully faithfully into its $\infty$-category of presheaves $\mathcal{P}(\mathcal{C}) = \mathrm{Fun}(\mathcal{C}^{\mathrm{op}}, \mathcal{S})$, where now the target is the $\infty$-category of spaces rather than the 1-category of sets.</li>
+</ul>
+
+<p>The change of target — replacing $\mathsf{Set}$ by $\mathcal{S}$ — is the substance. In ordinary category theory, presheaves with values in $\mathsf{Set}$ are sufficient because morphism sets are sets; once morphism sets are spaces, presheaves with values in $\mathcal{S}$ are forced. The $\infty$-Yoneda embedding is the master tool: it lets one replace any $\infty$-category by a left-exact accessible localization of $\mathcal{P}(\mathcal{C})$, and it puts $\mathcal{S}$ in the role $\mathsf{Set}$ played in §2.</p>
+
+<div class="note">
+The slogan is: <em>do category theory, but with mapping spaces in $\mathcal{S}$ instead of mapping sets in $\mathsf{Set}$</em>. In ordinary category theory two morphisms $f, g\colon X \to Y$ are either equal or not; in higher category theory they may be connected by a homotopy, which itself may be connected to other homotopies by higher homotopies, all the way up. The data of an $\infty$-category captures this entire tower of coherences — and quasi-categories are the model in which the tower is encoded most economically, as the higher simplices of a single simplicial set.
+</div>
+
+<p>Why was this not done in 1950? Partly because the formalism is delicate: the strict definition of a "category enriched in spaces" produces a proliferation of coherence diagrams that nobody wants to verify by hand. Joyal's insight was that simplicial sets, with their built-in tower of higher simplices, do all the bookkeeping for free. The cost is that one has to learn to think about diagrams up to homotopy from the start; the benefit is that the same formalism that gave us nerves and singular simplicial sets gives us $\infty$-categories at no extra charge.</p>
+
+<p>Several other models exist — complete Segal spaces (Rezk), Segal categories (Hirschowitz–Simpson), $A_\infty$-categories — and Bergner's theorem (2007) and Joyal–Tierney's work establish that they are all Quillen-equivalent: they encode the same homotopy theory of $\infty$-categories. Quasi-categories have become the working model because the simplicial-set machinery is the cleanest, but the underlying notion is model-independent.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./infinity-categories.html#quasi-category">Quasi-categories and inner horn fillers</a></li>
+    <li><a href="./infinity-categories.html#yoneda">The $\infty$-Yoneda lemma</a></li>
+    <li><a href="./infinity-categories.html#mapping-spaces">Mapping spaces in $\infty$-categories</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 6 ──── -->
+<section id="infinity-topos">
+<h2><span class="num">§6.</span> $\infty$-topoi and the Lurie program</h2>
+<p>An <strong>$\infty$-topos</strong> is, in one sentence, the $\infty$-categorical generalization of a Grothendieck topos. The definition (Lurie, <em>HTT</em> §6) takes the most natural form: an $\infty$-category $\mathcal{X}$ is an $\infty$-topos if there exist a small $\infty$-category $\mathcal{C}$ and an accessible left-exact localization
+$$L\colon \mathcal{P}(\mathcal{C}) \;\rightleftarrows\; \mathcal{X}.$$
+Here $\mathcal{P}(\mathcal{C}) = \mathrm{Fun}(\mathcal{C}^{\mathrm{op}}, \mathcal{S})$ is the $\infty$-category of $\mathcal{S}$-valued presheaves on $\mathcal{C}$ from §5, and "left-exact accessible localization" is the higher-categorical analogue of "reflective subcategory closed under finite limits, generated under colimits by a small set." The Grothendieck-topos analogue would replace $\mathcal{P}(\mathcal{C})$ by $\widehat{\mathcal{C}} = [\mathcal{C}^{\mathrm{op}}, \mathsf{Set}]$ and the localization condition by Grothendieck's gluing axioms; in the $\infty$-categorical setting, both ingredients get upgraded to take homotopy-coherence seriously.</p>
+
+<p>An equivalent intrinsic characterization is the <em>$\infty$-Giraud axioms</em>: an $\infty$-category $\mathcal{X}$ is presented by an $\infty$-topos if and only if it is presentable, has small colimits that are universal (preserved by base change), has disjoint coproducts, and has effective groupoid objects. These axioms recover the classical Giraud characterization of Grothendieck 1-topoi when one truncates to discrete objects, and they do for $\infty$-topoi exactly what Lawvere–Tierney's three axioms of §3 did for elementary topoi: turn an "external" definition (left-exact localization of a presheaf category) into an "internal" one (universal colimits, descent for groupoids).</p>
+
+<div class="ok">
+  <strong>Theorem (Lurie, $\infty$-Giraud).</strong> A presentable $\infty$-category $\mathcal{X}$ is an $\infty$-topos iff colimits in $\mathcal{X}$ are universal, coproducts are disjoint, and groupoid objects are effective. Equivalently, $\mathcal{X}$ is a left-exact accessible localization of $\mathcal{P}(\mathcal{C})$ for some small $\infty$-category $\mathcal{C}$.
+</div>
+
+<p>The geometric examples are the substance. Every Grothendieck site $(\mathcal{C}, J)$ has an $\infty$-topos of <em>$\infty$-sheaves</em> $\mathrm{Sh}_\infty(\mathcal{C}, J) \subset \mathcal{P}(\mathcal{C})$, the localization at the Čech-cover-induced equivalences. When $\mathcal{C}$ is the étale site of a scheme $S$, the resulting $\infty$-topos $\mathrm{Sh}_\infty(S_{\mathrm{\acute{e}t}})$ is the natural home of <em>derived</em> étale cohomology with values in spectra: $H^n_{\mathrm{\acute{e}t}}(S; \mathcal{F})$ is just $\pi_{-n}\mathrm{Map}(S, \mathcal{F})$ in the appropriate stable subcategory, and descent is automatic because the topos was built to enforce it. The same construction with the fppf topology gives the $\infty$-topos that hosts derived algebraic geometry. These are not toy examples; they are the categories Toën, Vezzosi, and Lurie use to define derived schemes, derived stacks, and the moduli problems of modern enumerative geometry.</p>
+
+<p>The internal logic of an $\infty$-topos is <em>homotopy type theory</em>. Where an elementary topos models intuitionistic higher-order logic with a propositional truth-value object $\Omega$, an $\infty$-topos models a logic in which propositions, sets, and types are all of a piece — and in which Voevodsky's <em>univalence axiom</em>, "equivalent types are equal," is a theorem. Univalence is, when read through the topos translation, precisely the statement that the universe of types in an $\infty$-topos classifies object-equivalence classes rather than object-equality classes. Voevodsky's program (2009–2017) explicitly identified $\infty$-topoi as the semantic universe in which dependent type theory with univalence interprets soundly; conversely, the type-theoretic syntax now provides an internal language in which one can prove $\infty$-categorical theorems by elementary type-theoretic manipulations.</p>
+
+<blockquote>The internal logic of $\mathsf{Set}$ is classical first-order logic. The internal logic of an elementary topos is intuitionistic higher-order logic. The internal logic of an $\infty$-topos is homotopy type theory. Each layer adds a degree of freedom — variation, then homotopy — that the previous layer collapsed.</blockquote>
+
+<p>The unification this delivers is striking. Sheaf cohomology, étale cohomology, equivariant cohomology, Deligne cohomology — all of them, in the $\infty$-topos picture, become the same thing: $\pi_{-n}\mathrm{Map}_{\mathcal{X}}(X, F)$, where $\mathcal{X}$ is an appropriate $\infty$-topos and $F$ is a sheaf of spectra on it. Descent for sheaves of spectra, which is a hard theorem in classical algebraic geometry, becomes a triviality: the topos is defined to enforce it. The flexibility of $\mathcal{X}$ — choose your site, choose your topology — gives you the corresponding cohomology theory for free.</p>
+
+<p>And there is a further direction. <em>Higher</em> topoi in the sense of Lurie have an internal arithmetic: every $\infty$-topos has a notion of $n$-truncation, with the $0$-truncation recovering an ordinary Grothendieck $1$-topos and the $(-1)$-truncation recovering the locale of subterminal objects. The whole tower of "$n$-topoi for $n \geq 0$" sits inside any $\infty$-topos, with the classical topos theory of §3 recovered as the bottom layer.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./infinity-topoi.html#infty-topos-definition">Definition of an $\infty$-topos</a></li>
+    <li><a href="./infinity-topoi.html#giraud">$\infty$-Giraud axioms</a></li>
+    <li><a href="./type-theory-and-hott.html">Homotopy type theory and univalence</a></li>
+    <li><a href="./derived-algebraic-geometry.html">Derived algebraic geometry</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 7 ──── -->
+<section id="coda">
+<h2><span class="num">§7.</span> Coda: the universe was the question all along</h2>
+<p>Look back at the six steps. The first asked what a set is — a collection of elements, with $\in$ as the primitive — and discovered that the actual content of "set" is in the universal properties of $\mathsf{Set}$, not in the membership relation. The second extracted those universal properties into the language of categories, functors, and natural transformations, and produced the Yoneda lemma's promise that an object is its functor of arrows. The third turned the structural features of $\mathsf{Set}$ into axioms for an arbitrary category — finite limits, exponentials, subobject classifier — and called such categories topoi, places where one can do mathematics. The fourth introduced simplicial sets as a combinatorial language flexible enough to talk about both spaces and categories. The fifth dropped the uniqueness clause from composition and produced $\infty$-categories, where mapping objects are themselves spaces. The sixth combined $\infty$-categories with the topos axioms and produced $\infty$-topoi, the natural universe of higher geometry.</p>
+
+<p>The trajectory has a single shape: at each step a structure is replaced by the totality of its <em>relationships</em>, with each successive layer adding one more level of "up to coherent equivalence." Sets are replaced by their morphisms; categories are replaced by their functors; sheaves are replaced by hyper-sheaves; types are replaced by their identity types. Each replacement is faithful — the previous level embeds into the next — and each replacement adds expressive power that the previous level could not see. The Yoneda lemma at the bottom of the ladder becomes the $\infty$-Yoneda lemma at the top, with $\mathsf{Set}$ exchanged for $\mathcal{S}$ and the bookkeeping handled by simplicial machinery.</p>
+
+<p>What unifies the whole arc is the discovery that "universe of mathematical discourse" is itself a mathematical object. Lawvere insisted, against the prevailing set-theoretic orthodoxy, that mathematics could be founded on functions and arrows rather than on $\in$; his ETCS (1964) made this precise, and his and Tierney's elementary topos theory turned the insight into a discipline. Grothendieck, in <em>SGA 4</em>, had already constructed the geometric examples — étale, fppf, syntomic topoi — that gave the Lawvere–Tierney axiomatization its content; what Grothendieck called <em>topos</em> in 1963 was a place where geometry happens, and he used it to prove the Weil conjectures. Joyal's quasi-categories from the 1980s and Lurie's <em>Higher Topos Theory</em> in 2009 then completed the program: they showed that the topos picture admits a homotopy-coherent refinement, and that this refinement is the right home for derived algebraic geometry, equivariant homotopy theory, and homotopy type theory all at once.</p>
+
+<div class="note">
+The path from $\in$ to $\infty$-topoi is two-thirds a hundred years long. The endpoints look very different — one is two adjacent letters of the Greek alphabet, the other is a 940-page book — but the question they answer is the same: <em>where</em> is mathematics done? The answer the twentieth century settled on was "in $\mathsf{Set}$"; the answer the twenty-first century has converged toward is "in whichever $\infty$-topos best fits the geometry at hand." The flexibility of the latter answer is the reason it has displaced the former wherever the geometry is sufficiently subtle.
+</div>
+
+<p>It is tempting to read the arc as a story of generalization for its own sake. It is not. At each step the new level was forced by a concrete problem the old level could not solve. Naive set theory was forced into ZFC by Russell's paradox. ZFC was forced into category theory by the search for universal properties that work uniformly across $\mathsf{Set}$, $\mathsf{Grp}$, $\mathsf{Top}$. Category theory was forced into topos theory by Grothendieck's needs in algebraic geometry — sheaf cohomology demanded a setting in which "local data glues to global data" was a categorical, not a topological, fact. Topos theory was forced into higher topos theory by the homotopical phenomena algebraic topology had been carrying along, unformalized, for decades — derived functors, classifying spaces, Postnikov towers all live more naturally in $\mathcal{S}$ than in $\mathsf{Set}$. Each layer was the price of admitting a new piece of mathematics into the foundations.</p>
+
+<p>The mathematical universe one chooses determines which theorems are easy. In $\mathsf{Set}$, descent is hard and choice is automatic. In a Grothendieck topos, descent is automatic and excluded middle is contingent. In an $\infty$-topos, homotopy descent is automatic and equivalence equals equality — univalence becomes a theorem rather than a peculiar new axiom. Each layer is its own working environment, optimized for a different class of questions. The skill of the modern mathematician is not to insist on one universe but to know which one to step into for the problem at hand.</p>
+
+<p>What started, in §1, as the question "what is a set?" turns out to be the question "what is a universe of discourse?" — and the answer is that there are infinitely many of them, organized by a few axioms about limits and colimits and truth values, and that the working mathematician inhabits whichever one is shaped like the problem in front of them. From naive sets to $\infty$-topoi is not a tour through stranger and stranger abstractions; it is a tour through the increasingly accurate descriptions of the place mathematicians have always been doing mathematics.</p>
+</section>
+
+<hr class="endrule"/>
+
+<p class="colophon">
+The phrase <em>"a place where one can do mathematics"</em> is Lawvere's, and it captures everything this essay has been about. From Cantor in 1874 to Lurie in 2009, the question has been the same: what kind of object is the place mathematics happens in, and what does it take to recognize one when you see it? The twentieth century's answer was sets, then categories, then topoi. The twenty-first century's answer is $\infty$-topoi, with homotopy type theory as their internal language. The next answer — there will surely be one — will probably be a refinement that nobody has yet fully written down, and it will probably be forced by a class of geometric phenomena that the current framework still treats as exceptional. That is how the layers have always come.
+</p>
+
+<h3>Further reading</h3>
+<ol class="refs">
+  <li>S. Mac Lane, <em>Categories for the Working Mathematician</em>, GTM 5, 2nd ed. The canonical introduction to categories, functors, Yoneda, and adjunctions.</li>
+  <li>S. Mac Lane and I. Moerdijk, <em>Sheaves in Geometry and Logic: A First Introduction to Topos Theory</em>, Springer, 1992. The standard textbook on Grothendieck and elementary topoi.</li>
+  <li>F. W. Lawvere, "An elementary theory of the category of sets," <em>Proc. Nat. Acad. Sci.</em> 52 (1964). The original ETCS paper.</li>
+  <li>F. W. Lawvere and M. Tierney, "Quantifiers and sheaves," <em>Actes du Congrès International des Mathématiciens</em>, Nice, 1970. The elementary topos definition.</li>
+  <li>P. T. Johnstone, <em>Sketches of an Elephant: A Topos Theory Compendium</em>, vols. I–II, Oxford, 2002. The encyclopedic reference.</li>
+  <li>A. Grothendieck and J.-L. Verdier, <em>Théorie des topos et cohomologie étale des schémas</em> (SGA 4), Springer LNM 269/270/305, 1972–1973. The geometric source.</li>
+  <li>A. Joyal, "Quasi-categories and Kan complexes," <em>J. Pure Appl. Algebra</em> 175 (2002). The foundational paper on quasi-categories.</li>
+  <li>J. Lurie, <em>Higher Topos Theory</em>, Annals of Mathematics Studies 170, Princeton, 2009. The 940-page reference for $\infty$-categories and $\infty$-topoi.</li>
+  <li>The Univalent Foundations Program, <em>Homotopy Type Theory: Univalent Foundations of Mathematics</em>, IAS, 2013. The HoTT book; the internal logic of $\infty$-topoi made explicit.</li>
+  <li>E. Riehl and D. Verity, <em>Elements of $\infty$-Category Theory</em>, Cambridge, 2022. A model-independent treatment.</li>
+</ol>
+
+</main>
+
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-05</td><td>Sets-to-topoi arc capstone story (Tour 4 long-form): naive sets → Yoneda → elementary topoi → simplicial sets → quasi-categories → $\infty$-topoi</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>
