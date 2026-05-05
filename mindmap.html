@@ -76,6 +76,12 @@
     transition:stroke 120ms ease, stroke-width 120ms ease}
   .node text.lbl{fill:var(--ink);font-size:10.5px;pointer-events:none;
     font-family:inherit;dominant-baseline:central;text-anchor:start}
+  /* By default only capstone nodes ship labels — at the default zoom,
+     1000+ labels would be illegible noise. When the user zooms in past
+     k=1.6 (`.stage.zoomed`), reveal labels on every node so individual
+     concepts can be picked. JS toggles `.stage.zoomed` based on viewT.k. */
+  .node:not(.cap) text.lbl{display:none}
+  .stage.zoomed .node text.lbl{display:initial}
   .node.cap circle.bg{stroke-width:2.2}
   .node.dim circle.bg{opacity:.18}
   .node.dim text.lbl{opacity:.18}
@@ -240,7 +246,7 @@
   <a class="back" href="./index.html">← Notebook</a><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link accent" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span>
   <h1>Mindmap</h1>
   <p class="sub">
-    Every concept in the notebook (<span id="mm-stat-concepts">…</span> across <span id="mm-stat-topics">…</span> topics), laid out as one connected graph. Sections cluster by force; cross-section edges are the bridges. Click a node to focus its neighborhood; <kbd>/</kbd> to search; <kbd>?</kbd> for the full key map. The capstone-targeted view lives at <a href="./pathway.html">pathway</a> — this page is for free exploration and for spotting structural gaps.
+    Every concept in the notebook (505 across 73 topics), laid out as one connected graph. Sections cluster by force; cross-section edges are the bridges. Click a node to focus its neighborhood; <kbd>/</kbd> to search; <kbd>?</kbd> for the full key map. The capstone-targeted view lives at <a href="./pathway.html">pathway</a> — this page is for free exploration and for spotting structural gaps.
   </p>
 
   <div class="bar" role="toolbar" aria-label="Mindmap controls">
@@ -449,14 +455,6 @@
     }
   }
 
-  // Update the page-header stats with the live numbers. The intro paragraph
-  // hardcoded "505 across 73 topics" for years and rotted into staleness;
-  // computing them from the bundle keeps it in sync forever.
-  const concEl = document.getElementById('mm-stat-concepts');
-  const topEl  = document.getElementById('mm-stat-topics');
-  if (concEl) concEl.textContent = byId.size;
-  if (topEl)  topEl.textContent  = topicsArr.length;
-
   // topic -> section title (canonical from sections.json)
   const TOPIC_SECTION = {};
   const SECTION_ORDER = sectionsData.sections.map(s => s.title);
@@ -621,7 +619,9 @@
     for(const id of sortedIds) parts.push(id);
     const sortedEdges = edges.map(e => nodes[e.from].id + '>' + nodes[e.to].id).sort();
     for(const e of sortedEdges) parts.push(e);
-    return 'mvnb.mindmap.layout.v2.' + fnv1a(parts.join('|'));
+    // v3: REPEL_BASE bumped from 1400 → 2200 + SPRING_LEN_INTRA 32 → 50
+    // for more spread; existing v2 caches invalidate.
+    return 'mvnb.mindmap.layout.v3.' + fnv1a(parts.join('|'));
   })();
 
   function loadCachedLayout(){
@@ -653,12 +653,17 @@
   //   - A per-node anchor pull holds each node near its section's home.
   async function forceLayout(progressCb){
     const STEPS = 260;
-    const REPEL_BASE = 1400;
+    // Bumped from 1400 → 2200 (and intra-link from 32 → 50) so the corpus
+    // at ~1050 concepts has room to breathe. Previous params produced
+    // dense clusters where individual concepts were unpickable even at
+    // moderate zoom. Cache version bumped to v3 to invalidate prior
+    // cached layouts that rendered with the tighter spacing.
+    const REPEL_BASE = 2200;
     const REPEL_CROSS = 1.7;     // cross-section pairs repel harder
     const SPRING = 0.022;
-    const SPRING_LEN_INTRA = 32;
-    const SPRING_LEN_CROSS = 140;
-    const ANCHOR = 0.018;        // home-anchor pull; high = tighter clusters
+    const SPRING_LEN_INTRA = 50;
+    const SPRING_LEN_CROSS = 180;
+    const ANCHOR = 0.014;        // home-anchor pull; lowered slightly to allow more spread
     const DAMP = 0.85;
     const MAX_V = 9;
 
@@ -787,18 +792,19 @@
       c.setAttribute('fill-opacity', '0.55');
       g.appendChild(c);
 
-      // Labels are added on demand for capstone nodes only — too noisy to
-      // label all 505 by default. Hover/focus shows the title.
-      if(n.isCap){
-        const t = document.createElementNS(NS, 'text');
-        t.setAttribute('class', 'lbl');
-        t.setAttribute('x', nodeRadius(n) + 3);
-        t.setAttribute('y', 0);
-        // Strip KaTeX delimiters from label preview for SVG <text>; the
-        // hover/focus card uses HTML and renders the math properly.
-        t.textContent = n.title.replace(/\$([^$]+)\$/g, '$1');
-        g.appendChild(t);
-      }
+      // Render labels on every node — capstones always show, others are
+      // hidden by CSS at default zoom and revealed when `.stage.zoomed`
+      // is set (viewT.k > 1.6). This keeps the default view readable at
+      // ~1000 concepts AND lets the user pick individual concepts after
+      // zooming in. Hover/focus also shows the title via the focus card.
+      const t = document.createElementNS(NS, 'text');
+      t.setAttribute('class', 'lbl');
+      t.setAttribute('x', nodeRadius(n) + 3);
+      t.setAttribute('y', 0);
+      // Strip KaTeX delimiters from label preview for SVG <text>; the
+      // hover/focus card uses HTML and renders the math properly.
+      t.textContent = n.title.replace(/\$([^$]+)\$/g, '$1');
+      g.appendChild(t);
 
       nodeEls[i] = g; frag.appendChild(g);
     });
@@ -820,8 +826,14 @@
 
   // ---------- pan + zoom ----------
   let viewT = { x: 0, y: 0, k: 1 };
+  // Threshold above which we reveal labels on every node (vs only
+  // capstones). 1.6 was picked by eye — capstone-only labels stay
+  // legible up to about 1.5x; past that the user has zoomed in deep
+  // enough that they want to see what's around them.
+  const LABEL_REVEAL_K = 1.6;
   function applyView(){
     root.setAttribute('transform', `translate(${viewT.x},${viewT.y}) scale(${viewT.k})`);
+    stage.classList.toggle('zoomed', viewT.k >= LABEL_REVEAL_K);
   }
   (function wirePanZoom(){
     let dragging = false, sx = 0, sy = 0, ox = 0, oy = 0;
