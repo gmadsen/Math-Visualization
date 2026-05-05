@@ -227,6 +227,8 @@
         fill: era.color, rx: 4, ry: 4
       });
       r.dataset.era = era.id;
+      // So the .active-band stroke rule can pick up the era's color.
+      r.style.setProperty('--era-color', era.color);
       svg.appendChild(r);
 
       // era label inside the band, centered, but only if wide enough
@@ -237,6 +239,7 @@
           'text-anchor':'middle'
         });
         t.textContent = era.label;
+        t.dataset.era = era.id;
         svg.appendChild(t);
       }
     }
@@ -441,6 +444,7 @@
     };
     // Cache the era-band node list once — was being re-queried on every keystroke.
     const bandNodes = [...svg.querySelectorAll('rect.era-band')];
+    const labelNodes = [...svg.querySelectorAll('text.era-label')];
 
     function renderDetail(){
       // gate: only re-render when the selection has actually changed; saves a
@@ -500,12 +504,31 @@
         dot.classList.toggle('match', !!q && match);
         dot.classList.toggle('selected', i === state.selectedIdx);
       });
-      // band dimming: only highlight active eras when filters are on
+      // Band styling: when a filter is on, dim non-matching bands AND
+      // bump matching bands to the brighter `active-band` state so the
+      // contrast reads at a glance. Same logic for the band labels above.
       bandNodes.forEach(r => {
         const id = r.dataset.era;
+        const isActive = filterActive && state.activeEras.has(id);
         const dim = filterActive && !state.activeEras.has(id);
         r.classList.toggle('dim', dim);
+        r.classList.toggle('active-band', isActive);
       });
+      labelNodes.forEach(t => {
+        const id = t.dataset.era;
+        const isActive = filterActive && state.activeEras.has(id);
+        t.classList.toggle('active-label', isActive);
+      });
+      // Mark the SVG itself when any filter is active, so the
+      // `.tl[data-era-filter]` rule in history.html lights up the visible
+      // dots with a halo. Each dot's enclosing <g> already carries
+      // `--era-color` (set during dot render), so the halo uses each dot's
+      // own era color via inheritance — no SVG-level color set is needed.
+      if (filterActive) {
+        svg.setAttribute('data-era-filter', '1');
+      } else {
+        svg.removeAttribute('data-era-filter');
+      }
       // chip aria-pressed
       eraChips.forEach((c, id) => {
         const on = state.activeEras.has(id);

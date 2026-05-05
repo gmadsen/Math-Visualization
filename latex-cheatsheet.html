@@ -19,7 +19,7 @@
         {left:'\\[',right:'\\]',display:true}
       ],
       macros:{
-        '\Sha':'\text{Ш}'
+        '\\Sha':'\\text{Ш}'
       },
       throwOnError:false
     });
@@ -951,7 +951,7 @@
       <tr><td class="src"><code>\mathllap{x}</code></td><td class="rend">$A \mathllap{-}$</td><td class="note">math llap</td></tr>
       <tr><td class="src"><code>\mathrlap{x}</code></td><td class="rend">$A \mathrlap{=}$</td><td class="note">math rlap</td></tr>
       <tr><td class="src"><code>\raisebox{2pt}{y}</code></td><td class="rend">$\raisebox{2pt}{y}$</td><td class="note">raise text</td></tr>
-      <tr><td class="src"><code>\tag{*}</code></td><td class="rend">$x = y \tag{*}$</td><td class="note">equation tag</td></tr>
+      <tr><td class="src"><code>\tag{*}</code></td><td class="rend">$$x = y \tag{*}$$</td><td class="note">equation tag (display only)</td></tr>
       <tr><td class="src"><code>\notag</code></td><td class="rend">(suppresses label)</td><td class="note">no numbering</td></tr>
       <tr><td class="src"><code>\label{eq:1}</code></td><td class="rend">(names eq.)</td><td class="note">label for \ref</td></tr>
       <tr><td class="src"><code>\ref{eq:1}</code></td><td class="rend">(prints label)</td><td class="note">reference</td></tr>
