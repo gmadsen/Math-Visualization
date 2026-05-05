@@ -112,6 +112,7 @@ const STEPS = [
   // signal visible on every rebuild instead of relying on out-of-band runs.
   { name: 'worked-examples', script: 'audit-worked-examples.mjs',         fix: false },
   { name: 'blurb-question',  script: 'audit-blurb-question-alignment.mjs', fix: false },
+  { name: 'hint-leakage',    script: 'audit-hint-leakage.mjs',             fix: false },
   { name: 'doc-drift',  script: 'audit-doc-drift.mjs',          fix: false },
 ];
 
