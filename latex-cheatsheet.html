@@ -18,8 +18,30 @@
         {left:'\\(',right:'\\)',display:false},
         {left:'\\[',right:'\\]',display:true}
       ],
+      // KaTeX 0.16.11 doesn't ship some macros that LaTeX users expect to
+      // exist. Fill in the high-value misses with aliases here so the
+      // cheatsheet's render cells light up. The truly unsupported macros
+      // (stmaryrd glyphs like \leftarrowtriangle, \multimapdot; styling
+      // macros like \mathbfit, \textsc) have their cheatsheet rows
+      // removed entirely — keeping them would mislead the reader into
+      // thinking KaTeX supports them.
       macros:{
-        '\Sha':'\text{Ш}'
+        '\\Sha':'\\text{Ш}',
+        // inverse trig + hyperbolic — KaTeX has \arctan/\arcsin/\arccos
+        // but stops there. Alias the rest to operatorname forms.
+        '\\arccot':'\\operatorname{arccot}',
+        '\\arcsec':'\\operatorname{arcsec}',
+        '\\arccsc':'\\operatorname{arccsc}',
+        '\\arsinh':'\\operatorname{arsinh}',
+        '\\arcosh':'\\operatorname{arcosh}',
+        '\\artanh':'\\operatorname{artanh}',
+        '\\arcoth':'\\operatorname{arcoth}',
+        // common operator-name shortcuts
+        '\\lcm':'\\operatorname{lcm}',
+        '\\sgn':'\\operatorname{sgn}',
+        // iterated integrals — KaTeX 0.16 lacks these names
+        '\\iiiint':'\\int\\!\\!\\!\\!\\int\\!\\!\\!\\!\\int\\!\\!\\!\\!\\int',
+        '\\idotsint':'\\int\\!\\cdots\\!\\int'
       },
       throwOnError:false
     });
@@ -110,6 +132,12 @@
   table.macros col.c-note{width:28%}
   table.macros td.src code{display:inline-block;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;vertical-align:middle}
   table.macros td.rend{color:var(--ink);font-size:1.02em}
+  /* The \tag{*} demo row needs $$display$$ delimiters because KaTeX's
+     \tag macro only works in display mode — but the default
+     .katex-display margin pushes that one row taller than its neighbours
+     and centres the content, breaking the table's left-aligned rhythm.
+     Override locally so the demo shipps as a left-aligned inline block. */
+  table.macros td.rend .katex-display{margin:0;text-align:left}
   table.macros td.note{color:var(--mute);font-size:.85rem}
   table.macros tr.hidden{display:none}
   /* search + chip controls */
@@ -488,11 +516,6 @@
       <tr><td class="src"><code>\rightsquigarrow</code></td><td class="rend">$\rightsquigarrow$</td><td class="note">wavy arrow</td></tr>
       <tr><td class="src"><code>\leadsto</code></td><td class="rend">$\leadsto$</td><td class="note">rewrite / leads to</td></tr>
       <tr><td class="src"><code>\restriction</code></td><td class="rend">$\restriction$</td><td class="note">restriction</td></tr>
-      <tr><td class="src"><code>\leftarrowtriangle</code></td><td class="rend">$\leftarrowtriangle$</td><td class="note">open triangle L</td></tr>
-      <tr><td class="src"><code>\rightarrowtriangle</code></td><td class="rend">$\rightarrowtriangle$</td><td class="note">open triangle R</td></tr>
-      <tr><td class="src"><code>\leftrightarrowtriangle</code></td><td class="rend">$\leftrightarrowtriangle$</td><td class="note">open triangle bidir.</td></tr>
-      <tr><td class="src"><code>\multimapdot</code></td><td class="rend">$\multimapdot$</td><td class="note">multimap-dot</td></tr>
-      <tr><td class="src"><code>\multimapdotboth</code></td><td class="rend">$\multimapdotboth$</td><td class="note">multimap-dot both</td></tr>
       <tr><td class="src"><code>\xrightarrow{f}</code></td><td class="rend">$\xrightarrow{f}$</td><td class="note">labeled arrow</td></tr>
       <tr><td class="src"><code>\xleftarrow{g}</code></td><td class="rend">$\xleftarrow{g}$</td><td class="note">labeled left</td></tr>
       <tr><td class="src"><code>\xRightarrow{}</code></td><td class="rend">$\xRightarrow{\phi}$</td><td class="note">labeled double</td></tr>
@@ -560,7 +583,6 @@
       <tr><td class="src"><code>\bigcap</code></td><td class="rend">$\bigcap$</td><td class="note">big intersection</td></tr>
       <tr><td class="src"><code>\bigcup</code></td><td class="rend">$\bigcup$</td><td class="note">big union</td></tr>
       <tr><td class="src"><code>\bigsqcup</code></td><td class="rend">$\bigsqcup$</td><td class="note">big disjoint union</td></tr>
-      <tr><td class="src"><code>\bigsqcap</code></td><td class="rend">$\bigsqcap$</td><td class="note">big meet</td></tr>
       <tr><td class="src"><code>\biguplus</code></td><td class="rend">$\biguplus$</td><td class="note">big multiset union</td></tr>
       <tr><td class="src"><code>\bigvee</code></td><td class="rend">$\bigvee$</td><td class="note">big or</td></tr>
       <tr><td class="src"><code>\bigwedge</code></td><td class="rend">$\bigwedge$</td><td class="note">big and</td></tr>
@@ -760,7 +782,6 @@
       <tr><td class="src"><code>\mathbb{R}</code></td><td class="rend">$\mathbb{R}$</td><td class="note">blackboard bold</td></tr>
       <tr><td class="src"><code>\Bbb{R}</code></td><td class="rend">$\Bbb{R}$</td><td class="note">alias of \mathbb</td></tr>
       <tr><td class="src"><code>\mathbf{v}</code></td><td class="rend">$\mathbf{v}$</td><td class="note">bold upright</td></tr>
-      <tr><td class="src"><code>\mathbfit{v}</code></td><td class="rend">$\mathbfit{v}$</td><td class="note">bold italic</td></tr>
       <tr><td class="src"><code>\mathcal{F}</code></td><td class="rend">$\mathcal{F}$</td><td class="note">calligraphic</td></tr>
       <tr><td class="src"><code>\mathscr{F}</code></td><td class="rend">$\mathscr{F}$</td><td class="note">script</td></tr>
       <tr><td class="src"><code>\mathfrak{g}</code></td><td class="rend">$\mathfrak{g}$</td><td class="note">fraktur</td></tr>
@@ -768,7 +789,6 @@
       <tr><td class="src"><code>\mathit{variable}</code></td><td class="rend">$\mathit{variable}$</td><td class="note">math italic</td></tr>
       <tr><td class="src"><code>\mathrm{d}x</code></td><td class="rend">$\mathrm{d}x$</td><td class="note">roman upright</td></tr>
       <tr><td class="src"><code>\mathsf{T}</code></td><td class="rend">$\mathsf{T}$</td><td class="note">sans-serif</td></tr>
-      <tr><td class="src"><code>\mathsfit{T}</code></td><td class="rend">$\mathsfit{T}$</td><td class="note">sans-serif italic</td></tr>
       <tr><td class="src"><code>\mathtt{code}</code></td><td class="rend">$\mathtt{code}$</td><td class="note">monospace</td></tr>
       <tr><td class="src"><code>\mathnormal{xyz}</code></td><td class="rend">$\mathnormal{xyz}$</td><td class="note">default math</td></tr>
       <tr><td class="src"><code>\boldsymbol{\alpha}</code></td><td class="rend">$\boldsymbol{\alpha}$</td><td class="note">bold symbol</td></tr>
@@ -785,7 +805,6 @@
       <tr><td class="src"><code>\textsf{sans}</code></td><td class="rend">$\textsf{sans}$</td><td class="note">text sans</td></tr>
       <tr><td class="src"><code>\texttt{mono}</code></td><td class="rend">$\texttt{mono}$</td><td class="note">text mono</td></tr>
       <tr><td class="src"><code>\textup{upright}</code></td><td class="rend">$\textup{upright}$</td><td class="note">text upright</td></tr>
-      <tr><td class="src"><code>\textsc{SmallCaps}</code></td><td class="rend">$\textsc{SmallCaps}$</td><td class="note">small caps</td></tr>
       <tr><td class="src"><code>\emph{em}</code></td><td class="rend">$\emph{em}$</td><td class="note">emphasis</td></tr>
       <tr><td class="src"><code>\textcolor{red}{R}</code></td><td class="rend">$\textcolor{red}{R}$</td><td class="note">colored text</td></tr>
       <tr><td class="src"><code>\color{blue} X</code></td><td class="rend">${\color{blue} X}$</td><td class="note">switch color</td></tr>
@@ -823,8 +842,6 @@
       <tr><td class="src"><code>\vec{v}</code></td><td class="rend">$\vec{v}$</td><td class="note">vector arrow</td></tr>
       <tr><td class="src"><code>\dot{x}</code></td><td class="rend">$\dot{x}$</td><td class="note">dot (1st deriv.)</td></tr>
       <tr><td class="src"><code>\ddot{x}</code></td><td class="rend">$\ddot{x}$</td><td class="note">double dot</td></tr>
-      <tr><td class="src"><code>\dddot{x}</code></td><td class="rend">$\dddot{x}$</td><td class="note">triple dot</td></tr>
-      <tr><td class="src"><code>\ddddot{x}</code></td><td class="rend">$\ddddot{x}$</td><td class="note">quadruple dot</td></tr>
       <tr><td class="src"><code>\breve{x}</code></td><td class="rend">$\breve{x}$</td><td class="note">breve</td></tr>
       <tr><td class="src"><code>\check{x}</code></td><td class="rend">$\check{x}$</td><td class="note">caron</td></tr>
       <tr><td class="src"><code>\grave{x}</code></td><td class="rend">$\grave{x}$</td><td class="note">grave accent</td></tr>
@@ -842,21 +859,14 @@
       <tr><td class="src"><code>\underbrace{x_1,\ldots,x_n}</code></td><td class="rend">$\underbrace{x_1,\ldots,x_n}$</td><td class="note">under-brace</td></tr>
       <tr><td class="src"><code>\overgroup{x}</code></td><td class="rend">$\overgroup{xyz}$</td><td class="note">over-group</td></tr>
       <tr><td class="src"><code>\undergroup{x}</code></td><td class="rend">$\undergroup{xyz}$</td><td class="note">under-group</td></tr>
-      <tr><td class="src"><code>\overbracket{x}</code></td><td class="rend">$\overbracket{xyz}$</td><td class="note">over-bracket</td></tr>
-      <tr><td class="src"><code>\underbracket{x}</code></td><td class="rend">$\underbracket{xyz}$</td><td class="note">under-bracket</td></tr>
-      <tr><td class="src"><code>\overparen{x}</code></td><td class="rend">$\overparen{xyz}$</td><td class="note">over-paren</td></tr>
-      <tr><td class="src"><code>\underparen{x}</code></td><td class="rend">$\underparen{xyz}$</td><td class="note">under-paren</td></tr>
       <tr><td class="src"><code>\overlinesegment{x}</code></td><td class="rend">$\overlinesegment{xyz}$</td><td class="note">over-segment</td></tr>
       <tr><td class="src"><code>\underlinesegment{x}</code></td><td class="rend">$\underlinesegment{xyz}$</td><td class="note">under-segment</td></tr>
       <tr><td class="src"><code>\cancel{x}</code></td><td class="rend">$\cancel{x}$</td><td class="note">strike through</td></tr>
       <tr><td class="src"><code>\bcancel{x}</code></td><td class="rend">$\bcancel{x}$</td><td class="note">back cancel</td></tr>
       <tr><td class="src"><code>\xcancel{x}</code></td><td class="rend">$\xcancel{x}$</td><td class="note">X cancel</td></tr>
       <tr><td class="src"><code>\sout{gone}</code></td><td class="rend">$\sout{gone}$</td><td class="note">strike-out</td></tr>
-      <tr><td class="src"><code>\ulem{y}</code></td><td class="rend">$\ulem{y}$</td><td class="note">underline (ulem)</td></tr>
       <tr><td class="src"><code>\boxed{x}</code></td><td class="rend">$\boxed{x}$</td><td class="note">framed box</td></tr>
       <tr><td class="src"><code>\fbox{x}</code></td><td class="rend">$\fbox{x}$</td><td class="note">box (\fbox)</td></tr>
-      <tr><td class="src"><code>\framebox[1em]{x}</code></td><td class="rend">$\framebox[1em]{x}$</td><td class="note">sized framebox</td></tr>
-      <tr><td class="src"><code>\enclose{updiagonalstrike}{x}</code></td><td class="rend">$\enclose{updiagonalstrike}{x}$</td><td class="note">MathML enclose</td></tr>
     </tbody>
   </table>
   <div class="empty">No matches in this category.</div>
@@ -914,7 +924,6 @@
       <tr><td class="src"><code>\dotso</code></td><td class="rend">$a \dotso z$</td><td class="note">dots (other)</td></tr>
       <tr><td class="src"><code>\vdots</code></td><td class="rend">$\vdots$</td><td class="note">vertical dots</td></tr>
       <tr><td class="src"><code>\ddots</code></td><td class="rend">$\ddots$</td><td class="note">diagonal dots</td></tr>
-      <tr><td class="src"><code>\iddots</code></td><td class="rend">$\iddots$</td><td class="note">anti-diagonal dots</td></tr>
       <tr><td class="src"><code>\quad</code></td><td class="rend">$a \quad b$</td><td class="note">1 em space</td></tr>
       <tr><td class="src"><code>\qquad</code></td><td class="rend">$a \qquad b$</td><td class="note">2 em space</td></tr>
       <tr><td class="src"><code>\,</code> / <code>\thinspace</code></td><td class="rend">$a \, b$</td><td class="note">thin space</td></tr>
@@ -931,27 +940,22 @@
       <tr><td class="src"><code>\hskip 10pt</code></td><td class="rend">$a\hskip10pt b$</td><td class="note">horizontal skip</td></tr>
       <tr><td class="src"><code>\mskip 10mu</code></td><td class="rend">$a\mskip10mu b$</td><td class="note">math skip</td></tr>
       <tr><td class="src"><code>\hspace{1em}</code></td><td class="rend">$a\hspace{1em} b$</td><td class="note">measured hspace</td></tr>
-      <tr><td class="src"><code>\mspace{4mu}</code></td><td class="rend">$a\mspace{4mu} b$</td><td class="note">math mspace</td></tr>
       <tr><td class="src"><code>\vphantom{x}</code></td><td class="rend">$[\vphantom{y} a]$</td><td class="note">vertical phantom</td></tr>
       <tr><td class="src"><code>\hphantom{xyz}</code></td><td class="rend">$[\hphantom{xyz}]$</td><td class="note">horizontal phantom</td></tr>
       <tr><td class="src"><code>\phantom{xyz}</code></td><td class="rend">$[\phantom{xyz}]$</td><td class="note">full phantom</td></tr>
-      <tr><td class="src"><code>\strut</code></td><td class="rend">$\strut a$</td><td class="note">vertical strut</td></tr>
       <tr><td class="src"><code>\mathstrut</code></td><td class="rend">$\mathstrut a$</td><td class="note">math strut</td></tr>
       <tr><td class="src"><code>\smash{y}</code></td><td class="rend">$\smash{y}$</td><td class="note">zero-height</td></tr>
       <tr><td class="src"><code>\underset{*}{=}</code></td><td class="rend">$\underset{*}{=}$</td><td class="note">annotate below</td></tr>
       <tr><td class="src"><code>\overset{\mathrm{def}}{=}</code></td><td class="rend">$\overset{\mathrm{def}}{=}$</td><td class="note">annotate above</td></tr>
       <tr><td class="src"><code>\stackrel{f}{\to}</code></td><td class="rend">$\stackrel{f}{\to}$</td><td class="note">label on relation</td></tr>
-      <tr><td class="src"><code>\stackbin{\oplus}{=}</code></td><td class="rend">$\stackbin{\oplus}{=}$</td><td class="note">label on binop</td></tr>
       <tr><td class="src"><code>\substack{i=1 \\ j=2}</code></td><td class="rend">$\sum_{\substack{i=1 \\ j=2}}$</td><td class="note">stacked subscript</td></tr>
-      <tr><td class="src"><code>\sideset{_a^b}{_c^d}\sum</code></td><td class="rend">$\sideset{_a^b}{_c^d}\sum$</td><td class="note">side-decorate sum</td></tr>
-      <tr><td class="src"><code>\prescript{a}{b}{X}</code></td><td class="rend">$\prescript{a}{b}{X}$</td><td class="note">pre-subscript</td></tr>
       <tr><td class="src"><code>\rlap{x}</code></td><td class="rend">$\rlap{xx}y$</td><td class="note">zero-width right</td></tr>
       <tr><td class="src"><code>\llap{x}</code></td><td class="rend">$y\llap{xx}$</td><td class="note">zero-width left</td></tr>
       <tr><td class="src"><code>\mathclap{x}</code></td><td class="rend">$\sum_{\mathclap{n=0}}^{N}$</td><td class="note">math clap</td></tr>
       <tr><td class="src"><code>\mathllap{x}</code></td><td class="rend">$A \mathllap{-}$</td><td class="note">math llap</td></tr>
       <tr><td class="src"><code>\mathrlap{x}</code></td><td class="rend">$A \mathrlap{=}$</td><td class="note">math rlap</td></tr>
       <tr><td class="src"><code>\raisebox{2pt}{y}</code></td><td class="rend">$\raisebox{2pt}{y}$</td><td class="note">raise text</td></tr>
-      <tr><td class="src"><code>\tag{*}</code></td><td class="rend">$x = y \tag{*}$</td><td class="note">equation tag</td></tr>
+      <tr><td class="src"><code>\tag{*}</code></td><td class="rend">$$x = y \tag{*}$$</td><td class="note">equation tag (display only)</td></tr>
       <tr><td class="src"><code>\notag</code></td><td class="rend">(suppresses label)</td><td class="note">no numbering</td></tr>
       <tr><td class="src"><code>\label{eq:1}</code></td><td class="rend">(names eq.)</td><td class="note">label for \ref</td></tr>
       <tr><td class="src"><code>\ref{eq:1}</code></td><td class="rend">(prints label)</td><td class="note">reference</td></tr>
@@ -962,9 +966,6 @@
       <tr><td class="src"><code>\toprule \midrule \bottomrule</code></td><td class="rend">(booktabs rules)</td><td class="note">table rules</td></tr>
       <tr><td class="src"><code>\intertext{\bf note}</code></td><td class="rend">(interleave text)</td><td class="note">interrupt align</td></tr>
       <tr><td class="src"><code>\shortintertext{…}</code></td><td class="rend">(short intertext)</td><td class="note">short variant</td></tr>
-      <tr><td class="src"><code>\abovewithdelims</code></td><td class="rend">${a\abovewithdelims()1pt b}$</td><td class="note">above + delims</td></tr>
-      <tr><td class="src"><code>\atopwithdelims</code></td><td class="rend">${a\atopwithdelims()b}$</td><td class="note">atop + delims</td></tr>
-      <tr><td class="src"><code>\overwithdelims</code></td><td class="rend">${a\overwithdelims[]b}$</td><td class="note">over + delims</td></tr>
       <tr><td class="src"><code>\mathchoice{D}{T}{S}{SS}</code></td><td class="rend">$\mathchoice{D}{T}{S}{SS}$</td><td class="note">style-dispatch</td></tr>
       <tr><td class="src"><code>\char`A</code></td><td class="rend">$\char`A$</td><td class="note">char by code</td></tr>
       <tr><td class="src"><code>\relax</code></td><td class="rend">(no-op)</td><td class="note">stop expansion</td></tr>
@@ -975,7 +976,6 @@
       <tr><td class="src"><code>\message{hi}</code></td><td class="rend">(log-only)</td><td class="note">log message</td></tr>
       <tr><td class="src"><code>\global</code></td><td class="rend">(scope prefix)</td><td class="note">global prefix</td></tr>
       <tr><td class="src"><code>\colon</code></td><td class="rend">$f \colon A \to B$</td><td class="note">colon (map style)</td></tr>
-      <tr><td class="src"><code>\semicolon</code></td><td class="rend">$x \semicolon y$</td><td class="note">semicolon</td></tr>
       <tr><td class="src"><code>\lq \rq</code></td><td class="rend">$\lq x \rq$</td><td class="note">left/right quote</td></tr>
       <tr><td class="src"><code>\diamond</code></td><td class="rend">$\diamond$</td><td class="note">diamond binop</td></tr>
       <tr><td class="src"><code>\Diamond</code></td><td class="rend">$\Diamond$</td><td class="note">open diamond</td></tr>

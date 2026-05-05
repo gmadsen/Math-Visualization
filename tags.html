@@ -12,18 +12,28 @@
 <script defer src="./js/progress.js"></script>
 <script defer src="./concepts/bundle.js"></script>
 <script>
+// Tag tiles + detail-panel blurbs are inserted into the DOM after the
+// initial DOMContentLoaded pass, so the canonical one-shot
+// renderMathInElement(document.body) call would miss them and leave raw
+// `$\zeta$` / `$\sum e(\phi(n))$` / `$\infty$` source visible on the
+// equidistribution / cancellation / refinement tiles. Expose a reusable
+// MVRenderMath(el) so the tile renderer can re-run KaTeX on a subtree.
+window.MVRenderMath = function(el){
+  if(typeof renderMathInElement!=='function'){ return; }
+  renderMathInElement(el || document.body,{
+    delimiters:[
+      {left:'$$',right:'$$',display:true},
+      {left:'$',right:'$',display:false},
+      {left:'\\(',right:'\\)',display:false},
+      {left:'\\[',right:'\\]',display:true}
+    ],
+    throwOnError:false
+  });
+};
 (function(){
   function renderAll(){
     if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
-    renderMathInElement(document.body,{
-      delimiters:[
-        {left:'$$',right:'$$',display:true},
-        {left:'$',right:'$',display:false},
-        {left:'\\(',right:'\\)',display:false},
-        {left:'\\[',right:'\\]',display:true}
-      ],
-      throwOnError:false
-    });
+    window.MVRenderMath(document.body);
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
   else renderAll();
@@ -370,6 +380,10 @@
       });
       grid.appendChild(card);
     }
+    // Render KaTeX math in the freshly-inserted tile blurbs (e.g. the
+    // equidistribution / cancellation / refinement tiles carry $\zeta$,
+    // $\sum e(\phi(n))$, $\infty$ in their blurb text).
+    if (window.MVRenderMath) window.MVRenderMath(grid);
 
     function selectTag(t){
       [...grid.children].forEach(c => {
@@ -379,7 +393,12 @@
       });
       const concepts = byTag.get(t.id) || [];
       tdTitle.textContent = t.title;
-      tdBlurb.textContent = t.blurb;
+      // Use innerHTML + escapeHtml so the auto-render pass below picks up any
+      // math delimiters in the blurb (textContent stops KaTeX from finding
+      // them). escapeHtml leaves `$` alone, so `$\zeta$` survives intact for
+      // KaTeX to process.
+      tdBlurb.innerHTML = escapeHtml(t.blurb);
+      if (window.MVRenderMath) window.MVRenderMath(tdBlurb);
       tdCount.textContent = concepts.length + ' concept' + (concepts.length === 1 ? '' : 's');
       // Group by section, preserving sections.json order.
       const sectionOrder = (data.sections?.sections || []).map(s => s.id);
