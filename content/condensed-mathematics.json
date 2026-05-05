@@ -309,5 +309,5 @@
       ]
     }
   ],
-  "rawBodySuffix": "</main>\n\n\n<script>\n(function(){\n  function start(){ if(window.MVQuiz) MVQuiz.init('condensed-mathematics'); }\n  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);\n  else start();\n})();\n</script>\n<details class=\"changelog\">\n  <summary>changelog</summary>\n  <table>\n    <tbody>\n      <tr><td>2026-05-05</td><td>initial version</td></tr>\n    </tbody>\n  </table>\n</details>\n\n</body>\n</html>\n"
+  "rawBodySuffix": "</main>\n\n\n<script>\n(function(){\n  function start(){ if(window.MVQuiz) MVQuiz.init('condensed-mathematics'); }\n  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);\n  else start();\n})();\n</script>\n<details class=\"changelog\">\n  <summary>changelog</summary>\n  <table>\n    <tbody>\n      <tr><td>2026-05-04</td><td>Condensed mathematics topic (capstone) — Clausen-Scholze condensed/solid/liquid + LTE</td></tr>\n    </tbody>\n  </table>\n</details>\n\n</body>\n</html>\n"
 }
