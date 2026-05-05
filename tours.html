@@ -26,7 +26,13 @@
         '\\tr':'\\operatorname{tr}',
         '\\ad':'\\operatorname{ad}',
         '\\ind':'\\operatorname{ind}',
-        '\\Sha':'\\text{Ш}'
+        '\\Sha':'\\text{Ш}',
+        // Langlands tour 9 uses \GL_n and \Frob_p — neither is built into
+        // KaTeX, so they need to be aliased here or they show up as raw
+        // red text.
+        '\\GL':'\\operatorname{GL}',
+        '\\SL':'\\operatorname{SL}',
+        '\\Frob':'\\operatorname{Frob}'
       }
     });
   }
@@ -1141,15 +1147,8 @@ const SVG = (tag,attrs={})=>{
 </aside>
 </section>
 
-<section id="more-tours">
-<h2>More tours coming</h2>
-<p>These nine are a starting set, not a full atlas. Natural next routes — drafted in <a href="https://github.com/gmadsen/Math-Visualization/blob/main/PLAN.md"><code>PLAN.md</code></a>, not yet written:</p>
-<ul>
-  <li><strong>Riemannian geometry to general relativity</strong> — smooth manifolds, the Levi-Civita connection, curvature tensors, Einstein's equations.</li>
-  <li><strong>How probability became measure theory</strong> — Lebesgue, $\sigma$-algebras, the Kolmogorov axioms, Brownian motion as a measure on path space.</li>
-  <li><strong>Curves over fields, from $\mathbb{R}$ to $\mathbb{F}_q$ to $\mathbb{Z}$</strong> — Riemann surfaces, algebraic curves of higher genus, point-counting in characteristic $p$, arithmetic surfaces.</li>
-</ul>
-<p class="small">The corpus is a graph. Tours are the human-friendly cross-sections. If a path you want isn't here, the <a href="./pathway.html">pathway explorer</a> lets you build your own from any concept's prerequisite tree.</p>
+<section id="build-your-own">
+<p class="small">The corpus is a graph and tours are the human-friendly cross-sections. If a path you want isn't here, the <a href="./pathway.html">pathway explorer</a> lets you build your own from any concept's prerequisite tree.</p>
 </section>
 
 <footer>Part of the Interactive Mathematics Notebook · open in a browser, no server needed</footer>

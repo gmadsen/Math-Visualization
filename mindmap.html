@@ -240,7 +240,7 @@
   <a class="back" href="./index.html">← Notebook</a><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link accent" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span>
   <h1>Mindmap</h1>
   <p class="sub">
-    Every concept in the notebook (505 across 73 topics), laid out as one connected graph. Sections cluster by force; cross-section edges are the bridges. Click a node to focus its neighborhood; <kbd>/</kbd> to search; <kbd>?</kbd> for the full key map. The capstone-targeted view lives at <a href="./pathway.html">pathway</a> — this page is for free exploration and for spotting structural gaps.
+    Every concept in the notebook (<span id="mm-stat-concepts">…</span> across <span id="mm-stat-topics">…</span> topics), laid out as one connected graph. Sections cluster by force; cross-section edges are the bridges. Click a node to focus its neighborhood; <kbd>/</kbd> to search; <kbd>?</kbd> for the full key map. The capstone-targeted view lives at <a href="./pathway.html">pathway</a> — this page is for free exploration and for spotting structural gaps.
   </p>
 
   <div class="bar" role="toolbar" aria-label="Mindmap controls">
@@ -448,6 +448,14 @@
       }
     }
   }
+
+  // Update the page-header stats with the live numbers. The intro paragraph
+  // hardcoded "505 across 73 topics" for years and rotted into staleness;
+  // computing them from the bundle keeps it in sync forever.
+  const concEl = document.getElementById('mm-stat-concepts');
+  const topEl  = document.getElementById('mm-stat-topics');
+  if (concEl) concEl.textContent = byId.size;
+  if (topEl)  topEl.textContent  = topicsArr.length;
 
   // topic -> section title (canonical from sections.json)
   const TOPIC_SECTION = {};
