@@ -7861,6 +7861,132 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "mc-examples",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "interactive",
+    "title": "mc-examples widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"The same morphism wears different hats in different model categories\" widget on the model-categories topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"The same morphism wears different hats in different model categories\" widget on `model-categories`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mc-lift",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "mc-lift widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Lifting calculus: when does the diagonal exist?\" widget on the model-categories topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Lifting calculus: when does the diagonal exist?\" widget on `model-categories`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mc-nerve",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "mc-nerve widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Simplicial nerve: from cof–fib objects to $(\\infty,1)$-category\" widget on the model-categories topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Simplicial nerve: from cof–fib objects to $(\\infty,1)$-category\" widget on `model-categories`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mc-pushout",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "select",
+    "role": "interactive",
+    "title": "mc-pushout widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Pushout-product: cell complex × cell complex remains cellular\" widget on the model-categories topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Pushout-product: cell complex × cell complex remains cellular\" widget on `model-categories`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mc-quillen",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "mc-quillen widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"$|\\cdot| \\dashv \\mathrm{Sing}$: round-tripping through CW realization\" widget on the model-categories topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"$|\\cdot| \\dashv \\mathrm{Sing}$: round-tripping through CW realization\" widget on `model-categories`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "mc-replace",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "slider",
+    "role": "interactive",
+    "title": "mc-replace widget params",
+    "description": "Bespoke verbatim-renderer slug for the \"Iterating cofibrant replacement: build a projective resolution step-by-step\" widget on the model-categories topic. Carries opaque bodyMarkup + bodyScript strings; migrated from an inline widget by scripts/migrate-inline-widgets-{typea,typeb}.mjs.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "Bespoke verbatim slug for the \"Iterating cofibrant replacement: build a projective resolution step-by-step\" widget on `model-categories`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "mirror-hms-pairing",
     "family": "mirror-hms-pairing",
     "dimension": "2d",

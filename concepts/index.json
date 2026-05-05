@@ -3,6 +3,7 @@
 
     "motives",
     "algebraic-k-theory-foundations",
+    "model-categories",
 
     "hodge-theory",
 
@@ -195,6 +196,7 @@
     "infinity-topoi": "standard",
     "derived-categories": "standard",
     "algebraic-k-theory-foundations": "advanced",
+    "model-categories": "advanced",
     "cocartesian-fibrations": "standard",
     "group-cohomology": "standard",
     "real-analysis": "prereq",
