@@ -33814,6 +33814,359 @@ window.MVQuizBank = {
       }
     }
   },
+  "model-categories": {
+    "topic": "model-categories",
+    "quizzes": {
+      "mc-axioms": {
+        "title": "Quillen's model category axioms",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Quillen's lifting axiom in a model category $\\mathcal{M}$ asserts that, in any commutative square with a cofibration $i$ on the left and a fibration $p$ on the right, a diagonal lift exists provided:",
+            "choices": [
+              "$\\mathcal{M}$ has all small limits and colimits.",
+              "At least one of $i$, $p$ is a weak equivalence (i.e. $i$ is a trivial cofibration or $p$ is a trivial fibration).",
+              "Both $i$ and $p$ are weak equivalences.",
+              "Neither $i$ nor $p$ is a weak equivalence — lifts only exist outside the equivalence class."
+            ],
+            "answer": 1,
+            "hint": "The lifting axiom is the only place in the Quillen axioms where the three classes interact directly. Two of the four phrasings ask for too much (both/neither are equivalences); one names a different axiom entirely (small (co)limits).",
+            "explain": "The lifting axiom states $C \\boxslash F_W$ and $C_W \\boxslash F$ — diagonal fillers exist whenever the cofibration is trivial or the fibration is trivial. Demanding both to be equivalences would make every square liftable trivially; requiring neither is the wrong direction. (0) is axiom M1 (limits/colimits), not the lifting axiom; small (co)limits are needed to even state the model structure but say nothing about lifting."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all true statements about the 2-of-3 property for the class $W$ of weak equivalences.",
+            "choices": [
+              "If two of $f$, $g$, $g \\circ f$ are in $W$, then so is the third.",
+              "$W$ is closed under composition.",
+              "$W$ contains all isomorphisms.",
+              "$W$ is closed under retracts.",
+              "$W$ is closed under arbitrary direct sums."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "Five candidate properties; one is a structural assumption from a different model-category axiom about all three classes (not just $W$), and one is a stability property that fails in general for weak equivalences (think about how $W$ behaves under infinite operations). The remaining three are direct logical consequences — derive each from the 2-of-3 property by choosing the right $f$ and $g$.",
+            "explain": "(0) is the axiom by definition. (1) follows from 2-of-3 with $g \\circ f$, $g$ in $W$ implying $f$ in $W$ (and the converse direction). (2) follows because every iso $f$ has $f \\circ f^{-1} = \\mathrm{id} \\in W$, applying 2-of-3. (3) is a separate axiom (M3) that all three classes are retract-closed — a real model-category property, but logically independent of 2-of-3. (4) is false in general: arbitrary direct sums of weak equivalences need not be weak equivalences (consider $\\mathrm{Ch}(R)$ where filtered colimits but not all coproducts preserve quasi-isos)."
+          },
+          {
+            "type": "matching",
+            "q": "Match each Quillen axiom on the left to the structural property it imposes.",
+            "left": [
+              "M1 — small limits and colimits",
+              "M2 — 2-of-3 on $W$",
+              "M3 — retract closure",
+              "M4 — functorial factorization",
+              "M5 — lifting"
+            ],
+            "right": [
+              "Every commutative square (cof, fib) where one is trivial admits a diagonal filler.",
+              "Each of $W$, $C$, $F$ contains its retracts in the arrow category.",
+              "Every morphism $f$ factors as $(\\text{cof}) \\circ (\\text{trivial fib})$ and as $(\\text{trivial cof}) \\circ (\\text{fib})$, functorially in $f$.",
+              "$\\mathcal{M}$ admits all limits and colimits indexed by small categories.",
+              "If two of $f$, $g$, $gf$ are weak equivalences, the third is too."
+            ],
+            "answer": [
+              3,
+              4,
+              1,
+              2,
+              0
+            ],
+            "hint": "Each axiom imposes a different kind of structure: completeness (set-size operations), local-to-global (composition behaviour), closure-under-deformation, factorization-as-data, and lifting-as-data. Read each right-hand entry and ask which of these five categories it describes — only one category fits each entry.",
+            "explain": "(0)→3: M1 is the (co)completeness assumption — needed so that pushouts/pullbacks/limits used by the rest of the axioms exist. (1)→4: M2 is 2-of-3 verbatim. (2)→1: M3 is retract closure for all three classes. (3)→2: M4 is the existence of two functorial factorizations through trivial-fib/cof, generating cofibrant and fibrant replacements. (4)→0: M5 is the lifting calculus encoding $C \\boxslash F_W$ and $C_W \\boxslash F$."
+          }
+        ]
+      },
+      "mc-examples": {
+        "title": "Standard model structures",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In the Kan–Quillen model structure on simplicial sets, the cofibrations are:",
+            "choices": [
+              "Maps that are bijective on $0$-simplices.",
+              "Monomorphisms (i.e. levelwise injections).",
+              "Kan fibrations whose fibers are contractible.",
+              "Maps inducing surjections on all homotopy groups."
+            ],
+            "answer": 1,
+            "hint": "In the Kan–Quillen structure the three classes are characterized by very different criteria. One of the classes here is described in terms of fibers (which is a fibration-side description, not a cofibration-side one); one is a homotopy-theoretic surjectivity (which is a $W$-side description); one is too local. The right characterization is purely set-theoretic at each simplicial level.",
+            "explain": "Cofibrations in the Kan–Quillen structure are exactly the levelwise injections (monomorphisms of simplicial sets) — equivalently, retracts of inclusions of simplicial subcomplexes. (0) is too weak (e.g. a level-injective non-surjective inclusion at level 1 also matters). (2) describes trivial Kan fibrations, not cofibrations. (3) describes weak equivalences (or rather a coarse necessary condition), again the wrong class."
+          },
+          {
+            "type": "matching",
+            "q": "Match each model structure to its weak equivalences.",
+            "left": [
+              "Quillen model on $\\mathrm{Top}$",
+              "Kan–Quillen on $\\mathrm{sSet}$",
+              "Projective model on $\\mathrm{Ch}(R)$",
+              "Joyal model on $\\mathrm{sSet}$"
+            ],
+            "right": [
+              "Quasi-isomorphisms (chain maps inducing iso on $H_*$).",
+              "Categorical equivalences of quasi-categories (Joyal's $J$-equivalences, detected on the homotopy coherent nerve).",
+              "Maps $f$ for which $|f|$ is a weak homotopy equivalence of topological spaces.",
+              "Weak homotopy equivalences (maps inducing iso on $\\pi_n$ for all basepoints, all $n$)."
+            ],
+            "answer": [
+              3,
+              2,
+              0,
+              1
+            ],
+            "hint": "Two of the four model structures live on the same underlying category $\\mathrm{sSet}$ but pick different weak equivalences — that's the whole point of the Joyal–Quillen distinction. The other two structures are on $\\mathrm{Top}$ and $\\mathrm{Ch}(R)$ and have the names you'd expect from those subjects. Sort first by the underlying category, then disambiguate the two $\\mathrm{sSet}$ structures by what they want to model.",
+            "explain": "(0)→3: Quillen on $\\mathrm{Top}$ uses weak homotopy equivalences. (1)→2: Kan–Quillen detects equivalence by passing through geometric realization; equivalently, by inducing iso on $\\pi_n$ of $|X|$. (2)→0: $\\mathrm{Ch}(R)$ projective uses quasi-isos. (3)→1: Joyal's structure on $\\mathrm{sSet}$ replaces Kan's notion of equivalence with the categorical-equivalence-of-quasi-categories notion — the same underlying category, very different $W$, and that distinction is exactly what models $(\\infty,1)$-categories vs.\\ $\\infty$-groupoids."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all true statements about fibrations in the projective model structure on $\\mathrm{Ch}(R)$ (chain complexes of $R$-modules, non-negatively graded).",
+            "choices": [
+              "Fibrations are exactly the chain maps that are surjective in every positive degree.",
+              "Trivial fibrations are exactly the surjective quasi-isomorphisms whose kernel is degreewise projective.",
+              "Every chain complex is fibrant.",
+              "The projective model structure has the same fibrations as the injective model structure."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "hint": "Two of these are direct unwindings of the lifting calculus once you fix what 'cofibration' means in the projective structure; one is a categorical fact about the terminal object that characterizes which projective model variant you're in (bounded vs.\\ unbounded matters slightly); one compares two different model structures whose names are nearly identical but whose three classes interleave differently.",
+            "explain": "(0) is correct: in non-negative degrees, projective fibrations are surjections in every positive degree (the degree-zero piece is unconstrained). (1) is the trivial-fib characterization — surjective + quasi-iso, with degreewise projective kernel reflecting the cof orthogonality. (2) is the punchline: the terminal object is $0$, every $X \\to 0$ is degreewise surjective, so every complex is fibrant. (3) is false: the projective and injective structures have the SAME weak equivalences (quasi-isos) but swap the roles of cof / fib — they are Quillen-equivalent but not equal."
+          }
+        ]
+      },
+      "mc-cofibrant-replacement": {
+        "title": "Cofibrant and fibrant replacement",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For the projective model structure on $\\mathrm{Ch}(R)$ (non-negatively graded), the cofibrant replacement of an $R$-module $M$ (viewed as a complex concentrated in degree $0$) is most naturally realized as:",
+            "choices": [
+              "The complex $0 \\to M \\to 0$ itself, since $M$ is its own simplest replacement.",
+              "A projective resolution $\\cdots \\to P_1 \\to P_0 \\to 0$ together with an augmentation $P_0 \\twoheadrightarrow M$ realizing the trivial fibration $QM \\to M$.",
+              "An injective resolution $0 \\to M \\to I_0 \\to I_1 \\to \\cdots$.",
+              "The total complex of a Cartan–Eilenberg double complex of $M$."
+            ],
+            "answer": 1,
+            "hint": "Cofibrant replacement is the LEFT half of the M4 factorization $\\emptyset \\to QX \\xrightarrow{\\sim} X$. So the question is which classical homological-algebra construction plays that role over $\\mathrm{Ch}(R)$. Two of the four options are dual constructions (right-half / fibrant replacement); one is too coarse (claiming no replacement is needed); one is a more elaborate construction that solves a different problem.",
+            "explain": "Projective cofibrations are bounded-below complexes of projectives, so cofibrant replacement of $M[0]$ amounts to a projective resolution. The augmentation $P_0 \\to M$ becomes the trivial fibration of M4. (0) fails because $M$ as a complex is rarely cofibrant — it sits in degree $0$ but isn't projective in general. (2) is fibrant replacement in the injective model structure (or its dual), the wrong half of M4 here. (3) is the input to a hyper-derived functor — overkill for replacing a single module."
+          },
+          {
+            "type": "ordering",
+            "q": "Order the steps in computing $\\mathrm{Ext}^1_R(M, N)$ via the projective model structure on $\\mathrm{Ch}(R)$.",
+            "items": [
+              "Apply $\\mathrm{Hom}_R(-, N)$ to the cofibrant replacement $P_\\bullet \\to M$, producing a cochain complex $\\mathrm{Hom}(P_\\bullet, N)$.",
+              "Compute the cohomology of the resulting complex; $\\mathrm{Ext}^n_R(M,N) = H^n \\mathrm{Hom}(P_\\bullet, N)$, so $\\mathrm{Ext}^1$ is read off in degree $1$.",
+              "Cofibrantly replace $M[0]$ by a projective resolution $P_\\bullet \\xrightarrow{\\sim} M$.",
+              "Observe that $N$ is already fibrant (every complex is fibrant in the projective structure) so no fibrant replacement of $N$ is needed."
+            ],
+            "answer": [
+              3,
+              2,
+              0,
+              1
+            ],
+            "hint": "Each step has a structural role: one step removes a non-issue (the right-side replacement that doesn't actually need doing here), one step does the actual replacement on the left, one step applies the functor whose derived form we want, one step extracts an invariant. Sort by which step's hypothesis the next step relies on — the cofibrant replacement isn't useful until after you've decided no fibrant replacement is needed, and the cohomology can't be read off until you've applied the functor.",
+            "explain": "(3) First note: every chain complex is fibrant projectively, so the right side is fine. (2) Cofibrantly replace $M[0]$ via a projective resolution $P_\\bullet$. (0) Apply $\\mathrm{Hom}(-, N)$ to $P_\\bullet$ — this is the step that turns a left-derivation into a concrete computation. (1) Read $\\mathrm{Ext}^n$ off as the cohomology. The order matters: applying $\\mathrm{Hom}$ before replacing would compute $\\mathrm{Hom}(M, N)$ in degree $0$ only, missing the higher Ext groups."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all true statements about the well-definedness of cofibrant replacement.",
+            "choices": [
+              "$QX$ is determined uniquely up to isomorphism by $X$.",
+              "$QX$ is determined up to homotopy by $X$, where 'homotopy' means the model-categorical homotopy relation.",
+              "Two cofibrant replacements $QX, Q'X$ become canonically isomorphic in $\\mathrm{Ho}(\\mathcal{M})$.",
+              "The functor $Q: \\mathcal{M} \\to \\mathcal{M}^c$ (cofibrant objects) descends to $\\mathrm{Ho}(\\mathcal{M}) \\to \\mathrm{Ho}(\\mathcal{M}^c)$ as an equivalence."
+            ],
+            "answer": [
+              1,
+              2,
+              3
+            ],
+            "hint": "Four candidate uniqueness statements, ranged from strict (literal isomorphism) to homotopy-theoretic (up to weak equivalence in the localized category). One option overshoots — model categories rarely give literal up-to-iso uniqueness for derived constructions. The other three are progressively weaker statements that are all true for the right reason.",
+            "explain": "(1) Two functorial cofibrant replacements differ by a span of trivial fibrations and are homotopic. (2) Their image in $\\mathrm{Ho}(\\mathcal{M})$ is canonically isomorphic — the localization makes weak equivalences invertible. (3) The induced functor on $\\mathrm{Ho}$ is in fact an equivalence (Quillen's homotopy-category theorem, since fibrant–cofibrant suffices for Hom-set computations and $Q$ doesn't change weak-equivalence classes). (0) is too strong: $QX$ depends on the choice of factorization (functorial only up to homotopy), so different functorial choices give isomorphic-in-$\\mathrm{Ho}$ but rarely literally isomorphic outputs."
+          }
+        ]
+      },
+      "mc-quillen-functors": {
+        "title": "Quillen functors and equivalences",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $L \\dashv R: \\mathcal{M} \\rightleftarrows \\mathcal{N}$ be an adjunction between model categories. Which condition makes $(L, R)$ a Quillen pair?",
+            "choices": [
+              "$L$ preserves all weak equivalences.",
+              "$L$ preserves cofibrations and trivial cofibrations (equivalently, $R$ preserves fibrations and trivial fibrations).",
+              "Both $L$ and $R$ are equivalences of categories.",
+              "$L$ preserves limits and $R$ preserves colimits."
+            ],
+            "answer": 1,
+            "hint": "Quillen pair is the named condition between 'plain adjunction' and 'Quillen equivalence'. One of the choices states the strictly stronger condition (full equivalence on both sides); one demands a property that no left adjoint generally has on its own (preserving plain weak equivalences pre-replacement); one swaps the standard limit/colimit-preservation roles backwards. The remaining choice is a structurally compatible compromise — the LEFT adjoint preserves the LEFT-half (cof) classes.",
+            "explain": "A Quillen pair is the model-category-compatible refinement of a plain adjunction: the LEFT adjoint preserves cof + trivial cof. The equivalent dual: the RIGHT adjoint preserves fib + trivial fib (these conditions are equivalent because lifts in $\\mathcal{N}$ correspond to lifts in $\\mathcal{M}$ under the adjunction). (0) is generally false — $L$ rarely preserves arbitrary weak equivalences; only weak equivalences BETWEEN COFIBRANT objects survive (Ken Brown's lemma). (2) is the condition for an equivalence of underlying categories (much stronger than a Quillen pair). (3) reverses the standard adjunction-preservation rules: left adjoints preserve colimits, right adjoints preserve limits."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all true statements about the geometric realization adjunction $|\\cdot| \\dashv \\mathrm{Sing}: \\mathrm{sSet} \\rightleftarrows \\mathrm{Top}$ as a Quillen equivalence.",
+            "choices": [
+              "$|\\cdot|$ is the left adjoint and preserves cofibrations.",
+              "$\\mathrm{Sing}(X)$ is a Kan complex for any topological space $X$.",
+              "The unit $\\eta_K: K \\to \\mathrm{Sing}\\,|K|$ is a weak equivalence for every simplicial set $K$.",
+              "The counit $\\epsilon_X: |\\mathrm{Sing}\\,X| \\to X$ is a homeomorphism for every topological space $X$."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "hint": "Four standard claims about the realization–singular adjunction. Three are textbook properties of the adjunction; one mistakes a homotopy equivalence for a stricter relation that the realization actually fails to satisfy (geometric realization is built from simplices, so the counit can't recover arbitrary topological niceties). Identify the mistake by asking: which of these statements is too strong on the topological side?",
+            "explain": "(0) $|\\cdot|$ is the left adjoint (it's left because $\\mathrm{Sing}$ is the right adjoint by direct construction) and preserves cofibrations because it sends mono to relative-CW. (1) Standard: $\\mathrm{Sing}(X)$ satisfies the Kan condition (every simplex of every horn extends, by simply pushing the horn into $X$ and lifting the extension). (2) The unit being a weak equivalence is half of the Quillen-equivalence statement. (3) is too strong: the counit is only a weak homotopy equivalence, not a homeomorphism — $|\\mathrm{Sing}\\,X|$ is always a CW complex, while $X$ might not even be Hausdorff. The Quillen-equivalence-but-not-isomorphism is exactly this gap."
+          },
+          {
+            "type": "matching",
+            "q": "Match each Quillen pair to the derived functor it produces.",
+            "left": [
+              "$- \\otimes_R N \\dashv \\mathrm{Hom}_R(N, -)$ on $\\mathrm{Ch}(R)$ (with $N$ a fixed $R$-module)",
+              "$|\\cdot| \\dashv \\mathrm{Sing}: \\mathrm{sSet} \\rightleftarrows \\mathrm{Top}$",
+              "Free–forgetful $F \\dashv U: \\mathrm{Set} \\rightleftarrows \\mathrm{Grp}$ — assuming both sides are model categories with weak equivalences = isos",
+              "Constant–colimit $\\Delta \\dashv \\mathrm{colim}$ on the diagram category $\\mathcal{M}^I$"
+            ],
+            "right": [
+              "Identifies the $\\infty$-groupoid presentation of spaces with its CW realization in $\\mathrm{Ho}(\\mathrm{Top})$.",
+              "Computes the homotopy colimit $\\mathrm{hocolim}_I = \\mathbb{L}\\,\\mathrm{colim}$ as a corrected colimit on the cofibrantly-replaced diagram.",
+              "Computes $\\mathrm{Tor}^R(M, N) = \\mathbb{L}(- \\otimes_R N)(M)$ on the left, $\\mathrm{Ext}^*_R(N, -)$ on the right.",
+              "Is a Quillen equivalence (trivially, since both sides are 1-categories with $W = \\mathrm{iso}$, no derivation happens)."
+            ],
+            "answer": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "hint": "Each pairing matches a class of input data (chain complexes / spaces / discrete sets / diagrams indexed by $I$) to a class of output invariant (Tor–Ext / spaces themselves / no-op / homotopy colimits). One of the four pairs is intentionally degenerate — both sides have $W = \\mathrm{iso}$ so derivation is a no-op. Match by structural type first, then disambiguate within type.",
+            "explain": "(0)→2: The tensor–Hom adjunction on chain complexes derives to Tor on the left and Ext on the right — the standard homological tower. (1)→0: realization–Sing identifies $\\mathrm{Ho}(\\mathrm{sSet})$ with $\\mathrm{Ho}(\\mathrm{Top})$ at the level of CW-spaces. (2)→1: when $W = \\mathrm{iso}$ on both sides, every Quillen pair derives to itself unchanged — the degenerate but instructive case. (3)→3: cofibrant replacement on the diagram category is exactly Bousfield–Kan's recipe for homotopy colimits as derived colimits."
+          }
+        ]
+      },
+      "mc-monoidal": {
+        "title": "Monoidal model categories",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The pushout-product axiom in a monoidal model category demands that, for cofibrations $i: A \\to B$ and $j: C \\to D$, the natural map",
+            "choices": [
+              "$A \\otimes C \\to B \\otimes D$ is a cofibration.",
+              "$A \\otimes D \\sqcup_{A \\otimes C} B \\otimes C \\to B \\otimes D$ is a cofibration, and trivial when either $i$ or $j$ is.",
+              "$B \\otimes D \\to A \\otimes C$ is a fibration.",
+              "$B \\otimes C \\to A \\otimes D$ is a weak equivalence whenever $i$ is."
+            ],
+            "answer": 1,
+            "hint": "The pushout-product is a specific universal-property construction: build the corner of a square and ask whether the resulting map into the bottom-right is a cofibration. One of the four options gets the corner construction wrong (just tensors the source); one reverses the arrow direction; one gives a weak-equivalence-only condition that doesn't capture cofibrancy. Pick the option that names the actual corner construction and asserts both the cof-side and the trivial-side lifts.",
+            "explain": "The pushout-product is the corner map from the pushout $A \\otimes D \\sqcup_{A \\otimes C} B \\otimes C$ down to $B \\otimes D$. Demanding it be a cofibration (and trivial when either factor is) is the precise compatibility condition for $\\otimes$ to derive correctly. (0) is too weak — just tensor of cofibrations is not enough. (2) reverses the arrow direction, asking about fibrations instead of cofibrations and conflating the two sides of the tensor. (3) covers only the trivial case partially and ignores the cofibration condition itself."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all true statements about monoidal model categories.",
+            "choices": [
+              "$\\mathrm{Top}$ with the cartesian product carries a compatible monoidal model structure.",
+              "$\\mathrm{sSet}$ with the cartesian product satisfies the pushout-product axiom.",
+              "$\\mathrm{Ch}(R)$ for $R$ commutative with the standard tensor product satisfies the pushout-product axiom for the projective model structure.",
+              "Monoid objects (associative algebras up to homotopy) in a monoidal model category form a model category whose weak equivalences are detected on underlying objects."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "All four statements concern compatibility between the monoidal product and a model structure, in different categories. Three of the four are textbook results; one is a deeper transferred-model-structure theorem (Schwede–Shipley) about lifting the model structure onto monoid objects, with technical hypotheses (the monoid axiom) that are satisfied in the standard examples. Test each option against whether the relevant compatibility is actually known to hold in the named category.",
+            "explain": "(0) Yes, with care about compactly generated topology, $\\mathrm{Top}$ is a monoidal model category. (1) Yes, $\\mathrm{sSet}$ with cartesian product is monoidal model — the pushout-product of two monomorphisms is a monomorphism, trivial when either factor is a Kan-Quillen weak equivalence between cofibrant objects. (2) Yes, $\\mathrm{Ch}(R)$ projective is monoidal model for commutative $R$. (3) Yes — Schwede–Shipley transferred model structure: monoids form a model category whose weak equivalences are detected on underlying objects, given the monoid axiom (a strengthening of the pushout-product axiom)."
+          },
+          {
+            "type": "ordering",
+            "q": "Order the steps in deriving the tensor product to a functor $- \\otimes^{\\mathbb{L}} -: \\mathrm{Ho}(\\mathcal{M}) \\times \\mathrm{Ho}(\\mathcal{M}) \\to \\mathrm{Ho}(\\mathcal{M})$ on a monoidal model category $(\\mathcal{M}, \\otimes)$.",
+            "items": [
+              "Apply $\\otimes$ to the cofibrant replacements: $QX \\otimes QY$.",
+              "Verify that $\\otimes$ preserves weak equivalences between cofibrant objects (Ken Brown's lemma applied to the pushout-product axiom).",
+              "Cofibrantly replace both inputs: $QX \\xrightarrow{\\sim} X$ and $QY \\xrightarrow{\\sim} Y$.",
+              "Define $X \\otimes^{\\mathbb{L}} Y := QX \\otimes QY$, well-defined up to weak equivalence on $\\mathrm{Ho}$."
+            ],
+            "answer": [
+              2,
+              0,
+              1,
+              3
+            ],
+            "hint": "Each step has a precondition. Replacement happens before the operation that uses replacements. Verifying-that-it-works happens before declaring the final definition. One of the four steps is a mid-derivation lemma (Ken Brown) that you cite to justify the construction's well-definedness; sort by which step is the citation and which steps are the actual computation.",
+            "explain": "(2) Cofibrantly replace both inputs first — this is what makes the next step valid. (0) Tensor the replacements together. (1) Cite Ken Brown's lemma (a left Quillen functor preserves weak equivalences between cofibrant objects) to argue the result is independent of the choice of replacement up to weak equivalence. (3) Finally declare the derived tensor as this construction, well-defined on $\\mathrm{Ho}$. Skipping replacement (jumping to step 0 directly) computes the wrong thing — e.g. $\\mathbb{Z}/2 \\otimes^{\\mathbb{L}} \\mathbb{Z}/2$ vs.\\ the un-derived $\\mathbb{Z}/2 \\otimes \\mathbb{Z}/2$."
+          }
+        ]
+      },
+      "mc-bridge-infinity": {
+        "title": "From model categories to $\\infty$-categories",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The $(\\infty,1)$-category $\\mathcal{M}_\\infty$ underlying a combinatorial simplicial model category $\\mathcal{M}$ is most directly constructed as:",
+            "choices": [
+              "The classifying space of $\\mathcal{M}$, ignoring the model structure.",
+              "The simplicial nerve $N_\\Delta(\\mathcal{M}^{cf})$ of the full simplicial subcategory of cofibrant–fibrant objects.",
+              "The localization of $\\mathcal{M}$ at all morphisms (i.e. the groupoid completion).",
+              "The 2-categorical truncation of $\\mathcal{M}$ to its homotopy 2-category."
+            ],
+            "answer": 1,
+            "hint": "The construction passes through three stages: restrict to objects with the right finiteness (cof–fib), use the simplicial enrichment to make Hom-spaces homotopical (not just sets), apply a nerve-type construction that promotes a simplicial category to a quasi-category. Three of the four options skip one of these stages. The right answer hits all three.",
+            "explain": "The simplicial nerve $N_\\Delta$ takes a simplicial category (a category enriched in $\\mathrm{sSet}$) and produces a quasi-category. Restricting to $\\mathcal{M}^{cf}$ ensures the simplicial Hom-sets are Kan complexes (which holds when both source and target are cof–fib in a simplicial model category). The result is exactly the $(\\infty,1)$-category $\\mathcal{M}_\\infty$ (Lurie HTT 1.3.4.20). (0) is far too coarse — it forgets all morphism structure. (2) collapses everything to a groupoid, which is opposite to the goal. (3) is a strict 2-truncation, losing the higher coherence data that distinguishes $\\infty$-categories from 2-categories."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all true statements about the model-category-to-$\\infty$-category dictionary.",
+            "choices": [
+              "Quillen-equivalent model categories present equivalent $(\\infty,1)$-categories.",
+              "Every presentable $(\\infty,1)$-category arises as $\\mathcal{M}_\\infty$ for some combinatorial model category $\\mathcal{M}$ (Dugger's theorem).",
+              "The homotopy category $\\mathrm{Ho}(\\mathcal{M})$ is the homotopy 1-category of $\\mathcal{M}_\\infty$.",
+              "Model category presentations are necessary to define $\\infty$-categorical limits and colimits — without a model structure, those notions are not well-defined."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "hint": "Three of these are correct theorems linking the two frameworks; one inverts the historical narrative — modern $\\infty$-category theory (Joyal, Lurie) pointedly defines limits and colimits intrinsically, BEFORE invoking any model-category presentation. Identify the inverted claim by asking which statement makes model categories more fundamental than they actually need to be.",
+            "explain": "(0) Quillen equivalence implies $(\\infty,1)$-equivalence — the dictionary is faithful. (1) Dugger: every combinatorial $(\\infty,1)$-category has a combinatorial-simplicial-model-category presentation. (2) The homotopy 1-category construction commutes — passing $\\mathcal{M} \\to \\mathrm{Ho}(\\mathcal{M})$ matches passing $\\mathcal{M}_\\infty \\to h\\mathcal{M}_\\infty$. (3) is wrong: $\\infty$-limits/colimits are defined directly via terminal/initial objects in slice quasi-categories — a model category presentation is one way to compute them but not the only way to define them. Lurie's HTT goes the model-free route deliberately."
+          },
+          {
+            "type": "matching",
+            "q": "Match each model-category construction to its $(\\infty,1)$-categorical incarnation.",
+            "left": [
+              "Cofibrant replacement $QX$",
+              "Quillen equivalence $\\mathcal{M} \\simeq_{Q} \\mathcal{N}$",
+              "Total derived functor $\\mathbb{L}L$",
+              "Homotopy colimit $\\mathrm{hocolim}_I$ on a diagram category"
+            ],
+            "right": [
+              "An equivalence of $(\\infty,1)$-categories $\\mathcal{M}_\\infty \\simeq \\mathcal{N}_\\infty$.",
+              "An $\\infty$-categorical colimit over $I$ in $\\mathcal{M}_\\infty$.",
+              "An object representing $X$ in $\\mathcal{M}_\\infty$ — every object of $\\mathcal{M}_\\infty$ has a cofibrant–fibrant model in $\\mathcal{M}$.",
+              "An $\\infty$-categorical functor $L_\\infty: \\mathcal{M}_\\infty \\to \\mathcal{N}_\\infty$."
+            ],
+            "answer": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "hint": "Two model-category constructions become structural in the $(\\infty,1)$-categorical world: replacements become 'pick any representative', and Quillen equivalences become honest equivalences. The other two — total derived functors and hocolims — become functors and colimits respectively, which is exactly what $\\infty$-categorical machinery is good at. Match by which $\\infty$-categorical concept is the natural counterpart of each model-categorical concept.",
+            "explain": "(0)→3: in $\\mathcal{M}_\\infty$, the homotopy type of $X$ is captured by any cofibrant–fibrant model — replacement chooses a 'preferred' such model. (1)→0: Quillen equivalence is the model-categorical witness for $(\\infty,1)$-equivalence. (2)→2: total derived functors descend to honest $\\infty$-functors. (3)→1: homotopy colimits in $\\mathcal{M}$ are exactly $\\infty$-colimits in $\\mathcal{M}_\\infty$ — Bousfield–Kan's machinery is one calculational implementation of the $\\infty$-categorical universal property."
+          }
+        ]
+      }
+    }
+  },
   "model-theory-basics": {
     "topic": "model-theory-basics",
     "quizzes": {

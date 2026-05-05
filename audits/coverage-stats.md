@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **146**, concepts: **1038**
-- Widgets: **1065** (registry-driven: 1065, inline: 0)
-- Quizzes: **4308** (v1: 3072, hard: 1223, expert: 13)
-- Quiz types: mcq: 2866, numeric: 1073, multi-select: 155, matching: 75, ordering: 52, spot-the-error: 37, complex: 29, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Topics: **147**, concepts: **1044**
+- Widgets: **1071** (registry-driven: 1071, inline: 0)
+- Quizzes: **4326** (v1: 3090, hard: 1223, expert: 13)
+- Quiz types: mcq: 2872, numeric: 1073, multi-select: 161, matching: 79, ordering: 54, spot-the-error: 37, complex: 29, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **146**
-- Concepts lacking a hard-tier quiz: **600**
+- Concepts lacking a hard-tier quiz: **606**
 
 ## Per-slug registry adoption
 
@@ -392,6 +392,12 @@ page has wired one in yet.
 | `matroid-graph-forests` | matroid-graph-forests | click | 2d | 1 | matroid-theory |
 | `matroid-greedy-vs-nonmatroid` | matroid-greedy-vs-nonmatroid | slider | 2d | 1 | matroid-theory |
 | `matroid-tutte-polynomial` | matroid-tutte-polynomial | slider | 2d | 1 | matroid-theory |
+| `mc-examples` | verbatim | select | 2d | 1 | model-categories |
+| `mc-lift` | verbatim | click | 2d | 1 | model-categories |
+| `mc-nerve` | verbatim | click | 2d | 1 | model-categories |
+| `mc-pushout` | verbatim | select | 2d | 1 | model-categories |
+| `mc-quillen` | verbatim | click | 2d | 1 | model-categories |
+| `mc-replace` | verbatim | slider | 2d | 1 | model-categories |
 | `mirror-hms-pairing` | mirror-hms-pairing | click | 2d | 1 | mirror-symmetry |
 | `mirror-hodge-diamond` | mirror-hodge-diamond | select | 2d | 1 | mirror-symmetry |
 | `mirror-quintic-counts` | mirror-quintic-counts | click | 2d | 1 | mirror-symmetry |
@@ -626,13 +632,13 @@ page has wired one in yet.
 
 ### Algebra & homological
 
-- Topics: **14**, concepts: **130**
-- Widgets: **129** (registry-driven: 129, inline: 0)
-  - by family: button-stepper: 42, clickable-diagram: 21, verbatim: 20, parametric-plot: 9, proof-scrubber: 2, quantum-groups-hopf-axioms-inspector: 1, quantum-groups-qsl2-deformation-slider: 1, quantum-groups-yang-baxter-reidemeister: 1, quantum-groups-crystal-tensor-product: 1, quantum-groups-reshetikhin-turaev-knots: 1, quantum-groups-applications-map: 1, quaternions-multiplication-tester: 1, quaternions-rotation-visualizer: 1, quaternions-cayley-dickson-ladder: 1, quaternions-fano-plane-oracle: 1, quaternions-frobenius-case-tree: 1, quaternions-hurwitz-tower-bar: 1, naturality-square: 1, declarative-host: 1, clickable-graph: 1, diagram-editor: 1, group-cohomology-coboundary-calculator: 1, group-cohomology-fixed-points: 1, group-cohomology-hilbert-90: 1, group-cohomology-c2-extensions: 1, group-cohomology-tate-periodic-table: 1, group-cohomology-lhs-spectral: 1, group-cohomology-brauer-cheatsheet: 1, lie-algebras-bracket-table: 1, lie-algebras-adjoint-vis: 1, lie-algebras-derived-series: 1, lie-algebras-root-vis: 1, lie-algebras-weight-diagram: 1, lie-algebras-dynkin-gallery: 1, gcb-cocycle-tester: 1, gcb-mu2-torsor-visualizer: 1, gcb-central-extension-browser: 1, gcb-cyclic-algebra-tester: 1, gcb-tate-pairing-table: 1, gcb-hasse-counterexample-gallery: 1
-  - by dimension: 2d: 128, 3d: 1
-  - by gesture: click: 96, select: 12, slider: 8, inspect: 3, input: 2, toggle: 2, scrub: 2, slider+click: 1, interactive: 1, drag-and-toggle: 1, step: 1
-- Quizzes: **577** (v1: 391, hard: 186, expert: 0)
-  - by type: mcq: 362, numeric: 150, multi-select: 31, ordering: 13, matching: 9, spot-the-error: 7, proof-completion: 4, complex: 1
+- Topics: **15**, concepts: **136**
+- Widgets: **135** (registry-driven: 135, inline: 0)
+  - by family: button-stepper: 42, verbatim: 26, clickable-diagram: 21, parametric-plot: 9, proof-scrubber: 2, quantum-groups-hopf-axioms-inspector: 1, quantum-groups-qsl2-deformation-slider: 1, quantum-groups-yang-baxter-reidemeister: 1, quantum-groups-crystal-tensor-product: 1, quantum-groups-reshetikhin-turaev-knots: 1, quantum-groups-applications-map: 1, quaternions-multiplication-tester: 1, quaternions-rotation-visualizer: 1, quaternions-cayley-dickson-ladder: 1, quaternions-fano-plane-oracle: 1, quaternions-frobenius-case-tree: 1, quaternions-hurwitz-tower-bar: 1, naturality-square: 1, declarative-host: 1, clickable-graph: 1, diagram-editor: 1, group-cohomology-coboundary-calculator: 1, group-cohomology-fixed-points: 1, group-cohomology-hilbert-90: 1, group-cohomology-c2-extensions: 1, group-cohomology-tate-periodic-table: 1, group-cohomology-lhs-spectral: 1, group-cohomology-brauer-cheatsheet: 1, lie-algebras-bracket-table: 1, lie-algebras-adjoint-vis: 1, lie-algebras-derived-series: 1, lie-algebras-root-vis: 1, lie-algebras-weight-diagram: 1, lie-algebras-dynkin-gallery: 1, gcb-cocycle-tester: 1, gcb-mu2-torsor-visualizer: 1, gcb-central-extension-browser: 1, gcb-cyclic-algebra-tester: 1, gcb-tate-pairing-table: 1, gcb-hasse-counterexample-gallery: 1
+  - by dimension: 2d: 134, 3d: 1
+  - by gesture: click: 99, select: 14, slider: 9, inspect: 3, input: 2, toggle: 2, scrub: 2, slider+click: 1, interactive: 1, drag-and-toggle: 1, step: 1
+- Quizzes: **595** (v1: 409, hard: 186, expert: 0)
+  - by type: mcq: 368, numeric: 150, multi-select: 37, ordering: 15, matching: 13, spot-the-error: 7, proof-completion: 4, complex: 1
 
 ### Higher categories & toposes
 
@@ -728,6 +734,7 @@ page has wired one in yet.
 
 - `motives` (Algebraic geometry) — concepts=8, widgets=0 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
 - `algebraic-k-theory-foundations` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `model-categories` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `hodge-theory` (Algebraic geometry) — concepts=8, widgets=0 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
 - `langlands-program` (Modular forms & L-functions) — concepts=8, widgets=0 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
 - `microlocal-analysis` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
@@ -914,9 +921,9 @@ page has wired one in yet.
 - `ak-q-construction` (algebraic-k-theory-foundations)
 - `ak-localization-sequence` (algebraic-k-theory-foundations)
 - `ak-applications` (algebraic-k-theory-foundations)
-- `why-hodge` (hodge-theory)
-- `hodge-decomposition` (hodge-theory)
-- `hodge-filtration-structure` (hodge-theory)
-- `pure-hodge-structure` (hodge-theory)
-- `mixed-hodge-structure` (hodge-theory)
-- `hodge-conjecture` (hodge-theory)
+- `mc-axioms` (model-categories)
+- `mc-examples` (model-categories)
+- `mc-cofibrant-replacement` (model-categories)
+- `mc-quillen-functors` (model-categories)
+- `mc-monoidal` (model-categories)
+- `mc-bridge-infinity` (model-categories)

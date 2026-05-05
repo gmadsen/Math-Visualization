@@ -6,6 +6,7 @@ window.__MVConcepts = {
     "topics": [
       "motives",
       "algebraic-k-theory-foundations",
+      "model-categories",
       "hodge-theory",
       "langlands-program",
       "microlocal-analysis",
@@ -185,6 +186,7 @@ window.__MVConcepts = {
       "infinity-topoi": "standard",
       "derived-categories": "standard",
       "algebraic-k-theory-foundations": "advanced",
+      "model-categories": "advanced",
       "cocartesian-fibrations": "standard",
       "group-cohomology": "standard",
       "real-analysis": "prereq",
@@ -516,6 +518,95 @@ window.__MVConcepts = {
           "blurb": "K-theory underwrites three flagship results. The Bass-Quillen theorem (Serre's conjecture for regular rings) says every finitely generated projective $R[t]$-module extends from $R$ when $R$ is regular Noetherian — proven via $K_0$-theoretic patching. Wall's finiteness obstruction lives in $\\widetilde{K}_0(\\mathbb{Z}[\\pi_1 X])$: a finitely dominated CW complex is homotopy equivalent to a finite one iff this class vanishes. Motivic K-theory, the Beilinson-Lichtenbaum picture proven through Voevodsky's work on the Bloch-Kato conjecture, computes algebraic K-theory of smooth varieties via motivic cohomology — a deep bridge from ring-theoretic invariants to arithmetic geometry.",
           "tags": [
             "classification",
+            "refinement"
+          ]
+        }
+      ]
+    },
+    "model-categories": {
+      "topic": "model-categories",
+      "title": "Model categories",
+      "page": "model-categories.html",
+      "concepts": [
+        {
+          "id": "mc-axioms",
+          "title": "Quillen's model category axioms",
+          "anchor": "axioms",
+          "prereqs": [
+            "categories-morphisms",
+            "homotopy-category-K"
+          ],
+          "blurb": "A model structure on a category $\\mathcal{M}$ singles out three classes of morphisms — weak equivalences $W$, fibrations $F$, cofibrations $C$ — satisfying small (co)limits, the 2-of-3 property on $W$, retract closure, two functorial factorizations $f = (\\text{cof})(\\text{triv. fib})$ and $f = (\\text{triv. cof})(\\text{fib})$, and the lifting calculus: trivial cof $\\boxslash$ fib and cof $\\boxslash$ trivial fib. The axioms abstract topological homotopy so that $\\mathcal{M}[W^{-1}]$ becomes a category whose Hom-sets are computable.",
+          "tags": [
+            "foundation",
+            "lifting"
+          ]
+        },
+        {
+          "id": "mc-examples",
+          "title": "Standard model structures: spaces, simplicial sets, chain complexes",
+          "anchor": "examples",
+          "prereqs": [
+            "mc-axioms"
+          ],
+          "blurb": "Three canonical model structures fix the vocabulary. Topological spaces with the Quillen structure: weak equivalences are weak homotopy equivalences, fibrations are Serre fibrations, cofibrations are retracts of relative cell complexes. Simplicial sets with Kan–Quillen: weak equivalences detected by $|\\cdot|$, fibrations are Kan fibrations, cofibrations are monomorphisms. Chain complexes $\\mathrm{Ch}(R)$ with the projective structure: weak equivalences are quasi-isomorphisms, fibrations are degree-wise epimorphisms, cofibrations have degree-wise projective cokernel. In each case $\\mathcal{M}[W^{-1}]$ recovers the homotopy category.",
+          "tags": [
+            "classification",
+            "foundation"
+          ]
+        },
+        {
+          "id": "mc-cofibrant-replacement",
+          "title": "Cofibrant and fibrant replacement",
+          "anchor": "cofibrant-replacement",
+          "prereqs": [
+            "mc-axioms"
+          ],
+          "blurb": "Functorial factorization gives, for any object $X$, a cofibrant replacement $\\emptyset \\xrightarrow{\\text{cof}} QX \\xrightarrow{\\text{triv. fib}} X$ and a fibrant replacement $X \\xrightarrow{\\text{triv. cof}} RX \\xrightarrow{\\text{fib}} *$. For $f: X \\to Y$ the derived map $Q(f): QX \\to QY$ is well-defined up to homotopy, providing the right notion of morphism in $\\mathrm{Ho}(\\mathcal{M})$. For chain complexes $QX$ is a projective resolution; for spaces $QX$ is a CW-approximation. Quillen's calculus reduces homotopy-category computations to picking convenient replacements.",
+          "tags": [
+            "foundation",
+            "lifting"
+          ]
+        },
+        {
+          "id": "mc-quillen-functors",
+          "title": "Quillen functors and Quillen equivalences",
+          "anchor": "quillen-functors",
+          "prereqs": [
+            "mc-cofibrant-replacement",
+            "adjunctions"
+          ],
+          "blurb": "An adjunction $L \\dashv R: \\mathcal{M} \\rightleftarrows \\mathcal{N}$ between model categories is a Quillen pair if $L$ preserves cofibrations and trivial cofibrations (equivalently $R$ preserves fibrations and trivial fibrations). Each Quillen pair derives to total derived functors $\\mathbb{L}L: \\mathrm{Ho}(\\mathcal{M}) \\to \\mathrm{Ho}(\\mathcal{N})$ and $\\mathbb{R}R: \\mathrm{Ho}(\\mathcal{N}) \\to \\mathrm{Ho}(\\mathcal{M})$. A Quillen equivalence is a Quillen pair whose derived adjunction is an equivalence of categories. The geometric realization adjunction $|\\cdot| \\dashv \\mathrm{Sing}$ is the archetype: $\\mathrm{sSet}$ and $\\mathrm{Top}$ present the same homotopy theory.",
+          "tags": [
+            "classification",
+            "functoriality"
+          ]
+        },
+        {
+          "id": "mc-monoidal",
+          "title": "Monoidal model categories and the pushout-product axiom",
+          "anchor": "monoidal",
+          "prereqs": [
+            "mc-quillen-functors",
+            "monoidal-categories"
+          ],
+          "blurb": "A monoidal model category combines a model structure with a closed symmetric monoidal product satisfying the pushout-product axiom: for cofibrations $i: A \\to B$ and $j: C \\to D$, the pushout-product $A \\otimes D \\cup_{A \\otimes C} B \\otimes C \\to B \\otimes D$ is itself a cofibration, trivial when either $i$ or $j$ is. The axiom is what makes $\\otimes$ derive correctly. $\\mathrm{Top}$, $\\mathrm{sSet}$, $\\mathrm{Ch}(R)$ all carry compatible monoidal structures, and $E_\\infty$-algebras / structured ring spectra arise as monoid objects in stable monoidal model categories.",
+          "tags": [
+            "classification",
+            "refinement"
+          ]
+        },
+        {
+          "id": "mc-bridge-infinity",
+          "title": "From model categories to $\\infty$-categories",
+          "anchor": "bridge",
+          "prereqs": [
+            "mc-quillen-functors",
+            "quasi-category"
+          ],
+          "blurb": "A combinatorial model category $\\mathcal{M}$ has an underlying $(\\infty,1)$-category $\\mathcal{M}_\\infty$, recovered as the simplicial nerve of $\\mathcal{M}^{cf}$ (cofibrant–fibrant objects with simplicial Hom). Quillen equivalences induce equivalences of $(\\infty,1)$-categories. This is the dictionary by which classical homotopy theory imports into $\\infty$-category theory: every homotopical computation done with model categories has a model-independent $\\infty$-categorical incarnation. Modern foundations (Lurie's HA, HTT) often skip model categories, but model presentations remain the standard tool for constructing $\\infty$-categories in practice.",
+          "tags": [
+            "foundation",
             "refinement"
           ]
         }
@@ -15279,6 +15370,7 @@ window.__MVConcepts = {
           "homological",
           "derived-categories",
           "algebraic-k-theory-foundations",
+          "model-categories",
           "group-cohomology",
           "lie-algebras",
           "galois-cohomology-and-brauer",
@@ -15601,6 +15693,7 @@ window.__MVConcepts = {
     "infinity-topoi": "standard",
     "derived-categories": "standard",
     "algebraic-k-theory-foundations": "advanced",
+    "model-categories": "advanced",
     "cocartesian-fibrations": "standard",
     "group-cohomology": "standard",
     "real-analysis": "prereq",
@@ -15760,17 +15853,17 @@ window.__MVConcepts = {
       "density": 0.10204081632653061
     },
     "Algebra & homological": {
-      "concepts": 130,
-      "intra": 196,
-      "crossOut": 17,
+      "concepts": 136,
+      "intra": 205,
+      "crossOut": 18,
       "crossIn": 75,
-      "density": 0.13076923076923078
+      "density": 0.1323529411764706
     },
     "Higher categories & toposes": {
       "concepts": 45,
       "intra": 68,
       "crossOut": 23,
-      "crossIn": 2,
+      "crossIn": 3,
       "density": 0.5111111111111111
     },
     "Analysis": {

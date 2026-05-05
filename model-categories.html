@@ -1,0 +1,1074 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Model categories</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}',
+        '\\boxslash':'\\mathbin{\\square}',
+        '\\Ho':'\\operatorname{Ho}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"automorphic-forms-adelic","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"additive-number-theory":{"next":"quadratic-forms-genus-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"advanced-complex-analysis":{"next":"microlocal-analysis","prev":"fixed-point-theorems","section":"Analysis","title":"Advanced complex analysis"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"moduli-spaces","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-k-theory-foundations":{"next":"model-categories","prev":"groebner-bases","section":"Algebra & homological","title":"Algebraic K-theory foundations"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"mathematics-and-cryptography","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"mostow-rigidity","prev":"k-theory","section":"Geometry & topology","title":"Atiyah–Singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"etale-cohomology","section":"Algebraic geometry","title":"Calabi–Yau manifolds"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-topoi","prev":"infinity-categories","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":null,"prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"deformation-theory":{"next":"etale-cohomology","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"group-cohomology","prev":"homological","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"expanders","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirac-equation":{"next":"quantum-field-theory","prev":"klein-gordon-equation","section":"Mathematical physics","title":"Dirac equation"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"harmonic-analysis-fourier","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":null,"section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":"calabi-yau-manifolds","prev":"deformation-theory","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"deformation-theory","prev":"group-schemes","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":null,"prev":"designs","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"naive-set-theory","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":"advanced-complex-analysis","prev":"variational-methods","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"type-theory-and-hott","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"quantum-groups","prev":"lie-algebras","section":"Algebra & homological","title":"Galois cohomology and Brauer groups"},"galois-representations":{"next":"heights-arithmetic-geometry","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"gauge-theory":{"next":"string-theory","prev":"statistical-mechanics","section":"Mathematical physics","title":"Gauge theory"},"general-relativity":{"next":"schrodinger-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":"groebner-bases","prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"geometric-measure-theory":{"next":"semigroup-theory-evolution-equations","prev":"microlocal-analysis","section":"Analysis","title":"Geometric measure theory"},"groebner-bases":{"next":"algebraic-k-theory-foundations","prev":"geometric-and-combinatorial-group-theory","section":"Algebra & homological","title":"Gröbner bases"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"lie-algebras","prev":"derived-categories","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"etale-fundamental-group","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"hamiltonians-classical-mechanics":{"next":"general-relativity","prev":"three-body-problem","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"spectral-theory","prev":"partial-differential-equations","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"analytic-number-theory","prev":"galois-representations","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":null,"prev":"mathematical-statistics","section":"Probability & statistics","title":"High dimensional geometry"},"hodge-theory":{"next":null,"prev":"motives","section":"Algebraic geometry","title":"Hodge theory"},"homological":{"next":"derived-categories","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"cocartesian-fibrations","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-topoi"},"information-theory":{"next":"large-deviations","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"stacks","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"ricci-flow","section":"Geometry & topology","title":"K-theory"},"klein-gordon-equation":{"next":"dirac-equation","prev":"special-relativity","section":"Mathematical physics","title":"Klein-Gordon equation"},"knot-polynomials":{"next":"ricci-flow","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Knot polynomials"},"langlands-program":{"next":null,"prev":"vertex-operator-algebras","section":"Modular forms & L-functions","title":"Langlands program"},"large-deviations":{"next":"mathematical-statistics","prev":"information-theory","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"galois-cohomology-and-brauer","prev":"group-cohomology","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"mathematical-statistics":{"next":"high-dimensional-geometry","prev":"large-deviations","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"microlocal-analysis":{"next":"geometric-measure-theory","prev":"advanced-complex-analysis","section":"Analysis","title":"Microlocal analysis"},"mirror-symmetry":{"next":"resolution-of-singularities","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"model-categories":{"next":null,"prev":"algebraic-k-theory-foundations","section":"Algebra & homological","title":"Model categories"},"model-theory-basics":{"next":"computability-and-decidability","prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"modular-curves","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"algebraic-spaces","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"characteristic-classes","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":null,"prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Mostow rigidity"},"motives":{"next":"hodge-theory","prev":"resolution-of-singularities","section":"Algebraic geometry","title":"Motives"},"naive-set-theory":{"next":"first-order-logic-and-completeness","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"wavelets","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"harmonic-functions","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"stochastic-processes-and-martingales","prev":null,"section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"additive-number-theory","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"additive-number-theory","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"quantum-field-theory":{"next":null,"prev":"dirac-equation","section":"Mathematical physics","title":"Quantum field theory"},"quantum-groups":{"next":"quaternions-octonions-and-division-algebras","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"quantum-groups","section":"Algebra & homological","title":"Quaternions, octonions, and division algebras"},"random-walks-and-mixing":{"next":"information-theory","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":"motives","prev":"mirror-symmetry","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"k-theory","prev":"knot-polynomials","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"characteristic-classes","prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":"statistical-mechanics","prev":"general-relativity","section":"Mathematical physics","title":"Schrödinger equation"},"semigroup-theory-evolution-equations":{"next":null,"prev":"geometric-measure-theory","section":"Analysis","title":"Semigroup theory & evolution equations"},"sheaf-cohomology":{"next":"algebraic-de-rham-cohomology","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"algebraic-curves-higher-genus","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Sobolev spaces & distributions"},"special-relativity":{"next":"klein-gordon-equation","prev":"string-theory","section":"Mathematical physics","title":"Special relativity"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"wavelets","prev":"harmonic-functions","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"intersection-theory-chow","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"statistical-mechanics":{"next":"gauge-theory","prev":"schrodinger-equation","section":"Mathematical physics","title":"Statistical mechanics"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":"probability-theory","section":"Probability & statistics","title":"Stochastic processes and martingales"},"string-theory":{"next":"special-relativity","prev":"gauge-theory","section":"Mathematical physics","title":"String theory"},"symplectic-manifolds":{"next":"knot-polynomials","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"hamiltonians-classical-mechanics","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"type-theory-and-hott":{"next":"forcing-and-independence","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and HoTT"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"fixed-point-theorems","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":"langlands-program","prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"numerical-analysis","prev":"spectral-theory","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"model-theory-basics","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"ZFC and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="algebra-and-homological" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#axioms">1&nbsp;Quillen's&nbsp;model&nbsp;category&nbsp;axioms</a>
+  <a href="#examples">2&nbsp;Standard&nbsp;model&nbsp;structures:&nbsp;spaces,&nbsp;simplicial&nbsp;sets,&nbsp;chain&nbsp;complexes</a>
+  <a href="#cofibrant-replacement">3&nbsp;Cofibrant&nbsp;and&nbsp;fibrant&nbsp;replacement</a>
+  <a href="#quillen-functors">4&nbsp;Quillen&nbsp;functors&nbsp;and&nbsp;Quillen&nbsp;equivalences</a>
+  <a href="#monoidal">5&nbsp;Monoidal&nbsp;model&nbsp;categories&nbsp;and&nbsp;the&nbsp;pushout-product&nbsp;axiom</a>
+  <a href="#bridge">6&nbsp;From&nbsp;model&nbsp;categories&nbsp;to&nbsp;$\infty$-categories</a>
+  <a href="#connections">7&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Model categories</h1>
+  <p class="sub">Quillen's axiomatic homotopy theory: weak equivalences, cofibrations, fibrations and the lifting calculus that turn an abstract category into a computable homotopy category — the standard bridge from chain complexes to $\infty$-categories.</p>
+</section>
+
+<section id="axioms">
+<h2>1. Quillen's model category axioms</h2>
+
+<p>A <strong>model structure</strong> on a category $\mathcal{M}$ is the choice of three classes of morphisms — <em>weak equivalences</em> $W$, <em>fibrations</em> $F$, <em>cofibrations</em> $C$ — together with the data of two functorial factorizations. Quillen's five axioms (1967) require:</p>
+
+<ul>
+<li><strong>M1 (limits/colimits)</strong>: $\mathcal{M}$ has all small limits and colimits.</li>
+<li><strong>M2 (2-of-3)</strong>: in any composable pair $X\xrightarrow{f}Y\xrightarrow{g}Z$, if any two of $f,g,gf$ lie in $W$, so does the third.</li>
+<li><strong>M3 (retracts)</strong>: $W$, $F$, $C$ are each closed under retracts in the arrow category $\mathcal{M}^\to$.</li>
+<li><strong>M4 (factorization)</strong>: every $f\colon X\to Y$ admits two functorial factorizations
+$$f\;=\;X\xrightarrow{\text{cof}}\;\widetilde X\;\xrightarrow{\text{triv. fib}}Y \qquad\text{and}\qquad f\;=\;X\xrightarrow{\text{triv. cof}}\;\widehat X\;\xrightarrow{\text{fib}}Y.$$
+A <em>trivial</em> (co)fibration is one that is also a weak equivalence.</li>
+<li><strong>M5 (lifting)</strong>: in every commutative square
+$$\begin{array}{ccc}A&\to&X\\{\scriptstyle i}\!\downarrow & & \downarrow\!{\scriptstyle p}\\ B&\to&Y\end{array}$$
+with $i\in C$ and $p\in F$, a diagonal lift $B\to X$ exists provided either $i$ or $p$ is in $W$.</li>
+</ul>
+
+<p>The choice of three classes is heavily over-determined: the classes $C$ and $F$ each determine the other through the lifting calculus (cofibrations are the maps having the left lifting property against trivial fibrations, fibrations the right against trivial cofibrations), and $W$ supplies the homotopy-theoretic content. Two of the three classes $\{W, C, F\}$ already pin the structure down.</p>
+
+<p>The payoff is the <strong>homotopy category</strong> $\mathrm{Ho}(\mathcal{M}) = \mathcal{M}[W^{-1}]$. A priori a localization of a category at a class of morphisms can have proper-class-sized Hom-sets — the model-category axioms guarantee this never happens. Concretely, $\mathrm{Hom}_{\mathrm{Ho}(\mathcal{M})}(X,Y) = \pi(QX, RY)$, homotopy classes of maps between a cofibrant replacement of $X$ and a fibrant replacement of $Y$, where homotopy is defined via cylinder/path objects from the factorizations.</p>
+
+<div class="widget" id="mc-lift">
+  <div class="hd"><div class="ttl">Lifting calculus: when does the diagonal exist?</div><div class="hint">toggle whether $i$ or $p$ is trivial; the lift appears iff one of them is</div></div>
+  <div class="row">
+    <button id="mc-lift-i" class="active">$i$: cofibration</button>
+    <button id="mc-lift-itriv">$i$: trivial cofibration</button>
+  </div>
+  <div class="row">
+    <button id="mc-lift-p" class="active">$p$: fibration</button>
+    <button id="mc-lift-ptriv">$p$: trivial fibration</button>
+  </div>
+  <svg id="mc-lift-svg" viewBox="-260 -140 520 280" width="100%" height="300"><title>Commutative square with cofibration on the left and fibration on the right; diagonal lift exists iff one of them is trivial</title></svg>
+  <div id="mc-lift-out" class="readout"></div>
+</div>
+<script>
+(function(){
+  const svg = document.getElementById('mc-lift-svg');
+  const out = document.getElementById('mc-lift-out');
+  const bI = document.getElementById('mc-lift-i');
+  const bIt = document.getElementById('mc-lift-itriv');
+  const bP = document.getElementById('mc-lift-p');
+  const bPt = document.getElementById('mc-lift-ptriv');
+  let iTriv = false, pTriv = false;
+  function setI(t){ iTriv = t; bI.classList.toggle('active', !t); bIt.classList.toggle('active', t); draw(); }
+  function setP(t){ pTriv = t; bP.classList.toggle('active', !t); bPt.classList.toggle('active', t); draw(); }
+  bI.addEventListener('click', function(){ setI(false); });
+  bIt.addEventListener('click', function(){ setI(true); });
+  bP.addEventListener('click', function(){ setP(false); });
+  bPt.addEventListener('click', function(){ setP(true); });
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const liftExists = iTriv || pTriv;
+    const labelI = iTriv ? 'i  (triv. cof)' : 'i  (cof)';
+    const labelP = pTriv ? 'p  (triv. fib)' : 'p  (fib)';
+    const colI = iTriv ? 'var(--green)' : 'var(--cyan)';
+    const colP = pTriv ? 'var(--green)' : 'var(--yellow)';
+    drawNode(svg, -120, -60, 'A', {stroke:'var(--blue)'});
+    drawNode(svg,  120, -60, 'X', {stroke:'var(--blue)'});
+    drawNode(svg, -120,  60, 'B', {stroke:'var(--blue)'});
+    drawNode(svg,  120,  60, 'Y', {stroke:'var(--blue)'});
+    drawArrow(svg, [-120,-60], [120,-60], {color:'var(--mute)', label:'f', markerId:'mcL-top'});
+    drawArrow(svg, [-120, 60], [120, 60], {color:'var(--mute)', label:'g', markerId:'mcL-bot'});
+    drawArrow(svg, [-120,-60], [-120, 60], {color:colI, label:labelI, labelSide:0, markerId:'mcL-left', width:1.8});
+    drawArrow(svg, [ 120,-60], [ 120, 60], {color:colP, label:labelP, labelSide:1, markerId:'mcL-right', width:1.8});
+    if(liftExists){
+      drawArrow(svg, [-110, 50], [110,-50], {color:'var(--green)', label:'h  (lift)', labelSide:1, markerId:'mcL-lift', dash:'6 4', width:1.8});
+    } else {
+      const t = SVG('text',{x:0, y:0,'text-anchor':'middle','font-size':13,fill:'var(--pink)','font-style':'italic'});
+      t.textContent = 'NO lift guaranteed';
+      svg.appendChild(t);
+    }
+    let lines = [];
+    lines.push('Configuration:');
+    lines.push('  i = ' + (iTriv ? 'TRIVIAL cofibration (cof + W)' : 'cofibration only'));
+    lines.push('  p = ' + (pTriv ? 'TRIVIAL fibration (fib + W)' : 'fibration only'));
+    lines.push('');
+    if(liftExists){
+      lines.push('Lift exists by Quillen axiom M5.');
+      if(iTriv && pTriv){
+        lines.push('Both maps are weak equivalences -- doubly redundant lift.');
+      } else if(iTriv){
+        lines.push('Trivial cofibration vs. fibration:  C_W boxslash F.');
+      } else {
+        lines.push('Cofibration vs. trivial fibration:  C boxslash F_W.');
+      }
+      lines.push('Concretely: pick any element of B mapping to Y, then trace through any factorization to reach X.');
+    } else {
+      lines.push('No lift in general.');
+      lines.push('M5 demands EXACTLY ONE of i, p be a weak equivalence.');
+      lines.push('Counterexample (Top): i = inclusion S^0 -> D^1 (cof but not weak eq), p = constant map S^1 -> point (fib but not weak eq). The square fg = (constant) admits NO lift S^0 -> S^1 because pi_0(S^1) = 0, but no map D^1 -> S^1 picks the right two points of S^0 unless we trivialize one side.');
+    }
+    out.textContent = lines.join('\n');
+  }
+  draw();
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./category-theory.html#cat">Categories and morphisms</a></li>
+    <li><a href="./derived-categories.html#homotopy-category">The homotopy category $K(\mathcal{A})$</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./model-categories.html#cofibrant-replacement">Model categories</a> · Cofibrant and fibrant replacement</div>
+    <div><a href="./model-categories.html#examples">Model categories</a> · Standard model structures: spaces, simplicial sets, chain complexes</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="mc-axioms"></div>
+
+</section>
+
+<section id="examples">
+<h2>2. Standard model structures: spaces, simplicial sets, chain complexes</h2>
+
+<p>The axioms are abstract; their content emerges from the canonical examples. Three model structures together fix most of the standard vocabulary of homotopy theory.</p>
+
+<h3>Topological spaces (Quillen)</h3>
+
+<p>On the category $\mathrm{Top}$ of compactly generated topological spaces:</p>
+<ul>
+<li>$W$ = <strong>weak homotopy equivalences</strong>: maps inducing isomorphisms on all $\pi_n$ for all basepoints.</li>
+<li>$F$ = <strong>Serre fibrations</strong>: maps with the homotopy lifting property against the inclusions $D^n\hookrightarrow D^n\times[0,1]$.</li>
+<li>$C$ = retracts of <strong>relative cell complexes</strong>: built from $\emptyset$ by iterated cell attachment $S^{n-1}\hookrightarrow D^n$.</li>
+</ul>
+
+<p>This is the model structure presented by CW complexes — every space has a CW-approximation, which is its cofibrant replacement.</p>
+
+<h3>Simplicial sets (Kan–Quillen)</h3>
+
+<p>On the category $\mathrm{sSet} = \mathrm{Fun}(\Delta^{\mathrm{op}}, \mathrm{Set})$:</p>
+<ul>
+<li>$W$ = maps $f$ such that $|f|$ is a weak homotopy equivalence in $\mathrm{Top}$.</li>
+<li>$F$ = <strong>Kan fibrations</strong>: maps with the right lifting property against horn inclusions $\Lambda^n_k \hookrightarrow \Delta^n$ for all $0\le k\le n$.</li>
+<li>$C$ = monomorphisms (levelwise injections).</li>
+</ul>
+
+<p>Every simplicial set is cofibrant ($C$ = mono is permissive); the fibrant objects are exactly the <strong>Kan complexes</strong>.</p>
+
+<h3>Chain complexes (projective)</h3>
+
+<p>On the category $\mathrm{Ch}_{\ge 0}(R)$ of non-negatively graded chain complexes of $R$-modules:</p>
+<ul>
+<li>$W$ = <strong>quasi-isomorphisms</strong> (iso on all $H_n$).</li>
+<li>$F$ = chain maps that are <strong>surjective in every positive degree</strong>.</li>
+<li>$C$ = chain maps that are <strong>monomorphisms in every degree with degreewise projective cokernel</strong>.</li>
+</ul>
+
+<p>Every complex is fibrant (the terminal object $0$ is a degreewise surjection target), and cofibrant replacement of an $R$-module $M[0]$ is a projective resolution.</p>
+
+<div class="widget" id="mc-examples">
+  <div class="hd"><div class="ttl">The same morphism wears different hats in different model categories</div><div class="hint">pick a category; choose a morphism; see how it's classified</div></div>
+  <div class="row">
+    <button id="mc-ex-top" class="active">$\mathrm{Top}$</button>
+    <button id="mc-ex-sset">$\mathrm{sSet}$</button>
+    <button id="mc-ex-ch">$\mathrm{Ch}(R)$</button>
+  </div>
+  <div class="row">
+    <select id="mc-ex-pick" style="min-width:240px"></select>
+  </div>
+  <svg id="mc-ex-svg" viewBox="-260 -140 520 280" width="100%" height="280"><title>Classification of a chosen morphism in the selected model structure: weak equivalence / fibration / cofibration</title></svg>
+  <div id="mc-ex-out" class="readout"></div>
+</div>
+<script>
+(function(){
+  const svg = document.getElementById('mc-ex-svg');
+  const out = document.getElementById('mc-ex-out');
+  const bT = document.getElementById('mc-ex-top');
+  const bS = document.getElementById('mc-ex-sset');
+  const bC = document.getElementById('mc-ex-ch');
+  const sel = document.getElementById('mc-ex-pick');
+  const EXAMPLES = {
+    'top': [
+      {id:'cw',  label:'CW inclusion S^1 -> D^2',                       w:false, f:false, c:true,  desc:'Inclusion of a cell boundary into the cell. A relative CW complex, hence a cofibration. Not a weak eq (pi_1 differs). Not a Serre fib (no lift of the constant disk to S^1).'},
+      {id:'pi',  label:'Path-space projection PX -> X',                  w:true,  f:true,  c:false, desc:'Sending a path to its endpoint. Serre fib by the path-lifting property. Weak eq because PX is contractible (path-connected and pi_n=0 for n>=1). Hence a TRIVIAL fibration: lifts against any cofibration.'},
+      {id:'sus', label:'Suspension map S^1 -> S^1, z -> z^2',            w:false, f:false, c:false, desc:'Degree-2 self-map of the circle. NOT a weak eq (induces multiplication-by-2 on pi_1). Generically not a fibration or a cofibration in the Quillen structure.'},
+      {id:'iden',label:'Identity D^2 -> D^2',                            w:true,  f:true,  c:true,  desc:'Identity is in every class: cof + fib + weak eq. The trivial example. Demonstrates W, F, C all contain isomorphisms.'},
+    ],
+    'sset': [
+      {id:'horn',  label:'Horn inclusion Lambda^2_1 -> Delta^2',          w:true,  f:false, c:true,  desc:'Inclusion of an inner horn. Mono => cofibration (in fact a TRIVIAL cof). Not a Kan fibration. The horn-extension test that detects Kan complexes lives on the OPPOSITE side of the lifting square.'},
+      {id:'bdry',  label:'Boundary inclusion partial Delta^2 -> Delta^2', w:false, f:false, c:true,  desc:'Inclusion of the topological boundary of a 2-simplex. Mono => cof. NOT a weak eq: |partial Delta^2| = S^1, |Delta^2| = D^2, different homotopy types.'},
+      {id:'kan',   label:'Sing(*) -> *',                                  w:true,  f:true,  c:false, desc:'Map from the Kan complex of singular simplices on a point to the terminal simplicial set. Kan fib (trivially) and weak eq (both contractible). NOT a cof (not a mono in general; Sing(*) has many simplices, * has one).'},
+      {id:'iden',  label:'Identity Delta^n -> Delta^n',                   w:true,  f:true,  c:true,  desc:'Identity, in all three classes.'},
+    ],
+    'ch': [
+      {id:'res',   label:'Z[0] augmented to projective resolution',        w:true,  f:true,  c:false, desc:'A projective resolution P_* -> Z[0] is a TRIVIAL fibration: surjective in each positive degree (so a fib) and a quasi-iso (so a weak eq). NOT a cofibration in general (its source is the resolution complex, target is just Z in degree 0; degreewise mono fails at degree 0 if P_0 has rank > 1).'},
+      {id:'mult',  label:'Z -2-> Z (in degree 0, both sides)',             w:false, f:true,  c:false, desc:'Multiplication-by-2 on a single Z in degree 0. Surjective in positive degrees (vacuously => fib). NOT a quasi-iso (H_0 changes from Z to Z/2). Not a cof (cokernel Z/2 is not projective).'},
+      {id:'iden',  label:'Identity P_* -> P_*',                            w:true,  f:true,  c:true,  desc:'Identity, in all three classes.'},
+      {id:'incl',  label:'Z -> Z (+) Z, x -> (x, 0)',                      w:false, f:false, c:true,  desc:'Inclusion as a direct summand. Degreewise mono with cokernel Z (projective) => cofibration. NOT a quasi-iso (homology grows). Not a fib (not surjective).'},
+    ],
+  };
+  let mode = 'top';
+  function fillSel(){
+    sel.innerHTML='';
+    const opts = EXAMPLES[mode];
+    for(let i=0;i<opts.length;i++){
+      const o = document.createElement('option');
+      o.value = opts[i].id;
+      o.textContent = opts[i].label;
+      sel.appendChild(o);
+    }
+    sel.value = opts[0].id;
+  }
+  function set(m){ mode = m;
+    bT.classList.toggle('active', m==='top');
+    bS.classList.toggle('active', m==='sset');
+    bC.classList.toggle('active', m==='ch');
+    fillSel(); draw();
+  }
+  bT.addEventListener('click', function(){ set('top'); });
+  bS.addEventListener('click', function(){ set('sset'); });
+  bC.addEventListener('click', function(){ set('ch'); });
+  sel.addEventListener('change', draw);
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const ex = EXAMPLES[mode].find(function(e){ return e.id === sel.value; }) || EXAMPLES[mode][0];
+    function badge(x, y, label, ok, color){
+      const r = SVG('rect', {x:x-50, y:y-16, width:100, height:32, rx:6,
+        fill:ok ? 'var(--panel2)' : '#0b0f16',
+        stroke: ok ? color : 'var(--line)', 'stroke-width':1.6});
+      svg.appendChild(r);
+      const t = SVG('text', {x, y:y+5, 'text-anchor':'middle', 'font-size':13,
+        fill: ok ? color : 'var(--mute)', 'font-weight':600});
+      t.textContent = (ok ? 'YES ' : '--   ') + label;
+      svg.appendChild(t);
+    }
+    badge(-130, -60, 'W', ex.w, 'var(--cyan)');
+    badge(   0, -60, 'F', ex.f, 'var(--yellow)');
+    badge( 130, -60, 'C', ex.c, 'var(--green)');
+    const trivCof = ex.w && ex.c;
+    const trivFib = ex.w && ex.f;
+    const both = ex.w && ex.f && ex.c;
+    const summary = both ? 'iso (W + F + C)' :
+      trivCof ? 'TRIVIAL cofibration (W + C)' :
+      trivFib ? 'TRIVIAL fibration (W + F)' :
+      ex.w ? 'weak equivalence only (no F or C structure)' :
+      ex.f ? 'fibration (not a weak eq)' :
+      ex.c ? 'cofibration (not a weak eq)' :
+      'plain map (none of W, F, C)';
+    const sumT = SVG('text',{x:0, y:-100, 'text-anchor':'middle', 'font-size':14, fill:'var(--cyan)', 'font-weight':600});
+    sumT.textContent = summary; svg.appendChild(sumT);
+    const lblT = SVG('text',{x:0, y:0, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+    lblT.textContent = 'In ' + ({top:'Top (Quillen)', sset:'sSet (Kan-Quillen)', ch:'Ch(R) (projective)'}[mode]);
+    svg.appendChild(lblT);
+    const exT = SVG('text',{x:0, y:30, 'text-anchor':'middle', 'font-size':13, fill:'var(--ink)'});
+    exT.textContent = ex.label;
+    svg.appendChild(exT);
+    out.textContent = ex.label + '\n\n' + ex.desc;
+  }
+  fillSel();
+  draw();
+})();
+</script>
+
+<div class="quiz" data-concept="mc-examples"></div>
+
+</section>
+
+<section id="cofibrant-replacement">
+<h2>3. Cofibrant and fibrant replacement</h2>
+
+<p>The factorization axiom M4 supplies, for any object $X\in\mathcal{M}$, a canonical pair of replacements:</p>
+
+$$\emptyset\;\xrightarrow{\;\text{cof}\;}\;QX\;\xrightarrow{\;\sim\;}\;X,\qquad X\;\xrightarrow{\;\sim\;}\;RX\;\xrightarrow{\;\text{fib}\;}\;*.$$
+
+<p>$QX$ is <strong>cofibrant</strong> (the unique map $\emptyset\to QX$ is a cofibration), and the trivial fibration $QX\to X$ exhibits $X$ as a homotopy quotient of a more accessible cofibrant object. Dually $RX$ is <strong>fibrant</strong>, and $X\to RX$ is a trivial cofibration.</p>
+
+<p><strong>Why bother?</strong> Functors don't generally preserve weak equivalences. Their derived versions do — provided we pre-replace inputs by cofibrant (or fibrant) objects:</p>
+
+<ul>
+<li>For a left Quillen functor $L$: compute $\mathbb{L}L(X) := L(QX)$. The Ken Brown lemma says $L$ preserves weak equivalences between cofibrant objects, so $\mathbb{L}L$ is well-defined on $\mathrm{Ho}(\mathcal{M})$.</li>
+<li>Dually, for a right Quillen functor $R$: $\mathbb{R}R(X) := R(RX)$.</li>
+</ul>
+
+<p>The classical concretizations:</p>
+
+<table class="plain">
+<thead><tr><th>Model category</th><th>Cofibrant replacement of...</th><th>Recovers</th></tr></thead>
+<tbody>
+<tr><td>$\mathrm{Top}$ (Quillen)</td><td>a space $X$</td><td>a CW-approximation of $X$</td></tr>
+<tr><td>$\mathrm{sSet}$ (Kan–Quillen)</td><td>any simplicial set</td><td>(itself — every $K$ is cofibrant)</td></tr>
+<tr><td>$\mathrm{Ch}_{\ge 0}(R)$ (projective)</td><td>an $R$-module $M$ in degree 0</td><td>a projective resolution $P_\bullet\to M$</td></tr>
+<tr><td>$\mathrm{Ch}_{\ge 0}(R)$ (injective)</td><td>$M$ in degree 0</td><td>(itself; fibrant replacement gives an injective resolution)</td></tr>
+</tbody>
+</table>
+
+<p>So projective resolutions, CW-approximations, and Kan completions are all instances of one machine: M4's factorization producing a cofibrant model of an arbitrary object.</p>
+
+<div class="widget" id="mc-replace">
+  <div class="hd"><div class="ttl">Iterating cofibrant replacement: build a projective resolution step-by-step</div><div class="hint">drag the depth slider; watch $P_n$ accumulate over an example $\mathbb{Z}$-module</div></div>
+  <div class="row">
+    <button id="mc-rep-zmod2" class="active">$M = \mathbb{Z}/2$</button>
+    <button id="mc-rep-zmod6">$M = \mathbb{Z}/6$</button>
+    <button id="mc-rep-q">$M = \mathbb{Q}$</button>
+  </div>
+  <div class="row">
+    <label for="mc-rep-depth">resolution depth $n$:</label>
+    <input id="mc-rep-depth" type="range" min="0" max="5" step="1" value="2">
+    <span id="mc-rep-d-out" class="small"></span>
+  </div>
+  <svg id="mc-rep-svg" viewBox="-280 -150 560 300" width="100%" height="300"><title>Step-by-step projective resolution as iterated cofibrant replacement</title></svg>
+  <div id="mc-rep-out" class="readout"></div>
+</div>
+<script>
+(function(){
+  const svg = document.getElementById('mc-rep-svg');
+  const out = document.getElementById('mc-rep-out');
+  const dS = document.getElementById('mc-rep-depth');
+  const dO = document.getElementById('mc-rep-d-out');
+  const b1 = document.getElementById('mc-rep-zmod2');
+  const b2 = document.getElementById('mc-rep-zmod6');
+  const b3 = document.getElementById('mc-rep-q');
+  let mode = 'zmod2';
+  const RESOLVES = {
+    'zmod2': {
+      target: 'Z/2',
+      steps: ['Z', 'Z', 'Z', 'Z', 'Z', 'Z'],
+      diffs: ['*2', '*2', '*2', '*2', '*2', '*2'],
+      note: 'M = Z/2.\nThe sequence ... Z -2-> Z -2-> Z -> Z/2 is exact: each Z resolves the kernel of the previous step.\nThe resolution is INFINITE because Z/2 has projective dimension > 0 (in fact = infinity) over Z. Each P_n = Z (free, hence projective).'
+    },
+    'zmod6': {
+      target: 'Z/6',
+      steps: ['Z', 'Z'],
+      diffs: ['*6', '→'],
+      note: 'M = Z/6 = Z/2 (+) Z/3 (CRT).\nResolution: 0 -> Z -6-> Z -> Z/6 -> 0. Length 1 because Z/6 has projective dimension 1 over Z (Z is a PID). The resolution terminates -- contrast with Z/2 above where the depth is bounded only by the homological dimension over the ground ring.'
+    },
+    'q': {
+      target: 'Q',
+      steps: ['(+) Z', 'Z'],
+      diffs: ['surj', '→'],
+      note: 'M = Q (the rationals as a Z-module).\nQ is NOT projective over Z (no surjection Z^n -> Q has a section: Q is divisible while Z^n is not). So a resolution must be infinite-rank: the standard choice is the bar/Postnikov resolution, with infinite-rank free modules at every step. Q is FLAT but not projective -- a key distinction.'
+    },
+  };
+  function set(m){ mode = m;
+    b1.classList.toggle('active', m==='zmod2');
+    b2.classList.toggle('active', m==='zmod6');
+    b3.classList.toggle('active', m==='q');
+    draw();
+  }
+  b1.addEventListener('click', function(){ set('zmod2'); });
+  b2.addEventListener('click', function(){ set('zmod6'); });
+  b3.addEventListener('click', function(){ set('q'); });
+  dS.addEventListener('input', draw);
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const depth = +dS.value;
+    dO.textContent = 'n = ' + depth;
+    const r = RESOLVES[mode];
+    const target = r.target;
+    const lblTop = SVG('text',{x:0,y:-110,'text-anchor':'middle','font-size':13,fill:'var(--cyan)','font-weight':600});
+    lblTop.textContent = 'Resolving M = ' + target + '  (cofibrant replacement in projective Ch(Z))';
+    svg.appendChild(lblTop);
+    const xT = 220;
+    drawNode(svg, xT, 0, target, {stroke:'var(--yellow)', fill:'#241e0e'});
+    const aug = SVG('text',{x:xT, y:30,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+    aug.textContent = 'degree 0 (target)'; svg.appendChild(aug);
+    let lastX = xT;
+    for(let n=0; n<=depth; n++){
+      const x = xT - 80*(n+1);
+      const idx = Math.min(n, r.steps.length-1);
+      const lbl = (mode === 'zmod2' || mode === 'zmod6') ? r.steps[idx] : r.steps[Math.min(n, 1)];
+      const dlbl = mode === 'q' ? 'surj' : (mode === 'zmod6' && n === 0 ? '*6' : (mode === 'zmod6' ? '→' : '*2'));
+      drawNode(svg, x, 0, 'P_'+n, {stroke:'var(--green)', fill:'#0e2412'});
+      const sub = SVG('text',{x, y:30,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
+      sub.textContent = lbl + ' (deg ' + (n+1) + ')'; svg.appendChild(sub);
+      drawArrow(svg, [x, 0], [lastX, 0], {color:'var(--mute)', label:dlbl, markerId:'mcRep'+n});
+      lastX = x;
+    }
+    if(mode === 'q' && depth >= 1){
+      const t = SVG('text',{x:lastX-90, y:0,'text-anchor':'end','font-size':13,fill:'var(--pink)','font-style':'italic'});
+      t.textContent = '...continues';
+      svg.appendChild(t);
+    } else if(mode === 'zmod2'){
+      const t = SVG('text',{x:lastX-90, y:0,'text-anchor':'end','font-size':13,fill:'var(--pink)','font-style':'italic'});
+      t.textContent = '...';
+      svg.appendChild(t);
+    } else if(mode === 'zmod6' && depth >= 1){
+      const t = SVG('text',{x:lastX-90, y:0,'text-anchor':'end','font-size':13,fill:'var(--green)'});
+      t.textContent = '0  (terminates: pd_Z(Z/6)=1)';
+      svg.appendChild(t);
+    }
+    let lines = [];
+    lines.push('Cofibrant replacement of ' + target + ' in Ch_{>=0}(Z) (projective model structure).');
+    lines.push('M4 factorization: 0 ->(cof) QM ->(triv. fib) M[0].');
+    lines.push('QM = ' + 'P_*' + ' is a projective resolution: surjection P_0 -> M and  ker(P_{n-1} -> P_{n-2}) = im(P_n -> P_{n-1}).');
+    lines.push('');
+    lines.push(r.note);
+    lines.push('');
+    lines.push('At depth n = ' + depth + ': built P_0, ..., P_' + depth + (mode === 'zmod6' && depth >= 1 ? ' (resolution complete; further P_n = 0)' : ' (truncation, more layers below)'));
+    out.textContent = lines.join('\n');
+  }
+  draw();
+})();
+</script>
+
+<div class="quiz" data-concept="mc-cofibrant-replacement"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./model-categories.html#quillen-functors">Model categories</a> · Quillen functors and Quillen equivalences</div>
+</aside>
+<!-- backlinks-auto-end -->
+
+</section>
+
+<section id="quillen-functors">
+<h2>4. Quillen functors and Quillen equivalences</h2>
+
+<p>An adjunction $L \dashv R\colon \mathcal{M}\rightleftarrows\mathcal{N}$ between model categories is a <strong>Quillen pair</strong> when $L$ preserves cofibrations and trivial cofibrations — equivalently, when $R$ preserves fibrations and trivial fibrations. The two conditions are equivalent because lifts in $\mathcal{N}$ correspond to lifts in $\mathcal{M}$ via the adjunction.</p>
+
+<p>From a Quillen pair we extract <strong>total derived functors</strong>:</p>
+
+$$\mathbb{L}L\colon \mathrm{Ho}(\mathcal{M})\to\mathrm{Ho}(\mathcal{N}),\quad \mathbb{L}L(X) = L(QX);\qquad \mathbb{R}R\colon \mathrm{Ho}(\mathcal{N})\to\mathrm{Ho}(\mathcal{M}),\quad \mathbb{R}R(Y) = R(RY).$$
+
+<p>These descend through the localization because of <strong>Ken Brown's lemma</strong>: a left Quillen functor preserves weak equivalences between cofibrant objects (and dually for right). The unit and counit of $L\dashv R$ pass to a derived adjunction $\mathbb{L}L\dashv\mathbb{R}R$ on the homotopy categories.</p>
+
+<p>A Quillen pair is a <strong>Quillen equivalence</strong> if the derived adjunction is an equivalence of categories — equivalently, if for every cofibrant $X\in\mathcal{M}$ and fibrant $Y\in\mathcal{N}$, a map $LX\to Y$ is a weak equivalence iff its adjoint $X\to RY$ is.</p>
+
+<p>The motivating example is the <strong>geometric realization adjunction</strong>:</p>
+
+$$|\cdot|\;\colon\;\mathrm{sSet}\;\rightleftarrows\;\mathrm{Top}\;\colon\;\mathrm{Sing}.$$
+
+<p>This is a Quillen equivalence with respect to the Kan–Quillen and Quillen model structures. The unit $K\to\mathrm{Sing}\,|K|$ is a weak equivalence in $\mathrm{sSet}$ (every $K$ is cofibrant; $\mathrm{Sing}|K|$ is a Kan complex hence fibrant); the counit $|\mathrm{Sing}\,X|\to X$ is a weak homotopy equivalence (CW-approximation by simplices), but in general not a homeomorphism. Two presentations of one homotopy theory.</p>
+
+<p>Other prototypes:</p>
+<ul>
+<li><strong>Tensor–Hom on $\mathrm{Ch}(R)$</strong>: $-\otimes_R N \dashv \mathrm{Hom}_R(N,-)$ derives to $\mathrm{Tor}^R(-,N)$ on the left, $\mathrm{Ext}^*_R(N,-)$ on the right.</li>
+<li><strong>Constant–colimit</strong>: $\Delta\dashv\mathrm{colim}\colon \mathcal{M}\rightleftarrows\mathcal{M}^I$ derives to $\mathrm{hocolim}_I = \mathbb{L}\mathrm{colim}$ via cofibrantly replacing the diagram.</li>
+</ul>
+
+<div class="widget" id="mc-quillen">
+  <div class="hd"><div class="ttl">$|\cdot| \dashv \mathrm{Sing}$: round-tripping through CW realization</div><div class="hint">pick a simplicial set or space; check the unit/counit and read off the Quillen-equivalence witnesses</div></div>
+  <div class="row">
+    <button id="mc-q-d2" class="active">$K = \Delta^2$ (2-simplex)</button>
+    <button id="mc-q-s1">$X = S^1$ (circle)</button>
+    <button id="mc-q-pt">$X = $ point</button>
+    <button id="mc-q-k0">$K = \Delta^0$</button>
+  </div>
+  <svg id="mc-q-svg" viewBox="-280 -150 560 300" width="100%" height="320"><title>Geometric realization adjunction with unit and counit, showing Quillen equivalence at the homotopy-category level</title></svg>
+  <div id="mc-q-out" class="readout"></div>
+</div>
+<script>
+(function(){
+  const svg = document.getElementById('mc-q-svg');
+  const out = document.getElementById('mc-q-out');
+  const bD = document.getElementById('mc-q-d2');
+  const bS = document.getElementById('mc-q-s1');
+  const bP = document.getElementById('mc-q-pt');
+  const bK = document.getElementById('mc-q-k0');
+  let mode = 'd2';
+  const CASES = {
+    'd2': {
+      side: 'sset',
+      input: 'Delta^2',
+      realiz: '|Delta^2| = D^2',
+      backSing: 'Sing(D^2): infinitely many simplices, contractible Kan complex',
+      unit: 'unit eta_K: Delta^2 -> Sing(D^2). NOT injective (Sing has many more simplices) but a WEAK EQUIVALENCE: |eta_K| is the identity D^2 -> D^2 up to homotopy; both sides have contractible realization.',
+      counit: 'counit eps_X: |Sing(D^2)| -> D^2. Both contractible, so a weak homotopy equivalence. NOT a homeomorphism (left side is a CW complex, right side is the standard simplex with its smooth structure).',
+      verdict: 'Both unit and counit are weak equivalences. Quillen-equivalence witnesses for THIS object.'
+    },
+    's1': {
+      side: 'top',
+      input: 'S^1',
+      realiz: 'Sing(S^1): a Kan complex with countably-many n-simplices for each n',
+      backSing: '|Sing(S^1)|: a CW complex with one 0-cell, one 1-cell, infinitely many higher cells (collapsed to S^1 up to homotopy)',
+      unit: 'unit eta: Sing(S^1) -> Sing(|Sing(S^1)|). On homotopy groups: pi_n on both sides equals pi_n(S^1) = Z (n=1) or 0. A weak equivalence.',
+      counit: 'counit eps_{S^1}: |Sing(S^1)| -> S^1. A weak homotopy equivalence. NOT a homeomorphism: the left side carries the CW topology, the right is a smooth circle.',
+      verdict: 'Counit is the prototype of a weak-but-not-strict equivalence. Same homotopy theory, different point-set.'
+    },
+    'pt': {
+      side: 'top',
+      input: 'point *',
+      realiz: 'Sing(*) = constant simplicial set with Sing(*)_n = * for every n',
+      backSing: '|Sing(*)| = *',
+      unit: 'unit eta: Sing(*) -> Sing(|Sing(*)|) = Sing(*). The IDENTITY.',
+      counit: 'counit eps: |Sing(*)| -> *. The IDENTITY (both are points).',
+      verdict: 'Trivial case: both unit and counit are isomorphisms. Quillen equivalence collapses to plain equivalence at this object.'
+    },
+    'k0': {
+      side: 'sset',
+      input: 'Delta^0',
+      realiz: '|Delta^0| = pt',
+      backSing: 'Sing(pt) = constant simplicial set on *',
+      unit: 'unit eta_K: Delta^0 -> Sing(pt). NOT an isomorphism: target has extra degenerate simplices in every degree. But both are contractible Kan complexes, so eta is a weak equivalence.',
+      counit: 'counit eps: |Sing(pt)| -> pt. Both are points (after collapse). A homeomorphism in this case.',
+      verdict: 'Asymmetric: counit is a homeomorphism, unit only a weak equivalence. Quillen equivalence holds at the Ho-level.'
+    },
+  };
+  function set(m){ mode = m;
+    bD.classList.toggle('active', m==='d2');
+    bS.classList.toggle('active', m==='s1');
+    bP.classList.toggle('active', m==='pt');
+    bK.classList.toggle('active', m==='k0');
+    draw();
+  }
+  bD.addEventListener('click', function(){ set('d2'); });
+  bS.addEventListener('click', function(){ set('s1'); });
+  bP.addEventListener('click', function(){ set('pt'); });
+  bK.addEventListener('click', function(){ set('k0'); });
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const c = CASES[mode];
+    const lblTop = SVG('text',{x:0,y:-115,'text-anchor':'middle','font-size':13,fill:'var(--cyan)','font-weight':600});
+    lblTop.textContent = '|.| dashv Sing : sSet <-> Top  (Quillen equivalence)';
+    svg.appendChild(lblTop);
+    drawNode(svg, -180, -40, 'sSet', {stroke:'var(--yellow)', r:32});
+    drawNode(svg,  180, -40, 'Top',  {stroke:'var(--cyan)',  r:32});
+    drawArrow(svg, [-180,-40], [180,-40], {color:'var(--yellow)', curve:-30, label:'|.|  (left adj, cof-preserving)', labelSide:0, markerId:'mcQ-real'});
+    drawArrow(svg, [ 180,-40], [-180,-40], {color:'var(--cyan)', curve:-30, label:'Sing  (right adj, fib-preserving)', labelSide:0, markerId:'mcQ-sing'});
+    const inputBox = SVG('rect',{x:-130, y: 50, width:260, height:30, rx:6, fill:'var(--panel2)', stroke:'var(--green)','stroke-width':1.5});
+    svg.appendChild(inputBox);
+    const inT = SVG('text',{x:0, y:70,'text-anchor':'middle','font-size':12,fill:'var(--green)','font-weight':600});
+    inT.textContent = 'input: ' + c.input + '  (in ' + (c.side === 'sset' ? 'sSet' : 'Top') + ')';
+    svg.appendChild(inT);
+    const lab1 = SVG('text',{x:0,y:115,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    lab1.textContent = c.realiz; svg.appendChild(lab1);
+    const lab2 = SVG('text',{x:0,y:135,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    lab2.textContent = c.backSing; svg.appendChild(lab2);
+    let lines = [];
+    lines.push('Object: ' + c.input);
+    lines.push('Round-trip 1 (' + (c.side === 'sset' ? 'sSet' : 'Top') + '): ' + c.realiz);
+    lines.push('Round-trip 2: ' + c.backSing);
+    lines.push('');
+    lines.push('Unit:   ' + c.unit);
+    lines.push('Counit: ' + c.counit);
+    lines.push('');
+    lines.push(c.verdict);
+    out.textContent = lines.join('\n');
+  }
+  draw();
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./category-theory.html#adj-deep">Adjunctions: unit, counit, triangle</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./model-categories.html#bridge">Model categories</a> · From model categories to $\infty$-categories</div>
+    <div><a href="./model-categories.html#monoidal">Model categories</a> · Monoidal model categories and the pushout-product axiom</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="mc-quillen-functors"></div>
+
+</section>
+
+<section id="monoidal">
+<h2>5. Monoidal model categories and the pushout-product axiom</h2>
+
+<p>A model category $\mathcal{M}$ equipped with a closed symmetric monoidal product $\otimes$ is a <strong>monoidal model category</strong> when the model structure and the monoidal structure are compatible in a specific sense. The compatibility is captured by the <strong>pushout-product axiom</strong>.</p>
+
+<p>For two cofibrations $i\colon A\to B$ and $j\colon C\to D$, form the universal pushout square</p>
+
+$$\begin{array}{ccc}
+A\otimes C & \xrightarrow{1\otimes j} & A\otimes D\\
+{\scriptstyle i\otimes 1}\downarrow & & \downarrow\\
+B\otimes C & \to & A\otimes D\sqcup_{A\otimes C}B\otimes C
+\end{array}$$
+
+<p>and the canonical <strong>pushout-product</strong> map</p>
+
+$$i\Box j\;\colon\; A\otimes D\sqcup_{A\otimes C}B\otimes C\;\longrightarrow\;B\otimes D.$$
+
+<p>The axiom: $i\Box j$ is always a cofibration, and trivial whenever either $i$ or $j$ is. Plus a <em>unit axiom</em> ensuring the monoidal unit $\mathbb 1$ behaves correctly under cofibrant replacement.</p>
+
+<p>The pushout-product axiom is what makes $\otimes$ derive correctly to $\otimes^{\mathbb L}$ on the homotopy category. The standard examples all satisfy it:</p>
+
+<ul>
+<li><strong>$\mathrm{Top}$</strong> (cartesian product, compactly generated): pushout-product of two relative cell complexes is again a relative cell complex.</li>
+<li><strong>$\mathrm{sSet}$</strong> (cartesian product): the pushout-product of two monomorphisms is a monomorphism (the proof reduces to checking that the inclusion of a sub-bisimplicial set into the product is a cof).</li>
+<li><strong>$\mathrm{Ch}(R)$</strong> for $R$ commutative (tensor): for cofibrations of degreewise-projective complexes, the pushout-product is again a cofibration of degreewise-projective complexes.</li>
+</ul>
+
+<p>The deeper consequence — Schwede–Shipley's <strong>monoid axiom</strong> — lifts the model structure to monoid objects: $E_\infty$-rings, structured ring spectra, simplicial monoids, and dgas all arise as monoids in their respective monoidal model categories.</p>
+
+<div class="widget" id="mc-pushout">
+  <div class="hd"><div class="ttl">Pushout-product: cell complex × cell complex remains cellular</div><div class="hint">pick two cell inclusions; build $i\Box j$ and verify the cofibration condition</div></div>
+  <div class="row">
+    <label for="mc-po-i">cofibration $i$:</label>
+    <select id="mc-po-i" style="min-width:160px">
+      <option value="01">$\partial\Delta^0\hookrightarrow\Delta^0$ (the empty $\to$ point)</option>
+      <option value="11">$\partial\Delta^1\hookrightarrow\Delta^1$ ($S^0\to D^1$)</option>
+      <option value="21" selected>$\partial\Delta^2\hookrightarrow\Delta^2$ ($S^1\to D^2$)</option>
+    </select>
+  </div>
+  <div class="row">
+    <label for="mc-po-j">cofibration $j$:</label>
+    <select id="mc-po-j" style="min-width:160px">
+      <option value="01">$\partial\Delta^0\hookrightarrow\Delta^0$</option>
+      <option value="11" selected>$\partial\Delta^1\hookrightarrow\Delta^1$</option>
+      <option value="21">$\partial\Delta^2\hookrightarrow\Delta^2$</option>
+    </select>
+  </div>
+  <svg id="mc-po-svg" viewBox="-280 -150 560 320" width="100%" height="320"><title>Pushout-product square i box j with the corner map highlighted as a cofibration</title></svg>
+  <div id="mc-po-out" class="readout"></div>
+</div>
+<script>
+(function(){
+  const svg = document.getElementById('mc-po-svg');
+  const out = document.getElementById('mc-po-out');
+  const iS = document.getElementById('mc-po-i');
+  const jS = document.getElementById('mc-po-j');
+  iS.addEventListener('change', draw);
+  jS.addEventListener('change', draw);
+  function dim(code){
+    const n = parseInt(code.charAt(0),10);
+    return Number.isFinite(n) ? n : 0;
+  }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const i = iS.value, j = jS.value;
+    const m = dim(i), n = dim(j);
+    const totalDim = m + n + 1;
+    function lbl(simp){
+      const k = dim(simp);
+      return k === 0 ? 'pt' : k === 1 ? 'D^1' : 'D^2';
+    }
+    function bdry(simp){
+      const k = dim(simp);
+      return k === 0 ? 'emptyset' : k === 1 ? 'S^0' : 'S^1';
+    }
+    const A = bdry(i), B = lbl(i), C = bdry(j), D = lbl(j);
+    drawNode(svg, -160,-50, 'A x C', {stroke:'var(--mute)', r:30});
+    drawNode(svg,  160,-50, 'A x D', {stroke:'var(--cyan)', r:30});
+    drawNode(svg, -160, 50, 'B x C', {stroke:'var(--cyan)', r:30});
+    drawNode(svg,  160, 50, 'B x D', {stroke:'var(--yellow)', r:30});
+    drawArrow(svg, [-160,-50], [160,-50], {color:'var(--mute)', label:'1 x j', markerId:'mcPo-top'});
+    drawArrow(svg, [-160,-50], [-160,50], {color:'var(--mute)', label:'i x 1', labelSide:0, markerId:'mcPo-left'});
+    drawArrow(svg, [160,-50], [160,50],   {color:'var(--green)', label:'(in pushout)', labelSide:1, markerId:'mcPo-right', dash:'4 4'});
+    drawArrow(svg, [-160,50], [160,50],   {color:'var(--green)', label:'(in pushout)', markerId:'mcPo-bot', dash:'4 4'});
+    const labP = SVG('text',{x:0, y:-105, 'text-anchor':'middle', 'font-size':13, fill:'var(--cyan)', 'font-weight':600});
+    labP.textContent = '(A x D) ∪_{A x C} (B x C) → B x D';
+    svg.appendChild(labP);
+    drawArrow(svg, [-30, 0], [110, 30], {color:'var(--yellow)', label:'i □ j  (corner)', labelSide:1, markerId:'mcPo-corn', width:2.0});
+    const cornerLbl = SVG('text',{x:0, y:120, 'text-anchor':'middle', 'font-size':12, fill:'var(--green)'});
+    cornerLbl.textContent = 'Corner is a cofibration of dim ' + totalDim + ' (cell of dimension ' + totalDim + ').';
+    svg.appendChild(cornerLbl);
+    let lines = [];
+    lines.push('Pushout-product i □ j:');
+    lines.push('  i: ' + A + ' → ' + B + '  (cell of dim ' + m + ')');
+    lines.push('  j: ' + C + ' → ' + D + '  (cell of dim ' + n + ')');
+    lines.push('');
+    lines.push('The corner map (A x D) ∪ (B x C) → B x D adds exactly one (m+n+1)-cell --');
+    lines.push('the unique cell of B x D not already covered by the pushout. Dim = ' + (m+n+1) + '.');
+    lines.push('');
+    lines.push('Verdict: corner is a cofibration (cell attachment) of dimension ' + (m+n+1) + '.');
+    lines.push('Trivial-cof case: if i is the trivial cof emptyset → D^n, then i □ j is also trivial');
+    lines.push('  (the pushout-product axiom guarantees it; computationally because the corner ');
+    lines.push('   map is then a deformation retract).');
+    out.textContent = lines.join('\n');
+  }
+  draw();
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./category-theory.html#mon">Monoidal categories</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="mc-monoidal"></div>
+
+</section>
+
+<section id="bridge">
+<h2>6. From model categories to $\infty$-categories</h2>
+
+<p>Why do model categories matter <em>now</em>? Because they are the standard tool for <em>presenting</em> $(\infty,1)$-categories. Modern foundations (Lurie's <em>Higher Topos Theory</em>) define $\infty$-categories intrinsically as quasi-categories, but constructing examples almost always passes through a model-category presentation.</p>
+
+<p>Given a <strong>simplicial model category</strong> $\mathcal{M}$ (one enriched in $\mathrm{sSet}$ in a way compatible with the model structure), the underlying $(\infty,1)$-category is</p>
+
+$$\mathcal{M}_\infty\;:=\;N_\Delta(\mathcal{M}^{cf}),$$
+
+<p>the <strong>simplicial nerve</strong> of the full simplicial subcategory of cofibrant–fibrant objects. Two facts make this work:</p>
+
+<ul>
+<li>If both $X, Y\in\mathcal{M}$ are cofibrant–fibrant, then the simplicial Hom $\mathrm{Map}_{\mathcal{M}}(X,Y)$ is a Kan complex — the higher coherence data of homotopies between maps $X\to Y$.</li>
+<li>The simplicial nerve $N_\Delta$ converts a category enriched in Kan complexes into a quasi-category. The result has objects = cofibrant–fibrant objects of $\mathcal{M}$, $1$-simplices = maps, $2$-simplices = homotopies between composites, etc.</li>
+</ul>
+
+<p>Three structural facts:</p>
+
+<ol>
+<li><strong>Quillen equivalences induce $(\infty,1)$-equivalences</strong>: a Quillen equivalence $\mathcal{M}\simeq_Q\mathcal{N}$ produces an equivalence of quasi-categories $\mathcal{M}_\infty\simeq\mathcal{N}_\infty$.</li>
+<li><strong>Dugger's theorem</strong>: every <em>presentable</em> $(\infty,1)$-category arises as $\mathcal{M}_\infty$ for some combinatorial simplicial model category. So model categories are not just one source of examples but an exhaustive presentation theorem.</li>
+<li><strong>Homotopy 1-categories agree</strong>: $h(\mathcal{M}_\infty) = \mathrm{Ho}(\mathcal{M})$. The classical homotopy category of model-category fame is the $1$-truncation of the modern $\infty$-categorical incarnation.</li>
+</ol>
+
+<p>The bridge runs both ways. Old computations done with model-category machinery (Bousfield localization, transferred model structures, Quillen equivalences between model structures on the same underlying category) translate to $(\infty,1)$-categorical statements (localization of $\infty$-categories, accessible reflective sub-$\infty$-categories, equivalences of presentations). Conversely, intrinsic $\infty$-categorical theorems (the adjoint functor theorem in $\infty$-form, the straightening–unstraightening equivalence) recover and clarify model-category folklore.</p>
+
+<div class="widget" id="mc-nerve">
+  <div class="hd"><div class="ttl">Simplicial nerve: from cof–fib objects to $(\infty,1)$-category</div><div class="hint">click a simplex level to inspect the corresponding cells of $N_\Delta(\mathcal{M}^{cf})$</div></div>
+  <div class="row">
+    <button id="mc-n-l0" class="active">$0$-simplices: objects</button>
+    <button id="mc-n-l1">$1$-simplices: maps</button>
+    <button id="mc-n-l2">$2$-simplices: homotopies</button>
+    <button id="mc-n-l3">$3$-simplices: higher coherence</button>
+  </div>
+  <svg id="mc-n-svg" viewBox="-280 -150 560 300" width="100%" height="320"><title>Simplicial-nerve construction with explicit description of n-simplices for n = 0, 1, 2, 3</title></svg>
+  <div id="mc-n-out" class="readout"></div>
+</div>
+<script>
+(function(){
+  const svg = document.getElementById('mc-n-svg');
+  const out = document.getElementById('mc-n-out');
+  const buttons = [0,1,2,3].map(function(k){ return document.getElementById('mc-n-l'+k); });
+  let level = 0;
+  function set(k){ level = k; for(let i=0;i<buttons.length;i++){ buttons[i].classList.toggle('active', i===k); } draw(); }
+  buttons.forEach(function(b, k){ b.addEventListener('click', function(){ set(k); }); });
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const lblTop = SVG('text',{x:0,y:-115,'text-anchor':'middle','font-size':13,fill:'var(--cyan)','font-weight':600});
+    lblTop.textContent = 'N_Δ(M^{cf}):  the (infinity,1)-category presented by simplicial model category M';
+    svg.appendChild(lblTop);
+    if(level === 0){
+      drawNode(svg, -140, 0, 'X', {stroke:'var(--yellow)'});
+      drawNode(svg,    0, 0, 'Y', {stroke:'var(--yellow)'});
+      drawNode(svg,  140, 0, 'Z', {stroke:'var(--yellow)'});
+      const t = SVG('text',{x:0, y:80, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+      t.textContent = 'Objects = cofibrant-fibrant objects of M (no further restriction).';
+      svg.appendChild(t);
+    } else if(level === 1){
+      drawNode(svg, -140, 0, 'X', {stroke:'var(--yellow)'});
+      drawNode(svg,  140, 0, 'Y', {stroke:'var(--yellow)'});
+      drawArrow(svg, [-140,0], [140,0], {color:'var(--cyan)', label:'f', markerId:'mcN-f', width:1.8});
+      drawArrow(svg, [-140,0], [140,0], {color:'var(--green)', curve:50, label:'g', labelSide:0, markerId:'mcN-g', width:1.8});
+      const t = SVG('text',{x:0, y:90, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+      t.textContent = '1-simplex = map f : X → Y in M (a 0-simplex of Map(X, Y)).';
+      svg.appendChild(t);
+      const t2 = SVG('text',{x:0, y:108, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+      t2.textContent = 'Multiple maps f, g: X → Y -> multiple 1-simplices, in general non-homotopic.';
+      svg.appendChild(t2);
+    } else if(level === 2){
+      drawNode(svg, -140, 60, 'X', {stroke:'var(--yellow)'});
+      drawNode(svg,  140, 60, 'Y', {stroke:'var(--yellow)'});
+      drawNode(svg,    0,-50, 'Z', {stroke:'var(--yellow)'});
+      drawArrow(svg, [-140,60], [140,60], {color:'var(--cyan)', label:'h ~ g∘f', markerId:'mcN-comp', width:1.8});
+      drawArrow(svg, [-140,60], [0,-50], {color:'var(--green)', label:'f', labelSide:0, markerId:'mcN-2f', width:1.8});
+      drawArrow(svg, [0,-50],   [140,60], {color:'var(--green)', label:'g', labelSide:0, markerId:'mcN-2g', width:1.8});
+      const t = SVG('text',{x:0, y:100, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+      t.textContent = '2-simplex = a homotopy h ≃ g ∘ f filling the boundary triangle.';
+      svg.appendChild(t);
+      const t2 = SVG('text',{x:0, y:118, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+      t2.textContent = 'Encoded as a 1-simplex of Map(X, Y) connecting h to the composite g∘f.';
+      svg.appendChild(t2);
+    } else {
+      const t = SVG('text',{x:0, y:-50, 'text-anchor':'middle', 'font-size':13, fill:'var(--cyan)','font-weight':600});
+      t.textContent = '3-simplex: a homotopy between two homotopies';
+      svg.appendChild(t);
+      const t2 = SVG('text',{x:0, y:-25, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+      t2.textContent = 'A tetrahedron of maps + 2-simplices, with 4 triangular faces and 6 edges.';
+      svg.appendChild(t2);
+      const t3 = SVG('text',{x:0, y:-5, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+      t3.textContent = 'Equivalently: a 2-simplex of Map(X, Y) for some pair (X, Y).';
+      svg.appendChild(t3);
+      const t4 = SVG('text',{x:0, y:25, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+      t4.textContent = 'Higher simplices: nested coherences ad infinitum -- this is the';
+      svg.appendChild(t4);
+      const t5 = SVG('text',{x:0, y:43, 'text-anchor':'middle', 'font-size':12, fill:'var(--mute)'});
+      t5.textContent = 'data that 1-categorical homotopy theory throws away.';
+      svg.appendChild(t5);
+      const tri = SVG('polygon',{points:'-90,90 90,90 0,-30', fill:'var(--panel2)','fill-opacity':0.4, stroke:'var(--violet)','stroke-width':1.5});
+      svg.appendChild(tri);
+      const lin1 = SVG('line',{x1:-90,y1:90,x2:0,y2:120,stroke:'var(--violet)','stroke-width':1.5,'stroke-dasharray':'4 3'});
+      const lin2 = SVG('line',{x1:90,y1:90,x2:0,y2:120,stroke:'var(--violet)','stroke-width':1.5,'stroke-dasharray':'4 3'});
+      const lin3 = SVG('line',{x1:0,y1:-30,x2:0,y2:120,stroke:'var(--violet)','stroke-width':1.5,'stroke-dasharray':'4 3'});
+      svg.appendChild(lin1); svg.appendChild(lin2); svg.appendChild(lin3);
+    }
+    let lines = [];
+    if(level === 0){
+      lines.push('0-simplices of N_Delta(M^{cf}) = objects of M^{cf}.');
+      lines.push('Restriction to cof-fib is needed to ensure the simplicial Map(X, Y) is a Kan complex (Quillen).');
+    } else if(level === 1){
+      lines.push('1-simplices of N_Delta(M^{cf}) at vertices (X, Y) = vertices of Map_M(X, Y), i.e. maps X → Y in M.');
+      lines.push('In Ho(M) two such maps are equal iff they are connected by some 2-simplex.');
+    } else if(level === 2){
+      lines.push('2-simplices = triangles f: X→Y, g: Y→Z, h: X→Z plus a homotopy h ≃ g∘f.');
+      lines.push('Composition is well-defined ONLY UP TO HIGHER HOMOTOPY: different 2-simplices give different witnesses h.');
+    } else {
+      lines.push('3-simplices = data of 4 vertices + 6 edges + 4 triangle 2-simplices + a tetrahedron filler.');
+      lines.push('Equivalently a homotopy between homotopies. Higher simplices = higher coherence.');
+      lines.push('');
+      lines.push('CONCLUSION: M_∞ = N_Δ(M^{cf}) packages all the higher-dimensional structure that 1-categorical');
+      lines.push('homotopy theory (i.e. Ho(M)) collapses. It is what we mean by the "underlying" infinity-category');
+      lines.push('of M, and it is the bridge from classical homotopy theory to Lurie-style higher categories.');
+    }
+    out.textContent = lines.join('\n');
+  }
+  draw();
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./infinity-categories.html#quasi-category">Quasi-categories</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><div class="quiz" data-concept="mc-bridge-infinity"></div>
+
+</section>
+
+<section id="connections">
+<h2>Connections</h2>
+
+<p>Model categories occupy a structural middle ground: too combinatorial to be the final word on $\infty$-category theory, but flexible enough to <em>construct</em> almost every $\infty$-category arising in practice. Open frontiers include the search for model structures that present specific stable $(\infty,1)$-categories (motivic, equivariant, derived algebraic geometry), and the hunt for monoidal model structures supporting subtle ring-spectrum or operadic enrichments.</p>
+
+<ul>
+<li><a href="./derived-categories.html#derived-category">Derived categories — $D(\mathcal{A}) = K(\mathcal{A})[\mathrm{qis}^{-1}]$</a> — the prototype $W^{-1}$-localization, recovered as $\mathrm{Ho}$ of the projective model on $\mathrm{Ch}(\mathcal{A})$.</li>
+<li><a href="./homological.html#projective">Projective modules</a> — cofibrant objects in the projective model on $\mathrm{Ch}(R)$; resolutions are cofibrant replacements.</li>
+<li><a href="./simplicial-sets-and-nerve.html#kan-complex">Kan complexes</a> — the fibrant objects in the Kan–Quillen model on $\mathrm{sSet}$.</li>
+<li><a href="./infinity-categories.html#quasi-category">Quasi-categories ($\infty$-categories)</a> — the destination of the simplicial-nerve construction $\mathcal{M}^{cf}\rightsquigarrow\mathcal{M}_\infty$.</li>
+<li><a href="./algebraic-k-theory-foundations.html#q-construction">Quillen's Q-construction</a> — uses the same exact-category / cofibration machinery; Waldhausen's $S_\bullet$-construction generalizes it to categories with cofibrations and weak equivalences.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('model-categories'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-04</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

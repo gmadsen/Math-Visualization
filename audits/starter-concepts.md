@@ -12,8 +12,8 @@ reach into upstream foundations or stay within their own cluster.
 | section | concepts | intra edges | cross out | cross in | density |
 |---|---:|---:|---:|---:|---:|
 | Logic & Foundations | 49 | 56 | 5 | 17 | 0.102 |
-| Algebra & homological | 130 | 196 | 17 | 75 | 0.131 |
-| Higher categories & toposes | 45 | 68 | 23 | 2 | 0.511 |
+| Algebra & homological | 136 | 205 | 18 | 75 | 0.132 |
+| Higher categories & toposes | 45 | 68 | 23 | 3 | 0.511 |
 | Analysis | 191 | 333 | 31 | 62 | 0.162 |
 | Probability & statistics | 55 | 92 | 14 | 13 | 0.255 |
 | Geometry & topology | 104 | 157 | 19 | 94 | 0.183 |
