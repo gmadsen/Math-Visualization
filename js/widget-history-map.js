@@ -374,6 +374,15 @@
         p.classList.toggle('dim', !visible);
         p.classList.toggle('selected', i === state.selectedIdx);
       });
+      // Mark the SVG itself when a filter is active so the
+      // `.map[data-era-filter] .pin:not(.dim) circle` rule paints a soft
+      // era-color halo on the active pins. Each pin's `<g>` already carries
+      // `--era-color`, so the halo color is per-pin via inheritance.
+      if (filterActive) {
+        svg.setAttribute('data-era-filter', '1');
+      } else {
+        svg.removeAttribute('data-era-filter');
+      }
       eraChips.forEach((c, id) => {
         const on = state.activeEras.has(id);
         c.classList.toggle('active', on);

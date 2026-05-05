@@ -251,7 +251,11 @@
     border-width:2px;
     padding:calc(.2rem - 1px) calc(.65rem - 1px);
     background:color-mix(in srgb, var(--era-color,var(--yellow)) 22%, var(--panel2));
-    color:#fff;
+    /* Use --ink (theme-aware) instead of hardcoded #fff. In light mode
+       --panel2 is cream and the 22%-era-color mix lands in pale-beige —
+       white text on that is illegible. --ink is dark in light theme so
+       the chip stays readable in both. */
+    color:var(--ink);
     font-weight:600;
     box-shadow:0 0 8px color-mix(in srgb, var(--era-color,var(--yellow)) 55%, transparent);
   }
@@ -321,18 +325,32 @@
   .map .continent{fill:var(--panel2);stroke:var(--line);stroke-width:.7;
     transition:fill 200ms ease}
   .map .pin{cursor:pointer;transition:transform 120ms ease;outline:none}
-  .map .pin circle{stroke:#0b0f16;stroke-width:1.4;
+  /* Pin stroke was `#0b0f16` matching the SVG background, which made each
+     pin look cut OUT of any continent it sat over (a dark halo eaten into
+     the panel-2 continent fill — the "map artifact" effect). Switch to a
+     slightly-lighter ink-toned stroke so the pin reads as a coloured dot
+     with a clean contrast ring on both ocean and continent. */
+  .map .pin circle{stroke:var(--ink);stroke-width:1.2;stroke-opacity:.45;
     transition:r 120ms ease,filter 120ms ease}
   .map .pin:hover circle{filter:drop-shadow(0 0 6px var(--era-color,var(--yellow)))}
-  .map .pin:focus-visible circle{stroke:var(--cyan);stroke-width:2.2;
+  .map .pin:focus-visible circle{stroke:var(--cyan);stroke-width:2.2;stroke-opacity:1;
     stroke-dasharray:3 2;filter:drop-shadow(0 0 6px var(--cyan))}
-  .map .pin.selected circle{stroke:var(--yellow);stroke-width:2}
+  .map .pin.selected circle{stroke:var(--yellow);stroke-width:2;stroke-opacity:1}
   .map .pin.scrub-out{opacity:.28}
-  .map .pin.dim{opacity:.18}
+  /* Era / lineage filter dims non-matching pins. Drop further (.10) than
+     the previous .18 so the active subset reads as the foreground when a
+     filter is on. */
+  .map .pin.dim{opacity:.10}
   /* When both flags apply, the explicit era/lineage filter (.dim) wins over
    * the ambient scrubber dim (.scrub-out). Source order matters: ties on
    * specificity (0,2,1) → later rule wins. */
-  .map .pin.scrub-out.dim{opacity:.18}
+  .map .pin.scrub-out.dim{opacity:.10}
+  /* When any era / lineage filter is active, give the non-dim pins a soft
+     halo in the era's color so the active set pops against the ocean and
+     continents alike. Mirrors the timeline's `.tl[data-era-filter]` rule. */
+  .map[data-era-filter] .pin:not(.dim) circle{
+    filter:drop-shadow(0 0 4px var(--era-color,var(--yellow)));
+  }
   .map .pin{transition:opacity 200ms ease}
   /* Scrubber styling */
   .tl .tl-scrubber{cursor:ew-resize}
