@@ -3744,6 +3744,340 @@ window.MVQuizBank = {
       }
     }
   },
+  "algebraic-k-theory-foundations": {
+    "topic": "algebraic-k-theory-foundations",
+    "quizzes": {
+      "ak-k0-projective": {
+        "title": "$K_0$ of a ring",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "$K_0(R)$ is the abelian group with one generator $[P]$ for each isomorphism class of finitely generated projective $R$-module, modulo which relation?",
+            "choices": [
+              "$[P\\oplus Q]=[P]+[Q]$ — direct sum decomposes additively.",
+              "$[P\\otimes_R Q]=[P]\\cdot[Q]$ — tensor product decomposes multiplicatively (and only that).",
+              "$[P]=[Q]$ whenever $P,Q$ have the same rank.",
+              "$[P]=0$ whenever $P$ is free."
+            ],
+            "answer": 0,
+            "hint": "Two of the four choices conflate $K_0$ with a different invariant ($K^0$ ring structure or naive rank), and one strictly restricts the generators rather than imposing the universal additive identification.",
+            "explain": "$K_0(R)$ is the Grothendieck group of the abelian monoid (f.g. projective $R$-modules, $\\oplus$), so the defining relation is $[P\\oplus Q]=[P]+[Q]$. Tensor product gives a separate ring structure, not the defining relation. (2) is too coarse — it forgets non-free projectives over Dedekind domains. (3) is wrong: free modules give a copy of $\\mathbb{Z}$ inside $K_0$ via rank, not zero."
+          },
+          {
+            "type": "matching",
+            "q": "Match each ring on the left to its $K_0$ group on the right.",
+            "left": [
+              "A field $k$",
+              "$\\mathbb{Z}$",
+              "$\\mathbb{Z}[\\sqrt{-5}]$ (a Dedekind domain with class number $2$)",
+              "A polynomial ring $k[x_1,\\dots,x_n]$ over a field"
+            ],
+            "right": [
+              "$\\mathbb{Z}\\oplus\\mathbb{Z}/2$ — the rank summand plus the nontrivial class group of order $2$.",
+              "$\\mathbb{Z}$ — every f.g. projective is free of a definite rank.",
+              "$\\mathbb{Z}$ — every f.g. projective is free (Quillen-Suslin) so only rank survives.",
+              "$\\mathbb{Z}$ — every f.g. projective over a PID is free, only rank survives."
+            ],
+            "answer": [
+              1,
+              3,
+              0,
+              2
+            ],
+            "hint": "Two of the four rings have the property \"every projective is free,\" giving the same answer for different reasons. The remaining ring's $K_0$ adds an obstruction class group — recall how non-principal ideals contribute.",
+            "explain": "(0)→1: over a field every module is free, $K_0=\\mathbb{Z}$. (1)→3: $\\mathbb{Z}$ is a PID; projectives are free; rank classifies. (2)→0: $\\mathbb{Z}[\\sqrt{-5}]$ is Dedekind with class number $2$; the non-principal ideal $(2,1+\\sqrt{-5})$ gives the nontrivial class, so $K_0=\\mathbb{Z}\\oplus\\mathrm{Cl}\\cong\\mathbb{Z}\\oplus\\mathbb{Z}/2$. (3)→2: Quillen-Suslin says projective over $k[x_1,\\dots,x_n]$ implies free. The Dedekind decomposition $K_0=\\mathbb{Z}\\oplus\\mathrm{Cl}(R)$ is the canonical example where K-theory sees more than rank."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all true statements about stable equivalence in $K_0(R)$.",
+            "choices": [
+              "$[P]=[Q]$ in $K_0(R)$ iff $P\\oplus R^n\\cong Q\\oplus R^n$ for some $n\\ge 0$.",
+              "$[P]=[Q]$ in $K_0(R)$ iff $P\\cong Q$ as $R$-modules.",
+              "Every element of $K_0(R)$ has the form $[P]-[R^n]$ for some f.g. projective $P$ and some $n$.",
+              "If $R$ is a field, $K_0(R)\\to\\mathbb{Z}$ by $[V]\\mapsto\\dim V$ is an isomorphism."
+            ],
+            "answer": [
+              0,
+              2,
+              3
+            ],
+            "hint": "The Grothendieck group construction inverts a monoid; \"inversion\" allows formal differences but identifies elements only up to a shared cancelable summand. Which statement asserts a strictly stronger identification?",
+            "explain": "(0,2,3) are correct: the universal property of the Grothendieck group identifies $[P]$ with $[Q]$ only after a free-summand cancellation — \"stable\" not \"naive\" isomorphism — and every element is a formal difference of a projective and a free. (1) is false in general: $\\mathbb{Z}[\\sqrt{-5}]$ has non-isomorphic projectives $\\mathfrak{p}\\oplus\\mathfrak{p}\\cong R\\oplus R$ that become equal in $K_0$, since the ideal class has order 2."
+          }
+        ]
+      },
+      "ak-k1-units": {
+        "title": "$K_1$ of a ring",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For a commutative ring $R$, the determinant map $K_1(R)\\to R^\\times$ is:",
+            "choices": [
+              "An isomorphism for every $R$.",
+              "Always surjective, with kernel $SK_1(R)=SL(R)/[GL(R),GL(R)]\\cap SL(R)$.",
+              "Never surjective for noncommutative $R$.",
+              "An isomorphism only when $R$ has trivial Picard group."
+            ],
+            "answer": 1,
+            "hint": "The map is split by the obvious section $r\\mapsto[\\mathrm{diag}(r,1,1,\\ldots)]$, so consider where surjectivity comes from independently of injectivity. The kernel has a name and a class of vanishing examples worth remembering.",
+            "explain": "The determinant map $\\det\\colon K_1(R)\\to R^\\times$ is split surjective via $r\\mapsto[\\mathrm{diag}(r,1,\\ldots)]$, so $K_1(R)\\cong R^\\times\\oplus SK_1(R)$ where $SK_1(R)$ is the special-linear summand. For fields $SK_1=0$ and the determinant is an iso (Whitehead determinant theorem); for Dedekind domains $SK_1$ vanishes too (Bass-Milnor-Serre); but in general $SK_1$ is nonzero — e.g. $SK_1(\\mathbb{Z}[t,t^{-1}])$ is nontrivial."
+          },
+          {
+            "type": "ordering",
+            "q": "Order the steps in the proof that $K_1(F) = F^\\times$ for a field $F$ (Whitehead determinant theorem).",
+            "items": [
+              "Conclude: $K_1(F)=GL(F)/E(F)\\cong F^\\times$ via the determinant, since elementary matrices have determinant 1 and the determinant of $\\mathrm{diag}(a,1,\\ldots,1)$ is $a$.",
+              "Show every elementary matrix $I+a\\,e_{ij}$ ($i\\ne j$) is a commutator: $I+a\\,e_{ij}=[I+a\\,e_{ik},I+e_{kj}]$ for any third index $k$.",
+              "Use Gauss elimination over $F$ to write any $A\\in GL_n(F)$ as a product of elementary matrices times a single diagonal matrix $\\mathrm{diag}(\\det A,1,\\ldots,1)$.",
+              "Conclude that $E(F)=[GL(F),GL(F)]$ — the elementary subgroup is exactly the commutator subgroup (Whitehead lemma)."
+            ],
+            "answer": [
+              1,
+              3,
+              2,
+              0
+            ],
+            "hint": "Each step relies on the previous. The very first step needs to identify the elementary subgroup with the commutator subgroup before talking about the abelianization, which itself requires recognizing each elementary matrix structurally.",
+            "explain": "(1) Recognize each elementary matrix structurally as a commutator — this is the input to (3) which then identifies $E(F)$ as the full commutator subgroup. (2) Reduce any $A$ to a single diagonal $\\mathrm{diag}(\\det A,1,\\ldots,1)$ via Gauss elimination; this is the surjectivity step for $\\det$ on the abelianization. (0) Read off $K_1(F)=GL/E\\cong F^\\times$. Skipping (1) leaves $E$ structurally vague; skipping (3) leaves the abelianization unidentified; skipping (2) fails to compute the quotient explicitly."
+          },
+          {
+            "type": "matching",
+            "q": "Match each invariant on the left to its $K_1$-theoretic interpretation on the right.",
+            "left": [
+              "Reidemeister torsion of a finite CW complex with simple chain homotopy",
+              "The s-cobordism obstruction class for a non-trivial h-cobordism between manifolds with $\\pi_1=G$",
+              "The determinant of a unit $u\\in R^\\times$ for $R$ commutative",
+              "The first Chern class of a line bundle, modulo the natural Picard map"
+            ],
+            "right": [
+              "An element of $\\mathrm{Wh}(G) = K_1(\\mathbb{Z}[G])/(\\pm G^{\\mathrm{ab}})$, the Whitehead group of $G$.",
+              "A class in $K_1(R)$ topologically corresponding to a determinant under $\\det\\colon K_1(R)\\to R^\\times$.",
+              "Lives in $K_1(\\mathbb{Z}[\\pi_1])/(\\pm \\pi_1^{\\mathrm{ab}})$ — the Whitehead-group-valued obstruction.",
+              "A class in $H^2(X;\\mathbb{Z})$ that factors through $K_1$ only after a Chern-character refinement, not directly."
+            ],
+            "answer": [
+              2,
+              0,
+              1,
+              3
+            ],
+            "hint": "Two of the four rows live in the same group $\\mathrm{Wh}(G)$ but for different geometric reasons (one is an algebraic torsion of a chain complex; the other is a topological cobordism obstruction). Sort first by which invariants quotient out the trivial unit class $\\pm G^{\\mathrm{ab}}$.",
+            "explain": "(0)→2 and (1)→0: both Reidemeister torsion and the s-cobordism obstruction land in the Whitehead group $\\mathrm{Wh}(G)$, which kills the trivially-realizable units $\\pm g$. (2)→1: the determinant of a unit is exactly the simplest $K_1$ class — the splitting $R^\\times\\hookrightarrow K_1(R)$. (3)→3: line bundles' first Chern classes are not directly $K_1$-theoretic (they show up in $K^0$ via the Bott element), so the match is the contrast row about indirect access."
+          }
+        ]
+      },
+      "ak-k2-steinberg": {
+        "title": "$K_2$ and the Steinberg relations",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Matsumoto's theorem identifies $K_2(F)$ for a field $F$ with the abelian group on symbols $\\{a,b\\}$ for $a,b\\in F^\\times$ modulo bilinearity and:",
+            "choices": [
+              "$\\{a,a\\}=1$ for every $a\\in F^\\times$ (the alternating condition).",
+              "$\\{a,1-a\\}=1$ for every $a\\in F^\\times\\setminus\\{1\\}$ (the Steinberg relation).",
+              "$\\{a,b\\}=\\{b,a\\}$ for every $a,b$ (commutativity).",
+              "$\\{a,b\\}=0$ whenever $a=b^n$ for some $n$ (the divisibility relation)."
+            ],
+            "answer": 1,
+            "hint": "Bilinearity is one of the two relations; the other one is what's actually distinctive — it picks out a polynomial-identity relation specific to fields, not a generic abelian-group property. The four choices include three distractors that are either consequences or unrelated.",
+            "explain": "Matsumoto's relation is $\\{a,1-a\\}=1$ when both $a$ and $1-a$ are in $F^\\times$. (0) is a CONSEQUENCE: from bilinearity and Steinberg, $\\{a,-a\\}=1$ then $\\{a,a\\}=\\{a,-a\\}\\{a,-1\\}^{-1}=\\{a,-1\\}^{-1}$, which has order $1$ or $2$ — not the defining relation. (2) commutativity holds (Milnor symbols are alternating up to bilinearity) but is again a consequence. (4) is unrelated."
+          },
+          {
+            "type": "numeric",
+            "q": "What is the order of $K_2(\\mathbb{Z})$ as an abelian group? (Enter a positive integer.)",
+            "answer": 2,
+            "tol": 0.5,
+            "hint": "Tate computed $K_2(\\mathbb{Z})$ using the localization sequence $\\mathbb{Z}\\to\\mathbb{Q}$. The single nontrivial generator has a name and is closely tied to the units of $\\mathbb{Z}$.",
+            "explain": "$K_2(\\mathbb{Z})\\cong\\mathbb{Z}/2$, generated by the symbol $\\{-1,-1\\}$. This drops out of the localization long exact sequence for $\\mathbb{Z}\\to\\mathbb{Q}$: $K_2(\\mathbb{Q})\\to\\bigoplus_p K_1(\\mathbb{F}_p)$ has image $\\bigoplus_p\\mathbb{F}_p^\\times$ via tame symbols, and the kernel intersected with classes not coming from primes pins down a $\\mathbb{Z}/2$ summand."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Find the error in this attempted derivation of the bilinear identity $\\{a,b\\}\\{a,c\\}=\\{a,bc\\}$ in $K_2(F)$ from Matsumoto's relations: \"Step 1: Bilinearity gives $\\{a,bc\\}=\\{a,b\\}+\\{a,c\\}$ (additive notation in $K_2$). Step 2: Commutativity gives $\\{a,b\\}=\\{b,a\\}$. Step 3: Apply Steinberg's relation: $\\{a,1-a\\}=0$, so taking $b=1-a$ and $c=a$ in step 1 yields $\\{a,(1-a)a\\}=\\{a,1-a\\}+\\{a,a\\}=\\{a,a\\}$. Step 4: But $(1-a)a=a-a^2$, so $\\{a,a-a^2\\}=\\{a,a\\}$, i.e. the symbol $\\{a,a\\}$ is determined by a single value of $b=a-a^2$. Conclude: $\\{a,a\\}$ is a function of $a-a^2$ only, not of $a$.\"",
+            "steps": [
+              "Bilinearity: $\\{a,bc\\}=\\{a,b\\}+\\{a,c\\}$.",
+              "Commutativity: $\\{a,b\\}=\\{b,a\\}$.",
+              "Apply Steinberg: $\\{a,1-a\\}=0$ and substitute $b=1-a, c=a$: $\\{a,(1-a)a\\}=\\{a,a\\}$.",
+              "Conclude: $\\{a,a\\}$ depends only on $a-a^2$."
+            ],
+            "answer": 3,
+            "hint": "Re-read the conclusion against the antecedent. Does an equation $\\{a,X\\}=Y$ for a single specific value of $X$ logically license a claim that $Y$ is a FUNCTION of $X$? What's missing for that quantifier shift?",
+            "explain": "The conclusion in step 3 (the final bullet) is wrong. Knowing $\\{a,a-a^2\\}=\\{a,a\\}$ for the SPECIFIC value $a-a^2$ does not say $\\{a,a\\}$ \"depends only on $a-a^2$\" as a function — that would require establishing the identity over a free variable. Steps 0–2 are correct manipulations; the fourth step illegitimately quantifier-shifts an existential identity into a functional dependence. (Independently: $\\{a,a\\}=\\{a,-1\\}$ in any case, an alternating identity unrelated to the spurious $a-a^2$ dependence.)"
+          }
+        ]
+      },
+      "ak-q-construction": {
+        "title": "Quillen's Q-construction",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Quillen's higher K-theory of a ring $R$ is defined as $K_n(R) = $:",
+            "choices": [
+              "$\\pi_n(BGL_\\infty(R))$ — the homotopy groups of the classifying space, no plus.",
+              "$\\pi_n(BGL(R)^+)$ for $n\\ge 1$, where $^+$ is Quillen's plus-construction killing the perfect normal subgroup $E(R)\\trianglelefteq GL(R)$.",
+              "$H_n(GL(R);\\mathbb{Z})$ — the integer group homology of the stable general linear group.",
+              "$\\pi_n(BR^\\times)$ — the homotopy groups of the classifying space of the units."
+            ],
+            "answer": 1,
+            "hint": "The naive classifying space $BGL$ has $\\pi_1=GL_\\infty(R)$ which is too big — it doesn't recover $K_1$. The plus-construction is the topological surgery that fixes this. One distractor confuses homotopy with homology; another forgets stability entirely.",
+            "explain": "Quillen's plus-construction $X\\to X^+$ kills a perfect normal subgroup of $\\pi_1$ without changing homology. Applied to $BGL_\\infty(R)$ killing $E(R)$ (perfect by Whitehead), it produces a space whose $\\pi_1 = K_1(R) = GL/E$, and higher $\\pi_n$ define $K_n(R)$. (0) is wrong: $\\pi_1 BGL = GL$, not $K_1$. (2) is the wrong functor — group homology gives a different invariant though there is a Hurewicz map $K_n\\to H_n$. (3) is the abelianization-of-$\\det$ piece only."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all true statements about the Q-construction $Q\\mathcal{P}$ of an exact category $\\mathcal{P}$.",
+            "choices": [
+              "Objects of $Q\\mathcal{P}$ are the same as objects of $\\mathcal{P}$.",
+              "Morphisms $X\\to Y$ in $Q\\mathcal{P}$ are equivalence classes of zigzags $X\\twoheadleftarrow Z\\hookrightarrow Y$ — admissible epi followed by admissible mono.",
+              "$\\pi_1(BQ\\mathcal{P})\\cong K_0(\\mathcal{P})$ — the first homotopy group recovers the Grothendieck group.",
+              "The Q-construction agrees with Quillen's plus-construction definition for $\\mathcal{P}=\\mathrm{Proj}_R$ in every degree (the plus-equals-Q theorem)."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "hint": "Ask for each statement what would go wrong if it failed: would $K_0$ become unrecoverable? Would the two definitions cease to agree? Each option targets one definitional bullet; check each one independently.",
+            "explain": "All four are correct. (0,1) describe the data of $Q\\mathcal{P}$: same objects, zigzag morphisms. (2) gives the consistency check: $\\pi_1(BQ\\mathcal{P})\\cong K_0(\\mathcal{P})$, since $K_0$ shifts by $1$ in $Q$ — which is why Quillen's definition uses $K_n(\\mathcal{P})=\\pi_{n+1}BQ\\mathcal{P}$. (3) plus-equals-Q theorem makes the two definitions equivalent for projective modules in every degree."
+          },
+          {
+            "type": "matching",
+            "q": "Match each Quillen K-theory definition style on the left to its natural input category on the right.",
+            "left": [
+              "Plus-construction $K_n=\\pi_n(BGL(R)^+)$",
+              "Q-construction $K_n=\\pi_{n+1}BQ\\mathcal{E}$",
+              "Waldhausen $S_\\bullet$-construction",
+              "Group completion of $\\bigsqcup_n B\\mathrm{Aut}(P_n)$"
+            ],
+            "right": [
+              "A symmetric-monoidal groupoid (the discrete \"isomorphisms only\" picture).",
+              "An exact category (objects + admissible mono/epi pairs).",
+              "A category with cofibrations and weak equivalences (most general — includes complexes with quasi-isos).",
+              "A ring $R$, encoded via stable invertible matrices $GL(R)$."
+            ],
+            "answer": [
+              3,
+              1,
+              2,
+              0
+            ],
+            "hint": "Two of these definitions are restricted to a ring (or a slight enrichment of one); the other two work for arbitrary categorical structure. Match by what the definition needs as INPUT, not by the output.",
+            "explain": "(0)→3: the plus-construction takes a ring and forms $BGL(R)^+$. (1)→1: Q is built on exact categories — objects with admissible monos/epis. (2)→2: $S_\\bullet$ generalizes further to categories with cofibrations + weak equivalences (so chain complexes, simplicial objects all fit). (3)→0: group completion takes a symmetric-monoidal groupoid (the most permissive: just isomorphisms and a sum bifunctor). Each definition trades generality for accessibility — Q sits in the middle."
+          }
+        ]
+      },
+      "ak-localization-sequence": {
+        "title": "The localization long exact sequence",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "For the localization $\\mathbb{Z}\\to\\mathbb{Q}$, the residue map $K_1(\\mathbb{Q})\\to\\bigoplus_p K_0(\\mathbb{F}_p)$ takes a unit $a\\in\\mathbb{Q}^\\times = K_1(\\mathbb{Q})$ to:",
+            "choices": [
+              "The constant function $p\\mapsto 1$ for every $p$.",
+              "The tuple of $p$-adic valuations $(v_p(a))_p$, identifying $K_0(\\mathbb{F}_p)\\cong\\mathbb{Z}$.",
+              "The image of $a$ under the canonical $\\mathbb{Q}\\to\\mathbb{F}_p$ (which doesn't exist, so the map is undefined).",
+              "The Hilbert symbol $(a,p)_p$ at each prime $p$."
+            ],
+            "answer": 1,
+            "hint": "Each prime $p$ gives one summand. The information about $a$ that survives mod $p$ is supported only at finitely many primes — which integer-valued invariant is automatic. The defining property of a residue map is that it's an integer when $a$ is a $p$-adic unit and grows with the order of vanishing/blow-up.",
+            "explain": "Tate's residue map at the prime $p$ sends $a\\in\\mathbb{Q}^\\times$ to its $p$-adic valuation $v_p(a)\\in\\mathbb{Z}=K_0(\\mathbb{F}_p)$. The localization sequence $K_1(\\mathbb{Z})\\to K_1(\\mathbb{Q})\\to\\bigoplus_p K_0(\\mathbb{F}_p)\\to K_0(\\mathbb{Z})\\to K_0(\\mathbb{Q})\\to 0$ unwinds via these residue maps; the kernel is exactly $\\mathbb{Z}^\\times=\\{\\pm 1\\}=K_1(\\mathbb{Z})$. The Hilbert symbol is a $K_2$-invariant, not $K_1$."
+          },
+          {
+            "type": "ordering",
+            "q": "Order the steps to compute $K_0(\\mathbb{Z})$ from the localization long exact sequence at $\\mathbb{Z}\\to\\mathbb{Q}$.",
+            "items": [
+              "Identify the cokernel of the residue map $K_1(\\mathbb{Q})\\to\\bigoplus_p K_0(\\mathbb{F}_p)$: every $\\mathbb{Z}\\hookrightarrow\\bigoplus_p\\mathbb{Z}$ class is hit because each prime has $p$ as a $K_1(\\mathbb{Q})$-class, so the cokernel is $0$.",
+              "Identify each $K_0(\\mathbb{F}_p)$: a finite field is a field, so $K_0(\\mathbb{F}_p)=\\mathbb{Z}$.",
+              "Conclude $K_0(\\mathbb{Z})\\cong\\mathbb{Z}$ from the exact sequence cokernel-plus-image structure: the map $K_0(\\mathbb{Z})\\to K_0(\\mathbb{Q})=\\mathbb{Z}$ is surjective and its kernel is the cokernel of the residue map, which is $0$.",
+              "Write the relevant snippet of the localization sequence: $K_1(\\mathbb{Q})\\to\\bigoplus_p K_0(\\mathbb{F}_p)\\to K_0(\\mathbb{Z})\\to K_0(\\mathbb{Q})\\to 0$."
+            ],
+            "answer": [
+              3,
+              1,
+              0,
+              2
+            ],
+            "hint": "An exact-sequence calculation always proceeds by writing the sequence first, identifying each term concretely, computing the boundary maps, and only then reading off the unknown. Don't try to deduce $K_0(\\mathbb{Z})$ before the input groups are even named.",
+            "explain": "(3) Write the sequence with the unknown $K_0(\\mathbb{Z})$ in the middle. (1) Identify the elementary terms $K_0(\\mathbb{F}_p)=\\mathbb{Z}$ (and $K_0(\\mathbb{Q})=\\mathbb{Z}$). (0) Compute the cokernel/image of the residue map — surjective onto $\\bigoplus_p\\mathbb{Z}$ hence cokernel $0$. (2) Read off $K_0(\\mathbb{Z})\\cong\\mathbb{Z}$. Skipping any step leaves the next one ungrounded — an exact sequence is only useful after each term is concrete."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all true statements about the localization long exact sequence in algebraic K-theory.",
+            "choices": [
+              "It generalizes the localization sequence in classical homology of a CW pair: it follows the same six-term pattern of devissage.",
+              "It requires the multiplicative subset $S$ to satisfy a smoothness/regularity condition (e.g. $S^{-1}R$ regular when $R$ is) for the sequence to be exact.",
+              "Applied to $\\mathbb{Z}\\to\\mathbb{Q}$ in degree $1$, the map $K_1(\\mathbb{Z})=\\{\\pm 1\\}\\to K_1(\\mathbb{Q})=\\mathbb{Q}^\\times$ is the natural inclusion.",
+              "The sequence terminates in low degree at $K_0$, with the rightmost map $K_0(R)\\to K_0(S^{-1}R)$ surjective."
+            ],
+            "answer": [
+              2,
+              3
+            ],
+            "hint": "Two statements are correct snapshots of how the sequence behaves on the $\\mathbb{Z}\\to\\mathbb{Q}$ example and at the bottom; two impose extraneous hypotheses or wrong analogies — they sound sophisticated but are false. Test each option against the specific example.",
+            "explain": "(2,3) are correct. (0) is a false analogy: the localization sequence in K-theory is a long exact sequence of an EXACT-CATEGORY pair (Quillen's localization theorem), not a CW-pair LES — the construction is different even though the shape is similar. (1) is wrong: the sequence is always exact for any multiplicative subset $S$ of $R$ — no extra regularity needed. (2) reads $\\pm 1\\hookrightarrow\\mathbb{Q}^\\times$. (3) holds because $\\bigoplus_p K_0(\\mathbb{F}_p)\\to K_0(R)\\to K_0(S^{-1}R)\\to 0$ ends at $0$."
+          }
+        ]
+      },
+      "ak-applications": {
+        "title": "Applications: Bass-Quillen, Wall, motivic",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Bass-Quillen theorem (Serre's conjecture for regular Noetherian rings) says: for $R$ a regular Noetherian ring, every finitely generated projective $R[t]$-module is:",
+            "choices": [
+              "Free of finite rank.",
+              "Extended from $R$ — i.e. of the form $P\\otimes_R R[t]$ for some f.g. projective $R$-module $P$.",
+              "A direct sum of finitely many invertible ideals.",
+              "Trivial: zero unless $R[t]$ has trivial Picard group."
+            ],
+            "answer": 1,
+            "hint": "Three of the four phrasings are statements specific to a more restricted class — fields, Dedekind, or zero rank — but Bass-Quillen explicitly addresses adding a polynomial variable to a regular ring. The right answer expresses the theorem in functorial language.",
+            "explain": "Bass-Quillen says every f.g. projective $R[t]$-module is extended from $R$: $P_{R[t]} \\cong P_R\\otimes_R R[t]$. (0) is the stronger Serre conjecture (Quillen-Suslin) for $R=k[x_1,\\dots,x_n]$ (a polynomial ring over a field, where extension also forces freeness). (2) is the Dedekind characterization. (4) is wrong even for $\\mathbb{Z}[t]$, where projectives are free of nonzero rank."
+          },
+          {
+            "type": "matching",
+            "q": "Match each application area on the left to the K-theory group it lives in on the right.",
+            "left": [
+              "Wall's finiteness obstruction for a finitely-dominated CW complex with $\\pi_1=G$",
+              "Bass-Quillen / Serre: the obstruction to a projective $R[t]$-module being extended from $R$",
+              "Tate's tame symbols at primes for $\\mathbb{Q}$ — the localization sequence's first nontrivial connecting map",
+              "Motivic K-theory of a smooth variety $X$ over a field, computed by motivic cohomology"
+            ],
+            "right": [
+              "$K_2(\\mathbb{Q})$ — symbols $\\{a,b\\}$ giving the Steinberg-relation residues $K_2(\\mathbb{Q})\\to\\bigoplus_p\\mathbb{F}_p^\\times$.",
+              "Higher $K_n(X) = \\bigoplus_p H^{2p-n}(X,\\mathbb{Z}(p))$ via Beilinson-Lichtenbaum / Bloch-Kato.",
+              "The reduced Grothendieck group $\\widetilde{K}_0(\\mathbb{Z}[G])$ — the kernel of the augmentation $K_0(\\mathbb{Z}[G])\\to\\mathbb{Z}$.",
+              "$K_0(R[t])/K_0(R)$ — vanishes for $R$ regular Noetherian by the theorem."
+            ],
+            "answer": [
+              2,
+              3,
+              0,
+              1
+            ],
+            "hint": "Sort by which $K_n$ each application targets. Two of the four involve $K_0$ but in different roles (one as the obstruction itself, one as the comparison map quotient); the others land in $K_2$ and higher motivic degrees. Match by degree first.",
+            "explain": "(0)→2: Wall's obstruction class $[X]\\in\\widetilde{K}_0(\\mathbb{Z}[\\pi_1])$ vanishes iff $X$ is finite-CW-equivalent. (1)→3: Bass-Quillen says $K_0(R[t])\\cong K_0(R)$, so the quotient is zero. (2)→0: Tate's tame symbol map on $K_2(\\mathbb{Q})$, with cokernel related to quadratic reciprocity. (3)→1: Beilinson-Lichtenbaum identifies higher $K_n$ of smooth varieties with motivic cohomology — the deepest of the four bridges, proven via Voevodsky's resolution of Bloch-Kato."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all true statements about the connections between K-theory and arithmetic / topology.",
+            "choices": [
+              "Borel's theorem computes $K_n(\\mathcal{O}_F)\\otimes\\mathbb{Q}$ for a number field $F$ in terms of the number of real and complex places — the ranks alternate by degree mod 4.",
+              "The Bloch-Kato conjecture (now Voevodsky's theorem, with Rost) identifies $K^M_n(F)/\\ell$ with $H^n_{\\text{ét}}(F,\\mu_\\ell^{\\otimes n})$ for prime $\\ell$ — Milnor K-theory of a field equals étale cohomology mod $\\ell$.",
+              "Quillen-Lichtenbaum: for a smooth variety $X$ over a field, after inverting a prime $\\ell$, algebraic K-theory agrees with étale K-theory in degrees above the cohomological dimension.",
+              "Wall's finiteness obstruction is always trivial when $\\pi_1$ is finite cyclic, because $K_0$ of the group ring of a cyclic group is always $\\mathbb{Z}$."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "hint": "Three statements are theorems (or near-theorems with proper attribution). One claim about cyclic group rings is structurally too strong — try to think of an explicit cyclic group whose group ring has nontrivial class group structure, since some imaginary quadratic class groups appear here.",
+            "explain": "(0,1,2) are the Borel rank theorem, Bloch-Kato (Voevodsky-Rost), and Quillen-Lichtenbaum statements respectively — three central conjectures-now-theorems linking K-theory to L-functions, étale cohomology, and arithmetic geometry. (3) is wrong: $K_0(\\mathbb{Z}[C_p])$ for a cyclic group of prime order $p\\ge 23$ has nontrivial reduced part — class numbers of cyclotomic fields enter, and Wall's obstruction can be nontrivial."
+          }
+        ]
+      }
+    }
+  },
   "algebraic-number-theory": {
     "topic": "algebraic-number-theory",
     "quizzes": {

@@ -1,0 +1,1073 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Algebraic K-theory foundations</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"automorphic-forms-adelic","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"additive-number-theory":{"next":"quadratic-forms-genus-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"advanced-complex-analysis":{"next":"microlocal-analysis","prev":"fixed-point-theorems","section":"Analysis","title":"Advanced complex analysis"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"moduli-spaces","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-k-theory-foundations":{"next":null,"prev":"groebner-bases","section":"Algebra & homological","title":"Algebraic K-theory foundations"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"mathematics-and-cryptography","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"mostow-rigidity","prev":"k-theory","section":"Geometry & topology","title":"Atiyah–Singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"etale-cohomology","section":"Algebraic geometry","title":"Calabi–Yau manifolds"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-topoi","prev":"infinity-categories","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":null,"prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"deformation-theory":{"next":"etale-cohomology","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"group-cohomology","prev":"homological","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"expanders","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirac-equation":{"next":"quantum-field-theory","prev":"klein-gordon-equation","section":"Mathematical physics","title":"Dirac equation"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"harmonic-analysis-fourier","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":null,"section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":"calabi-yau-manifolds","prev":"deformation-theory","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"deformation-theory","prev":"group-schemes","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":null,"prev":"designs","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"naive-set-theory","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":"advanced-complex-analysis","prev":"variational-methods","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"type-theory-and-hott","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"quantum-groups","prev":"lie-algebras","section":"Algebra & homological","title":"Galois cohomology and Brauer groups"},"galois-representations":{"next":"heights-arithmetic-geometry","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"gauge-theory":{"next":"string-theory","prev":"statistical-mechanics","section":"Mathematical physics","title":"Gauge theory"},"general-relativity":{"next":"schrodinger-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":"groebner-bases","prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"geometric-measure-theory":{"next":"semigroup-theory-evolution-equations","prev":"microlocal-analysis","section":"Analysis","title":"Geometric measure theory"},"groebner-bases":{"next":"algebraic-k-theory-foundations","prev":"geometric-and-combinatorial-group-theory","section":"Algebra & homological","title":"Gröbner bases"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"lie-algebras","prev":"derived-categories","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"etale-fundamental-group","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"hamiltonians-classical-mechanics":{"next":"general-relativity","prev":"three-body-problem","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"spectral-theory","prev":"partial-differential-equations","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"analytic-number-theory","prev":"galois-representations","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":null,"prev":"mathematical-statistics","section":"Probability & statistics","title":"High dimensional geometry"},"hodge-theory":{"next":null,"prev":"motives","section":"Algebraic geometry","title":"Hodge theory"},"homological":{"next":"derived-categories","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"cocartesian-fibrations","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-topoi"},"information-theory":{"next":"large-deviations","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"stacks","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"ricci-flow","section":"Geometry & topology","title":"K-theory"},"klein-gordon-equation":{"next":"dirac-equation","prev":"special-relativity","section":"Mathematical physics","title":"Klein-Gordon equation"},"knot-polynomials":{"next":"ricci-flow","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Knot polynomials"},"langlands-program":{"next":null,"prev":"vertex-operator-algebras","section":"Modular forms & L-functions","title":"Langlands program"},"large-deviations":{"next":"mathematical-statistics","prev":"information-theory","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"galois-cohomology-and-brauer","prev":"group-cohomology","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"mathematical-statistics":{"next":"high-dimensional-geometry","prev":"large-deviations","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"microlocal-analysis":{"next":"geometric-measure-theory","prev":"advanced-complex-analysis","section":"Analysis","title":"Microlocal analysis"},"mirror-symmetry":{"next":"resolution-of-singularities","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"model-theory-basics":{"next":"computability-and-decidability","prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"modular-curves","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"algebraic-spaces","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"characteristic-classes","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":null,"prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Mostow rigidity"},"motives":{"next":"hodge-theory","prev":"resolution-of-singularities","section":"Algebraic geometry","title":"Motives"},"naive-set-theory":{"next":"first-order-logic-and-completeness","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"wavelets","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"harmonic-functions","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"stochastic-processes-and-martingales","prev":null,"section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"additive-number-theory","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"additive-number-theory","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"quantum-field-theory":{"next":null,"prev":"dirac-equation","section":"Mathematical physics","title":"Quantum field theory"},"quantum-groups":{"next":"quaternions-octonions-and-division-algebras","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"quantum-groups","section":"Algebra & homological","title":"Quaternions, octonions, and division algebras"},"random-walks-and-mixing":{"next":"information-theory","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":"motives","prev":"mirror-symmetry","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"k-theory","prev":"knot-polynomials","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"characteristic-classes","prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":"statistical-mechanics","prev":"general-relativity","section":"Mathematical physics","title":"Schrödinger equation"},"semigroup-theory-evolution-equations":{"next":null,"prev":"geometric-measure-theory","section":"Analysis","title":"Semigroup theory & evolution equations"},"sheaf-cohomology":{"next":"algebraic-de-rham-cohomology","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"algebraic-curves-higher-genus","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Sobolev spaces & distributions"},"special-relativity":{"next":"klein-gordon-equation","prev":"string-theory","section":"Mathematical physics","title":"Special relativity"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"wavelets","prev":"harmonic-functions","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"intersection-theory-chow","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"statistical-mechanics":{"next":"gauge-theory","prev":"schrodinger-equation","section":"Mathematical physics","title":"Statistical mechanics"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":"probability-theory","section":"Probability & statistics","title":"Stochastic processes and martingales"},"string-theory":{"next":"special-relativity","prev":"gauge-theory","section":"Mathematical physics","title":"String theory"},"symplectic-manifolds":{"next":"knot-polynomials","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"hamiltonians-classical-mechanics","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"type-theory-and-hott":{"next":"forcing-and-independence","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and HoTT"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"fixed-point-theorems","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":"langlands-program","prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"numerical-analysis","prev":"spectral-theory","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"model-theory-basics","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"ZFC and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="algebra-and-homological" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a><!-- breadcrumb-nav-auto-begin --><div class="breadcrumb"></div><span class="nav-links"><a class="nav-link" href="./pathway.html">Pathway</a><a class="nav-link" href="./tours.html">Tours</a><a class="nav-link" href="./history.html">History</a><a class="nav-link" href="./tags.html">Themes</a><a class="nav-link" href="./mindmap.html">Mindmap</a><a class="nav-link" href="./search.html">Search</a></span><span class="mv-theme-slot"></span><!-- breadcrumb-nav-auto-end -->
+<!-- toc-auto-begin -->
+  <a href="#k0">1&nbsp;$K_0$&nbsp;of&nbsp;a&nbsp;ring:&nbsp;the&nbsp;Grothendieck&nbsp;group&nbsp;of&nbsp;projective&nbsp;modules</a>
+  <a href="#k1">2&nbsp;$K_1$&nbsp;of&nbsp;a&nbsp;ring:&nbsp;stable&nbsp;invertible&nbsp;matrices</a>
+  <a href="#k2">3&nbsp;$K_2$&nbsp;of&nbsp;a&nbsp;ring:&nbsp;the&nbsp;Steinberg&nbsp;relations</a>
+  <a href="#q-construction">4&nbsp;Quillen's&nbsp;Q-construction&nbsp;and&nbsp;higher&nbsp;K-theory</a>
+  <a href="#localization">5&nbsp;The&nbsp;localization&nbsp;long&nbsp;exact&nbsp;sequence</a>
+  <a href="#applications">6&nbsp;Applications:&nbsp;Bass-Quillen,&nbsp;Wall&nbsp;finiteness,&nbsp;motivic&nbsp;K-theory</a>
+  <a href="#connections">7&nbsp;Connections</a>
+<!-- toc-auto-end -->
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Algebraic K-theory foundations</h1>
+  <p class="sub">From $K_0$ as the Grothendieck group of projective modules, through $K_1$ and $K_2$ encoding stable invertible matrices and Steinberg relations, to Quillen's Q-construction and the localization long exact sequence — homotopy-theoretic invariants of rings, with applications to topology, arithmetic, and motives.</p>
+</section>
+
+<section id="k0">
+<h2>1. $K_0$ of a ring: the Grothendieck group of projective modules</h2>
+
+<p>Algebraic K-theory begins with a single question: what should the "stable" classification of projective modules look like? Given a ring $R$ and the abelian monoid $\mathrm{Proj}(R)$ of isomorphism classes of finitely generated projective $R$-modules under direct sum, $K_0(R)$ is its <strong>group completion</strong> — formally, the universal abelian group equipped with a homomorphism from $\mathrm{Proj}(R)$.</p>
+
+<p>Concretely: $K_0(R)$ is the free abelian group on isomorphism classes $[P]$ modulo the relation $[P\oplus Q]=[P]+[Q]$. Every element has the form $[P]-[Q]$ (a formal difference), and $[P]=[Q]$ in $K_0(R)$ iff there exists $n$ with $P\oplus R^n\cong Q\oplus R^n$ — the "stable" identification, weaker than isomorphism.</p>
+
+<p>Three landmark cases:</p>
+
+<ul>
+<li><strong>$R$ a field $k$</strong>: every $k$-module is free, classified by dimension, so $K_0(k)\cong\mathbb{Z}$ via $[V]\mapsto\dim_k V$.</li>
+<li><strong>$R$ a PID (e.g. $\mathbb{Z}$)</strong>: every f.g. projective is free, so $K_0(R)\cong\mathbb{Z}$ via rank — same answer for the same reason.</li>
+<li><strong>$R$ a Dedekind domain</strong>: every f.g. projective is $R^{n-1}\oplus I$ for some fractional ideal $I$, with $I_1\oplus I_2\cong R\oplus(I_1 I_2)$. The class group $\mathrm{Cl}(R)$ records non-principal ideals, and $K_0(R)\cong\mathbb{Z}\oplus\mathrm{Cl}(R)$. For $R=\mathbb{Z}[\sqrt{-5}]$ the class group is $\mathbb{Z}/2$, generated by the non-principal ideal $(2,1+\sqrt{-5})$.</li>
+</ul>
+
+<p>The same construction recovers vector bundles on a topological space (giving topological $K^0$), locally free coherent sheaves on a scheme, and the class group in number theory. K-theory is the universal home for "objects you can add but not always cancel."</p>
+
+<div class="widget" id="ak-k0">
+  <div class="hd"><div class="ttl">$K_0$ explorer: stable equivalence vs. isomorphism</div><div class="hint">pick a ring; merge classes with $[P]+[R^n]=[Q]+[R^n]$</div></div>
+  <div class="row">
+    <button id="ak-k0-field" class="active">field $k$</button>
+    <button id="ak-k0-z">$\mathbb{Z}$ (PID)</button>
+    <button id="ak-k0-zsqrt5">$\mathbb{Z}[\sqrt{-5}]$ (Dedekind)</button>
+    <button id="ak-k0-poly">$k[x_1,x_2]$</button>
+  </div>
+  <svg id="ak-k0-svg" viewBox="-260 -150 520 280" width="100%" height="320"><title>K0(R) generators and stable equivalence relation visualized as merging classes</title></svg>
+  <div id="ak-k0-out" class="readout"></div>
+</div><script>
+(function(){
+  const svg = document.getElementById('ak-k0-svg');
+  const out = document.getElementById('ak-k0-out');
+  const bF = document.getElementById('ak-k0-field');
+  const bZ = document.getElementById('ak-k0-z');
+  const bD = document.getElementById('ak-k0-zsqrt5');
+  const bP = document.getElementById('ak-k0-poly');
+  let kind = 'field';
+  function set(k){ kind=k; for(const b of [bF,bZ,bD,bP]) b.classList.remove('active');
+    ({field:bF,z:bZ,dedekind:bD,poly:bP})[k].classList.add('active'); draw(); }
+  bF.addEventListener('click',()=>set('field'));
+  bZ.addEventListener('click',()=>set('z'));
+  bD.addEventListener('click',()=>set('dedekind'));
+  bP.addEventListener('click',()=>set('poly'));
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    let label = '', generators = [], group = '', extra = '';
+    if(kind === 'field'){
+      label = 'K_0(k) for a field k';
+      generators = [
+        {name:'[k]', x:-180, y:-40, color:'var(--yellow)', desc:'rank 1'},
+        {name:'[k^2]', x:-90, y:-40, color:'var(--yellow)', desc:'rank 2'},
+        {name:'[k^3]', x:0, y:-40, color:'var(--yellow)', desc:'rank 3'},
+        {name:'[k^4]', x:90, y:-40, color:'var(--yellow)', desc:'rank 4'},
+        {name:'...', x:180, y:-40, color:'var(--mute)', desc:''}
+      ];
+      group = 'K0(k) ~= Z via rank.';
+      extra = 'Every f.g. k-module is free (vector space). [V] = dim(V) in K0.\n\nNo nontrivial stable equivalences beyond isomorphism: [V] = [W] iff dim V = dim W iff V ~= W.';
+    }
+    else if(kind === 'z'){
+      label = 'K_0(Z) -- PID';
+      generators = [
+        {name:'[Z]', x:-180, y:-40, color:'var(--yellow)', desc:'rank 1'},
+        {name:'[Z^2]', x:-90, y:-40, color:'var(--yellow)', desc:'rank 2'},
+        {name:'[Z^3]', x:0, y:-40, color:'var(--yellow)', desc:'rank 3'},
+        {name:'[Z^4]', x:90, y:-40, color:'var(--yellow)', desc:'rank 4'},
+        {name:'...', x:180, y:-40, color:'var(--mute)', desc:''}
+      ];
+      group = 'K0(Z) ~= Z via rank.';
+      extra = 'Every f.g. projective Z-module is free (since Z is a PID). Same picture as a field.\n\nNote: torsion modules like Z/2 are NOT projective -- they don\'t enter K0(Z). They show up in K0(Z-mod^{f.g.}) (a different K-group), where the Quillen devissage theorem identifies them with sum_p K0(F_p).';
+    }
+    else if(kind === 'dedekind'){
+      label = 'K_0(Z[sqrt(-5)]) -- Dedekind, class number 2';
+      generators = [
+        {name:'[R]', x:-180, y:-40, color:'var(--yellow)', desc:'rank 1, free'},
+        {name:'[p]', x:-90, y:-40, color:'var(--pink)', desc:'rank 1, NOT free'},
+        {name:'[R^2]', x:-180, y:30, color:'var(--yellow)', desc:'rank 2, free'},
+        {name:'[R+p]', x:-90, y:30, color:'var(--pink)', desc:'rank 2'},
+        {name:'[p+p]', x:0, y:30, color:'var(--cyan)', desc:'~= R^2'}
+      ];
+      group = 'K0(R) ~= Z (+) Z/2 = (rank, ideal class).';
+      extra = 'p = (2, 1+sqrt(-5)) is non-principal, so [p] != [R].\nBUT p^2 is principal, so p (+) p ~= R (+) R^2 (Steinitz). In K0: [p] + [p] = 2[R].\n\nClick "merge" between [p+p] and [R^2]: stable equivalence. Yet [p] != [R] in K0 -- class group is detected.';
+    }
+    else if(kind === 'poly'){
+      label = 'K_0(k[x1,x2]) -- polynomial ring (Quillen-Suslin)';
+      generators = [
+        {name:'[R]', x:-180, y:-40, color:'var(--yellow)', desc:'rank 1'},
+        {name:'[R^2]', x:-90, y:-40, color:'var(--yellow)', desc:'rank 2'},
+        {name:'[R^3]', x:0, y:-40, color:'var(--yellow)', desc:'rank 3'},
+        {name:'[any P]', x:120, y:-40, color:'var(--green)', desc:'free!'},
+      ];
+      group = 'K0(k[x1,x2]) ~= Z via rank (Quillen-Suslin).';
+      extra = 'Serre conjectured (Bass-Quillen extended): every f.g. projective over k[x1,...,xn] is FREE. Proven for n<=2 by Seshadri (1958), all n by Quillen and Suslin independently (1976).\n\nA non-trivial result -- Serre asked the question because the analogous question for vector bundles on affine space was nontrivial and the answer matters for the Bass-Quillen extension theorem.';
+    }
+    const lblTop = SVG('text',{x:0,y:-110,'text-anchor':'middle','font-size':13,fill:'var(--cyan)','font-weight':600});
+    lblTop.textContent = group;
+    svg.appendChild(lblTop);
+    for(const g of generators){
+      const r = SVG('rect',{x:g.x-32,y:g.y-15,width:64,height:30,fill:'var(--panel2)',stroke:g.color,'stroke-width':1.5,rx:6});
+      svg.appendChild(r);
+      const t = SVG('text',{x:g.x,y:g.y+4,'text-anchor':'middle','font-size':12,fill:g.color,'font-weight':600});
+      t.textContent = g.name; svg.appendChild(t);
+      if(g.desc){
+        const d = SVG('text',{x:g.x,y:g.y+25,'text-anchor':'middle','font-size':9,fill:'var(--mute)'});
+        d.textContent = g.desc; svg.appendChild(d);
+      }
+    }
+    if(kind === 'dedekind'){
+      drawArrow(svg, [-25, 30], [-150, 30], {color:'var(--cyan)', curve:-25, label:'stably =', labelSide:0, markerId:'merge1'});
+      drawArrow(svg, [-150, 30], [-25, 30], {color:'var(--cyan)', curve:25, label:null, markerId:'merge2'});
+    }
+    out.textContent = label + '\n\n' + extra;
+  }
+  draw();
+})();
+</script>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./commutative-algebra.html#dvr-dedekind">Discrete valuation rings and Dedekind domains</a></li>
+    <li><a href="./homological.html#projective">Projective modules</a></li>
+    <li><a href="./k-theory.html#grothendieck">Grothendieck group $K_0$ of an exact category</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./algebraic-k-theory-foundations.html#k1">Algebraic K-theory foundations</a> · $K_1$ of a ring: stable invertible matrices</div>
+    <div><a href="./algebraic-k-theory-foundations.html#applications">Algebraic K-theory foundations</a> · Applications: Bass-Quillen, Wall finiteness, motivic K-theory</div>
+    <div><a href="./algebraic-k-theory-foundations.html#q-construction">Algebraic K-theory foundations</a> · Quillen's Q-construction and higher K-theory</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="ak-k0-projective"></div>
+</section>
+
+<section id="k1">
+<h2>2. $K_1$ of a ring: stable invertible matrices</h2>
+
+<p>$K_1$ asks: how should one classify invertible matrices over $R$, stably and up to "elementary" moves? Inside $GL_n(R)$ sits the elementary subgroup $E_n(R)$, generated by transvections $I+r\,e_{ij}$ for $i\ne j$ and $r\in R$ — the row operations that don't change the determinant or the abstract structure.</p>
+
+<p>Take the direct limit along the upper-left embeddings $GL_n(R)\hookrightarrow GL_{n+1}(R)$, $A\mapsto\mathrm{diag}(A,1)$. The result is $GL(R)=\varinjlim_n GL_n(R)$, the <strong>stable general linear group</strong>. Its elementary subgroup $E(R)=\varinjlim E_n(R)$ enjoys a remarkable property — Whitehead's lemma: $E(R)$ is precisely the commutator subgroup of $GL(R)$, and is itself perfect ($E(R)=[E(R),E(R)]$). Each elementary matrix is a commutator: $I+a\,e_{ij}=[I+a\,e_{ik},I+e_{kj}]$ for any third index $k$.</p>
+
+<p>Define $K_1(R) = GL(R)^{\mathrm{ab}} = GL(R)/E(R)$.</p>
+
+<p>For commutative $R$ the determinant gives a split surjection $\det\colon K_1(R)\to R^\times$, so $K_1(R) = R^\times \oplus SK_1(R)$. The kernel $SK_1(R)$ vanishes for fields (Whitehead determinant theorem) and Dedekind domains (Bass-Milnor-Serre), but not in general — $SK_1(\mathbb{Z}[t,t^{-1}])\ne 0$ already. The Whitehead group $\mathrm{Wh}(G) = K_1(\mathbb{Z}[G])/(\pm G^{\mathrm{ab}})$ houses the s-cobordism obstruction in surgery theory.</p>
+
+<div class="widget" id="ak-k1">
+  <div class="hd"><div class="ttl">$K_1$: from $GL_n$ to abelianized stable matrices</div><div class="hint">apply elementary row ops to a 2×2; watch the K₁ class collapse to the determinant</div></div>
+  <div class="row">
+    <label for="ak-k1-a">$a$ (off-diag scalar):</label>
+    <input id="ak-k1-a" type="range" min="-3" max="3" step="1" value="1">
+    <span id="ak-k1-a-out" class="small"></span>
+  </div>
+  <div class="row">
+    <label for="ak-k1-b">$b$ (off-diag scalar):</label>
+    <input id="ak-k1-b" type="range" min="-3" max="3" step="1" value="2">
+    <span id="ak-k1-b-out" class="small"></span>
+  </div>
+  <div class="row">
+    <label for="ak-k1-d">$d = \det$:</label>
+    <input id="ak-k1-d" type="range" min="-5" max="5" step="1" value="1">
+    <span id="ak-k1-d-out" class="small"></span>
+  </div>
+  <svg id="ak-k1-svg" viewBox="-260 -130 520 260" width="100%" height="300"><title>Whitehead lemma: elementary row operations on a 2x2 collapse to det(A) in K1</title></svg>
+  <div id="ak-k1-out" class="readout"></div>
+</div><script>
+(function(){
+  const svg = document.getElementById('ak-k1-svg');
+  const out = document.getElementById('ak-k1-out');
+  const aS = document.getElementById('ak-k1-a');
+  const bS = document.getElementById('ak-k1-b');
+  const dS = document.getElementById('ak-k1-d');
+  const aO = document.getElementById('ak-k1-a-out');
+  const bO = document.getElementById('ak-k1-b-out');
+  const dO = document.getElementById('ak-k1-d-out');
+  function fmtMat(A){
+    return '[ '+(''+A[0][0]).padStart(3)+' '+(''+A[0][1]).padStart(3)+' ]\n[ '+(''+A[1][0]).padStart(3)+' '+(''+A[1][1]).padStart(3)+' ]';
+  }
+  function det2(A){ return A[0][0]*A[1][1] - A[0][1]*A[1][0]; }
+  function mmul(A,B){
+    return [
+      [A[0][0]*B[0][0]+A[0][1]*B[1][0], A[0][0]*B[0][1]+A[0][1]*B[1][1]],
+      [A[1][0]*B[0][0]+A[1][1]*B[1][0], A[1][0]*B[0][1]+A[1][1]*B[1][1]]
+    ];
+  }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const a = +aS.value, b = +bS.value, d = +dS.value;
+    aO.textContent = 'a = '+a;
+    bO.textContent = 'b = '+b;
+    dO.textContent = 'det = '+d;
+    const Ea = [[1,a],[0,1]];
+    const Eb = [[1,b],[0,1]];
+    const D = [[d,0],[0,1]];
+    const A = mmul(Ea, mmul(D, Eb));
+    const detA = det2(A);
+    function box(x,y,w,h,col){
+      svg.appendChild(SVG('rect',{x,y,width:w,height:h,fill:'var(--panel2)',stroke:col,'stroke-width':1.5,rx:6}));
+    }
+    function lbl(x,y,t,col,sz){
+      const e = SVG('text',{x,y,'text-anchor':'middle','font-size':sz||11,fill:col,'font-family':'ui-monospace,monospace'});
+      e.textContent = t; svg.appendChild(e);
+    }
+    box(-220,-90,130,90,'var(--blue)');
+    lbl(-155,-72,'A = E(a) D(d) E(b)','var(--blue)',10);
+    lbl(-155,-50,fmtMat(A).split('\n')[0],'var(--ink)',10);
+    lbl(-155,-35,fmtMat(A).split('\n')[1],'var(--ink)',10);
+    lbl(-155,-12,'det = '+detA,'var(--mute)',9);
+    box(-50,-90,130,90,'var(--violet)');
+    lbl(15,-72,'mod E(R) (kill electrons)','var(--violet)',10);
+    lbl(15,-48,'= diag(det A, 1, 1, ...)','var(--cyan)',11);
+    lbl(15,-26,'in stable GL(Z)/E(Z)','var(--mute)',9);
+    box(120,-90,130,90,'var(--yellow)');
+    lbl(185,-72,'class in K1(Z)','var(--yellow)',10);
+    lbl(185,-48,'= det(A) in Z* = {+/-1}','var(--cyan)',11);
+    lbl(185,-26, detA === 1 ? '= +1' : detA === -1 ? '= -1' : 'NOT a unit -- not in K1','var(--mute)',9);
+    drawArrow(svg, [-90,-45],[-50,-45],{color:'var(--mute)',markerId:'k1arr1'});
+    drawArrow(svg, [80,-45],[120,-45],{color:'var(--mute)',markerId:'k1arr2'});
+    lbl(-200, 30, 'Whitehead lemma:', 'var(--green)', 11);
+    lbl(-90, 30, 'I + a*e_{12}  =  [ I + a*e_{13},  I + e_{32} ]', 'var(--mute)', 11);
+    lbl(-200, 50, '(any nontrivial transvection is a commutator', 'var(--mute)', 10);
+    lbl(-200, 65, 'after stabilizing to size >= 3)', 'var(--mute)', 10);
+    out.textContent = 'Step-by-step computation:\n' +
+      'A = E(' + a + ') * diag(' + d + ',1) * E(' + b + ') over Z.\n' +
+      'A explicit:\n' + fmtMat(A) + '\n' +
+      'det A = ' + detA + '.\n\n' +
+      'In K1(Z): the elementary factors E(' + a + '), E(' + b + ') in E(Z) are commutators (Whitehead lemma) and hence killed in the abelianization GL/[GL,GL]. What survives is diag(det A, 1, ...), whose class in K1(Z) = Z* = {+/-1} is just det A = ' + detA + '.\n\n' +
+      'For Z, K1(Z) = {+/-1} (Bass-Milnor-Serre: SK1(Z) = 0). If det A = +/-1, the class is in K1(Z); otherwise A is not in GL(Z) (det must be a unit).\n\n' +
+      'Try: a=1, b=0, d=1 -> A = [[1,1],[0,1]], det 1. Pure elementary, K1 class = +1 = trivial.\n' +
+      'Try: a=0, b=0, d=-1 -> A = diag(-1,1), det -1, K1 class = -1 (nontrivial).';
+  }
+  aS.addEventListener('input', draw);
+  bS.addEventListener('input', draw);
+  dS.addEventListener('input', draw);
+  draw();
+})();
+</script>
+<div class="quiz" data-concept="ak-k1-units"></div><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./algebraic-k-theory-foundations.html#k2">Algebraic K-theory foundations</a> · $K_2$ of a ring and the Steinberg relations</div>
+    <div><a href="./algebraic-k-theory-foundations.html#applications">Algebraic K-theory foundations</a> · Applications: Bass-Quillen, Wall finiteness, motivic K-theory</div>
+    <div><a href="./algebraic-k-theory-foundations.html#q-construction">Algebraic K-theory foundations</a> · Quillen's Q-construction and higher K-theory</div>
+</aside>
+<!-- backlinks-auto-end -->
+</section>
+
+<section id="k2">
+<h2>3. $K_2$ of a ring: the Steinberg relations</h2>
+
+<p>The Whitehead lemma identifies $E(R)$ with $[GL(R),GL(R)]$ but says nothing about hidden relations among the elementary generators $x_{ij}(r)=I+r\,e_{ij}$ themselves. The <strong>Steinberg group</strong> $\mathrm{St}(R)$ is the abstract group on these generators subject only to the obvious commutator relations:</p>
+
+<ul>
+<li>$x_{ij}(r)\cdot x_{ij}(s) = x_{ij}(r+s)$ (additivity in the entry);</li>
+<li>$[x_{ij}(r), x_{kl}(s)] = 1$ when $j\ne k$ and $i\ne l$ (disjoint indices commute);</li>
+<li>$[x_{ij}(r), x_{jk}(s)] = x_{ik}(rs)$ when $i\ne k$ (Witt-style commutator).</li>
+</ul>
+
+<p>There is a canonical surjection $\pi\colon\mathrm{St}(R)\twoheadrightarrow E(R)$ killing nothing extra. Define</p>
+
+$$K_2(R) := \ker(\pi) = Z(\mathrm{St}(R)) \subset \mathrm{St}(R) \twoheadrightarrow E(R).$$
+
+<p>Equivalently, $K_2(R)$ is the kernel of the universal central extension of $E(R)$. It captures the relations that hold in $E(R)$ but are NOT consequences of the Steinberg relations alone.</p>
+
+<p><strong>Matsumoto's theorem</strong>: for a field $F$, $K_2(F)$ is the abelian group on symbols $\{a,b\}$, $a,b\in F^\times$, modulo bilinearity ($\{aa',b\}=\{a,b\}\{a',b\}$) and the Steinberg relation $\{a,1-a\}=1$. So a $K_2(F)$ class is a <strong>symbol</strong> $\{a,b\}$ — the universal "two-variable cocycle" on the units.</p>
+
+<p>Concrete computations:</p>
+
+<ul>
+<li>$K_2(\mathbb{Z}) = \mathbb{Z}/2$, generated by $\{-1,-1\}$ (Tate, via the localization sequence).</li>
+<li>For each prime $p$, the tame symbol $K_2(\mathbb{Q}) \to \mathbb{F}_p^\times$ extracts the residue $\overline{(-1)^{v_p(a)v_p(b)}\cdot a^{v_p(b)}/b^{v_p(a)}}\bmod p$.</li>
+<li>The Hilbert symbol $(a,b)_p\in\{\pm 1\}$ is a $K_2$-symbol, and quadratic reciprocity reduces to a single $K_2$-relation in $K_2(\mathbb{Q})$.</li>
+</ul>
+
+<div class="widget" id="ak-k2">
+  <div class="hd"><div class="ttl">$K_2$ symbol calculator: Steinberg relations on $\mathbb{Q}^\times$</div><div class="hint">enter $a,b\in\mathbb{Q}^\times$; compute tame symbols and check $\{a,1-a\}=1$</div></div>
+  <div class="row">
+    <label for="ak-k2-a">$a$ (rational):</label>
+    <input id="ak-k2-a" type="text" value="2" style="max-width:90px">
+    <label for="ak-k2-b">$b$ (rational):</label>
+    <input id="ak-k2-b" type="text" value="3" style="max-width:90px">
+    <button id="ak-k2-go" class="active">compute symbol</button>
+  </div>
+  <div class="row">
+    <button id="ak-k2-test1">test: {2, -1}</button>
+    <button id="ak-k2-test2">test: {3, -2} = {3, 1-3}</button>
+    <button id="ak-k2-test3">test: {-1, -1}</button>
+  </div>
+  <svg id="ak-k2-svg" viewBox="-260 -130 520 260" width="100%" height="280"><title>K2 symbol {a,b}: tame symbols at primes 2,3,5,7 and Steinberg relation check</title></svg>
+  <div id="ak-k2-out" class="readout"></div>
+</div><script>
+(function(){
+  const svg = document.getElementById('ak-k2-svg');
+  const out = document.getElementById('ak-k2-out');
+  const aI = document.getElementById('ak-k2-a');
+  const bI = document.getElementById('ak-k2-b');
+  const go = document.getElementById('ak-k2-go');
+  const t1 = document.getElementById('ak-k2-test1');
+  const t2 = document.getElementById('ak-k2-test2');
+  const t3 = document.getElementById('ak-k2-test3');
+  function gcd(a,b){a=Math.abs(a);b=Math.abs(b); while(b){const t=b; b=a%b; a=t;} return a||1;}
+  function parseQ(s){
+    s = (''+s).trim();
+    if(!s) return null;
+    if(s.indexOf('/') >= 0){
+      const parts = s.split('/').map(t=>parseInt(t.trim(),10));
+      const n = parts[0], d = parts[1];
+      if(!Number.isFinite(n) || !Number.isFinite(d) || d === 0) return null;
+      const g = gcd(n,d);
+      const sign = (n<0) !== (d<0) ? -1 : 1;
+      return {n: sign*Math.abs(n)/g, d: Math.abs(d)/g};
+    }
+    const n = parseInt(s,10);
+    if(!Number.isFinite(n) || n === 0) return null;
+    return {n, d:1};
+  }
+  function vp(q, p){
+    if(!q || q.n === 0) return null;
+    let n = Math.abs(q.n), d = q.d, v = 0;
+    while(n % p === 0){ n /= p; v++; }
+    while(d % p === 0){ d /= p; v--; }
+    return v;
+  }
+  function modInv(x, p){
+    x = ((x % p) + p) % p;
+    let g = p, n2 = x, q2;
+    let s = 0, t2 = 1;
+    while(n2){
+      q2 = Math.floor(g/n2);
+      const ng = n2, nn = g - q2*n2; g = ng; n2 = nn;
+      const ns = t2, nt = s - q2*t2; s = ns; t2 = nt;
+    }
+    return ((s % p) + p) % p;
+  }
+  function unitMod(q, p){
+    if(!q || q.n === 0) return null;
+    let n = Math.abs(q.n), d = q.d;
+    while(n % p === 0) n /= p;
+    while(d % p === 0) d /= p;
+    const sign = q.n < 0 ? -1 : 1;
+    return ((sign * n * modInv(d, p)) % p + p) % p;
+  }
+  function tameSym(a, b, p){
+    const va = vp(a, p), vb = vp(b, p);
+    if(va === null || vb === null) return {tame:'?', va:0, vb:0};
+    const aUnit = unitMod(a, p), bUnit = unitMod(b, p);
+    if(aUnit === null || bUnit === null || aUnit === 0 || bUnit === 0) return {tame:'?', va, vb};
+    function pwr(x, e){
+      let r = 1, base = ((x%p)+p)%p, ee = Math.abs(e);
+      while(ee){ if(ee&1) r = (r*base) % p; base = (base*base) % p; ee >>=1; }
+      if(e < 0) return modInv(r, p);
+      return r;
+    }
+    const sign = (va * vb) % 2 === 0 ? 1 : -1;
+    const num = pwr(aUnit, vb);
+    const den = pwr(bUnit, va);
+    const tame = ((sign * num * modInv(den, p)) % p + p) % p;
+    return {tame, va, vb};
+  }
+  function fmtQ(q){ return q.d === 1 ? ''+q.n : q.n+'/'+q.d; }
+  function rationalEq(p, q){
+    if(!p || !q) return false;
+    return p.n*q.d === q.n*p.d;
+  }
+  function rationalSub1(q){
+    if(!q) return null;
+    return {n: q.d - q.n, d: q.d};
+  }
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const a = parseQ(aI.value);
+    const b = parseQ(bI.value);
+    if(!a || !b){
+      out.textContent = 'Could not parse a='+aI.value+' or b='+bI.value+' as rationals.\nUse integers or "p/q" form, no zero.';
+      const t = SVG('text',{x:0,y:0,'text-anchor':'middle','font-size':12,fill:'var(--pink)'});
+      t.textContent = 'parse error'; svg.appendChild(t);
+      return;
+    }
+    const primes = [2,3,5,7,11];
+    let symbols = [];
+    for(let i=0;i<primes.length;i++){
+      const p = primes[i];
+      const r = tameSym(a, b, p);
+      symbols.push({p:p, tame:r.tame, va:r.va, vb:r.vb});
+    }
+    const oneMinusA = rationalSub1(a);
+    const isSteinberg = oneMinusA && rationalEq(b, oneMinusA);
+    const lblTop = SVG('text',{x:0,y:-100,'text-anchor':'middle','font-size':14,fill:'var(--cyan)','font-weight':600});
+    lblTop.textContent = 'K2(Q) symbol  { ' + fmtQ(a) + ' , ' + fmtQ(b) + ' }';
+    svg.appendChild(lblTop);
+    const lblP = SVG('text',{x:-180,y:-60,'font-size':11,fill:'var(--mute)'}); lblP.textContent = 'prime p:'; svg.appendChild(lblP);
+    const lblVa = SVG('text',{x:-180,y:-40,'font-size':11,fill:'var(--mute)'}); lblVa.textContent = 'v_p(a):'; svg.appendChild(lblVa);
+    const lblVb = SVG('text',{x:-180,y:-20,'font-size':11,fill:'var(--mute)'}); lblVb.textContent = 'v_p(b):'; svg.appendChild(lblVb);
+    const lblTame = SVG('text',{x:-180,y:0,'font-size':11,fill:'var(--yellow)','font-weight':600}); lblTame.textContent = 'tame {a,b}_p:'; svg.appendChild(lblTame);
+    for(let i=0;i<symbols.length;i++){
+      const x = -90 + i*60;
+      const sP = SVG('text',{x,y:-60,'text-anchor':'middle','font-size':12,fill:'var(--ink)','font-weight':600}); sP.textContent = symbols[i].p; svg.appendChild(sP);
+      const sVa = SVG('text',{x,y:-40,'text-anchor':'middle','font-size':11,fill:'var(--ink)'}); sVa.textContent = symbols[i].va; svg.appendChild(sVa);
+      const sVb = SVG('text',{x,y:-20,'text-anchor':'middle','font-size':11,fill:'var(--ink)'}); sVb.textContent = symbols[i].vb; svg.appendChild(sVb);
+      const tameVal = symbols[i].tame;
+      const sTame = SVG('text',{x,y:0,'text-anchor':'middle','font-size':12,fill:'var(--yellow)','font-weight':600}); sTame.textContent = tameVal; svg.appendChild(sTame);
+    }
+    const oneMA = rationalSub1(a);
+    const txt = oneMA ? '1 - a = ' + fmtQ(oneMA) : 'undefined';
+    const stLbl = SVG('text',{x:0,y:40,'text-anchor':'middle','font-size':12,fill:isSteinberg?'var(--green)':'var(--mute)'});
+    stLbl.textContent = 'Steinberg: ' + txt + '.   b ' + (isSteinberg?'=':'!=') + ' 1-a, so {a,b} ' + (isSteinberg?'== 1':'is not (yet) constrained') + ' by Steinberg.';
+    svg.appendChild(stLbl);
+    if(isSteinberg){
+      const okBox = SVG('rect',{x:-130,y:55,width:260,height:30,fill:'var(--green)','fill-opacity':0.15,stroke:'var(--green)','stroke-width':1.5,rx:6});
+      svg.appendChild(okBox);
+      const okT = SVG('text',{x:0,y:75,'text-anchor':'middle','font-size':12,fill:'var(--green)','font-weight':600});
+      okT.textContent = '{a, 1-a} = 1 in K2 (Steinberg relation)';
+      svg.appendChild(okT);
+    }
+    let lines = [];
+    lines.push('{a,b} = { ' + fmtQ(a) + ' , ' + fmtQ(b) + ' } in K2(Q).');
+    lines.push('');
+    lines.push('Tame symbols at small primes  (formula: (-1)^{v_p(a)v_p(b)} * a^{v_p(b)} / b^{v_p(a)}  mod p in F_p^*):');
+    for(let i=0;i<symbols.length;i++){
+      const s = symbols[i];
+      lines.push('  p = ' + s.p + ': v_' + s.p + '(a) = ' + s.va + ', v_' + s.p + '(b) = ' + s.vb + ',  {a,b}_' + s.p + ' = ' + s.tame + ' (mod ' + s.p + ')');
+    }
+    lines.push('');
+    if(isSteinberg){
+      lines.push('b = 1-a is detected. Matsumoto/Steinberg: {a, 1-a} = 1 in K2(F) for every field F.');
+      lines.push('In particular, {a, 1-a} is killed in K2(Q) -- every tame symbol above must = 1 mod p.');
+    } else {
+      lines.push('b != 1-a here, so the Steinberg relation does NOT directly apply.');
+      lines.push('Use bilinearity and {-1,-1} to compute {a,b} explicitly via Tate.');
+      lines.push('K2(Q) =~ {+/-1} (+) sum_p F_p^* via tame symbols (one residue per prime).');
+    }
+    out.textContent = lines.join('\n');
+  }
+  function setVals(a, b){
+    aI.value = a; bI.value = b; draw();
+  }
+  go.addEventListener('click', draw);
+  aI.addEventListener('change', draw);
+  bI.addEventListener('change', draw);
+  t1.addEventListener('click', function(){ setVals('2','-1'); });
+  t2.addEventListener('click', function(){ setVals('3','-2'); });
+  t3.addEventListener('click', function(){ setVals('-1','-1'); });
+  draw();
+})();
+</script>
+<div class="quiz" data-concept="ak-k2-steinberg"></div>
+</section>
+
+<section id="q-construction">
+<h2>4. Quillen's Q-construction and higher K-theory</h2>
+
+<p>The bottom three K-groups have explicit algebraic descriptions: $K_0$ via projectives, $K_1$ via stable invertibles, $K_2$ via Steinberg symbols. But what is $K_3$? Or $K_n$ for general $n$? <strong>Quillen's Q-construction</strong> gives a uniform answer.</p>
+
+<p>For an exact category $\mathcal{E}$ — an additive category with a notion of admissible monomorphisms ($\hookrightarrow$) and admissible epimorphisms ($\twoheadrightarrow$) such that "short exact sequences" are well-defined — define the category $Q\mathcal{E}$:</p>
+
+<ul>
+<li><strong>Objects</strong>: same as $\mathcal{E}$.</li>
+<li><strong>Morphisms</strong> $X\to Y$: equivalence classes of zigzags $X\twoheadleftarrow Z\hookrightarrow Y$ — first an admissible epi, then an admissible mono. Compose by pulling back.</li>
+</ul>
+
+<p>The classifying space $BQ\mathcal{E}$ is then a topological space, and</p>
+
+$$K_n(\mathcal{E}) := \pi_{n+1}(BQ\mathcal{E}, *).$$
+
+<p>The shift by 1 is because $Q\mathcal{E}$ is non-trivial in low degree: $\pi_1(BQ\mathcal{E}) \cong K_0(\mathcal{E})$, so $K_0$ becomes the fundamental group, $K_1$ becomes $\pi_2$, etc.</p>
+
+<p>For a ring $R$, applying Quillen's construction to the exact category $\mathcal{P}(R)$ of finitely generated projective $R$-modules gives the <strong>algebraic K-theory of $R$</strong>:</p>
+
+$$K_n(R) := K_n(\mathcal{P}(R)) = \pi_{n+1}(BQ\mathcal{P}(R)).$$
+
+<p>An equivalent definition uses the <strong>plus-construction</strong>: $K_n(R) = \pi_n(BGL(R)^+)$ for $n\ge 1$. Quillen's plus-equals-Q theorem identifies the two: both compute the same homotopy invariants. Waldhausen later extended the framework to categories with cofibrations and weak equivalences (the $S_\bullet$-construction), allowing K-theory of derived/triangulated categories and chain complexes.</p>
+
+<div class="widget" id="ak-Q">
+  <div class="hd"><div class="ttl">Q-construction: zigzag morphisms and $\pi_1 = K_0$</div><div class="hint">click an object; see how zigzag morphisms compose into the Grothendieck group</div></div>
+  <div class="row">
+    <button id="ak-Q-s1" class="active">simple example: $R$, $R^2$, $R^3$</button>
+    <button id="ak-Q-s2">Dedekind: $R$, $\mathfrak{p}$, $\mathfrak{p}^2$</button>
+  </div>
+  <svg id="ak-Q-svg" viewBox="-260 -150 520 300" width="100%" height="320"><title>QP(R) classifying space schematic with admissible mono and epi morphisms</title></svg>
+  <div id="ak-Q-out" class="readout"></div>
+</div><script>
+(function(){
+  const svg = document.getElementById('ak-Q-svg');
+  const out = document.getElementById('ak-Q-out');
+  const b1 = document.getElementById('ak-Q-s1');
+  const b2 = document.getElementById('ak-Q-s2');
+  let mode = 'simple';
+  function set(m){ mode = m; b1.classList.toggle('active', m==='simple'); b2.classList.toggle('active', m==='dedekind'); draw(); }
+  b1.addEventListener('click',function(){set('simple');});
+  b2.addEventListener('click',function(){set('dedekind');});
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    let nodes = [], edges = [], summary = '';
+    if(mode === 'simple'){
+      nodes = [
+        {x:-160,y:0,name:'R',color:'var(--yellow)'},
+        {x:0,y:0,name:'R^2',color:'var(--yellow)'},
+        {x:160,y:0,name:'R^3',color:'var(--yellow)'}
+      ];
+      edges = [
+        {from:0,to:1,label:'R->R^2 (mono)',color:'var(--green)',curve:-25},
+        {from:1,to:0,label:'R^2->R (epi)',color:'var(--pink)',curve:25},
+        {from:1,to:2,label:'R^2->R^3',color:'var(--green)',curve:-25},
+        {from:2,to:1,label:'R^3->R^2',color:'var(--pink)',curve:25}
+      ];
+      summary = 'QP(R) with R = field/PID, objects = free modules R^n.\n\n' +
+        'A zigzag morphism R^n -> R^m in QP has the form R^n <-< R^k >-> R^m\n' +
+        '  (admissible epi from R^n, admissible mono into R^m, indexed by R^k).\n\n' +
+        'Loops at R^n: each closed zigzag R^n <-< R^k >-> R^n with k <= n contributes a loop.\n' +
+        'The fundamental group pi_1(BQP(R), R) is generated by these loops, and the relations are exactly the splitting [R^n] = [R^k]+[R^{n-k}] for short exact sequences.\n\n' +
+        'Therefore pi_1(BQP(R)) = K_0(R) = Z when R = field/PID -- the rank.\n\n' +
+        'Higher loops: pi_2(BQP) = K_1(R) = R^*, pi_{n+1} = K_n.';
+    } else {
+      nodes = [
+        {x:-160,y:-30,name:'R',color:'var(--yellow)'},
+        {x:0,y:-30,name:'p',color:'var(--pink)'},
+        {x:160,y:-30,name:'p^2',color:'var(--cyan)'}
+      ];
+      edges = [
+        {from:0,to:1,label:'R+p -> p^2',color:'var(--violet)',curve:-30},
+        {from:1,to:2,label:'p->p^2',color:'var(--green)',curve:-25},
+        {from:2,to:0,label:'p^2~=R',color:'var(--mute)',curve:30,dash:'4 4'}
+      ];
+      summary = 'QP(R) with R = Z[sqrt(-5)], p = (2, 1+sqrt(-5)) the non-principal prime.\n\n' +
+        'Each non-isomorphic projective gives a distinct vertex.\n' +
+        'p tensor p = p^2 is principal (since p has order 2 in Cl(R))\n' +
+        'p (+) p ~= R (+) p^2 ~= R^2 (Steinitz).\n\n' +
+        'A loop at R built from the zigzag R <-< p >-> R picks up a class in pi_1(BQP) = K_0(R) = Z (+) Z/2.\n\n' +
+        'The Z component comes from rank, the Z/2 from the class group. Both visible in this Q-construction picture.';
+    }
+    for(let i=0;i<nodes.length;i++){
+      const n = nodes[i];
+      svg.appendChild(SVG('circle',{cx:n.x,cy:n.y,r:24,fill:'var(--panel2)',stroke:n.color,'stroke-width':1.8}));
+      const t = SVG('text',{x:n.x,y:n.y+5,'text-anchor':'middle','font-size':14,fill:n.color,'font-weight':600});
+      t.textContent = n.name; svg.appendChild(t);
+    }
+    for(let i=0;i<edges.length;i++){
+      const e = edges[i];
+      const p1 = [nodes[e.from].x, nodes[e.from].y];
+      const p2 = [nodes[e.to].x, nodes[e.to].y];
+      drawArrow(svg, p1, p2, {color:e.color, curve:e.curve||0, label:e.label, labelSide:e.curve<0?1:0, markerId:'qe'+i, dash:e.dash});
+    }
+    const lblLoop = SVG('text',{x:0,y:80,'text-anchor':'middle','font-size':12,fill:'var(--cyan)','font-style':'italic'});
+    lblLoop.textContent = 'loop at object -> element of pi_1(BQP) = K_0(R)';
+    svg.appendChild(lblLoop);
+    const Klbl = SVG('text',{x:0,y:115,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    Klbl.textContent = mode === 'simple' ?
+      'For R a PID:  K_0 = Z,  K_1 = R*,  K_2 encodes Steinberg symbols' :
+      'For R = Z[sqrt(-5)]:  K_0 = Z (+) Z/2,  K_1 = R* = {+/-1},  K_2 != 0 (subtle)';
+    svg.appendChild(Klbl);
+    out.textContent = summary;
+  }
+  draw();
+})();
+</script>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./derived-categories.html#homotopy-category">The homotopy category $K(\mathcal{A})$</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./algebraic-k-theory-foundations.html#localization">Algebraic K-theory foundations</a> · The localization long exact sequence</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="ak-q-construction"></div>
+</section>
+
+<section id="localization">
+<h2>5. The localization long exact sequence</h2>
+
+<p>Higher K-theory becomes computable through a single core mechanism: <strong>Quillen's localization theorem</strong>. Given a ring $R$ and a multiplicative subset $S\subset R$, there is a long exact sequence</p>
+
+$$\cdots \to K_{n+1}(S^{-1}R) \to K_n(\mathcal{H}_S(R)) \to K_n(R) \to K_n(S^{-1}R) \to K_{n-1}(\mathcal{H}_S(R)) \to \cdots$$
+
+<p>where $\mathcal{H}_S(R)$ is the exact category of finitely generated $S$-torsion $R$-modules of finite Tor-dimension. The connecting maps are <strong>residue maps</strong>: they detect "boundary behavior" of K-theory under localization.</p>
+
+<p>Applied to the canonical localization $\mathbb{Z}\to\mathbb{Q}$ (where $S=\mathbb{Z}\setminus\{0\}$, so $\mathcal{H}_S(\mathbb{Z})$ is the category of finite abelian groups, which by Quillen devissage is $\bigoplus_p\mathcal{P}(\mathbb{F}_p)$), the sequence reads:</p>
+
+$$\cdots \to K_n(\mathbb{Z}) \to K_n(\mathbb{Q}) \to \bigoplus_p K_{n-1}(\mathbb{F}_p) \to K_{n-1}(\mathbb{Z}) \to K_{n-1}(\mathbb{Q}) \to \cdots$$
+
+<p>Computing the bottom degrees:</p>
+
+<ul>
+<li>$n=0$: $K_0(\mathbb{Z})\to K_0(\mathbb{Q})$ is $\mathbb{Z}\to\mathbb{Z}$, both rank, an isomorphism. The residue map $K_1(\mathbb{Q})\to\bigoplus_p K_0(\mathbb{F}_p)\cong\bigoplus_p\mathbb{Z}$ is the $p$-adic valuation.</li>
+<li>$n=1$: kernel of $K_1(\mathbb{Q})\to\bigoplus_p\mathbb{Z}$ is $\{a\in\mathbb{Q}^\times : v_p(a)=0\;\forall p\} = \mathbb{Z}^\times = \{\pm 1\} = K_1(\mathbb{Z})$.</li>
+<li>$n=2$: $K_2(\mathbb{Q})\to\bigoplus_p K_1(\mathbb{F}_p) = \bigoplus_p\mathbb{F}_p^\times$ is Tate's tame symbol map; kernel is $K_2(\mathbb{Z}) = \mathbb{Z}/2$.</li>
+</ul>
+
+<p>For the higher $K_n(\mathbb{Z})$, Quillen computed $K_n(\mathbb{F}_q)$ explicitly for finite fields, and Borel showed</p>
+
+$$K_n(\mathcal{O}_F)\otimes\mathbb{Q} \cong \begin{cases} \mathbb{Q}^{r_1+r_2-1}&n=1\\ 0 & n\equiv 0\pmod 4, n\ge 2\\ \mathbb{Q}^{r_2} & n\equiv 1\pmod 4, n\ge 5\\ 0 & n\equiv 2\pmod 4\\ \mathbb{Q}^{r_1+r_2} & n\equiv 3\pmod 4\end{cases}$$
+
+<p>linking K-theory ranks of rings of integers to special values of Dedekind zeta functions $\zeta_F$.</p>
+
+<div class="widget" id="ak-loc">
+  <div class="hd"><div class="ttl">Localization sequence: $\mathbb{Z}\to\mathbb{Q}$ in low degrees</div><div class="hint">slide $n$ to walk along the long exact sequence; verify exactness at each term</div></div>
+  <div class="row">
+    <label for="ak-loc-n">degree $n$:</label>
+    <input id="ak-loc-n" type="range" min="0" max="3" step="1" value="1">
+    <span id="ak-loc-n-out" class="small"></span>
+  </div>
+  <svg id="ak-loc-svg" viewBox="-280 -140 560 280" width="100%" height="320"><title>Localization long exact sequence for Z to Q in degrees 0 through 3</title></svg>
+  <div id="ak-loc-out" class="readout"></div>
+</div><script>
+(function(){
+  const svg = document.getElementById('ak-loc-svg');
+  const out = document.getElementById('ak-loc-out');
+  const nS = document.getElementById('ak-loc-n');
+  const nO = document.getElementById('ak-loc-n-out');
+  const data = {
+    0: { Kn_Z: 'Z', Kn_Q: 'Z', Kn_Fp: '0  (all p)', residue: 'no residue (tail)', map: 'rank: =' },
+    1: { Kn_Z: '{+/-1}', Kn_Q: 'Q* = sum_p <p> x {+/-1}', Kn_Fp: 'Z  (all p, via K_0(F_p) = Z)', residue: 'a |-> (v_p(a))_p', map: 'inclusion {+/-1} -> Q*' },
+    2: { Kn_Z: 'Z/2  (gen. {-1,-1})', Kn_Q: 'see Matsumoto', Kn_Fp: 'F_p*  (cyclic)', residue: 'tame symbol {a,b} -> (-1)^{v_p(a)v_p(b)} a^{v_p(b)}/b^{v_p(a)}', map: 'kernel of tame: K_2(Z) included in K_2(Q)' },
+    3: { Kn_Z: 'Z/48  (Lee-Szczarba)', Kn_Q: 'Borel: rank 0 (r_2 = 0 for Q)', Kn_Fp: '0', residue: 'no residue here in cohomological dim 1', map: 'iso onto torsion piece' }
+  };
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const n = +nS.value;
+    nO.textContent = 'n = ' + n;
+    const d = data[n];
+    function box(x, y, w, h, col, lblText, valText){
+      svg.appendChild(SVG('rect',{x,y,width:w,height:h,fill:'var(--panel2)',stroke:col,'stroke-width':1.5,rx:6}));
+      const t1 = SVG('text',{x:x+w/2,y:y+18,'text-anchor':'middle','font-size':10,fill:col,'font-weight':600});
+      t1.textContent = lblText; svg.appendChild(t1);
+      const t2 = SVG('text',{x:x+w/2,y:y+38,'text-anchor':'middle','font-size':10,fill:'var(--ink)','font-family':'ui-monospace,monospace'});
+      t2.textContent = valText; svg.appendChild(t2);
+    }
+    box(-260, -50, 110, 60, 'var(--blue)', 'K_'+n+'(Z)', d.Kn_Z);
+    box(-130, -50, 130, 60, 'var(--cyan)', 'K_'+n+'(Q)', d.Kn_Q.length > 22 ? d.Kn_Q.slice(0,21)+'...' : d.Kn_Q);
+    box(20, -50, 130, 60, 'var(--violet)', 'sum_p K_'+(n-1)+'(F_p)', d.Kn_Fp);
+    box(170, -50, 90, 60, 'var(--blue)', 'K_'+(n-1)+'(Z)', n>0 ? data[n-1].Kn_Z : '...');
+    drawArrow(svg, [-150, -20], [-130, -20], {color:'var(--mute)', markerId:'la1', pad1:0,pad2:0});
+    drawArrow(svg, [0, -20], [20, -20], {color:'var(--yellow)', markerId:'la2', pad1:0,pad2:0});
+    drawArrow(svg, [150, -20], [170, -20], {color:'var(--mute)', markerId:'la3', pad1:0,pad2:0});
+    const resLbl = SVG('text',{x:85, y:-58,'text-anchor':'middle','font-size':10, fill:'var(--yellow)'});
+    resLbl.textContent = 'residue d';
+    svg.appendChild(resLbl);
+    const desc = SVG('text',{x:0,y:50,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+    desc.textContent = 'd: ' + d.residue;
+    svg.appendChild(desc);
+    const mapLbl = SVG('text',{x:0,y:75,'text-anchor':'middle','font-size':11,fill:'var(--green)'});
+    mapLbl.textContent = 'K_' + n + '(Z) -> K_' + n + '(Q): ' + d.map;
+    svg.appendChild(mapLbl);
+    const seq = SVG('text',{x:0,y:110,'text-anchor':'middle','font-size':11,fill:'var(--mute)','font-style':'italic'});
+    seq.textContent = '... -> K_{n+1}(Q) -d> sum_p K_n(F_p) -> K_n(Z) -> K_n(Q) -d> sum_p K_{n-1}(F_p) -> K_{n-1}(Z) -> ...';
+    svg.appendChild(seq);
+    let lines = [];
+    lines.push('Localization long exact sequence at  Z -> Q,  degree n = ' + n + '.');
+    lines.push('');
+    lines.push('K_' + n + '(Z)              = ' + d.Kn_Z);
+    lines.push('K_' + n + '(Q)              = ' + d.Kn_Q);
+    lines.push('sum_p K_' + (n-1) + '(F_p)       = ' + d.Kn_Fp);
+    lines.push('residue map d:        ' + d.residue);
+    lines.push('comparison map:       ' + d.map);
+    lines.push('');
+    if(n === 0){
+      lines.push('At n=0:  K_0(Z) -> K_0(Q) is rank, isomorphism. The "before" K_1(Q) -> sum_p Z is surjective (every vector of valuations is realized by prod p^{v_p}). Thus K_0(Z) =~ Z.');
+    } else if(n === 1){
+      lines.push('At n=1:  K_1(Q) = Q* decomposes as prod_p Z x {+/-1}. The residue d(a) = (v_p(a))_p hits the lattice; the kernel = {a : forall p, v_p(a) = 0} = Z* = {+/-1} = K_1(Z). Exactness checks.');
+    } else if(n === 2){
+      lines.push('At n=2:  Tate tame symbol map K_2(Q) -> sum_p F_p^* has kernel K_2(Z) = Z/2 = {1, {-1,-1}}. Quadratic reciprocity emerges as the sum-of-Hilbert-symbols formula in the cokernel. Borel: K_2(Q) tensor Q = 0 (no rational rank).');
+    } else {
+      lines.push('At n=3:  K_3(Z) = Z/48 (Lee-Szczarba). The localization sequence in higher degrees gets harder to control directly; Borel rank computation and Bloch-Kato (Voevodsky) take over.');
+    }
+    out.textContent = lines.join('\n');
+  }
+  nS.addEventListener('input', draw);
+  draw();
+})();
+</script>
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./homological.html#les">Long exact sequence in homology</a></li>
+  </ul>
+</aside>
+<!-- callback-auto-end --><!-- backlinks-auto-begin -->
+<aside class="related">
+  <div class="ttl">Used in</div>
+    <div><a href="./algebraic-k-theory-foundations.html#applications">Algebraic K-theory foundations</a> · Applications: Bass-Quillen, Wall finiteness, motivic K-theory</div>
+</aside>
+<!-- backlinks-auto-end --><div class="quiz" data-concept="ak-localization-sequence"></div>
+</section>
+
+<section id="applications">
+<h2>6. Applications: Bass-Quillen, Wall finiteness, motivic K-theory</h2>
+
+<p>Algebraic K-theory's structural results turn into <strong>obstruction theories</strong> across topology, ring theory, and arithmetic. Three flagship applications:</p>
+
+<h3>Bass-Quillen: extension over polynomial rings</h3>
+
+<p>Serre conjectured (1955) that every finitely generated projective module over $k[x_1,\dots,x_n]$ is free. Quillen and Suslin independently proved this in 1976. The Bass-Quillen extension is more general: for any regular Noetherian ring $R$, every f.g. projective $R[t]$-module is <em>extended from $R$</em> — of the form $P\otimes_R R[t]$ for some f.g. projective $P$. Equivalently, $K_0(R[t])\cong K_0(R)$. The proof uses Quillen patching: a projective $R[t]$-module that becomes extended after each localization $R[t]_\mathfrak{m}$ ($\mathfrak{m}$ a maximal ideal of $R$) is already extended.</p>
+
+<h3>Wall finiteness obstruction</h3>
+
+<p>A topological space $X$ is <em>finitely dominated</em> if it's a retract of a finite CW complex up to homotopy. Wall's theorem (1965): $X$ is homotopy equivalent to a finite CW complex iff a class</p>
+
+$$w(X) \in \widetilde{K}_0(\mathbb{Z}[\pi_1 X])$$
+
+<p>vanishes. Here $\widetilde{K}_0$ is the reduced (kernel-of-augmentation) version. The obstruction $w(X)$ is the <em>Euler class of the chain complex of the universal cover</em>. For $\pi_1=\{e\}$, $\widetilde{K}_0(\mathbb{Z})=0$, so simply-connected finitely-dominated spaces are finite — a coherent topological consequence. For $\pi_1=C_p$ a cyclic group of large enough prime order, $\widetilde{K}_0(\mathbb{Z}[C_p])$ contains the cyclotomic class group and the obstruction can be nonzero.</p>
+
+<h3>Motivic K-theory and Beilinson-Lichtenbaum</h3>
+
+<p>Voevodsky's resolution (2011) of the Bloch-Kato conjecture proved the Beilinson-Lichtenbaum conjecture relating algebraic K-theory of a smooth variety $X$ to <strong>motivic cohomology</strong>:</p>
+
+$$K_n(X)_{(\ell)} \cong \bigoplus_p H^{2p-n}_M(X,\mathbb{Z}_{(\ell)}(p))$$
+
+<p>after $\ell$-localization, where $H^*_M$ is motivic cohomology and $\mathbb{Z}(p)$ is Voevodsky's motivic coefficient sheaf. The bridge from $K^M_n(F)$ (Milnor K-theory of a field) to étale cohomology $H^n_{\text{ét}}(F,\mu_\ell^{\otimes n})$ realizes a longstanding dream: K-theory and arithmetic geometry speak the same language at the chromatic-prime level.</p>
+
+<div class="widget" id="ak-apps">
+  <div class="hd"><div class="ttl">Algebraic K-theory applications: explicit examples</div><div class="hint">flip through three canonical applications; each computes a class living in some K₀ or K_n</div></div>
+  <div class="row">
+    <button id="ak-apps-bq" class="active">Bass-Quillen for ℤ[t]</button>
+    <button id="ak-apps-wall">Wall obstruction in $\widetilde{K}_0(\mathbb{Z}[\mathbb{Z}/p])$</button>
+    <button id="ak-apps-mot">motivic K-theory of $\mathbb{P}^1$</button>
+  </div>
+  <svg id="ak-apps-svg" viewBox="-260 -130 520 270" width="100%" height="280"><title>Three applications of algebraic K-theory: Bass-Quillen, Wall finiteness, motivic</title></svg>
+  <div id="ak-apps-out" class="readout"></div>
+</div><script>
+(function(){
+  const svg = document.getElementById('ak-apps-svg');
+  const out = document.getElementById('ak-apps-out');
+  const bBQ = document.getElementById('ak-apps-bq');
+  const bW = document.getElementById('ak-apps-wall');
+  const bM = document.getElementById('ak-apps-mot');
+  let mode = 'bq';
+  function set(m){ mode = m; bBQ.classList.toggle('active',m==='bq'); bW.classList.toggle('active',m==='wall'); bM.classList.toggle('active',m==='mot'); draw(); }
+  bBQ.addEventListener('click',function(){set('bq');});
+  bW.addEventListener('click',function(){set('wall');});
+  bM.addEventListener('click',function(){set('mot');});
+  function draw(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    let title='', summary='', boxes=[];
+    if(mode === 'bq'){
+      title = 'Bass-Quillen: every f.g. projective Z[t]-module is extended from Z';
+      summary = 'Concrete claim: K_0(Z[t]) = K_0(Z) = Z.\n\n' +
+        'Proof sketch: Z is a regular Noetherian ring (Krull dim 1, regular local rings).\n' +
+        'Bass-Quillen (extended Serre) ==> every f.g. projective P over Z[t] has the form\n' +
+        '  P  ~=  P_0 tensor_Z Z[t]   for some f.g. projective P_0 over Z.\n' +
+        'But Z is a PID, so every f.g. projective Z-module is free: P_0 ~= Z^n.\n' +
+        'Hence every f.g. projective Z[t]-module is free Z[t]^n -- exactly Quillen-Suslin strengthening.\n\n' +
+        'K_0(Z[t]) = <[Z[t]]> = Z (generated by rank). Same answer as K_0(Z).\n' +
+        'The extension functor K_0(R) -> K_0(R[t]) is an iso for all regular Noetherian R.\n\n' +
+        'Counterexample without regularity: K_0(Z[e]/(e^2)[t]) != K_0(Z[e]/(e^2)) -- singular base lifts class structure.';
+      boxes = [
+        {x:-220,y:-50,w:140,h:60,col:'var(--yellow)',lbl:'K_0(Z)',val:'Z (rank)'},
+        {x:-50,y:-50,w:140,h:60,col:'var(--cyan)',lbl:'K_0(Z[t])',val:'Z (Bass-Quillen ==> same)'},
+        {x:120,y:-50,w:140,h:60,col:'var(--green)',lbl:'every projective',val:'free, of definite rank'}
+      ];
+    } else if(mode === 'wall'){
+      title = 'Wall obstruction: finite-domination -> finiteness';
+      summary = 'Concrete claim: For X finitely-dominated CW with pi_1(X) = G,\n' +
+        '  X is homotopy equivalent to a finite CW iff w(X) = 0 in K~_0(Z[G]).\n\n' +
+        'Example (G = C_p, p prime):\n' +
+        '  K~_0(Z[C_p])  is related to the class group of Z[zeta_p] (cyclotomic).\n' +
+        '  For p = 23, the class group of Z[zeta_{23}] is non-trivial -- Wall obstructions can be nonzero.\n' +
+        '  For p < 23, K~_0(Z[C_p]) tensor Q = 0 but torsion can still be present.\n\n' +
+        'Geometric meaning: choose a finite-CW model X-prime for X. The cellular chain complex C(X-tilde-prime) of the universal cover is a chain complex of FREE Z[G]-modules. If we change to a non-finite CW model, the new complex is FINITELY DOMINATED but no longer free -- projective. The Euler class of this projective complex in K~_0(Z[G]) is the Wall obstruction.\n\n' +
+        'Wall: w(X) = 0 <=> the complex is stably free <=> X has a finite CW model.';
+      boxes = [
+        {x:-220,y:-50,w:140,h:60,col:'var(--blue)',lbl:'finitely dominated X',val:'C(X~) projective Z[G]-cmplx'},
+        {x:-50,y:-50,w:140,h:60,col:'var(--violet)',lbl:'w(X) in K~_0(Z[G])',val:'Euler class of complex'},
+        {x:120,y:-50,w:140,h:60,col:'var(--green)',lbl:'X finite <=>',val:'w(X) = 0 (Wall)'}
+      ];
+    } else {
+      title = 'Motivic K-theory: K_n(P^1) via Beilinson-Lichtenbaum';
+      summary = 'Concrete claim: K_n(P^1_k) = K_n(k) (+) K_{n-2}(k)   for any field k.\n\n' +
+        'This is the projective bundle formula of algebraic K-theory.\n' +
+        'Bilinearly:  K_*(P^1) = K_*(k)[beta] / (beta^2)  where beta = [O(1)] - [O].\n\n' +
+        'K_0(P^1_k) = Z (+) Z generated by [O] and [O(1)].\n' +
+        'K_1(P^1_Q) = Q* (+) Q* ~= Q* (+) sum_p Z (+) {+/-1}.\n' +
+        'K_2(P^1_Q) -- has a piece coming from K_2(Q) and a piece from K_0(Q).\n\n' +
+        'Beilinson-Lichtenbaum (Voevodsky-Rost, 2011):\n' +
+        '  K_n(X)_{(l)} ~= sum_{p>=0}  H^{2p-n}_M(X, Z_{(l)}(p))\n' +
+        'where H^q_M(X, Z(p)) is motivic cohomology. For X = P^1:\n' +
+        '  H^q_M(P^1, Z(p)) = H^q_M(k, Z(p)) (+) H^{q-2}_M(k, Z(p-1))\n' +
+        'plays directly into the projective-bundle formula.\n\n' +
+        'This is the deepest l-localized version: it identifies algebraic K-theory of smooth varieties with the etale-flavoured motivic cohomology, completing a circle that started with Quillen 1972 vision.';
+      boxes = [
+        {x:-220,y:-50,w:140,h:60,col:'var(--cyan)',lbl:'K_n(P^1_k)',val:'K_n(k) (+) K_{n-2}(k)'},
+        {x:-50,y:-50,w:140,h:60,col:'var(--violet)',lbl:'motivic cohom.',val:'H^q_M(P^1, Z(p))'},
+        {x:120,y:-50,w:140,h:60,col:'var(--green)',lbl:'Beilinson-Lichtenbaum',val:'K_n ~= sum H^{2p-n}_M'}
+      ];
+    }
+    const lbl = SVG('text',{x:0,y:-100,'text-anchor':'middle','font-size':13,fill:'var(--cyan)','font-weight':600});
+    lbl.textContent = title; svg.appendChild(lbl);
+    for(let i=0;i<boxes.length;i++){
+      const b = boxes[i];
+      svg.appendChild(SVG('rect',{x:b.x,y:b.y,width:b.w,height:b.h,fill:'var(--panel2)',stroke:b.col,'stroke-width':1.5,rx:6}));
+      const t1 = SVG('text',{x:b.x+b.w/2,y:b.y+18,'text-anchor':'middle','font-size':10,fill:b.col,'font-weight':600});
+      t1.textContent = b.lbl; svg.appendChild(t1);
+      const t2 = SVG('text',{x:b.x+b.w/2,y:b.y+38,'text-anchor':'middle','font-size':9,fill:'var(--ink)','font-family':'ui-monospace,monospace'});
+      t2.textContent = b.val.length > 24 ? b.val.slice(0,23)+'...' : b.val; svg.appendChild(t2);
+    }
+    if(boxes.length >= 2){
+      drawArrow(svg, [boxes[0].x+boxes[0].w, boxes[0].y+boxes[0].h/2], [boxes[1].x, boxes[1].y+boxes[1].h/2], {color:'var(--mute)', markerId:'apparr1'});
+    }
+    if(boxes.length >= 3){
+      drawArrow(svg, [boxes[1].x+boxes[1].w, boxes[1].y+boxes[1].h/2], [boxes[2].x, boxes[2].y+boxes[2].h/2], {color:'var(--mute)', markerId:'apparr2'});
+    }
+    out.textContent = summary;
+  }
+  draw();
+})();
+</script>
+<div class="quiz" data-concept="ak-applications"></div>
+</section>
+
+
+<section id="connections">
+<h2>7. Connections</h2>
+
+<p>Algebraic K-theory is the homotopy-theoretic universal target for "objects you can add but only stably classify." Open frontiers include the K-theoretic Beilinson conjectures (special values of $L$-functions vs. K-theory ranks), the trace methods program (Hesselholt-Madsen's TC/THH approximating $K(R)$ via cyclotomic spectra), the chromatic perspective via $K(n)$-local stable homotopy (which sees algebraic K-theory of finite fields as a periodic shadow), and Lurie's $\infty$-categorical reformulation that merges Quillen's Q with Waldhausen's $S_\bullet$ into a single universal property.</p>
+
+<ul>
+<li><a href="./homological.html#projective">Homological algebra — projective modules</a> — the input category $\mathcal{P}(R)$ whose Grothendieck group is $K_0(R)$.</li>
+<li><a href="./derived-categories.html#derived-category">Derived categories — $D(\mathcal{A})$</a> — natural setting for Waldhausen's $S_\bullet$, and where K-theory of complexes lives.</li>
+<li><a href="./group-cohomology.html#galois-cohom">Group cohomology — Galois cohomology &amp; the Brauer group</a> — $H^2(k,\bar{k}^\times)=\mathrm{Br}(k)$ relates to $K_2$ via the Merkurjev-Suslin theorem.</li>
+<li><a href="./k-theory.html#algebraic-k">K-theory — Algebraic K-theory $K_n(R)$</a> — the geometric/topological cousin where the Bott periodicity lives.</li>
+<li><a href="./quadratic-reciprocity.html#hilbert-symbols">Quadratic reciprocity — Hilbert symbols</a> — $K_2$-symbols give a streamlined derivation of reciprocity laws.</li>
+<li><a href="./elliptic-curves.html#mordell-weil">Elliptic curves — Mordell-Weil</a> — heights and L-function ranks connect to $K$-theoretic Beilinson conjectures.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('algebraic-k-theory-foundations'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-04</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

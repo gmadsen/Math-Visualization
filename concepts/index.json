@@ -2,6 +2,7 @@
   "topics": [
 
     "motives",
+    "algebraic-k-theory-foundations",
 
     "hodge-theory",
 
@@ -193,6 +194,7 @@
     "infinity-categories": "standard",
     "infinity-topoi": "standard",
     "derived-categories": "standard",
+    "algebraic-k-theory-foundations": "advanced",
     "cocartesian-fibrations": "standard",
     "group-cohomology": "standard",
     "real-analysis": "prereq",
