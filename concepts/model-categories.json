@@ -11,7 +11,7 @@
         "categories-morphisms",
         "homotopy-category-K"
       ],
-      "blurb": "A model structure on a category $\\mathcal{M}$ singles out three classes of morphisms — weak equivalences $W$, fibrations $F$, cofibrations $C$ — satisfying small (co)limits, the 2-of-3 property on $W$, retract closure, two functorial factorizations $f = (\\text{cof})(\\text{triv. fib})$ and $f = (\\text{triv. cof})(\\text{fib})$, and the lifting calculus: trivial cof $\\boxslash$ fib and cof $\\boxslash$ trivial fib. The axioms abstract topological homotopy so that $\\mathcal{M}[W^{-1}]$ becomes a category whose Hom-sets are computable.",
+      "blurb": "A model structure on a category $\\mathcal{M}$ singles out three classes of morphisms — weak equivalences $W$, fibrations $F$, cofibrations $C$ — satisfying small (co)limits (M1), the 2-of-3 property on $W$ (M2), retract closure for each class (M3), two functorial factorizations $f = (\\text{cof})(\\text{triv. fib})$ and $f = (\\text{triv. cof})(\\text{fib})$ (M4, juxtaposition reads left-to-right), and the lifting calculus $C_W \\perp F$ and $C \\perp F_W$ (M5). Quillen's axioms abstract topological homotopy so that the localization $\\mathcal{M}[W^{-1}] = \\mathrm{Ho}(\\mathcal{M})$ has set-sized Hom: $\\mathrm{Hom}_{\\mathrm{Ho}(\\mathcal{M})}(X, Y) = \\pi(QX, RY)$. The same axioms drive every modern presentation of homotopy theory, from $\\mathrm{Ch}(R)$ to spectra to $(\\infty,1)$-categories.",
       "tags": [
         "foundation",
         "lifting"
@@ -24,7 +24,7 @@
       "prereqs": [
         "mc-axioms"
       ],
-      "blurb": "Three canonical model structures fix the vocabulary. Topological spaces with the Quillen structure: weak equivalences are weak homotopy equivalences, fibrations are Serre fibrations, cofibrations are retracts of relative cell complexes. Simplicial sets with Kan–Quillen: weak equivalences detected by $|\\cdot|$, fibrations are Kan fibrations, cofibrations are monomorphisms. Chain complexes $\\mathrm{Ch}(R)$ with the projective structure: weak equivalences are quasi-isomorphisms, fibrations are degree-wise epimorphisms, cofibrations have degree-wise projective cokernel. In each case $\\mathcal{M}[W^{-1}]$ recovers the homotopy category.",
+      "blurb": "Three canonical model structures fix the vocabulary. Topological spaces with the Quillen structure: weak equivalences are weak homotopy equivalences, fibrations are Serre fibrations, cofibrations are retracts of relative cell complexes (so cofibrant replacement is CW-approximation). Simplicial sets with Kan–Quillen: weak equivalences detected by $|\\cdot|$, fibrations are Kan fibrations, cofibrations are levelwise monomorphisms (every $K$ is cofibrant; fibrant means Kan complex). Chain complexes $\\mathrm{Ch}(R)$ with the projective structure: weak equivalences are quasi-isomorphisms, fibrations are degree-wise epimorphisms in positive degrees, cofibrations are degreewise monos with projective cokernel (so cofibrant replacement is projective resolution and $\\mathrm{Ext}, \\mathrm{Tor}$ fall out as derived functors). In each case $\\mathcal{M}[W^{-1}]$ recovers the classical homotopy category, and the same three classes underwrite spectra and $(\\infty,1)$-categorical examples downstream.",
       "tags": [
         "classification",
         "foundation"
@@ -37,7 +37,7 @@
       "prereqs": [
         "mc-axioms"
       ],
-      "blurb": "Functorial factorization gives, for any object $X$, a cofibrant replacement $\\emptyset \\xrightarrow{\\text{cof}} QX \\xrightarrow{\\text{triv. fib}} X$ and a fibrant replacement $X \\xrightarrow{\\text{triv. cof}} RX \\xrightarrow{\\text{fib}} *$. For $f: X \\to Y$ the derived map $Q(f): QX \\to QY$ is well-defined up to homotopy, providing the right notion of morphism in $\\mathrm{Ho}(\\mathcal{M})$. For chain complexes $QX$ is a projective resolution; for spaces $QX$ is a CW-approximation. Quillen's calculus reduces homotopy-category computations to picking convenient replacements.",
+      "blurb": "Functorial factorization (M4) gives, for any object $X$, a cofibrant replacement $\\emptyset \\xrightarrow{\\text{cof}} QX \\xrightarrow{\\text{triv. fib}} X$ and a fibrant replacement $X \\xrightarrow{\\text{triv. cof}} RX \\xrightarrow{\\text{fib}} *$. For $f: X \\to Y$ the derived map $Q(f): QX \\to QY$ is well-defined up to homotopy, providing the right notion of morphism in $\\mathrm{Ho}(\\mathcal{M}) = \\mathcal{M}[W^{-1}]$ where $\\mathrm{Hom}_{\\mathrm{Ho}}(X, Y) = \\pi(QX, RY)$. For chain complexes $QX$ is a projective resolution (so $\\mathrm{Tor}, \\mathrm{Ext}$ are derived $\\otimes, \\mathrm{Hom}$); for spaces $QX$ is a CW-approximation; for spectra $QX$ is a cofibrant spectrum used to compute generalized cohomology. Ken Brown's lemma packages the upshot: a left Quillen functor preserves weak equivalences between cofibrant objects, so derivation reduces homotopy-category computations to picking convenient replacements.",
       "tags": [
         "foundation",
         "lifting"
@@ -51,7 +51,7 @@
         "mc-cofibrant-replacement",
         "adjunctions"
       ],
-      "blurb": "An adjunction $L \\dashv R: \\mathcal{M} \\rightleftarrows \\mathcal{N}$ between model categories is a Quillen pair if $L$ preserves cofibrations and trivial cofibrations (equivalently $R$ preserves fibrations and trivial fibrations). Each Quillen pair derives to total derived functors $\\mathbb{L}L: \\mathrm{Ho}(\\mathcal{M}) \\to \\mathrm{Ho}(\\mathcal{N})$ and $\\mathbb{R}R: \\mathrm{Ho}(\\mathcal{N}) \\to \\mathrm{Ho}(\\mathcal{M})$. A Quillen equivalence is a Quillen pair whose derived adjunction is an equivalence of categories. The geometric realization adjunction $|\\cdot| \\dashv \\mathrm{Sing}$ is the archetype: $\\mathrm{sSet}$ and $\\mathrm{Top}$ present the same homotopy theory.",
+      "blurb": "An adjunction $L \\dashv R: \\mathcal{M} \\rightleftarrows \\mathcal{N}$ between model categories is a Quillen pair if $L$ preserves cofibrations and trivial cofibrations (equivalently, by lifting duality, $R$ preserves fibrations and trivial fibrations). Each Quillen pair derives to total derived functors $\\mathbb{L}L: \\mathrm{Ho}(\\mathcal{M}) \\to \\mathrm{Ho}(\\mathcal{N})$ and $\\mathbb{R}R: \\mathrm{Ho}(\\mathcal{N}) \\to \\mathrm{Ho}(\\mathcal{M})$, with Ken Brown's lemma supplying well-definedness on cofibrant replacements. A Quillen equivalence is a Quillen pair whose derived adjunction is an equivalence of categories. The geometric realization adjunction $|\\cdot| \\dashv \\mathrm{Sing}$ is the archetype showing $\\mathbf{sSet}$ and $\\mathbf{Top}$ present the same homotopy theory; tensor-hom on $\\mathrm{Ch}(R)$ derives to $\\mathrm{Tor}$ and $\\mathrm{Ext}$; and constant-vs-colimit derives to homotopy colimits, the working machinery of homological algebra and model-categorical computations.",
       "tags": [
         "classification",
         "functoriality"
@@ -65,7 +65,7 @@
         "mc-quillen-functors",
         "monoidal-categories"
       ],
-      "blurb": "A monoidal model category combines a model structure with a closed symmetric monoidal product satisfying the pushout-product axiom: for cofibrations $i: A \\to B$ and $j: C \\to D$, the pushout-product $A \\otimes D \\cup_{A \\otimes C} B \\otimes C \\to B \\otimes D$ is itself a cofibration, trivial when either $i$ or $j$ is. The axiom is what makes $\\otimes$ derive correctly. $\\mathrm{Top}$, $\\mathrm{sSet}$, $\\mathrm{Ch}(R)$ all carry compatible monoidal structures, and $E_\\infty$-algebras / structured ring spectra arise as monoid objects in stable monoidal model categories.",
+      "blurb": "A monoidal model category combines a model structure with a closed symmetric monoidal product satisfying the pushout-product axiom: for cofibrations $i: A \\to B$ and $j: C \\to D$, the corner map $A \\otimes D \\cup_{A \\otimes C} B \\otimes C \\to B \\otimes D$ is itself a cofibration, trivial when either $i$ or $j$ is. This axiom is the precise compatibility that lets $\\otimes$ derive to a left Quillen bifunctor and produces a well-defined monoidal product on $\\mathrm{Ho}(\\mathcal{M})$. $\\mathbf{Top}$, $\\mathbf{sSet}$, $\\mathrm{Ch}(R)$ all carry compatible monoidal structures, with derived tensor recovering smash product on the homotopy category and Tor on chain complexes. Schwede–Shipley's transferred-model theorem then promotes monoid objects to a model category whose weak equivalences are detected on underlyings, so $A_\\infty$- and $E_\\infty$-algebras and structured ring spectra emerge as monoids in suitable stable monoidal model categories.",
       "tags": [
         "classification",
         "refinement"
@@ -79,7 +79,7 @@
         "mc-quillen-functors",
         "quasi-category"
       ],
-      "blurb": "A combinatorial model category $\\mathcal{M}$ has an underlying $(\\infty,1)$-category $\\mathcal{M}_\\infty$, recovered as the simplicial nerve of $\\mathcal{M}^{cf}$ (cofibrant–fibrant objects with simplicial Hom). Quillen equivalences induce equivalences of $(\\infty,1)$-categories. This is the dictionary by which classical homotopy theory imports into $\\infty$-category theory: every homotopical computation done with model categories has a model-independent $\\infty$-categorical incarnation. Modern foundations (Lurie's HA, HTT) often skip model categories, but model presentations remain the standard tool for constructing $\\infty$-categories in practice.",
+      "blurb": "A combinatorial simplicial model category $\\mathcal{M}$ has an underlying $(\\infty,1)$-category $\\mathcal{M}_\\infty$, recovered as the simplicial nerve $N_\\Delta(\\mathcal{M}^{cf})$ of cofibrant–fibrant objects with their simplicial Hom (which is then automatically a Kan complex). Quillen equivalences induce equivalences of $(\\infty,1)$-categories, giving the dictionary by which classical homotopy theory imports into $\\infty$-category theory: every homotopical computation done with model categories has a model-independent $\\infty$-categorical incarnation, and the homotopy 1-category $\\mathrm{Ho}(\\mathcal{M})$ is the truncation $h(\\mathcal{M}_\\infty)$. Dugger's presentation theorem says every presentable $(\\infty,1)$-category arises this way from some combinatorial simplicial model category. Modern foundations (Lurie's HTT, HA) often skip model categories at the definition stage, but model presentations remain the standard tool for constructing $\\infty$-categories in practice — Bousfield localization, transferred structures, and stable model categories are how new $\\infty$-categories are actually built.",
       "tags": [
         "foundation",
         "refinement"

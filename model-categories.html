@@ -246,7 +246,7 @@ with $i\in C$ and $p\in F$, a diagonal lift $B\to X$ exists provided either $i$ 
 
 <p>The choice of three classes is heavily over-determined: the classes $C$ and $F$ each determine the other through the lifting calculus (cofibrations are the maps having the left lifting property against trivial fibrations, fibrations the right against trivial cofibrations), and $W$ supplies the homotopy-theoretic content. Two of the three classes $\{W, C, F\}$ already pin the structure down.</p>
 
-<p>The payoff is the <strong>homotopy category</strong> $\mathrm{Ho}(\mathcal{M}) = \mathcal{M}[W^{-1}]$. A priori a localization of a category at a class of morphisms can have proper-class-sized Hom-sets — the model-category axioms guarantee this never happens. Concretely, $\mathrm{Hom}_{\mathrm{Ho}(\mathcal{M})}(X,Y) = \pi(QX, RY)$, homotopy classes of maps between a cofibrant replacement of $X$ and a fibrant replacement of $Y$, where homotopy is defined via cylinder/path objects from the factorizations.</p>
+<p>The payoff is the <strong>homotopy category</strong> $\Ho(\mathcal{M}) = \mathcal{M}[W^{-1}]$. A priori a localization of a category at a class of morphisms can have proper-class-sized Hom-sets — the model-category axioms guarantee this never happens. Concretely, $\Hom_{\Ho(\mathcal{M})}(X,Y) = \pi(QX, RY)$, homotopy classes of maps between a cofibrant replacement of $X$ and a fibrant replacement of $Y$, where homotopy is defined via cylinder/path objects from the factorizations.</p>
 
 <div class="widget" id="mc-lift">
   <div class="hd"><div class="ttl">Lifting calculus: when does the diagonal exist?</div><div class="hint">toggle whether $i$ or $p$ is trivial; the lift appears iff one of them is</div></div>
@@ -308,15 +308,15 @@ with $i\in C$ and $p\in F$, a diagonal lift $B\to X$ exists provided either $i$ 
       if(iTriv && pTriv){
         lines.push('Both maps are weak equivalences -- doubly redundant lift.');
       } else if(iTriv){
-        lines.push('Trivial cofibration vs. fibration:  C_W boxslash F.');
+        lines.push('Trivial cofibration vs. fibration:  C_W ⫛ F  (left lifting property).');
       } else {
-        lines.push('Cofibration vs. trivial fibration:  C boxslash F_W.');
+        lines.push('Cofibration vs. trivial fibration:  C ⫛ F_W  (left lifting property).');
       }
       lines.push('Concretely: pick any element of B mapping to Y, then trace through any factorization to reach X.');
     } else {
       lines.push('No lift in general.');
-      lines.push('M5 demands EXACTLY ONE of i, p be a weak equivalence.');
-      lines.push('Counterexample (Top): i = inclusion S^0 -> D^1 (cof but not weak eq), p = constant map S^1 -> point (fib but not weak eq). The square fg = (constant) admits NO lift S^0 -> S^1 because pi_0(S^1) = 0, but no map D^1 -> S^1 picks the right two points of S^0 unless we trivialize one side.');
+      lines.push('M5 demands AT LEAST ONE of i, p be a weak equivalence (existence, not uniqueness).');
+      lines.push('Counterexample (Top): i = (S^1 ->z² S^1) is a cof but not a weak eq (degree 2 on pi_1), and p = (S^1 -> *) is a fib but not a weak eq. Top map f = id_{S^1}: S^1 -> S^1, bottom map g constant. A lift S^1 -> S^1 must be a section of z², but z² has no section (pi_1 of any candidate would have to land in 2Z but equal Z). So no lift exists -- exactly because neither i nor p is in W.');
     }
     out.textContent = lines.join('\n');
   }
@@ -349,7 +349,7 @@ with $i\in C$ and $p\in F$, a diagonal lift $B\to X$ exists provided either $i$ 
 
 <h3>Topological spaces (Quillen)</h3>
 
-<p>On the category $\mathrm{Top}$ of compactly generated topological spaces:</p>
+<p>On the category $\mathbf{Top}$ of compactly generated topological spaces:</p>
 <ul>
 <li>$W$ = <strong>weak homotopy equivalences</strong>: maps inducing isomorphisms on all $\pi_n$ for all basepoints.</li>
 <li>$F$ = <strong>Serre fibrations</strong>: maps with the homotopy lifting property against the inclusions $D^n\hookrightarrow D^n\times[0,1]$.</li>
@@ -360,9 +360,9 @@ with $i\in C$ and $p\in F$, a diagonal lift $B\to X$ exists provided either $i$ 
 
 <h3>Simplicial sets (Kan–Quillen)</h3>
 
-<p>On the category $\mathrm{sSet} = \mathrm{Fun}(\Delta^{\mathrm{op}}, \mathrm{Set})$:</p>
+<p>On the category $\mathbf{sSet} = \mathrm{Fun}(\Delta^{\mathrm{op}}, \mathrm{Set})$:</p>
 <ul>
-<li>$W$ = maps $f$ such that $|f|$ is a weak homotopy equivalence in $\mathrm{Top}$.</li>
+<li>$W$ = maps $f$ such that $|f|$ is a weak homotopy equivalence in $\mathbf{Top}$.</li>
 <li>$F$ = <strong>Kan fibrations</strong>: maps with the right lifting property against horn inclusions $\Lambda^n_k \hookrightarrow \Delta^n$ for all $0\le k\le n$.</li>
 <li>$C$ = monomorphisms (levelwise injections).</li>
 </ul>
@@ -383,8 +383,8 @@ with $i\in C$ and $p\in F$, a diagonal lift $B\to X$ exists provided either $i$ 
 <div class="widget" id="mc-examples">
   <div class="hd"><div class="ttl">The same morphism wears different hats in different model categories</div><div class="hint">pick a category; choose a morphism; see how it's classified</div></div>
   <div class="row">
-    <button id="mc-ex-top" class="active">$\mathrm{Top}$</button>
-    <button id="mc-ex-sset">$\mathrm{sSet}$</button>
+    <button id="mc-ex-top" class="active">$\mathbf{Top}$</button>
+    <button id="mc-ex-sset">$\mathbf{sSet}$</button>
     <button id="mc-ex-ch">$\mathrm{Ch}(R)$</button>
   </div>
   <div class="row">
@@ -409,16 +409,16 @@ with $i\in C$ and $p\in F$, a diagonal lift $B\to X$ exists provided either $i$ 
       {id:'iden',label:'Identity D^2 -> D^2',                            w:true,  f:true,  c:true,  desc:'Identity is in every class: cof + fib + weak eq. The trivial example. Demonstrates W, F, C all contain isomorphisms.'},
     ],
     'sset': [
-      {id:'horn',  label:'Horn inclusion Lambda^2_1 -> Delta^2',          w:true,  f:false, c:true,  desc:'Inclusion of an inner horn. Mono => cofibration (in fact a TRIVIAL cof). Not a Kan fibration. The horn-extension test that detects Kan complexes lives on the OPPOSITE side of the lifting square.'},
+      {id:'horn',  label:'Horn inclusion Lambda^2_1 -> Delta^2',          w:true,  f:false, c:true,  desc:'Inclusion of an inner horn. Mono => cofibration (in fact a TRIVIAL cof: |Lambda^2_1| ≃ |Delta^2|). Not itself a Kan fibration. Horn inclusions are exactly the LEFT-hand maps of the lifting test that DEFINES Kan fibrations -- a Kan complex is the simplicial set X for which X -> * has the right lifting property against every horn inclusion. Horn-on-the-left, Kan-fib-on-the-right; same lifting test, just the two sides of one square.'},
       {id:'bdry',  label:'Boundary inclusion partial Delta^2 -> Delta^2', w:false, f:false, c:true,  desc:'Inclusion of the topological boundary of a 2-simplex. Mono => cof. NOT a weak eq: |partial Delta^2| = S^1, |Delta^2| = D^2, different homotopy types.'},
-      {id:'kan',   label:'Sing(*) -> *',                                  w:true,  f:true,  c:false, desc:'Map from the Kan complex of singular simplices on a point to the terminal simplicial set. Kan fib (trivially) and weak eq (both contractible). NOT a cof (not a mono in general; Sing(*) has many simplices, * has one).'},
+      {id:'kan',   label:'Sing(D^2) -> *',                                w:true,  f:true,  c:false, desc:'Map from the Kan complex of singular simplices on the disk to the terminal simplicial set. Kan fib (the disk is contractible, so every horn extends) and weak eq (both contractible). NOT a cof (* has only one simplex per degree, while Sing(D^2)_n has many, so the map is not levelwise injective). Note: Sing(*) on the other hand IS isomorphic to * = Delta^0 (Sing(*)_n = Map(|Delta^n|, *) = {*}), so Sing(*) -> * would be the identity -- not a separating example.'},
       {id:'iden',  label:'Identity Delta^n -> Delta^n',                   w:true,  f:true,  c:true,  desc:'Identity, in all three classes.'},
     ],
     'ch': [
-      {id:'res',   label:'Z[0] augmented to projective resolution',        w:true,  f:true,  c:false, desc:'A projective resolution P_* -> Z[0] is a TRIVIAL fibration: surjective in each positive degree (so a fib) and a quasi-iso (so a weak eq). NOT a cofibration in general (its source is the resolution complex, target is just Z in degree 0; degreewise mono fails at degree 0 if P_0 has rank > 1).'},
+      {id:'res',   label:'Z[0] augmented to projective resolution',        w:true,  f:true,  c:false, desc:'A projective resolution P_* -> Z[0] is a TRIVIAL fibration: surjective in each positive degree (so a fib) and a quasi-iso (so a weak eq). NOT a cofibration: cofibrations in the projective model are degreewise monomorphisms with projective cokernel, but the degree-0 component of P_* -> Z[0] is the augmentation surjection P_0 ->> Z (a surjection, hence not even injective when P_0 has rank > 1). So this map fails the degreewise-mono part of the cof condition.'},
       {id:'mult',  label:'Z -2-> Z (in degree 0, both sides)',             w:false, f:true,  c:false, desc:'Multiplication-by-2 on a single Z in degree 0. Surjective in positive degrees (vacuously => fib). NOT a quasi-iso (H_0 changes from Z to Z/2). Not a cof (cokernel Z/2 is not projective).'},
       {id:'iden',  label:'Identity P_* -> P_*',                            w:true,  f:true,  c:true,  desc:'Identity, in all three classes.'},
-      {id:'incl',  label:'Z -> Z (+) Z, x -> (x, 0)',                      w:false, f:false, c:true,  desc:'Inclusion as a direct summand. Degreewise mono with cokernel Z (projective) => cofibration. NOT a quasi-iso (homology grows). Not a fib (not surjective).'},
+      {id:'incl',  label:'Z -> Z (+) Z, x -> (x, 0)',                      w:false, f:true,  c:true,  desc:'Inclusion as a direct summand, viewed as chain maps in degree 0. Degreewise mono with cokernel Z (projective) => cofibration. Vacuously a fib under the convention surjective-in-every-positive-degree (positive degrees are 0 on both sides), even though it is not surjective in degree 0. NOT a quasi-iso (H_0 grows from Z to Z (+) Z). So it is a non-trivial cofibration that happens to also be a non-trivial fibration -- a useful tag-by-tag separating example.'},
     ],
   };
   let mode = 'top';
@@ -448,7 +448,7 @@ with $i\in C$ and $p\in F$, a diagonal lift $B\to X$ exists provided either $i$ 
     const ex = EXAMPLES[mode].find(function(e){ return e.id === sel.value; }) || EXAMPLES[mode][0];
     function badge(x, y, label, ok, color){
       const r = SVG('rect', {x:x-50, y:y-16, width:100, height:32, rx:6,
-        fill:ok ? 'var(--panel2)' : '#0b0f16',
+        fill:ok ? 'var(--panel2)' : 'var(--bg)',
         stroke: ok ? color : 'var(--line)', 'stroke-width':1.6});
       svg.appendChild(r);
       const t = SVG('text', {x, y:y+5, 'text-anchor':'middle', 'font-size':13,
@@ -500,7 +500,7 @@ $$\emptyset\;\xrightarrow{\;\text{cof}\;}\;QX\;\xrightarrow{\;\sim\;}\;X,\qquad 
 <p><strong>Why bother?</strong> Functors don't generally preserve weak equivalences. Their derived versions do — provided we pre-replace inputs by cofibrant (or fibrant) objects:</p>
 
 <ul>
-<li>For a left Quillen functor $L$: compute $\mathbb{L}L(X) := L(QX)$. The Ken Brown lemma says $L$ preserves weak equivalences between cofibrant objects, so $\mathbb{L}L$ is well-defined on $\mathrm{Ho}(\mathcal{M})$.</li>
+<li>For a <a href="#quillen-functors">left Quillen functor</a> $L$ (defined formally in §4: a left adjoint preserving cofibrations and trivial cofibrations): compute $\mathbb{L}L(X) := L(QX)$. The <a href="#quillen-functors">Ken Brown lemma</a> says $L$ preserves weak equivalences between cofibrant objects, so $\mathbb{L}L$ is well-defined on $\Ho(\mathcal{M})$.</li>
 <li>Dually, for a right Quillen functor $R$: $\mathbb{R}R(X) := R(RX)$.</li>
 </ul>
 
@@ -509,8 +509,8 @@ $$\emptyset\;\xrightarrow{\;\text{cof}\;}\;QX\;\xrightarrow{\;\sim\;}\;X,\qquad 
 <table class="plain">
 <thead><tr><th>Model category</th><th>Cofibrant replacement of...</th><th>Recovers</th></tr></thead>
 <tbody>
-<tr><td>$\mathrm{Top}$ (Quillen)</td><td>a space $X$</td><td>a CW-approximation of $X$</td></tr>
-<tr><td>$\mathrm{sSet}$ (Kan–Quillen)</td><td>any simplicial set</td><td>(itself — every $K$ is cofibrant)</td></tr>
+<tr><td>$\mathbf{Top}$ (Quillen)</td><td>a space $X$</td><td>a CW-approximation of $X$</td></tr>
+<tr><td>$\mathbf{sSet}$ (Kan–Quillen)</td><td>any simplicial set</td><td>(itself — every $K$ is cofibrant)</td></tr>
 <tr><td>$\mathrm{Ch}_{\ge 0}(R)$ (projective)</td><td>an $R$-module $M$ in degree 0</td><td>a projective resolution $P_\bullet\to M$</td></tr>
 <tr><td>$\mathrm{Ch}_{\ge 0}(R)$ (injective)</td><td>$M$ in degree 0</td><td>(itself; fibrant replacement gives an injective resolution)</td></tr>
 </tbody>
@@ -546,9 +546,9 @@ $$\emptyset\;\xrightarrow{\;\text{cof}\;}\;QX\;\xrightarrow{\;\sim\;}\;X,\qquad 
   const RESOLVES = {
     'zmod2': {
       target: 'Z/2',
-      steps: ['Z', 'Z', 'Z', 'Z', 'Z', 'Z'],
-      diffs: ['*2', '*2', '*2', '*2', '*2', '*2'],
-      note: 'M = Z/2.\nThe sequence ... Z -2-> Z -2-> Z -> Z/2 is exact: each Z resolves the kernel of the previous step.\nThe resolution is INFINITE because Z/2 has projective dimension > 0 (in fact = infinity) over Z. Each P_n = Z (free, hence projective).'
+      steps: ['Z', 'Z'],
+      diffs: ['*2', '→'],
+      note: 'M = Z/2.\nResolution: 0 -> Z -2-> Z -> Z/2 -> 0. Length 1: the kernel of the augmentation Z -> Z/2 is 2Z, itself free of rank 1, so pd_Z(Z/2) = 1.\nOver any PID every module has projective dimension at most 1 -- the chain CANNOT be infinite here (whatever you might guess from cohomological depth). A genuinely infinite resolution requires a non-PID base ring, e.g. k[x,y]/(xy) or Z[x].'
     },
     'zmod6': {
       target: 'Z/6',
@@ -558,9 +558,9 @@ $$\emptyset\;\xrightarrow{\;\text{cof}\;}\;QX\;\xrightarrow{\;\sim\;}\;X,\qquad 
     },
     'q': {
       target: 'Q',
-      steps: ['(+) Z', 'Z'],
-      diffs: ['surj', '→'],
-      note: 'M = Q (the rationals as a Z-module).\nQ is NOT projective over Z (no surjection Z^n -> Q has a section: Q is divisible while Z^n is not). So a resolution must be infinite-rank: the standard choice is the bar/Postnikov resolution, with infinite-rank free modules at every step. Q is FLAT but not projective -- a key distinction.'
+      steps: ['Z^(I)', 'Z^(I)'],
+      diffs: ['→', '→'],
+      note: 'M = Q (the rationals as a Z-module).\nQ is NOT projective over Z (no surjection Z^n -> Q has a section: Q is divisible while Z^n is not). But Z is a PID, so pd_Z(Q) = 1 and Q has a length-1 resolution\n  0 -> Z^(I) -> Z^(I) -> Q -> 0,\nwith both terms FREE of infinite rank (e.g. P_0 free on the symbols 1/n, P_1 = ker(P_0 -> Q)). Infinite-RANK, NOT infinite-LENGTH: Q is flat-but-not-projective, and the resolution closes after one step.'
     },
   };
   function set(m){ mode = m;
@@ -583,7 +583,7 @@ $$\emptyset\;\xrightarrow{\;\text{cof}\;}\;QX\;\xrightarrow{\;\sim\;}\;X,\qquad 
     lblTop.textContent = 'Resolving M = ' + target + '  (cofibrant replacement in projective Ch(Z))';
     svg.appendChild(lblTop);
     const xT = 220;
-    drawNode(svg, xT, 0, target, {stroke:'var(--yellow)', fill:'#241e0e'});
+    drawNode(svg, xT, 0, target, {stroke:'var(--yellow)', fill:'var(--panel)'});
     const aug = SVG('text',{x:xT, y:30,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
     aug.textContent = 'degree 0 (target)'; svg.appendChild(aug);
     let lastX = xT;
@@ -592,23 +592,16 @@ $$\emptyset\;\xrightarrow{\;\text{cof}\;}\;QX\;\xrightarrow{\;\sim\;}\;X,\qquad 
       const idx = Math.min(n, r.steps.length-1);
       const lbl = (mode === 'zmod2' || mode === 'zmod6') ? r.steps[idx] : r.steps[Math.min(n, 1)];
       const dlbl = mode === 'q' ? 'surj' : (mode === 'zmod6' && n === 0 ? '*6' : (mode === 'zmod6' ? '→' : '*2'));
-      drawNode(svg, x, 0, 'P_'+n, {stroke:'var(--green)', fill:'#0e2412'});
+      drawNode(svg, x, 0, 'P_'+n, {stroke:'var(--green)', fill:'var(--panel)'});
       const sub = SVG('text',{x, y:30,'text-anchor':'middle','font-size':10,fill:'var(--mute)'});
       sub.textContent = lbl + ' (deg ' + (n+1) + ')'; svg.appendChild(sub);
       drawArrow(svg, [x, 0], [lastX, 0], {color:'var(--mute)', label:dlbl, markerId:'mcRep'+n});
       lastX = x;
     }
-    if(mode === 'q' && depth >= 1){
-      const t = SVG('text',{x:lastX-90, y:0,'text-anchor':'end','font-size':13,fill:'var(--pink)','font-style':'italic'});
-      t.textContent = '...continues';
-      svg.appendChild(t);
-    } else if(mode === 'zmod2'){
-      const t = SVG('text',{x:lastX-90, y:0,'text-anchor':'end','font-size':13,fill:'var(--pink)','font-style':'italic'});
-      t.textContent = '...';
-      svg.appendChild(t);
-    } else if(mode === 'zmod6' && depth >= 1){
+    if(depth >= 1){
       const t = SVG('text',{x:lastX-90, y:0,'text-anchor':'end','font-size':13,fill:'var(--green)'});
-      t.textContent = '0  (terminates: pd_Z(Z/6)=1)';
+      const pdLabel = mode === 'zmod2' ? 'pd_Z(Z/2)=1' : (mode === 'zmod6' ? 'pd_Z(Z/6)=1' : 'pd_Z(Q)=1');
+      t.textContent = '0  (terminates: ' + pdLabel + ')';
       svg.appendChild(t);
     }
     let lines = [];
@@ -618,7 +611,7 @@ $$\emptyset\;\xrightarrow{\;\text{cof}\;}\;QX\;\xrightarrow{\;\sim\;}\;X,\qquad 
     lines.push('');
     lines.push(r.note);
     lines.push('');
-    lines.push('At depth n = ' + depth + ': built P_0, ..., P_' + depth + (mode === 'zmod6' && depth >= 1 ? ' (resolution complete; further P_n = 0)' : ' (truncation, more layers below)'));
+    lines.push('At depth n = ' + depth + ': built P_0, ..., P_' + depth + (depth >= 1 ? ' (resolution complete; further P_n = 0 since the base ring Z is a PID)' : ' (truncation; bump n to close the resolution)'));
     out.textContent = lines.join('\n');
   }
   draw();
@@ -641,7 +634,7 @@ $$\emptyset\;\xrightarrow{\;\text{cof}\;}\;QX\;\xrightarrow{\;\sim\;}\;X,\qquad 
 
 <p>From a Quillen pair we extract <strong>total derived functors</strong>:</p>
 
-$$\mathbb{L}L\colon \mathrm{Ho}(\mathcal{M})\to\mathrm{Ho}(\mathcal{N}),\quad \mathbb{L}L(X) = L(QX);\qquad \mathbb{R}R\colon \mathrm{Ho}(\mathcal{N})\to\mathrm{Ho}(\mathcal{M}),\quad \mathbb{R}R(Y) = R(RY).$$
+$$\mathbb{L}L\colon \Ho(\mathcal{M})\to\Ho(\mathcal{N}),\quad \mathbb{L}L(X) = L(QX);\qquad \mathbb{R}R\colon \Ho(\mathcal{N})\to\Ho(\mathcal{M}),\quad \mathbb{R}R(Y) = R(RY).$$
 
 <p>These descend through the localization because of <strong>Ken Brown's lemma</strong>: a left Quillen functor preserves weak equivalences between cofibrant objects (and dually for right). The unit and counit of $L\dashv R$ pass to a derived adjunction $\mathbb{L}L\dashv\mathbb{R}R$ on the homotopy categories.</p>
 
@@ -649,13 +642,13 @@ $$\mathbb{L}L\colon \mathrm{Ho}(\mathcal{M})\to\mathrm{Ho}(\mathcal{N}),\quad \m
 
 <p>The motivating example is the <strong>geometric realization adjunction</strong>:</p>
 
-$$|\cdot|\;\colon\;\mathrm{sSet}\;\rightleftarrows\;\mathrm{Top}\;\colon\;\mathrm{Sing}.$$
+$$|\cdot|\;\colon\;\mathbf{sSet}\;\rightleftarrows\;\mathbf{Top}\;\colon\;\mathrm{Sing}.$$
 
-<p>This is a Quillen equivalence with respect to the Kan–Quillen and Quillen model structures. The unit $K\to\mathrm{Sing}\,|K|$ is a weak equivalence in $\mathrm{sSet}$ (every $K$ is cofibrant; $\mathrm{Sing}|K|$ is a Kan complex hence fibrant); the counit $|\mathrm{Sing}\,X|\to X$ is a weak homotopy equivalence (CW-approximation by simplices), but in general not a homeomorphism. Two presentations of one homotopy theory.</p>
+<p>This is a Quillen equivalence with respect to the Kan–Quillen and Quillen model structures. The unit $K\to\mathrm{Sing}\,|K|$ is a weak equivalence in $\mathbf{sSet}$ (every $K$ is cofibrant; $\mathrm{Sing}|K|$ is a Kan complex hence fibrant); the counit $|\mathrm{Sing}\,X|\to X$ is a weak homotopy equivalence (CW-approximation by simplices), but in general not a homeomorphism. Two presentations of one homotopy theory.</p>
 
 <p>Other prototypes:</p>
 <ul>
-<li><strong>Tensor–Hom on $\mathrm{Ch}(R)$</strong>: $-\otimes_R N \dashv \mathrm{Hom}_R(N,-)$ derives to $\mathrm{Tor}^R(-,N)$ on the left, $\mathrm{Ext}^*_R(N,-)$ on the right.</li>
+<li><strong>Tensor–Hom on $\mathrm{Ch}(R)$</strong>: $-\otimes_R N \dashv \Hom_R(N,-)$ derives to $\mathrm{Tor}^R(-,N)$ on the left, $\mathrm{Ext}^*_R(N,-)$ on the right.</li>
 <li><strong>Constant–colimit</strong>: $\Delta\dashv\mathrm{colim}\colon \mathcal{M}\rightleftarrows\mathcal{M}^I$ derives to $\mathrm{hocolim}_I = \mathbb{L}\mathrm{colim}$ via cofibrantly replacing the diagram.</li>
 </ul>
 
@@ -694,27 +687,27 @@ $$|\cdot|\;\colon\;\mathrm{sSet}\;\rightleftarrows\;\mathrm{Top}\;\colon\;\mathr
       input: 'S^1',
       realiz: 'Sing(S^1): a Kan complex with countably-many n-simplices for each n',
       backSing: '|Sing(S^1)|: a CW complex with one 0-cell, one 1-cell, infinitely many higher cells (collapsed to S^1 up to homotopy)',
-      unit: 'unit eta: Sing(S^1) -> Sing(|Sing(S^1)|). On homotopy groups: pi_n on both sides equals pi_n(S^1) = Z (n=1) or 0. A weak equivalence.',
-      counit: 'counit eps_{S^1}: |Sing(S^1)| -> S^1. A weak homotopy equivalence. NOT a homeomorphism: the left side carries the CW topology, the right is a smooth circle.',
+      unit: 'unit eta at Sing(S^1) (the sSet shadow of the input): Sing(S^1) -> Sing(|Sing(S^1)|). On homotopy groups: pi_n on both sides equals pi_n(S^1) = Z (n=1) or 0. A weak equivalence.',
+      counit: 'counit eps_{S^1} (this is the natural map AT the input S^1 ∈ Top): |Sing(S^1)| -> S^1. A weak homotopy equivalence. NOT a homeomorphism: the left side carries the CW topology, the right is a smooth circle.',
       verdict: 'Counit is the prototype of a weak-but-not-strict equivalence. Same homotopy theory, different point-set.'
     },
     'pt': {
       side: 'top',
       input: 'point *',
-      realiz: 'Sing(*) = constant simplicial set with Sing(*)_n = * for every n',
-      backSing: '|Sing(*)| = *',
-      unit: 'unit eta: Sing(*) -> Sing(|Sing(*)|) = Sing(*). The IDENTITY.',
-      counit: 'counit eps: |Sing(*)| -> *. The IDENTITY (both are points).',
-      verdict: 'Trivial case: both unit and counit are isomorphisms. Quillen equivalence collapses to plain equivalence at this object.'
+      realiz: 'Sing(*): every simplex set is the singleton {*}, so Sing(*) ≅ Delta^0 as simplicial sets',
+      backSing: '|Sing(*)| = |Delta^0| = *',
+      unit: 'unit eta at Sing(*): Sing(*) -> Sing(|Sing(*)|) = Sing(*). The IDENTITY of Delta^0.',
+      counit: 'counit eps_*: |Sing(*)| -> *. The IDENTITY of *.',
+      verdict: 'Degenerate case: input is in Top, so the natural map at this object is the counit eps_* = id. The unit makes sense only after applying Sing first, and there it is also id. Quillen equivalence collapses to plain equivalence.'
     },
     'k0': {
       side: 'sset',
       input: 'Delta^0',
       realiz: '|Delta^0| = pt',
-      backSing: 'Sing(pt) = constant simplicial set on *',
-      unit: 'unit eta_K: Delta^0 -> Sing(pt). NOT an isomorphism: target has extra degenerate simplices in every degree. But both are contractible Kan complexes, so eta is a weak equivalence.',
-      counit: 'counit eps: |Sing(pt)| -> pt. Both are points (after collapse). A homeomorphism in this case.',
-      verdict: 'Asymmetric: counit is a homeomorphism, unit only a weak equivalence. Quillen equivalence holds at the Ho-level.'
+      backSing: 'Sing(pt) ≅ Delta^0  (Sing(pt)_n = Map_Top(|Delta^n|, pt) = {*} in every degree)',
+      unit: 'unit eta_{Delta^0}: Delta^0 -> Sing(|Delta^0|) = Sing(pt) ≅ Delta^0. The IDENTITY -- both sides have one simplex per degree.',
+      counit: 'counit eps_{|Delta^0|}: |Sing(pt)| = |Delta^0| -> pt. The IDENTITY of *.',
+      verdict: 'Both unit and counit reduce to identities here. To see a non-iso unit, try K = ∂Delta^2 (then |K| = S^1 and Sing(S^1) has many non-degenerate simplices, so eta_K is a weak eq but not an iso).'
     },
   };
   function set(m){ mode = m;
@@ -801,8 +794,8 @@ $$i\Box j\;\colon\; A\otimes D\sqcup_{A\otimes C}B\otimes C\;\longrightarrow\;B\
 <p>The pushout-product axiom is what makes $\otimes$ derive correctly to $\otimes^{\mathbb L}$ on the homotopy category. The standard examples all satisfy it:</p>
 
 <ul>
-<li><strong>$\mathrm{Top}$</strong> (cartesian product, compactly generated): pushout-product of two relative cell complexes is again a relative cell complex.</li>
-<li><strong>$\mathrm{sSet}$</strong> (cartesian product): the pushout-product of two monomorphisms is a monomorphism (the proof reduces to checking that the inclusion of a sub-bisimplicial set into the product is a cof).</li>
+<li><strong>$\mathbf{Top}$</strong> (cartesian product, compactly generated): pushout-product of two relative cell complexes is again a relative cell complex.</li>
+<li><strong>$\mathbf{sSet}$</strong> (cartesian product): the pushout-product of two monomorphisms is a monomorphism (the proof reduces to checking that the inclusion of a sub-bisimplicial set into the product is a cof).</li>
 <li><strong>$\mathrm{Ch}(R)$</strong> for $R$ commutative (tensor): for cofibrations of degreewise-projective complexes, the pushout-product is again a cofibration of degreewise-projective complexes.</li>
 </ul>
 
@@ -845,7 +838,7 @@ $$i\Box j\;\colon\; A\otimes D\sqcup_{A\otimes C}B\otimes C\;\longrightarrow\;B\
     while(svg.firstChild) svg.removeChild(svg.firstChild);
     const i = iS.value, j = jS.value;
     const m = dim(i), n = dim(j);
-    const totalDim = m + n + 1;
+    const totalDim = m + n;
     function lbl(simp){
       const k = dim(simp);
       return k === 0 ? 'pt' : k === 1 ? 'D^1' : 'D^2';
@@ -875,13 +868,15 @@ $$i\Box j\;\colon\; A\otimes D\sqcup_{A\otimes C}B\otimes C\;\longrightarrow\;B\
     lines.push('  i: ' + A + ' → ' + B + '  (cell of dim ' + m + ')');
     lines.push('  j: ' + C + ' → ' + D + '  (cell of dim ' + n + ')');
     lines.push('');
-    lines.push('The corner map (A x D) ∪ (B x C) → B x D adds exactly one (m+n+1)-cell --');
-    lines.push('the unique cell of B x D not already covered by the pushout. Dim = ' + (m+n+1) + '.');
+    lines.push('The corner map (A x D) ∪ (B x C) → B x D attaches the unique top cell of B x D');
+    lines.push('not already covered by the pushout, an (m+n)-cell. Dim = ' + (m+n) + '.');
+    lines.push('Sanity check at m=n=1: ∂Δ¹↪Δ¹ □ ∂Δ¹↪Δ¹ recovers S¹↪D² (dim 2 = 1+1).');
     lines.push('');
-    lines.push('Verdict: corner is a cofibration (cell attachment) of dimension ' + (m+n+1) + '.');
-    lines.push('Trivial-cof case: if i is the trivial cof emptyset → D^n, then i □ j is also trivial');
-    lines.push('  (the pushout-product axiom guarantees it; computationally because the corner ');
-    lines.push('   map is then a deformation retract).');
+    lines.push('Verdict: corner is a cofibration (cell attachment) of dimension ' + (m+n) + '.');
+    lines.push('Trivial-cof case: ∅↪D^n is a cof but NOT trivial (target contractible ≠ ∅, so not a weak eq).');
+    lines.push('A genuine trivial cof to plug into the second half of the axiom is e.g. a horn');
+    lines.push('Λ^n_k↪Δ^n in sSet, or D^n×{0}↪D^n×[0,1] in Top. The pushout-product axiom then');
+    lines.push('forces i □ j to inherit triviality: trivial-cof  □  cof = trivial-cof.');
     out.textContent = lines.join('\n');
   }
   draw();
@@ -904,7 +899,7 @@ $$i\Box j\;\colon\; A\otimes D\sqcup_{A\otimes C}B\otimes C\;\longrightarrow\;B\
 
 <p>Why do model categories matter <em>now</em>? Because they are the standard tool for <em>presenting</em> $(\infty,1)$-categories. Modern foundations (Lurie's <em>Higher Topos Theory</em>) define $\infty$-categories intrinsically as quasi-categories, but constructing examples almost always passes through a model-category presentation.</p>
 
-<p>Given a <strong>simplicial model category</strong> $\mathcal{M}$ (one enriched in $\mathrm{sSet}$ in a way compatible with the model structure), the underlying $(\infty,1)$-category is</p>
+<p>Given a <strong>simplicial model category</strong> $\mathcal{M}$ (one enriched in $\mathbf{sSet}$ in a way compatible with the model structure), the underlying $(\infty,1)$-category is</p>
 
 $$\mathcal{M}_\infty\;:=\;N_\Delta(\mathcal{M}^{cf}),$$
 
@@ -919,8 +914,8 @@ $$\mathcal{M}_\infty\;:=\;N_\Delta(\mathcal{M}^{cf}),$$
 
 <ol>
 <li><strong>Quillen equivalences induce $(\infty,1)$-equivalences</strong>: a Quillen equivalence $\mathcal{M}\simeq_Q\mathcal{N}$ produces an equivalence of quasi-categories $\mathcal{M}_\infty\simeq\mathcal{N}_\infty$.</li>
-<li><strong>Dugger's theorem</strong>: every <em>presentable</em> $(\infty,1)$-category arises as $\mathcal{M}_\infty$ for some combinatorial simplicial model category. So model categories are not just one source of examples but an exhaustive presentation theorem.</li>
-<li><strong>Homotopy 1-categories agree</strong>: $h(\mathcal{M}_\infty) = \mathrm{Ho}(\mathcal{M})$. The classical homotopy category of model-category fame is the $1$-truncation of the modern $\infty$-categorical incarnation.</li>
+<li><strong>Dugger's theorem</strong>: every <em>presentable</em> $(\infty,1)$-category arises as $\mathcal{M}_\infty$ for some <em>combinatorial simplicial model category</em> — meaning the underlying category is locally presentable and the model structure is cofibrantly generated by a set of generating (trivial) cofibrations, with a compatible simplicial enrichment satisfying the SM7 / pushout-product axiom for the simplicial action. So model categories are not just one source of examples but an exhaustive presentation theorem.</li>
+<li><strong>Homotopy 1-categories agree</strong>: $h(\mathcal{M}_\infty) = \Ho(\mathcal{M})$. The classical homotopy category of model-category fame is the $1$-truncation of the modern $\infty$-categorical incarnation.</li>
 </ol>
 
 <p>The bridge runs both ways. Old computations done with model-category machinery (Bousfield localization, transferred model structures, Quillen equivalences between model structures on the same underlying category) translate to $(\infty,1)$-categorical statements (localization of $\infty$-categories, accessible reflective sub-$\infty$-categories, equivalences of presentations). Conversely, intrinsic $\infty$-categorical theorems (the adjoint functor theorem in $\infty$-form, the straightening–unstraightening equivalence) recover and clarify model-category folklore.</p>
@@ -1044,9 +1039,9 @@ $$\mathcal{M}_\infty\;:=\;N_\Delta(\mathcal{M}^{cf}),$$
 <p>Model categories occupy a structural middle ground: too combinatorial to be the final word on $\infty$-category theory, but flexible enough to <em>construct</em> almost every $\infty$-category arising in practice. Open frontiers include the search for model structures that present specific stable $(\infty,1)$-categories (motivic, equivariant, derived algebraic geometry), and the hunt for monoidal model structures supporting subtle ring-spectrum or operadic enrichments.</p>
 
 <ul>
-<li><a href="./derived-categories.html#derived-category">Derived categories — $D(\mathcal{A}) = K(\mathcal{A})[\mathrm{qis}^{-1}]$</a> — the prototype $W^{-1}$-localization, recovered as $\mathrm{Ho}$ of the projective model on $\mathrm{Ch}(\mathcal{A})$.</li>
+<li><a href="./derived-categories.html#derived-category">Derived categories — $D(\mathcal{A}) = K(\mathcal{A})[\mathrm{qis}^{-1}]$</a> — the prototype $W^{-1}$-localization, recovered as $\Ho$ of the projective model on $\mathrm{Ch}(\mathcal{A})$.</li>
 <li><a href="./homological.html#projective">Projective modules</a> — cofibrant objects in the projective model on $\mathrm{Ch}(R)$; resolutions are cofibrant replacements.</li>
-<li><a href="./simplicial-sets-and-nerve.html#kan-complex">Kan complexes</a> — the fibrant objects in the Kan–Quillen model on $\mathrm{sSet}$.</li>
+<li><a href="./simplicial-sets-and-nerve.html#kan-complex">Kan complexes</a> — the fibrant objects in the Kan–Quillen model on $\mathbf{sSet}$.</li>
 <li><a href="./infinity-categories.html#quasi-category">Quasi-categories ($\infty$-categories)</a> — the destination of the simplicial-nerve construction $\mathcal{M}^{cf}\rightsquigarrow\mathcal{M}_\infty$.</li>
 <li><a href="./algebraic-k-theory-foundations.html#q-construction">Quillen's Q-construction</a> — uses the same exact-category / cofibration machinery; Waldhausen's $S_\bullet$-construction generalizes it to categories with cofibrations and weak equivalences.</li>
 </ul>
