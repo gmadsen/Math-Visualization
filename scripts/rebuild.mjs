@@ -58,6 +58,7 @@ const STEPS = [
   { name: 'widgets-bundle', script: 'build-widgets-bundle.mjs', fix: false },
   { name: 'search',     script: 'build-search-index.mjs',       fix: false },
   { name: 'section-indexes', script: 'build-section-indexes.mjs', fix: false },
+  { name: 'recent-updates', script: 'build-recent-updates.mjs',  fix: false },
   { name: 'schema',     script: 'validate-schema.mjs',          fix: false },
   { name: 'widget-params', script: 'validate-widget-params.mjs', fix: false },
   { name: 'widget-renderers', script: 'test-widget-renderers.mjs', fix: false },
