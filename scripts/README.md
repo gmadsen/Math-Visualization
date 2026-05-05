@@ -19,7 +19,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 
 ## Orchestration
 
-[`rebuild.mjs`](./rebuild.mjs) runs the full 37-step chain. `--no-fix` mirrors CI; `--only <step>` runs one step. It invokes the individual scripts directly (not through `cli.mjs`) so no CLI dependency is forced on CI.
+[`rebuild.mjs`](./rebuild.mjs) runs the full 38-step chain. `--no-fix` mirrors CI; `--only <step>` runs one step. It invokes the individual scripts directly (not through `cli.mjs`) so no CLI dependency is forced on CI.
 
 ## Builders (derived files)
 
@@ -99,6 +99,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 | [`audit-graph-health.mjs`](./audit-graph-health.mjs) | Concept-graph atomicity / multi-topic / implicit-prereq diagnostic plus a per-topic 🟢/🟡/🔴 scorecard. Writes `audits/graph-health.tsv` + `audits/graph-health-summary.md`. |
 | [`audit-stale-blurbs.mjs`](./audit-stale-blurbs.mjs) | Blurb-drift: LENGTH / MATCH / RECALL / OFFPAGE / DUP. |
 | [`audit-blurb-question-alignment.mjs`](./audit-blurb-question-alignment.mjs) | Quiz questions not probing their concept's blurb. |
+| [`audit-hint-leakage.mjs`](./audit-hint-leakage.mjs) | "Leaky" quiz hints — keyword fingerprints, paraphrase of explain, derivation walks, count leaks, matching enumeration, ordering recipes. |
 | [`audit-worked-examples.mjs`](./audit-worked-examples.mjs) | Concepts missing a `**Worked example:**` block. |
 | [`audit-cross-topic-prereqs.mjs`](./audit-cross-topic-prereqs.mjs) | Suggested cross-topic prereq edges from prose/quiz co-mentions. |
 | [`audit-inline-links.mjs`](./audit-inline-links.mjs) | Unlinked concept-title mentions. `--fix` wraps first per section. |
@@ -139,7 +140,7 @@ Longest-prefix match, so multi-word names work either `inject used-in-backlinks`
 Default path after any content edit:
 
 ```bash
-node scripts/rebuild.mjs           # 37 steps, fix-mode; bails on first failure
+node scripts/rebuild.mjs           # 38 steps, fix-mode; bails on first failure
 node scripts/rebuild.mjs --no-fix  # CI mirror (read-only; fails if anything drifted)
 node scripts/rebuild.mjs --only <step>
 ```
@@ -186,10 +187,11 @@ CI ([`.github/workflows/verify.yml`](../.github/workflows/verify.yml)) runs `reb
 34. `audit-starter-concepts.mjs`
 35. `audit-worked-examples.mjs`
 36. `audit-blurb-question-alignment.mjs`
-37. `audit-doc-drift.mjs`
+37. `audit-hint-leakage.mjs`
+38. `audit-doc-drift.mjs`
 
 Round-trip is intentionally first among the post-injector steps so that smoke and topic-jsdom check the regenerated HTML, not stale on-disk HTML — otherwise a content/json edit that broke a topic page would pass its first rebuild and only fail the next one.
 
-`--only <step>` runs one step. Valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `section-indexes`, `schema`, `widget-params`, `widget-renderers`, `widget-hydration`, `multi-iife-split`, `html-walk`, `find-matching-div`, `ajv`, `doc-drift-unit`, `a11y-unit`, `validate`, `concept-latex`, `katex`, `no-inline-widgets`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `page-metadata`, `toc`, `a11y`, `roundtrip`, `smoke`, `topic-jsdom`, `stats`, `notation`, `draft-cards`, `starter`, `worked-examples`, `blurb-question`, `doc-drift`.
+`--only <step>` runs one step. Valid names: `concepts`, `quizzes`, `widgets-bundle`, `search`, `section-indexes`, `schema`, `widget-params`, `widget-renderers`, `widget-hydration`, `multi-iife-split`, `html-walk`, `find-matching-div`, `ajv`, `doc-drift-unit`, `a11y-unit`, `validate`, `concept-latex`, `katex`, `no-inline-widgets`, `callbacks`, `backlinks`, `breadcrumb`, `display-prefs`, `index-stats`, `page-metadata`, `toc`, `a11y`, `roundtrip`, `smoke`, `topic-jsdom`, `stats`, `notation`, `draft-cards`, `starter`, `worked-examples`, `blurb-question`, `hint-leakage`, `doc-drift`.
 
 `inject-changelog-footer.mjs` is intentionally **not** in the rebuild chain — its output references "latest commit touching this page", but the commit that refreshes the changelog can't reference itself, so every post-commit audit would flag one-commit-behind drift forever. Run it manually (`node scripts/inject-changelog-footer.mjs`) before publishing or cutting a release; `--audit` mode reports stale pages without writing.
