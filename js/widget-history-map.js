@@ -264,6 +264,7 @@
         'aria-label':`${cl.city||'Unknown'}: ${cl.events.length} event${cl.events.length>1?'s':''}`
       });
       g.dataset.idx = i;
+      g.dataset.naturalColor = newestColor;
       g.style.setProperty('--era-color', newestColor);
       // Pin size: scales with sqrt(count), capped at 11px outer radius.
       const rOuter = Math.min(11, 4.5 + Math.sqrt(cl.events.length) * 1.6);
@@ -363,6 +364,14 @@
 
     function applyState(){
       const filterActive = state.activeEras.size > 0;
+      // When a single era is selected, the halo should match that era for
+      // every visible pin — not the pin's "newest era" color, which would
+      // leak through unrelated eras' tints. We override --era-color on the
+      // pin's <g> for the duration of the single-era filter, then restore
+      // the cached natural color when the filter is cleared or broadened.
+      const singleEra = state.activeEras.size === 1
+        ? eraById.get(Array.from(state.activeEras)[0])
+        : null;
       pinNodes.forEach((p, i) => {
         const cl = clusters[i];
         let visible = !filterActive;
@@ -373,6 +382,11 @@
         }
         p.classList.toggle('dim', !visible);
         p.classList.toggle('selected', i === state.selectedIdx);
+        if(singleEra && visible){
+          p.style.setProperty('--era-color', singleEra.color);
+        } else {
+          p.style.setProperty('--era-color', p.dataset.naturalColor || 'var(--mute)');
+        }
       });
       // Mark the SVG itself when a filter is active so the
       // `.map[data-era-filter] .pin:not(.dim) circle` rule paints a soft

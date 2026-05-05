@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>When Fourier is the wrong basis — the story</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,"Charter","Georgia",serif;
+    font-size:17px;line-height:1.72}
+  main{max-width:780px;margin:0 auto;padding:3rem 1.5rem 7rem}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  h1{font-size:2.3rem;letter-spacing:-0.01em;margin:0 0 0.4rem;font-weight:650}
+  h2{font-size:1.45rem;margin:3rem 0 0.7rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.35rem;font-weight:600}
+  h2 .num{color:var(--pink);font-variant-numeric:tabular-nums;margin-right:.45rem;font-weight:500}
+  h3{font-size:1.08rem;margin:1.6rem 0 .5rem;color:var(--pink);font-weight:600}
+  p{margin:0.8rem 0}
+  blockquote{border-left:3px solid var(--pink);padding:.2rem 1rem;margin:1.2rem 0;color:#f1d8cd;
+    background:#221814;border-radius:0 6px 6px 0;font-style:italic}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:1.4rem;font-size:1.05rem;line-height:1.55}
+  .lede{font-size:1.05rem;line-height:1.7;color:#dde3ec;margin:1.4rem 0 1.8rem}
+  .lede::first-letter{
+    float:left;font-size:3.1rem;line-height:.95;
+    padding:.15rem .45rem 0 0;color:var(--pink);font-weight:700;font-family:"Charter","Georgia",serif;
+  }
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.55rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.88rem;align-items:baseline}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--pink)}
+  nav.toc .spacer{flex:1}
+  nav.toc .story-pill{color:var(--pink);border:1px solid color-mix(in srgb, var(--pink) 45%, transparent);
+    border-radius:999px;padding:1px 10px;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase}
+  .hero{padding:2.4rem 0 .4rem}
+  .byline{color:var(--mute);font-size:.88rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.6rem}
+  .figure{margin:1.6rem 0 2rem;text-align:center}
+  .figure svg{display:block;margin:0 auto;max-width:100%;
+    background:#0b0f16;border:1px solid var(--line);border-radius:8px}
+  .figure svg text{fill:var(--ink);font-family:inherit}
+  .caption{color:var(--mute);font-size:.88rem;margin-top:.5rem;line-height:1.5;font-style:italic;
+    max-width:560px;margin-left:auto;margin-right:auto}
+  .note{border-left:3px solid var(--violet);padding:.35rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0;font-size:.96rem;line-height:1.6}
+  .ok{border-left:3px solid var(--green);padding:.35rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0;font-size:.96rem;line-height:1.6}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(224,122,95,0.05);
+    border-left:3px solid color-mix(in srgb, var(--pink) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2.5rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute);white-space:nowrap;font-variant-numeric:tabular-nums}
+  .endrule{border:none;border-top:1px solid var(--line);margin:2.4rem 0 1rem}
+  .colophon{color:var(--mute);font-size:.88rem;line-height:1.55;font-style:italic}
+  ol.refs{padding-left:1.3rem;color:var(--mute);font-size:.9rem;line-height:1.55}
+  ol.refs li{margin:.25rem 0}
+</style>
+<link rel="stylesheet" href="./css/notebook.css">
+<script src="./js/theme-toggle.js"></script>
+</head>
+<body data-level="capstone" data-c="pink">
+
+<nav class="toc">
+  <a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="./harmonic-analysis-fourier.html">Harmonic analysis</a>
+  <a href="./wavelets.html">Wavelets</a>
+  <a href="./tours.html#sound-to-wavelets">Tour 5</a>
+  <span class="spacer"></span>
+  <span class="story-pill">story</span>
+</nav>
+
+<main>
+
+<section class="hero">
+  <div class="byline">An essay on time-frequency analysis</div>
+  <h1>When Fourier is the wrong basis</h1>
+  <p class="sub">From pure tones to multiresolution — the story of why time-frequency localisation needs more than sines.</p>
+</section>
+
+<p class="lede">A piano holds down middle C and a microphone records the result. Run the recording through a Fourier transform and out comes a tidy comb of peaks at $261.6$ Hz and its harmonics. Now imagine the pianist also coughs once, briefly, somewhere in the middle of the note. The cough is local in time — about a tenth of a second wide. In the spectrum, however, that cough is everywhere: the transform of a sharp transient is a smear of energy across the entire frequency axis. Fourier saw the harmonics perfectly and the cough not at all, in the sense that it could not place it. <em>Where</em> in the recording the click occurred is information the spectrum has thrown away. This essay is about why that happens, what was tried to fix it, and the new bases — built from a single mother shape, scaled and translated — that finally cracked the problem of seeing time and frequency at once.</p>
+
+<p>It is a companion to the topic pages <a href="./harmonic-analysis-fourier.html">harmonic analysis &amp; the Fourier transform</a> and <a href="./wavelets.html">wavelets</a>, which is where the widgets live; here we stay with the prose.</p>
+
+<!-- ───────────────────────────────────────────── § 1 ──── -->
+<section id="fourier-series">
+<h2><span class="num">§1.</span> The spectral picture of music</h2>
+
+<p>Periodic phenomena are the easy case, and they are everywhere — a violin string at fixed tension, alternating current at $60$ Hz, the orbit of a planet. Take a square-integrable function $f$ on the circle $\mathbb{T} = \mathbb{R}/\mathbb{Z}$ and write</p>
+$$f(t) \;=\; \sum_{n \in \mathbb{Z}} \hat f(n)\, e^{2\pi i n t}, \qquad \hat f(n) \;=\; \int_0^1 f(t)\, e^{-2\pi i n t}\, dt.$$
+
+<p>This is the Fourier series. Each integer $n$ contributes a complex amplitude $\hat f(n)$ at frequency $n$, and you can recover $f$ by stacking those contributions back up. The coefficients live on $\mathbb{Z}$; the signal lives on the circle. Frequency is discrete, time is continuous, and a single discrete spectrum tells you everything.</p>
+
+<p>What makes the formula honest is a piece of geometry. The space $L^2(\mathbb{T})$ of square-integrable functions on the circle is a <em>Hilbert space</em> under the inner product</p>
+$$\langle f, g\rangle \;=\; \int_0^1 f(t)\,\overline{g(t)}\, dt.$$
+<p>Under this inner product the family $\{e_n(t) = e^{2\pi i n t}\}_{n \in \mathbb{Z}}$ is <em>orthonormal</em>:</p>
+$$\langle e_m, e_n\rangle \;=\; \int_0^1 e^{2\pi i (m-n) t}\, dt \;=\; \begin{cases} 1 & m=n\\ 0 & m\ne n.\end{cases}$$
+<p>Better, it is <em>complete</em> — the closed linear span is all of $L^2(\mathbb{T})$. Fourier expansion is therefore not magic; it is the writeup of a vector in an orthonormal basis, in the same sense that a vector in $\mathbb{R}^3$ has unique coordinates along the standard basis. Parseval's identity</p>
+$$\|f\|_{L^2}^2 \;=\; \sum_{n} |\hat f(n)|^2$$
+<p>is then the Pythagorean theorem in infinite dimensions: signal energy equals the sum of squared coefficient magnitudes.</p>
+
+<p>This is the spectral picture of music. The $A_4$ played by an oboe and the $A_4$ played by a flute differ in their distributions of $|\hat f(n)|^2$ across harmonics; we hear those distributions as <em>timbre</em>. Pitch is the location of the fundamental peak, loudness the total $L^2$ norm, timbre the ratio of overtones. A pure tone — a single $n$ — sounds clinical and mechanical because real instruments never produce one. The square wave of an old synthesizer has $|\hat f(n)|^2$ falling like $1/n^2$; a sawtooth like $1/n^2$ but with every $n$ present; a triangle wave only odd harmonics. Engineers who design audio equalisers are reasoning, knowingly or not, about $|\hat f(n)|^2$ as a function on $\mathbb{Z}$.</p>
+
+<div class="figure">
+  <svg viewBox="0 0 560 220" width="560" height="220" role="img" aria-label="Square wave time-domain plot above its discrete Fourier line spectrum">
+    <title>Square wave and its line spectrum</title>
+    <!-- top: square wave -->
+    <text x="20" y="22" font-size="12" fill="var(--mute)">f(t)</text>
+    <line x1="20" y1="55" x2="280" y2="55" stroke="var(--line)" stroke-width="0.8"/>
+    <path d="M 20 35 L 80 35 L 80 75 L 140 75 L 140 35 L 200 35 L 200 75 L 260 75" fill="none" stroke="var(--cyan)" stroke-width="2"/>
+    <text x="270" y="100" font-size="11" fill="var(--mute)" text-anchor="end">t</text>
+    <!-- bottom: line spectrum -->
+    <text x="20" y="135" font-size="12" fill="var(--mute)">|f̂(n)|²</text>
+    <line x1="20" y1="200" x2="540" y2="200" stroke="var(--line)" stroke-width="0.8"/>
+    <line x1="60" y1="200" x2="60" y2="110" stroke="var(--pink)" stroke-width="2.5"/>
+    <line x1="60" y1="110" x2="60" y2="110" stroke="var(--pink)" stroke-width="2.5"/>
+    <circle cx="60" cy="110" r="3" fill="var(--pink)"/>
+    <text x="60" y="215" font-size="11" fill="var(--mute)" text-anchor="middle">1</text>
+    <line x1="140" y1="200" x2="140" y2="170" stroke="var(--pink)" stroke-width="2.5"/>
+    <circle cx="140" cy="170" r="3" fill="var(--pink)"/>
+    <text x="140" y="215" font-size="11" fill="var(--mute)" text-anchor="middle">3</text>
+    <line x1="220" y1="200" x2="220" y2="184" stroke="var(--pink)" stroke-width="2.5"/>
+    <circle cx="220" cy="184" r="3" fill="var(--pink)"/>
+    <text x="220" y="215" font-size="11" fill="var(--mute)" text-anchor="middle">5</text>
+    <line x1="300" y1="200" x2="300" y2="190" stroke="var(--pink)" stroke-width="2.5"/>
+    <circle cx="300" cy="190" r="3" fill="var(--pink)"/>
+    <text x="300" y="215" font-size="11" fill="var(--mute)" text-anchor="middle">7</text>
+    <line x1="380" y1="200" x2="380" y2="194" stroke="var(--pink)" stroke-width="2.5"/>
+    <circle cx="380" cy="194" r="3" fill="var(--pink)"/>
+    <text x="380" y="215" font-size="11" fill="var(--mute)" text-anchor="middle">9</text>
+    <line x1="460" y1="200" x2="460" y2="196" stroke="var(--pink)" stroke-width="2.5"/>
+    <circle cx="460" cy="196" r="3" fill="var(--pink)"/>
+    <text x="460" y="215" font-size="11" fill="var(--mute)" text-anchor="middle">11</text>
+    <text x="535" y="215" font-size="11" fill="var(--mute)" text-anchor="end">n</text>
+  </svg>
+  <div class="caption">Figure 1. A periodic signal in time (top) and its discrete spectrum (bottom). The square wave's energy falls like $1/n^2$, concentrated at odd harmonics — a fingerprint of its symmetry.</div>
+</div>
+
+<p>What pays for the elegance of this picture is the assumption of periodicity. Real signals do not repeat for ever — speech, music, seismic readings, EKGs all start, evolve, and end. To handle that we need to leave the circle.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./harmonic-analysis-fourier.html#fourier-series">Fourier series</a> on the harmonic-analysis page (widget: partial sums of square &amp; sawtooth waves)</li>
+    <li><a href="./functional-analysis.html">Hilbert spaces and orthonormal bases</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 2 ──── -->
+<section id="fourier-transform">
+<h2><span class="num">§2.</span> The transform on the line</h2>
+
+<p>Drop the periodicity. For $f \in L^1(\mathbb{R}) \cap L^2(\mathbb{R})$ define</p>
+$$\hat f(\xi) \;=\; \int_{\mathbb{R}} f(t)\, e^{-2\pi i \xi t}\, dt, \qquad f(t) \;=\; \int_{\mathbb{R}} \hat f(\xi)\, e^{2\pi i \xi t}\, d\xi.$$
+<p>Frequency is now continuous; the discrete sum becomes an integral. The two formulas — analysis and synthesis — turn out to be inverses of one another, and the whole machinery extends by density to all of $L^2(\mathbb{R})$. The basic facts that earn Fourier its place at the centre of analysis are these:</p>
+
+<p><strong>Plancherel.</strong> The Fourier transform is a unitary operator on $L^2(\mathbb{R})$:</p>
+$$\langle f, g\rangle_{L^2} \;=\; \langle \hat f, \hat g\rangle_{L^2}.$$
+<p>Lengths and angles are preserved. Energy in time equals energy in frequency.</p>
+
+<p><strong>Convolution becomes multiplication.</strong> If $(f * g)(t) = \int f(s) g(t-s)\, ds$, then $\widehat{f*g} = \hat f \cdot \hat g$. A linear time-invariant system, which on the time side is convolution with an impulse response, is on the frequency side just a multiplication operator. This is why electrical engineers think in frequency: the design of a filter becomes the design of a curve.</p>
+
+<p><strong>Differentiation becomes multiplication.</strong> $\widehat{f'}(\xi) = 2\pi i \xi \cdot \hat f(\xi)$. A differential operator with constant coefficients is, after Fourier transform, a polynomial. The heat equation $\partial_t u = \Delta u$ becomes $\partial_t \hat u = -4\pi^2 |\xi|^2 \hat u$, an ordinary differential equation in $t$ for each $\xi$. This is the right basis for any system whose dynamics commute with translation.</p>
+
+<p>And then there is the rule that haunts everything else: the <strong>uncertainty principle</strong>. For $f \in L^2(\mathbb{R})$ with $\|f\|_2 = 1$, define</p>
+$$\sigma_t^2 \;=\; \int (t - \bar t)^2\, |f(t)|^2\, dt, \qquad \sigma_\xi^2 \;=\; \int (\xi - \bar\xi)^2\, |\hat f(\xi)|^2\, d\xi.$$
+<p>These are the variances of the time and frequency densities $|f|^2$ and $|\hat f|^2$. The Heisenberg–Pauli–Weyl inequality says</p>
+$$\sigma_t \cdot \sigma_\xi \;\ge\; \frac{1}{4\pi},$$
+<p>with equality if and only if $f$ is a Gaussian (and a translation/modulation/rescaling thereof). The proof is one integration by parts and the Cauchy–Schwarz inequality, but the consequence is metaphysical: a function and its transform cannot both be sharply concentrated. Try to localise in time and you spread in frequency; localise in frequency and you spread in time. The Gaussian is the optimal compromise.</p>
+
+<p>This is not a quirk of one normalisation. It is a deep statement about the symplectic geometry of $\mathbb{R}^2_{t,\xi}$ — the time-frequency plane — and the same inequality controls quantum mechanics under the dictionary $\xi \leftrightarrow$ momentum, $t \leftrightarrow$ position. Heisenberg's $\Delta x \cdot \Delta p \ge \hbar/2$ is, mathematically, the same fact dressed in physical units.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./harmonic-analysis-fourier.html#fourier-transform">Fourier transform on $\mathbb{R}^n$</a> · <a href="./harmonic-analysis-fourier.html#convolution">convolution theorem</a> · <a href="./harmonic-analysis-fourier.html#uncertainty">uncertainty widget</a></li>
+    <li><a href="./sobolev-spaces-distributions.html">Sobolev spaces and tempered distributions</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 3 ──── -->
+<section id="time-blindness">
+<h2><span class="num">§3.</span> The time-blindness of pure Fourier</h2>
+
+<p>Return to the cough. Mathematically, model it as a Dirac delta $\delta_{t_0}$ centered at the moment of the cough. Its Fourier transform is</p>
+$$\widehat{\delta_{t_0}}(\xi) \;=\; e^{-2\pi i \xi t_0}.$$
+<p>The <em>magnitude</em> of this transform is the constant function $1$. A perfect transient, a single instant, has its energy spread uniformly across <em>every</em> frequency. Conversely, a perfect tone $e^{2\pi i \xi_0 t}$ — energy at one frequency only — is unlocalised in time, lasting from minus infinity to plus infinity.</p>
+
+<p>So $|f|$ and $|\hat f|$ are dual; a piece of information sharply localised in one is broadly spread in the other. For a recording with a steady tone <em>and</em> a click, the spectrum shows the tone as a clean line and the click as a faint, uniform pedestal on top of it. From the spectrum alone you have no idea <em>when</em> in the recording the click happened.</p>
+
+<p>The first repair is technological and obvious: chop the signal into short windows and compute a Fourier transform on each window. This is the <strong>short-time Fourier transform</strong> (STFT), or windowed Fourier transform, and Dennis Gabor introduced it in 1946 in <em>Theory of Communication</em>. Pick a window function $w$ — a Gaussian works — and define</p>
+$$\mathcal{V}_w f(t, \xi) \;=\; \int_{\mathbb{R}} f(s)\, \overline{w(s - t)}\, e^{-2\pi i \xi s}\, ds.$$
+<p>This is a function of <em>both</em> time and frequency: $\mathcal{V}_w f(t, \xi)$ measures how much frequency-$\xi$ content $f$ has near time $t$. The squared magnitude $|\mathcal{V}_w f|^2$ is the <em>spectrogram</em>, the picture every audio editor draws when you load a sample.</p>
+
+<div class="figure">
+  <svg viewBox="0 0 560 240" width="560" height="240" role="img" aria-label="Spectrogram-style time-frequency plot with sustained tone and a localized click">
+    <title>Spectrogram of a tone with a click</title>
+    <!-- axes -->
+    <line x1="60" y1="200" x2="540" y2="200" stroke="var(--line)" stroke-width="1"/>
+    <line x1="60" y1="30"  x2="60"  y2="200" stroke="var(--line)" stroke-width="1"/>
+    <text x="300" y="225" text-anchor="middle" font-size="12" fill="var(--mute)">time</text>
+    <text x="20"  y="115" font-size="12" fill="var(--mute)" transform="rotate(-90 20 115)">frequency</text>
+    <!-- sustained tone: horizontal band -->
+    <rect x="80" y="118" width="440" height="6" fill="var(--cyan)" opacity="0.85"/>
+    <text x="525" y="116" font-size="10" fill="var(--cyan)" text-anchor="end">tone</text>
+    <!-- harmonics -->
+    <rect x="80" y="84"  width="440" height="3" fill="var(--cyan)" opacity="0.5"/>
+    <rect x="80" y="58"  width="440" height="2.5" fill="var(--cyan)" opacity="0.35"/>
+    <!-- click: vertical bar at one moment, broad in frequency -->
+    <rect x="280" y="40" width="6" height="160" fill="var(--pink)" opacity="0.85"/>
+    <text x="290" y="38" font-size="10" fill="var(--pink)">click</text>
+    <!-- annotations -->
+    <text x="300" y="18" text-anchor="middle" font-size="13" fill="var(--ink)" font-style="italic">
+      time-frequency plane: tones are horizontal, transients are vertical
+    </text>
+  </svg>
+  <div class="caption">Figure 2. The STFT places a signal in the time-frequency plane. A sustained tone is a thin horizontal stripe; a click is a thin vertical one. Pure Fourier collapses both onto a single axis.</div>
+</div>
+
+<p>The STFT solves the localisation problem partially: now you know roughly when the click occurred, namely at the time index where the spectrogram has a vertical streak. But it pays a price. The window $w$ has a fixed width — call it $\Delta t$ — and a fixed bandwidth $\Delta \xi$, and the uncertainty principle binds them: $\Delta t \cdot \Delta \xi \ge 1/(4\pi)$. A narrow window resolves time well but cannot tell apart frequencies closer than $\Delta \xi$. A wide window resolves frequency but smears out fast events. There is no setting of the window that does both. This is the <strong>Heisenberg–Gabor limit</strong>, and it is unforgiving: the time-frequency plane is tiled by rectangles of constant area $\sim 1/(4\pi)$, and you only get to choose their aspect ratio.</p>
+
+<p>For speech this is a real problem. A consonant like /t/ is a fast event of millisecond duration; a sustained vowel rings for a tenth of a second. Fix $\Delta t = 5$ ms and the consonant is sharp but the vowel pitches blur; fix $\Delta t = 50$ ms and the pitches are clean but the consonant smears across half a syllable. We want a representation in which <em>fast features get short windows and slow features get long windows</em> — adaptively. That is exactly what wavelets are.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./wavelets.html#vs-fourier">Heisenberg tiling: STFT vs. wavelet</a> (widget: change the tile aspect ratio)</li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 4 ──── -->
+<section id="haar">
+<h2><span class="num">§4.</span> Haar's accidental wavelet</h2>
+
+<p>The first wavelet was published in 1910, decades before the word existed. Alfréd Haar, a 25-year-old student of Hilbert at Göttingen, was looking for an orthonormal basis of $L^2([0,1])$ alternative to the trigonometric system, one that converged uniformly for continuous functions where Fourier sometimes did not (the Du Bois-Reymond example of a continuous function with divergent Fourier series was fresh). He found it.</p>
+
+<p>The Haar mother wavelet is</p>
+$$\psi(t) \;=\; \begin{cases} +1 & 0 \le t < 1/2,\\ -1 & 1/2 \le t < 1,\\ 0 & \text{otherwise}.\end{cases}$$
+<p>From $\psi$, build a doubly indexed family by dyadic dilation and integer translation:</p>
+$$\psi_{j,k}(t) \;=\; 2^{j/2}\,\psi(2^j t - k), \qquad j \in \mathbb{Z}, \; k \in \mathbb{Z}.$$
+<p>The factor $2^{j/2}$ is an $L^2$-normalisation: every $\psi_{j,k}$ has norm $1$. Together with the constant function $\mathbf{1}_{[0,1]}$, these form an <strong>orthonormal basis of $L^2(\mathbb{R})$</strong>. That this works is a beautiful elementary fact: distinct $\psi_{j,k}$ either have disjoint support (same scale, different translates) or one's support sits inside a half of the other's where the larger is constant (so the integral against the smaller cancels). Orthogonality is a one-line picture.</p>
+
+<p>What sets Haar apart from Fourier is that <em>every basis element is a translated and rescaled copy of one fundamental shape</em>. Trigonometric functions are translates of each other but not rescales — they all have the same support, all of $[0,1]$. Haar elements have nested supports of length $2^{-j}$, and the index $(j,k)$ tells you both the <em>scale</em> $2^{-j}$ and the <em>position</em> $k \cdot 2^{-j}$ of the basis element. The time-frequency tile of $\psi_{j,k}$ is short in time and tall in frequency for large $j$ (fine scale, high "frequency"), and tall in time and short in frequency for $j$ small. The aspect ratio adapts.</p>
+
+<p>Hidden inside this construction is the <strong>multiresolution structure</strong>. Define</p>
+$$V_j \;=\; \overline{\mathrm{span}\{\,\mathbf{1}_{[k \cdot 2^{-j},\, (k+1) \cdot 2^{-j}]} : k \in \mathbb{Z}\,\}},$$
+<p>the space of functions piecewise constant on dyadic intervals of length $2^{-j}$. Then</p>
+$$\cdots \subset V_{-1} \subset V_0 \subset V_1 \subset V_2 \subset \cdots, \qquad \overline{\bigcup_j V_j} = L^2(\mathbb{R}), \qquad \bigcap_j V_j = \{0\}.$$
+<p>Each $V_{j+1}$ contains $V_j$ — finer approximations refine coarser ones — and the orthogonal complement $W_j = V_{j+1} \ominus V_j$ is exactly the span of $\{\psi_{j,k}\}_k$. The Haar wavelets at scale $j$ <em>are</em> the detail you would lose if you projected from the fine grid $V_{j+1}$ onto the coarse grid $V_j$. Approximation plus detail equals the next level up: signal analysis as repeated zoom-out.</p>
+
+<p>Haar's basis is sharp — its elements are step functions, discontinuous — and the price is that smooth signals do not have nicely decaying Haar coefficients. But the architecture is exactly right. It would take seventy-five years to figure out how to make it smooth.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./wavelets.html#haar">Haar coefficients</a> · <a href="./wavelets.html#multiresolution">Multiresolution analysis (MRA)</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 5 ──── -->
+<section id="daubechies">
+<h2><span class="num">§5.</span> Daubechies and the smooth orthonormal wavelets</h2>
+
+<p>From the late 1970s to the mid-1980s a wave of activity reinvented Haar's idea on three different beaches at once. Jean Morlet, a French petroleum engineer, was processing seismic reflection data and wanted basis functions of variable width; he started using "wavelets of constant shape" — the term <em>ondelette</em> stuck. Yves Meyer, in pure analysis, constructed the first orthonormal wavelets that were <em>smooth</em> (in $C^\infty$) and rapidly decaying. Stéphane Mallat, then a graduate student in computer vision, wrote down the abstract definition of multiresolution analysis that unified all of it. The synthesis was visible by 1986.</p>
+
+<p>The unsolved technical problem was: can you build an orthonormal wavelet that is both <em>compactly supported</em> (good for fast computation) and <em>smooth</em> (good for representing smooth signals)? Haar is compactly supported but discontinuous; Meyer's are smooth but supported on all of $\mathbb{R}$. In 1988, Ingrid Daubechies — a Belgian physicist by training, then at Bell Labs — solved it.</p>
+
+<p>The construction is genuinely surprising. Daubechies showed that a multiresolution analysis is determined by a <strong>scaling function</strong> $\varphi$, which spans $V_0$ via its integer translates, satisfying a refinement equation</p>
+$$\varphi(t) \;=\; \sqrt 2 \sum_k h_k\, \varphi(2t - k)$$
+<p>for a sequence of coefficients $\{h_k\}$. The wavelet is then</p>
+$$\psi(t) \;=\; \sqrt 2 \sum_k g_k\, \varphi(2t - k), \qquad g_k = (-1)^k h_{1-k}.$$
+<p>The coefficients $\{h_k\}$ form a discrete filter — a low-pass filter, in signal-processing language. The condition that $\{\varphi(t - k)\}$ is orthonormal becomes a condition on $\{h_k\}$: the filter must be a <strong>quadrature mirror filter</strong>, satisfying $\sum_k h_k h_{k+2\ell} = \delta_{\ell,0}$. Compactness of support translates to <em>finitely many</em> nonzero $h_k$; smoothness translates to <em>vanishing moments</em>: $\int t^m \psi(t)\, dt = 0$ for $m = 0, 1, \dots, p-1$. More vanishing moments means the wavelet is "blind" to polynomial trends and concentrates its sensitivity on departures from polynomial behaviour — exactly what you want for compression.</p>
+
+<p>Daubechies's tour de force was to show that for every $p \ge 1$ there is a finite filter $\{h_k\}_{k=0}^{2p-1}$ producing an orthonormal compactly-supported wavelet with $p$ vanishing moments. The case $p=1$ recovers Haar; $p=2$ gives the Daubechies <em>db2</em> wavelet, supported on an interval of length 3, $C^{0.55}$-Hölder, with two vanishing moments. As $p$ grows so do support length and smoothness, roughly linearly. The wavelet itself has no closed form — it is the fixed point of an iterated function system driven by the filter — but that does not matter, because everything one ever <em>computes</em> with wavelets is computed in terms of the filter coefficients.</p>
+
+<p>That last point is the engineering miracle. Mallat's <strong>fast wavelet transform</strong> takes a signal of length $N$ and produces all wavelet coefficients $\langle f, \psi_{j,k}\rangle$ in $O(N)$ operations — faster than the FFT's $O(N \log N)$, achieved by repeatedly applying a pair of filters and downsampling. The cascade looks like:</p>
+$$f \;\longrightarrow\; (\text{low-pass}, \text{high-pass}) \;\longrightarrow\; \big(\text{coarse approximation}, \text{wavelet detail}\big),$$
+<p>and you recurse on the coarse half. Each level halves the size; the total work is geometric. A two-megapixel image becomes a wavelet decomposition in milliseconds.</p>
+
+<div class="note">
+The Daubechies wavelets settled a foundational question and simultaneously gave engineers a drop-in replacement for the discrete cosine transform. Within a decade they were embedded in industrial standards.
+</div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./wavelets.html#daubechies">Daubechies family</a> (widget: vanishing-moments parameter) · <a href="./wavelets.html#dwt">Fast wavelet transform pyramid</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 6 ──── -->
+<section id="why-jpeg2000">
+<h2><span class="num">§6.</span> Why JPEG 2000 won</h2>
+
+<p>An image is a function $f: [0,1]^2 \to [0, 255]$, sampled on a pixel grid. The original JPEG codec (1992) represented each $8 \times 8$ block of pixels in a discrete-cosine basis, quantised the coefficients, and Huffman-coded the result. JPEG works astonishingly well on natural photographs — but at high compression ratios, block boundaries become visible, edges acquire ringing artefacts (the Gibbs phenomenon, alive and well in two dimensions), and the result is a particular flavour of digital ugliness that an entire generation grew to recognise as "compressed."</p>
+
+<p>The reason JPEG fails at edges is the reason Fourier fails at clicks. An edge is a localised discontinuity. In the cosine basis, an edge is a smear: many coefficients are needed to reconstruct it, and quantising any of them produces ringing. Wavelets are different: at each scale, only the wavelet coefficients <em>spatially overlapping</em> the edge are large; the others are small. The wavelet decomposition of a natural image is <strong>sparse</strong> — a small number of large coefficients near edges and textures, a great many tiny ones in smooth regions. Sparsity is the goal of every compression scheme: throw away small coefficients, keep large ones, encode efficiently. Wavelets deliver it because their basis matches the actual structure of image data.</p>
+
+<p>JPEG 2000 (2000) is a wavelet codec. It uses a biorthogonal Daubechies-style wavelet (the Cohen–Daubechies–Feauveau 9/7 wavelet for lossy mode, the Le Gall 5/3 for lossless), applies the fast wavelet transform to the entire image rather than to $8 \times 8$ blocks, and quantises the resulting tree of coefficients with a bit-plane coder. At equivalent file sizes JPEG 2000 produces images visibly free of block artefacts and with markedly cleaner edges. It became the standard for digital cinema (DCI mandates JPEG 2000 per frame), satellite imagery, and the FBI's compressed fingerprint database — applications where artefacts are unacceptable. Consumer photography stuck with classic JPEG for backwards-compatibility reasons, not technical ones.</p>
+
+<p>Wavelets won wherever <em>edges and textures matter more than smooth regions</em>, which is to say everywhere except low-bandwidth telephony. The principle is general: orthonormal bases are not all created equal, and the right basis for a signal depends on the regularity structure of that signal. Smooth periodic data wants Fourier. Piecewise smooth data with edges wants wavelets. Sparse data on a graph wants graph wavelets or diffusion wavelets. The notion of an <em>adapted basis</em>, chosen to match the geometry of the data class, has become a foundational principle of modern signal and image processing.</p>
+
+<p>And modern machine learning. The first convolutional layer of a vision model trained on natural images learns filters that look uncannily like Gabor wavelets — oriented edge detectors at multiple scales. The reason is the same as the reason JPEG 2000 won: the structure of natural images is sparse in a wavelet-like basis, and any unbiased estimator of that structure, faced with enough data, rediscovers it. Stéphane Mallat's <em>scattering transform</em> makes this explicit: a feedforward network with fixed wavelet filters and pointwise nonlinearities is provably stable to deformations and serves as a strong baseline for image classification. The first layer of every modern vision transformer is, conceptually, a wavelet bank with learned weights.</p>
+</section>
+
+<!-- ───────────────────────────────────────────── § 7 ──── -->
+<section id="coda">
+<h2><span class="num">§7.</span> Coda — the right adapted basis</h2>
+
+<p>The arc of this story is not "Fourier was wrong." Fourier was, and is, the right basis for any system whose dynamics commute with translation — the heat equation, the wave equation, periodic phenomena, and the spectrum of harmonic oscillators. What we learned across the twentieth century is that <em>which basis is right depends on the problem</em>, and that for signals with localised features the right basis is one whose elements are themselves localised. Wavelets are one family of such bases; curvelets and shearlets, designed to track edge geometry in higher dimensions, are another; <em>tight frames</em>, which relax the orthonormality requirement, give yet more flexibility.</p>
+
+<p>The deep statement is geometric. The time-frequency plane $\mathbb{R}^2_{t,\xi}$ is a symplectic manifold; a "time-frequency atom" is a function whose phase-space concentration is bounded below by Heisenberg. An orthonormal basis of $L^2(\mathbb{R})$ corresponds to a tiling of this plane by atoms of essentially constant phase-space area. Fourier tiles by horizontal stripes (constant frequency, all of time); STFT tiles by rectangles of fixed aspect; wavelets tile by rectangles whose aspect varies with scale — short and wide at coarse scales, tall and narrow at fine scales. Each tiling answers a different question, and the answers differ because the questions do.</p>
+
+<blockquote>The story of harmonic analysis in the twentieth century is the story of choosing — and constructing — bases adapted to the phenomenon you are trying to describe. Fourier was the first such choice; he is not the last.</blockquote>
+
+<p>Haar wrote down the first wavelet basis in 1910 and did not think it deserved a second paper. Daubechies wrote down the smooth compactly supported family in 1988 and watched the standard for digital cinema get built around it twelve years later. The lesson, perhaps, is that an orthonormal basis is a very small object — a sequence of functions — and yet which sequence you pick decides what you can see.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./wavelets.html#applications">Wavelets in image denoising</a> (widget: noisy signal vs. wavelet-shrinkage reconstruction)</li>
+    <li><a href="./harmonic-analysis-fourier.html">Harmonic analysis &amp; Fourier transform</a> · <a href="./functional-analysis.html">Functional analysis &amp; Hilbert spaces</a></li>
+    <li><a href="./tours.html#sound-to-wavelets">Tour 5: From sound to wavelets</a></li>
+  </ul>
+</aside>
+</section>
+
+<hr class="endrule"/>
+
+<p class="colophon">
+What changes between Haar in 1910 and Daubechies in 1988 is not the architecture — multiresolution, dyadic scaling, integer translation — but the technical control. Haar's elements are step functions that match no real signal; Daubechies's are smooth enough to represent natural images, sharp enough to localise edges, and supported on intervals short enough to compute. The intervening seventy-eight years are the time it took to learn that the right way to build a basis was not by writing down functions but by writing down filters, and that orthonormality of the basis is equivalent to a quadrature condition on the filter. Once that translation was made the construction became, in a sense, mechanical. The hard part was knowing what to build.
+</p>
+
+<h3>Further reading</h3>
+<ol class="refs">
+  <li>I. Daubechies, <em>Ten Lectures on Wavelets</em>, CBMS-NSF Regional Conference Series, SIAM, 1992. The canonical reference, written by the architect.</li>
+  <li>S. Mallat, <em>A Wavelet Tour of Signal Processing</em>, 3rd ed., Academic Press, 2008. The bridge between mathematics and engineering practice.</li>
+  <li>Y. Meyer, <em>Wavelets and Operators</em>, Cambridge Studies in Advanced Mathematics 37, 1992. The pure-analysis viewpoint.</li>
+  <li>A. Haar, "Zur Theorie der orthogonalen Funktionensysteme," <em>Math. Annalen</em> 69 (1910), 331–371. The original paper.</li>
+  <li>I. Daubechies, "Orthonormal bases of compactly supported wavelets," <em>Comm. Pure Appl. Math.</em> 41 (1988), 909–996. The breakthrough.</li>
+  <li>S. Mallat, "A theory for multiresolution signal decomposition: the wavelet representation," <em>IEEE Trans. PAMI</em> 11 (1989), 674–693. The MRA framework as engineers met it.</li>
+  <li>D. Gabor, "Theory of communication," <em>J. Inst. Electrical Engineers</em> 93 (1946), 429–457. The origin of the STFT and the time-frequency uncertainty story.</li>
+  <li>E. M. Stein and R. Shakarchi, <em>Fourier Analysis: An Introduction</em>, Princeton, 2003. The most readable graduate-level Fourier text.</li>
+  <li>S. Mallat, "Group invariant scattering," <em>Comm. Pure Appl. Math.</em> 65 (2012), 1331–1398. The modern bridge between wavelets and deep learning.</li>
+</ol>
+
+</main>
+
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-04</td><td>capstone-sound-to-wavelets-story.html: long-form essay companion to Tour 5 (this page)</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>
