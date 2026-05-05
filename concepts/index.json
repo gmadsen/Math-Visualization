@@ -4,6 +4,7 @@
     "motives",
     "algebraic-k-theory-foundations",
     "model-categories",
+    "condensed-mathematics",
 
     "hodge-theory",
 
@@ -197,6 +198,7 @@
     "derived-categories": "standard",
     "algebraic-k-theory-foundations": "advanced",
     "model-categories": "advanced",
+    "condensed-mathematics": "capstone",
     "cocartesian-fibrations": "standard",
     "group-cohomology": "standard",
     "real-analysis": "prereq",

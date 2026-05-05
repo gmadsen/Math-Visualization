@@ -1576,6 +1576,132 @@ window.__MVWidgets = [
     "exampleScript": null
   },
   {
+    "slug": "cm-analytic-rings",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "cm-analytic-rings widget params",
+    "description": "Bespoke verbatim-renderer slug for the Analytic-ring zoo (condensed / solid / liquid frameworks) widget on the condensed-mathematics topic. Carries opaque bodyMarkup + bodyScript strings.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "\"Analytic ring zoo: condensed/solid/liquid frameworks\" picker for `condensed-mathematics.html`. Verbatim-renderer slug; markup and driving script carried as opaque strings via `params.bodyMarkup` / `params.bodyScript`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "cm-liquid-tensor",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "cm-liquid-tensor widget params",
+    "description": "Bespoke verbatim-renderer slug for the Classical projective vs liquid tensor product (parameterised) widget on the condensed-mathematics topic. Carries opaque bodyMarkup + bodyScript strings.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "\"Classical projective vs liquid tensor\" parameterised comparison for `condensed-mathematics.html`. Verbatim-renderer slug; markup and driving script carried as opaque strings via `params.bodyMarkup` / `params.bodyScript`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "cm-lte",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "cm-lte widget params",
+    "description": "Bespoke verbatim-renderer slug for the Liquid Tensor Experiment timeline / milestone explorer widget on the condensed-mathematics topic. Carries opaque bodyMarkup + bodyScript strings.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "\"Liquid Tensor Experiment timeline\" milestone explorer for `condensed-mathematics.html`. Verbatim-renderer slug; markup and driving script carried as opaque strings via `params.bodyMarkup` / `params.bodyScript`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "cm-snake",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "cm-snake widget params",
+    "description": "Bespoke verbatim-renderer slug for the Snake-lemma comparison: Cond(Ab) vs topological Ab widget on the condensed-mathematics topic. Carries opaque bodyMarkup + bodyScript strings.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "\"Snake lemma in Cond(Ab) vs topological Ab\" demonstrator for `condensed-mathematics.html`. Verbatim-renderer slug; markup and driving script carried as opaque strings via `params.bodyMarkup` / `params.bodyScript`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "cm-solid-test",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "cm-solid-test widget params",
+    "description": "Bespoke verbatim-renderer slug for the Solidity test for the comparison map alpha_S widget on the condensed-mathematics topic. Carries opaque bodyMarkup + bodyScript strings.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "\"Solidity test alpha_S\" comparison for `condensed-mathematics.html`. Verbatim-renderer slug; markup and driving script carried as opaque strings via `params.bodyMarkup` / `params.bodyScript`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
+    "slug": "cm-yoneda",
+    "family": "verbatim",
+    "dimension": "2d",
+    "gesture": "click",
+    "role": "interactive",
+    "title": "cm-yoneda widget params",
+    "description": "Bespoke verbatim-renderer slug for the Topological-space-to-condensed-set Yoneda probe widget on the condensed-mathematics topic. Carries opaque bodyMarkup + bodyScript strings.",
+    "requiredParams": [
+      "widgetId",
+      "title",
+      "hint",
+      "bodyMarkup",
+      "bodyScript"
+    ],
+    "readmeExcerpt": "\"Topological space to condensed set\" Yoneda probe for `condensed-mathematics.html`. Verbatim-renderer slug; markup and driving script carried as opaque strings via `params.bodyMarkup` / `params.bodyScript`.",
+    "hasExample": false,
+    "exampleParams": null,
+    "exampleMarkup": null,
+    "exampleScript": null
+  },
+  {
     "slug": "cnt-bu",
     "family": "verbatim",
     "dimension": "2d",
