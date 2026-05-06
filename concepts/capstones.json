@@ -197,6 +197,13 @@
       "blurb": "Buchberger's algorithm + lex elimination turns any polynomial system in $k[x_1,\\dots,x_n]$ into a triangular shape solvable by back-substitution, and recovers implicit equations of parametrized varieties. The computational capstone of commutative algebra."
     },
     {
+      "id": "capstone-liquid-tensor-experiment",
+      "section": "Algebra & homological",
+      "title": "Liquid Tensor Experiment",
+      "goal": "cm-liquid-tensor-experiment",
+      "blurb": "Clausen–Scholze's $p$-liquid Ext-vanishing $\\mathrm{Ext}^i_{\\mathrm{Cond}(\\mathbb R)}(M_{p'}, V) = 0$ — the homological cornerstone of liquid theory, and the first major theorem actively doubted by its own author that the formal-methods community verified in Lean. The capstone where condensed mathematics meets formal verification."
+    },
+    {
       "id": "capstone-branes-string-math",
       "section": "Mathematical physics",
       "title": "Branes and the math output of string theory",
@@ -223,6 +230,13 @@
       "title": "Quantum field theory and the Standard Model",
       "goal": "qft-gauge-fields",
       "blurb": "Operator-valued fields on Fock space + path integral + Feynman diagrams + renormalization-group flow + gauged $\\mathrm{SU}(3)\\times\\mathrm{SU}(2)\\times\\mathrm{U}(1)$ with the Higgs mechanism — the framework that produces every Standard-Model prediction tested at the LHC, LEP, and precision-frontier experiments."
+    },
+    {
+      "id": "capstone-condensed-mathematics",
+      "section": "Algebra & homological",
+      "title": "Condensed mathematics: from condensed sets to liquid $\\mathbb{R}$-vector spaces",
+      "goal": "cm-liquid-vector-spaces",
+      "blurb": "Clausen–Scholze's reframing of topology: replace topological spaces with sheaves on the pro-étale site of a point, recovering an honest abelian category for completed topological abelian groups. Walk the arc from condensed sets through solid abelian groups to liquid $\\mathbb{R}$-vector spaces — the construction whose homological cornerstone (the Liquid Tensor theorem) became the first research-frontier result formalised in Lean. The narrower formalisation-event capstone is `capstone-liquid-tensor-experiment`."
     }
   ]
 }

@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Abelian-in-stages, from radicals to motives</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,"Charter","Georgia",serif;
+    font-size:17px;line-height:1.72}
+  main{max-width:780px;margin:0 auto;padding:3rem 1.5rem 7rem}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  h1{font-size:2.3rem;letter-spacing:-0.01em;margin:0 0 0.4rem;font-weight:650}
+  h2{font-size:1.45rem;margin:3rem 0 0.7rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.35rem;font-weight:600}
+  h2 .num{color:var(--violet);font-variant-numeric:tabular-nums;margin-right:.45rem;font-weight:500}
+  h3{font-size:1.08rem;margin:1.6rem 0 .5rem;color:var(--violet);font-weight:600}
+  p{margin:0.8rem 0}
+  blockquote{border-left:3px solid var(--violet);padding:.2rem 1rem;margin:1.2rem 0;color:#d8d2ef;
+    background:#1a1828;border-radius:0 6px 6px 0;font-style:italic}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:1.4rem;font-size:1.05rem;line-height:1.55}
+  .lede{font-size:1.05rem;line-height:1.7;color:#dde3ec;margin:1.4rem 0 1.8rem}
+  .lede::first-letter{
+    float:left;font-size:3.1rem;line-height:.95;
+    padding:.15rem .45rem 0 0;color:var(--violet);font-weight:700;font-family:"Charter","Georgia",serif;
+  }
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.55rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.88rem;align-items:baseline}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--violet)}
+  nav.toc .spacer{flex:1}
+  nav.toc .story-pill{color:var(--violet);border:1px solid color-mix(in srgb, var(--violet) 45%, transparent);
+    border-radius:999px;padding:1px 10px;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase}
+  .hero{padding:2.4rem 0 .4rem}
+  .byline{color:var(--mute);font-size:.88rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.6rem}
+  .figure{margin:1.6rem 0 2rem;text-align:center}
+  .figure svg{display:block;margin:0 auto;max-width:100%;
+    background:#0b0f16;border:1px solid var(--line);border-radius:8px}
+  .figure svg text{fill:var(--ink);font-family:inherit}
+  .caption{color:var(--mute);font-size:.88rem;margin-top:.5rem;line-height:1.5;font-style:italic;
+    max-width:560px;margin-left:auto;margin-right:auto}
+  .note{border-left:3px solid var(--violet);padding:.35rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0;font-size:.96rem;line-height:1.6}
+  .ok{border-left:3px solid var(--green);padding:.35rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0;font-size:.96rem;line-height:1.6}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(179,157,219,0.06);
+    border-left:3px solid color-mix(in srgb, var(--violet) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2.5rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute);white-space:nowrap;font-variant-numeric:tabular-nums}
+  .endrule{border:none;border-top:1px solid var(--line);margin:2.4rem 0 1rem}
+  .colophon{color:var(--mute);font-size:.88rem;line-height:1.55;font-style:italic}
+  ol.refs{padding-left:1.3rem;color:var(--mute);font-size:.9rem;line-height:1.55}
+  ol.refs li{margin:.25rem 0}
+</style>
+<link rel="stylesheet" href="./css/notebook.css">
+<script src="./js/theme-toggle.js"></script>
+</head>
+<body data-level="capstone" data-c="violet">
+
+<nav class="toc">
+  <a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="./tours.html#solvability-arc">Tour 7</a>
+  <a href="./galois.html">Galois</a>
+  <a href="./motives.html">Motives</a>
+  <span class="spacer"></span>
+  <span class="story-pill">story</span>
+</nav>
+
+<main>
+
+<section class="hero">
+  <div class="byline">An essay on a structural pattern</div>
+  <h1>Abelian-in-stages, from radicals to motives</h1>
+  <p class="sub">Solvability is one structural pattern wearing many costumes. It begins with the impossibility of solving the quintic by radicals and ends, six refinements later, in the conjectural shape of the motivic Galois group. The thread connecting them is the same every time: a thing built from abelian pieces in finitely many stages.</p>
+</section>
+
+<p class="lede">There is a kind of theorem that mathematicians return to with surprising regularity, often without noticing they are returning. It says: <em>this complicated object decomposes into stages, and each stage is something the theory has already mastered.</em> The first time most students meet this pattern is in Galois theory, when Évariste Galois — at the age of twenty, in a letter written the night before he died in a duel — explains why nobody can solve the general quintic with arithmetic and root extractions. The structural reason has nothing to do with quintics. It has to do with a property of finite groups called <em>solvability</em>, and that property turns out to recur, with the same shape and the same explanatory force, across most of modern mathematics. This essay traces six of its appearances.</p>
+
+<p>It is a companion to <a href="./tours.html#solvability-arc">Tour 7</a> in the notebook, which lays out the same arc as a sequence of stops with figures. Here we stay with the prose.</p>
+
+<!-- ───────────────────────────────────────────── § 1 ──── -->
+<section id="galois-tower">
+<h2><span class="num">§1.</span> The Galois solvability tower</h2>
+<p>Take a polynomial $f \in \mathbb{Q}[x]$ — say $x^5 - 4x + 2$, a stand-in for the generic quintic — and ask the seventeenth-century question: is there a closed-form expression for its roots, using only the field operations and root extractions $\sqrt[n]{\,\cdot\,}$? The Cardano and Ferrari formulas of the 1500s say yes for degrees up to four. After two and a half centuries of failed extensions to degree five, Niels Henrik Abel proved in 1824 that no such formula can exist for the generic quintic, and Galois — independently, with a far more conceptual proof — gave the structural reason a few years later.</p>
+
+<p>The argument runs through a translation. To $f$ Galois associates a finite group, the <em>Galois group</em> $G = \mathrm{Gal}(L/\mathbb{Q})$ of the splitting field $L$ over $\mathbb{Q}$. Field-theoretic constructions on the $L$-side correspond to subgroup-theoretic constructions on the $G$-side, by what we now call the Galois correspondence. In particular, building $L$ as a tower of radical extensions
+$$\mathbb{Q} = K_0 \subset K_1 \subset K_2 \subset \cdots \subset K_n = L, \qquad K_{i+1} = K_i(\sqrt[m_i]{a_i}),$$
+corresponds, on the group side, to a chain of subgroups
+$$\{e\} = G_n \trianglelefteq G_{n-1} \trianglelefteq \cdots \trianglelefteq G_0 = G$$
+in which each successive quotient $G_i / G_{i+1}$ is cyclic — and (for finite groups) cyclic suffices to deduce abelian, and abelian suffices to refine back to cyclic of prime order. A group admitting such a chain of normal subgroups with abelian quotients is called <strong>solvable</strong>.</p>
+
+<div class="ok">
+  <strong>Abel–Ruffini–Galois.</strong> A polynomial $f \in \mathbb{Q}[x]$ is solvable by radicals if and only if its Galois group $\mathrm{Gal}(L/\mathbb{Q})$ is a solvable group.
+</div>
+
+<p>Now the question "can I solve $f$ by radicals?" becomes "is its Galois group solvable?" — which is finite group theory, a place where one can actually answer questions. For degree 4 the answer is yes: the symmetric group $S_4$ has the chain
+$$\{e\} \trianglelefteq V_4 \trianglelefteq A_4 \trianglelefteq S_4$$
+with quotients $V_4 \cong (\mathbb{Z}/2)^2$, $A_4/V_4 \cong \mathbb{Z}/3$, $S_4/A_4 \cong \mathbb{Z}/2$ — all abelian. So every quartic is solvable by radicals, and the Ferrari formula is its explicit unwinding.</p>
+
+<p>For degree 5 the situation collapses. The alternating group $A_5$ is <em>simple</em> — it has no nontrivial normal subgroups — and it is non-abelian. Any chain of normal subgroups of $S_5$ that descends from $S_5$ must therefore stop at $A_5$ on the way to $\{e\}$, with a non-abelian simple jump $A_5 \to \{e\}$ that has no further refinement. The chain terminates without ever becoming abelian. The generic quintic — whose Galois group is exactly $S_5$ over $\mathbb{Q}(a_1, \ldots, a_5)$ — is therefore <em>not</em> solvable by radicals.</p>
+
+<div class="figure">
+  <svg viewBox="0 0 560 220" width="560" height="220" role="img" aria-label="Solvable chain for S_4 versus jammed chain for S_5">
+    <title>Solvability chains: S_4 (refines to abelian) vs S_5 (stops at A_5)</title>
+    <!-- S_4 chain on the left -->
+    <g transform="translate(40 30)">
+      <text x="100" y="-6" text-anchor="middle" font-size="13" fill="var(--violet)">S_4 — solvable</text>
+      <g font-size="13" fill="var(--ink)">
+        <text x="20" y="20">{e}</text>
+        <text x="20" y="60">V_4</text>
+        <text x="20" y="100">A_4</text>
+        <text x="20" y="140">S_4</text>
+      </g>
+      <line x1="60" y1="16" x2="120" y2="16" stroke="var(--mute)" stroke-dasharray="2 3"/>
+      <line x1="60" y1="56" x2="120" y2="56" stroke="var(--mute)" stroke-dasharray="2 3"/>
+      <line x1="60" y1="96" x2="120" y2="96" stroke="var(--mute)" stroke-dasharray="2 3"/>
+      <line x1="60" y1="136" x2="120" y2="136" stroke="var(--mute)" stroke-dasharray="2 3"/>
+      <g font-size="11" fill="var(--green)">
+        <text x="170" y="40" text-anchor="middle">V_4 ≅ (Z/2)²</text>
+        <text x="170" y="80" text-anchor="middle">Z/3</text>
+        <text x="170" y="120" text-anchor="middle">Z/2</text>
+      </g>
+    </g>
+    <!-- S_5 chain on the right -->
+    <g transform="translate(320 30)">
+      <text x="100" y="-6" text-anchor="middle" font-size="13" fill="var(--pink)">S_5 — not solvable</text>
+      <g font-size="13" fill="var(--ink)">
+        <text x="20" y="20">{e}</text>
+        <text x="20" y="80">A_5</text>
+        <text x="20" y="140">S_5</text>
+      </g>
+      <line x1="60" y1="16" x2="120" y2="16" stroke="var(--mute)" stroke-dasharray="2 3"/>
+      <line x1="60" y1="76" x2="120" y2="76" stroke="var(--mute)" stroke-dasharray="2 3"/>
+      <line x1="60" y1="136" x2="120" y2="136" stroke="var(--mute)" stroke-dasharray="2 3"/>
+      <g font-size="11">
+        <text x="170" y="50" text-anchor="middle" fill="var(--pink)" font-style="italic">A_5 simple, non-abelian</text>
+        <text x="170" y="120" text-anchor="middle" fill="var(--green)">Z/2</text>
+      </g>
+    </g>
+    <text x="280" y="200" text-anchor="middle" font-size="12" fill="var(--mute)" font-style="italic">
+      a chain that refines to abelian quotients exists for $S_4$, fails for $S_5$
+    </text>
+  </svg>
+  <div class="caption">Figure 1. The solvability chain for $S_4$ refines all the way to abelian quotients; for $S_5$ it jams against the simple non-abelian $A_5$. The quintic's irreducibility is a group-theoretic fact in disguise.</div>
+</div>
+
+<p>What is striking is that "solvable by radicals" — a question about closed-form expressions and nested square roots — has been replaced by "solvable group" — a question about whether you can iteratively quotient out commutators until you reach the identity. The two senses of "solvable" are not just analogous; they are the same theorem, projected onto two faces. And once you have the second sense, you stop caring about radicals.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./galois.html#solvable">Solvable extensions on the Galois page</a></li>
+    <li><a href="./galois.html#quintic">Why the quintic resists</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 2 ──── -->
+<section id="derived-series">
+<h2><span class="num">§2.</span> The derived series of a group</h2>
+<p>The chain of normal subgroups Galois used is not unique — many such chains can witness solvability for the same group. There is, however, a canonical one. For a group $G$, define the <em>commutator subgroup</em>
+$$G' = [G, G] = \langle\, [x, y] = xyx^{-1}y^{-1} \,:\, x, y \in G \,\rangle.$$
+This is the smallest normal subgroup such that $G / G'$ is abelian. So $G'$ measures exactly how far $G$ is from being commutative. Iterate:
+$$G^{(0)} = G, \qquad G^{(n+1)} = [G^{(n)}, G^{(n)}].$$
+This is the <strong>derived series</strong>. Each successive quotient $G^{(n)} / G^{(n+1)}$ is, by construction, abelian.</p>
+
+<p>The derived series is canonical — it doesn't depend on choices — and it gives an alternative characterization of solvability that is sometimes more useful than the existence of <em>some</em> normal chain.</p>
+
+<div class="ok">
+  <strong>Equivalent definition.</strong> A group $G$ is solvable iff its derived series terminates: $G^{(n)} = \{e\}$ for some $n \ge 0$.
+</div>
+
+<p>The smallest such $n$ is the <em>derived length</em> of $G$. Abelian groups have derived length $0$ (or $1$, depending on convention). Symmetric groups $S_3, S_4$ have derived length 2, 3 respectively. The derived length is finite for solvable groups and infinite — the chain stalls and never reaches the identity — for non-solvable ones.</p>
+
+<p>Picture the derived series as a peeling. Each step strips the abelianizable layer off $G$, leaving the residue $G^{(n+1)}$ that is "more non-commutative" than what was peeled. Solvability is the assertion that this peeling exhausts the group: every commutator is generated by deeper commutators, which are generated by yet deeper ones, until at last there are no more to generate. The non-commutative part is, in this precise sense, finitely deep.</p>
+
+<p>The slogan we want to carry forward is this. Call a structure <em>abelian-in-stages</em> if it can be built, in finitely many extensions, from objects in some "abelian" subcategory of the theory. Solvable groups are the abelian-in-stages members of $\mathbf{Grp}$. Each subsequent section of this essay will exhibit a different category and a different "abelian," and find the same pattern repeating.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./group-cohomology.html#h2">$H^2(G,A)$ and central extensions</a> — what twists a chain step</li>
+    <li><a href="./galois.html#solvable">Solvability on the Galois page</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 3 ──── -->
+<section id="solvable-lie">
+<h2><span class="num">§3.</span> Solvable Lie algebras</h2>
+<p>Replace finite groups by Lie algebras over a field $k$ of characteristic zero. The structural template carries over verbatim. Given a Lie algebra $\mathfrak{g}$, define the <em>derived ideal</em> $\mathfrak{g}' = [\mathfrak{g}, \mathfrak{g}]$, iterate to get $\mathfrak{g}^{(n+1)} = [\mathfrak{g}^{(n)}, \mathfrak{g}^{(n)}]$, and call $\mathfrak{g}$ <strong>solvable</strong> if some $\mathfrak{g}^{(n)} = 0$. The successive abelian quotients are now abelian Lie algebras — vector spaces with the trivial bracket.</p>
+
+<p>This is more than a verbal analogy. The basic theorems align in a way that suggests the same structural skeleton.</p>
+
+<p><strong>Lie's theorem.</strong> If $\mathfrak{g}$ is a solvable Lie subalgebra of $\mathfrak{gl}(V)$ on a finite-dimensional vector space $V$ over an algebraically closed field of characteristic zero, then there is a basis of $V$ in which every element of $\mathfrak{g}$ is upper-triangular. In other words, $V$ admits a flag $0 = V_0 \subset V_1 \subset \cdots \subset V_n = V$ with each $V_i$ stable under $\mathfrak{g}$, and on each $V_i / V_{i-1}$ the action is by a single linear functional $\lambda_i \colon \mathfrak{g} \to k$. Solvability of the algebra implies the existence of a complete flag on the representation.</p>
+
+<p>This is the Lie-theoretic incarnation of "abelian-in-stages": the action of $\mathfrak{g}$ on $V$ <em>literally</em> decomposes into a chain of one-dimensional pieces, each of which is an abelian (in fact one-dimensional) representation. The proof is a clean induction on the derived series. It fails in characteristic $p$, where a celebrated counterexample of Jacobson shows that solvable subalgebras of $\mathfrak{gl}(V)$ need not be triangularizable; characteristic zero is essential to keep the abelianization on a leash.</p>
+
+<p><strong>Levi–Mal'cev decomposition.</strong> Every finite-dimensional Lie algebra $\mathfrak{g}$ over a field of characteristic zero contains a unique maximal solvable ideal, called the <em>radical</em> $\mathfrak{r}$. The quotient $\mathfrak{g} / \mathfrak{r}$ is <em>semisimple</em> — built from simple Lie algebras the way a finite group's composition series is built from finite simple groups. Levi's theorem then asserts that this short exact sequence
+$$0 \to \mathfrak{r} \to \mathfrak{g} \to \mathfrak{g}/\mathfrak{r} \to 0$$
+splits: there is a semisimple Lie subalgebra $\mathfrak{s} \subset \mathfrak{g}$ such that $\mathfrak{g} = \mathfrak{s} \ltimes \mathfrak{r}$. The whole algebra is a semidirect product of a semisimple piece and a solvable piece. Mal'cev refined this to uniqueness up to conjugacy of $\mathfrak{s}$.</p>
+
+<div class="note">
+The Levi–Mal'cev picture is the prototype of every later "structural" decomposition theorem: <em>a hard object is the extension of a simple thing by a tame thing</em>. The simple thing — semisimple $\mathfrak{s}$ — is classified by Cartan's Dynkin diagrams, ten or so families. The tame thing — solvable $\mathfrak{r}$ — is built abelian-in-stages and behaves like a "nilpotent perturbation" of an abelian algebra. Everything lives in the gap.
+</div>
+
+<p>The same structure repeats for algebraic groups. A connected algebraic group $G$ over an algebraically closed field has a maximal connected normal solvable subgroup, called the <em>radical</em>; the quotient is semisimple, and the picture works essentially as for Lie algebras. The maximal connected <em>solvable</em> subgroups of $G$ are the <strong>Borel subgroups</strong>, all conjugate to each other, and the geometry of $G$ is largely encoded by how it sits over the flag variety $G/B$. The Bruhat decomposition $G = \bigsqcup_w B w B$ factors $G$ through pairs of Borels — solvability does the heavy lifting in the local structure of every reductive group on Earth.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./lie-algebras.html#solvable-nilpotent">Solvable and nilpotent Lie algebras</a></li>
+    <li><a href="./lie-algebras.html#cartan-killing">Cartan's criterion via the Killing form</a></li>
+    <li><a href="./lie-groups.html#adjoint">Adjoint and flag varieties</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 4 ──── -->
+<section id="postnikov">
+<h2><span class="num">§4.</span> Solvability in homotopy: the Postnikov tower</h2>
+<p>Move from algebra to topology. The objects are now spaces (CW complexes, or, more conceptually, homotopy types), and the role of "abelian piece" will be played by the simplest non-trivial homotopy types — the Eilenberg–MacLane spaces.</p>
+
+<p>An <em>Eilenberg–MacLane space</em> $K(\pi, n)$ is, up to weak equivalence, the unique connected space with homotopy concentrated in a single dimension: $\pi_n K(\pi, n) = \pi$ and $\pi_k K(\pi, n) = 0$ for $k \ne n$. The group $\pi$ is forced to be abelian when $n \ge 2$ by the Eckmann–Hilton argument. So $K(\pi, n)$ is, in a strong sense, the homotopy-theoretic atom: it carries one piece of homotopy data and nothing else, and that data is automatically abelian above dimension one.</p>
+
+<p>Given any reasonable space $X$, one can construct a tower of approximations
+$$\cdots \to X_3 \to X_2 \to X_1 \to X_0 = \text{pt}$$
+called the <strong>Postnikov tower</strong> of $X$. The space $X_n$ has the same homotopy groups as $X$ in dimensions $\le n$ and trivial homotopy above. Each map $X_n \to X_{n-1}$ is a fibration whose fiber is exactly $K(\pi_n X, n)$ — an Eilenberg–MacLane space. The whole tower converges to $X$ in a precise sense: one can recover $X$ (as a homotopy type) from its tower.</p>
+
+<div class="figure">
+  <svg viewBox="0 0 560 240" width="560" height="240" role="img" aria-label="Postnikov tower with EM-space fibers">
+    <title>Postnikov tower: each stage attaches K(pi_n, n)</title>
+    <g font-size="13" fill="var(--ink)">
+      <text x="280" y="30" text-anchor="middle">X</text>
+      <text x="280" y="80" text-anchor="middle">X_n</text>
+      <text x="280" y="130" text-anchor="middle">X_{n-1}</text>
+      <text x="280" y="180" text-anchor="middle">X_2</text>
+      <text x="280" y="220" text-anchor="middle">X_1 = K(π_1, 1)</text>
+    </g>
+    <!-- vertical maps -->
+    <g stroke="var(--violet)" stroke-width="1.4" fill="none">
+      <path d="M 280 38 L 280 70" marker-end="url(#arr-v)"/>
+      <path d="M 280 88 L 280 120" marker-end="url(#arr-v)"/>
+      <path d="M 280 138 L 280 165" stroke-dasharray="2 3"/>
+      <path d="M 280 188 L 280 210" marker-end="url(#arr-v)"/>
+    </g>
+    <defs>
+      <marker id="arr-v" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M0,0 L10,5 L0,10 z" fill="var(--violet)"/>
+      </marker>
+    </defs>
+    <!-- fiber labels on the right -->
+    <g font-size="11" fill="var(--cyan)">
+      <text x="320" y="105">fiber K(π_n X, n)</text>
+      <text x="320" y="155">fiber K(π_{n-1} X, n-1)</text>
+      <text x="320" y="195">fiber K(π_2 X, 2)</text>
+    </g>
+    <!-- k-invariants on the left -->
+    <g font-size="11" fill="var(--yellow)" font-style="italic">
+      <text x="240" y="105" text-anchor="end">k_n ∈ H^{n+1}(X_{n-1}; π_n X)</text>
+      <text x="240" y="155" text-anchor="end">k_{n-1}</text>
+      <text x="240" y="195" text-anchor="end">k_2</text>
+    </g>
+  </svg>
+  <div class="caption">Figure 2. The Postnikov tower decomposes a homotopy type into Eilenberg–MacLane stages, glued by cohomological $k$-invariants. Every space is "abelian-in-stages" homotopically.</div>
+</div>
+
+<p>What glues stage $n$ to stage $n-1$? A cohomology class. The fibration $K(\pi_n, n) \to X_n \to X_{n-1}$ is classified by a map $X_{n-1} \to K(\pi_n, n+1)$, i.e. by an element
+$$k_n \in H^{n+1}(X_{n-1}; \pi_n X)$$
+called a <em>$k$-invariant</em>. The whole homotopy type of $X$ is encoded by the sequence of homotopy groups $\pi_n X$ together with the $k$-invariants between them — finitely many cohomology classes if $X$ has finitely many nonzero homotopy groups, infinitely many otherwise.</p>
+
+<p>Compare with §2. There the chain of normal subgroups had abelian quotients; here the tower of fibrations has abelian (Eilenberg–MacLane) fibers. There the chain was rigidly cyclic-quotient; here the fibers are arbitrary abelian groups, with the additional data of <em>which</em> cohomology class glues each stage to the previous. The two pictures are not just analogous: the bar complex computing $H^*(G, A)$ in group cohomology is exactly the simplicial machinery computing $H^*(K(G, 1); A)$ for the Eilenberg–MacLane space, and a central extension's classifying class in $H^2(G, A)$ is its $k$-invariant viewed group-theoretically. The same cohomology, two costumes.</p>
+
+<p>A space whose Postnikov tower terminates after finitely many steps — i.e. $\pi_n X = 0$ for $n$ large — is called a <em>truncated</em> or finite Postnikov type, and it is the topologists' "solvable." Most familiar spaces are not solvable in this sense: $S^2$ has nontrivial homotopy groups in arbitrarily high dimensions. But the Postnikov machinery still gives a stage-by-stage description of any space, with the obstructions to "this space is just a product of EM-spaces" living in cohomology.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-topology.html#homology">Singular homology and the chain-complex pattern</a></li>
+    <li><a href="./group-cohomology.html#h2">$H^2$ as classifier of extensions</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 5 ──── -->
+<section id="motivic">
+<h2><span class="num">§5.</span> The motivic Galois group</h2>
+<p>The grandest incarnation of the pattern is conjectural, and it lives in arithmetic geometry. To state it we need a brief detour through Tannakian formalism.</p>
+
+<p>Let $\mathcal{C}$ be a $\mathbb{Q}$-linear abelian tensor category — say, finite-dimensional $\mathbb{Q}$-vector spaces, or finite-dimensional representations of a fixed algebraic group $G$ over $\mathbb{Q}$. A <em>fiber functor</em> is a faithful exact tensor functor $\omega \colon \mathcal{C} \to \mathrm{Vec}_{\mathbb{Q}}$. Tannaka–Krein duality, in the algebraic-geometric form due to Saavedra, Deligne, and Milne, says that under mild hypotheses ("neutral Tannakian category"), the pair $(\mathcal{C}, \omega)$ is reconstructed from its automorphism group $G = \mathrm{Aut}^\otimes(\omega)$: there is an equivalence of categories
+$$\mathcal{C} \;\simeq\; \mathrm{Rep}_{\mathbb{Q}}(G).$$
+The category $\mathcal{C}$ is the same data as a (pro)algebraic group $G/\mathbb{Q}$ together with its representations. This is a Galois correspondence at one categorical level up: instead of a field and its algebraic extensions, you have a tensor category and its automorphisms.</p>
+
+<p>Now apply this to <em>motives</em>. A motive over $\mathbb{Q}$ is — heuristically — a piece of cohomology of an algebraic variety, robbed of its specific cohomology theory. Grothendieck's vision in the 1960s was that there should exist a $\mathbb{Q}$-linear abelian tensor category $\mathcal{M}(\mathbb{Q})$ such that every Weil cohomology theory ($\ell$-adic, de Rham, Hodge, crystalline, $\ldots$) factors through it via realization functors. Each Weil cohomology becomes a fiber functor $\omega_H\colon \mathcal{M}(\mathbb{Q}) \to \mathrm{Vec}_{\mathbb{Q}}$. By Tannakian duality, $\mathcal{M}(\mathbb{Q})$ is then the representation category of an algebraic group:
+$$G_{\mathrm{mot}}(\mathbb{Q}) = \mathrm{Aut}^\otimes(\omega_H).$$
+This is the <strong>motivic Galois group</strong>. Its existence in full generality depends on Grothendieck's still-open <em>standard conjectures</em>; Jannsen's theorem (1992) gives unconditionally that <em>numerical</em> motives form a semisimple abelian tensor category, and there one has a motivic Galois group that is pro-reductive, although the equivalence with other cohomological notions of motive remains conjectural.</p>
+
+<p>What does the motivic Galois group know? Each realization gives a quotient. The $\ell$-adic realization sends $G_{\mathrm{mot}}$ onto the absolute Galois group $\mathrm{Gal}(\overline{\mathbb{Q}}/\mathbb{Q})$ of classical Galois theory — stop 1 of this essay, recovered as a quotient of stop 5. The Hodge realization gives the Mumford–Tate group, controlling variations of Hodge structure. The crystalline realization gives a group governing $p$-adic periods, and so on. Each cohomology theory sees one shadow of $G_{\mathrm{mot}}$, and the motivic Galois group is the conjectural object that synthesizes them.</p>
+
+<div class="ok">
+  <strong>Solvability, motivic.</strong> The "abelian pieces" inside $\mathcal{M}(\mathbb{Q})$ are the <em>Artin motives</em> (zero-dimensional varieties, controlled by classical Galois theory) and the <em>Tate motives</em> (powers of the Lefschetz motive $\mathbb{Q}(1)$). A motive built from these by extensions is called <em>mixed Tate</em>, and the corresponding subcategory $\mathrm{MT}(\mathbb{Q}) \subset \mathcal{M}(\mathbb{Q})$ has a Tannakian Galois group whose pro-unipotent radical is the motivic Galois group's most "solvable" piece.
+</div>
+
+<p>The structure of $G_{\mathrm{mot}}$, like the structure of any (pro)algebraic group, decomposes into a semisimple part and a solvable part — a Levi–Mal'cev story replayed at the motivic level. Mixed Tate motives over $\mathbb{Z}$ form a category whose Galois group is conjecturally generated by extensions producing exactly the Riemann zeta values $\zeta(2k+1)$; the multiple zeta values of weight $w$ should fill out the dimensions predicted by Zagier's conjecture, and the solvability structure of the mixed Tate Galois group is what makes those predictions sharp. In this corner of the motivic universe, "abelian-in-stages" becomes a statement about which numbers can appear in periods of mixed Tate motives.</p>
+
+<blockquote>The motivic Galois group is the conjectural symmetry of cohomology, the way the classical Galois group is the symmetry of arithmetic. Its solvable subobjects organize the part of the motivic world that is "transcendentally simple" — periods, multiple zeta values, polylogarithms — and its non-solvable part is where the deepest arithmetic difficulty lives.</blockquote>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./motives.html#tannakian">Tannakian formalism</a></li>
+    <li><a href="./motives.html#motivic-galois">Motivic Galois group</a></li>
+    <li><a href="./motives.html#standard-conjectures">Standard conjectures</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 6 ──── -->
+<section id="coda">
+<h2><span class="num">§6.</span> Coda: eventual triviality</h2>
+<p>The objects of the five preceding sections do not look alike. A finite group, a Lie algebra, an algebraic group, a homotopy type, a motive — they live in different categories, are computed by different machinery, are presented to students at different stages of their education. And yet at each one a structural pattern repeats with such regularity that it begins to feel less like coincidence and more like a single phenomenon being seen from different directions.</p>
+
+<p>The phenomenon, stripped of the costumes, is this. In a category with notions of "extension" and "abelian object," some objects can be assembled from abelian objects in finitely many extension steps, and others cannot. The ones that can are the <em>solvable</em> ones; the ones that cannot are the <em>simple</em> or <em>semisimple</em> obstructions. Most actual objects of mathematical interest sit in the gap: a semisimple core wrapped by solvable layers, or a finite Postnikov tower that hides a few non-trivial $k$-invariants, or a motive whose mixed Tate part is well-understood and whose simple part is the Langlands program in disguise.</p>
+
+<p>What makes solvability worth a chapter on its own — rather than a footnote inside each subject — is that <em>the same abelian quotients keep showing up</em>. The cyclic groups in a refined Galois solvability chain are the same data as the abelian groups in a Postnikov tower's homotopy fibers, which are the same data as the abelian extensions in a Tannakian unipotent radical. The cohomology classes that twist a solvability step in group theory ($H^2(G, A)$, central extensions) are the same machinery as the $k$-invariants twisting a Postnikov fibration ($H^{n+1}(X_{n-1}; \pi_n X)$). One bar complex; one $\partial^2 = 0$; one classification.</p>
+
+<p>And there is a moral. When a mathematician proves a structure theorem — Levi for Lie algebras, Mostow for solvmanifolds, Postnikov for spaces, Tannaka for motives — what they are giving you is, in the slogan of this essay, a way to write your hard object as a chain of abelian-in-stages extensions over a simple core. The non-commutativity, when it occurs, is finite and visible. The hidden engineering of every decomposition theorem is solvability.</p>
+
+<div class="note">
+Solvability has a reputation for being a 19th-century concept, frozen in the textbook chapter on Galois theory. The thesis of this essay is the opposite: solvability is a still-active organizing principle, perhaps the most successful one we have for converting "this object is complicated" into "this object is built from things we already understand, in finitely many controlled steps." It is the structural reason most decomposition theorems exist, and the reason their absence — in characteristic $p$, in non-Tannakian settings, in the simple Lie algebras and the simple finite groups — is felt as a sharp obstruction rather than a curiosity.
+</div>
+
+<p>The four costumes the pattern wears in this essay — Galois solvability, derived series, Lie/Levi–Mal'cev, Postnikov, motivic — are not exhaustive. Operad theory, derived algebraic geometry, the theory of nilpotent Lie groups, the conjectural structure of the absolute Galois group of $\mathbb{Q}$: each of these has its own solvability story, with its own version of "abelian." The pattern recurs because abelian objects are the ones the theory has, in each setting, learned to compute. Anything that resolves into them in finitely many stages can be computed by induction. Anything that does not is the place where the theory is still learning.</p>
+</section>
+
+<hr class="endrule"/>
+
+<p class="colophon">
+The thread from Galois's death-night letter to the motivic Galois group is two centuries long. It would be wrong to suggest that Galois saw any of what came later — he was twenty, and mostly he saw that the quintic could not be cracked. What he saw correctly was the move from "is there a formula?" to "is this group solvable?" That single re-translation, replacing a question about expressions with a question about groups, is the thing the rest of mathematics has been re-translating ever since: replacing complicated objects by their structural skeletons, replacing the question "can I compute this?" by the question "is the obstruction a finite chain of abelian things?" The answer, surprisingly often, is yes — and when it is yes, we know what to do.
+</p>
+
+<h3>Further reading</h3>
+<ol class="refs">
+  <li>I. Stewart, <em>Galois Theory</em>, 4th ed. The friendly route to Abel–Ruffini and the structural proof of unsolvability of the quintic.</li>
+  <li>D. Robinson, <em>A Course in the Theory of Groups</em>, GTM 80. Solvable groups, derived series, and infinite-group analogues.</li>
+  <li>J.-P. Serre, <em>Lie Algebras and Lie Groups</em>. Lie's theorem, the Killing form, Cartan's criterion, and the Levi decomposition with full proofs.</li>
+  <li>J. Humphreys, <em>Linear Algebraic Groups</em>, GTM 21. Borel subgroups, Bruhat decomposition, and the structure of reductive groups via solvable maximals.</li>
+  <li>J. F. Adams, "An informal note on the Postnikov tower," in <em>Stable Homotopy and Generalised Homology</em>, U. Chicago (1974).</li>
+  <li>P. Deligne and J. Milne, "Tannakian categories," in <em>Hodge Cycles, Motives, and Shimura Varieties</em>, Springer LNM 900 (1982).</li>
+  <li>U. Jannsen, "Motives, numerical equivalence, and semi-simplicity," <em>Invent. Math.</em> 107 (1992).</li>
+  <li>Y. André, <em>Une introduction aux motifs</em>, SMF Panoramas et Synthèses 17 (2004). The standard reference for the Tannakian construction of $G_{\mathrm{mot}}$.</li>
+</ol>
+
+</main>
+
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-04</td><td>Solvability arc capstone story (Tour 7 long-form): Galois → derived series → Lie/Levi → Postnikov → motivic Galois group</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

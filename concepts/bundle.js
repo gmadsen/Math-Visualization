@@ -7,6 +7,7 @@ window.__MVConcepts = {
       "motives",
       "algebraic-k-theory-foundations",
       "model-categories",
+      "condensed-mathematics",
       "hodge-theory",
       "langlands-program",
       "microlocal-analysis",
@@ -187,6 +188,7 @@ window.__MVConcepts = {
       "derived-categories": "standard",
       "algebraic-k-theory-foundations": "advanced",
       "model-categories": "advanced",
+      "condensed-mathematics": "capstone",
       "cocartesian-fibrations": "standard",
       "group-cohomology": "standard",
       "real-analysis": "prereq",
@@ -607,6 +609,97 @@ window.__MVConcepts = {
           "blurb": "A combinatorial simplicial model category $\\mathcal{M}$ has an underlying $(\\infty,1)$-category $\\mathcal{M}_\\infty$, recovered as the simplicial nerve $N_\\Delta(\\mathcal{M}^{cf})$ of cofibrant–fibrant objects with their simplicial Hom (which is then automatically a Kan complex). Quillen equivalences induce equivalences of $(\\infty,1)$-categories, giving the dictionary by which classical homotopy theory imports into $\\infty$-category theory: every homotopical computation done with model categories has a model-independent $\\infty$-categorical incarnation, and the homotopy 1-category $\\mathrm{Ho}(\\mathcal{M})$ is the truncation $h(\\mathcal{M}_\\infty)$. Dugger's presentation theorem says every presentable $(\\infty,1)$-category arises this way from some combinatorial simplicial model category. Modern foundations (Lurie's HTT, HA) often skip model categories at the definition stage, but model presentations remain the standard tool for constructing $\\infty$-categories in practice — Bousfield localization, transferred structures, and stable model categories are how new $\\infty$-categories are actually built.",
           "tags": [
             "foundation",
+            "refinement"
+          ]
+        }
+      ]
+    },
+    "condensed-mathematics": {
+      "topic": "condensed-mathematics",
+      "title": "Condensed mathematics",
+      "page": "condensed-mathematics.html",
+      "concepts": [
+        {
+          "id": "cm-condensed-sets",
+          "title": "Condensed sets: sheaves on the pro-étale site of a point",
+          "anchor": "condensed-sets",
+          "prereqs": [
+            "sheaves-on-a-site",
+            "etale-morphism"
+          ],
+          "blurb": "A *condensed set* is a sheaf on the pro-étale site of a point: presheaves on extremally disconnected profinite sets satisfying the descent condition $\\mathrm{Hom}(S \\sqcup T, X) = \\mathrm{Hom}(S, X) \\times \\mathrm{Hom}(T, X)$. Topological spaces embed via $T \\mapsto \\underline T(S) = \\mathrm{Cont}(S, T)$. The category $\\mathrm{Cond}(\\mathrm{Set})$ has all small (co)limits and is locally small — its job is to make the abelian category of condensed abelian groups behave properly, fixing the central technical issue that topological abelian groups never did form an abelian category.",
+          "tags": [
+            "foundation",
+            "descent"
+          ]
+        },
+        {
+          "id": "cm-condensed-abelian",
+          "title": "Condensed abelian groups and homological algebra",
+          "anchor": "condensed-abelian",
+          "prereqs": [
+            "cm-condensed-sets",
+            "derived-category"
+          ],
+          "blurb": "$\\mathrm{Cond}(\\mathrm{Ab})$ is *abelian* in the strict sense: kernels, cokernels, snake lemma all exist and behave. By contrast, topological abelian groups form a quasi-abelian (but not abelian) category — every \"complete metrizable\" hypothesis has to be hand-checked. Condensed Ab fixes this: enough projectives and injectives, $\\mathrm{Ext}^*$ well-defined, derived functors compose. Banach spaces, topological vector spaces, locally compact abelian groups all sit as full subcategories where the condensed Ext recovers classical group cohomology.",
+          "tags": [
+            "foundation",
+            "exact-sequence",
+            "classification"
+          ]
+        },
+        {
+          "id": "cm-solid-abelian",
+          "title": "Solid abelian groups: the closed monoidal subcategory",
+          "anchor": "solid",
+          "prereqs": [
+            "cm-condensed-abelian"
+          ],
+          "blurb": "A condensed abelian group $M$ is *solid* if $\\mathbb{Z}[S] \\otimes M \\to \\mathrm{Maps}(S, M)$ is an isomorphism for every profinite $S$ — the completed tensor product agrees with continuous functions. Solid groups are the right setting for completed/profinite topological algebra: $\\mathbb{Z}_p, \\mathbb{Z}[[x]]$, profinite groups, Mittag-Leffler lim spaces all live here. The full subcategory $\\mathrm{Solid}(\\mathrm{Ab}) \\subset \\mathrm{Cond}(\\mathrm{Ab})$ is closed under (co)limits, extensions, and a \"solid tensor product\" — making derived categories of complete topological modules a real abelian category for the first time.",
+          "tags": [
+            "classification",
+            "refinement"
+          ]
+        },
+        {
+          "id": "cm-liquid-vector-spaces",
+          "title": "Liquid $\\mathbb{R}$-vector spaces",
+          "anchor": "liquid",
+          "prereqs": [
+            "cm-condensed-abelian",
+            "banach-hilbert-spaces"
+          ],
+          "blurb": "Over the reals, the analogue of solid is *liquid*. A condensed real vector space $V$ is $p$-liquid if it admits a measure-like structure: a continuous map $\\mu: \\mathcal{M}_p(V) \\to V$ from $p$-summable measures, compatible with translation. For $p < 1$, $p$-liquid spaces form an abelian category closed under tensor products that derive correctly — fixing the pathology where the classical Banach tensor product $\\hat\\otimes$ is not exact. Banach spaces, Fréchet spaces, bornological vector spaces all embed; liquid and classical tensor products agree on a wide class of nice inputs.",
+          "tags": [
+            "classification",
+            "refinement"
+          ]
+        },
+        {
+          "id": "cm-liquid-tensor-experiment",
+          "title": "The Liquid Tensor Experiment",
+          "anchor": "liquid-tensor-experiment",
+          "prereqs": [
+            "cm-liquid-vector-spaces",
+            "tt-models"
+          ],
+          "blurb": "In December 2020 Scholze posted on Xena: formally verify in Lean that $\\mathrm{Ext}^i_{\\mathrm{Cond}(\\mathbb R)}(M_{p'}, V) = 0$ for $i \\ge 1$ when $V$ is $p$-liquid and $0 < p' < p \\le 1$. The theorem is the homological cornerstone of the liquid theory and Scholze called it the most fragile of his work — none of his collaborators believed it. A community led by Johan Commelin formalised the proof in Lean's mathlib library, finishing the main theorem in mid-2022 and the full result in 2023. It marks a turning point: formal verification graduated from a tool for theorems already trusted to a working option for results active researchers themselves doubt.",
+          "tags": [
+            "foundation",
+            "refinement"
+          ]
+        },
+        {
+          "id": "cm-applications",
+          "title": "Applications: analytic geometry, $p$-adic Hodge theory, analytic stacks",
+          "anchor": "applications",
+          "prereqs": [
+            "cm-solid-abelian",
+            "cm-liquid-vector-spaces"
+          ],
+          "blurb": "Condensed mathematics underwrites the modern reformulation of (a) analytic geometry over $\\mathbb{Q}_p$ — solid abelian groups replace Banach spaces and the resulting \"analytic rings\" have a clean derived category that classical $p$-adic analysis lacked; (b) $p$-adic Hodge theory — Bhatt–Morrow–Scholze's prismatic cohomology and integral comparison theorems sit naturally in solid Ab; (c) analytic stacks — Clausen–Scholze's program defining analytic stacks on the foundation of analytic rings, generalising rigid-analytic and adic spaces under a single condensed umbrella.",
+          "tags": [
+            "classification",
             "refinement"
           ]
         }
@@ -15309,6 +15402,13 @@ window.__MVConcepts = {
         "blurb": "Buchberger's algorithm + lex elimination turns any polynomial system in $k[x_1,\\dots,x_n]$ into a triangular shape solvable by back-substitution, and recovers implicit equations of parametrized varieties. The computational capstone of commutative algebra."
       },
       {
+        "id": "capstone-liquid-tensor-experiment",
+        "section": "Algebra & homological",
+        "title": "Liquid Tensor Experiment",
+        "goal": "cm-liquid-tensor-experiment",
+        "blurb": "Clausen–Scholze's $p$-liquid Ext-vanishing $\\mathrm{Ext}^i_{\\mathrm{Cond}(\\mathbb R)}(M_{p'}, V) = 0$ — the homological cornerstone of liquid theory, and the first major theorem actively doubted by its own author that the formal-methods community verified in Lean. The capstone where condensed mathematics meets formal verification."
+      },
+      {
         "id": "capstone-branes-string-math",
         "section": "Mathematical physics",
         "title": "Branes and the math output of string theory",
@@ -15335,6 +15435,13 @@ window.__MVConcepts = {
         "title": "Quantum field theory and the Standard Model",
         "goal": "qft-gauge-fields",
         "blurb": "Operator-valued fields on Fock space + path integral + Feynman diagrams + renormalization-group flow + gauged $\\mathrm{SU}(3)\\times\\mathrm{SU}(2)\\times\\mathrm{U}(1)$ with the Higgs mechanism — the framework that produces every Standard-Model prediction tested at the LHC, LEP, and precision-frontier experiments."
+      },
+      {
+        "id": "capstone-condensed-mathematics",
+        "section": "Algebra & homological",
+        "title": "Condensed mathematics: from condensed sets to liquid $\\mathbb{R}$-vector spaces",
+        "goal": "cm-liquid-vector-spaces",
+        "blurb": "Clausen–Scholze's reframing of topology: replace topological spaces with sheaves on the pro-étale site of a point, recovering an honest abelian category for completed topological abelian groups. Walk the arc from condensed sets through solid abelian groups to liquid $\\mathbb{R}$-vector spaces — the construction whose homological cornerstone (the Liquid Tensor theorem) became the first research-frontier result formalised in Lean. The narrower formalisation-event capstone is `capstone-liquid-tensor-experiment`."
       }
     ]
   },
@@ -15371,6 +15478,7 @@ window.__MVConcepts = {
           "derived-categories",
           "algebraic-k-theory-foundations",
           "model-categories",
+          "condensed-mathematics",
           "group-cohomology",
           "lie-algebras",
           "galois-cohomology-and-brauer",
@@ -15694,6 +15802,7 @@ window.__MVConcepts = {
     "derived-categories": "standard",
     "algebraic-k-theory-foundations": "advanced",
     "model-categories": "advanced",
+    "condensed-mathematics": "capstone",
     "cocartesian-fibrations": "standard",
     "group-cohomology": "standard",
     "real-analysis": "prereq",
@@ -15849,28 +15958,28 @@ window.__MVConcepts = {
       "concepts": 49,
       "intra": 56,
       "crossOut": 5,
-      "crossIn": 17,
+      "crossIn": 18,
       "density": 0.10204081632653061
     },
     "Algebra & homological": {
-      "concepts": 136,
-      "intra": 205,
-      "crossOut": 18,
+      "concepts": 142,
+      "intra": 212,
+      "crossOut": 22,
       "crossIn": 75,
-      "density": 0.1323529411764706
+      "density": 0.15492957746478872
     },
     "Higher categories & toposes": {
       "concepts": 45,
       "intra": 68,
       "crossOut": 23,
-      "crossIn": 3,
+      "crossIn": 4,
       "density": 0.5111111111111111
     },
     "Analysis": {
       "concepts": 191,
       "intra": 333,
       "crossOut": 31,
-      "crossIn": 62,
+      "crossIn": 63,
       "density": 0.16230366492146597
     },
     "Probability & statistics": {
@@ -15905,7 +16014,7 @@ window.__MVConcepts = {
       "concepts": 143,
       "intra": 187,
       "crossOut": 55,
-      "crossIn": 20,
+      "crossIn": 21,
       "density": 0.38461538461538464
     },
     "Combinatorics & graph theory": {

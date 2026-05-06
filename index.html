@@ -11,6 +11,7 @@
 <script src="./js/theme-toggle.js"></script>
 <script defer src="./js/progress.js"></script>
 <script defer src="./concepts/bundle.js"></script>
+<script defer src="./recent-updates.js"></script>
 <script src="./js/onboarding.js" defer></script>
 <script>
 (function(){
@@ -273,7 +274,7 @@
   .pathway-banner .pb-eyebrow{color:var(--cyan)}
   .tours-banner .pb-eyebrow{color:var(--yellow)}
   .history-banner .pb-eyebrow{color:var(--violet)}
-  .pathway-banner .pb-title,.tours-banner .pb-title,.history-banner .pb-title{font-size:1.15rem;font-weight:600;color:#fff;margin:0 0 3px}
+  .pathway-banner .pb-title,.tours-banner .pb-title,.history-banner .pb-title{font-size:1.15rem;font-weight:600;color:var(--ink);margin:0 0 3px}
   .pathway-banner .pb-desc,.tours-banner .pb-desc,.history-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
   .pathway-banner .pb-arrow,.tours-banner .pb-arrow,.history-banner .pb-arrow{font-size:1.6rem;flex-shrink:0}
   .pathway-banner .pb-arrow{color:var(--cyan)}
@@ -300,7 +301,7 @@
   .featured-card .fc-eyebrow{font-size:0.7rem;letter-spacing:0.16em;
     text-transform:uppercase;color:var(--violet);font-weight:500;margin:0 0 2px}
   .featured-card.fc-continue .fc-eyebrow{color:var(--green)}
-  .featured-card .fc-title{font-size:1.05rem;font-weight:600;color:#fff;margin:0;
+  .featured-card .fc-title{font-size:1.05rem;font-weight:600;color:var(--ink);margin:0;
     line-height:1.35}
   .featured-card .fc-desc{color:var(--mute);font-size:0.9rem;margin:2px 0 0;
     line-height:1.45;flex:1;
@@ -314,7 +315,7 @@
   @media (max-width:640px){
     .featured-rail{grid-template-columns:1fr}
   }
-  h1{font-size:2.6rem;margin:0 0 0.6rem;letter-spacing:-0.02em;color:#fff}
+  h1{font-size:2.6rem;margin:0 0 0.6rem;letter-spacing:-0.02em;color:var(--ink)}
   .sub{color:var(--mute);margin:0 auto;max-width:640px;font-size:1.02rem}
   /* Section header: was a tiny muted eyebrow label; now a distinctive title
      row with a colored left-border marker, larger mixed-case type, and an
@@ -323,24 +324,31 @@
      (color goes on data-color, id goes separately) so the section-index
      builder regex (scripts/build-section-indexes.mjs) keeps matching section
      divs and picks up the title text cleanly. */
-  .sec{position:relative;margin:3rem 0 1rem;padding:0.35rem 0 0.55rem 0.85rem;
+  .sec{position:relative;margin:3rem 0 1rem;padding:0.4rem 0.75rem 0.6rem 0.95rem;
     border-left:3px solid var(--line);border-bottom:1px solid var(--line);
-    display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
-    font-size:1.18rem;font-weight:600;color:#fff;letter-spacing:-0.005em;
+    border-radius:0 6px 0 0;
+    display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    font-size:1.18rem;font-weight:600;color:var(--ink);letter-spacing:-0.005em;
     text-transform:none;scroll-margin-top:1.2rem;
     /* Click target for collapse/expand — pointer + subtle hover feedback. */
     cursor:pointer;user-select:none;
-    transition:border-bottom-color 180ms ease, padding-left 180ms ease}
-  .sec:hover{border-bottom-color:color-mix(in srgb, currentColor 50%, var(--line))}
+    transition:background 180ms ease, border-bottom-color 180ms ease,
+      border-left-width 180ms ease, padding-left 180ms ease}
+  .sec:hover{
+    border-bottom-color:color-mix(in srgb, currentColor 60%, var(--line));
+    background:color-mix(in srgb, currentColor 7%, transparent);
+    border-left-width:5px;padding-left:0.85rem}
+  .sec:focus-visible{outline:2px solid currentColor;outline-offset:2px}
   /* Chevron prefix — rotates when collapsed. Sits inside the heading text
      just before the section name; renders via ::before so the section-index
      builder regex still matches the bare text node. */
   .sec::before{
-    content:"";display:inline-block;width:8px;height:8px;margin-right:0.55rem;
+    content:"";display:inline-block;width:9px;height:9px;margin-right:0.6rem;
     border-right:2px solid currentColor;border-bottom:2px solid currentColor;
     transform:rotate(45deg) translateY(-2px);
-    transition:transform 220ms cubic-bezier(0.4,0,0.2,1);
-    opacity:0.7}
+    transition:transform 240ms cubic-bezier(0.4,0,0.2,1), opacity 180ms ease;
+    opacity:0.65}
+  .sec:hover::before{opacity:1}
   .sec.is-collapsed::before{transform:rotate(-45deg) translateY(0)}
   .sec.is-collapsed{margin-bottom:0.4rem;border-bottom-color:transparent}
   /* Collapsed state — hide the next .grid sibling and the section-end
@@ -349,14 +357,18 @@
   .sec .sec-count{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;
     color:var(--mute);font-family:ui-monospace,Menlo,monospace;font-weight:500;
     white-space:nowrap}
-  /* Right-aligned stats group: topic count only. The 18px mastery ring used
-     to live here too but was too small to register and added chromatic
-     clutter on top of 130+ colored card thumbs; it was removed in the
-     audit-driven palette pass. The full mastery picture lives on
-     pathway.html. The .sec-ring rules are retained as no-ops so any
-     previously cached SVG attached at runtime stays invisible rather
-     than breaking layout. */
-  .sec .sec-stats{display:inline-flex;align-items:center;gap:8px;flex-shrink:0}
+  /* Right-aligned stats group: progress bar + count. The .sec-progress is a
+     thin horizontal mastery bar populated by the script block at the bottom
+     of body. It's keyed off MVProgress so it reflects v1-tier mastery for
+     every concept inside every topic in the section. */
+  .sec .sec-stats{display:inline-flex;align-items:center;gap:10px;flex-shrink:0}
+  .sec .sec-progress{position:relative;width:84px;height:4px;border-radius:2px;
+    background:var(--line);overflow:hidden;flex-shrink:0;
+    box-shadow:inset 0 0 0 1px color-mix(in srgb, currentColor 12%, transparent)}
+  .sec .sec-progress .fill{position:absolute;inset:0 auto 0 0;height:100%;
+    background:currentColor;border-radius:2px;
+    transition:width 360ms cubic-bezier(0.4,0,0.2,1)}
+  .sec .sec-progress[data-empty="1"]{opacity:0.42}
   .sec .sec-ring{display:none}
   /* Section accent via data-color attribute (not a class) so the class
      attribute stays exactly "sec" and the section-index builder's regex
@@ -470,7 +482,7 @@
   .mvdrawer.open{transform:translateX(0)}
   .mvdrawer .mvd-head{display:flex;align-items:flex-start;justify-content:space-between;
     gap:12px;padding:1.1rem 1.2rem 0.8rem;border-bottom:1px solid var(--line)}
-  .mvdrawer .mvd-title{margin:0;font-size:1.08rem;color:#fff;font-weight:600;line-height:1.3}
+  .mvdrawer .mvd-title{margin:0;font-size:1.08rem;color:var(--ink);font-weight:600;line-height:1.3}
   .mvdrawer .mvd-sub{margin:4px 0 0;color:var(--mute);font-size:0.8rem;
     font-family:ui-monospace,Menlo,monospace;letter-spacing:0.02em}
   .mvdrawer .mvd-close{background:transparent;border:1px solid var(--line);
@@ -492,7 +504,7 @@
     transition:background 150ms ease}
   .mvdrawer .mvd-item:hover{background:var(--panel2)}
   .mvdrawer .mvd-item .mvd-t{flex:1;min-width:0}
-  .mvdrawer .mvd-item .mvd-tlabel{color:#fff;font-weight:500}
+  .mvdrawer .mvd-item .mvd-tlabel{color:var(--ink);font-weight:500}
   .mvdrawer .mvd-item .mvd-state{display:block;font-size:0.72rem;color:var(--mute);
     font-family:ui-monospace,Menlo,monospace;letter-spacing:0.02em;margin-top:2px}
   .mvdrawer .mvd-item.locked .mvd-tlabel{color:var(--mute)}
@@ -516,10 +528,12 @@
       transform:translateY(100%)}
     .mvdrawer.open{transform:translateY(0)}
   }
-  /* "Recently updated" strip: populated by the script block at the bottom of <body>.
-     The #recently-updated container is hidden by default and only revealed once the
-     script successfully fetches and parses at least one topic's changelog footer.
-     Under file:// the script bails early so the strip stays hidden — no empty header. */
+  /* "Recently updated" strip: populated by the script block at the bottom of <body>
+     from `window.MV_RECENT_UPDATES` (see ./recent-updates.js, generated by
+     scripts/build-recent-updates.mjs from `git log -1 -- quizzes/<slug>.json`).
+     The container stays `display:none` until the script confirms the manifest
+     has at least one entry, then sets `.ready` to reveal. Works under file://
+     since recent-updates.js is loaded as a <script> tag, no fetch needed. */
   #recently-updated{display:none;margin:0 0 0.4rem}
   #recently-updated.ready{display:block}
   #recently-updated .ru-head{font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;
@@ -534,7 +548,7 @@
   .ru-card .ru-date{font-size:0.72rem;font-family:ui-monospace,Menlo,monospace;
     color:var(--mute);white-space:nowrap;font-variant-numeric:tabular-nums;flex-shrink:0;
     min-width:6.2em}
-  .ru-card .ru-title{font-weight:600;font-size:0.95rem;color:#fff;flex:1;min-width:0;
+  .ru-card .ru-title{font-weight:600;font-size:0.95rem;color:var(--ink);flex:1;min-width:0;
     overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .ru-card .ru-tag{font-size:0.7rem;padding:1px 8px;border-radius:999px;
     background:var(--panel2);color:var(--mute);border:1px solid var(--line);
@@ -546,6 +560,7 @@
   .ru-card.p .ru-title{color:var(--pink)}   .ru-card.p:hover{border-color:var(--pink)}
   .ru-card.v .ru-title{color:var(--violet)} .ru-card.v:hover{border-color:var(--violet)}
   .ru-card.c .ru-title{color:var(--cyan)}   .ru-card.c:hover{border-color:var(--cyan)}
+  .ru-card.o .ru-title{color:var(--orange)} .ru-card.o:hover{border-color:var(--orange)}
   @media (max-width:520px){
     .ru-card{padding:0.5rem 0.65rem;gap:8px}
     .ru-card .ru-date{font-size:0.68rem;min-width:5.6em}
@@ -577,9 +592,9 @@
     <h1>Interactive Mathematics Notebook</h1>
     <p class="sub">Interactive concepts across mathematics — from foundations to research-level topics — each a single-page explainer with live widgets and worked examples.</p>
     <div class="hero-tagline" aria-label="Notebook scope">
-      <span><span class="tg-num">147</span> topics</span>
+      <span><span class="tg-num">148</span> topics</span>
       <span class="dot">&middot;</span>
-      <span><span class="tg-num">1044</span> concepts</span>
+      <span><span class="tg-num">1050</span> concepts</span>
       <span class="dot">&middot;</span>
       <span>pathway-graph explorer</span>
     </div>
@@ -1132,42 +1147,6 @@
     </a>
 
 
-    <a class="card y" href="./groebner-bases.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <g fill="var(--yellow)">
-          <rect x="14" y="14" width="9" height="9" opacity="0.18"/>
-          <rect x="23" y="14" width="9" height="9" opacity="0.32"/>
-          <rect x="32" y="14" width="9" height="9" opacity="0.55"/>
-          <rect x="41" y="14" width="9" height="9" opacity="0.85"/>
-          <rect x="50" y="14" width="9" height="9" opacity="0.85"/>
-          <rect x="59" y="14" width="9" height="9" opacity="0.85"/>
-          <rect x="68" y="14" width="9" height="9" opacity="0.85"/>
-          <rect x="14" y="23" width="9" height="9" opacity="0.18"/>
-          <rect x="23" y="23" width="9" height="9" opacity="0.55"/>
-          <rect x="32" y="23" width="9" height="9" opacity="0.85"/>
-          <rect x="41" y="23" width="9" height="9" opacity="0.85"/>
-          <rect x="50" y="23" width="9" height="9" opacity="0.85"/>
-          <rect x="59" y="23" width="9" height="9" opacity="0.85"/>
-          <rect x="68" y="23" width="9" height="9" opacity="0.85"/>
-          <rect x="14" y="32" width="9" height="9" opacity="0.18"/>
-          <rect x="23" y="32" width="9" height="9" opacity="0.85"/>
-          <rect x="32" y="32" width="9" height="9" opacity="0.85"/>
-          <rect x="41" y="32" width="9" height="9" opacity="0.85"/>
-          <rect x="14" y="41" width="9" height="9" opacity="0.85"/>
-          <rect x="23" y="41" width="9" height="9" opacity="0.85"/>
-          <rect x="14" y="50" width="9" height="9" opacity="0.85"/>
-        </g>
-        <line x1="11" y1="65" x2="80" y2="65" stroke="var(--yellow)" stroke-width="1" opacity="0.7"/>
-        <line x1="11" y1="65" x2="11" y2="11" stroke="var(--yellow)" stroke-width="1" opacity="0.7"/>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Gröbner bases <span class="level capstone">capstone</span></div>
-        <div class="desc">Computational commutative algebra: monomial orders, the multivariable division algorithm, S-polynomials and Buchberger's algorithm, and the elimination theorems that turn polynomial systems into solvers.</div>
-        <span class="tag">monomial · Buchberger · elimination · capstone</span>
-      </div>
-    </a>
-
-
     <a class="card y" href="./algebraic-k-theory-foundations.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- K-tower motif: K_0, K_1, K_2 stacked, with arrows linking them via the localization sequence. -->
@@ -1213,6 +1192,69 @@
         <div class="tt">Model categories</div>
         <div class="desc">Quillen's axiomatic homotopy theory — weak equivalences, cofibrations, fibrations, and the lifting calculus that bridges chain complexes to $\infty$-categories.</div>
         <span class="tag">$W,F,C$ · lifting · Quillen equiv · $\infty$-bridge</span>
+      </div>
+    </a>
+
+
+    <a class="card y" href="./groebner-bases.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <g fill="var(--yellow)">
+          <rect x="14" y="14" width="9" height="9" opacity="0.18"/>
+          <rect x="23" y="14" width="9" height="9" opacity="0.32"/>
+          <rect x="32" y="14" width="9" height="9" opacity="0.55"/>
+          <rect x="41" y="14" width="9" height="9" opacity="0.85"/>
+          <rect x="50" y="14" width="9" height="9" opacity="0.85"/>
+          <rect x="59" y="14" width="9" height="9" opacity="0.85"/>
+          <rect x="68" y="14" width="9" height="9" opacity="0.85"/>
+          <rect x="14" y="23" width="9" height="9" opacity="0.18"/>
+          <rect x="23" y="23" width="9" height="9" opacity="0.55"/>
+          <rect x="32" y="23" width="9" height="9" opacity="0.85"/>
+          <rect x="41" y="23" width="9" height="9" opacity="0.85"/>
+          <rect x="50" y="23" width="9" height="9" opacity="0.85"/>
+          <rect x="59" y="23" width="9" height="9" opacity="0.85"/>
+          <rect x="68" y="23" width="9" height="9" opacity="0.85"/>
+          <rect x="14" y="32" width="9" height="9" opacity="0.18"/>
+          <rect x="23" y="32" width="9" height="9" opacity="0.85"/>
+          <rect x="32" y="32" width="9" height="9" opacity="0.85"/>
+          <rect x="41" y="32" width="9" height="9" opacity="0.85"/>
+          <rect x="14" y="41" width="9" height="9" opacity="0.85"/>
+          <rect x="23" y="41" width="9" height="9" opacity="0.85"/>
+          <rect x="14" y="50" width="9" height="9" opacity="0.85"/>
+        </g>
+        <line x1="11" y1="65" x2="80" y2="65" stroke="var(--yellow)" stroke-width="1" opacity="0.7"/>
+        <line x1="11" y1="65" x2="11" y2="11" stroke="var(--yellow)" stroke-width="1" opacity="0.7"/>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Gröbner bases <span class="level capstone">capstone</span></div>
+        <div class="desc">Computational commutative algebra: monomial orders, the multivariable division algorithm, S-polynomials and Buchberger's algorithm, and the elimination theorems that turn polynomial systems into solvers.</div>
+        <span class="tag">monomial · Buchberger · elimination · capstone</span>
+      </div>
+    </a>
+
+
+    <a class="card y" href="./condensed-mathematics.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- Motif: profinite probe S (left, dotted Cantor-like dots) maps continuously into a target T (right circle) — the underline-T construction. -->
+        <g stroke="var(--yellow)" stroke-width="1.4" fill="none">
+          <circle cx="22" cy="22" r="2.4"/>
+          <circle cx="22" cy="34" r="2.4"/>
+          <circle cx="22" cy="46" r="2.4"/>
+          <circle cx="22" cy="58" r="2.4"/>
+          <circle cx="32" cy="28" r="1.8"/>
+          <circle cx="32" cy="40" r="1.8"/>
+          <circle cx="32" cy="52" r="1.8"/>
+        </g>
+        <circle cx="72" cy="40" r="16" fill="none" stroke="var(--yellow)" stroke-width="1.4"/>
+        <line x1="44" y1="40" x2="56" y2="40" stroke="var(--yellow)" stroke-width="1.2" marker-end="url(#cmArr)"/>
+        <defs><marker id="cmArr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--yellow)"/></marker></defs>
+        <text x="22" y="74" text-anchor="middle" font-size="7" fill="var(--mute)" font-family="serif">profinite S</text>
+        <text x="72" y="74" text-anchor="middle" font-size="7" fill="var(--mute)" font-family="serif">space T</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Condensed mathematics</div>
+        <div class="desc">Clausen–Scholze: replace topological abelian groups with sheaves on the pro-étale site of a point — condensed, solid, liquid theories, the Liquid Tensor Experiment, $p$-adic Hodge theory and analytic stacks.</div>
+        <span class="tag">condensed sets · solid · liquid · LTE</span>
+        <span class="level capstone">capstone</span>
       </div>
     </a>
 
@@ -1377,25 +1419,6 @@
     </a>
 
 
-  <a class="card g" href="./measure-theory.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- Cantor-set construction: three horizontal bars -->
-        <g stroke="var(--green)" stroke-width="3" stroke-linecap="square">
-          <line x1="10" y1="22" x2="90" y2="22"/>
-          <line x1="10" y1="40" x2="37" y2="40"/><line x1="63" y1="40" x2="90" y2="40"/>
-          <line x1="10" y1="58" x2="19" y2="58"/><line x1="28" y1="58" x2="37" y2="58"/>
-          <line x1="63" y1="58" x2="72" y2="58"/><line x1="81" y1="58" x2="90" y2="58"/>
-        </g>
-        <text x="50" y="76" text-anchor="middle" font-size="7" fill="var(--green)" font-style="italic" font-family="serif">measure zero</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Measure theory</div>
-        <div class="desc">Lebesgue measure via the Cantor set, simple functions, monotone &amp; dominated convergence, $L^p$ spaces, and why Riemann fails where Lebesgue succeeds.</div>
-        <span class="tag">μ · ∫ · Lᵖ · DCT</span>
-      </div>
-    </a>
-
-
   <a class="card y" href="./complex-analysis.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- unit circle and a small amplitwist arrow -->
@@ -1420,6 +1443,25 @@
     </a>
 
 
+  <a class="card g" href="./measure-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- Cantor-set construction: three horizontal bars -->
+        <g stroke="var(--green)" stroke-width="3" stroke-linecap="square">
+          <line x1="10" y1="22" x2="90" y2="22"/>
+          <line x1="10" y1="40" x2="37" y2="40"/><line x1="63" y1="40" x2="90" y2="40"/>
+          <line x1="10" y1="58" x2="19" y2="58"/><line x1="28" y1="58" x2="37" y2="58"/>
+          <line x1="63" y1="58" x2="72" y2="58"/><line x1="81" y1="58" x2="90" y2="58"/>
+        </g>
+        <text x="50" y="76" text-anchor="middle" font-size="7" fill="var(--green)" font-style="italic" font-family="serif">measure zero</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Measure theory</div>
+        <div class="desc">Lebesgue measure via the Cantor set, simple functions, monotone &amp; dominated convergence, $L^p$ spaces, and why Riemann fails where Lebesgue succeeds.</div>
+        <span class="tag">μ · ∫ · Lᵖ · DCT</span>
+      </div>
+    </a>
+
+
   <a class="card v" href="./functional-analysis.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- three unit balls: ℓ¹ (diamond), ℓ² (circle), ℓ∞ (square) -->
@@ -1440,39 +1482,6 @@
         <div class="tt">Functional analysis</div>
         <div class="desc">Banach &amp; Hilbert spaces, bounded operators, the four pillars (Hahn–Banach, open mapping, closed graph, uniform boundedness), spectrum, and the spectral theorem.</div>
         <span class="tag">‖·‖ · ⟨·,·⟩ · σ(T)</span>
-      </div>
-    </a>
-
-
-  <a class="card c" href="./operator-algebras.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- C*-algebra: spectrum as a topological space -->
-        <circle cx="35" cy="40" r="20" fill="none" stroke="var(--cyan)" stroke-width="1.4"/>
-        <g fill="var(--cyan)"><circle cx="28" cy="34" r="2"/><circle cx="42" cy="36" r="2"/><circle cx="33" cy="48" r="2"/><circle cx="44" cy="46" r="2"/></g>
-        <path d="M 60 28 L 90 28 L 90 52 L 60 52 Z" fill="none" stroke="var(--cyan)" stroke-width="1.2" opacity="0.8"/>
-        <text x="75" y="44" fill="var(--cyan)" font-size="11" font-style="italic" font-family="serif" text-anchor="middle">C(X)</text>
-        <path d="M 56 40 L 60 40" stroke="var(--yellow)" stroke-width="1.4" marker-end="url(#caa)"/>
-        <defs><marker id="caa" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--yellow)"/></marker></defs>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Operator algebras <span class="level advanced">advanced</span></div>
-        <div class="desc">C*-algebras and Gelfand duality: a compact Hausdorff space and its commutative C*-algebra of functions are the same data. Functional calculus, characters, the Gelfand transform, and the noncommutative turn.</div>
-        <span class="tag">A ↔ Spec(A)</span>
-      </div>
-    </a>
-
-
-  <a class="card p" href="./dynamical-systems.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- Lorenz-ish butterfly silhouette -->
-        <path d="M 20 50 C 18 30, 38 22, 48 38 C 58 22, 82 30, 80 50 C 78 62, 56 60, 50 52 C 44 60, 22 62, 20 50 Z" fill="none" stroke="var(--pink)" stroke-width="1.4"/>
-        <circle cx="48" cy="38" r="2" fill="var(--yellow)"/>
-        <text x="50" y="72" text-anchor="middle" font-size="8" fill="var(--pink)" font-style="italic" font-family="serif">chaos</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Dynamical systems <span class="level advanced">advanced</span></div>
-        <div class="desc">Orbits, phase portraits, bifurcations, chaos, Lyapunov exponents, and strange attractors — continuous and discrete dynamics you can drag, perturb, and watch evolve.</div>
-        <span class="tag">orbits · bifurcation · chaos</span>
       </div>
     </a>
 
@@ -1707,7 +1716,40 @@
     </a>
 
 
-    <a class="card p" href="./semigroup-theory-evolution-equations.html">
+    <a class="card c" href="./operator-algebras.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- C*-algebra: spectrum as a topological space -->
+        <circle cx="35" cy="40" r="20" fill="none" stroke="var(--cyan)" stroke-width="1.4"/>
+        <g fill="var(--cyan)"><circle cx="28" cy="34" r="2"/><circle cx="42" cy="36" r="2"/><circle cx="33" cy="48" r="2"/><circle cx="44" cy="46" r="2"/></g>
+        <path d="M 60 28 L 90 28 L 90 52 L 60 52 Z" fill="none" stroke="var(--cyan)" stroke-width="1.2" opacity="0.8"/>
+        <text x="75" y="44" fill="var(--cyan)" font-size="11" font-style="italic" font-family="serif" text-anchor="middle">C(X)</text>
+        <path d="M 56 40 L 60 40" stroke="var(--yellow)" stroke-width="1.4" marker-end="url(#caa)"/>
+        <defs><marker id="caa" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="var(--yellow)"/></marker></defs>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Operator algebras <span class="level advanced">advanced</span></div>
+        <div class="desc">C*-algebras and Gelfand duality: a compact Hausdorff space and its commutative C*-algebra of functions are the same data. Functional calculus, characters, the Gelfand transform, and the noncommutative turn.</div>
+        <span class="tag">A ↔ Spec(A)</span>
+      </div>
+    </a>
+
+
+  <a class="card p" href="./dynamical-systems.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- Lorenz-ish butterfly silhouette -->
+        <path d="M 20 50 C 18 30, 38 22, 48 38 C 58 22, 82 30, 80 50 C 78 62, 56 60, 50 52 C 44 60, 22 62, 20 50 Z" fill="none" stroke="var(--pink)" stroke-width="1.4"/>
+        <circle cx="48" cy="38" r="2" fill="var(--yellow)"/>
+        <text x="50" y="72" text-anchor="middle" font-size="8" fill="var(--pink)" font-style="italic" font-family="serif">chaos</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Dynamical systems <span class="level advanced">advanced</span></div>
+        <div class="desc">Orbits, phase portraits, bifurcations, chaos, Lyapunov exponents, and strange attractors — continuous and discrete dynamics you can drag, perturb, and watch evolve.</div>
+        <span class="tag">orbits · bifurcation · chaos</span>
+      </div>
+    </a>
+
+
+  <a class="card p" href="./semigroup-theory-evolution-equations.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- analytic semigroup as a smoothing flow: sharp edge → widening Gaussian -->
         <line x1="14" y1="62" x2="86" y2="62" stroke="var(--mute)" stroke-width="0.6"/>
@@ -1727,25 +1769,7 @@
   </div>
 
   <div class="sec">Probability &amp; statistics</div>
-  <div class="grid">
-
-  <a class="card b" href="./probability-theory.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- bell curve over a base line -->
-        <path d="M 12 58 Q 30 58, 40 40 T 60 22 T 88 58" fill="none" stroke="var(--blue)" stroke-width="1.4"/>
-        <line x1="12" y1="58" x2="88" y2="58" stroke="var(--mute)" stroke-width="0.8"/>
-        <g fill="var(--blue)"><rect x="18" y="52" width="4" height="6"/><rect x="32" y="44" width="4" height="14"/><rect x="46" y="34" width="4" height="24"/><rect x="60" y="42" width="4" height="16"/><rect x="74" y="52" width="4" height="6"/></g>
-        <text x="50" y="72" text-anchor="middle" font-size="8" fill="var(--blue)" font-style="italic" font-family="serif">P(X)</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Probability theory <span class="level advanced">advanced</span></div>
-        <div class="desc">Sample spaces, random variables, Bayes, expectation, convergence theorems, the law of large numbers and central limit theorem, Markov chains, martingales, and a glimpse of Brownian motion.</div>
-        <span class="tag">σ · E · CLT · martingale</span>
-      </div>
-    </a>
-
-
-    <a class="card g" href="./stochastic-processes-and-martingales.html">
+  <div class="grid"><a class="card g" href="./stochastic-processes-and-martingales.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
 <polyline points="10,42 14,38 18,44 22,36 26,46 30,38 34,40 38,32 42,46 46,38 50,44 54,30 58,42 62,36 66,48 70,38 74,46 78,32 82,42 86,36 90,40"
                   stroke="var(--green)" stroke-width="1.4" fill="none"/>
@@ -1861,7 +1885,25 @@
       </div>
     </a>
 
-  </div>
+  
+
+  <a class="card b" href="./probability-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- bell curve over a base line -->
+        <path d="M 12 58 Q 30 58, 40 40 T 60 22 T 88 58" fill="none" stroke="var(--blue)" stroke-width="1.4"/>
+        <line x1="12" y1="58" x2="88" y2="58" stroke="var(--mute)" stroke-width="0.8"/>
+        <g fill="var(--blue)"><rect x="18" y="52" width="4" height="6"/><rect x="32" y="44" width="4" height="14"/><rect x="46" y="34" width="4" height="24"/><rect x="60" y="42" width="4" height="16"/><rect x="74" y="52" width="4" height="6"/></g>
+        <text x="50" y="72" text-anchor="middle" font-size="8" fill="var(--blue)" font-style="italic" font-family="serif">P(X)</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Probability theory <span class="level advanced">advanced</span></div>
+        <div class="desc">Sample spaces, random variables, Bayes, expectation, convergence theorems, the law of large numbers and central limit theorem, Markov chains, martingales, and a glimpse of Brownian motion.</div>
+        <span class="tag">σ · E · CLT · martingale</span>
+      </div>
+    </a>
+
+
+    </div>
 
   <div class="sec">Geometry &amp; topology</div>
   <div class="grid">
@@ -2441,38 +2483,6 @@
     </a>
 
 
-  <a class="card v" href="./class-field-theory.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <g fill="none" stroke="var(--violet)" stroke-width="1.2">
-          <circle cx="32" cy="26" r="12"/><circle cx="68" cy="26" r="12"/><circle cx="50" cy="54" r="14"/>
-          <path d="M42 32 L50 42 L58 32"/>
-        </g>
-        <g fill="var(--violet)"><circle cx="32" cy="26" r="2.6"/><circle cx="68" cy="26" r="2.6"/><circle cx="50" cy="54" r="2.6"/></g>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Class field theory <span class="level advanced">advanced</span></div>
-        <div class="desc">Abelian extensions of number fields via ideals and ideles: Artin reciprocity, local-global compatibility, and explicit splitting behavior of primes.</div>
-        <span class="tag">Artin map · ideles · reciprocity</span>
-      </div>
-    </a>
-
-
-  <a class="card y" href="./galois-representations.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <g stroke="var(--yellow)" fill="none" stroke-width="1.2">
-          <rect x="16" y="16" width="26" height="20" rx="2"/><rect x="58" y="16" width="26" height="20" rx="2"/>
-          <rect x="37" y="46" width="26" height="20" rx="2"/>
-          <path d="M42 26 L58 26 M29 36 L45 46 M71 36 L55 46"/>
-        </g>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Galois representations <span class="level advanced">advanced</span></div>
-        <div class="desc">Encode arithmetic symmetries as linear actions of Galois groups, linking field extensions to modular forms, Frobenius traces, and modern reciprocity.</div>
-        <span class="tag">Gal(ℚ̄/ℚ) · Frobenius · modularity</span>
-      </div>
-    </a>
-
-
   <a class="card y" href="./heights-arithmetic-geometry.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <line x1="20" y1="64" x2="80" y2="64" stroke="var(--mute)" stroke-width="0.7"/>
@@ -2557,6 +2567,38 @@
       </div>
     </a>
 
+  <a class="card v" href="./class-field-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <g fill="none" stroke="var(--violet)" stroke-width="1.2">
+          <circle cx="32" cy="26" r="12"/><circle cx="68" cy="26" r="12"/><circle cx="50" cy="54" r="14"/>
+          <path d="M42 32 L50 42 L58 32"/>
+        </g>
+        <g fill="var(--violet)"><circle cx="32" cy="26" r="2.6"/><circle cx="68" cy="26" r="2.6"/><circle cx="50" cy="54" r="2.6"/></g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Class field theory <span class="level advanced">advanced</span></div>
+        <div class="desc">Abelian extensions of number fields via ideals and ideles: Artin reciprocity, local-global compatibility, and explicit splitting behavior of primes.</div>
+        <span class="tag">Artin map · ideles · reciprocity</span>
+      </div>
+    </a>
+
+
+  <a class="card y" href="./galois-representations.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <g stroke="var(--yellow)" fill="none" stroke-width="1.2">
+          <rect x="16" y="16" width="26" height="20" rx="2"/><rect x="58" y="16" width="26" height="20" rx="2"/>
+          <rect x="37" y="46" width="26" height="20" rx="2"/>
+          <path d="M42 26 L58 26 M29 36 L45 46 M71 36 L55 46"/>
+        </g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Galois representations <span class="level advanced">advanced</span></div>
+        <div class="desc">Encode arithmetic symmetries as linear actions of Galois groups, linking field extensions to modular forms, Frobenius traces, and modern reciprocity.</div>
+        <span class="tag">Gal(ℚ̄/ℚ) · Frobenius · modularity</span>
+      </div>
+    </a>
+
+
   </div>
 
   <div class="sec">Modular forms &amp; L-functions</div>
@@ -2606,19 +2648,6 @@
     </a>
 
 
-  <a class="card b" href="./theta-functions.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <path d="M12 50 Q26 24 40 50 T68 50 T92 50" fill="none" stroke="var(--blue)" stroke-width="1.5"/>
-        <g fill="var(--blue)"><circle cx="20" cy="50" r="2.3"/><circle cx="48" cy="50" r="2.3"/><circle cx="76" cy="50" r="2.3"/></g>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Theta functions <span class="level advanced">advanced</span></div>
-        <div class="desc">Jacobi theta series on the upper half-plane, transformation laws, and bridges between lattices, modular forms, and counting problems.</div>
-        <span class="tag">θ(τ) · q-series · modular transforms</span>
-      </div>
-    </a>
-
-
   <a class="card v" href="./partitions-generating-functions.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- pentagonal scaffolding + growth curve of p(n) -->
@@ -2633,21 +2662,6 @@
         <div class="tt">Partitions &amp; generating functions</div>
         <div class="desc">The partition function $p(n)$, Euler's pentagonal number theorem, the Jacobi triple product, Dedekind $\eta$, and Ramanujan's mysterious congruences.</div>
         <span class="tag">p(n) · η(τ) · pentagonal</span>
-      </div>
-    </a>
-
-
-  <a class="card c" href="./hecke-operators.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <g fill="none" stroke="var(--cyan)" stroke-width="1.2">
-          <rect x="16" y="18" width="24" height="16"/><rect x="44" y="18" width="24" height="16"/><rect x="30" y="46" width="24" height="16"/>
-          <path d="M40 26 L44 26 M54 34 L42 46 M58 34 L54 46"/>
-        </g>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Hecke operators <span class="level advanced">advanced</span></div>
-        <div class="desc">Commuting correspondences on modular forms with eigenbases, multiplicative relations, and Fourier coefficients that package deep arithmetic information.</div>
-        <span class="tag">T_n · eigenforms · multiplicativity</span>
       </div>
     </a>
 
@@ -2731,16 +2745,94 @@
     </a>
 
 
-  <a class="card y" href="./L-functions.html">
+  <a class="card c" href="./modular-curves.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <path d="M10 56 C28 22, 42 66, 58 30 S86 24, 92 50" fill="none" stroke="var(--yellow)" stroke-width="1.6"/>
-        <line x1="12" y1="60" x2="92" y2="60" stroke="var(--yellow)" stroke-opacity="0.45"/>
-        <line x1="50" y1="12" x2="50" y2="68" stroke="var(--yellow)" stroke-opacity="0.35"/>
+<g stroke="var(--cyan)" stroke-width="1.4" fill="none">
+          <line x1="36" y1="14" x2="36" y2="64"/>
+          <line x1="64" y1="14" x2="64" y2="64"/>
+          <path d="M 36 64 Q 50 50 64 64"/>
+          <line x1="50" y1="14" x2="50" y2="50"/>
+        </g>
+        <g fill="var(--cyan)"><circle cx="50" cy="50" r="2"/><circle cx="36" cy="64" r="2"/><circle cx="64" cy="64" r="2"/></g>
+        <text x="50" y="76" text-anchor="middle" font-family="serif" font-size="9" font-style="italic" fill="var(--cyan)">𝓗/Γ</text>
       </svg></div>
       <div class="body">
-        <div class="tt">L-functions <span class="level capstone">capstone</span></div>
-        <div class="desc">A capstone view of Dirichlet series, Euler products, functional equations, and analytic continuation as one unified language across arithmetic and geometry.</div>
-        <span class="tag">Euler product · FE · continuation</span>
+        <div class="tt">Modular curves</div>
+        <div class="desc">The modular curves Y₀(N) and X₀(N) as moduli of (E, C), Hecke correspondences, the Jacobian J₀(N), genus formulas, cusps.</div>
+        <span class="tag">Y₀(N) · moduli · Hecke</span>
+      </div>
+    </a>
+
+
+    <a class="card c" href="./vertex-operator-algebras.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<circle cx="50" cy="38" r="22" stroke="var(--cyan)" stroke-width="1.4" fill="none"/>
+        <g fill="var(--cyan)">
+          <circle cx="50" cy="16" r="2.5"/>
+          <text x="62" y="20" font-family="serif" font-size="10" font-style="italic">z</text>
+        </g>
+        <line x1="50" y1="38" x2="72" y2="38" stroke="var(--cyan)" stroke-width="1" stroke-dasharray="2 2"/>
+        <text x="50" y="42" text-anchor="middle" font-family="serif" font-size="10" font-style="italic" fill="var(--cyan)">|0⟩</text>
+        <text x="50" y="74" text-anchor="middle" font-family="serif" font-size="10" font-style="italic" fill="var(--cyan)">Y(a,z)</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Vertex operator algebras</div>
+        <div class="desc">Vertex operators $Y(a, z)$ on a state space, Virasoro central charge, modular invariance of trace functions, Frenkel–Lepowsky–Meurman moonshine module.</div>
+        <span class="tag">Y(a,z) · Virasoro · moonshine</span>
+      </div>
+    </a>
+
+
+    <a class="card c" href="./langlands-program.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- two columns: Galois reps (left) and automorphic reps (right), bridged by L-functions -->
+        <g stroke="var(--cyan)" fill="none" stroke-width="1.2">
+          <rect x="14" y="20" width="22" height="40" rx="2"/>
+          <rect x="64" y="20" width="22" height="40" rx="2"/>
+          <path d="M36 40 H64" stroke-width="1.4" marker-end="url(#larrL)"/>
+          <path d="M64 50 H36" stroke-width="1.4" marker-end="url(#larrR)"/>
+        </g>
+        <g fill="var(--cyan)" font-size="7" font-family="serif" font-style="italic" text-anchor="middle">
+          <text x="25" y="32">ρ</text>
+          <text x="75" y="32">π</text>
+          <text x="50" y="38" font-size="6">L(s)</text>
+        </g>
+        <defs>
+          <marker id="larrL" viewBox="0 0 8 6" refX="7" refY="3" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 3 L0 6 Z" fill="var(--cyan)"/></marker>
+          <marker id="larrR" viewBox="0 0 8 6" refX="7" refY="3" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 3 L0 6 Z" fill="var(--cyan)"/></marker>
+        </defs>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Langlands program</div>
+        <div class="desc">Galois reps on one side, automorphic reps on the other, bridged by matching L-functions. CFT, modularity, and Sato-Tate as proven corners.</div>
+        <span class="tag">capstone · automorphy · L-functions · reciprocity</span>
+      </div>
+    </a>
+
+  <a class="card b" href="./theta-functions.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <path d="M12 50 Q26 24 40 50 T68 50 T92 50" fill="none" stroke="var(--blue)" stroke-width="1.5"/>
+        <g fill="var(--blue)"><circle cx="20" cy="50" r="2.3"/><circle cx="48" cy="50" r="2.3"/><circle cx="76" cy="50" r="2.3"/></g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Theta functions <span class="level advanced">advanced</span></div>
+        <div class="desc">Jacobi theta series on the upper half-plane, transformation laws, and bridges between lattices, modular forms, and counting problems.</div>
+        <span class="tag">θ(τ) · q-series · modular transforms</span>
+      </div>
+    </a>
+
+
+  <a class="card c" href="./hecke-operators.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <g fill="none" stroke="var(--cyan)" stroke-width="1.2">
+          <rect x="16" y="18" width="24" height="16"/><rect x="44" y="18" width="24" height="16"/><rect x="30" y="46" width="24" height="16"/>
+          <path d="M40 26 L44 26 M54 34 L42 46 M58 34 L54 46"/>
+        </g>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Hecke operators <span class="level advanced">advanced</span></div>
+        <div class="desc">Commuting correspondences on modular forms with eigenbases, multiplicative relations, and Fourier coefficients that package deep arithmetic information.</div>
+        <span class="tag">T_n · eigenforms · multiplicativity</span>
       </div>
     </a>
 
@@ -2790,6 +2882,20 @@
         <div class="tt">Monstrous moonshine <span class="level advanced">advanced</span></div>
         <div class="desc">The Fourier coefficients of $j(\tau)$ are sums of Monster irrep dimensions. Conway–Norton's McKay–Thompson series and Borcherds' Fields-medal proof.</div>
         <span class="tag">j(τ) · 𝕄 · Borcherds</span>
+      </div>
+    </a>
+
+
+  <a class="card y" href="./L-functions.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <path d="M10 56 C28 22, 42 66, 58 30 S86 24, 92 50" fill="none" stroke="var(--yellow)" stroke-width="1.6"/>
+        <line x1="12" y1="60" x2="92" y2="60" stroke="var(--yellow)" stroke-opacity="0.45"/>
+        <line x1="50" y1="12" x2="50" y2="68" stroke="var(--yellow)" stroke-opacity="0.35"/>
+      </svg></div>
+      <div class="body">
+        <div class="tt">L-functions <span class="level capstone">capstone</span></div>
+        <div class="desc">A capstone view of Dirichlet series, Euler products, functional equations, and analytic continuation as one unified language across arithmetic and geometry.</div>
+        <span class="tag">Euler product · FE · continuation</span>
       </div>
     </a>
 
@@ -2855,71 +2961,7 @@
     </a>
 
 
-    <a class="card c" href="./modular-curves.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-<g stroke="var(--cyan)" stroke-width="1.4" fill="none">
-          <line x1="36" y1="14" x2="36" y2="64"/>
-          <line x1="64" y1="14" x2="64" y2="64"/>
-          <path d="M 36 64 Q 50 50 64 64"/>
-          <line x1="50" y1="14" x2="50" y2="50"/>
-        </g>
-        <g fill="var(--cyan)"><circle cx="50" cy="50" r="2"/><circle cx="36" cy="64" r="2"/><circle cx="64" cy="64" r="2"/></g>
-        <text x="50" y="76" text-anchor="middle" font-family="serif" font-size="9" font-style="italic" fill="var(--cyan)">𝓗/Γ</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Modular curves</div>
-        <div class="desc">The modular curves Y₀(N) and X₀(N) as moduli of (E, C), Hecke correspondences, the Jacobian J₀(N), genus formulas, cusps.</div>
-        <span class="tag">Y₀(N) · moduli · Hecke</span>
-      </div>
-    </a>
-
-
-    <a class="card c" href="./vertex-operator-algebras.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-<circle cx="50" cy="38" r="22" stroke="var(--cyan)" stroke-width="1.4" fill="none"/>
-        <g fill="var(--cyan)">
-          <circle cx="50" cy="16" r="2.5"/>
-          <text x="62" y="20" font-family="serif" font-size="10" font-style="italic">z</text>
-        </g>
-        <line x1="50" y1="38" x2="72" y2="38" stroke="var(--cyan)" stroke-width="1" stroke-dasharray="2 2"/>
-        <text x="50" y="42" text-anchor="middle" font-family="serif" font-size="10" font-style="italic" fill="var(--cyan)">|0⟩</text>
-        <text x="50" y="74" text-anchor="middle" font-family="serif" font-size="10" font-style="italic" fill="var(--cyan)">Y(a,z)</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Vertex operator algebras</div>
-        <div class="desc">Vertex operators $Y(a, z)$ on a state space, Virasoro central charge, modular invariance of trace functions, Frenkel–Lepowsky–Meurman moonshine module.</div>
-        <span class="tag">Y(a,z) · Virasoro · moonshine</span>
-      </div>
-    </a>
-
-
-    <a class="card c" href="./langlands-program.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- two columns: Galois reps (left) and automorphic reps (right), bridged by L-functions -->
-        <g stroke="var(--cyan)" fill="none" stroke-width="1.2">
-          <rect x="14" y="20" width="22" height="40" rx="2"/>
-          <rect x="64" y="20" width="22" height="40" rx="2"/>
-          <path d="M36 40 H64" stroke-width="1.4" marker-end="url(#larrL)"/>
-          <path d="M64 50 H36" stroke-width="1.4" marker-end="url(#larrR)"/>
-        </g>
-        <g fill="var(--cyan)" font-size="7" font-family="serif" font-style="italic" text-anchor="middle">
-          <text x="25" y="32">ρ</text>
-          <text x="75" y="32">π</text>
-          <text x="50" y="38" font-size="6">L(s)</text>
-        </g>
-        <defs>
-          <marker id="larrL" viewBox="0 0 8 6" refX="7" refY="3" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 3 L0 6 Z" fill="var(--cyan)"/></marker>
-          <marker id="larrR" viewBox="0 0 8 6" refX="7" refY="3" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L8 3 L0 6 Z" fill="var(--cyan)"/></marker>
-        </defs>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Langlands program</div>
-        <div class="desc">Galois reps on one side, automorphic reps on the other, bridged by matching L-functions. CFT, modularity, and Sato-Tate as proven corners.</div>
-        <span class="tag">capstone · automorphy · L-functions · reciprocity</span>
-      </div>
-    </a>
-
-  </div>
+    </div>
 
   <div class="sec">Algebraic geometry</div>
   <div class="grid">
@@ -3097,30 +3139,6 @@
     </a>
 
 
-  <a class="card p" href="./singular-cubics-reduction.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- nodal cubic on left, cuspidal cubic on right -->
-        <g fill="none" stroke="var(--pink)" stroke-width="1.3">
-          <path d="M 28 52 Q 20 40 28 28 Q 34 22 30 40 Q 26 58 32 52 Q 18 58 28 52 Z" transform="translate(-5,0)"/>
-        </g>
-        <g fill="none" stroke="var(--yellow)" stroke-width="1.3">
-          <path d="M 70 52 Q 60 40 70 28 Q 76 34 74 40 Q 72 46 70 52 Z"/>
-        </g>
-        <circle cx="23" cy="40" r="2.4" fill="var(--pink)"/>
-        <circle cx="70" cy="40" r="2.4" fill="var(--yellow)"/>
-        <g font-size="7" fill="var(--mute)" font-style="italic" font-family="serif" text-anchor="middle">
-          <text x="23" y="72">node</text><text x="70" y="72">cusp</text>
-        </g>
-        <text x="50" y="14" text-anchor="middle" font-size="7" fill="var(--blue)" font-style="italic" font-family="serif">Δ ≡ 0 (mod p)</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Singular cubics &amp; reduction <span class="level advanced">advanced</span></div>
-        <div class="desc">Good vs. bad reduction of $E/\mathbb{Q}$, nodal vs. cuspidal degenerations, the group law as $\mathbb{G}_m$ or $\mathbb{G}_a$, split/non-split multiplicative &amp; additive types, and Hasse counting.</div>
-        <span class="tag">Δ mod p · 𝔾ₘ · 𝔾ₐ · Hasse</span>
-      </div>
-    </a>
-
-
   <a class="card g" href="./algebraic-curves-higher-genus.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <path d="M 16 42 C 16 28 38 20 50 30 C 62 20 84 28 84 42 C 84 56 62 64 50 54 C 38 64 16 56 16 42 Z" fill="color-mix(in srgb, var(--green) 12%, transparent)" stroke="var(--green)" stroke-width="1.4"/>
@@ -3132,24 +3150,6 @@
         <div class="tt">Algebraic curves: higher genus</div>
         <div class="desc">Genus $g \ge 2$: Riemann–Roch determines $h^0(D)$ from $\deg D$ and $g$, the canonical class embeds non-hyperelliptic curves, and $\mathcal{M}_g$ has dimension $3g-3$.</div>
         <span class="tag">genus · Riemann–Roch · canonical · M_g</span>
-      </div>
-    </a>
-
-
-  <a class="card c" href="./sheaf-cohomology.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <circle cx="38" cy="42" r="18" fill="none" stroke="var(--cyan)" stroke-width="1.3" opacity="0.85"/>
-        <circle cx="62" cy="42" r="18" fill="none" stroke="var(--cyan)" stroke-width="1.3" opacity="0.85"/>
-        <path d="M 50 28 A 18 18 0 0 1 50 56 A 18 18 0 0 1 50 28 Z" fill="var(--cyan)" opacity="0.12"/>
-        <path d="M 50 24 A 24 12 0 0 1 50 60" fill="none" stroke="var(--yellow)" stroke-width="1.3" stroke-dasharray="3 2"/>
-        <text x="38" y="78" text-anchor="middle" font-size="8" fill="var(--cyan)" font-style="italic" font-family="serif">U</text>
-        <text x="62" y="78" text-anchor="middle" font-size="8" fill="var(--cyan)" font-style="italic" font-family="serif">V</text>
-        <text x="50" y="18" text-anchor="middle" font-size="8" fill="var(--yellow)" font-style="italic" font-family="serif">H¹</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Sheaf cohomology <span class="level advanced">advanced</span></div>
-        <div class="desc">Čech cohomology, the long exact sequence, $H^i(\mathbb{P}^n,\mathcal{O}(d))$ as a dimension table, $\mathrm{Pic}(\mathbb{P}^n)=\mathbb{Z}$ — with live cocycle widgets.</div>
-        <span class="tag">Čech · H^i · 𝒪(d)</span>
       </div>
     </a>
 
@@ -3171,34 +3171,6 @@
     </a>
 
 
-  <a class="card v" href="./moduli-spaces.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <line x1="10" y1="58" x2="90" y2="58" stroke="var(--violet)" stroke-width="1.3"/>
-        <circle cx="25" cy="58" r="3" fill="var(--yellow)"/>
-        <circle cx="75" cy="58" r="3" fill="var(--yellow)"/>
-        <text x="25" y="72" text-anchor="middle" font-size="7" fill="var(--yellow)" font-style="italic" font-family="serif">0</text>
-        <text x="75" y="72" text-anchor="middle" font-size="7" fill="var(--yellow)" font-style="italic" font-family="serif">1728</text>
-        <g fill="none" stroke="var(--violet)" stroke-width="1" opacity="0.8">
-          <path d="M 18 30 Q 25 18 32 30 Q 25 42 18 30 Z"/>
-          <path d="M 43 30 Q 50 16 57 30 Q 50 40 43 30 Z"/>
-          <path d="M 68 30 Q 75 18 82 30 Q 75 42 68 30 Z"/>
-        </g>
-        <g stroke="var(--violet)" stroke-width="0.6" opacity="0.4">
-          <line x1="25" y1="42" x2="25" y2="55"/>
-          <line x1="50" y1="40" x2="50" y2="55"/>
-          <line x1="75" y1="42" x2="75" y2="55"/>
-        </g>
-        <circle cx="50" cy="58" r="2" fill="var(--violet)"/>
-        <text x="50" y="14" text-anchor="middle" font-size="8" fill="var(--violet)" font-style="italic" font-family="serif">M₁,₁</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Moduli spaces <span class="level advanced">advanced</span></div>
-        <div class="desc">The $j$-line as coarse moduli of elliptic curves, fine vs. coarse moduli, level structure, stable curves, and the Deligne–Mumford compactification $\overline{M}_{g,n}$.</div>
-        <span class="tag">j · fine/coarse · M_{g,n}</span>
-      </div>
-    </a>
-
-
   <a class="card g" href="./algebraic-spaces.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <rect x="14" y="22" width="30" height="20" fill="none" stroke="var(--green)" stroke-width="1.3"/>
@@ -3215,35 +3187,6 @@
         <div class="tt">Algebraic spaces</div>
         <div class="desc">Étale equivalence relations on schemes — the smallest enlargement that closes under quotients, sitting between schemes and DM stacks.</div>
         <span class="tag">étale equivalence · diagonal · Hironaka · quotients</span>
-      </div>
-    </a>
-
-
-  <a class="card g" href="./stacks.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <g fill="var(--green)">
-          <circle cx="25" cy="28" r="3.2"/>
-          <circle cx="70" cy="28" r="3.2"/>
-          <circle cx="48" cy="56" r="3.2"/>
-        </g>
-        <g fill="none" stroke="var(--green)" stroke-width="1.2">
-          <path d="M 28 28 Q 48 20 67 28" marker-end="url(#st1)"/>
-          <path d="M 67 32 Q 58 48 51 53" marker-end="url(#st1)"/>
-          <path d="M 45 55 Q 30 48 26 32" marker-end="url(#st1)"/>
-        </g>
-        <g fill="none" stroke="var(--yellow)" stroke-width="1.1">
-          <circle cx="25" cy="18" r="5"/>
-          <circle cx="70" cy="18" r="5"/>
-          <circle cx="48" cy="66" r="5"/>
-        </g>
-        <defs>
-          <marker id="st1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="var(--green)"/></marker>
-        </defs>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Stacks (Deligne–Mumford) <span class="level capstone">capstone</span></div>
-        <div class="desc">Groupoid-valued functors, descent, $BG$, étale atlases, and $\mathcal{M}_{1,1}$ as a DM stack with stacky points at $j=0, 1728$ — with the $j$-line as coarse moduli.</div>
-        <span class="tag">Grpd · BG · M_{g,n} · étale</span>
       </div>
     </a>
 
@@ -3318,28 +3261,7 @@
     </a>
 
 
-  <a class="card c" href="./etale-cohomology.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <circle cx="50" cy="42" r="22" fill="none" stroke="var(--cyan)" stroke-width="1.3"/>
-        <g stroke="var(--yellow)" stroke-width="1" fill="none" opacity="0.9">
-          <path d="M 32 42 A 22 12 0 0 1 68 42"/>
-          <path d="M 32 42 A 22 12 0 0 0 68 42"/>
-        </g>
-        <g fill="var(--pink)">
-          <circle cx="32" cy="42" r="1.8"/><circle cx="68" cy="42" r="1.8"/>
-        </g>
-        <text x="50" y="18" text-anchor="middle" font-size="8" fill="var(--cyan)" font-style="italic" font-family="serif">X_ét</text>
-        <text x="50" y="74" text-anchor="middle" font-size="8" fill="var(--yellow)" font-style="italic" font-family="serif">H^i_ét(X, ℚ_ℓ)</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Étale cohomology <span class="level capstone">capstone</span></div>
-        <div class="desc">Étale morphisms, $\ell$-adic cohomology, and the Weil conjectures: point counts as an alternating sum of Frobenius traces with eigenvalues $|\alpha|=q^{i/2}$.</div>
-        <span class="tag">étale · ℚ_ℓ · Frobenius · Weil</span>
-      </div>
-    </a>
-
-
-    <a class="card g" href="./calabi-yau-manifolds.html">
+  <a class="card g" href="./calabi-yau-manifolds.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
 <g fill="var(--green)" font-family="serif" font-size="9" text-anchor="middle">
           <text x="50" y="20">1</text>
@@ -3448,7 +3370,127 @@
       </div>
     </a>
 
-  </div>
+  <a class="card p" href="./singular-cubics-reduction.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- nodal cubic on left, cuspidal cubic on right -->
+        <g fill="none" stroke="var(--pink)" stroke-width="1.3">
+          <path d="M 28 52 Q 20 40 28 28 Q 34 22 30 40 Q 26 58 32 52 Q 18 58 28 52 Z" transform="translate(-5,0)"/>
+        </g>
+        <g fill="none" stroke="var(--yellow)" stroke-width="1.3">
+          <path d="M 70 52 Q 60 40 70 28 Q 76 34 74 40 Q 72 46 70 52 Z"/>
+        </g>
+        <circle cx="23" cy="40" r="2.4" fill="var(--pink)"/>
+        <circle cx="70" cy="40" r="2.4" fill="var(--yellow)"/>
+        <g font-size="7" fill="var(--mute)" font-style="italic" font-family="serif" text-anchor="middle">
+          <text x="23" y="72">node</text><text x="70" y="72">cusp</text>
+        </g>
+        <text x="50" y="14" text-anchor="middle" font-size="7" fill="var(--blue)" font-style="italic" font-family="serif">Δ ≡ 0 (mod p)</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Singular cubics &amp; reduction <span class="level advanced">advanced</span></div>
+        <div class="desc">Good vs. bad reduction of $E/\mathbb{Q}$, nodal vs. cuspidal degenerations, the group law as $\mathbb{G}_m$ or $\mathbb{G}_a$, split/non-split multiplicative &amp; additive types, and Hasse counting.</div>
+        <span class="tag">Δ mod p · 𝔾ₘ · 𝔾ₐ · Hasse</span>
+      </div>
+    </a>
+
+
+  <a class="card c" href="./sheaf-cohomology.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <circle cx="38" cy="42" r="18" fill="none" stroke="var(--cyan)" stroke-width="1.3" opacity="0.85"/>
+        <circle cx="62" cy="42" r="18" fill="none" stroke="var(--cyan)" stroke-width="1.3" opacity="0.85"/>
+        <path d="M 50 28 A 18 18 0 0 1 50 56 A 18 18 0 0 1 50 28 Z" fill="var(--cyan)" opacity="0.12"/>
+        <path d="M 50 24 A 24 12 0 0 1 50 60" fill="none" stroke="var(--yellow)" stroke-width="1.3" stroke-dasharray="3 2"/>
+        <text x="38" y="78" text-anchor="middle" font-size="8" fill="var(--cyan)" font-style="italic" font-family="serif">U</text>
+        <text x="62" y="78" text-anchor="middle" font-size="8" fill="var(--cyan)" font-style="italic" font-family="serif">V</text>
+        <text x="50" y="18" text-anchor="middle" font-size="8" fill="var(--yellow)" font-style="italic" font-family="serif">H¹</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Sheaf cohomology <span class="level advanced">advanced</span></div>
+        <div class="desc">Čech cohomology, the long exact sequence, $H^i(\mathbb{P}^n,\mathcal{O}(d))$ as a dimension table, $\mathrm{Pic}(\mathbb{P}^n)=\mathbb{Z}$ — with live cocycle widgets.</div>
+        <span class="tag">Čech · H^i · 𝒪(d)</span>
+      </div>
+    </a>
+
+
+  <a class="card v" href="./moduli-spaces.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <line x1="10" y1="58" x2="90" y2="58" stroke="var(--violet)" stroke-width="1.3"/>
+        <circle cx="25" cy="58" r="3" fill="var(--yellow)"/>
+        <circle cx="75" cy="58" r="3" fill="var(--yellow)"/>
+        <text x="25" y="72" text-anchor="middle" font-size="7" fill="var(--yellow)" font-style="italic" font-family="serif">0</text>
+        <text x="75" y="72" text-anchor="middle" font-size="7" fill="var(--yellow)" font-style="italic" font-family="serif">1728</text>
+        <g fill="none" stroke="var(--violet)" stroke-width="1" opacity="0.8">
+          <path d="M 18 30 Q 25 18 32 30 Q 25 42 18 30 Z"/>
+          <path d="M 43 30 Q 50 16 57 30 Q 50 40 43 30 Z"/>
+          <path d="M 68 30 Q 75 18 82 30 Q 75 42 68 30 Z"/>
+        </g>
+        <g stroke="var(--violet)" stroke-width="0.6" opacity="0.4">
+          <line x1="25" y1="42" x2="25" y2="55"/>
+          <line x1="50" y1="40" x2="50" y2="55"/>
+          <line x1="75" y1="42" x2="75" y2="55"/>
+        </g>
+        <circle cx="50" cy="58" r="2" fill="var(--violet)"/>
+        <text x="50" y="14" text-anchor="middle" font-size="8" fill="var(--violet)" font-style="italic" font-family="serif">M₁,₁</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Moduli spaces <span class="level advanced">advanced</span></div>
+        <div class="desc">The $j$-line as coarse moduli of elliptic curves, fine vs. coarse moduli, level structure, stable curves, and the Deligne–Mumford compactification $\overline{M}_{g,n}$.</div>
+        <span class="tag">j · fine/coarse · M_{g,n}</span>
+      </div>
+    </a>
+
+
+  <a class="card g" href="./stacks.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <g fill="var(--green)">
+          <circle cx="25" cy="28" r="3.2"/>
+          <circle cx="70" cy="28" r="3.2"/>
+          <circle cx="48" cy="56" r="3.2"/>
+        </g>
+        <g fill="none" stroke="var(--green)" stroke-width="1.2">
+          <path d="M 28 28 Q 48 20 67 28" marker-end="url(#st1)"/>
+          <path d="M 67 32 Q 58 48 51 53" marker-end="url(#st1)"/>
+          <path d="M 45 55 Q 30 48 26 32" marker-end="url(#st1)"/>
+        </g>
+        <g fill="none" stroke="var(--yellow)" stroke-width="1.1">
+          <circle cx="25" cy="18" r="5"/>
+          <circle cx="70" cy="18" r="5"/>
+          <circle cx="48" cy="66" r="5"/>
+        </g>
+        <defs>
+          <marker id="st1" viewBox="0 0 8 8" refX="6" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L6,4 L0,8 z" fill="var(--green)"/></marker>
+        </defs>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Stacks (Deligne–Mumford) <span class="level capstone">capstone</span></div>
+        <div class="desc">Groupoid-valued functors, descent, $BG$, étale atlases, and $\mathcal{M}_{1,1}$ as a DM stack with stacky points at $j=0, 1728$ — with the $j$-line as coarse moduli.</div>
+        <span class="tag">Grpd · BG · M_{g,n} · étale</span>
+      </div>
+    </a>
+
+
+  <a class="card c" href="./etale-cohomology.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <circle cx="50" cy="42" r="22" fill="none" stroke="var(--cyan)" stroke-width="1.3"/>
+        <g stroke="var(--yellow)" stroke-width="1" fill="none" opacity="0.9">
+          <path d="M 32 42 A 22 12 0 0 1 68 42"/>
+          <path d="M 32 42 A 22 12 0 0 0 68 42"/>
+        </g>
+        <g fill="var(--pink)">
+          <circle cx="32" cy="42" r="1.8"/><circle cx="68" cy="42" r="1.8"/>
+        </g>
+        <text x="50" y="18" text-anchor="middle" font-size="8" fill="var(--cyan)" font-style="italic" font-family="serif">X_ét</text>
+        <text x="50" y="74" text-anchor="middle" font-size="8" fill="var(--yellow)" font-style="italic" font-family="serif">H^i_ét(X, ℚ_ℓ)</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Étale cohomology <span class="level capstone">capstone</span></div>
+        <div class="desc">Étale morphisms, $\ell$-adic cohomology, and the Weil conjectures: point counts as an alternating sum of Frobenius traces with eigenvalues $|\alpha|=q^{i/2}$.</div>
+        <span class="tag">étale · ℚ_ℓ · Frobenius · Weil</span>
+      </div>
+    </a>
+
+
+    </div>
 
   <div class="sec">Combinatorics &amp; graph theory</div>
   <div class="grid">
@@ -3707,59 +3749,6 @@
     </a>
 
 
-    <a class="card p" href="./statistical-mechanics.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- Boltzmann bar chart: probability falls off geometrically with energy -->
-        <g fill="var(--pink)">
-          <rect x="16" y="22" width="10" height="42" opacity="0.95"/>
-          <rect x="30" y="32" width="10" height="32" opacity="0.78"/>
-          <rect x="44" y="42" width="10" height="22" opacity="0.62"/>
-          <rect x="58" y="50" width="10" height="14" opacity="0.46"/>
-          <rect x="72" y="56" width="10" height="8" opacity="0.30"/>
-        </g>
-        <line x1="14" y1="64" x2="86" y2="64" stroke="var(--pink)" stroke-width="1" opacity="0.7"/>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Statistical mechanics <span class="level capstone">capstone</span></div>
-        <div class="desc">Microstates and ensembles, the canonical Boltzmann distribution, Gibbs entropy, the Ising phase transition and renormalization group, and large-deviations fluctuations — equilibrium thermodynamics from a probability measure on phase space.</div>
-        <span class="tag">Boltzmann · Ising · RG · large-deviations</span>
-      </div>
-    </a>
-
-    <a class="card v" href="./gauge-theory.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- BPST instanton density profile: spike near origin, tail to zero -->
-        <path d="M 10 60 C 30 60, 38 60, 46 50 C 50 30, 52 20, 54 18 C 56 20, 58 30, 62 50 C 70 60, 78 60, 90 60"
-              stroke="var(--violet)" stroke-width="1.6" fill="none"/>
-        <line x1="10" y1="60" x2="90" y2="60" stroke="var(--violet)" stroke-width="1" opacity="0.6"/>
-        <circle cx="54" cy="18" r="2" fill="var(--violet)"/>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Gauge theory <span class="level capstone">capstone</span></div>
-        <div class="desc">Connections on principal bundles, curvature and the Yang-Mills action, gauge transformations and Wilson loops, instantons and Chern-Simons, lattice gauge theory, and the Donaldson / Seiberg-Witten 4-manifold invariants.</div>
-        <span class="tag">Yang-Mills · instanton · Chern-Simons · SW</span>
-      </div>
-    </a>
-
-    <a class="card v" href="./string-theory.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <!-- worldsheet sweep: a string arc moving through embedding space -->
-        <g stroke="var(--violet)" fill="none" stroke-width="1.2">
-          <path d="M 18 60 Q 30 38, 50 38 T 82 60" opacity="0.35"/>
-          <path d="M 16 56 Q 28 34, 50 34 T 84 56" opacity="0.55"/>
-          <path d="M 14 52 Q 26 30, 50 30 T 86 52" opacity="0.78"/>
-          <path d="M 12 48 Q 24 26, 50 26 T 88 48" opacity="0.95"/>
-        </g>
-        <line x1="10" y1="68" x2="90" y2="68" stroke="var(--violet)" stroke-width="0.7" opacity="0.4"/>
-      </svg></div>
-      <div class="body">
-        <div class="tt">String theory <span class="level capstone">capstone</span></div>
-        <div class="desc">World-sheet action and 2D CFT, bosonic strings in $D=26$, superstrings in $D=10$, Calabi-Yau compactification, T-duality and mirror symmetry, branes — and the math output (mirror symmetry, moonshine, geometric Langlands).</div>
-        <span class="tag">CFT · D=10 · CY · T-duality · mirror</span>
-      </div>
-    </a>
-
-
     <a class="card p" href="./special-relativity.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- Light-cone thumbnail: x axis (horizontal), ct axis (vertical), null lines bounding the future cone. -->
@@ -3817,6 +3806,59 @@
         <div class="tt">Dirac equation</div>
         <div class="desc">The first-order relativistic spinor equation $(i\gamma^\mu\partial_\mu - m)\psi = 0$. Fixes Klein-Gordon's probability problem, predicts antimatter, forces spin-½, and gives gyromagnetic ratio $g=2$ for free.</div>
         <span class="tag">spinors · Clifford · γ-matrices · positrons · g=2</span>
+      </div>
+    </a>
+
+
+    <a class="card p" href="./statistical-mechanics.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- Boltzmann bar chart: probability falls off geometrically with energy -->
+        <g fill="var(--pink)">
+          <rect x="16" y="22" width="10" height="42" opacity="0.95"/>
+          <rect x="30" y="32" width="10" height="32" opacity="0.78"/>
+          <rect x="44" y="42" width="10" height="22" opacity="0.62"/>
+          <rect x="58" y="50" width="10" height="14" opacity="0.46"/>
+          <rect x="72" y="56" width="10" height="8" opacity="0.30"/>
+        </g>
+        <line x1="14" y1="64" x2="86" y2="64" stroke="var(--pink)" stroke-width="1" opacity="0.7"/>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Statistical mechanics <span class="level capstone">capstone</span></div>
+        <div class="desc">Microstates and ensembles, the canonical Boltzmann distribution, Gibbs entropy, the Ising phase transition and renormalization group, and large-deviations fluctuations — equilibrium thermodynamics from a probability measure on phase space.</div>
+        <span class="tag">Boltzmann · Ising · RG · large-deviations</span>
+      </div>
+    </a>
+
+    <a class="card v" href="./gauge-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- BPST instanton density profile: spike near origin, tail to zero -->
+        <path d="M 10 60 C 30 60, 38 60, 46 50 C 50 30, 52 20, 54 18 C 56 20, 58 30, 62 50 C 70 60, 78 60, 90 60"
+              stroke="var(--violet)" stroke-width="1.6" fill="none"/>
+        <line x1="10" y1="60" x2="90" y2="60" stroke="var(--violet)" stroke-width="1" opacity="0.6"/>
+        <circle cx="54" cy="18" r="2" fill="var(--violet)"/>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Gauge theory <span class="level capstone">capstone</span></div>
+        <div class="desc">Connections on principal bundles, curvature and the Yang-Mills action, gauge transformations and Wilson loops, instantons and Chern-Simons, lattice gauge theory, and the Donaldson / Seiberg-Witten 4-manifold invariants.</div>
+        <span class="tag">Yang-Mills · instanton · Chern-Simons · SW</span>
+      </div>
+    </a>
+
+    <a class="card v" href="./string-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <!-- worldsheet sweep: a string arc moving through embedding space -->
+        <g stroke="var(--violet)" fill="none" stroke-width="1.2">
+          <path d="M 18 60 Q 30 38, 50 38 T 82 60" opacity="0.35"/>
+          <path d="M 16 56 Q 28 34, 50 34 T 84 56" opacity="0.55"/>
+          <path d="M 14 52 Q 26 30, 50 30 T 86 52" opacity="0.78"/>
+          <path d="M 12 48 Q 24 26, 50 26 T 88 48" opacity="0.95"/>
+        </g>
+        <line x1="10" y1="68" x2="90" y2="68" stroke="var(--violet)" stroke-width="0.7" opacity="0.4"/>
+      </svg></div>
+      <div class="body">
+        <div class="tt">String theory <span class="level capstone">capstone</span></div>
+        <div class="desc">World-sheet action and 2D CFT, bosonic strings in $D=26$, superstrings in $D=10$, Calabi-Yau compactification, T-duality and mirror symmetry, branes — and the math output (mirror symmetry, moonshine, geometric Langlands).</div>
+        <span class="tag">CFT · D=10 · CY · T-duality · mirror</span>
       </div>
     </a>
 
@@ -3934,11 +3976,12 @@
         if(n > 0){
           var stats = document.createElement('span');
           stats.className = 'sec-stats';
-          // Section mastery ring removed in the palette-load audit pass — the
-          // 18px donut was too small to register and competed chromatically
-          // with the colored card thumbs. makeRing() retained but used only
-          // for its tooltip side-effect on the section header.
+          // Section mastery: a thin horizontal progress bar that picks up the
+          // section accent via currentColor. makeRing() still runs for its
+          // tooltip side-effect on the section header (mastered/total).
           makeRing(sec, cards);
+          var bar = makeProgressBar(cards);
+          if(bar) stats.appendChild(bar);
           var span = document.createElement('span');
           span.className = 'sec-count';
           span.textContent = n + (n === 1 ? ' topic' : ' topics');
@@ -3990,6 +4033,38 @@
       })(sec);
     }
   }
+  function makeProgressBar(cards){
+    // Builds a thin horizontal progress bar keyed off MVProgress v1 mastery
+    // across every concept of every topic in the section. Returns null if
+    // bundles are unavailable or the section has zero concepts.
+    var topics = (window.__MVConcepts && window.__MVConcepts.topics) || null;
+    if(!topics || !window.MVProgress) return null;
+    var total = 0, mastered = 0;
+    for(var i = 0; i < cards.length; i++){
+      var href = cards[i].getAttribute('href') || '';
+      var slug = href.replace(/^\.\//, '').replace(/\.html$/, '');
+      var topic = topics[slug];
+      if(!topic || !Array.isArray(topic.concepts)) continue;
+      for(var j = 0; j < topic.concepts.length; j++){
+        var cid = topic.concepts[j].id || topic.concepts[j];
+        total++;
+        if(window.MVProgress.isMastered(cid, 'v1')) mastered++;
+      }
+    }
+    if(total === 0) return null;
+    var pct = mastered / total;
+    var bar = document.createElement('span');
+    bar.className = 'sec-progress';
+    bar.setAttribute('aria-label', mastered + ' of ' + total + ' concepts mastered');
+    bar.title = mastered + ' / ' + total + ' concept' + (total === 1 ? '' : 's') + ' mastered';
+    if(mastered === 0) bar.setAttribute('data-empty', '1');
+    var fill = document.createElement('span');
+    fill.className = 'fill';
+    fill.style.width = (pct * 100).toFixed(1) + '%';
+    bar.appendChild(fill);
+    return bar;
+  }
+
   function makeRing(sec, cards){
     var topics = (window.__MVConcepts && window.__MVConcepts.topics) || null;
     if(!topics || !window.MVProgress) return null;
@@ -4102,115 +4177,61 @@
 </script>
 <script>
 // "Recently updated" strip.
-// For each topic card on this page, fetches the topic HTML and scrapes the latest
-// date from its <details class="changelog"> footer. Sorts descending, renders the
-// top N as compact cards into #recently-updated .ru-strip, then reveals the
-// section via the .ready class.
-//
-// Gracefully degrades under file://: fetch() of a sibling HTML file is blocked
-// by most browsers, so the whole feature is suppressed and the strip stays
-// hidden. Network errors and missing changelogs are ignored per-topic; as long
-// as at least one topic resolves, the strip renders.
+// Reads `window.MV_RECENT_UPDATES`, populated from `recent-updates.js`
+// (auto-generated by scripts/build-recent-updates.mjs from `git log` on the
+// quiz banks). Renders the top N entries as compact .ru-card chips, then
+// reveals #recently-updated via the .ready class. Works under file:// — no
+// fetch involved.
 (function(){
-  var MAX_CARDS = 7;
-  var DATE_RE_G = /<tr>\s*<td>\s*(\d{4}-\d{2}-\d{2})\s*<\/td>\s*<td>([^<]*)<\/td>\s*<\/tr>/gi;
-  var CHANGELOG_RE = /<details\s+class=["']changelog["'][\s\S]*?<\/details>/i;
+  var MAX_CARDS = 8;
+  var MS_PER_DAY = 86400000;
+
+  function relDate(iso){
+    // iso is YYYY-MM-DD. Return "today" / "yesterday" / "Nd ago" for the
+    // last week, otherwise YYYY-MM-DD. Uses local midnight comparison to
+    // avoid TZ off-by-ones.
+    var now = new Date();
+    var midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    var d = new Date(iso + 'T00:00:00');
+    var diff = Math.round((midnight - d) / MS_PER_DAY);
+    if(diff <= 0) return 'today';
+    if(diff === 1) return 'yesterday';
+    if(diff < 7)   return diff + 'd ago';
+    return iso;
+  }
 
   function init(){
-    // Under file:// the browser refuses cross-file fetch(). Bail quietly.
-    if(location.protocol === 'file:') return;
-
+    var manifest = window.MV_RECENT_UPDATES;
+    if(!manifest || !Array.isArray(manifest.entries) || !manifest.entries.length) return;
     var container = document.getElementById('recently-updated');
     if(!container) return;
     var strip = container.querySelector('.ru-strip');
     if(!strip) return;
 
-    // Collect topic cards on the main grid (skip section-links block and coming-soon).
-    var cards = document.querySelectorAll('main > .grid > a.card[href]');
-    var jobs = [];
-    for(var i=0;i<cards.length;i++){
-      var card = cards[i];
-      if(card.classList.contains('coming')) continue;
-      var href = card.getAttribute('href') || '';
-      if(!/^\.\/[^\/?#]+\.html/.test(href)) continue;
-      // Preserve card metadata we need for rendering.
-      var colorCls = '';
-      var clsList = card.classList;
-      for(var k=0;k<clsList.length;k++){
-        if(['y','b','g','p','v','c'].indexOf(clsList[k]) !== -1){ colorCls = clsList[k]; break; }
-      }
-      var ttEl = card.querySelector('.tt');
-      // Strip any level badge text from the title.
-      var title = '';
-      if(ttEl){
-        var clone = ttEl.cloneNode(true);
-        var badges = clone.querySelectorAll('.level');
-        for(var b=0;b<badges.length;b++) badges[b].remove();
-        title = (clone.textContent || '').trim();
-      }
-      var tagEl = card.querySelector('.tag');
-      var tag = tagEl ? (tagEl.textContent || '').trim() : '';
-      jobs.push({ href: href, title: title, tag: tag, color: colorCls });
-    }
-    if(!jobs.length) return;
-
-    Promise.all(jobs.map(function(j){
-      return fetch(j.href, { credentials: 'omit' }).then(function(res){
-        if(!res.ok) return null;
-        return res.text();
-      }).then(function(html){
-        if(!html) return null;
-        var m = CHANGELOG_RE.exec(html);
-        if(!m) return null;
-        var dates = [], message = '';
-        var block = m[0], row;
-        DATE_RE_G.lastIndex = 0;
-        while((row = DATE_RE_G.exec(block)) !== null){
-          dates.push(row[1]);
-          if(!message) message = (row[2] || '').trim();
-          if(dates.length >= 5) break;
-        }
-        if(!dates.length) return null;
-        return { href: j.href, title: j.title, tag: j.tag, color: j.color,
-                 date: dates[0], dates: dates, message: message };
-      }).catch(function(){ return null; });
-    })).then(function(results){
-      var hits = results.filter(function(r){ return r && r.date; });
-      if(!hits.length) return;
-      hits.sort(function(a, b){
-        // Compare top-N dates lexicographically, desc. Pages tied on most-recent
-        // date but with an earlier second-most-recent commit sort lower, so "very
-        // active" pages bubble up. Final tiebreak: title asc for stable output.
-        var n = Math.max(a.dates.length, b.dates.length);
-        for(var k=0;k<n;k++){
-          var da = a.dates[k] || '', db = b.dates[k] || '';
-          if(da !== db) return da < db ? 1 : -1;
-        }
-        return a.title < b.title ? -1 : 1;
-      });
-      var top = hits.slice(0, MAX_CARDS);
-      for(var i=0;i<top.length;i++){
-        var r = top[i];
-        var a = document.createElement('a');
-        a.className = 'ru-card' + (r.color ? ' ' + r.color : '');
-        a.href = r.href;
-        a.title = r.message ? (r.date + ' — ' + r.message) : r.date;
-        var date = document.createElement('span');
-        date.className = 'ru-date';
-        date.textContent = r.date;
-        var title = document.createElement('span');
-        title.className = 'ru-title';
-        title.textContent = r.title;
+    var top = manifest.entries.slice(0, MAX_CARDS);
+    for(var i=0;i<top.length;i++){
+      var r = top[i];
+      var a = document.createElement('a');
+      a.className = 'ru-card' + (r.color ? ' ' + r.color : '');
+      a.href = './' + r.slug + '.html';
+      a.title = r.message ? (r.date + ' — ' + r.message) : r.date;
+      var date = document.createElement('span');
+      date.className = 'ru-date';
+      date.textContent = relDate(r.date);
+      var title = document.createElement('span');
+      title.className = 'ru-title';
+      title.textContent = r.title;
+      a.appendChild(date);
+      a.appendChild(title);
+      if(r.tag){
         var tag = document.createElement('span');
         tag.className = 'ru-tag';
         tag.textContent = r.tag;
-        a.appendChild(date);
-        a.appendChild(title);
-        if(r.tag) a.appendChild(tag);
-        strip.appendChild(a);
+        a.appendChild(tag);
       }
-      container.classList.add('ready');
-    }).catch(function(){ /* swallow: keep strip hidden */ });
+      strip.appendChild(a);
+    }
+    container.classList.add('ready');
   }
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();

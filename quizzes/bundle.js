@@ -12318,6 +12318,355 @@ window.MVQuizBank = {
       }
     }
   },
+  "condensed-mathematics": {
+    "topic": "condensed-mathematics",
+    "quizzes": {
+      "cm-condensed-sets": {
+        "title": "Condensed sets",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which Grothendieck site does Clausen and Scholze take sheaves on to define $\\mathrm{Cond}(\\mathrm{Set})$?",
+            "choices": [
+              "The étale site of a fixed scheme.",
+              "The pro-étale site of the one-point space (extremally disconnected profinite sets, finite jointly-surjective covers).",
+              "The site of all topological spaces with the open-cover Grothendieck topology.",
+              "The fpqc site of $\\mathrm{Spec}\\,\\mathbb{Z}$."
+            ],
+            "answer": 1,
+            "hint": "Some of the candidates put the site on a base scheme rather than a stripped-down base; one chooses a topology that is too coarse to give descent for the targeted homological applications. The right choice has a base that is as small as possible, a constraint on the sizes of admissible coverings, and an extremal connectedness condition on its underlying objects.",
+            "explain": "Condensed sets are sheaves on the pro-étale site of a point: extremally disconnected profinite sets, with finite jointly-surjective covers. The other choices either pick the wrong base (a scheme), the wrong topology (open covers don't have descent for the targeted homological-algebra applications), or the wrong scheme (fpqc on $\\mathrm{Spec}\\,\\mathbb{Z}$ would give condensed schemes, a different downstream object)."
+          },
+          {
+            "type": "matching",
+            "q": "Match each topological space to its value of $\\underline T(S)$ on the indicated profinite probe $S$.",
+            "left": [
+              "$T = \\mathbb{R}$ probed by $S = \\{a, b\\}$ (2 discrete points)",
+              "$T = \\mathbb{Z}_p$ probed by $S = $ Cantor set $\\{0,1\\}^{\\mathbb{N}}$",
+              "$T = $ point $*$ probed by $S = \\mathbb{Z}_p$",
+              "$T = S^1$ (circle) probed by $S = \\mathbb{Z}_p$"
+            ],
+            "right": [
+              "$\\mu_{p^\\infty}$ — the Prüfer $p$-group, since every continuous map factors through finite quotients of $\\mathbb{Z}_p$",
+              "$\\{*\\}$ — a singleton, since maps to a point are unique",
+              "locally constant $\\mathbb{Z}_p$-valued functions (continuous = locally constant for a totally-disconnected target)",
+              "$\\mathbb{R} \\times \\mathbb{R}$ — by the descent / disjoint-union axiom"
+            ],
+            "answer": [
+              3,
+              2,
+              1,
+              0
+            ],
+            "hint": "Each row falls to one of two levers: an axiom that splits the value across a decomposition of the source, or an exploitation of how the receiving space behaves under continuity. Decide for every row which lever is the cleanest, and let the remaining row inherit by elimination.",
+            "explain": "Row 0 ($\\mathbb{R}, \\{a,b\\}$): descent gives $\\underline T(\\{a\\} \\sqcup \\{b\\}) = \\mathbb{R} \\times \\mathbb{R}$ — pairs of values. Row 1 ($\\mathbb{Z}_p$, Cantor): both totally disconnected, so $\\mathrm{Cont} = $ locally constant. Row 2 (point, $\\mathbb{Z}_p$): there is a unique map from anywhere to a point. Row 3 ($S^1$, $\\mathbb{Z}_p$): every continuous map factors through finite cyclic quotients $\\mu_{p^n}$ of $S^1$, with colimit the Prüfer $p$-group $\\mu_{p^\\infty}$."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all true statements about $\\mathrm{Cond}(\\mathrm{Set})$ as defined on the pro-étale site of a point.",
+            "choices": [
+              "It has all small limits and colimits.",
+              "Topological spaces (compactly generated weak Hausdorff) embed fully faithfully via $T \\mapsto \\underline T$.",
+              "It is small (i.e. has a set of objects rather than a proper class up to isomorphism).",
+              "Profinite sets are themselves objects of the site, hence representable in $\\mathrm{Cond}(\\mathrm{Set})$.",
+              "It is Cartesian closed."
+            ],
+            "answer": [
+              0,
+              1,
+              3,
+              4
+            ],
+            "hint": "Four of the five claims are routine consequences of the topos-theoretic definition. The remaining one asserts a size property that would force the entire isomorphism-class structure to be small — incompatible with how broad the ambient class of probes is. Test each option against a generic Grothendieck-topos check, and reject the size claim if no universe argument rescues it.",
+            "explain": "The four correct statements are direct consequences of the topos-theoretic construction: any sheaf topos has all (co)limits, $\\mathbf{CGWH}$ embeds fully faithfully, representable sheaves include the profinite sets, and Grothendieck topoi are Cartesian closed. The size claim is false: $\\mathrm{Cond}(\\mathrm{Set})$ is locally small (Hom sets are sets) only modulo a Grothendieck universe choice, and is not literally small — there is a proper class of (iso classes of) profinite sets even up to bounded cardinality."
+          }
+        ]
+      },
+      "cm-condensed-abelian": {
+        "title": "Condensed abelian groups",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "What property of $\\mathrm{Cond}(\\mathrm{Ab})$ does topological abelian groups fail to have, motivating the condensed framework?",
+            "choices": [
+              "Being closed under arbitrary products.",
+              "Being a category at all — topological abelian groups don't compose.",
+              "Being abelian: in topological $\\mathrm{Ab}$ the canonical comparison $\\mathrm{coim}\\,f \\to \\mathrm{im}\\,f$ is generally not an isomorphism.",
+              "Containing $\\mathbb{Z}$ as an object."
+            ],
+            "answer": 2,
+            "hint": "Topological abelian groups DO compose, DO contain $\\mathbb{Z}$, DO admit arbitrary products. The failure is more subtle and concerns one of Schneiders's quasi-abelian conditions — pin down which standard categorical axiom doesn't hold by recalling the prototype example $\\mathbb{Q} \\hookrightarrow \\mathbb{R}$ as topological groups.",
+            "explain": "Topological abelian groups form a quasi-abelian (Schneiders) but not abelian category: the inclusion $\\mathbb{Q} \\hookrightarrow \\mathbb{R}$ has trivial topological kernel and dense image; coimage $= \\mathbb{Q}$ (subspace topology), image $= \\mathbb{R}$, and the canonical map between them is bijective but not a homeomorphism. The condensed framework was invented precisely to repair this: $\\mathrm{Cond}(\\mathrm{Ab})$ is abelian in the strict sense."
+          },
+          {
+            "type": "spot-the-error",
+            "q": "Where is the error in the following purported argument that the inclusion $\\mathbb{Q} \\hookrightarrow \\mathbb{R}$ as topological abelian groups is a short exact sequence in the abelian-category sense?",
+            "steps": [
+              "$\\mathbb{Q}$ inherits the subspace topology from $\\mathbb{R}$, hence the inclusion $\\iota: \\mathbb{Q} \\hookrightarrow \\mathbb{R}$ is a continuous group homomorphism with trivial kernel.",
+              "The set-theoretic cokernel of $\\iota$ is $\\mathbb{R}/\\mathbb{Q}$, the group of cosets.",
+              "The categorical image of $\\iota$ is the set-theoretic image $\\mathbb{Q} \\subset \\mathbb{R}$, equipped with the subspace topology — and the canonical comparison $\\mathrm{coim}\\,\\iota \\to \\mathrm{im}\\,\\iota$ is bijective and continuous.",
+              "Bijective continuous maps between topological groups are open by the open mapping theorem, hence isomorphisms. So $\\mathrm{coim}\\,\\iota = \\mathrm{im}\\,\\iota$ and the inclusion is an SES in topological $\\mathrm{Ab}$."
+            ],
+            "answer": 3,
+            "hint": "The first three steps are mechanical and correct. The fourth invokes a hypothesis to a theorem you should check: under what conditions does the open mapping theorem actually apply to a continuous group homomorphism, and is one of those hypotheses violated here?",
+            "explain": "The open mapping theorem requires the source to be a Polish group (a complete metrisable separable topological group) and the map to be onto. $\\mathbb{Q}$ with the subspace topology from $\\mathbb{R}$ is NOT complete (it's a $G_\\delta$ in $\\mathbb{R}$ but not Polish); the theorem doesn't apply. The map $\\mathrm{coim}\\,\\iota = (\\mathbb{Q}, $ subspace top.$) \\to \\mathrm{im}\\,\\iota = \\mathbb{R}$ is genuinely not an isomorphism (the right side has more open sets), so the inclusion is NOT an SES in topological Ab — which is the canonical example of why topological Ab fails to be abelian and the condensed framework was invented."
+          },
+          {
+            "type": "ordering",
+            "q": "Order these steps in the standard verification that $\\mathrm{Cond}(\\mathrm{Ab})$ is an abelian category with enough projectives.",
+            "items": [
+              "Use the resulting cocontinuous, conservative free-forgetful adjunction to transport projectives: $\\mathbb{Z}[S]$ for $S$ extremally disconnected is projective in $\\mathrm{Cond}(\\mathrm{Ab})$.",
+              "Establish that $\\mathrm{Cond}(\\mathrm{Set})$ is a Grothendieck topos (sheaves on the pro-étale site of a point).",
+              "Take the abelian-group object internal to the topos, defining $\\mathrm{Cond}(\\mathrm{Ab})$ as condensed abelian groups; this inherits all the usual abelian-category properties from being an abelian-group object in a topos.",
+              "Conclude that every condensed abelian group has a projective resolution, which gives $\\mathrm{Ext}^*$, derived functors, and the rest of standard homological algebra."
+            ],
+            "answer": [
+              1,
+              2,
+              0,
+              3
+            ],
+            "hint": "Each step has exactly one piece of upstream machinery it needs: a generic categorical fact about topoi, an abelian-group-object construction, a transport-of-structure argument, and an end-to-end consequence. Sort by which step's output is the next step's input — start from the most general claim, end with the user-facing tool.",
+            "explain": "Order: (1) topos foundation, (2) abelian-group-object construction inside the topos giving $\\mathrm{Cond}(\\mathrm{Ab})$ abelian, (0) transport projectives via free-forgetful adjunction, (3) standard derived-functor formalism follows. Skipping (1) leaves no toposic machinery to invoke; (2) without (1) is illegitimate; (0) without (2) has nothing to transport into; (3) requires all three predecessors to deliver $\\mathrm{Ext}^*$."
+          }
+        ]
+      },
+      "cm-solid-abelian": {
+        "title": "Solid abelian groups",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Which condensed abelian group is NOT solid?",
+            "choices": [
+              "$\\mathbb{Z}_p$ with the $p$-adic topology.",
+              "$\\widehat{\\mathbb{Z}} = \\varprojlim_n \\mathbb{Z}/n$, the profinite completion of $\\mathbb{Z}$.",
+              "$\\mathbb{R}$ with the Euclidean topology.",
+              "$\\mathbb{Z}_p[[x]]$ with the $(p,x)$-adic topology."
+            ],
+            "answer": 2,
+            "hint": "Solidity is a property motivated by completed non-archimedean algebra: profinite groups, $p$-adic completions, and formal power series rings all behave well. Pick out the group whose topology is fundamentally archimedean rather than non-archimedean.",
+            "explain": "$\\mathbb{R}$ is archimedean — its topology has no non-trivial profinite quotients — and the comparison $\\mathbb{Z}[S] \\otimes \\mathbb{R} \\to \\mathrm{Maps}(S, \\mathbb{R})$ fails on infinite profinite probes: the formal-tensor side produces only finite-rank elements, while $\\mathrm{Maps}(\\mathrm{Cantor}, \\mathbb{R})$ contains uncountably many uniform-limit-of-step-functions elements. The other three are profinite or completed-non-archimedean and standard examples of solid groups; this is precisely why the parallel theory for $\\mathbb{R}$-vector spaces is called liquid, not solid."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all true statements about the solid abelian groups $\\mathrm{Solid}(\\mathrm{Ab}) \\subset \\mathrm{Cond}(\\mathrm{Ab})$.",
+            "choices": [
+              "$\\mathrm{Solid}(\\mathrm{Ab})$ is closed under arbitrary small limits computed in $\\mathrm{Cond}(\\mathrm{Ab})$.",
+              "$\\mathrm{Solid}(\\mathrm{Ab})$ is closed under extensions: if $0 \\to A \\to B \\to C \\to 0$ is exact in $\\mathrm{Cond}(\\mathrm{Ab})$ and $A, C$ are solid, then $B$ is solid.",
+              "Every condensed abelian group is solid.",
+              "The inclusion $\\mathrm{Solid}(\\mathrm{Ab}) \\hookrightarrow \\mathrm{Cond}(\\mathrm{Ab})$ admits a left adjoint (\"solidification\").",
+              "$\\mathrm{Solid}(\\mathrm{Ab})$ carries a symmetric monoidal tensor product whose derived version makes the derived category a tensor-triangulated category."
+            ],
+            "answer": [
+              0,
+              1,
+              3,
+              4
+            ],
+            "hint": "One option is far too strong: it would force the refinement to coincide with the ambient framework, deleting the whole point of the construction. The remaining four are structural properties spelled out in the Clausen–Scholze foundations — test each by asking what would break if it failed.",
+            "explain": "All four selected statements are standard. The third option is false — $\\mathbb{R}$ is a counterexample, as are most archimedean groups; if it were true, solid wouldn't be a meaningful refinement of condensed. The other four are exactly the structural properties that make $D(\\mathrm{Solid}(\\mathrm{Ab}))$ a viable derived-category foundation for completed/profinite topological algebra."
+          },
+          {
+            "type": "matching",
+            "q": "Match each ring/group on the left to its solidity status, with the appropriate justification on the right.",
+            "left": [
+              "$\\mathbb{Q}_p$ as a condensed abelian group",
+              "$\\widehat{\\mathbb{Z}} = \\varprojlim_n \\mathbb{Z}/n$",
+              "$\\mathbb{R}$ as a condensed abelian group",
+              "Complex Banach space (e.g. $L^1[0,1]$)"
+            ],
+            "right": [
+              "NOT solid — archimedean topology means uniform-limit content is invisible to the formal tensor",
+              "solid as a $\\mathbb{Z}_p$-module, hence as a $\\mathbb{Z}$-module",
+              "NOT solid — same archimedean obstruction; this is why the parallel theory is called liquid",
+              "solid by the Mittag-Leffler limit construction (sequential profinite limit with surjective transitions)"
+            ],
+            "answer": [
+              1,
+              3,
+              0,
+              2
+            ],
+            "hint": "Two of the rows on the left are non-archimedean (and therefore solid) and two are archimedean (and therefore not solid). For the solid rows, decide whether the group is fundamentally a non-archimedean field-extension construction or a profinite-limit construction — those give different right-side justifications.",
+            "explain": "Left 0 ($\\mathbb{Q}_p$) → Right 1: solid as $\\mathbb{Z}_p$-module, $p$-adic completion. Left 1 ($\\widehat{\\mathbb{Z}}$) → Right 3: explicit profinite Mittag-Leffler limit. Left 2 ($\\mathbb{R}$) → Right 0: archimedean obstruction, prototypical non-solid example. Left 3 (Banach space) → Right 2: same archimedean obstruction; the matching theory built for these is liquid, not solid."
+          }
+        ]
+      },
+      "cm-liquid-vector-spaces": {
+        "title": "Liquid $\\mathbb{R}$-vector spaces",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why is the parameter $p$ in $p$-liquid restricted to $0 < p \\le 1$, and why is the strict inequality $p < 1$ critical for the headline application?",
+            "choices": [
+              "$p > 1$ would make the $p$-summable condition too weak — every condensed real vector space would be $p$-liquid and the framework would have no content.",
+              "$p \\le 0$ is meaningless because $p$-summable measures require strict positivity for the norm definition; $p < 1$ is required because the classical projective tensor matches at $p = 1$ and exactness fails there.",
+              "$p$ must be $\\le 1$ for the $\\mathcal M_p$ measure space to be defined; $p < 1$ is critical because it provides the strict inequality $p' < p$ in the headline Ext-vanishing theorem.",
+              "$p$ must be exactly $1$ for the standard Banach $L^p$ duality to hold; the strict inequality is incidental."
+            ],
+            "answer": 2,
+            "hint": "The first claim about $p > 1$ is wrong direction (the condition gets weaker as $p$ grows toward 1, not stricter); recall whether 1-liquid is a useful or trivial property. The fourth claim conflates duality with liquidity. The remaining two both have the right $p \\le 1$ direction — distinguish by what the strict inequality $p' < p$ in the LTE theorem statement actually buys.",
+            "explain": "The $p$-summable measure space $\\mathcal M_p$ requires $0 < p \\le 1$ for the construction to make sense (the relevant norm is $\\sum |a_i|^p$, sublinear in this range). The strict inequality $p' < p \\le 1$ is essential: the LTE Ext-vanishing theorem $\\mathrm{Ext}^i(M_{p'}, V) = 0$ for $V$ being $p$-liquid requires $p' < p$ — the gap supplies the room to manoeuvre the proof needs. At $p' = p$ (or $p = 1$) the theorem and the framework's exactness both collapse."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all classical functional-analysis objects that embed as a full subcategory of $\\mathrm{Liquid}_p(\\mathbb{R})$ for an appropriate range of $p$.",
+            "choices": [
+              "Banach spaces (e.g. $C[0,1]$, $\\ell^p$, $L^p[0,1]$).",
+              "Fréchet spaces — countable inverse limits of Banach spaces.",
+              "Bornological vector spaces with reasonable boundedness.",
+              "Discrete real vector spaces (pure linear algebra, no topology).",
+              "Locally convex topological vector spaces over $\\mathbb{R}$."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              3,
+              4
+            ],
+            "hint": "Liquid theory's design goal is to give classical functional analysis a single derived-category home. Test each option against the question: does the corresponding object class sit naturally inside that scope? The trickiest case is the most degenerate one (no topology at all) — decide whether the framework should be compatible with that limit or refuse it.",
+            "explain": "Liquid theory is engineered to subsume every classical functional-analysis category — that's the whole point. All five embed: Banach as the prototype, Fréchet as countable Banach limits, bornological with sane boundedness, discrete as a degenerate case (the discrete topology is liquid for any $p$), and locally convex TVS as a containing umbrella. The only objects that DON'T embed are those built on a fundamentally different algebraic base (complex Banach spaces need a complex variant; non-Hausdorff TVS need extra care)."
+          },
+          {
+            "type": "ordering",
+            "q": "Order the conceptual phases in the construction of $\\mathrm{Liquid}_p(\\mathbb{R})$ as a refinement of $\\mathrm{Cond}(\\mathrm{Vect}_{\\mathbb{R}})$.",
+            "items": [
+              "Define a $p$-summable-measure functor $\\mathcal{M}_p: \\mathrm{Cond}(\\mathrm{Vect}_{\\mathbb{R}}) \\to \\mathrm{Cond}(\\mathrm{Vect}_{\\mathbb{R}})$ for $0 < p \\le 1$.",
+              "Verify the resulting $\\mathrm{Liquid}_p(\\mathbb{R})$ is closed under (co)limits, kernels, cokernels, extensions; package it as a closed monoidal abelian category.",
+              "Define a $V$ to be $p$-liquid when it admits a continuous structure map $\\mu: \\mathcal{M}_p(V) \\to V$ satisfying compatibility with translation and the relevant universal-property axioms.",
+              "Check that classical objects (Banach, Fréchet, bornological) lift to $p$-liquid structures for appropriate $p$, exhibiting the embedding as a full subcategory."
+            ],
+            "answer": [
+              0,
+              2,
+              1,
+              3
+            ],
+            "hint": "Each step has exactly one direct dependency on the previous. The construction starts with a functor (no liquidity yet defined), uses the functor to phrase a definition, then verifies the resulting subcategory has good closure properties, then exhibits embedding examples.",
+            "explain": "Order is functor → definition → properties → examples. (0) Define $\\mathcal{M}_p$ first since the structure map needs it. (2) Use it to define $p$-liquid. (1) Verify closure properties of the resulting full subcategory. (3) Verify classical objects embed. Skipping (0) leaves no functor to reference; (2) before (0) is illegitimate; (1) before (2) is verifying properties of an undefined category; (3) without (1) misses the functoriality that the embedding needs."
+          }
+        ]
+      },
+      "cm-liquid-tensor-experiment": {
+        "title": "The Liquid Tensor Experiment",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Where did Peter Scholze announce the formalization challenge that became the Liquid Tensor Experiment?",
+            "choices": [
+              "An invited lecture at the 2020 ICM (held virtually due to the pandemic).",
+              "An arXiv preprint with the title \"Lectures on Condensed Mathematics\".",
+              "A guest post on Kevin Buzzard's mathematical blog \"Xena\", in December 2020.",
+              "An IHÉS public lecture series in early 2021."
+            ],
+            "answer": 2,
+            "hint": "The challenge was deliberately addressed to the formal-methods community rather than the broader public. Of the four venues, only one is run by a leading Lean evangelist whose audience could plausibly attempt the verification; the other venues either did not host the original announcement or were the wrong audience.",
+            "explain": "Scholze posted on Buzzard's Xena blog on December 5, 2020. Xena is Buzzard's vehicle for outreach to the Lean / formal-mathematics-in-Lean community at Imperial College London; the choice of venue was deliberate — Scholze wanted the challenge seen by people who could actually attempt it. The other three venues exist but didn't host the original challenge."
+          },
+          {
+            "type": "ordering",
+            "q": "Order the milestones of the Liquid Tensor Experiment chronologically.",
+            "items": [
+              "Full theorem complete in Lean — including the technically painful base-case real-analytic estimate Scholze had described as the most fragile.",
+              "Project repository created on GitHub; a blueprint PDF maps each step of Scholze's manuscript to a precise Lean statement.",
+              "Scholze posts the formalization challenge on Buzzard's Xena blog.",
+              "Main theorem (the inductive heart of the result) verified in Lean; Scholze blogs that the proof stands up.",
+              "Generalisations and downstream integration: mathlib4 port, BSD-for-special-cases formalisation, etc."
+            ],
+            "answer": [
+              2,
+              1,
+              3,
+              0,
+              4
+            ],
+            "hint": "Order by year first (2020, 2021, 2022, 2022, 2023+), then within 2022 by which result is logically prerequisite to which other. The two 2022 events have a clear dependency direction since one builds on top of what the other discharges.",
+            "explain": "Order: (2) Dec 2020 challenge → (1) Mar 2021 repo + blueprint → (3) May 2022 main inductive theorem → (0) Jul 2022 full theorem with the painful base case → (4) 2023+ generalisations. The May/July 2022 ordering matters: the inductive step came first; the base case (the technically painful real-analytic estimate) was discharged afterward. Both were needed for the headline statement to be fully verified."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all reasons the Liquid Tensor Experiment is regarded as a cultural turning point for formal verification in mathematics.",
+            "choices": [
+              "It was the first time a leading research mathematician used Lean to gain confidence in a theorem they personally doubted.",
+              "It established mathlib infrastructure for condensed sets, profinite measures, and homological algebra that subsequent ambitious projects (BSD, Langlands fragments, FLT) reuse.",
+              "It demonstrated the \"blueprint-driven\" community-formalisation methodology — coloured-status diagrams as a live coordination tool.",
+              "It was the first formal proof of any theorem in algebraic topology.",
+              "It produced the first Lean-verified disproof of an established theorem in mathematics."
+            ],
+            "answer": [
+              0,
+              1,
+              2
+            ],
+            "hint": "Two of the five options are historical-distinctness claims that overshoot: one ignores prior verification efforts (Four Color, Kepler / Flyspeck, Feit-Thompson), and one mistakes the outcome's polarity. Identify both overreaches; the rest describe widely-cited cultural consequences.",
+            "explain": "The first three are widely-cited reasons for the LTE's cultural impact: (a) Scholze didn't already trust the proof; (b) the resulting infrastructure became the platform for follow-on projects; (c) the blueprint methodology has been adopted as a coordination template. The fourth claim is false — Hales's flyspeck (Kepler conjecture) and the Coq-formalised Four Color Theorem long predate the LTE, and earlier algebraic-topology formalisations exist too. The fifth claim is false — the LTE confirmed a theorem (modulo one patched-up step), it didn't disprove one."
+          }
+        ]
+      },
+      "cm-applications": {
+        "title": "Applications of condensed mathematics",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "In which derived category does Bhatt–Morrow–Scholze prismatic cohomology $\\mathrm{R}\\Gamma_{\\mathbb{\\Delta}}(X/\\mathbb{Z}_p)$ naturally live, in the modern condensed reformulation?",
+            "choices": [
+              "$D^b(\\mathrm{Coh}(\\mathrm{Spec}\\,\\mathbb{Z}_p))$ — the bounded derived category of coherent sheaves.",
+              "$D(\\mathrm{Solid}(\\mathbb{Z}_p))$ — the derived category of solid $\\mathbb{Z}_p$-modules.",
+              "$D(\\mathrm{Liquid}_p(\\mathbb{R}))$ — the derived category of liquid $\\mathbb{R}$-vector spaces.",
+              "The Lurie–Bhatt $\\infty$-topos $\\mathrm{Shv}_{\\mathbb{\\Delta}}^{ét}(X)$, with no need for condensed methods."
+            ],
+            "answer": 1,
+            "hint": "Prismatic cohomology unifies étale, de Rham, and crystalline cohomologies, all of which live in completed non-archimedean settings. The condensed framework comes in two flavours indexed by whether the coefficients are non-archimedean or archimedean — pick the option whose coefficient class matches the input ring of prismatic cohomology.",
+            "explain": "Prismatic cohomology lands in $D(\\mathrm{Solid}(\\mathbb{Z}_p))$: solid is the right framework for $p$-adic / completed non-archimedean theories. The integral comparison theorems (étale-vs-prismatic, crystalline-vs-prismatic, de Rham-vs-prismatic) all become statements about quasi-isomorphisms there. The other choices: $D^b(\\mathrm{Coh})$ doesn't capture $p$-adic continuity properly; liquid is for $\\mathbb{R}$, not $\\mathbb{Z}_p$; and while a topos-level definition exists, the condensed framework is the natural derived-category home where the comparison theorems live."
+          },
+          {
+            "type": "matching",
+            "q": "Match each base ring on the left to the appropriate condensed-derived-category framework on the right.",
+            "left": [
+              "$\\mathbb{Q}_p[t]$ (analytic $p$-adic affine line)",
+              "$\\mathbb{R}[t]$ (real-analytic affine line)",
+              "$\\mathbb{Z}_p\\langle x \\rangle$ (Tate algebra, rigid disk)",
+              "$\\mathbb{Z}_p[[x]]$ (formal disk)"
+            ],
+            "right": [
+              "$D(\\mathrm{Liquid}_p(\\mathbb{R}[t]))$ — archimedean, must use the liquid not solid framework",
+              "$D(\\mathrm{Solid}(\\mathbb{Z}_p[[x]]))$ — Mittag-Leffler limits of finite-rank pieces, prototype solid example",
+              "$D(\\mathrm{Solid}(\\mathbb{Q}_p[t]))$ — non-archimedean coefficients, polynomial structure preserved",
+              "$D(\\mathrm{Solid}(\\mathbb{Z}_p\\langle x \\rangle))$ — solid Tate algebra, six-functor formalism on rigid disk"
+            ],
+            "answer": [
+              2,
+              0,
+              3,
+              1
+            ],
+            "hint": "First sort the four rings by the topology of their coefficients (archimedean vs non-archimedean) — that selects between the two competing condensed frameworks. Within the same framework, the remaining algebraic shape (polynomial / completed convergent / formal-power-series) distinguishes the rest.",
+            "explain": "Left 0 ($\\mathbb{Q}_p[t]$) → Right 2: $p$-adic coefficients, polynomial in $t$. Left 1 ($\\mathbb{R}[t]$) → Right 0: archimedean, requires liquid. Left 2 ($\\mathbb{Z}_p\\langle x\\rangle$) → Right 3: Tate algebra of the rigid disk. Left 3 ($\\mathbb{Z}_p[[x]]$) → Right 1: formal-power-series, the canonical Mittag-Leffler example. The grouping is non-archimedean → solid, archimedean → liquid; within solid, the algebraic shape selects the specific instantiation."
+          },
+          {
+            "type": "multi-select",
+            "q": "Select all programmes that have been explicitly rebuilt or are being actively rebuilt on condensed/solid/liquid foundations.",
+            "choices": [
+              "Analytic geometry over $\\mathbb{Q}_p$ (rigid-analytic / adic / Berkovich unification under \"analytic rings\").",
+              "Prismatic cohomology and integral $p$-adic Hodge theory.",
+              "Clausen–Scholze's analytic stacks programme (Bonn lectures 2024).",
+              "The Riemann hypothesis for the classical $\\zeta$-function over $\\mathbb{Q}$.",
+              "Fargues–Scholze geometric Langlands (parts of the framework rely on condensed methods)."
+            ],
+            "answer": [
+              0,
+              1,
+              2,
+              4
+            ],
+            "hint": "Four of the choices name living research deployments; one names a famous open conjecture worked on by other communities entirely. Spot the outlier — its established toolkit (random-matrix heuristics, $L$-function continuation, Selberg-style techniques) belongs to a different lineage than the foundations discussed here.",
+            "explain": "The first, second, third, and fifth are programmes where condensed mathematics is now standard or being explicitly applied: analytic rings unify rigid/adic/Berkovich; prismatic cohomology lives in solid derived categories; analytic stacks are built on solid theory; Fargues–Scholze geometric Langlands uses condensed methods at the technical core. The Riemann hypothesis remains open and the principal techniques (analytic continuation, Selberg / random-matrix heuristics, $L$-function machinery) are largely orthogonal to the condensed framework."
+          }
+        ]
+      }
+    }
+  },
   "deformation-theory": {
     "topic": "deformation-theory",
     "quizzes": {

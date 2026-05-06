@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **147**, concepts: **1044**
-- Widgets: **1071** (registry-driven: 1071, inline: 0)
-- Quizzes: **4326** (v1: 3090, hard: 1223, expert: 13)
-- Quiz types: mcq: 2872, numeric: 1073, multi-select: 161, matching: 79, ordering: 54, spot-the-error: 37, complex: 29, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Topics: **148**, concepts: **1050**
+- Widgets: **1077** (registry-driven: 1077, inline: 0)
+- Quizzes: **4344** (v1: 3108, hard: 1223, expert: 13)
+- Quiz types: mcq: 2878, numeric: 1073, multi-select: 166, matching: 82, ordering: 57, spot-the-error: 38, complex: 29, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **146**
-- Concepts lacking a hard-tier quiz: **606**
+- Concepts lacking a hard-tier quiz: **612**
 
 ## Per-slug registry adoption
 
@@ -102,6 +102,12 @@ page has wired one in yet.
 | `characteristic-classes-signature-l-genus` | characteristic-classes-signature-l-genus | click | 2d | 1 | characteristic-classes |
 | `characteristic-classes-w1-surfaces` | characteristic-classes-w1-surfaces | click | 2d | 1 | characteristic-classes |
 | `class-field-theory-reciprocity-dictionary` | svg-illustration | read | 2d | 1 | class-field-theory |
+| `cm-analytic-rings` | verbatim | click | 2d | 1 | condensed-mathematics |
+| `cm-liquid-tensor` | verbatim | click | 2d | 1 | condensed-mathematics |
+| `cm-lte` | verbatim | click | 2d | 1 | condensed-mathematics |
+| `cm-snake` | verbatim | click | 2d | 1 | condensed-mathematics |
+| `cm-solid-test` | verbatim | click | 2d | 1 | condensed-mathematics |
+| `cm-yoneda` | verbatim | click | 2d | 1 | condensed-mathematics |
 | `cnt-bu` | verbatim | click | 2d | 1 | computational-number-theory |
 | `cnt-exp` | verbatim | input | 2d | 1 | computational-number-theory |
 | `cnt-lll` | verbatim | slider | 2d | 1 | computational-number-theory |
@@ -632,13 +638,13 @@ page has wired one in yet.
 
 ### Algebra & homological
 
-- Topics: **15**, concepts: **136**
-- Widgets: **135** (registry-driven: 135, inline: 0)
-  - by family: button-stepper: 42, verbatim: 26, clickable-diagram: 21, parametric-plot: 9, proof-scrubber: 2, quantum-groups-hopf-axioms-inspector: 1, quantum-groups-qsl2-deformation-slider: 1, quantum-groups-yang-baxter-reidemeister: 1, quantum-groups-crystal-tensor-product: 1, quantum-groups-reshetikhin-turaev-knots: 1, quantum-groups-applications-map: 1, quaternions-multiplication-tester: 1, quaternions-rotation-visualizer: 1, quaternions-cayley-dickson-ladder: 1, quaternions-fano-plane-oracle: 1, quaternions-frobenius-case-tree: 1, quaternions-hurwitz-tower-bar: 1, naturality-square: 1, declarative-host: 1, clickable-graph: 1, diagram-editor: 1, group-cohomology-coboundary-calculator: 1, group-cohomology-fixed-points: 1, group-cohomology-hilbert-90: 1, group-cohomology-c2-extensions: 1, group-cohomology-tate-periodic-table: 1, group-cohomology-lhs-spectral: 1, group-cohomology-brauer-cheatsheet: 1, lie-algebras-bracket-table: 1, lie-algebras-adjoint-vis: 1, lie-algebras-derived-series: 1, lie-algebras-root-vis: 1, lie-algebras-weight-diagram: 1, lie-algebras-dynkin-gallery: 1, gcb-cocycle-tester: 1, gcb-mu2-torsor-visualizer: 1, gcb-central-extension-browser: 1, gcb-cyclic-algebra-tester: 1, gcb-tate-pairing-table: 1, gcb-hasse-counterexample-gallery: 1
-  - by dimension: 2d: 134, 3d: 1
-  - by gesture: click: 99, select: 14, slider: 9, inspect: 3, input: 2, toggle: 2, scrub: 2, slider+click: 1, interactive: 1, drag-and-toggle: 1, step: 1
-- Quizzes: **595** (v1: 409, hard: 186, expert: 0)
-  - by type: mcq: 368, numeric: 150, multi-select: 37, ordering: 15, matching: 13, spot-the-error: 7, proof-completion: 4, complex: 1
+- Topics: **16**, concepts: **142**
+- Widgets: **141** (registry-driven: 141, inline: 0)
+  - by family: button-stepper: 42, verbatim: 32, clickable-diagram: 21, parametric-plot: 9, proof-scrubber: 2, quantum-groups-hopf-axioms-inspector: 1, quantum-groups-qsl2-deformation-slider: 1, quantum-groups-yang-baxter-reidemeister: 1, quantum-groups-crystal-tensor-product: 1, quantum-groups-reshetikhin-turaev-knots: 1, quantum-groups-applications-map: 1, quaternions-multiplication-tester: 1, quaternions-rotation-visualizer: 1, quaternions-cayley-dickson-ladder: 1, quaternions-fano-plane-oracle: 1, quaternions-frobenius-case-tree: 1, quaternions-hurwitz-tower-bar: 1, naturality-square: 1, declarative-host: 1, clickable-graph: 1, diagram-editor: 1, group-cohomology-coboundary-calculator: 1, group-cohomology-fixed-points: 1, group-cohomology-hilbert-90: 1, group-cohomology-c2-extensions: 1, group-cohomology-tate-periodic-table: 1, group-cohomology-lhs-spectral: 1, group-cohomology-brauer-cheatsheet: 1, lie-algebras-bracket-table: 1, lie-algebras-adjoint-vis: 1, lie-algebras-derived-series: 1, lie-algebras-root-vis: 1, lie-algebras-weight-diagram: 1, lie-algebras-dynkin-gallery: 1, gcb-cocycle-tester: 1, gcb-mu2-torsor-visualizer: 1, gcb-central-extension-browser: 1, gcb-cyclic-algebra-tester: 1, gcb-tate-pairing-table: 1, gcb-hasse-counterexample-gallery: 1
+  - by dimension: 2d: 140, 3d: 1
+  - by gesture: click: 105, select: 14, slider: 9, inspect: 3, input: 2, toggle: 2, scrub: 2, slider+click: 1, interactive: 1, drag-and-toggle: 1, step: 1
+- Quizzes: **613** (v1: 427, hard: 186, expert: 0)
+  - by type: mcq: 374, numeric: 150, multi-select: 42, ordering: 18, matching: 16, spot-the-error: 8, proof-completion: 4, complex: 1
 
 ### Higher categories & toposes
 
@@ -735,6 +741,7 @@ page has wired one in yet.
 - `motives` (Algebraic geometry) — concepts=8, widgets=0 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
 - `algebraic-k-theory-foundations` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `model-categories` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `condensed-mathematics` (Algebra & homological) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `hodge-theory` (Algebraic geometry) — concepts=8, widgets=0 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
 - `langlands-program` (Modular forms & L-functions) — concepts=8, widgets=0 (slug=0), quiz=24 (v1=24, hard=0, expert=0)
 - `microlocal-analysis` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)

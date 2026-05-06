@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>The local–global principle</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,"Charter","Georgia",serif;
+    font-size:17px;line-height:1.72}
+  main{max-width:780px;margin:0 auto;padding:3rem 1.5rem 7rem}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  h1{font-size:2.3rem;letter-spacing:-0.01em;margin:0 0 0.4rem;font-weight:650}
+  h2{font-size:1.45rem;margin:3rem 0 0.7rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.35rem;font-weight:600}
+  h2 .num{color:var(--blue);font-variant-numeric:tabular-nums;margin-right:.45rem;font-weight:500}
+  h3{font-size:1.08rem;margin:1.6rem 0 .5rem;color:var(--blue);font-weight:600}
+  p{margin:0.8rem 0}
+  blockquote{border-left:3px solid var(--blue);padding:.2rem 1rem;margin:1.2rem 0;color:#cfe7ee;
+    background:#142028;border-radius:0 6px 6px 0;font-style:italic}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:1.4rem;font-size:1.05rem;line-height:1.55}
+  .lede{font-size:1.05rem;line-height:1.7;color:#dde3ec;margin:1.4rem 0 1.8rem}
+  .lede::first-letter{
+    float:left;font-size:3.1rem;line-height:.95;
+    padding:.15rem .45rem 0 0;color:var(--blue);font-weight:700;font-family:"Charter","Georgia",serif;
+  }
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.55rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.88rem;align-items:baseline}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--blue)}
+  nav.toc .spacer{flex:1}
+  nav.toc .story-pill{color:var(--blue);border:1px solid color-mix(in srgb, var(--blue) 45%, transparent);
+    border-radius:999px;padding:1px 10px;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase}
+  .hero{padding:2.4rem 0 .4rem}
+  .byline{color:var(--mute);font-size:.88rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.6rem}
+  .figure{margin:1.6rem 0 2rem;text-align:center}
+  .figure svg{display:block;margin:0 auto;max-width:100%;
+    background:#0b0f16;border:1px solid var(--line);border-radius:8px}
+  .figure svg text{fill:var(--ink);font-family:inherit}
+  .caption{color:var(--mute);font-size:.88rem;margin-top:.5rem;line-height:1.5;font-style:italic;
+    max-width:560px;margin-left:auto;margin-right:auto}
+  .note{border-left:3px solid var(--blue);padding:.35rem .9rem;color:#cfe7ee;background:#142028;
+    margin:1rem 0;border-radius:0 6px 6px 0;font-size:.96rem;line-height:1.6}
+  .ok{border-left:3px solid var(--green);padding:.35rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0;font-size:.96rem;line-height:1.6}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.06);
+    border-left:3px solid color-mix(in srgb, var(--blue) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2.5rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute);white-space:nowrap;font-variant-numeric:tabular-nums}
+  .endrule{border:none;border-top:1px solid var(--line);margin:2.4rem 0 1rem}
+  .colophon{color:var(--mute);font-size:.88rem;line-height:1.55;font-style:italic}
+  ol.refs{padding-left:1.3rem;color:var(--mute);font-size:.9rem;line-height:1.55}
+  ol.refs li{margin:.25rem 0}
+</style>
+<link rel="stylesheet" href="./css/notebook.css">
+<script src="./js/theme-toggle.js"></script>
+</head>
+<body data-level="capstone" data-c="blue">
+
+<nav class="toc">
+  <a href="./index.html" style="color:var(--blue);font-weight:500">← Notebook</a>
+  <a href="./tours.html#local-global">Tour 6</a>
+  <a href="#dedekind">§1 Dedekind</a>
+  <a href="#hensel">§2 Hensel</a>
+  <a href="#adeles">§3 Adèles</a>
+  <a href="#frobenius">§4 Frobenius</a>
+  <a href="#heights">§5 Heights</a>
+  <a href="#coda">§6 Coda</a>
+  <span class="spacer"></span>
+  <span class="story-pill">story</span>
+</nav>
+
+<main>
+
+<section class="hero">
+  <div class="byline">An essay on a structural pattern</div>
+  <h1>The local–global principle</h1>
+  <p class="sub">A rational number is the same data as a real number that is also a $p$-adic number for every prime $p$ — provided the obstructions vanish. The long story of when they do (Hasse–Minkowski) and when they don't (Selmer, Brauer–Manin, Sha) is the spine of modern arithmetic. This essay walks five stops of that story and ends at the cohomological accountant who keeps the books.</p>
+</section>
+
+<p class="lede">There is a confession most number theorists make once and then live with. The integers, those austere objects we hand schoolchildren, are catastrophically hard. A Diophantine equation as innocent as $x^3 + y^3 = z^3$ took two thousand years to dispose of, and the methods that finally succeeded — modular forms, Galois representations, $p$-adic Hodge theory — are not even in the same universe as the question. The trick that made progress possible, and that organizes essentially every modern arithmetic technique, is this: stop looking at $\mathbb{Q}$ all at once. Look at it one prime at a time. At each prime $p$, replace $\mathbb{Q}$ by its <em>completion</em> $\mathbb{Q}_p$, a field where infinitesimals are powers of $p$ and Newton's method actually terminates. Then assemble the local pictures into a global one and see what survives. The completion at the archimedean place — the real numbers $\mathbb{R}$ — is the special case everybody already knows; the other completions, one for each prime, are the same idea wearing different clothes.</p>
+
+<p>This essay is a companion to <a href="./tours.html#local-global">Tour 6</a> in the notebook, which lays out the same arc as a sequence of stops with figures. Here we stay with the prose, take more time over the history, and end at the place where local-to-global becomes a cohomological theorem rather than a slogan.</p>
+
+<!-- ───────────────────────────────────────────── § 1 ──── -->
+<section id="dedekind">
+<h2><span class="num">§1.</span> Number fields and the failure of unique factorization</h2>
+
+<p>Begin with the global object. A <em>number field</em> $K$ is a finite extension of $\mathbb{Q}$ — say $K = \mathbb{Q}(\alpha)$ for some algebraic $\alpha$ — and its <em>ring of integers</em> $\mathcal{O}_K$ is the integral closure of $\mathbb{Z}$ inside it: the set of elements satisfying a monic polynomial over $\mathbb{Z}$. For $K = \mathbb{Q}(i)$ the ring of integers is the Gaussian integers $\mathbb{Z}[i]$; for $K = \mathbb{Q}(\sqrt{-5})$ it is $\mathbb{Z}[\sqrt{-5}]$; for $K = \mathbb{Q}(\zeta_p)$ a cyclotomic field it is $\mathbb{Z}[\zeta_p]$. These are the obvious analogues of $\mathbb{Z} \subset \mathbb{Q}$, and one's first hope is that they behave like $\mathbb{Z}$ in every way: a Euclidean algorithm, a unique factorization, a tidy theory of primes.</p>
+
+<p>That hope is dashed almost immediately. The textbook example, due in spirit to Kummer in the 1840s and now repeated in every algebraic number theory course, is
+$$6 \;=\; 2 \cdot 3 \;=\; (1 + \sqrt{-5})(1 - \sqrt{-5}) \quad \text{in } \mathbb{Z}[\sqrt{-5}].$$
+Each of the four factors is irreducible — none factors further — and yet the two decompositions of $6$ are genuinely distinct, not merely associates. Unique factorization fails. Kummer's discovery of this failure, while attempting Fermat's Last Theorem with cyclotomic integers, was the inciting incident for the entire subject. He proposed "ideal numbers" — fictional divisors that would restore unique factorization — and Dedekind, twenty years later, made the fiction rigorous by replacing elements with the <em>ideals</em> they generate.</p>
+
+<p>Here is the redemptive theorem. In $\mathcal{O}_K$, every nonzero ideal factors uniquely as a product of prime ideals:
+$$\mathfrak{a} \;=\; \mathfrak{p}_1^{e_1} \mathfrak{p}_2^{e_2} \cdots \mathfrak{p}_r^{e_r}.$$
+This is the content of "$\mathcal{O}_K$ is a <em>Dedekind domain</em>" — a Noetherian, integrally closed, one-dimensional integral domain. In our $\mathbb{Z}[\sqrt{-5}]$ example the offending equation $6 = 2 \cdot 3 = (1+\sqrt{-5})(1-\sqrt{-5})$ is reconciled at the ideal level: both decompositions are the same ideal factorization $(2, 1+\sqrt{-5})^2 \, (3, 1+\sqrt{-5}) \, (3, 1-\sqrt{-5})$ in disguise. Element-level non-uniqueness was just a packaging artifact. Ideal-level factorization is unique, period.</p>
+
+<aside class="note">
+The conceptual upgrade — from "elements of a ring" to "ideals in a ring" — looks like a technicality but is one of the great revolutions of nineteenth-century algebra. It is the move from <em>this number factors as that</em> to <em>the divisor of this number is the sum of those</em>. Once you make it, you can ask new questions: how far is a given ideal from being principal? The answer is the class group, and it is finite.
+</aside>
+
+<p>The failure of element-level unique factorization is measured by the <strong>ideal class group</strong> $\mathrm{Cl}(K) = I_K / P_K$, the quotient of fractional ideals by principal ones. The class group is trivial — every ideal principal, unique factorization restored at the element level — exactly for those $K$ where $\mathcal{O}_K$ is a PID. For most number fields the class group is nontrivial, but Minkowski's geometry-of-numbers argument from 1896 shows that it is always finite: there is some explicit bound $M_K$ (the Minkowski constant) such that every ideal class contains a representative of norm $\le M_K$, and there are only finitely many ideals of bounded norm. So $|\mathrm{Cl}(K)| < \infty$, and the class number $h_K$ is a concrete arithmetic invariant of $K$.</p>
+
+<p>The class group is the first example of what becomes the recurring theme of this essay: a global object (the failure of UFD over $\mathcal{O}_K$) that one wants to understand by reduction to local data (the factorization at each prime). For $\mathfrak{p}$ a prime ideal of $\mathcal{O}_K$, the localization $\mathcal{O}_{K, \mathfrak{p}}$ is a discrete valuation ring — a PID with exactly one prime — and inside it factorization is trivial. The information in $\mathrm{Cl}(K)$ is the obstruction to gluing the local PID-style factorizations into a global one. We have, in nascent form, the local–global pattern: the arithmetic of $\mathcal{O}_K$ is locally easy and globally subtle, and the subtlety is encoded by a finite cohomological-flavored invariant.</p>
+
+<p>But $\mathrm{Cl}(K)$ alone is not enough. It tells us about <em>ideals</em>, not about <em>solutions to equations</em>. To translate a Diophantine question — does $x^3 + y^3 = z^3$ have a nontrivial rational solution? — into local data, we need more than localizations of rings. We need <em>completions</em> of the field. That is the next stop.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-number-theory.html#dedekind">Dedekind domains and unique factorization of ideals</a></li>
+    <li><a href="./algebraic-number-theory.html#class-group">The ideal class group and Minkowski's bound</a></li>
+    <li><a href="./quadratic-forms-genus-theory.html">Quadratic forms and genus theory</a> — the Gauss-era predecessor to the ideal-theoretic story</li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 2 ──── -->
+<section id="hensel">
+<h2><span class="num">§2.</span> $p$-adic numbers, Hensel's lemma, and Hasse–Minkowski</h2>
+
+<p>The deepest single move in modern number theory is Hensel's: redefine "close" so that two integers are close when their difference is divisible by a high power of a fixed prime $p$. Concretely, on $\mathbb{Q}$ define the $p$-adic absolute value
+$$\left| p^k \cdot \tfrac{a}{b} \right|_p \;=\; p^{-k}, \qquad \gcd(a, p) = \gcd(b, p) = 1.$$
+This is a non-archimedean absolute value: $|x + y|_p \le \max(|x|_p, |y|_p)$, the strong triangle inequality. Complete $\mathbb{Q}$ with respect to $|\cdot|_p$ — the same construction Cauchy and Cantor used to build $\mathbb{R}$ from $\mathbb{Q}$, with $|\cdot|_\infty$ replaced by $|\cdot|_p$ — and you obtain the field of <strong>$p$-adic numbers</strong> $\mathbb{Q}_p$. Inside $\mathbb{Q}_p$ sits the closed unit ball, the ring of $p$-adic integers
+$$\mathbb{Z}_p \;=\; \{x \in \mathbb{Q}_p \,:\, |x|_p \le 1\} \;=\; \varprojlim_n \mathbb{Z}/p^n\mathbb{Z},$$
+which is also the inverse limit of the finite rings $\mathbb{Z}/p^n$. Every $p$-adic integer can be written as a Hensel series $a_0 + a_1 p + a_2 p^2 + \cdots$ with $a_i \in \{0, 1, \ldots, p-1\}$ — a kind of "base-$p$ expansion that goes off to the right rather than to the left." The whole apparatus was introduced by Kurt Hensel around 1897, motivated by analogy with formal power-series rings $k[[t]]$ in algebraic geometry; Hilbert is reported to have told Hensel his $p$-adics would never amount to anything. They have amounted to most of modern arithmetic.</p>
+
+<p>What makes $\mathbb{Q}_p$ tractable in a way that $\mathbb{Q}$ is not is that it is <em>complete</em> and <em>locally compact</em>. Newton's method actually converges in $\mathbb{Q}_p$, and that observation, formalized, is the heart of arithmetic in the small.</p>
+
+<div class="ok">
+<strong>Hensel's lemma.</strong> Let $f \in \mathbb{Z}_p[x]$ and suppose $\bar a \in \mathbb{Z}_p$ satisfies $f(\bar a) \equiv 0 \pmod{p}$ and $f'(\bar a) \not\equiv 0 \pmod{p}$. Then there is a unique $a \in \mathbb{Z}_p$ with $a \equiv \bar a \pmod{p}$ and $f(a) = 0$.
+</div>
+
+<p>The condition is just nonsingularity of the residue mod $p$. The conclusion is that an approximate solution lifts uniquely to an exact one — a $p$-adic version of the implicit function theorem. So solving polynomial equations modulo a single prime $p$ (a finite computation) is, in non-degenerate situations, the same as solving them in $\mathbb{Q}_p$. <em>Local arithmetic is finite arithmetic plus a Newton iteration</em>, and finite arithmetic computers can do.</p>
+
+<p>This sets up the central question of the local–global principle. Suppose we want to know whether some Diophantine equation $F(x_1, \ldots, x_n) = 0$ has a solution in $\mathbb{Q}$. We can <em>always</em> ask whether it has a solution in each $\mathbb{Q}_p$ (almost-effective: reduce mod $p^k$, lift via Hensel) and in $\mathbb{R}$ (effective: real analysis). Call solutions in any $\mathbb{Q}_v$ — where $v$ runs over all <em>places</em>, the primes plus the symbol $\infty$ for the archimedean — <em>local solutions</em>. Solutions in $\mathbb{Q}$ itself are <em>global</em>. The local–global principle, in its naive form, is the assertion: <em>local solutions everywhere ⟹ global solution</em>. When does this hold?</p>
+
+<p>The most beautiful answer is the <strong>Hasse–Minkowski theorem</strong>, proved by Hasse in his 1923 thesis under Hensel's supervision. It says the principle holds for quadratic forms — for equations of the very simplest non-linear kind.</p>
+
+<div class="ok">
+<strong>Hasse–Minkowski (1923).</strong> A quadratic form $Q(x_1, \ldots, x_n)$ over $\mathbb{Q}$ has a nontrivial zero in $\mathbb{Q}^n$ if and only if it has a nontrivial zero in $\mathbb{R}^n$ and in $\mathbb{Q}_p^n$ for every prime $p$.
+</div>
+
+<p>The theorem reduces a global question with infinitely many possible failure modes (every rational tuple to test) to a local one with infinitely many <em>but checkable</em> conditions (one per place, each effectively decidable). For a quadratic form in $n \ge 5$ variables, almost every prime is automatically satisfied (the form is isotropic over $\mathbb{Q}_p$ for $p$ outside a small computable set), so in practice only finitely many checks need to be made. The theorem is a constructive algorithm for asking "does this conic / quadric have a rational point?" — a question that, before Hasse, had no general method.</p>
+
+<aside class="note">
+For binary quadratic forms over $\mathbb{Q}$, Hasse–Minkowski recovers Legendre's three-squares theorem, Gauss's genus theory, and quadratic reciprocity all at once. Reciprocity, in this vantage, is a conservation law: the product over all places $v$ of the local Hilbert symbol $(a, b)_v \in \{\pm 1\}$ equals $1$. Each Hilbert symbol is a local Hasse invariant; the product law is the global statement; and quadratic reciprocity falls out as a special case of the product formula. Hasse himself came to call this "the philosophy of the local–global principle," and it organizes class field theory underneath.
+</aside>
+
+<p>Now the bad news. Hasse–Minkowski fails for cubic and higher equations. The classical counterexample, due to Selmer in 1951, is the genus-one cubic
+$$3 x^3 + 4 y^3 + 5 z^3 \;=\; 0.$$
+A short verification shows this equation has nontrivial real solutions, has $\mathbb{Q}_p$-solutions for every prime $p$, but no nontrivial rational solution. The local–global principle fails — there is no global obstruction visible from any single completion, but there is a global obstruction nonetheless. What kind of obstruction? Selmer's example revealed a new invariant in elliptic-curve arithmetic: the Tate–Shafarevich group $\Sha(E/\mathbb{Q})$, which is precisely <em>the failure of the local–global principle</em> for the genus-one curves attached to an elliptic curve $E$. Manin in the 1970s identified a more general obstruction — the <em>Brauer–Manin obstruction</em> — coming from elements of the Brauer group $\mathrm{Br}(X)$ of the variety $X$; pairing local points against Brauer classes via local invariants $\mathrm{inv}_v$ and demanding the pairing sum to zero rules out many "locally everywhere but not globally" examples. For some classes of varieties the Brauer–Manin obstruction is the only obstruction (a conjecture of Colliot-Thélène); for others, even more exotic obstructions exist.</p>
+
+<blockquote>The local–global principle is not a theorem about rational points. It is a hypothesis. When it holds (quadratic forms, by Hasse–Minkowski), local data determines global data. When it fails (Selmer's cubic, Brauer–Manin), the failure is itself an arithmetic invariant — and the work of the next century is to compute it.</blockquote>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./p-adic-numbers.html#qp">Construction of $\mathbb{Q}_p$ and Hensel's lemma</a></li>
+    <li><a href="./p-adic-numbers.html#hensel">Hensel's lemma in detail</a></li>
+    <li><a href="./quadratic-forms-genus-theory.html">Hasse–Minkowski for quadratic forms</a></li>
+    <li><a href="./elliptic-curves.html">Elliptic curves and the Tate–Shafarevich group</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 3 ──── -->
+<section id="adeles">
+<h2><span class="num">§3.</span> Adèles, idèles, and Tate's thesis</h2>
+
+<p>Hasse–Minkowski is a wonderful theorem but a clumsy one to state, because the statement involves infinitely many local fields glued by a sentence. Whenever a theorem juggles infinitely many objects in parallel, the next generation of mathematicians look for a single object that contains them all and reduces the parallelism to a single statement. For the local–global principle that single object is the <strong>adèle ring</strong>. Once you have it, an enormous fraction of analytic number theory becomes integration over a locally compact abelian group, and the Riemann zeta function — together with all its $L$-function cousins — becomes a single Fourier-analytic identity.</p>
+
+<p>The construction is finicky because we cannot just take the full product $\mathbb{R} \times \prod_p \mathbb{Q}_p$. Each factor is locally compact, but the infinite product of locally compact non-compact spaces is not locally compact in any reasonable sense. The fix, due to Chevalley and made famous by Weil and Tate, is the <em>restricted</em> product. A tuple $(x_v)_v \in \mathbb{R} \times \prod_p \mathbb{Q}_p$ is an <em>adèle</em> if $x_p \in \mathbb{Z}_p$ (i.e., $|x_p|_p \le 1$) for all but finitely many $p$. Topologize this restricted product so that $\mathbb{R} \times \prod_p \mathbb{Z}_p$ — adèles that are integers at every finite place — is open and compact in the relevant subspace. The result is the adèle ring
+$$\mathbb{A}_\mathbb{Q} \;=\; \mathbb{R} \times {\prod_p}' \mathbb{Q}_p,$$
+locally compact, equipped with both an additive and a multiplicative structure. For a general number field $K$ one defines $\mathbb{A}_K = \prod'_v K_v$ with $v$ running over all places of $K$ — finite (one per prime ideal of $\mathcal{O}_K$) plus archimedean (one per real or complex embedding).</p>
+
+<p>The miracle of the adèles is the way $\mathbb{Q}$ sits inside $\mathbb{A}_\mathbb{Q}$: <em>diagonally</em>, by the embedding $x \mapsto (x, x, x, \ldots)$, which makes sense because any $x \in \mathbb{Q}$ has $|x|_p \le 1$ for all but finitely many $p$ (namely, the primes in its denominator). Under this embedding, $\mathbb{Q}$ is <em>discrete</em> as a subgroup of $\mathbb{A}_\mathbb{Q}$, and the quotient $\mathbb{A}_\mathbb{Q}/\mathbb{Q}$ is <em>compact</em>. This is a stunning structural fact: an extreme analogy with the inclusion $\mathbb{Z} \hookrightarrow \mathbb{R}$ that has $\mathbb{R}/\mathbb{Z} = S^1$ compact. The fundamental domain for $\mathbb{Q} \subset \mathbb{A}_\mathbb{Q}$ is $[0, 1) \times \prod_p \mathbb{Z}_p$, a product that is simultaneously the unit interval at the archimedean place and the "everywhere $p$-adic-integer" condition at every finite place.</p>
+
+<aside class="note">
+The slogan "$\mathbb{Q}$ is discrete and cocompact in $\mathbb{A}_\mathbb{Q}$" is the structural foundation of the entire adelic point of view. Number theory becomes Fourier analysis on $\mathbb{A}_\mathbb{Q}$ exactly the way classical Fourier analysis on $\mathbb{R}/\mathbb{Z}$ derives from $\mathbb{Z}$ being discrete and cocompact in $\mathbb{R}$. Every theorem you know from Pontryagin duality on $\mathbb{R}/\mathbb{Z}$ — Poisson summation, the Plancherel formula, Fourier inversion — has an adelic counterpart, and that counterpart is what Tate exploited.
+</aside>
+
+<p>The multiplicative version is the <em>idèle group</em> $\mathbb{A}_\mathbb{Q}^\times = \mathbb{R}^\times \times \prod'_p \mathbb{Q}_p^\times$, with the restriction now being $x_p \in \mathbb{Z}_p^\times$ at almost every prime. Again $\mathbb{Q}^\times$ embeds diagonally — discretely — and the quotient $C_\mathbb{Q} = \mathbb{A}_\mathbb{Q}^\times / \mathbb{Q}^\times$ is the <strong>idèle class group</strong>. It is not compact (the archimedean factor stretches to infinity in absolute value), but its norm-one part is compact, and modulo the connected component of the identity it becomes the central object of class field theory. Continuous characters $\chi \colon C_K \to \mathbb{C}^\times$ are exactly <em>Hecke characters</em> — the right linear coefficients for $L$-functions of arithmetic type.</p>
+
+<p>Tate's 1950 Princeton thesis, written under Artin, took the adelic apparatus and produced one of the most elegant pieces of mathematics of the twentieth century. He defined a global zeta integral
+$$Z(s, f) \;=\; \int_{\mathbb{A}_\mathbb{Q}^\times} f(x) \, |x|^s \, d^\times x$$
+for a suitable Schwartz function $f$ on $\mathbb{A}_\mathbb{Q}$, and showed that this single integral, decomposed over places, factors as a product of <em>local zeta integrals</em> $Z_v(s, f_v) = \int_{\mathbb{Q}_v^\times} f_v(x) |x|_v^s d^\times x$. Choose $f$ to be the indicator function of $\hat{\mathbb{Z}} = \prod \mathbb{Z}_p$ at the finite places and a Gaussian at the archimedean one, and the local integrals compute as $(1 - p^{-s})^{-1}$ and $\pi^{-s/2}\Gamma(s/2)$ respectively. The product is the completed Riemann zeta function $\xi(s) = \pi^{-s/2}\Gamma(s/2)\zeta(s)$. Poisson summation on $\mathbb{A}_\mathbb{Q}$ — the adelic version, with $\mathbb{Q}$ replacing $\mathbb{Z}$ — yields the functional equation $\xi(s) = \xi(1 - s)$ in two lines. Every analytic property of $\zeta(s)$ that classically required arithmetic ingenuity falls out from a single Fourier identity once you accept the adelic frame.</p>
+
+<p>What Tate's thesis demonstrated, beyond the technical re-derivation, is that the <em>natural</em> habitat of $L$-functions is not $\mathbb{C}$ but the idèle class group $C_K$. Local–global, in this incarnation, is the statement that the global $L$-function factors place-by-place into Euler factors, each computable by local representation theory. Every modern automorphic $L$-function — the ones attached to modular forms, to Galois representations, to automorphic representations of $\GL_n$ over $\mathbb{A}_K$ — is built on this template. Adèles are the language; Tate provided the proof of concept.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./adeles-and-ideles.html#adeles">Adèles and idèles: definition and topology</a></li>
+    <li><a href="./adeles-and-ideles.html">Tate's thesis and adelic zeta integrals</a></li>
+    <li><a href="./l-functions.html">L-functions and Euler products</a></li>
+    <li><a href="./class-field-theory.html">Class field theory and the idèle class group</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 4 ──── -->
+<section id="frobenius">
+<h2><span class="num">§4.</span> Frobenius, Chebotarev, and reciprocity laws</h2>
+
+<p>So far the local–global principle has been about <em>solutions</em> — points on varieties, zeros of forms. There is a parallel local–global principle for <em>Galois groups</em>, and it organizes the entire subject of reciprocity laws. The starting datum is a Galois extension $L/K$ of number fields, with Galois group $G = \Gal(L/K)$. To each prime $\mathfrak{p}$ of $K$ that is <em>unramified</em> in $L$ (i.e., does not divide the discriminant) one attaches a Frobenius conjugacy class $\mathrm{Frob}_\mathfrak{p} \subset G$, defined as follows. Pick a prime $\mathfrak{P}$ of $L$ over $\mathfrak{p}$; the decomposition group $D_\mathfrak{P} = \{\sigma \in G : \sigma \mathfrak{P} = \mathfrak{P}\}$ acts on the residue field extension $k(\mathfrak{P})/k(\mathfrak{p})$, and is identified with the Galois group of that finite extension. The latter is generated by the Frobenius automorphism $x \mapsto x^{N\mathfrak{p}}$ of the residue field, which lifts canonically to an element of $D_\mathfrak{P}$. Different choices of $\mathfrak{P}$ over $\mathfrak{p}$ produce conjugate elements; the conjugacy class is well-defined.</p>
+
+<p>$\mathrm{Frob}_\mathfrak{p}$ is the local datum at $\mathfrak{p}$: it is the place's contribution to the global Galois group, encoded as a conjugacy class. The point of view is striking — a global symmetry group $G$ is being decomposed, prime by prime, into local conjugacy classes, the way the adèle ring decomposed $\mathbb{Q}$ place by place. The natural question is: how do these local classes vary as $\mathfrak{p}$ does? Are they spread evenly across $G$? Are they predictable?</p>
+
+<div class="ok">
+<strong>Chebotarev's density theorem (1922).</strong> For a Galois extension $L/K$ with Galois group $G$, and any conjugacy class $C \subset G$, the natural density of primes $\mathfrak{p}$ of $K$ with $\mathrm{Frob}_\mathfrak{p} = C$ equals $|C|/|G|$.
+</div>
+
+<p>This is a stunning theorem. It says the Frobenii equidistribute over $G$ in the most uniform possible way: every conjugacy class is hit with frequency proportional to its size. In particular every conjugacy class is hit infinitely often, and the union $\bigcup_\mathfrak{p} \mathrm{Frob}_\mathfrak{p}$ generates $G$ topologically. The global Galois group is reconstructed, as a topological group, from its local Frobenius data via a statistical average — a non-abelian, density-flavored version of the local–global principle. Chebotarev proved this in 1922 by reducing to Dirichlet's theorem on primes in arithmetic progressions (the abelian case, which is itself the Chebotarev theorem for cyclotomic extensions); the proof uses analytic continuation of $L$-functions in an essential way, looping us back to Tate's adelic framework.</p>
+
+<p>Now reciprocity. A <em>reciprocity law</em> is a theorem that says $\mathrm{Frob}_\mathfrak{p}$ is <em>predictable</em> from elementary local data — typically, from the residue $\mathfrak{p}$ falls into modulo some computable conductor. The grandfather of all reciprocity laws is Gauss's quadratic reciprocity (1796):
+$$\left(\frac{p}{q}\right) \left(\frac{q}{p}\right) \;=\; (-1)^{\frac{p-1}{2}\frac{q-1}{2}}, \qquad p, q \text{ distinct odd primes}.$$
+Translated into Galois language, this says the Frobenius of $p$ in $\mathbb{Q}(\sqrt{q^*})/\mathbb{Q}$ — where $q^* = \pm q$ has the appropriate sign — is determined by $p \pmod{q}$. A miracle: the local symbol at $p$ depends only on the residue class of $p$ modulo $q$, i.e., on data computable from $q$ alone. Quadratic reciprocity is a local–global compatibility condition between the two primes $p$ and $q$, and Gauss called it his <em>theorema aureum</em>, golden theorem.</p>
+
+<p>The Artin reciprocity law of 1927–1930 generalizes this to all abelian extensions of any number field. Let $L/K$ be a finite abelian Galois extension, with $G = \Gal(L/K)$ now abelian. Artin constructed a homomorphism, the <strong>Artin map</strong>, from idèle classes to the Galois group:
+$$\theta_{L/K} \colon C_K \;=\; \mathbb{A}_K^\times / K^\times \;\twoheadrightarrow\; \Gal(L/K)$$
+sending an idèle class to a product of local Frobenius elements. Its kernel is the norm subgroup $N_{L/K}(C_L)$. So abelian extensions of $K$ correspond exactly to finite-index open subgroups of $C_K$, and the Galois group of any such extension is computed as a quotient of the idèle class group by the appropriate norm subgroup. In the limit over all finite abelian extensions, Artin reciprocity asserts the topological isomorphism
+$$\Gal(K^{\mathrm{ab}}/K) \;\cong\; \widehat{C_K}$$
+between the Galois group of the maximal abelian extension and the profinite completion of the idèle class group. Class field theory in one line.</p>
+
+<aside class="note">
+Artin reciprocity is the systematic local-to-global accountant: it says abelian Galois groups over $K$ are precisely as complicated as the idèle class group $C_K$, no more. Quadratic reciprocity, the "first reciprocity law," is the special case $L/\mathbb{Q}$ quadratic; cubic reciprocity is $L/\mathbb{Q}(\zeta_3)$ cubic; biquadratic is $L/\mathbb{Q}(i)$ quartic; and so on. Each historical reciprocity law from Gauss to Hilbert is a concrete shadow of one global theorem.
+</aside>
+
+<p>The local picture is even simpler than the global. For a local field $F$ (such as $\mathbb{Q}_p$ or a finite extension), local class field theory provides an isomorphism between $F^\times$ and the abelianized absolute Galois group $\Gal(F^{\mathrm{ab}}/F)^{\mathrm{ab}}$, sending a uniformizer to a Frobenius. This is the <em>local Artin map</em>, and Artin's global reciprocity law is precisely the statement that the global Artin map factors through these local maps consistently — that the local pieces glue into a global isomorphism. The phrase "class field theory is the local-to-global compatibility of reciprocity" is, at this point, a literal description of the structure of the theorem.</p>
+
+<p>Class field theory is solved for abelian extensions. The non-abelian case — what becomes the Langlands program — replaces the idèle class group $C_K$ with automorphic representations of $\GL_n(\mathbb{A}_K)$, and replaces the Artin map with a conjectural correspondence between automorphic representations and $n$-dimensional Galois representations. Every reciprocity law in the non-abelian setting that has been proved (Eichler–Shimura, Wiles–Taylor for FLT, the modularity theorem for elliptic curves, the recent Shimura-variety advances) is a Langlands-type local–global compatibility, and the program in its full generality remains the central open problem of arithmetic.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./frobenius-and-reciprocity.html#frobenius">Frobenius elements at unramified primes</a></li>
+    <li><a href="./frobenius-and-reciprocity.html">Chebotarev density and reciprocity</a></li>
+    <li><a href="./class-field-theory.html">Class field theory: Artin reciprocity in detail</a></li>
+    <li><a href="./quadratic-reciprocity.html">Quadratic reciprocity</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 5 ──── -->
+<section id="heights">
+<h2><span class="num">§5.</span> Heights, Northcott, and the Arakelov frame</h2>
+
+<p>The fifth stop is the local–global principle, fully grown into a quantitative tool. So far we have been asking yes-or-no questions: does $f = 0$ have a rational solution? does $\mathrm{Frob}_\mathfrak{p}$ lie in conjugacy class $C$? Heights answer the harder question: <em>among the rational points that exist, which are simple?</em></p>
+
+<p>Start with the most elementary case. A rational number $x \in \mathbb{Q}$ can be written as $a/b$ with $a, b \in \mathbb{Z}$ coprime. Define its naive height to be
+$$H(a/b) \;=\; \max(|a|, |b|), \qquad h(a/b) \;=\; \log H(a/b).$$
+This is a measure of "how complicated" the number is — $1/2$ has height $\log 2$, $355/113$ (the rational approximation to $\pi$) has height $\log 355$, and so on. The bottom-line property is finiteness: there are only finitely many rationals of bounded height. That is the prototype of <em>Northcott's theorem</em>, the structural finiteness result that makes heights useful.</p>
+
+<p>The construction is intrinsically local–global. Embed $\mathbb{Q}$ in $\mathbb{P}^1(\mathbb{Q})$, the projective line, by $a/b \mapsto [a:b]$ with $\gcd(a, b) = 1$. The naive height becomes
+$$H([a:b]) \;=\; \prod_v \max(|a|_v, |b|_v)$$
+where $v$ runs over <em>all</em> places of $\mathbb{Q}$ — the prime ones plus the archimedean one. At a finite prime $v = p$, $\max(|a|_p, |b|_p) = 1$ exactly when $\gcd(a, b)$ is coprime to $p$; for our coprime representative this is automatic at every finite prime, so the product collapses to the archimedean factor $\max(|a|_\infty, |b|_\infty) = \max(|a|, |b|)$. The height is a local–global object: each place contributes a local factor, the global product is what one calls the height.</p>
+
+<p>The same construction generalizes immediately. For an algebraic number $\alpha \in \overline{\mathbb{Q}}$, define
+$$h(\alpha) \;=\; \frac{1}{[K:\mathbb{Q}]} \sum_v \log \max(1, |\alpha|_v),$$
+a sum over places $v$ of $K = \mathbb{Q}(\alpha)$, normalized so the result does not depend on $K$. This is the <em>Weil height</em> on $\overline{\mathbb{Q}}$, and it descends from $\mathbb{P}^n(\overline{\mathbb{Q}})$ for any $n$. Its structural properties are exactly what one wants from a complexity measure: $h(\alpha + \beta) \le h(\alpha) + h(\beta) + \log 2$, $h(\alpha\beta) \le h(\alpha) + h(\beta)$, $h(\zeta) = 0$ for any root of unity $\zeta$ (Kronecker's theorem). And the most important property is the finiteness theorem.</p>
+
+<div class="ok">
+<strong>Northcott's theorem (1949).</strong> For any $B \ge 0$ and any $D \ge 1$, there are only finitely many algebraic numbers $\alpha$ with $h(\alpha) \le B$ and $[\mathbb{Q}(\alpha) : \mathbb{Q}] \le D$.
+</div>
+
+<p>This is the Diophantine cousin of Minkowski's geometry-of-numbers bound. It says that, having fixed a degree and a complexity ceiling, the set of algebraic numbers under those constraints is finite — and thus, in principle, enumerable. Northcott's theorem is the proof-theoretic engine behind every effective Mordell–Weil result, every search for rank generators on an elliptic curve, every algorithm that proves "this list is complete." It is the formal expression of the intuition that an integer cannot have arbitrarily many digits and stay small.</p>
+
+<p>For elliptic curves, the right height is not the naive Weil height of the affine coordinates but its quadratic refinement: the <strong>canonical height</strong>. Given an elliptic curve $E/K$, define
+$$\hat h(P) \;=\; \lim_{n \to \infty} \frac{h(2^n P)}{4^n}, \qquad P \in E(\overline{K}).$$
+Néron and Tate proved this limit exists and defines a function $\hat h \colon E(\overline K) \to \mathbb{R}_{\ge 0}$ with the property that the group law becomes <em>isometric</em>:
+$$\hat h(nP) \;=\; n^2 \, \hat h(P), \qquad \hat h(P + Q) + \hat h(P - Q) \;=\; 2\hat h(P) + 2\hat h(Q).$$
+The second identity is the parallelogram law, and it makes $\hat h$ a positive-definite quadratic form on $E(K) \otimes \mathbb{R}$ modulo torsion. Mordell–Weil's theorem says $E(K)$ is a finitely generated abelian group; its rank is the dimension of $E(K) \otimes \mathbb{R}$, and the canonical height makes that real vector space a Euclidean space. The volume of its fundamental domain is the <em>regulator</em> $R(E)$ — and the regulator is exactly the quantity that appears in the Birch–Swinnerton-Dyer conjecture as a factor in the leading-order behavior of $L(E, s)$ at $s = 1$.</p>
+
+<p>The local–global structure is fully exposed. The canonical height decomposes as a sum of local contributions
+$$\hat h(P) \;=\; \sum_v \lambda_v(P)$$
+where $\lambda_v$ is a Néron local height function at the place $v$ — a Green's function, in the language of Arakelov geometry, attached to the divisor class on the model of $E$ over the local ring at $v$. Each $\lambda_v$ depends only on the local geometry near the prime $v$; the sum is the global height. This is the local–global principle, fully matured: the global invariant (rank, regulator, BSD) is built place-by-place from local data with controlled interactions, and the entire arithmetic-geometric machinery of Arakelov theory makes this decomposition rigorous at the level of arithmetic schemes.</p>
+
+<aside class="note">
+Arakelov's insight, around 1974, was that the natural compactification of an arithmetic scheme $\Spec \mathcal{O}_K$ should add the archimedean places as honorary "primes at infinity." A line bundle on this compactified scheme carries a metric at every place — a $p$-adic valuation at each finite prime, a Hermitian metric at each archimedean prime. Heights are degrees of metrized line bundles. With this dictionary the Riemann–Roch theorem from algebraic geometry has an arithmetic version, and many statements about rational points become geometric statements about arithmetic surfaces. The local–global principle, in Arakelov's frame, is the statement that the geometry of an arithmetic surface respects its place-by-place decomposition.
+</aside>
+
+<p>The story of heights closes the local–global circuit. We started, in §1, with global ideals factoring uniquely once we localized at primes. We localized further, in §2, to completions $\mathbb{Q}_p$ where Hensel's lemma turns approximate solutions into exact ones. We packaged the localizations, in §3, into adèles and idèles, and used Tate's thesis to convert global $L$-functions into adelic Fourier analysis. We extracted, in §4, the Galois-theoretic shadow: Frobenii equidistribute, reciprocity laws predict them, class field theory accounts for the abelian part. And now, in §5, the quantitative version: heights as place-by-place sums, Northcott's finiteness as the structural backbone of Diophantine geometry, the canonical height as the geometry that makes BSD's regulator a meaningful real number. Five stops, one principle.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./heights-arithmetic-geometry.html#canonical">The canonical height on an elliptic curve</a></li>
+    <li><a href="./heights-arithmetic-geometry.html">Northcott's theorem and Arakelov geometry</a></li>
+    <li><a href="./elliptic-curves.html">Elliptic curves and Mordell–Weil</a></li>
+    <li><a href="./bsd.html">The Birch–Swinnerton-Dyer conjecture</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 6 ──── -->
+<section id="coda">
+<h2><span class="num">§6.</span> Coda: the cohomological accountant</h2>
+
+<p>The local–global principle is, on its surface, a slogan: a global thing is the same data as its local things, glued by their compatibilities. The slogan is sometimes a theorem (Hasse–Minkowski for quadratic forms; Artin reciprocity for abelian extensions) and sometimes a conjecture (the Hasse principle for cubics; the Brauer–Manin obstruction conjecture for rationally connected varieties; the Langlands program for non-abelian Galois representations). When the slogan holds, it gives an effective procedure: check at every place, conclude globally. When it fails, the failure becomes itself a structural invariant — Sha for elliptic curves, the Brauer group for general varieties, higher cohomology for what comes after.</p>
+
+<p>The figures who built this story arrived in stages. Hensel introduced $p$-adic numbers in 1897, against the prevailing taste of Hilbert. Hasse made the local–global principle a theorem in 1923 with his work on quadratic forms. Chevalley, in the 1930s, gave the adelic formulation that made local-to-global into a single object. Artin proved the abelian reciprocity law in 1927–30 — the most beautiful concrete instance of class field theory. Tate's 1950 thesis and the Tate–Shafarevich group of the 1960s introduced cohomology as the systematic accountant for local-to-global obstructions. Manin's Brauer–Manin obstruction in the 1970s and Colliot-Thélène's work in the 1980s codified what the obstructions look like for general varieties. Each generation adds another piece; the picture is still being completed.</p>
+
+<p>The deeper truth, beneath the slogan, is that local-to-global compatibility is a <em>cohomological phenomenon</em>. The Tate–Shafarevich group $\Sha(E/K)$ is a subgroup of the Galois cohomology group $H^1(K, E)$ — specifically, the kernel of the localization map $H^1(K, E) \to \prod_v H^1(K_v, E)$. The Brauer–Manin pairing involves $H^2$ of the variety with values in $\mathbb{G}_m$. The Selmer group $\mathrm{Sel}(E/K)$ is the part of $H^1$ controlled by local conditions at every place. Class field theory is a $H^2$ calculation in the abelian case; the Langlands program is a hoped-for non-abelian $H^1$ calculation. Every obstruction to local-to-global — every place where the principle fails — is a class in some Galois cohomology group. The principle is exact when those obstructions vanish; non-exact when they do not.</p>
+
+<blockquote>The local–global principle is the assertion that a global object is recovered from its localizations once one accounts for the cohomological obstructions. Hasse–Minkowski says the obstructions vanish for quadratic forms. Selmer's cubic shows they don't vanish for cubics. Class field theory says they vanish for abelian extensions. The Langlands program is the conjectural extension of "they vanish, with the right local–global correspondence" to the non-abelian world.</blockquote>
+
+<p>What makes this story ultimately satisfying is that local-to-global, originally a heuristic for organizing infinite families of test conditions, has matured into the technical core of arithmetic. The principle is not a theorem; it is a methodology. When it succeeds — quadratic forms, abelian class field theory, the Riemann zeta functional equation via Tate — the success is an exact local-to-global theorem and an effective algorithm. When it fails — Sha, Brauer–Manin, the conjectural part of Langlands — the failure is itself a cohomological invariant that the next theorem will compute. Two centuries after Gauss saw quadratic reciprocity as a "golden theorem," and one century after Hensel saw local fields as the natural setting for arithmetic, the local–global principle is what the rest of the subject is organized around.</p>
+
+</section>
+
+<hr class="endrule"/>
+
+<p class="colophon">
+The completion gambit — replacing $\mathbb{Q}$ by its $p$-adic and real completions, asking the global question one place at a time — is the single deepest move in modern arithmetic. It is not the only move (Mordell–Weil's structure theorem for rational points uses height theory in ways that go beyond pure local–global; the Faltings theorem on rational points of curves is genuinely global). But it is the move that organizes the rest. To learn arithmetic in the modern sense is to learn how to localize, how to package localizations into adèles, how to read reciprocity laws as local-to-global compatibilities, how to recognize Sha and the Brauer group as the cohomological residue when the principle fails. Once that vocabulary is in your possession, the surface variety of arithmetic — the ad-hoc theorems about $x^n + y^n = z^n$, the lemmas about $\mathbb{Z}[i]$, the elementary reciprocity laws — resolves into a single architecture, in which the local pictures fit together with cohomologically computable obstructions.
+</p>
+
+<h3>Further reading</h3>
+<ol class="refs">
+  <li>J. W. S. Cassels, <em>Local Fields</em>, LMS Student Texts. The friendly introduction to $\mathbb{Q}_p$, Hensel's lemma, and the structure of local fields.</li>
+  <li>J.-P. Serre, <em>A Course in Arithmetic</em>, GTM 7. Hasse–Minkowski for quadratic forms with full proofs; the gold standard for the introductory local–global story.</li>
+  <li>A. Weil, <em>Basic Number Theory</em>, Grundlehren 144 (1967). Adèles and idèles done abstractly, with class field theory as a chapter rather than a culmination.</li>
+  <li>J. Tate, "Fourier analysis in number fields and Hecke's zeta-functions" (1950). The thesis itself, reprinted in Cassels–Fröhlich.</li>
+  <li>J. W. S. Cassels and A. Fröhlich (eds.), <em>Algebraic Number Theory</em>, Academic Press (1967). The classical reference for class field theory, with Tate's thesis as a chapter.</li>
+  <li>J.-P. Serre, <em>Local Fields</em>, GTM 67. Local class field theory in detail; the local foundation for Artin reciprocity.</li>
+  <li>J. H. Silverman, <em>The Arithmetic of Elliptic Curves</em>, GTM 106. Heights, the canonical height, Mordell–Weil, the Tate–Shafarevich group, BSD — all in one volume.</li>
+  <li>J.-L. Colliot-Thélène and A. Skorobogatov, <em>The Brauer–Grothendieck Group</em>, Ergebnisse 71 (2021). The modern reference for the Brauer–Manin obstruction.</li>
+  <li>S. Lang, <em>Fundamentals of Diophantine Geometry</em>, Springer (1983). Heights and Arakelov-flavored geometry from the Diophantine point of view.</li>
+</ol>
+
+</main>
+
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-05</td><td>Local–global principle capstone story (Tour 6 long-form): Dedekind → $p$-adics &amp; Hasse–Minkowski → adèles &amp; Tate → Frobenius &amp; Artin reciprocity → heights &amp; Arakelov, ending at the cohomological accountant</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

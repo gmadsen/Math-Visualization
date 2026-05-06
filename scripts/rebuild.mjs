@@ -1,31 +1,23 @@
 #!/usr/bin/env node
 // Thin orchestrator for the full verification chain. Mirrors CI.
 //
-//   node scripts/build-concepts-bundle.mjs
-//   node scripts/build-quizzes-bundle.mjs
-//   node scripts/build-widgets-bundle.mjs
-//   node scripts/build-search-index.mjs
-//   node scripts/validate-schema.mjs
-//   node scripts/validate-widget-params.mjs
-//   node scripts/validate-concepts.mjs
-//   node scripts/validate-katex.mjs
-//   node scripts/audit-callbacks.mjs --fix
-//   node scripts/inject-used-in-backlinks.mjs --fix
-//   node scripts/inject-breadcrumb.mjs --fix
-//   node scripts/inject-display-prefs.mjs --fix
-//   node scripts/fix-a11y.mjs --fix
-//   node scripts/smoke-test.mjs
-//   node scripts/test-roundtrip.mjs
-//   node scripts/stats-coverage.mjs
+// The full step list is the `STEPS` array below — see it directly rather
+// than maintaining a duplicate enumeration in this header. As of this
+// writing the chain is ~37 steps mixing builders, validators, injectors
+// (in fix mode), unit tests, the JSON↔HTML roundtrip gate, and advisory
+// audits.
 //
 // Streams each child's stdout/stderr through, prints a banner per step, and
 // bails on the first non-zero exit.
 //
 // Flags:
-//   --no-fix          Run the two audits in audit-only mode (drop --fix).
-//                     Useful for CI-style local checks.
-//   --only <step>     Run just one step. <step> is one of:
-//                       concepts, quizzes, widgets-bundle, search, schema, widget-params, validate, katex, callbacks, backlinks, breadcrumb, display-prefs, a11y, smoke, roundtrip, stats, starter
+//   --no-fix          Run injector/fixer steps in audit-only mode (drop
+//                     --fix). Useful for CI-style local checks. CI itself
+//                     uses --no-fix in .github/workflows/verify.yml.
+//   --only <step>     Run just one step. The valid step names are the
+//                     `name` fields of each entry in `STEPS` below.
+//                     Running `node scripts/rebuild.mjs --only <bogus>`
+//                     prints the full list.
 //
 // Zero dependencies.
 
@@ -58,6 +50,7 @@ const STEPS = [
   { name: 'widgets-bundle', script: 'build-widgets-bundle.mjs', fix: false },
   { name: 'search',     script: 'build-search-index.mjs',       fix: false },
   { name: 'section-indexes', script: 'build-section-indexes.mjs', fix: false },
+  { name: 'recent-updates', script: 'build-recent-updates.mjs',  fix: false },
   { name: 'schema',     script: 'validate-schema.mjs',          fix: false },
   { name: 'widget-params', script: 'validate-widget-params.mjs', fix: false },
   { name: 'widget-renderers', script: 'test-widget-renderers.mjs', fix: false },

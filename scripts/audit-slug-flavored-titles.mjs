@@ -31,6 +31,14 @@ const SKIP = new Set([
   'progress.html', 'review.html', 'widgets.html', 'latex-cheatsheet.html',
   'capstone-bsd-story.html', 'capstone-flt-story.html',
   'capstone-satotate-story.html',
+  'capstone-solvability-story.html',
+  'capstone-sound-to-wavelets-story.html',
+  'capstone-millennium-prizes-story.html',
+  'capstone-cohomology-story.html',
+  'capstone-sets-to-topoi-story.html',
+  'capstone-local-global-story.html',
+  'capstone-hodge-arc-story.html',
+  'capstone-langlands-arc-story.html',
 ]);
 
 // Words that, when present, signal the title is grammatical English not a
@@ -117,6 +125,8 @@ const WHITELIST = new Set([
   'Advanced complex analysis',
   'Computational number theory',
   'Vertex operator algebras',
+  'Geometric measure theory',
+  'Quantum field theory',
 ]);
 
 function looksSlugFlavored(title) {

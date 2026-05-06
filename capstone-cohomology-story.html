@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>What is cohomology? — five incarnations of one machine</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script src="./js/progress.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,"Charter","Georgia",serif;
+    font-size:17px;line-height:1.72}
+  main{max-width:780px;margin:0 auto;padding:3rem 1.5rem 7rem}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  h1{font-size:2.3rem;letter-spacing:-0.01em;margin:0 0 0.4rem;font-weight:650}
+  h2{font-size:1.45rem;margin:3rem 0 0.7rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.35rem;font-weight:600}
+  h2 .num{color:var(--violet);font-variant-numeric:tabular-nums;margin-right:.45rem;font-weight:500}
+  h3{font-size:1.08rem;margin:1.6rem 0 .5rem;color:var(--violet);font-weight:600}
+  p{margin:0.8rem 0}
+  blockquote{border-left:3px solid var(--violet);padding:.2rem 1rem;margin:1.2rem 0;color:#d8d2ef;
+    background:#1a1828;border-radius:0 6px 6px 0;font-style:italic}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:1.4rem;font-size:1.05rem;line-height:1.55}
+  .lede{font-size:1.05rem;line-height:1.7;color:#dde3ec;margin:1.4rem 0 1.8rem}
+  .lede::first-letter{
+    float:left;font-size:3.1rem;line-height:.95;
+    padding:.15rem .45rem 0 0;color:var(--violet);font-weight:700;font-family:"Charter","Georgia",serif;
+  }
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.55rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.88rem;align-items:baseline}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--violet)}
+  nav.toc .spacer{flex:1}
+  nav.toc .story-pill{color:var(--violet);border:1px solid color-mix(in srgb, var(--violet) 45%, transparent);
+    border-radius:999px;padding:1px 10px;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase}
+  .hero{padding:2.4rem 0 .4rem}
+  .byline{color:var(--mute);font-size:.88rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.6rem}
+  .figure{margin:1.6rem 0 2rem;text-align:center}
+  .figure svg{display:block;margin:0 auto;max-width:100%;
+    background:#0b0f16;border:1px solid var(--line);border-radius:8px}
+  .figure svg text{fill:var(--ink);font-family:inherit}
+  .caption{color:var(--mute);font-size:.88rem;margin-top:.5rem;line-height:1.5;font-style:italic;
+    max-width:560px;margin-left:auto;margin-right:auto}
+  .note{border-left:3px solid var(--violet);padding:.35rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0;font-size:.96rem;line-height:1.6}
+  .ok{border-left:3px solid var(--green);padding:.35rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0;font-size:.96rem;line-height:1.6}
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(179,157,219,0.06);
+    border-left:3px solid color-mix(in srgb, var(--violet) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+  details.changelog{
+    margin:2.5rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute);white-space:nowrap;font-variant-numeric:tabular-nums}
+  .endrule{border:none;border-top:1px solid var(--line);margin:2.4rem 0 1rem}
+  .colophon{color:var(--mute);font-size:.88rem;line-height:1.55;font-style:italic}
+  ol.refs{padding-left:1.3rem;color:var(--mute);font-size:.9rem;line-height:1.55}
+  ol.refs li{margin:.25rem 0}
+</style>
+<link rel="stylesheet" href="./css/notebook.css">
+<script src="./js/theme-toggle.js"></script>
+</head>
+<body data-level="capstone" data-c="violet">
+
+<nav class="toc">
+  <a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="./tours.html#cohomology">Tour 3</a>
+  <a href="#group-cohomology">§1</a>
+  <a href="#singular">§2</a>
+  <a href="#sheaf">§3</a>
+  <a href="#de-rham">§4</a>
+  <a href="#etale">§5</a>
+  <a href="#coda">§6</a>
+  <span class="spacer"></span>
+  <span class="story-pill">story</span>
+</nav>
+
+<main>
+
+<section class="hero">
+  <div class="byline">An essay on five incarnations</div>
+  <h1>What is cohomology?</h1>
+  <p class="sub">Cohomology is one machine wearing five costumes. It is the systematic measurement of obstruction — and across groups, spaces, sheaves, differential forms, and étale covers, it is always answering a single question with a single piece of grammar: which things almost split, but don't?</p>
+</section>
+
+<p class="lede">There is a phrase that survives every change of context in this essay, and it is worth saying once before any of the machinery arrives: <em>cohomology measures things that almost split but don't.</em> A short exact sequence that is not a direct sum. A cocycle that is not a coboundary. A local section that does not extend. A closed form that is not exact. A sheaf that is locally trivial but not globally so. The word "almost" is doing a great deal of work — it names the geometric or arithmetic content that fails to be reducible to the trivial case, and the failure is recorded by a single number, or graded vector space, that the theory then names $H^n$. Five times in this essay we will meet that pattern, dressed in five different costumes, and the surprise is not that the costumes match — they are too obviously the same once you have seen them — but that mathematicians worked for fifty years before realizing they had been writing one definition five different ways.</p>
+
+<p>This essay is a companion to <a href="./tours.html#cohomology">Tour 3</a> in the notebook, which lays out the same arc as a sequence of stops with figures and historical portraits. Here we stay with the prose, expand each stop into a few paragraphs of essay-length development, and end with a coda on the unification — Eilenberg–Mac Lane, Cartan–Eilenberg, the Grothendieck Tohoku paper, and the modern derived-categories synthesis.</p>
+
+<!-- ───────────────────────────────────────────── § 1 ──── -->
+<section id="group-cohomology">
+<h2><span class="num">§1.</span> Group cohomology and central extensions</h2>
+<p>The cleanest first sighting of cohomology lives in pure algebra. Take a group $G$ and an abelian group $M$ on which $G$ acts (a "$G$-module"). The bar cochain complex is the sequence of abelian groups
+$$C^n(G, M) = \mathrm{Hom}_{\mathsf{Set}}(G^n, M),$$
+the set-theoretic functions $\varphi\colon G^n \to M$, with no algebraic constraint except the additivity of $M$. The differential is a signed alternating sum that records both the $G$-action and the multiplication on $G$:
+$$(d\varphi)(g_0, \ldots, g_n) = g_0\,\varphi(g_1, \ldots, g_n) \;-\; \sum_{i=0}^{n-1}(-1)^i \varphi(g_0, \ldots, g_i g_{i+1}, \ldots, g_n) \;+\; (-1)^{n+1}\varphi(g_0, \ldots, g_{n-1}).$$
+A direct calculation — the same calculation that appears, mutatis mutandis, in every other section of this essay — gives $d \circ d = 0$. The cohomology of this complex is what we call the group cohomology $H^n(G, M)$.</p>
+
+<p>This was discovered, or rather isolated, by Samuel Eilenberg and Saunders Mac Lane in the early 1940s, in two papers that turned out to be the founding documents of homological algebra. They were responding to a question of Heinz Hopf: given a topological space $X$ with fundamental group $G$, the homology of $X$ is not a function of $G$ alone — but the part of it that comes from $G$ is. Eilenberg and Mac Lane built a purely algebraic construction that captured exactly this $G$-dependent piece, and the bar complex above is what they wrote down. It is, in a precise sense, the first homological algebra: the first place where one defines an invariant by writing a chain complex, taking cohomology, and discovering that the answer has a meaning that doesn't depend on the chain complex you started with.</p>
+
+<p>The interpretations of the low-degree groups are perfectly concrete. In degree zero,
+$$H^0(G, M) = M^G = \{\, m \in M : g \cdot m = m \text{ for all } g \in G \,\},$$
+the submodule of $G$-invariants. In degree one, $H^1(G, M)$ classifies <em>crossed homomorphisms</em> $\varphi\colon G \to M$ (functions satisfying $\varphi(gh) = \varphi(g) + g\cdot\varphi(h)$) modulo the principal ones (those of the form $\varphi(g) = g\cdot m - m$). When the action is trivial this collapses to $\mathrm{Hom}(G, M)$; when the action is non-trivial it counts torsors for $M$ and is the natural home of cocycle conditions in Galois cohomology.</p>
+
+<p>Degree two is where the slogan first earns its keep. $H^2(G, M)$ classifies <em>central extensions</em>
+$$1 \to M \to \tilde G \to G \to 1$$
+of $G$ by $M$, taken up to equivalence. Such a sequence always has a set-theoretic section $s\colon G \to \tilde G$, but $s$ is rarely a group homomorphism — the failure
+$$c(g, h) = s(g)\,s(h)\,s(gh)^{-1} \;\in\; M$$
+is a 2-cocycle, and changing the section changes $c$ by a coboundary. So the class $[c] \in H^2(G, M)$ is the obstruction to splitting. The extension splits — i.e. is the trivial product $M \times G$ — exactly when $[c] = 0$. The extension <em>almost</em> splits (it has a set-theoretic section) but doesn't (no choice of section is a homomorphism), and $H^2$ measures by exactly how much.</p>
+
+<div class="ok">
+  <strong>The first slogan.</strong> $H^n(G, M)$ measures cocycles modulo coboundaries: things that locally look like they should split (cocycles) modulo things that obviously do (coboundaries). $H^2(G, M)$ classifies central extensions; the class is zero iff the extension splits. <em>Cohomology measures things that almost split but don't.</em>
+</div>
+
+<p>The smallest worked example is the famous central extension of the symmetric group. The double cover $\tilde S_n \to S_n$, when $n \ge 4$, is non-split — there is no embedding of $S_n$ back into $\tilde S_n$ that lifts the identity — and the corresponding class is the unique nonzero element of $H^2(S_n, \mathbb{Z}/2) \cong \mathbb{Z}/2$. The Schur multiplier of a finite group, classically defined in terms of projective representations, is precisely $H^2(G, \mathbb{C}^\times)$; that the theory of projective representations and the theory of central extensions agree was a key clue, in the 1940s, that a single homological invariant was hiding behind several apparently independent constructions.</p>
+
+<blockquote>By the time Eilenberg and Mac Lane finished writing the bar resolution, the formal definition of group cohomology had eaten the older constructions whole — Schur multipliers, factor sets, second-degree obstruction theory — and given them all the same name.</blockquote>
+
+<p>One point worth flagging now, because we will return to it: the bar complex is functorial in $G$ but it is not the only way to compute $H^*(G, M)$. The intrinsic definition is as a derived functor: $H^n(G, -) = \mathrm{Ext}^n_{\mathbb{Z}[G]}(\mathbb{Z}, -)$, the right derived functors of the $G$-invariants $M \mapsto M^G$. This is what makes the answer independent of the bar complex. The same homological invariant can be computed from any projective resolution of $\mathbb{Z}$ as a $\mathbb{Z}[G]$-module — and the bar complex is just one such resolution, the canonical functorial one. The lesson, for the rest of the essay: <em>cohomology is a derived functor; the chain complex is a presentation of the answer, not the answer itself.</em></p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./group-cohomology.html#h2">$H^2(G,A)$ and central extensions</a></li>
+    <li><a href="./group-cohomology.html#bar-complex">The bar resolution</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 2 ──── -->
+<section id="singular">
+<h2><span class="num">§2.</span> Singular cohomology of a space</h2>
+<p>Move from algebra to topology. The pattern is identical; only the underlying combinatorics changes. To a topological space $X$ assign the chain complex of singular simplices: for each $n \ge 0$, the abelian group
+$$C_n(X) = \mathbb{Z}\langle\, \sigma\colon \Delta^n \to X \,\rangle$$
+is the free abelian group on continuous maps from the standard $n$-simplex into $X$. The boundary operator
+$$\partial\sigma = \sum_{i=0}^{n}(-1)^i\,\sigma|_{\partial_i\Delta^n}$$
+is the alternating sum of restrictions to the $i$-th face. Once again, $\partial^2 = 0$ — by combinatorial cancellation between pairs of codimension-two faces — and the homology of this complex is the singular homology $H_n(X; \mathbb{Z})$. Dualize to cochains by $C^n(X; M) = \mathrm{Hom}(C_n(X), M)$, transpose the boundary to get a coboundary, and you recover singular cohomology $H^n(X; M)$.</p>
+
+<p>The historical seed predates Eilenberg–Mac Lane by half a century. Henri Poincaré, in <em>Analysis Situs</em> (1895) and its five supplements, was the first to articulate that the "shape" of a space could be captured by a sequence of abelian groups, and that the boundary operator on chains was the right organizing primitive. Poincaré's homology was simplicial — defined on triangulations — and it took thirty more years (Vietoris, Alexander, Lefschetz, and finally Eilenberg in the 1940s) to free the construction from any choice of triangulation by replacing simplicial chains with singular chains. Once that was done, homology became homotopy-invariant, functorial in the topological category, and obviously the right invariant of a space.</p>
+
+<p>What makes singular cohomology so powerful is the layer of additional structure that topology provides. The cup product
+$$\smile\;\colon\; H^p(X; R) \otimes H^q(X; R) \to H^{p+q}(X; R)$$
+turns the graded abelian group $H^*(X; R)$ into a graded-commutative ring. This is not gratuitous: the cup product is the algebraic shadow of the diagonal map $\Delta\colon X \to X \times X$, pulled back through the Künneth isomorphism. It is what allows cohomology to distinguish spaces that have identical homology rank in each degree but different intersection patterns — the torus $T^2$ and the wedge $S^1 \vee S^1 \vee S^2$, for instance, agree as additive abelian groups but disagree in their cup product structure.</p>
+
+<p>The obstructions are now genuinely topological. $H^1(S^1; \mathbb{Z}) = \mathbb{Z}$ detects the loop on the circle that cannot be filled in by a disk — the failure of the constant map $S^1 \to *$ to extend to a map $D^2 \to *$ in a way that preserves homotopical content. $H^2(S^2; \mathbb{Z}) = \mathbb{Z}$ detects the sphere that cannot be filled in by a ball; more usefully, it computes the degree of any self-map $S^2 \to S^2$. On a closed orientable $n$-manifold, Poincaré duality gives a canonical isomorphism $H^k(X; \mathbb{Z}) \cong H_{n-k}(X; \mathbb{Z})$ that exchanges cohomology in low degrees with homology in complementary high degrees — the most beautiful instance of the slogan that "cohomology and homology are dual sides of the same shape."</p>
+
+<div class="note">
+The same complex pattern $\partial^2 = 0$ as in §1, the same "cocycles modulo coboundaries" definition, the same "obstruction" intuition. But the underlying combinatorics has changed: instead of $G$-tuples of group elements, we now have continuous maps from simplices, and the differential is geometric rather than algebraic. The fact that the two flavors agree as <em>functors</em> — that $H^n(G; M) = H^n(K(G, 1); M)$, where $K(G, 1)$ is the Eilenberg–Mac Lane space classifying $G$ — is one of the unification theorems that closed the 1940s.
+</div>
+
+<p>An example of the cup product working as advertised. The torus $T^2 = S^1 \times S^1$ has $H^1(T^2; \mathbb{Z}) = \mathbb{Z}^2$, generated by the two coordinate loops $\alpha, \beta$. Their cup product $\alpha \smile \beta \in H^2(T^2; \mathbb{Z}) = \mathbb{Z}$ is a generator — the fundamental class of the torus, dual to the volume form. Compare the wedge $S^1 \vee S^1 \vee S^2$: it also has $H^1 = \mathbb{Z}^2$ and $H^2 = \mathbb{Z}$, but the two $H^1$ classes pull back through the wedge inclusion to come from different summands and have <em>vanishing</em> cup product in $H^2$. The cup product distinguishes the two spaces; the additive cohomology does not.</p>
+
+<p>The theory acquires its grandest tools — Mayer–Vietoris for open covers, the long exact sequence of a pair, the Lefschetz fixed-point theorem, the universal coefficient theorem comparing $H_*(X; \mathbb{Z})$ to $H^*(X; M)$ — all from the underlying chain-complex grammar. And every one of these tools will reappear, in §3 onwards, with the simplicial combinatorics replaced by something else.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-topology.html#homology">Singular homology and the chain-complex pattern</a></li>
+    <li><a href="./algebraic-topology.html#cup-product">Cup product and Poincaré duality</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 3 ──── -->
+<section id="sheaf">
+<h2><span class="num">§3.</span> Sheaf cohomology, Čech and derived</h2>
+<p>The third costume looks at first like a different subject. We are no longer studying spaces as topological objects; we are studying schemes (or complex manifolds, or topological spaces with extra data) and asking about <em>sheaves</em> on them — assignments $\mathcal{F}\colon U \mapsto \mathcal{F}(U)$ of an abelian group to each open set, compatible with restriction. The friendly half of the theory is the global sections functor
+$$\Gamma(X, \mathcal{F}) = \mathcal{F}(X) = H^0(X, \mathcal{F}).$$
+This is exact on the right but not on the left: a surjection $\mathcal{F} \twoheadrightarrow \mathcal{G}$ of sheaves does not in general induce a surjection on global sections. Some sections of $\mathcal{G}$ lift only locally, not globally.</p>
+
+<p>The obstruction to lifting lives in the higher right-derived functors:
+$$H^i(X, \mathcal{F}) = R^i \Gamma(X, \mathcal{F}).$$
+This is the second time in this essay we have written "right-derived functor," and it is no accident — it is the same definition pattern as the $\mathrm{Ext}$ of §1, applied now in the abelian category of sheaves of abelian groups on $X$ rather than the category of $G$-modules. To compute $R^i \Gamma$, replace $\mathcal{F}$ by an injective resolution $\mathcal{F} \to \mathcal{I}^\bullet$ in the category of sheaves, apply $\Gamma$, and take cohomology. This is Grothendieck's recipe from the 1957 Tohoku paper — the document that, more than any other, established that cohomology theories are <em>defined</em> as derived functors and only secondarily computed as chain complexes.</p>
+
+<p>The computational engine in practice is Čech cohomology. Pick an open cover $\mathfrak{U} = \{U_\alpha\}$ of $X$ — for an affine scheme one usually takes finitely many distinguished open subsets — and form the Čech complex
+$$\check C^p(\mathfrak{U}, \mathcal{F}) = \prod_{\alpha_0 < \cdots < \alpha_p} \mathcal{F}(U_{\alpha_0\cdots\alpha_p}),$$
+where $U_{\alpha_0\cdots\alpha_p} = U_{\alpha_0} \cap \cdots \cap U_{\alpha_p}$. The differential is the alternating sum of restrictions to faces of the simplex of indices, exactly as in §2 but with sections of the sheaf in place of singular simplices. The resulting Čech cohomology $\check H^p(\mathfrak{U}, \mathcal{F})$ agrees with the derived-functor cohomology $H^p(X, \mathcal{F})$ when the cover is acyclic for $\mathcal{F}$ — a hypothesis that is automatic, by Cartan's theorem B, for a coherent sheaf on a separated noetherian scheme covered by affines.</p>
+
+<div class="note">
+The grammar is unchanged. A cocycle is a tuple of sections on $(p+1)$-fold intersections that satisfies a compatibility relation; a coboundary is one that comes from sections on $p$-fold intersections. The cocycle "almost glues" — it specifies sections on small enough open sets and they agree on overlaps — but it doesn't extend to a global section unless its class in $H^p$ vanishes. The earlier slogan, exactly preserved.
+</div>
+
+<p>The classical worked example is the cohomology of line bundles on projective space. On $\mathbb{P}^n_k$, the line bundle $\mathcal{O}(d)$ has Čech cohomology that one can compute by hand from the standard cover by the $n+1$ affine open sets $\{x_i \ne 0\}$. The answer is famous:
+$$H^0(\mathbb{P}^n, \mathcal{O}(d)) = \begin{cases} \text{degree-}d\text{ homogeneous polynomials} & d \ge 0 \\ 0 & d < 0 \end{cases}$$
+$$H^n(\mathbb{P}^n, \mathcal{O}(d)) = \begin{cases} 0 & d > -n-1 \\ \text{Laurent monomials in } x_0^{-1}, \ldots, x_n^{-1} & d \le -n-1 \end{cases}$$
+and all intermediate $H^i$ vanish. This is the entire input to a thousand explicit calculations in algebraic geometry. Riemann–Roch on a curve, the splitting of a vector bundle on $\mathbb{P}^1$, the Hilbert polynomial of a projective scheme — all are downstream of this single tabulation. Serre's foundational paper "Faisceaux algébriques cohérents" (1955) was the document that announced the philosophy: <em>compute everything in algebraic geometry by sheaf cohomology</em>, and the rest will follow.</p>
+
+<p>Serre duality is one of the deepest consequences. For a smooth projective scheme $X$ of dimension $n$ over a field, with dualizing sheaf $\omega_X$, there is a canonical isomorphism
+$$H^i(X, \mathcal{F}) \;\cong\; H^{n-i}(X, \mathcal{F}^\vee \otimes \omega_X)^\vee$$
+for any locally free coherent sheaf $\mathcal{F}$. This is the algebraic-geometric face of Poincaré duality from §2 — the same combinatorial duality that takes $k$-cells to $(n-k)$-cells, projected onto the language of coherent sheaves. The two dualities are not just analogous; for a smooth projective complex variety they agree, via the comparison theorem we will meet in §4.</p>
+
+<blockquote>The same complex pattern as before, but the "module" is now a sheaf and the "group" is now an open cover. The Čech complex is the bar resolution of an open cover: same combinatorics, applied to a different category.</blockquote>
+
+<p>One historical aside that becomes important in §5. The theory we have just sketched works beautifully for coherent sheaves in the Zariski topology, but it stops short of detecting torsion phenomena. The Zariski topology has too few open sets — its irreducible varieties are <em>connected</em> in a strong sense, and locally constant sheaves like $\underline{\mathbb{Z}/\ell}$ have no interesting cohomology over an irreducible scheme. To capture étale (Galois-theoretic) information, we will need to enlarge the notion of "open cover." That is the move of §5, but its abstract preparation — the idea that cohomology should be the derived functor of global sections on <em>any</em> reasonable site — was already in place in Tohoku.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./sheaf-cohomology.html#cech">Sheaf cohomology via Čech and derived functors</a></li>
+    <li><a href="./sheaf-cohomology.html#serre-duality">Serre duality</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 4 ──── -->
+<section id="de-rham">
+<h2><span class="num">§4.</span> Algebraic de Rham and the Hodge filtration</h2>
+<p>The fourth costume is a synthesis. Replace the single sheaf $\mathcal{F}$ of §3 by a <em>complex</em> of sheaves — specifically, the de Rham complex
+$$\Omega^\bullet_{X/k} \;=\; \bigl(\mathcal{O}_X \xrightarrow{d} \Omega^1_{X/k} \xrightarrow{d} \Omega^2_{X/k} \xrightarrow{d} \cdots\bigr)$$
+of algebraic Kähler differential forms with the exterior derivative as differential — and take the hypercohomology
+$$H^*_{\mathrm{dR}}(X/k) \;=\; \mathbb{H}^*(X, \Omega^\bullet_{X/k}).$$
+This is the algebraic de Rham cohomology of $X$ over $k$. It is defined for any smooth scheme over any field of characteristic zero, with no transcendental input, no choice of metric or differentiable structure — purely algebraically, from the sheaves of differential forms and the universal derivation $d$.</p>
+
+<p>The story has two halves, and the comparison between them is the technical heart. Half one: when $k = \mathbb{C}$ and $X$ is a smooth projective variety, the underlying complex manifold $X^{\mathrm{an}}$ has its own de Rham cohomology — the cohomology of the complex of <em>smooth</em> $C^\infty$ differential forms — and by de Rham's theorem this matches singular cohomology with $\mathbb{C}$ coefficients. Half two: Grothendieck's algebraic de Rham comparison theorem (1966) says the algebraic version with coefficients in $\mathbb{C}$ matches the analytic version, hence matches singular cohomology:
+$$H^n_{\mathrm{dR}}(X/\mathbb{C}) \;\cong\; H^n(X^{\mathrm{an}}; \mathbb{C}).$$
+A topological invariant — the singular cohomology of the underlying topological space — has been recovered from a purely algebraic construction. This is the kind of result that, when one first encounters it, reads as a small miracle: how does the algebraic theory of polynomials know that the underlying space is a torus rather than a sphere?</p>
+
+<p>The miracle is fully explainable. The algebraic de Rham complex is not the smooth de Rham complex — algebraic differential forms are far more restrictive than $C^\infty$ ones — but the inclusion of the algebraic complex into the analytic one is a quasi-isomorphism on a smooth projective variety. This is itself a theorem (Serre's GAGA, 1956, plus a Hodge-theoretic argument), and it expresses a recurring miracle of complex algebraic geometry: <em>algebraic data on a projective complex variety is no less rich than analytic data.</em></p>
+
+<p>The second half of the story is the Hodge filtration. The "stupid" filtration $\sigma^{\ge p} \Omega^\bullet_{X/k}$ — the truncation that throws away forms of degree $< p$ — induces a decreasing filtration $F^p H^n_{\mathrm{dR}}(X)$ on cohomology. The associated graded is the input to a spectral sequence
+$$E_1^{p,q} \;=\; H^q(X, \Omega^p_{X/k}) \;\Longrightarrow\; H^{p+q}_{\mathrm{dR}}(X/k),$$
+the <em>Hodge-to-de Rham spectral sequence</em>. For smooth proper $X$ over $\mathbb{C}$, classical Hodge theory shows this spectral sequence degenerates at $E_1$, yielding the Hodge decomposition
+$$H^n(X, \mathbb{C}) \;=\; \bigoplus_{p+q=n} H^q(X, \Omega^p),$$
+and the Hodge filtration $F^p$ on $H^n_{\mathrm{dR}}$ becomes simply $\bigoplus_{p' \ge p} H^{n-p', p'}$ — the "complex-structure-respecting" piece of cohomology.</p>
+
+<div class="ok">
+  <strong>Bridge: algebraic invariant, topological data, finer structure.</strong> Algebraic de Rham gives an algebraic construction of $H^*(X^{\mathrm{an}}; \mathbb{C})$ when $X$ is smooth projective over $\mathbb{C}$. The Hodge filtration gives a finer invariant — a piece of <em>extra structure</em> on the cohomology, the choice of which holomorphic forms count as "purely of type $(p,q)$." This extra structure has no analogue in pure topology; it is a complex-geometric refinement.
+</div>
+
+<p>The historical thread runs from de Rham (1931) — who, as a graduate student in Lausanne, proved that the cohomology of smooth differential forms on a smooth manifold equals singular cohomology — through Hodge (1941), who introduced the metric-dependent Hodge decomposition for compact Kähler manifolds, to Grothendieck (1966), who removed the metric and made the whole thing algebraic. Each step abstracted further from the analysis and toward the underlying combinatorial-algebraic skeleton: forms became cohomology of a complex of sheaves, the metric became a filtration, and the entire apparatus became deformable in families.</p>
+
+<p>Why this matters for the throughline of this essay. Algebraic de Rham cohomology is <em>another</em> right-derived functor — hypercohomology of a complex of sheaves is exactly $R\Gamma$ of the complex, in the derived category of sheaves of abelian groups on $X$. The pattern is not just analogous to §3; it is the same construction applied to a slightly more elaborate input. And the slogan still holds: a closed differential form $\omega$ that is not exact, $d\omega = 0$ but $\omega \ne d\eta$, is the de Rham cohomology class. It almost equals zero — its differential vanishes — but it doesn't, because no antiderivative exists globally. The cohomology measures by exactly how much.</p>
+
+<div class="figure">
+  <svg viewBox="0 0 560 220" width="560" height="220" role="img" aria-label="Hodge decomposition diamond">
+    <title>Hodge decomposition: H^n splits into (p,q)-components</title>
+    <g transform="translate(40 30)">
+      <text x="240" y="-6" text-anchor="middle" font-size="13" fill="var(--violet)">Hodge decomposition for smooth projective X / C</text>
+    </g>
+    <g font-size="13" fill="var(--ink)" transform="translate(40 50)">
+      <text x="240" y="20" text-anchor="middle">$H^n(X, \mathbb{C}) = \bigoplus_{p+q=n} H^q(X, \Omega^p)$</text>
+    </g>
+    <!-- Diamond -->
+    <g transform="translate(280 130)" font-size="11" fill="var(--cyan)">
+      <text x="-150" y="0" text-anchor="middle">H^{n,0}</text>
+      <text x="-50" y="0" text-anchor="middle">H^{n-1,1}</text>
+      <text x="50" y="0" text-anchor="middle">H^{1,n-1}</text>
+      <text x="150" y="0" text-anchor="middle">H^{0,n}</text>
+      <text x="0" y="-25" text-anchor="middle" fill="var(--mute)">⋯ ⋯ ⋯</text>
+      <text x="0" y="40" text-anchor="middle" fill="var(--yellow)" font-style="italic">conjugate symmetry: H^{p,q} = \overline{H^{q,p}}</text>
+    </g>
+    <text x="280" y="200" text-anchor="middle" font-size="12" fill="var(--mute)" font-style="italic">
+      a topological vector space gains a complex-geometric grading
+    </text>
+  </svg>
+  <div class="caption">Figure 1. The Hodge decomposition refines the topological vector space $H^n(X; \mathbb{C})$ into a sum of complex-geometric pieces $H^q(X, \Omega^p)$, indexed by bidegree $(p,q)$ with $p + q = n$. The Hodge filtration is the "lower triangle" of this decomposition.</div>
+</div>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./algebraic-de-rham-cohomology.html#comparison-betti">Algebraic de Rham vs. Betti cohomology</a></li>
+    <li><a href="./algebraic-de-rham-cohomology.html#hodge-filtration">The Hodge filtration</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 5 ──── -->
+<section id="etale">
+<h2><span class="num">§5.</span> Étale cohomology and the Weil conjectures</h2>
+<p>The fifth costume is the most abstract and the most spectacular in its applications. The setup: we want a Weil cohomology theory for varieties over a finite field $\mathbb{F}_q$. That is, a contravariant functor $X \mapsto H^*(X)$ taking smooth projective varieties over $\mathbb{F}_q$ to graded $K$-vector spaces over some characteristic-zero field $K$, satisfying Künneth, Poincaré duality, a Lefschetz fixed-point formula, and other axioms that André Weil distilled in 1949 from his proof of the Riemann hypothesis for curves over $\mathbb{F}_q$.</p>
+
+<p>Singular cohomology won't do — there is no underlying topological space to take simplices of. Algebraic de Rham cohomology won't do either — in characteristic $p$ the de Rham complex is far better-behaved than one might have hoped, but Hodge-to-de Rham fails to degenerate in many examples (Mumford, Deligne–Illusie), and the resulting groups don't have the right comparison structure to extract Frobenius eigenvalues. What is needed is a theory that lives natively in characteristic $p$ but has $\mathbb{Q}_\ell$-coefficients, and that sees enough of the Galois-theoretic structure of $\overline{\mathbb{F}_q}/\mathbb{F}_q$ to support a Lefschetz formula.</p>
+
+<p>Grothendieck's solution, developed at IHÉS in seminars between 1958 and 1965 and written up by Artin, Verdier, and Deligne in SGA 4 and SGA 4½, is the étale cohomology of schemes. The conceptual move is to replace "open cover in the Zariski topology" by "étale cover" — a flat, unramified, locally finite presentation map $U \to X$, the algebraic analogue of a local homeomorphism. Étale covers are the right covers for Galois-theoretic purposes: an étale cover of $\mathrm{Spec}\, k$ is a disjoint union of finite separable field extensions, and an étale cover of a smooth variety encodes finite branched covers in a way the Zariski topology cannot.</p>
+
+<p>Once "open cover" is redefined, the rest of §3 carries over without modification. The étale topology is a Grothendieck site — the data of a category of "open sets" together with a distinguished class of covering families — and on this site one has a category of sheaves of abelian groups, the global sections functor $\Gamma$, and its right-derived functors. We define
+$$H^i_{\mathrm{\acute{e}t}}(X, \mathcal{F}) \;=\; R^i\Gamma(X_{\mathrm{\acute{e}t}}, \mathcal{F}),$$
+and the most useful coefficient sheaves are $\mathbb{Z}/\ell^n\mathbb{Z}$ for primes $\ell$ different from the characteristic. The $\ell$-adic cohomology
+$$H^i_{\mathrm{\acute{e}t}}(X, \mathbb{Q}_\ell) \;=\; \bigl(\varprojlim_n H^i_{\mathrm{\acute{e}t}}(X, \mathbb{Z}/\ell^n)\bigr) \otimes_{\mathbb{Z}_\ell} \mathbb{Q}_\ell$$
+is the resulting Weil cohomology theory.</p>
+
+<div class="note">
+The same derived-functor pattern as §3, applied to a different site. The Zariski site sees the topological structure of a scheme; the étale site sees its Galois-theoretic structure. Locally, on a stalk at a geometric point, an étale sheaf is a Galois module — and étale cohomology of a variety over $\mathbb{F}_q$ carries a natural action of the Galois group $\mathrm{Gal}(\overline{\mathbb{F}_q}/\mathbb{F}_q)$, generated by the Frobenius.
+</div>
+
+<p>The payoff is the Weil conjectures. Let $X$ be a smooth projective variety of dimension $n$ over $\mathbb{F}_q$. The zeta function
+$$Z(X, t) \;=\; \exp\!\left(\sum_{m \ge 1} \frac{\#X(\mathbb{F}_{q^m})}{m}\, t^m\right)$$
+encodes the point counts $\#X(\mathbb{F}_{q^m})$ as a generating function. Weil conjectured (1949), inspired by analogy with Riemann's zeta function and Lefschetz's fixed-point theorem, that:</p>
+
+<ol>
+  <li><strong>Rationality.</strong> $Z(X, t) \in \mathbb{Q}(t)$ is a rational function.</li>
+  <li><strong>Functional equation.</strong> $Z(X, 1/q^n t) = \pm q^{n\chi/2} t^\chi Z(X, t)$ for the topological Euler characteristic $\chi$.</li>
+  <li><strong>Riemann hypothesis.</strong> The reciprocal roots of the rational factors of $Z(X, t)$ have absolute value $q^{i/2}$ for the $i$-th factor.</li>
+  <li><strong>Topological interpretation.</strong> The degrees of the rational factors equal the Betti numbers of any "lift" of $X$ to characteristic zero.</li>
+</ol>
+
+<p>Étale cohomology delivers the first three (and the fourth, granted the existence of a lift). The Lefschetz fixed-point formula, applied to the geometric Frobenius $F\colon \overline X \to \overline X$ acting on the base change $\overline X = X \times_{\mathbb{F}_q} \overline{\mathbb{F}_q}$, says
+$$\#X(\mathbb{F}_{q^m}) \;=\; \#\,\mathrm{Fix}(F^m) \;=\; \sum_{i=0}^{2n} (-1)^i \,\mathrm{tr}\!\bigl(F^m \mid H^i_{\mathrm{\acute{e}t}}(\overline X, \mathbb{Q}_\ell)\bigr).$$
+Plug into the zeta-function generating series, and rationality drops out by general nonsense (a generating function whose coefficients are alternating Frobenius traces is a rational function with denominators given by the characteristic polynomials of $F$ on each $H^i$). The functional equation comes from Poincaré duality on $H^*_{\mathrm{\acute{e}t}}$. The Riemann hypothesis — the deepest of the four — is Deligne's 1973 theorem: the eigenvalues of geometric Frobenius on $H^i_{\mathrm{\acute{e}t}}(\overline X, \mathbb{Q}_\ell)$ are algebraic integers all of whose Galois conjugates have absolute value $q^{i/2}$.</p>
+
+<div class="ok">
+  <strong>Deligne's bound.</strong> For smooth projective $X / \mathbb{F}_q$, every eigenvalue $\alpha$ of Frobenius on $H^i_{\mathrm{\acute{e}t}}(\overline X, \mathbb{Q}_\ell)$ satisfies $|\alpha| = q^{i/2}$. As an immediate corollary, $\#X(\mathbb{F}_{q^m})$ approximates $q^{nm}$ to within an error of order $q^{m(n - 1/2)}$ — equidistribution of points in any algebro-geometric average sense.
+</div>
+
+<p>The slogan, finally, in its arithmetic costume. A class in $H^i_{\mathrm{\acute{e}t}}(\overline X, \mathbb{Q}_\ell)$ that is annihilated by $F^m - 1$ corresponds to an $\mathbb{F}_{q^m}$-rational geometric structure on $X$. The étale cohomology counts the obstructions to the structure being defined over the smaller field $\mathbb{F}_q$ — exactly the kind of "almost rational, but not quite" data the Galois group is built to detect. The Weil conjectures are then a statement that these obstructions cannot accumulate too quickly: their Frobenius eigenvalues are pinned to $|q^{i/2}|$.</p>
+
+<blockquote>Cohomology was the obstruction-counting machine the whole time; étale cohomology is what happens when you are allowed to count obstructions in a Galois-equivariant way. The site changes; the derived functor doesn't.</blockquote>
+
+<p>Two further developments are worth flagging, because they are direct continuations of the same pattern. First: étale cohomology of varieties over $\mathbb{Q}$ produces Galois representations $\rho\colon \mathrm{Gal}(\overline{\mathbb{Q}}/\mathbb{Q}) \to \mathrm{GL}_n(\mathbb{Q}_\ell)$ — the action of the absolute Galois group on $H^i_{\mathrm{\acute{e}t}}(X_{\overline{\mathbb{Q}}}, \mathbb{Q}_\ell)$. These representations are the bridge between geometry and the Langlands program; the modularity theorem (Wiles–Taylor, and ultimately Khare–Wintenberger) says that for many $\rho$ coming from elliptic curves, $\rho$ matches the Galois representation attached to a modular form. Second: the comparison theorems. There are isomorphisms (after extending scalars appropriately) between étale, de Rham, and Betti cohomology of a smooth projective variety over a number field — the data of a <em>motive</em> is exactly an object that records all these comparisons coherently. Tour 3 ends at étale cohomology because that is where the most spectacular individual result lives, but conceptually étale, de Rham, and Betti are three faces of one motivic invariant.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./etale-cohomology.html#weil">Étale cohomology and the Weil conjectures</a></li>
+    <li><a href="./etale-cohomology.html#frobenius">Frobenius and the Lefschetz formula</a></li>
+  </ul>
+</aside>
+</section>
+
+<!-- ───────────────────────────────────────────── § 6 ──── -->
+<section id="coda">
+<h2><span class="num">§6.</span> Coda: one machine, five costumes</h2>
+<p>The five sections of this essay describe what looks, on the surface, like five different theories: a piece of finite group theory, a piece of algebraic topology, a piece of complex algebraic geometry, a piece of Hodge theory, and a piece of the arithmetic geometry of varieties over finite fields. They were developed by different people in different decades for different reasons. And yet at each one, the same definitional gesture appears. Build a chain complex; check that the differential squares to zero; take cohomology; observe that the answer measures things that almost split but don't.</p>
+
+<p>The unification is not a vague analogy. It is a sequence of concrete theorems that mathematicians proved, one at a time, between 1945 and 1965, and the unification has names. <strong>Eilenberg and Mac Lane</strong> showed in 1945 that group cohomology and the cohomology of Eilenberg–Mac Lane spaces $K(G, 1)$ agree as functors of $G$ — the algebraic and the topological were the same machine, viewed through different chain complexes. <strong>Cartan and Eilenberg</strong> wrote <em>Homological Algebra</em> in 1956, the textbook that introduced the universal definitions: $\mathrm{Ext}$, $\mathrm{Tor}$, derived functors, spectral sequences, all defined functorially in any abelian category with enough projectives or injectives. After Cartan–Eilenberg, every cohomology theory worth the name was, by definition, a derived functor — and the chain complex you wrote down to compute it was understood to be a presentation, not an essential part of the data.</p>
+
+<p><strong>Grothendieck's Tohoku paper</strong> of 1957 — the legendary article in the Tohoku Mathematical Journal whose full title is "Sur quelques points d'algèbre homologique" — pushed the abstraction one step further. Cartan–Eilenberg had assumed enough projectives or injectives; Grothendieck showed that every reasonable abelian category has enough injectives, and that this is the right setting for sheaf cohomology, group cohomology, and any cohomology theory built by deriving a left-exact functor. After Tohoku, sheaf cohomology and group cohomology and (eventually) étale cohomology and crystalline cohomology and de Rham cohomology and motivic cohomology and any other cohomology theory you cared to invent were all examples of one definition: $R^i F$ for some left-exact functor $F$ on some abelian category. The cohomology of §1 through §5 was, retrospectively, one definition writ five times.</p>
+
+<div class="note">
+The modern synthesis goes one step further still. Verdier in 1967, in his thesis, defined the <em>derived category</em> $D(\mathcal{A})$ of an abelian category $\mathcal{A}$: the localization of complexes by quasi-isomorphisms. In the derived category, the chain complex computing a cohomology theory <em>is</em> the cohomology theory; one no longer takes cohomology groups except as a final accounting step. Cohomology theories are then objects in derived categories of sheaves, and operations like $f^*$, $f_*$, $\otimes$, $R\mathrm{Hom}$ become a six-functor formalism that organizes everything in this essay (and a great deal beyond it). The five costumes of cohomology are, from this vantage, five choices of site and coefficient ring; the underlying machine — derived functors, spectral sequences, six functors — is one.
+</div>
+
+<p>What unifies the five sections substantively is also worth a sentence. In each one, the role of "cohomology" is played by a graded abelian group (or vector space) attached to a pair (object, coefficient module), and in each one the value $H^n$ classifies a specific kind of obstruction:</p>
+
+<ul>
+  <li>$H^2(G, M)$ classifies central extensions of $G$ by $M$ that almost split.</li>
+  <li>$H^n(X; \mathbb{Z})$ classifies global topological obstructions of a space that are detected at the $n$-cell level.</li>
+  <li>$H^i(X, \mathcal{F})$ classifies local sections of $\mathcal{F}$ on $X$ that almost glue but don't extend globally.</li>
+  <li>$H^n_{\mathrm{dR}}(X)$ classifies closed $n$-forms that are locally exact but not globally so — and the Hodge filtration measures by which complex-analytic type the failure occurs.</li>
+  <li>$H^i_{\mathrm{\acute{e}t}}(X, \mathbb{Q}_\ell)$ classifies $\ell$-adic Galois-equivariant data on $X$ — and the Frobenius eigenvalues measure how much of the data is defined over smaller subfields.</li>
+</ul>
+
+<p>And in each case, the slogan from §1 has carried through unchanged. <em>Cohomology measures things that almost split but don't.</em> The "almost" is what's interesting: for a cohomology class to be nonzero, the underlying data has to be locally trivial — there has to be no local obstruction — and yet globally non-trivial. The locally-but-not-globally character is what makes cohomology a finite, computable invariant rather than a tautological "is this thing trivial?" answer.</p>
+
+<p>The thread runs further than this essay covers. K-theory $K^*(X)$ is a generalized cohomology theory; cobordism is another; topological modular forms (TMF) is another; motivic cohomology, syntomic cohomology, prismatic cohomology, condensed cohomology — each of these is a Grothendieck-style derived functor in its own setting, organizing its own kind of obstruction. Once you have seen the pattern five times, you stop being surprised when it appears a sixth.</p>
+
+<p>If there is a moral, it is this. The history of twentieth-century mathematics — and a great deal of the twenty-first so far — has consisted of taking phenomena that look like distinct corners of the subject and recognizing them as one machine, dressed in different costumes. Group extensions, topological obstructions, sheaf gluing, closed-but-not-exact differentials, Frobenius eigenvalues — these are the five costumes of this essay, and there are more. The recurring discovery, after each new instance, is that the obstruction was the answer to the question all along: not the thing in the way of a clean classification, but the classification itself. <em>The obstruction was always the answer to the question.</em></p>
+
+<p>That, finally, is what cohomology is.</p>
+</section>
+
+<hr class="endrule"/>
+
+<p class="colophon">
+The journey from Eilenberg and Mac Lane's 1945 bar resolution to Deligne's 1973 proof of the Weil Riemann hypothesis is a single arc, even though it passes through algebraic topology, complex algebraic geometry, scheme theory, and arithmetic in turn. What unifies it is a definition — derived functors of left-exact additive functors on abelian categories — that was not available to anyone in 1945 and was the standard in every graduate course by 1975. In the period between, cohomology stopped being a tool of one branch of mathematics and became the language in which a great deal of mathematics is written. The five costumes of this essay are the most visible patches of that language; the grammar underneath is the same in each one.
+</p>
+
+<h3>Further reading</h3>
+<ol class="refs">
+  <li>S. Eilenberg and S. Mac Lane, "Cohomology theory in abstract groups, I," <em>Ann. Math.</em> 48 (1947). The bar complex and the foundational theorems linking $H^*(G, M)$ to the cohomology of $K(G, 1)$.</li>
+  <li>H. Cartan and S. Eilenberg, <em>Homological Algebra</em>, Princeton (1956). The textbook that defined the field; derived functors, spectral sequences, the functorial apparatus of $\mathrm{Ext}$ and $\mathrm{Tor}$.</li>
+  <li>A. Grothendieck, "Sur quelques points d'algèbre homologique," <em>Tohoku Math. J.</em> 9 (1957). The paper that put sheaf cohomology, group cohomology, and every cohomology theory inside the universal framework of right-derived functors on abelian categories.</li>
+  <li>R. Hartshorne, <em>Algebraic Geometry</em>, GTM 52 (1977), chapter III. The standard introduction to sheaf cohomology, Čech computations, Serre duality, and the cohomology of projective space.</li>
+  <li>P. Griffiths and J. Harris, <em>Principles of Algebraic Geometry</em>, Wiley (1978). Hodge theory, the Hodge decomposition, and the comparison between algebraic and analytic de Rham cohomology, in geometric and computational style.</li>
+  <li>J. Milne, <em>Étale Cohomology</em>, PMS 33, Princeton (1980). The standard reference for the foundations of étale cohomology and its application to the Weil conjectures.</li>
+  <li>P. Deligne, "La conjecture de Weil, II," <em>Publ. IHÉS</em> 52 (1980). The full proof of the Riemann hypothesis for varieties over finite fields, in its mature form.</li>
+  <li>C. Weibel, <em>An Introduction to Homological Algebra</em>, Cambridge (1994). A modern textbook covering everything from the bar resolution to derived categories, with many worked examples in the languages of all five sections of this essay.</li>
+</ol>
+
+</main>
+
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-05</td><td>Cohomology arc capstone story (Tour 3 long-form): group cohomology → singular → sheaf → de Rham → étale, unified as derived-functor instances of one machine</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

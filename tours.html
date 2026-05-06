@@ -46,6 +46,7 @@
     --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
     --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
     --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+    --orange:#f0a868;
   }
   *{box-sizing:border-box}
   html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
@@ -123,6 +124,7 @@
   .tour-card[data-color="cyan"]{--accent:var(--cyan)}
   .tour-card[data-color="yellow"]{--accent:var(--yellow)}
   .tour-card[data-color="pink"]{--accent:var(--pink)}
+  .tour-card[data-color="orange"]{--accent:var(--orange)}
   .tour-card[data-color="violet"]{--accent:var(--violet)}
   .tour-card[data-color="green"]{--accent:var(--green)}
   .tour-card[data-color="blue"]{--accent:var(--blue)}
@@ -169,6 +171,7 @@
   section.tour[data-color="green"] h2{border-bottom-color:color-mix(in srgb, var(--green) 50%, var(--line))}
   section.tour[data-color="pink"] h2{border-bottom-color:color-mix(in srgb, var(--pink) 50%, var(--line))}
   section.tour[data-color="blue"] h2{border-bottom-color:color-mix(in srgb, var(--blue) 50%, var(--line))}
+  section.tour[data-color="orange"] h2{border-bottom-color:color-mix(in srgb, var(--orange) 50%, var(--line))}
 
   /* Tour-switcher: cards on overview, single tour when one is active. */
   section.tour, #more-tours{display:none}
@@ -221,6 +224,7 @@
   .figure-card[data-c="violet"]{--accent:var(--violet)}
   .figure-card[data-c="green"]{--accent:var(--green)}
   .figure-card[data-c="blue"]{--accent:var(--blue)}
+  .figure-card[data-c="orange"]{--accent:var(--orange)}
   .figure-card .fc-body{min-width:0;flex:1}
   .figure-card .fc-name{font-weight:600;color:var(--ink);font-size:0.94rem;margin-bottom:0.05rem}
   .figure-card .fc-dates{font-family:ui-monospace,Menlo,monospace;
@@ -238,6 +242,7 @@
   aside.context[data-c="violet"]{--accent:var(--violet)}
   aside.context[data-c="green"]{--accent:var(--green)}
   aside.context[data-c="blue"]{--accent:var(--blue)}
+  aside.context[data-c="orange"]{--accent:var(--orange)}
   aside.context .ctx-label{font-size:0.66rem;letter-spacing:0.16em;
     text-transform:uppercase;color:var(--mute);font-weight:600;
     font-family:ui-monospace,Menlo,monospace;margin-bottom:0.25rem;display:block}
@@ -263,6 +268,7 @@
   aside.deep-dive[data-c="green"]{--accent:var(--green)}
   aside.deep-dive[data-c="pink"]{--accent:var(--pink)}
   aside.deep-dive[data-c="blue"]{--accent:var(--blue)}
+  aside.deep-dive[data-c="orange"]{--accent:var(--orange)}
   aside.deep-dive .dd-label{flex-shrink:0;font-family:ui-monospace,Menlo,monospace;
     font-size:0.7rem;letter-spacing:0.16em;text-transform:uppercase;
     color:color-mix(in srgb, var(--accent) 70%, var(--ink));font-weight:600;
@@ -405,6 +411,14 @@ const SVG = (tag,attrs={})=>{
       <div class="tc-title">Langlands philosophy</div>
       <div class="tc-goal">Reciprocity laws as L-function matchings: Galois representations on one side, automorphic representations of $\GL_n(\mathbb{A})$ on the other.</div>
       <div class="tc-meta"><span class="tc-stops">5 stops</span> · ends at <span class="tc-end">Langlands program</span></div>
+    </div>
+  </button>
+  <button class="tour-card" data-color="orange" data-tour="millennium-prizes" type="button">
+    <div class="tc-num">10</div>
+    <div class="tc-body">
+      <div class="tc-title">The seven Millennium Prize Problems</div>
+      <div class="tc-goal">A guided tour of the seven problems Clay posed in 2000, the modern Hilbert list — what each asks, why it matters, what the obstacle is.</div>
+      <div class="tc-meta"><span class="tc-stops">7 problems</span> · ends at <span class="tc-end">Poincaré (solved)</span></div>
     </div>
   </button>
 </div>
@@ -667,6 +681,11 @@ const SVG = (tag,attrs={})=>{
   </li>
 </ol>
 
+<aside class="deep-dive" data-c="violet">
+  <span class="dd-label">Deep dive →</span>
+  <span class="dd-body">Same arc as a single long-form essay: <a class="dd-link" href="./capstone-cohomology-story.html">What is cohomology? — five incarnations of one machine</a>.</span>
+</aside>
+
 <aside class="callback">
   <div class="ttl">Diverges into</div>
   <ul>
@@ -757,6 +776,11 @@ const SVG = (tag,attrs={})=>{
   </li>
 </ol>
 
+<aside class="deep-dive" data-c="green">
+  <span class="dd-label">Deep dive →</span>
+  <span class="dd-body">Same arc as a single long-form essay: <a class="dd-link" href="./capstone-sets-to-topoi-story.html">From naive sets to ∞-topoi</a>.</span>
+</aside>
+
 <aside class="callback">
   <div class="ttl">Diverges into</div>
   <ul>
@@ -829,6 +853,11 @@ const SVG = (tag,attrs={})=>{
     </aside>
   </li>
 </ol>
+
+<aside class="deep-dive" data-c="pink">
+  <span class="dd-label">Deep dive →</span>
+  <span class="dd-body">Same arc as a single long-form essay: <a class="dd-link" href="./capstone-sound-to-wavelets-story.html">From sound to wavelets — when frequency is the wrong axis</a>.</span>
+</aside>
 
 <aside class="callback">
   <div class="ttl">Diverges into</div>
@@ -906,6 +935,11 @@ const SVG = (tag,attrs={})=>{
     <p class="bridge">A height function $h\colon \mathbb{P}^n(\overline{\mathbb{Q}}) \to \mathbb{R}_{\geq 0}$ measures the arithmetic complexity of a point — built place-by-place from local contributions and then summed. The naive height on $\mathbb{P}^1(\mathbb{Q})$ is $h(a/b) = \log\max(|a|, |b|)$ for coprime integers $a,b$; the Weil height generalizes to algebraic points by averaging over Galois conjugates. Northcott's finiteness theorem says there are only finitely many points of bounded height and bounded degree — the structural result that makes ranks and Mordell–Weil generators effective in principle. The <em>canonical height</em> $\hat h$ on an elliptic curve is the unique quadratic refinement of the Weil height that makes the group law isometric, $\hat h(nP) = n^2 \hat h(P)$, and it's the regulator quantity that appears in BSD. Each place — every $\mathbb{Q}_p$, $\mathbb{R}$, every closed point of an arithmetic scheme — contributes one term, and the global statement is the sum: the local–global principle, fully grown into Arakelov geometry.</p>
   </li>
 </ol>
+
+<aside class="deep-dive" data-c="blue">
+  <span class="dd-label">Deep dive →</span>
+  <span class="dd-body">Same arc as a single long-form essay: <a class="dd-link" href="./capstone-local-global-story.html">The local–global principle</a>.</span>
+</aside>
 
 <aside class="callback">
   <div class="ttl">Diverges into</div>
@@ -989,6 +1023,11 @@ const SVG = (tag,attrs={})=>{
   <blockquote>Abelian groups are the atoms of commutative algebra. Simple groups are the atoms of group theory. Solvable groups are the molecules you can build using only abelian atoms — and they're exactly the groups where non-commutativity is a finite, manageable phenomenon rather than an irreducible one.<cite>— harvested from the chat thread that motivated this tour</cite></blockquote>
 </aside>
 
+<aside class="deep-dive" data-c="violet">
+  <span class="dd-label">Deep dive →</span>
+  <span class="dd-body">Same arc as a single long-form essay: <a class="dd-link" href="./capstone-solvability-story.html">Abelian-in-stages, from radicals to motives</a>.</span>
+</aside>
+
 <aside class="callback">
   <div class="ttl">Diverges into</div>
   <ul>
@@ -1052,6 +1091,11 @@ const SVG = (tag,attrs={})=>{
     <p class="bridge">For $X$ smooth projective over $\mathbb{C}$, the cycle-class map $\mathrm{cl}\colon \mathrm{CH}^p(X) \otimes \mathbb{Q} \to H^{2p}(X; \mathbb{Q})$ has image inside the <em>Hodge classes</em> $\mathrm{Hdg}^p(X) := H^{2p}(X; \mathbb{Q}) \cap H^{p,p}(X)$. The Hodge conjecture (1950) says equality: every rational class of pure type $(p,p)$ is the cycle class of an algebraic codimension-$p$ cycle. Known unconditionally for $p = 1$ (Lefschetz $(1,1)$-theorem; uses the exponential sequence). Open in general. Equivalent Tannakian rephrasing: the Hodge realization $G_{\mathrm{mot}}(\mathbb{Q}) \twoheadrightarrow \mathrm{MT}(X)$ is surjective — every Mumford-Tate symmetry of cohomology lifts to a motivic one. Tour 7's motivic Galois group is the structural backdrop; Hodge conjecture is the specific assertion about its Hodge-realization quotient.</p>
   </li>
 </ol>
+
+<aside class="deep-dive" data-c="green">
+  <span class="dd-label">Deep dive →</span>
+  <span class="dd-body">Same arc as a single long-form essay: <a class="dd-link" href="./capstone-hodge-arc-story.html">What is Hodge theory?</a>.</span>
+</aside>
 
 <aside class="callback">
   <div class="ttl">Diverges into</div>
@@ -1137,12 +1181,80 @@ const SVG = (tag,attrs={})=>{
   Langlands closed the letter offering: "If you are willing to read it with this in mind, I would be grateful." Weil read it. Six decades later, the program it sketched remains the largest open enterprise in number theory.
 </aside>
 
+<aside class="deep-dive" data-c="cyan">
+  <span class="dd-label">Deep dive →</span>
+  <span class="dd-body">Same arc as a single long-form essay: <a class="dd-link" href="./capstone-langlands-arc-story.html">Langlands philosophy — reciprocity as L-function matching</a>.</span>
+</aside>
+
 <aside class="callback">
   <div class="ttl">Diverges into</div>
   <ul>
     <li>Tour 1 (BSD road) and Tour 2 (FLT proof) walk the proven $\GL_2$ corner: BSD pinpoints the analytic-rank-equals-algebraic-rank statement that modularity makes meaningful; FLT uses Ribet + Wiles + Khare-Wintenberger as ingredients.</li>
     <li>Tour 7 (solvability across mathematics) ends at the motivic Galois group $G_{\mathrm{mot}}$; the conjectural compatibility with the Langlands group $L_F$ is the deepest rung of the picture.</li>
     <li>Tour 8 (Hodge theory) ends at the Hodge conjecture; the Tannakian rephrasing surjectivity-of-the-Hodge-realization is the analytic mirror of the Langlands compatibility predicted on the étale side.</li>
+  </ul>
+</aside>
+</section>
+
+<section class="tour" id="millennium-prizes" data-color="orange">
+<h2>10. The seven Millennium Prize Problems</h2>
+<p class="tour-goal">Goal: a guided tour of the seven problems Clay posed in 2000, the modern Hilbert list — each a different <em>flavor</em> of difficulty. Six remain open; one (Poincaré) was solved by Perelman in 2003.</p>
+
+<ol class="tour">
+  <li>
+    <span class="stop-section">Modular forms &amp; L-functions</span>
+    <span class="stop-title"><a href="./L-functions.html#zeta">Riemann Hypothesis</a></span>
+    <p class="bridge">All non-trivial zeros of $\zeta(s)$ lie on $\Re s = \tfrac12$. Equivalent to the strongest possible error term in the prime-counting function $\pi(x) = \mathrm{Li}(x) + O(\sqrt{x}\log x)$. The deepest analytic statement on the list — and the prize problem with the longest history (Riemann, 1859).</p>
+  </li>
+  <li>
+    <span class="stop-section">Logic &amp; foundations</span>
+    <span class="stop-title"><a href="./complexity-theory.html">P versus NP</a></span>
+    <p class="bridge">Is every decision problem with polynomial-time-checkable certificates also polynomial-time decidable? Most experts believe $\mathrm{P} \neq \mathrm{NP}$, but proving it would require ruling out efficient algorithms for $\mathrm{NP}$-complete problems like SAT, which we have no technology for. The "complexity barrier" problem.</p>
+  </li>
+  <li>
+    <span class="stop-section">Algebraic geometry</span>
+    <span class="stop-title"><a href="./hodge-theory.html#hodge-conjecture">Hodge Conjecture</a></span>
+    <p class="bridge">On a smooth projective variety $X$ over $\mathbb{C}$, every rational $(p,p)$-class in $H^{2p}(X,\mathbb{Q})$ is a $\mathbb{Q}$-linear combination of cohomology classes of algebraic cycles. The Hodge decomposition is well understood; the conjecture asks whether the algebraic content of cohomology is exactly what the Hodge filtration sees.</p>
+  </li>
+  <li>
+    <span class="stop-section">Mathematical physics</span>
+    <span class="stop-title"><a href="./gauge-theory.html">Yang–Mills existence and mass gap</a></span>
+    <p class="bridge">Construct a non-trivial quantum Yang–Mills theory on $\mathbb{R}^4$ for any compact simple gauge group, and prove that the spectrum has a positive mass gap $\Delta &gt; 0$. The physics is well established perturbatively and on the lattice; what's missing is a non-perturbative existence proof in the continuum.</p>
+  </li>
+  <li>
+    <span class="stop-section">Analysis</span>
+    <span class="stop-title"><a href="./partial-differential-equations.html">Navier–Stokes existence and smoothness</a></span>
+    <p class="bridge">For incompressible fluid flow on $\mathbb{R}^3$ with smooth initial data of finite energy, do smooth solutions exist for all time? Or do singularities form in finite time? The 2D version is solved (smooth forever); the 3D version is the open Clay problem.</p>
+  </li>
+  <li>
+    <span class="stop-section">Modular forms &amp; L-functions</span>
+    <span class="stop-title"><a href="./bsd.html">Birch and Swinnerton-Dyer</a></span>
+    <p class="bridge">For an elliptic curve $E/\mathbb{Q}$, the analytic rank $\mathrm{ord}_{s=1} L(E, s)$ equals the algebraic rank of $E(\mathbb{Q})$. Tour 1 walks this in detail. Proven up through analytic rank $\leq 1$ (Gross–Zagier–Kolyvagin); the general case is open.</p>
+  </li>
+  <li class="endpoint">
+    <span class="stop-section">Geometry &amp; topology · solved</span>
+    <span class="stop-title"><a href="./ricci-flow.html#poincare">Poincaré Conjecture</a></span>
+    <p class="bridge">Every simply-connected closed $3$-manifold is homeomorphic to $S^3$. Proved by Grigori Perelman (2002–03) using Hamilton's Ricci flow with surgery. The only Millennium Problem solved to date — Perelman declined the Fields Medal (2006) and the Clay prize (2010).</p>
+  </li>
+</ol>
+
+<aside class="context" data-c="orange">
+  <span class="ctx-label">Hilbert at the ICM</span>
+  <blockquote>Who of us would not be glad to lift the veil behind which the future lies hidden; to cast a glance at the next advances of our science and at the secrets of its development during future centuries?<cite>— David Hilbert, "Mathematische Probleme," Paris ICM, 1900</cite></blockquote>
+  Hilbert's 23 problems shaped twentieth-century mathematics. The Clay list of 2000 is the closest modern analogue — seven problems chosen for prestige, depth, and a $1{,}000{,}000 prize each. As of 2026 the prize has been awarded once.
+</aside>
+
+<aside class="deep-dive" data-c="orange">
+  <span class="dd-label">Deep dive →</span>
+  <span class="dd-body">Same arc as a single long-form essay: <a class="dd-link" href="./capstone-millennium-prizes-story.html">The seven Millennium Prize Problems</a>.</span>
+</aside>
+
+<aside class="callback">
+  <div class="ttl">Diverges into</div>
+  <ul>
+    <li>Tour 1 (BSD) walks problem 6 stop-by-stop; Tour 2 (FLT) shows the Wiles modularity machinery that informs the conjectural arithmetic side of BSD.</li>
+    <li>Tour 8 (Hodge theory) walks problem 3 — the Hodge filtration and what an "algebraic cycle" means.</li>
+    <li>Tour 9 (Langlands) explains the conjectural unification within which RH for $\zeta$ becomes one case of the generalised Riemann hypothesis for automorphic L-functions.</li>
   </ul>
 </aside>
 </section>
@@ -1238,17 +1350,19 @@ const SVG = (tag,attrs={})=>{
   <summary>changelog</summary>
   <table>
     <tbody>
+      <tr><td>2026-05-04</td><td>Fix LaTeX cheatsheet \Sha + theme tile blurbs + history timeline contrast (#115)</td></tr>
+      <tr><td>2026-05-04</td><td>Algebraic K-theory foundations topic (K0/K1/K2 + Q-construction + localization + applications) (#112)</td></tr>
       <tr><td>2026-05-04</td><td>Semigroup theory &amp; evolution equations topic (C0 / Hille-Yosida / analytic / Cauchy / apps) (#111)</td></tr>
       <tr><td>2026-05-03</td><td>IA polish: site-wide nav-links + mindmap discoverability + 7th palette color (orange) (#83)</td></tr>
       <tr><td>2026-05-03</td><td>History of mathematics page (history.html) + timeline / world map / lineage widgets (#71)</td></tr>
-      <tr><td>2026-05-02</td><td>Langlands capstone (modular-forms-and-l-functions) + Tour 9 &quot;Langlands philosophy&quot; (#68)</td></tr>
-      <tr><td>2026-05-02</td><td>Hodge capstone (algebraic-geometry) + Tour 8 &quot;What is Hodge theory?&quot; (#67)</td></tr>
     </tbody>
   </table>
   <details class="changelog-rest">
-    <summary>Show 6 earlier commits</summary>
+    <summary>Show 8 earlier commits</summary>
     <table>
       <tbody>
+        <tr><td>2026-05-02</td><td>Langlands capstone (modular-forms-and-l-functions) + Tour 9 &quot;Langlands philosophy&quot; (#68)</td></tr>
+        <tr><td>2026-05-02</td><td>Hodge capstone (algebraic-geometry) + Tour 8 &quot;What is Hodge theory?&quot; (#67)</td></tr>
         <tr><td>2026-05-02</td><td>Motives capstone (algebraic-geometry) + Tour 7 &quot;Solvability across mathematics&quot; (#64)</td></tr>
         <tr><td>2026-05-02</td><td>Audit pass: typography + a11y + KaTeX FOUC + IA cleanup + tours redesign (#62)</td></tr>
         <tr><td>2026-05-02</td><td>Cheatsheet nav demote + tours page redesign with chip-bar + summary cards (#59)</td></tr>

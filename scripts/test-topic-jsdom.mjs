@@ -61,6 +61,14 @@ const SKIP = new Set([
   'capstone-bsd-story.html',
   'capstone-flt-story.html',
   'capstone-satotate-story.html',
+  'capstone-solvability-story.html',
+  'capstone-sound-to-wavelets-story.html',
+  'capstone-millennium-prizes-story.html',
+  'capstone-cohomology-story.html',
+  'capstone-sets-to-topoi-story.html',
+  'capstone-local-global-story.html',
+  'capstone-hodge-arc-story.html',
+  'capstone-langlands-arc-story.html',
 ]);
 
 const onlyEnv = process.env.TOPIC_JSDOM_ONLY;
