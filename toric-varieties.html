@@ -1,0 +1,1058 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Toric varieties</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<script>
+(function(){
+  function renderAll(){
+    if(typeof renderMathInElement!=='function'){ return setTimeout(renderAll,50); }
+    renderMathInElement(document.body,{
+      delimiters:[
+        {left:'$$',right:'$$',display:true},
+        {left:'$',right:'$',display:false},
+        {left:'\\(',right:'\\)',display:false},
+        {left:'\\[',right:'\\]',display:true}
+      ],
+      throwOnError:false,
+      macros:{
+        '\\Spec':'\\operatorname{Spec}',
+        '\\Gal':'\\operatorname{Gal}',
+        '\\Hom':'\\operatorname{Hom}',
+        '\\tr':'\\operatorname{tr}',
+        '\\ad':'\\operatorname{ad}',
+        '\\ind':'\\operatorname{ind}'
+      }
+    });
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderAll);
+  else renderAll();
+})();
+</script>
+<style>
+  :root{
+    --bg:#0f1218; --panel:#161b24; --panel2:#1c2230;
+    --ink:#e8ecf1; --mute:#9aa4b2; --line:#2a3242;
+    --yellow:#ffd866; --blue:#58c4dd; --green:#83c167;
+    --pink:#e07a5f; --violet:#b39ddb; --cyan:#7de0d6;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,sans-serif;
+    font-size:17px;line-height:1.65}
+  a{color:var(--blue)}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+    background:#0b0f16;padding:1px 6px;border-radius:4px;color:#f0c987;font-size:0.92em}
+  main{max-width:880px;margin:0 auto;padding:4rem 1.5rem 8rem}
+  h1{font-size:2.4rem;letter-spacing:-0.01em;margin:0 0 0.4rem}
+  h2{font-size:1.6rem;margin:3.2rem 0 0.8rem;color:#fff;border-bottom:1px solid var(--line);padding-bottom:.4rem}
+  h3{font-size:1.15rem;margin:1.8rem 0 .6rem;color:var(--yellow)}
+  p{margin:0.7rem 0}
+  .sub{color:var(--mute);margin-top:0;margin-bottom:2rem}
+  .widget{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+    padding:1rem 1.1rem 1.2rem;margin:1.2rem 0}
+  .widget .hd{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.6rem;gap:.8rem;flex-wrap:wrap}
+  .widget .hd .ttl{font-weight:600;color:#fff;font-size:.95rem;letter-spacing:.02em;text-transform:uppercase}
+  .widget .hd .hint{color:var(--mute);font-size:.85rem}
+  .row{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;margin:.4rem 0}
+  .row label{color:var(--mute);font-size:.88rem}
+  input[type="text"],input[type="number"],select{
+    background:#0b0f16;color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .55rem;font-family:inherit;font-size:.95rem}
+  input[type="range"]{accent-color:var(--yellow);flex:1;max-width:260px}
+  button{background:var(--panel2);color:var(--ink);border:1px solid var(--line);
+    border-radius:6px;padding:.35rem .7rem;cursor:pointer;font:inherit}
+  button:hover{background:#242c3e}
+  button.active{background:var(--yellow);color:#111;border-color:var(--yellow)}
+  .readout{background:#0b0f16;border:1px solid var(--line);border-radius:6px;
+    padding:.6rem .8rem;font-family:ui-monospace,monospace;font-size:.92rem;color:#cbd5e1;
+    min-height:1.6em;white-space:pre-wrap;word-break:break-word}
+  .pill{display:inline-block;background:var(--panel2);border:1px solid var(--line);
+    border-radius:999px;padding:1px 8px;font-size:.82rem;color:var(--mute);margin-right:4px}
+  .note{border-left:3px solid var(--violet);padding:.3rem .9rem;color:#d8d2ef;background:#1a1828;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .ok{border-left:3px solid var(--green);padding:.3rem .9rem;color:#d5ebc8;background:#1a2418;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  .bad{border-left:3px solid var(--pink);padding:.3rem .9rem;color:#f4d2c7;background:#2a1a18;
+    margin:1rem 0;border-radius:0 6px 6px 0}
+  svg{display:block;margin:0 auto;max-width:100%}
+  svg text{fill:var(--ink);font-family:inherit}
+  nav.toc{position:sticky;top:0;background:rgba(15,18,24,.93);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);padding:.6rem 1rem;z-index:10;
+    display:flex;gap:1rem;flex-wrap:wrap;font-size:.9rem}
+  nav.toc a{color:var(--mute);text-decoration:none}
+  nav.toc a:hover{color:var(--yellow)}
+  /* sticky sidebar TOC (wide screens only; narrow screens fall back to top-nav) */
+  aside.sidetoc{position:fixed;top:4.2rem;
+    left:max(1rem, calc(50% - 440px - 220px));
+    width:200px;max-height:calc(100vh - 6rem);overflow-y:auto;
+    padding-right:1rem;border-right:1px solid var(--line);
+    font-size:.88rem;z-index:5}
+  aside.sidetoc .sidetoc-title{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute);margin:0 0 .5rem;padding-bottom:.35rem;border-bottom:1px solid var(--line)}
+  aside.sidetoc ol{list-style:none;padding:0;margin:0}
+  aside.sidetoc li{margin:0}
+  aside.sidetoc a{display:block;padding:.3rem .5rem;color:var(--mute);text-decoration:none;
+    border-left:2px solid transparent;line-height:1.35;
+    transition:color 120ms ease, border-color 120ms ease}
+  aside.sidetoc a:hover{color:var(--ink)}
+  aside.sidetoc a.active{color:var(--yellow);border-left-color:var(--yellow)}
+  @media (max-width:1180px){ aside.sidetoc{display:none} }
+  @media (min-width:1181px){ nav.toc a[href^="#"]{display:none} }
+  .hero{padding:3rem 0 1rem}
+  .small{font-size:.88rem;color:var(--mute)}
+  footer{color:var(--mute);font-size:.88rem;text-align:center;margin-top:4rem}
+  table.plain{width:100%;border-collapse:collapse;font-size:.95rem;margin:.6rem 0}
+  table.plain th,table.plain td{padding:.35rem .5rem;border-bottom:1px solid var(--line);text-align:left}
+  table.plain th{color:var(--mute);font-weight:500}
+  /* callback-css-auto-begin */
+  aside.callback{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:rgba(88,196,221,0.05);
+    border-left:3px solid color-mix(in srgb, var(--cyan) 45%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.callback .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.callback ul{margin:0;padding-left:1.1rem}
+  aside.callback ul li{margin:.15rem 0}
+  aside.callback a{color:inherit}
+/* callback-css-auto-end */
+  details.changelog{
+    margin:2rem 0 1rem;padding:.6rem .9rem;
+    background:rgba(0,0,0,0.22);
+    border-radius:6px;
+    font-size:.85rem;
+  }
+  details.changelog summary{
+    cursor:pointer;letter-spacing:.1em;text-transform:uppercase;
+    font-size:.7rem;color:var(--mute,#8c9aa6);
+  }
+  details.changelog table{margin-top:.5rem;border-collapse:collapse;width:100%;font-size:.82rem}
+  details.changelog td{padding:.2rem .6rem;border-bottom:1px dashed rgba(255,255,255,0.07);vertical-align:top}
+  details.changelog td:first-child{color:var(--mute,#8c9aa6);white-space:nowrap;font-variant-numeric:tabular-nums}
+  aside.related{
+    margin:1.2rem 0;padding:.7rem 1rem;
+    background:color-mix(in srgb, var(--mute) 6%, transparent);
+    border-left:3px solid color-mix(in srgb, var(--mute) 55%, transparent);
+    border-radius:0 6px 6px 0;
+    font-size:.93rem;
+  }
+  aside.related .ttl{
+    font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--mute,#8c9aa6);margin-bottom:.3rem;font-weight:600;
+  }
+  aside.related > div{margin:.15rem 0}
+  aside.related .more{color:var(--mute);font-style:italic}
+  aside.related a{color:inherit}
+  /* display-prefs-css-auto-begin */
+  html[data-hide-widgets] .widget { display: none !important; }
+  html[data-hide-quizzes] .quiz { display: none !important; }
+  html[data-hide-lineage] .lineage-strip { display: none !important; }
+  .mv-display-toggles { display: inline-flex; gap: .6rem; align-items: center; }
+  .mv-display-toggle { background: transparent; border: 1px solid var(--line, #333); border-radius: 6px; padding: 5px 10px; cursor: pointer; font-size: 1.05rem; line-height: 1; color: inherit; transition: background 120ms ease, border-color 120ms ease; }
+  .mv-display-toggle:hover { background: var(--panel, rgba(255,255,255,0.06)); border-color: var(--mute, #666); }
+  .mv-display-toggle--off { opacity: 0.35; }
+  /* display-prefs-css-auto-end */
+</style>
+<!-- breadcrumb-head-auto-begin -->
+<script>window.__MV_SECTION_MAP = {"<topic>":{"next":null,"prev":null,"section":"Sections","title":"<topic>"},"L-functions":{"next":"automorphic-forms-adelic","prev":"zeta-values","section":"Modular forms & L-functions","title":"L-functions"},"additive-number-theory":{"next":"quadratic-forms-genus-theory","prev":"quadratic-reciprocity","section":"Number theory","title":"Additive number theory"},"adeles-and-ideles":{"next":"frobenius-and-reciprocity","prev":"p-adic-numbers","section":"Number theory","title":"Adèles & idèles"},"advanced-complex-analysis":{"next":"microlocal-analysis","prev":"fixed-point-theorems","section":"Analysis","title":"Advanced complex analysis"},"algebra":{"next":"category-theory","prev":null,"section":"Algebra & homological","title":"Abstract algebra"},"algebraic-curves-higher-genus":{"next":"sheaf-cohomology","prev":"singular-cubics-reduction","section":"Algebraic geometry","title":"Algebraic curves: higher genus"},"algebraic-de-rham-cohomology":{"next":"moduli-spaces","prev":"sheaf-cohomology","section":"Algebraic geometry","title":"Algebraic de Rham cohomology"},"algebraic-k-theory-foundations":{"next":"model-categories","prev":"groebner-bases","section":"Algebra & homological","title":"Algebraic K-theory foundations"},"algebraic-number-theory":{"next":"p-adic-numbers","prev":"quadratic-forms-genus-theory","section":"Number theory","title":"Algebraic number theory"},"algebraic-spaces":{"next":"stacks","prev":"moduli-spaces","section":"Algebraic geometry","title":"Algebraic spaces"},"algebraic-topology":{"next":"smooth-manifolds","prev":"point-set-topology","section":"Geometry & topology","title":"Algebraic topology"},"analytic-continuation":{"next":"zeta-values","prev":"dirichlet-series-euler-products","section":"Modular forms & L-functions","title":"Analytic continuation"},"analytic-number-theory":{"next":"mathematics-and-cryptography","prev":"heights-arithmetic-geometry","section":"Number theory","title":"Analytic number theory"},"atiyah-singer-index-theorem":{"next":"mostow-rigidity","prev":"k-theory","section":"Geometry & topology","title":"Atiyah–Singer index theorem"},"automorphic-forms-adelic":{"next":"moonshine","prev":"L-functions","section":"Modular forms & L-functions","title":"Automorphic forms (adelic)"},"bezout":{"next":"schemes","prev":"projective-plane","section":"Algebraic geometry","title":"Bézout's theorem"},"bsd":{"next":"modularity-and-flt","prev":"sato-tate","section":"Modular forms & L-functions","title":"Birch & Swinnerton-Dyer"},"calabi-yau-manifolds":{"next":"mirror-symmetry","prev":"etale-cohomology","section":"Algebraic geometry","title":"Calabi–Yau manifolds"},"category-theory":{"next":"representation-theory","prev":"algebra","section":"Algebra & homological","title":"Category theory"},"characteristic-classes":{"next":"morse-theory","prev":"riemann-surfaces","section":"Geometry & topology","title":"Characteristic classes"},"class-field-theory":{"next":"galois-representations","prev":"frobenius-and-reciprocity","section":"Number theory","title":"Class field theory"},"cocartesian-fibrations":{"next":"infinity-topoi","prev":"infinity-categories","section":"Higher categories & toposes","title":"Cocartesian fibrations"},"commutative-algebra":{"next":"homological","prev":"representation-theory","section":"Algebra & homological","title":"Commutative algebra"},"complex-analysis":{"next":"functional-analysis","prev":"measure-theory","section":"Analysis","title":"Complex analysis"},"complexity-theory":{"next":"type-theory-and-hott","prev":"computability-and-decidability","section":"Logic & Foundations","title":"Complexity theory"},"computability-and-decidability":{"next":"complexity-theory","prev":"model-theory-basics","section":"Logic & Foundations","title":"Computability and decidability"},"computational-number-theory":{"next":null,"prev":"mathematics-and-cryptography","section":"Number theory","title":"Computational number theory"},"condensed-mathematics":{"next":null,"prev":"model-categories","section":"Algebra & homological","title":"Condensed mathematics"},"deformation-theory":{"next":"etale-cohomology","prev":"etale-fundamental-group","section":"Algebraic geometry","title":"Deformation theory"},"derived-categories":{"next":"group-cohomology","prev":"homological","section":"Algebra & homological","title":"Derived categories"},"designs":{"next":"expanders","prev":"enumerative-combinatorics","section":"Combinatorics & graph theory","title":"Designs"},"differential-forms":{"next":"differential-geometry","prev":"smooth-manifolds","section":"Geometry & topology","title":"Differential forms"},"differential-geometry":{"next":"riemannian-geometry","prev":"differential-forms","section":"Geometry & topology","title":"Differential geometry"},"dirac-equation":{"next":"quantum-field-theory","prev":"klein-gordon-equation","section":"Mathematical physics","title":"Dirac equation"},"dirichlet-series-euler-products":{"next":"analytic-continuation","prev":"hecke-operators","section":"Modular forms & L-functions","title":"Dirichlet series & Euler products"},"dynamical-systems":{"next":"harmonic-analysis-fourier","prev":"operator-algebras","section":"Analysis","title":"Dynamical systems"},"elementary-topos-theory":{"next":"heyting-algebras-toposes","prev":null,"section":"Higher categories & toposes","title":"Elementary topos theory"},"elliptic-curves":{"next":"singular-cubics-reduction","prev":"functor-of-points","section":"Algebraic geometry","title":"Elliptic curves"},"enumerative-combinatorics":{"next":"designs","prev":"simplicial-complexes-combinatorial","section":"Combinatorics & graph theory","title":"Enumerative combinatorics"},"etale-cohomology":{"next":"calabi-yau-manifolds","prev":"deformation-theory","section":"Algebraic geometry","title":"Étale cohomology"},"etale-fundamental-group":{"next":"deformation-theory","prev":"group-schemes","section":"Algebraic geometry","title":"Étale fundamental group"},"expanders":{"next":null,"prev":"designs","section":"Combinatorics & graph theory","title":"Expanders"},"extremal-combinatorics":{"next":"simplicial-complexes-combinatorial","prev":"probabilistic-method","section":"Combinatorics & graph theory","title":"Extremal combinatorics"},"first-order-logic-and-completeness":{"next":"zfc-and-ordinals","prev":"naive-set-theory","section":"Logic & Foundations","title":"First order logic and completeness"},"fixed-point-theorems":{"next":"advanced-complex-analysis","prev":"variational-methods","section":"Analysis","title":"Fixed point theorems"},"forcing-and-independence":{"next":null,"prev":"type-theory-and-hott","section":"Logic & Foundations","title":"Forcing and independence"},"frobenius-and-reciprocity":{"next":"class-field-theory","prev":"adeles-and-ideles","section":"Number theory","title":"Frobenius & reciprocity"},"functional-analysis":{"next":"operator-algebras","prev":"complex-analysis","section":"Analysis","title":"Functional analysis"},"functor-of-points":{"next":"elliptic-curves","prev":"morphisms-fiber-products","section":"Algebraic geometry","title":"Functor of points"},"galois":{"next":"quadratic-reciprocity","prev":null,"section":"Number theory","title":"Galois theory & the quintic"},"galois-cohomology-and-brauer":{"next":"quantum-groups","prev":"lie-algebras","section":"Algebra & homological","title":"Galois cohomology and Brauer groups"},"galois-representations":{"next":"heights-arithmetic-geometry","prev":"class-field-theory","section":"Number theory","title":"Galois representations"},"gauge-theory":{"next":"string-theory","prev":"statistical-mechanics","section":"Mathematical physics","title":"Gauge theory"},"general-relativity":{"next":"schrodinger-equation","prev":"hamiltonians-classical-mechanics","section":"Mathematical physics","title":"General relativity & Einstein equations"},"geometric-and-combinatorial-group-theory":{"next":"groebner-bases","prev":"quaternions-octonions-and-division-algebras","section":"Algebra & homological","title":"Geometric and combinatorial group theory"},"geometric-measure-theory":{"next":"semigroup-theory-evolution-equations","prev":"microlocal-analysis","section":"Analysis","title":"Geometric measure theory"},"groebner-bases":{"next":"algebraic-k-theory-foundations","prev":"geometric-and-combinatorial-group-theory","section":"Algebra & homological","title":"Gröbner bases"},"grothendieck-topologies-sites":{"next":"simplicial-sets-and-nerve","prev":"heyting-algebras-toposes","section":"Higher categories & toposes","title":"Grothendieck topologies & sites"},"group-cohomology":{"next":"lie-algebras","prev":"derived-categories","section":"Algebra & homological","title":"Group cohomology"},"group-schemes":{"next":"etale-fundamental-group","prev":"intersection-theory-chow","section":"Algebraic geometry","title":"Group schemes"},"hamiltonians-classical-mechanics":{"next":"general-relativity","prev":"three-body-problem","section":"Mathematical physics","title":"Hamiltonians & classical mechanics"},"harmonic-analysis-fourier":{"next":"sobolev-spaces-distributions","prev":"dynamical-systems","section":"Analysis","title":"Harmonic analysis & Fourier theory"},"harmonic-functions":{"next":"spectral-theory","prev":"partial-differential-equations","section":"Analysis","title":"Harmonic functions"},"hecke-operators":{"next":"dirichlet-series-euler-products","prev":"partitions-generating-functions","section":"Modular forms & L-functions","title":"Hecke operators"},"heights-arithmetic-geometry":{"next":"analytic-number-theory","prev":"galois-representations","section":"Number theory","title":"Heights in arithmetic geometry"},"heyting-algebras-toposes":{"next":"grothendieck-topologies-sites","prev":"elementary-topos-theory","section":"Higher categories & toposes","title":"Heyting algebras & intuitionist logic"},"high-dimensional-geometry":{"next":null,"prev":"mathematical-statistics","section":"Probability & statistics","title":"High dimensional geometry"},"hodge-theory":{"next":null,"prev":"motives","section":"Algebraic geometry","title":"Hodge theory"},"homological":{"next":"derived-categories","prev":"commutative-algebra","section":"Algebra & homological","title":"Homological algebra"},"infinity-categories":{"next":"cocartesian-fibrations","prev":"simplicial-sets-and-nerve","section":"Higher categories & toposes","title":"∞-categories (quasi-categories)"},"infinity-topoi":{"next":null,"prev":"cocartesian-fibrations","section":"Higher categories & toposes","title":"∞-topoi"},"information-theory":{"next":"large-deviations","prev":"random-walks-and-mixing","section":"Probability & statistics","title":"Information theory"},"intersection-theory-chow":{"next":"group-schemes","prev":"stacks","section":"Algebraic geometry","title":"Intersection theory & Chow groups"},"k-theory":{"next":"atiyah-singer-index-theorem","prev":"ricci-flow","section":"Geometry & topology","title":"K-theory"},"klein-gordon-equation":{"next":"dirac-equation","prev":"special-relativity","section":"Mathematical physics","title":"Klein-Gordon equation"},"knot-polynomials":{"next":"ricci-flow","prev":"symplectic-manifolds","section":"Geometry & topology","title":"Knot polynomials"},"langlands-program":{"next":null,"prev":"vertex-operator-algebras","section":"Modular forms & L-functions","title":"Langlands program"},"large-deviations":{"next":"mathematical-statistics","prev":"information-theory","section":"Probability & statistics","title":"Large deviations"},"lie-algebras":{"next":"galois-cohomology-and-brauer","prev":"group-cohomology","section":"Algebra & homological","title":"Lie algebras"},"lie-groups":{"next":"riemann-surfaces","prev":"riemannian-geometry","section":"Geometry & topology","title":"Lie groups & algebras"},"mathematical-statistics":{"next":"high-dimensional-geometry","prev":"large-deviations","section":"Probability & statistics","title":"Mathematical statistics"},"mathematics-and-cryptography":{"next":"computational-number-theory","prev":"analytic-number-theory","section":"Number theory","title":"Mathematics and cryptography"},"matroid-theory":{"next":"probabilistic-method","prev":"spectral-graph-theory","section":"Combinatorics & graph theory","title":"Matroid theory"},"measure-theory":{"next":"complex-analysis","prev":"real-analysis","section":"Analysis","title":"Measure theory"},"microlocal-analysis":{"next":"geometric-measure-theory","prev":"advanced-complex-analysis","section":"Analysis","title":"Microlocal analysis"},"mirror-symmetry":{"next":"resolution-of-singularities","prev":"calabi-yau-manifolds","section":"Algebraic geometry","title":"Mirror symmetry"},"model-categories":{"next":"condensed-mathematics","prev":"algebraic-k-theory-foundations","section":"Algebra & homological","title":"Model categories"},"model-theory-basics":{"next":"computability-and-decidability","prev":"zfc-and-ordinals","section":"Logic & Foundations","title":"Model theory basics"},"modular-curves":{"next":"vertex-operator-algebras","prev":"modularity-and-flt","section":"Modular forms & L-functions","title":"Modular curves"},"modular-forms":{"next":"theta-functions","prev":"upper-half-plane-hyperbolic","section":"Modular forms & L-functions","title":"Modular forms"},"modularity-and-flt":{"next":"modular-curves","prev":"bsd","section":"Modular forms & L-functions","title":"Modularity & FLT"},"moduli-spaces":{"next":"algebraic-spaces","prev":"algebraic-de-rham-cohomology","section":"Algebraic geometry","title":"Moduli spaces"},"moonshine":{"next":"sato-tate","prev":"automorphic-forms-adelic","section":"Modular forms & L-functions","title":"Monstrous moonshine"},"morphisms-fiber-products":{"next":"functor-of-points","prev":"sheaves","section":"Algebraic geometry","title":"Morphisms & fiber products"},"morse-theory":{"next":"symplectic-manifolds","prev":"characteristic-classes","section":"Geometry & topology","title":"Morse theory"},"mostow-rigidity":{"next":null,"prev":"atiyah-singer-index-theorem","section":"Geometry & topology","title":"Mostow rigidity"},"motives":{"next":"hodge-theory","prev":"resolution-of-singularities","section":"Algebraic geometry","title":"Motives"},"naive-set-theory":{"next":"first-order-logic-and-completeness","prev":null,"section":"Logic & Foundations","title":"Naive set theory"},"numerical-analysis":{"next":"variational-methods","prev":"wavelets","section":"Analysis","title":"Numerical analysis"},"operator-algebras":{"next":"dynamical-systems","prev":"functional-analysis","section":"Analysis","title":"Operator algebras"},"p-adic-numbers":{"next":"adeles-and-ideles","prev":"algebraic-number-theory","section":"Number theory","title":"p-adic numbers"},"partial-differential-equations":{"next":"harmonic-functions","prev":"sobolev-spaces-distributions","section":"Analysis","title":"Partial differential equations"},"partitions-generating-functions":{"next":"hecke-operators","prev":"theta-functions","section":"Modular forms & L-functions","title":"Partitions & generating functions"},"point-set-topology":{"next":"algebraic-topology","prev":null,"section":"Geometry & topology","title":"Point-set topology"},"probabilistic-method":{"next":"extremal-combinatorics","prev":"matroid-theory","section":"Combinatorics & graph theory","title":"Probabilistic method"},"probability-theory":{"next":"stochastic-processes-and-martingales","prev":null,"section":"Probability & statistics","title":"Probability theory"},"projective-plane":{"next":"bezout","prev":null,"section":"Algebraic geometry","title":"Projective plane"},"quadratic-forms-genus-theory":{"next":"algebraic-number-theory","prev":"additive-number-theory","section":"Number theory","title":"Quadratic forms & genus theory"},"quadratic-reciprocity":{"next":"additive-number-theory","prev":"galois","section":"Number theory","title":"Quadratic reciprocity"},"quantum-field-theory":{"next":null,"prev":"dirac-equation","section":"Mathematical physics","title":"Quantum field theory"},"quantum-groups":{"next":"quaternions-octonions-and-division-algebras","prev":"galois-cohomology-and-brauer","section":"Algebra & homological","title":"Quantum groups"},"quaternions-octonions-and-division-algebras":{"next":"geometric-and-combinatorial-group-theory","prev":"quantum-groups","section":"Algebra & homological","title":"Quaternions, octonions, and division algebras"},"random-walks-and-mixing":{"next":"information-theory","prev":"stochastic-calculus","section":"Probability & statistics","title":"Random walks and mixing"},"real-analysis":{"next":"measure-theory","prev":null,"section":"Analysis","title":"Real analysis"},"representation-theory":{"next":"commutative-algebra","prev":"category-theory","section":"Algebra & homological","title":"Representation theory"},"resolution-of-singularities":{"next":"motives","prev":"mirror-symmetry","section":"Algebraic geometry","title":"Resolution of singularities"},"ricci-flow":{"next":"k-theory","prev":"knot-polynomials","section":"Geometry & topology","title":"Ricci flow"},"riemann-surfaces":{"next":"characteristic-classes","prev":"lie-groups","section":"Geometry & topology","title":"Riemann surfaces"},"riemannian-geometry":{"next":"lie-groups","prev":"differential-geometry","section":"Geometry & topology","title":"Riemannian geometry"},"sato-tate":{"next":"bsd","prev":"moonshine","section":"Modular forms & L-functions","title":"Sato–Tate"},"schemes":{"next":"sheaves","prev":"bezout","section":"Algebraic geometry","title":"Schemes"},"schrodinger-equation":{"next":"statistical-mechanics","prev":"general-relativity","section":"Mathematical physics","title":"Schrödinger equation"},"semigroup-theory-evolution-equations":{"next":null,"prev":"geometric-measure-theory","section":"Analysis","title":"Semigroup theory & evolution equations"},"sheaf-cohomology":{"next":"algebraic-de-rham-cohomology","prev":"algebraic-curves-higher-genus","section":"Algebraic geometry","title":"Sheaf cohomology"},"sheaves":{"next":"morphisms-fiber-products","prev":"schemes","section":"Algebraic geometry","title":"Sheaves"},"simplicial-complexes-combinatorial":{"next":"enumerative-combinatorics","prev":"extremal-combinatorics","section":"Combinatorics & graph theory","title":"Simplicial complexes (combinatorial)"},"simplicial-sets-and-nerve":{"next":"infinity-categories","prev":"grothendieck-topologies-sites","section":"Higher categories & toposes","title":"Simplicial sets & the nerve"},"singular-cubics-reduction":{"next":"algebraic-curves-higher-genus","prev":"elliptic-curves","section":"Algebraic geometry","title":"Singular cubics & reduction"},"smooth-manifolds":{"next":"differential-forms","prev":"algebraic-topology","section":"Geometry & topology","title":"Smooth manifolds"},"sobolev-spaces-distributions":{"next":"partial-differential-equations","prev":"harmonic-analysis-fourier","section":"Analysis","title":"Sobolev spaces & distributions"},"special-relativity":{"next":"klein-gordon-equation","prev":"string-theory","section":"Mathematical physics","title":"Special relativity"},"spectral-graph-theory":{"next":"matroid-theory","prev":null,"section":"Combinatorics & graph theory","title":"Spectral graph theory"},"spectral-theory":{"next":"wavelets","prev":"harmonic-functions","section":"Analysis","title":"Spectral theory"},"stacks":{"next":"intersection-theory-chow","prev":"algebraic-spaces","section":"Algebraic geometry","title":"Stacks (Deligne–Mumford)"},"statistical-mechanics":{"next":"gauge-theory","prev":"schrodinger-equation","section":"Mathematical physics","title":"Statistical mechanics"},"stochastic-calculus":{"next":"random-walks-and-mixing","prev":"stochastic-processes-and-martingales","section":"Probability & statistics","title":"Stochastic calculus"},"stochastic-processes-and-martingales":{"next":"stochastic-calculus","prev":"probability-theory","section":"Probability & statistics","title":"Stochastic processes and martingales"},"string-theory":{"next":"special-relativity","prev":"gauge-theory","section":"Mathematical physics","title":"String theory"},"symplectic-manifolds":{"next":"knot-polynomials","prev":"morse-theory","section":"Geometry & topology","title":"Symplectic manifolds"},"theta-functions":{"next":"partitions-generating-functions","prev":"modular-forms","section":"Modular forms & L-functions","title":"Theta functions"},"three-body-problem":{"next":"hamiltonians-classical-mechanics","prev":null,"section":"Mathematical physics","title":"The three-body problem"},"type-theory-and-hott":{"next":"forcing-and-independence","prev":"complexity-theory","section":"Logic & Foundations","title":"Type theory and HoTT"},"upper-half-plane-hyperbolic":{"next":"modular-forms","prev":null,"section":"Modular forms & L-functions","title":"Upper half-plane"},"variational-methods":{"next":"fixed-point-theorems","prev":"numerical-analysis","section":"Analysis","title":"Variational methods"},"vertex-operator-algebras":{"next":"langlands-program","prev":"modular-curves","section":"Modular forms & L-functions","title":"Vertex operator algebras"},"wavelets":{"next":"numerical-analysis","prev":"spectral-theory","section":"Analysis","title":"Wavelets"},"zeta-values":{"next":"L-functions","prev":"analytic-continuation","section":"Modular forms & L-functions","title":"Zeta values"},"zfc-and-ordinals":{"next":"model-theory-basics","prev":"first-order-logic-and-completeness","section":"Logic & Foundations","title":"ZFC and ordinals"}};</script>
+<script src="./js/breadcrumb.js"></script>
+<script src="./js/glossary-popover.js" defer></script>
+<link rel="stylesheet" media="print" href="./css/print.css">
+<link rel="stylesheet" href="./css/theme-light.css">
+<script src="./js/theme-toggle.js"></script>
+<script src="./concepts/bundle.js" defer></script>
+<script src="./js/topic-hotkeys.js" defer></script>
+<script src="./js/topic-lineage.js" defer></script>
+<!-- breadcrumb-head-auto-end -->
+<script src="./js/progress.js"></script>
+<script src="./js/quiz.js"></script>
+<script src="./js/katex-select.js"></script>
+<script src="./js/widget-diagram-editor.js"></script>
+<script src="./quizzes/bundle.js"></script>
+<script src="./js/sidetoc.js"></script>
+<!-- display-prefs-head-auto-begin -->
+<script src="./js/display-prefs.js"></script>
+<!-- display-prefs-head-auto-end -->
+</head>
+<body data-section="Algebraic geometry" data-level="intermediate">
+<script>
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const SVG = (tag,attrs={})=>{
+  const e = document.createElementNS('http://www.w3.org/2000/svg',tag);
+  for(const[k,v] of Object.entries(attrs)) e.setAttribute(k,v);
+  return e;
+};
+// draw an arrow marker def once per svg (idempotent)
+function ensureArrow(svg, id, color){
+  let defs = svg.querySelector('defs');
+  if(!defs){ defs = SVG('defs'); svg.appendChild(defs); }
+  if(defs.querySelector('#'+id)) return;
+  const mk = SVG('marker',{id,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:6,markerHeight:6,orient:'auto'});
+  mk.appendChild(SVG('path',{d:'M0,0 L10,5 L0,10 z',fill:color}));
+  defs.appendChild(mk);
+}
+// curved arrow between two pixel points, with optional label
+function drawArrow(svg, p1, p2, opts={}){
+  const {color='var(--ink)', curve=0, label=null, labelSide=1, markerId='arr-default', dash=null, width=1.5} = opts;
+  ensureArrow(svg, markerId, color);
+  const [x1,y1]=p1, [x2,y2]=p2;
+  const dx=x2-x1, dy=y2-y1;
+  const L = Math.hypot(dx,dy) || 1;
+  const ux=dx/L, uy=dy/L;
+  // shorten endpoints
+  const pad1 = opts.pad1 ?? 14, pad2 = opts.pad2 ?? 16;
+  const ax=x1+ux*pad1, ay=y1+uy*pad1;
+  const bx=x2-ux*pad2, by=y2-uy*pad2;
+  const mx=(ax+bx)/2 - uy*curve, my=(ay+by)/2 + ux*curve;
+  const path = SVG('path',{
+    d:`M${ax} ${ay} Q ${mx} ${my} ${bx} ${by}`,
+    fill:'none', stroke:color, 'stroke-width':width,
+    'marker-end':`url(#${markerId})`
+  });
+  if(dash) path.setAttribute('stroke-dasharray', dash);
+  svg.appendChild(path);
+  if(label){
+    const t = SVG('text',{x:mx + (labelSide? -uy*8 : uy*8), y:my + (labelSide? ux*8 : -ux*8) + 4,
+      'text-anchor':'middle','font-size':12, fill:color, 'font-style':'italic'});
+    t.textContent = label;
+    svg.appendChild(t);
+  }
+  return path;
+}
+function drawNode(svg, x, y, label, opts={}){
+  const {r=18, fill='var(--panel2)', stroke='var(--blue)', textColor='#fff', fontSize=14} = opts;
+  svg.appendChild(SVG('circle',{cx:x,cy:y,r,fill,stroke,'stroke-width':1.5}));
+  const t = SVG('text',{x,y:y+fontSize*0.35,'text-anchor':'middle','font-size':fontSize,fill:textColor,'font-weight':600});
+  t.textContent = label;
+  svg.appendChild(t);
+}
+</script>
+
+<nav class="toc"><a href="./index.html" style="color:var(--violet);font-weight:500">← Notebook</a>
+  <a href="#fans">1&nbsp;Lattices,&nbsp;cones,&nbsp;fans</a>
+  <a href="#affine">2&nbsp;Affine&nbsp;toric&nbsp;varieties</a>
+  <a href="#dictionary">3&nbsp;The&nbsp;toric&nbsp;dictionary</a>
+  <a href="#examples">4&nbsp;Worked&nbsp;examples</a>
+  <a href="#cox">5&nbsp;Cox&nbsp;ring&nbsp;&amp;&nbsp;intersections</a>
+  <a href="#mirror">6&nbsp;Mirror&nbsp;symmetry&nbsp;preview</a>
+  <a href="#connections">Connections</a>
+</nav>
+<!-- lineage-mount-auto-begin --><div id="mv-lineage-mount" class="lineage-strip" hidden></div><!-- lineage-mount-auto-end -->
+
+<aside class="sidetoc" aria-label="Table of contents"></aside>
+
+<main>
+
+<section class="hero">
+  <h1>Toric varieties</h1>
+  <p class="sub">Algebraic geometry where every theorem is a picture in $\mathbb{R}^n$: lattices and cones turn into varieties, and fan combinatorics turns into intersection numbers.</p>
+</section>
+
+<section id="fans">
+<h2>1. Lattices, cones, fans</h2>
+<p>The torus $T = (\mathbb{C}^\times)^n$ is the most symmetric of algebraic groups. A <strong>toric variety</strong> is a normal variety $X$ containing $T$ as an open dense subvariety, in such a way that the multiplication of $T$ on itself extends to an action of $T$ on all of $X$. So toric varieties are "varieties with torus symmetry baked in." The miracle is that they are classified — exactly and entirely — by a piece of <em>combinatorial</em> data living in $\mathbb{R}^n$.</p>
+
+<p>Fix two dual lattices: the <strong>cocharacter lattice</strong> $N \cong \mathbb{Z}^n$ (one-parameter subgroups $\mathbb{C}^\times \to T$) and its dual <strong>character lattice</strong> $M = \Hom(N,\mathbb{Z})$ (characters $T \to \mathbb{C}^\times$). Tensor with $\mathbb{R}$ to get the real vector spaces $N_\mathbb{R}, M_\mathbb{R}$. All the geometry will be drawn in these.</p>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Cone.</strong> A <em>strongly convex rational polyhedral cone</em> $\sigma \subset N_\mathbb{R}$ is the non-negative span $\sigma = \mathbb{R}_{\ge 0} v_1 + \cdots + \mathbb{R}_{\ge 0} v_k$ of finitely many lattice vectors $v_i \in N$, subject to the condition that $\sigma \cap (-\sigma) = \{0\}$ (no whole line lies inside).</p>
+</div>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Fan.</strong> A <em>fan</em> $\Sigma$ in $N_\mathbb{R}$ is a finite collection of such cones, closed under taking faces, and such that $\sigma \cap \tau$ is a face of each whenever $\sigma, \tau \in \Sigma$.</p>
+</div>
+
+<p>The closure-under-faces condition is the gluing condition. The face-intersection condition is the "schemes glue along open subschemes" condition. Together they force every fan to assemble into one global toric variety $X_\Sigma$.</p>
+
+<div class="widget" id="w-fan-builder">
+  <div class="hd"><div class="ttl">Fan builder in $\mathbb{R}^2$</div><div class="hint">drag the rays — the dual cones update on the right</div></div>
+  <svg id="fan-svg" viewBox="0 0 760 320" width="760" height="320"><title>Fan builder in $\mathbb{R}^2$</title></svg>
+  <div class="readout" id="fan-out">Click and drag the colored ray endpoints to rotate them. The shaded sector on the left is $\sigma$; on the right is its dual cone $\sigma^\vee$ in $M_\mathbb{R}$.</div>
+  <div class="row">
+    <button id="fan-snap">snap to lattice</button>
+    <button id="fan-reset">reset to first quadrant</button>
+    <span class="small" id="fan-status"></span>
+  </div>
+</div><script>
+/* =============================== SECTION 1 widget: fan builder =============================== */
+(function(){
+  const svg = $('#fan-svg'), out = $('#fan-out'), snapBtn=$('#fan-snap'), resetBtn=$('#fan-reset'), status=$('#fan-status');
+  const W=760, H=320;
+  // two panes: left N_R, right M_R
+  const padX = 30;
+  const paneW = (W - 3*padX) / 2;
+  const cxL = padX + paneW/2, cyL = H/2;
+  const cxR = padX*2 + paneW + paneW/2, cyR = H/2;
+  const scale = 38;
+  // state: two ray generators in lattice coords
+  let v1 = [1, 0], v2 = [0, 1];
+  let dragIdx = null;
+
+  function lat2pix(p, cx, cy){ return [cx + p[0]*scale, cy - p[1]*scale]; }
+  function pix2lat(px, cx, cy){ return [(px[0] - cx)/scale, -(px[1]-cy)/scale]; }
+
+  function drawGrid(cx, cy, label){
+    // axes
+    svg.appendChild(SVG('line',{x1:cx-paneW/2,y1:cy,x2:cx+paneW/2,y2:cy,stroke:'var(--line)','stroke-width':1}));
+    svg.appendChild(SVG('line',{x1:cx,y1:cy-H*0.42,x2:cx,y2:cy+H*0.42,stroke:'var(--line)','stroke-width':1}));
+    // lattice dots (integer points)
+    for(let i=-3;i<=3;i++) for(let j=-3;j<=3;j++){
+      const [x,y] = lat2pix([i,j], cx, cy);
+      if(Math.abs(x-cx)<paneW/2 && Math.abs(y-cy)<H*0.42){
+        svg.appendChild(SVG('circle',{cx:x,cy:y,r:1.4,fill:'var(--mute)','fill-opacity':0.5}));
+      }
+    }
+    const lab = SVG('text',{x:cx,y:cy-H*0.42-6,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    lab.textContent = label;
+    svg.appendChild(lab);
+  }
+
+  function shadeCone(rays, cx, cy, color){
+    // rays = list of lattice vectors v; we shade their non-negative real span (assume two generators)
+    const [a, b] = rays;
+    // Make a big polygon: 0 -> far*v1 -> far*(v1+v2 average) -> far*v2 -> 0
+    const far = 6;
+    const pts = [
+      lat2pix([0,0], cx, cy),
+      lat2pix([a[0]*far, a[1]*far], cx, cy),
+      lat2pix([(a[0]+b[0])*far, (a[1]+b[1])*far], cx, cy),
+      lat2pix([b[0]*far, b[1]*far], cx, cy),
+    ];
+    svg.appendChild(SVG('polygon',{
+      points: pts.map(p=>p.join(',')).join(' '),
+      fill: color, 'fill-opacity':0.18, stroke:'none'
+    }));
+  }
+
+  function drawRay(v, cx, cy, color, idx, draggable){
+    const [x,y] = lat2pix([v[0]*5, v[1]*5], cx, cy);
+    const [x0,y0] = lat2pix([0,0], cx, cy);
+    svg.appendChild(SVG('line',{x1:x0,y1:y0,x2:x,y2:y,stroke:color,'stroke-width':2.2,'stroke-linecap':'round'}));
+    // generator marker
+    const [gx,gy] = lat2pix(v, cx, cy);
+    const c = SVG('circle',{cx:gx,cy:gy,r:7,fill:color,stroke:'#fff','stroke-width':1.5,
+      style: draggable?'cursor:grab':'cursor:default','data-ray':idx});
+    svg.appendChild(c);
+    // label
+    const lab = SVG('text',{x:gx+10, y:gy-10,'font-size':12,fill:color,'font-weight':600});
+    lab.textContent = `(${v[0].toFixed(v[0]===Math.round(v[0])?0:2)}, ${v[1].toFixed(v[1]===Math.round(v[1])?0:2)})`;
+    svg.appendChild(lab);
+  }
+
+  // Compute dual cone generators (for two-ray case in R^2): rotate each by ±90° inwards
+  function dualGens(v1, v2){
+    // dual cone = {u : u . v1 ≥ 0 and u . v2 ≥ 0}
+    // its bounding rays are perpendiculars to v1 and v2 chosen to point into the dual cone
+    function perp(v, other){
+      // candidates +/- 90 rotation
+      const a = [-v[1], v[0]], b = [v[1], -v[0]];
+      // pick the one that has nonneg dot with `other`
+      return (a[0]*other[0]+a[1]*other[1] >= 0) ? a : b;
+    }
+    const u1 = perp(v2, v1);  // dual to ray v2, lying along the v1-side
+    const u2 = perp(v1, v2);
+    return [u1, u2];
+  }
+
+  function isStronglyConvex(v1, v2){
+    // strongly convex iff v1 and v2 are linearly independent and the angle between them is < 180°
+    const cross = v1[0]*v2[1] - v1[1]*v2[0];
+    if (Math.abs(cross) < 1e-6) return false; // parallel
+    return true;
+  }
+
+  function isSmooth(v1, v2){
+    // smooth iff {v1, v2} is a Z-basis, i.e. det = ±1, and entries are integers
+    if (!Number.isInteger(v1[0]) || !Number.isInteger(v1[1])) return false;
+    if (!Number.isInteger(v2[0]) || !Number.isInteger(v2[1])) return false;
+    const d = v1[0]*v2[1] - v1[1]*v2[0];
+    return Math.abs(d) === 1;
+  }
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    drawGrid(cxL, cyL, 'N_R  (cone σ)');
+    drawGrid(cxR, cyR, 'M_R  (dual cone σ∨)');
+    if (isStronglyConvex(v1, v2)){
+      shadeCone([v1,v2], cxL, cyL, 'var(--blue)');
+      const [u1, u2] = dualGens(v1, v2);
+      shadeCone([u1, u2], cxR, cyR, 'var(--yellow)');
+      // draw dual rays (not draggable)
+      drawRay(u1, cxR, cyR, 'var(--yellow)', 'd1', false);
+      drawRay(u2, cxR, cyR, 'var(--yellow)', 'd2', false);
+    } else {
+      const tx = SVG('text',{x:cxL,y:cyL,'text-anchor':'middle','font-size':14,fill:'var(--pink)'});
+      tx.textContent = 'rays parallel — not strongly convex';
+      svg.appendChild(tx);
+    }
+    drawRay(v1, cxL, cyL, 'var(--blue)', 0, true);
+    drawRay(v2, cxL, cyL, 'var(--green)', 1, true);
+    // status: smooth/non-smooth/non-rational
+    const integer = Number.isInteger(v1[0]) && Number.isInteger(v1[1]) && Number.isInteger(v2[0]) && Number.isInteger(v2[1]);
+    if (!isStronglyConvex(v1,v2)){
+      status.textContent = '';
+    } else if (!integer){
+      status.textContent = 'rays not at lattice points — try "snap"';
+      status.style.color = 'var(--mute)';
+    } else if (isSmooth(v1, v2)){
+      status.textContent = '✓ smooth: {v₁, v₂} is a ℤ-basis';
+      status.style.color = 'var(--green)';
+    } else {
+      const d = v1[0]*v2[1] - v1[1]*v2[0];
+      status.textContent = `singular (det = ${d}); the toric variety has a quotient singularity`;
+      status.style.color = 'var(--pink)';
+    }
+  }
+
+  svg.addEventListener('pointerdown', e=>{
+    const idx = e.target && e.target.getAttribute && e.target.getAttribute('data-ray');
+    if(idx !== null && idx !== undefined && (idx === '0' || idx === '1')){
+      dragIdx = parseInt(idx, 10);
+      svg.setPointerCapture(e.pointerId);
+    }
+  });
+  svg.addEventListener('pointermove', e=>{
+    if(dragIdx === null) return;
+    const rect = svg.getBoundingClientRect();
+    const sx = (e.clientX - rect.left) * (W / rect.width);
+    const sy = (e.clientY - rect.top) * (H / rect.height);
+    const lat = pix2lat([sx, sy], cxL, cyL);
+    // clamp to a reasonable range
+    lat[0] = Math.max(-3, Math.min(3, lat[0]));
+    lat[1] = Math.max(-3, Math.min(3, lat[1]));
+    if(dragIdx === 0) v1 = lat; else v2 = lat;
+    render();
+  });
+  svg.addEventListener('pointerup', e=>{ dragIdx = null; });
+  svg.addEventListener('pointercancel', e=>{ dragIdx = null; });
+
+  snapBtn.addEventListener('click', ()=>{
+    v1 = [Math.round(v1[0]), Math.round(v1[1])];
+    v2 = [Math.round(v2[0]), Math.round(v2[1])];
+    if (v1[0]===0 && v1[1]===0) v1 = [1,0];
+    if (v2[0]===0 && v2[1]===0) v2 = [0,1];
+    render();
+  });
+  resetBtn.addEventListener('click', ()=>{ v1=[1,0]; v2=[0,1]; render(); });
+  render();
+})();
+</script>
+
+<p>Strong convexity is the constraint that the cone "points": its tip is a unique lowest point, not a whole line. This will translate, on the variety side, into the existence of a special torus-fixed point at the corresponding cone, rather than a free torus orbit you can never collapse.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./commutative-algebra.html#modules">Modules and tensor products</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="tv-fans"></div>
+</section>
+
+<section id="affine">
+<h2>2. Affine toric varieties $U_\sigma$</h2>
+<p>Now the bridge: how does a single cone $\sigma \subset N_\mathbb{R}$ become an actual variety?</p>
+
+<p>The dual cone $\sigma^\vee \subset M_\mathbb{R}$ is the set of linear forms that are non-negative on $\sigma$:</p>
+$$\sigma^\vee \;=\; \{\,u \in M_\mathbb{R} \;:\; \langle u, v\rangle \ge 0 \text{ for all } v \in \sigma\,\}.$$
+<p>Intersect with the lattice: $S_\sigma := \sigma^\vee \cap M$ is a finitely generated semigroup (Gordan's lemma). Each $u \in S_\sigma$ is a Laurent monomial $\chi^u = x_1^{u_1}\cdots x_n^{u_n}$, viewed as a regular function on the torus $T = \Spec\mathbb{C}[M]$. The monomials in $S_\sigma$ are precisely the ones that <em>extend</em> from $T$ to a larger affine variety. That variety is the answer:</p>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Definition.</strong> The <em>affine toric variety</em> attached to $\sigma$ is
+$$U_\sigma \;=\; \Spec \mathbb{C}[\sigma^\vee \cap M] \;=\; \Spec\mathbb{C}[S_\sigma].$$</p>
+</div>
+
+<p>The torus $T$ sits inside as the open dense subvariety where every $\chi^u$ is invertible. The boundary $U_\sigma \setminus T$ is precisely where the new monomials forced by $S_\sigma$ are allowed to vanish.</p>
+
+<h3>The model example: $\sigma = \mathbb{R}_{\ge 0}^2$ gives $\mathbb{A}^2$</h3>
+<p>Let $\sigma$ be the first quadrant in $N_\mathbb{R} = \mathbb{R}^2$, generated by $e_1 = (1,0)$ and $e_2 = (0,1)$. The dual cone is again the first quadrant in $M_\mathbb{R}$, with $S_\sigma = \mathbb{Z}_{\ge 0}^2$. The corresponding semigroup ring is</p>
+$$\mathbb{C}[S_\sigma] \;=\; \mathbb{C}[\chi^{e_1^*}, \chi^{e_2^*}] \;=\; \mathbb{C}[x, y],$$
+<p>so $U_\sigma = \Spec\mathbb{C}[x,y] = \mathbb{A}^2$. The torus $T = (\mathbb{C}^\times)^2$ is exactly the locus $xy \neq 0$. The boundary is the union of the two coordinate axes — and these will turn out to be the toric divisors $D_{e_1}, D_{e_2}$.</p>
+
+<div class="widget" id="w-cone-table">
+  <div class="hd"><div class="ttl">Cones in $\mathbb{R}^2$ and their affine $U_\sigma$</div><div class="hint">click a cone to see its dual + ring</div></div>
+  <svg id="cone-svg" viewBox="0 0 760 220" width="760" height="220"><title>Cones in $\mathbb{R}^2$</title></svg>
+  <div class="readout" id="cone-out">Click any of the four cones to see its dual cone and coordinate ring.</div>
+</div><script>
+(function(){
+  const svg = $('#cone-svg'), out = $('#cone-out');
+  const W=760, H=220;
+  const CONES = [
+    {label:'σ = {0}', rays:[], dualGens:'all of M', ring:'\\mathbb{C}[x^{\\pm 1}, y^{\\pm 1}]', uvar:'T = (\\mathbb{C}^\\times)^2'},
+    {label:'σ = ⟨e₁⟩', rays:[[1,0]], dualGens:'⟨e₁*, ±e₂*⟩', ring:'\\mathbb{C}[x, y^{\\pm 1}]', uvar:'\\mathbb{A}^1 \\times \\mathbb{C}^\\times'},
+    {label:'σ = ⟨e₁, e₂⟩', rays:[[1,0],[0,1]], dualGens:'⟨e₁*, e₂*⟩', ring:'\\mathbb{C}[x, y]', uvar:'\\mathbb{A}^2'},
+    {label:'σ = ⟨2e₁−e₂, e₂⟩', rays:[[2,-1],[0,1]], dualGens:'⟨e₁*, e₁*+2e₂*⟩', ring:'\\mathbb{C}[x, xy^2]', uvar:'A_1 \\text{ singularity (cone over conic)}'},
+  ];
+  let active = 2;
+  const cellW = W/4, cellH = H;
+  const scale = 30;
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    CONES.forEach((c, i)=>{
+      const cx = i*cellW + cellW/2;
+      const cy = cellH/2 + 6;
+      // background pane
+      svg.appendChild(SVG('rect',{
+        x: i*cellW + 6, y: 6, width: cellW-12, height: cellH-12,
+        rx: 6, fill: i===active? 'rgba(255,216,102,0.08)' : 'transparent',
+        stroke: i===active? 'var(--yellow)' : 'var(--line)', 'stroke-width':1,
+        style:'cursor:pointer','data-idx':i
+      }));
+      // axes
+      svg.appendChild(SVG('line',{x1:cx-cellW/2+22,y1:cy,x2:cx+cellW/2-22,y2:cy,stroke:'var(--line)','stroke-width':1}));
+      svg.appendChild(SVG('line',{x1:cx,y1:18,x2:cx,y2:cellH-30,stroke:'var(--line)','stroke-width':1}));
+      // shade cone (if any)
+      if(c.rays.length === 1){
+        // halfline starting at 0 — shade a thin strip
+        const v = c.rays[0];
+        svg.appendChild(SVG('line',{x1:cx,y1:cy,x2:cx+v[0]*scale*2.5,y2:cy-v[1]*scale*2.5,
+          stroke:'var(--blue)','stroke-width':3,'stroke-linecap':'round'}));
+      } else if (c.rays.length === 2){
+        const [a, b] = c.rays;
+        const far = 3;
+        const pts = [
+          [cx, cy],
+          [cx+a[0]*scale*far, cy-a[1]*scale*far],
+          [cx+(a[0]+b[0])*scale*far, cy-(a[1]+b[1])*scale*far],
+          [cx+b[0]*scale*far, cy-b[1]*scale*far]
+        ];
+        svg.appendChild(SVG('polygon',{
+          points: pts.map(p=>p.join(',')).join(' '),
+          fill:'var(--blue)','fill-opacity':0.22, stroke:'var(--blue)','stroke-width':1.2
+        }));
+      }
+      // tip dot
+      svg.appendChild(SVG('circle',{cx:cx,cy:cy,r:3,fill:'var(--ink)'}));
+      // label
+      const tx = SVG('text',{x:cx,y:cellH-12,'text-anchor':'middle','font-size':12,fill:'var(--ink)'});
+      tx.textContent = c.label;
+      svg.appendChild(tx);
+    });
+    const c = CONES[active];
+    out.innerHTML = `cone ${c.label}    →    dual ${c.dualGens}\n` +
+                    `ring  𝒪(U_σ) = ${c.ring.replace(/\\mathbb\{C\}/g,'ℂ').replace(/\\pm/g,'±')}\n` +
+                    `U_σ = ${c.uvar.replace(/\\mathbb\{C\}/g,'ℂ').replace(/\\mathbb\{A\}/g,'𝔸').replace(/\\times/g,'×').replace(/\\text\{([^}]*)\}/g,'$1')}`;
+  }
+
+  svg.addEventListener('click', e=>{
+    const idx = e.target && e.target.getAttribute && e.target.getAttribute('data-idx');
+    if (idx !== null && idx !== undefined){ active = parseInt(idx, 10); render(); }
+  });
+  render();
+})();
+</script>
+
+<p>The pattern is general. <em>Smaller</em> cones produce <em>more</em> Laurent monomials — at the extreme, $\sigma = \{0\}$ gives all of $M$, hence $U_{\{0\}} = T$. <em>Bigger</em> cones produce fewer monomials and a smaller variety with a richer boundary; at the extreme, a maximal-dimensional cone produces an affine variety with a single torus-fixed point.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./schemes.html#intro">Schemes</a> · Prime spectrum and Zariski topology</li>
+    <li><a href="./commutative-algebra.html#modules">Commutative algebra</a> · Modules and finitely generated semigroup rings</li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+<div class="quiz" data-concept="tv-affine"></div>
+</section>
+
+<section id="dictionary">
+<h2>3. The toric dictionary</h2>
+<p>Now we glue. Given a fan $\Sigma$, take the disjoint union of the affine pieces $U_\sigma$ for $\sigma \in \Sigma$ and identify $U_\sigma$ with $U_\tau$ along $U_{\sigma \cap \tau}$. The face condition makes the gluings consistent. The result is one variety</p>
+$$X_\Sigma \;=\; \bigcup_{\sigma \in \Sigma} U_\sigma,$$
+<p>and every $U_\sigma$ sits inside as an open affine, with $T = U_{\{0\}}$ the open dense torus orbit shared by all of them.</p>
+
+<p>The miracle is how cleanly the geometry of $X_\Sigma$ reads off from the combinatorics of $\Sigma$. The book of dictionary entries is long; here are the most useful pages.</p>
+
+<table class="plain">
+<thead><tr><th>combinatorial datum on $\Sigma$</th><th>geometric datum on $X_\Sigma$</th></tr></thead>
+<tbody>
+<tr><td>cone $\sigma$ of dimension $k$</td><td>$T$-orbit $O_\sigma$ of dimension $n - k$ (orbit-cone correspondence)</td></tr>
+<tr><td>zero cone $\{0\}$</td><td>open dense torus $T \subset X_\Sigma$</td></tr>
+<tr><td>maximal cone $\sigma$ of dim $n$</td><td>torus-fixed point $x_\sigma$</td></tr>
+<tr><td>ray $\rho \in \Sigma^{(1)}$</td><td>torus-invariant prime divisor $D_\rho = \overline{O_\rho}$</td></tr>
+<tr><td>face inclusion $\tau \prec \sigma$</td><td>orbit closure containment $\overline{O_\sigma} \subset \overline{O_\tau}$</td></tr>
+<tr><td>$\sigma$ generated by part of a $\mathbb{Z}$-basis of $N$</td><td>$U_\sigma$ is smooth at $x_\sigma$</td></tr>
+<tr><td>support $|\Sigma|$ equals all of $N_\mathbb{R}$</td><td>$X_\Sigma$ is complete (i.e. proper over $\mathbb{C}$)</td></tr>
+<tr><td>$\Sigma$ is the normal fan of a lattice polytope</td><td>$X_\Sigma$ is projective</td></tr>
+<tr><td>$\Sigma'$ is a refinement of $\Sigma$</td><td>$X_{\Sigma'} \to X_\Sigma$ is a proper birational toric morphism</td></tr>
+</tbody>
+</table>
+
+<div class="widget" id="w-orbit-cone">
+  <div class="hd"><div class="ttl">Orbit-cone correspondence on $\mathbb{P}^2$</div><div class="hint">click a cone to highlight its orbit</div></div>
+  <svg id="oc-svg" viewBox="0 0 760 320" width="760" height="320"><title>Orbit-cone correspondence on $\mathbb{P}^2$</title></svg>
+  <div class="readout" id="oc-out">Hover or click any cone in the fan (left) — the corresponding torus-orbit on $\mathbb{P}^2$ (right) lights up.</div>
+</div><script>
+(function(){
+  const svg = $('#oc-svg'), out = $('#oc-out');
+  const W=760, H=320;
+  // left pane: fan of P^2
+  const cxL = 180, cyL = 160, scale = 50;
+  // right pane: schematic P^2 with the three coordinate lines + 3 fixed points + open torus
+  const cxR = 540, cyR = 160;
+  // rays of P^2 fan
+  const rays = [[1,0], [0,1], [-1,-1]];
+  const rayLabels = ['ρ₁ = e₁', 'ρ₂ = e₂', 'ρ₃ = -e₁-e₂'];
+  // cones (dim, indices into rays for those that have them)
+  const CONES = [
+    {key:'zero', dim:0, label:'σ = {0}',          orbit:'open torus T ⊂ ℙ²', dimO:2},
+    {key:'r0',   dim:1, label:'ρ₁ (ray e₁)',       orbit:'divisor D_ρ₁ = {x₀ = 0}', dimO:1, ray:0},
+    {key:'r1',   dim:1, label:'ρ₂ (ray e₂)',       orbit:'divisor D_ρ₂ = {x₁ = 0}', dimO:1, ray:1},
+    {key:'r2',   dim:1, label:'ρ₃ (ray -e₁-e₂)',   orbit:'divisor D_ρ₃ = {x₂ = 0}', dimO:1, ray:2},
+    {key:'c01',  dim:2, label:'σ_{12} = ⟨ρ₁, ρ₂⟩', orbit:'fixed point [0:0:1]',     dimO:0, conePair:[0,1]},
+    {key:'c12',  dim:2, label:'σ_{23} = ⟨ρ₂, ρ₃⟩', orbit:'fixed point [1:0:0]',     dimO:0, conePair:[1,2]},
+    {key:'c20',  dim:2, label:'σ_{13} = ⟨ρ₁, ρ₃⟩', orbit:'fixed point [0:1:0]',     dimO:0, conePair:[0,2]},
+  ];
+  let active = 'zero';
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+
+    // ---------- left pane: fan
+    // pane border
+    svg.appendChild(SVG('rect',{x:20,y:20,width:320,height:280,rx:6,fill:'transparent',stroke:'var(--line)'}));
+    const tL = SVG('text',{x:cxL,y:36,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    tL.textContent = 'Σ ⊂ N_R'; svg.appendChild(tL);
+    // shade three maximal cones
+    function shade(rayA, rayB, key){
+      const a = rays[rayA], b = rays[rayB], far=3.5;
+      const pts=[[cxL,cyL],
+        [cxL+a[0]*scale*far, cyL-a[1]*scale*far],
+        [cxL+(a[0]+b[0])*scale*far/2, cyL-(a[1]+b[1])*scale*far/2],
+        [cxL+b[0]*scale*far, cyL-b[1]*scale*far]];
+      const isActive = (active===key);
+      svg.appendChild(SVG('polygon',{points:pts.map(p=>p.join(',')).join(' '),
+        fill:isActive?'var(--yellow)':'var(--blue)','fill-opacity':isActive?0.32:0.14,
+        stroke:isActive?'var(--yellow)':'var(--blue)','stroke-width':1,
+        style:'cursor:pointer','data-key':key}));
+    }
+    shade(0,1,'c01'); shade(1,2,'c12'); shade(0,2,'c20');
+    // shade open zero cone with a small disk + label
+    {
+      const isActive = (active==='zero');
+      svg.appendChild(SVG('circle',{cx:cxL,cy:cyL,r:11,fill:isActive?'var(--yellow)':'var(--violet)','fill-opacity':isActive?0.8:0.55,
+        stroke:isActive?'var(--yellow)':'var(--violet)','stroke-width':1.5,
+        style:'cursor:pointer','data-key':'zero'}));
+    }
+    // draw rays
+    rays.forEach((v,i)=>{
+      const key = 'r'+i;
+      const isActive = (active===key);
+      const x2 = cxL + v[0]*scale*3, y2 = cyL - v[1]*scale*3;
+      svg.appendChild(SVG('line',{x1:cxL,y1:cyL,x2,y2,
+        stroke:isActive?'var(--yellow)':'var(--ink)','stroke-width':isActive?3.2:2,'stroke-linecap':'round',
+        style:'cursor:pointer','data-key':key}));
+      // dot at lattice generator
+      const gx=cxL+v[0]*scale, gy=cyL-v[1]*scale;
+      svg.appendChild(SVG('circle',{cx:gx,cy:gy,r:5,fill:isActive?'var(--yellow)':'var(--ink)',
+        style:'cursor:pointer','data-key':key}));
+      // label
+      const lab = SVG('text',{x:cxL+v[0]*scale*1.65, y:cyL-v[1]*scale*1.65+4,'text-anchor':'middle','font-size':11,fill:'var(--mute)'});
+      lab.textContent = rayLabels[i];
+      svg.appendChild(lab);
+    });
+
+    // ---------- right pane: P^2 schematic
+    svg.appendChild(SVG('rect',{x:380,y:20,width:360,height:280,rx:6,fill:'transparent',stroke:'var(--line)'}));
+    const tR = SVG('text',{x:cxR,y:36,'text-anchor':'middle','font-size':12,fill:'var(--mute)'});
+    tR.textContent = 'ℙ² with its three coordinate lines'; svg.appendChild(tR);
+    // three vertices of a triangle
+    const Pa=[cxR-110, cyR+80], Pb=[cxR+110, cyR+80], Pc=[cxR, cyR-110];
+    // vertex order: Pa = [0:0:1], Pb = [0:1:0], Pc = [1:0:0]?
+    // We'll just label by which divisor we mean.
+    const fixedPts = {
+      'c01': {p:[cxR, cyR+82], lbl:'[0:0:1]'},
+      'c20': {p:[cxR-110, cyR-30], lbl:'[0:1:0]'},
+      'c12': {p:[cxR+110, cyR-30], lbl:'[1:0:0]'}
+    };
+    // edges of triangle = three coordinate lines
+    const edges = [
+      {key:'r0', p:[Pb[0], Pb[1]], q:[Pc[0], Pc[1]], lbl:'D_ρ₁'},
+      {key:'r1', p:[Pa[0], Pa[1]], q:[Pc[0], Pc[1]], lbl:'D_ρ₂'},
+      {key:'r2', p:[Pa[0], Pa[1]], q:[Pb[0], Pb[1]], lbl:'D_ρ₃'},
+    ];
+    // open torus = interior of triangle
+    {
+      const isActive = (active==='zero');
+      svg.appendChild(SVG('polygon',{points:`${Pa[0]},${Pa[1]} ${Pb[0]},${Pb[1]} ${Pc[0]},${Pc[1]}`,
+        fill:isActive?'var(--yellow)':'var(--violet)','fill-opacity':isActive?0.32:0.10,
+        stroke:'none'}));
+      if(isActive){
+        const tt=SVG('text',{x:cxR, y:cyR+15,'text-anchor':'middle','font-size':12,fill:'var(--yellow)','font-weight':600});
+        tt.textContent='T (open dense)'; svg.appendChild(tt);
+      }
+    }
+    // edges
+    edges.forEach(e=>{
+      const isActive = (active===e.key);
+      svg.appendChild(SVG('line',{x1:e.p[0],y1:e.p[1],x2:e.q[0],y2:e.q[1],
+        stroke:isActive?'var(--yellow)':'var(--blue)','stroke-width':isActive?4:2.2,'stroke-linecap':'round'}));
+      // edge label
+      const mx=(e.p[0]+e.q[0])/2, my=(e.p[1]+e.q[1])/2;
+      const tx = SVG('text',{x:mx + (e.key==='r0'?8:e.key==='r1'?-8:0), y: my + (e.key==='r2'?-6:6),'font-size':11,
+        fill:isActive?'var(--yellow)':'var(--blue)'});
+      tx.textContent=e.lbl;
+      svg.appendChild(tx);
+    });
+    // fixed points
+    Object.entries(fixedPts).forEach(([k, v])=>{
+      const isActive = (active===k);
+      svg.appendChild(SVG('circle',{cx:v.p[0],cy:v.p[1],r:isActive?7:5,
+        fill:isActive?'var(--yellow)':'var(--ink)',stroke:'#fff','stroke-width':1.5}));
+      const tx = SVG('text',{x:v.p[0] + (k==='c20'?-14:k==='c12'?14:0), y: v.p[1] + (k==='c01'?16:-12),'font-size':11,
+        fill:isActive?'var(--yellow)':'var(--mute)','text-anchor':k==='c01'?'middle':k==='c20'?'end':'start'});
+      tx.textContent=v.lbl; svg.appendChild(tx);
+    });
+
+    // readout
+    const c = CONES.find(c=>c.key===active);
+    out.textContent =
+      `cone:  ${c.label}   (dim ${c.dim})\n` +
+      `orbit: ${c.orbit}   (dim ${c.dimO})\n` +
+      `dim O = n - dim σ = 2 - ${c.dim} = ${c.dimO}.   ✓`;
+  }
+
+  svg.addEventListener('click', e=>{
+    const k = e.target && e.target.getAttribute && e.target.getAttribute('data-key');
+    if(k){ active = k; render(); }
+  });
+  render();
+})();
+</script>
+
+<p>Two of these dictionary entries deserve to be unpacked.</p>
+
+<p><span class="pill">smoothness</span> A maximal cone $\sigma$ in dimension $n$ is generated by $n$ rays $u_1, \ldots, u_n$. Smoothness of $X_\Sigma$ at the corresponding fixed point is precisely the condition that $\{u_1, \ldots, u_n\}$ is a $\mathbb{Z}$-basis of $N$ — equivalently, that the determinant of the matrix whose rows are the $u_i$ has determinant $\pm 1$. If the determinant is some other integer $d$, the singularity is a finite quotient $\mathbb{A}^n / (\mathbb{Z}/d)$. The fan-builder widget in §1 reports this in real time.</p>
+
+<p><span class="pill">refinement</span> A refinement $\Sigma' \to \Sigma$ subdivides the cones of $\Sigma$. On the variety side, this is a proper birational morphism $X_{\Sigma'} \to X_\Sigma$. <em>Resolution of singularities</em> for toric varieties amounts to choosing a refinement that is smooth — and the existence of such refinements is constructive and combinatorial. (No general resolution theorem needed; the fan tells you exactly what to subdivide.)</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./schemes.html#gluing">Gluing affine schemes</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="tv-dictionary"></div>
+</section>
+
+<section id="examples">
+<h2>4. Worked examples</h2>
+<p>Now the parade. Each fan below builds a familiar variety.</p>
+
+<div class="widget" id="w-examples">
+  <div class="hd"><div class="ttl">Five fans, five varieties</div><div class="hint">step through the buttons</div></div>
+  <div class="row">
+    <button data-ex="A2" class="active">𝔸²</button>
+    <button data-ex="P1">ℙ¹</button>
+    <button data-ex="P2">ℙ²</button>
+    <button data-ex="P1xP1">ℙ¹×ℙ¹</button>
+    <button data-ex="F2">F₂ (Hirzebruch)</button>
+    <button data-ex="Bl0">Bl₀ 𝔸²</button>
+  </div>
+  <svg id="ex-svg" viewBox="0 0 760 320" width="760" height="320"><title>Five fans, five varieties</title></svg>
+  <div class="readout" id="ex-out"></div>
+</div><script>
+(function(){
+  const svg = $('#ex-svg'), out = $('#ex-out');
+  const buttons = $$('#w-examples button[data-ex]');
+  const cx = 380, cy = 165, scale = 50;
+  const EX = {
+    'A2':   {rays:[[1,0],[0,1]],          maxcones:[[0,1]], lbl:'𝔸² = U_σ for σ = ⟨e₁, e₂⟩',
+             desc:'Two rays, one maximal cone (the first quadrant). The "boundary" is the two coordinate axes; their intersection is the origin (the fixed point).', n:2},
+    'P1':   {rays:[[1,0],[-1,0]],         maxcones:[[0],[1]], lbl:'ℙ¹: two rays ±e in ℝ',
+             desc:'Two rays going in opposite directions; two maximal cones (each a ray). Two affine charts 𝔸¹ ∪ 𝔸¹ glued along 𝔾_m. Two fixed points: 0 and ∞.', n:1},
+    'P2':   {rays:[[1,0],[0,1],[-1,-1]],  maxcones:[[0,1],[1,2],[0,2]], lbl:'ℙ²: rays e₁, e₂, -e₁-e₂',
+             desc:'Three rays summing to zero, three maximal smooth cones. Three coordinate lines (rays) meeting in three fixed points (max cones). The bone-stock projective plane.', n:2},
+    'P1xP1':{rays:[[1,0],[0,1],[-1,0],[0,-1]], maxcones:[[0,1],[1,2],[2,3],[3,0]],
+             lbl:'ℙ¹×ℙ¹: four rays ±e₁, ±e₂',
+             desc:'Product fan: two rays for each ℙ¹ factor, four maximal cones (the four quadrants). Four toric divisors; four fixed points; smooth and projective.', n:2},
+    'F2':   {rays:[[1,0],[0,1],[-1,2],[0,-1]], maxcones:[[0,1],[1,2],[2,3],[3,0]],
+             lbl:'F₂: tilt one ray of ℙ¹×ℙ¹',
+             desc:'The Hirzebruch surface F_n: replace the ray (-e₁) of ℙ¹×ℙ¹ with (-e₁ + n·e₂). For n=2, the divisor opposite to (0,1) becomes a (-2)-curve. Smooth, projective; not isomorphic to ℙ¹×ℙ¹.', n:2},
+    'Bl0':  {rays:[[1,0],[1,1],[0,1]], maxcones:[[0,1],[1,2]],
+             lbl:'Bl₀ 𝔸²: subdivide the first quadrant',
+             desc:'Star subdivision of ⟨e₁, e₂⟩ inserting the new ray (1,1). The new ray gives the exceptional divisor E (a copy of ℙ¹). E·E = -1: Bl₀ 𝔸² is the smooth blowup of 𝔸² at the origin.', n:2},
+  };
+  let active = 'A2';
+
+  function render(){
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    const ex = EX[active];
+    // grid + axes
+    svg.appendChild(SVG('line',{x1:80,y1:cy,x2:680,y2:cy,stroke:'var(--line)','stroke-width':1}));
+    if(ex.n === 2){
+      svg.appendChild(SVG('line',{x1:cx,y1:30,x2:cx,y2:300,stroke:'var(--line)','stroke-width':1}));
+      // lattice dots
+      for(let i=-4;i<=4;i++) for(let j=-2;j<=2;j++){
+        svg.appendChild(SVG('circle',{cx:cx+i*scale, cy:cy-j*scale, r:1.4,fill:'var(--mute)','fill-opacity':0.4}));
+      }
+    } else {
+      for(let i=-5;i<=5;i++){
+        svg.appendChild(SVG('circle',{cx:cx+i*scale, cy:cy, r:1.6,fill:'var(--mute)','fill-opacity':0.4}));
+      }
+    }
+    // shade max cones
+    ex.maxcones.forEach((mc, i)=>{
+      const color = ['var(--blue)','var(--green)','var(--pink)','var(--cyan)'][i % 4];
+      if(mc.length === 1){
+        // 1d max cone: thick segment
+        const v = ex.rays[mc[0]];
+        svg.appendChild(SVG('line',{x1:cx, y1:cy, x2:cx+v[0]*scale*2.2, y2:cy-v[1]*scale*2.2,
+          stroke:color,'stroke-width':6,'stroke-opacity':0.45,'stroke-linecap':'round'}));
+      } else {
+        const a = ex.rays[mc[0]], b = ex.rays[mc[1]], far = 4;
+        const pts=[[cx,cy],
+          [cx+a[0]*scale*far, cy-a[1]*scale*far],
+          [cx+(a[0]+b[0])*scale*far/2, cy-(a[1]+b[1])*scale*far/2],
+          [cx+b[0]*scale*far, cy-b[1]*scale*far]];
+        svg.appendChild(SVG('polygon',{points:pts.map(p=>p.join(',')).join(' '),
+          fill:color,'fill-opacity':0.18, stroke:color,'stroke-width':1}));
+      }
+    });
+    // rays
+    ex.rays.forEach((v,i)=>{
+      const x2 = cx + v[0]*scale*2.5, y2 = cy - v[1]*scale*2.5;
+      svg.appendChild(SVG('line',{x1:cx,y1:cy,x2,y2,stroke:'var(--ink)','stroke-width':2,'stroke-linecap':'round'}));
+      // generator dot
+      svg.appendChild(SVG('circle',{cx:cx+v[0]*scale, cy:cy-v[1]*scale, r:5,
+        fill:'var(--yellow)',stroke:'#fff','stroke-width':1.5}));
+      const tx = SVG('text',{x:cx+v[0]*scale*1.6 + 4*Math.sign(v[0]||0.1), y:cy-v[1]*scale*1.6 + 4,
+        'font-size':11,fill:'var(--yellow)','text-anchor': v[0]>0?'start':v[0]<0?'end':'middle'});
+      tx.textContent = `(${v[0]},${v[1]})`;
+      svg.appendChild(tx);
+    });
+    // tip
+    svg.appendChild(SVG('circle',{cx:cx, cy:cy, r:3.5, fill:'var(--ink)'}));
+    const lab = SVG('text',{x:cx, y:38,'text-anchor':'middle','font-size':13,fill:'var(--ink)','font-weight':600});
+    lab.textContent = ex.lbl;
+    svg.appendChild(lab);
+    // readout
+    out.textContent = ex.desc;
+  }
+
+  buttons.forEach(b => b.addEventListener('click', ()=>{
+    active = b.getAttribute('data-ex');
+    buttons.forEach(x => x.classList.toggle('active', x === b));
+    render();
+  }));
+  render();
+})();
+</script>
+
+<h3>Why $\mathbb{P}^n$ has the fan it has</h3>
+<p>Fix the lattice $N = \mathbb{Z}^n$ with standard basis $e_1, \ldots, e_n$. Define one extra vector $e_0 = -e_1 - \cdots - e_n$. The fan $\Sigma_{\mathbb{P}^n}$ has $n+1$ rays through $e_0, e_1, \ldots, e_n$ and a maximal cone for every $n$-subset of these rays. Every face is convex (since the $e_i$ sum to zero) and the fan covers all of $N_\mathbb{R}$ (so $\mathbb{P}^n$ is complete). The $n+1$ maximal cones give the $n+1$ standard affine charts $U_i = \{x_i \neq 0\} \cong \mathbb{A}^n$, glued exactly the way projective space is glued.</p>
+
+<h3>Hirzebruch surfaces $F_n$ as a one-parameter family</h3>
+<p>Take the fan of $\mathbb{P}^1 \times \mathbb{P}^1$ — four rays $\pm e_1, \pm e_2$ — and tilt the ray $-e_1$ to $-e_1 + n\,e_2$ for an integer $n \ge 0$. The result is the fan of $F_n$, the $n$th Hirzebruch surface, a smooth projective ruled surface. The toric divisor coming from the now-tilted ray has self-intersection $-n$. So $F_0 = \mathbb{P}^1 \times \mathbb{P}^1$, $F_1 = \mathrm{Bl}_p \mathbb{P}^2$, and $F_n$ for $n \ge 2$ have a unique negative-self-intersection curve, which obstructs them from being products. A whole arithmetic family generated by tilting one ray.</p>
+
+<h3>Blowing up the origin of $\mathbb{A}^2$</h3>
+<p>Start with $\sigma = \langle e_1, e_2 \rangle$ giving $U_\sigma = \mathbb{A}^2$. Add one new ray through the lattice point $(1,1)$, splitting $\sigma$ into $\sigma_1 = \langle e_1, (1,1) \rangle$ and $\sigma_2 = \langle (1,1), e_2 \rangle$. Both new cones are smooth (they're $\mathbb{Z}$-bases of $N$). The new ray contributes a new toric divisor — the exceptional $\mathbb{P}^1$. Computing self-intersection: from the smoothness relation $e_1 + e_2 = 1\cdot (1,1) = -(-1)\cdot(1,1)$, the integer $a$ comes out to $1$, giving $E \cdot E = -1$. We have just rebuilt the blowup of $\mathbb{A}^2$ at the origin, completely combinatorially.</p>
+
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./projective-plane.html#homog">Homogeneous equations and charts</a></li>
+  </ul>
+</aside>
+
+<div class="quiz" data-concept="tv-examples"></div>
+</section>
+
+<section id="cox">
+<h2>5. Cox ring and intersection numbers</h2>
+<p>The character ring $\mathbb{C}[M]$ is the ring of functions on the open torus. To go to global functions on $X_\Sigma$ — and in fact to the <em>total</em> coordinate ring — we package together the line bundles on $X_\Sigma$.</p>
+
+<p>Each ray $\rho \in \Sigma^{(1)}$ contributes a torus-invariant divisor $D_\rho$. These divisors generate the divisor class group:</p>
+$$\mathrm{Cl}(X_\Sigma) \;=\; \bigoplus_{\rho \in \Sigma^{(1)}} \mathbb{Z}\,D_\rho \;\Big/\; \big\langle \,\sum_\rho \langle u, u_\rho\rangle\, D_\rho \,:\, u \in M\,\big\rangle.$$
+<p>The relations come from principal divisors: a character $\chi^u$ is a global rational function whose divisor is $\sum_\rho \langle u, u_\rho\rangle\, D_\rho$, where $u_\rho$ is the primitive lattice generator of $\rho$. Modding out gives $\mathrm{Cl}(X_\Sigma)$.</p>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Cox ring (total coordinate ring).</strong>
+$$\mathrm{Cox}(X_\Sigma) \;=\; \bigoplus_{[D] \in \mathrm{Cl}(X_\Sigma)} H^0(X_\Sigma, \mathcal{O}_{X_\Sigma}(D)).$$
+Concretely it is the polynomial ring $\mathbb{C}[x_\rho \,:\, \rho \in \Sigma^{(1)}]$ — one variable per ray — graded by $\mathrm{Cl}(X_\Sigma)$ via $\deg x_\rho = [D_\rho]$.</p>
+</div>
+
+<p>For $\mathbb{P}^n$, the rays are $e_0, \ldots, e_n$ with the relation $\sum e_i = 0$ giving $D_{e_0} + \cdots + D_{e_n} = 0$ in $\mathrm{Cl}(\mathbb{P}^n) = \mathbb{Z}\cdot H$, so each $D_{e_i} = H$ has degree $1$. Hence $\mathrm{Cox}(\mathbb{P}^n) = \mathbb{C}[x_0, \ldots, x_n]$ graded by $\deg x_i = 1$ — exactly the homogeneous coordinate ring you already know.</p>
+
+<h3>Intersection numbers from the fan</h3>
+<p>Toric divisors intersect by a recipe entirely encoded in $\Sigma$. On a smooth complete toric surface $X_\Sigma$ with rays cyclically ordered $\rho_1, \rho_2, \ldots, \rho_d$ (with $\rho_{d+1} = \rho_1$):</p>
+<ul>
+  <li>$D_{\rho_i} \cdot D_{\rho_j} = 1$ if $\rho_i, \rho_j$ are adjacent rays (i.e. span a $2$-cone of $\Sigma$);</li>
+  <li>$D_{\rho_i} \cdot D_{\rho_j} = 0$ if $\rho_i, \rho_j$ are not adjacent;</li>
+  <li>$D_{\rho_i} \cdot D_{\rho_i} = -a_i$, where $a_i$ is determined by the lattice relation $u_{\rho_{i-1}} + u_{\rho_{i+1}} = -a_i\, u_{\rho_i}$.</li>
+</ul>
+
+<p>The pencil-and-paper calculation $H \cdot H = 1$ on $\mathbb{P}^2$:</p>
+<p>The divisor $H$ on $\mathbb{P}^2$ is $D_{e_0} + D_{e_1} + D_{e_2} - 2 D_{e_2}$ — actually we just take any one $D_{e_i} = H$ since they all agree in $\mathrm{Cl}(\mathbb{P}^2) = \mathbb{Z}$. Compute $D_{e_0} \cdot D_{e_0}$: the rays $e_1, e_2$ neighbour $e_0$, and the smoothness relation is $e_1 + e_2 = -1\cdot e_0$ (since $e_0 + e_1 + e_2 = 0$, so $e_1 + e_2 = -e_0$, giving $a = 1$). Hence $H \cdot H = D_{e_0}^2 = -(-1) = 1$. ✓</p>
+
+<div class="widget" id="w-int">
+  <div class="hd"><div class="ttl">Intersection table for selected toric surfaces</div><div class="hint">switch surface to see the table</div></div>
+  <div class="row">
+    <button data-srf="P2" class="active">ℙ²</button>
+    <button data-srf="P1xP1">ℙ¹×ℙ¹</button>
+    <button data-srf="F2">F₂</button>
+    <button data-srf="Bl0P2">Bl₀ ℙ²</button>
+  </div>
+  <div class="readout" id="int-out"></div>
+</div><script>
+(function(){
+  const out = $('#int-out');
+  const buttons = $$('#w-int button[data-srf]');
+  // intersection tables
+  const SURFACES = {
+    'P2': {
+      title: 'ℙ²:  rays e₁, e₂, e₀ = -e₁-e₂',
+      labels: ['D₁', 'D₂', 'D₀'],
+      table: [[1, 1, 1],
+              [1, 1, 1],
+              [1, 1, 1]],
+      note: 'All three Dᵢ represent the hyperplane class H. Self-intersection = 1: smoothness rel ⇒ aᵢ = -1. Off-diag = 1 since adjacent. ⇒  H · H = 1. ✓'
+    },
+    'P1xP1': {
+      title: 'ℙ¹×ℙ¹:  rays ±e₁, ±e₂',
+      labels: ['D_e₁', 'D_e₂', 'D_-e₁', 'D_-e₂'],
+      table: [[ 0, 1, 0, 1],
+              [ 1, 0, 1, 0],
+              [ 0, 1, 0, 1],
+              [ 1, 0, 1, 0]],
+      note: 'Two divisor classes f₁ = [D_e₁] = [D_-e₁] and f₂ = [D_e₂] = [D_-e₂]. f₁² = 0, f₂² = 0, f₁·f₂ = 1 (the two rulings).'
+    },
+    'F2': {
+      title: 'F₂:  rays e₁, e₂, -e₁+2e₂, -e₂',
+      labels: ['D₁', 'D₂', 'D₃', 'D₄'],
+      table: [[ 0, 1, 0, 1],
+              [ 1,-2, 1, 0],
+              [ 0, 1, 0, 1],
+              [ 1, 0, 1, 2]],
+      note: 'D₂ is a (-2)-curve: u₁+u₃ = (1,0)+(-1,2) = (0,2) = -(-2)·(0,1) ⇒ a₂ = -2. D₄ is a (+2)-curve, the section at infinity.'
+    },
+    'Bl0P2': {
+      title: 'Bl₀ ℙ²:  rays e₁, e₂, e₀=-e₁-e₂, e=(1,1)... wait, Bl₀ 𝔸²',
+      labels: ['D_e₁', 'E', 'D_e₂'],
+      table: [[ 0, 1, 0],
+              [ 1,-1, 1],
+              [ 0, 1, 0]],
+      note: 'For Bl₀ 𝔸² (chart only): exceptional E = D_(1,1) has E² = -1 from u_{e₁}+u_{e₂} = (1,1) = 1·u_E ⇒ a = 1. ✓ The hallmark (-1)-curve of a blowup.'
+    }
+  };
+  function render(srf){
+    const data = SURFACES[srf];
+    let s = data.title + '\n\n';
+    // header
+    s += '       ' + data.labels.map(l => l.padStart(7)).join('') + '\n';
+    for(let i=0;i<data.labels.length;i++){
+      s += data.labels[i].padEnd(7);
+      for(let j=0;j<data.labels.length;j++){
+        const v = data.table[i][j];
+        const cell = (v >= 0 ? ' ' + v : '' + v);
+        s += cell.padStart(7);
+      }
+      s += '\n';
+    }
+    s += '\n' + data.note;
+    out.textContent = s;
+  }
+  buttons.forEach(b => b.addEventListener('click', ()=>{
+    buttons.forEach(x => x.classList.toggle('active', x === b));
+    render(b.getAttribute('data-srf'));
+  }));
+  render('P2');
+})();
+</script>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./intersection-theory-chow.html#chow-ring-of-pn">Intersection theory &amp; Chow groups</a> · $A^*(\mathbb{P}^n) = \mathbb{Z}[h]/(h^{n+1})$</li>
+    <li><a href="./intersection-theory-chow.html#intersection-product">Intersection theory &amp; Chow groups</a> · Intersection product on smooth $X$</li>
+    <li><a href="./projective-plane.html#homog">Projective plane</a> · Homogeneous equations and charts</li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+<div class="quiz" data-concept="tv-cox"></div>
+</section>
+
+<section id="mirror">
+<h2>6. Mirror symmetry preview</h2>
+<p>The most striking application of toric varieties to "exotic" geometry is Batyrev's construction of mirror Calabi-Yau pairs. The ingredients are mostly polytopes, and the output is two families of CY hypersurfaces whose Hodge numbers are <em>swapped</em> in a way that string theorists predicted on physical grounds.</p>
+
+<div class="note">
+<p style="margin:.2rem 0"><strong>Reflexive polytope.</strong> A lattice polytope $\Delta \subset M_\mathbb{R}$ containing the origin in its interior is <em>reflexive</em> iff the polar dual</p>
+$$\Delta^\circ \;=\; \{\, v \in N_\mathbb{R} \,:\, \langle v, m\rangle \ge -1 \text{ for all } m \in \Delta\,\}$$
+<p style="margin:.2rem 0">is itself a lattice polytope.</p>
+</div>
+
+<p>Equivalently, $0$ is the unique interior lattice point of $\Delta$ and every facet of $\Delta$ has lattice distance $1$ from the origin. Reflexivity is rare and rigid — there are exactly $16$ reflexive polygons in dimension $2$ (corresponding to the $16$ Gorenstein toric Fano surfaces), $4319$ in dimension $3$, and a famous Kreuzer-Skarke list of $473\,800\,776$ in dimension $4$.</p>
+
+<p><strong>Batyrev's construction.</strong> A reflexive polytope $\Delta$ has a normal fan $\Sigma_\Delta$ (the rays are inner normals to facets, the maximal cones are normal cones at vertices). The toric variety $X_\Delta := X_{\Sigma_\Delta}$ is a Gorenstein toric Fano variety. A generic anticanonical hypersurface in $X_\Delta$ is a Calabi-Yau variety. Batyrev showed: the analogous hypersurface in $X_{\Delta^\circ}$ is the <em>mirror</em> Calabi-Yau, with Hodge numbers $h^{1,1}$ and $h^{n-1,1}$ swapped:</p>
+$$h^{1,1}\!\big(X_\Delta^{\mathrm{CY}}\big) \;=\; h^{n-1,1}\!\big(X_{\Delta^\circ}^{\mathrm{CY}}\big), \qquad h^{n-1,1}\!\big(X_\Delta^{\mathrm{CY}}\big) \;=\; h^{1,1}\!\big(X_{\Delta^\circ}^{\mathrm{CY}}\big).$$
+
+<p>The quintic threefold $\{f_5 = 0\} \subset \mathbb{P}^4$ is the historical poster child: $\mathbb{P}^4$ is $X_{\Delta_4}$ for the $4$-simplex $\Delta_4$ (a reflexive polytope), and $\Delta_4^\circ$ gives a different toric Fano whose generic anticanonical hypersurface is the mirror quintic, with the famous $h^{1,1}$/$h^{2,1}$ swap $(1, 101) \leftrightarrow (101, 1)$.</p>
+
+<p class="small">This combinatorial mirror was the first systematic recipe for producing mirror pairs and remains the single richest source of explicit examples. Going further — establishing mirror symmetry as an equivalence of categories (homological mirror symmetry) or matching enumerative invariants (Gromov-Witten = period integrals) — is the work of the next several pages.</p>
+
+<!-- callback-auto-begin -->
+<aside class="callback">
+  <div class="ttl">See also</div>
+  <ul>
+    <li><a href="./calabi-yau-manifolds.html#cy-mirror-pair">Calabi–Yau manifolds</a> · Mirror pair statement</li>
+    <li><a href="./mirror-symmetry.html#ms-mirror-pair-statement">Mirror symmetry</a> · Mirror pair statement</li>
+    <li><a href="./mirror-symmetry.html#ms-quintic-prediction">Mirror symmetry</a> · Mirror quintic prediction</li>
+  </ul>
+</aside>
+<!-- callback-auto-end -->
+
+<div class="quiz" data-concept="tv-mirror"></div>
+</section>
+
+<section id="connections">
+<h2>Connections</h2>
+
+<p>Toric geometry is the cleanest test bed in algebraic geometry: every concept is a picture, every theorem becomes a check on lattice combinatorics, and counterexamples are easy to construct. The frontier today is in <em>going beyond toric</em>: log Calabi-Yau pairs, T-varieties (with smaller torus actions), tropicalizations of non-toric varieties, and combinatorial mirror constructions for spaces that aren't themselves toric.</p>
+
+<ul>
+<li><a href="./schemes.html#projective-scheme">Schemes</a> — Proj construction — the alternative path to $\mathbb{P}^n$, here recovered as a toric variety glued from $n+1$ affine charts.</li>
+<li><a href="./intersection-theory-chow.html#chow-ring-of-pn">Intersection theory &amp; Chow groups</a> — $A^*(\mathbb{P}^n)$ — toric intersection numbers compute the Chow ring directly from the fan.</li>
+<li><a href="./calabi-yau-manifolds.html#cy-examples">Calabi–Yau manifolds</a> — examples — most explicit CY 3-folds in the literature are anticanonical hypersurfaces in toric Fano fourfolds.</li>
+<li><a href="./mirror-symmetry.html#ms-quintic-prediction">Mirror symmetry</a> — the quintic prediction — Batyrev's reflexive polytope swap is the source of the original combinatorial mirror.</li>
+<li><a href="./resolution-of-singularities.html">Resolution of singularities</a> — toric singularities are resolved by combinatorial subdivision; the general case is harder by orders of magnitude.</li>
+</ul>
+</section>
+
+</main>
+
+<script>
+(function(){
+  function start(){ if(window.MVQuiz) MVQuiz.init('toric-varieties'); }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<details class="changelog">
+  <summary>changelog</summary>
+  <table>
+    <tbody>
+      <tr><td>2026-05-06</td><td>initial version</td></tr>
+    </tbody>
+  </table>
+</details>
+
+</body>
+</html>

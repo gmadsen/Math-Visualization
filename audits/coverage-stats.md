@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **148**, concepts: **1050**
+- Topics: **151**, concepts: **1068**
 - Widgets: **1077** (registry-driven: 1077, inline: 0)
-- Quizzes: **4344** (v1: 3108, hard: 1223, expert: 13)
-- Quiz types: mcq: 2878, numeric: 1073, multi-select: 166, matching: 82, ordering: 57, spot-the-error: 38, complex: 29, proof-completion: 17, construction: 2, guess-my-rule: 2
-- Concepts lacking a widget in their section: **146**
-- Concepts lacking a hard-tier quiz: **612**
+- Quizzes: **4398** (v1: 3162, hard: 1223, expert: 13)
+- Quiz types: mcq: 2911, numeric: 1086, multi-select: 174, matching: 82, ordering: 57, spot-the-error: 38, complex: 29, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Concepts lacking a widget in their section: **164**
+- Concepts lacking a hard-tier quiz: **630**
 
 ## Per-slug registry adoption
 
@@ -678,23 +678,23 @@ page has wired one in yet.
 
 ### Geometry & topology
 
-- Topics: **16**, concepts: **104**
+- Topics: **17**, concepts: **110**
 - Widgets: **109** (registry-driven: 109, inline: 0)
   - by family: button-stepper: 34, surface-viewer: 6, verbatim: 5, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, mostow-rigidity-dial: 1, mostow-h3-fundamental-domain: 1, mostow-boundary-extension: 1, mostow-boundary-orbit: 1, mostow-rank-tower: 1, mostow-volume-spectrum: 1, symplectic-form-pairing: 1, symplectic-darboux-moser: 1, symplectic-harmonic-portrait: 1, symplectic-dirac-ladder: 1, symplectic-cotangent-lagrangians: 1, symplectic-floer-intersections: 1, knot-polynomials-gallery: 1, knot-polynomials-reidemeister: 1, knot-polynomials-alexander: 1, knot-polynomials-bracket: 1, knot-polynomials-homfly: 1, knot-polynomials-rmatrix: 1, ricci-einstein-flows: 1, ricci-deturck-trick: 1, ricci-blowup-rates: 1, ricci-soliton-zoo: 1, ricci-neckpinch-surgery: 1, ricci-extinction-timeline: 1, k-theory-grothendieck-builder: 1, k-theory-ses-relations: 1, k-theory-bott-periodicity: 1, k-theory-chern-character: 1, k-theory-low-k-groups: 1, k-theory-index-theorem: 1, atiyah-singer-index-family: 1, atiyah-singer-symbol: 1, atiyah-singer-ch-td: 1, atiyah-singer-cases: 1, atiyah-singer-dirac-sphere: 1, atiyah-singer-anomaly: 1, counterexample-explorer: 1, proof-scrubber: 1, lattice-visualizer: 1, characteristic-classes-mobius-vs-cylinder: 1, characteristic-classes-w1-surfaces: 1, characteristic-classes-c1-clutching: 1, characteristic-classes-pontryagin-formulas: 1, characteristic-classes-poincare-hopf: 1, characteristic-classes-gauss-bonnet: 1, characteristic-classes-classifying-map: 1, characteristic-classes-signature-l-genus: 1, characteristic-classes-cpn-localisation: 1, morse-torus-height: 1, morse-handle-decomp: 1, morse-cw-cells: 1, morse-betti-counts: 1, morse-gradient-flow: 1, morse-sphere-vs-rp2: 1, morse-smale-saddle: 1, morse-cerf-birth-death: 1
   - by dimension: 2d: 103, 3d: 6
   - by gesture: click: 61, slider: 23, drag: 8, button-stepper: 6, step: 3, select: 3, pick: 2, static: 2, timeline: 1
-- Quizzes: **454** (v1: 312, hard: 142, expert: 0)
-  - by type: mcq: 313, numeric: 123, complex: 7, multi-select: 5, matching: 4, ordering: 1, proof-completion: 1
+- Quizzes: **472** (v1: 330, hard: 142, expert: 0)
+  - by type: mcq: 324, numeric: 129, complex: 7, multi-select: 6, matching: 4, ordering: 1, proof-completion: 1
 
 ### Number theory
 
-- Topics: **14**, concepts: **98**
+- Topics: **15**, concepts: **104**
 - Widgets: **119** (registry-driven: 119, inline: 0)
   - by family: button-stepper: 66, verbatim: 9, clickable-diagram: 4, modular-arithmetic-clock: 4, input-form: 4, inline-code-cell: 4, declarative-host: 2, parametric-plot: 2, crypto-totient-units: 1, crypto-rsa-toy: 1, crypto-diffie-hellman: 1, crypto-ecc-points: 1, crypto-lwe-samples: 1, crypto-schnorr-protocol: 1, branching-proof-scrubber: 1, clickable-graph: 1, svg-illustration: 1, heights-naive-calculator: 1, heights-northcott-enumerator: 1, heights-weil-pullback: 1, heights-tate-averaging: 1, heights-mahler-measure: 1, heights-genus-growth: 1, heights-arakelov-decomposition: 1, counterexample-explorer: 1, ant-pnt-comparison: 1, ant-explicit-formula: 1, ant-zero-free-region: 1, ant-dirichlet-residue-wheel: 1, ant-sieve-truncation: 1, ant-bombieri-vinogradov: 1, proof-scrubber: 1
   - by dimension: 2d: 119
   - by gesture: click: 75, slider: 22, input: 8, edit: 4, interactive: 2, interact: 2, button: 1, static: 1, branching-timeline: 1, read: 1, select: 1, timeline: 1
-- Quizzes: **474** (v1: 291, hard: 183, expert: 0)
-  - by type: mcq: 320, numeric: 146, complex: 3, matching: 3, ordering: 1, guess-my-rule: 1
+- Quizzes: **492** (v1: 309, hard: 183, expert: 0)
+  - by type: mcq: 332, numeric: 149, multi-select: 3, complex: 3, matching: 3, ordering: 1, guess-my-rule: 1
 
 ### Modular forms & L-functions
 
@@ -708,13 +708,13 @@ page has wired one in yet.
 
 ### Algebraic geometry
 
-- Topics: **24**, concepts: **143**
+- Topics: **25**, concepts: **149**
 - Widgets: **151** (registry-driven: 151, inline: 0)
   - by family: button-stepper: 61, clickable-diagram: 23, verbatim: 7, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, calabi-yau-canonical-degree: 1, calabi-yau-hodge-diamond: 1, calabi-yau-hypersurface-zoo: 1, calabi-yau-periods: 1, calabi-yau-mirror-swap: 1, calabi-yau-syz-fibration: 1, mirror-hodge-diamond: 1, mirror-quintic-counts: 1, mirror-stable-map: 1, mirror-quintic-periods: 1, mirror-hms-pairing: 1, mirror-syz-fibration: 1, resolution-cusp-node-visualizer: 1, resolution-cuspidal-blowup: 1, resolution-tower-of-blowups: 1, resolution-curve-normalization: 1, resolution-ade-dynkin: 1, lattice-visualizer: 1, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, counterexample-explorer: 1
   - by dimension: 2d: 151
   - by gesture: click: 100, interact: 16, slider: 13, scrub: 7, select: 6, inspect: 5, drag: 2, read: 1, slide: 1
-- Quizzes: **674** (v1: 429, hard: 245, expert: 0)
-  - by type: mcq: 438, numeric: 188, multi-select: 19, matching: 14, spot-the-error: 7, ordering: 4, complex: 3, proof-completion: 1
+- Quizzes: **692** (v1: 447, hard: 245, expert: 0)
+  - by type: mcq: 448, numeric: 192, multi-select: 23, matching: 14, spot-the-error: 7, ordering: 4, complex: 3, proof-completion: 1
 
 ### Combinatorics & graph theory
 
@@ -749,8 +749,11 @@ page has wired one in yet.
 - `semigroup-theory-evolution-equations` (Analysis) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `special-relativity` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=19 (v1=19, hard=0, expert=0)
 - `klein-gordon-equation` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `cohomology-and-duality` (Geometry & topology) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `dirac-equation` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `iwasawa-theory` (Number theory) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `quantum-field-theory` (Mathematical physics) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `toric-varieties` (Algebraic geometry) — concepts=6, widgets=0 (slug=0), quiz=18 (v1=18, hard=0, expert=0)
 - `statistical-mechanics` (Mathematical physics) — concepts=7, widgets=7 (slug=7), quiz=21 (v1=21, hard=0, expert=0)
 - `advanced-complex-analysis` (Analysis) — concepts=13, widgets=5 (slug=5), quiz=39 (v1=39, hard=0, expert=0)
 - `groebner-bases` (Algebra & homological) — concepts=8, widgets=8 (slug=8), quiz=24 (v1=24, hard=0, expert=0)

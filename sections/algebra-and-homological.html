@@ -11,6 +11,7 @@
 <script src="../js/theme-toggle.js"></script>
 <script defer src="../js/progress.js"></script>
 <script defer src="../concepts/bundle.js"></script>
+<script defer src="../recent-updates.js"></script>
 <script src="../js/onboarding.js" defer></script>
 <script>
 (function(){
@@ -273,7 +274,7 @@
   .pathway-banner .pb-eyebrow{color:var(--cyan)}
   .tours-banner .pb-eyebrow{color:var(--yellow)}
   .history-banner .pb-eyebrow{color:var(--violet)}
-  .pathway-banner .pb-title,.tours-banner .pb-title,.history-banner .pb-title{font-size:1.15rem;font-weight:600;color:#fff;margin:0 0 3px}
+  .pathway-banner .pb-title,.tours-banner .pb-title,.history-banner .pb-title{font-size:1.15rem;font-weight:600;color:var(--ink);margin:0 0 3px}
   .pathway-banner .pb-desc,.tours-banner .pb-desc,.history-banner .pb-desc{color:var(--mute);font-size:0.92rem;margin:0;line-height:1.45}
   .pathway-banner .pb-arrow,.tours-banner .pb-arrow,.history-banner .pb-arrow{font-size:1.6rem;flex-shrink:0}
   .pathway-banner .pb-arrow{color:var(--cyan)}
@@ -300,7 +301,7 @@
   .featured-card .fc-eyebrow{font-size:0.7rem;letter-spacing:0.16em;
     text-transform:uppercase;color:var(--violet);font-weight:500;margin:0 0 2px}
   .featured-card.fc-continue .fc-eyebrow{color:var(--green)}
-  .featured-card .fc-title{font-size:1.05rem;font-weight:600;color:#fff;margin:0;
+  .featured-card .fc-title{font-size:1.05rem;font-weight:600;color:var(--ink);margin:0;
     line-height:1.35}
   .featured-card .fc-desc{color:var(--mute);font-size:0.9rem;margin:2px 0 0;
     line-height:1.45;flex:1;
@@ -314,7 +315,7 @@
   @media (max-width:640px){
     .featured-rail{grid-template-columns:1fr}
   }
-  h1{font-size:2.6rem;margin:0 0 0.6rem;letter-spacing:-0.02em;color:#fff}
+  h1{font-size:2.6rem;margin:0 0 0.6rem;letter-spacing:-0.02em;color:var(--ink)}
   .sub{color:var(--mute);margin:0 auto;max-width:640px;font-size:1.02rem}
   /* Section header: was a tiny muted eyebrow label; now a distinctive title
      row with a colored left-border marker, larger mixed-case type, and an
@@ -323,40 +324,70 @@
      (color goes on data-color, id goes separately) so the section-index
      builder regex (scripts/build-section-indexes.mjs) keeps matching section
      divs and picks up the title text cleanly. */
-  .sec{position:relative;margin:3rem 0 1rem;padding:0.35rem 0 0.55rem 0.85rem;
+  .sec{position:relative;margin:3rem 0 1rem;padding:0.4rem 0.75rem 0.6rem 0.95rem;
     border-left:3px solid var(--line);border-bottom:1px solid var(--line);
-    display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
-    font-size:1.18rem;font-weight:600;color:#fff;letter-spacing:-0.005em;
+    border-radius:0 6px 0 0;
+    display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    font-size:1.18rem;font-weight:600;color:var(--ink);letter-spacing:-0.005em;
     text-transform:none;scroll-margin-top:1.2rem;
     /* Click target for collapse/expand — pointer + subtle hover feedback. */
     cursor:pointer;user-select:none;
-    transition:border-bottom-color 180ms ease, padding-left 180ms ease}
-  .sec:hover{border-bottom-color:color-mix(in srgb, currentColor 50%, var(--line))}
+    transition:background 180ms ease, border-bottom-color 180ms ease,
+      border-left-width 180ms ease, padding-left 180ms ease}
+  .sec:hover{
+    border-bottom-color:color-mix(in srgb, currentColor 60%, var(--line));
+    background:color-mix(in srgb, currentColor 7%, transparent);
+    border-left-width:5px;padding-left:0.85rem}
+  .sec:focus-visible{outline:2px solid currentColor;outline-offset:2px}
   /* Chevron prefix — rotates when collapsed. Sits inside the heading text
      just before the section name; renders via ::before so the section-index
      builder regex still matches the bare text node. */
   .sec::before{
-    content:"";display:inline-block;width:8px;height:8px;margin-right:0.55rem;
+    content:"";display:inline-block;width:9px;height:9px;margin-right:0.6rem;
     border-right:2px solid currentColor;border-bottom:2px solid currentColor;
     transform:rotate(45deg) translateY(-2px);
-    transition:transform 220ms cubic-bezier(0.4,0,0.2,1);
-    opacity:0.7}
-  .sec.is-collapsed::before{transform:rotate(-45deg) translateY(0)}
-  .sec.is-collapsed{margin-bottom:0.4rem;border-bottom-color:transparent}
+    transition:transform 240ms cubic-bezier(0.4,0,0.2,1), opacity 180ms ease;
+    opacity:0.65}
+  .sec:hover::before{opacity:1}
+  .sec.is-collapsed::before{transform:rotate(-45deg) translateY(0);opacity:1}
+  /* Collapsed sections have a much more distinct pill-like presence than
+     the expanded ones — accent-tinted background, rounded right edge,
+     bumped left border, and the chevron reads as a clear "click to
+     expand" affordance. They feel like card stubs, not flat rows. */
+  .sec.is-collapsed{
+    margin-bottom:0.5rem;
+    border-bottom-color:transparent;
+    border-left-width:5px;
+    border-radius:0 10px 10px 0;
+    background:color-mix(in srgb, currentColor 9%, transparent);
+    box-shadow:inset 0 0 0 1px color-mix(in srgb, currentColor 18%, transparent);
+  }
+  .sec.is-collapsed:hover{
+    background:color-mix(in srgb, currentColor 14%, transparent);
+    box-shadow:inset 0 0 0 1px color-mix(in srgb, currentColor 36%, transparent);
+  }
+  /* Collapsed-state hint: when collapsed, swap the topic count's neutral
+     mute color for a faint accent so the row reads as "I'm tinted in
+     this section's color, click me." */
+  .sec.is-collapsed .sec-count{color:color-mix(in srgb, currentColor 65%, var(--ink))}
   /* Collapsed state — hide the next .grid sibling and the section-end
      spacing. Use display:none so the page actually shrinks. */
   .sec.is-collapsed + .grid{display:none}
   .sec .sec-count{font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;
     color:var(--mute);font-family:ui-monospace,Menlo,monospace;font-weight:500;
     white-space:nowrap}
-  /* Right-aligned stats group: topic count only. The 18px mastery ring used
-     to live here too but was too small to register and added chromatic
-     clutter on top of 130+ colored card thumbs; it was removed in the
-     audit-driven palette pass. The full mastery picture lives on
-     pathway.html. The .sec-ring rules are retained as no-ops so any
-     previously cached SVG attached at runtime stays invisible rather
-     than breaking layout. */
-  .sec .sec-stats{display:inline-flex;align-items:center;gap:8px;flex-shrink:0}
+  /* Right-aligned stats group: progress bar + count. The .sec-progress is a
+     thin horizontal mastery bar populated by the script block at the bottom
+     of body. It's keyed off MVProgress so it reflects v1-tier mastery for
+     every concept inside every topic in the section. */
+  .sec .sec-stats{display:inline-flex;align-items:center;gap:10px;flex-shrink:0}
+  .sec .sec-progress{position:relative;width:84px;height:4px;border-radius:2px;
+    background:var(--line);overflow:hidden;flex-shrink:0;
+    box-shadow:inset 0 0 0 1px color-mix(in srgb, currentColor 12%, transparent)}
+  .sec .sec-progress .fill{position:absolute;inset:0 auto 0 0;height:100%;
+    background:currentColor;border-radius:2px;
+    transition:width 360ms cubic-bezier(0.4,0,0.2,1)}
+  .sec .sec-progress[data-empty="1"]{opacity:0.42}
   .sec .sec-ring{display:none}
   /* Section accent via data-color attribute (not a class) so the class
      attribute stays exactly "sec" and the section-index builder's regex
@@ -470,7 +501,7 @@
   .mvdrawer.open{transform:translateX(0)}
   .mvdrawer .mvd-head{display:flex;align-items:flex-start;justify-content:space-between;
     gap:12px;padding:1.1rem 1.2rem 0.8rem;border-bottom:1px solid var(--line)}
-  .mvdrawer .mvd-title{margin:0;font-size:1.08rem;color:#fff;font-weight:600;line-height:1.3}
+  .mvdrawer .mvd-title{margin:0;font-size:1.08rem;color:var(--ink);font-weight:600;line-height:1.3}
   .mvdrawer .mvd-sub{margin:4px 0 0;color:var(--mute);font-size:0.8rem;
     font-family:ui-monospace,Menlo,monospace;letter-spacing:0.02em}
   .mvdrawer .mvd-close{background:transparent;border:1px solid var(--line);
@@ -492,7 +523,7 @@
     transition:background 150ms ease}
   .mvdrawer .mvd-item:hover{background:var(--panel2)}
   .mvdrawer .mvd-item .mvd-t{flex:1;min-width:0}
-  .mvdrawer .mvd-item .mvd-tlabel{color:#fff;font-weight:500}
+  .mvdrawer .mvd-item .mvd-tlabel{color:var(--ink);font-weight:500}
   .mvdrawer .mvd-item .mvd-state{display:block;font-size:0.72rem;color:var(--mute);
     font-family:ui-monospace,Menlo,monospace;letter-spacing:0.02em;margin-top:2px}
   .mvdrawer .mvd-item.locked .mvd-tlabel{color:var(--mute)}
@@ -516,10 +547,12 @@
       transform:translateY(100%)}
     .mvdrawer.open{transform:translateY(0)}
   }
-  /* "Recently updated" strip: populated by the script block at the bottom of <body>.
-     The #recently-updated container is hidden by default and only revealed once the
-     script successfully fetches and parses at least one topic's changelog footer.
-     Under file:// the script bails early so the strip stays hidden — no empty header. */
+  /* "Recently updated" strip: populated by the script block at the bottom of <body>
+     from `window.MV_RECENT_UPDATES` (see ./recent-updates.js, generated by
+     scripts/build-recent-updates.mjs from `git log -1 -- quizzes/<slug>.json`).
+     The container stays `display:none` until the script confirms the manifest
+     has at least one entry, then sets `.ready` to reveal. Works under file://
+     since recent-updates.js is loaded as a <script> tag, no fetch needed. */
   #recently-updated{display:none;margin:0 0 0.4rem}
   #recently-updated.ready{display:block}
   #recently-updated .ru-head{font-size:0.78rem;letter-spacing:0.16em;text-transform:uppercase;
@@ -534,7 +567,7 @@
   .ru-card .ru-date{font-size:0.72rem;font-family:ui-monospace,Menlo,monospace;
     color:var(--mute);white-space:nowrap;font-variant-numeric:tabular-nums;flex-shrink:0;
     min-width:6.2em}
-  .ru-card .ru-title{font-weight:600;font-size:0.95rem;color:#fff;flex:1;min-width:0;
+  .ru-card .ru-title{font-weight:600;font-size:0.95rem;color:var(--ink);flex:1;min-width:0;
     overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .ru-card .ru-tag{font-size:0.7rem;padding:1px 8px;border-radius:999px;
     background:var(--panel2);color:var(--mute);border:1px solid var(--line);
@@ -546,6 +579,7 @@
   .ru-card.p .ru-title{color:var(--pink)}   .ru-card.p:hover{border-color:var(--pink)}
   .ru-card.v .ru-title{color:var(--violet)} .ru-card.v:hover{border-color:var(--violet)}
   .ru-card.c .ru-title{color:var(--cyan)}   .ru-card.c:hover{border-color:var(--cyan)}
+  .ru-card.o .ru-title{color:var(--orange)} .ru-card.o:hover{border-color:var(--orange)}
   @media (max-width:520px){
     .ru-card{padding:0.5rem 0.65rem;gap:8px}
     .ru-card .ru-date{font-size:0.68rem;min-width:5.6em}
@@ -591,25 +625,6 @@
     </a>
 
 
-  <a class="card b" href="../category-theory.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <g fill="var(--blue)"><circle cx="28" cy="22" r="3.6"/><circle cx="72" cy="22" r="3.6"/><circle cx="28" cy="58" r="3.6"/><circle cx="72" cy="58" r="3.6"/></g>
-        <g stroke="var(--blue)" stroke-width="1.3" fill="none">
-          <line x1="32" y1="22" x2="68" y2="22"/>
-          <line x1="32" y1="58" x2="68" y2="58"/>
-          <line x1="28" y1="26" x2="28" y2="54"/>
-          <line x1="72" y1="26" x2="72" y2="54"/>
-        </g>
-        <line x1="32" y1="26" x2="68" y2="54" stroke="var(--blue)" stroke-dasharray="2 2" stroke-width="1" opacity="0.55"/>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Category theory</div>
-        <div class="desc">Objects, arrows, functors, naturality, Yoneda, (co)limits, adjunctions — plus a proof-stepper that builds diagrams arrow by arrow.</div>
-        <span class="tag">functors · Yoneda · adjoints</span>
-      </div>
-    </a>
-
-
   <a class="card p" href="../representation-theory.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
         <!-- weight diagram: integer lattice points on a horizontal axis -->
@@ -639,88 +654,7 @@
     </a>
 
 
-  <a class="card g" href="../commutative-algebra.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <g fill="none" stroke="var(--green)" stroke-width="1.5">
-          <rect x="10" y="30" width="24" height="22" rx="3"/>
-          <rect x="66" y="30" width="24" height="22" rx="3"/>
-        </g>
-        <text x="22" y="45" text-anchor="middle" font-size="12" fill="var(--green)" font-style="italic" font-family="serif">M</text>
-        <text x="78" y="45" text-anchor="middle" font-size="12" fill="var(--green)" font-style="italic" font-family="serif">N</text>
-        <text x="50" y="46" text-anchor="middle" font-size="18" fill="var(--green)">⊗</text>
-        <text x="50" y="22" text-anchor="middle" font-size="8" fill="var(--green)" opacity="0.75">over R</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Commutative algebra</div>
-        <div class="desc">Ideals, localization, tensor products, flatness, Nakayama, Krull dimension — the engine room underneath scheme theory.</div>
-        <span class="tag">ideals · ⊗ · flat</span>
-      </div>
-    </a>
-
-
-  <a class="card p" href="../homological.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <g fill="var(--pink)"><circle cx="15" cy="45" r="3.3"/><circle cx="40" cy="45" r="3.3"/><circle cx="65" cy="45" r="3.3"/><circle cx="90" cy="45" r="3.3"/></g>
-        <g stroke="var(--pink)" stroke-width="1.3" fill="none">
-          <line x1="18" y1="45" x2="37" y2="45"/>
-          <line x1="43" y1="45" x2="62" y2="45"/>
-          <line x1="68" y1="45" x2="87" y2="45"/>
-        </g>
-        <text x="27" y="38" text-anchor="middle" font-size="11" fill="var(--pink)" font-style="italic">∂</text>
-        <text x="52" y="38" text-anchor="middle" font-size="11" fill="var(--pink)" font-style="italic">∂</text>
-        <text x="77" y="38" text-anchor="middle" font-size="11" fill="var(--pink)" font-style="italic">∂</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Homological algebra</div>
-        <div class="desc">Chain complexes, exact sequences, the snake lemma, derived functors Ext &amp; Tor, resolutions, spectral sequences.</div>
-        <span class="tag">∂² = 0 · Ext · Tor</span>
-      </div>
-    </a>
-
-
-  <a class="card y" href="../derived-categories.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <line x1="18" y1="50" x2="38" y2="50" stroke="var(--blue)" stroke-width="1.5" marker-end="url(#arr-dc1)"/>
-        <line x1="42" y1="50" x2="62" y2="50" stroke="var(--green)" stroke-width="1.5" marker-end="url(#arr-dc1)"/>
-        <line x1="64" y1="48" x2="78" y2="32" stroke="var(--pink)" stroke-width="1.4" stroke-dasharray="2 2" marker-end="url(#arr-dc1)"/>
-        <defs><marker id="arr-dc1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L5,3 L0,6 z" fill="currentColor"/></marker></defs>
-        <text x="28" y="62" font-size="7" fill="var(--mute)">X</text>
-        <text x="52" y="62" font-size="7" fill="var(--mute)">Y</text>
-        <text x="68" y="62" font-size="7" fill="var(--mute)">Z</text>
-        <text x="78" y="22" font-size="7" fill="var(--mute)">X[1]</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Derived categories</div>
-        <div class="desc">Localize at quasi-isomorphisms to get $D(\mathcal{A})$: the natural home for derived functors $RF, LF$, exact triangles replacing short exact sequences, and $t$-structures recovering abelian hearts.</div>
-        <span class="tag">qiso · triangulated · RF / LF · t-structures</span>
-      </div>
-    </a>
-
-
-  <a class="card y" href="../group-cohomology.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <line x1="20" y1="58" x2="80" y2="58" stroke="var(--mute)" stroke-width="0.7"/>
-        <text x="22" y="34" font-size="9" fill="var(--yellow)" font-family="ui-monospace,monospace">H⁰</text>
-        <text x="40" y="34" font-size="9" fill="var(--yellow)" font-family="ui-monospace,monospace">H¹</text>
-        <text x="58" y="34" font-size="9" fill="var(--yellow)" font-family="ui-monospace,monospace">H²</text>
-        <text x="76" y="34" font-size="9" fill="var(--mute)" font-family="ui-monospace,monospace">H³</text>
-        <line x1="34" y1="38" x2="38" y2="38" stroke="var(--mute)" stroke-width="0.7"/>
-        <line x1="52" y1="38" x2="56" y2="38" stroke="var(--mute)" stroke-width="0.7"/>
-        <line x1="70" y1="38" x2="74" y2="38" stroke="var(--mute)" stroke-width="0.7"/>
-        <text x="22" y="48" font-size="6.5" fill="var(--mute)">M^G</text>
-        <text x="40" y="48" font-size="6.5" fill="var(--mute)">crossed</text>
-        <text x="58" y="48" font-size="6.5" fill="var(--mute)">extns</text>
-        <text x="50" y="74" text-anchor="middle" font-size="6.5" fill="var(--mute)">δ-functor → Hilbert 90 / Brauer</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Group cohomology</div>
-        <div class="desc">$H^n(G,M)$ via the bar resolution. $H^0 = M^G$, $H^1$ = crossed homs, $H^2$ classifies extensions; Galois cohomology gives Hilbert 90 and Brauer groups.</div>
-        <span class="tag">Algebra</span>
-      </div>
-    </a>
-
-
-    <a class="card y" href="../lie-algebras.html">
+  <a class="card y" href="../lie-algebras.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
 <g fill="var(--yellow)"><circle cx="50" cy="40" r="2.8"/></g>
         <g stroke="var(--yellow)" stroke-width="1.4" fill="none" marker-end="">
@@ -741,47 +675,6 @@
         <div class="tt">Lie algebras</div>
         <div class="desc">Bracket axioms and derivations, Killing form, solvable/nilpotent, Cartan–Killing classification, root systems, sl₂-triples, Dynkin.</div>
         <span class="tag">brackets · roots · Dynkin</span>
-      </div>
-    </a>
-
-
-    <a class="card y" href="../galois-cohomology-and-brauer.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-<g fill="var(--yellow)">
-          <circle cx="22" cy="60" r="3"/><circle cx="78" cy="60" r="3"/><circle cx="50" cy="18" r="3"/>
-        </g>
-        <g stroke="var(--yellow)" stroke-width="1.4" fill="none">
-          <line x1="22" y1="60" x2="78" y2="60"/>
-          <line x1="22" y1="60" x2="50" y2="18"/>
-          <line x1="78" y1="60" x2="50" y2="18"/>
-        </g>
-        <text x="50" y="48" text-anchor="middle" font-family="serif" font-size="11" font-style="italic" fill="var(--yellow)">σ·τ</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Galois cohomology and Brauer groups</div>
-        <div class="desc">Hⁱ(G, M) cocycles, H¹ classifies torsors, H² classifies extensions, the Brauer group as H²(Gal, K̄ˣ), Tate duality, Hasse principle.</div>
-        <span class="tag">cocycles · Brauer · Hasse</span>
-      </div>
-    </a>
-
-
-    <a class="card y" href="../quantum-groups.html">
-      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-<g stroke="var(--yellow)" stroke-width="1.5" fill="none">
-          <line x1="16" y1="20" x2="56" y2="60"/>
-          <line x1="36" y1="20" x2="76" y2="60"/>
-          <line x1="56" y1="20" x2="16" y2="60"/>
-          <line x1="76" y1="20" x2="36" y2="60"/>
-        </g>
-        <g fill="var(--yellow)" font-family="serif" font-size="11" font-style="italic">
-          <text x="46" y="40" text-anchor="middle">R</text>
-        </g>
-        <text x="50" y="74" text-anchor="middle" font-family="serif" font-size="10" fill="var(--yellow)">R₁₂R₁₃R₂₃ = R₂₃R₁₃R₁₂</text>
-      </svg></div>
-      <div class="body">
-        <div class="tt">Quantum groups</div>
-        <div class="desc">Hopf-algebra deformations $U_q(\mathfrak{g})$, Drinfeld–Jimbo R-matrices satisfying Yang–Baxter, knot invariants via Reshetikhin–Turaev.</div>
-        <span class="tag">U_q · R-matrix · Yang–Baxter · canonical basis</span>
       </div>
     </a>
 
@@ -836,38 +729,66 @@
     </a>
 
 
-    <a class="card y" href="../groebner-bases.html">
+    <a class="card y" href="../galois-cohomology-and-brauer.html">
       <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
-        <g fill="var(--yellow)">
-          <rect x="14" y="14" width="9" height="9" opacity="0.18"/>
-          <rect x="23" y="14" width="9" height="9" opacity="0.32"/>
-          <rect x="32" y="14" width="9" height="9" opacity="0.55"/>
-          <rect x="41" y="14" width="9" height="9" opacity="0.85"/>
-          <rect x="50" y="14" width="9" height="9" opacity="0.85"/>
-          <rect x="59" y="14" width="9" height="9" opacity="0.85"/>
-          <rect x="68" y="14" width="9" height="9" opacity="0.85"/>
-          <rect x="14" y="23" width="9" height="9" opacity="0.18"/>
-          <rect x="23" y="23" width="9" height="9" opacity="0.55"/>
-          <rect x="32" y="23" width="9" height="9" opacity="0.85"/>
-          <rect x="41" y="23" width="9" height="9" opacity="0.85"/>
-          <rect x="50" y="23" width="9" height="9" opacity="0.85"/>
-          <rect x="59" y="23" width="9" height="9" opacity="0.85"/>
-          <rect x="68" y="23" width="9" height="9" opacity="0.85"/>
-          <rect x="14" y="32" width="9" height="9" opacity="0.18"/>
-          <rect x="23" y="32" width="9" height="9" opacity="0.85"/>
-          <rect x="32" y="32" width="9" height="9" opacity="0.85"/>
-          <rect x="41" y="32" width="9" height="9" opacity="0.85"/>
-          <rect x="14" y="41" width="9" height="9" opacity="0.85"/>
-          <rect x="23" y="41" width="9" height="9" opacity="0.85"/>
-          <rect x="14" y="50" width="9" height="9" opacity="0.85"/>
+<g fill="var(--yellow)">
+          <circle cx="22" cy="60" r="3"/><circle cx="78" cy="60" r="3"/><circle cx="50" cy="18" r="3"/>
         </g>
-        <line x1="11" y1="65" x2="80" y2="65" stroke="var(--yellow)" stroke-width="1" opacity="0.7"/>
-        <line x1="11" y1="65" x2="11" y2="11" stroke="var(--yellow)" stroke-width="1" opacity="0.7"/>
+        <g stroke="var(--yellow)" stroke-width="1.4" fill="none">
+          <line x1="22" y1="60" x2="78" y2="60"/>
+          <line x1="22" y1="60" x2="50" y2="18"/>
+          <line x1="78" y1="60" x2="50" y2="18"/>
+        </g>
+        <text x="50" y="48" text-anchor="middle" font-family="serif" font-size="11" font-style="italic" fill="var(--yellow)">σ·τ</text>
       </svg></div>
       <div class="body">
-        <div class="tt">Gröbner bases <span class="level capstone">capstone</span></div>
-        <div class="desc">Computational commutative algebra: monomial orders, the multivariable division algorithm, S-polynomials and Buchberger's algorithm, and the elimination theorems that turn polynomial systems into solvers.</div>
-        <span class="tag">monomial · Buchberger · elimination · capstone</span>
+        <div class="tt">Galois cohomology and Brauer groups</div>
+        <div class="desc">Hⁱ(G, M) cocycles, H¹ classifies torsors, H² classifies extensions, the Brauer group as H²(Gal, K̄ˣ), Tate duality, Hasse principle.</div>
+        <span class="tag">cocycles · Brauer · Hasse</span>
+      </div>
+    </a>
+
+
+    <a class="card y" href="../group-cohomology.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <line x1="20" y1="58" x2="80" y2="58" stroke="var(--mute)" stroke-width="0.7"/>
+        <text x="22" y="34" font-size="9" fill="var(--yellow)" font-family="ui-monospace,monospace">H⁰</text>
+        <text x="40" y="34" font-size="9" fill="var(--yellow)" font-family="ui-monospace,monospace">H¹</text>
+        <text x="58" y="34" font-size="9" fill="var(--yellow)" font-family="ui-monospace,monospace">H²</text>
+        <text x="76" y="34" font-size="9" fill="var(--mute)" font-family="ui-monospace,monospace">H³</text>
+        <line x1="34" y1="38" x2="38" y2="38" stroke="var(--mute)" stroke-width="0.7"/>
+        <line x1="52" y1="38" x2="56" y2="38" stroke="var(--mute)" stroke-width="0.7"/>
+        <line x1="70" y1="38" x2="74" y2="38" stroke="var(--mute)" stroke-width="0.7"/>
+        <text x="22" y="48" font-size="6.5" fill="var(--mute)">M^G</text>
+        <text x="40" y="48" font-size="6.5" fill="var(--mute)">crossed</text>
+        <text x="58" y="48" font-size="6.5" fill="var(--mute)">extns</text>
+        <text x="50" y="74" text-anchor="middle" font-size="6.5" fill="var(--mute)">δ-functor → Hilbert 90 / Brauer</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Group cohomology</div>
+        <div class="desc">$H^n(G,M)$ via the bar resolution. $H^0 = M^G$, $H^1$ = crossed homs, $H^2$ classifies extensions; Galois cohomology gives Hilbert 90 and Brauer groups.</div>
+        <span class="tag">Algebra</span>
+      </div>
+    </a>
+
+
+    <a class="card y" href="../quantum-groups.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+<g stroke="var(--yellow)" stroke-width="1.5" fill="none">
+          <line x1="16" y1="20" x2="56" y2="60"/>
+          <line x1="36" y1="20" x2="76" y2="60"/>
+          <line x1="56" y1="20" x2="16" y2="60"/>
+          <line x1="76" y1="20" x2="36" y2="60"/>
+        </g>
+        <g fill="var(--yellow)" font-family="serif" font-size="11" font-style="italic">
+          <text x="46" y="40" text-anchor="middle">R</text>
+        </g>
+        <text x="50" y="74" text-anchor="middle" font-family="serif" font-size="10" fill="var(--yellow)">R₁₂R₁₃R₂₃ = R₂₃R₁₃R₁₂</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Quantum groups</div>
+        <div class="desc">Hopf-algebra deformations $U_q(\mathfrak{g})$, Drinfeld–Jimbo R-matrices satisfying Yang–Baxter, knot invariants via Reshetikhin–Turaev.</div>
+        <span class="tag">U_q · R-matrix · Yang–Baxter · canonical basis</span>
       </div>
     </a>
 
@@ -917,6 +838,119 @@
         <div class="tt">Model categories</div>
         <div class="desc">Quillen's axiomatic homotopy theory — weak equivalences, cofibrations, fibrations, and the lifting calculus that bridges chain complexes to $\infty$-categories.</div>
         <span class="tag">$W,F,C$ · lifting · Quillen equiv · $\infty$-bridge</span>
+      </div>
+    </a>
+
+
+    <a class="card y" href="../derived-categories.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <line x1="18" y1="50" x2="38" y2="50" stroke="var(--blue)" stroke-width="1.5" marker-end="url(#arr-dc1)"/>
+        <line x1="42" y1="50" x2="62" y2="50" stroke="var(--green)" stroke-width="1.5" marker-end="url(#arr-dc1)"/>
+        <line x1="64" y1="48" x2="78" y2="32" stroke="var(--pink)" stroke-width="1.4" stroke-dasharray="2 2" marker-end="url(#arr-dc1)"/>
+        <defs><marker id="arr-dc1" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L5,3 L0,6 z" fill="currentColor"/></marker></defs>
+        <text x="28" y="62" font-size="7" fill="var(--mute)">X</text>
+        <text x="52" y="62" font-size="7" fill="var(--mute)">Y</text>
+        <text x="68" y="62" font-size="7" fill="var(--mute)">Z</text>
+        <text x="78" y="22" font-size="7" fill="var(--mute)">X[1]</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Derived categories</div>
+        <div class="desc">Localize at quasi-isomorphisms to get $D(\mathcal{A})$: the natural home for derived functors $RF, LF$, exact triangles replacing short exact sequences, and $t$-structures recovering abelian hearts.</div>
+        <span class="tag">qiso · triangulated · RF / LF · t-structures</span>
+      </div>
+    </a>
+
+
+  <a class="card b" href="../category-theory.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <g fill="var(--blue)"><circle cx="28" cy="22" r="3.6"/><circle cx="72" cy="22" r="3.6"/><circle cx="28" cy="58" r="3.6"/><circle cx="72" cy="58" r="3.6"/></g>
+        <g stroke="var(--blue)" stroke-width="1.3" fill="none">
+          <line x1="32" y1="22" x2="68" y2="22"/>
+          <line x1="32" y1="58" x2="68" y2="58"/>
+          <line x1="28" y1="26" x2="28" y2="54"/>
+          <line x1="72" y1="26" x2="72" y2="54"/>
+        </g>
+        <line x1="32" y1="26" x2="68" y2="54" stroke="var(--blue)" stroke-dasharray="2 2" stroke-width="1" opacity="0.55"/>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Category theory</div>
+        <div class="desc">Objects, arrows, functors, naturality, Yoneda, (co)limits, adjunctions — plus a proof-stepper that builds diagrams arrow by arrow.</div>
+        <span class="tag">functors · Yoneda · adjoints</span>
+      </div>
+    </a>
+
+
+  <a class="card g" href="../commutative-algebra.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <g fill="none" stroke="var(--green)" stroke-width="1.5">
+          <rect x="10" y="30" width="24" height="22" rx="3"/>
+          <rect x="66" y="30" width="24" height="22" rx="3"/>
+        </g>
+        <text x="22" y="45" text-anchor="middle" font-size="12" fill="var(--green)" font-style="italic" font-family="serif">M</text>
+        <text x="78" y="45" text-anchor="middle" font-size="12" fill="var(--green)" font-style="italic" font-family="serif">N</text>
+        <text x="50" y="46" text-anchor="middle" font-size="18" fill="var(--green)">⊗</text>
+        <text x="50" y="22" text-anchor="middle" font-size="8" fill="var(--green)" opacity="0.75">over R</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Commutative algebra</div>
+        <div class="desc">Ideals, localization, tensor products, flatness, Nakayama, Krull dimension — the engine room underneath scheme theory.</div>
+        <span class="tag">ideals · ⊗ · flat</span>
+      </div>
+    </a>
+
+
+  <a class="card p" href="../homological.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <g fill="var(--pink)"><circle cx="15" cy="45" r="3.3"/><circle cx="40" cy="45" r="3.3"/><circle cx="65" cy="45" r="3.3"/><circle cx="90" cy="45" r="3.3"/></g>
+        <g stroke="var(--pink)" stroke-width="1.3" fill="none">
+          <line x1="18" y1="45" x2="37" y2="45"/>
+          <line x1="43" y1="45" x2="62" y2="45"/>
+          <line x1="68" y1="45" x2="87" y2="45"/>
+        </g>
+        <text x="27" y="38" text-anchor="middle" font-size="11" fill="var(--pink)" font-style="italic">∂</text>
+        <text x="52" y="38" text-anchor="middle" font-size="11" fill="var(--pink)" font-style="italic">∂</text>
+        <text x="77" y="38" text-anchor="middle" font-size="11" fill="var(--pink)" font-style="italic">∂</text>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Homological algebra</div>
+        <div class="desc">Chain complexes, exact sequences, the snake lemma, derived functors Ext &amp; Tor, resolutions, spectral sequences.</div>
+        <span class="tag">∂² = 0 · Ext · Tor</span>
+      </div>
+    </a>
+
+
+  <a class="card y" href="../groebner-bases.html">
+      <div class="thumb"><svg viewBox="0 0 100 80" width="90" height="74">
+        <g fill="var(--yellow)">
+          <rect x="14" y="14" width="9" height="9" opacity="0.18"/>
+          <rect x="23" y="14" width="9" height="9" opacity="0.32"/>
+          <rect x="32" y="14" width="9" height="9" opacity="0.55"/>
+          <rect x="41" y="14" width="9" height="9" opacity="0.85"/>
+          <rect x="50" y="14" width="9" height="9" opacity="0.85"/>
+          <rect x="59" y="14" width="9" height="9" opacity="0.85"/>
+          <rect x="68" y="14" width="9" height="9" opacity="0.85"/>
+          <rect x="14" y="23" width="9" height="9" opacity="0.18"/>
+          <rect x="23" y="23" width="9" height="9" opacity="0.55"/>
+          <rect x="32" y="23" width="9" height="9" opacity="0.85"/>
+          <rect x="41" y="23" width="9" height="9" opacity="0.85"/>
+          <rect x="50" y="23" width="9" height="9" opacity="0.85"/>
+          <rect x="59" y="23" width="9" height="9" opacity="0.85"/>
+          <rect x="68" y="23" width="9" height="9" opacity="0.85"/>
+          <rect x="14" y="32" width="9" height="9" opacity="0.18"/>
+          <rect x="23" y="32" width="9" height="9" opacity="0.85"/>
+          <rect x="32" y="32" width="9" height="9" opacity="0.85"/>
+          <rect x="41" y="32" width="9" height="9" opacity="0.85"/>
+          <rect x="14" y="41" width="9" height="9" opacity="0.85"/>
+          <rect x="23" y="41" width="9" height="9" opacity="0.85"/>
+          <rect x="14" y="50" width="9" height="9" opacity="0.85"/>
+        </g>
+        <line x1="11" y1="65" x2="80" y2="65" stroke="var(--yellow)" stroke-width="1" opacity="0.7"/>
+        <line x1="11" y1="65" x2="11" y2="11" stroke="var(--yellow)" stroke-width="1" opacity="0.7"/>
+      </svg></div>
+      <div class="body">
+        <div class="tt">Gröbner bases <span class="level capstone">capstone</span></div>
+        <div class="desc">Computational commutative algebra: monomial orders, the multivariable division algorithm, S-polynomials and Buchberger's algorithm, and the elimination theorems that turn polynomial systems into solvers.</div>
+        <span class="tag">monomial · Buchberger · elimination · capstone</span>
       </div>
     </a>
 

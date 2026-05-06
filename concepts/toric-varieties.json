@@ -1,0 +1,75 @@
+{
+  "topic": "toric-varieties",
+  "title": "Toric varieties",
+  "page": "toric-varieties.html",
+  "concepts": [
+    {
+      "id": "tv-fans",
+      "title": "Lattices, cones, and fans",
+      "anchor": "fans",
+      "prereqs": [
+        "modules-ca"
+      ],
+      "blurb": "A fan $\\Sigma$ in $N_\\mathbb{R} = N \\otimes \\mathbb{R}$ is a finite collection of strongly convex rational polyhedral cones, closed under taking faces and intersections; this combinatorial datum is the input that builds a toric variety.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "tv-affine",
+      "title": "Affine toric varieties $U_\\sigma$",
+      "anchor": "affine",
+      "prereqs": [
+        "tv-fans",
+        "spectrum-primes"
+      ],
+      "blurb": "Each cone $\\sigma$ produces an affine toric variety $U_\\sigma = \\Spec(\\mathbb{C}[\\sigma^\\vee \\cap M])$ where $M = \\Hom(N, \\mathbb{Z})$ is the dual lattice; the algebraic torus $T = (\\mathbb{C}^\\times)^n$ sits inside as the open dense orbit corresponding to the zero cone.",
+      "tags": [
+        "foundation"
+      ]
+    },
+    {
+      "id": "tv-dictionary",
+      "title": "The toric dictionary",
+      "anchor": "dictionary",
+      "prereqs": [
+        "tv-affine",
+        "gluing-affines"
+      ],
+      "blurb": "Cones in $\\Sigma$ are in inclusion-reversing bijection with $T$-orbits of $X_\\Sigma$; the orbit of $\\sigma$ has codimension $\\dim \\sigma$. Rays are codimension-one toric divisors, and refinements of $\\Sigma$ correspond to proper birational toric morphisms.",
+      "tags": [
+        "duality",
+        "classification"
+      ]
+    },
+    {
+      "id": "tv-examples",
+      "title": "Worked examples: $\\mathbb{P}^n$, $\\mathbb{P}^1 \\times \\mathbb{P}^1$, blowups",
+      "anchor": "examples",
+      "prereqs": [
+        "tv-dictionary",
+        "homogeneous-coordinates"
+      ],
+      "blurb": "$\\mathbb{P}^n$ is the fan whose maximal cones are spanned by all but one of $e_0, \\ldots, e_n$ with $\\sum e_i = 0$; $\\mathbb{P}^1 \\times \\mathbb{P}^1$ is its product fan; the Hirzebruch surface $F_n$ tilts one cone; blowing up the origin of $\\mathbb{A}^2$ subdivides the first quadrant by adding the ray through $(1,1)$."
+    },
+    {
+      "id": "tv-cox",
+      "title": "Cox ring and toric intersection numbers",
+      "anchor": "cox",
+      "prereqs": [
+        "tv-examples",
+        "intersection-product"
+      ],
+      "blurb": "The total coordinate ring $\\mathrm{Cox}(X_\\Sigma) = \\bigoplus_D H^0(X_\\Sigma, \\mathcal{O}(D))$ is graded by the class group $\\mathrm{Cl}(X_\\Sigma)$; toric divisors intersect by combinatorial recipes encoded in $\\Sigma$, recovering classical numbers like $H \\cdot H = 1$ on $\\mathbb{P}^2$."
+    },
+    {
+      "id": "tv-mirror",
+      "title": "Reflexive polytopes and Batyrev mirror pairs",
+      "anchor": "mirror",
+      "prereqs": [
+        "tv-cox"
+      ],
+      "blurb": "A lattice polytope $\\Delta$ is reflexive iff its polar dual $\\Delta^\\circ$ is also a lattice polytope; Batyrev's construction takes a generic Calabi-Yau hypersurface in the toric Fano $X_\\Delta$ and pairs it with one in $X_{\\Delta^\\circ}$, the original combinatorial source of mirror symmetry."
+    }
+  ]
+}
