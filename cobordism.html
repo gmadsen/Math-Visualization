@@ -329,7 +329,7 @@ function drawNode(svg, x, y, label, opts={}){
 
 <div class="note"><strong>Why these are cobordism invariants.</strong> If $\partial W = M$, then $TW|_M = TM\oplus\nu$ where $\nu$ is the rank-1 outward-normal bundle. Since $\nu$ is trivial near the boundary, $w(TM) = w(TW|_M)$. By naturality $w_i(TW|_M) = j^* w_i(TW)$ where $j\colon M\hookrightarrow W$. Then $\langle w_{i_1}\cdots w_{i_r}(TM),[M]\rangle = \langle j^*(w_{i_1}\cdots w_{i_r}(TW)),[M]\rangle = \langle w_{i_1}\cdots w_{i_r}(TW),j_*[M]\rangle = 0$, because $j_*[M]=\partial[W]=0$ in $H_n(W;\mathbb{Z}/2)$. So every SW number of $M$ vanishes whenever $M$ bounds.</div>
 
-<h3>The converse: Pontryagin's theorem (Thom, 1954)</h3>
+<h3>The converse: Thom's theorem (1954)</h3>
 <p>The astonishing fact is that Stiefel–Whitney numbers are a <em>complete</em> invariant of unoriented bordism:</p>
 <p style="text-align:center"><strong>$M$ is null-cobordant in $\Omega_*^{O}$ $\iff$ every Stiefel–Whitney number of $M$ vanishes.</strong></p>
 <p>Equivalently, two closed manifolds are cobordant iff all their SW numbers agree. So $\Omega_*^{O}\hookrightarrow\prod\mathbb{Z}/2$ via SW numbers is an injection — and Thom showed it determines the entire ring.</p>
@@ -509,7 +509,7 @@ The reverse map sends a homotopy class $f\colon S^{n+k}\to MO(k)$ to the preimag
 
 <h3>Consequences</h3>
 <ul>
-  <li><strong>The Poincaré conjecture in dim $\ge 5$.</strong> If $\Sigma^n$ ($n\ge 5$) is a homotopy $n$-sphere, then $\Sigma\setminus(\text{open ball})$ is an $h$-cobordism between $\partial(\text{ball})=S^{n-1}$ and itself, so it is a cylinder, so $\Sigma$ is a sphere. (This is Smale's celebrated 1961 proof, in the topological/PL category.)</li>
+  <li><strong>The Poincaré conjecture in dim $\ge 5$.</strong> If $\Sigma^n$ ($n\ge 5$) is a homotopy $n$-sphere, then $\Sigma\setminus(\text{open ball})$ is an $h$-cobordism between $\partial(\text{ball})=S^{n-1}$ and itself, so it is a cylinder, so $\Sigma$ is a sphere. (This is Smale's celebrated 1961 proof, in the smooth/PL category. Stallings and Zeeman gave PL proofs around the same time. The topological case in dimensions $\ge 5$ was settled later by Newman 1966; dim 4 topological is Freedman 1982.)</li>
   <li><strong>Exotic spheres exist.</strong> Milnor's $7$-spheres are smooth manifolds homeomorphic to $S^7$ but not diffeomorphic — the smooth $h$-cobordism conclusion holds, but there is more than one diffeomorphism class compatible with a given homeomorphism class. (Kervaire–Milnor classified all of them via the group $\Theta_n$ of exotic $n$-spheres.)</li>
   <li><strong>The $s$-cobordism theorem.</strong> Dropping simple connectivity, there is an obstruction — the <em>Whitehead torsion</em> $\tau(W)\in\mathrm{Wh}(\pi_1)$ — and the conclusion is "trivial cobordism" iff $\tau(W)=0$. The Whitehead group is non-trivial in general (e.g. $\mathrm{Wh}(\mathbb{Z}/5) = \mathbb{Z}$), so non-cylinder $h$-cobordisms genuinely exist.</li>
 </ul>
