@@ -1,0 +1,231 @@
+{
+  "topic": "half-integral-weight-forms",
+  "quizzes": {
+    "hiw-metaplectic-cocycle": {
+      "title": "Metaplectic group and the theta cocycle",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Why does the half-integral weight transformation law $f(\\gamma\\tau)=j(\\gamma,\\tau)^{2k+1}f(\\tau)$ live on a double cover of $\\mathrm{SL}_2(\\mathbb{Z})$ rather than $\\mathrm{SL}_2(\\mathbb{Z})$ itself?",
+          "choices": [
+            "$\\mathrm{SL}_2(\\mathbb{Z})$ is not a group",
+            "the square root $\\sqrt{c\\tau+d}$ admits two consistent branches, and matching them globally requires choosing one — equivalent to a choice in a $\\mathbb{Z}/2$-extension",
+            "the upper half-plane has two components",
+            "modular forms of integer weight already live there"
+          ],
+          "answer": 1,
+          "explain": "The factor $j(\\gamma,\\tau)$ is essentially $\\sqrt{c\\tau+d}$. Branch ambiguities cause the naive cocycle relation $j(\\gamma_1\\gamma_2,\\tau)=j(\\gamma_1,\\gamma_2\\tau)\\,j(\\gamma_2,\\tau)$ to fail by a sign — exactly the obstruction killed by passing to the metaplectic double cover."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is $\\Gamma_0(4)$ the natural level for half-integral weight forms?",
+          "choices": [
+            "it is the smallest congruence subgroup",
+            "the theta multiplier $j(\\gamma,\\tau)=\\theta(\\gamma\\tau)/\\theta(\\tau)$ is well-defined as a function (no branch ambiguity) precisely on $\\Gamma_0(4)$",
+            "$\\Gamma_0(4)$ has genus zero",
+            "$\\theta(\\tau)$ vanishes off $\\Gamma_0(4)$"
+          ],
+          "answer": 1,
+          "explain": "$\\theta(\\tau)$ transforms under $\\Gamma_0(4)$ with multiplier system that defines $j(\\gamma,\\tau)$ unambiguously; below level 4, a sign or fourth-root ambiguity prevents the multiplier from being a genuine cocycle."
+        },
+        {
+          "type": "numeric",
+          "q": "If $f$ has weight $k+\\tfrac12$ on $\\Gamma_0(4)$ with $k=1$, what is the exponent appearing on the multiplier $j(\\gamma,\\tau)$ in the transformation law $f(\\gamma\\tau)=j(\\gamma,\\tau)^{?}f(\\tau)$?",
+          "answer": 3,
+          "tol": 0.000001,
+          "explain": "The exponent is $2k+1$. For weight $\\tfrac32$ ($k=1$) this is $3$, consistent with $j^3$ producing a factor that scales like $(c\\tau+d)^{3/2}$."
+        }
+      ]
+    },
+    "hiw-theta-prototype": {
+      "title": "Theta as the prototypical weight-1/2 form",
+      "questions": [
+        {
+          "type": "numeric",
+          "q": "Compute $r_4(7)$, the number of integer 4-tuples $(a,b,c,d)$ with $a^2+b^2+c^2+d^2=7$, using Jacobi's formula $r_4(n)=8\\sigma(n)-32\\sigma(n/4)$. (For $4\\nmid n$, the second term is $0$.)",
+          "answer": 64,
+          "tol": 0.000001,
+          "explain": "$\\sigma(7)=1+7=8$ and $4\\nmid 7$, so $r_4(7)=8\\cdot 8-0=64$."
+        },
+        {
+          "type": "mcq",
+          "q": "The theta series $\\theta(\\tau)=\\sum_{n\\in\\mathbb{Z}}q^{n^2}$ has weight $\\tfrac12$ on $\\Gamma_0(4)$. What weight does $\\theta^4$ have, and on which group does it transform with no half-integer baggage?",
+          "choices": [
+            "weight $4$ on $\\mathrm{SL}_2(\\mathbb{Z})$",
+            "weight $2$ on $\\Gamma_0(4)$, integer weight so no metaplectic cover needed",
+            "weight $\\tfrac12$, on the metaplectic cover",
+            "weight $1$, on the upper half-plane"
+          ],
+          "answer": 1,
+          "explain": "$\\theta^4$ has weight $4\\cdot\\tfrac12=2$. Integer-weight forms transform under $\\mathrm{SL}_2(\\mathbb{Z})$ (or its congruence subgroups) without a metaplectic cover. The level $\\Gamma_0(4)$ is inherited from $\\theta$."
+        },
+        {
+          "type": "mcq",
+          "q": "How does Jacobi's $r_4(n)=8\\sigma(n)-32\\sigma(n/4)$ formula get extracted from $\\theta^4$?",
+          "choices": [
+            "by direct lattice counting only",
+            "$\\theta^4$ is a weight-2 modular form on $\\Gamma_0(4)$; the space is finite-dimensional and spanned by Eisenstein series, so matching $q$-coefficients with an explicit Eisenstein basis identifies the formula",
+            "by the Riemann hypothesis",
+            "by the Hecke L-function machinery"
+          ],
+          "answer": 1,
+          "explain": "Modular-form spaces of low weight and small level are finite-dimensional and explicit. $\\theta^4\\in M_2(\\Gamma_0(4))$, which is two-dimensional and spanned by Eisenstein series whose $q$-coefficients are divisor sums. Matching coefficients yields Jacobi's formula."
+        }
+      ]
+    },
+    "hiw-shimura-lift": {
+      "title": "Shimura's lift to integral weight",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Shimura's lift sends an eigenform of weight $k+\\tfrac12$ on $\\Gamma_0(4N)$ to an eigenform $F$ of what weight, on what group?",
+          "choices": [
+            "weight $k$ on $\\Gamma_0(N)$",
+            "weight $2k$ on $\\Gamma_0(2N)$",
+            "weight $k+\\tfrac12$ on $\\mathrm{SL}_2(\\mathbb{Z})$",
+            "weight $k-\\tfrac12$ on $\\Gamma_0(4N)$"
+          ],
+          "answer": 1,
+          "explain": "Shimura (1973): the lift doubles the weight (from $k+\\tfrac12$ to $2k$) and halves the level (from $\\Gamma_0(4N)$ to $\\Gamma_0(2N)$). The character squares: $\\chi\\mapsto\\chi^2$."
+        },
+        {
+          "type": "numeric",
+          "q": "Suppose $f$ has weight $\\tfrac{11}{2}$, so $k=5$, and at the prime $p=3$ (assumed coprime to the level) the Fourier coefficient $a_f(p^2)=a_f(9)=20$. Suppose the character $\\chi$ is trivial so $\\chi(p)=1$. Compute $a_F(p)=a_F(3)$ using Shimura's recipe $a_F(p)=a_f(p^2)+\\chi(p)\\,p^{k-1}$.",
+          "answer": 101,
+          "tol": 0.000001,
+          "explain": "Plug in: $a_F(3)=20+1\\cdot 3^{5-1}=20+81=101$."
+        },
+        {
+          "type": "mcq",
+          "q": "Why does the Shimura correspondence package data at $p^2$ on the half-integral side into data at $p$ on the integral side?",
+          "choices": [
+            "$p^2$ is closer to $p$",
+            "the half-integral Hecke operator $T_{p^2}$ is the right analogue of integral $T_p$ — squaring matches the doubling of the weight, and the Hecke eigenvalues align after the substitution",
+            "by Galois theory",
+            "primes are quadratic residues"
+          ],
+          "answer": 1,
+          "explain": "On half-integral weight forms the natural Hecke operators are indexed by $n^2$ (specifically $T_{p^2}$). Doubling the weight under Shimura matches squaring on prime indices, so $a_f(p^2)$ is the right input that determines $a_F(p)$."
+        }
+      ]
+    },
+    "hiw-kohnen-plus-space": {
+      "title": "Kohnen's plus space",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "The plus space $S^+_{k+1/2}(\\Gamma_0(4))$ for even $k$ consists of forms whose $n$-th Fourier coefficient $a(n)$ vanishes unless $n$ satisfies which congruence condition?",
+          "choices": [
+            "$n\\equiv 0\\pmod 2$",
+            "$(-1)^k n\\equiv 0,1\\pmod 4$",
+            "$n$ is prime",
+            "$n\\equiv 1\\pmod 8$"
+          ],
+          "answer": 1,
+          "explain": "The plus space is defined by the Fourier-coefficient cutoff $a(n)=0$ unless $(-1)^k n\\equiv 0,1\\pmod 4$ — equivalently, $(-1)^k n$ is the discriminant of a quadratic field (or zero/perfect square)."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the content of the Kohnen-Zagier (1981) theorem about the plus space?",
+          "choices": [
+            "the plus space is empty",
+            "the Shimura correspondence restricts to a Hecke-equivariant isomorphism $S^+_{k+1/2}(\\Gamma_0(4))\\cong S_{2k}(\\mathrm{SL}_2(\\mathbb{Z}))$",
+            "every modular form is in the plus space",
+            "$S^+$ is a one-dimensional space"
+          ],
+          "answer": 1,
+          "explain": "Kohnen-Zagier (1981): the plus space is a canonical Hecke-stable subspace and the Shimura lift restricts on it to a bijection with the level-1 cusp forms of weight $2k$. This gives every level-1 newform a canonical half-integral preimage."
+        },
+        {
+          "type": "numeric",
+          "q": "$\\dim S_{12}(\\mathrm{SL}_2(\\mathbb{Z}))=1$ (spanned by $\\Delta$). By Kohnen-Zagier, what is $\\dim S^+_{13/2}(\\Gamma_0(4))$?",
+          "answer": 1,
+          "tol": 0.000001,
+          "explain": "The Kohnen-Zagier isomorphism $S^+_{k+1/2}(\\Gamma_0(4))\\cong S_{2k}(\\mathrm{SL}_2(\\mathbb{Z}))$ with $k=6$ gives $\\dim S^+_{13/2}=\\dim S_{12}=1$."
+        }
+      ]
+    },
+    "hiw-waldspurger": {
+      "title": "Waldspurger's formula",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Roughly speaking, Waldspurger's formula says $|a_f(|D|)|^2$ for a half-integral eigenform $f$ is proportional to which quantity attached to its Shimura lift $F$?",
+          "choices": [
+            "the regulator of $F$",
+            "the central twisted $L$-value $L(F\\otimes\\chi_D,\\,k)$, where $\\chi_D$ is the quadratic character of conductor $|D|$",
+            "the dimension of $S_{2k}$",
+            "the number of cusps of $\\Gamma_0(4)$"
+          ],
+          "answer": 1,
+          "explain": "Waldspurger (1981): the $|D|$-th squared Fourier coefficient of a normalized $f\\in S^+_{k+1/2}$ equals $L(F\\otimes\\chi_D,k)$ (the central value of the twisted $L$-series of its Shimura lift), up to an explicit Petersson-norm constant."
+        },
+        {
+          "type": "mcq",
+          "q": "What is the algorithmic significance of Waldspurger's formula?",
+          "choices": [
+            "it disproves BSD",
+            "it converts the analytically hard problem of computing central $L$-values into the combinatorially easy problem of computing Fourier coefficients of a half-integral weight form",
+            "it shows all $L$-values are zero",
+            "it makes Hecke operators commute"
+          ],
+          "answer": 1,
+          "explain": "Central $L$-values are otherwise hard to compute because the Dirichlet series doesn't converge there. Waldspurger trades the analytic problem for a combinatorial one: compute $a_f(|D|)$ from a $q$-expansion, then square."
+        },
+        {
+          "type": "mcq",
+          "q": "Why is the squared Fourier coefficient $|a_f(|D|)|^2$, not $a_f(|D|)$ itself, the quantity that equals an $L$-value?",
+          "choices": [
+            "because $L$-values are always negative",
+            "because central values $L(F\\otimes\\chi_D,k)$ are non-negative real numbers (functional-equation symmetric, real, and conjecturally non-negative), while $a_f$ is only determined up to sign by the eigenform — the sign is normalization, the magnitude is invariant",
+            "because squaring is faster",
+            "because $a_f$ is purely imaginary"
+          ],
+          "answer": 1,
+          "explain": "The Fourier coefficient $a_f(|D|)$ depends on a choice of normalization (sign), but the central $L$-value is intrinsic. Squaring kills the sign ambiguity; the magnitude is the canonical invariant on both sides."
+        }
+      ]
+    },
+    "hiw-tunnell-congruent": {
+      "title": "Tunnell's theorem and the congruent number problem",
+      "questions": [
+        {
+          "type": "mcq",
+          "q": "Tunnell's theorem (1983) characterizes when a squarefree integer $n$ is congruent — i.e., the area of a rational right triangle. The criterion is:",
+          "choices": [
+            "a specific weight-3/2 Fourier coefficient (a finite count of integer triples) vanishes",
+            "$n$ is prime",
+            "$L(\\zeta,1)=0$",
+            "$n$ is a perfect square"
+          ],
+          "answer": 0,
+          "explain": "Tunnell (1983) gives a finite computable test: a specific theta-style sum (a weight-$\\tfrac32$ Fourier coefficient) vanishes iff $L(E_n,1)=0$, which by BSD is iff $E_n:y^2=x^3-n^2x$ has positive rank, which is iff $n$ is congruent."
+        },
+        {
+          "type": "mcq",
+          "q": "Tunnell's congruent-number test is unconditional in one direction but conditional in the other. The conditional half rests on:",
+          "choices": [
+            "the Riemann hypothesis",
+            "BSD for the elliptic curves $E_n:y^2=x^3-n^2x$",
+            "the modularity theorem",
+            "the Langlands program"
+          ],
+          "answer": 1,
+          "explain": "Without BSD, the vanishing of $L(E_n,1)$ is known to imply $n$ congruent only conditionally. The reverse implication (congruent $\\Rightarrow L(E_n,1)=0$) follows from the Coates-Wiles result for rank $\\ge 1$ when $E$ has CM; the full equivalence still requires BSD for the converse direction in general."
+        },
+        {
+          "type": "mcq",
+          "q": "Tunnell's theorem is the cleanest illustration of which broader principle?",
+          "choices": [
+            "all elliptic curves are CM",
+            "Waldspurger's formula — central $L$-values $L(E_n,1)=L(E\\otimes\\chi_n,1)$ are computable as squared Fourier coefficients of a half-integral weight form",
+            "every modular form is a theta series",
+            "the Selberg trace formula"
+          ],
+          "answer": 1,
+          "explain": "$E_n$ is the quadratic twist of $E_1:y^2=x^3-x$ by the character $\\chi_n$. Waldspurger writes $L(E\\otimes\\chi_n,1)$ as $|a_f(n)|^2$ for a specific $f\\in S^+_{3/2}$ Shimura-corresponding to the modular form attached to $E_1$. Tunnell makes the half-integral form completely explicit."
+        }
+      ]
+    }
+  }
+}

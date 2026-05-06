@@ -1,5 +1,5 @@
 {
-  "generated": "2026-05-06T08:54:28.262Z",
+  "generated": "2026-05-06T09:19:40.509Z",
   "entries": [
     {
       "slug": "abelian-varieties",
@@ -39,7 +39,7 @@
       "color": "g",
       "tag": "",
       "date": "2026-05-06",
-      "message": "Three more advanced topics: homotopy-theory, maass-forms, d-modules"
+      "message": "3 more gap topics: homotopy-theory, maass-forms, d-modules (#124)"
     },
     {
       "slug": "dirichlet-unit-theorem",
@@ -55,7 +55,7 @@
       "color": "v",
       "tag": "",
       "date": "2026-05-06",
-      "message": "Three more advanced topics: homotopy-theory, maass-forms, d-modules"
+      "message": "3 more gap topics: homotopy-theory, maass-forms, d-modules (#124)"
     },
     {
       "slug": "iwasawa-theory",
@@ -71,7 +71,7 @@
       "color": "c",
       "tag": "",
       "date": "2026-05-06",
-      "message": "Three more advanced topics: homotopy-theory, maass-forms, d-modules"
+      "message": "3 more gap topics: homotopy-theory, maass-forms, d-modules (#124)"
     },
     {
       "slug": "mmp-and-birational-geometry",

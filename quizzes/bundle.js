@@ -13606,6 +13606,252 @@ window.MVQuizBank = {
       }
     }
   },
+  "crystalline-cohomology": {
+    "topic": "crystalline-cohomology",
+    "quizzes": {
+      "cc-motivation": {
+        "title": "Why crystalline? — the $\\ell=p$ gap",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Let $X_0$ be a smooth proper variety over $k=\\overline{\\mathbb{F}_p}$. Why does $H^i_{\\mathrm{\\acute{e}t}}(X_0,\\mathbb{Z}_p)$ fail to be the right $p$-adic cohomology theory?",
+            "choices": [
+              "It is uncountable.",
+              "Étale $\\mathbb{Z}/p^n$-coefficients on a characteristic-$p$ scheme see Frobenius-kernel pathology, so the inverse limit is too small (often vanishes in middle degrees) and the comparison with Betti dimensions breaks down.",
+              "It coincides with $H^i_{\\mathrm{dR}}(X_0/k)$, which has the wrong rank.",
+              "It is well-defined only for affine $X_0$."
+            ],
+            "answer": 1,
+            "explain": "On a $p$-torsion étale site over $\\mathrm{char}\\,p$, the constant sheaf $\\mathbb{Z}/p$ is too floppy: $H^i_{\\mathrm{\\acute{e}t}}(X_0,\\mathbb{Z}/p)$ can vanish in degrees where the Betti numbers do not. Crystalline cohomology $H^i_{\\mathrm{cris}}(X_0/W)$ — a free $W$-module of the expected rank — is the correct $p$-adic Weil cohomology."
+          },
+          {
+            "type": "mcq",
+            "q": "What ring of coefficients does crystalline cohomology naturally take values in?",
+            "choices": [
+              "$\\mathbb{F}_p$",
+              "$\\mathbb{Q}_\\ell$ for $\\ell\\ne p$",
+              "$W=W(k)$, the ring of Witt vectors of the residue field $k$",
+              "$\\mathbb{C}$"
+            ],
+            "answer": 2,
+            "explain": "Crystalline cohomology $H^*_{\\mathrm{cris}}(X_0/W)$ takes values in $W(k)$ (a complete DVR with residue field $k$ and uniformizer $p$). One typically tensors with $K=\\mathrm{Frac}\\,W$ to get a $\\mathbb{Q}_p$-vector space."
+          },
+          {
+            "type": "mcq",
+            "q": "For a smooth proper $X_0/\\mathbb{F}_p$ that admits a smooth lift $X/W$, what is the rank of $H^i_{\\mathrm{cris}}(X_0/W)$ as a $W$-module?",
+            "choices": [
+              "Zero for $i\\ne 0$.",
+              "Equal to the $i$-th Betti number $b_i$ of $X(\\mathbb{C})$ for any complex lift.",
+              "Equal to $\\dim X_0$.",
+              "Always 1."
+            ],
+            "answer": 1,
+            "explain": "Crystalline cohomology computes the same Betti numbers as singular / $\\ell$-adic / de Rham cohomology — that is the whole point of being a Weil cohomology. Concretely, $H^i_{\\mathrm{cris}}(X_0/W)$ is free of rank $b_i$, independent of the lift."
+          }
+        ]
+      },
+      "cc-divided-powers": {
+        "title": "Divided powers and the crystalline site",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why are <em>divided powers</em> $\\gamma_n(x)$ — formally $x^n/n!$ — needed in characteristic $p$?",
+            "choices": [
+              "They make the integers into a field.",
+              "The denominator $n!$ becomes non-invertible (and eventually zero in $\\mathbb{F}_p$) once $n\\ge p$, so $x^n/n!$ is not literally defined; PD-structures supply the operation $\\gamma_n$ axiomatically while preserving the formal identities.",
+              "They eliminate the need for cohomology.",
+              "They make every nilpotent element a unit."
+            ],
+            "answer": 1,
+            "explain": "The Taylor expansion $\\exp(x)=\\sum x^n/n!$ uses denominators $n!$ that are zero in characteristic $p$. PD-structures axiomatize the operations $\\gamma_n$ satisfying the same combinatorial identities (e.g.\\ $\\gamma_m(x)\\gamma_n(x)=\\binom{m+n}{m}\\gamma_{m+n}(x)$) without dividing — letting one carry out de Rham–like computations on infinitesimal thickenings in characteristic $p$."
+          },
+          {
+            "type": "mcq",
+            "q": "An object of the crystalline site $(X_0/W)_{\\mathrm{cris}}$ is, in essence:",
+            "choices": [
+              "A quasi-coherent sheaf on $X_0$.",
+              "A PD-thickening $U\\hookrightarrow T$ over $\\mathrm{Spf}\\,W$ where $U\\subset X_0$ is open and the kernel of $\\mathcal{O}_T\\twoheadrightarrow\\mathcal{O}_U$ carries a PD-structure compatible with the standard one on $pW$.",
+              "A finite étale cover of $X_0$.",
+              "A pair $(L,\\nabla)$ of line bundle plus connection."
+            ],
+            "answer": 1,
+            "explain": "The crystalline site has as objects PD-thickenings $(U,T,\\delta)$: $U$ is a Zariski-open of $X_0$, $T$ is a $W$-scheme on which $U$ embeds as a closed subscheme, and the kernel of $\\mathcal{O}_T\\to\\mathcal{O}_U$ has divided powers compatible with those on $pW$. Morphisms are commuting squares respecting the PD-structures."
+          },
+          {
+            "type": "mcq",
+            "q": "Crystalline cohomology of $X_0$ over $W$ is defined as:",
+            "choices": [
+              "$H^i_{\\mathrm{cris}}(X_0/W) := H^i((X_0/W)_{\\mathrm{cris}}, \\mathcal{O}_{X/W})$, the cohomology of the structure sheaf on the crystalline site.",
+              "$H^i_{\\mathrm{cris}}(X_0/W) := \\varprojlim_n H^i_{\\mathrm{\\acute{e}t}}(X_0,\\mathbb{Z}/p^n)$.",
+              "$H^i_{\\mathrm{cris}}(X_0/W) := H^i(X_0,\\mathcal{O}_{X_0})\\otimes_k W$.",
+              "$H^i_{\\mathrm{cris}}(X_0/W) := H^i(X_0(\\mathbb{C}),\\mathbb{Z})\\otimes W$ for any complex lift."
+            ],
+            "answer": 0,
+            "explain": "The definition is the sheaf cohomology of the structure sheaf $\\mathcal{O}_{X/W}$ on the crystalline site $(X_0/W)_{\\mathrm{cris}}$. The other options are either nonsensical (option 1: gives the wrong answer in $p$-torsion), too naive (option 2: misses the Frobenius and the complex), or relies on a complex lift (option 3) which need not exist."
+          }
+        ]
+      },
+      "cc-de-rham-comparison": {
+        "title": "Comparison with de Rham of a lift",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Suppose $X_0/k$ admits a smooth proper lift $X/W$. The Berthelot–Ogus comparison says:",
+            "choices": [
+              "$H^*_{\\mathrm{cris}}(X_0/W)$ depends on the choice of lift $X$.",
+              "$H^*_{\\mathrm{cris}}(X_0/W) \\cong H^*_{\\mathrm{dR}}(X/W)$, canonically and independently of the chosen lift.",
+              "$H^*_{\\mathrm{cris}}(X_0/W) \\cong H^*_{\\mathrm{Zar}}(X_0,\\mathcal{O}_{X_0})$.",
+              "Crystalline cohomology only exists when a lift does."
+            ],
+            "answer": 1,
+            "explain": "Berthelot–Ogus: for any smooth proper lift $X/W$ of $X_0/k$, there is a canonical isomorphism $H^*_{\\mathrm{cris}}(X_0/W)\\cong H^*_{\\mathrm{dR}}(X/W)$. The right-hand side is hypercohomology of $\\Omega^\\bullet_{X/W}$. Different lifts produce canonically isomorphic answers — that is what justifies the definition."
+          },
+          {
+            "type": "mcq",
+            "q": "What does one do when $X_0$ does <strong>not</strong> admit a global lift to $W$?",
+            "choices": [
+              "Crystalline cohomology is undefined.",
+              "Cover $X_0$ by Zariski opens that <em>do</em> lift, compute de Rham cohomology of each, and glue using the PD-structure on the overlaps — the crystalline site is precisely the bookkeeping that makes this glue work canonically.",
+              "Reduce mod $p^2$ instead.",
+              "Pass to an étale cover."
+            ],
+            "answer": 1,
+            "explain": "Locally every smooth $X_0/k$ admits a lift (any affine smooth scheme lifts smoothly). The crystalline site organizes the ambiguity of these local lifts: PD-structures on the kernels of the thickenings make the local de Rham complexes canonically comparable, so the glued cohomology is intrinsic to $X_0$."
+          },
+          {
+            "type": "numeric",
+            "q": "For a supersingular elliptic curve $E_0/\\mathbb{F}_p$, what is the rank of $H^1_{\\mathrm{cris}}(E_0/W)$ as a $W$-module?",
+            "answer": 2,
+            "tol": 0.0001,
+            "explain": "Crystalline cohomology of a smooth proper variety has the same rank as the Betti number of any complex lift. For an elliptic curve $b_1=2g=2$. Independence of the (existence of a) lift is exactly the Berthelot–Ogus theorem; the rank stays $2$ even though supersingular elliptic curves do not lift to characteristic $0$ canonically."
+          }
+        ]
+      },
+      "cc-frobenius": {
+        "title": "Frobenius action and the Katz–Messing theorem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The Frobenius-induced map $\\varphi$ on $H^*_{\\mathrm{cris}}(X_0/W)$ is:",
+            "choices": [
+              "$W$-linear.",
+              "$\\sigma$-semilinear, where $\\sigma\\colon W\\to W$ is the Witt-vector lift of the $p$-power Frobenius on $k$.",
+              "Anti-linear.",
+              "Defined only after tensoring with $\\mathbb{Q}_p$."
+            ],
+            "answer": 1,
+            "explain": "The absolute Frobenius $F\\colon X_0\\to X_0$ does not lift $W$-linearly; it induces a $\\sigma$-semilinear endomorphism $\\varphi$ of $H^*_{\\mathrm{cris}}$, meaning $\\varphi(a\\cdot v)=\\sigma(a)\\cdot\\varphi(v)$ for $a\\in W$. Semilinearity is essential — it is what makes the Newton polygon a non-trivial invariant."
+          },
+          {
+            "type": "mcq",
+            "q": "Katz–Messing (1974) compares the characteristic polynomial of Frobenius on crystalline cohomology with the analogous one on $\\ell$-adic étale cohomology ($\\ell\\ne p$) for $X_0$ smooth proper over $\\mathbb{F}_q$. They prove:",
+            "choices": [
+              "The two characteristic polynomials are different in general.",
+              "The two characteristic polynomials are equal as polynomials with integer coefficients — both compute the local zeta function $Z(X_0/\\mathbb{F}_q,t)$.",
+              "Crystalline Frobenius has only real eigenvalues, étale Frobenius does not.",
+              "Both eigenvalue sets are empty."
+            ],
+            "answer": 1,
+            "explain": "Katz–Messing: the characteristic polynomial of geometric Frobenius on $H^i_{\\mathrm{cris}}(X_0/W)\\otimes K$ has integer coefficients and equals the characteristic polynomial on $H^i_{\\mathrm{\\acute{e}t}}(X_{0,\\bar k},\\mathbb{Q}_\\ell)$ for any $\\ell\\ne p$. Both factor the same alternating product yielding the local zeta function — crystalline cohomology completes the Weil-conjectures package across all primes."
+          },
+          {
+            "type": "mcq",
+            "q": "For $X_0/\\mathbb{F}_q$ smooth proper of dimension $d$ and an eigenvalue $\\alpha$ of geometric Frobenius on $H^i_{\\mathrm{cris}}(X_0/W)\\otimes K$, what does Deligne–Katz–Messing-style purity assert?",
+            "choices": [
+              "$\\alpha=q$.",
+              "$|\\alpha|=q^{i/2}$ under every complex embedding (i.e. $\\alpha$ is a Weil $q$-number of weight $i$), matching the étale-side Riemann hypothesis.",
+              "$\\alpha\\in\\mathbb{Z}$.",
+              "$\\alpha$ is a root of unity."
+            ],
+            "answer": 1,
+            "explain": "The crystalline eigenvalues of geometric Frobenius are Weil numbers of weight $i$: algebraic integers all of whose complex absolute values equal $q^{i/2}$. This is the same Riemann-hypothesis-style purity Deligne proved on the étale side — so Katz–Messing's identification of characteristic polynomials propagates the purity statement to the crystalline picture."
+          }
+        ]
+      },
+      "cc-f-isocrystals": {
+        "title": "F-isocrystals, Newton above Hodge",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "An F-isocrystal over $k=\\overline{\\mathbb{F}_p}$ is:",
+            "choices": [
+              "A finite-dimensional $K=\\mathrm{Frac}\\,W$-vector space $V$ together with a $\\sigma$-semilinear bijection $\\varphi\\colon V\\to V$.",
+              "A free $W$-module $M$ together with a $W$-linear automorphism.",
+              "A finite-dimensional $\\mathbb{Q}_\\ell$-vector space.",
+              "A graded ring."
+            ],
+            "answer": 0,
+            "explain": "By definition, an F-isocrystal is a pair $(V,\\varphi)$: $V$ a finite-dimensional $K$-vector space, $\\varphi\\colon V\\to V$ $\\sigma$-semilinear and bijective. They form a $\\mathbb{Q}_p$-linear Tannakian category whose simple objects are classified by their Newton slopes (Dieudonné–Manin)."
+          },
+          {
+            "type": "mcq",
+            "q": "Mazur's inequality, applied to $H^i_{\\mathrm{cris}}(X_0/W)\\otimes K$ for a smooth proper $X_0/k$, says:",
+            "choices": [
+              "The Newton polygon (slopes of $\\varphi$) lies on or above the Hodge polygon (built from $h^{p,q}=\\dim H^q(X_0,\\Omega^p)$ in degree $p+q=i$), and the two polygons share the same endpoints.",
+              "Newton lies below Hodge.",
+              "Newton equals Hodge in every case.",
+              "Newton is unrelated to Hodge."
+            ],
+            "answer": 0,
+            "explain": "Mazur (1973): for a smooth proper $X_0$ in characteristic $p$, the Newton polygon of Frobenius on $H^i_{\\mathrm{cris}}$ lies on or above the Hodge polygon $\\sum_{p}h^{p,i-p}\\cdot[\\text{slope }p]$ and shares its endpoints (so the same total height and total width). The case Newton $=$ Hodge is the <em>ordinary</em> stratum; otherwise the variety is non-ordinary."
+          },
+          {
+            "type": "mcq",
+            "q": "What are the Newton slopes of the F-isocrystal $H^1_{\\mathrm{cris}}(E_0/W)\\otimes K$ in the two cases of an elliptic curve $E_0/\\overline{\\mathbb{F}_p}$?",
+            "choices": [
+              "$\\{0,1\\}$ in both cases.",
+              "Ordinary: $\\{0,1\\}$. Supersingular: $\\{1/2,1/2\\}$.",
+              "Ordinary: $\\{1/2,1/2\\}$. Supersingular: $\\{0,1\\}$.",
+              "$\\{0,2\\}$ in both cases."
+            ],
+            "answer": 1,
+            "explain": "An elliptic curve has $h^{1,0}=h^{0,1}=1$, so the Hodge polygon on $H^1$ has slopes $0$ and $1$. Mazur forces Newton above with the same endpoints — only two options. Ordinary $E_0$ realizes Newton $=$ Hodge, slopes $\\{0,1\\}$; supersingular $E_0$ has Frobenius eigenvalues both of $p$-adic valuation $1/2$, slopes $\\{1/2,1/2\\}$ (coalesced into a single ascent of slope $1/2$ over width $2$)."
+          }
+        ]
+      },
+      "cc-p-adic-hodge": {
+        "title": "Period rings $B_{\\mathrm{cris}},B_{\\mathrm{dR}}$ and Fontaine's comparison",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Fontaine's period ring $B_{\\mathrm{dR}}$ is, roughly:",
+            "choices": [
+              "A finite extension of $\\mathbb{Q}_p$.",
+              "A complete discrete valuation field with residue field $\\mathbb{C}_p$ (the $p$-adic completion of $\\bar{\\mathbb{Q}_p}$), built so as to carry both a $G_K$-action and a filtration; it serves as the $p$-adic counterpart of the field of complex periods.",
+              "A subring of $\\mathbb{Q}_\\ell$.",
+              "The polynomial ring $\\mathbb{Q}_p[T]$."
+            ],
+            "answer": 1,
+            "explain": "$B_{\\mathrm{dR}}$ is a complete DVF (with uniformizer 'log of a $p$-power root of unity') whose residue field is $\\mathbb{C}_p$. It carries a continuous action of $G_K=\\mathrm{Gal}(\\bar K/K)$ and a decreasing filtration. The smaller ring $B_{\\mathrm{cris}}\\subset B_{\\mathrm{dR}}$ adds a Frobenius compatible with crystalline cohomology."
+          },
+          {
+            "type": "mcq",
+            "q": "For $X/K$ smooth proper with good reduction $X_0/k$, the crystalline comparison conjecture (Faltings–Tsuji) asserts:",
+            "choices": [
+              "$H^*_{\\mathrm{\\acute{e}t}}(X_{\\bar K},\\mathbb{Q}_p) \\cong H^*_{\\mathrm{cris}}(X_0/W)$ as $\\mathbb{Q}_p$-vector spaces.",
+              "$H^*_{\\mathrm{\\acute{e}t}}(X_{\\bar K},\\mathbb{Q}_p)\\otimes_{\\mathbb{Q}_p}B_{\\mathrm{cris}} \\cong H^*_{\\mathrm{cris}}(X_0/W)\\otimes_W B_{\\mathrm{cris}}$ compatibly with Frobenius, filtration, and Galois action.",
+              "$H^*_{\\mathrm{cris}}$ is independent of $X$.",
+              "Crystalline and étale cohomology agree as Galois representations."
+            ],
+            "answer": 1,
+            "explain": "After base-change to $B_{\\mathrm{cris}}$, the $p$-adic étale cohomology of $X_{\\bar K}$ becomes isomorphic to the crystalline cohomology of the special fibre $X_0$, compatibly with Frobenius, filtration, and Galois action. Without the base change the two sides carry different structures (one is a $G_K$-representation, the other is an F-isocrystal with filtration); $B_{\\mathrm{cris}}$ is engineered to translate between them."
+          },
+          {
+            "type": "mcq",
+            "q": "Which slogan best summarises Fontaine's strategy?",
+            "choices": [
+              "Replace cohomology with $K$-theory.",
+              "Construct period rings $B_*$ that absorb all the different extra structures (Frobenius, filtration, Galois action), so that crystalline / de Rham / Hodge–Tate cohomologies are recovered as $G_K$-invariants of suitable twists of $p$-adic étale cohomology — a single algebra unifies the realisations.",
+              "Reduce everything to characteristic 0.",
+              "Replace $B_{\\mathrm{cris}}$ with a finite extension of $\\mathbb{Q}_p$."
+            ],
+            "answer": 1,
+            "explain": "Fontaine's period rings $B_{\\mathrm{HT}}\\subset B_{\\mathrm{cris}}\\subset B_{\\mathrm{dR}}$ each carry a particular extra structure (graded, Frobenius+filtration, filtration). For a suitable $p$-adic representation $V=H^*_{\\mathrm{\\acute{e}t}}(X_{\\bar K},\\mathbb{Q}_p)$ the functors $D_*(V):=(V\\otimes B_*)^{G_K}$ recover the corresponding cohomology with its structures — turning crystalline, de Rham, and Hodge–Tate into different views of one $p$-adic étale representation."
+          }
+        ]
+      }
+    }
+  },
   "d-modules": {
     "topic": "d-modules",
     "quizzes": {
@@ -25825,6 +26071,237 @@ window.MVQuizBank = {
       }
     }
   },
+  "half-integral-weight-forms": {
+    "topic": "half-integral-weight-forms",
+    "quizzes": {
+      "hiw-metaplectic-cocycle": {
+        "title": "Metaplectic group and the theta cocycle",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Why does the half-integral weight transformation law $f(\\gamma\\tau)=j(\\gamma,\\tau)^{2k+1}f(\\tau)$ live on a double cover of $\\mathrm{SL}_2(\\mathbb{Z})$ rather than $\\mathrm{SL}_2(\\mathbb{Z})$ itself?",
+            "choices": [
+              "$\\mathrm{SL}_2(\\mathbb{Z})$ is not a group",
+              "the square root $\\sqrt{c\\tau+d}$ admits two consistent branches, and matching them globally requires choosing one — equivalent to a choice in a $\\mathbb{Z}/2$-extension",
+              "the upper half-plane has two components",
+              "modular forms of integer weight already live there"
+            ],
+            "answer": 1,
+            "explain": "The factor $j(\\gamma,\\tau)$ is essentially $\\sqrt{c\\tau+d}$. Branch ambiguities cause the naive cocycle relation $j(\\gamma_1\\gamma_2,\\tau)=j(\\gamma_1,\\gamma_2\\tau)\\,j(\\gamma_2,\\tau)$ to fail by a sign — exactly the obstruction killed by passing to the metaplectic double cover."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is $\\Gamma_0(4)$ the natural level for half-integral weight forms?",
+            "choices": [
+              "it is the smallest congruence subgroup",
+              "the theta multiplier $j(\\gamma,\\tau)=\\theta(\\gamma\\tau)/\\theta(\\tau)$ is well-defined as a function (no branch ambiguity) precisely on $\\Gamma_0(4)$",
+              "$\\Gamma_0(4)$ has genus zero",
+              "$\\theta(\\tau)$ vanishes off $\\Gamma_0(4)$"
+            ],
+            "answer": 1,
+            "explain": "$\\theta(\\tau)$ transforms under $\\Gamma_0(4)$ with multiplier system that defines $j(\\gamma,\\tau)$ unambiguously; below level 4, a sign or fourth-root ambiguity prevents the multiplier from being a genuine cocycle."
+          },
+          {
+            "type": "numeric",
+            "q": "If $f$ has weight $k+\\tfrac12$ on $\\Gamma_0(4)$ with $k=1$, what is the exponent appearing on the multiplier $j(\\gamma,\\tau)$ in the transformation law $f(\\gamma\\tau)=j(\\gamma,\\tau)^{?}f(\\tau)$?",
+            "answer": 3,
+            "tol": 0.000001,
+            "explain": "The exponent is $2k+1$. For weight $\\tfrac32$ ($k=1$) this is $3$, consistent with $j^3$ producing a factor that scales like $(c\\tau+d)^{3/2}$."
+          }
+        ]
+      },
+      "hiw-theta-prototype": {
+        "title": "Theta as the prototypical weight-1/2 form",
+        "questions": [
+          {
+            "type": "numeric",
+            "q": "Compute $r_4(7)$, the number of integer 4-tuples $(a,b,c,d)$ with $a^2+b^2+c^2+d^2=7$, using Jacobi's formula $r_4(n)=8\\sigma(n)-32\\sigma(n/4)$. (For $4\\nmid n$, the second term is $0$.)",
+            "answer": 64,
+            "tol": 0.000001,
+            "explain": "$\\sigma(7)=1+7=8$ and $4\\nmid 7$, so $r_4(7)=8\\cdot 8-0=64$."
+          },
+          {
+            "type": "mcq",
+            "q": "The theta series $\\theta(\\tau)=\\sum_{n\\in\\mathbb{Z}}q^{n^2}$ has weight $\\tfrac12$ on $\\Gamma_0(4)$. What weight does $\\theta^4$ have, and on which group does it transform with no half-integer baggage?",
+            "choices": [
+              "weight $4$ on $\\mathrm{SL}_2(\\mathbb{Z})$",
+              "weight $2$ on $\\Gamma_0(4)$, integer weight so no metaplectic cover needed",
+              "weight $\\tfrac12$, on the metaplectic cover",
+              "weight $1$, on the upper half-plane"
+            ],
+            "answer": 1,
+            "explain": "$\\theta^4$ has weight $4\\cdot\\tfrac12=2$. Integer-weight forms transform under $\\mathrm{SL}_2(\\mathbb{Z})$ (or its congruence subgroups) without a metaplectic cover. The level $\\Gamma_0(4)$ is inherited from $\\theta$."
+          },
+          {
+            "type": "mcq",
+            "q": "How does Jacobi's $r_4(n)=8\\sigma(n)-32\\sigma(n/4)$ formula get extracted from $\\theta^4$?",
+            "choices": [
+              "by direct lattice counting only",
+              "$\\theta^4$ is a weight-2 modular form on $\\Gamma_0(4)$; the space is finite-dimensional and spanned by Eisenstein series, so matching $q$-coefficients with an explicit Eisenstein basis identifies the formula",
+              "by the Riemann hypothesis",
+              "by the Hecke L-function machinery"
+            ],
+            "answer": 1,
+            "explain": "Modular-form spaces of low weight and small level are finite-dimensional and explicit. $\\theta^4\\in M_2(\\Gamma_0(4))$, which is two-dimensional and spanned by Eisenstein series whose $q$-coefficients are divisor sums. Matching coefficients yields Jacobi's formula."
+          }
+        ]
+      },
+      "hiw-shimura-lift": {
+        "title": "Shimura's lift to integral weight",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Shimura's lift sends an eigenform of weight $k+\\tfrac12$ on $\\Gamma_0(4N)$ to an eigenform $F$ of what weight, on what group?",
+            "choices": [
+              "weight $k$ on $\\Gamma_0(N)$",
+              "weight $2k$ on $\\Gamma_0(2N)$",
+              "weight $k+\\tfrac12$ on $\\mathrm{SL}_2(\\mathbb{Z})$",
+              "weight $k-\\tfrac12$ on $\\Gamma_0(4N)$"
+            ],
+            "answer": 1,
+            "explain": "Shimura (1973): the lift doubles the weight (from $k+\\tfrac12$ to $2k$) and halves the level (from $\\Gamma_0(4N)$ to $\\Gamma_0(2N)$). The character squares: $\\chi\\mapsto\\chi^2$."
+          },
+          {
+            "type": "numeric",
+            "q": "Suppose $f$ has weight $\\tfrac{11}{2}$, so $k=5$, and at the prime $p=3$ (assumed coprime to the level) the Fourier coefficient $a_f(p^2)=a_f(9)=20$. Suppose the character $\\chi$ is trivial so $\\chi(p)=1$. Compute $a_F(p)=a_F(3)$ using Shimura's recipe $a_F(p)=a_f(p^2)+\\chi(p)\\,p^{k-1}$.",
+            "answer": 101,
+            "tol": 0.000001,
+            "explain": "Plug in: $a_F(3)=20+1\\cdot 3^{5-1}=20+81=101$."
+          },
+          {
+            "type": "mcq",
+            "q": "Why does the Shimura correspondence package data at $p^2$ on the half-integral side into data at $p$ on the integral side?",
+            "choices": [
+              "$p^2$ is closer to $p$",
+              "the half-integral Hecke operator $T_{p^2}$ is the right analogue of integral $T_p$ — squaring matches the doubling of the weight, and the Hecke eigenvalues align after the substitution",
+              "by Galois theory",
+              "primes are quadratic residues"
+            ],
+            "answer": 1,
+            "explain": "On half-integral weight forms the natural Hecke operators are indexed by $n^2$ (specifically $T_{p^2}$). Doubling the weight under Shimura matches squaring on prime indices, so $a_f(p^2)$ is the right input that determines $a_F(p)$."
+          }
+        ]
+      },
+      "hiw-kohnen-plus-space": {
+        "title": "Kohnen's plus space",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "The plus space $S^+_{k+1/2}(\\Gamma_0(4))$ for even $k$ consists of forms whose $n$-th Fourier coefficient $a(n)$ vanishes unless $n$ satisfies which congruence condition?",
+            "choices": [
+              "$n\\equiv 0\\pmod 2$",
+              "$(-1)^k n\\equiv 0,1\\pmod 4$",
+              "$n$ is prime",
+              "$n\\equiv 1\\pmod 8$"
+            ],
+            "answer": 1,
+            "explain": "The plus space is defined by the Fourier-coefficient cutoff $a(n)=0$ unless $(-1)^k n\\equiv 0,1\\pmod 4$ — equivalently, $(-1)^k n$ is the discriminant of a quadratic field (or zero/perfect square)."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the content of the Kohnen-Zagier (1981) theorem about the plus space?",
+            "choices": [
+              "the plus space is empty",
+              "the Shimura correspondence restricts to a Hecke-equivariant isomorphism $S^+_{k+1/2}(\\Gamma_0(4))\\cong S_{2k}(\\mathrm{SL}_2(\\mathbb{Z}))$",
+              "every modular form is in the plus space",
+              "$S^+$ is a one-dimensional space"
+            ],
+            "answer": 1,
+            "explain": "Kohnen-Zagier (1981): the plus space is a canonical Hecke-stable subspace and the Shimura lift restricts on it to a bijection with the level-1 cusp forms of weight $2k$. This gives every level-1 newform a canonical half-integral preimage."
+          },
+          {
+            "type": "numeric",
+            "q": "$\\dim S_{12}(\\mathrm{SL}_2(\\mathbb{Z}))=1$ (spanned by $\\Delta$). By Kohnen-Zagier, what is $\\dim S^+_{13/2}(\\Gamma_0(4))$?",
+            "answer": 1,
+            "tol": 0.000001,
+            "explain": "The Kohnen-Zagier isomorphism $S^+_{k+1/2}(\\Gamma_0(4))\\cong S_{2k}(\\mathrm{SL}_2(\\mathbb{Z}))$ with $k=6$ gives $\\dim S^+_{13/2}=\\dim S_{12}=1$."
+          }
+        ]
+      },
+      "hiw-waldspurger": {
+        "title": "Waldspurger's formula",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Roughly speaking, Waldspurger's formula says $|a_f(|D|)|^2$ for a half-integral eigenform $f$ is proportional to which quantity attached to its Shimura lift $F$?",
+            "choices": [
+              "the regulator of $F$",
+              "the central twisted $L$-value $L(F\\otimes\\chi_D,\\,k)$, where $\\chi_D$ is the quadratic character of conductor $|D|$",
+              "the dimension of $S_{2k}$",
+              "the number of cusps of $\\Gamma_0(4)$"
+            ],
+            "answer": 1,
+            "explain": "Waldspurger (1981): the $|D|$-th squared Fourier coefficient of a normalized $f\\in S^+_{k+1/2}$ equals $L(F\\otimes\\chi_D,k)$ (the central value of the twisted $L$-series of its Shimura lift), up to an explicit Petersson-norm constant."
+          },
+          {
+            "type": "mcq",
+            "q": "What is the algorithmic significance of Waldspurger's formula?",
+            "choices": [
+              "it disproves BSD",
+              "it converts the analytically hard problem of computing central $L$-values into the combinatorially easy problem of computing Fourier coefficients of a half-integral weight form",
+              "it shows all $L$-values are zero",
+              "it makes Hecke operators commute"
+            ],
+            "answer": 1,
+            "explain": "Central $L$-values are otherwise hard to compute because the Dirichlet series doesn't converge there. Waldspurger trades the analytic problem for a combinatorial one: compute $a_f(|D|)$ from a $q$-expansion, then square."
+          },
+          {
+            "type": "mcq",
+            "q": "Why is the squared Fourier coefficient $|a_f(|D|)|^2$, not $a_f(|D|)$ itself, the quantity that equals an $L$-value?",
+            "choices": [
+              "because $L$-values are always negative",
+              "because central values $L(F\\otimes\\chi_D,k)$ are non-negative real numbers (functional-equation symmetric, real, and conjecturally non-negative), while $a_f$ is only determined up to sign by the eigenform — the sign is normalization, the magnitude is invariant",
+              "because squaring is faster",
+              "because $a_f$ is purely imaginary"
+            ],
+            "answer": 1,
+            "explain": "The Fourier coefficient $a_f(|D|)$ depends on a choice of normalization (sign), but the central $L$-value is intrinsic. Squaring kills the sign ambiguity; the magnitude is the canonical invariant on both sides."
+          }
+        ]
+      },
+      "hiw-tunnell-congruent": {
+        "title": "Tunnell's theorem and the congruent number problem",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Tunnell's theorem (1983) characterizes when a squarefree integer $n$ is congruent — i.e., the area of a rational right triangle. The criterion is:",
+            "choices": [
+              "a specific weight-3/2 Fourier coefficient (a finite count of integer triples) vanishes",
+              "$n$ is prime",
+              "$L(\\zeta,1)=0$",
+              "$n$ is a perfect square"
+            ],
+            "answer": 0,
+            "explain": "Tunnell (1983) gives a finite computable test: a specific theta-style sum (a weight-$\\tfrac32$ Fourier coefficient) vanishes iff $L(E_n,1)=0$, which by BSD is iff $E_n:y^2=x^3-n^2x$ has positive rank, which is iff $n$ is congruent."
+          },
+          {
+            "type": "mcq",
+            "q": "Tunnell's congruent-number test is unconditional in one direction but conditional in the other. The conditional half rests on:",
+            "choices": [
+              "the Riemann hypothesis",
+              "BSD for the elliptic curves $E_n:y^2=x^3-n^2x$",
+              "the modularity theorem",
+              "the Langlands program"
+            ],
+            "answer": 1,
+            "explain": "Without BSD, the vanishing of $L(E_n,1)$ is known to imply $n$ congruent only conditionally. The reverse implication (congruent $\\Rightarrow L(E_n,1)=0$) follows from the Coates-Wiles result for rank $\\ge 1$ when $E$ has CM; the full equivalence still requires BSD for the converse direction in general."
+          },
+          {
+            "type": "mcq",
+            "q": "Tunnell's theorem is the cleanest illustration of which broader principle?",
+            "choices": [
+              "all elliptic curves are CM",
+              "Waldspurger's formula — central $L$-values $L(E_n,1)=L(E\\otimes\\chi_n,1)$ are computable as squared Fourier coefficients of a half-integral weight form",
+              "every modular form is a theta series",
+              "the Selberg trace formula"
+            ],
+            "answer": 1,
+            "explain": "$E_n$ is the quadratic twist of $E_1:y^2=x^3-x$ by the character $\\chi_n$. Waldspurger writes $L(E\\otimes\\chi_n,1)$ as $|a_f(n)|^2$ for a specific $f\\in S^+_{3/2}$ Shimura-corresponding to the modular form attached to $E_1$. Tunnell makes the half-integral form completely explicit."
+          }
+        ]
+      }
+    }
+  },
   "hamiltonians-classical-mechanics": {
     "topic": "hamiltonians-classical-mechanics",
     "quizzes": {
@@ -31651,6 +32128,237 @@ window.MVQuizBank = {
             "answer": 1,
             "hint": "$K$-theory of a finite field is purely torsion in odd degrees and zero in positive even degrees.",
             "explain": "Quillen (1972) computed $K_{2k-1}(\\mathbb{F}_q)\\cong\\mathbb{Z}/(q^k-1)$ and $K_{2k}(\\mathbb{F}_q)=0$ for $k\\ge 1$, with $K_0(\\mathbb{F}_q)=\\mathbb{Z}$ and $K_1(\\mathbb{F}_q)=\\mathbb{F}_q^\\times$. Borel's theorem combines this with localisation sequences to get $K_n(\\mathcal{O}_F)$."
+          }
+        ]
+      }
+    }
+  },
+  "kahler-geometry": {
+    "topic": "kahler-geometry",
+    "quizzes": {
+      "kg-complex-structure": {
+        "title": "Almost complex structure and integrability",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "An almost complex structure on a smooth manifold $M$ is a bundle endomorphism $J\\colon TM \\to TM$ satisfying which identity?",
+            "choices": [
+              "$J^2 = +\\mathrm{id}$",
+              "$J^2 = -\\mathrm{id}$",
+              "$J = J^*$ (self-adjoint with respect to some metric)",
+              "$\\nabla J = 0$ for some torsion-free connection"
+            ],
+            "answer": 1,
+            "explain": "$J^2 = -\\mathrm{id}$ is the algebraic shadow of multiplication by $i$ on each tangent space. Self-adjointness and parallel-ness are extra structures (compatibility with a metric, integrability, Kähler condition) layered on top."
+          },
+          {
+            "type": "mcq",
+            "q": "Newlander–Nirenberg says an almost complex structure $J$ comes from honest holomorphic charts (i.e. $M$ is a complex manifold with this $J$) iff:",
+            "choices": [
+              "$J$ is parallel for some Riemannian metric",
+              "the Nijenhuis tensor $N_J$ vanishes",
+              "$M$ admits a Kähler metric",
+              "$J$ has constant rank"
+            ],
+            "answer": 1,
+            "explain": "$N_J = 0$ is the integrability condition. A non-zero Nijenhuis tensor is the obstruction to finding holomorphic coordinate charts in which $J$ becomes ordinary multiplication by $i$. Kähler is strictly stronger; metric-parallel-ness is a different kind of compatibility."
+          },
+          {
+            "type": "numeric",
+            "q": "Let $M$ be a complex manifold of complex dimension $n$. The space $\\Omega^k(M;\\mathbb{C})$ of complex-valued $k$-forms decomposes by bidegree as $\\bigoplus_{p+q=k} \\Omega^{p,q}(M)$. For $n = 3$ and $k = 2$, how many summands does this give?",
+            "answer": 3,
+            "tol": 0.000001,
+            "explain": "Pairs $(p,q)$ with $p+q=2$ and $0\\le p,q\\le n=3$ are $(2,0), (1,1), (0,2)$ — three summands. For general $n \\ge k$ the count is $k+1$."
+          }
+        ]
+      },
+      "kg-kahler-form": {
+        "title": "Hermitian metric and the Kähler form",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "Given a Hermitian metric $h$ on $(M,J)$, the associated $(1,1)$-form $\\omega$ is defined by $\\omega(X,Y) = h(JX, Y)$. The manifold is Kähler when:",
+            "choices": [
+              "$\\omega$ is non-degenerate",
+              "$\\omega$ is closed: $d\\omega = 0$",
+              "$\\omega = h$",
+              "$\\omega$ is exact: $\\omega = d\\alpha$ globally"
+            ],
+            "answer": 1,
+            "explain": "Closedness $d\\omega = 0$ is the defining Kähler condition. Non-degeneracy of $\\omega$ is automatic from the Hermitian-plus-$J$ data. Globally exact $\\omega$ would force $H^2(M)$ to lose the Kähler class, which fails on every compact Kähler manifold of positive dimension."
+          },
+          {
+            "type": "mcq",
+            "q": "On a Kähler manifold, the Kähler condition $d\\omega = 0$ is equivalent to which of the following statements about the Levi-Civita connection $\\nabla$?",
+            "choices": [
+              "$\\nabla h = 0$",
+              "$\\nabla J = 0$",
+              "$\\nabla \\omega = -d\\omega$",
+              "the connection has trivial holonomy"
+            ],
+            "answer": 1,
+            "explain": "$d\\omega = 0$ is equivalent to $\\nabla J = 0$: parallel transport by Levi-Civita commutes with the complex structure. $\\nabla h = 0$ is the defining property of Levi-Civita itself, not the Kähler condition. Trivial holonomy is a far stronger flatness property."
+          },
+          {
+            "type": "mcq",
+            "q": "Which of the following is NOT a Kähler manifold (with its standard structure)?",
+            "choices": [
+              "$\\mathbb{C}^n$ with the Euclidean metric",
+              "$\\mathbb{CP}^n$ with the Fubini–Study metric",
+              "any compact Riemann surface",
+              "the Hopf surface $S^1 \\times S^3$"
+            ],
+            "answer": 3,
+            "explain": "$S^1 \\times S^3$ is a complex manifold (Hopf surface) but its second Betti number is $b_2 = 0$, so it carries no closed non-trivial $(1,1)$-form and cannot be Kähler. The other three are the textbook Kähler examples — and Riemann surfaces are Kähler trivially since every $2$-form is closed in real dimension $2$."
+          }
+        ]
+      },
+      "kg-kahler-identities": {
+        "title": "Kähler identities and Hodge decomposition",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On a compact Kähler manifold, the three Laplacians $\\Delta_d$, $\\Delta_\\partial$, $\\Delta_{\\bar\\partial}$ satisfy which relation?",
+            "choices": [
+              "$\\Delta_d = \\Delta_\\partial = \\Delta_{\\bar\\partial}$",
+              "$\\Delta_d = 2\\Delta_\\partial = 2\\Delta_{\\bar\\partial}$",
+              "$\\Delta_d = \\Delta_\\partial + \\Delta_{\\bar\\partial}$ but $\\Delta_\\partial \\ne \\Delta_{\\bar\\partial}$",
+              "they only agree on $\\Omega^{p,p}$"
+            ],
+            "answer": 1,
+            "explain": "The Kähler identities $[\\Lambda,\\partial]=i\\bar\\partial^{\\,*}$ etc. force $\\Delta_d = 2\\Delta_\\partial = 2\\Delta_{\\bar\\partial}$. The factor of $2$ is real — $\\partial$ and $\\bar\\partial$ each see only half of $d = \\partial + \\bar\\partial$."
+          },
+          {
+            "type": "mcq",
+            "q": "Hodge symmetry on a compact Kähler manifold says $h^{p,q} = h^{q,p}$. The deeper origin of this equality is:",
+            "choices": [
+              "the conjugation $\\overline{H^{p,q}} = H^{q,p}$ on harmonic forms",
+              "Poincaré duality",
+              "Serre duality",
+              "Stokes' theorem"
+            ],
+            "answer": 0,
+            "explain": "Complex conjugation swaps $(p,q)$ with $(q,p)$, and harmonic representatives respect this because the Laplacian is real. Poincaré and Serre duality give a different identity, $h^{p,q} = h^{n-p,n-q}$. Both halve the Hodge diamond into a quarter."
+          },
+          {
+            "type": "numeric",
+            "q": "A compact Kähler $4$-fold has Hodge numbers $h^{p,q}$ with $0\\le p,q\\le 4$. Apply Hodge symmetry $h^{p,q}=h^{q,p}$ AND Serre duality $h^{p,q}=h^{n-p,n-q}$ (with $n=4$). How many independent entries does the resulting Hodge diamond have?",
+            "answer": 9,
+            "tol": 0.000001,
+            "explain": "The two symmetries identify $(p,q)$ with $(q,p)$ and $(4-p,4-q)$. Orbit representatives can be taken with $p\\le q$ and $p+q\\le 4$. Listing them: $(0,0),(0,1),(0,2),(0,3),(0,4),(1,1),(1,2),(1,3),(2,2)$ — nine entries."
+          }
+        ]
+      },
+      "kg-lefschetz": {
+        "title": "Lefschetz operator and hard Lefschetz",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On a compact Kähler manifold $M$ of complex dimension $n$, the hard Lefschetz theorem says that for $0\\le k \\le n$ the map",
+            "choices": [
+              "$L\\colon H^k(M) \\to H^{k+2}(M)$ is injective",
+              "$L^k\\colon H^{n-k}(M;\\mathbb{R}) \\to H^{n+k}(M;\\mathbb{R})$ is an isomorphism",
+              "$L^k\\colon H^0(M) \\to H^{2k}(M)$ is surjective",
+              "$L\\colon H^{n}(M) \\to H^{n+2}(M)$ is the zero map"
+            ],
+            "answer": 1,
+            "explain": "Hard Lefschetz: $k$-fold wedging with the Kähler class gives an isomorphism between cohomology in symmetric degrees about the middle. This is a sharp non-trivial statement; the other choices either fail (option 1 fails in general) or are only special cases."
+          },
+          {
+            "type": "mcq",
+            "q": "Primitive cohomology in degree $n-k$ of a compact Kähler $n$-manifold is defined as:",
+            "choices": [
+              "$\\ker L\\colon H^{n-k} \\to H^{n-k+2}$",
+              "$\\ker L^{k+1}\\colon H^{n-k} \\to H^{n+k+2}$",
+              "$\\mathrm{im}\\,L^k\\colon H^{n-k} \\to H^{n+k}$",
+              "harmonic forms of bidegree $(k,k)$"
+            ],
+            "answer": 1,
+            "explain": "Primitive classes in $H^{n-k}$ are those killed by $L^{k+1}$, equivalently those of $\\Lambda$-degree zero. They span the highest-weight part of the $\\mathfrak{sl}_2$-triple $(L,\\Lambda,H)$ acting on $H^*(M)$."
+          },
+          {
+            "type": "numeric",
+            "q": "For a compact Kähler manifold of complex dimension $n=3$, hard Lefschetz gives an isomorphism between $H^{n-1}$ and $H^{n+1}$. With $n=3$, what is $n+1$?",
+            "answer": 4,
+            "tol": 0.000001,
+            "explain": "For $n=3$, $k=1$: $L^1\\colon H^2 \\to H^4$ is an isomorphism. The middle dimension is $n=3$ and the symmetric pairings are $H^2 \\leftrightarrow H^4$ and $H^1 \\leftrightarrow H^5$ via $L$ and $L^2$ respectively."
+          }
+        ]
+      },
+      "kg-calabi-yau": {
+        "title": "Ricci-flat Kähler and the Calabi conjecture",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "On a Kähler manifold, the Ricci form $\\rho(\\omega)$ represents which cohomology class?",
+            "choices": [
+              "$0 \\in H^2$",
+              "$2\\pi c_1(M) \\in H^{1,1}(M;\\mathbb{R})$",
+              "$[\\omega] \\in H^{1,1}(M;\\mathbb{R})$",
+              "the Euler class $e(M)$"
+            ],
+            "answer": 1,
+            "explain": "The Chern–Weil identity $[\\rho] = 2\\pi c_1(M)$ is the bridge between curvature and topology. In particular Ricci-flat ($\\rho \\equiv 0$) forces $c_1(M) = 0$ — the topological obstruction to Calabi–Yau."
+          },
+          {
+            "type": "mcq",
+            "q": "Yau's theorem (the Calabi conjecture) states that on a compact Kähler manifold $M$ with $c_1(M) = 0$:",
+            "choices": [
+              "every smooth real $(1,1)$-form is the Ricci form of some metric",
+              "every Kähler class contains a unique Ricci-flat representative",
+              "the manifold is automatically a complex torus",
+              "the canonical bundle has a Hermitian–Einstein metric"
+            ],
+            "answer": 1,
+            "explain": "Yau (1977) proved that within each Kähler class there is exactly one metric whose Ricci form vanishes. Existence and uniqueness — the heart of the proof is a Monge–Ampère equation. K3 surfaces and the quintic threefold are not tori, so option 2 is wrong."
+          },
+          {
+            "type": "numeric",
+            "q": "The quintic Calabi–Yau threefold $\\{f_5(x_0,\\ldots,x_4)=0\\}\\subset\\mathbb{CP}^4$ has $h^{1,1}=1$ and $h^{2,1}=101$. Compute its Euler characteristic $\\chi = 2(h^{1,1}-h^{2,1})$.",
+            "answer": -200,
+            "tol": 0.000001,
+            "explain": "$\\chi = 2(1 - 101) = -200$. This number — and its mirror counterpart $+200$ on the mirror quintic — is the famous topological invariant from Candelas–de la Ossa–Green–Parkes."
+          }
+        ]
+      },
+      "kg-kahler-einstein": {
+        "title": "Kähler–Einstein and K-stability",
+        "questions": [
+          {
+            "type": "mcq",
+            "q": "A Kähler–Einstein metric on $(M,J)$ satisfies $\\mathrm{Ric}(\\omega) = c\\,\\omega$ for some real constant $c$. The sign of $c$ is determined by:",
+            "choices": [
+              "the dimension of $M$",
+              "the sign of the first Chern class $c_1(M)$",
+              "whether $M$ is simply connected",
+              "the value of the scalar curvature at one point"
+            ],
+            "answer": 1,
+            "explain": "Since $[\\rho] = 2\\pi c_1$ and $\\mathrm{Ric}(\\omega) = c\\,\\omega$, the cohomology class of $c_1(M)$ is $\\frac{c}{2\\pi}[\\omega]$. So $c > 0 \\iff c_1 > 0$ (Fano), $c=0\\iff c_1=0$ (Calabi–Yau), $c<0\\iff c_1<0$ (general type)."
+          },
+          {
+            "type": "mcq",
+            "q": "The existence of a Kähler–Einstein metric is currently understood by sign of $c_1$. In which case is existence still controlled by an algebro-geometric stability condition rather than a purely analytic theorem?",
+            "choices": [
+              "$c_1 < 0$ (general type) — Aubin–Yau",
+              "$c_1 = 0$ (Calabi–Yau) — Yau",
+              "$c_1 > 0$ (Fano) — Yau–Tian–Donaldson",
+              "$c_1 = 0$ on tori only"
+            ],
+            "answer": 2,
+            "explain": "Aubin and Yau (independently, 1976–78) settled $c_1<0$ and Yau (1977) settled $c_1=0$ analytically. The Fano case $c_1 > 0$ has obstructions (Matsushima, Futaki) and existence is equivalent to K-polystability, proved by Chen–Donaldson–Sun in 2015 — the Yau–Tian–Donaldson conjecture."
+          },
+          {
+            "type": "mcq",
+            "q": "Which Fano manifold is K-polystable and admits a Kähler–Einstein metric?",
+            "choices": [
+              "the blow-up of $\\mathbb{CP}^2$ at one point",
+              "$\\mathbb{CP}^n$ with the Fubini–Study metric",
+              "the blow-up of $\\mathbb{CP}^2$ at two points",
+              "the Hirzebruch surface $\\mathbb{F}_1$"
+            ],
+            "answer": 1,
+            "explain": "$\\mathbb{CP}^n$ with the Fubini–Study metric is the canonical Kähler–Einstein Fano: $\\mathrm{Ric}(\\omega_{FS}) = (n+1)\\,\\omega_{FS}$. The blow-up of $\\mathbb{CP}^2$ at one or two points is the standard non-K-stable example (Matsushima obstruction); $\\mathbb{F}_1$ is the same blow-up under another name."
           }
         ]
       }

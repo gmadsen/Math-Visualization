@@ -4,6 +4,9 @@
 window.__MVConcepts = {
   "index": {
     "topics": [
+      "kahler-geometry",
+      "half-integral-weight-forms",
+      "crystalline-cohomology",
       "homotopy-theory",
       "maass-forms",
       "d-modules",
@@ -344,10 +347,294 @@ window.__MVConcepts = {
       "mmp-and-birational-geometry": "advanced",
       "homotopy-theory": "advanced",
       "maass-forms": "advanced",
-      "d-modules": "advanced"
+      "d-modules": "advanced",
+      "kahler-geometry": "advanced",
+      "half-integral-weight-forms": "advanced",
+      "crystalline-cohomology": "advanced"
     }
   },
   "topics": {
+    "kahler-geometry": {
+      "topic": "kahler-geometry",
+      "title": "Kähler geometry",
+      "page": "kahler-geometry.html",
+      "concepts": [
+        {
+          "id": "kg-complex-structure",
+          "title": "Almost complex structure and integrability",
+          "anchor": "complex-structure",
+          "prereqs": [
+            "smooth-manifold-definition",
+            "tangent-space-manifolds"
+          ],
+          "blurb": "An almost complex structure is a bundle map $J\\colon TM \\to TM$ with $J^2 = -\\mathrm{id}$. Its $\\pm i$-eigenspaces split the complexified tangent bundle as $TM\\otimes\\mathbb{C} = T^{1,0} \\oplus T^{0,1}$ and induce a bigrading on forms $\\Omega^k = \\bigoplus_{p+q=k} \\Omega^{p,q}$ with operators $\\partial$ and $\\bar\\partial$. The Newlander–Nirenberg theorem says $J$ comes from honest holomorphic charts iff its Nijenhuis tensor $N_J$ vanishes — integrability is the only obstruction.",
+          "tags": [
+            "foundation",
+            "classification"
+          ]
+        },
+        {
+          "id": "kg-kahler-form",
+          "title": "Hermitian metric and the Kähler form",
+          "anchor": "kahler-form",
+          "prereqs": [
+            "kg-complex-structure",
+            "riemannian-metrics",
+            "forms-and-wedge"
+          ],
+          "blurb": "A Hermitian metric $h$ on $(M,J)$ is a Riemannian metric satisfying $h(JX, JY) = h(X,Y)$. Its imaginary part is a real $(1,1)$-form $\\omega(X,Y) = h(JX, Y)$. The Kähler condition $d\\omega = 0$ is equivalent to $\\nabla J = 0$ for the Levi-Civita connection, and locally to $\\omega = i\\,\\partial\\bar\\partial K$ for a Kähler potential $K$. Examples: $\\mathbb{C}^n$ Euclidean, $\\mathbb{CP}^n$ Fubini–Study, flat tori, every Riemann surface, and products.",
+          "tags": [
+            "foundation"
+          ]
+        },
+        {
+          "id": "kg-kahler-identities",
+          "title": "Kähler identities and Hodge decomposition",
+          "anchor": "kahler-identities",
+          "prereqs": [
+            "kg-kahler-form",
+            "stokes-derham",
+            "hodge-decomposition"
+          ],
+          "blurb": "On a compact Kähler manifold the commutators $[\\Lambda, \\partial] = i\\bar\\partial^{\\,*}$ and $[\\Lambda, \\bar\\partial] = -i\\partial^{\\,*}$ collapse the three Laplacians: $\\Delta_d = 2\\Delta_\\partial = 2\\Delta_{\\bar\\partial}$. As a corollary, harmonic representatives respect the bigrading and we get $H^k(M;\\mathbb{C}) = \\bigoplus_{p+q=k} H^{p,q}(M)$ with Hodge symmetry $h^{p,q} = h^{q,p}$ and Serre duality $h^{p,q} = h^{n-p,n-q}$.",
+          "tags": [
+            "cohomology",
+            "duality"
+          ]
+        },
+        {
+          "id": "kg-lefschetz",
+          "title": "Lefschetz operator and hard Lefschetz",
+          "anchor": "lefschetz",
+          "prereqs": [
+            "kg-kahler-identities"
+          ],
+          "blurb": "Wedging with the Kähler form gives the Lefschetz operator $L\\colon \\Omega^k \\to \\Omega^{k+2}$, $\\alpha \\mapsto \\alpha \\wedge \\omega$. The hard Lefschetz theorem says $L^k\\colon H^{n-k}(M;\\mathbb{R}) \\to H^{n+k}(M;\\mathbb{R})$ is an isomorphism for compact Kähler $M$ of complex dimension $n$. Primitive cohomology $P^{n-k} = \\ker L^{k+1}$ refines this into the Lefschetz decomposition, and the Riemann bilinear relations make every Hodge structure on $H^k(M)$ polarised.",
+          "tags": [
+            "duality",
+            "cohomology"
+          ]
+        },
+        {
+          "id": "kg-calabi-yau",
+          "title": "Ricci-flat Kähler and the Calabi conjecture",
+          "anchor": "calabi-yau",
+          "prereqs": [
+            "kg-kahler-form",
+            "ricci-curvature",
+            "cy-definition"
+          ],
+          "blurb": "The Ricci form $\\rho(\\omega)$ of a Kähler metric represents $2\\pi c_1(M)$ in $H^{1,1}(M;\\mathbb{R})$. So $c_1(M) = 0$ is necessary for a Ricci-flat metric. Yau (1977) proved the Calabi conjecture: it is also sufficient — every Kähler class on a compact Kähler manifold with $c_1 = 0$ contains a unique Ricci-flat representative. The quintic threefold $\\{f_5 = 0\\} \\subset \\mathbb{CP}^4$ is the canonical example.",
+          "tags": [
+            "classification",
+            "moduli"
+          ]
+        },
+        {
+          "id": "kg-kahler-einstein",
+          "title": "Kähler–Einstein and K-stability",
+          "anchor": "kahler-einstein",
+          "prereqs": [
+            "kg-calabi-yau"
+          ],
+          "blurb": "A Kähler–Einstein metric satisfies $\\mathrm{Ric}(\\omega) = c\\,\\omega$ for a constant $c$. The sign of $c$ tracks $c_1(M)$: $c = 0$ is Yau's Calabi–Yau case, $c < 0$ is the general-type case (Aubin–Yau, 1976–78). The Fano case $c > 0$ has obstructions — Matsushima, Futaki — and is now controlled by the Yau–Tian–Donaldson conjecture: a Fano manifold admits a Kähler–Einstein metric iff it is K-polystable (Chen–Donaldson–Sun, 2015).",
+          "tags": [
+            "classification"
+          ]
+        }
+      ]
+    },
+    "half-integral-weight-forms": {
+      "topic": "half-integral-weight-forms",
+      "title": "Half integral weight forms",
+      "page": "half-integral-weight-forms.html",
+      "concepts": [
+        {
+          "id": "hiw-metaplectic-cocycle",
+          "title": "Metaplectic group and the theta cocycle",
+          "anchor": "metaplectic",
+          "prereqs": [
+            "modular-form-definition",
+            "sl2z-on-H",
+            "theta-transformation-law"
+          ],
+          "blurb": "Half-integral weight needs a square root of $(c\\tau+d)^k$, which lives not on $\\mathrm{SL}_2(\\mathbb{Z})$ but on its double cover $\\widetilde{\\mathrm{SL}_2(\\mathbb{Z})}$. The transformation law $f(\\gamma\\tau)=j(\\gamma,\\tau)^{2k+1}f(\\tau)$ uses the theta multiplier $j(\\gamma,\\tau)=\\theta(\\gamma\\tau)/\\theta(\\tau)$, and $\\Gamma_0(4)$ is the natural level on which it can be defined consistently.",
+          "tags": [
+            "group-action",
+            "foundation"
+          ]
+        },
+        {
+          "id": "hiw-theta-prototype",
+          "title": "Theta as the prototypical weight-1/2 form",
+          "anchor": "theta",
+          "prereqs": [
+            "hiw-metaplectic-cocycle",
+            "theta-q-expansion",
+            "eisenstein-series-mf"
+          ],
+          "blurb": "The Jacobi theta series $\\theta(\\tau)=\\sum_{n\\in\\mathbb{Z}}q^{n^2}$ is the canonical weight-$\\tfrac12$ modular form on $\\Gamma_0(4)$. Powers $\\theta^k$ are weight-$k/2$ forms whose Fourier coefficients are $r_k(n)$, the number of representations of $n$ as a sum of $k$ squares: $r_2$ via Gauss/Jacobi, $r_4=8\\sigma(n)-32\\sigma(n/4)$ (Jacobi), and $r_8(n)=16\\sigma_3^*(n)$ (matched against $E_4$).",
+          "tags": [
+            "foundation",
+            "duality"
+          ]
+        },
+        {
+          "id": "hiw-shimura-lift",
+          "title": "Shimura's lift to integral weight",
+          "anchor": "shimura-lift",
+          "prereqs": [
+            "hiw-theta-prototype",
+            "hecke-algebra-commuting",
+            "eigenforms-and-euler-factors"
+          ],
+          "blurb": "Shimura (1973): a Hecke eigenform $f$ of weight $k+\\tfrac12$ on $\\Gamma_0(4N)$ with character $\\chi$ has a Hecke-equivariant lift to an integral-weight eigenform $F$ of weight $2k$ on $\\Gamma_0(2N)$ with character $\\chi^2$. At good primes the recipe is explicit: $a_F(p)=a_f(p^2)+\\chi(p)\\,p^{k-1}$. The lift makes the half-integral world a controlled mirror of the classical one.",
+          "tags": [
+            "duality",
+            "classification",
+            "functoriality"
+          ]
+        },
+        {
+          "id": "hiw-kohnen-plus-space",
+          "title": "Kohnen's plus space",
+          "anchor": "plus-space",
+          "prereqs": [
+            "hiw-shimura-lift",
+            "hecke-self-adjointness"
+          ],
+          "blurb": "The plus space $S^+_{k+1/2}(\\Gamma_0(4))\\subset S_{k+1/2}(\\Gamma_0(4))$ is cut out by the Fourier-coefficient condition $a(n)=0$ unless $(-1)^k n\\equiv 0,1\\pmod 4$. Kohnen-Zagier (1981): the Shimura correspondence restricts to a Hecke-equivariant isomorphism $S^+_{k+1/2}(\\Gamma_0(4))\\cong S_{2k}(\\mathrm{SL}_2(\\mathbb{Z}))$, picking out a canonical preimage of every level-1 newform.",
+          "tags": [
+            "classification",
+            "duality"
+          ]
+        },
+        {
+          "id": "hiw-waldspurger",
+          "title": "Waldspurger's formula",
+          "anchor": "waldspurger",
+          "prereqs": [
+            "hiw-kohnen-plus-space",
+            "special-values-lfunc",
+            "arithmetic-data-lfunctions"
+          ],
+          "blurb": "Waldspurger (1981): if $f\\in S^+_{k+1/2}$ is a Hecke eigenform corresponding under Shimura to $F\\in S_{2k}$, then the squared Fourier coefficient $|a_f(|D|)|^2$ equals (up to an explicit Petersson-norm factor) the central twisted $L$-value $L(F\\otimes\\chi_D,\\,k)$, where $\\chi_D$ is the quadratic character of conductor $|D|$. Half-integral Fourier coefficients become a computable proxy for central $L$-values.",
+          "tags": [
+            "duality",
+            "cancellation"
+          ]
+        },
+        {
+          "id": "hiw-tunnell-congruent",
+          "title": "Tunnell's theorem and the congruent number problem",
+          "anchor": "tunnell",
+          "prereqs": [
+            "hiw-waldspurger",
+            "bsd-rank-equality",
+            "elliptic-curve-definition"
+          ],
+          "blurb": "Tunnell (1983): a squarefree positive integer $n$ is congruent (the area of a rational right triangle) iff a specific weight-$\\tfrac32$ Fourier coefficient vanishes — an equality between two finite theta-style counts. Conditional on BSD for the curve $E_n:y^2=x^3-n^2x$, Tunnell's criterion is a polynomial-time congruent-number test, the cleanest example of Waldspurger's formula at work.",
+          "tags": [
+            "density",
+            "duality"
+          ]
+        }
+      ]
+    },
+    "crystalline-cohomology": {
+      "topic": "crystalline-cohomology",
+      "title": "Crystalline cohomology",
+      "page": "crystalline-cohomology.html",
+      "concepts": [
+        {
+          "id": "cc-motivation",
+          "title": "Why crystalline? — the $\\ell=p$ gap",
+          "anchor": "motivation",
+          "prereqs": [
+            "etale-cohomology:l-adic-cohomology",
+            "p-adic-numbers:padic-norm-completion",
+            "algebraic-de-rham-cohomology:de-rham-complex"
+          ],
+          "blurb": "$\\ell$-adic étale cohomology $H^*_{\\mathrm{\\acute{e}t}}(X,\\mathbb{Q}_\\ell)$ behaves like singular cohomology only for $\\ell\\ne p=\\mathrm{char}(k)$. Constant $\\mathbb{Z}/p^n$ coefficients on a smooth variety in characteristic $p$ pick up Frobenius-kernel pathology. Crystalline cohomology $H^*_{\\mathrm{cris}}(X/W)$ with values in the Witt vectors $W=W(k)$ is the missing $p$-adic Weil cohomology — a free $W$-module whose rank equals the Betti number of any lift.",
+          "tags": [
+            "cohomology",
+            "completion",
+            "foundation"
+          ]
+        },
+        {
+          "id": "cc-divided-powers",
+          "title": "Divided powers and the crystalline site",
+          "anchor": "divided-powers",
+          "prereqs": [
+            "cc-motivation",
+            "sheaf-cohomology:derived-functor-cohomology"
+          ],
+          "blurb": "A PD-structure on an ideal $I\\subset A$ is a system of operations $\\gamma_n\\colon I\\to A$ formally behaving like $x^n/n!$ — divided powers — and rescuing the missing factorials in characteristic $p$. The crystalline site $(X/W)_{\\mathrm{cris}}$ has objects PD-thickenings $X_0\\hookrightarrow U\\subset T$ over $\\mathrm{Spf}\\,W$. The structure sheaf $\\mathcal{O}_{X/W}$ assigns the ring of $T$, and $H^i_{\\mathrm{cris}}(X_0/W) := H^i((X_0/W)_{\\mathrm{cris}}, \\mathcal{O}_{X/W})$.",
+          "tags": [
+            "foundation",
+            "descent"
+          ]
+        },
+        {
+          "id": "cc-de-rham-comparison",
+          "title": "Comparison with de Rham of a lift",
+          "anchor": "de-rham-comparison",
+          "prereqs": [
+            "cc-divided-powers",
+            "algebraic-de-rham-cohomology:de-rham-complex"
+          ],
+          "blurb": "If $X_0/k$ admits a smooth lift $X/W$, then $H^*_{\\mathrm{cris}}(X_0/W) \\cong H^*_{\\mathrm{dR}}(X/W)$ — the algebraic de Rham cohomology of the lift, computed by hypercohomology of $\\Omega^\\bullet_{X/W}$. Berthelot–Ogus prove the answer is independent of the lift, and on non-liftable $X_0$ one covers by liftable affines and glues. Crystalline cohomology is therefore the right characteristic-$p$ shadow of de Rham.",
+          "tags": [
+            "cohomology",
+            "lifting"
+          ]
+        },
+        {
+          "id": "cc-frobenius",
+          "title": "Frobenius action and the Katz–Messing theorem",
+          "anchor": "frobenius",
+          "prereqs": [
+            "cc-de-rham-comparison",
+            "etale-cohomology:weil-frobenius-trace"
+          ],
+          "blurb": "The absolute Frobenius $F\\colon X_0\\to X_0$ induces a $\\sigma$-semilinear endomorphism $\\varphi$ on $H^*_{\\mathrm{cris}}(X_0/W)$, where $\\sigma$ is the Witt-vector lift of the residue Frobenius. For $X_0$ smooth proper over $\\mathbb{F}_q$, Katz–Messing prove the characteristic polynomial of $\\varphi^{\\log_p q}$ on crystalline cohomology equals the one of geometric Frobenius on $\\ell$-adic étale cohomology. Both compute the same zeta function — crystalline closes the Weil-conjectures package at $\\ell=p$.",
+          "tags": [
+            "group-action",
+            "cohomology"
+          ]
+        },
+        {
+          "id": "cc-f-isocrystals",
+          "title": "F-isocrystals, Newton above Hodge",
+          "anchor": "f-isocrystals",
+          "prereqs": [
+            "cc-frobenius",
+            "p-adic-numbers:newton-polygons"
+          ],
+          "blurb": "Tensoring with $K=\\mathrm{Frac}(W)$ turns $(H^i_{\\mathrm{cris}}(X_0/W),\\varphi)$ into an F-isocrystal: a finite-dimensional $K$-vector space with a $\\sigma$-semilinear bijection. Its Newton polygon plots the $p$-adic valuations of the eigenvalues of $\\varphi$. Mazur's inequality: the Newton polygon lies on or above the Hodge polygon (built from $h^{p,q}$) and shares the same endpoints. An ordinary elliptic curve has slopes $\\{0,1\\}$; a supersingular one has slopes $\\{1/2,1/2\\}$.",
+          "tags": [
+            "classification",
+            "completion"
+          ]
+        },
+        {
+          "id": "cc-p-adic-hodge",
+          "title": "Period rings $B_{\\mathrm{cris}},B_{\\mathrm{dR}}$ and Fontaine's comparison",
+          "anchor": "p-adic-hodge",
+          "prereqs": [
+            "cc-f-isocrystals",
+            "etale-cohomology:comparison-theorems-etale"
+          ],
+          "blurb": "Fontaine's period rings $B_{\\mathrm{cris}}\\subset B_{\\mathrm{dR}}$ are big topological $\\mathbb{Q}_p$-algebras carrying Frobenius, filtration, and a $\\Gal(\\bar K/K)$-action. For $X/K$ smooth proper with good reduction $X_0$ at the residue level (Faltings, Tsuji), $H^*_{\\mathrm{\\acute{e}t}}(X_{\\bar K},\\mathbb{Q}_p)\\otimes_{\\mathbb{Q}_p} B_{\\mathrm{cris}} \\cong H^*_{\\mathrm{cris}}(X_0/W)\\otimes_W B_{\\mathrm{cris}}$ compatibly with all extra structure. Crystalline, de Rham, and Hodge–Tate cohomologies are recovered as different filtrations on a single period algebra.",
+          "tags": [
+            "duality",
+            "completion",
+            "cohomology"
+          ]
+        }
+      ]
+    },
     "homotopy-theory": {
       "topic": "homotopy-theory",
       "title": "Homotopy theory",
@@ -16664,7 +16951,8 @@ window.__MVConcepts = {
           "mostow-rigidity",
           "cohomology-and-duality",
           "cobordism",
-          "homotopy-theory"
+          "homotopy-theory",
+          "kahler-geometry"
         ],
         "color": "v"
       },
@@ -16715,7 +17003,8 @@ window.__MVConcepts = {
           "modular-curves",
           "vertex-operator-algebras",
           "langlands-program",
-          "maass-forms"
+          "maass-forms",
+          "half-integral-weight-forms"
         ],
         "color": "c"
       },
@@ -16752,7 +17041,8 @@ window.__MVConcepts = {
           "abelian-varieties",
           "positivity-and-ample-line-bundles",
           "mmp-and-birational-geometry",
-          "d-modules"
+          "d-modules",
+          "crystalline-cohomology"
         ],
         "color": "g"
       },
@@ -17053,7 +17343,10 @@ window.__MVConcepts = {
     "mmp-and-birational-geometry": "advanced",
     "homotopy-theory": "advanced",
     "maass-forms": "advanced",
-    "d-modules": "advanced"
+    "d-modules": "advanced",
+    "kahler-geometry": "advanced",
+    "half-integral-weight-forms": "advanced",
+    "crystalline-cohomology": "advanced"
   },
   "newArc": [
     "elementary-topos-theory",
@@ -17109,11 +17402,11 @@ window.__MVConcepts = {
       "density": 0.2545454545454545
     },
     "Geometry & topology": {
-      "concepts": 122,
-      "intra": 196,
-      "crossOut": 23,
+      "concepts": 128,
+      "intra": 207,
+      "crossOut": 25,
       "crossIn": 94,
-      "density": 0.1885245901639344
+      "density": 0.1953125
     },
     "Number theory": {
       "concepts": 116,
@@ -17123,18 +17416,18 @@ window.__MVConcepts = {
       "density": 0.3706896551724138
     },
     "Modular forms & L-functions": {
-      "concepts": 109,
-      "intra": 149,
-      "crossOut": 55,
+      "concepts": 115,
+      "intra": 165,
+      "crossOut": 56,
       "crossIn": 16,
-      "density": 0.5045871559633027
+      "density": 0.48695652173913045
     },
     "Algebraic geometry": {
-      "concepts": 173,
-      "intra": 242,
+      "concepts": 179,
+      "intra": 247,
       "crossOut": 61,
-      "crossIn": 21,
-      "density": 0.35260115606936415
+      "crossIn": 24,
+      "density": 0.3407821229050279
     },
     "Combinatorics & graph theory": {
       "concepts": 51,

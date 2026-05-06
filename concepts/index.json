@@ -1,5 +1,8 @@
 {
   "topics": [
+    "kahler-geometry",
+    "half-integral-weight-forms",
+    "crystalline-cohomology",
     "homotopy-theory",
     "maass-forms",
     "d-modules",
@@ -340,6 +343,9 @@
     "mmp-and-birational-geometry": "advanced",
     "homotopy-theory": "advanced",
     "maass-forms": "advanced",
-    "d-modules": "advanced"
+    "d-modules": "advanced",
+    "kahler-geometry": "advanced",
+    "half-integral-weight-forms": "advanced",
+    "crystalline-cohomology": "advanced"
   }
 }

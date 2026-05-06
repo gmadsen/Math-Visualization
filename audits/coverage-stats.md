@@ -2,12 +2,12 @@
 
 ## Corpus totals
 
-- Topics: **160**, concepts: **1122**
-- Widgets: **1147** (registry-driven: 1147, inline: 0)
-- Quizzes: **4560** (v1: 3324, hard: 1223, expert: 13)
-- Quiz types: mcq: 3028, numeric: 1115, multi-select: 188, matching: 83, ordering: 58, spot-the-error: 38, complex: 29, proof-completion: 17, construction: 2, guess-my-rule: 2
+- Topics: **163**, concepts: **1140**
+- Widgets: **1166** (registry-driven: 1166, inline: 0)
+- Quizzes: **4614** (v1: 3378, hard: 1223, expert: 13)
+- Quiz types: mcq: 3073, numeric: 1124, multi-select: 188, matching: 83, ordering: 58, spot-the-error: 38, complex: 29, proof-completion: 17, construction: 2, guess-my-rule: 2
 - Concepts lacking a widget in their section: **148**
-- Concepts lacking a hard-tier quiz: **684**
+- Concepts lacking a hard-tier quiz: **702**
 
 ## Per-slug registry adoption
 
@@ -178,6 +178,13 @@ page has wired one in yet.
 | `crypto-rsa-toy` | crypto-rsa-toy | slider | 2d | 1 | mathematics-and-cryptography |
 | `crypto-schnorr-protocol` | crypto-schnorr-protocol | button | 2d | 1 | mathematics-and-cryptography |
 | `crypto-totient-units` | crypto-totient-units | slider | 2d | 1 | mathematics-and-cryptography |
+| `crystalline-cohomology-w1` | verbatim | click | 2d | 1 | crystalline-cohomology |
+| `crystalline-cohomology-w2` | verbatim | click | 2d | 1 | crystalline-cohomology |
+| `crystalline-cohomology-w3` | verbatim | click | 2d | 1 | crystalline-cohomology |
+| `crystalline-cohomology-w4` | verbatim | click | 2d | 1 | crystalline-cohomology |
+| `crystalline-cohomology-w5` | verbatim | click | 2d | 1 | crystalline-cohomology |
+| `crystalline-cohomology-w6` | verbatim | click | 2d | 1 | crystalline-cohomology |
+| `crystalline-cohomology-w7` | verbatim | click | 2d | 1 | crystalline-cohomology |
 | `d-modules-w1` | verbatim | click | 2d | 1 | d-modules |
 | `d-modules-w2` | verbatim | click | 2d | 1 | d-modules |
 | `d-modules-w3` | verbatim | click | 2d | 1 | d-modules |
@@ -338,6 +345,12 @@ page has wired one in yet.
 | `gt-lattice` | verbatim | slider | 2d | 1 | gauge-theory |
 | `gt-sw` | verbatim | click | 2d | 1 | gauge-theory |
 | `gt-wilson` | verbatim | slider | 2d | 1 | gauge-theory |
+| `half-integral-weight-forms-w1` | verbatim | click | 2d | 1 | half-integral-weight-forms |
+| `half-integral-weight-forms-w2` | verbatim | click | 2d | 1 | half-integral-weight-forms |
+| `half-integral-weight-forms-w3` | verbatim | click | 2d | 1 | half-integral-weight-forms |
+| `half-integral-weight-forms-w4` | verbatim | click | 2d | 1 | half-integral-weight-forms |
+| `half-integral-weight-forms-w5` | verbatim | click | 2d | 1 | half-integral-weight-forms |
+| `half-integral-weight-forms-w6` | verbatim | click | 2d | 1 | half-integral-weight-forms |
 | `harmonic-convolution` | harmonic-convolution | slider | 2d | 1 | harmonic-analysis-fourier |
 | `harmonic-functions-harnack-corridor` | harmonic-functions-harnack-corridor | slider | 2d | 1 | harmonic-functions |
 | `harmonic-functions-laplacian-heatmap` | harmonic-functions-laplacian-heatmap | select | 2d | 1 | harmonic-functions |
@@ -415,6 +428,12 @@ page has wired one in yet.
 | `k-theory-index-theorem` | k-theory-index-theorem | click | 2d | 1 | k-theory |
 | `k-theory-low-k-groups` | k-theory-low-k-groups | click | 2d | 1 | k-theory |
 | `k-theory-ses-relations` | k-theory-ses-relations | click | 2d | 1 | k-theory |
+| `kahler-geometry-w1` | verbatim | click | 2d | 1 | kahler-geometry |
+| `kahler-geometry-w2` | verbatim | click | 2d | 1 | kahler-geometry |
+| `kahler-geometry-w3` | verbatim | click | 2d | 1 | kahler-geometry |
+| `kahler-geometry-w4` | verbatim | click | 2d | 1 | kahler-geometry |
+| `kahler-geometry-w5` | verbatim | click | 2d | 1 | kahler-geometry |
+| `kahler-geometry-w6` | verbatim | click | 2d | 1 | kahler-geometry |
 | `kg-anti` | verbatim | click | 2d | 1 | klein-gordon-equation |
 | `kg-curr` | verbatim | slider | 2d | 1 | klein-gordon-equation |
 | `kg-deriv` | verbatim | slider | 2d | 1 | klein-gordon-equation |
@@ -748,13 +767,13 @@ page has wired one in yet.
 
 ### Geometry & topology
 
-- Topics: **19**, concepts: **122**
-- Widgets: **126** (registry-driven: 126, inline: 0)
-  - by family: button-stepper: 34, verbatim: 22, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, mostow-rigidity-dial: 1, mostow-h3-fundamental-domain: 1, mostow-boundary-extension: 1, mostow-boundary-orbit: 1, mostow-rank-tower: 1, mostow-volume-spectrum: 1, symplectic-form-pairing: 1, symplectic-darboux-moser: 1, symplectic-harmonic-portrait: 1, symplectic-dirac-ladder: 1, symplectic-cotangent-lagrangians: 1, symplectic-floer-intersections: 1, knot-polynomials-gallery: 1, knot-polynomials-reidemeister: 1, knot-polynomials-alexander: 1, knot-polynomials-bracket: 1, knot-polynomials-homfly: 1, knot-polynomials-rmatrix: 1, ricci-einstein-flows: 1, ricci-deturck-trick: 1, ricci-blowup-rates: 1, ricci-soliton-zoo: 1, ricci-neckpinch-surgery: 1, ricci-extinction-timeline: 1, k-theory-grothendieck-builder: 1, k-theory-ses-relations: 1, k-theory-bott-periodicity: 1, k-theory-chern-character: 1, k-theory-low-k-groups: 1, k-theory-index-theorem: 1, atiyah-singer-index-family: 1, atiyah-singer-symbol: 1, atiyah-singer-ch-td: 1, atiyah-singer-cases: 1, atiyah-singer-dirac-sphere: 1, atiyah-singer-anomaly: 1, counterexample-explorer: 1, proof-scrubber: 1, lattice-visualizer: 1, characteristic-classes-mobius-vs-cylinder: 1, characteristic-classes-w1-surfaces: 1, characteristic-classes-c1-clutching: 1, characteristic-classes-pontryagin-formulas: 1, characteristic-classes-poincare-hopf: 1, characteristic-classes-gauss-bonnet: 1, characteristic-classes-classifying-map: 1, characteristic-classes-signature-l-genus: 1, characteristic-classes-cpn-localisation: 1, morse-torus-height: 1, morse-handle-decomp: 1, morse-cw-cells: 1, morse-betti-counts: 1, morse-gradient-flow: 1, morse-sphere-vs-rp2: 1, morse-smale-saddle: 1, morse-cerf-birth-death: 1
-  - by dimension: 2d: 120, 3d: 6
-  - by gesture: click: 78, slider: 23, drag: 8, button-stepper: 6, step: 3, select: 3, pick: 2, static: 2, timeline: 1
-- Quizzes: **508** (v1: 366, hard: 142, expert: 0)
-  - by type: mcq: 349, numeric: 136, multi-select: 10, complex: 7, matching: 4, ordering: 1, proof-completion: 1
+- Topics: **20**, concepts: **128**
+- Widgets: **132** (registry-driven: 132, inline: 0)
+  - by family: button-stepper: 34, verbatim: 28, surface-viewer: 6, clickable-diagram: 4, clickable-graph: 2, svg-illustration: 2, mostow-rigidity-dial: 1, mostow-h3-fundamental-domain: 1, mostow-boundary-extension: 1, mostow-boundary-orbit: 1, mostow-rank-tower: 1, mostow-volume-spectrum: 1, symplectic-form-pairing: 1, symplectic-darboux-moser: 1, symplectic-harmonic-portrait: 1, symplectic-dirac-ladder: 1, symplectic-cotangent-lagrangians: 1, symplectic-floer-intersections: 1, knot-polynomials-gallery: 1, knot-polynomials-reidemeister: 1, knot-polynomials-alexander: 1, knot-polynomials-bracket: 1, knot-polynomials-homfly: 1, knot-polynomials-rmatrix: 1, ricci-einstein-flows: 1, ricci-deturck-trick: 1, ricci-blowup-rates: 1, ricci-soliton-zoo: 1, ricci-neckpinch-surgery: 1, ricci-extinction-timeline: 1, k-theory-grothendieck-builder: 1, k-theory-ses-relations: 1, k-theory-bott-periodicity: 1, k-theory-chern-character: 1, k-theory-low-k-groups: 1, k-theory-index-theorem: 1, atiyah-singer-index-family: 1, atiyah-singer-symbol: 1, atiyah-singer-ch-td: 1, atiyah-singer-cases: 1, atiyah-singer-dirac-sphere: 1, atiyah-singer-anomaly: 1, counterexample-explorer: 1, proof-scrubber: 1, lattice-visualizer: 1, characteristic-classes-mobius-vs-cylinder: 1, characteristic-classes-w1-surfaces: 1, characteristic-classes-c1-clutching: 1, characteristic-classes-pontryagin-formulas: 1, characteristic-classes-poincare-hopf: 1, characteristic-classes-gauss-bonnet: 1, characteristic-classes-classifying-map: 1, characteristic-classes-signature-l-genus: 1, characteristic-classes-cpn-localisation: 1, morse-torus-height: 1, morse-handle-decomp: 1, morse-cw-cells: 1, morse-betti-counts: 1, morse-gradient-flow: 1, morse-sphere-vs-rp2: 1, morse-smale-saddle: 1, morse-cerf-birth-death: 1
+  - by dimension: 2d: 126, 3d: 6
+  - by gesture: click: 84, slider: 23, drag: 8, button-stepper: 6, step: 3, select: 3, pick: 2, static: 2, timeline: 1
+- Quizzes: **526** (v1: 384, hard: 142, expert: 0)
+  - by type: mcq: 363, numeric: 140, multi-select: 10, complex: 7, matching: 4, ordering: 1, proof-completion: 1
 
 ### Number theory
 
@@ -768,23 +787,23 @@ page has wired one in yet.
 
 ### Modular forms & L-functions
 
-- Topics: **18**, concepts: **109**
-- Widgets: **133** (registry-driven: 133, inline: 0)
-  - by family: button-stepper: 92, verbatim: 6, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 2, voa-mode-bookkeeping: 1, voa-axiom-map: 1, voa-virasoro-bracket: 1, voa-character-coeffs: 1, voa-mckay-thompson: 1, voa-construction-zoo: 1, automorphic-restricted-product: 1, automorphic-strong-approximation: 1, automorphic-three-conditions: 1, automorphic-dictionary: 1, automorphic-satake-parameters: 1, automorphic-conductor-ladder: 1, automorphic-local-factor-builder: 1, automorphic-eisenstein-residue: 1, automorphic-functoriality-transfers: 1, modular-curves-fundamental-domain: 1, modular-curves-lattice-cyclic-subgroup: 1, modular-curves-hecke-summands: 1, modular-curves-eichler-shimura: 1, modular-curves-genus-growth: 1, modular-curves-cusps-and-wn: 1, modular-curves-atkin-lehner-newforms: 1, modular-curves-heegner-hypothesis: 1, modular-curves-mazur-torsion: 1
-  - by dimension: 2d: 133
-  - by gesture: click: 106, slider: 13, step: 8, static: 4, select: 2
-- Quizzes: **522** (v1: 327, hard: 195, expert: 0)
-  - by type: mcq: 349, numeric: 162, multi-select: 7, matching: 3, ordering: 1
+- Topics: **19**, concepts: **115**
+- Widgets: **139** (registry-driven: 139, inline: 0)
+  - by family: button-stepper: 92, verbatim: 12, parametric-plot: 5, svg-illustration: 4, lattice-visualizer: 2, voa-mode-bookkeeping: 1, voa-axiom-map: 1, voa-virasoro-bracket: 1, voa-character-coeffs: 1, voa-mckay-thompson: 1, voa-construction-zoo: 1, automorphic-restricted-product: 1, automorphic-strong-approximation: 1, automorphic-three-conditions: 1, automorphic-dictionary: 1, automorphic-satake-parameters: 1, automorphic-conductor-ladder: 1, automorphic-local-factor-builder: 1, automorphic-eisenstein-residue: 1, automorphic-functoriality-transfers: 1, modular-curves-fundamental-domain: 1, modular-curves-lattice-cyclic-subgroup: 1, modular-curves-hecke-summands: 1, modular-curves-eichler-shimura: 1, modular-curves-genus-growth: 1, modular-curves-cusps-and-wn: 1, modular-curves-atkin-lehner-newforms: 1, modular-curves-heegner-hypothesis: 1, modular-curves-mazur-torsion: 1
+  - by dimension: 2d: 139
+  - by gesture: click: 112, slider: 13, step: 8, static: 4, select: 2
+- Quizzes: **540** (v1: 345, hard: 195, expert: 0)
+  - by type: mcq: 363, numeric: 166, multi-select: 7, matching: 3, ordering: 1
 
 ### Algebraic geometry
 
-- Topics: **29**, concepts: **173**
-- Widgets: **180** (registry-driven: 180, inline: 0)
-  - by family: button-stepper: 61, verbatim: 36, clickable-diagram: 23, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, calabi-yau-canonical-degree: 1, calabi-yau-hodge-diamond: 1, calabi-yau-hypersurface-zoo: 1, calabi-yau-periods: 1, calabi-yau-mirror-swap: 1, calabi-yau-syz-fibration: 1, mirror-hodge-diamond: 1, mirror-quintic-counts: 1, mirror-stable-map: 1, mirror-quintic-periods: 1, mirror-hms-pairing: 1, mirror-syz-fibration: 1, resolution-cusp-node-visualizer: 1, resolution-cuspidal-blowup: 1, resolution-tower-of-blowups: 1, resolution-curve-normalization: 1, resolution-ade-dynkin: 1, lattice-visualizer: 1, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, counterexample-explorer: 1
-  - by dimension: 2d: 180
-  - by gesture: click: 129, interact: 16, slider: 13, scrub: 7, select: 6, inspect: 5, drag: 2, read: 1, slide: 1
-- Quizzes: **764** (v1: 519, hard: 245, expert: 0)
-  - by type: mcq: 505, numeric: 201, multi-select: 27, matching: 15, spot-the-error: 7, ordering: 5, complex: 3, proof-completion: 1
+- Topics: **30**, concepts: **179**
+- Widgets: **187** (registry-driven: 187, inline: 0)
+  - by family: button-stepper: 61, verbatim: 43, clickable-diagram: 23, proof-scrubber: 7, clickable-graph: 6, declarative-host: 6, parametric-plot: 4, modular-arithmetic-clock: 2, svg-illustration: 2, calabi-yau-canonical-degree: 1, calabi-yau-hodge-diamond: 1, calabi-yau-hypersurface-zoo: 1, calabi-yau-periods: 1, calabi-yau-mirror-swap: 1, calabi-yau-syz-fibration: 1, mirror-hodge-diamond: 1, mirror-quintic-counts: 1, mirror-stable-map: 1, mirror-quintic-periods: 1, mirror-hms-pairing: 1, mirror-syz-fibration: 1, resolution-cusp-node-visualizer: 1, resolution-cuspidal-blowup: 1, resolution-tower-of-blowups: 1, resolution-curve-normalization: 1, resolution-ade-dynkin: 1, lattice-visualizer: 1, algebraic-curves-riemann-hurwitz-cover: 1, algebraic-curves-jacobian-lattice: 1, algebraic-curves-riemann-roch-scrubber: 1, algebraic-curves-canonical-embedding-scrubber: 1, algebraic-curves-hyperelliptic-cover: 1, algebraic-curves-moduli-boundary: 1, algebraic-de-rham-kahler-scrubber: 1, algebraic-de-rham-complex-scrubber: 1, algebraic-de-rham-betti-comparison-scrubber: 1, algebraic-de-rham-hodge-filtration-scrubber: 1, algebraic-de-rham-hodge-diamond-clickgraph: 1, algebraic-de-rham-hodge-pn-explorer: 1, algebraic-de-rham-curve-clickable: 1, algebraic-de-rham-hodge-sandbox: 1, counterexample-explorer: 1
+  - by dimension: 2d: 187
+  - by gesture: click: 136, interact: 16, slider: 13, scrub: 7, select: 6, inspect: 5, drag: 2, read: 1, slide: 1
+- Quizzes: **782** (v1: 537, hard: 245, expert: 0)
+  - by type: mcq: 522, numeric: 202, multi-select: 27, matching: 15, spot-the-error: 7, ordering: 5, complex: 3, proof-completion: 1
 
 ### Combinatorics & graph theory
 
@@ -808,6 +827,9 @@ page has wired one in yet.
 
 ## Per-topic
 
+- `kahler-geometry` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `half-integral-weight-forms` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
+- `crystalline-cohomology` (Algebraic geometry) — concepts=6, widgets=7 (slug=7), quiz=18 (v1=18, hard=0, expert=0)
 - `homotopy-theory` (Geometry & topology) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `maass-forms` (Modular forms & L-functions) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
 - `d-modules` (Algebraic geometry) — concepts=6, widgets=6 (slug=6), quiz=18 (v1=18, hard=0, expert=0)
@@ -996,23 +1018,23 @@ page has wired one in yet.
 
 ### Concepts missing a hard-tier quiz (top 20)
 
+- `kg-complex-structure` (kahler-geometry)
+- `kg-kahler-form` (kahler-geometry)
+- `kg-kahler-identities` (kahler-geometry)
+- `kg-lefschetz` (kahler-geometry)
+- `kg-calabi-yau` (kahler-geometry)
+- `kg-kahler-einstein` (kahler-geometry)
+- `hiw-metaplectic-cocycle` (half-integral-weight-forms)
+- `hiw-theta-prototype` (half-integral-weight-forms)
+- `hiw-shimura-lift` (half-integral-weight-forms)
+- `hiw-kohnen-plus-space` (half-integral-weight-forms)
+- `hiw-waldspurger` (half-integral-weight-forms)
+- `hiw-tunnell-congruent` (half-integral-weight-forms)
+- `cc-motivation` (crystalline-cohomology)
+- `cc-divided-powers` (crystalline-cohomology)
+- `cc-de-rham-comparison` (crystalline-cohomology)
+- `cc-frobenius` (crystalline-cohomology)
+- `cc-f-isocrystals` (crystalline-cohomology)
+- `cc-p-adic-hodge` (crystalline-cohomology)
 - `ht-pi-n` (homotopy-theory)
 - `ht-hurewicz-whitehead` (homotopy-theory)
-- `ht-eilenberg-maclane` (homotopy-theory)
-- `ht-stable` (homotopy-theory)
-- `ht-hopf-rational` (homotopy-theory)
-- `ht-loop` (homotopy-theory)
-- `maa-definition` (maass-forms)
-- `maa-spectral` (maass-forms)
-- `maa-selberg-eigenvalue` (maass-forms)
-- `maa-eisenstein` (maass-forms)
-- `maa-l-function` (maass-forms)
-- `maa-trace-formula` (maass-forms)
-- `dm-weyl` (d-modules)
-- `dm-dx` (d-modules)
-- `dm-holonomic` (d-modules)
-- `dm-riemann-hilbert` (d-modules)
-- `dm-pde` (d-modules)
-- `dm-bs-polynomial` (d-modules)
-- `du-log-embedding` (dirichlet-unit-theorem)
-- `du-statement` (dirichlet-unit-theorem)

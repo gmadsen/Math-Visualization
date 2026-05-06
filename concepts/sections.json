@@ -122,7 +122,8 @@
         "mostow-rigidity",
         "cohomology-and-duality",
         "cobordism",
-        "homotopy-theory"
+        "homotopy-theory",
+        "kahler-geometry"
       ],
       "color": "v"
     },
@@ -173,7 +174,8 @@
         "modular-curves",
         "vertex-operator-algebras",
         "langlands-program",
-        "maass-forms"
+        "maass-forms",
+        "half-integral-weight-forms"
       ],
       "color": "c"
     },
@@ -210,7 +212,8 @@
         "abelian-varieties",
         "positivity-and-ample-line-bundles",
         "mmp-and-birational-geometry",
-        "d-modules"
+        "d-modules",
+        "crystalline-cohomology"
       ],
       "color": "g"
     },

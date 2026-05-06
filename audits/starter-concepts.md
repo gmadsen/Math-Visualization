@@ -16,10 +16,10 @@ reach into upstream foundations or stay within their own cluster.
 | Higher categories & toposes | 45 | 68 | 23 | 4 | 0.511 |
 | Analysis | 191 | 333 | 31 | 64 | 0.162 |
 | Probability & statistics | 55 | 92 | 14 | 13 | 0.255 |
-| Geometry & topology | 122 | 196 | 23 | 94 | 0.189 |
+| Geometry & topology | 128 | 207 | 25 | 94 | 0.195 |
 | Number theory | 116 | 160 | 43 | 27 | 0.371 |
-| Modular forms & L-functions | 109 | 149 | 55 | 16 | 0.505 |
-| Algebraic geometry | 173 | 242 | 61 | 21 | 0.353 |
+| Modular forms & L-functions | 115 | 165 | 56 | 16 | 0.487 |
+| Algebraic geometry | 179 | 247 | 61 | 24 | 0.341 |
 | Combinatorics & graph theory | 51 | 50 | 24 | 2 | 0.471 |
 | Mathematical physics | 69 | 75 | 40 | 0 | 0.580 |
 
