@@ -421,6 +421,14 @@ const SVG = (tag,attrs={})=>{
       <div class="tc-meta"><span class="tc-stops">7 problems</span> · ends at <span class="tc-end">Poincaré (solved)</span></div>
     </div>
   </button>
+  <button class="tour-card" data-color="cyan" data-tour="sato-tate" type="button">
+    <div class="tc-num">11</div>
+    <div class="tc-body">
+      <div class="tc-title">Sato–Tate: semicircles from elliptic curves</div>
+      <div class="tc-goal">Frobenius traces $a_p(E)$ on a non-CM elliptic curve fill out the semicircle measure $\tfrac{2}{\pi}\sin^2\theta\,d\theta$ — proven via symmetric-power L-functions and potential modularity.</div>
+      <div class="tc-meta"><span class="tc-stops">5 stops</span> · ends at <span class="tc-end">Sato–Tate theorem</span></div>
+    </div>
+  </button>
 </div>
 
 <section class="tour" id="bsd-road" data-color="cyan">
@@ -1204,37 +1212,39 @@ const SVG = (tag,attrs={})=>{
   <li>
     <span class="stop-section">Modular forms &amp; L-functions</span>
     <span class="stop-title"><a href="./L-functions.html#zeta">Riemann Hypothesis</a></span>
-    <p class="bridge">All non-trivial zeros of $\zeta(s)$ lie on $\Re s = \tfrac12$. Equivalent to the strongest possible error term in the prime-counting function $\pi(x) = \mathrm{Li}(x) + O(\sqrt{x}\log x)$. The deepest analytic statement on the list — and the prize problem with the longest history (Riemann, 1859).</p>
+    <p class="bridge">All non-trivial zeros of the Riemann zeta function lie on the critical line: $\zeta(s) = 0$ with $0 &lt; \Re s &lt; 1$ implies $\Re s = \tfrac12$. Riemann (1859) proved the functional equation and conjectured the line in a single eight-page memoir; Hardy (1914) showed infinitely many zeros lie there, Selberg (1942) gave them positive density, and Conrey (1989) pushed the lower bound past $40\%$. By Mellin inversion the conjecture is equivalent to the strongest error term $\pi(x) = \mathrm{Li}(x) + O(\sqrt{x}\log x)$. What's missing is any handle on the off-line zeros: the explicit formula trades primes for zeros, but no analytic technique controls real parts uniformly. Random-matrix heuristics (Montgomery–Odlyzko) match zero spacings to GUE statistics, hinting at a spectral interpretation no one has yet built. The first $10^{13}$ zeros lie on the line — necessary, not sufficient.</p>
   </li>
   <li>
     <span class="stop-section">Logic &amp; foundations</span>
     <span class="stop-title"><a href="./complexity-theory.html">P versus NP</a></span>
-    <p class="bridge">Is every decision problem with polynomial-time-checkable certificates also polynomial-time decidable? Most experts believe $\mathrm{P} \neq \mathrm{NP}$, but proving it would require ruling out efficient algorithms for $\mathrm{NP}$-complete problems like SAT, which we have no technology for. The "complexity barrier" problem.</p>
+    <p class="bridge">Does every problem whose certificates check in polynomial time also <em>solve</em> in polynomial time? Formally: is $\mathrm{P} = \mathrm{NP}$? The framework is Cook–Levin (1971): SAT is $\mathrm{NP}$-complete, so an efficient SAT solver collapses the hierarchy and a hardness proof for SAT separates the classes. Two known barriers block the obvious attacks. Relativization (Baker–Gill–Solovay 1975) shows oracle-relative diagonal arguments cannot decide it. Natural proofs (Razborov–Rudich 1997) show "constructive, large" combinatorial lower bounds would break standard cryptographic assumptions. Algebrization (Aaronson–Wigderson 2008) rules out a third class. Concrete progress is restricted-model: $\mathrm{AC}^0$ separations, monotone circuit lower bounds, $\mathrm{NEXP} \not\subset \mathrm{ACC}^0$ (Williams 2011). The barrier is that we have no technique strong enough to separate $\mathrm{P}$ from $\mathrm{NP}$ that doesn't relativize or algebrize.</p>
   </li>
   <li>
     <span class="stop-section">Algebraic geometry</span>
     <span class="stop-title"><a href="./hodge-theory.html#hodge-conjecture">Hodge Conjecture</a></span>
-    <p class="bridge">On a smooth projective variety $X$ over $\mathbb{C}$, every rational $(p,p)$-class in $H^{2p}(X,\mathbb{Q})$ is a $\mathbb{Q}$-linear combination of cohomology classes of algebraic cycles. The Hodge decomposition is well understood; the conjecture asks whether the algebraic content of cohomology is exactly what the Hodge filtration sees.</p>
+    <p class="bridge">For $X$ smooth projective over $\mathbb{C}$, the cycle-class map sends an algebraic codimension-$p$ cycle to a class in $H^{2p}(X,\mathbb{Q}) \cap H^{p,p}(X)$. Hodge (1941, refined 1950) conjectured the converse: every rational $(p,p)$-class is a $\mathbb{Q}$-linear combination of cycle classes. The case $p = 1$ is the Lefschetz $(1,1)$-theorem, proved via the exponential sequence; this is the only systematically settled case. Deligne's absolute Hodge cycles (1982) and Voisin's results on Kähler analogues sharpen the picture, and the conjecture is known for low-dimensional varieties, abelian varieties of CM type, and uniruled fourfolds. What's missing is a construction: there is no general procedure for building an algebraic cycle from a Hodge class. The Tannakian rephrasing — surjectivity of the motivic Galois group onto its Hodge realization — is equivalent but no easier; that's the deep equivalence Tour 8 walks.</p>
   </li>
   <li>
     <span class="stop-section">Mathematical physics</span>
     <span class="stop-title"><a href="./gauge-theory.html">Yang–Mills existence and mass gap</a></span>
-    <p class="bridge">Construct a non-trivial quantum Yang–Mills theory on $\mathbb{R}^4$ for any compact simple gauge group, and prove that the spectrum has a positive mass gap $\Delta &gt; 0$. The physics is well established perturbatively and on the lattice; what's missing is a non-perturbative existence proof in the continuum.</p>
+    <p class="bridge">Construct a quantum Yang–Mills theory on $\mathbb{R}^4$ for any compact simple gauge group $G$ — satisfying the Wightman axioms (1956) or the Osterwalder–Schrader axioms (1973) — and prove the spectrum has a positive mass gap $\Delta &gt; 0$, i.e. the lightest excitation above the vacuum has strictly positive mass. The Lagrangian $\mathcal{L} = -\tfrac{1}{4}\,\mathrm{tr}(F_{\mu\nu}F^{\mu\nu})$ is well defined classically and gives spectacular perturbative predictions; Wilson's lattice formulation (1974) yields rigorous mass-gap proofs in finite volume and at strong coupling. What's missing is a continuum, infinite-volume, axiomatic construction. The expected obstacle is asymptotic freedom combined with confinement: the theory is weakly coupled at short distance but strongly coupled at long distance, and no analytic method controls both regimes simultaneously. Two-dimensional Yang–Mills is solved (Migdal); $3{+}1$ Yang–Mills is the open Clay problem.</p>
   </li>
   <li>
     <span class="stop-section">Analysis</span>
     <span class="stop-title"><a href="./partial-differential-equations.html">Navier–Stokes existence and smoothness</a></span>
-    <p class="bridge">For incompressible fluid flow on $\mathbb{R}^3$ with smooth initial data of finite energy, do smooth solutions exist for all time? Or do singularities form in finite time? The 2D version is solved (smooth forever); the 3D version is the open Clay problem.</p>
+    <p class="bridge">For incompressible fluid flow on $\mathbb{R}^3$ governed by
+$$\partial_t u + (u\cdot\nabla)u = -\nabla p + \nu\Delta u, \qquad \nabla\cdot u = 0,$$
+with smooth, finite-energy initial data, do smooth solutions exist for all time? Leray (1934) constructed global weak solutions and proved energy inequality; uniqueness and regularity remain open. The 2D problem is fully solved (Ladyzhenskaya 1959 — smooth forever). In 3D, partial-regularity (Caffarelli–Kohn–Nirenberg 1982) bounds the singular set's Hausdorff dimension below $1$, and Tao (2016) showed singularity formation for an averaged Navier–Stokes equation. What's missing is a regularity criterion that survives the supercritical scaling: the natural energy $\|u\|_{L^2}$ is critical for energy conservation but supercritical for the nonlinearity. Every known controlled quantity scales the wrong way — the critical regularity is a barrier nobody has crossed.</p>
   </li>
   <li>
     <span class="stop-section">Modular forms &amp; L-functions</span>
     <span class="stop-title"><a href="./bsd.html">Birch and Swinnerton-Dyer</a></span>
-    <p class="bridge">For an elliptic curve $E/\mathbb{Q}$, the analytic rank $\mathrm{ord}_{s=1} L(E, s)$ equals the algebraic rank of $E(\mathbb{Q})$. Tour 1 walks this in detail. Proven up through analytic rank $\leq 1$ (Gross–Zagier–Kolyvagin); the general case is open.</p>
+    <p class="bridge">For an elliptic curve $E/\mathbb{Q}$ with L-function $L(E,s)$, the analytic rank $\mathrm{ord}_{s=1}L(E,s)$ equals the algebraic (Mordell–Weil) rank of $E(\mathbb{Q})$. The conjecture goes back to Birch and Swinnerton-Dyer's 1965 numerical experiments at Cambridge, refined to a precise leading-coefficient formula (BSD II) involving the Tate–Shafarevich group $\Sha(E/\mathbb{Q})$, the regulator, and the Tamagawa numbers. The proven cases are analytic rank $\leq 1$, by the chain Gross–Zagier (1986) — relating heights of Heegner points to $L'(E,1)$ — together with Kolyvagin (1989), whose Euler-system argument bounds $\Sha$. What's missing for rank $\geq 2$ is a construction of independent points: there is no rank-2 analogue of the Heegner-point machine. Even finiteness of $\Sha$ is open in general — the modularity of $E$ is necessary input but not sufficient.</p>
   </li>
   <li class="endpoint">
     <span class="stop-section">Geometry &amp; topology · solved</span>
     <span class="stop-title"><a href="./ricci-flow.html#poincare">Poincaré Conjecture</a></span>
-    <p class="bridge">Every simply-connected closed $3$-manifold is homeomorphic to $S^3$. Proved by Grigori Perelman (2002–03) using Hamilton's Ricci flow with surgery. The only Millennium Problem solved to date — Perelman declined the Fields Medal (2006) and the Clay prize (2010).</p>
+    <p class="bridge">Every simply-connected closed $3$-manifold is homeomorphic to $S^3$. Poincaré posed it in 1904; the analogues in dimension $\geq 5$ (Smale, 1961) and dimension $4$ (Freedman, 1982 — topological category) fell first, leaving the original 3-dimensional case as the hardest. Hamilton (1982) introduced Ricci flow $\partial_t g = -2\,\mathrm{Ric}(g)$ as a heat-equation deformation of metrics, and proved the round-3-sphere result for positive-Ricci initial data — but generic flows develop singularities. Perelman (2002–03), in three preprints on the arXiv, completed the program: a monotone entropy functional ruling out collapse, an $\varepsilon$-canonical-neighborhood structure for high-curvature regions, and Ricci flow with surgery that excises and continues past singularities. The thicker statement — Thurston's geometrization conjecture, classifying all closed 3-manifolds — fell with the same machine. The only Clay problem solved; Perelman declined the Fields Medal (2006) and the prize (2010).</p>
   </li>
 </ol>
 
@@ -1259,6 +1269,81 @@ const SVG = (tag,attrs={})=>{
 </aside>
 </section>
 
+<section class="tour" id="sato-tate" data-color="cyan">
+<h2>11. Sato–Tate: semicircles from elliptic curves</h2>
+<p class="tour-goal">Goal: trace one of the most beautiful equidistribution laws in number theory — Frobenius traces of a non-CM elliptic curve fill the Hasse interval by the semicircle density $\tfrac{2}{\pi}\sin^2\theta\,d\theta$ — and see how it became a theorem via symmetric powers and potential modularity.</p>
+
+<ol class="tour">
+  <li>
+    <span class="stop-section">Modular forms &amp; L-functions</span>
+    <span class="stop-title"><a href="./elliptic-curves.html#group">Elliptic curves and Frobenius traces $a_p(E)$</a></span>
+    <p class="bridge">Start with an elliptic curve $E/\mathbb{Q}$ in Weierstrass form $y^2 = x^3 + ax + b$. Reduce modulo a prime $p$ of good reduction and count points: $\#E(\mathbb{F}_p) = p + 1 - a_p(E)$. The integer $a_p$ is the trace of Frobenius on the Tate module; Hasse (1933) proved $|a_p| \leq 2\sqrt{p}$, so writing $a_p = 2\sqrt{p}\cos\theta_p$ defines a Frobenius angle $\theta_p \in [0, \pi]$. As $p$ varies, the question is: how do the angles $\{\theta_p\}$ distribute on $[0,\pi]$? Numerical experiments (Sato, 1960s — by hand on $y^2 = x^3 - x + 1$) and independent theoretical work (Tate, same period) suggested a universal answer for non-CM curves: the angles equidistribute with respect to a specific measure. The CM case is genuinely different and was settled first via Hecke L-functions; non-CM was the hard one.</p>
+  </li>
+  <li>
+    <span class="stop-section">Modular forms &amp; L-functions</span>
+    <span class="stop-title"><a href="./sato-tate.html#measure">The Sato–Tate distribution $\tfrac{2}{\pi}\sin^2\theta\,d\theta$</a></span>
+    <p class="bridge">The conjectured limiting measure is
+$$d\mu_{ST}(\theta) = \frac{2}{\pi}\sin^2\theta\,d\theta \quad\text{on } [0,\pi].$$
+This is exactly the pushforward of Haar measure on $\mathrm{SU}(2)$ under conjugacy classes, identifying $\theta$ with the eigenvalue argument $e^{\pm i\theta}$ of a unitary $2\times 2$ matrix. The shape: zero density at the endpoints ($\theta = 0, \pi$, i.e. $a_p = \pm 2\sqrt{p}$), maximum density at $\theta = \pi/2$ (i.e. $a_p = 0$). Plotting normalized traces $a_p/(2\sqrt{p})$ for the first few thousand primes for any non-CM curve produces the unmistakable semicircle. Why $\mathrm{SU}(2)$? Because the image of the $\ell$-adic Galois representation $\rho_{E,\ell}\colon \Gal(\overline{\mathbb{Q}}/\mathbb{Q}) \to \GL_2(\mathbb{Q}_\ell)$ is open in $\GL_2$ for non-CM $E$ (Serre 1972), and the natural "compact form" carrying Frobenius conjugacy classes is $\mathrm{SU}(2)$ via the Hodge–Tate weights.</p>
+  </li>
+  <li>
+    <span class="stop-section">Modular forms &amp; L-functions</span>
+    <span class="stop-title"><a href="./L-functions.html#modularity">L-functions of symmetric powers</a></span>
+    <p class="bridge">The proof strategy goes through harmonic analysis on $\mathrm{SU}(2)$, whose irreducibles are the symmetric powers $\mathrm{Sym}^n\mathbb{C}^2$ with characters the Chebyshev polynomials $U_n(\cos\theta) = \sin((n+1)\theta)/\sin\theta$. Form the symmetric-power L-function
+$$L(\mathrm{Sym}^n E, s) = \prod_p \prod_{k=0}^n (1 - \alpha_p^{n-k}\beta_p^k\,p^{-s})^{-1},$$
+where $\alpha_p, \beta_p$ are the Frobenius eigenvalues with $\alpha_p\beta_p = p$. By Wiener–Ikehara, equidistribution against $\mu_{ST}$ is equivalent to: for every $n \geq 1$, $L(\mathrm{Sym}^n E, s)$ is holomorphic and non-vanishing on $\Re s \geq 1$. Cases $n = 2, 3, 4$ were known classically (Gelbart–Jacquet, Kim–Shahidi, Kim 1999–2003). The hard case is uniformity in $n$ — and that requires showing each $\mathrm{Sym}^n$ is automorphic, i.e. the Galois representation $\mathrm{Sym}^n\rho_{E,\ell}$ matches a cuspidal automorphic representation of $\GL_{n+1}(\mathbb{A})$.</p>
+  </li>
+  <li>
+    <span class="stop-section">Modular forms &amp; L-functions</span>
+    <span class="stop-title"><a href="./modularity-and-flt.html#modularity">Modularity and potential modularity</a></span>
+    <p class="bridge">Wiles (1994) and Breuil–Conrad–Diamond–Taylor (2001) proved every elliptic curve over $\mathbb{Q}$ is modular: $\rho_{E,\ell}$ matches the Galois representation attached to a weight-$2$ newform of level $N_E$. That settles $\mathrm{Sym}^1$. For higher symmetric powers, the breakthrough was <em>potential</em> modularity — Taylor's strategy of proving modularity over an unspecified totally real extension $F/\mathbb{Q}$, which is enough to force analytic continuation and non-vanishing of the $L$-function on $\Re s \geq 1$ via Brauer induction. Clozel–Harris–Taylor (2008) and Taylor (2008) implemented this for all $\mathrm{Sym}^n$, $n \geq 1$, using automorphy lifting theorems on unitary groups together with a clever choice of auxiliary CM field. Barnet-Lamb–Geraghty–Harris–Taylor (2011) extended the argument to non-CM Hilbert modular forms, completing the picture for elliptic curves over arbitrary totally real fields.</p>
+  </li>
+  <li class="endpoint">
+    <span class="stop-section">Modular forms &amp; L-functions · capstone</span>
+    <span class="stop-title"><a href="./sato-tate.html#coda">The Sato–Tate theorem</a></span>
+    <p class="bridge">The proven theorem (Clozel–Harris–Shepherd-Barron–Taylor 2008, Barnet-Lamb–Geraghty–Harris–Taylor 2011, Barnet-Lamb–Gee–Geraghty 2011): for any non-CM elliptic curve $E$ over a totally real number field $F$, the Frobenius angles $\theta_\mathfrak{p}$ at primes of good reduction equidistribute with respect to $d\mu_{ST}$. The CM case has its own (older) story via Hecke Grössencharakteren and gives a different limit measure (uniform on $[0,\pi]$). Generalizations form one of the most active corners of the Langlands program. The <em>generalized Sato–Tate conjecture</em> (Serre, refined by Katz–Sarnak) predicts that for any motive, normalized Frobenius traces equidistribute against Haar measure on the maximal compact subgroup of the associated $L$-group; for $\GL_n$ automorphic forms and higher-genus abelian varieties most cases remain open. The Katz–Sarnak heuristic links L-function zero spacings to random-matrix ensembles — the spectral mirror of Sato–Tate.</p>
+    <div class="figure-row">
+      <div class="figure-card" data-c="cyan">
+        <div class="fc-portrait" aria-hidden="true">RT</div>
+        <div class="fc-body">
+          <div class="fc-name">Richard Taylor</div>
+          <div class="fc-dates">b. 1962</div>
+          <p class="fc-contrib">Architect of the potential-modularity strategy. Proved Sato–Tate for non-CM elliptic curves over totally real fields (CHT 2008, BLGHT 2011) by lifting modularity over auxiliary totally real extensions. Breakthrough Prize 2015.</p>
+        </div>
+      </div>
+      <div class="figure-card" data-c="cyan">
+        <div class="fc-portrait" aria-hidden="true">MH</div>
+        <div class="fc-body">
+          <div class="fc-name">Michael Harris</div>
+          <div class="fc-dates">b. 1954</div>
+          <p class="fc-contrib">Co-author on Clozel–Harris–Taylor automorphy lifting and the Sato–Tate proof; built the theory of Galois representations on unitary Shimura varieties that powers most modern automorphy results.</p>
+        </div>
+      </div>
+    </div>
+  </li>
+</ol>
+
+<aside class="context" data-c="cyan">
+  <span class="ctx-label">Two parallel conjectures, 1960s</span>
+  <blockquote>The conjecture appeared in print in a paper of mine on $L$-functions, with full attribution to Sato, who had observed it numerically, and to Tate, who had given a theoretical reason on the level of the symmetric powers. The fact that Sato and Tate arrived at the same prediction by genuinely different routes — Sato from histograms of point counts, Tate from the structure of the Galois group acting on $\ell$-adic cohomology — was the first sign that the answer was structural, not coincidental.<cite>— Jean-Pierre Serre, paraphrasing his 1968 Abelian L-Adic Representations note</cite></blockquote>
+  Mikio Sato (Kyoto, computational experiments) and John Tate (Harvard, Galois-representation viewpoint) independently arrived at the semicircle prediction in the mid-1960s. Forty years passed between conjecture and proof; the proof needed almost every tool the Langlands program developed in those decades.
+</aside>
+
+<aside class="deep-dive" data-c="cyan">
+  <span class="dd-label">Deep dive →</span>
+  <span class="dd-body">Same arc as a single long-form essay: <a class="dd-link" href="./capstone-satotate-story.html">Sato–Tate — semicircles from elliptic curves</a>.</span>
+</aside>
+
+<aside class="callback">
+  <div class="ttl">Diverges into</div>
+  <ul>
+    <li>Tour 1 (BSD road) shares the elliptic-curve / L-function setup; BSD asks about the order of vanishing at $s=1$, while Sato–Tate asks about the equidistribution of normalized $a_p$ on the critical line.</li>
+    <li>Tour 2 (FLT proof) walks the modularity theorem that supplies the $n=1$ symmetric power and the automorphy-lifting machinery extended to $\mathrm{Sym}^n$.</li>
+    <li>Tour 9 (Langlands philosophy) provides the framing: Sato–Tate is the equidistribution shadow of Langlands functoriality for $\mathrm{Sym}^n\colon \GL_2 \to \GL_{n+1}$.</li>
+  </ul>
+</aside>
+</section>
+
 <section id="build-your-own">
 <p class="small">The corpus is a graph and tours are the human-friendly cross-sections. If a path you want isn't here, the <a href="./pathway.html">pathway explorer</a> lets you build your own from any concept's prerequisite tree.</p>
 </section>
@@ -1270,7 +1355,7 @@ const SVG = (tag,attrs={})=>{
 <script>
 /* Tour switcher: cards toggle one tour on at a time; URL hash mirrors state. */
 (function(){
-  const VALID = new Set(['bsd-road','flt-proof','cohomology','sets-to-topoi','sound-to-wavelets','local-global','solvability-arc','hodge-arc','langlands-arc']);
+  const VALID = new Set(['bsd-road','flt-proof','cohomology','sets-to-topoi','sound-to-wavelets','local-global','solvability-arc','hodge-arc','langlands-arc','millennium-prizes','sato-tate']);
   const titleMap = {
     'bsd-road':'1. The road to BSD',
     'flt-proof':"2. How Fermat's Last Theorem was proved",
@@ -1280,12 +1365,15 @@ const SVG = (tag,attrs={})=>{
     'local-global':'6. The local–global principle',
     'solvability-arc':'7. Solvability across mathematics',
     'hodge-arc':'8. What is Hodge theory?',
-    'langlands-arc':'9. Langlands philosophy'
+    'langlands-arc':'9. Langlands philosophy',
+    'millennium-prizes':'10. The seven Millennium Prize Problems',
+    'sato-tate':'11. Sato–Tate: semicircles from elliptic curves'
   };
   const colorMap = {
     'bsd-road':'cyan','flt-proof':'yellow','cohomology':'violet',
     'sets-to-topoi':'green','sound-to-wavelets':'pink','local-global':'blue',
-    'solvability-arc':'violet','hodge-arc':'green','langlands-arc':'cyan'
+    'solvability-arc':'violet','hodge-arc':'green','langlands-arc':'cyan',
+    'millennium-prizes':'orange','sato-tate':'cyan'
   };
   // History strategy: pushState on user-driven navigation (card click, back
   // button) so the browser back arrow returns to the prior view; replaceState
